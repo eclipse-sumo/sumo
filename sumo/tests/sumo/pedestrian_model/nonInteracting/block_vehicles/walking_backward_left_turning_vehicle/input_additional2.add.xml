@@ -1,0 +1,6 @@
+<routes>    
+    <vType id="p0" vClass="pedestrian" width="0.70" length="3" minGap="1" guiShape="pedestrian" color="0,255,0"/>
+    <person id="p0" type="p0" depart="0">
+        <walk edges="CN SC" departPos="-12.0" arrivalPos="0"/>
+    </person>
+</routes>

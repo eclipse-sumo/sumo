@@ -71,7 +71,7 @@ public:
         return myNLinks;
     }
 
-    virtual bool isCrossing() const {
+    virtual bool hasFoes() const {
         return false;
     }
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 21 Feb 2014 04:29:50 PM CET by Netedit Version dev-SVN-r15634
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/sip-svn-trunk/projects/colombo/debug/_function_crossings_specified_4_arm_complete/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+    <edge id="beg" from="gneJ0" to="gneJ1" priority="1" numLanes="4" speed="38.89" spreadType="center">
+        <lane index="0" disallow="bicycle pedestrian"/>
+        <lane index="1" disallow="bicycle pedestrian"/>
+        <lane index="2" disallow="bicycle pedestrian"/>
+        <lane index="3" disallow="bicycle pedestrian"/>
+    </edge>
+    <edge id="end1" from="gneJ1" to="gneJ3" priority="1" numLanes="2" speed="38.89" spreadType="center">
+        <lane index="0" disallow="bicycle pedestrian"/>
+        <lane index="1" disallow="bicycle pedestrian"/>
+    </edge>
+    <edge id="end2" from="gneJ1" to="gneJ4" priority="1" numLanes="2" speed="38.89" spreadType="center">
+        <lane index="0" disallow="bicycle pedestrian"/>
+        <lane index="1" disallow="bicycle pedestrian"/>
+    </edge>
+</edges>

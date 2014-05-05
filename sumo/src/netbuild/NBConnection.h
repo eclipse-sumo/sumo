@@ -84,6 +84,9 @@ public:
     /// replaces the to-edge by the one given
     bool replaceTo(NBEdge* which, int whichLane, NBEdge* by, int byLane);
 
+    /// @brief patches lane indices refering to the given edge
+    void shiftLaneIndex(NBEdge* edge, int offset);
+
     /// checks whether the edges are still valid
     bool check(const NBEdgeCont& ec);
 

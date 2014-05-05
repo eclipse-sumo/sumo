@@ -295,6 +295,11 @@ extern SUMOVehicleShape getVehicleShapeID(const std::string& name);
  */
 extern bool isRailway(SVCPermissions permissions);
 
+/** @brief Returns whether an edge with the given permission is a forbidden edge
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is forbidden
+ */
+extern bool isForbidden(SVCPermissions permissions);
 
 // ---------------------------------------------------------------------------
 // default vehicle type parameter

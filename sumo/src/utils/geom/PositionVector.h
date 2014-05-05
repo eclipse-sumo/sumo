@@ -223,6 +223,8 @@ public:
 
     PositionVector getSubpart2D(SUMOReal beginOffset, SUMOReal endOffset) const;
 
+    PositionVector getSubpartByIndex(int beginIndex, int count) const;
+
     void sortAsPolyCWByAngle();
 
     void sortByIncreasingXY();

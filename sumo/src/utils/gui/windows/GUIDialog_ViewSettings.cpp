@@ -236,6 +236,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myEdgeNamePanel = new NamePanel(m22, this, "Show edge name", mySettings->edgeName);
         myStreetNamePanel = new NamePanel(m22, this, "Show street name", mySettings->streetName);
         myInternalEdgeNamePanel = new NamePanel(m22, this, "Show internal edge name", mySettings->internalEdgeName);
+        myCwaEdgeNamePanel = new NamePanel(m22, this, "Show crossing and walkingarea name", mySettings->cwaEdgeName);
     }
     {
         // vehicles
@@ -560,6 +561,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     myParent->remove(this);
     delete myEdgeNamePanel;
     delete myInternalEdgeNamePanel;
+    delete myCwaEdgeNamePanel;
     delete myStreetNamePanel;
     delete myJunctionNamePanel;
     delete myInternalJunctionNamePanel;
@@ -618,6 +620,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myShowRails->setCheck(mySettings->showRails);
     myEdgeNamePanel->update(mySettings->edgeName);
     myInternalEdgeNamePanel->update(mySettings->internalEdgeName);
+    myCwaEdgeNamePanel->update(mySettings->cwaEdgeName);
     myStreetNamePanel->update(mySettings->streetName);
     myHideMacroConnectors->setCheck(mySettings->hideConnectors);
     myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
@@ -752,6 +755,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showRails = (myShowRails->getCheck() != FALSE);
     tmpSettings.edgeName = myEdgeNamePanel->getSettings();
     tmpSettings.internalEdgeName = myInternalEdgeNamePanel->getSettings();
+    tmpSettings.cwaEdgeName = myCwaEdgeNamePanel->getSettings();
     tmpSettings.streetName = myStreetNamePanel->getSettings();
     tmpSettings.hideConnectors = (myHideMacroConnectors->getCheck() != FALSE);
     tmpSettings.laneWidthExaggeration = (SUMOReal) myLaneWidthUpscaleDialer->getValue();

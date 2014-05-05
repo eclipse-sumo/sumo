@@ -33,6 +33,7 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include "SUMOXMLDefinitions.h"
 #include <utils/common/StringBijection.h>
 
@@ -113,6 +114,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "roundabout",       SUMO_TAG_ROUNDABOUT },
     { "join",             SUMO_TAG_JOIN },
     { "joinExclude",      SUMO_TAG_JOINEXCLUDE },
+    { "crossing",         SUMO_TAG_CROSSING },
 
     { "way",              SUMO_TAG_WAY },
     { "nd",               SUMO_TAG_ND },
@@ -200,6 +202,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "speed",          SUMO_ATTR_SPEED },
     { "oneway",         SUMO_ATTR_ONEWAY },
     { "width",          SUMO_ATTR_WIDTH },
+    { "sidewalkWidth",  SUMO_ATTR_SIDEWALKWIDTH },
     { "remove",         SUMO_ATTR_REMOVE },
 
     { "length",         SUMO_ATTR_LENGTH },
@@ -222,6 +225,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "intLanes",       SUMO_ATTR_INTLANES },
 
     { "weight",         SUMO_ATTR_WEIGHT },
+    { "node",           SUMO_ATTR_NODE },
     { "edge",           SUMO_ATTR_EDGE },
     { "edges",          SUMO_ATTR_EDGES },
 
@@ -279,6 +283,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "duration",       SUMO_ATTR_DURATION },
     { "until",          SUMO_ATTR_UNTIL },
     { "routeProbe",     SUMO_ATTR_ROUTEPROBE },
+    { "crossingEdges",  SUMO_ATTR_CROSSING_EDGES },
 
     { "time",           SUMO_ATTR_TIME },
     { "begin",          SUMO_ATTR_BEGIN },
@@ -463,6 +468,8 @@ StringBijection<SumoXMLEdgeFunc>::Entry SUMOXMLDefinitions::sumoEdgeFuncValues[]
     {"connector",    EDGEFUNC_CONNECTOR},
     {"sink",         EDGEFUNC_SINK},
     {"source",       EDGEFUNC_SOURCE},
+    {"crossing",     EDGEFUNC_CROSSING},
+    {"walkingarea",  EDGEFUNC_WALKINGAREA},
 
     {"internal",     EDGEFUNC_INTERNAL}
 };
@@ -541,6 +548,18 @@ StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
 
 StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
     SUMOXMLDefinitions::laneChangeModelValues, LCM_JE2013);
+
+
+std::string 
+SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge) {
+    assert(internalEdge[0] == ':');
+    return internalEdge.substr(1, internalEdge.rfind('_') - 1);
+}
+
+std::string 
+SUMOXMLDefinitions::getEdgeIDFromLane(const std::string laneID) {
+    return laneID.substr(0, laneID.rfind('_') - 1);
+}
 
 /****************************************************************************/
 

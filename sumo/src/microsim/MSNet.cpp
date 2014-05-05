@@ -47,6 +47,7 @@
 #include <algorithm>
 #include <cassert>
 #include <vector>
+#include <ctime>
 #include <utils/common/UtilExceptions.h>
 #include "MSNet.h"
 #include "MSPersonControl.h"
@@ -87,9 +88,10 @@
 #include <utils/common/SysUtils.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/PedestrianRouter.h>
 #include "MSGlobals.h"
+#include "MSPModel.h"
 #include <utils/geom/GeoConvHelper.h>
-#include <ctime>
 #include "MSPerson.h"
 #include "MSEdgeWeightsStorage.h"
 #include "MSStateHandler.h"
@@ -169,7 +171,9 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myRouterTTInitialized(false),
     myRouterTTDijkstra(0),
     myRouterTTAStar(0),
-    myRouterEffort(0) {
+    myRouterEffort(0),
+    myPedestrianRouter(0) 
+{
     if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
@@ -513,6 +517,8 @@ MSNet::clearAll() {
     MSDevice_Routing::cleanup();
     MSTrigger::cleanup();
     MSCalibrator::cleanup();
+    MSPModel::cleanup();
+    PedestrianEdge<MSEdge, MSLane, MSJunction>::cleanup();
 }
 
 
@@ -751,6 +757,17 @@ MSNet::getRouterEffort(const std::vector<MSEdge*>& prohibited) const {
     }
     myRouterEffort->prohibit(prohibited);
     return *myRouterEffort;
+}
+
+
+MSNet::MSPedestrianRouterDijkstra& 
+MSNet::getPedestrianRouter(const std::vector<MSEdge*>& prohibited) const {
+    if (myPedestrianRouter == 0) {
+        myPedestrianRouter = new MSPedestrianRouterDijkstra();
+    }
+    //// XXX implement prohibitions
+    ////myPedestrianRouter->prohibit(prohibited);
+    return *myPedestrianRouter;
 }
 
 

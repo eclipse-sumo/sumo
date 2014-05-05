@@ -98,6 +98,9 @@ public:
         /// @brief The approached current edge
         NBEdge* myCurrentOutgoing;
 
+        /// @brief The available lanes to which connections shall be built
+        std::vector<unsigned int> myAvailableLanes;
+
     public:
         /** @brief Constructor
          * @param[in] approaching The list of the edges that approach the outgoing edge
@@ -109,6 +112,10 @@ public:
         /// @brief Destructor
         ~ApproachingDivider();
 
+        unsigned int numAvailableLanes() const {
+            return myAvailableLanes.size();
+        }
+
         /** the bresenham-callback */
         void execute(const unsigned int src, const unsigned int dest);
 
@@ -118,7 +125,73 @@ public:
 
     };
 
+    /** @struct Crossing
+     * @brief A definition of a pedestrian crossing
+     */
+    struct Crossing {
+        Crossing(const NBNode* _node, const EdgeVector& _edges, SUMOReal _width, bool _priority) :
+            node(_node), edges(_edges), width(_width), priority(_priority), tlLinkNo(-1)
+        {}
+        /// @brief The parent node of this crossing
+        const NBNode* node;
+        /// @brief The edges being crossed
+        EdgeVector edges;
+        /// @brief The lane's shape
+        PositionVector shape;
+        /// @brief This lane's width
+        SUMOReal width;
+        /// @brief the (edge)-id of this crossing
+        std::string id;
+        /// @brief the lane-id of the previous walkingArea
+        std::string prevWalkingArea;
+        /// @brief the lane-id of the next walkingArea
+        std::string nextWalkingArea;
+        /// @brief whether the pedestrians have priority
+        bool priority;
+        /// @brief the traffic light index of this crossing (if controlled)
+        int tlLinkNo;
+    };
+
+
+    /** @struct WalkingArea
+     * @brief A definition of a pedestrian walking area
+     */
+    struct WalkingArea {
+        WalkingArea(const std::string& _id, SUMOReal _width) : 
+            id(_id), 
+            width(_width),
+            nextCrossing(""),
+            tlID("")
+        {}
+        /// @brief the (edge)-id of this walkingArea
+        std::string id;
+        /// @brief This lane's width
+        SUMOReal width;
+        /// @brief This lane's width
+        SUMOReal length;
+        /// @brief The polygonal shape
+        PositionVector shape;
+        /// @brief the lane-id of the next crossing
+        std::string nextCrossing;
+        /// @brief the traffic light id of the next crossing or ""
+        std::string tlID;
+        /// @brief the lane-id of the next sidewalk lane or ""
+        std::vector<std::string> nextSidewalks;
+        /// @brief the lane-id of the previous sidewalk lane or ""
+        std::vector<std::string> prevSidewalks;
+    };
+
+    /// @brief edge directions (for pedestrian related stuff)
+    static const int FORWARD;
+    static const int BACKWARD;
+    /// @brief default width of pedetrian crossings
+    static const SUMOReal DEFAULT_CROSSING_WIDTH;
+
+
 public:
+    /// @brief maximum number of connections allowed
+    static const int MAX_CONNECTIONS;
+
     /** @brief Constructor
      * @param[in] id The id of the node
      * @param[in] position The position of the node
@@ -239,6 +312,9 @@ public:
 
     /// @brief causes the traffic light to be computed anew
     void invalidateTLS(NBTrafficLightLogicCont& tlCont);
+
+    /// @brief patches loaded signal plans by modifying lane indices
+    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset);
     /// @}
 
 
@@ -348,6 +424,13 @@ public:
      */
     bool mustBrake(const NBEdge* const from, const NBEdge* const to, int toLane) const;
 
+    /** @brief Returns the information whether the described flow must brake for the given crossing
+     * @param[in] from The connection's start edge
+     * @param[in] to The connection's end edge
+     * @param[in] crossing The pedestrian crossing to check 
+     * @return Whether the described connection must brake (has higher priorised foes)
+     */
+    bool mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const Crossing& crossing) const;
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
      * @param[in] possProhibitedFrom The maybe prohibited connection's begin
@@ -433,7 +516,34 @@ public:
         Connections are remapped, too */
     void replaceOutgoing(const EdgeVector& which, NBEdge* by);
 
-    void buildInnerEdges();
+    /// @brief guess pedestrian crossings and return how many were guessed
+    int guessCrossings();
+
+    /* @brief check whether a crossing should be build for the candiate edges and build 0 to n crossings
+     * @param[in] candidates The candidate vector of edges to be crossed
+     * @return The number of crossings built
+     * */
+    int checkCrossing(EdgeVector candidates);
+
+    /// @brief build internal lanes, pedestrian crossings and walking areas
+    void buildInnerEdges(bool buildCrossingsAndWalkingAreas);
+
+    /* @brief build pedestrian crossings 
+     * @return The next index for creating internal lanes 
+     * */
+    unsigned int buildCrossings();
+
+    /* @brief build pedestrian walking areas and set connections from/to walkingAreas
+     * @param[in] index The starting index for naming the created internal lanes
+     * @param[in] tlIndex The starting traffic light index to assign to connections to controlled crossings
+     * */
+    void buildWalkingAreas();
+
+    /// @brief return all edges that lie clockwise between the given edges
+    EdgeVector edgesBetween(const NBEdge* e1, const NBEdge* e2) const;
+
+    /// @brief return true if the given edges are connected by a crossing
+    bool crossingBetween(const NBEdge* e1, const NBEdge* e2) const;
 
     const NBConnectionProhibits& getProhibitions() {
         return myBlockedConnections;
@@ -445,6 +555,28 @@ public:
 
     /// @brief update the type of this node as a roundabout
     void setRoundabout();
+
+    /// @brief add a pedestrian crossing to this node
+    void addCrossing(EdgeVector edges, SUMOReal width, bool priority);
+
+    /// @brief return this junctions pedestrian crossings
+    inline const std::vector<Crossing>& getCrossings() const {
+        return myCrossings;
+    }
+
+    /// @brief return this junctions pedestrian walking areas
+    inline const std::vector<WalkingArea>& getWalkingAreas() const {
+        return myWalkingAreas;
+    }
+
+    /// @brief return the crossing with the given id
+    const Crossing& getCrossing(const std::string& id) const;
+
+    /// @brief set tl indices of this nodes crossing starting at the given index
+    void setCrossingTLIndices(unsigned int startIndex);
+
+    /// @brief return the number of lane-to-lane connections at this junction (excluding crossings)
+    int numNormalConnections() const;
 
     /**
      * @class nodes_by_id_sorter
@@ -460,6 +592,23 @@ public:
         int operator()(NBNode* n1, NBNode* n2) const {
             return n1->getID() < n2->getID();
         }
+
+    };
+
+
+    /** @class edge_by_direction_sorter
+     * @brief Sorts outgoing before incoming edges 
+     */
+    class edge_by_direction_sorter {
+    public:
+        explicit edge_by_direction_sorter(NBNode* n) : myNode(n) {}
+        int operator()(NBEdge* e1, NBEdge* e2) const {
+            return e1->getFromNode() == myNode;
+        }
+
+    private:
+        /// @brief The node to compute the relative angle of
+        NBNode* myNode;
 
     };
 
@@ -496,6 +645,12 @@ private:
 
     /// @brief Vector of incoming and outgoing edges
     EdgeVector myAllEdges;
+
+    /// @brief Vector of crossings
+    std::vector<Crossing> myCrossings;
+
+    /// @brief Vector of walking areas
+    std::vector<WalkingArea> myWalkingAreas;
 
     /// @brief The type of the junction
     SumoXMLNodeType myType;

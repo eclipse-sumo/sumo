@@ -33,6 +33,7 @@
 
 #include <vector>
 #include <cassert>
+#include <iterator>
 #include "NBTrafficLightDefinition.h"
 #include "NBNode.h"
 #include "NBOwnTLDef.h"
@@ -226,6 +227,15 @@ NBOwnTLDef::myCompute(const NBEdgeCont&,
             }
         }
     }
+    // collect crossings
+    std::vector<NBNode::Crossing> crossings;
+    for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+        const std::vector<NBNode::Crossing>& c = (*i)->getCrossings();
+        // set tl indices for crossings
+        (*i)->setCrossingTLIndices(noLinksAll);
+        copy(c.begin(), c.end(), std::back_inserter(crossings));
+        noLinksAll += c.size();
+    }
 
     NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noLinksAll, myOffset, myType);
     EdgeVector toProc = incoming;
@@ -292,8 +302,14 @@ NBOwnTLDef::myCompute(const NBEdgeCont&,
                 }
             }
         }
+        state = patchStateForCrossings(state, crossings, fromEdges, toEdges);
         // add step
         logic->addStep(greenTime, state);
+
+        // pedestrians have 'r' from here on
+        for (unsigned int i1 = pos; i1 < pos + crossings.size(); ++i1) {
+            state[i1] = 'r';
+        }
 
         if (brakingTime > 0) {
             // build yellow (straight)
@@ -347,6 +363,54 @@ NBOwnTLDef::myCompute(const NBEdgeCont&,
         delete logic;
         return 0;
     }
+}
+
+
+std::string
+NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
+    std::string result = state;
+    const unsigned int pos = (unsigned int)(state.size() - crossings.size()); // number of controlled vehicle links
+    for (int ic = 0; ic < (int)crossings.size(); ++ic) {
+        const int i1 = pos + ic;
+        const NBNode::Crossing& cross = crossings[ic];
+        bool isForbidden = false;
+        for (unsigned int i2 = 0; i2 < pos && !isForbidden; ++i2) {
+            // only check connections at this crossings node
+            if (fromEdges[i2] != 0 && toEdges[i2] != 0 && fromEdges[i2]->getToNode() == cross.node) {
+                for (EdgeVector::const_iterator it = cross.edges.begin(); it != cross.edges.end(); ++it) {
+                    const NBEdge* edge = *it;
+                    const LinkDirection i2dir = cross.node->getDirection(fromEdges[i2], toEdges[i2]);
+                    if (state[i2] != 'r' && (edge == fromEdges[i2] || 
+                                (edge == toEdges[i2] && (i2dir == LINKDIR_STRAIGHT || i2dir == LINKDIR_PARTLEFT || i2dir == LINKDIR_PARTRIGHT)))) {
+                        isForbidden = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (!isForbidden) {
+            result[i1] = 'G';
+        } else {
+            result[i1] = 'r';
+        }
+    }
+
+    // correct behaviour for roads that are in conflict with a pedestrian crossing
+    for (unsigned int i1 = 0; i1 < pos; ++i1) {
+        if (result[i1] == 'G') {
+            for (int ic = 0; ic < (int)crossings.size(); ++ic) {
+                const NBNode::Crossing& crossing = crossings[ic];
+                if (fromEdges[i1] != 0 && toEdges[i1] != 0 && fromEdges[i1]->getToNode() == crossing.node) {
+                    const int i2 = pos + ic;
+                    if (result[i2] == 'G' && crossing.node->mustBrakeForCrossing(fromEdges[i1], toEdges[i1], crossing)) {
+                        result[i1] = 'g';
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return result;
 }
 
 

@@ -15,6 +15,10 @@
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
+    <processing>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>

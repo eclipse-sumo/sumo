@@ -292,6 +292,11 @@ bool isRailway(SVCPermissions permissions) {
 }
 
 
+bool isForbidden(SVCPermissions permissions) {
+    return (permissions & SVCAll) == 0;
+}
+
+
 const std::string DEFAULT_VTYPE_ID("DEFAULT_VEHTYPE");
 
 const SUMOReal DEFAULT_VEH_PROB(1.);

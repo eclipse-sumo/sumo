@@ -726,6 +726,22 @@ PositionVector::pruneFromBeginAt(const Position& p) {
 }
 
 
+PositionVector 
+PositionVector::getSubpartByIndex(int beginIndex, int count) const {
+    if (beginIndex < 0) {
+        beginIndex += size();
+    }
+    assert(count > 0);
+    assert(beginIndex < (int)size());
+    assert(beginIndex + count <= (int)size());
+    PositionVector result;
+    for (int i = beginIndex; i < beginIndex + count; ++i) {
+        result.push_back((*this)[i]);
+    }
+    return result;
+}
+
+
 void
 PositionVector::pruneFromEndAt(const Position& p) {
     // find minimum distance (from the end)

@@ -28,5 +28,8 @@ meta
 # testing error input
 errors
 
+# routing of pedestrians
+person
+
 # Testing previously buggy behaviour
 bugs

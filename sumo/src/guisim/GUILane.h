@@ -197,8 +197,8 @@ public:
     /// @brief draw lane borders and white markings
     void drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const;
 
-    /// @brief draw crossties for railroads
-    void drawCrossties(const GUIVisualizationSettings& s, SUMOReal scale) const;
+    /// @brief draw crossties for railroads or pedestrian crossings
+    void drawCrossties(const GUIVisualizationSettings& s, SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
 
     SUMOReal getHalfWidth() const {
         return myHalfLaneWidth;
@@ -241,7 +241,9 @@ private:
     /// @brief helper methods
     void drawLinkNo() const;
     void drawTLSLinkNo(const GUINet& net) const;
+    void drawTextAtEnd(const std::string& text, const PositionVector& shape, SUMOReal x) const;
     void drawLinkRules(const GUINet& net) const;
+    void drawLinkRule(const GUINet& net, MSLink* link, const PositionVector& shape, SUMOReal x1, SUMOReal x2) const;
     void drawArrows() const;
     void drawLane2LaneConnections() const;
 

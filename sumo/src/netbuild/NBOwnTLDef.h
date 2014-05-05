@@ -36,12 +36,12 @@
 #include <set>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "NBTrafficLightDefinition.h"
+#include "NBNode.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class NBNode;
 
 
 // ===========================================================================
@@ -119,6 +119,10 @@ public:
     void setSinglePhase() {
         myHaveSinglePhase = true;
     }
+
+    /// @brief compute phase state in regard to pedestrian crossings
+    static std::string patchStateForCrossings(const std::string& state, 
+            const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface

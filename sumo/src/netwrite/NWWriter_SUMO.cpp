@@ -37,6 +37,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
+#include <utils/geom/GeomConvHelper.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
@@ -151,6 +152,43 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             device.lf();
         }
     }
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+        NBNode* node = (*i).second;
+        // write connections from pedestrian crossings
+        const std::vector<NBNode::Crossing>& crossings = node->getCrossings();
+        for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+            NWWriter_SUMO::writeInternalConnection(device, (*it).id, (*it).nextWalkingArea, 0, 0, "");
+        }
+        // write connections from pedestrian walking areas
+        const std::vector<NBNode::WalkingArea>& WalkingAreas = node->getWalkingAreas();
+        for (std::vector<NBNode::WalkingArea>::const_iterator it = WalkingAreas.begin(); it != WalkingAreas.end(); it++) {
+            if ((*it).nextCrossing != "") {
+                const NBNode::Crossing& nextCrossing = node->getCrossing((*it).nextCrossing);
+                // connection to next crossing (may be tls-controlled)
+                device.openTag(SUMO_TAG_CONNECTION);
+                device.writeAttr(SUMO_ATTR_FROM, (*it).id);
+                device.writeAttr(SUMO_ATTR_TO, (*it).nextCrossing);
+                device.writeAttr(SUMO_ATTR_FROM_LANE, 0);
+                device.writeAttr(SUMO_ATTR_TO_LANE, 0);
+                if ((*it).tlID != "") {
+                    device.writeAttr(SUMO_ATTR_TLID, (*it).tlID);
+                    assert(nextCrossing.tlLinkNo >= 0);
+                    device.writeAttr(SUMO_ATTR_TLLINKINDEX, nextCrossing.tlLinkNo);
+                }
+                device.writeAttr(SUMO_ATTR_DIR, LINKDIR_STRAIGHT);
+                device.writeAttr(SUMO_ATTR_STATE, nextCrossing.priority ? LINKSTATE_MAJOR : LINKSTATE_MINOR);
+                device.closeTag();
+            }
+            // optional connections from/to sidewalk
+            for (std::vector<std::string>::const_iterator it_sw = (*it).nextSidewalks.begin(); it_sw != (*it).nextSidewalks.end(); ++it_sw) {
+                NWWriter_SUMO::writeInternalConnection(device, (*it).id, (*it_sw), 0, 0, "");
+            }
+            for (std::vector<std::string>::const_iterator it_sw = (*it).prevSidewalks.begin(); it_sw != (*it).prevSidewalks.end(); ++it_sw) {
+                NWWriter_SUMO::writeInternalConnection(device, (*it_sw), (*it).id, 0, 0, "");
+            }
+        }
+    }
+
     // write loaded prohibitions
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         writeProhibitions(device, i->second->getProhibitions());
@@ -227,6 +265,9 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
                 // with the wrong permissions we need to inherit them from the successor
                 const NBEdge::Lane& successor = (*k).toEdge->getLanes()[(*k).toLane];
                 const SUMOReal length = lengthSum[toEdge] / numLanes[toEdge];
+                // @note the actual length should be used once sumo supports lanes of
+                // varying length within the same edge
+                //const SUMOReal length = MAX2((*k).shape.length(), (SUMOReal)POSITION_EPS); 
                 writeLane(into, internalEdgeID, (*k).getInternalLaneID(), (*k).vmax,
                           successor.permissions, successor.preferred,
                           NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).shape, (*k).origID,
@@ -253,10 +294,32 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
                               NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).viaShape, (*k).origID,
                               MAX2((*k).viaShape.length(), (SUMOReal)POSITION_EPS), // microsim needs positive length
                               0, origNames);
-                    into.closeTag(); // close the last edge
+                    into.closeTag();
                 }
             }
         }
+    }
+    // write pedestrian crossings 
+    const std::vector<NBNode::Crossing>& crossings = n.getCrossings();
+    for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+        into.openTag(SUMO_TAG_EDGE);
+        into.writeAttr(SUMO_ATTR_ID, (*it).id);
+        into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_CROSSING);
+        into.writeAttr(SUMO_ATTR_CROSSING_EDGES, (*it).edges);
+        writeLane(into, (*it).id, (*it).id + "_0", 1, SVC_PEDESTRIAN, 0,
+                NBEdge::UNSPECIFIED_OFFSET, (*it).width, (*it).shape, "", (*it).shape.length(), 0, false);
+        into.closeTag();
+    }
+    // write pedestrian walking areas
+    const std::vector<NBNode::WalkingArea>& WalkingAreas = n.getWalkingAreas();
+    for (std::vector<NBNode::WalkingArea>::const_iterator it = WalkingAreas.begin(); it != WalkingAreas.end(); it++) {
+        const NBNode::WalkingArea& wa = *it;
+        into.openTag(SUMO_TAG_EDGE);
+        into.writeAttr(SUMO_ATTR_ID, wa.id);
+        into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_WALKINGAREA);
+        writeLane(into, wa.id, wa.id + "_0", 1, SVC_PEDESTRIAN, 0,
+                NBEdge::UNSPECIFIED_OFFSET, wa.width, wa.shape, "", wa.length, 0, false);
+        into.closeTag();
     }
     return ret;
 }
@@ -374,6 +437,10 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
             }
         }
     }
+    const std::vector<NBNode::Crossing>& crossings = n.getCrossings();
+    for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+        incLanes += ' ' + (*it).prevWalkingArea + "_0";
+    }
     into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
     // write the internal lanes
     std::string intLanes;
@@ -396,6 +463,9 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
                 l++;
             }
         }
+    }
+    for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+        intLanes += ' ' + (*it).id + "_0";
     }
     into.writeAttr(SUMO_ATTR_INTLANES, intLanes);
     // close writing
@@ -423,6 +493,10 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
                 internalLaneIDs.push_back((*k).getInternalLaneID());
             }
         }
+    }
+    const std::vector<NBNode::Crossing>& crossings = n.getCrossings();
+    for (std::vector<NBNode::Crossing>::const_iterator it_c = crossings.begin(); it_c != crossings.end(); ++it_c) {
+        internalLaneIDs.push_back((*it_c).id + "_0");
     }
     // write the internal nodes
     for (std::vector<NBEdge*>::const_iterator i = incoming.begin(); i != incoming.end(); i++) {

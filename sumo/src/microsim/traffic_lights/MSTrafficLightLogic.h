@@ -179,7 +179,7 @@ public:
     /** @brief Returns the list of lists of all lanes controlled by this tls
      * @return All lanes controlled by this tls, sorted by the signal index
      */
-    const LaneVectorVector& getLanes() const {
+    const LaneVectorVector& getLaneVectors() const {
         return myLanes;
     }
 

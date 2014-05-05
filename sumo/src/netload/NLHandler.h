@@ -309,6 +309,9 @@ protected:
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
 
+    /// @brief temporary data for building the junction graph after network parsing is finished
+    typedef std::map<std::string, std::pair<std::string, std::string> > JunctionGraph;
+    JunctionGraph myJunctionGraph;
 
 private:
     /** invalid copy constructor */

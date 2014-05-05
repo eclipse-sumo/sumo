@@ -1,0 +1,4 @@
+Warning: No connection between 'beg_fwd_connector' and 'left_bwd_connector' found.
+Error: No connection found between 'beg' and 'left' for person 'p1'.
+Warning: Discarding person 'p1' because it's plan is empty
+Quitting (on error).

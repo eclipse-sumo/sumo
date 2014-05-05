@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 17 Mar 2014 03:48:51 PM CET by Netedit Version dev-SVN-r15873
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net3b.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net3b.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/sip-svn-trunk/projects/colombo/prototype3/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tllogic_file.xsd">
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="10" state="G"/>
+        <phase duration="50" state="r"/>
+    </tlLogic>
+
+    <connection from="BC" to="CD" fromLane="0" toLane="0" tl="C" linkIndex="0"/>
+</tlLogics>

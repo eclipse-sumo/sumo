@@ -84,7 +84,8 @@ public:
      * @return Whether the type could be added (no type with the same id existed)
      */
     bool insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
-                SUMOReal width, SUMOVehicleClass vClasses = SVC_IGNORING, bool oneWayIsDefault = false);
+                SUMOReal width, SUMOVehicleClass vClasses = SVC_IGNORING, bool oneWayIsDefault=false,
+                SUMOReal sidewalkWidth=NBEdge::UNSPECIFIED_WIDTH );
 
     /** @brief Adds a type into the list
      * @param[in] id The id of the type
@@ -99,7 +100,8 @@ public:
     bool insert(const std::string& id, int noLanes,
                 SUMOReal maxSpeed, int prio,
                 SVCPermissions permissions,
-                SUMOReal width, bool oneWayIsDefault);
+                SUMOReal width, bool oneWayIsDefault,
+                SUMOReal sidewalkWidth);
 
     /** @brief Returns the number of known types
      * @return The number of known edge types (excluding the default)
@@ -179,13 +181,22 @@ public:
     SVCPermissions getPermissions(const std::string& type) const;
 
 
-    /** @brief Returns the lane width for the given type [m/s]
+    /** @brief Returns the lane width for the given type [m]
      *
      * If the named type is not known, the default is returned
      * @param[in] type The name of the type to return the width for
      * @return The width of lanes of edges of this type
      */
     SUMOReal getWidth(const std::string& type) const;
+
+
+    /** @brief Returns the lane width for a sidewalk to be added [m]
+     *
+     * If the named type is not known, the default is returned
+     * @param[in] type The name of the type to return the width for
+     * @return The width of lanes of edges of this type
+     */
+    SUMOReal getSidewalkWidth(const std::string& type) const;
     /// @}
 
 
@@ -195,14 +206,20 @@ private:
         TypeDefinition() :
             noLanes(1), speed((SUMOReal) 13.9), priority(-1),
             permissions(SVCAll),
-            oneWay(true), discard(false), width(NBEdge::UNSPECIFIED_WIDTH) { }
+            oneWay(true), discard(false), 
+            width(NBEdge::UNSPECIFIED_WIDTH), 
+            sidewalkWidth(NBEdge::UNSPECIFIED_WIDTH)
+        { }
 
         /// @brief Constructor
         TypeDefinition(int _noLanes, SUMOReal _speed, int _priority,
-                       SUMOReal _width, SVCPermissions _permissions, bool _oneWay) :
+                       SUMOReal _width, SVCPermissions _permissions, bool _oneWay,
+                       SUMOReal _sideWalkWidth) :
             noLanes(_noLanes), speed(_speed), priority(_priority),
             permissions(_permissions),
-            oneWay(_oneWay), discard(false), width(_width) { }
+            oneWay(_oneWay), discard(false), width(_width),
+            sidewalkWidth(_sideWalkWidth)
+        { }
 
         /// @brief The number of lanes of an edge
         int noLanes;
@@ -218,6 +235,9 @@ private:
         bool discard;
         /// @brief The width of lanes of edges of this type [m]
         SUMOReal width;
+        /* @brief The width of the sidewalk that should be added as an additional lane
+         * a value of NBEdge::UNSPECIFIED_WIDTH indicates that no sidewalk should be added */
+        SUMOReal sidewalkWidth;
 
     };
 

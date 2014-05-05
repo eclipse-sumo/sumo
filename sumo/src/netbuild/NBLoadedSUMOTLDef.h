@@ -93,6 +93,9 @@ public:
     void replaceRemoved(NBEdge* removed, int removedLane,
                         NBEdge* by, int byLane);
 
+    /// @brief patches signal plans by modifying lane indices
+    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset);
+
     /** @brief Adds a phase to the logic
      * the new phase is inserted at the end of the list of already added phases
      * @param[in] duration The duration of the phase to add in SECONDS!
@@ -150,6 +153,12 @@ private:
 
     /** @brief Informs edges about being controlled by a tls */
     void setTLControllingInformation() const;
+
+    /// @brief repair the plan if controlled nodes received pedestrian crossings
+    void patchIfCrossingsAdded();
+
+    /// @brief set of edges with shifted lane indices (to avoid shifting twice)
+    std::set<NBEdge*> myShifted;
 
 private:
     /// @brief class for identifying connections

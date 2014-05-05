@@ -32,13 +32,16 @@
 
 #include <iostream>
 #include <algorithm>
+#include <limits>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSNet.h"
 #include "MSLink.h"
 #include "MSLane.h"
+#include "MSPerson.h"
 #include "MSEdge.h"
 #include "MSGlobals.h"
 #include "MSVehicle.h"
+#include "MSPModel.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -60,49 +63,58 @@ MSLink::MSLink(MSLane* succLane,
                SUMOReal length)
     :
     myLane(succLane),
-    myIndex(0),
-    myState(state), myDirection(dir),  myLength(length) {}
+    myIndex(-1),
+    myState(state), myDirection(dir),  myLength(length)
 #else
 MSLink::MSLink(MSLane* succLane, MSLane* via,
                LinkDirection dir, LinkState state, SUMOReal length)
     :
     myLane(succLane),
-    myIndex(0),
+    myIndex(-1),
     myState(state), myDirection(dir), myLength(length),
     myJunctionInlane(via)
-{}
 #endif
+{}
 
 
 MSLink::~MSLink() {}
 
 
 void
-MSLink::setRequestInformation(unsigned int index, bool isCrossing, bool isCont,
+MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                               const std::vector<MSLink*>& foeLinks,
                               const std::vector<MSLane*>& foeLanes,
                               MSLane* internalLaneBefore) {
     myIndex = index;
-    myIsCrossing = isCrossing;
+    myHasFoes = hasFoes;
     myAmCont = isCont;
     myFoeLinks = foeLinks;
     myFoeLanes = foeLanes;
+    //std::cout << " link " << myRequestIdx << " to " << getViaLaneOrLane()->getID() << " has foes: " << toString(foeLanes) << "\n";
 #ifdef HAVE_INTERNAL_LANES
+    MSLane* lane = 0;
     if (internalLaneBefore != 0) {
         // this is an exit link. compute crossing points with all foeLanes
+        lane = internalLaneBefore;
+    //} else if (myLane->getEdge().isCrossing()) {
+    //    // this is the link to a pedestrian crossing. compute crossing points with all foeLanes
+    //    // @note not currently used by pedestrians
+    //    lane = myLane;
+    }
+    if (lane != 0) {
         for (std::vector<MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
             if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
                 // this foeLane has the same target
                 myLengthsBehindCrossing.push_back(std::make_pair(0, 0)); // dummy value, never used
             } else {
-                std::vector<SUMOReal> intersections1 = internalLaneBefore->getShape().intersectsAtLengths2D((*it_lane)->getShape());
+                std::vector<SUMOReal> intersections1 = lane->getShape().intersectsAtLengths2D((*it_lane)->getShape());
                 //std::cout << " number of intersections1=" << intersections1.size() << "\n";
                 if (intersections1.size() == 0) {
-                    intersections1.push_back(0);
+                    intersections1.push_back(10000.0); // disregard this foe (using maxdouble leads to nasty problems down the line)
                 } else if (intersections1.size() > 1) {
                     std::sort(intersections1.begin(), intersections1.end());
                 }
-                std::vector<SUMOReal> intersections2 = (*it_lane)->getShape().intersectsAtLengths2D(internalLaneBefore->getShape());
+                std::vector<SUMOReal> intersections2 = (*it_lane)->getShape().intersectsAtLengths2D(lane->getShape());
                 //std::cout << " number of intersections2=" << intersections2.size() << "\n";
                 if (intersections2.size() == 0) {
                     intersections2.push_back(0);
@@ -110,11 +122,11 @@ MSLink::setRequestInformation(unsigned int index, bool isCrossing, bool isCont,
                     std::sort(intersections2.begin(), intersections2.end());
                 }
                 myLengthsBehindCrossing.push_back(std::make_pair(
-                                                      internalLaneBefore->getLength() - intersections1.back(),
+                                                      lane->getLength() - intersections1.back(),
                                                       (*it_lane)->getLength() - intersections2.back()));
                 //std::cout
-                //    << " intersection of " << internalLaneBefore->getID()
-                //    << " totalLength=" << internalLaneBefore->getLength()
+                //    << " intersection of " << lane->getID()
+                //    << " totalLength=" << lane->getLength()
                 //    << " with " << (*it_lane)->getID()
                 //    << " totalLength=" << (*it_lane)->getLength()
                 //    << " dist1=" << myLengthsBehindCrossing.back().first
@@ -386,7 +398,7 @@ MSLink::getViaLane() const {
 
 
 MSLink::LinkLeaders
-MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap) const {
+MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson*>* collectBlockers) const {
     LinkLeaders result;
     if (MSGlobals::gUsingInternalLanes && myJunctionInlane == 0 &&
             getLane()->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -431,7 +443,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap) const {
                         }
                         gap = distToCrossing - leaderBackDist - (sameTarget ? minGap : 0);
                     }
-                    result.push_back(std::make_pair(std::make_pair(leader, gap), sameTarget ? -1 : distToCrossing));
+                    result.push_back(LinkLeader(leader, gap, sameTarget ? -1 : distToCrossing));
                 }
 
             }
@@ -453,8 +465,12 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap) const {
                         }
                         gap = distToCrossing - leaderBackDist - (sameTarget ? minGap : 0);
                     }
-                    result.push_back(std::make_pair(std::make_pair(leader, gap), sameTarget ? -1 : distToCrossing));
+                    result.push_back(LinkLeader(leader, gap, sameTarget ? -1 : distToCrossing));
                 }
+            }
+            // check for crossing pedestrians
+            if (MSPModel::getModel()->blockedAtDist(foeLane, foeDistToCrossing, collectBlockers)) {
+                result.push_back(LinkLeader((MSVehicle*)0, -1, distToCrossing - MSPModel::SAFETY_GAP - foeLane->getWidth() * 0.5));
             }
         }
     }

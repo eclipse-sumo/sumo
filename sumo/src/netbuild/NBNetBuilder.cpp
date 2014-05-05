@@ -220,6 +220,13 @@ NBNetBuilder::compute(OptionsCont& oc,
         NBRampsComputer::computeRamps(*this, oc);
         PROGRESS_DONE_MESSAGE();
     }
+    // guess sidewalks
+    if (oc.getBool("sidewalks.guess")) {
+        const int sidewalks = myEdgeCont.guessSidewalks(oc.getFloat("default.sidewalk-width"), 
+                oc.getFloat("sidewalks.guess.min-speed"),
+                oc.getFloat("sidewalks.guess.max-speed"));
+        WRITE_MESSAGE("Guessed " + toString(sidewalks) + " sidewalks.");
+    }
 
     // check whether any not previously setable connections may be set now
     myEdgeCont.recheckPostProcessConnections();
@@ -272,6 +279,14 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_BEGIN_MESSAGE("Computing node types");
     NBNodeTypeComputer::computeNodeTypes(myNodeCont);
     PROGRESS_DONE_MESSAGE();
+    //
+    if (oc.getBool("crossings.guess")) {
+        int crossings = 0;
+        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
+            crossings += (*i).second->guessCrossings();
+        }
+        WRITE_MESSAGE("Guessed " + toString(crossings) + " pedestrian crossings.");
+    }
     //
     PROGRESS_BEGIN_MESSAGE("Computing priorities");
     NBEdgePriorityComputer::computeEdgePriorities(myNodeCont);
@@ -364,8 +379,13 @@ NBNetBuilder::compute(OptionsCont& oc,
         for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
             (*i).second->sortOutgoingConnectionsByIndex();
         }
+        // walking areas shall only be built if crossings are wished as well
+        bool buildCrossingsAndWalkingAreas = oc.getBool("crossings.guess");
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            (*i).second->buildInnerEdges();
+            buildCrossingsAndWalkingAreas = buildCrossingsAndWalkingAreas || (*i).second->getCrossings().size() > 0;
+        }
+        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
+            (*i).second->buildInnerEdges(buildCrossingsAndWalkingAreas);
         }
         PROGRESS_DONE_MESSAGE();
     }

@@ -132,6 +132,11 @@ private:
     inline bool parseLaneDefinition(const SUMOSAXAttributes& attributes, int* fromLane, int* toLane);
 
 
+    /** @brief Parses a crossing and updates the referenced node
+     * @param[in] attrs The attributes to get the crossings's values from
+     */
+    void addCrossing(const SUMOSAXAttributes& attrs);
+
 private:
     /// @brief The edge container to fill
     NBEdgeCont& myEdgeCont;

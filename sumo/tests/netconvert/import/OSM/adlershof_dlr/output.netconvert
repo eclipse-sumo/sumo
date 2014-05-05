@@ -5,7 +5,7 @@ Parsing relations from osm-file 'osm.xml'... done.
  Import done:
    91 nodes loaded.
    33 types loaded.
-   213 edges loaded.
+   190 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done.
 Removing empty nodes... done.
@@ -31,9 +31,10 @@ Computing traffic light logics... done.
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 4
-  Priority junctions          : 68
-  Right-before-left junctions : 15
+  Unregulated junctions       : 5
+  Dead-end junctions          : 9
+  Priority junctions          : 67
+  Right-before-left junctions : 6
  Network boundaries:
   Original boundary  : 13.52,52.43,13.55,52.43
   Applied offset     : -399345.66,-5809365.64

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Apr 24 08:45:04 2014 by SUMO netconvert Version dev-SVN-r16229
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <crossings.guess value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/connections_file.xsd">
+    <connection from="EC" to="CW" fromLane="2" toLane="2"/>
+    <connection from="EC" to="CW" fromLane="3" toLane="3"/>
+
+    <connection from="WC" to="CE" fromLane="2" toLane="2"/>
+    <connection from="WC" to="CE" fromLane="3" toLane="3"/>
+
+    <crossing node="C" edges="CE EC" priority="0"/>
+    <crossing node="C" edges="CW WC" priority="0"/>
+</connections>

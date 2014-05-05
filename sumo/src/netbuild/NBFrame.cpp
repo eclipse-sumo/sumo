@@ -73,6 +73,8 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("default.priority", "priority", true);
     oc.addDescription("default.priority", "Building Defaults", "The default priority of an edge");
 
+    oc.doRegister("default.sidewalk-width", new Option_Float((SUMOReal) 2.0));
+    oc.addDescription("default.sidewalk-width", "Building Defaults", "The default width of added sidewalks");
 
     // register the data processing options
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
@@ -167,9 +169,26 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("check-lane-foes.roundabout", new Option_Bool(true));
     oc.addDescription("check-lane-foes.roundabout", "Processing",
                       "Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)");
+
     oc.doRegister("check-lane-foes.all", new Option_Bool(false));
     oc.addDescription("check-lane-foes.all", "Processing",
                       "Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)");
+
+    oc.doRegister("sidewalks.guess", new Option_Bool(false));
+    oc.addDescription("sidewalks.guess", "Processing",
+                      "Guess pedestrian sidewalks based on edge speed");
+
+    oc.doRegister("sidewalks.guess.max-speed", new Option_Float((SUMOReal) 13.89));
+    oc.addDescription("sidewalks.guess.max-speed", "Processing",
+                      "Add sidewalks for edges with a speed equal or below the given limit");
+
+    oc.doRegister("sidewalks.guess.min-speed", new Option_Float((SUMOReal) 5.8));
+    oc.addDescription("sidewalks.guess.min-speed", "Processing",
+                      "Add sidewalks for edges with a speed above the given limit");
+
+    oc.doRegister("crossings.guess", new Option_Bool(false));
+    oc.addDescription("crossings.guess", "Processing",
+                      "Guess pedestrian crossings based on the presence of sidewalks");
 
     // tls setting options
     // explicit tls

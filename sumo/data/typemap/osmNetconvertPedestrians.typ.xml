@@ -1,0 +1,39 @@
+<types>
+      <type id="highway.motorway"       numLanes="3" speed="44.44" priority="13" oneway="true"                   disallow="pedestrian bicycle"/>
+      <type id="highway.motorway_link"  numLanes="1" speed="22.22" priority="12" oneway="true"                   disallow="pedestrian bicycle"/>
+      <type id="highway.trunk"          numLanes="2" speed="27.78" priority="11"                                 disallow="pedestrian bicycle"/>
+      <type id="highway.trunk_link"     numLanes="1" speed="22.22" priority="10"                                 disallow="pedestrian bicycle"/>
+      <type id="highway.primary"        numLanes="2" speed="27.78" priority="9"                sidewalkWidth="3" disallow="pedestrian"/>
+      <type id="highway.primary_link"   numLanes="1" speed="22.22" priority="8"                sidewalkWidth="3" disallow="pedestrian"/>
+      <type id="highway.secondary"      numLanes="2" speed="27.78" priority="7"                sidewalkWidth="3" disallow="pedestrian"/>
+      <type id="highway.secondary_link" numLanes="1" speed="22.22" priority="6"                sidewalkWidth="3" disallow="pedestrian"/>
+      <type id="highway.tertiary"       numLanes="1" speed="22.22" priority="6"                sidewalkWidth="3" disallow="pedestrian"/>
+      <type id="highway.tertiary_link"  numLanes="1" speed="22.22" priority="5"                sidewalkWidth="2" disallow="pedestrian"/>
+      <type id="highway.unclassified"   numLanes="1" speed="13.89" priority="5"                sidewalkWidth="2" disallow="pedestrian"/>
+      <type id="highway.residential"    numLanes="1" speed="13.89" priority="4"                sidewalkWidth="2" disallow="pedestrian"/>
+      <type id="highway.living_street"  numLanes="1" speed="2.78"  priority="3"                                                       />
+      <type id="highway.service"        numLanes="1" speed="5.56"  priority="2"                                  allow="delivery pedestrian"/>
+      <type id="highway.track"          numLanes="1" speed="5.56"  priority="1"/>
+      <type id="highway.services"       numLanes="1" speed="8.33"  priority="1"/>
+      <type id="highway.unsurfaced"     numLanes="1" speed="8.33"  priority="1"/>
+                                                                                               
+      <type id="highway.footway"        numLanes="1" speed="8.33"  priority="1"  oneway="true"                   allow="pedestrian"/>
+      <type id="highway.pedestrian"     numLanes="1" speed="8.33"  priority="1"  oneway="true"                   allow="pedestrian"/>
+      <type id="highway.path"           numLanes="1" speed="2.78"  priority="1"  oneway="true"                   allow="pedestrian"/>
+      <type id="highway.bridleway"      numLanes="1" speed="2.78"  priority="1"  oneway="true"                   allow="pedestrian"/>
+      <type id="highway.cycleway"       numLanes="1" speed="5.56"  priority="1"  oneway="true"                   allow="bicycle"/>
+      <type id="highway.step"           numLanes="1" speed="1.39"  priority="1"  oneway="true"                   allow="pedestrian"/>
+      <type id="highway.steps"          numLanes="1" speed="1.39"  priority="1"  oneway="true"                   allow="pedestrian"/>
+      <type id="highway.stairs"         numLanes="1" speed="1.39"  priority="1"  oneway="true"                   allow="pedestrian"/>
+                                                                                               
+      <type id="highway.bus_guideway"   numLanes="1" speed="8.33"  priority="1"  oneway="true"                   allow="bus"/>
+      <type id="highway.raceway"        numLanes="2" speed="83.33" priority="14"                                 allow="vip"/>
+      <type id="highway.ford"           numLanes="1" speed="2.78"  priority="1"                                  allow="army"/>
+                                                                                              
+      <type id="railway.rail"           numLanes="1" speed="83.33" priority="15" oneway="true"                   allow="rail rail_electric"/>
+      <type id="railway.tram"           numLanes="1" speed="27.78" priority="15" oneway="true"                   allow="tram"/>
+      <type id="railway.light_rail"     numLanes="1" speed="27.78" priority="15" oneway="true"                   allow="rail_urban"/>
+      <type id="railway.subway"         numLanes="1" speed="27.78" priority="15" oneway="true"                   allow="rail_urban"/>
+      <type id="railway.preserved"      numLanes="1" speed="27.78" priority="15" oneway="true"                   allow="rail"/>
+
+</types>

@@ -1,0 +1,30 @@
+# cross the street going straight on the right side of the road
+straight_rr
+
+# cross the street going straight on the left side of the road
+straight_ll
+
+# turn right while walking on the right side of the road (no street is crossed)
+right_rr
+
+# turn right while walking on the right side of the road and continue on the left side (street is crossed in forward direction)
+right_rl
+
+# turn right while walking on the left side of the road and continue on the right side (street is crossed in forward direction)
+right_lr
+
+# turn left while walking on the left side of the road (no street is crossed)
+left_ll
+
+# turn left while walking on the right side of the road and continue on the left side (street is crossed in backward direction)
+left_rl
+
+# turn left while walking on the left side of the road and continue on the right side (street is crossed in backward direction)
+left_lr
+
+# turn around while walking on the right side of the road and continue on the right side
+turn_rr
+
+# turn around while walking on the left side of the road and continue on the left side
+turn_ll
+cross_twice

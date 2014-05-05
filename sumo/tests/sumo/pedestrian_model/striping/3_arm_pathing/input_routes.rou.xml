@@ -1,0 +1,23 @@
+<routes>
+    <vType id="ped" vClass="pedestrian" width="0.7" length="0.35" minGap="0.3" maxSpeed="1" guiShape="pedestrian" color="blue"/>
+
+    <person id="pWN" type="ped" depart="0">
+        <walk from="WC" to="NC"/>
+    </person>
+    <person id="pWE" type="ped" depart="5">
+        <walk from="WC" to="CE"/>
+    </person>
+    <person id="pNW" type="ped" depart="10">
+        <walk from="NC" to="WC"/>
+    </person>
+    <person id="pNE" type="ped" depart="15">
+        <walk from="NC" to="CE"/>
+    </person>
+    <person id="pEW" type="ped" depart="20">
+        <walk from="CE" to="WC"/>
+    </person>
+    <person id="pEN" type="ped" depart="25">
+        <walk from="CE" to="NC"/>
+    </person>
+
+</routes>

@@ -201,7 +201,7 @@ GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow&,
 Boundary
 GUITrafficLightLogicWrapper::getCenteringBoundary() const {
     Boundary ret;
-    const MSTrafficLightLogic::LaneVectorVector& lanes = myTLLogic.getLanes();
+    const MSTrafficLightLogic::LaneVectorVector& lanes = myTLLogic.getLaneVectors();
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
         const MSTrafficLightLogic::LaneVector& lanes2 = (*i);
         for (MSTrafficLightLogic::LaneVector::const_iterator j = lanes2.begin(); j != lanes2.end(); ++j) {

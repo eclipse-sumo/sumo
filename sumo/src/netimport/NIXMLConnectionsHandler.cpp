@@ -161,6 +161,9 @@ NIXMLConnectionsHandler::myStartElement(int element,
         NBNode* n = prohibitorC.getFrom()->getToNode();
         n->addSortedLinkFoes(prohibitorC, prohibitedC);
     }
+    if (element == SUMO_TAG_CROSSING) {
+        addCrossing(attrs);
+    }
 }
 
 
@@ -316,6 +319,50 @@ NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes& attributes
     *toLane = attributes.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
     return ok;
 }
+
+
+void
+NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    NBNode* node = 0;
+    EdgeVector edges;
+    const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, 0, ok);
+    const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, nodeID.c_str(), ok, NBNode::DEFAULT_CROSSING_WIDTH, true);
+    std::vector<std::string> edgeIDs;
+    SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_EDGES, 0, ok), edgeIDs);
+    for (std::vector<std::string>::const_iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
+        NBEdge* edge = myEdgeCont.retrieve(*it);
+        if (edge == 0) {
+            WRITE_ERROR("Edge '" + (*it) + "' for crossing at node '" + nodeID + "' is not known.");
+            return;
+        }
+        if (node == 0) {
+            if (edge->getToNode()->getID() == nodeID) {
+                node = edge->getToNode();
+            } else if (edge->getFromNode()->getID() == nodeID) {
+                node = edge->getFromNode();
+            } else {
+                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                return;
+            }
+        } else {
+            if (edge->getToNode() != node && edge->getFromNode() != node) {
+                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                return;
+            }
+        }
+        edges.push_back(edge);
+    }
+    bool priority = attrs.getOpt<bool>(SUMO_ATTR_PRIORITY, nodeID.c_str(), ok, node->isTLControlled(), true);
+    if (node->isTLControlled() && !priority) {
+        // traffic_light nodes should always have priority crossings
+        WRITE_WARNING("Crossing at controlled node '" + nodeID + "' must be prioritized");
+        priority = true;
+    }
+    node->addCrossing(edges, width, priority);
+}
+
+
 
 /****************************************************************************/
 

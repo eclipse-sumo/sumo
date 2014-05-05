@@ -70,10 +70,14 @@ NBRequest::NBRequest(const NBEdgeCont& ec,
                      const EdgeVector& all,
                      const EdgeVector& incoming,
                      const EdgeVector& outgoing,
-                     const NBConnectionProhibits& loadedProhibits)
-    : myJunction(junction),
-      myAll(all), myIncoming(incoming), myOutgoing(outgoing) {
-    size_t variations = myIncoming.size() * myOutgoing.size();
+                     const NBConnectionProhibits& loadedProhibits) : 
+    myJunction(junction),
+    myAll(all), 
+    myIncoming(incoming), 
+    myOutgoing(outgoing),
+    myCrossings(junction->getCrossings())
+{
+    const size_t variations = numLinks();
     // build maps with information which forbidding connection were
     //  computed and what's in there
     myForbids.reserve(variations);
@@ -131,9 +135,8 @@ NBRequest::NBRequest(const NBEdgeCont& ec,
     }
     // ok, check whether someone has prohibited two links vice versa
     //  (this happens also in some Vissim-networks, when edges are joined)
-    size_t no = myIncoming.size() * myOutgoing.size();
-    for (size_t s1 = 0; s1 < no; s1++) {
-        for (size_t s2 = s1 + 1; s2 < no; s2++) {
+    for (size_t s1 = 0; s1 < variations; s1++) {
+        for (size_t s2 = s1 + 1; s2 < variations; s2++) {
             // not set, yet
             if (!myDone[s1][s2]) {
                 continue;
@@ -334,11 +337,17 @@ void
 NBRequest::writeLogic(std::string /* key */, OutputDevice& into, const bool checkLaneFoes) const {
     int pos = 0;
     EdgeVector::const_iterator i;
+    // normal connections
     for (i = myIncoming.begin(); i != myIncoming.end(); i++) {
         unsigned int noLanes = (*i)->getNumLanes();
         for (unsigned int k = 0; k < noLanes; k++) {
             pos = writeLaneResponse(into, *i, k, pos, checkLaneFoes);
         }
+    }
+    const int normalConnections = pos;
+    // crossings
+    for (std::vector<NBNode::Crossing>::const_iterator i = myCrossings.begin(); i != myCrossings.end(); i++) {
+        pos = writeCrossingResponse(into, *i, pos, normalConnections);
     }
 }
 
@@ -492,6 +501,42 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
 }
 
 
+int
+NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos, int normalConnections) const {
+    std::string foes(myCrossings.size(), '0');
+    std::string response(myCrossings.size(), '0');
+    // conflicts with normal connections 
+    for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
+        //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
+        const NBEdge* from = *i;
+        unsigned int noLanes = from->getNumLanes();
+        for (int j = noLanes; j-- > 0;) {
+            std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(j);
+            int size = (int) connected.size();
+            for (int k = size; k-- > 0;) {
+                const NBEdge* to = connected[k].toEdge;
+                bool foe = false;
+                for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
+                    if ((*it_e) == from || (*it_e) == to) {
+                        foe = true;
+                        break;
+                    }
+                }
+                foes += foe ? '1' : '0';
+                response += mustBrakeForCrossing(from, to, crossing) || !foe ? '0' : '1';
+            }
+        }
+    }
+    od.openTag(SUMO_TAG_REQUEST);
+    od.writeAttr(SUMO_ATTR_INDEX, pos++);
+    od.writeAttr(SUMO_ATTR_RESPONSE, response);
+    od.writeAttr(SUMO_ATTR_FOES, foes);
+    od.writeAttr(SUMO_ATTR_CONT, false);
+    od.closeTag();
+    return pos;
+}
+
+
 std::string
 NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
                              int fromLane, int toLane, bool mayDefinitelyPass, const bool checkLaneFoes) const {
@@ -500,6 +545,11 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
         idx = getIndex(from, to);
     }
     std::string result;
+    // crossings
+    for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
+        result += mustBrakeForCrossing(from, to, *i) ? '1' : '0';
+    }
+    // normal connections 
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
         unsigned int noLanes = (*i)->getNumLanes();
@@ -522,9 +572,9 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
                             (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
                             || rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)) {
                         result += '1';
-                        continue;
+                    } else {
+                        result += '0';
                     }
-                    result += '0';
                 }
             }
         }
@@ -540,6 +590,18 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
     // junction
     // !!! move to forbidden
     std::string result;
+    // crossings
+    for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
+        bool foes = false;
+        for (EdgeVector::const_iterator it_e = (*i).edges.begin(); it_e != (*i).edges.end(); ++it_e) {
+            if ((*it_e) == from || (*it_e) == to) {
+                foes = true;
+                break;
+            }
+        }
+        result += foes ? '1' : '0';
+    }
+    // normal connections 
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin();
             i != myIncoming.rend(); i++) {
 
@@ -621,7 +683,7 @@ NBRequest::getIndex(const NBEdge* const from, const NBEdge* const to) const {
 
 std::ostream&
 operator<<(std::ostream& os, const NBRequest& r) {
-    size_t variations = r.myIncoming.size() * r.myOutgoing.size();
+    size_t variations = r.numLinks();
     for (size_t i = 0; i < variations; i++) {
         os << i << ' ';
         for (size_t j = 0; j < variations; j++) {
@@ -652,10 +714,31 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to) const {
     // go through all (existing) connections;
     //  check whether any of these forbids the one to determine
     assert((size_t) idx2 < myIncoming.size()*myOutgoing.size());
-    for (size_t idx1 = 0; idx1 < myIncoming.size()*myOutgoing.size(); idx1++) {
+    for (size_t idx1 = 0; idx1 < numLinks(); idx1++) {
         //assert(myDone[idx1][idx2]);
         if (myDone[idx1][idx2] && myForbids[idx1][idx2]) {
             return true;
+        }
+    }
+    // maybe we need to brake for a pedestrian crossing
+    for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
+        if (mustBrakeForCrossing(from, to, *i)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool
+NBRequest::mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) const {
+    const LinkDirection dir = myJunction->getDirection(from, to);
+    const bool mustYield = dir == LINKDIR_LEFT || dir == LINKDIR_RIGHT;
+    if (crossing.priority || mustYield) {
+        for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
+            // left and right turns must yield to unprioritized crossings only on their destination edge
+            if (((*it_e) == from && crossing.priority) || (*it_e) == to) {
+                return true;
+            }
         }
     }
     return false;
@@ -710,6 +793,12 @@ NBRequest::resetCooperating() {
             }
         }
     }
+}
+
+
+size_t 
+NBRequest::numLinks() const {
+    return myIncoming.size() * myOutgoing.size() + myCrossings.size();
 }
 
 /****************************************************************************/

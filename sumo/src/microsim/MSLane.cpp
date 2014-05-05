@@ -38,6 +38,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
 #include "MSVehicle.h"
+#include "MSPModel.h"
 #include "MSAbstractLaneChangeModel.h"
 #include "MSNet.h"
 #include "MSVehicleType.h"
@@ -1187,7 +1188,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         if (linkLeaders.size() > 0) {
             // XXX if there is more than one link leader we should return the most important
             // one (gap, decel) but this is hard to know at this point
-            return linkLeaders[0].first;
+            return linkLeaders[0].vehAndGap;
         }
         bool nextInternal = (*link)->getViaLane() != 0;
 #endif
@@ -1249,6 +1250,28 @@ MSLane::getLogicalPredecessorLane() const {
 }
 
 
+LinkState 
+MSLane::getIncomingLinkState() const {
+    MSLane* pred = getLogicalPredecessorLane();
+    if (pred == 0) {
+        return LINKSTATE_DEADEND;
+    } else {
+        return MSLinkContHelper::getConnectingLink(*pred, *this)->getState();
+    }
+}
+
+
+std::vector<const MSLane*> 
+MSLane::getOutgoingLanes() const {
+    std::vector<const MSLane*> result;
+    for (MSLinkCont::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
+        assert((*i)->getLane() != 0);
+        result.push_back((*i)->getLane());
+    }
+    return result;
+}
+
+
 void
 MSLane::leftByLaneChange(MSVehicle* v) {
     myBruttoVehicleLengthSum -= v->getVehicleType().getLengthWithGap();
@@ -1262,6 +1285,16 @@ MSLane::enteredByLaneChange(MSVehicle* v) {
     myNettoVehicleLengthSum += v->getVehicleType().getLength();
 }
 
+
+int
+MSLane::getCrossingIndex() const {
+    for (MSLinkCont::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
+        if ((*i)->getLane()->getEdge().isCrossing()) {
+            return i - myLinks.begin();
+        }
+    }
+    return -1;
+}
 
 // ------------ Current state retrieval
 SUMOReal

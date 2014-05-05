@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Apr 24 08:53:43 2014 by SUMO netconvert Version dev-SVN-r16229
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <crossings.guess value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tllogic_file.xsd">
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="31" state="GGGrr"/>
+        <phase duration="4" state="yyyrr"/>
+        <phase duration="31" state="GGGrr"/>
+        <phase duration="4" state="yyyrr"/>
+    </tlLogic>
+
+    <connection from="WC" to="CE" fromLane="1" toLane="1" tl="C" linkIndex="0"/>
+    <connection from="WC" to="CE" fromLane="2" toLane="2" tl="C" linkIndex="1"/>
+    <connection from="WC" to="CE" fromLane="3" toLane="3" tl="C" linkIndex="2"/>
+</tlLogics>

@@ -47,7 +47,7 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSBitSetLogic.h>
+#include <microsim/MSJunction.h>
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
@@ -239,6 +239,17 @@ NLHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_NET:
             myJunctionControlBuilder.postLoadInitialization();
+            // build junction graph
+            for (JunctionGraph::iterator it = myJunctionGraph.begin(); it != myJunctionGraph.end(); ++it) {
+                MSEdge* edge = MSEdge::dictionary(it->first);
+                MSJunction* from = myJunctionControlBuilder.retrieve(it->second.first);
+                MSJunction* to = myJunctionControlBuilder.retrieve(it->second.second);
+                if (edge != 0 && from != 0 && to != 0) {
+                    edge->setJunctions(from, to);
+                    from->addOutgoing(edge);
+                    to->addIncoming(edge);
+                }
+            }
             break;
         default:
             break;
@@ -268,6 +279,15 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         myCurrentIsInternalToSkip = true;
         return;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
+        myJunctionGraph[id] = std::make_pair(
+                attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok),
+                attrs.get<std::string>(SUMO_ATTR_TO, 0, ok));
+    } else {
+        // must be an internal edge
+        std::string junctionID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id);
+        myJunctionGraph[id] = std::make_pair(junctionID, junctionID);
+    }
     myCurrentIsInternalToSkip = false;
     // parse the function
     const SumoXMLEdgeFunc func = attrs.getEdgeFunc(ok);
@@ -290,16 +310,24 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         case EDGEFUNC_INTERNAL:
             funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
             break;
+        case EDGEFUNC_CROSSING:
+            funcEnum = MSEdge::EDGEFUNCTION_CROSSING;
+            break;
+        case EDGEFUNC_WALKINGAREA:
+            funcEnum = MSEdge::EDGEFUNCTION_WALKINGAREA;
+            break;
     }
     // get the street name
     std::string streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
+    // get the edge type
+    std::string edgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     if (!ok) {
         myCurrentIsBroken = true;
         return;
     }
     //
     try {
-        myEdgeControlBuilder.beginEdgeParsing(id, funcEnum, streetName);
+        myEdgeControlBuilder.beginEdgeParsing(id, funcEnum, streetName, edgeType);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
         myCurrentIsBroken = true;

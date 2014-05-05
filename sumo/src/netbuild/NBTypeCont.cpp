@@ -58,20 +58,20 @@ NBTypeCont::setDefaults(int defaultNoLanes,
 
 bool
 NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
-                   SUMOReal width, SUMOVehicleClass vClass, bool oneWayIsDefault) {
+                   SUMOReal width, SUMOVehicleClass vClass, bool oneWayIsDefault, SUMOReal sidewalkWidth) {
     SVCPermissions permissions = (vClass == SVC_IGNORING ? SVCAll : vClass);
-    return insert(id, noLanes, maxSpeed, prio, permissions, width, oneWayIsDefault);
+    return insert(id, noLanes, maxSpeed, prio, permissions, width, oneWayIsDefault, sidewalkWidth);
 }
 
 
 bool
 NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
-                   SVCPermissions permissions, SUMOReal width, bool oneWayIsDefault) {
+                   SVCPermissions permissions, SUMOReal width, bool oneWayIsDefault, SUMOReal sidewalkWidth) {
     TypesCont::iterator i = myTypes.find(id);
     if (i != myTypes.end()) {
         return false;
     }
-    myTypes[id] = TypeDefinition(noLanes, maxSpeed, prio, width, permissions, oneWayIsDefault);
+    myTypes[id] = TypeDefinition(noLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth);
     return true;
 }
 
@@ -133,6 +133,12 @@ NBTypeCont::getPermissions(const std::string& type) const {
 SUMOReal
 NBTypeCont::getWidth(const std::string& type) const {
     return getType(type).width;
+}
+
+
+SUMOReal
+NBTypeCont::getSidewalkWidth(const std::string& type) const {
+    return getType(type).sidewalkWidth;
 }
 
 

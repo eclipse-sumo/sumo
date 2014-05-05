@@ -262,6 +262,9 @@ public:
     /// @brief initialize junctions after all connections have been loaded
     void postLoadInitialization();
 
+    /// @brief try to retrieve junction by id
+    MSJunction* retrieve(const std::string id);
+
 
 protected:
     /** @brief Returns the current junction logic

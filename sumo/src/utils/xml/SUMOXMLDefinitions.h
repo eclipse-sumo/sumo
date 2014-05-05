@@ -155,6 +155,7 @@ enum SumoXMLTag {
     SUMO_TAG_ROUNDABOUT,
     SUMO_TAG_JOIN,
     SUMO_TAG_JOINEXCLUDE,
+    SUMO_TAG_CROSSING,
 
     SUMO_TAG_WAY,
     SUMO_TAG_ND,
@@ -266,6 +267,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_SPEED,
     SUMO_ATTR_ONEWAY,
     SUMO_ATTR_WIDTH,
+    SUMO_ATTR_SIDEWALKWIDTH,
     SUMO_ATTR_REMOVE,
     SUMO_ATTR_LENGTH,
     SUMO_ATTR_X,
@@ -286,6 +288,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_INTLANES,
     /// the weight of a district's source or sink
     SUMO_ATTR_WEIGHT,
+    SUMO_ATTR_NODE,
     SUMO_ATTR_EDGE,
     /// the edges of a route
     SUMO_ATTR_EDGES,
@@ -344,6 +347,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_DURATION,
     SUMO_ATTR_UNTIL,
     SUMO_ATTR_ROUTEPROBE,
+    /* the edges crossed by a pedestrian crossing */
+    SUMO_ATTR_CROSSING_EDGES,
     /** trigger: the time of the step */
     SUMO_ATTR_TIME,
     /** weights: time range begin */
@@ -582,6 +587,8 @@ enum SumoXMLEdgeFunc {
     EDGEFUNC_CONNECTOR,
     EDGEFUNC_SINK,
     EDGEFUNC_SOURCE,
+    EDGEFUNC_CROSSING,
+    EDGEFUNC_WALKINGAREA,
     EDGEFUNC_INTERNAL
 };
 
@@ -723,6 +730,17 @@ public:
     static StringBijection<TrafficLightType> TrafficLightTypes;
 
     static StringBijection<LaneChangeModel> LaneChangeModels;
+    //@}
+
+    /// @name Helper functions for ID-string manipulations
+    //@{
+    
+    /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea
+    static std::string getJunctionIDFromInternalEdge(const std::string internalEdge);
+
+    /// @brief return edge id when given the lane ID
+    static std::string getEdgeIDFromLane(const std::string laneID);
+
     //@}
 
 private:

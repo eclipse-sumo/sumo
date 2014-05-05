@@ -1,0 +1,1 @@
+--net-file net.net.xml --additional-files input_additional.add.xml,input_additional2.add.xml --netstate-dump rawdump.xml --no-step-log

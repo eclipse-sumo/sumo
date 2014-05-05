@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/05/14 13:15:56 by SUMO sumo Version dev-SVN-r15814
+<!-- generated on Tue Apr 15 17:29:25 2014 by SUMO sumo Version dev-SVN-r16196
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -14,6 +14,10 @@
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
+    <processing>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <no-duration-log value="true"/>
@@ -26,8 +30,8 @@
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
     <personinfo id="p1" depart="0.00">
         <stop arrival="0.00"/>
-        <walk arrival="9.00"/>
-        <stop arrival="29.00"/>
-        <walk arrival="49.00"/>
+        <walk arrival="10.00"/>
+        <stop arrival="30.00"/>
+        <walk arrival="70.00"/>
     </personinfo>
 </tripinfos>

@@ -38,6 +38,7 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include "NBTrafficLightLogic.h"
+#include "NBOwnTLDef.h"
 #include "NBTrafficLightDefinition.h"
 #include "NBLoadedSUMOTLDef.h"
 #include "NBNode.h"
@@ -79,6 +80,7 @@ NBLoadedSUMOTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) {
     UNUSED_PARAMETER(ec);
     UNUSED_PARAMETER(brakingTime);
     myTLLogic->closeBuilding();
+    patchIfCrossingsAdded();
     return new NBTrafficLightLogic(myTLLogic);
 }
 
@@ -226,5 +228,66 @@ NBLoadedSUMOTLDef::collectLinks() {
         collectAllLinks();
     }
 }
+
+
+/// @brief patches signal plans by modifying lane indices
+void 
+NBLoadedSUMOTLDef::shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
+    // avoid shifting twice if the edge is incoming and outgoing to a joined TLS
+    if (myShifted.count(edge) == 0) {
+        /// XXX what if an edge should really be shifted twice?
+        myShifted.insert(edge);
+        for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
+            (*it).shiftLaneIndex(edge, offset);
+        }
+    }
+}
+
+void
+NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
+    // XXX what to do if crossings are removed during network building?
+    const unsigned int size = myTLLogic->getNumLinks();
+    unsigned int noLinksAll = size;
+    // collect crossings
+    std::vector<NBNode::Crossing> crossings;
+    for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+        const std::vector<NBNode::Crossing>& c = (*i)->getCrossings();
+        // set tl indices for crossings
+        (*i)->setCrossingTLIndices(noLinksAll);
+        copy(c.begin(), c.end(), std::back_inserter(crossings));
+        noLinksAll += c.size();
+    }
+    if (crossings.size() > 0) {
+        // collect edges
+        assert(size > 0);
+        EdgeVector fromEdges(size, 0);
+        EdgeVector toEdges(size, 0);
+        for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
+            const NBConnection& c = *it;
+            if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
+                assert(c.getTLIndex() < size);
+                fromEdges[c.getTLIndex()] = c.getFrom();
+                toEdges[c.getTLIndex()] = c.getTo();
+            }
+        }
+        /// XXX handle the case where some crossings are already loaded
+        const std::string crossingDefaultState(crossings.size(), 'r');
+
+        // rebuild the logic (see NBOwnTLDef.cpp::myCompute)
+        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
+        NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
+        //std::cout << "patchIfCrossingsAdded for " << getID() << " numPhases=" << phases.size() << "\n";
+        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
+            const std::string newState = NBOwnTLDef::patchStateForCrossings(it->state + crossingDefaultState,
+                    crossings, fromEdges, toEdges);
+            //std::cout << "  oldState=" << it->state << " newState=" << newState << "\n";
+            newLogic->addStep(it->duration, newState);
+        }
+        delete myTLLogic;
+        myTLLogic = newLogic;
+    }
+}
+
+
 /****************************************************************************/
 

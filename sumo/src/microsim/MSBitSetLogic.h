@@ -93,7 +93,7 @@ public:
         return myConts.test(linkIndex);
     }
 
-    virtual bool isCrossing() const {
+    virtual bool hasFoes() const {
         for (typename Logic::const_iterator i = myLogic->begin(); i != myLogic->end(); ++i) {
             if ((*i).any()) {
                 return true;

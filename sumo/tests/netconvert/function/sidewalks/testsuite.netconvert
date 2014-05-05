@@ -1,0 +1,8 @@
+# guess sidewalks using plain xml input
+basic
+
+# patch loaded signal plans when guessing sidewalks
+patch_tls_from_sumonet
+
+# add sidewalk via typemap
+typemap

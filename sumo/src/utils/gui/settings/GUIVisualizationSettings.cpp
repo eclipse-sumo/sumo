@@ -57,6 +57,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       laneShowBorders(false), showLinkDecals(true), showRails(true),
       edgeName(false, 50, RGBColor(255, 128, 0, 255)),
       internalEdgeName(false, 40, RGBColor(128, 64, 0, 255)),
+      cwaEdgeName(false, 50, RGBColor::MAGENTA),
       streetName(false, 55, RGBColor::YELLOW),
       hideConnectors(false), laneWidthExaggeration(1),
       vehicleQuality(0), minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
@@ -80,13 +81,16 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(179, 179, 179, 255), "unselected", true);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by vclass", RGBColor(240, 240, 240), "nobody");
+    scheme = GUIColorScheme("by permission code", RGBColor(240,240,240), "nobody");
     scheme.addColor(RGBColor(10, 10, 10), (SUMOReal)SVC_PASSENGER, "passenger");
     scheme.addColor(RGBColor(128, 128, 128), (SUMOReal)SVC_PEDESTRIAN, "pedestrian");
+    scheme.addColor(RGBColor(80, 80, 80), (SUMOReal)(SVC_PEDESTRIAN | SVC_DELIVERY), "pedestrian_delivery");
     scheme.addColor(RGBColor(192, 66, 44), (SUMOReal)SVC_BICYCLE, "bicycle");
     scheme.addColor(RGBColor(40, 100, 40), (SUMOReal)SVC_BUS, "bus");
     scheme.addColor(RGBColor(166, 147, 26), (SUMOReal)SVC_TAXI, "taxi");
-    scheme.addColor(RGBColor::BLACK, (SUMOReal)SVCAll, "all");
+    scheme.addColor(RGBColor::BLACK, (SUMOReal)(SVCAll & ~SVC_PEDESTRIAN), "disallow_pedestrian");
+    scheme.addColor(RGBColor(64, 0, 86), (SUMOReal)(SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_MOPED)), "disallow_apedestrian_bicycle");
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)SVCAll, "all");
     laneColorer.addScheme(scheme);
     // ... traffic states ...
     scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor::RED);
@@ -232,14 +236,26 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     personColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
     personColorer.addScheme(GUIColorScheme("given/assigned person color", RGBColor::YELLOW, "", true));
     personColorer.addScheme(GUIColorScheme("given/assigned type color", RGBColor::YELLOW, "", true));
+    scheme = GUIColorScheme("by speed", RGBColor::RED);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)(2.5 / 3.6));
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)(5 / 3.6));
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)(10 / 3.6));
+    personColorer.addScheme(scheme);
     scheme = GUIColorScheme("by mode", RGBColor::YELLOW); // walking
     scheme.addColor(RGBColor::BLUE, (SUMOReal)(1)); // riding
     scheme.addColor(RGBColor::RED, (SUMOReal)(2)); // stopped
     scheme.addColor(RGBColor::GREEN, (SUMOReal)(3)); // waiting for ride
     personColorer.addScheme(scheme);
     scheme = GUIColorScheme("by waiting time", RGBColor::BLUE);
-    scheme.addColor(RGBColor::RED, (SUMOReal)(5 * 60));
+    scheme.addColor(RGBColor::CYAN, (SUMOReal)30);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)100);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)200);
+    scheme.addColor(RGBColor::RED, (SUMOReal)300);
     personColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
+    personColorer.addScheme(scheme);
+    personColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
 
 
 #ifdef HAVE_INTERNAL
@@ -313,6 +329,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
         << "\" hideConnectors=\"" << hideConnectors << "\"\n"
         << "               " << edgeName.print("edgeName") << "\n"
         << "               " << internalEdgeName.print("internalEdgeName") << "\n"
+        << "               " << cwaEdgeName.print("cwaEdgeName") << "\n"
         << "               " << streetName.print("streetName") << ">\n";
     laneColorer.save(dev);
 #ifdef HAVE_INTERNAL
@@ -412,6 +429,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (internalEdgeName != v2.internalEdgeName) {
+        return false;
+    }
+    if (cwaEdgeName != v2.cwaEdgeName) {
         return false;
     }
     if (streetName != v2.streetName) {

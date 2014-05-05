@@ -251,6 +251,15 @@ MSFrame::fillOptions() {
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
     oc.addDescription("routing-algorithm", "Processing",
                       "Select among routing algorithms ['dijkstra', 'astar']");
+    // pedestrian model
+    oc.doRegister("pedestrian.model", new Option_String("striping"));
+    oc.addDescription("pedestrian.model", "Processing", "Select among pedestrian models ['nonInteracting', 'striping']");
+
+    oc.doRegister("pedestrian.striping.stripe-width", new Option_Float(0.65));
+    oc.addDescription("pedestrian.striping.stripe-width", "Processing", "Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'");
+
+    oc.doRegister("pedestrian.striping.dawdling", new Option_Float(0.2));
+    oc.addDescription("pedestrian.striping.dawdling", "Processing", "factor for random slow-downs [0,1] for use with model 'striping'");
 
     // devices
     oc.addOptionSubTopic("Emissions");

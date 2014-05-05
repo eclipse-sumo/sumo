@@ -81,7 +81,11 @@ public:
         ET_SOURCE,
         /// @brief An edge where vehicles disappear (no vehicle may leave this edge)
         ET_SINK,
-        /// @brief An internal edge which models driving across a junction. This is currently not used for routing
+        /// @brief An internal edge which models walking areas for pedestrians
+        ET_WALKINGAREA,
+        /// @brief An internal edge which models pedestrian crossings
+        ET_CROSSING,
+        /// @brief An internal edge which models vehicles driving across a junction. This is currently not used for routing
         ET_INTERNAL
     };
 
@@ -129,6 +133,20 @@ public:
      */
     void setType(EdgeType type);
 
+    /// @brief return whether this edge is an internal edge
+    inline bool isInternal() const {
+        return myType == ET_INTERNAL;
+    }
+
+    /// @brief return whether this edge is a pedestrian crossing
+    inline bool isCrossing() const {
+        return myType == ET_CROSSING;
+    }
+
+    /// @brief return whether this edge is walking area
+    inline bool isWalkingArea() const {
+        return myType == ET_WALKINGAREA;
+    }
 
     /** @brief Builds the internal representation of the travel time/effort
      *
@@ -360,6 +378,27 @@ public:
         return myPriority;
     }
 
+    const RONode* getFromJunction() const {
+        return myFromJunction;
+    }
+
+    const RONode* getToJunction() const {
+        return myToJunction;
+    }
+
+
+    void setJunctions(RONode* from, RONode* to) {
+        myFromJunction = from;
+        myToJunction = to;
+    }
+
+    /** @brief Returns this edge's lanes
+     *
+     * @return This edge's lanes
+     */
+    const std::vector<ROLane*>& getLanes() const {
+        return myLanes;
+    }
 protected:
     /** @brief Retrieves the stored effort
      *
@@ -426,6 +465,10 @@ protected:
     SVCPermissions myCombinedPermissions;
 
     static std::vector<ROEdge*> myEdges;
+
+    /// @brief the junctions for this edge
+    RONode* myFromJunction;
+    RONode* myToJunction;
 
 
 private:

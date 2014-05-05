@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Mar 17 17:46:55 2014 by SUMO netconvert Version dev-SVN-r15906
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+        <tllogic-files value="input_plain.tll.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <crossings.guess value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,80.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":B_w0" function="walkingarea">
+        <lane id=":B_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="4.00" shape="20.00,-0.05 20.00,-3.25 20.00,-3.25 20.00,-0.05"/>
+    </edge>
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" allow="pedestrian" speed="13.89" length="0.10" width="4.70" shape="40.00,-1.65 40.00,-1.65"/>
+    </edge>
+    <edge id=":D_w0" function="walkingarea">
+        <lane id=":D_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="4.00" shape="60.00,-0.05 60.00,-3.25 60.00,-3.25 60.00,-0.05"/>
+    </edge>
+
+    <edge id="AB" from="A" to="B" priority="1">
+        <lane id="AB_0" index="0" allow="pedestrian" speed="13.89" length="20.00" shape="0.00,-1.65 20.00,-1.65"/>
+    </edge>
+    <edge id="BC" from="B" to="C" priority="1">
+        <lane id="BC_0" index="0" allow="pedestrian" speed="13.89" length="20.00" shape="20.00,-1.65 40.00,-1.65"/>
+    </edge>
+    <edge id="CD" from="C" to="D" priority="1">
+        <lane id="CD_0" index="0" allow="pedestrian" speed="13.89" length="20.00" shape="40.00,-1.65 60.00,-1.65"/>
+    </edge>
+    <edge id="DE" from="D" to="E" priority="1">
+        <lane id="DE_0" index="0" allow="pedestrian" speed="13.89" length="20.00" shape="60.00,-1.65 80.00,-1.65"/>
+    </edge>
+
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="10" state="G"/>
+        <phase duration="50" state="r"/>
+    </tlLogic>
+
+    <junction id="A" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
+    <junction id="B" type="dead_end" x="20.00" y="0.00" incLanes="AB_0" intLanes="" shape="20.00,-0.05 20.00,-3.25 20.00,-0.05"/>
+    <junction id="C" type="traffic_light" x="40.00" y="0.00" incLanes="BC_0" intLanes=":C_0_0" shape="40.00,-0.05 40.00,-3.25 40.00,-0.05">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="D" type="dead_end" x="60.00" y="0.00" incLanes="CD_0" intLanes="" shape="60.00,-0.05 60.00,-3.25 60.00,-0.05"/>
+    <junction id="E" type="unregulated" x="80.00" y="0.00" incLanes="DE_0" intLanes="" shape="80.00,-3.25 80.00,-0.05"/>
+
+    <connection from="BC" to="CD" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="o"/>
+
+    <connection from=":C_0" to="CD" fromLane="0" toLane="0" dir="s" state="M"/>
+
+    <connection from=":B_w0" to="BC" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="AB" to=":B_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":D_w0" to="DE" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="CD" to=":D_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+</net>

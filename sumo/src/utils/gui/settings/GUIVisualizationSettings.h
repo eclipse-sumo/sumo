@@ -126,7 +126,7 @@ public:
     /// @brief Information whether rails shall be drawn
     bool showRails;
     // Setting bundles for optional drawing names with size and color
-    GUIVisualizationTextSettings edgeName, internalEdgeName, streetName;
+    GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName;
 
     bool hideConnectors;
     /// @brief The lane exaggeration (upscale thickness)

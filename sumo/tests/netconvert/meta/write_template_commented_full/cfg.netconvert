@@ -429,6 +429,18 @@
         <!-- Allow driving onto a multi-lane road if there are foes on other lanes (everywhere) -->
         <check-lane-foes.all value="false" type="BOOL"/>
 
+        <!-- Guess pedestrian sidewalks based on edge speed -->
+        <sidewalks.guess value="false" type="BOOL"/>
+
+        <!-- Add sidewalks for edges with a speed equal or below the given limit -->
+        <sidewalks.guess.max-speed value="13.89" type="FLOAT"/>
+
+        <!-- Add sidewalks for edges with a speed above the given limit -->
+        <sidewalks.guess.min-speed value="5.8" type="FLOAT"/>
+
+        <!-- Guess pedestrian crossings based on the presence of sidewalks -->
+        <crossings.guess value="false" type="BOOL"/>
+
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
 
@@ -443,6 +455,9 @@
 
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>
+
+        <!-- The default width of added sidewalks -->
+        <default.sidewalkWidth value="2" type="FLOAT"/>
 
     </building_defaults>
 

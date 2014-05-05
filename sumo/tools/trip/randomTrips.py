@@ -22,22 +22,31 @@ the Free Software Foundation; either version 3 of the License, or
 import os, sys, random, bisect, datetime, subprocess
 import math
 import optparse
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+SUMO_HOME = os.environ.get('SUMO_HOME', 
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib.net
+
+DUAROUTER = os.path.join(SUMO_HOME, 'bin', 'duarouter')
 
 
 def get_options():
     optParser = optparse.OptionParser()
     optParser.add_option("-n", "--net-file", dest="netfile",
                             help="define the net file (mandatory)")
+    optParser.add_option("-a", "--additional-files", dest="additional",
+                            help="define additional files to be loaded by the router")
     optParser.add_option("-o", "--output-trip-file", dest="tripfile",
                          default="trips.trips.xml", help="define the output trip filename")
     optParser.add_option("-r", "--route-file", dest="routefile",
                          help="generates route file with duarouter")
-    optParser.add_option("-t", "--trip-id-prefix", dest="tripprefix",
+    optParser.add_option("--pedestrians", action="store_true",
+                         default=False, help="create a person file with pedestrian trips instead of vehicle trips")
+    optParser.add_option("--prefix", dest="tripprefix",
                          default="", help="prefix for the trip ids")
-    optParser.add_option("-a", "--trip-parameters", dest="trippar",
-                         default="", help="additional trip parameters")
+    optParser.add_option("-t", "--trip-attributes", dest="tripattrs",
+                         default="", help="additional trip attributes")
     optParser.add_option("-b", "--begin", type="float", default=0, help="begin time")
     optParser.add_option("-e", "--end", type="float", default=3600, help="end time (default 3600)")
     optParser.add_option("-p", "--period", type="float", default=1, help="repetition period (default 1)")
@@ -53,7 +62,9 @@ def get_options():
     optParser.add_option("--fringe-threshold", type="float", dest="fringe_threshold",
                          default=0.0, help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
     optParser.add_option("--min-distance", type="float", dest="min_distance",
-                         default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m appart (default 0)")
+                         default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m appart")
+    optParser.add_option("--max-distance", type="float", dest="max_distance",
+                         default=None, help="require start and end edges for each trip to be at most <FLOAT> m appart (default 0 which disables any checks)")
     optParser.add_option("-c", "--vclass", 
                          help="only from and to edges which permit <vClass>")
     optParser.add_option("-v", "--verbose", action="store_true",
@@ -62,6 +73,9 @@ def get_options():
     if not options.netfile:
         optParser.print_help()
         sys.exit()
+
+    if options.pedestrians and options.vclass is None:
+        options.vclass = pedestrian
     return options
 
 
@@ -93,13 +107,13 @@ class RandomTripGenerator:
         self.source_generator = source_generator
         self.sink_generator = sink_generator
 
-    def get_trip(self, min_distance, maxtries=100):
+    def get_trip(self, min_distance, max_distance, maxtries=100):
         for i in range(maxtries):
             source_edge = self.source_generator.get()
             sink_edge = self.sink_generator.get()
             distance = euclidean(source_edge.getFromNode().getCoord(), 
                     sink_edge.getToNode().getCoord())
-            if distance >= min_distance:
+            if distance >= min_distance and (max_distance is None or distance < max_distance):
                 return source_edge, sink_edge
         raise Exception("no trip found after %s tries" % (type, maxtries))
 
@@ -146,16 +160,25 @@ def main(options):
         depart = options.begin
         while depart < options.end:
             label = "%s%s" % (options.tripprefix, idx)
-            source_edge, sink_edge = edge_generator.get_trip(options.min_distance)
-            print >> fouttrips, '    <trip id="%s" depart="%.2f" from="%s" to="%s" %s/>' % (
-                    label, depart, source_edge.getID(), sink_edge.getID(), options.trippar)
+            source_edge, sink_edge = edge_generator.get_trip(options.min_distance, options.max_distance)
+            if options.pedestrians:
+                print >> fouttrips, '    <person id="%s" depart="%.2f" %s>' % (label, depart, options.tripattrs)
+                print >> fouttrips, '        <walk from="%s" to="%s"/>' % (source_edge.getID(), sink_edge.getID())
+                print >> fouttrips, '    </person>' 
+            else:
+                print >> fouttrips, '    <trip id="%s" depart="%.2f" from="%s" to="%s" %s/>' % (
+                        label, depart, source_edge.getID(), sink_edge.getID(), options.tripattrs)
             idx += 1
             depart += options.period
         fouttrips.write("</trips>")
 
     if options.routefile:
-        subprocess.call(['duarouter', '-n', options.netfile, '-t', options.tripfile, '-o', options.routefile, '--ignore-errors',
-            '--begin', str(options.begin), '--end', str(options.end)])
+        args = [DUAROUTER, '-n', options.netfile, '-t', options.tripfile, '-o', options.routefile, '--ignore-errors',
+            '--begin', str(options.begin), '--end', str(options.end)]
+        if options.additional is not None:
+            args += ['--additional-files', options.additional]
+        print "calling ", " ".join(args)
+        subprocess.call(args)
 
 
 if __name__ == "__main__":

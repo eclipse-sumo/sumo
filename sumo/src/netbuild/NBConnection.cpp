@@ -229,6 +229,14 @@ NBConnection::getToLane() const {
 }
 
 
+void 
+NBConnection::shiftLaneIndex(NBEdge* edge, int offset) {
+    if (myFrom == edge) {
+        myFromLane += offset;
+    } else if (myTo == edge) {
+        myToLane += offset;
+    }
+}
 
 /****************************************************************************/
 

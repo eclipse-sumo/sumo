@@ -1,0 +1,1 @@
+--osm-files osm.xml -v --tls.discard-simple --output net.net.xml --geometry.remove --junctions.join --roundabouts.guess --no-internal-links --type-files input_types.typ.xml

@@ -104,6 +104,7 @@ class Net:
         self._location = {}
         self._id2node = {}
         self._id2edge = {}
+        self._crossings_and_walkingAreas = set()
         self._id2tls = {}
         self._nodes = []
         self._edges = []
@@ -326,13 +327,11 @@ class NetReader(handler.ContentHandler):
         if name == 'location':
             self._net.setLocation(attrs["netOffset"], attrs["convBoundary"], attrs["origBoundary"], attrs["projParameter"])
         if name == 'edge':
-            if 'function' not in attrs or attrs['function'] != 'internal':
+            function = attrs.get('function', '') 
+            if function == '':
                 prio = -1
                 if attrs.has_key('priority'):
                     prio = int(attrs['priority'])
-                function = ""
-                if attrs.has_key('function'):
-                    function = attrs['function']
                 name = ""
                 if attrs.has_key('name'):
                     name = attrs['name']
@@ -341,6 +340,8 @@ class NetReader(handler.ContentHandler):
                 if attrs.has_key('shape'):
                     self.processShape(self._currentEdge, attrs['shape'])
             else:
+                if function in ['crossing', 'walkingarea']:
+                    self._net._crossings_and_walkingAreas.add(attrs['id'])
                 self._currentEdge = None
         if name == 'lane' and self._currentEdge!=None:
             self._currentLane = self._net.addLane(
@@ -383,19 +384,23 @@ class NetReader(handler.ContentHandler):
                 tolane = toEdge._lanes[tolane]
                 self._net.addConnection(self._currentEdge, connected, self._currentEdge._lanes[self._currentLane], tolane, attrs['dir'], tl, tllink)
         if name == 'connection' and self._withConnections and attrs['from'][0] != ":":
-            fromEdge = self._net.getEdge(attrs['from'])
-            toEdge = self._net.getEdge(attrs['to'])
-            fromLane = fromEdge.getLane(int(attrs['fromLane']))
-            toLane = toEdge.getLane(int(attrs['toLane']))
-            if attrs.has_key('tl') and attrs['tl']!="":
-                tl = attrs['tl']
-                tllink = int(attrs['linkIndex'])
-                tls = self._net.addTLS(tl, fromLane, toLane, tllink)
-                fromEdge.setTLS(tls)
-            else:
-                tl = ""
-                tllink = -1
-            self._net.addConnection(fromEdge, toEdge, fromLane, toLane, attrs['dir'], tl, tllink)
+            fromEdgeID = attrs['from']
+            toEdgeID = attrs['to']
+            if not (fromEdgeID in self._net._crossings_and_walkingAreas or toEdgeID in
+                    self._net._crossings_and_walkingAreas):
+                fromEdge = self._net.getEdge(fromEdgeID)
+                toEdge = self._net.getEdge(toEdgeID)
+                fromLane = fromEdge.getLane(int(attrs['fromLane']))
+                toLane = toEdge.getLane(int(attrs['toLane']))
+                if attrs.has_key('tl') and attrs['tl']!="":
+                    tl = attrs['tl']
+                    tllink = int(attrs['linkIndex'])
+                    tls = self._net.addTLS(tl, fromLane, toLane, tllink)
+                    fromEdge.setTLS(tls)
+                else:
+                    tl = ""
+                    tllink = -1
+                self._net.addConnection(fromEdge, toEdge, fromLane, toLane, attrs['dir'], tl, tllink)
         if self._withFoes and name=='ROWLogic': # 'row-logic' is deprecated!!!
             self._currentNode = attrs['id']
         if name == 'logicitem' and self._withFoes: # deprecated
@@ -452,7 +457,7 @@ def readNet(filename, **others):
             print("Network file '%s' not found" % filename, file=sys.stderr)
             sys.exit(1)
         parse(filename, netreader)
-    except KeyError:
+    except None:
         print("Please mind that the network format has changed in 0.13.0, you may need to update your network!", file=sys.stderr)
         sys.exit(1)
     return netreader.getNet()

@@ -36,6 +36,7 @@
 #include <vector>
 #include <utils/common/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/PedestrianRouter.h>
 #include <utils/xml/SUMORouteHandler.h>
 
 
@@ -44,6 +45,7 @@
 // ===========================================================================
 class OutputDevice_String;
 class ROEdge;
+class ROLane;
 class RONet;
 class RORoute;
 class RORouteDef;
@@ -144,7 +146,14 @@ protected:
     void parseEdges(const std::string& desc, std::vector<const ROEdge*>& into,
                     const std::string& rid);
 
+    /// @brief route a walking person and write the corresponding walk element (return whether sucessful)
+    bool routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& plan);
+
 protected:
+    /// @brief the router for pedestrians
+    typedef PedestrianRouterDijkstra<ROEdge, ROLane, RONode> ROPedestrianRouterDijkstra;
+    ROPedestrianRouterDijkstra* myPedestrianRouter;
+
     /// @brief The current route
     RONet& myNet;
 
@@ -153,6 +162,9 @@ protected:
 
     /// @brief The plan of the current person
     OutputDevice_String* myActivePlan;
+
+    /// @brief The number of stages in myActivePlan
+    int myActivePlanSize;
 
     /// @brief Information whether routes shall be repaired
     const bool myTryRepair;

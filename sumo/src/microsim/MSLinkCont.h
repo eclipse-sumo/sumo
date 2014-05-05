@@ -61,15 +61,17 @@ public:
 #ifdef HAVE_INTERNAL_LANES
     /** @brief Returns the internal lane that must be passed in order to get to the desired edge
         Returns 0 if no such edge exists */
-    static const MSEdge* getInternalFollowingEdge(MSLane* fromLane,
+    static const MSEdge* getInternalFollowingEdge(const MSLane* fromLane,
             const MSEdge* followerAfterInternal);
+
+    static const MSLane* getInternalFollowingLane(const MSLane* fromLane,
+            const MSLane* followerAfterInternal);
 #endif
 
     /** @brief Returns the link connecting both lanes
         Both lanes have to be non-internal; 0 may be returned if no connection
         exists */
-    static MSLink* getConnectingLink(const MSLane& from
-                                     , const MSLane& to);
+    static MSLink* getConnectingLink(const MSLane& from, const MSLane& to);
 };
 
 

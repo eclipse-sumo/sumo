@@ -16,11 +16,15 @@ meta
 # error handling tests
 errors
 
-# demonstration and regression tests for known bugs
-bugs
-
 # testing car-following model properties
 cf_model
 
 # test lane-changing model properties
 lc_model
+
+# testing the dynamics and interaction of different pedestrian models
+pedestrian_model
+
+# demonstration and regression tests for known bugs
+bugs
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Apr 15 15:11:31 2014 by SUMO netconvert Version dev-SVN-r16196
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <crossings.guess value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+    <edge id="CNE" from="C" to="NE" priority="1" numLanes="1" speed="3.00">
+        <lane index="0" allow="pedestrian"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="NWC" from="NW" to="C" priority="1" numLanes="1" speed="3.00">
+        <lane index="0" allow="pedestrian"/>
+    </edge>
+</edges>

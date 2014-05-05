@@ -96,7 +96,7 @@ public:
      *
      * @param[in] id The id of the edge to build
      */
-    MSEdge* buildEdge(const std::string& id, const MSEdge::EdgeBasicFunction function, const std::string& streetName);
+    MSEdge* buildEdge(const std::string& id, const MSEdge::EdgeBasicFunction function, const std::string& streetName, const std::string& edgeType);
 
 
 private:

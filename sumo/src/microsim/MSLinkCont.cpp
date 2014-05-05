@@ -42,7 +42,7 @@
 // ===========================================================================
 #ifdef HAVE_INTERNAL_LANES
 const MSEdge*
-MSLinkContHelper::getInternalFollowingEdge(MSLane* fromLane,
+MSLinkContHelper::getInternalFollowingEdge(const MSLane* fromLane,
         const MSEdge* followerAfterInternal) {
     //@todo to be optimized
     const MSLinkCont& lc = fromLane->getLinkCont();
@@ -51,6 +51,25 @@ MSLinkContHelper::getInternalFollowingEdge(MSLane* fromLane,
         if (&link->getLane()->getEdge() == followerAfterInternal) {
             if (link->getViaLane() != 0) {
                 return &link->getViaLane()->getEdge();
+            } else {
+                return 0; // network without internal links
+            }
+        }
+    }
+    return 0;
+}
+
+
+const MSLane*
+MSLinkContHelper::getInternalFollowingLane(const MSLane* fromLane,
+        const MSLane* followerAfterInternal) {
+    //@todo to be optimized
+    const MSLinkCont& lc = fromLane->getLinkCont();
+    for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); j++) {
+        MSLink* link = *j;
+        if (link->getLane() == followerAfterInternal) {
+            if (link->getViaLane() != 0) {
+                return link->getViaLane();
             } else {
                 return 0; // network without internal links
             }

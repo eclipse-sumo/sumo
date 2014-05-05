@@ -140,7 +140,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             break;
             case TL_CONTROLLED_LANES: {
-                const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLanes();
+                const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLaneVectors();
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                 std::vector<std::string> laneIDs;
                 for (MSTrafficLightLogic::LaneVectorVector::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
@@ -153,7 +153,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             break;
             case TL_CONTROLLED_LINKS: {
-                const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLanes();
+                const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLaneVectors();
                 const MSTrafficLightLogic::LinkVectorVector& links = vars.getActive()->getLinks();
                 //
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);

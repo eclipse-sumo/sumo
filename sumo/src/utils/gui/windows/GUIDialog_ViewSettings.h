@@ -274,7 +274,7 @@ private:
     FXCheckButton* myDither;
     FXCheckButton* myShowSizeLegend;
 
-    NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myStreetNamePanel,
+    NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel,
                *myJunctionNamePanel, *myInternalJunctionNamePanel,
                *myVehicleNamePanel, *myPersonNamePanel,
                *myAddNamePanel, *myPOINamePanel, *myPolyNamePanel;

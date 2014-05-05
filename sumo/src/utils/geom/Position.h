@@ -209,6 +209,16 @@ public:
         return myX != p2.myX || myY != p2.myY || myZ != p2.myZ;
     }
 
+    /// @brief lexicographical sorting for use in maps and sets
+    bool operator<(const Position& p2) const {
+        if (myX < p2.myX) {
+            return true;
+        } else if (myY < p2.myY) {
+            return true;
+        } else {
+            return myZ < p2.myZ;
+        }
+    }
 
     bool almostSame(const Position& p2, SUMOReal maxDiv = POSITION_EPS) const {
         return fabs(myX - p2.myX) < maxDiv && fabs(myY - p2.myY) < maxDiv && fabs(myZ - p2.myZ) < maxDiv;

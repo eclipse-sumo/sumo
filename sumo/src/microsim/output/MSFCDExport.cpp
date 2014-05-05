@@ -41,6 +41,7 @@
 #include "MSFCDExport.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSPerson.h>
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
@@ -73,7 +74,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
                 of.setPrecision(GEO_OUTPUT_ACCURACY);
                 GeoConvHelper::getFinal().cartesian2geo(pos);
             }
-            of.openTag("vehicle");
+            of.openTag(SUMO_TAG_VEHICLE);
             of.writeAttr(SUMO_ATTR_ID, veh->getID());
             of.writeAttr(SUMO_ATTR_X, pos.x());
             of.writeAttr(SUMO_ATTR_Y, pos.y());
@@ -86,6 +87,30 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             if (signals) {
                 of.writeAttr("signals", toString(veh->getSignals()));
             }
+            of.closeTag();
+        }
+    }
+    // write persons
+    MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
+    const std::vector<MSEdge*>& edges = ec.getEdges();
+    for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
+        const std::vector<MSPerson*>& persons = (*e)->getSortedPersons(timestep);
+        for (std::vector<MSPerson*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+            MSPerson* p = *it_p;
+            Position pos = p->getPosition();
+            if (useGeo) {
+                of.setPrecision(GEO_OUTPUT_ACCURACY);
+                GeoConvHelper::getFinal().cartesian2geo(pos);
+            }
+            of.openTag(SUMO_TAG_PERSON);
+            of.writeAttr(SUMO_ATTR_ID, p->getID());
+            of.writeAttr(SUMO_ATTR_X, pos.x());
+            of.writeAttr(SUMO_ATTR_Y, pos.y());
+            of.writeAttr(SUMO_ATTR_ANGLE, p->getAngle());
+            of.writeAttr(SUMO_ATTR_SPEED, p->getSpeed());
+            of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
+            of.writeAttr(SUMO_ATTR_EDGE, (*e)->getID());
+            of.writeAttr(SUMO_ATTR_SLOPE, (*e)->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()));
             of.closeTag();
         }
     }

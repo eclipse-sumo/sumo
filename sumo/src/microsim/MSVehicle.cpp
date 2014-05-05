@@ -1014,11 +1014,15 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(seen, getVehicleType().getMinGap());
         for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
             // the vehicle to enter the junction first has priority
-            const MSVehicle* leader = (*it).first.first;
-            if (leader->myLinkLeaders.count(getID()) == 0) {
+            const MSVehicle* leader = (*it).vehAndGap.first;
+            if (leader == 0) {
+                // leader is a pedestrian. Passing 'this' as a dummy.
+                //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link to " << (*link)->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->second << "\n";
+                adaptToLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
+            } else if (leader->myLinkLeaders.count(getID()) == 0) {
                 // leader isn't already following us, now we follow it
                 myLinkLeaders.insert(leader->getID());
-                adaptToLeader(it->first, seen, lastLink, lane, v, vLinkPass, it->second);
+                adaptToLeader(it->vehAndGap, seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
                 if (lastLink != 0) {
                     // we are not yet on the junction with this linkLeader.
                     // at least we can drive up to the previous link and stop there
@@ -1430,7 +1434,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
             // get the next lane, determine whether it is an internal lane
             const MSLane* approachedLane = item.myLink->getViaLane();
             if (approachedLane != 0) {
-                if (item.myLink->isCrossing()/* && item.myLink->willHaveBlockedFoe()*/) {
+                if (item.myLink->hasFoes()/* && item.myLink->willHaveBlockedFoe()*/) {
                     seenSpace = seenSpace - approachedLane->getBruttoVehLenSum();
                     hadVehicle |= approachedLane->getVehicleNumber() != 0;
                 } else {
@@ -1530,7 +1534,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
                     impatienceCorrection = MAX2(SUMOReal(0), STEPS2TIME(myWaitingTime));
                 }
                 */
-                if (leftSpace < -impatienceCorrection / 10. && item.myLink->isCrossing()) {
+                if (leftSpace < -impatienceCorrection / 10. && item.myLink->hasFoes()) {
                     removalBegin = i;
                 }
                 //removalBegin = i;

@@ -45,6 +45,7 @@
 #include <microsim/MSJunction.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSPModel.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
@@ -288,7 +289,7 @@ GUINet::initGUIStructures() {
             b.add((*j)->getShape().getBoxBoundary());
         }
         // make sure persons are always drawn and selectable since they depend on their edge being drawn
-        b.grow(MSPerson::SIDEWALK_OFFSET + 1);
+        b.grow(MSPModel::SIDEWALK_OFFSET + 1);
         cmin[0] = b.xmin();
         cmin[1] = b.ymin();
         cmax[0] = b.xmax();

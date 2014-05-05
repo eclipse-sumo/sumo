@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 20 Feb 2014 04:34:12 PM CET by Netedit Version dev-SVN-r15634
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/sip-svn-trunk/projects/colombo/debug/_function_crossings_specified_4_arm_complete/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="1" speed="13.89">
+        <lane index="0" allow="delivery pedestrian"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="1" speed="13.89">
+        <lane index="0" allow="delivery pedestrian"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+</edges>

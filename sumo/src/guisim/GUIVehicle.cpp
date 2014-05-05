@@ -1528,19 +1528,30 @@ GUIVehicle::selectBlockingFoes() const {
             continue;
         }
         std::vector<const SUMOVehicle*> blockingFoes;
+        std::vector<const MSPerson*> blockingPersons;
         dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLengthWithGap(),
                            getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), &blockingFoes);
         for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
             gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
         }
 #ifdef HAVE_INTERNAL_LANES
-        const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(dist, getVehicleType().getMinGap());
+        const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(dist, getVehicleType().getMinGap(), &blockingPersons);
         for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
             // the vehicle to enter the junction first has priority
-            const MSVehicle* leader = it->first.first;
-            if ((static_cast<const GUIVehicle*>(leader))->myLinkLeaders.count(getID()) == 0) {
-                // leader isn't already following us, now we follow it
-                gSelected.select(static_cast<const GUIVehicle*>(leader)->getGlID());
+            const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(it->vehAndGap.first);
+            if (leader != 0) {
+                if (leader->myLinkLeaders.count(getID()) == 0) {
+                    // leader isn't already following us, now we follow it
+                    gSelected.select(leader->getGlID());
+                }
+            } else {
+                for (std::vector<const MSPerson*>::iterator it_p = blockingPersons.begin(); it_p != blockingPersons.end(); ++it_p) {
+                    const GUIPerson* foe = dynamic_cast<const GUIPerson*>(*it_p);
+                    if (foe != 0) {
+                        gSelected.select(foe->getGlID());
+                        //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link " << dpi.myLink->getRespondIndex() << " to " << dpi.myLink->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->second << "\n"; 
+                    }
+                }
             }
         }
 #endif

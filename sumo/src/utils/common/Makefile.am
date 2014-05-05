@@ -4,6 +4,7 @@ EXTRA_DIST = VectorHelper.h Command.h \
 NamedObjectCont.h NamedRTree.h StaticCommand.h RandomDistributor.h \
 SUMOAbstractRouter.h DijkstraRouterTT.h DijkstraRouterEffort.h \
 AStarRouter.h \
+PedestrianRouter.h \
 SUMOVehicle.h \
 WrappingCommand.h ValueRetriever.h ValueSource.h \
 StringBijection.h

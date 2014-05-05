@@ -58,6 +58,7 @@ class SUMOVehicleParameter;
 class MSVehicle;
 class MSLane;
 class MSPerson;
+class MSJunction;
 
 
 // ===========================================================================
@@ -89,7 +90,11 @@ public:
         /// @brief The edge is an internal edge
         EDGEFUNCTION_INTERNAL = 2,
         /// @brief The edge is a district edge
-        EDGEFUNCTION_DISTRICT = 3
+        EDGEFUNCTION_DISTRICT = 3,
+        /// @brief The edge is a pedestrian crossing (a special type of internal edge)
+        EDGEFUNCTION_CROSSING = 4,
+        /// @brief The edge is a pedestrian walking area (a special type of internal edge)
+        EDGEFUNCTION_WALKINGAREA = 5
     };
 
 
@@ -112,7 +117,7 @@ public:
      * @param[in] function A basic type of the edge
      * @param[in] streetName The street name for that edge
      */
-    MSEdge(const std::string& id, int numericalID, const EdgeBasicFunction function, const std::string& streetName = "");
+    MSEdge(const std::string& id, int numericalID, const EdgeBasicFunction function, const std::string& streetName = "", const std::string& edgeType = "");
 
 
     /// @brief Destructor.
@@ -170,6 +175,12 @@ public:
     }
 
 
+    /** @brief Returns this edge's persons sorted by pos
+     *
+     * @return This edge's persons sorted by pos
+     */
+    std::vector<MSPerson*> getSortedPersons(SUMOTime timestep) const;
+
     /** @brief Get the allowed lanes to reach the destination-edge.
      *
      * If there is no such edge, get 0. Then you are on the wrong edge.
@@ -210,6 +221,16 @@ public:
         return myFunction == EDGEFUNCTION_INTERNAL;
     }
 
+    /// @brief return whether this edge is a pedestrian crossing
+    inline bool isCrossing() const {
+        return myFunction == EDGEFUNCTION_CROSSING;
+    }
+
+    /// @brief return whether this edge is walking area
+    inline bool isWalkingArea() const {
+        return myFunction == EDGEFUNCTION_WALKINGAREA;
+    }
+
     /** @brief Returns the numerical id of the edge
      * @return This edge's numerical id
      */
@@ -222,6 +243,12 @@ public:
      */
     const std::string& getStreetName() const {
         return myStreetName;
+    }
+
+    /** @brief Returns the type of the edge
+     */
+    const std::string& getEdgeType() const {
+        return myEdgeType;
     }
     /// @}
 
@@ -260,6 +287,21 @@ public:
      */
     const MSEdge* getFollower(unsigned int n) const {
         return mySuccessors[n];
+    }
+
+
+    const MSJunction* getFromJunction() const {
+        return myFromJunction;
+    }
+
+    const MSJunction* getToJunction() const {
+        return myToJunction;
+    }
+
+
+    void setJunctions(MSJunction* from, MSJunction* to) {
+        myFromJunction = from;
+        myToJunction = to;
     }
     /// @}
 
@@ -527,6 +569,20 @@ protected:
 
     };
 
+    /** @class person_by_offset_sorter
+     * @brief Sorts edges by their ids
+     */
+    class person_by_offset_sorter {
+    public:
+        /// @brief constructor
+        explicit person_by_offset_sorter(SUMOTime timestep): myTime(timestep) { }
+
+        /// @brief comparing operator
+        int operator()(const MSPerson* const p1, const MSPerson* const p2) const;
+    private:
+        SUMOTime myTime;
+    };
+
 
     /** @brief Get the allowed lanes to reach the destination-edge.
      *
@@ -568,6 +624,10 @@ protected:
     /// @brief The preceeding edges
     std::vector<MSEdge*> myPredeccesors;
 
+    /// @brief the junctions for this edge
+    MSJunction* myFromJunction;
+    MSJunction* myToJunction;
+
     /// @brief Persons on the edge (only for drawing)
     mutable std::set<MSPerson*> myPersons;
 
@@ -589,6 +649,9 @@ protected:
 
     /// @brief the real-world name of this edge (need not be unique)
     std::string myStreetName;
+
+    /// @brief the type of the edge (optionally used during network creation)
+    std::string myEdgeType;
 
     /// @brief whether this edge belongs to a roundabout
     bool myAmRoundabout;

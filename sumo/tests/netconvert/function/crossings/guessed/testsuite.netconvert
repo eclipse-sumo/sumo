@@ -1,0 +1,41 @@
+2_arm
+2_arm_oneway_WE
+2_arm_oneway_EW
+2_arm_path
+
+# 3 arm junction with pedestrian paths
+3_arm_path
+
+# 3 arm junction with 3 crossings
+3_arm_1_opposite_sidewalk_3_crossings
+
+# 4 arm junction with crossings on all sides
+4_arm_complete
+4_arm_complete_priority
+
+# slanted 4 arm junction with crossings on all sides
+4_arm_slanted_complete
+4_arm_3_neightboring_split
+
+# one-way street with a parallel footpath
+4_arm_parallel_path
+4_arm_oneway
+
+# a pedestrian path crosses a street with sidewalks
+path_across_street
+
+# a pedestrian path crosses a one-street with a sidewalk
+path_across_1way_street
+
+# a motorway without sidewalks splits. no crossings should be built.
+motorway_split
+
+# build the network to be used in 
+# tests/sumo/basic/person/pedestrians/pedestrina_interactions/jam_trafficlight
+tl_controlled_path
+
+# guess sidewalks and crossings for a loaded net.xml and patch the traffic light plans
+patch_tls_from_sumonet
+
+# a complex network
+adlershof_dlr

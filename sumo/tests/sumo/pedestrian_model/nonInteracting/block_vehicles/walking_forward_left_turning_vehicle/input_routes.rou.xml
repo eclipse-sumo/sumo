@@ -1,0 +1,21 @@
+<routes>
+    <route id="SN" edges="SC CN"/>
+    <route id="SE" edges="SC CE"/>
+    <route id="SW" edges="SC CW"/>
+
+    <route id="WE" edges="WC CE"/>
+    <route id="WS" edges="WC CS"/>
+    <route id="WN" edges="WC CN"/>
+
+    <route id="NS" edges="NC CS"/>
+    <route id="NW" edges="NC CW"/>
+    <route id="NE" edges="NC CE"/>
+
+    <route id="EW" edges="EC CW"/>
+    <route id="EN" edges="EC CN"/>
+    <route id="ES" edges="EC CS"/>
+
+    <vType id="car" vClass="passenger" sigma="0" guiShape="passenger"/>
+
+    <flow id="car_NE"  route="NE" type="car"        begin="46" end="52" period="4" departLane="best" color="yellow"/>
+</routes>

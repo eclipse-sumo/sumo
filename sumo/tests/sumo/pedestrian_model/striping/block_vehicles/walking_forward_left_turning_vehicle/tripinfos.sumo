@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 25 16:18:00 2014 by SUMO sumo Version dev-SVN-r16032
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <pedestrian.dawdling value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
+    <tripinfo id="car_NE.0" depart="46.00" departLane="NC_4" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="65.00" arrivalLane="CE_4" arrivalPos="86.05" arrivalSpeed="13.89" duration="19.00" routeLength="167.38" waitSteps="0" rerouteNo="0" devices="tripinfo_car_NE.0" vType="car" vaporized=""/>
+    <tripinfo id="car_NE.1" depart="50.00" departLane="NC_4" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="75.00" arrivalLane="CE_4" arrivalPos="86.05" arrivalSpeed="13.89" duration="25.00" routeLength="167.38" waitSteps="3" rerouteNo="0" devices="tripinfo_car_NE.1" vType="car" vaporized=""/>
+    <personinfo id="p0" depart="0.00">
+        <stop arrival="0.00"/>
+        <walk arrival="137.00"/>
+    </personinfo>
+</tripinfos>

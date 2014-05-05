@@ -32,9 +32,14 @@
 #endif
 
 #include <string>
+#include <vector>
 #include <utils/common/Named.h>
 #include <utils/geom/Position.h>
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class ROEdge;
 
 // ===========================================================================
 // class definitions
@@ -69,9 +74,30 @@ public:
     }
 
 
+    inline const std::vector<const ROEdge*>& getIncoming() const {
+        return myIncoming;
+    }
+
+    inline const std::vector<const ROEdge*>& getOutgoing() const {
+        return myOutgoing;
+    }
+
+    void addIncoming(ROEdge* edge) {
+        myIncoming.push_back(edge);
+    }
+
+    void addOutgoing(ROEdge* edge) {
+        myOutgoing.push_back(edge);
+    }
+
 private:
     /// @brief This node's position
     Position myPosition;
+
+    /// @brief incoming edges
+    std::vector<const ROEdge*> myIncoming;
+    /// @brief outgoing edges
+    std::vector<const ROEdge*> myOutgoing;
 
 
 private:

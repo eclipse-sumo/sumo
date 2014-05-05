@@ -34,6 +34,7 @@
 #include <vector>
 #include <utils/common/Named.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include "ROEdge.h"
 
 
 // ===========================================================================
@@ -57,8 +58,8 @@ public:
      * @param[in] maxSpeed The maximum speed allowed on the lane
      * @param[in] permissions Vehicle classes that may pass this lane
      */
-    ROLane(const std::string& id, SUMOReal length, SUMOReal maxSpeed, SVCPermissions permissions) :
-        Named(id), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions)
+    ROLane(const std::string& id, ROEdge* edge, SUMOReal length, SUMOReal maxSpeed, SVCPermissions permissions) :
+        Named(id), myEdge(edge), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions)
     {}
 
 
@@ -89,6 +90,30 @@ public:
         return myPermissions;
     }
 
+    /** @brief Returns the lane's edge
+     * @return This lane's edge
+     */
+    ROEdge& getEdge() const {
+        return *myEdge;
+    }
+
+    /// @brief get the list of outgoing lanes
+    const std::vector<const ROLane*>& getOutgoingLanes() const {
+        return myOutgoingLanes;
+    }
+
+    void addOutgoingLane(ROLane* lane) {
+        myOutgoingLanes.push_back(lane);
+    }
+
+    /// @brief get the state of the link from the logical predecessor to this lane (ignored for routing)
+    inline LinkState getIncomingLinkState() const {
+        return LINKSTATE_MAJOR;
+    }
+
+    inline bool allowsVehicleClass(SUMOVehicleClass vclass) const {
+        return (myPermissions & vclass) == vclass;
+    }
 
 private:
     /// @brief The length of the lane
@@ -99,6 +124,10 @@ private:
 
     /// @brief The encoding of allowed vehicle classes
     SVCPermissions myPermissions;
+
+    ROEdge* myEdge;
+
+    std::vector<const ROLane*> myOutgoingLanes;
 
 
 private:

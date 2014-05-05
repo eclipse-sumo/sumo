@@ -170,7 +170,7 @@ public:
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
 #ifdef DijkstraRouterTT_DEBUG_QUERY
-            std::cout << "DEBUG: hit '" << minEdge->getID() << "' Q: ";
+            std::cout << "DEBUG: hit '" << minEdge->getID() << "' TT: " << minimumInfo->traveltime << " Q: ";
             for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
                 std::cout << (*it)->traveltime << "," << (*it)->edge->getID() << " ";
             }

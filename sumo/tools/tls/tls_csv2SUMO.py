@@ -167,7 +167,10 @@ for keyIndex, key in enumerate(allKeys):
         indices[n] = {}
         index = 0
         for i in n._incLanes:
-            (e, l) = i.split("_")
+            e = '_'.join(i.split("_")[:-1])
+            l = i.split("_")[-1]
+            if e in net1._crossings_and_walkingAreas: 
+                continue
             e = net1._id2edge[e]
             li = e._lanes[int(l)]
             for c in li._outgoing:

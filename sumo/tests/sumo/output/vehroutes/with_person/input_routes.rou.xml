@@ -5,6 +5,6 @@
     <person id="p1" depart="100">
         <stop lane="4/1to3/1_0" until="150"/>
         <ride from="4/1to3/1" to="1/1to0/1" lines="0"/>
-        <walk from="1/1to0/1" to="0/0to0/1" speed="5"/>
+        <walk from="1/1to0/1" to="0/0to1/0" arrivalPos="50" speed="5"/>
     </person>
 </routes>

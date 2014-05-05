@@ -37,6 +37,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSPModel.h>
 #include <microsim/MSGlobals.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSXMLRawOut.h"
@@ -60,14 +61,14 @@ MSXMLRawOut::write(OutputDevice& of, const MSEdgeControl& ec,
     of.openTag("timestep") << " time=\"" << time2string(timestep) << "\"";
     const std::vector<MSEdge*>& edges = ec.getEdges();
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        writeEdge(of, **e);
+        writeEdge(of, **e, timestep);
     }
     of.closeTag();
 }
 
 
 void
-MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge) {
+MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) {
     //en
     bool dump = !MSGlobals::gOmitEmptyEdgesOnDump;
     if (!dump) {
@@ -95,24 +96,36 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge) {
 #endif
     }
     //en
-    if (dump) {
+    const std::vector<MSPerson*>& persons = edge.getSortedPersons(timestep);
+    if (dump || persons.size() > 0) {
         of.openTag("edge") << " id=\"" << edge.getID() << "\"";
+        if (dump) {
 #ifdef HAVE_INTERNAL
-        if (MSGlobals::gUseMesoSim) {
-            MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(edge);
-            while (seg != 0) {
-                seg->writeVehicles(of);
-                seg = seg->getNextSegment();
-            }
-        } else {
+            if (MSGlobals::gUseMesoSim) {
+                MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(edge);
+                while (seg != 0) {
+                    seg->writeVehicles(of);
+                    seg = seg->getNextSegment();
+                }
+            } else {
 #endif
-            const std::vector<MSLane*>& lanes = edge.getLanes();
-            for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
-                writeLane(of, **lane);
-            }
+                const std::vector<MSLane*>& lanes = edge.getLanes();
+                for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
+                    writeLane(of, **lane);
+                }
 #ifdef HAVE_INTERNAL
+            }
+#endif
         }
-#endif
+        // write persons
+        for (std::vector<MSPerson*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+            of.openTag(SUMO_TAG_PERSON);
+            of.writeAttr(SUMO_ATTR_ID, (*it_p)->getID());
+            of.writeAttr(SUMO_ATTR_POSITION, (*it_p)->getEdgePos());
+            of.writeAttr(SUMO_ATTR_ANGLE, (*it_p)->getAngle());
+            of.writeAttr("stage", (*it_p)->getCurrentStageTypeName());
+            of.closeTag();
+        }
         of.closeTag();
     }
 }

@@ -275,6 +275,8 @@ public:
     virtual void replaceRemoved(NBEdge* removed, int removedLane,
                                 NBEdge* by, int byLane) = 0;
 
+    /// @brief patches (loaded) signal plans by modifying lane indices
+    virtual void shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {}
 
     /** @brief returns the information whether the given link is a left-mover
      * @param[in] from The connection's start edge

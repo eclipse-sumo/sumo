@@ -27,3 +27,6 @@ recoverable_errors
 
 # import elevation data
 elevation
+
+# add sidewalks to appropriate edges
+adlershof_dlr_sidewalks

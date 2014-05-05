@@ -57,12 +57,14 @@
 #include <utils/common/DijkstraRouterEffort.h>
 #include <utils/common/AStarRouter.h>
 #include <utils/common/NamedRTree.h>
+#include <utils/common/PedestrianRouter.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class MSEdge;
+class MSJunction;
 class MSEdgeControl;
 class MSJunctionControl;
 class MSInsertionControl;
@@ -105,6 +107,10 @@ public:
         /// @brief The simulation contains too many vehicles (@deprecated)
         SIMSTATE_TOO_MANY_VEHICLES
     };
+
+    //typedef PedestrianRouterDijkstra<MSEdge, MSLane> MSPedestrianRouterDijkstra;
+    typedef PedestrianRouterDijkstra<MSEdge, MSLane, MSJunction> MSPedestrianRouterDijkstra;
+
 
 
 public:
@@ -507,6 +513,7 @@ public:
         const std::vector<MSEdge*>& prohibited = std::vector<MSEdge*>()) const;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
         const std::vector<MSEdge*>& prohibited = std::vector<MSEdge*>()) const;
+    MSPedestrianRouterDijkstra& getPedestrianRouter(const std::vector<MSEdge*>& prohibited = std::vector<MSEdge*>()) const;
 
 
     /** @brief Returns an RTree that contains lane IDs
@@ -608,6 +615,7 @@ protected:
     mutable DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterTTDijkstra;
     mutable AStarRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterTTAStar;
     mutable DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterEffort;
+    mutable MSPedestrianRouterDijkstra* myPedestrianRouter;
 
 
     /// @brief An RTree structure holding lane IDs

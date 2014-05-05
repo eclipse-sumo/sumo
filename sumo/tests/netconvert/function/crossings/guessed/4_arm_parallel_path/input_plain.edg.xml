@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 29 Jan 2014 03:30:12 PM CET by Netedit Version dev-SVN-r15523
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net4a.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net4a.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/sip-svn-trunk/projects/colombo/prototype4/plain4a"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+    <edge id="EC" from="E" to="C" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="NWC" from="NW" to="C" priority="1" numLanes="1" speed="3">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+    </edge>
+    <edge id="CNE" from="C" to="NE" priority="1" numLanes="1" speed="3">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+    </edge>
+</edges>

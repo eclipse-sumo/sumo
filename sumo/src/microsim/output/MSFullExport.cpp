@@ -122,7 +122,7 @@ MSFullExport::writeTLS(OutputDevice& of, SUMOTime /* timestep */) {
     std::vector<std::string> ids = vc.getAllTLIds();
     for (std::vector<std::string>::const_iterator id_it = ids.begin(); id_it != ids.end(); ++id_it) {
         MSTLLogicControl::TLSLogicVariants& vars = MSNet::getInstance()->getTLSControl().get(*id_it);
-        const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLanes();
+        const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLaneVectors();
 
         std::vector<std::string> laneIDs;
         for (MSTrafficLightLogic::LaneVectorVector::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {

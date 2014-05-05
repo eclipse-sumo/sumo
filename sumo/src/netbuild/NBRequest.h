@@ -105,6 +105,14 @@ public:
      */
     bool mustBrake(const NBEdge* const from, const NBEdge* const to) const;   // !!!
 
+    /** @brief Returns the information whether the described flow must brake for the given crossing
+     * @param[in] from The connection's start edge
+     * @param[in] to The connection's end edge
+     * @param[in] crossing The pedestrian crossing to check 
+     * @return Whether the described connection must brake (has higher priorised foes)
+     */
+    bool mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) const;
+
     /** @brief Returns the information whether the given flows cross
      * @param[in] from1 The starting edge of the first stream
      * @param[in] to1 The ending edge of the first stream
@@ -148,6 +156,10 @@ private:
         Returns the next link index within the junction */
     int writeLaneResponse(OutputDevice& od, NBEdge* from, int lane,
                           int pos, const bool checkLaneFoes) const;
+
+    /** @brief writes the response of a certain crossing
+        Returns the next link index within the junction */
+    int writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos, int normalConnections) const; 
 
     /** @brief Writes the response of a certain link
      *
@@ -215,6 +227,10 @@ private:
      */
     bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane, const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const;
 
+    /// @brief return to total number of edge-to-edge connections of this request-logic
+    inline size_t numLinks() const;
+
+
 private:
     /// the node the request is assigned to
     NBNode* myJunction;
@@ -227,6 +243,9 @@ private:
 
     /** edges outgoing from the junction */
     const EdgeVector& myOutgoing;
+
+    /** edges outgoing from the junction */
+    const std::vector<NBNode::Crossing>& myCrossings;
 
     /** definition of a container to store boolean informations about a link
         into */

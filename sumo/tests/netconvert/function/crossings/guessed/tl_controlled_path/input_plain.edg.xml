@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 17 Mar 2014 03:48:51 PM CET by Netedit Version dev-SVN-r15873
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net3b.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net3b.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/sip-svn-trunk/projects/colombo/prototype3/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+    <edge id="AB" from="A" to="B" priority="1" numLanes="1" speed="13.89">
+        <lane index="0" allow="pedestrian"/>
+    </edge>
+    <edge id="BC" from="B" to="C" priority="1" numLanes="1" speed="13.89">
+        <lane index="0" allow="pedestrian"/>
+    </edge>
+    <edge id="CD" from="C" to="D" priority="1" numLanes="1" speed="13.89">
+        <lane index="0" allow="pedestrian"/>
+    </edge>
+    <edge id="DE" from="D" to="E" priority="1" numLanes="1" speed="13.89">
+        <lane index="0" allow="pedestrian"/>
+    </edge>
+</edges>

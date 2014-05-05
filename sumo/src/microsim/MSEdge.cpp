@@ -44,6 +44,7 @@
 #include "MSLaneChanger.h"
 #include "MSGlobals.h"
 #include "MSVehicle.h"
+#include "MSPerson.h"
 #include "MSEdgeWeightsStorage.h"
 
 #ifdef HAVE_INTERNAL
@@ -69,10 +70,15 @@ std::vector<MSEdge*> MSEdge::myEdges;
 // ===========================================================================
 MSEdge::MSEdge(const std::string& id, int numericalID,
                const EdgeBasicFunction function,
-               const std::string& streetName) :
+               const std::string& streetName,
+               const std::string& edgeType) :
     Named(id), myNumericalID(numericalID), myLanes(0),
     myLaneChanger(0), myFunction(function), myVaporizationRequests(0),
-    myLastFailedInsertionTime(-1), myStreetName(streetName), myAmRoundabout(false) {}
+    myFromJunction(0), myToJunction(0),
+    myLastFailedInsertionTime(-1), 
+    myStreetName(streetName), 
+    myEdgeType(edgeType), 
+    myAmRoundabout(false) {}
 
 
 MSEdge::~MSEdge() {
@@ -151,7 +157,9 @@ MSEdge::closeBuilding() {
             toL = (*j)->getViaLane();
             if (toL != 0) {
                 MSEdge& to = toL->getEdge();
-                to.myPredeccesors.push_back(this);
+                if (std::find(to.myPredeccesors.begin(), to.myPredeccesors.end(), this) == to.myPredeccesors.end()) {
+                    to.myPredeccesors.push_back(this);
+                }
             }
 #endif
         }
@@ -581,6 +589,20 @@ SUMOReal
 MSEdge::getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
     // @note lanes might have different maximum speeds in theory
     return getLanes()[0]->getVehicleMaxSpeed(veh);
+}
+
+
+std::vector<MSPerson*> 
+MSEdge::getSortedPersons(SUMOTime timestep) const {
+    std::vector<MSPerson*> result(myPersons.begin(), myPersons.end());
+    sort(result.begin(), result.end(), person_by_offset_sorter(timestep));
+    return result;
+}
+
+
+int 
+MSEdge::person_by_offset_sorter::operator()(const MSPerson* const p1, const MSPerson* const p2) const {
+    return p1->getCurrentStage()->getEdgePos(myTime) < p2->getCurrentStage()->getEdgePos(myTime);
 }
 
 /****************************************************************************/

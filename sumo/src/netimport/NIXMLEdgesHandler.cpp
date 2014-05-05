@@ -259,6 +259,10 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     }
     myCurrentEdge->setLoadedLength(myLength);
     myCurrentEdge->setPermissions(myPermissions);
+    if (myTypeCont.getSidewalkWidth(myCurrentType) != NBEdge::UNSPECIFIED_WIDTH) {
+        // lane specifications may override this
+        myCurrentEdge->addSidewalk(myTypeCont.getSidewalkWidth(myCurrentType));
+    }
 }
 
 

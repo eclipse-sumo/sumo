@@ -106,6 +106,28 @@ RONetHandler::myStartElement(int element,
 
 
 void
+RONetHandler::myEndElement(int element) {
+    switch (element) {
+        case SUMO_TAG_NET:
+            // build junction graph
+            for (JunctionGraph::iterator it = myJunctionGraph.begin(); it != myJunctionGraph.end(); ++it) {
+                ROEdge* edge = myNet.getEdge(it->first);
+                RONode* from = myNet.getNode(it->second.first);
+                RONode* to = myNet.getNode(it->second.second);
+                if (edge != 0 && from != 0 && to != 0) {
+                    edge->setJunctions(from, to);
+                    from->addOutgoing(edge);
+                    to->addIncoming(edge);
+                }
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+
+void
 RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     // get the id, report an error if not given or empty...
     bool ok = true;
@@ -119,34 +141,37 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
         return;
     }
     // get the edge
+    std::string from;
+    std::string to;
     RONode* fromNode;
     RONode* toNode;
     int priority;
     myCurrentEdge = 0;
-    if (type == EDGEFUNC_INTERNAL) {
-        // this is an internal edge - for now we only us it the ensure a match
-        // between numerical edge ids in router and simulation
-        //  !!! recheck this; internal edges may be of importance during the dua
-        fromNode = 0;
-        toNode = 0;
+    if (type == EDGEFUNC_INTERNAL || type == EDGEFUNC_CROSSING || type == EDGEFUNC_WALKINGAREA) {
+        assert(myCurrentName[0] == ':');
+        std::string junctionID = myCurrentName.substr(1, myCurrentName.rfind('_') - 1);
+        myJunctionGraph[myCurrentName] = std::make_pair(junctionID, junctionID);
+        from = junctionID;
+        to = junctionID;
         priority = 0;
     } else {
-        const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
-        const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
+        from = attrs.get<std::string>(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
+        to = attrs.get<std::string>(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
         priority = attrs.get<int>(SUMO_ATTR_PRIORITY, myCurrentName.c_str(), ok);
         if (!ok) {
             return;
         }
-        fromNode = myNet.getNode(from);
-        if (fromNode == 0) {
-            fromNode = new RONode(from);
-            myNet.addNode(fromNode);
-        }
-        toNode = myNet.getNode(to);
-        if (toNode == 0) {
-            toNode = new RONode(to);
-            myNet.addNode(toNode);
-        }
+    }
+    myJunctionGraph[myCurrentName] = std::make_pair(from, to);
+    fromNode = myNet.getNode(from);
+    if (fromNode == 0) {
+        fromNode = new RONode(from);
+        myNet.addNode(fromNode);
+    }
+    toNode = myNet.getNode(to);
+    if (toNode == 0) {
+        toNode = new RONode(to);
+        myNet.addNode(toNode);
     }
     // build the edge
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority);
@@ -162,6 +187,12 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
             break;
         case EDGEFUNC_SINK:
             myCurrentEdge->setType(ROEdge::ET_SINK);
+            break;
+        case EDGEFUNC_WALKINGAREA:
+            myCurrentEdge->setType(ROEdge::ET_WALKINGAREA);
+            break;
+        case EDGEFUNC_CROSSING:
+            myCurrentEdge->setType(ROEdge::ET_CROSSING);
             break;
         case EDGEFUNC_INTERNAL:
             myCurrentEdge->setType(ROEdge::ET_INTERNAL);
@@ -205,7 +236,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     }
     // add when both values are valid
     if (maxSpeed > 0 && length > 0 && id.length() > 0) {
-        myCurrentEdge->addLane(new ROLane(id, length, maxSpeed, permissions));
+        myCurrentEdge->addLane(new ROLane(id, myCurrentEdge, length, maxSpeed, permissions));
     }
 }
 
@@ -239,10 +270,9 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok);
     std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
+    int fromLane = attrs.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
+    int toLane = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
     std::string dir = attrs.get<std::string>(SUMO_ATTR_DIR, 0, ok);
-    if (fromID[0] == ':') { // skip inner lane connections
-        return;
-    }
     ROEdge* from = myNet.getEdge(fromID);
     ROEdge* to = myNet.getEdge(toID);
     if (from == 0) {
@@ -251,6 +281,10 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     if (to == 0) {
         throw ProcessError("unknown to-edge '" + toID + "' in connection");
     }
+    if (from->getType() == ROEdge::ET_INTERNAL) { // skip inner lane connections
+        return;
+    }
+    from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
     from->addFollower(to, dir);
 }
 

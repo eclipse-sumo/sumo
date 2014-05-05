@@ -1,0 +1,6 @@
+basic
+unconnected
+unconnected_ignored
+
+# handle networks with pedestrian junction structures
+crossings_and_walkingareas

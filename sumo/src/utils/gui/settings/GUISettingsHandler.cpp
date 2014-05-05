@@ -135,6 +135,7 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.showRails = TplConvert::_2bool(attrs.getStringSecure("showRails", toString(mySettings.showRails)).c_str());
             mySettings.edgeName = parseTextSettings("edgeName", attrs, mySettings.edgeName);
             mySettings.internalEdgeName = parseTextSettings("internalEdgeName", attrs, mySettings.internalEdgeName);
+            mySettings.cwaEdgeName = parseTextSettings("cwaEdgeName", attrs, mySettings.cwaEdgeName);
             mySettings.streetName = parseTextSettings("streetName", attrs, mySettings.streetName);
             mySettings.hideConnectors = TplConvert::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
             myCurrentColorer = element;

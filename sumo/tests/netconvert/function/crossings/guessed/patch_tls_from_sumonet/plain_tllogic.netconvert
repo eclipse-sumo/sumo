@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Apr 24 08:54:32 2014 by SUMO netconvert Version dev-SVN-r16229
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <crossings.guess value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tllogic_file.xsd">
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="31" state="gGGgrrrgGGgrrrrGrG"/>
+        <phase duration="4" state="yyygrrryyygrrrrGrG"/>
+        <phase duration="6" state="rrrgrrrrrrgrrrrGrG"/>
+        <phase duration="4" state="rrryrrrrrryrrrrGrG"/>
+        <phase duration="31" state="rrrrgGgrrrrgGgGrGr"/>
+        <phase duration="4" state="rrrryygrrrryygGrGr"/>
+        <phase duration="6" state="rrrrrrgrrrrrrgGrGr"/>
+        <phase duration="4" state="rrrrrryrrrrrryGrGr"/>
+    </tlLogic>
+
+    <connection from="EC" to="CN" fromLane="1" toLane="1" tl="C" linkIndex="4"/>
+    <connection from="EC" to="CW" fromLane="2" toLane="2" tl="C" linkIndex="5"/>
+    <connection from="EC" to="CS" fromLane="2" toLane="2" tl="C" linkIndex="6"/>
+    <connection from="NC" to="CW" fromLane="1" toLane="1" tl="C" linkIndex="0"/>
+    <connection from="NC" to="CS" fromLane="1" toLane="1" tl="C" linkIndex="1"/>
+    <connection from="NC" to="CS" fromLane="2" toLane="2" tl="C" linkIndex="2"/>
+    <connection from="NC" to="CE" fromLane="2" toLane="2" tl="C" linkIndex="3"/>
+    <connection from="SC" to="CE" fromLane="1" toLane="1" tl="C" linkIndex="7"/>
+    <connection from="SC" to="CN" fromLane="1" toLane="1" tl="C" linkIndex="8"/>
+    <connection from="SC" to="CN" fromLane="2" toLane="2" tl="C" linkIndex="9"/>
+    <connection from="SC" to="CW" fromLane="2" toLane="2" tl="C" linkIndex="10"/>
+    <connection from="WC" to="CS" fromLane="1" toLane="1" tl="C" linkIndex="11"/>
+    <connection from="WC" to="CE" fromLane="2" toLane="2" tl="C" linkIndex="12"/>
+    <connection from="WC" to="CN" fromLane="2" toLane="2" tl="C" linkIndex="13"/>
+</tlLogics>

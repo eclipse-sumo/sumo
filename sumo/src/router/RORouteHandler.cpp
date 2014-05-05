@@ -47,6 +47,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice_String.h>
 #include "RONet.h"
+#include "ROLane.h"
 #include "RORouteHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -62,8 +63,10 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
                                const bool emptyDestinationsAllowed,
                                const bool ignoreErrors) :
     SUMORouteHandler(file),
+    myPedestrianRouter(0),
     myNet(net),
     myActivePlan(0),
+    myActivePlanSize(0),
     myTryRepair(tryRepair),
     myEmptyDestinationsAllowed(emptyDestinationsAllowed),
     myErrorOutput(ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
@@ -74,6 +77,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
 
 
 RORouteHandler::~RORouteHandler() {
+    delete myPedestrianRouter;
 }
 
 
@@ -126,6 +130,7 @@ RORouteHandler::myStartElement(int element,
     switch (element) {
         case SUMO_TAG_PERSON:
             myActivePlan = new OutputDevice_String(false, 1);
+            myActivePlanSize = 0;
             myActivePlan->openTag(SUMO_TAG_PERSON);
             (*myActivePlan) << attrs;
             break;
@@ -133,12 +138,20 @@ RORouteHandler::myStartElement(int element,
             myActivePlan->openTag(SUMO_TAG_RIDE);
             (*myActivePlan) << attrs;
             myActivePlan->closeTag();
+            myActivePlanSize++;
             break;
         }
         case SUMO_TAG_WALK: {
-            myActivePlan->openTag(SUMO_TAG_WALK);
-            (*myActivePlan) << attrs;
-            myActivePlan->closeTag();
+            if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+                // copy walk as it is
+                // XXX allow --repair?
+                myActivePlan->openTag(SUMO_TAG_WALK);
+                (*myActivePlan) << attrs;
+                myActivePlan->closeTag();
+                myActivePlanSize++;
+            } else {
+                routePedestrian(attrs, *myActivePlan);
+            }
             break;
         }
         case SUMO_TAG_FLOW:
@@ -395,12 +408,17 @@ RORouteHandler::closeVehicle() {
 void
 RORouteHandler::closePerson() {
     myActivePlan->closeTag();
-    myNet.addPerson(myVehicleParameter->depart, myActivePlan->getString());
-    registerLastDepart();
+    if (myActivePlanSize > 0) {
+        myNet.addPerson(myVehicleParameter->depart, myActivePlan->getString());
+        registerLastDepart();
+    } else {
+        WRITE_WARNING("Discarding person '" + myVehicleParameter->id + "' because it's plan is empty");
+    }
     delete myVehicleParameter;
     myVehicleParameter = 0;
     delete myActivePlan;
     myActivePlan = 0;
+    myActivePlanSize = 0;
 }
 
 
@@ -450,6 +468,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         myActivePlan->openTag(SUMO_TAG_STOP);
         (*myActivePlan) << attrs;
         myActivePlan->closeTag();
+        myActivePlanSize++;
         return;
     }
     std::string errorSuffix;
@@ -522,6 +541,71 @@ RORouteHandler::parseEdges(const std::string& desc, std::vector<const ROEdge*>& 
         }
     }
 }
+
+
+bool 
+RORouteHandler::routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& plan) {
+    bool ok = true;
+    const char* id = myVehicleParameter->id.c_str();
+    SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok, 0);
+    SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, id, ok, -NUMERICAL_EPS);
+    assert(!attrs.hasAttribute(SUMO_ATTR_EDGES));
+    assert(myActiveRoute.size() == 0);
+    const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, id, ok);
+    const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, id, ok);
+    const ROEdge* from = myNet.getEdge(fromID);
+    if (from == 0) { 
+        myErrorOutput->inform("The edge '" + fromID + "' within a walk of " + myVehicleParameter->id + " is not known."
+                + "\n The route can not be build.");
+        ok = false;
+    }
+    const ROEdge* to = myNet.getEdge(toID);
+    if (to == 0) { 
+        myErrorOutput->inform("The edge '" + toID + "' within a walk of " + myVehicleParameter->id + " is not known."
+                + "\n The route can not be build.");
+        ok = false;
+    }
+    if (myPedestrianRouter == 0) {
+        myPedestrianRouter = new ROPedestrianRouterDijkstra();
+    }
+    myPedestrianRouter->compute(from, to, 
+            SUMOVehicleParameter::interpretEdgePos(departPos, from->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + fromID),
+            SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + toID),
+            DEFAULT_PEDESTRIAN_SPEED, 0, 0, myActiveRoute);
+    if (myActiveRoute.empty()) {
+        ok = false;
+        const std::string error = "No connection found between '" + fromID + "' and '" + toID + "' for person '" + myVehicleParameter->id + "'.";
+        if (OptionsCont::getOptions().getBool("ignore-errors")) {
+            WRITE_WARNING(error);
+        } else {
+            WRITE_ERROR(error);
+        }
+    }
+    if (ok) {
+        myActivePlan->openTag(SUMO_TAG_WALK);
+        if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
+            plan.writeAttr(SUMO_ATTR_DEPARTPOS, attrs.get<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok));
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+            plan.writeAttr(SUMO_ATTR_ARRIVALPOS, attrs.get<SUMOReal>(SUMO_ATTR_ARRIVALPOS, id, ok));
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_DURATION)) {
+            plan.writeAttr(SUMO_ATTR_DURATION, attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, id, ok));
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+            plan.writeAttr(SUMO_ATTR_SPEED, attrs.get<SUMOReal>(SUMO_ATTR_SPEED, id, ok));
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
+            plan.writeAttr(SUMO_ATTR_BUS_STOP, attrs.get<std::string>(SUMO_ATTR_BUS_STOP, id, ok));
+        }
+        plan.writeAttr(SUMO_ATTR_EDGES, myActiveRoute);
+        myActivePlan->closeTag();
+        myActivePlanSize++;
+    }
+    myActiveRoute.clear();
+    return ok;
+}
+
 
 
 /****************************************************************************/

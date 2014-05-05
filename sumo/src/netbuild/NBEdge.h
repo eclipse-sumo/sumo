@@ -488,7 +488,12 @@ public:
     }
     //@}
 
+    /// @brief return the first lane with permissions other than SVC_PEDESTRIAN
+    int getFirstNonPedestrianLaneIndex(int direction) const;
+    NBEdge::Lane getFirstNonPedestrianLane(int direction) const;
 
+    /// @brief return the angle for computing pedestrian crossings at the given node
+    SUMOReal getCrossingAngle(NBNode* node);
 
     /// @name Edge geometry access and computation
     //@{
@@ -704,9 +709,10 @@ public:
      * Turnaround edge is ignored!
      * @param[in] destEdge The connection's destination edge
      * @param[in] destLane The connection's destination lane
+     * @param[in] fromLane If a value >= 0 is given, only return true if a connection from the given lane exists
      * @return whether a connection to the specified lane exists
      */
-    bool hasConnectionTo(NBEdge* destEdge, unsigned int destLane) const;
+    bool hasConnectionTo(NBEdge* destEdge, unsigned int destLane, int fromLane=-1) const;
 
 
     /** @brief Returns the information whethe a connection to the given edge has been added (or computed)
@@ -783,6 +789,9 @@ public:
     void replaceInConnections(NBEdge* which, NBEdge* by, unsigned int laneOff);
     void replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection>& origConns);
     void copyConnectionsFrom(NBEdge* src);
+
+    /// @brief modifify the toLane for all connections to the given edge
+    void shiftToLanesToEdge(NBEdge* to, unsigned int laneOff);
     /// @}
 
 
@@ -961,6 +970,9 @@ public:
 
     void markAsInLane2LaneState();
 
+    /// add a pedestrian sidewalk of the given width and shift existing connctions
+    void addSidewalk(SUMOReal width);
+
     /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given
     void setPermissions(SVCPermissions permissions, int lane = -1);
 
@@ -972,7 +984,6 @@ public:
     void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
 
     void preferVehicleClass(int lane, SUMOVehicleClass vclass);
-
 
 
     /// @brief set lane specific width (negative lane implies set for all lanes)
@@ -1135,9 +1146,9 @@ private:
     /** divides the lanes on the outgoing edges */
     void divideOnEdges(const EdgeVector* outgoing);
 
-    /** recomputes the priorities and manipulates them for a distribution
+    /** recomputes the edge priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
-    std::vector<unsigned int>* preparePriorities(
+    std::vector<unsigned int>* prepareEdgePriorities(
         const EdgeVector* outgoing);
 
     /** computes the sum of the given list's entries (sic!) */
@@ -1154,6 +1165,9 @@ private:
     /** moves a connection one place to the right;
         Attention! no checking for field validity */
     void moveConnectionToRight(unsigned int lane);
+
+    /// @brief whether the connection can originate on newFromLane
+    bool canMoveConnection(const Connection& con, unsigned int newFromLane) const;
     /// @}
 
 
@@ -1317,15 +1331,19 @@ public:
     class connections_toedgelane_finder {
     public:
         /// constructor
-        connections_toedgelane_finder(NBEdge* const edge2find, int lane2find) : myEdge2Find(edge2find), myLane2Find(lane2find) { }
+        connections_toedgelane_finder(NBEdge* const edge2find, int lane2find, int fromLane2find) : 
+            myEdge2Find(edge2find), 
+            myLane2Find(lane2find),
+            myFromLane2Find(fromLane2find) { }
 
         bool operator()(const Connection& c) const {
-            return c.toEdge == myEdge2Find && c.toLane == myLane2Find;
+            return c.toEdge == myEdge2Find && c.toLane == myLane2Find && (myFromLane2Find < 0 || c.fromLane == myFromLane2Find);
         }
 
     private:
         NBEdge* const myEdge2Find;
         int myLane2Find;
+        int myFromLane2Find;
 
     private:
         /// @brief invalidated assignment operator

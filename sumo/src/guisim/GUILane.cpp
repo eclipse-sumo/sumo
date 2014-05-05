@@ -62,6 +62,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+//#define GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
 
 // ===========================================================================
 // method definitions
@@ -170,23 +171,23 @@ GUILane::drawLinkNo() const {
         return;
     }
     // draw all links
+    if (getEdge().isCrossing()) {
+        // draw indices at the start and end of the crossing
+        MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+        PositionVector shape = getShape();
+        shape.extrapolate(0.5); // draw on top of the walking area
+        drawTextAtEnd(toString(link->getIndex()), shape, 0);
+        drawTextAtEnd(toString(link->getIndex()), shape.reverse(), 0);
+        return;
+    } 
+    // draw all links
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = myHalfLaneWidth;
-    glPushMatrix();
-    const PositionVector& g = getShape();
-    const Position& end = g.back();
-    const Position& f = g[-2];
-    const Position& s = end;
-    const SUMOReal rot = RAD2DEG(atan2((s.x() - f.x()), (f.y() - s.y())));
-    glTranslated(end.x(), end.y(), 0);
-    glRotated(rot, 0, 0, 1);
     for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
-        GLHelper::drawText(toString(myLinks[i]->getIndex()),
-                           Position(x2, 0), 0, .6, RGBColor(128, 128, 255, 255), 180);
+        drawTextAtEnd(toString(myLinks[i]->getIndex()), getShape(), x2);
         x1 -= w;
     }
-    glPopMatrix();
 }
 
 
@@ -196,27 +197,42 @@ GUILane::drawTLSLinkNo(const GUINet& net) const {
     if (noLinks == 0) {
         return;
     }
+    if (getEdge().isCrossing()) {
+        // draw indices at the start and end of the crossing
+        MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+        int linkNo = net.getLinkTLIndex(link);
+        if (linkNo >= 0) {
+            PositionVector shape = getShape();
+            shape.extrapolate(0.5); // draw on top of the walking area
+            drawTextAtEnd(toString(linkNo), shape, 0);
+            drawTextAtEnd(toString(linkNo), shape.reverse(), 0);
+        }
+        return;
+    } 
     // draw all links
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = myHalfLaneWidth;
-    glPushMatrix();
-    const PositionVector& g = getShape();
-    const Position& end = g.back();
-    const Position& f = g[-2];
-    const Position& s = end;
-    const SUMOReal rot = RAD2DEG(atan2((s.x() - f.x()), (f.y() - s.y())));
-    glTranslated(end.x(), end.y(), 0);
-    glRotated(rot, 0, 0, 1);
     for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
         int linkNo = net.getLinkTLIndex(myLinks[i]);
         if (linkNo < 0) {
             continue;
         }
-        GLHelper::drawText(toString(linkNo),
-                           Position(x2, 0), 0, .6, RGBColor(128, 128, 255, 255), 180);
+        drawTextAtEnd(toString(linkNo), getShape(), x2);
         x1 -= w;
     }
+}
+
+
+void 
+GUILane::drawTextAtEnd(const std::string& text, const PositionVector& shape, SUMOReal x) const {
+    glPushMatrix();
+    const Position& end = shape.back();
+    const Position& f = shape[-2];
+    const SUMOReal rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
+    glTranslated(end.x(), end.y(), 0);
+    glRotated(rot, 0, 0, 1);
+    GLHelper::drawText(text, Position(x, 0), 0, .6, RGBColor(128, 128, 255, 255), 180);
     glPopMatrix();
 }
 
@@ -224,12 +240,38 @@ GUILane::drawTLSLinkNo(const GUINet& net) const {
 void
 GUILane::drawLinkRules(const GUINet& net) const {
     unsigned int noLinks = (unsigned int)myLinks.size();
-    const PositionVector& g = getShape();
-    const Position& end = g.back();
-    const Position& f = g[-2];
-    const Position& s = end;
-    const SUMOReal rot = RAD2DEG(atan2((s.x() - f.x()), (f.y() - s.y())));
     if (noLinks == 0) {
+        drawLinkRule(net, 0, getShape(), 0, 0);
+        return;
+    }
+    if (getEdge().isCrossing()) {
+        // draw rules at the start and end of the crossing
+        MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+        PositionVector shape = getShape();
+        shape.extrapolate(0.5); // draw on top of the walking area
+        drawLinkRule(net, link, shape, 0, myWidth);
+        drawLinkRule(net, link, shape.reverse(), 0, myWidth);
+        return;
+    } 
+    // draw all links
+    SUMOReal w = myWidth / (SUMOReal) noLinks;
+    SUMOReal x1 = 0;
+    for (unsigned int i = 0; i < noLinks; ++i) {
+        SUMOReal x2 = x1 + w;
+        MSLink* link = myLinks[i];
+        drawLinkRule(net, myLinks[i], getShape(), x1, x2);
+        x1 = x2;
+        x2 += w;
+    }
+}
+
+
+void 
+GUILane::drawLinkRule(const GUINet& net, MSLink* link, const PositionVector& shape, SUMOReal x1, SUMOReal x2) const {
+    const Position& end = shape.back();
+    const Position& f = shape[-2];
+    const SUMOReal rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
+    if (link == 0) {
         glPushName(getGlID());
         GLHelper::setColor(getLinkColor(LINKSTATE_DEADEND));
         glPushMatrix();
@@ -243,18 +285,10 @@ GUILane::drawLinkRules(const GUINet& net) const {
         glEnd();
         glPopMatrix();
         glPopName();
-        return;
-    }
-    // draw all links
-    const bool railway = isRailway(myPermissions);
-    SUMOReal w = myWidth / (SUMOReal) noLinks;
-    SUMOReal x1 = 0;
-    glPushMatrix();
-    glTranslated(end.x(), end.y(), 0);
-    glRotated(rot, 0, 0, 1);
-    for (unsigned int i = 0; i < noLinks; ++i) {
-        SUMOReal x2 = x1 + w;
-        MSLink* link = myLinks[i];
+    } else {
+        glPushMatrix();
+        glTranslated(end.x(), end.y(), 0);
+        glRotated(rot, 0, 0, 1);
         // select glID
         switch (link->getState()) {
             case LINKSTATE_TL_GREEN_MAJOR:
@@ -274,7 +308,7 @@ GUILane::drawLinkRules(const GUINet& net) const {
                 break;
         }
         GLHelper::setColor(getLinkColor(link->getState()));
-        if (!railway || link->getState() != LINKSTATE_MAJOR) {
+        if (!isRailway(myPermissions) || link->getState() != LINKSTATE_MAJOR) {
             // THE WHITE BAR SHOULD BE THE DEFAULT FOR MOST RAILWAY
             // LINKS AND LOOKS UGLY SO WE DO NOT DRAW IT
             glBegin(GL_QUADS);
@@ -285,12 +319,9 @@ GUILane::drawLinkRules(const GUINet& net) const {
             glEnd();
         }
         glPopName();
-        x1 = x2;
-        x2 += w;
+        glPopMatrix();
     }
-    glPopMatrix();
 }
-
 
 void
 GUILane::drawArrows() const {
@@ -412,10 +443,12 @@ GUILane::drawLane2LaneConnections() const {
 void
 GUILane::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
-    const bool isInternal = myEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
+    const bool isCrossing = myEdge->getPurpose() == MSEdge::EDGEFUNCTION_CROSSING;
+    const bool isWalkingArea = myEdge->getPurpose() == MSEdge::EDGEFUNCTION_WALKINGAREA;
+    const bool isInternal = isCrossing || isWalkingArea || myEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
     bool mustDrawMarkings = false;
     const bool drawDetails =  s.scale * s.laneWidthExaggeration > 5;
-    if (isInternal) {
+    if (isCrossing || isWalkingArea) {
         // draw internal lanes on top of junctions
         glTranslated(0, 0, GLO_JUNCTION + 0.1);
     } else {
@@ -435,6 +468,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPopMatrix();
     } else {
+        GUINet* net = (GUINet*) MSNet::getInstance();
         if (isRailway(myPermissions)) {
             // draw as railway
             const SUMOReal halfRailWidth = 0.725 * s.laneWidthExaggeration;
@@ -442,7 +476,39 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             glColor3d(1, 1, 1);
             glTranslated(0, 0, .1);
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
-            drawCrossties(s, s.laneWidthExaggeration);
+            if (!MSGlobals::gUseMesoSim) {
+                setColor(s);
+            }
+            drawCrossties(s, 0.3 * s.laneWidthExaggeration, 1 * s.laneWidthExaggeration, 1 * s.laneWidthExaggeration);
+        } else if (isCrossing) {
+            // determine priority to decide color
+            MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+            if (link->havePriority() || net->getLinkTLIndex(link) > 0) {
+                glColor3d(0.9, 0.9, 0.9);
+            } else {
+                glColor3d(0.1, 0.1, 0.1);
+            }
+            glTranslated(0, 0, .2);
+            drawCrossties(s, 0.5, 1.0, getWidth() * 0.5);
+            glTranslated(0, 0, -.2);
+        } else if (isWalkingArea) {
+            glColor3d(0.3, 0.3, 1);
+            glTranslated(0, 0, .2);
+            if (s.scale * s.laneWidthExaggeration < 20.) {
+                GLHelper::drawFilledPoly(myShape, true);
+            } else {
+                GLHelper::drawFilledPolyTesselated(myShape, true);
+            }
+            glTranslated(0, 0, -.2);
+#ifdef GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
+              RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
+              glTranslated(0, 0, .4);
+              for (int i = 0; i < (int)myShape.size(); ++i) {
+                  GLHelper::drawText(toString(i), myShape[i], GLO_JUNCTION,
+                          80/s.scale, color, 0);
+              }
+              glTranslated(0, 0, -.4);
+#endif
         } else {
             const SUMOReal laneWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
             mustDrawMarkings = !isInternal;
@@ -453,13 +519,12 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPopMatrix();
         // draw ROWs (not for inner lanes)
-        if (!isInternal && drawDetails) {
+        if ((!isInternal || isCrossing) && drawDetails) {
             glPushMatrix();
             glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
-            GUINet* net = (GUINet*) MSNet::getInstance();
-            glTranslated(0, 0, .2);
+            glTranslated(0, 0, .5);
             drawLinkRules(*net);
-            if (s.showLinkDecals && !isRailway(myPermissions)) {
+            if (s.showLinkDecals && !isRailway(myPermissions) && myPermissions != SVC_PEDESTRIAN) {
                 drawArrows();
             }
             if (s.showLane2Lane) {
@@ -541,25 +606,22 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
 
 
 void
-GUILane::drawCrossties(const GUIVisualizationSettings& s, SUMOReal scale) const {
+GUILane::drawCrossties(const GUIVisualizationSettings& s, SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const {
     glPushMatrix();
     glPushName(0);
-    if (!MSGlobals::gUseMesoSim) {
-        setColor(s);
-    }
     // draw on top of of the white area between the rails
     glTranslated(0, 0, 0.1);
     int e = (int) getShape().size() - 1;
     for (int i = 0; i < e; ++i) {
         glPushMatrix();
-        glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
+        glTranslated(getShape()[i].x(), getShape()[i].y(), 0.0);
         glRotated(myShapeRotations[i], 0, 0, 1);
-        for (SUMOReal t = 0; t < myShapeLengths[i]; t += 1) {
+        for (SUMOReal t = 0; t < myShapeLengths[i]; t += spacing) {
             glBegin(GL_QUADS);
-            glVertex2d(-1 * scale, -t);
-            glVertex2d(-1 * scale, -t - 0.3);
-            glVertex2d(1.0 * scale, -t - 0.3);
-            glVertex2d(1.0 * scale, -t);
+            glVertex2d(-halfWidth, -t);
+            glVertex2d(-halfWidth, -t - length);
+            glVertex2d( halfWidth, -t - length);
+            glVertex2d( halfWidth, -t);
             glEnd();
         }
         glPopMatrix();
@@ -592,14 +654,16 @@ GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 5);
+        new GUIParameterTableWindow(app, *this, 7);
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
     ret->mkItem("length [m]", false, myLength);
     ret->mkItem("street name", false, myEdge->getStreetName());
     ret->mkItem("stored traveltime [s]", true, new FunctionBinding<GUILane, SUMOReal>(this, &GUILane::getStoredEdgeTravelTime));
+    ret->mkItem("edge type", false, myEdge->getEdgeType());
     ret->mkItem("allowed vehicle class", false, getVehicleClassNames(myPermissions));
     ret->mkItem("disallowed vehicle class", false, getVehicleClassNames(~myPermissions));
+    ret->mkItem("permission code", false, myPermissions);
     // close building
     ret->closeBuilding();
     return ret;

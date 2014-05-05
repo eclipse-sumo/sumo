@@ -1,0 +1,6 @@
+walking_forward
+walking_backward
+
+# left turning vehicles should be blocked as well
+walking_forward_left_turning_vehicle
+walking_backward_left_turning_vehicle

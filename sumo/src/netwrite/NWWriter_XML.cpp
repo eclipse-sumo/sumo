@@ -229,6 +229,20 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NWWriter_SUMO::writeProhibitions(cdevice, i->second->getProhibitions());
     }
+    // write pedestrian crossings to the connections-file
+    for (std::map<std::string, NBNode*>::const_iterator it_node = nc.begin(); it_node != nc.end(); ++it_node) {
+        const std::vector<NBNode::Crossing>& crossings = (*it_node).second->getCrossings();
+        for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+            cdevice.openTag(SUMO_TAG_CROSSING);
+            cdevice.writeAttr(SUMO_ATTR_NODE, (*it_node).second->getID());
+            cdevice.writeAttr(SUMO_ATTR_EDGES, (*it).edges);
+            cdevice.writeAttr(SUMO_ATTR_PRIORITY, (*it).priority);
+            if ((*it).width != NBNode::DEFAULT_CROSSING_WIDTH) {
+                cdevice.writeAttr(SUMO_ATTR_WIDTH, (*it).width);
+            }
+            cdevice.closeTag();
+        }
+    }
     edevice.close();
     cdevice.close();
 }
