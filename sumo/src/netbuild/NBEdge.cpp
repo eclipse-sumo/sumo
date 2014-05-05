@@ -189,7 +189,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
-    myLaneSpreadFunction(spread), myOffset(offset), myLaneWidth(laneWidth),
+    myLaneSpreadFunction(spread), myEndOffset(offset), myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName) {
@@ -211,7 +211,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
-    myGeom(geom), myLaneSpreadFunction(spread), myOffset(offset), myLaneWidth(laneWidth),
+    myGeom(geom), myLaneSpreadFunction(spread), myEndOffset(offset), myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName) {
@@ -229,7 +229,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl) :
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myLaneSpreadFunction(tpl->getLaneSpreadFunction()),
-    myOffset(tpl->getOffset()),
+    myEndOffset(tpl->getEndOffset()),
     myLaneWidth(tpl->getLaneWidth()),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
@@ -239,7 +239,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl) :
         setSpeed(i, tpl->getLaneSpeed(i));
         setPermissions(tpl->getPermissions(i), i);
         setLaneWidth(i, tpl->getLaneWidth(i));
-        setOffset(i, tpl->getOffset(i));
+        setEndOffset(i, tpl->getEndOffset(i));
     }
 }
 
@@ -266,7 +266,7 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
     //?myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom = geom;
     myLaneSpreadFunction = spread;
-    myOffset = offset;
+    myEndOffset = offset;
     myLaneWidth = laneWidth;
     myLoadedLength = UNSPECIFIED_LOADED_LENGTH;
     myStreetName = streetName;
@@ -1349,9 +1349,9 @@ NBEdge::hasLaneSpecificSpeed() const {
 
 
 bool
-NBEdge::hasLaneSpecificOffset() const {
+NBEdge::hasLaneSpecificEndOffset() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        if (i->offset != myLanes.begin()->offset) {
+        if (i->endOffset != myLanes.begin()->endOffset) {
             return true;
         }
     }
@@ -1361,7 +1361,7 @@ NBEdge::hasLaneSpecificOffset() const {
 
 bool
 NBEdge::needsLaneSpecificOutput() const {
-    return hasRestrictions() || hasLaneSpecificSpeed() || hasLaneSpecificWidth() || hasLaneSpecificOffset();
+    return hasRestrictions() || hasLaneSpecificSpeed() || hasLaneSpecificWidth() || hasLaneSpecificEndOffset();
 }
 
 
@@ -2024,24 +2024,24 @@ NBEdge::getLaneWidth(int lane) const {
 
 
 SUMOReal
-NBEdge::getOffset(int lane) const {
-    return myLanes[lane].offset != UNSPECIFIED_OFFSET ? myLanes[lane].offset : getOffset();
+NBEdge::getEndOffset(int lane) const {
+    return myLanes[lane].endOffset != UNSPECIFIED_OFFSET ? myLanes[lane].endOffset : getEndOffset();
 }
 
 
 void
-NBEdge::setOffset(int lane, SUMOReal offset) {
+NBEdge::setEndOffset(int lane, SUMOReal offset) {
     if (lane < 0) {
         // all lanes are meant...
-        myOffset = offset;
+        myEndOffset = offset;
         for (unsigned int i = 0; i < myLanes.size(); i++) {
             // ... do it for each lane
-            setOffset((int) i, offset);
+            setEndOffset((int) i, offset);
         }
         return;
     }
     assert(lane < (int) myLanes.size());
-    myLanes[lane].offset = offset;
+    myLanes[lane].endOffset = offset;
 }
 
 

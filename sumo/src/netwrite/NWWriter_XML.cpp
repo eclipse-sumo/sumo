@@ -187,8 +187,8 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (e->getLaneWidth() != NBEdge::UNSPECIFIED_WIDTH && !e->hasLaneSpecificWidth()) {
             edevice.writeAttr(SUMO_ATTR_WIDTH, e->getLaneWidth());
         }
-        if (e->getOffset() != NBEdge::UNSPECIFIED_OFFSET && !e->hasLaneSpecificOffset()) {
-            edevice.writeAttr(SUMO_ATTR_ENDOFFSET, e->getOffset());
+        if (e->getEndOffset() != NBEdge::UNSPECIFIED_OFFSET && !e->hasLaneSpecificEndOffset()) {
+            edevice.writeAttr(SUMO_ATTR_ENDOFFSET, e->getEndOffset());
         }
         if (!e->needsLaneSpecificOutput()) {
             edevice.closeTag();
@@ -204,8 +204,8 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                 if (lane.width != NBEdge::UNSPECIFIED_WIDTH && e->hasLaneSpecificWidth()) {
                     edevice.writeAttr(SUMO_ATTR_WIDTH, lane.width);
                 }
-                if (lane.offset != NBEdge::UNSPECIFIED_OFFSET && e->hasLaneSpecificOffset()) {
-                    edevice.writeAttr(SUMO_ATTR_ENDOFFSET, lane.offset);
+                if (lane.endOffset != NBEdge::UNSPECIFIED_OFFSET && e->hasLaneSpecificEndOffset()) {
+                    edevice.writeAttr(SUMO_ATTR_ENDOFFSET, lane.endOffset);
                 }
                 if (e->hasLaneSpecificSpeed()) {
                     edevice.writeAttr(SUMO_ATTR_SPEED, lane.speed);

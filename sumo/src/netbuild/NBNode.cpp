@@ -514,8 +514,8 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
         delete[] ret_buf;
     }
     const NBEdge::Lane& lane = fromE->getLaneStruct(fromL);
-    if (lane.offset > 0) {
-        PositionVector beg = lane.shape.getSubpart(lane.shape.length() - lane.offset, lane.shape.length());;
+    if (lane.endOffset > 0) {
+        PositionVector beg = lane.shape.getSubpart(lane.shape.length() - lane.endOffset, lane.shape.length());;
         beg.append(ret);
         ret = beg;
     }

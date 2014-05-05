@@ -162,7 +162,7 @@ private:
     SUMOReal myCurrentWidth;
 
     /// @brief The current edge's offset till the destination node
-    SUMOReal myCurrentOffset;
+    SUMOReal myCurrentEndOffset;
 
     /// @brief The current edge's street name
     std::string myCurrentStreetName;

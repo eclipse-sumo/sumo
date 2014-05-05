@@ -131,7 +131,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentLaneNo = myTypeCont.getNumLanes("");
     myPermissions = myTypeCont.getPermissions("");
     myCurrentWidth = myTypeCont.getWidth("");
-    myCurrentOffset = NBEdge::UNSPECIFIED_OFFSET;
+    myCurrentEndOffset = NBEdge::UNSPECIFIED_OFFSET;
     myCurrentType = "";
     myShape = PositionVector();
     myLanesSpread = LANESPREAD_RIGHT;
@@ -176,7 +176,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
             myReinitKeepEdgeShape = true;
         }
         myCurrentWidth = myCurrentEdge->getLaneWidth();
-        myCurrentOffset = myCurrentEdge->getOffset();
+        myCurrentEndOffset = myCurrentEdge->getEndOffset();
         myLanesSpread = myCurrentEdge->getLaneSpreadFunction();
         if (myCurrentEdge->hasLoadedLength()) {
             myLength = myCurrentEdge->getLoadedLength();
@@ -205,7 +205,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     }
     // try to get the width
     if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
-        myCurrentOffset = attrs.get<SUMOReal>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
+        myCurrentEndOffset = attrs.get<SUMOReal>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
     }
     // try to get the street name
     if (attrs.hasAttribute(SUMO_ATTR_NAME)) {
@@ -241,18 +241,18 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge != 0) {
         myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                               myCurrentLaneNo, myCurrentPriority, myShape,
-                              myCurrentWidth, myCurrentOffset,
+                              myCurrentWidth, myCurrentEndOffset,
                               myCurrentStreetName, myLanesSpread,
                               myReinitKeepEdgeShape);
     } else {
         // the edge must be allocated in dependence to whether a shape is given
         if (myShape.size() == 0) {
             myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                                       myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset,
+                                       myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentEndOffset,
                                        myCurrentStreetName, myLanesSpread);
         } else {
             myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                                       myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset,
+                                       myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentEndOffset,
                                        myShape, myCurrentStreetName, myLanesSpread,
                                        myKeepEdgeShape);
         }
@@ -302,7 +302,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     }
     // try to get the end-offset (lane shortened due to pedestrian crossing etc..)
     if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
-        myCurrentEdge->setOffset(lane, attrs.get<SUMOReal>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok));
+        myCurrentEdge->setEndOffset(lane, attrs.get<SUMOReal>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok));
     }
     // try to get lane specific speed (should not occur for german networks)
     if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {

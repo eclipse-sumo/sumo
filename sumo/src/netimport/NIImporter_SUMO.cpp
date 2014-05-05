@@ -207,15 +207,15 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             nbe->setPermissions(parseVehicleClasses(lane->allow, lane->disallow), fromLaneIndex);
             // width, offset
             nbe->setLaneWidth(fromLaneIndex, lane->width);
-            nbe->setOffset(fromLaneIndex, lane->offset);
+            nbe->setEndOffset(fromLaneIndex, lane->endOffset);
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
         }
         nbe->declareConnectionsAsLoaded();
         if (!nbe->hasLaneSpecificWidth() && nbe->getLanes()[0].width != NBEdge::UNSPECIFIED_WIDTH) {
             nbe->setLaneWidth(-1, nbe->getLaneWidth(0));
         }
-        if (!nbe->hasLaneSpecificOffset() && nbe->getOffset(0) != NBEdge::UNSPECIFIED_OFFSET) {
-            nbe->setOffset(-1, nbe->getOffset(0));
+        if (!nbe->hasLaneSpecificEndOffset() && nbe->getEndOffset(0) != NBEdge::UNSPECIFIED_OFFSET) {
+            nbe->setEndOffset(-1, nbe->getEndOffset(0));
         }
     }
     // insert loaded prohibitions
@@ -399,7 +399,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     }
     myCurrentLane->disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     myCurrentLane->width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_WIDTH);
-    myCurrentLane->offset = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_OFFSET);
+    myCurrentLane->endOffset = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_OFFSET);
     myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     // lane coordinates are derived (via lane spread) do not include them in convex boundary
     NBNetBuilder::transformCoordinates(myCurrentLane->shape, false, myLocation);

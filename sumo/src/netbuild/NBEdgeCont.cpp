@@ -442,7 +442,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     }
     NBEdge* two = new NBEdge(secondEdgeName,
                              node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
-                             edge->getPriority(), edge->myLaneWidth, edge->myOffset, geoms.second,
+                             edge->getPriority(), edge->myLaneWidth, edge->getEndOffset(), geoms.second,
                              edge->getStreetName(), edge->myLaneSpreadFunction, true);
     for (unsigned int i = 0; i < noLanesSecondEdge && i < edge->getNumLanes(); i++) {
         two->setSpeed(i, edge->getLaneSpeed(i));

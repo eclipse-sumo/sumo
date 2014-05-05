@@ -305,7 +305,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
     for (unsigned int i = 0; i < (unsigned int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
         writeLane(into, e.getID(), e.getLaneID(i), l.speed,
-                  l.permissions, l.preferred, l.offset, l.width, l.shape, l.origID,
+                  l.permissions, l.preferred, l.endOffset, l.width, l.shape, l.origID,
                   length, i, origNames);
     }
     // close the edge
@@ -316,7 +316,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
 void
 NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::string& lID,
                          SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
-                         SUMOReal offset, SUMOReal width, const PositionVector& shape,
+                         SUMOReal endOffset, SUMOReal width, const PositionVector& shape,
                          const std::string& origID, SUMOReal length, unsigned int index, bool origNames) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
@@ -331,19 +331,19 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::
     } else if (speed < 0) {
         throw ProcessError("Negative velocity (" + toString(speed) + " on edge '" + eID + "' lane#" + toString(index) + ".");
     }
-    if (offset > 0) {
-        length = length - offset;
+    if (endOffset > 0) {
+        length = length - endOffset;
     }
     into.writeAttr(SUMO_ATTR_SPEED, speed);
     into.writeAttr(SUMO_ATTR_LENGTH, length);
-    if (offset != NBEdge::UNSPECIFIED_OFFSET) {
-        into.writeAttr(SUMO_ATTR_ENDOFFSET, offset);
+    if (endOffset != NBEdge::UNSPECIFIED_OFFSET) {
+        into.writeAttr(SUMO_ATTR_ENDOFFSET, endOffset);
     }
     if (width != NBEdge::UNSPECIFIED_WIDTH) {
         into.writeAttr(SUMO_ATTR_WIDTH, width);
     }
-    into.writeAttr(SUMO_ATTR_SHAPE, offset > 0 ?
-                   shape.getSubpart(0, shape.length() - offset) : shape);
+    into.writeAttr(SUMO_ATTR_SHAPE, endOffset > 0 ?
+                   shape.getSubpart(0, shape.length() - endOffset) : shape);
     if (origNames && origID != "") {
         into.openTag(SUMO_TAG_PARAM);
         into.writeAttr(SUMO_ATTR_KEY, "origId");

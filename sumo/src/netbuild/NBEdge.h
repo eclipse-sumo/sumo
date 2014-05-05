@@ -123,7 +123,7 @@ public:
     struct Lane {
         Lane(NBEdge* e) :
             speed(e->getSpeed()), permissions(SVCAll), preferred(0),
-            offset(e->getOffset()), width(e->getLaneWidth()) {}
+            endOffset(e->getEndOffset()), width(e->getLaneWidth()) {}
         /// @brief The lane's shape
         PositionVector shape;
         /// @brief The speed allowed on this lane
@@ -133,7 +133,7 @@ public:
         /// @brief List of vehicle types that are preferred on this lane
         SVCPermissions preferred;
         /// @brief This lane's offset to the intersection begin
-        SUMOReal offset;
+        SUMOReal endOffset;
         /// @brief This lane's width
         SUMOReal width;
         /// @brief An original ID, if given (@todo: is only seldom used, should be stored somewhere else, probably)
@@ -462,14 +462,14 @@ public:
     /** @brief Returns the offset to the destination node
      * @return The offset to the destination node
      */
-    SUMOReal getOffset() const {
-        return myOffset;
+    SUMOReal getEndOffset() const {
+        return myEndOffset;
     }
 
     /** @brief Returns the offset to the destination node a the specified lane
      * @return The offset to the destination node
      */
-    SUMOReal getOffset(int lane) const;
+    SUMOReal getEndOffset(int lane) const;
 
 
     /** @brief Returns the type name
@@ -873,7 +873,7 @@ public:
     bool hasLaneSpecificSpeed() const;
 
     /// @brief whether lanes differ in offset
-    bool hasLaneSpecificOffset() const;
+    bool hasLaneSpecificEndOffset() const;
 
     /// @brief whether lanes differ in width
     bool hasLaneSpecificWidth() const;
@@ -979,7 +979,7 @@ public:
     void setLaneWidth(int lane, SUMOReal width);
 
     /// @brief set lane specific end-offset (negative lane implies set for all lanes)
-    void setOffset(int lane, SUMOReal offset);
+    void setEndOffset(int lane, SUMOReal offset);
 
     /// @brief set lane specific speed (negative lane implies set for all lanes)
     void setSpeed(int lane, SUMOReal speed);
@@ -1217,7 +1217,7 @@ private:
     LaneSpreadFunction myLaneSpreadFunction;
 
     /// @brief This edges's offset to the intersection begin (will be applied to all lanes)
-    SUMOReal myOffset;
+    SUMOReal myEndOffset;
 
     /// @brief This width of this edge's lanes
     SUMOReal myLaneWidth;

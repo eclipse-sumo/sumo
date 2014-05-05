@@ -135,7 +135,7 @@ protected:
      */
     static void writeLane(OutputDevice& into, const std::string& eID, const std::string& lID,
                           SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
-                          SUMOReal offset, SUMOReal width, const PositionVector& shape,
+                          SUMOReal endOffset, SUMOReal width, const PositionVector& shape,
                           const std::string& origID, SUMOReal length, unsigned int index, bool origNames);
 
 
