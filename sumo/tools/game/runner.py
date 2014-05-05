@@ -258,7 +258,7 @@ class ScoreDialog:
 
 base = os.path.dirname(sys.argv[0])
 high = loadHighscore()
-guisimBinary = "sumo-gui"
+guisimBinary = "meso-gui"
 if os.name != "posix":
     guisimBinary += ".exe"
 if os.path.exists(os.path.join(base, guisimBinary)):

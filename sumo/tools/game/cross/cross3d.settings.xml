@@ -1,7 +1,8 @@
 <viewsettings>
     <delay value="100"/>
-    <viewport zoom="30" x="330" y="330"/>
-    <decal filename="light0" centerX="300" centerY="300" centerZ="300"/>
+    <viewport zoom="130" x="1172170" y="5807329" centerX="1172170" centerY="5807329" centerZ="100"/>
+    <light centerX="1172170" centerY="5807329" centerZ="300"/>
+    <decal filename="Trian_ROD_GTA_Landmarks_Baeumen_Lampen/master.ive"/>
     <scheme name="game_cross">
         <opengl antialiase="0" dither="0"/>
         <vehicles vehicleMode="9" vehicleQuality="2" minVehicleSize="1.00" vehicleExaggeration="1.00" showBlinker="1"
