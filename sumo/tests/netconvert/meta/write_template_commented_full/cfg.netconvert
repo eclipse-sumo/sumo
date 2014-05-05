@@ -457,7 +457,7 @@
         <default.priority value="-1" synonymes="P priority" type="INT"/>
 
         <!-- The default width of added sidewalks -->
-        <default.sidewalkWidth value="2" type="FLOAT"/>
+        <default.sidewalk-width value="2" type="FLOAT"/>
 
     </building_defaults>
 

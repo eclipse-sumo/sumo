@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-rUNKNOWN
+SUMO netgenerate Version dev-SVN-r16288
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -7,174 +7,185 @@ Usage: netgenerate [OPTION]*
   In dependance to these switches other options are used.
  
 Configuration Options:
-  -c, --configuration-file FILE       Loads the named config on startup
-  --save-configuration FILE           Saves current configuration into FILE
-  --save-template FILE                Saves a configuration template (empty)
-                                        into FILE
-  --save-schema FILE                  Saves the configuration schema into FILE
-  --save-commented                    Adds comments to saved template,
-                                        configuration, or schema
+  -c, --configuration-file FILE        Loads the named config on startup
+  --save-configuration FILE            Saves current configuration into FILE
+  --save-template FILE                 Saves a configuration template (empty)
+                                         into FILE
+  --save-schema FILE                   Saves the configuration schema into FILE
+  --save-commented                     Adds comments to saved template,
+                                         configuration, or schema
 
 Grid Network Options:
-  -g, --grid                          Forces NETGEN to build a grid-like
-                                        network
-  --grid.number INT                   The number of junctions in both dirs
-  --grid.length FLOAT                 The length of streets in both dirs
-  --grid.x-number INT                 The number of junctions in x-dir;
-                                        Overrides --grid-number
-  --grid.y-number INT                 The number of junctions in y-dir;
-                                        Overrides --grid-number
-  --grid.x-length FLOAT               The length of horizontal streets;
-                                        Overrides --grid-length
-  --grid.y-length FLOAT               The length of vertical streets;
-                                        Overrides --grid-length
-  --grid.attach-length FLOAT          The length of streets attached at the
-                                        boundary;
-                                        0 means no streets are attached
+  -g, --grid                           Forces NETGEN to build a grid-like
+                                         network
+  --grid.number INT                    The number of junctions in both dirs
+  --grid.length FLOAT                  The length of streets in both dirs
+  --grid.x-number INT                  The number of junctions in x-dir;
+                                         Overrides --grid-number
+  --grid.y-number INT                  The number of junctions in y-dir;
+                                         Overrides --grid-number
+  --grid.x-length FLOAT                The length of horizontal streets;
+                                         Overrides --grid-length
+  --grid.y-length FLOAT                The length of vertical streets;
+                                         Overrides --grid-length
+  --grid.attach-length FLOAT           The length of streets attached at the
+                                         boundary;
+                                         0 means no streets are attached
 
 Spider Network Options:
-  -s, --spider                        Forces NETGEN to build a spider-net-like
-                                        network
-  --spider.arm-number INT             The number of axes within the net
-  --spider.circle-number INT          The number of circles of the net
-  --spider.space-radius FLOAT         The distances between the circles
-  --spider.omit-center                Omit the central node of the network
+  -s, --spider                         Forces NETGEN to build a spider-net-like
+                                         network
+  --spider.arm-number INT              The number of axes within the net
+  --spider.circle-number INT           The number of circles of the net
+  --spider.space-radius FLOAT          The distances between the circles
+  --spider.omit-center                 Omit the central node of the network
 
 Random Network Options:
-  -r, --rand                          Forces NETGEN to build a random network
-  --rand.iterations INT               Describes how many times an edge shall be
-                                        added to the net
-  --rand.bidi-probability FLOAT       Defines the probability to build a
-                                        reverse edge
-  --rand.max-distance FLOAT           
-  --rand.min-distance FLOAT           
-  --rand.min-angle FLOAT              
-  --rand.num-tries INT                
-  --rand.connectivity FLOAT           
-  --rand.neighbor-dist1 FLOAT         
-  --rand.neighbor-dist2 FLOAT         
-  --rand.neighbor-dist3 FLOAT         
-  --rand.neighbor-dist4 FLOAT         
-  --rand.neighbor-dist5 FLOAT         
-  --rand.neighbor-dist6 FLOAT         
+  -r, --rand                           Forces NETGEN to build a random network
+  --rand.iterations INT                Describes how many times an edge shall
+                                         be added to the net
+  --rand.bidi-probability FLOAT        Defines the probability to build a
+                                         reverse edge
+  --rand.max-distance FLOAT            
+  --rand.min-distance FLOAT            
+  --rand.min-angle FLOAT               
+  --rand.num-tries INT                 
+  --rand.connectivity FLOAT            
+  --rand.neighbor-dist1 FLOAT          
+  --rand.neighbor-dist2 FLOAT          
+  --rand.neighbor-dist3 FLOAT          
+  --rand.neighbor-dist4 FLOAT          
+  --rand.neighbor-dist5 FLOAT          
+  --rand.neighbor-dist6 FLOAT          
 
 Output Options:
-  -o, --output-file FILE              The generated net will be written to FILE
-  --plain-output-prefix FILE          Prefix of files to write plain xml nodes,
-                                        edges and connections to
-  --junctions.join-output FILE        Writes information about joined junctions
-                                        to FILE (can be loaded as additional
-                                        node-file to reproduce joins
-  -M, --map-output FILE               Writes joined edges information to FILE
-  --amitran-output FILE               The generated net will be written to FILE
-                                        using Amitran format
-  --matsim-output FILE                The generated net will be written to FILE
-                                        using MATsim format
-  --opendrive-output FILE             The generated net will be written to FILE
-                                        using OpenDRIVE format
-  --dlr-navteq-output FILE            The generated net will be written to
-                                        dlr-navteq files with the given PREFIX
-  --output.street-names               Street names will be included in the
-                                        output (if available)
-  --output.original-names             Writes original names, if given, as
-                                        parameter
-  --street-sign-output FILE           Writes street signs as POIs to FILE
+  -o, --output-file FILE               The generated net will be written to
+                                         FILE
+  --plain-output-prefix FILE           Prefix of files to write plain xml
+                                         nodes, edges and connections to
+  --junctions.join-output FILE         Writes information about joined
+                                         junctions to FILE (can be loaded as
+                                         additional node-file to reproduce joins
+  -M, --map-output FILE                Writes joined edges information to FILE
+  --amitran-output FILE                The generated net will be written to
+                                         FILE using Amitran format
+  --matsim-output FILE                 The generated net will be written to
+                                         FILE using MATsim format
+  --opendrive-output FILE              The generated net will be written to
+                                         FILE using OpenDRIVE format
+  --dlr-navteq-output FILE             The generated net will be written to
+                                         dlr-navteq files with the given PREFIX
+  --output.street-names                Street names will be included in the
+                                         output (if available)
+  --output.original-names              Writes original names, if given, as
+                                         parameter
+  --street-sign-output FILE            Writes street signs as POIs to FILE
 
 TLS Building Options:
-  --tls.set STR                       Interprets STR as list of junctions to be
-                                        controlled by TLS
-  --tls.unset STR                     Interprets STR as list of junctions to be
-                                        not controlled by TLS
-  --tls.guess                         Turns on TLS guessing
-  --tls-guess.joining                 Includes node clusters into guess
-  --tls.join                          Tries to cluster tls-controlled nodes
-  --tls.green.time INT                Use INT as green phase duration
-  -D, --tls.yellow.min-decel FLOAT    Defines smallest vehicle deceleration
-  --tls.yellow.patch-small            Given yellow times are patched even if
-                                        being too short
-  --tls.yellow.time INT               Set INT as fixed time for yellow phase
-                                        durations
-  --tls.half-offset STR               TLSs in STR will be shifted by half-phase
-  --tls.quarter-offset STR            TLSs in STR will be shifted by
-                                        quarter-phase
-  --tls.default-type STR              TLSs with unspecified type will use STR
-                                        as their algorithm
+  --tls.set STR                        Interprets STR as list of junctions to
+                                         be controlled by TLS
+  --tls.unset STR                      Interprets STR as list of junctions to
+                                         be not controlled by TLS
+  --tls.guess                          Turns on TLS guessing
+  --tls-guess.joining                  Includes node clusters into guess
+  --tls.join                           Tries to cluster tls-controlled nodes
+  --tls.green.time INT                 Use INT as green phase duration
+  -D, --tls.yellow.min-decel FLOAT     Defines smallest vehicle deceleration
+  --tls.yellow.patch-small             Given yellow times are patched even if
+                                         being too short
+  --tls.yellow.time INT                Set INT as fixed time for yellow phase
+                                         durations
+  --tls.half-offset STR                TLSs in STR will be shifted by
+                                         half-phase
+  --tls.quarter-offset STR             TLSs in STR will be shifted by
+                                         quarter-phase
+  --tls.default-type STR               TLSs with unspecified type will use STR
+                                         as their algorithm
 
 Edge Removal Options:
-  --keep-edges.min-speed FLOAT        Only keep edges with speed in
-                                        meters/second > FLOAT
-  --remove-edges.explicit STR         Remove edges in STR
-  --keep-edges.explicit STR           Only keep edges in STR
-  --keep-edges.input-file FILE        Only keep edges in FILE
-  --keep-edges.in-boundary STR        Only keep edges which are located within
-                                        the given boundary (given either as
-                                        CARTESIAN corner coordinates
-                                        <xmin,ymin,xmax,ymax> or as polygon
-                                        <x0,y0,x1,y1,...>)
-  --keep-edges.in-geo-boundary STR    Only keep edges which are located within
-                                        the given boundary (given either as
-                                        GEODETIC corner coordinates
-                                        <lon-min,lat-min,lon-max,lat-max> or as
-                                        polygon <lon0,lat0,lon1,lat1,...>)
+  --keep-edges.min-speed FLOAT         Only keep edges with speed in
+                                         meters/second > FLOAT
+  --remove-edges.explicit STR          Remove edges in STR
+  --keep-edges.explicit STR            Only keep edges in STR
+  --keep-edges.input-file FILE         Only keep edges in FILE
+  --keep-edges.in-boundary STR         Only keep edges which are located within
+                                         the given boundary (given either as
+                                         CARTESIAN corner coordinates
+                                         <xmin,ymin,xmax,ymax> or as polygon
+                                         <x0,y0,x1,y1,...>)
+  --keep-edges.in-geo-boundary STR     Only keep edges which are located within
+                                         the given boundary (given either as
+                                         GEODETIC corner coordinates
+                                         <lon-min,lat-min,lon-max,lat-max> or as
+                                         polygon <lon0,lat0,lon1,lat1,...>)
 
 Unregulated Nodes Options:
-  --keep-nodes-unregulated            All nodes will be unregulated
+  --keep-nodes-unregulated             All nodes will be unregulated
   --keep-nodes-unregulated.explicit STR  Do not regulate nodes in STR
   --keep-nodes-unregulated.district-nodes  Do not regulate district nodes
 
 Processing Options:
-  --no-internal-links                 Omits internal links
-  --no-turnarounds                    Disables building turnarounds
-  --no-turnarounds.tls                Disables building turnarounds at
-                                        tls-controlled junctions
-  --no-left-connections               Disables building connections to left
-  --offset.disable-normalization      Turn off normalizing node positions
-  --offset.x FLOAT                    Adds FLOAT to net x-positions
-  --offset.y FLOAT                    Adds FLOAT to net y-positions
-  --flip-y-axis                       Flips the y-coordinate along zero
-  --roundabouts.guess                 Enable roundabout-guessing
-  --lefthand                          Assumes left-hand traffic on the network
-  --junctions.join                    Joins junctions that are close to each
-                                        other (recommended for OSM import)
-  --junctions.join-dist FLOAT         Determines the maximal distance for
-                                        joining junctions (defaults to 10)
-  --check-lane-foes.roundabout        Allow driving onto a multi-lane road if
-                                        there are foes on other lanes (at
-                                        roundabouts)
-  --check-lane-foes.all               Allow driving onto a multi-lane road if
-                                        there are foes on other lanes
-                                        (everywhere)
-  --tls.join-dist FLOAT               Determines the maximal distance for
-                                        joining traffic lights (defaults to 20)
+  --no-internal-links                  Omits internal links
+  --no-turnarounds                     Disables building turnarounds
+  --no-turnarounds.tls                 Disables building turnarounds at
+                                         tls-controlled junctions
+  --no-left-connections                Disables building connections to left
+  --offset.disable-normalization       Turn off normalizing node positions
+  --offset.x FLOAT                     Adds FLOAT to net x-positions
+  --offset.y FLOAT                     Adds FLOAT to net y-positions
+  --flip-y-axis                        Flips the y-coordinate along zero
+  --roundabouts.guess                  Enable roundabout-guessing
+  --lefthand                           Assumes left-hand traffic on the network
+  --junctions.join                     Joins junctions that are close to each
+                                         other (recommended for OSM import)
+  --junctions.join-dist FLOAT          Determines the maximal distance for
+                                         joining junctions (defaults to 10)
+  --check-lane-foes.roundabout         Allow driving onto a multi-lane road if
+                                         there are foes on other lanes (at
+                                         roundabouts)
+  --check-lane-foes.all                Allow driving onto a multi-lane road if
+                                         there are foes on other lanes
+                                         (everywhere)
+  --sidewalks.guess                    Guess pedestrian sidewalks based on edge
+                                         speed
+  --sidewalks.guess.max-speed FLOAT    Add sidewalks for edges with a speed
+                                         equal or below the given limit
+  --sidewalks.guess.min-speed FLOAT    Add sidewalks for edges with a speed
+                                         above the given limit
+  --crossings.guess                    Guess pedestrian crossings based on the
+                                         presence of sidewalks
+  --tls.join-dist FLOAT                Determines the maximal distance for
+                                         joining traffic lights (defaults to 20)
 
 Building Defaults Options:
-  -L, --default.lanenumber INT        The default number of lanes in an edge
-  -S, --default.speed FLOAT           The default speed on an edge (in m/s)
-  -P, --default.priority INT          The default priority of an edge
-  -j, --default-junction-type STR     [traffic_light|priority|right_before_left] Determines the type of the build junctions
+  -L, --default.lanenumber INT         The default number of lanes in an edge
+  -S, --default.speed FLOAT            The default speed on an edge (in m/s)
+  -P, --default.priority INT           The default priority of an edge
+  --default.sidewalk-width FLOAT       The default width of added sidewalks
+  -j, --default-junction-type STR      [traffic_light|priority|right_before_left] Determines the type of the build junctions
 
 Report Options:
-  -v, --verbose                       Switches to verbose output
-  --print-options                     Prints option values before processing
-  -?, --help                          Prints this screen
-  -V, --version                       Prints the current version
-  -X, --xml-validation STR            Set schema validation scheme of XML
-                                        inputs ("never", "auto" or "always")
-  --xml-validation.net STR            Set schema validation scheme of SUMO
-                                        network inputs ("never", "auto" or
-                                        "always")
-  -W, --no-warnings                   Disables output of warnings
-  -l, --log FILE                      Writes all messages to FILE (implies
-                                        verbose)
-  --message-log FILE                  Writes all non-error messages to FILE
-                                        (implies verbose)
-  --error-log FILE                    Writes all warnings and errors to FILE
+  -v, --verbose                        Switches to verbose output
+  --print-options                      Prints option values before processing
+  -?, --help                           Prints this screen
+  -V, --version                        Prints the current version
+  -X, --xml-validation STR             Set schema validation scheme of XML
+                                         inputs ("never", "auto" or "always")
+  --xml-validation.net STR             Set schema validation scheme of SUMO
+                                         network inputs ("never", "auto" or
+                                         "always")
+  -W, --no-warnings                    Disables output of warnings
+  -l, --log FILE                       Writes all messages to FILE (implies
+                                         verbose)
+  --message-log FILE                   Writes all non-error messages to FILE
+                                         (implies verbose)
+  --error-log FILE                     Writes all warnings and errors to FILE
 
 Random Number Options:
-  --random                            Initialises the random number generator
-                                        with the current system time
-  --seed INT                          Initialises the random number generator
-                                        with the given value
+  --random                             Initialises the random number generator
+                                         with the current system time
+  --seed INT                           Initialises the random number generator
+                                         with the given value
 
 
 Examples:

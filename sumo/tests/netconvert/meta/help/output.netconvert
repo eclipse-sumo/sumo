@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r16196
+SUMO netconvert Version dev-SVN-r16288
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -243,7 +243,7 @@ Building Defaults Options:
   -L, --default.lanenumber INT         The default number of lanes in an edge
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
   -P, --default.priority INT           The default priority of an edge
-  --default.sidewalkWidth FLOAT        The default width of added sidewalks
+  --default.sidewalk-width FLOAT       The default width of added sidewalks
 
 Report Options:
   -v, --verbose                        Switches to verbose output
