@@ -341,7 +341,7 @@ NIImporter_SUMO::myEndElement(int element) {
         case SUMO_TAG_JUNCTION:
             if (myCurrentJunction.node != 0) {
                 assert(myCurrentJunction.intLanes.size() > 0);
-                assert(myCurrentJunction.intLanes.size() == myCurrentJunction.foes.size());
+                assert(myCurrentJunction.intLanes.size() == myCurrentJunction.response.size());
                 std::vector<Crossing>& crossings = myPedestrianCrossings[myCurrentJunction.node->getID()];
                 for (std::vector<Crossing>::iterator it = crossings.begin(); it != crossings.end(); ++it) {
                     for (int i = 0; i < myCurrentJunction.intLanes.size(); ++i) {
