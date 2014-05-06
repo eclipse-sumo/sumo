@@ -443,7 +443,7 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const 
         Pedestrians& pedestrians = getPedestrians(nextLane);
         // XXX consider waitingToEnter on nextLane
         sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(nextDir));
-        for (int ii = 0; ii < pedestrians.size(); ++ii) {
+        for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
             const PState& p = *pedestrians[ii];
             if (p.myWaitingToEnter) {
                 continue;
@@ -487,7 +487,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
         Obstacles obs(stripes, Obstacle(dir)); // continously updated
         NextLanesObstacles nextLanesObs; // continously updated
         sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(dir));
-        for (int ii = 0; ii < pedestrians.size(); ++ii) {
+        for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
             PState& p = *pedestrians[ii];
             //std::cout << SIMTIME << "CHECKING" << p.myPerson->getID() << "\n";
             Obstacles currentObs = obs;
@@ -960,7 +960,7 @@ MSPModel_Striping::PState::getPosition(const MSPerson::MSPersonStage_Walking& st
         PositionVector shp = myWalkingAreaPath->shape;
         try {
             shp.move2side(lateral_offset);
-        } catch (const InvalidArgument& e) {
+        } catch (const InvalidArgument&) {
             WRITE_WARNING("could not shift walkingArea " + myLane->getEdge().getID() + " shape " + toString(shp));
         }
         return shp.positionAtOffset(myRelX);
@@ -1016,7 +1016,7 @@ MSPModel_Striping::MovePedestrians::execute(SUMOTime currentTime) {
             }
             sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(FORWARD));
             std::cout << SIMTIME << " lane=" << lane->getID();
-            for (int ii = 0; ii < pedestrians.size(); ++ii) {
+            for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
                 const PState& p = *pedestrians[ii];
                 std::cout << " (" << p.myPerson->getID() << " " << p.myRelX << "," << p.myRelY << " " << p.myDir << ")";
             }
