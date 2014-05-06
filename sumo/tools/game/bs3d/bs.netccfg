@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="bsplain.nod.xml"/>
+        <edge-files value="bsplain.edg.xml"/>
+        <connection-files value="bsplain.con.xml"/>
+        <tllogic-files value="bsplain.tll.xml"/>
+    </input>
+
+    <output>
+        <output-file value="bs.net.xml"/>
+    </output>
+
+    <processing>
+        <ignore-errors.edge-type value="true"/>
+    </processing>
+
+</configuration>
