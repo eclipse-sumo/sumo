@@ -145,7 +145,7 @@ def main(options):
     net = sumolib.net.readNet(options.netfile)
     if options.min_distance > net.getBBoxDiameter():
         sys.exit("Cannot find trips with min-distance %s for net with diamter %s" % (
-            options.min_distance, self.net_diameter))
+            options.min_distance, net.getBBoxDiameter()))
 
 
     edge_generator = RandomTripGenerator(
