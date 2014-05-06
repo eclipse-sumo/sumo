@@ -330,16 +330,20 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                // direct links only exist if built explicitly. They are used to model tl-controlled links if there are no crossings
                if (ped.myDir == FORWARD) {
                    link = MSLinkContHelper::getConnectingLink(*currentLane, *nextRouteLane);
+#ifdef HAVE_INTERNAL_LANES
                    if (link != 0) {
                        if DEBUGCOND(ped.myPerson->getID()) std::cout << "  direct forward\n";
                        nextLane = MSLinkContHelper::getInternalFollowingLane(currentLane, nextRouteLane);
                    }
+#endif
                } else {
                    link = MSLinkContHelper::getConnectingLink(*nextRouteLane, *currentLane);
+#ifdef HAVE_INTERNAL_LANES
                    if (link != 0) {
                        if DEBUGCOND(ped.myPerson->getID()) std::cout << "  direct backward\n";
                        nextLane = MSLinkContHelper::getInternalFollowingLane(nextRouteLane, currentLane);
                    }
+#endif
                }
            }
            if (nextLane == 0) {
