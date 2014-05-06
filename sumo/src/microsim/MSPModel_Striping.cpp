@@ -187,7 +187,7 @@ MSPModel_Striping::connectedDirection(const MSLane* from, const MSLane* to) {
 
 
 void 
-MSPModel_Striping::initWalkingAreaPaths(const MSNet* net) {
+MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
     if (myWalkingAreaPaths.size() > 0) {
         return;
     }
@@ -196,8 +196,6 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet* net) {
         if (edge->isWalkingArea()) {
             const MSLane* walkingArea = getSidewalk(edge);
             // build all possible paths across this walkingArea
-            const MSJunction* junction = edge->getFromJunction();
-            assert(junction == edge->getToJunction());
             // gather all incident lanes
             std::vector<MSLane*> lanes;
             const std::vector<MSEdge*>& incoming = edge->getIncomingEdges();
@@ -563,7 +561,6 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
         }
 
         // advance to the next lane
-        const MSEdge& edge = lane->getEdge();
         sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(dir));
         bool checkAdvance = true; 
         while (checkAdvance) {
@@ -576,7 +573,6 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                 if (p->moveToNextLane(currentTime)) {
                     pedestrians.erase(pedestrians.begin());
                     checkAdvance = true;
-                    const MSLane* nextLane = p->myNLI.lane;
                     if (p->myLane != 0) {
                         changedLane.insert(p->myPerson);
                         myActiveLanes[p->myLane].push_back(p);
@@ -945,14 +941,13 @@ MSPModel_Striping::PState::getImpatience(SUMOTime now) const {
 
 
 SUMOReal 
-MSPModel_Striping::PState::getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
-    UNUSED_PARAMETER(stage);
+MSPModel_Striping::PState::getEdgePos(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
     return myRelX;
 }
 
 
 Position 
-MSPModel_Striping::PState::getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
+MSPModel_Striping::PState::getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime) const {
     if (myLane == 0) {
         // pedestrian has already finished
         return Position::INVALID;
@@ -973,8 +968,7 @@ MSPModel_Striping::PState::getPosition(const MSPerson::MSPersonStage_Walking& st
 
 
 SUMOReal 
-MSPModel_Striping::PState::getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
-    UNUSED_PARAMETER(stage);
+MSPModel_Striping::PState::getAngle(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
     if (myLane == 0) {
         // pedestrian has already finished
         return 0;
@@ -989,14 +983,13 @@ MSPModel_Striping::PState::getAngle(const MSPerson::MSPersonStage_Walking& stage
 
 
 SUMOTime 
-MSPModel_Striping::PState::getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
+MSPModel_Striping::PState::getWaitingTime(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
     return myWaitingTime;
 }
 
 
 SUMOReal 
-MSPModel_Striping::PState::getSpeed(const MSPerson::MSPersonStage_Walking& stage) const {
-    UNUSED_PARAMETER(stage);
+MSPModel_Striping::PState::getSpeed(const MSPerson::MSPersonStage_Walking&) const {
     return mySpeed;
 }
 

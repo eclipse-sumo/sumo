@@ -74,11 +74,11 @@ struct PedestrianTrip {
     PedestrianTrip(const E* _from, const E* _to, SUMOReal _departPos, SUMOReal _arrivalPos, SUMOReal _speed, SUMOReal _departTime, const N* _node) :
         from(_from),
         to(_to),
+        node(_node),
         departPos(_departPos < 0 ? _from->getLength() + _departPos : _departPos),
         arrivalPos(_arrivalPos < 0 ? _to->getLength() + _arrivalPos : _arrivalPos),
         speed(_speed),
-        departTime(_departTime),
-        node(_node)
+        departTime(_departTime)
     {}
 
     const E* from;
@@ -209,7 +209,7 @@ public:
     }
 
     bool includeInRoute(bool allEdges) const {
-        return !myAmConnector && (allEdges || !myEdge->isCrossing() && !myEdge->isWalkingArea());
+        return !myAmConnector && (allEdges || (!myEdge->isCrossing() && !myEdge->isWalkingArea()));
     }
 
     const E* getEdge() const {
@@ -408,13 +408,13 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    void compute(const E* from, const E* to, const _PedestrianTrip* const vehicle,
-                         SUMOTime msTime, std::vector<const E*>& into) {
+    void compute(const E*, const E*, const _PedestrianTrip* const,
+                         SUMOTime, std::vector<const E*>&) {
         throw ProcessError("Do not use this method");
     }
 
-    virtual SUMOReal recomputeCosts(const std::vector<const E*>& edges,
-                                    const _PedestrianTrip* const v, SUMOTime msTime) const {
+    virtual SUMOReal recomputeCosts(const std::vector<const E*>&,
+                                    const _PedestrianTrip* const, SUMOTime) const {
         throw ProcessError("Do not use this method");
     }
 

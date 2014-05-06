@@ -62,6 +62,8 @@ public:
     /// @brief return the appropriate lane to walk on
     static MSLane* getSidewalk(const MSEdge* edge);
 
+    virtual ~MSPModel() {};
+
     /// @brief register the given person as a pedestrian
     virtual PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) = 0;
 
@@ -93,6 +95,7 @@ private:
 /// @brief abstract base class for managing callbacks to retrieve various state information from the model
 class PedestrianState {
 public:
+    virtual ~PedestrianState() {};
 
     /// @brief return the offset from the start of the current edge measured in its natural direction
     virtual SUMOReal getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const = 0;
