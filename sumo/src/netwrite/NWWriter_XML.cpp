@@ -116,12 +116,20 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
             // set may contain multiple programs for the same id.
             // make sure ids are unique and sorted
             std::set<std::string> tlsIDs;
+            std::set<std::string> controlledInnerEdges;
             for (std::set<NBTrafficLightDefinition*>::const_iterator it_tl = tlss.begin(); it_tl != tlss.end(); it_tl++) {
                 tlsIDs.insert((*it_tl)->getID());
+                std::vector<std::string> cie = (*it_tl)->getControlledInnerEdges();
+                controlledInnerEdges.insert(cie.begin(), cie.end());
             }
             std::vector<std::string> sortedIDs(tlsIDs.begin(), tlsIDs.end());
             sort(sortedIDs.begin(), sortedIDs.end());
             device.writeAttr(SUMO_ATTR_TLID, sortedIDs);
+            if (controlledInnerEdges.size() > 0) {
+                std::vector<std::string> sortedCIEs(controlledInnerEdges.begin(), controlledInnerEdges.end());
+                sort(sortedCIEs.begin(), sortedCIEs.end());
+                device.writeAttr(SUMO_ATTR_CONTROLLED_INNER, joinToString(sortedCIEs, " "));
+            }
         }
         device.closeTag();
     }
