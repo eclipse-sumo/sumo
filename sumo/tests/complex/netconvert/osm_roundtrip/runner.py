@@ -27,6 +27,8 @@ import difflib
 import StringIO
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "import", "osm"))
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 from sumolib import checkBinary
 import fpdiff
 
@@ -42,7 +44,7 @@ def filter(lines):
     skippedHeader = False
     result = []
     for l in lines:
-        if '<net>' in l:
+        if '<net ' in l:
             skippedHeader = True
         if not skippedHeader:
             continue

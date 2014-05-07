@@ -1,11 +1,10 @@
 Warning: Discarding unusable type "railway.construction" (first occurence for edge "11390634#0").
 Warning: Discarding unusable type "highway.construction" (first occurence for edge "24154002").
-Warning: Not joining junctions 283018817,38919652,38919712,38919808 because the cluster is too complex (6 incoming edges)
-Warning: Not joining junctions 283018844,283018932 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 283720461,287944368 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 283721344,287944369 because the cluster is too complex (5 incoming edges)
+Warning: Not joining junctions 283018817,38919652,38919712,38919808 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 294168098,294169338,294169339 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 32266935,32266938 because the cluster is too complex (5 incoming edges)
+Warning: Ambiguity in turnarounds computation at node '283018845'.
+Warning: Ambiguity in turnarounds computation at node 'cluster_283018844_283018932'.
 Warning: The traffic light 'joinedG_0' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'joinedG_0'
 Warning: The traffic light 'joinedG_1' does not control any links; it will not be build.
@@ -14,6 +13,4 @@ Warning: The traffic light 'joinedG_2' does not control any links; it will not b
 Warning: Could not build program '0' for traffic light 'joinedG_2'
 Warning: The traffic light 'joinedG_3' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'joinedG_3'
-Warning: The traffic light 'joinedG_4' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'joinedG_4'
-Warning: The traffic light 'joinedS_1' has a high cycle time of 160.00.
+Warning: Ambiguity in turnarounds computation at node '283018845'.
