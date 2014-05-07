@@ -33,18 +33,18 @@ from sumolib import checkBinary
 import fpdiff
 
 osm_input = 'osm.xml'
-net_output = 'from_osm.net.xml'
-net_output2 = 'reloaded.net.xml'
+net_output= 'from_osm'
+net_output2= 'reloaded'
 
 netconvert = checkBinary('netconvert')
 assert(netconvert)
 
 # filter header and projection clause
-def filter(lines):
+def filter(lines, start_element):
     skippedHeader = False
     result = []
     for l in lines:
-        if '<net ' in l:
+        if start_element in l:
             skippedHeader = True
         if not skippedHeader:
             continue
@@ -55,6 +55,16 @@ def filter(lines):
         result.append(l)
     return result
 
+def get_filtered_lines(prefix):
+    result = []
+    for suffix, start_element in [
+            ('.net.xml', '<net '),
+            ('.nod.xml', '<nodes '),
+            ('.edg.xml', '<edges '),
+            ('.con.xml', '<connections '),
+            ('.tll.xml', '<tlLogics ')]:
+        result += filter(open(prefix + suffix, 'U').readlines(), start_element)
+    return result
 
 args1 = [netconvert,
         '--no-internal-links', 
@@ -62,19 +72,23 @@ args1 = [netconvert,
         '-R', '--ramps.guess', 
         '--tls.guess', '--tls.join',
         '--junctions.join',
-        '--output', net_output]
+        '--plain-output-prefix', net_output,
+        '--output', net_output + '.net.xml']
 
 args2 = [netconvert,
-        '--sumo-net-file', net_output,
+        '--sumo-net-file', net_output + '.net.xml',
         '--no-internal-links', 
         '--offset.disable-normalization',
-        '--output', net_output2]
+        '--plain-output-prefix', net_output2,
+        '--output', net_output2 + '.net.xml']
 
 subprocess.call(args1)
 subprocess.call(args2)
 
-fromlines = filter(open(net_output, 'U').readlines())
-tolines = filter(open(net_output2, 'U').readlines())
+fromlines = get_filtered_lines(net_output)
+tolines = get_filtered_lines(net_output2)
+#with open('fromlines','w') as f: f.write('\n'.join(fromlines))
+#with open('tolines','w') as f: f.write('\n'.join(tolines))
 out = StringIO.StringIO()
 fpdiff.fpfilter(fromlines, tolines, out, 0.0201)
 out.seek(0)
