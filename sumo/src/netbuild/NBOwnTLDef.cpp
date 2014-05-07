@@ -184,8 +184,7 @@ NBOwnTLDef::getBestPair(EdgeVector& incoming) {
 
 
 NBTrafficLightLogic*
-NBOwnTLDef::myCompute(const NBEdgeCont&,
-                      unsigned int brakingTimeSeconds) {
+NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
     const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
     const SUMOTime leftTurnTime = TIME2STEPS(6); // make configurable ?
     // build complete lists first
@@ -358,6 +357,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&,
         if (totalDuration > 3 * (greenTime + 2 * brakingTime + leftTurnTime)) {
             WRITE_WARNING("The traffic light '" + getID() + "' has a high cycle time of " + time2string(totalDuration) + ".");
         }
+        logic->closeBuilding();
         return logic;
     } else {
         delete logic;
