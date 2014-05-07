@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Nov 16 08:24:55 2012 by SUMO netconvert Version dev-SVN-r12992
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <tls_building>
+        <tls.join value="true"/>
+    </tls_building>
+
+</configuration>
+-->
+
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/connections_file.xsd">
+    <connection from="27437972" to="27441189" fromLane="0" toLane="0" pass="1"/>
+    <connection from="27437972" to="27441189" fromLane="1" toLane="1" pass="1"/>
+
+    <connection from="27441168" to="27445015#0" fromLane="0" toLane="1"/>
+    <connection from="27441168" to="27445003" fromLane="0" toLane="1"/>
+
+    <connection from="27441189" to="27445000#0" fromLane="0" toLane="0"/>
+    <connection from="27441189" to="6137245" fromLane="2" toLane="0"/>
+    <connection from="27441189" to="6137245" fromLane="3" toLane="1"/>
+
+    <connection from="27441289.95" to="27445015#0" fromLane="0" toLane="0"/>
+    <connection from="27441289.95" to="27445003" fromLane="0" toLane="0"/>
+    <connection from="27441289.95" to="27445003" fromLane="1" toLane="1"/>
+
+    <connection from="27445003" to="27441189" fromLane="0" toLane="2" pass="1"/>
+    <connection from="27445003" to="27441189" fromLane="1" toLane="3" pass="1"/>
+
+    <connection from="46039050" to="27441289.0" fromLane="0" toLane="0"/>
+    <connection from="46039050" to="27441168" fromLane="0" toLane="0"/>
+
+    <connection from="6137245" to="27441289.0" fromLane="0" toLane="0"/>
+    <connection from="6137245" to="27441289.0" fromLane="1" toLane="1"/>
+    <connection from="6137245" to="27441168" fromLane="1" toLane="0"/>
+
+</connections>

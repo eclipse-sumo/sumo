@@ -1,0 +1,1 @@
+--edge-files input_edges.edg.xml --node-files input_nodes.nod.xml,input_nodes2.nod.xml --output net.net.xml --plain-output-prefix plain

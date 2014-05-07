@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Mar  5 09:11:48 2014 by SUMO netconvert Version dev-SVN-r15812
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <tls_building>
+        <tls.join value="true"/>
+    </tls_building>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tllogic_file.xsd">
+    <tlLogic id="joinedS_0" type="static" programID="0" offset="0">
+        <phase duration="31" state="GGGGGGr"/>
+        <phase duration="4" state="yyyyyyr"/>
+        <phase duration="31" state="GGGrrGG"/>
+        <phase duration="4" state="yyyrryy"/>
+    </tlLogic>
+
+    <connection from="27437972" to="27441189" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="0"/>
+    <connection from="27437972" to="27441189" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="1"/>
+    <connection from="27441289.95" to="27445015#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="2"/>
+    <connection from="27441289.95" to="27445003" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="3"/>
+    <connection from="27441289.95" to="27445003" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="4"/>
+    <connection from="46039050" to="27441289.0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="5"/>
+    <connection from="46039050" to="27441168" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="6"/>
+</tlLogics>
