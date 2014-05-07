@@ -37,6 +37,7 @@
 #include <bitset>
 #include <utility>
 #include <set>
+#include <utils/common/StdDefs.h>
 #include <utils/common/Named.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/SUMOTime.h>
@@ -276,7 +277,10 @@ public:
                                 NBEdge* by, int byLane) = 0;
 
     /// @brief patches (loaded) signal plans by modifying lane indices
-    virtual void shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {}
+    virtual void shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
+        UNUSED_PARAMETER(edge);
+        UNUSED_PARAMETER(offset);
+    }
 
     /** @brief returns the information whether the given link is a left-mover
      * @param[in] from The connection's start edge

@@ -38,6 +38,7 @@
 #include <utility>
 #include <string>
 #include <set>
+#include <utils/common/StdDefs.h>
 #include <utils/common/Named.h>
 #include <utils/geom/Bresenham.h>
 #include <utils/common/VectorHelper.h>
@@ -603,6 +604,7 @@ public:
     public:
         explicit edge_by_direction_sorter(NBNode* n) : myNode(n) {}
         int operator()(NBEdge* e1, NBEdge* e2) const {
+            UNUSED_PARAMETER(e2);
             return e1->getFromNode() == myNode;
         }
 

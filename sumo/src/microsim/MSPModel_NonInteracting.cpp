@@ -85,7 +85,7 @@ MSPModel_NonInteracting::add(MSPerson* person, MSPerson::MSPersonStage_Walking* 
 
 
 bool 
-MSPModel_NonInteracting::blockedAtDist(const MSLane* lane, SUMOReal distToCrossing, std::vector<const MSPerson*>* collectBlockers) {
+MSPModel_NonInteracting::blockedAtDist(const MSLane*, SUMOReal, std::vector<const MSPerson*>*) {
     return false;
 }
 
