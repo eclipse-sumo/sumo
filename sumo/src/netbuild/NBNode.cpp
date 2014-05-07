@@ -1826,7 +1826,7 @@ NBNode::buildWalkingAreas() {
         if (gDebugFlag1) std::cout << "  combinations=" << combinations << " connectedPoints=" << connectedPoints << "\n";
         wa.length = POSITION_EPS;
         if (combinations > 0) {
-            wa.length = MAX2(POSITION_EPS, lengthSum / combinations);
+            wa.length = MAX2((SUMOReal)POSITION_EPS, lengthSum / combinations);
         }
         myWalkingAreas.push_back(wa);
     }
@@ -1856,7 +1856,7 @@ NBNode::buildWalkingAreas() {
             wa.shape.push_back(tmp[0]);
             myWalkingAreas.push_back(wa);
             // length (special case)
-            wa.length = MAX2(POSITION_EPS, prev.shape.back().distanceTo2D(next.shape.front()));
+            wa.length = MAX2((SUMOReal)POSITION_EPS, prev.shape.back().distanceTo2D(next.shape.front()));
         }
     }
 }
