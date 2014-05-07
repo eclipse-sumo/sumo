@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 07May11:20:30]
+search_string:-    <node id="283018817".*tl="joinedS_0"/>
+search_file:errors
+full_description:information about node membership in a joined TLS is lost
+brief_description:see #1265
