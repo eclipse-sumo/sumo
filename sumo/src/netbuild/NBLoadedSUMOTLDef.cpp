@@ -102,7 +102,7 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
     myOriginalNodes.insert(from->getToNode());
     myOriginalNodes.insert(to->getFromNode());
     // added connections are definitely controlled. make sure none are removed because they lie within the tl
-    //myControlledInnerEdges.insert(from->getID());
+    // myControlledInnerEdges.insert(from->getID()); // @todo recheck: this appears to be obsolete
     // set this information now so that it can be used while loading diffs
     from->setControllingTLInformation(conn, getID());
 }
