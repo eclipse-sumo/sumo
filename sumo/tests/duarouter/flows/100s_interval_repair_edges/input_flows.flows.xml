@@ -1,0 +1,6 @@
+<flowdefs>
+
+    <route id="r0" edges="beg rend"/>
+    <flow id="0" route="r0" begin="0" end="100" number="10"/>
+
+</flowdefs>

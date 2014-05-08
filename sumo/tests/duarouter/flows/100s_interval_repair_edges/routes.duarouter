@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/02/13 14:01:49 by SUMO duarouter Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <flow-files value="input_flows.flows.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+    <vehicle id="0.0" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="0.1" depart="10.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="0.2" depart="20.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="0.3" depart="30.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="0.4" depart="40.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="0.5" depart="50.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="0.6" depart="60.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="0.7" depart="70.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="0.8" depart="80.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="0.9" depart="90.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+</routes>

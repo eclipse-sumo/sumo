@@ -10,7 +10,6 @@
 # Same as 100s_interval, but with random vehicle emission times
 100s_interval_random
 
-
 # Test with 10 vehicles being divided on 200s
 200s_interval
 
@@ -19,7 +18,6 @@
 
 # Same as 200s_interval, but with random vehicle emission times
 200s_interval_random
-
 
 # Test whether passing optional vehicle attributes works
 100s_interval_withparams
@@ -35,8 +33,7 @@
 
 # Test whether the vehicle class is processed
 100s_interval_withtype_withclass
-
-
+100s_interval_repair_edges
 
 # Additional tests for distributing vehicles over time
 distribution_tests
@@ -47,8 +44,8 @@ vtypecheck
 # Tests what happens if no vehicle shall be written
 0_vehicles
 
+# test flow with intermediate edge
+via
 
 # Tests with false user input
 errors
-
-
