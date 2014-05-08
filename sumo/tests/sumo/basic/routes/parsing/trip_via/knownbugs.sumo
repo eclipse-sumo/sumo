@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 08May10:43:24]
+search_string:beg2left
+trigger_on_absence:1
+search_file:vehroutes
+full_description:attribute via should be supported
+brief_description:see #1272

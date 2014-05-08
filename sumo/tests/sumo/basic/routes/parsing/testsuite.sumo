@@ -30,3 +30,9 @@ include
 
 # Tests whether vehicles can have aroute of one edge only
 one_edge
+
+# test whether sume can parse trip input
+trip
+
+# test whether sume can parse trip input
+trip_via
