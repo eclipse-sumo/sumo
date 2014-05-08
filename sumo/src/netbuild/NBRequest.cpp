@@ -344,10 +344,9 @@ NBRequest::writeLogic(std::string /* key */, OutputDevice& into, const bool chec
             pos = writeLaneResponse(into, *i, k, pos, checkLaneFoes);
         }
     }
-    const int normalConnections = pos;
     // crossings
     for (std::vector<NBNode::Crossing>::const_iterator i = myCrossings.begin(); i != myCrossings.end(); i++) {
-        pos = writeCrossingResponse(into, *i, pos, normalConnections);
+        pos = writeCrossingResponse(into, *i, pos);
     }
 }
 
@@ -502,7 +501,7 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
 
 
 int
-NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos, int normalConnections) const {
+NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos) const {
     std::string foes(myCrossings.size(), '0');
     std::string response(myCrossings.size(), '0');
     // conflicts with normal connections 

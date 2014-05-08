@@ -1721,7 +1721,7 @@ NBNode::buildWalkingAreas() {
     }
     // build walking areas connected to a sidewalk
     for (int i = 0; i < (int)waIndices.size(); ++i) {
-        const bool buildExtensions = waIndices[i].second != normalizedLanes.size();
+        const bool buildExtensions = waIndices[i].second != (int)normalizedLanes.size();
         const int start = waIndices[i].first;
         const int prev = start > 0 ? start - 1 : normalizedLanes.size() - 1;
         const int count = waIndices[i].second;

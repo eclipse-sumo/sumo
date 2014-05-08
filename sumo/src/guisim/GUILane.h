@@ -198,7 +198,7 @@ public:
     void drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const;
 
     /// @brief draw crossties for railroads or pedestrian crossings
-    void drawCrossties(const GUIVisualizationSettings& s, SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
+    void drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
 
     SUMOReal getHalfWidth() const {
         return myHalfLaneWidth;

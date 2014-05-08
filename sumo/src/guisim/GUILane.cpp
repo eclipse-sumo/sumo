@@ -258,7 +258,6 @@ GUILane::drawLinkRules(const GUINet& net) const {
     SUMOReal x1 = 0;
     for (unsigned int i = 0; i < noLinks; ++i) {
         SUMOReal x2 = x1 + w;
-        MSLink* link = myLinks[i];
         drawLinkRule(net, myLinks[i], getShape(), x1, x2);
         x1 = x2;
         x2 += w;
@@ -479,7 +478,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             if (!MSGlobals::gUseMesoSim) {
                 setColor(s);
             }
-            drawCrossties(s, 0.3 * s.laneWidthExaggeration, 1 * s.laneWidthExaggeration, 1 * s.laneWidthExaggeration);
+            drawCrossties(0.3 * s.laneWidthExaggeration, 1 * s.laneWidthExaggeration, 1 * s.laneWidthExaggeration);
         } else if (isCrossing) {
             // determine priority to decide color
             MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
@@ -489,7 +488,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 glColor3d(0.1, 0.1, 0.1);
             }
             glTranslated(0, 0, .2);
-            drawCrossties(s, 0.5, 1.0, getWidth() * 0.5);
+            drawCrossties(0.5, 1.0, getWidth() * 0.5);
             glTranslated(0, 0, -.2);
         } else if (isWalkingArea) {
             glColor3d(0.3, 0.3, 1);
@@ -606,7 +605,7 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
 
 
 void
-GUILane::drawCrossties(const GUIVisualizationSettings& s, SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const {
+GUILane::drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const {
     glPushMatrix();
     glPushName(0);
     // draw on top of of the white area between the rails

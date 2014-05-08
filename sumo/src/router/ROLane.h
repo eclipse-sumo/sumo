@@ -116,6 +116,9 @@ public:
     }
 
 private:
+    /// @brief The parent edge of this lane
+    ROEdge* myEdge;
+
     /// @brief The length of the lane
     SUMOReal myLength;
 
@@ -124,8 +127,6 @@ private:
 
     /// @brief The encoding of allowed vehicle classes
     SVCPermissions myPermissions;
-
-    ROEdge* myEdge;
 
     std::vector<const ROLane*> myOutgoingLanes;
 

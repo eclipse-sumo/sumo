@@ -159,7 +159,7 @@ private:
 
     /** @brief writes the response of a certain crossing
         Returns the next link index within the junction */
-    int writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos, int normalConnections) const; 
+    int writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos) const; 
 
     /** @brief Writes the response of a certain link
      *
