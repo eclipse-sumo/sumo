@@ -238,7 +238,6 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     // compute the number of lanes to append
     const unsigned int firstLaneNumber = prev->getNumLanes();
     int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
-    gDebugFlag1 = (cur->getID() == "54531253");
     NBEdge* first = prev;
     NBEdge* last = prev;
     NBEdge* curr = prev;
