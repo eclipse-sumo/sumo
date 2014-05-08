@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 08May10:46:48]
+search_string:1
+search_file:exitcode
+ignore_other_errors:1
+full_description:flows should support routes with explicit edges
+brief_description:see #1271

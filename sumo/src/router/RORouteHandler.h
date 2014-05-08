@@ -104,7 +104,7 @@ protected:
      * @param[in] attrs Attributes within the currently opened element
      * @exception ProcessError If something fails
      */
-    void parseFromTo(std::string element,
+    void parseFromViaTo(std::string element,
                      const SUMOSAXAttributes& attrs);
 
 

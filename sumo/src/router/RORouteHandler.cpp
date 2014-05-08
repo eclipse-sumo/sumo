@@ -82,7 +82,7 @@ RORouteHandler::~RORouteHandler() {
 
 
 void
-RORouteHandler::parseFromTo(std::string element,
+RORouteHandler::parseFromViaTo(std::string element,
                             const SUMOSAXAttributes& attrs) {
     bool useTaz = OptionsCont::getOptions().getBool("with-taz");
     if (useTaz && !myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
@@ -110,6 +110,8 @@ RORouteHandler::parseFromTo(std::string element,
     } else {
         bool ok = true;
         parseEdges(attrs.get<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
+                   myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true),
                    myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
         parseEdges(attrs.get<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, !myEmptyDestinationsAllowed),
                    myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
@@ -156,11 +158,11 @@ RORouteHandler::myStartElement(int element,
         }
         case SUMO_TAG_FLOW:
             myActiveRouteProbability = DEFAULT_VEH_PROB;
-            parseFromTo("flow", attrs);
+            parseFromViaTo("flow", attrs);
             break;
         case SUMO_TAG_TRIP: {
             myActiveRouteProbability = DEFAULT_VEH_PROB;
-            parseFromTo("trip", attrs);
+            parseFromViaTo("trip", attrs);
             closeVehicle();
         }
         break;

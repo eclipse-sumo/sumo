@@ -58,6 +58,8 @@ same_edge
 # Tests whether processing vehicle parameter works
 vtypecheck
 
+# test trip with intermediate edge
+via
+
 # Tests false input
 errors
-
