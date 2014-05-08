@@ -23,8 +23,8 @@ import os,sys,optparse,subprocess
 from os import path
 
 
-vclassRemove = {"passenger" : " --remove-edges.by-vclass hov,taxi,bus,delivery,transport,lightrail,cityrail,rail_slow,rail_fast,motorcycle,bicycle,pedestrian",
-                "road" : " --remove-edges.by-vclass rail_slow,rail_fast,lightrail,cityrail,bicycle,pedestrian",
+vclassRemove = {"passenger" : " --keep-edges.by-vclass passenger",
+                "road" : " --remove-edges.by-vclass tram,rail_urban,rail_electric,bicycle,pedestrian",
                 "all" : "" }
 possibleVClassOptions = '|'.join(vclassRemove.keys())
 
@@ -90,7 +90,7 @@ def build(args=None, bindir=os.environ.get('SUMO_BINDIR','')):
 
 def call(cmd):
     # ensure unix compatibility
-    print(cmd)
+    #print(cmd)
     if isinstance(cmd, str):
         cmd = filter(lambda a: a!='', cmd.split(' '))
     subprocess.call(cmd)

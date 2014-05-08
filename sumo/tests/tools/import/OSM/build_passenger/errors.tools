@@ -1,8 +1,3 @@
-Warning: The vehicle class 'transport' is deprecated, use 'truck' instead.
-Warning: The vehicle class 'lightrail' is deprecated, use 'tram' instead.
-Warning: The vehicle class 'cityrail' is deprecated, use 'rail_urban' instead.
-Warning: The vehicle class 'rail_slow' is deprecated, use 'rail' instead.
-Warning: The vehicle class 'rail_fast' is deprecated, use 'rail_electric' instead.
 Warning: Discarding unusable type "highway.construction" (first occurence for edge "190461577").
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.

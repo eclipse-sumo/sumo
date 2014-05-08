@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May  8 14:47:33 2014 by SUMO netconvert Version dev-SVN-r16321
+<!-- generated on Thu May  8 14:52:02 2014 by SUMO netconvert Version dev-SVN-r16321
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.08May144732.29083/tools/import/OSM/build_passenger/net.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/tools.08May145202.29194/tools/import/OSM/build_passenger/net.net.xml"/>
     </output>
 
     <projection>
@@ -27,7 +27,7 @@
     </ramp_guessing>
 
     <edge_removal>
-        <remove-edges.by-vclass value="hov,taxi,bus,delivery,transport,lightrail,cityrail,rail_slow,rail_fast,motorcycle,bicycle,pedestrian"/>
+        <keep-edges.by-vclass value="passenger"/>
     </edge_removal>
 
     <processing>
