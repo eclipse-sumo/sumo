@@ -715,12 +715,6 @@ GUILane::getEdgeLaneNumber() const {
 }
 
 
-void
-GUILane::setColor(const GUIVisualizationSettings& s) const {
-    GLHelper::setColor(s.laneColorer.getScheme().getColor(getColorValue(s.laneColorer.getActive())));
-}
-
-
 SUMOReal
 GUILane::getStoredEdgeTravelTime() const {
     MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
@@ -732,6 +726,30 @@ GUILane::getStoredEdgeTravelTime() const {
         return value;
     }
 }
+
+
+void
+GUILane::setColor(const GUIVisualizationSettings& s) const {
+    const GUIColorer& c = s.laneColorer;
+    if (!setFunctionalColor(c.getActive())) {
+        GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+    }
+}
+
+
+bool
+GUILane::setFunctionalColor(size_t activeScheme) const {
+    switch (activeScheme) {
+        case 18: {
+            SUMOReal hue = RAD2DEG(myShape.beginEndAngle()) + 180; // [0-360]
+            GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+
 
 SUMOReal
 GUILane::getColorValue(size_t activeScheme) const {

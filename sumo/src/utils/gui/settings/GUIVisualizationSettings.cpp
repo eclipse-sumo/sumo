@@ -150,6 +150,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::GREEN, (SUMOReal)2.0);
     scheme.addColor(RGBColor::BLUE, (SUMOReal)4.0);
     laneColorer.addScheme(scheme);
+    laneColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
 
 
     /// add vehicle coloring schemes
