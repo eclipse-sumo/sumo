@@ -138,15 +138,19 @@ Error: value 'a' does not match regular expression facet '[+\-]?[0-9]+'
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@id:
 Error: Attribute 'id' in definition of a lane is empty.
+Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@id:
 Error: Attribute 'id' in definition of a lane is empty.
+Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@id:
 Error: Attribute 'id' in definition of a lane is empty.
+Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@id:
 Error: Attribute 'id' in definition of a lane is empty.
+Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@id:a_0
  Wrong error code returned (0)!
@@ -445,13 +449,17 @@ Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]:<remove>
- Wrong error code returned (0)!
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]:<remove>
- Wrong error code returned (0)!
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]:<remove>
- Wrong error code returned (0)!
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]:<remove>
- Wrong error code returned (0)!
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]:<duplicate>
  Wrong error code returned (0)!
 ------------------ net/edge[0]/lane[1]:<duplicate>

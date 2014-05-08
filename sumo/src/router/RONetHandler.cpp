@@ -284,6 +284,12 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     if (from->getType() == ROEdge::ET_INTERNAL) { // skip inner lane connections
         return;
     }
+    if (from->getLanes().size() <= (size_t)fromLane) {
+        throw ProcessError("invalid fromLane '" + toString(fromLane) + "' in connection from '" + fromID + "'.");
+    }
+    if (to->getLanes().size() <= (size_t)toLane) {
+        throw ProcessError("invalid toLane '" + toString(toLane) + "' in connection to '" + toID + "'.");
+    }
     from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
     from->addFollower(to, dir);
 }

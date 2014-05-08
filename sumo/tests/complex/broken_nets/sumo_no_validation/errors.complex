@@ -1,7 +1,17 @@
 ------------------ net/edge[0]@from:
- Wrong error code returned (0)!
+Error: Attribute 'from' in definition of a edge is empty.
+Error: Edge '1' has an invalid type.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
 ------------------ net/edge[1]@from:
- Wrong error code returned (0)!
+Error: Attribute 'from' in definition of a edge is empty.
+Error: Edge '2' has an invalid type.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
 ------------------ net/edge[0]@from:a
  Wrong error code returned (0)!
 ------------------ net/edge[1]@from:a
@@ -55,17 +65,37 @@ Error: Unknown to-edge '2' in connection
 Error: Unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@to:
- Wrong error code returned (0)!
+Error: Attribute 'to' in definition of a edge is empty.
+Error: Edge '1' has an invalid type.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
 ------------------ net/edge[1]@to:
- Wrong error code returned (0)!
+Error: Attribute 'to' in definition of a edge is empty.
+Error: Edge '2' has an invalid type.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
 ------------------ net/edge[0]@to:a
  Wrong error code returned (0)!
 ------------------ net/edge[1]@to:a
  Wrong error code returned (0)!
 ------------------ net/edge[0]@to:<remove>
- Wrong error code returned (0)!
+Error: Attribute 'to' is missing in definition of a edge.
+Error: Edge '1' has an invalid type.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
 ------------------ net/edge[1]@to:<remove>
- Wrong error code returned (0)!
+Error: Attribute 'to' is missing in definition of a edge.
+Error: Edge '2' has an invalid type.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
 ------------------ net/edge[0]:<remove>
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Unknown from-edge '1' in connection
@@ -639,8 +669,8 @@ Error: Attribute 'to' is missing in definition of a connection.
 Error: Unknown to-edge '' in connection
 Quitting (on error).
 ------------------ net/connection[0]:<duplicate>
-Error: Found invalid logic position of a link (network error)
+Error: Found invalid logic position of a link for junction '2' (2, max 2) -> (network error)
 Quitting (on error).
 ------------------ net/connection[1]:<duplicate>
-Error: Found invalid logic position of a link (network error)
+Error: Found invalid logic position of a link for junction '2' (2, max 2) -> (network error)
 Quitting (on error).
