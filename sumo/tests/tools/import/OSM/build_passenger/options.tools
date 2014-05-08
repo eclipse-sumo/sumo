@@ -1,0 +1,1 @@
+--prefix net --vehicle-classes passenger --osm-file osm.xml tools/import/osm/osmBuild.py

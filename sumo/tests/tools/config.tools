@@ -49,6 +49,7 @@ copy_test_path:dest.xml
 copy_test_path:fcd.xml
 copy_test_path:data.txt
 copy_test_path:source.csv
+copy_test_path:osm.xml
 
 [collate_file]
 detectors:e1.add.xml
@@ -87,6 +88,7 @@ match:match.txt
 image:image.png
 csv:out*.csv
 xml:out.xml
+net:net.net.xml
 
 [run_dependent_text]
 output:Begin time

@@ -1,0 +1,48 @@
+Parsing nodes from osm-file 'osm.xml'... done.
+Parsing edges from osm-file 'osm.xml'... done.
+Removing duplicate edges... done.
+Parsing relations from osm-file 'osm.xml'... 
+done.
+ Import done:
+   290 nodes loaded.
+   33 types loaded.
+   243 edges loaded.
+Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
+Removing self-loops... done.
+Removing empty nodes and geometry nodes... done.
+   212 nodes removed.
+Moving network to origin... done.
+Joining similar edges... done.
+Guessing and setting on-/off-ramps... done.
+Computing turning directions... done.
+Sorting nodes' edges... done.
+Computing node shapes... done.
+Computing edge shapes... done.
+Computing node types... done.
+Computing priorities... done.
+Computing approached edges... done.
+Computing approaching lanes... done.
+Dividing of lanes on approached lanes... done.
+Processing turnarounds... done.
+Rechecking of lane endings... done.
+Assigning nodes to traffic lights... done.
+Joining traffic light nodes... done.
+Computing traffic light control information... done.
+Computing node logics... done.
+Computing traffic light logics... 
+done.
+ 13 traffic light(s) computed.
+Building inner edges... done.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 9
+  Priority junctions          : 72
+  Right-before-left junctions : 0
+ Network boundaries:
+  Original boundary  : 13.50,52.42,13.54,52.43
+  Applied offset     : -398348.81,-5809189.04
+  Converted boundary : 0.00,0.00,2640.77,946.75
+-----------------------------------------------------
+Success.
+/scr1/sumoID/sumo/bin/netconvert -R --ramps.guess --tls.guess --tls.join -v --osm-files osm.xml --remove-edges.by-vclass hov,taxi,bus,delivery,transport,lightrail,cityrail,rail_slow,rail_fast,motorcycle,bicycle,pedestrian -o /scr2/texttest_tmp/tools.08May144732.29083/tools/import/OSM/build_passenger/net.net.xml
