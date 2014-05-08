@@ -343,6 +343,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netwrite\NWWriter_Amitran.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netwrite\NWWriter_DlrNavteq.cpp"
 				>
 			</File>
@@ -369,6 +373,10 @@
 			>
 			<File
 				RelativePath="..\..\..\src\netwrite\NWFrame.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netwrite\NWWriter_Amitran.h"
 				>
 			</File>
 			<File

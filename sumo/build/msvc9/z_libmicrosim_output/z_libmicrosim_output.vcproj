@@ -555,6 +555,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\output\MSAmitranTrajectories.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\output\MSDetectorControl.cpp"
 				>
 			</File>
@@ -588,6 +592,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MSMeanData.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\output\MSMeanData_Amitran.cpp"
 				>
 			</File>
 			<File
@@ -632,6 +640,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\output\MSAmitranTrajectories.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\output\MSCrossSection.h"
 				>
 			</File>
@@ -673,6 +685,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MSMeanData.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\output\MSMeanData_Amitran.h"
 				>
 			</File>
 			<File

@@ -411,6 +411,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\od2trips\ODAmitranHandler.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\od2trips\ODDistrict.cpp"
 				>
 			</File>
@@ -431,6 +435,10 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
+			<File
+				RelativePath="..\..\..\src\od2trips\ODAmitranHandler.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\..\src\od2trips\ODCell.h"
 				>
