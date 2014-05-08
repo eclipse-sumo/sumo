@@ -256,7 +256,10 @@ protected:
     public:
         /// comparing operation
         bool operator()(const PState* p1, const PState* p2) const {
-            return myDir * p1->myRelX > myDir * p2->myRelX;
+            if (p1->myRelX != p2->myRelX) {
+                return myDir * p1->myRelX > myDir * p2->myRelX;
+            }
+            return p1->myPerson->getID() < p2->myPerson->getID();
         }
 
     private:

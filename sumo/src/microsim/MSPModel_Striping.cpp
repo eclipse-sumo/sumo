@@ -483,7 +483,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
         const MSLane* lane = it_lane->first;
         const int stripes = numStripes(lane);
         Pedestrians& pedestrians = it_lane->second;
-        //std::cout << SIMTIME << ">>> lane=" << lane->getID() << " numPeds=" << pedestrians.size() << " waitingToEnter=" << waitingToEnter << "\n";
+        //std::cout << SIMTIME << ">>> lane=" << lane->getID() << " numPeds=" << pedestrians.size() << "\n";
         
         // move forward
         Obstacles obs(stripes, Obstacle(dir)); // continously updated

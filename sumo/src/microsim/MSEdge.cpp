@@ -602,7 +602,12 @@ MSEdge::getSortedPersons(SUMOTime timestep) const {
 
 int 
 MSEdge::person_by_offset_sorter::operator()(const MSPerson* const p1, const MSPerson* const p2) const {
-    return p1->getCurrentStage()->getEdgePos(myTime) < p2->getCurrentStage()->getEdgePos(myTime);
+    const SUMOReal pos1 = p1->getCurrentStage()->getEdgePos(myTime);
+    const SUMOReal pos2 = p2->getCurrentStage()->getEdgePos(myTime);
+    if (pos1 != pos2) {
+        return pos1 < pos2;
+    }
+    return p1->getID() < p2->getID();
 }
 
 /****************************************************************************/
