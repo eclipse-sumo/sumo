@@ -65,6 +65,10 @@ def get_options():
                          default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m appart")
     optParser.add_option("--max-distance", type="float", dest="max_distance",
                          default=None, help="require start and end edges for each trip to be at most <FLOAT> m appart (default 0 which disables any checks)")
+    optParser.add_option("-i", "--intermediate", type="int", 
+                         default=0, help="generates the given number of intermediate way points")
+    optParser.add_option("--maxtries", type="int", 
+                         default=100, help="number of attemps for finding a trip which meets the distance constraints")
     optParser.add_option("-c", "--vclass", 
                          help="only from and to edges which permit <vClass>")
     optParser.add_option("-v", "--verbose", action="store_true",
@@ -95,6 +99,7 @@ class RandomEdgeGenerator:
             #print edge.getID(), weight_fun(edge)
             self.total_weight += weight_fun(edge)
             self.cumulative_weights.append(self.total_weight)
+        assert(self.total_weight > 0)
 
     def get(self):
         r = random.random() * self.total_weight
@@ -103,26 +108,34 @@ class RandomEdgeGenerator:
 
 
 class RandomTripGenerator:
-    def __init__(self, source_generator, sink_generator):
+    def __init__(self, source_generator, sink_generator, via_generator, intermediate):
         self.source_generator = source_generator
         self.sink_generator = sink_generator
+        self.via_generator = via_generator
+        self.intermediate = intermediate
 
     def get_trip(self, min_distance, max_distance, maxtries=100):
         for i in range(maxtries):
             source_edge = self.source_generator.get()
+            intermediate = [self.via_generator.get() for i in range(self.intermediate)]
             sink_edge = self.sink_generator.get()
-            distance = euclidean(source_edge.getFromNode().getCoord(), 
-                    sink_edge.getToNode().getCoord())
+            coords = ([source_edge.getFromNode().getCoord()]
+                    + [e.getFromNode().getCoord() for e in intermediate] 
+                    + [sink_edge.getToNode().getCoord()])
+            distance = sum([euclidean(p,q) for p,q in zip(coords[:-1], coords[1:])])
             if distance >= min_distance and (max_distance is None or distance < max_distance):
-                return source_edge, sink_edge
-        raise Exception("no trip found after %s tries" % (type, maxtries))
+                return source_edge, sink_edge, intermediate
+        raise Exception("no trip found after %s tries" % maxtries)
 
 
 def get_prob_fun(options, fringe_bonus, fringe_forbidden):
+    # fringe_bonus None generates intermediate way points
     def edge_probability(edge):
         if options.vclass and not edge.allows(options.vclass):
             return 0
-        if edge.is_fringe(getattr(edge, fringe_forbidden)):
+        if fringe_bonus is None and edge.is_fringe():
+            return 0
+        if fringe_forbidden is not None and edge.is_fringe(getattr(edge, fringe_forbidden)):
             return 0
         prob = 1
         if options.length:
@@ -130,9 +143,10 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
         if options.lanes:
             prob *= edge.getLaneNumber()
         prob *= (edge.getSpeed() ** options.speed_exponent)
-        if (options.fringe_factor != 1.0 and
-                edge.getSpeed() > options.fringe_threshold and
-                edge.is_fringe(getattr(edge, fringe_bonus))):
+        if (options.fringe_factor != 1.0 
+                and fringe_bonus is not None 
+                and edge.getSpeed() > options.fringe_threshold 
+                and edge.is_fringe(getattr(edge, fringe_bonus))):
             prob *= options.fringe_factor
         return prob
     return edge_probability
@@ -143,14 +157,16 @@ def main(options):
         random.seed(options.seed)
 
     net = sumolib.net.readNet(options.netfile)
-    if options.min_distance > net.getBBoxDiameter():
-        sys.exit("Cannot find trips with min-distance %s for net with diamter %s" % (
-            options.min_distance, net.getBBoxDiameter()))
-
+    if options.min_distance > net.getBBoxDiameter() * (options.intermediate + 1):
+        options.intermediate = int(math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
+        print("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of %s in a network with diameter %s." % (
+                options.intermediate, options.min_distance, net.getBBoxDiameter()))
 
     edge_generator = RandomTripGenerator(
             RandomEdgeGenerator(net, get_prob_fun(options, "_incoming", "_outgoing")),
-            RandomEdgeGenerator(net, get_prob_fun(options, "_outgoing", "_incoming")))
+            RandomEdgeGenerator(net, get_prob_fun(options, "_outgoing", "_incoming")),
+            RandomEdgeGenerator(net, get_prob_fun(options, None, None)),
+            options.intermediate)
 
     idx = 0
     with open(options.tripfile, 'w') as fouttrips:
@@ -160,14 +176,20 @@ def main(options):
         depart = options.begin
         while depart < options.end:
             label = "%s%s" % (options.tripprefix, idx)
-            source_edge, sink_edge = edge_generator.get_trip(options.min_distance, options.max_distance)
-            if options.pedestrians:
-                print >> fouttrips, '    <person id="%s" depart="%.2f" %s>' % (label, depart, options.tripattrs)
-                print >> fouttrips, '        <walk from="%s" to="%s"/>' % (source_edge.getID(), sink_edge.getID())
-                print >> fouttrips, '    </person>' 
-            else:
-                print >> fouttrips, '    <trip id="%s" depart="%.2f" from="%s" to="%s" %s/>' % (
-                        label, depart, source_edge.getID(), sink_edge.getID(), options.tripattrs)
+            try:
+                source_edge, sink_edge, intermediate = edge_generator.get_trip(options.min_distance, options.max_distance, options.maxtries)
+                via = ""
+                if len(intermediate) > 0:
+                    via='via="%s" ' % ' '.join([e.getID() for e in intermediate])
+                if options.pedestrians:
+                    print >> fouttrips, '    <person id="%s" depart="%.2f" %s>' % (label, depart, options.tripattrs)
+                    print >> fouttrips, '        <walk from="%s" to="%s"/>' % (source_edge.getID(), sink_edge.getID())
+                    print >> fouttrips, '    </person>' 
+                else:
+                    print >> fouttrips, '    <trip id="%s" depart="%.2f" from="%s" to="%s" %s%s/>' % (
+                            label, depart, source_edge.getID(), sink_edge.getID(), via, options.tripattrs)
+            except Exception, exc:
+                print exc
             idx += 1
             depart += options.period
         fouttrips.write("</trips>")

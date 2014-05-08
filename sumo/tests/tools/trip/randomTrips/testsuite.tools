@@ -16,3 +16,6 @@ fringe_factor_turnarounds
 
 # consider vehicle class when picking source- and destination edges if option --vclass is used
 vclass
+
+# test trips with intermediate waypoints
+intermediate
