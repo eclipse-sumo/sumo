@@ -168,7 +168,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     tc.insert("highway.ford",          1, (SUMOReal)(10. / 3.6),  1, WIDTH, SVC_ARMY);
 
     //  for railways
-    const bool oneWay = OptionsCont::getOptions().getBool("osm.railway.oneway-default");
+    const bool oneWay = oc.getBool("osm.railway.oneway-default");
     tc.insert("railway.rail",          1, (SUMOReal)(300. / 3.6),  15, WIDTH, SVC_RAIL, oneWay);
     tc.insert("railway.tram",          1, (SUMOReal)(100. / 3.6),  15, WIDTH, SVC_TRAM,  oneWay);
     tc.insert("railway.light_rail",    1, (SUMOReal)(100. / 3.6),  15, WIDTH, SVC_RAIL_URBAN, oneWay); // might also correspond to higher standard trams
@@ -205,7 +205,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 
     /* Remove duplicate edges with the same shape and attributes */
-    if (!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
+    if (!oc.getBool("osm.skip-duplicates-check")) {
         PROGRESS_BEGIN_MESSAGE("Removing duplicate edges");
         if (myEdges.size() > 1) {
             std::set<const Edge*, CompareEdges> dupsFinder;
@@ -280,6 +280,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         }
         insertEdge(e, running, currentFrom, last, passed, nb);
     }
+
     // load relations (after edges are built since we want to apply
     // turn-restrictions directly to NBEdges)
     RelationHandler relationHandler(myOSMNodes, myEdges);
