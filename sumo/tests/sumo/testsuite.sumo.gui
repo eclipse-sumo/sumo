@@ -19,5 +19,11 @@ bugs
 # testing car-following model properties
 cf_model
 
+# test lane-changing model properties
+lc_model
+
+# testing the dynamics and interaction of different pedestrian models
+pedestrian_model
+
 # Tests for GUI features
 gui
