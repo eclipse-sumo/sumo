@@ -76,7 +76,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST && variable != VAR_SPEED && variable != VAR_SPEED_WITHOUT_TRACI
-            && variable != VAR_POSITION && variable != VAR_ANGLE
+            && variable != VAR_POSITION && variable != VAR_ANGLE && variable != VAR_POSITION3D
             && variable != VAR_ROAD_ID && variable != VAR_LANE_ID && variable != VAR_LANE_INDEX
             && variable != VAR_TYPE && variable != VAR_ROUTE_ID && variable != VAR_COLOR
             && variable != VAR_LANEPOSITION
@@ -143,6 +143,12 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeDouble(onRoad ? v->getPosition().x() : INVALID_DOUBLE_VALUE);
                 tempMsg.writeDouble(onRoad ? v->getPosition().y() : INVALID_DOUBLE_VALUE);
                 break;
+			case VAR_POSITION3D:
+				tempMsg.writeUnsignedByte(POSITION_3D);
+				tempMsg.writeDouble(onRoad ? v->getPosition().x() : INVALID_DOUBLE_VALUE);
+				tempMsg.writeDouble(onRoad ? v->getPosition().y() : INVALID_DOUBLE_VALUE);
+				tempMsg.writeDouble(onRoad ? v->getPosition().z() : INVALID_DOUBLE_VALUE);
+				break;
             case VAR_ANGLE:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(onRoad ? v->getAngle() : INVALID_DOUBLE_VALUE);

@@ -481,6 +481,9 @@
 // position (2D) (get: vehicle, poi, set: poi)
 #define VAR_POSITION 0x42
 
+// position (3D) (get: vehicle, poi, set: poi)
+#define VAR_POSITION3D 0x39
+
 // angle (get: vehicle)
 #define VAR_ANGLE 0x43
 
