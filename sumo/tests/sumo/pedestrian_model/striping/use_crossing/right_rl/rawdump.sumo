@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 21 Mar 2014 12:42:35 PM CET by SUMO gui Version dev-SVN-r15906
+<!-- generated on Thu May  8 13:31:47 2014 by SUMO sumo Version dev-SVN-r16321
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -13,6 +13,11 @@
     <output>
         <netstate-dump value="rawdump.xml"/>
     </output>
+
+    <processing>
+        <pedestrian.model value="striping"/>
+        <pedestrian.striping.dawdling value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -109,52 +114,52 @@
         </edge>
     </timestep>
     <timestep time="25.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="0.83" angle="-180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="26.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="2.22" angle="161.22" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="27.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="3.61" angle="161.22" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="28.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="5.00" angle="-180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="29.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="5.00" angle="-180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="30.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="5.00" angle="-180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="31.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="5.00" angle="-180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="32.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="5.00" angle="-180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="33.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="5.00" angle="-180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="34.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="5.00" angle="-180.00" stage="walking"/>
         </edge>
     </timestep>
@@ -224,12 +229,12 @@
         </edge>
     </timestep>
     <timestep time="48.00">
-        <edge id=":C_w0">
+        <edge id=":C_w1">
             <person id="p0" pos="0.73" angle="98.58" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="49.00">
-        <edge id=":C_w0">
+        <edge id=":C_w1">
             <person id="p0" pos="2.12" angle="98.58" stage="walking"/>
         </edge>
     </timestep>

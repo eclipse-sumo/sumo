@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 21 12:27:25 2014 by SUMO sumo Version dev-SVN-r15906
+<!-- generated on Thu May  8 13:31:47 2014 by SUMO sumo Version dev-SVN-r16321
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -13,6 +13,11 @@
     <output>
         <netstate-dump value="rawdump.xml"/>
     </output>
+
+    <processing>
+        <pedestrian.model value="striping"/>
+        <pedestrian.striping.dawdling value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -99,22 +104,22 @@
         </edge>
     </timestep>
     <timestep time="15.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="0.83" angle="-180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="16.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="2.22" angle="135.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="17.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="3.61" angle="135.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="18.00">
-        <edge id=":C_w1">
+        <edge id=":C_w2">
             <person id="p0" pos="5.00" angle="90.00" stage="walking"/>
         </edge>
     </timestep>
