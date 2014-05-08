@@ -39,3 +39,6 @@ off_ramp_nosplit
 # if edges in opposite directions are involved no ramp should be built
 off_turnaround_noramp
 on_turnaround_noramp
+
+# special case where the off ramp has more lanes than the main motorway (see #1252)
+2in_1main_2off

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 30 15:49:46 2013 by SUMO netconvert Version dev-SVN-r14318
+<!-- generated on Thu May  8 08:59:49 2014 by SUMO netconvert Version dev-SVN-r16297
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -22,6 +22,10 @@
         <no-internal-links value="true"/>
     </processing>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
@@ -30,26 +34,40 @@
     <location netOffset="-358214.00,-5643940.29" convBoundary="0.00,0.00,490.35,245.24" origBoundary="6.977606,50.924605,6.993985,50.936346" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="bug_in_osm_db" from="cluster_35916474_35916475_443246" to="443238" priority="9" spreadType="center" shape="490.02,243.75 472.22,225.80 438.38,192.83 422.32,177.95 405.57,164.02 376.21,141.49 344.54,121.64 320.33,109.04 294.12,95.53 271.94,79.51 248.17,67.55">
-        <lane id="bug_in_osm_db_0" index="0" speed="13.89" length="302.86" shape="489.76,245.83 471.05,226.96 437.23,194.01 421.20,179.16 404.51,165.29 375.21,142.80 343.66,123.04 319.57,110.50 293.36,97.00 270.97,80.85 248.81,69.72"/>
-        <lane id="bug_in_osm_db_1" index="1" speed="13.89" length="302.86" shape="492.10,243.50 473.39,224.64 439.53,191.65 423.44,176.74 406.63,162.75 377.21,140.18 345.42,120.24 321.09,107.58 294.88,94.06 272.91,78.17 249.67,66.46"/>
+        <lane id="bug_in_osm_db_0" index="0" speed="13.89" length="323.05" shape="489.76,245.83 471.05,226.96 437.23,194.01 421.20,179.16 404.51,165.29 375.21,142.80 343.66,123.04 319.57,110.50 293.36,97.00 270.97,80.85 231.92,61.24"/>
+        <lane id="bug_in_osm_db_1" index="1" speed="13.89" length="323.05" shape="492.10,243.50 473.39,224.64 439.53,191.65 423.44,176.74 406.63,162.75 377.21,140.18 345.42,120.24 321.09,107.58 294.88,94.06 272.91,78.17 232.68,57.89"/>
     </edge>
-    <edge id="exit_with_only_one_lane" from="443238" to="324321646" priority="10" spreadType="center" shape="248.17,67.55 273.14,73.96 294.31,77.97 306.29,78.24 316.96,75.87 326.73,71.93 334.60,66.29 341.45,57.35 345.11,48.69 346.35,39.52 346.17,31.67 344.86,23.54 341.67,17.30 336.14,10.25 328.81,4.33 314.83,0.45 303.97,0.00 291.35,3.21 280.38,10.06 275.41,19.79">
-        <lane id="exit_with_only_one_lane_0" index="0" speed="22.22" length="224.40" shape="249.30,67.84 273.14,73.96 294.31,77.97 306.29,78.24 316.96,75.87 326.73,71.93 334.60,66.29 341.45,57.35 345.11,48.69 346.35,39.52 346.17,31.67 344.86,23.54 341.67,17.30 336.14,10.25 328.81,4.33 314.83,0.45 303.97,0.00 291.35,3.21 280.38,10.06 275.54,19.53"/>
+    <edge id="exit_with_only_one_lane" from="exit_with_only_one_lane-AddedOnRampNode" to="324321646" priority="10" spreadType="center" shape="340.40,58.71 341.45,57.35 345.11,48.69 346.35,39.52 346.17,31.67 344.86,23.54 341.67,17.30 336.14,10.25 328.81,4.33 314.83,0.45 303.97,0.00 291.35,3.21 280.38,10.06 275.41,19.79">
+        <lane id="exit_with_only_one_lane_0" index="0" speed="22.22" length="124.40" shape="341.32,57.52 341.45,57.35 345.11,48.69 346.35,39.52 346.17,31.67 344.86,23.54 341.67,17.30 336.14,10.25 328.81,4.33 314.83,0.45 303.97,0.00 291.35,3.21 280.38,10.06 275.54,19.53"/>
     </edge>
-    <edge id="motorway" from="2159689627" to="443238" priority="9" spreadType="center" shape="0.00,49.16 60.99,48.56 139.39,50.79 190.61,56.09 219.76,60.90 248.17,67.55">
-        <lane id="motorway_0" index="0" speed="13.89" length="249.64" shape="-0.02,47.51 60.97,46.91 139.44,49.14 190.78,54.45 220.03,59.27 247.75,65.76"/>
-        <lane id="motorway_1" index="1" speed="13.89" length="249.64" shape="0.02,50.81 61.01,50.21 139.34,52.44 190.44,57.73 219.49,62.53 247.00,68.97"/>
+    <edge id="exit_with_only_one_lane-AddedOnRampEdge" from="443238" to="exit_with_only_one_lane-AddedOnRampNode" priority="10" spreadType="center" shape="250.23,59.51 274.95,65.85 295.18,69.69 305.47,69.92 314.49,67.92 322.70,64.60 328.76,60.26 333.82,53.67">
+        <lane id="exit_with_only_one_lane-AddedOnRampEdge_0" index="0" speed="22.22" length="118.25" shape="234.40,50.34 276.18,61.06 296.10,64.82 304.98,64.96 313.42,63.08 320.30,60.24 325.28,56.67 328.97,51.85"/>
+        <lane id="exit_with_only_one_lane-AddedOnRampEdge_1" index="1" speed="22.22" length="118.25" shape="233.67,53.55 275.36,64.26 295.49,68.07 305.31,68.27 314.13,66.31 321.90,63.15 327.60,59.06 331.59,53.85"/>
+        <lane id="exit_with_only_one_lane-AddedOnRampEdge_2" index="2" speed="22.22" length="118.25" shape="232.94,56.77 274.54,67.45 294.87,71.31 305.63,71.57 314.85,69.53 323.50,66.06 329.92,61.46 334.21,55.86"/>
+        <lane id="exit_with_only_one_lane-AddedOnRampEdge_3" index="3" speed="22.22" length="118.25" shape="232.21,59.99 273.72,70.65 294.26,74.55 305.96,74.88 315.56,72.75 325.10,68.97 332.24,63.86 336.83,57.87"/>
+    </edge>
+    <edge id="motorway" from="2159689627" to="443238" priority="9" spreadType="center" shape="0.00,49.16 60.99,48.56 139.39,50.79 190.61,56.09 219.76,60.90 251.46,54.72">
+        <lane id="motorway_0" index="0" speed="13.89" length="273.78" shape="-0.02,47.51 60.97,46.91 139.44,49.14 190.78,54.45 219.74,59.22 227.81,57.65"/>
+        <lane id="motorway_1" index="1" speed="13.89" length="273.78" shape="0.02,50.81 61.01,50.21 139.34,52.44 190.44,57.73 219.78,62.58 228.44,60.89"/>
     </edge>
 
     <junction id="2159689627" type="unregulated" x="0.00" y="49.16" incLanes="" intLanes="" shape="0.03,52.41 -0.03,45.91"/>
     <junction id="324321646" type="unregulated" x="272.57" y="18.01" incLanes="exit_with_only_one_lane_0" intLanes="" shape="276.97,20.26 274.12,18.80"/>
-    <junction id="443238" type="priority" x="248.17" y="67.55" incLanes="bug_in_osm_db_0 bug_in_osm_db_1 motorway_0 motorway_1" intLanes="" shape="248.40,71.30 249.71,66.29 248.12,64.20 246.64,70.53">
-        <request index="0" response="10" foes="10"/>
-        <request index="1" response="00" foes="01"/>
+    <junction id="443238" type="priority" x="248.17" y="67.55" incLanes="bug_in_osm_db_0 bug_in_osm_db_1 motorway_0 motorway_1" intLanes="" shape="231.56,62.84 234.75,48.77 227.50,56.08 228.75,62.46">
+        <request index="0" response="0000" foes="0000"/>
+        <request index="1" response="0000" foes="0000"/>
+        <request index="2" response="0000" foes="0000"/>
+        <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="cluster_35916474_35916475_443246" type="unregulated" x="490.35" y="245.24" incLanes="" intLanes="" shape="493.24,242.38 488.62,246.95"/>
+    <junction id="exit_with_only_one_lane-AddedOnRampNode" type="priority" x="340.40" y="58.71" incLanes="exit_with_only_one_lane-AddedOnRampEdge_0 exit_with_only_one_lane-AddedOnRampEdge_1 exit_with_only_one_lane-AddedOnRampEdge_2 exit_with_only_one_lane-AddedOnRampEdge_3" intLanes="" shape="342.59,58.50 340.05,56.55 327.70,50.87 338.10,58.84">
+        <request index="0" response="0" foes="0"/>
+    </junction>
 
-    <connection from="bug_in_osm_db" to="exit_with_only_one_lane" fromLane="1" toLane="0" dir="t" state="m"/>
-    <connection from="motorway" to="exit_with_only_one_lane" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
+    <connection from="bug_in_osm_db" to="exit_with_only_one_lane-AddedOnRampEdge" fromLane="0" toLane="2" pass="1" dir="t" state="M"/>
+    <connection from="bug_in_osm_db" to="exit_with_only_one_lane-AddedOnRampEdge" fromLane="1" toLane="3" pass="1" dir="t" state="M"/>
+    <connection from="exit_with_only_one_lane-AddedOnRampEdge" to="exit_with_only_one_lane" fromLane="3" toLane="0" dir="s" state="M"/>
+    <connection from="motorway" to="exit_with_only_one_lane-AddedOnRampEdge" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
+    <connection from="motorway" to="exit_with_only_one_lane-AddedOnRampEdge" fromLane="1" toLane="1" pass="1" dir="s" state="M"/>
 
 </net>
