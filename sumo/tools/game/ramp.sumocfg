@@ -10,7 +10,7 @@
 
     <time>
         <begin value="0"/>
-        <end value="180"/>
+        <end value="900"/>
         <step-length value=".2"/>
     </time>
 
