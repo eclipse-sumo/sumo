@@ -197,8 +197,8 @@
     <viewport zoom="105" x="484" y="650" centerX="664" centerY="631"/>
     <decal filename="bs3.3ds" centerX="660" centerY="679" rotation="1.30" tilt="0" roll="90"/>
     <decal filename="tl:cluster_104171179_28142770_28298581_28298587:0" centerX="680" centerY="660" rotation="180" width="-1" height="-1" altitude="4"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:1" centerX="690" centerY="630" rotation="90" width="-1" height="-1" altitude="4"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:2" centerX="660" centerY="620" width="-1" height="-1" altitude="4"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:3" centerX="650" centerY="650" rotation="-90" width="-1" height="-1" altitude="4"/>
+    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:5" centerX="690" centerY="630" rotation="90" width="-1" height="-1" altitude="4"/>
+    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:10" centerX="660" centerY="620" width="-1" height="-1" altitude="4"/>
+    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:15" centerX="650" centerY="650" rotation="-90" width="-1" height="-1" altitude="4"/>
     <light centerX="600" centerY="600" centerZ="300"/>
 </viewsettings>
