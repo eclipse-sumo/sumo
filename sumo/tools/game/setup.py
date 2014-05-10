@@ -37,11 +37,12 @@ for f in glob.glob(os.path.join(base, "*.sumocfg")):
     shutil.copy2(f, "dist")
 for f in ['input_additional.add.xml', 'logo.gif', 'dlr.gif']:
     shutil.copy2(os.path.join(base, f), "dist")
-for dir in ['cross', 'square', 'kuehne', 'highway', 'sounds', 'ramp']:
+for dir in ['cross', 'square', 'kuehne', 'highway', 'sounds', 'ramp', 'bs3d']:
     subprocess.call(['svn', 'export', os.path.join(base, dir), os.path.join("dist", dir)])
 for dll in glob.glob(os.path.join(nightlyDir, "*.dll")):
     shutil.copy2(dll, "dist")
-shutil.copy2(os.path.join(nightlyDir, "sumo-gui.exe"), "dist")
+shutil.copytree(glob.glob(os.path.join(nightlyDir, "osgPlugins*"))[0], "dist")
+shutil.copy2(os.path.join(nightlyDir, "meso-gui.exe"), "dist")
 
 zipf = zipfile.ZipFile(os.path.join(nightlyDir, "sumogame.zip"), 'w', zipfile.ZIP_DEFLATED)
 root_len = len(os.path.abspath("dist"))
