@@ -81,4 +81,9 @@
         </vehicles>
         <legend showSizeLegend="1"/>
     </scheme>
+
+    <event id="jam" commandPosix="play sounds/car_horn1.wav &#x26;"  commandWindows="start /min vlc.exe -Idummy --play-and-exit sounds/car_horn1.wav" probability="0.001"/>
+    <event id="jam" commandPosix="play sounds/car_horn2.wav &#x26;"  commandWindows="start /min vlc.exe -Idummy --play-and-exit sounds/car_horn2.wav" probability="0.001"/>
+    <event id="jam" commandPosix="play sounds/car_horn3.wav &#x26;"  commandWindows="start /min vlc.exe -Idummy --play-and-exit sounds/car_horn3.wav" probability="0.001"/>
+    <jamTime value="40"/>
 </viewsettings>
