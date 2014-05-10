@@ -51,12 +51,6 @@
 class GUISUMOAbstractView;
 class GUIGLObjectPopupMenu;
 class MSDevice_Vehroutes;
-#ifdef HAVE_OSG
-class GUIOSGView;
-namespace osg {
-class ShapeDrawable;
-}
-#endif
 
 
 // ===========================================================================
@@ -284,21 +278,13 @@ public:
     /// @brief adds the blocking foes to the current selection
     void selectBlockingFoes() const;
 
-#ifdef HAVE_OSG
-    void setGeometry(GUIOSGView* view, osg::ShapeDrawable* geom) {
-        myGeom[view] = geom;
-    }
-
-    void updateColor(GUIOSGView* view);
-#endif
+    /// @brief gets the color value according to the current scheme index
+    SUMOReal getColorValue(size_t activeScheme) const;
 
 
 private:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
-
-    /// @brief gets the color value according to the current scheme index
-    SUMOReal getColorValue(size_t activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(size_t activeScheme) const;
@@ -358,10 +344,6 @@ private:
 
     /// @brief positions of seats in the vehicle (updated at every drawing step)
     mutable PositionVector mySeatPositions;
-
-#ifdef HAVE_OSG
-    std::map<GUIOSGView*, osg::ShapeDrawable*> myGeom;
-#endif
 
 };
 

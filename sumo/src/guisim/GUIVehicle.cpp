@@ -33,10 +33,6 @@
 #include <cmath>
 #include <vector>
 #include <string>
-#ifdef HAVE_OSG
-#include <osg/ShapeDrawable>
-#include <osgview/GUIOSGView.h>
-#endif
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOVehicleParameter.h>
@@ -263,11 +259,6 @@ GUIVehicle::~GUIVehicle() {
     for (std::map<GUISUMOAbstractView*, int>::iterator i = myAdditionalVisualizations.begin(); i != myAdditionalVisualizations.end(); ++i) {
         while (i->first->removeAdditionalGLVisualisation(this));
     }
-#ifdef HAVE_OSG
-    for (std::map<GUIOSGView*, osg::ShapeDrawable*>::iterator i = myGeom.begin(); i != myGeom.end(); ++i) {
-        i->first->remove(this);
-    }
-#endif
     myLock.unlock();
     GLObjectValuePassConnector<SUMOReal>::removeObject(*this);
     delete myRoutes;
@@ -1558,16 +1549,6 @@ GUIVehicle::selectBlockingFoes() const {
         dist += dpi.myLink->getViaLaneOrLane()->getLength();
     }
 }
-
-
-#ifdef HAVE_OSG
-void
-GUIVehicle::updateColor(GUIOSGView* view) {
-    const GUIVisualizationSettings* s = view->getVisualisationSettings();
-    const RGBColor& col = s->vehicleColorer.getScheme().getColor(getColorValue(s->vehicleColorer.getActive()));
-    myGeom[view]->setColor(osg::Vec4(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
-}
-#endif
 
 /****************************************************************************/
 
