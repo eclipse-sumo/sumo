@@ -238,6 +238,9 @@ PositionVector::positionAtOffset2D(SUMOReal pos) const {
 
 SUMOReal
 PositionVector::rotationDegreeAtOffset(SUMOReal pos) const {
+    if (pos < 0) {
+        pos += length();
+    }
     const_iterator i = begin();
     SUMOReal seenLength = 0;
     do {
