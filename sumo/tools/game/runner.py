@@ -32,23 +32,25 @@ _SCORES= 30
 
 _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
                 'cross': 'Simple Junction',
+                'cross_demo': 'Simple Junction (Demo)',
                 'square': 'Four Junctions',
                 'kuehne': 'Prof. Kühne',
                 'bs3d': '3D Junction',
                 'ramp': 'Highway Scenario',
                 'high': 'Highscore',
                 'reset': 'Reset Highscore',
-                'lang': 'deutsch',
+                'lang': 'Deutsch',
                 'quit': 'Quit'}
 _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'cross': 'Einfache Kreuzung',
+                'cross_demo': 'Einfache Kreuzung (Demo)',
                 'square': 'Vier Kreuzungen',
                 'kuehne': 'Prof. Kühne',
                 'bs3d': '3D Kreuzung',
                 'ramp': 'Autobahnauffahrt',
                 'high': 'Highscore',
                 'reset': 'Highscore zurücksetzen',
-                'lang': 'englisch',
+                'lang': 'Englisch',
                 'quit': 'Beenden'}
 
 def loadHighscore():
@@ -99,9 +101,9 @@ class StartDialog:
         configs = glob.glob(os.path.join(base, "*.sumocfg"))
         numButtons = len(configs) + 3
         # button dimensions
-        bWidth_start = 15
+        bWidth_start = 20
         bWidth_high = 7
-        bWidth_control = 26   
+        bWidth_control = 31   
 
         self.gametime = 0
         self.ret = 0
