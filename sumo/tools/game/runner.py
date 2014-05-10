@@ -277,6 +277,7 @@ while True:
     totalDistance = 0
     totalFuel = 0
     totalArrived = 0
+    totalWaitingTime = 0
     complete = True
     for line in open(os.path.join(base, "netstate.xml")):
         m = re.search('<interval begin="0(.00)?" end="([^"]*)"', line)
@@ -291,6 +292,9 @@ while True:
         m = re.search('arrived="([^"]*)"', line)
         if m:
             totalArrived += float(m.group(1))
+        m = re.search('waitingTime="([^"]*)"', line)
+        if m:
+            totalWaitingTime += float(m.group(1))
     switch = []
     lastProg = {}
     for line in open(os.path.join(base, "tlsstate.xml")):
@@ -301,7 +305,8 @@ while True:
             if tls not in lastProg or lastProg[tls] != program:
                 lastProg[tls] = program
                 switch += [m.group(3), m.group(1)]
-    score = totalArrived
+    # doing nothing gives a waitingTime of 6033 for cross and 6700 for square
+    score = 10000 - totalWaitingTime 
     if _DEBUG:
         print switch, score, totalArrived, complete
     if complete:
