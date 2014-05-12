@@ -20,5 +20,6 @@
         <xsd:attribute name="speed" type="xsd:float"/>
         <xsd:attribute name="discard" type="boolType"/>
         <xsd:attribute name="oneway" type="boolType"/>
+        <xsd:attribute name="sidewalkWidth" type="xsd:float"/>
     </xsd:complexType>
 </xsd:schema>

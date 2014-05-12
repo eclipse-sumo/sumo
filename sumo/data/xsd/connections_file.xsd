@@ -3,18 +3,19 @@
 
     <xsd:include schemaLocation="baseTypes.xsd" />
 
-    <xsd:element name="connections" type="connectionsType"></xsd:element>
+    <xsd:element name="connections" type="connectionsType"/>
 
     <xsd:complexType name="connectionsType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-            <xsd:element name="connection" type="connectionType"></xsd:element>
-            <xsd:element name="prohibition" type="prohibitionType"></xsd:element>
-            <xsd:element name="delete" type="deleteType"></xsd:element>
+            <xsd:element name="connection" type="connectionType"/>
+            <xsd:element name="prohibition" type="prohibitionType"/>
+            <xsd:element name="delete" type="deleteType"/>
+            <xsd:element name="crossing" type="crossingType"/>
         </xsd:choice>
         <xsd:attribute name="version" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="\d+.\d+"></xsd:pattern>
+                    <xsd:pattern value="\d+.\d+"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -51,6 +52,12 @@
         <xsd:attribute name="to" type="xsd:string" use="optional"/>
         <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="optional"/>
         <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="crossingType">
+        <xsd:attribute name="node" type="xsd:string" use="required"/>
+        <xsd:attribute name="edges" type="xsd:string" use="required"/>
+        <xsd:attribute name="priority" type="xsd:int" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>
