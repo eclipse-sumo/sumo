@@ -32,6 +32,7 @@
     <polygonType id="amenity"                 name="amenity"     color=".93,.78,.78" layer="-1"/>
     <polygonType id="amenity.parking"         name="parking"     color=".72,.72,.70" layer="-1"/>
     <polygonType id="power"                   name="power"       color=".10,.10,.30" layer="-1" discard="true"/>
+    <polygonType id="highway"                 name="highway"     color=".10,.10,.10" layer="-1" discard="true"/>
 
     <polygonType id="boundary" name="boundary"    color="1.0,.33,.33" layer="0" fill="false" discard="true"/>
     <polygonType id="admin_level" name="admin_level"    color="1.0,.33,.33" layer="0" fill="false" discard="true"/>

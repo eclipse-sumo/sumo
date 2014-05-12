@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/05/14 13:14:23 by SUMO polyconvert Version dev-SVN-r15814
+<!-- generated on Mon May 12 12:04:57 2014 by SUMO polyconvert Version dev-SVN-r16348
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/polyconvertConfiguration.xsd">
@@ -37,4 +37,8 @@
         <param key="name" value="p0045"/>
         <param key="polygon" value="overpass"/>
     </poly>
+    <poi id="32266935" type="highway.traffic_signals" color="51,128,255" layer="-1.00" x="399824.64" y="5809486.66">
+        <param key="created_by" value="JOSM"/>
+        <param key="highway" value="traffic_signals"/>
+    </poi>
 </additional>

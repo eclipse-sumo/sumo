@@ -68,6 +68,7 @@ const std::set<std::string> PCLoaderOSM::MyKeysToInclude(PCLoaderOSM::initMyKeys
 // ---------------------------------------------------------------------------
 std::set<std::string> PCLoaderOSM::initMyKeysToInclude() {
     std::set<std::string> result;
+    result.insert("highway");
     result.insert("waterway");
     result.insert("aeroway");
     result.insert("aerialway");
