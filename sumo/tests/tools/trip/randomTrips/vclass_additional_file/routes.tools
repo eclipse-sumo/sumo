@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May 12 14:30:59 2014 by SUMO duarouter Version dev-SVN-r16350
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <trip-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="out.rou.xml"/>
+    </output>
+
+    <processing>
+        <ignore-errors value="true"/>
+    </processing>
+
+    <time>
+        <begin value="0"/>
+        <end value="10.0"/>
+    </time>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+    <vType id="truck" vClass="truck"/>
+    <vehicle id="1" type="truck" depart="1.00">
+        <route edges="beg2left left left2end end"/>
+    </vehicle>
+    <vehicle id="2" type="truck" depart="2.00">
+        <route edges="left left2end"/>
+    </vehicle>
+    <vehicle id="5" type="truck" depart="5.00">
+        <route edges="beg2left left"/>
+    </vehicle>
+    <vehicle id="6" type="truck" depart="6.00">
+        <route edges="beg beg2left"/>
+    </vehicle>
+    <vehicle id="7" type="truck" depart="7.00">
+        <route edges="left"/>
+    </vehicle>
+    <vehicle id="8" type="truck" depart="8.00">
+        <route edges="beg2left left"/>
+    </vehicle>
+</routes>

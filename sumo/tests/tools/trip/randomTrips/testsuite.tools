@@ -17,5 +17,8 @@ fringe_factor_turnarounds
 # consider vehicle class when picking source- and destination edges if option --vclass is used
 vclass
 
+# load the vehicle class to use during routing from an additional file
+vclass_additional_file
+
 # test trips with intermediate waypoints
 intermediate

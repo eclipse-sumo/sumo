@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- generated on 2014-05-12 14:30:59.145112 by $Id: randomTrips.py 16320 2014-05-08 09:22:51Z namdre $ -->
+<trips>
+    <trip id="0" depart="0.00" from="left" to="beg2left"  type="truck"/>
+    <trip id="1" depart="1.00" from="beg2left" to="end"  type="truck"/>
+    <trip id="2" depart="2.00" from="left" to="left2end"  type="truck"/>
+    <trip id="3" depart="3.00" from="left2end" to="beg2left"  type="truck"/>
+    <trip id="4" depart="4.00" from="end" to="beg2left"  type="truck"/>
+    <trip id="5" depart="5.00" from="beg2left" to="left"  type="truck"/>
+    <trip id="6" depart="6.00" from="beg" to="beg2left"  type="truck"/>
+    <trip id="7" depart="7.00" from="left" to="left"  type="truck"/>
+    <trip id="8" depart="8.00" from="beg2left" to="left"  type="truck"/>
+    <trip id="9" depart="9.00" from="left2end" to="beg2left"  type="truck"/>
+</trips>

@@ -1,0 +1,16 @@
+Warning: No connection between 'left' and 'beg2left' found.
+Warning: No connection between 'left' and 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '0'.
+Warning: The vehicle '0' has no valid route.
+Warning: No connection between 'left2end' and 'beg2left' found.
+Warning: No connection between 'left2end' and 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '3'.
+Warning: The vehicle '3' has no valid route.
+Warning: No connection between 'end' and 'beg2left' found.
+Warning: No connection between 'end' and 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '4'.
+Warning: The vehicle '4' has no valid route.
+Warning: No connection between 'left2end' and 'beg2left' found.
+Warning: No connection between 'left2end' and 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '9'.
+Warning: The vehicle '9' has no valid route.
