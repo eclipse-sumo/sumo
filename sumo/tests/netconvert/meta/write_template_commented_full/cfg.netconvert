@@ -444,6 +444,12 @@
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
 
+        <!-- Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks -->
+        <tls.guess-signals value="false" type="BOOL"/>
+
+        <!-- Distance for interpreting nodes as signal locations -->
+        <tls.guess-signals.dist value="25" type="FLOAT"/>
+
     </processing>
 
     <building_defaults>

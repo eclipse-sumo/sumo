@@ -16,3 +16,6 @@ specified
 
 # test explit specification of joined tls in plain xml input with controlledInner
 specified_controlledInner
+
+# test heuristic for interpreting tls-nodes as signal locations
+guess-signals

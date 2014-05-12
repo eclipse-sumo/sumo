@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 08 May 2014 05:02:14 PM CEST by Netedit Version dev-SVN-r16321
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/1168/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+    <edge id="-27488602#1" from="2292787678" to="cluster_2292787672_259083790" priority="4" type="highway.residential" numLanes="1" speed="8.33" shape="14761.41,15671.85 14770.48,15664.30"/>
+    <edge id="-27488602#2" from="310541110" to="2292787678" priority="4" type="highway.residential" numLanes="1" speed="8.33"/>
+    <edge id="171952942#3" from="449235" to="313575" priority="9" type="highway.primary" numLanes="2" speed="13.89" shape="14675.62,15502.91 14677.64,15506.22 14693.94,15532.66 14719.91,15572.83 14769.19,15645.52" spreadType="center"/>
+    <edge id="220153137#0" from="310458128" to="2292787679" priority="9" type="highway.primary" numLanes="2" speed="13.89" spreadType="center"/>
+    <edge id="220153137#1" from="2292787679" to="cluster_2292787672_259083790" priority="9" type="highway.primary" numLanes="2" speed="13.89" shape="14779.24,15676.06 14770.48,15664.30" spreadType="center"/>
+    <edge id="220153138#0" from="cluster_2292787672_259083790" to="313574" priority="9" type="highway.primary" numLanes="2" speed="13.89" shape="14778.51,15658.42 14825.81,15723.35 14864.61,15771.85" spreadType="center"/>
+    <edge id="220153139#0" from="cluster_2292787672_259083790" to="cluster_1679641274_1679797916_2292326589_311578845_449234" priority="9" type="highway.primary" numLanes="2" speed="13.89" shape="14770.48,15664.30 14763.82,15654.47 14748.51,15631.14 14734.55,15609.82 14719.81,15588.59 14711.25,15576.25 14705.31,15567.70 14677.88,15526.30" spreadType="center"/>
+    <edge id="220153140#1" from="313575" to="cluster_2292787672_259083790" priority="9" type="highway.primary" numLanes="2" speed="13.89" shape="14769.19,15645.52 14771.93,15649.39 14778.51,15658.42" spreadType="center"/>
+    <edge id="27488602#1" from="cluster_2292787672_259083790" to="2292787678" priority="4" type="highway.residential" numLanes="1" speed="8.33" shape="14770.48,15664.30 14761.41,15671.85"/>
+    <edge id="27488602#2" from="2292787678" to="310541110" priority="4" type="highway.residential" numLanes="1" speed="8.33"/>
+</edges>

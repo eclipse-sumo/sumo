@@ -836,6 +836,58 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         }
     }
 
+    // figure out which nodes mark the locations of TLS signals
+    // This assumes nodes are already joined
+    if (oc.getBool("tls.guess-signals")) {
+        // prepare candidate edges
+        const SUMOReal signalDist = oc.getFloat("tls.guess-signals.dist");
+        for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
+            NBNode* node = (*i).second;
+            if (node->isTLControlled() && node->geometryLike()) {
+                const EdgeVector& outgoing = node->getOutgoingEdges();
+                for (EdgeVector::const_iterator it_o = outgoing.begin(); it_o != outgoing.end(); ++it_o) {
+                    (*it_o)->setSignalOffset((*it_o)->getLength());
+                }
+            }
+        }
+        // check which nodes should be controlled
+        for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
+            NBNode* node = i->second;
+            if (!node->isTLControlled()) {
+                std::vector<NBNode*> signals;
+                const EdgeVector& incoming = node->getIncomingEdges();
+                bool isTLS = true;
+                for (EdgeVector::const_iterator it_i = incoming.begin(); it_i != incoming.end(); ++it_i) {
+                    const NBEdge* inEdge = *it_i;
+                    if (inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET || inEdge->getSignalOffset() > signalDist) {
+                        isTLS = false;
+                        break;
+                    }
+                    if (inEdge->getSignalOffset() == inEdge->getLength()) {
+                        signals.push_back(inEdge->getFromNode());
+                    }
+                }
+                if (isTLS) {
+                    for (std::vector<NBNode*>::iterator j = signals.begin(); j != signals.end(); ++j) {
+                        std::set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
+                        (*j)->removeTrafficLights();
+                        for (std::set<NBTrafficLightDefinition*>::iterator k = tls.begin(); k != tls.end(); ++k) {
+                            tlc.removeFully((*j)->getID());
+                        }
+                    }
+                    NBTrafficLightDefinition* tlDef = new NBOwnTLDef(node->getID(), node, 0, TLTYPE_STATIC);
+                    // @todo patch endOffset for all incoming lanes according to the signal positions
+                    if (!tlc.insert(tlDef)) {
+                        // actually, nothing should fail here
+                        WRITE_WARNING("Could not build joined tls '" + node->getID() + "'.");
+                        delete tlDef;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     // maybe no tls shall be guessed
     if (!oc.getBool("tls.guess")) {
         return;
@@ -1085,12 +1137,19 @@ NBNodeCont::rename(NBNode* node, const std::string& newID) {
 
 
 void
-NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike) {
+NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals) {
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
         NBNode* node = i->second;
         if (!geometryLike || node->geometryLike()) {
             // make a copy of tldefs
             const std::set<NBTrafficLightDefinition*> tldefs = node->getControllingTLS();
+            if (guessSignals && node->isTLControlled() && node->geometryLike()) {
+                // record signal location
+                const EdgeVector& outgoing = node->getOutgoingEdges();
+                for (EdgeVector::const_iterator it_o = outgoing.begin(); it_o != outgoing.end(); ++it_o) {
+                    (*it_o)->setSignalOffset((*it_o)->getLength());
+                }
+            }
             for (std::set<NBTrafficLightDefinition*>::const_iterator it = tldefs.begin(); it != tldefs.end(); ++it) {
                 NBTrafficLightDefinition* tlDef = *it;
                 node->removeTrafficLight(tlDef);

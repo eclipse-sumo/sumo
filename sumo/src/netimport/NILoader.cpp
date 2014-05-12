@@ -106,7 +106,8 @@ NILoader::load(OptionsCont& oc) {
     NIImporter_MATSim::loadNetwork(oc, myNetBuilder);
     NIImporter_ITSUMO::loadNetwork(oc, myNetBuilder);
     if (oc.getBool("tls.discard-loaded") || oc.getBool("tls.discard-simple")) {
-        myNetBuilder.getNodeCont().discardTrafficLights(myNetBuilder.getTLLogicCont(), oc.getBool("tls.discard-simple"));
+        myNetBuilder.getNodeCont().discardTrafficLights(myNetBuilder.getTLLogicCont(), oc.getBool("tls.discard-simple"), 
+                oc.getBool("tls.guess-signals"));
         size_t removed = myNetBuilder.getTLLogicCont().getNumExtracted();
         if (removed > 0) {
             WRITE_MESSAGE(" Removed " + toString(removed) + " traffic lights before loading plain-XML");

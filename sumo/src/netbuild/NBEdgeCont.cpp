@@ -433,20 +433,8 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
         geoms.second.push_front(node->getPosition());
     }
     // build and insert the edges
-    NBEdge* one = new NBEdge(firstEdgeName,
-                             edge->myFrom, node, edge->myType, edge->mySpeed, noLanesFirstEdge,
-                             edge->getPriority(), edge->myLaneWidth, 0, geoms.first,
-                             edge->getStreetName(), edge->myLaneSpreadFunction, true);
-    for (unsigned int i = 0; i < noLanesFirstEdge && i < edge->getNumLanes(); i++) {
-        one->setSpeed(i, edge->getLaneSpeed(i));
-    }
-    NBEdge* two = new NBEdge(secondEdgeName,
-                             node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
-                             edge->getPriority(), edge->myLaneWidth, edge->getEndOffset(), geoms.second,
-                             edge->getStreetName(), edge->myLaneSpreadFunction, true);
-    for (unsigned int i = 0; i < noLanesSecondEdge && i < edge->getNumLanes(); i++) {
-        two->setSpeed(i, edge->getLaneSpeed(i));
-    }
+    NBEdge* one = new NBEdge(firstEdgeName, edge->myFrom, node, edge, geoms.first, noLanesFirstEdge);
+    NBEdge* two = new NBEdge(secondEdgeName, node, edge->myTo, edge, geoms.second, noLanesSecondEdge);
     two->copyConnectionsFrom(edge);
     // replace information about this edge within the nodes
     edge->myFrom->replaceOutgoing(edge, one, 0);

@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r16288
+SUMO netconvert Version dev-SVN-r16350
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -238,6 +238,12 @@ Processing Options:
                                          presence of sidewalks
   --tls.join-dist FLOAT                Determines the maximal distance for
                                          joining traffic lights (defaults to 20)
+  --tls.guess-signals                  Interprets tls nodes surrounding an
+                                         intersection as signal positions for a
+                                         larger TLS. This is typical pattern for
+                                         OSM-derived networks
+  --tls.guess-signals.dist FLOAT       Distance for interpreting nodes as
+                                         signal locations
 
 Building Defaults Options:
   -L, --default.lanenumber INT         The default number of lanes in an edge

@@ -64,6 +64,7 @@
 const SUMOReal NBEdge::UNSPECIFIED_WIDTH = -1;
 const SUMOReal NBEdge::UNSPECIFIED_LOADED_LENGTH = -1;
 const SUMOReal NBEdge::UNSPECIFIED_OFFSET = 0;
+const SUMOReal NBEdge::UNSPECIFIED_SIGNAL_OFFSET = -1;
 const SUMOReal NBEdge::ANGLE_LOOKAHEAD = 10.0;
 
 // ===========================================================================
@@ -192,7 +193,9 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myLaneSpreadFunction(spread), myEndOffset(offset), myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
-    myStreetName(streetName) {
+    myStreetName(streetName),
+    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET)
+{
     init(nolanes, false);
 }
 
@@ -214,12 +217,14 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myGeom(geom), myLaneSpreadFunction(spread), myEndOffset(offset), myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
-    myStreetName(streetName) {
+    myStreetName(streetName),
+    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET)
+{
     init(nolanes, tryIgnoreNodePositions);
 }
 
 
-NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl) :
+NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, const PositionVector& geom, unsigned int numLanes) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
     myType(tpl->getTypeID()),
@@ -228,18 +233,26 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl) :
     myPriority(tpl->getPriority()), mySpeed(tpl->getSpeed()),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
+    myGeom(geom),
     myLaneSpreadFunction(tpl->getLaneSpreadFunction()),
     myEndOffset(tpl->getEndOffset()),
     myLaneWidth(tpl->getLaneWidth()),
-    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
-    myAmInnerEdge(false), myAmMacroscopicConnector(false),
-    myStreetName(tpl->getStreetName()) {
-    init(tpl->getNumLanes(), false);
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), 
+    myAmLeftHand(false),
+    myAmInnerEdge(false), 
+    myAmMacroscopicConnector(false),
+    myStreetName(tpl->getStreetName()),
+    mySignalOffset(to == tpl->myTo ? tpl->mySignalOffset : UNSPECIFIED_SIGNAL_OFFSET) 
+{
+    init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0);
     for (unsigned int i = 0; i < getNumLanes(); i++) {
-        setSpeed(i, tpl->getLaneSpeed(i));
-        setPermissions(tpl->getPermissions(i), i);
-        setLaneWidth(i, tpl->getLaneWidth(i));
-        setEndOffset(i, tpl->getEndOffset(i));
+        const unsigned int tplIndex = MIN2(i, tpl->getNumLanes() - 1);
+        setSpeed(i, tpl->getLaneSpeed(tplIndex));
+        setPermissions(tpl->getPermissions(tplIndex), i);
+        setLaneWidth(i, tpl->myLanes[tplIndex].width);
+        if (to == tpl->myTo) {
+            setEndOffset(i, tpl->myLanes[tplIndex].endOffset);
+        }
     }
 }
 
@@ -1911,6 +1924,11 @@ NBEdge::append(NBEdge* e) {
     myTurnDestination = e->myTurnDestination;
     // set the node
     myTo = e->myTo;
+    if (e->getSignalOffset() != UNSPECIFIED_SIGNAL_OFFSET) {
+        mySignalOffset = e->getSignalOffset();
+    } else {
+        mySignalOffset += e->getLength();
+    }
     computeAngle(); // myEndAngle may be different now
 }
 

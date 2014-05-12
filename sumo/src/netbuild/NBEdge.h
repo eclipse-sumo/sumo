@@ -201,6 +201,8 @@ public:
     static const SUMOReal UNSPECIFIED_WIDTH;
     /// @brief unspecified lane offset
     static const SUMOReal UNSPECIFIED_OFFSET;
+    /// @brief unspecified signal offset
+    static const SUMOReal UNSPECIFIED_SIGNAL_OFFSET;
     /// @brief no length override given
     static const SUMOReal UNSPECIFIED_LOADED_LENGTH;
     /// @brief the distance at which to take the default anglen
@@ -270,10 +272,14 @@ public:
      * @param[in] from The node the edge starts at
      * @param[in] to The node the edge ends at
      * @param[in] tpl The template edge to copy attributes from
+     * @param[in] geom The geometry to use (may be empty)
+     * @param[in] numLanes The number of lanes of the new edge (copy from tpl by default)
      */
     NBEdge(const std::string& id,
            NBNode* from, NBNode* to,
-           NBEdge* tpl);
+           NBEdge* tpl,
+           const PositionVector& geom=PositionVector(),
+           unsigned int numLanes=-1);
 
 
     /** @brief Destructor
@@ -471,6 +477,17 @@ public:
      */
     SUMOReal getEndOffset(int lane) const;
 
+    /** @brief Returns the offset of a traffic signal from the end of this edge
+     */
+    SUMOReal getSignalOffset() const {
+        return mySignalOffset;
+    }
+
+    /** @brief sets the offset of a traffic signal from the end of this edge
+     */
+    void setSignalOffset(SUMOReal offset) {
+        mySignalOffset = offset;
+    }
 
     /** @brief Returns the type name
      * @return The name of this edge's type
@@ -1270,6 +1287,8 @@ private:
     /// @brief the street signs along this edge
     std::vector<NBSign> mySigns;
 
+    /// @brief the offset of a traffic light signal from the end of this edge (-1 for None)
+    SUMOReal mySignalOffset;
 
 public:
     /**
