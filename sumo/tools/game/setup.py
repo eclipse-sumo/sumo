@@ -24,6 +24,10 @@ nightlyDir="O:\\Daten\\Sumo\\Nightly"
 
 if len(sys.argv) == 1:
     sys.argv.append("py2exe")
+internal = False
+if "internal" in sys.argv:
+    internal = True
+    sys.arg.remove["internal"]
 
 base = os.path.abspath(os.path.dirname(__file__))
 oldDir = os.getcwd()
@@ -41,8 +45,12 @@ for dir in ['cross', 'square', 'kuehne', 'highway', 'sounds', 'ramp', 'bs3d']:
     subprocess.call(['svn', 'export', os.path.join(base, dir), os.path.join("dist", dir)])
 for dll in glob.glob(os.path.join(nightlyDir, "*.dll")):
     shutil.copy2(dll, "dist")
-shutil.copytree(glob.glob(os.path.join(nightlyDir, "osgPlugins*"))[0], "dist")
-shutil.copy2(os.path.join(nightlyDir, "meso-gui.exe"), "dist")
+if internal:
+    pluginDir = glob.glob(os.path.join(nightlyDir, "osgPlugins*"))[0]
+    shutil.copytree(pluginDir, os.path.join("dist", os.path.basename(pluginDir)))
+    shutil.copy2(os.path.join(nightlyDir, "meso-gui.exe"), "dist")
+else:
+    shutil.copy2(os.path.join(nightlyDir, "sumo-gui.exe"), "dist")
 
 zipf = zipfile.ZipFile(os.path.join(nightlyDir, "sumogame.zip"), 'w', zipfile.ZIP_DEFLATED)
 root_len = len(os.path.abspath("dist"))
