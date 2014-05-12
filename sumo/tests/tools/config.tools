@@ -99,6 +99,7 @@ output:<!-- generated on
 output:.* files checked{REPLACE <number> files checked}
 trips:<!-- generated on
 pois:<!--
+routes:<!-- generated on
 errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
 errors:Leaked object at 
 errors:*** 9 leaks found
