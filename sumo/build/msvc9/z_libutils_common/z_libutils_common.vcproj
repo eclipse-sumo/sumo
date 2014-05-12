@@ -647,10 +647,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\TplConvertSec.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\UtilExceptions.h"
 				>
 			</File>
