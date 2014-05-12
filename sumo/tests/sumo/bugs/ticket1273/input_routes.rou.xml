@@ -1,0 +1,9 @@
+<routes>
+    <route id="horiz" edges="1si 2o"/>
+    <route id="vert" edges="3si 4o"/>
+    <vType id="DEFAULT_VEHTYPE" sigma="0" decel="2.5"/>
+
+    <vehicle id="emergency_stop" route="vert" depart="0" departPos="-30" departLane="1" departSpeed="max" arrivalPos="20"/>
+    <vehicle id="should_drive" route="horiz" depart="3" departPos="-30" departLane="1" departSpeed="max" arrivalPos="20"/>
+        
+</routes>

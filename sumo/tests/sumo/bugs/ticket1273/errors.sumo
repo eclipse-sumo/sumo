@@ -1,0 +1,2 @@
+Warning: Missing yellow phase in tlLogic '0', program '1' for tl-index 0 when switching to phase 1
+Warning: Vehicle 'emergency_stop' performs emergency stop at the end of lane '3si_1 because of a red traffic light (decel=-11.39), time=3.00.

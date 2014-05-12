@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May 12 10:48:56 2014 by SUMO sumo Version dev-SVN-r16348
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="12"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
+    <tripinfo id="should_drive" depart="3.00" departLane="1si_1" departPos="220.00" departSpeed="11.00" departDelay="0.00" arrival="8.00" arrivalLane="2o_0" arrivalPos="20.00" arrivalSpeed="11.11" duration="5.00" routeLength="50.00" waitSteps="0" rerouteNo="0" devices="tripinfo_should_drive" vType="DEFAULT_VEHTYPE" vaporized=""/>
+</tripinfos>
