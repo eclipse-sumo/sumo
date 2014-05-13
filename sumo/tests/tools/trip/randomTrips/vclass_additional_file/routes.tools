@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon May 12 14:30:59 2014 by SUMO duarouter Version dev-SVN-r16350
+<!-- generated on Tue May 13 08:46:13 2014 by SUMO duarouter Version dev-SVN-r16350
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
@@ -23,6 +23,10 @@
         <begin value="0"/>
         <end value="10.0"/>
     </time>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
