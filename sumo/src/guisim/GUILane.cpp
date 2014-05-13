@@ -491,7 +491,6 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             drawCrossties(0.5, 1.0, getWidth() * 0.5);
             glTranslated(0, 0, -.2);
         } else if (isWalkingArea) {
-            glColor3d(0.3, 0.3, 1);
             glTranslated(0, 0, .2);
             if (s.scale * s.laneWidthExaggeration < 20.) {
                 GLHelper::drawFilledPoly(myShape, true);
@@ -753,6 +752,8 @@ GUILane::setFunctionalColor(size_t activeScheme) const {
 SUMOReal
 GUILane::getColorValue(size_t activeScheme) const {
     switch (activeScheme) {
+        case 0:
+            return myPermissions == SVC_PEDESTRIAN ? 1 : 0;
         case 1:
             return gSelected.isSelected(getType(), getGlID()) ||
                    gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(myEdge)->getGlID());
