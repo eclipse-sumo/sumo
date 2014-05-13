@@ -79,7 +79,7 @@ def get_options():
         sys.exit()
 
     if options.pedestrians and options.vclass is None:
-        options.vclass = pedestrian
+        options.vclass = 'pedestrian'
     return options
 
 
