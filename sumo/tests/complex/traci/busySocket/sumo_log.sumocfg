@@ -17,8 +17,4 @@
         <error-log value="lastrun.stderr"/>
     </report>
 
-    <traci_server>
-        <remote-port value="8813"/>
-    </traci_server>
-
 </configuration>

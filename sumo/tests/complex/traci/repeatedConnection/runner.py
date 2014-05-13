@@ -17,20 +17,21 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, time
+import os, subprocess, sys, time, random
 
 sumoHome = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
 import traci
 
+PORT = random.randint(8000, 50000)
+DELTA_T = 1000
+
 if sys.argv[1]=="sumo":
     sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
-    addOption = ""
+    addOption = "--remote-port %s" % PORT
 else:
     sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
-    addOption = "-S -Q"
-PORT = 8813
-DELTA_T = 1000
+    addOption = "-S -Q --remote-port %s" % PORT
 
 def runSingle(sumoEndTime, traciEndTime):
     fdi = open("sumo.sumocfg")

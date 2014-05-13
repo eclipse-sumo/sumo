@@ -1,3 +1,2 @@
---remote-port 8863 --no-step-log --no-duration-log --net-file=net.net.xml -a input_routes.rou.xml -b 0 -e 10 --step-length 0.1
-endsumo
-TraCITestClient.exe -def testclient.prog -p 8863 -h localhost -o testclient_out.txt
+--no-step-log --no-duration-log --net-file=net.net.xml -a input_routes.rou.xml -b 0 -e 10 --step-length 0.1
+

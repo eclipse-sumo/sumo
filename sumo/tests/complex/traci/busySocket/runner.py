@@ -17,7 +17,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, time, shutil
+import os, subprocess, sys, time, shutil, random
 
 sumoHome = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
@@ -31,11 +31,11 @@ else:
     sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = "-S -Q"
     secondConfig = "sumo_log.sumocfg"
-PORT = 8813
+PORT = random.randint(8000, 50000)
 
-subprocess.Popen("%s -c sumo.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout, stderr=sys.stderr)
+subprocess.Popen("%s -c sumo.sumocfg --remote-port %s %s" % (sumoBinary, PORT, addOption), shell=True, stdout=sys.stdout, stderr=sys.stderr)
 traci.init(PORT)
-subprocess.Popen("%s -c %s %s" % (sumoBinary, secondConfig, addOption), shell=True, stdout=sys.stdout, stderr=sys.stderr)
+subprocess.Popen("%s -c %s --remote-port %s %s" % (sumoBinary, secondConfig, PORT, addOption), shell=True, stdout=sys.stdout, stderr=sys.stderr)
 time.sleep(10)
 step = 0
 while not step>100:

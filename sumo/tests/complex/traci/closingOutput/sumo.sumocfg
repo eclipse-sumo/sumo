@@ -19,9 +19,4 @@
         <netstate-dump value="state.xml"/>
         <tripinfo-output value="tripinfo.xml"/>
     </output>
-
-    <traci_server>
-        <remote-port value="8813"/>
-    </traci_server>
-
 </configuration>

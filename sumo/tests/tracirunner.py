@@ -4,7 +4,6 @@
 @author  Friedemann Wesner
 @author  Michael Behrisch
 @author  Jakob Erdmann
-@author  Jakob Erdmann
 @date    2008-05-12
 @version $Id$
 
@@ -20,18 +19,10 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,subprocess,sys,time
+import os,subprocess,sys,time,random
 
-args = sys.argv[1:]
-if 'endsumo' in args:
-    args.remove('endsumo') # legacy
-try:
-    num_server_args = args.index('TraCITestClient.exe')
-except:
-    sys.exit("argument 'TraCITestClient.exe' missing")
-
-server_args = args[:num_server_args]
-client_args = args[num_server_args:]
+PORT = str(random.randint(8000, 50000))
+server_args = sys.argv[1:] + ["--remote-port", PORT]
 binaryDir, server = os.path.split(server_args[0])
 
 client = "TraCITestClient"
@@ -41,8 +32,7 @@ if server[-1] == "D":
     client += "D"
 if os.name != 'posix':
     client += ".exe"
-
-client_args[0] = os.path.join(binaryDir, client)
+client_args = [os.path.join(binaryDir, client), "-def", "testclient.prog", "-o", "testclient_out.txt", "-p", PORT]
 
 #start sumo as server
 serverprocess = subprocess.Popen(server_args, stdout=sys.stdout, stderr=sys.stderr)

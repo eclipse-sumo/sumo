@@ -1,1 +1,1 @@
---vehroute-output=vehroutes.xml --no-step-log --net-file net.net.xml --route-files routes.rou.xml --remote-port 8815 TraCITestClient.exe -def testclient.prog -p 8815 -h localhost -o testclient_out.txt
+--vehroute-output=vehroutes.xml --no-step-log --net-file net.net.xml --route-files routes.rou.xml 

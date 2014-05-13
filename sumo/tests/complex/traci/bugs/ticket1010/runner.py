@@ -17,7 +17,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, time, math
+import os, subprocess, sys, time, math, random
 
 sumoHome = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
@@ -29,7 +29,7 @@ if sys.argv[1]=="sumo":
 else:
     sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = "-S -Q"
-PORT = 8813
+PORT = random.randint(8000, 50000)
 
 def run():
     """execute the TraCI control loop"""
@@ -48,7 +48,6 @@ sumoProcess = subprocess.Popen([sumoBinary,
     "-r", "input_routes.rou.xml",
     "-a", "input_additional.add.xml",
     "--no-step-log", 
-    "--verbose", 
     "--remote-port", str(PORT)], 
     stdout=sys.stdout, stderr=sys.stderr)
 run()
