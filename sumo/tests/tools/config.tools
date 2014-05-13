@@ -97,6 +97,7 @@ output:End time
 output:uration:
 output:<!-- generated on
 output:.* files checked{REPLACE <number> files checked}
+output:^calling.*duarouter
 trips:<!-- generated on
 pois:<!--
 routes:<!-- generated on
