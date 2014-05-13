@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<!-- generated on 2014-02-27 15:03:13.651589 by $Id: randomTrips.py 15768 2014-02-27 13:25:49Z namdre $ -->
+<!-- generated on 2014-05-13 10:44:23.777267 by $Id: randomTrips.py 16362 2014-05-13 06:46:59Z namdre $ 
+  options: -n net.net.xml -s 42 <doubleminus>min-distance 20
+-->
 <trips>
     <trip id="0" depart="0.00" from="3si" to="1o" />
     <trip id="1" depart="1.00" from="2fi" to="1si" />

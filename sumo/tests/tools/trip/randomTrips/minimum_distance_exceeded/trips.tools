@@ -1,4 +1,6 @@
 <?xml version="1.0"?>
-<!-- generated on 2014-05-08 11:19:57.104074 by $Id: randomTrips.py 16301 2014-05-06 15:29:07Z namdre $ -->
+<!-- generated on 2014-05-13 10:44:23.912720 by $Id: randomTrips.py 16362 2014-05-13 06:46:59Z namdre $ 
+  options: -n net.net.xml -s 42 <doubleminus>min-distance 2000 <doubleminus>maxtries 10
+-->
 <trips>
 </trips>

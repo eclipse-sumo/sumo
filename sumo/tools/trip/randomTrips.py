@@ -171,8 +171,10 @@ def main(options):
     idx = 0
     with open(options.tripfile, 'w') as fouttrips:
         print >> fouttrips, """<?xml version="1.0"?>
-<!-- generated on %s by $Id$ -->
-<trips>""" % datetime.datetime.now()
+<!-- generated on %s by $Id$ 
+  options: %s
+-->
+<trips>""" % (datetime.datetime.now(), (' '.join(sys.argv[1:]).replace('--','<doubleminus>')))
         depart = options.begin
         while depart < options.end:
             label = "%s%s" % (options.tripprefix, idx)
