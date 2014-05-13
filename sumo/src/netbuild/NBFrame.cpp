@@ -222,11 +222,13 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("tls.join-dist", "Processing",
                       "Determines the maximal distance for joining traffic lights (defaults to 20)");
 
-    oc.doRegister("tls.guess-signals", new Option_Bool(false));
-    oc.addDescription("tls.guess-signals", "Processing", "Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks");
+    if (!forNetgen) {
+        oc.doRegister("tls.guess-signals", new Option_Bool(false));
+        oc.addDescription("tls.guess-signals", "Processing", "Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks");
 
-    oc.doRegister("tls.guess-signals.dist", new Option_Float(25));
-    oc.addDescription("tls.guess-signals.dist", "Processing", "Distance for interpreting nodes as signal locations");
+        oc.doRegister("tls.guess-signals.dist", new Option_Float(25));
+        oc.addDescription("tls.guess-signals.dist", "Processing", "Distance for interpreting nodes as signal locations");
+    }
 
 
     // computational

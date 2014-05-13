@@ -838,7 +838,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
 
     // figure out which nodes mark the locations of TLS signals
     // This assumes nodes are already joined
-    if (oc.getBool("tls.guess-signals")) {
+    if (oc.exists("tls.guess-signals") && oc.getBool("tls.guess-signals")) {
         // prepare candidate edges
         const SUMOReal signalDist = oc.getFloat("tls.guess-signals.dist");
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
