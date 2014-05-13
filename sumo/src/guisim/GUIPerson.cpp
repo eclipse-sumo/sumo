@@ -312,13 +312,13 @@ SUMOReal
 GUIPerson::getColorValue(size_t activeScheme) const {
     switch (activeScheme) {
         case 4:
+            return getSpeed();
+        case 5:
             if (isWaiting4Vehicle()) {
                 return 3;
             } else {
                 return (SUMOReal)getCurrentStageType();
             }
-        case 5:
-            return getSpeed();
         case 6:
             return getWaitingSeconds();
         case 7:
