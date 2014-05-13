@@ -765,8 +765,7 @@ MSNet::getPedestrianRouter(const std::vector<MSEdge*>& prohibited) const {
     if (myPedestrianRouter == 0) {
         myPedestrianRouter = new MSPedestrianRouterDijkstra();
     }
-    //// XXX implement prohibitions
-    ////myPedestrianRouter->prohibit(prohibited);
+    myPedestrianRouter->prohibit(prohibited);
     return *myPedestrianRouter;
 }
 

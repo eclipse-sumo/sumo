@@ -413,9 +413,17 @@ public:
         throw ProcessError("Do not use this method");
     }
 
-    virtual SUMOReal recomputeCosts(const std::vector<const E*>&,
-                                    const _PedestrianTrip* const, SUMOTime) const {
+    SUMOReal recomputeCosts(const std::vector<const E*>&, const _PedestrianTrip* const, SUMOTime) const {
         throw ProcessError("Do not use this method");
+    }
+
+    void prohibit(const std::vector<E*>& toProhibit) {
+        std::vector<_PedestrianEdge*> toProhibitPE;
+        for (typename std::vector<E*>::const_iterator it = toProhibit.begin(); it != toProhibit.end(); ++it) {
+            toProhibitPE.push_back(_PedestrianEdge::getBothDirections(*it).first);
+            toProhibitPE.push_back(_PedestrianEdge::getBothDirections(*it).second);
+        }
+        myInternalRouter->prohibit(toProhibitPE);
     }
 
 private:

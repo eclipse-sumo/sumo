@@ -275,7 +275,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
            const SUMOReal arrivalPos = (nextRouteEdge == ped.myStage->getRoute().back() 
                    ? ped.myStage->getArrivalPos() 
                    : (nextRouteEdgeDir == FORWARD ? 0 : nextRouteEdge->getLength()));
-           MSNet::getInstance()->getPedestrianRouter().compute(currentEdge, nextRouteEdge, 0, arrivalPos, ped.myStage->getMaxSpeed(), 0, junction, crossingRoute, true);
+           std::vector<MSEdge*> prohibited;
+           prohibited.push_back(&prevLane->getEdge());
+           MSNet::getInstance()->getPedestrianRouter(prohibited).compute(currentEdge, nextRouteEdge, 0, arrivalPos, ped.myStage->getMaxSpeed(), 0, junction, crossingRoute, true);
            if DEBUGCOND(ped.myPerson->getID()) { 
                std::cout 
                    << "   nreDir=" << nextRouteEdgeDir
@@ -286,27 +288,20 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
            if (crossingRoute.size() > 1) {
                const MSEdge* nextEdge = crossingRoute[1];
                nextLane = getSidewalk(crossingRoute[1]);
-               // need to check that the route actually goes across the current junction
-               if ((nextEdge->getFromJunction() == junction || nextEdge->getToJunction() == junction))
-                       // && nextLane != prevLane)  XXX prevent walking backwards?
-               {
-                   nextDir = connectedDirection(currentLane, nextLane);
-                   if DEBUGCOND(ped.myPerson->getID()) std::cout << " nextDir=" << nextDir << "\n";
-                   assert(nextDir != UNDEFINED_DIRECTION);
-                   if (nextDir == FORWARD) {
-                       link = MSLinkContHelper::getConnectingLink(*currentLane, *nextLane);
-                   } else if (nextEdge->isCrossing()) {
-                       const MSLane* oppositeWalkingArea = nextLane->getLogicalPredecessorLane();
-                       link = MSLinkContHelper::getConnectingLink(*oppositeWalkingArea, *nextLane);
-                   } else {
-                       link = MSLinkContHelper::getConnectingLink(*nextLane, *currentLane);
-                   }
-                   assert(link != 0);
+               assert((nextEdge->getFromJunction() == junction || nextEdge->getToJunction() == junction));
+               assert(nextLane != prevLane);
+               nextDir = connectedDirection(currentLane, nextLane);
+               if DEBUGCOND(ped.myPerson->getID()) std::cout << " nextDir=" << nextDir << "\n";
+               assert(nextDir != UNDEFINED_DIRECTION);
+               if (nextDir == FORWARD) {
+                   link = MSLinkContHelper::getConnectingLink(*currentLane, *nextLane);
+               } else if (nextEdge->isCrossing()) {
+                   const MSLane* oppositeWalkingArea = nextLane->getLogicalPredecessorLane();
+                   link = MSLinkContHelper::getConnectingLink(*oppositeWalkingArea, *nextLane);
                } else {
-                   WRITE_WARNING("Could not find route across junction from '" + (currentEdge == 0 ? "NULL" : currentEdge->getID())
-                           + "' to '" + (nextRouteEdge == 0 ? "NULL" : nextRouteEdge->getID())
-                           + "' for pedestrian '" + ped.myPerson->getID() + "' (found only detour using " + toString(crossingRoute) + ").");
+                   link = MSLinkContHelper::getConnectingLink(*nextLane, *currentLane);
                }
+               assert(link != 0);
            } else {
                if DEBUGCOND(ped.myPerson->getID()) {
                    std::cout << SIMTIME
