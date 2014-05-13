@@ -31,7 +31,7 @@
     <location netOffset="100.00,0.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.00" width="4.00" shape="96.75,1.45 99.95,1.45 101.45,-0.05 101.45,-3.25 95.25,-3.25 95.25,-0.05"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.00" shape="96.75,1.45 99.95,1.45 101.45,-0.05 101.45,-3.25 95.25,-3.25 95.25,-0.05"/>
     </edge>
     <edge id="CE" from="C" to="E" priority="-1">
         <lane id="CE_0" index="0" allow="pedestrian" speed="13.90" length="98.55" shape="101.45,-1.65 200.00,-1.65"/>

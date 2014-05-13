@@ -207,13 +207,13 @@ PositionVector::operator[](int index) {
 
 
 Position
-PositionVector::positionAtOffset(SUMOReal pos) const {
+PositionVector::positionAtOffset(SUMOReal pos, SUMOReal lateralOffset) const {
     const_iterator i = begin();
     SUMOReal seenLength = 0;
     do {
         const SUMOReal nextLength = (*i).distanceTo(*(i + 1));
         if (seenLength + nextLength > pos) {
-            return positionAtOffset(*i, *(i + 1), pos - seenLength);
+            return positionAtOffset(*i, *(i + 1), pos - seenLength, lateralOffset);
         }
         seenLength += nextLength;
     } while (++i != end() - 1);
@@ -222,13 +222,13 @@ PositionVector::positionAtOffset(SUMOReal pos) const {
 
 
 Position
-PositionVector::positionAtOffset2D(SUMOReal pos) const {
+PositionVector::positionAtOffset2D(SUMOReal pos, SUMOReal lateralOffset) const {
     const_iterator i = begin();
     SUMOReal seenLength = 0;
     do {
         const SUMOReal nextLength = (*i).distanceTo2D(*(i + 1));
         if (seenLength + nextLength > pos) {
-            return positionAtOffset2D(*i, *(i + 1), pos - seenLength);
+            return positionAtOffset2D(*i, *(i + 1), pos - seenLength, lateralOffset);
         }
         seenLength += nextLength;
     } while (++i != end() - 1);
@@ -274,10 +274,15 @@ PositionVector::slopeDegreeAtOffset(SUMOReal pos) const {
 Position
 PositionVector::positionAtOffset(const Position& p1,
                                  const Position& p2,
-                                 SUMOReal pos) {
+                                 SUMOReal pos, SUMOReal lateralOffset) {
     const SUMOReal dist = p1.distanceTo(p2);
     if (dist < pos) {
         return Position(-1, -1);
+    }
+    if (lateralOffset != 0) {
+        Line l(p1, p2);
+        l.move2side(-lateralOffset); // move in the same direction as Position::move2side
+        return l.getPositionAtDistance(pos);
     }
     return p1 + (p2 - p1) * (pos / dist);
 }
@@ -286,10 +291,15 @@ PositionVector::positionAtOffset(const Position& p1,
 Position
 PositionVector::positionAtOffset2D(const Position& p1,
                                    const Position& p2,
-                                   SUMOReal pos) {
+                                   SUMOReal pos, SUMOReal lateralOffset) {
     const SUMOReal dist = p1.distanceTo2D(p2);
     if (dist < pos) {
         return Position(-1, -1);
+    }
+    if (lateralOffset != 0) {
+        Line l(p1, p2);
+        l.move2side(-lateralOffset); // move in the same direction as Position::move2side
+        return l.getPositionAtDistance2D(pos);
     }
     return p1 + (p2 - p1) * (pos / dist);
 }

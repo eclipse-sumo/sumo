@@ -33,6 +33,7 @@
 #include <limits>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Command.h>
+#include <utils/options/OptionsCont.h>
 #include <microsim/MSPerson.h>
 #include <microsim/MSPModel.h>
 
@@ -54,6 +55,9 @@ class MSJunction;
  *
  */
 class MSPModel_Striping : public MSPModel {
+
+    friend class GUIPerson; // for debugging
+
 public:
 
     /// @brief Constructor (it should not be necessary to construct more than one instance)

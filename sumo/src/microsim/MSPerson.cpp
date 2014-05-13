@@ -100,13 +100,7 @@ MSPerson::MSPersonStage::getEdgePosition(const MSEdge* e, SUMOReal at, SUMOReal 
 
 Position
 MSPerson::MSPersonStage::getLanePosition(const MSLane* lane, SUMOReal at, SUMOReal offset) const {
-    PositionVector shp = lane->getShape();
-    try {
-        shp.move2side(offset);
-    } catch (const InvalidArgument&) {
-        WRITE_WARNING("could not shift lane shape " + lane->getID() + " shape " + toString(shp));
-    }
-    return shp.positionAtOffset(lane->interpolateLanePosToGeometryPos(at));
+    return lane->getShape().positionAtOffset(lane->interpolateLanePosToGeometryPos(at), offset);
 }
 
 

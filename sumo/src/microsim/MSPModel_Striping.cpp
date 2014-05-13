@@ -956,13 +956,7 @@ MSPModel_Striping::PState::getPosition(const MSPerson::MSPersonStage_Walking& st
     if (myWalkingAreaPath == 0) {
         return stage.getLanePosition(myLane, myRelX, lateral_offset);
     } else {
-        PositionVector shp = myWalkingAreaPath->shape;
-        try {
-            shp.move2side(lateral_offset);
-        } catch (const InvalidArgument&) {
-            WRITE_WARNING("could not shift walkingArea " + myLane->getEdge().getID() + " shape " + toString(shp));
-        }
-        return shp.positionAtOffset(myRelX);
+        return myWalkingAreaPath->shape.positionAtOffset(myRelX, lateral_offset);
     }
 }
 

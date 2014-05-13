@@ -35,6 +35,7 @@
 #include <string>
 #include <foreign/polyfonts/polyfonts.h>
 #include <microsim/MSPerson.h>
+#include <microsim/MSPModel_Striping.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
@@ -191,10 +192,19 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
 #ifdef GUIPerson_DEBUG_DRAW_WALKING_AREA_SHAPE
-        glPushMatrix();
-        glTranslated(0, 0, getType());
-        GLHelper::drawBoxLines(dynamic_cast<MSPersonStage_Walking*>(getCurrentStage())->myWalkingAreaShape, 0.05);
-        glPopMatrix();
+        MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
+        if (stage != 0) {
+            MSPModel_Striping::PState* stripingState = dynamic_cast<MSPModel_Striping::PState*>(stage->getPedestrianState());
+            if (stripingState != 0) {
+                MSPModel_Striping::WalkingAreaPath* waPath = stripingState->myWalkingAreaPath;
+                if (waPath != 0) {
+                    glPushMatrix();
+                    glTranslated(0, 0, getType());
+                    GLHelper::drawBoxLines(waPath->shape, 0.05);
+                    glPopMatrix();
+                }
+            }
+        }
 #endif
 
     drawName(p1, s.scale, s.personName);
