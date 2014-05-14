@@ -64,10 +64,21 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
                            "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                            "' has to be given in the definition of flow '" + id + "'.");
     }
-    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
+    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) && attrs.hasAttribute(SUMO_ATTR_PROB)) {
+        throw ProcessError("At most one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
+                           "' and '" + attrs.getName(SUMO_ATTR_PROB) +
+                           "' has to be given in the definition of flow '" + id + "'.");
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_PROB) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
+        throw ProcessError("At most one of '" + attrs.getName(SUMO_ATTR_PROB) +
+                           "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
+                           "' has to be given in the definition of flow '" + id + "'.");
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) || attrs.hasAttribute(SUMO_ATTR_PROB)) {
         if (attrs.hasAttribute(SUMO_ATTR_END) && attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
             throw ProcessError("If '" + attrs.getName(SUMO_ATTR_PERIOD) +
-                               "' or '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
+                               "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
+                               "' or '" + attrs.getName(SUMO_ATTR_PROB) +
                                "' are given at most one of '" + attrs.getName(SUMO_ATTR_END) +
                                "' and '" + attrs.getName(SUMO_ATTR_NUMBER) +
                                "' are allowed in flow '" + id + "'.");
@@ -76,6 +87,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         if (!attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
             throw ProcessError("At least one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
+                               "', '" + attrs.getName(SUMO_ATTR_PROB) +
                                "', and '" + attrs.getName(SUMO_ATTR_NUMBER) +
                                "' is needed in flow '" + id + "'.");
         }
@@ -107,6 +119,13 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         }
         if (ok && vph != 0) {
             ret->repetitionOffset = TIME2STEPS(3600. / vph);
+        }
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_PROB)) {
+        ret->repetitionProbability = attrs.get<SUMOReal>(SUMO_ATTR_PROB, id.c_str(), ok);
+        if (ok && (ret->repetitionProbability < 0 || ret->repetitionProbability > 1)) {
+            delete ret;
+            throw ProcessError("Invalid repetition probability in the definition of flow '" + id + "'.");
         }
     }
 
@@ -144,14 +163,19 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
             }
         }
     } else {
-        if (ok && ret->repetitionOffset <= 0) {
-            delete ret;
-            throw ProcessError("Invalid repetition rate in the definition of flow '" + id + "'.");
-        }
-        if (end == SUMOTime_MAX) {
+        // interpret repetitionNumber
+        if (ok && ret->repetitionProbability >= 0) {
             ret->repetitionNumber = INT_MAX;
         } else {
-            ret->repetitionNumber = static_cast<int>(static_cast<SUMOReal>(end - ret->depart) / ret->repetitionOffset + 0.5);
+            if (ok && ret->repetitionOffset <= 0) {
+                delete ret;
+                throw ProcessError("Invalid repetition rate in the definition of flow '" + id + "'.");
+            }
+            if (end == SUMOTime_MAX) {
+                ret->repetitionNumber = INT_MAX;
+            } else {
+                ret->repetitionNumber = static_cast<int>(static_cast<SUMOReal>(end - ret->depart) / ret->repetitionOffset + 0.5);
+            }
         }
     }
     if (!ok) {

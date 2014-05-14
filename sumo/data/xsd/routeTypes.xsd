@@ -122,6 +122,7 @@
         <xsd:attribute name="end" type="nonNegativeFloatType"/>
         <xsd:attribute name="period" type="positiveFloatType"/>
         <xsd:attribute name="vehsPerHour" type="nonNegativeFloatType"/>
+        <xsd:attribute name="probability" type="nonNegativeFloatType"/>
         <xsd:attribute name="number" type="xsd:int"/>
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="departLane" type="departLaneType"/>

@@ -54,7 +54,7 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       arrivalLane(0), arrivalLaneProcedure(ARRIVAL_LANE_DEFAULT),
       arrivalPos(0), arrivalPosProcedure(ARRIVAL_POS_DEFAULT),
       arrivalSpeed(-1), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
-      repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1),
+      repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1), repetitionProbability(-1),
       line(), fromTaz(), toTaz(), personCapacity(0), personNumber(0), setParameter(0) {
 }
 

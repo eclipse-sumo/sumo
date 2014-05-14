@@ -336,11 +336,14 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("last lane change [s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getLastLaneChangeOffset));
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
-    if (getParameter().repetitionNumber > 0) {
-        ret->mkItem("left same route [#]", false, (unsigned int) getParameter().repetitionNumber);
+    if (getParameter().repetitionNumber < INT_MAX) {
+        ret->mkItem("remaining [#]", false, (unsigned int) getParameter().repetitionNumber - getParameter().repetitionsDone);
     }
     if (getParameter().repetitionOffset > 0) {
         ret->mkItem("insertion period [s]", false, time2string(getParameter().repetitionOffset));
+    }
+    if (getParameter().repetitionProbability > 0) {
+        ret->mkItem("insertion probability", false, getParameter().repetitionProbability);
     }
     ret->mkItem("stop info", false, getStopInfo());
     ret->mkItem("CO2 [mg/s]", true,

@@ -1,25 +1,17 @@
 period
-
 vehs_per_hour
-
 vehs_per_hour_none
-
 no
-
 early_begin
-
 early_end
-
 many_per_step
-
 nested_route
-
 nested_stops
-
 nested_route_stops
-
 period_no
-
 zero_period
+probability_0.5
 
+# insert with probability 0.1 each second
+probability_0.1
 errors

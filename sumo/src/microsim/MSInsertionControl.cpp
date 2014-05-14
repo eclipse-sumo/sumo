@@ -208,12 +208,26 @@ MSInsertionControl::checkFlows(SUMOTime time,
     unsigned int noEmitted = 0;
     for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end();) {
         SUMOVehicleParameter* pars = i->pars;
-        if (!i->isVolatile && i->vehicle != 0) {
+        if (!i->isVolatile && i->vehicle != 0 && pars->repetitionProbability < 0) {
             ++i;
+            //std::cout << SIMTIME << " volatile=" << i->isVolatile << " veh=" << i->vehicle << "\n";
             continue;
         }
+        bool emitByProb = pars->repetitionProbability > 0 && RandHelper::rand() < pars->repetitionProbability;
+        //std::cout << emitByProb << "\n";
+        //std::cout << SIMTIME 
+        //    << " flow=" << pars->id 
+        //    << " rDo=" << pars->repetitionsDone 
+        //    << " rN=" << pars->repetitionNumber 
+        //    << " rDe=" << pars->depart 
+        //    << " rRo=" << pars->repetitionOffset 
+        //    << " rPo=" << pars->repetitionProbability 
+        //    << " emit=" << emitByProb
+        //    << "\n";
         while (pars->repetitionsDone < pars->repetitionNumber &&
-               pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
+               ((pars->repetitionProbability < 0 && pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T)
+                || emitByProb)) {
+            emitByProb = false;
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);
             newPars->depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);

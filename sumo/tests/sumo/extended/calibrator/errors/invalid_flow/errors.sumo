@@ -1,4 +1,4 @@
 Warning: No flow intervals in calibrator 'slow'.
 Error: Attribute 'id' is missing in definition of a flow.
-Error: At least one of 'period', 'vehsPerHour', and 'number' is needed in flow ''.
+Error: At least one of 'period', 'vehsPerHour', 'probability', and 'number' is needed in flow ''.
 Quitting (on error).

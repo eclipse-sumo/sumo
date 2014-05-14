@@ -438,6 +438,8 @@ public:
 #else
     SUMOReal repetitionOffset;
 #endif
+    /// @brief The probability for emitting a vehicle per second
+    SUMOReal repetitionProbability;
     /// @}
 
 
