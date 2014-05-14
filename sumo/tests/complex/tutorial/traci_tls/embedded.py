@@ -46,7 +46,6 @@ else:
     # call sumo with the request to run this very same script again in the internal interpreter
     # when this happens, the method traci.isEmbedded() in line 23 will evaluate to true
     # and then the run method will be called
-    retCode = subprocess.call([sumoBinary, "-c", "data/cross.sumocfg",
-                               "--remote-port", "0", "--python-script", __file__],
+    retCode = subprocess.call([sumoBinary, "-c", "data/cross.sumocfg", "--python-script", __file__],
                               stdout=sys.stdout, stderr=sys.stderr)
     sys.exit(retCode)
