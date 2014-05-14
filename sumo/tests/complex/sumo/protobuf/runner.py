@@ -18,6 +18,8 @@ the Free Software Foundation; either version 3 of the License, or
 
 import os,subprocess,sys,time,threading,socket,difflib
 toolDir = os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools")
+if 'SUMO_HOME' in os.environ:
+    toolDir = os.path.join(os.environ['SUMO_HOME'], "tools")
 sys.path.append(toolDir)
 import sumolib
 
@@ -30,6 +32,8 @@ def connect(inPort, outPort):
         data = i.recv(1024)
         if not data: break
         o.sendall(data)
+    o.close()
+    i.close()
 
 SUMO_PORT = 8089
 IN_PORT = 8090
@@ -46,10 +50,12 @@ subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "direct.x
 xPro = subprocess.Popen(['python', xmlProtoPy, '-x', schema, '-o', str(IN_PORT), str(SUMO_PORT)])
 pPro = subprocess.Popen(['python', protoXmlPy, '-x', schema, str(OUT_PORT)])
 time.sleep(1) # wait for all servers to start
-threading.Thread(target=lambda:connect(IN_PORT, OUT_PORT)).start()
-subprocess.call([sumoBinary, "sumo.sumocfg"])
-xPro.wait()
+sumoPro = subprocess.Popen([sumoBinary, "sumo.sumocfg"])
+time.sleep(1) # wait for all servers to start
+connect(IN_PORT, OUT_PORT)
+sumoPro.wait()
 pPro.wait()
+xPro.wait()
 
 for line in difflib.unified_diff(open('direct.xml').readlines(), open('%s.xml' % OUT_PORT).readlines(), n=0):
     sys.stdout.write(line)
