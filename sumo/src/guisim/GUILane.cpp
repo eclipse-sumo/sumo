@@ -336,6 +336,9 @@ GUILane::drawArrows() const {
     glColor3d(1, 1, 1);
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
+    if (myWidth < SUMO_const_laneWidth) {
+        glScaled(myWidth / SUMO_const_laneWidth, 1, 1);
+    }
     for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
         LinkDirection dir = (*i)->getDirection();
         LinkState state = (*i)->getState();
