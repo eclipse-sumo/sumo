@@ -34,7 +34,7 @@ def connect(inPort, outPort):
 SUMO_PORT = 8089
 IN_PORT = 8090
 OUT_PORT = 8091
-sumoBinary = os.path.join(toolDir, '..', 'bin', 'sumo')
+sumoBinary = sumolib.checkBinary('sumo')
 xmlProtoPy = os.path.join(toolDir, 'xml', 'xml2protobuf.py')
 protoXmlPy = os.path.join(toolDir, 'xml', 'protobuf2xml.py')
 schema = os.path.join(toolDir, '..', 'data', 'xsd', 'amitran', 'trajectories.xsd')

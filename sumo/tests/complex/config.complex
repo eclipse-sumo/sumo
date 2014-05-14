@@ -51,6 +51,7 @@ errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 errors:send failed: Connection reset by peer{REPLACE send failed: Software caused tcpip::Socket abort}
+errors:send failed: Socket reset by peer{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:send failed: Broken pipe{REPLACE send failed: Software caused tcpip::Socket abort}
 
 [floating_point_tolerance]
