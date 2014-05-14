@@ -14,4 +14,5 @@ probability_0.5
 
 # insert with probability 0.1 each second
 probability_0.1
+probability_0.1_step-length_0.2
 errors
