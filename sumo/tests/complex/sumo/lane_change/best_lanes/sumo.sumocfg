@@ -20,8 +20,4 @@
         <no-step-log value="true"/>
     </report>
 
-    <traci_server>
-        <remote-port value="8813"/>
-    </traci_server>
-
 </configuration>

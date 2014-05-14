@@ -17,13 +17,14 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,subprocess,sys,shutil
+import os,subprocess,sys,shutil,random
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools"))
 import traci, sumolib
 
 sumoBinary = sumolib.checkBinary('sumo')
 netconvertBinary = sumolib.checkBinary('netconvert')
 
+PORT = random.randint(8000, 50000)
 DELTA_T = 1
 
 srcRoot = os.path.join(os.path.dirname(sys.argv[0]), "data")
@@ -42,8 +43,8 @@ for root in sorted(roots):
     shutil.copy(prefix + "routes.rou.xml", "./input_routes.rou.xml")
     shutil.copy(prefix + "additional.add.xml", "./input_additional.add.xml")
 
-    sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, stdout=sys.stdout)
-    traci.init(8813)
+    sumoProcess = subprocess.Popen("%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+    traci.init(PORT)
     step = 0
     traci.simulationStep()
     step += 1
