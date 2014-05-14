@@ -109,6 +109,7 @@ errors:Traceback{->}XMLSyntaxError
 errors:Traceback{->}IOError
 omnet:<!-- generated on
 shawn:<!-- generated on
+net:<!--{[->]}-->
 
 [unordered_text]
 errors:ERROR:SCHEMA
