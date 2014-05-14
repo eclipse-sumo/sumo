@@ -162,6 +162,9 @@
         <!-- Whether each vehicle is checked separately for insertion on an edge -->
         <eager-insert value="false" type="BOOL"/>
 
+        <!-- Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME] -->
+        <random-depart-offset value="0" type="TIME"/>
+
         <!-- Whether blocking vehicles trying to change lanes may be swapped -->
         <lanechange.allow-swap value="false" type="BOOL"/>
 

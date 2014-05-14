@@ -489,6 +489,10 @@ protected:
     /// @brief The scaling factor (especially for inc-dua)
     SUMOReal myScale;
 
+    /// @brief The maximum random offset to be added to vehicles departure times (non-negative)
+    SUMOTime myMaxRandomDepartOffset;
+
+
 private:
     /// @brief invalidated copy constructor
     MSVehicleControl(const MSVehicleControl& s);
