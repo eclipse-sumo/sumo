@@ -509,8 +509,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 #endif
         } else {
             const SUMOReal laneWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
-            mustDrawMarkings = !isInternal;
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * s.laneWidthExaggeration);
+            mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN;
+            // recognize full transparency and simply don't draw
+            GLfloat color[4];
+            glGetFloatv(GL_CURRENT_COLOR, color);
+            if (color[3] > 0) {
+                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * s.laneWidthExaggeration);
+            }
         }
         if (!MSGlobals::gUseMesoSim) {
             glPopName();
@@ -753,7 +758,16 @@ SUMOReal
 GUILane::getColorValue(size_t activeScheme) const {
     switch (activeScheme) {
         case 0:
-            return myPermissions == SVC_PEDESTRIAN ? 1 : 0;
+            switch (myPermissions) {
+                case SVC_PEDESTRIAN:
+                    return 1;
+                case SVC_BICYCLE:
+                    return 2;
+                case 0:
+                    return 3;
+                default:
+                    return 0;
+            }
         case 1:
             return gSelected.isSelected(getType(), getGlID()) ||
                    gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(myEdge)->getGlID());

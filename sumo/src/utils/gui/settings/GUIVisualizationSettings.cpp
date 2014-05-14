@@ -78,6 +78,8 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     /// add lane coloring schemes
     GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor::BLACK, "road", true);
     scheme.addColor(RGBColor::GREY, 1, "sidewalk");
+    scheme.addColor(RGBColor(192, 66, 44), 2, "bike lane");
+    scheme.addColor(RGBColor(0, 0, 0, 0), 3, "green verge");
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(179, 179, 179, 255), "unselected", true);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
