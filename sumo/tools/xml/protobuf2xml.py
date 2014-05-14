@@ -81,26 +81,26 @@ def msg2xml(desc, cont, out, depth=1):
 def writeXml(root, module, options):
     with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
         outputf.write('<?xml version="1.0" encoding="UTF-8"?>\n\n<%s' % root)
-        if (options.source.isdigit()):
-            inputf = xml2csv.getSocketStream(int(options.source))
+        if options.source.isdigit():
+            inp = xml2csv.getSocketStream(int(options.source))
         else:
-            inputf = open(options.source, 'rb')
-        first = True
-        while True:
-            length = struct.unpack('>L', read_n(inputf, 4))[0]
-            if length == 0:
-                break
-            obj = vars(module)[root.capitalize()]()
-            obj.ParseFromString(read_n(inputf, length))
-            for attr, value in obj.ListFields():
-                if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_MESSAGE:
-                    if attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
-                        for item in value:
-                            msg2xml(attr, item, outputf)
-                elif first:
-                    outputf.write(' %s="%s"' % (attr.name, value))
-            first = False
-        inputf.close()
+            inp = open(options.source, 'rb')
+        with contextlib.closing(inp) as inputf:
+            first = True
+            while True:
+                length = struct.unpack('>L', read_n(inputf, 4))[0]
+                if length == 0:
+                    break
+                obj = vars(module)[root.capitalize()]()
+                obj.ParseFromString(read_n(inputf, length))
+                for attr, value in obj.ListFields():
+                    if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_MESSAGE:
+                        if attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
+                            for item in value:
+                                msg2xml(attr, item, outputf)
+                    elif first:
+                        outputf.write(' %s="%s"' % (attr.name, value))
+                first = False
         outputf.write(">\n</%s>\n" % root)
 
 
