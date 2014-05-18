@@ -19,9 +19,18 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,subprocess,sys,time,random
+import os,subprocess,sys,time,random,socket
 
-PORT = str(random.randint(8000, 50000))
+while True:
+    try:
+        p = random.randint(8000, 50000)
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.bind(("localhost", p))
+        s.close()
+        break
+    except socket.error:
+        pass
+PORT = str(p)
 server_args = sys.argv[1:] + ["--remote-port", PORT]
 binaryDir, server = os.path.split(server_args[0])
 
