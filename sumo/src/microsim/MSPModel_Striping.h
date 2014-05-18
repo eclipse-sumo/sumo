@@ -242,14 +242,15 @@ protected:
     };
 
     class MovePedestrians : public Command {
-        public:
-            MovePedestrians(MSPModel_Striping* model) : myModel(model) {};
-            ~MovePedestrians() {};
-            SUMOTime execute(SUMOTime currentTime);
-        private:
-            /// @brief Invalidated assignment operator.
-            MovePedestrians& operator=(const MovePedestrians&);
-            MSPModel_Striping* myModel;
+    public:
+        MovePedestrians(MSPModel_Striping* model) : myModel(model) {};
+        ~MovePedestrians() {};
+        SUMOTime execute(SUMOTime currentTime);
+    private:
+        MSPModel_Striping* const myModel;
+    private:
+        /// @brief Invalidated assignment operator.
+        MovePedestrians& operator=(const MovePedestrians&);
     };
 
     class by_xpos_sorter {
@@ -268,6 +269,10 @@ protected:
 
     private:
         const int myDir;
+
+    private:
+        /// @brief Invalidated assignment operator.
+        by_xpos_sorter& operator=(const by_xpos_sorter&);
     };
 
 

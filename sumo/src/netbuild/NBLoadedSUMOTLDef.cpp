@@ -265,7 +265,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
         for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
             const NBConnection& c = *it;
             if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
-                assert(c.getTLIndex() < size);
+                assert(c.getTLIndex() < (int)size);
                 fromEdges[c.getTLIndex()] = c.getFrom();
                 toEdges[c.getTLIndex()] = c.getTo();
             }

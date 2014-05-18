@@ -169,6 +169,7 @@
     <ClInclude Include="..\..\..\src\utils\common\NamedObjectCont.h" />
     <ClInclude Include="..\..\..\src\utils\common\NamedRTree.h" />
     <ClInclude Include="..\..\..\src\utils\common\Parameterised.h" />
+    <ClInclude Include="..\..\..\src\utils\common\PedestrianRouter.h" />
     <ClInclude Include="..\..\..\src\utils\common\RandHelper.h" />
     <ClInclude Include="..\..\..\src\utils\common\RandomDistributor.h" />
     <ClInclude Include="..\..\..\src\utils\common\RGBColor.h" />

@@ -88,6 +88,9 @@ struct PedestrianTrip {
     const SUMOReal arrivalPos;
     const SUMOReal speed;
     const SUMOReal departTime;
+private:
+    /// @brief Invalidated assignment operator.
+    PedestrianTrip& operator=(const PedestrianTrip&);
 };
 
 

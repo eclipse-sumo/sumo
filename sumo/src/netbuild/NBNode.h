@@ -114,7 +114,7 @@ public:
         ~ApproachingDivider();
 
         unsigned int numAvailableLanes() const {
-            return myAvailableLanes.size();
+            return (unsigned int)myAvailableLanes.size();
         }
 
         /** the bresenham-callback */
