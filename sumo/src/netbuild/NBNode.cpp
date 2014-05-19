@@ -163,7 +163,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
         return ret;
     }
 
-    unsigned int noOutgoingLanes = myAvailableLanes.size();
+    unsigned int noOutgoingLanes = (unsigned int)myAvailableLanes.size();
     //
     ret->push_back(dest);
     unsigned int noSet = 1;
@@ -1689,8 +1689,9 @@ NBNode::buildWalkingAreas() {
     }
     // deal with wrap-around issues
     if (start != - 1) {
+        const int waNumLanes = (int)normalizedLanes.size() - start;
         if (waIndices.size() == 0) {
-            waIndices.push_back(std::make_pair(start, normalizedLanes.size() - start));
+            waIndices.push_back(std::make_pair(start, waNumLanes));
             if (gDebugFlag1) std::cout << "  single wa, end at wrap-around\n";
         } else {
             if (waIndices.front().first == 0) {
@@ -1698,17 +1699,17 @@ NBNode::buildWalkingAreas() {
                 NBEdge* prevEdge = normalizedLanes.back().first;
                 if (crossingBetween(edge, prevEdge)) {
                     // do not wrap-around if there is a crossing in between
-                    waIndices.push_back(std::make_pair(start, normalizedLanes.size() - start));
+                    waIndices.push_back(std::make_pair(start, waNumLanes));
                     if (gDebugFlag1) std::cout << "  do not wrap around, turn-around in between\n";
                 } else {
                     // first walkingArea wraps around
                     waIndices.front().first = start;
-                    waIndices.front().second = (normalizedLanes.size() - start) + waIndices.front().second;
+                    waIndices.front().second = waNumLanes + waIndices.front().second;
                     if (gDebugFlag1) std::cout << "  wrapping around\n";
                 }
             } else {
                 // last walkingArea ends at the wrap-around
-                waIndices.push_back(std::make_pair(start, normalizedLanes.size() - start));
+                waIndices.push_back(std::make_pair(start, waNumLanes));
                 if (gDebugFlag1) std::cout << "  end at wrap-around\n";
             }
         }
@@ -1723,7 +1724,7 @@ NBNode::buildWalkingAreas() {
     for (int i = 0; i < (int)waIndices.size(); ++i) {
         const bool buildExtensions = waIndices[i].second != (int)normalizedLanes.size();
         const int start = waIndices[i].first;
-        const int prev = start > 0 ? start - 1 : normalizedLanes.size() - 1;
+        const int prev = start > 0 ? start - 1 : (int)normalizedLanes.size() - 1;
         const int count = waIndices[i].second;
         const int end = (start + count) % normalizedLanes.size();
 

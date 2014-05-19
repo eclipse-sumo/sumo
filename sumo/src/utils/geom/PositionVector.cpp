@@ -742,7 +742,7 @@ PositionVector::pruneFromBeginAt(const Position& p) {
 PositionVector 
 PositionVector::getSubpartByIndex(int beginIndex, int count) const {
     if (beginIndex < 0) {
-        beginIndex += size();
+        beginIndex += (int)size();
     }
     assert(count > 0);
     assert(beginIndex < (int)size());

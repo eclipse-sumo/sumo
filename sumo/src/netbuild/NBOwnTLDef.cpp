@@ -233,7 +233,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
         // set tl indices for crossings
         (*i)->setCrossingTLIndices(noLinksAll);
         copy(c.begin(), c.end(), std::back_inserter(crossings));
-        noLinksAll += c.size();
+        noLinksAll += (unsigned int)c.size();
     }
 
     NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noLinksAll, myOffset, myType);

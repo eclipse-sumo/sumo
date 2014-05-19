@@ -255,7 +255,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
         // set tl indices for crossings
         (*i)->setCrossingTLIndices(noLinksAll);
         copy(c.begin(), c.end(), std::back_inserter(crossings));
-        noLinksAll += c.size();
+        noLinksAll += (unsigned int)c.size();
     }
     if (crossings.size() > 0) {
         // collect edges

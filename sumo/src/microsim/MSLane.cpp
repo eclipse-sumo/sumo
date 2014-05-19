@@ -1290,7 +1290,7 @@ int
 MSLane::getCrossingIndex() const {
     for (MSLinkCont::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
         if ((*i)->getLane()->getEdge().isCrossing()) {
-            return i - myLinks.begin();
+            return (int)(i - myLinks.begin());
         }
     }
     return -1;
