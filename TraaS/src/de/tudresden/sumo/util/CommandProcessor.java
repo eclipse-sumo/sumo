@@ -32,6 +32,7 @@ import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoLink;
 import de.tudresden.ws.container.SumoLinkList;
 import de.tudresden.ws.container.SumoPosition2D;
+import de.tudresden.ws.container.SumoPosition3D;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSLogic;
 import de.tudresden.ws.container.SumoTLSPhase;
@@ -69,6 +70,11 @@ public class CommandProcessor extends Query{
 			double x = resp.content().readDouble();
 			double y = resp.content().readDouble();
 			output = new SumoPosition2D(x,y);
+		}else if(sc.output_type == Constants.POSITION_3D){
+			double x = resp.content().readDouble();
+			double y = resp.content().readDouble();
+			double z = resp.content().readDouble();
+			output = new SumoPosition3D(x,y,z);
 		}else if(sc.output_type == Constants.TYPE_STRINGLIST){
 			
 			SumoStringList ssl = new SumoStringList();

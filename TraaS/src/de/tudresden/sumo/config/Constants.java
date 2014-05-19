@@ -529,6 +529,9 @@ public class Constants {
 	/**position (2D) (get: vehicle, poi, set: poi)*/
 	public static final int VAR_POSITION = 0x42;
 
+	/**position (3D) (get: vehicle, poi, set: poi)*/
+	public static final int VAR_POSITION3D = 0x39;
+	
 	/**ids of arrived vehicles (get: simulation)*/
 	public static final int VAR_ARRIVED_VEHICLES_IDS = 0x7a;
 

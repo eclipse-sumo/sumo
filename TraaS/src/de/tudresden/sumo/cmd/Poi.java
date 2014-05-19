@@ -51,7 +51,7 @@ public class Poi {
 
 	public static SumoCommand add(String poiID, double x, double y, SumoColor color, String poiType, int layer){
 		Object[] array = new Object[]{x, y, color, poiType, layer};
-		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.CMD_SET_POI_VARIABLE, poiID, array, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.ADD, poiID, array);
 	}
 
 	/**

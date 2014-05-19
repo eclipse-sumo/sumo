@@ -40,7 +40,7 @@ public class Edge {
 	 * @return the travel time value (in s)
 	 */
 
-	public static SumoCommand getAdaptedTraveltime(String edgeID, double time){
+	public static SumoCommand getAdaptedTraveltime(String edgeID, int time){
 		Object[] array = new Object[]{time};
 		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, edgeID, array, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
@@ -82,7 +82,7 @@ public class Edge {
 	 *         not exist
 	 */
 
-	public static SumoCommand getEffort(String edgeID, double time){
+	public static SumoCommand getEffort(String edgeID, int time){
 		Object[] array = new Object[]{time};
 		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_EDGE_EFFORT, edgeID, array, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}

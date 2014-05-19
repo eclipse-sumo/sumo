@@ -75,8 +75,7 @@ public class Route {
 	 */
 
 	public static SumoCommand add(String routeID, SumoStringList edges){
-
-		return new SumoCommand(Constants.CMD_SET_ROUTE_VARIABLE, Constants.VAR_ROUTE, routeID, edges);
+		return new SumoCommand(Constants.CMD_SET_ROUTE_VARIABLE, Constants.ADD, routeID, edges);
 	}
 
 

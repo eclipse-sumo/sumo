@@ -24,9 +24,10 @@ import de.tudresden.sumo.config.Constants;
 import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoPosition2D;
+import de.tudresden.ws.container.SumoPosition3D;
+import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSLogic;
 import de.tudresden.ws.container.SumoTLSPhase;
-
 import it.polito.appeal.traci.protocol.Command;
 
 /**
@@ -132,6 +133,12 @@ public class SumoCommand {
 				add_variable(array[i]);
 			}
 		}
+		
+		else if((Integer) input2 == Constants.CMD_REROUTE_EFFORT || (Integer) input2 == Constants.CMD_REROUTE_TRAVELTIME){
+				cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+				cmd.content().writeInt(0);
+		}
+	
 		else if((Integer) input2 == Constants.VAR_VIEW_BOUNDARY){
 				cmd.content().writeUnsignedByte(Constants.TYPE_BOUNDINGBOX);
 				for(int i=0; i<array.length; i++){
@@ -149,10 +156,9 @@ public class SumoCommand {
 			
 			
 			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
-			SumoGeometry ss = (SumoGeometry) array[0];
-			cmd.content().writeInt(ss.coords.size());	
+			cmd.content().writeInt(5);	
 			
-			//add_type(array[3]);
+			add_type(array[3]);
 			add_variable(array[3]);
 	
 			//color
@@ -177,6 +183,30 @@ public class SumoCommand {
 			cmd.content().writeUnsignedByte(Constants.POSITION_2D);
 			add_variable(array[0]);
 			add_variable(array[1]);
+			
+		}
+		else if((Integer) input1 == Constants.CMD_SET_POI_VARIABLE && (Integer) input2 == Constants.ADD){
+			
+			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+			cmd.content().writeInt(4);	
+			
+			//add name
+			add_type(array[3]);
+			add_variable(array[3]);
+			
+			//color
+			add_type(array[2]);
+			add_variable(array[2]);
+			
+			//layer
+			add_type(array[4]);
+			add_variable(array[4]);
+			
+			
+			cmd.content().writeUnsignedByte(Constants.POSITION_2D);
+			add_variable(array[0]);
+			add_variable(array[1]);
+			
 			
 		}
 		else{
@@ -211,11 +241,19 @@ public class SumoCommand {
 			StringList sl = (StringList) input;
 			cmd.content().writeUnsignedByte(Constants.TYPE_STRINGLIST);
 			cmd.content().writeInt(sl.size());
-			
-			for(int i=0; i<sl.size(); i++){
-				cmd.content().writeStringASCII(sl.get(i));
+			for(String s : sl) {
+				cmd.content().writeStringASCII(s);
 			}
 			
+		}else if(input.getClass().equals(SumoStringList.class)){
+				
+				SumoStringList sl = (SumoStringList) input;
+				cmd.content().writeUnsignedByte(Constants.TYPE_STRINGLIST);
+				cmd.content().writeInt(sl.size());
+				for(String s : sl){
+					cmd.content().writeStringASCII(s);
+				}
+	
 		}else if(input.getClass().equals(SumoTLSLogic.class)){
 		
 			SumoTLSLogic stl = (SumoTLSLogic) input;
@@ -283,6 +321,8 @@ public class SumoCommand {
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_POLYGON);
 		}else if(input.getClass().equals(SumoPosition2D.class)){
 			this.cmd.content().writeUnsignedByte(Constants.POSITION_2D);
+		}else if(input.getClass().equals(SumoPosition3D.class)){
+			this.cmd.content().writeUnsignedByte(Constants.POSITION_3D);
 		}else if(input.getClass().equals(Boolean.class)){
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_UBYTE);
 		}

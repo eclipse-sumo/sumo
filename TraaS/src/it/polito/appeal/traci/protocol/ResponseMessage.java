@@ -41,13 +41,16 @@ public class ResponseMessage {
 	 */
 	public static final int[] STATUS_ONLY_RESPONSES = new int[] {
 		Constants.CMD_CLOSE,
+		Constants.CMD_SET_EDGE_VARIABLE,
+		Constants.CMD_SET_GUI_VARIABLE,
 		Constants.CMD_SET_LANE_VARIABLE,
-		Constants.CMD_SET_TL_VARIABLE,
-		Constants.CMD_SET_VEHICLE_VARIABLE,
 		Constants.CMD_SET_POI_VARIABLE,
 		Constants.CMD_SET_POLYGON_VARIABLE,
-		Constants.CMD_SET_EDGE_VARIABLE,
-		Constants.CMD_SET_GUI_VARIABLE
+		Constants.CMD_SET_ROUTE_VARIABLE,
+		Constants.CMD_SET_SIM_VARIABLE,
+		Constants.CMD_SET_TL_VARIABLE,
+		Constants.CMD_SET_VEHICLE_VARIABLE,
+		Constants.CMD_SET_VEHICLETYPE_VARIABLE
 	};
 	
 	private List<ResponseContainer> pairs = new ArrayList<ResponseContainer>();

@@ -299,6 +299,14 @@ public class Vehicle {
 	}
 
 	/**
+	 * Returns the position of the named vehicle within the last step [m,m].
+	 */
+
+	public static SumoCommand getPosition3D(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_POSITION3D, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.POSITION_3D);
+	}
+	
+	/**
 	 * Returns the id of the edge the named vehicle was at within the last step.
 	 */
 
@@ -420,14 +428,7 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ROUTE_VALID, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_UBYTE);
 	}
 
-	/**
-	 * Sets the IDs of the edges the vehicle's route is made of.
-	 */
-
-	public static SumoCommand setRoute(String vehID, SumoStringList edgeList){
-		Object[] array = new Object[]{edgeList};
-		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ROUTE, vehID, array, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
-	}
+	
 
 	/**
 	 * Reduces the speed to the given for the given amount of time.
@@ -537,6 +538,7 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, vehID, array);
 	}
 
+	
 	/**
 	 * Sets the vehicle's color (RGBA).
 	 */
@@ -563,6 +565,14 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_LANECHANGE_MODE, vehID, lcm);
 	}
 	
+	/**
+	 * Sets the IDs of the edges the vehicle's route is made of.
+	 */
+
+	public static SumoCommand setRoute(String vehID, SumoStringList edgeList){
+		Object[] array = new Object[]{edgeList};
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_ROUTE, vehID, array);
+	}
 	
 	/**
 	 * Sets the id of the type for the named vehicle.

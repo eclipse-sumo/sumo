@@ -28,6 +28,7 @@ import de.tudresden.ws.container.SumoBoundingBox;
 import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoPosition2D;
+import de.tudresden.ws.container.SumoPosition3D;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSLogic;
 import de.tudresden.ws.log.Log;
@@ -135,6 +136,22 @@ public class ConvertHelper {
 		try {
 			if (obj.getClass().equals(SumoPosition2D.class)) {
 				output = (SumoPosition2D) obj;
+			}
+		} catch (Exception ex) {
+			this.logger.write(ex.getStackTrace());
+		}
+
+		return output;
+
+	}
+	
+	public SumoPosition3D getPosition3D(Object obj) {
+
+		SumoPosition3D output = new SumoPosition3D(0, 0, 0);
+
+		try {
+			if (obj.getClass().equals(SumoPosition3D.class)) {
+				output = (SumoPosition3D) obj;
 			}
 		} catch (Exception ex) {
 			this.logger.write(ex.getStackTrace());

@@ -25,7 +25,6 @@ import de.tudresden.sumo.cmd.Edge;
 import de.tudresden.sumo.cmd.Gui;
 import de.tudresden.sumo.cmd.Inductionloop;
 import de.tudresden.sumo.cmd.Junction;
-
 import de.tudresden.sumo.cmd.ArealDetector;
 import de.tudresden.sumo.cmd.Lane;
 import de.tudresden.sumo.cmd.Multientryexit;
@@ -36,11 +35,11 @@ import de.tudresden.sumo.cmd.Simulation;
 import de.tudresden.sumo.cmd.Trafficlights;
 import de.tudresden.sumo.cmd.Vehicle;
 import de.tudresden.sumo.cmd.Vehicletype;
-
 import de.tudresden.ws.container.SumoBoundingBox;
 import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoPosition2D;
+import de.tudresden.ws.container.SumoPosition3D;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSLogic;
 import de.tudresden.ws.log.Log;
@@ -569,6 +568,16 @@ public class Traci{
 		return this.helper.getDouble(this.sumo.get_cmd(ArealDetector.getJamLengthMeters(loopID)));
 	}
 	
+	@WebMethod(action="ArealDetector: getLastStepMeanSpeed")
+	public double ArealDetector_getLastStepMeanSpeed(@WebParam(name = "loopID") String loopID){
+		return this.helper.getDouble(this.sumo.get_cmd(ArealDetector.getLastStepMeanSpeed(loopID)));
+	}
+	
+	@WebMethod(action="ArealDetector: getLastStepOccupancy")
+	public double ArealDetector_getLastStepOccupancy(@WebParam(name = "loopID") String loopID){
+		return this.helper.getDouble(this.sumo.get_cmd(ArealDetector.getLastStepOccupancy(loopID)));
+	}
+	
 	@WebMethod(action="Vehicle: getAccel")
 	public double Vehicle_getAccel(@WebParam(name = "vehID") String vehID){
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getAccel(vehID)));
@@ -689,6 +698,11 @@ public class Traci{
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getLanePosition(vehID)));
 	}
 
+	@WebMethod(action="Vehicle: getLeader")
+	public String Vehicle_getLeader(@WebParam(name = "vehID") String vehID, @WebParam(name = "dist")  double dist){
+		return this.helper.getString(this.sumo.get_cmd(Vehicle.getLeader(vehID, dist)));
+	}
+	
 	@WebMethod(action="Vehicle: getLength")
 	public double Vehicle_getLength(@WebParam(name = "vehID") String vehID){
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getLength(vehID)));
@@ -722,6 +736,11 @@ public class Traci{
 	@WebMethod(action="Vehicle: Returns the position of the named vehicle within the last step [m,m].")
 	public SumoPosition2D Vehicle_getPosition(@WebParam(name = "vehID") String vehID){
 		return this.helper.getPosition2D(this.sumo.get_cmd(Vehicle.getPosition(vehID)));
+	}
+	
+	@WebMethod(action="Vehicle: Returns the position of the named vehicle within the last step [m,m].")
+	public SumoPosition3D Vehicle_getPosition3D(@WebParam(name = "vehID") String vehID){
+		return this.helper.getPosition3D(this.sumo.get_cmd(Vehicle.getPosition3D(vehID)));
 	}
 
 	@WebMethod(action="Vehicle: getRoadID")
@@ -795,30 +814,40 @@ public class Traci{
 	}
 
 	@WebMethod(action="Vehicle: setRoute")
-	public int Vehicle_setRoute(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeList") SumoStringList edgeList){
-		return this.helper.getInt(this.sumo.get_cmd(Vehicle.setRoute(vehID, edgeList)));
+	public void Vehicle_setRoute(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeList") SumoStringList edgeList){
+		this.sumo.set_cmd(Vehicle.setRoute(vehID, edgeList));
 	}
 
 	@WebMethod(action="Vehicle: setLaneChangeMode")
-	public int Vehicle_setLaneChangeMode(@WebParam(name = "vehID") String vehID, @WebParam(name = "lcm") int lcm){
-		return this.helper.getInt(this.sumo.get_cmd(Vehicle.setLaneChangeMode(vehID, lcm)));
+	public void Vehicle_setLaneChangeMode(@WebParam(name = "vehID") String vehID, @WebParam(name = "lcm") int lcm){
+		this.sumo.set_cmd(Vehicle.setLaneChangeMode(vehID, lcm));
 	}
 	
 	@WebMethod(action="Vehicle: setType")
-	public int Vehicle_setType(@WebParam(name = "vehID") String vehID, @WebParam(name = "typeID") String typeID){
-		return this.helper.getInt(this.sumo.get_cmd(Vehicle.setType(vehID, typeID)));
+	public void Vehicle_setType(@WebParam(name = "vehID") String vehID, @WebParam(name = "typeID") String typeID){
+		this.sumo.get_cmd(Vehicle.setType(vehID, typeID));
 	}
 	
 	@WebMethod(action="Vehicle: slowDown")
-	public int Vehicle_slowDown(@WebParam(name = "vehID") String vehID, @WebParam(name = "speed") double speed, @WebParam(name = "duration") int duration){
-		return this.helper.getInt(this.sumo.get_cmd(Vehicle.slowDown(vehID, speed, duration)));
+	public void Vehicle_slowDown(@WebParam(name = "vehID") String vehID, @WebParam(name = "speed") double speed, @WebParam(name = "duration") int duration){
+		this.sumo.set_cmd(Vehicle.slowDown(vehID, speed, duration));
 	}
 
+	@WebMethod(action="Simulation: clearPending")
+	public void GUI_trackVehicle(@WebParam(name = "routeID") String routeID){
+		this.sumo.set_cmd(Simulation.clearPending(routeID));
+	}
+	
 	@WebMethod(action="Simulation: convert2D")
 	public SumoStringList Simulation_convert2D(@WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "toGeo") String toGeo){
 		return this.helper.getStringList(this.sumo.get_cmd(Simulation.convert2D(edgeID, pos, laneIndex, toGeo)));
 	}
 
+	@WebMethod(action="Simulation: convert3D")
+	public SumoStringList Simulation_convert3D(@WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "toGeo") String toGeo){
+		return this.helper.getStringList(this.sumo.get_cmd(Simulation.convert3D(edgeID, pos, laneIndex, toGeo)));
+	}
+	
 	@WebMethod(action="Simulation: convertGeo")
 	public SumoStringList Simulation_convertGeo(@WebParam(name = "x") double x, @WebParam(name = "y") double y, @WebParam(name = "fromGeo") String fromGeo){
 		return this.helper.getStringList(this.sumo.get_cmd(Simulation.convertGeo(x, y, fromGeo)));
@@ -1244,8 +1273,8 @@ public class Traci{
 	}
 
 	@WebMethod(action="Poi: add")
-	public int Poi_add(@WebParam(name = "poiID") String poiID, @WebParam(name = "x") double x, @WebParam(name = "y") double y, @WebParam(name = "color") SumoColor color, @WebParam(name = "poiType") String poiType, @WebParam(name = "layer") int layer){
-		return this.helper.getInt(this.sumo.get_cmd(Poi.add(poiID, x, y, color, poiType, layer)));
+	public void Poi_add(@WebParam(name = "poiID") String poiID, @WebParam(name = "x") double x, @WebParam(name = "y") double y, @WebParam(name = "color") SumoColor color, @WebParam(name = "poiType") String poiType, @WebParam(name = "layer") int layer){
+		this.sumo.get_cmd(Poi.add(poiID, x, y, color, poiType, layer));
 	}
 
 	@WebMethod(action="Poi: Returns the color of the given poi.")
