@@ -119,12 +119,12 @@ public:
     public:
         explicit crossing_by_junction_angle_sorter(const EdgeVector& ordering) : myOrdering(ordering) {}
         int operator()(const NBNode::Crossing& c1, const NBNode::Crossing& c2) const {
-            return getMinRank(c1.edges) < getMinRank(c2.edges);
+            return (int)(getMinRank(c1.edges) < getMinRank(c2.edges));
         }
 
     private:
         /// @brief retrieves the minimum index in myAllEdges
-        SUMOReal getMinRank(const EdgeVector& e) const {
+        size_t getMinRank(const EdgeVector& e) const {
             size_t result = myOrdering.size();
             for (EdgeVector::const_iterator it = e.begin(); it != e.end(); ++it) {
                 size_t rank = std::distance(myOrdering.begin(), std::find(myOrdering.begin(), myOrdering.end(), *it));
