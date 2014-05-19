@@ -1017,7 +1017,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             const MSVehicle* leader = (*it).vehAndGap.first;
             if (leader == 0) {
                 // leader is a pedestrian. Passing 'this' as a dummy.
-                //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link to " << (*link)->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->second << "\n";
+                //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link to " << (*link)->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->distToCrossing << "\n";
                 adaptToLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
             } else if (leader->myLinkLeaders.count(getID()) == 0) {
                 // leader isn't already following us, now we follow it

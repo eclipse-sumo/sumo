@@ -469,8 +469,9 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                 }
             }
             // check for crossing pedestrians
-            if (MSPModel::getModel()->blockedAtDist(foeLane, foeDistToCrossing, collectBlockers)) {
-                result.push_back(LinkLeader((MSVehicle*)0, -1, distToCrossing - MSPModel::SAFETY_GAP - foeLane->getWidth() * 0.5));
+            const SUMOReal distToPeds = distToCrossing - MSPModel::SAFETY_GAP - foeLane->getWidth() * 0.5;
+            if (distToPeds >= 0 && MSPModel::getModel()->blockedAtDist(foeLane, foeDistToCrossing, collectBlockers)) {
+                result.push_back(LinkLeader((MSVehicle*)0, -1, distToPeds));
             }
         }
     }

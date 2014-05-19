@@ -125,9 +125,10 @@ MSPModel_Striping::blockedAtDist(const MSLane* lane, SUMOReal distToCrossing, st
     const Pedestrians& pedestrians = getPedestrians(lane);
     for (Pedestrians::const_iterator it_ped = pedestrians.begin(); it_ped != pedestrians.end(); ++it_ped) {
         const PState& ped = **it_ped;
+        const SUMOReal halfVehicleWidth = 1.0; // @note could get the actual value from the vehicle
         const SUMOReal leaderBackDist = (ped.myDir == FORWARD 
-                ? distToCrossing - (ped.myRelX - ped.getLength() - MSPModel::SAFETY_GAP)
-                : (ped.myRelX + ped.getLength() + MSPModel::SAFETY_GAP) - distToCrossing); 
+                ? distToCrossing - (ped.myRelX - ped.getLength() - MSPModel::SAFETY_GAP - halfVehicleWidth)
+                : (ped.myRelX + ped.getLength() + MSPModel::SAFETY_GAP + halfVehicleWidth) - distToCrossing); 
         //std::cout << SIMTIME << " foe=" << foeLane->getID() << " dir=" << p.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() << " fDTC=" << distToCrossing << " lBD=" << leaderBackDist << "\n";
         if (leaderBackDist >= 0 && leaderBackDist <= BLOCKER_LOOKAHEAD) {
             // found one pedestrian that is not completely past the crossing point
