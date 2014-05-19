@@ -1507,8 +1507,6 @@ NBNode::guessCrossings() {
 int
 NBNode::checkCrossing(EdgeVector candidates) {
     if (gDebugFlag1) std::cout << "checkCrossing candidates=" << toString(candidates) << "\n";
-    // XXX do not build crossings for uncontrolled junctions if the edges allow high speeds
-    
     if (candidates.size() == 0) {
         if (gDebugFlag1) std::cout << "no crossing added (numCandidates=" << candidates.size() << ")\n";
         return 0;
@@ -1541,19 +1539,36 @@ NBNode::checkCrossing(EdgeVector candidates) {
                 if (it != candidates.begin()) {
                     NBEdge* prev = *(it - 1);
                     NBEdge* curr = *it;
-                    // XXX use lane widths in case of spread_type=center
+                    Position prevPos, currPos;
+                    unsigned int laneI;
+                    // compute distance between candiate edges
+                    SUMOReal intermediateWidth = 0;
+                    if (prev->getToNode() == this) {
+                        laneI = prev->getNumLanes() - 1;
+                        prevPos = prev->getLanes()[laneI].shape[-1]; 
+                    } else {
+                        laneI = 0;
+                        prevPos = prev->getLanes()[laneI].shape[0]; 
+                    }
+                    intermediateWidth -= 0.5 * prev->getLaneWidth(laneI);
+                    if (curr->getFromNode() == this) {
+                        laneI = curr->getNumLanes() - 1;
+                        currPos = curr->getLanes()[laneI].shape[0]; 
+                    } else {
+                        laneI = 0;
+                        currPos = curr->getLanes()[laneI].shape[-1]; 
+                    }
+                    intermediateWidth -= 0.5 * curr->getLaneWidth(laneI);
+                    intermediateWidth += currPos.distanceTo2D(prevPos);
+                    if (gDebugFlag1) { 
+                        std::cout 
+                            << " prevAngle=" << prevAngle
+                            << " angle=" << angle
+                            << " intermediateWidth=" << intermediateWidth
+                            << "\n";
+                    }
                     if (fabs(prevAngle - angle) > SPLIT_CROSSING_ANGLE_THRESHOLD 
-                            || (prev->getGeometry()[prev->getFromNode() == this ? 0 : -1].distanceTo2D(curr->getGeometry()[curr->getFromNode() == this ? 0 : -1])
-                                > SPLIT_CROSSING_WIDTH_THRESHOLD)) {
-                        if (gDebugFlag1) { 
-                            std::cout 
-                                << "split crossing (prevAngle=" << prevAngle
-                                << " angle=" << angle
-                                << " fwdBorder=" << prev->getGeometry()[prev->getFromNode() == this ? 0 : -1]
-                                << " bwdBorder=" << curr->getGeometry()[curr->getFromNode() == this ? 0 : -1]
-                                << " dist=" << prev->getGeometry()[prev->getFromNode() == this ? 0 : -1].distanceTo2D(curr->getGeometry()[curr->getFromNode() == this ? 0 : -1])
-                                << "\n";
-                        }
+                            || (intermediateWidth > SPLIT_CROSSING_WIDTH_THRESHOLD)) {
                         return checkCrossing(EdgeVector(candidates.begin(), it)) 
                             + checkCrossing(EdgeVector(it, candidates.end()));
                     }
