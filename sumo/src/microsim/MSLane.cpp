@@ -762,7 +762,6 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
             }
         } else if (veh->isParking()) {
             // vehicle started to park
-            veh->leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
         } else if (veh->getPositionOnLane() > getLength()) {
             // for any reasons the vehicle is beyond its lane...

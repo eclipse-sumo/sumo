@@ -457,7 +457,8 @@ MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
 // ------------ interaction with the route
 bool
 MSVehicle::hasArrived() const {
-    return myCurrEdge == myRoute->end() - 1 && myStops.empty() && myState.myPos > myArrivalPos - POSITION_EPS;
+    return myCurrEdge == myRoute->end() - 1 && (myStops.empty() || myStops.front().edge != myCurrEdge)
+        && myState.myPos > myArrivalPos - POSITION_EPS;
 }
 
 
@@ -1741,6 +1742,12 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason) {
     }
     if (reason >= MSMoveReminder::NOTIFICATION_TELEPORT) {
         myAmOnNet = false;
+    }
+    if (reason != MSMoveReminder::NOTIFICATION_PARKING && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
+        while (!myStops.empty() && myStops.front().edge == myCurrEdge) {
+            WRITE_WARNING("Vehicle '" + getID() + "' skips stop on lane '" + myStops.front().lane->getID() + "'.");
+            myStops.pop_front();
+        }
     }
 }
 
