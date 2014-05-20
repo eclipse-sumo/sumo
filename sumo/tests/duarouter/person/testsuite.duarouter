@@ -4,3 +4,6 @@ unconnected_ignored
 
 # handle networks with pedestrian junction structures
 crossings_and_walkingareas
+
+unknown_from
+unknown_to
