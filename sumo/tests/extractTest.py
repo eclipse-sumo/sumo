@@ -113,10 +113,20 @@ def main(options):
                     potentials[f].append(path)
                 if f == "options."+app:
                     optionsFiles.append(path)
-            if curDir == os.path.dirname(curDir) or os.path.exists(join(curDir, "config."+app)):
+            config = join(curDir, "config."+app)
+            if curDir == os.path.dirname(curDir):
                 break
+            if os.path.exists(config):
+            # there may be configs in subdirs but we only parse the main one which should contain all files we need to copy
+                validConfig = False
+                for line in open(config):
+                    entry = line.strip().split(':')
+                    if entry and "copy_test_path" in entry[0]:
+                        validConfig = True
+                        break
+                if validConfig:
+                    break
             curDir = os.path.dirname(curDir)
-        config = join(curDir, "config."+app)
         if not os.path.exists(config):
             print >> sys.stderr, "Config '%s' not found for %s." % (config, source)
             continue
