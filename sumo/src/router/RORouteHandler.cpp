@@ -535,8 +535,7 @@ RORouteHandler::parseEdges(const std::string& desc, std::vector<const ROEdge*>& 
             const std::string id = st.next();
             const ROEdge* edge = myNet.getEdge(id);
             if (edge == 0) {
-                myErrorOutput->inform("The edge '" + id + "' within the route " + rid + " is not known."
-                                      + "\n The route can not be build.");
+                myErrorOutput->inform("The edge '" + id + "' within the route " + rid + " is not known.");
             } else {
                 into.push_back(edge);
             }
@@ -567,23 +566,18 @@ RORouteHandler::routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& pl
                 + "\n The route can not be build.");
         ok = false;
     }
-    if (myPedestrianRouter == 0) {
-        myPedestrianRouter = new ROPedestrianRouterDijkstra();
-    }
-    myPedestrianRouter->compute(from, to, 
-            SUMOVehicleParameter::interpretEdgePos(departPos, from->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + fromID),
-            SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + toID),
-            DEFAULT_PEDESTRIAN_SPEED, 0, 0, myActiveRoute);
-    if (myActiveRoute.empty()) {
-        ok = false;
-        const std::string error = "No connection found between '" + fromID + "' and '" + toID + "' for person '" + myVehicleParameter->id + "'.";
-        if (OptionsCont::getOptions().getBool("ignore-errors")) {
-            WRITE_WARNING(error);
-        } else {
-            WRITE_ERROR(error);
-        }
-    }
     if (ok) {
+        if (myPedestrianRouter == 0) {
+            myPedestrianRouter = new ROPedestrianRouterDijkstra();
+        }
+        myPedestrianRouter->compute(from, to, 
+                SUMOVehicleParameter::interpretEdgePos(departPos, from->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + fromID),
+                SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + toID),
+                DEFAULT_PEDESTRIAN_SPEED, 0, 0, myActiveRoute);
+        if (myActiveRoute.empty()) {
+            myErrorOutput->inform("No connection found between '" + fromID + "' and '" + toID + "' for person '" + myVehicleParameter->id + "'.");
+            return false;
+        }
         myActivePlan->openTag(SUMO_TAG_WALK);
         if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
             plan.writeAttr(SUMO_ATTR_DEPARTPOS, attrs.get<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok));
