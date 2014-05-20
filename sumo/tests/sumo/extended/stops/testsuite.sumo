@@ -46,4 +46,6 @@ simple_stop_expecting0
 simple_stop_expecting1
 simple_stop_expecting2
 
-
+# teleport should remove stops from the list
+teleport
+teleport_multihop
