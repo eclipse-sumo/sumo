@@ -278,10 +278,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
         NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
         //std::cout << "patchIfCrossingsAdded for " << getID() << " numPhases=" << phases.size() << "\n";
         for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-            const std::string newState = NBOwnTLDef::patchStateForCrossings(it->state + crossingDefaultState,
-                    crossings, fromEdges, toEdges);
-            //std::cout << "  oldState=" << it->state << " newState=" << newState << "\n";
-            newLogic->addStep(it->duration, newState);
+            NBOwnTLDef::addPedestrianPhases(newLogic, it->duration, it->state + crossingDefaultState, crossings, fromEdges, toEdges);
         }
         delete myTLLogic;
         myTLLogic = newLogic;

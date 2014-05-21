@@ -186,7 +186,7 @@ NBOwnTLDef::getBestPair(EdgeVector& incoming) {
 NBTrafficLightLogic*
 NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
     const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
-    const SUMOTime leftTurnTime = TIME2STEPS(6); // make configurable ?
+    const SUMOTime leftTurnTime = TIME2STEPS(6); // make configurable
     // build complete lists first
     const EdgeVector& incoming = getIncomingEdges();
     EdgeVector fromEdges, toEdges;
@@ -249,7 +249,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
             chosen = getBestPair(toProc);
         }
         unsigned int pos = 0;
-        std::string state((size_t) noLinksAll, 'o');
+        std::string state((size_t) noLinksAll, 'r');
         // plain straight movers
         for (unsigned int i1 = 0; i1 < (unsigned int) incoming.size(); ++i1) {
             NBEdge* fromEdge = incoming[i1];
@@ -301,10 +301,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
                 }
             }
         }
-        state = patchStateForCrossings(state, crossings, fromEdges, toEdges);
-        // add step
-        logic->addStep(greenTime, state);
-
+        state = addPedestrianPhases(logic, greenTime, state, crossings, fromEdges, toEdges);
         // pedestrians have 'r' from here on
         for (unsigned int i1 = pos; i1 < pos + crossings.size(); ++i1) {
             state[i1] = 'r';
@@ -363,6 +360,34 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
         delete logic;
         return 0;
     }
+}
+
+
+std::string
+NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime, 
+        std::string state, const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
+    const SUMOTime pedClearingTime = TIME2STEPS(5); // compute based on length of the crossing
+    const SUMOTime minPedTime = TIME2STEPS(4); // compute: must be able to reach the middle of the second "Richtungsfahrbahn"
+    const std::string orig = state;
+    state = patchStateForCrossings(state, crossings, fromEdges, toEdges);
+    if (orig == state) {
+        // add step
+        logic->addStep(greenTime, state);
+    } else {
+        const SUMOTime pedTime = greenTime - pedClearingTime;
+        if (pedTime >= minPedTime) {
+            // ensure clearing time for pedestrians
+            const size_t pedStates = crossings.size();
+            logic->addStep(pedTime, state);
+            state = state.substr(0, state.size() - pedStates) + std::string(pedStates, 'r');
+            logic->addStep(pedClearingTime, state);
+        } else {
+            state = orig;
+            // not safe for pedestrians.
+            logic->addStep(greenTime, state);
+        }
+    }
+    return state;
 }
 
 
