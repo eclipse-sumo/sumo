@@ -92,7 +92,8 @@ MSInternalJunction::postloadInit() {
             myInternalLinkFoes.push_back(*j);
         }
     }
-    thisLink->setRequestInformation((int)requestPos, true, false, myInternalLinkFoes, myInternalLaneFoes);
+    // thisLinks is itself an exitLink of the preceding internal lane
+    thisLink->setRequestInformation((int)requestPos, true, false, myInternalLinkFoes, myInternalLaneFoes, thisLink->getViaLane()->getLogicalPredecessorLane());
     assert(thisLink->getViaLane()->getLinkCont().size() == 1);
     MSLink* exitLink = thisLink->getViaLane()->getLinkCont()[0];
     exitLink->setRequestInformation((int)requestPos, false, false, std::vector<MSLink*>(),

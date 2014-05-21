@@ -1001,7 +1001,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         }
 
         const bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
-        const SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
+        SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
         if (yellowOrRed && seen >= cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime()) {
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / vLinkWait), vLinkWait, 0, SUMOTime_MAX, stopDist));
@@ -1031,6 +1031,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
                 }
             }
         }
+        // if this is the link between two internal lanes we may have to slow down for pedestrians
+        vLinkWait = MIN2(vLinkWait, v);
 #endif
 
         if (lastLink != 0) {

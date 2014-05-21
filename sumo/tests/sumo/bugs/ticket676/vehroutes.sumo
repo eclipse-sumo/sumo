@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/19/14 22:04:31 by SUMO sumo Version dev-SVN-r15432
+<!-- generated on Wed May 21 12:02:36 2014 by SUMO sumo Version dev-SVN-r16402
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -22,7 +22,12 @@
 
     <report>
         <xml-validation value="never"/>
+        <no-step-log value="true"/>
     </report>
+
+    <emissions>
+        <phemlight-path value="./PHEMlight/"/>
+    </emissions>
 
     <routing>
         <device.rerouting.probability value="1"/>
@@ -4559,13 +4564,6 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.639" type="car" depart="2049.00" arrival="2249.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="2049.00" probability="0" edges="gneE0 gneE1"/>
-            <route edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="type1.659" type="car" depart="2109.00" arrival="2286.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2109.00" probability="0" edges="gneE0 gneE1"/>
@@ -4622,35 +4620,64 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.653" type="car" depart="2089.00" arrival="2297.00">
+    <vehicle id="type1.667" type="car" depart="2133.00" arrival="2297.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="2133.00" probability="0" edges="gneE0 gneE1"/>
+            <route edges="gneE0 0/0to1/0 1/0to1/1 1/1to1/2 1/2to2/2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.668" type="car" depart="2136.00" arrival="2299.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="2136.00" probability="0" edges="gneE0 gneE1"/>
+            <route edges="gneE0 0/0to1/0 1/0to1/1 1/1to1/2 1/2to2/2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.653" type="car" depart="2089.00" arrival="2300.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2089.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.654" type="car" depart="2092.00" arrival="2299.00">
+    <vehicle id="type1.654" type="car" depart="2092.00" arrival="2301.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2092.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.655" type="car" depart="2095.00" arrival="2300.00">
+    <vehicle id="type1.655" type="car" depart="2095.00" arrival="2303.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2095.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.652" type="car" depart="2088.00" arrival="2301.00">
+    <vehicle id="type1.652" type="car" depart="2088.00" arrival="2304.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2088.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.640" type="car" depart="2052.00" arrival="2310.00">
+    <vehicle id="type1.639" type="car" depart="2049.00" arrival="2310.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="2049.00" probability="0" edges="gneE0 gneE1"/>
+            <route replacedOnEdge="2/1to2/2" replacedAtTime="2289.00" probability="0" edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
+            <route edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.669" type="car" depart="2139.00" arrival="2310.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="2139.00" probability="0" edges="gneE0 gneE1"/>
+            <route edges="gneE0 0/0to1/0 1/0to1/1 1/1to1/2 1/2to2/2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.640" type="car" depart="2052.00" arrival="2311.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2052.00" probability="0" edges="gneE0 gneE1"/>
             <route replacedOnEdge="2/1to2/2" replacedAtTime="2292.00" probability="0" edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
@@ -4658,14 +4685,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.667" type="car" depart="2133.00" arrival="2310.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="2133.00" probability="0" edges="gneE0 gneE1"/>
-            <route edges="gneE0 0/0to1/0 1/0to1/1 1/1to1/2 1/2to2/2 gneE1"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="type1.641" type="car" depart="2055.00" arrival="2311.00">
+    <vehicle id="type1.641" type="car" depart="2055.00" arrival="2313.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2055.00" probability="0" edges="gneE0 gneE1"/>
             <route replacedOnEdge="2/1to2/2" replacedAtTime="2295.00" probability="0" edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
@@ -4673,14 +4693,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.668" type="car" depart="2136.00" arrival="2311.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="2136.00" probability="0" edges="gneE0 gneE1"/>
-            <route edges="gneE0 0/0to1/0 1/0to1/1 1/1to1/2 1/2to2/2 gneE1"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="type1.642" type="car" depart="2058.00" arrival="2313.00">
+    <vehicle id="type1.642" type="car" depart="2058.00" arrival="2316.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2058.00" probability="0" edges="gneE0 gneE1"/>
             <route replacedOnEdge="2/1to2/2" replacedAtTime="2298.00" probability="0" edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
@@ -4688,14 +4701,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.669" type="car" depart="2139.00" arrival="2313.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="2139.00" probability="0" edges="gneE0 gneE1"/>
-            <route edges="gneE0 0/0to1/0 1/0to1/1 1/1to1/2 1/2to2/2 gneE1"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="type1.643" type="car" depart="2061.00" arrival="2316.00">
+    <vehicle id="type1.643" type="car" depart="2061.00" arrival="2319.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2061.00" probability="0" edges="gneE0 gneE1"/>
             <route replacedOnEdge="2/1to2/2" replacedAtTime="2301.00" probability="0" edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
@@ -4703,7 +4709,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.644" type="car" depart="2064.00" arrival="2319.00">
+    <vehicle id="type1.644" type="car" depart="2064.00" arrival="2320.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2064.00" probability="0" edges="gneE0 gneE1"/>
             <route replacedOnEdge="2/1to2/2" replacedAtTime="2304.00" probability="0" edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
@@ -4711,14 +4717,14 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.651" type="car" depart="2085.00" arrival="2320.00">
+    <vehicle id="type1.651" type="car" depart="2085.00" arrival="2322.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2085.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.645" type="car" depart="2067.00" arrival="2322.00">
+    <vehicle id="type1.645" type="car" depart="2067.00" arrival="2323.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2067.00" probability="0" edges="gneE0 gneE1"/>
             <route replacedOnEdge="2/1to2/2" replacedAtTime="2307.00" probability="0" edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
@@ -4726,7 +4732,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.646" type="car" depart="2070.00" arrival="2323.00">
+    <vehicle id="type1.646" type="car" depart="2070.00" arrival="2325.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2070.00" probability="0" edges="gneE0 gneE1"/>
             <route replacedOnEdge="2/1to2/2" replacedAtTime="2310.00" probability="0" edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
@@ -4734,7 +4740,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.647" type="car" depart="2073.00" arrival="2325.00">
+    <vehicle id="type1.647" type="car" depart="2073.00" arrival="2326.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2073.00" probability="0" edges="gneE0 gneE1"/>
             <route replacedOnEdge="2/1to2/2" replacedAtTime="2313.00" probability="0" edges="gneE0 0/0to0/1 0/1to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1to2/2 gneE1"/>
@@ -4742,42 +4748,42 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.676" type="car" depart="2182.00" arrival="2326.00">
+    <vehicle id="type1.676" type="car" depart="2182.00" arrival="2327.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2182.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.677" type="car" depart="2183.00" arrival="2327.00">
+    <vehicle id="type1.677" type="car" depart="2183.00" arrival="2329.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2183.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.678" type="car" depart="2186.00" arrival="2329.00">
+    <vehicle id="type1.678" type="car" depart="2186.00" arrival="2330.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2186.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.679" type="car" depart="2189.00" arrival="2330.00">
+    <vehicle id="type1.679" type="car" depart="2189.00" arrival="2332.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2189.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.680" type="car" depart="2192.00" arrival="2332.00">
+    <vehicle id="type1.680" type="car" depart="2192.00" arrival="2333.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2192.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.682" type="car" depart="2198.00" arrival="2333.00">
+    <vehicle id="type1.682" type="car" depart="2198.00" arrival="2335.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2198.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
@@ -4864,72 +4870,72 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.684" type="car" depart="2201.00" arrival="2397.00">
+    <vehicle id="type1.697" type="car" depart="2238.00" arrival="2397.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="2238.00" probability="0" edges="gneE0 gneE1"/>
+            <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.684" type="car" depart="2201.00" arrival="2399.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2201.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.685" type="car" depart="2204.00" arrival="2399.00">
+    <vehicle id="type1.685" type="car" depart="2204.00" arrival="2400.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2204.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.686" type="car" depart="2207.00" arrival="2400.00">
+    <vehicle id="type1.686" type="car" depart="2207.00" arrival="2401.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2207.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.687" type="car" depart="2210.00" arrival="2401.00">
+    <vehicle id="type1.687" type="car" depart="2210.00" arrival="2403.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2210.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.688" type="car" depart="2213.00" arrival="2403.00">
+    <vehicle id="type1.688" type="car" depart="2213.00" arrival="2404.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2213.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.689" type="car" depart="2216.00" arrival="2404.00">
+    <vehicle id="type1.689" type="car" depart="2216.00" arrival="2406.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2216.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.690" type="car" depart="2219.00" arrival="2406.00">
+    <vehicle id="type1.690" type="car" depart="2219.00" arrival="2407.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2219.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.691" type="car" depart="2222.00" arrival="2407.00">
+    <vehicle id="type1.691" type="car" depart="2222.00" arrival="2409.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2222.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.692" type="car" depart="2225.00" arrival="2409.00">
+    <vehicle id="type1.692" type="car" depart="2225.00" arrival="2410.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="2225.00" probability="0" edges="gneE0 gneE1"/>
-            <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="type1.693" type="car" depart="2228.00" arrival="2410.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="2228.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to2/1 2/1to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>
@@ -4963,9 +4969,9 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="type1.697" type="car" depart="2238.00" arrival="2427.00">
+    <vehicle id="type1.693" type="car" depart="2228.00" arrival="2427.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="2238.00" probability="0" edges="gneE0 gneE1"/>
+            <route replacedOnEdge="" replacedAtTime="2228.00" probability="0" edges="gneE0 gneE1"/>
             <route edges="gneE0 0/0to0/1 0/1to1/1 1/1to1/2 1/2to2/2 gneE1"/>
         </routeDistribution>
     </vehicle>

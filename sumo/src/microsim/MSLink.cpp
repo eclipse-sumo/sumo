@@ -47,6 +47,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+//#define MSLink_DEBUG_CROSSING_POINTS
 
 // ===========================================================================
 // static member variables
@@ -90,7 +91,9 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
     myAmCont = isCont;
     myFoeLinks = foeLinks;
     myFoeLanes = foeLanes;
-    //std::cout << " link " << myRequestIdx << " to " << getViaLaneOrLane()->getID() << " has foes: " << toString(foeLanes) << "\n";
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+    std::cout << " link " << myIndex << " to " << getViaLaneOrLane()->getID() << " has foes: " << toString(foeLanes) << "\n";
+#endif
 #ifdef HAVE_INTERNAL_LANES
     MSLane* lane = 0;
     if (internalLaneBefore != 0) {
@@ -103,9 +106,19 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
     }
     if (lane != 0) {
         for (std::vector<MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
-            if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
-                // this foeLane has the same target
+            if (myLane == (*it_lane)->getLinkCont()[0]->getLane() && !lane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal()) {
+            //if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
+                // this foeLane has the same target and merges at the end (lane exits the junction)
                 myLengthsBehindCrossing.push_back(std::make_pair(0, 0)); // dummy value, never used
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                std::cout
+                    << " " << lane->getID()
+                    << " merges with " << (*it_lane)->getID()
+                    << " nextLane " << lane->getLinkCont()[0]->getViaLaneOrLane()->getID()
+                    << " dist1=" << myLengthsBehindCrossing.back().first
+                    << " dist2=" << myLengthsBehindCrossing.back().second
+                    << "\n";
+#endif
             } else {
                 std::vector<SUMOReal> intersections1 = lane->getShape().intersectsAtLengths2D((*it_lane)->getShape());
                 //std::cout << " number of intersections1=" << intersections1.size() << "\n";
@@ -124,14 +137,16 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 myLengthsBehindCrossing.push_back(std::make_pair(
                                                       lane->getLength() - intersections1.back(),
                                                       (*it_lane)->getLength() - intersections2.back()));
-                //std::cout
-                //    << " intersection of " << lane->getID()
-                //    << " totalLength=" << lane->getLength()
-                //    << " with " << (*it_lane)->getID()
-                //    << " totalLength=" << (*it_lane)->getLength()
-                //    << " dist1=" << myLengthsBehindCrossing.back().first
-                //    << " dist2=" << myLengthsBehindCrossing.back().second
-                //    << "\n";
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                std::cout
+                    << " intersection of " << lane->getID()
+                    << " totalLength=" << lane->getLength()
+                    << " with " << (*it_lane)->getID()
+                    << " totalLength=" << (*it_lane)->getLength()
+                    << " dist1=" << myLengthsBehindCrossing.back().first
+                    << " dist2=" << myLengthsBehindCrossing.back().second
+                    << "\n";
+#endif
             }
         }
     }
@@ -400,8 +415,10 @@ MSLink::getViaLane() const {
 MSLink::LinkLeaders
 MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson*>* collectBlockers) const {
     LinkLeaders result;
-    if (MSGlobals::gUsingInternalLanes && myJunctionInlane == 0 &&
-            getLane()->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+    // this link needs to start at an internal lane (either an exit link or between two internal lanes)
+    if (MSGlobals::gUsingInternalLanes && (
+                (myJunctionInlane == 0 && getLane()->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL)
+                || (myJunctionInlane != 0 && myJunctionInlane->getLogicalPredecessorLane()->getEdge().isInternal()))) {
         //std::cout << " getLeaderInfo link=" << getViaLaneOrLane()->getID() << "\n";
         // this is an exit link
         for (size_t i = 0; i < myFoeLanes.size(); ++i) {
@@ -443,7 +460,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                         }
                         gap = distToCrossing - leaderBackDist - (sameTarget ? minGap : 0);
                     }
-                    result.push_back(LinkLeader(leader, gap, sameTarget ? -1 : distToCrossing));
+                    result.push_back(LinkLeader(leader, gap, cannotIgnore ? -1 : distToCrossing));
                 }
 
             }
