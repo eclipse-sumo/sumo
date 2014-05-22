@@ -571,13 +571,13 @@ MSRouteHandler::closePerson() {
     }
     MSPerson* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan);
     // @todo: consider myScale?
-    if ((myAddVehiclesDirectly || checkLastDepart())) {
+    if (myAddVehiclesDirectly || checkLastDepart()) {
         if (MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person)) {
             MSNet::getInstance()->getPersonControl().setDeparture(myVehicleParameter->depart, person);
             registerLastDepart();
         } else {
-            throw ProcessError("Another person with the id '" + myVehicleParameter->id + "' exists.");
             delete person;
+            throw ProcessError("Another person with the id '" + myVehicleParameter->id + "' exists.");
         }
     } else {
         // warning already given
