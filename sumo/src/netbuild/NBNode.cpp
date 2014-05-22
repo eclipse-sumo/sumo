@@ -1402,7 +1402,7 @@ NBNode::getShape() const {
 void
 NBNode::setCustomShape(const PositionVector& shape) {
     myPoly = shape;
-    myHaveCustomPoly = true;
+    myHaveCustomPoly = (myPoly.size() > 0);
 }
 
 
