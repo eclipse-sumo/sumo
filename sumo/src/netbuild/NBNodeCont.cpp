@@ -853,9 +853,9 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         // check which nodes should be controlled
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
             NBNode* node = i->second;
-            if (!node->isTLControlled()) {
+            const EdgeVector& incoming = node->getIncomingEdges();
+            if (!node->isTLControlled() && incoming.size() > 1 && !node->geometryLike()) {
                 std::vector<NBNode*> signals;
-                const EdgeVector& incoming = node->getIncomingEdges();
                 bool isTLS = true;
                 for (EdgeVector::const_iterator it_i = incoming.begin(); it_i != incoming.end(); ++it_i) {
                     const NBEdge* inEdge = *it_i;
