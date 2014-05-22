@@ -951,28 +951,28 @@ NBEdge::copyConnectionsFrom(NBEdge* src) {
 
 
 bool 
-NBEdge::canMoveConnection(const Connection& con, unsigned int newFromLane) const {
+NBEdge::canMoveConnection(const Connection& con, unsigned int newFromLane, const bool buildCrossingsAndWalkingAreas) const {
     // only allow using newFromLane if at least 1 vClass is permitted to use
     // this connection. If the connection shall be moved to a sidewalk, only create the connection if there is no walking area
     const SVCPermissions common = (getPermissions(newFromLane) & con.toEdge->getPermissions(con.toLane));
-    return (common > 0 && common != SVC_PEDESTRIAN);
+    return (common > 0 && (!buildCrossingsAndWalkingAreas || common != SVC_PEDESTRIAN));
 }
 
 
 void
-NBEdge::moveConnectionToLeft(unsigned int lane) {
+NBEdge::moveConnectionToLeft(unsigned int lane, const bool buildCrossingsAndWalkingAreas) {
     unsigned int index = 0;
     if (myAmLeftHand) {
         for (int i = (int) myConnections.size() - 1; i >= 0; --i) {
             if (myConnections[i].fromLane == (int)lane 
                     && getTurnDestination() != myConnections[i].toEdge
-                    && canMoveConnection(myConnections[i], lane + 1)) {
+                    && canMoveConnection(myConnections[i], lane + 1, buildCrossingsAndWalkingAreas)) {
                 index = i;
             }
         }
     } else {
         for (unsigned int i = 0; i < myConnections.size(); ++i) {
-            if (myConnections[i].fromLane == (int)(lane) && canMoveConnection(myConnections[i], lane + 1)) {
+            if (myConnections[i].fromLane == (int)(lane) && canMoveConnection(myConnections[i], lane + 1, buildCrossingsAndWalkingAreas)) {
                 index = i;
             }
         }
@@ -985,10 +985,10 @@ NBEdge::moveConnectionToLeft(unsigned int lane) {
 
 
 void
-NBEdge::moveConnectionToRight(unsigned int lane) {
+NBEdge::moveConnectionToRight(unsigned int lane, const bool buildCrossingsAndWalkingAreas) {
     if (myAmLeftHand) {
         for (int i = (int) myConnections.size() - 1; i >= 0; --i) {
-            if (myConnections[i].fromLane == (int)lane && getTurnDestination() != myConnections[i].toEdge && canMoveConnection(myConnections[i], lane - 1)) {
+            if (myConnections[i].fromLane == (int)lane && getTurnDestination() != myConnections[i].toEdge && canMoveConnection(myConnections[i], lane - 1, buildCrossingsAndWalkingAreas)) {
                 Connection c = myConnections[i];
                 myConnections.erase(myConnections.begin() + i);
                 setConnection(lane - 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
@@ -997,7 +997,7 @@ NBEdge::moveConnectionToRight(unsigned int lane) {
         }
     } else {
         for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            if ((*i).fromLane == (int)lane && canMoveConnection(*i, lane -1)) {
+            if ((*i).fromLane == (int)lane && canMoveConnection(*i, lane -1, buildCrossingsAndWalkingAreas)) {
                 Connection c = *i;
                 i = myConnections.erase(i);
                 setConnection(lane - 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
@@ -1426,7 +1426,7 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
 
 
 bool
-NBEdge::computeLanes2Edges() {
+NBEdge::computeLanes2Edges(const bool buildCrossingsAndWalkingAreas) {
     // return if this relationship has been build in previous steps or
     //  during the import
     if (myStep >= LANES2EDGES) {
@@ -1441,7 +1441,7 @@ NBEdge::computeLanes2Edges() {
         myConnections.clear();
     } else {
         // divide the lanes on reachable edges
-        divideOnEdges(edges);
+        divideOnEdges(edges, buildCrossingsAndWalkingAreas);
     }
     delete edges;
     myStep = LANES2EDGES;
@@ -1450,7 +1450,7 @@ NBEdge::computeLanes2Edges() {
 
 
 bool
-NBEdge::recheckLanes() {
+NBEdge::recheckLanes(const bool buildCrossingsAndWalkingAreas) {
     std::vector<unsigned int> connNumbersPerLane(myLanes.size(), 0);
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         if ((*i).toEdge == 0 || (*i).fromLane < 0 || (*i).toLane < 0) {
@@ -1471,9 +1471,9 @@ NBEdge::recheckLanes() {
         for (unsigned int i = 0; i < myLanes.size(); i++) {
             if (connNumbersPerLane[i] == 0 && !isForbidden(getPermissions((int)i))) {
                 if (i > 0 && connNumbersPerLane[i - 1] > 1) {
-                    moveConnectionToLeft(i - 1);
+                    moveConnectionToLeft(i - 1, buildCrossingsAndWalkingAreas);
                 } else if (i < myLanes.size() - 1 && connNumbersPerLane[i + 1] > 1) {
-                    moveConnectionToRight(i + 1);
+                    moveConnectionToRight(i + 1, buildCrossingsAndWalkingAreas);
                 }
             }
         }
@@ -1487,7 +1487,7 @@ NBEdge::recheckLanes() {
 
 
 void
-NBEdge::divideOnEdges(const EdgeVector* outgoing) {
+NBEdge::divideOnEdges(const EdgeVector* outgoing, const bool buildCrossingsAndWalkingAreas) {
     if (outgoing->size() == 0) {
         // we have to do this, because the turnaround may have been added before
         myConnections.clear();
@@ -1502,7 +1502,8 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     // forbidden lanes and pedestrian lanes that will be connected via walkingAreas)
     std::vector<int> availableLanes;
     for (int i = 0; i < (int)myLanes.size(); ++i) {
-        if (getPermissions(i) == SVC_PEDESTRIAN || isForbidden(getPermissions(i))) {
+        const SVCPermissions perms = getPermissions(i);
+        if ((perms == SVC_PEDESTRIAN && buildCrossingsAndWalkingAreas) || isForbidden(perms)) {
             continue;
         }
         availableLanes.push_back(i);
@@ -1565,7 +1566,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
                 // exclude connection if fromLane and toEdge have no common permissions
                 continue;
             }
-            if ((getPermissions(fromIndex) & (*i).first->getPermissions()) == SVC_PEDESTRIAN) {
+            if (buildCrossingsAndWalkingAreas && (getPermissions(fromIndex) & (*i).first->getPermissions()) == SVC_PEDESTRIAN) {
                 // exclude connection if the only commonly permitted class are pedestrians and there is already a walkingArea
                 continue;
             }

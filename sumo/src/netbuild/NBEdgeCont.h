@@ -363,7 +363,7 @@ public:
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::computeLanes2Edges
      */
-    void computeLanes2Edges();
+    void computeLanes2Edges(const bool buildCrossingsAndWalkingAreas);
 
 
     /** @brief Rechecks whether all lanes have a successor for each of the stored edges
@@ -373,7 +373,7 @@ public:
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::recheckLanes
      */
-    void recheckLanes();
+    void recheckLanes(const bool buildCrossingsAndWalkingAreas);
 
 
     /** @brief Appends turnarounds to all edges stored in the container

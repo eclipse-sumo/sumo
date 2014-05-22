@@ -93,7 +93,7 @@ const SUMOReal NBNode::DEFAULT_CROSSING_WIDTH(4);
  * NBNode::ApproachingDivider-methods
  * ----------------------------------------------------------------------- */
 NBNode::ApproachingDivider::ApproachingDivider(
-    EdgeVector* approaching, NBEdge* currentOutgoing) :
+    EdgeVector* approaching, NBEdge* currentOutgoing, const bool buildCrossingsAndWalkingAreas) :
     myApproaching(approaching), myCurrentOutgoing(currentOutgoing) {
     // check whether origin lanes have been given
     assert(myApproaching != 0);
@@ -112,7 +112,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
     // if the lane is targeted by an explicitly set connection we need
     // to make it available anyway
     for (int i = 0; i < (int)currentOutgoing->getNumLanes(); ++i) {
-        if ((currentOutgoing->getPermissions(i) == SVC_PEDESTRIAN 
+        if (((buildCrossingsAndWalkingAreas && currentOutgoing->getPermissions(i) == SVC_PEDESTRIAN)
                 || isForbidden(currentOutgoing->getPermissions(i)))
                 && approachedLanes.count(i) == 0) {
             continue;
@@ -670,7 +670,7 @@ NBNode::computeNodeShape(bool leftHand, SUMOReal mismatchThreshold) {
 
 
 void
-NBNode::computeLanes2Lanes() {
+NBNode::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
     // special case a):
     //  one in, one out, the outgoing has one lane more
     if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1
@@ -754,7 +754,7 @@ NBNode::computeLanes2Lanes() {
         EdgeVector* approaching = getEdgesThatApproach(currentOutgoing);
         const unsigned int numApproaching = (unsigned int)approaching->size();
         if (numApproaching != 0) {
-            ApproachingDivider divider(approaching, currentOutgoing);
+            ApproachingDivider divider(approaching, currentOutgoing, buildCrossingsAndWalkingAreas);
             Bresenham::compute(&divider, numApproaching, divider.numAvailableLanes());
         }
         delete approaching;

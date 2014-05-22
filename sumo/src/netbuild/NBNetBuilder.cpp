@@ -280,12 +280,23 @@ NBNetBuilder::compute(OptionsCont& oc,
     NBNodeTypeComputer::computeNodeTypes(myNodeCont);
     PROGRESS_DONE_MESSAGE();
     //
+    bool buildCrossingsAndWalkingAreas = false;
     if (oc.getBool("crossings.guess")) {
+        buildCrossingsAndWalkingAreas = true;
         int crossings = 0;
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             crossings += (*i).second->guessCrossings();
         }
         WRITE_MESSAGE("Guessed " + toString(crossings) + " pedestrian crossings.");
+    }
+    if (!oc.getBool("no-internal-links") && !buildCrossingsAndWalkingAreas) {
+        // recheck whether we had crossings in the input
+        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
+            if (i->second->getCrossings().size() > 0) {
+                buildCrossingsAndWalkingAreas = true;
+                break;
+            }
+        }
     }
     //
     PROGRESS_BEGIN_MESSAGE("Computing priorities");
@@ -303,11 +314,11 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
     //
     PROGRESS_BEGIN_MESSAGE("Computing approaching lanes");
-    myEdgeCont.computeLanes2Edges();
+    myEdgeCont.computeLanes2Edges(buildCrossingsAndWalkingAreas);
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Dividing of lanes on approached lanes");
-    myNodeCont.computeLanes2Lanes();
+    myNodeCont.computeLanes2Lanes(buildCrossingsAndWalkingAreas);
     myEdgeCont.sortOutgoingLanesConnections();
     PROGRESS_DONE_MESSAGE();
     //
@@ -320,7 +331,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Rechecking of lane endings");
-    myEdgeCont.recheckLanes();
+    myEdgeCont.recheckLanes(buildCrossingsAndWalkingAreas);
     PROGRESS_DONE_MESSAGE();
 
 
@@ -380,10 +391,6 @@ NBNetBuilder::compute(OptionsCont& oc,
             (*i).second->sortOutgoingConnectionsByIndex();
         }
         // walking areas shall only be built if crossings are wished as well
-        bool buildCrossingsAndWalkingAreas = oc.getBool("crossings.guess");
-        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            buildCrossingsAndWalkingAreas = buildCrossingsAndWalkingAreas || (*i).second->getCrossings().size() > 0;
-        }
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             (*i).second->buildInnerEdges(buildCrossingsAndWalkingAreas);
         }
