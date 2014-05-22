@@ -875,7 +875,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                             tlc.removeFully((*j)->getID());
                         }
                     }
-                    NBTrafficLightDefinition* tlDef = new NBOwnTLDef(node->getID(), node, 0, TLTYPE_STATIC);
+                    NBTrafficLightDefinition* tlDef = new NBOwnTLDef("GS_" + node->getID(), node, 0, TLTYPE_STATIC);
                     // @todo patch endOffset for all incoming lanes according to the signal positions
                     if (!tlc.insert(tlDef)) {
                         // actually, nothing should fail here
