@@ -33,9 +33,8 @@ Building inner edges... done.
 Summary:
  Node type statistics:
   Unregulated junctions       : 5
-  Dead-end junctions          : 9
-  Priority junctions          : 67
-  Right-before-left junctions : 6
+  Priority junctions          : 69
+  Right-before-left junctions : 13
  Network boundaries:
   Original boundary  : 13.52,52.43,13.55,52.43
   Applied offset     : -399345.66,-5809365.64

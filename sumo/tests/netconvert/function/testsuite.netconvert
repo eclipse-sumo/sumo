@@ -53,3 +53,6 @@ street_sign_output
 
 # test right-of-way matrix when a right turning connection conflicts with a pedestrian crossing
 rightTurnConflict
+
+# a service road (allowing pedestrians and delivery) enters a street with sidewalks at a T-junction
+3_arm_service_entering

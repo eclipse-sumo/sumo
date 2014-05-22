@@ -40,9 +40,8 @@ Computing traffic light logics... done.
 Summary:
  Node type statistics:
   Unregulated junctions       : 35
-  Dead-end junctions          : 25
-  Priority junctions          : 213
-  Right-before-left junctions : 66
+  Priority junctions          : 229
+  Right-before-left junctions : 75
  Network boundaries:
   Original boundary  : 13.46,52.42,13.54,52.45
   Applied offset     : -395408.93,-5809112.45

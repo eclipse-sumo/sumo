@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr 15 15:27:56 2014 by SUMO netconvert Version dev-SVN-r16196
+<!-- generated on 05/21/14 12:48:15 by SUMO netconvert Version dev-SVN-r16394
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -40,23 +40,23 @@
     <node id="261647692" x="13.526868" y="52.427845" type="priority"/>
     <node id="261647702" x="13.526758" y="52.426821" type="priority"/>
     <node id="283018817" x="13.528563" y="52.430263" type="priority"/>
-    <node id="283018841" x="13.527196" y="52.430112" type="dead_end"/>
-    <node id="283018842" x="13.526621" y="52.430008" type="dead_end"/>
-    <node id="283018844" x="13.525479" y="52.429673" type="dead_end"/>
+    <node id="283018841" x="13.527196" y="52.430112" type="right_before_left"/>
+    <node id="283018842" x="13.526621" y="52.430008" type="right_before_left"/>
+    <node id="283018844" x="13.525479" y="52.429673" type="right_before_left"/>
     <node id="283018845" x="13.524860" y="52.429424" type="priority"/>
     <node id="283018932" x="13.525650" y="52.429554" type="priority"/>
     <node id="283018933" x="13.527455" y="52.429901" type="priority"/>
-    <node id="283018937" x="13.526990" y="52.430269" type="dead_end"/>
+    <node id="283018937" x="13.526990" y="52.430269" type="priority"/>
     <node id="283719736" x="13.535033" y="52.430102" type="priority"/>
     <node id="283719904" x="13.533232" y="52.430401" type="priority"/>
     <node id="283720461" x="13.534578" y="52.429860" type="priority"/>
-    <node id="283721344" x="13.534536" y="52.430191" type="dead_end"/>
+    <node id="283721344" x="13.534536" y="52.430191" type="right_before_left"/>
     <node id="283721348" x="13.534233" y="52.429766" type="priority"/>
-    <node id="283721473" x="13.534342" y="52.430565" type="dead_end"/>
+    <node id="283721473" x="13.534342" y="52.430565" type="right_before_left"/>
     <node id="283722835" x="13.534540" y="52.430680" type="unregulated"/>
-    <node id="283722837" x="13.533891" y="52.430291" type="dead_end"/>
-    <node id="287944368" x="13.534379" y="52.429984" type="dead_end"/>
-    <node id="287944369" x="13.534646" y="52.430360" type="dead_end"/>
+    <node id="283722837" x="13.533891" y="52.430291" type="right_before_left"/>
+    <node id="287944368" x="13.534379" y="52.429984" type="right_before_left"/>
+    <node id="287944369" x="13.534646" y="52.430360" type="priority"/>
     <node id="294168098" x="13.527938" y="52.428223" type="right_before_left"/>
     <node id="294168710" x="13.528214" y="52.428384" type="right_before_left"/>
     <node id="294168972" x="13.530151" y="52.427390" type="priority"/>

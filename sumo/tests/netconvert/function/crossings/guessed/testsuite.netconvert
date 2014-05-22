@@ -9,6 +9,9 @@
 # 3 arm junction with 3 crossings
 3_arm_1_opposite_sidewalk_3_crossings
 
+# a service road (allowing pedestrians and delivery) enters a street with sidewalks at a T-junction
+3_arm_service_entering
+
 # 4 arm junction with crossings on all sides
 4_arm_complete
 4_arm_complete_priority
