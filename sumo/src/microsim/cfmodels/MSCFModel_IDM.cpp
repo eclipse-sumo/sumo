@@ -132,7 +132,7 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const SUMOReal gap2pred, const SUM
         gap -= MAX2(SUMOReal(0), SPEED2DIST(newSpeed - predSpeed) / myIterations);
     }
 //    return MAX2(getSpeedAfterMaxDecel(egoSpeed), newSpeed);
-    return MAX2(0., newSpeed);
+    return MAX2(SUMOReal(0), newSpeed);
 }
 
 
