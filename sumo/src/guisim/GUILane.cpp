@@ -517,7 +517,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             GLfloat color[4];
             glGetFloatv(GL_CURRENT_COLOR, color);
             if (color[3] > 0) {
-                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * s.laneWidthExaggeration);
+                const int cornerDetail = drawDetails ? s.scale * s.laneWidthExaggeration : 0;
+                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * s.laneWidthExaggeration, cornerDetail);
             }
         }
         if (!MSGlobals::gUseMesoSim) {

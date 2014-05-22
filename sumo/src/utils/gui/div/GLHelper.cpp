@@ -157,10 +157,19 @@ void
 GLHelper::drawBoxLines(const PositionVector& geom,
                        const std::vector<SUMOReal>& rots,
                        const std::vector<SUMOReal>& lengths,
-                       SUMOReal width) {
+                       SUMOReal width, int cornerDetail) {
     int e = (int) geom.size() - 1;
     for (int i = 0; i < e; i++) {
         drawBoxLine(geom[i], rots[i], lengths[i], width);
+    }
+    if (cornerDetail > 0) {
+        for (int i = 1; i < e; i++) {
+            glPushMatrix();
+            glTranslated(geom[i].x(), geom[i].y(), 0);
+            drawFilledCircle(width, cornerDetail);
+            glEnd();
+            glPopMatrix();
+        }
     }
 }
 
