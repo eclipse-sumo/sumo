@@ -131,6 +131,9 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
                 device.writeAttr(SUMO_ATTR_CONTROLLED_INNER, joinToString(sortedCIEs, " "));
             }
         }
+        if (n->hasCustomShape()) {
+            device.writeAttr(SUMO_ATTR_SHAPE, n->getShape());
+        }
         device.closeTag();
     }
     device.close();

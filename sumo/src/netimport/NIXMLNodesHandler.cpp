@@ -180,6 +180,15 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     if (type == NODETYPE_TRAFFIC_LIGHT || type == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
         processTrafficLightDefinitions(attrs, node);
     }
+    // set optional shape
+    PositionVector shape;
+    if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+        shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, myID.c_str(), ok, PositionVector());
+        if (shape.size() > 2) {
+            shape.closePolygon();
+        }
+        node->setCustomShape(shape);
+    }
 }
 
 

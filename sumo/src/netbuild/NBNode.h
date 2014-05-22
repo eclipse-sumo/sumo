@@ -473,8 +473,16 @@ public:
      */
     void computeNodeShape(bool leftHand, SUMOReal mismatchThreshold);
 
-
+    /// @brief retrieve the junction shape
     const PositionVector& getShape() const;
+
+    /// @brief set the junction shape
+    void setCustomShape(const PositionVector& shape);
+
+    /// @brief return whether the shape was set by the user
+    bool hasCustomShape() {
+        return myHaveCustomPoly;
+    }
 
     bool checkIsRemovable() const;
 
@@ -665,6 +673,9 @@ private:
 
     /// the (outer) shape of the junction
     PositionVector myPoly;
+
+    /// @brief whether this nodes shape was set by the user
+    bool myHaveCustomPoly;
 
     NBRequest* myRequest;
 

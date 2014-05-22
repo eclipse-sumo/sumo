@@ -229,14 +229,20 @@ NBNode::NBNode(const std::string& id, const Position& position,
                SumoXMLNodeType type) :
     Named(StringUtils::convertUmlaute(id)),
     myPosition(position),
-    myType(type), myDistrict(0), myRequest(0)
+    myType(type), 
+    myDistrict(0), 
+    myHaveCustomPoly(false), 
+    myRequest(0)
 { }
 
 
 NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* district) :
     Named(StringUtils::convertUmlaute(id)),
     myPosition(position),
-    myType(district == 0 ? NODETYPE_UNKNOWN : NODETYPE_DISTRICT), myDistrict(district), myRequest(0)
+    myType(district == 0 ? NODETYPE_UNKNOWN : NODETYPE_DISTRICT), 
+    myDistrict(district), 
+    myHaveCustomPoly(false),
+    myRequest(0)
 { }
 
 
@@ -642,6 +648,9 @@ NBNode::writeLogic(OutputDevice& into, const bool checkLaneFoes) const {
 
 void
 NBNode::computeNodeShape(bool leftHand, SUMOReal mismatchThreshold) {
+    if (myHaveCustomPoly) {
+        return;
+    }
     if (myIncomingEdges.size() == 0 && myOutgoingEdges.size() == 0) {
         // may be an intermediate step during network editing
         myPoly.clear();
@@ -1387,6 +1396,13 @@ NBNode::getEdgesToJoin() const {
 const PositionVector&
 NBNode::getShape() const {
     return myPoly;
+}
+
+
+void
+NBNode::setCustomShape(const PositionVector& shape) {
+    myPoly = shape;
+    myHaveCustomPoly = true;
 }
 
 
