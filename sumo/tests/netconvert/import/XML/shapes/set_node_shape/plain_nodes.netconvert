@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu May 22 16:12:59 2014 by SUMO netconvert Version dev-SVN-r16411
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="0.00,100.00,200.00,200.00" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
+
+    <node id="C" x="100.00" y="100.00" type="traffic_light" tl="C" shape="90.15,151.35 109.85,151.35 121.35,109.85 111.35,90.15 100.00,60.00 88.65,90.15 88.65,109.85 90.15,151.35"/>
+    <node id="E" x="200.00" y="100.00" type="priority"/>
+    <node id="N" x="100.00" y="200.00" type="priority"/>
+    <node id="W" x="0.00" y="100.00" type="priority"/>
+</nodes>
