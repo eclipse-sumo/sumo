@@ -1,0 +1,459 @@
+TraCITestClient output file. Date: Mon Jul 01 13:28:48 2013
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=196 varID=25 objID=0
+.. Command acknowledged (196), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]
