@@ -41,7 +41,7 @@ vClass ignoring
 emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
-width 1.7
+width 1.8
 waiting time 0.0
 driving dist 3002.95289395
 driving dist 2D 1098.13130535
@@ -138,7 +138,7 @@ vClass ignoring
 emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
-width 1.7
+width 1.8
 waiting time 0.0
 driving dist -1001.0
 driving dist 2D -1001.0
@@ -197,7 +197,7 @@ vClass ignoring
 emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
-width 1.7
+width 1.8
 waiting time 0.0
 driving dist 3002.32060554
 driving dist 2D 1097.49901695

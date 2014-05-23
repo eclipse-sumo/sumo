@@ -17,7 +17,7 @@ vClass ignoring
 emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
-width 1.7
+width 1.8
 color (255, 255, 0, 255)
 {65: 55.55555555555556}
 step 3
