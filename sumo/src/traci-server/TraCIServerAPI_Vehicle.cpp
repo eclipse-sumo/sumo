@@ -503,6 +503,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Resuming should obtain an empty compound object.", outputStorage);
                 return false;
             }
+            if (!static_cast<MSVehicle*>(v)->hasStops()) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Failed to resume vehicle '" + v->getID() + "', it has no stops.", outputStorage);
+                return false;
+            }
             if (!static_cast<MSVehicle*>(v)->resumeFromStopping()) {
                 MSVehicle::Stop& sto = (static_cast<MSVehicle*>(v))->getNextStop();
                 std::ostringstream strs;
@@ -511,7 +515,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 strs << ", edge:" << (*sto.edge)->getID();
                 strs << ", startPos: " << sto.startPos;
                 std::string posStr = strs.str();
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Failed to resume a non parking vehicle: " + v->getID() + ", " + posStr, outputStorage);
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Failed to resume a non parking vehicle '" + v->getID() + "', " + posStr, outputStorage);
                 return false;
             }
         }

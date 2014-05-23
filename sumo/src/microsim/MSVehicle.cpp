@@ -793,21 +793,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
             }
         }
         if (stop.duration <= 0 && !stop.triggered) {
-            // we have waited long enough and fulfilled any passenger-requirements
-            if (stop.busstop != 0) {
-                // inform bus stop about leaving it
-                stop.busstop->leaveFrom(this);
-            }
-            // the current stop is no longer valid
-            MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
-            myStops.pop_front();
-            // do not count the stopping time towards gridlock time.
-            // Other outputs use an independent counter and are not affected.
-            myWaitingTime = 0;
-            // maybe the next stop is on the same edge; let's rebuild best lanes
-            getBestLanes(true);
-            // continue as wished...
-            MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_ENDING_STOP);
+            resumeFromStopping();
         } else {
             // we have to wait some more time
             if (stop.triggered && !myAmRegisteredAsWaitingForPerson) {
@@ -1745,6 +1731,9 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason) {
     if (reason >= MSMoveReminder::NOTIFICATION_TELEPORT) {
         myAmOnNet = false;
     }
+    if (reason != MSMoveReminder::NOTIFICATION_PARKING && resumeFromStopping()) {
+        WRITE_WARNING("Vehicle '" + getID() + "' aborts stop.");
+    }
     if (reason != MSMoveReminder::NOTIFICATION_PARKING && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         while (!myStops.empty() && myStops.front().edge == myCurrEdge) {
             WRITE_WARNING("Vehicle '" + getID() + "' skips stop on lane '" + myStops.front().lane->getID() + "'.");
@@ -2292,12 +2281,32 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTim
 
 bool
 MSVehicle::resumeFromStopping() {
-    Stop& stop = myStops.front();
-    if (!stop.reached) {
-        return false;
+    if (isStopped()) {
+        Stop& stop = myStops.front();
+        stop.duration = 0;
+        stop.triggered = false;
+        if (myAmRegisteredAsWaitingForPerson) {
+            MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForPerson();
+            myAmRegisteredAsWaitingForPerson = false;
+        }
+        // we have waited long enough and fulfilled any passenger-requirements
+        if (stop.busstop != 0) {
+            // inform bus stop about leaving it
+            stop.busstop->leaveFrom(this);
+        }
+        // the current stop is no longer valid
+        MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
+        myStops.pop_front();
+        // do not count the stopping time towards gridlock time.
+        // Other outputs use an independent counter and are not affected.
+        myWaitingTime = 0;
+        // maybe the next stop is on the same edge; let's rebuild best lanes
+        getBestLanes(true);
+        // continue as wished...
+        MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_ENDING_STOP);
+        return true;
     }
-    stop.duration = 0;
-    return true;
+    return false;
 }
 
 
