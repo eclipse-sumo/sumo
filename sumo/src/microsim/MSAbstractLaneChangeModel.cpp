@@ -204,3 +204,10 @@ MSAbstractLaneChangeModel::removeLaneChangeShadow() {
         myHaveShadow = false;
     }
 }
+
+
+bool 
+MSAbstractLaneChangeModel::cancelRequest(int state) {
+    int ret = myVehicle.influenceChangeDecision(state);
+    return ret != state;
+}

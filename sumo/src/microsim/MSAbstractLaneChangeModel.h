@@ -313,6 +313,9 @@ protected:
 
     virtual bool predInteraction(const MSVehicle* const leader);
 
+    /// @brief whether the influencer cancels the given request
+    bool cancelRequest(int state);
+
 
 protected:
     /// @brief The vehicle this lane-changer belongs to
