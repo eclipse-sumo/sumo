@@ -5,11 +5,6 @@
         <route-files value="input_routes.rou.xml"/>
     </input>
 
-    <time>
-        <begin value="0"/>
-        <end value="2"/>
-    </time>
-
     <processing>
         <time-to-teleport value="-1"/>
     </processing>
