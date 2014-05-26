@@ -52,7 +52,8 @@ SUMO_VEHICLE_CLASSES = (
         "motorcycle",        
         "moped",        
         "bicycle",           
-        "pedestrian",        
+        "pedestrian",
+        "evehicle",
         "custom1",           
         "custom2")           
 
