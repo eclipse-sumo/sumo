@@ -8,8 +8,20 @@ unknown_config_option
 # disabled because the --mesosim param interferes
 # missing_first_param
 
-# the value for --begin is not a number
+# the value for --end is not a number
 invalid_time
+
+# the value for --begin is too large
+high_time
+
+# the value for --begin is larger than the one for --end
+begin_after_end
+
+# the value for --begin is negative
+begin_negative
+
+# the value for --end is negative
+end_negative
 
 # the value for --verbose is not a propper bool
 invalid_float
