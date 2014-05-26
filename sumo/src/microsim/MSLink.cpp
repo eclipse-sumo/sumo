@@ -454,8 +454,8 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                         const SUMOReal leaderBackDist = foeDistToCrossing - leaderBack;
                         //std::cout << " distToCrossing=" << distToCrossing << " leader backDist=" << leaderBackDist << "\n";
                         if (leaderBackDist < 0) {
-                            // leader is completely past the crossing point
-                            assert(!sameTarget);
+                            // leader is completely past the crossing point 
+                            // or there is no crossing point
                             continue; // next vehicle
                         }
                         gap = distToCrossing - leaderBackDist - (sameTarget ? minGap : 0);
@@ -476,8 +476,8 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                         const SUMOReal leaderBackDist = foeDistToCrossing - foeLane->getPartialOccupatorEnd();
                         //std::cout << " distToCrossing=" << distToCrossing << " leader (partialOccupator) backDist=" << leaderBackDist << "\n";
                         if (leaderBackDist < 0) {
-                            // leader is completely past the crossing point
-                            assert(!sameTarget);
+                            // leader is completely past the crossing point 
+                            // or there is no crossing point
                             continue; // next lane
                         }
                         gap = distToCrossing - leaderBackDist - (sameTarget ? minGap : 0);
