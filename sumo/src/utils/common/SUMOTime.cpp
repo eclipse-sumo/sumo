@@ -49,8 +49,8 @@ string2time(const std::string& r) {
     double time;
     std::istringstream buf(r);
     buf >> time;
-    if (buf.fail()) {
-        throw ProcessError("Input string '" + r + "' cannot be parsed as a time");
+    if (buf.fail() || time > STEPS2TIME(SUMOTime_MAX)) {
+        throw ProcessError("Input string '" + r + "' is not a valid number or exceeds the time value range.");
     } else {
         return TIME2STEPS(time);
     }

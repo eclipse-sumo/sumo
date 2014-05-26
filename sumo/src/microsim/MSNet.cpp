@@ -355,6 +355,9 @@ MSNet::closeSimulation(SUMOTime start) {
             }
             msg << "Teleports: " << myVehicleControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
         }
+        if (myVehicleControl->getEmergencyStops() > 0) {
+            msg << "Emergency Stops: " << myVehicleControl->getEmergencyStops() << "\n";
+        }
         WRITE_MESSAGE(msg.str());
     }
     myDetectorControl->close(myStep);

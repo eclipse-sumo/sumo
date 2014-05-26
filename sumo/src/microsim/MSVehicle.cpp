@@ -1350,6 +1350,7 @@ MSVehicle::executeMove() {
                           + emergencyReason
                           + " (decel=" + toString(myAcceleration - myState.mySpeed)
                           + "), time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            MSNet::getInstance()->getVehicleControl().registerEmergencyStop();
             myState.myPos = myLane->getLength();
             myState.mySpeed = 0;
         }

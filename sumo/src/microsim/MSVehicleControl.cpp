@@ -65,6 +65,7 @@ MSVehicleControl::MSVehicleControl() :
     myTeleportsJam(0),
     myTeleportsYield(0),
     myTeleportsWrongLane(0),
+    myEmergencyStops(0),
     myTotalDepartureDelay(0),
     myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),

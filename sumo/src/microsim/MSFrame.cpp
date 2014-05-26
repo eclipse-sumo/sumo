@@ -401,6 +401,18 @@ MSFrame::checkOptions() {
         oc.set("meso-junction-control", "true");
     }
 #endif
+    const SUMOTime begin = string2time(oc.getString("begin"));
+    const SUMOTime end = string2time(oc.getString("end"));
+    if (begin < 0) {
+        WRITE_ERROR("The begin time should not be negative.");
+        ok = false;
+    }
+    if (end != string2time("-1")) {
+        if (end < begin) {
+            WRITE_ERROR("The end time should be after the begin time.");
+            ok = false;
+        }
+    }
 #ifdef HAVE_SUBSECOND_TIMESTEPS
     if (string2time(oc.getString("step-length")) <= 0) {
         WRITE_ERROR("the minimum step-length is 0.001");
