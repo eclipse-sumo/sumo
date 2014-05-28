@@ -189,6 +189,9 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
                 fd.write("    </taz>\n")
         fd.write("</tazs>\n")
         fd.close()
+    
+    def getTotalLength(self, edge):
+        return self._edgeLengths[edge] * self._numLanes[edge]
                 
         
 if __name__ == "__main__":
