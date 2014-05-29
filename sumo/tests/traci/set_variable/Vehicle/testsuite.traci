@@ -43,6 +43,9 @@ ADD
 # for removing vehicles
 REMOVE
 
+# for removing parking vehicles
+remove_parking
+
 # rerouting tests
 rerouting
 

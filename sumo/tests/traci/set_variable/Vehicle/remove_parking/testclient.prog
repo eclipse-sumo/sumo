@@ -1,0 +1,14 @@
+repeat 20 simstep2 0
+getvariable 0xa4 0x0 xxx
+repeat 5 simstep2 0
+setvalue 0xc4 0x81 veh0 <byte> 0
+repeat 1 simstep2 0
+setvalue 0xc4 0x81 veh1 <byte> 1
+repeat 1 simstep2 0
+setvalue 0xc4 0x81 veh2 <byte> 2
+repeat 1 simstep2 0
+setvalue 0xc4 0x81 veh3 <byte> 3
+repeat 1 simstep2 0
+setvalue 0xc4 0x81 veh4 <byte> 4
+repeat 5 simstep2 0
+
