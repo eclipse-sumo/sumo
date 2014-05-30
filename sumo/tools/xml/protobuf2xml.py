@@ -72,6 +72,8 @@ def msg2xml(desc, cont, out, depth=1):
         else:
             if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_ENUM:
                 value = attr.enum_type.values_by_number[value].name
+                if value[0] == "_" and value[1].isdigit():
+                    value = value[1:]
             out.write(' %s="%s"' % (attr.name, value))
     if haveChildren:
         out.write(">\n%s</%s" % (depth*'    ', desc.name))

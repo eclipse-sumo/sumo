@@ -139,6 +139,8 @@ def generateProto(tagAttrs, depthTags, enums, protodir, base):
         for name, enum in enums.iteritems():
             protof.write("\nenum %s {\n" % capitalFirst(name))
             for idx, entry in enumerate(enum):
+                if entry[0].isdigit():
+                    entry = "_" + entry
                 protof.write("  %s = %s;\n" % (entry, idx))
             protof.write("}\n")
         for tagList in depthTags.itervalues():
