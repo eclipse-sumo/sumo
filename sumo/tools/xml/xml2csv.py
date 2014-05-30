@@ -188,7 +188,7 @@ def getSocketStream(port, mode='rb'):
 def getOutStream(output):
     if output.isdigit():
         return getSocketStream(int(output), 'wb')
-    return open(output, 'w')
+    return open(output, 'wb')
     
 def get_options():
     optParser = OptionParser(usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
