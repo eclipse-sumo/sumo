@@ -56,7 +56,7 @@ const std::set<const MSVehicle*> MSVehicleTransfer::myEmptyVehicleSet;
 // member method definitions
 // ===========================================================================
 void
-MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) {
+MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
     veh->getLaneChangeModel().endLaneChangeManeuver();
     if (veh->isParking()) {
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_PARKING);
@@ -76,6 +76,17 @@ MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) {
     myVehicles.push_back(VehicleInformation(veh,
                                             t + TIME2STEPS(veh->getEdge()->getCurrentTravelTime(TeleportMinSpeed)),
                                             veh->isParking()));
+}
+
+
+void
+MSVehicleTransfer::remove(MSVehicle* veh) {
+    for (VehicleInfVector::iterator i = myVehicles.begin(); i != myVehicles.end(); ++i) {
+        if (i->myVeh == veh) {
+            myVehicles.erase(i);
+            break;
+        }
+    }
 }
 
 

@@ -35,6 +35,8 @@
 
 #include <string>
 #include <vector>
+#include <map>
+#include <set>
 
 
 // ===========================================================================
@@ -42,6 +44,7 @@
 // ===========================================================================
 class MSVehicle;
 class MSEdge;
+class MSLane;
 
 
 // ===========================================================================
@@ -54,7 +57,7 @@ class MSEdge;
  *  It also manages vehicles that are removed from the network because of stops
  *  with the parking attribute.
  *
- * The method addVeh is called by a lane if a vehicle stood to long at this
+ * The method add is called by a lane if a vehicle stood to long at this
  *  lane's end. After being added to this transfer object and removed from the
  *  lane, it is moved over the consecutive edges. On each edge, it is tried to
  *  insert the vehicle again. The lanes are of course chosen by examining the
@@ -76,7 +79,17 @@ public:
      *
      * @param[in] veh The vehicle to add
      */
-    void addVeh(const SUMOTime t, MSVehicle* veh);
+    void add(const SUMOTime t, MSVehicle* veh);
+
+
+    /** @brief Remove a vehicle from this transfer object
+     *
+     * The vehicle is removed from the transfer if present.
+     * This should be necessary only in the context of TraCI removals.
+     *
+     * @param[in] veh The vehicle to remove
+     */
+    void remove(MSVehicle* veh);
 
 
     /** @brief Checks "movement" of stored vehicles
@@ -149,7 +162,7 @@ protected:
     /// @brief The static singleton-instance
     static MSVehicleTransfer* myInstance;
 
-    /// @brief an empty vector for convenience
+    /// @brief an empty set for convenience
     static const std::set<const MSVehicle*> myEmptyVehicleSet;
 
 };

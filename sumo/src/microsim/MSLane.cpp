@@ -692,7 +692,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                 MSNet::getInstance()->getVehicleControl().registerCollision();
                 myBruttoVehicleLengthSum -= vehV->getVehicleType().getLengthWithGap();
                 myNettoVehicleLengthSum -= vehV->getVehicleType().getLength();
-                MSVehicleTransfer::getInstance()->addVeh(timestep, vehV);
+                MSVehicleTransfer::getInstance()->add(timestep, vehV);
                 veh = myVehicles.erase(veh); // remove current vehicle
                 lastVeh = myVehicles.end() - 1;
                 if (veh == myVehicles.end()) {
@@ -762,7 +762,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
             }
         } else if (veh->isParking()) {
             // vehicle started to park
-            MSVehicleTransfer::getInstance()->addVeh(t, veh);
+            MSVehicleTransfer::getInstance()->add(t, veh);
         } else if (veh->getPositionOnLane() > getLength()) {
             // for any reasons the vehicle is beyond its lane...
             // this should never happen because it is handled in MSVehicle::executeMove
@@ -770,7 +770,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
             WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; beyond end of lane, targetLane='" + getID() + "', time=" +
                           time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSNet::getInstance()->getVehicleControl().registerCollision();
-            MSVehicleTransfer::getInstance()->addVeh(t, veh);
+            MSVehicleTransfer::getInstance()->add(t, veh);
         } else {
             ++i;
             continue;
@@ -806,7 +806,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
                     } else {
                         MSNet::getInstance()->getVehicleControl().registerTeleportJam();
                     }
-                    MSVehicleTransfer::getInstance()->addVeh(t, veh);
+                    MSVehicleTransfer::getInstance()->add(t, veh);
                 }
             } // else look for a vehicle that isn't stopped?
         }

@@ -58,6 +58,7 @@
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSGlobals.h>
 #include "trigger/MSBusStop.h"
 #include "devices/MSDevice_Person.h"
@@ -444,6 +445,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
 
 void
 MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
+    MSVehicleTransfer::getInstance()->remove(this);
     workOnMoveReminders(myState.myPos - SPEED2DIST(myState.mySpeed), myState.myPos, myState.mySpeed);
     for (DriveItemVector::iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         if ((*i).myLink != 0) {
@@ -2283,17 +2285,14 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTim
 bool
 MSVehicle::resumeFromStopping() {
     if (isStopped()) {
-        Stop& stop = myStops.front();
-        stop.duration = 0;
-        stop.triggered = false;
         if (myAmRegisteredAsWaitingForPerson) {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForPerson();
             myAmRegisteredAsWaitingForPerson = false;
         }
         // we have waited long enough and fulfilled any passenger-requirements
-        if (stop.busstop != 0) {
+        if (myStops.front().busstop != 0) {
             // inform bus stop about leaving it
-            stop.busstop->leaveFrom(this);
+            myStops.front().busstop->leaveFrom(this);
         }
         // the current stop is no longer valid
         MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
