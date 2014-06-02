@@ -167,16 +167,6 @@ public:
     SUMOReal getLastLaneChangeOffset() const;
 
 
-    /** @brief Returns the description of best lanes to use in order to continue the route
-     *
-     * Prevents parallel reading and generation of the information by locking
-     *  "myLock" before calling MSVehicle::getBestLanes.
-     * @return The best lanes structure holding matching the current vehicle position and state ahead
-     * @see MSVehicle::getBestLanes
-     */
-    const std::vector<LaneQ>& getBestLanes() const;
-
-
     /**
      * @class GUIVehiclePopupMenu
      *

@@ -1114,14 +1114,6 @@ GUIVehicle::drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime lea
     glTranslated(-pos.x(), -pos.y(), .1);
 }
 
-const std::vector<MSVehicle::LaneQ>&
-GUIVehicle::getBestLanes() const {
-    myLock.lock();
-    const std::vector<MSVehicle::LaneQ>& ret = MSVehicle::getBestLanes();
-    myLock.unlock();
-    return ret;
-}
-
 
 void
 GUIVehicle::setColor(const GUIVisualizationSettings& s) const {

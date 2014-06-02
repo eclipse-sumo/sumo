@@ -1167,7 +1167,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             Position pos(x, y);
 
             Position vehPos = v->getPosition();
-            v->getBestLanes();
+            v->updateBestLanes();
             bool report = server.vtdDebug();
             if (report) {
                 std::cout << std::endl << "begin vehicle " << v->getID() << " vehPos:" << vehPos << " lane:" << v->getLane()->getID() << std::endl;

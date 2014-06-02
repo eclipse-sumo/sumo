@@ -469,6 +469,11 @@ public:
     };
 
     /** @brief Returns the description of best lanes to use in order to continue the route
+     * @return The best lanes structure holding matching the current vehicle position and state ahead
+     */
+    const std::vector<LaneQ>& getBestLanes() const;
+
+    /** @brief computes the best lanes to use in order to continue the route
      *
      * The information is rebuilt if the vehicle is on a different edge than
      *  the one stored in "myLastBestLanesEdge" or "forceRebuild" is true.
@@ -476,7 +481,7 @@ public:
      * Otherwise, only the density changes on the stored lanes are adapted to
      *  the container only.
      *
-     * A rebuild must be done if the vehicle leaves a stop; then, another lane may get
+     * A rebuild must be done if the vehicle leaves a stop; then, another lane may become
      *  the best one.
      *
      * If no starting lane ("startLane") is given, the vehicle's current lane ("myLane")
@@ -484,9 +489,8 @@ public:
      *
      * @param[in] forceRebuild Whether the best lanes container shall be rebuilt even if the vehicle's edge has not changed
      * @param[in] startLane The lane the process shall start at ("myLane" will be used if ==0)
-     * @return The best lanes structure holding matching the current vehicle position and state ahead
      */
-    virtual const std::vector<LaneQ>& getBestLanes(bool forceRebuild = false, MSLane* startLane = 0) const;
+    void updateBestLanes(bool forceRebuild = false, const MSLane* startLane = 0);
 
 
     /** @brief Returns the subpart of best lanes that describes the vehicle's current lane and their successors
@@ -503,6 +507,9 @@ public:
 
     /// @brief returns the current offset from the best lane
     int getBestLaneOffset() const;
+
+    /// @brief update occupation from MSLaneChanger
+    void adaptBestLanesOccupation(int laneIndex, SUMOReal density);
 
     /// @}
 
@@ -1095,11 +1102,11 @@ protected:
 
     MSAbstractLaneChangeModel* myLaneChangeModel;
 
-    mutable const MSEdge* myLastBestLanesEdge;
-    mutable const MSLane* myLastBestLanesInternalLane;
+    const MSEdge* myLastBestLanesEdge;
+    const MSLane* myLastBestLanesInternalLane;
 
-    mutable std::vector<std::vector<LaneQ> > myBestLanes;
-    mutable std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
+    std::vector<std::vector<LaneQ> > myBestLanes;
+    std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
     static std::vector<MSLane*> myEmptyLaneVector;
 
     /// @brief The vehicle's list of stops

@@ -354,7 +354,7 @@ MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
         myVTDPos = myVTDLane->getLength();
     }
     myVTDLane->forceVehicleInsertion(v, myVTDPos);
-    v->getBestLanes();
+    v->updateBestLanes();
     myAmVTDControlled = false;
 }
 
@@ -421,6 +421,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                                "' on lane '" + i->lane + "' is too close or not downstream the current route.");
         }
     }
+    updateBestLanes(true, (*myCurrEdge)->getLanes()[0]); // must be called before getBestLanes in getDepartLane
     const MSLane* const depLane = (*myCurrEdge)->getDepartLane(*this);
     if (depLane == 0) {
         throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
@@ -486,7 +487,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
     myLastBestLanesEdge = 0;
     myLastBestLanesInternalLane = 0;
     if (!onInit) {
-        getBestLanes(true);
+        updateBestLanes(true);
     }
     // update arrival definition
     calculateArrivalPos();
@@ -1365,7 +1366,7 @@ MSVehicle::executeMove() {
                 ++i;
             }
         }
-        getBestLanes();
+        updateBestLanes();
         // bestLanes need to be updated before lane changing starts
         if (getLaneChangeModel().isChangingLanes()) {
             getLaneChangeModel().continueLaneChangeManeuver(moved);
@@ -1627,7 +1628,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     myAmOnNet = true;
     myLane = enteredLane;
     // need to update myCurrentLaneInBestLanes
-    getBestLanes();
+    updateBestLanes();
     // switch to and activate the new lane's reminders
     // keep OldLaneReminders
     for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane->getMoveReminders().begin(); rem != enteredLane->getMoveReminders().end(); ++rem) {
@@ -1759,7 +1760,13 @@ MSVehicle::getLaneChangeModel() const {
 
 
 const std::vector<MSVehicle::LaneQ>&
-MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
+MSVehicle::getBestLanes() const {
+    return *myBestLanes.begin();
+}
+
+
+void
+MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
         int bla = 0;
@@ -1784,15 +1791,15 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
                 myCurrentLaneInBestLanes = i;
             }
         }
-        return *myBestLanes.begin();
+        return;
     }
     if (startLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
         if (myBestLanes.size() == 0 || forceRebuild) {
             // rebuilt from previous non-internal lane (may backtrack twice if behind an internal junction)
-            getBestLanes(true, startLane->getLogicalPredecessorLane());
+            updateBestLanes(true, startLane->getLogicalPredecessorLane());
         }
         if (myLastBestLanesInternalLane == startLane && !forceRebuild) {
-            return *myBestLanes.begin();
+            return;
         }
         // adapt best lanes to fit the current internal edge:
         // keep the entries that are reachable from this edge
@@ -1835,7 +1842,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
                     assert(&(lanes[i].lane->getEdge()) == nextEdge);
                 }
                 myLastBestLanesInternalLane = startLane;
-                return lanes;
+                return;
             } else {
                 // remove passed edges
                 it = myBestLanes.erase(it);
@@ -2027,7 +2034,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
             myCurrentLaneInBestLanes = i;
         }
     }
-    return *myBestLanes.begin();
+    return;
 }
 
 
@@ -2066,6 +2073,14 @@ MSVehicle::getBestLaneOffset() const {
     } else {
         return (*myCurrentLaneInBestLanes).bestLaneOffset;
     }
+}
+
+
+void 
+MSVehicle::adaptBestLanesOccupation(int laneIndex, SUMOReal density) {
+    std::vector<MSVehicle::LaneQ>& preb = myBestLanes.front();
+    assert(laneIndex < preb.size());
+    preb[laneIndex].occupation = density + preb[laneIndex].nextOccupation;
 }
 
 
@@ -2301,7 +2316,7 @@ MSVehicle::resumeFromStopping() {
         // Other outputs use an independent counter and are not affected.
         myWaitingTime = 0;
         // maybe the next stop is on the same edge; let's rebuild best lanes
-        getBestLanes(true);
+        updateBestLanes(true);
         // continue as wished...
         MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_ENDING_STOP);
         return true;

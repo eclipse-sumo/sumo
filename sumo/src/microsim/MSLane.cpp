@@ -145,7 +145,6 @@ MSLane::pWagGenericInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, S
     SUMOReal xIn = maxPos;
     SUMOReal vIn = mspeed;
     SUMOReal leaderDecel;
-    veh.getBestLanes(true, this);
     if (myVehicles.size() != 0) {
         MSVehicle* leader = myVehicles.front();
         xIn = leader->getPositionOnLane() - leader->getVehicleType().getLength() - veh.getVehicleType().getMinGap();
@@ -190,7 +189,6 @@ bool
 MSLane::pWagSimpleInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMOReal minPos) {
     SUMOReal xIn = maxPos;
     SUMOReal vIn = mspeed;
-    veh.getBestLanes(true, this);
     if (myVehicles.size() != 0) {
         MSVehicle* leader = myVehicles.front();
         xIn = leader->getPositionOnLane() - leader->getVehicleType().getLength() - veh.getVehicleType().getMinGap();
@@ -432,7 +430,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                       aVehicle->getID() + "'. Inserting at lane end instead.");
         pos = myLength;
     }
-    aVehicle->getBestLanes(true, this);
+    aVehicle->updateBestLanes(true, this);
     const MSCFModel& cfModel = aVehicle->getCarFollowModel();
     const std::vector<MSLane*>& bestLaneConts = aVehicle->getBestLanesContinuation(this);
     std::vector<MSLane*>::const_iterator ri = bestLaneConts.begin();
@@ -606,7 +604,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 
 void
 MSLane::forceVehicleInsertion(MSVehicle* veh, SUMOReal pos) {
-    veh->getBestLanes(true, this);
+    veh->updateBestLanes(true, this);
     incorporateVehicle(veh, pos, veh->getSpeed(), find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos)));
 }
 
@@ -1498,7 +1496,7 @@ MSLane::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc) {
     for (std::vector<std::string>::const_iterator it = vehIds.begin(); it != vehIds.end(); ++it) {
         MSVehicle* v = dynamic_cast<MSVehicle*>(vc.getVehicle(*it));
         assert(v != 0);
-        v->getBestLanes(true, this);
+        v->updateBestLanes(true, this);
         incorporateVehicle(v, v->getPositionOnLane(), v->getSpeed(), myVehicles.end(),
                            MSMoveReminder::NOTIFICATION_JUNCTION);
     }
