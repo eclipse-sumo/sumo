@@ -1031,6 +1031,10 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
         std::vector<unsigned int> foeInternalLinks;
 
         LinkDirection dir = n.getDirection(this, con.toEdge);
+        if (dir != LINKDIR_STRAIGHT && shape.length() < POSITION_EPS) {
+            WRITE_WARNING("Connection '" + getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' is only " + toString(shape.length()) + " short.");
+        }
+
         // crossingPosition, list of foe link indices
         std::pair<SUMOReal, std::vector<unsigned int> > crossingPositions(-1, std::vector<unsigned int>());
         std::set<std::string> tmpFoeIncomingLanes;
@@ -1054,7 +1058,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                             const std::vector<SUMOReal> dv = shape.intersectsAtLengths2D(otherShape);
                             if (dv.size() > 0) {
                                 const SUMOReal minDV = dv[0];
-                                if (minDV < shape.length() - .1 && minDV > .1) { // !!!?
+                                if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
                                     assert(minDV >= 0);
                                     if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
                                         crossingPositions.first = minDV;
@@ -1087,8 +1091,8 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                     index++;
                 }
 
-                if (dir == LINKDIR_TURN && crossingPositions.first < 0 && crossingPositions.second.size() != 0) {
-                    // let turnarounds wait in the middle if no other crossing point was found
+                if (dir == LINKDIR_TURN && crossingPositions.first < 0 && crossingPositions.second.size() != 0 && shape.length() > 2. * POSITION_EPS) {
+                    // let turnarounds wait in the middle if no other crossing point was found and it has a sensible length
                     crossingPositions.first = (SUMOReal) shape.length() / 2.;
                 }
             }
