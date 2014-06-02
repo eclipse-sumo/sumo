@@ -33,6 +33,7 @@
 #endif
 
 #include <vector>
+#include <typeinfo>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOAbstractRouter.h>
 #include <utils/common/SUMOVehicleParameter.h>
