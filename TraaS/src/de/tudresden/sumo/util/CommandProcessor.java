@@ -178,7 +178,48 @@ public class CommandProcessor extends Query{
 				}
 
 				
-			}else{
+			}else if(sc.input2 == Constants.LANE_LINKS)
+			{
+			
+				resp.content().readUnsignedByte();
+				resp.content().readInt();
+				
+				//number of links
+				int length = resp.content().readInt();
+				SumoLinkList links = new SumoLinkList();
+				for(int i=0; i<length; i++){
+					
+					resp.content().readUnsignedByte();
+					String notInternalLane = resp.content().readStringASCII();
+					
+					resp.content().readUnsignedByte();
+					String internalLane = resp.content().readStringASCII();
+					
+					resp.content().readUnsignedByte();
+					byte hasPriority = (byte)resp.content().readUnsignedByte();
+					
+					resp.content().readUnsignedByte();
+					byte isOpened = (byte)resp.content().readUnsignedByte();
+					
+					resp.content().readUnsignedByte();
+					byte hasFoes = (byte)resp.content().readUnsignedByte();
+					
+					//not implemented
+					resp.content().readUnsignedByte();
+					String state = resp.content().readStringASCII();
+					
+					resp.content().readUnsignedByte();
+					String direction = resp.content().readStringASCII();
+					
+					resp.content().readUnsignedByte();
+					double laneLength = resp.content().readDouble();
+					
+					
+					links.add(new SumoLink(notInternalLane,internalLane,hasPriority,isOpened,hasFoes,laneLength, state, direction));
+				}
+				output = links;
+			}
+			else{
 				
 				int laenge = resp.content().readInt();
 				obj = new Object[laenge];

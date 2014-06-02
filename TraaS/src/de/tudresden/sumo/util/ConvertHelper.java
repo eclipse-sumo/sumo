@@ -27,6 +27,7 @@ package de.tudresden.sumo.util;
 import de.tudresden.ws.container.SumoBoundingBox;
 import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;
+import de.tudresden.ws.container.SumoLinkList;
 import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
 import de.tudresden.ws.container.SumoStringList;
@@ -40,7 +41,26 @@ public class ConvertHelper {
 	public ConvertHelper(Log logger) {
 		this.logger = logger;
 	}
+	
+	public byte getByte(Object obj) {
 
+		byte output = -1;
+
+		try {
+
+			if (obj.getClass().equals(Short.class)) {
+				short helpVariable = (short) obj;
+				output = (byte) helpVariable;
+			}
+			
+
+		} catch (Exception ex) {
+			this.logger.write(ex.getStackTrace());
+		}
+
+		return output;
+	}
+	
 	public int getInt(Object obj) {
 
 		int output = -1;
@@ -213,6 +233,22 @@ public class ConvertHelper {
 
 		return output;
 
+	}
+	
+	public SumoLinkList getLaneLinks(Object obj)
+	{
+		//build an empty list
+		SumoLinkList output = new SumoLinkList();
+		
+		try {
+
+			if (obj.getClass().equals(SumoLinkList.class)) {
+				output = (SumoLinkList) obj;
+			}
+
+		} catch (Exception ex) {this.logger.write(ex.getStackTrace());}
+
+		return output;
 	}
 
 }

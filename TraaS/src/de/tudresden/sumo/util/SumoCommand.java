@@ -134,7 +134,7 @@ public class SumoCommand {
 			}
 		}
 		
-		else if((Integer) input2 == Constants.CMD_REROUTE_EFFORT || (Integer) input2 == Constants.CMD_REROUTE_TRAVELTIME){
+		else if((Integer) input2 == Constants.CMD_REROUTE_EFFORT || (Integer) input2 == Constants.CMD_REROUTE_TRAVELTIME || (Integer) input2 == Constants.CMD_RESUME){
 				cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
 				cmd.content().writeInt(0);
 		}

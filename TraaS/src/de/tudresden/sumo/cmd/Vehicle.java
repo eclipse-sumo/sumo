@@ -428,8 +428,6 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ROUTE_VALID, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_UBYTE);
 	}
 
-	
-
 	/**
 	 * Reduces the speed to the given for the given amount of time.
 	 */
@@ -696,11 +694,21 @@ public class Vehicle {
 	/**
 	 * Lets the vehicle stop at the given edge, at the given position and lane. The vehicle will stop for the given duration. Re-issuing a stop command with the same lane and position allows changing the duration.
 	 */
+	
+	public static SumoCommand setStop(String vehID, String edgeID, double pos, byte laneIndex, int duration, byte stopType){
 
-	public static SumoCommand setStop(String vehID, String edgeID, double pos, byte laneIndex, int duration){
-
-		Object[] array = new Object[]{edgeID, pos, laneIndex, duration};
+		Object[] array = new Object[]{edgeID, pos, laneIndex, duration, stopType};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_STOP, vehID, array);
+	}
+
+
+	/**
+	 * Continue after a stop
+	 */
+	
+	public static SumoCommand setResume(String vehID){
+		Object[] array = new Object[]{vehID};
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_RESUME, vehID, array);
 	}
 
 	/**

@@ -38,6 +38,7 @@ import de.tudresden.sumo.cmd.Vehicletype;
 import de.tudresden.ws.container.SumoBoundingBox;
 import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;
+import de.tudresden.ws.container.SumoLinkList;
 import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
 import de.tudresden.ws.container.SumoStringList;
@@ -204,8 +205,13 @@ public class Traci{
 	}
 
 	@WebMethod(action="Vehicle: setStop")
-	public void Vehicle_setStop(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "duration") int duration){
-		this.sumo.set_cmd(Vehicle.setStop(vehID, edgeID, pos, laneIndex, duration));
+	public void Vehicle_setStop(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "duration") int duration, @WebParam(name = "stopType") byte stopType){
+		this.sumo.set_cmd(Vehicle.setStop(vehID, edgeID, pos, laneIndex, duration, stopType));
+	}
+	
+	@WebMethod(action="Vehicle: setResume")
+	public void Vehicle_setResume(@WebParam(name = "vehID") String vehID){
+		this.sumo.set_cmd(Vehicle.setResume(vehID));
 	}
 
 	@WebMethod(action="Vehicle: setTau")
@@ -834,7 +840,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Simulation: clearPending")
-	public void GUI_trackVehicle(@WebParam(name = "routeID") String routeID){
+	public void GUI_clearPending(@WebParam(name = "routeID") String routeID){
 		this.sumo.set_cmd(Simulation.clearPending(routeID));
 	}
 	
@@ -1198,13 +1204,13 @@ public class Traci{
 	}
 
 	@WebMethod(action="Lane: getLinkNumber")
-	public int Lane_getLinkNumber(@WebParam(name = "laneID") String laneID){
-		return this.helper.getInt(this.sumo.get_cmd(Lane.getLinkNumber(laneID)));
+	public byte Lane_getLinkNumber(@WebParam(name = "laneID") String laneID){
+		return this.helper.getByte(this.sumo.get_cmd(Lane.getLinkNumber(laneID)));
 	}
 
 	@WebMethod(action="Lane: getLinks")
-	public SumoStringList Lane_getLinks(@WebParam(name = "laneID") String laneID){
-		return this.helper.getStringList(this.sumo.get_cmd(Lane.getLinks(laneID)));
+	public SumoLinkList Lane_getLinks(@WebParam(name = "laneID") String laneID){
+		return this.helper.getLaneLinks(this.sumo.get_cmd(Lane.getLinks(laneID)));
 	}
 
 	@WebMethod(action="Lane: getMaxSpeed")

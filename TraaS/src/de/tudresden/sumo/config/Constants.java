@@ -34,6 +34,12 @@ public class Constants {
 	   
 	public static final int VAR_LEADER = 0x68;
 
+	public static final byte STOP_DEFAULT = 0;
+	
+	public static final byte STOP_PARKING = 1;
+	
+	public static final byte STOP_TRIGGERED = 2;
+	
 	
 	/** how lane changing is performed (set: vehicle)*/
 	public static final int VAR_LANECHANGE_MODE = 0xb6;
