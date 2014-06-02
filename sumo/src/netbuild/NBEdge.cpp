@@ -1533,7 +1533,8 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing, const bool buildCrossingsAndWa
         // add it to the list
         resultingLanes.push_back(res);
         sumResulting += res;
-        if (minResulting > res) {
+        if (minResulting > res && res > 0) {
+            // prevent minResulting from becoming 0
             minResulting = res;
         }
     }
