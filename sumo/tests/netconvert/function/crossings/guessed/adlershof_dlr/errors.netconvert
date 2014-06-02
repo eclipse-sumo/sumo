@@ -18,4 +18,4 @@ Warning: Found angle of 138.44 degrees at edge 71960638#0, segment 5
 Warning: In lane '-70214888#0_0': Could not build shape.
 Warning: In lane '156071615#4_0': Could not build shape.
 Warning: Junction shape for '1370020147' has distance 21.50 to its given position
-Warning: Splitting vector close to end (pos: 0.03, length: 0.06)
+Warning: Connection '224769559_2->180239858#0_2' is only 0.06 short.
