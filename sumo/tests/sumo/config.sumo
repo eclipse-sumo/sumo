@@ -67,6 +67,7 @@ output:\r{REPLACE \n}
 output:\([0-9]*ms\){REPLACE (TIME)}
 output:^Performance:{->}^Vehicles:
 output:ms answering queries
+errors:std::_Ios_Fmtflags
 log:\([0-9]*ms\){REPLACE (TIME)}
 calibrator_log:<!--{[->]}-->
 detector:<!--{[->]}-->
