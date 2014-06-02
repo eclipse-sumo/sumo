@@ -202,7 +202,7 @@ public:
     }
     /// Return spinner increment
     FXdouble getCoarseIncrement() const {
-        return incr[-1];
+        return incr[2];
     }
 
     /// Set the text font
