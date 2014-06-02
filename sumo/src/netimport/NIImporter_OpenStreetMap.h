@@ -84,13 +84,13 @@ protected:
             id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), node(0) {}
 
         /// @brief The node's id
-        SUMOLong id;
+        const SUMOLong id;
         /// @brief The longitude the node is located at
-        double lon;
+        const SUMOReal lon;
         /// @brief The latitude the node is located at
-        double lat;
+        const SUMOReal lat;
         /// @brief The elevation of this node
-        double ele;
+        SUMOReal ele;
         /// @brief Whether this is a tls controlled junction
         bool tlsControlled;
         /// @brief the NBNode that was instantiated
