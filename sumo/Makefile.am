@@ -48,6 +48,7 @@ dist-hook:
 	    find data -regex ".*\.\(xsd\|xml\|csv\|veh\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    ( svn export --force tools $(distdir)/tools && cd $(distdir) && find tools -type f > ../tools_filelist; true ) ; \
 	    xargs cp --parents --target-directory $(abs_distdir) < tools_filelist ; \
+	    find $(abs_distdir)/tools -name  "*.jar" | xargs rm ; \
 	    cp tools_filelist $(abs_distdir) ; \
 	fi;
 
@@ -74,12 +75,13 @@ dist-tests:
 	tar -czf $(PACKAGE)-tests-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
 
-dist-complete: dist dist-doc dist-tests
+dist-complete: dist dist-doc dist-tests traas traci4j trafficmodeler
 	mv $(PACKAGE)-$(VERSION).tar.gz $(PACKAGE)-src-$(VERSION).tar.gz
 	mv $(PACKAGE)-$(VERSION).zip $(PACKAGE)-src-$(VERSION).zip
 	tar -xzf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
 	tar -xzf $(PACKAGE)-tests-$(VERSION).tar.gz $(distdir)
 	tar -xzf $(PACKAGE)-src-$(VERSION).tar.gz $(distdir)
+	find tools bin -name  "*.jar" | xargs cp --parents --target-directory $(distdir)
 	tar -czf $(PACKAGE)-all-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
 
@@ -87,8 +89,16 @@ examples:
 	tests/extractTest.py -x -f tests/examples.txt
 
 traas:
-	ant -f tools/contributed/traas/build.xml release
+	ant -f tools/contributed/traas/build.xml clean release
 	cp tools/contributed/traas/dist/TraaS.jar bin
+
+traci4j:
+	ant -f tools/contributed/traci4j/build.xml clean build deploy
+	cp tools/contributed/traci4j/*.jar bin
+
+trafficmodeler:
+	cd tools/contributed/trafficmodeler && ./build.sh
+	cp tools/contributed/trafficmodeler/jar/*.jar bin
 
 sumo$(EXEEXT) netconvert$(EXEEXT) \
         netgenerate$(EXEEXT) duarouter$(EXEEXT) \
