@@ -991,10 +991,11 @@ MSLCM_JE2013::_wantsChange(
         thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
     }
 
-    thisLaneVSafe = MIN3(thisLaneVSafe, myVehicle.getVehicleType().getMaxSpeed(), myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
-    neighLaneVSafe = MIN3(neighLaneVSafe, myVehicle.getVehicleType().getMaxSpeed(), neighLane.getVehicleMaxSpeed(&myVehicle));
+    const SUMOReal vMax = MIN2(myVehicle.getVehicleType().getMaxSpeed(), myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
+    thisLaneVSafe = MIN2(thisLaneVSafe, vMax);
+    neighLaneVSafe = MIN2(neighLaneVSafe, vMax);
+    const SUMOReal relativeGain = (neighLaneVSafe - thisLaneVSafe) / MAX2(neighLaneVSafe, 10.0);
 
-    const SUMOReal relativeGain = (neighLaneVSafe - thisLaneVSafe) / neighLaneVSafe;
     if (right) {
         // ONLY FOR CHANGING TO THE RIGHT
         if (thisLaneVSafe - 5 / 3.6 > neighLaneVSafe) {
@@ -1009,7 +1010,6 @@ MSLCM_JE2013::_wantsChange(
             // honor the obligation to keep right (Rechtsfahrgebot)
             // XXX consider fast approaching followers on the current lane
             //const SUMOReal vMax = myLookAheadSpeed;
-            const SUMOReal vMax = MIN2(myVehicle.getVehicleType().getMaxSpeed(), myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
             const SUMOReal acceptanceTime = KEEP_RIGHT_ACCEPTANCE * vMax * MAX2((SUMOReal)1, myVehicle.getSpeed()) / myVehicle.getLane()->getSpeedLimit();
             SUMOReal fullSpeedGap = MAX2((SUMOReal)0, neighDist - myVehicle.getCarFollowModel().brakeGap(vMax));
             SUMOReal fullSpeedDrivingSeconds = MIN2(acceptanceTime, fullSpeedGap / vMax);
