@@ -1320,7 +1320,7 @@ MSLane::getNettoOccupancy() const {
         }
     }
     releaseVehicles();
-    return (myBruttoVehicleLengthSum + fractions) / myLength;
+    return (myNettoVehicleLengthSum + fractions) / myLength;
 }
 
 
