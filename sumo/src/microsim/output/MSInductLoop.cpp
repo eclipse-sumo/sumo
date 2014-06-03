@@ -99,9 +99,13 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         enterDetectorByMove(veh, entryTime);
     }
     if (newPos - veh.getVehicleType().getLength() > myPosition) {
-        // vehicle passed the detector
+        // vehicle passed the detector (it may have changed onto this lane
+        // somewhere past the detector)
+        assert(newSpeed > 0 || myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end());
         SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-        leaveTime += (myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed;
+        if (newSpeed > 0) {
+            leaveTime += (myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed;
+        }
         leaveDetectorByMove(veh, leaveTime);
         return false;
     }
