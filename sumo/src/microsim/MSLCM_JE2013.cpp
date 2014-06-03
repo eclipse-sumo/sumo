@@ -888,7 +888,7 @@ MSLCM_JE2013::_wantsChange(
         }
 
         const SUMOReal remainingSeconds = ((ret & LCA_TRACI) == 0 ?
-                                           MAX2((SUMOReal)STEPS2TIME(TS), myLeftSpace / myLookAheadSpeed / abs(bestLaneOffset) / URGENCY) :
+                                           MAX2((SUMOReal)STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / abs(bestLaneOffset) / URGENCY) :
                                            myVehicle.getInfluencer().changeRequestRemainingSeconds(currentTime));
         const SUMOReal plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
         if (plannedSpeed >= 0) {
