@@ -59,20 +59,23 @@ SUMOTime MSLink::myLookaheadTime = TIME2STEPS(1);
 // member method definitions
 // ===========================================================================
 #ifndef HAVE_INTERNAL_LANES
-MSLink::MSLink(MSLane* succLane,
-               LinkDirection dir, LinkState state,
-               SUMOReal length)
-    :
+MSLink::MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length) :
     myLane(succLane),
     myIndex(-1),
-    myState(state), myDirection(dir),  myLength(length)
+    myState(state), 
+    myDirection(dir),  
+    myLength(length),
+    myHasFoes(false),
+    myAmCont(false)
 #else
-MSLink::MSLink(MSLane* succLane, MSLane* via,
-               LinkDirection dir, LinkState state, SUMOReal length)
-    :
+MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length) :
     myLane(succLane),
     myIndex(-1),
-    myState(state), myDirection(dir), myLength(length),
+    myState(state), 
+    myDirection(dir), 
+    myLength(length),
+    myHasFoes(false),
+    myAmCont(false),
     myJunctionInlane(via)
 #endif
 {}
