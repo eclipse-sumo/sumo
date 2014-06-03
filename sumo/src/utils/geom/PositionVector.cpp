@@ -191,7 +191,7 @@ PositionVector::operator[](int index) const {
     if (index >= 0) {
         return at(index);
     } else {
-        return at(size() + index);
+        return at((int)size() + index);
     }
 }
 
@@ -201,7 +201,7 @@ PositionVector::operator[](int index) {
     if (index >= 0) {
         return at(index);
     } else {
-        return at(size() + index);
+        return at((int)size() + index);
     }
 }
 
