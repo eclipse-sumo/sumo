@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 11 10:02:10 2013 by SUMO sumo Version dev-SVN-r15307
+<!-- generated on Tue Jun  3 14:21:09 2014 by SUMO sumo Version dev-SVN-r16487
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -17,6 +17,7 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -25,8 +26,8 @@
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/meandata_file.xsd">
     <interval begin="0.00" end="1440.00" id="expect_300_vehs">
-        <edge id="in1" sampledSeconds="87111.38" traveltime="1880.87" density="122.75" occupancy="30.69" waitingTime="73128.00" speed="0.26" departed="79" arrived="0" entered="0" left="14" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="in2" sampledSeconds="18969.80" traveltime="40.16" density="26.80" occupancy="6.70" waitingTime="0.00" speed="12.24" departed="480" arrived="0" entered="0" left="466" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="out" sampledSeconds="18051.77" traveltime="37.77" density="25.15" occupancy="12.57" waitingTime="0.00" speed="13.20" departed="0" arrived="468" entered="480" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="in1" sampledSeconds="86990.25" traveltime="1828.40" density="122.58" occupancy="30.65" waitingTime="71905.00" speed="0.27" departed="80" arrived="0" entered="0" left="15" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="in2" sampledSeconds="18951.95" traveltime="40.19" density="26.78" occupancy="6.69" waitingTime="0.00" speed="12.23" departed="479" arrived="0" entered="0" left="465" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="out" sampledSeconds="18070.62" traveltime="37.78" density="25.17" occupancy="12.59" waitingTime="0.00" speed="13.19" departed="0" arrived="468" entered="480" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>

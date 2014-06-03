@@ -10,7 +10,7 @@
         <route edges="across1 across2"/>
     </vehicle>
 
-    <flow id="blocker" begin="0" end="30" period="2" departPos="90">
+    <flow id="blocker" begin="0" end="30" period="2" departPos="70">
         <route edges="across3 across4"/>
     </flow>
 </routes>
