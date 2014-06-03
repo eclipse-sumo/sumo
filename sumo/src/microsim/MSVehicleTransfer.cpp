@@ -113,7 +113,8 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
         // first select all the lanes which allow continuation onto nextEdge
         //   then pick the one which is least occupied
         // @todo maybe parking vehicles should always continue on the rightmost lane?
-        MSLane* l = e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass);
+        MSLane* l = (nextEdge != 0 ? e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass) :
+                e->getFreeLane(0, vclass));
 
         if (desc.myParking) {
             // handle parking vehicles
