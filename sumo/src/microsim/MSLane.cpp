@@ -441,7 +441,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     unsigned int nRouteSuccs = 1;
     MSLane* currentLane = this;
     MSLane* nextLane = this;
-    SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, (SUMOReal)NUMERICAL_EPS));
+    SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));
     while (seen < dist && ri != bestLaneConts.end()) {
         // get the next link used...
         MSLinkCont::const_iterator link = succLinkSec(*aVehicle, nRouteSuccs, *currentLane, bestLaneConts);
@@ -488,7 +488,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         nextLane = (*link)->getViaLaneOrLane();
         // check how next lane effects the journey
         if (nextLane != 0) {
-            arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, (SUMOReal)NUMERICAL_EPS));
+            arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
             SUMOReal gap = 0;
             MSVehicle* leader = currentLane->getPartialOccupator();
             if (leader != 0) {
@@ -526,7 +526,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // check traffic on next junction
             // we cannot use (*link)->opened because a vehicle without priority
             // may already be comitted to blocking the link and unable to stop
-            const SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, (SUMOReal)NUMERICAL_EPS));
+            const SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));
             const SUMOTime leaveTime = arrivalTime + TIME2STEPS((*link)->getLength() * speed);
             if ((*link)->hasApproachingFoe(arrivalTime, leaveTime, speed, cfModel.getMaxDecel())) {
                 if (checkFailure(aVehicle, speed, dist, cfModel.followSpeed(aVehicle, speed, seen, 0, 0),
@@ -1171,7 +1171,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         return std::make_pair(getPartialOccupator(), seen - (getLength() - getPartialOccupatorEnd()) - veh.getVehicleType().getMinGap());
     }
     const MSLane* nextLane = this;
-    SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, (SUMOReal)NUMERICAL_EPS));
+    SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));
     do {
         // get the next link used
         MSLinkCont::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
@@ -1193,7 +1193,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         if (nextLane == 0) {
             break;
         }
-        arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, (SUMOReal)NUMERICAL_EPS));
+        arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
         MSVehicle* leader = nextLane->getLastVehicle();
         if (leader != 0) {
             return std::make_pair(leader, seen + leader->getPositionOnLane() - leader->getVehicleType().getLength() - veh.getVehicleType().getMinGap());

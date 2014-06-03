@@ -678,7 +678,7 @@ MSPModel_Striping::PState::otherStripe() const {
     const int max = numStripes(myLane) - 1;
     const int s = stripe();
     const SUMOReal offset = myRelY - s * stripeWidth;
-    const SUMOReal threshold = MAX2((SUMOReal)NUMERICAL_EPS, stripeWidth - SQUEEZE * myPerson->getVehicleType().getWidth());
+    const SUMOReal threshold = MAX2(NUMERICAL_EPS, stripeWidth - SQUEEZE * myPerson->getVehicleType().getWidth());
     int result;
     if (offset > threshold) {
         result = s + 1;

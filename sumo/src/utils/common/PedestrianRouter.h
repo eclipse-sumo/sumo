@@ -306,7 +306,7 @@ public:
             }
         }
         // ensure that 'normal' edges always have a higher weight than connector edges
-        length = MAX2(length, (SUMOReal)POSITION_EPS);
+        length = MAX2(length, POSITION_EPS);
         SUMOReal tlsDelay = 0;
         if (myEdge->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
             // red traffic lights occurring later in the route may be green by the time we arive

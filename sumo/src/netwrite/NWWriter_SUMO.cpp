@@ -240,7 +240,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
             std::map<NBEdge*, SUMOReal> lengthSum;
             std::map<NBEdge*, int> numLanes;
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                lengthSum[(*k).toEdge] += MAX2((*k).shape.length(), (SUMOReal)POSITION_EPS);
+                lengthSum[(*k).toEdge] += MAX2((*k).shape.length(), POSITION_EPS);
                 numLanes[(*k).toEdge] += 1;
             }
             // second pass: write non-via edges
@@ -267,7 +267,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
                 const SUMOReal length = lengthSum[toEdge] / numLanes[toEdge];
                 // @note the actual length should be used once sumo supports lanes of
                 // varying length within the same edge
-                //const SUMOReal length = MAX2((*k).shape.length(), (SUMOReal)POSITION_EPS); 
+                //const SUMOReal length = MAX2((*k).shape.length(), POSITION_EPS); 
                 writeLane(into, internalEdgeID, (*k).getInternalLaneID(), (*k).vmax,
                           successor.permissions, successor.preferred,
                           NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).shape, (*k).origID,
@@ -292,7 +292,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
                     writeLane(into, (*k).viaID, (*k).viaID + "_0", (*k).viaVmax, SVCAll, SVCAll,
                               NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).viaShape, (*k).origID,
-                              MAX2((*k).viaShape.length(), (SUMOReal)POSITION_EPS), // microsim needs positive length
+                              MAX2((*k).viaShape.length(), POSITION_EPS), // microsim needs positive length
                               0, origNames);
                     into.closeTag();
                 }
@@ -363,7 +363,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
         length = geom.length();
     }
     if (length <= 0) {
-        length = (SUMOReal)POSITION_EPS;
+        length = POSITION_EPS;
     }
     for (unsigned int i = 0; i < (unsigned int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
