@@ -1,4 +1,6 @@
-Warning: Splitting vector close to end (pos: 0.00, length: 0.00)
-Warning: Splitting vector close to end (pos: 0.00, length: 0.00)
-Warning: Splitting vector close to end (pos: 0.00, length: 0.00)
-Warning: Splitting vector close to end (pos: 0.00, length: 0.00)
+Warning: Connection '27445000_0->20430080_0' is only 0.00 short.
+Warning: Connection '7727483#1_0->-7727483#3_0' is only 0.00 short.
+Warning: Connection '27445000_0->20430080_0' is only 0.00 short.
+Warning: Connection '-7727483#3_0->7727483#1_0' is only 0.00 short.
+Warning: Connection '27437972#4_0->27445015#0_0' is only 0.00 short.
+Warning: Connection '27445015#0_0->27437972#4_0' is only 0.00 short.
