@@ -131,12 +131,12 @@ protected:
 	void initialize( const uint32 oneSeed );
 	void reload();
 	uint32 hiBit( const uint32& u ) const { return u & 0x80000000UL; }
-	uint32 loBit( const uint32& u ) const { return u & 0x00000001UL; }
 	uint32 loBits( const uint32& u ) const { return u & 0x7fffffffUL; }
 	uint32 mixBits( const uint32& u, const uint32& v ) const
 		{ return hiBit(u) | loBits(v); }
 	uint32 twist( const uint32& m, const uint32& s0, const uint32& s1 ) const
-		{ return m ^ (mixBits(s0,s1)>>1) ^ (-loBit(s1) & 0x9908b0dfUL); }
+		{ return m ^ (mixBits(s0,s1)>>1) ^ (s1 & 1UL ? 0x9908b0dfUL : 0); }
+ // !!! mb changed -(s1&1)&a to the ? operator to remove negation of unsigned value
 };
 
 
