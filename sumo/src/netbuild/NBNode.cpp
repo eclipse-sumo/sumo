@@ -1886,9 +1886,9 @@ NBNode::buildWalkingAreas() {
             wa.shape.push_back(tmp[0]);
             tmp.move2side(-prev.width);
             wa.shape.push_back(tmp[0]);
-            myWalkingAreas.push_back(wa);
             // length (special case)
             wa.length = MAX2(POSITION_EPS, prev.shape.back().distanceTo2D(next.shape.front()));
+            myWalkingAreas.push_back(wa);
         }
     }
 }
