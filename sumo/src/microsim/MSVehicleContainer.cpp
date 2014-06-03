@@ -122,7 +122,7 @@ void
 MSVehicleContainer::addReplacing(const VehicleDepartureVector& x) {
     if (isFull()) {
         std::vector<VehicleDepartureVector> array2((array.size() - 1) * 2 + 1, VehicleDepartureVector());
-        for (size_t i = array.size(); i-- > 0;) {
+        for (int i = (int)array.size(); i-- > 0;) {
             assert(array2.size() > i);
             array2[i] = array[i];
         }

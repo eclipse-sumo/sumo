@@ -444,7 +444,7 @@ void
 MSMeanData::writeXMLOutput(OutputDevice& dev,
                            SUMOTime startTime, SUMOTime stopTime) {
     // check whether this dump shall be written for the current time
-    size_t numReady = myDumpBegin < stopTime && myDumpEnd - DELTA_T >= startTime;
+    int numReady = myDumpBegin < stopTime && myDumpEnd - DELTA_T >= startTime ? 1 : 0;
     if (myTrackVehicles && myDumpBegin < stopTime) {
         myPendingIntervals.push_back(std::make_pair(startTime, stopTime));
         numReady = myPendingIntervals.size();
