@@ -220,3 +220,8 @@ step 17
 step 18
 {104: ('1', 6.7973466742903526)}
 {80: '2fi', 86: 79.53197763882011}
+Invalid departure position.
+vehicles ['2', 'horiz']
+vehicle count 2
+examining anotherOne
+speed Vehicle 'anotherOne' is not known

@@ -127,4 +127,12 @@ for i in range(6):
     print traci.vehicle.getSubscriptionResults("2")
     print traci.vehicle.getSubscriptionResults(vehID)
 traci.vehicle.remove("1")
+try:
+    traci.vehicle.add("anotherOne", "horizontal", pos=-1)
+except traci.TraCIException as e:
+    print e
+try:
+    check("anotherOne")
+except traci.TraCIException as e:
+    print e
 traci.close()
