@@ -223,9 +223,9 @@ MSMeanData::MeanDataValueTracker::write(OutputDevice& dev,
 }
 
 
-size_t
+int
 MSMeanData::MeanDataValueTracker::getNumReady() const {
-    size_t result = 0;
+    int result = 0;
     for (std::list<TrackerEntry*>::const_iterator it = myCurrentData.begin(); it != myCurrentData.end(); ++it) {
         if ((*it)->myNumVehicleEntered == (*it)->myNumVehicleLeft) {
             result++;

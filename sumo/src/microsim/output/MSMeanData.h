@@ -266,7 +266,7 @@ public:
                    const SUMOReal numLanes, const SUMOReal defaultTravelTime,
                    const int numVehicles = -1) const;
 
-        size_t getNumReady() const;
+        int getNumReady() const;
 
         void clearFirst();
 
