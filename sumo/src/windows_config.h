@@ -53,10 +53,10 @@
 #define SUMOLong long long
 
 /* defines the epsilon to use on position comparison */
-#define (SUMOReal)POSITION_EPS 0.1
+#define POSITION_EPS (SUMOReal)0.1
 
 /* defines the epsilon to use on general floating point comparison */
-#define (SUMOReal)NUMERICAL_EPS 0.001
+#define NUMERICAL_EPS (SUMOReal)0.001
 
 /* defines the number of digits after the comma in output */
 #define OUTPUT_ACCURACY 2
