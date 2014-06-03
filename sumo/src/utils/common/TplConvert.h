@@ -224,7 +224,7 @@ public:
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
         }
-        unsigned i = 0;
+        int i = 0;
         SUMOReal sgn = 1;
         if (data[0] == '+') {
             i++;
