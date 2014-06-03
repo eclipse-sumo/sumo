@@ -159,6 +159,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 void
 MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime, const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed,
                        const bool setRequest, const SUMOTime arrivalTimeBraking, const SUMOReal arrivalSpeedBraking, const SUMOTime waitingTime) {
+// !!! why include the gap here?
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLengthWithGap());
     myApproachingVehicles.insert(std::make_pair(approaching,
                                  ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
@@ -202,8 +203,9 @@ MSLink::getApproaching(const SUMOVehicle* veh) const {
 
 
 SUMOTime
-MSLink::getLeaveTime(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const {
-    return arrivalTime + TIME2STEPS((getLength() + vehicleLength) / (0.5 * (arrivalSpeed + leaveSpeed)));
+MSLink::getLeaveTime(const SUMOTime arrivalTime, const SUMOReal arrivalSpeed,
+                     const SUMOReal leaveSpeed, const SUMOReal vehicleLength) const {
+    return arrivalTime + TIME2STEPS((getLength() + vehicleLength) / MAX2(0.5 * (arrivalSpeed + leaveSpeed), (SUMOReal)NUMERICAL_EPS));
 }
 
 
