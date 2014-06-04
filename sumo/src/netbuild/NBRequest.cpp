@@ -604,8 +604,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin();
             i != myIncoming.rend(); i++) {
 
-        unsigned int noLanes = (*i)->getNumLanes();
-        for (unsigned int j = noLanes; j-- > 0;) {
+        for (int j = (int)(*i)->getNumLanes() - 1; j >= 0; --j) {
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
