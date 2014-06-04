@@ -1000,12 +1000,12 @@ void NIImporter_VISUM::parse_LanesConnections() {
     if (fromLane - fromLaneOffset < 0) {
         fromLaneOffset = 0;
     } else {
-        fromLane = fromEdge->getNumLanes() - (fromLane - fromLaneOffset) - 1;
+        fromLane = (int)fromEdge->getNumLanes() - (fromLane - fromLaneOffset) - 1;
     }
     if (toLane - toLaneOffset < 0) {
         toLaneOffset = 0;
     } else {
-        toLane = toEdge->getNumLanes() - (toLane - toLaneOffset) - 1;
+        toLane = (int)toEdge->getNumLanes() - (toLane - toLaneOffset) - 1;
     }
     //
     if ((int) fromEdge->getNumLanes() <= fromLane) {
