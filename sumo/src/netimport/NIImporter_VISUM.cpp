@@ -998,12 +998,12 @@ void NIImporter_VISUM::parse_LanesConnections() {
     }
     // !!! the next is probably a hack
     if (fromLane - fromLaneOffset < 0) {
-        fromLaneOffset = 0;
+        //fromLaneOffset = 0;
     } else {
         fromLane = (int)fromEdge->getNumLanes() - (fromLane - fromLaneOffset) - 1;
     }
     if (toLane - toLaneOffset < 0) {
-        toLaneOffset = 0;
+        //toLaneOffset = 0;
     } else {
         toLane = (int)toEdge->getNumLanes() - (toLane - toLaneOffset) - 1;
     }
