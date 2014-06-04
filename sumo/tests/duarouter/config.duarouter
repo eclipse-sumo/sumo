@@ -19,7 +19,6 @@ log:log.txt
 [run_dependent_text]
 output:\r{REPLACE \n}
 errors:The length does not include*{LINES 1}
-errors:std::_Ios_Fmtflags
 log:The length does not include*{LINES 1}
 routes:<!--{[->]}-->
 alts:<!--{[->]}-->
