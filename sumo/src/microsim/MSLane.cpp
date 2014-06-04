@@ -250,7 +250,7 @@ MSLane::maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed) {
                 const SUMOReal currentMaxSpeed = lhs - tauDecel;
                 if (MIN2(currentMaxSpeed, mspeed) > maxSpeed) {
                     maxSpeed = currentMaxSpeed;
-                    maxPos = leaderRearPos + frontGap;
+                    maxPos = MIN2(leaderRearPos + frontGap, myLength);
                     maxIt = predIt + 1;
                 }
             }
