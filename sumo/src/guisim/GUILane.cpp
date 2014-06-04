@@ -260,7 +260,6 @@ GUILane::drawLinkRules(const GUINet& net) const {
         SUMOReal x2 = x1 + w;
         drawLinkRule(net, myLinks[i], getShape(), x1, x2);
         x1 = x2;
-        x2 += w;
     }
 }
 
