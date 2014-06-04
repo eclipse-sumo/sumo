@@ -62,7 +62,7 @@ const char NBTrafficLightLogic::allowedStatesInitializer[] = {LINKSTATE_TL_GREEN
         LINKSTATE_TL_OFF_NOSIGNAL
                                                              };
 
-const std::string NBTrafficLightLogic::ALLOWED_STATES(NBTrafficLightLogic::allowedStatesInitializer);
+const std::string NBTrafficLightLogic::ALLOWED_STATES(NBTrafficLightLogic::allowedStatesInitializer, 7);
 
 // ===========================================================================
 // member method definitions
