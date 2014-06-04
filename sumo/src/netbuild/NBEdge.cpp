@@ -1102,14 +1102,16 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
         }
 
 
-        // compute the maximum speed allowed
+        // @todo compute the maximum speed allowed based on angular velocity
         //  see !!! for an explanation (with a_lat_mean ~0.3)
+        /*
         SUMOReal vmax = (SUMOReal) 0.3 * (SUMOReal) 9.80778 *
                         getLaneShape(con.fromLane).back().distanceTo(
                             con.toEdge->getLaneShape(con.toLane).front())
                         / (SUMOReal) 2.0 / (SUMOReal) M_PI;
         vmax = MIN2(vmax, ((getSpeed() + con.toEdge->getSpeed()) / (SUMOReal) 2.0));
-        vmax = (getSpeed() + con.toEdge->getSpeed()) / (SUMOReal) 2.0;
+        */
+        SUMOReal vmax = (getSpeed() + con.toEdge->getSpeed()) / (SUMOReal) 2.0;
         //
         Position end = con.toEdge->getLaneShape(con.toLane).front();
         Position beg = getLaneShape(con.fromLane).back();
