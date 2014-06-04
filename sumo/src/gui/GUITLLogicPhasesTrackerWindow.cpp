@@ -406,7 +406,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             t -= (SUMOReal)((width - 31.) / 4.);
         }
         // draw time information
-        h = (SUMOReal)(myTLLogic->getLinks().size() * 20 + 12);
+        //h = (SUMOReal)(myTLLogic->getLinks().size() * 20 + 12);
         SUMOReal glh = (SUMOReal)(1.0 - myTLLogic->getLinks().size() * h20 - h10);
         // current begin time
         pfSetScaleXY((SUMOReal)(.05 * 300. / width), (SUMOReal)(.05 * 300. / height));

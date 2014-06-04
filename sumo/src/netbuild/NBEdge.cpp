@@ -1201,7 +1201,6 @@ NBEdge::computeLaneShapes() {
         offset += (getLaneWidth(i) + getLaneWidth(i + 1)) / 2. + SUMO_const_laneOffset;
         offsets[i] = offset;
     }
-    offset -= SUMO_const_laneOffset;
     if (myLaneSpreadFunction == LANESPREAD_RIGHT) {
         SUMOReal laneWidth = myLanes.back().width != UNSPECIFIED_WIDTH ? myLanes.back().width : SUMO_const_laneWidth;
         offset = (laneWidth + SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
