@@ -44,3 +44,4 @@ patch_joined_tls_from_sumonet
 
 # build an uncontrolled crossing at a traffic light node
 uncontrolled_at_tls_node
+error_empty_edges

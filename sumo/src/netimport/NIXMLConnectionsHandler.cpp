@@ -330,6 +330,9 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, nodeID.c_str(), ok, NBNode::DEFAULT_CROSSING_WIDTH, true);
     std::vector<std::string> edgeIDs;
     SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_EDGES, 0, ok), edgeIDs);
+    if (!ok) {
+        return;
+    }
     for (std::vector<std::string>::const_iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
         NBEdge* edge = myEdgeCont.retrieve(*it);
         if (edge == 0) {
