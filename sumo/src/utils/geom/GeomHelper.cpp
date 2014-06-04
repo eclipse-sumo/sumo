@@ -100,7 +100,11 @@ GeomHelper::intersects(const SUMOReal x1, const SUMOReal y1,
                 } else {
                     *x = x1;
                     *y = a;
-                    *mu = (a - y1) / (y2 - y1);
+                    if (y2 == y1) {
+                        *mu = 0;
+                    } else {
+                        *mu = (a - y1) / (y2 - y1);
+                    }
                 }
             }
             return true;

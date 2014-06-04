@@ -357,6 +357,10 @@ PositionVector::getCentroid() const {
             y += (tmp[i].y() + tmp[i + 1].y()) * length / 2;
             lengthSum += length;
         }
+        if (lengthSum == 0) {
+            // it is probably only one point
+            return tmp[0];
+        }
         return Position(x / lengthSum, y / lengthSum);
     }
 }
