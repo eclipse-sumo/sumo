@@ -1830,6 +1830,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     assert(&(lanes[i].lane->getEdge()) == nextEdge);
                 }
                 myLastBestLanesInternalLane = startLane;
+                updateOccupancyAndCurrentBestLane(startLane);
                 return;
             } else {
                 // remove passed edges
