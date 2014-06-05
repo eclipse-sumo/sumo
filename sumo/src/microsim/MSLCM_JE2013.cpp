@@ -92,6 +92,8 @@
 
 #define RELGAIN_NORMALIZATION_MIN_SPEED (SUMOReal)10.0 
 
+#define TURN_LANE_DIST (SUMOReal)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
+
 //#define DEBUG_COND (myVehicle.getID() == "pkw22806" || myVehicle.getID() == "pkw22823")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
@@ -841,13 +843,13 @@ MSLCM_JE2013::_wantsChange(
         } else if (bestLaneOffset == 0
                    && (leader.first == 0 || !leader.first->isStopped())
                    && neigh.bestContinuations.back()->getLinkCont().size() != 0
-                   && roundaboutEdgesAhead == 0) {
+                   && roundaboutEdgesAhead == 0
+                   && neighDist < TURN_LANE_DIST) {
             // VARIANT_21 (stayOnBest)
-            // XXX this should depend on distance somehow
             // we do not want to leave the best lane for a lane which leads elsewhere
             // unless our leader is stopped or we are approaching a roundabout
             if (gDebugFlag2) {
-                std::cout << " veh=" << myVehicle.getID() << " does not want to leave the bestLane\n";
+                std::cout << " veh=" << myVehicle.getID() << " does not want to leave the bestLane (neighDist=" << neighDist << ")\n";
             }
             ret = ret | LCA_STAY | LCA_STRATEGIC;
         }
