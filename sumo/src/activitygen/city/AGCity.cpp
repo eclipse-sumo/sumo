@@ -361,7 +361,12 @@ AGCity::carAllocation() {
     }
     // new rate: the rate on the people that have'nt any car yet:
     // nR = (R * Drivers - AlreadyCars) / (Drivers - AlreadyCars)
-    SUMOReal newRate = (statData.carRate * statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT) / (statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT);
+    SUMOReal newRate = statData.carRate * statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT;
+    if (statData.getPeopleOlderThan(statData.limitAgeChildren) == statData.hhFarFromPT) {
+        newRate = 0.;
+    } else {
+         newRate /= statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT;
+    }
     //std::cout << " - " << newRate << std::endl;
     if (newRate < 0 || newRate >= 1) {
         newRate = 0;
