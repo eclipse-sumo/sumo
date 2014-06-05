@@ -83,6 +83,8 @@ dist-complete: dist dist-doc dist-tests traas traci4j trafficmodeler
 	tar -xzf $(PACKAGE)-src-$(VERSION).tar.gz $(distdir)
 	find tools bin -name  "*.jar" | xargs cp --parents --target-directory $(distdir)
 	tar -czf $(PACKAGE)-all-$(VERSION).tar.gz $(distdir)
+	rm -f $(PACKAGE)-all-$(VERSION).zip
+	zip -r $(PACKAGE)-all-$(VERSION).zip $(distdir)
 	$(am__remove_distdir)
 
 examples:

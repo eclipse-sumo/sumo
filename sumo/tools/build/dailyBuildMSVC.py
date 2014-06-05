@@ -110,12 +110,12 @@ for platform in ["Win32", "x64"]:
     log = io.open(makeLog, 'a')
     try:
         maxTime = 0
-        for fname in glob.glob(os.path.join(nightlyDir, "sumo-src-*.zip")):
+        for fname in glob.glob(os.path.join(nightlyDir, "sumo-all-*.zip")):
             if os.path.getmtime(fname) > maxTime:
                 maxTime = os.path.getmtime(fname)
                 maxFile = fname
         if maxTime > 0:
-            binaryZip = maxFile.replace("-src-", "-%s-" % env["FILEPREFIX"])
+            binaryZip = maxFile.replace("-all-", "-%s-" % env["FILEPREFIX"])
             zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
             srcZip = zipfile.ZipFile(maxFile)
             write = False
@@ -123,7 +123,7 @@ for platform in ["Win32", "x64"]:
                 if f.count('/') == 1:
                     write = False
                 if f.endswith('/') and f.count('/') == 2:
-                    write = (f.endswith('/bin/') or f.endswith('/examples/') or f.endswith('/tools/') or f.endswith('/data/'))
+                    write = (f.endswith('/bin/') or f.endswith('/examples/') or f.endswith('/tools/') or f.endswith('/data/') or f.endswith('/docs/'))
                     if f.endswith('/bin/'):
                         binDir = f
                 elif write or os.path.basename(f) in ["COPYING", "README"]:
@@ -131,12 +131,6 @@ for platform in ["Win32", "x64"]:
             srcZip.close()
         else:
             zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
-        if os.path.exists(maxFile.replace("-src-", "-doc-")):
-            docZip = zipfile.ZipFile(maxFile.replace("-src-", "-doc-"))
-            for f in docZip.namelist():
-                if not "/doxygen/" in f:
-                    zipf.writestr(f, docZip.read(f))
-            docZip.close()
         files_to_zip = (
                 glob.glob(os.path.join(env["XERCES"+envSuffix], "bin", "xerces-c_?_?.dll")) +
                 glob.glob(os.path.join(env["PROJ_GDAL"+envSuffix], "bin", "*.dll")) +
@@ -157,8 +151,9 @@ for platform in ["Win32", "x64"]:
                     print >> log, "Warning: Could not copy %s to %s!" % (f, nightlyDir)
                     print >> log, "I/O error(%s): %s" % (errno, strerror)
         zipf.close()
-        wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), platformSuffix=programSuffix)
         shutil.copy2(binaryZip, options.remoteDir)
+        wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), platformSuffix=programSuffix)
+        shutil.copy2(binaryZip.replace(".zip", ".msi"), options.remoteDir)
     except IOError, (errno, strerror):
         print >> log, "Warning: Could not zip to %s!" % binaryZip
         print >> log, "I/O error(%s): %s" % (errno, strerror)
