@@ -32,6 +32,7 @@
 #endif
 
 #include <cmath>
+#include <cassert>
 #include <string>
 #include <sstream>
 #include <utils/common/StringTokenizer.h>
@@ -142,12 +143,25 @@ RGBColor::operator!=(const RGBColor& c) const {
 
 
 RGBColor
-RGBColor::changedBrightness(const char change) {
-    const unsigned char red = static_cast<unsigned char>(MIN2(MAX2(myRed + change, 0), 255));
-    const unsigned char blue = static_cast<unsigned char>(MIN2(MAX2(myBlue + change, 0), 255));
-    const unsigned char green = static_cast<unsigned char>(MIN2(MAX2(myGreen + change, 0), 255));
-    return RGBColor(red, green, blue, myAlpha);
-
+RGBColor::changedBrightness(int change, int toChange) const {
+    const unsigned char red = (unsigned char)(MIN2(MAX2(myRed + change, 0), 255));
+    const unsigned char blue = (unsigned char)(MIN2(MAX2(myBlue + change, 0), 255));
+    const unsigned char green = (unsigned char)(MIN2(MAX2(myGreen + change, 0), 255));
+    int changed = ((int)red - (int)myRed) + ((int)blue - (int)myBlue) + ((int)green - (int)myGreen);
+    const RGBColor result(red, green, blue, myAlpha);
+    if (changed == toChange * change) {
+        return result;
+    } else if (changed == 0) {
+        return result;
+    } else {
+        const int maxedColors = (red != myRed + change ? 1 : 0) + (blue != myBlue + change ? 1 : 0) + (green != myGreen + change ? 1: 0);
+        if (maxedColors == 3) {
+            return result;
+        } else {
+            const int toChangeNext = 3 - maxedColors;
+            return result.changedBrightness((int)((toChange * change - changed) / toChangeNext), toChangeNext);
+        }
+    }
 }
 
 RGBColor

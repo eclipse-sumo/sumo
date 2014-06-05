@@ -124,9 +124,10 @@ public:
 
     /** @brief Returns a new color with altered brightness
      * @param[in] change The absolute change applied to all channels (within bounds)
+     * @param[in] change The number of colors to change
      * @return The new color
      */
-    RGBColor changedBrightness(const char change);
+    RGBColor changedBrightness(int change, int toChange=3) const;
 
 
     /** @brief Parses a color information
