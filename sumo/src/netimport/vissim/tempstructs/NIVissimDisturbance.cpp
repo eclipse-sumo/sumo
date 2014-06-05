@@ -332,7 +332,7 @@ NIVissimDisturbance::getConnection(NBNode* node, int aedgeid) {
                             toString<int>(c->getToEdgeID()), to);
     } else {
         WRITE_WARNING("NIVissimDisturbance: no connection");
-        return NBConnection(0, 0);
+        return NBConnection::InvalidConnection;
 //        throw 1; // !!! what to do?
     }
 

@@ -154,7 +154,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
         }
         NBConnection prohibitorC = parseConnection("prohibitor", prohibitor);
         NBConnection prohibitedC = parseConnection("prohibited", prohibited);
-        if (prohibitorC.getFrom() == 0 || prohibitedC.getFrom() == 0) {
+        if (prohibitorC == NBConnection::InvalidConnection || prohibitedC == NBConnection::InvalidConnection) {
             // something failed
             return;
         }
@@ -173,7 +173,7 @@ NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::
     size_t div = def.find("->");
     if (div == std::string::npos) {
         myErrorMsgHandler->inform("Missing connection divider in " + defRole + " '" + def + "'");
-        return NBConnection(0, 0);
+        return NBConnection::InvalidConnection;
     }
     std::string fromDef = def.substr(0, div);
     std::string toDef = def.substr(div + 2);
@@ -192,11 +192,11 @@ NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::
     // check
     if (fromE == 0) {
         myErrorMsgHandler->inform("Could not find edge '" + fromDef + "' in " + defRole + " '" + def + "'");
-        return NBConnection(0, 0);
+        return NBConnection::InvalidConnection;
     }
     if (toE == 0) {
         myErrorMsgHandler->inform("Could not find edge '" + toDef + "' in " + defRole + " '" + def + "'");
-        return NBConnection(0, 0);
+        return NBConnection::InvalidConnection;
     }
     return NBConnection(fromE, toE);
 }
