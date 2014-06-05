@@ -260,7 +260,6 @@ NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter::operator()(const NBEdge
     assert(e2->getFromNode() == myNode || e2->getToNode() == myNode);
     const SUMOReal angle1 = e1->getFromNode() == myNode ? e1->getStartAngle() : e1->getEndAngle();
     const SUMOReal angle2 = e2->getFromNode() == myNode ? e2->getStartAngle() : e2->getEndAngle();
-    if (gDebugFlag1) std::cout << " e1=" << e1->getID() << " a1=" << angle1 << " e2=" << e2->getID() << " a2=" << angle2 << "\n";
     return angle1 < angle2;
 }
 
