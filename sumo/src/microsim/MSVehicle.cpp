@@ -1778,18 +1778,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     }
     assert(startLane != 0);
     if (myBestLanes.size() > 0 && !forceRebuild && myLastBestLanesEdge == &startLane->getEdge()) {
-        std::vector<LaneQ>& lanes = *myBestLanes.begin();
-        std::vector<LaneQ>::iterator i;
-        for (i = lanes.begin(); i != lanes.end(); ++i) {
-            SUMOReal nextOccupation = 0;
-            for (std::vector<MSLane*>::const_iterator j = (*i).bestContinuations.begin() + 1; j != (*i).bestContinuations.end(); ++j) {
-                nextOccupation += (*j)->getBruttoVehLenSum();
-            }
-            (*i).nextOccupation = nextOccupation;
-            if ((*i).lane == startLane) {
-                myCurrentLaneInBestLanes = i;
-            }
-        }
+        updateOccupancyAndCurrentBestLane(startLane);
         return;
     }
     if (startLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -2019,8 +2008,13 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             }
         }
     }
+    updateOccupancyAndCurrentBestLane(startLane);
+    return;
+}
 
-    // update occupancy and current lane index
+
+void 
+MSVehicle::updateOccupancyAndCurrentBestLane(const MSLane* startLane) {
     std::vector<LaneQ>& currLanes = *myBestLanes.begin();
     std::vector<LaneQ>::iterator i;
     for (i = currLanes.begin(); i != currLanes.end(); ++i) {
@@ -2033,7 +2027,6 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             myCurrentLaneInBestLanes = i;
         }
     }
-    return;
 }
 
 
