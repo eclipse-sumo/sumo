@@ -279,7 +279,7 @@ public:
            NBNode* from, NBNode* to,
            NBEdge* tpl,
            const PositionVector& geom=PositionVector(),
-           unsigned int numLanes=-1);
+           int numLanes=-1);
 
 
     /** @brief Destructor

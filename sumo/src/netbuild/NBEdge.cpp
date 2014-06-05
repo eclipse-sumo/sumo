@@ -224,7 +224,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
 }
 
 
-NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, const PositionVector& geom, unsigned int numLanes) :
+NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, const PositionVector& geom, int numLanes) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
     myType(tpl->getTypeID()),
