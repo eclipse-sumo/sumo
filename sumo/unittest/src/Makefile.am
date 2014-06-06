@@ -55,6 +55,7 @@ $(MESO_LIBS) \
 ../../src/foreign/tcpip/libtcpip.a \
 $(INTERNAL_LIB) \
 $(MEM_LIBS) \
+$(PYTHON_LIBS) \
 $(XERCES_LIBS) \
 $(LIB_GTEST)
 
