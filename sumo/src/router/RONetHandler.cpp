@@ -60,7 +60,7 @@ RONetHandler::RONetHandler(RONet& net,
                            ROAbstractEdgeBuilder& eb)
     : SUMOSAXHandler("sumo-network"),
       myNet(net), myCurrentName(),
-      myCurrentEdge(0), myEdgeBuilder(eb) {}
+      myCurrentEdge(0), myProcess(true), myEdgeBuilder(eb) {}
 
 
 RONetHandler::~RONetHandler() {}
