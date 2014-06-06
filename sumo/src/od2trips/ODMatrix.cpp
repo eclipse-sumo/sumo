@@ -110,9 +110,11 @@ ODMatrix::computeDeparts(ODCell* cell,
                          bool uniform, const std::string& prefix) {
     int vehicles2insert = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle insertion
-    SUMOReal mprob = (SUMOReal) cell->vehicleNumber - (SUMOReal) vehicles2insert;
-    if (RandHelper::rand() < mprob) {
+    if (RandHelper::rand() < cell->vehicleNumber - (SUMOReal)vehicles2insert) {
         vehicles2insert++;
+    }
+    if (vehicles2insert == 0) {
+        return cell->vehicleNumber;
     }
 
     const SUMOReal offset = (SUMOReal)(cell->end - cell->begin) / (SUMOReal) vehicles2insert / (SUMOReal) 2.;
