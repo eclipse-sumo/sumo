@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:22 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:21 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/dfrouter/bugs/2149069_internal_edges/nodes.nod.xml"/>
-        <edge-files value="./tests/dfrouter/bugs/2149069_internal_edges/edges.edg.xml"/>
+        <node-files value=".\dfrouter\bugs\2149069_internal_edges\nodes.nod.xml"/>
+        <edge-files value=".\dfrouter\bugs\2149069_internal_edges\edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/dfrouter/bugs/2149069_internal_edges/input_net.net.xml"/>
+        <output-file value=".\dfrouter\bugs\2149069_internal_edges\input_net.net.xml"/>
     </output>
 
     <report>
@@ -50,13 +50,13 @@
         <lane id=":20_5_0" index="0" speed="13.90" length="2.41" shape="300.00,510.20 299.18,509.79 298.35,508.55"/>
     </edge>
     <edge id=":21_0" function="internal">
-        <lane id=":21_0_0" index="0" speed="13.90" length="2.96" shape="298.35,501.45 298.75,500.09 299.95,499.12"/>
+        <lane id=":21_0_0" index="0" speed="13.90" length="2.96" shape="298.35,501.45 298.75,500.09 299.95,499.13"/>
     </edge>
     <edge id=":21_1" function="internal">
         <lane id=":21_1_0" index="0" speed="13.90" length="2.41" shape="298.35,501.45 299.17,500.21 300.00,499.80"/>
     </edge>
     <edge id=":21_4" function="internal">
-        <lane id=":21_4_0" index="0" speed="13.90" length="4.89" shape="299.95,499.12 301.95,498.54 304.75,498.35"/>
+        <lane id=":21_4_0" index="0" speed="13.90" length="4.89" shape="299.95,499.13 301.95,498.54 304.75,498.35"/>
     </edge>
     <edge id=":21_5" function="internal">
         <lane id=":21_5_0" index="0" speed="13.90" length="2.41" shape="300.00,499.80 300.82,500.21 301.65,501.45"/>
@@ -71,13 +71,13 @@
         <lane id=":30_0_0" index="0" speed="13.90" length="6.20" shape="501.45,511.65 495.25,511.65"/>
     </edge>
     <edge id=":30_1" function="internal">
-        <lane id=":30_1_0" index="0" speed="13.90" length="5.00" shape="501.45,511.65 500.09,511.46 499.12,510.87 498.54,509.91 498.35,508.55"/>
+        <lane id=":30_1_0" index="0" speed="13.90" length="5.00" shape="501.45,511.65 500.09,511.46 499.13,510.87 498.54,509.91 498.35,508.55"/>
     </edge>
     <edge id=":30_2" function="internal">
-        <lane id=":30_2_0" index="0" speed="13.90" length="5.00" shape="501.45,511.65 500.09,511.46 499.12,510.87 498.54,509.91 498.35,508.55"/>
+        <lane id=":30_2_0" index="0" speed="13.90" length="5.00" shape="501.45,511.65 500.09,511.46 499.13,510.87 498.54,509.91 498.35,508.55"/>
     </edge>
     <edge id=":31_0" function="internal">
-        <lane id=":31_0_0" index="0" speed="13.90" length="5.00" shape="498.35,501.45 498.54,500.09 499.13,499.12 500.09,498.54 501.45,498.35"/>
+        <lane id=":31_0_0" index="0" speed="13.90" length="5.00" shape="498.35,501.45 498.54,500.09 499.13,499.13 500.09,498.54 501.45,498.35"/>
     </edge>
     <edge id=":31_1" function="internal">
         <lane id=":31_1_0" index="0" speed="13.90" length="6.20" shape="495.25,498.35 501.45,498.35"/>
@@ -116,13 +116,13 @@
         <lane id=":50_5_0" index="0" speed="13.90" length="2.41" shape="710.00,510.20 709.17,509.79 708.35,508.55"/>
     </edge>
     <edge id=":51_0" function="internal">
-        <lane id=":51_0_0" index="0" speed="13.90" length="2.96" shape="708.35,501.45 708.75,500.09 709.95,499.12"/>
+        <lane id=":51_0_0" index="0" speed="13.90" length="2.96" shape="708.35,501.45 708.75,500.09 709.95,499.13"/>
     </edge>
     <edge id=":51_1" function="internal">
         <lane id=":51_1_0" index="0" speed="13.90" length="2.41" shape="708.35,501.45 709.18,500.21 710.00,499.80"/>
     </edge>
     <edge id=":51_4" function="internal">
-        <lane id=":51_4_0" index="0" speed="13.90" length="4.89" shape="709.95,499.12 711.95,498.54 714.75,498.35"/>
+        <lane id=":51_4_0" index="0" speed="13.90" length="4.89" shape="709.95,499.13 711.95,498.54 714.75,498.35"/>
     </edge>
     <edge id=":51_5" function="internal">
         <lane id=":51_5_0" index="0" speed="13.90" length="2.41" shape="710.00,499.80 710.83,500.21 711.65,501.45"/>
@@ -417,11 +417,11 @@
 
     <junction id=":20_4_0" type="internal" x="300.05" y="510.88" incLanes=":20_2_0 30_20_0" intLanes=":20_0_0 :20_1_0"/>
     <junction id=":20_5_0" type="internal" x="300.00" y="510.20" incLanes=":20_3_0 30_20_0" intLanes=":20_1_0"/>
-    <junction id=":21_4_0" type="internal" x="299.95" y="499.12" incLanes=":21_0_0 11_21_0" intLanes=":21_2_0 :21_3_0"/>
+    <junction id=":21_4_0" type="internal" x="299.95" y="499.13" incLanes=":21_0_0 11_21_0" intLanes=":21_2_0 :21_3_0"/>
     <junction id=":21_5_0" type="internal" x="300.00" y="499.80" incLanes=":21_1_0 11_21_0" intLanes=":21_3_0"/>
     <junction id=":50_4_0" type="internal" x="710.05" y="510.88" incLanes=":50_2_0 60_50_0" intLanes=":50_0_0 :50_1_0"/>
     <junction id=":50_5_0" type="internal" x="710.00" y="510.20" incLanes=":50_3_0 60_50_0" intLanes=":50_1_0"/>
-    <junction id=":51_4_0" type="internal" x="709.95" y="499.12" incLanes=":51_0_0 41_51_0" intLanes=":51_2_0 :51_3_0"/>
+    <junction id=":51_4_0" type="internal" x="709.95" y="499.13" incLanes=":51_0_0 41_51_0" intLanes=":51_2_0 :51_3_0"/>
     <junction id=":51_5_0" type="internal" x="710.00" y="499.80" incLanes=":51_1_0 41_51_0" intLanes=":51_3_0"/>
     <junction id=":a2_4_0" type="internal" x="510.00" y="301.49" incLanes=":a2_1_0 a0_a2_0" intLanes=":a2_2_0"/>
     <junction id=":a2_5_0" type="internal" x="509.99" y="298.46" incLanes=":a2_3_0 a3_a2_0" intLanes=":a2_0_0"/>

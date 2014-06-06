@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:23 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:21 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/dfrouter/flowmax/split.nod.xml"/>
-        <edge-files value="./tests/dfrouter/flowmax/split.edg.xml"/>
+        <node-files value=".\dfrouter\flowmax\split.nod.xml"/>
+        <edge-files value=".\dfrouter\flowmax\split.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/dfrouter/flowmax/input_net.net.xml"/>
+        <output-file value=".\dfrouter\flowmax\input_net.net.xml"/>
     </output>
 
     <report>
@@ -50,7 +50,7 @@
         <lane id=":8_0_0" index="0" speed="13.90" length="0.10" shape="200.00,98.35 200.00,98.35"/>
     </edge>
     <edge id=":9_0" function="internal">
-        <lane id=":9_0_0" index="0" speed="13.90" length="7.19" shape="296.89,94.56 298.69,96.22 300.28,97.40 301.66,98.11 302.85,98.35"/>
+        <lane id=":9_0_0" index="0" speed="13.90" length="7.06" shape="296.89,94.56 302.85,98.35"/>
     </edge>
     <edge id=":9_1" function="internal">
         <lane id=":9_1_0" index="0" speed="13.90" length="7.53" shape="295.32,98.35 302.85,98.35"/>

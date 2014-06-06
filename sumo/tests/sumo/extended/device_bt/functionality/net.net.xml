@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:18 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:35 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/sumo/extended/device_bt/functionality/bigcross.nod.xml"/>
-        <edge-files value="./tests/sumo/extended/device_bt/functionality/bigcross.edg.xml"/>
+        <node-files value=".\sumo\extended\device_bt\functionality\bigcross.nod.xml"/>
+        <edge-files value=".\sumo\extended\device_bt\functionality\bigcross.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/sumo/extended/device_bt/functionality/net.net.xml"/>
+        <output-file value=".\sumo\extended\device_bt\functionality\net.net.xml"/>
     </output>
 
     <report>

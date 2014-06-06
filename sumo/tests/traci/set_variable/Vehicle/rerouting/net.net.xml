@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:25:28 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:54 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/traci/set_variable/Vehicle/rerouting/input_net.nod.xml"/>
-        <edge-files value="./tests/traci/set_variable/Vehicle/rerouting/input_net.edg.xml"/>
+        <node-files value=".\traci\set_variable\Vehicle\rerouting\input_net.nod.xml"/>
+        <edge-files value=".\traci\set_variable\Vehicle\rerouting\input_net.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/traci/set_variable/Vehicle/rerouting/net.net.xml"/>
+        <output-file value=".\traci\set_variable\Vehicle\rerouting\net.net.xml"/>
     </output>
 
     <processing>

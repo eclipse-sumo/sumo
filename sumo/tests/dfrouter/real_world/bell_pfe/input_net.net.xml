@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:22 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:22 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/dfrouter/real_world/bell_pfe/../../../networkInputs/bell_pfe/bell_pfe_koeln.nod.xml"/>
-        <edge-files value="./tests/dfrouter/real_world/bell_pfe/../../../networkInputs/bell_pfe/bell_pfe_koeln.edg.xml"/>
-        <connection-files value="./tests/dfrouter/real_world/bell_pfe/../../../networkInputs/bell_pfe/bell_pfe_koeln.con.xml"/>
+        <node-files value=".\dfrouter\real_world\bell_pfe\../../../networkInputs/bell_pfe/bell_pfe_koeln.nod.xml"/>
+        <edge-files value=".\dfrouter\real_world\bell_pfe\../../../networkInputs/bell_pfe/bell_pfe_koeln.edg.xml"/>
+        <connection-files value=".\dfrouter\real_world\bell_pfe\../../../networkInputs/bell_pfe/bell_pfe_koeln.con.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/dfrouter/real_world/bell_pfe/input_net.net.xml"/>
+        <output-file value=".\dfrouter\real_world\bell_pfe\input_net.net.xml"/>
     </output>
 
     <processing>

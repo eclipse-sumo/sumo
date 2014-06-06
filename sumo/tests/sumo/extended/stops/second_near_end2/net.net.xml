@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:18 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:39 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/sumo/extended/stops/second_near_end2/../../../spec/two_straight_3lanes.nod.xml"/>
-        <edge-files value="./tests/sumo/extended/stops/second_near_end2/../../../spec/two_straight_3lanes.edg.xml"/>
+        <node-files value=".\sumo\extended\stops\second_near_end2\../../../spec/two_straight_3lanes.nod.xml"/>
+        <edge-files value=".\sumo\extended\stops\second_near_end2\../../../spec/two_straight_3lanes.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/sumo/extended/stops/second_near_end2/net.net.xml"/>
+        <output-file value=".\sumo\extended\stops\second_near_end2\net.net.xml"/>
     </output>
 
     <processing>

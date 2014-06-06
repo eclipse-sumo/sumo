@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:21 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:30 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/sumo/basic/routes/parsing/bi.nod.xml"/>
-        <edge-files value="./tests/sumo/basic/routes/parsing/bi.edg.xml"/>
+        <node-files value=".\sumo\basic\routes\parsing\bi.nod.xml"/>
+        <edge-files value=".\sumo\basic\routes\parsing\bi.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/sumo/basic/routes/parsing/net.net.xml"/>
+        <output-file value=".\sumo\basic\routes\parsing\net.net.xml"/>
     </output>
 
     <processing>

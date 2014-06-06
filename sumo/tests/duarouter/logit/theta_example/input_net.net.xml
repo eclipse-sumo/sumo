@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:23 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:24 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/duarouter/logit/theta_example/input_example.nod.xml"/>
-        <edge-files value="./tests/duarouter/logit/theta_example/input_example.edg.xml"/>
+        <node-files value=".\duarouter\logit\theta_example\input_example.nod.xml"/>
+        <edge-files value=".\duarouter\logit\theta_example\input_example.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/duarouter/logit/theta_example/input_net.net.xml"/>
+        <output-file value=".\duarouter\logit\theta_example\input_net.net.xml"/>
     </output>
 
     <processing>

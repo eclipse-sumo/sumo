@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:18 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:38 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/sumo/extended/stops/overtaking_highspeed/../../../../tools/tls/input_nodes.nod.xml"/>
-        <edge-files value="./tests/sumo/extended/stops/overtaking_highspeed/input_edges.edg.xml"/>
+        <node-files value=".\sumo\extended\stops\overtaking_highspeed\../../../../tools/tls/input_nodes.nod.xml"/>
+        <edge-files value=".\sumo\extended\stops\overtaking_highspeed\input_edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/sumo/extended/stops/overtaking_highspeed/net.net.xml"/>
+        <output-file value=".\sumo\extended\stops\overtaking_highspeed\net.net.xml"/>
     </output>
 
     <processing>
@@ -42,7 +42,7 @@
         <lane id=":0_3_0" index="0" speed="12.50" length="2.41" shape="498.35,511.35 499.18,510.11 500.00,509.70"/>
     </edge>
     <edge id=":0_16" function="internal">
-        <lane id=":0_16_0" index="0" speed="12.50" length="15.01" shape="497.81,503.34 499.12,501.60 504.22,499.16 511.35,498.35"/>
+        <lane id=":0_16_0" index="0" speed="12.50" length="15.01" shape="497.81,503.34 499.13,501.60 504.22,499.16 511.35,498.35"/>
     </edge>
     <edge id=":0_17" function="internal">
         <lane id=":0_17_0" index="0" speed="12.50" length="2.41" shape="500.00,509.70 500.82,510.11 501.65,511.35"/>

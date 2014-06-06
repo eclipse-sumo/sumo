@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:22 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:20 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/complex/tutorial/quickstart/data/quickstart.nod.xml"/>
-        <edge-files value="./tests/complex/tutorial/quickstart/data/quickstart.edg.xml"/>
-        <connection-files value="./tests/complex/tutorial/quickstart/data/quickstart.con.xml"/>
-        <type-files value="./tests/complex/tutorial/quickstart/data/quickstart.typ.xml"/>
+        <node-files value=".\complex\tutorial\quickstart\data\quickstart.nod.xml"/>
+        <edge-files value=".\complex\tutorial\quickstart\data\quickstart.edg.xml"/>
+        <connection-files value=".\complex\tutorial\quickstart\data\quickstart.con.xml"/>
+        <type-files value=".\complex\tutorial\quickstart\data\quickstart.typ.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/complex/tutorial/quickstart/data/quickstart.net.xml"/>
+        <output-file value=".\complex\tutorial\quickstart\data\quickstart.net.xml"/>
     </output>
 
     <processing>
@@ -55,7 +55,7 @@
         <lane id=":3_0_0" index="0" speed="13.89" length="5.00" shape="1991.75,11.35 1991.56,9.99 1990.97,9.02 1990.01,8.44 1988.65,8.25"/>
     </edge>
     <edge id=":3_1" function="internal">
-        <lane id=":3_1_0" index="0" speed="13.89" length="23.63" shape="1995.05,11.35 1996.07,4.22 1999.12,-0.88 2004.22,-3.93 2011.35,-4.95"/>
+        <lane id=":3_1_0" index="0" speed="13.89" length="23.63" shape="1995.05,11.35 1996.07,4.22 1999.13,-0.88 2004.22,-3.93 2011.35,-4.95"/>
         <lane id=":3_1_1" index="1" speed="13.89" length="23.63" shape="1998.35,11.35 1999.16,5.66 2001.60,1.60 2005.66,-0.84 2011.35,-1.65"/>
     </edge>
     <edge id=":3_3" function="internal">

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:22 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:27 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/netconvert/import/SUMO/connections/cross3l_unconstrained/../../../../../networkInputs/cross3l/input_nodes.nod.xml"/>
-        <edge-files value="./tests/netconvert/import/SUMO/connections/cross3l_unconstrained/../../../../../networkInputs/cross3l/input_edges.edg.xml"/>
+        <node-files value=".\netconvert\import\SUMO\connections\cross3l_unconstrained\../../../../../networkInputs/cross3l/input_nodes.nod.xml"/>
+        <edge-files value=".\netconvert\import\SUMO\connections\cross3l_unconstrained\../../../../../networkInputs/cross3l/input_edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/netconvert/import/SUMO/connections/cross3l_unconstrained/input_net.net.xml"/>
+        <output-file value=".\netconvert\import\SUMO\connections\cross3l_unconstrained\input_net.net.xml"/>
     </output>
 
     <processing>

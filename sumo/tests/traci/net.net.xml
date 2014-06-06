@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:25:26 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:49 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/traci/traci.nod.xml"/>
-        <edge-files value="./tests/traci/traci.edg.xml"/>
+        <node-files value=".\traci\traci.nod.xml"/>
+        <edge-files value=".\traci\traci.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/traci/net.net.xml"/>
+        <output-file value=".\traci\net.net.xml"/>
     </output>
 
     <processing>
@@ -242,8 +242,8 @@
     <connection from="e_m6" to="e_shape1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="e_m6" to="e_shape1" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from="e_m6" to="e_shape1" fromLane="0" toLane="2" dir="r" state="M"/>
-    <connection from="e_m6" to="e_shape0" fromLane="1" toLane="0" dir="l" state="M"/>
-    <connection from="e_m6" to="e_shape0" fromLane="2" toLane="1" dir="l" state="M"/>
+    <connection from="e_m6" to="e_shape0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="e_m6" to="e_shape0" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from="e_m6" to="e_shape0" fromLane="2" toLane="2" dir="l" state="M"/>
     <connection from="e_o0" to="e_vo0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="e_o0" to="e_vo0" fromLane="1" toLane="1" dir="l" state="M"/>

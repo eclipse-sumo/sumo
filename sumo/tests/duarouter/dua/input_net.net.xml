@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/01/14 18:24:19 by SUMO netconvert Version dev-SVN-r16088
+<!-- generated on 06/06/14 15:02:23 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="three_split.nod.xml"/>
-        <edge-files value="three_split.edg.xml"/>
+        <node-files value=".\duarouter\dua\three_split.nod.xml"/>
+        <edge-files value=".\duarouter\dua\three_split.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value=".\duarouter\dua\input_net.net.xml"/>
     </output>
 
     <processing>

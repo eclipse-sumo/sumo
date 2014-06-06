@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:17 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:34 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/sumo/bugs/ticket19/dead_end_problem1/prunned.nod.xml"/>
-        <edge-files value="./tests/sumo/bugs/ticket19/dead_end_problem1/prunned.edg.xml"/>
-        <connection-files value="./tests/sumo/bugs/ticket19/dead_end_problem1/prunned.con.xml"/>
+        <node-files value=".\sumo\bugs\ticket19\dead_end_problem1\prunned.nod.xml"/>
+        <edge-files value=".\sumo\bugs\ticket19\dead_end_problem1\prunned.edg.xml"/>
+        <connection-files value=".\sumo\bugs\ticket19\dead_end_problem1\prunned.con.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/sumo/bugs/ticket19/dead_end_problem1/net.net.xml"/>
+        <output-file value=".\sumo\bugs\ticket19\dead_end_problem1\net.net.xml"/>
     </output>
 
     <processing>

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:16 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:45 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/tools/assign/Assignment/testnetz1.nod.xml"/>
-        <edge-files value="./tests/tools/assign/Assignment/testnetz1.edg.xml"/>
-        <type-files value="./tests/tools/assign/Assignment/testnetz1.typ.xml"/>
+        <node-files value=".\tools\assign\Assignment\testnetz1.nod.xml"/>
+        <edge-files value=".\tools\assign\Assignment\testnetz1.edg.xml"/>
+        <type-files value=".\tools\assign\Assignment\testnetz1.typ.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/tools/assign/Assignment/input_net.net.xml"/>
+        <output-file value=".\tools\assign\Assignment\input_net.net.xml"/>
     </output>
 
     <report>
@@ -75,7 +75,7 @@
         <lane id=":6_0_0" index="0" speed="15.00" length="5.00" shape="1295.25,798.35 1296.61,798.16 1297.57,797.58 1298.16,796.61 1298.35,795.25"/>
     </edge>
     <edge id=":6_1" function="internal">
-        <lane id=":6_1_0" index="0" speed="15.00" length="7.85" shape="1295.25,798.35 1298.05,798.54 1300.05,799.12 1301.25,800.09 1301.65,801.45"/>
+        <lane id=":6_1_0" index="0" speed="15.00" length="7.85" shape="1295.25,798.35 1298.05,798.54 1300.05,799.13 1301.25,800.09 1301.65,801.45"/>
     </edge>
     <edge id=":7_0" function="internal">
         <lane id=":7_0_0" index="0" speed="15.00" length="2.58" shape="1298.35,499.95 1298.45,499.25 1298.75,498.75 1299.25,498.45 1299.95,498.35"/>

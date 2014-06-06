@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:25:30 2014 by SUMO netgenerate Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:51 by SUMO netgenerate Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netgenerateConfiguration.xsd">
@@ -13,7 +13,7 @@
     </grid_network>
 
     <output>
-        <output-file value="./tests/traci/get_variable/TrafficLight/errors_subseconds/net.net.xml"/>
+        <output-file value=".\traci\get_variable\TrafficLight\errors_subseconds\net.net.xml"/>
     </output>
 
     <processing>

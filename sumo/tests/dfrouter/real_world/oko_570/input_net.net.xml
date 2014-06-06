@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:23 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:22 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/dfrouter/real_world/oko_570/nodes.nod.xml"/>
-        <edge-files value="./tests/dfrouter/real_world/oko_570/edges.edg.xml"/>
+        <node-files value=".\dfrouter\real_world\oko_570\nodes.nod.xml"/>
+        <edge-files value=".\dfrouter\real_world\oko_570\edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/dfrouter/real_world/oko_570/input_net.net.xml"/>
+        <output-file value=".\dfrouter\real_world\oko_570\input_net.net.xml"/>
     </output>
 
     <processing>

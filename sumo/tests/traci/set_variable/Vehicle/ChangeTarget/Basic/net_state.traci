@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  5 22:14:08 2014 by SUMO sumo Version dev-SVN-r15830
+<!-- generated on 06/06/14 15:06:17 by SUMO sumo Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -21,7 +21,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="8815"/>
+        <remote-port value="14486"/>
     </traci_server>
 
 </configuration>
@@ -480,64 +480,64 @@
     </timestep>
     <timestep time="50.00">
         <edge id="e_m6">
-            <lane id="e_m6_0"/>
-            <lane id="e_m6_1">
+            <lane id="e_m6_0">
                 <vehicle id="veh0" pos="280.79" speed="30.93"/>
             </lane>
+            <lane id="e_m6_1"/>
             <lane id="e_m6_2"/>
         </edge>
     </timestep>
     <timestep time="51.00">
         <edge id="e_m6">
-            <lane id="e_m6_0"/>
-            <lane id="e_m6_1">
+            <lane id="e_m6_0">
                 <vehicle id="veh0" pos="312.23" speed="31.44"/>
             </lane>
+            <lane id="e_m6_1"/>
             <lane id="e_m6_2"/>
         </edge>
     </timestep>
     <timestep time="52.00">
         <edge id="e_m6">
-            <lane id="e_m6_0"/>
-            <lane id="e_m6_1">
+            <lane id="e_m6_0">
                 <vehicle id="veh0" pos="344.24" speed="32.00"/>
             </lane>
+            <lane id="e_m6_1"/>
             <lane id="e_m6_2"/>
         </edge>
     </timestep>
     <timestep time="53.00">
         <edge id="e_m6">
-            <lane id="e_m6_0"/>
-            <lane id="e_m6_1">
+            <lane id="e_m6_0">
                 <vehicle id="veh0" pos="376.76" speed="32.53"/>
             </lane>
+            <lane id="e_m6_1"/>
             <lane id="e_m6_2"/>
         </edge>
     </timestep>
     <timestep time="54.00">
         <edge id="e_m6">
-            <lane id="e_m6_0"/>
-            <lane id="e_m6_1">
+            <lane id="e_m6_0">
                 <vehicle id="veh0" pos="409.71" speed="32.95"/>
             </lane>
+            <lane id="e_m6_1"/>
             <lane id="e_m6_2"/>
         </edge>
     </timestep>
     <timestep time="55.00">
         <edge id="e_m6">
-            <lane id="e_m6_0"/>
-            <lane id="e_m6_1">
+            <lane id="e_m6_0">
                 <vehicle id="veh0" pos="443.08" speed="33.37"/>
             </lane>
+            <lane id="e_m6_1"/>
             <lane id="e_m6_2"/>
         </edge>
     </timestep>
     <timestep time="56.00">
         <edge id="e_m6">
-            <lane id="e_m6_0"/>
-            <lane id="e_m6_1">
+            <lane id="e_m6_0">
                 <vehicle id="veh0" pos="477.13" speed="34.05"/>
             </lane>
+            <lane id="e_m6_1"/>
             <lane id="e_m6_2"/>
         </edge>
     </timestep>

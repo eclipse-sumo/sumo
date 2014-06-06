@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:23:25 2014 by SUMO netconvert Version dev-SVN-r15793
+<!-- generated on 06/06/14 15:02:28 by SUMO netconvert Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <osm-files value="./tests/polyconvert/typemap/osm_ambiguous_type/osm.xml"/>
+        <osm-files value=".\polyconvert\typemap\osm_ambiguous_type\osm.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/polyconvert/typemap/osm_ambiguous_type/input_net.net.xml"/>
+        <output-file value=".\polyconvert\typemap\osm_ambiguous_type\input_net.net.xml"/>
     </output>
 
     <projection>
@@ -30,23 +30,13 @@
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
 
-    <location netOffset="-606096.01,-5781161.13" convBoundary="0.00,0.00,75.97,23.33" origBoundary="10.551405,52.170720,10.552523,52.170915" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-606096.01,-5781161.13" convBoundary="0.00,0.00,75.97,23.33" origBoundary="10.551406,52.170720,10.552523,52.170915" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <edge id="-0" from="246561357" to="247376524" priority="1" type="highway.footway" shape="0.00,0.00 36.80,11.30 75.97,23.33">
-        <lane id="-0_0" index="0" allow="pedestrian" speed="8.33" length="79.47" shape="0.48,-1.58 37.28,9.72 76.45,21.76"/>
-    </edge>
-    <edge id="0" from="247376524" to="246561357" priority="1" type="highway.footway" shape="75.97,23.33 36.80,11.30 0.00,0.00">
-        <lane id="0_0" index="0" allow="pedestrian" speed="8.33" length="79.47" shape="75.48,24.91 36.31,12.88 -0.48,1.58"/>
+    <edge id="0" from="247376524" to="246561357" priority="1" type="highway.footway" spreadType="center" shape="75.97,23.33 36.80,11.30 0.00,0.00">
+        <lane id="0_0" index="0" allow="pedestrian" speed="2.78" length="79.47" shape="75.97,23.33 36.80,11.30 0.00,0.00"/>
     </edge>
 
-    <junction id="246561357" type="priority" x="0.00" y="0.00" incLanes="0_0" intLanes="" shape="0.01,-0.05 0.95,-3.11 -0.95,3.11 -0.01,0.05">
-        <request index="0" response="0" foes="0"/>
-    </junction>
-    <junction id="247376524" type="priority" x="75.97" y="23.33" incLanes="-0_0" intLanes="" shape="75.95,23.38 75.01,26.44 76.92,20.23 75.98,23.29">
-        <request index="0" response="0" foes="0"/>
-    </junction>
-
-    <connection from="-0" to="0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="0" to="-0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <junction id="246561357" type="unregulated" x="0.00" y="0.00" incLanes="0_0" intLanes="" shape="-0.47,1.53 0.47,-1.53"/>
+    <junction id="247376524" type="unregulated" x="75.97" y="23.33" incLanes="" intLanes="" shape="76.44,21.80 75.50,24.86"/>
 
 </net>
