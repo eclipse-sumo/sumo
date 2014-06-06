@@ -72,6 +72,9 @@
         <!-- Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) -->
         <vtk-output value="" type="FILE"/>
 
+        <!-- Save the vehicle trajectories in the Amitran format -->
+        <amitran-output value="" type="FILE"/>
+
         <!-- Save aggregated vehicle departure info into FILE -->
         <summary-output value="" synonymes="emissions emissions-output summary" type="FILE"/>
 
@@ -141,12 +144,6 @@
         <!-- Quit simulation if this number of vehicles is exceeded -->
         <max-num-vehicles value="-1" synonymes="too-many-vehicles" type="INT"/>
 
-        <!-- Perform the simulation as a step in incremental DUA -->
-        <incremental-dua-step value="" type="INT"/>
-
-        <!-- Base value for incremental DUA -->
-        <incremental-dua-base value="10" type="INT"/>
-
         <!-- Scale demand by the given factor (0..1) -->
         <scale value="" type="FLOAT"/>
 
@@ -165,14 +162,29 @@
         <!-- Whether each vehicle is checked separately for insertion on an edge -->
         <eager-insert value="false" type="BOOL"/>
 
+        <!-- Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME] -->
+        <random-depart-offset value="0" type="TIME"/>
+
         <!-- Whether blocking vehicles trying to change lanes may be swapped -->
         <lanechange.allow-swap value="false" type="BOOL"/>
 
         <!-- Duration of a lane change maneuver (default 0) -->
         <lanechange.duration value="0" type="TIME"/>
 
+        <!-- Whether overtaking on the right on motorways is permitted -->
+        <lanechange.overtake-right value="false" type="BOOL"/>
+
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
+
+        <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;] -->
+        <pedestrian.model value="striping" type="STR"/>
+
+        <!-- Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos; -->
+        <pedestrian.striping.stripe-width value="0.65" type="FLOAT"/>
+
+        <!-- factor for random slow-downs [0,1] for use with model &apos;striping&apos; -->
+        <pedestrian.striping.dawdling value="0.2" type="FLOAT"/>
 
     </processing>
 
@@ -181,7 +193,7 @@
         <verbose value="false" synonymes="v" type="BOOL"/>
 
         <!-- Prints option values before processing -->
-        <print-options value="false" synonymes="p" type="BOOL"/>
+        <print-options value="false" type="BOOL"/>
 
         <!-- Prints this screen -->
         <help value="false" synonymes="?" type="BOOL"/>
@@ -219,13 +231,13 @@
         <!-- Determines where to load PHEMlight definitions from. -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
 
-        <!-- The probability for a vehicle to have an emission logging device -->
+        <!-- The probability for a vehicle to have a &apos;emissions&apos; device -->
         <device.emissions.probability value="0" type="FLOAT"/>
 
-        <!-- Assign a device to named vehicles -->
+        <!-- Assign a &apos;emissions&apos; device to named vehicles -->
         <device.emissions.explicit value="" synonymes="device.emissions.knownveh" type="STR"/>
 
-        <!-- The devices are set deterministic using a fraction of 1000 -->
+        <!-- The &apos;emissions&apos; devices are set deterministic using a fraction of 1000 -->
         <device.emissions.deterministic value="false" type="BOOL"/>
 
     </emissions>

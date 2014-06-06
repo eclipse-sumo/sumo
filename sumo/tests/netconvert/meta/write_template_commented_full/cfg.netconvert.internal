@@ -84,6 +84,9 @@
         <!-- Writes joined edges information to FILE -->
         <map-output value="" synonymes="M" type="FILE"/>
 
+        <!-- The generated net will be written to FILE using Amitran format -->
+        <amitran-output value="" type="FILE"/>
+
         <!-- The generated net will be written to FILE using MATsim format -->
         <matsim-output value="" type="FILE"/>
 
@@ -429,8 +432,26 @@
         <!-- Allow driving onto a multi-lane road if there are foes on other lanes (everywhere) -->
         <check-lane-foes.all value="false" type="BOOL"/>
 
+        <!-- Guess pedestrian sidewalks based on edge speed -->
+        <sidewalks.guess value="false" type="BOOL"/>
+
+        <!-- Add sidewalks for edges with a speed equal or below the given limit -->
+        <sidewalks.guess.max-speed value="13.89" type="FLOAT"/>
+
+        <!-- Add sidewalks for edges with a speed above the given limit -->
+        <sidewalks.guess.min-speed value="5.8" type="FLOAT"/>
+
+        <!-- Guess pedestrian crossings based on the presence of sidewalks -->
+        <crossings.guess value="false" type="BOOL"/>
+
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
+
+        <!-- Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks -->
+        <tls.guess-signals value="false" type="BOOL"/>
+
+        <!-- Distance for interpreting nodes as signal locations -->
+        <tls.guess-signals.dist value="25" type="FLOAT"/>
 
     </processing>
 
@@ -444,6 +465,9 @@
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>
 
+        <!-- The default width of added sidewalks -->
+        <default.sidewalk-width value="2" type="FLOAT"/>
+
     </building_defaults>
 
     <report>
@@ -451,7 +475,7 @@
         <verbose value="false" synonymes="v" type="BOOL"/>
 
         <!-- Prints option values before processing -->
-        <print-options value="false" synonymes="p" type="BOOL"/>
+        <print-options value="false" type="BOOL"/>
 
         <!-- Prints this screen -->
         <help value="false" synonymes="?" type="BOOL"/>

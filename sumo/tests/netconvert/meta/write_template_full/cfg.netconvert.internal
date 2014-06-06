@@ -34,6 +34,7 @@
         <plain-output-prefix value="" synonymes="plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
         <map-output value="" synonymes="M" type="FILE" help="Writes joined edges information to FILE"/>
+        <amitran-output value="" type="FILE" help="The generated net will be written to FILE using Amitran format"/>
         <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format"/>
         <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using OpenDRIVE format"/>
         <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX"/>
@@ -161,18 +162,25 @@
         <speed.factor value="1" type="FLOAT" help="Modifies all edge speeds by multiplying FLOAT"/>
         <check-lane-foes.roundabout value="true" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"/>
         <check-lane-foes.all value="false" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)"/>
+        <sidewalks.guess value="false" type="BOOL" help="Guess pedestrian sidewalks based on edge speed"/>
+        <sidewalks.guess.max-speed value="13.89" type="FLOAT" help="Add sidewalks for edges with a speed equal or below the given limit"/>
+        <sidewalks.guess.min-speed value="5.8" type="FLOAT" help="Add sidewalks for edges with a speed above the given limit"/>
+        <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
         <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
+        <tls.guess-signals value="false" type="BOOL" help="Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks"/>
+        <tls.guess-signals.dist value="25" type="FLOAT" help="Distance for interpreting nodes as signal locations"/>
     </processing>
 
     <building_defaults>
         <default.lanenumber value="1" synonymes="L lanenumber" type="INT" help="The default number of lanes in an edge"/>
         <default.speed value="13.9" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
+        <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
     </building_defaults>
 
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
-        <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
+        <print-options value="false" type="BOOL" help="Prints option values before processing"/>
         <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
         <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>

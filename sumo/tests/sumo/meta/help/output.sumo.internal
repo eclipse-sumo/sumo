@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r15769
+SUMO sumo Version dev-SVN-r16543
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
@@ -42,6 +42,8 @@ Output Options:
                                          inclusive speed values in the VTK
                                          Format (usage: /path/out will produce
                                          /path/out_$TIMESTEP$.vtp files)
+  --amitran-output FILE                Save the vehicle trajectories in the
+                                         Amitran format
   --summary-output FILE                Save aggregated vehicle departure info
                                          into FILE
   --tripinfo-output FILE               Save single vehicle trip info into FILE
@@ -78,9 +80,6 @@ Processing Options:
                                          connected
   --max-num-vehicles INT               Quit simulation if this number of
                                          vehicles is exceeded
-  --incremental-dua-step INT           Perform the simulation as a step in
-                                         incremental DUA
-  --incremental-dua-base INT           Base value for incremental DUA
   --scale FLOAT                        Scale demand by the given factor (0..1)
   --time-to-teleport TIME              Specify how long a vehicle may wait
                                          until being teleported, defaults to
@@ -94,16 +93,28 @@ Processing Options:
                                          be repeated in same step once failed
   --eager-insert                       Whether each vehicle is checked
                                          separately for insertion on an edge
+  --random-depart-offset TIME          Each vehicle receives a random offset to
+                                         its depart value drawn uniformly from
+                                         [0, TIME]
   --lanechange.allow-swap              Whether blocking vehicles trying to
                                          change lanes may be swapped
   --lanechange.duration TIME           Duration of a lane change maneuver
                                          (default 0)
+  --lanechange.overtake-right          Whether overtaking on the right on
+                                         motorways is permitted
   --routing-algorithm STR              Select among routing algorithms
                                          ['dijkstra', 'astar']
+  --pedestrian.model STR               Select among pedestrian models
+                                         ['nonInteracting', 'striping']
+  --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
+                                         segmenting a sidewalk (meters) for use
+                                         with model 'striping'
+  --pedestrian.striping.dawdling FLOAT  factor for random slow-downs [0,1] for
+                                         use with model 'striping'
 
 Report Options:
   -v, --verbose                        Switches to verbose output
-  -p, --print-options                  Prints option values before processing
+  --print-options                      Prints option values before processing
   -?, --help                           Prints this screen
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML
@@ -125,11 +136,12 @@ Report Options:
 Emissions Options:
   --phemlight-path FILE                Determines where to load PHEMlight
                                          definitions from.
-  --device.emissions.probability FLOAT  The probability for a vehicle to have an
-                                         emission logging device
-  --device.emissions.explicit STR      Assign a device to named vehicles
-  --device.emissions.deterministic     The devices are set deterministic using
-                                         a fraction of 1000
+  --device.emissions.probability FLOAT  The probability for a vehicle to have a
+                                         'emissions' device
+  --device.emissions.explicit STR      Assign a 'emissions' device to named
+                                         vehicles
+  --device.emissions.deterministic     The 'emissions' devices are set
+                                         deterministic using a fraction of 1000
 
 Communication Options:
   --device.btreceiver.probability FLOAT  The probability for a vehicle to have

@@ -33,6 +33,7 @@ while True:
 PORT = str(p)
 server_args = sys.argv[1:] + ["--remote-port", PORT]
 binaryDir, server = os.path.split(server_args[0])
+#server_args[0] = "sumoD"
 
 client = "TraCITestClient"
 if "64" in server:

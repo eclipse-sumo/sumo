@@ -30,6 +30,7 @@
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
         <queue-output value="" type="FILE" help="Save the vehicle queues at the junctions (experimental)"/>
         <vtk-output value="" type="FILE" help="Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"/>
+        <amitran-output value="" type="FILE" help="Save the vehicle trajectories in the Amitran format"/>
         <summary-output value="" synonymes="emissions emissions-output summary" type="FILE" help="Save aggregated vehicle departure info into FILE"/>
         <tripinfo-output value="" synonymes="tripinfo" type="FILE" help="Save single vehicle trip info into FILE"/>
         <vehroute-output value="" synonymes="vehroutes" type="FILE" help="Save single vehicle route info into FILE"/>
@@ -57,22 +58,25 @@
         <ignore-accidents value="false" type="BOOL" help="Do not check whether accidents occure more deeply"/>
         <ignore-route-errors value="false" type="BOOL" help="Do not check whether routes are connected"/>
         <max-num-vehicles value="-1" synonymes="too-many-vehicles" type="INT" help="Quit simulation if this number of vehicles is exceeded"/>
-        <incremental-dua-step value="" type="INT" help="Perform the simulation as a step in incremental DUA"/>
-        <incremental-dua-base value="10" type="INT" help="Base value for incremental DUA"/>
         <scale value="" type="FLOAT" help="Scale demand by the given factor (0..1)"/>
         <time-to-teleport value="300" type="TIME" help="Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting"/>
         <time-to-teleport.highways value="0" type="TIME" help="The teleport time on highways"/>
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed"/>
         <eager-insert value="false" type="BOOL" help="Whether each vehicle is checked separately for insertion on an edge"/>
+        <random-depart-offset value="0" type="TIME" help="Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]"/>
         <lanechange.allow-swap value="false" type="BOOL" help="Whether blocking vehicles trying to change lanes may be swapped"/>
         <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)"/>
+        <lanechange.overtake-right value="false" type="BOOL" help="Whether overtaking on the right on motorways is permitted"/>
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;]"/>
+        <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;]"/>
+        <pedestrian.striping.stripe-width value="0.65" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
+        <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
     </processing>
 
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
-        <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
+        <print-options value="false" type="BOOL" help="Prints option values before processing"/>
         <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
         <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
@@ -87,9 +91,9 @@
 
     <emissions>
         <phemlight-path value="./PHEMlight/" type="FILE" help="Determines where to load PHEMlight definitions from."/>
-        <device.emissions.probability value="0" type="FLOAT" help="The probability for a vehicle to have an emission logging device"/>
-        <device.emissions.explicit value="" synonymes="device.emissions.knownveh" type="STR" help="Assign a device to named vehicles"/>
-        <device.emissions.deterministic value="false" type="BOOL" help="The devices are set deterministic using a fraction of 1000"/>
+        <device.emissions.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;emissions&apos; device"/>
+        <device.emissions.explicit value="" synonymes="device.emissions.knownveh" type="STR" help="Assign a &apos;emissions&apos; device to named vehicles"/>
+        <device.emissions.deterministic value="false" type="BOOL" help="The &apos;emissions&apos; devices are set deterministic using a fraction of 1000"/>
     </emissions>
 
     <communication>

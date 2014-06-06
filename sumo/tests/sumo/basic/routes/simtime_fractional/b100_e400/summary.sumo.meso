@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep  5 12:37:41 2013 by SUMO sumo Version dev-SVN-r14588
+<!-- generated on 06/06/14 11:16:46 by SUMO sumo Version dev-SVN-r16543
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -20,6 +20,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -31,7 +32,7 @@
 </configuration>
 -->
 
-<summary>
+<summary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/summary_file.xsd">
     <step time="100.00" loaded="6" inserted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00"/>
     <step time="101.00" loaded="6" inserted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00"/>
     <step time="102.00" loaded="6" inserted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00"/>
