@@ -1,0 +1,8 @@
+
+[Reported by erdm_ja at 06Jun14:01:42]
+search_string:flow="2182.00"
+trigger_on_absence:1
+search_file:aggregated25
+ignore_other_errors:1
+full_description:flow to low
+brief_description:see #1332
