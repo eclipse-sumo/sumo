@@ -916,8 +916,8 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
             << "\n";
         DEBUG_PRINT(obs);
     }
-    myRelX += xSpeed * myDir;
-    myRelY += ySpeed;
+    myRelX += SPEED2DIST(xSpeed * myDir);
+    myRelY += SPEED2DIST(ySpeed);
     mySpeed = xSpeed;
     if (xSpeed > 0) {
         myWaitingToEnter = false;
