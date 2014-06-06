@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 15:10:12 by SUMO sumo Version 0.17.0
+<!-- generated on Fri Jun  6 13:06:42 2014 by SUMO sumo Version dev-SVN-r16550
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -16,6 +16,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -68,22 +69,22 @@
     <interval begin="37.00" end="38.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="38.00" end="39.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="39.00" end="40.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="40.00" end="41.00" id="3/1to2/1" sampledSeconds="0.95" density="9.75" occupancy="2.93" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="0"/>
-    <interval begin="41.00" end="42.00" id="3/1to2/1" sampledSeconds="1.00" density="10.24" occupancy="3.07" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="42.00" end="43.00" id="3/1to2/1" sampledSeconds="1.00" density="10.24" occupancy="3.07" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="43.00" end="44.00" id="3/1to2/1" sampledSeconds="1.00" density="10.24" occupancy="3.07" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="44.00" end="45.00" id="3/1to2/1" sampledSeconds="1.00" density="10.24" occupancy="3.07" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="45.00" end="46.00" id="3/1to2/1" sampledSeconds="1.95" density="19.99" occupancy="15.75" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="0"/>
-    <interval begin="46.00" end="47.00" id="3/1to2/1" sampledSeconds="2.00" density="20.49" occupancy="16.39" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="47.00" end="48.00" id="3/1to2/1" sampledSeconds="2.00" density="20.49" occupancy="16.39" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="48.00" end="49.00" id="3/1to2/1" sampledSeconds="2.00" density="20.49" occupancy="16.39" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="49.00" end="50.00" id="3/1to2/1" sampledSeconds="1.81" density="18.54" occupancy="15.81" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="1"/>
-    <interval begin="50.00" end="51.00" id="3/1to2/1" sampledSeconds="1.00" density="10.24" occupancy="13.32" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="51.00" end="52.00" id="3/1to2/1" sampledSeconds="1.00" density="10.24" occupancy="13.32" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="52.00" end="53.00" id="3/1to2/1" sampledSeconds="1.00" density="10.24" occupancy="13.32" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="53.00" end="54.00" id="3/1to2/1" sampledSeconds="1.00" density="10.24" occupancy="13.32" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="54.00" end="55.00" id="3/1to2/1" sampledSeconds="0.81" density="8.30" occupancy="10.79" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="1"/>
-    <interval begin="55.00" end="56.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="40.00" end="41.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="1" left="0"/>
+    <interval begin="41.00" end="42.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" occupancy="3.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="42.00" end="43.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" occupancy="3.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="43.00" end="44.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" occupancy="3.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="44.00" end="45.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" occupancy="3.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="45.00" end="46.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" occupancy="3.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="0"/>
+    <interval begin="46.00" end="47.00" id="3/1to2/1" sampledSeconds="2.00" density="20.00" occupancy="16.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="47.00" end="48.00" id="3/1to2/1" sampledSeconds="2.00" density="20.00" occupancy="16.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="48.00" end="49.00" id="3/1to2/1" sampledSeconds="2.00" density="20.00" occupancy="16.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="49.00" end="50.00" id="3/1to2/1" sampledSeconds="2.00" density="20.00" occupancy="16.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="50.00" end="51.00" id="3/1to2/1" sampledSeconds="2.00" density="20.00" occupancy="16.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="1"/>
+    <interval begin="51.00" end="52.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" occupancy="13.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="52.00" end="53.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" occupancy="13.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="53.00" end="54.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" occupancy="13.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="54.00" end="55.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" occupancy="13.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="55.00" end="56.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" occupancy="13.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="1"/>
     <interval begin="56.00" end="57.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="57.00" end="58.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="58.00" end="59.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>

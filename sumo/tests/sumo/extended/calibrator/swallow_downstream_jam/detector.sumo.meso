@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 15:11:34 by SUMO sumo Version 0.17.0
+<!-- generated on Fri Jun  6 13:07:00 2014 by SUMO sumo Version dev-SVN-r16550
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -16,6 +16,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -28,6 +29,6 @@
 -->
 
 <calibratorstats>
-   <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="574" removed="0" inserted="237" cleared="1653" flow="574.00" aspiredFlow="2500.00" speed="1.45" aspiredSpeed="27.80"/>
-   <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="241" removed="0" inserted="235" cleared="4" flow="482.00" aspiredFlow="2500.00" speed="1.17" aspiredSpeed="27.80"/>
+   <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="566" removed="0" inserted="231" cleared="1655" flow="566.00" aspiredFlow="2500.00" speed="1.42" aspiredSpeed="27.80"/>
+   <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="219" removed="0" inserted="218" cleared="9" flow="438.00" aspiredFlow="2500.00" speed="1.07" aspiredSpeed="27.80"/>
 </calibratorstats>

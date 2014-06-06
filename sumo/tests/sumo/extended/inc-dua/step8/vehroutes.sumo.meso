@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 15:11:39 by SUMO sumo Version 0.17.0
+<!-- generated on Fri Jun  6 13:07:01 2014 by SUMO sumo Version dev-SVN-r16550
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -23,6 +23,7 @@
     </processing>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -35,35 +36,35 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-    <vehicle id="horizontal01" depart="100.00" arrival="267.00">
+    <vehicle id="horizontal01" depart="100.00" arrival="271.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal03" depart="100.00" arrival="269.00">
+    <vehicle id="horizontal03" depart="100.00" arrival="273.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal04" depart="100.00" arrival="271.00">
+    <vehicle id="horizontal04" depart="100.00" arrival="275.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal05" depart="100.00" arrival="272.00">
+    <vehicle id="horizontal05" depart="100.00" arrival="276.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal06" depart="100.00" arrival="274.00">
+    <vehicle id="horizontal06" depart="100.00" arrival="278.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal08" depart="100.00" arrival="275.00">
+    <vehicle id="horizontal08" depart="100.00" arrival="279.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal09" depart="100.00" arrival="276.00">
+    <vehicle id="horizontal09" depart="100.00" arrival="280.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal10" depart="100.00" arrival="278.00">
+    <vehicle id="horizontal10" depart="100.00" arrival="282.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 

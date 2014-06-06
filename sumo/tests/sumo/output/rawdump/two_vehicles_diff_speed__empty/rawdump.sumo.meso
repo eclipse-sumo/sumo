@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 15:11:07 by SUMO sumo Version 0.17.0
+<!-- generated on Fri Jun  6 13:06:52 2014 by SUMO sumo Version dev-SVN-r16550
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -21,6 +21,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -74,7 +75,7 @@
         <edge id="4/0to3/0"/>
         <edge id="4/0to4/1"/>
         <edge id="4/1to3/1">
-            <vehicle id="0" pos="97.63" speed="10.00"/>
+            <vehicle id="0" pos="0.00" speed="10.00"/>
         </edge>
         <edge id="4/1to4/0"/>
         <edge id="4/1to4/2"/>
@@ -122,7 +123,7 @@
         <edge id="4/0to3/0"/>
         <edge id="4/0to4/1"/>
         <edge id="4/1to3/1">
-            <vehicle id="0" pos="97.63" speed="10.00"/>
+            <vehicle id="0" pos="0.00" speed="10.00"/>
         </edge>
         <edge id="4/1to4/0"/>
         <edge id="4/1to4/2"/>
@@ -170,7 +171,7 @@
         <edge id="4/0to3/0"/>
         <edge id="4/0to4/1"/>
         <edge id="4/1to3/1">
-            <vehicle id="0" pos="97.63" speed="10.00"/>
+            <vehicle id="0" pos="0.00" speed="10.00"/>
         </edge>
         <edge id="4/1to4/0"/>
         <edge id="4/1to4/2"/>
@@ -218,7 +219,7 @@
         <edge id="4/0to3/0"/>
         <edge id="4/0to4/1"/>
         <edge id="4/1to3/1">
-            <vehicle id="0" pos="97.63" speed="10.00"/>
+            <vehicle id="0" pos="0.00" speed="10.00"/>
         </edge>
         <edge id="4/1to4/0"/>
         <edge id="4/1to4/2"/>
@@ -266,7 +267,7 @@
         <edge id="4/0to3/0"/>
         <edge id="4/0to4/1"/>
         <edge id="4/1to3/1">
-            <vehicle id="0" pos="97.63" speed="10.00"/>
+            <vehicle id="0" pos="0.00" speed="10.00"/>
         </edge>
         <edge id="4/1to4/0"/>
         <edge id="4/1to4/2"/>
@@ -314,8 +315,8 @@
         <edge id="4/0to3/0"/>
         <edge id="4/0to4/1"/>
         <edge id="4/1to3/1">
-            <vehicle id="1" pos="97.63" speed="9.00"/>
-            <vehicle id="0" pos="97.63" speed="10.00"/>
+            <vehicle id="1" pos="0.00" speed="9.00"/>
+            <vehicle id="0" pos="0.00" speed="10.00"/>
         </edge>
         <edge id="4/1to4/0"/>
         <edge id="4/1to4/2"/>
@@ -363,8 +364,8 @@
         <edge id="4/0to3/0"/>
         <edge id="4/0to4/1"/>
         <edge id="4/1to3/1">
-            <vehicle id="1" pos="97.63" speed="9.00"/>
-            <vehicle id="0" pos="97.63" speed="10.00"/>
+            <vehicle id="1" pos="0.00" speed="9.00"/>
+            <vehicle id="0" pos="0.00" speed="10.00"/>
         </edge>
         <edge id="4/1to4/0"/>
         <edge id="4/1to4/2"/>
@@ -412,8 +413,8 @@
         <edge id="4/0to3/0"/>
         <edge id="4/0to4/1"/>
         <edge id="4/1to3/1">
-            <vehicle id="1" pos="97.63" speed="9.00"/>
-            <vehicle id="0" pos="97.63" speed="10.00"/>
+            <vehicle id="1" pos="0.00" speed="9.00"/>
+            <vehicle id="0" pos="0.00" speed="10.00"/>
         </edge>
         <edge id="4/1to4/0"/>
         <edge id="4/1to4/2"/>
@@ -461,8 +462,8 @@
         <edge id="4/0to3/0"/>
         <edge id="4/0to4/1"/>
         <edge id="4/1to3/1">
-            <vehicle id="1" pos="97.63" speed="9.00"/>
-            <vehicle id="0" pos="97.63" speed="10.00"/>
+            <vehicle id="1" pos="0.00" speed="9.00"/>
+            <vehicle id="0" pos="0.00" speed="10.00"/>
         </edge>
         <edge id="4/1to4/0"/>
         <edge id="4/1to4/2"/>
@@ -510,8 +511,8 @@
         <edge id="4/0to3/0"/>
         <edge id="4/0to4/1"/>
         <edge id="4/1to3/1">
-            <vehicle id="1" pos="97.63" speed="9.00"/>
-            <vehicle id="0" pos="97.63" speed="10.00"/>
+            <vehicle id="1" pos="0.00" speed="9.00"/>
+            <vehicle id="0" pos="0.00" speed="10.00"/>
         </edge>
         <edge id="4/1to4/0"/>
         <edge id="4/1to4/2"/>
