@@ -29,6 +29,7 @@ tripinfos:<!--{[->]}-->
 net_state:<!--{[->]}-->
 output:port
 errors:Socket
+errors:4294967035
 
 [floating_point_tolerance]
 testclient_out:0.0101
