@@ -83,7 +83,7 @@ public:
     // @brief the factor for random slow-down
     static SUMOReal dawdling;
 
-    // @brief the distance to look ahead for changing stripes 
+    // @brief the distance to look ahead for changing stripes
     static const SUMOReal LOOKAHEAD_SAMEDIR;
     // @brief the distance to look ahead for changing stripes (regarding oncoming pedestrians)
     static const SUMOReal LOOKAHEAD_ONCOMING;
@@ -173,7 +173,7 @@ protected:
         const MSLane* lane; // the walkingArea;
         // actually const but needs to be copyable by some stl code
         PositionVector shape;
-        SUMOReal length; 
+        SUMOReal length;
 
     };
 
@@ -198,11 +198,11 @@ protected:
         MSPerson* myPerson;
         MSPerson::MSPersonStage_Walking* myStage;
         /// @brief the current lane of this pedestrian
-        const MSLane* myLane; 
+        const MSLane* myLane;
         /// @brief the advancement along the current lane
-        SUMOReal myRelX; 
+        SUMOReal myRelX;
         /// @brief the orthogonal shift on the current lane
-        SUMOReal myRelY; 
+        SUMOReal myRelY;
         /// @brief the walking direction on the current lane (1 forward, -1 backward)
         int myDir;
         /// @brief the current walking speed
@@ -230,8 +230,8 @@ protected:
         /// @brief perform position update
         void walk(const Obstacles& obs, SUMOTime currentTime);
 
-        /// @brief returns the impatience 
-        SUMOReal getImpatience(SUMOTime now) const; // XXX 
+        /// @brief returns the impatience
+        SUMOReal getImpatience(SUMOTime now) const; // XXX
 
         /// @brief return the speed-dependent minGap of the pedestrian
         SUMOReal getMingap() const;
@@ -279,7 +279,7 @@ protected:
     /// @brief move all pedestrians forward and advance to the next lane if applicable
     void moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
 
-    const ActiveLanes& getActiveLanes() { 
+    const ActiveLanes& getActiveLanes() {
         return myActiveLanes;
     }
 
@@ -289,7 +289,7 @@ private:
     /// @brief returns the direction in which these lanes are connectioned or 0 if they are not
     static int connectedDirection(const MSLane* from, const MSLane* to);
 
-    /** @brief computes the successor lane for the given pedestrian and sets the 
+    /** @brief computes the successor lane for the given pedestrian and sets the
      * link as well as the direction to use on the succesor lane
      * @param[in] currentLane The lane the pedestrian is currently on
      * @param[in] ped The pedestrian for which to compute the next lane
@@ -297,19 +297,19 @@ private:
     static NextLaneInfo getNextLane(const PState& ped, const MSLane* currentLane, const MSLane* prevLane);
 
     /// @brief return the next walkingArea in the given direction
-    static const MSLane* getNextWalkingArea(const MSLane* currentLane, const int dir, MSLink*& link); 
+    static const MSLane* getNextWalkingArea(const MSLane* currentLane, const int dir, MSLink*& link);
 
     static void initWalkingAreaPaths(const MSNet* net);
 
     /// @brief return the maximum number of pedestrians walking side by side
     static int numStripes(const MSLane* lane);
 
-    static Obstacles mergeObstacles(const Obstacles& obs1, const Obstacles& obs2, int dir); 
+    static Obstacles mergeObstacles(const Obstacles& obs1, const Obstacles& obs2, int dir);
 
-    static Obstacles getNeighboringObstacles(const Pedestrians& pedestrians, int egoIndex, int stripes); 
-    
-    const Obstacles& getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const MSLane* nextLane, int stripes, 
-            SUMOReal nextLength, int nextDir, SUMOReal currentLength, int currentDir); 
+    static Obstacles getNeighboringObstacles(const Pedestrians& pedestrians, int egoIndex, int stripes);
+
+    const Obstacles& getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const MSLane* nextLane, int stripes,
+                                          SUMOReal nextLength, int nextDir, SUMOReal currentLength, int currentDir);
 
     /// @brief retrieves the pedestian vector for the given lane (may be empty)
     Pedestrians& getPedestrians(const MSLane* lane);
@@ -327,7 +327,7 @@ private:
 
     /// @brief store for walkinArea elements
     static WalkingAreaPaths myWalkingAreaPaths;
-    
+
     /// @brief empty pedestrian vector
     static Pedestrians noPedestrians;
 

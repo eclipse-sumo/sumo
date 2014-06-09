@@ -49,7 +49,7 @@
 // member method definitions
 // ===========================================================================
 SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass)
-    : id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200./3.6),
+    : id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200. / 3.6),
       defaultProbability(DEFAULT_VEH_PROB),
       speedFactor(1.0), speedDev(0.0),
       emissionClass(PollutantsInterface::getClassByName("unknown", vclass)), color(RGBColor::DEFAULT_COLOR),
@@ -57,7 +57,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       width(1.8), height(1.5), shape(SVS_UNKNOWN),
       cfModel(SUMO_TAG_CF_KRAUSS), lcModel(LCM_LC2013),
       setParameter(0), saved(false), onlyReferenced(false) {
-    switch(vclass) {
+    switch (vclass) {
         case SVC_PEDESTRIAN:
             length = 0.215;
             minGap = 0.5;
@@ -69,14 +69,14 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
         case SVC_BICYCLE:
             length = 1.6;
             minGap = 0.5;
-            maxSpeed = 20./3.6;
+            maxSpeed = 20. / 3.6;
             width = 0.65;
             height = 1.7;
             shape = SVS_BICYCLE;
             break;
         case SVC_MOPED:
             length = 2.1;
-            maxSpeed = 60./3.6;
+            maxSpeed = 60. / 3.6;
             width = 0.8;
             height = 1.7;
             shape = SVS_MOPED;
@@ -89,56 +89,56 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             break;
         case SVC_TRUCK:
             length = 7.1;
-            maxSpeed = 130./3.6;
+            maxSpeed = 130. / 3.6;
             width = 2.4;
             height = 2.4;
             shape = SVS_TRUCK;
             break;
         case SVC_TRAILER:
             length = 16.5;
-            maxSpeed = 130./3.6;
+            maxSpeed = 130. / 3.6;
             width = 2.55;
             height = 4.;
             shape = SVS_TRUCK_SEMITRAILER;
             break;
         case SVC_BUS:
             length = 12.;
-            maxSpeed = 100./3.6;
+            maxSpeed = 100. / 3.6;
             width = 2.5;
             height = 3.4;
             shape = SVS_BUS;
             break;
         case SVC_COACH:
             length = 14.;
-            maxSpeed = 100./3.6;
+            maxSpeed = 100. / 3.6;
             width = 2.6;
             height = 4.;
             shape = SVS_BUS_COACH;
             break;
         case SVC_TRAM:
             length = 22.;
-            maxSpeed = 80./3.6;
+            maxSpeed = 80. / 3.6;
             width = 2.4;
             height = 3.2;
             shape = SVS_RAIL_CAR;
             break;
         case SVC_RAIL_URBAN:
             length = 36.5 * 3;
-            maxSpeed = 100./3.6;
+            maxSpeed = 100. / 3.6;
             width = 3.0;
             height = 3.6;
             shape = SVS_RAIL_CAR;
             break;
         case SVC_RAIL:
             length = 67.5 * 2;
-            maxSpeed = 160./3.6;
+            maxSpeed = 160. / 3.6;
             width = 2.84;
             height = 3.75;
             shape = SVS_RAIL;
             break;
         case SVC_RAIL_ELECTRIC:
             length = 25. * 8;
-            maxSpeed = 330./3.6;
+            maxSpeed = 330. / 3.6;
             width = 2.95;
             height = 3.89;
             shape = SVS_RAIL;
@@ -257,7 +257,7 @@ SUMOVTypeParameter::get(const SumoXMLAttr attr, const SUMOReal defaultValue) con
 
 SUMOReal
 SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
-    switch(vc) {
+    switch (vc) {
         case SVC_PEDESTRIAN:
             return 1.5;
         case SVC_BICYCLE:
@@ -290,7 +290,7 @@ SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
 
 SUMOReal
 SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
-    switch(vc) {
+    switch (vc) {
         case SVC_PEDESTRIAN:
             return 2.;
         case SVC_BICYCLE:
@@ -323,7 +323,7 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
 
 SUMOReal
 SUMOVTypeParameter::getDefaultImperfection(const SUMOVehicleClass vc) {
-    switch(vc) {
+    switch (vc) {
         case SVC_TRAM:
         case SVC_RAIL_URBAN:
         case SVC_RAIL:

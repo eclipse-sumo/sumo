@@ -193,7 +193,7 @@ public:
 
     /// @brief keep the direction but modify the length of the (location) vector to length + scalar
     Position operator+(SUMOReal offset) const {
-        const SUMOReal length = distanceTo(Position(0,0,0));
+        const SUMOReal length = distanceTo(Position(0, 0, 0));
         if (length == 0) {
             return *this;
         }

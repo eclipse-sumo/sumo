@@ -70,7 +70,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-// allow to extend a crossing across multiple edges 
+// allow to extend a crossing across multiple edges
 #define EXTEND_CROSSING_ANGLE_THRESHOLD 35.0 // degrees
 // create intermediate walking areas if either of the following thresholds is exceeded
 #define SPLIT_CROSSING_WIDTH_THRESHOLD 1.5 // meters
@@ -107,7 +107,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
             }
         }
     }
-    // compute the indices of lanes that should be targeted (excluding pedestrian 
+    // compute the indices of lanes that should be targeted (excluding pedestrian
     // lanes that will be connected from walkingAreas and forbidden lanes)
     // if the lane is targeted by an explicitly set connection we need
     // to make it available anyway
@@ -229,9 +229,9 @@ NBNode::NBNode(const std::string& id, const Position& position,
                SumoXMLNodeType type) :
     Named(StringUtils::convertUmlaute(id)),
     myPosition(position),
-    myType(type), 
-    myDistrict(0), 
-    myHaveCustomPoly(false), 
+    myType(type),
+    myDistrict(0),
+    myHaveCustomPoly(false),
     myRequest(0)
 { }
 
@@ -239,8 +239,8 @@ NBNode::NBNode(const std::string& id, const Position& position,
 NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* district) :
     Named(StringUtils::convertUmlaute(id)),
     myPosition(position),
-    myType(district == 0 ? NODETYPE_UNKNOWN : NODETYPE_DISTRICT), 
-    myDistrict(district), 
+    myType(district == 0 ? NODETYPE_UNKNOWN : NODETYPE_DISTRICT),
+    myDistrict(district),
     myHaveCustomPoly(false),
     myRequest(0)
 { }
@@ -345,7 +345,7 @@ NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont) {
 }
 
 
-void 
+void
 NBNode::shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
     for (std::set<NBTrafficLightDefinition*>::iterator it = myTrafficLights.begin(); it != myTrafficLights.end(); ++it) {
         (*it)->shiftTLConnectionLaneIndex(edge, offset);
@@ -1462,8 +1462,12 @@ NBNode::guessCrossings() {
         // user supplied crossings, do not guess
         return numGuessed;
     }
-    if (gDebugFlag1) std::cout << "guess crossings for " << getID() << "\n";
-    if (gDebugFlag1) std::cout << "ordering of myAllEdges=" << toString(myAllEdges) << "\n";
+    if (gDebugFlag1) {
+        std::cout << "guess crossings for " << getID() << "\n";
+    }
+    if (gDebugFlag1) {
+        std::cout << "ordering of myAllEdges=" << toString(myAllEdges) << "\n";
+    }
     // check for pedestrial lanes going clockwise around the node
     std::vector<std::pair<NBEdge*, bool> > normalizedLanes;
     for (EdgeVector::const_iterator it = myAllEdges.begin(); it != myAllEdges.end(); ++it) {
@@ -1480,14 +1484,14 @@ NBNode::guessCrossings() {
         }
     }
     // do we even have a pedestrian lane?
-    int firstSidewalk = -1; 
+    int firstSidewalk = -1;
     for (int i = 0; i < (int)normalizedLanes.size(); ++i) {
         if (normalizedLanes[i].second) {
             firstSidewalk = i;
             break;
         }
     }
-    if  (firstSidewalk != -1) {
+    if (firstSidewalk != -1) {
         // rotate lanes to ensure that the first one allows pedestrians
         std::vector<std::pair<NBEdge*, bool> > tmp;
         copy(normalizedLanes.begin() + firstSidewalk, normalizedLanes.end(), std::back_inserter(tmp));
@@ -1499,7 +1503,9 @@ NBNode::guessCrossings() {
         for (int i = 0; i < (int)normalizedLanes.size(); ++i) {
             NBEdge* edge = normalizedLanes[i].first;
             const bool allowsPed = normalizedLanes[i].second;
-            if (gDebugFlag1) std::cout << "  cands=" << toString(candidates) << "  edge=" << edge->getID() << " allowsPed=" << allowsPed << "\n";
+            if (gDebugFlag1) {
+                std::cout << "  cands=" << toString(candidates) << "  edge=" << edge->getID() << " allowsPed=" << allowsPed << "\n";
+            }
             if (!allowsPed && (candidates.size() == 0 || candidates.back() != edge)) {
                 candidates.push_back(edge);
             } else if (allowsPed) {
@@ -1522,9 +1528,13 @@ NBNode::guessCrossings() {
 
 int
 NBNode::checkCrossing(EdgeVector candidates) {
-    if (gDebugFlag1) std::cout << "checkCrossing candidates=" << toString(candidates) << "\n";
+    if (gDebugFlag1) {
+        std::cout << "checkCrossing candidates=" << toString(candidates) << "\n";
+    }
     if (candidates.size() == 0) {
-        if (gDebugFlag1) std::cout << "no crossing added (numCandidates=" << candidates.size() << ")\n";
+        if (gDebugFlag1) {
+            std::cout << "no crossing added (numCandidates=" << candidates.size() << ")\n";
+        }
         return 0;
     } else {
         // check whether the edges may be part of a common crossing due to having similar angle
@@ -1534,18 +1544,24 @@ NBNode::checkCrossing(EdgeVector candidates) {
             SUMOReal angle = edge->getCrossingAngle(this);
             // edges should be sorted by angle but this only holds true approximately
             if (i > 0 && fabs(angle - prevAngle) > EXTEND_CROSSING_ANGLE_THRESHOLD) {
-                if (gDebugFlag1) std::cout << "no crossing added (found angle difference of " << fabs(angle - prevAngle) << " at i=" << i << "\n";
+                if (gDebugFlag1) {
+                    std::cout << "no crossing added (found angle difference of " << fabs(angle - prevAngle) << " at i=" << i << "\n";
+                }
                 return 0;
             }
             if (!isTLControlled() && edge->getSpeed() > UNCONTROLLED_CROSSING_SPEED_THRESHOLD) {
-                if (gDebugFlag1) std::cout << "no crossing added (uncontrolled, edge with speed=" << edge->getSpeed() << ")\n";
+                if (gDebugFlag1) {
+                    std::cout << "no crossing added (uncontrolled, edge with speed=" << edge->getSpeed() << ")\n";
+                }
                 return 0;
             }
             prevAngle = angle;
         }
         if (candidates.size() == 1) {
             addCrossing(candidates, DEFAULT_CROSSING_WIDTH, isTLControlled());
-            if (gDebugFlag1) std::cout << "adding crossing: " << toString(candidates) << "\n";
+            if (gDebugFlag1) {
+                std::cout << "adding crossing: " << toString(candidates) << "\n";
+            }
             return 1;
         } else {
             // check for intermediate walking areas
@@ -1561,38 +1577,40 @@ NBNode::checkCrossing(EdgeVector candidates) {
                     SUMOReal intermediateWidth = 0;
                     if (prev->getToNode() == this) {
                         laneI = prev->getNumLanes() - 1;
-                        prevPos = prev->getLanes()[laneI].shape[-1]; 
+                        prevPos = prev->getLanes()[laneI].shape[-1];
                     } else {
                         laneI = 0;
-                        prevPos = prev->getLanes()[laneI].shape[0]; 
+                        prevPos = prev->getLanes()[laneI].shape[0];
                     }
                     intermediateWidth -= 0.5 * prev->getLaneWidth(laneI);
                     if (curr->getFromNode() == this) {
                         laneI = curr->getNumLanes() - 1;
-                        currPos = curr->getLanes()[laneI].shape[0]; 
+                        currPos = curr->getLanes()[laneI].shape[0];
                     } else {
                         laneI = 0;
-                        currPos = curr->getLanes()[laneI].shape[-1]; 
+                        currPos = curr->getLanes()[laneI].shape[-1];
                     }
                     intermediateWidth -= 0.5 * curr->getLaneWidth(laneI);
                     intermediateWidth += currPos.distanceTo2D(prevPos);
-                    if (gDebugFlag1) { 
-                        std::cout 
-                            << " prevAngle=" << prevAngle
-                            << " angle=" << angle
-                            << " intermediateWidth=" << intermediateWidth
-                            << "\n";
+                    if (gDebugFlag1) {
+                        std::cout
+                                << " prevAngle=" << prevAngle
+                                << " angle=" << angle
+                                << " intermediateWidth=" << intermediateWidth
+                                << "\n";
                     }
-                    if (fabs(prevAngle - angle) > SPLIT_CROSSING_ANGLE_THRESHOLD 
+                    if (fabs(prevAngle - angle) > SPLIT_CROSSING_ANGLE_THRESHOLD
                             || (intermediateWidth > SPLIT_CROSSING_WIDTH_THRESHOLD)) {
-                        return checkCrossing(EdgeVector(candidates.begin(), it)) 
-                            + checkCrossing(EdgeVector(it, candidates.end()));
+                        return checkCrossing(EdgeVector(candidates.begin(), it))
+                               + checkCrossing(EdgeVector(it, candidates.end()));
                     }
                 }
                 prevAngle = angle;
             }
             addCrossing(candidates, DEFAULT_CROSSING_WIDTH, isTLControlled());
-            if (gDebugFlag1) std::cout << "adding crossing: " << toString(candidates) << "\n";
+            if (gDebugFlag1) {
+                std::cout << "adding crossing: " << toString(candidates) << "\n";
+            }
             return 1;
         }
     }
@@ -1670,7 +1688,9 @@ NBNode::buildWalkingAreas() {
     //gDebugFlag1 = getID() == "E";
     unsigned int index = 0;
     myWalkingAreas.clear();
-    if (gDebugFlag1) std::cout << "build walkingAreas for " << getID() << ":\n";
+    if (gDebugFlag1) {
+        std::cout << "build walkingAreas for " << getID() << ":\n";
+    }
     // get begin shapes of all lanes in outgoing direction ordered clockwise
     std::vector<std::pair<NBEdge*, NBEdge::Lane> > normalizedLanes;
     for (EdgeVector::const_iterator it = myAllEdges.begin(); it != myAllEdges.end(); ++it) {
@@ -1711,11 +1731,11 @@ NBNode::buildWalkingAreas() {
                 } else {
                     start = -1;
                 }
-                
+
             }
         }
-        if (gDebugFlag1) std::cout << "     i=" << i << " edge=" << edge->getID() << " start=" << start << " ped=" << ((l.permissions & SVC_PEDESTRIAN) != 0) 
-            << " waI=" << waIndices.size() << " crossingBetween=" << crossingBetween(edge, prevEdge) << "\n";
+        if (gDebugFlag1) std::cout << "     i=" << i << " edge=" << edge->getID() << " start=" << start << " ped=" << ((l.permissions & SVC_PEDESTRIAN) != 0)
+                                       << " waI=" << waIndices.size() << " crossingBetween=" << crossingBetween(edge, prevEdge) << "\n";
         prevEdge = edge;
     }
     // deal with wrap-around issues
@@ -1723,7 +1743,9 @@ NBNode::buildWalkingAreas() {
         const int waNumLanes = (int)normalizedLanes.size() - start;
         if (waIndices.size() == 0) {
             waIndices.push_back(std::make_pair(start, waNumLanes));
-            if (gDebugFlag1) std::cout << "  single wa, end at wrap-around\n";
+            if (gDebugFlag1) {
+                std::cout << "  single wa, end at wrap-around\n";
+            }
         } else {
             if (waIndices.front().first == 0) {
                 NBEdge* edge = normalizedLanes.front().first;
@@ -1731,17 +1753,23 @@ NBNode::buildWalkingAreas() {
                 if (crossingBetween(edge, prevEdge)) {
                     // do not wrap-around if there is a crossing in between
                     waIndices.push_back(std::make_pair(start, waNumLanes));
-                    if (gDebugFlag1) std::cout << "  do not wrap around, turn-around in between\n";
+                    if (gDebugFlag1) {
+                        std::cout << "  do not wrap around, turn-around in between\n";
+                    }
                 } else {
                     // first walkingArea wraps around
                     waIndices.front().first = start;
                     waIndices.front().second = waNumLanes + waIndices.front().second;
-                    if (gDebugFlag1) std::cout << "  wrapping around\n";
+                    if (gDebugFlag1) {
+                        std::cout << "  wrapping around\n";
+                    }
                 }
             } else {
                 // last walkingArea ends at the wrap-around
                 waIndices.push_back(std::make_pair(start, waNumLanes));
-                if (gDebugFlag1) std::cout << "  end at wrap-around\n";
+                if (gDebugFlag1) {
+                    std::cout << "  end at wrap-around\n";
+                }
             }
         }
     }
@@ -1760,21 +1788,25 @@ NBNode::buildWalkingAreas() {
         const int end = (start + count) % normalizedLanes.size();
 
         WalkingArea wa(":" + getID() + "_w" + toString(index++), DEFAULT_CROSSING_WIDTH);
-        if (gDebugFlag1) std::cout << "build walkingArea " << wa.id << " start=" << start << " end=" << end << " count=" << count << " prev=" << prev << ":\n";
+        if (gDebugFlag1) {
+            std::cout << "build walkingArea " << wa.id << " start=" << start << " end=" << end << " count=" << count << " prev=" << prev << ":\n";
+        }
         SUMOReal endCrossingWidth = DEFAULT_CROSSING_WIDTH;
         SUMOReal startCrossingWidth = DEFAULT_CROSSING_WIDTH;
         // check for connected crossings
         bool connectsCrossing = false;
         std::vector<Position> connectedPoints;
         for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); ++it) {
-            if ((*it).edges.back() == normalizedLanes[end].first 
+            if ((*it).edges.back() == normalizedLanes[end].first
                     && (normalizedLanes[end].second.permissions & SVC_PEDESTRIAN) == 0) {
                 // crossing ends
                 (*it).nextWalkingArea = wa.id;
                 endCrossingWidth = (*it).width;
                 connectsCrossing = true;
                 connectedPoints.push_back((*it).shape[-1]);
-                if (gDebugFlag1) std::cout << "    crossing " << (*it).id << " ends\n";
+                if (gDebugFlag1) {
+                    std::cout << "    crossing " << (*it).id << " ends\n";
+                }
             }
             if ((*it).edges.front() == normalizedLanes[prev].first
                     && (normalizedLanes[prev].second.permissions & SVC_PEDESTRIAN) == 0) {
@@ -1787,13 +1819,15 @@ NBNode::buildWalkingAreas() {
                     wa.tlID = (*getControllingTLS().begin())->getID();
                 }
                 connectedPoints.push_back((*it).shape[0]);
-                if (gDebugFlag1) std::cout << "    crossing " << (*it).id << " starts\n";
+                if (gDebugFlag1) {
+                    std::cout << "    crossing " << (*it).id << " starts\n";
+                }
             }
-            if (gDebugFlag1) std::cout << "  check connections to crossing " << (*it).id  
-                << " cFront=" << (*it).edges.front()->getID() << " cBack=" << (*it).edges.back()->getID() 
-                << " wEnd=" << normalizedLanes[end].first->getID() << " wStart=" << normalizedLanes[start].first->getID() 
-                << " wStartPrev=" << normalizedLanes[prev].first->getID() 
-                << "\n";
+            if (gDebugFlag1) std::cout << "  check connections to crossing " << (*it).id
+                                           << " cFront=" << (*it).edges.front()->getID() << " cBack=" << (*it).edges.back()->getID()
+                                           << " wEnd=" << normalizedLanes[end].first->getID() << " wStart=" << normalizedLanes[start].first->getID()
+                                           << " wStartPrev=" << normalizedLanes[prev].first->getID()
+                                           << "\n";
         }
         if (count < 2 && !connectsCrossing) {
             // not relevant for walking
@@ -1855,7 +1889,9 @@ NBNode::buildWalkingAreas() {
                 }
             }
         }
-        if (gDebugFlag1) std::cout << "  combinations=" << combinations << " connectedPoints=" << connectedPoints << "\n";
+        if (gDebugFlag1) {
+            std::cout << "  combinations=" << combinations << " connectedPoints=" << connectedPoints << "\n";
+        }
         wa.length = POSITION_EPS;
         if (combinations > 0) {
             wa.length = MAX2(POSITION_EPS, lengthSum / combinations);
@@ -1865,7 +1901,7 @@ NBNode::buildWalkingAreas() {
     // build walkingAreas between split crossings
     for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); ++it) {
         Crossing& prev = *it;
-        Crossing& next = (it !=  myCrossings.begin() ? *(it - 1) : *(myCrossings.end() - 1));
+        Crossing& next = (it !=  myCrossings.begin() ? * (it - 1) : * (myCrossings.end() - 1));
         if (prev.nextWalkingArea == "") {
             WalkingArea wa(":" + getID() + "_w" + toString(index++), prev.width);
             prev.nextWalkingArea = wa.id;
@@ -1894,16 +1930,16 @@ NBNode::buildWalkingAreas() {
 }
 
 
-bool 
+bool
 NBNode::crossingBetween(const NBEdge* e1, const NBEdge* e2) const {
-    if (e1 == e2) { 
+    if (e1 == e2) {
         return false;
     }
     for (std::vector<Crossing>::const_iterator it = myCrossings.begin(); it != myCrossings.end(); ++it) {
         const EdgeVector& edges = (*it).edges;
         EdgeVector::const_iterator it1 = find(edges.begin(), edges.end(), e1);
         EdgeVector::const_iterator it2 = find(edges.begin(), edges.end(), e2);
-        if (it1 != edges.end() && it2 != edges.end()) { 
+        if (it1 != edges.end() && it2 != edges.end()) {
             return true;
         }
     }
@@ -1911,7 +1947,7 @@ NBNode::crossingBetween(const NBEdge* e1, const NBEdge* e2) const {
 }
 
 
-EdgeVector 
+EdgeVector
 NBNode::edgesBetween(const NBEdge* e1, const NBEdge* e2) const {
     EdgeVector result;
     EdgeVector::const_iterator it = find(myAllEdges.begin(), myAllEdges.end(), e1);
@@ -1960,13 +1996,13 @@ NBNode::setRoundabout() {
 }
 
 
-void 
+void
 NBNode::addCrossing(EdgeVector edges, SUMOReal width, bool priority) {
     myCrossings.push_back(Crossing(this, edges, width, priority));
 }
 
 
-const NBNode::Crossing& 
+const NBNode::Crossing&
 NBNode::getCrossing(const std::string& id) const {
     for (std::vector<Crossing>::const_iterator it = myCrossings.begin(); it != myCrossings.end(); ++it) {
         if ((*it).id == id) {
@@ -1977,7 +2013,7 @@ NBNode::getCrossing(const std::string& id) const {
 }
 
 
-void 
+void
 NBNode::setCrossingTLIndices(unsigned int startIndex) {
     for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); ++it) {
         (*it).tlLinkNo = startIndex++;
@@ -1985,7 +2021,7 @@ NBNode::setCrossingTLIndices(unsigned int startIndex) {
 }
 
 
-int 
+int
 NBNode::numNormalConnections() const {
     return myRequest->getSizes().second;
 }

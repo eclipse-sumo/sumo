@@ -278,8 +278,8 @@ public:
     NBEdge(const std::string& id,
            NBNode* from, NBNode* to,
            NBEdge* tpl,
-           const PositionVector& geom=PositionVector(),
-           int numLanes=-1);
+           const PositionVector& geom = PositionVector(),
+           int numLanes = -1);
 
 
     /** @brief Destructor
@@ -729,7 +729,7 @@ public:
      * @param[in] fromLane If a value >= 0 is given, only return true if a connection from the given lane exists
      * @return whether a connection to the specified lane exists
      */
-    bool hasConnectionTo(NBEdge* destEdge, unsigned int destLane, int fromLane=-1) const;
+    bool hasConnectionTo(NBEdge* destEdge, unsigned int destLane, int fromLane = -1) const;
 
 
     /** @brief Returns the information whethe a connection to the given edge has been added (or computed)
@@ -1350,8 +1350,8 @@ public:
     class connections_toedgelane_finder {
     public:
         /// constructor
-        connections_toedgelane_finder(NBEdge* const edge2find, int lane2find, int fromLane2find) : 
-            myEdge2Find(edge2find), 
+        connections_toedgelane_finder(NBEdge* const edge2find, int lane2find, int fromLane2find) :
+            myEdge2Find(edge2find),
             myLane2Find(lane2find),
             myFromLane2Find(fromLane2find) { }
 

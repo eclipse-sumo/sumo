@@ -266,7 +266,7 @@ MSFrame::fillOptions() {
 
     // devices
     oc.addOptionSubTopic("Emissions");
-    std::string plp = getenv("PHEMLIGHT_PATH")==0 ? "./PHEMlight/" : std::string(getenv("PHEMLIGHT_PATH"));
+    std::string plp = getenv("PHEMLIGHT_PATH") == 0 ? "./PHEMlight/" : std::string(getenv("PHEMLIGHT_PATH"));
     oc.doRegister("phemlight-path", new Option_FileName(plp));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
 

@@ -105,7 +105,7 @@ protected:
      * @exception ProcessError If something fails
      */
     void parseFromViaTo(std::string element,
-                     const SUMOSAXAttributes& attrs);
+                        const SUMOSAXAttributes& attrs);
 
 
     /** opens a type distribution for reading */

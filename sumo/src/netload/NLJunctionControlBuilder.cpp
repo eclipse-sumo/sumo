@@ -431,7 +431,7 @@ NLJunctionControlBuilder::postLoadInitialization() {
 }
 
 
-MSJunction* 
+MSJunction*
 NLJunctionControlBuilder::retrieve(const std::string id) {
     if (myJunctions != 0) {
         return myJunctions->get(id);

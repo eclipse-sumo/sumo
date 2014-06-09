@@ -304,8 +304,8 @@ MSDevice_BTreceiver::BTreceiverUpdate::leaveRange(std::map<std::string, SeenDevi
 
 void
 MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(const SUMOReal tEnd, const Position& thisPos, const SUMOReal thisSpeed, const std::string& thisLaneID, const SUMOReal thisLanePos,
-                                 const Position& otherPos, const SUMOReal otherSpeed, const std::string& otherLaneID, const SUMOReal otherLanePos,
-                                 SeenDevice* otherDevice) const {
+        const Position& otherPos, const SUMOReal otherSpeed, const std::string& otherLaneID, const SUMOReal otherLanePos,
+        SeenDevice* otherDevice) const {
     const SUMOReal t = tEnd - MAX2(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) - TS, otherDevice->lastView);
     // probability of a miss 0.5 (may be in the wrong train), backoff time 0.64s
     if (sRecognitionRNG.rand() <= 1 - pow(0.5, t / 0.64)) {

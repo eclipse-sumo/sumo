@@ -99,8 +99,8 @@ load(OptionsCont& oc) {
     MSNet* net = new MSNet(vc, new MSEventControl(),
                            new MSEventControl(), new MSEventControl());
 #ifndef NO_TRACI
-        // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
-        TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
+    // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
+    TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
 #endif
 
     NLEdgeControlBuilder eb;

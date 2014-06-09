@@ -348,8 +348,8 @@ protected:
     FXEX::FXLCDLabel* myTimeLossLabel;
     SUMOTime myWaitingTime;
     SUMOTime myTimeLoss;
-    FXToolBar *myToolBar6, *myToolBar7;
-    FXToolBarShell *myToolBarDrag6, *myToolBarDrag7;
+    FXToolBar* myToolBar6, *myToolBar7;
+    FXToolBarShell* myToolBarDrag6, *myToolBarDrag7;
     ////}
 
 };

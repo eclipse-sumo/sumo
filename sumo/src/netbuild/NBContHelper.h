@@ -369,7 +369,7 @@ public:
 
     /**
      * edge_by_angle_to_nodeShapeCentroid_sorter
-     * Class to sort edges by their angle in relation to the node shape 
+     * Class to sort edges by their angle in relation to the node shape
      * */
     class edge_by_angle_to_nodeShapeCentroid_sorter {
     public:

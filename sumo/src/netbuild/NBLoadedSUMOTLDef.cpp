@@ -231,7 +231,7 @@ NBLoadedSUMOTLDef::collectLinks() {
 
 
 /// @brief patches signal plans by modifying lane indices
-void 
+void
 NBLoadedSUMOTLDef::shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
     // avoid shifting twice if the edge is incoming and outgoing to a joined TLS
     if (myShifted.count(edge) == 0) {

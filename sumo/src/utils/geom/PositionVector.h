@@ -151,10 +151,10 @@ public:
     Position& operator[](int index);
 
     /// Returns the position at the given length
-    Position positionAtOffset(SUMOReal pos, SUMOReal lateralOffset=0) const;
+    Position positionAtOffset(SUMOReal pos, SUMOReal lateralOffset = 0) const;
 
     /// Returns the position at the given length
-    Position positionAtOffset2D(SUMOReal pos, SUMOReal lateralOffset=0) const;
+    Position positionAtOffset2D(SUMOReal pos, SUMOReal lateralOffset = 0) const;
 
     /// Returns the rotation at the given length
     SUMOReal rotationDegreeAtOffset(SUMOReal pos) const;

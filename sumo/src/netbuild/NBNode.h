@@ -158,8 +158,8 @@ public:
      * @brief A definition of a pedestrian walking area
      */
     struct WalkingArea {
-        WalkingArea(const std::string& _id, SUMOReal _width) : 
-            id(_id), 
+        WalkingArea(const std::string& _id, SUMOReal _width) :
+            id(_id),
             width(_width),
             nextCrossing(""),
             tlID("")
@@ -428,7 +428,7 @@ public:
     /** @brief Returns the information whether the described flow must brake for the given crossing
      * @param[in] from The connection's start edge
      * @param[in] to The connection's end edge
-     * @param[in] crossing The pedestrian crossing to check 
+     * @param[in] crossing The pedestrian crossing to check
      * @return Whether the described connection must brake (has higher priorised foes)
      */
     bool mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const Crossing& crossing) const;
@@ -537,8 +537,8 @@ public:
     /// @brief build internal lanes, pedestrian crossings and walking areas
     void buildInnerEdges(bool buildCrossingsAndWalkingAreas);
 
-    /* @brief build pedestrian crossings 
-     * @return The next index for creating internal lanes 
+    /* @brief build pedestrian crossings
+     * @return The next index for creating internal lanes
      * */
     unsigned int buildCrossings();
 
@@ -606,7 +606,7 @@ public:
 
 
     /** @class edge_by_direction_sorter
-     * @brief Sorts outgoing before incoming edges 
+     * @brief Sorts outgoing before incoming edges
      */
     class edge_by_direction_sorter {
     public:

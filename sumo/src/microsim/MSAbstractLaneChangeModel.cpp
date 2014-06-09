@@ -50,7 +50,7 @@ bool MSAbstractLaneChangeModel::myAllowOvertakingRight(false);
  * MSAbstractLaneChangeModel-methods
  * ----------------------------------------------------------------------- */
 
-void 
+void
 MSAbstractLaneChangeModel::initGlobalOptions(const OptionsCont& oc) {
     myAllowOvertakingRight = oc.getBool("lanechange.overtake-right");
 }
@@ -206,7 +206,7 @@ MSAbstractLaneChangeModel::removeLaneChangeShadow() {
 }
 
 
-bool 
+bool
 MSAbstractLaneChangeModel::cancelRequest(int state) {
     int ret = myVehicle.influenceChangeDecision(state);
     return ret != state;

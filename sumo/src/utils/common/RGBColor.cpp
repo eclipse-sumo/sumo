@@ -154,7 +154,7 @@ RGBColor::changedBrightness(int change, int toChange) const {
     } else if (changed == 0) {
         return result;
     } else {
-        const int maxedColors = (red != myRed + change ? 1 : 0) + (blue != myBlue + change ? 1 : 0) + (green != myGreen + change ? 1: 0);
+        const int maxedColors = (red != myRed + change ? 1 : 0) + (blue != myBlue + change ? 1 : 0) + (green != myGreen + change ? 1 : 0);
         if (maxedColors == 3) {
             return result;
         } else {

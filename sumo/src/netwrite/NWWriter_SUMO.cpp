@@ -267,7 +267,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
                 const SUMOReal length = lengthSum[toEdge] / numLanes[toEdge];
                 // @note the actual length should be used once sumo supports lanes of
                 // varying length within the same edge
-                //const SUMOReal length = MAX2((*k).shape.length(), POSITION_EPS); 
+                //const SUMOReal length = MAX2((*k).shape.length(), POSITION_EPS);
                 writeLane(into, internalEdgeID, (*k).getInternalLaneID(), (*k).vmax,
                           successor.permissions, successor.preferred,
                           NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).shape, (*k).origID,
@@ -299,7 +299,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
             }
         }
     }
-    // write pedestrian crossings 
+    // write pedestrian crossings
     const std::vector<NBNode::Crossing>& crossings = n.getCrossings();
     for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
         into.openTag(SUMO_TAG_EDGE);
@@ -307,7 +307,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
         into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_CROSSING);
         into.writeAttr(SUMO_ATTR_CROSSING_EDGES, (*it).edges);
         writeLane(into, (*it).id, (*it).id + "_0", 1, SVC_PEDESTRIAN, 0,
-                NBEdge::UNSPECIFIED_OFFSET, (*it).width, (*it).shape, "", (*it).shape.length(), 0, false);
+                  NBEdge::UNSPECIFIED_OFFSET, (*it).width, (*it).shape, "", (*it).shape.length(), 0, false);
         into.closeTag();
     }
     // write pedestrian walking areas
@@ -318,7 +318,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
         into.writeAttr(SUMO_ATTR_ID, wa.id);
         into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_WALKINGAREA);
         writeLane(into, wa.id, wa.id + "_0", 1, SVC_PEDESTRIAN, 0,
-                NBEdge::UNSPECIFIED_OFFSET, wa.width, wa.shape, "", wa.length, 0, false);
+                  NBEdge::UNSPECIFIED_OFFSET, wa.width, wa.shape, "", wa.length, 0, false);
         into.closeTag();
     }
     return ret;

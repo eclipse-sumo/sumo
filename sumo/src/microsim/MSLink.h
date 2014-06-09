@@ -328,7 +328,7 @@ public:
      * @param[out] blocking Return blocking pedestrians if a vector is given
      * @return The all vehicles on foeLanes and their (virtual) distances to the asking vehicle
      */
-    LinkLeaders getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson*>* collectBlockers=0) const;
+    LinkLeaders getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson*>* collectBlockers = 0) const;
 #endif
 
     /// @brief return the via lane if it exists and the lane otherwise

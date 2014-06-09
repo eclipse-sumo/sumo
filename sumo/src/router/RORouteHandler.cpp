@@ -83,7 +83,7 @@ RORouteHandler::~RORouteHandler() {
 
 void
 RORouteHandler::parseFromViaTo(std::string element,
-                            const SUMOSAXAttributes& attrs) {
+                               const SUMOSAXAttributes& attrs) {
     bool useTaz = OptionsCont::getOptions().getBool("with-taz");
     if (useTaz && !myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
         WRITE_WARNING("Taz usage was requested but no taz present in " + element + " '" + myVehicleParameter->id + "'!");
@@ -544,7 +544,7 @@ RORouteHandler::parseEdges(const std::string& desc, std::vector<const ROEdge*>& 
 }
 
 
-bool 
+bool
 RORouteHandler::routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& plan) {
     bool ok = true;
     const char* id = myVehicleParameter->id.c_str();
@@ -555,25 +555,25 @@ RORouteHandler::routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& pl
     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, id, ok);
     const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, id, ok);
     const ROEdge* from = myNet.getEdge(fromID);
-    if (from == 0) { 
+    if (from == 0) {
         myErrorOutput->inform("The edge '" + fromID + "' within a walk of " + myVehicleParameter->id + " is not known."
-                + "\n The route can not be build.");
+                              + "\n The route can not be build.");
         ok = false;
     }
     const ROEdge* to = myNet.getEdge(toID);
-    if (to == 0) { 
+    if (to == 0) {
         myErrorOutput->inform("The edge '" + toID + "' within a walk of " + myVehicleParameter->id + " is not known."
-                + "\n The route can not be build.");
+                              + "\n The route can not be build.");
         ok = false;
     }
     if (ok) {
         if (myPedestrianRouter == 0) {
             myPedestrianRouter = new ROPedestrianRouterDijkstra();
         }
-        myPedestrianRouter->compute(from, to, 
-                SUMOVehicleParameter::interpretEdgePos(departPos, from->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + fromID),
-                SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + toID),
-                DEFAULT_PEDESTRIAN_SPEED, 0, 0, myActiveRoute);
+        myPedestrianRouter->compute(from, to,
+                                    SUMOVehicleParameter::interpretEdgePos(departPos, from->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + fromID),
+                                    SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + toID),
+                                    DEFAULT_PEDESTRIAN_SPEED, 0, 0, myActiveRoute);
         if (myActiveRoute.empty()) {
             myErrorOutput->inform("No connection found between '" + fromID + "' and '" + toID + "' for person '" + myVehicleParameter->id + "'.");
             return false;

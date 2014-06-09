@@ -389,7 +389,7 @@ public:
     /// @}
 
     /// @brief return the index of the link to the next crossing if this is walkingArea, else -1
-    int getCrossingIndex() const; 
+    int getCrossingIndex() const;
 
 
     /// @name Vehicle movement (longitudinal)

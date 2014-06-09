@@ -90,7 +90,7 @@ NBSign::writeAsPOI(OutputDevice& into, const NBEdge* edge) const {
     into.openTag(SUMO_TAG_POI);
     into.writeAttr(SUMO_ATTR_ID, edge->getID() + "." + toString(myOffset));
     into.writeAttr(SUMO_ATTR_TYPE, SignTypeStrings.getString(myType));
-    switch(myType) { /// XXX @todo add default colors
+    switch (myType) { /// XXX @todo add default colors
         case SIGN_TYPE_SPEED:
         case SIGN_TYPE_SLOPE:
         case SIGN_TYPE_CITY:
@@ -108,7 +108,7 @@ NBSign::writeAsPOI(OutputDevice& into, const NBEdge* edge) const {
             into.writeAttr(SUMO_ATTR_COLOR, RGBColor::YELLOW);
             break;
         case SIGN_TYPE_RIGHT_BEFORE_LEFT:
-            into.writeAttr(SUMO_ATTR_COLOR, RGBColor(255,153,0,255));
+            into.writeAttr(SUMO_ATTR_COLOR, RGBColor(255, 153, 0, 255));
             break;
         case SIGN_TYPE_ROUNDABOUT:
             into.writeAttr(SUMO_ATTR_COLOR, RGBColor::BLUE);

@@ -62,8 +62,8 @@ SUMOTime MSLink::myLookaheadTime = TIME2STEPS(1);
 MSLink::MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length) :
     myLane(succLane),
     myIndex(-1),
-    myState(state), 
-    myDirection(dir),  
+    myState(state),
+    myDirection(dir),
     myLength(length),
     myHasFoes(false),
     myAmCont(false)
@@ -71,8 +71,8 @@ MSLink::MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal le
 MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length) :
     myLane(succLane),
     myIndex(-1),
-    myState(state), 
-    myDirection(dir), 
+    myState(state),
+    myDirection(dir),
     myLength(length),
     myHasFoes(false),
     myAmCont(false),
@@ -102,25 +102,25 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
     if (internalLaneBefore != 0) {
         // this is an exit link. compute crossing points with all foeLanes
         lane = internalLaneBefore;
-    //} else if (myLane->getEdge().isCrossing()) {
-    //    // this is the link to a pedestrian crossing. compute crossing points with all foeLanes
-    //    // @note not currently used by pedestrians
-    //    lane = myLane;
+        //} else if (myLane->getEdge().isCrossing()) {
+        //    // this is the link to a pedestrian crossing. compute crossing points with all foeLanes
+        //    // @note not currently used by pedestrians
+        //    lane = myLane;
     }
     if (lane != 0) {
         for (std::vector<MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
             if (myLane == (*it_lane)->getLinkCont()[0]->getLane() && !lane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal()) {
-            //if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
+                //if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
                 // this foeLane has the same target and merges at the end (lane exits the junction)
                 myLengthsBehindCrossing.push_back(std::make_pair(0, 0)); // dummy value, never used
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout
-                    << " " << lane->getID()
-                    << " merges with " << (*it_lane)->getID()
-                    << " nextLane " << lane->getLinkCont()[0]->getViaLaneOrLane()->getID()
-                    << " dist1=" << myLengthsBehindCrossing.back().first
-                    << " dist2=" << myLengthsBehindCrossing.back().second
-                    << "\n";
+                        << " " << lane->getID()
+                        << " merges with " << (*it_lane)->getID()
+                        << " nextLane " << lane->getLinkCont()[0]->getViaLaneOrLane()->getID()
+                        << " dist1=" << myLengthsBehindCrossing.back().first
+                        << " dist2=" << myLengthsBehindCrossing.back().second
+                        << "\n";
 #endif
             } else {
                 std::vector<SUMOReal> intersections1 = lane->getShape().intersectsAtLengths2D((*it_lane)->getShape());
@@ -142,13 +142,13 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                                                       (*it_lane)->getLength() - intersections2.back()));
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout
-                    << " intersection of " << lane->getID()
-                    << " totalLength=" << lane->getLength()
-                    << " with " << (*it_lane)->getID()
-                    << " totalLength=" << (*it_lane)->getLength()
-                    << " dist1=" << myLengthsBehindCrossing.back().first
-                    << " dist2=" << myLengthsBehindCrossing.back().second
-                    << "\n";
+                        << " intersection of " << lane->getID()
+                        << " totalLength=" << lane->getLength()
+                        << " with " << (*it_lane)->getID()
+                        << " totalLength=" << (*it_lane)->getLength()
+                        << " dist1=" << myLengthsBehindCrossing.back().first
+                        << " dist2=" << myLengthsBehindCrossing.back().second
+                        << "\n";
 #endif
             }
         }
@@ -458,7 +458,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                         const SUMOReal leaderBackDist = foeDistToCrossing - leaderBack;
                         //std::cout << " distToCrossing=" << distToCrossing << " leader backDist=" << leaderBackDist << "\n";
                         if (leaderBackDist < 0) {
-                            // leader is completely past the crossing point 
+                            // leader is completely past the crossing point
                             // or there is no crossing point
                             continue; // next vehicle
                         }
@@ -480,7 +480,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                         const SUMOReal leaderBackDist = foeDistToCrossing - foeLane->getPartialOccupatorEnd();
                         //std::cout << " distToCrossing=" << distToCrossing << " leader (partialOccupator) backDist=" << leaderBackDist << "\n";
                         if (leaderBackDist < 0) {
-                            // leader is completely past the crossing point 
+                            // leader is completely past the crossing point
                             // or there is no crossing point
                             continue; // next lane
                         }

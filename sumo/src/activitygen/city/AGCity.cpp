@@ -365,7 +365,7 @@ AGCity::carAllocation() {
     if (statData.getPeopleOlderThan(statData.limitAgeChildren) == statData.hhFarFromPT) {
         newRate = 0.;
     } else {
-         newRate /= statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT;
+        newRate /= statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT;
     }
     //std::cout << " - " << newRate << std::endl;
     if (newRate < 0 || newRate >= 1) {

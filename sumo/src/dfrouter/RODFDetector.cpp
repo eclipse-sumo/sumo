@@ -280,7 +280,7 @@ RODFDetector::hasRoutes() const {
     return myRoutes != 0 && myRoutes->get().size() != 0;
 }
 
- 
+
 bool
 RODFDetector::writeEmitterDefinition(const std::string& file,
                                      const std::map<size_t, RandomDistributor<size_t>* >& dists,

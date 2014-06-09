@@ -118,7 +118,7 @@ public:
             return;
         }
 #ifdef PedestrianRouter_DEBUG_NETWORK
-            std::cout << "initPedestrianNetwork\n";
+        std::cout << "initPedestrianNetwork\n";
 #endif
         // build the Pedestrian edges
         unsigned int numericalID = 0;
@@ -186,15 +186,15 @@ public:
                     pair.first->myFollowingEdges.push_back(targetPair.first);
                     targetPair.second->myFollowingEdges.push_back(pair.second);
 #ifdef PedestrianRouter_DEBUG_NETWORK
-                std::cout << "     " << pair.first->getID() << " -> " << targetPair.first->getID() << "\n";
-                std::cout << "     " << targetPair.second->getID() << " -> " << pair.second->getID() << "\n";
+                    std::cout << "     " << pair.first->getID() << " -> " << targetPair.first->getID() << "\n";
+                    std::cout << "     " << targetPair.second->getID() << " -> " << pair.second->getID() << "\n";
 #endif
                 }
             }
             if (edge->isWalkingArea()) {
                 continue;
             }
-            // build connections from depart connector 
+            // build connections from depart connector
             PedestrianEdge* startConnector = getDepartEdge(edge);
             startConnector->myFollowingEdges.push_back(pair.first);
             startConnector->myFollowingEdges.push_back(pair.second);
@@ -240,7 +240,7 @@ public:
     }
 
     /// @brief Returns the arriving Pedestrian edge
-    static PedestrianEdge* getArrivalEdge (const E* e) {
+    static PedestrianEdge* getArrivalEdge(const E* e) {
         typename std::map<const E*, EdgePair>::const_iterator it = myFromToLookup.find(e);
         if (it == myFromToLookup.end()) {
             assert(false);
@@ -276,7 +276,7 @@ public:
             return false;
         } else {
             // limit routing to the surroundings of the specified node
-            return (myEdge->getFromJunction() != trip->node 
+            return (myEdge->getFromJunction() != trip->node
                     && myEdge->getToJunction() != trip->node);
         }
     }
@@ -321,8 +321,8 @@ public:
 
 private:
     PedestrianEdge(unsigned int numericalID, const E* edge, const L* lane, bool forward, bool connector = false) :
-        Named(edge->getID() + (edge->isWalkingArea() ? "" : 
-                    ((forward ? "_fwd" : "_bwd") + std::string(connector ? "_connector" : "")))), 
+        Named(edge->getID() + (edge->isWalkingArea() ? "" :
+                               ((forward ? "_fwd" : "_bwd") + std::string(connector ? "_connector" : "")))),
         myNumericalID(numericalID),
         myEdge(edge),
         myLane(lane),
@@ -372,39 +372,38 @@ public:
 
     /// Constructor
     PedestrianRouter():
-        SUMOAbstractRouter<E, _PedestrianTrip>("PedestrianRouter")
-    { 
+        SUMOAbstractRouter<E, _PedestrianTrip>("PedestrianRouter") {
         _PedestrianEdge::initPedestrianNetwork(E::dictSize());
         myInternalRouter = new INTERNALROUTER(_PedestrianEdge::dictSize(), true, &_PedestrianEdge::getEffort);
     }
 
     /// Destructor
-    virtual ~PedestrianRouter() { 
+    virtual ~PedestrianRouter() {
         delete myInternalRouter;
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     void compute(const E* from, const E* to, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal speed,
-                         SUMOTime msTime, const N* onlyNode, std::vector<const E*>& into, bool allEdges=false) {
+                 SUMOTime msTime, const N* onlyNode, std::vector<const E*>& into, bool allEdges = false) {
         //startQuery();
         _PedestrianTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode);
         std::vector<const _PedestrianEdge*> intoPed;
-        myInternalRouter->compute(_PedestrianEdge::getDepartEdge(from), 
-                _PedestrianEdge::getArrivalEdge(to), &trip, msTime, intoPed);
+        myInternalRouter->compute(_PedestrianEdge::getDepartEdge(from),
+                                  _PedestrianEdge::getArrivalEdge(to), &trip, msTime, intoPed);
         for (size_t i = 0; i < intoPed.size(); ++i) {
             if (intoPed[i]->includeInRoute(allEdges)) {
                 into.push_back(intoPed[i]->getEdge());
             }
         }
 #ifdef PedestrianRouter_DEBUG_ROUTES
-        std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << to->getID() 
-            << " departPos=" << departPos
-            << " arrivalPos=" << arrivalPos
-            << " onlyNode=" << (onlyNode == 0 ? "NULL" : onlyNode->getID())
-            << " edges=" << toString(intoPed) 
-            << " resultEdges=" << toString(into) 
-            << "\n";
+        std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << to->getID()
+                  << " departPos=" << departPos
+                  << " arrivalPos=" << arrivalPos
+                  << " onlyNode=" << (onlyNode == 0 ? "NULL" : onlyNode->getID())
+                  << " edges=" << toString(intoPed)
+                  << " resultEdges=" << toString(into)
+                  << "\n";
 #endif
         //endQuery();
     }
@@ -412,7 +411,7 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     void compute(const E*, const E*, const _PedestrianTrip* const,
-                         SUMOTime, std::vector<const E*>&) {
+                 SUMOTime, std::vector<const E*>&) {
         throw ProcessError("Do not use this method");
     }
 
@@ -443,8 +442,8 @@ private:
 
 // common specializations
 template<class E, class L, class N>
-class PedestrianRouterDijkstra : public PedestrianRouter<E, L, N,
-    DijkstraRouterTT_Direct<PedestrianEdge<E, L, N>, PedestrianTrip<E, N>, prohibited_withRestrictions<PedestrianEdge<E, L, N>, PedestrianTrip<E, N> > > > { };
+class PedestrianRouterDijkstra : public PedestrianRouter < E, L, N,
+        DijkstraRouterTT_Direct<PedestrianEdge<E, L, N>, PedestrianTrip<E, N>, prohibited_withRestrictions<PedestrianEdge<E, L, N>, PedestrianTrip<E, N> > > > { };
 
 
 // ===========================================================================

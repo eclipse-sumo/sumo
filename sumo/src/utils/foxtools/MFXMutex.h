@@ -6,7 +6,7 @@
 /// @date    2007-02-19
 /// @version $Id$
 ///
-// 
+//
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 // Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors

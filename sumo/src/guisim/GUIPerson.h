@@ -123,11 +123,11 @@ public:
 
     /// @name inherited from MSPerson with added locking
     //@{
-    
+
     /// @brief return the offset from the start of the current edge
     SUMOReal getEdgePos() const;
 
-    /// @brief return the Network coordinate of the person 
+    /// @brief return the Network coordinate of the person
     // @note overrides the base method and returns myPositionInVehicle while in driving stage
     Position getPosition() const;
 

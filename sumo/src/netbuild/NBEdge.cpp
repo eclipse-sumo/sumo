@@ -194,8 +194,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
-    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET)
-{
+    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET) {
     init(nolanes, false);
 }
 
@@ -218,8 +217,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
-    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET)
-{
+    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET) {
     init(nolanes, tryIgnoreNodePositions);
 }
 
@@ -237,13 +235,12 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, con
     myLaneSpreadFunction(tpl->getLaneSpreadFunction()),
     myEndOffset(tpl->getEndOffset()),
     myLaneWidth(tpl->getLaneWidth()),
-    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), 
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmLeftHand(false),
-    myAmInnerEdge(false), 
+    myAmInnerEdge(false),
     myAmMacroscopicConnector(false),
     myStreetName(tpl->getStreetName()),
-    mySignalOffset(to == tpl->myTo ? tpl->mySignalOffset : UNSPECIFIED_SIGNAL_OFFSET) 
-{
+    mySignalOffset(to == tpl->myTo ? tpl->mySignalOffset : UNSPECIFIED_SIGNAL_OFFSET) {
     init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0);
     for (unsigned int i = 0; i < getNumLanes(); i++) {
         const unsigned int tplIndex = MIN2(i, tpl->getNumLanes() - 1);
@@ -950,7 +947,7 @@ NBEdge::copyConnectionsFrom(NBEdge* src) {
 }
 
 
-bool 
+bool
 NBEdge::canMoveConnection(const Connection& con, unsigned int newFromLane, const bool buildCrossingsAndWalkingAreas) const {
     // only allow using newFromLane if at least 1 vClass is permitted to use
     // this connection. If the connection shall be moved to a sidewalk, only create the connection if there is no walking area
@@ -964,7 +961,7 @@ NBEdge::moveConnectionToLeft(unsigned int lane, const bool buildCrossingsAndWalk
     unsigned int index = 0;
     if (myAmLeftHand) {
         for (int i = (int) myConnections.size() - 1; i >= 0; --i) {
-            if (myConnections[i].fromLane == (int)lane 
+            if (myConnections[i].fromLane == (int)lane
                     && getTurnDestination() != myConnections[i].toEdge
                     && canMoveConnection(myConnections[i], lane + 1, buildCrossingsAndWalkingAreas)) {
                 index = i;
@@ -997,7 +994,7 @@ NBEdge::moveConnectionToRight(unsigned int lane, const bool buildCrossingsAndWal
         }
     } else {
         for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            if ((*i).fromLane == (int)lane && canMoveConnection(*i, lane -1, buildCrossingsAndWalkingAreas)) {
+            if ((*i).fromLane == (int)lane && canMoveConnection(*i, lane - 1, buildCrossingsAndWalkingAreas)) {
                 Connection c = *i;
                 i = myConnections.erase(i);
                 setConnection(lane - 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
@@ -1308,21 +1305,21 @@ NBEdge::computeAngle() {
     // taking the angle at the first might be unstable, thus we take the angle
     // at a certain distance. (To compare two edges, additional geometry
     // segments are considered to resolve ambiguities)
-    const bool hasFromShape = myFrom->getShape().size() > 0; 
-    const bool hasToShape = myTo->getShape().size() > 0; 
+    const bool hasFromShape = myFrom->getShape().size() > 0;
+    const bool hasToShape = myTo->getShape().size() > 0;
     Position fromCenter = (hasFromShape ? myFrom->getShape().getCentroid() : myFrom->getPosition());
     Position toCenter = (hasToShape ? myTo->getShape().getCentroid() : myTo->getPosition());
-    PositionVector shape = ((hasFromShape || hasToShape) && getNumLanes() > 0 ? 
-            (myLaneSpreadFunction == LANESPREAD_RIGHT ? 
-             myLanes[getNumLanes() - 1].shape 
-             : myLanes[getNumLanes() / 2].shape)
-            : myGeom);
+    PositionVector shape = ((hasFromShape || hasToShape) && getNumLanes() > 0 ?
+                            (myLaneSpreadFunction == LANESPREAD_RIGHT ?
+                             myLanes[getNumLanes() - 1].shape
+                             : myLanes[getNumLanes() / 2].shape)
+                                : myGeom);
 
     // if the junction shape is suspicious we cannot trust the angle to the centroid
     if ((hasFromShape && (myFrom->getShape().distance(shape[0]) > 2 * POSITION_EPS
-                || myFrom->getShape().around(shape[-1]))) 
+                          || myFrom->getShape().around(shape[-1])))
             || (hasToShape && (myTo->getShape().distance(shape[-1]) > 2 * POSITION_EPS
-                || myTo->getShape().around(shape[0])))) {
+                               || myTo->getShape().around(shape[0])))) {
         fromCenter = myFrom->getPosition();
         toCenter = myTo->getPosition();
         shape = myGeom;
@@ -1567,7 +1564,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing, const bool buildCrossingsAndWa
     for (std::map<NBEdge*, std::vector<unsigned int> >::const_iterator i = l2eConns.begin(); i != l2eConns.end(); ++i) {
         const std::vector<unsigned int> lanes = (*i).second;
         for (std::vector<unsigned int>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-            const int fromIndex = availableLanes[*j];  
+            const int fromIndex = availableLanes[*j];
             if ((getPermissions(fromIndex) & (*i).first->getPermissions()) == 0) {
                 // exclude connection if fromLane and toEdge have no common permissions
                 continue;
@@ -2211,7 +2208,7 @@ NBEdge::getFirstNonPedestrianLaneIndex(int direction) const {
 }
 
 
-SUMOReal 
+SUMOReal
 NBEdge::getCrossingAngle(NBNode* node) {
     SUMOReal angle = getAngleAtNode(node) + (getFromNode() == node ? 180.0 : 0.0);
     if (angle < 0) {
@@ -2220,12 +2217,14 @@ NBEdge::getCrossingAngle(NBNode* node) {
     if (angle >= 360) {
         angle -= 360.0;
     }
-    if (gDebugFlag1) std::cout << getID() << " angle=" << getAngleAtNode(node) << " convAngle=" << angle << "\n";
+    if (gDebugFlag1) {
+        std::cout << getID() << " angle=" << getAngleAtNode(node) << " convAngle=" << angle << "\n";
+    }
     return angle;
 }
 
 
-NBEdge::Lane 
+NBEdge::Lane
 NBEdge::getFirstNonPedestrianLane(int direction) const {
     int index = getFirstNonPedestrianLaneIndex(direction);
     if (index < 0) {
@@ -2245,7 +2244,7 @@ NBEdge::addSidewalk(SUMOReal width) {
     myLanes[0].width = width;
     // shift outgoing connections to the left
     for (std::vector<Connection>::iterator it = myConnections.begin(); it != myConnections.end(); ++it) {
-        Connection& c = *it; 
+        Connection& c = *it;
         if (c.fromLane >= 0) {
             c.fromLane += 1;
         }
@@ -2261,7 +2260,7 @@ NBEdge::addSidewalk(SUMOReal width) {
 }
 
 
-void 
+void
 NBEdge::shiftToLanesToEdge(NBEdge* to, unsigned int laneOff) {
     /// XXX could we repurpose the function replaceInConnections ?
     for (std::vector<Connection>::iterator it = myConnections.begin(); it != myConnections.end(); ++it) {

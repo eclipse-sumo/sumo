@@ -160,7 +160,7 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
         if (!detectors.detectorsHaveRoutes() || oc.getBool("revalidate-routes") || oc.getBool("guess-empty-flows")) {
             PROGRESS_BEGIN_MESSAGE("Computing routes");
             optNet->buildRoutes(detectors,
-                                oc.getBool("keep-unfinished-routes"), oc.getBool("routes-for-all"), 
+                                oc.getBool("keep-unfinished-routes"), oc.getBool("routes-for-all"),
                                 !oc.getBool("keep-longer-routes"), oc.getInt("max-search-depth"));
             PROGRESS_DONE_MESSAGE();
         }

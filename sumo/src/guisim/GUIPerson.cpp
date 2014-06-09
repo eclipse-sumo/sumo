@@ -192,19 +192,19 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
 #ifdef GUIPerson_DEBUG_DRAW_WALKING_AREA_SHAPE
-        MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
-        if (stage != 0) {
-            MSPModel_Striping::PState* stripingState = dynamic_cast<MSPModel_Striping::PState*>(stage->getPedestrianState());
-            if (stripingState != 0) {
-                MSPModel_Striping::WalkingAreaPath* waPath = stripingState->myWalkingAreaPath;
-                if (waPath != 0) {
-                    glPushMatrix();
-                    glTranslated(0, 0, getType());
-                    GLHelper::drawBoxLines(waPath->shape, 0.05);
-                    glPopMatrix();
-                }
+    MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
+    if (stage != 0) {
+        MSPModel_Striping::PState* stripingState = dynamic_cast<MSPModel_Striping::PState*>(stage->getPedestrianState());
+        if (stripingState != 0) {
+            MSPModel_Striping::WalkingAreaPath* waPath = stripingState->myWalkingAreaPath;
+            if (waPath != 0) {
+                glPushMatrix();
+                glTranslated(0, 0, getType());
+                GLHelper::drawBoxLines(waPath->shape, 0.05);
+                glPopMatrix();
             }
         }
+    }
 #endif
 
     drawName(p1, s.scale, s.personName);
@@ -338,7 +338,7 @@ GUIPerson::getColorValue(size_t activeScheme) const {
 }
 
 
-SUMOReal 
+SUMOReal
 GUIPerson::getEdgePos() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSPerson::getEdgePos();
@@ -355,21 +355,21 @@ GUIPerson::getPosition() const {
 }
 
 
-SUMOReal 
+SUMOReal
 GUIPerson::getAngle() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSPerson::getAngle();
 }
 
 
-SUMOReal 
+SUMOReal
 GUIPerson::getWaitingSeconds() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSPerson::getWaitingSeconds();
 }
 
 
-SUMOReal 
+SUMOReal
 GUIPerson::getSpeed() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSPerson::getSpeed();
@@ -401,8 +401,8 @@ GUIPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const 
     GLHelper::drawFilledCircle(0.5);
     // nose
     glBegin(GL_TRIANGLES);
-    glVertex2d( 0.0,-0.2);
-    glVertex2d( 0.0, 0.2);
+    glVertex2d(0.0, -0.2);
+    glVertex2d(0.0, 0.2);
     glVertex2d(-0.6, 0.0);
     glEnd();
     glTranslated(0, 0, -.045);

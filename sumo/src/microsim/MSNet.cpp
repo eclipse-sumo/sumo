@@ -172,8 +172,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myRouterTTDijkstra(0),
     myRouterTTAStar(0),
     myRouterEffort(0),
-    myPedestrianRouter(0) 
-{
+    myPedestrianRouter(0) {
     if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
@@ -763,7 +762,7 @@ MSNet::getRouterEffort(const std::vector<MSEdge*>& prohibited) const {
 }
 
 
-MSNet::MSPedestrianRouterDijkstra& 
+MSNet::MSPedestrianRouterDijkstra&
 MSNet::getPedestrianRouter(const std::vector<MSEdge*>& prohibited) const {
     if (myPedestrianRouter == 0) {
         myPedestrianRouter = new MSPedestrianRouterDijkstra();

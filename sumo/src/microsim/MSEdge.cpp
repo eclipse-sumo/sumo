@@ -74,10 +74,10 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
                const std::string& edgeType) :
     Named(id), myNumericalID(numericalID), myLanes(0),
     myLaneChanger(0), myFunction(function), myVaporizationRequests(0),
-    myLastFailedInsertionTime(-1), 
+    myLastFailedInsertionTime(-1),
     myFromJunction(0), myToJunction(0),
-    myStreetName(streetName), 
-    myEdgeType(edgeType), 
+    myStreetName(streetName),
+    myEdgeType(edgeType),
     myAmRoundabout(false) {}
 
 
@@ -592,7 +592,7 @@ MSEdge::getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
 }
 
 
-std::vector<MSPerson*> 
+std::vector<MSPerson*>
 MSEdge::getSortedPersons(SUMOTime timestep) const {
     std::vector<MSPerson*> result(myPersons.begin(), myPersons.end());
     sort(result.begin(), result.end(), person_by_offset_sorter(timestep));
@@ -600,7 +600,7 @@ MSEdge::getSortedPersons(SUMOTime timestep) const {
 }
 
 
-int 
+int
 MSEdge::person_by_offset_sorter::operator()(const MSPerson* const p1, const MSPerson* const p2) const {
     const SUMOReal pos1 = p1->getCurrentStage()->getEdgePos(myTime);
     const SUMOReal pos2 = p2->getCurrentStage()->getEdgePos(myTime);

@@ -69,7 +69,7 @@ public:
     StringBijection() {}
 
 
-    StringBijection(Entry entries[], T terminatorKey, bool checkDuplicates=true) {
+    StringBijection(Entry entries[], T terminatorKey, bool checkDuplicates = true) {
         int i = 0;
         do {
             insert(entries[i].str, entries[i].key, checkDuplicates);
@@ -77,7 +77,7 @@ public:
     }
 
 
-    void insert(const std::string str, const T key, bool checkDuplicates=true) {
+    void insert(const std::string str, const T key, bool checkDuplicates = true) {
         if (checkDuplicates) {
             if (has(key)) {
                 // cannot use toString(key) because that might create an infinite loop

@@ -143,12 +143,12 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeDouble(onRoad ? v->getPosition().x() : INVALID_DOUBLE_VALUE);
                 tempMsg.writeDouble(onRoad ? v->getPosition().y() : INVALID_DOUBLE_VALUE);
                 break;
-			case VAR_POSITION3D:
-				tempMsg.writeUnsignedByte(POSITION_3D);
-				tempMsg.writeDouble(onRoad ? v->getPosition().x() : INVALID_DOUBLE_VALUE);
-				tempMsg.writeDouble(onRoad ? v->getPosition().y() : INVALID_DOUBLE_VALUE);
-				tempMsg.writeDouble(onRoad ? v->getPosition().z() : INVALID_DOUBLE_VALUE);
-				break;
+            case VAR_POSITION3D:
+                tempMsg.writeUnsignedByte(POSITION_3D);
+                tempMsg.writeDouble(onRoad ? v->getPosition().x() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(onRoad ? v->getPosition().y() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(onRoad ? v->getPosition().z() : INVALID_DOUBLE_VALUE);
+                break;
             case VAR_ANGLE:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(onRoad ? v->getAngle() : INVALID_DOUBLE_VALUE);

@@ -734,7 +734,7 @@ public:
 
     /// @name Helper functions for ID-string manipulations
     //@{
-    
+
     /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea
     static std::string getJunctionIDFromInternalEdge(const std::string internalEdge);
 

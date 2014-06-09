@@ -254,7 +254,7 @@ NBContHelper::getMinSpeed(const EdgeVector& edges) {
 }
 
 
-int 
+int
 NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter::operator()(const NBEdge* e1, const NBEdge* e2) const {
     assert(e1->getFromNode() == myNode || e1->getToNode() == myNode);
     assert(e2->getFromNode() == myNode || e2->getToNode() == myNode);

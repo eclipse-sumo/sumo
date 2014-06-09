@@ -201,19 +201,19 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
     switch (from.cfModel) {
         case SUMO_TAG_CF_IDM:
             vtype->myCarFollowModel = new MSCFModel_IDM(vtype, accel, decel, tau,
-                                      from.get(SUMO_ATTR_CF_IDM_DELTA, 4.),
-                                      from.get(SUMO_ATTR_CF_IDM_STEPPING, .25));
+                    from.get(SUMO_ATTR_CF_IDM_DELTA, 4.),
+                    from.get(SUMO_ATTR_CF_IDM_STEPPING, .25));
             break;
         case SUMO_TAG_CF_IDMM:
             vtype->myCarFollowModel = new MSCFModel_IDM(vtype, accel, decel, tau,
-                                      from.get(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, 1.8),
-                                      from.get(SUMO_ATTR_CF_IDMM_ADAPT_TIME, 600.),
-                                      from.get(SUMO_ATTR_CF_IDM_STEPPING, .25));
+                    from.get(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, 1.8),
+                    from.get(SUMO_ATTR_CF_IDMM_ADAPT_TIME, 600.),
+                    from.get(SUMO_ATTR_CF_IDM_STEPPING, .25));
             break;
         case SUMO_TAG_CF_BKERNER:
             vtype->myCarFollowModel = new MSCFModel_Kerner(vtype, accel, decel, tau,
-                                         from.get(SUMO_ATTR_K, .5),
-                                         from.get(SUMO_ATTR_CF_KERNER_PHI, 5.));
+                    from.get(SUMO_ATTR_K, .5),
+                    from.get(SUMO_ATTR_CF_KERNER_PHI, 5.));
             break;
         case SUMO_TAG_CF_KRAUSS_ORIG1:
             vtype->myCarFollowModel = new MSCFModel_KraussOrig1(vtype, accel, decel, sigma, tau);
@@ -223,29 +223,29 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
         case SUMO_TAG_CF_SMART_SK:
             vtype->myCarFollowModel = new MSCFModel_SmartSK(vtype, accel, decel, sigma, tau,
-                                          from.get(SUMO_ATTR_TMP1, 1.),
-                                          from.get(SUMO_ATTR_TMP2, 1.),
-                                          from.get(SUMO_ATTR_TMP3, 1.),
-                                          from.get(SUMO_ATTR_TMP4, 1.),
-                                          from.get(SUMO_ATTR_TMP5, 1.));
+                    from.get(SUMO_ATTR_TMP1, 1.),
+                    from.get(SUMO_ATTR_TMP2, 1.),
+                    from.get(SUMO_ATTR_TMP3, 1.),
+                    from.get(SUMO_ATTR_TMP4, 1.),
+                    from.get(SUMO_ATTR_TMP5, 1.));
             break;
         case SUMO_TAG_CF_DANIEL1:
             vtype->myCarFollowModel = new MSCFModel_Daniel1(vtype, accel, decel, sigma, tau,
-                                          from.get(SUMO_ATTR_TMP1, 1.),
-                                          from.get(SUMO_ATTR_TMP2, 1.),
-                                          from.get(SUMO_ATTR_TMP3, 1.),
-                                          from.get(SUMO_ATTR_TMP4, 1.),
-                                          from.get(SUMO_ATTR_TMP5, 1.));
+                    from.get(SUMO_ATTR_TMP1, 1.),
+                    from.get(SUMO_ATTR_TMP2, 1.),
+                    from.get(SUMO_ATTR_TMP3, 1.),
+                    from.get(SUMO_ATTR_TMP4, 1.),
+                    from.get(SUMO_ATTR_TMP5, 1.));
             break;
         case SUMO_TAG_CF_PWAGNER2009:
             vtype->myCarFollowModel = new MSCFModel_PWag2009(vtype, accel, decel, sigma, tau,
-                                           from.get(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0.3),
-                                           from.get(SUMO_ATTR_CF_PWAGNER2009_APPROB, 0.5));
+                    from.get(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0.3),
+                    from.get(SUMO_ATTR_CF_PWAGNER2009_APPROB, 0.5));
             break;
         case SUMO_TAG_CF_WIEDEMANN:
             vtype->myCarFollowModel = new MSCFModel_Wiedemann(vtype, accel, decel,
-                                            from.get(SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0.5),
-                                            from.get(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5));
+                    from.get(SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0.5),
+                    from.get(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5));
             break;
         case SUMO_TAG_CF_KRAUSS:
         default:

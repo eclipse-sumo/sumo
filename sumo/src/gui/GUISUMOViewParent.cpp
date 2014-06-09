@@ -129,7 +129,7 @@ GUISUMOViewParent::~GUISUMOViewParent() {
 }
 
 
-void 
+void
 GUISUMOViewParent::toggleGaming() {
     if (myParent->isGaming()) {
         myNavigationToolBar->hide();

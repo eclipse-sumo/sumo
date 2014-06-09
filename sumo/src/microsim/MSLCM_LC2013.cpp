@@ -86,7 +86,7 @@
 #define KEEP_RIGHT_TIME (SUMOReal)5.0 // the number of seconds after which a vehicle should move to the right lane
 #define KEEP_RIGHT_ACCEPTANCE (SUMOReal)2.0 // calibration factor for determining the desire to keep right
 
-#define RELGAIN_NORMALIZATION_MIN_SPEED (SUMOReal)10.0 
+#define RELGAIN_NORMALIZATION_MIN_SPEED (SUMOReal)10.0
 
 // ===========================================================================
 // member method definitions
@@ -643,8 +643,8 @@ MSLCM_LC2013::_wantsChange(
     const SUMOReal vMax = MIN2(myVehicle.getVehicleType().getMaxSpeed(), myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
     thisLaneVSafe = MIN2(thisLaneVSafe, vMax);
     neighLaneVSafe = MIN2(neighLaneVSafe, vMax);
-    const SUMOReal relativeGain = (neighLaneVSafe - thisLaneVSafe) / MAX2(neighLaneVSafe, 
-            RELGAIN_NORMALIZATION_MIN_SPEED);
+    const SUMOReal relativeGain = (neighLaneVSafe - thisLaneVSafe) / MAX2(neighLaneVSafe,
+                                  RELGAIN_NORMALIZATION_MIN_SPEED);
 
     if (right) {
         // ONLY FOR CHANGING TO THE RIGHT
@@ -666,29 +666,29 @@ MSLCM_LC2013::_wantsChange(
             SUMOReal fullSpeedDrivingSeconds = MIN2(acceptanceTime, fullSpeedGap / vMax);
             if (neighLead.first != 0 && neighLead.first->getSpeed() < vMax) {
                 fullSpeedGap = MAX2((SUMOReal)0, MIN2(fullSpeedGap,
-                            neighLead.second - myVehicle.getCarFollowModel().getSecureGap(
-                                vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
+                                                      neighLead.second - myVehicle.getCarFollowModel().getSecureGap(
+                                                              vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - neighLead.first->getSpeed()));
             }
             const SUMOReal deltaProb = (CHANGE_PROB_THRESHOLD_RIGHT
-                    * STEPS2TIME(DELTA_T)
-                    * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
+                                        * STEPS2TIME(DELTA_T)
+                                        * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
             myKeepRightProbability -= deltaProb;
 
             if (gDebugFlag2) {
                 std::cout << STEPS2TIME(currentTime)
-                    << " veh=" << myVehicle.getID()
-                    << " vMax=" << vMax
-                    << " neighDist=" << neighDist
-                    << " brakeGap=" << myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed())
-                    << " leaderSpeed=" << (neighLead.first == 0 ? -1 : neighLead.first->getSpeed())
-                    << " secGap=" << (neighLead.first == 0 ? -1 : myVehicle.getCarFollowModel().getSecureGap(
-                                myVehicle.getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()))
-                    << " acceptanceTime=" << acceptanceTime
-                    << " fullSpeedGap=" << fullSpeedGap
-                    << " fullSpeedDrivingSeconds=" << fullSpeedDrivingSeconds
-                    << " dProb=" << deltaProb
-                    << "\n";
+                          << " veh=" << myVehicle.getID()
+                          << " vMax=" << vMax
+                          << " neighDist=" << neighDist
+                          << " brakeGap=" << myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed())
+                          << " leaderSpeed=" << (neighLead.first == 0 ? -1 : neighLead.first->getSpeed())
+                          << " secGap=" << (neighLead.first == 0 ? -1 : myVehicle.getCarFollowModel().getSecureGap(
+                                                myVehicle.getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()))
+                          << " acceptanceTime=" << acceptanceTime
+                          << " fullSpeedGap=" << fullSpeedGap
+                          << " fullSpeedDrivingSeconds=" << fullSpeedDrivingSeconds
+                          << " dProb=" << deltaProb
+                          << "\n";
             }
             if (myKeepRightProbability < -CHANGE_PROB_THRESHOLD_RIGHT) {
                 req = ret | lca | LCA_KEEPRIGHT;

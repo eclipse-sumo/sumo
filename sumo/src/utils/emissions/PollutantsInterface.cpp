@@ -147,7 +147,7 @@ PollutantsInterface::compute(const SUMOEmissionClass c, const EmissionType e, co
 PollutantsInterface::Emissions
 PollutantsInterface::computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope) {
     const Helper* const h = myHelpers[c >> 16];
-    return Emissions(h->compute(c, CO2, v, a, slope), h->compute(c, CO, v, a, slope), h->compute(c, HC, v, a, slope), 
+    return Emissions(h->compute(c, CO2, v, a, slope), h->compute(c, CO, v, a, slope), h->compute(c, HC, v, a, slope),
                      h->compute(c, FUEL, v, a, slope), h->compute(c, NO_X, v, a, slope), h->compute(c, PM_X, v, a, slope));
 }
 
@@ -155,7 +155,7 @@ PollutantsInterface::computeAll(const SUMOEmissionClass c, const double v, const
 SUMOReal
 PollutantsInterface::computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const SUMOReal tt) {
     const Helper* const h = myHelpers[c >> 16];
-    return (h->compute(c, e, v, 0, slope) + h->compute(c, e, v-a, a, slope)) * tt / 2.;
+    return (h->compute(c, e, v, 0, slope) + h->compute(c, e, v - a, a, slope)) * tt / 2.;
 }
 
 

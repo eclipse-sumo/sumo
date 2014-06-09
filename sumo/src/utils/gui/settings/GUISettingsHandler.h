@@ -140,7 +140,7 @@ public:
         return myViewType;
     }
 
-    RandomDistributor<std::string> getEventDistribution(const std::string &id);
+    RandomDistributor<std::string> getEventDistribution(const std::string& id);
     SUMOReal getJamSoundTime() {
         return myJamSoundTime;
     }

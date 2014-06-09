@@ -215,18 +215,18 @@ MSInsertionControl::checkFlows(SUMOTime time,
         }
         bool emitByProb = pars->repetitionProbability > 0 && RandHelper::rand() < (pars->repetitionProbability * TS);
         //std::cout << emitByProb << "\n";
-        //std::cout << SIMTIME 
-        //    << " flow=" << pars->id 
-        //    << " rDo=" << pars->repetitionsDone 
-        //    << " rN=" << pars->repetitionNumber 
-        //    << " rDe=" << pars->depart 
-        //    << " rRo=" << pars->repetitionOffset 
-        //    << " rPo=" << pars->repetitionProbability 
+        //std::cout << SIMTIME
+        //    << " flow=" << pars->id
+        //    << " rDo=" << pars->repetitionsDone
+        //    << " rN=" << pars->repetitionNumber
+        //    << " rDe=" << pars->depart
+        //    << " rRo=" << pars->repetitionOffset
+        //    << " rPo=" << pars->repetitionProbability
         //    << " emit=" << emitByProb
         //    << "\n";
         while (pars->repetitionsDone < pars->repetitionNumber &&
-               ((pars->repetitionProbability < 0 && pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T)
-                || emitByProb)) {
+                ((pars->repetitionProbability < 0 && pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T)
+                 || emitByProb)) {
             emitByProb = false;
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);

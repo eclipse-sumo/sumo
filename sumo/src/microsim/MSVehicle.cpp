@@ -461,7 +461,7 @@ MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
 bool
 MSVehicle::hasArrived() const {
     return myCurrEdge == myRoute->end() - 1 && (myStops.empty() || myStops.front().edge != myCurrEdge)
-        && myState.myPos > myArrivalPos - POSITION_EPS;
+           && myState.myPos > myArrivalPos - POSITION_EPS;
 }
 
 
@@ -2014,7 +2014,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
 }
 
 
-void 
+void
 MSVehicle::updateOccupancyAndCurrentBestLane(const MSLane* startLane) {
     std::vector<LaneQ>& currLanes = *myBestLanes.begin();
     std::vector<LaneQ>::iterator i;
@@ -2069,7 +2069,7 @@ MSVehicle::getBestLaneOffset() const {
 }
 
 
-void 
+void
 MSVehicle::adaptBestLanesOccupation(int laneIndex, SUMOReal density) {
     std::vector<MSVehicle::LaneQ>& preb = myBestLanes.front();
     assert(laneIndex < preb.size());

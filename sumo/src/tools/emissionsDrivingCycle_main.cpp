@@ -168,7 +168,7 @@ main(int argc, char** argv) {
                     continue;
                 }
                 StringTokenizer st(StringUtils::prune(line), ";");
-                if (st.size()<2) {
+                if (st.size() < 2) {
                     throw ProcessError("Each line must at least include the time and the speed.");
                 }
                 try {
@@ -189,7 +189,7 @@ main(int argc, char** argv) {
             }
             if (!quiet) {
                 std::cout << "sums"  << std::endl
-                    << "length:" << l << std::endl;
+                          << "length:" << l << std::endl;
                 handler.writeSums(std::cout, "");
             }
         }

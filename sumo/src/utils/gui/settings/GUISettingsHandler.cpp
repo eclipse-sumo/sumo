@@ -54,8 +54,7 @@
 // ===========================================================================
 GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile)
     : SUMOSAXHandler(content), myDelay(-1), myLookFrom(-1, -1, -1), myLookAt(-1, -1, -1),
-      myCurrentColorer(SUMO_TAG_NOTHING), myCurrentScheme(0), myJamSoundTime(-1)
-        {
+      myCurrentColorer(SUMO_TAG_NOTHING), myCurrentScheme(0), myJamSoundTime(-1) {
     if (isFile) {
         XMLSubSys::runParser(*this, content);
     } else {
@@ -243,7 +242,7 @@ GUISettingsHandler::myStartElement(int element,
             d.initialised = false;
             myDecals.push_back(d);
         }
-            break;
+        break;
         case SUMO_TAG_VIEWSETTINGS_LIGHT: {
             GUISUMOAbstractView::Decal d;
             d.filename = "light" + attrs.getOpt<std::string>(SUMO_ATTR_INDEX, 0, ok, "0");
@@ -260,14 +259,14 @@ GUISettingsHandler::myStartElement(int element,
             d.initialised = false;
             myDecals.push_back(d);
         }
-            break;
+        break;
         case SUMO_TAG_VIEWSETTINGS_EVENT: {
             const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
             const std::string cmd = attrs.get<std::string>(SUMO_ATTR_COMMAND, 0, ok);
             const SUMOReal prob = attrs.get<SUMOReal>(SUMO_ATTR_PROB, id.c_str(), ok);
             myEventDistributions[id].add(prob, cmd);
         }
-            break;
+        break;
         case SUMO_TAG_VIEWSETTINGS_EVENT_JAM_TIME:
             myJamSoundTime = attrs.get<SUMOReal>(SUMO_ATTR_VALUE, 0, ok);
             break;
@@ -367,8 +366,8 @@ GUISettingsHandler::loadBreakpoints(const std::string& file) {
 }
 
 
-RandomDistributor<std::string> 
-GUISettingsHandler::getEventDistribution(const std::string &id) {
+RandomDistributor<std::string>
+GUISettingsHandler::getEventDistribution(const std::string& id) {
     RandomDistributor<std::string> result = myEventDistributions[id];
     if (result.getOverallProb() > 0 && result.getOverallProb() < 1) {
         // unscaled probabilities are assumed, fill up with dummy event

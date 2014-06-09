@@ -60,7 +60,7 @@ public:
     /// @brief Enumerating all emission types, including fuel
     enum EmissionType { CO2, CO, HC, FUEL, NO_X, PM_X };
 
-    
+
     /**
      * @struct Emissions
      * @brief Storage for collected values of all emission types
@@ -81,15 +81,15 @@ public:
          * @param[in] nox initial value for NOx, defaults to 0
          * @param[in] pmx initial value for PMx, defaults to 0
          */
-        Emissions(SUMOReal co2=0, SUMOReal co=0, SUMOReal hc=0, SUMOReal f=0, SUMOReal nox=0, SUMOReal pmx=0)
-        : CO2(co2), CO(co), HC(hc), fuel(f), NOx(nox), PMx(pmx) {
+        Emissions(SUMOReal co2 = 0, SUMOReal co = 0, SUMOReal hc = 0, SUMOReal f = 0, SUMOReal nox = 0, SUMOReal pmx = 0)
+            : CO2(co2), CO(co), HC(hc), fuel(f), NOx(nox), PMx(pmx) {
         }
 
         /** @brief Add the values of the other struct to this one, scaling the values if needed
          * @param[in] a the other emission valuess
          * @param[in] scale scaling factor, defaulting to 1 (no scaling)
          */
-        void addScaled(const Emissions& a, const SUMOReal scale=1.) {
+        void addScaled(const Emissions& a, const SUMOReal scale = 1.) {
             CO2 += scale * a.CO2;
             CO += scale * a.CO;
             HC += scale * a.HC;
@@ -99,7 +99,7 @@ public:
         }
     };
 
-    
+
     /**
     * @class Helper
     * @brief abstract superclass for the model helpers
@@ -110,14 +110,14 @@ public:
          * @param[in] name the name of the model (string before the '/' in the emission class attribute)
          */
         Helper(std::string name) : myName(name) {}
-        
+
         /** @brief Returns the name of the model
          * @return the name of the model (string before the '/' in the emission class attribute)
          */
         const std::string& getName() const {
             return myName;
         }
- 
+
         /** @brief Returns the emission class associated with the given name, aliases are possible
          * If this method is asked for the "unknown" class it should return the default
          * (possibly depending on the given vehicle class).
@@ -129,7 +129,7 @@ public:
             UNUSED_PARAMETER(vc);
             return myEmissionClassStrings.get(eClass);
         }
-        
+
         /** @brief Returns the complete name of the emission class including the model
          * @param[in] c the emission class
          * @return the name of the class (the complete emission class attribute)
@@ -137,7 +137,7 @@ public:
         const std::string getClassName(const SUMOEmissionClass c) const {
             return myName + "/" + myEmissionClassStrings.getString(c);
         }
-        
+
         /** @brief Returns whether the class denotes a silent vehicle for interfacing with the noise model.
          * By default the first class in each model is the silent class.
          * @param[in] c the emission class
@@ -146,7 +146,7 @@ public:
         virtual bool isSilent(const SUMOEmissionClass c) {
             return (c & 0xffffffff & ~HEAVY_BIT) == 0;
         }
-        
+
         /// @name Methods for Amitran interfaces
         /// @{
 
@@ -168,7 +168,7 @@ public:
             UNUSED_PARAMETER(weight);
             return base;
         }
-        
+
         /** @brief Returns the vehicle class described by this emission class as described in the Amitran interface (Passenger, ...)
          * Default implementation returns always "Passenger".
          * @param[in] c the emission class
@@ -178,7 +178,7 @@ public:
             UNUSED_PARAMETER(c);
             return "Passenger";
         }
-        
+
         /** @brief Returns the fuel type described by this emission class as described in the Amitran interface (Gasoline, Diesel, ...)
          * Default implementation returns always "Gasoline".
          * @param[in] c the emission class
@@ -188,7 +188,7 @@ public:
             UNUSED_PARAMETER(c);
             return "Gasoline";
         }
-        
+
         /** @brief Returns the Euro emission class described by this emission class as described in the Amitran interface (0, ..., 6)
          * Default implementation returns always 0.
          * @param[in] c the emission class
@@ -198,7 +198,7 @@ public:
             UNUSED_PARAMETER(c);
             return 0;
         }
-        
+
         /** @brief Returns a reference weight in kg described by this emission class as described in the Amitran interface
          * It might return -1, if the weight is not important to distinguish different emission classes.
          * Default implementation returns always -1.
@@ -236,7 +236,7 @@ public:
             UNUSED_PARAMETER(slope);
             return -1.;
         }
-        
+
         /** @brief Add all known emission classes of this model to the given container
          * @param[in] list the vector to add to
          */
@@ -272,7 +272,7 @@ public:
      * @param[in] eClass The string describing the vehicle emission class
      * @return whether it describes a valid emission class
      */
-    static SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc=SVC_IGNORING);
+    static SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc = SVC_IGNORING);
 
 
     /** @brief Checks whether the string describes a known vehicle class

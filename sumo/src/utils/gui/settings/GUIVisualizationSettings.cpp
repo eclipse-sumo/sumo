@@ -84,7 +84,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(179, 179, 179, 255), "unselected", true);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by permission code", RGBColor(240,240,240), "nobody");
+    scheme = GUIColorScheme("by permission code", RGBColor(240, 240, 240), "nobody");
     scheme.addColor(RGBColor(10, 10, 10), (SUMOReal)SVC_PASSENGER, "passenger");
     scheme.addColor(RGBColor(128, 128, 128), (SUMOReal)SVC_PEDESTRIAN, "pedestrian");
     scheme.addColor(RGBColor(80, 80, 80), (SUMOReal)(SVC_PEDESTRIAN | SVC_DELIVERY), "pedestrian_delivery");

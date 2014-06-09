@@ -109,7 +109,7 @@ public:
      */
     static void drawBoxLines(const PositionVector& geom,
                              const std::vector<SUMOReal>& rots, const std::vector<SUMOReal>& lengths,
-                             SUMOReal width, int cornerDetail=0);
+                             SUMOReal width, int cornerDetail = 0);
 
 
     /** @brief Draws thick lines using the mean of the points given in the point lists as begin positions

@@ -364,8 +364,8 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
 
 
 std::string
-NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime, 
-        std::string state, const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
+NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime,
+                                std::string state, const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
     const SUMOTime pedClearingTime = TIME2STEPS(5); // compute based on length of the crossing
     const SUMOTime minPedTime = TIME2STEPS(4); // compute: must be able to reach the middle of the second "Richtungsfahrbahn"
     const std::string orig = state;
@@ -405,8 +405,8 @@ NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<N
                 for (EdgeVector::const_iterator it = cross.edges.begin(); it != cross.edges.end(); ++it) {
                     const NBEdge* edge = *it;
                     const LinkDirection i2dir = cross.node->getDirection(fromEdges[i2], toEdges[i2]);
-                    if (state[i2] != 'r' && (edge == fromEdges[i2] || 
-                                (edge == toEdges[i2] && (i2dir == LINKDIR_STRAIGHT || i2dir == LINKDIR_PARTLEFT || i2dir == LINKDIR_PARTRIGHT)))) {
+                    if (state[i2] != 'r' && (edge == fromEdges[i2] ||
+                                             (edge == toEdges[i2] && (i2dir == LINKDIR_STRAIGHT || i2dir == LINKDIR_PARTLEFT || i2dir == LINKDIR_PARTRIGHT)))) {
                         isForbidden = true;
                         break;
                     }

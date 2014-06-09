@@ -281,8 +281,8 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     }
     if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
         myJunctionGraph[id] = std::make_pair(
-                attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok),
-                attrs.get<std::string>(SUMO_ATTR_TO, 0, ok));
+                                  attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok),
+                                  attrs.get<std::string>(SUMO_ATTR_TO, 0, ok));
     } else {
         // must be an internal edge
         std::string junctionID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id);

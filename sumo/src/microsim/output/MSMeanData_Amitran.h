@@ -174,11 +174,11 @@ public:
      * @param[in] vTypes the set of vehicle types to consider
      */
     MSMeanData_Amitran(const std::string& id,
-                   const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                   const bool useLanes, const bool withEmpty, const bool printDefaults,
-                   const bool withInternal, const bool trackVehicles,
-                   const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                   const SUMOReal haltSpeed, const std::set<std::string> vTypes);
+                       const SUMOTime dumpBegin, const SUMOTime dumpEnd,
+                       const bool useLanes, const bool withEmpty, const bool printDefaults,
+                       const bool withInternal, const bool trackVehicles,
+                       const SUMOReal maxTravelTime, const SUMOReal minSamples,
+                       const SUMOReal haltSpeed, const std::set<std::string> vTypes);
 
 
     /// @brief Destructor

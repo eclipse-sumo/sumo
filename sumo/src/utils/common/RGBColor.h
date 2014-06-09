@@ -127,7 +127,7 @@ public:
      * @param[in] change The number of colors to change
      * @return The new color
      */
-    RGBColor changedBrightness(int change, int toChange=3) const;
+    RGBColor changedBrightness(int change, int toChange = 3) const;
 
 
     /** @brief Parses a color information

@@ -70,13 +70,12 @@ NBRequest::NBRequest(const NBEdgeCont& ec,
                      const EdgeVector& all,
                      const EdgeVector& incoming,
                      const EdgeVector& outgoing,
-                     const NBConnectionProhibits& loadedProhibits) : 
+                     const NBConnectionProhibits& loadedProhibits) :
     myJunction(junction),
-    myAll(all), 
-    myIncoming(incoming), 
+    myAll(all),
+    myIncoming(incoming),
     myOutgoing(outgoing),
-    myCrossings(junction->getCrossings())
-{
+    myCrossings(junction->getCrossings()) {
     const size_t variations = numLinks();
     // build maps with information which forbidding connection were
     //  computed and what's in there
@@ -504,7 +503,7 @@ int
 NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos) const {
     std::string foes(myCrossings.size(), '0');
     std::string response(myCrossings.size(), '0');
-    // conflicts with normal connections 
+    // conflicts with normal connections
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
         const NBEdge* from = *i;
@@ -548,7 +547,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
     for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
         result += mustBrakeForCrossing(from, to, *i) ? '1' : '0';
     }
-    // normal connections 
+    // normal connections
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
         unsigned int noLanes = (*i)->getNumLanes();
@@ -600,7 +599,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
         }
         result += foes ? '1' : '0';
     }
-    // normal connections 
+    // normal connections
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin();
             i != myIncoming.rend(); i++) {
 
@@ -794,7 +793,7 @@ NBRequest::resetCooperating() {
 }
 
 
-size_t 
+size_t
 NBRequest::numLinks() const {
     return myIncoming.size() * myOutgoing.size() + myCrossings.size();
 }

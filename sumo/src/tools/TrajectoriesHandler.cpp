@@ -49,9 +49,9 @@
 // method definitions
 // ===========================================================================
 TrajectoriesHandler::TrajectoriesHandler(const bool computeA, const SUMOEmissionClass defaultClass,
-                                         const SUMOReal defaultSlope, OutputDevice* xmlOut)
+        const SUMOReal defaultSlope, OutputDevice* xmlOut)
     : SUMOSAXHandler(""), myComputeA(computeA), myDefaultClass(defaultClass),
-    myDefaultSlope(defaultSlope), myXMLOut(xmlOut), myCurrentTime(-1) {}
+      myDefaultSlope(defaultSlope), myXMLOut(xmlOut), myCurrentTime(-1) {}
 
 
 TrajectoriesHandler::~TrajectoriesHandler() {}
@@ -131,7 +131,7 @@ TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
                                     SUMOReal a, SUMOReal s) {
     const PollutantsInterface::Emissions e = computeEmissions(id, c, v, a, s);
     o << t << ";" << v << ";" << a << ";" << s
-    << ";" << e.CO << ";" << e.CO2 << ";" << e.HC << ";" << e.PMx << ";" << e.NOx << ";" << e.fuel << std::endl;
+      << ";" << e.CO << ";" << e.CO2 << ";" << e.HC << ";" << e.PMx << ";" << e.NOx << ";" << e.fuel << std::endl;
 }
 
 
@@ -158,11 +158,11 @@ TrajectoriesHandler::writeXMLEmissions(const std::string id,
 void
 TrajectoriesHandler::writeSums(std::ostream& o, const std::string id) {
     o << "CO:" << mySums[id].CO << std::endl
-    << "CO2:" << mySums[id].CO2 << std::endl
-    << "HC:" << mySums[id].HC << std::endl
-    << "NOx:" << mySums[id].NOx << std::endl
-    << "PMx:" << mySums[id].PMx << std::endl
-    << "fuel:" << mySums[id].fuel << std::endl;
+      << "CO2:" << mySums[id].CO2 << std::endl
+      << "HC:" << mySums[id].HC << std::endl
+      << "NOx:" << mySums[id].NOx << std::endl
+      << "PMx:" << mySums[id].PMx << std::endl
+      << "fuel:" << mySums[id].fuel << std::endl;
 }
 
 

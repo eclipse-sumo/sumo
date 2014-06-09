@@ -90,29 +90,29 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         switch (i->second->getType()) {
             case NODETYPE_TRAFFIC_LIGHT:
             case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
-               device << "\" type=\"trafficLight";
-               break;
+                device << "\" type=\"trafficLight";
+                break;
             case NODETYPE_PRIORITY:
-               device << "\" type=\"priority";
-               break;
+                device << "\" type=\"priority";
+                break;
             case NODETYPE_PRIORITY_STOP:
-               device << "\" type=\"priorityStop";
-               break;
+                device << "\" type=\"priorityStop";
+                break;
             case NODETYPE_RIGHT_BEFORE_LEFT:
-               device << "\" type=\"rightBeforeLeft";
-               break;
+                device << "\" type=\"rightBeforeLeft";
+                break;
             case NODETYPE_ALLWAY_STOP:
-               device << "\" type=\"allwayStop";
-               break;
+                device << "\" type=\"allwayStop";
+                break;
             case NODETYPE_DEAD_END:
             case NODETYPE_DEAD_END_DEPRECATED:
-               device << "\" type=\"deadEnd";
-               break;
+                device << "\" type=\"deadEnd";
+                break;
             case NODETYPE_DISTRICT:
             case NODETYPE_NOJUNCTION:
             case NODETYPE_INTERNAL:
             case NODETYPE_UNKNOWN:
-               break;
+                break;
         }
         device << "\"/>\n";
     }

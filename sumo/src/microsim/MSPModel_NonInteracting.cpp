@@ -61,8 +61,7 @@
 // ===========================================================================
 
 MSPModel_NonInteracting::MSPModel_NonInteracting(const OptionsCont& oc, MSNet* net) :
-    myNet(net)
-{
+    myNet(net) {
     assert(myNet != 0);
     UNUSED_PARAMETER(oc);
 }
@@ -84,13 +83,13 @@ MSPModel_NonInteracting::add(MSPerson* person, MSPerson::MSPersonStage_Walking* 
 }
 
 
-bool 
+bool
 MSPModel_NonInteracting::blockedAtDist(const MSLane*, SUMOReal, std::vector<const MSPerson*>*) {
     return false;
 }
 
 
-SUMOTime 
+SUMOTime
 MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
     PState* state = dynamic_cast<PState*>(myParent.getPedestrianState());
     const MSEdge* old = myParent.getEdge();
@@ -107,7 +106,7 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
 }
 
 
-SUMOTime 
+SUMOTime
 MSPModel_NonInteracting::PState::computeWalkingTime(const MSEdge* prev, const MSPerson::MSPersonStage_Walking& stage, SUMOTime currentTime) {
     myLastEntryTime = currentTime;
     const MSEdge* edge = stage.getEdge();
@@ -136,14 +135,14 @@ MSPModel_NonInteracting::PState::computeWalkingTime(const MSEdge* prev, const MS
 }
 
 
-SUMOReal 
+SUMOReal
 MSPModel_NonInteracting::PState::getEdgePos(const MSPerson::MSPersonStage_Walking&, SUMOTime now) const {
     //std::cout << SIMTIME << " pos=" << (myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime)) << "\n";
     return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime);
 }
 
 
-Position 
+Position
 MSPModel_NonInteracting::PState::getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
     const MSLane* lane = getSidewalk(stage.getEdge());
     const SUMOReal lateral_offset = lane->allowsVehicleClass(SVC_PEDESTRIAN) ? 0 : SIDEWALK_OFFSET;
@@ -151,7 +150,7 @@ MSPModel_NonInteracting::PState::getPosition(const MSPerson::MSPersonStage_Walki
 }
 
 
-SUMOReal 
+SUMOReal
 MSPModel_NonInteracting::PState::getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
     //std::cout << SIMTIME << " rawAngle=" << stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) << " angle=" << stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 180 : 0) << "\n";
     SUMOReal angle = -stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 180 : 0);
@@ -162,13 +161,13 @@ MSPModel_NonInteracting::PState::getAngle(const MSPerson::MSPersonStage_Walking&
 }
 
 
-SUMOTime 
+SUMOTime
 MSPModel_NonInteracting::PState::getWaitingTime(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
     return 0;
 }
 
 
-SUMOReal 
+SUMOReal
 MSPModel_NonInteracting::PState::getSpeed(const MSPerson::MSPersonStage_Walking& stage) const {
     return stage.getMaxSpeed();
 }

@@ -179,7 +179,7 @@ GUILane::drawLinkNo() const {
         drawTextAtEnd(toString(link->getIndex()), shape, 0);
         drawTextAtEnd(toString(link->getIndex()), shape.reverse(), 0);
         return;
-    } 
+    }
     // draw all links
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = myHalfLaneWidth;
@@ -208,7 +208,7 @@ GUILane::drawTLSLinkNo(const GUINet& net) const {
             drawTextAtEnd(toString(linkNo), shape.reverse(), 0);
         }
         return;
-    } 
+    }
     // draw all links
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = myHalfLaneWidth;
@@ -224,7 +224,7 @@ GUILane::drawTLSLinkNo(const GUINet& net) const {
 }
 
 
-void 
+void
 GUILane::drawTextAtEnd(const std::string& text, const PositionVector& shape, SUMOReal x) const {
     glPushMatrix();
     const Position& end = shape.back();
@@ -252,7 +252,7 @@ GUILane::drawLinkRules(const GUINet& net) const {
         drawLinkRule(net, link, shape, 0, myWidth);
         drawLinkRule(net, link, shape.reverse(), 0, myWidth);
         return;
-    } 
+    }
     // draw all links
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = 0;
@@ -264,7 +264,7 @@ GUILane::drawLinkRules(const GUINet& net) const {
 }
 
 
-void 
+void
 GUILane::drawLinkRule(const GUINet& net, MSLink* link, const PositionVector& shape, SUMOReal x1, SUMOReal x2) const {
     const Position& end = shape.back();
     const Position& f = shape[-2];
@@ -501,13 +501,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             }
             glTranslated(0, 0, -.2);
 #ifdef GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
-              RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
-              glTranslated(0, 0, .4);
-              for (int i = 0; i < (int)myShape.size(); ++i) {
-                  GLHelper::drawText(toString(i), myShape[i], GLO_JUNCTION,
-                          80/s.scale, color, 0);
-              }
-              glTranslated(0, 0, -.4);
+            RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
+            glTranslated(0, 0, .4);
+            for (int i = 0; i < (int)myShape.size(); ++i) {
+                GLHelper::drawText(toString(i), myShape[i], GLO_JUNCTION,
+                                   80 / s.scale, color, 0);
+            }
+            glTranslated(0, 0, -.4);
 #endif
         } else {
             const SUMOReal laneWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
@@ -626,8 +626,8 @@ GUILane::drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) co
             glBegin(GL_QUADS);
             glVertex2d(-halfWidth, -t);
             glVertex2d(-halfWidth, -t - length);
-            glVertex2d( halfWidth, -t - length);
-            glVertex2d( halfWidth, -t);
+            glVertex2d(halfWidth, -t - length);
+            glVertex2d(halfWidth, -t);
             glEnd();
         }
         glPopMatrix();

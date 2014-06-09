@@ -124,8 +124,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::vector<const M
     myCurrentInternalEdge(0),
     myDepartPos(departPos), myArrivalPos(arrivalPos), myDestinationBusStop(toBS),
     mySpeed(speed),
-    myPedestrianState(0)
-{
+    myPedestrianState(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       myDepartPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + myRoute.front()->getID());
     myArrivalPos = SUMOVehicleParameter::interpretEdgePos(
@@ -612,28 +611,28 @@ MSPerson::routeOutput(OutputDevice& os) const {
     }
 }
 
-SUMOReal 
+SUMOReal
 MSPerson::getEdgePos() const {
     return (*myStep)->getEdgePos(MSNet::getInstance()->getCurrentTimeStep());
 }
 
-Position 
+Position
 MSPerson::getPosition() const {
     return (*myStep)->getPosition(MSNet::getInstance()->getCurrentTimeStep());
 }
 
 
-SUMOReal 
+SUMOReal
 MSPerson::getAngle() const {
     return (*myStep)->getAngle(MSNet::getInstance()->getCurrentTimeStep());
 }
 
-SUMOReal 
+SUMOReal
 MSPerson::getWaitingSeconds() const {
     return STEPS2TIME((*myStep)->getWaitingTime(MSNet::getInstance()->getCurrentTimeStep()));
 }
 
-SUMOReal 
+SUMOReal
 MSPerson::getSpeed() const {
     return (*myStep)->getSpeed();
 }

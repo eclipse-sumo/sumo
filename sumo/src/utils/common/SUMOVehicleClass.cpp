@@ -70,8 +70,8 @@ StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
     {"trailer",           SVC_TRAILER},
     {"lightrail",         SVC_TRAM}, // !!! deprecated
     {"tram",              SVC_TRAM},
-    {"cityrail",          SVC_RAIL_URBAN}, // !!! deprecated 
-    {"rail_urban",        SVC_RAIL_URBAN}, 
+    {"cityrail",          SVC_RAIL_URBAN}, // !!! deprecated
+    {"rail_urban",        SVC_RAIL_URBAN},
     {"rail_slow",         SVC_RAIL}, // !!! deprecated
     {"rail",              SVC_RAIL},
     {"rail_fast",         SVC_RAIL_ELECTRIC}, // !!! deprecated
@@ -288,7 +288,7 @@ getVehicleShapeName(SUMOVehicleShape id) {
 
 
 bool isRailway(SVCPermissions permissions) {
-    return (permissions & (SVC_RAIL_ELECTRIC|SVC_RAIL|SVC_RAIL_URBAN|SVC_TRAM)) > 0 && (permissions & SVC_PASSENGER) == 0;
+    return (permissions & (SVC_RAIL_ELECTRIC | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM)) > 0 && (permissions & SVC_PASSENGER) == 0;
 }
 
 
@@ -301,7 +301,7 @@ const std::string DEFAULT_VTYPE_ID("DEFAULT_VEHTYPE");
 
 const SUMOReal DEFAULT_VEH_PROB(1.);
 
-const SUMOReal DEFAULT_PEDESTRIAN_SPEED(5./3.6);
+const SUMOReal DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
 
 /****************************************************************************/
 

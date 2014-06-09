@@ -743,7 +743,7 @@ PositionVector::pruneFromBeginAt(const Position& p) {
 }
 
 
-PositionVector 
+PositionVector
 PositionVector::getSubpartByIndex(int beginIndex, int count) const {
     if (beginIndex < 0) {
         beginIndex += (int)size();

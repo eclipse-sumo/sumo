@@ -1535,7 +1535,7 @@ GUIVehicle::selectBlockingFoes() const {
                     const GUIPerson* foe = dynamic_cast<const GUIPerson*>(*it_p);
                     if (foe != 0) {
                         gSelected.select(foe->getGlID());
-                        //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link " << dpi.myLink->getRespondIndex() << " to " << dpi.myLink->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->second << "\n"; 
+                        //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link " << dpi.myLink->getRespondIndex() << " to " << dpi.myLink->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->second << "\n";
                     }
                 }
             }

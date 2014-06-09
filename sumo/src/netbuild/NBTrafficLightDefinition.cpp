@@ -357,7 +357,7 @@ NBTrafficLightDefinition::addControlledInnerEdges(const std::vector<std::string>
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 NBTrafficLightDefinition::getControlledInnerEdges() const {
     return std::vector<std::string>(myControlledInnerEdges.begin(), myControlledInnerEdges.end());
 }

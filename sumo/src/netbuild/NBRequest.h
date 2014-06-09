@@ -108,7 +108,7 @@ public:
     /** @brief Returns the information whether the described flow must brake for the given crossing
      * @param[in] from The connection's start edge
      * @param[in] to The connection's end edge
-     * @param[in] crossing The pedestrian crossing to check 
+     * @param[in] crossing The pedestrian crossing to check
      * @return Whether the described connection must brake (has higher priorised foes)
      */
     bool mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) const;
@@ -159,7 +159,7 @@ private:
 
     /** @brief writes the response of a certain crossing
         Returns the next link index within the junction */
-    int writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos) const; 
+    int writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos) const;
 
     /** @brief Writes the response of a certain link
      *

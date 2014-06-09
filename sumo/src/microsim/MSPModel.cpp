@@ -89,7 +89,7 @@ MSPModel::cleanup() {
 }
 
 
-MSLane* 
+MSLane*
 MSPModel::getSidewalk(const MSEdge* edge) {
     if (edge == 0) {
         return 0;
@@ -105,7 +105,7 @@ MSPModel::getSidewalk(const MSEdge* edge) {
 }
 
 
-bool 
+bool
 MSPModel::canTraverse(int dir, const std::vector<const MSEdge*>& route) {
     const MSJunction* junction = 0;
     for (std::vector<const MSEdge*>::const_iterator it = route.begin(); it != route.end(); ++it) {
@@ -118,7 +118,7 @@ MSPModel::canTraverse(int dir, const std::vector<const MSEdge*>& route) {
                 dir = BACKWARD;
             } else {
                 return false;
-            } 
+            }
         }
         junction = dir == FORWARD ? edge->getToJunction() : edge->getFromJunction();
     }

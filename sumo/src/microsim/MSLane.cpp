@@ -1250,7 +1250,7 @@ MSLane::getLogicalPredecessorLane() const {
 }
 
 
-LinkState 
+LinkState
 MSLane::getIncomingLinkState() const {
     MSLane* pred = getLogicalPredecessorLane();
     if (pred == 0) {
@@ -1261,7 +1261,7 @@ MSLane::getIncomingLinkState() const {
 }
 
 
-std::vector<const MSLane*> 
+std::vector<const MSLane*>
 MSLane::getOutgoingLanes() const {
     std::vector<const MSLane*> result;
     for (MSLinkCont::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {

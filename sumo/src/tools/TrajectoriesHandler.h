@@ -61,18 +61,18 @@ public:
     ~TrajectoriesHandler();
 
     const PollutantsInterface::Emissions computeEmissions(const std::string id,
-                        const SUMOEmissionClass c, const SUMOReal v,
-                        SUMOReal& a, SUMOReal& s);
+            const SUMOEmissionClass c, const SUMOReal v,
+            SUMOReal& a, SUMOReal& s);
 
     void writeEmissions(std::ostream& o, const std::string id,
                         const SUMOEmissionClass c,
                         const SUMOReal t, const SUMOReal v,
-                        SUMOReal a=INVALID_VALUE, SUMOReal s=INVALID_VALUE);
+                        SUMOReal a = INVALID_VALUE, SUMOReal s = INVALID_VALUE);
 
     void writeXMLEmissions(const std::string id,
                            const SUMOEmissionClass c,
                            const SUMOTime t, const SUMOReal v,
-                           SUMOReal a=INVALID_VALUE, SUMOReal s=INVALID_VALUE);
+                           SUMOReal a = INVALID_VALUE, SUMOReal s = INVALID_VALUE);
 
     void writeSums(std::ostream& o, const std::string id);
 
@@ -106,7 +106,7 @@ private:
     std::map<std::string, SUMOEmissionClass> myEmissionClassByType;
     std::map<std::string, SUMOEmissionClass> myEmissionClassByVehicle;
 
-    
+
 private:
     /// @brief invalidated copy constructor
     TrajectoriesHandler(const TrajectoriesHandler& s);

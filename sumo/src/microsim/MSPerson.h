@@ -248,26 +248,40 @@ public:
         virtual void endEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const;
 
         /// @brief move forward and return whether the person arrived
-        bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal=0);
+        bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = 0);
 
 
         /// @brief accessors to be used by MSPModel
         //@{
-        inline SUMOReal getMaxSpeed() const { return mySpeed; }
-        inline SUMOReal getDepartPos() const { return myDepartPos;}
-        inline SUMOReal getArrivalPos() const { return myArrivalPos;}
+        inline SUMOReal getMaxSpeed() const {
+            return mySpeed;
+        }
+        inline SUMOReal getDepartPos() const {
+            return myDepartPos;
+        }
+        inline SUMOReal getArrivalPos() const {
+            return myArrivalPos;
+        }
 
-        inline const MSEdge* getRouteEdge() const { return *myRouteStep; }
-        inline const MSEdge* getNextRouteEdge() const { return myRouteStep == myRoute.end() - 1 ? 0 : *(myRouteStep + 1); }
-        inline const std::vector<const MSEdge*>& getRoute() const { return myRoute; }
+        inline const MSEdge* getRouteEdge() const {
+            return *myRouteStep;
+        }
+        inline const MSEdge* getNextRouteEdge() const {
+            return myRouteStep == myRoute.end() - 1 ? 0 : *(myRouteStep + 1);
+        }
+        inline const std::vector<const MSEdge*>& getRoute() const {
+            return myRoute;
+        }
 
-        PedestrianState* getPedestrianState() const { return myPedestrianState; }
+        PedestrianState* getPedestrianState() const {
+            return myPedestrianState;
+        }
         //@}
 
 
     private:
 
-        /* @brief compute average speed if the total walking duration is given 
+        /* @brief compute average speed if the total walking duration is given
          * @note Must be callled when the previous stage changes myDepartPos from the default*/
         SUMOReal computeAverageSpeed() const;
 
@@ -552,7 +566,7 @@ public:
     }
 
     /// @brief return the offset from the start of the current edge
-    virtual SUMOReal getEdgePos() const; 
+    virtual SUMOReal getEdgePos() const;
 
     /// @brief return the Network coordinate of the person
     virtual Position getPosition() const;

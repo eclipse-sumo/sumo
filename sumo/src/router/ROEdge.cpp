@@ -71,8 +71,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int ind
       myUsingETimeLine(false),
       myCombinedPermissions(0),
       myFromJunction(0),
-      myToJunction(0)
-{
+      myToJunction(0) {
     while (myEdges.size() <= index) {
         myEdges.push_back(0);
     }

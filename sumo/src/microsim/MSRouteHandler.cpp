@@ -168,7 +168,7 @@ MSRouteHandler::myStartElement(int element,
                     if (to == 0) {
                         throw ProcessError("The to edge '" + toID + "' within a walk of person '" + myVehicleParameter->id + "' is not known.");
                     }
-                    MSNet::getInstance()->getPedestrianRouter().compute(from, to, 
+                    MSNet::getInstance()->getPedestrianRouter().compute(from, to,
                             SUMOVehicleParameter::interpretEdgePos(departPos, from->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + from->getID()),
                             SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + to->getID()),
                             speed, 0, 0, myActiveRoute);
