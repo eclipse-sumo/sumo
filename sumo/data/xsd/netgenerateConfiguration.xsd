@@ -131,6 +131,10 @@
             <xsd:element name="junctions.join-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.all" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="sidewalks.guess" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="sidewalks.guess.max-speed" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="sidewalks.guess.min-speed" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="crossings.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -140,6 +144,7 @@
             <xsd:element name="default.lanenumber" type="intOptionType" minOccurs="0"/>
             <xsd:element name="default.speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.priority" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="default.sidewalk-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default-junction-type" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

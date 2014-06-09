@@ -78,18 +78,20 @@
             <xsd:element name="ignore-accidents" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-route-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="max-num-vehicles" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="incremental-dua-step" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="incremental-dua-base" type="intOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.highways" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-depart-delay" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="sloppy-insert" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="eager-insert" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="random-depart-offset" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.allow-swap" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.duration" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.overtake-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
