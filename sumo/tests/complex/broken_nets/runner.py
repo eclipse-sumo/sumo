@@ -207,7 +207,7 @@ elif sys.argv[1]=="duarouter":
             "-o", "dummy.xml", "-t", "input_additional.add.xml"]
 elif sys.argv[1]=="jtrrouter":
     call = [checkBinary('jtrrouter'), "--no-step-log",
-            "-o", "dummy.xml", "-t", "input_additional.add.xml"]
+            "-o", "dummy.xml", "-a", "input_additional.add.xml"]
 else:
     print >> sys.stderr, "Unsupported application defined"
 call += sys.argv[2:]
