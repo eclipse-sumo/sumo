@@ -27,6 +27,7 @@ import traci.constants as tc
 
 DEPART_TRIGGERED = -1
 DEPART_NOW = -2
+DEPART_MAX = -3
 
 STOP_DEFAULT = 0
 STOP_PARKING = 1
