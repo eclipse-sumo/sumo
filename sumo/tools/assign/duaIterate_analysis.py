@@ -47,16 +47,16 @@ def parse_args():
 def parse_dualog(dualog, limit):
     print "Parsing %s" % dualog
     teleStats = Statistics('Teleports')
-    header = ['#Emitted', 'Running', 'Waiting', 'Teleports', 'Loaded']
+    header = ['#Inserted', 'Running', 'Waiting', 'Teleports', 'Loaded']
     step_values = [] # list of lists
     step_counts = [] # list of edge teleport counters
-    reEmitted = re.compile("Emitted: (\d*)")
+    reInserted = re.compile("Inserted: (\d*)")
     reLoaded = re.compile("Loaded: (\d*)")
     reRunning = re.compile("Running: (\d*)")
     reWaiting = re.compile("Waiting: (\d*)")
     reFrom = re.compile("from '([^']*)'") # mesosim
     teleports = 0
-    emitted = None
+    inserted = None
     loaded = None
     running = None
     waiting = None
@@ -76,12 +76,12 @@ def parse_dualog(dualog, limit):
                 if ':' in edge: # mesosim output
                     edge = edge.split(':')[0]
                 counts[edge] += 1
-            elif "Emitted:" in line:
-                emitted = reEmitted.search(line).group(1)
+            elif "Inserted:" in line:
+                inserted = reInserted.search(line).group(1)
                 if "Loaded:" in line: # optional output
                     loaded = reLoaded.search(line).group(1)
                 else:
-                    loaded = emitted
+                    loaded = inserted
             elif "Running:" in line:
                 running = reRunning.search(line).group(1)
             elif "Waiting:" in line:
@@ -90,7 +90,7 @@ def parse_dualog(dualog, limit):
                     break
                 waiting = reWaiting.search(line).group(1)
                 teleStats.add(teleports, iteration)
-                step_values.append([emitted, running, waiting, teleports, loaded])
+                step_values.append([inserted, running, waiting, teleports, loaded])
                 teleports = 0
                 step_counts.append(counts)
                 counts = defaultdict(lambda:0)
@@ -139,7 +139,7 @@ def write_plotfile(outfile, datafile, xlabel):
         f.write("""
 set xlabel '%s'
 plot \\
-'%s' using 0:1 title 'emitted' with lines, \\
+'%s' using 0:1 title 'inserted' with lines, \\
 '%s' using 0:4 title 'teleports' with lines, \\
 '%s' using 0:3 title 'waiting' with lines, \\
 '%s' using 0:5 title 'loaded' with lines, \\
