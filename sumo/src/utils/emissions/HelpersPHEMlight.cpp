@@ -71,6 +71,9 @@ HelpersPHEMlight::getClassByName(const std::string& eClass, const SUMOVehicleCla
         myIndex--;
         throw InvalidArgument("File for PHEM emission class " + eClass + " not found.");
     }
+    std::string eclower = eClass;
+    std::transform(eclower.begin(), eclower.end(), eclower.begin(), tolower);
+    myEmissionClassStrings.addAlias(eclower, index);
     return index;
 }
 

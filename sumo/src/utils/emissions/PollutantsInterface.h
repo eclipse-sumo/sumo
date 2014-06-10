@@ -34,6 +34,7 @@
 #include <vector>
 #include <limits>
 #include <cmath>
+#include <algorithm>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include "PHEMCEP.h"
@@ -121,13 +122,20 @@ public:
         /** @brief Returns the emission class associated with the given name, aliases are possible
          * If this method is asked for the "unknown" class it should return the default
          * (possibly depending on the given vehicle class).
+         * The class name is case insensitive.
+         * 
          * @param[in] eClass the name of the emission class (string after the '/' in the emission class attribute)
          * @param[in] vc the vehicle class to use when determining default class
          * @return the name of the model (string before the '/' in the emission class)
          */
         virtual SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
             UNUSED_PARAMETER(vc);
-            return myEmissionClassStrings.get(eClass);
+            if (myEmissionClassStrings.hasString(eClass)) {
+                return myEmissionClassStrings.get(eClass);
+            }
+            std::string eclower = eClass;
+            std::transform(eclower.begin(), eclower.end(), eclower.begin(), tolower);
+            return myEmissionClassStrings.get(eclower);
         }
 
         /** @brief Returns the complete name of the emission class including the model
