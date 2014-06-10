@@ -123,7 +123,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
             of.writeAttr(SUMO_ATTR_ID, (*it_p)->getID());
             of.writeAttr(SUMO_ATTR_POSITION, (*it_p)->getEdgePos());
             of.writeAttr(SUMO_ATTR_ANGLE, (*it_p)->getAngle());
-            of.writeAttr("stage", (*it_p)->getCurrentStageTypeName());
+            of.writeAttr("stage", (*it_p)->getCurrentStageDescription());
             of.closeTag();
         }
         of.closeTag();

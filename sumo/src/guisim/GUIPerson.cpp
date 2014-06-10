@@ -140,7 +140,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
         new GUIParameterTableWindow(app, *this, 8);
     // add items
     //ret->mkItem("type [NAME]", false, myType->getID());
-    ret->mkItem("stage", false, getCurrentStageTypeName());
+    ret->mkItem("stage", false, getCurrentStageDescription());
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
     ret->mkItem("dest edge [id]", false, getDestination().getID());
     ret->mkItem("edge [id]", false, getEdge()->getID());

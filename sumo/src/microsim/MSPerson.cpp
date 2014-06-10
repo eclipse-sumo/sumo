@@ -387,7 +387,7 @@ MSPerson::MSPersonStage_Driving::getSpeed() const {
 
 
 std::string
-MSPerson::MSPersonStage_Driving::getStageTypeName() const {
+MSPerson::MSPersonStage_Driving::getStageDescription() const {
     return isWaiting4Vehicle() ? "waiting for " + joinToString(myLines, ",") : "driving";
 }
 

@@ -106,7 +106,7 @@ public:
         }
 
         /// @brief return string representation of the current stage
-        virtual std::string getStageTypeName() const = 0;
+        virtual std::string getStageDescription() const = 0;
 
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, MSEdge* previousEdge, const SUMOReal at) = 0;
@@ -219,7 +219,7 @@ public:
 
         SUMOReal getSpeed() const;
 
-        std::string getStageTypeName() const {
+        std::string getStageDescription() const {
             return "walking";
         }
 
@@ -360,7 +360,7 @@ public:
 
         SUMOReal getAngle(SUMOTime now) const;
 
-        std::string getStageTypeName() const;
+        std::string getStageDescription() const;
 
         /// Whether the person waits for a vehicle of the line specified.
         bool isWaitingFor(const std::string& line) const;
@@ -452,7 +452,7 @@ public:
 
         SUMOReal getSpeed() const;
 
-        std::string getStageTypeName() const {
+        std::string getStageDescription() const {
             return "waiting (" + myActType + ")";
         }
 
@@ -586,8 +586,8 @@ public:
     }
 
 
-    std::string getCurrentStageTypeName() const {
-        return (*myStep)->getStageTypeName();
+    std::string getCurrentStageDescription() const {
+        return (*myStep)->getStageDescription();
     }
 
     MSPersonStage* getCurrentStage() const {
