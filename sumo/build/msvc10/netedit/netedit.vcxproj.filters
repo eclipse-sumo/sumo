@@ -93,6 +93,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNEPOI.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEPoly.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -182,6 +185,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEPOI.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEPoly.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
