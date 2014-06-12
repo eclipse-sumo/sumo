@@ -270,8 +270,11 @@ bool
 MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
                       MSMoveReminder::Notification notification) {
     bool adaptableSpeed = true;
+    // try to insert teleporting vehicles fully on this lane
+    const SUMOReal minPos = (notification == MSMoveReminder::NOTIFICATION_TELEPORT ? 
+            MIN2(myLength, veh.getVehicleType().getLength()) : 0);
     if (myVehicles.size() == 0) {
-        if (isInsertionSuccess(&veh, mspeed, 0, adaptableSpeed, notification)) {
+        if (isInsertionSuccess(&veh, mspeed, minPos, adaptableSpeed, notification)) {
             return true;
         }
     } else {
@@ -286,7 +289,7 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
         if (leaderPos - frontGapNeeded >= 0) {
             SUMOReal tspeed = MIN2(veh.getCarFollowModel().followSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()), mspeed);
             // check whether we can insert our vehicle behind the last vehicle on the lane
-            if (isInsertionSuccess(&veh, tspeed, 0, adaptableSpeed, notification)) {
+            if (isInsertionSuccess(&veh, tspeed, minPos, adaptableSpeed, notification)) {
                 return true;
             }
         }
@@ -320,7 +323,7 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
         const SUMOReal backMin = followPos + backGapNeeded + veh.getVehicleType().getLength();
 
         // check whether there is enough room (given some extra space for rounding errors)
-        if (frontMax > 0 && backMin + POSITION_EPS < frontMax) {
+        if (frontMax > minPos && backMin + POSITION_EPS < frontMax) {
             // try to insert vehicle (should be always ok)
             if (isInsertionSuccess(&veh, speed, backMin + POSITION_EPS, adaptableSpeed, notification)) {
                 return true;
