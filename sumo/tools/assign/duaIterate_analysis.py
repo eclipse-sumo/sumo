@@ -171,9 +171,6 @@ def matplot(output):
         if output != 'SHOW':
             matplotlib.use('Agg')
         import matplotlib.pyplot as plt
-
-        plt.ylim(0, 1)
-        plt.xticks([1,2], ["Iteration", "Trip durations"])
         plt.boxplot(parse_trip_durations())
         if output == 'SHOW':
             plt.show()
