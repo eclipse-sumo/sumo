@@ -168,6 +168,7 @@ MSLane::pWagGenericInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, S
     SUMOReal x = 0;
     for (int i = 0; i <= 10; i++) {
         x = 0.5 * (x1 + x2);
+        veh.setTentativeLaneAndPosition(this, x);
         SUMOReal vSafe = veh.getCarFollowModel().followSpeed(&veh, vHlp, xIn - x, vIn, leaderDecel);
         if (vSafe < vHlp) {
             x2 = x;
@@ -430,6 +431,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                       aVehicle->getID() + "'. Inserting at lane end instead.");
         pos = myLength;
     }
+    aVehicle->setTentativeLaneAndPosition(this, pos);
     aVehicle->updateBestLanes(true, this);
     const MSCFModel& cfModel = aVehicle->getCarFollowModel();
     const std::vector<MSLane*>& bestLaneConts = aVehicle->getBestLanesContinuation(this);
@@ -554,10 +556,13 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     if (predIt != myVehicles.end()) {
         // ok, there is one (a leader)
         MSVehicle* leader = *predIt;
-        SUMOReal frontGapNeeded = cfModel.getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
         SUMOReal gap = MSVehicle::gap(leader->getPositionOnLane(), leader->getVehicleType().getLength(), pos + aVehicle->getVehicleType().getMinGap());
-        if (gap < frontGapNeeded) {
-            // too close to the leader on this lane
+        if (gap < 0) {
+            return false;
+        }
+        const SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+        if (checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
+            // we may not drive with the given velocity - we crash into the leader
             return false;
         }
     }

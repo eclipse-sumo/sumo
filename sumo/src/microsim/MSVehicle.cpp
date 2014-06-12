@@ -2261,6 +2261,14 @@ MSVehicle::getLaneIndex() const {
 }
 
 
+void 
+MSVehicle::setTentativeLaneAndPosition(MSLane* lane, const SUMOReal pos) {
+    assert(lane != 0);
+    myLane = lane;
+    myState.myPos = pos;
+}
+
+
 #ifndef NO_TRACI
 bool
 MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTime duration, bool parking, bool triggered) {
