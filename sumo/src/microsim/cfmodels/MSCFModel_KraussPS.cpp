@@ -54,10 +54,7 @@ MSCFModel_KraussPS::~MSCFModel_KraussPS() {}
 SUMOReal
 MSCFModel_KraussPS::maxNextSpeed(SUMOReal speed, const MSVehicle* const veh) const {
     const SUMOReal gravity = 9.80665;
-    const MSLane* const lane = veh->getLane();
-    const SUMOReal gp = lane->interpolateLanePosToGeometryPos(veh->getPositionOnLane());
-    const SUMOReal slope = lane->getShape().slopeDegreeAtOffset(gp);
-    const SUMOReal aMax = MAX2(0., getMaxAccel() - gravity * sin(DEG2RAD(slope)));
+    const SUMOReal aMax = MAX2(0., getMaxAccel() - gravity * sin(DEG2RAD(veh->getSlope())));
     // assuming drag force is proportional to the square of speed
     const SUMOReal vMax = sqrt(aMax / getMaxAccel()) * myType->getMaxSpeed();
     return MIN2(speed + (SUMOReal) ACCEL2SPEED(aMax), vMax);
