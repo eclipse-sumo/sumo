@@ -32,21 +32,53 @@
 
 #include <fx.h>
 #include <list>
+#include <cassert>
 #include <utils/foxtools/MFXMutex.h>
 
+template<class T>
 class MFXEventQue {
 public:
     MFXEventQue() { }
     ~MFXEventQue() { }
 
-    void* top();
-    void pop();
-    void add(void* what);
-    size_t size();
-    bool empty();
+    T top() {
+        assert(size() != 0);
+        myMutex.lock();
+        T ret = myItems.front();
+        myMutex.unlock();
+        return ret;
+    }
+
+
+    void pop() {
+        myMutex.lock();
+        myItems.erase(myItems.begin());
+        myMutex.unlock();
+    }
+
+    void add(T what) {
+        myMutex.lock();
+        myItems.push_back(what);
+        myMutex.unlock();
+    }
+
+    size_t size() {
+        myMutex.lock();
+        const size_t ret = myItems.size();
+        myMutex.unlock();
+        return ret;
+    }
+
+    bool empty() {
+        myMutex.lock();
+        const bool ret = myItems.size() == 0;
+        myMutex.unlock();
+        return ret;
+    }
+
 private:
     MFXMutex myMutex;
-    std::list<void*> myEvents;
+    std::list<T> myItems;
 };
 
 

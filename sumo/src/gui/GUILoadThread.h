@@ -34,17 +34,18 @@
 #endif
 
 #include <utils/common/SUMOTime.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/foxtools/FXSingleEventThread.h>
 #include <utils/foxtools/FXThreadEvent.h>
-#include <utils/common/MsgHandler.h>
+#include <utils/foxtools/MFXEventQue.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class MFXInterThreadEventClient;
-class MFXEventQue;
 class GUINet;
+class GUIEvent;
 
 
 // ===========================================================================
@@ -56,7 +57,7 @@ class GUINet;
 class GUILoadThread : public FXSingleEventThread {
 public:
     /// constructor
-    GUILoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEventQue& eq,
+    GUILoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEventQue<GUIEvent*>& eq,
                   FXEX::FXThreadEvent& ev);
 
     /// destructor
@@ -98,7 +99,7 @@ protected:
         Needed to be deleted from the handler later on */
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
 
-    MFXEventQue& myEventQue;
+    MFXEventQue<GUIEvent*>& myEventQue;
 
     FXEX::FXThreadEvent& myEventThrow;
 

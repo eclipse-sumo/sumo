@@ -300,7 +300,7 @@ protected:
     SUMOTime myAlternateSimDelay;
 
     /// List of got requests
-    MFXEventQue myEvents;
+    MFXEventQue<GUIEvent*> myEvents;
 
     /// The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu;

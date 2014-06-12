@@ -46,6 +46,7 @@
 // class declarations
 // ===========================================================================
 class GUINet;
+class GUIEvent;
 class OutputDevice;
 
 
@@ -63,7 +64,7 @@ class GUIRunThread : public FXSingleEventThread {
 public:
     /// constructor
     GUIRunThread(FXApp* app, MFXInterThreadEventClient* mw,
-                 FXRealSpinDial& simDelay, MFXEventQue& eq, FXEX::FXThreadEvent& ev);
+                 FXRealSpinDial& simDelay, MFXEventQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev);
 
     /// destructor
     virtual ~GUIRunThread();
@@ -152,7 +153,7 @@ protected:
 
     FXRealSpinDial& mySimDelay;
 
-    MFXEventQue& myEventQue;
+    MFXEventQue<GUIEvent*>& myEventQue;
 
     FXEX::FXThreadEvent& myEventThrow;
 

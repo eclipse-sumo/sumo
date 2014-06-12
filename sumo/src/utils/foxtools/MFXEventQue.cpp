@@ -28,56 +28,9 @@
 #include <config.h>
 #endif
 
-#include "MFXEventQue.h"
-#include <cassert>
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-void*
-MFXEventQue::top() {
-    assert(size() != 0);
-    myMutex.lock();
-    void* ret = *(myEvents.begin());
-    myMutex.unlock();
-    return ret;
-}
-
-
-void
-MFXEventQue::pop() {
-    myMutex.lock();
-    myEvents.erase(myEvents.begin());
-    myMutex.unlock();
-}
-
-
-void
-MFXEventQue::add(void* what) {
-    myMutex.lock();
-    myEvents.push_back(what);
-    myMutex.unlock();
-}
-
-
-size_t
-MFXEventQue::size() {
-    myMutex.lock();
-    size_t msize = myEvents.size();
-    myMutex.unlock();
-    return msize;
-}
-
-
-bool
-MFXEventQue::empty() {
-    myMutex.lock();
-    bool ret = size() == 0;
-    myMutex.unlock();
-    return ret;
-}
-
 
 
 /****************************************************************************/

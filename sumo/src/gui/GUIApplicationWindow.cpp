@@ -321,7 +321,7 @@ GUIApplicationWindow::~GUIApplicationWindow() {
 
     while (!myEvents.empty()) {
         // get the next event
-        GUIEvent* e = static_cast<GUIEvent*>(myEvents.top());
+        GUIEvent* e = myEvents.top();
         myEvents.pop();
         delete e;
     }
@@ -1015,7 +1015,7 @@ void
 GUIApplicationWindow::eventOccured() {
     while (!myEvents.empty()) {
         // get the next event
-        GUIEvent* e = static_cast<GUIEvent*>(myEvents.top());
+        GUIEvent* e = myEvents.top();
         myEvents.pop();
         // process
         switch (e->getOwnType()) {
