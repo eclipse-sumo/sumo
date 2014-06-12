@@ -25,7 +25,7 @@ exit_times_short
 # vehicle is teleporting with exit times
 exit_times_teleport
 
-# teleporting over mutliple edges
+# teleporting over multiple edges
 teleport_multihop
 
 # vehicles are moving in circles

@@ -88,6 +88,9 @@ speed_max__lanelimit
 # checks using the maximum speed (bounded by veh's vmax)
 speed_max__vehlimit
 
+# checks using the maximum speed (bounded by leader vehicles)
+speed_max__leader
+
 # checks using the random speed (bounded by lane's vmax)
 speed_random__lanelimit
 

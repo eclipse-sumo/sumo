@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 21 08:48:54 2013 by SUMO sumo Version dev-SVN-r15177
+<!-- generated on Thu Jun 12 12:24:21 2014 by SUMO sumo Version dev-SVN-r16586
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -18,6 +18,7 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -25,7 +26,7 @@
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r15177" time="1000">
+<snapshot version="dev-SVN-r16586" time="1000">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE"/>
@@ -40,7 +41,7 @@
     </vType>
     <vTypeDistribution id="testDist" vTypes="type0 type1" probabilities="1.00 1.00"/>
     <vehicle id="v0" depart="0" route="r0" type="type1" state="0 0" pos="5.10" speed="0.00"/>
-    <vehicle id="v1" depart="0" route="r0" type="type2" state="2147483647 0" pos="0.00" speed="0.00"/>
+    <vehicle id="v1" depart="0" route="r0" type="type2" state="2147483647 0" pos="5.10" speed="0.00"/>
     <lane>
         <vehicles value="v0"/>
     </lane>
