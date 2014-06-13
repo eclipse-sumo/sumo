@@ -76,9 +76,6 @@ public:
     const std::string& getFileName() const;
 
 protected:
-    virtual bool initOptions();
-
-
     /** @brief Closes the loading process
      *
      * This method is called both on success and failure.

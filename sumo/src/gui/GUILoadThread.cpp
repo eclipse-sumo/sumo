@@ -113,28 +113,42 @@ GUILoadThread::run() {
     }
 
     // try to load the given configuration
-    if (!initOptions()) {
+    try {
+        oc.clear();
+        MSFrame::fillOptions();
+        if (myFile != "") {
+            if (myLoadNet) {
+                oc.set("net-file", myFile);
+            } else {
+                oc.set("configuration-file", myFile);
+            }
+            OptionsIO::getOptions(true, 1, 0);
+        } else {
+            OptionsIO::getOptions(true);
+        }
+        // within gui-based applications, nothing is reported to the console
+        MsgHandler::getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
+        MsgHandler::getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
+        MsgHandler::getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
+        // do this once again to get parsed options
+        MsgHandler::initOutputOptions();
+        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+        GUIGlobals::gRunAfterLoad = oc.getBool("start");
+        GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
+        if (!MSFrame::checkOptions()) {
+            throw ProcessError();
+        }
+    } catch (ProcessError& e) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
+            WRITE_ERROR(e.what());
+        }
         // the options are not valid but maybe we want to quit
         GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
-        submitEndAndCleanup(net, simStartTime, simEndTime);
-        return 0;
-    }
-    // within gui-based applications, nothing is reported to the console
-    MsgHandler::getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
-    MsgHandler::getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
-    MsgHandler::getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
-    // do this once again to get parsed options
-    MsgHandler::initOutputOptions();
-    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
-    GUIGlobals::gRunAfterLoad = oc.getBool("start");
-    GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
-
-    if (!MSFrame::checkOptions()) {
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
-
+    
     // initialise global settings
     RandHelper::initRandGlobal();
     RandHelper::initRandGlobal(&MSVehicleControl::myVehicleParamsRNG);
@@ -223,33 +237,6 @@ GUILoadThread::submitEndAndCleanup(GUINet* net,
     GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile, guiSettingsFiles, osgView);
     myEventQue.add(e);
     myEventThrow.signal();
-}
-
-
-bool
-GUILoadThread::initOptions() {
-    try {
-        OptionsCont& oc = OptionsCont::getOptions();
-        oc.clear();
-        MSFrame::fillOptions();
-        if (myFile != "") {
-            if (myLoadNet) {
-                oc.set("net-file", myFile);
-            } else {
-                oc.set("configuration-file", myFile);
-            }
-            OptionsIO::getOptions(true, 1, 0);
-        } else {
-            OptionsIO::getOptions(true);
-        }
-        return true;
-    } catch (ProcessError& e) {
-        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
-            WRITE_ERROR(e.what());
-        }
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
-    }
-    return false;
 }
 
 
