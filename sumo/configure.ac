@@ -48,6 +48,12 @@ AM_PROG_LIBTOOL
 
 dnl Check for enable-features that shall go into config.h
 AC_ARG_ENABLE([memcheck], [AS_HELP_STRING([--enable-memcheck],[enable compilation of memory leak checks [default=no].])])
+if test x$enable_memcheck = xyes; then
+    if test $CXX = clang++; then
+        AC_MSG_WARN([--enable-memcheck does not work with clang yet])
+        enable_memcheck="no"
+    fi
+fi
 AM_CONDITIONAL(CHECK_MEMORY_LEAKS, test x$enable_memcheck = xyes)
 if test x$enable_memcheck = xyes; then
     AC_DEFINE(CHECK_MEMORY_LEAKS, 1, [Define to 1 in order to enable memory checks.])
