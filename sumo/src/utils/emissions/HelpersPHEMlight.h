@@ -105,7 +105,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [°]
      * @return The maximum possible acceleration
      */
-    SUMOReal getMaxAccel(SUMOEmissionClass c, double v, double a, double slope);
+    SUMOReal getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) const;
 
 
     /** @brief Returns the amount of emitted pollutant given the vehicle type and state (in mg/s or in ml/s for fuel)

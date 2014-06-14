@@ -2072,7 +2072,7 @@ MSVehicle::getBestLaneOffset() const {
 void
 MSVehicle::adaptBestLanesOccupation(int laneIndex, SUMOReal density) {
     std::vector<MSVehicle::LaneQ>& preb = myBestLanes.front();
-    assert(laneIndex < preb.size());
+    assert(laneIndex < (int)preb.size());
     preb[laneIndex].occupation = density + preb[laneIndex].nextOccupation;
 }
 

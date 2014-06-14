@@ -90,7 +90,7 @@ public:
      * @param a_dataId Positive Id of data.  Maybe zero, but negative numbers not allowed.
      * @see RTree::Insert
      */
-    virtual void Insert(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
+    virtual void Insert(const float a_min[2], const float a_max[2], GUIGlObject* const & a_dataId) {
         AbstractMutex::ScopedLocker locker(myLock);
         GUI_RTREE_QUAL::Insert(a_min, a_max, a_dataId);
     }
@@ -102,7 +102,7 @@ public:
      * @param a_dataId Positive Id of data.  Maybe zero, but negative numbers not allowed.
      * @see RTree::Remove
      */
-    virtual void Remove(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
+    virtual void Remove(const float a_min[2], const float a_max[2], GUIGlObject* const & a_dataId) {
         AbstractMutex::ScopedLocker locker(myLock);
         GUI_RTREE_QUAL::Remove(a_min, a_max, a_dataId);
     }

@@ -111,7 +111,8 @@ public:
 class EulerSpiralLookupTable
 {
 private:
-  int NN; //size of the lookup tables (NNxNN) or number of data points between -pi and pi
+  // following line commented out to make clang compiler happy, MB 14.06.2014 
+  //int NN; //size of the lookup tables (NNxNN) or number of data points between -pi and pi
   double* _theta; //lookup the theta value corresponding to the index NN long
   double _dt; //delta theta 
 

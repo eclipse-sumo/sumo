@@ -79,7 +79,7 @@ HelpersPHEMlight::getClassByName(const std::string& eClass, const SUMOVehicleCla
 
 
 SUMOReal
-HelpersPHEMlight::getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) {
+HelpersPHEMlight::getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) const {
     PHEMCEP* currCep = PHEMCEPHandler::getHandlerInstance().GetCep(c);
     if (currCep == 0) {
         return -1.;
