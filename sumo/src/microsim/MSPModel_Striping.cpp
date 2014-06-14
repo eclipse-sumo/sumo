@@ -45,7 +45,7 @@
 #define DEBUG1 "disabled"
 #define DEBUG2 "disabled"
 #define DEBUGCOND(PEDID) (PEDID == DEBUG1 || PEDID == DEBUG2)
-#define LOG_ALL false
+//#define LOG_ALL 1
 
 void MSPModel_Striping::DEBUG_PRINT(const Obstacles& obs) {
     for (int i = 0; i < (int)obs.size(); ++i) {
@@ -917,7 +917,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                   MAX2(-maxYSpeed, yDist));
     }
     // DEBUG
-    if (true && DEBUGCOND(myPerson->getID())) {
+    if DEBUGCOND(myPerson->getID()) {
         std::cout << SIMTIME
                   << " ped=" << myPerson->getID()
                   << " edge=" << myStage->getEdge()->getID()
@@ -1019,22 +1019,22 @@ MSPModel_Striping::MovePedestrians::execute(SUMOTime currentTime) {
     myModel->moveInDirection(currentTime, changedLane, FORWARD);
     myModel->moveInDirection(currentTime, changedLane, BACKWARD);
     // DEBUG
-    if (LOG_ALL) {
-        for (ActiveLanes::const_iterator it_lane = myModel->getActiveLanes().begin(); it_lane != myModel->getActiveLanes().end(); ++it_lane) {
-            const MSLane* lane = it_lane->first;
-            Pedestrians pedestrians = it_lane->second;
-            if (pedestrians.size() == 0) {
-                continue;
-            }
-            sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(FORWARD));
-            std::cout << SIMTIME << " lane=" << lane->getID();
-            for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
-                const PState& p = *pedestrians[ii];
-                std::cout << " (" << p.myPerson->getID() << " " << p.myRelX << "," << p.myRelY << " " << p.myDir << ")";
-            }
-            std::cout << "\n";
+#ifdef LOG_ALL
+    for (ActiveLanes::const_iterator it_lane = myModel->getActiveLanes().begin(); it_lane != myModel->getActiveLanes().end(); ++it_lane) {
+        const MSLane* lane = it_lane->first;
+        Pedestrians pedestrians = it_lane->second;
+        if (pedestrians.size() == 0) {
+            continue;
         }
+        sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(FORWARD));
+        std::cout << SIMTIME << " lane=" << lane->getID();
+        for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
+            const PState& p = *pedestrians[ii];
+            std::cout << " (" << p.myPerson->getID() << " " << p.myRelX << "," << p.myRelY << " " << p.myDir << ")";
+        }
+        std::cout << "\n";
     }
+#endif
     return DELTA_T;
 }
 
