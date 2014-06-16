@@ -225,9 +225,10 @@ public:
      * Inserts vehicle into internal containers.
      *
      *  @param[in] veh The vehicle that entered the area
-     *  @param[in] entryTimestep The time step the vehicle entered the area
+     *  @param[in] entryTimestep The time in seconds the vehicle entered the area
+     *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle already spent on the detector
      */
-    void enter(SUMOVehicle& veh, SUMOReal entryTimestep);
+    void enter(const SUMOVehicle& veh, const SUMOReal entryTimestep, const SUMOReal fractionTimeOnDet);
 
 
     /** @brief Called if a vehicle passes a leave-cross-section.
@@ -235,9 +236,10 @@ public:
      * Removes vehicle from internal containers.
      *
      *  @param[in] veh The vehicle that left the area
-     *  @param[in] entryTimestep The time step the vehicle left the area
+     *  @param[in] leaveTimestep The time in seconds the vehicle left the area
+     *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle still spent on the detector
      */
-    void leave(SUMOVehicle& veh, SUMOReal leaveTimestep);
+    void leave(const SUMOVehicle& veh, const SUMOReal leaveTimestep, const SUMOReal fractionTimeOnDet);
 
 
     /// @name Methods returning current values
@@ -361,10 +363,10 @@ protected:
     };
 
     /// @brief Container for vehicles that have entered the area
-    std::map<SUMOVehicle*, E3Values> myEnteredContainer;
+    std::map<const SUMOVehicle*, E3Values> myEnteredContainer;
 
     /// @brief Container for vehicles that have left the area
-    std::map<SUMOVehicle*, E3Values> myLeftContainer;
+    std::map<const SUMOVehicle*, E3Values> myLeftContainer;
 
 
     /// @name Storages for current values
@@ -375,13 +377,6 @@ protected:
 
     /// @brief The current number of haltings (inside)
     SUMOReal myCurrentHaltingsNumber;
-
-    /** @brief The current number of vehicles inside;
-     *
-     * Please note, that vehicles that enter the area are given as a fraction
-     * @see execute
-     */
-    SUMOReal myCurrentTouchedVehicles;
     /// @}
 
 
