@@ -38,7 +38,7 @@
 
 
 // specialized implementation for speedup and avoiding warnings
-#define NAMED_RTREE_QUAL RTree<Named*, Named, float, 2, Named::StoringVisitor, float, 8, 4>
+#define NAMED_RTREE_QUAL RTree<Named*, Named, float, 2, Named::StoringVisitor>
 
 template<>
 inline float NAMED_RTREE_QUAL::RectSphericalVolume(Rect* a_rect) {
@@ -69,11 +69,10 @@ inline NAMED_RTREE_QUAL::Rect NAMED_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect*
  * It stores names of "Named"-objects.
  * @see Named
  */
-class NamedRTree : private RTree<Named*, Named, float, 2, Named::StoringVisitor > {
+class NamedRTree : private NAMED_RTREE_QUAL {
 public:
     /// @brief Constructor
-    NamedRTree()
-        : RTree<Named*, Named, float, 2, Named::StoringVisitor, float>(&Named::addTo) {
+    NamedRTree() : NAMED_RTREE_QUAL(&Named::addTo) {
     }
 
 
@@ -88,8 +87,8 @@ public:
      * @param a_data The instance of a Named-object to add (the ID is added)
      * @see RTree::Insert
      */
-    void Insert(const float a_min[2], const float a_max[2], Named* a_data) {
-        RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::Insert(a_min, a_max, a_data);
+    void Insert(const float a_min[2], const float a_max[2], Named* const & a_data) {
+        NAMED_RTREE_QUAL::Insert(a_min, a_max, a_data);
     }
 
 
@@ -99,8 +98,8 @@ public:
      * @param a_data The instance of a Named-object to remove
      * @see RTree::Remove
      */
-    void Remove(const float a_min[2], const float a_max[2], Named* a_data) {
-        RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::Remove(a_min, a_max, a_data);
+    void Remove(const float a_min[2], const float a_max[2], Named* const & a_data) {
+        NAMED_RTREE_QUAL::Remove(a_min, a_max, a_data);
     }
 
 
@@ -108,7 +107,7 @@ public:
      * @see RTree::RemoveAll
      */
     void RemoveAll() {
-        RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::RemoveAll();
+        NAMED_RTREE_QUAL::RemoveAll();
     }
 
 
@@ -122,7 +121,7 @@ public:
      * @see RTree::Search
      */
     int Search(const float a_min[2], const float a_max[2], const Named::StoringVisitor& c) const {
-        return RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::Search(a_min, a_max, c);
+        return NAMED_RTREE_QUAL::Search(a_min, a_max, c);
     }
 
 
@@ -132,4 +131,3 @@ public:
 #endif
 
 /****************************************************************************/
-

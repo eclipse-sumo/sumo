@@ -65,11 +65,9 @@ public:
      * @param[in] parent The calling view
      * @param[in] icon The icon to use
      * @param[in] title The title to use
-     * @param[in] type The type of gl-objects to show instances of
      * @param[in] glStorage The storage to retrieve ids from
      */
     GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title,
-                           GUIGlObjectType type,
                            const std::vector<GUIGlID>& ids,
                            GUIGlObjectStorage& glStorage);
 
@@ -118,9 +116,6 @@ private:
 
     /// @brief The button that triggers centering on the select object
     FXButton* myCenterButton;
-
-    /// @brief The artifact to choose
-    GUIGlObjectType myObjectType;
 
     /// @brief The parent window
     GUIGlChildWindow* myParent;

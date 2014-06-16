@@ -136,9 +136,6 @@ private:
     SUMOReal myTauDecel;
     /// @}
 
-    /// @brief The random deviation (constant between two calls of movehelper)
-    SUMOReal myRand;
-
 };
 
 #endif	/* MSCFModel_Kerner_H */

@@ -70,11 +70,9 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
     GUIGlChildWindow* parent,
     FXIcon* icon,
     const FXString& title,
-    GUIGlObjectType type,
     const std::vector<GUIGlID>& ids,
     GUIGlObjectStorage& glStorage):
     FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20, 20, 300, 300),
-    myObjectType(type),
     myParent(parent) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
     // build the list
