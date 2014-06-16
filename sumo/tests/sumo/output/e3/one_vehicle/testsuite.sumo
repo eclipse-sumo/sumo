@@ -2,6 +2,10 @@
 # One detector sampling at 1s, one vehicle driving 10m/s
 one1s_1vehicle_10m_s
 
+# based on basic/dynamics/one_vehicle_10m_per_s_high_prio
+# One detector sampling at 1s, one vehicle driving 10m/s
+one1s_1vehicle_10m_s_offset
+
 # One detector sampling at 10s, one vehicle driving 10m/s
 one10s_1vehicle_10m_s
 
