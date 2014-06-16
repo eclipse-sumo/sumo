@@ -301,11 +301,11 @@ MSE3Collector::detectorUpdate(const SUMOTime step) {
         } else {
             values.haltingBegin = -1;
         }
-        if (myEnteredContainer.size() == 0) {
-            myCurrentMeanSpeed = -1;
-        } else {
-            myCurrentMeanSpeed /= myEnteredContainer.size();
-        }
+    }
+    if (myEnteredContainer.size() == 0) {
+        myCurrentMeanSpeed = -1;
+    } else {
+        myCurrentMeanSpeed /= myEnteredContainer.size();
     }
 }
 
