@@ -266,7 +266,7 @@ public:
     *
     * @return The mean number of haltings within the area
     */
-    SUMOReal getCurrentHaltingNumber() const;
+    int getCurrentHaltingNumber() const;
 
     /** @brief Returns the IDs of the vehicles within the area
      *
@@ -426,7 +426,7 @@ private:
     /// @brief The number of started halts in the last step
     unsigned myCurrentStartedHalts;
     /// @brief The number of halted vehicles [#]
-    SUMOReal myCurrentHaltingsNumber;
+    int myCurrentHaltingsNumber;
     /// @}
 
 

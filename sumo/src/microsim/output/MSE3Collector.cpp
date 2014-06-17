@@ -316,15 +316,15 @@ MSE3Collector::getCurrentMeanSpeed() const {
 }
 
 
-SUMOReal
+int
 MSE3Collector::getCurrentHaltingNumber() const {
     return myCurrentHaltingsNumber;
 }
 
 
-SUMOReal
+int
 MSE3Collector::getVehiclesWithin() const {
-    return (SUMOReal) myEnteredContainer.size();
+    return (int) myEnteredContainer.size();
 }
 
 

@@ -89,11 +89,11 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     // add items
     // values
     ret->mkItem("vehicles within [#]", true,
-                new FunctionBinding<MSE3Collector, SUMOReal>(&myDetector, &MSE3Collector::getVehiclesWithin));
+                new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getVehiclesWithin));
     ret->mkItem("mean speed [m/s]", true,
                 new FunctionBinding<MSE3Collector, SUMOReal>(&myDetector, &MSE3Collector::getCurrentMeanSpeed));
     ret->mkItem("haltings [#]", true,
-                new FunctionBinding<MSE3Collector, SUMOReal>(&myDetector, &MSE3Collector::getCurrentHaltingNumber));
+                new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getCurrentHaltingNumber));
     // close building
     ret->closeBuilding();
     return ret;

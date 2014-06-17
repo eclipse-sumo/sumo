@@ -260,13 +260,13 @@ public:
      *
      * @return The mean number of haltings within the area
      */
-    SUMOReal getCurrentHaltingNumber() const;
+    int getCurrentHaltingNumber() const;
 
 
     /** @brief Returns the number of vehicles within the area
      * @return The number of vehicles that passed the entry collector
      */
-    SUMOReal getVehiclesWithin() const;
+    int getVehiclesWithin() const;
 
 
     /** @brief Returns the number of vehicles within the area
@@ -376,7 +376,7 @@ protected:
     SUMOReal myCurrentMeanSpeed;
 
     /// @brief The current number of haltings (inside)
-    SUMOReal myCurrentHaltingsNumber;
+    int myCurrentHaltingsNumber;
     /// @}
 
 

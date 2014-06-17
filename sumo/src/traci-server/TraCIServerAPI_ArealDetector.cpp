@@ -99,7 +99,7 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
                 break;
             case LAST_STEP_VEHICLE_HALTING_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int) e2->getCurrentHaltingNumber());
+                tempMsg.writeInt(e2->getCurrentHaltingNumber());
                 break;
             case JAM_LENGTH_VEHICLE:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
