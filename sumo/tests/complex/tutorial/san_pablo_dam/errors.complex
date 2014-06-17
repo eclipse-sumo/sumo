@@ -1,5 +1,1 @@
-Warning: Value of tau=0.99 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
-Warning: Teleporting vehicle '927'; collision with '926', lane='1to7_0', gap=-0.01, time=27014.00 stage=move.
-Warning: Vehicle '927' ends teleporting on edge '7to8', time 27017.00.
-Warning: Teleporting vehicle '1121'; collision with '1120', lane='1to7_0', gap=-0.05, time=27584.00 stage=move.
-Warning: Vehicle '1121' ends teleporting on edge '7to8', time 27585.00.
+Warning: Value of tau=1.00 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions

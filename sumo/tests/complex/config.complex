@@ -41,6 +41,7 @@ output:[0-9]* ms{REPLACE TIME}
 output:^Performance:{->}^Vehicles:
 output:visible boundary
 output:uncheck:
+output:@@[^@]*@@
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
