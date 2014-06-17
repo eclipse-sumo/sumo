@@ -1,6 +1,0 @@
-
-[Reported by behr_mi at 03Mär14:22:50]
-search_string:nSamples="1" meanSpeed=".*" meanOccupancy="0.00"
-search_file:detector
-full_description:inconsistent output
-brief_description:see #1171
