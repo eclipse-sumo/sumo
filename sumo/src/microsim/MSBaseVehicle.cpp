@@ -168,6 +168,9 @@ MSBaseVehicle::replaceRouteEdges(MSEdgeVector& edges, bool onInit) {
     }
     const int oldSize = (int)edges.size();
     edges.insert(edges.begin(), myRoute->begin(), myCurrEdge);
+    if (edges == myRoute->getEdges()) {
+        return true;
+    }
     const RGBColor& c = myRoute->getColor();
     MSRoute* newRoute = new MSRoute(id, edges, false, &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), myRoute->getStops());
     if (!MSRoute::dictionary(id, newRoute)) {
