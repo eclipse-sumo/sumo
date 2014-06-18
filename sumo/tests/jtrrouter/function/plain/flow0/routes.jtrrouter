@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Feb 23 15:06:46 2014 by SUMO jtrrouter Version dev-SVN-r15699
+<!-- generated on 06/18/14 14:21:36 by SUMO jtrrouter Version dev-SVN-r16607
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/jtrrouterConfiguration.xsd">
@@ -57,6 +57,6 @@
         <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
     </vehicle>
     <vehicle id="1.99" depart="21.78">
-        <route edges="beg middle -right2end -right -beg2right middle -right2end -right -beg2right beg2left left left2end"/>
+        <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
     </vehicle>
 </routes>

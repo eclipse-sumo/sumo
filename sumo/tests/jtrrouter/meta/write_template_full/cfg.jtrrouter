@@ -33,7 +33,7 @@
         <repair value="false" type="BOOL" help="Tries to correct a false route"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
-        <max-edges-factor value="2" type="FLOAT" help=""/>
+        <max-edges-factor value="2" type="FLOAT" help="Routes are cut off when the route edges to net edges ratio is larger than FLOAT"/>
         <turn-defaults value="30,50,20" synonymes="T" type="STR" help="Use STR as default turn definition"/>
         <sink-edges value="" synonymes="s sinks" type="STR" help="Use STR as list of sink edges"/>
         <accept-all-destinations value="false" synonymes="A" type="BOOL" help="Whether all edges are allowed as sink edges"/>
