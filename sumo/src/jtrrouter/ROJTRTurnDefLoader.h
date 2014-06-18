@@ -122,7 +122,7 @@ private:
     RONet& myNet;
 
     /// @brief The begin and the end of the current interval
-    SUMOTime myIntervalBegin, myIntervalEnd;
+    SUMOReal myIntervalBegin, myIntervalEnd;
 
     /// @brief The current incoming edge the turning probabilities are set into
     ROJTREdge* myEdge;

@@ -152,7 +152,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     std::vector<const ROEdge*> mandatory;
     if (oldEdges.size() == 1) {
         /// should happen with jtrrouter only
-        router.compute(oldEdges.front(), oldEdges.front(), &veh, begin, newEdges);
+        router.compute(oldEdges.front(), 0, &veh, begin, newEdges);
     } else {
         // prepare mandatory edges
         mandatory.push_back(oldEdges.front());

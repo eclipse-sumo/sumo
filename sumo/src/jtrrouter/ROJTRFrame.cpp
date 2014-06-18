@@ -76,7 +76,7 @@ ROJTRFrame::fillOptions() {
     oc.addDescription("exit-times", "Output", "Write exit times (weights) for each edge");
 
     oc.doRegister("max-edges-factor", new Option_Float(2.0));
-    oc.addDescription("max-edges-factor", "Processing", "");
+    oc.addDescription("max-edges-factor", "Processing", "Routes are cut off when the route edges to net edges ratio is larger than FLOAT");
 
     oc.doRegister("turn-defaults", 'T', new Option_String("30,50,20"));
     oc.addDescription("turn-defaults", "Processing", "Use STR as default turn definition");
