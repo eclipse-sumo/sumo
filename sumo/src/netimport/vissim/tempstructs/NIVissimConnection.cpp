@@ -70,15 +70,10 @@ int NIVissimConnection::myMaxID;
 NIVissimConnection::NIVissimConnection(int id,
                                        const std::string& name, const NIVissimExtendedEdgePoint& from_def,
                                        const NIVissimExtendedEdgePoint& to_def,
-                                       const PositionVector& geom, Direction direction,
-                                       SUMOReal dxnothalt, SUMOReal dxeinordnen,
-                                       SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal /*seglength*/,
+                                       const PositionVector& geom, 
                                        const std::vector<int>& assignedVehicles, const NIVissimClosedLanesVector& clv)
     : NIVissimAbstractEdge(id, geom),
       myName(name), myFromDef(from_def), myToDef(to_def),
-      myDirection(direction),
-      myDXNothalt(dxnothalt), myDXEinordnen(dxeinordnen),
-      myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
       myAssignedVehicles(assignedVehicles), myClosedLanes(clv) {}
 
 
@@ -88,32 +83,6 @@ NIVissimConnection::~NIVissimConnection() {
     }
     myClosedLanes.clear();
 }
-
-
-bool
-NIVissimConnection::dictionary(int id, const std::string& name,
-                               const NIVissimExtendedEdgePoint& from_def,
-                               const NIVissimExtendedEdgePoint& to_def,
-                               const PositionVector& geom,
-                               Direction direction,
-                               SUMOReal dxnothalt, SUMOReal dxeinordnen,
-                               SUMOReal zuschlag1, SUMOReal zuschlag2,
-                               SUMOReal seglength,
-                               const std::vector<int>& assignedVehicles,
-                               const NIVissimClosedLanesVector& clv) {
-    NIVissimConnection* o = new NIVissimConnection(id, name, from_def, to_def,
-            geom, direction, dxnothalt, dxeinordnen, zuschlag1, zuschlag2,
-            seglength, assignedVehicles, clv);
-    if (!dictionary(id, o)) {
-        delete o;
-        return false;
-    }
-    if (myMaxID < id) {
-        myMaxID = id;
-    }
-    return true;
-}
-
 
 
 bool

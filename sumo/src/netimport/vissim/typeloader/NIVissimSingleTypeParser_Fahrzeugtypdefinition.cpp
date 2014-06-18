@@ -112,8 +112,7 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream& from) {
     while (tag != "DATAEND") {
         tag = readEndSecure(from, "verlustzeit");
     }
-    return NIVissimVehicleType::dictionary(id, name,
-                                           category, length, color, amax, dmax);
+    return NIVissimVehicleType::dictionary(id, name, category, color);
 }
 
 

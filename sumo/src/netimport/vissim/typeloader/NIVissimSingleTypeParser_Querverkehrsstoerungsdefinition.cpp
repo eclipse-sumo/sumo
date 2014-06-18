@@ -99,8 +99,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePositionDescribed
         if (tag == "vmax") {
             from >> vmax;
         }
-        ok = NIVissimDisturbance::dictionary(-1, "", edge, by,
-                                             timegap, waygap, vmax);
+        ok = NIVissimDisturbance::dictionary("", edge, by);
         if (tag != "DATAEND") {
             tag = readEndSecure(from);
         }
@@ -145,8 +144,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseNumbered(std::ist
             from >> vmax;
         }
 
-        ok = NIVissimDisturbance::dictionary(id, name, edge, by,
-                                             timegap, waygap, vmax);
+        ok = NIVissimDisturbance::dictionary(name, edge, by);
         if (tag != "DATAEND") {
             tag = readEndSecure(from);
         }

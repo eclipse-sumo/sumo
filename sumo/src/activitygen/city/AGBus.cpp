@@ -55,7 +55,7 @@ AGBus::getName() {
 }
 
 void
-AGBus::print() {
+AGBus::print() const {
     std::cout << "- Bus:" << " name=" << name << " depTime=" << departureTime << std::endl;
 }
 

@@ -51,7 +51,7 @@ public:
         location(pos),
         opening(open),
         closing(close) {};
-    void print();
+    void print() const;
     int getPlaces();
     bool addNewChild();
     bool removeChild();

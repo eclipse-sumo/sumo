@@ -41,10 +41,9 @@
  */
 class NIVissimClosedLaneDef {
 public:
-    NIVissimClosedLaneDef(int lane, const std::vector<int>& assignedVehicles);
+    NIVissimClosedLaneDef(const std::vector<int>& assignedVehicles);
     ~NIVissimClosedLaneDef();
 private:
-    int myLaneNo;
     std::vector<int> myAssignedVehicles;
 };
 

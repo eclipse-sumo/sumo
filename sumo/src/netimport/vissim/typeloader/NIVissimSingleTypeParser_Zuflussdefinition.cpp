@@ -88,8 +88,7 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream& from) {
         from >> tag;
         from >> end;
     }
-    return NIVissimSource::dictionary(id, name, edgeid, q, exact, vehicle_combination,
-                                      beg, end);
+    return NIVissimSource::dictionary(id, name, edgeid);
 }
 
 

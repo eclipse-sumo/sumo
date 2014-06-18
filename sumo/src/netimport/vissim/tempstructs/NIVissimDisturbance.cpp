@@ -68,11 +68,8 @@ int NIVissimDisturbance::refusedProhibits = 0;
 NIVissimDisturbance::NIVissimDisturbance(int id,
         const std::string& name,
         const NIVissimExtendedEdgePoint& edge,
-        const NIVissimExtendedEdgePoint& by,
-        SUMOReal timegap, SUMOReal waygap,
-        SUMOReal vmax)
-    : myID(id), myNode(-1), myName(name), myEdge(edge), myDisturbance(by),
-      myTimeGap(timegap), myWayGap(waygap), myVMax(vmax) {}
+        const NIVissimExtendedEdgePoint& by)
+    : myID(id), myNode(-1), myName(name), myEdge(edge), myDisturbance(by) {}
 
 
 NIVissimDisturbance::~NIVissimDisturbance() {}
@@ -80,15 +77,12 @@ NIVissimDisturbance::~NIVissimDisturbance() {}
 
 
 bool
-NIVissimDisturbance::dictionary(int id,
-                                const std::string& name,
+NIVissimDisturbance::dictionary(const std::string& name,
                                 const NIVissimExtendedEdgePoint& edge,
-                                const NIVissimExtendedEdgePoint& by,
-                                SUMOReal timegap, SUMOReal waygap, SUMOReal vmax) {
-    UNUSED_PARAMETER(id);
+                                const NIVissimExtendedEdgePoint& by) {
     int nid = myRunningID++;
     NIVissimDisturbance* o =
-        new NIVissimDisturbance(nid, name, edge, by, timegap, waygap, vmax);
+        new NIVissimDisturbance(nid, name, edge, by);
     if (!dictionary(nid, o)) {
         delete o;
     }

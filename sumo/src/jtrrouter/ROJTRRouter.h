@@ -52,14 +52,13 @@ class ROJTREdge;
 class ROJTRRouter : public SUMOAbstractRouter<ROEdge, ROVehicle> {
 public:
     /** @brief Constructor
-     * @param[in] net The net used for routing
      * @param[in] unbuildIsWarningOnly Whether not closed routes shall not yield in an error
      * @param[in] acceptAllDestinations If false, only sinks will be used as final edges
      * @param[in] maxEdges The maximum number of edges a route may have
      * @param[in] ignoreClasses Whether routing shall be done without regarding vehicle classes
      * @param[in] allowLoops Whether a vehicle may reuse a road
      */
-    ROJTRRouter(RONet& net, bool unbuildIsWarningOnly,
+    ROJTRRouter(bool unbuildIsWarningOnly,
                 bool acceptAllDestinations, int maxEdges, bool ignoreClasses,
                 bool allowLoops);
 
@@ -96,9 +95,6 @@ public:
 
 
 private:
-    /// @brief The network to use
-    RONet& myNet;
-
     /// @brief Whether unbuildable routes shall be reported as warniings, not errors
     const bool myUnbuildIsWarningOnly;
 

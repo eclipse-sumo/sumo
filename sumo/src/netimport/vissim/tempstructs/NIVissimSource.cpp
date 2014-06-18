@@ -40,12 +40,8 @@
 NIVissimSource::DictType NIVissimSource::myDict;
 
 NIVissimSource::NIVissimSource(const std::string& id, const std::string& name,
-                               const std::string& edgeid, SUMOReal q,
-                               bool exact, int vehicle_combination,
-                               SUMOReal beg, SUMOReal end)
-    : myID(id), myName(name), myEdgeID(edgeid), myQ(q), myExact(exact),
-      myVehicleCombination(vehicle_combination),
-      myTimeBeg(beg), myTimeEnd(end) {}
+                               const std::string& edgeid)
+    : myID(id), myName(name), myEdgeID(edgeid) {}
 
 
 NIVissimSource::~NIVissimSource() {}
@@ -53,10 +49,8 @@ NIVissimSource::~NIVissimSource() {}
 
 bool
 NIVissimSource::dictionary(const std::string& id, const std::string& name,
-                           const std::string& edgeid, SUMOReal q, bool exact,
-                           int vehicle_combination, SUMOReal beg, SUMOReal end) {
-    NIVissimSource* o = new NIVissimSource(id, name, edgeid, q, exact,
-                                           vehicle_combination, beg, end);
+                           const std::string& edgeid) {
+    NIVissimSource* o = new NIVissimSource(id, name, edgeid);
     if (!dictionary(id, o)) {
         delete o;
         return false;

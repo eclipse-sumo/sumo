@@ -53,7 +53,7 @@ AGTrip::operator <(const AGTrip& trip) const {
 }
 
 void
-AGTrip::print() {
+AGTrip::print() const {
     std::cout << "Trip: " << std::endl;
     std::cout << "\t-From= ";
     myFrom.print();
@@ -117,17 +117,17 @@ AGTrip::getTime() const {
 }
 
 int
-AGTrip::getTimeTrip(SUMOReal secPerKm) {
+AGTrip::getTimeTrip(SUMOReal secPerKm) const {
     SUMOReal dist = 0;
     std::list<AGPosition> positions;
     positions.push_back(myFrom);
-    std::list<AGPosition>::iterator it;
+    std::list<AGPosition>::const_iterator it;
     for (it = myPassBy.begin(); it != myPassBy.end(); ++it) {
         positions.push_back(*it);
     }
     positions.push_back(myTo);
 
-    AGPosition* temp = &positions.front();
+    const AGPosition* temp = &positions.front();
     for (it = positions.begin(), ++it; it != positions.end(); ++it) {
         dist += temp->distanceTo(*it);
         temp = &*it;
@@ -136,12 +136,12 @@ AGTrip::getTimeTrip(SUMOReal secPerKm) {
 }
 
 int
-AGTrip::getArrTime(SUMOReal secPerKm) {
+AGTrip::getArrTime(SUMOReal secPerKm) const {
     return myDepTime + getTimeTrip(secPerKm);
 }
 
 int
-AGTrip::getRideBackArrTime(SUMOReal secPerKm) {
+AGTrip::getRideBackArrTime(SUMOReal secPerKm) const {
     return getArrTime(secPerKm) + (int)(secPerKm * myTo.distanceTo(myFrom) / 1000.0);
 }
 
@@ -151,7 +151,7 @@ AGTrip::setDepTime(int time) {
 }
 
 int
-AGTrip::estimateDepTime(int arrTime, SUMOReal secPerKm) {
+AGTrip::estimateDepTime(int arrTime, SUMOReal secPerKm) const {
     return arrTime - getTimeTrip(secPerKm);
 }
 

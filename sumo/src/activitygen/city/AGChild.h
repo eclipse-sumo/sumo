@@ -50,7 +50,7 @@ public:
     AGChild(int age) :
         AGPerson(age),
         school(NULL) {};
-    void print();
+    void print() const;
     bool setSchool(AGSchool* school);
     /**
      * @param schools: school vector from City object

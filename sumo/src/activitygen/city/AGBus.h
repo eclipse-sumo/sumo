@@ -50,7 +50,7 @@ public:
     void setName(std::string name);
     int getDeparture();
     std::string getName();
-    void print();
+    void print() const;
 
 private:
     std::string name;

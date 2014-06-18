@@ -81,7 +81,7 @@ public:
         myVehicle(v),
         myType("default"),
         myDay(day) {};
-    void print();
+    void print() const;
     bool operator<(const AGTrip& trip) const;
 
     void addLayOver(AGPosition by);
@@ -107,23 +107,23 @@ public:
      * going through the different points and coming back to the initial position
      * given the time to make one kilometer
      */
-    int getRideBackArrTime(SUMOReal secPerKm);
+    int getRideBackArrTime(SUMOReal secPerKm) const;
     /**
      * returns the estimated arrival time
      * given the time to make one kilometer
      */
-    int getArrTime(SUMOReal secPerKm);
+    int getArrTime(SUMOReal secPerKm) const;
     /**
      * gives the time in seconds for the trip
      * given a speed in seconds per kilometer (in city, not car speed
      * but time needed to make a distance in the city)
      */
-    int getTimeTrip(SUMOReal secPerKm);
+    int getTimeTrip(SUMOReal secPerKm) const;
     /**
      * estimate the departure time needed for a given arrival time
      * and a speed in seconds per kilometer
      */
-    int estimateDepTime(int arrTime, SUMOReal secPerKm);
+    int estimateDepTime(int arrTime, SUMOReal secPerKm) const;
     /**
      * returns whether this is a daily trip or a one day trip
      */

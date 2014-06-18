@@ -37,11 +37,10 @@
 
 NIVissimVehicleType::DictType NIVissimVehicleType::myDict;
 
-NIVissimVehicleType::NIVissimVehicleType(int id,
-        const std::string& name, const std::string& category, SUMOReal length,
-        const RGBColor& color, SUMOReal amax, SUMOReal dmax)
-    : myID(id), myName(name), myCategory(category), myLength(length),
-      myColor(color), myAMax(amax), myDMax(dmax) {}
+NIVissimVehicleType::NIVissimVehicleType(const std::string& name,
+    const std::string& category, const RGBColor& color)
+    : myName(name), myCategory(category),
+      myColor(color) {}
 
 
 NIVissimVehicleType::~NIVissimVehicleType() {}
@@ -49,11 +48,9 @@ NIVissimVehicleType::~NIVissimVehicleType() {}
 
 
 bool
-NIVissimVehicleType::dictionary(int id,
-                                const std::string& name, const std::string& category, SUMOReal length,
-                                const RGBColor& color, SUMOReal amax, SUMOReal dmax) {
-    NIVissimVehicleType* o = new NIVissimVehicleType(id, name, category,
-            length, color, amax, dmax);
+NIVissimVehicleType::dictionary(int id, const std::string& name, const std::string& category,
+                                const RGBColor& color) {
+    NIVissimVehicleType* o = new NIVissimVehicleType(name, category, color);
     if (!dictionary(id, o)) {
         delete o;
         return false;

@@ -116,7 +116,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
         } else if (tag == "spur") {
             // get the lane number
             int laneNo;
-            from >> laneNo; // type-checking is missing!
+            from >> laneNo; // unused and type-checking is missing!
             // get the list of assigned car classes
             std::vector<int> assignedVehicles;
             tag = myRead(from);
@@ -127,7 +127,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
                 tag = readEndSecure(from);
             }
             // build and add the definition
-            NIVissimClosedLaneDef* cld = new NIVissimClosedLaneDef(laneNo, assignedVehicles);
+            NIVissimClosedLaneDef* cld = new NIVissimClosedLaneDef(assignedVehicles);
             clv.push_back(cld);
         } else {
             tag = readEndSecure(from);

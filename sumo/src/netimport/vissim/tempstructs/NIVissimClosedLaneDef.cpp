@@ -37,9 +37,8 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-NIVissimClosedLaneDef::NIVissimClosedLaneDef(int lane,
-        const std::vector<int>& assignedVehicles)
-    : myLaneNo(lane), myAssignedVehicles(assignedVehicles) {}
+NIVissimClosedLaneDef::NIVissimClosedLaneDef(const std::vector<int>& assignedVehicles)
+    : myAssignedVehicles(assignedVehicles) {}
 
 
 NIVissimClosedLaneDef::~NIVissimClosedLaneDef() {}

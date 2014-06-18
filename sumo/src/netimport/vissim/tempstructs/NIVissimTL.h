@@ -82,7 +82,7 @@ public:
      */
     class NIVissimTLSignal {
     public:
-        NIVissimTLSignal(int lsaid, int id, const std::string& name,
+        NIVissimTLSignal(int id, const std::string& name,
                          const std::vector<int>& groupids, int edgeid, int laneno,
                          SUMOReal position, const std::vector<int>& assignedVehicleTypes);
         ~NIVissimTLSignal();
@@ -97,7 +97,6 @@ public:
         static SSignalDictType getSignalsFor(int tlid);
 
     protected:
-        int myLSA;
         int myID;
         std::string myName;
         std::vector<int> myGroupIDs;

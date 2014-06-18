@@ -62,14 +62,14 @@ NIVissimTL::SignalDictType NIVissimTL::NIVissimTLSignal::myDict;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimTL::NIVissimTLSignal::NIVissimTLSignal(int lsaid, int id,
+NIVissimTL::NIVissimTLSignal::NIVissimTLSignal(int id,
         const std::string& name,
         const std::vector<int>& groupids,
         int edgeid,
         int laneno,
         SUMOReal position,
         const std::vector<int>& vehicleTypes)
-    : myLSA(lsaid), myID(id), myName(name), myGroupIDs(groupids),
+    : myID(id), myName(name), myGroupIDs(groupids),
       myEdgeID(edgeid), myLane(laneno), myPosition(position),
       myVehicleTypes(vehicleTypes) {}
 

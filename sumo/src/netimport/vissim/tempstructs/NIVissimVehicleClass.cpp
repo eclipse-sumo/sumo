@@ -35,10 +35,8 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-NIVissimVehicleClass::NIVissimVehicleClass(int type,
-        SUMOReal percentage,
-        int vwish)
-    : myType(type), myPercentage(percentage), myVWish(vwish) {}
+NIVissimVehicleClass::NIVissimVehicleClass(int vwish)
+    : myVWish(vwish) {}
 
 
 NIVissimVehicleClass::~NIVissimVehicleClass() {}

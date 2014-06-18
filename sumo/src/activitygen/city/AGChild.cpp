@@ -45,7 +45,7 @@
 // method definitions
 // ===========================================================================
 void
-AGChild::print() {
+AGChild::print() const {
     std::cout << "- Child: Age=" << age << " School=" << school << std::endl;
 }
 

@@ -42,7 +42,7 @@
 // method definitions
 // ===========================================================================
 void
-AGSchool::print() {
+AGSchool::print() const {
     std::cout << "- school: " << " placeNbr=" << capacity << " hours=[" << opening << ";" << closing << "] ages=[" << beginAge << ";" << endAge << "]" << std::endl;
 }
 

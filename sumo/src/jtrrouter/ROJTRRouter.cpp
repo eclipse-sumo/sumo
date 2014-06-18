@@ -43,10 +43,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTRRouter::ROJTRRouter(RONet& net, bool unbuildIsWarningOnly, bool acceptAllDestinations,
+ROJTRRouter::ROJTRRouter(bool unbuildIsWarningOnly, bool acceptAllDestinations,
                          int maxEdges, bool ignoreClasses, bool allowLoops) :
     SUMOAbstractRouter<ROEdge, ROVehicle>("JTRRouter"),
-    myNet(net), myUnbuildIsWarningOnly(unbuildIsWarningOnly),
+    myUnbuildIsWarningOnly(unbuildIsWarningOnly),
     myAcceptAllDestination(acceptAllDestinations), myMaxEdges(maxEdges),
     myIgnoreClasses(ignoreClasses), myAllowLoops(allowLoops)
 { }

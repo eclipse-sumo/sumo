@@ -39,12 +39,10 @@
  */
 class NIVissimVehicleClass {
 public:
-    NIVissimVehicleClass(int type, SUMOReal percentage, int vwish);
+    NIVissimVehicleClass(int vwish);
     ~NIVissimVehicleClass();
     int getSpeed() const;
 private:
-    int myType;
-    SUMOReal myPercentage;
     int myVWish;
 };
 
