@@ -101,7 +101,7 @@ GUIMessageWindow::~GUIMessageWindow() {
 
 
 void
-GUIMessageWindow::appendText(GUIEventType eType, const std::string& msg) {
+GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
     if (!isEnabled()) {
         show();
     }

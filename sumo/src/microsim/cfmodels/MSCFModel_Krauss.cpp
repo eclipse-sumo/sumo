@@ -54,20 +54,20 @@ MSCFModel_Krauss::~MSCFModel_Krauss() {}
 
 SUMOReal
 MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
-    return MIN2(_vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed, veh));
+    return MIN2(vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed, veh));
 }
 
 
 SUMOReal
 MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
-    return MIN2(_vstop(gap), maxNextSpeed(speed, veh));
+    return MIN2(vstop(gap), maxNextSpeed(speed, veh));
 }
 
 
 SUMOReal
 MSCFModel_Krauss::dawdle(SUMOReal speed) const {
-    // generate random number out of [0,1]
-    SUMOReal random = RandHelper::rand();
+    // generate random number out of [0,1)
+    const SUMOReal random = RandHelper::rand();
     // Dawdle.
     if (speed < myAccel) {
         // we should not prevent vehicles from driving just due to dawdling
@@ -82,7 +82,7 @@ MSCFModel_Krauss::dawdle(SUMOReal speed) const {
 
 
 SUMOReal
-MSCFModel_Krauss::_vstop(SUMOReal gap) const {
+MSCFModel_Krauss::vstop(SUMOReal gap) const {
     gap -= NUMERICAL_EPS; // lots of code relies on some slack
     if (gap <= 0) {
         return 0;
@@ -111,14 +111,14 @@ MSCFModel_Krauss::_vstop(SUMOReal gap) const {
 
 /** Returns the SK-vsafe. */
 SUMOReal
-MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
+MSCFModel_Krauss::vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
     // the speed is safe if allows the ego vehicle to come to a stop behind the leader even if
     // the leaders starts braking hard until stopped
     // unfortunately it is not sufficent to compare stopping distances if the follower can brake harder than the leader
     // (the trajectories might intersect before both vehicles are stopped even if the follower has a shorter stopping distance than the leader)
     // To make things safe, we ensure that the leaders brake distance is computed with an deceleration that is at least as high as the follower's.
     // @todo: this is a conservative estimate for safe speed which could be increased
-    const SUMOReal x = _vstop(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0));
+    const SUMOReal x = vstop(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0));
     assert(x >= 0);
     assert(!ISNAN(x));
     return x;

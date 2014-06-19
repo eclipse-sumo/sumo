@@ -47,7 +47,7 @@ public:
                            const PositionVector& poly);
 //    virtual void computeBounding();
 //    SUMOReal getEdgePosition(int edgeid) const;
-    void searchAndSetConnections(SUMOReal offset);
+//    void searchAndSetConnections(SUMOReal offset);
 private:
     PositionVector myPoly;
 

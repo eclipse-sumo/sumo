@@ -76,6 +76,7 @@ NIVissimNodeDef_Edges::dictionary(int id, const std::string& name,
 }
 
 
+/*
 void
 NIVissimNodeDef_Edges::searchAndSetConnections() {
     std::vector<int> connections;
@@ -106,7 +107,7 @@ NIVissimNodeDef_Edges::searchAndSetConnections() {
         edge->myConnectionClusters.push_back(c);
     }
 }
-
+*/
 
 
 SUMOReal

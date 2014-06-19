@@ -54,11 +54,11 @@ class NIVissimConnection
     : public NIVissimBoundedClusterObject,
       public NIVissimAbstractEdge {
 public:
-    enum Direction {
+    /* enum Direction {
         NIVC_DIR_RIGHT,
         NIVC_DIR_LEFT,
         NIVC_DIR_ALL
-    };
+    }; */
 
     NIVissimConnection(int id, const std::string& name,
                        const NIVissimExtendedEdgePoint& from_def,

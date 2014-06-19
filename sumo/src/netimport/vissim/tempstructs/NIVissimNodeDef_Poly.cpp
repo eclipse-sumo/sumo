@@ -90,7 +90,6 @@ NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
         Position(myBoundary->xmin(), myBoundary->ymin()),
         Position(myBoundary->xmax(), myBoundary->ymax()));
 }
-*/
 
 
 void
@@ -119,7 +118,7 @@ NIVissimNodeDef_Poly::searchAndSetConnections(SUMOReal offset) {
         edge->myConnectionClusters.push_back(c);
     }
 }
-
+*/
 
 
 /****************************************************************************/

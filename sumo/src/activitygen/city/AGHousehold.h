@@ -123,7 +123,6 @@ public:
 private:
     AGCity* myCity;
     AGPosition myLocation;
-    int myNumberOfCars;
     int myId;
 
 private:

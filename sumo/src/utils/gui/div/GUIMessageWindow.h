@@ -77,7 +77,7 @@ public:
      * @param[in] msg The message
      * @see GUIEventType
      */
-    void appendText(GUIEventType eType, const std::string& msg);
+    void appendMsg(GUIEventType eType, const std::string& msg);
 
 
     /// @brief Clears the window
@@ -102,7 +102,7 @@ private:
             return myStream;
         }
         void postWriteHook() {
-            myMsgWindow->appendText(myType, myStream.str());
+            myMsgWindow->appendMsg(myType, myStream.str());
             myStream.str("");
         }
 

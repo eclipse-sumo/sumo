@@ -150,14 +150,14 @@ private:
      * @param[in] predSpeed The LEADER's speed
      * @return the safe velocity
      */
-    virtual SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed) const;
+    SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed) const;
 
 
     /** @brief Applies driver imperfection (dawdling / sigma)
      * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      */
-    virtual SUMOReal dawdle(SUMOReal speed) const;
+    SUMOReal _dawdle(SUMOReal speed) const;
 
 protected:
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.

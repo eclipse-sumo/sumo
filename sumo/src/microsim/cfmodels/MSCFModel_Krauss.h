@@ -105,11 +105,11 @@ private:
      * @param[in] predSpeed The LEADER's speed
      * @return the safe velocity
      */
-    SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    SUMOReal vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
 
     /** @brief Returns the "safe" velocity for stopping within gap
      */
-    SUMOReal _vstop(SUMOReal gap) const;
+    SUMOReal vstop(SUMOReal gap) const;
 
 
     /** @brief Applies driver imperfection (dawdling / sigma)

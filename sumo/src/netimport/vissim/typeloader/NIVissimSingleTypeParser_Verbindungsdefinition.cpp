@@ -94,14 +94,14 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
     zuschlag1 = zuschlag2 = 0;
     SUMOReal seglength = 0;
     tag = myRead(from);
-    NIVissimConnection::Direction direction = NIVissimConnection::NIVC_DIR_ALL;
+//    NIVissimConnection::Direction direction = NIVissimConnection::NIVC_DIR_ALL;
     while (tag != "fahrzeugklassen" && tag != "sperrung" && tag != "auswertung" && tag != "DATAEND") {
         if (tag == "rechts") {
-            direction = NIVissimConnection::NIVC_DIR_RIGHT;
+//            direction = NIVissimConnection::NIVC_DIR_RIGHT;
         } else if (tag == "links") {
-            direction = NIVissimConnection::NIVC_DIR_LEFT;
+//            direction = NIVissimConnection::NIVC_DIR_LEFT;
         } else if (tag == "alle") {
-            direction = NIVissimConnection::NIVC_DIR_ALL;
+//            direction = NIVissimConnection::NIVC_DIR_ALL;
         } else if (tag == "dxnothalt") {
             from >> dxnothalt; // type-checking is missing!
         } else if (tag == "dxeinordnen") {

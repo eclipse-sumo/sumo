@@ -115,7 +115,7 @@ NIVissimNodeDef::partialWithin(const AbstractPoly &p, SUMOReal off) const
     assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
     return myBoundary->partialWithin(p, off);
 }
-*/
+
 
 void
 NIVissimNodeDef::dict_assignConnectionsToNodes() {
@@ -123,6 +123,7 @@ NIVissimNodeDef::dict_assignConnectionsToNodes() {
         (*i).second->searchAndSetConnections();
     }
 }
+*/
 
 
 size_t

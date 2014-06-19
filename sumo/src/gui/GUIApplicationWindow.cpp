@@ -1141,7 +1141,7 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
 void
 GUIApplicationWindow::handleEvent_Message(GUIEvent* e) {
     GUIEvent_Message* ec = static_cast<GUIEvent_Message*>(e);
-    myMessageWindow->appendText(ec->getOwnType(), ec->getMsg());
+    myMessageWindow->appendMsg(ec->getOwnType(), ec->getMsg());
 }
 
 

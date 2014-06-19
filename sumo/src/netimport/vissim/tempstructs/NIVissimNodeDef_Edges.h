@@ -46,7 +46,7 @@ public:
     static bool dictionary(int id, const std::string& name,
                            const NIVissimNodeParticipatingEdgeVector& edges);
 //    virtual void computeBounding();
-    virtual void searchAndSetConnections();
+//    virtual void searchAndSetConnections();
     virtual SUMOReal getEdgePosition(int edgeid) const;
 
     /**
