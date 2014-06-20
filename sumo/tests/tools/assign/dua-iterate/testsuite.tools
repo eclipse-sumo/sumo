@@ -15,3 +15,6 @@ weight_memory
 
 # test using binary intermediate files
 binary
+
+# testing convergence of travel times
+convergence
