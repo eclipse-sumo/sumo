@@ -340,17 +340,11 @@ public:
 
     /** @brief Returns the starting point for reroutes (usually the current edge)
      *
-     * This differs from *myCurrEdge only if the vehicle is on an internal edge
+     * This differs from *myCurrEdge only if the vehicle is on an internal edge or
+     *  very close to the junction
      * @return The rerouting start point
      */
-    const MSEdge* getRerouteOrigin() const {
-#ifdef HAVE_INTERNAL_LANES
-        if (myLane != 0) {
-            return myLane->getInternalFollower();
-        }
-#endif
-        return *myCurrEdge;
-    }
+    const MSEdge* getRerouteOrigin() const;
 
 
     /** @brief Returns the SUMOTime waited (speed was lesser than 0.1m/s)

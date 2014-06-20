@@ -639,6 +639,22 @@ MSVehicle::getPosition(const SUMOReal offset) const {
 }
 
 
+const MSEdge*
+MSVehicle::getRerouteOrigin() const {
+    // too close to the next junction, so avoid an emergency brake here
+    if (myLane != 0 && (myCurrEdge + 1) != myRoute->end() &&
+        myState.myPos > myLane->getLength() - getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)) {
+        return *(myCurrEdge + 1);
+    }
+#ifdef HAVE_INTERNAL_LANES
+    if (myLane != 0) {
+        return myLane->getInternalFollower();
+    }
+#endif
+    return *myCurrEdge;
+}
+
+
 SUMOReal
 MSVehicle::getAngle() const {
     Position p1;
