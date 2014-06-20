@@ -77,7 +77,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    virtual SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -148,16 +148,17 @@ private:
     /** @brief Returns the "safe" velocity
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The LEADER's speed
+     * @param[in] predMaxDecel The LEADER's maximum deceleration
      * @return the safe velocity
      */
-    SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed) const;
+    virtual SUMOReal vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
 
 
     /** @brief Applies driver imperfection (dawdling / sigma)
      * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      */
-    SUMOReal _dawdle(SUMOReal speed) const;
+    virtual SUMOReal dawdle(SUMOReal speed) const;
 
 protected:
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.

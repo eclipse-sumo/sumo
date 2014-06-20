@@ -61,17 +61,6 @@ public:
     /// @name Implementations of the MSCFModel interface
     /// @{
 
-    /** @brief Computes the vehicle's safe speed (no dawdling)
-     * @param[in] veh The vehicle (EGO)
-     * @param[in] speed The vehicle's speed
-     * @param[in] gap2pred The (netto) distance to the LEADER
-     * @param[in] predSpeed The speed of LEADER
-     * @return EGO's safe speed
-     * @see MSCFModel::ffeV
-     */
-    SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
-
-
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
      * @param[in] veh The vehicle (EGO)
      * @param[in] gap2pred The (netto) distance to the the obstacle
@@ -103,11 +92,13 @@ private:
     /** @brief Returns the "safe" velocity
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The LEADER's speed
+     * @param[in] predMaxDecel The LEADER's maximum deceleration
      * @return the safe velocity
      */
     SUMOReal vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
 
     /** @brief Returns the "safe" velocity for stopping within gap
+     * @param[in] gap The (netto) distance to the LEADER
      */
     SUMOReal vstop(SUMOReal gap) const;
 

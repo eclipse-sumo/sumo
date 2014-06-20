@@ -53,12 +53,6 @@ MSCFModel_Krauss::~MSCFModel_Krauss() {}
 
 
 SUMOReal
-MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
-    return MIN2(vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed, veh));
-}
-
-
-SUMOReal
 MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
     return MIN2(vstop(gap), maxNextSpeed(speed, veh));
 }
@@ -131,5 +125,4 @@ MSCFModel_Krauss::duplicate(const MSVehicleType* vtype) const {
 }
 
 
-//void MSCFModel::saveState(std::ostream &os) {}
-
+/****************************************************************************/

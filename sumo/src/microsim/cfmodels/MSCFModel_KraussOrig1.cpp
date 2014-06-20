@@ -73,25 +73,25 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
-    return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed, veh));
+MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
+    return MIN2(vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed, veh));
 }
 
 
 SUMOReal
 MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
-    return MIN2(_vsafe(gap, 0), maxNextSpeed(speed, veh));
+    return MIN2(vsafe(gap, 0., 0.), maxNextSpeed(speed, veh));
 }
 
 
 SUMOReal
-MSCFModel_KraussOrig1::_dawdle(SUMOReal speed) const {
+MSCFModel_KraussOrig1::dawdle(SUMOReal speed) const {
     return MAX2(SUMOReal(0), speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
 }
 
 
 /** Returns the SK-vsafe. */
-SUMOReal MSCFModel_KraussOrig1::_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
+SUMOReal MSCFModel_KraussOrig1::vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal /* predMaxDecel */) const {
     if (predSpeed == 0 && gap < 0.01) {
         return 0;
     }
@@ -110,3 +110,6 @@ MSCFModel*
 MSCFModel_KraussOrig1::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_KraussOrig1(vtype, myAccel, myDecel, myDawdle, myHeadwayTime);
 }
+
+
+/****************************************************************************/
