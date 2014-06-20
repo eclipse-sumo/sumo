@@ -1,0 +1,12 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+	<vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
+    <route id="r1" edges="beg beg2right right right2end end rend"/>
+	<vehicle id="0" depart="0" departPos="-20" departSpeed="max" route="r1"/>
+	<vehicle id="1" depart="200" departPos="-30" departSpeed="max" route="r1"/>
+	<vehicle id="2" depart="400" departPos="-40" departSpeed="max" route="r1"/>
+	<vehicle id="3" depart="600" departPos="-50" departSpeed="max" route="r1"/>
+	<vehicle id="4" depart="800" departPos="-60" departSpeed="max" route="r1"/>
+	<vehicle id="5" depart="1000" departPos="-70" departSpeed="max" route="r1"/>
+
+</routes>

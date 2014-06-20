@@ -4,5 +4,5 @@ plain
 # the first route the vehicles have is longer than the best
 initial_longer
 
-
-
+# as initial longer but starting close to the junction
+close_to_junction

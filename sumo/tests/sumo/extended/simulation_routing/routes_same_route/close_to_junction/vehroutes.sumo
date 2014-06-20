@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 06/20/14 10:37:35 by SUMO sumo Version dev-SVN-r16626
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <routing>
+        <device.rerouting.probability value="1"/>
+    </routing>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" arrival="186.00">
+        <route edges="beg beg2right right right2end end rend"/>
+    </vehicle>
+
+    <vehicle id="1" depart="200.00" arrival="274.00">
+        <route edges="beg beg2right right right2end end rend"/>
+    </vehicle>
+
+    <vehicle id="2" depart="400.00" arrival="585.00">
+        <route edges="beg beg2right right right2end end rend"/>
+    </vehicle>
+
+    <vehicle id="3" depart="600.00" arrival="674.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="600.00" probability="0" edges="beg beg2right right right2end end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="4" depart="800.00" arrival="875.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="800.00" probability="0" edges="beg beg2right right right2end end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="5" depart="1000.00" arrival="1075.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="1000.00" probability="0" edges="beg beg2right right right2end end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>
