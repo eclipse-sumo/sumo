@@ -241,7 +241,7 @@ GUILoadThread::submitEndAndCleanup(GUINet* net,
 
 
 void
-GUILoadThread::load(const std::string& file, bool isNet) {
+GUILoadThread::loadConfigOrNet(const std::string& file, bool isNet) {
     myFile = file;
     myLoadNet = isNet;
     start();

@@ -703,7 +703,7 @@ GUIApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        load(file, false);
+        loadConfigOrNet(file, false);
         myRecentConfigs.appendFile(file.c_str());
     }
     return 1;
@@ -723,7 +723,7 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        load(file, true);
+        loadConfigOrNet(file, true);
         myRecentNets.appendFile(file.c_str());
     }
     return 1;
@@ -732,7 +732,7 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
-    load("", false, true);
+    loadConfigOrNet("", false, true);
     return 1;
 }
 
@@ -744,7 +744,7 @@ GUIApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* data) 
         return 1;
     }
     std::string file((const char*)data);
-    load(file, sender == &myRecentNets);
+    loadConfigOrNet(file, sender == &myRecentNets);
     return 1;
 }
 
@@ -1199,7 +1199,7 @@ GUIApplicationWindow::checkGamingEvents() {
 
 
 void
-GUIApplicationWindow::load(const std::string& file, bool isNet, bool isReload) {
+GUIApplicationWindow::loadConfigOrNet(const std::string& file, bool isNet, bool isReload) {
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
@@ -1208,7 +1208,7 @@ GUIApplicationWindow::load(const std::string& file, bool isNet, bool isReload) {
         setStatusBarText("Reloading.");
     } else {
         gSchemeStorage.saveViewport(0, 0, -1); // recenter view
-        myLoadThread->load(file, isNet);
+        myLoadThread->loadConfigOrNet(file, isNet);
         setStatusBarText("Loading '" + file + "'.");
     }
     update();
@@ -1300,7 +1300,7 @@ GUIApplicationWindow::getCurrentSimTime() const {
 
 void
 GUIApplicationWindow::loadOnStartup() {
-    load("", false);
+    loadConfigOrNet("", false);
 }
 
 

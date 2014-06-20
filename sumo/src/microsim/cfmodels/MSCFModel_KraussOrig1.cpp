@@ -68,7 +68,7 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     //    WRITE_WARNING("Vehicle's '" + veh->getID() + "' maximum speed is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
     //}
 #endif
-    return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, _dawdle(vMax)), vMax, *this);
+    return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, dawdle(vMax)), vMax, *this);
 }
 
 

@@ -68,7 +68,7 @@ public:
     FXint run();
 
     /// begins the loading of the given file
-    void load(const std::string& file, bool isNet);
+    void loadConfigOrNet(const std::string& file, bool isNet);
 
     /// Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);

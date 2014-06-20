@@ -283,7 +283,7 @@ NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
                                   MSEdge* edge, SUMOReal pos,
                                   const std::string& file,
                                   const std::string& outfile,
-                                  const SUMOTime freq, MSRouteProbe* probe) {
+                                  const SUMOTime freq, const MSRouteProbe* probe) {
     return new MSCalibrator(id, edge, pos, file, outfile, freq, edge->getLength(), probe);
 }
 

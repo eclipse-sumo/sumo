@@ -142,7 +142,7 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification);
+    MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify);
 
 
 

@@ -210,11 +210,11 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
 NIVissimTL::GroupDictType NIVissimTL::NIVissimTLSignalGroup::myDict;
 
 NIVissimTL::NIVissimTLSignalGroup::NIVissimTLSignalGroup(
-    int lsaid, int id,
+    int id,
     const std::string& name,
     bool isGreenBegin, const std::vector<SUMOReal>& times,
     SUMOTime tredyellow, SUMOTime tyellow)
-    : myLSA(lsaid), myID(id), myName(name), myTimes(times),
+    : myID(id), myName(name), myTimes(times),
       myFirstIsRed(!isGreenBegin), myTRedYellow(tredyellow),
       myTYellow(tyellow) {}
 

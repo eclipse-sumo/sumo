@@ -141,7 +141,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
     from >> tyellow;
     NIVissimTL::NIVissimTLSignalGroup* group =
         new NIVissimTL::NIVissimTLSignalGroup(
-        lsaid, id, name, isGreenBegin, times, (SUMOTime) tredyellow, (SUMOTime) tyellow);
+        id, name, isGreenBegin, times, (SUMOTime) tredyellow, (SUMOTime) tyellow);
     if (!NIVissimTL::NIVissimTLSignalGroup::dictionary(lsaid, id, group)) {
         throw 1; // !!!
     }
