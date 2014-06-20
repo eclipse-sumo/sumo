@@ -28,6 +28,7 @@ from optparse import OptionParser
 from costMemory import CostMemory
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib
 from sumolib.options import get_long_option_names
 
 
@@ -112,6 +113,10 @@ def initOptions():
                          type="int", default=0, help="First DUA step [default: %default]")
     optParser.add_option("-l", "--last-step", dest="lastStep",
                          type="int", default=50, help="Last DUA step [default: %default]")
+    optParser.add_option("--convergence-iterations", dest="convIt",
+                         type="int", default=10, help="Number of iterations to use for convergence calculation [default: %default]")
+    optParser.add_option("--max-convergence-deviation", dest="convDev",
+                         type="float", help="Maximum relative standard deviation in travel times [default: %default]")
     optParser.add_option("-D", "--districts", help="use districts as sources and targets", metavar="FILE")
     optParser.add_option("-x", "--vehroute-file",  dest="routefile", type="choice",
                          choices=('None', 'routesonly', 'detailed'), 
@@ -459,6 +464,7 @@ def main(args=None):
             print(">>> Loading %s" % dumpfile)
             costmemory.load_costs(dumpfile, step, get_scale(options, step))
 
+    avgTT = sumolib.miscutils.Statistics()
     for step in range(options.firstStep, options.lastStep):
         btimeA = datetime.now()
         print("> Executing step %s" % step)
@@ -536,11 +542,25 @@ def main(args=None):
             currentDir = os.getcwd()
             costModifier(get_weightfilename(options, step, "dump"), step, "dump", options.aggregation, currentDir, options.costmodifier, 'dua-iterate')
 
+        converged = False
+        if options.convDev:
+            sum = 0.
+            count = 0
+            for t in sumolib.output.parse_fast("tripinfo_%03i.xml" % step, 'tripinfo', ['duration']):
+                sum += float(t.duration)
+                count += 1
+            avgTT.add(sum / count)
+            relStdDev = avgTT.relStdDev(options.convIt)
+            print("< relative travel time deviation in the last %s steps: %.05f" % (min(avgTT.count(), options.convIt), relStdDev))
+            if avgTT.count() >= options.convIt and relStdDev < options.convDev:
+                converged = True
     
         print("< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA))
         print("------------------\n")
 
         log.flush()
+        if converged:
+            break
     print("dua-iterate ended (duration: %s)" % (datetime.now() - starttime))
     
     log.close()

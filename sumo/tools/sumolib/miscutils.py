@@ -121,6 +121,19 @@ class Statistics:
         else:
             return None
 
+    def relStdDev(self, limit=None):
+        """return the relative standard deviation optionally limited to the last limit values"""
+        if limit is None or len(self.values) < limit:
+            limit = len(self.values)
+        if limit > 0:
+            mean = sum(self.values[-limit:]) / float(limit)
+            sumSq = 0.
+            for v in self.values[-limit:]:
+                sumSq += (v - mean) * (v - mean)
+            return math.sqrt(sumSq / limit) / mean
+        else:
+            return None
+
     def mean(self):
         """return the median value"""
         # XXX rename this method
