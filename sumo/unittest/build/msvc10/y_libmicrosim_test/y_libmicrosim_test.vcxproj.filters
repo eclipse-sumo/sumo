@@ -17,5 +17,8 @@
     <ClCompile Include="..\..\..\src\unittest_main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\MSCFModelTest.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -59,5 +59,13 @@ TEST_F(MSCFModelTest, test_method_brakeGap) {
 	EXPECT_DOUBLE_EQ(tau * v, m->brakeGap(v)); 
 }
 
+TEST_F(MSCFModelTest, test_method_static_brakeGap) {	
+    // discrete braking model. keep driving for 1 s
+    const SUMOReal v = 3;
+    const SUMOReal b = 4;
+    const SUMOReal tau = 1;
+	EXPECT_DOUBLE_EQ(3, MSCFModel::brakeGap(v, b, tau)); 
+}
+
 
 

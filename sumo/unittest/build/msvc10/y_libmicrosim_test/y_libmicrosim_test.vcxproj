@@ -59,7 +59,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(GTEST_DEBUG_LIB);ws2_32.lib;$(XERCES_DEBUG_LIB);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(GTEST_DEBUG_LIB);$(PYTHON_DEBUG_LIB);ws2_32.lib;$(XERCES_DEBUG_LIB);%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
@@ -71,7 +71,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(GTEST_LIB);ws2_32.lib;$(XERCES_LIB);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(GTEST_LIB);$(PYTHON_LIB);ws2_32.lib;$(XERCES_LIB);%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -79,6 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\microsim\MSCFModelTest.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEventControlTest.cpp" />
     <ClCompile Include="..\..\..\src\unittest_main.cpp" />
   </ItemGroup>
@@ -99,6 +100,22 @@
       <Project>{a54d4a8b-9520-40f0-b8cb-152bf506cb47}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\build\msvc10\z_libmicrosim_cfmodels\z_libmicrosim_cfmodels.vcxproj">
+      <Project>{014f0919-66a3-4aed-8901-b6e02f56dc7c}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\build\msvc10\z_libmicrosim_devices\z_libmicrosim_devices.vcxproj">
+      <Project>{9f9f769c-e533-4359-b4d2-09f9e20b0b2e}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\build\msvc10\z_libmicrosim_output\z_libmicrosim_output.vcxproj">
       <Project>{cc278de5-d3d8-4bd8-b8a4-bd76cb8fb4f1}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -113,6 +130,10 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\build\msvc10\z_libutils_common\z_libutils_common.vcxproj">
       <Project>{72cdb11a-ec19-4be2-bbe9-1fa33deccb20}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\build\msvc10\z_libutils_emissions\z_libutils_emissions.vcxproj">
+      <Project>{fa4a6c00-dcae-43cb-a396-15daec3b0141}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\build\msvc10\z_libutils_geom\z_libutils_geom.vcxproj">
@@ -133,10 +154,6 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\build\msvc10\z_optional_libtraciserver\z_optional_libtraciserver.vcxproj">
       <Project>{00a244e4-0f0d-49b9-a557-5ef1f8b98d7c}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_common_test\z_libutils_common_test.vcxproj">
-      <Project>{7166b82a-8380-47d7-8edc-96052a3edb15}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
