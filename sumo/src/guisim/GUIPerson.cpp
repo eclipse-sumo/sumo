@@ -109,8 +109,7 @@ GUIPerson::GUIPersonPopupMenu::~GUIPersonPopupMenu() {}
  * ----------------------------------------------------------------------- */
 GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) :
     MSPerson(pars, vtype, plan),
-    GUIGlObject(GLO_PERSON, pars->id),
-    myAmVisualizedAsStopped(false)
+    GUIGlObject(GLO_PERSON, pars->id)
 { }
 
 

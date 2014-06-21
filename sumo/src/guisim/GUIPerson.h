@@ -201,9 +201,6 @@ private:
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(size_t activeScheme) const;
 
-    /// @brief whether the person is visualized as stopped
-    bool myAmVisualizedAsStopped;
-
     /// @name drawing helper methods
     /// @{
     void drawAction_drawAsTriangle(const GUIVisualizationSettings& s) const;

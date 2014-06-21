@@ -172,9 +172,6 @@ public:
         /// @brief The parent window
         GUITLLogicPhasesTrackerWindow* myParent;
 
-        /// @brief The main application
-        GUIMainWindow* myApplication;
-
     protected:
         /// @brief protected constructor for FOX
         GUITLLogicPhasesTrackerPanel() { }

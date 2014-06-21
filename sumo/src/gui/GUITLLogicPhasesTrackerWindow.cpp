@@ -73,7 +73,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTra
     FXComposite* c, GUIMainWindow& app,
     GUITLLogicPhasesTrackerWindow& parent)
     : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
-      myParent(&parent), myApplication(&app) {}
+      myParent(&parent) {}
 
 
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel() {}
