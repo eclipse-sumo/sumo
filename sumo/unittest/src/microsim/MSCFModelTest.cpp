@@ -60,11 +60,23 @@ TEST_F(MSCFModelTest, test_method_brakeGap) {
 }
 
 TEST_F(MSCFModelTest, test_method_static_brakeGap) {	
-    // discrete braking model. keep driving for 1 s
     const SUMOReal v = 3;
     const SUMOReal b = 4;
     const SUMOReal tau = 1;
 	EXPECT_DOUBLE_EQ(3, MSCFModel::brakeGap(v, b, tau)); 
+	EXPECT_DOUBLE_EQ(0, MSCFModel::brakeGap(v, b, 0)); 
+	EXPECT_DOUBLE_EQ(3, MSCFModel::brakeGap(7, b, 0)); 
+	EXPECT_DOUBLE_EQ(28.6, MSCFModel::brakeGap(18.4, 4.5, 0)); 
+}
+
+TEST_F(MSCFModelTest, test_method_static_freeSpeed) {	
+    const SUMOReal b = 4;
+    const SUMOReal v = 0;
+    const SUMOReal g = 4;
+	EXPECT_DOUBLE_EQ(4, MSCFModel::freeSpeed(b, g, v)); 
+	EXPECT_DOUBLE_EQ(20, MSCFModel::freeSpeed(5, 30, 10)); 
+	EXPECT_DOUBLE_EQ(18.4, MSCFModel::freeSpeed(4.5, 30, 13.9)); 
+	EXPECT_DOUBLE_EQ(22.9, MSCFModel::freeSpeed(4.5, 40, 13.9)); 
 }
 
 
