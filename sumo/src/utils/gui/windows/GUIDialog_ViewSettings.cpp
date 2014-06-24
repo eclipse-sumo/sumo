@@ -1029,18 +1029,12 @@ GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject* sender, FXSelector, void* p
 
 long
 GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/) {
-    FXFileDialog opendialog(this, "Export view settings");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
-    opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.xml");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+    FXString file = MFXUtils::getFilename2Write(this, "Export view settings", ".xml", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    if (file == "") {
         return 1;
     }
     try {
-        OutputDevice& dev = OutputDevice::getDevice(opendialog.getFilename().text());
+        OutputDevice& dev = OutputDevice::getDevice(file.text());
         mySettings->save(dev);
         dev.close();
     } catch (IOError& e) {
@@ -1096,17 +1090,11 @@ GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*, FXSelector, void* /*data*/) {
 
 long
 GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*, FXSelector, void* /*data*/) {
-    FXFileDialog opendialog(this, "Save Decals");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
-    opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.xml");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+    FXString file = MFXUtils::getFilename2Write(this, "Save Decals", ".xml", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    if (file == "") {
         return 1;
     }
-    saveDecals(opendialog.getFilename().text());
+    saveDecals(file.text());
     return 1;
 }
 
