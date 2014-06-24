@@ -40,9 +40,9 @@ for rev in range(options.begin, options.end+1, options.step):
         if ret != 0:
             break
         subprocess.call('cd sumo; make clean; make -j 16; cd ..', shell=True)
-        subprocess.call('strip -R .note.gnu.build-id sumo/bin/*', shell=True)
-        subprocess.call("sed -i 's/dev-SVN-r%s/dev-SVN-r00000/' sumo/bin/*" % rev, shell=True)
-        shutil.copytree('sumo/bin', 'bin%s' % rev, ignore=shutil.ignore_patterns('Makefile*', '*.bat'))
+        shutil.copytree('sumo/bin', 'bin%s' % rev, ignore=shutil.ignore_patterns('Makefile*', '*.bat', '*.jar'))
+        subprocess.call('strip -R .note.gnu.build-id bin%s/*' % rev, shell=True)
+        subprocess.call("sed -i 's/dev-SVN-r%s/dev-SVN-r00000/' bin%s/*" % (rev, rev), shell=True)
 for line in subprocess.check_output('fdupes -1 -q bin*', shell=True).splitlines():
     dups = line.split()
     for d in dups[1:]:
