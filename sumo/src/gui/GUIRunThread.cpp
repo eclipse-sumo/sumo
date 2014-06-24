@@ -160,7 +160,7 @@ GUIRunThread::run() {
             }
         } else {
             // sleep if the simulation is not running
-            sleep(500);
+            sleep(50);
         }
     }
     // delete a maybe existing simulation at the end
