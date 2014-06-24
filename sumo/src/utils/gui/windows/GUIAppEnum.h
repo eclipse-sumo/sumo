@@ -417,6 +417,8 @@ enum {
     MID_GNE_SPLIT_EDGE_BIDI,
     /** reverse an edge */
     MID_GNE_REVERSE_EDGE,
+    /** add reverse edge */
+    MID_GNE_ADD_REVERSE_EDGE,
     /** edit junction shape */
     MID_GNE_NODE_SHAPE,
     /** set non-default geometry endpoint */
