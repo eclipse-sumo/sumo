@@ -48,8 +48,11 @@ class GUIColorScheme {
 public:
     /// Constructor
     GUIColorScheme(const std::string& name, const RGBColor& baseColor,
-                   const std::string& colName = "", const bool isFixed = false)
-        : myName(name), myIsInterpolated(!isFixed), myIsFixed(isFixed) {
+                   const std::string& colName = "", const bool isFixed = false) : 
+        myName(name), myIsInterpolated(!isFixed), 
+        myIsFixed(isFixed),
+        myAllowNegativeValues(false)
+    {
         addColor(baseColor, 0, colName);
     }
 
