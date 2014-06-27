@@ -272,10 +272,10 @@ Loading configuration... done.
 Loading configuration... done.
 #### yields rmse: 39.4539
 # simulation with: sigA:0.100 lCar:4.066 vMax:23.453 tTau:1.786 bMax:2.835 aMax:2.321
+#### yields rmse: 39.3613
 
    Normal return from subroutine COBYLA
 
    NFVALS =   78   F = 3.936129E+01    MAXCV = 0.000000E+00
    X = 2.345324E+01   2.320511E+00   2.834793E+00   4.065806E+00   1.000000E-01
        1.785832E+00
-#### yields rmse: 39.3613
