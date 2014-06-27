@@ -83,7 +83,7 @@ def flush():
     sys.stdout.flush()
     sys.stderr.flush()
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
+sumoBinary = "sumoD" #os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
 sumoArgStart = len(sys.argv)
 for idx, arg in enumerate(sys.argv):
     if arg[0] == "-":
