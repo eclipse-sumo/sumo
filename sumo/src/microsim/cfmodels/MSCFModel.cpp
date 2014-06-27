@@ -89,8 +89,8 @@ MSCFModel::maxNextSpeed(SUMOReal speed, const MSVehicle* const /*veh*/) const {
 
 
 SUMOReal
-MSCFModel::freeSpeed(const MSVehicle* const /* veh */, SUMOReal /* speed */, SUMOReal seen, SUMOReal maxSpeed) const {
-    return freeSpeed(myDecel, seen, maxSpeed);
+MSCFModel::freeSpeed(const MSVehicle* const /* veh */, SUMOReal /* speed */, SUMOReal seen, SUMOReal maxSpeed, const bool onInsertion) const {
+    return freeSpeed(myDecel, seen, maxSpeed, onInsertion);
 }
 
 /****************************************************************************/

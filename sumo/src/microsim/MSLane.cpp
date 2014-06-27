@@ -454,7 +454,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (&currentLane->getEdge() == r.getLastEdge()) {
                 // reached the end of the route
                 if (aVehicle->getParameter().arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-                    if (checkFailure(aVehicle, speed, dist, cfModel.freeSpeed(aVehicle, speed, seen, aVehicle->getParameter().arrivalSpeed),
+                    if (checkFailure(aVehicle, speed, dist, cfModel.freeSpeed(aVehicle, speed, seen, aVehicle->getParameter().arrivalSpeed, true),
                                      patchSpeed, "arrival speed too low")) {
                         // we may not drive with the given velocity - we cannot match the specified arrival speed
                         return false;
@@ -516,7 +516,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             }
             // check next lane's maximum velocity
-            const SUMOReal nspeed = cfModel.freeSpeed(aVehicle, speed, seen, nextLane->getVehicleMaxSpeed(aVehicle));
+            const SUMOReal nspeed = cfModel.freeSpeed(aVehicle, speed, seen, nextLane->getVehicleMaxSpeed(aVehicle), true);
             if (nspeed < speed) {
                 if (patchSpeed) {
                     speed = nspeed;
