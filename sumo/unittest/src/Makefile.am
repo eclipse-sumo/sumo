@@ -30,6 +30,8 @@ sumo_unittest_LDADD   = \
 ./utils/geom/GeomHelperTest.o \
 ./utils/geom/GeoConvHelperTest.o \
 ./netbuild/NBTrafficLightLogicTest.o \
+./microsim/MSCFModelTest.o \
+./microsim/MSEventControlTest.o \
 $(INTERNAL_TESTS) \
 ../../src/netbuild/libnetbuild.a \
 ../../src/traci-server/libtraciserver.a \
