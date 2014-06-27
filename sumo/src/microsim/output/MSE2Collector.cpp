@@ -82,11 +82,11 @@ MSE2Collector::~MSE2Collector() {
 bool
 MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
                           SUMOReal newPos, SUMOReal) {
-    if (newPos < myStartPos) {
+    if (newPos <= myStartPos) {
         // detector not yet reached
         return true;
     }
-    if (newPos >= myStartPos && oldPos < myStartPos) {
+    if (newPos > myStartPos && oldPos <= myStartPos) {
         assert(find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh) == myKnownVehicles.end());
         myKnownVehicles.push_back(&veh);
     }
@@ -102,7 +102,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 
 bool
 MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) {
-    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION || (lastPos >= myStartPos && lastPos - veh.getVehicleType().getLength() < myEndPos)) {
+    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION || (lastPos > myStartPos && lastPos - veh.getVehicleType().getLength() < myEndPos)) {
         std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i != myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
@@ -114,7 +114,7 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::N
 
 
 bool
-MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) {
+MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
     if (!veh.isOnRoad()) {
         // vehicle is teleporting over the edge
         return false;
@@ -123,10 +123,10 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) {
         // vehicle is beyond the detector
         return false;
     }
-    if (veh.getPositionOnLane() >= myStartPos) {
+    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && veh.getPositionOnLane() > myStartPos) {
+        // the junction case is handled in the notifyMove
         // vehicle is on the detector, being already beyond was checked before
         myKnownVehicles.push_back(&veh);
-        return true;
     }
     // vehicle is in front of the detector
     return true;
