@@ -275,10 +275,10 @@ RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, SUMORe
     if (weight > 1) {
         weight = 1;
     }
-    const unsigned char r = minColor.myRed + static_cast<char>((maxColor.myRed - minColor.myRed) * weight);
-    const unsigned char g = minColor.myGreen + static_cast<char>((maxColor.myGreen - minColor.myGreen) * weight);
-    const unsigned char b = minColor.myBlue + static_cast<char>((maxColor.myBlue - minColor.myBlue) * weight);
-    const unsigned char a = minColor.myAlpha + static_cast<char>((maxColor.myAlpha - minColor.myAlpha) * weight);
+    const unsigned char r = (unsigned char)((int)minColor.myRed   + (((int)maxColor.myRed   - (int)minColor.myRed)   * weight));
+    const unsigned char g = (unsigned char)((int)minColor.myGreen + (((int)maxColor.myGreen - (int)minColor.myGreen) * weight));
+    const unsigned char b = (unsigned char)((int)minColor.myBlue  + (((int)maxColor.myBlue  - (int)minColor.myBlue)  * weight));
+    const unsigned char a = (unsigned char)((int)minColor.myAlpha + (((int)maxColor.myAlpha - (int)minColor.myAlpha) * weight));
     return RGBColor(r, g, b, a);
 }
 
