@@ -42,6 +42,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="impatience" type="xsd:float"/>
         <xsd:attribute name="tau" type="positiveFloatType"/>
         <xsd:attribute name="carFollowModel" type="xsd:string"/>
         <xsd:attribute name="laneChangeModel">
@@ -53,6 +54,7 @@
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:attribute>
+        <xsd:attribute name="imgFile" type="xsd:string"/>
         <xsd:attribute name="osgFile" type="xsd:string"/>
     </xsd:complexType>
 
