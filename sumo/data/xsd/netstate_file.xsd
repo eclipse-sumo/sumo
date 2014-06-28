@@ -23,10 +23,10 @@
             <xsd:choice>
                 <xsd:sequence>
                     <xsd:element minOccurs="0" maxOccurs="unbounded" ref="lane"/>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" ref="person"/>
                 </xsd:sequence>
                 <xsd:sequence>
                     <xsd:element minOccurs="0" maxOccurs="unbounded" ref="vehicle"/>
-                    <xsd:element minOccurs="0" maxOccurs="unbounded" ref="person"/>
                 </xsd:sequence>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
@@ -36,7 +36,6 @@
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element minOccurs="0" maxOccurs="unbounded" ref="vehicle"/>
-                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="person"/>
             </xsd:sequence>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
         </xsd:complexType>
