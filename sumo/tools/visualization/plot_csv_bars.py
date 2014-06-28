@@ -22,7 +22,6 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 import os, subprocess, sys, random, helpers
-from matplotlib import rcParams
 from pylab import *
 from matplotlib.ticker import FuncFormatter as ff
 

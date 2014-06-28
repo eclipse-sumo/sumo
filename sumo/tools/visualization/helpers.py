@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    helpers.py
 @author  Daniel Krajzewicz
@@ -20,7 +19,8 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-from matplotlib import rcParams
+import matplotlib
+matplotlib.use('Agg')
 from pylab import *
 from matplotlib.ticker import FuncFormatter as ff
 
@@ -29,6 +29,7 @@ def m2hm1(x, i):
     h = int(x/3600)
     m = int((x%3600)/60)
     return '%(h)02d:%(m)02d' % {'h':h,'m':m}
+
 def m2hm2(x, i):
     h = int(x/3600)
     m = int((x%3600)/60)
@@ -36,61 +37,61 @@ def m2hm2(x, i):
     return '%(h)02d:%(m)02d:%(s)02d' % {'h':h,'m':m,'s':s}
 
 def addPlotOptions(optParser):
-  optParser.add_option("--colors", dest="colors", 
+    optParser.add_option("--colors", dest="colors", 
                          default=None, help="Defines the colors to use")
-  optParser.add_option("--colormap", dest="colormap", 
+    optParser.add_option("--colormap", dest="colormap", 
                          default="spectral", help="Defines the colormap to use")
-  optParser.add_option("-l", "--labels", dest="labels", 
+    optParser.add_option("-l", "--labels", dest="labels", 
                          default=None, help="Defines the labels to use")
-  optParser.add_option("--xlim", dest="xlim", 
+    optParser.add_option("--xlim", dest="xlim", 
                          default=None, help="Defines x-limits of the figure <XMIN>,<XMAX>")
-  optParser.add_option("--ylim", dest="ylim", 
+    optParser.add_option("--ylim", dest="ylim", 
                          default=None, help="Defines y-limits of the figure <YMIN>,<YMAX>")
-  optParser.add_option("--xticks", dest="xticks", 
+    optParser.add_option("--xticks", dest="xticks", 
                          default=None, help="Set x-axis ticks <XMIN>,<XMAX>,<XSTEP>,<XSIZE> or <XSIZE>")
-  optParser.add_option("--yticks", dest="yticks", 
+    optParser.add_option("--yticks", dest="yticks", 
                          default=None, help="Set y-axis ticks <YMIN>,<YMAX>,<YSTEP>,<YSIZE> or <YSIZE>")
-  optParser.add_option("--xtime1", dest="xtime1", action="store_true",
+    optParser.add_option("--xtime1", dest="xtime1", action="store_true",
                          default=False, help="Use a time formatter for x-ticks (hh:mm)")
-  optParser.add_option("--ytime1", dest="ytime1", action="store_true",
+    optParser.add_option("--ytime1", dest="ytime1", action="store_true",
                          default=False, help="Use a time formatter for y-ticks (hh:mm)")
-  optParser.add_option("--xtime2", dest="xtime2", action="store_true",
+    optParser.add_option("--xtime2", dest="xtime2", action="store_true",
                          default=False, help="Use a time formatter for x-ticks (hh:mm:ss)")
-  optParser.add_option("--ytime2", dest="ytime2", action="store_true",
+    optParser.add_option("--ytime2", dest="ytime2", action="store_true",
                          default=False, help="Use a time formatter for y-ticks (hh:mm:ss)")
-  optParser.add_option("--xgrid", dest="xgrid", action="store_true",
+    optParser.add_option("--xgrid", dest="xgrid", action="store_true",
                          default=False, help="Enable grid on x-axis")
-  optParser.add_option("--ygrid", dest="ygrid", action="store_true",
+    optParser.add_option("--ygrid", dest="ygrid", action="store_true",
                          default=False, help="Enable grid on y-axis")
-  optParser.add_option("--xticksorientation", dest="xticksorientation", 
+    optParser.add_option("--xticksorientation", dest="xticksorientation", 
                          type="float", default=None, help="Set the orientation of the x-axis ticks")
-  optParser.add_option("--yticksorientation", dest="yticksorientation", 
+    optParser.add_option("--yticksorientation", dest="yticksorientation", 
                          type="float", default=None, help="Set the orientation of the x-axis ticks")
-  optParser.add_option("--xlabel", dest="xlabel", 
+    optParser.add_option("--xlabel", dest="xlabel", 
                          default=None, help="Set the x-axis label")
-  optParser.add_option("--ylabel", dest="ylabel", 
+    optParser.add_option("--ylabel", dest="ylabel", 
                          default=None, help="Set the y-axis label")
-  optParser.add_option("--xlabelsize", dest="xlabelsize", 
+    optParser.add_option("--xlabelsize", dest="xlabelsize", 
                          type="int", default=16, help="Set the size of the x-axis label")
-  optParser.add_option("--ylabelsize", dest="ylabelsize", 
+    optParser.add_option("--ylabelsize", dest="ylabelsize", 
                          type="int", default=16, help="Set the size of the x-axis label")
-  optParser.add_option("--title", dest="title", 
+    optParser.add_option("--title", dest="title", 
                          default=None, help="Set the title")
-  optParser.add_option("--titlesize", dest="titlesize", 
+    optParser.add_option("--titlesize", dest="titlesize", 
                          type="int", default=16, help="Set the title size")
-  optParser.add_option("--adjust", dest="adjust", 
+    optParser.add_option("--adjust", dest="adjust", 
                          default=None, help="Adjust the subplots <LEFT>,<BOTTOM> or <LEFT>,<BOTTOM>,<RIGHT>,<TOP>")
-  optParser.add_option("-s", "--size", dest="size", 
+    optParser.add_option("-s", "--size", dest="size", 
                          default=False, help="Defines the figure size <X>,<Y>")
-  optParser.add_option("--no-legend", dest="nolegend", action="store_true",
+    optParser.add_option("--no-legend", dest="nolegend", action="store_true",
                          default=False, help="Disables the legend")
-  optParser.add_option("--legend-position", dest="legendposition", 
+    optParser.add_option("--legend-position", dest="legendposition", 
                          default=None, help="Sets the legend position")
 
 def addInteractionOptions(optParser):
-  optParser.add_option("-o", "--output", dest="output", metavar="FILE",
-                         default=None, help="Defines the filename the figure shall be written to")
-  optParser.add_option("-b", "--blind", dest="blind", action="store_true",
+    optParser.add_option("-o", "--output", dest="output", metavar="FILE",
+                         default=None, help="Comma separated list of filename(s) the figure shall be written to")
+    optParser.add_option("-b", "--blind", dest="blind", action="store_true",
                          default=False, help="If set, the figure will not be shown")
 
 
@@ -195,7 +196,9 @@ def closeFigure(fig, ax, options):
     if options.legendposition: legend(loc=options.legendposition)
     else: legend()
   applyPlotOptions(fig, ax, options)
-  if options.output: savefig(options.output)
+  if options.output:
+    for o in options.output.split(","):
+      savefig(o)
   if not options.blind: show()
 
 

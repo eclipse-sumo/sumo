@@ -18,7 +18,6 @@ the Free Software Foundation; either version 3 of the License, or
 import os, subprocess, sys, random, helpers
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
-from matplotlib import rcParams
 from pylab import *
 from matplotlib.ticker import FuncFormatter as ff
 import matplotlib.pyplot as plt
