@@ -1,8 +1,0 @@
-
-[Reported by behr_mi at 06Mär13:38:13]
-search_string:blubber
-trigger_on_absence:1
-search_file:image
-ignore_other_errors:1
-bug_system:trac
-bug_id:1179

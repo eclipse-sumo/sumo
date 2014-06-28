@@ -1,1 +1,1 @@
--i data.txt -o image.png -b --colormap Accent --no-legend -s 6,6 tools/visualization/plot_csv_pie.py
+-i data.txt -o image.png,image.svg -b --colormap Accent --no-legend -s 6,6 tools/visualization/plot_csv_pie.py

@@ -1,1 +1,1 @@
--i data.txt -o image.png -b -p --colormap RdYlGn --no-legend -s 6,6 --startangle 90 --revert --no-labels tools/visualization/plot_csv_pie.py
+-i data.txt -o image.png,image.svg -b -p --colormap RdYlGn --no-legend -s 6,6 --startangle 90 --revert --no-labels tools/visualization/plot_csv_pie.py

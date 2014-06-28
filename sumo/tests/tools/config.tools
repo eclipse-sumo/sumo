@@ -86,7 +86,7 @@ str:test.str
 gpsdat:gpsdat.txt
 gpx:output.gpx
 match:match.txt
-image:image.png
+image:image.svg
 csv:out*.csv
 xml:out.xml
 net:net.net.xml
