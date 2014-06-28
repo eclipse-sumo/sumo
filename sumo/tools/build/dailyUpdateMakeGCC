@@ -16,7 +16,7 @@ if test $# -ge 6; then
 fi
 
 rm -f $STATUSLOG
-echo -n "$FILEPREFIX, " > $STATUSLOG
+echo -n "$FILEPREFIX " > $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 cd $PREFIX/sumo
