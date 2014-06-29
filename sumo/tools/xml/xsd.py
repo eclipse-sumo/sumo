@@ -98,10 +98,11 @@ class XsdStructure():
             nestedTypes = entity.getElementsByTagName('xsd:complexType')
             if nestedTypes:
                 entity = nestedTypes[0] # skip xsd:complex-tag
-            extension = entity.getElementsByTagName('xsd:extension')
-            if extension:
-                eleObj.type = extension[0].getAttribute('base')
-                entity = extension[0]
+        for ext in entity.getElementsByTagName('xsd:extension'):
+            if ext.parentNode.parentNode == entity:
+                eleObj.type = ext.getAttribute('base')
+                entity = ext
+                break
         for aa in entity.childNodes:
             if aa.nodeName =='xsd:attribute':
                 eleObj.attributes.append(XmlAttribute(aa))
@@ -111,6 +112,12 @@ class XsdStructure():
         return eleObj
 
     def resolveRefs(self):
+        for ele in self._namedTypes.itervalues():
+            if ele.type and ele.type in self._namedTypes and not ele.resolved:
+                t = self._namedTypes[ele.type]
+                ele.attributes += t.attributes
+                ele.children += t.children
+                ele.resolved = True
         for ele in self._namedElements.itervalues():
             if ele.type and ele.type in self._namedTypes and not ele.resolved:
                 t = self._namedTypes[ele.type]

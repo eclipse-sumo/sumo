@@ -91,7 +91,10 @@ class AttrFinder(NestingHandler):
                 self.tagAttrs[currEle.name][a.name] = a
                 anew = "%s_%s" % (currEle.name, a.name)
                 self.renamedAttrs[(currEle.name, a.name)] = anew
-                self.attrs[root.name].append(anew)
+                attrList = self.attrs[root.name]
+                if anew in attrList:
+                    del attrList[attrList.index(anew)]
+                attrList.append(anew)
         for ele in currEle.children:
             self.recursiveAttrFind(root, ele, depth + 1)
 
@@ -152,10 +155,12 @@ class CSVWriter(NestingHandler):
         NestingHandler.startElement(self, name, attrs)
         if self.depth() >= self.rootDepth:
             root = self.tagstack[self.rootDepth]
+#            print("start", name, root, self.depth(), self.attrFinder.depthTags[root][self.depth()])
             if name in self.attrFinder.depthTags[root][self.depth()]:
                 for a, v in attrs.items():
                     if isinstance(a, tuple):
                         a = a[1]
+#                    print(a, dict(self.attrFinder.tagAttrs[name]))
                     if a in self.attrFinder.tagAttrs[name]:
                         if self.attrFinder.xsdStruc:
                             enum = self.attrFinder.xsdStruc.getEnumeration(self.attrFinder.tagAttrs[name][a].type)
@@ -168,6 +173,7 @@ class CSVWriter(NestingHandler):
     def endElement(self, name):
         if self.depth() >= self.rootDepth:
             root = self.tagstack[self.rootDepth]
+#            print("end", name, root, self.depth(), self.attrFinder.depthTags[root][self.depth()], self.haveUnsavedValues)
             if name in self.attrFinder.depthTags[root][self.depth()]:
                 if self.haveUnsavedValues:
                     self.outfiles[root].write(self.options.separator.join(
