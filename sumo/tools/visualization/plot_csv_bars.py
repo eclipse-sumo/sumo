@@ -121,7 +121,7 @@ def main(args=None):
       rect.set_edgecolor('k')
     xlim(0, x)
     xticks(ts, labels)
-  helpers.closeFigure(fig, ax, options)
+  helpers.closeFigure(fig, ax, options, False)
 
 if __name__ == "__main__":
   sys.exit(main(sys.argv))

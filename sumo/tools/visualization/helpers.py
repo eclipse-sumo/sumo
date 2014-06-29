@@ -19,8 +19,9 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import matplotlib
-matplotlib.use('Agg')
+import os, matplotlib
+if 'TEXTTEST_SANDBOX' in os.environ or 'DISPLAY' not in os.environ:
+    matplotlib.use('Agg')
 from pylab import *
 from matplotlib.ticker import FuncFormatter as ff
 
@@ -191,8 +192,8 @@ def openFigure(options):
   return fig, ax
 
 
-def closeFigure(fig, ax, options):
-  if not options.nolegend: 
+def closeFigure(fig, ax, options, haveLabels=True):
+  if haveLabels and not options.nolegend: 
     if options.legendposition: legend(loc=options.legendposition)
     else: legend()
   applyPlotOptions(fig, ax, options)
