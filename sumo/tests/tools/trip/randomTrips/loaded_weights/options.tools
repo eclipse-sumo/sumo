@@ -1,0 +1,2 @@
+-n net.net.xml -s 42 --weights-output-prefix weights --speed-exponent 2.0
+--weights-prefix weights

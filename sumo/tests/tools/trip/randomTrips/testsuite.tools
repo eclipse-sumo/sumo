@@ -25,3 +25,6 @@ intermediate
 
 # write weights for visualization
 weights_output
+
+# load some weights
+loaded_weights
