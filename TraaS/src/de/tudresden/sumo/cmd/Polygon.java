@@ -125,7 +125,7 @@ public class Polygon {
 
 	public static SumoCommand remove(String polygonID, int layer){
 
-		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.CMD_SET_POLYGON_VARIABLE, polygonID, layer);
+		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.REMOVE, polygonID, layer);
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class Polygon {
 
 	public static SumoCommand setShape(String polygonID, SumoStringList shape){
 
-		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.CMD_SET_POLYGON_VARIABLE, polygonID, shape);
+		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.VAR_SHAPE, polygonID, shape);
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class Polygon {
 
 	public static SumoCommand setType(String polygonID, String polygonType){
 
-		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.CMD_SET_POLYGON_VARIABLE, polygonID, polygonType);
+		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.VAR_TYPE, polygonID, polygonType);
 	}
 
 

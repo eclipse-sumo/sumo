@@ -166,7 +166,7 @@ public class Poi {
 
 	public static SumoCommand setType(String poiID, String poiType){
 
-		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.CMD_SET_POI_VARIABLE, poiID, poiType);
+		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.VAR_TYPE, poiID, poiType);
 	}
 
 

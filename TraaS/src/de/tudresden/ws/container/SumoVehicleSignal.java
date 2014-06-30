@@ -2,16 +2,15 @@ package de.tudresden.ws.container;
 
 import java.util.LinkedList;
 
+/**
+ * 
+ * @author Mario Krumnow
+ * @author Anja Liebscher
+ *
+ */
+
 public class SumoVehicleSignal {
 
-	
-	/**
-	 * 
-	 * @author Mario Krumnow
-	 * @author Anja Liebscher
-	 *
-	 */
-	
 	LinkedList<Integer> ll_states;
 	
 	public SumoVehicleSignal(int code){
