@@ -36,13 +36,13 @@
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSPerson.h>
 #include <microsim/MSPModel.h>
+#include <microsim/MSLane.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class MSNet;
 class MSLink;
-class MSLane;
 class MSJunction;
 
 
@@ -110,13 +110,21 @@ public:
 
 
 protected:
+    class lane_by_numid_sorter {
+    public:
+        /// comparing operation
+        bool operator()(const MSLane* l1, const MSLane* l2) const {
+            return l1->getNumericalID() < l2->getNumericalID();
+        }
+    };
+
     struct Obstacle;
     struct WalkingAreaPath;
     class PState;
     typedef std::vector<PState*> Pedestrians;
-    typedef std::map<const MSLane*, Pedestrians> ActiveLanes;
+    typedef std::map<const MSLane*, Pedestrians, lane_by_numid_sorter> ActiveLanes;
     typedef std::vector<Obstacle> Obstacles;
-    typedef std::map<const MSLane*, Obstacles> NextLanesObstacles;
+    typedef std::map<const MSLane*, Obstacles, lane_by_numid_sorter> NextLanesObstacles;
     typedef std::map<std::pair<const MSLane*, const MSLane*>, WalkingAreaPath> WalkingAreaPaths;
 
     struct NextLaneInfo {
