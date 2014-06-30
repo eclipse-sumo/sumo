@@ -41,7 +41,7 @@ def get_options():
                          default="trips.trips.xml", help="define the output trip filename")
     optParser.add_option("-r", "--route-file", dest="routefile",
                          help="generates route file with duarouter")
-    optParser.add_option("--weights-prefix", dest="weightsprefix",
+    optParser.add_option("--weights-output-prefix", dest="weightsprefix",
                          help="generates weights files for visualisation")
     optParser.add_option("--pedestrians", action="store_true",
                          default=False, help="create a person file with pedestrian trips instead of vehicle trips")

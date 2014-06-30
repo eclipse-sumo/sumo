@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<!-- generated on 2014-06-30 10:11:13.476042 by $Id: randomTrips.py 16365 2014-05-13 08:50:42Z namdre $ 
-  options: -n net.net.xml -s 42 <doubleminus>weights-prefix weights <doubleminus>speed-exponent 2.0
+<!-- generated on 2014-06-30 11:13:01.237201 by $Id: randomTrips.py 16685 2014-06-30 09:04:25Z namdre $ 
+  options: -n net.net.xml -s 42 <doubleminus>weights-output-prefix weights <doubleminus>speed-exponent 2.0
 -->
 <trips>
     <trip id="0" depart="0.00" from="3si" to="1o" />
