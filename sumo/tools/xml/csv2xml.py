@@ -89,12 +89,12 @@ def checkAttributes(out, old, new, ele, tagStack, depth):
     return False
 
 def checkChanges(out, old, new, currEle, tagStack, depth):
-#    print(depth, len(tagStack), new)
+    #print(depth, currEle.name, tagStack)
     if depth >= len(tagStack):
         for ele in currEle.children:
-#            print(depth, "try", ele.name)
+            #print(depth, "try", ele.name)
             if ele.name not in tagStack and checkAttributes(out, old, new, ele, tagStack, depth):
-#                print(depth, "adding", ele.name, ele.children)
+                #print(depth, "adding", ele.name, ele.children)
                 tagStack.append(ele.name)
                 if ele.children:
                     checkChanges(out, old, new, ele, tagStack, depth+1)
@@ -103,11 +103,14 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
             if ele.name in tagStack and tagStack.index(ele.name) != depth:
                 continue
             changed = False
+            present = False
             for attr in ele.attributes:
                 name = "%s_%s" % (ele.name, attr.name)
                 if old.get(name, "") != new.get(name, "") and new.get(name, "") != "":
                     changed = True
-#            print(depth, "seeing", ele.name, changed, tagStack)
+                if new.get(name, "") != "":
+                    present = True
+            #print(depth, "seeing", ele.name, changed, tagStack)
             if changed:
                 out.write("/>\n")
                 del tagStack[-1]
@@ -116,7 +119,8 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
                     del tagStack[-1]
                 out.write(row2xml(new, ele.name, "", depth))
                 tagStack.append(ele.name)
-            if ele.children:
+                changed = False
+            if present and ele.children:
                 checkChanges(out, old, new, ele, tagStack, depth+1)
 
 
