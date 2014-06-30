@@ -41,6 +41,8 @@ def get_options():
                          default="trips.trips.xml", help="define the output trip filename")
     optParser.add_option("-r", "--route-file", dest="routefile",
                          help="generates route file with duarouter")
+    optParser.add_option("--weights-prefix", dest="weightsprefix",
+                         help="generates weights files for visualisation")
     optParser.add_option("--pedestrians", action="store_true",
                          default=False, help="create a person file with pedestrian trips instead of vehicle trips")
     optParser.add_option("--prefix", dest="tripprefix",
@@ -93,6 +95,7 @@ def euclidean(a, b):
 class RandomEdgeGenerator:
     def __init__(self, net, weight_fun):
         self.net = net
+        self.weight_fun = weight_fun
         self.cumulative_weights = []
         self.total_weight = 0
         for edge in self.net._edges:
@@ -105,6 +108,15 @@ class RandomEdgeGenerator:
         r = random.random() * self.total_weight
         index = bisect.bisect(self.cumulative_weights, r)
         return self.net._edges[index]
+
+    def write_weights(self, fname):
+        with open(fname, 'w+') as f:
+            f.write('<edgedata\n>')
+            f.write('    <interval begin="0" end="10"\n>')
+            for i, edge in enumerate(self.net._edges):
+                f.write('    <edge id="%s" value="%s"\n/>' % (edge.getID(), self.weight_fun(edge)))
+            f.write('    </interval\n>')
+            f.write('</edgedata\n>')
 
 
 class RandomTripGenerator:
@@ -162,11 +174,10 @@ def main(options):
         print("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of %s in a network with diameter %s." % (
                 options.intermediate, options.min_distance, net.getBBoxDiameter()))
 
-    edge_generator = RandomTripGenerator(
-            RandomEdgeGenerator(net, get_prob_fun(options, "_incoming", "_outgoing")),
-            RandomEdgeGenerator(net, get_prob_fun(options, "_outgoing", "_incoming")),
-            RandomEdgeGenerator(net, get_prob_fun(options, None, None)),
-            options.intermediate)
+    source_generator = RandomEdgeGenerator(net, get_prob_fun(options, "_incoming", "_outgoing"))
+    sink_generator = RandomEdgeGenerator(net, get_prob_fun(options, "_outgoing", "_incoming"))
+    via_generator = RandomEdgeGenerator(net, get_prob_fun(options, None, None))
+    edge_generator = RandomTripGenerator(source_generator, sink_generator, via_generator, options.intermediate)
 
     idx = 0
     with open(options.tripfile, 'w') as fouttrips:
@@ -204,6 +215,10 @@ def main(options):
         print "calling ", " ".join(args)
         subprocess.call(args)
 
+    if options.weightsprefix:
+        source_generator.write_weights(options.weightsprefix + ".src.xml")
+        sink_generator.write_weights(options.weightsprefix + ".dst.xml")
+        via_generator.write_weights(options.weightsprefix + ".via.xml")
 
 if __name__ == "__main__":
     main(get_options())

@@ -90,6 +90,9 @@ image:image.svg
 csv:out*.csv
 xml:out.xml
 net:net.net.xml
+source_weights:weights.src.xml
+dest_weights:weights.dst.xml
+via_weights:weights.via.xml
 
 [run_dependent_text]
 output:Begin time
