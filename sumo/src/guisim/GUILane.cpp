@@ -816,6 +816,16 @@ GUILane::getColorValue(size_t activeScheme) const {
         case 17: {
             return 1 / myLengthGeometryFactor;
         }
+        case 19: {
+            MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
+            if (!ews.knowsEffort(myEdge)) {
+                return -1;
+            } else {
+                SUMOReal value(0);
+                ews.retrieveExistingEffort(myEdge, 0, value);
+                return value;
+            }
+        }
     }
     return 0;
 }

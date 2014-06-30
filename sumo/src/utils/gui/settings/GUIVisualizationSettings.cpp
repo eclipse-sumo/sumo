@@ -154,6 +154,10 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::BLUE, (SUMOReal)4.0);
     laneColorer.addScheme(scheme);
     laneColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
+    scheme = GUIColorScheme("by loaded weight", RGBColor::GREEN);
+    scheme.addColor(RGBColor::RED, (SUMOReal)100);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
 
 
     /// add vehicle coloring schemes
