@@ -20,7 +20,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 import os, matplotlib
-if 'TEXTTEST_SANDBOX' in os.environ or 'DISPLAY' not in os.environ:
+if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
     matplotlib.use('Agg')
 from pylab import *
 from matplotlib.ticker import FuncFormatter as ff
