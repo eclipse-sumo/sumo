@@ -7,6 +7,9 @@ all_by_prob_trip
 # all vehicles have the device due to trip def
 auto_trip
 
+# all vehicles have the device due to flow def without route
+auto_flow
+
 # all vehicles have the device, using probability=1 and flows as input
 all_by_prob_flow
 
@@ -36,4 +39,3 @@ trip_taz_lastroute
 
 # Errors on assignment
 errors
-
