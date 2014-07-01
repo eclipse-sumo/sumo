@@ -209,6 +209,7 @@ MSRouteHandler::myStartElement(int element,
                 MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok),
                                        myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
                 closeRoute(true);
+                myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
             }
             break;
         case SUMO_TAG_TRIP: {
