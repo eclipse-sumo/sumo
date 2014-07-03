@@ -157,7 +157,7 @@ NBNetBuilder::compute(OptionsCont& oc,
                 }
                 myNodeCont.addJoinExclusion(nodeIDs);
             }
-            myRoundabouts.clear();
+            myRoundabouts.clear(); // @todo this needs to be locked at if roundabouts are ever read explicitly from the input files
         }
         numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
         // reset geometry to avoid influencing subsequent steps (ramps.guess)
@@ -309,6 +309,9 @@ NBNetBuilder::compute(OptionsCont& oc,
     //
     if (oc.getBool("roundabouts.guess") || (oc.isDefault("roundabouts.guess") && myHaveSeenRoundabouts)) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting roundabouts");
+        // Clear roundabouts from previous runs which may no longer exist (if called repeatedly by NETEDIT)
+        // @todo this needs to be locked at if roundabouts are ever read explicitly from the input files
+        myRoundabouts.clear(); 
         myEdgeCont.guessRoundabouts(myRoundabouts);
         PROGRESS_DONE_MESSAGE();
     }
