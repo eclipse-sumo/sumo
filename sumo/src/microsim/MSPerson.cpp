@@ -108,7 +108,7 @@ SUMOReal
 MSPerson::MSPersonStage::getEdgeAngle(const MSEdge* e, SUMOReal at) const {
     // @todo: well, definitely not the nicest way... Should be precomputed
     PositionVector shp = e->getLanes()[0]->getShape();
-    return shp.rotationDegreeAtOffset(at);
+    return -shp.rotationDegreeAtOffset(at);
 }
 
 
@@ -332,12 +332,12 @@ MSPerson::MSPersonStage_Driving::getAngle(SUMOTime /* now */) const {
     if (myVehicle != 0) {
         MSVehicle* veh = dynamic_cast<MSVehicle*>(myVehicle);
         if (veh != 0) {
-            return veh->getAngle() + 90;
+            return veh->getAngle();
         } else {
             return 0;
         }
     }
-    return getEdgeAngle(myWaitingEdge, myWaitingPos);
+    return getEdgeAngle(myWaitingEdge, myWaitingPos) + 90;
 }
 
 
@@ -468,7 +468,7 @@ MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime /* now */) const {
 
 SUMOReal
 MSPerson::MSPersonStage_Waiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(&myDestination, myStartPos) + 45;
+    return getEdgeAngle(&myDestination, myStartPos) - 90;
 }
 
 
