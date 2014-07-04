@@ -643,6 +643,9 @@ private:
                       NBEdge* removed, const EdgeVector& incoming, const EdgeVector& outgoing);
 
 
+    /// @brief return whether there is a non-sidewalk lane after the given index;
+    bool forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalizedLanes, int startIndex); 
+
 private:
     /// @brief The position the node lies at
     Position myPosition;
