@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 @file    turndefinitions.py
@@ -21,6 +20,8 @@ the Free Software Foundation; either version 3 of the License, or
 
 import logging
 import xml.dom.minidom
+import collectinghandler
+import unittest
 
 LOGGER = logging.getLogger(__name__)
 
@@ -259,8 +260,6 @@ def from_stream(input_connections):
    
     return connections
   
-import collectinghandler
-import unittest
   
   
 class UniformDestinationWeightCalculatorTestCase(unittest.TestCase):

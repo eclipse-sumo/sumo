@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-@file    vehlanes.py
+@file    vehLanes.py
 @author  Jakob Erdmann
 @date    2012-11-20
 @version $Id$
@@ -31,7 +31,7 @@ def trackLanes(netstate, out):
     running = set()
 
     with open(out, 'w') as f:
-        f.write("<vehlanes>\n")
+        f.write("<vehLanes>\n")
 
         for timestep in parse(netstate, 'timestep'):
             seen = set()
@@ -59,7 +59,7 @@ def trackLanes(netstate, out):
                 ' '.join(['%s,%s' % (t,l) for t,l in lt]), 
                 arrivals.get(veh_id),
                 laneChanges[veh_id]))
-        f.write("</routeDiff>\n")
+        f.write("</vehLanes>\n")
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:

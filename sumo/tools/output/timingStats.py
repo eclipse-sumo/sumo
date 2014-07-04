@@ -33,7 +33,7 @@ optParser.add_option("-r", "--repeat", type="int", default="20",
 # parse options
 (options, args) = optParser.parse_args()
 
-sumoBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', 'bin', 'sumo'))
+sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', 'bin', 'sumo'))
 elapsed = []
 for run in range(options.repeat):
     before = datetime.now()

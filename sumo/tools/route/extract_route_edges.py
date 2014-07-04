@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    randomTrips.py
+@file    extract_route_edges.py
 @author  Jakob Erdmann
 @author  Michael Behrisch
 @date    2012-10-11

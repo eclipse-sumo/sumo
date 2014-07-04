@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 @file    turndefinitions.py
@@ -22,6 +21,8 @@ the Free Software Foundation; either version 3 of the License, or
 import connections
 import logging
 import xml.dom.minidom
+import collectinghandler
+import unittest
 
 LOGGER = logging.getLogger(__name__)
 
@@ -148,8 +149,6 @@ def to_xml(turn_definitions):
     return turn_definitions_xml.toprettyxml()
 
 
-import collectinghandler
-import unittest
 
 
 class TurnDefinitionsTestCase(unittest.TestCase):

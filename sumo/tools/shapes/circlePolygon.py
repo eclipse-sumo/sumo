@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    poi_atTLS.py
+@file    circlePolygon.py
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2010-02-20
