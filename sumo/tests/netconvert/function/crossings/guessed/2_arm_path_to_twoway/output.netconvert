@@ -1,0 +1,17 @@
+guess crossings for 34677691
+ordering of myAllEdges=-24912713#0 24912713#0 5088350
+  cands=  edge=-24912713#0 allowsPed=1
+  cands=  edge=-24912713#0 allowsPed=0
+  cands=-24912713#0  edge=24912713#0 allowsPed=0
+  cands=-24912713#0 24912713#0  edge=24912713#0 allowsPed=1
+checkCrossing candidates=-24912713#0 24912713#0
+-24912713#0 angle=168.27 convAngle=168.27
+24912713#0 angle=-11.73 convAngle=168.27
+-24912713#0 angle=168.27 convAngle=168.27
+24912713#0 angle=-11.73 convAngle=168.27
+ prevAngle=168.27 angle=168.27 intermediateWidth=0.10
+adding crossing: -24912713#0 24912713#0
+  cands=  edge=5088350 allowsPed=1
+checkCrossing candidates=
+no crossing added (numCandidates=0)
+Success.
