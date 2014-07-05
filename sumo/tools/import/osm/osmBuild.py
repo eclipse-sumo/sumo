@@ -43,10 +43,10 @@ optParser.add_option("-d", "--output-directory", default=os.getcwd(), help="dire
 optParser.add_option("-n", "--netconvert-options", default="-R,--ramps.guess,--tls.guess,--tls.join,-v", help="comma-separated options for netconvert") 
 optParser.add_option("-y", "--polyconvert-options", default="-v,--osm.keep-full-type", help="comma-separated options for polyconverty") 
 
-def build(args=None, bindir=os.environ.get('SUMO_BINDIR','')):
+def build(args=None, bindir=None):
     (options, args) = optParser.parse_args(args=args)
-    netconvert = sumolib.checkBinary('netconvert')
-    polyconvert = sumolib.checkBinary('polyconvert')
+    netconvert = sumolib.checkBinary('netconvert', bindir)
+    polyconvert = sumolib.checkBinary('polyconvert', bindir)
 
     if ((options.oldapi_prefix and options.osm_file) or
             not (options.oldapi_prefix or options.osm_file)):

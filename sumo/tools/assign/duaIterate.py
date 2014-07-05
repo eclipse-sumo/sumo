@@ -50,8 +50,7 @@ def addGenericOptions(optParser):
                          type="int", default=900, help="Set main weights aggregation period [default: %default]")
     optParser.add_option("-m", "--mesosim", action="store_true",
                          default=False, help="Whether mesosim shall be used")
-    optParser.add_option("-p", "--path",
-                         default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries [default: %default]")
+    optParser.add_option("-p", "--path", help="Path to binaries")
     optParser.add_option("-y", "--absrand", action="store_true",
                          default= False, help="use current time to generate random number")
     optParser.add_option("-I", "--nointernal-link", action="store_true", dest="internallink",
@@ -406,11 +405,11 @@ def main(args=None):
         optParser.error("Option --net-file is mandatory")
     if (not options.trips and not options.routes and not options.flows) or (options.trips and options.routes):
         optParser.error("Either --trips, --flows, or --routes have to be given!")
-    duaBinary = os.environ.get("DUAROUTER_BINARY", os.path.join(options.path, "duarouter"))
+    duaBinary = sumolib.checkBinary("duarouter", options.path)
     if options.mesosim:
-        sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "meso"))
+        sumoBinary = sumolib.checkBinary("meso", options.path)
     else:
-        sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "sumo"))
+        sumoBinary = sumolib.checkBinary("sumo", options.path)
     if options.addweights and options.weightmemory:
         optParser.error("Options --addweights and --weight-memory are mutually exclusive.")
 

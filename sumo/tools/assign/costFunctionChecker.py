@@ -22,6 +22,8 @@ import os, sys, subprocess, types
 from datetime import datetime
 from optparse import OptionParser
 from xml.sax import make_parser, handler
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib
 
 def call(command, log):
     if not isinstance(args, types.StringTypes):
@@ -155,8 +157,7 @@ optParser.add_option("-f", "--first-step", dest="firstStep",
                      type="int", default=0, help="First DUA step [default: %default]")
 optParser.add_option("-l", "--last-step", dest="lastStep",
                      type="int", default=50, help="Last DUA step [default: %default]")
-optParser.add_option("-p", "--path", dest="path",
-                     default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries [default: %default]")
+optParser.add_option("-p", "--path", dest="path", help="Path to binaries")
 
 optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
                      default=False, help="use current time to generate random number")
@@ -167,7 +168,7 @@ if not options.net or not (options.trips or options.flows):
     optParser.error("At least --net-file and --trips or --flows have to be given!")
 
 
-duaBinary = os.environ.get("DUAROUTER_BINARY", os.path.join(options.path, "duarouter"))
+duaBinary = sumolib.checkBinary("duarouter", options.path)
 log = open("dua-log.txt", "w+")
 
 parser = make_parser()

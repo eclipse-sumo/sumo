@@ -28,8 +28,9 @@ from xml.dom import Node
 from optparse import OptionParser
 from subprocess import call
 from collections import namedtuple, defaultdict
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'lib'))
-from testUtil import checkBinary
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib
 from OrderedMultiSet import OrderedMultiSet
 
 INDENT = 4
@@ -315,8 +316,7 @@ def parse_args():
     optParser.add_option("-d", "--direct", action="store_true",
             default=False, help="compare source and dest files directly")
     optParser.add_option("-c", "--copy", help="comma-separated list of element names to copy (if they are unchanged)")
-    optParser.add_option("--path", dest="path",
-            default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
+    optParser.add_option("--path", dest="path", help="Path to binaries")
     options, args = optParser.parse_args()
     if len(args) != 3:
         sys.exit(USAGE)
@@ -408,7 +408,7 @@ def main():
                 copy_tags)
     else:
         if not options.use_prefix:
-            netconvert = checkBinary("netconvert", options.path)        
+            netconvert = sumolib.checkBinary("netconvert", options.path)
             options.source = create_plain(options.source, netconvert)
             options.dest = create_plain(options.dest, netconvert)
         for type in PLAIN_TYPES:

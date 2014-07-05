@@ -90,7 +90,10 @@ def exeExists(binary):
     return os.path.exists(binary)
 
 def checkBinary(name, bindir=None):
-    """Checks for the given binary in the places, defined by the environment variables SUMO_HOME and SUMO_BINDIR."""
+    """
+    Checks for the given binary in the places, defined by the environment
+    variables SUMO_HOME and <NAME>_BINARY.
+    """
     if name == "sumo-gui":
         envName = "GUISIM_BINARY"
     else:
@@ -101,10 +104,6 @@ def checkBinary(name, bindir=None):
         return env.get(envName)
     if bindir is not None:
         binary = join(bindir, name)
-        if exeExists(binary):
-            return binary
-    if "SUMO_BINDIR" in env:
-        binary = join(env.get("SUMO_BINDIR"), name)
         if exeExists(binary):
             return binary
     if "SUMO_HOME" in env:

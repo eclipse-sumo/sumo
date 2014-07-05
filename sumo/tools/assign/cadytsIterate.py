@@ -26,6 +26,8 @@ from datetime import datetime
 from optparse import OptionParser
 from duaIterate import call, writeSUMOConf, addGenericOptions
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib
 
 def initOptions():
     optParser = OptionParser()
@@ -77,10 +79,9 @@ def main():
         optParser.error("--net-file, --routes and --detector-values have to be given!")
 
     if options.mesosim:
-        sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "meso"))
-        print 'mesosim in action!'
+        sumoBinary = sumolib.checkBinary("meso", options.path)
     else:
-        sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "sumo"))
+        sumoBinary = sumolib.checkBinary("sumo", options.path)
     calibrator = ["java", "-cp", options.classpath, "cadyts.interfaces.sumo.SumoController"]
     log = open("cadySumo-log.txt", "w+")
 

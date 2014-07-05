@@ -27,10 +27,9 @@ import optparse
 SUMO_HOME = os.environ.get('SUMO_HOME', 
         os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
-import sumolib.net
-import sumolib.output
+import sumolib
 
-DUAROUTER = os.path.join(SUMO_HOME, 'bin', 'duarouter')
+DUAROUTER = sumolib.checkBinary('duarouter')
 
 SOURCE_SUFFIX = ".src.xml"
 SINK_SUFFIX = ".dst.xml"

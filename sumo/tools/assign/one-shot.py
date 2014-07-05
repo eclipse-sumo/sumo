@@ -23,8 +23,8 @@ from __future__ import print_function
 import os, sys, subprocess
 from datetime import datetime
 from optparse import OptionParser
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'lib'))
-from testUtil import checkBinary
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib
 
 def call(command, log):
     print("-" * 79, file=log)
@@ -138,8 +138,7 @@ optParser.add_option("-x", "--with-exittime", action="store_true", dest="withexi
                     default= False, help="Write the exit times for all edges")
 optParser.add_option("-s", "--route-sorted", action="store_true", dest="routesorted",
                     default= False, help="sorts the output by departure time") 
-optParser.add_option("-p", "--path", dest="path",
-                     default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
+optParser.add_option("-p", "--path", dest="path", help="Path to binaries")
 optParser.add_option("--cost-modifier", dest="costmodifier", type="choice",
                      choices=('grohnde', 'isar', 'None'), 
                      default='None', help="Whether to modify link travel costs of the given routes")
@@ -148,13 +147,7 @@ optParser.add_option("--cost-modifier", dest="costmodifier", type="choice",
 sumo = "sumo"
 if options.mesosim:
     sumo = "meso"
-if options.path:    
-    if os.path.isfile(options.path):
-        sumoBinary = options.path
-    else:
-        sumoBinary = checkBinary(sumo, options.path)        
-else:
-    sumoBinary = checkBinary(sumo)
+sumoBinary = sumolib.checkBinary(sumo, options.path)
 if options.costmodifier != 'None':
     pyPath = os.path.abspath(os.path.dirname(sys.argv[0]))
     sys.path.append(os.path.join(pyPath, "..", "..", "..", "..","..", "tools", "kkwSim"))

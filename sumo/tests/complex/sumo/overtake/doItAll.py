@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    doItAll.py
 @author  Michael Behrisch
@@ -18,8 +19,9 @@ the Free Software Foundation; either version 3 of the License, or
 import sys, os
 import math, random
 import numpy as np
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib
 
-binDir = os.environ.get("SUMO_BINDIR", os.path.join(os.environ["SUMO_HOME"], "bin"))
 netFile = "ttDistro.net.xml"
 routeFile = "ttDistro.rou.xml"
 configFile = "ttDistro.sumocfg"
@@ -45,7 +47,7 @@ def generateNet(nLanes = 2):
     print >> fp, '\t<node id="node3" x="+10000.0" y="0.0" />'
     print >> fp, '</nodes>'
     fp.close()
-    os.system('%s -n ttDistro.nod.xml -e ttDistro.edg.xml -o %s' % (os.path.join(binDir, "netconvert"),
+    os.system('%s -n ttDistro.nod.xml -e ttDistro.edg.xml -o %s' % (sumolib.checkBinary("netconvert"),
                                                                  netFile))
 
 def generateDemand(pin,nLanes):
@@ -119,7 +121,7 @@ def runSim():
     </report>
 </configuration>""" % (netFile, routeFile, dumpFile)
     fp.close()
-    os.system('%s -c %s' % (os.path.join(binDir, "sumo"), configFile))
+    os.system('%s -c %s' % (sumolib.checkBinary("sumo"), configFile))
 
 def analyzeData(pp):
     fp = open('gw.txt','w')
