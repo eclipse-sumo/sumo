@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr 15 17:29:17 2014 by SUMO sumo Version dev-SVN-r16196
+<!-- generated on Sat Jul  5 09:10:14 2014 by SUMO sumo Version dev-SVN-r16709
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -31,7 +31,7 @@
 <netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netstate_file.xsd">
     <timestep time="0.00">
         <edge id="beg">
-            <person id="p1" pos="0.00" angle="-90.00" stage="waiting for v1"/>
+            <person id="p1" pos="0.00" angle="180.00" stage="waiting for v1"/>
         </edge>
     </timestep>
 </netstate>
