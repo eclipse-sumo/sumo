@@ -382,12 +382,12 @@ def _subscribeContext(cmdID, begin, end, objID, domain, dist, varIDs):
 def init(port=8813, numRetries=10, host="localhost", label="default"):
     if _embedded:
         return getVersion()
-    _connections[""] = _connections[label] = socket.socket()
-    for wait in range(numRetries):
+    for wait in range(1, numRetries+2):
         try:
-            _connections[label].connect((host, port))
+            _connections[""] = _connections[label] = socket.socket()
             _connections[label].setsockopt(socket.IPPROTO_TCP,
                                            socket.TCP_NODELAY, 1)
+            _connections[label].connect((host, port))
             break
         except socket.error:
             time.sleep(wait)
