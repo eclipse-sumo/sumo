@@ -238,10 +238,11 @@ class Colorgen:
         """return constant or randomized rgb-color string"""
         return ','.join(map(str, self.byteTuple()))
 
+
 def getFreeSocketPort(numTries=10, minPort=8000, maxPort=50000):
     for i in range(numTries):
         try:
-            p = random.randint(8000, 50000)
+            p = random.randint(minPort, maxPort)
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.bind(("localhost", p))
             s.close()
