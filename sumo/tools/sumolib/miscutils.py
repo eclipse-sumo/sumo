@@ -21,7 +21,8 @@ import time
 import os
 import math
 import colorsys
-from random import random
+import socket
+import random
 from collections import defaultdict
 
 # append import path stanca:
@@ -221,7 +222,7 @@ class Colorgen:
 
     def get_value(self, opt):
         if opt == 'random':
-            return random()
+            return random.random()
         else:
             return float(opt)
 
@@ -237,4 +238,14 @@ class Colorgen:
         """return constant or randomized rgb-color string"""
         return ','.join(map(str, self.byteTuple()))
 
-
+def getFreeSocketPort(numTries=10, minPort=8000, maxPort=50000):
+    for i in range(numTries):
+        try:
+            p = random.randint(8000, 50000)
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.bind(("localhost", p))
+            s.close()
+            return p
+        except socket.error:
+            pass
+    return None

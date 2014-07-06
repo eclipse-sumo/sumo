@@ -7,12 +7,6 @@
         <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
     </input>
 
-    <output>
-        <amitran-output value="localhost:8089"/>
-        <!-- amitran-output value="local"/ -->
-        <save-state.prefix value="state"/>
-    </output>
-
     <time>
         <begin value="0"/>
         <end value="150"/>
@@ -22,9 +16,5 @@
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
-
-    <emissions>
-        <phemlight-path value="./PHEMlight/"/>
-    </emissions>
 
 </configuration>

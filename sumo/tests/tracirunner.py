@@ -19,18 +19,12 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,subprocess,sys,time,random,socket
+import os,subprocess,sys,time
+THIS_DIR = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(os.path.join(THIS_DIR, '..', "tools"))
+import sumolib
 
-while True:
-    try:
-        p = random.randint(8000, 50000)
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind(("localhost", p))
-        s.close()
-        break
-    except socket.error:
-        pass
-PORT = str(p)
+PORT = str(sumolib.miscutils.getFreeSocketPort())
 server_args = sys.argv[1:] + ["--remote-port", PORT]
 binaryDir, server = os.path.split(server_args[0])
 #server_args[0] = "sumoD"

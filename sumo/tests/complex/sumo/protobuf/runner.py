@@ -35,9 +35,9 @@ def connect(inPort, outPort):
     o.close()
     i.close()
 
-SUMO_PORT = 8089
-IN_PORT = 8090
-OUT_PORT = 8091
+SUMO_PORT = sumolib.miscutils.getFreeSocketPort()
+IN_PORT = sumolib.miscutils.getFreeSocketPort()
+OUT_PORT = sumolib.miscutils.getFreeSocketPort()
 sumoBinary = sumolib.checkBinary('sumo')
 xmlProtoPy = os.path.join(toolDir, 'xml', 'xml2protobuf.py')
 protoXmlPy = os.path.join(toolDir, 'xml', 'protobuf2xml.py')
@@ -50,7 +50,7 @@ subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "direct.x
 xPro = subprocess.Popen(['python', xmlProtoPy, '-x', schema, '-o', str(IN_PORT), str(SUMO_PORT)])
 pPro = subprocess.Popen(['python', protoXmlPy, '-x', schema, str(OUT_PORT)])
 time.sleep(1) # wait for all servers to start
-sumoPro = subprocess.Popen([sumoBinary, "sumo.sumocfg"])
+sumoPro = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "localhost:%s" % SUMO_PORT])
 time.sleep(1) # wait for all servers to start
 connect(IN_PORT, OUT_PORT)
 sumoPro.wait()
