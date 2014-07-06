@@ -1,0 +1,1 @@
+--no-step-log -b 0 --no-duration-log --net-file=net.net.xml -a=input_districts.taz.xml,input_trips.trips.xml --vehroute-output=vehroutes.xml --device.rerouting.with-taz

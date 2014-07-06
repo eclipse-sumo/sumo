@@ -39,3 +39,9 @@ trip_taz_lastroute
 
 # Errors on assignment
 errors
+
+# all vehicles have the device due to trip def with districts
+auto_trip_with_taz
+
+# all vehicles have the device due to flow def with districts but without route
+auto_flow_with_taz
