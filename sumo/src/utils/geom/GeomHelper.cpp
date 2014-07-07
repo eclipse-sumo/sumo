@@ -116,10 +116,15 @@ GeomHelper::intersects(const SUMOReal x1, const SUMOReal y1,
         return false;
     }
     /* Is the intersection along the segments */
-    const double mua = numera / denominator;
-    const double mub = numerb / denominator;
-    if (mua < 0 || mua > 1 || mub < 0 || mub > 1) {
-        return false;
+    double mua = numera / denominator;
+    /* reduce rounding errors for lines ending in the same point */
+    if (fabs(x2 - x4) < eps && fabs(y2 - y4) < eps) {
+        mua = 1.;
+    } else {
+        const double mub = numerb / denominator;
+        if (mua < 0 || mua > 1 || mub < 0 || mub > 1) {
+            return false;
+        }
     }
     if (x != 0) {
         *x = x1 + mua * (x2 - x1);
