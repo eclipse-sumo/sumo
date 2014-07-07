@@ -21,18 +21,8 @@ toolDir = os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools
 sys.path.append(toolDir)
 import sumolib
 
-def connect(inPort, outPort):
-    i = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    i.connect(("localhost", inPort))
-    o = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    o.connect(("localhost", outPort))
-    while 1:
-        data = i.recv(1024)
-        if not data: break
-        o.sendall(data)
-
-sumoBinary = os.path.join(toolDir, '..', 'bin', 'sumo')
-driveCycleBinary = os.path.join(toolDir, '..', 'bin', 'emissionsDrivingCycle')
+sumoBinary = sumolib.checkBinary('sumo')
+driveCycleBinary = sumolib.checkBinary('emissionsDrivingCycle')
 
 # file output direct
 subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "trajectory.xml", "--emission-output", "emissions.xml"])
