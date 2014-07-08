@@ -74,8 +74,8 @@ public:
     /// Adds a container with vehicles departing at the given time
     void add(SUMOTime time, const VehicleVector& cont);
 
-    /// Returns the information whether any vehicles want to depart at the given time
-    bool anyWaitingFor(SUMOTime time) const;
+    /// Returns the information whether any vehicles want to depart before the given time
+    bool anyWaitingBefore(SUMOTime time) const;
 
     /// Returns the uppermost vehicle vector
     const VehicleVector& top();

@@ -139,6 +139,13 @@ public:
     void clearPendingVehicles(std::string& route);
 
 
+    /** @brief Checks for all vehicles coming from flows whether they can be emitted
+     *
+     * @param[in] time The current simulation time
+     */
+    void checkFlows(SUMOTime time);
+
+
 private:
     /** @brief Tries to emit the vehicle
      *
@@ -171,16 +178,6 @@ private:
      * @todo recheck
      */
     void checkPrevious(SUMOTime time);
-
-
-    /** @brief Checks for all vehicles coming from flows whether they can be emitted
-     *
-     * @param[in] time The current simulation time
-     * @param[in] refusedEmits Container to insert vehicles that could not be emitted into
-     * @return The number of emitted vehicles
-     */
-    unsigned int checkFlows(SUMOTime time,
-                            MSVehicleContainer::VehicleVector& refusedEmits);
 
 
 private:

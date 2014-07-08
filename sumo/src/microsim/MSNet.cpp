@@ -430,6 +430,7 @@ MSNet::simulationStep() {
         myPersonControl->checkWaitingPersons(this, myStep);
     }
     // insert Vehicles
+    myInserter->checkFlows(myStep);
     myInsertionEvents->execute(myStep);
     myInserter->emitVehicles(myStep);
     if (MSGlobals::gCheck4Accidents) {

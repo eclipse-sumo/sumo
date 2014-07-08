@@ -141,10 +141,8 @@ MSVehicleContainer::addReplacing(const VehicleDepartureVector& x) {
 
 
 bool
-MSVehicleContainer::anyWaitingFor(SUMOTime time) const {
-    VehicleHeap::const_iterator j =
-        find_if(array.begin() + 1, array.begin() + currentSize + 1, DepartFinder(time));
-    return j != array.begin() + currentSize + 1;
+MSVehicleContainer::anyWaitingBefore(SUMOTime time) const {
+    return !isEmpty() && topTime() < time;
 }
 
 

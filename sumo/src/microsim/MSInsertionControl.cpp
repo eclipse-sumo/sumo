@@ -103,7 +103,7 @@ unsigned int
 MSInsertionControl::emitVehicles(SUMOTime time) {
     checkPrevious(time);
     // check whether any vehicles shall be emitted within this time step
-    if (!myAllVeh.anyWaitingFor(time) && myRefusedEmits1.empty() && myRefusedEmits2.empty() && myFlows.empty()) {
+    if (!myAllVeh.anyWaitingBefore(time + DELTA_T) && myRefusedEmits1.empty() && myRefusedEmits2.empty() && myFlows.empty()) {
         return 0;
     }
     unsigned int noEmitted = 0;
@@ -129,8 +129,7 @@ MSInsertionControl::emitVehicles(SUMOTime time) {
     //  departure time is greater than the current time.
     // Retrieve the list of vehicles to emit within this time step
 
-    noEmitted += checkFlows(time, refusedEmits);
-    while (myAllVeh.anyWaitingFor(time)) {
+    while (myAllVeh.anyWaitingBefore(time + DELTA_T)) {
         const MSVehicleContainer::VehicleVector& next = myAllVeh.top();
         // go through the list and try to emit
         for (veh = next.begin(); veh != next.end(); veh++) {
@@ -201,11 +200,9 @@ MSInsertionControl::checkPrevious(SUMOTime time) {
 }
 
 
-unsigned int
-MSInsertionControl::checkFlows(SUMOTime time,
-                               MSVehicleContainer::VehicleVector& refusedEmits) {
+void
+MSInsertionControl::checkFlows(SUMOTime time) {
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
-    unsigned int noEmitted = 0;
     for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end();) {
         SUMOVehicleParameter* pars = i->pars;
         if (!i->isVolatile && i->vehicle != 0 && pars->repetitionProbability < 0) {
@@ -240,17 +237,15 @@ MSInsertionControl::checkFlows(SUMOTime time,
                 unsigned int quota = vehControl.getQuota();
                 if (quota > 0) {
                     vehControl.addVehicle(newPars->id, i->vehicle);
-                    noEmitted += tryInsert(time, i->vehicle, refusedEmits);
+                    add(i->vehicle);
                     i->index++;
-                    if (quota == 1 && !i->isVolatile && i->vehicle != 0) {
-                        break;
-                    }
                     while (--quota > 0) {
-                        SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
-                        newPars->id = pars->id + "." + toString(pars->repetitionsDone);
-                        i->vehicle = vehControl.buildVehicle(newPars, route, vtype);
-                        vehControl.addVehicle(newPars->id, i->vehicle);
-                        noEmitted += tryInsert(time, i->vehicle, refusedEmits);
+                        SUMOVehicleParameter* quotaPars = new SUMOVehicleParameter(*pars);
+                        quotaPars->id = pars->id + "." + toString(i->index);
+                        quotaPars->depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
+                        i->vehicle = vehControl.buildVehicle(quotaPars, route, vtype);
+                        vehControl.addVehicle(quotaPars->id, i->vehicle);
+                        add(i->vehicle);
                         i->index++;
                     }
                 } else {
@@ -273,7 +268,6 @@ MSInsertionControl::checkFlows(SUMOTime time,
             ++i;
         }
     }
-    return noEmitted;
 }
 
 
