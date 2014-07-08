@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun  3 14:20:24 2014 by SUMO sumo Version dev-SVN-r16487
+<!-- generated on 07/08/14 18:36:53 by SUMO sumo Version dev-SVN-r16735
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -102,7 +102,7 @@
         <link id="33" amount="10" averageSpeed="1036"/>
         <link id="34" amount="6" averageSpeed="636"/>
         <link id="35" amount="24" averageSpeed="1006"/>
-        <link id="36" amount="12" averageSpeed="1039"/>
+        <link id="36" amount="12" averageSpeed="1038"/>
         <link id="37" amount="19" averageSpeed="569"/>
         <link id="38" amount="21" averageSpeed="969"/>
         <link id="39" amount="11" averageSpeed="1041"/>
@@ -163,78 +163,78 @@
         <link id="38" amount="23" averageSpeed="984"/>
         <link id="39" amount="16" averageSpeed="1039"/>
         <link id="40" amount="12" averageSpeed="505"/>
-        <link id="41" amount="15" averageSpeed="1044"/>
+        <link id="41" amount="15" averageSpeed="1045"/>
         <link id="42" amount="17" averageSpeed="1038"/>
         <link id="43" amount="21" averageSpeed="468"/>
     </timeSlice>
     <timeSlice startTime="720000" duration="60000">
         <link id="32" amount="21" averageSpeed="1004"/>
         <link id="33" amount="20" averageSpeed="1037"/>
-        <link id="34" amount="15" averageSpeed="465"/>
+        <link id="34" amount="16" averageSpeed="465"/>
         <link id="35" amount="23" averageSpeed="1011"/>
-        <link id="36" amount="21" averageSpeed="1038"/>
+        <link id="36" amount="18" averageSpeed="1038"/>
         <link id="37" amount="14" averageSpeed="489"/>
-        <link id="38" amount="24" averageSpeed="988"/>
-        <link id="39" amount="13" averageSpeed="1039"/>
+        <link id="38" amount="24" averageSpeed="989"/>
+        <link id="39" amount="13" averageSpeed="1040"/>
         <link id="40" amount="10" averageSpeed="502"/>
-        <link id="41" amount="21" averageSpeed="1044"/>
-        <link id="42" amount="12" averageSpeed="1038"/>
-        <link id="43" amount="13" averageSpeed="481"/>
+        <link id="41" amount="22" averageSpeed="1044"/>
+        <link id="42" amount="13" averageSpeed="1038"/>
+        <link id="43" amount="13" averageSpeed="478"/>
     </timeSlice>
     <timeSlice startTime="780000" duration="60000">
-        <link id="32" amount="22" averageSpeed="1006"/>
-        <link id="33" amount="14" averageSpeed="1037"/>
-        <link id="34" amount="15" averageSpeed="460"/>
-        <link id="35" amount="24" averageSpeed="1013"/>
-        <link id="36" amount="14" averageSpeed="1039"/>
-        <link id="37" amount="23" averageSpeed="487"/>
+        <link id="32" amount="22" averageSpeed="1005"/>
+        <link id="33" amount="13" averageSpeed="1038"/>
+        <link id="34" amount="14" averageSpeed="455"/>
+        <link id="35" amount="24" averageSpeed="1012"/>
+        <link id="36" amount="13" averageSpeed="1038"/>
+        <link id="37" amount="22" averageSpeed="490"/>
         <link id="38" amount="21" averageSpeed="990"/>
-        <link id="39" amount="13" averageSpeed="1039"/>
-        <link id="40" amount="14" averageSpeed="504"/>
+        <link id="39" amount="15" averageSpeed="1039"/>
+        <link id="40" amount="14" averageSpeed="503"/>
         <link id="41" amount="14" averageSpeed="1044"/>
-        <link id="42" amount="17" averageSpeed="1038"/>
-        <link id="43" amount="12" averageSpeed="474"/>
+        <link id="42" amount="16" averageSpeed="1038"/>
+        <link id="43" amount="13" averageSpeed="467"/>
     </timeSlice>
     <timeSlice startTime="840000" duration="60000">
-        <link id="32" amount="21" averageSpeed="1007"/>
-        <link id="33" amount="12" averageSpeed="1037"/>
-        <link id="34" amount="19" averageSpeed="455"/>
-        <link id="35" amount="21" averageSpeed="1013"/>
-        <link id="36" amount="8" averageSpeed="1039"/>
-        <link id="37" amount="13" averageSpeed="467"/>
+        <link id="32" amount="21" averageSpeed="1006"/>
+        <link id="33" amount="15" averageSpeed="1037"/>
+        <link id="34" amount="18" averageSpeed="441"/>
+        <link id="35" amount="18" averageSpeed="1013"/>
+        <link id="36" amount="12" averageSpeed="1038"/>
+        <link id="37" amount="12" averageSpeed="473"/>
         <link id="38" amount="24" averageSpeed="991"/>
         <link id="39" amount="19" averageSpeed="1039"/>
-        <link id="40" amount="11" averageSpeed="502"/>
-        <link id="41" amount="12" averageSpeed="1044"/>
-        <link id="42" amount="17" averageSpeed="1038"/>
-        <link id="43" amount="21" averageSpeed="481"/>
+        <link id="40" amount="11" averageSpeed="501"/>
+        <link id="41" amount="10" averageSpeed="1044"/>
+        <link id="42" amount="12" averageSpeed="1038"/>
+        <link id="43" amount="21" averageSpeed="473"/>
     </timeSlice>
     <timeSlice startTime="900000" duration="60000">
-        <link id="32" amount="21" averageSpeed="1008"/>
-        <link id="33" amount="20" averageSpeed="1037"/>
-        <link id="34" amount="17" averageSpeed="445"/>
-        <link id="35" amount="17" averageSpeed="1013"/>
-        <link id="36" amount="17" averageSpeed="1039"/>
-        <link id="37" amount="14" averageSpeed="446"/>
-        <link id="38" amount="24" averageSpeed="994"/>
-        <link id="39" amount="12" averageSpeed="1039"/>
-        <link id="40" amount="15" averageSpeed="509"/>
-        <link id="41" amount="20" averageSpeed="1044"/>
-        <link id="42" amount="12" averageSpeed="1038"/>
-        <link id="43" amount="13" averageSpeed="476"/>
+        <link id="32" amount="23" averageSpeed="1007"/>
+        <link id="33" amount="21" averageSpeed="1037"/>
+        <link id="34" amount="19" averageSpeed="425"/>
+        <link id="35" amount="20" averageSpeed="1012"/>
+        <link id="36" amount="21" averageSpeed="1038"/>
+        <link id="37" amount="16" averageSpeed="464"/>
+        <link id="38" amount="24" averageSpeed="993"/>
+        <link id="39" amount="11" averageSpeed="1038"/>
+        <link id="40" amount="14" averageSpeed="506"/>
+        <link id="41" amount="16" averageSpeed="1044"/>
+        <link id="42" amount="11" averageSpeed="1038"/>
+        <link id="43" amount="7" averageSpeed="473"/>
     </timeSlice>
     <timeSlice startTime="960000" duration="40000">
         <link id="32" amount="16" averageSpeed="1008"/>
-        <link id="33" amount="11" averageSpeed="1037"/>
-        <link id="34" amount="12" averageSpeed="448"/>
-        <link id="35" amount="14" averageSpeed="1012"/>
-        <link id="36" amount="8" averageSpeed="1039"/>
-        <link id="37" amount="12" averageSpeed="453"/>
-        <link id="38" amount="14" averageSpeed="993"/>
-        <link id="39" amount="15" averageSpeed="1038"/>
-        <link id="40" amount="11" averageSpeed="504"/>
-        <link id="41" amount="6" averageSpeed="1044"/>
+        <link id="33" amount="9" averageSpeed="1038"/>
+        <link id="34" amount="12" averageSpeed="426"/>
+        <link id="35" amount="15" averageSpeed="1013"/>
+        <link id="36" amount="7" averageSpeed="1038"/>
+        <link id="37" amount="12" averageSpeed="473"/>
+        <link id="38" amount="15" averageSpeed="992"/>
+        <link id="39" amount="14" averageSpeed="1038"/>
+        <link id="40" amount="10" averageSpeed="497"/>
+        <link id="41" amount="3" averageSpeed="1044"/>
         <link id="42" amount="9" averageSpeed="1038"/>
-        <link id="43" amount="11" averageSpeed="460"/>
+        <link id="43" amount="10" averageSpeed="472"/>
     </timeSlice>
 </linkData>
