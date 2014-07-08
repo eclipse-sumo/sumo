@@ -17,13 +17,13 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, time, math, random
+import os, subprocess, sys, time, math
 
 sumoHome = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
-import traci
+import sumolib, traci
 
-PORT = random.randint(8000, 50000)
+PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
 
 if sys.argv[1] == "sumo":

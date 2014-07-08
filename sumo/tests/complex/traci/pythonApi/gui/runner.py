@@ -24,7 +24,7 @@ import traci, sumolib
 
 sumoBinary = sumolib.checkBinary('sumo-gui')
 
-PORT = random.randint(8000, 50000)
+PORT = sumolib.miscutils.getFreeSocketPort()
 sumoProcess = subprocess.Popen("%s -S -Q -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
 for step in range(3):
