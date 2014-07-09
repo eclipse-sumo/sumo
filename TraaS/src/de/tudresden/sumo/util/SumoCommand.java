@@ -134,6 +134,16 @@ public class SumoCommand {
 			}
 		}
 		
+		else if((Integer) input2 == Constants.VAR_ROUTE){
+			
+			cmd.content().writeUnsignedByte(Constants.TYPE_STRINGLIST);
+			SumoStringList sl = (SumoStringList) array[0];
+			cmd.content().writeInt(sl.size());
+			for(String s : sl) {
+				cmd.content().writeStringASCII(s);
+			}
+			
+		}
 		else if((Integer) input2 == Constants.CMD_REROUTE_EFFORT || (Integer) input2 == Constants.CMD_REROUTE_TRAVELTIME || (Integer) input2 == Constants.CMD_RESUME){
 				cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
 				cmd.content().writeInt(0);
