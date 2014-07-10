@@ -19,7 +19,7 @@ Warning: Not joining junctions 1568241532,1568241533,1853142988,283018844,283018
 Warning: Not joining junctions 1568241232,1654992651,283018497,283018514 because the cluster is too complex (7 incoming edges)
 Warning: Not joining junctions 283018845,38919880 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 1568241546,1568241552,1568241558 because the cluster is too complex (parallel incoming -174657429,142575690#4)
-Warning: Not joining junctions 1599958754,1599958756 because the cluster is too complex (parallel incoming 142575679#4,146738852#0)
+Warning: Not joining junctions 1599958754,1599958756 because the cluster is too complex (parallel incoming -142575679#5,-146738852#1)
 Warning: Not joining junctions 1789928382,664166124 because the cluster is too complex (parallel outgoing 142575693#0,158236729#1)
 Warning: Not joining junctions 2007005087,2007005089 because the cluster is too complex (parallel incoming -190083622,-206579062#1)
 Warning: Not joining junctions 2223005785,2223028084 because the cluster is too complex (5 incoming edges)
