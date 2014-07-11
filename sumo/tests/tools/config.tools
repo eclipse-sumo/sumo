@@ -117,5 +117,8 @@ omnet:<!-- generated on
 shawn:<!-- generated on
 net:<!--{[->]}-->
 
+[floating_point_tolerance]
+net:0.0101
+
 [unordered_text]
 errors:ERROR:SCHEMA
