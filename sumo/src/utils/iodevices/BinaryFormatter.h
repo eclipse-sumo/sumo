@@ -32,10 +32,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
-
 #include <vector>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/ToString.h>
@@ -231,6 +227,15 @@ private:
     }
 
 
+    /** @brief writes the part of the header which is always unchanged.
+     *
+     * This method exists only to reduce include dependencies of BinaryFormatter.h (which promote to OutputDevice.h, ...)
+     *
+     * @param[in] into The output stream to use
+     */
+    static void writeStaticHeader(std::ostream& into);
+
+
     /** @brief writes a list of strings
      *
      * @param[in] into The output stream to use
@@ -258,15 +263,7 @@ private:
 template <typename E>
 bool BinaryFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElement) {
     if (myXMLStack.empty()) {
-        FileHelpers::writeByte(into, BF_BYTE);
-        FileHelpers::writeByte(into, 1);
-        FileHelpers::writeByte(into, BF_STRING);
-        FileHelpers::writeString(into, VERSION_STRING);
-        writeStringList(into, SUMOXMLDefinitions::Tags.getStrings());
-        writeStringList(into, SUMOXMLDefinitions::Attrs.getStrings());
-        writeStringList(into, SUMOXMLDefinitions::NodeTypes.getStrings());
-        writeStringList(into, SUMOXMLDefinitions::EdgeFunctions.getStrings());
-
+        writeStaticHeader(into);
         const unsigned int numEdges = (const unsigned int)E::dictSize();
         FileHelpers::writeByte(into, BF_LIST);
         FileHelpers::writeInt(into, numEdges);

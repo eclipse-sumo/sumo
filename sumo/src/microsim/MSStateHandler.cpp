@@ -30,6 +30,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <sstream>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -46,7 +50,6 @@
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #endif
-
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
