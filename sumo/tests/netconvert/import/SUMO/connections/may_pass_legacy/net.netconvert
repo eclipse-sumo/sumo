@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 30 15:49:27 2013 by SUMO netconvert Version dev-SVN-r14318
+<!-- generated on Fri Jul 11 23:06:28 2014 by SUMO netconvert Version dev-SVN-r16738
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -21,6 +21,7 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
     </report>
 
 </configuration>
@@ -28,15 +29,15 @@
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
 
-    <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,200.00" origBoundary="-1000.00,0.00,1000.00,200.00" projParameter="!"/>
+    <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,100.00" origBoundary="-1000.00,0.00,1000.00,100.00" projParameter="!"/>
 
-    <edge id="on" from="4a" to="4" priority="-1" shape="1800.00,200.00 1500.00,11.55">
-        <lane id="on_0" index="0" speed="30.00" length="358.64" shape="1799.12,201.40 1498.56,12.59"/>
+    <edge id="on" from="4a" to="4" priority="-1" shape="1800.00,100.00 1500.00,11.55">
+        <lane id="on_0" index="0" speed="30.00" length="319.05" shape="1799.53,101.58 1495.83,12.04"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1">
-        <lane id="s1_0" index="0" speed="30.00" length="508.46" shape="2000.00,8.25 1498.70,8.25"/>
-        <lane id="s1_1" index="1" speed="30.00" length="508.46" shape="2000.00,4.95 1498.70,4.95"/>
-        <lane id="s1_2" index="2" speed="30.00" length="508.46" shape="2000.00,1.65 1498.70,1.65"/>
+        <lane id="s1_0" index="0" speed="30.00" length="511.01" shape="2000.00,8.25 1495.45,8.25"/>
+        <lane id="s1_1" index="1" speed="30.00" length="511.01" shape="2000.00,4.95 1494.24,4.95"/>
+        <lane id="s1_2" index="2" speed="30.00" length="511.01" shape="2000.00,1.65 1493.02,1.65"/>
     </edge>
     <edge id="s2" from="s2-AddedOnRampNode" to="3" priority="-1">
         <lane id="s2_0" index="0" speed="30.00" length="400.00" shape="1398.50,8.25 1000.00,8.25"/>
@@ -44,10 +45,10 @@
         <lane id="s2_2" index="2" speed="30.00" length="400.00" shape="1398.50,1.65 1000.00,1.65"/>
     </edge>
     <edge id="s2-AddedOnRampEdge" from="4" to="s2-AddedOnRampNode" priority="-1">
-        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="108.46" shape="1494.94,11.55 1401.50,11.55"/>
-        <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="108.46" shape="1494.94,8.25 1401.50,8.25"/>
-        <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="108.46" shape="1494.94,4.95 1401.50,4.95"/>
-        <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="108.46" shape="1494.94,1.65 1401.50,1.65"/>
+        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="111.01" shape="1492.43,11.55 1401.50,11.55"/>
+        <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="111.01" shape="1492.43,8.25 1401.50,8.25"/>
+        <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="111.01" shape="1492.43,4.95 1401.50,4.95"/>
+        <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="111.01" shape="1492.43,1.65 1401.50,1.65"/>
     </edge>
     <edge id="s3" from="3" to="2" priority="-1">
         <lane id="s3_0" index="0" speed="30.00" length="500.00" shape="1000.00,8.25 500.00,8.25"/>
@@ -71,13 +72,13 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1497.71,13.95 1499.41,11.24 1498.70,9.85 1498.70,0.05 1494.94,0.05 1494.94,13.15">
+    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1495.37,13.57 1496.28,10.50 1492.43,0.05 1492.43,13.15">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="4a" type="unregulated" x="1800.00" y="200.00" incLanes="" intLanes="" shape="1799.97,200.04 1798.27,202.75"/>
+    <junction id="4a" type="unregulated" x="1800.00" y="100.00" incLanes="" intLanes="" shape="1799.99,100.05 1799.08,103.12"/>
     <junction id="5" type="unregulated" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,9.85"/>
     <junction id="s2-AddedOnRampNode" type="priority" x="1400.00" y="0.00" incLanes="s2-AddedOnRampEdge_0 s2-AddedOnRampEdge_1 s2-AddedOnRampEdge_2 s2-AddedOnRampEdge_3" intLanes="" shape="1401.50,13.15 1401.50,0.05 1398.50,0.05 1398.50,9.85">
         <request index="0" response="000" foes="000"/>
