@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun  3 17:07:46 2014 by SUMO netconvert Version dev-SVN-r16497
+<!-- generated on Mon Jul 14 09:31:55 2014 by SUMO netconvert Version dev-SVN-r16756
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -4876,11 +4876,8 @@
     <edge id=":260702781_0" function="internal">
         <lane id=":260702781_0_0" index="0" disallow="pedestrian" speed="8.33" length="4.82" shape="4177.36,229.37 4175.93,228.96 4175.28,228.30 4175.43,227.39 4176.36,226.22"/>
     </edge>
-    <edge id=":260702781_c0" function="crossing" crossingEdges="-143308566#2 143308566#2">
-        <lane id=":260702781_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="4173.97,225.30 4175.93,231.50"/>
-    </edge>
     <edge id=":260702781_w0" function="walkingarea">
-        <lane id=":260702781_w0_0" index="0" allow="pedestrian" speed="1.00" length="5.28" width="4.00" shape="4172.03,225.81 4175.84,224.60 4175.24,222.70 4173.51,227.20 4174.51,230.24 4178.48,232.90 4177.87,230.99 4174.06,232.20"/>
+        <lane id=":260702781_w0_0" index="0" allow="pedestrian" speed="1.00" length="6.42" width="4.00" shape="4172.03,225.81 4175.84,224.60 4175.24,222.70 4173.51,227.20 4174.51,230.24 4178.48,232.90 4177.87,230.99 4174.06,232.20"/>
     </edge>
     <edge id=":260702833_0" function="internal">
         <lane id=":260702833_0_0" index="0" disallow="pedestrian" speed="8.33" length="4.82" shape="4188.82,283.75 4187.48,283.11 4186.96,282.35 4187.25,281.48 4188.36,280.49"/>
@@ -11935,9 +11932,8 @@
         <request index="3" response="00011" foes="00011" cont="0"/>
         <request index="4" response="00011" foes="00011" cont="0"/>
     </junction>
-    <junction id="260702781" type="priority" x="4175.43" y="228.25" incLanes="143308566#2_0 143308566#2_1 59461375#2_0 :260702781_w0_0" intLanes=":260702781_0_0 :260702781_c0_0" shape="4178.66,233.47 4175.06,222.13 4173.51,227.20 4174.51,230.24">
-        <request index="0" response="00" foes="10" cont="0"/>
-        <request index="1" response="01" foes="01" cont="0"/>
+    <junction id="260702781" type="priority" x="4175.43" y="228.25" incLanes="143308566#2_0 143308566#2_1 59461375#2_0" intLanes=":260702781_0_0" shape="4178.66,233.47 4175.06,222.13 4173.51,227.20 4174.51,230.24">
+        <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="260702833" type="priority" x="4188.59" y="282.12" incLanes="143308601#2_0 143308601#2_1" intLanes=":260702833_0_0" shape="4188.58,282.07 4187.75,276.23 4189.43,288.01 4188.60,282.17">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -17863,8 +17859,6 @@
     <connection from="-212451899#1" to=":2410835029_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2471305128_w0" to="142575692#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="142575692#1" to=":2471305128_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":260702781_c0" to=":260702781_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":260702781_w0" to=":260702781_c0" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from=":260702781_w0" to="-143308566#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="59461375#2" to=":260702781_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="143308566#2" to=":260702781_w0" fromLane="0" toLane="0" dir="s" state="M"/>

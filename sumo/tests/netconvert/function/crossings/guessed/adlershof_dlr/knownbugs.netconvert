@@ -1,7 +1,0 @@
-
-[Reported by micha at 06Jul06:38:17]
-search_string:<edge id=":260702781_c0" function="crossing"
-trigger_on_absence:1
-search_file:net
-bug_system:trac
-bug_id:1373
