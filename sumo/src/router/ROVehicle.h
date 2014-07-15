@@ -124,6 +124,9 @@ public:
         return getType() != 0 ? getType()->vehicleClass : SVC_IGNORING;
     }
 
+    /// @brief Create a new vehicle with the vType of this vehicle
+    ROVehicle* createVTypeClone() const;
+
 
     /** @brief Saves the complete vehicle description.
      *

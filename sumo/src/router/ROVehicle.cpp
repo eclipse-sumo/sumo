@@ -159,5 +159,11 @@ ROVehicle::getMaxSpeed() const {
 }
 
 
+ROVehicle* 
+ROVehicle::createVTypeClone() const {
+    return new ROVehicle(SUMOVehicleParameter(), 0, getType(), 0);
+}
+
+
 /****************************************************************************/
 
