@@ -22,7 +22,6 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 import string, glob, os, sys, optparse, random,shutil
-from optparse import OptionParser
 from xml.sax import saxutils, make_parser, handler
 from xml.sax import parse
 from numpy import *
