@@ -440,6 +440,8 @@ public:
 #endif
     /// @brief The probability for emitting a vehicle per second
     SUMOReal repetitionProbability;
+    /// @brief The time at which the flow ends (only needed when using repetitionProbability)
+    SUMOTime repetitionEnd;
     /// @}
 
 

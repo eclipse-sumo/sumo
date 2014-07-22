@@ -166,6 +166,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         // interpret repetitionNumber
         if (ok && ret->repetitionProbability >= 0) {
             ret->repetitionNumber = INT_MAX;
+            ret->repetitionEnd = end;
         } else {
             if (ok && ret->repetitionOffset <= 0) {
                 delete ret;

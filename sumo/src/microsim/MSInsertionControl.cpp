@@ -210,7 +210,7 @@ MSInsertionControl::checkFlows(SUMOTime time) {
             //std::cout << SIMTIME << " volatile=" << i->isVolatile << " veh=" << i->vehicle << "\n";
             continue;
         }
-        bool emitByProb = pars->repetitionProbability > 0 && RandHelper::rand() < (pars->repetitionProbability * TS);
+        bool emitByProb = pars->repetitionProbability > 0 && RandHelper::rand() < (pars->repetitionProbability * TS) && pars->repetitionEnd > time;
         //std::cout << emitByProb << "\n";
         //std::cout << SIMTIME
         //    << " flow=" << pars->id
@@ -260,7 +260,7 @@ MSInsertionControl::checkFlows(SUMOTime time) {
                 throw ProcessError("Another vehicle with the id '" + newPars->id + "' exists.");
             }
         }
-        if (pars->repetitionsDone == pars->repetitionNumber) {
+        if (pars->repetitionsDone == pars->repetitionNumber || (pars->repetitionProbability > 0 && pars->repetitionEnd <= time)) {
             i = myFlows.erase(i);
             MSRoute::checkDist(pars->routeid);
             delete pars;
