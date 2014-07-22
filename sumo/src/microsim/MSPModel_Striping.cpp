@@ -569,27 +569,23 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
             //std::cout << SIMTIME << p.myPerson->getID() << " lane=" << lane->getID() << " x=" << p.myRelX << "\n";
         }
 
-        // advance to the next lane
+        // advance to the next lane / arrive at destination
         sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(dir));
-        bool checkAdvance = true;
-        while (checkAdvance) {
-            checkAdvance = false;;
-            if (pedestrians.size() > 0) {
-                PState* p = pedestrians.front();
-                if (p->myDir != dir) {
-                    continue;
+        for (Pedestrians::iterator it = pedestrians.begin(); it != pedestrians.end();) {
+            PState* p = *it;
+            if (p->myDir != dir) {
+                ++it;
+            } else if (p->moveToNextLane(currentTime)) {
+                it = pedestrians.erase(it);
+                if (p->myLane != 0) {
+                    changedLane.insert(p->myPerson);
+                    myActiveLanes[p->myLane].push_back(p);
+                } else {
+                    delete p;
+                    myNumActivePedestrians--;
                 }
-                if (p->moveToNextLane(currentTime)) {
-                    pedestrians.erase(pedestrians.begin());
-                    checkAdvance = true;
-                    if (p->myLane != 0) {
-                        changedLane.insert(p->myPerson);
-                        myActiveLanes[p->myLane].push_back(p);
-                    } else {
-                        delete p;
-                        myNumActivePedestrians--;
-                    }
-                }
+            } else {
+                ++it;
             }
         }
     }
@@ -725,9 +721,9 @@ MSPModel_Striping::PState::distToLaneEnd() const {
 bool
 MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
     const SUMOReal dist = distToLaneEnd();
-    //if (myPerson->getID() == DEBUG1) {
-    //    std::cout << SIMTIME << " myRelX=" << myRelX << " dist=" << dist << "\n";
-    //}
+    if (myPerson->getID() == DEBUG1) {
+        std::cout << SIMTIME << " myRelX=" << myRelX << " dist=" << dist << "\n";
+    }
     if (dist <= 0) {
         //if (ped.myPerson->getID() == DEBUG1) {
         //    std::cout << SIMTIME << " addToLane x=" << ped.myRelX << " newDir=" << newDir << " newLane=" << newLane->getID() << " walkingAreaShape=" << walkingAreaShape << "\n";

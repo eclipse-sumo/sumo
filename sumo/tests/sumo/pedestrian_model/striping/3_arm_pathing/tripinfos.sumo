@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 25 16:18:03 2014 by SUMO sumo Version dev-SVN-r16032
+<!-- generated on Tue Jul 22 16:54:58 2014 by SUMO sumo Version dev-SVN-r16771
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -11,8 +11,13 @@
     </input>
 
     <output>
+        <fcd-output value="fcd.xml"/>
         <tripinfo-output value="tripinfos.xml"/>
     </output>
+
+    <processing>
+        <pedestrian.model value="striping"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -25,26 +30,26 @@
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
     <personinfo id="pEW" depart="20.00">
         <stop arrival="20.00"/>
-        <walk arrival="70.00"/>
+        <walk arrival="28.00"/>
     </personinfo>
     <personinfo id="pEN" depart="25.00">
         <stop arrival="25.00"/>
-        <walk arrival="78.00"/>
+        <walk arrival="32.00"/>
     </personinfo>
     <personinfo id="pWN" depart="0.00">
         <stop arrival="0.00"/>
-        <walk arrival="118.00"/>
+        <walk arrival="110.00"/>
     </personinfo>
     <personinfo id="pNW" depart="10.00">
         <stop arrival="10.00"/>
-        <walk arrival="124.00"/>
+        <walk arrival="126.00"/>
     </personinfo>
     <personinfo id="pWE" depart="5.00">
         <stop arrival="5.00"/>
-        <walk arrival="230.00"/>
+        <walk arrival="228.00"/>
     </personinfo>
     <personinfo id="pNE" depart="15.00">
         <stop arrival="15.00"/>
-        <walk arrival="240.00"/>
+        <walk arrival="242.00"/>
     </personinfo>
 </tripinfos>
