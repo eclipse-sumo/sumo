@@ -224,12 +224,18 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
                         if (extrapolateBy > POSITION_EPS) {
                             PositionVector fromShp = from->getShape();
                             fromShp.extrapolate(extrapolateBy);
-                            shape.push_back(fromDir == FORWARD ? fromShp.back() : fromShp.front());
+                            shape.push_back_noDoublePos(fromDir == FORWARD ? fromShp.back() : fromShp.front());
                             PositionVector nextShp = to->getShape();
                             nextShp.extrapolate(extrapolateBy);
-                            shape.push_back(toDir == FORWARD ? nextShp.front() : nextShp.back());
+                            shape.push_back_noDoublePos(toDir == FORWARD ? nextShp.front() : nextShp.back());
                         }
-                        shape.push_back(toPos);
+                        shape.push_back_noDoublePos(toPos);
+                        if (shape.size() < 2) {
+                            PositionVector fromShp = from->getShape();
+                            fromShp.extrapolate(1.5 * POSITION_EPS); // noDoublePos requires a difference of POSITION_EPS in at least one coordinate
+                            shape.push_back_noDoublePos(fromDir == FORWARD ? fromShp.back() : fromShp.front());
+                            assert(shape.size() == 2);
+                        }
                         if (fromDir == BACKWARD) {
                             // will be walking backward on walkingArea
                             shape = shape.reverse();
