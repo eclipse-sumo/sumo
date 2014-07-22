@@ -66,8 +66,8 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const Phases& phases,
         unsigned int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameter) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter),
-    myContinue(false) {
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter) 
+{
 
     myMaxGap = TplConvert::_2SUMOReal(getParameter("max-gap", DEFAULT_MAX_GAP).c_str());
     myPassingTime = TplConvert::_2SUMOReal(getParameter("passing-time", DEFAULT_PASSING_TIME).c_str());
@@ -118,9 +118,12 @@ MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() {
 SUMOTime
 MSActuatedTrafficLightLogic::trySwitch(bool) {
     // checks if the actual phase should be continued
-    gapControl();
-    if (myContinue) {
-        return duration();
+    // @note any vehicles which arrived during the previous phases which are now waiting between the detector and the stop line are not
+    // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
+    // @todo: it would be nice to warn users if (inductLoopPosition / defaultLengthWithGap * myPassingTime > minDuration)
+    const SUMOReal detectionGap = gapControl();
+    if (detectionGap < std::numeric_limits<SUMOReal>::max()) {
+        return duration(detectionGap);
     }
     // increment the index to the current phase
     myStep++;
@@ -137,52 +140,38 @@ MSActuatedTrafficLightLogic::trySwitch(bool) {
 
 // ------------ "actuated" algorithm methods
 SUMOTime
-MSActuatedTrafficLightLogic::duration() const {
-    assert(myContinue);
+MSActuatedTrafficLightLogic::duration(const SUMOReal detectionGap) const {
     assert(getCurrentPhaseDef().isGreenPhase());
     assert(myPhases.size() > myStep);
-    // define the duration depending from the number of waiting vehicles of the actual phase
-    int newduration = (int) getCurrentPhaseDef().minDuration;
-    const std::string& state = getCurrentPhaseDef().getState();
-    for (unsigned int i = 0; i < (unsigned int) state.size(); i++) {
-        if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
-            const std::vector<MSLane*>& lanes = getLanesAt(i);
-            if (lanes.empty()) {
-                break;
-            }
-            for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
-                InductLoopMap::const_iterator k = myInductLoops.find(*j);
-                assert(k != myInductLoops.end());
-                SUMOReal waiting = (SUMOReal)(*k).second->getCurrentPassedNumber();
-                SUMOReal tmpdur =  myPassingTime * waiting;
-                if (tmpdur > newduration) {
-                    // here we cut the decimal places, because we have to return an integer
-                    newduration = (int) tmpdur;
-                }
-                if (newduration > (int) getCurrentPhaseDef().maxDuration)  {
-                    return getCurrentPhaseDef().maxDuration;
-                }
-            }
-        }
+    const SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
+    // ensure that minimum duration is kept
+    SUMOTime newDuration = getCurrentPhaseDef().minDuration - actDuration;
+    // try to let the last detected vehicle pass the intersection (duration must be positive)
+    newDuration = MAX3(newDuration, TIME2STEPS(myDetectorGap - detectionGap), 1);
+    // cut the decimal places to ensure that phases always have integer duration
+    if (newDuration % 1000 != 0) {
+        const SUMOTime totalDur = newDuration + actDuration;
+        newDuration = (totalDur / 1000 + 1) * 1000 - actDuration;
     }
-    return newduration;
+    // ensure that the maximum duration is not exceeded
+    newDuration = MIN2(newDuration, getCurrentPhaseDef().maxDuration - actDuration);
+    return newDuration;
 }
 
 
-void
+SUMOReal
 MSActuatedTrafficLightLogic::gapControl() {
     //intergreen times should not be lenghtend
     assert(myPhases.size() > myStep);
+    SUMOReal result = std::numeric_limits<SUMOReal>::max(); 
     if (!getCurrentPhaseDef().isGreenPhase()) {
-        myContinue = false;
-        return;
+        return result; // end current phase
     }
 
     // Checks, if the maxDuration is kept. No phase should longer send than maxDuration.
     SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
     if (actDuration >= getCurrentPhaseDef().maxDuration) {
-        myContinue = false;
-        return;
+        return result; // end current phase
     }
 
     // now the gapcontrol starts
@@ -190,9 +179,6 @@ MSActuatedTrafficLightLogic::gapControl() {
     for (unsigned int i = 0; i < (unsigned int) state.size(); i++)  {
         if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*>& lanes = getLanesAt(i);
-            if (lanes.empty())    {
-                break;
-            }
             for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
                 if (myInductLoops.find(*j) == myInductLoops.end()) {
                     continue;
@@ -200,13 +186,12 @@ MSActuatedTrafficLightLogic::gapControl() {
                 SUMOReal actualGap =
                     myInductLoops.find(*j)->second->getTimestepsSinceLastDetection();
                 if (actualGap < myMaxGap) {
-                    myContinue = true;
-                    return;
+                    result = MIN2(result, actualGap);
                 }
             }
         }
     }
-    myContinue = false;
+    return result; 
 }
 
 

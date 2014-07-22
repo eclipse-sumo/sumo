@@ -244,9 +244,11 @@ NLJunctionControlBuilder::closeTrafficLightLogic() {
     // build the tls-logic in dependance to its type
     switch (myLogicType) {
         case TLTYPE_ACTUATED:
+            // @note it is unclear how to apply the given offset in the context
+            // of variable-length phases
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram,
-                    myActivePhases, step, firstEventOffset,
+                    myActivePhases, step, (*i)->minDuration,
                     myAdditionalParameter);
             break;
         case TLTYPE_AGENT:

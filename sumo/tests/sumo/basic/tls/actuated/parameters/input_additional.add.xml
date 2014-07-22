@@ -10,5 +10,6 @@
         <phase duration="4" state="rrrryyggrrrryygg"/>
         <phase duration="6" state="rrrrrrGGrrrrrrGG"/>
         <phase duration="4" state="rrrrrryyrrrrrryy"/>
+        <param key="detector-gap" value="1.0"/>
     </tlLogic>
 </additional>
