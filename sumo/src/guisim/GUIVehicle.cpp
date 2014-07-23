@@ -1526,7 +1526,7 @@ GUIVehicle::selectBlockingFoes() const {
             // the vehicle to enter the junction first has priority
             const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(it->vehAndGap.first);
             if (leader != 0) {
-                if (leader->myLinkLeaders.count(getID()) == 0) {
+                if (leader->myLinkLeaders[dpi.myLink->getJunction()].count(getID()) == 0) {
                     // leader isn't already following us, now we follow it
                     gSelected.select(leader->getGlID());
                 }

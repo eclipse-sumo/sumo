@@ -43,6 +43,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
+class MSJunction;
 class SUMOVehicle;
 class MSVehicle;
 class MSPerson;
@@ -341,6 +342,10 @@ public:
     /// @brief write information about all approaching vehicles to the given output device
     void writeApproaching(OutputDevice& od, const std::string fromLaneID) const;
 
+    /// @brief return the junction to which this link belongs
+    const MSJunction* getJunction() const {
+        return myJunction;
+    }
 
 private:
     /// @brief return whether the given vehicles may NOT merge safely
@@ -387,6 +392,9 @@ private:
      * */
     std::vector<std::pair<SUMOReal, SUMOReal> > myLengthsBehindCrossing;
 #endif
+
+    /// @brief the junction to which this link belongs
+    const MSJunction* myJunction;
 
     std::vector<MSLink*> myFoeLinks;
     std::vector<MSLane*> myFoeLanes;

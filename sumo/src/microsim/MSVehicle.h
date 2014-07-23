@@ -65,6 +65,7 @@ class MSEdgeWeightsStorage;
 class OutputDevice;
 class Position;
 class MSDevice_Person;
+class MSJunction;
 
 
 // ===========================================================================
@@ -1233,7 +1234,7 @@ protected:
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief ids of vehicles being followed across a link (for resolving priority)
-    mutable std::set<std::string> myLinkLeaders;
+    mutable std::map<const MSJunction*, std::set<std::string> > myLinkLeaders;
 #endif
 
 private:

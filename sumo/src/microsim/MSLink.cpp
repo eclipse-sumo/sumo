@@ -66,7 +66,8 @@ MSLink::MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal le
     myDirection(dir),
     myLength(length),
     myHasFoes(false),
-    myAmCont(false)
+    myAmCont(false),
+    myJunction(succLane->getEdge().getFromJunction())
 #else
 MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length) :
     myLane(succLane),
@@ -76,7 +77,8 @@ MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state
     myLength(length),
     myHasFoes(false),
     myAmCont(false),
-    myJunctionInlane(via)
+    myJunctionInlane(via),
+    myJunction(succLane->getEdge().getFromJunction())
 #endif
 {}
 
