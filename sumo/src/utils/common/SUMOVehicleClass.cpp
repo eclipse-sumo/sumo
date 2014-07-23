@@ -190,7 +190,7 @@ getVehicleClassID(const std::string& name) {
     if (SumoVehicleClassStrings.hasString(name)) {
         return SumoVehicleClassStrings.get(name);
     }
-    throw ProcessError("Unknown vehicle class '" + name + "'.");
+    throw InvalidArgument("Unknown vehicle class '" + name + "'.");
 }
 
 
@@ -276,7 +276,7 @@ getVehicleShapeID(const std::string& name) {
     if (SumoVehicleShapeStrings.hasString(name)) {
         return SumoVehicleShapeStrings.get(name);
     } else {
-        throw ProcessError("Unknown vehicle shape '" + name + "'.");
+        throw InvalidArgument("Unknown vehicle shape '" + name + "'.");
     }
 }
 
