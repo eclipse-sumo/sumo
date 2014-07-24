@@ -407,6 +407,8 @@ public:
      */
     void abortWaiting();
 
+    /// @brief compute (optional) random offset to the departure time
+    SUMOTime computeRandomDepartOffset() const;
 
 public:
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
