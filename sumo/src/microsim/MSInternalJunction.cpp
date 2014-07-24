@@ -48,11 +48,12 @@
 // ===========================================================================
 #ifdef HAVE_INTERNAL_LANES
 MSInternalJunction::MSInternalJunction(const std::string& id,
+                                       SumoXMLNodeType type,
                                        const Position& position,
                                        const PositionVector& shape,
                                        std::vector<MSLane*> incoming,
                                        std::vector<MSLane*> internal)
-    : MSLogicJunction(id, position, shape, incoming, internal) {}
+    : MSLogicJunction(id, type, position, shape, incoming, internal) {}
 
 
 

@@ -300,6 +300,16 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     junctionColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by type", RGBColor::GREEN, "traffic_light", true);
+    scheme.addColor(RGBColor(0, 128, 0), 1, "traffic_light_unregulated");
+    scheme.addColor(RGBColor::YELLOW, 2, "priority");
+    scheme.addColor(RGBColor::RED, 3, "priority_stop");
+    scheme.addColor(RGBColor::BLUE, 4, "right_before_left");
+    scheme.addColor(RGBColor::CYAN, 5, "allway_stop");
+    scheme.addColor(RGBColor::GREY, 6, "district");
+    scheme.addColor(RGBColor::MAGENTA, 7, "unregulated");
+    scheme.addColor(RGBColor::BLACK, 8, "dead_end");
+    junctionColorer.addScheme(scheme);
 }
 
 

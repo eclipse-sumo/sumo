@@ -66,7 +66,7 @@ public:
      * @param[in] internal The internal lanes
      * @param[in] logic The logic of this junction
      */
-    MSRightOfWayJunction(const std::string& id, const Position& position,
+    MSRightOfWayJunction(const std::string& id, SumoXMLNodeType type, const Position& position,
                          const PositionVector& shape,
                          std::vector<MSLane*> incoming,
 #ifdef HAVE_INTERNAL_LANES

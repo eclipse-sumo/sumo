@@ -66,7 +66,7 @@ public:
      * @param[in] incoming The incoming lanes
      * @param[in] internal The internal lanes
      */
-    MSInternalJunction(const std::string& id, const Position& position,
+    MSInternalJunction(const std::string& id, SumoXMLNodeType type, const Position& position,
                        const PositionVector& shape,
                        std::vector<MSLane*> incoming, std::vector<MSLane*> internal);
 

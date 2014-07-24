@@ -156,7 +156,7 @@ NLJunctionControlBuilder::build() const {
 
 MSJunction*
 NLJunctionControlBuilder::buildNoLogicJunction() {
-    return new MSNoLogicJunction(myActiveID, myPosition, myShape, myActiveIncomingLanes
+    return new MSNoLogicJunction(myActiveID, myType, myPosition, myShape, myActiveIncomingLanes
 #ifdef HAVE_INTERNAL_LANES
                                  , myActiveInternalLanes
 #endif
@@ -168,7 +168,7 @@ MSJunction*
 NLJunctionControlBuilder::buildLogicJunction() {
     MSJunctionLogic* jtype = getJunctionLogicSecure();
     // build the junction
-    return new MSRightOfWayJunction(myActiveID, myPosition, myShape, myActiveIncomingLanes,
+    return new MSRightOfWayJunction(myActiveID, myType, myPosition, myShape, myActiveIncomingLanes,
 #ifdef HAVE_INTERNAL_LANES
                                     myActiveInternalLanes,
 #endif
@@ -180,7 +180,7 @@ NLJunctionControlBuilder::buildLogicJunction() {
 MSJunction*
 NLJunctionControlBuilder::buildInternalJunction() {
     // build the junction
-    return new MSInternalJunction(myActiveID, myPosition, myShape, myActiveIncomingLanes,
+    return new MSInternalJunction(myActiveID, myType, myPosition, myShape, myActiveIncomingLanes,
                                   myActiveInternalLanes);
 }
 #endif

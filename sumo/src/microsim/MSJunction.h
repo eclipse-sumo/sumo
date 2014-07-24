@@ -41,6 +41,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 class MSVehicle;
@@ -62,7 +63,9 @@ public:
      * @param[in] position The position of the junction
      * @param[in] shape The shape of the junction
      */
-    MSJunction(const std::string& id, const Position& position,
+    MSJunction(const std::string& id, 
+               SumoXMLNodeType type,
+               const Position& position,
                const PositionVector& shape);
 
 
@@ -110,7 +113,16 @@ public:
         myOutgoing.push_back(edge);
     }
 
+    /// @brief return the type of this Junction
+    SumoXMLNodeType getType() const {
+        return myType;
+    }
+
+
 protected:
+    /// @brief Tye type of this junction
+    SumoXMLNodeType myType;
+
     /// @brief The position of the junction
     Position myPosition;
 

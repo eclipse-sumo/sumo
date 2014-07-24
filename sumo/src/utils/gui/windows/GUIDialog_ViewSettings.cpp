@@ -193,7 +193,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                          0, 0, 0, 0, 10, 10, 10, 2, 5, 5);
         new FXLabel(m21, "Color", 0, LAYOUT_CENTER_Y);
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
-        myLaneEdgeColorMode->setNumVisible(10);
+        myLaneEdgeColorMode->setNumVisible(20);
         myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
         FXScrollWindow* genScroll = new FXScrollWindow(frame2, LAYOUT_FILL_X | LAYOUT_SIDE_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_HEIGHT, 0, 0, 0, 80);
         myLaneColorSettingFrame =
@@ -264,7 +264,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         new FXLabel(m32, "Color", 0, LAYOUT_CENTER_Y);
         myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
         mySettings->vehicleColorer.fill(*myVehicleColorMode);
-        myVehicleColorMode->setNumVisible(10);
+        myVehicleColorMode->setNumVisible(24);
         myVehicleColorInterpolation = new FXCheckButton(m32, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
 
         FXScrollWindow* genScroll = new FXScrollWindow(frame3, LAYOUT_FILL_X | LAYOUT_SIDE_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_HEIGHT, 0, 0, 0, 80);
@@ -345,7 +345,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         new FXLabel(m102, "Color", 0, LAYOUT_CENTER_Y);
         myPersonColorMode = new FXComboBox(m102, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
         mySettings->personColorer.fill(*myPersonColorMode);
-        myPersonColorMode->setNumVisible(10);
+        myPersonColorMode->setNumVisible(9);
         myPersonColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
 
         FXScrollWindow* genScroll = new FXScrollWindow(frame3, LAYOUT_FILL_X | LAYOUT_SIDE_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_HEIGHT, 0, 0, 0, 80);
@@ -393,7 +393,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         new FXLabel(m41, "Color", 0, LAYOUT_CENTER_Y);
         myJunctionColorMode = new FXComboBox(m41, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
         mySettings->junctionColorer.fill(*myJunctionColorMode);
-        myJunctionColorMode->setNumVisible(2);
+        myJunctionColorMode->setNumVisible(3);
         myJunctionColorInterpolation = new FXCheckButton(m41, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
 
         FXScrollWindow* genScroll = new FXScrollWindow(frame4, LAYOUT_FILL_X | LAYOUT_SIDE_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_HEIGHT, 0, 0, 0, 80);

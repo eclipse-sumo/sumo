@@ -46,6 +46,7 @@
  * methods from MSLogicJunction
  * ----------------------------------------------------------------------- */
 MSLogicJunction::MSLogicJunction(const std::string& id,
+                                 SumoXMLNodeType type, 
                                  const Position& position,
                                  const PositionVector& shape,
                                  std::vector<MSLane*> incoming
@@ -53,7 +54,7 @@ MSLogicJunction::MSLogicJunction(const std::string& id,
                                  , std::vector<MSLane*> internal
 #endif
                                 ):
-    MSJunction(id, position, shape),
+    MSJunction(id, type, position, shape),
     myIncomingLanes(incoming)
 #ifdef HAVE_INTERNAL_LANES
     , myInternalLanes(internal)
