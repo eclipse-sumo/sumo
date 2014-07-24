@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 15:11:04 by SUMO sumo Version 0.17.0
+<!-- generated on Thu Jul 24 09:29:45 2014 by SUMO sumo Version dev-SVN-r16781
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -21,6 +21,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -369,7 +370,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="0.5" type="Eissfeldt" depart="5.00" arrival="817.00">
+    <vehicle id="0.5" type="Eissfeldt" depart="6.00" arrival="817.00">
         <routeDistribution>
             <route replacedOnEdge="5/1to6/1" replacedAtTime="207.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
             <route replacedOnEdge="10/1to1/1" replacedAtTime="457.00" probability="0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>

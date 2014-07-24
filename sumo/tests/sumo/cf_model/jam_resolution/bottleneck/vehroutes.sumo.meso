@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 15:11:44 by SUMO sumo Version 0.17.0
+<!-- generated on Thu Jul 24 09:29:47 2014 by SUMO sumo Version dev-SVN-r16781
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -20,6 +20,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -496,7 +497,7 @@
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.116" depart="139.00" arrival="225.00">
+    <vehicle id="high.116" depart="140.00" arrival="225.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
@@ -684,11 +685,11 @@
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.163" depart="231.00" arrival="316.00">
+    <vehicle id="high.163" depart="232.00" arrival="316.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.164" depart="231.00" arrival="318.00">
+    <vehicle id="high.164" depart="232.00" arrival="318.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
@@ -704,7 +705,7 @@
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.168" depart="236.00" arrival="326.00">
+    <vehicle id="high.168" depart="241.00" arrival="326.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
@@ -1428,7 +1429,7 @@
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.349" depart="577.00" arrival="677.00">
+    <vehicle id="high.349" depart="578.00" arrival="677.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
@@ -2908,11 +2909,11 @@
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.719" depart="1307.00" arrival="1392.00">
+    <vehicle id="high.719" depart="1308.00" arrival="1392.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.720" depart="1307.00" arrival="1394.00">
+    <vehicle id="high.720" depart="1308.00" arrival="1394.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
@@ -2928,7 +2929,7 @@
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.724" depart="1312.00" arrival="1402.00">
+    <vehicle id="high.724" depart="1317.00" arrival="1402.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
