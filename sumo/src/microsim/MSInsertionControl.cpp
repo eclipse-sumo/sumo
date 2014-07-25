@@ -210,7 +210,10 @@ MSInsertionControl::checkFlows(SUMOTime time) {
             //std::cout << SIMTIME << " volatile=" << i->isVolatile << " veh=" << i->vehicle << "\n";
             continue;
         }
-        bool emitByProb = pars->repetitionProbability > 0 && RandHelper::rand() < (pars->repetitionProbability * TS) && pars->repetitionEnd > time;
+        bool emitByProb = pars->repetitionProbability > 0 
+            //&& pars->depart < time + DELTA_T 
+            && RandHelper::rand() < (pars->repetitionProbability * TS) 
+            && pars->repetitionEnd > time;
         //std::cout << emitByProb << "\n";
         //std::cout << SIMTIME
         //    << " flow=" << pars->id

@@ -15,4 +15,7 @@ probability_0.5
 # insert with probability 0.1 each second
 probability_0.1
 probability_0.1_step-length_0.2
+
+# test behavior when starting the simulation at another time
+probability_0.5_start_1000
 errors

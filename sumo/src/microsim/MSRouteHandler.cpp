@@ -596,11 +596,13 @@ MSRouteHandler::closeFlow() {
     }
     // let's check whether vehicles had to depart before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
-    const SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
-    while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
-        myVehicleParameter->repetitionsDone++;
-        if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
-            return;
+    if (myVehicleParameter->repetitionProbability < 0) {
+        const SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
+        while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
+            myVehicleParameter->repetitionsDone++;
+            if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
+                return;
+            }
         }
     }
     if (MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid) == 0) {
