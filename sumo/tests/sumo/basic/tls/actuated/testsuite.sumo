@@ -5,3 +5,6 @@ from_additional
 
 # test supplying additional parameters
 parameters
+
+# check that the initialization can handle different begin times
+simstart_at_100

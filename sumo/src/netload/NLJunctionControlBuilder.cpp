@@ -248,7 +248,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic() {
             // of variable-length phases
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram,
-                    myActivePhases, step, (*i)->minDuration,
+                    myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
                     myAdditionalParameter);
             break;
         case TLTYPE_AGENT:
