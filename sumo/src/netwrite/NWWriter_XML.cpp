@@ -305,7 +305,7 @@ NWWriter_XML::writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc) {
 void
 NWWriter_XML::writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("street-sign-output"));
-    device.writeXMLHeader("pois", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo-sim.org/xsd/poi_file.xsd\"");
+    device.writeXMLHeader("pois", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo-sim.org/xsd/additional_file.xsd\"");
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         NBEdge* e = (*i).second;
         const std::vector<NBSign>& signs =  e->getSigns();

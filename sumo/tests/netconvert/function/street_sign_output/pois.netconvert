@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/26/14 11:55:16 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Fri Jul 25 11:16:12 2014 by SUMO netconvert Version dev-SVN-r16786
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -28,7 +28,7 @@
 </configuration>
 -->
 
-<pois version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/poi_file.xsd">
+<pois version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <poi id="gneE0.37.42" type="priority" color="yellow" x="32.17" y="43.51" angle="0"/>
     <poi id="gneE1.37.42" type="priority" color="yellow" x="-2.25" y="52.81" angle="0"/>
     <poi id="gneE10.34.56" type="priority" color="yellow" x="-17.89" y="43.55" angle="0"/>
