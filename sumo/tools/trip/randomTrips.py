@@ -46,7 +46,7 @@ def get_options():
     optParser.add_option("-r", "--route-file", dest="routefile",
                          help="generates route file with duarouter")
     optParser.add_option("--weights-prefix", dest="weightsprefix",
-                         help="generates weights files for visualisation")
+                         help="loads probabilities for being source, destination and via-edge from the files named <prefix>.src.xml, <prefix>.sink.xml and <prefix>.via.xml")
     optParser.add_option("--weights-output-prefix", dest="weights_outprefix",
                          help="generates weights files for visualisation")
     optParser.add_option("--pedestrians", action="store_true",
