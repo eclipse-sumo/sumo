@@ -67,7 +67,7 @@ MSLink::MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal le
     myLength(length),
     myHasFoes(false),
     myAmCont(false),
-    myJunction(succLane->getEdge().getFromJunction())
+    myJunction(0)
 #else
 MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length) :
     myLane(succLane),
@@ -78,7 +78,7 @@ MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state
     myHasFoes(false),
     myAmCont(false),
     myJunctionInlane(via),
-    myJunction(succLane->getEdge().getFromJunction())
+    myJunction(0)
 #endif
 {}
 
@@ -96,6 +96,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
     myAmCont = isCont;
     myFoeLinks = foeLinks;
     myFoeLanes = foeLanes;
+    myJunction = myLane->getEdge().getFromJunction(); // junctionGraph is initialized after the whole network is loaded
 #ifdef MSLink_DEBUG_CROSSING_POINTS
     std::cout << " link " << myIndex << " to " << getViaLaneOrLane()->getID() << " has foes: " << toString(foeLanes) << "\n";
 #endif
