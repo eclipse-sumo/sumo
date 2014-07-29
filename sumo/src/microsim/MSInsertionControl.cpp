@@ -210,24 +210,17 @@ MSInsertionControl::checkFlows(SUMOTime time) {
             //std::cout << SIMTIME << " volatile=" << i->isVolatile << " veh=" << i->vehicle << "\n";
             continue;
         }
-        bool emitByProb = pars->repetitionProbability > 0 
-            //&& pars->depart < time + DELTA_T 
-            && RandHelper::rand() < (pars->repetitionProbability * TS) 
-            && pars->repetitionEnd > time;
-        //std::cout << emitByProb << "\n";
-        //std::cout << SIMTIME
-        //    << " flow=" << pars->id
-        //    << " rDo=" << pars->repetitionsDone
-        //    << " rN=" << pars->repetitionNumber
-        //    << " rDe=" << pars->depart
-        //    << " rRo=" << pars->repetitionOffset
-        //    << " rPo=" << pars->repetitionProbability
-        //    << " emit=" << emitByProb
-        //    << "\n";
-        while (pars->repetitionsDone < pars->repetitionNumber &&
-                ((pars->repetitionProbability < 0 && pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T)
-                 || emitByProb)) {
-            emitByProb = false;
+        bool tryEmitByProb = pars->repetitionProbability > 0;
+        while ((pars->repetitionProbability < 0 
+                    && pars->repetitionsDone < pars->repetitionNumber 
+                    && pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T)
+                || (tryEmitByProb 
+                    && pars->depart < time + DELTA_T 
+                    && pars->repetitionEnd > time
+                    // only call rand if all other conditions are met
+                    && RandHelper::rand() < (pars->repetitionProbability * TS))
+                    ) {
+            tryEmitByProb = false; // only emit one per step
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);
             newPars->depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);

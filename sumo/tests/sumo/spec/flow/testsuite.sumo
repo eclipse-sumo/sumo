@@ -18,4 +18,7 @@ probability_0.1_step-length_0.2
 
 # test behavior when starting the simulation at another time
 probability_0.5_start_1000
+
+# test different begin time for the flow
+probability_0.1_begin_100
 errors
