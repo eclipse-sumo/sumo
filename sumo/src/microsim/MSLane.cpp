@@ -1230,6 +1230,85 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
 }
 
 
+std::pair<MSVehicle* const, SUMOReal>
+MSLane::getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle& veh) const {
+    const std::vector<MSLane*>& bestLaneConts = veh.getBestLanesContinuation(this);
+    std::pair<MSVehicle*, SUMOReal> result = std::make_pair(static_cast<MSVehicle*>(0), -1);
+    SUMOReal safeSpeed = std::numeric_limits<SUMOReal>::max();
+    unsigned int view = 1;
+    // loop over following lanes
+    // @note: we don't check the partial occupator for this lane since it was
+    // already checked in MSLaneChanger::getRealLeader()
+    const MSLane* nextLane = this;
+    SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));
+    do {
+        // get the next link used
+        MSLinkCont::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
+        if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, veh.getVehicleType().getLength(),
+                veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0) || (*link)->getState() == LINKSTATE_TL_RED) {
+            return result;
+        }
+#ifdef HAVE_INTERNAL_LANES
+        // check for link leaders
+        const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(seen, veh.getVehicleType().getMinGap());
+        for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
+            const MSVehicle* leader = (*it).vehAndGap.first;
+            if (leader != 0 && leader != result.first) {
+                // XXX ignoring pedestrians here!
+                // XXX ignoring the fact that the link leader may alread by following us
+                // XXX ignoring the fact that we may drive up to the crossing point
+                const SUMOReal tmpSpeed = veh.getSafeFollowSpeed((*it).vehAndGap, seen, nextLane, (*it).distToCrossing);
+                if (tmpSpeed < safeSpeed) {
+                    safeSpeed = tmpSpeed;
+                    result = (*it).vehAndGap;
+                }
+            }
+        }
+        bool nextInternal = (*link)->getViaLane() != 0;
+#endif
+        nextLane = (*link)->getViaLaneOrLane();
+        if (nextLane == 0) {
+            break;
+        }
+        MSVehicle* leader = nextLane->getLastVehicle();
+        if (leader != 0 && leader != result.first) {
+            const SUMOReal gap = seen + leader->getPositionOnLane() - leader->getVehicleType().getLength() - veh.getVehicleType().getMinGap();
+            const SUMOReal tmpSpeed = veh.getCarFollowModel().followSpeed(leader, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+            if (tmpSpeed < safeSpeed) {
+                safeSpeed = tmpSpeed;
+                result = std::make_pair(leader, gap);
+            }
+        } else {
+            leader = nextLane->getPartialOccupator();
+            if (leader != 0 && leader != result.first) {
+                const SUMOReal gap = seen + nextLane->getPartialOccupatorEnd() - veh.getVehicleType().getMinGap();
+                const SUMOReal tmpSpeed = veh.getCarFollowModel().followSpeed(leader, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                if (tmpSpeed < safeSpeed) {
+                    safeSpeed = tmpSpeed;
+                    result = std::make_pair(leader, gap);
+                }
+            }
+        }
+        if (nextLane->getVehicleMaxSpeed(&veh) < speed) {
+            dist = veh.getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(&veh));
+        }
+        seen += nextLane->getLength();
+        if (seen <= dist) {
+            // delaying the update of arrivalTime and making it conditional to avoid possible integer overflows
+            arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
+        }
+#ifdef HAVE_INTERNAL_LANES
+        if (!nextInternal) {
+            view++;
+        }
+#else
+        view++;
+#endif
+    } while (seen <= dist);
+    return result;
+}
+
+
 MSLane*
 MSLane::getLogicalPredecessorLane() const {
     if (myLogicalPredecessorLane != 0) {

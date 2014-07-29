@@ -598,7 +598,7 @@ public:
                                SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const;
 
 
-    /** @brief Returns the leader and the distance to him
+    /** @brief Returns the immediate leader and the distance to him
      *
      * Goes along the vehicle's estimated used lanes (bestLaneConts). For each link,
      *  it is determined whether the vehicle will pass it. If so, the subsequent lane
@@ -622,6 +622,26 @@ public:
      */
     std::pair<MSVehicle* const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
             SUMOReal speed, const MSVehicle& veh, const std::vector<MSLane*>& bestLaneConts) const;
+
+
+    /** @brief Returns the most dangerous leader and the distance to him
+     *
+     * Goes along the vehicle's estimated used lanes (bestLaneConts). For each link,
+     *  it is determined whether the ego vehicle will pass it. If so, the subsequent lane
+     *  is investigated. Check all lanes up to the stopping distance of ego. 
+     *  Return the leader vehicle (and the gap) which puts the biggest speed constraint on ego.
+     *
+     * If no leading vehicle was found, <0, -1> is returned.
+     *
+     * Pretty slow, as it has to go along lanes.
+     *
+     * @param[in] dist The distance to investigate
+     * @param[in] seen The already seen place (normally the place in front on own lane)
+     * @param[in] speed The speed of the vehicle used for determining whether a subsequent link will be opened at arrival time
+     * @param[in] veh The (ego) vehicle for which the information shall be computed
+     * @return
+     */
+    std::pair<MSVehicle* const, SUMOReal> getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle& veh) const;
 
 
     MSLane* getLogicalPredecessorLane() const;

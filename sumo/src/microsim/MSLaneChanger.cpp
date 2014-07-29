@@ -500,6 +500,22 @@ MSLaneChanger::checkChange(
     int state = blocked | vehicle->getLaneChangeModel().wantsChange(
                     laneOffset, msg, blocked, leader, neighLead, neighFollow, *(target->lane), preb, &(myCandi->lastBlocked), &(myCandi->firstBlocked));
 
+    if (blocked == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && neighLead.first != 0) {
+        // do are more carefull (but expensive) check to ensure that a
+        // safety-critical leader is not being overloocked
+        const SUMOReal seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
+        const SUMOReal speed = vehicle->getSpeed();
+        const SUMOReal dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
+        const MSLane* targetLane = (myCandi + laneOffset)->lane;
+        if (seen < dist) {
+            std::pair<MSVehicle* const, SUMOReal> neighLead2 = targetLane->getCriticalLeader(dist, seen, speed, *vehicle);
+            if (neighLead2.first != 0 && neighLead2.first != neighLead.first 
+                    && (neighLead2.second < vehicle->getCarFollowModel().getSecureGap(
+                            vehicle->getSpeed(), neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel()))) {
+                state |= blockedByLeader;
+            }
+        }
+    }
 #ifndef NO_TRACI
     // let TraCI influence the wish to change lanes and the security to take
     //const int oldstate = state;
