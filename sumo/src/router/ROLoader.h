@@ -183,7 +183,7 @@ protected:
 
 
 protected:
-    void writeStats(SUMOTime time, SUMOTime start, int absNo);
+    void writeStats(SUMOTime time, SUMOTime start, int absNo, bool endGiven);
 
 
 private:

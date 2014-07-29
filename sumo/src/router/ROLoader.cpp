@@ -195,7 +195,8 @@ ROLoader::openRoutes(RONet& net) {
 void
 ROLoader::processRoutes(SUMOTime start, SUMOTime end,
                         RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
-    SUMOTime absNo = end - start;
+    const SUMOTime absNo = end - start;
+    const bool endGiven = !OptionsCont::getOptions().isDefault("end");
     // skip routes that begin before the simulation's begin
     // loop till the end
     bool endReached = false;
@@ -203,7 +204,7 @@ ROLoader::processRoutes(SUMOTime start, SUMOTime end,
     const SUMOTime firstStep = myLoaders.getFirstLoadTime();
     SUMOTime lastStep = firstStep;
     for (SUMOTime time = firstStep; time < end && !errorOccured && !endReached; time += DELTA_T) {
-        writeStats(time, start, absNo);
+        writeStats(time, start, absNo, endGiven);
         myLoaders.loadNext(time);
         net.saveAndRemoveRoutesUntil(myOptions, router, time);
         endReached = !net.furtherStored();
@@ -306,10 +307,14 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
 
 
 void
-ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) {
+ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo, bool endGiven) {
     if (myLogSteps) {
-        const SUMOReal perc = (SUMOReal)(time - start) / (SUMOReal) absNo;
-        std::cout << "Reading time step: " + time2string(time) + "  (" + time2string(time - start) + "/" + time2string(absNo) + " = " + toString(perc * 100) + "% done)       \r";
+        if (endGiven) {
+            const SUMOReal perc = (SUMOReal)(time - start) / (SUMOReal) absNo;
+            std::cout << "Reading time step: " + time2string(time) + "  (" + time2string(time - start) + "/" + time2string(absNo) + " = " + toString(perc * 100) + "% done)       \r";
+        } else {
+            std::cout << "Reading time step: " + time2string(time) + "\n";
+        }
     }
 }
 
