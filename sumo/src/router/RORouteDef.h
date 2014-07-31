@@ -144,6 +144,10 @@ public:
     /** @brief Returns the sum of the probablities of the contained routes */
     SUMOReal getOverallProb() const;
 
+    static void setUsingJTRR() {
+        myUsingJTRR = true;
+    }
+
 protected:
     /// @brief precomputed route for out-of-order computation
     mutable RORoute* myPrecomputed;
@@ -158,6 +162,8 @@ protected:
     mutable bool myNewRoute;
 
     const bool myTryRepair;
+
+    static bool myUsingJTRR;
 
 private:
     /** Function-object for sorting routes from highest to lowest probability. */

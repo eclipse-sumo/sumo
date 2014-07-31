@@ -53,6 +53,10 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ===========================================================================
+// static members
+// ===========================================================================
+bool RORouteDef::myUsingJTRR(false);
 
 // ===========================================================================
 // method definitions
@@ -151,8 +155,12 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     std::vector<const ROEdge*> newEdges;
     std::vector<const ROEdge*> mandatory;
     if (oldEdges.size() == 1) {
-        /// should happen with jtrrouter only
-        router.compute(oldEdges.front(), 0, &veh, begin, newEdges);
+        if (myUsingJTRR) {
+            /// only ROJTRRouter is supposed to handle this type of input
+            router.compute(oldEdges.front(), 0, &veh, begin, newEdges);
+        } else {
+            newEdges = oldEdges;
+        }
     } else {
         // prepare mandatory edges
         mandatory.push_back(oldEdges.front());
