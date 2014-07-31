@@ -65,16 +65,15 @@ def main(logfile):
     print_counts(waitingCounts, 'waiting')
     print_counts(collisionCounts, 'collisions')
     # generate plot
-    min_step = min(min(waitingStepCounts.keys()),
-            min(collisionStepCounts.keys()))
-    max_step = max(max(waitingStepCounts.keys()),
-            max(collisionStepCounts.keys()))
-    plotfile = logfile + '.plot'
-    with open(plotfile, 'w') as f:
-        f.write("# plot '%s' using 1:2 with lines title 'waiting', '%s' using 1:3 with lines title 'collisions'\n" % (
-            plotfile, plotfile))
-        for step in range(min_step, max_step + 1):
-            print >>f, ' '.join(map(str,[step, waitingStepCounts[step], collisionStepCounts[step]]))
+    if len(waitingStepCounts) + len(collisionStepCounts) > 0:
+        min_step = min(waitingStepCounts.keys() + collisionStepCounts.keys())
+        max_step = max(waitingStepCounts.keys() + collisionStepCounts.keys())
+        plotfile = logfile + '.plot'
+        with open(plotfile, 'w') as f:
+            f.write("# plot '%s' using 1:2 with lines title 'waiting', '%s' using 1:3 with lines title 'collisions'\n" % (
+                plotfile, plotfile))
+            for step in range(min_step, max_step + 1):
+                print >>f, ' '.join(map(str,[step, waitingStepCounts[step], collisionStepCounts[step]]))
 
 if __name__ == "__main__":
     main(*sys.argv[1:])
