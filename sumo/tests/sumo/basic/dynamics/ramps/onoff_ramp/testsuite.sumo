@@ -7,3 +7,6 @@
 
 # One vehicle has to change across two lanes and cannot "see" the vehicle that whishes to counter-change. Deadlock should be avoided
 2veh_cross_paths3
+
+# One vehicle is very fast and several edges away from the off ramp. It cannot "see" the vehicle that whishes to counter-change. Deadlock should be avoided.
+2veh_cross_paths4
