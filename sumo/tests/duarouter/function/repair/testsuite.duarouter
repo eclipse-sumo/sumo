@@ -15,3 +15,6 @@ backtrack_at_deadend
 # the (mandatory) destination edge already occurs in the middle of the route.
 # If there are no mandatory edges left besides the destination, the route ends on the first encounter.
 destination_occurs_twice
+
+# after removing unknown edges only one edge is left
+only1valid
