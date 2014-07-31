@@ -94,7 +94,7 @@
 
 #define TURN_LANE_DIST (SUMOReal)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
-//#define DEBUG_COND (myVehicle.getID() == "pkw123339" || myVehicle.getID() == "pkw55538")
+//#define DEBUG_COND (myVehicle.getID() == "pkw120218" || myVehicle.getID() == "pkw122413")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "Costa_12_13") // test stops_overtaking
@@ -589,7 +589,8 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
 void
 MSLCM_JE2013::prepareStep() {
-    myOwnState = 0;
+    // keep information about strategic change direction
+    myOwnState = (myOwnState & LCA_STRATEGIC) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
     myLeadingBlockerLength = 0;
     myLeftSpace = 0;
     myVSafes.clear();
@@ -1158,6 +1159,13 @@ MSLCM_JE2013::slowDownForBlocked(MSVehicle** blocked, int state) {
 
 void
 MSLCM_JE2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
+    if (gDebugFlag2) {
+        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+            << " veh=" << myVehicle.getID()
+            << " saveBlockerLength blocker=" << tryID(blocker)
+            << " bState=" << (blocker == 0 ? "None" : toString(blocker->getLaneChangeModel().getOwnState()))
+            << "\n";
+    }
     if (blocker != 0 && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
         // is there enough space in front of us for the blocker?
         const SUMOReal potential = myLeftSpace - myVehicle.getCarFollowModel().brakeGap(
@@ -1180,6 +1188,7 @@ MSLCM_JE2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
                           << " veh=" << myVehicle.getID()
                           << " blocker=" << tryID(blocker)
                           << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
+                          << " potential=" << potential
                           << "\n";
             }
             blocker->getLaneChangeModel().saveBlockerLength(myVehicle.getVehicleType().getLengthWithGap());
