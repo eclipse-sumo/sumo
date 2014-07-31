@@ -94,7 +94,7 @@
 
 #define TURN_LANE_DIST (SUMOReal)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
-//#define DEBUG_COND (myVehicle.getID() == "pkw22806" || myVehicle.getID() == "pkw22823")
+//#define DEBUG_COND (myVehicle.getID() == "pkw123339" || myVehicle.getID() == "pkw55538")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "Costa_12_13") // test stops_overtaking
@@ -163,7 +163,7 @@ MSLCM_JE2013::wantsChange(
                       << ((result & LCA_TRACI) ? " (traci)" : "")
                       << ((blocked & LCA_BLOCKED) ? " (blocked)" : "")
                       << ((blocked & LCA_OVERLAPPING) ? " (overlap)" : "")
-                      << "\n";
+                      << "\n\n\n";
         }
     }
     gDebugFlag2 = false;
@@ -185,7 +185,7 @@ MSLCM_JE2013::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
                   << " v=" << myVehicle.getSpeed()
                   << " wanted=" << wanted
                   << patched
-                  << "\n";
+                  << "\n\n";
     }
     gDebugFlag1 = false;
     return newSpeed;
@@ -207,14 +207,14 @@ MSLCM_JE2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
         if (gDebugFlag1) {
             std::cout << time << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
         }
-        if (space > 0) {
+        if (space > 0) { // XXX space > -MAGIC_offset
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
             SUMOReal safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use
                 if (gDebugFlag1) {
-                    std::cout << time << " veh=" << myVehicle.getID() << " slowing down for leading blocker" << (safe + NUMERICAL_EPS < min ? " (not enough)" : "") << "\n";
+                    std::cout << time << " veh=" << myVehicle.getID() << " slowing down for leading blocker, safe=" << safe << (safe + NUMERICAL_EPS < min ? " (not enough)" : "") << "\n";
                 }
                 return MAX2(min, safe);
             }
@@ -407,6 +407,7 @@ MSLCM_JE2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 // slow down smoothly to follow leader
                 const SUMOReal decel = ACCEL2SPEED(MIN2(myVehicle.getCarFollowModel().getMaxDecel(),
                                                         MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds)));
+                //const SUMOReal nextSpeed = MAX2((SUMOReal)0, MIN2(plannedSpeed, myVehicle.getSpeed() - decel));
                 const SUMOReal nextSpeed = MIN2(plannedSpeed, myVehicle.getSpeed() - decel);
                 if (gDebugFlag2) {
                     std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
