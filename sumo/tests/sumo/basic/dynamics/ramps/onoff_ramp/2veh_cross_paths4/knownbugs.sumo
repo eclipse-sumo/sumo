@@ -1,6 +1,7 @@
 
-[Reported by erdm_ja at 04Sep08:43:32]
-search_string:Warning: Teleporting vehicle
+[Reported by erdm_ja at 01Aug09:23:30]
+search_string:Teleporting
 search_file:errors
-full_description:two vehicles fail to swap their lanes at an on-off-ramp
-brief_description:see #886
+ignore_other_errors:1
+full_description:counter-lane change situation is recognized too late
+brief_description:see #1391
