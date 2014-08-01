@@ -102,6 +102,14 @@ public:
     /// @brief writes allowed disallowed attributes if needed;
     static void writePreferences(OutputDevice& into, SVCPermissions preferred);
 
+    /** @brief Writes roundabouts
+     * @param[in] into The device to write the edge into
+     * @param[in] roundaboutes The roundabouts to write
+     * @param[in] ec The edge control to retrieve named edges from
+     */
+    static void writeRoundabouts(OutputDevice& into, const std::vector<EdgeVector>& roundabouts,
+                                const NBEdgeCont& ec);
+
 protected:
     /// @name Methods for writing network parts
     /// @{
@@ -166,14 +174,6 @@ protected:
      * @param[in] d The district
      */
     static void writeDistrict(OutputDevice& into, const NBDistrict& d);
-
-    /** @brief Writes roundabouts
-     * @param[in] into The device to write the edge into
-     * @param[in] roundaboutes The roundabouts to write
-     * @param[in] ec The edge control to retrieve named edges from
-     */
-    static void writeRoundabouts(OutputDevice& into, const std::vector<EdgeVector>& roundabouts,
-                                const NBEdgeCont& ec);
 
 private:
     /** @brief Writes a single internal connection

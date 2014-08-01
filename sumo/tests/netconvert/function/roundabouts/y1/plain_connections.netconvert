@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Aug  1 12:52:11 2014 by SUMO netconvert Version dev-SVN-r16812
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/connections_file.xsd">
+    <connection from="-5634" to="5634" fromLane="0" toLane="0"/>
+
+    <connection from="-9887" to="-9892" fromLane="0" toLane="0"/>
+
+    <connection from="-9889" to="-9890" fromLane="0" toLane="0"/>
+
+    <connection from="-9890" to="9887" fromLane="0" toLane="0"/>
+    <connection from="-9890" to="-9892" fromLane="0" toLane="0"/>
+
+    <connection from="-9891" to="9889" fromLane="0" toLane="0"/>
+    <connection from="-9891" to="-9890" fromLane="0" toLane="0"/>
+
+    <connection from="-9892" to="-5634" fromLane="0" toLane="0"/>
+    <connection from="-9892" to="-9891" fromLane="0" toLane="0"/>
+
+    <connection from="5634" to="-9891" fromLane="0" toLane="0"/>
+
+    <connection from="9887" to="-9887" fromLane="0" toLane="0"/>
+
+    <connection from="9889" to="-9889" fromLane="0" toLane="0"/>
+
+</connections>
