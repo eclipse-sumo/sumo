@@ -195,25 +195,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 
     // write roundabout information
-    const std::vector<EdgeVector>& roundabouts = nb.getRoundabouts();
-    //  make output deterministic
-    std::vector<std::vector<std::string> > edgeIDs;
-    for (std::vector<EdgeVector>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
-        std::vector<std::string> tEdgeIDs;
-        for (EdgeVector::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
-            tEdgeIDs.push_back((*j)->getID());
-        }
-        std::sort(tEdgeIDs.begin(), tEdgeIDs.end());
-        edgeIDs.push_back(tEdgeIDs);
-    }
-    std::sort(edgeIDs.begin(), edgeIDs.end());
-    //  write
-    for (std::vector<std::vector<std::string> >::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
-        writeRoundabout(device, *i, ec);
-    }
-    if (roundabouts.size() != 0) {
-        device.lf();
-    }
+    writeRoundabouts(device, nb.getRoundabouts(), ec);
 
     // write the districts
     for (std::map<std::string, NBDistrict*>::const_iterator i = dc.begin(); i != dc.end(); i++) {
@@ -604,6 +586,30 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
     into.writeAttr(SUMO_ATTR_DIR, "s");
     into.writeAttr(SUMO_ATTR_STATE, (via != "" ? "m" : "M"));
     into.closeTag();
+}
+
+
+void
+NWWriter_SUMO::writeRoundabouts(OutputDevice& into, const std::vector<EdgeVector>& roundabouts,
+                                const NBEdgeCont& ec) {
+    //  make output deterministic
+    std::vector<std::vector<std::string> > edgeIDs;
+    for (std::vector<EdgeVector>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
+        std::vector<std::string> tEdgeIDs;
+        for (EdgeVector::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
+            tEdgeIDs.push_back((*j)->getID());
+        }
+        std::sort(tEdgeIDs.begin(), tEdgeIDs.end());
+        edgeIDs.push_back(tEdgeIDs);
+    }
+    std::sort(edgeIDs.begin(), edgeIDs.end());
+    //  write
+    for (std::vector<std::vector<std::string> >::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
+        writeRoundabout(into, *i, ec);
+    }
+    if (roundabouts.size() != 0) {
+        into.lf();
+    }
 }
 
 
