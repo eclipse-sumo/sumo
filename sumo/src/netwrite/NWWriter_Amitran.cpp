@@ -57,6 +57,7 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isSet("amitran-output")) {
         return;
     }
+    NBEdgeCont& ec = nb.getEdgeCont();
     OutputDevice& device = OutputDevice::getDevice(oc.getString("amitran-output"));
     device << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
     device << "<network xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo-sim.org/xsd/amitran/network.xsd\">\n";
@@ -65,9 +66,9 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NBNodeCont& nc = nb.getNodeCont();
     std::set<NBNode*> singleRoundaboutNodes;
     std::set<NBNode*> multiRoundaboutNodes;
-    const std::vector<EdgeVector>& roundabouts = nb.getRoundabouts();
-    for (std::vector<EdgeVector>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
-        for (EdgeVector::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
+    const std::set<EdgeSet>& roundabouts = ec.getRoundabouts();
+    for (std::set<EdgeSet>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
+        for (EdgeSet::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
             if ((*j)->getNumLanes() > 1) {
                 multiRoundaboutNodes.insert((*j)->getFromNode());
             } else {
@@ -118,7 +119,6 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     // write edges
     index = 0;
-    NBEdgeCont& ec = nb.getEdgeCont();
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         device << "    <link id=\"" << index++
                << "\" from=\"" << nodeIds[i->second->getFromNode()]

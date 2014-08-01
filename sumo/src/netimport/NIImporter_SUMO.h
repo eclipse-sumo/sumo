@@ -164,6 +164,11 @@ private:
      */
     void addProhibition(const SUMOSAXAttributes& attrs);
 
+    /** @brief Parses a roundabout and stores it in myEdgeCont.
+     * @param[in] attrs The attributes to get the roundabouts values from
+     */
+    void addRoundabout(const SUMOSAXAttributes& attrs); 
+
     //@}
 
 
@@ -272,7 +277,6 @@ private:
         std::vector<std::string> response;
     };
 
-
     /// @brief Loaded edge definitions
     std::map<std::string, EdgeAttrs*> myEdges;
 
@@ -308,6 +312,9 @@ private:
 
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
+
+    /// @brief loaded roundabout edges
+    std::vector<std::vector<std::string> > myRoundabouts;
 
     /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs
      * @param[in] edge The EdgeAttrs* which should contain the lane

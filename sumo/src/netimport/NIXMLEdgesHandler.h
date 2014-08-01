@@ -86,7 +86,6 @@ public:
     /// @brief Destructor
     ~NIXMLEdgesHandler();
 
-
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -305,6 +304,12 @@ private:
      * @param[in] attrs The attributes to get the splits's values from
      */
     void addSplit(const SUMOSAXAttributes& attrs);
+
+    /** @brief Parses a roundabout and stores it in myEdgeCont.
+     * @param[in] attrs The attributes to get the roundabouts values from
+     */
+    void addRoundabout(const SUMOSAXAttributes& attrs); 
+
 
 private:
     /** @brief invalid copy constructor */

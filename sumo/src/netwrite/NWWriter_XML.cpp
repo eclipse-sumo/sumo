@@ -62,7 +62,7 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // check whether plain-output files shall be generated
     if (oc.isSet("plain-output-prefix")) {
         writeNodes(oc, nb.getNodeCont());
-        writeEdgesAndConnections(oc, nb);
+        writeEdgesAndConnections(oc, nb.getNodeCont(), nb.getEdgeCont());
         writeTrafficLights(oc, nb.getTLLogicCont(), nb.getEdgeCont());
     }
     if (oc.isSet("junctions.join-output")) {
@@ -141,9 +141,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
 
 
 void
-NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNetBuilder& nb) {
-    NBNodeCont& nc = nb.getNodeCont(); 
-    NBEdgeCont& ec = nb.getEdgeCont();
+NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec) {
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
@@ -238,9 +236,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNetBuilder& nb) 
         }
     }
     // write roundabout information to the edges-files
-    if (nb.getRoundabouts().size() > 0) {
+    if (ec.getRoundabouts().size() > 0) {
         edevice.lf();
-        NWWriter_SUMO::writeRoundabouts(edevice, nb.getRoundabouts(), ec);
+        NWWriter_SUMO::writeRoundabouts(edevice, ec.getRoundabouts(), ec);
     }
 
     // write loaded prohibitions to the connections-file

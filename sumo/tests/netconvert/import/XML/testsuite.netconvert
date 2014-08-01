@@ -63,3 +63,6 @@ load_location
 
 # tests for the generated junction logic
 junctionLogic
+
+# tests for roundabouts specified via xml
+roundabout

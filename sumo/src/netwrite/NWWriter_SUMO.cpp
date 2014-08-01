@@ -104,9 +104,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const bool checkLaneFoesAll = oc.getBool("check-lane-foes.all");
     const bool checkLaneFoesRoundabout = !checkLaneFoesAll && oc.getBool("check-lane-foes.roundabout");
     if (checkLaneFoesRoundabout) {
-        const std::vector<EdgeVector>& roundabouts = nb.getRoundabouts();
-        for (std::vector<EdgeVector>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
-            for (EdgeVector::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
+        const std::set<EdgeSet>& roundabouts = ec.getRoundabouts();
+        for (std::set<EdgeSet>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
+            for (EdgeSet::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
                 roundaboutNodes.insert((*j)->getToNode());
             }
         }
@@ -195,7 +195,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 
     // write roundabout information
-    writeRoundabouts(device, nb.getRoundabouts(), ec);
+    writeRoundabouts(device, ec.getRoundabouts(), ec);
 
     // write the districts
     for (std::map<std::string, NBDistrict*>::const_iterator i = dc.begin(); i != dc.end(); i++) {
@@ -590,13 +590,13 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
 
 
 void
-NWWriter_SUMO::writeRoundabouts(OutputDevice& into, const std::vector<EdgeVector>& roundabouts,
+NWWriter_SUMO::writeRoundabouts(OutputDevice& into, const std::set<EdgeSet>& roundabouts,
                                 const NBEdgeCont& ec) {
     //  make output deterministic
     std::vector<std::vector<std::string> > edgeIDs;
-    for (std::vector<EdgeVector>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
+    for (std::set<EdgeSet>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
         std::vector<std::string> tEdgeIDs;
-        for (EdgeVector::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
+        for (EdgeSet::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
             tEdgeIDs.push_back((*j)->getID());
         }
         std::sort(tEdgeIDs.begin(), tEdgeIDs.end());

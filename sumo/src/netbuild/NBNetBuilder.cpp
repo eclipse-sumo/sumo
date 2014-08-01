@@ -66,8 +66,7 @@
 // method definitions
 // ===========================================================================
 NBNetBuilder::NBNetBuilder() :
-    myEdgeCont(myTypeCont),
-    myHaveSeenRoundabouts(false)
+    myEdgeCont(myTypeCont)
 {}
 
 
@@ -146,18 +145,17 @@ NBNetBuilder::compute(OptionsCont& oc,
         myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
         myEdgeCont.computeEdgeShapes();
         // preliminary roundabout computations to avoid destroying roundabouts
-        if (oc.getBool("roundabouts.guess") || (oc.isDefault("roundabouts.guess") && myHaveSeenRoundabouts)) {
-            assert(myRoundabouts.size() == 0);
-            myEdgeCont.guessRoundabouts(myRoundabouts);
-            for (std::vector<EdgeVector>::const_iterator it_round = myRoundabouts.begin();
-                    it_round != myRoundabouts.end(); ++it_round) {
-                std::vector<std::string> nodeIDs;
-                for (EdgeVector::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
-                    nodeIDs.push_back((*it_edge)->getToNode()->getID());
-                }
-                myNodeCont.addJoinExclusion(nodeIDs);
+        if (oc.getBool("roundabouts.guess")) {
+            myEdgeCont.guessRoundabouts();
+        }
+        const std::set<EdgeSet>& roundabouts = myEdgeCont.getRoundabouts();
+        for (std::set<EdgeSet>::const_iterator it_round = roundabouts.begin();
+                it_round != roundabouts.end(); ++it_round) {
+            std::vector<std::string> nodeIDs;
+            for (EdgeSet::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
+                nodeIDs.push_back((*it_edge)->getToNode()->getID());
             }
-            myRoundabouts.clear(); // @todo this needs to be locked at if roundabouts are ever read explicitly from the input files
+            myNodeCont.addJoinExclusion(nodeIDs);
         }
         numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
         // reset geometry to avoid influencing subsequent steps (ramps.guess)
@@ -307,14 +305,12 @@ NBNetBuilder::compute(OptionsCont& oc,
     myEdgeCont.computeEdge2Edges(oc.getBool("no-left-connections"));
     PROGRESS_DONE_MESSAGE();
     //
-    if (oc.getBool("roundabouts.guess") || (oc.isDefault("roundabouts.guess") && myHaveSeenRoundabouts)) {
+    if (oc.getBool("roundabouts.guess")) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting roundabouts");
-        // Clear roundabouts from previous runs which may no longer exist (if called repeatedly by NETEDIT)
-        // @todo this needs to be locked at if roundabouts are ever read explicitly from the input files
-        myRoundabouts.clear(); 
-        myEdgeCont.guessRoundabouts(myRoundabouts);
+        myEdgeCont.guessRoundabouts();
         PROGRESS_DONE_MESSAGE();
     }
+    myEdgeCont.markRoundabouts();
     //
     PROGRESS_BEGIN_MESSAGE("Computing approaching lanes");
     myEdgeCont.computeLanes2Edges(buildCrossingsAndWalkingAreas);
@@ -495,4 +491,5 @@ NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary,
     }
     return ok;
 }
+
 /****************************************************************************/

@@ -446,7 +446,7 @@ public:
     /** @brief Determines which edges belong to roundabouts and increases their priority
      * @param[out] marked Edges which belong to a roundabout are stored here
      */
-    void guessRoundabouts(std::vector<EdgeVector>& marked);
+    void guessRoundabouts();
 
 
     /** @brief Returns whether the built edges are left-handed
@@ -502,6 +502,17 @@ public:
     int guessSidewalks(SUMOReal width, SUMOReal minSpeed, SUMOReal maxSpeed);
 
 
+    /** @brief Returns the determined roundabouts
+     * @return The list of roundabout edges
+     */
+    const std::set<EdgeSet> getRoundabouts() const;
+
+    /// @brief add user specified roundabout
+    void addRoundabout(const EdgeSet& roundabout);
+
+    /// @brief mark edge priorities and prohibit turn-arounds for all roundabout edges
+    void markRoundabouts();
+
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id
      *
@@ -514,7 +525,6 @@ private:
 
     /// @brief Returns true if this edge matches one of the removal criteria
     bool ignoreFilterMatch(NBEdge* edge);
-
 
 private:
     /// @brief The network builder; used to obtain type information
@@ -603,6 +613,11 @@ private:
     /// @brief whether a geo transform has been applied to the pruning boundary
     bool myNeedGeoTransformedPrunningBoundary;
     /// @}
+    
+    /// @brief Edges marked as belonging to a roundabout by the user (each EdgeVector is a roundabout)
+    std::set<EdgeSet> myRoundabouts;
+    /// @brief Edges marked as belonging to a roundabout after guessing 
+    std::set<EdgeSet> myGuessedRoundabouts;
 
 
 private:

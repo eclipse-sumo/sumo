@@ -187,15 +187,6 @@ public:
         return myDistrictCont;
     }
 
-
-    /** @brief Returns the determined roundabouts
-     * @return The list of roundabout edges
-     */
-    const std::vector<EdgeVector>& getRoundabouts() const {
-        return myRoundabouts;
-    }
-
-
     /** @brief Returns the joined edges map
      * @return The map of joined edges
      */
@@ -204,11 +195,6 @@ public:
     }
     /// @}
 
-
-    /// @brief declare that roundabouts have been seen during loading
-    void haveSeenRoundabouts() {
-        myHaveSeenRoundabouts = true;
-    }
 
     /**
      * @brief transforms loaded coordinates
@@ -253,12 +239,6 @@ protected:
 
     /// @brief The used container for districts
     NBDistrictCont myDistrictCont;
-
-    /// @brief whether a sumo network with roundabout information was loaded
-    bool myHaveSeenRoundabouts;
-
-    /// @brief Edges marked as belonging to a roundabout (each EdgeVector is a roundabout)
-    std::vector<EdgeVector> myRoundabouts;
 
     /// @brief Map of joined edges
     NBJoinedEdgesMap myJoinedEdges;
