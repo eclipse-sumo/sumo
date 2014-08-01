@@ -60,3 +60,6 @@ alter_tls_program
 
 # load location attribute from nod.xml and use it for the generated net
 load_location
+
+# tests for the generated junction logic
+junctionLogic
