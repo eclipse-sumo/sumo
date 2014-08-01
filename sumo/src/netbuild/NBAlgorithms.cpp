@@ -281,6 +281,13 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
         bestOutgoing.push_back(*outgoing.begin());
         outgoing.erase(outgoing.begin());
     }
+    // special case: user input makes mainDirection unambiguous
+    const bool mainDirectionExplicit = (
+            bestIncoming.size() == 1 && n.myIncomingEdges.size() <= 2
+            && (incoming.size() == 0 || bestIncoming[0]->getPriority() > incoming[0]->getPriority())
+            && bestOutgoing.size() == 1 && n.myOutgoingEdges.size() <= 2
+            && (outgoing.size() == 0 || bestOutgoing[0]->getPriority() > outgoing[0]->getPriority())
+            && !bestIncoming[0]->isTurningDirectionAt(&n, bestOutgoing[0]));
     // now, let's compute for each of the best incoming edges
     //  the incoming which is most opposite
     //  the outgoing which is most opposite
@@ -300,7 +307,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     if (bestIncoming.size() == 1) {
         // let's mark this road as the best
         NBEdge* best1 = extractAndMarkFirst(n, bestIncoming);
-        if (counterIncomingEdges.find(best1) != counterIncomingEdges.end()) {
+        if (!mainDirectionExplicit && counterIncomingEdges.find(best1) != counterIncomingEdges.end()) {
             // ok, look, what we want is the opposit of the straight continuation edge
             // but, what if such an edge does not exist? By now, we'll determine it
             // geometrically
@@ -309,15 +316,15 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
                 s->setJunctionPriority(&n, 1);
             }
         }
-        if (bestOutgoing.size() != 0) {
-            // mark the best outgoing as the continuation
-            sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
-            best1 = extractAndMarkFirst(n, bestOutgoing);
-            if (counterOutgoingEdges.find(best1) != counterOutgoingEdges.end()) {
-                NBEdge* s = counterOutgoingEdges.find(best1)->second;
-                if (GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n)) > 180 - 45) {
-                    s->setJunctionPriority(&n, 1);
-                }
+        assert(bestOutgoing.size() != 0);
+        // mark the best outgoing as the continuation
+        sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
+        // assign extra priority if the priorities are unambiguous (regardless of geometry)
+        best1 = extractAndMarkFirst(n, bestOutgoing);
+        if (!mainDirectionExplicit && counterOutgoingEdges.find(best1) != counterOutgoingEdges.end()) {
+            NBEdge* s = counterOutgoingEdges.find(best1)->second;
+            if (GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n)) > 180 - 45) {
+                s->setJunctionPriority(&n, 1);
             }
         }
         return;
@@ -367,13 +374,13 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
 
 
 NBEdge*
-NBEdgePriorityComputer::extractAndMarkFirst(NBNode& n, std::vector<NBEdge*>& s) {
+NBEdgePriorityComputer::extractAndMarkFirst(NBNode& n, std::vector<NBEdge*>& s, int prio) {
     if (s.size() == 0) {
         return 0;
     }
     NBEdge* ret = s.front();
     s.erase(s.begin());
-    ret->setJunctionPriority(&n, 1);
+    ret->setJunctionPriority(&n, prio);
     return ret;
 }
 

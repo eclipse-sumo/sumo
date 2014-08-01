@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug  1 11:02:37 2014 by SUMO netconvert Version dev-SVN-r16812
+<!-- generated on Fri Aug  1 12:11:08 2014 by SUMO netconvert Version dev-SVN-r16812
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -38,10 +38,7 @@
         <lane id=":RE_0_0" index="0" speed="8.33" length="4.72" shape="221.67,48.18 220.42,48.03 219.34,48.27 218.43,48.90 217.70,49.92"/>
     </edge>
     <edge id=":RE_1" function="internal">
-        <lane id=":RE_1_0" index="0" speed="8.33" length="2.40" shape="221.67,48.18 220.68,47.07 220.48,46.17"/>
-    </edge>
-    <edge id=":RE_4" function="internal">
-        <lane id=":RE_4_0" index="0" speed="8.33" length="2.40" shape="220.48,46.17 221.08,45.48 222.49,44.99"/>
+        <lane id=":RE_1_0" index="0" speed="8.33" length="4.81" shape="221.67,48.18 220.68,47.07 220.48,46.17 221.08,45.48 222.49,44.99"/>
     </edge>
     <edge id=":RE_2" function="internal">
         <lane id=":RE_2_0" index="0" speed="8.33" length="5.53" shape="217.19,43.40 222.49,44.99"/>
@@ -59,19 +56,13 @@
         <lane id=":RN_2_0" index="0" speed="8.33" length="4.43" shape="192.45,58.16 193.59,57.94 194.54,57.47 195.32,56.74 195.91,55.76"/>
     </edge>
     <edge id=":RN_3" function="internal">
-        <lane id=":RN_3_0" index="0" speed="8.33" length="2.41" shape="192.45,58.16 193.75,58.89 194.22,59.69"/>
-    </edge>
-    <edge id=":RN_4" function="internal">
-        <lane id=":RN_4_0" index="0" speed="8.33" length="2.41" shape="194.22,59.69 193.87,60.54 192.69,61.45"/>
+        <lane id=":RN_3_0" index="0" speed="8.33" length="4.82" shape="192.45,58.16 193.75,58.89 194.22,59.69 193.87,60.54 192.69,61.45"/>
     </edge>
     <edge id=":RW_0" function="internal">
         <lane id=":RW_0_0" index="0" speed="8.33" length="4.99" shape="207.22,35.95 206.90,37.27 207.08,38.39 207.75,39.29 208.93,39.98"/>
     </edge>
     <edge id=":RW_1" function="internal">
-        <lane id=":RW_1_0" index="0" speed="8.33" length="2.41" shape="207.22,35.95 206.00,36.79 205.08,36.86"/>
-    </edge>
-    <edge id=":RW_4" function="internal">
-        <lane id=":RW_4_0" index="0" speed="8.33" length="2.41" shape="205.08,36.86 204.47,36.17 204.16,34.72"/>
+        <lane id=":RW_1_0" index="0" speed="8.33" length="4.82" shape="207.22,35.95 206.00,36.79 205.08,36.86 204.47,36.17 204.16,34.72"/>
     </edge>
     <edge id=":RW_2" function="internal">
         <lane id=":RW_2_0" index="0" speed="8.33" length="6.26" shape="201.92,40.57 204.16,34.72"/>
@@ -117,28 +108,24 @@
     <junction id="617530575" type="priority" x="219.84" y="0.00" incLanes="-554721118_0" intLanes=":617530575_0_0" shape="219.89,0.02 222.86,1.21 216.82,-1.21 219.79,-0.02">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="RE" type="priority" x="218.16" y="45.58" incLanes="-554721084_0 RWRE_0" intLanes=":RE_0_0 :RE_4_0 :RE_2_0 :RE_3_0" shape="221.27,49.73 222.88,43.44 217.80,41.92 216.58,44.87 216.29,49.16 219.10,50.68">
+    <junction id="RE" type="priority" x="218.16" y="45.58" incLanes="-554721084_0 RWRE_0" intLanes=":RE_0_0 :RE_1_0 :RE_2_0 :RE_3_0" shape="221.27,49.73 222.88,43.44 217.80,41.92 216.58,44.87 216.29,49.16 219.10,50.68">
         <request index="0" response="1000" foes="1000" cont="0"/>
-        <request index="1" response="0100" foes="0100" cont="1"/>
+        <request index="1" response="0100" foes="0100" cont="0"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0000" foes="0001" cont="0"/>
     </junction>
-    <junction id="RN" type="priority" x="195.99" y="59.56" incLanes="RERN_0 -554721086_0" intLanes=":RN_0_0 :RN_1_0 :RN_2_0 :RN_4_0" shape="197.89,62.55 197.39,59.39 197.37,56.42 194.46,55.09 192.34,56.57 192.81,63.05">
+    <junction id="RN" type="priority" x="195.99" y="59.56" incLanes="RERN_0 -554721086_0" intLanes=":RN_0_0 :RN_1_0 :RN_2_0 :RN_3_0" shape="197.89,62.55 197.39,59.39 197.37,56.42 194.46,55.09 192.34,56.57 192.81,63.05">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0000" foes="0100" cont="0"/>
         <request index="2" response="0010" foes="0010" cont="0"/>
-        <request index="3" response="0001" foes="0001" cont="1"/>
+        <request index="3" response="0001" foes="0001" cont="0"/>
     </junction>
-    <junction id="RW" type="priority" x="203.94" y="39.71" incLanes="554721118_0 RNRW_0" intLanes=":RW_0_0 :RW_4_0 :RW_2_0 :RW_3_0" shape="208.32,41.46 209.54,38.51 208.71,36.54 202.68,34.12 200.40,40.07 203.44,41.07">
+    <junction id="RW" type="priority" x="203.94" y="39.71" incLanes="554721118_0 RNRW_0" intLanes=":RW_0_0 :RW_1_0 :RW_2_0 :RW_3_0" shape="208.32,41.46 209.54,38.51 208.71,36.54 202.68,34.12 200.40,40.07 203.44,41.07">
         <request index="0" response="1000" foes="1000" cont="0"/>
-        <request index="1" response="0100" foes="0100" cont="1"/>
+        <request index="1" response="0100" foes="0100" cont="0"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0000" foes="0001" cont="0"/>
     </junction>
-
-    <junction id=":RE_4_0" type="internal" x="220.48" y="46.17" incLanes=":RE_1_0 RWRE_0" intLanes=":RE_2_0"/>
-    <junction id=":RN_4_0" type="internal" x="194.22" y="59.69" incLanes=":RN_3_0 RERN_0" intLanes=":RN_0_0"/>
-    <junction id=":RW_4_0" type="internal" x="205.08" y="36.86" incLanes=":RW_1_0 RNRW_0" intLanes=":RW_2_0"/>
 
     <connection from="-554721084" to="RERN" fromLane="0" toLane="0" via=":RE_0_0" dir="r" state="m"/>
     <connection from="-554721084" to="554721084" fromLane="0" toLane="0" via=":RE_1_0" dir="t" state="m"/>
@@ -160,18 +147,15 @@
     <connection from=":617530570_0" to="-554721086" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":617530575_0" to="554721118" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":RE_0" to="RERN" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RE_1" to="554721084" fromLane="0" toLane="0" via=":RE_4_0" dir="s" state="m"/>
-    <connection from=":RE_4" to="554721084" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":RE_1" to="554721084" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":RE_2" to="554721084" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":RE_3" to="RERN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":RN_0" to="554721086" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":RN_1" to="RNRW" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":RN_2" to="RNRW" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RN_3" to="554721086" fromLane="0" toLane="0" via=":RN_4_0" dir="s" state="m"/>
-    <connection from=":RN_4" to="554721086" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":RN_3" to="554721086" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":RW_0" to="RWRE" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RW_1" to="-554721118" fromLane="0" toLane="0" via=":RW_4_0" dir="s" state="m"/>
-    <connection from=":RW_4" to="-554721118" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":RW_1" to="-554721118" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":RW_2" to="-554721118" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":RW_3" to="RWRE" fromLane="0" toLane="0" dir="s" state="M"/>
 
