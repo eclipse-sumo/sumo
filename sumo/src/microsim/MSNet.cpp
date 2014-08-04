@@ -72,6 +72,7 @@
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
+#include <microsim/devices/MSDevice_Tripinfo.h>
 #include "traffic_lights/MSTrafficLightLogic.h"
 #include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
@@ -362,6 +363,9 @@ MSNet::closeSimulation(SUMOTime start) {
     myDetectorControl->close(myStep);
     if (OptionsCont::getOptions().getBool("vehroute-output.write-unfinished")) {
         MSDevice_Vehroutes::generateOutputForUnfinished();
+    }
+    if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
+        MSDevice_Tripinfo::generateOutputForUnfinished();
     }
 #ifndef NO_TRACI
     TraCIServer::close();

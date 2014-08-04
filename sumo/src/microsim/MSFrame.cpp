@@ -147,6 +147,9 @@ MSFrame::fillOptions() {
     oc.addSynonyme("tripinfo-output", "tripinfo");
     oc.addDescription("tripinfo-output", "Output", "Save single vehicle trip info into FILE");
 
+    oc.doRegister("tripinfo-output.write-unfinished", new Option_Bool(false));
+    oc.addDescription("tripinfo-output.write-unfinished", "Output", "Write tripinfo output for vehicles which have not arrived at simulation end");
+
     oc.doRegister("vehroute-output", new Option_FileName());
     oc.addSynonyme("vehroute-output", "vehroutes");
     oc.addDescription("vehroute-output", "Output", "Save single vehicle route info into FILE");

@@ -132,9 +132,10 @@ public:
      * @param[in] toPos	   position on the last edge, at which the coumputed distance endsance
      * @param[in] fromEdge edge at wich computation begins
      * @param[in] toEdge   edge at which distance computation shall stop
+     * @param[in] includeInternal Whether the lengths of internal edges shall be counted
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge
      */
-    SUMOReal getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge) const;
+    SUMOReal getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal=true) const;
 
     /// Returns the color
     const RGBColor& getColor() const;

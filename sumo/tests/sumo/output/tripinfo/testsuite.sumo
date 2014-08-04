@@ -22,5 +22,8 @@ teleport
 # teleporting over multiple edges
 teleport_multihop
 
+# write output for departed vehicles which have not arrived at simulation end
+write_unfinished
+
 # Testing error cases
 errors

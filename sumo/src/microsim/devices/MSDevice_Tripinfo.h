@@ -65,7 +65,8 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
-
+    /// @brief generate output for vehicles which are still in the network
+    static void generateOutputForUnfinished();
 
 public:
     /// @brief Destructor.
@@ -162,6 +163,9 @@ private:
     /// @brief The time loss when compared to the desired and allowed speed 
     SUMOTime myTimeLoss;
 
+    /// @brief devices which may still need to produce output
+    typedef std::set<const MSDevice_Tripinfo*, Named::NamedLikeComparatorIdLess<MSDevice_Tripinfo> > DeviceSet;
+    static DeviceSet myPendingOutput;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -42,6 +42,13 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+#define NOT_ARRIVED TIME2STEPS(-1)
+
+
+// ===========================================================================
+// static members
+// ===========================================================================
+MSDevice_Tripinfo::DeviceSet MSDevice_Tripinfo::myPendingOutput;
 
 // ===========================================================================
 // method definitions
@@ -54,6 +61,7 @@ MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& i
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         MSDevice_Tripinfo* device = new MSDevice_Tripinfo(v, "tripinfo_" + v.getID());
         into.push_back(device);
+        myPendingOutput.insert(device);
     }
 }
 
@@ -67,7 +75,7 @@ MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id)
     myDepartPos(-1),
     myDepartSpeed(-1),
     myWaitingSteps(0), 
-    myArrivalTime(-1),
+    myArrivalTime(NOT_ARRIVED),
     myArrivalLane(""),
     myArrivalPos(-1),
     myArrivalSpeed(-1),
@@ -132,10 +140,17 @@ MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
 
 void
 MSDevice_Tripinfo::generateOutput() const {
+    myPendingOutput.erase(this);
     SUMOReal routeLength = myHolder.getRoute().getLength();
     routeLength -= myDepartPos;
     if (myArrivalLane != "") {
         routeLength -= MSLane::dictionary(myArrivalLane)->getLength() - myArrivalPos;
+    }
+    SUMOTime exit = myArrivalTime;
+    if (myArrivalTime == NOT_ARRIVED) {
+        exit = MSNet::getInstance()->getCurrentTimeStep();
+        routeLength = myHolder.getRoute().getDistanceBetween(myDepartPos, myHolder.getPositionOnLane(), 
+                *myHolder.getRoute().begin(), myHolder.getEdge(), false);
     }
     // write
     OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
@@ -149,7 +164,7 @@ MSDevice_Tripinfo::generateOutput() const {
     os.writeAttr("arrivalLane", myArrivalLane);
     os.writeAttr("arrivalPos", myArrivalPos);
     os.writeAttr("arrivalSpeed", myArrivalSpeed);
-    os.writeAttr("duration", time2string(myArrivalTime - myHolder.getDeparture()));
+    os.writeAttr("duration", time2string(exit - myHolder.getDeparture()));
     os.writeAttr("routeLength", routeLength);
     os.writeAttr("waitSteps", myWaitingSteps);
     os.writeAttr("timeLoss", time2string(myTimeLoss));
@@ -166,6 +181,20 @@ MSDevice_Tripinfo::generateOutput() const {
     os.writeAttr("vType", myHolder.getVehicleType().getID());
     os.writeAttr("vaporized", (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0"));
 }
+
+
+void
+MSDevice_Tripinfo::generateOutputForUnfinished() {
+    while (myPendingOutput.size() > 0) {
+        const MSDevice_Tripinfo* d = *myPendingOutput.begin();
+        if (d->myHolder.hasDeparted()) {
+            d->generateOutput();
+        } else {
+            myPendingOutput.erase(d);
+        }
+    }
+}
+
 
 
 /****************************************************************************/
