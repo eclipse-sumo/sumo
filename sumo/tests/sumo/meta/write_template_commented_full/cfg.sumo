@@ -81,6 +81,9 @@
         <!-- Save single vehicle trip info into FILE -->
         <tripinfo-output value="" synonymes="tripinfo" type="FILE"/>
 
+        <!-- Write tripinfo output for vehicles which have not arrived at simulation end -->
+        <tripinfo-output.write-unfinished value="false" type="BOOL"/>
+
         <!-- Save single vehicle route info into FILE -->
         <vehroute-output value="" synonymes="vehroutes" type="FILE"/>
 
