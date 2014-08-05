@@ -131,6 +131,7 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) {
         (*i)->generateOutput();
     }
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
+        // close tag after tripinfo (possibly including emissions from another device) have been written
         OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
     }
     deleteVehicle(veh);

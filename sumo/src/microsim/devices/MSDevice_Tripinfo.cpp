@@ -182,6 +182,7 @@ MSDevice_Tripinfo::generateOutput() const {
     os.writeAttr("devices", str.str());
     os.writeAttr("vType", myHolder.getVehicleType().getID());
     os.writeAttr("vaporized", (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0"));
+    // cannot close tag because emission device output might follow
 }
 
 
@@ -191,6 +192,8 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
         const MSDevice_Tripinfo* d = *myPendingOutput.begin();
         if (d->myHolder.hasDeparted()) {
             d->generateOutput();
+            // @todo also generate emission output if holder has a device
+            OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
         } else {
             myPendingOutput.erase(d);
         }
