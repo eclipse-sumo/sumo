@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/06/14 15:02:29 by SUMO netconvert Version dev-SVN-r16543
+<!-- generated on Tue Aug  5 12:53:27 2014 by SUMO netconvert Version dev-SVN-r16839
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\sumo\motorway.nod.xml"/>
-        <edge-files value=".\sumo\motorway.edg.xml"/>
+        <node-files value="motorway.nod.xml"/>
+        <edge-files value="motorway.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\sumo\motorway.net.xml"/>
+        <output-file value="motorway.net.xml"/>
     </output>
 
     <processing>
         <offset.disable-normalization value="true"/>
     </processing>
 
-    <report>
-        <verbose value="true"/>
-    </report>
-
 </configuration>
 -->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-6000.00,-50.00,3300.00,1.60" origBoundary="-6000.00,-50.00,3300.00,1.60" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-6000.00,-50.00,3500.00,1.60" origBoundary="-6000.00,-50.00,3500.00,1.60" projParameter="!"/>
 
     <edge id=":B_0" function="internal">
         <lane id=":B_0_0" index="0" speed="36.00" length="3.00" shape="-3001.50,-1.70 -2998.50,-1.65"/>
@@ -50,6 +46,9 @@
     <edge id=":E_0" function="internal">
         <lane id=":E_0_0" index="0" speed="36.00" length="3.42" shape="298.50,-1.65 301.50,0.00"/>
     </edge>
+    <edge id=":F_0" function="internal">
+        <lane id=":F_0_0" index="0" speed="36.00" length="0.10" shape="3300.00,0.00 3300.00,0.00"/>
+    </edge>
 
     <edge id="beg" from="A" to="B" priority="-1" spreadType="center" shape="-6000.00,1.60 -3000.00,1.60">
         <lane id="beg_0" index="0" speed="36.00" length="2998.50" shape="-6000.00,-1.70 -3001.50,-1.70"/>
@@ -66,6 +65,9 @@
     </edge>
     <edge id="end2" from="E" to="F" priority="-1" spreadType="center">
         <lane id="end2_0" index="0" speed="36.00" length="2998.50" shape="301.50,0.00 3300.00,0.00"/>
+    </edge>
+    <edge id="end3" from="F" to="G" priority="-1" spreadType="center">
+        <lane id="end3_0" index="0" speed="36.00" length="200.00" shape="3300.00,0.00 3500.00,0.00"/>
     </edge>
     <edge id="merge" from="C" to="D" priority="-1" spreadType="center" shape="0.00,-1.60 100.00,-1.60">
         <lane id="merge_0" index="0" speed="36.00" length="97.00" shape="1.50,-4.90 98.50,-4.90"/>
@@ -92,7 +94,8 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
     <junction id="E" type="unregulated" x="300.00" y="0.00" incLanes="end_0 end_1" intLanes=":E_0_0" shape="301.50,1.60 301.50,-1.60 298.50,-3.25 298.50,3.25"/>
-    <junction id="F" type="unregulated" x="3300.00" y="0.00" incLanes="end2_0" intLanes="" shape="3300.00,-1.60 3300.00,1.60"/>
+    <junction id="F" type="unregulated" x="3300.00" y="0.00" incLanes="end2_0" intLanes=":F_0_0" shape="3300.00,1.60 3300.00,-1.60 3300.00,1.60"/>
+    <junction id="G" type="unregulated" x="3500.00" y="0.00" incLanes="end3_0" intLanes="" shape="3500.00,-1.60 3500.00,1.60"/>
     <junction id="offRampEnd" type="unregulated" x="300.00" y="-50.00" incLanes="offRamp_0" intLanes="" shape="299.54,-51.53 300.46,-48.47"/>
     <junction id="onRampBeg" type="unregulated" x="-300.00" y="-50.00" incLanes="" intLanes="" shape="-300.26,-48.42 -299.74,-51.58"/>
 
@@ -101,6 +104,7 @@
     <connection from="beg2" to="merge" fromLane="0" toLane="1" pass="1" via=":C_1_0" dir="s" state="M"/>
     <connection from="beg2" to="merge" fromLane="1" toLane="2" pass="1" via=":C_1_1" dir="s" state="M"/>
     <connection from="end" to="end2" fromLane="0" toLane="0" via=":E_0_0" dir="s" state="M"/>
+    <connection from="end2" to="end3" fromLane="0" toLane="0" via=":F_0_0" dir="s" state="M"/>
     <connection from="merge" to="offRamp" fromLane="0" toLane="0" pass="1" via=":D_0_0" dir="s" state="M"/>
     <connection from="merge" to="end" fromLane="1" toLane="0" pass="1" via=":D_1_0" dir="s" state="M"/>
     <connection from="merge" to="end" fromLane="2" toLane="1" pass="1" via=":D_1_1" dir="s" state="M"/>
@@ -115,5 +119,6 @@
     <connection from=":D_1" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":D_1" to="end" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":E_0" to="end2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":F_0" to="end3" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>
