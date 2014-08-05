@@ -84,6 +84,8 @@ MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id)
 
 
 MSDevice_Tripinfo::~MSDevice_Tripinfo() {
+    // ensure clean up for vaporized vehicles which do not generate output
+    myPendingOutput.erase(this);
 }
 
 
