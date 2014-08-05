@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun  6 13:06:40 2014 by SUMO sumo Version dev-SVN-r16550
+<!-- generated on Tue Aug  5 14:00:52 2014 by SUMO sumo Version dev-SVN-r16839
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -9,11 +9,6 @@
         <net-file value="net.net.xml"/>
         <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
     </input>
-
-    <time>
-        <begin value="0"/>
-        <end value="100"/>
-    </time>
 
     <report>
         <xml-validation value="never"/>
@@ -29,5 +24,6 @@
 -->
 
 <detector>
-    <interval begin="0.00" end="100.00" id="3/1to2/1" sampledSeconds="10.00" density="1.00" occupancy="0.30" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="1"/>
+    <interval begin="0.00" end="100.00" id="1/1to1/0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="100.00" end="161.00" id="1/1to1/0" sampledSeconds="10.00" density="1.64" occupancy="0.49" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="1"/>
 </detector>
