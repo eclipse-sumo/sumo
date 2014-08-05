@@ -22,3 +22,7 @@ one10s_1vehicle_10m_s_end
 
 # one vehicle which changes lanes on the detector edge
 lane_change
+
+# detector is at the end of a vehicles route. 
+# The vehicle is removed from the simulation bevor its rear end is past the detector and therefore does not count as contributed
+end_of_route
