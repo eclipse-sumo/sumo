@@ -275,8 +275,6 @@ private:
     FXCheckButton* myJunctionColorInterpolation;
     FXCheckButton* myShowTLIndex, *myShowJunctionIndex;
 
-    FXRealSpinDial* myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
-
     FXCheckButton* myShowLane2Lane;
     FXCheckButton* myDrawJunctionShape;
     FXCheckButton* myAntialiase;
