@@ -138,7 +138,7 @@ GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     Boundary boundary = myShape.getBoxBoundary();
-    if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.minPolySize) {
+    if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
         return;
     }
     if (getFill()) {
@@ -151,8 +151,8 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     AbstractMutex::ScopedLocker locker(myLock);
-    //if (myDisplayList == 0 || (!getFill() && myLineWidth != s.polyExaggeration)) {
-    //    storeTesselation(s.polyExaggeration);
+    //if (myDisplayList == 0 || (!getFill() && myLineWidth != s.polySize.getExaggeration(s))) {
+    //    storeTesselation(s.polySize.getExaggeration(s));
     //}
     glPushName(getGlID());
     glPushMatrix();
@@ -193,7 +193,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     }
     // recall tesselation
     //glCallList(myDisplayList);
-    performTesselation(s.polyExaggeration);
+    performTesselation(s.polySize.getExaggeration(s));
     // de-init generation of texture coordinates
     if (textureID >= 0) {
         glEnable(GL_DEPTH_TEST);

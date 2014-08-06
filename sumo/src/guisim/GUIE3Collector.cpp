@@ -108,12 +108,13 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3d(0, .8, 0);
+    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     for (i = myEntryDefinitions.begin(); i != myEntryDefinitions.end(); ++i) {
-        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, s.addExaggeration);
+        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }
     glColor3d(.8, 0, 0);
     for (i = myExitDefinitions.begin(); i != myExitDefinitions.end(); ++i) {
-        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, s.addExaggeration);
+        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }
     glPopMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);

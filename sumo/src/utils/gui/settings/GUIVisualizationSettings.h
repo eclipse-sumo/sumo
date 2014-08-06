@@ -194,10 +194,8 @@ public:
     GUIColorer personColorer;
     /// @brief The quality of person drawing
     int personQuality;
-    /// @brief The minimum size of persons to let them be drawn
-    float minPersonSize;
-    /// @brief The person exaggeration (upscale)
-    float personExaggeration;
+    // Setting bundles for controling the size of the drawn persons
+    GUIVisualizationSizeSettings personSize;
     // Setting bundles for optional drawing person names
     GUIVisualizationTextSettings personName;
     //@}
@@ -227,10 +225,8 @@ public:
     /// @brief The additional structures visualization scheme
     // @todo decouple addExageration for POIs, Polygons, Triggers etc
     int addMode;
-    /// @brief The minimum size of additional structures to let them be drawn
-    float minAddSize;
-    /// @brief The additional structures exaggeration (upscale)
-    float addExaggeration;
+    // Setting bundles for controling the size of additional items
+    GUIVisualizationSizeSettings addSize;
     // Setting bundles for optional drawing additional names
     GUIVisualizationTextSettings addName;
     //@}
@@ -239,18 +235,14 @@ public:
     /// @name shapes visualization settings
     //@{
 
-    /// @brief The minimum size of shapes to let them be drawn
-    float minPOISize;
-    /// @brief The additional shapes (upscale)
-    float poiExaggeration;
+    // Setting bundles for controling the size of the drawn POIs
+    GUIVisualizationSizeSettings poiSize;
     // Setting bundles for optional drawing poi names
     GUIVisualizationTextSettings poiName;
 
-    /// @brief The minimum size of shapes to let them be drawn
-    float minPolySize;
-    /// @brief The additional shapes (upscale)
-    float polyExaggeration;
-    // Setting bundles for optional drawing poi names
+    // Setting bundles for controling the size of the drawn polygons
+    GUIVisualizationSizeSettings polySize;
+    // Setting bundles for optional drawing polygon names
     GUIVisualizationTextSettings polyName;
     //@}
 

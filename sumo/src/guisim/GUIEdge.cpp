@@ -320,7 +320,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
     }
-    if (s.scale > s.minPersonSize) {
+    if (s.scale * s.personSize.getExaggeration(s) > s.personSize.minSize) {
         myLock.lock();
         for (std::set<MSPerson*>::const_iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
             GUIPerson* person = dynamic_cast<GUIPerson*>(*i);

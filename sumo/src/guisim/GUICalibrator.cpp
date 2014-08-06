@@ -362,6 +362,7 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
             flow = toString((int)myCurrentStateInterval->q) + "v/h";
         }
     }
+    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     for (size_t i = 0; i < myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
@@ -369,7 +370,7 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(pos.x(), pos.y(), getType());
         glRotated(rot, 0, 0, 1);
         glTranslated(0, 0, getType());
-        glScaled(s.addExaggeration, s.addExaggeration, 1);
+        glScaled(exaggeration, exaggeration, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         glBegin(GL_TRIANGLES);
@@ -384,7 +385,7 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
         glEnd();
 
         // draw text
-        if (s.scale * s.addExaggeration >= 1.) {
+        if (s.scale * exaggeration >= 1.) {
             glTranslated(0, 0, .1);
             glColor3d(0, 0, 0);
             pfSetPosition(0, 0);

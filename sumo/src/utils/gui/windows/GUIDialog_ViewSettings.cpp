@@ -348,23 +348,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXMatrix* m104 =
             new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
-        FXMatrix* m1041 =
-            new FXMatrix(m104, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
-        new FXLabel(m1041, "Minimum size", 0, LAYOUT_CENTER_Y);
-        myPersonMinSizeDialer =
-            new FXRealSpinDial(m1041, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myPersonMinSizeDialer->setValue(mySettings->minPersonSize);
-        FXMatrix* m1042 =
-            new FXMatrix(m104, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
-        new FXLabel(m1042, "Exaggerate by", 0, LAYOUT_CENTER_Y);
-        myPersonUpscaleDialer =
-            new FXRealSpinDial(m1042, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myPersonUpscaleDialer->setRange(0, 10000);
-        myPersonUpscaleDialer->setValue(mySettings->personExaggeration);
+        myPersonSizePanel = new SizePanel(m104, this, mySettings->personSize);
     }
     {
         // nodes
@@ -415,24 +399,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXMatrix* m52 =
             new FXMatrix(frame5, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
-        FXMatrix* m521 =
-            new FXMatrix(m52, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
-        new FXLabel(m521, "Minimum size", 0, LAYOUT_CENTER_Y);
-        myDetectorMinSizeDialer =
-            new FXRealSpinDial(m521, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        FXMatrix* m522 =
-            new FXMatrix(m52, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
-        myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
-        new FXLabel(m522, "Exaggerate by", 0, LAYOUT_CENTER_Y);
-        myDetectorUpscaleDialer =
-            new FXRealSpinDial(m522, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myDetectorUpscaleDialer->setRange(0, 10000);
-        myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
-
+        myAddSizePanel = new SizePanel(m52, this, mySettings->addSize);
 
         /*
         new FXLabel(m522, "Color", 0, LAYOUT_CENTER_Y);
@@ -455,24 +422,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXMatrix* m62 =
             new FXMatrix(frame6, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
-        FXMatrix* m621 =
-            new FXMatrix(m62, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
-        new FXLabel(m621, "Minimum size to show", 0, LAYOUT_CENTER_Y);
-        myPOIMinSizeDialer =
-            new FXRealSpinDial(m621, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        FXMatrix* m622 =
-            new FXMatrix(m62, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
-        myPOIMinSizeDialer->setValue(mySettings->minPOISize);
-        new FXLabel(m622, "Exaggerate by", 0, LAYOUT_CENTER_Y);
-        myPOIUpscaleDialer =
-            new FXRealSpinDial(m622, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myPOIUpscaleDialer->setRange(0, 10000);
-        myPOIUpscaleDialer->setValue(mySettings->addExaggeration);
-
+        myPOISizePanel = new SizePanel(m62, this, mySettings->poiSize);
 
     } {
         new FXTabItem(tabbook, "Polygons", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
@@ -488,24 +438,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXMatrix* m92 =
             new FXMatrix(frame9, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
-        FXMatrix* m921 =
-            new FXMatrix(m92, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
-        new FXLabel(m921, "Minimum size to show", 0, LAYOUT_CENTER_Y);
-        myPolyMinSizeDialer =
-            new FXRealSpinDial(m921, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        FXMatrix* m922 =
-            new FXMatrix(m92, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
-        myPolyMinSizeDialer->setValue(mySettings->minPolySize);
-        new FXLabel(m922, "Exaggerate by", 0, LAYOUT_CENTER_Y);
-        myPolyUpscaleDialer =
-            new FXRealSpinDial(m922, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myPolyUpscaleDialer->setRange(0, 10000);
-        myPolyUpscaleDialer->setValue(mySettings->addExaggeration);
-
+        myPolySizePanel = new SizePanel(m91, this, mySettings->polySize);
 
     }{
         new FXTabItem(tabbook, "Legend", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
@@ -543,17 +476,23 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
 
 GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     myParent->remove(this);
-    delete myEdgeNamePanel;
+    // delete name panels
+    delete myInternalJunctionNamePanel;
     delete myInternalEdgeNamePanel;
     delete myCwaEdgeNamePanel;
     delete myStreetNamePanel;
     delete myJunctionNamePanel;
-    delete myInternalJunctionNamePanel;
     delete myVehicleNamePanel;
-    delete myVehicleSizePanel;
     delete myAddNamePanel;
     delete myPOINamePanel;
     delete myPolyNamePanel;
+    delete myEdgeNamePanel;
+    // delete size panels
+    delete myVehicleSizePanel;
+    delete myPersonSizePanel;
+    delete myPOISizePanel;
+    delete myPolySizePanel;
+    delete myAddSizePanel;
 }
 
 
@@ -622,9 +561,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
 
     myPersonColorMode->setCurrentItem((FXint) mySettings->personColorer.getActive());
     myPersonShapeDetail->setCurrentItem(mySettings->personQuality);
-    myPersonUpscaleDialer->setValue(mySettings->personExaggeration);
-    myPersonMinSizeDialer->setValue(mySettings->minPersonSize);
     myPersonNamePanel->update(mySettings->personName);
+    myPersonSizePanel->update(mySettings->personSize);
 
     myJunctionColorMode->setCurrentItem((FXint) mySettings->junctionColorer.getActive());
     myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
@@ -632,17 +570,14 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myJunctionNamePanel->update(mySettings->junctionName);
     myInternalJunctionNamePanel->update(mySettings->internalJunctionName);
 
-    myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
-    myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
     myAddNamePanel->update(mySettings->addName);
+    myAddSizePanel->update(mySettings->addSize);
 
-    myPOIUpscaleDialer->setValue(mySettings->poiExaggeration);
-    myPOIMinSizeDialer->setValue(mySettings->minPOISize);
     myPOINamePanel->update(mySettings->poiName);
+    myPOISizePanel->update(mySettings->poiSize);
 
-    myPolyUpscaleDialer->setValue(mySettings->polyExaggeration);
-    myPolyMinSizeDialer->setValue(mySettings->minPolySize);
     myPolyNamePanel->update(mySettings->polyName);
+    myPolySizePanel->update(mySettings->polySize);
 
     myShowLane2Lane->setCheck(mySettings->showLane2Lane);
     myDrawJunctionShape->setCheck(mySettings->drawJunctionShape);
@@ -756,9 +691,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
     tmpSettings.personColorer.setActive(myPersonColorMode->getCurrentItem());
     tmpSettings.personQuality = myPersonShapeDetail->getCurrentItem();
-    tmpSettings.personExaggeration = (SUMOReal) myPersonUpscaleDialer->getValue();
-    tmpSettings.minPersonSize = (SUMOReal) myPersonMinSizeDialer->getValue();
     tmpSettings.personName = myPersonNamePanel->getSettings();
+    tmpSettings.personSize = myPersonSizePanel->getSettings();
 
     tmpSettings.junctionColorer.setActive(myJunctionColorMode->getCurrentItem());
     tmpSettings.drawLinkTLIndex = (myShowTLIndex->getCheck() != FALSE);
@@ -766,17 +700,14 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.junctionName = myJunctionNamePanel->getSettings();
     tmpSettings.internalJunctionName = myInternalJunctionNamePanel->getSettings();
 
-    tmpSettings.addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();
-    tmpSettings.minAddSize = (SUMOReal) myDetectorMinSizeDialer->getValue();
     tmpSettings.addName = myAddNamePanel->getSettings();
+    tmpSettings.addSize = myAddSizePanel->getSettings();
 
-    tmpSettings.poiExaggeration = (SUMOReal) myPOIUpscaleDialer->getValue();
-    tmpSettings.minPOISize = (SUMOReal) myPOIMinSizeDialer->getValue();
     tmpSettings.poiName = myPOINamePanel->getSettings();
+    tmpSettings.poiSize = myPOISizePanel->getSettings();
 
-    tmpSettings.polyExaggeration = (SUMOReal) myPolyUpscaleDialer->getValue();
-    tmpSettings.minPolySize = (SUMOReal) myPolyMinSizeDialer->getValue();
     tmpSettings.polyName = myPolyNamePanel->getSettings();
+    tmpSettings.polySize = myPolySizePanel->getSettings();
 
     tmpSettings.showLane2Lane = (myShowLane2Lane->getCheck() != FALSE);
     tmpSettings.drawJunctionShape = (myDrawJunctionShape->getCheck() != FALSE);

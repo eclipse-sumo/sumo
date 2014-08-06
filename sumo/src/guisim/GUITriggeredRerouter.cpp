@@ -348,7 +348,8 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::getParameterWindow(GUIMainWindow
 
 void
 GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSettings& s) const {
-    if (s.scale * s.addExaggeration >= 3) {
+    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    if (s.scale * exaggeration >= 3) {
         glPushName(getGlID());
         const SUMOReal prob = myParent->getProbability();
         if (myAmClosedEdge) {
@@ -374,7 +375,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                             }
                         }
                         glTranslated(0, 0, getType());
-                        //glScaled(s.addExaggeration, s.addExaggeration, 1);
+                        //glScaled(exaggeration, exaggeration, 1);
                         glColor3d(0.7, 0, 0);
                         GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
                         glTranslated(0, 0, .1);
@@ -405,7 +406,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 glTranslated(pos.x(), pos.y(), 0);
                 glRotated(rot, 0, 0, 1);
                 glTranslated(0, 0, getType());
-                glScaled(s.addExaggeration, s.addExaggeration, 1);
+                glScaled(exaggeration, exaggeration, 1);
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
                 glBegin(GL_TRIANGLES);

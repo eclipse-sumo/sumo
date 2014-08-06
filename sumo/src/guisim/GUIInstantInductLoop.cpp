@@ -113,13 +113,14 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
     glPushName(getGlID());
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
+    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     // shape
     glColor3d(1, 0, 1);
     glPushMatrix();
     glTranslated(0, 0, getType());
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated(myFGRotation, 0, 0, 1);
-    glScaled(s.addExaggeration, s.addExaggeration, 1);
+    glScaled(exaggeration, exaggeration, 1);
     glBegin(GL_QUADS);
     glVertex2d(0 - 1.0, 2);
     glVertex2d(-1.0, -2);
@@ -133,7 +134,7 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
     glEnd();
 
     // outline
-    if (width * s.addExaggeration > 1) {
+    if (width * exaggeration > 1) {
         glColor3d(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
@@ -146,7 +147,7 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
     }
 
     // position indicator
-    if (width * s.addExaggeration > 1) {
+    if (width * exaggeration > 1) {
         glRotated(90, 0, 0, -1);
         glColor3d(1, 1, 1);
         glBegin(GL_LINES);

@@ -99,7 +99,8 @@ GUIPointOfInterest::getCenteringBoundary() const {
 
 void
 GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
-    if (s.scale * (1.3 / 3.0) < s.minPOISize) {
+    const SUMOReal exaggeration = s.poiSize.getExaggeration(s);
+    if (s.scale * (1.3 / 3.0) *exaggeration < s.poiSize.minSize) {
         return;
     }
     glPushName(getGlID());
@@ -112,15 +113,15 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         int textureID = GUITexturesHelper::getTextureID(myImgFile);
         if (textureID > 0) {
             GUITexturesHelper::drawTexturedBox(textureID,
-                                               -myHalfImgWidth * s.poiExaggeration, -myHalfImgHeight * s.poiExaggeration,
-                                               myHalfImgWidth * s.poiExaggeration,  myHalfImgHeight * s.poiExaggeration);
+                                               -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
+                                               myHalfImgWidth * exaggeration,  myHalfImgHeight * exaggeration);
         }
     } else {
         // fallback if no image is defined
-        GLHelper::drawFilledCircle((SUMOReal) 1.3 * s.poiExaggeration, 16);
+        GLHelper::drawFilledCircle((SUMOReal) 1.3 * exaggeration, 16);
     }
     glPopMatrix();
-    drawName(Position(x() + 1.32 * s.poiExaggeration, y() + 1.32 * s.poiExaggeration),
+    drawName(Position(x() + 1.32 * exaggeration, y() + 1.32 * exaggeration),
              s.scale, s.poiName);
     glPopName();
 }

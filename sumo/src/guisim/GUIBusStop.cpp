@@ -135,7 +135,8 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::setColor(green);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw details unless zoomed out to far
-    if (s.scale * s.addExaggeration >= 10) {
+    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    if (s.scale * exaggeration >= 10) {
         // draw the lines
         for (i = 0; i != myLines.size(); ++i) {
             glPushMatrix();
@@ -145,7 +146,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
             pfSetScale(1.f);
-            glScaled(s.addExaggeration, s.addExaggeration, 1);
+            glScaled(exaggeration, exaggeration, 1);
             glTranslated(1.2, -(double)i, 0);
             pfDrawString(myLines[i].c_str());
             glPopMatrix();
@@ -153,16 +154,16 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
         int noPoints = 9;
-        if (s.scale * s.addExaggeration > 25) {
-            noPoints = MIN2((int)(9.0 + (s.scale * s.addExaggeration) / 10.0), 36);
+        if (s.scale * exaggeration > 25) {
+            noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
         }
-        glScaled(s.addExaggeration, s.addExaggeration, 1);
+        glScaled(exaggeration, exaggeration, 1);
         GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
         glTranslated(0, 0, .1);
         GLHelper::setColor(yellow);
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
-        if (s.scale * s.addExaggeration >= 4.5) {
-            GLHelper::drawText("H", Position(), .1, 1.6 * s.addExaggeration, green, myFGSignRot);
+        if (s.scale * exaggeration >= 4.5) {
+            GLHelper::drawText("H", Position(), .1, 1.6 * exaggeration, green, myFGSignRot);
         }
     }
     glPopMatrix();

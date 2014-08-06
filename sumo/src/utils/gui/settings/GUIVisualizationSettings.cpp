@@ -64,15 +64,17 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       drawLaneChangePreference(false), drawMinGap(false),
       vehicleSize(1),
       vehicleName(false, 50, RGBColor(204, 153, 0, 255)),
-      personQuality(0), minPersonSize(1), personExaggeration(1),
+      personQuality(0), 
+      personSize(1),
       personName(false, 50, RGBColor(0, 153, 204, 255)),
       drawLinkTLIndex(false), drawLinkJunctionIndex(false),
       junctionName(false, 50, RGBColor(0, 255, 128, 255)),
       internalJunctionName(false, 50, RGBColor(0, 204, 128, 255)),
-      showLane2Lane(false), drawJunctionShape(true), addMode(0), minAddSize(1), addExaggeration(1),
+      showLane2Lane(false), drawJunctionShape(true), addMode(0),
+      addSize(1),
       addName(false, 50, RGBColor(255, 0, 128, 255)),
-      minPOISize(0), poiExaggeration(1), poiName(false, 50, RGBColor(255, 0, 128, 255)),
-      minPolySize(0), polyExaggeration(1), polyName(false, 50, RGBColor(255, 0, 128, 255)),
+      poiSize(1), poiName(false, 50, RGBColor(255, 0, 128, 255)),
+      polySize(1), polyName(false, 50, RGBColor(255, 0, 128, 255)),
       showSizeLegend(true),
       gaming(false),
       selectionScale(1),
@@ -370,10 +372,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     vehicleColorer.save(dev);
     dev << "        </vehicles>\n";
     dev << "        <persons personMode=\"" << personColorer.getActive()
-        << "\" personQuality=\"" << personQuality
-        << "\" minPersonSize=\"" << minPersonSize
-        << "\" personExaggeration=\"" << personExaggeration
-        << "\" " << personName.print("personName")
+        << "\" personQuality=\"" << personQuality << "\" " 
+        << personSize.print("person")
+        << personName.print("personName")
         << ">\n";
     personColorer.save(dev);
     dev << "        </persons>\n";
@@ -388,20 +389,19 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     junctionColorer.save(dev);
     dev << "        </junctions>\n";
 
-    dev << "        <additionals addMode=\"" << addMode
-        << "\" minAddSize=\"" << minAddSize
-        << "\" addExaggeration=\"" << addExaggeration << "\"\n"
-        << "                  " << addName.print("addName")
+    dev << "        <additionals addMode=\"" << addMode << "\" " 
+        << addSize.print("add")
+        << addName.print("addName")
         << "/>\n";
 
-    dev << "        <pois poiExaggeration=\"" << poiExaggeration
-        << "\" minPOISize=\"" << minPOISize << "\"\n"
-        << "                  " << poiName.print("poiName")
+    dev << "        <pois " 
+        << poiSize.print("poi") 
+        << poiName.print("poiName")
         << "/>\n";
 
-    dev << "        <polys polyExaggeration=\"" << polyExaggeration
-        << "\" minPolySize=\"" << minPolySize << "\"\n"
-        << "                  " << polyName.print("polyName")
+    dev << "        <polys " 
+        << polySize.print("poly")
+        << polyName.print("polyName")
         << "/>\n";
 
     dev << "        <legend showSizeLegend=\"" << showSizeLegend << "\"/>\n";
@@ -493,10 +493,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (personQuality != v2.personQuality) {
         return false;
     }
-    if (minPersonSize != v2.minPersonSize) {
-        return false;
-    }
-    if (personExaggeration != v2.personExaggeration) {
+    if (personSize != v2.personSize) {
         return false;
     }
     if (personName != v2.personName) {
@@ -529,30 +526,19 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (addMode != v2.addMode) {
         return false;
     }
-    if (minAddSize != v2.minAddSize) {
-        return false;
-    }
-    if (addExaggeration != v2.addExaggeration) {
+    if (addSize != v2.addSize) {
         return false;
     }
     if (addName != v2.addName) {
         return false;
     }
-
-    if (minPOISize != v2.minPOISize) {
-        return false;
-    }
-    if (poiExaggeration != v2.poiExaggeration) {
+    if (poiSize != v2.poiSize) {
         return false;
     }
     if (poiName != v2.poiName) {
         return false;
     }
-
-    if (minPolySize != v2.minPolySize) {
-        return false;
-    }
-    if (polyExaggeration != v2.polyExaggeration) {
+    if (polySize != v2.polySize) {
         return false;
     }
     if (polyName != v2.polyName) {

@@ -173,7 +173,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     // set person color
     setColor(s);
     // scale
-    SUMOReal upscale = s.personExaggeration;
+    const SUMOReal upscale = s.personSize.getExaggeration(s);
     glScaled(upscale, upscale, 1);
     switch (s.personQuality) {
         case 0:
@@ -423,8 +423,9 @@ GUIPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
         }
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const SUMOReal halfLength = getVehicleType().getLength() / 2.0 * s.personExaggeration;
-            const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.personExaggeration;
+            const SUMOReal exaggeration = s.personSize.getExaggeration(s);
+            const SUMOReal halfLength = getVehicleType().getLength() / 2.0 * exaggeration;
+            const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
         }
     } else {

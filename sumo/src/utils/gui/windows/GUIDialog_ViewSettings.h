@@ -266,7 +266,6 @@ private:
     std::vector<FXRealSpinDial*> myPersonThresholds;
     std::vector<FXButton*> myPersonButtons;
     FXCheckButton* myPersonColorInterpolation;
-    FXRealSpinDial* myPersonMinSizeDialer, *myPersonUpscaleDialer;
 
     FXComboBox* myJunctionColorMode;
     FXVerticalFrame* myJunctionColorSettingFrame;
@@ -277,8 +276,6 @@ private:
     FXCheckButton* myShowTLIndex, *myShowJunctionIndex;
 
     FXRealSpinDial* myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
-    FXRealSpinDial* myPOIMinSizeDialer, *myPOIUpscaleDialer;
-    FXRealSpinDial* myPolyMinSizeDialer, *myPolyUpscaleDialer;
 
     FXCheckButton* myShowLane2Lane;
     FXCheckButton* myDrawJunctionShape;
@@ -291,7 +288,7 @@ private:
                *myVehicleNamePanel, *myPersonNamePanel,
                *myAddNamePanel, *myPOINamePanel, *myPolyNamePanel;
 
-    SizePanel* myVehicleSizePanel;
+    SizePanel *myVehicleSizePanel, *myPersonSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel;
     /// @}
 
 
