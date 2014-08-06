@@ -338,7 +338,9 @@ GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
     applyGLTransform(false);
 
     // paint in select mode
+    myVisualizationSettings->drawForSelecting = true;
     int hits2 = doPaintGL(GL_SELECT, bound);
+    myVisualizationSettings->drawForSelecting = false;
     // Get the results
     nb_hits = glRenderMode(GL_RENDER);
     if (nb_hits == -1) {

@@ -825,10 +825,11 @@ GUIVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUM
     if (file != "") {
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
+            const SUMOReal exaggeration = s.vehicleSize.getExaggeration(s);
             if (length < 0) {
-                length = getVehicleType().getLength() * s.vehicleExaggeration;
+                length = getVehicleType().getLength() * exaggeration;
             }
-            const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.vehicleExaggeration;
+            const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, 0, halfWidth, length);
             return true;
         }
@@ -926,7 +927,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     // set lane color
     setColor(s);
     // scale
-    SUMOReal upscale = s.vehicleExaggeration;
+    const SUMOReal upscale = s.vehicleSize.getExaggeration(s);
     glScaled(upscale, upscale, 1);
     /*
         MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
@@ -1091,7 +1092,7 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
                 }
                 const SUMOTime leaveTime = (*i).myLink->getLeaveTime(
                                                (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLengthWithGap());
-                drawLinkItem(p, (*i).myArrivalTime, leaveTime, s.addExaggeration);
+                drawLinkItem(p, (*i).myArrivalTime, leaveTime, s.vehicleSize.getExaggeration(s));
                 // the time slot that ego vehicle uses when checking opened may
                 // differ from the one it requests in setApproaching
                 MSLink::ApproachingVehicleInformation avi = (*i).myLink->getApproaching(this);
@@ -1286,12 +1287,13 @@ GUIVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMOReal d
         colors[3] = 0;
     }
     glColor3dv(colors);
+    const SUMOReal exaggeration = s.vehicleSize.getExaggeration(s);
     if (routeNo == 0) {
-        drawRouteHelper(*myRoute, s.vehicleExaggeration);
+        drawRouteHelper(*myRoute, exaggeration);
         return;
     }
     --routeNo; // only prior routes are stored
-    drawRouteHelper(*myRoutes->getRoute(routeNo), s.vehicleExaggeration);
+    drawRouteHelper(*myRoutes->getRoute(routeNo), exaggeration);
 }
 
 
@@ -1365,13 +1367,19 @@ void
 GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, SUMOReal carriageGap, int firstPassengerCarriage, bool asImage) const {
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-51);
-    const SUMOReal length = getVehicleType().getLength() * s.vehicleExaggeration;
-    const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.vehicleExaggeration;
+    const SUMOReal exaggeration = s.vehicleSize.getExaggeration(s);
+    defaultLength *= exaggeration;
+    if (exaggeration == 0) {
+        return;
+    }
+    carriageGap *= exaggeration;
+    const SUMOReal length = getVehicleType().getLength() * exaggeration;
+    const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
     glPopMatrix(); // undo scaling and 90 degree rotation
     glPopMatrix(); // undo initial translation and rotation
     GLHelper::setColor(darker);
-    const SUMOReal xCornerCut = 0.3;
-    const SUMOReal yCornerCut = 0.4;
+    const SUMOReal xCornerCut = 0.3 * exaggeration;
+    const SUMOReal yCornerCut = 0.4 * exaggeration;
     // round to closest integer
     const int numCarriages = floor(length / (defaultLength + carriageGap) + 0.5);
     assert(numCarriages > 0);

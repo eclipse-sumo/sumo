@@ -552,7 +552,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         drawMarkings(s, s.laneWidthExaggeration);
     }
     // draw vehicles
-    if (s.scale > s.minVehicleSize) {
+    if (s.scale * s.vehicleSize.getExaggeration(s) > s.vehicleSize.minSize) {
         // retrieve vehicles from lane; disallow simulation
         const MSLane::VehCont& vehicles = getVehiclesSecure();
         for (MSLane::VehCont::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {

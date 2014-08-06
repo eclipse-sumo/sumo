@@ -180,9 +180,8 @@ GUISettingsHandler::myStartElement(int element,
         case SUMO_TAG_VIEWSETTINGS_VEHICLES:
             mySettings.vehicleColorer.setActive(TplConvert::_2int(attrs.getStringSecure("vehicleMode", "0").c_str()));
             mySettings.vehicleQuality = TplConvert::_2int(attrs.getStringSecure("vehicleQuality", toString(mySettings.vehicleQuality)).c_str());
-            mySettings.minVehicleSize = TplConvert::_2SUMOReal(attrs.getStringSecure("minVehicleSize", toString(mySettings.minVehicleSize)).c_str());
-            mySettings.vehicleExaggeration = TplConvert::_2SUMOReal(attrs.getStringSecure("vehicleExaggeration", toString(mySettings.vehicleExaggeration)).c_str());
             mySettings.showBlinker = TplConvert::_2bool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)).c_str());
+            mySettings.vehicleSize = parseSizeSettings("vehicle", attrs, mySettings.vehicleSize);
             mySettings.vehicleName = parseTextSettings("vehicleName", attrs, mySettings.vehicleName);
             myCurrentColorer = element;
             break;
@@ -285,6 +284,18 @@ GUISettingsHandler::parseTextSettings(
                TplConvert::_2bool(attrs.getStringSecure(prefix + "_show", toString(defaults.show)).c_str()),
                TplConvert::_2SUMOReal(attrs.getStringSecure(prefix + "_size", toString(defaults.size)).c_str()),
                RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "edges", 0, true, ok));
+}
+
+
+GUIVisualizationSizeSettings
+GUISettingsHandler::parseSizeSettings(
+    const std::string& prefix, const SUMOSAXAttributes& attrs,
+    GUIVisualizationSizeSettings defaults) {
+    bool ok = true;
+    return GUIVisualizationSizeSettings(
+               TplConvert::_2SUMOReal(attrs.getStringSecure(prefix + "_minSize", toString(defaults.minSize)).c_str()),
+               TplConvert::_2SUMOReal(attrs.getStringSecure(prefix + "_exaggeration", toString(defaults.exaggeration)).c_str()),
+               TplConvert::_2bool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constantSize)).c_str()));
 }
 
 

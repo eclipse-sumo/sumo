@@ -140,7 +140,7 @@ GUICompleteSchemeStorage::init(FXApp* app) {
         vs.backgroundColor = RGBColor(51, 128, 51, 255);
         vs.laneShowBorders = true;
         vs.hideConnectors = true;
-        vs.minVehicleSize = 0;
+        vs.vehicleSize.minSize = 0;
         vs.personQuality = 2;
         gSchemeStorage.add(vs);
     }

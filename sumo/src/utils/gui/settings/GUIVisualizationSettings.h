@@ -45,6 +45,7 @@
 // ===========================================================================
 class BaseSchemeInfoSource;
 class OutputDevice;
+class GUIVisualizationSettings;
 
 
 // ===========================================================================
@@ -76,6 +77,38 @@ struct GUIVisualizationTextSettings {
                name + "_color=\"" + toString(color) + "\" ";
     }
 };
+
+
+struct GUIVisualizationSizeSettings {
+    GUIVisualizationSizeSettings(float _minSize, float _exaggeration=1.0, bool _constantSize=false) :
+        minSize(_minSize), exaggeration(_exaggeration), constantSize(_constantSize) {}
+
+    /// @brief The minimum size to draw this object
+    float minSize;
+    /// @brief The size exaggeration (upscale)
+    float exaggeration;
+    // @brief whether the object shall be drawn with constant size regardless of zoom
+    bool constantSize;
+
+    bool operator==(const GUIVisualizationSizeSettings& other) {
+        return constantSize == other.constantSize &&
+               minSize == other.minSize &&
+               exaggeration == other.exaggeration;
+    }
+    bool operator!=(const GUIVisualizationSizeSettings& other) {
+        return !((*this) == other);
+    }
+
+    std::string print(const std::string& name) const {
+        return name + "_minSize=\"" + toString(minSize) + "\" " +
+               name + "_exaggeration=\"" + toString(exaggeration) + "\" " +
+               name + "_constantSize=\"" + toString(constantSize) + "\" ";
+    }
+
+    /// @brief return the drawing size including exaggeration and constantSize values
+    SUMOReal getExaggeration(const GUIVisualizationSettings& s) const;
+};
+
 
 /**
  * @class GUIVisualizationSettings
@@ -141,16 +174,14 @@ public:
     GUIColorer vehicleColorer;
     /// @brief The quality of vehicle drawing
     int vehicleQuality;
-    /// @brief The minimum size of vehicles to let them be drawn
-    float minVehicleSize;
-    /// @brief The vehicle exaggeration (upscale)
-    float vehicleExaggeration;
     /// @brief Information whether vehicle blinkers shall be drawn
     bool showBlinker;
     /// @brief Information whether the lane change preference shall be drawn
     bool drawLaneChangePreference;
     /// @brief Information whether the minimum gap shall be drawn
     bool drawMinGap;
+    // Setting bundles for controling the size of the drawn vehicles
+    GUIVisualizationSizeSettings vehicleSize;
     // Setting bundles for optional drawing vehicle names
     GUIVisualizationTextSettings vehicleName;
     //@}
@@ -237,6 +268,9 @@ public:
 
     /// @brief the current selection scaling in NETEDIT (temporary)
     SUMOReal selectionScale;
+
+    /// @brief whether drawing is performed for the purpose of selecting objects
+    bool drawForSelecting;
 
     /** @brief Writes the settings into an output device
      * @param[in] dev The device to write the settings into

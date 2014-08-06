@@ -423,8 +423,8 @@ GUIPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
         }
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const SUMOReal halfLength = getVehicleType().getLength() / 2.0 * s.vehicleExaggeration;
-            const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.vehicleExaggeration;
+            const SUMOReal halfLength = getVehicleType().getLength() / 2.0 * s.personExaggeration;
+            const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.personExaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
         }
     } else {

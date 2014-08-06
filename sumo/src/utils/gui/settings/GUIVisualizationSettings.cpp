@@ -60,8 +60,9 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       cwaEdgeName(false, 50, RGBColor::MAGENTA),
       streetName(false, 55, RGBColor::YELLOW),
       hideConnectors(false), laneWidthExaggeration(1),
-      vehicleQuality(0), minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
+      vehicleQuality(0), showBlinker(true),
       drawLaneChangePreference(false), drawMinGap(false),
+      vehicleSize(1),
       vehicleName(false, 50, RGBColor(204, 153, 0, 255)),
       personQuality(0), minPersonSize(1), personExaggeration(1),
       personName(false, 50, RGBColor(0, 153, 204, 255)),
@@ -74,7 +75,9 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       minPolySize(0), polyExaggeration(1), polyName(false, 50, RGBColor(255, 0, 128, 255)),
       showSizeLegend(true),
       gaming(false),
-      selectionScale(1) {
+      selectionScale(1),
+      drawForSelecting(false)
+{
     /// add lane coloring schemes
     GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor::BLACK, "road", true);
     scheme.addColor(RGBColor::GREY, 1, "sidewalk");
@@ -360,9 +363,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
 
     dev << "        <vehicles vehicleMode=\"" << vehicleColorer.getActive()
         << "\" vehicleQuality=\"" << vehicleQuality
-        << "\" minVehicleSize=\"" << minVehicleSize
-        << "\" vehicleExaggeration=\"" << vehicleExaggeration
-        << "\" showBlinker=\"" << showBlinker << "\"\n"
+        << "\" " << vehicleSize.print("vehicle")
+        << "showBlinker=\"" << showBlinker << "\"\n"
         << "                  " << vehicleName.print("vehicleName")
         << ">\n";
     vehicleColorer.save(dev);
@@ -470,10 +472,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (vehicleQuality != v2.vehicleQuality) {
         return false;
     }
-    if (minVehicleSize != v2.minVehicleSize) {
-        return false;
-    }
-    if (vehicleExaggeration != v2.vehicleExaggeration) {
+    if (vehicleSize != v2.vehicleSize) {
         return false;
     }
     if (showBlinker != v2.showBlinker) {
@@ -568,6 +567,11 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
 }
 
 
+SUMOReal 
+GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s) const {
+    /// @note should look normal-sized at zoom 1000
+    return (constantSize && !s.drawForSelecting) ? MAX2((SUMOReal)exaggeration, exaggeration * 20 / s.scale) : exaggeration;
+}
 
 /****************************************************************************/
 
