@@ -103,7 +103,7 @@ MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
     // (current interfaces do not give access to maximum acceleration)
     const SUMOReal vmax = MIN2(veh.getMaxSpeed(), veh.getEdge()->getVehicleMaxSpeed(&veh));
     if (vmax > 0) {
-        myTimeLoss += TS * TIME2STEPS((vmax - newSpeed) / vmax); 
+        myTimeLoss += TIME2STEPS(TS * (vmax - newSpeed) / vmax); 
     }
     return true;
 }
