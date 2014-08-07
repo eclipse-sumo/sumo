@@ -141,7 +141,6 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
 
 SUMOReal
 GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& s) const {
-    const SUMOReal colorValue = static_cast<SUMOReal>(s.junctionColorer.getActive() == 1 && gSelected.isSelected(getType(), getGlID()));
     switch (s.junctionColorer.getActive()) {
         case 0:
             return 0;
