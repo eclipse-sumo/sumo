@@ -38,6 +38,7 @@
 #endif
 
 #include "AGFrame.h"
+#include <utils/common/StdDefs.h>
 #include <router/ROFrame.h>
 #include <duarouter/RODUAFrame.h>
 #include <utils/common/SystemFrame.h>
