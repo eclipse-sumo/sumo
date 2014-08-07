@@ -210,7 +210,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription("Importer of polygons and POIs for the road traffic simulation SUMO.");
-    oc.setApplicationName("polyconvert", "SUMO polyconvert Version " + (std::string)VERSION_STRING);
+    oc.setApplicationName("polyconvert", "SUMO polyconvert Version " + getBuildName(VERSION_STRING));
     int ret = 0;
     try {
         // initialise subsystems

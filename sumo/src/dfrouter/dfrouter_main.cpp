@@ -264,7 +264,7 @@ main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Builds vehicle routes for SUMO using detector values.");
-    oc.setApplicationName("dfrouter", "SUMO dfrouter Version " + (std::string)VERSION_STRING);
+    oc.setApplicationName("dfrouter", "SUMO dfrouter Version " + getBuildName(VERSION_STRING));
     int ret = 0;
     RODFNet* net = 0;
     RODFDetectorCon* detectors = 0;

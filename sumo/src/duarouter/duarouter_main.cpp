@@ -237,7 +237,7 @@ main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic road traffic simulation SUMO.");
-    oc.setApplicationName("duarouter", "SUMO duarouter Version " + (std::string)VERSION_STRING);
+    oc.setApplicationName("duarouter", "SUMO duarouter Version " + getBuildName(VERSION_STRING));
     int ret = 0;
     RONet* net = 0;
     try {

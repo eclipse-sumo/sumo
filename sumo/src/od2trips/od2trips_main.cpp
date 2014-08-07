@@ -231,7 +231,7 @@ main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Importer of O/D-matrices for the road traffic simulation SUMO.");
-    oc.setApplicationName("od2trips", "SUMO od2trips Version " + (std::string)VERSION_STRING);
+    oc.setApplicationName("od2trips", "SUMO od2trips Version " + getBuildName(VERSION_STRING));
     int ret = 0;
     try {
         // initialise subsystems
