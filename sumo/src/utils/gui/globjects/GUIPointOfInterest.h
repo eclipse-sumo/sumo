@@ -35,6 +35,7 @@
 #include <string>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 
 
 // ===========================================================================

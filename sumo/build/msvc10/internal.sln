@@ -997,8 +997,8 @@ Global
 		{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}.InternalFastbuild|Win32.Build.0 = Release|Win32
 		{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}.InternalFastbuild|x64.ActiveCfg = Fastbuild|x64
 		{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}.InternalFastbuild|x64.Build.0 = Fastbuild|x64
-		{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}.InternalRelease|Win32.ActiveCfg = Release|Win32
-		{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}.InternalRelease|Win32.Build.0 = Release|Win32
+		{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}.InternalRelease|Win32.ActiveCfg = InternalRelease|Win32
+		{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}.InternalRelease|Win32.Build.0 = InternalRelease|Win32
 		{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}.InternalRelease|x64.ActiveCfg = Release|x64
 		{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}.InternalRelease|x64.Build.0 = Release|x64
 		{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}.Release|Win32.ActiveCfg = Release|Win32

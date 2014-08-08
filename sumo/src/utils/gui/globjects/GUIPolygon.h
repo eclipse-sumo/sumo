@@ -37,6 +37,7 @@
 #include <utils/shapes/Polygon.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 using namespace SUMO;
 
 // ===========================================================================
