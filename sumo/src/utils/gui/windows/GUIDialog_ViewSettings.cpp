@@ -435,9 +435,6 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myPolyNamePanel = new NamePanel(m91, this, "Show polygon names", mySettings->polyName);
         new FXHorizontalSeparator(frame9 , SEPARATOR_GROOVE | LAYOUT_FILL_X);
 
-        FXMatrix* m92 =
-            new FXMatrix(frame9, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
         myPolySizePanel = new SizePanel(m91, this, mySettings->polySize);
 
     }{

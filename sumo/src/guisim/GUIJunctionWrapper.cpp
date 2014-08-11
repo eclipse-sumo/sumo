@@ -165,8 +165,10 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& s) const {
                 case NODETYPE_NOJUNCTION:
                     return 7;
                 case NODETYPE_DEAD_END:
+                case NODETYPE_DEAD_END_DEPRECATED:
                     return 8;
                 case NODETYPE_UNKNOWN:
+                case NODETYPE_INTERNAL:
                     assert(false);
                     return 8;
             }

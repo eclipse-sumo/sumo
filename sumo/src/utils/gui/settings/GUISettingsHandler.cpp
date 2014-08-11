@@ -287,7 +287,6 @@ GUIVisualizationSizeSettings
 GUISettingsHandler::parseSizeSettings(
     const std::string& prefix, const SUMOSAXAttributes& attrs,
     GUIVisualizationSizeSettings defaults) {
-    bool ok = true;
     return GUIVisualizationSizeSettings(
                TplConvert::_2SUMOReal(attrs.getStringSecure(prefix + "_minSize", toString(defaults.minSize)).c_str()),
                TplConvert::_2SUMOReal(attrs.getStringSecure(prefix + "_exaggeration", toString(defaults.exaggeration)).c_str()),
