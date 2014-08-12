@@ -1,12 +1,12 @@
 <trips>
-	<trip depart="0" from="beg" to="rend" type="0"/>
-	<trip depart="10" from="beg" to="rend" type="0"/>
-	<trip depart="20" from="beg" to="rend" type="0"/>
-	<trip depart="30" from="beg" to="rend" type="0"/>
-	<trip depart="40" from="beg" to="rend" type="0"/>
-	<trip depart="50" from="beg" to="rend" type="0"/>
-	<trip depart="60" from="beg" to="rend" type="0"/>
-	<trip depart="70" from="beg" to="rend" type="0"/>
-	<trip depart="80" from="beg" to="rend" type="0"/>
-	<trip depart="90" from="beg" to="rend" type="0"/>
+	<trip depart="0" from="beg" to="rend"/>
+	<trip depart="10" from="beg" to="rend"/>
+	<trip depart="20" from="beg" to="rend"/>
+	<trip depart="30" from="beg" to="rend"/>
+	<trip depart="40" from="beg" to="rend"/>
+	<trip depart="50" from="beg" to="rend"/>
+	<trip depart="60" from="beg" to="rend"/>
+	<trip depart="70" from="beg" to="rend"/>
+	<trip depart="80" from="beg" to="rend"/>
+	<trip depart="90" from="beg" to="rend"/>
 </trips>

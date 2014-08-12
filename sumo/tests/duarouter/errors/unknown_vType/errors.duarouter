@@ -1,2 +1,2 @@
-Error: Unknown vehicle type 'foo'
+Error: The vehicle type 'foo' for vehicle '0' is not known.
 Quitting (on error).

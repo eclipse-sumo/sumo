@@ -39,6 +39,7 @@
 #include "ROVehicleCont.h"
 #include "ROVehicle.h"
 #include "RORouteDef.h"
+#include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/SUMOAbstractRouter.h>
 #include <utils/common/RandomDistributor.h>
@@ -407,6 +408,9 @@ protected:
 
     /// @brief The number of internal edges in the dictionary
     int myNumInternalEdges;
+
+    /// @brief handler for ignorable error messages
+    MsgHandler* myErrorHandler;
 
 private:
     /// @brief Invalidated copy constructor

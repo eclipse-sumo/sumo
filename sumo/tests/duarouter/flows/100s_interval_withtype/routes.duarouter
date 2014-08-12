@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:01:52 by SUMO duarouter Version 0.17.0
+<!-- generated on Tue Aug 12 11:00:50 2014 by SUMO duarouter Version dev-SVN-r16857ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
@@ -15,6 +15,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -22,34 +23,34 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-    <vehicle id="0.0" type="0" depart="0.00">
+    <vehicle id="0.0" type="DEFAULT_VEHTYPE" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.1" type="0" depart="10.00">
+    <vehicle id="0.1" type="DEFAULT_VEHTYPE" depart="10.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.2" type="0" depart="20.00">
+    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="20.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.3" type="0" depart="30.00">
+    <vehicle id="0.3" type="DEFAULT_VEHTYPE" depart="30.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.4" type="0" depart="40.00">
+    <vehicle id="0.4" type="DEFAULT_VEHTYPE" depart="40.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.5" type="0" depart="50.00">
+    <vehicle id="0.5" type="DEFAULT_VEHTYPE" depart="50.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.6" type="0" depart="60.00">
+    <vehicle id="0.6" type="DEFAULT_VEHTYPE" depart="60.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.7" type="0" depart="70.00">
+    <vehicle id="0.7" type="DEFAULT_VEHTYPE" depart="70.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.8" type="0" depart="80.00">
+    <vehicle id="0.8" type="DEFAULT_VEHTYPE" depart="80.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.9" type="0" depart="90.00">
+    <vehicle id="0.9" type="DEFAULT_VEHTYPE" depart="90.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 </routes>

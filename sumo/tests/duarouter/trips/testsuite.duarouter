@@ -1,13 +1,13 @@
-# Test with 100 vehicles having one departure time, the type is given but not defined
+# Test with 100 vehicles having one departure time, the type is given
 one_time
 
-# The same as one time, but telling the trip defs are not sorted, the type is given but not defined
+# The same as one time, but telling the trip defs are not sorted
 one_time_unsorted
 
-# Tests with trips which departure time increases, the type is given but not defined
+# Tests with trips which departure time increases
 increasing_time
 
-# The same as increasing time, but telling the trip defs are not sorted, the type is given but not defined
+# The same as increasing time, but telling the trip defs are not sorted
 increasing_time_unsorted
 
 # Tests whether parameter passing works
@@ -16,7 +16,7 @@ increasing_time_withparams
 # Tests with trips with fractional departure times
 increasing_time_fractional
 
-# Test whether trips with unsorted are imported correctly, the type is given but not defined
+# Test whether trips with unsorted are imported correctly
 unsorted_time
 
 # Test whether trips with unsorted fractional departure times are imported correctly

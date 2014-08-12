@@ -41,7 +41,6 @@
 #include <utils/common/SUMOAbstractRouter.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -60,7 +59,9 @@ RONet::RONet()
       myRoutesOutput(0), myRouteAlternativesOutput(0), myTypesOutput(0),
       myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
       myHaveRestrictions(false),
-      myNumInternalEdges(0) {
+      myNumInternalEdges(0),
+      myErrorHandler(OptionsCont::getOptions().getBool("ignore-errors") ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance())
+{
     SUMOVTypeParameter* type = new SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_IGNORING);
     type->onlyReferenced = true;
     myVehicleTypes.add(type->id, type);
@@ -173,11 +174,6 @@ RONet::getVehicleTypeSecure(const std::string& id) {
         myDefaultVTypeMayBeDeleted = false;
         return myVehicleTypes.get(DEFAULT_VTYPE_ID);
     }
-    // Assume, the user will define the type somewhere else
-    //  return a type which contains the id only
-    type = new SUMOVTypeParameter(id, SVC_IGNORING);
-    type->onlyReferenced = true;
-    addVehicleType(type);
     return type;
 }
 
@@ -258,13 +254,11 @@ RONet::addPerson(const SUMOTime depart, const std::string desc) {
 bool
 RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     const ROVehicle* const veh) {
-    MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ?
-                      MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
     std::string noRouteMsg = "The vehicle '" + veh->getID() + "' has no valid route.";
     RORouteDef* const routeDef = veh->getRouteDefinition();
     // check if the route definition is valid
     if (routeDef == 0) {
-        mh->inform(noRouteMsg);
+        myErrorHandler->inform(noRouteMsg);
         return false;
     }
     // check whether the route was already saved
@@ -275,7 +269,7 @@ RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>&
     RORoute* current = routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
     if (current == 0 || current->size() == 0) {
         delete current;
-        mh->inform(noRouteMsg);
+        myErrorHandler->inform(noRouteMsg);
         return false;
     }
     // check whether we have to evaluate the route for not containing loops
@@ -284,7 +278,7 @@ RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>&
         // check whether the route is still valid
         if (current->size() == 0) {
             delete current;
-            mh->inform(noRouteMsg + " (after removing loops)");
+            myErrorHandler->inform(noRouteMsg + " (after removing loops)");
             return false;
         }
     }

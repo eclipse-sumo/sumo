@@ -1,102 +1,102 @@
 <trips>
-	<trip depart="0" from="beg" to="rend" type="0"/>
-	<trip depart="1" from="beg" to="rend" type="0"/>
-	<trip depart="2" from="beg" to="rend" type="0"/>
-	<trip depart="3" from="beg" to="rend" type="0"/>
-	<trip depart="4" from="beg" to="rend" type="0"/>
-	<trip depart="5" from="beg" to="rend" type="0"/>
-	<trip depart="6" from="beg" to="rend" type="0"/>
-	<trip depart="7" from="beg" to="rend" type="0"/>
-	<trip depart="8" from="beg" to="rend" type="0"/>
-	<trip depart="9" from="beg" to="rend" type="0"/>
-	<trip depart="10" from="beg" to="rend" type="0"/>
-	<trip depart="11" from="beg" to="rend" type="0"/>
-	<trip depart="12" from="beg" to="rend" type="0"/>
-	<trip depart="13" from="beg" to="rend" type="0"/>
-	<trip depart="14" from="beg" to="rend" type="0"/>
-	<trip depart="15" from="beg" to="rend" type="0"/>
-	<trip depart="16" from="beg" to="rend" type="0"/>
-	<trip depart="17" from="beg" to="rend" type="0"/>
-	<trip depart="18" from="beg" to="rend" type="0"/>
-	<trip depart="19" from="beg" to="rend" type="0"/>
-	<trip depart="20" from="beg" to="rend" type="0"/>
-	<trip depart="21" from="beg" to="rend" type="0"/>
-	<trip depart="22" from="beg" to="rend" type="0"/>
-	<trip depart="23" from="beg" to="rend" type="0"/>
-	<trip depart="24" from="beg" to="rend" type="0"/>
-	<trip depart="25" from="beg" to="rend" type="0"/>
-	<trip depart="26" from="beg" to="rend" type="0"/>
-	<trip depart="27" from="beg" to="rend" type="0"/>
-	<trip depart="28" from="beg" to="rend" type="0"/>
-	<trip depart="29" from="beg" to="rend" type="0"/>
-	<trip depart="30" from="beg" to="rend" type="0"/>
-	<trip depart="31" from="beg" to="rend" type="0"/>
-	<trip depart="32" from="beg" to="rend" type="0"/>
-	<trip depart="33" from="beg" to="rend" type="0"/>
-	<trip depart="34" from="beg" to="rend" type="0"/>
-	<trip depart="35" from="beg" to="rend" type="0"/>
-	<trip depart="36" from="beg" to="rend" type="0"/>
-	<trip depart="37" from="beg" to="rend" type="0"/>
-	<trip depart="38" from="beg" to="rend" type="0"/>
-	<trip depart="39" from="beg" to="rend" type="0"/>
-	<trip depart="40" from="beg" to="rend" type="0"/>
-	<trip depart="41" from="beg" to="rend" type="0"/>
-	<trip depart="42" from="beg" to="rend" type="0"/>
-	<trip depart="43" from="beg" to="rend" type="0"/>
-	<trip depart="44" from="beg" to="rend" type="0"/>
-	<trip depart="45" from="beg" to="rend" type="0"/>
-	<trip depart="46" from="beg" to="rend" type="0"/>
-	<trip depart="47" from="beg" to="rend" type="0"/>
-	<trip depart="48" from="beg" to="rend" type="0"/>
-	<trip depart="49" from="beg" to="rend" type="0"/>
-	<trip depart="50" from="beg" to="rend" type="0"/>
-	<trip depart="51" from="beg" to="rend" type="0"/>
-	<trip depart="52" from="beg" to="rend" type="0"/>
-	<trip depart="53" from="beg" to="rend" type="0"/>
-	<trip depart="54" from="beg" to="rend" type="0"/>
-	<trip depart="55" from="beg" to="rend" type="0"/>
-	<trip depart="56" from="beg" to="rend" type="0"/>
-	<trip depart="57" from="beg" to="rend" type="0"/>
-	<trip depart="58" from="beg" to="rend" type="0"/>
-	<trip depart="59" from="beg" to="rend" type="0"/>
-	<trip depart="60" from="beg" to="rend" type="0"/>
-	<trip depart="61" from="beg" to="rend" type="0"/>
-	<trip depart="62" from="beg" to="rend" type="0"/>
-	<trip depart="63" from="beg" to="rend" type="0"/>
-	<trip depart="64" from="beg" to="rend" type="0"/>
-	<trip depart="65" from="beg" to="rend" type="0"/>
-	<trip depart="66" from="beg" to="rend" type="0"/>
-	<trip depart="67" from="beg" to="rend" type="0"/>
-	<trip depart="68" from="beg" to="rend" type="0"/>
-	<trip depart="69" from="beg" to="rend" type="0"/>
-	<trip depart="70" from="beg" to="rend" type="0"/>
-	<trip depart="71" from="beg" to="rend" type="0"/>
-	<trip depart="72" from="beg" to="rend" type="0"/>
-	<trip depart="73" from="beg" to="rend" type="0"/>
-	<trip depart="74" from="beg" to="rend" type="0"/>
-	<trip depart="75" from="beg" to="rend" type="0"/>
-	<trip depart="76" from="beg" to="rend" type="0"/>
-	<trip depart="77" from="beg" to="rend" type="0"/>
-	<trip depart="78" from="beg" to="rend" type="0"/>
-	<trip depart="79" from="beg" to="rend" type="0"/>
-	<trip depart="80" from="beg" to="rend" type="0"/>
-	<trip depart="81" from="beg" to="rend" type="0"/>
-	<trip depart="82" from="beg" to="rend" type="0"/>
-	<trip depart="83" from="beg" to="rend" type="0"/>
-	<trip depart="84" from="beg" to="rend" type="0"/>
-	<trip depart="85" from="beg" to="rend" type="0"/>
-	<trip depart="86" from="beg" to="rend" type="0"/>
-	<trip depart="87" from="beg" to="rend" type="0"/>
-	<trip depart="88" from="beg" to="rend" type="0"/>
-	<trip depart="89" from="beg" to="rend" type="0"/>
-	<trip depart="90" from="beg" to="rend" type="0"/>
-	<trip depart="91" from="beg" to="rend" type="0"/>
-	<trip depart="92" from="beg" to="rend" type="0"/>
-	<trip depart="93" from="beg" to="rend" type="0"/>
-	<trip depart="94" from="beg" to="rend" type="0"/>
-	<trip depart="95" from="beg" to="rend" type="0"/>
-	<trip depart="96" from="beg" to="rend" type="0"/>
-	<trip depart="97" from="beg" to="rend" type="0"/>
-	<trip depart="98" from="beg" to="rend" type="0"/>
-	<trip depart="99" from="beg" to="rend" type="0"/>
+	<trip depart="0" from="beg" to="rend"/>
+	<trip depart="1" from="beg" to="rend"/>
+	<trip depart="2" from="beg" to="rend"/>
+	<trip depart="3" from="beg" to="rend"/>
+	<trip depart="4" from="beg" to="rend"/>
+	<trip depart="5" from="beg" to="rend"/>
+	<trip depart="6" from="beg" to="rend"/>
+	<trip depart="7" from="beg" to="rend"/>
+	<trip depart="8" from="beg" to="rend"/>
+	<trip depart="9" from="beg" to="rend"/>
+	<trip depart="10" from="beg" to="rend"/>
+	<trip depart="11" from="beg" to="rend"/>
+	<trip depart="12" from="beg" to="rend"/>
+	<trip depart="13" from="beg" to="rend"/>
+	<trip depart="14" from="beg" to="rend"/>
+	<trip depart="15" from="beg" to="rend"/>
+	<trip depart="16" from="beg" to="rend"/>
+	<trip depart="17" from="beg" to="rend"/>
+	<trip depart="18" from="beg" to="rend"/>
+	<trip depart="19" from="beg" to="rend"/>
+	<trip depart="20" from="beg" to="rend"/>
+	<trip depart="21" from="beg" to="rend"/>
+	<trip depart="22" from="beg" to="rend"/>
+	<trip depart="23" from="beg" to="rend"/>
+	<trip depart="24" from="beg" to="rend"/>
+	<trip depart="25" from="beg" to="rend"/>
+	<trip depart="26" from="beg" to="rend"/>
+	<trip depart="27" from="beg" to="rend"/>
+	<trip depart="28" from="beg" to="rend"/>
+	<trip depart="29" from="beg" to="rend"/>
+	<trip depart="30" from="beg" to="rend"/>
+	<trip depart="31" from="beg" to="rend"/>
+	<trip depart="32" from="beg" to="rend"/>
+	<trip depart="33" from="beg" to="rend"/>
+	<trip depart="34" from="beg" to="rend"/>
+	<trip depart="35" from="beg" to="rend"/>
+	<trip depart="36" from="beg" to="rend"/>
+	<trip depart="37" from="beg" to="rend"/>
+	<trip depart="38" from="beg" to="rend"/>
+	<trip depart="39" from="beg" to="rend"/>
+	<trip depart="40" from="beg" to="rend"/>
+	<trip depart="41" from="beg" to="rend"/>
+	<trip depart="42" from="beg" to="rend"/>
+	<trip depart="43" from="beg" to="rend"/>
+	<trip depart="44" from="beg" to="rend"/>
+	<trip depart="45" from="beg" to="rend"/>
+	<trip depart="46" from="beg" to="rend"/>
+	<trip depart="47" from="beg" to="rend"/>
+	<trip depart="48" from="beg" to="rend"/>
+	<trip depart="49" from="beg" to="rend"/>
+	<trip depart="50" from="beg" to="rend"/>
+	<trip depart="51" from="beg" to="rend"/>
+	<trip depart="52" from="beg" to="rend"/>
+	<trip depart="53" from="beg" to="rend"/>
+	<trip depart="54" from="beg" to="rend"/>
+	<trip depart="55" from="beg" to="rend"/>
+	<trip depart="56" from="beg" to="rend"/>
+	<trip depart="57" from="beg" to="rend"/>
+	<trip depart="58" from="beg" to="rend"/>
+	<trip depart="59" from="beg" to="rend"/>
+	<trip depart="60" from="beg" to="rend"/>
+	<trip depart="61" from="beg" to="rend"/>
+	<trip depart="62" from="beg" to="rend"/>
+	<trip depart="63" from="beg" to="rend"/>
+	<trip depart="64" from="beg" to="rend"/>
+	<trip depart="65" from="beg" to="rend"/>
+	<trip depart="66" from="beg" to="rend"/>
+	<trip depart="67" from="beg" to="rend"/>
+	<trip depart="68" from="beg" to="rend"/>
+	<trip depart="69" from="beg" to="rend"/>
+	<trip depart="70" from="beg" to="rend"/>
+	<trip depart="71" from="beg" to="rend"/>
+	<trip depart="72" from="beg" to="rend"/>
+	<trip depart="73" from="beg" to="rend"/>
+	<trip depart="74" from="beg" to="rend"/>
+	<trip depart="75" from="beg" to="rend"/>
+	<trip depart="76" from="beg" to="rend"/>
+	<trip depart="77" from="beg" to="rend"/>
+	<trip depart="78" from="beg" to="rend"/>
+	<trip depart="79" from="beg" to="rend"/>
+	<trip depart="80" from="beg" to="rend"/>
+	<trip depart="81" from="beg" to="rend"/>
+	<trip depart="82" from="beg" to="rend"/>
+	<trip depart="83" from="beg" to="rend"/>
+	<trip depart="84" from="beg" to="rend"/>
+	<trip depart="85" from="beg" to="rend"/>
+	<trip depart="86" from="beg" to="rend"/>
+	<trip depart="87" from="beg" to="rend"/>
+	<trip depart="88" from="beg" to="rend"/>
+	<trip depart="89" from="beg" to="rend"/>
+	<trip depart="90" from="beg" to="rend"/>
+	<trip depart="91" from="beg" to="rend"/>
+	<trip depart="92" from="beg" to="rend"/>
+	<trip depart="93" from="beg" to="rend"/>
+	<trip depart="94" from="beg" to="rend"/>
+	<trip depart="95" from="beg" to="rend"/>
+	<trip depart="96" from="beg" to="rend"/>
+	<trip depart="97" from="beg" to="rend"/>
+	<trip depart="98" from="beg" to="rend"/>
+	<trip depart="99" from="beg" to="rend"/>
 </trips>

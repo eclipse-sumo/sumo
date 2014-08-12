@@ -389,6 +389,10 @@ RORouteHandler::closeVehicle() {
     }
     // get vehicle type
     SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+    if (type == 0) {
+        myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
+        type = myNet.getVehicleTypeSecure(DEFAULT_VTYPE_ID);
+    }
     // get the route
     RORouteDef* route = myNet.getRouteDef(myVehicleParameter->routeid);
     if (route == 0) {
