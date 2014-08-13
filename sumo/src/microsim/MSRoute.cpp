@@ -304,6 +304,8 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos,
                     }
                 }
             }
+#else
+            UNUSED_PARAMETER(includeInternal);
 #endif
         }
         isFirstIteration = false;
