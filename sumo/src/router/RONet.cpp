@@ -60,7 +60,8 @@ RONet::RONet()
       myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
       myHaveRestrictions(false),
       myNumInternalEdges(0),
-      myErrorHandler(OptionsCont::getOptions().getBool("ignore-errors") ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance())
+      myErrorHandler(OptionsCont::getOptions().exists("ignore-errors") 
+              && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance())
 {
     SUMOVTypeParameter* type = new SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_IGNORING);
     type->onlyReferenced = true;
