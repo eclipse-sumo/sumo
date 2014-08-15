@@ -9,14 +9,25 @@
 
     <xsd:simpleType name="positiveFloatType">
         <xsd:restriction base="xsd:float">
-            <xsd:minExclusive value="0"></xsd:minExclusive>
+            <xsd:minExclusive value="0"/>
         </xsd:restriction>
     </xsd:simpleType>
 
     <xsd:simpleType name="nonNegativeFloatType">
         <xsd:restriction base="xsd:float">
-            <xsd:minInclusive value="0"></xsd:minInclusive>
+            <xsd:minInclusive value="0"/>
         </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="nonNegativeFloatTypeWithErrorValue">
+        <xsd:union memberTypes="nonNegativeFloatType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:float">
+                    <xsd:minInclusive value="-1"/>
+                    <xsd:maxInclusive value="-1"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
     </xsd:simpleType>
 
     <xsd:simpleType name="boolType">
