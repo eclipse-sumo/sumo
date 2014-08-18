@@ -155,3 +155,4 @@ ticket1273
 
 # at revision 16874 this test showcases ticket #1400 (vehicles intersect physically but no collision warning is issued).
 ticket1107
+ticket1402

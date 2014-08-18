@@ -1,0 +1,11 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
+    <vehicle id="fast_follower" depart="0" departSpeed="max" departPos="-50">
+        <route edges="end end2"/>
+    </vehicle>
+
+    <vehicle id="insert_step_0" depart="0" departSpeed="max" departPos="free">
+        <route edges="end2"/>
+    </vehicle>
+</routes>
