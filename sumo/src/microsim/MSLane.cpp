@@ -673,51 +673,49 @@ MSLane::planMovements(SUMOTime t) {
 
 void
 MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
-    if (myVehicles.size() < 2) {
+    if (myVehicles.size() == 0) {
         return;
     }
 
     VehCont::iterator lastVeh = myVehicles.end() - 1;
     for (VehCont::iterator veh = myVehicles.begin(); veh != lastVeh;) {
         VehCont::iterator pred = veh + 1;
-        if ((*veh)->hasInfluencer() && (*veh)->getInfluencer().isVTDControlled()) {
-            ++veh;
-            continue;
-        }
-        if ((*pred)->hasInfluencer() && (*pred)->getInfluencer().isVTDControlled()) {
+        if (((*veh)->hasInfluencer() && (*veh)->getInfluencer().isVTDControlled())
+                ||((*pred)->hasInfluencer() && (*pred)->getInfluencer().isVTDControlled())) {
+            // ignore collisions of VTDControlled vehicles
             ++veh;
             continue;
         }
         SUMOReal gap = (*pred)->getPositionOnLane() - (*pred)->getVehicleType().getLength() - (*veh)->getPositionOnLane() - (*veh)->getVehicleType().getMinGap();
         if (gap < -NUMERICAL_EPS) {
-            MSVehicle* vehV = *veh;
-            if (vehV->getLane() == this) {
-                WRITE_WARNING("Teleporting vehicle '" + vehV->getID() + "'; collision with '"
-                              + (*pred)->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
-                              + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
-                MSNet::getInstance()->getVehicleControl().registerCollision();
-                myBruttoVehicleLengthSum -= vehV->getVehicleType().getLengthWithGap();
-                myNettoVehicleLengthSum -= vehV->getVehicleType().getLength();
-                MSVehicleTransfer::getInstance()->add(timestep, vehV);
-                veh = myVehicles.erase(veh); // remove current vehicle
-                lastVeh = myVehicles.end() - 1;
-                if (veh == myVehicles.end()) {
-                    break;
-                }
-            } else {
-                WRITE_WARNING("Shadow of vehicle '" + vehV->getID() + "'; collision with '"
-                              + (*pred)->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
-                              + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
-                veh = myVehicles.erase(veh); // remove current vehicle
-                lastVeh = myVehicles.end() - 1;
-                vehV->getLaneChangeModel().endLaneChangeManeuver();
-                if (veh == myVehicles.end()) {
-                    break;
-                }
+            handleCollision(timestep, stage, *veh, *pred, gap);
+            veh = myVehicles.erase(veh); // remove current vehicle
+            lastVeh = myVehicles.end() - 1;
+            if (veh == myVehicles.end()) {
+                break;
             }
         } else {
             ++veh;
         }
+    }
+}
+
+
+void
+MSLane::handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim, const SUMOReal gap) {
+    if (collider->getLane() == this) {
+        WRITE_WARNING("Teleporting vehicle '" + collider->getID() + "'; collision with '"
+                + victim->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
+                + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
+        MSNet::getInstance()->getVehicleControl().registerCollision();
+        myBruttoVehicleLengthSum -= collider->getVehicleType().getLengthWithGap();
+        myNettoVehicleLengthSum -= collider->getVehicleType().getLength();
+        MSVehicleTransfer::getInstance()->add(timestep, collider);
+    } else {
+        WRITE_WARNING("Shadow of vehicle '" + collider->getID() + "'; collision with '"
+                + victim->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
+                + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
+        collider->getLaneChangeModel().endLaneChangeManeuver();
     }
 }
 

@@ -786,6 +786,10 @@ protected:
                                     MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
 
+    /// @brief issue warning and add the vehicle to MSVehicleTransfer
+    void handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim, const SUMOReal gap); 
+
+
 protected:
     /// Unique numerical ID (set on reading by netload)
     size_t myNumericalID;
