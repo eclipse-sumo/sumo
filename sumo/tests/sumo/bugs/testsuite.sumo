@@ -95,8 +95,6 @@ ticket802
 ticket803
 ticket806
 ticket807
-# collision
-ticket813
 
 # vehicle's route length should not depend on their arrivalSpeed
 ticket814
@@ -154,3 +152,6 @@ ticket1114
 ticket1217
 ticket1223
 ticket1273
+
+# at revision 16874 this test showcases ticket #1400 (vehicles intersect physically but no collision warning is issued).
+ticket1107
