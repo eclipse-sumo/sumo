@@ -698,6 +698,14 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             ++veh;
         }
     }
+    MSVehicle* predV = getPartialOccupator();
+    if (predV != 0) {
+        SUMOReal gap = getPartialOccupatorEnd() - (*lastVeh)->getPositionOnLane() - (*lastVeh)->getVehicleType().getMinGap();
+        if (gap < -NUMERICAL_EPS) {
+            handleCollision(timestep, stage, *lastVeh, predV, gap);
+            myVehicles.erase(lastVeh);
+        }
+    }
 }
 
 
