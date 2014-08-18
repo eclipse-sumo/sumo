@@ -273,10 +273,31 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
     // try to insert teleporting vehicles fully on this lane
     const SUMOReal minPos = (notification == MSMoveReminder::NOTIFICATION_TELEPORT ? 
             MIN2(myLength, veh.getVehicleType().getLength()) : 0);
+
     if (myVehicles.size() == 0) {
-        if (isInsertionSuccess(&veh, mspeed, minPos, adaptableSpeed, notification)) {
-            return true;
+        // ensure sufficient gap to followers on predecessor lanes
+        // to compute an uper bound on the look-back distance we need
+        // the chosenSpeedFactor, minGap and maxDeceleration of approaching vehicles
+        // since we do not know these we use the values from the vehicle to be inserted
+        // and add a safety factor
+        const SUMOReal dist = 2 * (veh.getCarFollowModel().brakeGap(myMaxSpeed) + veh.getVehicleType().getMinGap());
+        const SUMOReal backOffset = minPos - veh.getVehicleType().getLength();
+        const SUMOReal missingRearGap = getMissingRearGap(dist, backOffset, mspeed, veh.getCarFollowModel().getMaxDecel());
+        if (missingRearGap > 0) {
+            if (minPos + missingRearGap <= myLength) {
+                // @note. The rear gap is tailored to mspeed. If it changes due
+                // to a leader vehicle (on subsequent lanes) insertion will
+                // still fail. Under the right combination of acceleration and
+                // deceleration values there might be another insertion
+                // positions that would be successful be we do not look for it.
+                return isInsertionSuccess(&veh, mspeed, minPos + missingRearGap, adaptableSpeed, notification);
+            } else {
+                return false;
+            }
+        } else {
+            return isInsertionSuccess(&veh, mspeed, minPos, adaptableSpeed, notification);
         }
+
     } else {
         // check whether the vehicle can be put behind the last one if there is such
         MSVehicle* leader = myVehicles.back();
@@ -591,13 +612,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         const SUMOReal missingRearGap = getMissingRearGap(dist, backOffset, speed, aVehicle->getCarFollowModel().getMaxDecel());
         if (missingRearGap > 0) {
             // too close to a follower
-            const SUMOReal neededStartPos = pos + missingRearGap;
-            if (myVehicles.size() == 0 && notification == MSMoveReminder::NOTIFICATION_TELEPORT && neededStartPos <= myLength) {
-                // shift starting positiong as needed entering from teleport
-                pos = neededStartPos;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
     // may got negative while adaptation

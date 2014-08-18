@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 18 15:08:12 2014 by SUMO Version dev-SVN-r16872I
+<!-- generated on Mon Aug 18 16:02:16 2014 by SUMO Version dev-SVN-r16872I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -23,6 +23,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
-    <tripinfo id="insert_step_0" depart="0.00" departLane="end2_0" departPos="188.18" departSpeed="36.00" departDelay="0.00" arrival="81.00" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="79.00" routeLength="2810.32" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_insert_step_0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="insert_step_0" depart="0.00" departLane="end2_0" departPos="13.48" departSpeed="36.00" departDelay="0.00" arrival="83.00" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="83.00" routeLength="2985.02" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_insert_step_0" vType="DEFAULT_VEHTYPE" vaporized=""/>
     <tripinfo id="fast_follower" depart="0.00" departLane="end_0" departPos="147.00" departSpeed="36.00" departDelay="0.00" arrival="85.00" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="85.00" routeLength="3048.50" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_fast_follower" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
