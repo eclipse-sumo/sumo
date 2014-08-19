@@ -1117,8 +1117,7 @@ SUMOReal MSLane::getMissingRearGap(
             if (next->getFirstVehicle() != 0) {
                 MSVehicle* v = (MSVehicle*) next->getFirstVehicle();
                 const SUMOReal agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
-                const SUMOReal missingRearGap = v->getCarFollowModel().getSecureGap(
-                                                    v->getCarFollowModel().maxNextSpeed(v->getSpeed(), v), leaderSpeed, leaderMaxDecel) - agap;
+                const SUMOReal missingRearGap = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - agap;
                 result = MAX2(result, missingRearGap);
             } else {
                 if ((*i).length < dist) {
