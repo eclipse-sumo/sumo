@@ -54,7 +54,7 @@ public:
      * @param[in] file The file that will be processed
      */
     TrajectoriesHandler(const bool computeA, const SUMOEmissionClass defaultClass,
-                        const SUMOReal defaultSlope, OutputDevice* xmlOut);
+                        const SUMOReal defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut);
 
 
     /// @brief Destructor
@@ -99,6 +99,7 @@ private:
     const bool myComputeA;
     const SUMOEmissionClass myDefaultClass;
     const SUMOReal myDefaultSlope;
+    std::ostream* myStdOut;
     OutputDevice* myXMLOut;
     std::map<std::string, SUMOReal> myLastV;
     SUMOTime myCurrentTime;
