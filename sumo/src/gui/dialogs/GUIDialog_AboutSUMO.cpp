@@ -35,6 +35,7 @@
 
 #include "GUIDialog_AboutSUMO.h"
 #include <utils/foxtools/FXLinkLabel.h>
+#include <utils/common/StdDefs.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -108,7 +109,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name, in
     // "SUMO <VERSION>"
     FXVerticalFrame* f4 = new FXVerticalFrame(f2, FRAME_NONE, 0, 0, 0, 0,   20, 0, 0, 0);
     myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
-    FXLabel* l = new FXLabel(f4, (FXString)"SUMO " + VERSION_STRING, 0, LAYOUT_CENTER_Y | LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0);
+    FXLabel* l = new FXLabel(f4, ("SUMO " + getBuildName(VERSION_STRING)).c_str(), 0, LAYOUT_CENTER_Y | LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0);
     l->setFont(myHeadlineFont);
     new FXLabel(f4, "Simulation of Urban MObility", 0, LAYOUT_CENTER_Y | LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0);
     //
