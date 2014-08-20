@@ -534,10 +534,8 @@ public:
     bool isLinkEnd(MSLinkCont::iterator& i);
 
     /// returns the last vehicle
-    virtual MSVehicle* getLastVehicle() const;
-    virtual const MSVehicle* getFirstVehicle() const;
-
-
+    MSVehicle* getLastVehicle() const;
+    MSVehicle* getFirstVehicle() const;
 
 
     /* @brief remove the vehicle from this lane

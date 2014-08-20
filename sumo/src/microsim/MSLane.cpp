@@ -965,7 +965,7 @@ MSLane::getLastVehicle() const {
 }
 
 
-const MSVehicle*
+MSVehicle*
 MSLane::getFirstVehicle() const {
     if (myVehicles.size() == 0) {
         return 0;
@@ -1130,9 +1130,25 @@ MSLane::getFollowerOnConsecutive(
     while (toExamine.size() != 0) {
         for (std::vector<MSLane::IncomingLaneInfo>::iterator i = toExamine.begin(); i != toExamine.end(); ++i) {
             MSLane* next = (*i).lane;
-            if (next->getFirstVehicle() != 0) {
-                MSVehicle* v = (MSVehicle*) next->getFirstVehicle();
-                const SUMOReal agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
+            MSVehicle* v = 0;
+            SUMOReal agap = 0;
+            if (next->getPartialOccupator() != 0) {
+                // the front of v is already on divergent trajectory from the ego vehicle 
+                // for which this method is called (in the context of MSLaneChanger).
+                // Therefore, technically v is not a follower but only an obstruction and 
+                // the gap is not between the front of v and the back of ego
+                // but rather between the flank of v and the back of ego.
+                agap = (*i).length - next->getLength() + backOffset - next->getPartialOccupator()->getVehicleType().getMinGap();
+                if (agap < 0) {
+                    // Only if ego overlaps we treat v as if it were a real follower
+                    v = next->getPartialOccupator();
+                }
+            } 
+            if (v == 0 && next->getFirstVehicle() != 0) {
+                v = next->getFirstVehicle();
+                agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
+            }
+            if (v != 0) { 
                 const SUMOReal missingRearGap = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - agap;
                 if (missingRearGap > missingRearGapMax) {
                     missingRearGapMax = missingRearGap;
