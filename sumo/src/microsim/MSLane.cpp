@@ -280,7 +280,7 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
         // the chosenSpeedFactor, minGap and maxDeceleration of approaching vehicles
         // since we do not know these we use the values from the vehicle to be inserted
         // and add a safety factor
-        const SUMOReal dist = 2 * (veh.getCarFollowModel().brakeGap(myMaxSpeed) + veh.getVehicleType().getMinGap());
+        const SUMOReal dist = 2 * (veh.getCarFollowModel().brakeGap(myMaxSpeed) + veh.getVehicleType().getMinGap()) + veh.getVehicleType().getLength();
         const SUMOReal backOffset = minPos - veh.getVehicleType().getLength();
         const SUMOReal missingRearGap = getMissingRearGap(dist, backOffset, mspeed, veh.getCarFollowModel().getMaxDecel());
         if (missingRearGap > 0) {
@@ -614,7 +614,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         // the chosenSpeedFactor, minGap and maxDeceleration of approaching vehicles
         // since we do not know these we use the values from the vehicle to be inserted
         // and add a safety factor
-        const SUMOReal dist = 2 * (aVehicle->getCarFollowModel().brakeGap(myMaxSpeed) + aVehicle->getVehicleType().getMinGap());
+        const SUMOReal dist = 2 * (aVehicle->getCarFollowModel().brakeGap(myMaxSpeed) + aVehicle->getVehicleType().getMinGap()) + aVehicle->getVehicleType().getLength();
         const SUMOReal backOffset = pos - aVehicle->getVehicleType().getLength();
         const SUMOReal missingRearGap = getMissingRearGap(dist, backOffset, speed, aVehicle->getCarFollowModel().getMaxDecel());
         if (missingRearGap > 0) {
