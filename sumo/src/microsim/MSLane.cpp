@@ -576,11 +576,18 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     }
 
     // get the pointer to the vehicle next in front of the given position
+    MSVehicle* leader = 0;
+    SUMOReal gap = 0;
     MSLane::VehCont::iterator predIt = find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos));
     if (predIt != myVehicles.end()) {
-        // ok, there is one (a leader)
-        MSVehicle* leader = *predIt;
-        SUMOReal gap = MSVehicle::gap(leader->getPositionOnLane(), leader->getVehicleType().getLength(), pos + aVehicle->getVehicleType().getMinGap());
+        leader = *predIt;
+        gap = MSVehicle::gap(leader->getPositionOnLane(), leader->getVehicleType().getLength(), pos + aVehicle->getVehicleType().getMinGap());
+    }
+    if (leader == 0 && getPartialOccupator() != 0) {
+        leader = getPartialOccupator();
+        gap = getPartialOccupatorEnd() - pos - aVehicle->getVehicleType().getMinGap();
+    }
+    if (leader != 0) {
         if (gap < 0) {
             return false;
         }
