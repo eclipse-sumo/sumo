@@ -1108,35 +1108,10 @@ SUMOReal MSLane::getMissingRearGap(
     // this follows the same logic as getFollowerOnConsecutive. we do a tree
     // search until dist and check for the vehicle with the largest missing rear gap
     SUMOReal result = 0;
-    std::set<MSLane*> visited;
-    std::vector<MSLane::IncomingLaneInfo> newFound;
-    std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
-    while (toExamine.size() != 0) {
-        for (std::vector<MSLane::IncomingLaneInfo>::iterator i = toExamine.begin(); i != toExamine.end(); ++i) {
-            MSLane* next = (*i).lane;
-            if (next->getFirstVehicle() != 0) {
-                MSVehicle* v = (MSVehicle*) next->getFirstVehicle();
-                const SUMOReal agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
-                const SUMOReal missingRearGap = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - agap;
-                result = MAX2(result, missingRearGap);
-            } else {
-                if ((*i).length < dist) {
-                    const std::vector<MSLane::IncomingLaneInfo>& followers = next->getIncomingLanes();
-                    for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = followers.begin(); j != followers.end(); ++j) {
-                        if (visited.find((*j).lane) == visited.end()) {
-                            visited.insert((*j).lane);
-                            MSLane::IncomingLaneInfo ili;
-                            ili.lane = (*j).lane;
-                            ili.length = (*j).length + (*i).length;
-                            ili.viaLink = (*j).viaLink;
-                            newFound.push_back(ili);
-                        }
-                    }
-                }
-            }
-        }
-        toExamine.clear();
-        swap(newFound, toExamine);
+    std::pair<MSVehicle* const, SUMOReal> followerInfo = getFollowerOnConsecutive(dist, leaderSpeed, backOffset, leaderMaxDecel);
+    MSVehicle* v = followerInfo.first;
+    if (v != 0) {
+        result = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - followerInfo.second;
     }
     return result;
 }
