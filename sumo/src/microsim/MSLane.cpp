@@ -515,15 +515,15 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         // check how next lane effects the journey
         if (nextLane != 0) {
             arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
+            // check leader on next lane
             SUMOReal gap = 0;
-            MSVehicle* leader = currentLane->getPartialOccupator();
+            MSVehicle* leader = nextLane->getLastVehicle();
             if (leader != 0) {
-                gap = seen + currentLane->getPartialOccupatorEnd() - currentLane->getLength() - aVehicle->getVehicleType().getMinGap();
+                gap = seen + leader->getPositionOnLane() - leader->getVehicleType().getLength() -  aVehicle->getVehicleType().getMinGap();
             } else {
-                // check leader on next lane
-                leader = nextLane->getLastVehicle();
+                leader = nextLane->getPartialOccupator();
                 if (leader != 0) {
-                    gap = seen + leader->getPositionOnLane() - leader->getVehicleType().getLength() -  aVehicle->getVehicleType().getMinGap();
+                    gap = seen + nextLane->getPartialOccupatorEnd() - aVehicle->getVehicleType().getMinGap();
                 }
             }
             if (leader != 0) {
