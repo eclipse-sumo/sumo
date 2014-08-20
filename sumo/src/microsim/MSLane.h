@@ -589,8 +589,9 @@ public:
 
 
 
-    std::pair<MSVehicle* const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist,
-            SUMOReal leaderSpeed, SUMOReal backOffset, SUMOReal predMaxDecel) const;
+    /// @brief return the follower with the largest missing rear gap among all predecessor lanes (within dist)
+    std::pair<MSVehicle* const, SUMOReal> getFollowerOnConsecutive(
+            SUMOReal dist, SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const;
 
 
     /// @brief return by how much further the leader must be inserted to avoid rear end collisions

@@ -383,10 +383,13 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
         SUMOReal dist = speed * speed / (2.*4.) + SPEED2DIST(speed);
         dist = MIN2(dist, (SUMOReal) 500.);
         MSVehicle* candi = veh(myCandi);
-        return target->lane->getFollowerOnConsecutive(dist, candi->getSpeed(), candi->getPositionOnLane() - candi->getVehicleType().getLength(), candi->getCarFollowModel().getMaxDecel());
+        return target->lane->getFollowerOnConsecutive(
+                dist, candi->getPositionOnLane() - candi->getVehicleType().getLength(), 
+                candi->getSpeed(), candi->getCarFollowModel().getMaxDecel());
     } else {
         MSVehicle* candi = veh(myCandi);
-        return std::pair<MSVehicle* const, SUMOReal>(neighFollow, candi->getPositionOnLane() - candi->getVehicleType().getLength() - neighFollow->getPositionOnLane() - neighFollow->getVehicleType().getMinGap());
+        return std::pair<MSVehicle* const, SUMOReal>(neighFollow, 
+                candi->getPositionOnLane() - candi->getVehicleType().getLength() - neighFollow->getPositionOnLane() - neighFollow->getVehicleType().getMinGap());
     }
 }
 

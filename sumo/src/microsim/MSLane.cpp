@@ -1108,7 +1108,7 @@ SUMOReal MSLane::getMissingRearGap(
     // this follows the same logic as getFollowerOnConsecutive. we do a tree
     // search until dist and check for the vehicle with the largest missing rear gap
     SUMOReal result = 0;
-    std::pair<MSVehicle* const, SUMOReal> followerInfo = getFollowerOnConsecutive(dist, leaderSpeed, backOffset, leaderMaxDecel);
+    std::pair<MSVehicle* const, SUMOReal> followerInfo = getFollowerOnConsecutive(dist, backOffset, leaderSpeed, leaderMaxDecel);
     MSVehicle* v = followerInfo.first;
     if (v != 0) {
         result = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - followerInfo.second;
@@ -1118,8 +1118,8 @@ SUMOReal MSLane::getMissingRearGap(
 
 
 std::pair<MSVehicle* const, SUMOReal>
-MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal leaderSpeed,
-                                 SUMOReal backOffset, SUMOReal leaderMaxDecel) const {
+MSLane::getFollowerOnConsecutive(
+        SUMOReal dist, SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const {
     // do a tree search among all follower lanes and check for the most
     // important vehicle (the one requiring the largest reargap)
     std::pair<MSVehicle*, SUMOReal> result(static_cast<MSVehicle*>(0), -1);
