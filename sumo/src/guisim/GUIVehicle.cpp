@@ -1406,7 +1406,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
         while (carriageOffset < 0) {
             MSLane* prev = getPreviousLane(lane, furtherIndex);
             if (prev != lane) {
-                carriageOffset += lane->getLength();
+                carriageOffset += prev->getLength();
             } else {
                 // no lane available for drawing.
                 carriageOffset = 0;
@@ -1414,11 +1414,21 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
             lane = prev;
         }
         while (carriageBackOffset < 0) {
-            backLane = getPreviousLane(backLane, backFurtherIndex);
-            carriageBackOffset += backLane->getLength();
+            MSLane* prev = getPreviousLane(backLane, backFurtherIndex);
+            if (prev != backLane) {
+                carriageBackOffset += prev->getLength();
+            } else {
+                // no lane available for drawing.
+                carriageBackOffset = 0;
+            }
+            backLane = prev;
         }
         front = lane->getShape().positionAtOffset2D(carriageOffset);
         back = backLane->getShape().positionAtOffset2D(carriageBackOffset);
+        if (front == back) {
+            // no place for drawing available
+            continue;
+        }
         angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
         if (i >= firstPassengerCarriage) {
             computeSeats(front, back, requiredSeats);
