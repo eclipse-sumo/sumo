@@ -11,5 +11,11 @@ def_two_three_minus_right
 # measure the split positions from the end of the edge
 two_plus_left_plus_left_negative_offset
 
+# three lanes, changing the speed and changing it back
+speed
+
+# beginning with one lane, then three lanes, then back to one
+one_to_three_and_back
+
 # add splits where the number of lanes does not change (i.e. for modelling speed bumps)
 two_two_two
