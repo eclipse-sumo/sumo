@@ -299,11 +299,12 @@ MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass 
     }
     MSLane* res = 0;
     if (allowed != 0) {
-        unsigned int noCars = INT_MAX;
+        SUMOReal leastOccupancy = std::numeric_limits<SUMOReal>::max();;
         for (std::vector<MSLane*>::const_iterator i = allowed->begin(); i != allowed->end(); ++i) {
-            if ((*i)->getVehicleNumber() < noCars) {
+            const SUMOReal occupancy = (*i)->getBruttoOccupancy();
+            if (occupancy < leastOccupancy) {
                 res = (*i);
-                noCars = (*i)->getVehicleNumber();
+                leastOccupancy = occupancy;
             }
         }
     }

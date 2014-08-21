@@ -7,6 +7,9 @@ lane_free
 # checks using a free lane (3 vehicles)
 lane_free_3veh
 
+# candidate lanes are occupied by vehicles of different lengths, the lane with the least occupancy should be taken
+lane_free_occupancy
+
 # checks using the best lane (3 vehicles)
 lane_best_3veh
 

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 28 Jun 2012 07:36:38 AM CEST by Netedit Version dev-SVN-r12440
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/erdm_ja/delphi-extern/sumo/tests/sumo/model/jam_resolution/bottleneck/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/erdm_ja/delphi-extern/sumo/tests/sumo/model/jam_resolution/bottleneck/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
+
+    <location netOffset="0.00,500.00" convBoundary="0.00,0.00,1200.00,0.00" origBoundary="0.00,-500.00,2500.00,500.00" projParameter="!"/>
+
+    <edge id=":gneJ1_0" function="internal">
+        <lane id=":gneJ1_0_0" index="0" speed="36.11" length="0.10" shape="100.00,-1.65 100.00,-1.65"/>
+    </edge>
+    <edge id=":gneJ1_1" function="internal">
+        <lane id=":gneJ1_1_0" index="0" speed="36.11" length="0.10" shape="100.00,1.65 100.00,1.65"/>
+    </edge>
+    <edge id=":gneJ6_0" function="internal">
+        <lane id=":gneJ6_0_0" index="0" speed="36.11" length="0.10" shape="200.00,-1.65 200.00,-1.65"/>
+    </edge>
+    <edge id=":gneJ6_1" function="internal">
+        <lane id=":gneJ6_1_0" index="0" speed="36.11" length="0.10" shape="200.00,1.65 200.00,1.65"/>
+    </edge>
+    <edge id=":gneJ7_0" function="internal">
+        <lane id=":gneJ7_0_0" index="0" speed="36.11" length="3.42" shape="298.50,-1.65 301.50,0.00"/>
+    </edge>
+    <edge id=":gneJ8_0" function="internal">
+        <lane id=":gneJ8_0_0" index="0" speed="36.11" length="0.10" shape="400.00,0.00 400.00,0.00"/>
+    </edge>
+
+    <edge id="bottleneck" from="gneJ7" to="gneJ8" priority="1" spreadType="center">
+        <lane id="bottleneck_0" index="0" speed="36.11" length="98.50" shape="301.50,0.00 400.00,0.00"/>
+    </edge>
+    <edge id="end" from="gneJ8" to="gneJ9" priority="1" spreadType="center">
+        <lane id="end_0" index="0" speed="36.11" length="100.00" shape="400.00,0.00 500.00,0.00"/>
+    </edge>
+    <edge id="jam" from="gneJ6" to="gneJ7" priority="1" spreadType="center">
+        <lane id="jam_0" index="0" speed="36.11" length="98.50" shape="200.00,-1.65 298.50,-1.65"/>
+        <lane id="jam_1" index="1" speed="36.11" length="98.50" shape="200.00,1.65 298.50,1.65"/>
+    </edge>
+    <edge id="middle" from="gneJ1" to="gneJ6" priority="1" spreadType="center">
+        <lane id="middle_0" index="0" speed="36.11" length="100.00" shape="100.00,-1.65 200.00,-1.65"/>
+        <lane id="middle_1" index="1" speed="36.11" length="100.00" shape="100.00,1.65 200.00,1.65"/>
+    </edge>
+    <edge id="start" from="gneJ0" to="gneJ1" priority="1" spreadType="center">
+        <lane id="start_0" index="0" speed="36.11" length="100.00" shape="0.00,-1.65 100.00,-1.65"/>
+        <lane id="start_1" index="1" speed="36.11" length="100.00" shape="0.00,1.65 100.00,1.65"/>
+    </edge>
+
+    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,3.25 -0.00,-3.25">
+    </junction>
+    <junction id="gneJ1" type="unregulated" x="100.00" y="0.00" incLanes="start_0 start_1" intLanes=":gneJ1_0_0 :gneJ1_1_0" shape="100.00,3.25 100.00,-3.25 100.00,3.25">
+    </junction>
+    <junction id="gneJ6" type="priority" x="200.00" y="0.00" incLanes="middle_0 middle_1" intLanes=":gneJ6_0_0 :gneJ6_1_0" shape="200.00,3.25 200.00,-3.25 200.00,3.25">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="gneJ7" type="priority" x="300.00" y="0.00" incLanes="jam_0 jam_1" intLanes=":gneJ7_0_0" shape="301.50,1.60 301.50,-1.60 298.50,-3.25 298.50,3.25">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ8" type="priority" x="400.00" y="0.00" incLanes="bottleneck_0" intLanes=":gneJ8_0_0" shape="400.00,1.60 400.00,-1.60 400.00,1.60">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ9" type="unregulated" x="500.00" y="0.00" incLanes="end_0" intLanes="" shape="500.00,-1.60 500.00,1.60">
+    </junction>
+
+    <connection from="bottleneck" to="end" fromLane="0" toLane="0" via=":gneJ8_0_0" dir="s" state="M"/>
+    <connection from="jam" to="bottleneck" fromLane="0" toLane="0" via=":gneJ7_0_0" dir="s" state="M"/>
+    <connection from="middle" to="jam" fromLane="0" toLane="0" via=":gneJ6_0_0" dir="s" state="M"/>
+    <connection from="middle" to="jam" fromLane="1" toLane="1" via=":gneJ6_1_0" dir="s" state="M"/>
+    <connection from="start" to="middle" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="s" state="M"/>
+    <connection from="start" to="middle" fromLane="1" toLane="1" via=":gneJ1_1_0" dir="s" state="M"/>
+
+    <connection from=":gneJ1_0" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ1_1" to="middle" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ6_0" to="jam" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ6_1" to="jam" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ7_0" to="bottleneck" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ8_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
