@@ -398,7 +398,8 @@ bool
 NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                     const std::string& firstEdgeName,
                     const std::string& secondEdgeName,
-                    unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) {
+                    unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge,
+                    const SUMOReal speed) {
     SUMOReal pos;
     pos = edge->getGeometry().nearest_offset_to_point2D(node->getPosition());
     if (pos <= 0) {
@@ -410,7 +411,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
         return false;
     }
     return splitAt(dc, edge, pos, node, firstEdgeName, secondEdgeName,
-                   noLanesFirstEdge, noLanesSecondEdge);
+                   noLanesFirstEdge, noLanesSecondEdge, speed);
 }
 
 
@@ -419,7 +420,8 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
                     NBEdge* edge, SUMOReal pos, NBNode* node,
                     const std::string& firstEdgeName,
                     const std::string& secondEdgeName,
-                    unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) {
+                    unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge,
+                    const SUMOReal speed) {
     // build the new edges' geometries
     std::pair<PositionVector, PositionVector> geoms =
         edge->getGeometry().splitAt(pos);
@@ -436,6 +438,9 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     NBEdge* one = new NBEdge(firstEdgeName, edge->myFrom, node, edge, geoms.first, noLanesFirstEdge);
     NBEdge* two = new NBEdge(secondEdgeName, node, edge->myTo, edge, geoms.second, noLanesSecondEdge);
     two->copyConnectionsFrom(edge);
+    if (speed != -1.) {
+        two->setSpeed(-1, speed);
+    }
     // replace information about this edge within the nodes
     edge->myFrom->replaceOutgoing(edge, one, 0);
     edge->myTo->replaceIncoming(edge, two, 0);

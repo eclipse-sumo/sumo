@@ -243,7 +243,7 @@ public:
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge, const SUMOReal speed=-1.);
 
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications
@@ -260,7 +260,7 @@ public:
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, SUMOReal edgepos, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge, const SUMOReal speed=-1.);
     /// @}
 
 

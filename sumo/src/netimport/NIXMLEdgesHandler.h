@@ -219,13 +219,15 @@ private:
     NBEdge* myCurrentEdge;
 
     /** @struct Split
-     * @brief A structure which describes changes of lane number along the road
+     * @brief A structure which describes changes of lane number or speed along the road
      */
     struct Split {
-        /// @brief The lanes until this change
+        /// @brief The lanes after this change
         std::vector<int> lanes;
         /// @brief The position of this change
         SUMOReal pos;
+        /// @brief The speed after this change
+        SUMOReal speed;
         /// @brief A numerical id
         int nameid;
         /// @brief A 2D-position (for the node to insert at this place)
