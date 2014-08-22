@@ -718,7 +718,9 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     // try to get the phase duration
     SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok);
     if (duration == 0) {
-        WRITE_ERROR("Duration of tls-logic '" + myJunctionControlBuilder.getActiveKey() + "/" + myJunctionControlBuilder.getActiveSubKey() + "' is zero.");
+        WRITE_ERROR("Duration of phase " + toString(myJunctionControlBuilder.getNumberOfLoadedPhases())
+                + " for tlLogic '" + myJunctionControlBuilder.getActiveKey() 
+                + "' program '" + myJunctionControlBuilder.getActiveSubKey() + "' is zero.");
         return;
     }
     // if the traffic light is an actuated traffic light, try to get
