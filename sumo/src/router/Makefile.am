@@ -1,7 +1,6 @@
 noinst_LIBRARIES = librouter.a
 
-librouter_a_SOURCES = ReferencedItem.h \
-ROAbstractEdgeBuilder.h \
+librouter_a_SOURCES = ROAbstractEdgeBuilder.h \
 ROCostCalculator.cpp ROCostCalculator.h \
 ROEdge.cpp ROEdge.h \
 ROFrame.cpp ROFrame.h ROHelper.cpp ROHelper.h ROLane.h \

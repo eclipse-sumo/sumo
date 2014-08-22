@@ -44,7 +44,6 @@
 #include "ROEdge.h"
 #include "RORoute.h"
 #include <utils/common/SUMOAbstractRouter.h>
-#include "ReferencedItem.h"
 #include "RORouteDef.h"
 #include "ROVehicle.h"
 #include "ROCostCalculator.h"
@@ -63,7 +62,7 @@ bool RORouteDef::myUsingJTRR(false);
 // ===========================================================================
 RORouteDef::RORouteDef(const std::string& id, const unsigned int lastUsed,
                        const bool tryRepair) :
-    ReferencedItem(), Named(StringUtils::convertUmlaute(id)),
+    Named(StringUtils::convertUmlaute(id)),
     myPrecomputed(0), myLastUsed(lastUsed), myTryRepair(tryRepair)
 {}
 

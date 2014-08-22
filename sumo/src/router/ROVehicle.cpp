@@ -135,12 +135,10 @@ ROVehicle::saveAllAsXML(OutputDevice& os, OutputDevice* const altos,
         myParameter.write(*altos, OptionsCont::getOptions());
     }
 
-    // check whether the route shall be saved
-    if (!myRoute->isSaved()) {
-        myRoute->writeXMLDefinition(os, this, false, withExitTimes);
-        if (altos != 0) {
-            myRoute->writeXMLDefinition(*altos, this, true, withExitTimes);
-        }
+    // save the route
+    myRoute->writeXMLDefinition(os, this, false, withExitTimes);
+    if (altos != 0) {
+        myRoute->writeXMLDefinition(*altos, this, true, withExitTimes);
     }
     myParameter.writeStops(os);
     if (altos != 0) {

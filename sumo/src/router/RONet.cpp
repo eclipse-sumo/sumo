@@ -262,11 +262,6 @@ RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>&
         myErrorHandler->inform(noRouteMsg);
         return false;
     }
-    // check whether the route was already saved
-    if (routeDef->isSaved()) {
-        return true;
-    }
-    //
     RORoute* current = routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
     if (current == 0 || current->size() == 0) {
         delete current;

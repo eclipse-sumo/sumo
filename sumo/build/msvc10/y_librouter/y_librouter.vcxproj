@@ -245,7 +245,6 @@
     <ClCompile Include="..\..\..\src\router\ROVehicleCont.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\router\ReferencedItem.h" />
     <ClInclude Include="..\..\..\src\router\ROAbstractEdgeBuilder.h" />
     <ClInclude Include="..\..\..\src\router\ROCostCalculator.h" />
     <ClInclude Include="..\..\..\src\router\ROEdge.h" />
