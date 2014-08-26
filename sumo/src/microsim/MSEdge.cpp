@@ -71,13 +71,15 @@ std::vector<MSEdge*> MSEdge::myEdges;
 MSEdge::MSEdge(const std::string& id, int numericalID,
                const EdgeBasicFunction function,
                const std::string& streetName,
-               const std::string& edgeType) :
+               const std::string& edgeType,
+               int priority) :
     Named(id), myNumericalID(numericalID), myLanes(0),
     myLaneChanger(0), myFunction(function), myVaporizationRequests(0),
     myLastFailedInsertionTime(-1),
     myFromJunction(0), myToJunction(0),
     myStreetName(streetName),
     myEdgeType(edgeType),
+    myPriority(priority),
     myAmRoundabout(false) {}
 
 

@@ -163,6 +163,11 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::RED, (SUMOReal)100);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by priority", RGBColor::YELLOW);
+    scheme.addColor(RGBColor::RED, (SUMOReal)-20);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)20);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
 
 
     /// add vehicle coloring schemes
