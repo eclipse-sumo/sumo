@@ -322,7 +322,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     // get the edge type (only for visualization)
     const std::string edgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     // get the edge priority (only for visualization)
-    const int priority = attrs.get<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1); // default taken from netbuild/NBFrame option 'default.priority'
+    const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1); // default taken from netbuild/NBFrame option 'default.priority'
     if (!ok) {
         myCurrentIsBroken = true;
         return;
