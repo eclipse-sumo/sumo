@@ -214,6 +214,8 @@ private:
      */
     void loadDecals(const std::string& file);
 
+    /// @brief save window position and size to the registry
+    void saveWindowSize();
 
 private:
     /// @brief The parent view (which settings are changed)
