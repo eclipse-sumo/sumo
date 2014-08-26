@@ -101,7 +101,6 @@ class PropertyReader(xml.sax.handler.ContentHandler):
 
 sumoRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 svnRoots = [sumoRoot]
-print svnRoots
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
@@ -113,7 +112,6 @@ optParser.add_option("-r", "--recheck",
 seen = set()
 if len(args) > 0:
     svnRoots = [os.path.abspath(a) for a in args]
-    print svnRoots
 else:
     upDir = os.path.dirname(sumoRoot)
     for l in subprocess.Popen(["svn", "pg", "svn:externals", upDir], stdout=subprocess.PIPE, stderr=open(os.devnull, 'w')).communicate()[0].splitlines():
