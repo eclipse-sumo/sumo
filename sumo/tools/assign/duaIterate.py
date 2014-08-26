@@ -22,7 +22,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import print_function
-import os, sys, subprocess, types, shutil
+import os, sys, subprocess, types, shutil, glob
 from datetime import datetime
 from optparse import OptionParser
 from costMemory import CostMemory
@@ -75,6 +75,8 @@ def addGenericOptions(optParser):
     optParser.add_option("--cost-modifier", dest="costmodifier", type="choice",
                          choices=('grohnde', 'isar', 'None'), 
                          default='None', help="Whether to modify link travel costs of the given routes")
+    optParser.add_option("-7", "--zip", action="store_true",
+                         default=False, help="zip old iterations using 7zip")
 
 def initOptions():
     optParser = OptionParser()
@@ -145,7 +147,7 @@ def initOptions():
     optParser.add_option("-N", "--calculate-oldprob", action="store_true", dest="caloldprob",
                          default=False, help="calculate the old route probabilities with the free-flow travel times when using the external gawron calculation")   
     optParser.add_option("--weight-memory", action="store_true", default=False, dest="weightmemory",
-                         help="smoothe edge weights across iterations")    
+                         help="smooth edge weights across iterations")    
     optParser.add_option("--pessimism", default=1, type="float", help="give traffic jams a higher weight")
     optParser.add_option("--clean-alt", action="store_true", dest="clean_alt",
                          default=False, help="Whether old rou.alt.xml files shall be removed")
@@ -259,6 +261,7 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     comma = (',' if options.additional != "" else '')
     sumoCmd = [sumoBinary,
         '--save-configuration', "iteration_%03i.sumocfg" % step,
+        '--log', "iteration_%03i.sumo.log" % step,
         '--net-file', options.net,
         '--route-files', route_files,
         '--additional-files', "%s%s%s" % (detectorfile, comma, options.additional),
@@ -425,7 +428,15 @@ def main(args=None):
 
     sumo_args = assign_remaining_args(sumoBinary, 'sumo', remaining_args)
     
-    log = open("dua-log.txt", "w+")
+    sys.stdout = sumolib.TeeFile(sys.stdout, open("stdout.log", "w+"))
+    log = open("dua.log", "w+")
+    if options.zip:
+        try:
+            subprocess.call("7z", stdout=open(os.devnull, 'wb'))
+        except:
+            sys.exit("Error: Could not locate 7z, please make sure its on the search path.")
+        zipProcesses = {}
+        zipLog = open("7zip.log", "w+")
     starttime = datetime.now()
     if options.trips:
         input_demands = options.trips.split(",")
@@ -541,6 +552,20 @@ def main(args=None):
             currentDir = os.getcwd()
             costModifier(get_weightfilename(options, step, "dump"), step, "dump", options.aggregation, currentDir, options.costmodifier, 'dua-iterate')
 
+        if options.zip and step - options.firstStep > 1:
+            # this is a little hackish since we zip and remove all files by glob, which may have undesired side effects
+            # also note that the 7z file does not have an "_" before the iteration number in order to be not picked up by the remove
+            for s in zipProcesses.keys():
+                if zipProcesses[s].poll() is not None:
+                    for f in glob.glob("*_%03i*" % s):
+                        try:
+                            os.remove(f)
+                        except:
+                            print("Could not remove %s" % f, file=zipLog)
+                    del zipProcesses[s]
+            zipStep = step - 2
+            zipProcesses[zipStep] = subprocess.Popen("7z a iteration%03i.7z *_%03i*" % (zipStep, zipStep), shell=True, stdout=zipLog, stderr=zipLog)
+
         converged = False
         if options.convDev:
             sum = 0.
@@ -560,6 +585,15 @@ def main(args=None):
         log.flush()
         if converged:
             break
+    if options.zip:
+        for s in zipProcesses.keys():
+            zipProcesses[s].wait()
+            for f in glob.glob("*_%03i*" % s):
+                try:
+                    os.remove(f)
+                except:
+                    print("Could not remove %s" % f, file=zipLog)
+        zipLog.close()
     print("dua-iterate ended (duration: %s)" % (datetime.now() - starttime))
     
     log.close()

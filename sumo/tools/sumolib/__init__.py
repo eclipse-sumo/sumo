@@ -149,6 +149,21 @@ class _Running:
     del self._m[id]
 
 
+class TeeFile:
+    """A helper class which allows simultaneous writes to several files"""
+    def __init__(self, *files):
+        self.files = files
+    def write(self, txt):
+        """Writes the text to all files"""
+        for fp in self.files:
+            fp.write(txt)
+    def flush(self):
+        """flushes all file contents to disc"""
+        for fp in self.files:
+            fp.flush()
+            if fp != sys.__stdout__:
+                os.fsync(fp)
+
 
 def _intTime(tStr):
   """
