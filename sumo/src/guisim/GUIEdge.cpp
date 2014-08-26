@@ -237,7 +237,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                 SUMOReal segmentOffset = 0; // offset at start of current segment
                 for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                         segment != 0; segment = segment->getNextSegment()) {
-                    const SUMOReal length = segment->getLength();
+                    const SUMOReal length = segment->getLength() * segment->getLengthGeometryFactor();
                     if (laneIndex < segment->numQueues()) {
                         // make a copy so we don't have to worry about synchronization
                         queue = segment->getQueue(laneIndex);
