@@ -842,7 +842,61 @@ GUILane::getScaleValue(size_t activeScheme) const {
         case 0:
             return 0;
         case 1:
+            return gSelected.isSelected(getType(), getGlID()) ||
+                   gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(myEdge)->getGlID());
+        case 2:
+            return getSpeedLimit();
+        case 3:
+            return getBruttoOccupancy();
+        case 4:
+            return getNettoOccupancy();
+        case 5:
+            return firstWaitingTime();
+        case 6:
+            return getEdgeLaneNumber();
+        case 7:
+            return getCO2Emissions() / myLength;
+        case 8:
+            return getCOEmissions() / myLength;
+        case 9:
+            return getPMxEmissions() / myLength;
+        case 10:
+            return getNOxEmissions() / myLength;
+        case 11:
+            return getHCEmissions() / myLength;
+        case 12:
+            return getFuelConsumption() / myLength;
+        case 13:
+            return getHarmonoise_NoiseEmissions();
+        case 14: {
+            return getStoredEdgeTravelTime();
+        }
+        case 15: {
+            MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
+            if (!ews.knowsTravelTime(myEdge)) {
+                return -1;
+            } else {
+                SUMOReal value(0);
+                ews.retrieveExistingTravelTime(myEdge, 0, value);
+                return 100 * myLength / value / getSpeedLimit();
+            }
+        }
+        case 16: {
+            return 1 / myLengthGeometryFactor;
+        }
+        case 17: {
+            MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
+            if (!ews.knowsEffort(myEdge)) {
+                return -1;
+            } else {
+                SUMOReal value(0);
+                ews.retrieveExistingEffort(myEdge, 0, value);
+                return value;
+            }
+        }
+        case 18: {
             return myEdge->getPriority();
+        }
     }
     return 0;
 }
