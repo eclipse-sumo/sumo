@@ -25,7 +25,8 @@ from collections import defaultdict
 def parse_log(logfile, edges=True, aggregate=3600):
     print "Parsing %s" % logfile
     reFrom = re.compile("lane='([^']*)'")
-    reTime = re.compile("time=(\d*)\.")
+    reFromMeso = re.compile("from '([^']*)'")
+    reTime = re.compile("time.(\d*)\.")
     # counts per lane
     waitingCounts = defaultdict(lambda:0)
     collisionCounts = defaultdict(lambda:0)
@@ -35,7 +36,11 @@ def parse_log(logfile, edges=True, aggregate=3600):
     for line in open(logfile):
         try:
             if "Warning: Teleporting vehicle" in line:
-                edge = reFrom.search(line).group(1)
+                # figure out whether its micro or meso
+                match = reFrom.search(line)
+                if match is None:
+                    match = reFromMeso.search(line)
+                edge = match.group(1)
                 time = reTime.search(line).group(1)
                 if edges:
                     edge = edge[:-2]
