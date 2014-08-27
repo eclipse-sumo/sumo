@@ -173,6 +173,9 @@ private:
     /// @brief The current color scheme
     GUIColorScheme* myCurrentScheme;
 
+    /// @brief The current scaling scheme
+    GUIScaleScheme* myCurrentScaleScheme;
+
     /// @brief The parsed breakpoints
     std::vector<SUMOTime> myBreakpoints;
 

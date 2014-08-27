@@ -253,6 +253,9 @@ private:
     /// @brief gets the color value according to the current scheme index
     SUMOReal getColorValue(size_t activeScheme) const;
 
+    /// @brief gets the scaling value according to the current scheme index
+    SUMOReal getScaleValue(size_t activeScheme) const;
+
     /// @brief sets the color according to the current scheme index and some lane function
     bool setFunctionalColor(size_t activeScheme) const;
 

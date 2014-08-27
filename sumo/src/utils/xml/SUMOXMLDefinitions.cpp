@@ -145,6 +145,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "breakpoints-file", SUMO_TAG_BREAKPOINTS_FILE },
     { "location",         SUMO_TAG_LOCATION },
     { "colorScheme",      SUMO_TAG_COLORSCHEME },
+    { "scalingScheme",    SUMO_TAG_SCALINGSCHEME },
     { "entry",            SUMO_TAG_ENTRY },
 
     { "carFollowing-IDM",         SUMO_TAG_CF_IDM },

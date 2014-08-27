@@ -146,12 +146,16 @@ public:
 #ifdef HAVE_INTERNAL
     /// @brief The mesoscopic edge colorer
     GUIColorer edgeColorer;
+    /// @brief The mesoscopic edge scaler
+    GUIScaler edgeScaler;
 
     /// @brief this should be set at the same time as MSGlobals::gUseMesoSim
     static bool UseMesoSim;
 #endif
     /// @brief The lane colorer
     GUIColorer laneColorer;
+    /// @brief The lane scaler
+    GUIScaler laneScaler;
     /// @brief Information whether lane borders shall be drawn
     bool laneShowBorders;
     /// @brief Information whether link textures (arrows) shall be drawn
@@ -274,10 +278,20 @@ public:
      */
     size_t getLaneEdgeMode() const;
 
+    /** @brief Returns the number of the active lane (edge) scaling schme
+     * @return number of the active scheme
+     */
+    size_t getLaneEdgeScaleMode() const;
+
     /** @brief Returns the current lane (edge) coloring schme
      * @return current scheme
      */
     GUIColorScheme& getLaneEdgeScheme();
+
+    /** @brief Returns the current lane (edge) scaling schme
+     * @return current scheme
+     */
+    GUIScaleScheme& getLaneEdgeScaleScheme();
 
     /** @brief Assignment operator */
     bool operator==(const GUIVisualizationSettings& vs2);

@@ -129,6 +129,7 @@ GUISettingsHandler::myStartElement(int element,
         break;
         case SUMO_TAG_VIEWSETTINGS_EDGES: {
             int laneEdgeMode = TplConvert::_2int(attrs.getStringSecure("laneEdgeMode", "0").c_str());
+            int laneEdgeScaleMode = TplConvert::_2int(attrs.getStringSecure("scaleMode", "0").c_str());
             mySettings.laneShowBorders = TplConvert::_2bool(attrs.getStringSecure("laneShowBorders", toString(mySettings.laneShowBorders)).c_str());
             mySettings.showLinkDecals = TplConvert::_2bool(attrs.getStringSecure("showLinkDecals", toString(mySettings.showLinkDecals)).c_str());
             mySettings.showRails = TplConvert::_2bool(attrs.getStringSecure("showRails", toString(mySettings.showRails)).c_str());
@@ -140,12 +141,15 @@ GUISettingsHandler::myStartElement(int element,
             myCurrentColorer = element;
 #ifdef HAVE_INTERNAL
             mySettings.edgeColorer.setActive(laneEdgeMode);
+            mySettings.edgeScaler.setActive(laneEdgeScaleMode);
 #endif
             mySettings.laneColorer.setActive(laneEdgeMode);
+            mySettings.laneScaler.setActive(laneEdgeScaleMode);
         }
         break;
         case SUMO_TAG_COLORSCHEME:
             myCurrentScheme = 0;
+            myCurrentScaleScheme = 0;
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
                 myCurrentScheme = mySettings.laneColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
 #ifdef HAVE_INTERNAL
@@ -157,6 +161,9 @@ GUISettingsHandler::myStartElement(int element,
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_VEHICLES) {
                 myCurrentScheme = mySettings.vehicleColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
             }
+            if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_PERSONS) {
+                myCurrentScheme = mySettings.personColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+            }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_JUNCTIONS) {
                 myCurrentScheme = mySettings.junctionColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
             }
@@ -166,14 +173,40 @@ GUISettingsHandler::myStartElement(int element,
                 myCurrentScheme->clear();
             }
             break;
+        case SUMO_TAG_SCALINGSCHEME:
+            myCurrentScheme = 0;
+            myCurrentScaleScheme = 0;
+            if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
+                myCurrentScaleScheme = mySettings.laneScaler.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+#ifdef HAVE_INTERNAL
+                if (myCurrentScaleScheme == 0) {
+                    myCurrentScaleScheme = mySettings.edgeScaler.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                }
+#endif
+            }
+            if (myCurrentScaleScheme && !myCurrentScaleScheme->isFixed()) {
+                bool ok = true;
+                myCurrentScaleScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, 0, ok, false));
+                myCurrentScaleScheme->clear();
+            }
+            break;
+
         case SUMO_TAG_ENTRY:
-            if (myCurrentScheme) {
+            if (myCurrentScheme != 0) {
                 bool ok = true;
                 RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, 0, ok);
                 if (myCurrentScheme->isFixed()) {
                     myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), color);
                 } else {
                     myCurrentScheme->addColor(color, attrs.getOpt<SUMOReal>(SUMO_ATTR_THRESHOLD, 0, ok, 0));
+                }
+            } else if (myCurrentScaleScheme != 0) {
+                bool ok = true;
+                SUMOReal scale = attrs.get<SUMOReal>(SUMO_ATTR_COLOR, 0, ok);
+                if (myCurrentScaleScheme->isFixed()) {
+                    myCurrentScaleScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), scale);
+                } else {
+                    myCurrentScaleScheme->addColor(scale, attrs.getOpt<SUMOReal>(SUMO_ATTR_THRESHOLD, 0, ok, 0));
                 }
             }
             break;

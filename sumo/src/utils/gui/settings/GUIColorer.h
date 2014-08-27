@@ -43,21 +43,22 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GUIColorer
+ * @class GUIPropertySchemeStorage
  * @brief Base class for coloring. Allows changing the used colors and sets
  *  the used color in dependence to a value
  */
-class GUIColorer {
+template<class T>
+class GUIPropertySchemeStorage {
 public:
     /// @brief Constructor
-    GUIColorer() : myActiveScheme(0) { }
+    GUIPropertySchemeStorage() : myActiveScheme(0) { }
 
     /// @brief Destructor
-    virtual ~GUIColorer() { }
+    virtual ~GUIPropertySchemeStorage() { }
 
     /// @brief Fills the given combobox with the names of available colorings
     void fill(FXComboBox& cb) {
-        for (std::vector<GUIColorScheme>::iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
+        for (typename std::vector<T>::iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
             cb.appendItem((*i).getName().c_str());
         }
         cb.setCurrentItem((FXint)myActiveScheme);
@@ -73,16 +74,16 @@ public:
         return myActiveScheme;
     }
 
-    GUIColorScheme& getScheme() {
+    T& getScheme() {
         return mySchemes[myActiveScheme];
     }
 
-    const GUIColorScheme& getScheme() const {
+    const T& getScheme() const {
         return mySchemes[myActiveScheme];
     }
 
-    GUIColorScheme* getSchemeByName(std::string name) {
-        for (std::vector<GUIColorScheme>::iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
+    T* getSchemeByName(std::string name) {
+        for (typename std::vector<T>::iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
             if ((*i).getName() == name) {
                 return &(*i);
             }
@@ -91,27 +92,29 @@ public:
     }
 
     void save(OutputDevice& dev) const {
-        for (std::vector<GUIColorScheme>::const_iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
+        for (typename std::vector<T>::const_iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
             i->save(dev);
         }
     }
 
-    bool operator==(const GUIColorer& c) const {
+    bool operator==(const GUIPropertySchemeStorage& c) const {
         return myActiveScheme == c.myActiveScheme && mySchemes == c.mySchemes;
     }
 
 
-    void addScheme(GUIColorScheme scheme) {
+    void addScheme(T scheme) {
         mySchemes.push_back(scheme);
     }
 
 
 protected:
     size_t myActiveScheme;
-    std::vector<GUIColorScheme> mySchemes;
+    std::vector<T> mySchemes;
 
 };
 
+typedef GUIPropertySchemeStorage<GUIColorScheme> GUIColorer;
+typedef GUIPropertySchemeStorage<GUIScaleScheme> GUIScaler;
 
 #endif
 

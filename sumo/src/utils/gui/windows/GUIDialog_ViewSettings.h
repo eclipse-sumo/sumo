@@ -176,8 +176,14 @@ private:
                            std::vector<FXButton*>::const_iterator buttonIt,
                            GUIColorScheme& scheme);
 
-    /** @brief Rebuilds color changing dialogs after choosing another coloring scheme
-     * @param[in] doCreate Whether "create" shall be called (only if built the first time)
+    bool updateScaleRanges(FXObject* sender, std::vector<FXRealSpinDial*>::const_iterator colIt,
+                           std::vector<FXRealSpinDial*>::const_iterator colEnd,
+                           std::vector<FXRealSpinDial*>::const_iterator threshIt,
+                           std::vector<FXRealSpinDial*>::const_iterator threshEnd,
+                           std::vector<FXButton*>::const_iterator buttonIt,
+                           GUIScaleScheme& scheme);
+
+    /** @brief Rebuilds manipulators for the current coloring scheme
      */
     FXMatrix* rebuildColorMatrix(FXVerticalFrame* frame,
                                  std::vector<FXColorWell*>& colors,
@@ -185,6 +191,15 @@ private:
                                  std::vector<FXButton*>& buttons,
                                  FXCheckButton* interpolation,
                                  GUIColorScheme& scheme);
+
+    /** @brief Rebuilds manipulators for the current scaling scheme
+     */
+    FXMatrix* rebuildScaleMatrix(FXVerticalFrame* frame,
+                                 std::vector<FXRealSpinDial*>& scales,
+                                 std::vector<FXRealSpinDial*>& thresholds,
+                                 std::vector<FXButton*>& buttons,
+                                 FXCheckButton* interpolation,
+                                 GUIScaleScheme& scheme);
 
 
     /** @brief Rebuilds color changing dialogs after choosing another coloring scheme
@@ -243,12 +258,21 @@ private:
     FXVerticalFrame* myDecalsFrame;
     MFXAddEditTypedTable* myDecalsTable;
 
+    /// ... lane colorer
     FXComboBox* myLaneEdgeColorMode;
     FXVerticalFrame* myLaneColorSettingFrame;
     std::vector<FXColorWell*> myLaneColors;
     std::vector<FXRealSpinDial*> myLaneThresholds;
     std::vector<FXButton*> myLaneButtons;
     FXCheckButton* myLaneColorInterpolation;
+
+    /// ... lane scaler
+    FXComboBox* myLaneEdgeScaleMode;
+    FXVerticalFrame* myLaneScaleSettingFrame;
+    std::vector<FXRealSpinDial*> myLaneScales;
+    std::vector<FXRealSpinDial*> myLaneScaleThresholds;
+    std::vector<FXButton*> myLaneScaleButtons;
+    FXCheckButton* myLaneScaleInterpolation;
 
     FXCheckButton* myShowLaneBorders, *myShowLaneDecals, *myShowRails,
                    *myHideMacroConnectors;

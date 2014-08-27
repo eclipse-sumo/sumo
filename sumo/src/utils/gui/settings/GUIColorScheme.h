@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GUIColorScheme_h
-#define GUIColorScheme_h
+#ifndef GUIPropertyScheme_h
+#define GUIPropertyScheme_h
 
 
 // ===========================================================================
@@ -41,32 +41,36 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GUIColorScheme
- * @brief
+ * @class GUIPropertyScheme
+ * This class provides a mapping from real values to properties (mainly colors).
+ * Each color is stored along with a threshold value.
+ * Color values between thresholds are obtained by interpolation
  */
-class GUIColorScheme {
+
+template<class T>
+class GUIPropertyScheme {
 public:
     /// Constructor
-    GUIColorScheme(const std::string& name, const RGBColor& baseColor,
-                   const std::string& colName = "", const bool isFixed = false) : 
+    GUIPropertyScheme(const std::string& name, const T& baseColor,
+                   const std::string& colName = "", const bool isFixed = false, SUMOReal baseValue=0) : 
         myName(name), myIsInterpolated(!isFixed), 
         myIsFixed(isFixed),
         myAllowNegativeValues(false)
     {
-        addColor(baseColor, 0, colName);
+        addColor(baseColor, baseValue, colName);
     }
 
     void setThreshold(const size_t pos, const SUMOReal threshold) {
         myThresholds[pos] = threshold;
     }
 
-    void setColor(const size_t pos, const RGBColor& color) {
+    void setColor(const size_t pos, const T& color) {
         myColors[pos] = color;
     }
 
-    bool setColor(const std::string& name, const RGBColor& color) {
+    bool setColor(const std::string& name, const T& color) {
         std::vector<std::string>::iterator nameIt = myNames.begin();
-        std::vector<RGBColor>::iterator colIt = myColors.begin();
+        typename std::vector<T>::iterator colIt = myColors.begin();
         for (; nameIt != myNames.end(); ++nameIt, ++colIt) {
             if (*nameIt == name) {
                 (*colIt) = color;
@@ -76,8 +80,8 @@ public:
         return false;
     }
 
-    unsigned int addColor(const RGBColor& color, const SUMOReal threshold, const std::string& name = "") {
-        std::vector<RGBColor>::iterator colIt = myColors.begin();
+    unsigned int addColor(const T& color, const SUMOReal threshold, const std::string& name = "") {
+        typename std::vector<T>::iterator colIt = myColors.begin();
         std::vector<SUMOReal>::iterator threshIt = myThresholds.begin();
         std::vector<std::string>::iterator nameIt = myNames.begin();
         unsigned int pos = 0;
@@ -106,11 +110,11 @@ public:
         myNames.clear();
     }
 
-    const RGBColor getColor(const SUMOReal value) const {
+    const T getColor(const SUMOReal value) const {
         if (myColors.size() == 1 || value < myThresholds.front()) {
             return myColors.front();
         }
-        std::vector<RGBColor>::const_iterator colIt = myColors.begin() + 1;
+        typename std::vector<T>::const_iterator colIt = myColors.begin() + 1;
         std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin() + 1;
         while (threshIt != myThresholds.end() && (*threshIt) <= value) {
             ++threshIt;
@@ -123,7 +127,7 @@ public:
             return *(colIt - 1);
         }
         SUMOReal lowVal = *(threshIt - 1);
-        return RGBColor::interpolate(*(colIt - 1), *colIt, (value - lowVal) / ((*threshIt) - lowVal));
+        return interpolate(*(colIt-1), *colIt, (value - lowVal) / ((*threshIt) - lowVal));
     }
 
     void setInterpolated(const bool interpolate, SUMOReal interpolationStart = 0.f) {
@@ -137,7 +141,7 @@ public:
         return myName;
     }
 
-    const std::vector<RGBColor>& getColors() const {
+    const std::vector<T>& getColors() const {
         return myColors;
     }
 
@@ -166,12 +170,13 @@ public:
     }
 
     void save(OutputDevice& dev) const {
-        dev << "            <colorScheme name=\"" << myName;
+        const std::string tag = getTagName(myColors);
+        dev << "            <" << tag << " name=\"" << myName;
         if (!myIsFixed) {
             dev << "\" interpolated=\"" << myIsInterpolated;
         }
         dev << "\">\n";
-        std::vector<RGBColor>::const_iterator colIt = myColors.begin();
+        typename std::vector<T>::const_iterator colIt = myColors.begin();
         std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin();
         std::vector<std::string>::const_iterator nameIt = myNames.begin();
         while (threshIt != myThresholds.end()) {
@@ -187,16 +192,37 @@ public:
             ++colIt;
             ++nameIt;
         }
-        dev << "            </colorScheme>\n";
+        dev << "            </" << tag << ">\n";
     }
 
-    bool operator==(const GUIColorScheme& c) const {
+    bool operator==(const GUIPropertyScheme& c) const {
         return myName == c.myName && myColors == c.myColors && myThresholds == c.myThresholds && myIsInterpolated == c.myIsInterpolated;
     }
 
+
+    /// @brief specializations for GUIColorScheme
+    RGBColor interpolate(const RGBColor& min, const RGBColor& max, SUMOReal weight) const {
+        return RGBColor::interpolate(min, max, weight);
+    }
+
+    std::string getTagName(std::vector<RGBColor>) const {
+        return toString(SUMO_TAG_COLORSCHEME);
+    }
+
+
+    /// @brief specializations for GUIScaleScheme
+    SUMOReal interpolate(const SUMOReal& min, const SUMOReal& max, SUMOReal weight) const {
+        return min + (max - min) * weight;
+    }
+
+    std::string getTagName(std::vector<SUMOReal>) const {
+        return toString(SUMO_TAG_SCALINGSCHEME);
+    }
+
+
 private:
     std::string myName;
-    std::vector<RGBColor> myColors;
+    std::vector<T> myColors;
     std::vector<SUMOReal> myThresholds;
     bool myIsInterpolated;
     std::vector<std::string> myNames;
@@ -204,6 +230,9 @@ private:
     bool myAllowNegativeValues;
 
 };
+
+typedef GUIPropertyScheme<RGBColor> GUIColorScheme;
+typedef GUIPropertyScheme<SUMOReal> GUIScaleScheme;
 
 #endif
 
