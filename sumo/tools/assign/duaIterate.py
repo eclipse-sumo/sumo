@@ -564,7 +564,7 @@ def main(args=None):
                             print("Could not remove %s" % f, file=zipLog)
                     del zipProcesses[s]
             zipStep = step - 2
-            zipProcesses[zipStep] = subprocess.Popen("7z a iteration%03i.7z *_%03i*" % (zipStep, zipStep), shell=True, stdout=zipLog, stderr=zipLog)
+            zipProcesses[zipStep] = subprocess.Popen(["7z", "a", "iteration%03i.7z" % zipStep] + glob.glob("*_%03i*" % zipStep), stdout=zipLog, stderr=zipLog)
 
         converged = False
         if options.convDev:
