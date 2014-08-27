@@ -139,7 +139,7 @@ public class Polygon {
 
 	public static SumoCommand setColor(String polygonID, SumoColor color){
 
-		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.TYPE_COLOR, polygonID, color);
+		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.VAR_COLOR, polygonID, color);
 	}
 
 	/**
