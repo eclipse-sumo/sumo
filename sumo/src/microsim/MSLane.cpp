@@ -169,7 +169,7 @@ MSLane::pWagGenericInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, S
     for (int i = 0; i <= 10; i++) {
         x = 0.5 * (x1 + x2);
         veh.setTentativeLaneAndPosition(this, x);
-        SUMOReal vSafe = veh.getCarFollowModel().followSpeed(&veh, vHlp, xIn - x, vIn, leaderDecel);
+        SUMOReal vSafe = veh.getCarFollowModel().insertionFollowSpeed(&veh, vHlp, xIn - x, vIn, leaderDecel);
         if (vSafe < vHlp) {
             x2 = x;
         } else {
@@ -308,7 +308,7 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
         }
         SUMOReal frontGapNeeded = veh.getCarFollowModel().getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap();
         if (leaderPos - frontGapNeeded >= 0) {
-            SUMOReal tspeed = MIN2(veh.getCarFollowModel().followSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()), mspeed);
+            SUMOReal tspeed = MIN2(veh.getCarFollowModel().insertionFollowSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()), mspeed);
             // check whether we can insert our vehicle behind the last vehicle on the lane
             if (isInsertionSuccess(&veh, tspeed, minPos, adaptableSpeed, notification)) {
                 return true;
@@ -530,7 +530,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 if (gap < 0) {
                     return false;
                 }
-                const SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                const SUMOReal nspeed = cfModel.insertionFollowSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                 if (checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
                     // we may not drive with the given velocity - we crash into the leader
                     return false;
@@ -555,7 +555,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             const SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));
             const SUMOTime leaveTime = arrivalTime + TIME2STEPS((*link)->getLength() * speed);
             if ((*link)->hasApproachingFoe(arrivalTime, leaveTime, speed, cfModel.getMaxDecel())) {
-                if (checkFailure(aVehicle, speed, dist, cfModel.followSpeed(aVehicle, speed, seen, 0, 0),
+                if (checkFailure(aVehicle, speed, dist, cfModel.insertionFollowSpeed(aVehicle, speed, seen, 0, 0),
                                  patchSpeed, "")) {
                     // we may not drive with the given velocity - we crash at the junction
                     return false;
@@ -591,7 +591,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         if (gap < 0) {
             return false;
         }
-        const SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+        const SUMOReal nspeed = cfModel.insertionFollowSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
         if (checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
             // we may not drive with the given velocity - we crash into the leader
             return false;
@@ -1291,7 +1291,7 @@ MSLane::getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MS
         MSVehicle* leader = nextLane->getLastVehicle();
         if (leader != 0 && leader != result.first) {
             const SUMOReal gap = seen + leader->getPositionOnLane() - leader->getVehicleType().getLength() - veh.getVehicleType().getMinGap();
-            const SUMOReal tmpSpeed = veh.getCarFollowModel().followSpeed(leader, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+            const SUMOReal tmpSpeed = veh.getCarFollowModel().insertionFollowSpeed(leader, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
             if (tmpSpeed < safeSpeed) {
                 safeSpeed = tmpSpeed;
                 result = std::make_pair(leader, gap);
@@ -1300,7 +1300,7 @@ MSLane::getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MS
             leader = nextLane->getPartialOccupator();
             if (leader != 0 && leader != result.first) {
                 const SUMOReal gap = seen + nextLane->getPartialOccupatorEnd() - veh.getVehicleType().getMinGap();
-                const SUMOReal tmpSpeed = veh.getCarFollowModel().followSpeed(leader, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                const SUMOReal tmpSpeed = veh.getCarFollowModel().insertionFollowSpeed(leader, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                 if (tmpSpeed < safeSpeed) {
                     safeSpeed = tmpSpeed;
                     result = std::make_pair(leader, gap);
