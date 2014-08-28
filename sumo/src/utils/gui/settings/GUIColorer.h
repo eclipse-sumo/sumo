@@ -106,6 +106,10 @@ public:
         mySchemes.push_back(scheme);
     }
 
+    size_t size() const {
+        return mySchemes.size();
+    }
+
 
 protected:
     size_t myActiveScheme;

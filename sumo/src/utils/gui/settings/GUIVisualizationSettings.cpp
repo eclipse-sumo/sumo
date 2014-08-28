@@ -389,6 +389,29 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by relative speed (streetwise)", RGBColor::RED);
     scheme.addColor(RGBColor::BLUE, (SUMOReal)1);
     edgeColorer.addScheme(scheme);
+
+    /// add edge scaling schemes
+    {
+        edgeScaler.addScheme(GUIScaleScheme("uniform", 1, "", true));
+        GUIScaleScheme scheme = GUIScaleScheme("by selection (streetwise)", 0.5, "unselected", true);
+        scheme.addColor(5, 1, "selected");
+        edgeScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by allowed speed (streetwise)", 0);
+        scheme.addColor(10, (SUMOReal)(150.0 / 3.6));
+        edgeScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by current occupancy (streetwise)", 0);
+        scheme.addColor(10, (SUMOReal)0.95);
+        edgeScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by current speed (streetwise)", 0);
+        scheme.addColor(10, (SUMOReal)(150.0 / 3.6));
+        edgeScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by current flow (streetwise)", 0);
+        scheme.addColor(20, (SUMOReal)5000);
+        edgeScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by relative speed (streetwise)", 0);
+        scheme.addColor(20, (SUMOReal)1);
+        edgeScaler.addScheme(scheme);
+    }
 #endif
 
 }

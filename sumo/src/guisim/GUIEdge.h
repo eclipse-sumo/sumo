@@ -166,6 +166,9 @@ public:
     /// @brief gets the color value according to the current scheme index
     SUMOReal getColorValue(size_t activeScheme) const;
 
+    /// @brief gets the scaling value according to the current scheme index
+    SUMOReal getScaleValue(size_t activeScheme) const;
+
     /// @brief returns the segment closest to the given position
     MESegment* getSegmentAtPosition(const Position& pos);
 

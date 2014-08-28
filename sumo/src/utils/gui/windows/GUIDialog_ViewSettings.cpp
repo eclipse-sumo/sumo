@@ -219,6 +219,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
 #ifdef HAVE_INTERNAL
         if (GUIVisualizationSettings::UseMesoSim) {
             mySettings->edgeColorer.fill(*myLaneEdgeColorMode);
+            mySettings->edgeScaler.fill(*myLaneEdgeScaleMode);
         } else {
 #endif
             mySettings->laneColorer.fill(*myLaneEdgeColorMode);
@@ -750,6 +751,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 #ifdef HAVE_INTERNAL
     if (GUIVisualizationSettings::UseMesoSim) {
         tmpSettings.edgeColorer.setActive(myLaneEdgeColorMode->getCurrentItem());
+        tmpSettings.edgeScaler.setActive(myLaneEdgeScaleMode->getCurrentItem());
     } else {
 #endif
         tmpSettings.laneColorer.setActive(myLaneEdgeColorMode->getCurrentItem());

@@ -293,7 +293,7 @@ public:
      */
     GUIScaleScheme& getLaneEdgeScaleScheme();
 
-    /** @brief Assignment operator */
+    /** @brief Comparison operator */
     bool operator==(const GUIVisualizationSettings& vs2);
 };
 
