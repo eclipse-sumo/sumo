@@ -431,6 +431,8 @@ def main(args=None):
     sys.stdout = sumolib.TeeFile(sys.stdout, open("stdout.log", "w+"))
     log = open("dua.log", "w+")
     if options.zip:
+        if options.clean_alt:
+            sys.exit("Error: Please use either --zip or --clean-alt but not both.")
         try:
             subprocess.call("7z", stdout=open(os.devnull, 'wb'))
         except:
