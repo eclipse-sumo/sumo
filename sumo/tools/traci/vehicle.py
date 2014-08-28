@@ -488,10 +488,23 @@ def setMaxSpeed(vehID, speed):
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED, vehID, speed)
 
 def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31-1, flags=STOP_DEFAULT):
+    """setStop(string, string, double, integer, integer, integer) -> None
+    
+    Adds or modifies a stop with the given parameters.
+    """
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP, vehID, 1+4+1+4+len(edgeID)+1+8+1+1+1+4+1+1)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(edgeID)) + edgeID
     traci._message.string += struct.pack("!BdBBBiBB", tc.TYPE_DOUBLE, pos, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, flags)
+    traci._sendExact()
+
+def resume(vehID):
+    """resume(string) -> None
+    
+    Resumes the vehicle from the current stop (throws an error if the vehicle is not stopped).
+    """
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_RESUME, vehID, 1+4)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
     traci._sendExact()
 
 def changeLane(vehID, laneIndex, duration):
