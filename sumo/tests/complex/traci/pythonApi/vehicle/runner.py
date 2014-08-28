@@ -109,6 +109,7 @@ try:
 except traci.TraCIException:
     print "recovering from exception after asking for unknown vehicle"
 traci.vehicle.add("1", "horizontal")
+traci.vehicle.setStop("1", "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
 check("1")
 traci.vehicle.changeTarget("1", "4fi")
 print "routeID", traci.vehicle.getRouteID(vehID)
@@ -118,6 +119,8 @@ traci.vehicle.addFull("2", "horizontal", line="t")
 print traci.vehicle.getIDList()
 for i in range(6):
     print "step", step()
+    if traci.vehicle.getSpeed("1") == 0:
+        traci.vehicle.resume("1")
     print traci.vehicle.getSubscriptionResults(vehID)
 check("2")
 print "leader", traci.vehicle.getLeader("2")
