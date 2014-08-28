@@ -473,13 +473,17 @@ GUIEdge::setVehicleColor(const GUIVisualizationSettings& s, MSBaseVehicle* veh) 
         case 0:
             if (veh->getParameter().wasSet(VEHPARS_COLOR_SET)) {
                 GLHelper::setColor(veh->getParameter().color);
+                return;
             }
             if (veh->getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
                 GLHelper::setColor(veh->getVehicleType().getColor());
+                return;
             }
             if (veh->getRoute().getColor() != RGBColor::DEFAULT_COLOR) {
                 GLHelper::setColor(veh->getRoute().getColor());
+                return;
             }
+            GLHelper::setColor(c.getScheme().getColor(0));
             break;
         case 2:
             GLHelper::setColor(veh->getParameter().color);
