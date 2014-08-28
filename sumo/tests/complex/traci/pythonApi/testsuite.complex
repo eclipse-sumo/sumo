@@ -36,3 +36,6 @@ poi
 
 # Tests the polygon API
 polygon
+
+# Tests the stop resume
+resume

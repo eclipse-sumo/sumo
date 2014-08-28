@@ -1,0 +1,16 @@
+Loading configuration... done.
+***Starting server on port 8873 ***
+Loading net-file from 'data/hello.net.xml'...  done (1ms).
+Loading done.
+Simulation started with time: 0.00
+Simulation ended at time: 162.00
+Reason: TraCI requested termination.
+Performance: 
+ Duration: 17 ms
+ Real time factor: 9529.41
+ UPS: 9470.588235
+Vehicles: 
+ Inserted: 1
+ Running: 1
+ Waiting: 0
+
