@@ -203,19 +203,15 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
     }
     // draw the lanes
-    GUIVisualizationSettings maybePatched = s;
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
 #ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             setColor(s);
-            // temporarily patch the laneWidthExaggeration to achieve the desired scaling
-            const SUMOReal exaggeration = s.edgeScaler.getScheme().getColor(getScaleValue(s.edgeScaler.getActive()));
-            maybePatched.laneWidthExaggeration *= exaggeration;
         }
 #endif
         GUILane* l = dynamic_cast<GUILane*>(*i);
         if (l != 0) {
-            l->drawGL(maybePatched);
+            l->drawGL(s);
         }
     }
 #ifdef HAVE_INTERNAL
