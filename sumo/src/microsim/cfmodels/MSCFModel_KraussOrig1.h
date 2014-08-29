@@ -90,6 +90,21 @@ public:
     virtual SUMOReal stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap2pred) const;
 
 
+    /** @brief Computes the vehicle's safe speed (no dawdling)
+     * This method is used during the insertion stage. Whereas the method
+     * followSpeed returns the desired speed which may be lower than the safe
+     * speed, this method only considers safety constraints
+     *
+     * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] predSpeed The speed of LEADER
+     * @return EGO's safe speed
+     */
+    SUMOReal insertionFollowSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+
+
     /** @brief Returns the model's name
      * @return The model's name
      * @see MSCFModel::getModelName

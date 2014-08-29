@@ -78,6 +78,16 @@ MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, SUMOReal speed, S
 }
 
 
+SUMOReal 
+MSCFModel_KraussOrig1::insertionFollowSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
+    // since the Krauss model tries to compute the maximum follow speed in
+    // method followSpeed this is also used for insertionFollowSpeed
+    // (due to discretization error this may not always be the same value as
+    // returned by maximumSafeFollowSpeed)
+    return followSpeed(veh, speed, gap2pred, predSpeed, predMaxDecel);
+}
+
+
 SUMOReal
 MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
     return MIN2(vsafe(gap, 0., 0.), maxNextSpeed(speed, veh));
