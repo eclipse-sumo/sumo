@@ -30,6 +30,7 @@ state:state.xml
 tripinfo:tripinfo.xml
 net:net.net.xml
 vss:vss.xml
+rawdump:rawdump.xml
 results:results.csv
 tls_state:tls_state.xml
 
@@ -45,6 +46,7 @@ output:@@[^@]*@@
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
+rawdump:<!--{[->]}-->
 state:<!--{[->]}-->
 state:snapshot version="[^"]*"{REPLACE snapshot}
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
