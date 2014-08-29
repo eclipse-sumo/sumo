@@ -367,9 +367,19 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time) const {
     if (isVaporizing()) {
         return false;
     }
+    const SUMOVehicleParameter& pars = v.getParameter();
+    const MSVehicleType& type = v.getVehicleType();
+    if (pars.departSpeedProcedure == DEPART_SPEED_GIVEN && pars.departSpeed > getVehicleMaxSpeed(&v)) {
+        if (type.getSpeedDeviation() > 0 && pars.departSpeed <= type.getSpeedFactor() * getSpeedLimit() * (2 * type.getSpeedDeviation() + 1.)) {
+            WRITE_WARNING("Choosing new speed factor for vehicle '" + pars.id + "' to match departure speed.");
+            v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(0, pars.departSpeed / (type.getSpeedFactor() * getSpeedLimit())));
+        } else {
+            throw ProcessError("Departure speed for vehicle '" + pars.id +
+                               "' is too high for the departure edge '" + getID() + "'.");
+        }
+    }
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
-        const SUMOVehicleParameter& pars = v.getParameter();
         SUMOReal pos = 0.0;
         switch (pars.departPosProcedure) {
             case DEPART_POS_GIVEN:

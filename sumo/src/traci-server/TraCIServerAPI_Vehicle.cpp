@@ -972,7 +972,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
             SUMOVehicleParameter* params = new SUMOVehicleParameter(vehicleParams);
             try {
-                SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType);
+                SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, false);
                 MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams.id, vehicle);
                 MSNet::getInstance()->getInsertionControl().add(vehicle);
             } catch (ProcessError& e) {
@@ -1083,7 +1083,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
             SUMOVehicleParameter* params = new SUMOVehicleParameter(vehicleParams);
             try {
-                SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType);
+                SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, false);
                 MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams.id, vehicle);
                 MSNet::getInstance()->getInsertionControl().add(vehicle);
             } catch (ProcessError& e) {

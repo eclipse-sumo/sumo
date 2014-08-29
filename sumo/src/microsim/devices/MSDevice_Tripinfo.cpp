@@ -30,6 +30,7 @@
 #include <config.h>
 #endif
 
+#include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>

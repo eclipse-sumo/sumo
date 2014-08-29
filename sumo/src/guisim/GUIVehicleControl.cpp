@@ -31,6 +31,7 @@
 #endif
 
 #include <utils/foxtools/MFXMutex.h>
+#include <microsim/MSRouteHandler.h>
 #include "GUIVehicleControl.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
@@ -58,13 +59,13 @@ GUIVehicleControl::~GUIVehicleControl() {
 
 SUMOVehicle*
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
-                                const MSRoute* route, const MSVehicleType* type) {
+                                const MSRoute* route, const MSVehicleType* type,
+                                bool fromRouteFile) {
     myLoadedVehNo++;
-    if (myMaxRandomDepartOffset > 0) {
-        // round to the closest usable simulation step
-        defs->depart += DELTA_T * int((myVehicleParamsRNG.rand((int)myMaxRandomDepartOffset) + 0.5 * DELTA_T) / DELTA_T);
+    if (fromRouteFile) {
+        defs->depart += computeRandomDepartOffset();
     }
-    MSVehicle* built = new GUIVehicle(defs, route, type, type->computeChosenSpeedDeviation(myVehicleParamsRNG));
+    MSVehicle* built = new GUIVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : 0));
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
     return built;
 }

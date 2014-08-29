@@ -39,6 +39,7 @@
 #include <ctime>
 #include <string>
 #include <iostream>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSVehicleControl.h>
@@ -144,7 +145,7 @@ main(int argc, char** argv) {
             throw ProcessError();
         }
         RandHelper::initRandGlobal();
-        RandHelper::initRandGlobal(&MSVehicleControl::myVehicleParamsRNG);
+        RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
         // load the net
         net = load(oc);
         if (net != 0) {

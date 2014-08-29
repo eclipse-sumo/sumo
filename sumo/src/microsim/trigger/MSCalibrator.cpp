@@ -370,7 +370,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
             newPars->depart = currentTime;
             newPars->routeid = route->getID();
             MSVehicle* vehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
-                                     newPars, route, vtype));
+                                     newPars, route, vtype, false));
 #ifdef MSCalibrator_DEBUG
             std::cout << " resetting route pos: " << routeIndex << "\n";
 #endif

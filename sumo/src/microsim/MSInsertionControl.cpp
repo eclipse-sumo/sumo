@@ -36,10 +36,12 @@
 #include <algorithm>
 #include <cassert>
 #include <iterator>
+#include "MSGlobals.h"
 #include "MSInsertionControl.h"
 #include "MSVehicle.h"
 #include "MSLane.h"
 #include "MSEdge.h"
+#include "MSRouteHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -228,7 +230,7 @@ MSInsertionControl::checkFlows(SUMOTime time) {
             // try to build the vehicle
             if (vehControl.getVehicle(newPars->id) == 0) {
                 const MSRoute* route = MSRoute::dictionary(pars->routeid);
-                const MSVehicleType* vtype = vehControl.getVType(pars->vtypeid);
+                const MSVehicleType* vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
                 i->vehicle = vehControl.buildVehicle(newPars, route, vtype);
                 unsigned int quota = vehControl.getQuota();
                 if (quota > 0) {

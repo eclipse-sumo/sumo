@@ -66,6 +66,10 @@ public:
     /// standard destructor
     virtual ~MSRouteHandler();
 
+    static MTRand* getParsingRNG() {
+        return &myParsingRNG;
+    }
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -146,6 +150,9 @@ protected:
 
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
+
+    /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
+    static MTRand myParsingRNG;
 
 private:
     /// @brief Invalidated copy constructor

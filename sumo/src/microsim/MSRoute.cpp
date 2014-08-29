@@ -133,14 +133,14 @@ MSRoute::dictionary(const std::string& id, RandomDistributor<const MSRoute*>* co
 
 
 const MSRoute*
-MSRoute::dictionary(const std::string& id) {
+MSRoute::dictionary(const std::string& id, MTRand* rng) {
     RouteDict::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         RouteDistDict::iterator it2 = myDistDict.find(id);
         if (it2 == myDistDict.end() || it2->second.first->getOverallProb() == 0) {
             return 0;
         }
-        return it2->second.first->get();
+        return it2->second.first->get(rng);
     }
     return it->second;
 }

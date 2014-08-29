@@ -36,21 +36,20 @@
 #include <string>
 #include <map>
 #include <set>
-#include "MSGlobals.h"
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOTime.h>
 #include <utils/common/RandomDistributor.h>
-#include <utils/common/SUMOVehicleParameter.h>
+#include <utils/common/SUMOTime.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+class SUMOVehicleParameter;
 class MSVehicle;
 class MSRoute;
 class MSVehicleType;
-class BinaryInputDevice;
+class OutputDevice;
 class MSEdge;
 
 
@@ -97,10 +96,11 @@ public:
      * @param[in] defs The parameter defining the vehicle
      * @param[in] route The route of this vehicle
      * @param[in] type The type of this vehicle
+     * @param[in] fromRouteFile whether we are just reading the route file or creating via trigger, traci, ...
      * @return The built vehicle (MSVehicle instance)
      */
     virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
-                                      const MSVehicleType* type);
+                                      const MSVehicleType* type, bool fromRouteFile=true);
     /// @}
 
 
@@ -338,7 +338,7 @@ public:
      * @param[in] id The id of the vehicle type to return. If left out, the default type is returned.
      * @return The named vehicle type, or 0 if no such type exists
      */
-    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID);
+    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID, MTRand* rng = 0);
 
 
     /** @brief Inserts ids of all known vehicle types and vehicle type distributions to the given vector
@@ -409,11 +409,6 @@ public:
 
     /// @brief compute (optional) random offset to the departure time
     SUMOTime computeRandomDepartOffset() const;
-
-public:
-    /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
-    static MTRand myVehicleParamsRNG;
-
 
 private:
     /** @brief Checks whether the vehicle type (distribution) may be added

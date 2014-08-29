@@ -275,7 +275,7 @@ public:
     /** @brief Returns the precomputed factor by which the driver wants to be faster than the speed limit
      * @return Speed limit factor
      */
-    inline void setChosenSpeedFactor(SUMOReal factor) {
+    inline void setChosenSpeedFactor(const SUMOReal factor) {
         myChosenSpeedFactor = factor;
     }
 

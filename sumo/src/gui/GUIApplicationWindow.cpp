@@ -41,6 +41,7 @@
 
 #include <guisim/GUINet.h>
 #include <guisim/GUILane.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
 

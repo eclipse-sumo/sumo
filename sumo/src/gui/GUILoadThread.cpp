@@ -55,7 +55,9 @@
 #include <guinetload/GUIDetectorBuilder.h>
 #include <guinetload/GUITriggerBuilder.h>
 #include <microsim/output/MSDetectorControl.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSFrame.h>
+#include <microsim/MSRouteHandler.h>
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
 #include "GUIGlobals.h"
@@ -151,7 +153,7 @@ GUILoadThread::run() {
     
     // initialise global settings
     RandHelper::initRandGlobal();
-    RandHelper::initRandGlobal(&MSVehicleControl::myVehicleParamsRNG);
+    RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
     MSFrame::setMSGlobals(oc);
     GUITexturesHelper::allowTextures(!oc.getBool("disable-textures"));
     MSVehicleControl* vehControl = 0;

@@ -36,6 +36,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
+#include "MSGlobals.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
 #include "MSLane.h"

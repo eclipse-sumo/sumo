@@ -175,7 +175,7 @@ public:
      * @param[in] id    the id of the route or the distribution
      * @return          the route (sample)
      */
-    static const MSRoute* dictionary(const std::string& id);
+    static const MSRoute* dictionary(const std::string& id, MTRand* rng=0);
 
     /** @brief Returns the named route distribution.
      *
