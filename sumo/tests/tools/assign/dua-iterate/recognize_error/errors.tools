@@ -1,1 +1,1 @@
-Execution of <path-to>duarouter', '-c', 'iteration_0.rou.cfg'] failed. Look into dua-log.txt for details.
+Execution of ['D:\\behr_mi\\Projekte\\Vabene\\trunk\\SE\\extern\\sumoInternal\\sumo\\tests\\..\\bin\\duarouter.exe', '-c', 'iteration_000_input_trips.duarcfg'] failed. Look into dua.log for details.
