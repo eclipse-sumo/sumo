@@ -80,7 +80,8 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myStreetName(streetName),
     myEdgeType(edgeType),
     myPriority(priority),
-    myAmRoundabout(false) {}
+    myAmRoundabout(false),
+    myAmDelayed(false) {}
 
 
 MSEdge::~MSEdge() {
@@ -460,14 +461,18 @@ MSEdge::getCurrentTravelTime(SUMOReal minSpeed) const {
     SUMOReal v = 0;
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
-        MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
-        unsigned segments = 0;
-        do {
-            v += first->getMeanSpeed();
-            first = first->getNextSegment();
-            segments++;
-        } while (first != 0);
-        v /= (SUMOReal) segments;
+        if (myAmDelayed) {
+            MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
+            unsigned segments = 0;
+            do {
+                v += first->getMeanSpeed();
+                first = first->getNextSegment();
+                segments++;
+            } while (first != 0);
+            v /= (SUMOReal) segments;
+        } else {
+            v = getSpeedLimit();
+        }
     } else {
 #endif
         for (std::vector<MSLane*>::iterator i = myLanes->begin(); i != myLanes->end(); ++i) {

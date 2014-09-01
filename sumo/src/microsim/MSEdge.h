@@ -509,6 +509,13 @@ public:
     /// @brief whether lane changing may be performed on this edge
     bool laneChangeAllowed() const;
 
+#ifdef HAVE_INTERNAL
+    void markDelayed() const {
+        myAmDelayed = true;
+    }
+#endif
+
+
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
         returns false. */
@@ -665,6 +672,11 @@ protected:
 
     /// @brief whether this edge belongs to a roundabout
     bool myAmRoundabout;
+
+#ifdef HAVE_INTERNAL
+    /// @brief whether this edge had a vehicle with less than max speed on it
+    mutable bool myAmDelayed;
+#endif
 
     /// @name Static edge container
     /// @{
