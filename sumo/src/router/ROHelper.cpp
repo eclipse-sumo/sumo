@@ -67,6 +67,10 @@ recheckForLoops(std::vector<const ROEdge*>& edges) {
         edges.erase(edges.begin() + firstEnd + 2, edges.end());
     }
     // remove loops within the route
+    /* 
+    // XXX this should be triggered by another option and be made subject to
+    // more rigorous sanity checks (connectivity, stops, ...)
+    
     std::vector<RONode*> nodes;
     for (std::vector<const ROEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         nodes.push_back((*i)->getFromNode());
@@ -86,7 +90,6 @@ recheckForLoops(std::vector<const ROEdge*>& edges) {
             }
         }
     } while (changed);
-    /*
     */
 }
 
