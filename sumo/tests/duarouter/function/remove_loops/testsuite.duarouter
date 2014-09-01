@@ -13,3 +13,5 @@ route_end
 # removing a loop in the middle of a route
 route_middle
 
+# the route consists of two edges in opposite directions.
+whole_route_is_a_loop
