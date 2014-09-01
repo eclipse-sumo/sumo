@@ -80,8 +80,10 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myStreetName(streetName),
     myEdgeType(edgeType),
     myPriority(priority),
-    myAmRoundabout(false),
-    myAmDelayed(false) {}
+#ifdef HAVE_INTERNAL
+    myAmDelayed(false),
+#endif
+    myAmRoundabout(false) {}
 
 
 MSEdge::~MSEdge() {

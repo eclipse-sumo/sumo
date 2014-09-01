@@ -515,7 +515,6 @@ public:
     }
 #endif
 
-
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
         returns false. */
@@ -670,13 +669,13 @@ protected:
     /// @brief the priority of the edge (used during network creation)
     const int myPriority;
 
-    /// @brief whether this edge belongs to a roundabout
-    bool myAmRoundabout;
-
 #ifdef HAVE_INTERNAL
     /// @brief whether this edge had a vehicle with less than max speed on it
     mutable bool myAmDelayed;
 #endif
+
+    /// @brief whether this edge belongs to a roundabout
+    bool myAmRoundabout;
 
     /// @name Static edge container
     /// @{
