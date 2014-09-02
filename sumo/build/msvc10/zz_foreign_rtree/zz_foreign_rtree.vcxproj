@@ -140,7 +140,8 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\foreign\rtree\rtree.h" />
+    <ClInclude Include="..\..\..\src\foreign\rtree\LayeredRTree.h" />
+    <ClInclude Include="..\..\..\src\foreign\rtree\RTree.h" />
     <ClInclude Include="..\..\..\src\foreign\rtree\SUMORTree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

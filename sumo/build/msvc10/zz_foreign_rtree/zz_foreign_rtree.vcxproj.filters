@@ -11,10 +11,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\foreign\rtree\rtree.h">
+    <ClInclude Include="..\..\..\src\foreign\rtree\RTree.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\foreign\rtree\SUMORTree.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\foreign\rtree\LayeredRTree.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
