@@ -42,6 +42,8 @@
 namespace ROHelper {
 void
 recheckForLoops(std::vector<const ROEdge*>& edges) {
+    // XXX check for stops, departLane, departPos, departSpeed, ....
+    
     // remove loops at the route's begin
     //  (vehicle makes a turnaround to get into the right direction at an already passed node)
     RONode* start = edges[0]->getFromNode();
@@ -66,11 +68,21 @@ recheckForLoops(std::vector<const ROEdge*>& edges) {
     if (firstEnd < edges.size() - 1) {
         edges.erase(edges.begin() + firstEnd + 2, edges.end());
     }
-    // remove loops within the route
-    /* 
-    // XXX this should be triggered by another option and be made subject to
-    // more rigorous sanity checks (connectivity, stops, ...)
-    
+
+    // removal of edge loops within the route (edge occurs twice)
+    std::map<const ROEdge*, int> lastOccurence; // index of the last occurence of this edge
+    for (int ii = 0; ii < edges.size(); ++ii) {
+        std::map<const ROEdge*, int>::iterator it_pre = lastOccurence.find(edges[ii]);
+        if (it_pre != lastOccurence.end()) {
+            edges.erase(edges.begin() + it_pre->second, edges.begin() + ii);
+            ii = it_pre->second;
+        } else {
+            lastOccurence[edges[ii]] = ii;
+        }
+    }
+
+    // removal of node loops (node occurs twice) is not done because these may occur legitimately
+    /*
     std::vector<RONode*> nodes;
     for (std::vector<const ROEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         nodes.push_back((*i)->getFromNode());
