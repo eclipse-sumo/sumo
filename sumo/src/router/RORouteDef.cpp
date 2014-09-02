@@ -120,7 +120,8 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         repairCurrentRoute(router, begin, veh);
         return;
     }
-    if (ROCostCalculator::getCalculator().skipRouteCalculation()) {
+    if (ROCostCalculator::getCalculator().skipRouteCalculation()
+            || OptionsCont::getOptions().getBool("remove-loops")) {
         myPrecomputed = myAlternatives[myLastUsed];
     } else {
         // build a new route to test whether it is better
