@@ -360,6 +360,9 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             }
         }
         e.speed = attrs.getOpt(SUMO_ATTR_SPEED, 0, ok, myCurrentEdge->getSpeed());
+        if (attrs.hasAttribute(SUMO_ATTR_SPEED) && myOptions.getBool("speed-in-kmh")) {
+            e.speed /= (SUMOReal) 3.6;
+        }
         if (!ok) {
             return;
         }
