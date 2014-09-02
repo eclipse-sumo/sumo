@@ -143,7 +143,7 @@ main(int argc, char** argv) {
         if (!oc.isSet("output-file") && (oc.isSet("timeline-file") || !oc.isSet("emission-output"))) {
             throw ProcessError("The output file must be given.");
         }
-        std::ostream* out = &std::cout;
+        std::ostream* out = 0;
         if (oc.isSet("output-file")) {
             out = new std::ofstream(oc.getString("output-file").c_str());
         }
@@ -151,6 +151,8 @@ main(int argc, char** argv) {
         OutputDevice* xmlOut = 0;
         if (oc.isSet("emission-output")) {
             xmlOut = &OutputDevice::getDeviceByOption("emission-output");
+        } else {
+            out = &std::cout;
         }
 
         const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));
@@ -193,11 +195,13 @@ main(int argc, char** argv) {
             if (!quiet) {
                 std::cout << "sums"  << std::endl
                           << "length:" << l << std::endl;
-                handler.writeSums(std::cout, "");
             }
         }
         if (oc.isSet("netstate-file")) {
             XMLSubSys::runParser(handler, oc.getString("netstate-file"));
+        }
+        if (!quiet) {
+            handler.writeSums(std::cout, "");
         }
     } catch (InvalidArgument& e) {
         MsgHandler::getErrorInstance()->inform(e.what());

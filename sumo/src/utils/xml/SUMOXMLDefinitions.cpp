@@ -163,6 +163,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "ride",             SUMO_TAG_RIDE },
     { "walk",             SUMO_TAG_WALK },
 
+    { "trajectories",     SUMO_TAG_TRAJECTORIES },
     { "timestep",         SUMO_TAG_TIMESTEP },
     { "timeSlice",        SUMO_TAG_TIMESLICE },
     { "actorConfig",      SUMO_TAG_ACTORCONFIG },

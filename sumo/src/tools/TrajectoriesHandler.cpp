@@ -52,7 +52,7 @@
 TrajectoriesHandler::TrajectoriesHandler(const bool computeA, const SUMOEmissionClass defaultClass,
         const SUMOReal defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut)
     : SUMOSAXHandler(""), myComputeA(computeA), myDefaultClass(defaultClass),
-      myDefaultSlope(defaultSlope), myStdOut(stdOut), myXMLOut(xmlOut), myCurrentTime(-1) {}
+      myDefaultSlope(defaultSlope), myStdOut(stdOut), myXMLOut(xmlOut), myCurrentTime(-1), myStepSize(TS) {}
 
 
 TrajectoriesHandler::~TrajectoriesHandler() {}
@@ -63,6 +63,9 @@ TrajectoriesHandler::myStartElement(int element,
                                     const SUMOSAXAttributes& attrs) {
     bool ok = true;
     switch (element) {
+        case SUMO_TAG_TRAJECTORIES:
+            myStepSize = attrs.getFloat("timeStepSize") / 1000.;
+            break;
         case SUMO_TAG_TIMESTEP:
             myCurrentTime = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, 0, ok);
             break;
@@ -101,7 +104,8 @@ TrajectoriesHandler::myStartElement(int element,
             const SUMOTime time = attrs.getOpt<int>(SUMO_ATTR_TIME, id.c_str(), ok, INVALID_VALUE);
             if (myXMLOut != 0) {
                 writeXMLEmissions(id, c, time, v, a, s);
-            } else {
+            }
+            if (myStdOut != 0) {
                 writeEmissions(*myStdOut, id, c, time, v, a, s);
             }
             break;
@@ -130,7 +134,10 @@ TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionCl
         s = myDefaultSlope;
     }
     const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s);
-    mySums[id].addScaled(result);
+    mySums[id].addScaled(result, myStepSize);
+    if (id != "") {
+        mySums[""].addScaled(result, myStepSize);
+    }
     return result;
 }
 

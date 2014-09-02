@@ -103,6 +103,7 @@ private:
     OutputDevice* myXMLOut;
     std::map<std::string, SUMOReal> myLastV;
     SUMOTime myCurrentTime;
+    SUMOReal myStepSize;
     std::map<std::string, PollutantsInterface::Emissions> mySums;
     std::map<std::string, SUMOEmissionClass> myEmissionClassByType;
     std::map<std::string, SUMOEmissionClass> myEmissionClassByVehicle;
