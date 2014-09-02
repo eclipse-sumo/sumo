@@ -161,7 +161,7 @@ class TeeFile:
         """flushes all file contents to disc"""
         for fp in self.files:
             fp.flush()
-            if fp != sys.__stdout__:
+            if type(fp) is int or hasattr(fp, "fileno"):
                 os.fsync(fp)
 
 
