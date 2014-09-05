@@ -18,7 +18,7 @@ doxygen:
 	doxygen sumo.doxyconf &> doxygen.log
 
 userdoc:
-	tools/docs/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -r $(VERSION) && cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
+	tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -r $(VERSION) && cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
 
 man:
 	rm -rf docs/man
