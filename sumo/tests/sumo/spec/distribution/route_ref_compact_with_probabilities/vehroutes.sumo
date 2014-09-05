@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  4 16:45:30 2013 by SUMO sumo Version dev-SVN-r14576
+<!-- generated on 09/05/14 13:21:58 by SUMO Version dev-SVN-r16983
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -15,6 +15,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -23,11 +24,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-    <vehicle id="1.0" depart="0.00" arrival="41.00">
-        <route edges="beg end"/>
-    </vehicle>
-
-    <vehicle id="1.5" depart="20.00" arrival="43.00">
+    <vehicle id="1.0" depart="0.00" arrival="23.00">
         <route edges="beg"/>
     </vehicle>
 
@@ -35,16 +32,8 @@
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.6" depart="24.00" arrival="47.00">
-        <route edges="beg"/>
-    </vehicle>
-
     <vehicle id="1.2" depart="8.00" arrival="49.00">
         <route edges="beg end"/>
-    </vehicle>
-
-    <vehicle id="1.7" depart="29.00" arrival="52.00">
-        <route edges="beg"/>
     </vehicle>
 
     <vehicle id="1.3" depart="12.00" arrival="53.00">
@@ -59,12 +48,16 @@
         <route edges="beg"/>
     </vehicle>
 
-    <vehicle id="1.10" depart="41.00" arrival="64.00">
-        <route edges="beg"/>
+    <vehicle id="1.5" depart="20.00" arrival="61.00">
+        <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.11" depart="45.00" arrival="68.00">
-        <route edges="beg"/>
+    <vehicle id="1.6" depart="24.00" arrival="65.00">
+        <route edges="beg end"/>
+    </vehicle>
+
+    <vehicle id="1.7" depart="29.00" arrival="70.00">
+        <route edges="beg end"/>
     </vehicle>
 
     <vehicle id="1.12" depart="49.00" arrival="72.00">
@@ -75,12 +68,16 @@
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.13" depart="54.00" arrival="95.00">
+    <vehicle id="1.10" depart="41.00" arrival="82.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.18" depart="74.00" arrival="97.00">
-        <route edges="beg"/>
+    <vehicle id="1.11" depart="45.00" arrival="86.00">
+        <route edges="beg end"/>
+    </vehicle>
+
+    <vehicle id="1.13" depart="54.00" arrival="95.00">
+        <route edges="beg end"/>
     </vehicle>
 
     <vehicle id="1.14" depart="58.00" arrival="99.00">
@@ -99,6 +96,18 @@
         <route edges="beg end"/>
     </vehicle>
 
+    <vehicle id="1.22" depart="91.00" arrival="114.00">
+        <route edges="beg"/>
+    </vehicle>
+
+    <vehicle id="1.18" depart="74.00" arrival="115.00">
+        <route edges="beg end"/>
+    </vehicle>
+
+    <vehicle id="1.23" depart="95.00" arrival="118.00">
+        <route edges="beg"/>
+    </vehicle>
+
     <vehicle id="1.19" depart="79.00" arrival="120.00">
         <route edges="beg end"/>
     </vehicle>
@@ -108,14 +117,6 @@
     </vehicle>
 
     <vehicle id="1.21" depart="87.00" arrival="128.00">
-        <route edges="beg end"/>
-    </vehicle>
-
-    <vehicle id="1.22" depart="91.00" arrival="132.00">
-        <route edges="beg end"/>
-    </vehicle>
-
-    <vehicle id="1.23" depart="95.00" arrival="136.00">
         <route edges="beg end"/>
     </vehicle>
 
