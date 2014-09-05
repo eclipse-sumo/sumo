@@ -153,7 +153,7 @@
         <!-- Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting -->
         <time-to-teleport value="300" type="TIME"/>
 
-        <!-- The teleport time on highways -->
+        <!-- The waiting time after which vehicles on a fast road (speed &gt; 69m/s) are teleported if they are on a non-continuing lane -->
         <time-to-teleport.highways value="0" type="TIME"/>
 
         <!-- How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped -->

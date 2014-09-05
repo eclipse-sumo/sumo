@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r16832
+SUMO Version dev-SVN-r16987
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
@@ -87,7 +87,10 @@ Processing Options:
                                          until being teleported, defaults to
                                          300, non-positive values disable
                                          teleporting
-  --time-to-teleport.highways TIME     The teleport time on highways
+  --time-to-teleport.highways TIME     The waiting time after which vehicles on
+                                         a fast road (speed > 69m/s) are
+                                         teleported if they are on a
+                                         non-continuing lane
   --max-depart-delay TIME              How long vehicles wait for departure
                                          before being skipped, defaults to -1
                                          which means vehicles are never skipped

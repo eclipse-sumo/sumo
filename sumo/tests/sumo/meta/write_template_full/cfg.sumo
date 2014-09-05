@@ -61,7 +61,7 @@
         <max-num-vehicles value="-1" synonymes="too-many-vehicles" type="INT" help="Quit simulation if this number of vehicles is exceeded"/>
         <scale value="" type="FLOAT" help="Scale demand by the given factor (0..1)"/>
         <time-to-teleport value="300" type="TIME" help="Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting"/>
-        <time-to-teleport.highways value="0" type="TIME" help="The teleport time on highways"/>
+        <time-to-teleport.highways value="0" type="TIME" help="The waiting time after which vehicles on a fast road (speed &gt; 69m/s) are teleported if they are on a non-continuing lane"/>
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed"/>
         <eager-insert value="false" type="BOOL" help="Whether each vehicle is checked separately for insertion on an edge"/>
