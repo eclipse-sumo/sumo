@@ -7,8 +7,15 @@
 @version $Id$
 
 Determines the number of U turns in a route file by comparing 
-the edge ids of successive edges for "negation". This works with
-most Elmar (Navteq) imported nets. Optional it can also remove
+the edge ids of successive edges for "negation". This works wherever the sumo network
+was imported from a data source which uses bidirectional street definitions
+(OSM, NavTeq). In this case the unidirectional edges receive the original ID in
+the forward direction and a new ID composed of the prefix '-' and the original
+ID in the reverse direction by convention.
+
+XXX repair is not working. DUAROUTER with --remove-loops should be used for that purpose
+
+Optional this script can also remove
 U turns at the start and the end of a route and output the 
 modified routes.
 

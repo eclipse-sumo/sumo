@@ -19,9 +19,6 @@ route_1htoDay
 # Tests for <SUMO_DIST>/tools/route_tools/routes2OD.py
 routes2OD
 
-# Tests for <SUMO_DIST>/tools/route_tools/findUTurns.py
-findUTurns
-
 # sort routes and flows
 sort
 
