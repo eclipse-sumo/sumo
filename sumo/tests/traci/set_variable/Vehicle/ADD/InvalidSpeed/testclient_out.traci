@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:28:25 2013
+TraCITestClient output file. Date: Fri Sep 05 13:18:02 2014
 
 
 -> Command sent: <SimulationStep2>:
@@ -39,7 +39,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:28:25 2013
 
 -> Command sent: <SetValue>:
   domID=196 varID=128 objID=veh1
-.. Answered with error to command (196), [description: Departure speed for vehicle 'veh1' is too high for the departure lane 'e_m0_0'.]
+.. Answered with error to command (196), [description: Departure speed for vehicle 'veh1' is too high for the vehicle type 'second'.]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
