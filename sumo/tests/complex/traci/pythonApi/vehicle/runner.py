@@ -116,13 +116,15 @@ print "routeID", traci.vehicle.getRouteID(vehID)
 print "route", traci.vehicle.getRoute(vehID)
 print "step", step()
 traci.vehicle.addFull("2", "horizontal", line="t")
-print traci.vehicle.getIDList()
+print "getIDList", traci.vehicle.getIDList()
 for i in range(6):
     print "step", step()
     if traci.vehicle.getSpeed("1") == 0:
         traci.vehicle.resume("1")
     print traci.vehicle.getSubscriptionResults(vehID)
 check("2")
+traci.vehicle.setSpeedMode(vehID, 0) # disable all checks
+traci.vehicle.setSpeed(vehID, 20) 
 print "leader", traci.vehicle.getLeader("2")
 traci.vehicle.subscribeLeader("2")
 for i in range(6):
