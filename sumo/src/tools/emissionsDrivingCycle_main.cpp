@@ -151,7 +151,7 @@ main(int argc, char** argv) {
         OutputDevice* xmlOut = 0;
         if (oc.isSet("emission-output")) {
             xmlOut = &OutputDevice::getDeviceByOption("emission-output");
-        } else {
+        } else if (out == 0) {
             out = &std::cout;
         }
 
