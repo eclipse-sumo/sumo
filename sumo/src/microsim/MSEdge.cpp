@@ -355,6 +355,13 @@ MSEdge::getDepartLane(const MSVehicle& veh) const {
             return ret;
         }
         case DEPART_LANE_DEFAULT:
+        case DEPART_LANE_FIRST_ALLOWED:
+            for (std::vector<MSLane*>::const_iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
+                if ((*i)->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
+                    return *i;
+                }
+            }
+            return 0;
         default:
             break;
     }

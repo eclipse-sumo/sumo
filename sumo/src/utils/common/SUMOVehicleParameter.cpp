@@ -97,6 +97,9 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
             case DEPART_LANE_BEST_FREE:
                 val = "best";
                 break;
+            case DEPART_LANE_FIRST_ALLOWED:
+                val = "first";
+                break;
             case DEPART_LANE_DEFAULT:
             default:
                 break;
@@ -315,6 +318,8 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string&
         dld = DEPART_LANE_ALLOWED_FREE;
     } else if (val == "best") {
         dld = DEPART_LANE_BEST_FREE;
+    } else if (val == "first") {
+        dld = DEPART_LANE_FIRST_ALLOWED;
     } else {
         try {
             lane = TplConvert::_2int(val.c_str());
@@ -327,7 +332,7 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string&
         }
     }
     if (!ok) {
-        error = "Invalid departLane definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", \"allowed\", \"best\", or an int>=0)";
+        error = "Invalid departLane definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", \"allowed\", \"best\", \"first\", or an int>=0)";
     }
     return ok;
 }

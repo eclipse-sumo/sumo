@@ -113,6 +113,8 @@ enum DepartLaneDefinition {
     DEPART_LANE_ALLOWED_FREE,
     /// @brief The least occupied lane from best lanes
     DEPART_LANE_BEST_FREE,
+    /// @brief The rightmost lane the vehicle may use
+    DEPART_LANE_FIRST_ALLOWED,
     /// @brief Tag for the last element in the enum for safe int casting
     DEPART_LANE_DEF_MAX
 };
