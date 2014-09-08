@@ -10,14 +10,11 @@ route2alts
 # Tests for <SUMO_DIST>/tools/route_tools/route_departOffset.py
 route_departOffset
 
-# Tests for <SUMO_DIST>/tools/route_tools/kShortest.py
-kShortest
-
 # Tests for <SUMO_DIST>/tools/route_tools/route_1htoDay.py
 route_1htoDay
 
-# Tests for <SUMO_DIST>/tools/route_tools/routes2OD.py
-routes2OD
+# Tests for <SUMO_DIST>/tools/route_tools/findUTurns.py
+findUTurns
 
 # sort routes and flows
 sort
@@ -27,4 +24,3 @@ route2poly
 
 # Cut down routes from a large scenario to a sub-scenario
 cut_routes
-extractRouteEdges
