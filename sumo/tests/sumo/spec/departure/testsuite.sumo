@@ -1,5 +1,11 @@
-# checks using the default lane (0)
+# checks using the default lane (rightmost allowed - 0)
 lane_default
+
+# checks using the default lane (rightmost allowed, only accessible for busses, all should use 0)
+lane_default_3veh_bus
+
+# checks using the default lane (rightmost allowed, only accessible for busses, all must not use 0)
+lane_default_3veh_passenger
 
 # checks using a free lane (1 vehicle)
 lane_free
