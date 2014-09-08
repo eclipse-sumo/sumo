@@ -477,7 +477,7 @@ HelpersHBEFA3::HelpersHBEFA3() : PollutantsInterface::Helper("HBEFA3") {
         myEmissionClassStrings.addAlias(heavy[i], index);
         index++;
     }
-    myEmissionClassStrings.addAlias("unknown", myEmissionClassStrings.get("PC"));
+    myEmissionClassStrings.addAlias("unknown", myEmissionClassStrings.get("PC_G_EU4"));
 }
 
 
