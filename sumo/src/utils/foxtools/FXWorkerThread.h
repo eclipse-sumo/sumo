@@ -54,6 +54,9 @@ public:
      */
     class Task {
     public:
+        /// @brief Desctructor
+        virtual ~Task() {};
+
         /** @brief Abstract method which in subclasses should contain the computations to be performed.
          *
          * If there is data to be shared among several tasks (but not among several threads) it can be put in the
