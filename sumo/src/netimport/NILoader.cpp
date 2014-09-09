@@ -64,10 +64,7 @@
 #include "NILoader.h"
 #include <utils/common/TplConvert.h>
 #include <utils/geom/GeoConvHelper.h>
-
-#ifdef HAVE_INTERNAL
-#include <internal/HeightMapper.h>
-#endif
+#include <netbuild/NBHeightMapper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -91,9 +88,7 @@ NILoader::load(OptionsCont& oc) {
         new NIXMLTypesHandler(myNetBuilder.getTypeCont());
     loadXMLType(handler, oc.getStringVector("type-files"), "types");
     // try to load height data so it is ready for use by other importers
-#ifdef HAVE_INTERNAL
-    HeightMapper::loadIfSet(oc);
-#endif
+    NBHeightMapper::loadIfSet(oc);
     // try to load using different methods
     NIImporter_SUMO::loadNetwork(oc, myNetBuilder);
     NIImporter_RobocupRescue::loadNetwork(oc, myNetBuilder);

@@ -52,10 +52,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include "NBAlgorithms.h"
 #include "NBAlgorithms_Ramps.h"
-
-#ifdef HAVE_INTERNAL
-#include <internal/HeightMapper.h>
-#endif
+#include "NBHeightMapper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -439,9 +436,8 @@ bool
 NBNetBuilder::transformCoordinates(Position& from, bool includeInBoundary, GeoConvHelper* from_srs) {
     Position orig(from);
     bool ok = GeoConvHelper::getProcessing().x2cartesian(from, includeInBoundary);
-#ifdef HAVE_INTERNAL
     if (ok) {
-        const HeightMapper& hm = HeightMapper::get();
+        const NBHeightMapper& hm = NBHeightMapper::get();
         if (hm.ready()) {
             if (from_srs != 0 && from_srs->usingGeoProjection()) {
                 from_srs->cartesian2geo(orig);
@@ -450,9 +446,6 @@ NBNetBuilder::transformCoordinates(Position& from, bool includeInBoundary, GeoCo
             from = Position(from.x(), from.y(), z);
         }
     }
-#else
-    UNUSED_PARAMETER(from_srs);
-#endif
     return ok;
 }
 
