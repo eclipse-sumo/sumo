@@ -123,7 +123,7 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
             if (!hadSplit) {
                 preSplitEdges.insert(*j);
             }
-            if ((*j)->getNoFollowing() > 1) {
+            if ((*j)->getNumSuccessors() > 1) {
                 hadSplit = true;
             }
         }
@@ -138,10 +138,10 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
             while (!pending.empty()) {
                 ROEdge* e = pending.back();
                 pending.pop_back();
-                const unsigned int numAppr = e->getNumApproaching();
+                const unsigned int numAppr = e->getNumPredecessors();
                 for (unsigned int j = 0; j < numAppr; j++) {
-                    ROEdge* e2 = e->getApproaching(j);
-                    if (e2->getNoFollowing() == 1 && seen.count(e2) == 0) {
+                    ROEdge* e2 = e->getPredecessor(j);
+                    if (e2->getNumSuccessors() == 1 && seen.count(e2) == 0) {
                         if (net->hasDetector(e2)) {
                             inFlows[*i] += detectors.getAggFlowFor(e2, 0, 0, flows);
                         } else {

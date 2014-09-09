@@ -197,6 +197,14 @@
       <Project>{ee29af87-7317-488d-bf6d-ec422d1dbad6}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\z_libutils_vehicle\z_libutils_vehicle.vcxproj">
+      <Project>{421250da-d4bf-4678-8605-837f455552fc}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="..\z_libutils_xml\z_libutils_xml.vcxproj">
       <Project>{508f0bff-83fe-444c-9509-a359bca83bc4}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

@@ -149,27 +149,20 @@
     <ClCompile Include="..\..\..\src\utils\common\StringUtils.cpp" />
     <ClCompile Include="..\..\..\src\utils\common\SUMOTime.cpp" />
     <ClCompile Include="..\..\..\src\utils\common\SUMOVehicleClass.cpp" />
-    <ClCompile Include="..\..\..\src\utils\common\SUMOVehicleParameter.cpp" />
-    <ClCompile Include="..\..\..\src\utils\common\SUMOVTypeParameter.cpp" />
     <ClCompile Include="..\..\..\src\utils\common\SystemFrame.cpp" />
     <ClCompile Include="..\..\..\src\utils\common\SysUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\common\AbstractMutex.h" />
-    <ClInclude Include="..\..\..\src\utils\common\AStarRouter.h" />
     <ClInclude Include="..\..\..\src\utils\common\Command.h" />
-    <ClInclude Include="..\..\..\src\utils\common\DijkstraRouterEffort.h" />
-    <ClInclude Include="..\..\..\src\utils\common\DijkstraRouterTT.h" />
     <ClInclude Include="..\..\..\src\utils\common\FileHelpers.h" />
     <ClInclude Include="..\..\..\src\utils\common\IDSupplier.h" />
-    <ClInclude Include="..\..\..\src\utils\common\InstancePool.h" />
     <ClInclude Include="..\..\..\src\utils\common\MsgHandler.h" />
     <ClInclude Include="..\..\..\src\utils\common\MsgRetrievingFunction.h" />
     <ClInclude Include="..\..\..\src\utils\common\Named.h" />
     <ClInclude Include="..\..\..\src\utils\common\NamedObjectCont.h" />
     <ClInclude Include="..\..\..\src\utils\common\NamedRTree.h" />
     <ClInclude Include="..\..\..\src\utils\common\Parameterised.h" />
-    <ClInclude Include="..\..\..\src\utils\common\PedestrianRouter.h" />
     <ClInclude Include="..\..\..\src\utils\common\RandHelper.h" />
     <ClInclude Include="..\..\..\src\utils\common\RandomDistributor.h" />
     <ClInclude Include="..\..\..\src\utils\common\RGBColor.h" />
@@ -178,12 +171,8 @@
     <ClInclude Include="..\..\..\src\utils\common\StringBijection.h" />
     <ClInclude Include="..\..\..\src\utils\common\StringTokenizer.h" />
     <ClInclude Include="..\..\..\src\utils\common\StringUtils.h" />
-    <ClInclude Include="..\..\..\src\utils\common\SUMOAbstractRouter.h" />
     <ClInclude Include="..\..\..\src\utils\common\SUMOTime.h" />
-    <ClInclude Include="..\..\..\src\utils\common\SUMOVehicle.h" />
     <ClInclude Include="..\..\..\src\utils\common\SUMOVehicleClass.h" />
-    <ClInclude Include="..\..\..\src\utils\common\SUMOVehicleParameter.h" />
-    <ClInclude Include="..\..\..\src\utils\common\SUMOVTypeParameter.h" />
     <ClInclude Include="..\..\..\src\utils\common\SystemFrame.h" />
     <ClInclude Include="..\..\..\src\utils\common\SysUtils.h" />
     <ClInclude Include="..\..\..\src\utils\common\ToString.h" />

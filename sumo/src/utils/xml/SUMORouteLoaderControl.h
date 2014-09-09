@@ -65,7 +65,7 @@ public:
     /// add another loader
     void add(SUMORouteLoader* loader);
 
-    /// loads the next routes
+    /// loads the next routes up to and including the given time step
     void loadNext(SUMOTime step);
 
     /// returns the timestamp of the first loaded vehicle or flow
@@ -73,9 +73,17 @@ public:
         return myFirstLoadTime;
     }
 
+    /// returns whether loading is completed
+    bool haveAllLoaded() const {
+        return myAllLoaded;
+    }
+
 private:
     /// the first time step for which vehicles were loaded
     SUMOTime myFirstLoadTime;
+
+    /// the time step up to which vehicles were loaded
+    SUMOTime myCurrentLoadTime;
 
     /// the number of routes to read in forward
     SUMOTime myInAdvanceStepNo;

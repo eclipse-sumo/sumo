@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:04:03 by SUMO jtrrouter Version 0.17.0
+<!-- generated on 08/26/14 17:44:07 by SUMO jtrrouter Version dev-SVN-r16921
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/jtrrouterConfiguration.xsd">
@@ -22,6 +22,7 @@
     </processing>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -40,22 +41,22 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.3" type="passenger" depart="0.03">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.4" type="passenger" depart="0.04">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.5" type="passenger" depart="0.05">
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.6" type="passenger" depart="0.06">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.7" type="passenger" depart="0.07">
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.8" type="passenger" depart="0.08">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.9" type="passenger" depart="0.09">
         <route edges="beg middle end"/>
@@ -64,10 +65,10 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.11" type="passenger" depart="0.11">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.12" type="passenger" depart="0.12">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.13" type="passenger" depart="0.13">
         <route edges="beg middle end"/>
@@ -79,7 +80,7 @@
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.16" type="passenger" depart="0.16">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.17" type="passenger" depart="0.17">
         <route edges="beg middle end"/>
@@ -88,10 +89,10 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.19" type="passenger" depart="0.19">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.20" type="passenger" depart="0.20">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.21" type="passenger" depart="0.21">
         <route edges="beg beg2left left left2end end"/>
@@ -103,22 +104,22 @@
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.24" type="passenger" depart="0.24">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.25" type="passenger" depart="0.25">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.26" type="passenger" depart="0.26">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.27" type="passenger" depart="0.27">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.28" type="passenger" depart="0.28">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.29" type="passenger" depart="0.29">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.30" type="passenger" depart="0.30">
         <route edges="beg beg2left left left2end end"/>
@@ -136,16 +137,16 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.35" type="passenger" depart="0.35">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.36" type="passenger" depart="0.36">
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.37" type="passenger" depart="0.37">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.38" type="passenger" depart="0.38">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.39" type="passenger" depart="0.39">
         <route edges="beg middle end"/>
@@ -154,43 +155,43 @@
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.41" type="passenger" depart="0.41">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.42" type="passenger" depart="0.42">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.43" type="passenger" depart="0.43">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.44" type="passenger" depart="0.44">
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.45" type="passenger" depart="0.45">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.46" type="passenger" depart="0.46">
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.47" type="passenger" depart="0.47">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.48" type="passenger" depart="0.48">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.49" type="passenger" depart="0.49">
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.50" type="passenger" depart="0.50">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.51" type="passenger" depart="0.51">
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.52" type="passenger" depart="0.52">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.53" type="passenger" depart="0.53">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.54" type="passenger" depart="0.54">
         <route edges="beg beg2left left left2end end"/>
@@ -199,7 +200,7 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.56" type="passenger" depart="0.56">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.57" type="passenger" depart="0.57">
         <route edges="beg beg2left left left2end end"/>
@@ -208,13 +209,13 @@
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.59" type="passenger" depart="0.59">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.60" type="passenger" depart="0.60">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.61" type="passenger" depart="0.61">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.62" type="passenger" depart="0.62">
         <route edges="beg beg2left left left2end end"/>
@@ -223,7 +224,7 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.64" type="passenger" depart="0.64">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.65" type="passenger" depart="0.65">
         <route edges="beg beg2left left left2end end"/>
@@ -235,25 +236,25 @@
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.68" type="passenger" depart="0.68">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.69" type="passenger" depart="0.69">
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.70" type="passenger" depart="0.70">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.71" type="passenger" depart="0.71">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.72" type="passenger" depart="0.72">
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.73" type="passenger" depart="0.73">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.74" type="passenger" depart="0.74">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.75" type="passenger" depart="0.75">
         <route edges="beg middle end"/>
@@ -265,16 +266,16 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.78" type="passenger" depart="0.78">
-        <route edges="beg beg2left left left2end end"/>
-    </vehicle>
-    <vehicle id="0.79" type="passenger" depart="0.79">
-        <route edges="beg beg2left left left2end end"/>
-    </vehicle>
-    <vehicle id="0.80" type="passenger" depart="0.80">
         <route edges="beg middle end"/>
     </vehicle>
-    <vehicle id="0.81" type="passenger" depart="0.81">
+    <vehicle id="0.79" type="passenger" depart="0.79">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <vehicle id="0.80" type="passenger" depart="0.80">
         <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+    <vehicle id="0.81" type="passenger" depart="0.81">
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.82" type="passenger" depart="0.82">
         <route edges="beg beg2left left left2end end"/>
@@ -283,7 +284,7 @@
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.84" type="passenger" depart="0.84">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.85" type="passenger" depart="0.85">
         <route edges="beg middle end"/>
@@ -292,13 +293,13 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.87" type="passenger" depart="0.87">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="0.88" type="passenger" depart="0.88">
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.89" type="passenger" depart="0.89">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="0.90" type="passenger" depart="0.90">
         <route edges="beg middle end"/>

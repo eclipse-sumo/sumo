@@ -1,0 +1,4 @@
+--no-step-log -b 0 --no-duration-log --net-file=three_split.net.xml
+  -a=input_trips.trips.xml --vehroute-output=vehroutes.xml
+  --device.rerouting.threads 2 --device.rerouting.adaptation-interval 0
+  --routing-algorithm CHWrapper -v

@@ -144,62 +144,62 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);$(PYTHON_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalRelease\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalRelease\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalRelease\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalRelease\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'">
     <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_DEBUG_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);$(PYTHON_DEBUG_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|x64'">
     <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|Win32'">
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'">
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -266,6 +266,14 @@
     <ProjectReference Include="..\z_libutils_options\z_libutils_options.vcxproj">
       <Project>{ee29af87-7317-488d-bf6d-ec422d1dbad6}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_vehicle\z_libutils_vehicle.vcxproj">
+      <Project>{421250da-d4bf-4678-8605-837f455552fc}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\z_libutils_xml\z_libutils_xml.vcxproj">
       <Project>{508f0bff-83fe-444c-9509-a359bca83bc4}</Project>

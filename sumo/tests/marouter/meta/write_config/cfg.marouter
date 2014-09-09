@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <od-matrix-files value="input_od_o.fma"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+</configuration>

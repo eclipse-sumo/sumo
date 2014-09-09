@@ -8,4 +8,4 @@ endif
 
 SUBDIRS = common distribution emissions \
 geom importio iodevices options shapes \
-xml $(GUI_DIRS) $(TRACI_DIRS)
+vehicle xml $(GUI_DIRS) $(TRACI_DIRS)

@@ -115,6 +115,9 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
     oc.addSynonyme("unsorted-input", "unsorted");
     oc.addDescription("unsorted-input", "Processing", "Assume input is unsorted");
 
+    oc.doRegister("route-steps", 's', new Option_String("200", "TIME"));
+    oc.addDescription("route-steps", "Processing", "Load routes for the next number of seconds ahead");
+
     oc.doRegister("randomize-flows", new Option_Bool(false));
     oc.addDescription("randomize-flows", "Processing", "generate random departure times for flow input");
 
@@ -149,6 +152,11 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
         oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy");
 #endif
     }
+
+#ifdef HAVE_FOX
+    oc.doRegister("routing-threads", new Option_Integer(0));
+    oc.addDescription("routing-threads", "Processing", "The number of parallel execution threads used for routing");
+#endif
 
     // register defaults options
     oc.doRegister("departlane", new Option_String());

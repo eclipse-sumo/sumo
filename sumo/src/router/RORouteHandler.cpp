@@ -96,7 +96,7 @@ RORouteHandler::parseFromViaTo(std::string element,
         const ROEdge* fromTaz = myNet.getEdge(myVehicleParameter->fromTaz + "-source");
         if (fromTaz == 0) {
             myErrorOutput->inform("Source taz '" + myVehicleParameter->fromTaz + "' not known for " + element + " '" + myVehicleParameter->id + "'!");
-        } else if (fromTaz->getNoFollowing() == 0) {
+        } else if (fromTaz->getNumSuccessors() == 0) {
             myErrorOutput->inform("Source taz '" + myVehicleParameter->fromTaz + "' has no outgoing edges for " + element + " '" + myVehicleParameter->id + "'!");
         } else {
             myActiveRoute.push_back(fromTaz);

@@ -35,7 +35,7 @@
 #include <string>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>

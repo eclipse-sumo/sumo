@@ -1,0 +1,4 @@
+<trips>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <flow id="0" begin="0" end="2" number="10" from="beg" to="rend"/>
+</trips>

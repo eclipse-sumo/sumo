@@ -1,0 +1,21 @@
+$VMR;D2
+* Verkehrsmittelkennung
+   1
+* Von  Bis
+0.00 24.00
+* Faktor
+1.00
+*  
+* Deutsches Zentrum fuer Luft- und Raumfahrt e.V.
+* 28.02.08
+* Anzahl Bezirke
+3
+*
+         91          92          93
+*
+* Bez 91
+      0.00       0.00     800.00
+* Bez 92
+      0.00       0.00     200.00
+* Bez 93
+      0.00       0.00       0.00

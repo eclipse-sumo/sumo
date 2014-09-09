@@ -42,7 +42,7 @@
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/common/AbstractMutex.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>

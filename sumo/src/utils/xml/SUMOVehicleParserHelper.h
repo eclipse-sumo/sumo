@@ -38,8 +38,8 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/SUMOVehicleParameter.h>
-#include <utils/common/SUMOVTypeParameter.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
 

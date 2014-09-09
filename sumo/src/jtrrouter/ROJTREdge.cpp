@@ -58,8 +58,8 @@ ROJTREdge::~ROJTREdge() {
 
 
 void
-ROJTREdge::addFollower(ROEdge* s, std::string) {
-    ROEdge::addFollower(s);
+ROJTREdge::addSuccessor(ROEdge* s, std::string) {
+    ROEdge::addSuccessor(s);
     ROJTREdge* js = static_cast<ROJTREdge*>(s);
     if (myFollowingDefs.find(js) == myFollowingDefs.end()) {
         myFollowingDefs[js] = new ValueTimeLine<SUMOReal>();

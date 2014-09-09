@@ -118,7 +118,7 @@ main(int argc, char* argv[]) {
         net = new RONet();
         RODUAEdgeBuilder builder(oc.getBool("weights.expand"), oc.getBool("weights.interpolate"));
         loadNet(*net, builder);
-        WRITE_MESSAGE("Loaded " + toString(net->getEdgeNoWithoutInternal()) + " edges.");
+        WRITE_MESSAGE("Loaded " + toString(net->getEdgeNo()) + " edges.");
         if (oc.getBool("debug")) {
             WRITE_MESSAGE("\n\t ---- begin AcitivtyGen ----\n");
         }

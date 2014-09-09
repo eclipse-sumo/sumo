@@ -5,10 +5,6 @@ NETEDIT_APP = netedit
 endif
 endif
 
-if INTERNAL
-MAROUTER_APP = marouter
-endif
-
 if TRACI
 TRACI_TESTCLIENT_APP = TraCITestClient
 endif
@@ -30,7 +26,7 @@ emissionsDrivingCycle emissionsDrivingCycleD emissionsDrivingCycleInt emissionsD
 emissionsMap emissionsMapD emissionsMapInt emissionsMapIntD
 
 install: all
-all: sumo dfrouter duarouter jtrrouter netconvert netgenerate od2trips polyconvert activitygen emissionsDrivingCycle emissionsMap $(GUI_APP) $(NETEDIT_APP) $(MAROUTER_APP) $(TRACI_TESTCLIENT_APP)
+all: sumo dfrouter duarouter jtrrouter netconvert netgenerate od2trips polyconvert activitygen emissionsDrivingCycle emissionsMap marouter $(GUI_APP) $(NETEDIT_APP) $(MAROUTER_APP) $(TRACI_TESTCLIENT_APP)
 sumo: ../src/sumo
 	cp ../src/sumo ./`echo sumo | sed '$(transform)'`
 	if [ ! -e sumo -a -e meso ]; then ln -s meso sumo; fi
@@ -97,6 +93,12 @@ emissionsMap: ../src/tools/emissionsMap
 	if [ ! -e emissionsMapD -a -e emissionsMapIntD ]; then ln -s emissionsMapIntD emissionsMapD; fi
 	if [ ! -e emissionsMap -a -e emissionsMapD ]; then ln -s emissionsMapD emissionsMap; fi
 	if [ ! -e emissionsMapInt -a -e emissionsMapIntD ]; then ln -s emissionsMapIntD emissionsMapInt; fi
+marouter: ../src/marouter/marouter
+	cp ../src/marouter/marouter ./`echo marouter | sed '$(transform)'`
+	if [ ! -e marouter -a -e marouterInt ]; then ln -s marouterInt marouter; fi
+	if [ ! -e marouterD -a -e marouterIntD ]; then ln -s marouterIntD marouterD; fi
+	if [ ! -e marouter -a -e marouterD ]; then ln -s marouterD marouter; fi
+	if [ ! -e marouter -a -e marouterIntD ]; then ln -s marouterIntD marouterInt; fi
 $(GUI_APP): ../src/$(GUI_APP)
 	cp ../src/$(GUI_APP) ./`echo $(GUI_APP) | sed '$(transform)'`
 	if [ ! -e $(GUI_APP) -a -e meso-gui ]; then ln -s meso-gui $(GUI_APP); fi
@@ -105,9 +107,6 @@ $(GUI_APP): ../src/$(GUI_APP)
 $(NETEDIT_APP):	../src/netedit/$(NETEDIT_APP)
 	cp ../src/netedit/$(NETEDIT_APP) ./`echo $(NETEDIT_APP) | sed '$(transform)'`
 	if [ ! -e $(NETEDIT_APP) -a -e $(NETEDIT_APP)D ]; then ln -s $(NETEDIT_APP)D $(NETEDIT_APP); fi
-$(MAROUTER_APP): ../src/marouter/$(MAROUTER_APP)
-	cp ../src/marouter/$(MAROUTER_APP) ./`echo $(MAROUTER_APP) | sed '$(transform)'`
-	if [ ! -e $(MAROUTER_APP) -a -e $(MAROUTER_APP)D ]; then ln -s $(MAROUTER_APP)D $(MAROUTER_APP); fi
 $(TRACI_TESTCLIENT_APP): ../src/traci_testclient/$(TRACI_TESTCLIENT_APP)
 	cp ../src/traci_testclient/$(TRACI_TESTCLIENT_APP) ./`echo $(TRACI_TESTCLIENT_APP) | sed '$(transform)'`
 	if [ ! -e $(TRACI_TESTCLIENT_APP) -a -e $(TRACI_TESTCLIENT_APP)Int ]; then ln -s $(TRACI_TESTCLIENT_APP)Int $(TRACI_TESTCLIENT_APP); fi

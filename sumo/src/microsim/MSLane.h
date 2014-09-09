@@ -42,7 +42,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/Parameterised.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/SUMOVehicle.h>
+#include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/geom/PositionVector.h>
 #include "MSLinkCont.h"

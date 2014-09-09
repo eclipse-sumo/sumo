@@ -1,17 +1,9 @@
 Loading net... done.
 Skipped until: 0.00
-Reading time step: 0.00
+Reading up to time step: 0.00
+Reading up to time step: 200.00
 Repaired route of vehicle '0.0'.
-Reading time step: 1.00
 Repaired route of vehicle '0.1'.
-Repaired route of vehicle '0.2'.
-Repaired route of vehicle '0.3'.
-Repaired route of vehicle '0.4'.
-Repaired route of vehicle '0.5'.
-Repaired route of vehicle '0.6'.
-Repaired route of vehicle '0.7'.
-Repaired route of vehicle '0.8'.
-Repaired route of vehicle '0.9'.
 Repaired route of vehicle '0.10'.
 Repaired route of vehicle '0.11'.
 Repaired route of vehicle '0.12'.
@@ -22,6 +14,7 @@ Repaired route of vehicle '0.16'.
 Repaired route of vehicle '0.17'.
 Repaired route of vehicle '0.18'.
 Repaired route of vehicle '0.19'.
+Repaired route of vehicle '0.2'.
 Repaired route of vehicle '0.20'.
 Repaired route of vehicle '0.21'.
 Repaired route of vehicle '0.22'.
@@ -32,6 +25,7 @@ Repaired route of vehicle '0.26'.
 Repaired route of vehicle '0.27'.
 Repaired route of vehicle '0.28'.
 Repaired route of vehicle '0.29'.
+Repaired route of vehicle '0.3'.
 Repaired route of vehicle '0.30'.
 Repaired route of vehicle '0.31'.
 Repaired route of vehicle '0.32'.
@@ -42,6 +36,7 @@ Repaired route of vehicle '0.36'.
 Repaired route of vehicle '0.37'.
 Repaired route of vehicle '0.38'.
 Repaired route of vehicle '0.39'.
+Repaired route of vehicle '0.4'.
 Repaired route of vehicle '0.40'.
 Repaired route of vehicle '0.41'.
 Repaired route of vehicle '0.42'.
@@ -52,6 +47,7 @@ Repaired route of vehicle '0.46'.
 Repaired route of vehicle '0.47'.
 Repaired route of vehicle '0.48'.
 Repaired route of vehicle '0.49'.
+Repaired route of vehicle '0.5'.
 Repaired route of vehicle '0.50'.
 Repaired route of vehicle '0.51'.
 Repaired route of vehicle '0.52'.
@@ -62,6 +58,7 @@ Repaired route of vehicle '0.56'.
 Repaired route of vehicle '0.57'.
 Repaired route of vehicle '0.58'.
 Repaired route of vehicle '0.59'.
+Repaired route of vehicle '0.6'.
 Repaired route of vehicle '0.60'.
 Repaired route of vehicle '0.61'.
 Repaired route of vehicle '0.62'.
@@ -72,6 +69,7 @@ Repaired route of vehicle '0.66'.
 Repaired route of vehicle '0.67'.
 Repaired route of vehicle '0.68'.
 Repaired route of vehicle '0.69'.
+Repaired route of vehicle '0.7'.
 Repaired route of vehicle '0.70'.
 Repaired route of vehicle '0.71'.
 Repaired route of vehicle '0.72'.
@@ -82,6 +80,7 @@ Repaired route of vehicle '0.76'.
 Repaired route of vehicle '0.77'.
 Repaired route of vehicle '0.78'.
 Repaired route of vehicle '0.79'.
+Repaired route of vehicle '0.8'.
 Repaired route of vehicle '0.80'.
 Repaired route of vehicle '0.81'.
 Repaired route of vehicle '0.82'.
@@ -92,6 +91,7 @@ Repaired route of vehicle '0.86'.
 Repaired route of vehicle '0.87'.
 Repaired route of vehicle '0.88'.
 Repaired route of vehicle '0.89'.
+Repaired route of vehicle '0.9'.
 Repaired route of vehicle '0.90'.
 Repaired route of vehicle '0.91'.
 Repaired route of vehicle '0.92'.
@@ -102,5 +102,5 @@ Repaired route of vehicle '0.96'.
 Repaired route of vehicle '0.97'.
 Repaired route of vehicle '0.98'.
 Repaired route of vehicle '0.99'.
-Routes found between time steps 0.00 and 1.00.
+Routes found between time steps 0.00 and 0.99.
 Success.

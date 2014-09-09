@@ -32,7 +32,7 @@
 #include <cassert>
 #include "MSTrigger.h"
 #include "MSBusStop.h"
-#include <utils/common/SUMOVehicle.h>
+#include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSVehicleType.h>
 
 #ifdef CHECK_MEMORY_LEAKS

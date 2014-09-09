@@ -41,7 +41,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVTypeParameter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/common/RGBColor.h>
 #include <foreign/mersenne/MersenneTwister.h>
 

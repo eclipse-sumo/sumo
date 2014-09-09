@@ -1,0 +1,39 @@
+
+# From-district is unknown in first of two o/d entries
+from_missing1of2
+
+# From-district is unknown in second of two o/d entries
+from_missing2of2
+
+
+# To-district is unknown in first of two o/d entries
+to_missing1of2
+
+# To-district is unknown in second of two o/d entries
+to_missing2of2
+
+
+# Both districts are unknown in first of two o/d entries
+both_missing1of2
+
+# Both districts are unknown in second of two o/d entries
+both_missing2of2
+
+
+
+# From-district is unknown in first of two o/d entries; loading errors are ignored
+from_missing1of2_allowed
+
+# From-district is unknown in second of two o/d entries; loading errors are ignored
+from_missing2of2_allowed
+
+
+# To-district is unknown in first of two o/d entries; loading errors are ignored
+to_missing1of2_allowed
+
+# To-district is unknown in second of two o/d entries; loading errors are ignored
+to_missing2of2_allowed
+
+
+
+

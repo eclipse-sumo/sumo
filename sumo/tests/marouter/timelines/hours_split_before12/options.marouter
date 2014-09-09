@@ -1,0 +1,1 @@
+--timeline.day-in-hours --timeline 1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0 -n input_net.net.xml -d input_taz.taz.xml -m input_od_o.fma -o routes.rou.xml

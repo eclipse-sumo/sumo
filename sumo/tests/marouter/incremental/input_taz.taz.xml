@@ -1,0 +1,11 @@
+<tazs>
+   <taz id="91">
+      <tazSource id="D1" weight="100.0000"/>
+   </taz>
+   <taz id="92">
+      <tazSource id="D2" weight="100.0000"/>
+   </taz>
+   <taz id="93">
+      <tazSink id="D3" weight="100.0000"/>
+   </taz>
+</tazs>

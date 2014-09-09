@@ -34,7 +34,7 @@
 
 #include <utils/common/IDSupplier.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
 
@@ -69,6 +69,11 @@ public:
     /// check start and end position of a stop
     static bool checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const SUMOReal laneLength,
                              const SUMOReal minLength, const bool friendlyPos);
+
+    /// @brief returns the first departure time that was ever read
+    SUMOTime getFirstDepart() const {
+        return myFirstDepart;
+    }
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -154,11 +159,14 @@ protected:
     /// @brief The id of the route the current route references to
     std::string myActiveRouteRefID;
 
-    /// @brief The id of the current route
+    /// @brief The probability of the current route
     SUMOReal myActiveRouteProbability;
 
     /// @brief The currently parsed route's color
     const RGBColor* myActiveRouteColor;
+
+    /// @brief The currently parsed route costs
+    SUMOReal myCurrentCosts;
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myActiveRouteStops;
@@ -174,6 +182,9 @@ protected:
 
     /// @brief The default value for flow ends
     SUMOTime myEndDefault;
+
+    /// @brief the first read departure time
+    SUMOTime myFirstDepart;
 
 private:
     /// @brief Invalidated copy constructor

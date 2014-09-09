@@ -5,22 +5,6 @@ Repaired route of vehicle '0.0'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.1'.
 Warning: The route starting at edge 'beg' could not be closed.
-Repaired route of vehicle '0.2'.
-Warning: The route starting at edge 'beg' could not be closed.
-Repaired route of vehicle '0.3'.
-Warning: The route starting at edge 'beg' could not be closed.
-Repaired route of vehicle '0.4'.
-Warning: The route starting at edge 'beg' could not be closed.
-Repaired route of vehicle '0.5'.
-Warning: The route starting at edge 'beg' could not be closed.
-Repaired route of vehicle '0.6'.
-Warning: The route starting at edge 'beg' could not be closed.
-Repaired route of vehicle '0.7'.
-Warning: The route starting at edge 'beg' could not be closed.
-Repaired route of vehicle '0.8'.
-Warning: The route starting at edge 'beg' could not be closed.
-Repaired route of vehicle '0.9'.
-Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.10'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.11'.
@@ -40,6 +24,8 @@ Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.18'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.19'.
+Warning: The route starting at edge 'beg' could not be closed.
+Repaired route of vehicle '0.2'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.20'.
 Warning: The route starting at edge 'beg' could not be closed.
@@ -61,6 +47,8 @@ Repaired route of vehicle '0.28'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.29'.
 Warning: The route starting at edge 'beg' could not be closed.
+Repaired route of vehicle '0.3'.
+Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.30'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.31'.
@@ -80,6 +68,8 @@ Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.38'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.39'.
+Warning: The route starting at edge 'beg' could not be closed.
+Repaired route of vehicle '0.4'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.40'.
 Warning: The route starting at edge 'beg' could not be closed.
@@ -101,6 +91,8 @@ Repaired route of vehicle '0.48'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.49'.
 Warning: The route starting at edge 'beg' could not be closed.
+Repaired route of vehicle '0.5'.
+Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.50'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.51'.
@@ -120,6 +112,8 @@ Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.58'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.59'.
+Warning: The route starting at edge 'beg' could not be closed.
+Repaired route of vehicle '0.6'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.60'.
 Warning: The route starting at edge 'beg' could not be closed.
@@ -141,6 +135,8 @@ Repaired route of vehicle '0.68'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.69'.
 Warning: The route starting at edge 'beg' could not be closed.
+Repaired route of vehicle '0.7'.
+Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.70'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.71'.
@@ -160,6 +156,8 @@ Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.78'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.79'.
+Warning: The route starting at edge 'beg' could not be closed.
+Repaired route of vehicle '0.8'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.80'.
 Warning: The route starting at edge 'beg' could not be closed.
@@ -181,6 +179,8 @@ Repaired route of vehicle '0.88'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.89'.
 Warning: The route starting at edge 'beg' could not be closed.
+Repaired route of vehicle '0.9'.
+Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.90'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.91'.
@@ -200,4 +200,4 @@ Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.98'.
 Warning: The route starting at edge 'beg' could not be closed.
 Repaired route of vehicle '0.99'.
-Routes found between time steps 0.00 and 1.00.
+Routes found between time steps 0.00 and 0.99.

@@ -42,7 +42,7 @@
 #include <router/ROFrame.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/common/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -81,7 +81,7 @@ ROJTRFrame::fillOptions() {
     oc.doRegister("turn-defaults", 'T', new Option_String("30,50,20"));
     oc.addDescription("turn-defaults", "Processing", "Use STR as default turn definition");
 
-    oc.doRegister("sink-edges", 's', new Option_String());
+    oc.doRegister("sink-edges", new Option_String());
     oc.addSynonyme("sink-edges", "sinks");
     oc.addDescription("sink-edges", "Processing", "Use STR as list of sink edges");
 

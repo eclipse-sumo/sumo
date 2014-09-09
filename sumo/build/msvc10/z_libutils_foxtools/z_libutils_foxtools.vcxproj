@@ -183,6 +183,7 @@
     <ClInclude Include="..\..\..\src\utils\foxtools\FXSingleEventThread.h" />
     <ClInclude Include="..\..\..\src\utils\foxtools\FXThreadEvent.h" />
     <ClInclude Include="..\..\..\src\utils\foxtools\FXThreadMessageRetriever.h" />
+    <ClInclude Include="..\..\..\src\utils\foxtools\FXWorkerThread.h" />
     <ClInclude Include="..\..\..\src\utils\foxtools\MFXAddEditTypedTable.h" />
     <ClInclude Include="..\..\..\src\utils\foxtools\MFXCheckableButton.h" />
     <ClInclude Include="..\..\..\src\utils\foxtools\MFXEditableTable.h" />

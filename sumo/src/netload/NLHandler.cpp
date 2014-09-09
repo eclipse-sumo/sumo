@@ -384,6 +384,9 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     SVCPermissions permissions = parseVehicleClasses(allow, disallow);
+    if (permissions != SVCAll) {
+        myNet.setRestrictionFound();
+    }
     myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {
         try {
@@ -1138,8 +1141,8 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
                 if (edge == 0) {
                     throw InvalidArgument("The edge '" + *i + "' within district '" + myCurrentDistrictID + "' is not known.");
                 }
-                source->addFollower(edge);
-                edge->addFollower(sink);
+                source->addSuccessor(edge);
+                edge->addSuccessor(sink);
             }
         }
         if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
@@ -1169,9 +1172,9 @@ NLHandler::addDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
     if (succ != 0) {
         // connect edge
         if (isSource) {
-            MSEdge::dictionary(myCurrentDistrictID + "-source")->addFollower(succ);
+            MSEdge::dictionary(myCurrentDistrictID + "-source")->addSuccessor(succ);
         } else {
-            succ->addFollower(MSEdge::dictionary(myCurrentDistrictID + "-sink"));
+            succ->addSuccessor(MSEdge::dictionary(myCurrentDistrictID + "-sink"));
         }
     } else {
         WRITE_ERROR("At district '" + myCurrentDistrictID + "': succeeding edge '" + id + "' does not exist.");

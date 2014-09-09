@@ -41,7 +41,7 @@
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SUMOVehicle.h>
+#include <utils/vehicle/SUMOVehicle.h>
 
 
 // ===========================================================================

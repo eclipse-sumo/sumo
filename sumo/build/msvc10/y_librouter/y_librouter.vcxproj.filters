@@ -44,9 +44,6 @@
     <ClCompile Include="..\..\..\src\router\ROVehicleCont.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\router\ROCostCalculator.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\router\RORouteHandler.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -89,9 +86,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\router\ROVehicleCont.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\router\ROCostCalculator.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\router\RORouteHandler.h">

@@ -27,15 +27,17 @@
     <processing>
         <ignore-errors value="false" synonymes="continue-on-unbuild" type="BOOL" help="Continue if a route could not be build"/>
         <unsorted-input value="false" synonymes="unsorted" type="BOOL" help="Assume input is unsorted"/>
+        <route-steps value="200" synonymes="s" type="TIME" help="Load routes for the next number of seconds ahead"/>
         <randomize-flows value="false" type="BOOL" help="generate random departure times for flow input"/>
         <max-alternatives value="5" type="INT" help="Prune the number of alternatives to INT"/>
         <remove-loops value="false" type="BOOL" help="Remove loops within the route; Remove turnarounds at start and end of the route"/>
         <repair value="false" type="BOOL" help="Tries to correct a false route"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
+        <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
         <max-edges-factor value="2" type="FLOAT" help="Routes are cut off when the route edges to net edges ratio is larger than FLOAT"/>
         <turn-defaults value="30,50,20" synonymes="T" type="STR" help="Use STR as default turn definition"/>
-        <sink-edges value="" synonymes="s sinks" type="STR" help="Use STR as list of sink edges"/>
+        <sink-edges value="" synonymes="sinks" type="STR" help="Use STR as list of sink edges"/>
         <accept-all-destinations value="false" synonymes="A" type="BOOL" help="Whether all edges are allowed as sink edges"/>
         <ignore-vclasses value="false" synonymes="i" type="BOOL" help="Ignore road restrictions based on vehicle class"/>
         <allow-loops value="false" type="BOOL" help="Allow to re-use a road"/>

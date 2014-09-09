@@ -35,8 +35,8 @@
 #include <string>
 #include <iostream>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/SUMOVehicleParameter.h>
-#include <utils/common/SUMOVTypeParameter.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -124,8 +124,13 @@ public:
         return getType() != 0 ? getType()->vehicleClass : SVC_IGNORING;
     }
 
-    /// @brief Create a new vehicle with the vType of this vehicle
-    ROVehicle* createVTypeClone() const;
+    /** @brief Returns an upper bound for the speed factor of this vehicle
+     *
+     * @return the maximum speed factor
+     */
+    inline SUMOReal getChosenSpeedFactor() const {
+        return SUMOReal(2. * getType()->speedDev + 1.) * getType()->speedFactor;
+    }
 
 
     /** @brief Saves the complete vehicle description.
@@ -143,7 +148,13 @@ public:
     void saveAllAsXML(OutputDevice& os, OutputDevice* const altos,
                       OutputDevice* const typeos, bool withExitTimes) const;
 
+    inline void setRoutingSuccess(const bool val) {
+        myRoutingSuccess = val;
+    }
 
+    inline bool getRoutingSuccess() const {
+        return myRoutingSuccess;
+    }
 private:
     /** @brief Adds a stop to this vehicle
      *
@@ -165,6 +176,9 @@ protected:
 
     /// @brief The edges where the vehicle stops
     std::vector<const ROEdge*> myStopEdges;
+
+    /// @brief Whether the last routing was successful
+    bool myRoutingSuccess;
 
 
 private:

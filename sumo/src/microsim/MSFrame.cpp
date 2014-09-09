@@ -166,6 +166,10 @@ MSFrame::fillOptions() {
     oc.addSynonyme("vehroute-output.sorted", "vehroutes.sorted");
     oc.addDescription("vehroute-output.sorted", "Output", "Sorts the output by departure time");
 
+    oc.doRegister("vehroute-output.dua", new Option_Bool(false));
+    oc.addSynonyme("vehroute-output.dua", "vehroutes.dua");
+    oc.addDescription("vehroute-output.dua", "Output", "Write the output in the duarouter alternatives style");
+
     oc.doRegister("vehroute-output.write-unfinished", new Option_Bool(false));
     oc.addDescription("vehroute-output.write-unfinished", "Output", "Write vehroute output for vehicles which have not arrived at simulation end");
 

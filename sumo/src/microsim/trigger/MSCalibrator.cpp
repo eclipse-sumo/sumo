@@ -47,7 +47,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 #include <utils/common/RandomDistributor.h>
-#include <utils/common/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include "MSCalibrator.h"
 
 #ifdef CHECK_MEMORY_LEAKS

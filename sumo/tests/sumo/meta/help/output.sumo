@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r16987
+SUMO Version dev-SVN-r17028
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
@@ -53,6 +53,8 @@ Output Options:
   --vehroute-output.exit-times         Write the exit times for all edges
   --vehroute-output.last-route         Write the last route only
   --vehroute-output.sorted             Sorts the output by departure time
+  --vehroute-output.dua                Write the output in the duarouter
+                                         alternatives style
   --vehroute-output.write-unfinished   Write vehroute output for vehicles which
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE
@@ -182,6 +184,10 @@ Routing Options:
                                          points
   --device.rerouting.init-with-loaded-weights  Use given weight files for
                                          initializing edge weights
+  --device.rerouting.shortest-path-file FILE  Initialize lookup table for astar
+                                         from the given distance matrix
+  --device.rerouting.threads INT       The number of parallel execution threads
+                                         used for rerouting
 
 Example Device Options:
   --device.example.explicit STR        Assign a device to named vehicles

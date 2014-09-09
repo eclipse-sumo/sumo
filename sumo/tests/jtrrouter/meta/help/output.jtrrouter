@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r16607
+SUMO jtrrouter Version dev-SVN-r16921
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Router for the microscopic road traffic simulation SUMO based on junction
   turning ratios.
@@ -29,6 +29,8 @@ Output Options:
 Processing Options:
   --ignore-errors                  Continue if a route could not be build
   --unsorted-input                 Assume input is unsorted
+  -s, --route-steps TIME           Load routes for the next number of seconds
+                                     ahead
   --randomize-flows                generate random departure times for flow
                                      input
   --max-alternatives INT           Prune the number of alternatives to INT
@@ -40,10 +42,12 @@ Processing Options:
                                      boundaries
   --with-taz                       Use origin and destination zones (districts)
                                      for in- and output
+  --routing-threads INT            The number of parallel execution threads
+                                     used for routing
   --max-edges-factor FLOAT         Routes are cut off when the route edges to
                                      net edges ratio is larger than FLOAT
   -T, --turn-defaults STR          Use STR as default turn definition
-  -s, --sink-edges STR             Use STR as list of sink edges
+  --sink-edges STR                 Use STR as list of sink edges
   -A, --accept-all-destinations    Whether all edges are allowed as sink edges
   -i, --ignore-vclasses            Ignore road restrictions based on vehicle
                                      class

@@ -31,7 +31,7 @@
 #include <config.h>
 #endif
 
-#include <utils/common/SUMOAbstractRouter.h>
+#include <utils/vehicle/SUMOAbstractRouter.h>
 
 
 // ===========================================================================
@@ -66,7 +66,9 @@ public:
     /// @brief Destructor
     ~ROJTRRouter();
 
-
+    virtual SUMOAbstractRouter* clone() const {
+        return new ROJTRRouter(myUnbuildIsWarningOnly, myAcceptAllDestination, myMaxEdges, myIgnoreClasses, myAllowLoops);
+    }
 
     /// @name Implementatios of SUMOAbstractRouter
     /// @{

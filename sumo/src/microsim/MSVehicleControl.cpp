@@ -38,7 +38,7 @@
 #include <microsim/devices/MSDevice.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RGBColor.h>
-#include <utils/common/SUMOVTypeParameter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>

@@ -150,8 +150,8 @@ MSEdge::closeBuilding() {
                 if (std::find(mySuccessors.begin(), mySuccessors.end(), &to) == mySuccessors.end()) {
                     mySuccessors.push_back(&to);
                 }
-                if (std::find(to.myPredeccesors.begin(), to.myPredeccesors.end(), this) == to.myPredeccesors.end()) {
-                    to.myPredeccesors.push_back(this);
+                if (std::find(to.myPredecessors.begin(), to.myPredecessors.end(), this) == to.myPredecessors.end()) {
+                    to.myPredecessors.push_back(this);
                 }
                 //
                 if (myAllowed.find(&to) == myAllowed.end()) {
@@ -163,8 +163,8 @@ MSEdge::closeBuilding() {
             toL = (*j)->getViaLane();
             if (toL != 0) {
                 MSEdge& to = toL->getEdge();
-                if (std::find(to.myPredeccesors.begin(), to.myPredeccesors.end(), this) == to.myPredeccesors.end()) {
-                    to.myPredeccesors.push_back(this);
+                if (std::find(to.myPredecessors.begin(), to.myPredecessors.end(), this) == to.myPredecessors.end()) {
+                    to.myPredecessors.push_back(this);
                 }
             }
 #endif

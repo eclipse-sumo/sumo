@@ -37,8 +37,9 @@
 #include "RORoute.h"
 #include "RORouteDef.h"
 #include "ROVehicle.h"
-#include <utils/common/SUMOVTypeParameter.h>
-#include <utils/common/SUMOAbstractRouter.h>
+#include <utils/vehicle/RouteCostCalculator.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
+#include <utils/vehicle/SUMOAbstractRouter.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
@@ -138,7 +139,7 @@ RONet::openOutput(const std::string& filename, const std::string altFilename, co
 
 
 void
-RONet::closeOutput() {
+RONet::cleanup(SUMOAbstractRouter<ROEdge, ROVehicle>* router) {
     // end writing
     if (myRoutesOutput != 0) {
         myRoutesOutput->close();
@@ -151,6 +152,14 @@ RONet::closeOutput() {
     if (myTypesOutput != 0) {
         myTypesOutput->close();
     }
+    RouteCostCalculator<RORoute, ROEdge, ROVehicle>::cleanup();
+#ifdef HAVE_FOX
+    if (myThreadPool.size() > 0) {
+        myThreadPool.clear();
+        return;
+    }
+#endif
+    delete router;
 }
 
 
@@ -253,28 +262,29 @@ RONet::addPerson(const SUMOTime depart, const std::string desc) {
 
 
 bool
-RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>& router,
-                    const ROVehicle* const veh) {
+RONet::computeRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+                    const ROVehicle* const veh, const bool removeLoops,
+                    MsgHandler* errorHandler) {
     std::string noRouteMsg = "The vehicle '" + veh->getID() + "' has no valid route.";
     RORouteDef* const routeDef = veh->getRouteDefinition();
     // check if the route definition is valid
     if (routeDef == 0) {
-        myErrorHandler->inform(noRouteMsg);
+        errorHandler->inform(noRouteMsg);
         return false;
     }
     RORoute* current = routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
     if (current == 0 || current->size() == 0) {
         delete current;
-        myErrorHandler->inform(noRouteMsg);
+        errorHandler->inform(noRouteMsg);
         return false;
     }
     // check whether we have to evaluate the route for not containing loops
-    if (options.getBool("remove-loops")) {
+    if (removeLoops) {
         current->recheckForLoops();
         // check whether the route is still valid
         if (current->size() == 0) {
             delete current;
-            myErrorHandler->inform(noRouteMsg + " (after removing loops)");
+            errorHandler->inform(noRouteMsg + " (after removing loops)");
             return false;
         }
     }
@@ -326,6 +336,36 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
                                 SUMOTime time) {
     checkFlows(time);
     SUMOTime lastTime = -1;
+    const bool removeLoops = options.getBool("remove-loops");
+#ifdef HAVE_FOX
+    const int maxNumThreads = options.getInt("routing-threads");
+#endif
+    if (myVehicles.size() != 0) {
+        const std::map<std::string, ROVehicle*>& mmap = myVehicles.getMyMap();
+        for (std::map<std::string, ROVehicle*>::const_iterator i = mmap.begin(); i != mmap.end(); ++i) {
+            if (i->second->getDepartureTime() >= time) {
+                // we cannot go through a sorted list here, because the priority queue in the myVehicles container is not fully sorted
+                continue;
+            }
+            i->second->setRoutingSuccess(false);
+#ifdef HAVE_FOX
+            // add thread if necessary
+            const int numThreads = (int)myThreadPool.size();
+            if (numThreads < maxNumThreads && myThreadPool.isFull()) {
+                new WorkerThread(myThreadPool, numThreads == 0 ? &router : router.clone());
+            }
+            // add task
+            if (maxNumThreads > 0) {
+                myThreadPool.add(new RoutingTask(i->second, removeLoops, myErrorHandler));
+                continue;
+            }
+#endif
+            i->second->setRoutingSuccess(computeRoute(router, i->second, removeLoops, myErrorHandler));
+        }
+#ifdef HAVE_FOX
+        myThreadPool.waitAll();
+#endif
+    }
     // write all vehicles (and additional structures)
     while (myVehicles.size() != 0 || myPersons.size() != 0) {
         // get the next vehicle and person
@@ -334,7 +374,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
         PersonMap::iterator person = myPersons.begin();
         const SUMOTime personTime = person == myPersons.end() ? SUMOTime_MAX : person->first;
         // check whether it shall not yet be computed
-        if (vehicleTime > time && personTime > time) {
+        if (vehicleTime >= time && personTime >= time) {
             lastTime = MIN2(vehicleTime, personTime);
             break;
         }
@@ -349,7 +389,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
             lastTime = vehicleTime;
 
             // ok, compute the route (try it)
-            if (computeRoute(options, router, veh)) {
+            if (veh->getRoutingSuccess()) {
                 // write the route
                 veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options.getBool("exit-times"));
                 myWrittenRouteNo++;
@@ -381,15 +421,15 @@ RONet::furtherStored() {
 }
 
 
-unsigned int
+size_t
 RONet::getEdgeNo() const {
-    return (unsigned int) myEdges.size();
+    return myEdges.size();
 }
 
 
-unsigned int
-RONet::getEdgeNoWithoutInternal() const {
-    return (unsigned int)(myEdges.size() - myNumInternalEdges);
+int
+RONet::getInternalEdgeNumber() const {
+    return myNumInternalEdges;
 }
 
 
@@ -410,6 +450,16 @@ RONet::setRestrictionFound() {
     myHaveRestrictions = true;
 }
 
+
+#ifdef HAVE_FOX
+// ---------------------------------------------------------------------------
+// RONet::RoutingTask-methods
+// ---------------------------------------------------------------------------
+void
+RONet::RoutingTask::run(FXWorkerThread* context) {
+    myVehicle->setRoutingSuccess(RONet::computeRoute(static_cast<WorkerThread*>(context)->getRouter(), myVehicle, myRemoveLoops, myErrorHandler));
+}
+#endif
 
 
 /****************************************************************************/

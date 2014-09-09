@@ -35,7 +35,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSVehicleType.h>
-#include <utils/common/SUMOVehicle.h>
+#include <utils/vehicle/SUMOVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice_String.h>
 #include "MSDevice_Vehroutes.h"
@@ -50,11 +50,12 @@
 // ===========================================================================
 bool MSDevice_Vehroutes::mySaveExits = false;
 bool MSDevice_Vehroutes::myLastRouteOnly = false;
+bool MSDevice_Vehroutes::myDUAStyle = false;
 bool MSDevice_Vehroutes::mySorted = false;
 bool MSDevice_Vehroutes::myWithTaz = false;
 MSDevice_Vehroutes::StateListener MSDevice_Vehroutes::myStateListener;
 std::map<const SUMOTime, int> MSDevice_Vehroutes::myDepartureCounts;
-std::map<const SUMOTime, std::string> MSDevice_Vehroutes::myRouteInfos;
+std::map<const SUMOTime, std::map<const std::string, std::string> > MSDevice_Vehroutes::myRouteInfos;
 
 
 // ===========================================================================
@@ -69,7 +70,8 @@ MSDevice_Vehroutes::init() {
         OutputDevice::createDeviceByOption("vehroute-output", "routes", "routes_file.xsd");
         mySaveExits = OptionsCont::getOptions().getBool("vehroute-output.exit-times");
         myLastRouteOnly = OptionsCont::getOptions().getBool("vehroute-output.last-route");
-        mySorted = OptionsCont::getOptions().getBool("vehroute-output.sorted");
+        myDUAStyle = OptionsCont::getOptions().getBool("vehroute-output.dua");
+        mySorted = myDUAStyle || OptionsCont::getOptions().getBool("vehroute-output.sorted");
         myWithTaz = OptionsCont::getOptions().getBool("device.rerouting.with-taz");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
     }
@@ -223,24 +225,53 @@ MSDevice_Vehroutes::generateOutput() const {
     if (myWithTaz) {
         od.writeAttr(SUMO_ATTR_FROM_TAZ, myHolder.getParameter().fromTaz).writeAttr(SUMO_ATTR_TO_TAZ, myHolder.getParameter().toTaz);
     }
-    if (myReplacedRoutes.size() > 0) {
-        od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-        for (unsigned int i = 0; i < myReplacedRoutes.size(); ++i) {
-            writeXMLRoute(od, i);
+    if (myDUAStyle) {
+        const RandomDistributor<const MSRoute*>* const routeDist = MSRoute::distDictionary("!" + myHolder.getID());
+        if (routeDist != 0) {
+            const std::vector<const MSRoute*>& routes = routeDist->getVals();
+            unsigned index = 0;
+            while (index < routes.size() && routes[index] != myCurrentRoute) {
+                ++index;
+            }
+            od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, index);
+            const std::vector<SUMOReal>& probs = routeDist->getProbs();
+            for (unsigned int i = 0; i < routes.size(); ++i) {
+                od.setPrecision();
+                od.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_COST, routes[i]->getCosts());
+                od.setPrecision(8);
+                od.writeAttr(SUMO_ATTR_PROB, probs[i]);
+                od.setPrecision();
+                od << " edges=\"";
+                routes[i]->writeEdgeIDs(od, *routes[i]->begin());
+                (od << "\"").closeTag();
+            }
+            od.closeTag();
+        } else {
+            writeXMLRoute(od);
         }
-    }
-    writeXMLRoute(od);
-    if (myReplacedRoutes.size() > 0) {
-        od.closeTag();
+    } else {
+        if (myReplacedRoutes.size() > 0) {
+            od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
+            for (unsigned int i = 0; i < myReplacedRoutes.size(); ++i) {
+                writeXMLRoute(od, i);
+            }
+        }
+        writeXMLRoute(od);
+        if (myReplacedRoutes.size() > 0) {
+            od.closeTag();
+        }
     }
     od.closeTag();
     od.lf();
     if (mySorted) {
-        myRouteInfos[myHolder.getDeparture()] += od.getString();
+        myRouteInfos[myHolder.getDeparture()][myHolder.getID()] = od.getString();
         myDepartureCounts[myHolder.getDeparture()]--;
         std::map<const SUMOTime, int>::iterator it = myDepartureCounts.begin();
         while (it != myDepartureCounts.end() && it->second == 0) {
-            routeOut << myRouteInfos[it->first];
+            std::map<const std::string, std::string>& infos = myRouteInfos[it->first];
+            for (std::map<const std::string, std::string>::const_iterator it2 = infos.begin(); it2 != infos.end(); ++it2) {
+                routeOut << it2->second;
+            }
             myRouteInfos.erase(it->first);
             myDepartureCounts.erase(it);
             it = myDepartureCounts.begin();

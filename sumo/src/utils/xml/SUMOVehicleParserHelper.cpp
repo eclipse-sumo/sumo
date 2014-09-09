@@ -35,7 +35,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/options/OptionsCont.h>

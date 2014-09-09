@@ -31,7 +31,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/common/SUMOVehicle.h>
+#include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>

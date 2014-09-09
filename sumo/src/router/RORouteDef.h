@@ -35,7 +35,7 @@
 #include <string>
 #include <iostream>
 #include <utils/common/Named.h>
-#include <utils/common/SUMOAbstractRouter.h>
+#include <utils/vehicle/SUMOAbstractRouter.h>
 #include "RORoute.h"
 
 

@@ -32,7 +32,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/common/SUMOVehicle.h>
+#include <utils/vehicle/SUMOVehicle.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>

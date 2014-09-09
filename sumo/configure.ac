@@ -100,19 +100,19 @@ PKG_CHECK_MODULES([XERCES], [xerces-c >= 3.0],
                   [AC_DEFINE([XERCES3_SIZE_t],[unsigned int],[Define length for Xerces 2.])])
 
 
-AM_CONDITIONAL(INTERNAL, test -d $srcdir/src/internal)
-m4_syscmd([test -d src/internal])
+AM_CONDITIONAL(INTERNAL, test -d $srcdir/src/mesosim)
+m4_syscmd([test -d src/mesosim])
 m4_if(m4_sysval,[0],[
     AC_DEFINE([HAVE_INTERNAL], [1], [Define to enable internal code.])
-    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile src/netedit/Makefile src/osgview/Makefile src/marouter/Makefile src/internal/Makefile unittest/src/internal/Makefile])
-    INTERNAL_DIRS="mesosim marouter internal"
+    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile src/netedit/Makefile src/osgview/Makefile src/internal/Makefile unittest/src/internal/Makefile])
+    INTERNAL_DIRS="mesosim internal"
     AC_SUBST([INTERNAL_DIRS])
     GUI_INTERNAL_DIRS="mesogui netedit osgview"
     AC_SUBST([GUI_INTERNAL_DIRS])
     UNITTEST_INTERNAL_DIRS=internal
     AC_SUBST([UNITTEST_INTERNAL_DIRS])
     ac_enabled="$ac_enabled Internal"
-    program_transform_name="s,\$\$,Int,; s,sumoInt,meso,; s,sumo-guiInt,meso-gui,; s,marouterInt,marouter,; s,neteditInt,netedit,; $program_transform_name"
+    program_transform_name="s,\$\$,Int,; s,sumoInt,meso,; s,sumo-guiInt,meso-gui,; s,neteditInt,netedit,; $program_transform_name"
 ])
 
 AC_ARG_ENABLE([traci],[AS_HELP_STRING([--disable-traci],[disable Traffic Control Interface (TraCI) Server [default=no].])])
@@ -321,6 +321,7 @@ if test x"$with_fox_config" != xno; then
         AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
                         [AC_MSG_ERROR([fox-includes not found.])])
         CPPFLAGS=$save_cppflags
+        AC_DEFINE([HAVE_FOX], [1], [defined if FOX is available])
         ac_enabled="$ac_enabled GUI"
     fi
 else
@@ -438,6 +439,7 @@ src/microsim/logging/Makefile
 src/microsim/output/Makefile
 src/microsim/traffic_lights/Makefile
 src/microsim/trigger/Makefile
+src/marouter/Makefile
 src/netbuild/Makefile
 src/netgen/Makefile
 src/netimport/Makefile
@@ -474,6 +476,7 @@ src/utils/iodevices/Makefile
 src/utils/options/Makefile
 src/utils/shapes/Makefile
 src/utils/traci/Makefile
+src/utils/vehicle/Makefile
 src/utils/xml/Makefile
 unittest/Makefile
 unittest/src/Makefile
@@ -481,6 +484,7 @@ unittest/src/microsim/Makefile
 unittest/src/netbuild/Makefile
 unittest/src/utils/Makefile
 unittest/src/utils/common/Makefile
+unittest/src/utils/foxtools/Makefile
 unittest/src/utils/geom/Makefile
 unittest/src/utils/iodevices/Makefile
 bin/Makefile

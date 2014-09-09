@@ -12,6 +12,7 @@ FXRealSpinDial.cpp FXRealSpinDial.h \
 FXSevenSegment.cpp FXSevenSegment.h \
 FXSingleEventThread.cpp FXSingleEventThread.h \
 FXThreadEvent.cpp FXThreadEvent.h \
+FXWorkerThread.h \
 MFXCheckableButton.cpp MFXCheckableButton.h \
 MFXEventQue.cpp MFXEventQue.h \
 MFXInterThreadEventClient.h \

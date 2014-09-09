@@ -35,17 +35,11 @@
 #include <iostream>
 #include <vector>
 #include <set>
-#include <utils/common/SUMOVehicle.h>
+#include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/StdDefs.h>
 #include "MSRoute.h"
 #include "MSMoveReminder.h"
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class SUMOVehicleParameter;
-class MSVehicleType;
+#include "MSVehicleType.h"
 
 
 // ===========================================================================
@@ -96,6 +90,13 @@ public:
         return *myType;
     }
 
+
+    /** @brief Returns the vehicle's access class
+     * @return The vehicle's access class
+     */
+    inline SUMOVehicleClass getVClass() const {
+        return myType->getParameter().vehicleClass;
+    }
 
     /** @brief Returns the maximum speed
      * @return The vehicle's maximum speed

@@ -44,11 +44,11 @@
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/common/DijkstraRouterTT.h>
-#include <utils/common/DijkstraRouterEffort.h>
+#include <utils/vehicle/DijkstraRouterTT.h>
+#include <utils/vehicle/DijkstraRouterEffort.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
-#include <utils/common/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Simulation.h"
 #include "TraCIServerAPI_Vehicle.h"

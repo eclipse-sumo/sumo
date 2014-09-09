@@ -34,7 +34,7 @@
 #endif
 
 #include <utils/common/SUMOTime.h>
-#include <utils/common/SUMOAbstractRouter.h>
+#include <utils/vehicle/SUMOAbstractRouter.h>
 #include <utils/common/ValueTimeLine.h>
 #include <utils/xml/SAXWeightsHandler.h>
 #include <utils/xml/SUMORouteLoaderControl.h>
@@ -85,14 +85,12 @@ public:
     void openRoutes(RONet& net);
 
     /** @brief Loads routes from all previously build route loaders */
-    void processRoutes(SUMOTime start, SUMOTime end,
+    void processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime increment,
                        RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
-#ifdef HAVE_INTERNAL // catchall for internal stuff
     /** @brief Loads all routes and processes them with BulkStarRouter */
     void processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
                                         RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
-#endif
 
 protected:
     /** @brief Opens route handler of the given type

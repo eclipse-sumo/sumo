@@ -8,6 +8,7 @@ endif
 
 COMMON_LIBS = ../utils/options/liboptions.a \
 ../utils/xml/libxml.a \
+../utils/vehicle/libvehicle.a \
 ../utils/common/libcommon.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
@@ -31,4 +32,4 @@ activitygen_LDADD = ./activities/libagactivities.a \
 ../duarouter/RODUAEdgeBuilder.o \
 ../duarouter/RODUAFrame.o \
 ../router/librouter.a \
-$(COMMON_LIBS)
+$(COMMON_LIBS) $(FOX_LDFLAGS)

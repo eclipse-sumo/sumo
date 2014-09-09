@@ -37,9 +37,13 @@
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/WrappingCommand.h>
-#include <utils/common/SUMOAbstractRouter.h>
+#include <utils/vehicle/SUMOAbstractRouter.h>
 #include <microsim/MSVehicle.h>
 #include "MSDevice.h"
+
+#ifdef HAVE_FOX
+#include <utils/foxtools/FXWorkerThread.h>
+#endif
 
 
 // ===========================================================================
@@ -99,6 +103,10 @@ public:
     /// @brief deletes the router instance
     static void cleanup();
 
+#ifdef HAVE_FOX
+    static void waitForAll();
+#endif
+
 
 
 public:
@@ -133,6 +141,46 @@ public:
 
 
 private:
+#ifdef HAVE_FOX
+    /**
+     * @class WorkerThread
+     * @brief the thread which provides the router instance as context
+     */
+    class WorkerThread : public FXWorkerThread {
+    public:
+        WorkerThread(FXWorkerThread::Pool& pool,
+                     SUMOAbstractRouter<MSEdge, SUMOVehicle>* router)
+        : FXWorkerThread(pool), myRouter(router) {}
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter() const {
+            return *myRouter;
+        }
+        virtual ~WorkerThread() {
+            stop();
+            delete myRouter;
+        }
+    private:
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
+    };
+
+    /**
+     * @class RoutingTask
+     * @brief the routing task which mainly calls reroute of the vehicle
+     */
+    class RoutingTask : public FXWorkerThread::Task {
+    public:
+        RoutingTask(SUMOVehicle& v, const SUMOTime time, const bool onInit)
+        : myVehicle(v), myTime(time), myOnInit(onInit) {}
+        void run(FXWorkerThread* context);
+    private:
+        SUMOVehicle& myVehicle;
+        const SUMOTime myTime;
+        const bool myOnInit;
+    private:
+        /// @brief Invalidated assignment operator.
+        RoutingTask& operator=(const RoutingTask&);
+    };
+#endif
+
     /** @brief Constructor
      *
      * @param[in] holder The vehicle that holds this device
@@ -211,8 +259,8 @@ private:
 
 
 
-    /// @brief get the router, initialize on first use
-    static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter();
+    /// @brief initiate the rerouting, create router / thread pool on first use
+    static void reroute(SUMOVehicle& v, const SUMOTime currentTime, const bool onInit=false);
 
 
 
@@ -235,8 +283,11 @@ private:
     /// @brief Information which weight prior edge efforts have
     static SUMOReal myAdaptationWeight;
 
-    /// @brief Information which weight prior edge efforts have
+    /// @brief At which time interval the edge weights get updated
     static SUMOTime myAdaptationInterval;
+
+    /// @brief Information when the last edge weight adaptation occured
+    static SUMOTime myLastAdaptation;
 
     /// @brief whether taz shall be used at initial rerouting
     static bool myWithTaz;
@@ -247,6 +298,9 @@ private:
     /// @brief The router to use
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
 
+#ifdef HAVE_FOX
+    static FXWorkerThread::Pool myThreadPool;
+#endif
 
 private:
     /// @brief Invalidated copy constructor.

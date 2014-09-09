@@ -1,31 +1,25 @@
 noinst_LIBRARIES = libcommon.a
 
-EXTRA_DIST = VectorHelper.h Command.h \
-NamedObjectCont.h NamedRTree.h StaticCommand.h RandomDistributor.h \
-SUMOAbstractRouter.h DijkstraRouterTT.h DijkstraRouterEffort.h \
-AStarRouter.h \
-PedestrianRouter.h \
-SUMOVehicle.h \
-WrappingCommand.h ValueRetriever.h ValueSource.h \
-StringBijection.h
-
 libcommon_a_SOURCES = AbstractMutex.h \
+Command.h \
 FileHelpers.cpp FileHelpers.h \
 InstancePool.h \
 IDSupplier.h IDSupplier.cpp \
-Named.h Parameterised.cpp Parameterised.h \
-StringTokenizer.cpp StringTokenizer.h \
-StringUtils.cpp StringUtils.h UtilExceptions.h \
 MsgHandler.h MsgHandler.cpp \
-StdDefs.h StdDefs.cpp \
-RGBColor.cpp RGBColor.h RandHelper.h RandHelper.cpp \
-SUMOTime.cpp SUMOTime.h \
-SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
-SUMOVehicleParameter.cpp SUMOVehicleParameter.h \
-SUMOVTypeParameter.cpp SUMOVTypeParameter.h \
 MsgRetrievingFunction.h \
+Named.h NamedObjectCont.h NamedRTree.h \
+Parameterised.cpp Parameterised.h \
+RandHelper.h RandHelper.cpp RandomDistributor.h \
+RGBColor.cpp RGBColor.h \
+StaticCommand.h StdDefs.h StdDefs.cpp \
+StringBijection.h \
+StringTokenizer.cpp StringTokenizer.h \
+StringUtils.cpp StringUtils.h \
+SUMOTime.cpp SUMOTime.h \
 SUMOVehicleClass.cpp SUMOVehicleClass.h \
-ToString.h TplConvert.h \
-ValueTimeLine.h
-
-
+SystemFrame.cpp SystemFrame.h \
+SysUtils.h SysUtils.cpp \
+ToString.h TplConvert.h UtilExceptions.h \
+ValueRetriever.h ValueSource.h \
+ValueTimeLine.h VectorHelper.h \
+WrappingCommand.h

@@ -121,9 +121,9 @@ NLEdgeControlBuilder::build() {
         for (EdgeCont::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
             MSEdge* edge = *i1;
             if (edge->isInternal()) {
-                assert(edge->getNoFollowing() == 1);
+                assert(edge->getNumSuccessors() == 1);
                 assert(edge->getIncomingEdges().size() == 1);
-                if (edge->getFollower(0)->isRoundabout() || edge->getIncomingEdges()[0]->isRoundabout()) {
+                if (edge->getSuccessor(0)->isRoundabout() || edge->getIncomingEdges()[0]->isRoundabout()) {
                     edge->markAsRoundabout();
                 }
             }

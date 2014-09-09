@@ -112,5 +112,8 @@
     <ClInclude Include="..\..\..\src\utils\foxtools\MFXUtils.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\foxtools\FXWorkerThread.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

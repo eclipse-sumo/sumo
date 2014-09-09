@@ -13,6 +13,7 @@ duarouter_LDFLAGS = $(XERCES_LDFLAGS)
 duarouter_LDADD   = ../router/librouter.a \
 ../utils/options/liboptions.a \
 ../utils/xml/libxml.a \
+../utils/vehicle/libvehicle.a \
 ../utils/common/libcommon.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
@@ -20,4 +21,4 @@ duarouter_LDADD   = ../router/librouter.a \
 ../utils/emissions/libemissions.a \
 ../foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
--l$(LIB_XERCES)
+-l$(LIB_XERCES) $(FOX_LDFLAGS)

@@ -54,10 +54,7 @@
 #include "ROLoader.h"
 #include "ROEdge.h"
 #include "RORouteHandler.h"
-
-#ifdef HAVE_INTERNAL // catchall for internal stuff
-#include <internal/RouteAggregator.h>
-#endif // have HAVE_INTERNAL
+#include "RORouteAggregator.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -181,8 +178,12 @@ ROLoader::openRoutes(RONet& net) {
     // check
     if (ok) {
         myLoaders.loadNext(string2time(myOptions.getString("begin")));
-        if (!MsgHandler::getErrorInstance()->wasInformed() && !net.furtherStored()) {
-            throw ProcessError("No route input specified or all routes were invalid.");
+        if (!net.furtherStored()) {
+            if (MsgHandler::getErrorInstance()->wasInformed()) {
+                throw ProcessError();
+            } else {
+                throw ProcessError("No route input specified or all routes were invalid.");
+            }
         }
         // skip routes prior to the begin time
         if (!myOptions.getBool("unsorted-input")) {
@@ -193,23 +194,30 @@ ROLoader::openRoutes(RONet& net) {
 
 
 void
-ROLoader::processRoutes(SUMOTime start, SUMOTime end,
+ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime increment,
                         RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
     const SUMOTime absNo = end - start;
     const bool endGiven = !OptionsCont::getOptions().isDefault("end");
     // skip routes that begin before the simulation's begin
     // loop till the end
-    bool endReached = false;
-    bool errorOccured = false;
     const SUMOTime firstStep = myLoaders.getFirstLoadTime();
     SUMOTime lastStep = firstStep;
-    for (SUMOTime time = firstStep; time < end && !errorOccured && !endReached; time += DELTA_T) {
+    SUMOTime time = MIN2(firstStep, end);
+    while (time <= end) {
         writeStats(time, start, absNo, endGiven);
         myLoaders.loadNext(time);
-        net.saveAndRemoveRoutesUntil(myOptions, router, time);
-        endReached = !net.furtherStored();
-        lastStep = time;
-        errorOccured = MsgHandler::getErrorInstance()->wasInformed() && !myOptions.getBool("ignore-errors");
+        if (!net.furtherStored() || MsgHandler::getErrorInstance()->wasInformed()) {
+            break;
+        }
+        lastStep = net.saveAndRemoveRoutesUntil(myOptions, router, time);
+        if ((!net.furtherStored() && myLoaders.haveAllLoaded()) || MsgHandler::getErrorInstance()->wasInformed()) {
+            break;
+        }
+        if (time < end && time + increment > end) {
+            time = end;
+        } else {
+            time += increment;
+        }
     }
     if (myLogSteps) {
         WRITE_MESSAGE("Routes found between time steps " + time2string(firstStep) + " and " + time2string(lastStep) + ".");
@@ -217,15 +225,13 @@ ROLoader::processRoutes(SUMOTime start, SUMOTime end,
 }
 
 
-#ifdef HAVE_INTERNAL // catchall for internal stuff
 void
 ROLoader::processAllRoutesWithBulkRouter(SUMOTime /* start */, SUMOTime end,
         RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
     myLoaders.loadNext(SUMOTime_MAX);
-    RouteAggregator::processAllRoutes(net, router);
+    RORouteAggregator::processAllRoutes(net, router);
     net.saveAndRemoveRoutesUntil(myOptions, router, end);
 }
-#endif
 
 
 bool
@@ -311,9 +317,9 @@ ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo, bool endGiven) {
     if (myLogSteps) {
         if (endGiven) {
             const SUMOReal perc = (SUMOReal)(time - start) / (SUMOReal) absNo;
-            std::cout << "Reading time step: " + time2string(time) + "  (" + time2string(time - start) + "/" + time2string(absNo) + " = " + toString(perc * 100) + "% done)       \r";
+            std::cout << "Reading up to time step: " + time2string(time) + "  (" + time2string(time - start) + "/" + time2string(absNo) + " = " + toString(perc * 100) + "% done)       \r";
         } else {
-            std::cout << "Reading time step: " + time2string(time) + "\n";
+            std::cout << "Reading up to time step: " + time2string(time) + "\r";
         }
     }
 }

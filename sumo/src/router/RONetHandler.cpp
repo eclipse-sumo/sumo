@@ -291,7 +291,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         throw ProcessError("invalid toLane '" + toString(toLane) + "' in connection to '" + toID + "'.");
     }
     from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
-    from->addFollower(to, dir);
+    from->addSuccessor(to, dir);
 }
 
 
@@ -343,8 +343,8 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {
             if (edge == 0) {
                 throw ProcessError("The edge '" + *i + "' within district '" + myCurrentName + "' is not known.");
             }
-            source->addFollower(edge);
-            edge->addFollower(sink);
+            source->addSuccessor(edge);
+            edge->addSuccessor(sink);
         }
     }
 }
@@ -358,9 +358,9 @@ RONetHandler::parseDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
     if (succ != 0) {
         // connect edge
         if (isSource) {
-            myNet.getEdge(myCurrentName + "-source")->addFollower(succ);
+            myNet.getEdge(myCurrentName + "-source")->addSuccessor(succ);
         } else {
-            succ->addFollower(myNet.getEdge(myCurrentName + "-sink"));
+            succ->addSuccessor(myNet.getEdge(myCurrentName + "-sink"));
         }
     } else {
         WRITE_ERROR("At district '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");

@@ -41,12 +41,6 @@
     <ClCompile Include="..\..\..\src\utils\common\SUMOVehicleClass.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\common\SUMOVehicleParameter.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\common\SUMOVTypeParameter.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\common\SystemFrame.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -64,19 +58,10 @@
     <ClInclude Include="..\..\..\src\utils\common\Command.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\common\DijkstraRouterEffort.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\common\DijkstraRouterTT.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\utils\common\FileHelpers.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\common\IDSupplier.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\common\InstancePool.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\common\MsgHandler.h">
@@ -89,6 +74,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\common\NamedObjectCont.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\common\NamedRTree.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\common\Parameterised.h">
@@ -115,22 +103,10 @@
     <ClInclude Include="..\..\..\src\utils\common\StringUtils.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\common\SUMOAbstractRouter.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\utils\common\SUMOTime.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\common\SUMOVehicle.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\utils\common\SUMOVehicleClass.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\common\SUMOVehicleParameter.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\common\SUMOVTypeParameter.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\common\SystemFrame.h">
@@ -164,15 +140,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\common\StringBijection.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\common\AStarRouter.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\common\NamedRTree.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\common\PedestrianRouter.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

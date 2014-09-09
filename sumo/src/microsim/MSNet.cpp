@@ -89,7 +89,7 @@
 #include <utils/common/SysUtils.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/common/PedestrianRouter.h>
+#include <utils/vehicle/PedestrianRouter.h>
 #include "MSGlobals.h"
 #include "MSPModel.h"
 #include <utils/geom/GeoConvHelper.h>
@@ -393,6 +393,9 @@ MSNet::simulationStep() {
         MSStateHandler::saveState(myStateDumpFiles[dist], myStep);
     }
     myBeginOfTimestepEvents->execute(myStep);
+#ifdef HAVE_FOX
+    MSDevice_Routing::waitForAll();
+#endif
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(myStep, STAGE_EVENTS);
     }
@@ -436,6 +439,9 @@ MSNet::simulationStep() {
     // insert Vehicles
     myInserter->checkFlows(myStep);
     myInsertionEvents->execute(myStep);
+#ifdef HAVE_FOX
+    MSDevice_Routing::waitForAll();
+#endif
     myInserter->emitVehicles(myStep);
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(myStep, STAGE_INSERTIONS);
@@ -735,13 +741,13 @@ MSNet::getRouterTT(const std::vector<MSEdge*>& prohibited) const {
         myRouterTTInitialized = true;
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
-            myRouterTTDijkstra = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+            myRouterTTDijkstra = new DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
                 MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
         } else {
             if (routingAlgorithm != "astar") {
                 WRITE_WARNING("TraCI and Triggers cannot use routing algorithm '" + routingAlgorithm + "'. using 'astar' instead.");
             }
-            myRouterTTAStar = new AStarRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+            myRouterTTAStar = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
                 MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
         }
     }
@@ -759,7 +765,7 @@ MSNet::getRouterTT(const std::vector<MSEdge*>& prohibited) const {
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSNet::getRouterEffort(const std::vector<MSEdge*>& prohibited) const {
     if (myRouterEffort == 0) {
-        myRouterEffort = new DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+        myRouterEffort = new DijkstraRouterEffort<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
             MSEdge::numericalDictSize(), true, &MSNet::getEffort, &MSNet::getTravelTime);
     }
     myRouterEffort->prohibit(prohibited);

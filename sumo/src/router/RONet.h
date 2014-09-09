@@ -40,9 +40,13 @@
 #include "ROVehicle.h"
 #include "RORouteDef.h"
 #include <utils/common/MsgHandler.h>
-#include <utils/common/SUMOVTypeParameter.h>
-#include <utils/common/SUMOAbstractRouter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
+#include <utils/vehicle/SUMOAbstractRouter.h>
 #include <utils/common/RandomDistributor.h>
+
+#ifdef HAVE_FOX
+#include <utils/foxtools/FXWorkerThread.h>
+#endif
 
 
 // ===========================================================================
@@ -66,7 +70,7 @@ class OutputDevice;
  * @todo Vehicle ids are not tracked; it may happen that the same id is added twice...
  */
 class RONet {
-    friend class RouteAggregator;
+    friend class RORouteAggregator;
 
 public:
     /// @brief Constructor
@@ -275,13 +279,13 @@ public:
 
     /** @brief Computes routes described by their definitions and saves them
      *
-     * As long a vehicle with a departure time not larger than the given
+     * As long as a vehicle with a departure time smaller than the given
      *  exists, its route is computed and it is written and removed from
      *  the internal container.
      *
      * @param[in] options The options used during this process
      * @param[in] router The router to use for routes computation
-     * @param[in] options The time until which route definitions shall be processed
+     * @param[in] time The time until which route definitions shall be processed
      * @return The last seen departure time>=time
      */
     SUMOTime saveAndRemoveRoutesUntil(OptionsCont& options,
@@ -309,15 +313,15 @@ public:
     void openOutput(const std::string& filename, const std::string altFilename, const std::string typeFilename);
 
 
-    /** @brief closes the file output for computed routes */
-    void closeOutput();
+    /** @brief closes the file output for computed routes and deletes routers and associated threads if necessary */
+    void cleanup(SUMOAbstractRouter<ROEdge, ROVehicle>* router);
 
 
-    /// Returns the number of edges the network contains
-    unsigned int getEdgeNo() const;
+    /// Returns the total number of edges the network contains including internal edges
+    size_t getEdgeNo() const;
 
-    /// Returns the number of non-internal edges the network contains
-    unsigned int getEdgeNoWithoutInternal() const;
+    /// Returns the number of internal edges the network contains
+    int getInternalEdgeNumber() const;
 
     const std::map<std::string, ROEdge*>& getEdgeMap() const;
 
@@ -333,8 +337,9 @@ public:
     }
 
 protected:
-    bool computeRoute(OptionsCont& options,
-                      SUMOAbstractRouter<ROEdge, ROVehicle>& router, const ROVehicle* const veh);
+    static bool computeRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+                    const ROVehicle* const veh, const bool removeLoops,
+                    MsgHandler* errorHandler);
 
     /// @brief return vehicles for use by RouteAggregator
     ROVehicleCont& getVehicles() {
@@ -411,6 +416,41 @@ protected:
 
     /// @brief handler for ignorable error messages
     MsgHandler* myErrorHandler;
+
+#ifdef HAVE_FOX
+    FXWorkerThread::Pool myThreadPool;
+
+private:
+    class WorkerThread : public FXWorkerThread {
+    public:
+        WorkerThread(FXWorkerThread::Pool& pool,
+                     SUMOAbstractRouter<ROEdge, ROVehicle>* router)
+        : FXWorkerThread(pool), myRouter(router) {}
+        SUMOAbstractRouter<ROEdge, ROVehicle>& getRouter() const {
+            return *myRouter;
+        }
+        virtual ~WorkerThread() {
+            stop();
+            delete myRouter;
+        }
+    private:
+        SUMOAbstractRouter<ROEdge, ROVehicle>* myRouter;
+    };
+
+    class RoutingTask : public FXWorkerThread::Task {
+    public:
+        RoutingTask(ROVehicle* v, const bool removeLoops, MsgHandler* errorHandler)
+            : myVehicle(v), myRemoveLoops(removeLoops), myErrorHandler(errorHandler) {}
+        void run(FXWorkerThread* context);
+    private:
+        ROVehicle* const myVehicle;
+        const bool myRemoveLoops;
+        MsgHandler* const myErrorHandler;
+    private:
+        /// @brief Invalidated assignment operator.
+        RoutingTask& operator=(const RoutingTask&);
+    };
+#endif
 
 private:
     /// @brief Invalidated copy constructor

@@ -36,7 +36,7 @@
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVTypeParameter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include "MSNet.h"
 #include "cfmodels/MSCFModel_IDM.h"
 #include "cfmodels/MSCFModel_Kerner.h"

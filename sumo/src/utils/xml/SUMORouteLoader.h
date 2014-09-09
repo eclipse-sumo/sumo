@@ -62,6 +62,9 @@ public:
     /// returns the information whether new data is available
     bool moreAvailable() const;
 
+    /// returns the first departure time that was ever read
+    SUMOTime getFirstDepart() const;
+
 private:
     /// the used SAXReader
     SUMOSAXReader* myParser;

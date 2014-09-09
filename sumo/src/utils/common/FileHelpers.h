@@ -227,11 +227,11 @@ std::ostream& FileHelpers::writeEdgeVector(std::ostream& os, const std::vector<E
     E prev = edges.front();
     for (typename std::vector<E>::const_iterator i = edges.begin() + 1; i != edges.end(); ++i) {
         unsigned int idx = 0;
-        for (; idx < prev->getNoFollowing(); ++idx) {
+        for (; idx < prev->getNumSuccessors(); ++idx) {
             if (idx > 15) {
                 break;
             }
-            if (prev->getFollower(idx) == (*i)) {
+            if (prev->getSuccessor(idx) == (*i)) {
                 follow.push_back(idx);
                 if (idx > maxFollow) {
                     maxFollow = idx;
@@ -239,7 +239,7 @@ std::ostream& FileHelpers::writeEdgeVector(std::ostream& os, const std::vector<E
                 break;
             }
         }
-        if (idx > 15 || idx == prev->getNoFollowing()) {
+        if (idx > 15 || idx == prev->getNumSuccessors()) {
             follow.clear();
             break;
         }
@@ -300,10 +300,10 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
                 field = 0;
             }
             unsigned int followIndex = (data >> ((numFields - field - 1) * bits)) & mask;
-            if (followIndex >= prev->getNoFollowing()) {
+            if (followIndex >= prev->getNumSuccessors()) {
                 throw ProcessError("Invalid follower index in route '" + rid + "'!");
             }
-            prev = prev->getFollower(followIndex);
+            prev = prev->getSuccessor(followIndex);
             edges.push_back(prev);
             field++;
         }

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 06/27/14 15:06:10 by SUMO marouter Version dev-SVN-r16626
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <od-matrix-files value="input_od_o.fma"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <timeline value="0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1"/>
+        <timeline.day-in-hours value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+    <routeDistribution id="1_2_0.00_3600.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_3600.00_7200.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_7200.00_10800.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_10800.00_14400.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_14400.00_18000.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_18000.00_21600.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_21600.00_25200.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_25200.00_28800.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_28800.00_32400.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_32400.00_36000.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_36000.00_39600.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_39600.00_43200.00">
+        <route cost="89.93" probability="0.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_43200.00_46800.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_46800.00_50400.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_50400.00_54000.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_54000.00_57600.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_57600.00_61200.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_61200.00_64800.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_64800.00_68400.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_68400.00_72000.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_72000.00_75600.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_75600.00_79200.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_79200.00_82800.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+    <routeDistribution id="1_2_82800.00_86400.00">
+        <route cost="89.93" probability="2.00000000" edges="middle end"/>
+    </routeDistribution>
+</routes>

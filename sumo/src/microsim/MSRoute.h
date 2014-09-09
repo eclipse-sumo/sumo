@@ -41,7 +41,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/RandomDistributor.h>
 #include <utils/common/RGBColor.h>
-#include <utils/common/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/common/Parameterised.h>
 
 
@@ -140,6 +140,22 @@ public:
     /// Returns the color
     const RGBColor& getColor() const;
 
+    /** @brief Returns the costs of the route
+     *
+     * @return The route's costs (normally the time needed to pass it)
+     */
+    SUMOReal getCosts() const {
+        return myCosts;
+    }
+
+    /** @brief Sets the costs of the route
+     *
+     * @param[in] costs The new route costs
+     */
+    void setCosts(SUMOReal costs) {
+        myCosts = costs;
+    }
+
     /// Returns the stops
     const std::vector<SUMOVehicleParameter::Stop>& getStops() const;
 
@@ -206,6 +222,9 @@ private:
 
     /// The color
     const RGBColor* const myColor;
+
+    /// @brief The assigned or calculated costs
+    SUMOReal myCosts;
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myStops;

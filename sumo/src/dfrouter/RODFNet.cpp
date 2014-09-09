@@ -71,9 +71,9 @@ RODFNet::buildApproachList() {
     for (std::map<std::string, ROEdge*>::const_iterator rit = edges.begin(); rit != edges.end(); ++rit) {
         ROEdge* ce = (*rit).second;
         unsigned int i = 0;
-        unsigned int length_size = ce->getNoFollowing();
+        unsigned int length_size = ce->getNumSuccessors();
         for (i = 0; i < length_size; i++) {
-            ROEdge* help = ce->getFollower(i);
+            ROEdge* help = ce->getSuccessor(i);
             if (find(myDisallowedEdges.begin(), myDisallowedEdges.end(), help->getID()) != myDisallowedEdges.end()) {
                 // edges in sinks will not be used
                 continue;

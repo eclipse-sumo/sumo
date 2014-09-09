@@ -44,10 +44,12 @@
 #include <router/ROLoader.h>
 #include <router/RONet.h>
 #include <router/ROEdge.h>
-#include <router/ROCostCalculator.h>
-#include <utils/common/DijkstraRouterTT.h>
-#include <utils/common/DijkstraRouterEffort.h>
-#include <utils/common/AStarRouter.h>
+#include <utils/vehicle/DijkstraRouterTT.h>
+#include <utils/vehicle/DijkstraRouterEffort.h>
+#include <utils/vehicle/AStarRouter.h>
+#include <utils/vehicle/BulkStarRouter.h>
+#include <utils/vehicle/CHRouter.h>
+#include <utils/vehicle/CHRouterWrapper.h>
 #include "RODUAEdgeBuilder.h"
 #include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>
@@ -61,12 +63,6 @@
 #include <utils/xml/XMLSubSys.h>
 #include "RODUAFrame.h"
 #include <utils/iodevices/OutputDevice.h>
-
-#ifdef HAVE_INTERNAL // catchall for internal stuff
-#include <internal/BulkStarRouter.h>
-#include <internal/CHRouter.h>
-#include <internal/CHRouterWrapper.h>
-#endif // have HAVE_INTERNAL
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -123,46 +119,39 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     if (measure == "traveltime") {
         if (routingAlgorithm == "dijkstra") {
             if (net.hasRestrictions()) {
-                router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
+                router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             } else {
-                router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
+                router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             }
         } else if (routingAlgorithm == "astar") {
             if (net.hasRestrictions()) {
-                router = new AStarRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
+                router = new AStarRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             } else {
-                router = new AStarRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
+                router = new AStarRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             }
-#ifdef HAVE_INTERNAL // catchall for internal stuff
         } else if (routingAlgorithm == "bulkstar") {
             if (net.hasRestrictions()) {
-                router = new BulkStarRouterTT<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &ROEdge::getMinimumTravelTime);
+                router = new BulkStarRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, &ROEdge::getMinimumTravelTime);
             } else {
-                router = new BulkStarRouterTT<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &ROEdge::getMinimumTravelTime);
+                router = new BulkStarRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, &ROEdge::getMinimumTravelTime);
             }
-
         } else if (routingAlgorithm == "CH") {
-            // defaultVehicle is only in constructor and may be safely deleted
-            // it is mainly needed for its maximum speed. @todo XXX make this configurable
-            ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
-            const SUMOTime begin = string2time(oc.getString("begin"));
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
             if (net.hasRestrictions()) {
                 router = new CHRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &defaultVehicle, begin, weightPeriod, true);
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, true);
             } else {
                 router = new CHRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &defaultVehicle, begin, weightPeriod, false);
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, false);
             }
-
         } else if (routingAlgorithm == "CHWrapper") {
             const SUMOTime begin = string2time(oc.getString("begin"));
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
@@ -170,60 +159,51 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                                            std::numeric_limits<int>::max());
 
             router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, begin, weightPeriod);
-
-#endif // have HAVE_INTERNAL
+                net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, begin, weightPeriod);
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
-
     } else {
-        DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
+        DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
         if (measure == "CO") {
-            op = &ROEdge::getCOEffort;
+            op = &ROEdge::getEmissionEffort<PollutantsInterface::CO>;
         } else if (measure == "CO2") {
-            op = &ROEdge::getCO2Effort;
+            op = &ROEdge::getEmissionEffort<PollutantsInterface::CO2>;
         } else if (measure == "PMx") {
-            op = &ROEdge::getPMxEffort;
+            op = &ROEdge::getEmissionEffort<PollutantsInterface::PM_X>;
         } else if (measure == "HC") {
-            op = &ROEdge::getHCEffort;
+            op = &ROEdge::getEmissionEffort<PollutantsInterface::HC>;
         } else if (measure == "NOx") {
-            op = &ROEdge::getNOxEffort;
+            op = &ROEdge::getEmissionEffort<PollutantsInterface::NO_X>;
         } else if (measure == "fuel") {
-            op = &ROEdge::getFuelEffort;
+            op = &ROEdge::getEmissionEffort<PollutantsInterface::FUEL>;
         } else if (measure == "noise") {
             op = &ROEdge::getNoiseEffort;
         } else {
-            net.closeOutput();
             throw ProcessError("Unknown measure (weight attribute '" + measure + "')!");
         }
         if (net.hasRestrictions()) {
-            router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTime);
+            router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
         } else {
-            router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTime);
+            router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
         }
     }
     net.openOutput(filename, altFilename, oc.getString("vtype-output"));
     // process route definitions
     try {
         if (routingAlgorithm == "bulkstar") {
-#ifdef HAVE_INTERNAL // catchall for internal stuff
             // need to load all routes for spatial aggregation
             loader.processAllRoutesWithBulkRouter(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
-#endif
         } else {
-            loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
+            loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
+                                 string2time(oc.getString("route-steps")), net, *router);
         }
         // end the processing
-        net.closeOutput();
-        delete router;
-        ROCostCalculator::cleanup();
+        net.cleanup(router);
     } catch (ProcessError&) {
-        net.closeOutput();
-        delete router;
-        ROCostCalculator::cleanup();
+        net.cleanup(router);
         throw;
     }
 }

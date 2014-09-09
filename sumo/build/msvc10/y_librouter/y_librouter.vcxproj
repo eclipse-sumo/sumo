@@ -230,7 +230,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\router\ROCostCalculator.cpp" />
     <ClCompile Include="..\..\..\src\router\ROEdge.cpp" />
     <ClCompile Include="..\..\..\src\router\ROFrame.cpp" />
     <ClCompile Include="..\..\..\src\router\ROHelper.cpp" />
@@ -246,7 +245,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\router\ROAbstractEdgeBuilder.h" />
-    <ClInclude Include="..\..\..\src\router\ROCostCalculator.h" />
     <ClInclude Include="..\..\..\src\router\ROEdge.h" />
     <ClInclude Include="..\..\..\src\router\ROFrame.h" />
     <ClInclude Include="..\..\..\src\router\ROHelper.h" />

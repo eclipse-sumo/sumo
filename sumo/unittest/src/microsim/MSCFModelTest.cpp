@@ -20,7 +20,7 @@
 /****************************************************************************/
 
 #include <gtest/gtest.h>
-#include <utils/common/SUMOVTypeParameter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/cfmodels/MSCFModel.h>
 #include <microsim/cfmodels/MSCFModel_Krauss.h>

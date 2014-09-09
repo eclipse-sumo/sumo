@@ -229,10 +229,10 @@ MSRouteHandler::myStartElement(int element,
                 const MSEdge* fromTaz = MSEdge::dictionary(myVehicleParameter->fromTaz + "-source");
                 if (fromTaz == 0) {
                     WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' not known for '" + myVehicleParameter->id + "'!");
-                } else if (fromTaz->getNoFollowing() == 0) {
+                } else if (fromTaz->getNumSuccessors() == 0) {
                     WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' has no outgoing edges for '" + myVehicleParameter->id + "'!");
                 } else {
-                    myActiveRoute.push_back(fromTaz->getFollower(0));
+                    myActiveRoute.push_back(fromTaz->getSuccessor(0));
                 }
             }
             closeRoute(true);
@@ -327,6 +327,10 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     }
     myActiveRouteProbability = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : 0;
+    myCurrentCosts = attrs.getOpt<SUMOReal>(SUMO_ATTR_COST, myActiveRouteID.c_str(), ok, -1);
+    if (ok && myCurrentCosts != -1 && myCurrentCosts < 0) {
+        WRITE_ERROR("Invalid cost for route '" + myActiveRouteID + "'.");
+    }
 }
 
 
@@ -382,6 +386,7 @@ MSRouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
     MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
                                  myVehicleParameter == 0 || myVehicleParameter->repetitionNumber >= 1,
                                  myActiveRouteColor, myActiveRouteStops);
+    route->setCosts(myCurrentCosts);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
@@ -625,10 +630,10 @@ MSRouteHandler::closeFlow() {
                     const MSEdge* fromTaz = MSEdge::dictionary(myVehicleParameter->fromTaz + "-source");
                     if (fromTaz == 0) {
                         WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' not known for '" + myVehicleParameter->id + "'!");
-                    } else if (fromTaz->getNoFollowing() == 0) {
+                    } else if (fromTaz->getNumSuccessors() == 0) {
                         WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' has no outgoing edges for '" + myVehicleParameter->id + "'!");
                     } else {
-                        myActiveRoute.push_back(fromTaz->getFollower(0));
+                        myActiveRoute.push_back(fromTaz->getSuccessor(0));
                     }
                     closeRoute(true);
                     myVehicleParameter->routeid = "!" + myVehicleParameter->id;

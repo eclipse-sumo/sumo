@@ -43,7 +43,8 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/ValueTimeLine.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/SUMOVTypeParameter.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include "RONode.h"
 #include "ROVehicle.h"
 
@@ -125,7 +126,7 @@ public:
      * @todo What about vehicle-type aware connections?
      * @note: if HAVE_INTERNAL is defined, the backward connections is added as well
      */
-    virtual void addFollower(ROEdge* s, std::string dir = "");
+    virtual void addSuccessor(ROEdge* s, std::string dir = "");
 
 
     /** @brief Sets the type of te edge
@@ -245,7 +246,7 @@ public:
     }
 
 
-    /** @brief Returns whether this edge succeding edges prohibit the given vehicle to pass them
+    /** @brief Returns whether this edge succeeding edges prohibit the given vehicle to pass them
      * @param[in] vehicle The vehicle for which the information has to be returned
      * @return Whether the vehicle may continue its route on any of the following edges
      */
@@ -282,33 +283,33 @@ public:
      *
      * @return The number of edges following this edge
      */
-    unsigned int getNoFollowing() const;
+    unsigned int getNumSuccessors() const;
 
 
     /** @brief Returns the edge at the given position from the list of reachable edges
      * @param[in] pos The position of the list within the list of following
      * @return The following edge, stored at position pos
      */
-    ROEdge* getFollower(unsigned int pos) const {
+    ROEdge* getSuccessor(unsigned int pos) const {
         return myFollowingEdges[pos];
     }
 
 
-    /** @brief Returns the number of edges this edge is connected to
+    /** @brief Returns the number of edges connected to this edge
      *
      * If this edge's type is set to "source", 0 is returned, otherwise
      *  the number of edges stored in "myApproachingEdges".
      *
-     * @return The number of edges following this edge
+     * @return The number of edges reaching into this edge
      */
-    unsigned int getNumApproaching() const;
+    unsigned int getNumPredecessors() const;
 
 
-    /** @brief Returns the edge at the given position from the list of reachable edges
-     * @param[in] pos The position of the list within the list of approached
-     * @return The following edge, stored at position pos
+    /** @brief Returns the edge at the given position from the list of incoming edges
+     * @param[in] pos The position of the list within the list of incoming
+     * @return The incoming edge, stored at position pos
      */
-    ROEdge* getApproaching(unsigned int pos) const {
+    ROEdge* getPredecessor(unsigned int pos) const {
         return myApproachingEdges[pos];
     }
 
@@ -325,11 +326,36 @@ public:
 
     /** @brief Returns the travel time for this edge
      *
-     * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
-     * @param[in] time The time for which the effort shall be returned [s]
-     * @return The traveltime needed by the given vehicle to pass the edge at the given time
+     * @param[in] veh The vehicle for which the travel time on this edge shall be retrieved
+     * @param[in] time The time for which the travel time shall be returned [s]
+     * @return The travel time needed by the given vehicle to pass the edge at the given time
      */
     SUMOReal getTravelTime(const ROVehicle* const veh, SUMOReal time) const;
+
+
+    /** @brief Returns the effort for the given edge
+     *
+     * @param[in] edge The edge for which the effort shall be retrieved
+     * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
+     * @param[in] time The time for which the effort shall be returned [s]
+     * @return The effort needed by the given vehicle to pass the edge at the given time
+     * @todo Recheck whether the vehicle's maximum speed is considered
+     */
+    static inline SUMOReal getEffortStatic(const ROEdge* const edge, const ROVehicle* const veh, SUMOReal time) {
+        return edge->getEffort(veh, time);
+    }
+
+
+    /** @brief Returns the travel time for the given edge
+     *
+     * @param[in] edge The edge for which the travel time shall be retrieved
+     * @param[in] veh The vehicle for which the travel time on this edge shall be retrieved
+     * @param[in] time The time for which the travel time shall be returned [s]
+     * @return The traveltime needed by the given vehicle to pass the edge at the given time
+     */
+    static inline SUMOReal getTravelTimeStatic(const ROEdge* const edge, const ROVehicle* const veh, SUMOReal time) {
+        return edge->getTravelTime(veh, time);
+    }
 
 
     /** @brief Returns a lower bound for the travel time on this edge without using any stored timeLine
@@ -338,17 +364,24 @@ public:
      * @param[in] time The time for which the effort shall be returned [s]
      */
     inline SUMOReal getMinimumTravelTime(const ROVehicle* const veh) const {
-        return myLength / MIN2(veh->getType()->maxSpeed, SUMOReal(2. * veh->getType()->speedDev + 1.) * veh->getType()->speedFactor * mySpeed);
+        return myLength / MIN2(veh->getType()->maxSpeed, veh->getChosenSpeedFactor() * mySpeed);
     }
 
 
-    SUMOReal getCOEffort(const ROVehicle* const veh, SUMOReal time) const;
-    SUMOReal getCO2Effort(const ROVehicle* const veh, SUMOReal time) const;
-    SUMOReal getPMxEffort(const ROVehicle* const veh, SUMOReal time) const;
-    SUMOReal getHCEffort(const ROVehicle* const veh, SUMOReal time) const;
-    SUMOReal getNOxEffort(const ROVehicle* const veh, SUMOReal time) const;
-    SUMOReal getFuelEffort(const ROVehicle* const veh, SUMOReal time) const;
-    SUMOReal getNoiseEffort(const ROVehicle* const veh, SUMOReal time) const;
+    template<PollutantsInterface::EmissionType ET>
+    static SUMOReal getEmissionEffort(const ROEdge* const edge, const ROVehicle* const veh, SUMOReal time) {
+        SUMOReal ret = 0;
+        if (!edge->getStoredEffort(time, ret)) {
+            const SUMOVTypeParameter* const type = veh->getType();
+            const SUMOReal vMax = MIN2(type->maxSpeed, edge->mySpeed);
+            const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
+            ret = PollutantsInterface::computeDefault(type->emissionClass, ET, vMax, accel, 0, edge->getTravelTime(veh, time)); // @todo: give correct slope
+        }
+        return ret;
+    }
+
+
+    static SUMOReal getNoiseEffort(const ROEdge* const edge, const ROVehicle* const veh, SUMOReal time);
     //@}
 
 

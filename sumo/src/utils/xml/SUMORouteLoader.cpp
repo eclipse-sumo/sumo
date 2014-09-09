@@ -58,35 +58,34 @@ SUMORouteLoader::~SUMORouteLoader() {
 
 SUMOTime
 SUMORouteLoader::loadUntil(SUMOTime time) {
-    SUMOTime firstDepart = SUMOTime_MAX;
     // read only when further data is available, no error occured
     //  and vehicles may be found in the between the departure time of
     //  the last read vehicle and the time to read until
-    if (!myMoreAvailable || time <= myHandler->getLastDepart()) {
-        return firstDepart;
+    if (!myMoreAvailable) {
+        return SUMOTime_MAX;
     }
-
     // read vehicles until specified time or the period to read vehicles
     //  until is reached
-    while (myParser->parseNext()) {
-        if (firstDepart == SUMOTime_MAX && myHandler->getLastDepart() >= 0) {
-            firstDepart = myHandler->getLastDepart();
-        }
-        // return when the last read vehicle is beyond the period
-        if (time <= myHandler->getLastDepart()) {
-            return firstDepart;
+    while (myHandler->getLastDepart() <= time) {
+        if (!myParser->parseNext()) {
+            // no data available anymore
+            myMoreAvailable = false;
+            return SUMOTime_MAX;
         }
     }
-
-    // no data available anymore
-    myMoreAvailable = false;
-    return firstDepart;
+    return myHandler->getLastDepart();
 }
 
 
 bool
 SUMORouteLoader::moreAvailable() const {
     return myMoreAvailable;
+}
+
+
+SUMOTime
+SUMORouteLoader::getFirstDepart() const {
+    return myHandler->getFirstDepart();
 }
 
 

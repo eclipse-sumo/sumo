@@ -41,7 +41,7 @@
 #include "ROLane.h"
 #include "ROEdge.h"
 #include "ROVehicle.h"
-#include <utils/common/SUMOVTypeParameter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 
@@ -100,7 +100,7 @@ ROEdge::addLane(ROLane* lane) {
 
 
 void
-ROEdge::addFollower(ROEdge* s, std::string) {
+ROEdge::addSuccessor(ROEdge* s, std::string) {
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
         s->myApproachingEdges.push_back(this);
@@ -126,7 +126,7 @@ SUMOReal
 ROEdge::getEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        return (SUMOReal)(myLength / MIN2(veh->getType()->maxSpeed, mySpeed));
+        return myLength / MIN2(veh->getType()->maxSpeed, mySpeed);
     }
     return ret;
 }
@@ -163,93 +163,15 @@ ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
             }
         }
     }
-    return (SUMOReal)(myLength / MIN2(veh->getType()->maxSpeed, veh->getType()->speedFactor * mySpeed));
+    return myLength / MIN2(veh->getType()->maxSpeed, veh->getType()->speedFactor * mySpeed);
 }
 
 
 SUMOReal
-ROEdge::getCOEffort(const ROVehicle* const veh, SUMOReal time) const {
+ROEdge::getNoiseEffort(const ROEdge* const edge, const ROVehicle* const veh, SUMOReal time) {
     SUMOReal ret = 0;
-    if (!getStoredEffort(time, ret)) {
-        const SUMOVTypeParameter* const type = veh->getType();
-        const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
-        const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::CO, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
-    }
-    return ret;
-}
-
-
-SUMOReal
-ROEdge::getCO2Effort(const ROVehicle* const veh, SUMOReal time) const {
-    SUMOReal ret = 0;
-    if (!getStoredEffort(time, ret)) {
-        const SUMOVTypeParameter* const type = veh->getType();
-        const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
-        const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::CO2, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
-    }
-    return ret;
-}
-
-
-SUMOReal
-ROEdge::getPMxEffort(const ROVehicle* const veh, SUMOReal time) const {
-    SUMOReal ret = 0;
-    if (!getStoredEffort(time, ret)) {
-        const SUMOVTypeParameter* const type = veh->getType();
-        const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
-        const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::PM_X, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
-    }
-    return ret;
-}
-
-
-SUMOReal
-ROEdge::getHCEffort(const ROVehicle* const veh, SUMOReal time) const {
-    SUMOReal ret = 0;
-    if (!getStoredEffort(time, ret)) {
-        const SUMOVTypeParameter* const type = veh->getType();
-        const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
-        const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::HC, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
-    }
-    return ret;
-}
-
-
-SUMOReal
-ROEdge::getNOxEffort(const ROVehicle* const veh, SUMOReal time) const {
-    SUMOReal ret = 0;
-    if (!getStoredEffort(time, ret)) {
-        const SUMOVTypeParameter* const type = veh->getType();
-        const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
-        const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::NO_X, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
-    }
-    return ret;
-}
-
-
-SUMOReal
-ROEdge::getFuelEffort(const ROVehicle* const veh, SUMOReal time) const {
-    SUMOReal ret = 0;
-    if (!getStoredEffort(time, ret)) {
-        const SUMOVTypeParameter* const type = veh->getType();
-        const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
-        const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::FUEL, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
-    }
-    return ret;
-}
-
-
-SUMOReal
-ROEdge::getNoiseEffort(const ROVehicle* const veh, SUMOReal time) const {
-    SUMOReal ret = 0;
-    if (!getStoredEffort(time, ret)) {
-        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+    if (!edge->getStoredEffort(time, ret)) {
+        const SUMOReal v = MIN2(veh->getType()->maxSpeed, edge->mySpeed);
         ret = HelpersHarmonoise::computeNoise(veh->getType()->emissionClass, v, 0);
     }
     return ret;
@@ -282,7 +204,7 @@ ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const {
 
 
 unsigned int
-ROEdge::getNoFollowing() const {
+ROEdge::getNumSuccessors() const {
     if (getType() == ET_SINK) {
         return 0;
     }
@@ -291,7 +213,7 @@ ROEdge::getNoFollowing() const {
 
 
 unsigned int
-ROEdge::getNumApproaching() const {
+ROEdge::getNumPredecessors() const {
     if (getType() == ET_SOURCE) {
         return 0;
     }

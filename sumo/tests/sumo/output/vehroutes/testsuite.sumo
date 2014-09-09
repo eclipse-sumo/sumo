@@ -43,5 +43,11 @@ write_unfinished_exit_times
 # output of person route
 with_person
 
+# one vehicle with route distribution in input
+route_dist
+
+# one vehicle with route distribution which is written completely
+dua
+
 # Testing error cases
 errors
