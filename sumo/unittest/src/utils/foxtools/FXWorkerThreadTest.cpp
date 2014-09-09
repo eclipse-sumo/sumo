@@ -59,20 +59,6 @@ TEST(FXWorkerThread, test_add) {
     g.add(task4);
 }
 
-/* Test retrieving tasks.*/
-TEST(FXWorkerThread, test_retrieve) {
-    FXWorkerThread::Pool g(4);
-    FXWorkerThread::Task* task1 = new TestTask();
-    FXWorkerThread::Task* task2 = new TestTask();
-    FXWorkerThread::Task* task3 = new TestTask();
-    FXWorkerThread::Task* task4 = new TestTask();
-    g.add(task1);
-    g.add(task2);
-    g.add(task3);
-    g.add(task4);
-    FXWorkerThread::Task* t = g.popFinished();
-}
-
 /* Test retrieving all tasks.*/
 TEST(FXWorkerThread, test_get_all) {
     FXWorkerThread::Pool g(4);
@@ -84,6 +70,6 @@ TEST(FXWorkerThread, test_get_all) {
     g.add(task2);
     g.add(task3);
     g.add(task4);
-    g.waitAllAndClear();
+    g.waitAll();
 }
 
