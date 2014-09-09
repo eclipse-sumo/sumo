@@ -317,6 +317,8 @@ MSFrame::fillOptions() {
     oc.addDescription("meso-junction-control", "Mesoscopic", "Enable mesoscopic traffic light and priority junction handling");
     oc.doRegister("meso-junction-control.limited", new Option_Bool(false));
     oc.addDescription("meso-junction-control.limited", "Mesoscopic", "Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations");
+    oc.doRegister("meso-overtaking", new Option_Bool(false));
+    oc.addDescription("meso-overtaking", "Mesoscopic", "Enable mesoscopic overtaking");
     oc.doRegister("meso-recheck", new Option_String("0", "TIME"));
     oc.addDescription("meso-recheck", "Mesoscopic", "Time interval for rechecking insertion into the next segment after failure");
 #endif
@@ -459,6 +461,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
 #ifdef HAVE_INTERNAL
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
     MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");
+    MSGlobals::gMesoOvertaking = oc.getBool("meso-overtaking");
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gUsingInternalLanes = false;
     }

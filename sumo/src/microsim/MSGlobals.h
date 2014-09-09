@@ -92,6 +92,9 @@ public:
     /** Information whether limited junction control shall be used */
     static bool gMesoLimitedJunctionControl;
 
+    /** Information whether overtaking is enabled in the mesoscopic simulation */
+    static bool gMesoOvertaking;
+
     /// mesoscopic simulation infrastructure
     static MELoop* gMesoNet;
 #else
