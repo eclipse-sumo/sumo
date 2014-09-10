@@ -4,7 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id: ROMAFrame.cpp 3421 2014-04-11 19:47:36Z behr_mi $
+/// @version $Id$
 ///
 // Sets and checks options for dua-routing
 /****************************************************************************/

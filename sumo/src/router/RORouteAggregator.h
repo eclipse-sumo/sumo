@@ -2,7 +2,7 @@
 /// @file    RORouteAggregator.h
 /// @author  Jakob Erdmann
 /// @date    February 2012
-/// @version $Id: RORouteAggregator.h 3661 2014-07-08 06:01:28Z behr_mi $
+/// @version $Id$
 ///
 // Handles grouping of routes to supply input for BulkStarRouter
 /****************************************************************************/

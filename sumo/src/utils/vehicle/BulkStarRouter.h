@@ -2,7 +2,7 @@
 /// @file    BulkStarRouter.h
 /// @author  Jakob Erdmann
 /// @date    February 2012
-/// @version $Id: BulkStarRouter.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // A* Algorithm using shortest-path-in-fast-graph-heuristic for bulk routing
 // This router is made for routing multiple sources (at different times) to the same destination

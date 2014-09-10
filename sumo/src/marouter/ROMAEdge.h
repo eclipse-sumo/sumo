@@ -5,7 +5,7 @@
 /// @author  Christian Roessel
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id: ROMAEdge.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // A basic edge for routing applications
 /****************************************************************************/

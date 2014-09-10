@@ -2,7 +2,7 @@
 /// @file    SPTree.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2012
-/// @version $Id: SPTree.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // Shortest Path tree of limited depth using Dijkstras algorithm
 /****************************************************************************/

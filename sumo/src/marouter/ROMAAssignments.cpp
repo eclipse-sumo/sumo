@@ -2,7 +2,7 @@
 /// @file    ROMAAssignments.cpp
 /// @author  Yun-Pang Floetteroed, Michael Behrisch
 /// @date    Feb 2013
-/// @version $Id: ROMAAssignments.cpp 3628 2014-06-28 19:09:14Z behr_mi $
+/// @version $Id$
 ///
 // A container for districts
 /****************************************************************************/

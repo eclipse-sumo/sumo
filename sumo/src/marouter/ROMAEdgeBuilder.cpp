@@ -3,7 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Jan 2004
-/// @version $Id: ROMAEdgeBuilder.cpp 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // Interface for building instances of duarouter-edges
 /****************************************************************************/

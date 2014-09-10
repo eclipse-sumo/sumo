@@ -2,7 +2,7 @@
 /// @file    CHRouterWrapper.h
 /// @author  Jakob Erdmann
 /// @date    March 2012
-/// @version $Id: CHRouterWrapper.h 3691 2014-07-15 09:14:33Z erdm_ja $
+/// @version $Id$
 ///
 // Wrappers multipe CHRouters for different vehicle types
 /****************************************************************************/

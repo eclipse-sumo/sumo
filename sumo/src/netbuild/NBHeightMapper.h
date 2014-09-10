@@ -2,7 +2,7 @@
 /// @file    NBHeightMapper.h
 /// @author  Jakob Erdmann
 /// @date    Sept 2011
-/// @version $Id: NBHeightMapper.h 3653 2014-07-06 05:01:55Z behr_mi $
+/// @version $Id$
 ///
 // Set z-values for all network positions based on data from a height map
 /****************************************************************************/

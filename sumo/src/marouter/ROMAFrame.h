@@ -3,7 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id: ROMAFrame.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // Sets and checks options for dua-routing
 /****************************************************************************/

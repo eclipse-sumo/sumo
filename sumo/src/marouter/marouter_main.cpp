@@ -4,7 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Thu, 06 Jun 2002
-/// @version $Id: marouter_main.cpp 3868 2014-08-19 12:35:31Z erdm_ja $
+/// @version $Id$
 ///
 // Main for MAROUTER
 /****************************************************************************/

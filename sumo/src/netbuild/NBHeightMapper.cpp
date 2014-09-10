@@ -2,7 +2,7 @@
 /// @file    NBHeightMapper.cpp
 /// @author  Jakob Erdmann
 /// @date    Sept 2011
-/// @version $Id: NBHeightMapper.cpp 3370 2014-02-24 16:15:34Z behr_mi $
+/// @version $Id$
 ///
 // A reader of pois and polygons from shape files
 /****************************************************************************/

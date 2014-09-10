@@ -2,7 +2,7 @@
 /// @file    CHRouter.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2012
-/// @version $Id: CHRouter.h 3691 2014-07-15 09:14:33Z erdm_ja $
+/// @version $Id$
 ///
 // Shortest Path search using a Contraction Hierarchy
 /****************************************************************************/

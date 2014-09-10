@@ -2,7 +2,7 @@
 /// @file    ROMAAssignments.h
 /// @author  Yun-Pang Floetteroed, Michael Behrisch
 /// @date    Feb 2013
-/// @version $Id: ROMAAssignments.h 3654 2014-07-06 21:45:14Z behr_mi $
+/// @version $Id$
 ///
 // Assignment methods
 /****************************************************************************/
