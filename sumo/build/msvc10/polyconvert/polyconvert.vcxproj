@@ -142,7 +142,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_DEBUG_LIB);$(GDAL_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libinternal\InternalDebug\y_libinternal.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_DEBUG_LIB);$(GDAL_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -152,7 +152,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_DEBUG_LIB);$(GDAL_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libinternal\x64\InternalDebug\y_libinternal.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_DEBUG_LIB);$(GDAL_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -162,7 +162,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_LIB);$(GDAL_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libinternal\InternalRelease\y_libinternal.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_LIB);$(GDAL_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -172,7 +172,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_LIB);$(GDAL_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libinternal\x64\InternalRelease\y_libinternal.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_LIB);$(GDAL_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">
@@ -187,7 +187,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_LIB);$(GDAL_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libinternal\InternalFastbuild\y_libinternal.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_LIB);$(GDAL_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'">
