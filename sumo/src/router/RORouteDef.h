@@ -68,7 +68,7 @@ public:
      * @param[in] color The color of the route
      */
     RORouteDef(const std::string& id, const unsigned int lastUsed,
-               const bool tryRepair);
+               const bool tryRepair, const bool mayBeDisconnected);
 
 
     /// @brief Destructor
@@ -161,6 +161,7 @@ protected:
     mutable bool myNewRoute;
 
     const bool myTryRepair;
+    const bool myMayBeDisconnected;
 
     static bool myUsingJTRR;
 

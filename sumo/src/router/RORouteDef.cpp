@@ -61,9 +61,9 @@ bool RORouteDef::myUsingJTRR(false);
 // method definitions
 // ===========================================================================
 RORouteDef::RORouteDef(const std::string& id, const unsigned int lastUsed,
-                       const bool tryRepair) :
+                       const bool tryRepair, const bool mayBeDisconnected) :
     Named(StringUtils::convertUmlaute(id)),
-    myPrecomputed(0), myLastUsed(lastUsed), myTryRepair(tryRepair)
+    myPrecomputed(0), myLastUsed(lastUsed), myTryRepair(tryRepair), myMayBeDisconnected(mayBeDisconnected)
 {}
 
 
@@ -224,7 +224,9 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
     }
     if (myAlternatives[0]->getEdgeVector() != newEdges) {
-        WRITE_MESSAGE("Repaired route of vehicle '" + veh.getID() + "'.");
+        if (!myMayBeDisconnected) {
+            WRITE_WARNING("Repaired route of vehicle '" + veh.getID() + "'.");
+        }
         myNewRoute = true;
         RGBColor* col = myAlternatives[0]->getColor() != 0 ? new RGBColor(*myAlternatives[0]->getColor()) : 0;
         myPrecomputed = new RORoute(myID, 0, myAlternatives[0]->getProbability(), newEdges, col, myAlternatives[0]->getStops());
@@ -346,7 +348,7 @@ RORouteDef::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
 
 RORouteDef*
 RORouteDef::copyOrigDest(const std::string& id) const {
-    RORouteDef* result = new RORouteDef(id, 0, true);
+    RORouteDef* result = new RORouteDef(id, 0, true, true);
     RORoute* route = myAlternatives[0];
     RGBColor* col = route->getColor() != 0 ? new RGBColor(*route->getColor()) : 0;
     std::vector<const ROEdge*> edges;
@@ -359,7 +361,7 @@ RORouteDef::copyOrigDest(const std::string& id) const {
 
 RORouteDef*
 RORouteDef::copy(const std::string& id) const {
-    RORouteDef* result = new RORouteDef(id, 0, myTryRepair);
+    RORouteDef* result = new RORouteDef(id, 0, myTryRepair, myMayBeDisconnected);
     for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
         RORoute* route = *i;
         RGBColor* col = route->getColor() != 0 ? new RGBColor(*route->getColor()) : 0;
