@@ -176,7 +176,7 @@ for platform in ["Win32", "x64"]:
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
-    for name in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgenerate",
+    for name in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert", "netgenerate",
                  "od2trips", "sumo", "polyconvert", "sumo-gui", "activitygen",
                  "emissionsDrivingCycle", "emissionsMap"]:
         binary = os.path.join(options.rootDir, options.binDir, name + programSuffix + ".exe")
