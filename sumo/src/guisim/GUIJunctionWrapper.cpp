@@ -118,8 +118,8 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         return;
     }
     if (!myIsInner && s.drawJunctionShape) {
-        glPushName(getGlID());
         glPushMatrix();
+        glPushName(getGlID());
         const SUMOReal colorValue = getColorValue(s);
         GLHelper::setColor(s.junctionColorer.getScheme().getColor(colorValue));
         glTranslated(0, 0, getType());
@@ -128,6 +128,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::drawFilledPolyTesselated(myJunction.getShape(), true);
         }
+        glPopName();
         glPopMatrix();
     }
     if (myIsInner) {
@@ -135,7 +136,6 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         drawName(myJunction.getPosition(), s.scale, s.junctionName);
     }
-    glPopName();
 }
 
 
