@@ -3,7 +3,6 @@ noinst_LIBRARIES = libcommon.a
 libcommon_a_SOURCES = AbstractMutex.h \
 Command.h \
 FileHelpers.cpp FileHelpers.h \
-InstancePool.h \
 IDSupplier.h IDSupplier.cpp \
 MsgHandler.h MsgHandler.cpp \
 MsgRetrievingFunction.h \
