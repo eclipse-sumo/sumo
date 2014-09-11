@@ -921,6 +921,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
         mySchemeName->setCurrentItem(index);
         mySettings = &gSchemeStorage.get(settingsName);
     }
+    rebuildColorMatrices(true);
 }
 
 
