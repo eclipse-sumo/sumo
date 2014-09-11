@@ -1,5 +1,9 @@
 XERCES_LIBS = -l$(LIB_XERCES)
 
+if INTERNAL
+MESO_LIBS = ../../src/mesosim/libmesosim.a
+endif
+
 if CHECK_MEMORY_LEAKS
 MEM_LIBS = ../../src/foreign/nvwa/libnvwa.a
 endif
@@ -55,12 +59,11 @@ $(MESO_LIBS) \
 ../../src/utils/iodevices/libiodevices.a \
 ../../src/utils/common/FileHelpers.o \
 ../../src/foreign/tcpip/libtcpip.a \
-$(INTERNAL_LIB) \
 $(MEM_LIBS) \
 $(PYTHON_LIBS) \
 $(XERCES_LIBS) \
 $(FOX_LDFLAGS) \
 $(LIB_GTEST)
 
-SUBDIRS = utils microsim netbuild $(UNITTEST_INTERNAL_DIRS)
+SUBDIRS = utils microsim netbuild
 endif

@@ -109,8 +109,6 @@ m4_if(m4_sysval,[0],[
     AC_SUBST([INTERNAL_DIRS])
     GUI_INTERNAL_DIRS="mesogui netedit osgview"
     AC_SUBST([GUI_INTERNAL_DIRS])
-    UNITTEST_INTERNAL_DIRS=internal
-    AC_SUBST([UNITTEST_INTERNAL_DIRS])
     ac_enabled="$ac_enabled Internal"
     program_transform_name="s,\$\$,Int,; s,sumoInt,meso,; s,sumo-guiInt,meso-gui,; s,neteditInt,netedit,; $program_transform_name"
 ])
