@@ -282,16 +282,6 @@ public:
         join();
     }
 
-    /// @brief locks the pool mutex
-    void poolLock() {
-        myPool.lock();
-    }
-
-    /// @brief unlocks the pool mutex
-    void poolUnlock() {
-        myPool.unlock();
-    }
-
 private:
     /// @brief the pool for this thread
     Pool& myPool;

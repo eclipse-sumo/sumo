@@ -321,18 +321,8 @@ MSDevice_Routing::reroute(SUMOVehicle& v, const SUMOTime currentTime, const bool
                 }
                 myRouter = new AStar(MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, lookup);
             }
-        } else if (routingAlgorithm == "bulkstar") {
-            if (mayHaveRestrictions) {
-                myRouter = new BulkStarRouter<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                    MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, &MSEdge::getMinimumTravelTime);
-            } else {
-                myRouter = new BulkStarRouter<MSEdge, SUMOVehicle, prohibited_noRestrictions<MSEdge, SUMOVehicle> >(
-                    MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, &MSEdge::getMinimumTravelTime);
-            }
         } else if (routingAlgorithm == "CH") {
-            const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
-                                           string2time(oc.getString("weight-period")) :
-                                           std::numeric_limits<int>::max());
+            const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
             if (mayHaveRestrictions) {
                 myRouter = new CHRouter<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
                     MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, v.getVClass(), weightPeriod, true);
@@ -342,10 +332,7 @@ MSDevice_Routing::reroute(SUMOVehicle& v, const SUMOTime currentTime, const bool
             }
         } else if (routingAlgorithm == "CHWrapper") {
             const SUMOTime begin = string2time(oc.getString("begin"));
-            const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
-                                           string2time(oc.getString("weight-period")) :
-                                           std::numeric_limits<int>::max());
-
+            const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
             myRouter = new CHRouterWrapper<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
                 MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, begin, weightPeriod);
         } else {
@@ -407,12 +394,12 @@ MSDevice_Routing::RoutingTask::run(FXWorkerThread* context) {
         const MSEdge* source = MSEdge::dictionary(myVehicle.getParameter().fromTaz + "-source");
         const MSEdge* dest = MSEdge::dictionary(myVehicle.getParameter().toTaz + "-sink");
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
-        context->poolLock();
+        myThreadPool.lock();
         if (MSDevice_Routing::myCachedRoutes.find(key) == MSDevice_Routing::myCachedRoutes.end()) {
             MSDevice_Routing::myCachedRoutes[key] = &myVehicle.getRoute();
             myVehicle.getRoute().addReference();
         }
-        context->poolUnlock();
+        myThreadPool.unlock();
     }
 }
 #endif
