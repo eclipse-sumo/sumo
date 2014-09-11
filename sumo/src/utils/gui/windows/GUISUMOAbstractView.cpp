@@ -284,10 +284,12 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
             if (type == GLO_POI || type == GLO_POLYGON) {
                 layer = dynamic_cast<Shape*>(o)->getLayer();
             }
+#ifdef HAVE_INTERNAL
             if (type == GLO_LANE && GUIVisualizationSettings::UseMesoSim) {
                 // do not select lanes in meso mode
                 continue;
             }
+#endif
             // check whether the current object is above a previous one
             if (layer > maxLayer) {
                 idMax = id;
