@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r16350
+SUMO netconvert Version dev-SVN-r17038
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -31,6 +31,7 @@ Input Options:
   --robocup-dir FILE                   Read RoboCup-net from DIR
   --matsim-files FILE                  Read MATsim-net from FILE
   --itsumo-files FILE                  Read ITSUMO-net from FILE
+  --heightmap.shapefiles FILE          Read heightmap from ArcGIS shapefile
 
 Output Options:
   -o, --output-file FILE               The generated net will be written to

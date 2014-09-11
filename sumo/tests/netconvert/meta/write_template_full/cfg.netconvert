@@ -26,6 +26,7 @@
         <robocup-dir value="" synonymes="robocup robocup-net" type="FILE" help="Read RoboCup-net from DIR"/>
         <matsim-files value="" synonymes="matsim" type="FILE" help="Read MATsim-net from FILE"/>
         <itsumo-files value="" synonymes="itsumo" type="FILE" help="Read ITSUMO-net from FILE"/>
+        <heightmap.shapefiles value="" type="FILE" help="Read heightmap from ArcGIS shapefile"/>
     </input>
 
     <output>

@@ -66,6 +66,9 @@
         <!-- Read ITSUMO-net from FILE -->
         <itsumo-files value="" synonymes="itsumo" type="FILE"/>
 
+        <!-- Read heightmap from ArcGIS shapefile -->
+        <heightmap.shapefiles value="" type="FILE"/>
+
     </input>
 
     <output>
