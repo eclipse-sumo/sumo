@@ -271,7 +271,6 @@ GUILane::drawLinkRule(const GUINet& net, MSLink* link, const PositionVector& sha
     const Position& f = shape[-2];
     const SUMOReal rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
     if (link == 0) {
-        glPushName(getGlID());
         GLHelper::setColor(getLinkColor(LINKSTATE_DEADEND));
         glPushMatrix();
         glTranslated(end.x(), end.y(), 0);
@@ -283,7 +282,6 @@ GUILane::drawLinkRule(const GUINet& net, MSLink* link, const PositionVector& sha
         glVertex2d(myHalfLaneWidth, 0.0);
         glEnd();
         glPopMatrix();
-        glPopName();
     } else {
         glPushMatrix();
         glTranslated(end.x(), end.y(), 0);
@@ -332,7 +330,6 @@ GUILane::drawArrows() const {
     const Position& f = getShape()[-2];
     const SUMOReal rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
     glPushMatrix();
-    glPushName(0);
     glColor3d(1, 1, 1);
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -381,7 +378,6 @@ GUILane::drawArrows() const {
         }
     }
     glPopMatrix();
-    glPopName();
 }
 
 
@@ -445,6 +441,7 @@ GUILane::drawLane2LaneConnections() const {
 void
 GUILane::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
+    glPushName(getGlID());
     const bool isCrossing = myEdge->getPurpose() == MSEdge::EDGEFUNCTION_CROSSING;
     const bool isWalkingArea = myEdge->getPurpose() == MSEdge::EDGEFUNCTION_WALKINGAREA;
     const bool isInternal = isCrossing || isWalkingArea || myEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
@@ -466,15 +463,11 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     // set lane color
     if (!MSGlobals::gUseMesoSim) {
         setColor(s);
-        glPushName(getGlID()); // do not register for clicks in MESOSIM
     }
     // draw lane
     // check whether it is not too small
     if (s.scale * exaggeration < 1.) {
         GLHelper::drawLine(myShape);
-        if (!MSGlobals::gUseMesoSim) {
-            glPopName();
-        }
         glPopMatrix();
     } else {
         GUINet* net = (GUINet*) MSNet::getInstance();
@@ -528,9 +521,6 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * exaggeration, cornerDetail);
             }
         }
-        if (!MSGlobals::gUseMesoSim) {
-            glPopName();
-        }
         glPopMatrix();
         // draw ROWs (not for inner lanes)
         if ((!isInternal || isCrossing) && drawDetails) {
@@ -576,13 +566,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         // allow lane simulation
         releaseVehicles();
     }
+    glPopName();
 }
 
 
 void
 GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
     glPushMatrix();
-    glPushName(0);
     glTranslated(0, 0, GLO_EDGE);
 #ifdef HAVE_INTERNAL
     if (!MSGlobals::gUseMesoSim)
@@ -615,14 +605,12 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
         getShapeLengths(),
         (getHalfWidth() + SUMO_const_laneOffset) * scale);
     glPopMatrix();
-    glPopName();
 }
 
 
 void
 GUILane::drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const {
     glPushMatrix();
-    glPushName(0);
     // draw on top of of the white area between the rails
     glTranslated(0, 0, 0.1);
     int e = (int) getShape().size() - 1;
@@ -641,7 +629,6 @@ GUILane::drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) co
         glPopMatrix();
     }
     glPopMatrix();
-    glPopName();
 }
 
 // ------ inherited from GUIGlObject

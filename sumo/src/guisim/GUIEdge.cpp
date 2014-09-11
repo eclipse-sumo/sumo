@@ -199,9 +199,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (s.hideConnectors && myFunction == MSEdge::EDGEFUNCTION_CONNECTOR) {
         return;
     }
-    if (MSGlobals::gUseMesoSim) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     // draw the lanes
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
 #ifdef HAVE_INTERNAL
@@ -219,9 +217,9 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
         if (s.scale * s.vehicleSize.getExaggeration(s) > s.vehicleSize.minSize) {
             drawMesoVehicles(s);
         }
-        glPopName();
     }
 #endif
+    glPopName();
     // (optionally) draw the name and/or the street name
     const bool drawEdgeName = s.edgeName.show && myFunction == EDGEFUNCTION_NORMAL;
     const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction == EDGEFUNCTION_INTERNAL;
