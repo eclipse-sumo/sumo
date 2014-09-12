@@ -234,7 +234,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
         if (dv < 0
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
-                || (dir == LCA_MLEFT && !myVehicle.congested())
+                || (dir == LCA_MLEFT && !myVehicle.congested() && !myAllowOvertakingRight)
                 // not enough space to overtake?
                 || myLeftSpace < overtakeDist
                 // not enough time to overtake?
