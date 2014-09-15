@@ -616,15 +616,29 @@ NWWriter_SUMO::writeRoundabouts(OutputDevice& into, const std::set<EdgeSet>& rou
 void
 NWWriter_SUMO::writeRoundabout(OutputDevice& into, const std::vector<std::string>& edgeIDs,
                                const NBEdgeCont& ec) {
+    std::vector<std::string> validEdgeIDs;
+    std::vector<std::string> invalidEdgeIDs;
     std::vector<std::string> nodeIDs;
     for (std::vector<std::string>::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
-        nodeIDs.push_back(ec.retrieve(*i)->getToNode()->getID());
+        const NBEdge* edge = ec.retrieve(*i);
+        if (edge != 0) {
+            nodeIDs.push_back(edge->getToNode()->getID());
+            validEdgeIDs.push_back(edge->getID());
+        } else {
+            invalidEdgeIDs.push_back(*i);
+        }
     }
     std::sort(nodeIDs.begin(), nodeIDs.end());
-    into.openTag(SUMO_TAG_ROUNDABOUT);
-    into.writeAttr(SUMO_ATTR_NODES, joinToString(nodeIDs, " "));
-    into.writeAttr(SUMO_ATTR_EDGES, joinToString(edgeIDs, " "));
-    into.closeTag();
+    if (validEdgeIDs.size() > 0) {
+        into.openTag(SUMO_TAG_ROUNDABOUT);
+        into.writeAttr(SUMO_ATTR_NODES, joinToString(nodeIDs, " "));
+        into.writeAttr(SUMO_ATTR_EDGES, joinToString(validEdgeIDs, " "));
+        into.closeTag();
+        if (invalidEdgeIDs.size() > 0) {
+            WRITE_WARNING("Writing incomplete roundabout. Edges: '" 
+                    + joinToString(invalidEdgeIDs, " ") + "' no longer exist'");
+        }
+    } 
 }
 
 
