@@ -81,6 +81,7 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myStreetName(streetName),
     myEdgeType(edgeType),
     myPriority(priority),
+    myLength(-1.),
 #ifdef HAVE_INTERNAL
     myAmDelayed(false),
 #endif
@@ -106,33 +107,15 @@ void
 MSEdge::initialize(std::vector<MSLane*>* lanes) {
     assert(myFunction == EDGEFUNCTION_DISTRICT || lanes != 0);
     myLanes = lanes;
-    if (myLanes && myLanes->size() > 1) {
-        myLaneChanger = new MSLaneChanger(myLanes, OptionsCont::getOptions().getBool("lanechange.allow-swap"));
+    if (myLanes != 0) {
+        myLength = myLanes->front()->getLength();
+        if (myLanes->size() > 1) {
+            myLaneChanger = new MSLaneChanger(myLanes, OptionsCont::getOptions().getBool("lanechange.allow-swap"));
+        }
     }
     if (myFunction == EDGEFUNCTION_DISTRICT) {
         myCombinedPermissions = SVCAll;
     }
-}
-
-
-bool
-MSEdge::laneChangeAllowed() const {
-    if (myLanes == 0 || myLanes->size() < 2) {
-        return false;
-    }
-    if (myFunction != EDGEFUNCTION_INTERNAL) {
-        return true;
-    }
-    // allow changing only if all links leading to this internal lane have priority
-    for (std::vector<MSLane*>::iterator it = myLanes->begin(); it != myLanes->end(); ++it) {
-        MSLane* pred = (*it)->getLogicalPredecessorLane();
-        MSLink* link = MSLinkContHelper::getConnectingLink(*pred, **it);
-        assert(link != 0);
-        if (!link->havePriority()) {
-            return false;
-        }
-    }
-    return true;
 }
 
 
@@ -447,9 +430,21 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
 
 void
 MSEdge::changeLanes(SUMOTime t) {
-    if (laneChangeAllowed()) {
-        myLaneChanger->laneChange(t);
+    if (myLaneChanger == 0) {
+        return;
     }
+    if (myFunction == EDGEFUNCTION_INTERNAL) {
+        // allow changing only if all links leading to this internal lane have priority
+        for (std::vector<MSLane*>::iterator it = myLanes->begin(); it != myLanes->end(); ++it) {
+            MSLane* pred = (*it)->getLogicalPredecessorLane();
+            MSLink* link = MSLinkContHelper::getConnectingLink(*pred, **it);
+            assert(link != 0);
+            if (!link->havePriority()) {
+                return;
+            }
+        }
+    }
+    myLaneChanger->laneChange(t);
 }
 
 
@@ -609,12 +604,6 @@ MSEdge::getDistanceTo(const MSEdge* other) const {
     } else {
         return 0; // optimism is just right for astar
     }
-}
-
-
-SUMOReal
-MSEdge::getLength() const {
-    return getLanes()[0]->getLength();
 }
 
 

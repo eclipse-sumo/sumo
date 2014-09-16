@@ -506,7 +506,9 @@ public:
     /** @brief return the length of the edge
      * @return The edge's length
      */
-    SUMOReal getLength() const;
+    inline SUMOReal getLength() const {
+        return myLength;
+    }
 
 
     /** @brief Returns the speed limit of the edge
@@ -543,9 +545,6 @@ public:
     void markAsRoundabout() {
         myAmRoundabout = true;
     }
-
-    /// @brief whether lane changing may be performed on this edge
-    bool laneChangeAllowed() const;
 
 #ifdef HAVE_INTERNAL
     void markDelayed() const {
@@ -706,6 +705,9 @@ protected:
 
     /// @brief the priority of the edge (used during network creation)
     const int myPriority;
+
+    /// @brief the length of the edge (cached value for speedup)
+    SUMOReal myLength;
 
 #ifdef HAVE_INTERNAL
     /// @brief whether this edge had a vehicle with less than max speed on it
