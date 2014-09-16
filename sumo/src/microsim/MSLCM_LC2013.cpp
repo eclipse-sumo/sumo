@@ -508,9 +508,10 @@ MSLCM_LC2013::_wantsChange(
             // rather move left ourselves (unless congested)
             MSVehicle* nv = neighLead.first;
             if (nv->getSpeed() < myVehicle.getSpeed()) {
-                myVSafes.push_back(myCarFollowModel.followSpeed(
-                                       &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()));
-                if (nv->getSpeed() + 5 / 3.6 < myVehicle.getSpeed()) {
+                const SUMOReal vSafe = myCarFollowModel.followSpeed(
+                        &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+                myVSafes.push_back(vSafe);
+                if (vSafe < myVehicle.getSpeed()) {
                     mySpeedGainProbability += CHANGE_PROB_THRESHOLD_LEFT / 3;
                 }
             }

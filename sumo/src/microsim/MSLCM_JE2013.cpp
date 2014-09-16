@@ -96,7 +96,7 @@
 #define TURN_LANE_DIST (SUMOReal)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
 //#define DEBUG_COND (myVehicle.getID() == "1501_27271428" || myVehicle.getID() == "1502_27270000")
-//#define DEBUG_COND (myVehicle.getID() == "1502_25735200")
+//#define DEBUG_COND (myVehicle.getID() == "175129_26220000")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "Costa_12_13") // test stops_overtaking
@@ -534,7 +534,10 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                             nv, nv->getSpeed(), neighFollow.second, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
             msgPass.informNeighFollower(new Info(vsafe, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
             if (gDebugFlag2) {
-                std::cout << " wants to cut in before nv=" << nv->getID() << "\n";
+                std::cout << " wants to cut in before nv=" << nv->getID() 
+                    << " vsafe=" << vsafe
+                    << " newSecGap=" << nv->getCarFollowModel().getSecureGap(vsafe, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel())
+                    << "\n";
             }
         } else if (dv > 0 && dv * remainingSeconds > (secureGap - decelGap + POSITION_EPS)) {
             // decelerating once is sufficient to open up a large enough gap in time
@@ -826,9 +829,10 @@ MSLCM_JE2013::_wantsChange(
             // rather move left ourselves (unless congested)
             MSVehicle* nv = neighLead.first;
             if (nv->getSpeed() < myVehicle.getSpeed()) {
-                myVSafes.push_back(myCarFollowModel.followSpeed(
-                                       &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()));
-                if (nv->getSpeed() + 5 / 3.6 < myVehicle.getSpeed()) {
+                const SUMOReal vSafe = myCarFollowModel.followSpeed(
+                        &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+                myVSafes.push_back(vSafe);
+                if (vSafe < myVehicle.getSpeed()) {
                     mySpeedGainProbability += CHANGE_PROB_THRESHOLD_LEFT / 3;
                 }
                 if (gDebugFlag2) {
