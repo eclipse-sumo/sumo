@@ -38,7 +38,7 @@ def runInternal(suffix, args, out=sys.stdout):
     ttBin = "/usr/bin/texttest"
     if os.name != "posix" or not os.path.exists(ttBin):
         ttBin = "texttest.py"
-    subprocess.call("%s %s -a sumo.internal,sumo.meso,complex.meso,duarouter.astar,duarouter.chrouter,netconvert.internal" % (ttBin, args),
+    subprocess.call("%s %s -a sumo.internal,sumo.meso,complex.meso,duarouter.astar,duarouter.chrouter" % (ttBin, args),
                     stdout=out, stderr=out, shell=True)
 
 if __name__ == "__main__":
