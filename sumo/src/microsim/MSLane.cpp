@@ -142,6 +142,8 @@ MSLane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed, const M
 
 bool
 MSLane::pWagGenericInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMOReal minPos) {
+    veh.setTentativeLaneAndPosition(this, maxPos);
+    veh.updateBestLanes(false, this);
     SUMOReal xIn = maxPos;
     SUMOReal vIn = mspeed;
     SUMOReal leaderDecel;
@@ -188,6 +190,8 @@ MSLane::pWagGenericInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, S
 
 bool
 MSLane::pWagSimpleInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMOReal minPos) {
+    veh.setTentativeLaneAndPosition(this, maxPos);
+    veh.updateBestLanes(false, this);
     SUMOReal xIn = maxPos;
     SUMOReal vIn = mspeed;
     if (myVehicles.size() != 0) {
@@ -220,7 +224,7 @@ MSLane::pWagSimpleInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SU
 bool
 MSLane::maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed) {
     if (myVehicles.size() == 0) {
-        return isInsertionSuccess(&veh, mspeed, myLength / 2, true);
+        return isInsertionSuccess(&veh, mspeed, myLength / 2, true, MSMoveReminder::NOTIFICATION_DEPARTED);
     }
     // go through the lane, look for free positions (starting after the last vehicle)
     MSLane::VehCont::iterator predIt = myVehicles.begin();
@@ -358,7 +362,7 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
 
 
 bool
-MSLane::insertVehicle(MSVehicle& veh) {
+MSLane::insertVehicle(MSVehicle& veh, const bool checkOnly) {
     SUMOReal pos = 0;
     SUMOReal speed = 0;
     bool patchSpeed = true; // whether the speed shall be adapted to infrastructure/traffic in front
@@ -400,7 +404,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
             for (unsigned int i = 0; i < 10; i++) {
                 // we will try some random positions ...
                 pos = RandHelper::rand(getLength());
-                if (isInsertionSuccess(&veh, speed, pos, patchSpeed)) {
+                if (isInsertionSuccess(&veh, speed, pos, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED)) {
                     return true;
                 }
             }
@@ -423,7 +427,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
             break;
     }
     // try to insert
-    return isInsertionSuccess(&veh, speed, pos, patchSpeed);
+    return isInsertionSuccess(&veh, speed, pos, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED, checkOnly);
 }
 
 
@@ -448,15 +452,17 @@ MSLane::checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const
 bool
 MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                            SUMOReal speed, SUMOReal pos, bool patchSpeed,
-                           MSMoveReminder::Notification notification) {
+                           MSMoveReminder::Notification notification, const bool checkOnly) {
     if (pos < 0 || pos > myLength) {
         // we may not start there
-        WRITE_WARNING("Invalid departPos " + toString(pos) + " given for vehicle '" +
-                      aVehicle->getID() + "'. Inserting at lane end instead.");
+        if (!checkOnly) {
+            WRITE_WARNING("Invalid departPos " + toString(pos) + " given for vehicle '" +
+                            aVehicle->getID() + "'. Inserting at lane end instead.");
+        }
         pos = myLength;
     }
     aVehicle->setTentativeLaneAndPosition(this, pos);
-    aVehicle->updateBestLanes(true, this);
+    aVehicle->updateBestLanes(false, this);
     const MSCFModel& cfModel = aVehicle->getCarFollowModel();
     const std::vector<MSLane*>& bestLaneConts = aVehicle->getBestLanesContinuation(this);
     std::vector<MSLane*>::const_iterator ri = bestLaneConts.begin();
@@ -627,7 +633,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         return false;
     }
     // enter
-    incorporateVehicle(aVehicle, pos, speed, predIt, notification);
+    if (!checkOnly) {
+        incorporateVehicle(aVehicle, pos, speed, predIt, notification);
+    }
     return true;
 }
 
@@ -1604,7 +1612,7 @@ MSLane::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc) {
     for (std::vector<std::string>::const_iterator it = vehIds.begin(); it != vehIds.end(); ++it) {
         MSVehicle* v = dynamic_cast<MSVehicle*>(vc.getVehicle(*it));
         assert(v != 0);
-        v->updateBestLanes(true, this);
+        v->updateBestLanes(false, this);
         incorporateVehicle(v, v->getPositionOnLane(), v->getSpeed(), myVehicles.end(),
                            MSMoveReminder::NOTIFICATION_JUNCTION);
     }

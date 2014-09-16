@@ -172,7 +172,7 @@ public:
      * @see MSVehicle::getDepartureDefinition
      * @see MSVehicle::DepartArrivalDefinition
      */
-    bool insertVehicle(MSVehicle& v);
+    bool insertVehicle(MSVehicle& v, const bool checkOnly=false);
 
 
     /** @brief Tries to insert the given vehicle with the given state (speed and pos)
@@ -192,9 +192,9 @@ public:
      * @return Whether the vehicle could be inserted
      * @see MSVehicle::enterLaneAtInsertion
      */
-    virtual bool isInsertionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
-                                    bool recheckNextLanes,
-                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
+    bool isInsertionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
+                            bool recheckNextLanes,
+                            MSMoveReminder::Notification notification, const bool checkOnly=false);
 
     bool checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const SUMOReal nspeed, const bool patchSpeed, const std::string errorMsg) const;
     bool pWagGenericInsertion(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos);

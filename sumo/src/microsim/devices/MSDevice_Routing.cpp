@@ -36,6 +36,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
+#include <microsim/MSGlobals.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>
@@ -183,13 +184,15 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
 MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
                                    SUMOTime period, SUMOTime preInsertionPeriod)
     : MSDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myRerouteCommand(0) {
-    // we do always a pre insertion reroute to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
-    myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
-    // if we don't update the edge weights, we might as well reroute now and hopefully use our threads better
-    const SUMOTime execTime = myEdgeWeightSettingCommand == 0 ? 0 : holder.getParameter().depart;
-    MSNet::getInstance()->getInsertionEvents().addEvent(
-        myRerouteCommand, execTime,
-        MSEventControl::ADAPT_AFTER_EXECUTION);
+    if (myWithTaz) {
+        // we do always a pre insertion reroute to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
+        myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
+        // if we don't update the edge weights, we might as well reroute now and hopefully use our threads better
+        const SUMOTime execTime = myEdgeWeightSettingCommand == 0 ? 0 : holder.getParameter().depart;
+        MSNet::getInstance()->getInsertionEvents().addEvent(
+            myRerouteCommand, execTime,
+            MSEventControl::ADAPT_AFTER_EXECUTION);
+    }
 }
 
 
@@ -211,8 +214,10 @@ MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification
         myRerouteCommand = 0;
         // trigger on depart rerouting if the edge weights did change
         const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-        if (myHolder.getParameter().depart <= myLastAdaptation && now > myLastAdaptation) {
-            wrappedRerouteCommandExecute(now);
+        if (!MSGlobals::gUseMesoSim && myHolder.getParameter().departLaneProcedure != DEPART_LANE_BEST_FREE) {
+            if (myHolder.getParameter().depart <= myLastAdaptation && now > myLastAdaptation) {
+                reroute(myHolder, now);
+            }
         }
         // build repetition trigger if routing shall be done more often
         if (myPeriod > 0) {
@@ -228,19 +233,15 @@ MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification
 
 SUMOTime
 MSDevice_Routing::preInsertionReroute(SUMOTime currentTime) {
-    if (myWithTaz) {
-        const MSEdge* source = MSEdge::dictionary(myHolder.getParameter().fromTaz + "-source");
-        const MSEdge* dest = MSEdge::dictionary(myHolder.getParameter().toTaz + "-sink");
-        if (source && dest) {
-            const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
-            if (myCachedRoutes.find(key) == myCachedRoutes.end()) {
-                reroute(myHolder, currentTime, true);
-            } else {
-                myHolder.replaceRoute(myCachedRoutes[key], true);
-            }
+    const MSEdge* source = MSEdge::dictionary(myHolder.getParameter().fromTaz + "-source");
+    const MSEdge* dest = MSEdge::dictionary(myHolder.getParameter().toTaz + "-sink");
+    if (source && dest) {
+        const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
+        if (myCachedRoutes.find(key) == myCachedRoutes.end()) {
+            reroute(myHolder, currentTime, true);
+        } else {
+            myHolder.replaceRoute(myCachedRoutes[key], true);
         }
-    } else {
-        reroute(myHolder, currentTime, true);
     }
     return myPreInsertionPeriod;
 }

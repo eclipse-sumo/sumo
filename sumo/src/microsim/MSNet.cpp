@@ -421,7 +421,7 @@ MSNet::simulationStep() {
             myEdges->detectCollisions(myStep, STAGE_MOVEMENTS);
         }
 
-        // Vehicles change Lanes (maybe)
+        // vehicles may change lanes
         myEdges->changeLanes(myStep);
 
         if (MSGlobals::gCheck4Accidents) {
@@ -436,8 +436,8 @@ MSNet::simulationStep() {
     if (myPersonControl != 0) {
         myPersonControl->checkWaitingPersons(this, myStep);
     }
-    // insert Vehicles
-    myInserter->checkFlows(myStep);
+    // insert vehicles
+    myInserter->determineCandidates(myStep);
     myInsertionEvents->execute(myStep);
 #ifdef HAVE_FOX
     MSDevice_Routing::waitForAll();

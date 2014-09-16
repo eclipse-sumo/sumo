@@ -202,8 +202,6 @@ public:
             }
             minimumInfo->visited = true;
             const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
-            // admissible A* heuristic: straight line distance at maximum speed
-            const SUMOReal heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / vehicle->getMaxSpeed() : (*myLookupTable)[minEdge->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
             // check all ways from the node with the minimal length
             unsigned int i = 0;
             const unsigned int length_size = minEdge->getNumSuccessors();
@@ -217,7 +215,15 @@ public:
                 const SUMOReal oldEffort = followerInfo->traveltime;
                 if (!followerInfo->visited && traveltime < oldEffort) {
                     followerInfo->traveltime = traveltime;
-                    followerInfo->heuristicTime = traveltime + heuristic_remaining;
+                    followerInfo->heuristicTime = traveltime;
+                    if (follower != to) {
+                        if (myLookupTable == 0) {
+                            // admissible A* heuristic: straight line distance at maximum speed
+                            followerInfo->heuristicTime += this->getEffort(follower, vehicle, time + traveltime) + follower->getDistanceTo(to) / vehicle->getMaxSpeed();
+                        } else {
+                            followerInfo->heuristicTime += this->getEffort(follower, vehicle, time + traveltime) + (*myLookupTable)[follower->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
+                        }
+                    }
                     followerInfo->prev = minimumInfo;
                     if (oldEffort == std::numeric_limits<SUMOReal>::max()) {
                         myFrontierList.push_back(followerInfo);

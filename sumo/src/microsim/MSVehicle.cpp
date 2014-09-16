@@ -421,7 +421,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                                "' on lane '" + i->lane + "' is too close or not downstream the current route.");
         }
     }
-    updateBestLanes(true, (*myCurrEdge)->getLanes()[0]); // must be called before getBestLanes in getDepartLane
     const MSLane* const depLane = (*myCurrEdge)->getDepartLane(*this);
     if (depLane == 0) {
         throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
@@ -477,9 +476,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
     myRoute = newRoute;
     myLastBestLanesEdge = 0;
     myLastBestLanesInternalLane = 0;
-    if (!onInit) {
-        updateBestLanes(true);
-    }
+    updateBestLanes(true, onInit ? (*myCurrEdge)->getLanes().front() : 0);
     // update arrival definition
     calculateArrivalPos();
     // save information that the vehicle was rerouted
@@ -2316,7 +2313,9 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTim
     newStop.triggered = triggered;
     newStop.parking = parking;
     newStop.index = STOP_INDEX_FIT;
-    return addStop(newStop);
+    const bool result = addStop(newStop);
+    updateBestLanes(true);
+    return result;
 }
 
 

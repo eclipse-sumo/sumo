@@ -319,7 +319,7 @@ MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass 
 
 
 MSLane*
-MSEdge::getDepartLane(const MSVehicle& veh) const {
+MSEdge::getDepartLane(MSVehicle& veh) const {
     switch (veh.getParameter().departLaneProcedure) {
         case DEPART_LANE_GIVEN:
             if ((int) myLanes->size() <= veh.getParameter().departLane || !(*myLanes)[veh.getParameter().departLane]->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
@@ -337,6 +337,7 @@ MSEdge::getDepartLane(const MSVehicle& veh) const {
                 return getFreeLane(allowedLanes(**(veh.getRoute().begin() + 1)), veh.getVehicleType().getVehicleClass());
             }
         case DEPART_LANE_BEST_FREE: {
+            veh.updateBestLanes(false, myLanes->front());
             const std::vector<MSVehicle::LaneQ>& bl = veh.getBestLanes();
             SUMOReal bestLength = -1;
             for (std::vector<MSVehicle::LaneQ>::const_iterator i = bl.begin(); i != bl.end(); ++i) {
@@ -373,7 +374,7 @@ MSEdge::getDepartLane(const MSVehicle& veh) const {
 
 
 bool
-MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time) const {
+MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const {
     // when vaporizing, no vehicles are inserted...
     if (isVaporizing()) {
         return false;
@@ -417,17 +418,28 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time) const {
         MEVehicle* veh = static_cast<MEVehicle*>(&v);
         if (pars.departPosProcedure == DEPART_POS_FREE) {
             while (segment != 0 && !result) {
-                result = segment->initialise(veh, time);
+                if (checkOnly) {
+                    result = segment->hasSpaceFor(veh, time);
+                } else {
+                    result = segment->initialise(veh, time);
+                }
                 segment = segment->getNextSegment();
             }
         } else {
-            result = segment->initialise(veh, time);
+            if (checkOnly) {
+                result = segment->hasSpaceFor(veh, time);
+            } else {
+                result = segment->initialise(veh, time);
+            }
         }
         return result;
     }
 #else
     UNUSED_PARAMETER(time);
 #endif
+    if (checkOnly) {
+        return true;
+    }
     MSLane* insertionLane = getDepartLane(static_cast<MSVehicle&>(v));
     return insertionLane != 0 && insertionLane->insertVehicle(static_cast<MSVehicle&>(v));
 }

@@ -103,6 +103,11 @@ public:
     /// @brief deletes the router instance
     static void cleanup();
 
+    /// @brief returns whether any routing actions take place
+    static bool isEnabled() {
+        return !myWithTaz && !myEdgeEfforts.empty();
+    }
+
 #ifdef HAVE_FOX
     static void waitForAll();
 #endif
@@ -138,6 +143,10 @@ public:
      */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
     /// @}
+
+
+    /// @brief initiate the rerouting, create router / thread pool on first use
+    static void reroute(SUMOVehicle& v, const SUMOTime currentTime, const bool onInit=false);
 
 
 private:
@@ -256,12 +265,6 @@ private:
      */
     static SUMOTime adaptEdgeEfforts(SUMOTime currentTime);
     /// @}
-
-
-
-    /// @brief initiate the rerouting, create router / thread pool on first use
-    static void reroute(SUMOVehicle& v, const SUMOTime currentTime, const bool onInit=false);
-
 
 
 private:

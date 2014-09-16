@@ -411,14 +411,17 @@ public:
      *  In dependance to this, the proper lane is chosen.
      *
      * Insertion itself is done by calling the chose lane's "insertVehicle"
-     *  method.
+     *  method but only if the checkOnly argument is false. The check needs
+     *  to be certain only in the negative case (if false is returned, there
+     *  is no way this vehicle would be inserted).
      *
      * @param[in] v The vehicle to insert
      * @param[in] time The current simulation time
+     * @param[in] checkOnly whether we perform only the check without actually inserting
      * @return Whether the vehicle could be inserted
      * @see MSLane::insertVehicle
      */
-    bool insertVehicle(SUMOVehicle& v, SUMOTime time) const;
+    bool insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly=false) const;
 
 
     /** @brief Finds the emptiest lane allowing the vehicle class
@@ -448,7 +451,7 @@ public:
      * @param[in] veh The vehicle to get the depart lane for
      * @return a possible/chosen depart lane, 0 if no lane can be used
      */
-    MSLane* getDepartLane(const MSVehicle& veh) const;
+    MSLane* getDepartLane(MSVehicle& veh) const;
 
 
     /** @brief Returns the last time a vehicle could not be inserted
