@@ -358,7 +358,7 @@ GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
     for (int i = 0; i < nb_hits; ++i) {
         numNames = *ptr;
         ptr += 3;
-        for (int j = 0; j < numNames; j++) {     /*  for each name */
+        for (int j = 0; j < (int)numNames; j++) {
             result.push_back(*ptr);
             ptr++;
         }
