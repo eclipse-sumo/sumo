@@ -66,6 +66,7 @@ links:linkstate.xml
 output:\r{REPLACE \n}
 output:\([0-9]*ms\){REPLACE (TIME)}
 output:^Performance:{->}^Vehicles:
+output:Building Contraction Hierarchy{[->]}Simulation ended
 output:ms answering queries
 output:answered [0-9]* queries{REPLACE answered (NUMBER) queries}
 log:\([0-9]*ms\){REPLACE (TIME)}
