@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    RORouteAggregator.h
-/// @author  Jakob Erdmann
+/// @author  Laura Bieker
+/// @author  Michael Behrisch
 /// @date    February 2012
 /// @version $Id$
 ///

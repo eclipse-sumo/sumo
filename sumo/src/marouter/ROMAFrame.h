@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    ROMAFrame.h
 /// @author  Daniel Krajzewicz
+/// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Sept 2002
 /// @version $Id$

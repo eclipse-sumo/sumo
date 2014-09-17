@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    ROMAEdgeBuilder.cpp
 /// @author  Daniel Krajzewicz
+/// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Jan 2004
 /// @version $Id$

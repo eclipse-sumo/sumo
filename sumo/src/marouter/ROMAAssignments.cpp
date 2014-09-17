@@ -1,6 +1,8 @@
 /****************************************************************************/
 /// @file    ROMAAssignments.cpp
-/// @author  Yun-Pang Floetteroed, Michael Behrisch
+/// @author  Yun-Pang Floetteroed
+/// @author  Laura Bieker
+/// @author  Michael Behrisch
 /// @date    Feb 2013
 /// @version $Id$
 ///

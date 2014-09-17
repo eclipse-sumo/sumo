@@ -1,16 +1,23 @@
 #!/usr/bin/env python
 """
-@file    sumoWhisperResume.py
-@author  Marek Heinrich
-@date    2011-08-28
+@file    runner.py
+@author  Laura Bieker
+@author  Michael Behrisch
+@date    2014-08-28
+@version $Id$
 
 Python resume test.
 
-This program is free software; you can redistribute it and/or modify
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+
 import subprocess
 import os, sys
 

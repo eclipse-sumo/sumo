@@ -2,6 +2,7 @@
 /// @file    marouter_main.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
+/// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Thu, 06 Jun 2002
 /// @version $Id$

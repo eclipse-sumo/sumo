@@ -2,6 +2,7 @@
 /// @file    ROMAFrame.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
+/// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Sept 2002
 /// @version $Id$

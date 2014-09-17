@@ -3,6 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Christian Roessel
+/// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Sept 2002
 /// @version $Id$

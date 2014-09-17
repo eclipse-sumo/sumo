@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    NBHeightMapper.cpp
-/// @author  Jakob Erdmann
+/// @author  Laura Bieker
+/// @author  Michael Behrisch
 /// @date    Sept 2011
 /// @version $Id$
 ///

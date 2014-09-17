@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    CHRouterWrapper.h
-/// @author  Jakob Erdmann
+/// @author  Laura Bieker
+/// @author  Michael Behrisch
 /// @date    March 2012
 /// @version $Id$
 ///
