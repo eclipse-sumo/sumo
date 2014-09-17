@@ -99,6 +99,9 @@
         <!-- Write the output in the duarouter alternatives style -->
         <vehroute-output.dua value="false" synonymes="vehroutes.dua" type="BOOL"/>
 
+        <!-- Write the output with the intended instead of the real departure time -->
+        <vehroute-output.intended-depart value="false" synonymes="vehroutes.intended-depart" type="BOOL"/>
+
         <!-- Write vehroute output for vehicles which have not arrived at simulation end -->
         <vehroute-output.write-unfinished value="false" type="BOOL"/>
 
@@ -180,7 +183,7 @@
         <!-- Whether overtaking on the right on motorways is permitted -->
         <lanechange.overtake-right value="false" type="BOOL"/>
 
-        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;] -->
+        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;] -->

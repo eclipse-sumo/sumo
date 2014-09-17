@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r17028
+SUMO Version dev-SVN-r17071
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
@@ -55,6 +55,8 @@ Output Options:
   --vehroute-output.sorted             Sorts the output by departure time
   --vehroute-output.dua                Write the output in the duarouter
                                          alternatives style
+  --vehroute-output.intended-depart    Write the output with the intended
+                                         instead of the real departure time
   --vehroute-output.write-unfinished   Write vehroute output for vehicles which
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE
@@ -110,7 +112,8 @@ Processing Options:
   --lanechange.overtake-right          Whether overtaking on the right on
                                          motorways is permitted
   --routing-algorithm STR              Select among routing algorithms
-                                         ['dijkstra', 'astar']
+                                         ['dijkstra', 'astar', 'CH',
+                                         'CHWrapper']
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping']
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for

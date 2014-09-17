@@ -31,6 +31,9 @@ teleport_multihop
 # vehicles are moving in circles
 circle_reroute
 
+# vehicles are moving in circles and write intended depart
+circle_reroute_intended_depart
+
 # output sorted by departure time
 sorted
 

@@ -1,4 +1,4 @@
-SUMO marouter Version dev-SVN-r17028
+SUMO marouter Version dev-SVN-r17071
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Import O/D-matrices for macroscopic traffic assignment
 
@@ -45,7 +45,7 @@ Processing Options:
   --weight-period TIME              Aggregation period for the given weight
                                       files;
                                       triggers rebuilding of Contraction
-                                      Hirarchy
+                                      Hierarchy
   -s, --scale FLOAT                 Scales the loaded flows by FLOAT
   --vtype STR                       Defines the name of the vehicle type to use
   --prefix STR                      Defines the prefix for vehicle flow names

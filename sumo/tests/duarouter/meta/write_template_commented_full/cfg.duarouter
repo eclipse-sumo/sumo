@@ -93,8 +93,11 @@
         <!-- Use origin and destination zones (districts) for in- and output -->
         <with-taz value="false" type="BOOL"/>
 
-        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;] -->
+        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;bulkstar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
+
+        <!-- Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy -->
+        <weight-period value="3600" type="TIME"/>
 
         <!-- The number of parallel execution threads used for routing -->
         <routing-threads value="0" type="INT"/>
