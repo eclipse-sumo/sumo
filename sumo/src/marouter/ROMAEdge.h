@@ -76,12 +76,12 @@ public:
     /// Destructor
     virtual ~ROMAEdge();
 
-    /** @brief Adds information about a connected edge
+    /** @brief Adds information about a connected edge.
      *
-     * The edge is added to "myFollowingEdges".
+     * In addition to ROEdge::addSuccessor it keeps track of left turns.
+     *
      * @param[in] s The edge to add
      * @todo What about vehicle-type aware connections?
-     * @note: if HAVE_INTERNAL is defined, the backward connections is added as well
      */
     virtual void addSuccessor(ROEdge* s, std::string dir = "");
 

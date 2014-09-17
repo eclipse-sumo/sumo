@@ -121,10 +121,9 @@ public:
 
     /** @brief Adds information about a connected edge
      *
-     * The edge is added to "myFollowingEdges".
+     * The edge s is added to "myFollowingEdges" and this edge is added as predecessor to s.
      * @param[in] s The edge to add
      * @todo What about vehicle-type aware connections?
-     * @note: if HAVE_INTERNAL is defined, the backward connections is added as well
      */
     virtual void addSuccessor(ROEdge* s, std::string dir = "");
 

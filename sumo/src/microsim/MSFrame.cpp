@@ -260,7 +260,7 @@ MSFrame::fillOptions() {
 
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
     oc.addDescription("routing-algorithm", "Processing",
-                      "Select among routing algorithms ['dijkstra', 'astar']");
+                      "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
     oc.addDescription("pedestrian.model", "Processing", "Select among pedestrian models ['nonInteracting', 'striping']");

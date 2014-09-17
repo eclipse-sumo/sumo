@@ -70,9 +70,9 @@ recheckForLoops(std::vector<const ROEdge*>& edges) {
     }
 
     // removal of edge loops within the route (edge occurs twice)
-    std::map<const ROEdge*, int> lastOccurence; // index of the last occurence of this edge
-    for (int ii = 0; ii < edges.size(); ++ii) {
-        std::map<const ROEdge*, int>::iterator it_pre = lastOccurence.find(edges[ii]);
+    std::map<const ROEdge*, size_t> lastOccurence; // index of the last occurence of this edge
+    for (size_t ii = 0; ii < edges.size(); ++ii) {
+        std::map<const ROEdge*, size_t>::iterator it_pre = lastOccurence.find(edges[ii]);
         if (it_pre != lastOccurence.end()) {
             edges.erase(edges.begin() + it_pre->second, edges.begin() + ii);
             ii = it_pre->second;

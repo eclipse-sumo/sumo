@@ -150,18 +150,10 @@ ROMAFrame::addImportOptions() {
     oc.addDescription("weights.expand", "Processing", "Expand weights behind the simulation's end");
 
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-    oc.addDescription("routing-algorithm", "Processing",
-#ifndef HAVE_INTERNAL // catchall for internal stuff
-                      "Select among routing algorithms ['dijkstra', 'astar']"
-#else
-                      "Select among routing algorithms ['dijkstra', 'astar', 'bulkstar', 'CH', 'CHWrapper']"
-#endif
-                     );
+    oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar', 'bulkstar', 'CH', 'CHWrapper']");
 
-#ifdef HAVE_INTERNAL // catchall for internal stuff
     oc.doRegister("weight-period", new Option_String("3600", "TIME"));
-    oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hirarchy");
-#endif
+    oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy");
 
     // register defaults options
     oc.doRegister("flow-output.departlane", new Option_String("free"));

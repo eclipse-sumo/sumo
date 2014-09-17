@@ -306,7 +306,6 @@ MSDevice_Routing::reroute(SUMOVehicle& v, const SUMOTime currentTime, const bool
                     MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort);
             }
         } else if (routingAlgorithm == "astar") {
-        const std::string routingAlgorithm = oc.getString("routing-algorithm");
             if (mayHaveRestrictions) {
                 typedef AStarRouter<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > AStar;
                 const AStar::LookupTable* lookup = 0;
