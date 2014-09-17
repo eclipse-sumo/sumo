@@ -104,10 +104,10 @@ MSEdge::~MSEdge() {
 
 
 void
-MSEdge::initialize(std::vector<MSLane*>* lanes) {
-    assert(myFunction == EDGEFUNCTION_DISTRICT || lanes != 0);
+MSEdge::initialize(const std::vector<MSLane*>* lanes) {
+    assert(lanes != 0);
     myLanes = lanes;
-    if (myLanes != 0) {
+    if (!lanes->empty()) {
         myLength = myLanes->front()->getLength();
         if (myLanes->size() > 1) {
             myLaneChanger = new MSLaneChanger(myLanes, OptionsCont::getOptions().getBool("lanechange.allow-swap"));
@@ -122,7 +122,7 @@ MSEdge::initialize(std::vector<MSLane*>* lanes) {
 void
 MSEdge::closeBuilding() {
     myAllowed[0] = new std::vector<MSLane*>();
-    for (std::vector<MSLane*>::iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
         myAllowed[0]->push_back(*i);
         const MSLinkCont& lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
@@ -171,7 +171,7 @@ MSEdge::rebuildAllowedLanes() {
     // rebuild myMinimumPermissions and myCombinedPermissions
     myMinimumPermissions = SVCAll;
     myCombinedPermissions = 0;
-    for (std::vector<MSLane*>::iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
         myMinimumPermissions &= (*i)->getPermissions();
         myCombinedPermissions |= (*i)->getPermissions();
     }
@@ -435,7 +435,7 @@ MSEdge::changeLanes(SUMOTime t) {
     }
     if (myFunction == EDGEFUNCTION_INTERNAL) {
         // allow changing only if all links leading to this internal lane have priority
-        for (std::vector<MSLane*>::iterator it = myLanes->begin(); it != myLanes->end(); ++it) {
+        for (std::vector<MSLane*>::const_iterator it = myLanes->begin(); it != myLanes->end(); ++it) {
             MSLane* pred = (*it)->getLogicalPredecessorLane();
             MSLink* link = MSLinkContHelper::getConnectingLink(*pred, **it);
             assert(link != 0);
@@ -492,7 +492,7 @@ MSEdge::getCurrentTravelTime(SUMOReal minSpeed) const {
         }
     } else {
 #endif
-        for (std::vector<MSLane*>::iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
             v += (*i)->getMeanSpeed();
         }
         v /= (SUMOReal) myLanes->size();

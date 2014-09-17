@@ -60,13 +60,13 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLaneChanger::MSLaneChanger(std::vector<MSLane*>* lanes, bool allowSwap)
+MSLaneChanger::MSLaneChanger(const std::vector<MSLane*>* lanes, bool allowSwap)
     : myAllowsSwap(allowSwap) {
     assert(lanes->size() > 1);
 
     // Fill the changer with the lane-data.
     myChanger.reserve(lanes->size());
-    for (std::vector<MSLane*>::iterator lane = lanes->begin(); lane != lanes->end(); ++lane) {
+    for (std::vector<MSLane*>::const_iterator lane = lanes->begin(); lane != lanes->end(); ++lane) {
         ChangeElem ce;
         ce.follow    = 0;
         ce.lead      = 0;
@@ -91,7 +91,6 @@ MSLaneChanger::laneChange(SUMOTime t) {
     // Finally, the change-result has to be given back to the lanes.
     initChanger();
     while (vehInChanger()) {
-
         bool haveChanged = change();
         updateChanger(haveChanged);
     }

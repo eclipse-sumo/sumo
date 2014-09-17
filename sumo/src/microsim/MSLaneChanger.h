@@ -55,7 +55,7 @@
 class MSLaneChanger {
 public:
     /// Constructor
-    MSLaneChanger(std::vector<MSLane*>* lanes, bool allowSwap);
+    MSLaneChanger(const std::vector<MSLane*>* lanes, bool allowSwap);
 
     /// Destructor.
     ~MSLaneChanger();

@@ -119,7 +119,7 @@ public:
      * @param[in] streetName The street name for that edge
      */
     MSEdge(const std::string& id, int numericalID, const EdgeBasicFunction function, 
-            const std::string& streetName, const std::string& edgeType, int priority);
+           const std::string& streetName, const std::string& edgeType, int priority);
 
 
     /// @brief Destructor.
@@ -131,7 +131,7 @@ public:
      * @param[in] allowed Information which edges may be reached from which lanes
      * @param[in] lanes List of this edge's lanes
      */
-    void initialize(std::vector<MSLane*>* lanes);
+    void initialize(const std::vector<MSLane*>* lanes);
 
 
     /// @todo Has to be called after all edges were built and all connections were set...; Still, is not very nice
@@ -654,7 +654,7 @@ protected:
     int myNumericalID;
 
     /// @brief Container for the edge's lane; should be sorted: (right-hand-traffic) the more left the lane, the higher the container-index
-    std::vector<MSLane*>* myLanes;
+    const std::vector<MSLane*>* myLanes;
 
     /// @brief This member will do the lane-change
     MSLaneChanger* myLaneChanger;
