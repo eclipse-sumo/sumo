@@ -52,6 +52,7 @@ bool MSDevice_Vehroutes::mySaveExits = false;
 bool MSDevice_Vehroutes::myLastRouteOnly = false;
 bool MSDevice_Vehroutes::myDUAStyle = false;
 bool MSDevice_Vehroutes::mySorted = false;
+bool MSDevice_Vehroutes::myIntendedDepart = false;
 bool MSDevice_Vehroutes::myWithTaz = false;
 MSDevice_Vehroutes::StateListener MSDevice_Vehroutes::myStateListener;
 std::map<const SUMOTime, int> MSDevice_Vehroutes::myDepartureCounts;
@@ -72,6 +73,7 @@ MSDevice_Vehroutes::init() {
         myLastRouteOnly = OptionsCont::getOptions().getBool("vehroute-output.last-route");
         myDUAStyle = OptionsCont::getOptions().getBool("vehroute-output.dua");
         mySorted = myDUAStyle || OptionsCont::getOptions().getBool("vehroute-output.sorted");
+        myIntendedDepart = OptionsCont::getOptions().getBool("vehroute-output.intended-depart");
         myWithTaz = OptionsCont::getOptions().getBool("device.rerouting.with-taz");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
     }
@@ -214,11 +216,12 @@ void
 MSDevice_Vehroutes::generateOutput() const {
     OutputDevice& routeOut = OutputDevice::getDeviceByOption("vehroute-output");
     OutputDevice_String od(routeOut.isBinary(), 1);
+    const SUMOTime departure = myIntendedDepart ? myHolder.getParameter().depart : myHolder.getDeparture();
     od.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, myHolder.getID());
     if (myHolder.getVehicleType().getID() != DEFAULT_VTYPE_ID) {
         od.writeAttr(SUMO_ATTR_TYPE, myHolder.getVehicleType().getID());
     }
-    od.writeAttr(SUMO_ATTR_DEPART, time2string(myHolder.getDeparture()));
+    od.writeAttr(SUMO_ATTR_DEPART, time2string(departure));
     if (myHolder.hasArrived()) {
         od.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     }
@@ -264,8 +267,8 @@ MSDevice_Vehroutes::generateOutput() const {
     od.closeTag();
     od.lf();
     if (mySorted) {
-        myRouteInfos[myHolder.getDeparture()][myHolder.getID()] = od.getString();
-        myDepartureCounts[myHolder.getDeparture()]--;
+        myRouteInfos[departure][myHolder.getID()] = od.getString();
+        myDepartureCounts[departure]--;
         std::map<const SUMOTime, int>::iterator it = myDepartureCounts.begin();
         while (it != myDepartureCounts.end() && it->second == 0) {
             std::map<const std::string, std::string>& infos = myRouteInfos[it->first];

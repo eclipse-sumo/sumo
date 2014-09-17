@@ -169,6 +169,9 @@ private:
     /// @brief A shortcut for the Option "vehroute-output.sorted"
     static bool mySorted;
 
+    /// @brief A shortcut for the Option "vehroute-output.intended-depart"
+    static bool myIntendedDepart;
+
     /// @brief A shortcut for the Option "device.routing.with-taz"
     static bool myWithTaz;
 
