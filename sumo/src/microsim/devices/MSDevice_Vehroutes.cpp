@@ -129,7 +129,8 @@ MSDevice_Vehroutes::~MSDevice_Vehroutes() {
 bool
 MSDevice_Vehroutes::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
     if (mySorted && reason == NOTIFICATION_DEPARTED && myStateListener.myDevices[&veh] == this) {
-        myDepartureCounts[MSNet::getInstance()->getCurrentTimeStep()]++;
+        const SUMOTime departure = myIntendedDepart ? myHolder.getParameter().depart : MSNet::getInstance()->getCurrentTimeStep();
+        myDepartureCounts[departure]++;
     }
     return mySaveExits;
 }
