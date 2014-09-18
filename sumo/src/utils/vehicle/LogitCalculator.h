@@ -53,7 +53,7 @@ public:
     /// Destructor
     virtual ~LogitCalculator() {}
 
-    void setCosts(R* route, const SUMOReal costs, const bool isActive = false) const {
+    void setCosts(R* route, const SUMOReal costs, const bool /* isActive */) const {
         route->setCosts(costs);
     }
 

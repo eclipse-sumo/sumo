@@ -303,7 +303,7 @@ public:
      * @return The number of edges following this edge
      */
     unsigned int getNumPredecessors() const {
-        return myPredecessors.size();
+        return (unsigned int) myPredecessors.size();
     }
 
 

@@ -310,14 +310,14 @@ MSDevice_Routing::reroute(SUMOVehicle& v, const SUMOTime currentTime, const bool
                 typedef AStarRouter<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > AStar;
                 const AStar::LookupTable* lookup = 0;
                 if (oc.isSet("device.rerouting.shortest-path-file")) {
-                    lookup = AStar::createLookupTable(oc.getString("device.rerouting.shortest-path-file"), MSEdge::numericalDictSize());
+                    lookup = AStar::createLookupTable(oc.getString("device.rerouting.shortest-path-file"), (int)MSEdge::numericalDictSize());
                 }
                 myRouter = new AStar(MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, lookup);
             } else {
                 typedef AStarRouter<MSEdge, SUMOVehicle, prohibited_noRestrictions<MSEdge, SUMOVehicle> > AStar;
                 const AStar::LookupTable* lookup = 0;
                 if (oc.isSet("device.rerouting.shortest-path-file")) {
-                    lookup = AStar::createLookupTable(oc.getString("device.rerouting.shortest-path-file"), MSEdge::numericalDictSize());
+                    lookup = AStar::createLookupTable(oc.getString("device.rerouting.shortest-path-file"), (int)MSEdge::numericalDictSize());
                 }
                 myRouter = new AStar(MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, lookup);
             }

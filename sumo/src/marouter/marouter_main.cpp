@@ -109,7 +109,7 @@ initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
 }
 
 SUMOReal
-getTravelTime(const ROEdge* const edge, const ROVehicle* const veh, SUMOReal time) {
+getTravelTime(const ROEdge* const edge, const ROVehicle* const /* veh */, SUMOReal /* time */) {
     return edge->getLength() / edge->getSpeed();
 }
 
