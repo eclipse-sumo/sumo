@@ -1138,7 +1138,7 @@ MSLane::getFollowerOnConsecutive(
     // do a tree search among all follower lanes and check for the most
     // important vehicle (the one requiring the largest reargap)
     std::pair<MSVehicle*, SUMOReal> result(static_cast<MSVehicle*>(0), -1);
-    SUMOReal missingRearGapMax = 0;
+    SUMOReal missingRearGapMax = -std::numeric_limits<SUMOReal>::max();
     std::set<MSLane*> visited;
     std::vector<MSLane::IncomingLaneInfo> newFound;
     std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
