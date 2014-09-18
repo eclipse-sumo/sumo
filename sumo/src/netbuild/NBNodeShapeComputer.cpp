@@ -62,7 +62,7 @@ NBNodeShapeComputer::compute(bool leftHand) {
     UNUSED_PARAMETER(leftHand);
     PositionVector ret;
     // check whether the node is a dead end node or a node where only turning is possible
-    //  in this case, we will use "computeNodeShapeByCrosses"
+    //  in this case, we will use "computeNodeShapeSmall"
     bool singleDirection = false;
     if (myNode.myAllEdges.size() == 1) {
         singleDirection = true;
@@ -73,11 +73,11 @@ NBNodeShapeComputer::compute(bool leftHand) {
         }
     }
     if (singleDirection) {
-        return computeNodeShapeByCrosses();
+        return computeNodeShapeSmall();
     }
     // check whether the node is a just something like a geometry
     //  node (one in and one out or two in and two out, pair-wise continuations)
-    // also in this case "computeNodeShapeByCrosses" is used
+    // also in this case "computeNodeShapeSmall" is used
     bool geometryLike = myNode.isSimpleContinuation();
     if (geometryLike) {
         // additionally, the angle between the edges must not be larger than 45 degrees
@@ -96,15 +96,15 @@ NBNodeShapeComputer::compute(bool leftHand) {
             }
         }
         if (maxAngle > 22.5) {
-            return computeNodeShapeByCrosses();
+            return computeNodeShapeSmall();
         }
     }
 
     //
-    ret = computeContinuationNodeShape(geometryLike);
-    // fail fall-back: use "computeNodeShapeByCrosses"
+    ret = computeNodeShapeDefault(geometryLike);
+    // fail fall-back: use "computeNodeShapeSmall"
     if (ret.size() < 3) {
-        ret = computeNodeShapeByCrosses();
+        ret = computeNodeShapeSmall();
     }
     return ret;
 }
@@ -191,7 +191,7 @@ NBNodeShapeComputer::replaceFirstChecking(PositionVector& g, bool decenter,
 
 
 PositionVector
-NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
+NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     // if we have less than two edges, we can not compute the node's shape this way
     if (myNode.myAllEdges.size() < 2) {
         return PositionVector();
@@ -720,7 +720,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
 
 
 PositionVector
-NBNodeShapeComputer::computeNodeShapeByCrosses() {
+NBNodeShapeComputer::computeNodeShapeSmall() {
     PositionVector ret;
     EdgeVector::const_iterator i;
     for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {

@@ -61,7 +61,12 @@ public:
     PositionVector compute(bool leftHand);
 
 private:
-    PositionVector computeContinuationNodeShape(bool simpleContinuation);
+    /** @brief Computes the node geometry 
+     * Edges with the same direction are grouped.
+     * Then the node geometry is built from intersection between the borders
+     * of adjacent edge groups
+     */
+    PositionVector computeNodeShapeDefault(bool simpleContinuation);
 
     /** @brief Computes the node geometry using normals
      *
@@ -70,8 +75,11 @@ private:
      *  the normals of participating edges' geometry boundaries (cw/ccw)
      *  at the node's height (the length of the edge the edge would cross the node
      *  point).
+     *
+     *  @note This usually gives a very small node shape, appropriate for
+     *  dead-ends or turn-around-only situations
      */
-    PositionVector computeNodeShapeByCrosses();
+    PositionVector computeNodeShapeSmall();
 
 
     void replaceLastChecking(PositionVector& g, bool decenter,
