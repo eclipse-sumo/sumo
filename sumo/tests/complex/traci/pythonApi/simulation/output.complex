@@ -1,5 +1,5 @@
 Loading configuration... done.
-{114: ['horiz', 'horiz1', 'horiz2'], 116: []}
+{114: ['horiz', 'horiz1'], 116: []}
 step 0
 {114: [], 116: ['horiz']}
 step 1
@@ -11,10 +11,10 @@ step 3
 step 4
 {114: [], 116: []}
 step 5
-{114: [], 116: ['horiz1']}
+{114: ['horiz2'], 116: ['horiz1']}
 time 6000
-#loaded 0
-loaded []
+#loaded 1
+loaded ['horiz2']
 #departed 1
 departed ['horiz1']
 #arrived 0
@@ -33,15 +33,15 @@ teleportStart []
 #teleportEnd 0
 teleportEnd []
 deltaT 1000
-boundary ((0.0, 0.0), (3330.25, 3904.5599999999999))
+boundary ((0.0, 0.0), (3330.25, 3904.56))
 convertRoad2D (-1.26, 3903.4900000000002)
 convertRoad3D (-1.26, 3903.4900000000002, 2.0)
-convertRoadGeo (12.014677620717489, 48.121448906321213)
-convertRoadGeoAlt (12.014677620717489, 48.121448906321213, 2.0)
-convert2DGeo (12.023018905467282, 48.091054597707689)
-convertGeo2D (-1619.5653987218393, -9550.7208072477952)
-convert2DRoad ('o', 2906.1907260226608, 0)
-convertGeoRoad ('o', 2906.1907260226608, 0)
+convertRoadGeo (12.014677620717489, 48.12144890632121)
+convertRoadGeoAlt (12.014677620717489, 48.12144890632121, 2.0)
+convert2DGeo (12.023018905467282, 48.09105459770769)
+convertGeo2D (-1619.5653987218393, -9550.720807247795)
+convert2DRoad ('o', 2906.190726022661, 0)
+convertGeoRoad ('o', 2906.190726022661, 0)
 distance2D 10.0
 drivingDistance2D 6.48934198154
 distanceRoad 5131.87880547
