@@ -137,7 +137,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     //  for highways
     NBTypeCont& tc = nb.getTypeCont();
     SUMOReal const WIDTH = NBEdge::UNSPECIFIED_WIDTH;
-    tc.insert("highway.motorway",      3, (SUMOReal)(160. / 3.6), 13, WIDTH, SVC_IGNORING, true);
+    tc.insert("highway.motorway",      2, (SUMOReal)(160. / 3.6), 13, WIDTH, SVC_IGNORING, true);
     tc.insert("highway.motorway_link", 1, (SUMOReal)(80. / 3.6), 12, WIDTH, SVC_IGNORING, true);
     tc.insert("highway.trunk",         2, (SUMOReal)(100. / 3.6), 11, WIDTH); // !!! 130km/h?
     tc.insert("highway.trunk_link",    1, (SUMOReal)(80. / 3.6), 10, WIDTH);
