@@ -402,7 +402,7 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
         if (pars.departPosProcedure == DEPART_POS_FREE) {
             while (segment != 0 && !result) {
                 if (checkOnly) {
-                    result = segment->hasSpaceFor(veh, time);
+                    result = segment->hasSpaceFor(veh, time, true);
                 } else {
                     result = segment->initialise(veh, time);
                 }
@@ -410,7 +410,7 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
             }
         } else {
             if (checkOnly) {
-                result = segment->hasSpaceFor(veh, time);
+                result = segment->hasSpaceFor(veh, time, true);
             } else {
                 result = segment->initialise(veh, time);
             }
