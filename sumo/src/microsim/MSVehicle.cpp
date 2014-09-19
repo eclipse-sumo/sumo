@@ -2314,7 +2314,9 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTim
     newStop.parking = parking;
     newStop.index = STOP_INDEX_FIT;
     const bool result = addStop(newStop);
-    updateBestLanes(true);
+    if (myLane != 0) {
+        updateBestLanes(true);
+    }
     return result;
 }
 
