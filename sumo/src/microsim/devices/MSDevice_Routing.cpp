@@ -394,12 +394,12 @@ MSDevice_Routing::RoutingTask::run(FXWorkerThread* context) {
         const MSEdge* source = MSEdge::dictionary(myVehicle.getParameter().fromTaz + "-source");
         const MSEdge* dest = MSEdge::dictionary(myVehicle.getParameter().toTaz + "-sink");
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
-        myThreadPool.lock();
+        lock();
         if (MSDevice_Routing::myCachedRoutes.find(key) == MSDevice_Routing::myCachedRoutes.end()) {
             MSDevice_Routing::myCachedRoutes[key] = &myVehicle.getRoute();
             myVehicle.getRoute().addReference();
         }
-        myThreadPool.unlock();
+        unlock();
     }
 }
 #endif

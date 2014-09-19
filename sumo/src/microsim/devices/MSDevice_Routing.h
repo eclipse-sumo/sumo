@@ -110,6 +110,12 @@ public:
 
 #ifdef HAVE_FOX
     static void waitForAll();
+    static void lock() {
+        myThreadPool.lock();
+    }
+    static void unlock() {
+        myThreadPool.unlock();
+    }
 #endif
 
 
