@@ -1,5 +1,5 @@
 <types>
-      <type id="highway.motorway"       numLanes="3" speed="44.44" priority="13" oneway="true"                   disallow="pedestrian bicycle"/>
+      <type id="highway.motorway"       numLanes="2" speed="44.44" priority="13" oneway="true"                   disallow="pedestrian bicycle"/>
       <type id="highway.motorway_link"  numLanes="1" speed="22.22" priority="12" oneway="true"                   disallow="pedestrian bicycle"/>
       <type id="highway.trunk"          numLanes="2" speed="27.78" priority="11"                                 disallow="pedestrian bicycle"/>
       <type id="highway.trunk_link"     numLanes="1" speed="22.22" priority="10"                                 disallow="pedestrian bicycle"/>
@@ -12,14 +12,14 @@
       <type id="highway.unclassified"   numLanes="1" speed="13.89" priority="5"                sidewalkWidth="2" disallow="pedestrian"/>
       <type id="highway.residential"    numLanes="1" speed="13.89" priority="4"                sidewalkWidth="2" disallow="pedestrian"/>
       <type id="highway.living_street"  numLanes="1" speed="2.78"  priority="3"                                                       />
-      <type id="highway.service"        numLanes="1" speed="5.56"  priority="2"                                  allow="delivery pedestrian"/>
+      <type id="highway.service"        numLanes="1" speed="5.56"  priority="2"                                  allow="delivery pedestrian bicycle"/>
       <type id="highway.track"          numLanes="1" speed="5.56"  priority="1"/>
       <type id="highway.services"       numLanes="1" speed="8.33"  priority="1"/>
       <type id="highway.unsurfaced"     numLanes="1" speed="8.33"  priority="1"/>
                                                                                                
       <type id="highway.footway"        numLanes="1" speed="8.33"  priority="1"  oneway="true"                   allow="pedestrian"/>
       <type id="highway.pedestrian"     numLanes="1" speed="8.33"  priority="1"  oneway="true"                   allow="pedestrian"/>
-      <type id="highway.path"           numLanes="1" speed="2.78"  priority="1"  oneway="true"                   allow="pedestrian"/>
+      <type id="highway.path"           numLanes="1" speed="2.78"  priority="1"  oneway="true"                   allow="pedestrian bicycle"/>
       <type id="highway.bridleway"      numLanes="1" speed="2.78"  priority="1"  oneway="true"                   allow="pedestrian"/>
       <type id="highway.cycleway"       numLanes="1" speed="5.56"  priority="1"  oneway="true"                   allow="bicycle"/>
       <type id="highway.step"           numLanes="1" speed="1.39"  priority="1"  oneway="true"                   allow="pedestrian"/>
