@@ -20,30 +20,29 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import print_function
 import sys, datetime
 
 from xml.sax import parse, handler
 
 class RouteReader(handler.ContentHandler):
 
-    def __init__(self):
+    def __init__(self, attrList):
         self._vType = ''
         self._vID = ''
         self._vDepart = 0
         self._routeID = ''
         self._routeString = ''
         self._routes = {}
+        self._attrList = attrList
+        self._vehicleAttrs = None
         
     def startElement(self, name, attrs):
         if name == 'vehicle':
-            self._vehicleAttrs = attrs
+            self._vehicleAttrs = dict(attrs)
             self._vID = attrs['id']
-            print '    <trip',
-            for key in attrs.keys():
-                if key == "route":
-                    self._routeString = self._routes[attrs['route']]
-                else:
-                    print '%s="%s"' % (key, attrs[key]),
+            if attrs.has_key('route'):
+                self._routeString = self._routes[attrs['route']]
         elif name == 'route':
             if not self._vID:
                 self._routeID = attrs['id']
@@ -51,9 +50,9 @@ class RouteReader(handler.ContentHandler):
             if attrs.has_key('edges'):
                 self._routeString = attrs['edges']
         elif name == 'routes':
-            print """<?xml version="1.0"?>
+            print("""<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
-<trips>""" % datetime.datetime.now()
+<trips>""" % datetime.datetime.now())
 
     def endElement(self, name):
         if name == 'route':
@@ -63,18 +62,19 @@ class RouteReader(handler.ContentHandler):
             self._routeID = ''
         elif name == 'vehicle':
             edges = self._routeString.split()
-            print 'from="%s" to="%s"/>' % (edges[0], edges[-1])
+            self._vehicleAttrs["from"] = edges[0]
+            self._vehicleAttrs["to"] = edges[-1]
+            l = self._attrList if self._attrList else self._vehicleAttrs.keys()
+            print('    <trip %s/>' % (' '.join(['%s="%s"' % (key, self._vehicleAttrs[key]) for key in l])))
             self._vID = ''
             self._routeString = ''
         elif name == 'routes':
-            print "</trips>"
+            print("</trips>")
 
     def characters(self, content):
         self._routeString += content
 
 
-            
 if len(sys.argv) < 2:
-    print "Usage: " + sys.argv[0] + " <routes>"
-    sys.exit()
-parse(sys.argv[1], RouteReader())
+    sys.exit("Usage: " + sys.argv[0] + " <routes> [<attribute>*]")
+parse(sys.argv[1], RouteReader(sys.argv[2:]))
