@@ -35,7 +35,6 @@
 #include <vector>
 #include <fx.h>
 #include <FXThread.h>
-#include <utils/common/RandHelper.h>
 
 
 // ===========================================================================
@@ -132,7 +131,7 @@ public:
          */
         void add(Task* const t) {
             t->setIndex(myRunningIndex++);
-            RandHelper::getRandomFrom(myWorkers)->add(t);
+            myWorkers[myRunningIndex % myWorkers.size()]->add(t);
         }
         
         /** @brief Adds the given task to the list of finished tasks and assigns it to a randomly chosen worker.
