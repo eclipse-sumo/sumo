@@ -122,7 +122,7 @@ MSLCM_JE2013::MSLCM_JE2013(MSVehicle& v) :
 {}
 
 MSLCM_JE2013::~MSLCM_JE2013() {
-    changed();
+    changed(0);
 }
 
 
@@ -335,7 +335,7 @@ MSLCM_JE2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
     }
     if (myVehicle.getLane()->getEdge().getLanes().size() == 1) {
         // remove chaning information if on a road with a single lane
-        changed();
+        changed(0);
     }
     return wanted;
 }
@@ -625,9 +625,8 @@ MSLCM_JE2013::prepareStep() {
 
 
 void
-MSLCM_JE2013::changed() {
+MSLCM_JE2013::changed(int dir) {
     myOwnState = 0;
-    myLastLaneChangeOffset = 0;
     mySpeedGainProbability = 0;
     myKeepRightProbability = 0;
     if (myVehicle.getBestLaneOffset() == 0) {
@@ -639,6 +638,7 @@ MSLCM_JE2013::changed() {
     myLookAheadSpeed = LOOK_AHEAD_MIN_SPEED;
     myVSafes.clear();
     myDontBrake = false;
+    initLastLaneChangeOffset(dir);
 }
 
 

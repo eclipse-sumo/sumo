@@ -98,7 +98,7 @@ public:
     SUMOReal _patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
                          const MSCFModel& cfModel);
 
-    void changed();
+    void changed(int dir);
 
     void prepareStep();
 

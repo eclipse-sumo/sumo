@@ -94,7 +94,7 @@ public:
     virtual SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
                                 const MSCFModel& cfModel);
 
-    virtual void changed();
+    virtual void changed(int dir);
 
     virtual void prepareStep();
 

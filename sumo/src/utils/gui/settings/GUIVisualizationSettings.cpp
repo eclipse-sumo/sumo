@@ -191,8 +191,14 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::YELLOW, (SUMOReal)200);
     scheme.addColor(RGBColor::RED, (SUMOReal)300);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by time since last lanechange", RGBColor::WHITE);
-    scheme.addColor(RGBColor::GREY, (SUMOReal)(5 * 60));
+    scheme = GUIColorScheme("by time since lane change", RGBColor(179, 179, 179, 255), "0");
+    scheme.addColor(RGBColor(189, 189, 179, 255), -180);
+    scheme.addColor(RGBColor(255, 255, 0, 255), -20);
+    scheme.addColor(RGBColor(255,   0, 0, 255), -1);
+    scheme.addColor(RGBColor(0,   0, 255, 255),  1);
+    scheme.addColor(RGBColor(0, 255, 255, 255),  20);
+    scheme.addColor(RGBColor(179, 189, 189, 255),  180);
+    scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by max speed", RGBColor::RED);
     scheme.addColor(RGBColor::YELLOW, (SUMOReal)(30 / 3.6));

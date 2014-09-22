@@ -74,14 +74,15 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
 MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v) :
     myVehicle(v),
     myOwnState(0),
-    myLastLaneChangeOffset(0),
     myLaneChangeCompletion(1.0),
     myLaneChangeDirection(0),
     myLaneChangeMidpointPassed(false),
     myAlreadyMoved(false),
     myShadowLane(0),
     myHaveShadow(false),
-    myCarFollowModel(v.getCarFollowModel()) {
+    myCarFollowModel(v.getCarFollowModel()),
+    myLastLaneChangeOffset(0)
+{
 }
 
 
@@ -140,8 +141,7 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
         myVehicle.leaveLane(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
         source->leftByLaneChange(&myVehicle);
         myVehicle.enterLaneAtLaneChange(target);
-        myLastLaneChangeOffset = 0;
-        changed();
+        changed(direction);
         return false;
     }
 }
@@ -177,8 +177,7 @@ MSAbstractLaneChangeModel::continueLaneChangeManeuver(bool moved) {
                           "m when changing lanes on lane '" + myVehicle.getLane()->getID() + " time=" +
                           time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         }
-        myLastLaneChangeOffset = 0;
-        changed();
+        changed(myLaneChangeDirection);
         myAlreadyMoved = true;
     }
     // remove shadow as soon as the vehicle leaves the original lane geometrically
@@ -210,4 +209,14 @@ bool
 MSAbstractLaneChangeModel::cancelRequest(int state) {
     int ret = myVehicle.influenceChangeDecision(state);
     return ret != state;
+}
+
+
+void 
+MSAbstractLaneChangeModel::initLastLaneChangeOffset(int dir) {
+    if (dir > 0) {
+        myLastLaneChangeOffset = 1;
+    } else if (dir < 0) {
+        myLastLaneChangeOffset = -1;
+    }
 }

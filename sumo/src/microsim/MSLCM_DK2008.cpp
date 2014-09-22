@@ -76,7 +76,7 @@ MSLCM_DK2008::MSLCM_DK2008(MSVehicle& v)
       myLeadingBlockerLength(0), myLeftSpace(0) {}
 
 MSLCM_DK2008::~MSLCM_DK2008() {
-    changed();
+    changed(0);
 }
 
 int
@@ -548,7 +548,7 @@ MSLCM_DK2008::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
     // just to make sure to be notified about lane chaning end
     if (myVehicle.getLane()->getEdge().getLanes().size() == 1 || myVehicle.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
         // remove chaning information if on a road with a single lane
-        changed();
+        changed(0);
         return wanted;
     }
 
@@ -624,14 +624,14 @@ MSLCM_DK2008::inform(void* info, MSVehicle* /*sender*/) {
 
 
 void
-MSLCM_DK2008::changed() {
+MSLCM_DK2008::changed(int dir) {
     myOwnState = 0;
-    myLastLaneChangeOffset = 0;
     myChangeProbability = 0;
     myLeadingBlockerLength = 0;
     myLeftSpace = 0;
     myVSafes.clear();
     myDontBrake = false;
+    initLastLaneChangeOffset(dir);
 }
 
 

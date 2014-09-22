@@ -205,13 +205,16 @@ MSLaneChanger::change() {
     if (myAllowsSwap && ((state1 & (LCA_URGENT)) != 0 || (state2 & (LCA_URGENT)) != 0)) {
         // get the direction ...
         ChangerIt target;
+        int direction = 0;
         if ((state1 & (LCA_URGENT)) != 0) {
             // ... wants to go right
             target = myCandi - 1;
+            direction = -1;
         }
         if ((state2 & (LCA_URGENT)) != 0) {
             // ... wants to go left
             target = myCandi + 1;
+            direction = 1;
         }
         MSVehicle* prohibitor = target->lead;
         if (target->hoppedVeh != 0) {
@@ -258,8 +261,8 @@ MSLaneChanger::change() {
                     vehicle->enterLaneAtLaneChange(target->lane);
                     prohibitor->enterLaneAtLaneChange(myCandi->lane);
                     // mark lane change
-                    vehicle->getLaneChangeModel().changed();
-                    prohibitor->getLaneChangeModel().changed();
+                    vehicle->getLaneChangeModel().changed(direction);
+                    prohibitor->getLaneChangeModel().changed(-direction);
                     (myCandi)->dens += prohibitor->getVehicleType().getLengthWithGap();
                     (target)->dens += vehicle->getVehicleType().getLengthWithGap();
                     return true;

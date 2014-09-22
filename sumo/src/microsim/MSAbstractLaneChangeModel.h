@@ -233,10 +233,14 @@ public:
     virtual SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
                                 const MSCFModel& cfModel) = 0;
 
-    virtual void changed() = 0;
+    virtual void changed(int dir) = 0;
 
     void unchanged() {
-        myLastLaneChangeOffset += DELTA_T;
+        if (myLastLaneChangeOffset > 0) {
+            myLastLaneChangeOffset += DELTA_T;
+        } else if (myLastLaneChangeOffset < 0) {
+            myLastLaneChangeOffset -= DELTA_T;
+        }
     }
 
     /** @brief Returns the lane the vehicles shadow is on during continuouss lane change
@@ -324,9 +328,6 @@ protected:
     /// @brief The current state of the vehicle
     int myOwnState;
 
-    /// @brief information how long ago the vehicle has performed a lane-change
-    SUMOTime myLastLaneChangeOffset;
-
     /// @brief progress of the lane change maneuver 0:started, 1:complete
     SUMOReal myLaneChangeCompletion;
 
@@ -348,8 +349,20 @@ protected:
     /// @brief The vehicle's car following model
     const MSCFModel& myCarFollowModel;
 
+    /* @brief to be called by derived classes in their changed() method.
+     * If dir=0 is given, the current value remains unchanged */
+    void initLastLaneChangeOffset(int dir);
+
     /// @brief whether overtaking on the right is permitted
     static bool myAllowOvertakingRight;
+
+private:
+    /* @brief information how long ago the vehicle has performed a lane-change,
+     * sign indicates direction of the last change 
+     */
+    SUMOTime myLastLaneChangeOffset;
+
+
 
 private:
     /// @brief Invalidated assignment operator
