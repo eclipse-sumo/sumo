@@ -75,8 +75,6 @@
 #define HELP_OVERTAKE  (SUMOReal)(10.0 / 3.6)
 #define MIN_FALLBEHIND  (SUMOReal)(14.0 / 3.6)
 
-#define KEEP_RIGHT_HEADWAY (SUMOReal)2.0
-
 #define URGENCY (SUMOReal)2.0
 
 #define ROUNDABOUT_DIST_BONUS (SUMOReal)80.0
