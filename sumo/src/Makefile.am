@@ -3,7 +3,6 @@ XERCES_LIBS = -l$(LIB_XERCES)
 if INTERNAL
 MESO_LIBS = ./mesosim/libmesosim.a
 MESOGUI_LIBS = ./mesogui/libmesogui.a ./osgview/libosgview.a
-INTERNAL_LIBS = ./internal/libinternal.a
 endif
 
 if WITH_GUI
@@ -66,7 +65,6 @@ netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/geom/libgeom.a \
 ./foreign/eulerspiral/libeulerspiral.a \
 $(COMMON_LIBS) \
-$(INTERNAL_LIBS) \
 $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
 
 
