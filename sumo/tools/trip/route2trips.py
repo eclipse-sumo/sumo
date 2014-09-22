@@ -43,6 +43,7 @@ class RouteReader(handler.ContentHandler):
             self._vID = attrs['id']
             if attrs.has_key('route'):
                 self._routeString = self._routes[attrs['route']]
+                del self._vehicleAttrs['route']
         elif name == 'route':
             if not self._vID:
                 self._routeID = attrs['id']
@@ -64,8 +65,12 @@ class RouteReader(handler.ContentHandler):
             edges = self._routeString.split()
             self._vehicleAttrs["from"] = edges[0]
             self._vehicleAttrs["to"] = edges[-1]
-            l = self._attrList if self._attrList else sorted(self._vehicleAttrs.keys())
-            print('    <trip %s/>' % (' '.join(['%s="%s"' % (key, self._vehicleAttrs[key]) for key in l])))
+            if self._attrList:
+                print('    <trip %s/>' % (' '.join(['%s="%s"' % (key, self._vehicleAttrs[key]) for key in self._attrList])))
+            else:
+                del self._vehicleAttrs['id']
+                items = sorted(['%s="%s"' % (key, val) for key, val in self._vehicleAttrs.iteritems()])
+                print('    <trip id="%s" %s/>' % (self._vID, ' '.join(items)))
             self._vID = ''
             self._routeString = ''
         elif name == 'routes':
