@@ -89,7 +89,7 @@
 #define CHANGE_PROB_THRESHOLD_RIGHT (SUMOReal)2.0
 #define CHANGE_PROB_THRESHOLD_LEFT (SUMOReal)0.2
 #define KEEP_RIGHT_TIME (SUMOReal)5.0 // the number of seconds after which a vehicle should move to the right lane
-#define KEEP_RIGHT_ACCEPTANCE (SUMOReal)5.0 // calibration factor for determining the desire to keep right
+#define KEEP_RIGHT_ACCEPTANCE (SUMOReal)7.0 // calibration factor for determining the desire to keep right
 
 #define RELGAIN_NORMALIZATION_MIN_SPEED (SUMOReal)10.0
 
