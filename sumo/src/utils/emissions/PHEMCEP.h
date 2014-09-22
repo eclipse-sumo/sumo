@@ -32,9 +32,9 @@
 #include <config.h>
 #endif
 
+#include <map>
 #include <vector>
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/StringBijection.h>
 #include "PHEMCEP.h"
 #include "PHEMConstants.h"
 
@@ -291,7 +291,7 @@ private:
     /// @todo describe
     std::vector<double> _cepCurveFC;
     /// @todo describe
-    StringBijection< std::vector<double> > _cepCurvePollutants;
+    std::map<std::string, std::vector<double> > _cepCurvePollutants;
     /// @todo describe
     std::vector<double> _speedPatternRotational;
     /// @todo describe

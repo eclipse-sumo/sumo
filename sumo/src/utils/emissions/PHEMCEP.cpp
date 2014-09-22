@@ -143,7 +143,7 @@ PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass, const std::
     } // end for
 
     for (int i = 0; i < headerCount; i++) {
-        _cepCurvePollutants.insert(pollutantIdentifier[i], pollutantMeasures[i]);
+        _cepCurvePollutants[pollutantIdentifier[i]] = pollutantMeasures[i];
     } // end for
 
 } // end of Cep
@@ -180,22 +180,13 @@ PHEMCEP::GetMaxAccel(double v, double a, double gradient) const {
 
 double
 PHEMCEP::GetEmission(const std::string& pollutant, double power) const {
-    std::vector<double> emissionCurve;
-    std::vector<double> powerPattern;
-
-    if (pollutant == "FC") {
-        emissionCurve = _cepCurveFC;
-        powerPattern = _powerPatternFC;
-    } else {
-        if (!_cepCurvePollutants.hasString(pollutant)) {
-            throw InvalidArgument("Emission pollutant " + pollutant + " not found!");
-        }
-
-        emissionCurve = _cepCurvePollutants.get(pollutant);
-        powerPattern = _powerPatternPollutants;
+    std::map<std::string, std::vector<double> >::const_iterator it = _cepCurvePollutants.find(pollutant);
+    if (pollutant != "FC" && it == _cepCurvePollutants.end()) {
+        throw InvalidArgument("Emission pollutant " + pollutant + " not found!");
     } // end if
 
-
+    const std::vector<double>& emissionCurve = (pollutant == "FC" ? _cepCurveFC : it->second);
+    const std::vector<double>& powerPattern = (pollutant == "FC" ? _powerPatternFC : _powerPatternPollutants);
 
     if (emissionCurve.size() == 0) {
         throw InvalidArgument("Empty emission curve for " + pollutant + " found!");
