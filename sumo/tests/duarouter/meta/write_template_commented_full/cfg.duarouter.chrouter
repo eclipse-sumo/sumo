@@ -72,6 +72,9 @@
         <!-- Assume input is unsorted -->
         <unsorted-input value="false" synonymes="unsorted" type="BOOL"/>
 
+        <!-- Load routes for the next number of seconds ahead -->
+        <route-steps value="200" synonymes="s" type="TIME"/>
+
         <!-- generate random departure times for flow input -->
         <randomize-flows value="false" type="BOOL"/>
 
@@ -95,6 +98,9 @@
 
         <!-- Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy -->
         <weight-period value="3600" type="TIME"/>
+
+        <!-- The number of parallel execution threads used for routing -->
+        <routing-threads value="0" type="INT"/>
 
         <!-- Expand weights behind the simulation&apos;s end -->
         <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>

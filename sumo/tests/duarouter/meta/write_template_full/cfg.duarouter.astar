@@ -32,6 +32,7 @@
     <processing>
         <ignore-errors value="false" synonymes="continue-on-unbuild" type="BOOL" help="Continue if a route could not be build"/>
         <unsorted-input value="false" synonymes="unsorted" type="BOOL" help="Assume input is unsorted"/>
+        <route-steps value="200" synonymes="s" type="TIME" help="Load routes for the next number of seconds ahead"/>
         <randomize-flows value="false" type="BOOL" help="generate random departure times for flow input"/>
         <max-alternatives value="5" type="INT" help="Prune the number of alternatives to INT"/>
         <remove-loops value="false" type="BOOL" help="Remove loops within the route; Remove turnarounds at start and end of the route"/>
@@ -40,6 +41,7 @@
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
         <routing-algorithm value="" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;bulkstar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <weight-period value="3600" type="TIME" help="Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy"/>
+        <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
         <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT" help="Use FLOAT as Gawron&apos;s beta"/>
         <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron&apos;s a"/>
