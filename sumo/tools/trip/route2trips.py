@@ -64,7 +64,7 @@ class RouteReader(handler.ContentHandler):
             edges = self._routeString.split()
             self._vehicleAttrs["from"] = edges[0]
             self._vehicleAttrs["to"] = edges[-1]
-            l = self._attrList if self._attrList else self._vehicleAttrs.keys()
+            l = self._attrList if self._attrList else sorted(self._vehicleAttrs.keys())
             print('    <trip %s/>' % (' '.join(['%s="%s"' % (key, self._vehicleAttrs[key]) for key in l])))
             self._vID = ''
             self._routeString = ''
