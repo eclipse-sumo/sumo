@@ -349,7 +349,9 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     ++cnt;
                     std::vector<std::string> bestContIDs;
                     for (std::vector<MSLane*>::const_iterator j = lq.bestContinuations.begin(); j != lq.bestContinuations.end(); ++j) {
-                        bestContIDs.push_back((*j)->getID());
+                        if ((*j) != 0) {
+                            bestContIDs.push_back((*j)->getID());
+                        }
                     }
                     tempContent.writeUnsignedByte(TYPE_STRINGLIST);
                     tempContent.writeStringList(bestContIDs);
