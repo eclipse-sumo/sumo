@@ -5,3 +5,9 @@ search_file:errors
 ignore_other_errors:1
 bug_system:trac
 bug_id:1186
+
+[Reported by erdm_ja at 23Sep12:54:44]
+search_string:collision
+search_file:errors
+full_description:collision with partial occupator
+brief_description:ticket #1448
