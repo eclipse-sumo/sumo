@@ -487,6 +487,7 @@ StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
     { "G", LINKSTATE_TL_GREEN_MAJOR },
     { "g", LINKSTATE_TL_GREEN_MINOR },
     { "r", LINKSTATE_TL_RED },
+    { "u", LINKSTATE_TL_REDYELLOW },
     { "Y", LINKSTATE_TL_YELLOW_MAJOR },
     { "y", LINKSTATE_TL_YELLOW_MINOR },
     { "o", LINKSTATE_TL_OFF_BLINKING },

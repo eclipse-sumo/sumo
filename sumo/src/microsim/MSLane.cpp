@@ -1210,7 +1210,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         // get the next link used
         MSLinkCont::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
         if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, veh.getVehicleType().getLength(),
-                veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0) || (*link)->getState() == LINKSTATE_TL_RED) {
+                veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0) || (*link)->haveRed()) {
             break;
         }
 #ifdef HAVE_INTERNAL_LANES
@@ -1271,7 +1271,7 @@ MSLane::getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MS
         // get the next link used
         MSLinkCont::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
         if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, veh.getVehicleType().getLength(),
-                veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0) || (*link)->getState() == LINKSTATE_TL_RED) {
+                veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0) || (*link)->haveRed()) {
             return result;
         }
 #ifdef HAVE_INTERNAL_LANES

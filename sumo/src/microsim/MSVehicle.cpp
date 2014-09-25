@@ -966,6 +966,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             break;
         }
         const bool yellowOrRed = (*link)->getState() == LINKSTATE_TL_RED ||
+                                 (*link)->getState() == LINKSTATE_TL_REDYELLOW ||
                                  (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR ||
                                  (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
         // We distinguish 3 cases when determining the point at which a vehicle stops:

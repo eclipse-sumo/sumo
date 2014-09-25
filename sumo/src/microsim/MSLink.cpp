@@ -218,7 +218,7 @@ bool
 MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength,
                SUMOReal impatience, SUMOReal decel, SUMOTime waitingTime,
                std::vector<const SUMOVehicle*>* collectFoes) const {
-    if (myState == LINKSTATE_TL_RED) {
+    if (haveRed()) {
         return false;
     }
     if (myAmCont && MSGlobals::gUsingInternalLanes) {
@@ -231,7 +231,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
 #ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
-            if ((*i)->getState() == LINKSTATE_TL_RED) {
+            if ((*i)->haveRed()) {
                 continue;
             }
         }

@@ -291,6 +291,7 @@ GUILane::drawLinkRule(const GUINet& net, MSLink* link, const PositionVector& sha
             case LINKSTATE_TL_GREEN_MAJOR:
             case LINKSTATE_TL_GREEN_MINOR:
             case LINKSTATE_TL_RED:
+            case LINKSTATE_TL_REDYELLOW:
             case LINKSTATE_TL_YELLOW_MAJOR:
             case LINKSTATE_TL_YELLOW_MINOR:
             case LINKSTATE_TL_OFF_BLINKING:
@@ -389,44 +390,7 @@ GUILane::drawLane2LaneConnections() const {
         if (connected == 0) {
             continue;
         }
-        switch (state) {
-            case LINKSTATE_TL_GREEN_MAJOR:
-            case LINKSTATE_TL_GREEN_MINOR:
-                glColor3d(0, 1, 0);
-                break;
-            case LINKSTATE_TL_RED:
-                glColor3d(1, 0, 0);
-                break;
-            case LINKSTATE_TL_YELLOW_MAJOR:
-            case LINKSTATE_TL_YELLOW_MINOR:
-                glColor3d(1, 1, 0);
-                break;
-            case LINKSTATE_TL_OFF_BLINKING:
-                glColor3d(1, 1, 0);
-                break;
-            case LINKSTATE_TL_OFF_NOSIGNAL:
-                glColor3d(0, 1, 1);
-                break;
-            case LINKSTATE_MAJOR:
-                glColor3d(1, 1, 1);
-                break;
-            case LINKSTATE_MINOR:
-                glColor3d(.2, .2, .2);
-                break;
-            case LINKSTATE_STOP:
-                glColor3d(.4, .2, .2);
-                break;
-            case LINKSTATE_EQUAL:
-                glColor3d(.5, .5, .5);
-                break;
-            case LINKSTATE_ALLWAY_STOP:
-                glColor3d(.2, .2, .4);
-                break;
-            case LINKSTATE_DEADEND:
-                glColor3d(0, 0, 0);
-                break;
-        }
-
+        GLHelper::setColor(getLinkColor((*i)->getState()));
         glBegin(GL_LINES);
         const Position& p1 = getShape()[-1];
         const Position& p2 = connected->getShape()[0];

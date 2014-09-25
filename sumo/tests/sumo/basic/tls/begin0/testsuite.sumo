@@ -1,5 +1,5 @@
 # The following tests are to determine whether the offset (initial phase and 
-#  time to switch into the next phase) is computed correctly
+# time to switch into the next phase) is computed correctly
 
 # Simple output of tls switch states (original tls with original offset)
 orig_off0
@@ -36,3 +36,4 @@ sub_off_1_5T
 
 # The subitional program's offset is set to -124 (-2*T)
 sub_off_2T
+add_off0_with_redyellow

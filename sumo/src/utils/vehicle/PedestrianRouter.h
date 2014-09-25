@@ -313,6 +313,7 @@ public:
         // ensure that 'normal' edges always have a higher weight than connector edges
         length = MAX2(length, POSITION_EPS);
         SUMOReal tlsDelay = 0;
+        // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
         if (edge->myEdge->isCrossing() && edge->myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
             // red traffic lights occurring later in the route may be green by the time we arive
             tlsDelay += MAX2(SUMOReal(0), TL_RED_PENALTY - (time - trip->departTime));

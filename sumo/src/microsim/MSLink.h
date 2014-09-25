@@ -283,8 +283,15 @@ public:
     /** @brief Returns whether this link is a major link
      * @return Whether the link has a large priority
      */
-    bool havePriority() const {
+    inline bool havePriority() const {
         return myState >= 'A' && myState <= 'Z';
+    }
+
+    /** @brief Returns whether this link is blocked by a red (or redyellow) traffic light
+     * @return Whether the link has a red light
+     */
+    inline bool haveRed() const {
+        return myState == LINKSTATE_TL_RED || myState == LINKSTATE_TL_REDYELLOW;
     }
 
 

@@ -37,9 +37,10 @@
 const RGBColor SUMO_color_TL_GREEN_MAJOR(0, 255, 0);
 const RGBColor SUMO_color_TL_GREEN_MINOR(0, 179, 0);
 const RGBColor SUMO_color_TL_RED(255, 0, 0);
+const RGBColor SUMO_color_TL_REDYELLOW(255, 128, 0);
 const RGBColor SUMO_color_TL_YELLOW_MAJOR(255, 255, 0);
 const RGBColor SUMO_color_TL_YELLOW_MINOR(255, 255, 0);
-const RGBColor SUMO_color_TL_OFF_BLINKING(255, 140, 0);
+const RGBColor SUMO_color_TL_OFF_BLINKING(128, 64, 0);
 const RGBColor SUMO_color_TL_OFF_NOSIGNAL(0, 255, 255);
 const RGBColor SUMO_color_MAJOR(255, 255, 255);
 const RGBColor SUMO_color_MINOR(51, 51, 51);
@@ -56,6 +57,8 @@ const RGBColor& getLinkColor(const LinkState& ls) {
             return SUMO_color_TL_GREEN_MINOR;
         case LINKSTATE_TL_RED:
             return SUMO_color_TL_RED;
+        case LINKSTATE_TL_REDYELLOW:
+            return SUMO_color_TL_REDYELLOW;
         case LINKSTATE_TL_YELLOW_MAJOR:
             return SUMO_color_TL_YELLOW_MAJOR;
         case LINKSTATE_TL_YELLOW_MINOR:

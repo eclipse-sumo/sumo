@@ -366,6 +366,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             GLHelper::setColor(getLinkColor(state));
             switch (state) {
                 case LINKSTATE_TL_RED:
+                case LINKSTATE_TL_REDYELLOW:
                     // draw a thin line
                     glBegin(GL_LINES);
                     glVertex2d(x, h - h10);
