@@ -296,7 +296,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     const SUMOReal width = (SUMOReal) caller.getWidth();
     pfSetScaleXY((SUMOReal)(.08 * 300. / width), (SUMOReal)(.08 * 300. / height));
     const SUMOReal h4 = ((SUMOReal) 4 / height);
+    const SUMOReal h9 = ((SUMOReal) 9 / height);
     const SUMOReal h10 = ((SUMOReal) 10 / height);
+    const SUMOReal h11 = ((SUMOReal) 11 / height);
     const SUMOReal h16 = ((SUMOReal) 16 / height);
     const SUMOReal h20 = ((SUMOReal) 20 / height);
     // draw the link names and the lines dividing them
@@ -368,9 +370,11 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                 case LINKSTATE_TL_RED:
                 case LINKSTATE_TL_REDYELLOW:
                     // draw a thin line
-                    glBegin(GL_LINES);
-                    glVertex2d(x, h - h10);
-                    glVertex2d(x2, h - h10);
+                    glBegin(GL_QUADS);
+                    glVertex2d(x, h - h11);
+                    glVertex2d(x, h - h9);
+                    glVertex2d(x2, h - h9);
+                    glVertex2d(x2, h - h11);
                     glEnd();
                     break;
                 default:
