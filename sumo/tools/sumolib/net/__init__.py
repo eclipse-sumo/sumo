@@ -112,6 +112,7 @@ class Net:
         self._ranges = [ [10000, -10000], [10000, -10000] ]
         self._roundabouts = []
         self._rtree = None
+        self._allLanes = []
 
     def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
         self._location["netOffset"] = netOffset
@@ -174,28 +175,50 @@ class Net:
     def getEdge(self, id):
         return self._id2edge[id]
 
-    def _initRTree(self, includeJunctions=True):
+    def _initRTree(self, shapeList, includeJunctions=True):
         import rtree
         self._rtree = rtree.index.Index()
         self._rtree.interleaved = True
-        for ri, edge in enumerate(self._edges):
-            self._rtree.add(ri, edge.getBoundingBox(includeJunctions))
+        for ri, shape in enumerate(shapeList):
+            self._rtree.add(ri, shape.getBoundingBox(includeJunctions))
 
     def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True):
         edges = []
         try:
             if self._rtree == None:
-                self._initRTree(includeJunctions)
-            for e in self._rtree.intersection((x - r, y - r, x + r, y + r)):
-                d = sumolib.geomhelper.distancePointToPolygon((x,y), self._edges[e].getShape(includeJunctions))
+                self._initRTree(self._edges, includeJunctions)
+            for i in self._rtree.intersection((x - r, y - r, x + r, y + r)):
+                e = self._edges[i]
+                d = sumolib.geomhelper.distancePointToPolygon((x,y), e.getShape(includeJunctions))
                 if d < r:
-                    edges.append((self._edges[e], d))
+                    edges.append((e, d))
         except ImportError:
             for edge in self._edges:
                 d = sumolib.geomhelper.distancePointToPolygon((x,y), edge.getShape(includeJunctions))
                 if d < r:
                     edges.append((edge,d))
         return edges
+
+    def getNeighboringLanes(self, x, y, r=0.1, includeJunctions=True):
+        lanes = []
+        try:
+            if self._rtree == None:
+                if not self._allLanes:
+                    for edge in self._edges:
+                        self._allLanes += edge.getLanes()
+                self._initRTree(self._allLanes, includeJunctions)
+            for i in self._rtree.intersection((x - r, y - r, x + r, y + r)):
+                l = self._allLanes[i]
+                d = sumolib.geomhelper.distancePointToPolygon((x,y), l.getShape(includeJunctions))
+                if d < r:
+                    lanes.append((l, d))
+        except ImportError:
+            for edge in self._edges:
+                for l in edge.getLanes():
+                    d = sumolib.geomhelper.distancePointToPolygon((x,y), l.getShape(includeJunctions))
+                    if d < r:
+                        lanes.append((l, d))
+        return lanes
 
     def hasNode(self, id):
         return id in self._id2node
@@ -286,8 +309,8 @@ class Net:
         """ offset to be added after converting from geo-coordinates to UTM"""
         return list(map(float,self._location["netOffset"].split(",")))
 
-    def convertLonLat2XY(self, lat, lon, rawUTM=False):
-        x,y = self.getGeoProj()(lon,lat)
+    def convertLonLat2XY(self, lon, lat, rawUTM=False):
+        x, y = self.getGeoProj()(lon, lat)
         if rawUTM:
             return x, y
         else:

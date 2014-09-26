@@ -77,6 +77,7 @@ class Lane:
         self._speed = speed
         self._length = length
         self._shape = []
+        self._cachedShapeWithJunctions = None
         self._outgoing = []
         self._params = {}
         self._allowed = get_allowed(allow, disallow)
@@ -91,8 +92,31 @@ class Lane:
     def setShape(self, shape):
         self._shape = shape
 
-    def getShape(self):
+    def getShape(self, includeJunctions=False):
+        if includeJunctions:
+            if self._cachedShapeWithJunctions == None:
+                if self._edge.getFromNode()._coord != self._shape[0]:
+                    self._cachedShapeWithJunctions = [self._edge.getFromNode()._coord] + self._shape
+                else:
+                    self._cachedShapeWithJunctions = list(self._shape)
+                if self._edge.getToNode()._coord != self._shape[-1]:
+                    self._cachedShapeWithJunctions += [self._edge.getToNode()._coord]
+            return self._cachedShapeWithJunctions
         return self._shape 
+
+    def getBoundingBox(self, includeJunctions=True):
+        s = self.getShape(includeJunctions)
+        xmin = s[0][0]
+        xmax = s[0][0]
+        ymin = s[0][1]
+        ymax = s[0][1]
+        for p in s[1:]:
+            xmin = min(xmin, p[0])
+            xmax = max(xmax, p[0])
+            ymin = min(ymin, p[1])
+            ymax = max(ymax, p[1])
+        assert(xmin != xmax or ymin != ymax)
+        return (xmin, ymin, xmax, ymax)
 
     def getIndex(self):
         return self._edge._lanes.index(self)

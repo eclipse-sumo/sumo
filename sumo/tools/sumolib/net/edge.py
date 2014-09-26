@@ -115,6 +115,9 @@ class Edge:
     def getLane(self, idx):
         return self._lanes[idx]
 
+    def getLanes(self):
+        return self._lanes
+
     def rebuildShape(self):
         noShapes = len(self._lanes)
         if noShapes%2 == 1:
