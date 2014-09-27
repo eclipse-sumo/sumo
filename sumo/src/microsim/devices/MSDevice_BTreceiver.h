@@ -225,17 +225,19 @@ protected:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_BTreceiver(SUMOVehicle& holder, const std::string& id, SUMOReal range);
+    MSDevice_BTreceiver(SUMOVehicle& holder, const std::string& id);
 
 
 
 private:
-    /// @brief The range of the device
-    SUMOReal myRange;
-
     /// @brief Whether the bt-system was already initialised
     static bool myWasInitialised;
 
+    /// @brief The range of the device
+    static SUMOReal myRange;
+
+    /// @brief The offtime of the device
+    static SUMOReal myOffTime;
 
 
     /** @class VehicleInformation

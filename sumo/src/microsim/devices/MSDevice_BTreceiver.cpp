@@ -53,6 +53,8 @@
 // static members
 // ===========================================================================
 bool MSDevice_BTreceiver::myWasInitialised = false;
+SUMOReal MSDevice_BTreceiver::myRange = -1.;
+SUMOReal MSDevice_BTreceiver::myOffTime = -1.;
 MTRand MSDevice_BTreceiver::sRecognitionRNG;
 std::map<std::string, MSDevice_BTreceiver::VehicleInformation*> MSDevice_BTreceiver::sVehicles;
 
@@ -72,6 +74,9 @@ MSDevice_BTreceiver::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.btreceiver.all-recognitions", new Option_Bool(false));
     oc.addDescription("device.btreceiver.all-recognitions", "Communication", "Whether all recognition point shall be written");
+
+    oc.doRegister("device.btreceiver.offtime", new Option_Float(0.64));
+    oc.addDescription("device.btreceiver.offtime", "Communication", "The offtime used for calculating detection probability (in seconds)");
 }
 
 
@@ -79,11 +84,13 @@ void
 MSDevice_BTreceiver::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "btreceiver", v)) {
-        MSDevice_BTreceiver* device = new MSDevice_BTreceiver(v, "btreceiver_" + v.getID(), oc.getFloat("device.btreceiver.range"));
+        MSDevice_BTreceiver* device = new MSDevice_BTreceiver(v, "btreceiver_" + v.getID());
         into.push_back(device);
         if (!myWasInitialised) {
             new BTreceiverUpdate();
             myWasInitialised = true;
+            myRange = oc.getFloat("device.btreceiver.range");
+            myOffTime = oc.getFloat("device.btreceiver.offtime");
             sRecognitionRNG.seed(oc.getInt("seed"));
         }
     }
@@ -308,7 +315,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(const SUMOReal tEnd, 
         SeenDevice* otherDevice) const {
     const SUMOReal t = tEnd - MAX2(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) - TS, otherDevice->lastView);
     // probability of a miss 0.5 (may be in the wrong train), backoff time 0.64s
-    if (sRecognitionRNG.rand() <= 1 - pow(0.5, t / 0.64)) {
+    if (sRecognitionRNG.rand() <= 1 - pow(0.5, t / myOffTime)) {
         otherDevice->lastView = tEnd;
         MeetingPoint* mp = new MeetingPoint(tEnd, thisPos, thisSpeed, thisLaneID, thisLanePos, otherPos, otherSpeed, otherLaneID, otherLanePos);
         otherDevice->recognitionPoints.push_back(mp);
@@ -357,8 +364,8 @@ MSDevice_BTreceiver::BTreceiverUpdate::writeOutput(const std::string& id, const 
 // ---------------------------------------------------------------------------
 // MSDevice_BTreceiver-methods
 // ---------------------------------------------------------------------------
-MSDevice_BTreceiver::MSDevice_BTreceiver(SUMOVehicle& holder, const std::string& id,  SUMOReal range)
-    : MSDevice(holder, id), myRange(range) {
+MSDevice_BTreceiver::MSDevice_BTreceiver(SUMOVehicle& holder, const std::string& id)
+    : MSDevice(holder, id) {
 }
 
 
