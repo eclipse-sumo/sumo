@@ -46,10 +46,10 @@
 
     <output>
         <!-- Save complete network states into FILE -->
-        <netstate-dump value="" synonymes="ndump netstate" type="FILE"/>
+        <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE"/>
 
         <!-- Write also empty edges completely when dumping -->
-        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate.empty-edges" type="BOOL"/>
+        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" type="BOOL"/>
 
         <!-- Save the emission values of each vehicle -->
         <emission-output value="" type="FILE"/>
@@ -267,6 +267,9 @@
         <!-- Whether all recognition point shall be written -->
         <device.btreceiver.all-recognitions value="false" type="BOOL"/>
 
+        <!-- The offtime used for calculating detection probability (in seconds) -->
+        <device.btreceiver.offtime value="0.64" type="FLOAT"/>
+
         <!-- The probability for a vehicle to have a &apos;btsender&apos; device -->
         <device.btsender.probability value="0" type="FLOAT"/>
 
@@ -292,7 +295,7 @@
         <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME"/>
 
         <!-- The rerouting period before depart -->
-        <device.rerouting.pre-period value="0" synonymes="device.routing.pre-period" type="TIME"/>
+        <device.rerouting.pre-period value="1" synonymes="device.routing.pre-period" type="TIME"/>
 
         <!-- The weight of prior edge weights -->
         <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT"/>

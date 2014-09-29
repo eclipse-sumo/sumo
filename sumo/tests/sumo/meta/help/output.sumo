@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r17071
+SUMO Version dev-SVN-r17115
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
@@ -163,6 +163,8 @@ Communication Options:
   --device.btreceiver.range FLOAT      The range of the bt receiver
   --device.btreceiver.all-recognitions  Whether all recognition point shall be
                                          written
+  --device.btreceiver.offtime FLOAT    The offtime used for calculating
+                                         detection probability (in seconds)
   --device.btsender.probability FLOAT  The probability for a vehicle to have a
                                          'btsender' device
   --device.btsender.explicit STR       Assign a 'btsender' device to named
