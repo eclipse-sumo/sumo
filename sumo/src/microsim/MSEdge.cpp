@@ -358,9 +358,9 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
 
 bool
 MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const {
-    // when vaporizing, no vehicles are inserted...
+    // when vaporizing, no vehicles are inserted, but checking needs to be successful to trigger removal
     if (isVaporizing()) {
-        return false;
+        return checkOnly;
     }
     const SUMOVehicleParameter& pars = v.getParameter();
     const MSVehicleType& type = v.getVehicleType();
@@ -421,7 +421,19 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
     UNUSED_PARAMETER(time);
 #endif
     if (checkOnly) {
-        return true;
+        switch (v.getParameter().departLaneProcedure) {
+            case DEPART_LANE_GIVEN:
+            case DEPART_LANE_DEFAULT:
+            case DEPART_LANE_FIRST_ALLOWED:
+                return getDepartLane(static_cast<MSVehicle&>(v))->getBruttoOccupancy() * myLength + v.getVehicleType().getLengthWithGap() <= myLength;
+            default:
+                for (std::vector<MSLane*>::const_iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
+                    if ((*i)->getBruttoOccupancy() * myLength + v.getVehicleType().getLengthWithGap() <= myLength) {
+                        return true;
+                    }
+                }
+        }
+        return false;
     }
     MSLane* insertionLane = getDepartLane(static_cast<MSVehicle&>(v));
     return insertionLane != 0 && insertionLane->insertVehicle(static_cast<MSVehicle&>(v));

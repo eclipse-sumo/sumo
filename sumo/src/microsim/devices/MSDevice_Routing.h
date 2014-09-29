@@ -152,7 +152,20 @@ public:
 
 
     /// @brief initiate the rerouting, create router / thread pool on first use
-    static void reroute(SUMOVehicle& v, const SUMOTime currentTime, const bool onInit=false);
+    void reroute(const SUMOTime currentTime, const bool onInit=false);
+
+
+    /** @brief Labels the current time step as "unroutable".
+     *
+     * Sets mySkipRouting to the current time in order to skip rerouting.
+     * This is useful for pre insertion routing when we know in advance
+     * we cannot insert.
+     *
+     * @param[in] currentTime The current simulation time
+     */
+    void skipRouting(const SUMOTime currentTime) {
+        mySkipRouting = currentTime;
+    }
 
 
 private:
@@ -206,19 +219,18 @@ private:
     MSDevice_Routing(SUMOVehicle& holder, const std::string& id, SUMOTime period, SUMOTime preInsertionPeriod);
 
 
-    /** @brief Performs rerouting at insertion into the network
+    /** @brief Performs rerouting before insertion into the network
      *
-     * A new route is computed by calling the vehicle's "reroute" method, supplying
-     *  "getEffort" as the edge effort retrieval method.
+     * A new route is computed by calling the reroute method. If the routing
+     *  involves taz the internal route cache is asked beforehand.
      *
      * @param[in] currentTime The current simulation time
-     * @return The offset to the next call (the rerouting period "myPeriod")
+     * @return The offset to the next call (the rerouting period "myPreInsertionPeriod")
      * @see MSVehicle::reroute
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    SUMOTime preInsertionReroute(SUMOTime currentTime);
-
+    SUMOTime preInsertionReroute(const SUMOTime currentTime);
 
     /** @brief Performs rerouting after a period
      *
@@ -279,6 +291,12 @@ private:
 
     /// @brief The period with which a vehicle shall be rerouted before insertion
     SUMOTime myPreInsertionPeriod;
+
+    /// @brief The last time a routing took place
+    SUMOTime myLastRouting;
+
+    /// @brief The time for which routing may be skipped because we cannot be inserted
+    SUMOTime mySkipRouting;
 
     /// @brief The (optional) command responsible for rerouting
     WrappingCommand< MSDevice_Routing >* myRerouteCommand;

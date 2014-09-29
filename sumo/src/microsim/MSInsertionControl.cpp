@@ -189,8 +189,10 @@ MSInsertionControl::checkCandidates(SUMOTime time, const bool preCheck) {
             const MSEdge* const edge = v->getEdge();
             if ((!myCheckEdgesOnce || edge->getLastFailedInsertionTime() != time) && edge->insertVehicle(*v, time, true)) {
                 myEmitCandidates.insert(v);
-                if (v->getDevice(typeid(MSDevice_Routing)) != 0 && (MSGlobals::gUseMesoSim || v->getNumberReroutes() == 0 || v->getParameter().departLaneProcedure == DEPART_LANE_BEST_FREE)) {
-                    MSDevice_Routing::reroute(*v, time, true);
+            } else {
+                MSDevice_Routing* dev = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
+                if (dev != 0) {
+                    dev->skipRouting(time);
                 }
             }
         }

@@ -362,7 +362,7 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
 
 
 bool
-MSLane::insertVehicle(MSVehicle& veh, const bool checkOnly) {
+MSLane::insertVehicle(MSVehicle& veh) {
     SUMOReal pos = 0;
     SUMOReal speed = 0;
     bool patchSpeed = true; // whether the speed shall be adapted to infrastructure/traffic in front
@@ -427,7 +427,7 @@ MSLane::insertVehicle(MSVehicle& veh, const bool checkOnly) {
             break;
     }
     // try to insert
-    return isInsertionSuccess(&veh, speed, pos, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED, checkOnly);
+    return isInsertionSuccess(&veh, speed, pos, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
 }
 
 
@@ -452,13 +452,11 @@ MSLane::checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const
 bool
 MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                            SUMOReal speed, SUMOReal pos, bool patchSpeed,
-                           MSMoveReminder::Notification notification, const bool checkOnly) {
+                           MSMoveReminder::Notification notification) {
     if (pos < 0 || pos > myLength) {
         // we may not start there
-        if (!checkOnly) {
-            WRITE_WARNING("Invalid departPos " + toString(pos) + " given for vehicle '" +
-                            aVehicle->getID() + "'. Inserting at lane end instead.");
-        }
+        WRITE_WARNING("Invalid departPos " + toString(pos) + " given for vehicle '" +
+                      aVehicle->getID() + "'. Inserting at lane end instead.");
         pos = myLength;
     }
     aVehicle->setTentativeLaneAndPosition(this, pos);
@@ -633,9 +631,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         return false;
     }
     // enter
-    if (!checkOnly) {
-        incorporateVehicle(aVehicle, pos, speed, predIt, notification);
-    }
+    incorporateVehicle(aVehicle, pos, speed, predIt, notification);
     return true;
 }
 
