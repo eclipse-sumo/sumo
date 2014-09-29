@@ -385,7 +385,6 @@ GUILane::drawArrows() const {
 void
 GUILane::drawLane2LaneConnections() const {
     for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
-        LinkState state = (*i)->getState();
         const MSLane* connected = (*i)->getLane();
         if (connected == 0) {
             continue;
