@@ -112,9 +112,11 @@ MSFrame::fillOptions() {
     oc.doRegister("netstate-dump", new Option_FileName());
     oc.addSynonyme("netstate-dump", "ndump");
     oc.addSynonyme("netstate-dump", "netstate");
+    oc.addSynonyme("netstate-dump", "netstate-output");
     oc.addDescription("netstate-dump", "Output", "Save complete network states into FILE");
     oc.doRegister("netstate-dump.empty-edges", new Option_Bool(false));
     oc.addSynonyme("netstate-dump.empty-edges", "netstate.empty-edges");
+    oc.addSynonyme("netstate-dump.empty-edges", "netstate-output.empty-edges");
     oc.addSynonyme("netstate-dump.empty-edges", "dump-empty-edges", true);
     oc.addDescription("netstate-dump.empty-edges", "Output", "Write also empty edges completely when dumping");
 
