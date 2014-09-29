@@ -47,23 +47,24 @@ public:
     /// Type of the function to execute.
     typedef O(T::* Operation)() const;
 
-    CastingFunctionBinding(T* source, Operation operation) :
+    CastingFunctionBinding(T* source, Operation operation, const R scale = 1) :
         mySource(source),
-        myOperation(operation) {}
+        myOperation(operation),
+        myScale(scale) {}
 
     /// Destructor.
     ~CastingFunctionBinding() {}
 
     R getValue() const {
-        return (R)(mySource->*myOperation)();
+        return myScale * (R)(mySource->*myOperation)();
     }
 
     ValueSource<R>* copy() const {
-        return new CastingFunctionBinding<T, R, O>(mySource, myOperation);
+        return new CastingFunctionBinding<T, R, O>(mySource, myOperation, myScale);
     }
 
     ValueSource<SUMOReal>* makeSUMORealReturningCopy() const {
-        return new CastingFunctionBinding<T, SUMOReal, O>(mySource, myOperation);
+        return new CastingFunctionBinding<T, SUMOReal, O>(mySource, myOperation, myScale);
     }
 
 protected:
@@ -74,6 +75,9 @@ private:
 
     /// The object's operation to perform.
     Operation myOperation;
+
+    /// The scale to apply.
+    const R myScale;
 };
 
 
