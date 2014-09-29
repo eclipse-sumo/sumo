@@ -13,9 +13,6 @@ route_departOffset
 # Tests for <SUMO_DIST>/tools/route_tools/route_1htoDay.py
 route_1htoDay
 
-# Tests for <SUMO_DIST>/tools/route_tools/findUTurns.py
-findUTurns
-
 # sort routes and flows
 sort
 
