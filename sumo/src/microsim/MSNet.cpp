@@ -237,8 +237,11 @@ MSNet::closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
 MSNet::~MSNet() {
     // delete events first maybe they do some cleanup
     delete myBeginOfTimestepEvents;
+    myBeginOfTimestepEvents = 0;
     delete myEndOfTimestepEvents;
+    myEndOfTimestepEvents = 0;
     delete myInsertionEvents;
+    myInsertionEvents = 0;
     // delete controls
     delete myJunctions;
     delete myDetectorControl;

@@ -115,7 +115,7 @@ MSCalibrator::init() {
         }
         myCurrentStateInterval = myIntervals.begin();
         // calibration should happen after regular insertions have taken place
-        MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
+        MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(this,
                 MSNet::getInstance()->getCurrentTimeStep(),
                 MSEventControl::ADAPT_AFTER_EXECUTION);
     } else {

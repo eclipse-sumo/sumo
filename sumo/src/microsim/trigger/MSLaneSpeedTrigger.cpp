@@ -96,7 +96,7 @@ MSLaneSpeedTrigger::init() {
     }
 
     // add the processing to the event handler
-    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
         new WrappingCommand<MSLaneSpeedTrigger>(this, &MSLaneSpeedTrigger::execute),
         (*myCurrentEntry).first, MSEventControl::NO_CHANGE);
     myDidInit = true;

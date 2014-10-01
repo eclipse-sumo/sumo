@@ -200,7 +200,7 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
         setTrafficLightSignals(simStep);
         tlcontrol.get(getID()).executeOnSwitchActions();
     }
-    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
         mySwitchCommand, stepDuration + simStep,
         MSEventControl::ADAPT_AFTER_EXECUTION);
 }

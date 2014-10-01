@@ -96,7 +96,7 @@ const SUMOReal MSPModel_Striping::LATERAL_SPEED_FACTOR(0.4);
 MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     myNumActivePedestrians(0) {
     myCommand = new MovePedestrians(this);
-    net->getBeginOfTimestepEvents().addEvent(myCommand, net->getCurrentTimeStep() + DELTA_T, MSEventControl::ADAPT_AFTER_EXECUTION);
+    net->getBeginOfTimestepEvents()->addEvent(myCommand, net->getCurrentTimeStep() + DELTA_T, MSEventControl::ADAPT_AFTER_EXECUTION);
     initWalkingAreaPaths(net);
     // configurable parameters
     stripeWidth = oc.getFloat("pedestrian.striping.stripe-width");

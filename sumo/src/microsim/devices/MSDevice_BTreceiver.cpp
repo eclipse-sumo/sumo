@@ -101,7 +101,7 @@ MSDevice_BTreceiver::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>&
 // MSDevice_BTreceiver::BTreceiverUpdate-methods
 // ---------------------------------------------------------------------------
 MSDevice_BTreceiver::BTreceiverUpdate::BTreceiverUpdate() {
-    MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
+    MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
 

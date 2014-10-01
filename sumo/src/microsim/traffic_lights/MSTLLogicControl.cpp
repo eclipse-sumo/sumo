@@ -771,7 +771,7 @@ MSTLLogicControl::closeWAUT(const std::string& wautid) {
     // activate the first one
     if (first != w->switches.end()) {
         std::vector<WAUTSwitch>::const_iterator mbegin = w->switches.begin();
-        MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
             new SwitchInitCommand(*this, wautid, (unsigned int)distance(mbegin, first)),
             (*first).when, MSEventControl::NO_CHANGE);
     }

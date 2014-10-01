@@ -75,7 +75,7 @@ PedestrianState*
 MSPModel_NonInteracting::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) {
     PState* state = new PState();
     const SUMOTime firstEdgeDuration = state->computeWalkingTime(0, *stage, now);
-    myNet->getBeginOfTimestepEvents().addEvent(new MoveToNextEdge(person, *stage),
+    myNet->getBeginOfTimestepEvents()->addEvent(new MoveToNextEdge(person, *stage),
             now + firstEdgeDuration, MSEventControl::ADAPT_AFTER_EXECUTION);
 
     //if DEBUGCOND(person->getID()) std::cout << SIMTIME << " " << person->getID() << " inserted on " << stage->getEdge()->getID() << "\n";

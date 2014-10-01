@@ -347,32 +347,32 @@ public:
 
 
     /** @brief Returns the event control for events executed at the begin of a time step
-     * @return The control reponsible for events that are executed at the begin of a time step
+     * @return The control responsible for events that are executed at the begin of a time step
      * @see MSEventControl
      * @see myBeginOfTimestepEvents
      */
-    MSEventControl& getBeginOfTimestepEvents() {
-        return *myBeginOfTimestepEvents;
+    MSEventControl* getBeginOfTimestepEvents() {
+        return myBeginOfTimestepEvents;
     }
 
 
     /** @brief Returns the event control for events executed at the end of a time step
-     * @return The control reponsible for events that are executed at the end of a time step
+     * @return The control responsible for events that are executed at the end of a time step
      * @see MSEventControl
      * @see myEndOfTimestepEvents
      */
-    MSEventControl& getEndOfTimestepEvents() {
-        return *myEndOfTimestepEvents;
+    MSEventControl* getEndOfTimestepEvents() {
+        return myEndOfTimestepEvents;
     }
 
 
     /** @brief Returns the event control for insertion events
-     * @return The control reponsible for insertion events
+     * @return The control responsible for insertion events
      * @see MSEventControl
      * @see myInsertionEvents
      */
-    MSEventControl& getInsertionEvents() {
-        return *myInsertionEvents;
+    MSEventControl* getInsertionEvents() {
+        return myInsertionEvents;
     }
 
 

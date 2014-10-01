@@ -107,7 +107,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std:
     myCurrentDurationIncrement(-1),
     myDefaultCycleTime(0) {
     mySwitchCommand = new SwitchCommand(tlcontrol, this, delay);
-    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
         mySwitchCommand, delay, MSEventControl::NO_CHANGE);
 }
 
