@@ -67,8 +67,6 @@ public:
         return new CastingFunctionBinding<T, SUMOReal, O>(mySource, myOperation, myScale);
     }
 
-protected:
-
 private:
     /// The object the action is directed to.
     T* mySource;
@@ -78,6 +76,11 @@ private:
 
     /// The scale to apply.
     const R myScale;
+
+private:
+    /// @brief invalidated assignment operator
+    CastingFunctionBinding<T, R, O>& operator=(const CastingFunctionBinding<T, R, O>&);
+
 };
 
 

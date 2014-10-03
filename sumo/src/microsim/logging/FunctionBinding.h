@@ -79,6 +79,11 @@ private:
 
     /// The scale to apply.
     const R myScale;
+
+private:
+    /// @brief invalidated assignment operator
+    FunctionBinding<T, R>& operator=(const FunctionBinding<T, R>&);
+
 };
 
 

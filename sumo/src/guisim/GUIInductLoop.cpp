@@ -36,7 +36,6 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/geom/Line.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
-#include <microsim/logging/FuncBinding_IntParam.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSLane.h>
 #include <microsim/output/MSInductLoop.h>
