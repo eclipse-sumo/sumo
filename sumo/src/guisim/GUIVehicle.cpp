@@ -315,7 +315,7 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 34);
+        new GUIParameterTableWindow(app, *this, 35);
     // add items
     ret->mkItem("lane [id]", false, myLane->getID());
     ret->mkItem("position [m]", true,
@@ -360,6 +360,14 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getFuelConsumption));
     ret->mkItem("noise (Harmonoise) [dB]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHarmonoise_NoiseEmissions));
+    std::ostringstream str;
+    for (std::vector<MSDevice*>::const_iterator i = myDevices.begin(); i != myDevices.end(); ++i) {
+        if (i != myDevices.begin()) {
+            str << ' ';
+        }
+        str << (*i)->getID().substr(0, (*i)->getID().find(getID()));
+    }
+    ret->mkItem("devices", false, str.str());
     ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
     ret->mkItem("", false, "");
     ret->mkItem("Type Information:", false, "");
