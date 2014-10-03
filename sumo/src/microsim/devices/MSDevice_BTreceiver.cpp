@@ -77,6 +77,8 @@ MSDevice_BTreceiver::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.btreceiver.offtime", new Option_Float(0.64));
     oc.addDescription("device.btreceiver.offtime", "Communication", "The offtime used for calculating detection probability (in seconds)");
+
+    myWasInitialised = false;
 }
 
 
@@ -266,7 +268,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::Veh
                 leaveRange(receiver.currentlySeen, receiver.seen, intersection2Ego, receiver.updates.back().speed, receiver.updates.back().laneID, receiver.updates.back().lanePos,
                            sender.getID(), intersection2Other, sender.updates.back().speed, sender.updates.back().laneID, sender.updates.back().lanePos, (intersections.back() - 1.) * TS);
             } else {
-                WRITE_WARNING("Nope, a vehicle cannot be in the range, leave, and enter it in one step.");
+                WRITE_WARNING("The vehicle '" + sender.getID() + "' cannot be in the range of '" + receiver.getID() + "', leave, and enter it in one step.");
             }
             break;
         default:
