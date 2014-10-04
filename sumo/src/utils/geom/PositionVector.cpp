@@ -166,7 +166,7 @@ PositionVector::intersectsAtPoint(const Position& p1,
             return GeomHelper::intersection_position2D(*i, *(i + 1), p1, p2);
         }
     }
-    return Position(-1, -1);
+    return Position::INVALID;
 }
 
 
@@ -182,7 +182,7 @@ PositionVector::intersectsAtPoint(const PositionVector& v1) const {
         return v1.intersectsAtPoint(*(end()-1), *(begin()));
     }
     */
-    return Position(-1, -1);
+    return Position::INVALID;
 }
 
 
@@ -277,7 +277,7 @@ PositionVector::positionAtOffset(const Position& p1,
                                  SUMOReal pos, SUMOReal lateralOffset) {
     const SUMOReal dist = p1.distanceTo(p2);
     if (dist < pos) {
-        return Position(-1, -1);
+        return Position::INVALID;
     }
     if (lateralOffset != 0) {
         Line l(p1, p2);
@@ -294,7 +294,7 @@ PositionVector::positionAtOffset2D(const Position& p1,
                                    SUMOReal pos, SUMOReal lateralOffset) {
     const SUMOReal dist = p1.distanceTo2D(p2);
     if (dist < pos) {
-        return Position(-1, -1);
+        return Position::INVALID;
     }
     if (lateralOffset != 0) {
         Line l(p1, p2);

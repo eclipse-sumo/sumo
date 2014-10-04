@@ -86,13 +86,6 @@ public:
 
 
     /** @brief Inserts a node into the map
-     * @param[in] id The node's id
-     * @return Whether the node could be added (no other with the same id is stored)
-     */
-    Position insert(const std::string& id);
-
-
-    /** @brief Inserts a node into the map
      * @param[in] node The node to insert
      * @return Whether the node could be added (no other with the same id or position is stored)
      */

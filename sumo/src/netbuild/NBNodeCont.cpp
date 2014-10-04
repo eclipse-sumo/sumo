@@ -90,22 +90,6 @@ NBNodeCont::insert(const std::string& id, const Position& position,
 }
 
 
-Position
-NBNodeCont::insert(const std::string& id) {
-    std::pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
-    NodeCont::iterator i = myNodes.find(id);
-    if (i != myNodes.end()) {
-        return (*i).second->getPosition();
-    } else {
-        NBNode* node = new NBNode(id, Position(-1.0, -1.0));
-        myNodes[id] = node;
-        const float pos[2] = {(float) - 1, (float) - 1};
-        myRTree.Insert(pos, pos, node);
-    }
-    return Position(-1, -1);
-}
-
-
 bool
 NBNodeCont::insert(NBNode* node) {
     std::string id = node->getID();

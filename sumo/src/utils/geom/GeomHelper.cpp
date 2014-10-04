@@ -205,7 +205,7 @@ GeomHelper::intersection_position2D(const Position& p11,
         // @todo calculate better "average" z value
         return Position(x, y, p11.z() + m * (p12.z() - p11.z()));
     }
-    return Position(-1, -1);
+    return Position::INVALID;
 }
 
 
