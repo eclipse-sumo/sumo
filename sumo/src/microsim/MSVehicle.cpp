@@ -656,13 +656,13 @@ MSVehicle::getAngle() const {
     } else {
         p1 = getPosition();
     }
-    if (getPositionOnLane() * myLane->getLengthGeometryFactor() > myType->getLength()) {
-        // vehicle is fully on the new lane (visually)
-        p2 = myLane->getShape().positionAtOffset(getPositionOnLane() * myLane->getLengthGeometryFactor() - myType->getLength());
+    if (myState.myPos >= myType->getLength()) {
+        // vehicle is fully on the new lane
+        p2 = myLane->geometryPositionAtOffset(myState.myPos - myType->getLength());
     } else {
         p2 = myFurtherLanes.size() > 0
              ? myFurtherLanes.back()->geometryPositionAtOffset(myFurtherLanes.back()->getPartialOccupatorEnd())
-             : myLane->geometryPositionAtOffset(myState.myPos - myType->getLength());
+             : myLane->getShape().front();
     }
     SUMOReal result = (p1 != p2 ?
                        atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / M_PI :
@@ -1646,6 +1646,7 @@ void
 MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     myAmOnNet = true;
     myLane = enteredLane;
+    myCachedPosition = Position::INVALID;
     // need to update myCurrentLaneInBestLanes
     updateBestLanes();
     // switch to and activate the new lane's reminders
