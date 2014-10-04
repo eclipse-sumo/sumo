@@ -437,7 +437,7 @@ MSNet::simulationStep() {
     loadRoutes();
 
     // persons
-    if (myPersonControl != 0) {
+    if (myPersonControl != 0 && myPersonControl->hasPersons()) {
         myPersonControl->checkWaitingPersons(this, myStep);
     }
     // insert vehicles
