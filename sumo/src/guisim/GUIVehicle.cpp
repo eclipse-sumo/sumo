@@ -54,6 +54,7 @@
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Person.h>
+#include <microsim/devices/MSDevice_BTreceiver.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include "GUIVehicle.h"
@@ -971,7 +972,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             break;
     }
     if (s.drawMinGap) {
-        SUMOReal minGap = -getVehicleType().getMinGap();
+        const SUMOReal minGap = -getVehicleType().getMinGap();
         glColor3d(0., 1., 0.);
         glBegin(GL_LINES);
         glVertex2d(0., 0);
@@ -979,6 +980,11 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(-.5, minGap);
         glVertex2d(.5, minGap);
         glEnd();
+    }
+    MSDevice_BTreceiver* dev = static_cast<MSDevice_BTreceiver*>(getDevice(typeid(MSDevice_BTreceiver)));
+    if (dev != 0 && s.showBTRange) {
+        glColor3d(1., 0., 0.);
+        GLHelper::drawOutlineCircle(dev->getRange(), dev->getRange()-.2, 32);
     }
     // draw the blinker and brakelights if wished
     if (s.showBlinker) {

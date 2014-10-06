@@ -284,7 +284,7 @@ private:
     std::vector<FXRealSpinDial*> myVehicleThresholds;
     std::vector<FXButton*> myVehicleButtons;
     FXCheckButton* myVehicleColorInterpolation;
-    FXCheckButton* myShowBlinker, *myShowMinGap; /* *myShowLaneChangePreference,*/
+    FXCheckButton* myShowBlinker, *myShowMinGap, *myShowBTRange; /* *myShowLaneChangePreference,*/
 
     FXComboBox* myPersonColorMode, *myPersonShapeDetail;
     FXVerticalFrame* myPersonColorSettingFrame;

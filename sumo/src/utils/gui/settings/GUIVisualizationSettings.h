@@ -184,6 +184,8 @@ public:
     bool drawLaneChangePreference;
     /// @brief Information whether the minimum gap shall be drawn
     bool drawMinGap;
+    /// @brief Information whether the communication range shall be drawn
+    bool showBTRange;
     // Setting bundles for controling the size of the drawn vehicles
     GUIVisualizationSizeSettings vehicleSize;
     // Setting bundles for optional drawing vehicle names

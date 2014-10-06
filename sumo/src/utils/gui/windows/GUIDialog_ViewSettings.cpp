@@ -301,6 +301,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myShowMinGap = new FXCheckButton(m33, "Show minimum gap", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowMinGap->setCheck(mySettings->drawMinGap);
         new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
+        myShowBTRange = new FXCheckButton(m33, "Show Bluetooth range", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowBTRange->setCheck(mySettings->showBTRange);
+        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
         /*
         myShowLaneChangePreference = new FXCheckButton(m33, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
@@ -587,6 +590,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myVehicleShapeDetail->setCurrentItem(mySettings->vehicleQuality);
     myShowBlinker->setCheck(mySettings->showBlinker);
     myShowMinGap->setCheck(mySettings->drawMinGap);
+    myShowBTRange->setCheck(mySettings->showBTRange);
     /*
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
     */
@@ -773,6 +777,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.vehicleQuality = myVehicleShapeDetail->getCurrentItem();
     tmpSettings.showBlinker = (myShowBlinker->getCheck() != FALSE);
     tmpSettings.drawMinGap = (myShowMinGap->getCheck() != FALSE);
+    tmpSettings.showBTRange = (myShowBTRange->getCheck() != FALSE);
     /*
     tmpSettings.drawLaneChangePreference = (myShowLaneChangePreference->getCheck() != FALSE);
     */

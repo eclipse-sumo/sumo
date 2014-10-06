@@ -61,7 +61,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       hideConnectors(false), laneWidthExaggeration(1),
       vehicleQuality(0), showBlinker(true),
       drawLaneChangePreference(false), drawMinGap(false),
-      vehicleSize(1),
+      showBTRange(false), vehicleSize(1),
       vehicleName(false, 50, RGBColor(204, 153, 0, 255)),
       personQuality(0), 
       personSize(1),
@@ -616,6 +616,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (drawMinGap != v2.drawMinGap) {
+        return false;
+    }
+    if (showBTRange != v2.showBTRange) {
         return false;
     }
     if (vehicleName != v2.vehicleName) {
