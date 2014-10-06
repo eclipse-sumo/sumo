@@ -136,25 +136,19 @@ public:
     class VehicleState {
     public:
         /** @brief Constructor
-         * @param[in] _time The current time
          * @param[in] _speed The speed of the vehicle
-         * @param[in] _angle The angle of the vehicle
          * @param[in] _position The position of the vehicle
          * @param[in] _laneID The id of the lane the vehicle is located at
          * @param[in] _lanePos The position of the vehicle along the lane
          */
-        VehicleState(SUMOReal _time, SUMOReal _speed, SUMOReal _angle, const Position& _position, const std::string& _laneID, SUMOReal _lanePos)
-            : time(_time), speed(_speed), angle(_angle), position(_position), laneID(_laneID), lanePos(_lanePos) {}
+        VehicleState(SUMOReal _speed, const Position& _position, const std::string& _laneID, SUMOReal _lanePos)
+            : speed(_speed), position(_position), laneID(_laneID), lanePos(_lanePos) {}
 
         /// @brief Destructor
         ~VehicleState() {}
 
-        /// @brief The current time
-        SUMOReal time;
         /// @brief The speed of the vehicle
         SUMOReal speed;
-        /// @brief The angle of the vehicle
-        SUMOReal angle;
         /// @brief The position of the vehicle
         Position position;
         /// @brief The lane the vehicle was at

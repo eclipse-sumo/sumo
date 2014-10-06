@@ -75,6 +75,14 @@ public:
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
 
+    /** @brief Returns the configured range
+     * @return the device range
+     */
+    static SUMOReal getRange() {
+        return myRange;
+    }
+
+
 
 public:
     /// @brief Destructor.
@@ -243,76 +251,19 @@ private:
     /** @class VehicleInformation
      * @brief Stores the information of a vehicle
      */
-    class VehicleState {
-    public:
-        /** @brief Constructor
-         * @param[in] _time The current time
-         * @param[in] _speed The speed of the vehicle
-         * @param[in] _angle The angle of the vehicle
-         * @param[in] _position The position of the vehicle
-         * @param[in] _laneID The id of the lane the vehicle is located at
-         * @param[in] _lanePos The position of the vehicle along the lane
-         */
-        VehicleState(SUMOReal _time, SUMOReal _speed, SUMOReal _angle, const Position& _position, const std::string& _laneID, SUMOReal _lanePos)
-            : time(_time), speed(_speed), angle(_angle), position(_position), laneID(_laneID), lanePos(_lanePos) {}
-
-        /// @brief Destructor
-        ~VehicleState() {}
-
-        /// @brief The current time
-        SUMOReal time;
-        /// @brief The speed of the vehicle
-        SUMOReal speed;
-        /// @brief The angle of the vehicle
-        SUMOReal angle;
-        /// @brief The position of the vehicle
-        Position position;
-        /// @brief The lane the vehicle was at
-        std::string laneID;
-        /// @brief The position at the lane of the vehicle
-        SUMOReal lanePos;
-
-    };
-
-
-
-    /** @class VehicleInformation
-     * @brief Stores the information of a vehicle
-     */
-    class VehicleInformation : public Named {
+    class VehicleInformation : public MSDevice_BTsender::VehicleInformation {
     public:
         /** @brief Constructor
          * @param[in] id The id of the vehicle
          * @param[in] range Recognition range of the vehicle
          */
-        VehicleInformation(const std::string& id, const SUMOReal _range) : Named(id), range(_range), amOnNet(true), haveArrived(false) {}
+        VehicleInformation(const std::string& id, const SUMOReal _range) : MSDevice_BTsender::VehicleInformation(id), range(_range) {}
 
         /// @brief Destructor
         ~VehicleInformation() {}
 
-
-        /** @brief Returns the boundary of passed positions
-         * @return The positions boundary
-         */
-        Boundary getBoxBoundary() const {
-            Boundary ret;
-            for (std::vector<VehicleState>::const_iterator i = updates.begin(); i != updates.end(); ++i) {
-                ret.add((*i).position);
-            }
-            return ret;
-        }
-
         /// @brief Recognition range of the vehicle
         const SUMOReal range;
-
-        /// @brief List of position updates during last step
-        std::vector<VehicleState> updates;
-
-        /// @brief Whether the vehicle is within the simulated network
-        bool amOnNet;
-
-        /// @brief Whether the vehicle was removed from the simulation
-        bool haveArrived;
 
         /// @brief The map of devices seen by the vehicle at removal time
         std::map<std::string, SeenDevice*> currentlySeen;
@@ -352,11 +303,8 @@ private:
         /** @brief Rechecks the visibility for a given receiver/sender pair
          * @param[in] receiver Definition of the receiver vehicle
          * @param[in] sender Definition of the sender vehicle
-         * @param[in] receiverPos The initial receiver position
-         * @param[in] receiverD The direction vector of the receiver
          */
-        void updateVisibility(VehicleInformation& receiver, MSDevice_BTsender::VehicleInformation& sender,
-                              const Position& receiverPos, const Position& receiverD);
+        void updateVisibility(VehicleInformation& receiver, MSDevice_BTsender::VehicleInformation& sender);
 
 
         /** @brief Informs the receiver about a sender entering it's radius
