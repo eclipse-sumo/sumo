@@ -34,6 +34,9 @@ circle_reroute
 # vehicles are moving in circles and write intended depart
 circle_reroute_intended_depart
 
+# vehicles are moving in circles and write intended depart sorted
+circle_reroute_intended_depart_sorted
+
 # output sorted by departure time
 sorted
 
