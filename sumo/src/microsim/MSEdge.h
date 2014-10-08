@@ -134,6 +134,11 @@ public:
     void initialize(const std::vector<MSLane*>* lanes);
 
 
+    /** @brief Recalculates the cached values
+     */
+    void recalcCache();
+
+
     /// @todo Has to be called after all edges were built and all connections were set...; Still, is not very nice
     void closeBuilding();
 
@@ -236,7 +241,7 @@ public:
     /** @brief Returns the numerical id of the edge
      * @return This edge's numerical id
      */
-    int getNumericalID() const {
+    inline int getNumericalID() const {
         return myNumericalID;
     }
 
@@ -546,11 +551,9 @@ public:
         myAmRoundabout = true;
     }
 
-#ifdef HAVE_INTERNAL
     void markDelayed() const {
         myAmDelayed = true;
     }
-#endif
 
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
@@ -651,7 +654,7 @@ protected:
 
 protected:
     /// @brief This edge's numerical id
-    int myNumericalID;
+    const int myNumericalID;
 
     /// @brief Container for the edge's lane; should be sorted: (right-hand-traffic) the more left the lane, the higher the container-index
     const std::vector<MSLane*>* myLanes;
@@ -709,10 +712,11 @@ protected:
     /// @brief the length of the edge (cached value for speedup)
     SUMOReal myLength;
 
-#ifdef HAVE_INTERNAL
+    /// @brief the traveltime on the empty edge (cached value for speedup)
+    SUMOReal myEmptyTraveltime;
+
     /// @brief whether this edge had a vehicle with less than max speed on it
     mutable bool myAmDelayed;
-#endif
 
     /// @brief whether this edge belongs to a roundabout
     bool myAmRoundabout;

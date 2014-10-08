@@ -134,6 +134,7 @@ MSLane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed, const M
     }
     myBruttoVehicleLengthSum += veh->getVehicleType().getLengthWithGap();
     myNettoVehicleLengthSum += veh->getVehicleType().getLength();
+    myEdge->markDelayed();
     if (wasInactive) {
         MSNet::getInstance()->getEdgeControl().gotActive(this);
     }
@@ -949,6 +950,7 @@ MSLane::integrateNewVehicle(SUMOTime) {
         myVehicles.insert(myVehicles.begin(), veh);
         myBruttoVehicleLengthSum += veh->getVehicleType().getLengthWithGap();
         myNettoVehicleLengthSum += veh->getVehicleType().getLength();
+        myEdge->markDelayed();
     }
     myVehBuffer.clear();
     return wasInactive && myVehicles.size() != 0;
@@ -1036,6 +1038,20 @@ MSLane::succLinkSec(const SUMOVehicle& veh, unsigned int nRouteSuccs,
 const MSLinkCont&
 MSLane::getLinkCont() const {
     return myLinks;
+}
+
+
+void
+MSLane::setMaxSpeed(SUMOReal val) {
+    myMaxSpeed = val;
+    myEdge->recalcCache();
+}
+
+
+void
+MSLane::setLength(SUMOReal val) {
+    myLength = val;
+    myEdge->recalcCache();
 }
 
 

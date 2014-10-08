@@ -439,14 +439,15 @@ public:
         return myVehicles.empty();
     }
 
-    void setMaxSpeed(SUMOReal val) {
-        myMaxSpeed = val;
-    }
+    /** @brief Sets a new maximum speed for the lane (used by TraCI only)
+     * @param[in] val the new speed in m/s
+     */
+    void setMaxSpeed(SUMOReal val);
 
-    void setLength(SUMOReal val) {
-        myLength = val;
-    }
-
+    /** @brief Sets a new length for the lane (used by TraCI only)
+     * @param[in] val the new length in m
+     */
+    void setLength(SUMOReal val);
 
     /** @brief Returns the lane's edge
      * @return This lane's edge
@@ -806,10 +807,10 @@ protected:
     SUMOReal myLength;
 
     /// Lane width [m]
-    SUMOReal myWidth;
+    const SUMOReal myWidth;
 
     /// The lane's edge, for routing only.
-    MSEdge* myEdge;
+    MSEdge* const myEdge;
 
     /// Lane-wide speedlimit [m/s]
     SUMOReal myMaxSpeed;

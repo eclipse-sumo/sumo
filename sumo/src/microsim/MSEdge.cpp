@@ -82,9 +82,8 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myEdgeType(edgeType),
     myPriority(priority),
     myLength(-1.),
-#ifdef HAVE_INTERNAL
+    myEmptyTraveltime(-1.),
     myAmDelayed(false),
-#endif
     myAmRoundabout(false) {}
 
 
@@ -108,7 +107,7 @@ MSEdge::initialize(const std::vector<MSLane*>* lanes) {
     assert(lanes != 0);
     myLanes = lanes;
     if (!lanes->empty()) {
-        myLength = myLanes->front()->getLength();
+        recalcCache();
         if (myLanes->size() > 1) {
             myLaneChanger = new MSLaneChanger(myLanes, OptionsCont::getOptions().getBool("lanechange.allow-swap"));
         }
@@ -116,6 +115,12 @@ MSEdge::initialize(const std::vector<MSLane*>* lanes) {
     if (myFunction == EDGEFUNCTION_DISTRICT) {
         myCombinedPermissions = SVCAll;
     }
+}
+
+
+void MSEdge::recalcCache() {
+    myLength = myLanes->front()->getLength();
+    myEmptyTraveltime = myLength / getSpeedLimit();
 }
 
 
@@ -487,21 +492,20 @@ MSEdge::getInternalFollowingEdge(MSEdge* followerAfterInternal) const {
 SUMOReal
 MSEdge::getCurrentTravelTime(SUMOReal minSpeed) const {
     assert(minSpeed > 0);
+    if (!myAmDelayed) {
+        return myEmptyTraveltime;
+    }
     SUMOReal v = 0;
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
-        if (myAmDelayed) {
-            MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
-            unsigned segments = 0;
-            do {
-                v += first->getMeanSpeed();
-                first = first->getNextSegment();
-                segments++;
-            } while (first != 0);
-            v /= (SUMOReal) segments;
-        } else {
-            v = getSpeedLimit();
-        }
+        MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
+        unsigned segments = 0;
+        do {
+            v += first->getMeanSpeed();
+            first = first->getNextSegment();
+            segments++;
+        } while (first != 0);
+        v /= (SUMOReal) segments;
     } else {
 #endif
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
@@ -511,8 +515,7 @@ MSEdge::getCurrentTravelTime(SUMOReal minSpeed) const {
 #ifdef HAVE_INTERNAL
     }
 #endif
-    v = MAX2(minSpeed, v);
-    return getLength() / v;
+    return getLength() / MAX2(minSpeed, v);
 }
 
 
