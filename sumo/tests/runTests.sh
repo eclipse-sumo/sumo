@@ -10,7 +10,6 @@ if test x"$SUMO_HOME" = x; then
   export SUMO_HOME="$PWD"
 fi
 if test x"$SUMO_BINDIR" = x; then
-  cd ..
   SUMO_BINDIR="$SUMO_HOME/bin"
 fi
 cd $OLDDIR

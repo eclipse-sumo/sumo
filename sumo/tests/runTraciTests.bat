@@ -1,2 +1,2 @@
 call testenv.bat
-start texttest.py -a traci -gx
+start %TEXTTESTPY% -a traci

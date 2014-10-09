@@ -13,3 +13,7 @@ set GUISIM_BINARY=%CD%\..\bin\sumo-gui%1.exe
 set MAROUTER_BINARY=%CD%\..\bin\marouter%1.exe
 set EMISSIONSDRIVINGCYCLE_BINARY=%CD%\..\bin\emissionsDrivingCycle%1.exe
 set EMISSIONSMAP_BINARY=%CD%\..\bin\emissionsMap%1.exe
+
+SET TEXTTESTPY=texttest.py
+python -c "import texttestlib"
+IF NOT ERRORLEVEL 1 SET TEXTTESTPY=texttest.pyw

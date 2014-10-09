@@ -17,6 +17,11 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 import optparse, os, subprocess, sys
+try:
+    import texttestlib
+    haveTextTestLib = True
+except ImportError:
+    haveTextTestLib = False
 
 def runInternal(suffix, args, out=sys.stdout):
     if os.name != "posix":
@@ -35,9 +40,12 @@ def runInternal(suffix, args, out=sys.stdout):
     env["POLYCONVERT_BINARY"] = os.path.join(root, "..", "bin", "polyconvertInt" + suffix)
     env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "meso-gui" + suffix)
     env["MAROUTER_BINARY"] = os.path.join(root, "..", "bin", "marouter" + suffix)
-    ttBin = "/usr/bin/texttest"
-    if os.name != "posix" or not os.path.exists(ttBin):
-        ttBin = "texttest.py"
+    ttBin = 'texttest.py'
+    if os.name == "posix":
+        if subprocess.call(['which', 'texttest']) == 0:
+            ttBin = 'texttest'
+    elif haveTextTestLib:
+        ttBin += "w"
     subprocess.call("%s %s -a sumo.internal,sumo.meso,complex.meso,duarouter.astar,duarouter.chrouter" % (ttBin, args),
                     stdout=out, stderr=out, shell=True)
 
