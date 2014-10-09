@@ -439,7 +439,7 @@ public:
         return myVehicles.empty();
     }
 
-    /** @brief Sets a new maximum speed for the lane (used by TraCI only)
+    /** @brief Sets a new maximum speed for the lane (used by TraCI and MSCalibrator)
      * @param[in] val the new speed in m/s
      */
     void setMaxSpeed(SUMOReal val);

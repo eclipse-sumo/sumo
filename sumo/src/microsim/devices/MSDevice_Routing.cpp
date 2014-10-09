@@ -265,6 +265,9 @@ MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, S
 
 SUMOTime
 MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
+    if (MSNet::getInstance()->getVehicleControl().getDepartedVehicleNo() == 0) {
+        return myAdaptationInterval;
+    }
     std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*>::iterator it = myCachedRoutes.begin();
     for (; it != myCachedRoutes.end(); ++it) {
         it->second->release();

@@ -267,10 +267,10 @@ MSDevice_BTreceiver::BTreceiverUpdate::enterRange(SUMOReal atOffset,
         const Position& thisPos, SUMOReal thisSpeed, const std::string& thisLaneID, SUMOReal thisLanePos,
         const std::string& otherID, const Position& otherPos, SUMOReal otherSpeed, const std::string& otherLaneID, SUMOReal otherLanePos,
         std::map<std::string, SeenDevice*>& currentlySeen) {
-    MeetingPoint mp(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) + atOffset, thisPos, thisSpeed, thisLaneID, thisLanePos, otherPos, otherSpeed, otherLaneID, otherLanePos);
+    MeetingPoint mp(SIMTIME + atOffset, thisPos, thisSpeed, thisLaneID, thisLanePos, otherPos, otherSpeed, otherLaneID, otherLanePos);
     SeenDevice* sd = new SeenDevice(mp);
     currentlySeen[otherID] = sd;
-    addRecognitionPoint(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), thisPos, thisSpeed, thisLaneID, thisLanePos,
+    addRecognitionPoint(SIMTIME, thisPos, thisSpeed, thisLaneID, thisLanePos,
                         otherPos, otherSpeed, otherLaneID, otherLanePos, sd);
 }
 
@@ -282,7 +282,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::leaveRange(std::map<std::string, SeenDevi
         SUMOReal tOffset) {
     std::map<std::string, SeenDevice*>::iterator i = currentlySeen.find(otherID);
     // check whether the other was recognized
-    addRecognitionPoint(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) + tOffset, thisPos, thisSpeed, thisLaneID, thisLanePos,
+    addRecognitionPoint(SIMTIME + tOffset, thisPos, thisSpeed, thisLaneID, thisLanePos,
                         otherPos, otherSpeed, otherLaneID, otherLanePos, (*i).second);
     // build leaving point
     MeetingPoint mp(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) + tOffset, thisPos, thisSpeed, thisLaneID, thisLanePos, otherPos, otherSpeed, otherLaneID, otherLanePos);
@@ -299,7 +299,7 @@ void
 MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(const SUMOReal tEnd, const Position& thisPos, const SUMOReal thisSpeed, const std::string& thisLaneID, const SUMOReal thisLanePos,
         const Position& otherPos, const SUMOReal otherSpeed, const std::string& otherLaneID, const SUMOReal otherLanePos,
         SeenDevice* otherDevice) const {
-    const SUMOReal t = tEnd - MAX2(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) - TS, otherDevice->lastView);
+    const SUMOReal t = tEnd - MAX2(SIMTIME - TS, otherDevice->lastView);
     // probability of a miss 0.5 (may be in the wrong train), backoff time 0.64s
     if (sRecognitionRNG.rand() <= 1 - pow(0.5, t / myOffTime)) {
         otherDevice->lastView = tEnd;

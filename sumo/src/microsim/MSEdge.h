@@ -382,7 +382,7 @@ public:
      * @param[in] minSpeed The minimumSpeed to assume if traffic on this edge is stopped
      * @return The current effort (travel time) to pass the edge
      */
-    SUMOReal getCurrentTravelTime(const SUMOReal minSpeed = 0.00001) const;
+    SUMOReal getCurrentTravelTime(const SUMOReal minSpeed = NUMERICAL_EPS) const;
 
 
     /// @brief returns the minimum travel time for the given vehicle

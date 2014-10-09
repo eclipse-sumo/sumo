@@ -120,7 +120,7 @@ MSEdge::initialize(const std::vector<MSLane*>* lanes) {
 
 void MSEdge::recalcCache() {
     myLength = myLanes->front()->getLength();
-    myEmptyTraveltime = myLength / getSpeedLimit();
+    myEmptyTraveltime = myLength / MAX2(getSpeedLimit(), NUMERICAL_EPS);
 }
 
 
