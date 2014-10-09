@@ -49,15 +49,22 @@ def polygonOffsetWithMinimumDistanceToPoint(point, polygon, perpendicular=False)
     p = point
     s = polygon
     o = 0
+    minDist = 1e400
+    minOffset = INVALID_DISTANCE
     for i in range(0, len(s)-1):
-        q = lineOffsetWithMinimumDistanceToPoint(p, s[i], s[i+1], True)
+        q = lineOffsetWithMinimumDistanceToPoint(p, s[i], s[i+1], perpendicular)
         if q != INVALID_DISTANCE:
-            return o + q
+            d = distance(p, positionAtOffset(s[i], s[i+1], q))
+            if d < minDist:
+                minDist = d
+                minOffset = o + q
+            if perpendicular and i > 0:
+                d = distance(p, s[i])
+                if d < minDist:
+                    minDist = d
+                    minOffset = o
         o += distance(s[i], s[i+1])
-    if perpendicular:
-        return INVALID_DISTANCE 
-    else:
-        return min([distance(point, p) for p in polygon])
+    return minOffset
 
 
 def distancePointToLine(point, line_start, line_end, perpendicular=False):
