@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun  3 14:07:42 2014 by SUMO sumo Version dev-SVN-r16485
+<!-- generated on 10/10/14 09:31:36 by SUMO Version dev-SVN-r17156
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -15740,7 +15740,7 @@
                 <lane id=":m4_0_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="12.50" meanspeed="45.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id=":m4_0_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="12.50" meanspeed="45.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="1fi" traveltime="24850000.00">
+            <edge id="1fi" traveltime="248500.00">
                 <lane id="1fi_0" CO="6.37" CO2="601.69" NOx="0.84" PMx="0.02" HC="0.35" noise="55.94" fuel="0.24" maxspeed="11.11" meanspeed="0.00" occupancy="0.02" vehicle_count="1"/>
             </edge>
             <edge id="1o" traveltime="43.98">
@@ -15751,7 +15751,7 @@
                 <lane id="1si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="1si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="2fi" traveltime="24850000.00">
+            <edge id="2fi" traveltime="248500.00">
                 <lane id="2fi_0" CO="6.37" CO2="601.69" NOx="0.84" PMx="0.02" HC="0.35" noise="55.94" fuel="0.24" maxspeed="11.11" meanspeed="0.00" occupancy="0.02" vehicle_count="1"/>
             </edge>
             <edge id="2o" traveltime="43.98">
@@ -15762,7 +15762,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="24850000.00">
+            <edge id="3fi" traveltime="248500.00">
                 <lane id="3fi_0" CO="6.37" CO2="601.69" NOx="0.84" PMx="0.02" HC="0.35" noise="55.94" fuel="0.24" maxspeed="11.11" meanspeed="0.00" occupancy="0.02" vehicle_count="1"/>
             </edge>
             <edge id="3o" traveltime="43.98">
