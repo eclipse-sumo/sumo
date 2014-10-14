@@ -294,8 +294,8 @@
         <xsd:attribute name="startPos" type="xsd:float"/>
         <xsd:attribute name="endPos" type="xsd:float"/>
         <xsd:attribute name="friendlyPos" type="boolType"/>
-        <xsd:attribute name="duration" type="positiveFloatType"/>
-        <xsd:attribute name="until" type="positiveFloatType"/>
+        <xsd:attribute name="duration" type="nonNegativeFloatType"/>
+        <xsd:attribute name="until" type="nonNegativeFloatType"/>
         <xsd:attribute name="index" type="xsd:string"/>
         <xsd:attribute name="parking" type="boolType"/>
         <xsd:attribute name="triggered" type="boolType"/>
