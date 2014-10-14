@@ -60,12 +60,13 @@ GUIVehicleControl::~GUIVehicleControl() {
 SUMOVehicle*
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                 const MSRoute* route, const MSVehicleType* type,
-                                bool fromRouteFile) {
+                                const bool ignoreStopErrors, const bool fromRouteFile) {
     myLoadedVehNo++;
     if (fromRouteFile) {
         defs->depart += computeRandomDepartOffset();
     }
     MSVehicle* built = new GUIVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : 0));
+    built->addStops(ignoreStopErrors);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
     return built;
 }

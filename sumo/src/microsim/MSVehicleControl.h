@@ -96,11 +96,13 @@ public:
      * @param[in] defs The parameter defining the vehicle
      * @param[in] route The route of this vehicle
      * @param[in] type The type of this vehicle
+     * @param[in] ignoreStopErrors whether invalid stops trigger a warning only
      * @param[in] fromRouteFile whether we are just reading the route file or creating via trigger, traci, ...
      * @return The built vehicle (MSVehicle instance)
      */
     virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
-                                      const MSVehicleType* type, bool fromRouteFile=true);
+                                      const MSVehicleType* type,
+                                      const bool ignoreStopErrors, const bool fromRouteFile=true);
     /// @}
 
 

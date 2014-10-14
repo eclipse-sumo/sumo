@@ -526,7 +526,7 @@ MSRouteHandler::closeVehicle() {
     // try to build the vehicle
     SUMOVehicle* vehicle = 0;
     if (vehControl.getVehicle(myVehicleParameter->id) == 0) {
-        vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype);
+        vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype, OptionsCont::getOptions().getBool("ignore-route-errors"));
         // maybe we do not want this vehicle to be inserted due to scaling
         unsigned int quota = vehControl.getQuota();
         if (quota > 0) {
@@ -540,7 +540,7 @@ MSRouteHandler::closeVehicle() {
                     MSNet::getInstance()->getInsertionControl().add(vehicle);
                     SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
                     newPars->id = myVehicleParameter->id + "." + toString(i);
-                    vehicle = vehControl.buildVehicle(newPars, route, vtype);
+                    vehicle = vehControl.buildVehicle(newPars, route, vtype, OptionsCont::getOptions().getBool("ignore-route-errors"));
                     vehControl.addVehicle(newPars->id, vehicle);
                 }
             }

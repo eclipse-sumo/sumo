@@ -58,7 +58,8 @@ public:
      * @param[in] speedFactor The factor for driven lane's speed limits
      * @exception ProcessError If a value is wrong
      */
-    MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type, const SUMOReal speedFactor);
+    MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+                  const MSVehicleType* type, const SUMOReal speedFactor);
 
 
     /// @brief Destructor
@@ -291,6 +292,24 @@ public:
     virtual void saveState(OutputDevice& out);
 
     //@}
+
+    /** @brief Adds stops to the built vehicle
+     *
+     * This code needs to be separated from the MSBaseVehicle constructor
+     *  since it is not allowed to call virtual functions from a constructor
+     *
+     * @param[in] ignoreStopErrors whether invalid stops trigger a warning only
+     */
+    void addStops(const bool ignoreStopErrors);
+
+    /** @brief Adds a stop
+     *
+     * The stop is put into the sorted list.
+     * @param[in] stop The stop to add
+     * @return Whether the stop could be added
+     */
+    virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset = 0) = 0;
+
 
 protected:
     /** @brief (Re-)Calculates the arrival position from the vehicle parameters

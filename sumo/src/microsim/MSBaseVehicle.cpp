@@ -61,7 +61,8 @@ std::set<std::string> MSBaseVehicle::myShallTraceMoveReminders;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type, const SUMOReal speedFactor) :
+MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+                             const MSVehicleType* type, const SUMOReal speedFactor) :
     myParameter(pars),
     myRoute(route),
     myType(type),
@@ -359,6 +360,31 @@ MSBaseVehicle::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_TYPE, myType->getID());
     // here starts the vehicle internal part (see loading)
     // @note: remember to close the vehicle tag when calling this in a subclass!
+}
+
+
+void
+MSBaseVehicle::addStops(const bool ignoreStopErrors) {
+    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myParameter->stops.begin(); i != myParameter->stops.end(); ++i) {
+        if (!addStop(*i)) {
+            std::string errorMsg = "Stop for vehicle '" + myParameter->id +
+                                   "' on lane '" + i->lane + "' is too close or not downstream the current route.";
+            if (!ignoreStopErrors) {
+                throw ProcessError(errorMsg);
+            }
+            WRITE_WARNING(errorMsg);
+        }
+    }
+    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myRoute->getStops().begin(); i != myRoute->getStops().end(); ++i) {
+        if (!addStop(*i)) {
+            std::string errorMsg = "Stop for vehicle '" + myParameter->id +
+                                   "' on lane '" + i->lane + "' is too close or not downstream the current route.";
+            if (!ignoreStopErrors) {
+                throw ProcessError(errorMsg);
+            }
+            WRITE_WARNING(errorMsg);
+        }
+    }
 }
 
 

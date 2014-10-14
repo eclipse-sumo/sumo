@@ -229,7 +229,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             if (vehControl.getVehicle(newPars->id) == 0) {
                 const MSRoute* route = MSRoute::dictionary(pars->routeid);
                 const MSVehicleType* vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
-                i->vehicle = vehControl.buildVehicle(newPars, route, vtype);
+                i->vehicle = vehControl.buildVehicle(newPars, route, vtype, false);
                 unsigned int quota = vehControl.getQuota();
                 if (quota > 0) {
                     vehControl.addVehicle(newPars->id, i->vehicle);
@@ -239,7 +239,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                         SUMOVehicleParameter* quotaPars = new SUMOVehicleParameter(*pars);
                         quotaPars->id = pars->id + "." + toString(i->index);
                         quotaPars->depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
-                        i->vehicle = vehControl.buildVehicle(quotaPars, route, vtype);
+                        i->vehicle = vehControl.buildVehicle(quotaPars, route, vtype, false);
                         vehControl.addVehicle(quotaPars->id, i->vehicle);
                         add(i->vehicle);
                         i->index++;

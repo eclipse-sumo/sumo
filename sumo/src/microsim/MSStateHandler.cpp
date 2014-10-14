@@ -180,7 +180,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             assert(type != 0);
             assert(vc.getVehicle(p->id) == 0);
 
-            SUMOVehicle* v = vc.buildVehicle(p, route, type);
+            SUMOVehicle* v = vc.buildVehicle(p, route, type, true);
             v->loadState(attrs, myOffset);
             if (!vc.addVehicle(p->id, v)) {
                 throw ProcessError("Error: Could not build vehicle " + p->id + "!");

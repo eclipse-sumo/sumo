@@ -43,7 +43,6 @@
 #include <cstdlib>
 #include <algorithm>
 #include <map>
-#include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/vehicle/DijkstraRouterTT.h>
@@ -387,10 +386,8 @@ MSVehicle::~MSVehicle() {
 }
 
 
-MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
-                     const MSRoute* route,
-                     const MSVehicleType* type,
-                     SUMOReal speedFactor) :
+MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+                     const MSVehicleType* type, const SUMOReal speedFactor) :
     MSBaseVehicle(pars, route, type, speedFactor),
     myWaitingTime(0),
     myState(0, 0), //
@@ -409,18 +406,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     , myInfluencer(0)
 #endif
 {
-    for (std::vector<SUMOVehicleParameter::Stop>::iterator i = pars->stops.begin(); i != pars->stops.end(); ++i) {
-        if (!addStop(*i)) {
-            throw ProcessError("Stop for vehicle '" + pars->id +
-                               "' on lane '" + i->lane + "' is too close or not downstream the current route.");
-        }
-    }
-    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = route->getStops().begin(); i != route->getStops().end(); ++i) {
-        if (!addStop(*i)) {
-            throw ProcessError("Stop for vehicle '" + pars->id +
-                               "' on lane '" + i->lane + "' is too close or not downstream the current route.");
-        }
-    }
     const MSLane* const depLane = (*myCurrEdge)->getDepartLane(*this);
     if (depLane == 0) {
         throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");

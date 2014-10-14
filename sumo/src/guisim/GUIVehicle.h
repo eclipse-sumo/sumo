@@ -72,11 +72,10 @@ public:
      * @param[in] route The vehicle's route
      * @param[in] type The vehicle's type
      * @param[in] speedFactor The factor for driven lane's speed limits
-     * @param[in] vehicleIndex The vehicle's running index
      * @exception ProcessError If a value is wrong
      */
     GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-               const MSVehicleType* type, SUMOReal speedFactor);
+               const MSVehicleType* type, const SUMOReal speedFactor);
 
 
     /// @brief destructor
