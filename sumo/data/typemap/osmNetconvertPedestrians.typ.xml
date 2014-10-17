@@ -1,14 +1,14 @@
 <types>
-      <type id="highway.motorway"       numLanes="2" speed="44.44" priority="13" oneway="true"                   disallow="pedestrian bicycle"/>
-      <type id="highway.motorway_link"  numLanes="1" speed="22.22" priority="12" oneway="true"                   disallow="pedestrian bicycle"/>
-      <type id="highway.trunk"          numLanes="2" speed="27.78" priority="11"                                 disallow="pedestrian bicycle"/>
-      <type id="highway.trunk_link"     numLanes="1" speed="22.22" priority="10"                                 disallow="pedestrian bicycle"/>
-      <type id="highway.primary"        numLanes="2" speed="27.78" priority="9"                sidewalkWidth="3" disallow="pedestrian"/>
-      <type id="highway.primary_link"   numLanes="1" speed="22.22" priority="8"                sidewalkWidth="3" disallow="pedestrian"/>
-      <type id="highway.secondary"      numLanes="2" speed="27.78" priority="7"                sidewalkWidth="3" disallow="pedestrian"/>
-      <type id="highway.secondary_link" numLanes="1" speed="22.22" priority="6"                sidewalkWidth="3" disallow="pedestrian"/>
-      <type id="highway.tertiary"       numLanes="1" speed="22.22" priority="6"                sidewalkWidth="3" disallow="pedestrian"/>
-      <type id="highway.tertiary_link"  numLanes="1" speed="22.22" priority="5"                sidewalkWidth="2" disallow="pedestrian"/>
+      <type id="highway.motorway"       numLanes="2" speed="27.78" priority="13" oneway="true"                   disallow="pedestrian bicycle moped"/>
+      <type id="highway.motorway_link"  numLanes="1" speed="16.67" priority="12" oneway="true"                   disallow="pedestrian bicycle moped"/>
+      <type id="highway.trunk"          numLanes="2" speed="13.89" priority="11"                                 disallow="pedestrian bicycle"/>
+      <type id="highway.trunk_link"     numLanes="1" speed="13.89" priority="10"                                 disallow="pedestrian bicycle"/>
+      <type id="highway.primary"        numLanes="2" speed="13.89" priority="9"                sidewalkWidth="3" disallow="pedestrian"/>
+      <type id="highway.primary_link"   numLanes="1" speed="13.89" priority="8"                sidewalkWidth="3" disallow="pedestrian"/>
+      <type id="highway.secondary"      numLanes="2" speed="13.89" priority="7"                sidewalkWidth="3" disallow="pedestrian"/>
+      <type id="highway.secondary_link" numLanes="1" speed="13.89" priority="6"                sidewalkWidth="3" disallow="pedestrian"/>
+      <type id="highway.tertiary"       numLanes="1" speed="13.89" priority="6"                sidewalkWidth="3" disallow="pedestrian"/>
+      <type id="highway.tertiary_link"  numLanes="1" speed="13.89" priority="5"                sidewalkWidth="2" disallow="pedestrian"/>
       <type id="highway.unclassified"   numLanes="1" speed="13.89" priority="5"                sidewalkWidth="2" disallow="pedestrian"/>
       <type id="highway.residential"    numLanes="1" speed="13.89" priority="4"                sidewalkWidth="2" disallow="pedestrian"/>
       <type id="highway.living_street"  numLanes="1" speed="2.78"  priority="3"                                                       />

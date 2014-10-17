@@ -1,8 +1,8 @@
 <types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/types_file.xsd">
-      <type id="highway.motorway"       numLanes="2" speed="44.44" priority="13" oneway="true" />
-      <type id="highway.motorway_link"  numLanes="1" speed="22.22" priority="12" oneway="true" />
-      <type id="highway.trunk"          numLanes="2" speed="27.78" priority="11"               />
-      <type id="highway.trunk_link"     numLanes="1" speed="22.22" priority="10"               />
+      <type id="highway.motorway"       numLanes="2" speed="44.44" priority="13" oneway="true" disallow="pedestrian bicycle moped"/>
+      <type id="highway.motorway_link"  numLanes="1" speed="22.22" priority="12" oneway="true" disallow="pedestrian bicycle moped"/>
+      <type id="highway.trunk"          numLanes="2" speed="27.78" priority="11"               disallow="pedestrian bicycle"/>
+      <type id="highway.trunk_link"     numLanes="1" speed="22.22" priority="10"               disallow="pedestrian bicycle"/>
       <type id="highway.primary"        numLanes="2" speed="27.78" priority="9"                />
       <type id="highway.primary_link"   numLanes="1" speed="22.22" priority="8"                />
       <type id="highway.secondary"      numLanes="2" speed="27.78" priority="7"                />
