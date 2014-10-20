@@ -64,7 +64,7 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
         print "connection established", self.client_address
         self.handshake_done = False
         #initialises settings objects
-        self.vehicles = Settings(["--prefix", "p-"])
+        self.vehicles = Settings(["--vehicle-class", "passenger", "--vclass", "passenger", "--prefix", "p-"])
         self.bicycles = Settings(["--vehicle-class", "bicycle", "--vclass", "bicycle", "--prefix", "bc-"])
         self.pedestrians = Settings(["--pedestrians"])
 
