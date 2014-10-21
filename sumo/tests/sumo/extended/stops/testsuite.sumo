@@ -49,3 +49,8 @@ simple_stop_expecting2
 # teleport should remove stops from the list
 teleport
 teleport_multihop
+
+# error handling
+not_allowed
+too_short
+until_order
