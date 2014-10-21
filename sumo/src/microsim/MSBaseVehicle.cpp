@@ -366,22 +366,20 @@ MSBaseVehicle::saveState(OutputDevice& out) {
 void
 MSBaseVehicle::addStops(const bool ignoreStopErrors) {
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myParameter->stops.begin(); i != myParameter->stops.end(); ++i) {
-        if (!addStop(*i)) {
-            std::string errorMsg = "Stop for vehicle '" + myParameter->id +
-                                   "' on lane '" + i->lane + "' is too close or not downstream the current route.";
-            if (!ignoreStopErrors) {
-                throw ProcessError(errorMsg);
-            }
+        std::string errorMsg;
+        if (!addStop(*i, errorMsg) && !ignoreStopErrors) {
+            throw ProcessError(errorMsg);
+        }
+        if (errorMsg != "") {
             WRITE_WARNING(errorMsg);
         }
     }
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myRoute->getStops().begin(); i != myRoute->getStops().end(); ++i) {
-        if (!addStop(*i)) {
-            std::string errorMsg = "Stop for vehicle '" + myParameter->id +
-                                   "' on lane '" + i->lane + "' is too close or not downstream the current route.";
-            if (!ignoreStopErrors) {
-                throw ProcessError(errorMsg);
-            }
+        std::string errorMsg;
+        if (!addStop(*i, errorMsg) && !ignoreStopErrors) {
+            throw ProcessError(errorMsg);
+        }
+        if (errorMsg != "") {
             WRITE_WARNING(errorMsg);
         }
     }

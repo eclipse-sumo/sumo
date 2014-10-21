@@ -491,8 +491,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane with index '" + toString(laneIndex) + "' on road '" + roadId + "'.", outputStorage);
             }
             // Forward command to vehicle
-            if (!v->addTraciStop(allLanes[laneIndex], pos, 0, waitTime, parking, triggered)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Vehicle is too close or behind the stop on '" + allLanes[laneIndex]->getID() + "'.", outputStorage);
+            std::string error;
+            if (!v->addTraciStop(allLanes[laneIndex], pos, 0, waitTime, parking, triggered, error)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
             }
         }
         break;

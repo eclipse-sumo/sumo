@@ -587,7 +587,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset = 0);
+    bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0);
 
 
     /** @brief Returns whether the vehicle has to stop somewhere
@@ -830,7 +830,8 @@ public:
      * @param parking   a flag indicating whether the traci stop is used for parking or not
      * @param triggered a flag indicating whether the traci stop is triggered or not
      */
-    bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration, bool parking, bool triggered);
+    bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration,
+                      bool parking, bool triggered, std::string& errorMsg);
 
     /**
     * returns the next imminent stop in the stop queue

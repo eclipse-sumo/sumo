@@ -302,14 +302,6 @@ public:
      */
     void addStops(const bool ignoreStopErrors);
 
-    /** @brief Adds a stop
-     *
-     * The stop is put into the sorted list.
-     * @param[in] stop The stop to add
-     * @return Whether the stop could be added
-     */
-    virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset = 0) = 0;
-
 
 protected:
     /** @brief (Re-)Calculates the arrival position from the vehicle parameters

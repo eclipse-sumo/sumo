@@ -202,7 +202,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset = 0) = 0;
+    virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0) = 0;
 
     /** @brief Returns whether the vehicle is at a stop
      * @return Whether the has stopped
