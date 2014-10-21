@@ -3,13 +3,3 @@ Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
 Warning: The traffic light '1704693513' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '1704693513'
-Warning: The traffic light 'joinedG_0' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'joinedG_0'
-Warning: The traffic light 'joinedG_1' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'joinedG_1'
-Warning: The traffic light 'joinedG_2' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'joinedG_2'
-Warning: The traffic light 'joinedG_3' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'joinedG_3'
-Warning: The traffic light 'joinedG_4' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'joinedG_4'

@@ -41,7 +41,8 @@ optParser.add_option("-o", "--oldapi-prefix", default=None, help="prefix that wa
 optParser.add_option("-t", "--tiles", type="int", default=1, help="number of tiles used for retrieving OSM-data via the old api")
 optParser.add_option("-c", "--vehicle-classes", default='all',help="[(%s)]extract network for a reduced set of vehicle classes" % possibleVClassOptions)
 optParser.add_option("-d", "--output-directory", default=os.getcwd(), help="directory in which to put the output files")
-optParser.add_option("-n", "--netconvert-options", default="-R,--ramps.guess,--tls.guess,--tls.join,-v,--junctions.join,--osm.railway.oneway-default", help="comma-separated options for netconvert")
+optParser.add_option("-n", "--netconvert-options",
+        default="-R,--ramps.guess,-v,--junctions.join,--osm.railway.oneway-default,--tls.guess-signals,--tls.discard-simple", help="comma-separated options for netconvert")
 optParser.add_option("--pedestrians", action="store_true", default=False, help="add pedestrian infrastructure to tzhe network")
 optParser.add_option("-y", "--polyconvert-options", default="-v,--osm.keep-full-type", help="comma-separated options for polyconvert")
 
