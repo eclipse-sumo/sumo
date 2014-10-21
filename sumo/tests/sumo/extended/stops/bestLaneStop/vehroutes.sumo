@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/21/14 11:53:08 by SUMO Version dev-SVN-r17190
+<!-- generated on 10/17/14 15:32:20 by SUMO Version dev-SVN-r17190
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -12,6 +12,8 @@
 
     <output>
         <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.exit-times value="true"/>
+        <vehroute-output.sorted value="true"/>
     </output>
 
     <report>
@@ -24,8 +26,8 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-    <vehicle id="veh0" depart="1.00" arrival="101.00">
-        <route edges="beg end"/>
+    <vehicle id="stopped" depart="1.00" arrival="230.00">
+        <route edges="1fi 1si 1o 1fi 1si" exitTimes="25.00 91.00 190.00 213.00 230.00"/>
     </vehicle>
 
 </routes>

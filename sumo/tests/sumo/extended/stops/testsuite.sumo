@@ -50,7 +50,12 @@ simple_stop_expecting2
 teleport
 teleport_multihop
 
+# stops interacting with best lanes computation
+bestLaneStop
+bestLaneStop0
+
 # error handling
 not_allowed
 too_short
 until_order
+
