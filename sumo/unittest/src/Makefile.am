@@ -62,8 +62,7 @@ $(MESO_LIBS) \
 $(MEM_LIBS) \
 $(PYTHON_LIBS) \
 $(XERCES_LIBS) \
-$(FOX_LDFLAGS) \
-$(LIB_GTEST)
+$(FOX_LDFLAGS)
 
 SUBDIRS = utils microsim netbuild
 endif

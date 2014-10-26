@@ -9,6 +9,7 @@ AC_CONFIG_HEADER(src/config.h)
 dnl enable automake-support
 AM_INIT_AUTOMAKE([gnu dist-zip tar-ustar])
 
+AC_LANG([C++])
 
 dnl the debug check has to be made before the program checks
 dnl because it modifies CXXFLAGS
@@ -290,13 +291,13 @@ fi
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for fox
 AC_ARG_WITH([fox-config],
-            [AS_HELP_STRING([--with-fox-config=FILE], [specify an alternative fox-config file])],
+            [AS_HELP_STRING([--with-fox-config=FILE], [specify an alternative fox-config executable])],
             [FOX_CONFIG="$withval"], [FOX_CONFIG=""])
 if test x"$with_fox_config" != xno; then
     if test -z $FOX_CONFIG; then
         AC_PATH_PROG([FOX_CONFIG], [fox-config])
         if test -z $FOX_CONFIG; then
-            AC_MSG_WARN([could not find fox-config from libgdal within the current path. Specify path with option --with-fox-config.])
+            AC_MSG_WARN([could not find fox-config from libfox within the current path. Specify path with option --with-fox-config.])
         fi
     else
         if test -f $FOX_CONFIG; then
@@ -330,21 +331,38 @@ AM_CONDITIONAL([WITH_GUI], [test x"$FOX_CONFIG" != x && test x"$with_fox_config"
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for gtest
-AC_ARG_WITH([gtest], [AS_HELP_STRING([--with-gtest=DIR],[where googletest is installed (libraries in DIR/lib, headers in DIR/include).])])
-if test x"$with_gtest" == x; then
-    with_gtest=no
-fi
-if test x"$with_gtest" != xno; then
-    LIB_GTEST="$with_gtest/lib/libgtest.a"
-    AC_SUBST(LIB_GTEST)
-    AM_CPPFLAGS="-I$with_gtest/include $AM_CPPFLAGS"
-fi
-AM_CONDITIONAL([WITH_GTEST], [test x"$with_gtest" != xno])
-if test x"$with_gtest" != xno; then
-    ac_enabled="$ac_enabled UnitTests"
+AC_ARG_WITH([gtest-config], [AS_HELP_STRING([--with-gtest-config=FILE], [specify an alternative gtest-config.])],
+            [GTEST_CONFIG="$withval"], [GTEST_CONFIG=""])
+if test x"$with_gtest_config" != xno; then
+    if test -z $GTEST_CONFIG; then
+        AC_PATH_PROG([GTEST_CONFIG], [gtest-config])
+    else
+        if test -f $GTEST_CONFIG; then
+            AC_MSG_RESULT([Using user-specified gtest-config file: $GTEST_CONFIG])
+        else
+            AC_MSG_ERROR([the user-specified gtest-config file $GTEST_CONFIG does not exist])
+        fi
+    fi
+
+    if test -z $GTEST_CONFIG; then
+        ac_disabled="$ac_disabled UnitTests"
+    else
+        GTEST_CFLAGS="`$GTEST_CONFIG --cxxflags`"
+        GTEST_LDFLAGS="`$GTEST_CONFIG --libs`"
+        AC_SUBST([GTEST_LDFLAGS])
+
+        save_cppflags=$CPPFLAGS
+        CPPFLAGS="$GTEST_CFLAGS"
+        export CPPFLAGS
+        AC_CHECK_HEADER([gtest/gtest.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
+                        [AC_MSG_ERROR([gtest-includes not found.])])
+        CPPFLAGS=$save_cppflags
+        ac_enabled="$ac_enabled UnitTests"
+    fi
 else
     ac_disabled="$ac_disabled UnitTests"
 fi
+AM_CONDITIONAL([WITH_GTEST], [test x"$GTEST_CONFIG" != x && test x"$with_gtest_config" != xno])
 
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
