@@ -98,8 +98,13 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
 
 int
 main(int argc, char* argv[]) {
-    int ret = 0;
     OptionsCont& oc = OptionsCont::getOptions();
+    // give some application descriptions
+    oc.setApplicationDescription(
+        "Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO.");
+    oc.setApplicationName("activitygen", "SUMO activitygen Version " + getBuildName(VERSION_STRING));
+    oc.addCopyrightNotice("Copyright (C) 2010-2012 Technische Universitaet Muenchen");
+    int ret = 0;
     RONet* net = 0;
     try {
         // Initialise subsystems and process options
