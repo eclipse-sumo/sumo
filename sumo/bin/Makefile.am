@@ -14,6 +14,7 @@ sumo-gui sumo-guiD meso-gui meso-guiD \
 dfrouter dfrouterD dfrouterInt dfrouterIntD \
 duarouter duarouterD duarouterInt duarouterIntD \
 jtrrouter jtrrouterD jtrrouterInt jtrrouterIntD \
+marouter marouterD marouterInt marouterIntD \
 netconvert netconvertD netconvertInt netconvertIntD \
 netgenerate netgenerateD netgenerateInt netgenerateIntD \
 od2trips od2tripsD od2tripsInt od2tripsIntD \
@@ -21,7 +22,7 @@ polyconvert polyconvertD polyconvertInt polyconvertIntD \
 activitygen activitygenD activitygenInt activitygenIntD \
 TraCITestClient TraCITestClientD TraCITestClientInt TraCITestClientIntD \
 sumo-unittest sumo-unittestD \
-netedit neteditD marouter marouterD \
+netedit neteditD \
 emissionsDrivingCycle emissionsDrivingCycleD emissionsDrivingCycleInt emissionsDrivingCycleIntD \
 emissionsMap emissionsMapD emissionsMapInt emissionsMapIntD
 
