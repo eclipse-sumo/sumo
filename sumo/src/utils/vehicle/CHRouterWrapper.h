@@ -1,11 +1,12 @@
 /****************************************************************************/
 /// @file    CHRouterWrapper.h
+/// @author  Jakob Erdmann
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    March 2012
 /// @version $Id$
 ///
-// Wrappers multipe CHRouters for different vehicle types
+// Wraps multiple CHRouters for different vehicle types
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
@@ -95,14 +96,8 @@ public:
                  SUMOTime msTime, std::vector<const E*>& into) {
         const std::pair<const SUMOVehicleClass, const SUMOReal> svc = std::make_pair(vehicle->getVClass(), vehicle->getMaxSpeed());
         if (myRouters.count(svc) == 0) {
-            // make sure start time is the beginning of a weight intervall
-            SUMOTime start = myBegin;
-            while (start + myWeightPeriod < msTime) {
-                start += myWeightPeriod;
-            }
-            // create new router for the given permissions
-            // XXX a new router may also need to be created if vehicles with the
-            // same vClass differ in maximum speed or speed factor
+            // create new router for the given permissions and maximum speed
+            // XXX a new router may also be needed if vehicles differ in speed factor
             myRouters[svc] = new CHRouterType(
                 myDictSize, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false);
         }

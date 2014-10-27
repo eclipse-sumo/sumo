@@ -1,8 +1,8 @@
 /****************************************************************************/
 /// @file    AStarRouter.h
+/// @author  Jakob Erdmann
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
-/// @author  Jakob Erdmann
 /// @date    January 2012
 /// @version $Id$
 ///
