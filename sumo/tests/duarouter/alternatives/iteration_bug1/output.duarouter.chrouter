@@ -5,8 +5,8 @@ Building Contraction Hierarchy for vClass='ignoring' and time=0.00 (32 edges)
 ... 
 Created 44 shortcuts.
 Recomputed priority 56 times.
-done (0 ms).
+done (0ms).
 done.
 CHRouter answered 1 queries and explored 14.00 edges on average.
-CHRouter spent 0 ms answering queries (0.00 ms on average).
+CHRouter spent 0ms answering queries (0.00ms on average).
 Success.
