@@ -605,7 +605,9 @@ NIXMLEdgesHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
         for (std::vector<std::string>::iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
             NBEdge* edge = myEdgeCont.retrieve(*it);
             if (edge == 0) {
-                WRITE_ERROR("Unknown edge '" + (*it) + "' in roundabout");
+                if (!myEdgeCont.wasIgnored(*it)) {
+                    WRITE_ERROR("Unknown edge '" + (*it) + "' in roundabout");
+                }
             } else {
                 roundabout.insert(edge);
             }

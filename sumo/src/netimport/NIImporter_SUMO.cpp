@@ -258,7 +258,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         for (std::vector<std::string>::const_iterator it_r = it->begin(); it_r != it->end(); ++it_r) {
             NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_r);
             if (edge == 0) {
-                WRITE_ERROR("Unknown edge '" + (*it_r) + "' in roundabout");
+                if (!myNetBuilder.getEdgeCont().wasIgnored(*it_r)) {
+                    WRITE_ERROR("Unknown edge '" + (*it_r) + "' in roundabout");
+                }
             } else {
                 roundabout.insert(edge);
             }
