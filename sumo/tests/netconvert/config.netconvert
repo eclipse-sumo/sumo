@@ -38,7 +38,6 @@ elmar_names:elmar_output_names.txt
 pois:pois.add.xml
 
 [run_dependent_text]
-output:\r{REPLACE \n}
 plain_nodes:<!--{[->]}-->
 plain_edges:<!--{[->]}-->
 plain_connections:<!--{[->]}-->
