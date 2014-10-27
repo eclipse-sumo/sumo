@@ -67,10 +67,10 @@ public:
      * @todo Check whether both vehicles can be const
      */
     bool operator()(ROVehicle* veh1, ROVehicle* veh2) const {
-        if (veh1->getDepartureTime() == veh2->getDepartureTime()) {
+        if (veh1->getDepart() == veh2->getDepart()) {
             return veh1->getID() > veh2->getID();
         }
-        return veh1->getDepartureTime() > veh2->getDepartureTime();
+        return veh1->getDepart() > veh2->getDepart();
     }
 };
 

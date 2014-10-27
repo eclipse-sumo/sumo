@@ -34,10 +34,10 @@
 
 #include <string>
 #include <iostream>
+#include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
-#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -104,11 +104,19 @@ public:
     }
 
 
-    /** @brief Returns the time the vehicle starts at
+    /** @brief Returns the time the vehicle starts at, 0 for triggered vehicles
      *
      * @return The vehicle's depart time
      */
     SUMOTime getDepartureTime() const {
+        return MAX2(0, myParameter.depart);
+    }
+
+    /** @brief Returns the time the vehicle starts at, -1 for triggered vehicles
+     *
+     * @return The vehicle's depart time
+     */
+    SUMOTime getDepart() const {
         return myParameter.depart;
     }
 
