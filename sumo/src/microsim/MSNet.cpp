@@ -36,10 +36,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
-
 #include <string>
 #include <iostream>
 #include <sstream>
