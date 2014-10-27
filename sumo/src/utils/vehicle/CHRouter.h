@@ -1,5 +1,6 @@
 /****************************************************************************/
 /// @file    CHRouter.h
+/// @author  Jakob Erdmann
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    February 2012
@@ -327,7 +328,7 @@ public:
         myBackwardSearch(numEdges, false),
         mySPTree(new SPTree<CHInfo, CHConnection>(4, validatePermissions)),
         myWeightPeriod(weightPeriod),
-        myValidUntil(std::numeric_limits<int>::min()),
+        myValidUntil(0),
         mySVC(svc),
         myUpdateCount(0) {
         for (size_t i = 0; i < numEdges; i++) {
