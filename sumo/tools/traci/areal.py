@@ -70,7 +70,7 @@ def getLastStepMeanSpeed(detID):
 def getLastStepOccupancy(detID):
     """getLastStepMeanSpeed(string) -> double
     
-    Returns the current mean speed in m/s of vehicles that were on the named e2.
+    Returns the percentage of space the detector was occupied by a vehicle [%]
     """
     return _getUniversal(tc.LAST_STEP_OCCUPANCY, detID)
 
