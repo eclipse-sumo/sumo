@@ -158,10 +158,9 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const 
     } else {
         glColor3d(0, (SUMOReal) .8, (SUMOReal) .8);
     }
-    SUMOReal width = 2; // !!!
+    SUMOReal width = (SUMOReal) 2.0 * s.scale;
     if (width * exaggeration > 1.0) {
-        glScaled(exaggeration, exaggeration, 1);
-        GLHelper::drawBoxLines(myFullGeometry, myShapeRotations, myShapeLengths, dwidth);
+        GLHelper::drawBoxLines(myFullGeometry, myShapeRotations, myShapeLengths, dwidth * exaggeration);
     } else {
         int e = (int) myFullGeometry.size() - 1;
         for (int i = 0; i < e; ++i) {
