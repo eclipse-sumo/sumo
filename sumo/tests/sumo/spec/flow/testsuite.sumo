@@ -1,4 +1,7 @@
 period
+
+# test combining 'period' and 'end'
+period_end
 vehs_per_hour
 vehs_per_hour_none
 no
