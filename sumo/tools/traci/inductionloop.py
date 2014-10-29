@@ -126,7 +126,7 @@ def getTimeSinceDetection(loopID):
     return _getUniversal(tc.LAST_STEP_TIME_SINCE_DETECTION, loopID)
 
 def getVehicleData(loopID):
-    """getVehicleData(string) -> integer
+    """getVehicleData(string) -> [(veh_id, veh_length, entry_time, exit_time, vType), ...]
     
     Returns a complex structure containing several information about vehicles which passed the detector.
     """
