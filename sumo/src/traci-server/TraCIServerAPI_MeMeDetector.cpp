@@ -33,7 +33,6 @@
 
 #include "TraCIConstants.h"
 #include <microsim/output/MSDetectorControl.h>
-#include <microsim/output/MSE3Collector.h>
 #include "TraCIServerAPI_MeMeDetector.h"
 
 #ifdef CHECK_MEMORY_LEAKS

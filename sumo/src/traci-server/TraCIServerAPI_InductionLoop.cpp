@@ -36,7 +36,6 @@
 #include "TraCIConstants.h"
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorControl.h>
-#include <microsim/output/MSInductLoop.h>
 #include "TraCIServerAPI_InductionLoop.h"
 
 #ifdef CHECK_MEMORY_LEAKS
