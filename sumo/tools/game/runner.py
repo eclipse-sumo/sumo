@@ -260,18 +260,27 @@ class ScoreDialog:
     def quit(self, event=None):
         self.root.destroy()
 
-
 base = os.path.dirname(sys.argv[0])
 high = loadHighscore()
-guisimBinary = "meso-gui"
-if os.name != "posix":
-    guisimBinary += ".exe"
-if os.path.exists(os.path.join(base, guisimBinary)):
-    guisimPath = os.path.join(base, guisimBinary)
-else:
-    guisimPath = os.environ.get("GUISIM_BINARY", os.path.join(base, '..', '..', 'bin', guisimBinary))
-if not os.path.exists(guisimPath):
-    guisimPath = guisimBinary
+def findSumoBinary(guisimBinary):
+    if os.name != "posix":
+        guisimBinary += ".exe"
+    if os.path.exists(os.path.join(base, guisimBinary)):
+        guisimPath = os.path.join(base, guisimBinary)
+    else:
+        guisimPath = os.environ.get("GUISIM_BINARY", os.path.join(base, '..', '..', 'bin', guisimBinary))
+    if not os.path.exists(guisimPath):
+        guisimPath = guisimBinary
+    return guisimPath
+
+guisimPath = findSumoBinary("meso-gui")
+try: 
+    subprocess.call(guisimPath)
+except OSError:
+    print("meso-gui not found. 3D scenario will not work.")
+    guisimPath = findSumoBinary("sumo-gui")
+
+
 lang = _LANGUAGE_EN  
     
 while True:
