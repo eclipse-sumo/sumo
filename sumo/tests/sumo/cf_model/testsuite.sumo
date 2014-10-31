@@ -1,3 +1,6 @@
+# test the use of model-specific parameters
+parameters
+
 # show that each model allows vehicles to follow each other around a circular track
 drive_in_circles
 
