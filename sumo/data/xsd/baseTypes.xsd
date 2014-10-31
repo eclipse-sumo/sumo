@@ -30,6 +30,12 @@
         </xsd:union>
     </xsd:simpleType>
 
+    <xsd:simpleType name="positiveIntType">
+        <xsd:restriction base="xsd:int">
+            <xsd:minExclusive value="0"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
     <xsd:simpleType name="boolType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="true"/>
