@@ -12,6 +12,7 @@ allowed []
 disallowed []
 linkNum 3
 links [('2si_0', True, True, True), ('2si_1', True, True, True), ('2si_2', True, True, True)]
+linksExtended [('2si_0', True, True, True, '', 'M', 's', 7.2498275841567121), ('2si_1', True, True, True, '', 'M', 's', 4.4598206241955181), ('2si_2', True, True, True, '', 'M', 's', 3.0)]
 shape [(1000.0, 501.65000000000003), (751.5, 501.65000000000003)]
 edge 2fi
 CO2 1904.97775406

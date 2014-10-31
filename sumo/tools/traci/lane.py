@@ -43,7 +43,8 @@ def _readLinks(result):
         direction = result.readString() 
         result.read("!B")                           # Type Float
         length = result.readDouble()
-        links.append((approachedLane, hasPrio, isOpen, hasFoe))
+        links.append((approachedLane, hasPrio, isOpen, hasFoe,
+            approachedInternal, state, direction, length))
     return links
 
 
@@ -135,12 +136,20 @@ def getLinkNumber(laneID):
     """
     return _getUniversal(tc.LANE_LINK_NUMBER, laneID)
 
-def getLinks(laneID):
+def getLinks(laneID, extended=False):
     """getLinks(string) -> list((string, bool, bool, bool))
-    
-    A list containing ids of successor lanes together with priority, open and foe.
+    A list containing id of successor lane together with priority, open and foe
+    for each link.
+    if extended=True, each result tuple contains
+    (string approachedLane, bool hasPrio, bool isOpen, bool hasFoe, 
+    string approachedInternal, string state, string direction, float length)
     """
-    return _getUniversal(tc.LANE_LINKS, laneID)
+    complete_data = _getUniversal(tc.LANE_LINKS, laneID)
+    if extended:
+        return complete_data
+    else:
+        # for downward compatibility
+        return [tuple(d[:4]) for d in complete_data]
 
 def getShape(laneID):
     """getShape(string) -> list((double, double))
