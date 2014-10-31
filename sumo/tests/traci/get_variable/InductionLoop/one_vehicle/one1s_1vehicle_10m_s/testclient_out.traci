@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Mar  3 14:01:12 2014
+TraCITestClient output file. Date: Fri Oct 31 10:15:21 2014
 
 
 -> Command sent: <SimulationStep2>:
@@ -35,6 +35,13 @@ TraCITestClient output file. Date: Mon Mar  3 14:01:12 2014
 .. Command acknowledged (160), [description: ]
   CommandID=176  VariableID=22  ObjectID=3/1to2/1 valueDataType=11 Double value: 50.00
 
+-> Command sent: <GetVariable>:
+  domID=160 varID=23 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=23  ObjectID=3/1to2/1 valueDataType=15 compound value with 1 members: [ 
+ valueDataType=9 Int value: 0
+ ]
+
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
 
@@ -69,6 +76,18 @@ TraCITestClient output file. Date: Mon Mar  3 14:01:12 2014
 .. Command acknowledged (160), [description: ]
   CommandID=176  VariableID=22  ObjectID=3/1to2/1 valueDataType=11 Double value: 0.00
 
+-> Command sent: <GetVariable>:
+  domID=160 varID=23 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=23  ObjectID=3/1to2/1 valueDataType=15 compound value with 6 members: [ 
+ valueDataType=9 Int value: 1
+ valueDataType=12 string value: 0
+ valueDataType=11 Double value: 3.00
+ valueDataType=11 Double value: 51.00
+ valueDataType=11 Double value: -1.00
+ valueDataType=12 string value: DEFAULT_VEHTYPE
+ ]
+
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
 
@@ -102,6 +121,18 @@ TraCITestClient output file. Date: Mon Mar  3 14:01:12 2014
   domID=160 varID=22 objID=3/1to2/1
 .. Command acknowledged (160), [description: ]
   CommandID=176  VariableID=22  ObjectID=3/1to2/1 valueDataType=11 Double value: 0.70
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=23 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=23  ObjectID=3/1to2/1 valueDataType=15 compound value with 6 members: [ 
+ valueDataType=9 Int value: 1
+ valueDataType=12 string value: 0
+ valueDataType=11 Double value: 3.00
+ valueDataType=11 Double value: 51.00
+ valueDataType=11 Double value: 51.30
+ valueDataType=12 string value: DEFAULT_VEHTYPE
+ ]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
