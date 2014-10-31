@@ -288,6 +288,11 @@ NIFrame::checkOptions() {
     if (oc.isSet("dlr-navteq-prefix") && oc.isDefault("proj.scale")) {
         oc.set("proj.scale", toString(NIImporter_DlrNavteq::GEO_SCALE));
     }
+#else
+    if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-prefix") || oc.isSet("shapefile-prefix")) && numProjections == 0) {
+        WRITE_ERROR("Cannot import network data without PROJ-Library. Please install packages proj before building sumo");
+        ok = false;
+    }
 #endif
     if (oc.isSet("sumo-net-file")) {
         if (oc.isWriteable("no-turnarounds")) {
