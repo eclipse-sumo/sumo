@@ -8,7 +8,7 @@
 ///
 // Static storage of an output device and its base (abstract) implementation
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2004-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
@@ -105,7 +105,7 @@ OutputDevice::createDeviceByOption(const std::string& optionName,
     OutputDevice& dev = OutputDevice::getDevice(OptionsCont::getOptions().getString(optionName));
     if (rootElement != "") {
         if (schemaFile != "") {
-            dev.writeXMLHeader(rootElement, "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo-sim.org/xsd/" + schemaFile + "\"");
+            dev.writeXMLHeader(rootElement, "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/" + schemaFile + "\"");
         } else {
             dev.writeXMLHeader(rootElement);
         }

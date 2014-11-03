@@ -7,7 +7,7 @@
 ///
 // Network state mean data collector for edges/lanes
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
@@ -169,7 +169,7 @@ MSMeanData_Amitran::~MSMeanData_Amitran() {}
 
 void
 MSMeanData_Amitran::writeXMLDetectorProlog(OutputDevice& dev) const {
-    dev.writeXMLHeader("linkData", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo-sim.org/xsd/amitran/linkdata.xsd\"");
+    dev.writeXMLHeader("linkData", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/amitran/linkdata.xsd\"");
 }
 
 

@@ -9,7 +9,7 @@ This script replaces all vehicle definitions in a route file by
 flow definitions, adding an XML ntity for the repeat interval for
 easy later modification.
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

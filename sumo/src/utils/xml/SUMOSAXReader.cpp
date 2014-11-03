@@ -8,7 +8,7 @@
 ///
 // SAX-reader encapsulation containing binary reader
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
@@ -219,7 +219,8 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
     const std::string::size_type pos = url.rfind("/");
     if (pos != std::string::npos) {
         const std::string dir = url.substr(0, pos);
-        if (dir == "http://sumo-sim.org/xsd" || dir == "http://sumo.sf.net/xsd" || dir == "http://sumo-sim.org/xsd/amitran") {
+        if (dir == "http://sumo.sf.net/xsd" || dir == "http://sumo-sim.org/xsd" || dir == "http://sumo-sim.org/xsd/amitran" || 
+            dir == "http://sumo.dlr.de/xsd" || dir == "http://sumo.dlr.de/xsd/amitran") {
             const char* sumoPath = std::getenv("SUMO_HOME");
             if (sumoPath == 0) {
                 WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");

@@ -10,7 +10,7 @@
 Reads two networks (source, dest) and tries to produce the minimal plain-xml input
 which can be loaded with netconvert alongside source to create dest
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

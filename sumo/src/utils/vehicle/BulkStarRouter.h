@@ -15,7 +15,7 @@
 // @note: this heuristic also does not perform well if the actual vehicles have usage restrictions
 // @todo: add option for setting maximum speed
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //

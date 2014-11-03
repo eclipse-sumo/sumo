@@ -6,7 +6,7 @@
 @version $Id$
 
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
@@ -48,7 +48,7 @@ class OutputHandler(handler.ContentHandler):
             self.speed[attrs["id"]]["lane"][self.interval] = float(attrs["speed"])
 
 def generateDetectorDef(out, freq, enableLoop, laneIDs):
-    print('<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">', file=out)
+    print('<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">', file=out)
     for laneId in laneIDs:
         if enableLoop:
             print('    <e1Detector id="e1_%s" lane="%s" pos="200" freq="%s" file="detector.xml"/>' % (laneId, laneId, freq), file=out)

@@ -12,7 +12,7 @@ Counts for every edge in the given FCD-file the number of Taxis which used this 
 After that this information can be visualized with an script called mpl_dump_onNet from Daniel.
 
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

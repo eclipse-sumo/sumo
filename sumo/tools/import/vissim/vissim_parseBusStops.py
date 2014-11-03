@@ -15,7 +15,7 @@ The read routes are saved as <OUTPUT_PREFIX>_stops.add.xml
 (Starting?) edges of the route may be renamed by setting them within "edgemap"
  variable (see below).
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

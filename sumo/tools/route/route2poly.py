@@ -9,7 +9,7 @@
 From a sumo network and a route file, this script generates a polygon (polyline) for every route
 which can be loaded with sumo-gui for visualization
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

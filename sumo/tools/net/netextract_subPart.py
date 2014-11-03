@@ -14,7 +14,7 @@ It extracts nodes given on the command line as well as the edges
  into "<prefix>_nodes.nod.xml" and "<prefix>_edges.edg.xml" 
  for their reuse in NETCONVERT
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

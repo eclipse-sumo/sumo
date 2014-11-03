@@ -11,7 +11,7 @@ This script plots a selected measure from a summary-output.
 matplotlib (http://matplotlib.org/) has to be installed for this purpose
 
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

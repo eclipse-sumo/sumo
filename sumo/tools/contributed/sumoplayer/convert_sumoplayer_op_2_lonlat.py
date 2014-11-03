@@ -14,7 +14,7 @@ O/P syntax : time , vehicle_id , lon ,lat ,speed(meters)
 IMP-->Makesure you have installed python and pyproj package to run this code
 command : python convert_sumoplayer_op_2_lonlat.py sumoplayer_output.txt
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

@@ -9,7 +9,7 @@
 ///
 // A storage for options (typed value containers)
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
@@ -71,7 +71,7 @@ OptionsCont::getOptions() {
 
 OptionsCont::OptionsCont()
     : myAddresses(), myValues(), myDeprecatedSynonymes(), myHaveInformedAboutDeprecatedDivider(false) {
-    myCopyrightNotices.push_back("Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org");
+    myCopyrightNotices.push_back("Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de");
 }
 
 
@@ -713,8 +713,8 @@ OptionsCont::printHelp(std::ostream& os) {
         }
     }
     os << std::endl;
-    os << "Report bugs at <http://sumo-sim.org/trac/>." << std::endl;
-    os << "Get in contact via <sumo-user@lists.sourceforge.net>." << std::endl;
+    os << "Report bugs at <http://sumo.dlr.de/trac/>." << std::endl;
+    os << "Get in contact via <sumo@dlr.de>." << std::endl;
 }
 
 
@@ -722,7 +722,7 @@ void
 OptionsCont::writeConfiguration(std::ostream& os, bool filled,
                                 bool complete, bool addComments) const {
     os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
-    os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo-sim.org/xsd/" << myAppName << "Configuration.xsd\">" << std::endl << std::endl;
+    os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/" << myAppName << "Configuration.xsd\">" << std::endl << std::endl;
     for (std::vector<std::string>::const_iterator i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
         std::string subtopic = *i;
         if (subtopic == "Configuration" && !complete) {

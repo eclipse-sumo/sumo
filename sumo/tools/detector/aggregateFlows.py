@@ -11,7 +11,7 @@ It takes as an optional argument a file listing the detectors of
 interest (one per line, additional whitespace separated entries
 do not hurt, for instance a bab_map.txt will do)
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

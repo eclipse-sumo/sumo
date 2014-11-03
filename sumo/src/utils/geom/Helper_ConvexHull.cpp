@@ -12,7 +12,7 @@
 // liable for any real or imagined damage resulting from its use.
 // Users of this code must verify correctness for their application.
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2004-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //

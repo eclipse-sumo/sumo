@@ -8,7 +8,7 @@
 ///
 // Exporter writing networks using the SUMO format
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
@@ -67,7 +67,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         return;
     }
     OutputDevice& device = OutputDevice::getDevice(oc.getString("output-file"));
-    device.writeXMLHeader("net", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo-sim.org/xsd/net_file.xsd\""); // street names may contain non-ascii chars
+    device.writeXMLHeader("net", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/net_file.xsd\""); // street names may contain non-ascii chars
     device.lf();
     // get involved container
     const NBNodeCont& nc = nb.getNodeCont();

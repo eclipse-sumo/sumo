@@ -9,7 +9,7 @@
 ///
 // A storage for loaded polygons and pois
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2005-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
@@ -155,7 +155,7 @@ PCPolyContainer::report() {
 void
 PCPolyContainer::save(const std::string& file) {
     OutputDevice& out = OutputDevice::getDevice(file);
-    out.writeXMLHeader("additional", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo-sim.org/xsd/additional_file.xsd\"");
+    out.writeXMLHeader("additional", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/additional_file.xsd\"");
     // write polygons
     for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); ++i) {
         Polygon* p = i->second;

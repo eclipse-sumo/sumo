@@ -9,7 +9,7 @@
 This script is to retrieve the assignment parameters, the OD districts and the matrix from the input files. 
 Moreover, the link travel time for district connectors will be estimated.
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

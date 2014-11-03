@@ -9,7 +9,7 @@
 ///
 // A storage for options (typed value containers)
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
@@ -103,7 +103,7 @@
  *  done using addDescription(<OPTION_NAME>, <SUBTOPIC>, <DESCRIPTION>).
  * @see addDescription
  *
- * @see http://sumo-sim.org/wiki/index.php/OptionsSubSystem
+ * @see http://sumo.dlr.de/wiki/index.php/OptionsSubSystem
  */
 class OptionsCont {
 public:

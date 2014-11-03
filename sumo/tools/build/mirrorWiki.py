@@ -22,7 +22,7 @@ The page is saved into MIRROR_FOLDER/<PAGE_PATH>.
 After mirroring all pages, the images are downloaded and stored into 
 MIRROR_FOLDER/images.
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
@@ -35,7 +35,7 @@ import urllib, os, sys, shutil
 from optparse import OptionParser
 
 def readParsePage(page):
-    f = urllib.urlopen("http://sumo-sim.org/wiki/%s" % page)
+    f = urllib.urlopen("http://sumo.dlr.de/wiki/%s" % page)
     c = f.read()
     b = c.find("This page was last modified on");
     e = c.find("<", b)
@@ -49,7 +49,7 @@ def readParsePage(page):
     return c[:b] + c[e:] + '</div><hr/><div id="lastmod">' + lastMod + '</div>'
 
 def readParseEditPage(page):
-    f = urllib.urlopen("http://sumo-sim.org/w/index.php?title=%s&action=edit" % page)
+    f = urllib.urlopen("http://sumo.dlr.de/w/index.php?title=%s&action=edit" % page)
     c = f.read()
     b = c.find("wpTextbox1")
     b = c.find('>', b) + 1
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     for i in images:
         print "Fetching image %s" % i
         if i.find(":")>=0:
-            f = urllib.urlopen("http://sumo-sim.org/wiki/%s" % i)
+            f = urllib.urlopen("http://sumo.dlr.de/wiki/%s" % i)
             c = f.read()
             b = c.find("<div class=\"fullImageLink\" id=\"file\">")
             b = c.find("href=", b)+6

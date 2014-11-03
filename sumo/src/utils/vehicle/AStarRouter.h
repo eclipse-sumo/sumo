@@ -9,7 +9,7 @@
 // A* Algorithm using euclidean distance heuristic.
 // Based on DijkstraRouterTT. For routing by effort a novel heuristic would be needed.
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //

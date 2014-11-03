@@ -12,7 +12,7 @@ specifying detectors and one for the flows. It may detect the type
 of the detectors (source, sink, inbetween) itself or read it from
 the detectors file.
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

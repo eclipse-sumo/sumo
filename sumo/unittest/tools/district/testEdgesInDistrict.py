@@ -8,7 +8,7 @@
 Simple Unittest to check whether numpy is available and does not have the
 polyfit bug showing up in the 1.0.4 release
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

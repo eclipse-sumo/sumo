@@ -11,7 +11,7 @@
 ///
 // An unextended detector measuring at a fixed position on a fixed lane.
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
@@ -192,7 +192,7 @@ MSInductLoop::getTimestepsSinceLastDetection() const {
 
 void
 MSInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
-    dev.writeXMLHeader("detector", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo-sim.org/xsd/det_e1_file.xsd\"");
+    dev.writeXMLHeader("detector", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/det_e1_file.xsd\"");
 }
 
 

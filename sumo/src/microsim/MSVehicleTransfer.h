@@ -9,7 +9,7 @@
 // A mover of vehicles that got stucked due to grid locks
 // This class also serves as container for parking vehicles
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2003-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //

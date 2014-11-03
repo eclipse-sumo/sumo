@@ -11,7 +11,7 @@ Extract all files for a test case into a new dir.
 It may copy more files than needed because it copies everything
 that is mentioned in the config under copy_test_path.
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2009-2014 DLR/TS, Germany
 
 This file is part of SUMO.

@@ -10,7 +10,7 @@ Applies a given offset to edges given in an xml-node-file.
 The results are written into <XMLNODES>.mod.xml.
 Call: xmlnodes_applyOffset.py <XMLNODES> <X-OFFSET> <Y-OFFSET>
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

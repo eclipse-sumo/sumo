@@ -19,7 +19,7 @@ So far POIs are situated in the middle on all edges without regard to the type o
  Therefore: crossing chains of connected edges are not allowed -> this needs two different runs of this script
  Output is written in file 'pois.add.xml'
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

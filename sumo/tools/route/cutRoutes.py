@@ -9,7 +9,7 @@
 Cut down routes from a large scenario to a sub-scenario optionally using exitTimes
 Output can be a route file or a tripfile.
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.

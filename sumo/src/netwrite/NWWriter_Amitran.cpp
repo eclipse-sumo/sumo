@@ -6,7 +6,7 @@
 ///
 // Exporter writing networks using the Amitran format
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
@@ -60,7 +60,7 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NBEdgeCont& ec = nb.getEdgeCont();
     OutputDevice& device = OutputDevice::getDevice(oc.getString("amitran-output"));
     device << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-    device << "<network xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo-sim.org/xsd/amitran/network.xsd\">\n";
+    device << "<network xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/amitran/network.xsd\">\n";
     // write nodes
     int index = 0;
     NBNodeCont& nc = nb.getNodeCont();

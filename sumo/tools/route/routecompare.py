@@ -13,7 +13,7 @@ It needs at least two parameters, which are the route sets to compare.
 Optionally a district file may be given, then only routes with
 the same origin and destination district are matched.
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
