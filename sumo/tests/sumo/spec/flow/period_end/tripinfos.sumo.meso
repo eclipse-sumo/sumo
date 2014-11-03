@@ -11,13 +11,8 @@
     </input>
 
     <output>
-        <netstate-dump value="rawdump.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
     </output>
-
-    <time>
-        <begin value="0"/>
-        <end value="1"/>
-    </time>
 
     <report>
         <xml-validation value="never"/>
@@ -32,10 +27,6 @@
 </configuration>
 -->
 
-<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netstate_file.xsd">
-    <timestep time="0.00">
-        <edge id="beg">
-            <vehicle id="f1.0" pos="0.00" speed="27.80"/>
-        </edge>
-    </timestep>
-</netstate>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
+    <tripinfo id="f1.0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="36.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="36.00" routeLength="1000.00" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_f1.0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+</tripinfos>

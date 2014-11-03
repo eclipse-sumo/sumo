@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 15:09:39 by SUMO sumo Version 0.17.0
+<!-- generated on Mon Nov  3 12:44:46 2014 by SUMO Version dev-SVN-r17232ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -15,6 +15,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -27,8 +28,8 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-    <vehicle id="1.0" depart="0.00" arrival="36.00">
-        <route edges="beg end"/>
+    <vehicle id="1.0" depart="0.00" arrival="18.00">
+        <route edges="beg"/>
     </vehicle>
 
     <vehicle id="1.1" depart="4.00" arrival="40.00">
@@ -75,12 +76,12 @@
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.16" depart="66.00" arrival="84.00">
-        <route edges="beg"/>
-    </vehicle>
-
     <vehicle id="1.12" depart="49.00" arrival="85.00">
         <route edges="beg end"/>
+    </vehicle>
+
+    <vehicle id="1.17" depart="70.00" arrival="88.00">
+        <route edges="beg"/>
     </vehicle>
 
     <vehicle id="1.13" depart="54.00" arrival="90.00">
@@ -95,16 +96,12 @@
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.17" depart="70.00" arrival="106.00">
+    <vehicle id="1.16" depart="66.00" arrival="102.00">
         <route edges="beg end"/>
     </vehicle>
 
     <vehicle id="1.18" depart="74.00" arrival="110.00">
         <route edges="beg end"/>
-    </vehicle>
-
-    <vehicle id="1.23" depart="95.00" arrival="113.00">
-        <route edges="beg"/>
     </vehicle>
 
     <vehicle id="1.19" depart="79.00" arrival="115.00">
@@ -120,6 +117,10 @@
     </vehicle>
 
     <vehicle id="1.22" depart="91.00" arrival="127.00">
+        <route edges="beg end"/>
+    </vehicle>
+
+    <vehicle id="1.23" depart="95.00" arrival="131.00">
         <route edges="beg end"/>
     </vehicle>
 
