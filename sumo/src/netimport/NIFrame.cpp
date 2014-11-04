@@ -289,7 +289,7 @@ NIFrame::checkOptions() {
         oc.set("proj.scale", toString(NIImporter_DlrNavteq::GEO_SCALE));
     }
 #else
-    if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-prefix") || oc.isSet("shapefile-prefix")) && numProjections == 0) {
+    if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-prefix") || oc.isSet("shapefile-prefix")) && !oc.getBool("simple-projection")) {
         WRITE_ERROR("Cannot import network data without PROJ-Library. Please install packages proj before building sumo");
         ok = false;
     }
