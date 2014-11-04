@@ -172,7 +172,7 @@ GeoConvHelper::init(OptionsCont& oc) {
         proj = "DHDN";
     } else if (oc.getBool("proj.dhdnutm")) {
         proj = "DHDN_UTM";
-    } else {
+    } else if (!oc.isDefault("proj")) {
         proj = oc.getString("proj");
     }
 #endif
