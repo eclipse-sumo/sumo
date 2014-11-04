@@ -3,7 +3,7 @@
 <!-- generated on 03/05/14 13:05:33 by SUMO dfrouter Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
 
     <input>
         <net-file value="input_messstrecke.net.xml"/>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <routeDistribution id="MQ11Fs1">
         <route refId="ErnstRuska2O_to_HavestadtN" probability="1.00"/>
         <route refId="ErnstRuska2O_to_VolmerN" probability="1.00"/>

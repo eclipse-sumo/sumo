@@ -6,7 +6,7 @@ Loading configuration... done.
 -<!-- generated on 04/04/14 12:38:20 by SUMO sumo Version dev-SVN-rUNKNOWN
 -<?xml version="1.0" encoding="UTF-8"?>
 -
--<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 -
 -    <input>
 -        <net-file value="input_net.net.xml"/>
@@ -35,5 +35,5 @@ Loading configuration... done.
 -</configuration>
 --->
 -
--<trajectories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/amitran/trajectories.xsd" timeStepSize="1000">
+-<trajectories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/trajectories.xsd" timeStepSize="1000">
 +<trajectories timeStepSize="1000">

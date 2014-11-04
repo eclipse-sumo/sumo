@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge from="bottom-left" id="bottom" numLanes="1" speed="36.1" to="bottom-right" />
 
     <edge from="bottom-right" id="right" numLanes="1" speed="36.1" to="top-right" />

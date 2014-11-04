@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/connections_file.xsd">
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
     <connection from="L2" to="L12" fromLane="0" toLane="0"/>
     <connection from="L2" to="L12" fromLane="0" toLane="1"/>
     <connection from="L2" to="L12" fromLane="1" toLane="2"/>

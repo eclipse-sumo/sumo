@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<turns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/turns_file.xsd">
+<turns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/turns_file.xsd">
 	<sink edges="xxx"/>
 </turns>

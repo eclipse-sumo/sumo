@@ -3,7 +3,7 @@
 <!-- generated on 06/10/13 11:32:49 by SUMO dfrouter Version dev-SVN-r14133
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
 
     <input>
         <net-file value="input_tri.net.xml"/>

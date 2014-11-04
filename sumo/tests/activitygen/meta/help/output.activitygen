@@ -1,5 +1,5 @@
-SUMO activitygen Version dev-SVN-rUNKNOWN
- Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
+SUMO activitygen Version dev-SVN-r17243
+ Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates routes of persons throughout a day for the microscopic road traffic
   simulation SUMO.
@@ -63,5 +63,5 @@ Examples:
   activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>
     generate a route file from a stats file on a given net for numerous days (with fixed random seed)
 
-Report bugs at <http://sumo-sim.org/trac/>.
-Get in contact via <sumo-user@lists.sourceforge.net>.
+Report bugs at <http://sumo.dlr.de/trac/>.
+Get in contact via <sumo@dlr.de>.

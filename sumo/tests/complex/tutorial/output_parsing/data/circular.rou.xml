@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType accel="1.5" decel="4.5" id="car" length="5" maxSpeed="36.1"/>
     <vType accel="0.4" decel="4.5" id="truck" length="12" maxSpeed="22.2"/>
     <flow begin="0" departPos="free" id="carRight" period="1" number="70" route="routeRight" type="car"/>

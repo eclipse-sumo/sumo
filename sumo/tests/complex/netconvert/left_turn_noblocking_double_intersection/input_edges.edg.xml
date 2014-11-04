@@ -1,4 +1,4 @@
-<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
    <edge id="edge_L2C" from="node_L" to="node_C"/>
    <edge id="edge_L2C2" from="node_L2" to="node_C2"/>
    <edge id="edge_C2L" from="node_C" to="node_L"/>

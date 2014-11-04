@@ -3,7 +3,7 @@
 <!-- generated on 10/08/13 16:23:27 by SUMO activitygen Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/activitygenConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/activitygenConfiguration.xsd">
 
     <input>
         <net-file value="activitygen-example.net.xml"/>
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="default" accel="4.0" decel="8.0" sigma="0.0" length="5" minGap="2.5" maxSpeed="90"/>
     <vType id="random" accel="4.0" decel="8.0" sigma="0.0" length="5" minGap="2.5" maxSpeed="90"/>
     <vType id="bus" accel="2.0" decel="4.0" sigma="0.0" length="10" minGap="3" maxSpeed="70"/>
