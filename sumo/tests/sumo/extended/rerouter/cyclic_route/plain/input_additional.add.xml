@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <route id="1" edges="1fi 1si 1o 1fi 1si 1o"/>
     <vehicle depart="1" id="veh0" route="1"/>

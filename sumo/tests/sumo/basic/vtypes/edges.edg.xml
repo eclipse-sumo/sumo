@@ -1,4 +1,4 @@
-<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
 
    <edge id="beg" speed="27.80" numLanes="1" from="absBeg" to="beg"/>
    <edge id="beg2left" speed="27.80" numLanes="1" from="beg" to="begleft"/>

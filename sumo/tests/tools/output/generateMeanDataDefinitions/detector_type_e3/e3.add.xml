@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 	<e3Detector file="e3output.xml" freq="60" id="e3_0_1i">
 		<detEntry lane="1i_0" pos="245.25"/>
 		<detExit lane="1i_0" pos="-.1"/>

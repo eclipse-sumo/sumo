@@ -3,7 +3,7 @@
 <!-- generated on Tue 25 Feb 2014 07:59:39 AM CET by Netedit Version dev-SVN-r15706
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="/scr1/erdm_ja/sip-svn-trunk/projects/colombo/debug/_function_crossings_specified_4_arm_2_neighboring_split/net.net.xml"/>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="CE" from="C" to="E" priority="2" numLanes="4" speed="13.89" shape="118.84,95.12 176.09,95.03 200.00,100.00">
         <lane index="0" allow="pedestrian" width="3.00"/>
         <lane index="1" disallow="all" width="1.50"/>

@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
    <route id="always_right" edges="1i 4o 4i 2o 2i 3o 3i 1o 1i"/>
 
    <vType sigma="0" id="pedestrian" length=".25" minGap="0" guiShape="pedestrian" width=".25"/>

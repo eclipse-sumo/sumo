@@ -1,4 +1,4 @@
-<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
    <edge id="-10575" from="17446" to="10724" speed="13.9" priority="-1" spreadType="center" numLanes="1" shape="49357.27,59621.54 49356.57,59615.25 49345.18,59559.04 49323.43,59503.74 49310.65,59460.38 49309.57,59449.55 49309.2,59438.31 49310.55,59423.81 49310.23,59420.14"/>
    <edge id="-10403" from="13442" to="17393" speed="13.9" priority="-1" spreadType="center" numLanes="1" shape="49419.88,59378.2 49415.14,59376.22 49403.78,59373.27 49394.25,59373.15 49384.3,59374.03 49374.1,59376.49 49370.73,59377.3 49342.73,59385.29"/>
    <edge id="10403" from="17393" to="13442" speed="13.9" priority="-1" spreadType="center" numLanes="1" shape="49341.82,59382.11 49369.89,59374.11 49373.33,59373.28 49383.77,59370.78 49394.13,59369.86 49404.25,59369.98 49416.19,59373.1 49421.14,59375.15"/>

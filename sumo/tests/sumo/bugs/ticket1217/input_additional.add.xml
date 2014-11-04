@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <e1Detector id="beg2_0" lane="beg2_0" pos="-1" freq="900" file="detector.xml"/>
     <e1Detector id="beg2_1" lane="beg2_1" pos="-1" freq="900" file="detector.xml"/>
 </additional>

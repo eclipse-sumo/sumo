@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType sigma="0" id="long" length="11" minGap="2.5"/>
     <route id="straight" edges="beg middle end rend"/>
     <vehicle id="partialOccupator" depart="0" departPos="-29" route="straight" departSpeed="max" type="long"/>

@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
    <route id="always_right" edges="1i 4o 4i 2o 2i 3o 3i 1o 1i"/>
    <flow id="always_right" route="always_right" begin="0" end="120" period="1"/>

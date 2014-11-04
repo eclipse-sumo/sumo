@@ -3,7 +3,7 @@
 <!-- generated on Tue Jul 24 15:06:55 2012 by SUMO netconvert Version dev-SVN-r12491
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -17,7 +17,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="leave_left" from="gneJ13" to="gneJ14" priority="1" numLanes="1" speed="13.89"/>
     <edge id="leave_right" from="gneJ13" to="gneJ15" priority="1" numLanes="1" speed="13.89"/>
     <edge id="split" from="gneJ12" to="gneJ13" priority="1" numLanes="2" speed="13.89"/>

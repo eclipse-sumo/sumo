@@ -3,7 +3,7 @@
 <!-- generated on Thu 30 May 2013 12:53:46 PM CEST by Netedit Version dev-SVN-r13777
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="/scr1/erdm_ja/internalTrunkDebug/sumo/tests/sumo/basic/dynamics/avoid_spill_back/2junctions_not_enough_contiguous_space/net.net.xml"/>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="across1" from="gneJ3" to="gneJ1" priority="1" numLanes="1" speed="13.89"/>
     <edge id="across2" from="gneJ1" to="gneJ4" priority="1" numLanes="1" speed="13.89"/>
     <edge id="across3" from="gneJ6" to="gneJ2" priority="1" numLanes="1" speed="13.89"/>

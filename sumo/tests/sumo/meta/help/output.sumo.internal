@@ -1,5 +1,5 @@
 SUMO sumo Version dev-SVN-r16543
- Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
+ Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
 Usage: sumo [OPTION]*
@@ -239,5 +239,5 @@ Examples:
   sumo --help
     print help
 
-Report bugs at <http://sumo-sim.org/trac/>.
+Report bugs at <http://sumo.dlr.de/trac/>.
 Get in contact via <sumo-user@lists.sourceforge.net>.

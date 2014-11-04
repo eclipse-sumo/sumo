@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vType id="t0" speedDev="0.1" speedFactor="1.2" sigma="0"/>
     <calibrator id="calibtest" lane="beg_0" pos="0" output="detector.xml">
         <route id="c1" edges="beg middle end rend"/>

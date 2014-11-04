@@ -3,7 +3,7 @@
 <!-- generated on Mon Mar  3 10:28:39 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -28,7 +28,7 @@
 </configuration>
 -->
 
-<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/meandata_file.xsd">
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="600.00" end="615.00" id="dump_15">
         <edge id="3/1to2/1" sampledSeconds="795.00" CO_abs="3765.592617" CO2_abs="355600.431667" HC_abs="206.507220" PMx_abs="12.565538" NOx_abs="496.150410" fuel_abs="141.772338"
             CO_normed="2259.355570" CO2_normed="213360.259000" HC_normed="123.904332" PMx_normed="7.539323" NOx_normed="297.690246" fuel_normed="85.063403"

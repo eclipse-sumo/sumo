@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vTypeDistribution id="DEFAULT_VEHTYPE">
         <vType id="PkwClass_1" accel="1.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="40" probability="0.453"/>
         <vType id="PkwClass_2" accel="1.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="40" probability="0.453"/>

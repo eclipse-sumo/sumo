@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
 
     <node id="C" x="100.00" y="100.00" type="traffic_light" shape="90.15,151.35 109.85,151.35 121.35,109.85 111.35,90.15 100,60 88.65,90.15 88.65,109.85"/>
     <node id="E" x="200.00" y="100.00"/>

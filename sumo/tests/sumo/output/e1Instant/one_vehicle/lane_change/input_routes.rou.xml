@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <route id="r1" edges="beg"/>
     <vehicle id="v0" depart="0" departLane="0" arrivalLane="1" route="r1"/>

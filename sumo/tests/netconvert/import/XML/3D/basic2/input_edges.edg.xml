@@ -3,7 +3,7 @@
 <!-- generated on Sa 03 Mär 2012 11:31:41 CET by Netedit Version dev-SVN-r12002
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="/home/micha/programming/vabene/SE/extern/sumo/test3d.net.xml"/>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1" numLanes="1" speed="13.89"/>
     <edge id="gneE1" from="gneJ2" to="gneJ1" priority="1" numLanes="1" speed="13.89"/>
     <edge id="gneE2" from="gneJ0" to="gneJ3" priority="1" numLanes="1" speed="13.89"/>

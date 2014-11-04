@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="7152615" from="42708272" to="42717128" priority="7" numLanes="2" speed="27.78" spreadType="center"/>
     <edge id="7152616" from="42717004" to="42709137" priority="7" numLanes="2" speed="27.78" spreadType="center"/>
     <edge id="7152669" from="42717527" to="42722822" priority="7" numLanes="2" speed="27.78" shape="4826.80,2656.82 4770.38,2797.20 4765.42,2819.29 4764.89,2853.78" spreadType="center"/>

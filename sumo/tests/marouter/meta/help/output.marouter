@@ -1,5 +1,5 @@
-SUMO marouter Version dev-SVN-r17071
- Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
+SUMO marouter Version dev-SVN-r17243
+ Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment
 
 Usage: marouter [OPTION]*
@@ -129,5 +129,5 @@ Examples:
   marouter -c <CONFIGURATION>
     run routing with options from file
 
-Report bugs at <http://sumo-sim.org/trac/>.
-Get in contact via <sumo-user@lists.sourceforge.net>.
+Report bugs at <http://sumo.dlr.de/trac/>.
+Get in contact via <sumo@dlr.de>.

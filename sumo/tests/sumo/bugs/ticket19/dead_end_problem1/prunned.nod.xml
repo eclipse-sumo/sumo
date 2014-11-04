@@ -35,7 +35,7 @@
 </configuration>
 -->
 
-<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
    <node id="15750" x="52391.53" y="52398.32"/>
    <node id="15891" x="52632.08" y="52555.29"/>
    <node id="17208" x="52560.69" y="52409.40"/>

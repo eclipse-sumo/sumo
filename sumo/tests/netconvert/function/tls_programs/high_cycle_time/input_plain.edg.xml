@@ -3,7 +3,7 @@
 <!-- generated on Fri 22 Mar 2013 03:49:03 PM CET by Netedit Version dev-SVN-r13527
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <output>
         <output-file value="/scr1/erdm_ja/debug/high_cycle_time/input_net.net.xml"/>
@@ -18,7 +18,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="gneE0" from="gneJ0" to="complicated" priority="1" numLanes="1" speed="13.89"/>
     <edge id="gneE1" from="complicated" to="gneJ0" priority="1" numLanes="1" speed="13.89"/>
     <edge id="gneE10" from="gneJ7" to="complicated" priority="1" numLanes="1" speed="13.89"/>

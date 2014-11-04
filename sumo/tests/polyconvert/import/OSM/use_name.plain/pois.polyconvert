@@ -3,7 +3,7 @@
 <!-- generated on Mon May 12 12:04:57 2014 by SUMO polyconvert Version dev-SVN-r16348
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/polyconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -26,7 +26,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="-974" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="399863.40,5809422.23 399824.64,5809486.66 399823.45,5809472.85 399862.26,5809457.18 399986.69,5809471.75"/>
     <poi id="32266935" type="unknown" color="51,128,255" layer="-1.00" x="399824.64" y="5809486.66"/>
 </additional>

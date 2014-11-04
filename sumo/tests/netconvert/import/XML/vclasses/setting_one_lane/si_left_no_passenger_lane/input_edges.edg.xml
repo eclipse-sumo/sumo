@@ -1,4 +1,4 @@
-<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
    <edge id="1fi" from="1" to="m1" priority="2" numLanes="2" speed="40" />
    <edge id="1si" from="m1" to="0" priority="3" numLanes="3" speed="50">
       <lane index="2" disallow="passenger"/>

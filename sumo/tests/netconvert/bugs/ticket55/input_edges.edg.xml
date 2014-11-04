@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
    <edge id="103" from="26" to="102" numLanes="1" speed="13.90" shape="667.05,435.82 822.75,421.00"/>
    <edge id="109" from="28" to="108" numLanes="1" speed="13.90" shape="777.45,719.15 612.66,691.24"/>
    <edge id="111" from="28" to="110" numLanes="1" speed="13.90" shape="777.45,719.15 969.87,588.65"/>

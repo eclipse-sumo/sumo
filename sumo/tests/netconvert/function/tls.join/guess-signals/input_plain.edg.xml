@@ -3,7 +3,7 @@
 <!-- generated on Thu 08 May 2014 05:02:14 PM CEST by Netedit Version dev-SVN-r16321
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="net.net.xml"/>
@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-27488602#1" from="2292787678" to="cluster_2292787672_259083790" priority="4" type="highway.residential" numLanes="1" speed="8.33" shape="14761.41,15671.85 14770.48,15664.30"/>
     <edge id="-27488602#2" from="310541110" to="2292787678" priority="4" type="highway.residential" numLanes="1" speed="8.33"/>
     <edge id="171952942#3" from="449235" to="313575" priority="9" type="highway.primary" numLanes="2" speed="13.89" shape="14675.62,15502.91 14677.64,15506.22 14693.94,15532.66 14719.91,15572.83 14769.19,15645.52" spreadType="center"/>

@@ -3,7 +3,7 @@
 <!-- generated on Tue May 24 15:53:53 2011 by SUMO netconvert Version dev-SVN-r10434
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="clusterjunctin.net.xml"/>
@@ -16,7 +16,7 @@
 </configuration>
 -->
 
-<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
    <node id="301292612" x="43.13" y="56.80" tl="joinedS_0" controlledInner="27441189 6137245"/>
    <node id="38919945" x="35.18" y="54.83" tl="joinedS_0" controlledInner="27441189 6137245"/>
    <node id="56231397" x="45.80" y="46.84" tl="joinedS_0" controlledInner="27441189 6137245"/>

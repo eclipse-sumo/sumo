@@ -3,7 +3,7 @@
 <!-- generated on Fri Jan 27 17:25:18 2012 by SUMO netconvert Version dev-SVN-r11798
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="10860201#0" from="1" to="2" priority="7" type="highway.secondary" numLanes="1" speed="27.78" spreadType="center"/>
     <edge id="10860201#1" from="2" to="1" priority="7" type="highway.secondary" numLanes="1" speed="27.78" spreadType="center"/>
 </edges>

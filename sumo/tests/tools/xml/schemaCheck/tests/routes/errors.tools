@@ -14,7 +14,7 @@ Traceback (most recent call last):
   File "parser.pxi", line 577, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:84831)
   File "parser.pxi", line 676, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:85936)
   File "parser.pxi", line 614, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:85230)
-IOError: Error reading file 'http://sumo-sim.org/xsd/blub_file.xsd': failed to load HTTP resource
+IOError: Error reading file 'http://sumo.dlr.de/xsd/blub_file.xsd': failed to load HTTP resource
 sumo/bugs/ticket837/input_routes.rou.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'carFollowing-Invalid': This element is not expected. Expected is one of ( param, carFollowing-Krauss, carFollowing-KraussPS, carFollowing-KraussOrig1, carFollowing-IDM, carFollowing-IDMM, carFollowing-BKerner, carFollowing-Wiedemann ).
 sumo/lc_model/errors/lcm_unknown/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'vType', attribute 'laneChangeModel': [facet 'enumeration'] The value 'foo' is not an element of the set {'DK2008', 'LC2013', 'JE2013'}.
 sumo/lc_model/errors/lcm_unknown/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'laneChangeModel': 'foo' is not a valid value of the local atomic type.

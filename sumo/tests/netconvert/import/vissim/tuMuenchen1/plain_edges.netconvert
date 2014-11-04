@@ -3,7 +3,7 @@
 <!-- generated on Mon Mar 19 10:35:08 2012 by SUMO netconvert Version dev-SVN-r12106
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <vissim-file value="vissim.inp"/>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="1" from="0" to="1" name="-70#0" priority="-1" numLanes="3" speed="13.89" shape="390.37,1095.39 337.10,971.86 320.89,934.29 304.13,897.49 245.33,752.26" spreadType="center"/>
     <edge id="10" from="10-begin" to="6" priority="-1" numLanes="1" speed="13.89" shape="442.24,1182.40 408.32,1088.30" spreadType="center"/>
     <edge id="2" from="1" to="2" name="-70#1" priority="-1" numLanes="2" speed="13.89" shape="241.66,748.59 232.87,726.83 218.02,690.55 188.46,601.69 149.19,465.04 98.07,281.18" spreadType="center"/>

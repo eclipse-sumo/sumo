@@ -1,5 +1,5 @@
-SUMO netgenerate Version dev-SVN-r16288
- Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
+SUMO netgenerate Version dev-SVN-r17243
+ Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
 Usage: netgenerate [OPTION]*
@@ -198,5 +198,5 @@ Examples:
   netgenerate --rand [random-network options] -o <OUTPUTFILE>
     create random net
 
-Report bugs at <http://sumo-sim.org/trac/>.
-Get in contact via <sumo-user@lists.sourceforge.net>.
+Report bugs at <http://sumo.dlr.de/trac/>.
+Get in contact via <sumo@dlr.de>.

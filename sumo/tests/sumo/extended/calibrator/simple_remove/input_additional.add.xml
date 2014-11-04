@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <calibrator id="calibtest" lane="beg_0" pos="100" file="input_definition.def.xml" output="detector.xml"/>
     <edgeData id="dump25" begin="0" end="100" file="aggregated_25.xml"/>
 </additional>

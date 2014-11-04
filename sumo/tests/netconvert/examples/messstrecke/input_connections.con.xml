@@ -1,4 +1,4 @@
-<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/connections_file.xsd">
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
 	<connection from="ErnstRuska5W" to="ErnstRuska4W" fromLane="0" toLane="0"/>
 	<connection from="ErnstRuska5W" to="ErnstRuska4W" fromLane="1" toLane="1"/>
 	<connection from="ErnstRuska5W" to="AltglienickerBreitS" fromLane="2" toLane="0"/>

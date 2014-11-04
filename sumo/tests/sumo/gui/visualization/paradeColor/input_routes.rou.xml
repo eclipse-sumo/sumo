@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
    <route id="always_right" edges="1i 4o 4i 2o 2i 3o 3i 1o 1i" color="1,0,0"/>
    <route id="always_left" edges="3i 2o 2i 4o 4i 1o 1i 3o 3i" /> 
 

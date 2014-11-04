@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
    <vType id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="70"/>
    <route id="horizontal" edges="2fi 2si 1o 1fi 1si 2o"/>
    <flow id="horizontal" type="SUMO_DEFAULT_TYPE" route="horizontal" begin="0" end="3600" period="2"/>

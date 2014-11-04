@@ -3,7 +3,7 @@
 <!-- generated on 03/05/14 13:14:21 by SUMO polyconvert Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/polyconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="12875811" type="amenity" color="237,199,199" fill="1" layer="-1.00" shape="889.84,301.19 850.54,291.50 844.23,296.87 883.49,333.34 878.62,352.07 789.79,261.28 826.19,242.49 828.36,234.29 840.62,205.52 868.78,183.39 902.64,183.87 934.03,205.95 945.16,236.59 941.17,269.86 922.31,290.05 889.84,301.19"/>
     <poly id="12875811#1" type="building" color="255,230,230" fill="1" layer="-1.00" shape="889.84,301.19 850.54,291.50 844.23,296.87 883.49,333.34 878.62,352.07 789.79,261.28 826.19,242.49 828.36,234.29 840.62,205.52 868.78,183.39 902.64,183.87 934.03,205.95 945.16,236.59 941.17,269.86 922.31,290.05 889.84,301.19"/>
     <poly id="24059329" type="landuse" color="194,194,130" fill="1" layer="-3.00" shape="568.96,48.56 584.71,19.12 548.46,-100.31 465.44,-77.07 478.86,60.67 568.96,48.56"/>

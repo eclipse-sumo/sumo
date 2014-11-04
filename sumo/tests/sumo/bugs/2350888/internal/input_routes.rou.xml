@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
    <vehicle id="Rand0" depart="0">
       <route edges="3fi 3si 3o 3fi 3si 2o 2fi 2si 2o 2fi 2si 4o 4fi 4si 4o 4fi 4si 3o 3fi 3si 3o 3fi 3si 2o 2fi 2si 3o"/>

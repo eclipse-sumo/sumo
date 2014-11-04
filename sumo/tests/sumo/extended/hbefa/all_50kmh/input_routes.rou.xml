@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 	<vType id="HDV_3_1" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="13.89" emissionClass="HDV_3_1"/>
 	<vType id="HDV_3_2" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="13.89" emissionClass="HDV_3_2"/>
 	<vType id="HDV_3_3" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="13.89" emissionClass="HDV_3_3"/>

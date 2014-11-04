@@ -3,7 +3,7 @@
 <!-- generated on Tue Aug  5 13:07:00 2014 by SUMO sumo Version dev-SVN-r16839
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="motorway.net.xml"/>
@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/det_e1_file.xsd">
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
    <interval begin="0.00" end="60.00" id="end3_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="60.00" end="120.00" id="end3_0" nVehContrib="13" flow="780.00" occupancy="3.33" speed="32.64" length="5.00" nVehEntered="13"/>
    <interval begin="120.00" end="180.00" id="end3_0" nVehContrib="38" flow="2280.00" occupancy="10.58" speed="29.97" length="5.00" nVehEntered="38"/>

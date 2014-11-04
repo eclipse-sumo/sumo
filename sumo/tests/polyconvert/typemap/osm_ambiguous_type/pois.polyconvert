@@ -3,7 +3,7 @@
 <!-- generated on 03/05/14 13:14:21 by SUMO polyconvert Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/polyconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="0" type="admin_level.10" color="209,209,204" fill="0" layer="-11.00" shape="75.96,23.33 36.79,11.30 -0.00,-0.00"/>
     <poly id="0#1" type="boundary.administrative" color="128,0,51" fill="0" layer="-12.00" shape="75.96,23.33 36.79,11.30 -0.00,-0.00"/>
     <poly id="1" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="75.96,23.33 36.79,11.30 -0.00,-0.00"/>

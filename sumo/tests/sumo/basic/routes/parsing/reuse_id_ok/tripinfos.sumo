@@ -3,7 +3,7 @@
 <!-- generated on Mon Aug  4 13:45:28 2014 by SUMO sumo Version dev-SVN-r16824
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -28,7 +28,7 @@
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="0" depart="0.00" departLane="beg_0" departPos="3.10" departSpeed="0.00" departDelay="0.00" arrival="133.00" arrivalLane="rend_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="133.00" routeLength="2496.90" waitSteps="0" timeLoss="6.97" rerouteNo="0" devices="vehroute_0 tripinfo_0" vType="KRAUSS_DEFAULT" vaporized=""/>
     <tripinfo id="1" depart="2.00" departLane="beg_0" departPos="3.10" departSpeed="0.00" departDelay="1.00" arrival="135.00" arrivalLane="rend_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="133.00" routeLength="2496.90" waitSteps="0" timeLoss="7.05" rerouteNo="0" devices="vehroute_1 tripinfo_1" vType="KRAUSS_DEFAULT" vaporized=""/>
     <tripinfo id="2" depart="4.00" departLane="beg_0" departPos="3.10" departSpeed="0.00" departDelay="2.00" arrival="137.00" arrivalLane="rend_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="133.00" routeLength="2496.90" waitSteps="0" timeLoss="7.12" rerouteNo="0" devices="vehroute_2 tripinfo_2" vType="KRAUSS_DEFAULT" vaporized=""/>

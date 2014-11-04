@@ -3,7 +3,7 @@
 <!-- generated on 03/05/14 13:14:19 by SUMO polyconvert Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/polyconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -24,7 +24,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poi id="115543889" type="amenity.bank" color="237,199,199" layer="-1.00" x="100765.49" y="490.94"/>
     <poi id="115544715" type="amenity.cafe" color="237,199,199" layer="-1.00" x="100741.39" y="467.93"/>
     <poi id="115546494" type="amenity.restaurant" color="237,199,199" layer="-1.00" x="100712.70" y="443.59"/>

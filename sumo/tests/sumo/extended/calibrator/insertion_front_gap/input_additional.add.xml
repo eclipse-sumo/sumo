@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <route id="r1" edges="start critical end"/>
     <calibrator id="critical" lane="critical_0" pos="0" output="detector.xml">
         <flow begin="0"   end="200"  route="r1"  vehsPerHour="2000" speed="36.11"/>

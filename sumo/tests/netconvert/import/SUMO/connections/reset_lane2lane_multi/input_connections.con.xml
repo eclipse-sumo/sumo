@@ -1,4 +1,4 @@
-<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/connections_file.xsd">
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
 
 	<delete from="1si" to="3o" fromLane="0" toLane="0"/>
 	<delete from="1si" to="3o" fromLane="0" toLane="0"/>

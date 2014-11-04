@@ -1,5 +1,5 @@
-SUMO polyconvert Version dev-SVN-rUNKNOWN
- Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
+SUMO polyconvert Version dev-SVN-r17243
+ Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
 Usage: polyconvert [OPTION]*
@@ -96,5 +96,5 @@ Examples:
   polyconvert -c <CONFIGURATION>
     run with configuration options set in file
 
-Report bugs at <http://sumo-sim.org/trac/>.
-Get in contact via <sumo-user@lists.sourceforge.net>.
+Report bugs at <http://sumo.dlr.de/trac/>.
+Get in contact via <sumo@dlr.de>.

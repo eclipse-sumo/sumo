@@ -3,7 +3,7 @@
 <!-- generated on 03/28/14 12:31:00 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -27,7 +27,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="15" type="highway.secondary|railway.tram" numLanes="2" speed="27.78"/>
     <edge id="10860201" from="1" to="2" name="Sterndamm" priority="15" type="highway.secondary|railway.tram" numLanes="2" speed="27.78"/>
     <edge id="10860202" from="2" to="3" name="Sterndamm" priority="15" type="railway.tram" numLanes="1" speed="27.78" spreadType="center">

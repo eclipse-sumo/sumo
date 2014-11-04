@@ -1,4 +1,4 @@
-<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/types_file.xsd">
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
 	<type id="withSidewalk" sidewalkWidth="4.0"/>
 	<type id="withSidewalkDefault"/>
 	<type id="noSidewalk" sidewalkWidth="-1"/>

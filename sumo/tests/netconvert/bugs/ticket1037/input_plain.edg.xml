@@ -3,7 +3,7 @@
 <!-- generated on Fri 27 Sep 2013 12:23:51 PM CEST by Netedit Version dev-SVN-r14761
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="net.net.xml"/>
@@ -24,7 +24,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-53477973" from="cluster_61042033_61042034" to="61042031" name="Selchower Strasse" priority="-4" numLanes="1" speed="8.33" shape="43819.12,32731.70 43802.07,32728.73"/>
     <edge id="-53478295" from="61042031" to="61041996" name="Schillerpromenade" priority="-4" numLanes="2" speed="8.33" spreadType="center"/>
     <edge id="-53478384" from="61042083" to="61042004" name="Herrfurthstrasse" priority="-4" numLanes="1" speed="8.33"/>
