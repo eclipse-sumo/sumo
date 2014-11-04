@@ -406,9 +406,14 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     , myInfluencer(0)
 #endif
 {
-    const MSLane* const depLane = (*myCurrEdge)->getDepartLane(*this);
-    if (depLane == 0) {
-        throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
+    if (pars->departLaneProcedure == DEPART_LANE_GIVEN) {
+        if ((*myCurrEdge)->getDepartLane(*this) == 0) {
+            throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
+        }
+    } else {
+        if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == 0) {
+            throw ProcessError("Vehicle '" + pars->id + "' is not allowed to depart on any lane of its first edge.");
+        }
     }
     if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > type->getMaxSpeed()) {
         throw ProcessError("Departure speed for vehicle '" + pars->id +
