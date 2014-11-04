@@ -157,6 +157,9 @@ protected:
     /// @brief The alternatives
     std::vector<RORoute*> myAlternatives;
 
+    /// @brief Routes which are deleted someplace else
+    std::set<RORoute*> myRouteRefs;
+
     /// @brief Information whether a new route was generated
     mutable bool myNewRoute;
 
