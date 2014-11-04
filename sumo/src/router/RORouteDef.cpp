@@ -85,9 +85,9 @@ RORouteDef::addLoadedAlternative(RORoute* alt) {
 void
 RORouteDef::addAlternativeDef(const RORouteDef* alt) {
     std::copy(alt->myAlternatives.begin(), alt->myAlternatives.end(),
-            back_inserter(myAlternatives));
+              back_inserter(myAlternatives));
     std::copy(alt->myAlternatives.begin(), alt->myAlternatives.end(),
-            std::inserter(myRouteRefs, myRouteRefs.end()));
+              std::inserter(myRouteRefs, myRouteRefs.end()));
 }
 
 

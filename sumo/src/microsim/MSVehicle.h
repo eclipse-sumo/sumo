@@ -1050,7 +1050,7 @@ public:
 
     /// @brief compute safe speed for following the given leader
     SUMOReal getSafeFollowSpeed(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
-                         const SUMOReal seen, const MSLane* const lane, SUMOReal distToCrossing) const;
+                                const SUMOReal seen, const MSLane* const lane, SUMOReal distToCrossing) const;
 
 #endif
 

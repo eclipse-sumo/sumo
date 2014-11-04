@@ -70,7 +70,7 @@ int NIVissimConnection::myMaxID;
 NIVissimConnection::NIVissimConnection(int id,
                                        const std::string& name, const NIVissimExtendedEdgePoint& from_def,
                                        const NIVissimExtendedEdgePoint& to_def,
-                                       const PositionVector& geom, 
+                                       const PositionVector& geom,
                                        const std::vector<int>& assignedVehicles, const NIVissimClosedLanesVector& clv)
     : NIVissimAbstractEdge(id, geom),
       myName(name), myFromDef(from_def), myToDef(to_def),

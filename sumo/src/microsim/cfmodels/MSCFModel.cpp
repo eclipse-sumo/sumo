@@ -94,7 +94,7 @@ MSCFModel::freeSpeed(const MSVehicle* const /* veh */, SUMOReal /* speed */, SUM
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel::insertionFollowSpeed(const MSVehicle* const, SUMOReal, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
     return maximumSafeFollowSpeed(gap2pred, predSpeed, predMaxDecel);
 }

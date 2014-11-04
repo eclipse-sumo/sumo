@@ -123,7 +123,7 @@ public:
          * If this method is asked for the "unknown" class it should return the default
          * (possibly depending on the given vehicle class).
          * The class name is case insensitive.
-         * 
+         *
          * @param[in] eClass the name of the emission class (string after the '/' in the emission class attribute)
          * @param[in] vc the vehicle class to use when determining default class
          * @return the name of the model (string before the '/' in the emission class)

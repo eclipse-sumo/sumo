@@ -73,7 +73,7 @@
 // included modules
 // ===========================================================================
 GUIEdge::GUIEdge(const std::string& id, int numericalID,
-                 const EdgeBasicFunction function, 
+                 const EdgeBasicFunction function,
                  const std::string& streetName, const std::string& edgeType, int priority)
     : MSEdge(id, numericalID, function, streetName, edgeType, priority),
       GUIGlObject(GLO_EDGE, id) {}
@@ -263,7 +263,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
 
 
 #ifdef HAVE_INTERNAL
-void 
+void
 GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
     const GUIVisualizationTextSettings& nameSettings = s.vehicleName;
     GUIMEVehicleControl* vehicleControl = GUINet::getGUIInstance()->getGUIMEVehicleControl();
@@ -326,8 +326,8 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                         glPopMatrix();
                         if (nameSettings.show) {
                             GLHelper::drawText(veh->getID(),
-                                    Position(xOff, -(vehiclePosition - shapeOffset)),
-                                    GLO_MAX, nameSettings.size / s.scale, nameSettings.color, 0);
+                                               Position(xOff, -(vehiclePosition - shapeOffset)),
+                                               GLO_MAX, nameSettings.size / s.scale, nameSettings.color, 0);
                         }
                     }
                 }

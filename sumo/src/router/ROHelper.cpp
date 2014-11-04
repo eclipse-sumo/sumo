@@ -43,7 +43,7 @@ namespace ROHelper {
 void
 recheckForLoops(std::vector<const ROEdge*>& edges) {
     // XXX check for stops, departLane, departPos, departSpeed, ....
-    
+
     // remove loops at the route's begin
     //  (vehicle makes a turnaround to get into the right direction at an already passed node)
     RONode* start = edges[0]->getFromNode();

@@ -885,7 +885,7 @@ NBEdgeCont::guessRoundabouts() {
 }
 
 
-const std::set<EdgeSet> 
+const std::set<EdgeSet>
 NBEdgeCont::getRoundabouts() const {
     std::set<EdgeSet> result = myRoundabouts;
     result.insert(myGuessedRoundabouts.begin(), myGuessedRoundabouts.end());
@@ -903,7 +903,7 @@ NBEdgeCont::addRoundabout(const EdgeSet& roundabout) {
 }
 
 
-void 
+void
 NBEdgeCont::markRoundabouts() {
     const std::set<EdgeSet> roundabouts = getRoundabouts();
     for (std::set<EdgeSet>::const_iterator it = roundabouts.begin(); it != roundabouts.end(); ++it) {

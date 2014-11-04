@@ -108,7 +108,7 @@ public:
      * @param[in] ec The edge control to retrieve named edges from
      */
     static void writeRoundabouts(OutputDevice& into, const std::set<EdgeSet>& roundabouts,
-                                const NBEdgeCont& ec);
+                                 const NBEdgeCont& ec);
 
 protected:
     /// @name Methods for writing network parts

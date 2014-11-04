@@ -102,7 +102,7 @@ public:
 
 private:
     /** @brief calculate the scaling factor in the logit model */
-        SUMOReal getBetaForCLogit(const std::vector<R*> alternatives) const {
+    SUMOReal getBetaForCLogit(const std::vector<R*> alternatives) const {
         SUMOReal min = std::numeric_limits<SUMOReal>::max();
         for (typename std::vector<R*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
             const SUMOReal cost = (*i)->getCosts() / 3600.;
@@ -132,10 +132,10 @@ private:
         }
         const SUMOReal cvCost = sqrt(diff / SUMOReal(alternatives.size())) / meanCost;
         // @todo re-evaluate function
-    //    if (cvCost > 0.04) { // Magic numbers from Lohse book
+        //    if (cvCost > 0.04) { // Magic numbers from Lohse book
         return 3.1415926535897932384626433832795 / (sqrt(6.) * cvCost * (min + 1.1)) / 3600.;
-    //    }
-    //    return 1./3600.;
+        //    }
+        //    return 1./3600.;
     }
 
 

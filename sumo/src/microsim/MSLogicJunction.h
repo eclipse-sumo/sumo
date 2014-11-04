@@ -82,7 +82,7 @@ protected:
      * @param[in] internal The internal lanes
      */
     MSLogicJunction(const std::string& id,
-                    SumoXMLNodeType type, 
+                    SumoXMLNodeType type,
                     const Position& position,
                     const PositionVector& shape,
                     std::vector<MSLane*> incoming

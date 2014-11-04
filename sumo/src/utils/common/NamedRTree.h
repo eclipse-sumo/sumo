@@ -87,7 +87,7 @@ public:
      * @param a_data The instance of a Named-object to add (the ID is added)
      * @see RTree::Insert
      */
-    void Insert(const float a_min[2], const float a_max[2], Named* const & a_data) {
+    void Insert(const float a_min[2], const float a_max[2], Named* const& a_data) {
         NAMED_RTREE_QUAL::Insert(a_min, a_max, a_data);
     }
 
@@ -98,7 +98,7 @@ public:
      * @param a_data The instance of a Named-object to remove
      * @see RTree::Remove
      */
-    void Remove(const float a_min[2], const float a_max[2], Named* const & a_data) {
+    void Remove(const float a_min[2], const float a_max[2], Named* const& a_data) {
         NAMED_RTREE_QUAL::Remove(a_min, a_max, a_data);
     }
 

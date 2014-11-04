@@ -338,8 +338,8 @@ public:
 
 protected:
     static bool computeRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
-                    const ROVehicle* const veh, const bool removeLoops,
-                    MsgHandler* errorHandler);
+                             const ROVehicle* const veh, const bool removeLoops,
+                             MsgHandler* errorHandler);
 
     /// @brief return vehicles for use by RouteAggregator
     ROVehicleCont& getVehicles() {
@@ -425,7 +425,7 @@ private:
     public:
         WorkerThread(FXWorkerThread::Pool& pool,
                      SUMOAbstractRouter<ROEdge, ROVehicle>* router)
-        : FXWorkerThread(pool), myRouter(router) {}
+            : FXWorkerThread(pool), myRouter(router) {}
         SUMOAbstractRouter<ROEdge, ROVehicle>& getRouter() const {
             return *myRouter;
         }

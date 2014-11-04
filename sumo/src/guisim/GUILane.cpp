@@ -411,10 +411,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     bool mustDrawMarkings = false;
     SUMOReal exaggeration = s.laneWidthExaggeration * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
 #ifdef HAVE_INTERNAL
-        if (MSGlobals::gUseMesoSim) {
-            GUIEdge* myGUIEdge = dynamic_cast<GUIEdge*>(myEdge);
-            exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s.edgeScaler.getActive()));
-        }
+    if (MSGlobals::gUseMesoSim) {
+        GUIEdge* myGUIEdge = dynamic_cast<GUIEdge*>(myEdge);
+        exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s.edgeScaler.getActive()));
+    }
 #endif
     const bool drawDetails =  s.scale * exaggeration > 5;
     if (isCrossing || isWalkingArea) {

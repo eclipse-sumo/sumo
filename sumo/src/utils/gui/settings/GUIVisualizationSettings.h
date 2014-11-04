@@ -80,7 +80,7 @@ struct GUIVisualizationTextSettings {
 
 
 struct GUIVisualizationSizeSettings {
-    GUIVisualizationSizeSettings(float _minSize, float _exaggeration=1.0, bool _constantSize=false) :
+    GUIVisualizationSizeSettings(float _minSize, float _exaggeration = 1.0, bool _constantSize = false) :
         minSize(_minSize), exaggeration(_exaggeration), constantSize(_constantSize) {}
 
     /// @brief The minimum size to draw this object

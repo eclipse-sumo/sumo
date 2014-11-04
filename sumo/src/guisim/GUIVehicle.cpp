@@ -983,7 +983,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     MSDevice_BTreceiver* dev = static_cast<MSDevice_BTreceiver*>(getDevice(typeid(MSDevice_BTreceiver)));
     if (dev != 0 && s.showBTRange) {
         glColor3d(1., 0., 0.);
-        GLHelper::drawOutlineCircle(dev->getRange(), dev->getRange()-.2, 32);
+        GLHelper::drawOutlineCircle(dev->getRange(), dev->getRange() - .2, 32);
     }
     // draw the blinker and brakelights if wished
     if (s.showBlinker) {

@@ -211,15 +211,15 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             continue;
         }
         bool tryEmitByProb = pars->repetitionProbability > 0;
-        while ((pars->repetitionProbability < 0 
-                    && pars->repetitionsDone < pars->repetitionNumber 
-                    && pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T)
-                || (tryEmitByProb 
-                    && pars->depart < time + DELTA_T 
+        while ((pars->repetitionProbability < 0
+                && pars->repetitionsDone < pars->repetitionNumber
+                && pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T)
+                || (tryEmitByProb
+                    && pars->depart < time + DELTA_T
                     && pars->repetitionEnd > time
                     // only call rand if all other conditions are met
                     && RandHelper::rand() < (pars->repetitionProbability * TS))
-                    ) {
+              ) {
             tryEmitByProb = false; // only emit one per step
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);

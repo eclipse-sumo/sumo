@@ -166,7 +166,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
             MSDevice_BTreceiver::sVehicles.erase(i++);
         } else {
             // vehicle is still in the simulation; reset state
-            vi->updates.erase(vi->updates.begin(), vi->updates.end()-1);
+            vi->updates.erase(vi->updates.begin(), vi->updates.end() - 1);
             ++i;
         }
     }
@@ -178,7 +178,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
             delete vi;
             MSDevice_BTsender::sVehicles.erase(i++);
         } else {
-            vi->updates.erase(vi->updates.begin(), vi->updates.end()-1);
+            vi->updates.erase(vi->updates.begin(), vi->updates.end() - 1);
             ++i;
         }
     }
@@ -188,7 +188,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
 
 void
 MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::VehicleInformation& receiver,
-                                                        MSDevice_BTsender::VehicleInformation& sender) {
+        MSDevice_BTsender::VehicleInformation& sender) {
     const MSDevice_BTsender::VehicleState& receiverData = receiver.updates.back();
     const MSDevice_BTsender::VehicleState& senderData = sender.updates.back();
     if (!receiver.amOnNet || !sender.amOnNet) {

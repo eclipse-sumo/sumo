@@ -61,7 +61,7 @@ public:
     PositionVector compute(bool leftHand);
 
 private:
-    /** @brief Computes the node geometry 
+    /** @brief Computes the node geometry
      * Edges with the same direction are grouped.
      * Then the node geometry is built from intersection between the borders
      * of adjacent edge groups

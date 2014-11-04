@@ -91,9 +91,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         MFXMutex* decalsLock) :
     FXDialogBox(parent, "View Settings", DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     myParent(parent), mySettings(settings),
-    myDecals(decals), myDecalsLock(decalsLock), 
-    myDecalsTable(0) 
-{
+    myDecals(decals), myDecalsLock(decalsLock),
+    myDecalsTable(0) {
     myBackup = (*mySettings);
 
     FXVerticalFrame* contentFrame =
@@ -450,7 +449,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
         myPOISizePanel = new SizePanel(m62, this, mySettings->poiSize);
 
-    } { 
+    } {
         // Polygons
         new FXTabItem(tabbook, "Polygons", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
         FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
@@ -1252,9 +1251,9 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
     std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
     FX::FXString buttonText = "Add";
     while (scaleIt != scheme.getColors().end()) {
-            FXRealSpinDial* scaleDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMAX);
-            scaleDialer->setValue(*scaleIt);
-            scales.push_back(scaleDialer);
+        FXRealSpinDial* scaleDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMAX);
+        scaleDialer->setValue(*scaleIt);
+        scales.push_back(scaleDialer);
         if (fixed) {
             new FXLabel(m, nameIt->c_str());
             new FXLabel(m, "");
@@ -1465,8 +1464,7 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     FXMatrix* parent,
     GUIDialog_ViewSettings* target,
     const std::string& title,
-    const GUIVisualizationTextSettings& settings) 
-{
+    const GUIVisualizationTextSettings& settings) {
     myCheck = new FXCheckButton(parent, title.c_str(), target, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
     myCheck->setCheck(settings.show);
     new FXLabel(parent, "");
@@ -1505,8 +1503,7 @@ GUIDialog_ViewSettings::NamePanel::update(const GUIVisualizationTextSettings& se
 GUIDialog_ViewSettings::SizePanel::SizePanel(
     FXMatrix* parent,
     GUIDialog_ViewSettings* target,
-    const GUIVisualizationSizeSettings& settings) 
-{
+    const GUIVisualizationSizeSettings& settings) {
     myCheck = new FXCheckButton(parent, "Draw with constant size when zoomed out", target, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
     myCheck->setCheck(settings.constantSize);
     new FXLabel(parent, "");
@@ -1514,13 +1511,13 @@ GUIDialog_ViewSettings::SizePanel::SizePanel(
                                 0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
     new FXLabel(m1, "Minimum Size", 0, LAYOUT_CENTER_Y);
     myMinSizeDial = new FXRealSpinDial(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE,
-                                    LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+                                       LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
     myMinSizeDial->setValue(settings.minSize);
     FXMatrix* m2 = new FXMatrix(parent, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                                 0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
     new FXLabel(m2, "Exaggerate by", 0, LAYOUT_CENTER_Y);
     myExaggerateDial = new FXRealSpinDial(m2, 10, target, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+                                          LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
     myExaggerateDial->setRange(0, 10000);
     myExaggerateDial->setValue(settings.exaggeration);
 }
@@ -1529,7 +1526,7 @@ GUIDialog_ViewSettings::SizePanel::SizePanel(
 GUIVisualizationSizeSettings
 GUIDialog_ViewSettings::SizePanel::getSettings() {
     return GUIVisualizationSizeSettings(
-            myMinSizeDial->getValue(), myExaggerateDial->getValue(), myCheck->getCheck() != FALSE);
+               myMinSizeDial->getValue(), myExaggerateDial->getValue(), myCheck->getCheck() != FALSE);
 }
 
 
@@ -1541,7 +1538,7 @@ GUIDialog_ViewSettings::SizePanel::update(const GUIVisualizationSizeSettings& se
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::saveWindowSize() {
     getApp()->reg().writeIntEntry("VIEWSETTINGS", "x", getX());
     getApp()->reg().writeIntEntry("VIEWSETTINGS", "y", getY());

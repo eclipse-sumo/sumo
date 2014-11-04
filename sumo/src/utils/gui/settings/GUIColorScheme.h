@@ -52,11 +52,10 @@ class GUIPropertyScheme {
 public:
     /// Constructor
     GUIPropertyScheme(const std::string& name, const T& baseColor,
-                   const std::string& colName = "", const bool isFixed = false, SUMOReal baseValue=0) : 
-        myName(name), myIsInterpolated(!isFixed), 
+                      const std::string& colName = "", const bool isFixed = false, SUMOReal baseValue = 0) :
+        myName(name), myIsInterpolated(!isFixed),
         myIsFixed(isFixed),
-        myAllowNegativeValues(false)
-    {
+        myAllowNegativeValues(false) {
         addColor(baseColor, baseValue, colName);
     }
 
@@ -127,7 +126,7 @@ public:
             return *(colIt - 1);
         }
         SUMOReal lowVal = *(threshIt - 1);
-        return interpolate(*(colIt-1), *colIt, (value - lowVal) / ((*threshIt) - lowVal));
+        return interpolate(*(colIt - 1), *colIt, (value - lowVal) / ((*threshIt) - lowVal));
     }
 
     void setInterpolated(const bool interpolate, SUMOReal interpolationStart = 0.f) {

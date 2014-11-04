@@ -94,7 +94,7 @@ MSVehicleControl::~MSVehicleControl() {
     myVTypeDict.clear();
 }
 
-SUMOTime 
+SUMOTime
 MSVehicleControl::computeRandomDepartOffset() const {
     if (myMaxRandomDepartOffset > 0) {
         // round to the closest usable simulation step

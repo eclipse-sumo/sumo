@@ -108,7 +108,7 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.threads", new Option_Integer(0));
     oc.addDescription("device.rerouting.threads", "Routing", "The number of parallel execution threads used for rerouting");
 #endif
-    
+
     myEdgeWeightSettingCommand = 0;
     myEdgeEfforts.clear();
 }
@@ -280,7 +280,7 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
         const SUMOReal currTT = (*i)->getCurrentTravelTime();
         if (currTT != myEdgeEfforts[id]) {
             myEdgeEfforts[id] = myEdgeEfforts[id] * myAdaptationWeight + currTT * newWeightFactor;
-        }    
+        }
     }
     myLastAdaptation = currentTime + DELTA_T; // because we run at the end of the time step
     return myAdaptationInterval;
@@ -410,6 +410,6 @@ MSDevice_Routing::RoutingTask::run(FXWorkerThread* context) {
 }
 #endif
 
-        
+
 /****************************************************************************/
 

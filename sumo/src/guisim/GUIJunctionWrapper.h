@@ -148,7 +148,7 @@ public:
 #endif
 
 private:
-    SUMOReal getColorValue(const GUIVisualizationSettings& s) const; 
+    SUMOReal getColorValue(const GUIVisualizationSettings& s) const;
 
 private:
     /// @brief A reference to the represented junction

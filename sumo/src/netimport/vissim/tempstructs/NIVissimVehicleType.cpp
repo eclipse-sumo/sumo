@@ -38,7 +38,7 @@
 NIVissimVehicleType::DictType NIVissimVehicleType::myDict;
 
 NIVissimVehicleType::NIVissimVehicleType(const std::string& name,
-    const std::string& category, const RGBColor& color)
+        const std::string& category, const RGBColor& color)
     : myName(name), myCategory(category),
       myColor(color) {}
 

@@ -150,7 +150,7 @@ GUILoadThread::run() {
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
-    
+
     // initialise global settings
     RandHelper::initRandGlobal();
     RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());

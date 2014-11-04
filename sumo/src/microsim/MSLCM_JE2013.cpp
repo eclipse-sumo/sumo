@@ -534,10 +534,10 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                             nv, nv->getSpeed(), neighFollow.second, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
             msgPass.informNeighFollower(new Info(vsafe, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
             if (gDebugFlag2) {
-                std::cout << " wants to cut in before nv=" << nv->getID() 
-                    << " vsafe=" << vsafe
-                    << " newSecGap=" << nv->getCarFollowModel().getSecureGap(vsafe, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel())
-                    << "\n";
+                std::cout << " wants to cut in before nv=" << nv->getID()
+                          << " vsafe=" << vsafe
+                          << " newSecGap=" << nv->getCarFollowModel().getSecureGap(vsafe, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel())
+                          << "\n";
             }
         } else if (dv > 0 && dv * remainingSeconds > (secureGap - decelGap + POSITION_EPS)) {
             // decelerating once is sufficient to open up a large enough gap in time
@@ -601,7 +601,7 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         // we are not blocked no, make sure it remains that way
         MSVehicle* nv = neighFollow.first;
         const SUMOReal vsafe = nv->getCarFollowModel().followSpeed(
-                    nv, nv->getSpeed(), neighFollow.second, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
+                                   nv, nv->getSpeed(), neighFollow.second, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
         msgPass.informNeighFollower(new Info(vsafe, dir), &myVehicle);
         if (gDebugFlag2) {
             std::cout << " wants to cut in before non-blocking follower nv=" << nv->getID() << "\n";
@@ -830,7 +830,7 @@ MSLCM_JE2013::_wantsChange(
             MSVehicle* nv = neighLead.first;
             if (nv->getSpeed() < myVehicle.getSpeed()) {
                 const SUMOReal vSafe = myCarFollowModel.followSpeed(
-                        &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+                                           &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
                 myVSafes.push_back(vSafe);
                 if (vSafe < myVehicle.getSpeed()) {
                     mySpeedGainProbability += CHANGE_PROB_THRESHOLD_LEFT / 3;
@@ -1185,10 +1185,10 @@ void
 MSLCM_JE2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
     if (gDebugFlag2) {
         std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
-            << " veh=" << myVehicle.getID()
-            << " saveBlockerLength blocker=" << tryID(blocker)
-            << " bState=" << (blocker == 0 ? "None" : toString(blocker->getLaneChangeModel().getOwnState()))
-            << "\n";
+                  << " veh=" << myVehicle.getID()
+                  << " saveBlockerLength blocker=" << tryID(blocker)
+                  << " bState=" << (blocker == 0 ? "None" : toString(blocker->getLaneChangeModel().getOwnState()))
+                  << "\n";
     }
     if (blocker != 0 && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
         // is there enough space in front of us for the blocker?

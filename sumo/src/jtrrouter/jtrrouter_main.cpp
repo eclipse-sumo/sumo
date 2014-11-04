@@ -150,8 +150,8 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     net.openOutput(oc.getString("output-file"), "", oc.getString("vtype-output"));
     // build the router
     ROJTRRouter* router = new ROJTRRouter(oc.getBool("ignore-errors"), oc.getBool("accept-all-destinations"),
-                       (int)(((SUMOReal) net.getEdgeNo()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
-                       oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
+                                          (int)(((SUMOReal) net.getEdgeNo()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
+                                          oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
     RORouteDef::setUsingJTRR();
     loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
                          string2time(oc.getString("route-steps")), net, *router);

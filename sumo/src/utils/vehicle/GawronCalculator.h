@@ -95,7 +95,7 @@ private:
             return std::numeric_limits<SUMOReal>::max();
         }
         return (pdr * (pdr + pds) * gawronG(myA, x)) /
-            (pdr * gawronG(myA, x) + pds);
+               (pdr * gawronG(myA, x) + pds);
     }
 
     /** @brief Performs the gawron - g() function

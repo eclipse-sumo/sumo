@@ -283,11 +283,11 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     }
     // special case: user input makes mainDirection unambiguous
     const bool mainDirectionExplicit = (
-            bestIncoming.size() == 1 && n.myIncomingEdges.size() <= 2
-            && (incoming.size() == 0 || bestIncoming[0]->getPriority() > incoming[0]->getPriority())
-            && bestOutgoing.size() == 1 && n.myOutgoingEdges.size() <= 2
-            && (outgoing.size() == 0 || bestOutgoing[0]->getPriority() > outgoing[0]->getPriority())
-            && !bestIncoming[0]->isTurningDirectionAt(&n, bestOutgoing[0]));
+                                           bestIncoming.size() == 1 && n.myIncomingEdges.size() <= 2
+                                           && (incoming.size() == 0 || bestIncoming[0]->getPriority() > incoming[0]->getPriority())
+                                           && bestOutgoing.size() == 1 && n.myOutgoingEdges.size() <= 2
+                                           && (outgoing.size() == 0 || bestOutgoing[0]->getPriority() > outgoing[0]->getPriority())
+                                           && !bestIncoming[0]->isTurningDirectionAt(&n, bestOutgoing[0]));
     // now, let's compute for each of the best incoming edges
     //  the incoming which is most opposite
     //  the outgoing which is most opposite

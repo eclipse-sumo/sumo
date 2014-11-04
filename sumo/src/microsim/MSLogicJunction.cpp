@@ -46,7 +46,7 @@
  * methods from MSLogicJunction
  * ----------------------------------------------------------------------- */
 MSLogicJunction::MSLogicJunction(const std::string& id,
-                                 SumoXMLNodeType type, 
+                                 SumoXMLNodeType type,
                                  const Position& position,
                                  const PositionVector& shape,
                                  std::vector<MSLane*> incoming

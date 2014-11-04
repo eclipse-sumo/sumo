@@ -70,12 +70,12 @@ MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& i
 // ---------------------------------------------------------------------------
 // MSDevice_Tripinfo-methods
 // ---------------------------------------------------------------------------
-MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id) : 
-    MSDevice(holder, id), 
+MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id) :
+    MSDevice(holder, id),
     myDepartLane(""),
     myDepartPos(-1),
     myDepartSpeed(-1),
-    myWaitingSteps(0), 
+    myWaitingSteps(0),
     myArrivalTime(NOT_ARRIVED),
     myArrivalLane(""),
     myArrivalPos(-1),
@@ -104,7 +104,7 @@ MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
     // (current interfaces do not give access to maximum acceleration)
     const SUMOReal vmax = MIN2(veh.getMaxSpeed(), veh.getEdge()->getVehicleMaxSpeed(&veh));
     if (vmax > 0) {
-        myTimeLoss += TIME2STEPS(TS * (vmax - newSpeed) / vmax); 
+        myTimeLoss += TIME2STEPS(TS * (vmax - newSpeed) / vmax);
     }
     return true;
 }
@@ -151,8 +151,8 @@ MSDevice_Tripinfo::generateOutput() const {
     SUMOTime exit = myArrivalTime;
     if (myArrivalTime == NOT_ARRIVED) {
         exit = MSNet::getInstance()->getCurrentTimeStep();
-        routeLength = myHolder.getRoute().getDistanceBetween(myDepartPos, myHolder.getPositionOnLane(), 
-                *myHolder.getRoute().begin(), myHolder.getEdge(), false);
+        routeLength = myHolder.getRoute().getDistanceBetween(myDepartPos, myHolder.getPositionOnLane(),
+                      *myHolder.getRoute().begin(), myHolder.getEdge(), false);
     }
     // write
     OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");

@@ -135,7 +135,7 @@ public:
      * @param[in] includeInternal Whether the lengths of internal edges shall be counted
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge
      */
-    SUMOReal getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal=true) const;
+    SUMOReal getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal = true) const;
 
     /// Returns the color
     const RGBColor& getColor() const;
@@ -191,7 +191,7 @@ public:
      * @param[in] id    the id of the route or the distribution
      * @return          the route (sample)
      */
-    static const MSRoute* dictionary(const std::string& id, MTRand* rng=0);
+    static const MSRoute* dictionary(const std::string& id, MTRand* rng = 0);
 
     /** @brief Returns the named route distribution.
      *

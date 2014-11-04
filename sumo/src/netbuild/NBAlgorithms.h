@@ -236,7 +236,7 @@ private:
      * @param[in] prio The priority to assign
      * @return The vector's first edge
      */
-    static NBEdge* extractAndMarkFirst(NBNode& n, std::vector<NBEdge*>& s, int prio=1);
+    static NBEdge* extractAndMarkFirst(NBNode& n, std::vector<NBEdge*>& s, int prio = 1);
 
     /** @brief Returns whether both edges have the same priority
      * @param[in] e1 The first edge

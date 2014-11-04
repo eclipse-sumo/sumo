@@ -276,8 +276,8 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
                       MSMoveReminder::Notification notification) {
     bool adaptableSpeed = true;
     // try to insert teleporting vehicles fully on this lane
-    const SUMOReal minPos = (notification == MSMoveReminder::NOTIFICATION_TELEPORT ? 
-            MIN2(myLength, veh.getVehicleType().getLength()) : 0);
+    const SUMOReal minPos = (notification == MSMoveReminder::NOTIFICATION_TELEPORT ?
+                             MIN2(myLength, veh.getVehicleType().getLength()) : 0);
 
     if (myVehicles.size() == 0) {
         // ensure sufficient gap to followers on predecessor lanes
@@ -708,7 +708,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     for (VehCont::iterator veh = myVehicles.begin(); veh != lastVeh;) {
         VehCont::iterator pred = veh + 1;
         if (((*veh)->hasInfluencer() && (*veh)->getInfluencer().isVTDControlled())
-                ||((*pred)->hasInfluencer() && (*pred)->getInfluencer().isVTDControlled())) {
+                || ((*pred)->hasInfluencer() && (*pred)->getInfluencer().isVTDControlled())) {
             // ignore collisions of VTDControlled vehicles
             ++veh;
             continue;
@@ -740,16 +740,16 @@ void
 MSLane::handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim, const SUMOReal gap) {
     if (collider->getLane() == this) {
         WRITE_WARNING("Teleporting vehicle '" + collider->getID() + "'; collision with '"
-                + victim->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
-                + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
+                      + victim->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
+                      + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
         MSNet::getInstance()->getVehicleControl().registerCollision();
         myBruttoVehicleLengthSum -= collider->getVehicleType().getLengthWithGap();
         myNettoVehicleLengthSum -= collider->getVehicleType().getLength();
         MSVehicleTransfer::getInstance()->add(timestep, collider);
     } else {
         WRITE_WARNING("Shadow of vehicle '" + collider->getID() + "'; collision with '"
-                + victim->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
-                + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
+                      + victim->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
+                      + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
         collider->getLaneChangeModel().endLaneChangeManeuver();
     }
 }
@@ -1146,7 +1146,7 @@ SUMOReal MSLane::getMissingRearGap(
 
 std::pair<MSVehicle* const, SUMOReal>
 MSLane::getFollowerOnConsecutive(
-        SUMOReal dist, SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const {
+    SUMOReal dist, SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const {
     // do a tree search among all follower lanes and check for the most
     // important vehicle (the one requiring the largest reargap)
     std::pair<MSVehicle*, SUMOReal> result(static_cast<MSVehicle*>(0), -1);
@@ -1160,9 +1160,9 @@ MSLane::getFollowerOnConsecutive(
             MSVehicle* v = 0;
             SUMOReal agap = 0;
             if (next->getPartialOccupator() != 0) {
-                // the front of v is already on divergent trajectory from the ego vehicle 
+                // the front of v is already on divergent trajectory from the ego vehicle
                 // for which this method is called (in the context of MSLaneChanger).
-                // Therefore, technically v is not a follower but only an obstruction and 
+                // Therefore, technically v is not a follower but only an obstruction and
                 // the gap is not between the front of v and the back of ego
                 // but rather between the flank of v and the back of ego.
                 agap = (*i).length - next->getLength() + backOffset - next->getPartialOccupator()->getVehicleType().getMinGap();
@@ -1170,12 +1170,12 @@ MSLane::getFollowerOnConsecutive(
                     // Only if ego overlaps we treat v as if it were a real follower
                     v = next->getPartialOccupator();
                 }
-            } 
+            }
             if (v == 0 && next->getFirstVehicle() != 0) {
                 v = next->getFirstVehicle();
                 agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
             }
-            if (v != 0) { 
+            if (v != 0) {
                 const SUMOReal missingRearGap = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - agap;
                 if (missingRearGap > missingRearGapMax) {
                     missingRearGapMax = missingRearGap;

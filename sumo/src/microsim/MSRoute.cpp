@@ -262,8 +262,8 @@ MSRoute::getLength() const {
 
 
 SUMOReal
-MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, 
-        const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal) const {
+MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos,
+                            const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal) const {
     bool isFirstIteration = true;
     SUMOReal distance = -fromPos;
     MSEdgeVector::const_iterator it = std::find(myEdges.begin(), myEdges.end(), fromEdge);

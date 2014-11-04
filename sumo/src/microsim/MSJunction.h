@@ -63,7 +63,7 @@ public:
      * @param[in] position The position of the junction
      * @param[in] shape The shape of the junction
      */
-    MSJunction(const std::string& id, 
+    MSJunction(const std::string& id,
                SumoXMLNodeType type,
                const Position& position,
                const PositionVector& shape);

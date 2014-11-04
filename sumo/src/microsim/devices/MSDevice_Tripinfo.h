@@ -160,7 +160,7 @@ private:
     /// @brief The speed when arriving
     SUMOReal myArrivalSpeed;
 
-    /// @brief The time loss when compared to the desired and allowed speed 
+    /// @brief The time loss when compared to the desired and allowed speed
     SUMOTime myTimeLoss;
 
     /// @brief devices which may still need to produce output

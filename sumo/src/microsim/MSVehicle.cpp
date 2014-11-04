@@ -622,7 +622,7 @@ const MSEdge*
 MSVehicle::getRerouteOrigin() const {
     // too close to the next junction, so avoid an emergency brake here
     if (myLane != 0 && (myCurrEdge + 1) != myRoute->end() &&
-        myState.myPos > myLane->getLength() - getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)) {
+            myState.myPos > myLane->getLength() - getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)) {
         return *(myCurrEdge + 1);
     }
 #ifdef HAVE_INTERNAL_LANES
@@ -1148,9 +1148,9 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
 }
 
 
-SUMOReal 
+SUMOReal
 MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
-        const SUMOReal seen, const MSLane* const lane, SUMOReal distToCrossing) const {
+                              const SUMOReal seen, const MSLane* const lane, SUMOReal distToCrossing) const {
     assert(leaderInfo.first != 0);
     const MSCFModel& cfModel = getCarFollowModel();
     SUMOReal vsafeLeader = 0;
@@ -1368,12 +1368,12 @@ MSVehicle::executeMove() {
                             getLaneChangeModel().endLaneChangeManeuver();
                         }
                     }
-#ifdef HAVE_INTERNAL_LANES 
+#ifdef HAVE_INTERNAL_LANES
                     // erase leaders when past the junction
                     if (link->getViaLane() == 0) {
                         myLinkLeaders[link->getJunction()].clear();
                     }
-#endif 
+#endif
                     moved = true;
                     if (approachedLane->getEdge().isVaporizing()) {
                         leaveLane(MSMoveReminder::NOTIFICATION_VAPORIZED);
@@ -2311,7 +2311,7 @@ MSVehicle::getLaneIndex() const {
 }
 
 
-void 
+void
 MSVehicle::setTentativeLaneAndPosition(MSLane* lane, const SUMOReal pos) {
     assert(lane != 0);
     myLane = lane;

@@ -644,7 +644,7 @@ private:
 
 
     /// @brief return whether there is a non-sidewalk lane after the given index;
-    bool forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalizedLanes, int startIndex); 
+    bool forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalizedLanes, int startIndex);
 
 private:
     /// @brief The position the node lies at

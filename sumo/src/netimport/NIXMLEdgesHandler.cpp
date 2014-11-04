@@ -514,7 +514,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
                         std::string nid = myCurrentID + "." +  toString(exp.nameid);
                         std::string pid = e->getID();
                         myEdgeCont.splitAt(myDistrictCont, e, exp.pos - seen, rn,
-                            pid, nid, e->getNumLanes(), (unsigned int) exp.lanes.size(), exp.speed);
+                                           pid, nid, e->getNumLanes(), (unsigned int) exp.lanes.size(), exp.speed);
                         seen = exp.pos;
                         std::vector<int> newLanes = exp.lanes;
                         NBEdge* pe = myEdgeCont.retrieve(pid);

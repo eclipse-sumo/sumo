@@ -81,8 +81,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v) :
     myShadowLane(0),
     myHaveShadow(false),
     myCarFollowModel(v.getCarFollowModel()),
-    myLastLaneChangeOffset(0)
-{
+    myLastLaneChangeOffset(0) {
 }
 
 
@@ -212,7 +211,7 @@ MSAbstractLaneChangeModel::cancelRequest(int state) {
 }
 
 
-void 
+void
 MSAbstractLaneChangeModel::initLastLaneChangeOffset(int dir) {
     if (dir > 0) {
         myLastLaneChangeOffset = 1;

@@ -152,7 +152,7 @@ public:
 
 
     /// @brief initiate the rerouting, create router / thread pool on first use
-    void reroute(const SUMOTime currentTime, const bool onInit=false);
+    void reroute(const SUMOTime currentTime, const bool onInit = false);
 
 
     /** @brief Labels the current time step as "unroutable".
@@ -178,7 +178,7 @@ private:
     public:
         WorkerThread(FXWorkerThread::Pool& pool,
                      SUMOAbstractRouter<MSEdge, SUMOVehicle>* router)
-        : FXWorkerThread(pool), myRouter(router) {}
+            : FXWorkerThread(pool), myRouter(router) {}
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter() const {
             return *myRouter;
         }
@@ -197,7 +197,7 @@ private:
     class RoutingTask : public FXWorkerThread::Task {
     public:
         RoutingTask(SUMOVehicle& v, const SUMOTime time, const bool onInit)
-        : myVehicle(v), myTime(time), myOnInit(onInit) {}
+            : myVehicle(v), myTime(time), myOnInit(onInit) {}
         void run(FXWorkerThread* context);
     private:
         SUMOVehicle& myVehicle;

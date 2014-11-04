@@ -635,10 +635,10 @@ NWWriter_SUMO::writeRoundabout(OutputDevice& into, const std::vector<std::string
         into.writeAttr(SUMO_ATTR_EDGES, joinToString(validEdgeIDs, " "));
         into.closeTag();
         if (invalidEdgeIDs.size() > 0) {
-            WRITE_WARNING("Writing incomplete roundabout. Edges: '" 
-                    + joinToString(invalidEdgeIDs, " ") + "' no longer exist'");
+            WRITE_WARNING("Writing incomplete roundabout. Edges: '"
+                          + joinToString(invalidEdgeIDs, " ") + "' no longer exist'");
         }
-    } 
+    }
 }
 
 

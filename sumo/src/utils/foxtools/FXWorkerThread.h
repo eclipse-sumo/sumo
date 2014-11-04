@@ -92,13 +92,13 @@ public:
          *
          * @param[in] numThreads the number of threads to create
          */
-        Pool(int numThreads=0) : myRunningIndex(0), myNumFinished(0) {
+        Pool(int numThreads = 0) : myRunningIndex(0), myNumFinished(0) {
             while (numThreads > 0) {
                 new FXWorkerThread(*this);
                 numThreads--;
             }
         }
-        
+
         /** @brief Destructor
          *
          * Stopping and deleting all workers by calling clear.
@@ -124,7 +124,7 @@ public:
 //            if (myWorkers.empty()) std::cout << "created pool at " << SysUtils::getCurrentMillis() << std::endl;
             myWorkers.push_back(w);
         }
-        
+
         /** @brief Gives a number to the given task and assigns it to a randomly chosen worker.
          *
          * @param[in] t the task to add
@@ -133,10 +133,10 @@ public:
             t->setIndex(myRunningIndex++);
             myWorkers[myRunningIndex % myWorkers.size()]->add(t);
         }
-        
+
         /** @brief Adds the given task to the list of finished tasks and assigns it to a randomly chosen worker.
          *
-         * Locks the internal mutex and counts the finished tasks. This is to be called by the worker thread only. 
+         * Locks the internal mutex and counts the finished tasks. This is to be called by the worker thread only.
          *
          * @param[in] t the task to add
          */
@@ -163,18 +163,18 @@ public:
             myNumFinished = 0;
             myMutex.unlock();
         }
-        
+
         /** @brief Checks whether there are currently more pending tasks than threads.
          *
          * This is only a rough estimate because the tasks are already assigned and there could be an idle thread even though the
-         *  number of tasks is large. 
+         *  number of tasks is large.
          *
          * @return whether there are enough tasks to let all threads work
          */
         bool isFull() const {
             return myRunningIndex - myNumFinished >= size();
         }
-        
+
         /** @brief Returns the number of threads in the pool.
          *
          * @return the number of threads
@@ -182,7 +182,7 @@ public:
         int size() const {
             return (int)myWorkers.size();
         }
-        
+
         /// @brief locks the pool mutex
         void lock() {
             myPoolMutex.lock();
@@ -268,7 +268,7 @@ public:
 //        std::cout << "ran " << myCounter << " tasks " << std::endl;
         return 0;
     }
-    
+
     /** @brief Stops the thread
      *
      * The currently running task will be finished but all further tasks are discarded.

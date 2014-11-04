@@ -66,8 +66,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const Phases& phases,
         unsigned int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameter) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter) 
-{
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter) {
 
     myMaxGap = TplConvert::_2SUMOReal(getParameter("max-gap", DEFAULT_MAX_GAP).c_str());
     myPassingTime = TplConvert::_2SUMOReal(getParameter("passing-time", DEFAULT_PASSING_TIME).c_str());
@@ -163,7 +162,7 @@ SUMOReal
 MSActuatedTrafficLightLogic::gapControl() {
     //intergreen times should not be lenghtend
     assert(myPhases.size() > myStep);
-    SUMOReal result = std::numeric_limits<SUMOReal>::max(); 
+    SUMOReal result = std::numeric_limits<SUMOReal>::max();
     if (!getCurrentPhaseDef().isGreenPhase()) {
         return result; // end current phase
     }
@@ -191,7 +190,7 @@ MSActuatedTrafficLightLogic::gapControl() {
             }
         }
     }
-    return result; 
+    return result;
 }
 
 

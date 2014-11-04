@@ -63,7 +63,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       drawLaneChangePreference(false), drawMinGap(false),
       showBTRange(false), vehicleSize(1),
       vehicleName(false, 50, RGBColor(204, 153, 0, 255)),
-      personQuality(0), 
+      personQuality(0),
       personSize(1),
       personName(false, 50, RGBColor(0, 153, 204, 255)),
       drawLinkTLIndex(false), drawLinkJunctionIndex(false),
@@ -77,8 +77,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       showSizeLegend(true),
       gaming(false),
       selectionScale(1),
-      drawForSelecting(false)
-{
+      drawForSelecting(false) {
     /// add lane coloring schemes
     GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor::BLACK, "road", true);
     scheme.addColor(RGBColor::GREY, 1, "sidewalk");
@@ -163,7 +162,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by priority", RGBColor::YELLOW);
-    scheme.addColor(RGBColor::RED, (SUMOReal)-20);
+    scheme.addColor(RGBColor::RED, (SUMOReal) - 20);
     scheme.addColor(RGBColor::GREEN, (SUMOReal)20);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
@@ -357,12 +356,12 @@ GUIVisualizationSettings::GUIVisualizationSettings()
         scheme.addColor(10, (SUMOReal)10.0);
         laneScaler.addScheme(scheme);
         scheme = GUIScaleScheme("by loaded weight", 0);
-        scheme.addColor(-1000, (SUMOReal)-1000);
+        scheme.addColor(-1000, (SUMOReal) - 1000);
         scheme.addColor(1000, (SUMOReal)1000);
         scheme.setAllowsNegativeValues(true);
         laneScaler.addScheme(scheme);
         scheme = GUIScaleScheme("by priority", 1);
-        scheme.addColor(0.5, (SUMOReal)-20);
+        scheme.addColor(0.5, (SUMOReal) - 20);
         scheme.addColor(5, (SUMOReal)20);
         scheme.setAllowsNegativeValues(true);
         laneScaler.addScheme(scheme);
@@ -500,7 +499,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     vehicleColorer.save(dev);
     dev << "        </vehicles>\n";
     dev << "        <persons personMode=\"" << personColorer.getActive()
-        << "\" personQuality=\"" << personQuality << "\" " 
+        << "\" personQuality=\"" << personQuality << "\" "
         << personSize.print("person")
         << personName.print("personName")
         << ">\n";
@@ -517,17 +516,17 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     junctionColorer.save(dev);
     dev << "        </junctions>\n";
 
-    dev << "        <additionals addMode=\"" << addMode << "\" " 
+    dev << "        <additionals addMode=\"" << addMode << "\" "
         << addSize.print("add")
         << addName.print("addName")
         << "/>\n";
 
-    dev << "        <pois " 
-        << poiSize.print("poi") 
+    dev << "        <pois "
+        << poiSize.print("poi")
         << poiName.print("poiName")
         << "/>\n";
 
-    dev << "        <polys " 
+    dev << "        <polys "
         << polySize.print("poly")
         << polyName.print("polyName")
         << "/>\n";
@@ -690,7 +689,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
 }
 
 
-SUMOReal 
+SUMOReal
 GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s) const {
     /// @note should look normal-sized at zoom 1000
     return (constantSize && !s.drawForSelecting) ? MAX2((SUMOReal)exaggeration, exaggeration * 20 / s.scale) : exaggeration;

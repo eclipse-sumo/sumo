@@ -243,7 +243,7 @@ public:
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge, const SUMOReal speed=-1.);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge, const SUMOReal speed = -1.);
 
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications
@@ -260,7 +260,7 @@ public:
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, SUMOReal edgepos, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge, const SUMOReal speed=-1.);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge, const SUMOReal speed = -1.);
     /// @}
 
 
@@ -613,10 +613,10 @@ private:
     /// @brief whether a geo transform has been applied to the pruning boundary
     bool myNeedGeoTransformedPrunningBoundary;
     /// @}
-    
+
     /// @brief Edges marked as belonging to a roundabout by the user (each EdgeVector is a roundabout)
     std::set<EdgeSet> myRoundabouts;
-    /// @brief Edges marked as belonging to a roundabout after guessing 
+    /// @brief Edges marked as belonging to a roundabout after guessing
     std::set<EdgeSet> myGuessedRoundabouts;
 
 

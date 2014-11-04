@@ -166,10 +166,10 @@ private:
 // ===========================================================================
 template<>
 inline float TRIANGLE_RTREE_QUAL::RectSphericalVolume(Rect* a_rect) {
-  ASSERT(a_rect);
-  const float extent0 = a_rect->m_max[0] - a_rect->m_min[0];
-  const float extent1 = a_rect->m_max[1] - a_rect->m_min[1];
-  return .78539816f * (extent0 * extent0 + extent1 * extent1);
+    ASSERT(a_rect);
+    const float extent0 = a_rect->m_max[0] - a_rect->m_min[0];
+    const float extent1 = a_rect->m_max[1] - a_rect->m_min[1];
+    return .78539816f * (extent0 * extent0 + extent1 * extent1);
 }
 
 template<>

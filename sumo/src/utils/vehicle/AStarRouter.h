@@ -74,7 +74,7 @@ public:
     typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
     typedef std::vector<std::vector<SUMOReal> > LookupTable;
     /// Constructor
-    AStarRouter(size_t noE, bool unbuildIsWarning, Operation operation, const LookupTable* const lookup=0):
+    AStarRouter(size_t noE, bool unbuildIsWarning, Operation operation, const LookupTable* const lookup = 0):
         SUMOAbstractRouter<E, V>(operation, "AStarRouter"),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myLookupTable(lookup) {
@@ -202,7 +202,7 @@ public:
             }
             minimumInfo->visited = true;
             const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
-            // admissible A* heuristic: straight line distance at maximum speed 
+            // admissible A* heuristic: straight line distance at maximum speed
             const SUMOReal heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / vehicle->getMaxSpeed() : (*myLookupTable)[minEdge->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
             // check all ways from the node with the minimal length
             unsigned int i = 0;

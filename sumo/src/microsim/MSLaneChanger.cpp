@@ -386,11 +386,11 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
         SUMOReal dist = speed * speed / (2.*4.) + SPEED2DIST(speed) + candi->getVehicleType().getLength();
         dist = MIN2(dist, (SUMOReal) 500.);
         return target->lane->getFollowerOnConsecutive(
-                dist, candi->getPositionOnLane() - candi->getVehicleType().getLength(), 
-                candi->getSpeed(), candi->getCarFollowModel().getMaxDecel());
+                   dist, candi->getPositionOnLane() - candi->getVehicleType().getLength(),
+                   candi->getSpeed(), candi->getCarFollowModel().getMaxDecel());
     } else {
         MSVehicle* candi = veh(myCandi);
-        return std::pair<MSVehicle* const, SUMOReal>(neighFollow, 
+        return std::pair<MSVehicle* const, SUMOReal>(neighFollow,
                 candi->getPositionOnLane() - candi->getVehicleType().getLength() - neighFollow->getPositionOnLane() - neighFollow->getVehicleType().getMinGap());
     }
 }
@@ -514,7 +514,7 @@ MSLaneChanger::checkChange(
         const MSLane* targetLane = (myCandi + laneOffset)->lane;
         if (seen < dist) {
             std::pair<MSVehicle* const, SUMOReal> neighLead2 = targetLane->getCriticalLeader(dist, seen, speed, *vehicle);
-            if (neighLead2.first != 0 && neighLead2.first != neighLead.first 
+            if (neighLead2.first != 0 && neighLead2.first != neighLead.first
                     && (neighLead2.second < vehicle->getCarFollowModel().getSecureGap(
                             vehicle->getSpeed(), neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel()))) {
                 state |= blockedByLeader;

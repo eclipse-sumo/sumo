@@ -83,7 +83,7 @@ public:
      */
     SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs,
                               const MSRoute* route, const MSVehicleType* type,
-                              const bool ignoreStopErrors, const bool fromRouteFile=true);
+                              const bool ignoreStopErrors, const bool fromRouteFile = true);
     /// @}
 
 

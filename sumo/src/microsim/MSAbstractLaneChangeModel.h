@@ -358,7 +358,7 @@ protected:
 
 private:
     /* @brief information how long ago the vehicle has performed a lane-change,
-     * sign indicates direction of the last change 
+     * sign indicates direction of the last change
      */
     SUMOTime myLastLaneChangeOffset;
 

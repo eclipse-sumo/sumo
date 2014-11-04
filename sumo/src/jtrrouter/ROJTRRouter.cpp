@@ -64,8 +64,8 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
     std::set<const ROEdge*> avoidEdges;
     // route until a sinks has been found
     while (current != 0 && current != to &&
-           current->getType() != ROEdge::ET_SINK &&
-           (int)into.size() < myMaxEdges) {
+            current->getType() != ROEdge::ET_SINK &&
+            (int)into.size() < myMaxEdges) {
         into.push_back(current);
         if (!myAllowLoops) {
             avoidEdges.insert(current);

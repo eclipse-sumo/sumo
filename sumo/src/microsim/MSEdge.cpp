@@ -345,7 +345,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
         }
         case DEPART_LANE_DEFAULT:
         case DEPART_LANE_FIRST_ALLOWED:
-            for (std::vector<MSLane*>::const_iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
+            for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
                 if ((*i)->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
                     return *i;
                 }
@@ -432,7 +432,7 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
             case DEPART_LANE_FIRST_ALLOWED:
                 return getDepartLane(static_cast<MSVehicle&>(v))->getBruttoOccupancy() * myLength + v.getVehicleType().getLengthWithGap() <= myLength;
             default:
-                for (std::vector<MSLane*>::const_iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
+                for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
                     if ((*i)->getBruttoOccupancy() * myLength + v.getVehicleType().getLengthWithGap() <= myLength) {
                         return true;
                     }
