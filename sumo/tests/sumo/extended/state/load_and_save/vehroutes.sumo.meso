@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/30/13 23:20:50 by SUMO sumo Version dev-SVN-r14975
+<!-- generated on Wed Nov  5 08:58:53 2014 by SUMO Version dev-SVN-r17252ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -18,6 +18,7 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -30,11 +31,11 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v0" depart="0.00" arrival="22.00">
+    <vehicle id="v0" depart="0.00" arrival="29.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="v1" depart="7.00" arrival="29.00">
+    <vehicle id="v1" depart="7.00" arrival="36.00">
         <route edges="beg middle end"/>
     </vehicle>
 
