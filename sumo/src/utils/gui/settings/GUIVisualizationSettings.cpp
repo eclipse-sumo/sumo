@@ -100,7 +100,11 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     laneColorer.addScheme(scheme);
     // ... traffic states ...
     scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor::RED);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal)(150.0 / 3.6));
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)(30 / 3.6));
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)(55 / 3.6));
+    scheme.addColor(RGBColor::CYAN, (SUMOReal)(80 / 3.6));
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)(120 / 3.6));
+    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)(150 / 3.6));
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by current occupancy (lanewise, brutto)", RGBColor::BLUE);
     scheme.addColor(RGBColor::RED, (SUMOReal)0.95);
@@ -379,7 +383,11 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::BLUE, 2, "internal"); // see MSEdge::EdgeBasicFunction::EDGEFUNCTION_INTERNAL
     edgeColorer.addScheme(scheme);
     scheme = GUIColorScheme("by allowed speed (streetwise)", RGBColor::RED);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal)(150.0 / 3.6));
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)(30 / 3.6));
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)(55 / 3.6));
+    scheme.addColor(RGBColor::CYAN, (SUMOReal)(80 / 3.6));
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)(120 / 3.6));
+    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)(150 / 3.6));
     edgeColorer.addScheme(scheme);
     scheme = GUIColorScheme("by current occupancy (streetwise)", RGBColor::BLUE);
     scheme.addColor(RGBColor::RED, (SUMOReal)0.95);
