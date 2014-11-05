@@ -270,13 +270,13 @@ public:
     /// @brief gets the color value according to the current scheme index
     SUMOReal getColorValue(size_t activeScheme) const;
 
+    /// @brief sets the color according to the current scheme index and some vehicle function
+    static bool setFunctionalColor(size_t activeScheme, const MSBaseVehicle* veh);
 
 private:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
-    /// @brief sets the color according to the current scheme index and some vehicle function
-    bool setFunctionalColor(size_t activeScheme) const;
 
     /// @name drawing helper methods
     /// @{

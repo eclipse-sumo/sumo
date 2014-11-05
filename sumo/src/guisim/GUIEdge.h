@@ -175,6 +175,9 @@ public:
     /// @brief sets the vehicle color according to the currente settings
     void setVehicleColor(const GUIVisualizationSettings& s, MSBaseVehicle* veh) const;
 
+    /// @brief gets the vehicle color value according to the current scheme index
+    SUMOReal getVehicleColorValue(size_t activeScheme, MSBaseVehicle* veh) const;
+
     void drawMesoVehicles(const GUIVisualizationSettings& s) const;
 
 #endif

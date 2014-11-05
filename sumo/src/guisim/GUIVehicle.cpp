@@ -1132,53 +1132,53 @@ GUIVehicle::drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime lea
 void
 GUIVehicle::setColor(const GUIVisualizationSettings& s) const {
     const GUIColorer& c = s.vehicleColorer;
-    if (!setFunctionalColor(c.getActive())) {
+    if (!setFunctionalColor(c.getActive(), this)) {
         GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
     }
 }
 
 
 bool
-GUIVehicle::setFunctionalColor(size_t activeScheme) const {
+GUIVehicle::setFunctionalColor(size_t activeScheme, const MSBaseVehicle* veh) {
     switch (activeScheme) {
         case 0: {
-            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(getParameter().color);
+            if (veh->getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                GLHelper::setColor(veh->getParameter().color);
                 return true;
             }
-            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(getVehicleType().getColor());
+            if (veh->getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                GLHelper::setColor(veh->getVehicleType().getColor());
                 return true;
             }
-            if (&getRoute().getColor() != &RGBColor::DEFAULT_COLOR) {
-                GLHelper::setColor(getRoute().getColor());
+            if (&(veh->getRoute().getColor()) != &RGBColor::DEFAULT_COLOR) {
+                GLHelper::setColor(veh->getRoute().getColor());
                 return true;
             }
             return false;
         }
         case 2: {
-            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(getParameter().color);
+            if (veh->getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                GLHelper::setColor(veh->getParameter().color);
                 return true;
             }
             return false;
         }
         case 3: {
-            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(getVehicleType().getColor());
+            if (veh->getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                GLHelper::setColor(veh->getVehicleType().getColor());
                 return true;
             }
             return false;
         }
         case 4: {
-            if (&getRoute().getColor() != &RGBColor::DEFAULT_COLOR) {
-                GLHelper::setColor(getRoute().getColor());
+            if (&(veh->getRoute().getColor()) != &RGBColor::DEFAULT_COLOR) {
+                GLHelper::setColor(veh->getRoute().getColor());
                 return true;
             }
             return false;
         }
         case 5: {
-            Position p = getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
+            Position p = veh->getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
             Position center = b.getCenter();
             SUMOReal hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / PI;
@@ -1187,7 +1187,7 @@ GUIVehicle::setFunctionalColor(size_t activeScheme) const {
             return true;
         }
         case 6: {
-            Position p = getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
+            Position p = veh->getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
             Position center = b.getCenter();
             SUMOReal hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / PI;
@@ -1196,8 +1196,8 @@ GUIVehicle::setFunctionalColor(size_t activeScheme) const {
             return true;
         }
         case 7: {
-            Position pb = getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
-            Position pe = getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
+            Position pb = veh->getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
+            Position pe = veh->getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
             SUMOReal hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / PI;
             Position minp(b.xmin(), b.ymin());
