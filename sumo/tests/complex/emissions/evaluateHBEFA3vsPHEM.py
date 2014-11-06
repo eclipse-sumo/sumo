@@ -34,7 +34,7 @@ for line in open('nefz_hbefa3/output.complex'):
         val = float(l[1])
         hbefa[ec][l[0]].append(val)
         maxVal[l[0]] = max(maxVal[l[0]], val)
-for line in open('nefz_phemlightV3/output.complex'):
+for line in open('nefz_phemlightV4/output.complex'):
     l = line.split(":")
     if line[:7] == "Running":
         ec = line.split('/')[1][:-2]
@@ -55,6 +55,7 @@ color = {"0": "0", "1": "0.3", "2": "0.45", "3": "0.6", "4": "0.75", "5": "0.9",
 limit = {"CO": 100000, "CO2": 5e6, "HC": 30000, "PMx": 6000, "fuel": 1700}
 
 for emission in ["CO", "CO2", "HC", "PMx", "fuel"]:
+    print(emission)
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
     if emission in limit:
