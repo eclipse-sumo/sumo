@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r16543
+SUMO Version dev-SVN-r17271I
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -47,10 +47,16 @@ Output Options:
   --summary-output FILE                Save aggregated vehicle departure info
                                          into FILE
   --tripinfo-output FILE               Save single vehicle trip info into FILE
+  --tripinfo-output.write-unfinished   Write tripinfo output for vehicles which
+                                         have not arrived at simulation end
   --vehroute-output FILE               Save single vehicle route info into FILE
   --vehroute-output.exit-times         Write the exit times for all edges
   --vehroute-output.last-route         Write the last route only
   --vehroute-output.sorted             Sorts the output by departure time
+  --vehroute-output.dua                Write the output in the duarouter
+                                         alternatives style
+  --vehroute-output.intended-depart    Write the output with the intended
+                                         instead of the real departure time
   --vehroute-output.write-unfinished   Write vehroute output for vehicles which
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE
@@ -85,7 +91,10 @@ Processing Options:
                                          until being teleported, defaults to
                                          300, non-positive values disable
                                          teleporting
-  --time-to-teleport.highways TIME     The teleport time on highways
+  --time-to-teleport.highways TIME     The waiting time after which vehicles on
+                                         a fast road (speed > 69m/s) are
+                                         teleported if they are on a
+                                         non-continuing lane
   --max-depart-delay TIME              How long vehicles wait for departure
                                          before being skipped, defaults to -1
                                          which means vehicles are never skipped
@@ -103,7 +112,8 @@ Processing Options:
   --lanechange.overtake-right          Whether overtaking on the right on
                                          motorways is permitted
   --routing-algorithm STR              Select among routing algorithms
-                                         ['dijkstra', 'astar']
+                                         ['dijkstra', 'astar', 'CH',
+                                         'CHWrapper']
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping']
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
@@ -153,6 +163,8 @@ Communication Options:
   --device.btreceiver.range FLOAT      The range of the bt receiver
   --device.btreceiver.all-recognitions  Whether all recognition point shall be
                                          written
+  --device.btreceiver.offtime FLOAT    The offtime used for calculating
+                                         detection probability (in seconds)
   --device.btsender.probability FLOAT  The probability for a vehicle to have a
                                          'btsender' device
   --device.btsender.explicit STR       Assign a 'btsender' device to named
@@ -177,6 +189,10 @@ Routing Options:
                                          points
   --device.rerouting.init-with-loaded-weights  Use given weight files for
                                          initializing edge weights
+  --device.rerouting.shortest-path-file FILE  Initialize lookup table for astar
+                                         from the given distance matrix
+  --device.rerouting.threads INT       The number of parallel execution threads
+                                         used for rerouting
 
 Example Device Options:
   --device.example.explicit STR        Assign a device to named vehicles
@@ -185,7 +201,6 @@ Example Device Options:
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
-  --python-script STR                  Runs TraCI script with embedded python
 
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
@@ -212,6 +227,7 @@ Mesoscopic Options:
                                          saturated links. This prevents faulty
                                          traffic lights from hindering flow in
                                          low-traffic situations
+  --meso-overtaking                    Enable mesoscopic overtaking
   --meso-recheck TIME                  Time interval for rechecking insertion
                                          into the next segment after failure
 
@@ -240,4 +256,4 @@ Examples:
     print help
 
 Report bugs at <http://sumo.dlr.de/trac/>.
-Get in contact via <sumo-user@lists.sourceforge.net>.
+Get in contact via <sumo@dlr.de>.

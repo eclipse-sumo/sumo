@@ -46,10 +46,10 @@
 
     <output>
         <!-- Save complete network states into FILE -->
-        <netstate-dump value="" synonymes="ndump netstate" type="FILE"/>
+        <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE"/>
 
         <!-- Write also empty edges completely when dumping -->
-        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate.empty-edges" type="BOOL"/>
+        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" type="BOOL"/>
 
         <!-- Save the emission values of each vehicle -->
         <emission-output value="" type="FILE"/>
@@ -81,6 +81,9 @@
         <!-- Save single vehicle trip info into FILE -->
         <tripinfo-output value="" synonymes="tripinfo" type="FILE"/>
 
+        <!-- Write tripinfo output for vehicles which have not arrived at simulation end -->
+        <tripinfo-output.write-unfinished value="false" type="BOOL"/>
+
         <!-- Save single vehicle route info into FILE -->
         <vehroute-output value="" synonymes="vehroutes" type="FILE"/>
 
@@ -92,6 +95,12 @@
 
         <!-- Sorts the output by departure time -->
         <vehroute-output.sorted value="false" synonymes="vehroutes.sorted" type="BOOL"/>
+
+        <!-- Write the output in the duarouter alternatives style -->
+        <vehroute-output.dua value="false" synonymes="vehroutes.dua" type="BOOL"/>
+
+        <!-- Write the output with the intended instead of the real departure time -->
+        <vehroute-output.intended-depart value="false" synonymes="vehroutes.intended-depart" type="BOOL"/>
 
         <!-- Write vehroute output for vehicles which have not arrived at simulation end -->
         <vehroute-output.write-unfinished value="false" type="BOOL"/>
@@ -150,7 +159,7 @@
         <!-- Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting -->
         <time-to-teleport value="300" type="TIME"/>
 
-        <!-- The teleport time on highways -->
+        <!-- The waiting time after which vehicles on a fast road (speed &gt; 69m/s) are teleported if they are on a non-continuing lane -->
         <time-to-teleport.highways value="0" type="TIME"/>
 
         <!-- How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped -->
@@ -174,7 +183,7 @@
         <!-- Whether overtaking on the right on motorways is permitted -->
         <lanechange.overtake-right value="false" type="BOOL"/>
 
-        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;] -->
+        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;] -->
@@ -258,6 +267,9 @@
         <!-- Whether all recognition point shall be written -->
         <device.btreceiver.all-recognitions value="false" type="BOOL"/>
 
+        <!-- The offtime used for calculating detection probability (in seconds) -->
+        <device.btreceiver.offtime value="0.64" type="FLOAT"/>
+
         <!-- The probability for a vehicle to have a &apos;btsender&apos; device -->
         <device.btsender.probability value="0" type="FLOAT"/>
 
@@ -283,7 +295,7 @@
         <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME"/>
 
         <!-- The rerouting period before depart -->
-        <device.rerouting.pre-period value="0" synonymes="device.routing.pre-period" type="TIME"/>
+        <device.rerouting.pre-period value="1" synonymes="device.routing.pre-period" type="TIME"/>
 
         <!-- The weight of prior edge weights -->
         <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT"/>
@@ -296,6 +308,12 @@
 
         <!-- Use given weight files for initializing edge weights -->
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL"/>
+
+        <!-- Initialize lookup table for astar from the given distance matrix -->
+        <device.rerouting.shortest-path-file value="" type="FILE"/>
+
+        <!-- The number of parallel execution threads used for rerouting -->
+        <device.rerouting.threads value="0" type="INT"/>
 
     </routing>
 
@@ -311,9 +329,6 @@
     <traci_server>
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
-
-        <!-- Runs TraCI script with embedded python -->
-        <python-script value="" type="STR"/>
 
     </traci_server>
 
@@ -347,6 +362,9 @@
 
         <!-- Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations -->
         <meso-junction-control.limited value="false" type="BOOL"/>
+
+        <!-- Enable mesoscopic overtaking -->
+        <meso-overtaking value="false" type="BOOL"/>
 
         <!-- Time interval for rechecking insertion into the next segment after failure -->
         <meso-recheck value="0" type="TIME"/>
