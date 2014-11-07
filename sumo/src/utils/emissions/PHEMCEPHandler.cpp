@@ -149,6 +149,11 @@ PHEMCEPHandler::ReadVehicleFile(const std::string& path, const std::string& emis
     std::getline(fileVehicle, line);
 
     while (std::getline(fileVehicle, line) && dataCount <= 49) {
+        // EOL handling for Linux
+        if (line.size() > 0 && line.substr(line.size() - 1) == "\r") {
+            line = line.substr(0, line.size() - 1);
+        }
+
         std::stringstream  lineStream(line);
 
         if (line.substr(0, 1) == commentPrefix) {
