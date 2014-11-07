@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Nov  7 15:45:46 2014 by SUMO Version dev-SVN-r17292I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <processing>
+        <max-depart-delay value="1"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<detector>
+    <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="8487.59" density="97.45" occupancy="24.36" waitingTime="0.00" speed="7.05" departed="83" arrived="0" entered="540" left="598"/>
+    <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="8487.59" density="97.45" occupancy="24.36" waitingTime="0.00" speed="7.05" departed="83" arrived="0" entered="540" left="598"/>
+    <interval begin="900.00" end="1800.00" id="beg2_0" sampledSeconds="22395.66" density="257.14" occupancy="64.28" waitingTime="0.00" speed="0.67" departed="122" arrived="0" entered="32" left="154"/>
+    <interval begin="900.00" end="1800.00" id="beg2_1" sampledSeconds="22395.66" density="257.14" occupancy="64.28" waitingTime="0.00" speed="0.67" departed="122" arrived="0" entered="32" left="154"/>
+    <interval begin="1800.00" end="2613.00" id="beg2_0" sampledSeconds="3772.20" density="47.95" occupancy="11.99" waitingTime="0.00" speed="18.75" departed="1" arrived="0" entered="725" left="751"/>
+    <interval begin="1800.00" end="2613.00" id="beg2_1" sampledSeconds="3772.20" density="47.95" occupancy="11.99" waitingTime="0.00" speed="18.75" departed="1" arrived="0" entered="725" left="751"/>
+</detector>

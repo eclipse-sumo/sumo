@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Nov  7 15:45:46 2014 by SUMO Version dev-SVN-r17292I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <processing>
+        <max-depart-delay value="1"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<detector>
+    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1866.04" density="21.44" occupancy="10.72" waitingTime="0.00" speed="26.64" departed="0" arrived="0" entered="515" left="513"/>
+    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="2183.24" density="25.08" occupancy="12.54" waitingTime="0.00" speed="26.78" departed="0" arrived="0" entered="605" left="604"/>
+    <interval begin="1800.00" end="1940.00" id="end2_0" sampledSeconds="287.47" density="21.23" occupancy="10.61" waitingTime="0.00" speed="27.44" departed="0" arrived="0" entered="80" left="83"/>
+</detector>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Nov  7 15:49:41 2014 by SUMO Version dev-SVN-r17292I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="v0" depart="0.00" departLane="" departPos="393.56" departSpeed="16.00" departDelay="0.00" arrival="20.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="16.00" duration="20.00" routeLength="590.34" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v0" vType="t0" vaporized=""/>
+    <tripinfo id="v1" depart="1.00" departLane="" departPos="393.56" departSpeed="16.00" departDelay="0.00" arrival="21.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="16.00" duration="20.00" routeLength="590.34" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v1" vType="t0" vaporized=""/>
+    <tripinfo id="v2" depart="2.00" departLane="" departPos="393.56" departSpeed="16.00" departDelay="0.00" arrival="22.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="16.00" duration="20.00" routeLength="590.34" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v2" vType="t0" vaporized=""/>
+    <tripinfo id="v3" depart="3.00" departLane="" departPos="393.56" departSpeed="16.00" departDelay="0.00" arrival="23.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="16.00" duration="20.00" routeLength="590.34" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v3" vType="t0" vaporized=""/>
+</tripinfos>
