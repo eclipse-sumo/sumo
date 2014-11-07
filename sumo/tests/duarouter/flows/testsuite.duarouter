@@ -47,5 +47,8 @@ vtypecheck
 # test flow with intermediate edge
 via
 
+# test flow with attribute probability
+100s_probability_0.2
+
 # Tests with false user input
 errors
