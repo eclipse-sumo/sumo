@@ -618,12 +618,13 @@ GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 10);
+        new GUIParameterTableWindow(app, *this, 11);
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
     ret->mkItem("length [m]", false, myLength);
     ret->mkItem("street name", false, myEdge->getStreetName());
     ret->mkItem("stored traveltime [s]", true, new FunctionBinding<GUILane, SUMOReal>(this, &GUILane::getStoredEdgeTravelTime));
+    ret->mkItem("loaded weight", true, new FunctionBinding<GUILane, SUMOReal>(this, &GUILane::getLoadedEdgeWeight));
     ret->mkItem("occupancy [%]", true, new FunctionBinding<GUILane, SUMOReal>(this, &GUILane::getBruttoOccupancy, 100.));
     ret->mkItem("edge type", false, myEdge->getEdgeType());
     ret->mkItem("priority", false, myEdge->getPriority());
@@ -689,6 +690,19 @@ GUILane::getStoredEdgeTravelTime() const {
     } else {
         SUMOReal value(0);
         ews.retrieveExistingTravelTime(myEdge, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), value);
+        return value;
+    }
+}
+
+
+SUMOReal
+GUILane::getLoadedEdgeWeight() const {
+    MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
+    if (!ews.knowsEffort(myEdge)) {
+        return -1;
+    } else {
+        SUMOReal value(0);
+        ews.retrieveExistingEffort(myEdge, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), value);
         return value;
     }
 }
@@ -843,14 +857,7 @@ GUILane::getScaleValue(size_t activeScheme) const {
             return 1 / myLengthGeometryFactor;
         }
         case 17: {
-            MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
-            if (!ews.knowsEffort(myEdge)) {
-                return -1;
-            } else {
-                SUMOReal value(0);
-                ews.retrieveExistingEffort(myEdge, 0, value);
-                return value;
-            }
+            return getLoadedEdgeWeight();
         }
         case 18: {
             return myEdge->getPriority();

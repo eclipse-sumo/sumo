@@ -211,6 +211,10 @@ public:
      */
     SUMOReal getStoredEdgeTravelTime() const;
 
+    /** @brief Returns the loaded weight (effort) for the edge of this lane
+     */
+    SUMOReal getLoadedEdgeWeight() const;
+
 #ifdef HAVE_OSG
     void setGeometry(osg::Geometry* geom) {
         myGeom = geom;
