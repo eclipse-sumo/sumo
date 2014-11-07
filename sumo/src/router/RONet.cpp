@@ -298,30 +298,54 @@ RONet::checkFlows(SUMOTime time) {
     std::vector<std::string> toRemove;
     for (NamedObjectCont<SUMOVehicleParameter*>::IDMap::const_iterator i = myFlows.getMyMap().begin(); i != myFlows.getMyMap().end(); ++i) {
         SUMOVehicleParameter* pars = i->second;
-        while (pars->repetitionsDone < pars->repetitionNumber) {
-            SUMOTime depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
-            if (myDepartures.find(pars->id) != myDepartures.end()) {
-                depart = myDepartures[pars->id].back();
+        if (pars->repetitionProbability > 0) {
+            while (pars->depart < time) {
+                if (pars->repetitionEnd <= pars->depart) {
+                    toRemove.push_back(i->first);
+                    break;
+                }
+                if (
+                        // only call rand if all other conditions are met
+                        RandHelper::rand() < (pars->repetitionProbability * TS)) {
+                    SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
+                    newPars->id = pars->id + "." + toString(pars->repetitionsDone);
+                    newPars->depart = pars->depart;
+                    pars->repetitionsDone++;
+                    // try to build the vehicle
+                    SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                    RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
+                    ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
+                    addVehicle(newPars->id, veh);
+                    delete newPars;
+                }
+                pars->depart += DELTA_T;
             }
-            if (depart >= time + DELTA_T) {
-                break;
+        } else {
+            while (pars->repetitionsDone < pars->repetitionNumber) {
+                SUMOTime depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
+                if (myDepartures.find(pars->id) != myDepartures.end()) {
+                    depart = myDepartures[pars->id].back();
+                }
+                if (depart >= time + DELTA_T) {
+                    break;
+                }
+                if (myDepartures.find(pars->id) != myDepartures.end()) {
+                    myDepartures[pars->id].pop_back();
+                }
+                SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
+                newPars->id = pars->id + "." + toString(pars->repetitionsDone);
+                newPars->depart = depart;
+                pars->repetitionsDone++;
+                // try to build the vehicle
+                SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
+                ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
+                addVehicle(newPars->id, veh);
+                delete newPars;
             }
-            if (myDepartures.find(pars->id) != myDepartures.end()) {
-                myDepartures[pars->id].pop_back();
+            if (pars->repetitionsDone == pars->repetitionNumber) {
+                toRemove.push_back(i->first);
             }
-            SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
-            newPars->id = pars->id + "." + toString(pars->repetitionsDone);
-            newPars->depart = depart;
-            pars->repetitionsDone++;
-            // try to build the vehicle
-            SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
-            RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
-            ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
-            addVehicle(newPars->id, veh);
-            delete newPars;
-        }
-        if (pars->repetitionsDone == pars->repetitionNumber) {
-            toRemove.push_back(i->first);
         }
     }
     for (std::vector<std::string>::const_iterator i = toRemove.begin(); i != toRemove.end(); ++i) {
