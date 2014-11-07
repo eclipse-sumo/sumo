@@ -1,21 +1,21 @@
 Warning: Missing yellow phase in tlLogic 'gneJ5', program '0' for tl-index 0 when switching to phase 0
-Warning: Teleporting vehicle 'ac.23'; waited too long, from 'a_in:0', time 780.18.
-Warning: Vehicle 'ac.23' ends teleporting on segment 'bc:0', time 784.24.
-Warning: Teleporting vehicle 'ac.24'; waited too long, from 'a_in:0', time 1080.18.
-Warning: Vehicle 'ac.24' ends teleporting on segment 'bc:0', time 1084.24.
-Warning: Teleporting vehicle 'ac.25'; waited too long, from 'a_in:0', time 1380.18.
-Warning: Vehicle 'ac.25' ends teleporting on segment 'bc:0', time 1384.24.
-Warning: Teleporting vehicle 'ac.26'; waited too long, from 'a_in:0', time 1680.18.
-Warning: Vehicle 'ac.26' ends teleporting on segment 'bc:0', time 1684.24.
-Warning: Teleporting vehicle 'ac.27'; waited too long, from 'a_in:0', time 1980.18.
-Warning: Vehicle 'ac.27' ends teleporting on segment 'bc:0', time 1984.24.
-Warning: Teleporting vehicle 'ac.28'; waited too long, from 'a_in:0', time 2280.18.
-Warning: Vehicle 'ac.28' ends teleporting on segment 'bc:0', time 2284.24.
-Warning: Teleporting vehicle 'ac.29'; waited too long, from 'a_in:0', time 2580.18.
-Warning: Vehicle 'ac.29' ends teleporting on segment 'bc:0', time 2584.24.
-Warning: Teleporting vehicle 'ac.30'; waited too long, from 'a_in:0', time 2881.58.
-Warning: Vehicle 'ac.30' ends teleporting on segment 'bc:0', time 2885.64.
-Warning: Teleporting vehicle 'ac.31'; waited too long, from 'a_in:0', time 3181.58.
-Warning: Vehicle 'ac.31' ends teleporting on segment 'bc:0', time 3185.64.
-Warning: Teleporting vehicle 'ac.32'; waited too long, from 'a_in:0', time 3481.58.
-Warning: Vehicle 'ac.32' ends teleporting on segment 'bc:0', time 3485.64.
+Warning: Teleporting vehicle 'ac.23'; waited too long, from 'a_in:0', time 780.03.
+Warning: Vehicle 'ac.23' ends teleporting on segment 'bc:0', time 784.10.
+Warning: Teleporting vehicle 'ac.24'; waited too long, from 'a_in:0', time 1080.04.
+Warning: Vehicle 'ac.24' ends teleporting on segment 'bc:0', time 1084.10.
+Warning: Teleporting vehicle 'ac.25'; waited too long, from 'a_in:0', time 1380.04.
+Warning: Vehicle 'ac.25' ends teleporting on segment 'bc:0', time 1384.10.
+Warning: Teleporting vehicle 'ac.26'; waited too long, from 'a_in:0', time 1680.04.
+Warning: Vehicle 'ac.26' ends teleporting on segment 'bc:0', time 1684.10.
+Warning: Teleporting vehicle 'ac.27'; waited too long, from 'a_in:0', time 1980.04.
+Warning: Vehicle 'ac.27' ends teleporting on segment 'bc:0', time 1984.10.
+Warning: Teleporting vehicle 'ac.28'; waited too long, from 'a_in:0', time 2280.04.
+Warning: Vehicle 'ac.28' ends teleporting on segment 'bc:0', time 2284.10.
+Warning: Teleporting vehicle 'ac.29'; waited too long, from 'a_in:0', time 2580.04.
+Warning: Vehicle 'ac.29' ends teleporting on segment 'bc:0', time 2584.10.
+Warning: Teleporting vehicle 'ac.30'; waited too long, from 'a_in:0', time 2881.43.
+Warning: Vehicle 'ac.30' ends teleporting on segment 'bc:0', time 2885.49.
+Warning: Teleporting vehicle 'ac.31'; waited too long, from 'a_in:0', time 3181.43.
+Warning: Vehicle 'ac.31' ends teleporting on segment 'bc:0', time 3185.49.
+Warning: Teleporting vehicle 'ac.32'; waited too long, from 'a_in:0', time 3481.43.
+Warning: Vehicle 'ac.32' ends teleporting on segment 'bc:0', time 3485.50.
