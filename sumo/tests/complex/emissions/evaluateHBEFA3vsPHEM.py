@@ -73,7 +73,7 @@ for emission in ["CO", "CO2", "HC", "PMx", "fuel"]:
             print(ec, phem[ec][emission], hbefa[ec][emission])
             ax1.scatter(phem[ec][emission], hbefa[ec][emission], s=80, c=color[ec[-1]], marker=marker[ec[:5]], label=ec)
     ax1.plot((0, m), (0, m))
-    plt.title(emission)
+    plt.title(emission + (" [ml]" if emission == "fuel" else " [mg]"))
     plt.xlabel("PHEMlight")
     plt.ylabel("HBEFA3")
     plt.legend(scatterpoints=1, fontsize=8, bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
