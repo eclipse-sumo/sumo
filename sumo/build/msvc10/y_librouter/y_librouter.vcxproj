@@ -254,6 +254,7 @@
     <ClInclude Include="..\..\..\src\router\RONetHandler.h" />
     <ClInclude Include="..\..\..\src\router\RONode.h" />
     <ClInclude Include="..\..\..\src\router\RORoute.h" />
+    <ClInclude Include="..\..\..\src\router\RORouteAggregator.h" />
     <ClInclude Include="..\..\..\src\router\RORouteDef.h" />
     <ClInclude Include="..\..\..\src\router\RORouteHandler.h" />
     <ClInclude Include="..\..\..\src\router\ROVehicle.h" />

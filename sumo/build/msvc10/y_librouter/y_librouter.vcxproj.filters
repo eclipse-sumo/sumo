@@ -91,5 +91,8 @@
     <ClInclude Include="..\..\..\src\router\RORouteHandler.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\router\RORouteAggregator.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
