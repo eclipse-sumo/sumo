@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/06/14 15:02:39 by SUMO netconvert Version dev-SVN-r16543
+<!-- generated on Tue Nov  4 23:07:11 2014 by SUMO netconvert Version dev-SVN-r17257
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\sumo\extended\stops\teleport_across_stopped\short_edge.nod.xml"/>
-        <edge-files value=".\sumo\extended\stops\teleport_across_stopped\short_edge.edg.xml"/>
+        <node-files value="./sumo/extended/stops/teleport_across_stopped/short_edge.nod.xml"/>
+        <edge-files value="./sumo/extended/stops/teleport_across_stopped/short_edge.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\sumo\extended\stops\teleport_across_stopped\net.net.xml"/>
+        <output-file value="./sumo/extended/stops/teleport_across_stopped/net.net.xml"/>
     </output>
 
     <report>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 20 11:35:50 2014 by SUMO netconvert Version dev-SVN-r16848
+<!-- generated on Tue Nov  4 23:07:38 2014 by SUMO netconvert Version dev-SVN-r17257
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="hello.nod.xml"/>
-        <edge-files value="hello.edg.xml"/>
+        <node-files value="./complex/traci/pythonApi/resume/data/hello.nod.xml"/>
+        <edge-files value="./complex/traci/pythonApi/resume/data/hello.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="hello.net.xml"/>
+        <output-file value="./complex/traci/pythonApi/resume/data/hello.net.xml"/>
     </output>
 
     <report>

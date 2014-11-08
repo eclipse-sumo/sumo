@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/08/14 16:12:36 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Tue Nov  4 23:07:08 2014 by SUMO netconvert Version dev-SVN-r17257
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="two_straight_3lanes.nod.xml"/>
-        <edge-files value="two_straight_3lanes.edg.xml"/>
+        <node-files value="./sumo/spec/departure/lane_default_3veh_bus/two_straight_3lanes.nod.xml"/>
+        <edge-files value="./sumo/spec/departure/lane_default_3veh_bus/two_straight_3lanes.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="./sumo/spec/departure/lane_default_3veh_bus/net.net.xml"/>
     </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

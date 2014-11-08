@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug  5 12:53:27 2014 by SUMO netconvert Version dev-SVN-r16839
+<!-- generated on Tue Nov  4 23:07:07 2014 by SUMO netconvert Version dev-SVN-r17257
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="motorway.nod.xml"/>
-        <edge-files value="motorway.edg.xml"/>
+        <node-files value="./sumo/motorway.nod.xml"/>
+        <edge-files value="./sumo/motorway.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="motorway.net.xml"/>
+        <output-file value="./sumo/motorway.net.xml"/>
     </output>
 
     <processing>
         <offset.disable-normalization value="true"/>
     </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

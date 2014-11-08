@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/06/14 15:02:47 by SUMO netconvert Version dev-SVN-r16543
+<!-- generated on Tue Nov  4 23:07:04 2014 by SUMO netconvert Version dev-SVN-r17257
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\tools\output\generateITetrisIntersectionMetrics\cross1ltl_freq300\cross1ltl.nod.xml"/>
-        <edge-files value=".\tools\output\generateITetrisIntersectionMetrics\cross1ltl_freq300\cross1ltl.edg.xml"/>
+        <node-files value="./tools/output/generateITetrisIntersectionMetrics/cross1ltl_freq300/cross1ltl.nod.xml"/>
+        <edge-files value="./tools/output/generateITetrisIntersectionMetrics/cross1ltl_freq300/cross1ltl.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\tools\output\generateITetrisIntersectionMetrics\cross1ltl_freq300\input_net.net.xml"/>
+        <output-file value="./tools/output/generateITetrisIntersectionMetrics/cross1ltl_freq300/input_net.net.xml"/>
     </output>
 
     <report>
