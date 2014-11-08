@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 """
-@file    server.py, index.html, style.css, script.js
+@file    server.py
 @author  Jakob Stigloher
 @date    2014-14-10
+@version $Id$
 
 Browser GUI for OSMget, OSMbuild, optionally randomTrips and SUMO GUI
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2010-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -174,7 +175,7 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
                 print "SUMO GUI canceled"
 
         if bbox:
-            #get the corrdinates and cast them to float
+            #get the coordinates and cast them to float
             size = map(float, bbox.split(","))
             #calculates the area
             size = (size[0] - size[2]) * (size[3] - size[1])
@@ -227,7 +228,7 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
         #ready to serve another export
 
 def main():
-    #initiales a WebSocketServer at port 9999 -- if you change the port here, change it in script.js also!
+    #initializes a WebSocketServer at port 9999 -- if you change the port here, change it in script.js also!
     server = SocketServer.TCPServer(("localhost", 9999), WebSocketsHandler)
     #to automatically open the webpage in a browser
     webbrowser.open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "index.html"))
