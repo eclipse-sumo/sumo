@@ -330,6 +330,9 @@
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
 
+        <!-- Runs TraCI script with embedded python -->
+        <python-script value="" type="STR"/>
+
     </traci_server>
 
     <mesoscopic>
@@ -355,7 +358,7 @@
         <meso-jam-threshold value="-1" type="FLOAT"/>
 
         <!-- Enable multiple queues at edge ends -->
-        <meso-multi-queue value="false" type="BOOL"/>
+        <meso-multi-queue value="true" type="BOOL"/>
 
         <!-- Enable mesoscopic traffic light and priority junction handling -->
         <meso-junction-control value="false" type="BOOL"/>
