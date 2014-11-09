@@ -34,7 +34,7 @@
 
 class TestTask : public FXWorkerThread::Task {
 public:
-    void run(FXWorkerThread* context) {
+    void run(FXWorkerThread* /* context */) {
     }
 };
 
