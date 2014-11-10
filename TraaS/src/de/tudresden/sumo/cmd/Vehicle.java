@@ -299,7 +299,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * Returns the position of the named vehicle within the last step [m,m].
+	 * Returns the position of the named vehicle within the last step [m,m,m].
 	 */
 
 	public static SumoCommand getPosition3D(String vehID){
@@ -672,7 +672,7 @@ public class Vehicle {
 
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_SPEED, vehID, speed);
 	}
-
+	
 	/**
 	 *  Sets the standard deviation of the estimated maximum speed.
 	 */
@@ -691,6 +691,16 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_SPEED_FACTOR, vehID, factor);
 	}
 
+
+	/**
+	 * Sets the vehicle's speed mode as a bitset.
+	 */
+
+	public static SumoCommand setspeedMode(String vehID, int sm){
+
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_SPEEDSETMODE, vehID, sm);
+	}
+	
 	/**
 	 * Lets the vehicle stop at the given edge, at the given position and lane. The vehicle will stop for the given duration. Re-issuing a stop command with the same lane and position allows changing the duration.
 	 */
@@ -706,7 +716,7 @@ public class Vehicle {
 	 * Continue after a stop
 	 */
 	
-	public static SumoCommand setResume(String vehID){
+	public static SumoCommand Resume(String vehID){
 		Object[] array = new Object[]{vehID};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_RESUME, vehID, array);
 	}

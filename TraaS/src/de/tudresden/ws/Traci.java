@@ -210,8 +210,8 @@ public class Traci{
 	}
 	
 	@WebMethod(action="Vehicle: setResume")
-	public void Vehicle_setResume(@WebParam(name = "vehID") String vehID){
-		this.sumo.set_cmd(Vehicle.setResume(vehID));
+	public void Vehicle_Resume(@WebParam(name = "vehID") String vehID){
+		this.sumo.set_cmd(Vehicle.Resume(vehID));
 	}
 
 	@WebMethod(action="Vehicle: setTau")
