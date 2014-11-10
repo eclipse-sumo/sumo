@@ -12,3 +12,6 @@ priority_stop
 
 # an all-way stop junction as found in north america
 allway_stop
+
+# explicitly unregulated
+unregulated
