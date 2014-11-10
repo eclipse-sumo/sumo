@@ -35,6 +35,7 @@
             <xsd:element name="flow-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ignore-vehicle-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="netload-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="all-pairs-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="exit-times" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

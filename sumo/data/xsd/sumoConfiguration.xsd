@@ -49,10 +49,13 @@
             <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="summary-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="tripinfo-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.exit-times" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.last-route" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.sorted" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="vehroute-output.dua" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="vehroute-output.intended-depart" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="link-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="bt-output" type="fileOptionType" minOccurs="0"/>
@@ -128,6 +131,7 @@
             <xsd:element name="device.btreceiver.deterministic" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.btreceiver.range" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.btreceiver.all-recognitions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.btreceiver.offtime" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.btsender.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.btsender.explicit" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.btsender.deterministic" type="boolOptionType" minOccurs="0"/>
@@ -145,6 +149,8 @@
             <xsd:element name="device.rerouting.adaptation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.init-with-loaded-weights" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.shortest-path-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.threads" type="intOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -174,6 +180,7 @@
             <xsd:element name="meso-multi-queue" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-junction-control" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-junction-control.limited" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-overtaking" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-recheck" type="timeOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

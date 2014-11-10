@@ -39,12 +39,14 @@
         <xsd:all>
             <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="unsorted-input" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="route-steps" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="randomize-flows" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="max-alternatives" type="intOptionType" minOccurs="0"/>
             <xsd:element name="remove-loops" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="repair" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="with-taz" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="max-edges-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="turn-defaults" type="strOptionType" minOccurs="0"/>
             <xsd:element name="sink-edges" type="strOptionType" minOccurs="0"/>

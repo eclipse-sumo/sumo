@@ -44,6 +44,7 @@
         <xsd:all>
             <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="unsorted-input" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="route-steps" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="randomize-flows" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="max-alternatives" type="intOptionType" minOccurs="0"/>
             <xsd:element name="remove-loops" type="boolOptionType" minOccurs="0"/>
@@ -52,6 +53,7 @@
             <xsd:element name="with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="weight-period" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gawron.beta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="gawron.a" type="floatOptionType" minOccurs="0"/>
