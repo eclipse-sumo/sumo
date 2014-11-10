@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Name='SUMO' Id='A63B306E-2B15-11E1-88C8-028037EC0200' UpgradeCode='A764BC4F-2B15-11E1-9E7E-028037EC0200'
-    Language='1033' Codepage='1252' Version='0.21.0' Manufacturer='DLR'>
+    Language='1033' Codepage='1252' Version='0.22.0' Manufacturer='DLR'>
 
-    <Package Id='*' Description="SUMO 0.21.0 Installer"
+    <Package Id='*' Description="SUMO 0.22.0 Installer"
       Comments='Simulation of Urban Mobility' Manufacturer='[Manufacturer]'
       InstallerVersion='300' Compressed='yes' />
 
