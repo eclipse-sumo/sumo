@@ -45,8 +45,8 @@ const RGBColor SUMO_color_TL_OFF_NOSIGNAL(0, 255, 255);
 const RGBColor SUMO_color_MAJOR(255, 255, 255);
 const RGBColor SUMO_color_MINOR(51, 51, 51);
 const RGBColor SUMO_color_EQUAL(128, 128, 128);
-const RGBColor SUMO_color_STOP(102, 51, 51);
-const RGBColor SUMO_color_ALLWAY_STOP(51, 51, 102);
+const RGBColor SUMO_color_STOP(128, 0, 128);
+const RGBColor SUMO_color_ALLWAY_STOP(0, 0, 192);
 const RGBColor SUMO_color_DEADEND(0, 0, 0);
 
 const RGBColor& getLinkColor(const LinkState& ls) {
