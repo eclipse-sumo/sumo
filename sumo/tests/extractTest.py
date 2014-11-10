@@ -154,7 +154,6 @@ def main(options):
         nameBase = "test"
         if options.names:
             nameBase = os.path.basename(target)
-        appOptions += ['--save-configuration', '%s.%scfg' % (nameBase, app[:4])]
         exclude = []
         # gather copy_test_path exclusions
         for line in open(config):
@@ -174,17 +173,26 @@ def main(options):
                             copy_merge(toCopy, join(testPath, os.path.basename(toCopy)), merge, exclude)
                     else:
                         shutil.copy2(toCopy, testPath)
+        if options.skip_configuration:
+            continue
         oldWorkDir = os.getcwd()
         os.chdir(testPath)
-        if (not options.skip_configuration 
-                and app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert", 
-                    "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]):
+        if app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert", 
+                   "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
+            appOptions += ['--save-configuration', '%s.%scfg' % (nameBase, app[:4])]
             if "meso" in testPath and app == "sumo":
                 app = "meso"
             if app == "netgen":
                 # binary is now called differently but app still has the old name
                 app = "netgenerate"
             subprocess.call([checkBinary(app)] + appOptions)
+        elif app == "tools":
+            if os.name == "posix" or options.file:
+                tool = os.path.join("$SUMO_HOME", appOptions[-1])
+                open(nameBase + ".sh", "w").write(tool + " " + " ".join(appOptions[:-1]))
+            if os.name != "posix" or options.file:
+                tool = os.path.join("%SUMO_HOME%", appOptions[-1])
+                open(nameBase + ".bat", "w").write(tool + " " + " ".join(appOptions[:-1]))
         os.chdir(oldWorkDir)
 
 if __name__ == "__main__":

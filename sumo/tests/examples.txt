@@ -45,3 +45,5 @@ sumo/basic/simple_nets/box/box2l;../examples/sumo/simple_nets/box/box2l
 sumo/basic/simple_nets/box/box3l;../examples/sumo/simple_nets/box/box3l
 sumo/basic/simple_nets/box/box4l;../examples/sumo/simple_nets/box/box4l
 tools/assign/dua-iterate/simple;../examples/tools/dua-iterate
+tools/detector/flowrouter/bell_pfe/plain;../examples/tools/flowrouter
+tools/output/converter/ns2/mobility_only;../examples/tools/traceExporter
