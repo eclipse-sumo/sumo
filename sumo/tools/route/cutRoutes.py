@@ -61,7 +61,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
         sys.exit(USAGE)
     if ((options.trips_output is None and options.routes_output is None)
             or (options.trips_output is not None and options.routes_output is not None)):
-        sys.exit("Exactly one of the options --output-trips or --output-routes must be given")
+        sys.exit("Exactly one of the options --trips-output or --routes-output must be given")
     else:
         if options.trips_output:
             options.output = options.trips_output
