@@ -250,6 +250,12 @@ public:
     }
 
 
+    //@brief Returns the time of the last state change
+    inline SUMOTime getLastStateChange() const {
+        return myLastStateChange;
+    }
+
+
     /** @brief Returns the direction the vehicle passing this link take
      *
      * @return The direction of this link
@@ -260,6 +266,7 @@ public:
     /** @brief Sets the current tl-state
      *
      * @param[in] state The current state of the link
+     * @param[in] t The time of the state change
      */
     void setTLState(LinkState state, SUMOTime t);
 
@@ -376,6 +383,9 @@ private:
 
     /// @brief The state of the link
     LinkState myState;
+
+    /// @brief The time of the last state change
+    SUMOTime myLastStateChange;
 
     /// @brief An abstract (hopefully human readable) definition of the link's direction
     LinkDirection myDirection;

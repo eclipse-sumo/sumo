@@ -63,6 +63,7 @@ MSLink::MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal le
     myLane(succLane),
     myIndex(-1),
     myState(state),
+    myLastStateChange(-1),
     myDirection(dir),
     myLength(length),
     myHasFoes(false),
@@ -73,6 +74,7 @@ MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state
     myLane(succLane),
     myIndex(-1),
     myState(state),
+    myLastStateChange(-1),
     myDirection(dir),
     myLength(length),
     myHasFoes(false),
@@ -342,7 +344,10 @@ MSLink::getDirection() const {
 
 
 void
-MSLink::setTLState(LinkState state, SUMOTime /*t*/) {
+MSLink::setTLState(LinkState state, SUMOTime t) {
+    if (myState != state) {
+        myLastStateChange = t;
+    }
     myState = state;
 }
 
