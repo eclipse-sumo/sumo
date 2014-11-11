@@ -326,6 +326,9 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vClass = parseVehicleClass(attrs, id);
     }
     SUMOVTypeParameter* vtype = new SUMOVTypeParameter(id, vClass);
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
+        vtype->setParameter |= VTYPEPARS_VEHICLECLASS_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
         vtype->length = attrs.get<SUMOReal>(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_LENGTH_SET;
@@ -357,9 +360,6 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             vtype->impatience = attrs.get<SUMOReal>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), ok);
         }
         vtype->setParameter |= VTYPEPARS_IMPATIENCE_SET;
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
-        vtype->setParameter |= VTYPEPARS_VEHICLECLASS_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
         vtype->width = attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, vtype->id.c_str(), ok);
