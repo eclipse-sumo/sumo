@@ -293,6 +293,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                     // make a copy so we don't have to worry about synchronization
                     queue = segment->getQueue(laneIndex);
                     const SUMOReal avgCarSize = segment->getBruttoOccupancy() / segment->getCarNumber();
+                    const SUMOReal avgCarHalfSize = 0.5 * avgCarSize;
                     const size_t queueSize = queue.size();
                     for (size_t i = 0; i < queueSize; ++i) {
                         MSBaseVehicle* veh = queue[queueSize - i - 1];
@@ -327,8 +328,9 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                         glPopMatrix();
                         if (nameSettings.show) {
                             GLHelper::drawText(veh->getID(),
-                                               Position(xOff, -(vehiclePosition - shapeOffset)),
-                                               GLO_MAX, nameSettings.size / s.scale, nameSettings.color, 0);
+                                               Position(xOff, -(vehiclePosition - avgCarHalfSize - shapeOffset)),
+                                               GLO_MAX, nameSettings.size / s.scale, nameSettings.color, 
+                                               shapeRotations[shapeIndex]);
                         }
                     }
                 }
