@@ -17,4 +17,9 @@ off
 
 # Tests for error handling
 errors
+
+# test tlLogic type "actuated"
 actuated
+
+# test dynamics when the node type was set to "traffic_light_unregulated"
+traffic_light_unregulated
