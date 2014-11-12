@@ -133,6 +133,9 @@ NIFrame::fillOptions() {
     oc.doRegister("heightmap.shapefiles", new Option_FileName());
     oc.addDescription("heightmap.shapefiles", "Input", "Read heightmap from ArcGIS shapefile");
 
+    oc.doRegister("heightmap.geotiff", new Option_FileName());
+    oc.addDescription("heightmap.geotiff", "Input", "Read heightmap from GeoTIFF");
+
     // register basic processing options
     oc.doRegister("ignore-errors", new Option_Bool(false));
     oc.addSynonyme("ignore-errors", "dismiss-loading-errors", true);
