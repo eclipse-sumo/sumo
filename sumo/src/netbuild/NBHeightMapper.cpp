@@ -165,11 +165,7 @@ NBHeightMapper::loadIfSet(OptionsCont& oc) {
 
 int
 NBHeightMapper::loadShapeFile(const std::string& file) {
-    int numFeatures = 0;
-#ifndef HAVE_GDAL
-    WRITE_ERROR("Cannot load shape file since SUMO was compiled without GDAL support.");
-    return numFeatures;
-#else
+#ifdef HAVE_GDAL
     OGRRegisterAll();
     OGRDataSource* ds = OGRSFDriverRegistrar::Open(file.c_str(), FALSE);
     if (ds == NULL) {
@@ -190,6 +186,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
         WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
     }
 
+    int numFeatures = 0;
     OGRFeature* feature;
     layer->ResetReading();
     while ((feature = layer->GetNextFeature()) != NULL) {
@@ -249,16 +246,16 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
     OCTDestroyCoordinateTransformation(toWGS84);
     OGRCleanupAll();
     return numFeatures;
+#else
+    WRITE_ERROR("Cannot load shape file since SUMO was compiled without GDAL support.");
+    return 0;
 #endif
 }
 
 
 int
 NBHeightMapper::loadTiff(const std::string& file) {
-#ifndef HAVE_GDAL
-    WRITE_ERROR("Cannot load GeoTIFF file since SUMO was compiled without GDAL support.");
-    return 0;
-#else
+#ifdef HAVE_GDAL
     GDALAllRegister();
     GDALDataset* poDataset = (GDALDataset*)GDALOpen(file.c_str(), GA_ReadOnly);
     if (poDataset == 0) {
@@ -301,8 +298,11 @@ NBHeightMapper::loadTiff(const std::string& file) {
         }
     }
     GDALClose(poDataset);
-#endif
     return picSize;
+#else
+    WRITE_ERROR("Cannot load GeoTIFF file since SUMO was compiled without GDAL support.");
+    return 0;
+#endif
 }
 
 
