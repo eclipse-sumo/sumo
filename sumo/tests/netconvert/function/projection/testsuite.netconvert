@@ -4,6 +4,9 @@ simple
 # utm projection with zone guessing
 utm
 
+# utm projection with zone guessing and heightmap
+utm_heightmap
+
 # utm projection across zone boundaries
 utm_multizone
 
