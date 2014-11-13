@@ -3,8 +3,12 @@
   <PropertyGroup Label="UserMacros">
     <XERCES_LIB>$(XERCES)\lib\xerces-c_3.lib</XERCES_LIB>
     <XERCES_DEBUG_LIB>$(XERCES)\lib\xerces-c_3D.lib</XERCES_DEBUG_LIB>
+    <FOX16_LIB>$(FOX16)\lib\FOXDLL-1.6.lib</FOX16_LIB>
+    <FOX16_DEBUG_LIB>$(FOX16)\lib\FOXDLLD-1.6.lib</FOX16_DEBUG_LIB>
     <GTEST_LIB>$(GTEST)\msvc\gtest-md\Release\gtest.lib</GTEST_LIB>
     <GTEST_DEBUG_LIB>$(GTEST)\msvc\gtest-md\Debug\gtestd.lib</GTEST_DEBUG_LIB>
+    <PYTHON_LIB>C:\Python27\libs\python27.lib</PYTHON_LIB>
+    <PYTHON_DEBUG_LIB>C:\Python27\libs\python27_d.lib</PYTHON_DEBUG_LIB>
   </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
@@ -15,18 +19,4 @@
       <AdditionalIncludeDirectories>..\..\..\..\src;$(GTEST)\include;$(XERCES)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <BuildMacro Include="XERCES_LIB">
-      <Value>$(XERCES_LIB)</Value>
-    </BuildMacro>
-    <BuildMacro Include="XERCES_DEBUG_LIB">
-      <Value>$(XERCES_DEBUG_LIB)</Value>
-    </BuildMacro>
-    <BuildMacro Include="GTEST_LIB">
-      <Value>$(GTEST_LIB)</Value>
-    </BuildMacro>
-    <BuildMacro Include="GTEST_DEBUG_LIB">
-      <Value>$(GTEST_DEBUG_LIB)</Value>
-    </BuildMacro>
-  </ItemGroup>
 </Project>
