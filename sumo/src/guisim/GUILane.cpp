@@ -607,7 +607,8 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
     //
     buildShowParamsPopupEntry(ret, false);
     const SUMOReal pos = interpolateGeometryPosToLanePos(myShape.nearest_offset_to_point2D(parent.getPositionInformation()));
-    new FXMenuCommand(ret, ("pos: " + toString(pos)).c_str(), 0, 0, 0);
+    const SUMOReal height = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(parent.getPositionInformation())).z();
+    new FXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     return ret;
@@ -802,6 +803,14 @@ GUILane::getColorValue(size_t activeScheme) const {
         }
         case 20: {
             return myEdge->getPriority();
+        }
+        case 21: {
+            // color by z of first shape point
+            return getShape()[0].z();
+        }
+        case 22: {
+            // color by incline
+            return abs(getShape()[-1].z() - getShape()[0].z()) / getLength();
         }
     }
     return 0;
