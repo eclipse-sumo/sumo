@@ -48,22 +48,25 @@ def polygonOffsetWithMinimumDistanceToPoint(point, polygon, perpendicular=False)
     """Return the offset from the polygon start where the distance to point is minimal"""
     p = point
     s = polygon
-    o = 0
+    seen = 0
     minDist = 1e400
     minOffset = INVALID_DISTANCE
-    for i in range(0, len(s)-1):
-        q = lineOffsetWithMinimumDistanceToPoint(p, s[i], s[i+1], perpendicular)
-        if q != INVALID_DISTANCE:
-            d = distance(p, positionAtOffset(s[i], s[i+1], q))
-            if d < minDist:
-                minDist = d
-                minOffset = o + q
-            if perpendicular and i > 0:
-                d = distance(p, s[i])
-                if d < minDist:
-                    minDist = d
-                    minOffset = o
-        o += distance(s[i], s[i+1])
+    for i in range(len(s)-1):
+        pos = lineOffsetWithMinimumDistanceToPoint(p, s[i], s[i+1], perpendicular)
+        dist = minDist if pos == INVALID_DISTANCE else distance(p, positionAtOffset(s[i], s[i+1], pos))
+        if dist < minDist:
+            minDist = dist
+            minOffset = pos + seen
+        if perpendicular and i != 0 and pos == INVALID_DISTANCE:
+            #even if perpendicular is set we still need to check the distance to the inner points
+            cornerDist = distance(p, s[i])
+            if cornerDist < minDist:
+                pos1 = lineOffsetWithMinimumDistanceToPoint(p, s[i-1], s[i], False);
+                pos2 = lineOffsetWithMinimumDistanceToPoint(p, s[i], s[i+1], False);
+                if pos1 == distance(s[i-1], s[i]) and pos2 == 0.:
+                    minOffset = seen
+                    minDist = cornerDist
+        seen += distance(s[i], s[i+1])
     return minOffset
 
 
@@ -117,30 +120,3 @@ def positionAtShapeOffset(shape, offset):
         seenLength += nextLength
         curr = next
     return shape[-1]
-
-
-if __name__ == "__main__":
-    # run some tests
-    point = (81365.994719034992, 9326.8304398041219)
-    polygon = [
-            (81639.699999999997, 9196.8400000000001),
-            (81554.910000000003, 9246.7600000000002),
-            (81488.800000000003, 9288.2999999999993),
-            (81376.100000000006, 9358.5799999999999),
-            (81305.089999999997, 9404.4400000000005),
-            (81230.610000000001, 9452.4200000000001),
-            (81154.699999999997, 9502.6000000000004),
-            (81063.419999999998, 9564.5799999999999),
-            (80969.389999999999, 9627.6100000000006),
-            (80882.990000000005, 9686.3899999999994),
-            (80772.160000000003, 9763.4200000000001),
-            (80682.259999999995, 9825.4500000000007),
-            (80617.509999999995, 9868.1499999999996),
-            (80552.660000000003, 9914.1900000000005)]
-    dist = distancePointToPolygon(point, polygon, True)
-    assert(abs(dist - 32.288) < 0.01)
-    print "Test successful"
-
-    assert(polygonOffsetWithMinimumDistanceToPoint((-1,-1), [(0, 1), (0,0), (1,0)], True) == INVALID_DISTANCE)
-    assert(polygonOffsetWithMinimumDistanceToPoint((-1,-1), [(0, 1), (0,0), (1,0)], False) == math.sqrt(2))
-

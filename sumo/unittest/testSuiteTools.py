@@ -92,6 +92,7 @@ class ToolsTestSuite(unittest.TestSuite):
         TODO: Apply or write a tool to automatically add the test cases.
         '''
         self.addTest(unittest.TestLoader().loadTestsFromTestCase(tools.district.testEdgesInDistrict.TestEdgesInDistrict))
+        self.addTest(unittest.TestLoader().loadTestsFromTestCase(tools.sumolib.testGeomhelper.TestGeomhelper))
 
 class ToolsTestResult(unittest.TestResult):
     '''

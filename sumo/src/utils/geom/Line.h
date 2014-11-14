@@ -54,6 +54,7 @@ public:
     Line(const Position& p1, const Position& p2);
     ~Line();
     void extrapolateBy(SUMOReal length);
+    void extrapolateBy2D(SUMOReal length);
     void extrapolateFirstBy(SUMOReal length);
     void extrapolateSecondBy(SUMOReal length);
     const Position& p1() const;
