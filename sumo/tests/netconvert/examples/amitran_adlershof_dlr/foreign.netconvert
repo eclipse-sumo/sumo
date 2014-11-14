@@ -769,7 +769,7 @@
     <link id="427" from="241" to="99" roadClass="4" length="4531" speedLimitKmh="20" laneNr="1"/>
     <link id="428" from="93" to="137" roadClass="4" length="18156" speedLimitKmh="10" laneNr="1"/>
     <link id="429" from="137" to="123" roadClass="4" length="103714" speedLimitKmh="10" laneNr="1"/>
-    <link id="430" from="100" to="139" roadClass="4" length="2712" speedLimitKmh="30" laneNr="1"/>
+    <link id="430" from="100" to="139" roadClass="4" length="2713" speedLimitKmh="30" laneNr="1"/>
     <link id="431" from="101" to="102" roadClass="4" length="29248" speedLimitKmh="20" laneNr="1"/>
     <link id="432" from="139" to="89" roadClass="4" length="4334" speedLimitKmh="30" laneNr="1"/>
     <link id="433" from="332" to="106" roadClass="4" length="20828" speedLimitKmh="20" laneNr="1"/>

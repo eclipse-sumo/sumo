@@ -1,8 +1,8 @@
  Removed 3 traffic lights before loading plain-XML
  Import done:
    221 nodes loaded.
-   202 edges loaded.
-The split of edges was performed 69 times.
+   193 edges loaded.
+The split of edges was performed 60 times.
 Removing self-loops... done.
 Removing empty nodes... done.
    0 nodes removed.

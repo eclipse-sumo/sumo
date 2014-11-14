@@ -106,15 +106,16 @@ Warning: TL traffic lights are not supported (lsa=452)
 Warning: TL traffic lights are not supported (lsa=452)
 Warning: TL traffic lights are not supported (lsa=452)
 Warning: Could not build connection between '6' and '20000'.
-Warning: Could not set connection between '82[1]_0' and '84[1][1][0]_0'.
-Warning: Could not set connection between '82[1]_0' and '85[1][1][1][1][1][1][1]_0'.
-Warning: Could not set connection between '83[1][0]_0' and '84[1][1][1][1][0]_0'.
-Warning: Could not set connection between '83[1][0]_0' and '85[1][1][1][1][1][0]_0'.
-Warning: Could not set connection between '84[1][1][1][0]_0' and '83[1][1]_0'.
-Warning: Could not set connection between '85[1][1][1][1][0]_0' and '83[1][1]_0'.
+Warning: Could not build connection between '82' and '85'.
+Warning: Could not build connection between '84' and '82'.
+Warning: Could not build connection between '85' and '82'.
+Warning: Could not build connection between '83' and '84'.
+Warning: Could not build connection between '84' and '83'.
+Warning: Could not build connection between '84' and '91'.
+Warning: Could not build connection between '84' and '93'.
 Warning: Could not set connection between '93[1]_0' and '85[1][1][1][0]_0'.
-Warning: Could not set connection between '93[1]_0' and '84[1][1][1][1][1][1][0]_0'.
-Warning: 9 of 136 connections could not be assigned.
+Warning: Could not build connection between '93' and '84'.
+Warning: 10 of 136 connections could not be assigned.
 Warning: Ugly split to prohibit '6' by '20000'.
 Warning: Ugly split to prohibit '6' by '10'.
 Warning: Ugly split to prohibit '6' by '11'.
@@ -237,7 +238,6 @@ Warning: Found sharp turn with radius 4.99 at the start of edge 6[1][1][1][1][1]
 Warning: Found sharp turn with radius 3.90 at the end of edge 82[0]
 Warning: Found sharp turn with radius 5.59 at the start of edge 82[1]
 Warning: Found sharp turn with radius 2.68 at the start of edge 83[1][1]
-Warning: Found sharp turn with radius 8.32 at the start of edge 84[1][1][1][1][1][1][1]
 Warning: Found sharp turn with radius 7.23 at the end of edge 85[1][1][1][0]
 Warning: The traffic light '451' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '451'
@@ -253,22 +253,3 @@ Warning: The traffic light '503' does not control any links; it will not be buil
 Warning: Could not build program '0' for traffic light '503'
 Warning: The traffic light '531' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '531'
-Leaked object at 0x28e6520 (size 16, 0x3406cb0499)
-Leaked object at 0x28e6df0 (size 60, 0x340549c3c9)
-Leaked object at 0x28e6eb0 (size 62, 0x340549c3c9)
-Leaked object at 0x28e6f70 (size 55, 0x340549c3c9)
-Leaked object at 0x28e7020 (size 59, 0x340549c3c9)
-Leaked object at 0x28e70e0 (size 78, 0x340549c3c9)
-Leaked object at 0x28e71b0 (size 61, 0x340549c3c9)
-Leaked object at 0x28e7270 (size 26, 0x340549c3c9)
-Leaked object at 0x28e7310 (size 782, 0x340549c3c9)
-*** 9 leaks found
-delete: freed 0x28e7310 (size 782, 417 bytes still allocated)
-delete: freed 0x28e7270 (size 26, 391 bytes still allocated)
-delete: freed 0x28e71b0 (size 61, 330 bytes still allocated)
-delete: freed 0x28e70e0 (size 78, 252 bytes still allocated)
-delete: freed 0x28e7020 (size 59, 193 bytes still allocated)
-delete: freed 0x28e6f70 (size 55, 138 bytes still allocated)
-delete: freed 0x28e6eb0 (size 62, 76 bytes still allocated)
-delete: freed 0x28e6df0 (size 60, 16 bytes still allocated)
-delete: freed 0x28e6520 (size 16, 0 bytes still allocated)

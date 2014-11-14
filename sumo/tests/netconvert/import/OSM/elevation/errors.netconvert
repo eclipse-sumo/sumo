@@ -9,3 +9,4 @@ Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
 Warning: Found sharp turn with radius 1.71 at the start of edge 128643746#0
 Warning: Junction shape for '567607201' has distance 24.98 to its given position
+Warning: Junction shape for '945141768' has distance 30.15 to its given position
