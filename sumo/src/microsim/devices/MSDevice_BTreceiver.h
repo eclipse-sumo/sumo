@@ -194,7 +194,7 @@ public:
          * @param[in] meetingBegin_ Description of the meeting's begin
          */
         SeenDevice(const MeetingPoint& meetingBegin_)
-            : meetingBegin(meetingBegin_), meetingEnd(meetingBegin_), lastView(meetingBegin_.t) {}
+            : meetingBegin(meetingBegin_), meetingEnd(meetingBegin_), lastView(meetingBegin_.t), nextView(-1.) {}
 
         /// @brief Destructor
         ~SeenDevice() {
@@ -212,6 +212,8 @@ public:
         MeetingPoint meetingEnd;
         /// @brief Last recognition point
         SUMOReal lastView;
+        /// @brief Next possible recognition point
+        SUMOReal nextView;
         /// @brief List of recognition points
         std::vector<MeetingPoint*> recognitionPoints;
 
@@ -378,6 +380,8 @@ private:
 
     };
 
+
+    static SUMOReal inquiryDelaySlots(const int backoffLimit);
 
     /// @brief A random number generator used to determine whether the opposite was recognized
     static MTRand sRecognitionRNG;

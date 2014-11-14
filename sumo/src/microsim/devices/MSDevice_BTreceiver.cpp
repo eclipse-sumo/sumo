@@ -295,16 +295,47 @@ MSDevice_BTreceiver::BTreceiverUpdate::leaveRange(std::map<std::string, SeenDevi
 }
 
 
+SUMOReal
+MSDevice_BTreceiver::inquiryDelaySlots(const int backoffLimit) {
+    const int phaseOffset = sRecognitionRNG.randInt(2047);
+    const bool interlaced = sRecognitionRNG.rand() < 0.7;
+    const SUMOReal delaySlots = sRecognitionRNG.rand() * 15;
+    const int backoff = sRecognitionRNG.randInt(backoffLimit);
+    if (interlaced) {
+        return sRecognitionRNG.rand() * 31 + backoff;
+    }
+    if (sRecognitionRNG.randInt(31) < 16) {
+        // correct train for f0
+        return delaySlots + backoff;
+    }
+    if (sRecognitionRNG.randInt(30) < 16) {
+        // correct train for f1
+        return 2048 - phaseOffset + delaySlots + backoff;
+    }
+    if (sRecognitionRNG.randInt(29) < 16) {
+        // f2 is in train A but has overlap with both trains
+        if (2 * 2048 - phaseOffset + backoff < 4096) {
+            return 2 * 2048 - phaseOffset + delaySlots + backoff;
+        }
+        // the following is wrong but should only happen in about 3% of the non-interlaced cases
+        return 2 * 2048 - phaseOffset + delaySlots + backoff;
+    }
+    return 2 * 2048 + delaySlots + backoff;
+}
+
+
 void
 MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(const SUMOReal tEnd, const Position& thisPos, const SUMOReal thisSpeed, const std::string& thisLaneID, const SUMOReal thisLanePos,
         const Position& otherPos, const SUMOReal otherSpeed, const std::string& otherLaneID, const SUMOReal otherLanePos,
         SeenDevice* otherDevice) const {
-    const SUMOReal t = tEnd - MAX2(SIMTIME - TS, otherDevice->lastView);
-    // probability of a miss 0.5 (may be in the wrong train), backoff time 0.64s
-    if (sRecognitionRNG.rand() <= 1 - pow(0.5, t / myOffTime)) {
-        otherDevice->lastView = tEnd;
+    if (otherDevice->nextView == -1.) {
+        otherDevice->nextView = otherDevice->lastView + inquiryDelaySlots(int(myOffTime / 0.000625 + .5)) * 0.000625;
+    }
+    if (tEnd > otherDevice->nextView) {
+        otherDevice->lastView = otherDevice->nextView;
         MeetingPoint* mp = new MeetingPoint(tEnd, thisPos, thisSpeed, thisLaneID, thisLanePos, otherPos, otherSpeed, otherLaneID, otherLanePos);
         otherDevice->recognitionPoints.push_back(mp);
+        otherDevice->nextView = otherDevice->lastView + inquiryDelaySlots(int(myOffTime / 0.000625 + .5)) * 0.000625;
     }
 }
 
