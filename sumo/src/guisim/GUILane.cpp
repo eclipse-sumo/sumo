@@ -427,6 +427,12 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     if (!MSGlobals::gUseMesoSim) {
         setColor(s);
     }
+    // recognize full transparency and simply don't draw
+    GLfloat color[4];
+    glGetFloatv(GL_CURRENT_COLOR, color);
+    if (color[3] == 0) {
+        return;
+    }
     // draw lane
     // check whether it is not too small
     if (s.scale * exaggeration < 1.) {
@@ -476,13 +482,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             const SUMOReal laneWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
             mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN;
-            // recognize full transparency and simply don't draw
-            GLfloat color[4];
-            glGetFloatv(GL_CURRENT_COLOR, color);
-            if (color[3] > 0) {
-                const int cornerDetail = drawDetails ? s.scale * exaggeration : 0;
-                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * exaggeration, cornerDetail);
-            }
+            const int cornerDetail = drawDetails ? s.scale * exaggeration : 0;
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * exaggeration, cornerDetail);
         }
         glPopMatrix();
         // draw ROWs (not for inner lanes)
