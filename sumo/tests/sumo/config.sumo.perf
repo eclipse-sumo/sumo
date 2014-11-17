@@ -12,8 +12,5 @@ performance:output
 [performance_logfile_extractor]
 performance: Duration:
 
-[performance_test_machine]
-performance:any
-
 [performance_unit]
 performance:ms
