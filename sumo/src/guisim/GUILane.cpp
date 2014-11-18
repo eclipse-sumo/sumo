@@ -806,6 +806,14 @@ GUILane::getColorValue(size_t activeScheme) const {
             // color by incline
             return abs(getShape()[-1].z() - getShape()[0].z()) / getLength();
         }
+        case 23: {
+            // color by average speed
+            return getMeanSpeed();
+        }
+        case 24: {
+            // color by average relative speed
+            return getMeanSpeed() / myMaxSpeed;
+        }
     }
     return 0;
 }
@@ -864,6 +872,14 @@ GUILane::getScaleValue(size_t activeScheme) const {
         }
         case 18: {
             return myEdge->getPriority();
+        }
+        case 19: {
+            // scale by average speed
+            return getMeanSpeed();
+        }
+        case 20: {
+            // scale by average relative speed
+            return getMeanSpeed() / myMaxSpeed;
         }
     }
     return 0;

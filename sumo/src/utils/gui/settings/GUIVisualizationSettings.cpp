@@ -184,6 +184,20 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::BLUE, (SUMOReal)-.3);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by average speed", RGBColor::RED);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)(30 / 3.6));
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)(55 / 3.6));
+    scheme.addColor(RGBColor::CYAN, (SUMOReal)(80 / 3.6));
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)(120 / 3.6));
+    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)(150 / 3.6));
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by average relative speed ", RGBColor::RED);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)(0.25));
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)(0.5));
+    scheme.addColor(RGBColor::CYAN, (SUMOReal)(0.75));
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)(1));
+    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)(1.25));
+    laneColorer.addScheme(scheme);
 
 
     /// add vehicle coloring schemes
@@ -382,6 +396,14 @@ GUIVisualizationSettings::GUIVisualizationSettings()
         scheme.addColor(0.5, (SUMOReal) - 20);
         scheme.addColor(5, (SUMOReal)20);
         scheme.setAllowsNegativeValues(true);
+        laneScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by average speed", 0);
+        scheme.addColor(10, (SUMOReal)(150.0 / 3.6));
+        laneScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by average relative speed", 0);
+        scheme.addColor(0.5, (SUMOReal)(0.5));
+        scheme.addColor(2, (SUMOReal)(1));
+        scheme.addColor(10, (SUMOReal)(2));
         laneScaler.addScheme(scheme);
     }
 
