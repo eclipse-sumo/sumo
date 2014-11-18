@@ -35,3 +35,4 @@ errors:4294967035
 testclient_out:0.0101
 net_state:0.0101
 detector:0.0101
+tripinfos:0.0101
