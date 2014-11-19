@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 19Nov16:10:26]
+search_string:-
+search_file:exitcode
+ignore_other_errors:1
+full_description:invalid cast to MSVehicle and call to getLane()
+brief_description:see ticket #1505

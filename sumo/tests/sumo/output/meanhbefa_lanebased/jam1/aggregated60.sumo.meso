@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov 19 15:53:54 2014 by SUMO Version dev-SVN-r17350ID
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="600.00" end="660.00" id="dump_60">
+        <edge id="2/1to1/1" sampledSeconds="780.00" CO_abs="4925.213005" CO2_abs="474186.989877" HC_abs="272.345740" PMx_abs="16.918133" NOx_abs="662.701732" fuel_abs="189.050947"
+            CO_normed="738.781951" CO2_normed="71128.048482" HC_normed="40.851861" PMx_normed="2.537720" NOx_normed="99.405260" fuel_normed="28.357642"
+            traveltime="8000.00" CO_perVeh="50515.005175" CO2_perVeh="4863456.306430" HC_perVeh="2793.289646" PMx_perVeh="173.519312" NOx_perVeh="6796.940837" fuel_perVeh="1938.984075"/>
+        <edge id="3/1to2/1" sampledSeconds="420.00" CO_abs="2651.218748" CO2_abs="255420.512817" HC_abs="146.643975" PMx_abs="9.115877" NOx_abs="356.983642" fuel_abs="101.832169"
+            CO_normed="397.682812" CO2_normed="38313.076923" HC_normed="21.996596" PMx_normed="1.367382" NOx_normed="53.547546" fuel_normed="15.274825"
+            traveltime="7736.70" CO_perVeh="48837.322813" CO2_perVeh="4705026.338282" HC_perVeh="2701.285640" PMx_perVeh="167.920901" NOx_perVeh="6575.890945" fuel_perVeh="1875.820521"/>
+    </interval>
+</meandata>

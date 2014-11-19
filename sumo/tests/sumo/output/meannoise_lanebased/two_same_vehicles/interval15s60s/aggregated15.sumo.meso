@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov 19 15:53:55 2014 by SUMO Version dev-SVN-r17350ID
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="15.00" id="dump_15">
+        <edge id="4/1to3/1" sampledSeconds="23.00" noise="50.01" traveltime="40.00"/>
+    </interval>
+    <interval begin="15.00" end="30.00" id="dump_15">
+        <edge id="4/1to3/1" sampledSeconds="30.00" noise="54.79" traveltime="40.00"/>
+    </interval>
+    <interval begin="30.00" end="45.00" id="dump_15">
+        <edge id="3/1to2/1" sampledSeconds="4.00" noise="0.00" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="26.00" noise="54.79" traveltime="40.00"/>
+    </interval>
+    <interval begin="45.00" end="60.00" id="dump_15">
+        <edge id="3/1to2/1" sampledSeconds="29.00" noise="53.02" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="1.00" noise="50.01" traveltime="40.00"/>
+    </interval>
+    <interval begin="60.00" end="75.00" id="dump_15">
+        <edge id="3/1to2/1" sampledSeconds="30.00" noise="54.79" traveltime="40.00"/>
+    </interval>
+    <interval begin="75.00" end="90.00" id="dump_15">
+        <edge id="2/1to1/1" sampledSeconds="13.00" noise="0.00" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="17.00" noise="54.79" traveltime="40.00"/>
+    </interval>
+    <interval begin="90.00" end="105.00" id="dump_15">
+        <edge id="2/1to1/1" sampledSeconds="30.00" noise="54.79" traveltime="40.00"/>
+    </interval>
+    <interval begin="105.00" end="120.00" id="dump_15">
+        <edge id="2/1to1/1" sampledSeconds="30.00" noise="54.79" traveltime="40.00"/>
+    </interval>
+    <interval begin="120.00" end="135.00" id="dump_15">
+        <edge id="1/1to0/1" sampledSeconds="23.00" noise="50.01" traveltime="40.00"/>
+        <edge id="2/1to1/1" sampledSeconds="7.00" noise="53.02" traveltime="40.00"/>
+    </interval>
+    <interval begin="135.00" end="150.00" id="dump_15">
+        <edge id="1/1to0/1" sampledSeconds="30.00" noise="54.79" traveltime="40.00"/>
+    </interval>
+</meandata>

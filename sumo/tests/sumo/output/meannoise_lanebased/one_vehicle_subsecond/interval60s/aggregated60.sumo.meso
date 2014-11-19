@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov 19 15:53:55 2014 by SUMO Version dev-SVN-r17350ID
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="60.00" id="dump_60">
+        <edge id="3/1to2/1" sampledSeconds="19.00" noise="33.99" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="40.00" noise="40.01" traveltime="40.00"/>
+    </interval>
+    <interval begin="60.00" end="120.00" id="dump_60">
+        <edge id="2/1to1/1" sampledSeconds="39.00" noise="38.76" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="21.00" noise="38.76" traveltime="40.00"/>
+    </interval>
+    <interval begin="120.00" end="150.00" id="dump_60">
+        <edge id="1/1to0/1" sampledSeconds="29.10" noise="40.01" traveltime="40.00"/>
+        <edge id="2/1to1/1" sampledSeconds="1.00" noise="37.00" traveltime="40.00"/>
+    </interval>
+</meandata>
