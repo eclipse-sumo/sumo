@@ -1,0 +1,1 @@
+--no-step-log --net-file=net.net.xml -r input_routes.rou.xml --weight-files input_additional.add.xml --meso-junction-control --device.rerouting.explicit rerouted,rerouted2 --device.rerouting.period 20 --device.rerouting.init-with-loaded-weights
