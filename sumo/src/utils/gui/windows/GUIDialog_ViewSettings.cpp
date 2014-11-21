@@ -500,10 +500,11 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
     rebuildColorMatrices(false);
     setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
 
-    setX(getApp()->reg().readIntEntry("VIEWSETTINGS", "x", 150));
-    setY(getApp()->reg().readIntEntry("VIEWSETTINGS", "y", 150));
-    setWidth(getApp()->reg().readIntEntry("VIEWSETTINGS", "width", 700));
-    setHeight(getApp()->reg().readIntEntry("VIEWSETTINGS", "height", 500));
+    const FXint minSize = 400;
+    setX(MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "x", 150), getApp()->getRootWindow()->getWidth() - minSize));
+    setY(MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "y", 150), getApp()->getRootWindow()->getHeight() - minSize));
+    setWidth(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "width", 700), minSize));
+    setHeight(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "height", 500), minSize));
 }
 
 
