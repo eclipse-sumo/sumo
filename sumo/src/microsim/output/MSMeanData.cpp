@@ -283,6 +283,7 @@ MSMeanData::init() {
                 } else {
                     data = createValues(0, lanes[0]->getLength(), false);
                 }
+                data->setDescription("meandata_" + (*e)->getID());
                 myMeasures.back().push_back(data);
                 MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**e);
                 while (s != 0) {
