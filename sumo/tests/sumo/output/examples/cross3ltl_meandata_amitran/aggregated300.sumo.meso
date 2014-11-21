@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 19 15:58:56 2014 by SUMO Version dev-SVN-r17350ID
+<!-- generated on Fri Nov 21 16:25:15 2014 by SUMO Version dev-SVN-r17359I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -31,155 +31,155 @@
 
 <linkData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/linkdata.xsd">
     <timeSlice startTime="0" duration="300000">
-        <link id="1fi" amount="60" averageSpeed="1111">
-            <actorConfig id="0" amount="60" averageSpeed="1111"/>
+        <link id="1fi" amount="32" averageSpeed="1111">
+            <actorConfig id="0" amount="32" averageSpeed="1111"/>
         </link>
-        <link id="1o" amount="28" averageSpeed="1111">
+        <link id="1o" amount="16" averageSpeed="1111">
+            <actorConfig id="0" amount="16" averageSpeed="1111"/>
+        </link>
+        <link id="1si" amount="28" averageSpeed="1355">
+            <actorConfig id="0" amount="28" averageSpeed="1355"/>
+        </link>
+        <link id="2fi" amount="40" averageSpeed="1111">
+            <actorConfig id="0" amount="40" averageSpeed="1111"/>
+        </link>
+        <link id="2o" amount="32" averageSpeed="1111">
+            <actorConfig id="0" amount="32" averageSpeed="1111"/>
+        </link>
+        <link id="2si" amount="29" averageSpeed="1389">
+            <actorConfig id="0" amount="29" averageSpeed="1389"/>
+        </link>
+        <link id="3fi" amount="44" averageSpeed="1078">
+            <actorConfig id="0" amount="44" averageSpeed="1078"/>
+        </link>
+        <link id="3o" amount="8" averageSpeed="1111">
+            <actorConfig id="0" amount="8" averageSpeed="1111"/>
+        </link>
+        <link id="3si" amount="36" averageSpeed="1389">
+            <actorConfig id="0" amount="36" averageSpeed="1389"/>
+        </link>
+        <link id="4fi" amount="28" averageSpeed="1111">
             <actorConfig id="0" amount="28" averageSpeed="1111"/>
         </link>
-        <link id="1si" amount="52" averageSpeed="1355">
-            <actorConfig id="0" amount="52" averageSpeed="1355"/>
+        <link id="4o" amount="40" averageSpeed="1111">
+            <actorConfig id="0" amount="40" averageSpeed="1111"/>
         </link>
-        <link id="2fi" amount="69" averageSpeed="1111">
-            <actorConfig id="0" amount="69" averageSpeed="1111"/>
-        </link>
-        <link id="2o" amount="52" averageSpeed="1111">
-            <actorConfig id="0" amount="52" averageSpeed="1111"/>
-        </link>
-        <link id="2si" amount="53" averageSpeed="1389">
-            <actorConfig id="0" amount="53" averageSpeed="1389"/>
-        </link>
-        <link id="3fi" amount="80" averageSpeed="1077">
-            <actorConfig id="0" amount="80" averageSpeed="1077"/>
-        </link>
-        <link id="3o" amount="12" averageSpeed="1111">
-            <actorConfig id="0" amount="12" averageSpeed="1111"/>
-        </link>
-        <link id="3si" amount="68" averageSpeed="1389">
-            <actorConfig id="0" amount="68" averageSpeed="1389"/>
-        </link>
-        <link id="4fi" amount="49" averageSpeed="1111">
-            <actorConfig id="0" amount="49" averageSpeed="1111"/>
-        </link>
-        <link id="4o" amount="68" averageSpeed="1111">
-            <actorConfig id="0" amount="68" averageSpeed="1111"/>
-        </link>
-        <link id="4si" amount="37" averageSpeed="1389">
-            <actorConfig id="0" amount="37" averageSpeed="1389"/>
+        <link id="4si" amount="21" averageSpeed="1389">
+            <actorConfig id="0" amount="21" averageSpeed="1389"/>
         </link>
     </timeSlice>
     <timeSlice startTime="300000" duration="300000">
-        <link id="1fi" amount="185" averageSpeed="1099">
-            <actorConfig id="0" amount="185" averageSpeed="1096"/>
+        <link id="1fi" amount="102" averageSpeed="1100">
+            <actorConfig id="0" amount="102" averageSpeed="1096"/>
         </link>
-        <link id="1o" amount="153" averageSpeed="1111">
-            <actorConfig id="0" amount="153" averageSpeed="1111"/>
+        <link id="1o" amount="81" averageSpeed="1111">
+            <actorConfig id="0" amount="81" averageSpeed="1111"/>
         </link>
-        <link id="1si" amount="164" averageSpeed="1350">
-            <actorConfig id="0" amount="164" averageSpeed="1348"/>
+        <link id="1si" amount="83" averageSpeed="1350">
+            <actorConfig id="0" amount="83" averageSpeed="1348"/>
         </link>
-        <link id="2fi" amount="210" averageSpeed="1111">
-            <actorConfig id="0" amount="210" averageSpeed="1111"/>
+        <link id="2fi" amount="120" averageSpeed="1111">
+            <actorConfig id="0" amount="120" averageSpeed="1111"/>
         </link>
-        <link id="2o" amount="180" averageSpeed="1111">
-            <actorConfig id="0" amount="180" averageSpeed="1111"/>
+        <link id="2o" amount="90" averageSpeed="1111">
+            <actorConfig id="0" amount="90" averageSpeed="1111"/>
         </link>
-        <link id="2si" amount="180" averageSpeed="1389">
-            <actorConfig id="0" amount="180" averageSpeed="1389"/>
+        <link id="2si" amount="90" averageSpeed="1389">
+            <actorConfig id="0" amount="90" averageSpeed="1389"/>
         </link>
-        <link id="3fi" amount="215" averageSpeed="1069">
-            <actorConfig id="0" amount="215" averageSpeed="1067"/>
+        <link id="3fi" amount="132" averageSpeed="1073">
+            <actorConfig id="0" amount="132" averageSpeed="1072"/>
         </link>
-        <link id="3o" amount="153" averageSpeed="1111">
-            <actorConfig id="0" amount="153" averageSpeed="1111"/>
+        <link id="3o" amount="81" averageSpeed="1111">
+            <actorConfig id="0" amount="81" averageSpeed="1111"/>
         </link>
-        <link id="3si" amount="164" averageSpeed="1389">
-            <actorConfig id="0" amount="164" averageSpeed="1389"/>
+        <link id="3si" amount="83" averageSpeed="1389">
+            <actorConfig id="0" amount="83" averageSpeed="1389"/>
         </link>
-        <link id="4fi" amount="180" averageSpeed="1111">
-            <actorConfig id="0" amount="180" averageSpeed="1111"/>
+        <link id="4fi" amount="90" averageSpeed="1111">
+            <actorConfig id="0" amount="90" averageSpeed="1111"/>
         </link>
-        <link id="4o" amount="180" averageSpeed="1111">
-            <actorConfig id="0" amount="180" averageSpeed="1111"/>
+        <link id="4o" amount="90" averageSpeed="1111">
+            <actorConfig id="0" amount="90" averageSpeed="1111"/>
         </link>
-        <link id="4si" amount="180" averageSpeed="1389">
-            <actorConfig id="0" amount="180" averageSpeed="1389"/>
+        <link id="4si" amount="90" averageSpeed="1389">
+            <actorConfig id="0" amount="90" averageSpeed="1389"/>
         </link>
     </timeSlice>
     <timeSlice startTime="600000" duration="300000">
-        <link id="1fi" amount="210" averageSpeed="1097">
-            <actorConfig id="0" amount="210" averageSpeed="1095"/>
+        <link id="1fi" amount="120" averageSpeed="1098">
+            <actorConfig id="0" amount="120" averageSpeed="1097"/>
         </link>
-        <link id="1o" amount="180" averageSpeed="1111">
-            <actorConfig id="0" amount="180" averageSpeed="1111"/>
+        <link id="1o" amount="90" averageSpeed="1111">
+            <actorConfig id="0" amount="90" averageSpeed="1111"/>
         </link>
-        <link id="1si" amount="180" averageSpeed="1351">
-            <actorConfig id="0" amount="180" averageSpeed="1352"/>
+        <link id="1si" amount="90" averageSpeed="1351">
+            <actorConfig id="0" amount="90" averageSpeed="1352"/>
         </link>
-        <link id="2fi" amount="210" averageSpeed="1111">
-            <actorConfig id="0" amount="210" averageSpeed="1111"/>
+        <link id="2fi" amount="120" averageSpeed="1111">
+            <actorConfig id="0" amount="120" averageSpeed="1111"/>
         </link>
-        <link id="2o" amount="180" averageSpeed="1111">
-            <actorConfig id="0" amount="180" averageSpeed="1111"/>
+        <link id="2o" amount="90" averageSpeed="1111">
+            <actorConfig id="0" amount="90" averageSpeed="1111"/>
         </link>
-        <link id="2si" amount="180" averageSpeed="1389">
-            <actorConfig id="0" amount="180" averageSpeed="1389"/>
+        <link id="2si" amount="90" averageSpeed="1389">
+            <actorConfig id="0" amount="90" averageSpeed="1389"/>
         </link>
-        <link id="3fi" amount="240" averageSpeed="1068">
-            <actorConfig id="0" amount="240" averageSpeed="1067"/>
+        <link id="3fi" amount="150" averageSpeed="1073">
+            <actorConfig id="0" amount="150" averageSpeed="1073"/>
         </link>
-        <link id="3o" amount="180" averageSpeed="1111">
-            <actorConfig id="0" amount="180" averageSpeed="1111"/>
+        <link id="3o" amount="90" averageSpeed="1111">
+            <actorConfig id="0" amount="90" averageSpeed="1111"/>
         </link>
-        <link id="3si" amount="180" averageSpeed="1389">
-            <actorConfig id="0" amount="180" averageSpeed="1389"/>
+        <link id="3si" amount="90" averageSpeed="1389">
+            <actorConfig id="0" amount="90" averageSpeed="1389"/>
         </link>
-        <link id="4fi" amount="180" averageSpeed="1111">
-            <actorConfig id="0" amount="180" averageSpeed="1111"/>
+        <link id="4fi" amount="90" averageSpeed="1111">
+            <actorConfig id="0" amount="90" averageSpeed="1111"/>
         </link>
-        <link id="4o" amount="180" averageSpeed="1111">
-            <actorConfig id="0" amount="180" averageSpeed="1111"/>
+        <link id="4o" amount="90" averageSpeed="1111">
+            <actorConfig id="0" amount="90" averageSpeed="1111"/>
         </link>
-        <link id="4si" amount="180" averageSpeed="1389">
-            <actorConfig id="0" amount="180" averageSpeed="1389"/>
+        <link id="4si" amount="90" averageSpeed="1389">
+            <actorConfig id="0" amount="90" averageSpeed="1389"/>
         </link>
     </timeSlice>
     <timeSlice startTime="900000" duration="100000">
-        <link id="1fi" amount="70" averageSpeed="1097">
-            <actorConfig id="0" amount="70" averageSpeed="1095"/>
+        <link id="1fi" amount="40" averageSpeed="1098">
+            <actorConfig id="0" amount="40" averageSpeed="1097"/>
         </link>
-        <link id="1o" amount="60" averageSpeed="1111">
-            <actorConfig id="0" amount="60" averageSpeed="1110"/>
+        <link id="1o" amount="30" averageSpeed="1111">
+            <actorConfig id="0" amount="30" averageSpeed="1110"/>
         </link>
-        <link id="1si" amount="60" averageSpeed="1351">
-            <actorConfig id="0" amount="60" averageSpeed="1351"/>
+        <link id="1si" amount="30" averageSpeed="1351">
+            <actorConfig id="0" amount="30" averageSpeed="1351"/>
         </link>
-        <link id="2fi" amount="70" averageSpeed="1110">
-            <actorConfig id="0" amount="70" averageSpeed="1108"/>
+        <link id="2fi" amount="40" averageSpeed="1110">
+            <actorConfig id="0" amount="40" averageSpeed="1108"/>
         </link>
-        <link id="2o" amount="60" averageSpeed="1110">
-            <actorConfig id="0" amount="60" averageSpeed="1109"/>
+        <link id="2o" amount="30" averageSpeed="1110">
+            <actorConfig id="0" amount="30" averageSpeed="1109"/>
         </link>
-        <link id="2si" amount="60" averageSpeed="1388">
-            <actorConfig id="0" amount="60" averageSpeed="1387"/>
+        <link id="2si" amount="30" averageSpeed="1388">
+            <actorConfig id="0" amount="30" averageSpeed="1387"/>
         </link>
-        <link id="3fi" amount="80" averageSpeed="1068">
-            <actorConfig id="0" amount="80" averageSpeed="1067"/>
+        <link id="3fi" amount="50" averageSpeed="1073">
+            <actorConfig id="0" amount="50" averageSpeed="1073"/>
         </link>
-        <link id="3o" amount="60" averageSpeed="1110">
-            <actorConfig id="0" amount="60" averageSpeed="1110"/>
+        <link id="3o" amount="30" averageSpeed="1110">
+            <actorConfig id="0" amount="30" averageSpeed="1110"/>
         </link>
-        <link id="3si" amount="60" averageSpeed="1388">
-            <actorConfig id="0" amount="60" averageSpeed="1387"/>
+        <link id="3si" amount="30" averageSpeed="1388">
+            <actorConfig id="0" amount="30" averageSpeed="1387"/>
         </link>
-        <link id="4fi" amount="60" averageSpeed="1110">
-            <actorConfig id="0" amount="60" averageSpeed="1109"/>
+        <link id="4fi" amount="30" averageSpeed="1110">
+            <actorConfig id="0" amount="30" averageSpeed="1109"/>
         </link>
-        <link id="4o" amount="60" averageSpeed="1110">
-            <actorConfig id="0" amount="60" averageSpeed="1110"/>
+        <link id="4o" amount="30" averageSpeed="1110">
+            <actorConfig id="0" amount="30" averageSpeed="1110"/>
         </link>
-        <link id="4si" amount="60" averageSpeed="1389">
-            <actorConfig id="0" amount="60" averageSpeed="1389"/>
+        <link id="4si" amount="30" averageSpeed="1389">
+            <actorConfig id="0" amount="30" averageSpeed="1389"/>
         </link>
     </timeSlice>
 </linkData>
