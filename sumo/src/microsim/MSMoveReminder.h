@@ -224,6 +224,7 @@ protected:
     std::string myDescription;
 
 #ifdef HAVE_INTERNAL
+private:
     std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> > myLastVehicleUpdateValues;
 #endif
 

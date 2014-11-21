@@ -68,7 +68,6 @@ MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal lea
             entryTime = previousEntryTime;
             entryPos = j->second.second;
         }
-        myLastVehicleUpdateValues.erase(j);
     }
     assert(entryTime <= currentTime);
     if ((entryTime < leaveTime) && (entryPos < leavePos)) {
