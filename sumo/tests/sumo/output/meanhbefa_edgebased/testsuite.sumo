@@ -42,3 +42,6 @@ internal
 
 # tests for deprecated attributes
 _deprecated_
+
+# test different emission models
+models
