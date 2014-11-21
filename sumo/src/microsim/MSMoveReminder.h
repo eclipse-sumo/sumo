@@ -183,7 +183,8 @@ public:
 
 #ifdef HAVE_INTERNAL
     void updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal leavePos,
-                        SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime);
+                        SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime,
+                        bool cleanUp);
 #endif
 
     /// @}

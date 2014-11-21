@@ -50,7 +50,8 @@ MSMoveReminder::MSMoveReminder(const std::string& description, MSLane* const lan
 #ifdef HAVE_INTERNAL
 void
 MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal leavePos,
-                               SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime) {
+                               SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime,
+                               bool cleanUp) {
     // each vehicle is tracked linearly across its segment. For each vehicle,
     // the time and position of the previous call are maintained and only
     // the increments are sent to notifyMoveInternal
@@ -84,7 +85,10 @@ MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal lea
         // However, in the presence of calibrators, vehicles may jump a bit
         myLastVehicleUpdateValues[&veh] = std::pair<SUMOTime, SUMOReal>(leaveTime, leavePos);
     }
-
+    if (cleanUp) {
+        // clean up after the vehicle has left the area of this reminder
+        myLastVehicleUpdateValues.erase(&veh);
+    }
 }
 #endif
 /****************************************************************************/

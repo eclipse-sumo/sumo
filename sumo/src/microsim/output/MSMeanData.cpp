@@ -111,6 +111,11 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
 
 bool
 MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& /*veh*/, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) {
+#ifdef HAVE_INTERNAL
+    if (MSGlobals::gUseMesoSim) {
+        return false; // reminder is re-added on every segment (@recheck for performance)
+    }
+#endif
     return reason == MSMoveReminder::NOTIFICATION_JUNCTION;
 }
 
