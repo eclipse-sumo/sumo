@@ -86,8 +86,14 @@ MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal lea
     }
     if (cleanUp) {
         // clean up after the vehicle has left the area of this reminder
-        myLastVehicleUpdateValues.erase(&veh);
+        removeFromVehicleUpdateValues(veh);
     }
+}
+
+
+void 
+MSMoveReminder::removeFromVehicleUpdateValues(SUMOVehicle& veh) {
+    myLastVehicleUpdateValues.erase(&veh);
 }
 #endif
 /****************************************************************************/

@@ -216,8 +216,13 @@ public:
         return myDescription;
     }
 
+#ifdef HAVE_INTERNAL
+protected:
+    void removeFromVehicleUpdateValues(SUMOVehicle& veh);
+#endif
 
 protected:
+
     /// @brief Lane on which the reminder works
     MSLane* const myLane;
     /// @brief a description of this moveReminder

@@ -120,6 +120,11 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOR
 bool
 MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) {
     if (vehicleApplies(veh) && (getLane() == 0 || getLane() == static_cast<MSVehicle&>(veh).getLane())) {
+#ifdef HAVE_INTERNAL
+        if (MSGlobals::gUseMesoSim) {
+            removeFromVehicleUpdateValues(veh);
+        }
+#endif
         if (reason == MSMoveReminder::NOTIFICATION_ARRIVED) {
             ++nVehArrived;
         } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
