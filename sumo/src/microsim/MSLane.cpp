@@ -306,14 +306,11 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
     } else {
         // check whether the vehicle can be put behind the last one if there is such
         MSVehicle* leader = myVehicles.back();
-        SUMOReal leaderPos = leader->getPositionOnLane() - leader->getVehicleType().getLength();
-        SUMOReal speed = mspeed;
-        if (adaptableSpeed) {
-            speed = leader->getSpeed();
-        }
-        SUMOReal frontGapNeeded = veh.getCarFollowModel().getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap();
-        if (leaderPos - frontGapNeeded >= 0) {
-            SUMOReal tspeed = MIN2(veh.getCarFollowModel().insertionFollowSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()), mspeed);
+        const SUMOReal leaderPos = leader->getPositionOnLane() - leader->getVehicleType().getLength();
+        const SUMOReal speed = adaptableSpeed ? leader->getSpeed() : mspeed;
+        const SUMOReal frontGapNeeded = veh.getCarFollowModel().getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap();
+        if (leaderPos >= frontGapNeeded) {
+            const SUMOReal tspeed = MIN2(veh.getCarFollowModel().insertionFollowSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()), mspeed);
             // check whether we can insert our vehicle behind the last vehicle on the lane
             if (isInsertionSuccess(&veh, tspeed, minPos, adaptableSpeed, notification)) {
                 return true;
