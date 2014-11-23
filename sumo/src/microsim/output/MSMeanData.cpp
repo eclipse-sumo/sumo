@@ -373,7 +373,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
             s->prepareDetectorForWriting(*data);
             s = s->getNextSegment();
         }
-        if (writePrefix(dev, *data, SUMO_TAG_EDGE, edge->getID())) {
+        if (writePrefix(dev, *data, SUMO_TAG_EDGE, getEdgeID(edge))) {
             data->write(dev, stopTime - startTime,
                         (SUMOReal)edge->getLanes().size(),
                         myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
