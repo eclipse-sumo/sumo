@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov  3 13:20:33 2014 by SUMO Version dev-SVN-r17232ID
+<!-- generated on Sun Nov 23 15:27:47 2014 by SUMO Version dev-SVN-r17370I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -28,8 +28,8 @@
 -->
 
 <calibratorstats>
-   <interval begin="0.00" end="1800.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="28.08" aspiredSpeed="27.80"/>
-   <interval begin="1800.00" end="3600.00" id="calibtest" nVehContrib="934" removed="0" inserted="934" cleared="0" flow="1868.00" aspiredFlow="2500.00" speed="7.15" aspiredSpeed="15.00"/>
-   <interval begin="3600.00" end="5400.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="9.79" aspiredSpeed="10.00"/>
-   <interval begin="5400.00" end="7200.00" id="calibtest" nVehContrib="1061" removed="0" inserted="1061" cleared="0" flow="2122.00" aspiredFlow="2500.00" speed="5.04" aspiredSpeed="5.00"/>
+   <interval begin="0.00" end="1800.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="27.95" aspiredSpeed="27.80"/>
+   <interval begin="1800.00" end="3600.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="15.17" aspiredSpeed="15.00"/>
+   <interval begin="3600.00" end="5400.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="9.87" aspiredSpeed="10.00"/>
+   <interval begin="5400.00" end="7200.00" id="calibtest" nVehContrib="1077" removed="0" inserted="1077" cleared="0" flow="2154.00" aspiredFlow="2500.00" speed="5.11" aspiredSpeed="5.00"/>
 </calibratorstats>
