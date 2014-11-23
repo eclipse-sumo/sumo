@@ -24,7 +24,6 @@ export POLYCONVERT_BINARY="$SUMO_BINDIR/polyconvert"
 export SUMO_BINARY="$SUMO_BINDIR/sumo"
 export GUISIM_BINARY="$SUMO_BINDIR/sumo-gui"
 export MAROUTER_BINARY="$SUMO_BINDIR/marouter"
-export PHEMLIGHT_PATH="$SUMO_HOME/data/emissions/PHEMlight"
 
 if which texttest &> /dev/null; then
   texttest "$@"

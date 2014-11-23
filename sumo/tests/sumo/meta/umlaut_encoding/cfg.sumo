@@ -7,12 +7,4 @@
         <route-files value="input_routes.rou.xml"/>
     </input>
 
-    <output>
-        <save-state.prefix value="state"/>
-    </output>
-
-    <emissions>
-        <phemlight-path value="./PHEMlight/"/>
-    </emissions>
-
 </configuration>
