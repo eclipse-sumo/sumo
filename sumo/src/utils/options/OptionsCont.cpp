@@ -318,7 +318,9 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
                 }
                 conv += tmp;
             }
-            (*i)->set(conv);
+            if (conv != (*i)->getString()) {
+                (*i)->set(conv);
+            }
         }
     }
 }

@@ -5,9 +5,9 @@
 /// @author  Michael Behrisch
 /// @author  Marek Heinrich
 /// @date    Thu, 13.06.2013
-/// @version $$
+/// @version $Id$
 ///
-// Helper singelton class for PHEM Light, holds CEP data for emission computation
+// Helper singleton class for PHEM Light, holds CEP data for emission computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
@@ -93,7 +93,7 @@ private:
     * @param[in] matrixRotFactor out variable for rotational factors over speed for more accurate power calculation
     * @return Indicator if reading was successul
     */
-    bool ReadVehicleFile(const std::string& path, const std::string& emissionClass,
+    bool ReadVehicleFile(const std::vector<std::string>& path, const std::string& emissionClass,
                          double& vehicleMass, double& vehicleLoading, double& vehicleMassRot,
                          double& crossArea, double& cWValue,
                          double& f0, double& f1, double& f2, double& f3, double& f4, double& ratedPower, std::string& vehicleMassType, std::string& vehicleFuelType,
@@ -107,7 +107,7 @@ private:
      * @param[in] matrix matrix holding power pattern and CEP curves
      * @return Indicator if reading was successul
      */
-    bool ReadEmissionData(bool readFC, const std::string& path, const std::string& emissionClass,
+    bool ReadEmissionData(bool readFC, const std::vector<std::string>& path, const std::string& emissionClass,
                           std::vector<std::string>& header, std::vector<std::vector<double> >& matrix);
 
 
