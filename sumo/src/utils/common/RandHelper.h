@@ -93,14 +93,14 @@ public:
         if (rng == 0) {
             rng = &myRandomNumberGenerator;
         }
-	    // Polar method to avoid cosine
+        // Polar method to avoid cosine
         double u, q;
         do {
-            u = 2.0 * rng->rand() - 1;
-            const double v = 2.0 * rng->rand() - 1;
+            u = rng->randExc(2.0) - 1;
+            const double v = rng->randExc(2.0) - 1;
             q  = u * u + v * v;
         } while (q == 0.0 || q >= 1.0);
-	    return (SUMOReal) (mean + variance * u * sqrt(-2 * log(q) / q));
+        return (SUMOReal) (mean + variance * u * sqrt(-2 * log(q) / q));
     }
 
     /// @brief Returns a random element from the given vector
