@@ -2,8 +2,8 @@ Loading configuration... done.
 step 0
 step 1
 step 2
-vehicletypes ['DEFAULT_VEHTYPE']
-vehicletype count 1
+vehicletypes ['DEFAULT_PEDTYPE', 'DEFAULT_VEHTYPE']
+vehicletype count 2
 examining DEFAULT_VEHTYPE
 length 5.0
 maxSpeed 55.5555555556

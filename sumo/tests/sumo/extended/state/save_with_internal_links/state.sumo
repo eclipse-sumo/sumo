@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/27/14 15:43:53 by SUMO sumo Version dev-SVN-r16662
+<!-- generated on Mon Nov 24 07:58:17 2014 by SUMO Version dev-SVN-r17374I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -26,9 +26,10 @@
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r16662" time="1000">
+<snapshot version="dev-SVN-r17374" time="1000">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="type0">
         <carFollowing-Krauss sigma="0.00"/>
