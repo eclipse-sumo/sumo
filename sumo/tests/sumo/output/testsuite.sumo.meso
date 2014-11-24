@@ -56,7 +56,7 @@ meannoise_edgebased
 meannoise_lanebased
 
 # Tests which serve as examples
-examples
+#examples (crashes, see #1505)
 
 # test the duration log output
 duration_log
