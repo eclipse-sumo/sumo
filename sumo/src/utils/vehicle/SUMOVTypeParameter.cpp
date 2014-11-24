@@ -60,7 +60,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     switch (vclass) {
         case SVC_PEDESTRIAN:
             length = 0.215;
-            minGap = 0.5;
+            minGap = 0.25;
             maxSpeed = DEFAULT_PEDESTRIAN_SPEED;
             width = 0.478;
             height = 1.719;
