@@ -68,6 +68,9 @@ MSVehicleControl::MSVehicleControl() :
     myScale(-1) {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_IGNORING);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
+    SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
+    defPedType.setParameter |= VTYPEPARS_VEHICLECLASS_SET;
+    myVTypeDict[DEFAULT_PEDTYPE_ID] = MSVehicleType::build(defPedType);
     OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("scale")) {
         myScale = oc.getFloat("scale");
@@ -229,6 +232,14 @@ MSVehicleControl::checkVType(const std::string& id) {
         } else {
             return false;
         }
+    } else if (id == DEFAULT_PEDTYPE_ID) {
+        if (myDefaultPedTypeMayBeDeleted) {
+            delete myVTypeDict[id];
+            myVTypeDict.erase(myVTypeDict.find(id));
+            myDefaultPedTypeMayBeDeleted = false;
+        } else {
+            return false;
+        }
     } else {
         if (myVTypeDict.find(id) != myVTypeDict.end() || myVTypeDistDict.find(id) != myVTypeDistDict.end()) {
             return false;
@@ -275,6 +286,8 @@ MSVehicleControl::getVType(const std::string& id, MTRand* rng) {
     }
     if (id == DEFAULT_VTYPE_ID) {
         myDefaultVTypeMayBeDeleted = false;
+    } else if (id == DEFAULT_PEDTYPE_ID) {
+        myDefaultPedTypeMayBeDeleted = false;
     }
     return it->second;
 }

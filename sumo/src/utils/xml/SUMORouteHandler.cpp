@@ -107,7 +107,7 @@ SUMORouteHandler::myStartElement(int element,
             break;
         case SUMO_TAG_PERSON:
             delete myVehicleParameter;
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, false, false, true);
             break;
         case SUMO_TAG_FLOW:
             delete myVehicleParameter;

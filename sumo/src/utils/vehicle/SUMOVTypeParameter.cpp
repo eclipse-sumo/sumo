@@ -238,10 +238,8 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
             dev.writeAttr(*i, cfParameter.find(*i)->second);
         }
         dev.closeTag();
-        dev.closeTag();
-    } else {
-        dev.closeTag();
     }
+    dev.closeTag();
 }
 
 

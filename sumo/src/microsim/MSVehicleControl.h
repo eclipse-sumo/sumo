@@ -492,6 +492,9 @@ protected:
     /// @brief Whether no vehicle type was loaded
     bool myDefaultVTypeMayBeDeleted;
 
+    /// @brief Whether no pedestrian type was loaded
+    bool myDefaultPedTypeMayBeDeleted;
+
     /// the lists of waiting vehicles
     std::map<const MSEdge* const, std::vector<SUMOVehicle*> > myWaiting;
 

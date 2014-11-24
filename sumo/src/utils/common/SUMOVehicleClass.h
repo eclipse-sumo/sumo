@@ -305,6 +305,7 @@ extern bool isForbidden(SVCPermissions permissions);
 // default vehicle type parameter
 // ---------------------------------------------------------------------------
 extern const std::string DEFAULT_VTYPE_ID;
+extern const std::string DEFAULT_PEDTYPE_ID;
 
 extern const SUMOReal DEFAULT_VEH_PROB; // !!! does this belong here?
 

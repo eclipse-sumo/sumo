@@ -189,7 +189,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
 
 SUMOVehicleParameter*
 SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs,
-        bool optionalID, bool skipDepart) {
+        const bool optionalID, const bool skipDepart, const bool isPerson) {
     bool ok = true;
     std::string id, errorMsg;
     if (optionalID) {
@@ -199,6 +199,9 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs,
     }
     SUMOVehicleParameter* ret = new SUMOVehicleParameter();
     ret->id = id;
+    if (isPerson) {
+        ret->vtypeid = DEFAULT_PEDTYPE_ID;
+    }
     try {
         parseCommonAttributes(attrs, ret, "vehicle");
         if (!skipDepart) {
