@@ -262,10 +262,6 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     }
     myCurrentEdge->setLoadedLength(myLength);
     myCurrentEdge->setPermissions(myPermissions);
-    if (myTypeCont.getSidewalkWidth(myCurrentType) != NBEdge::UNSPECIFIED_WIDTH) {
-        // lane specifications may override this
-        myCurrentEdge->addSidewalk(myTypeCont.getSidewalkWidth(myCurrentType));
-    }
 }
 
 
@@ -467,6 +463,10 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
 void
 NIXMLEdgesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_EDGE && myCurrentEdge != 0) {
+        // add sidewalk, wait until lanes are loaded to avoid building if it already exists
+        if (myTypeCont.getSidewalkWidth(myCurrentType) != NBEdge::UNSPECIFIED_WIDTH) {
+            myCurrentEdge->addSidewalk(myTypeCont.getSidewalkWidth(myCurrentType));
+        }
         if (!myIsUpdate) {
             try {
                 if (!myEdgeCont.insert(myCurrentEdge)) {

@@ -32,7 +32,7 @@
     </edge>
     <edge id="CS" from="C" to="S" type="noSidewalk" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
     <edge id="CW" from="C" to="W" type="withSidewalkDefault" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
-    <edge id="EC" from="E" to="C" type="withSidewalk" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
+    <edge id="EC" from="E" to="C" type="withSidewalk" priority="2" numLanes="2" speed="13.89"/>
     <edge id="NC" from="N" to="C" type="withSidewalk" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
     <edge id="SC" from="S" to="C" type="noSidewalk" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
     <edge id="WC" from="W" to="C" type="withSidewalkDefault" priority="2" numLanes="2" allow="passenger" speed="13.89"/>

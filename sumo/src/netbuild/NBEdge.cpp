@@ -2235,9 +2235,16 @@ NBEdge::getFirstNonPedestrianLane(int direction) const {
 
 void
 NBEdge::addSidewalk(SUMOReal width) {
+    if (myLanes[0].permissions == SVC_PEDESTRIAN) {
+        WRITE_WARNING("Edge '" + getID() + "' already has a sidewalk. Not adding another one.");
+        return;
+    }
     if (myLaneSpreadFunction == LANESPREAD_CENTER) {
         myGeom.move2side(width / 2);
     }
+    // disallow pedestrians on all lanes to ensure that sidewalks are used and
+    // crossings can be guessed
+    disallowVehicleClass(-1, SVC_PEDESTRIAN);
     // add new lane
     myLanes.insert(myLanes.begin(), Lane(this));
     myLanes[0].permissions = SVC_PEDESTRIAN;
