@@ -78,6 +78,7 @@ class Vessel():
     def get_hull_segments(self):
         return [self.get_hull_segment( seg ) for seg in range(self.get_num_hull_segments())]
 
+        
     def transform_coord_and_angle(self, p, omega, offset):
         new_x, new_y = self.transform_coord((p[0], p[1]), omega, offset)
         return (new_x, new_y, p[2] + omega)
@@ -229,7 +230,9 @@ class Vessel():
          return (sorted(intersects_x), sorted(intersects_y))
 
 
-    def get_grey_shade(self):
+    def get_grey_shade(self, omega, offset):
+
+        self.transform_hull_points(omega, offset)
         
         intersection_points = []
         for hull_seg in self.get_hull_segments():
@@ -253,9 +256,12 @@ class Vessel():
 
         return greys
 
-    def get_black_shade(self):
+    def get_black_shade(self, omega, offset):
+        self.transform_hull_points(omega, offset)
+
+        
         blacks = []
-        greys = sorted(self.get_grey_shade())
+        greys = sorted(self.get_grey_shade(omega, offset))
 
         min_max = {}
         
@@ -430,8 +436,8 @@ class Vessel():
 
         ### lower right
 
-        new_lower_right_x = lower_left[0] 
-        new_lower_right_y = lower_left[1] 
+        new_lower_right_x = lower_right[0] 
+        new_lower_right_y = lower_right[1] 
 
             
         assert lower_right[0] > 0 # right_limits
@@ -445,6 +451,7 @@ class Vessel():
             new_lower_right = self.flaeche.cluster_length_y  * self.flaeche.scale
 
         lower_right = (new_lower_right_x, new_lower_right_y)
+
         
         
         # cell centers in global bounding box
@@ -831,11 +838,6 @@ class AdAStar():
             
         # only coords are returned  
 
-        print current_node.x_coord, current_node.y_coord
-        if current_node.x_coord == 35 and current_node.y_coord == 145:
-            import pdb; pdb.set_trace()
-
-            
         suspicious_nodes = self.vessel.get_reachable_center_points(
             (current_node.x_coord, current_node.y_coord),
             current_node.sector)  # aka  vessel.rotation,
@@ -904,42 +906,57 @@ class AdAStar():
                     zone_x_end += 1
                 if zone_y_start == zone_y_end:
                     zone_y_end += 1
-
-                
-#                print zone_x_start, zone_x_end, zone_y_start, zone_y_end 
-                
+                    
                 one_in_zone_is_bocked = False
-                for z_ii in range(zone_x_start, zone_x_end):
-                    for z_jj in range(zone_y_start, zone_y_end):
-                        if z_jj == 16 and z_ii == 12:
-                            print
-                            print
-                            print '12/16 is in zone:'
-                            print 'current_node (start)', current_node.id
-                            print 'nn node (dest)  %s_%s_%s' %(nn.cell_x_id,
-                                                               nn.cell_y_id, nn.sector_id)
-                            print 'current_node.previousNode', current_node.previousNode.id
-                            
-                            
-#                            print 'this is the one coming from:', current_node.id
-                        
-#                        if z_jj == 15:
-#                            print 'blocked in zone', z_ii, z_jj
-                            
-                        
-                        if not self.flaeche.is_valid_node_pos((z_ii, z_jj)):
-                            continue
-                        if self.flaeche.is_blocked((z_ii, z_jj)):
-                            one_in_zone_is_bocked = True
-#                            print 'one is blocked'
+
+                zone = [ (z_ii, z_jj) for z_ii in range(zone_x_start, zone_x_end)
+                         for z_jj in range(zone_y_start, zone_y_end)]
+
+                illegal_points = 0
+                for z_pp in zone:
+                    if not self.flaeche.is_valid_node_pos(z_pp):
+                        illegal_points += 1
+                        continue
+                    if self.flaeche.is_blocked(z_pp):
+                        one_in_zone_is_bocked = True
+
+                assert illegal_points < len(zone), 'all zone nodes are illegal, must be wrong'
                         
                 if one_in_zone_is_bocked:
-                    print 'skippin'
-                    print 
-#                    import pdb; pdb.set_trace()
-                    continue   # skip points 
+                    continue   # skip points
 
-#                print 'not passing'
+                shade_check = True#False
+                if shade_check:
+                    
+                # check black shade
+                # get black shade of destination point
+                # get coord_center to destination point
+                    offset = self.flaeche.get_possition_from_cell_center_id(
+                        (current_node.x_id, current_node.y_id))
+                    fake_omega = current_node.reached_by_angle
+
+                    all_zone_nodes_black_shade_ok = True
+#                    import pdb; pdb.set_trace()
+                    for cc in zone + [(nn.cell_x_id,nn.cell_y_id)]:
+                        black_shade = self.vessel.get_black_shade(fake_omega, offset)
+                        for bb in black_shade:
+                            print bb
+                            if not self.flaeche.is_valid_node_pos(bb):
+                                print 'not valid', bb
+                                all_zone_nodes_black_shade_ok = False
+                                break
+                            if self.flaeche.is_blocked(bb):
+                                print 'blocked', bb
+                                all_zone_nodes_black_shade_ok = False
+                                break
+
+                    if not all_zone_nodes_black_shade_ok:
+                        continue   # skip points
+                    
+
+                    del(offset, fake_omega, black_shade, bb, cc)
+                    
+                    
                 sus_node =  StarNodeC(
                     node_data =self.flaeche.get_node_data((nn.cell_x_id,nn.cell_y_id)),
                     sector    =nn.sector_id,
@@ -999,17 +1016,13 @@ class AdAStar():
         self.rebuild_path_recursive(some_node, first)
 
     def rebuild_path_recursive(self, some_node=None, first=False):
-        #import pdb; pdb.set_trace()
         if self.reached_dest_node == None:
             raise StandardError("algorithm must be run first successfully")
         elif some_node == None and first:
             some_node = self.reached_dest_node
-            print 'again none'#some_node.get_coords()
         elif some_node == None and not first:
-            import pdb; pdb.set_trace()
             assert False, 'Something went wrong when storing the previous node'
         self.path[0:0] = [some_node]
-        print some_node.id
         if some_node.get_coords()[0:1] == self.start[0:1]:
             return    
         self.rebuild_path_recursive(some_node.previousNode)
@@ -1107,8 +1120,11 @@ class AdAStar():
         self.flaeche.vis_reset()
         self.flaeche.vis_add_start(self.start)
         self.flaeche.vis_add_end(self.end)
-        for nn in ANList(self.open_nodes_list).get_tuples():
+        open_nodes = ANList(self.open_nodes_list).get_tuples()
+        assert len(open_nodes) > 0 
+        for nn in open_nodes:
             self.flaeche.vis_add_open(nn)
+            
         del(nn)
         for nn in ANList(self.closed_nodes_list).get_tuples():
             self.flaeche.vis_add_closed(nn)
@@ -1338,6 +1354,16 @@ class Flaeche():
 #        pass
 #        return sector_center
 
+    def get_possition_from_cell_center_id(self, (center_id_x, center_id_y)):
+        assert center_id_x > 0
+        assert center_id_x <= self.cluster_length_x
+        
+        assert center_id_y > 0 
+        assert center_id_y <= self.cluster_length_y 
+
+        return ((center_id_x - 0.5) * self.scale, (center_id_y - 0.5) * self.scale)
+        
+        
     def get_sector_id_from_angle(self, angle):
         """ returns the id of the sector the angle is in"""
         sector_length = 2 * math.pi / self.sectors

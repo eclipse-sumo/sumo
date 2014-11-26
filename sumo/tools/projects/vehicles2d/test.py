@@ -18,7 +18,7 @@ def notes():
     """
 
 VISUAL = False
-VISUAL = True
+#VISUAL = True
 
 # skip short cuts
 lost = True
@@ -335,9 +335,9 @@ class someTestcase(unittest.TestCase):
                                  output='result_grey_rotation_0_45_90')
         vessel = main.Vessel(myFlaeche,
                              [(0, 0), (40, 40), (40, 200), (-40, 200), (-40, 40), ( 0, 0)])
-        vessel.transform_hull_points(-math.pi/2, (100, 85) )
+#        vessel.transform_hull_points(-math.pi/2, (100, 85) )
 
-        self.assertEqual(vessel.get_grey_shade(),
+        self.assertEqual(vessel.get_grey_shade(-math.pi/2, (100, 85)),
         [(9, 8), (10, 8), (10, 7), (11, 6), (11, 7),
          (12, 5), (12, 6), (13, 4), (13, 5), (14, 4),
          (15, 4), (16, 4), (17, 4), (18, 4), (19, 4),
@@ -352,8 +352,8 @@ class someTestcase(unittest.TestCase):
          (26, 12), (27, 12), (28, 12), (10, 9), (11, 9),
          (11, 10), (12, 10), (12, 11), (13, 11)])
 
-        vessel.transform_hull_points(-math.pi/4, (100, 85) )
-        self.assertEqual(vessel.get_grey_shade(),
+#        vessel.transform_hull_points(-math.pi/4, (100, 85) )
+        self.assertEqual(vessel.get_grey_shade(-math.pi/4, (100, 85)),
         [(9, 8), (10, 8), (11, 8), (12, 8), (13, 8), (14, 8),
          (15, 8), (16, 8), (16, 9), (17, 9), (17, 10), (18, 10),
          (18, 11), (19, 11), (19, 12), (20, 12), (20, 13), (21, 13),
@@ -368,7 +368,7 @@ class someTestcase(unittest.TestCase):
          (9, 11), (10, 11), (9, 12), (10, 12), (9, 13), (10, 13)])
 
         vessel.transform_hull_points(0, (100, 85) )
-        self.assertEqual(vessel.get_grey_shade(),
+        self.assertEqual(vessel.get_grey_shade(0, (100, 85) ),
         [(9, 8), (10, 8), (10, 9), (11, 9), (11, 10), (12, 10),
          (12, 11), (13, 11), (13, 12), (14, 12), (13, 13), (14, 13),
          (13, 14), (14, 14), (13, 15), (14, 15), (13, 16), (14, 16),
@@ -393,7 +393,7 @@ class someTestcase(unittest.TestCase):
    
         myFlaeche.vis_reset()
         vessel.transform_hull_points(-math.pi/2, (100, 85) )
-        self.assertEqual(vessel.get_black_shade(),
+        self.assertEqual(vessel.get_black_shade(-math.pi/2, (100, 85) ),
         [(9, 8),
          (10, 7), (10, 8), (10, 9),
          (11, 6), (11, 7), (11, 8), (11, 9), (11, 10),
@@ -426,8 +426,8 @@ class someTestcase(unittest.TestCase):
                              [(0, 0), (40, 40), (40, 200), (-40, 200), (-40, 40), ( 0, 0)])
 
         myFlaeche.vis_reset()
-        vessel.transform_hull_points(-math.pi/4, (100, 85) )
-        self.assertEqual(vessel.get_black_shade(),
+#        vessel.transform_hull_points(-math.pi/4, (100, 85) )
+        self.assertEqual(vessel.get_black_shade(-math.pi/4, (100, 85)),
         [(9, 8), (9, 9), (9, 10), (9, 11), (9, 12), (9, 13), (9, 14),
          (10, 8), (10, 9), (10, 10), (10, 11), (10, 12), (10, 13), (10, 14), (10, 15),
          (11, 8), (11, 9), (11, 10), (11, 11), (11, 12), (11, 13), (11, 14), (11, 15), (11, 16),
@@ -886,6 +886,7 @@ class someTestcase(unittest.TestCase):
         visual_result = result
         visual_result += result[0]
         myFlaeche.vis_add_poly(visual_result, 'green')
+
         
         self.assertEqual(sorted_result, expected_result)
 
@@ -904,8 +905,8 @@ class someTestcase(unittest.TestCase):
         visual_result = result
         visual_result += result[0]
         myFlaeche.vis_add_poly(visual_result, 'purple')
-        
-        self.assertEqual(sorted_result, expected_result)
+
+        self.assertEqual(sorted(sorted_result), sorted(expected_result))
 
 
         #########################
@@ -1257,7 +1258,7 @@ class someTestcase(unittest.TestCase):
         self.assertFalse(myFlaeche.is_valid_coord_pos((31, 31)))
         self.assertTrue(myFlaeche.is_valid_coord_pos(( 7, 7)))
         
-            
+        
     @unittest.skipIf(finished, 'done')
     def test_flaeche_node_is_legal(self):
         """test to vertify if a node is inside a Flaeche"""
@@ -1305,7 +1306,13 @@ class someTestcase(unittest.TestCase):
         self.assertEqual(myFlaeche.get_cell_and_sector( (1.5,1.5), 4*math.pi/16/2 +0.001)[1] , 1)
         
      
+    @unittest.skipIf(devel_run, '')
+    def test_get_possition_from_cell_center_id(self):
+        myFlaeche = main.Flaeche(xdim=100,ydim=100,scale=1)
+        self.assertEqual(myFlaeche.get_possition_from_cell_center_id( (1, 1) ),  (0.5, 0.5) )
+        self.assertEqual(myFlaeche.get_possition_from_cell_center_id( (1, 2) ),  (0.5, 1.5) )
         
+
 
 #    @unittest.skipIf(finished, 'done')
     def test_nodeData(self):
@@ -1730,37 +1737,38 @@ class someTestcase_ada_star(unittest.TestCase):
         myFlaeche = main.Flaeche(xdim=500,ydim=500,scale=10,
                                  output='result_hindrance_punctual_ada')
         vessel = main.Vessel(myFlaeche,
-                             [(0, 0), (40, 40), (40, 200), (-40, 200), (-40, 40), ( 0, 0)])
+                             [(0, 0), (10, 10), (10, 30), (-10, 30), (-10, 10), ( 0, 0)])
         vessel.r = 20        
 
-        blocked_nodes = [(xx, 15) for xx in range(5, 25)]
+       # blocked_nodes = [(xx, 15) for xx in range(10, 28)]
+        blocked_nodes = [(xx, 15) for xx in range(7, 28)]
         myFlaeche.load_node_data(blocked_nodes)
 
-        start = (30, 10, 0)  # cell coordinates
-        end   = (40, 10, 0)
+        #start = (3,  11, 8)  # cell coordinates
+        #end   = (16, 19, 0)
+        
+        
+        start = (5,  20, 8)  # cell coordinates
+        end   = (22, 19, 0)
 
-        start = (3,  11, 8)  # cell coordinates
+        start = (5,  11, 8)  # cell coordinates
         end   = (16, 19, 0)
-
-
         
         myD = main.AdAStar(vessel=vessel, start_node=start, end_node=end)
 
-
         myD.run(verbose=True, visual=visual)
+#        myD.run(visual=visual)
         myD.rebuild_path()
-        print 
-        print
-        
+
         for bla in  myD.path:
             print bla.id
-#        main.make_movie(myFlaeche.output)
 
-#        self.assertEqual(myD.DNList(myD.path, 'tuples').get_tuples(),
-#                         [(3, 11), (4, 12), (4, 13), (4, 14), (4, 15),
-#                          (5, 16), (6, 16), (7, 16), (8, 16), (9, 16),
-#                          (10, 16), (11, 17), (12, 17), (13, 18),
-#                          (14, 18), (15, 18), (16, 19)])
+        expected_result = [(3, 11, 0), (5, 12, 2), (8, 15, 6), (9, 15, 1), (10, 16, 1),
+                           (11, 17, 1), (12, 18, 1), (13, 19, 1), (15, 20, 3), (22, 19, 0)]
+        
+#        self.assertEqual(ANList(myD.path, 'tuples').get_tuples(), expected_result)
+        
+#        main.make_movie(myFlaeche.output)
                          
         if visual:
             myD.draw_path()
@@ -1918,9 +1926,9 @@ if __name__ == '__main__':
 
     if True:#False:
         suite   = unittest.TestSuite();
-#        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals"))
+        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final__a"))
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_update_open_list"))
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final"))
-        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final__a"))
+#        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final__a"))
     
     unittest.TextTestRunner().run(suite)
