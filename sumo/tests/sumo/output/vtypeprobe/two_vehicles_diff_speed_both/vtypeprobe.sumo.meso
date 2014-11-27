@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11/27/14 16:35:27 by SUMO Version dev-SVN-r17387
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml,input_routes.rou.xml,input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="130"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<vehicle-type-probes>
+    <timestep time="0.00" id="test1" vType="">
+        <vehicle id="0" pos="0.00" x="1595.25" y="401.65" speed="10.00"/>
+    </timestep>
+    <timestep time="10.00" id="test1" vType="">
+        <vehicle id="0" pos="100.00" x="1497.63" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="0.00" x="1595.25" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="20.00" id="test1" vType="">
+        <vehicle id="0" pos="200.00" x="1400.00" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="100.00" x="1497.63" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="30.00" id="test1" vType="">
+        <vehicle id="0" pos="300.00" x="1302.38" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="200.00" x="1400.00" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="40.00" id="test1" vType="">
+        <vehicle id="0" pos="0.00" x="1195.25" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="300.00" x="1302.38" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="50.00" id="test1" vType="">
+        <vehicle id="0" pos="100.00" x="1097.63" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="0.00" x="1195.25" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="60.00" id="test1" vType="">
+        <vehicle id="0" pos="200.00" x="1000.00" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="0.00" x="1195.25" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="70.00" id="test1" vType="">
+        <vehicle id="0" pos="300.00" x="902.38" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="100.00" x="1097.63" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="80.00" id="test1" vType="">
+        <vehicle id="0" pos="0.00" x="795.25" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="200.00" x="1000.00" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="90.00" id="test1" vType="">
+        <vehicle id="0" pos="100.00" x="697.63" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="300.00" x="902.38" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="100.00" id="test1" vType="">
+        <vehicle id="0" pos="200.00" x="600.00" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="0.00" x="795.25" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="110.00" id="test1" vType="">
+        <vehicle id="0" pos="300.00" x="502.38" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="100.00" x="697.63" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="120.00" id="test1" vType="">
+        <vehicle id="0" pos="0.00" x="395.25" y="401.65" speed="10.00"/>
+        <vehicle id="1" pos="200.00" x="600.00" y="401.65" speed="9.00"/>
+    </timestep>
+</vehicle-type-probes>

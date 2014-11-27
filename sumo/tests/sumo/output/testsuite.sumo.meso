@@ -32,7 +32,7 @@ vehroutes
 rawdump
 
 # Tests for vtypeprobe-output
-#vtypeprobe (crashes, see #1505)
+vtypeprobe
 
 # Tests for routeprobe-output
 route_probe
@@ -56,21 +56,21 @@ meannoise_edgebased
 meannoise_lanebased
 
 # Tests which serve as examples
-#examples (crashes, see #1505)
+examples
 
 # test the duration log output
 duration_log
 
 #Test for Floating Car Data
-#fcd-output (crashes, see #1505)
+fcd-output
 
 link-output
 
 #Tests for full-output (huge overhead)
-#full-output (crashes, see #1505)
+full-output
 
 # Tests for emission-output 
-#emission-output (crashes, see #1505)
+emission-output
 
 # Tests for vkt-output (The Visualization Toolkit)
 vtk-output

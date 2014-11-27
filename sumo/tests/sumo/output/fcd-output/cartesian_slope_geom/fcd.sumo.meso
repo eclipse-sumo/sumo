@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11/27/14 16:35:48 by SUMO Version dev-SVN-r17387
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="1" x="0.00" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="0.00" slope="45.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="1" x="0.00" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="0.00" slope="45.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="1" x="0.00" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="0.00" slope="45.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="1" x="0.00" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="0.00" slope="45.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="1" x="0.00" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="0.00" slope="45.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="1" x="0.00" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="0.00" slope="45.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="1" x="72.86" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="103.04" slope="45.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="1" x="72.86" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="103.04" slope="45.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="1" x="72.86" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="103.04" slope="45.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="1" x="72.86" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="103.04" slope="45.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="1" x="72.86" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="103.04" slope="45.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="1" x="157.84" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="206.08" slope="-26.57"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="1" x="157.84" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="206.08" slope="-26.57"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="1" x="157.84" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="206.08" slope="-26.57"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="1" x="157.84" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="206.08" slope="-26.57"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="1" x="157.84" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="206.08" slope="-26.57"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="1" x="250.00" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="309.13" slope="26.57"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="1" x="250.00" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="309.13" slope="26.57"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="1" x="250.00" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="309.13" slope="26.57"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="1" x="250.00" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="309.13" slope="26.57"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="1" x="250.00" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="309.13" slope="26.57"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="1" x="333.33" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="412.17" slope="-45.00"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="1" x="333.33" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="412.17" slope="-45.00"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="1" x="333.33" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="412.17" slope="-45.00"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="1" x="333.33" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="412.17" slope="-45.00"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="1" x="333.33" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="412.17" slope="-45.00"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="1" x="407.84" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="515.21" slope="26.57"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="1" x="407.84" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="515.21" slope="26.57"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="1" x="407.84" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="515.21" slope="26.57"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="1" x="407.84" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="515.21" slope="26.57"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="1" x="407.84" y="-1.65" angle="90.00" type="t1" speed="20.00" pos="515.21" slope="26.57"/>
+    </timestep>
+    <timestep time="31.00"/>
+</fcd-export>
