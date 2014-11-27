@@ -76,6 +76,20 @@ public:
      */
     virtual SUMOReal getPositionOnLane() const = 0;
 
+    /** @brief Get the vehicle's angle
+     * @return The angle of the vehicle (in degree)
+     */
+    virtual SUMOReal getAngle() const = 0;
+
+    /** @brief Return current position (x/y, cartesian)
+     *
+     * If the vehicle is not in the net, Position::INVALID.
+     * @param[in] offset optional offset in longitudinal direction
+     * @return The current position (in cartesian coordinates)
+     * @see myLane
+     */
+    virtual Position getPosition(const SUMOReal offset = 0) const = 0;
+
     /** @brief Returns the vehicle's maximum speed
      * @return The vehicle's maximum speed
      */

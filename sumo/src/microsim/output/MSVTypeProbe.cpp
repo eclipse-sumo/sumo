@@ -66,30 +66,28 @@ SUMOTime
 MSVTypeProbe::execute(SUMOTime currentTime) {
     myOutputDevice.openTag("timestep") << " time=\"" << time2string(currentTime) << "\" id=\"" << getID() << "\" vType=\"" << myVType << "\"";
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
-    MSVehicleControl::constVehIt it = vc.loadedVehBegin();
-    MSVehicleControl::constVehIt end = vc.loadedVehEnd();
-    for (; it != end; ++it) {
-        const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
+    for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
+        const SUMOVehicle* veh = it->second;
+        const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
         if (myVType == "" || myVType == veh->getVehicleType().getID()) {
-            if (!veh->isOnRoad()) {
-                continue;
+            if (veh->isOnRoad()) {
+                Position pos = veh->getPosition();
+                myOutputDevice.openTag("vehicle").writeAttr("id", veh->getID());
+                if (microVeh != 0) {
+                    myOutputDevice.writeAttr("lane", microVeh->getLane()->getID());
+                }
+                myOutputDevice.writeAttr("pos", veh->getPositionOnLane());
+                myOutputDevice.writeAttr("x", pos.x()).writeAttr("y", pos.y());
+                if (GeoConvHelper::getFinal().usingGeoProjection()) {
+                    GeoConvHelper::getFinal().cartesian2geo(pos);
+                    myOutputDevice.setPrecision(GEO_OUTPUT_ACCURACY);
+                    myOutputDevice.writeAttr("lat", pos.y()).writeAttr("lon", pos.x());
+                    myOutputDevice.setPrecision();
+                }
+                myOutputDevice.writeAttr("speed", veh->getSpeed());
+                myOutputDevice.closeTag();
             }
-            Position pos = veh->getLane()->getShape().positionAtOffset(veh->getPositionOnLane());
-            myOutputDevice.openTag("vehicle") << " id=\"" << veh->getID()
-                                              << "\" lane=\"" << veh->getLane()->getID()
-                                              << "\" pos=\"" << veh->getPositionOnLane()
-                                              << "\" x=\"" << pos.x()
-                                              << "\" y=\"" << pos.y();
-            if (GeoConvHelper::getFinal().usingGeoProjection()) {
-                GeoConvHelper::getFinal().cartesian2geo(pos);
-                myOutputDevice.setPrecision(GEO_OUTPUT_ACCURACY);
-                myOutputDevice << "\" lat=\"" << pos.y() << "\" lon=\"" << pos.x();
-                myOutputDevice.setPrecision();
-            }
-            myOutputDevice << "\" speed=\"" << veh->getSpeed() << "\"";
-            myOutputDevice.closeTag();
         }
-
     }
     myOutputDevice.closeTag();
     return myFrequency;
