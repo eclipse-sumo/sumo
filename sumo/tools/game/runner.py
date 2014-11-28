@@ -35,7 +35,8 @@ _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
                 'cross_demo': 'Simple Junction (Demo)',
                 'square': 'Four Junctions',
                 'kuehne': 'Prof. Kühne',
-                'bs3d': '3D Junction',
+                'bs3d': '3D Junction Virtual World',
+                'bs3Dosm': '3D Junction OpenStreetMap',
                 'ramp': 'Highway Scenario',
                 'high': 'Highscore',
                 'reset': 'Reset Highscore',
@@ -46,7 +47,8 @@ _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'cross_demo': 'Einfache Kreuzung (Demo)',
                 'square': 'Vier Kreuzungen',
                 'kuehne': 'Prof. Kühne',
-                'bs3d': '3D Kreuzung',
+                'bs3d': '3D Forschungskreuzung Virtuelle Welt',
+                'bs3Dosm': '3D Forschungskreuzung OpenStreetMap',
                 'ramp': 'Autobahnauffahrt',
                 'high': 'Highscore',
                 'reset': 'Highscore zurücksetzen',
@@ -101,9 +103,9 @@ class StartDialog:
         configs = glob.glob(os.path.join(base, "*.sumocfg"))
         numButtons = len(configs) + 3
         # button dimensions
-        bWidth_start = 20
-        bWidth_high = 7
-        bWidth_control = 31   
+        bWidth_start = 30
+        bWidth_high = 10
+        bWidth_control = 41
 
         self.gametime = 0
         self.ret = 0
@@ -115,6 +117,8 @@ class StartDialog:
 
         # 2 button for each config (start, highscore)
         for row, cfg in enumerate(configs):
+            if "bs3" in cfg and "meso-gui" not in guisimPath:
+                continue
             category = os.path.basename(cfg)[:-8]
             # lambda must make a copy of cfg argument
             button=Tkinter.Button(self.root, width=bWidth_start, 
@@ -273,11 +277,11 @@ def findSumoBinary(guisimBinary):
         guisimPath = guisimBinary
     return guisimPath
 
-guisimPath = findSumoBinary("meso-gui")
+guisimPath = findSumoBinary("meso-gui64")
 try: 
-    subprocess.call(guisimPath)
+    subprocess.call([guisimPath, "-Q", "-c", "blub"], stderr=open(os.devnull))
 except OSError:
-    print("meso-gui not found. 3D scenario will not work.")
+    print("meso-gui64 not found. 3D scenario will not work.")
     guisimPath = findSumoBinary("sumo-gui")
 
 
