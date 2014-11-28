@@ -33,8 +33,8 @@
             <xsd:attribute name="route" use="required" type="xsd:string"/>
             <xsd:attribute name="type" use="required" type="xsd:string"/>
 
-            <xsd:attribute name="waiting" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="lane" use="required" type="xsd:string"/>
+            <xsd:attribute name="waiting" use="optional" type="nonNegativeFloatType"/>
+            <xsd:attribute name="lane" use="optional" type="xsd:string"/>
             <xsd:attribute name="pos" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="speed" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="angle" type="xsd:float" use="required"/>
