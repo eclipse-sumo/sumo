@@ -804,44 +804,51 @@ class AdAStar():
     def step(self, visual=False, verbose=False):
         self.iteration_step += 1
         if verbose:
-#            print
-#            print 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-            print self.iteration_step
+            print '\n\nxxx step %s xxxxxxxxxxxxxxxxxxxxxxxxxxxxx' % self.iteration_step
         
         # first step ever
         if len(self.open_nodes_list) == 0 and len(self.closed_nodes_list) == 0:
             
-            
-            self.open_nodes_list.append(
-                       StarNodeC(node_data =self.flaeche.get_node_data(
-                                                  (self.start[0],self.start[1])),
-                                sector    =0,
-                                tt        =0,
-                                dd        =self.get_distance_between_points(
+            first_node = StarNodeC(
+                node_data =self.flaeche.get_node_data((self.start[0],self.start[1])),
+                sector    =self.start[2],
+                tt        =0,
+                dd        =self.get_distance_between_points(
                                                   (self.start[0],self.start[1]),
-                                                  (self.end[0],  self.end[1])
-                                          ),
-                                reached_by_angle = self.start[2],
-                                lastNode =None))        
+                                                  (self.end[0],  self.end[1]) ),
+                reached_by_angle = self.flaeche.get_angle_from_sector(self.start[2]),
+                lastNode =None)
+            
+            self.open_nodes_list.append(first_node)
             return False    # Algorithm is not jet finished
 
+        # Note: what shall happen if open_list = void but closed list is populated
+        # ? terminat algorithm  successlessly ?
+            
+        # get the node with the best combined cost value
         current_node = ANList(self.open_nodes_list).get_min_node(pop=True)
-        
-        # even if the dest. node has been seen before,
+
+        # Success critieria:
+        # even if the destination node has been seen before,
         # the path is not prooven to be the shortest
-        
         # until it has been teared from the open list
         if (current_node.get_coords()[0:2] == self.end[0:2]):
             self.reached_dest_node = current_node
             return True # finished / found
 
-            
-        # only coords are returned  
 
+        # normal iteration step
+
+
+        # get all possible next nodes
+        # (only coords are returned)  
         suspicious_nodes = self.vessel.get_reachable_center_points(
             (current_node.x_coord, current_node.y_coord),
             current_node.sector)  # aka  vessel.rotation,
 
+        
+
+        
         speed = 10 # m/s
 
         HereNode = namedtuple('HereNode',
@@ -940,7 +947,7 @@ class AdAStar():
                     for cc in zone + [(nn.cell_x_id,nn.cell_y_id)]:
                         black_shade = self.vessel.get_black_shade(fake_omega, offset)
                         for bb in black_shade:
-                            print bb
+#                            print bb
                             if not self.flaeche.is_valid_node_pos(bb):
                                 print 'not valid', bb
                                 all_zone_nodes_black_shade_ok = False
@@ -1021,7 +1028,7 @@ class AdAStar():
         elif some_node == None and first:
             some_node = self.reached_dest_node
         elif some_node == None and not first:
-            assert False, 'Something went wrong when storing the previous node'
+            assert False, 'Something went wrong when storing the previous node!'
         self.path[0:0] = [some_node]
         if some_node.get_coords()[0:1] == self.start[0:1]:
             return    
@@ -1135,7 +1142,7 @@ class AdAStar():
                         self.flaeche.vis_add_blocked((xx, yy))
         self.flaeche.vis_show(step_num=step)
 
-    def draw_path(self, final=False):
+    def draw_path(self, final=False, vessel=None):
         self.flaeche.vis_reset()
         self.flaeche.vis_add_start(self.start)
         self.flaeche.vis_add_end(self.end)
@@ -1150,8 +1157,40 @@ class AdAStar():
                 if self.flaeche.cluster[xx][yy] != None:
                     if self.flaeche.cluster[xx][yy][NodeDataHandler.is_blocked]: 
                         self.flaeche.vis_add_blocked((xx, yy))
-        for nn in ANList(self.path).get_tuples():
-            self.flaeche.vis_add_path(nn)
+                        
+        for nn in self.path:
+            #self.flaeche.vis_add_path(NodeDataHandler.get_x_and_y_id(nn.node_data))
+
+            self.flaeche.vis_add_path((nn.x_id, nn.y_id))
+            print ('path_final', nn.id, self.flaeche.get_angle_from_sector(nn.sector),
+                   self.flaeche.get_angle_from_sector(nn.sector) * 180/math.pi)
+            if vessel is not None:
+                vessel.transform_hull_points(nn.reached_by_angle,
+                                             self.flaeche.get_possition_from_cell_center_id(
+                                                 (nn.x_id,nn.y_id)
+                                             ))
+                self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'red')
+
+#        for nn in ANList(self.path).get_tuples():
+#            self.flaeche.vis_add_path(nn)
+#            print ('path_final', nn, self.flaeche.get_angle_from_sector(nn[2]),
+#                   self.flaeche.get_angle_from_sector(nn[2]) * 180/math.pi)
+#            if vessel is not None:
+#                vessel.transform_hull_points(self.flaeche.get_angle_from_sector(nn[2]),
+#                                             self.flaeche.get_possition_from_cell_center_id(
+#                                                 (nn[0],nn[1])
+#                                             ))
+#                self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'red')
+        if vessel is not None:
+            vessel.transform_hull_points(0, (240, 200))
+            self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
+            vessel.transform_hull_points(math.pi/4, (240, 240))
+            self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
+
+            vessel.transform_hull_points(math.pi/2, (240, 280))
+            self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
+
+            
         if final:
             self.flaeche.vis_show(step_num=self.iteration_step)
         else:
@@ -1355,13 +1394,13 @@ class Flaeche():
 #        return sector_center
 
     def get_possition_from_cell_center_id(self, (center_id_x, center_id_y)):
-        assert center_id_x > 0
+        assert center_id_x >= 0
         assert center_id_x <= self.cluster_length_x
         
-        assert center_id_y > 0 
+        assert center_id_y >= 0 
         assert center_id_y <= self.cluster_length_y 
 
-        return ((center_id_x - 0.5) * self.scale, (center_id_y - 0.5) * self.scale)
+        return ((center_id_x + 0.5) * self.scale, (center_id_y + 0.5) * self.scale)
         
         
     def get_sector_id_from_angle(self, angle):

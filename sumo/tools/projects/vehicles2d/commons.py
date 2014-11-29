@@ -33,7 +33,8 @@ class StarNodeC(StarNode):
     def __init__(self, node_data, tt, dd, lastNode,
                  sector=None, reached_by_angle=None):
 
-        self.node_data_handler = NodeDataHandler(node_data)  
+        self.node_data                = node_data  
+        self.node_data_handler = NodeDataHandler(self.node_data)  
         
         self.x_id                     = self.node_data_handler.x_id      
         self.y_id                     = self.node_data_handler.y_id
@@ -166,3 +167,11 @@ class NodeDataHandler():
     def get_center(self):
         return self.flaeche.get_cell_center((self.x_id, self.y_id))
         
+#    def get_x_id(node_data):
+#        return node_data[x_id]
+#        
+#    def get_y_id(node_data):
+#        return node_data[y_id]
+
+    def get_x_and_y_id(node_data):
+        return (node_data[x_id], node_data[y_id])

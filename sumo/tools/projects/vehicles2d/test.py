@@ -1309,8 +1309,9 @@ class someTestcase(unittest.TestCase):
     @unittest.skipIf(devel_run, '')
     def test_get_possition_from_cell_center_id(self):
         myFlaeche = main.Flaeche(xdim=100,ydim=100,scale=1)
-        self.assertEqual(myFlaeche.get_possition_from_cell_center_id( (1, 1) ),  (0.5, 0.5) )
-        self.assertEqual(myFlaeche.get_possition_from_cell_center_id( (1, 2) ),  (0.5, 1.5) )
+        self.assertEqual(myFlaeche.get_possition_from_cell_center_id( (0, 0) ),  (0.5, 0.5) )
+        self.assertEqual(myFlaeche.get_possition_from_cell_center_id( (1, 1) ),  (1.5, 1.5) )
+        self.assertEqual(myFlaeche.get_possition_from_cell_center_id( (1, 2) ),  (1.5, 2.5) )
         
 
 
@@ -1737,7 +1738,10 @@ class someTestcase_ada_star(unittest.TestCase):
         myFlaeche = main.Flaeche(xdim=500,ydim=500,scale=10,
                                  output='result_hindrance_punctual_ada')
         vessel = main.Vessel(myFlaeche,
-                             [(0, 0), (10, 10), (10, 30), (-10, 30), (-10, 10), ( 0, 0)])
+#                             [(10, 0), (0, 10), (-20, 10), (-20, -10), (0, -10), ( 10, 0)])
+#nosy:
+                             [(0, 0), (-10, 10), (-30, 10), (-30, -10), (-10, -10), ( 0, 0)])
+#mistaken one:                [(0, 0), (10, 10), (10, 30), (-10, 30), (-10, 10), ( 0, 0)])
         vessel.r = 20        
 
        # blocked_nodes = [(xx, 15) for xx in range(10, 28)]
@@ -1756,12 +1760,13 @@ class someTestcase_ada_star(unittest.TestCase):
         
         myD = main.AdAStar(vessel=vessel, start_node=start, end_node=end)
 
-        myD.run(verbose=True, visual=visual)
+#        myD.run(verbose=True, visual=visual)
 #        myD.run(visual=visual)
+        myD.run()
         myD.rebuild_path()
 
         for bla in  myD.path:
-            print bla.id
+            print bla.id, bla.reached_by_angle * 180 / math.pi
 
         expected_result = [(3, 11, 0), (5, 12, 2), (8, 15, 6), (9, 15, 1), (10, 16, 1),
                            (11, 17, 1), (12, 18, 1), (13, 19, 1), (15, 20, 3), (22, 19, 0)]
@@ -1770,8 +1775,8 @@ class someTestcase_ada_star(unittest.TestCase):
         
 #        main.make_movie(myFlaeche.output)
                          
-        if visual:
-            myD.draw_path()
+#        if visual:
+        myD.draw_path(vessel=vessel)
 
 
     @unittest.skipIf(devel_skip, 'done')
@@ -1924,9 +1929,9 @@ if __name__ == '__main__':
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(someTestcase_ada_star))
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(test_dijkstra.someTestcaseDD))
 
-    if True:#False:
-        suite   = unittest.TestSuite();
-        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final__a"))
+#    if True:#False:
+#        suite   = unittest.TestSuite();
+#        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final__a"))
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_update_open_list"))
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final"))
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final__a"))
