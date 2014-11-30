@@ -335,7 +335,8 @@ class Vessel():
 #            print 'yy', yy
 #            print 'aa', aa
 #            print 'ag', aa * 360 / 2 / math.pi
-            
+
+        print rr, aa     
         return (rr, aa) 
 
 
@@ -518,8 +519,10 @@ class Vessel():
                 center_in_global_coords = this_node_data.get_center()
                 center_in_ego_coords    = self.transform_coord_to_ego(center_in_global_coords,
                                                                       omega, offset)
-                center_in_ego_coords    = (int(center_in_ego_coords[0]),
-                                           int(center_in_ego_coords[1]))
+
+                ####  WHY INTEGERS ???? !!!! #######
+                #center_in_ego_coords    = (int(center_in_ego_coords[0]),
+                #                           int(center_in_ego_coords[1]))
 
                 if (xx_start <= cxx <= xx_end and 
                     yy_start <= cyy <= yy_end): 
@@ -844,9 +847,11 @@ class AdAStar():
         # (only coords are returned)  
         suspicious_nodes = self.vessel.get_reachable_center_points(
             (current_node.x_coord, current_node.y_coord),
-            current_node.sector)  # aka  vessel.rotation,
+            self.flaeche.get_angle_from_sector(current_node.sector))  # aka  vessel.rotation,
+        print 'self.vessel.get_reachable_center_points((', current_node.x_coord, current_node.y_coord,')', current_node.sector,')'  # aka  vessel.rotation,
 
-        
+
+        print 'before suspicious counted points: ', len(suspicious_nodes)
 
         
         speed = 10 # m/s
@@ -859,6 +864,11 @@ class AdAStar():
         suspicious_nodes_a = []
         for mm in suspicious_nodes:
 
+            print mm 
+            if mm[0] == 45 and mm[1] == 115:
+                import pdb; pdb.set_trace()
+                
+            
             cell_x_id = self.flaeche.get_cell((mm[0], mm[1]))[0] 
             cell_y_id = self.flaeche.get_cell((mm[0], mm[1]))[1] 
             sector_id = self.flaeche.get_sector_id_from_angle(mm[-2])
@@ -883,7 +893,10 @@ class AdAStar():
                           length,
                           durration) 
 
-                
+
+            if hn.cell_x_id == 4 and hn.cell_y_id == 11:
+                import pdb; pdb. set_trace()
+            
             suspicious_nodes_a.append(hn)
 
         suspicious_nodes = suspicious_nodes_a
@@ -1030,7 +1043,7 @@ class AdAStar():
         elif some_node == None and not first:
             assert False, 'Something went wrong when storing the previous node!'
         self.path[0:0] = [some_node]
-        if some_node.get_coords()[0:1] == self.start[0:1]:
+        if some_node.get_coords()[0:2] == self.start[0:2]:
             return    
         self.rebuild_path_recursive(some_node.previousNode)
 
@@ -1189,6 +1202,9 @@ class AdAStar():
 
             vessel.transform_hull_points(math.pi/2, (240, 280))
             self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
+
+#            vessel.transform_hull_points(8, (55, 115))
+#            self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'pink')
 
             
         if final:

@@ -1132,7 +1132,10 @@ class someTestcase(unittest.TestCase):
         ]
         
         self.assertEqual( result, expected_result)
-            
+
+
+
+        
         
     @unittest.skipIf(finished, 'done')
     def test_get_reachables(self):
@@ -1760,8 +1763,29 @@ class someTestcase_ada_star(unittest.TestCase):
         
         myD = main.AdAStar(vessel=vessel, start_node=start, end_node=end)
 
-#        myD.run(verbose=True, visual=visual)
-#        myD.run(visual=visual)
+#        myD.run(verbose=True, visual=visual) #        myD.run(visual=visual)
+
+        
+####### surgery cut ####
+        if False:
+        
+            myD.step()
+            myD.step()
+            print myD.get_open_nodes('tuples')
+            
+            print len(myD.get_open_nodes('tuples'))
+
+        
+            assert False
+            #        self.assertEqual(myD_step_zero.get_open_nodes('tuples'), [( 30, 10, 0) ])
+            #        self.assertEqual(myD_step_zero.get_closed_nodes('tuples'), [])
+        
+        
+
+
+####### surgery glue ####
+
+        
         myD.run()
         myD.rebuild_path()
 
@@ -1770,14 +1794,53 @@ class someTestcase_ada_star(unittest.TestCase):
 
         expected_result = [(3, 11, 0), (5, 12, 2), (8, 15, 6), (9, 15, 1), (10, 16, 1),
                            (11, 17, 1), (12, 18, 1), (13, 19, 1), (15, 20, 3), (22, 19, 0)]
-        
 #        self.assertEqual(ANList(myD.path, 'tuples').get_tuples(), expected_result)
-        
 #        main.make_movie(myFlaeche.output)
-                         
 #        if visual:
         myD.draw_path(vessel=vessel)
 
+
+    @unittest.skipIf(devel_run, 'done')
+    def test_get_reachable_center_points_spooky(self):
+        visual = VISUAL
+        visual = True
+        myFlaeche = main.Flaeche(xdim=500,ydim=500,scale=10,
+                                 output='result_hindrance_punctual_ada_spooky')
+        vessel = main.Vessel(myFlaeche,   #nosy:
+                             [(0, 0), (-10, 10), (-30, 10), (-30, -10), (-10, -10), ( 0, 0)])
+        vessel.r = 20        
+
+        vessel.x, vessel.y = myFlaeche.get_possition_from_cell_center_id((5, 11))
+        vessel.rotation    = myFlaeche.get_angle_from_sector(8)
+
+        print 
+        #self.vessel.get_reachable_center_points(( 55.0 115.0 ) 8 )))
+        
+        result = vessel.get_reachable_center_points( (vessel.x, vessel.y),
+                                                     vessel.rotation,
+)                                                     
+#                                                    test_result='get_all_center_points')
+#!!                                                  test_result='get_zone_zero_center_points')
+#                                                    test_result='get_zone_one_center_points')
+#                                                    test_result='get_zone_two_center_points')
+#                                                    test_result='get_zone_three_center_points')
+#                                                     test_result='get_extention_center_points')
+
+        for ii in result:
+            if ii[0] == 45:
+                print ii
+
+        print 'counted points', len(result)
+        
+        for pp in result:
+            myFlaeche.vis_add_single_point(pp[0:2], 'blue')
+                                                      
+        myFlaeche.vis_add_colored_point((5, 11), 'red')
+        myFlaeche.vis_add_colored_point((5, 12), 'grey')
+            
+        if visual:
+            myFlaeche.vis_show()
+        
 
     @unittest.skipIf(devel_skip, 'done')
     def test_wiki (self):
@@ -1929,8 +1992,10 @@ if __name__ == '__main__':
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(someTestcase_ada_star))
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(test_dijkstra.someTestcaseDD))
 
-#    if True:#False:
-#        suite   = unittest.TestSuite();
+    if True:#False:
+        suite   = unittest.TestSuite();
+        suite.addTest(someTestcase("test_get_radius_to_point_ego"))
+#        suite.addTest(someTestcase_ada_star("test_get_reachable_center_points_spooky"))
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final__a"))
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_update_open_list"))
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final"))
