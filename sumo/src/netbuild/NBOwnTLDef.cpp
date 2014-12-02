@@ -301,6 +301,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
                 }
             }
         }
+        const std::string vehicleState = state; // backup state before pedestrian modifications
         state = addPedestrianPhases(logic, greenTime, state, crossings, fromEdges, toEdges);
         // pedestrians have 'r' from here on
         for (unsigned int i1 = pos; i1 < pos + crossings.size(); ++i1) {
@@ -313,7 +314,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
                 if (state[i1] != 'G' && state[i1] != 'g') {
                     continue;
                 }
-                if ((state[i1] >= 'a' && state[i1] <= 'z') && haveForbiddenLeftMover) {
+                if ((vehicleState[i1] >= 'a' && vehicleState[i1] <= 'z') && haveForbiddenLeftMover) {
                     continue;
                 }
                 state[i1] = 'y';
