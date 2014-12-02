@@ -18,7 +18,7 @@
 //
 /****************************************************************************/
 #ifndef MSPModel_Striping_h
-#define	MSPModel_Striping_h
+#define MSPModel_Striping_h
 
 // ===========================================================================
 // included modules
@@ -342,5 +342,5 @@ private:
 };
 
 
-#endif	/* MSPModel_Striping_h */
+#endif /* MSPModel_Striping_h */
 

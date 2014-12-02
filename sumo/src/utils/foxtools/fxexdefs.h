@@ -300,25 +300,25 @@ enum FXFilePermission {
 
 // thread stuff
 #ifndef WIN32
-typedef void*		FXThreadHandle;       // handle to a thread
-typedef void*		FXThreadMutex;        // handle to a mutex
-typedef void*		FXThreadCondition;    // handle to a condition variable
-typedef void*		FXThreadSemaphore;    // handle to a semaphore
-typedef FXInputHandle*	FXThreadEventHandle;  // handle to a thread event object
+typedef void* FXThreadHandle;       // handle to a thread
+typedef void* FXThreadMutex;        // handle to a mutex
+typedef void* FXThreadCondition;    // handle to a condition variable
+typedef void* FXThreadSemaphore;    // handle to a semaphore
+typedef FXInputHandle* FXThreadEventHandle;  // handle to a thread event object
 #else
-typedef HANDLE		FXThreadHandle;       // handle to a thread
-typedef HANDLE	 	FXThreadMutex;        // handle to a mutex
-typedef HANDLE		FXThreadCondition;    // handle to a condition variable
-typedef HANDLE		FXThreadSemaphore;    // handle to a semaphore
-typedef FXInputHandle	FXThreadEventHandle;  // handle to a thread event object
+typedef HANDLE FXThreadHandle;       // handle to a thread
+typedef HANDLE FXThreadMutex;        // handle to a mutex
+typedef HANDLE FXThreadCondition;    // handle to a condition variable
+typedef HANDLE FXThreadSemaphore;    // handle to a semaphore
+typedef FXInputHandle FXThreadEventHandle;  // handle to a thread event object
 #endif
 
 
 // dynamic library loading
 #ifndef WIN32
-typedef void*			FXDLLHandle;  // handle to a dynamically loaded file
+typedef void*      FXDLLHandle;  // handle to a dynamically loaded file
 #else
-typedef HMODULE			FXDLLHandle;  // handle to a dynamically loaded file
+typedef HMODULE      FXDLLHandle;  // handle to a dynamically loaded file
 #endif
 
 

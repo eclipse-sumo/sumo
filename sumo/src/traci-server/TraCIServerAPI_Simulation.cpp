@@ -415,7 +415,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
             pos1.set(p1x, p1y);
         }
         if (posType == POSITION_3D) {
-            inputStorage.readDouble();		// z value is ignored
+            inputStorage.readDouble();// z value is ignored
         }
         roadPos1 = convertCartesianToRoadMap(pos1);
         break;
@@ -445,7 +445,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
             pos2.set(p2x, p2y);
         }
         if (posType == POSITION_3D) {
-            inputStorage.readDouble();		// z value is ignored
+            inputStorage.readDouble();// z value is ignored
         }
         roadPos2 = convertCartesianToRoadMap(pos2);
         break;

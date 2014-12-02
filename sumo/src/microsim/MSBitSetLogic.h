@@ -7,7 +7,7 @@
 /// @date    Wed, 12 Dez 2001
 /// @version $Id$
 ///
-//	»missingDescription«
+// Container for holding a right-of-way matrix
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors

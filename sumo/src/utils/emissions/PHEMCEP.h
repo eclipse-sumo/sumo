@@ -92,18 +92,18 @@ public:
          * @param[in] v The vehicle's average velocity
          * @param[in] a The vehicle's average acceleration
          * @param[in] slope The road's slope at vehicle's position [°]
-    	 * @param{in] vehicleCep vehicles CEP data
+         * @param{in] vehicleCep vehicles CEP data
          * @param{in] loading vehicle loading [kg]
          * @return The power demand for desired state [kW]
          */
     double CalcPower(double v, double a, double slope) const;
 
 
-    /**	 @brief Returns the maximum accelaration for a vehicle at state v,a, slope and loading
+    /** @brief Returns the maximum accelaration for a vehicle at state v,a, slope and loading
          * @param[in] v The vehicle's average velocity
          * @param[in] a The vehicle's average acceleration
          * @param[in] slope The road's slope at vehicle's position [°]
-    	 * @param{in] vehicleCep vehicles CEP data
+         * @param{in] vehicleCep vehicles CEP data
          * @param{in] loading vehicle loading [kg]
          * @return The maximum accelaration for desired state [kW]
          */

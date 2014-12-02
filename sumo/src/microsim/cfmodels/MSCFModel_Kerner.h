@@ -19,7 +19,7 @@
 //
 /****************************************************************************/
 #ifndef MSCFModel_Kerner_h
-#define	MSCFModel_Kerner_h
+#define MSCFModel_Kerner_h
 
 // ===========================================================================
 // included modules
@@ -138,5 +138,5 @@ private:
 
 };
 
-#endif	/* MSCFModel_Kerner_H */
+#endif /* MSCFModel_Kerner_H */
 

@@ -50,8 +50,8 @@ public:
     /**
      * parameters
      */
-    SUMOReal speedTimePerKm;							//number of seconds for one km
-    SUMOReal carPreference;							//prob. to choose the car (compared to the bus)
+    SUMOReal speedTimePerKm;              //number of seconds for one km
+    SUMOReal carPreference;              //prob. to choose the car (compared to the bus)
 
     /**
      * from General element from XML file.
@@ -70,12 +70,12 @@ public:
     SUMOReal uniformRandomTrafficRate;
     SUMOReal departureVariation;
 
-    std::map<int, SUMOReal> beginWorkHours;				//<hour, probability> (number only used in term of PROPORTION: it should be normalized)
-    std::map<int, SUMOReal> endWorkHours;				//<hour, probability> (number only used in term of PROPORTION: it should be normalized)
-    std::map<int, AGPosition> busStations;				//<id, position>
+    std::map<int, SUMOReal> beginWorkHours;        //<hour, probability> (number only used in term of PROPORTION: it should be normalized)
+    std::map<int, SUMOReal> endWorkHours;        //<hour, probability> (number only used in term of PROPORTION: it should be normalized)
+    std::map<int, AGPosition> busStations;        //<id, position>
     //std::map<SchoolType, int> schoolCapacity;
-    std::map<int, SUMOReal> population;						//<bracket's end age, number> (number only used in term of PROPORTION: it should be normalized)
-    //std::map<int, SUMOReal> childrenAccompagniment;		//<bracket's end age, probability>
+    std::map<int, SUMOReal> population;            //<bracket's end age, number> (number only used in term of PROPORTION: it should be normalized)
+    //std::map<int, SUMOReal> childrenAccompagniment;    //<bracket's end age, probability>
     /**
      * number of incoming or outgoing people through the given city gates
      * PROPORTION: it should be normalized

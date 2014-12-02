@@ -20,7 +20,7 @@
 //
 /****************************************************************************/
 #ifndef MSCFModel_PWag2009_h
-#define	MSCFModel_PWag2009_h
+#define MSCFModel_PWag2009_h
 
 // ===========================================================================
 // included modules
@@ -164,4 +164,4 @@ private:
 
 };
 
-#endif	/* MSCFModel_PWag2009_H */
+#endif /* MSCFModel_PWag2009_H */

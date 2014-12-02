@@ -58,8 +58,8 @@ namespace FXEX {
  *
  *    // message IDs
  *    enum {
- *  	ID_THREAD_EVENT = FXWhatEver::ID_LAST,
- *  	ID_LAST };
+ *    ID_THREAD_EVENT = FXWhatEver::ID_LAST,
+ *    ID_LAST };
  *
  *    // message handler
  *    long onThreadEvent(FXObject*, FXSelector, void*);

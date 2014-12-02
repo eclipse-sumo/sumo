@@ -427,7 +427,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, SUMOTime 
         SUMOTime begin = TIME2STEPS(def.begin);
         unsigned int end = TIME2STEPS(def.end);
         size_t stepOfBegin = myTo->getIndexFromOffset(begin);
-        if (stepOfBegin == actStep)	{
+        if (stepOfBegin == actStep) {
             if (begin < startPos) {
                 toCut = end - startPos;
             } else {

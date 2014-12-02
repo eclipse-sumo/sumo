@@ -38,12 +38,12 @@
 #include <utils/common/AbstractMutex.h>
 
 #ifndef WIN32
-typedef void*		FXThreadMutex;        // handle to a mutex
+typedef void* FXThreadMutex;        // handle to a mutex
 #else
 #define NOMINMAX
 #include <windows.h>
 #undef NOMINMAX
-typedef HANDLE	 	FXThreadMutex;        // handle to a mutex
+typedef HANDLE FXThreadMutex;        // handle to a mutex
 #endif
 
 

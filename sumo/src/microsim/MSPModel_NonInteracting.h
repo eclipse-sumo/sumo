@@ -18,7 +18,7 @@
 //
 /****************************************************************************/
 #ifndef MSPModel_NonInteracting_h
-#define	MSPModel_NonInteracting_h
+#define MSPModel_NonInteracting_h
 
 // ===========================================================================
 // included modules
@@ -115,5 +115,5 @@ private:
 };
 
 
-#endif	/* MSPModel_NonInteracting_h */
+#endif /* MSPModel_NonInteracting_h */
 

@@ -18,7 +18,7 @@
 //
 /****************************************************************************/
 #ifndef MSPModel_h
-#define	MSPModel_h
+#define MSPModel_h
 
 // ===========================================================================
 // included modules
@@ -115,5 +115,5 @@ public:
 
 
 
-#endif	/* MSPModel_h */
+#endif /* MSPModel_h */
 

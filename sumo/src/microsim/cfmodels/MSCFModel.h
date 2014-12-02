@@ -21,7 +21,7 @@
 //
 /****************************************************************************/
 #ifndef MSCFModel_h
-#define	MSCFModel_h
+#define MSCFModel_h
 
 // ===========================================================================
 // included modules
@@ -352,5 +352,5 @@ protected:
 };
 
 
-#endif	/* MSCFModel_h */
+#endif /* MSCFModel_h */
 

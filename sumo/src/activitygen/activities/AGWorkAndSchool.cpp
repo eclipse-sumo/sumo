@@ -280,8 +280,8 @@ AGWorkAndSchool::generateListTrips() {
                     if (itAccT->getRideBackArrTime(this->timePerKm) < itDriT->getTime()) {
                         //there is enough time to accompany people and go back home before going to work
                         itAccT->setVehicleName(itDriT->getVehicleName());
-                        itAccT->addLayOver(itAccT->getArr());	//final destination is the last accompaniment stop: not the destination of the course
-                        itAccT->setArr(myHousehold->getPosition());		//final destination of the whole trip: home
+                        itAccT->addLayOver(itAccT->getArr());//final destination is the last accompaniment stop: not the destination of the course
+                        itAccT->setArr(myHousehold->getPosition());//final destination of the whole trip: home
                         myPartialActivityTrips.push_back(*itAccT);
                         alreadyDone = true;
                     } else {

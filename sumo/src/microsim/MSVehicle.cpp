@@ -1392,7 +1392,7 @@ MSVehicle::executeMove() {
 
     if (myInfluencer != 0 && myInfluencer->isVTDControlled()) {
         myWaitingTime = 0;
-//		myInfluencer->setVTDControlled(false);
+//    myInfluencer->setVTDControlled(false);
         return false;
     }
 
@@ -1957,7 +1957,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         progress &= ce != myRoute->end();
         /*
         if(progress) {
-        	progress &= (currentLanes.size()!=1||(*ce)->getLanes().size()!=1);
+          progress &= (currentLanes.size()!=1||(*ce)->getLanes().size()!=1);
         }
         */
     }

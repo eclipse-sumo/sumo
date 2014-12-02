@@ -20,7 +20,7 @@
 //
 /****************************************************************************/
 #ifndef MSCFModel_SmartSK_h
-#define	MSCFModel_SmartSK_h
+#define MSCFModel_SmartSK_h
 
 // ===========================================================================
 // included modules
@@ -203,5 +203,5 @@ protected:
 
 };
 
-#endif	/* MSCFModel_SmartSK_H */
+#endif /* MSCFModel_SmartSK_H */
 

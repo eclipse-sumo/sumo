@@ -59,7 +59,7 @@ MSCFModel_SmartSK::MSCFModel_SmartSK(const MSVehicleType* vtype,  SUMOReal accel
     if (myS2Sspeed > 5.0) {
         myS2Sspeed = 5.0;
     }
-//	SUMOReal maxDeltaGap = -0.5*ACCEL2DIST(myDecel + myAccel);
+// SUMOReal maxDeltaGap = -0.5*ACCEL2DIST(myDecel + myAccel);
     maxDeltaGap = -0.5 * (myDecel + myAccel) * TS * TS;
     std::cout << "# maxDeltaGap = " << maxDeltaGap << std::endl;
     myTmp2 = TS / myTmp2;
@@ -105,7 +105,7 @@ SUMOReal
 MSCFModel_SmartSK::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
     SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
 
-//	if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
+// if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
     if ((gap - vars->gOld) < maxDeltaGap) {
         SUMOReal tTauTest = gap / speed;
 // allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in moveHelper()!!!
@@ -130,7 +130,7 @@ SUMOReal
 MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
     SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
 
-//	if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
+// if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
     if ((gap - vars->gOld) < maxDeltaGap) {
         SUMOReal tTauTest = gap / speed;
 // allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in moveHelper()!!!

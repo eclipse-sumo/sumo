@@ -20,7 +20,7 @@
 //
 /****************************************************************************/
 #ifndef MSCFMODEL_IDM_H
-#define	MSCFMODEL_IDM_H
+#define MSCFMODEL_IDM_H
 
 // ===========================================================================
 // included modules
@@ -184,4 +184,4 @@ private:
     MSCFModel_IDM& operator=(const MSCFModel_IDM& s);
 };
 
-#endif	/* MSCFMODEL_IDM_H */
+#endif /* MSCFMODEL_IDM_H */

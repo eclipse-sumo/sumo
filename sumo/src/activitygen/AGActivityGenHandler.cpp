@@ -157,7 +157,7 @@ AGActivityGenHandler::parseGeneralCityInfo(const SUMOSAXAttributes& attrs) {
 
 void
 AGActivityGenHandler::parseParameters(const SUMOSAXAttributes& attrs) {
-    try	{
+    try {
         bool ok;
         myCity.statData.carPreference = attrs.getOpt<SUMOReal>(AGEN_ATTR_CARPREF, 0, ok, 0.0);
         myCity.statData.speedTimePerKm = attrs.getOpt<SUMOReal>(AGEN_ATTR_CITYSPEED, 0, ok, 360.0);

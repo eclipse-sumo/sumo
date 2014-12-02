@@ -19,7 +19,7 @@
 //
 /****************************************************************************/
 #ifndef MSCFModel_Wiedemann_H
-#define	MSCFModel_Wiedemann_H
+#define MSCFModel_Wiedemann_H
 
 // ===========================================================================
 // included modules
@@ -187,4 +187,4 @@ private:
     MSCFModel_Wiedemann& operator=(const MSCFModel_Wiedemann& s);
 };
 
-#endif	/* MSCFModel_Wiedemann_H */
+#endif /* MSCFModel_Wiedemann_H */

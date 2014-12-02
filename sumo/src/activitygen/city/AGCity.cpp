@@ -277,11 +277,11 @@ AGCity::schoolAllocation() {
             /*ofstream fichier("test.txt", ios::app);  // ouverture en écriture avec effacement du fichier ouvert
             if(fichier)
             {
-            	fichier << "===> WARNING: Not enough school places in the city for all children..." << std::endl;
-            	fichier.close();
+              fichier << "===> WARNING: Not enough school places in the city for all children..." << std::endl;
+              fichier.close();
             }
             else
-            	cerr << "Impossible d'ouvrir le fichier !" << std::endl;*/
+              cerr << "Impossible d'ouvrir le fichier !" << std::endl;*/
 
             //std::cout << "===> WARNING: Not enough school places in the city for all children..." << std::endl;
         }

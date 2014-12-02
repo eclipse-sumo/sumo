@@ -21,7 +21,7 @@
 //
 /****************************************************************************/
 #ifndef MSCFModel_KraussOrig1_h
-#define	MSCFModel_KraussOrig1_h
+#define MSCFModel_KraussOrig1_h
 
 // ===========================================================================
 // included modules
@@ -183,5 +183,5 @@ protected:
     SUMOReal myTauDecel;
 };
 
-#endif	/* MSCFModel_KraussOrig1_H */
+#endif /* MSCFModel_KraussOrig1_H */
 

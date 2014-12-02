@@ -142,7 +142,7 @@ MSSimpleTrafficLightLogic::getCurrentPhaseDef() const {
 SUMOTime
 MSSimpleTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const {
     SUMOTime position = 0;
-    if (myStep > 0)	{
+    if (myStep > 0) {
         for (unsigned int i = 0; i < myStep; i++) {
             position = position + getPhase(i).duration;
         }
@@ -161,7 +161,7 @@ MSSimpleTrafficLightLogic::getOffsetFromIndex(unsigned int index) const {
         return 0;
     }
     unsigned int pos = 0;
-    for (unsigned int i = 0; i < index; i++)	{
+    for (unsigned int i = 0; i < index; i++) {
         pos += getPhase(i).duration;
     }
     return pos;
@@ -175,7 +175,7 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
         return 0;
     }
     SUMOTime testPos = 0;
-    for (unsigned int i = 0; i < myPhases.size(); i++)	{
+    for (unsigned int i = 0; i < myPhases.size(); i++) {
         testPos = testPos + getPhase(i).duration;
         if (testPos > offset) {
             return i;

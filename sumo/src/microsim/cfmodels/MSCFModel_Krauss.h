@@ -21,7 +21,7 @@
 //
 /****************************************************************************/
 #ifndef MSCFModel_Krauss_h
-#define	MSCFModel_Krauss_h
+#define MSCFModel_Krauss_h
 
 // ===========================================================================
 // included modules
@@ -109,5 +109,5 @@ private:
 
 };
 
-#endif	/* MSCFMODEL_KRAUSS_H */
+#endif /* MSCFMODEL_KRAUSS_H */
 

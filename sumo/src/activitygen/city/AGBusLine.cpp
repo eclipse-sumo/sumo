@@ -45,7 +45,7 @@
 #include "AGTime.h"
 #include <utils/common/StdDefs.h>
 
-#define PAUSE_TIME 15		//time (in minutes) a bus waits before going in the opposite direction.
+#define PAUSE_TIME 15 //time (in minutes) a bus waits before going in the opposite direction.
 
 
 // ===========================================================================
@@ -59,10 +59,10 @@ AGBusLine::setMaxTripTime(int time) {
 void
 AGBusLine::setBusNames() {
     busNbr = 0;
-    std::list<AGBus>::iterator it1 = buses.begin();	//iterator on buses in the first direction
-    std::list<AGBus>::iterator it2 = revBuses.begin();	//iterator on buses in the second direction
+    std::list<AGBus>::iterator it1 = buses.begin(); //iterator on buses in the first direction
+    std::list<AGBus>::iterator it2 = revBuses.begin(); //iterator on buses in the second direction
 
-    std::list<std::pair<int, std::string> > drivingBuses1, drivingBuses2;	//buses on the road or in the parking of the corresponding end: int: the time of availability
+    std::list<std::pair<int, std::string> > drivingBuses1, drivingBuses2; //buses on the road or in the parking of the corresponding end: int: the time of availability
 
     while (it1 != buses.end() && it2 != revBuses.end()) {
         if (it1->getDeparture() > it2->getDeparture()) {

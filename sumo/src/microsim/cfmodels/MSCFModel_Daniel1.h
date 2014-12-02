@@ -19,7 +19,7 @@
 //
 /****************************************************************************/
 #ifndef MSCFModel_Daniel1_h
-#define	MSCFModel_Daniel1_h
+#define MSCFModel_Daniel1_h
 
 // ===========================================================================
 // included modules
@@ -170,5 +170,5 @@ protected:
 
 };
 
-#endif	/* MSCFModel_Daniel1_H */
+#endif /* MSCFModel_Daniel1_H */
 

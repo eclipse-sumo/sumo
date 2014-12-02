@@ -129,7 +129,7 @@ public:
     /** @brief Compute the distance between 2 given edges on this route, including the length of internal lanes.
      *
      * @param[in] fromPos  position on the first edge, at wich the computed distance begins
-     * @param[in] toPos	   position on the last edge, at which the coumputed distance endsance
+     * @param[in] toPos    position on the last edge, at which the coumputed distance endsance
      * @param[in] fromEdge edge at wich computation begins
      * @param[in] toEdge   edge at which distance computation shall stop
      * @param[in] includeInternal Whether the lengths of internal edges shall be counted

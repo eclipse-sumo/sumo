@@ -90,8 +90,8 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "junction",         NIImporter_OpenDrive::OPENDRIVE_TAG_JUNCTION },
     { "connection",       NIImporter_OpenDrive::OPENDRIVE_TAG_CONNECTION },
     { "laneLink",         NIImporter_OpenDrive::OPENDRIVE_TAG_LANELINK },
-    { "width",			  NIImporter_OpenDrive::OPENDRIVE_TAG_WIDTH },
-    { "speed",			  NIImporter_OpenDrive::OPENDRIVE_TAG_SPEED },
+    { "width",            NIImporter_OpenDrive::OPENDRIVE_TAG_WIDTH },
+    { "speed",            NIImporter_OpenDrive::OPENDRIVE_TAG_SPEED },
 
     { "",                 NIImporter_OpenDrive::OPENDRIVE_TAG_NOTHING }
 };
@@ -123,8 +123,8 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "dynamic",        NIImporter_OpenDrive::OPENDRIVE_ATTR_DYNAMIC },
     { "incomingRoad",   NIImporter_OpenDrive::OPENDRIVE_ATTR_INCOMINGROAD },
     { "connectingRoad", NIImporter_OpenDrive::OPENDRIVE_ATTR_CONNECTINGROAD },
-    { "from",			NIImporter_OpenDrive::OPENDRIVE_ATTR_FROM },
-    { "to",  			NIImporter_OpenDrive::OPENDRIVE_ATTR_TO },
+    { "from",           NIImporter_OpenDrive::OPENDRIVE_ATTR_FROM },
+    { "to",             NIImporter_OpenDrive::OPENDRIVE_ATTR_TO },
     { "max",            NIImporter_OpenDrive::OPENDRIVE_ATTR_MAX },
     { "sOffset",        NIImporter_OpenDrive::OPENDRIVE_ATTR_SOFFSET },
     { "name",           NIImporter_OpenDrive::OPENDRIVE_ATTR_NAME },
@@ -1086,14 +1086,14 @@ NIImporter_OpenDrive::OpenDriveLaneSection::getInnerConnections(OpenDriveXMLTag 
         }
         if (from != UNSET_CONNECTION && to != UNSET_CONNECTION) {
             if (ret.find(from) != ret.end()) {
-//				WRITE_WARNING("double connection");
+//        WRITE_WARNING("double connection");
             }
             if (dir == OPENDRIVE_TAG_LEFT) {
                 std::swap(from, to);
             }
             ret[from] = to;
         } else {
-//			WRITE_WARNING("missing connection");
+//      WRITE_WARNING("missing connection");
         }
     }
     return ret;
