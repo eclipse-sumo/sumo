@@ -1,3 +1,21 @@
+# -*- coding: utf-8 -*-
+"""
+@file    commons.py
+@author  Marek Heinrich
+@date    2014-11-17
+@version $Id$
+
+Commons module.
+
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+"""
 
 class StarNode():
     def __init__(self, xx, yy, tt, dd, lastNode,
