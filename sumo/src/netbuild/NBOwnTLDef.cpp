@@ -282,7 +282,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
                     isForbidden = true;
                 }
             }
-            if (!isForbidden) {
+            if (!isForbidden && !hasCrossing(fromEdges[i1], toEdges[i1], crossings)) {
                 state[i1] = 'G';
             }
         }
@@ -360,6 +360,26 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
         delete logic;
         return 0;
     }
+}
+
+
+bool 
+NBOwnTLDef::hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<NBNode::Crossing>& crossings) {
+    assert(from != 0);
+    assert(to != 0);
+    for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+        const NBNode::Crossing& cross = *it;
+        // only check connections at this crossings node
+        if (from->getToNode() == cross.node) {
+            for (EdgeVector::const_iterator it_e = cross.edges.begin(); it_e != cross.edges.end(); ++it_e) {
+                const NBEdge* edge = *it_e;
+                if (edge == from || edge == to) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 

@@ -208,6 +208,10 @@ protected:
     std::pair<NBEdge*, NBEdge*> getBestPair(EdgeVector& incoming);
 
 
+    /// @brief compute whether the given connection is crossed by pedestrians
+    static bool hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<NBNode::Crossing>& crossings);
+
+
     /** @class edge_by_incoming_priority_sorter
      * @brief Sorts edges by their priority within the node they end at
      */
