@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 14 09:31:55 2014 by SUMO netconvert Version dev-SVN-r16756
+<!-- generated on Mon Dec  1 16:50:32 2014 by SUMO netconvert Version dev-SVN-r17405ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -9327,7 +9327,7 @@
         <lane id="143308673#1_0" index="0" allow="delivery pedestrian" speed="2.78" length="103.71" shape="4471.62,191.40 4485.71,263.74 4501.41,260.49 4509.08,248.80"/>
     </edge>
     <edge id="143308678" from="1568241533" to="1853142988" priority="1" type="highway.footway" spreadType="center" shape="4356.45,721.77 4361.31,722.94 4361.66,721.46 4362.77,716.38">
-        <lane id="143308678_0" index="0" allow="pedestrian" speed="8.33" length="2.71" shape="4360.59,722.77 4361.31,722.94 4361.66,721.46 4361.76,721.02"/>
+        <lane id="143308678_0" index="0" allow="pedestrian" speed="8.33" length="2.71" shape="4360.58,722.77 4361.31,722.94 4361.66,721.46 4361.76,721.02"/>
     </edge>
     <edge id="143308685#1" from="1568241546" to="1568241549" priority="2" type="highway.service" shape="4392.68,722.97 4393.65,718.08 4417.93,724.22">
         <lane id="143308685#1_0" index="0" allow="delivery pedestrian" speed="5.56" length="29.25" shape="4391.89,718.47 4392.37,716.05 4418.33,722.62"/>
@@ -10312,12 +10312,12 @@
     <tlLogic id="1906766906" type="static" programID="0" offset="0">
         <phase duration="31" state="GGrr"/>
         <phase duration="4" state="yyrr"/>
-        <phase duration="31" state="GGrr"/>
-        <phase duration="4" state="yyrr"/>
+        <phase duration="26" state="rrGG"/>
+        <phase duration="9" state="rrrr"/>
     </tlLogic>
     <tlLogic id="57343510" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGrr"/>
-        <phase duration="4" state="yyrr"/>
+        <phase duration="26" state="rrGG"/>
+        <phase duration="9" state="rrrr"/>
         <phase duration="31" state="GGrr"/>
         <phase duration="4" state="yyrr"/>
     </tlLogic>
@@ -11085,7 +11085,7 @@
     <junction id="1568241476" type="priority" x="4297.51" y="702.10" incLanes="143308628_0" intLanes=":1568241476_0_0" shape="4297.56,702.11 4300.72,702.63 4294.30,701.57 4297.46,702.09">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="1568241533" type="right_before_left" x="4356.45" y="721.77" incLanes="-47770431#1_0 47770431#0_0" intLanes=":1568241533_0_0 :1568241533_1_0 :1568241533_2_0 :1568241533_3_0" shape="4360.71,724.44 4360.37,719.86 4360.24,719.50 4353.88,718.17 4352.58,724.10 4358.92,725.55">
+    <junction id="1568241533" type="right_before_left" x="4356.45" y="721.77" incLanes="-47770431#1_0 47770431#0_0" intLanes=":1568241533_0_0 :1568241533_1_0 :1568241533_2_0 :1568241533_3_0" shape="4360.71,724.44 4360.37,719.87 4360.24,719.50 4353.88,718.17 4352.58,724.10 4358.92,725.55">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="0"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
