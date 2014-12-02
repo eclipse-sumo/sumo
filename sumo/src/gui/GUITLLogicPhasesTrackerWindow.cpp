@@ -254,6 +254,10 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             myDurations.push_back((*j)->duration);
             myLastTime += (*j)->duration;
         }
+        if (myLastTime <= myBeginTime) {
+            WRITE_ERROR("Overflow in time computation occured.");
+            return;
+        }
     } else {
         SUMOTime beginOffset = TIME2STEPS(myBeginOffset->getValue());
         myBeginTime = myLastTime - beginOffset;
