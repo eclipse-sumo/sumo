@@ -319,6 +319,8 @@ private:
     const Obstacles& getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const MSLane* nextLane, int stripes,
                                           SUMOReal nextLength, int nextDir, SUMOReal currentLength, int currentDir);
 
+    static void addMappedObstacle(Obstacles& obs, const PState& p, int stripe, int currentDir, int nextDir, int offset, int stripes, int nextStripes);
+
     /// @brief retrieves the pedestian vector for the given lane (may be empty)
     Pedestrians& getPedestrians(const MSLane* lane);
 

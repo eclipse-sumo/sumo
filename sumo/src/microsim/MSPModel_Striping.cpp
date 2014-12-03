@@ -455,7 +455,8 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const 
         //    << "\n";
 
         // figure out the which pedestrians are ahead on the next lane
-        const int offset = (stripes - numStripes(nextLane)) / 2;
+        const int nextStripes = numStripes(nextLane);
+        const int offset = (stripes - nextStripes) / 2;
         Obstacles obs(stripes, Obstacle(nextDir));
         Pedestrians& pedestrians = getPedestrians(nextLane);
         // XXX consider waitingToEnter on nextLane
@@ -465,15 +466,8 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const 
             if (p.myWaitingToEnter) {
                 continue;
             }
-            Obstacle o(p, nextDir);
-            int mappedStripe = p.stripe() + offset;
-            if (mappedStripe >= 0 && mappedStripe < stripes) {
-                obs[mappedStripe] = o;
-            }
-            mappedStripe = p.otherStripe() + offset;
-            if (mappedStripe >= 0 && mappedStripe < stripes) {
-                obs[mappedStripe] = o;
-            }
+            addMappedObstacle(obs, p, p.stripe(), currentDir, nextDir, offset, stripes, nextStripes);
+            addMappedObstacle(obs, p, p.otherStripe(), currentDir, nextDir, offset, stripes, nextStripes);
         }
         for (int ii = 0; ii < stripes; ++ii) {
             Obstacle& o = obs[ii];
@@ -489,6 +483,17 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const 
         nextLanesObs[nextLane] = obs;
     }
     return nextLanesObs[nextLane];
+}
+
+
+void 
+MSPModel_Striping::addMappedObstacle(Obstacles& obs, const PState& p, int stripe, int currentDir, int nextDir, int offset, int stripes, int nextStripes) {
+    const int mappedStripe = (nextDir == currentDir 
+            ? stripe + offset 
+            : nextStripes - 1 - stripe + offset);
+    if (mappedStripe >= 0 && mappedStripe < stripes) {
+        obs[mappedStripe] = Obstacle(p, nextDir);
+    }
 }
 
 
