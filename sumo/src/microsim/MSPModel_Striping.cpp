@@ -638,7 +638,6 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
     myRelY(0),
     myDir(FORWARD),
     mySpeed(0),
-    myBlockedByOncoming(false),
     myWaitingToEnter(true),
     myWaitingTime(0),
     myWalkingAreaPath(0) {
