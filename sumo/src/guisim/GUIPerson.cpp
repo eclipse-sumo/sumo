@@ -62,28 +62,18 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-//#define GUIPerson_DEBUG_DRAW_WALKING_AREA_SHAPE
+#define GUIPerson_DEBUG_DRAW_WALKINGAREA_PATHS false
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-/*
 FXDEFMAP(GUIPerson::GUIPersonPopupMenu) GUIPersonPopupMenuMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_ALLROUTES, GUIPerson::GUIPersonPopupMenu::onCmdShowAllRoutes),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_ALLROUTES, GUIPerson::GUIPersonPopupMenu::onCmdHideAllRoutes),
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_CURRENTROUTE, GUIPerson::GUIPersonPopupMenu::onCmdShowCurrentRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_CURRENTROUTE, GUIPerson::GUIPersonPopupMenu::onCmdHideCurrentRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_BEST_LANES, GUIPerson::GUIPersonPopupMenu::onCmdShowBestLanes),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_BEST_LANES, GUIPerson::GUIPersonPopupMenu::onCmdHideBestLanes),
-    FXMAPFUNC(SEL_COMMAND, MID_START_TRACK, GUIPerson::GUIPersonPopupMenu::onCmdStartTrack),
-    FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK, GUIPerson::GUIPersonPopupMenu::onCmdStopTrack),
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_LFLINKITEMS, GUIPerson::GUIPersonPopupMenu::onCmdShowLFLinkItems),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_LFLINKITEMS, GUIPerson::GUIPersonPopupMenu::onCmdHideLFLinkItems),
+    FXMAPFUNC(SEL_COMMAND, MID_SHOW_WALKINGAREA_PATH, GUIPerson::GUIPersonPopupMenu::onCmdShowWalkingareaPath),
+    FXMAPFUNC(SEL_COMMAND, MID_HIDE_WALKINGAREA_PATH, GUIPerson::GUIPersonPopupMenu::onCmdHideWalkingareaPath),
 };
 
 // Object implementation
 FXIMPLEMENT(GUIPerson::GUIPersonPopupMenu, GUIGLObjectPopupMenu, GUIPersonPopupMenuMap, ARRAYNUMBER(GUIPersonPopupMenuMap))
-*/
 
 
 
@@ -101,6 +91,23 @@ GUIPerson::GUIPersonPopupMenu::GUIPersonPopupMenu(
 
 
 GUIPerson::GUIPersonPopupMenu::~GUIPersonPopupMenu() {}
+
+long
+GUIPerson::GUIPersonPopupMenu::onCmdShowWalkingareaPath(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_PERSON);
+    if (!static_cast<GUIPerson*>(myObject)->hasActiveAddVisualisation(myParent, VO_SHOW_WALKINGAREA_PATH)) {
+        static_cast<GUIPerson*>(myObject)->addActiveAddVisualisation(myParent, VO_SHOW_WALKINGAREA_PATH);
+    }
+    return 1;
+}
+
+long
+GUIPerson::GUIPersonPopupMenu::onCmdHideWalkingareaPath(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_PERSON);
+    static_cast<GUIPerson*>(myObject)->removeActiveAddVisualisation(myParent, VO_SHOW_WALKINGAREA_PATH);
+    return 1;
+}
+
 
 
 
@@ -125,6 +132,12 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app,
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
+
+    if (hasActiveAddVisualisation(&parent, VO_SHOW_WALKINGAREA_PATH)) {
+        new FXMenuCommand(ret, "Hide Walkingarea Path", 0, ret, MID_HIDE_WALKINGAREA_PATH);
+    } else {
+        new FXMenuCommand(ret, "Show Walkingarea Path", 0, ret, MID_SHOW_WALKINGAREA_PATH);
+    }
     //
     buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
@@ -189,8 +202,15 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
             break;
     }
     glPopMatrix();
+    if (GUIPerson_DEBUG_DRAW_WALKINGAREA_PATHS) {
+        drawAction_drawWalkingareaPath(s);
+    }
+    drawName(p1, s.scale, s.personName);
+    glPopName();
+}
 
-#ifdef GUIPerson_DEBUG_DRAW_WALKING_AREA_SHAPE
+void 
+GUIPerson::drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) const {
     MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
     if (stage != 0) {
         MSPModel_Striping::PState* stripingState = dynamic_cast<MSPModel_Striping::PState*>(stage->getPedestrianState());
@@ -204,64 +224,16 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
     }
-#endif
-
-    drawName(p1, s.scale, s.personName);
-    glPopName();
 }
 
-
 void
-GUIPerson::drawGLAdditional(GUISUMOAbstractView* const /* parent */, const GUIVisualizationSettings& /* s */) const {
+GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
-    /*
     glTranslated(0, 0, getType() - .1); // don't draw on top of other cars
-    if (hasActiveAddVisualisation(parent, VO_SHOW_BEST_LANES)) {
-        drawBestLanes();
+    if (hasActiveAddVisualisation(parent, VO_SHOW_WALKINGAREA_PATH)) {
+        drawAction_drawWalkingareaPath(s);
     }
-    if (hasActiveAddVisualisation(parent, VO_SHOW_ROUTE)) {
-        drawRoute(s, 0, 0.25);
-    }
-    if (hasActiveAddVisualisation(parent, VO_SHOW_ALL_ROUTES)) {
-        if (getNumberReroutes() > 0) {
-            const int noReroutePlus1 = getNumberReroutes() + 1;
-            for (int i = noReroutePlus1 - 1; i >= 0; i--) {
-                SUMOReal darken = SUMOReal(0.4) / SUMOReal(noReroutePlus1) * SUMOReal(i);
-                drawRoute(s, i, darken);
-            }
-        } else {
-            drawRoute(s, 0, 0.25);
-        }
-    }
-    if (hasActiveAddVisualisation(parent, VO_SHOW_LFLINKITEMS)) {
-        for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
-            if((*i).myLink==0) {
-                continue;
-            }
-            MSLink* link = (*i).myLink;
-    #ifdef HAVE_INTERNAL_LANES
-            MSLane *via = link->getViaLane();
-            if (via == 0) {
-                via = link->getLane();
-            }
-    #else
-            MSLane *via = link->getLane();
-    #endif
-            if (via != 0) {
-                Position p = via->getShape()[0];
-                if((*i).mySetRequest) {
-                    glColor3f(0, 1, 0);
-                } else {
-                    glColor3f(1, 0, 0);
-                }
-                glTranslated(p.x(), p.y(), -.1);
-                GLHelper::drawFilledCircle(1);
-                glTranslated(-p.x(), -p.y(), .1);
-            }
-        }
-    }
-    */
     glPopMatrix();
     glPopName();
 }
@@ -432,6 +404,30 @@ GUIPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
         // fallback if no image is defined
         drawAction_drawAsPoly(s);
     }
+}
+
+
+// ------------ Additional visualisations
+bool
+GUIPerson::hasActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) const {
+    return myAdditionalVisualizations.find(parent) != myAdditionalVisualizations.end() && (myAdditionalVisualizations.find(parent)->second & which) != 0;
+}
+
+
+void
+GUIPerson::addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) {
+    if (myAdditionalVisualizations.find(parent) == myAdditionalVisualizations.end()) {
+        myAdditionalVisualizations[parent] = 0;
+    }
+    myAdditionalVisualizations[parent] |= which;
+    parent->addAdditionalGLVisualisation(this);
+}
+
+
+void
+GUIPerson::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) {
+    myAdditionalVisualizations[parent] &= ~which;
+    parent->removeAdditionalGLVisualisation(this);
 }
 /****************************************************************************/
 

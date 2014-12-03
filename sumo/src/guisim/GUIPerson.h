@@ -150,7 +150,7 @@ public:
      *  also allows to trigger further visualisations and to track the vehicle.
      */
     class GUIPersonPopupMenu : public GUIGLObjectPopupMenu {
-        //FXDECLARE(GUIPersonPopupMenu)
+        FXDECLARE(GUIPersonPopupMenu)
     public:
         /** @brief Constructor
          * @param[in] app The main window for instantiation of other windows
@@ -163,6 +163,11 @@ public:
 
         /// @brief Destructor
         ~GUIPersonPopupMenu();
+
+        /// @brief Called if the walkingarea path of the person shall be shown
+        long onCmdShowWalkingareaPath(FXObject*, FXSelector, void*);
+        /// @brief Called if the walkingarea path of the person shall be hidden
+        long onCmdHideWalkingareaPath(FXObject*, FXSelector, void*);
 
 
     protected:
@@ -178,11 +183,47 @@ public:
     };
 
 
+    /** @brief Additional visualisation feature ids
+     */
+    enum VisualisationFeatures {
+        /// @brief show the current walkingarea path
+        VO_SHOW_WALKINGAREA_PATH = 1,
+        /// @brief show persons's current route
+        VO_SHOW_ROUTE = 2,
+        /// @brief track person
+        VO_TRACKED = 8,
+    };
 
     /// @brief Enabled visualisations, per view
     std::map<GUISUMOAbstractView*, int> myAdditionalVisualizations;
 
 
+    /// @name Additional visualisations
+    /// @{
+
+    /** @brief Returns whether the named feature is enabled in the given view
+     * @param[in] parent The view for which the feature may be enabled
+     * @param[in] which The visualisation feature
+     * @return see comment
+     */
+    bool hasActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) const;
+
+
+    /** @brief Adds the named visualisation feature to the given view
+     * @param[in] parent The view for which the feature shall be enabled
+     * @param[in] which The visualisation feature to enable
+     * @see GUISUMOAbstractView::addAdditionalGLVisualisation
+     */
+    void addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
+
+
+    /** @brief Adds the named visualisation feature to the given view
+     * @param[in] parent The view for which the feature shall be enabled
+     * @param[in] which The visualisation feature to enable
+     * @see GUISUMOAbstractView::removeAdditionalGLVisualisation
+     */
+    void removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
+    /// @}
 
 
 private:
@@ -206,6 +247,8 @@ private:
     void drawAction_drawAsTriangle(const GUIVisualizationSettings& s) const;
     void drawAction_drawAsPoly(const GUIVisualizationSettings& s) const;
     void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
+
+    void drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) const;
     /// @}
 };
 
