@@ -213,6 +213,7 @@ void
 GUIPerson::drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) const {
     MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
     if (stage != 0) {
+        setColor(s);
         MSPModel_Striping::PState* stripingState = dynamic_cast<MSPModel_Striping::PState*>(stage->getPedestrianState());
         if (stripingState != 0) {
             MSPModel_Striping::WalkingAreaPath* waPath = stripingState->myWalkingAreaPath;
