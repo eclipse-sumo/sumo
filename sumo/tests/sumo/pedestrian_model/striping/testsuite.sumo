@@ -10,5 +10,8 @@ pedestrian_interactions
 # full connectivity among 3 one-way paths
 3_arm_pathing
 
+# two flows in opposite directions with a change in walking direction
+counterflow_change_direction
+
 # test for subsecond behavior
 subsecond
