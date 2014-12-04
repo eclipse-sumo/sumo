@@ -313,3 +313,52 @@ TEST_F(PositionVectorTest, test_method_move2side) {
     EXPECT_EQ(Position(1,.5), vec3[2]);
     }*/
 }
+
+/* Test the method 'transformToVectorCoordinates'*/
+TEST_F(PositionVectorTest, test_method_transformToVectorCoordinates) {	
+    {
+        PositionVector vec1;
+        vec1.push_back(Position(1,0));
+        vec1.push_back(Position(10,0));
+        vec1.push_back(Position(10,5));
+        vec1.push_back(Position(20,5));
+        Position on(4,0);
+        Position left(4,1);
+        Position right(4,-1);
+        Position left2(4,2);
+        Position right2(4,-2);
+        Position cornerRight(13,-4);
+        Position cornerLeft(7,9);
+
+        EXPECT_EQ(Position(3, 0),  vec1.transformToVectorCoordinates(on));
+        EXPECT_EQ(Position(3, -1),  vec1.transformToVectorCoordinates(left));
+        EXPECT_EQ(Position(3, 1),  vec1.transformToVectorCoordinates(right));
+        EXPECT_EQ(Position(3, -2),  vec1.transformToVectorCoordinates(left2));
+        EXPECT_EQ(Position(3, 2),  vec1.transformToVectorCoordinates(right2));
+        EXPECT_EQ(Position(9, 5),  vec1.transformToVectorCoordinates(cornerRight));
+        EXPECT_EQ(Position(14, -5),  vec1.transformToVectorCoordinates(cornerLeft));
+    }
+
+    { 
+        PositionVector vec1; // the same tests as before, mirrored on x-axis
+        vec1.push_back(Position(1,0));
+        vec1.push_back(Position(10,0));
+        vec1.push_back(Position(10,-5));
+        vec1.push_back(Position(20,-5));
+        Position on(4,0);
+        Position left(4,-1);
+        Position right(4,1);
+        Position left2(4,-2);
+        Position right2(4,2);
+        Position cornerRight(13,4);
+        Position cornerLeft(7,-9);
+
+        EXPECT_EQ(Position(3, 0),  vec1.transformToVectorCoordinates(on));
+        EXPECT_EQ(Position(3, 1),  vec1.transformToVectorCoordinates(left));
+        EXPECT_EQ(Position(3, -1),  vec1.transformToVectorCoordinates(right));
+        EXPECT_EQ(Position(3, 2),  vec1.transformToVectorCoordinates(left2));
+        EXPECT_EQ(Position(3, -2),  vec1.transformToVectorCoordinates(right2));
+        EXPECT_EQ(Position(9, -5),  vec1.transformToVectorCoordinates(cornerRight));
+        EXPECT_EQ(Position(14, 5),  vec1.transformToVectorCoordinates(cornerLeft));
+    }
+}
