@@ -365,6 +365,15 @@ GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) co
     glVertex2d(1, -0.5);
     glVertex2d(1, 0.5);
     glEnd();
+    // draw a smaller triangle to indicate facing
+    GLHelper::setColor(GLHelper::getColor().changedBrightness(-64));
+    glTranslated(0, 0, .045);
+    glBegin(GL_TRIANGLES);
+    glVertex2d(0., 0.);
+    glVertex2d(0.5, -0.25);
+    glVertex2d(0.5, 0.25);
+    glEnd();
+    glTranslated(0, 0, -.045);
 }
 
 
