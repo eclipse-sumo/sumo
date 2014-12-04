@@ -856,23 +856,28 @@ PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular)
 
 
 Position
-PositionVector::transformToVectorCoordinates(const Position& p) const {
+PositionVector::transformToVectorCoordinates(const Position& p, bool extend) const {
     // XXX this duplicates most of the code in nearest_offset_to_point2D. It should be refactored
-    const bool perpendicular = true;
+    if (extend) {
+        PositionVector extended = *this;
+        const SUMOReal dist = 2 * distance(p);
+        extended.extrapolate(dist);
+        return extended.transformToVectorCoordinates(p) - Position(dist, 0);
+    }
     SUMOReal minDist = std::numeric_limits<SUMOReal>::max();
     SUMOReal nearestPos = -1;
     SUMOReal seen = 0;
     int sign = 1;
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const SUMOReal pos =
-            GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, perpendicular);
+            GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, true);
         const SUMOReal dist = pos < 0 ? minDist : p.distanceTo2D(Line(*i, *(i + 1)).getPositionAtDistance(pos));
         if (dist < minDist) {
             nearestPos = pos + seen;
             minDist = dist;
             sign = isLeft(*i, *(i + 1), p) >= 0 ? -1 : 1;
         }
-        if (perpendicular && i != begin() && pos == -1.) {
+        if (i != begin() && pos == -1.) {
             // even if perpendicular is set we still need to check the distance to the inner points
             const SUMOReal cornerDist = p.distanceTo2D(*i);
             if (cornerDist < minDist) {
