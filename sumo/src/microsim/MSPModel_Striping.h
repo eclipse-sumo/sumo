@@ -179,11 +179,22 @@ protected:
         const MSLane* from;
         const MSLane* to;
         const MSLane* lane; // the walkingArea;
-        // actually const but needs to be copyable by some stl code
-        PositionVector shape;
+        PositionVector shape; // actually const but needs to be copyable by some stl code
         SUMOReal length;
 
     };
+
+    class walkingarea_path_sorter {
+    public:
+        /// comparing operation
+        bool operator()(const WalkingAreaPath* p1, const WalkingAreaPath* p2) const {
+            if (p1->from->getNumericalID() < p2->from->getNumericalID()) {
+                return true;
+            }
+            return p1->to->getNumericalID() < p2->to->getNumericalID();
+        }
+    };
+
 
     /**
      * @class PState
@@ -202,6 +213,7 @@ protected:
         /// @}
 
         PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, const MSLane* lane);
+
         ~PState() {};
         MSPerson* myPerson;
         MSPerson::MSPersonStage_Walking* myStage;
@@ -284,6 +296,9 @@ protected:
 
     /// @brief move all pedestrians forward and advance to the next lane if applicable
     void moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
+
+    /// @brief move pedestrians forward on one lane
+    void moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
 
     const ActiveLanes& getActiveLanes() {
         return myActiveLanes;
