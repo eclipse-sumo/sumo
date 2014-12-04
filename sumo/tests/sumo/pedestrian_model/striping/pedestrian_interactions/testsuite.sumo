@@ -9,3 +9,6 @@ bidirectional_flow_3stripes
 # two streams of pedestrians using the same sidewalk in opposite direction
 bidirectional_flow_4stripes
 bidirectional_flow_5stripes
+
+# orthogonal streams crossing on a wide plaza
+plaza

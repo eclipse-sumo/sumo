@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Dec  4 14:36:01 2014 by SUMO netconvert Version dev-SVN-r17423I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="net2.nod.xml"/>
+        <edge-files value="net2.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <crossings.guess value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":C_w0" function="walkingarea">
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.05" width="10.00" shape="95.00,105.00 105.00,105.00 105.00,105.00 105.00,95.00 105.00,95.00 95.00,95.00 95.00,95.00 95.00,105.00"/>
+    </edge>
+    <edge id="CE" from="C" to="E" priority="2" spreadType="center">
+        <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" length="95.00" width="10.00" shape="105.00,100.00 200.00,100.00"/>
+    </edge>
+    <edge id="CN" from="C" to="N" priority="2" spreadType="center">
+        <lane id="CN_0" index="0" allow="pedestrian" speed="13.89" length="95.00" width="10.00" shape="100.00,105.00 100.00,200.00"/>
+    </edge>
+    <edge id="SC" from="S" to="C" priority="2" spreadType="center">
+        <lane id="SC_0" index="0" allow="pedestrian" speed="13.89" length="95.00" width="10.00" shape="100.00,0.00 100.00,95.00"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="2" spreadType="center">
+        <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="95.00" width="10.00" shape="0.00,100.00 95.00,100.00"/>
+    </edge>
+
+    <junction id="C" type="dead_end" x="100.00" y="100.00" incLanes="SC_0 WC_0" intLanes="" shape="95.00,95.00 95.00,105.00 105.00,105.00 105.00,95.00 95.00,95.00"/>
+    <junction id="E" type="unregulated" x="200.00" y="100.00" incLanes="CE_0" intLanes="" shape="200.00,98.40 200.00,101.60"/>
+    <junction id="N" type="unregulated" x="100.00" y="200.00" incLanes="CN_0" intLanes="" shape="101.60,200.00 98.40,200.00"/>
+    <junction id="S" type="unregulated" x="100.00" y="0.00" incLanes="" intLanes="" shape="98.40,0.00 101.60,-0.00"/>
+    <junction id="W" type="unregulated" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,101.60 -0.00,98.40"/>
+
+    <connection from=":C_w0" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w0" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="SC" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+</net>
