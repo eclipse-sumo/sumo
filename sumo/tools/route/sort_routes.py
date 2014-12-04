@@ -26,6 +26,8 @@ from xml.sax import make_parser
 from xml.sax import handler
 from optparse import OptionParser
 
+DEPART_ATTRS = {'vehicle' : 'depart', 'flow' : 'begin', 'person' : 'depart'}
+
 def get_options(args=None):
     USAGE = "Usage: " + sys.argv[0] + " <routefile>"
     optParser = OptionParser()
@@ -44,28 +46,34 @@ def get_options(args=None):
 def sort_departs(routefilename, outfile):
     routes_doc = pulldom.parse(sys.argv[1])
     vehicles = []
+    root = None
     for event, parsenode in routes_doc:
-        if event == pulldom.START_ELEMENT and (parsenode.localName == 'vehicle' or parsenode.localName == 'flow'):
-            vehicle = parsenode # now we know it's a vehicle or a flow
-            routes_doc.expandNode(vehicle)
-            if (parsenode.localName == 'vehicle'):
-                depart = int(float(vehicle.getAttribute('depart')))
-                vehicles.append((depart, vehicle.toprettyxml(indent="", newl="")))
-            elif (parsenode.localName == 'flow'):
-                begin = int(float(vehicle.getAttribute('begin')))
-                vehicles.append((begin, vehicle.toprettyxml(indent="", newl="")))
+        if event == pulldom.START_ELEMENT:
+            if root is None:
+                root = parsenode.localName
+                outfile.write("<%s>\n" % root)
+                continue
+            routes_doc.expandNode(parsenode)
+            departAttr = DEPART_ATTRS.get(parsenode.localName)
+            if departAttr is not None:
+                start = int(float(parsenode.getAttribute(departAttr)))
+                vehicles.append((start, parsenode.toprettyxml(indent="", newl="")))
+            else:
+                # copy to output
+                outfile.write(" "*4 + parsenode.toprettyxml(indent="", newl="") + "\n")
+
     print('read %s elements.' % len(vehicles))
     vehicles.sort()
     for depart, vehiclexml in vehicles:
         outfile.write(" "*4)
         outfile.write(vehiclexml)
         outfile.write("\n")
+    outfile.write("</%s>\n" % root)
     print('wrote %s elements.' % len(vehicles))
 
 
 class RouteHandler(handler.ContentHandler):
     def __init__(self, elements_with_depart):
-        self.DEPART_ATTR = {'vehicle' : 'depart', 'flow' : 'begin'}
         self.elements_with_depart = elements_with_depart
         self._depart = None
 
@@ -73,12 +81,12 @@ class RouteHandler(handler.ContentHandler):
         self.locator = locator
 
     def startElement(self,name,attrs):
-        if name in self.DEPART_ATTR.keys():
-            self._depart = attrs[self.DEPART_ATTR[name]]
+        if name in DEPART_ATTRS.keys():
+            self._depart = attrs[DEPART_ATTRS[name]]
             self._start_line = self.locator.getLineNumber()
 
     def endElement(self,name):
-        if name in self.DEPART_ATTR.keys():
+        if name in DEPART_ATTRS.keys():
             end_line = self.locator.getLineNumber()
             self.elements_with_depart.append((self._depart, self._start_line, end_line))
 
@@ -133,17 +141,14 @@ def main(args=None):
         copy_elements(options.routefile, options.outfile, element_lines, line_offsets)
     else:
         outfile = open(options.outfile, 'w')
-        close_line = ''
+        # copy header
         for line in open(options.routefile):
-            if '<routes' in line:
-                close_line = '</routes>'
-            if '<additional' in line:
-                close_line = '</additional>'
-            if '<vehicle ' in line or '<flow ' in line:
+            if (line.find('<routes') == 0 
+                    or line.find('<additional') == 0):
                 break
-            outfile.write(line)
+            else:
+                outfile.write(line)
         sort_departs(options.routefile, outfile)
-        outfile.write(close_line)
         outfile.close()
 
 

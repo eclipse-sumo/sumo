@@ -23,12 +23,62 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional>
     <routeDistribution id="1">
-        <route refId="33_to_18" probability="0.02"/>
-        <route refId="33_to_35" probability="0.75"/>
-        <route refId="33_to_19" probability="0.22"/>
-        <route refId="33_to_20" probability="0.75"/>
+        <route probability="0.02" refId="33_to_18"/>
+        <route probability="0.75" refId="33_to_35"/>
+        <route probability="0.22" refId="33_to_19"/>
+        <route probability="0.75" refId="33_to_20"/>
+    </routeDistribution>
+    <routeDistribution id="2">
+        <route probability="0.02" refId="33_to_18"/>
+        <route probability="0.75" refId="33_to_35"/>
+        <route probability="0.22" refId="33_to_19"/>
+        <route probability="0.75" refId="33_to_20"/>
+    </routeDistribution>
+    <routeDistribution id="24">
+        <route probability="0.01" refId="17_to_18"/>
+        <route probability="0.64" refId="17_to_-33"/>
+        <route probability="0.27" refId="17_to_35"/>
+        <route probability="0.08" refId="17_to_19"/>
+        <route probability="0.27" refId="17_to_20"/>
+    </routeDistribution>
+    <routeDistribution id="25">
+        <route probability="0.01" refId="17_to_18"/>
+        <route probability="0.64" refId="17_to_-33"/>
+        <route probability="0.27" refId="17_to_35"/>
+        <route probability="0.08" refId="17_to_19"/>
+        <route probability="0.27" refId="17_to_20"/>
+    </routeDistribution>
+    <routeDistribution id="37">
+        <route probability="0.33" refId="-19_to_35"/>
+        <route probability="0.01" refId="-19_to_18"/>
+        <route probability="0.67" refId="-19_to_-33"/>
+        <route probability="0.33" refId="-19_to_20"/>
+    </routeDistribution>
+    <routeDistribution id="52">
+        <route probability="0.45" refId="-20_to_35"/>
+        <route probability="0.07" refId="-20_to_19"/>
+        <route probability="0.01" refId="-20_to_18"/>
+        <route probability="0.47" refId="-20_to_-33"/>
+    </routeDistribution>
+    <routeDistribution id="46">
+        <route probability="0.13" refId="-35_to_19"/>
+        <route probability="0.01" refId="-35_to_18"/>
+        <route probability="1.00" refId="-35_to_20"/>
+        <route probability="0.86" refId="-35_to_-33"/>
+    </routeDistribution>
+    <routeDistribution id="47">
+        <route probability="0.13" refId="-35_to_19"/>
+        <route probability="0.01" refId="-35_to_18"/>
+        <route probability="1.00" refId="-35_to_20"/>
+        <route probability="0.86" refId="-35_to_-33"/>
+    </routeDistribution>
+    <routeDistribution id="48">
+        <route probability="0.13" refId="-35_to_19"/>
+        <route probability="0.01" refId="-35_to_18"/>
+        <route probability="1.00" refId="-35_to_20"/>
+        <route probability="0.86" refId="-35_to_-33"/>
     </routeDistribution>
     <vehicle depart="25200.00" departLane="0" departPos="10.00" departSpeed="11.94" id="emitter_46_25200000" route="-35_to_-33"/>
     <vehicle depart="25200.00" departLane="0" departPos="10.00" departSpeed="15.56" id="emitter_1_25200000" route="33_to_20"/>
