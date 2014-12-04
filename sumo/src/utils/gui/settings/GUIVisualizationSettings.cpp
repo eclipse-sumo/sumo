@@ -313,7 +313,9 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     personColorer.addScheme(scheme);
     personColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
+    personColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
 
+    /// add junction coloring schemes
     junctionColorer.addScheme(GUIColorScheme("uniform", RGBColor::BLACK, "", true));
     scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");

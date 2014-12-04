@@ -279,9 +279,16 @@ GUIPerson::setFunctionalColor(size_t activeScheme) const {
             }
             return false;
         }
-        case 8: {
+        case 8: { // color by angle
             SUMOReal hue = getAngle() + 180; // [0-360]
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            return true;
+        }
+        case 9: { // color randomly (by pointer)
+            SUMOReal hue = (long)this % 360; // [0-360]
+            SUMOReal sat = (((long)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+            SUMOReal val = (((long)this / 360000) % 100) / 100.0; // [0-1]
+            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
         default:

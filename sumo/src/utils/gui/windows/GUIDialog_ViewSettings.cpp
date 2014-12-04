@@ -351,7 +351,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         new FXLabel(m102, "Color", 0, LAYOUT_CENTER_Y);
         myPersonColorMode = new FXComboBox(m102, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
         mySettings->personColorer.fill(*myPersonColorMode);
-        myPersonColorMode->setNumVisible(9);
+        myPersonColorMode->setNumVisible(10);
         myPersonColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
 
         myPersonColorSettingFrame =
