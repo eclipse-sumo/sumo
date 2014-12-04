@@ -1800,7 +1800,7 @@ NBNode::buildWalkingAreas() {
         const int count = waIndices[i].second;
         const int end = (start + count) % normalizedLanes.size();
 
-        WalkingArea wa(":" + getID() + "_w" + toString(index++), DEFAULT_CROSSING_WIDTH);
+        WalkingArea wa(":" + getID() + "_w" + toString(index++), 1);
         if (gDebugFlag1) {
             std::cout << "build walkingArea " << wa.id << " start=" << start << " end=" << end << " count=" << count << " prev=" << prev << ":\n";
         }
@@ -1815,6 +1815,7 @@ NBNode::buildWalkingAreas() {
                 // crossing ends
                 (*it).nextWalkingArea = wa.id;
                 endCrossingWidth = (*it).width;
+                wa.width = MAX2(wa.width, endCrossingWidth);
                 connectsCrossing = true;
                 connectedPoints.push_back((*it).shape[-1]);
                 if (gDebugFlag1) {
@@ -1827,6 +1828,7 @@ NBNode::buildWalkingAreas() {
                 (*it).prevWalkingArea = wa.id;
                 wa.nextCrossing = (*it).id;
                 startCrossingWidth = (*it).width;
+                wa.width = MAX2(wa.width, startCrossingWidth);
                 connectsCrossing = true;
                 if (isTLControlled()) {
                     wa.tlID = (*getControllingTLS().begin())->getID();
@@ -1846,7 +1848,6 @@ NBNode::buildWalkingAreas() {
             // not relevant for walking
             continue;
         }
-        wa.width = (endCrossingWidth + startCrossingWidth) / 2;
         // build shape and connections
         std::set<NBEdge*> connected;
         for (int j = 0; j < count; ++j) {
@@ -1854,6 +1855,7 @@ NBNode::buildWalkingAreas() {
             NBEdge* edge = normalizedLanes[nlI].first;
             NBEdge::Lane l = normalizedLanes[nlI].second;
             l.width = (l.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : l.width);
+            wa.width = MAX2(wa.width, l.width);
             if (connected.count(edge) == 0) {
                 if (edge->getFromNode() == this) {
                     wa.nextSidewalks.push_back(edge->getID());

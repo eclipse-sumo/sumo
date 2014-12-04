@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  2 08:40:04 2014 by SUMO netconvert Version dev-SVN-r17412ID
+<!-- generated on Thu Dec  4 14:35:35 2014 by SUMO netconvert Version dev-SVN-r17423I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -105,16 +105,16 @@
         <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="3.82" width="4.50" shape="91.75,91.65 91.75,87.15 88.75,87.15 87.15,88.75 87.15,91.75 91.65,91.75"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
-        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="19.50" width="4.00" shape="204.00,108.25 200.00,108.25 200.00,111.25 200.00,88.75 200.00,91.75 204.00,91.75"/>
+        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="19.50" width="3.00" shape="204.00,108.25 200.00,108.25 200.00,111.25 200.00,88.75 200.00,91.75 204.00,91.75"/>
     </edge>
     <edge id=":N_w0" function="walkingarea">
-        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="1.00" length="19.50" width="4.00" shape="91.75,204.00 91.75,200.00 88.75,200.00 111.25,200.00 108.25,200.00 108.25,204.00"/>
+        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="1.00" length="19.50" width="3.00" shape="91.75,204.00 91.75,200.00 88.75,200.00 111.25,200.00 108.25,200.00 108.25,204.00"/>
     </edge>
     <edge id=":S_w0" function="walkingarea">
-        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="1.00" length="19.50" width="4.00" shape="108.25,-4.00 108.25,0.00 111.25,0.00 88.75,0.00 91.75,0.00 91.75,-4.00"/>
+        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="1.00" length="19.50" width="3.00" shape="108.25,-4.00 108.25,0.00 111.25,0.00 88.75,0.00 91.75,0.00 91.75,-4.00"/>
     </edge>
     <edge id=":W_w0" function="walkingarea">
-        <lane id=":W_w0_0" index="0" allow="pedestrian" speed="1.00" length="19.50" width="4.00" shape="-4.00,91.75 0.00,91.75 0.00,88.75 0.00,111.25 0.00,108.25 -4.00,108.25"/>
+        <lane id=":W_w0_0" index="0" allow="pedestrian" speed="1.00" length="19.50" width="3.00" shape="-4.00,91.75 0.00,91.75 0.00,88.75 0.00,111.25 0.00,108.25 -4.00,108.25"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2">
