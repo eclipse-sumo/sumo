@@ -88,6 +88,7 @@ const SUMOReal MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR(0.0);
 const SUMOReal MSPModel_Striping::MAX_WAIT_TOLERANCE(120.); // seconds
 const SUMOReal MSPModel_Striping::LATERAL_SPEED_FACTOR(0.4);
 const SUMOReal MSPModel_Striping::MIN_STARTUP_SPEED(0.3);
+const SUMOTime MSPModel_Striping::JAM_TIME(TIME2STEPS(300));
 
 
 // ===========================================================================
@@ -739,7 +740,9 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
     mySpeed(0),
     myWaitingToEnter(true),
     myWaitingTime(0),
-    myWalkingAreaPath(0) {
+    myWalkingAreaPath(0),
+    myAmJammed(false)
+{
     const MSEdge* currentEdge = &lane->getEdge();
     assert(!currentEdge->isWalkingArea());
     const std::vector<const MSEdge*>& route = myStage->getRoute();
@@ -1001,13 +1004,22 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // XXX preferred gap differs between approaching a standing obstacle or a moving obstacle
     const SUMOReal preferredGap = myPerson->getVehicleType().getMinGap() + xDist * 0.5;
     SUMOReal xSpeed = MIN2(vMax, MAX2((SUMOReal)0, xDist - preferredGap));
-    // avoid tiny steps
-    // XXX pressure from behind?
     if (DEBUGCOND(myPerson->getID())) {
         std::cout << " xSpeedPotential=" << xSpeed << "\n";
     }
+    // avoid tiny steps
+    // XXX pressure from behind?
     if (mySpeed == 0 && xSpeed < MIN_STARTUP_SPEED * vMax) {
         xSpeed = 0;
+    }
+    if (xSpeed == 0) {
+        if (myWaitingTime > JAM_TIME || myAmJammed) {
+            // squeeze slowly through the crowd ignoring others
+            myAmJammed = true;
+            xSpeed = vMax / 4;
+        } else {
+            myAmJammed = false;
+        }
     }
     // dawdling
     const SUMOReal dawdle = MIN2(xSpeed, RandHelper::rand() * vMax * dawdling);
@@ -1052,6 +1064,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                   << " yd=" << yDist
                   << " vMax=" << myStage->getMaxSpeed()
                   << " wTime=" << myStage->getWaitingTime(currentTime)
+                  << " jammed=" << myAmJammed
                   << "\n distance=" << toString(distance)
                   << " utility=" << toString(utility)
                   << "\n";

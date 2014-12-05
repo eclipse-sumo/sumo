@@ -109,6 +109,9 @@ public:
     // @brief the minimum fraction of maxSpeed in order to start walking after stopped
     static const SUMOReal MIN_STARTUP_SPEED;
 
+    // @brief the time threshold before becoming jammed in seconds
+    static const SUMOTime JAM_TIME;
+
     ///@}
 
 
@@ -238,6 +241,8 @@ protected:
         NextLaneInfo myNLI;
         /// @brief the current walkingAreaPath or 0
         WalkingAreaPath* myWalkingAreaPath;
+        /// @brief whether the person is jammed
+        bool myAmJammed;
 
         /// @brief return the length of the pedestrian
         SUMOReal getLength() const;
