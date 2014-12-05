@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 22 16:54:58 2014 by SUMO sumo Version dev-SVN-r16771
+<!-- generated on Fri Dec  5 10:08:46 2014 by SUMO Version dev-SVN-r17442ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -34,11 +34,11 @@
     </personinfo>
     <personinfo id="pEN" depart="25.00">
         <stop arrival="25.00"/>
-        <walk arrival="32.00"/>
+        <walk arrival="31.00"/>
     </personinfo>
     <personinfo id="pWN" depart="0.00">
         <stop arrival="0.00"/>
-        <walk arrival="110.00"/>
+        <walk arrival="112.00"/>
     </personinfo>
     <personinfo id="pNW" depart="10.00">
         <stop arrival="10.00"/>
@@ -50,6 +50,6 @@
     </personinfo>
     <personinfo id="pNE" depart="15.00">
         <stop arrival="15.00"/>
-        <walk arrival="242.00"/>
+        <walk arrival="240.00"/>
     </personinfo>
 </tripinfos>
