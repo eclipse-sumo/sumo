@@ -79,6 +79,7 @@ MSPModel_Striping::Pedestrians MSPModel_Striping::noPedestrians;
 // model parameters (static to simplify access from class PState
 SUMOReal MSPModel_Striping::stripeWidth;
 SUMOReal MSPModel_Striping::dawdling;
+SUMOTime MSPModel_Striping::jamTime;
 const SUMOReal MSPModel_Striping::LOOKAHEAD_SAMEDIR(4.0); // seconds
 const SUMOReal MSPModel_Striping::LOOKAHEAD_ONCOMING(10.0); // seconds
 const SUMOReal MSPModel_Striping::LATERAL_PENALTY(-1);
@@ -88,7 +89,6 @@ const SUMOReal MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR(0.0);
 const SUMOReal MSPModel_Striping::MAX_WAIT_TOLERANCE(120.); // seconds
 const SUMOReal MSPModel_Striping::LATERAL_SPEED_FACTOR(0.4);
 const SUMOReal MSPModel_Striping::MIN_STARTUP_SPEED(0.3);
-const SUMOTime MSPModel_Striping::JAM_TIME(TIME2STEPS(300));
 
 
 // ===========================================================================
@@ -103,6 +103,11 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     // configurable parameters
     stripeWidth = oc.getFloat("pedestrian.striping.stripe-width");
     dawdling = oc.getFloat("pedestrian.striping.dawdling");
+
+    jamTime = string2time(oc.getString("pedestrian.striping.jamtime"));
+    if (jamTime <= 0) {
+        jamTime = SUMOTime_MAX;
+    }
 }
 
 
@@ -1013,7 +1018,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
         xSpeed = 0;
     }
     if (xSpeed == 0) {
-        if (myWaitingTime > JAM_TIME || myAmJammed) {
+        if (myWaitingTime > jamTime || myAmJammed) {
             // squeeze slowly through the crowd ignoring others
             myAmJammed = true;
             xSpeed = vMax / 4;

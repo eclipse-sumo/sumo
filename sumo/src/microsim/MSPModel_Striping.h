@@ -83,6 +83,9 @@ public:
     // @brief the factor for random slow-down
     static SUMOReal dawdling;
 
+    // @brief the time threshold before becoming jammed
+    static SUMOTime jamTime;
+
     // @brief the distance to look ahead for changing stripes
     static const SUMOReal LOOKAHEAD_SAMEDIR;
     // @brief the distance to look ahead for changing stripes (regarding oncoming pedestrians)
@@ -108,9 +111,6 @@ public:
 
     // @brief the minimum fraction of maxSpeed in order to start walking after stopped
     static const SUMOReal MIN_STARTUP_SPEED;
-
-    // @brief the time threshold before becoming jammed in seconds
-    static const SUMOTime JAM_TIME;
 
     ///@}
 
