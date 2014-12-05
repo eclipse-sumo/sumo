@@ -766,6 +766,15 @@ NBEdge::getConnectedSorted() {
             }
         }
     }
+    for (std::vector<Connection>::iterator it = myConnectionsToDelete.begin(); it != myConnectionsToDelete.end(); ++it) {
+        if (it->fromLane < 0 && it->toLane < 0) {
+            // found an edge that shall not be connected
+            EdgeVector::iterator forbidden = find(outgoing.begin(), outgoing.end(), it->toEdge);
+            if (forbidden != outgoing.end()) {
+                outgoing.erase(forbidden);
+            }
+        }
+    }
     // allocate the sorted container
     unsigned int size = (unsigned int) outgoing.size();
     EdgeVector* edges = new EdgeVector();
