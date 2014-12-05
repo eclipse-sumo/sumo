@@ -10,5 +10,8 @@ bidirectional_flow_3stripes
 bidirectional_flow_4stripes
 bidirectional_flow_5stripes
 
+# test dynamics when jammed
+bidirectional_flow_jammed
+
 # orthogonal streams crossing on a wide plaza
 plaza
