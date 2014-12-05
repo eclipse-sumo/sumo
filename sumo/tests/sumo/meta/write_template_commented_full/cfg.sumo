@@ -195,6 +195,9 @@
         <!-- factor for random slow-downs [0,1] for use with model &apos;striping&apos; -->
         <pedestrian.striping.dawdling value="0.2" type="FLOAT"/>
 
+        <!-- Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing) -->
+        <pedestrian.striping.jamtime value="300" type="TIME"/>
+
     </processing>
 
     <report>

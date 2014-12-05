@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r17243
+SUMO Version dev-SVN-r17447
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -121,6 +121,10 @@ Processing Options:
                                          with model 'striping'
   --pedestrian.striping.dawdling FLOAT  factor for random slow-downs [0,1] for
                                          use with model 'striping'
+  --pedestrian.striping.jamtime TIME   Time in seconds after which pedestrians
+                                         start squeezing through a jam when
+                                         using model 'striping' (non-positive
+                                         values disable squeezing)
 
 Report Options:
   -v, --verbose                        Switches to verbose output
