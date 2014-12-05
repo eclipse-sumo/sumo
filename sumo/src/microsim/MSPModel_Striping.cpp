@@ -87,7 +87,7 @@ const SUMOReal MSPModel_Striping::BLOCKER_LOOKAHEAD(10.0);
 const SUMOReal MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR(0.0);
 const SUMOReal MSPModel_Striping::MAX_WAIT_TOLERANCE(120.); // seconds
 const SUMOReal MSPModel_Striping::LATERAL_SPEED_FACTOR(0.4);
-const SUMOReal MSPModel_Striping::MIN_STARTUP_SPEED(0.5);
+const SUMOReal MSPModel_Striping::MIN_STARTUP_SPEED(0.3);
 
 
 // ===========================================================================
