@@ -528,7 +528,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                     }
                 }
             }
-            for (std::set<const WalkingAreaPath*>::iterator it = paths.begin(); it != paths.end(); ++it) {
+            for (std::set<const WalkingAreaPath*, walkingarea_path_sorter>::iterator it = paths.begin(); it != paths.end(); ++it) {
                 const WalkingAreaPath* path = *it;
                 Pedestrians toDelete;
                 Pedestrians transformedPeds;
