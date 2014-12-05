@@ -469,6 +469,8 @@ void
 NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     // get the id, report an error if not given or empty...
     myCurrentJunction.node = 0;
+    myCurrentJunction.intLanes.clear();
+    myCurrentJunction.response.clear();
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {

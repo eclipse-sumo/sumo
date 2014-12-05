@@ -446,8 +446,10 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
             }
         }
     }
-    for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
-        intLanes += ' ' + (*it).id + "_0";
+    if (n.getType() != NODETYPE_DEAD_END) {
+        for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+            intLanes += ' ' + (*it).id + "_0";
+        }
     }
     into.writeAttr(SUMO_ATTR_INTLANES, intLanes);
     // close writing
