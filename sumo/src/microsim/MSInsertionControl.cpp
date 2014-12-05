@@ -223,7 +223,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             tryEmitByProb = false; // only emit one per step
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);
-            newPars->depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
+            newPars->depart = pars->repetitionProbability > 0 ? time : (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
             pars->repetitionsDone++;
             // try to build the vehicle
             if (vehControl.getVehicle(newPars->id) == 0) {
@@ -238,7 +238,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                     while (--quota > 0) {
                         SUMOVehicleParameter* quotaPars = new SUMOVehicleParameter(*pars);
                         quotaPars->id = pars->id + "." + toString(i->index);
-                        quotaPars->depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
+                        quotaPars->depart = pars->repetitionProbability > 0 ? time : (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
                         i->vehicle = vehControl.buildVehicle(quotaPars, route, vtype, false);
                         vehControl.addVehicle(quotaPars->id, i->vehicle);
                         add(i->vehicle);
