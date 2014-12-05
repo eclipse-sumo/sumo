@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec  1 16:50:31 2014 by SUMO netconvert Version dev-SVN-r17405ID
+<!-- generated on Fri Dec  5 14:03:27 2014 by SUMO netconvert Version dev-SVN-r17448ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -42,10 +42,10 @@
         <lane id=":C_c1_0" index="0" allow="pedestrian" speed="1.00" length="9.80" width="4.00" shape="98.90,49.95 98.90,40.15"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.97" width="4.00" shape="98.50,47.45 98.50,51.45 101.50,51.45 101.50,47.45"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.97" width="4.00" shape="100.90,49.95 96.90,49.95 98.50,51.45 101.50,51.45 103.10,49.95 99.10,49.95"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.91" width="4.00" shape="99.10,40.05 103.10,40.05 103.10,38.05 101.50,35.95 98.50,35.95 96.90,38.05 96.90,40.05 100.90,40.05"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.91" width="4.00" shape="99.10,40.15 103.10,40.15 103.10,40.05 103.10,38.05 101.50,35.95 98.50,35.95 96.90,38.05 96.90,40.05 96.90,40.15 100.90,40.15"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="1">

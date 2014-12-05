@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr 29 14:02:05 2014 by SUMO netconvert Version dev-SVN-r16274
+<!-- generated on Fri Dec  5 14:03:27 2014 by SUMO netconvert Version dev-SVN-r17448ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -42,10 +42,10 @@
         <lane id=":C_c1_0" index="0" allow="pedestrian" speed="1.00" length="8.10" width="4.00" shape="102.00,8.15 102.00,0.05"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.70" width="4.00" shape="104.00,8.25 100.00,8.25 100.00,11.25 100.00,11.25 100.00,8.25 96.00,8.25"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.70" width="4.00" shape="104.00,8.15 100.00,8.25 100.00,11.25 100.00,11.25 100.00,8.25 100.28,8.36 96.30,7.94"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.18" width="4.00" shape="97.43,-0.44 101.38,0.16 101.83,-2.81 99.78,-3.05 100.22,-0.08 104.18,-0.68"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.18" width="4.00" shape="97.17,-0.16 101.15,0.26 101.38,0.16 101.83,-2.81 99.78,-3.05 100.22,-0.08 100.00,0.05 104.00,0.05"/>
     </edge>
 
     <edge id="CNE" from="C" to="NE" priority="1">
