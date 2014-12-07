@@ -191,7 +191,7 @@ public:
         /// @brief show persons's current route
         VO_SHOW_ROUTE = 2,
         /// @brief track person
-        VO_TRACKED = 8,
+        VO_TRACKED = 8
     };
 
     /// @brief Enabled visualisations, per view
