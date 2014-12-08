@@ -3,3 +3,9 @@ basic
 
 # Test for using plain XML as input
 plain_input
+
+# only change the offset of the tls program
+offset_only
+
+# only change the type of the traffic light
+type_only
