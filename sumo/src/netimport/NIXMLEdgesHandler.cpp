@@ -491,16 +491,20 @@ NIXMLEdgesHandler::myEndElement(int element) {
                 sort((*i).lanes.begin(), (*i).lanes.end());
                 noLanesMax = MAX2(noLanesMax, (unsigned int)(*i).lanes.size());
             }
-            // invalidate traffic light definitions loaded from a SUMO network
-            // XXX it would be preferable to reconstruct the phase definitions heuristically
-            e->getToNode()->invalidateTLS(myTLLogicCont);
-            e->invalidateConnections(true);
-
             // split the edge
             std::vector<int> currLanes;
             for (unsigned int l = 0; l < e->getNumLanes(); ++l) {
                 currLanes.push_back(l);
             }
+            if (e->getNumLanes() != mySplits.back().lanes.size()) {
+                // invalidate traffic light definitions loaded from a SUMO network
+                // XXX it would be preferable to reconstruct the phase definitions heuristically
+                e->getToNode()->invalidateTLS(myTLLogicCont);
+                // if the number of lanes changes the connections should be
+                // recomputed
+                e->invalidateConnections(true);
+            }
+
             std::string edgeid = e->getID();
             SUMOReal seen = 0;
             for (i = mySplits.begin(); i != mySplits.end(); ++i) {
