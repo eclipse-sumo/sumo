@@ -43,6 +43,8 @@
         <vehroute-output.write-unfinished value="false" type="BOOL" help="Write vehroute output for vehicles which have not arrived at simulation end"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <bt-output value="" type="FILE" help="Save bt visibilities into FILE"/>
+        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
+        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
         <save-state.files value="" type="FILE" help="Files for network states"/>
@@ -75,6 +77,7 @@
         <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;]"/>
         <pedestrian.striping.stripe-width value="0.65" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
         <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
+        <pedestrian.striping.jamtime value="300" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
     </processing>
 
     <report>
@@ -132,7 +135,6 @@
 
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
-        <python-script value="" type="STR" help="Runs TraCI script with embedded python"/>
     </traci_server>
 
     <mesoscopic>

@@ -111,6 +111,12 @@
         <!-- Save bt visibilities into FILE -->
         <bt-output value="" type="FILE"/>
 
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -194,6 +200,9 @@
 
         <!-- factor for random slow-downs [0,1] for use with model &apos;striping&apos; -->
         <pedestrian.striping.dawdling value="0.2" type="FLOAT"/>
+
+        <!-- Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing) -->
+        <pedestrian.striping.jamtime value="300" type="TIME"/>
 
     </processing>
 
@@ -329,9 +338,6 @@
     <traci_server>
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
-
-        <!-- Runs TraCI script with embedded python -->
-        <python-script value="" type="STR"/>
 
     </traci_server>
 

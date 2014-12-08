@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r17292
+SUMO Version dev-SVN-r17452ID
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -61,6 +61,10 @@ Output Options:
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE
   --bt-output FILE                     Save bt visibilities into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR   List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.prefix FILE             Prefix for network states
@@ -121,6 +125,10 @@ Processing Options:
                                          with model 'striping'
   --pedestrian.striping.dawdling FLOAT  factor for random slow-downs [0,1] for
                                          use with model 'striping'
+  --pedestrian.striping.jamtime TIME   Time in seconds after which pedestrians
+                                         start squeezing through a jam when
+                                         using model 'striping' (non-positive
+                                         values disable squeezing)
 
 Report Options:
   -v, --verbose                        Switches to verbose output
@@ -201,7 +209,6 @@ Example Device Options:
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
-  --python-script STR                  Runs TraCI script with embedded python
 
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
