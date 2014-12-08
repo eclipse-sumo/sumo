@@ -126,6 +126,11 @@ public:
      */
     void setOffset(SUMOTime offset);
 
+    /** @brief Sets the algorithm type of this tls
+     * @param[in] offset The algorithm type of this tls
+     */
+    void setType(TrafficLightType type);
+
 protected:
     /** @brief Collects the links participating in this traffic light
      *    (only if not previously loaded)

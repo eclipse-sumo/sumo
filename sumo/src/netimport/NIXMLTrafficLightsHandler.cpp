@@ -177,6 +177,10 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
             myTLLCont.removeProgram(id, NBTrafficLightDefinition::DefaultProgramID);
         }
         myTLLCont.insert(loadedDef);
+    } else {
+        // case 1
+        loadedDef->setOffset(offset);
+        loadedDef->setType(type);
     }
     if (ok) {
         myResetPhases = true;

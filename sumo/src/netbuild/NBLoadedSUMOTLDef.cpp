@@ -220,6 +220,13 @@ NBLoadedSUMOTLDef::setOffset(SUMOTime offset) {
 
 
 void
+NBLoadedSUMOTLDef::setType(TrafficLightType type) {
+    myType = type;
+    myTLLogic->setType(type);
+}
+
+
+void
 NBLoadedSUMOTLDef::collectLinks() {
     if (myControlledLinks.size() == 0) {
         // maybe we only loaded a different program for a default traffic light.
