@@ -881,6 +881,8 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
             return;
         }
         if (key == "restriction") {
+            // @note: the 'right/left/straight' part is ignored since the information is
+            // redundantly encoded in the 'from', 'to' and 'via' members
             if (value.substr(0, 5) == "only_") {
                 myRestrictionType = RESTRICTION_ONLY;
             } else if (value.substr(0, 3) == "no_") {
