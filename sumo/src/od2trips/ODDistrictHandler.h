@@ -145,7 +145,7 @@ private:
     void closeDistrict();
 
 
-    /** @brief Returns the id and weight for a sink/source
+    /** @brief Returns the id and weight for a taz/tazSink/tazSource
      *
      * Checks whether myCurrentDistrict (the currently processed
      *  district) is !=0; in this case, both the id and the weight
@@ -158,9 +158,9 @@ private:
      *
      * @param[in] attrs Attributes of the currently opened element
      * @param[in] type The type of the currntly processed connection (sink/source)
-     * @return The id and the weight of a connection
+     * @return The id and the weight of a taz
      */
-    std::pair<std::string, SUMOReal> parseConnection(const SUMOSAXAttributes& attrs);
+    std::pair<std::string, SUMOReal> parseTAZ(const SUMOSAXAttributes& attrs);
 
 private:
     /// The container to add read districts to

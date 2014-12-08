@@ -107,7 +107,7 @@ ODDistrictHandler::openDistrict(const SUMOSAXAttributes& attrs) {
 
 void
 ODDistrictHandler::addSource(const SUMOSAXAttributes& attrs) {
-    std::pair<std::string, SUMOReal> vals = parseConnection(attrs);
+    std::pair<std::string, SUMOReal> vals = parseTAZ(attrs);
     if (vals.second >= 0) {
         myCurrentDistrict->addSource(vals.first, vals.second);
     }
@@ -116,7 +116,7 @@ ODDistrictHandler::addSource(const SUMOSAXAttributes& attrs) {
 
 void
 ODDistrictHandler::addSink(const SUMOSAXAttributes& attrs) {
-    std::pair<std::string, SUMOReal> vals = parseConnection(attrs);
+    std::pair<std::string, SUMOReal> vals = parseTAZ(attrs);
     if (vals.second >= 0) {
         myCurrentDistrict->addSink(vals.first, vals.second);
     }
@@ -125,7 +125,7 @@ ODDistrictHandler::addSink(const SUMOSAXAttributes& attrs) {
 
 
 std::pair<std::string, SUMOReal>
-ODDistrictHandler::parseConnection(const SUMOSAXAttributes& attrs) {
+ODDistrictHandler::parseTAZ(const SUMOSAXAttributes& attrs) {
     // check the current district first
     if (myCurrentDistrict == 0) {
         return std::pair<std::string, SUMOReal>("", -1);
