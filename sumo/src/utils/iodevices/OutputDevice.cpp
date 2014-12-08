@@ -86,7 +86,20 @@ OutputDevice::getDevice(const std::string& name) {
         }
     } else {
         const size_t len = name.length();
-        dev = new OutputDevice_File(name, len > 4 && name.substr(len - 4) == ".sbx");
+        std::string name2 = name;
+        if (OptionsCont::getOptions().isSet("output-prefix")) {
+            std::string prefix = OptionsCont::getOptions().getString("output-prefix"); 
+            size_t metaTimeIndex = prefix.find("TIME");
+            if (metaTimeIndex != std::string::npos) {
+                time_t rawtime;
+                char buffer [80];
+                time(&rawtime);
+                strftime(buffer, 80, "%F-%H-%M-%S", localtime(&rawtime));
+                prefix.replace(metaTimeIndex, 4, std::string(buffer));
+            }
+            name2 = prefix + name;
+        }
+        dev = new OutputDevice_File(name2, len > 4 && name.substr(len - 4) == ".sbx");
     }
     dev->setPrecision();
     dev->getOStream() << std::setiosflags(std::ios::fixed);
