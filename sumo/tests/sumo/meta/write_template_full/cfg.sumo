@@ -46,6 +46,7 @@
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
         <save-state.files value="" type="FILE" help="Files for network states"/>
+        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
     </output>
 
     <time>
