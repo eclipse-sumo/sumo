@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r17331
+SUMO netconvert Version dev-SVN-r17463
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -35,6 +35,9 @@ Input Options:
   --heightmap.geotiff FILE             Read heightmap from GeoTIFF
 
 Output Options:
+  --output-prefix FILE                 Prefix which is applied to all output
+                                         files. The special string 'TIME' is
+                                         replaced by the current time.
   -o, --output-file FILE               The generated net will be written to
                                          FILE
   --plain-output-prefix FILE           Prefix of files to write plain xml

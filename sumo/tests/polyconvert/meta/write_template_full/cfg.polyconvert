@@ -28,6 +28,7 @@
     </input>
 
     <output>
+        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <output-file value="polygons.xml" synonymes="o output" type="FILE" help="Write generated polygons/pois to FILE"/>
     </output>
 

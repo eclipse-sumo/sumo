@@ -45,6 +45,9 @@
     </input>
 
     <output>
+        <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
+        <output-prefix value="" type="FILE"/>
+
         <!-- Save complete network states into FILE -->
         <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE"/>
 
@@ -119,9 +122,6 @@
 
         <!-- Files for network states -->
         <save-state.files value="" type="FILE"/>
-
-        <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
-        <output-prefix value="" type="FILE"/>
 
     </output>
 

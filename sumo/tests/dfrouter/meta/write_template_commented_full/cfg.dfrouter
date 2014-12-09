@@ -33,6 +33,9 @@
     </input>
 
     <output>
+        <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
+        <output-prefix value="" type="FILE"/>
+
         <!-- Saves computed routes to FILE -->
         <routes-output value="" synonymes="o" type="FILE"/>
 

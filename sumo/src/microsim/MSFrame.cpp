@@ -199,9 +199,6 @@ MSFrame::fillOptions() {
     oc.doRegister("save-state.files", new Option_FileName());//!!! check, describe
     oc.addDescription("save-state.files", "Output", "Files for network states");
 
-    oc.doRegister("output-prefix", new Option_FileName());//!!! check, describe
-    oc.addDescription("output-prefix", "Output", "Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time.");
-
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; The simulation starts at this time");

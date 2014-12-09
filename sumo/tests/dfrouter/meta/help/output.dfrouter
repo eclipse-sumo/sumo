@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r17243
+SUMO dfrouter Version dev-SVN-r17463
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 Builds vehicle routes for SUMO using detector values.
 
@@ -18,6 +18,9 @@ Input Options:
   -f, --measure-files FILE             Loads detector flows from FILE(s)
 
 Output Options:
+  --output-prefix FILE                 Prefix which is applied to all output
+                                         files. The special string 'TIME' is
+                                         replaced by the current time.
   -o, --routes-output FILE             Saves computed routes to FILE
   --routes-for-all                     Forces DFROUTER to compute routes for
                                          in-between detectors

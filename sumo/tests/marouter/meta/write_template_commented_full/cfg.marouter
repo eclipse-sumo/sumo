@@ -45,6 +45,9 @@
     </input>
 
     <output>
+        <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
+        <output-prefix value="" type="FILE"/>
+
         <!-- Write route distributions to FILE -->
         <output-file value="" synonymes="o output" type="FILE"/>
 

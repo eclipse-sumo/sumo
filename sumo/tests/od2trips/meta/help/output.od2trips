@@ -1,4 +1,4 @@
-SUMO od2trips Version dev-SVN-r17243
+SUMO od2trips Version dev-SVN-r17463
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 Importer of O/D-matrices for the road traffic simulation SUMO.
 
@@ -19,6 +19,9 @@ Input Options:
                                      FILE(s)
 
 Output Options:
+  --output-prefix FILE             Prefix which is applied to all output files.
+                                     The special string 'TIME' is replaced by
+                                     the current time.
   -o, --output-file FILE           Writes trip definitions into FILE
   --flow-output FILE               Writes flow definitions into FILE
   --ignore-vehicle-type            Does not save vtype information

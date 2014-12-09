@@ -25,6 +25,9 @@ Input Options:
                                          exit times
 
 Output Options:
+  --output-prefix FILE                 Prefix which is applied to all output
+                                         files. The special string 'TIME' is
+                                         replaced by the current time.
   --netstate-dump FILE                 Save complete network states into FILE
   --netstate-dump.empty-edges          Write also empty edges completely when
                                          dumping
@@ -65,9 +68,6 @@ Output Options:
                                          state written
   --save-state.prefix FILE             Prefix for network states
   --save-state.files FILE              Files for network states
-  --output-prefix FILE                 Prefix which is applied to all output
-                                         files. The special string 'TIME' is
-                                         replaced by the current time.
 
 Time Options:
   -b, --begin TIME                     Defines the begin time;

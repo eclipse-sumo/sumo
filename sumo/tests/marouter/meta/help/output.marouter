@@ -1,4 +1,4 @@
-SUMO marouter Version dev-SVN-r17243
+SUMO marouter Version dev-SVN-r17463
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment
 
@@ -26,6 +26,9 @@ Input Options:
                                       edge weight
 
 Output Options:
+  --output-prefix FILE              Prefix which is applied to all output
+                                      files. The special string 'TIME' is
+                                      replaced by the current time.
   -o, --output-file FILE            Write route distributions to FILE
   --flow-output FILE                Writes flow definitions into FILE
   --ignore-vehicle-type             Does not save vtype information

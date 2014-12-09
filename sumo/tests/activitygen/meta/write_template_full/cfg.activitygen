@@ -16,6 +16,7 @@
     </input>
 
     <output>
+        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <output-file value="" synonymes="o output" type="FILE" help="Write generated routes to FILE"/>
     </output>
 

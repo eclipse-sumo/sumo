@@ -21,6 +21,7 @@
     </input>
 
     <output>
+        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <output-file value="" synonymes="o output" type="FILE" help="Write route distributions to FILE"/>
         <flow-output value="" type="FILE" help="Writes flow definitions into FILE"/>
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL" help="Does not save vtype information"/>
