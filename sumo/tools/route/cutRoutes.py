@@ -19,7 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,sys
+import os, sys, codecs
 from optparse import OptionParser
 from collections import defaultdict
 import sort_routes
@@ -44,6 +44,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     optParser.add_option("--trips-output", help="output trip file")
     optParser.add_option("--min-length", type='int', default=0, help="minimum route length in the subnetwork")
     optParser.add_option("--routes-output", help="output route file")
+    optParser.add_option("-a", "--additional-input", help="additional file (for bus stop locations)")
     optParser.add_option("--speed-factor", type='float', default=1.0, 
             help="Factor for modifying maximum edge speeds when extrapolating new departure times (default 1.0)")
     optParser.add_option("--orig-net", help="complete network for retrieving edge lengths")
@@ -81,6 +82,10 @@ def cut_routes(areaEdges, orig_net, options):
     multiAffectedRoutes = 0 # routes which enter the sub-scenario multiple times
     teleportFactorSum = 0.0
     too_short = 0
+    busStopEdges = {}
+    if options.additional_input:
+        for busStop in parse(options.additional_input, 'busStop'):
+            busStopEdges[busStop.id] = busStop.lane[:-2]
     for routeFile in options.routeFiles:
         print "Parsing routes from %s" % routeFile
         for vehicle in parse(routeFile, 'vehicle'):
@@ -108,16 +113,28 @@ def cut_routes(areaEdges, orig_net, options):
                                 (orig_net.getEdge(e).getSpeed() * options.speed_factor)) 
                                 for e in edges[:fromIndex]]))
                 else:
-                    print "Could not reconstruct new departure for vehicle '%s'. Using old departure" % vehicle.id
-                    newDepart = vehicle.depart
+                    print "Could not reconstruct new departure time for vehicle '%s'. Using old departure time." % vehicle.id
+                    newDepart = float(vehicle.depart)
             else:
                 exitTimes = vehicle.route[0].exitTimes.split()
                 departTimes = [vehicle.depart] + exitTimes[:-1]
                 teleportFactor = len(departTimes) / float(len(edges))
                 teleportFactorSum += teleportFactor
                 # assume teleports were spread evenly across the vehicles route
-                newDepart = int(float(departTimes[int(fromIndex * teleportFactor)]))
-            yield (newDepart, vehicle.id, vehicle.type, edges[fromIndex:toIndex+1])
+                newDepart = float(departTimes[int(fromIndex * teleportFactor)])
+            remaining = edges[fromIndex:toIndex+1]
+            stops = []
+            if vehicle.stop:
+                for stop in vehicle.stop:
+                    if stop.busStop:
+                        if stop.busStop not in busStopEdges:
+                            print "Skipping bus stop '%s', which could not be located." % stop.busStop                            
+                            continue
+                        if busStopEdges[stop.busStop] in remaining:
+                            stops.append(stop)
+                    elif stop.lane[:-2] in remaining:
+                        stops.append(stop)
+            yield (newDepart, vehicle.id, vehicle.type, remaining, stops)
             num_returned += 1
 
     if teleportFactorSum > 0:
@@ -127,7 +144,7 @@ def cut_routes(areaEdges, orig_net, options):
 
     print "Parsed %s vehicles and kept %s routes%s" % (num_vehicles, num_returned, teleports)
     if too_short > 0:
-        print "Discared %s routes because they have less than %s edges" % (too_short, options.min_length)
+        print "Discarded %s routes because they have less than %s edges" % (too_short, options.min_length)
     print "Number of disconnected routes: %s. Most frequent missing edges:" % multiAffectedRoutes
     printTop(missingEdgeOccurences)
 
@@ -153,15 +170,24 @@ def printTop(missingEdgeOccurences, num=1000):
         print count, edge
 
 
-def write_trip(file, depart, id, type, edges):
-    print >>file, '    <trip depart="%s" id="%s" from="%s" to="%s" type="%s"/>' % (
-            depart, id, edges[0], edges[-1], type)
+def write_trip(file, depart, id, type, edges, stops):
+    file.write('    <trip depart="%.2f" id="%s" from="%s" to="%s" type="%s"' % (
+               depart, id, edges[0], edges[-1], type))
+    if stops:
+        file.write('>\n')
+        for stop in stops:
+            file.write(stop.toXML('        '))
+        file.write('</trip>\n')
+    else:
+        file.write('/>\n')
 
-def write_route(file, depart, id, type, edges):
-    print >>file, '''    
-    <vehicle depart="%s" id="%s" type="%s">
-        <route edges="%s"/>
-    </vehicle>''' % (depart, id, type, ' '.join(edges))
+def write_route(file, depart, id, type, edges, stops):
+    print >>file, '''
+    <vehicle depart="%.2f" id="%s" type="%s">
+        <route edges="%s"/>''' % (depart, id, type, ' '.join(edges))
+    for stop in stops:
+        file.write(stop.toXML('        '))
+    print >> file, '    </vehicle>'
 
 
 def main():
@@ -199,14 +225,14 @@ def main():
     if options.big:
         # write output unsorted
         tmpname = options.output + ".unsorted"
-        with open(tmpname, 'w') as f:
+        with codecs.open(tmpname, 'w', encoding='utf8') as f:
             write_to_file(cut_routes(edges, orig_net, options), f)
         # sort out of memory
         sort_routes.main([tmpname, '--big', '--outfile', options.output])
     else:
         routes = list(cut_routes(edges, orig_net, options))
         routes.sort()
-        with open(options.output, 'w') as f:
+        with codecs.open(options.output, 'w', encoding='utf8') as f:
             write_to_file(routes, f)
 
 if __name__ == "__main__":
