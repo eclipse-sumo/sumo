@@ -61,6 +61,9 @@ state2:state2.xml
 binstate:state.sbx
 calibrator_log:calibrator.log.xml
 links:linkstate.xml
+aggregated60Prefixed:pre_aggregated_60.xml
+tripinfosPrefix:pre_tripinfos.xml
+logPrefixed:pre_log.txt
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:
@@ -74,11 +77,13 @@ aggregated1:<!--{[->]}-->
 aggregated15:<!--{[->]}-->
 aggregated25:<!--{[->]}-->
 aggregated60:<!--{[->]}-->
+aggregated60Prefixed:<!--{[->]}-->
 aggregated300:<!--{[->]}-->
 aggregated900:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 bt:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
+tripinfosPrefix:<!--{[->]}-->
 vtypeprobe:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 fcd:<!--{[->]}-->
