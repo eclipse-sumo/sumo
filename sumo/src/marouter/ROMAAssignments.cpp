@@ -77,7 +77,10 @@ ROMAAssignments::capacityConstraintFunction(const ROEdge* edge, const SUMOReal f
     }
     const int roadClass = -edge->getPriority();
     // TODO: differ road class 1 from the unknown road class 1!!!
-    if (roadClass == 0 || roadClass == 1)  {
+    if (edge->getLaneNo() == 0) {
+        // TAZ have no cost
+        return 0;
+    } else if (roadClass == 0 || roadClass == 1)  {
         return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (edge->getLaneNo() * 2000.*1.3)) * 2.); //CR13 in table.py
     } else if (roadClass == 2 && edge->getSpeed() <= 11.) {
         return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (edge->getLaneNo() * 1333.33 * 0.9)) * 3.); //CR5 in table.py
