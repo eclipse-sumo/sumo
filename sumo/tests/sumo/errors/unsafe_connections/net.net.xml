@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Dec 10 12:20:03 2014 by SUMO netconvert Version dev-SVN-r17471I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="plain.nod.xml"/>
+        <edge-files value="plain.edg.xml"/>
+        <connection-files value="plain.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="14.18,-45.08" convBoundary="0.00,0.00,115.78,4.15" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":gneJ1_0" function="internal">
+        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="3.72" shape="55.30,-2.30 58.39,0.89"/>
+        <lane id=":gneJ1_0_1" index="1" speed="13.89" length="3.72" shape="55.39,1.00 58.39,0.89"/>
+    </edge>
+
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="gneE0_0" index="0" speed="13.89" length="55.45" shape="-0.13,-0.80 55.30,-2.30"/>
+        <lane id="gneE0_1" index="1" speed="13.89" length="55.45" shape="-0.04,2.50 55.39,1.00"/>
+    </edge>
+    <edge id="gneE1" from="gneJ1" to="gneJ2" priority="1">
+        <lane id="gneE1_0" index="0" speed="13.89" length="57.38" shape="58.39,0.89 115.71,-1.65"/>
+    </edge>
+
+    <junction id="gneJ0" type="unregulated" x="0.00" y="4.15" incLanes="" intLanes="" shape="-0.00,4.10 -0.18,-2.40"/>
+    <junction id="gneJ1" type="priority" x="56.94" y="2.61" incLanes="gneE0_0 gneE0_1" intLanes=":gneJ1_0_0 :gneJ1_0_1" shape="58.46,2.49 58.32,-0.70 55.26,-3.90 55.43,2.60">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="gneJ2" type="unregulated" x="115.78" y="0.00" incLanes="gneE1_0" intLanes="" shape="115.64,-3.25 115.78,-0.05"/>
+
+    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="s" state="M"/>
+    <connection from="gneE0" to="gneE1" fromLane="1" toLane="0" via=":gneJ1_0_1" dir="s" state="M"/>
+
+    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ1_0" to="gneE1" fromLane="1" toLane="0" dir="s" state="M"/>
+
+</net>

@@ -41,3 +41,6 @@ traffic_lights
 
 # error handling for person related input
 person
+
+# warn about multiple connections from one edge to the sam lane
+unsafe_connections

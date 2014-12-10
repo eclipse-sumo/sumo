@@ -1097,6 +1097,10 @@ MSLane::addApproachingLane(MSLane* lane) {
     MSEdge* approachingEdge = &lane->getEdge();
     if (myApproachingLanes.find(approachingEdge) == myApproachingLanes.end()) {
         myApproachingLanes[approachingEdge] = std::vector<MSLane*>();
+    } else if (approachingEdge->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+        // whenever a normal edge connects twice, there is a corresponding
+        // internal edge wich connects twice, one warning is sufficient
+        WRITE_WARNING("Lane '" + getID() + "' is approached multiple times from edge '" + approachingEdge->getID() + "'. This may cause collisions.");
     }
     myApproachingLanes[approachingEdge].push_back(lane);
 }
