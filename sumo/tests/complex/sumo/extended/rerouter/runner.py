@@ -105,7 +105,7 @@ def getTimeOnEdge(route, exitTimes, edge, depart):
 
 def verify(vehroutes, edge):
     for v in vehroutes:
-        if "routeDistribution" not in v.child_dict or len(v['routeDistribution'])==0:
+        if "routeDistribution" not in v._child_dict or len(v['routeDistribution'])==0:
             wasRerouted = False
             entryTime, leaveTime = getTimeOnEdge(v['route'][0].edges.split(), v['route'][0].exitTimes.split(), edge, float(v.depart))
         else:
