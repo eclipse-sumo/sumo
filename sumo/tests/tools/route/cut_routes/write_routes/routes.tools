@@ -1,7 +1,7 @@
 <!-- generated with cutRoutes.py for input_net.net.xml from ['input_routes.rou.xml'] -->
 <routes>
-    
-    <vehicle depart="0" id="straight" type="slow">
+
+    <vehicle depart="0.00" id="straight" type="slow">
         <route edges="middle end"/>
     </vehicle>
 </routes>
