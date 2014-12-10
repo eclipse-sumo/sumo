@@ -73,6 +73,14 @@ public:
     ~GUITriggeredRerouter();
 
 
+    /** @brief Called when a closing tag occurs
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
+    void myEndElement(int element);
+
     /// @name inherited from GUIGlObject
     //@{
 

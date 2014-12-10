@@ -236,19 +236,8 @@ GUITriggeredRerouter::GUITriggeredRerouter(
     // add visualisation objects for edges which trigger the rerouter
     for (std::vector<MSEdge*>::const_iterator it = edges.begin(); it != edges.end(); ++it) {
         myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, false));
-    }
-    // add visualisation objects for closed edges
-    for (std::vector<RerouteInterval>::const_iterator it_interval = myIntervals.begin();
-            it_interval != myIntervals.end(); ++it_interval) {
-        const std::vector<MSEdge*>& closed = it_interval->closed;
-        for (std::vector<MSEdge*>::const_iterator it = closed.begin(); it != closed.end(); ++it) {
-            myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, true));
-        }
-    }
-    // register with rtree and rerouter boundary
-    for (std::vector<GUITriggeredRerouterEdge*>::iterator it = myEdgeVisualizations.begin(); it != myEdgeVisualizations.end(); ++it) {
-        rtree.addAdditionalGLObject(*it);
-        myBoundary.add((*it)->getCenteringBoundary());
+        rtree.addAdditionalGLObject(myEdgeVisualizations.back());
+        myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
     }
 }
 
@@ -258,6 +247,21 @@ GUITriggeredRerouter::~GUITriggeredRerouter() {
         delete *it;
     }
     myEdgeVisualizations.clear();
+}
+
+
+void
+GUITriggeredRerouter::myEndElement(int element) {
+    MSTriggeredRerouter::myEndElement(element);
+    if (element == SUMO_TAG_INTERVAL) {
+        // add visualisation objects for closed edges
+        const RerouteInterval& ri = myIntervals.back();
+        for (std::vector<MSEdge*>::const_iterator it = ri.closed.begin(); it != ri.closed.end(); ++it) {
+            myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, true));
+            dynamic_cast<GUINet*>(GUINet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(myEdgeVisualizations.back());
+            myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
+        }
+    }
 }
 
 
@@ -354,11 +358,11 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
         const SUMOReal prob = myParent->getProbability();
         if (myAmClosedEdge) {
             // draw closing symbol onto all lanes
-            if (myParent->hasCurrentReroute(MSNet::getInstance()->getCurrentTimeStep()) && prob > 0) {
-                const RerouteInterval& ri =
-                    myParent->getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
+            const RerouteInterval* const ri =
+                myParent->getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
+            if (ri != 0 && prob > 0) {
                 // draw only if the edge is closed at this time
-                if (std::find(ri.closed.begin(), ri.closed.end(), myEdge) != ri.closed.end()) {
+                if (std::find(ri->closed.begin(), ri->closed.end(), myEdge) != ri->closed.end()) {
                     const size_t noLanes = myFGPositions.size();
                     for (size_t j = 0; j < noLanes; ++j) {
                         Position pos = myFGPositions[j];

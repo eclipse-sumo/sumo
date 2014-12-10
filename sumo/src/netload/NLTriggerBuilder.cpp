@@ -51,6 +51,7 @@
 #include "NLHandler.h"
 #include "NLTriggerBuilder.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/XMLSubSys.h>
 
 
 #ifdef HAVE_INTERNAL
@@ -249,8 +250,11 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
         throw InvalidArgument("Could not parse MSTriggeredRerouter '" + id + "'.");
     }
     MSTriggeredRerouter* trigger = buildRerouter(net, id, edges, prob, file, off);
+    // read in the trigger description
     if (file == "") {
         trigger->registerParent(SUMO_TAG_REROUTER, myHandler);
+    } else if (!XMLSubSys::runParser(*trigger, file)) {
+        throw ProcessError();
     }
 }
 

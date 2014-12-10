@@ -99,6 +99,10 @@ public:
         RandomDistributor<MSEdge*> edgeProbs;
         /// The distributions of new routes to use
         RandomDistributor<const MSRoute*> routeProbs;
+        /// The permissions to use
+        SVCPermissions permissions;
+        /// The old permissions for all lanes
+        std::vector<SVCPermissions> prevPermissions;
     };
 
     /** @brief Tries to reroute the vehicle
@@ -117,17 +121,14 @@ public:
      */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
 
-    /// Returns whether a rerouting definition is valid for the given time and vehicle
-    bool hasCurrentReroute(SUMOTime time, SUMOVehicle& veh) const;
+    /// Returns the rerouting definition valid for the given time and vehicle, 0 if none
+    const RerouteInterval* getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const;
 
-    /// Returns the rerouting definition valid for the given time and vehicle
-    const RerouteInterval& getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const;
+    /// Sets the edge permission if there are any defined in the closingEdge
+    SUMOTime setPermissions(const SUMOTime currentTime);
 
-    /// Returns whether a rerouting definition is valid for the given time
-    bool hasCurrentReroute(SUMOTime time) const;
-
-    /// Returns the rerouting definition valid for the given time and vehicle
-    const RerouteInterval& getCurrentReroute(SUMOTime time) const;
+    /// Returns the rerouting definition valid for the given time, 0 if none
+    const RerouteInterval* getCurrentReroute(SUMOTime time) const;
 
     /// Sets whether the process is currently steered by the user
     void setUserMode(bool val);
@@ -165,7 +166,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int element);
+    virtual void myEndElement(int element);
     //@}
 
 protected:
@@ -185,6 +186,8 @@ protected:
     SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
     /// List of closed edges
     std::vector<MSEdge*> myCurrentClosed;
+    /// List of permissions for closed edges
+    SVCPermissions myCurrentPermissions;
     /// new destinations with probabilities
     RandomDistributor<MSEdge*> myCurrentEdgeProb;
     /// new routes with probabilities
