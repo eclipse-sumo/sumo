@@ -105,17 +105,18 @@ def getTimeOnEdge(route, exitTimes, edge, depart):
 
 def verify(vehroutes, edge):
     for v in vehroutes:
-        if "routeDistribution" not in v._child_dict or len(v['routeDistribution'])==0:
+        if v.routeDistribution is None:
             wasRerouted = False
-            entryTime, leaveTime = getTimeOnEdge(v['route'][0].edges.split(), v['route'][0].exitTimes.split(), edge, float(v.depart))
+            entryTime, leaveTime = getTimeOnEdge(v.route[0].edges.split(), v.route[0].exitTimes.split(), edge, float(v.depart))
         else:
             wasRerouted = True
-            fr = v['routeDistribution'][0]['route'][-1]
+            fr = v.routeDistribution[0].route[-1]
             entryTime, leaveTime = getTimeOnEdge(fr.edges.split(), fr.exitTimes.split(), edge, float(v.depart))
-        if entryTime>=t[1] and entryTime<=t[2] and not wasRerouted:
-            print "Vehicle '%s' was not rerouted; times (%s, %s, %s)" % (v.id, t[0], t[1], t[2])
-        if wasRerouted and (entryTime<t[1] and entryTime>t[2]):
-            print "Vehicle '%s' was rerouted though the rerouter was off; times (%s, %s, %s)" % (v.id, t[0], t[1], t[2])
+        if entryTime >= t[1] and entryTime < t[2] and not wasRerouted:
+            print "Vehicle '%s' entering at %s was not rerouted; times (%s, %s, %s, %s)" % (v.id, entryTime, t[0], t[1], t[2])
+            sys.exit()
+        if wasRerouted and (entryTime < t[1] and entryTime >= t[2]):
+            print "Vehicle '%s' entering at %s was rerouted though the rerouter was off; times (%s, %s, %s)" % (v.id, entryTime, t[0], t[1], t[2])
 
 
 print ">>> Building the network"
