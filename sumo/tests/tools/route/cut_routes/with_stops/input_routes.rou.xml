@@ -1,0 +1,10 @@
+<routes>
+    <vehicle id="straight" depart="0">
+        <route edges="beg middle end rend"/>
+        <stop lane="middle_0" duration="10"/>
+    </vehicle>
+    <vehicle id="left" depart="0">
+        <route edges="beg beg2left left left2end end rend"/>
+        <stop lane="left_0" duration="10"/>
+    </vehicle>
+</routes>
