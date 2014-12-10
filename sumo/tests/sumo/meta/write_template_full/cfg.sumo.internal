@@ -21,6 +21,7 @@
     </input>
 
     <output>
+        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE" help="Save complete network states into FILE"/>
         <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" type="BOOL" help="Write also empty edges completely when dumping"/>
         <emission-output value="" type="FILE" help="Save the emission values of each vehicle"/>
@@ -43,8 +44,6 @@
         <vehroute-output.write-unfinished value="false" type="BOOL" help="Write vehroute output for vehicles which have not arrived at simulation end"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <bt-output value="" type="FILE" help="Save bt visibilities into FILE"/>
-        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
-        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
         <save-state.files value="" type="FILE" help="Files for network states"/>
@@ -135,6 +134,7 @@
 
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
+        <python-script value="" type="STR" help="Runs TraCI script with embedded python"/>
     </traci_server>
 
     <mesoscopic>

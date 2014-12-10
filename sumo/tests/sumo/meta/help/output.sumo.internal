@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r17452ID
+SUMO Version dev-SVN-r17474
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -25,6 +25,9 @@ Input Options:
                                          exit times
 
 Output Options:
+  --output-prefix FILE                 Prefix which is applied to all output
+                                         files. The special string 'TIME' is
+                                         replaced by the current time.
   --netstate-dump FILE                 Save complete network states into FILE
   --netstate-dump.empty-edges          Write also empty edges completely when
                                          dumping
@@ -61,10 +64,6 @@ Output Options:
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE
   --bt-output FILE                     Save bt visibilities into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                         vehicles into FILE
-  --movereminder-output.vehicles STR   List of vehicle ids which shall save
-                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.prefix FILE             Prefix for network states
@@ -209,6 +208,7 @@ Example Device Options:
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
+  --python-script STR                  Runs TraCI script with embedded python
 
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
