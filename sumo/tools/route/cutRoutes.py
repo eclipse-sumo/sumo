@@ -182,12 +182,13 @@ def write_trip(file, depart, id, type, edges, stops):
         file.write('/>\n')
 
 def write_route(file, depart, id, type, edges, stops):
-    print >>file, '''
+    file.write('''
     <vehicle depart="%.2f" id="%s" type="%s">
-        <route edges="%s"/>''' % (depart, id, type, ' '.join(edges))
+        <route edges="%s"/>
+''' % (depart, id, type, ' '.join(edges)))
     for stop in stops:
         file.write(stop.toXML('        '))
-    print >> file, '    </vehicle>'
+    file.write('    </vehicle>\n')
 
 
 def main():
@@ -201,25 +202,20 @@ def main():
     print "Valid area contains %s edges" % len(edges)
 
     if options.trips:
-        start_tag = '<trips>'
-        end_tag = '</trips>'
         output_type = 'trips'
         writer = write_trip
     else:
-        start_tag = '<routes>'
-        end_tag = '</routes>'
         output_type = 'routes'
         writer = write_route
 
     def write_to_file(routes, f):
-        comment = '<!-- generated with %s for %s from %s -->' % (os.path.basename(__file__), options.network, options.routeFiles)
-        print >>f, comment
-        print >>f, start_tag
+        f.write('<!-- generated with %s for %s from %s -->\n' % (os.path.basename(__file__), options.network, options.routeFiles))
+        f.write('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n' % output_type)
         num_routes = 0
         for route in routes:
             num_routes += 1
             writer(f, *route)
-        print >>f, end_tag
+        f.write('</%s>\n' % output_type)
         print "Wrote %s %s" % (num_routes, output_type)
 
     if options.big:
