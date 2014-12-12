@@ -669,8 +669,10 @@ Error: Attribute 'to' is missing in definition of a connection.
 Error: Unknown to-edge '' in connection
 Quitting (on error).
 ------------------ net/connection[0]:<duplicate>
+Warning: Lane '2_0' is approached multiple times from edge '1'. This may cause collisions.
 Error: Found invalid logic position of a link for junction '2' (2, max 2) -> (network error)
 Quitting (on error).
 ------------------ net/connection[1]:<duplicate>
+Warning: Lane '2_1' is approached multiple times from edge '1'. This may cause collisions.
 Error: Found invalid logic position of a link for junction '2' (2, max 2) -> (network error)
 Quitting (on error).
