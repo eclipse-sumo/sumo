@@ -27,3 +27,6 @@ extended
 
 # testing sumo binary xml
 binary
+
+# letting 25 vehicles drive in a circle and plot their speeds
+speedMap
