@@ -141,7 +141,7 @@ MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveRe
     if (mySaveExits && reason != NOTIFICATION_LANE_CHANGE) {
         if (reason != NOTIFICATION_TELEPORT && myLastSavedAt == veh.getEdge()) { // need to check this for internal lanes
             myExits.back() = MSNet::getInstance()->getCurrentTimeStep();
-        } else {
+        } else if (myLastSavedAt != veh.getEdge()) {
             myExits.push_back(MSNet::getInstance()->getCurrentTimeStep());
             myLastSavedAt = veh.getEdge();
         }
