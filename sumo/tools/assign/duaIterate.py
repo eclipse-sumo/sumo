@@ -68,9 +68,9 @@ def addGenericOptions(optParser):
                          help="define the applied eco measure, e.g. fuel, CO2, noise")
     optParser.add_option("--eager-insert", action="store_true",
                          default=False, help="eager insertion tests (may slow down the sim considerably)")
-    optParser.add_option("--time-to-teleport", dest="timetoteleport", type="int", default=300,
-                         help="Delay before blocked vehicles are teleported where -1 means no teleporting")
-    optParser.add_option("--time-to-teleport.highways", dest="timetoteleport_highways", type="int", default=0,
+    optParser.add_option("--time-to-teleport", dest="timetoteleport", type="float", default=300,
+                         help="Delay before blocked vehicles are teleported (negative value disables teleporting)")
+    optParser.add_option("--time-to-teleport.highways", dest="timetoteleport_highways", type="float", default=0,
                          help="Delay before blocked vehicles are teleported on wrong highway lanes")
     optParser.add_option("--cost-modifier", dest="costmodifier", type="choice",
                          choices=('grohnde', 'isar', 'None'), 
