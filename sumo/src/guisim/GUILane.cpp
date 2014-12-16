@@ -804,7 +804,7 @@ GUILane::getColorValue(size_t activeScheme) const {
         }
         case 22: {
             // color by incline
-            return abs(getShape()[-1].z() - getShape()[0].z()) / getLength();
+            return (getShape()[-1].z() - getShape()[0].z()) / getLength();
         }
         case 23: {
             // color by average speed
