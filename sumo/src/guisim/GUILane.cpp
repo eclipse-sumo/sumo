@@ -71,11 +71,13 @@
 GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
                  MSEdge* const edge, unsigned int numericalID,
                  const PositionVector& shape, SUMOReal width,
-                 SVCPermissions permissions, unsigned int index)
-    : MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions),
-      GUIGlObject(GLO_LANE, id) {
+                 SVCPermissions permissions, unsigned int index) : 
+    MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions),
+    GUIGlObject(GLO_LANE, id)
+{
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
+    myShapeColors.reserve(myShape.size() - 1);
     int e = (int) myShape.size() - 1;
     for (int i = 0; i < e; ++i) {
         const Position& f = myShape[i];
@@ -436,14 +438,22 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     // draw lane
     // check whether it is not too small
     if (s.scale * exaggeration < 1.) {
-        GLHelper::drawLine(myShape);
+        if (myShapeColors.size() > 0) {
+            GLHelper::drawLine(myShape, myShapeColors);
+        } else {
+            GLHelper::drawLine(myShape);
+        }
         glPopMatrix();
     } else {
         GUINet* net = (GUINet*) MSNet::getInstance();
         if (isRailway(myPermissions)) {
             // draw as railway
             const SUMOReal halfRailWidth = 0.725 * exaggeration;
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth);
+            if (myShapeColors.size() > 0) {
+                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
+            } else {
+                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth);
+            }
             glColor3d(1, 1, 1);
             glTranslated(0, 0, .1);
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
@@ -483,7 +493,11 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             const SUMOReal laneWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
             mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN;
             const int cornerDetail = drawDetails ? s.scale * exaggeration : 0;
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * exaggeration, cornerDetail);
+            if (myShapeColors.size() > 0) {
+                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, laneWidth * exaggeration, cornerDetail);
+            } else {
+                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * exaggeration, cornerDetail);
+            }
         }
         glPopMatrix();
         // draw ROWs (not for inner lanes)
@@ -713,7 +727,7 @@ GUILane::getLoadedEdgeWeight() const {
 void
 GUILane::setColor(const GUIVisualizationSettings& s) const {
     const GUIColorer& c = s.laneColorer;
-    if (!setFunctionalColor(c.getActive())) {
+    if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
         GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
     }
 }
@@ -730,6 +744,29 @@ GUILane::setFunctionalColor(size_t activeScheme) const {
         default:
             return false;
     }
+}
+
+
+bool
+GUILane::setMultiColor(const GUIColorer& c) const {
+    const size_t activeScheme = c.getActive();
+    myShapeColors.clear();
+    switch (activeScheme) {
+        case 22: { // color by height at segment start
+            for (int ii = 0; ii < myShape.size() - 1; ++ii) {
+                myShapeColors.push_back(c.getScheme().getColor(myShape[ii].z()));
+            }
+        }
+        case 24: { // color by inclination  at segment start
+            for (int ii = 1; ii < myShape.size(); ++ii) {
+                const SUMOReal inc =  (myShape[ii].z() - myShape[ii-1].z()) / myShape[ii].distanceTo2D(myShape[ii-1]);
+                myShapeColors.push_back(c.getScheme().getColor(inc));
+            }
+        }
+        default:
+            return false;
+    }
+    return true;
 }
 
 
@@ -802,15 +839,15 @@ GUILane::getColorValue(size_t activeScheme) const {
             // color by z of first shape point
             return getShape()[0].z();
         }
-        case 22: {
+        case 23: {
             // color by incline
             return (getShape()[-1].z() - getShape()[0].z()) / getLength();
         }
-        case 23: {
+        case 25: {
             // color by average speed
             return getMeanSpeed();
         }
-        case 24: {
+        case 26: {
             // color by average relative speed
             return getMeanSpeed() / myMaxSpeed;
         }

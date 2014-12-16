@@ -263,6 +263,9 @@ private:
     /// @brief sets the color according to the current scheme index and some lane function
     bool setFunctionalColor(size_t activeScheme) const;
 
+    /// @brief sets multiple colors according to the current scheme index and some lane function
+    bool setMultiColor(const GUIColorer& c) const;
+
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
@@ -271,6 +274,9 @@ private:
 
     /// The lengths of the shape parts
     std::vector<SUMOReal> myShapeLengths;
+
+    /// The color of the shape parts (cached)
+    mutable std::vector<RGBColor> myShapeColors;
 
     /// @brief Half of lane width, for speed-up
     SUMOReal myHalfLaneWidth;

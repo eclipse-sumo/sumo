@@ -175,6 +175,30 @@ GLHelper::drawBoxLines(const PositionVector& geom,
 
 
 void
+GLHelper::drawBoxLines(const PositionVector& geom,
+                       const std::vector<SUMOReal>& rots,
+                       const std::vector<SUMOReal>& lengths,
+                       const std::vector<RGBColor>& cols,
+                       SUMOReal width, int cornerDetail) {
+    int e = (int) geom.size() - 1;
+    for (int i = 0; i < e; i++) {
+        setColor(cols[i]);
+        drawBoxLine(geom[i], rots[i], lengths[i], width);
+    }
+    if (cornerDetail > 0) {
+        for (int i = 1; i < e; i++) {
+            glPushMatrix();
+            setColor(cols[i]);
+            glTranslated(geom[i].x(), geom[i].y(), 0);
+            drawFilledCircle(width, cornerDetail);
+            glEnd();
+            glPopMatrix();
+        }
+    }
+}
+
+
+void
 GLHelper::drawBoxLines(const PositionVector& geom1,
                        const PositionVector& geom2,
                        const std::vector<SUMOReal>& rots,
@@ -234,6 +258,19 @@ GLHelper::drawLine(const PositionVector& v) {
     glBegin(GL_LINES);
     int e = (int) v.size() - 1;
     for (int i = 0; i < e; ++i) {
+        glVertex2d(v[i].x(), v[i].y());
+        glVertex2d(v[i + 1].x(), v[i + 1].y());
+    }
+    glEnd();
+}
+
+
+void
+GLHelper::drawLine(const PositionVector& v, const std::vector<RGBColor>& cols) {
+    glBegin(GL_LINES);
+    int e = (int) v.size() - 1;
+    for (int i = 0; i < e; ++i) {
+        setColor(cols[i]);
         glVertex2d(v[i].x(), v[i].y());
         glVertex2d(v[i + 1].x(), v[i + 1].y());
     }

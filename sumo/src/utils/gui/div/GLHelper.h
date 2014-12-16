@@ -111,6 +111,23 @@ public:
                              const std::vector<SUMOReal>& rots, const std::vector<SUMOReal>& lengths,
                              SUMOReal width, int cornerDetail = 0);
 
+    /** @brief Draws thick lines with varying color
+     *
+     * Each line is drawn using drawBoxLine.
+     *
+     * @param[in] geom The list of begin positions of the lines
+     * @param[in] rots The directions the lines shall be drawn to (in radiants)
+     * @param[in] lengths The lengths of the lines
+     * @param[in] cols The colors of the lines
+     * @param[in] width The width of the lines
+     * @param[in] cornerDetail Detail level for filling the corners between angled segments
+     * @see drawBoxLine
+     */
+    static void drawBoxLines(const PositionVector& geom,
+                             const std::vector<SUMOReal>& rots, const std::vector<SUMOReal>& lengths,
+                             const std::vector<RGBColor>& cols, 
+                             SUMOReal width, int cornerDetail = 0);
+
 
     /** @brief Draws thick lines using the mean of the points given in the point lists as begin positions
      *
@@ -173,6 +190,15 @@ public:
      * @param[in] v The positions vector to use
      */
     static void drawLine(const PositionVector& v);
+
+
+    /** @brief Draws a thin line along the given position vector with variable color
+     *
+     * The line is drawn as a GL_LINES.
+     *
+     * @param[in] v The positions vector to use
+     */
+    static void drawLine(const PositionVector& v, const std::vector<RGBColor>& cols);
 
 
     /** @brief Draws a thin line between the two points
