@@ -44,6 +44,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     optParser.add_option("--trips-output", help="output trip file")
     optParser.add_option("--min-length", type='int', default=0, help="minimum route length in the subnetwork")
     optParser.add_option("--routes-output", help="output route file")
+    optParser.add_option("--stops-output", help="output filtered stop file")
     optParser.add_option("-a", "--additional-input", help="additional file (for bus stop locations)")
     optParser.add_option("--speed-factor", type='float', default=1.0, 
             help="Factor for modifying maximum edge speeds when extrapolating new departure times (default 1.0)")
@@ -75,17 +76,13 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     return options
 
 
-def cut_routes(areaEdges, orig_net, options):
+def cut_routes(areaEdges, orig_net, options, busStopEdges=None):
     num_vehicles = 0
     num_returned = 0
     missingEdgeOccurences = defaultdict(lambda:0)
     multiAffectedRoutes = 0 # routes which enter the sub-scenario multiple times
     teleportFactorSum = 0.0
     too_short = 0
-    busStopEdges = {}
-    if options.additional_input:
-        for busStop in parse(options.additional_input, 'busStop'):
-            busStopEdges[busStop.id] = busStop.lane[:-2]
     for routeFile in options.routeFiles:
         print "Parsing routes from %s" % routeFile
         for vehicle in parse(routeFile, 'vehicle'):
@@ -122,19 +119,26 @@ def cut_routes(areaEdges, orig_net, options):
                 teleportFactorSum += teleportFactor
                 # assume teleports were spread evenly across the vehicles route
                 newDepart = float(departTimes[int(fromIndex * teleportFactor)])
+                del vehicle.route[0].exitTimes
             remaining = edges[fromIndex:toIndex+1]
             stops = []
             if vehicle.stop:
                 for stop in vehicle.stop:
                     if stop.busStop:
+                        if not busStopEdges:
+                            print "No bus stop locations parsed, skipping bus stop '%s'." % stop.busStop
+                            continue
                         if stop.busStop not in busStopEdges:
-                            print "Skipping bus stop '%s', which could not be located." % stop.busStop                            
+                            print "Skipping bus stop '%s', which could not be located." % stop.busStop
                             continue
                         if busStopEdges[stop.busStop] in remaining:
                             stops.append(stop)
                     elif stop.lane[:-2] in remaining:
                         stops.append(stop)
-            yield (newDepart, vehicle.id, vehicle.type, remaining, stops)
+            vehicle.route[0].edges = " ".join(remaining)
+            vehicle.stop = stops
+            vehicle.depart = "%.2f" % newDepart
+            yield newDepart, vehicle
             num_returned += 1
 
     if teleportFactorSum > 0:
@@ -170,25 +174,20 @@ def printTop(missingEdgeOccurences, num=1000):
         print count, edge
 
 
-def write_trip(file, depart, id, type, edges, stops):
-    file.write('    <trip depart="%.2f" id="%s" from="%s" to="%s" type="%s"' % (
-               depart, id, edges[0], edges[-1], type))
-    if stops:
+def write_trip(file, vehicle):
+    edges = vehicle.route[0].edges.split()
+    file.write('    <trip depart="%s" id="%s" from="%s" to="%s" type="%s"' % (
+               vehicle.depart, vehicle.id, edges[0], edges[-1], vehicle.type))
+    if vehicle.stop:
         file.write('>\n')
-        for stop in stops:
+        for stop in vehicle.stop:
             file.write(stop.toXML('        '))
         file.write('</trip>\n')
     else:
         file.write('/>\n')
 
-def write_route(file, depart, id, type, edges, stops):
-    file.write('''
-    <vehicle depart="%.2f" id="%s" type="%s">
-        <route edges="%s"/>
-''' % (depart, id, type, ' '.join(edges)))
-    for stop in stops:
-        file.write(stop.toXML('        '))
-    file.write('    </vehicle>\n')
+def write_route(file, vehicle):
+    file.write(vehicle.toXML('    '))
 
 
 def main():
@@ -208,13 +207,27 @@ def main():
         output_type = 'routes'
         writer = write_route
 
-    def write_to_file(routes, f):
+    busStopEdges = {}
+    if options.stops_output:
+        busStops = codecs.open(options.stops_output, 'w', encoding='utf8')
+        busStops.write('<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
+    if options.additional_input:
+        for busStop in parse(options.additional_input, 'busStop'):
+            edge = busStop.lane[:-2]
+            busStopEdges[busStop.id] = edge
+            if options.stops_output and edge in edges:
+                busStops.write(busStop.toXML('    '))
+    if options.stops_output:
+        busStops.write('</additional>\n')
+        busStops.close()
+
+    def write_to_file(vehicles, f):
         f.write('<!-- generated with %s for %s from %s -->\n' % (os.path.basename(__file__), options.network, options.routeFiles))
         f.write('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n' % output_type)
         num_routes = 0
-        for route in routes:
+        for _, v in vehicles:
             num_routes += 1
-            writer(f, *route)
+            writer(f, v)
         f.write('</%s>\n' % output_type)
         print "Wrote %s %s" % (num_routes, output_type)
 
@@ -222,15 +235,14 @@ def main():
         # write output unsorted
         tmpname = options.output + ".unsorted"
         with codecs.open(tmpname, 'w', encoding='utf8') as f:
-            write_to_file(cut_routes(edges, orig_net, options), f)
+            write_to_file(cut_routes(edges, orig_net, options, busStopEdges), f)
         # sort out of memory
         sort_routes.main([tmpname, '--big', '--outfile', options.output])
     else:
-        routes = list(cut_routes(edges, orig_net, options))
+        routes = list(cut_routes(edges, orig_net, options, busStopEdges))
         routes.sort()
         with codecs.open(options.output, 'w', encoding='utf8') as f:
             write_to_file(routes, f)
 
 if __name__ == "__main__":
     main()
-

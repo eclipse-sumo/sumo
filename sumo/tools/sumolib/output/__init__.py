@@ -31,43 +31,42 @@ from . import dump, inductionloop, convert
 
 
 def compound_object(element_name, attrnames):
-    """return a class which delegates attribute access to a namedtuple instance and
-       bracket access to an internal dict. Missing attributes are delegated to
-       the child dict for convenience
+    """return a class which delegates bracket access to an internal dict. 
+       Missing attributes are delegated to the child dict for convenience.
        @note: Care must be taken when child nodes and attributes have the same names"""
-    nt = namedtuple(element_name, attrnames)
     class CompoundObject():
-        _fields = attrnames
+        _fields = sorted(attrnames)
         def __init__(self, values, child_dict):
-            self._nt_instance = nt(*values)
+            for name, val in zip(self._fields, values):
+                self.__dict__[name] = val
             self._child_dict = child_dict
-        def __coerce__(self, other):
-            return None
-        def __cmp__(self, other):
-            if (self._nt_instance == other._nt_instance and
-                    self._child_dict == other._child_dict):
-                return 0
-            elif (self._nt_instance < other._nt_instance or
-                    (self._nt_instance == other._nt_instance and
-                        self._child_dict < other._child_dict)):
-                return -1
-            else:
-                return 1
+        def getAttributes(self):
+            return [(k, getattr(self, k)) for k in self._fields]
         def hasAttribute(self, name):
-            return hasattr(self._nt_instance, name)
+            return name in self._fields
         def hasChild(self, name):
             return name in self._child_dict
         def __getattr__(self, name):
-            try:
-                return getattr(self._nt_instance, name)
-            except AttributeError:
+            if name[:2] != "__":
                 return self._child_dict.get(name, None)
+            raise AttributeError
+        def __setattr__(self, name, value):
+            if name != "_child_dict" and name in self._child_dict:
+                self._child_dict[name] = value
+            else:
+                self.__dict__[name] = value
+        def __delattr__(self, name):
+            if name in self._child_dict:
+                del self._child_dict[name]
+            else:
+                del self.__dict__[name]
+                self._fields.remove(name)
         def __getitem__(self, name):
             return self._child_dict[name]
         def __str__(self):
-            return "<%s,child_dict=%s>" % (self._nt_instance, dict(self._child_dict))
+            return "<%s,child_dict=%s>" % (self.getAttributes(), dict(self._child_dict))
         def toXML(self, initialIndent="", indent="    "):
-            fields = ['%s="%s"' % (k, getattr(self._nt_instance, k)) for k in self._fields]
+            fields = ['%s="%s"' % (k, getattr(self, k)) for k in self._fields]
             if not self._child_dict:
                 return "%s<%s %s/>\n" % (initialIndent, element_name, " ".join(fields))
             else:
