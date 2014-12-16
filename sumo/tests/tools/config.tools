@@ -75,6 +75,7 @@ pois:pois.add.xml
 trips:trips.trips.xml
 flows:out.flows.xml
 routes:out.rou.xml
+additional:out.add.xml
 diff_nod:diff.nod.xml
 diff_edg:diff.edg.xml
 diff_con:diff.con.xml
