@@ -246,8 +246,8 @@ private:
     void drawLinkNo() const;
     void drawTLSLinkNo(const GUINet& net) const;
     void drawTextAtEnd(const std::string& text, const PositionVector& shape, SUMOReal x) const;
-    void drawLinkRules(const GUINet& net) const;
-    void drawLinkRule(const GUINet& net, MSLink* link, const PositionVector& shape, SUMOReal x1, SUMOReal x2) const;
+    void drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const;
+    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLink* link, const PositionVector& shape, SUMOReal x1, SUMOReal x2) const;
     void drawArrows() const;
     void drawLane2LaneConnections() const;
 
@@ -268,6 +268,9 @@ private:
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
+
+    /// @brief whether to draw this lane as a railway
+    bool drawAsRailway(const GUIVisualizationSettings& s) const;
 
     /// The rotations of the shape parts
     std::vector<SUMOReal> myShapeRotations;
