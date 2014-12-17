@@ -164,7 +164,7 @@ RONet::cleanup(SUMOAbstractRouter<ROEdge, ROVehicle>* router) {
 
 
 SUMOVTypeParameter*
-RONet::getVehicleTypeSecure(const std::string& id) {
+RONet::getVehicleTypeSecure(const std::string& id, bool defaultIfMissing) {
     // check whether the type was already known
     SUMOVTypeParameter* type = myVehicleTypes.get(id);
     if (id == DEFAULT_VTYPE_ID) {
@@ -177,8 +177,8 @@ RONet::getVehicleTypeSecure(const std::string& id) {
     if (it2 != myVTypeDistDict.end()) {
         return it2->second->get();
     }
-    if (id == "") {
-        // ok, no vehicle type was given within the user input
+    if (id == "" || defaultIfMissing) {
+        // ok, no vehicle type or an unknown type was given within the user input
         //  return the default type
         myDefaultVTypeMayBeDeleted = false;
         return myVehicleTypes.get(DEFAULT_VTYPE_ID);
@@ -312,7 +312,7 @@ RONet::checkFlows(SUMOTime time) {
                     newPars->depart = pars->depart;
                     pars->repetitionsDone++;
                     // try to build the vehicle
-                    SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                    SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid, true);
                     RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
                     ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
                     addVehicle(newPars->id, veh);
@@ -337,7 +337,7 @@ RONet::checkFlows(SUMOTime time) {
                 newPars->depart = depart;
                 pars->repetitionsDone++;
                 // try to build the vehicle
-                SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid, true);
                 RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
                 ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
                 addVehicle(newPars->id, veh);
