@@ -1,16 +1,14 @@
 kill_timeout:15000
 performance_variation_%:60
 
-[run_dependent_text]
-output:Duration:
-output:Real time factor:
-output:UPS:
-
 [performance_logfile]
 performance:output
 
 [performance_logfile_extractor]
-performance: Duration:
+performance: Duration: ([0-9\.]*)ms
 
 [performance_unit]
 performance:ms
+
+[performance_test_machine]
+performance:any
