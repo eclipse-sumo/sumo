@@ -96,8 +96,8 @@ main(int argc, char** argv) {
         // build the main window
         GUIApplicationWindow* window =
             new GUIApplicationWindow(&application, "*.sumo.cfg,*.sumocfg");
-        window->dependentBuild(oc.getBool("game"));
         gSchemeStorage.init(&application);
+        window->dependentBuild(oc.getBool("game"));
         // Create app
         application.addSignal(SIGINT, window, MID_QUIT);
         application.create();
