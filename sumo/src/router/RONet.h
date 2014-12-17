@@ -200,11 +200,9 @@ public:
 
     /** @brief Retrieves the named vehicle type
      *
-     * If the named vehicle type was not added to the net before, a default
-     *  vehicle type which consists of the id only is generated, added to the net
-     *  and returned.
-     *
-     * Only if the name is "", 0 is returned.
+     * If the name is "" the default type is returned.
+     * If the named vehicle type (or typeDistribution) was not added to the net before,
+     * 0 is returned
      *
      * @param[in] id The id of the vehicle type to return
      * @return The named vehicle type
