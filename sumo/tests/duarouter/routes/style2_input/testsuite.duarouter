@@ -9,6 +9,7 @@ noid_unsorted_time
 
 # same as noid_increasing_time, but a non-standard vehicle type is defined
 with_vehtype
+with_vehtypedist
 
 # same as with_vehtype, but two non-standard vehicle types are defined
 with_2vehtypes
