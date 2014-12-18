@@ -551,7 +551,7 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
         delete[] def;
         Position prev;
         for (int i = 0; i < (int) numPoints; i++) {
-            Position current(ret_buf[i * 3 + 1], ret_buf[i * 3 + 3]);
+            Position current(ret_buf[i * 3 + 1], ret_buf[i * 3 + 3], myPosition.z());
             if (prev != current) {
                 ret.push_back(current);
             }

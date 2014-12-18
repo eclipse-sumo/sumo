@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 18 09:35:30 2014 by SUMO netconvert Version dev-SVN-r17517ID
+<!-- generated on Thu Dec 18 09:42:37 2014 by SUMO netconvert Version dev-SVN-r17517ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -44,7 +44,7 @@
         <lane id=":gneJ1_4_0" index="0" speed="13.89" length="9.50" shape="104.75,1.65,10.00 95.25,1.65,10.00"/>
     </edge>
     <edge id=":gneJ1_5" function="internal">
-        <lane id=":gneJ1_5_0" index="0" speed="13.89" length="2.41" shape="104.75,1.65 103.51,0.83 103.10,0.00"/>
+        <lane id=":gneJ1_5_0" index="0" speed="13.89" length="2.41" shape="104.75,1.65,10.00 103.51,0.83,10.00 103.10,0.00,10.00"/>
     </edge>
     <edge id=":gneJ1_9" function="internal">
         <lane id=":gneJ1_9_0" index="0" speed="13.89" length="2.41" shape="103.10,0.00,10.00 103.51,-0.82,10.00 104.75,-1.65,10.00"/>
@@ -105,9 +105,9 @@
     <junction id="gneJ3" type="unregulated" x="200.00" y="0.00" incLanes="gneE1_0" intLanes=":gneJ3_0_0" shape="200.00,0.05 200.00,3.25 200.00,-3.25 200.00,-0.05"/>
     <junction id="gneJ4" type="unregulated" x="100.00" y="100.00" incLanes="gneE2_0" intLanes=":gneJ4_0_0" shape="99.95,100.00 96.75,100.00 103.25,100.00 100.05,100.00"/>
 
-    <junction id=":gneJ1_9_0" type="internal" x="103.10" y="0.00" incLanes=":gneJ1_5_0 gneE0_0 gneE5_0" intLanes=":gneJ1_1_0 :gneJ1_6_0"/>
-    <junction id=":gneJ1_10_0" type="internal" x="101.07" y="1.65" incLanes=":gneJ1_7_0 gneE6_0" intLanes=":gneJ1_1_0 :gneJ1_2_0 :gneJ1_3_0 :gneJ1_4_0"/>
-    <junction id=":gneJ1_11_0" type="internal" x="96.90" y="-0.00" incLanes=":gneJ1_8_0 gneE5_0 gneE6_0" intLanes=":gneJ1_0_0 :gneJ1_4_0"/>
+    <junction id=":gneJ1_9_0" type="internal" x="103.10" y="0.00" z="10.00" incLanes=":gneJ1_5_0 gneE0_0 gneE5_0" intLanes=":gneJ1_1_0 :gneJ1_6_0"/>
+    <junction id=":gneJ1_10_0" type="internal" x="101.07" y="1.65" z="10.00" incLanes=":gneJ1_7_0 gneE6_0" intLanes=":gneJ1_1_0 :gneJ1_2_0 :gneJ1_3_0 :gneJ1_4_0"/>
+    <junction id=":gneJ1_11_0" type="internal" x="96.90" y="-0.00" z="10.00" incLanes=":gneJ1_8_0 gneE5_0 gneE6_0" intLanes=":gneJ1_0_0 :gneJ1_4_0"/>
 
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_6_0" dir="s" state="M"/>
     <connection from="gneE0" to="gneE2" fromLane="0" toLane="0" via=":gneJ1_7_0" dir="l" state="m"/>

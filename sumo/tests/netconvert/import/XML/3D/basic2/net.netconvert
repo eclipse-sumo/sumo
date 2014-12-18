@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 10 16:07:10 2014 by SUMO netconvert Version dev-SVN-r17484ID
+<!-- generated on Thu Dec 18 09:43:52 2014 by SUMO netconvert Version dev-SVN-r17517ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,7 +26,7 @@
     <location netOffset="175.50,-42.11" convBoundary="0.00,0.00,393.41,148.74" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ4_0" function="internal">
-        <lane id=":gneJ4_0_0" index="0" speed="13.89" length="4.71" shape="394.63,98.99 395.60,100.14 395.74,100.98 395.08,101.52 393.59,101.74"/>
+        <lane id=":gneJ4_0_0" index="0" speed="13.89" length="4.71" shape="394.63,98.99,80.00 395.60,100.14,80.00 395.74,100.98,80.00 395.08,101.52,80.00 393.59,101.74,80.00"/>
     </edge>
     <edge id=":gneJ5_0" function="internal">
         <lane id=":gneJ5_0_0" index="0" speed="13.89" length="0.52" shape="296.26,105.59,40.00 295.75,105.69,40.00"/>
