@@ -79,7 +79,10 @@ def addGenericOptions(optParser):
                          default=False, help="zip old iterations using 7zip")
 
 def initOptions():
-    optParser = OptionParser()
+    optParser = OptionParser(usage="""usage: %prog [options] [sumo--options]
+Any options of the form sumo--long-option-name will be passed to sumo. 
+These must be given after all the other options of %prog
+example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""")
     addGenericOptions(optParser)
 
     optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
