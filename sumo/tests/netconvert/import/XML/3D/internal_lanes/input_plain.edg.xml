@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Dec 18 09:13:58 2014 by SUMO netconvert Version dev-SVN-r17500I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE1" from="gneJ1" to="gneJ3" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE2" from="gneJ1" to="gneJ4" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE5" from="gneJ4" to="gneJ1" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE6" from="gneJ3" to="gneJ1" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE7" from="gneJ1" to="gneJ0" priority="1" numLanes="1" speed="13.89"/>
+</edges>
