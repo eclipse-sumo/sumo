@@ -753,12 +753,12 @@ GUILane::setMultiColor(const GUIColorer& c) const {
     myShapeColors.clear();
     switch (activeScheme) {
         case 22: { // color by height at segment start
-            for (int ii = 0; ii < myShape.size() - 1; ++ii) {
+            for (int ii = 0; ii < (int)myShape.size() - 1; ++ii) {
                 myShapeColors.push_back(c.getScheme().getColor(myShape[ii].z()));
             }
         }
         case 24: { // color by inclination  at segment start
-            for (int ii = 1; ii < myShape.size(); ++ii) {
+            for (int ii = 1; ii < (int)myShape.size(); ++ii) {
                 const SUMOReal inc =  (myShape[ii].z() - myShape[ii-1].z()) / myShape[ii].distanceTo2D(myShape[ii-1]);
                 myShapeColors.push_back(c.getScheme().getColor(inc));
             }
