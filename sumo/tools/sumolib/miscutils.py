@@ -174,6 +174,9 @@ class Statistics:
         else:
             return None
 
+    def histogram(self):
+        return [(k * self.scale, self.counts[k]) for k in sorted(self.counts.keys())]
+
     def __str__(self):
         if len(self.values) > 0:
             min = ''
@@ -189,7 +192,7 @@ class Statistics:
             if self.abs:
                 result += ', mean_abs %.2f, median_abs %.2f' % (self.avg_abs(), self.mean_abs())
             if self.counts is not None:
-                result += '\n histogram: %s' % [(k * self.scale, self.counts[k]) for k in sorted(self.counts.keys())]
+                result += '\n histogram: %s' % self.histogram()
             return result
         else:
             return '"%s": no values' % self.label
