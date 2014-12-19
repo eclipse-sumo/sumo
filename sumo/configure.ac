@@ -13,7 +13,7 @@ AC_LANG([C++])
 
 dnl the debug check has to be made before the program checks
 dnl because it modifies CXXFLAGS
-if test $CXX = clang++; then
+if test x$CXX = xclang++; then
     CXXFLAGS="-msse2 $CXXFLAGS"
 else
     CXXFLAGS="-msse2 -mfpmath=sse $CXXFLAGS"
@@ -55,7 +55,7 @@ AM_PROG_LIBTOOL
 dnl Check for enable-features that shall go into config.h
 AC_ARG_ENABLE([memcheck], [AS_HELP_STRING([--enable-memcheck],[enable compilation of memory leak checks [default=no].])])
 if test x$enable_memcheck = xyes; then
-    if test $CXX = clang++; then
+    if test x$CXX = xclang++; then
         AC_MSG_WARN([--enable-memcheck does not work with clang yet])
         enable_memcheck="no"
     fi
