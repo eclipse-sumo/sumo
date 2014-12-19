@@ -8,8 +8,8 @@
 
 Count the number of lane changes
 
-SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

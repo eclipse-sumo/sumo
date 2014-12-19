@@ -1,13 +1,28 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+@file    genroutes.py
+@author  Michael Behrisch
+@date    2014-12-16
+@version $Id$
+
+Plot a speed heat map for different car following models
+
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+"""
 from __future__ import print_function
 import os, sys, subprocess, numpy
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-try:
-    import psycopg2 as pgdb
-except ImportError:
-    import pgdb
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
 
