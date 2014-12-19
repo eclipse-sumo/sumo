@@ -73,7 +73,7 @@ for model in ["Krauss", "KraussPS", "KraussOrig1", "BKerner", "SmartSK", "IDM", 
     ''' % (i, 500 - i * 8) )
     routes.write('</routes>\n')
     routes.close()
-    subprocess.call([sumolib.checkBinary("sumo"), cfg.name], stdout=sys.stdout, stderr=sys.stderr, shell=True)
+    subprocess.call([sumolib.checkBinary("sumo"), cfg.name], stdout=sys.stdout, stderr=sys.stderr)
 
     matrix = numpy.empty([numVehs, time])
     for count, vehicle in enumerate(sumolib.output.parse(stateFile, "vehicle")):
