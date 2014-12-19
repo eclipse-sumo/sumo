@@ -4,7 +4,7 @@
 @file    countLaneChanges.py
 @author  Jakob Erdmann
 @date    2014-09-16
-@version $Id: countLaneChanges.py 16707 2014-07-04 13:03:23Z namdre $
+@version $Id$
 
 Count the number of lane changes
 

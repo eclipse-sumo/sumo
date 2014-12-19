@@ -3,7 +3,7 @@
 @file    routeStats.py
 @author  Jakob Erdmann
 @date    2014-12-18
-@version $Id: rutStats.py 17507 2014-12-16 13:26:07Z behrisch $
+@version $Id$
 
 compute statistics on route lengths
 
