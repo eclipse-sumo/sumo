@@ -238,7 +238,6 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
 
 const MSTriggeredRerouter::RerouteInterval*
 MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
-    const MSRoute& route = veh.getRoute();
     for (std::vector<RerouteInterval>::const_iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
         if (i->begin <= time && i->end > time) {
             if (

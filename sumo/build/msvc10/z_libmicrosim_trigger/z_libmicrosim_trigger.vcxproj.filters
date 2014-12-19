@@ -17,9 +17,6 @@
     <ClCompile Include="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\trigger\MSTriggeredReader.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\trigger\MSTriggeredRerouter.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -38,9 +35,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\trigger\MSTrigger.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\trigger\MSTriggeredReader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\trigger\MSTriggeredRerouter.h">
