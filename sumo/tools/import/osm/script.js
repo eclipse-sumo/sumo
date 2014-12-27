@@ -39,7 +39,7 @@ on("ready", function(){
             node.append(checkbox);
 
             var options = elem("<div>", {className: "options"});
-            var label = elem("<label>", {textContent: "Durchgangsverkehrsfaktor"});
+            var label = elem("<label>", {textContent: "Durchgangsverkehr"});
             var input = elem("<input>", {type: "number", min: .5, max: 100, step: .1, value: 1});
             input.on("input", function(evt){
                 socket.send(en + "FringeFactor: " + evt.target.value);
@@ -71,6 +71,7 @@ on("ready", function(){
     new Settings("Fahrzeuge", "vehicles");
     new Settings("Fahrradfahrer", "bicycles");
     new Settings("Fußgänger", "pedestrians");
+    new Settings("Züge", "rails");
 
     var canvas = elem("canvas");
     var canvasActive = false,
@@ -206,13 +207,45 @@ on("ready", function(){
     map = new OpenLayers.Map("map");
     map.addLayer(new OpenLayers.Layer.OSM());
 
-    var lonLat = new OpenLayers.LonLat(13.23, 52.31) //somewhere near berlin  and magdeburg
-        .transform(
-                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                map.getProjectionObject() // to Spherical Mercator Projection
+    function setPosition(lon, lat){
+        if(!lon || !lat){
+            lon = parseFloat(elem("#current-lon").value);
+            lat = parseFloat(elem("#current-lat").value);
+        } else {
+            elem("#current-lon").value = lon;
+            elem("#current-lat").value = lat;
+        }
+
+        var lonLat = new OpenLayers.LonLat(lon, lat)
+            .transform(
+                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                    map.getProjectionObject() // to Spherical Mercator Projection
+            );
+
+        map.setCenter(lonLat, 16);
+    }
+
+    setPosition(13.4, 52.52);
+
+    elem("#set-position").on("click", function(){
+        if(!navigator.geolocation) return;
+
+        navigator.geolocation.getCurrentPosition(function(position){
+            setPosition(position.coords.longitude, position.coords.latitude);
+        });
+    });
+
+    elem("#current-lon").on("input", setPosition);
+    elem("#current-lat").on("input", setPosition);
+
+    elem("#position").on("mouseenter", function(){
+        var cor = map.getExtent();
+        cor.transform(
+            map.getProjectionObject(), // from Spherical Mercator Projection
+            new OpenLayers.Projection("EPSG:4326")
         );
 
-    var zoom = 12;
-
-    map.setCenter(lonLat, zoom);
+        elem("#current-lon").value = cor.left + (cor.right - cor.left) / 2;
+        elem("#current-lat").value = cor.top + (cor.bottom - cor.top) / 2;
+    });
 });

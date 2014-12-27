@@ -68,6 +68,7 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
         self.vehicles = Settings(["--vehicle-class", "passenger", "--vclass", "passenger", "--prefix", "p-"])
         self.bicycles = Settings(["--vehicle-class", "bicycle", "--vclass", "bicycle", "--prefix", "bc-"])
         self.pedestrians = Settings(["--pedestrians"])
+        self.rails = Settings(["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "r-"])
 
     def handle(self):
         while True:
@@ -135,6 +136,8 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
             self.bicycles.enable = bool(message[10:])
         elif message[:13] == "pedestrians: ":
             self.pedestrians.enable = bool(message[13:])
+        elif message[:7] == "rails: ":
+            self.rails.enable = bool(message[7:])
 
         elif message[:22] == "vehiclesFringeFactor: " and message[22:] != "":
             self.vehicles.fringeFactor = float(message[22:])
@@ -142,6 +145,8 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
             self.bicycles.fringeFactor = float(message[22:])
         elif message[:25] == "pedestriansFringeFactor: " and message[25:] != "":
             self.pedestrians.fringeFactor = float(message[25:])
+        elif message[:19] == "railsFringeFactor: " and message[19:] != "":
+            self.rails.fringeFactor = float(message[19:])
 
         elif message[:16] == "vehiclesPeriod: " and message[16:] != "":
             self.vehicles.period = float(message[16:])
@@ -149,6 +154,8 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
             self.bicycles.period = float(message[16:])
         elif message[:19] == "pedestriansPeriod: " and message[19:] != "":
             self.pedestrians.period = float(message[19:])
+        elif message[:13] == "railsPeriod: " and message[13:] != "":
+            self.pedestrians.period = float(message[13:])
 
         elif message[:14] == "vehiclesTime: " and message[14:] != "":
             self.vehicles.time = float(message[14:])
@@ -156,6 +163,8 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
             self.bicycles.time = float(message[14:])
         elif message[:17] == "pedestriansTime: " and message[17:] != "":
             self.pedestrians.time = float(message[17:])
+        elif message[:11] == "railsTime: " and message[11:] != "":
+            self.rails.time = float(message[11:])
 
         #else an invalid message
 
@@ -199,7 +208,7 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
             options += ["--netconvert-typemap", typefile]
         osmBuild.build(options)
 
-        if self.vehicles.enable or self.bicycles.enable or self.pedestrians.enable:
+        if self.vehicles.enable or self.bicycles.enable or self.pedestrians.enable or self.rails.enable:
             print "Calling randomTrips"
             #routenames stores all routefiles and will join the items later, will be used by sumo-gui
             routenames = []
@@ -218,6 +227,11 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
                 routename = prefix + ".trips-pedestrians.xml"
                 routenames.append(routename)
                 randomTrips.main(randomTrips.get_options(self.pedestrians.parseTripOpts(netname, routename, areaFactor)))
+
+            if self.rails.enable:
+                routename = prefix + ".trips-rails.xml"
+                routenames.append(routename)
+                randomTrips.main(randomTrips.get_options(self.rails.parseTripOpts(netname, routename, areaFactor)))
 
             callSumo(["-r", ",".join(routenames), "--ignore-route-errors"])
 

@@ -11,8 +11,16 @@
     <body>
         <div id="map"></div>
         <canvas style="display: none"></canvas>
-        <div id="controls" style="display: none">
-            <span id="export" class="container">
+        <div id="controls">
+            <span id="position" class="container always">
+                Position
+                <div class="options">
+                    <label>Längengrad <input id="current-lon" /></label>
+                    <label>Breitengrad <input id="current-lat" /></label>
+                    <label id="set-position">aktueller Standort</label>
+                </div>
+            </span>
+            <span class="container always">
                 <span id="export-button">Exportieren</span>
                 <div class="options">
                     <label>Bereich auswählen<input type="checkbox" id="canvas-toogle" /></label>

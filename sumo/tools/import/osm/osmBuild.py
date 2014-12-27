@@ -43,7 +43,7 @@ optParser.add_option("-c", "--vehicle-classes", default='all',help="[(%s)]extrac
 optParser.add_option("-d", "--output-directory", default=os.getcwd(), help="directory in which to put the output files")
 optParser.add_option("-n", "--netconvert-options",
         default="-R,--ramps.guess,-v,--junctions.join,--osm.railway.oneway-default,--tls.guess-signals,--tls.discard-simple", help="comma-separated options for netconvert")
-optParser.add_option("--pedestrians", action="store_true", default=False, help="add pedestrian infrastructure to tzhe network")
+optParser.add_option("--pedestrians", action="store_true", default=False, help="add pedestrian infrastructure to the network")
 optParser.add_option("-y", "--polyconvert-options", default="-v,--osm.keep-full-type", help="comma-separated options for polyconvert")
 
 def build(args=None, bindir=None):
