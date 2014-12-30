@@ -399,7 +399,8 @@ NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                     const std::string& firstEdgeName,
                     const std::string& secondEdgeName,
                     unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge,
-                    const SUMOReal speed) {
+                    const SUMOReal speed,
+                    const int changedLeft) {
     SUMOReal pos;
     pos = edge->getGeometry().nearest_offset_to_point2D(node->getPosition());
     if (pos <= 0) {
@@ -411,7 +412,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
         return false;
     }
     return splitAt(dc, edge, pos, node, firstEdgeName, secondEdgeName,
-                   noLanesFirstEdge, noLanesSecondEdge, speed);
+                   noLanesFirstEdge, noLanesSecondEdge, speed, changedLeft);
 }
 
 
@@ -421,7 +422,13 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
                     const std::string& firstEdgeName,
                     const std::string& secondEdgeName,
                     unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge,
-                    const SUMOReal speed) {
+                    const SUMOReal speed,
+                    const int changedLeft
+                    ) {
+    // there must be at least some overlap between first and second edge
+    assert(changedLeft > -noLanesFirstEdge); 
+    assert(changedLeft < noLanesSecondEdge);
+    
     // build the new edges' geometries
     std::pair<PositionVector, PositionVector> geoms =
         edge->getGeometry().splitAt(pos);
@@ -449,20 +456,14 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     edge->myFrom->removeDoubleEdges();
     edge->myTo->removeDoubleEdges();
     // add connections from the first to the second edge
-    // check special case:
-    //  one in, one out, the outgoing has one lane more
-    if (noLanesFirstEdge == noLanesSecondEdge - 1) {
-        for (unsigned int i = 0; i < one->getNumLanes(); i++) {
-            if (!one->addLane2LaneConnection(i, two, i + 1, NBEdge::L2L_COMPUTED)) { // !!! Bresenham, here!!!
-                throw ProcessError("Could not set connection!");
-            }
-        }
-        one->addLane2LaneConnection(0, two, 0, NBEdge::L2L_COMPUTED);
-    } else {
-        for (unsigned int i = 0; i < one->getNumLanes() && i < two->getNumLanes(); i++) {
-            if (!one->addLane2LaneConnection(i, two, i, NBEdge::L2L_COMPUTED)) {// !!! Bresenham, here!!!
-                throw ProcessError("Could not set connection!");
-            }
+    // there will be as many connections as there are lanes on the second edge
+    // by default lanes will be added / discontinued on the right side
+    // (appropriate for highway on-/off-ramps)
+    const int offset = one->getNumLanes() - two->getNumLanes() + changedLeft;
+    for (int i2 = 0; i2 < two->getNumLanes(); i2++) {
+        const int i1 = MIN2(MAX2((int)0, i2 + offset), (int)one->getNumLanes());
+        if (!one->addLane2LaneConnection(i1, two, i2, NBEdge::L2L_COMPUTED)) {
+            throw ProcessError("Could not set connection!");
         }
     }
     if (myRemoveEdgesAfterJoining) {
