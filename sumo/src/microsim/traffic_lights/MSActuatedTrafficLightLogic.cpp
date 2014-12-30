@@ -37,6 +37,7 @@
 #include <vector>
 #include <bitset>
 #include <microsim/MSEventControl.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSNet.h>
 #include "MSTrafficLightLogic.h"
@@ -71,6 +72,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myMaxGap = TplConvert::_2SUMOReal(getParameter("max-gap", DEFAULT_MAX_GAP).c_str());
     myPassingTime = TplConvert::_2SUMOReal(getParameter("passing-time", DEFAULT_PASSING_TIME).c_str());
     myDetectorGap = TplConvert::_2SUMOReal(getParameter("detector-gap", DEFAULT_DETECTOR_GAP).c_str());
+    myShowDetectors = TplConvert::_2bool(getParameter("show-detectors", "false").c_str());
 }
 
 
@@ -100,6 +102,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             if (myInductLoops.find(lane) == myInductLoops.end()) {
                 myInductLoops[lane] = dynamic_cast<MSInductLoop*>(nb.createInductLoop(id, lane, ilpos, false));
                 assert(myInductLoops[lane] != 0);
+                if (myShowDetectors) {
+                    MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, myInductLoops[lane], "NULL", TIME2STEPS(300));
+                }
             }
         }
     }
@@ -107,8 +112,10 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
 
 MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() {
-    for (InductLoopMap::iterator i = myInductLoops.begin(); i != myInductLoops.end(); ++i) {
-        delete(*i).second;
+    if (!myShowDetectors) {
+        for (InductLoopMap::iterator i = myInductLoops.begin(); i != myInductLoops.end(); ++i) {
+            delete(*i).second;
+        }
     }
 }
 

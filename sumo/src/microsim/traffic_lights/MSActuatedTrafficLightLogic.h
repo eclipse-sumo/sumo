@@ -131,6 +131,9 @@ protected:
     /// The detector distance in seconds
     SUMOReal myDetectorGap;
 
+    /// Whether the detectors shall be shown in the GUI
+    bool myShowDetectors;
+
 };
 
 
