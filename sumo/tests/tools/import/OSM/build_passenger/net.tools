@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct 21 09:00:48 2014 by SUMO netconvert Version dev-SVN-r17195ID
+<!-- generated on Mon Jan  5 12:06:54 2015 by SUMO netconvert Version dev-SVN-r17536I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.21Oct090048.8405/tools/import/OSM/build_passenger/net.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/tools.05Jan120653.20547/tools/import/OSM/build_passenger/net.net.xml"/>
     </output>
 
     <projection>
@@ -595,11 +595,11 @@
         <lane id=":2165987556_6_0" index="0" speed="13.89" length="2.41" shape="984.12,589.74 984.87,590.28 985.47,591.64"/>
     </edge>
     <edge id=":25382187-AddedOffRampNode_0" function="internal">
-        <lane id=":25382187-AddedOffRampNode_0_0" index="0" speed="22.22" length="5.84" shape="993.90,370.55 996.23,377.42"/>
-        <lane id=":25382187-AddedOffRampNode_0_1" index="1" speed="22.22" length="5.84" shape="991.64,368.14 993.97,375.01"/>
-        <lane id=":25382187-AddedOffRampNode_0_2" index="2" speed="22.22" length="5.84" shape="989.39,365.73 991.71,372.60"/>
-        <lane id=":25382187-AddedOffRampNode_0_3" index="3" speed="22.22" length="5.84" shape="989.39,365.73 989.45,370.19"/>
-        <lane id=":25382187-AddedOffRampNode_0_4" index="4" speed="22.22" length="5.84" shape="989.39,365.73 987.20,367.79"/>
+        <lane id=":25382187-AddedOffRampNode_0_0" index="0" speed="22.22" length="4.14" shape="993.90,370.55 996.23,377.42"/>
+        <lane id=":25382187-AddedOffRampNode_0_1" index="1" speed="22.22" length="4.14" shape="993.90,370.55 993.97,375.01"/>
+        <lane id=":25382187-AddedOffRampNode_0_2" index="2" speed="22.22" length="4.14" shape="993.90,370.55 991.71,372.60"/>
+        <lane id=":25382187-AddedOffRampNode_0_3" index="3" speed="22.22" length="4.14" shape="991.64,368.14 989.45,370.19"/>
+        <lane id=":25382187-AddedOffRampNode_0_4" index="4" speed="22.22" length="4.14" shape="989.39,365.73 987.20,367.79"/>
     </edge>
     <edge id=":260479469_0" function="internal">
         <lane id=":260479469_0_0" index="0" speed="22.22" length="3.35" shape="918.85,439.04 916.89,441.93"/>
@@ -2169,9 +2169,9 @@
     <connection from="24214694#2" to="190083618#0" fromLane="0" toLane="2" via=":59992997_0_2" dir="s" state="M"/>
     <connection from="24214694#2" to="-24214694#5" fromLane="0" toLane="0" via=":59992997_3_0" dir="t" state="m"/>
     <connection from="25382187" to="25382187-AddedOffRampEdge" fromLane="0" toLane="0" via=":25382187-AddedOffRampNode_0_0" dir="s" state="M"/>
-    <connection from="25382187" to="25382187-AddedOffRampEdge" fromLane="1" toLane="1" via=":25382187-AddedOffRampNode_0_1" dir="s" state="M"/>
-    <connection from="25382187" to="25382187-AddedOffRampEdge" fromLane="2" toLane="2" via=":25382187-AddedOffRampNode_0_2" dir="s" state="M"/>
-    <connection from="25382187" to="25382187-AddedOffRampEdge" fromLane="2" toLane="3" via=":25382187-AddedOffRampNode_0_3" dir="s" state="M"/>
+    <connection from="25382187" to="25382187-AddedOffRampEdge" fromLane="0" toLane="1" via=":25382187-AddedOffRampNode_0_1" dir="s" state="M"/>
+    <connection from="25382187" to="25382187-AddedOffRampEdge" fromLane="0" toLane="2" via=":25382187-AddedOffRampNode_0_2" dir="s" state="M"/>
+    <connection from="25382187" to="25382187-AddedOffRampEdge" fromLane="1" toLane="3" via=":25382187-AddedOffRampNode_0_3" dir="s" state="M"/>
     <connection from="25382187" to="25382187-AddedOffRampEdge" fromLane="2" toLane="4" via=":25382187-AddedOffRampNode_0_4" dir="s" state="M"/>
     <connection from="25382187-AddedOffRampEdge" to="146511467" fromLane="0" toLane="0" via=":260479469_0_0" dir="s" state="M"/>
     <connection from="25382187-AddedOffRampEdge" to="146511467" fromLane="1" toLane="1" via=":260479469_0_1" dir="s" state="M"/>
