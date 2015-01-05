@@ -398,7 +398,7 @@ fi
 if test -d src/osgview; then
     AC_CHECK_HEADER([osg/Config], 
                     [AC_DEFINE([HAVE_OSG], [1], [defined if osg is available])
-                     OSG_LIBS="-losg -losgGA -losgViewer -losgUtil -losgDB -lOpenThreads" AC_SUBST(OSG_LIBS)
+                     OSG_LIBS="-losg -losgGA -losgViewer -losgUtil -losgDB -lOpenThreads -losgText" AC_SUBST(OSG_LIBS)
                      ac_enabled="$ac_enabled OSG"],
                     [ac_disabled="$ac_disabled OSG"])
 fi
