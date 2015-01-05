@@ -40,11 +40,10 @@ def get_options():
     optParser.add_option("--hist-output", type="string",
             default=None, help="output file for histogram (gnuplot compatible)")
     options, args = optParser.parse_args()
-    try:
-        options.network = args[0]
-        options.routeFile = args[1]
-    except:
+    if len(args) != 2:
         sys.exit(USAGE)
+    options.network = args[0]
+    options.routeFile = args[1]
     return options
 
 
