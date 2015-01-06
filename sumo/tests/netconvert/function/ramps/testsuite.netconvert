@@ -45,3 +45,6 @@ on_turnaround_noramp
 
 # motorway with 3 lanes has a 2-lane off ramp
 3in_3main_2off
+
+# 3-lane on-ramp for a 4-lane motorway
+3on_4main_4cont
