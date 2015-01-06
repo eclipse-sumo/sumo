@@ -426,8 +426,8 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
                     const int changedLeft
                     ) {
     // there must be at least some overlap between first and second edge
-    assert(changedLeft > -noLanesFirstEdge); 
-    assert(changedLeft < noLanesSecondEdge);
+    assert(changedLeft > -((int)noLanesFirstEdge)); 
+    assert(changedLeft < (int)noLanesSecondEdge);
     
     // build the new edges' geometries
     std::pair<PositionVector, PositionVector> geoms =
