@@ -8,6 +8,7 @@ copy_test_path:three_split.net.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_trips.trips.xml
 copy_test_path:input_routes.rou.xml
+copy_test_path:input_routes2.rou.xml
 copy_test_path:input_flows.flows.xml
 copy_test_path:input_detectors.det.xml
 copy_test_path:tracefile.xml
@@ -98,6 +99,8 @@ source_weights:weights.src.xml
 dest_weights:weights.dst.xml
 via_weights:weights.via.xml
 selection:selection.txt
+histogram:histogram.dat
+fullstats:fullstats.dat
 
 [run_dependent_text]
 output:Begin time

@@ -5,7 +5,10 @@
 @date    2014-12-18
 @version $Id$
 
-compute statistics on route lengths
+compute statistics on route lengths for a single route or 
+for the lenght-difference between two sets of routes.
+Routes must be children of <vehicle> elements and when comparing two sets of
+routes, the same vehicle ids must appear.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
@@ -31,7 +34,7 @@ else:
 
 
 def get_options():
-    USAGE = """Usage %prog [options] <net.xml> <rou.xml>"""
+    USAGE = """Usage %prog [options] <net.xml> <rou.xml> [<rou2.xml>]"""
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
             default=False, help="Give more output")
@@ -39,30 +42,63 @@ def get_options():
             default=500, help="binning width of route length histogram")
     optParser.add_option("--hist-output", type="string",
             default=None, help="output file for histogram (gnuplot compatible)")
+    optParser.add_option("--full-output", type="string",
+            default=None, help="output file for full data dump")
     options, args = optParser.parse_args()
-    if len(args) != 2:
+
+    if len(args) not in (2,3):
         sys.exit(USAGE)
-    options.network = args[0]
-    options.routeFile = args[1]
+
+    options.routeFile2 = None
+    if len(args) >= 2:
+        options.network = args[0]
+        options.routeFile = args[1]
+    if len(args) == 3:
+        options.routeFile2 = args[2]
+
     return options
 
+def getRouteLength(net, vehicle):
+    return sum([net.getEdge(e).getLength() for e in vehicle.route[0].edges.split()])
 
 def main():
     options = get_options()
     net = readNet(options.network)
     edges = set([e.getID() for e in net.getEdges()])
 
-    lengthStats = Statistics("route lengths", histogram=True, scale=options.binwidth) 
-    for vehicle in parse(options.routeFile, 'vehicle'):
-        length = sum([net.getEdge(e).getLength() for e in vehicle.route[0].edges.split()])
-        lengthStats.add(length, vehicle.id)
+    lengths = {}
+    lengths2 = {}
 
-    print lengthStats
-    
+    for vehicle in parse(options.routeFile, 'vehicle'):
+        lengths[vehicle.id] = getRouteLength(net, vehicle)
+
+    if options.routeFile2 is None:
+        # write statistics on a single route file
+        stats = Statistics("route lengths", histogram=True, scale=options.binwidth) 
+        for id, length in lengths.items():
+            stats.add(length, id)
+
+    else:
+        # compare route lengths between two files
+        stats = Statistics("route length difference", histogram=True, scale=options.binwidth) 
+        for vehicle in parse(options.routeFile2, 'vehicle'):
+            lengths2[vehicle.id] = getRouteLength(net, vehicle)
+            stats.add(lengths2[vehicle.id] - lengths[vehicle.id], vehicle.id)
+    print stats
+
     if options.hist_output is not None:
         with open(options.hist_output, 'w') as f:
-            for bin, count in lengthStats.histogram():
+            for bin, count in stats.histogram():
                 f.write("%s %s\n" % (bin, count))
+
+    if options.full_output is not None:
+        with open(options.full_output, 'w') as f:
+            if options.routeFile2 is None:
+                data = [(v, k) for k, v in lengths.items()]
+            else:
+                data = [(lengths2[id] - lengths[id], id) for id in lengths.keys()]
+            for val, id in sorted(data):
+                f.write("%s %s\n" % (val, id))
 
 if __name__ == "__main__":
     main()
