@@ -459,8 +459,8 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     // there will be as many connections as there are lanes on the second edge
     // by default lanes will be added / discontinued on the right side
     // (appropriate for highway on-/off-ramps)
-    const int offset = one->getNumLanes() - two->getNumLanes() + changedLeft;
-    for (int i2 = 0; i2 < two->getNumLanes(); i2++) {
+    const int offset = (int)one->getNumLanes() - (int)two->getNumLanes() + changedLeft;
+    for (int i2 = 0; i2 < (int)two->getNumLanes(); i2++) {
         const int i1 = MIN2(MAX2((int)0, i2 + offset), (int)one->getNumLanes());
         if (!one->addLane2LaneConnection(i1, two, i2, NBEdge::L2L_COMPUTED)) {
             throw ProcessError("Could not set connection!");
