@@ -1026,7 +1026,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
 
         const bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
         SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
-        if (yellowOrRed && seen >= cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime()) {
+        const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime();
+        if (yellowOrRed && seen >= brakeDist ) {
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, SUMOTime_MAX, stopDist));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
@@ -1062,21 +1063,25 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             lastLink->adaptLeaveSpeed(laneMaxV);
         }
         SUMOReal arrivalSpeed = vLinkPass;
-        SUMOTime arrivalTime;
-        // vehicles should decelerate when approaching a minor link
-        if (!(*link)->havePriority() && stopDist > cfModel.getMaxDecel()) {
+        // vehicles should decelerate when approaching a minor link 
+        // - unless they are close enough to have clear visibility and may start to accelerate again
+        // - and unless they are so close that stopping is impossible (i.e. when a green light turns to yellow when close to the junction)
+        if (!(*link)->havePriority() && stopDist > cfModel.getMaxDecel() && brakeDist < seen) {
             // vehicle decelerates just enough to be able to stop if necessary and then accelerates
             arrivalSpeed = cfModel.getMaxDecel() + cfModel.getMaxAccel();
-            const SUMOReal v1 = MAX2(vLinkWait, arrivalSpeed);
-            // now + time spent decelerating + time spent at full speed
-            arrivalTime = t + TIME2STEPS((v1 - arrivalSpeed) / cfModel.getMaxDecel()
-                                         + (seen - (v1 * v1 - arrivalSpeed * arrivalSpeed) * 0.5 / cfModel.getMaxDecel()) / MAX2(vLinkWait, NUMERICAL_EPS));
-        } else {
-            const SUMOReal accel = (vLinkPass >= v) ? cfModel.getMaxAccel() : -cfModel.getMaxDecel();
-            const SUMOReal accelTime = (vLinkPass - v) / accel;
-            const SUMOReal accelWay = accelTime * (vLinkPass + v) * 0.5;
-            arrivalTime = t + TIME2STEPS(accelTime + MAX2(SUMOReal(0), seen - accelWay) / MAX2(vLinkPass, SUMO_const_haltingSpeed));
         }
+        // @note intuitively it would make sense to compare arrivalSpeed with getSpeed() instead of v
+        // however, due to the current position update rule (ticket #860) the vehicle moves with v in this step
+        const SUMOReal accel = (arrivalSpeed >= v) ? cfModel.getMaxAccel() : -cfModel.getMaxDecel();
+        const SUMOReal accelTime = (arrivalSpeed - v) / accel;
+        const SUMOReal accelWay = accelTime * (arrivalSpeed + v) * 0.5;
+        const SUMOReal nonAccelWay = MAX2(SUMOReal(0), seen - accelWay);
+        // will either drive as fast as possible and decelerate as late as possible
+        // or accelerate as fast as possible and then hold that speed
+        const SUMOReal nonAccelSpeed = MAX3(v, arrivalSpeed, SUMO_const_haltingSpeed);
+        // subtract DELTA_T because t is the time at the end of this step and the movement is not carried out yet
+        const SUMOTime arrivalTime = t - DELTA_T + TIME2STEPS(accelTime + nonAccelWay / nonAccelSpeed);
+
         // compute speed, time if vehicle starts braking now
         // if stopping is possible, arrivalTime can be arbitrarily large. A small value keeps fractional times (impatience) meaningful
         SUMOReal arrivalSpeedBraking = 0;
