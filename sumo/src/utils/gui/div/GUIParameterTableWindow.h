@@ -34,6 +34,7 @@
 
 #include <vector>
 #include <string>
+#include <algorithm>
 #include <fx.h>
 #include <utils/foxtools/MFXMutex.h>
 #include <utils/common/ValueSource.h>
@@ -201,6 +202,12 @@ public:
     long onRightButtonPress(FXObject*, FXSelector, void*);
     /// @}
 
+    /** @brief Updates all instances 
+     */
+    static void updateAll() {
+        AbstractMutex::ScopedLocker locker(myGlobalContainerLock);
+        std::for_each(myContainer.begin(), myContainer.end(), std::mem_fun(&GUIParameterTableWindow::updateTable));
+    }
 
 protected:
     /** @brief Updates the table
@@ -211,6 +218,11 @@ protected:
      */
     void updateTable();
 
+    /// @brief The mutex used to avoid concurrent updates of the instance container
+    static MFXMutex myGlobalContainerLock;
+
+    /// @brief The container of items that shall be updated
+    static std::vector<GUIParameterTableWindow*> myContainer;
 
 private:
     /// @brief The object to get the information from
@@ -228,7 +240,7 @@ private:
     /// @brief The index of the next row to add - used while building
     unsigned myCurrentPos;
 
-    /// @brief A lock assuring save updates in cse of object deletion
+    /// @brief A lock assuring save updates in case of object deletion
     mutable MFXMutex myLock;
 
 protected:
