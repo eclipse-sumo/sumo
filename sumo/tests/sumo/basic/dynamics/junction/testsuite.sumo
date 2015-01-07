@@ -4,3 +4,6 @@ allway_stop
 
 # test dynamics of a junction that was set to be explicitly unregulated
 unregulated
+
+# test the ApproachingVehicleInformation for accuracy
+approachInformation
