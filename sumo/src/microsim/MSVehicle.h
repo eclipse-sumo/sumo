@@ -1214,6 +1214,7 @@ protected:
      * @param[in] dist The distance during which accelerating takes place
      * @param[in] v The initial speed
      * @param[in] accel The acceleration
+     * XXX affected by ticket #860 (the formula is invalid for the current position update rule)
      */
     inline SUMOReal estimateSpeedAfterDistance(const SUMOReal dist, const SUMOReal v, const SUMOReal accel) const {
         // dist=v*t + 0.5*accel*t^2, solve for t and multiply with accel, then add v
