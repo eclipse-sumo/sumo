@@ -1222,7 +1222,9 @@ protected:
     }
 
 
-    /* @brief estimate speed while accelerating for the given distance
+    /* @brief adapt safe velocity in accordance to a moving obstacle:
+     * - a leader vehicle
+     * - a vehicle or pedestrian that crosses this vehicles path on an upcoming intersection
      * @param[in] leaderInfo The leading vehicle and the (virtual) distance to it
      * @param[in] seen the distance to the end of the current lane
      * @param[in] lastLink the lastLink index
