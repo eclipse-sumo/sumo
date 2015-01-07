@@ -1,0 +1,6 @@
+<routes>
+    <vType sigma="0" id="t_ego" decel="4" accel="2" maxSpeed="20" speedFactor="2"/>
+    <vehicle id="ego" depart="22" departPos="-93" arrivalPos="20" type="t_ego" departSpeed="0">
+        <route edges="0/0to1/0 1/0to2/0"/>
+    </vehicle>
+</routes>
