@@ -274,10 +274,12 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         return;
     }
     // omit internal edges if not wished
-    if (!MSGlobals::gUsingInternalLanes && id[0] == ':') {
+    if (id[0] == ':') {
         myHaveSeenInternalEdge = true;
-        myCurrentIsInternalToSkip = true;
-        return;
+        if (!MSGlobals::gUsingInternalLanes) {
+            myCurrentIsInternalToSkip = true;
+            return;
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
         myJunctionGraph[id] = std::make_pair(

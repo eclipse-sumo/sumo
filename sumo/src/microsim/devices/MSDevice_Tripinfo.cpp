@@ -165,8 +165,9 @@ MSDevice_Tripinfo::generateOutput() const {
         finalTime = myArrivalTime;
         finalPos = myArrivalPos;
     }
+    const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
     const SUMOReal routeLength = myHolder.getRoute().getDistanceBetween(myDepartPos, finalPos,
-            myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), false) + finalPosOnInternal;
+            myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths) + finalPosOnInternal;
 
     // write
     OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");

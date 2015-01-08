@@ -227,7 +227,8 @@ NLBuilder::buildNet() {
                 stateDumpFiles.push_back(prefix + "_" + time2string(*i) + ".sbx");
             }
         }
-        myNet.closeBuilding(edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles);
+        myNet.closeBuilding(edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles,
+                myXMLHandler.haveSeenInternalEdge());
     } catch (IOError& e) {
         delete edges;
         delete junctions;
