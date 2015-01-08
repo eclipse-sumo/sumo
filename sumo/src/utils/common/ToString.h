@@ -142,7 +142,7 @@ inline std::string toString(const std::vector<V*>& v, std::streamsize accuracy =
 
 
 template <typename V>
-inline std::string toString(typename std::vector<V*>::const_iterator& b, typename std::vector<V*>::const_iterator& e, std::streamsize accuracy = OUTPUT_ACCURACY) {
+inline std::string toString(const typename std::vector<V*>::const_iterator& b, const typename std::vector<V*>::const_iterator& e, std::streamsize accuracy = OUTPUT_ACCURACY) {
     UNUSED_PARAMETER(accuracy);
     std::ostringstream oss;
     for (typename std::vector<V*>::const_iterator it = b; it != e; ++it) {
