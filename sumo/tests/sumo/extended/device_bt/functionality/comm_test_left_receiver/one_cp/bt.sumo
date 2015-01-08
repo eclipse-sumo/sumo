@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/14/14 15:00:37 by SUMO Version dev-SVN-r17332
+<!-- generated on 01/08/15 11:15:06 by SUMO Version dev-SVN-r17560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -36,9 +36,9 @@
 
 <bt-output>
     <bt id="left">
-        <seen id="right" tBeg="3.00" observerPosBeg="3.07,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="beg_0" observerLanePosBeg="3.10" seenPosBeg="44.34,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="beg_0" seenLanePosBeg="44.77" tEnd="38.82" observerPosEnd="498.51,503.40" observerSpeedEnd="13.89" observerLaneIDEnd="beg2left_0" observerLanePosEnd="503.14" seenPosEnd="498.35,453.40" seenSpeedEnd="13.89" seenLaneIDEnd="beg2right_0" seenLanePosEnd="544.81">
+        <seen id="right" tBeg="3.00" observerPosBeg="3.07,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="beg_0" observerLanePosBeg="3.10" seenPosBeg="44.34,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="beg_0" seenLanePosBeg="44.77" tEnd="38.82" observerPosEnd="498.51,503.40" observerSpeedEnd="13.89" observerLaneIDEnd="beg2left_0" observerLanePosEnd="503.14" seenPosEnd="498.35,453.40" seenSpeedEnd="13.89" seenLaneIDEnd="beg2right_0" seenLanePosEnd="544.81" observerRoute="beg beg2left" seenRoute="beg beg2right">
             <recognitionPoint t="4.00" observerPos="16.83,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="16.99" seenPos="58.10,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="58.66"/>
         </seen>
-        <seen id="right" tBeg="180.52" observerPosBeg="1498.35,544.34" observerSpeedBeg="13.89" observerLaneIDBeg="left2end_0" observerLanePosBeg="2475.52" seenPosBeg="1506.83,495.06" seenSpeedBeg="10.73" seenLaneIDBeg="end_0" seenLanePosBeg="2507.00" tEnd="183.65" observerPosEnd="1498.35,507.26" observerSpeedEnd="7.62" observerLaneIDEnd="left2end_0" observerLanePosEnd="2509.14" seenPosEnd="1547.55,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="end_0" seenLanePosEnd="2548.11"/>
+        <seen id="right" tBeg="180.52" observerPosBeg="1498.35,544.34" observerSpeedBeg="13.89" observerLaneIDBeg="left2end_0" observerLanePosBeg="2475.52" seenPosBeg="1506.83,495.06" seenSpeedBeg="10.73" seenLaneIDBeg="end_0" seenLanePosBeg="2507.00" tEnd="183.65" observerPosEnd="1498.35,507.26" observerSpeedEnd="7.62" observerLaneIDEnd="left2end_0" observerLanePosEnd="2509.14" seenPosEnd="1547.55,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="end_0" seenLanePosEnd="2548.11" observerRoute="left2end" seenRoute="end"/>
     </bt>
 </bt-output>
