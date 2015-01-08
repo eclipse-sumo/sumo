@@ -162,7 +162,7 @@ NLBuilder::build() {
         //  the measure to use, then
         EdgeFloatTimeLineRetriever_EdgeEffort eRetriever(myNet);
         std::string measure = myOptions.getString("weight-attribute");
-        if (measure != "traveltime") {
+        if (!myOptions.isDefault("weight-attribute")) {
             if (measure == "CO" || measure == "CO2" || measure == "HC" || measure == "PMx" || measure == "NOx" || measure == "fuel") {
                 measure += "_perVeh";
             }
