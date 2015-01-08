@@ -141,8 +141,9 @@ public:
          * @param[in] _laneID The id of the lane the vehicle is located at
          * @param[in] _lanePos The position of the vehicle along the lane
          */
-        VehicleState(SUMOReal _speed, const Position& _position, const std::string& _laneID, SUMOReal _lanePos)
-            : speed(_speed), position(_position), laneID(_laneID), lanePos(_lanePos) {}
+        VehicleState(const SUMOReal _speed, const Position& _position, const std::string& _laneID,
+                     const SUMOReal _lanePos, const unsigned int _routePos)
+            : speed(_speed), position(_position), laneID(_laneID), lanePos(_lanePos), routePos(_routePos) {}
 
         /// @brief Destructor
         ~VehicleState() {}
@@ -155,6 +156,8 @@ public:
         std::string laneID;
         /// @brief The position at the lane of the vehicle
         SUMOReal lanePos;
+        /// @brief The position in the route of the vehicle
+        unsigned int routePos;
 
     };
 
@@ -192,6 +195,9 @@ public:
 
         /// @brief Whether the vehicle was removed from the simulation
         bool haveArrived;
+
+        /// @brief List of edges travelled
+        MSEdgeVector route;
 
     };
 
