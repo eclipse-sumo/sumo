@@ -133,7 +133,12 @@ MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
         }
         // @note vehicle may have moved past its arrivalPos during the last step
         // due to non-zero arrivalspeed but we consider it as arrived at the desired position
-        myArrivalPos = myHolder.getArrivalPos();
+        // However, vaporization happens at the moment the vehicle enters the edge 
+        if (reason == MSMoveReminder::NOTIFICATION_VAPORIZED) {
+            myArrivalPos = 0;
+        } else {
+            myArrivalPos = myHolder.getArrivalPos();
+        }
         myArrivalSpeed = veh.getSpeed();
     }
     return true;
@@ -143,17 +148,26 @@ MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
 void
 MSDevice_Tripinfo::generateOutput() const {
     myPendingOutput.erase(this);
-    SUMOReal routeLength = myHolder.getRoute().getLength();
-    routeLength -= myDepartPos;
-    if (myArrivalLane != "") {
-        routeLength -= MSLane::dictionary(myArrivalLane)->getLength() - myArrivalPos;
-    }
-    SUMOTime exit = myArrivalTime;
+    SUMOTime finalTime;
+    SUMOReal finalPos;
+    SUMOReal finalPosOnInternal = 0;
     if (myArrivalTime == NOT_ARRIVED) {
-        exit = MSNet::getInstance()->getCurrentTimeStep();
-        routeLength = myHolder.getRoute().getDistanceBetween(myDepartPos, myHolder.getPositionOnLane(),
-                      *myHolder.getRoute().begin(), myHolder.getEdge(), false);
+        finalTime = MSNet::getInstance()->getCurrentTimeStep();
+        finalPos = myHolder.getPositionOnLane();
+        if (!MSGlobals::gUseMesoSim) {
+            const MSLane* lane = static_cast<MSVehicle&>(myHolder).getLane();
+            if (lane->getEdge().isInternal()) {
+                finalPosOnInternal = finalPos;
+                finalPos = myHolder.getEdge()->getLength();
+            }
+        }
+    } else {
+        finalTime = myArrivalTime;
+        finalPos = myArrivalPos;
     }
+    const SUMOReal routeLength = myHolder.getRoute().getDistanceBetween(myDepartPos, finalPos,
+            myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), false) + finalPosOnInternal;
+
     // write
     OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
     os.openTag("tripinfo").writeAttr("id", myHolder.getID());
@@ -166,7 +180,7 @@ MSDevice_Tripinfo::generateOutput() const {
     os.writeAttr("arrivalLane", myArrivalLane);
     os.writeAttr("arrivalPos", myArrivalPos);
     os.writeAttr("arrivalSpeed", myArrivalSpeed);
-    os.writeAttr("duration", time2string(exit - myHolder.getDeparture()));
+    os.writeAttr("duration", time2string(finalTime - myHolder.getDeparture()));
     os.writeAttr("routeLength", routeLength);
     os.writeAttr("waitSteps", myWaitingSteps);
     os.writeAttr("timeLoss", time2string(myTimeLoss));

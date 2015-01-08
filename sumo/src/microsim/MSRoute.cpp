@@ -252,37 +252,47 @@ MSRoute::dict_saveState(OutputDevice& out) {
 
 
 SUMOReal
-MSRoute::getLength() const {
-    SUMOReal ret = 0;
-    for (MSEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        ret += (*i)->getLength();
+MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos,
+                            const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal) const {
+    MSEdgeVector::const_iterator it = std::find(myEdges.begin(), myEdges.end(), fromEdge);
+    if (it == myEdges.end() || std::find(it, myEdges.end(), toEdge) == myEdges.end()) {
+        // start or destination not contained in route
+        return std::numeric_limits<SUMOReal>::max();
     }
-    return ret;
+    MSEdgeVector::const_iterator it2 = std::find(it + 1, myEdges.end(), toEdge);
+
+    if (fromEdge == toEdge) {
+        if (fromPos < toPos) {
+            return toPos - fromPos;
+        } else if (it2 == myEdges.end()) {
+            // we don't visit the edge again
+            return std::numeric_limits<SUMOReal>::max();
+        }
+    }
+    return getDistanceBetween(fromPos, toPos, it, it2, includeInternal);
 }
 
 
 SUMOReal
 MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos,
-                            const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal) const {
+                            const MSRouteIterator& fromEdge, const MSRouteIterator& toEdge, bool includeInternal) const {
     bool isFirstIteration = true;
     SUMOReal distance = -fromPos;
-    MSEdgeVector::const_iterator it = std::find(myEdges.begin(), myEdges.end(), fromEdge);
-
-    if (it == myEdges.end() || std::find(it, myEdges.end(), toEdge) == myEdges.end()) {
-        // start or destination not contained in route
-        return std::numeric_limits<SUMOReal>::max();
-    }
+    MSRouteIterator it = fromEdge;
     if (fromEdge == toEdge) {
         // destination position is on start edge
         if (fromPos <= toPos) {
             return toPos - fromPos;
-        } else if (std::find(it + 1, myEdges.end(), toEdge) == myEdges.end()) {
-            // we don't visit the edge again
+        } else {
+            // we cannot go backwards. Something is wrong here
             return std::numeric_limits<SUMOReal>::max();
         }
+    } else if (fromEdge > toEdge) {
+        // we don't visit the edge again
+        return std::numeric_limits<SUMOReal>::max();
     }
     for (; it != end(); ++it) {
-        if ((*it) == toEdge && !isFirstIteration) {
+        if (it == toEdge && !isFirstIteration) {
             distance += toPos;
             break;
         } else {

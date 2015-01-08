@@ -139,6 +139,12 @@ public:
      */
     virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, bool withTaz = false) = 0;
 
+
+    /** @brief Returns an iterator pointing to the current edge in this vehicles route
+     * @return The current route pointer
+     */
+    virtual const MSEdgeVector::const_iterator& getCurrentRouteEdge() const = 0;
+
     /** @brief Returns the vehicle's acceleration
      * @return The acceleration
      */

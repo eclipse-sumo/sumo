@@ -139,6 +139,14 @@ public:
     }
 
 
+    /** @brief Returns an iterator pointing to the current edge in this vehicles route
+     * @return The current route pointer
+     */
+    const MSRouteIterator& getCurrentRouteEdge() const {
+        return myCurrEdge;
+    }
+
+
     /** @brief Performs a rerouting using the given router
      *
      * Tries to find a new route between the current edge and the destination edge, first.
