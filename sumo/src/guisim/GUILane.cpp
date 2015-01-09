@@ -491,12 +491,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 #endif
         } else {
             const SUMOReal halfWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
-            mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN;
+            mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0; 
             const int cornerDetail = drawDetails ? s.scale * exaggeration : 0;
+            const SUMOReal offset = halfWidth * MAX2((SUMOReal)0, (exaggeration - 1));
             if (myShapeColors.size() > 0) {
-                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfWidth * exaggeration, cornerDetail);
+                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfWidth * exaggeration, cornerDetail, offset);
             } else {
-                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfWidth * exaggeration, cornerDetail);
+                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfWidth * exaggeration, cornerDetail, offset);
             }
         }
         glPopMatrix();

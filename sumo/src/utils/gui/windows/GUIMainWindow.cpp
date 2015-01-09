@@ -72,6 +72,7 @@ GUIMainWindow::GUIMainWindow(FXApp* a)
         throw ProcessError("MainWindow initialized twice");
     }
     myInstance = this;
+    //myGLVisual->setStencilSize(8); // enable stencil buffer
 }
 
 

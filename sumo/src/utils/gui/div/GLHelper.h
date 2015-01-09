@@ -77,9 +77,10 @@ public:
      * @param[in] rot The direction the line shall be drawn to (in radiants)
      * @param[in] visLength The length of the line
      * @param[in] width The width of the line
+     * @param[in] offset The orthogonal offset
      */
     static void drawBoxLine(const Position& beg, SUMOReal rot,
-                            SUMOReal visLength, SUMOReal width);
+                            SUMOReal visLength, SUMOReal width, SUMOReal offset = 0);
 
 
     /** @brief Draws a thick line using the mean of both given points as begin position
@@ -105,11 +106,12 @@ public:
      * @param[in] lengths The lengths of the lines
      * @param[in] width The width of the lines
      * @param[in] cornerDetail Detail level for filling the corners between angled segments
+     * @param[in] the orthogonal offset
      * @see drawBoxLine
      */
     static void drawBoxLines(const PositionVector& geom,
                              const std::vector<SUMOReal>& rots, const std::vector<SUMOReal>& lengths,
-                             SUMOReal width, int cornerDetail = 0);
+                             SUMOReal width, int cornerDetail = 0, SUMOReal offset = 0);
 
     /** @brief Draws thick lines with varying color
      *
@@ -121,12 +123,13 @@ public:
      * @param[in] cols The colors of the lines
      * @param[in] width The width of the lines
      * @param[in] cornerDetail Detail level for filling the corners between angled segments
+     * @param[in] the orthogonal offset
      * @see drawBoxLine
      */
     static void drawBoxLines(const PositionVector& geom,
                              const std::vector<SUMOReal>& rots, const std::vector<SUMOReal>& lengths,
                              const std::vector<RGBColor>& cols, 
-                             SUMOReal width, int cornerDetail = 0);
+                             SUMOReal width, int cornerDetail = 0, SUMOReal offset = 0);
 
 
     /** @brief Draws thick lines using the mean of the points given in the point lists as begin positions
@@ -287,6 +290,13 @@ public:
                             const RGBColor& bgColor = RGBColor::WHITE,
                             const RGBColor& borderColor = RGBColor::BLACK,
                             const SUMOReal angle = 0);
+
+private:
+    /// @brief normalize angle for lookup in myCircleCoords
+    static size_t angleLookup(SUMOReal angleDeg);
+
+    /// @brief whether the road makes a right turn (or goes straight)
+    static bool rightTurn(SUMOReal angle1, SUMOReal angle2);
 
 private:
     /// @brief Storage for precomputed sin/cos-values describing a circle
