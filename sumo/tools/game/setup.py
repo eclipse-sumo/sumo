@@ -20,14 +20,14 @@ from distutils.core import setup
 import py2exe, sys, shutil, os, glob, zipfile
 import subprocess, tempfile
 
-nightlyDir="O:\\Daten\\Sumo\\Nightly"
+nightlyDir=r"O:\Daten\Sumo\Nightly"
 
-if len(sys.argv) == 1:
-    sys.argv.append("py2exe")
 internal = False
 if "internal" in sys.argv:
     internal = True
-    sys.arg.remove["internal"]
+    sys.argv.remove("internal")
+if len(sys.argv) == 1:
+    sys.argv.append("py2exe")
 
 base = os.path.abspath(os.path.dirname(__file__))
 oldDir = os.getcwd()
@@ -37,22 +37,27 @@ os.mkdir("dist")
 
 setup(console=[os.path.join(base, 'runner.py')])
 
-for f in glob.glob(os.path.join(base, "*.sumocfg")): 
+for f in glob.glob(os.path.join(base, "*.sumocfg")):
     shutil.copy2(f, "dist")
 for f in ['input_additional.add.xml', 'logo.gif', 'dlr.gif']:
     shutil.copy2(os.path.join(base, f), "dist")
 for dir in ['cross', 'square', 'kuehne', 'highway', 'sounds', 'ramp', 'bs3d']:
     subprocess.call(['svn', 'export', os.path.join(base, dir), os.path.join("dist", dir)])
-for dll in glob.glob(os.path.join(nightlyDir, "*.dll")):
-    shutil.copy2(dll, "dist")
 if internal:
-    pluginDir = glob.glob(os.path.join(nightlyDir, "osgPlugins*"))[0]
+    for dll in glob.glob(os.path.join(nightlyDir, 'bin64', '*.dll')):
+        shutil.copy2(dll, "dist")
+    pluginDir = glob.glob(os.path.join(nightlyDir, 'bin64', 'osgPlugins*'))[0]
     shutil.copytree(pluginDir, os.path.join("dist", os.path.basename(pluginDir)))
-    shutil.copy2(os.path.join(nightlyDir, "meso-gui.exe"), "dist")
+    shutil.copy2(os.path.join(nightlyDir, "meso-gui64.exe"), "dist")
+    for f in glob.glob(os.path.join(base, '..', '..', 'data', '3D', '*')):
+        shutil.copy2(f, "dist")
+    zipf = zipfile.ZipFile(os.path.join(nightlyDir, "sumo-game-internal.zip"), 'w', zipfile.ZIP_DEFLATED)
 else:
+    for dll in glob.glob(os.path.join(nightlyDir, "*.dll")):
+        shutil.copy2(dll, "dist")
     shutil.copy2(os.path.join(nightlyDir, "sumo-gui.exe"), "dist")
+    zipf = zipfile.ZipFile(os.path.join(nightlyDir, "sumo-game.zip"), 'w', zipfile.ZIP_DEFLATED)
 
-zipf = zipfile.ZipFile(os.path.join(nightlyDir, "sumogame.zip"), 'w', zipfile.ZIP_DEFLATED)
 root_len = len(os.path.abspath("dist"))
 for root, dirs, files in os.walk("dist"):
     archive_root = os.path.abspath(root)[root_len:]
