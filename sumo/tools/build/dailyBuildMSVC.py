@@ -162,7 +162,13 @@ for platform in ["Win32", "x64"]:
             setup = os.path.join(os.path.dirname(__file__), '..', 'game', 'setup.py')
             subprocess.call(['python', setup], stdout=log, stderr=subprocess.STDOUT)
         except Exception as e:
-            print >> log, "Warning: Could not create nightly sumogame.zip! (%s)" % e
+            print >> log, "Warning: Could not create nightly sumo-game.zip! (%s)" % e
+    if platform == "x64" and options.sumoExe == "meso":
+        try:
+            setup = os.path.join(os.path.dirname(__file__), '..', 'game', 'setup.py')
+            subprocess.call(['python', setup, 'internal'], stdout=log, stderr=subprocess.STDOUT)
+        except Exception as e:
+            print >> log, "Warning: Could not create nightly sumo-game-internal.zip! (%s)" % e
     log.close()
     subprocess.call(compiler+" /rebuild Debug|%s %s\\%s /out %s" % (platform, options.rootDir, options.project, makeAllLog))
     if options.addConf:
