@@ -133,9 +133,9 @@ MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
         }
         // @note vehicle may have moved past its arrivalPos during the last step
         // due to non-zero arrivalspeed but we consider it as arrived at the desired position
-        // However, vaporization happens at the moment the vehicle enters the edge 
+        // However, vaporization may happen anywhere (via TraCI)
         if (reason == MSMoveReminder::NOTIFICATION_VAPORIZED) {
-            myArrivalPos = 0;
+            myArrivalPos = veh.getPositionOnLane();
         } else {
             myArrivalPos = myHolder.getArrivalPos();
         }
