@@ -537,7 +537,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
         << "\" laneShowBorders=\"" << laneShowBorders
         << "\" showLinkDecals=\"" << showLinkDecals
         << "\" showRails=\"" << showRails
-        << "\" hideConnectors=\"" << hideConnectors << "\"\n"
+        << "\" hideConnectors=\"" << hideConnectors
+        << "\" widthExaggeration=\"" << laneWidthExaggeration << "\"\n"
         << "               " << edgeName.print("edgeName") << "\n"
         << "               " << internalEdgeName.print("internalEdgeName") << "\n"
         << "               " << cwaEdgeName.print("cwaEdgeName") << "\n"
