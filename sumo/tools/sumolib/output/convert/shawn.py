@@ -26,7 +26,7 @@ def fcd2shawn(inpFCD, outSTRM, further):
   print('<?xml version="1.0" encoding="utf-8"?>', file=outSTRM)
   print('<!-- generated on %s by %s -->\n' % (datetime.datetime.now(), further["app"]), file=outSTRM)
   print('<scenario>', file=outSTRM)
-  vIDm = sumolib._Running() # is it necessary to convert the ids?
+  vIDm = sumolib._Running(further["orig-ids"]) # is it necessary to convert the ids?
   for timestep in inpFCD:
     print('   <snapshot id="%s">' % timestep.time, file=outSTRM)
     if timestep.vehicle:

@@ -88,7 +88,7 @@ def fcd2fzp(inpFCD, outSTRM, further):
   sIDm = further["phemStreetMap"]
   if outSTRM!=None:
     print("t,WeltX,WeltY,Veh. No,v,Gradient,veh.Typ-Id,Str-Id", file=outSTRM)
-  vIDm = sumolib._Running()
+  vIDm = sumolib._Running(further["orig-ids"], True)
   vtIDm = sumolib._Running()
   vtIDm.g("PKW")
   vtIDm.g("PKW_equipped")

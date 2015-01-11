@@ -23,8 +23,8 @@ import math, datetime
 import sumolib.output
 import sumolib.net
 
-def fcd2ns2mobility(inpFCD, outSTRM, ignored):
-  vIDm = sumolib._Running()
+def fcd2ns2mobility(inpFCD, outSTRM, further):
+  vIDm = sumolib._Running(further["orig-ids"], True)
   begin = -1
   end = None
   area = [None, None, None, None]

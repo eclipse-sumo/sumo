@@ -101,6 +101,7 @@ def procFCDStream(fcdstream, options):
 
 def runMethod(inputFile, outputFile, writer, options, further={}):
     further["app"] = os.path.split(__file__)[1]
+    further["orig-ids"] = options.orig_ids
     if options.base >= 0:
         further["base-date"] = datetime.datetime.fromtimestamp(options.base)
     else:
@@ -134,6 +135,8 @@ def main(args=None):
   optParser.add_option("-s", "--seed", dest="seed", default=42,
                          type="float", help="Defines the randomizer seed")
   optParser.add_option("--base-date", dest="base", default=-1, type="int", help="Defines the base date")
+  optParser.add_option("--orig-ids", dest="orig_ids", default=False, action="store_true", 
+                         help="Write original vehicle IDs instead of a running index")
   # PHEM
   optParser.add_option("--dri-output", dest="dri", metavar="FILE",
                          help="Defines the name of the PHEM .dri-file to generate")

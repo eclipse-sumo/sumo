@@ -27,7 +27,7 @@ def fcd2omnet(inpFCD, outSTRM, further):
   print('<xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="mobility_trace.xsd">', file=outSTRM)
   print('<!-- generated on %s by %s -->\n' % (datetime.datetime.now(), further["app"]), file=outSTRM)
   print('<mobility_trace>', file=outSTRM)
-  vIDm = sumolib._Running()
+  vIDm = sumolib._Running(further["orig-ids"], True)
   for timestep in inpFCD:
     seen = set()
     if not timestep.vehicle:
