@@ -1854,12 +1854,6 @@ NBEdge::getCCWBoundaryLine(const NBNode& n, SUMOReal offset) const {
 }
 
 
-SUMOReal
-NBEdge::width() const {
-    return (SUMOReal) myLanes.size() * SUMO_const_laneWidth + (SUMOReal)(myLanes.size() - 1) * SUMO_const_laneOffset;
-}
-
-
 bool
 NBEdge::expandableBy(NBEdge* possContinuation) const {
     // ok, the number of lanes must match

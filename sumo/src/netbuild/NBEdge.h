@@ -947,8 +947,6 @@ public:
     void addCrossingPointsAsIncomingWithGivenOutgoing(NBEdge* o,
             PositionVector& into);
 
-    SUMOReal width() const;
-
     PositionVector getCWBoundaryLine(const NBNode& n, SUMOReal offset) const;
     PositionVector getCCWBoundaryLine(const NBNode& n, SUMOReal offset) const;
 
