@@ -311,8 +311,9 @@ NBRampsComputer::moveRampRight(NBEdge* ramp, int addedLanes) {
     }
     try {
         PositionVector g = ramp->getGeometry();
-        SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(addedLanes - 1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(addedLanes % 2);
-        g.move2side(factor);
+        const SUMOReal offset = (0.5 * addedLanes * 
+                (ramp->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : ramp->getLaneWidth()));
+        g.move2side(offset);
         ramp->setGeometry(g);
     } catch (InvalidArgument&) {
         WRITE_WARNING("For edge '" + ramp->getID() + "': could not compute shape.");
