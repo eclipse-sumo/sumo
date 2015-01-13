@@ -48,3 +48,6 @@ on_turnaround_noramp
 
 # 3-lane on-ramp for a 4-lane motorway
 3on_4main_4cont
+
+# same as above with spreadType="center"
+3on_4main_4cont_centered
