@@ -267,6 +267,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
 void
 GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
     const GUIVisualizationTextSettings& nameSettings = s.vehicleName;
+    const SUMOReal exaggeration = s.vehicleSize.getExaggeration(s);
     GUIMEVehicleControl* vehicleControl = GUINet::getGUIInstance()->getGUIMEVehicleControl();
     if (vehicleControl != 0) {
         // draw the meso vehicles
@@ -312,7 +313,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                         glTranslated(p.x(), p.y(), 0);
                         glRotated(angle, 0, 0, 1);
                         glTranslated(xOff, 0, GLO_VEHICLE);
-                        glScaled(1, vehLength, 1);
+                        glScaled(exaggeration, vehLength * exaggeration, 1);
                         glBegin(GL_TRIANGLES);
                         glVertex2d(0, 0);
                         glVertex2d(0 - 1.25, 1);
