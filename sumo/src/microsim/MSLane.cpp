@@ -658,8 +658,8 @@ void
 MSLane::resetPartialOccupation(MSVehicle* v) {
     if (v == myInlappingVehicle) {
         myInlappingVehicleEnd = 10000;
+        myInlappingVehicle = 0;
     }
-    myInlappingVehicle = 0;
 }
 
 
