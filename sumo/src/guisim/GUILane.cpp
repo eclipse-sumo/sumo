@@ -432,101 +432,102 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     // recognize full transparency and simply don't draw
     GLfloat color[4];
     glGetFloatv(GL_CURRENT_COLOR, color);
-    if (color[3] == 0) {
-        return;
-    }
-    // draw lane
-    // check whether it is not too small
-    if (s.scale * exaggeration < 1.) {
-        if (myShapeColors.size() > 0) {
-            GLHelper::drawLine(myShape, myShapeColors);
-        } else {
-            GLHelper::drawLine(myShape);
-        }
-        glPopMatrix();
-    } else {
-        GUINet* net = (GUINet*) MSNet::getInstance();
-        if (drawAsRailway(s)) {
-            // draw as railway
-            const SUMOReal halfRailWidth = 0.725 * exaggeration;
+    if (color[3] != 0) {
+        // draw lane
+        // check whether it is not too small
+        if (s.scale * exaggeration < 1.) {
             if (myShapeColors.size() > 0) {
-                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
+                GLHelper::drawLine(myShape, myShapeColors);
             } else {
-                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth);
-            }
-            glColor3d(1, 1, 1);
-            glTranslated(0, 0, .1);
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
-            if (!MSGlobals::gUseMesoSim) {
-                setColor(s);
-            }
-            drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
-        } else if (isCrossing) {
-            // determine priority to decide color
-            MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
-            if (link->havePriority() || net->getLinkTLIndex(link) > 0) {
-                glColor3d(0.9, 0.9, 0.9);
-            } else {
-                glColor3d(0.1, 0.1, 0.1);
-            }
-            glTranslated(0, 0, .2);
-            drawCrossties(0.5, 1.0, getWidth() * 0.5);
-            glTranslated(0, 0, -.2);
-        } else if (isWalkingArea) {
-            glTranslated(0, 0, .2);
-            if (s.scale * exaggeration < 20.) {
-                GLHelper::drawFilledPoly(myShape, true);
-            } else {
-                GLHelper::drawFilledPolyTesselated(myShape, true);
-            }
-            glTranslated(0, 0, -.2);
-#ifdef GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
-            RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
-            glTranslated(0, 0, .4);
-            for (int i = 0; i < (int)myShape.size(); ++i) {
-                GLHelper::drawText(toString(i), myShape[i], GLO_JUNCTION,
-                                   80 / s.scale, color, 0);
-            }
-            glTranslated(0, 0, -.4);
-#endif
-        } else {
-            const SUMOReal halfWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
-            mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0; 
-            const int cornerDetail = drawDetails ? s.scale * exaggeration : 0;
-            const SUMOReal offset = halfWidth * MAX2((SUMOReal)0, (exaggeration - 1));
-            if (myShapeColors.size() > 0) {
-                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfWidth * exaggeration, cornerDetail, offset);
-            } else {
-                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfWidth * exaggeration, cornerDetail, offset);
-            }
-        }
-        glPopMatrix();
-        // draw ROWs (not for inner lanes)
-        if ((!isInternal || isCrossing) && drawDetails) {
-            glPushMatrix();
-            glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
-            glTranslated(0, 0, .5);
-            drawLinkRules(s, *net);
-            if (s.showLinkDecals && !drawAsRailway(s) && myPermissions != SVC_PEDESTRIAN) {
-                drawArrows();
-            }
-            if (s.showLane2Lane) {
-                // this should be independent to the geometry:
-                //  draw from end of first to the begin of second
-                drawLane2LaneConnections();
-            }
-            glTranslated(0, 0, .1);
-            if (s.drawLinkJunctionIndex) {
-                drawLinkNo();
-            }
-            if (s.drawLinkTLIndex) {
-                drawTLSLinkNo(*net);
+                GLHelper::drawLine(myShape);
             }
             glPopMatrix();
+        } else {
+            GUINet* net = (GUINet*) MSNet::getInstance();
+            if (drawAsRailway(s)) {
+                // draw as railway
+                const SUMOReal halfRailWidth = 0.725 * exaggeration;
+                if (myShapeColors.size() > 0) {
+                    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
+                } else {
+                    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth);
+                }
+                glColor3d(1, 1, 1);
+                glTranslated(0, 0, .1);
+                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
+                if (!MSGlobals::gUseMesoSim) {
+                    setColor(s);
+                }
+                drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
+            } else if (isCrossing) {
+                // determine priority to decide color
+                MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+                if (link->havePriority() || net->getLinkTLIndex(link) > 0) {
+                    glColor3d(0.9, 0.9, 0.9);
+                } else {
+                    glColor3d(0.1, 0.1, 0.1);
+                }
+                glTranslated(0, 0, .2);
+                drawCrossties(0.5, 1.0, getWidth() * 0.5);
+                glTranslated(0, 0, -.2);
+            } else if (isWalkingArea) {
+                glTranslated(0, 0, .2);
+                if (s.scale * exaggeration < 20.) {
+                    GLHelper::drawFilledPoly(myShape, true);
+                } else {
+                    GLHelper::drawFilledPolyTesselated(myShape, true);
+                }
+                glTranslated(0, 0, -.2);
+#ifdef GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
+                RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
+                glTranslated(0, 0, .4);
+                for (int i = 0; i < (int)myShape.size(); ++i) {
+                    GLHelper::drawText(toString(i), myShape[i], GLO_JUNCTION,
+                            80 / s.scale, color, 0);
+                }
+                glTranslated(0, 0, -.4);
+#endif
+            } else {
+                const SUMOReal halfWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
+                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0; 
+                const int cornerDetail = drawDetails ? s.scale * exaggeration : 0;
+                const SUMOReal offset = halfWidth * MAX2((SUMOReal)0, (exaggeration - 1));
+                if (myShapeColors.size() > 0) {
+                    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfWidth * exaggeration, cornerDetail, offset);
+                } else {
+                    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfWidth * exaggeration, cornerDetail, offset);
+                }
+            }
+            glPopMatrix();
+            // draw ROWs (not for inner lanes)
+            if ((!isInternal || isCrossing) && drawDetails) {
+                glPushMatrix();
+                glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
+                glTranslated(0, 0, .5);
+                drawLinkRules(s, *net);
+                if (s.showLinkDecals && !drawAsRailway(s) && myPermissions != SVC_PEDESTRIAN) {
+                    drawArrows();
+                }
+                if (s.showLane2Lane) {
+                    // this should be independent to the geometry:
+                    //  draw from end of first to the begin of second
+                    drawLane2LaneConnections();
+                }
+                glTranslated(0, 0, .1);
+                if (s.drawLinkJunctionIndex) {
+                    drawLinkNo();
+                }
+                if (s.drawLinkTLIndex) {
+                    drawTLSLinkNo(*net);
+                }
+                glPopMatrix();
+            }
         }
-    }
-    if (mustDrawMarkings && drawDetails) { // needs matrix reset
-        drawMarkings(s, exaggeration);
+        if (mustDrawMarkings && drawDetails) { // needs matrix reset
+            drawMarkings(s, exaggeration);
+        }
+    } else {
+        glPopMatrix();
     }
     // draw vehicles
     if (s.scale * s.vehicleSize.getExaggeration(s) > s.vehicleSize.minSize) {
