@@ -294,17 +294,17 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                     const size_t queueSize = queue.size();
                     SUMOReal vehiclePosition = segmentOffset + length;
                     // draw vehicles beginning with the leader at the end of the segment
+                    SUMOReal xOff = 0;
                     for (size_t i = 0; i < queueSize; ++i) {
                         MSBaseVehicle* veh = queue[queueSize - i - 1];
                         const SUMOReal vehLength = veh->getVehicleType().getLengthWithGap();
                         setVehicleColor(s, veh);
-                        SUMOReal xOff = 0.f;
                         while (vehiclePosition < segmentOffset) {
                             // if there is only a single queue for a
                             // multi-lane edge shift vehicles and start
                             // drawing again from the end of the segment
                             vehiclePosition += length;
-                            xOff += 0.5f;
+                            xOff += 2;
                         }
                         const Position p = l->geometryPositionAtOffset(vehiclePosition);
                         const SUMOReal angle = -l->getShape().rotationDegreeAtOffset(l->interpolateLanePosToGeometryPos(vehiclePosition));
@@ -319,13 +319,17 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                         glVertex2d(0 + 1.25, 1);
                         glEnd();
                         glPopMatrix();
-                        vehiclePosition -= vehLength;
                         if (nameSettings.show) {
+                            glPushMatrix();
+                            glRotated(angle, 0, 0, 1);
+                            glTranslated(xOff, 0, 0);
+                            glRotated(-angle, 0, 0, 1);
                             GLHelper::drawText(veh->getID(),
-                                               Position(xOff, -(vehiclePosition - avgCarHalfSize - shapeOffset)),
-                                               GLO_MAX, nameSettings.size / s.scale, nameSettings.color, 
-                                               shapeRotations[shapeIndex]);
+                                    l->geometryPositionAtOffset(vehiclePosition - 0.5 * vehLength),
+                                    GLO_MAX, nameSettings.size / s.scale, nameSettings.color); 
+                            glPopMatrix();
                         }
+                        vehiclePosition -= vehLength;
                     }
                 }
                 segmentOffset += length;
