@@ -115,6 +115,7 @@ errors:delete: freed
 errors:warning: debug_new used with placement new
 errors:Warning: State was written with sumo version
 errors:Cannot find local schema '[^']*'{REPLACE Cannot find local schema}
+errors:Could not find connection between
 output:movereminder-output{LINES 2}
 cfg:<movereminder{LINES 2}
 cfg:movereminder
