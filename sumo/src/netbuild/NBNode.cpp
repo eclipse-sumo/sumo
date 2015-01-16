@@ -683,6 +683,7 @@ NBNode::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
     // special case a):
     //  one in, one out, the outgoing has one lane more
     if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1
+            && myIncomingEdges[0]->getStep() <= NBEdge::LANES2EDGES
             && myIncomingEdges[0]->getNumLanes() == myOutgoingEdges[0]->getNumLanes() - 1
             && myIncomingEdges[0] != myOutgoingEdges[0]
             && myIncomingEdges[0]->isConnectedTo(myOutgoingEdges[0])) {
