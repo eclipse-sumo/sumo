@@ -42,7 +42,7 @@
 // DEBUGGING HELPERS
 // ===========================================================================
 //
-#define DEBUG1 "disabled"
+#define DEBUG1 "124"
 #define DEBUG2 "disabled"
 #define DEBUGCOND(PEDID) (PEDID == DEBUG1 || PEDID == DEBUG2)
 //#define LOG_ALL 1
@@ -297,6 +297,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
             MSNet::getInstance()->getPedestrianRouter(prohibited).compute(currentEdge, nextRouteEdge, 0, arrivalPos, ped.myStage->getMaxSpeed(), 0, junction, crossingRoute, true);
             if DEBUGCOND(ped.myPerson->getID()) {
                 std::cout
+                        << "   nre=" << nextRouteEdge->getID()
                         << "   nreDir=" << nextRouteEdgeDir
                         << "   aPos=" << arrivalPos
                         << " crossingRoute=" << toString(crossingRoute)
@@ -330,6 +331,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 }
                 nextDir = FORWARD; // fallback
             }
+        } else if (currentEdge == nextRouteEdge) {
+            // strange loop in this route. No need to use walkingArea
+            nextDir = -ped.myDir;
         } else {
             // normal edge. by default use next / previous walking area
             nextDir = ped.myDir;
@@ -875,6 +879,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
         if (myLane != 0) {
             assert(myDir != UNDEFINED_DIRECTION);
             myNLI = getNextLane(*this, myLane, oldLane);
+            assert(myNLI.lane != oldLane); // do not turn around
             if DEBUGCOND(myPerson->getID()) {
                 std::cout << "    nextLane=" << (myNLI.lane == 0 ? "NULL" : myNLI.lane->getID()) << "\n";
             }

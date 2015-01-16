@@ -1,6 +1,6 @@
 <routes>
     <person id="p0" depart="0">
-        <walk edges="SC SC"/>
+        <walk edges="SC SC" departPos="-10" arrivalPos="-10"/>
     </person>
 
 </routes>
