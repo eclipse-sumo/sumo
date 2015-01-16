@@ -42,7 +42,7 @@
 // DEBUGGING HELPERS
 // ===========================================================================
 //
-#define DEBUG1 "124"
+#define DEBUG1 "disabled"
 #define DEBUG2 "disabled"
 #define DEBUGCOND(PEDID) (PEDID == DEBUG1 || PEDID == DEBUG2)
 //#define LOG_ALL 1
