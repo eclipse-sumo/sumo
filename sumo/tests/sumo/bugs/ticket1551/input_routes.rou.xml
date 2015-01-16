@@ -1,0 +1,7 @@
+<routes>
+    <vType id="t0" sigma="0" accel="1" decel="1"/>
+    <route id="r0" edges="beg beg2 middle end"/>
+    <route id="r1" edges="middle end"/>
+    <vehicle id="fast_approach" type="t0" route="r0" depart="0" departSpeed="max" departPos="-100"/>
+    <vehicle id="wants_lc" type="t0" route="r1" depart="0" departSpeed="0" departPos="0" departLane="0"/>
+</routes>
