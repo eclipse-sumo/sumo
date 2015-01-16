@@ -1,0 +1,6 @@
+<routes>
+    <person id="p0" depart="0">
+        <walk edges="SC SC"/>
+    </person>
+
+</routes>
