@@ -123,7 +123,7 @@ public:
      * When given, the vehicle class is parsed using getVehicleClassID.
      *  Exceptions occuring within this process are catched and reported.
      *
-     * If no vehicle class is available in the attributes, the default class (SVC_UNKNOWN)
+     * If no vehicle class is available in the attributes, the default class (SVC_IGNORING)
      *  is returned.
      *
      * @param[in] attrs The attributes to read the class from
