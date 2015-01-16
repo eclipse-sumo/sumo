@@ -1207,7 +1207,7 @@ GUIApplicationWindow::loadConfigOrNet(const std::string& file, bool isNet, bool 
     myAmLoading = true;
     closeAllWindows();
     if (isReload) {
-        myLoadThread->start();
+        myLoadThread->reloadConfigOrNet();
         setStatusBarText("Reloading.");
     } else {
         gSchemeStorage.saveViewport(0, 0, -1); // recenter view

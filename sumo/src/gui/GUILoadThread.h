@@ -67,6 +67,9 @@ public:
         the thread ends after the net has been loaded */
     FXint run();
 
+    /// reloads according to the given input options
+    void reloadConfigOrNet();
+
     /// begins the loading of the given file
     void loadConfigOrNet(const std::string& file, bool isNet);
 

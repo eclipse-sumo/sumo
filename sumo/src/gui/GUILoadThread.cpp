@@ -127,7 +127,7 @@ GUILoadThread::run() {
             }
             OptionsIO::getOptions(true, 1, 0);
         } else {
-            // triggered at application start
+            // triggered at application start or reload
             OptionsIO::getOptions(true);
             // set myFile to get a useful Window title
             if (oc.isSet("configuration-file")) {
@@ -249,6 +249,12 @@ GUILoadThread::submitEndAndCleanup(GUINet* net,
     myEventThrow.signal();
 }
 
+
+void
+GUILoadThread::reloadConfigOrNet() {
+    myFile = "";
+    start();
+}
 
 void
 GUILoadThread::loadConfigOrNet(const std::string& file, bool isNet) {
