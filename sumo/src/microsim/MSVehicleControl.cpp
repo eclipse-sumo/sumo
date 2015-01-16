@@ -65,7 +65,10 @@ MSVehicleControl::MSVehicleControl() :
     myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),
     myWaitingForPerson(0),
-    myScale(-1) {
+    myScale(-1),
+    myMaxSpeedFactor(1),
+    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING))
+{
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_IGNORING);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
@@ -145,6 +148,8 @@ MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
     ++myRunningVehNo;
     myTotalDepartureDelay += STEPS2TIME(v.getDeparture() - STEPFLOOR(v.getParameter().depart));
     MSNet::getInstance()->informVehicleStateListener(&v, MSNet::VEHICLE_STATE_DEPARTED);
+    myMaxSpeedFactor = MAX2(myMaxSpeedFactor, v.getChosenSpeedFactor());
+    myMinDeceleration = MIN2(myMinDeceleration, v.getVehicleType().getCarFollowModel().getMaxDecel());
 }
 
 
