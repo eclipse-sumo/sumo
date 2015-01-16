@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 11 12:09:14 2011 by SUMO netconvert Version dev-SVN-r11490
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on Fri Jan 16 09:11:42 2015 by SUMO netconvert Version dev-SVN-r17600ID
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
@@ -15,8 +15,13 @@
         <output.street-names value="true"/>
     </output>
 
+    <processing>
+        <geometry.junction-mismatch-threshold value="100"/>
+    </processing>
+
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
     </report>
 
 </configuration>
@@ -29,7 +34,6 @@
 
     <connection from="10" to="7" fromLane="0" toLane="0"/>
 
-    <connection from="2" to="8" fromLane="0" toLane="0"/>
     <connection from="2" to="8" fromLane="0" toLane="1"/>
     <connection from="2" to="8" fromLane="1" toLane="2"/>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 14 10:03:21 2014 by SUMO netconvert Version dev-SVN-r17338I
+<!-- generated on Fri Jan 16 09:11:42 2015 by SUMO netconvert Version dev-SVN-r17600ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -584,12 +584,10 @@
         <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="605000048" type="priority" x="850.80" y="2768.26" incLanes="1000709_0" intLanes="" shape="856.18,2769.35 850.84,2765.65 848.72,2767.68 850.43,2770.38">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="00" foes="00"/>
+        <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="605000049" type="priority" x="845.61" y="2764.85" incLanes="1000711_0" intLanes="" shape="849.23,2767.09 843.88,2763.39 841.77,2765.44 843.52,2768.12">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="00" foes="00"/>
+        <request index="0" response="0" foes="0"/>
     </junction>
 
     <connection from="1" to="30" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -620,11 +618,9 @@
     <connection from="1000708" to="1000703" fromLane="0" toLane="0" tl="1" linkIndex="13" dir="l" state="o"/>
     <connection from="1000708" to="1000703" fromLane="1" toLane="1" tl="1" linkIndex="13" dir="l" state="o"/>
     <connection from="1000709" to="1000708" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="1000709" to="1000708" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="1000710" to="1000712" fromLane="0" toLane="0" tl="1" linkIndex="12" dir="r" state="o"/>
     <connection from="1000710" to="1000700" fromLane="0" toLane="0" tl="1" linkIndex="10" dir="s" state="o"/>
     <connection from="1000710" to="1000700" fromLane="1" toLane="1" tl="1" linkIndex="10" dir="s" state="o"/>
-    <connection from="1000711" to="1000710" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1000711" to="1000710" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="1000712" to="35" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1000712" to="35" fromLane="1" toLane="1" dir="s" state="M"/>
