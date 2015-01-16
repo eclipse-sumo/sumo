@@ -111,6 +111,8 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
 
     myEdgeWeightSettingCommand = 0;
     myEdgeEfforts.clear();
+    myAdaptationInterval = -1;
+    myLastAdaptation = -1;
 }
 
 
