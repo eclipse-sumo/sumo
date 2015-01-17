@@ -63,7 +63,6 @@ subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "direct.x
 # protobuf roundtrip
 xPro = subprocess.Popen(['python', xmlProtoPy, '-x', schema, '-o', str(IN_PORT), str(SUMO_PORT)])
 pPro = subprocess.Popen(['python', protoXmlPy, '-x', schema, str(OUT_PORT)])
-time.sleep(1) # wait for all servers to start
 sumoPro = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "localhost:%s" % SUMO_PORT])
 try:
     connect(IN_PORT, OUT_PORT)
