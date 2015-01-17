@@ -52,7 +52,7 @@ if internal:
         shutil.copy2(dll, ".")
     pluginDir = glob.glob(os.path.join(nightlyDir, 'bin64', 'osgPlugins*'))[0]
     shutil.copytree(pluginDir, os.path.basename(pluginDir))
-    shutil.copy2(os.path.join(nightlyDir, "meso-gui64.exe"), ".")
+    shutil.copy2(os.path.join(nightlyDir, 'bin64', 'meso-gui64.exe'), ".")
     for f in glob.glob(os.path.join(base, '..', '..', 'data', '3D', '*')):
         shutil.copy2(f, ".")
     os.chdir("bs3d")
