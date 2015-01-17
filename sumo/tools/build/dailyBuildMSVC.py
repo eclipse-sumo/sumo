@@ -64,7 +64,7 @@ for fname in glob.glob(r"O:\Daten\Sumo\Nightly\sumo-all-*.zip"):
     if os.path.getmtime(fname) > maxTime:
         maxTime = os.path.getmtime(fname)
         sumoAllZip = fname
-for platform, nightlyDir in [("Win32", ), ("x64", r"O:\Daten\Sumo\Nightly\bin64")]:
+for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\Daten\Sumo\Nightly\bin64")]:
     env["FILEPREFIX"]="msvc10" + options.suffix + platform
     prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
     makeLog = prefix + "Release.log"
