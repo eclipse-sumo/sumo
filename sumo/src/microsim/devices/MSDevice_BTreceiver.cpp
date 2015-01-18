@@ -263,13 +263,13 @@ MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::Veh
 
 
 void
-MSDevice_BTreceiver::BTreceiverUpdate::enterRange(SUMOReal atOffset, const MSDevice_BTsender::VehicleState& thisState,
-                        const std::string& otherID, const MSDevice_BTsender::VehicleState& otherState,
+MSDevice_BTreceiver::BTreceiverUpdate::enterRange(SUMOReal atOffset, const MSDevice_BTsender::VehicleState& receiverState,
+                        const std::string& senderID, const MSDevice_BTsender::VehicleState& senderState,
                         std::map<std::string, SeenDevice*>& currentlySeen) {
-    MeetingPoint mp(SIMTIME + atOffset, thisState, otherState);
+    MeetingPoint mp(SIMTIME + atOffset, receiverState, senderState);
     SeenDevice* sd = new SeenDevice(mp);
-    currentlySeen[otherID] = sd;
-    addRecognitionPoint(SIMTIME, thisState, otherState, sd);
+    currentlySeen[senderID] = sd;
+    addRecognitionPoint(SIMTIME, receiverState, senderState, sd);
 }
 
 
@@ -323,17 +323,17 @@ MSDevice_BTreceiver::inquiryDelaySlots(const int backoffLimit) {
 
 
 void
-MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(const SUMOReal tEnd, const MSDevice_BTsender::VehicleState& thisState,
-                                 const MSDevice_BTsender::VehicleState& otherState,
-                                 SeenDevice* otherDevice) const {
-    if (otherDevice->nextView == -1.) {
-        otherDevice->nextView = otherDevice->lastView + inquiryDelaySlots(int(myOffTime / 0.000625 + .5)) * 0.000625;
+MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(const SUMOReal tEnd, const MSDevice_BTsender::VehicleState& receiverState,
+                                 const MSDevice_BTsender::VehicleState& senderState,
+                                 SeenDevice* senderDevice) const {
+    if (senderDevice->nextView == -1.) {
+        senderDevice->nextView = senderDevice->lastView + inquiryDelaySlots(int(myOffTime / 0.000625 + .5)) * 0.000625;
     }
-    if (tEnd > otherDevice->nextView) {
-        otherDevice->lastView = otherDevice->nextView;
-        MeetingPoint* mp = new MeetingPoint(tEnd, thisState, otherState);
-        otherDevice->recognitionPoints.push_back(mp);
-        otherDevice->nextView = otherDevice->lastView + inquiryDelaySlots(int(myOffTime / 0.000625 + .5)) * 0.000625;
+    if (tEnd > senderDevice->nextView) {
+        senderDevice->lastView = senderDevice->nextView;
+        MeetingPoint* mp = new MeetingPoint(tEnd, receiverState, senderState);
+        senderDevice->recognitionPoints.push_back(mp);
+        senderDevice->nextView = senderDevice->lastView + inquiryDelaySlots(int(myOffTime / 0.000625 + .5)) * 0.000625;
     }
 }
 

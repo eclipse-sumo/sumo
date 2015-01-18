@@ -607,7 +607,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         }
     } else {
         // check approaching vehicles to prevent rear-end collisions
-        const SUMOReal dist = 2 * (aVehicle->getCarFollowModel().brakeGap(myMaxSpeed) + aVehicle->getVehicleType().getMinGap()) + aVehicle->getVehicleType().getLength();
         const SUMOReal backOffset = pos - aVehicle->getVehicleType().getLength();
         const SUMOReal missingRearGap = getMissingRearGap(backOffset, speed, aVehicle->getCarFollowModel().getMaxDecel());
         if (missingRearGap > 0) {

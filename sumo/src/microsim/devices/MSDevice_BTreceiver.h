@@ -142,14 +142,8 @@ public:
     public:
         /** @brief Constructor
          * @param[in] _t The time of the meeting
-         * @param[in] _observerPos The position the observer had at the time
-         * @param[in] _observerSpeed The speed the observer had at the time
-         * @param[in] _observerLaneID The lane the observer was at
-         * @param[in] _observerLanePos The position at the lane of the observer
-         * @param[in] _seenPos The position the seen vehicle had at the time
-         * @param[in] _seenSpeed The speed the vehicle had at the time
-         * @param[in] _seenLaneID The lane the vehicle was at
-         * @param[in] _seenLanePos The position at the lane of the vehicle
+         * @param[in] _observerState The position, speed, lane etc. the observer had at the time
+         * @param[in] _seenState The position, speed, lane etc. the seen vehicle had at the time
          */
         MeetingPoint(SUMOReal _t, const MSDevice_BTsender::VehicleState& _observerState,
                      const MSDevice_BTsender::VehicleState& _seenState)
@@ -165,6 +159,11 @@ public:
         const MSDevice_BTsender::VehicleState observerState;
         /// @brief The state the seen vehicle had at the time
         const MSDevice_BTsender::VehicleState seenState;
+
+    private:
+        /// @brief Invalidated assignment operator.
+        MeetingPoint& operator=(const MeetingPoint&);
+
     };
 
 
@@ -205,6 +204,10 @@ public:
         std::string receiverRoute;
         /// @brief string of travelled sender edges
         std::string senderRoute;
+
+    private:
+        /// @brief Invalidated assignment operator.
+        SeenDevice& operator=(const SeenDevice&);
 
     };
 
@@ -300,36 +303,22 @@ private:
 
         /** @brief Informs the receiver about a sender entering it's radius
          * @param[in] atOffset The time offset to the current time step
-         * @param[in] thisPos The receiver's position at the time
-         * @param[in] thisSpeed The receiver's speed at the time
-         * @param[in] thisLaneID The lane the observer was at
-         * @param[in] thisLanePos The position at the lane of the observer
-         * @param[in] otherID The ID of the entering sender
-         * @param[in] otherPos The position of the entering sender
-         * @param[in] otherSpeed The speed of the entering sender
-         * @param[in] otherLaneID The lane the sender was at
-         * @param[in] otherLanePos The position at the lane of the sender
+         * @param[in] receiverState The position, speed, lane etc. the observer had at the time
+         * @param[in] senderID The ID of the entering sender
+         * @param[in] senderState The position, speed, lane etc. the seen vehicle had at the time
          * @param[in] currentlySeen The container storing episodes
          */
-        void enterRange(SUMOReal atOffset, const MSDevice_BTsender::VehicleState& thisState,
-                        const std::string& otherID, const MSDevice_BTsender::VehicleState& otherState,
+        void enterRange(SUMOReal atOffset, const MSDevice_BTsender::VehicleState& receiverState,
+                        const std::string& senderID, const MSDevice_BTsender::VehicleState& senderState,
                         std::map<std::string, SeenDevice*>& currentlySeen);
 
 
         /** @brief Removes the sender from the currently seen devices to past episodes
-         * @param[in] currentlySeen The currently seen devices
-         * @param[in] seen The lists of episodes to add this one to
-         * @param[in] thisPos The receiver's position at the time
-         * @param[in] thisSpeed The receiver's speed at the time
-         * @param[in] thisLaneID The lane the observer was at
-         * @param[in] thisLanePos The position at the lane of the observer
-         * @param[in] otherID The ID of the entering sender
-         * @param[in] otherPos The position of the entering sender
-         * @param[in] otherSpeed The speed of the entering sender
-         * @param[in] otherLaneID The lane the sender was at
-         * @param[in] otherLanePos The position at the lane of the sender
+         * @param[in] receiverInfo The static information of the observer (id, route, etc.)
+         * @param[in] receiverState The position, speed, lane etc. the observer had at the time
+         * @param[in] senderInfo The static information of the seen vehicle (id, route, etc.)
+         * @param[in] senderState The position, speed, lane etc. the seen vehicle had at the time
          * @param[in] tOffset The time offset to the current time step
-         * @param[in] remove Whether the sender shall be removed from this device's myCurrentlySeen
          */
         void leaveRange(VehicleInformation& receiverInfo, const MSDevice_BTsender::VehicleState& receiverState,
                         MSDevice_BTsender::VehicleInformation& senderInfo, const MSDevice_BTsender::VehicleState& senderState,
@@ -340,19 +329,13 @@ private:
 
         /** @brief Adds a point of recognition
          * @param[in] tEnd The time of the recognition
-         * @param[in] thisPos The receiver's position at the time
-         * @param[in] thisSpeed The receiver's speed at the time
-         * @param[in] thisLaneID The lane the observer was at
-         * @param[in] thisLanePos The position at the lane of the observer
-         * @param[in] otherPos The position of the entering sender
-         * @param[in] otherSpeed The speed of the entering sender
-         * @param[in] otherLaneID The lane the sender was at
-         * @param[in] otherLanePos The position at the lane of the sender
-         * @param[in] otherDevice The device of the entering sender
+         * @param[in] receiverState The position, speed, lane etc. the observer had at the time
+         * @param[in] senderState The position, speed, lane etc. the seen vehicle had at the time
+         * @param[in] senderDevice The device of the entering sender
          */
-        void addRecognitionPoint(const SUMOReal tEnd, const MSDevice_BTsender::VehicleState& thisState,
-                                 const MSDevice_BTsender::VehicleState& otherState,
-                                 SeenDevice* otherDevice) const;
+        void addRecognitionPoint(const SUMOReal tEnd, const MSDevice_BTsender::VehicleState& receiverState,
+                                 const MSDevice_BTsender::VehicleState& senderState,
+                                 SeenDevice* senderDevice) const;
 
 
         /** @brief Writes the output
