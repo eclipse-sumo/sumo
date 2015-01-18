@@ -162,7 +162,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("speed.offset", "Processing", "Modifies all edge speeds by adding FLOAT");
 
         oc.doRegister("speed.factor", new Option_Float(1));
-        oc.addDescription("speed.factor", "Processing", "Modifies all edge speeds by multiplying FLOAT");
+        oc.addDescription("speed.factor", "Processing", "Modifies all edge speeds by multiplying by FLOAT");
     }
 
 

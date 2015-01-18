@@ -429,7 +429,7 @@
         <!-- Modifies all edge speeds by adding FLOAT -->
         <speed.offset value="0" type="FLOAT"/>
 
-        <!-- Modifies all edge speeds by multiplying FLOAT -->
+        <!-- Modifies all edge speeds by multiplying by FLOAT -->
         <speed.factor value="1" type="FLOAT"/>
 
         <!-- Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts) -->
