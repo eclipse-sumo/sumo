@@ -180,13 +180,27 @@ public:
             std::cout << "  building connections from " << sidewalk->getID() << "\n";
 #endif
             std::vector<const L*> outgoing = sidewalk->getOutgoingLanes();
+            // if one of the outgoing lanes is a walking area it must be used.
+            // All other connections shall be ignored
+            bool hasWalkingArea = false;
             for (typename std::vector<const L*>::iterator it = outgoing.begin(); it != outgoing.end(); ++it) {
                 const L* target = *it;
                 const E* targetEdge = &(target->getEdge());
+                if (targetEdge->isWalkingArea()) {
+                    hasWalkingArea = true;
+                    break;
+                }
+            }
+            for (typename std::vector<const L*>::iterator it = outgoing.begin(); it != outgoing.end(); ++it) {
+                const L* target = *it;
+                const E* targetEdge = &(target->getEdge());
+                const bool used = (target == getSidewalk<E, L>(targetEdge) 
+                        && (!hasWalkingArea || targetEdge->isWalkingArea()));
 #ifdef PedestrianRouter_DEBUG_NETWORK
-                std::cout << "   lane=" << getSidewalk<E, L>(targetEdge)->getID() << (target == getSidewalk<E, L>(targetEdge) ? "(used)" : "") << "\n";
+                const L* potTarget = getSidewalk<E, L>(targetEdge);
+                std::cout << "   lane=" << (potTarget == 0 ? "NULL" : potTarget->getID()) << (used ? "(used)" : "") << "\n";
 #endif
-                if (target == getSidewalk<E, L>(targetEdge)) {
+                if (used) {
                     const EdgePair& targetPair = getBothDirections(targetEdge);
                     pair.first->myFollowingEdges.push_back(targetPair.first);
                     targetPair.second->myFollowingEdges.push_back(pair.second);
@@ -320,7 +334,7 @@ public:
 
         }
 #ifdef PedestrianRouter_DEBUG_EFFORTS
-        std::cout << " effort for " << getID() << " at " << time << ": " << length / trip->speed + tlsDelay << " l=" << length << " s=" << trip->speed << " tlsDelay=" << tlsDelay << "\n";
+        std::cout << " effort for " << trip->getID() << " at " << time << " edge=" << edge->getID() << " effort=" << length / trip->speed + tlsDelay << " l=" << length << " s=" << trip->speed << " tlsDelay=" << tlsDelay << "\n";
 #endif
         return length / trip->speed + tlsDelay;
     }
@@ -407,12 +421,17 @@ public:
             }
         }
 #ifdef PedestrianRouter_DEBUG_ROUTES
+        SUMOReal time = msTime;
+        for (size_t i = 0; i < intoPed.size(); ++i) {
+            time += myInternalRouter->getEffort(intoPed[i], &trip, time);
+        }
         std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << to->getID()
                   << " departPos=" << departPos
                   << " arrivalPos=" << arrivalPos
                   << " onlyNode=" << (onlyNode == 0 ? "NULL" : onlyNode->getID())
                   << " edges=" << toString(intoPed)
                   << " resultEdges=" << toString(into)
+                  << " time=" << time
                   << "\n";
 #endif
         //endQuery();
