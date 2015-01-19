@@ -246,10 +246,14 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             EdgeVector edges;
             for (std::vector<std::string>::const_iterator it_e = crossing.crossingEdges.begin(); it_e != crossing.crossingEdges.end(); ++it_e) {
                 NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_e);
-                assert(edge != 0);
-                edges.push_back(edge);
+                // edge might have been removed due to options
+                if (edge != 0) {
+                    edges.push_back(edge);
+                }
             }
-            node->addCrossing(edges, crossing.width, crossing.priority);
+            if (edges.size() > 0) {
+                node->addCrossing(edges, crossing.width, crossing.priority);
+            }
         }
     }
     // add roundabouts
