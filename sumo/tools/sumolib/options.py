@@ -17,11 +17,12 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+from __future__ import print_function
 import os, sys
 import subprocess
+from collections import namedtuple
 import re
-from xml.sax import saxutils, parse, handler
-from xml.dom import pulldom
+from xml.sax import parse, handler
 
 
 def get_long_option_names(application):
@@ -40,5 +41,28 @@ def get_long_option_names(application):
     return result
 
 
+Option = namedtuple("Option", ["name", "value", "type", "help"])
+class OptionReader(handler.ContentHandler):
+    """Reads an option file"""
+    def __init__(self):
+        self.opts = [] 
+
+    def startElement(self, name, attrs):
+        if attrs.has_key('value'):
+            self.opts.append(
+                    Option(name, attrs['value'], attrs.get('type'), attrs.get('help')))
+
+
+def readOptions(filename):
+    optionReader = OptionReader()
+    try:
+        if not os.path.isfile(filename):
+            print("Option file '%s' not found" % filename, file=sys.stderr)
+            sys.exit(1)
+        parse(filename, optionReader)
+    except None:
+        print("Invalid option file '%s'" % filename, file=sys.stderr)
+        sys.exit(1)
+    return optionReader.opts
 
 
