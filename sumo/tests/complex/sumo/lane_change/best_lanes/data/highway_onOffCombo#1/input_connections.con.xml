@@ -11,6 +11,7 @@
    <connection from="3" to="4" fromLane="1" toLane="0"/>
    <connection from="3" to="4" fromLane="2" toLane="1"/>
 
+   <connection from="4" to="5" fromLane="0" toLane="0"/>
    <connection from="4" to="5" fromLane="0" toLane="1"/>
    <connection from="4" to="5" fromLane="1" toLane="2"/>
 
