@@ -219,6 +219,7 @@ NGFrame::checkOptions() {
                 type != toString(NODETYPE_PRIORITY) &&
                 type != toString(NODETYPE_PRIORITY_STOP) &&
                 type != toString(NODETYPE_ALLWAY_STOP) &&
+                type != toString(NODETYPE_NOJUNCTION) &&
                 type != toString(NODETYPE_RIGHT_BEFORE_LEFT)) {
             WRITE_ERROR("Only the following junction types are known: " +
                         toString(NODETYPE_TRAFFIC_LIGHT) + ", " +
@@ -226,6 +227,7 @@ NGFrame::checkOptions() {
                         toString(NODETYPE_PRIORITY) + ", " +
                         toString(NODETYPE_PRIORITY_STOP) + ", " +
                         toString(NODETYPE_ALLWAY_STOP) + ", " +
+                        toString(NODETYPE_NOJUNCTION) + ", " +
                         toString(NODETYPE_RIGHT_BEFORE_LEFT));
             ok = false;
         }
