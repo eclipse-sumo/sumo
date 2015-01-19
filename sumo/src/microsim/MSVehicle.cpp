@@ -961,7 +961,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             const SUMOReal stopDist = seen + endPos - lane->getLength();
             const SUMOReal stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist);
             if (lastLink != 0) {
-                lastLink->adaptLeaveSpeed(stopSpeed);
+                lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos));
             }
             v = MIN2(v, stopSpeed);
             lfLinks.push_back(DriveProcessItem(v, stopDist));
