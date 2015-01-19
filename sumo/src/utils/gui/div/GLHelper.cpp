@@ -327,7 +327,7 @@ GLHelper::drawLine(const Position& beg, const Position& end) {
 
 size_t 
 GLHelper::angleLookup(SUMOReal angleDeg) {
-    const int numCoords = myCircleCoords.size() - 1;
+    const int numCoords = (int)myCircleCoords.size() - 1;
     int index = ((int)(floor(angleDeg * CIRCLE_RESOLUTION + 0.5))) % numCoords;
     if (index < 0) {
         index += numCoords;
