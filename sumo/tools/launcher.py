@@ -4,7 +4,7 @@
 @file    launcher.py
 @author  Jakob Erdmann
 @date    2015-01-18
-@version $Id: launcher.py 17397 2014-11-28 14:33:37Z namdre $
+@version $Id$
 
 This script acts as a GUI-wrapper around the sumo command-line applications
 
