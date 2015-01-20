@@ -1278,7 +1278,7 @@ MSVehicle::executeMove() {
 
     // XXX braking due to lane-changing is not registered
     bool braking = vSafe < getSpeed();
-    // apply speed reduction due to dawdling / lane changing but ensure minimum save speed
+    // apply speed reduction due to dawdling / lane changing but ensure minimum safe speed
     SUMOReal vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
 
     // vNext may be higher than vSafe without implying a bug:
