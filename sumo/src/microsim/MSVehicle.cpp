@@ -1281,9 +1281,15 @@ MSVehicle::executeMove() {
     // apply speed reduction due to dawdling / lane changing but ensure minimum save speed
     SUMOReal vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
 
-    //if (vNext > vSafe) {
+    // vNext may be higher than vSafe without implying a bug:
+    //  - when approaching a green light that suddenly switches to yellow
+    //  - when using unregulated junctions
+    //  - when using tau < step-size
+    //  - when using unsafe car following models
+    //  - when using TraCI and some speedMode / laneChangeMode settings
+    //if (vNext > vSafe + NUMERICAL_EPS) {
     //    WRITE_WARNING("vehicle '" + getID() + "' cannot brake hard enough to reach safe speed "
-    //            + toString(vSafe) + ", moving at " + toString(vNext) + " instead. time="
+    //            + toString(vSafe, 4) + ", moving at " + toString(vNext, 4) + " instead. time="
     //            + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
     //}
     vNext = MAX2(vNext, (SUMOReal) 0.);
