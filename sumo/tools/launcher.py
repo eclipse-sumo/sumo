@@ -28,6 +28,8 @@ from sumolib.options import Option, readOptions
 THISDIR = os.path.dirname(__file__)
 BINDIR = os.path.join(THISDIR, '..', 'bin')
 
+APPLICATIONS = ['netconvert', 'netgenerate', 'polyconvert', 'od2trips', 'duarouter', 'jtrrouter',
+                'dfrouter', 'marouter', 'sumo', 'sumo-gui', 'activitygen']
 
 class ResizingCanvas(Canvas):
     """ a subclass of Canvas for dealing with resizing of windows
@@ -85,7 +87,8 @@ class Launcher:
     def __init__(self, root, app, appOptions):
         self.title_prefix = "SUMO Application launcher"
         self.root = root
-        self.app = app
+        self.appVar = StringVar()
+        self.appVar.set(app)
         self.appOptions = appOptions
         self.optionValues = {}
 
@@ -125,21 +128,39 @@ class Launcher:
         
 
     def mainButtons(self):
+        row = 0
+        col = 0
         self.buttons = []
-        buttons = (
-                ("Run %s" % self.app, self.runApp),
+        
+        mb = Menubutton(self.root, text="Select Application")
+        mb.menu = Menu (mb, tearoff = 0)
+        mb["menu"] = mb.menu
+        for app in APPLICATIONS:
+            mb.menu.add_radiobutton(label=app, variable=self.appVar,
+                    command=self.onSelectApp)
+        mb.grid(row=row, column=col, sticky="NEW")
+        col += 1
+
+        self.buttons.append(mb)
+        otherButtons = (
+                ("Run %12s" % self.appVar.get(), self.runApp),
                 ("load Config", self.loadCfg),
                 ("Save Config", self.saveCfg),
                 ("Save Config as", self.saveCfgAs),
                 ("Quit", self.root.quit),
                 )
-        for i, (text, command) in enumerate(buttons):
+
+        for text, command in otherButtons:
             self.buttons.append(Button(self.root, text=text, command=command))
-            self.buttons[-1].grid(row=0, column=i, sticky="NEW")
-        return len(buttons)
+            self.buttons[-1].grid(row=row, column=col, sticky="NEW")
+            col += 1
+        return len(self.buttons)
+
+    def onSelectApp(self):
+        self.buttons[1].configure(text = "Run %12s" % self.appVar.get())
 
     def runApp(self):
-       subprocess.call(os.path.join(BINDIR, self.app))
+       subprocess.call(os.path.join(BINDIR, self.appVar.get()))
 
     def loadCfg(self):
         self.file_opt['title'] = 'Load configuration file'
