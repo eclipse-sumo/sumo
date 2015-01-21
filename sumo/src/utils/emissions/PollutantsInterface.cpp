@@ -3,7 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 19.08.2013
-/// @version $Id$
+/// @version $Id: PollutantsInterface.cpp 16560 2014-06-09 20:54:15Z behrisch $
 ///
 // Interface to capsulate different emission models
 /****************************************************************************/

@@ -4,7 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
-/// @version $Id$
+/// @version $Id: HelpersHBEFA3.cpp 16575 2014-06-10 13:49:15Z behrisch $
 ///
 // Helper methods for HBEFA3-based emission computation
 /****************************************************************************/

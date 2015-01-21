@@ -3,7 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
-/// @version $Id$
+/// @version $Id: HelpersHBEFA3.h 16560 2014-06-09 20:54:15Z behrisch $
 ///
 // Helper methods for HBEFA3-based emission computation
 /****************************************************************************/

@@ -4,7 +4,7 @@
 /// @author  Michael Behrisch
 /// @author  Nikolaus Furian
 /// @date    Sat, 20.04.2013
-/// @version $Id$
+/// @version $Id: HelpersPHEMlight.cpp 16575 2014-06-10 13:49:15Z behrisch $
 ///
 // Helper methods for PHEMlight-based emission computation
 /****************************************************************************/
@@ -233,29 +233,31 @@ HelpersPHEMlight::getWeight(const SUMOEmissionClass c) const {
 SUMOReal
 HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
     const PHEMCEP* const currCep = PHEMCEPHandler::getHandlerInstance().GetCep(c);
-    if (currCep == 0) {
-        return 0.;
-    }
-    const double power = currCep->CalcPower(v, a, slope);
+	const double corrSpeed = MAX2((double) 0.0, v);
+	const double decelCoast = currCep->GetDecelCoast(corrSpeed, a, slope, 0);
+	if(a < decelCoast) {
+		return 0;
+	}
+	double power = currCep->CalcPower(corrSpeed, a, slope);
     switch (e) {
         case PollutantsInterface::CO:
-            return currCep->GetEmission("CO", power) / SECONDS_PER_HOUR * 1000.;
+            return currCep->GetEmission("CO", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::CO2:
-            return currCep->GetEmission("FC", power) * 3.15 / SECONDS_PER_HOUR * 1000.;
+            return currCep->GetEmission("FC", power, corrSpeed) * 3.15 / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::HC:
-            return currCep->GetEmission("HC", power) / SECONDS_PER_HOUR * 1000.;
+            return currCep->GetEmission("HC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::NO_X:
-            return currCep->GetEmission("NOx", power) / SECONDS_PER_HOUR * 1000.;
+            return currCep->GetEmission("NOx", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::PM_X:
-            return currCep->GetEmission("PM", power) / SECONDS_PER_HOUR * 1000.;
+            return currCep->GetEmission("PM", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::FUEL: {
             std::string fuelType = currCep->GetVehicleFuelType();
             if (fuelType == "D") { // divide by average diesel density of 836 g/l
-                return currCep->GetEmission("FC", power) / 836. / SECONDS_PER_HOUR * 1000.;
+                return currCep->GetEmission("FC", power, corrSpeed) / 836. / SECONDS_PER_HOUR * 1000.;
             } else if (fuelType == "G") { // divide by average gasoline density of 742 g/l
-                return currCep->GetEmission("FC", power) / 742. / SECONDS_PER_HOUR * 1000.;
+                return currCep->GetEmission("FC", power, corrSpeed) / 742. / SECONDS_PER_HOUR * 1000.;
             } else {
-                return currCep->GetEmission("FC", power) / SECONDS_PER_HOUR * 1000.; // surely false, but at least not additionally modified
+                return currCep->GetEmission("FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.; // surely false, but at least not additionally modified
             }
         }
     }

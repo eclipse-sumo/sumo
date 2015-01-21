@@ -5,7 +5,7 @@
 /// @author  Michael Behrisch
 /// @author  Marek Heinrich
 /// @date    Thu, 13.06.2013
-/// @version $Id$
+/// @version $$
 ///
 // Helper singleton class for PHEM Light, holds CEP data for emission computation
 /****************************************************************************/
@@ -93,11 +93,31 @@ private:
     * @param[in] matrixRotFactor out variable for rotational factors over speed for more accurate power calculation
     * @return Indicator if reading was successul
     */
-    bool ReadVehicleFile(const std::vector<std::string>& path, const std::string& emissionClass,
-                         double& vehicleMass, double& vehicleLoading, double& vehicleMassRot,
-                         double& crossArea, double& cWValue,
-                         double& f0, double& f1, double& f2, double& f3, double& f4, double& ratedPower, std::string& vehicleMassType, std::string& vehicleFuelType,
-                         double& pNormV0, double& pNormP0, double& pNormV1, double& pNormP1, std::vector< std::vector<double> >& matrixRotFactor);
+    bool ReadVehicleFile(const std::string& path, const std::string& emissionClass,
+									 double &vehicleMass,
+									 double &vehicleLoading,
+									 double &vehicleMassRot,
+									 double &crossArea,
+									 double &cWValue,
+									 double &f0,
+									 double &f1,
+									 double &f2,
+									 double &f3,
+									 double &f4,
+									 double &axleRatio,
+									 double &ratedPower,
+									 double &engineIdlingSpeed,
+									 double &engineRatedSpeed,
+									 double &effectiveWheelDiameter,
+									 std::string &vehicleMassType,
+									 std::string &vehicleFuelType,
+									 double &pNormV0,
+									 double &pNormP0,
+									 double &pNormV1,
+									 double &pNormP1,
+									 std::vector< std::vector<double> > &matrixSpeedInertiaTable,
+									 std::vector< std::vector<double> > &normedDragTable);
+
 
 
     /** @brief Helper method to read a CEP file from file system
@@ -107,13 +127,14 @@ private:
      * @param[in] matrix matrix holding power pattern and CEP curves
      * @return Indicator if reading was successul
      */
-    bool ReadEmissionData(bool readFC, const std::vector<std::string>& path, const std::string& emissionClass,
-                          std::vector<std::string>& header, std::vector<std::vector<double> >& matrix);
+    bool ReadEmissionData(bool readFC, const std::string& path, const std::string& emissionClass,
+                          std::vector<std::string> &header, std::vector<std::vector<double> > &matrix, std::vector<double> &idlingValues);
 
 
 private:
     /// @brief bijection between PHEMEmissionClass and CEPs
     std::map<SUMOEmissionClass, PHEMCEP*> _ceps;
+//	StringBijection<PHEMEmissionClass> _stringRepsPhemEmissionClass;
 
 
 private:
