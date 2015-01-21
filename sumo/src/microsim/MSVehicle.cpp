@@ -1223,7 +1223,7 @@ MSVehicle::executeMove() {
                                              getVehicleType().getLength(), getImpatience(),
                                              getCarFollowModel().getMaxDecel(), getWaitingTime());
             // vehicles should decelerate when approaching a minor link
-            if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor()) {
+            if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont()) {
                 if ((*i).myDistance > getCarFollowModel().getMaxDecel()) {
                     vSafe = (*i).myVLinkWait;
                     myHaveToWaitOnNextLink = true;

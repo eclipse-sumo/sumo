@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu 12 Dec 2013 06:55:58 AM CET by Netedit Version dev-SVN-r15314
+<!-- generated on Wed Jan 21 11:16:56 2015 by SUMO netconvert Version dev-SVN-r17629I
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="net2.net.xml"/>
     </output>
 
     <processing>
@@ -87,10 +87,10 @@
     <connection from="beg" to="end2" fromLane="0" toLane="0" via=":54544716_2_0" tl="54544716" linkIndex="1" dir="l" state="o"/>
     <connection from="beg2" to="end2" fromLane="0" toLane="0" via=":54544716_1_0" tl="54544716" linkIndex="0" dir="r" state="o"/>
 
-    <connection from=":54544716_0" to="end" fromLane="0" toLane="0" via=":54544716_3_0" dir="s" state="M"/>
+    <connection from=":54544716_0" to="end" fromLane="0" toLane="0" via=":54544716_3_0" dir="s" state="m"/>
     <connection from=":54544716_3" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54544716_1" to="end2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54544716_2" to="end2" fromLane="0" toLane="0" via=":54544716_4_0" dir="s" state="M"/>
+    <connection from=":54544716_2" to="end2" fromLane="0" toLane="0" via=":54544716_4_0" dir="s" state="m"/>
     <connection from=":54544716_4" to="end2" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>
