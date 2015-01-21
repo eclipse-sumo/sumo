@@ -21,6 +21,7 @@ copy_test_path:input_plain.edg.xml
 copy_test_path:input_plain.con.xml
 copy_test_path:input_plain.tll.xml
 copy_test_path:heightmap.tif
+copy_test_path:edge_ids.txt
 
 [collate_file]
 net:net.net.xml
