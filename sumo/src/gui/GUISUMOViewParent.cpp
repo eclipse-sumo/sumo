@@ -50,10 +50,12 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDialog_GLObjChooser.h>
 #include <guisim/GUIVehicle.h>
+#include <guisim/GUIPerson.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicleControl.h>
+#include <guisim/GUIPersonControl.h>
 #include <microsim/MSJunction.h>
 #include "GUIGlobals.h"
 #include "GUIViewTraffic.h"
@@ -78,6 +80,7 @@ FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPERSON,   GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,      GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,      GUISUMOViewParent::onCmdLocate),
@@ -188,6 +191,11 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids);
             icon = ICON_LOCATEVEHICLE;
             title = "Vehicle Chooser";
+            break;
+        case MID_LOCATEPERSON:
+            static_cast<GUIPersonControl&>(MSNet::getInstance()->getPersonControl()).insertPersonIDs(ids);
+            icon = ICON_LOCATEPERSON;
+            title = "Person Chooser";
             break;
         case MID_LOCATETLS:
             ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();

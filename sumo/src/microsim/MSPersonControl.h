@@ -159,7 +159,7 @@ public:
     }
 
 
-private:
+protected:
     /// all persons by id
     std::map<std::string, MSPerson*> myPersons;
 

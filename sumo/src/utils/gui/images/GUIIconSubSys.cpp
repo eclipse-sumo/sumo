@@ -55,6 +55,7 @@
 #include "locate_junction.xpm"
 #include "locate_edge.xpm"
 #include "locate_vehicle.xpm"
+#include "locate_person.xpm"
 #include "locate_tls.xpm"
 #include "locate_add.xpm"
 #include "locate_poi.xpm"
@@ -165,6 +166,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_LOCATEJUNCTION] = new FXXPMIcon(a, locate_junction_xpm);
     myIcons[ICON_LOCATEEDGE] = new FXXPMIcon(a, locate_edge_xpm);
     myIcons[ICON_LOCATEVEHICLE] = new FXXPMIcon(a, locate_vehicle_xpm);
+    myIcons[ICON_LOCATEPERSON] = new FXXPMIcon(a, locate_person_xpm);
     myIcons[ICON_LOCATETLS] = new FXXPMIcon(a, locate_tls_xpm);
     myIcons[ICON_LOCATEADD] = new FXXPMIcon(a, locate_add_xpm);
     myIcons[ICON_LOCATEPOI] = new FXXPMIcon(a, locate_poi_xpm);

@@ -59,6 +59,11 @@ public:
      */
     virtual MSPerson* buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) const;
 
+    /** @brief Returns the list of all known persons by gl-id
+     * @param[fill] into The list to fill with vehicle ids
+     * @todo Well, what about concurrent modifications?
+     */
+    void insertPersonIDs(std::vector<GUIGlID>& into);
 };
 
 

@@ -159,6 +159,8 @@ enum {
     MID_LOCATEEDGE,
     /// Locate vehicle - button
     MID_LOCATEVEHICLE,
+    /// Locate person - button
+    MID_LOCATEPERSON,
     /// Locate TLS - button
     MID_LOCATETLS,
     /// Locate addtional structure - button

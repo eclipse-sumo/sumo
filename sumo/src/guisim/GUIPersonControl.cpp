@@ -57,4 +57,13 @@ GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleT
 }
 
 
+void
+GUIPersonControl::insertPersonIDs(std::vector<GUIGlID>& into) {
+    into.reserve(myPersons.size());
+    for (std::map<std::string, MSPerson*>::const_iterator it = myPersons.begin(); it != myPersons.end(); ++it) {
+        into.push_back(static_cast<const GUIPerson*>((*it).second)->getGlID());
+    }
+}
+
+
 /****************************************************************************/
