@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -192,6 +192,7 @@
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Junction.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Lane.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.cpp" />
+    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Person.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_POI.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Polygon.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Route.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Junction.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Lane.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.h" />
+    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Person.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_POI.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Polygon.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Route.h" />

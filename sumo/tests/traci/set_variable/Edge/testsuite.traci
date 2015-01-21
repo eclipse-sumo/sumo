@@ -4,3 +4,5 @@ EdgeTravelTimeInfo
 # for changing edge efforts
 EdgeEffortInfo
 
+# getting/setting an abstract parameter
+VAR_PARAMETER

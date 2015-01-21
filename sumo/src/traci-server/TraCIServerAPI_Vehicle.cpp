@@ -42,7 +42,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeWeightsStorage.h>
-#include <microsim/MSAbstractLaneChangeModel.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/vehicle/DijkstraRouterTT.h>
 #include <utils/vehicle/DijkstraRouterEffort.h>
@@ -94,6 +94,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
             && variable != VAR_TAU && variable != VAR_BEST_LANES && variable != DISTANCE_REQUEST
             && variable != ID_COUNT && variable != VAR_STOPSTATE && variable !=  VAR_WAITING_TIME
+            && variable != VAR_PARAMETER
        ) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable specified", outputStorage);
     }
@@ -392,6 +393,15 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(v->getChosenSpeedFactor());
                 break;
+        case VAR_PARAMETER: {
+            std::string paramName = "";
+            if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+            }
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(v->getParameter().getParameter(paramName, ""));
+                            }
+                            break;
             default:
                 TraCIServerAPI_VehicleType::getVariable(variable, v->getVehicleType(), tempMsg);
                 break;
@@ -422,7 +432,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_TAU && variable != VAR_LANECHANGE_MODE
             && variable != VAR_SPEED && variable != VAR_SPEEDSETMODE && variable != VAR_COLOR
             && variable != ADD && variable != ADD_FULL && variable != REMOVE
-            && variable != VAR_MOVE_TO_VTD
+            && variable != VAR_MOVE_TO_VTD && variable != VAR_PARAMETER/* && variable != VAR_SPEED_TIME_LINE && variable != VAR_LANE_TIME_LINE*/
        ) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Change Vehicle State: unsupported variable specified", outputStorage);
     }
@@ -550,6 +560,38 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             v->getInfluencer().setLaneTimeLine(laneTimeLine);
         }
         break;
+        /*
+        case VAR_LANE_TIME_LINE: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description.", outputStorage);
+            }
+            if (inputStorage.readInt() != 2) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description of two items.", outputStorage);
+            }
+            // Lane ID
+            int laneIndex = 0;
+            if (!server.readTypeCheckingByte(inputStorage, laneIndex)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first lane change parameter must be the lane index given as a byte.", outputStorage);
+            }
+            // stickyTime
+            SUMOTime stickyTime = 0;
+            if (!server.readTypeCheckingInt(inputStorage, stickyTime)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second lane change parameter must be the duration given as an integer.", outputStorage);
+            }
+            if ((laneIndex < 0) || (laneIndex >= (int)(v->getEdge()->getLanes().size()))) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane existing with given id on the current road", outputStorage);
+            }
+            // Forward command to vehicle
+            std::vector<std::pair<SUMOTime, unsigned int> > laneTimeLine;
+            laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
+            laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + stickyTime, laneIndex));
+            v->getInfluencer().setLaneTimeLine(laneTimeLine);
+            MSVehicle::ChangeRequest req = v->getInfluencer().checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(),
+                                           *v->getEdge(), v->getLaneIndex());
+            v->getLaneChangeModel().requestLaneChange(req);
+        }
+        break;
+        */
         case CMD_SLOWDOWN: {
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Slow down needs a compound object description.", outputStorage);
@@ -1220,6 +1262,23 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             v->setChosenSpeedFactor(factor);
         }
         break;
+        case VAR_PARAMETER: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
+            }
+            //readt itemNo
+            inputStorage.readInt();
+            std::string name;
+            if (!server.readTypeCheckingString(inputStorage, name)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
+            }
+            std::string value;
+            if (!server.readTypeCheckingString(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
+            }
+            ((SUMOVehicleParameter&) v->getParameter()).addParameter(name, value);
+                            }
+                            break;
         default:
             try {
                 if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, getSingularType(v), server, inputStorage, outputStorage)) {

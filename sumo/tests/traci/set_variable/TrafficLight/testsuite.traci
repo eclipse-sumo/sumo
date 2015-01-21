@@ -13,6 +13,8 @@ TL_PHASE_DURATION
 # Tests for inserting a new program
 TL_COMPLETE_PROGRAM
 
+# getting/setting an abstract parameter
+VAR_PARAMETER
 
 
 # Tests for error handling

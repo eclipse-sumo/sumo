@@ -78,21 +78,6 @@
 // response: subscribe induction loop (e1) variable
 #define RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE 0xe0
 
-
-// command: subscribe areal detector (e2) context
-#define CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT 0x8D
-// response: subscribe areal detector (e2) context
-#define RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT 0x9D
-// command: get areal detector (e2) variable
-#define CMD_GET_AREAL_DETECTOR_VARIABLE 0x8E
-// response: get areal detector (e2) variable
-#define RESPONSE_GET_AREAL_DETECTOR_VARIABLE 0x9E
-// command: subscribe areal detector (e2) variable
-#define CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE 0x8F
-// response: subscribe areal detector (e2) variable
-#define RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE 0x9F
-
-
 // command: subscribe multi-entry/multi-exit detector (e3) context
 #define CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT 0x81
 // response: subscribe multi-entry/multi-exit detector (e3) context
@@ -105,7 +90,6 @@
 #define CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xd1
 // response: subscribe multi-entry/multi-exit detector (e3) variable
 #define RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xe1
-
 
 // command: subscribe traffic lights context
 #define CMD_SUBSCRIBE_TL_CONTEXT 0x82
@@ -271,6 +255,34 @@
 #define CMD_SUBSCRIBE_GUI_VARIABLE 0xdc
 // response: subscribe GUI variable
 #define RESPONSE_SUBSCRIBE_GUI_VARIABLE 0xec
+
+// command: subscribe areal detector (e2) context
+#define CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT 0x8d
+// response: subscribe areal detector (e2) context
+#define RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT 0x9d
+// command: get areal detector (e2) variable
+#define CMD_GET_AREAL_DETECTOR_VARIABLE 0xad
+// response: get areal detector (e2) variable
+#define RESPONSE_GET_AREAL_DETECTOR_VARIABLE 0xbd
+// command: subscribe areal detector (e2) variable
+#define CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE 0xdd
+// response: subscribe areal detector (e2) variable
+#define RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE 0xed
+
+// command: subscribe person context
+#define CMD_SUBSCRIBE_PERSON_CONTEXT 0x8e
+// response: subscribe person context
+#define RESPONSE_SUBSCRIBE_PERSON_CONTEXT 0x9e
+// command: get person variable
+#define CMD_GET_PERSON_VARIABLE 0xae
+// response: get person variable
+#define RESPONSE_GET_PERSON_VARIABLE 0xbe
+// command: set person variable
+#define CMD_SET_PERSON_VARIABLE 0xce
+// command: subscribe person variable
+#define CMD_SUBSCRIBE_PERSON_VARIABLE 0xde
+// response: subscribe person variable
+#define RESPONSE_SUBSCRIBE_PERSON_VARIABLE 0xee
 
 
 // ****************************************
@@ -698,6 +710,8 @@
 // clears the simulation of all not inserted vehicles (set: simulation)
 #define CMD_CLEAR_PENDING_VEHICLES 0x94
 
+// sets/retrieves abstract parameter
+#define VAR_PARAMETER 0x7e
 
 
 

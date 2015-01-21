@@ -66,7 +66,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             && variable != VAR_NOXEMISSION && variable != VAR_FUELCONSUMPTION && variable != VAR_NOISEEMISSION && variable != VAR_WAITING_TIME
             && variable != LAST_STEP_VEHICLE_NUMBER && variable != LAST_STEP_MEAN_SPEED && variable != LAST_STEP_OCCUPANCY
             && variable != LAST_STEP_VEHICLE_HALTING_NUMBER && variable != LAST_STEP_LENGTH
-            && variable != LAST_STEP_VEHICLE_ID_LIST && variable != ID_COUNT) {
+            && variable != LAST_STEP_VEHICLE_ID_LIST && variable != ID_COUNT && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "Get Edge Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
@@ -290,6 +290,15 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 }
             }
             break;
+        case VAR_PARAMETER: {
+            std::string paramName = "";
+            if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+            }
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(e->getParameter(paramName, ""));
+                            }
+                            break;
             default:
                 break;
         }
@@ -306,7 +315,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable != VAR_EDGE_TRAVELTIME && variable != VAR_EDGE_EFFORT && variable != VAR_MAXSPEED) {
+    if (variable != VAR_EDGE_TRAVELTIME && variable != VAR_EDGE_EFFORT && variable != VAR_MAXSPEED && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "Change Edge State: unsupported variable specified", outputStorage);
     }
     // id
@@ -421,6 +430,23 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             }
         }
         break;
+        case VAR_PARAMETER: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
+            }
+            //readt itemNo
+            inputStorage.readInt();
+            std::string name;
+            if (!server.readTypeCheckingString(inputStorage, name)) {
+                return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
+            }
+            std::string value;
+            if (!server.readTypeCheckingString(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
+            }
+            e->addParameter(name, value);
+                            }
+                            break;
         default:
             break;
     }

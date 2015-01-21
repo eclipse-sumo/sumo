@@ -53,7 +53,7 @@ TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStora
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable != ID_LIST && variable != VAR_EDGES && variable != ID_COUNT) {
+    if (variable != ID_LIST && variable != VAR_EDGES && variable != ID_COUNT && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, "Get Route Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
@@ -86,6 +86,15 @@ TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStora
                     tempMsg.writeString((*i)->getID());
                 }
                 break;
+        case VAR_PARAMETER: {
+            std::string paramName = "";
+            if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+            }
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(r->getParameter(paramName, ""));
+                            }
+                            break;
             default:
                 break;
         }
@@ -102,14 +111,21 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable != ADD) {
+    if (variable != ADD && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "Change Route State: unsupported variable specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();
+    const MSRoute* r = 0;
+    if (variable != ADD) {
+        r = MSRoute::dictionary(id);
+        if (r == 0) {
+            return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "Route '" + id + "' is not known", outputStorage);
+        }
+    }
     // process
     switch (variable) {
-        case ADD: {
+    case ADD: {
             std::vector<std::string> edgeIDs;
             if (!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
                 return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "A string list is needed for adding a new route.", outputStorage);
@@ -127,11 +143,28 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
             if (!MSRoute::dictionary(id, new MSRoute(id, edges, true, 0, stops))) {
                 return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "Could not add route.", outputStorage);
             }
-        }
-        break;
+              }
+            break;
+    case VAR_PARAMETER: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
+            }
+            //readt itemNo
+            inputStorage.readInt();
+            std::string name;
+            if (!server.readTypeCheckingString(inputStorage, name)) {
+                return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
+            }
+            std::string value;
+            if (!server.readTypeCheckingString(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
+            }
+            ((MSRoute*) r)->addParameter(name, value);
+                        }
+                            break;
         default:
             break;
-    }
+              }
     server.writeStatusCmd(CMD_SET_ROUTE_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
 }

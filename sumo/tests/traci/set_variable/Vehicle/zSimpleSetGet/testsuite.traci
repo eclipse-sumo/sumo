@@ -14,3 +14,6 @@ VAR_SPEED_FACTOR
 VAR_TAU
 VAR_VEHICLECLASS
 VAR_WIDTH
+
+# getting/setting an abstract parameter
+VAR_PARAMETER

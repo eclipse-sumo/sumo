@@ -65,6 +65,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             && variable != LAST_STEP_VEHICLE_ID_LIST && variable != LAST_STEP_OCCUPANCY && variable != LAST_STEP_VEHICLE_HALTING_NUMBER
             && variable != LAST_STEP_LENGTH && variable != VAR_CURRENT_TRAVELTIME
             && variable != LANE_ALLOWED && variable != LANE_DISALLOWED && variable != VAR_WIDTH && variable != ID_COUNT
+            && variable != VAR_PARAMETER
        ) {
         return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, "Get Lane Variable: unsupported variable specified", outputStorage);
     }
@@ -279,6 +280,15 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(lane->getWidth());
                 break;
+        case VAR_PARAMETER: {
+            std::string paramName = "";
+            if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                return server.writeErrorStatusCmd(RESPONSE_GET_LANE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+            }
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(lane->getParameter(paramName, ""));
+                            }
+                            break;
             default:
                 break;
         }
@@ -295,7 +305,8 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable != VAR_MAXSPEED && variable != VAR_LENGTH && variable != LANE_ALLOWED && variable != LANE_DISALLOWED) {
+    if (variable != VAR_MAXSPEED && variable != VAR_LENGTH && variable != LANE_ALLOWED && variable != LANE_DISALLOWED
+        && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Change Lane State: unsupported variable specified", outputStorage);
     }
     // id
@@ -340,6 +351,23 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             l->getEdge().rebuildAllowedLanes();
         }
         break;
+        case VAR_PARAMETER: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
+            }
+            //readt itemNo
+            inputStorage.readInt();
+            std::string name;
+            if (!server.readTypeCheckingString(inputStorage, name)) {
+                return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
+            }
+            std::string value;
+            if (!server.readTypeCheckingString(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
+            }
+            l->addParameter(name, value);
+                            }
+                            break;
         default:
             break;
     }

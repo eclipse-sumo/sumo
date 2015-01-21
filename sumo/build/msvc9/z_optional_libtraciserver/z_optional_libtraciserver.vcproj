@@ -394,6 +394,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Person.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_POI.cpp"
 				>
 			</File>
@@ -457,6 +461,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Person.h"
 				>
 			</File>
 			<File

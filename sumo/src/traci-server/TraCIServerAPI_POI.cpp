@@ -54,7 +54,8 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable != ID_LIST && variable != VAR_TYPE && variable != VAR_COLOR && variable != VAR_POSITION && variable != ID_COUNT) {
+    if (variable != ID_LIST && variable != VAR_TYPE && variable != VAR_COLOR && variable != VAR_POSITION && variable != ID_COUNT
+        && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Get PoI Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
@@ -97,6 +98,15 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 tempMsg.writeDouble(p->x());
                 tempMsg.writeDouble(p->y());
                 break;
+        case VAR_PARAMETER: {
+            std::string paramName = "";
+            if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+            }
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(p->getParameter(paramName, ""));
+                            }
+                            break;
             default:
                 break;
         }
@@ -114,7 +124,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != VAR_TYPE && variable != VAR_COLOR && variable != VAR_POSITION
-            && variable != ADD && variable != REMOVE) {
+            && variable != ADD && variable != REMOVE && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "Change PoI State: unsupported variable specified", outputStorage);
     }
     // id
@@ -194,6 +204,23 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             }
         }
         break;
+        case VAR_PARAMETER: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
+            }
+            //readt itemNo
+            inputStorage.readInt();
+            std::string name;
+            if (!server.readTypeCheckingString(inputStorage, name)) {
+                return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
+            }
+            std::string value;
+            if (!server.readTypeCheckingString(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
+            }
+            p->addParameter(name, value);
+                            }
+                            break;
         default:
             break;
     }

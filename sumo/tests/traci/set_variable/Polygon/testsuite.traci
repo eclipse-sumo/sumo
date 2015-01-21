@@ -8,6 +8,8 @@ ADD
 
 REMOVE
 
+# getting/setting an abstract parameter
+VAR_PARAMETER
 
 
 

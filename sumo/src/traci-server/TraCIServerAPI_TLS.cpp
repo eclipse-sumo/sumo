@@ -56,7 +56,8 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     if (variable != ID_LIST && variable != TL_RED_YELLOW_GREEN_STATE && variable != TL_COMPLETE_DEFINITION_RYG
             && variable != TL_CONTROLLED_LANES && variable != TL_CONTROLLED_LINKS
             && variable != TL_CURRENT_PHASE && variable != TL_CURRENT_PROGRAM
-            && variable != TL_NEXT_SWITCH && variable != TL_PHASE_DURATION && variable != ID_COUNT) {
+            && variable != TL_NEXT_SWITCH && variable != TL_PHASE_DURATION && variable != ID_COUNT
+            && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Get TLS Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
@@ -208,6 +209,15 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt((int) vars.getActive()->getNextSwitchTime());
                 break;
+        case VAR_PARAMETER: {
+            std::string paramName = "";
+            if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+            }
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(vars.getActive()->getParameter(paramName, ""));
+                            }
+                            break;
             case TL_CONTROLLED_JUNCTIONS: {
             }
             break;
@@ -227,8 +237,9 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable != TL_PHASE_INDEX && variable != TL_PROGRAM
-            && variable != TL_PHASE_DURATION && variable != TL_RED_YELLOW_GREEN_STATE && variable != TL_COMPLETE_PROGRAM_RYG) {
+    if (variable != TL_PHASE_INDEX && variable != TL_PROGRAM && variable != TL_PHASE_DURATION 
+        && variable != TL_RED_YELLOW_GREEN_STATE && variable != TL_COMPLETE_PROGRAM_RYG
+        && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "Change TLS State: unsupported variable specified", outputStorage);
     }
     std::string id = inputStorage.readString();
@@ -336,6 +347,23 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             }
         }
         break;
+        case VAR_PARAMETER: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
+            }
+            //readt itemNo
+            inputStorage.readInt();
+            std::string name;
+            if (!server.readTypeCheckingString(inputStorage, name)) {
+                return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
+            }
+            std::string value;
+            if (!server.readTypeCheckingString(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
+            }
+            vars.getActive()->addParameter(name, value);
+                            }
+                            break;
         default:
             break;
     }

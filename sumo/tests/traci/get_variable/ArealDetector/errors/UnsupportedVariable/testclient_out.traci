@@ -1,12 +1,12 @@
-TraCITestClient output file. Date: Mon Jul 01 13:24:42 2013
+TraCITestClient output file. Date: Tue Dec 16 15:25:23 2014
 
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
-  domID=142 varID=255 objID=dummy
-.. Answered with error to command (142), [description: Get Areal Detector Variable: unsupported variable specified]
+  domID=173 varID=255 objID=dummy
+.. Answered with error to command (173), [description: Get Areal Detector Variable: unsupported variable specified]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
