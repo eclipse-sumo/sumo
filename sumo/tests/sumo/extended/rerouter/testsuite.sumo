@@ -12,6 +12,9 @@ closing_with_prob
 # closing an edge with modifying permissions
 closing_with_disallow
 
+# closing an edge with modifying permissions
+closing_with_disallow_teleport
+
 # closing rerouter where the destination is not closed but is not reachable anymore
 closing_disconnects_dest
 

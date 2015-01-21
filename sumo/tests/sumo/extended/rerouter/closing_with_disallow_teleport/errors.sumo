@@ -1,0 +1,18 @@
+Warning: No connection between 'beg' and 'rend' found.
+Warning: No connection between 'beg' and 'rend' found.
+Warning: No connection between 'beg' and 'rend' found.
+Warning: No connection between 'beg' and 'rend' found.
+Warning: No connection between 'beg' and 'rend' found.
+Warning: No connection between 'beg' and 'rend' found.
+Warning: No connection between 'beg' and 'rend' found.
+Warning: No connection between 'beg' and 'rend' found.
+Warning: No connection between 'beg' and 'rend' found.
+Warning: No connection between 'beg' and 'rend' found.
+Warning: No connection between 'beg' and 'rend' found.
+Warning: No connection between 'beg' and 'rend' found.
+Warning: Teleporting vehicle 'flow_maybe_detour.0'; waited too long (wrong lane), lane='middle_0', time=363.00.
+Warning: Vehicle 'flow_maybe_detour.0' ends teleporting on edge 'rend', time 382.00.
+Warning: Teleporting vehicle 'flow_maybe_detour.1'; waited too long (wrong lane), lane='middle_0', time=666.00.
+Warning: Vehicle 'flow_maybe_detour.1' ends teleporting on edge 'rend', time 685.00.
+Warning: Teleporting vehicle 'flow_maybe_detour.2'; waited too long (wrong lane), lane='middle_0', time=969.00.
+Warning: Vehicle 'flow_maybe_detour.2' ends teleporting on edge 'rend', time 988.00.
