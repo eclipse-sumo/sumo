@@ -42,7 +42,17 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="impatience" type="xsd:float"/>
+        <xsd:attribute name="impatience">
+            <xsd:simpleType>
+                <xsd:union memberTypes="xsd:float">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="off"/>
+                        </xsd:restriction>
+                    </xsd:simpleType> 
+                </xsd:union>
+            </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="tau" type="positiveFloatType"/>
         <xsd:attribute name="carFollowModel" type="xsd:string"/>
         <xsd:attribute name="laneChangeModel">
