@@ -1029,7 +1029,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime();
         if (yellowOrRed && seen >= brakeDist ) {
             // the vehicle is able to brake in front of a yellow/red traffic light
-            lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, SUMOTime_MAX, stopDist));
+            lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, SUMOTime_MAX, seen));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
             break;
         }
@@ -1104,7 +1104,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, setRequest,
                                            arrivalTime, arrivalSpeed,
                                            arrivalTimeBraking, arrivalSpeedBraking,
-                                           stopDist,
+                                           seen,
                                            estimateLeaveSpeed(*link, vLinkPass)));
 #ifdef HAVE_INTERNAL_LANES
         if ((*link)->getViaLane() == 0) {
