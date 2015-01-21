@@ -160,17 +160,19 @@ public:
 
 
     /** @brief Returns the begin of the internal vehicle map
-     *
      * @return The begin of the internal vehicle map
      */
-    constVehIt loadedVehBegin() const;
+    constVehIt loadedVehBegin() const {
+        return myVehicleDict.begin();
+    }
 
 
     /** @brief Returns the end of the internal vehicle map
-     *
      * @return The end of the internal vehicle map
      */
-    constVehIt loadedVehEnd() const;
+    constVehIt loadedVehEnd() const {
+        return myVehicleDict.end();
+    }
     /// @}
 
 

@@ -547,10 +547,6 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\microsim\MSAbstractLaneChangeModel.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSBaseVehicle.cpp"
 				>
 			</File>
@@ -607,18 +603,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSLCM_DK2008.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSLCM_JE2013.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSLCM_LC2013.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSLink.cpp"
 				>
 			</File>
@@ -643,23 +627,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSPerson.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSPersonControl.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSPModel.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSPModel_NonInteracting.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSPModel_Striping.cpp"
 				>
 			</File>
 			<File
@@ -702,10 +670,6 @@
 		<Filter
 			Name="Header-Dateien"
 			>
-			<File
-				RelativePath="..\..\..\src\microsim\MSAbstractLaneChangeModel.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSBaseVehicle.h"
 				>
@@ -767,18 +731,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSLCM_DK2008.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSLCM_JE2013.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSLCM_LC2013.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSLink.h"
 				>
 			</File>
@@ -803,23 +755,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSPerson.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSPersonControl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSPModel.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSPModel_NonInteracting.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSPModel_Striping.h"
 				>
 			</File>
 			<File

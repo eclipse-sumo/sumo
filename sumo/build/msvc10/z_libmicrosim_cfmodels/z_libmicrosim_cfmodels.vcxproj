@@ -48,6 +48,7 @@
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Kerner.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.h" />
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussAccelBound.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussPS.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.h" />
@@ -60,6 +61,7 @@
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Kerner.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussAccelBound.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussPS.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.cpp" />

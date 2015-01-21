@@ -137,7 +137,7 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
     assert(veh->getParameter().depart < time + DELTA_T);
     const MSEdge& edge = *veh->getEdge();
     if ((!myCheckEdgesOnce || edge.getLastFailedInsertionTime() != time) && edge.insertVehicle(*veh, time)) {
-        // Successful emission.
+        // Successful insertion
         checkFlowWait(veh);
         veh->onDepart();
         return 1;

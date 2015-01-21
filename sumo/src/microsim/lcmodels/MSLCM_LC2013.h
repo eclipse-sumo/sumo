@@ -1,16 +1,17 @@
 /****************************************************************************/
-/// @file    MSLCM_JE2013.h
+/// @file    MSLCM_LC2013.h
+/// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
+/// @author  Friedemann Wesner
+/// @author  Sascha Krieg
 /// @author  Michael Behrisch
-/// @author  Laura Bieker
 /// @date    Fri, 08.10.2013
 /// @version $Id$
 ///
-// A lane change model developed by J. Erdmann
-// based on the model of D. Krajzewicz developed between 2004 and 2011 (MSLCM_DK2004)
+// A lane change model developed by D. Krajzewicz, J. Erdmann et al. between 2004 and 2013
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -20,8 +21,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSLCM_JE2013_h
-#define MSLCM_JE2013_h
+#ifndef MSLCM_LC2013_h
+#define MSLCM_LC2013_h
 
 
 // ===========================================================================
@@ -33,7 +34,7 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSAbstractLaneChangeModel.h>
+#include "MSAbstractLaneChangeModel.h"
 #include <vector>
 
 
@@ -41,10 +42,11 @@
 // class definitions
 // ===========================================================================
 /**
- * @class MSLCM_JE2013
- * @brief A lane change model developed by J. Erdmann
+ * @class MSLCM_LC2013
+ * @brief A lane change model developed by D. Krajzewicz, J. Erdmann
+ * et al. between 2004 and 2013
  */
-class MSLCM_JE2013 : public MSAbstractLaneChangeModel {
+class MSLCM_LC2013 : public MSAbstractLaneChangeModel {
 public:
 
     enum MyLCAEnum {
@@ -63,9 +65,9 @@ public:
     };
 
 
-    MSLCM_JE2013(MSVehicle& v);
+    MSLCM_LC2013(MSVehicle& v);
 
-    virtual ~MSLCM_JE2013();
+    virtual ~MSLCM_LC2013();
 
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset.

@@ -36,7 +36,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include "MSCFModel_Krauss.h"
-#include <microsim/MSAbstractLaneChangeModel.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
 
 

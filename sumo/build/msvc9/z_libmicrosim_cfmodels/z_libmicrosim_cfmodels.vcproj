@@ -359,6 +359,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_KraussAccelBound.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.cpp"
 				>
 			</File>
@@ -402,6 +406,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_KraussAccelBound.h"
 				>
 			</File>
 			<File

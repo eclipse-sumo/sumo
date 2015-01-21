@@ -33,8 +33,8 @@
 #include <limits>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Command.h>
-#include <microsim/MSPerson.h>
-#include <microsim/MSPModel.h>
+#include "MSPerson.h"
+#include "MSPModel.h"
 
 // ===========================================================================
 // class declarations

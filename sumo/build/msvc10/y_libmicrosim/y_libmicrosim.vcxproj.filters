@@ -64,9 +64,6 @@
     <ClCompile Include="..\..\..\src\microsim\MSNoLogicJunction.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSPerson.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\MSPersonControl.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -100,35 +97,11 @@
     <ClCompile Include="..\..\..\src\microsim\MSInsertionControl.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSAbstractLaneChangeModel.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\MSStateHandler.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSLCM_JE2013.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSLCM_DK2008.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSLCM_LC2013.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSPModel.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSPModel_NonInteracting.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSPModel_Striping.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\microsim\MSAbstractLaneChangeModel.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSBitSetLogic.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
@@ -186,9 +159,6 @@
     <ClInclude Include="..\..\..\src\microsim\MSNoLogicJunction.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSPerson.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSPersonControl.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
@@ -223,24 +193,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSStateHandler.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSLCM_JE2013.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSLCM_DK2008.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSLCM_LC2013.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSPModel.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSPModel_NonInteracting.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSPModel_Striping.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

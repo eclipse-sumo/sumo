@@ -42,7 +42,7 @@
 #include <iterator>
 #include <cstdlib>
 #include <cmath>
-#include <microsim/MSAbstractLaneChangeModel.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/common/MsgHandler.h>
 
 #ifdef CHECK_MEMORY_LEAKS

@@ -36,7 +36,7 @@
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSAbstractLaneChangeModel.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSCFModel.h"
 
 

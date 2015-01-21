@@ -62,9 +62,9 @@
 #include "trigger/MSBusStop.h"
 #include "devices/MSDevice_Person.h"
 #include "MSEdgeWeightsStorage.h"
-#include "MSAbstractLaneChangeModel.h"
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSMoveReminder.h"
-#include "MSPerson.h"
+#include <microsim/pedestrians/MSPerson.h>
 #include "MSPersonControl.h"
 #include "MSLane.h"
 #include "MSVehicle.h"

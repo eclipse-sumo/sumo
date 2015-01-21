@@ -38,8 +38,8 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
 #include "MSVehicle.h"
-#include "MSPModel.h"
-#include "MSAbstractLaneChangeModel.h"
+#include <microsim/pedestrians/MSPModel.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSNet.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"

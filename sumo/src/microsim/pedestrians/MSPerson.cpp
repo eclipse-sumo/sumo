@@ -36,13 +36,13 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
-#include "MSNet.h"
-#include "MSEdge.h"
-#include "MSLane.h"
+#include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include "MSPerson.h"
-#include "MSPersonControl.h"
-#include "MSInsertionControl.h"
-#include "MSVehicle.h"
+#include <microsim/MSPersonControl.h>
+#include <microsim/MSInsertionControl.h>
+#include <microsim/MSVehicle.h>
 #include "MSPModel.h"
 
 #ifdef CHECK_MEMORY_LEAKS

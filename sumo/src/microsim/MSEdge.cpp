@@ -45,7 +45,7 @@
 #include "MSLaneChanger.h"
 #include "MSGlobals.h"
 #include "MSVehicle.h"
-#include "MSPerson.h"
+#include <microsim/pedestrians/MSPerson.h>
 #include "MSEdgeWeightsStorage.h"
 
 #ifdef HAVE_INTERNAL

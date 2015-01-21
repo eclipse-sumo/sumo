@@ -33,7 +33,8 @@
 #include <config.h>
 #endif
 
-#include "MSVehicle.h"
+#include <microsim/MSVehicle.h>
+
 class MSLane;
 
 // ===========================================================================

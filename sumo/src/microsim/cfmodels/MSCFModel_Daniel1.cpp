@@ -33,7 +33,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include "MSCFModel_Daniel1.h"
-#include <microsim/MSAbstractLaneChangeModel.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
 
 

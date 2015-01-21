@@ -38,7 +38,7 @@
 #include <string>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
-#include <microsim/MSPerson.h>
+#include <microsim/pedestrians/MSPerson.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/foxtools/MFXMutex.h>
 #include <utils/gui/settings/GUIColorer.h>

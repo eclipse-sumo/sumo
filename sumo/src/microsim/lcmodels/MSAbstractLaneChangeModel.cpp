@@ -36,10 +36,10 @@
 #include "MSLCM_DK2008.h"
 #include "MSLCM_LC2013.h"
 #include "MSLCM_JE2013.h"
-#include "MSNet.h"
-#include "MSEdge.h"
-#include "MSLane.h"
-#include "MSGlobals.h"
+#include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSGlobals.h>
 
 /* -------------------------------------------------------------------------
  * static members

@@ -55,7 +55,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) $(GDAL_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/netgenerate.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -118,7 +118,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) $(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/netgenerateD.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -183,7 +183,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) $(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Fastbuild/netgenerateF.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"

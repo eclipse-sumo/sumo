@@ -21,7 +21,7 @@ $(MEM_LIBS) \
 -l$(LIB_XERCES)
 
 
-emissionsMap_SOURCES = emissionsMap_main.cpp
+emissionsMap_SOURCES = emissionsMap_main.cpp 
 
 emissionsMap_LDFLAGS = $(XERCES_LDFLAGS)
 

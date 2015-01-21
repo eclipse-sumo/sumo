@@ -277,4 +277,6 @@ SUMOTime
 GUIViewTraffic::getCurrentTimeStep() const {
     return MSNet::getInstance()->getCurrentTimeStep();
 }
+
+
 /****************************************************************************/

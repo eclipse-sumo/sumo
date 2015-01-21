@@ -41,7 +41,7 @@
 #include "MSFCDExport.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/MSPerson.h>
+#include <microsim/pedestrians/MSPerson.h>
 #include <microsim/MSPersonControl.h>
 
 #ifdef CHECK_MEMORY_LEAKS

@@ -35,7 +35,7 @@
 #include <algorithm>
 #include "MSNet.h"
 #include "MSEdge.h"
-#include "MSPerson.h"
+#include <microsim/pedestrians/MSPerson.h>
 #include "MSVehicle.h"
 #include "MSPersonControl.h"
 #include <utils/iodevices/OutputDevice.h>
@@ -68,6 +68,16 @@ MSPersonControl::add(const std::string& id, MSPerson* person) {
         return true;
     }
     return false;
+}
+
+
+MSPerson*
+MSPersonControl::get(const std::string& id) const {
+    std::map<std::string, MSPerson*>::const_iterator i = myPersons.find(id);
+    if (i == myPersons.end()) {
+        return 0;
+    }
+    return (*i).second;
 }
 
 

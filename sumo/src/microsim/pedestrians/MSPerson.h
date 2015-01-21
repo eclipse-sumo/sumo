@@ -514,22 +514,6 @@ public:
     /// the structure holding the plan of a person
     typedef std::vector<MSPersonStage*> MSPersonPlan;
 
-protected:
-    /// the plan of the person
-    const SUMOVehicleParameter* myParameter;
-
-    /// @brief This Persons's type. (mainly used for drawing related information
-    const MSVehicleType* myVType;
-
-    /// the plan of the person
-    MSPersonPlan* myPlan;
-
-    /// the iterator over the route
-    MSPersonPlan::iterator myStep;
-
-    /// @brief Whether events shall be written
-    bool myWriteEvents;
-
 public:
     /// constructor
     MSPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPersonPlan* plan);
@@ -627,6 +611,24 @@ public:
     inline const MSVehicleType& getVehicleType() const {
         return *myVType;
     }
+
+
+protected:
+    /// the plan of the person
+    const SUMOVehicleParameter* myParameter;
+
+    /// @brief This Persons's type. (mainly used for drawing related information
+    const MSVehicleType* myVType;
+
+    /// the plan of the person
+    MSPersonPlan* myPlan;
+
+    /// the iterator over the route
+    MSPersonPlan::iterator myStep;
+
+    /// @brief Whether events shall be written
+    bool myWriteEvents;
+
 
 private:
     /// @brief Invalidated copy constructor.

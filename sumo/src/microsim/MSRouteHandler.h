@@ -33,7 +33,7 @@
 #endif
 
 #include <string>
-#include "MSPerson.h"
+#include <microsim/pedestrians/MSPerson.h>
 #include "MSVehicle.h"
 #include <utils/xml/SUMORouteHandler.h>
 #include <utils/common/SUMOTime.h>

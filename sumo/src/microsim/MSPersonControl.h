@@ -35,7 +35,7 @@
 
 #include <vector>
 #include <map>
-#include "MSPerson.h"
+#include <microsim/pedestrians/MSPerson.h>
 
 
 // ===========================================================================
@@ -57,18 +57,37 @@ class MSVehicle;
  */
 class MSPersonControl {
 public:
-
+    /// @brief Definition of a list of persons
     typedef std::vector<MSPerson*> PersonVector;
 
-    /// constructor
+    /// @brief Definition of the internal persons map iterator
+    typedef std::map<std::string, MSPerson*>::const_iterator constVehIt;
+
+
+public:
+    /// @brief Constructor
     MSPersonControl();
 
-    /// destructor
+
+    /// @brief Destructor
     virtual ~MSPersonControl();
 
-    /// adds a single person, returns false if an id clash occured
+
+    /** @brief Adds a single person, returns false if an id clash occured
+     * @param[in] id The id of the person
+     * @param[in] person The person to add
+     * @return Whether the person could be added (none with the same id existed before)
+     */
     bool add(const std::string& id, MSPerson* person);
 
+    
+    /** @brief Returns the named person, if existing
+     * @param[in] id The id of the person
+     * @return The named person, if existing, otherwise 0
+     */
+    MSPerson* get(const std::string& id) const;
+
+    
     /// removes a single person
     virtual void erase(MSPerson* person);
 
@@ -115,9 +134,30 @@ public:
     /// @brief returns whether the the given person is waiting for a vehicle on the given edge
     bool isWaiting4Vehicle(const MSEdge* const edge, MSPerson* p) const;
 
-    const std::map<std::string, MSPerson*>& getPersons() const {
-        return myPersons;
+
+    /** @brief Returns the begin of the internal persons map
+     * @return The begin of the internal persons map
+     */
+    constVehIt loadedPersonsBegin() const {
+        return myPersons.begin();
     }
+
+
+    /** @brief Returns the end of the internal persons map
+     * @return The end of the internal persons map
+     */
+    constVehIt loadedPersonsEnd() const {
+        return myPersons.end();
+    }
+
+    
+    /** @brief Returns the number of known persons
+     * @return The number of stored persons
+     */
+    unsigned int size() const {
+        return (unsigned int) myPersons.size();
+    }
+
 
 private:
     /// all persons by id

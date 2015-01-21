@@ -34,8 +34,8 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Command.h>
 #include <utils/options/OptionsCont.h>
-#include <microsim/MSPerson.h>
-#include <microsim/MSPModel.h>
+#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/pedestrians/MSPModel.h>
 #include <microsim/MSLane.h>
 
 // ===========================================================================
@@ -83,9 +83,6 @@ public:
     // @brief the factor for random slow-down
     static SUMOReal dawdling;
 
-    // @brief the time threshold before becoming jammed
-    static SUMOTime jamTime;
-
     // @brief the distance to look ahead for changing stripes
     static const SUMOReal LOOKAHEAD_SAMEDIR;
     // @brief the distance to look ahead for changing stripes (regarding oncoming pedestrians)
@@ -108,9 +105,6 @@ public:
 
     // @brief the fraction of forward speed to be used for lateral movemenk
     static const SUMOReal LATERAL_SPEED_FACTOR;
-
-    // @brief the minimum fraction of maxSpeed in order to start walking after stopped
-    static const SUMOReal MIN_STARTUP_SPEED;
 
     ///@}
 
@@ -185,22 +179,11 @@ protected:
         const MSLane* from;
         const MSLane* to;
         const MSLane* lane; // the walkingArea;
-        PositionVector shape; // actually const but needs to be copyable by some stl code
+        // actually const but needs to be copyable by some stl code
+        PositionVector shape;
         SUMOReal length;
 
     };
-
-    class walkingarea_path_sorter {
-    public:
-        /// comparing operation
-        bool operator()(const WalkingAreaPath* p1, const WalkingAreaPath* p2) const {
-            if (p1->from->getNumericalID() < p2->from->getNumericalID()) {
-                return true;
-            }
-            return p1->to->getNumericalID() < p2->to->getNumericalID();
-        }
-    };
-
 
     /**
      * @class PState
@@ -219,7 +202,6 @@ protected:
         /// @}
 
         PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, const MSLane* lane);
-
         ~PState() {};
         MSPerson* myPerson;
         MSPerson::MSPersonStage_Walking* myStage;
@@ -241,8 +223,6 @@ protected:
         NextLaneInfo myNLI;
         /// @brief the current walkingAreaPath or 0
         WalkingAreaPath* myWalkingAreaPath;
-        /// @brief whether the person is jammed
-        bool myAmJammed;
 
         /// @brief return the length of the pedestrian
         SUMOReal getLength() const;
@@ -264,9 +244,6 @@ protected:
 
         int stripe() const;
         int otherStripe() const;
-
-        int stripe(SUMOReal relY) const;
-        int otherStripe(SUMOReal relY) const;
 
     };
 
@@ -308,9 +285,6 @@ protected:
     /// @brief move all pedestrians forward and advance to the next lane if applicable
     void moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
 
-    /// @brief move pedestrians forward on one lane
-    void moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
-
     const ActiveLanes& getActiveLanes() {
         return myActiveLanes;
     }
@@ -340,12 +314,10 @@ private:
 
     static Obstacles getNeighboringObstacles(const Pedestrians& pedestrians, int egoIndex, int stripes);
 
-    const Obstacles& getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const MSLane* lane, const MSLane* nextLane, int stripes,
+    const Obstacles& getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const MSLane* nextLane, int stripes,
                                           SUMOReal nextLength, int nextDir, SUMOReal currentLength, int currentDir);
 
     static void addMappedObstacle(Obstacles& obs, const PState& p, int stripe, int currentDir, int nextDir, int offset, int stripes, int nextStripes);
-
-    static void addCloserObstacle(Obstacles& obs, SUMOReal x, int stripe, const std::string& id, int stripes, int dir);
 
     /// @brief retrieves the pedestian vector for the given lane (may be empty)
     Pedestrians& getPedestrians(const MSLane* lane);

@@ -143,7 +143,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by noise emissions (Harmonoise)", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)100);
     laneColorer.addScheme(scheme);
-    // ... weights (experimental) ...
+	// ... weights (experimental) ...
     scheme = GUIColorScheme("by global travel time", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)100);
     scheme.setAllowsNegativeValues(true);

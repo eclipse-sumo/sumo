@@ -30,10 +30,10 @@
 #include <math.h>
 #include <algorithm>
 #include <utils/options/OptionsCont.h>
-#include "MSNet.h"
-#include "MSEdge.h"
-#include "MSJunction.h"
-#include "MSLane.h"
+#include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSJunction.h>
+#include <microsim/MSLane.h>
 #include "MSPModel_Striping.h"
 #include "MSPModel_NonInteracting.h"
 #include "MSPModel.h"

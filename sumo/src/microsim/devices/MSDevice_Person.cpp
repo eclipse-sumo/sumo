@@ -34,7 +34,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
-#include <microsim/MSPerson.h>
+#include <microsim/pedestrians/MSPerson.h>
 #include <microsim/MSPersonControl.h>
 #include "MSDevice_Person.h"
 

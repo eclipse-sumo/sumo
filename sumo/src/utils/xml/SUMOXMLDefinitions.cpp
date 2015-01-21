@@ -152,6 +152,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-IDMM",        SUMO_TAG_CF_IDMM },
     { "carFollowing-Krauss",      SUMO_TAG_CF_KRAUSS },
     { "carFollowing-KraussPS",    SUMO_TAG_CF_KRAUSS_PLUS_SLOPE },
+    { "carFollowing-KraussAB",    SUMO_TAG_CF_KRAUSS_ACCEL_BOUND },
     { "carFollowing-KraussOrig1", SUMO_TAG_CF_KRAUSS_ORIG1 },
     { "carFollowing-SmartSK",     SUMO_TAG_CF_SMART_SK },
     { "carFollowing-Daniel1",     SUMO_TAG_CF_DANIEL1 },

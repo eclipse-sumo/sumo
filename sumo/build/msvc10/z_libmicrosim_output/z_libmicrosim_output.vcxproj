@@ -222,6 +222,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\microsim\output\MSInstantInductLoop.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Emissions.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MS_E2_ZS_CollectorOverLanes.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSDetectorControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSE2Collector.cpp" />
@@ -238,12 +239,12 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSFullExport.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSVTKExport.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSQueueExport.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Emissions.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSAmitranTrajectories.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Amitran.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\output\MSInstantInductLoop.h" />
+    <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Emissions.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MS_E2_ZS_CollectorOverLanes.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSCrossSection.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSDetectorControl.h" />
@@ -262,7 +263,6 @@
     <ClInclude Include="..\..\..\src\microsim\output\MSFullExport.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSVTKExport.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSQueueExport.h" />
-    <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Emissions.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSAmitranTrajectories.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Amitran.h" />
   </ItemGroup>

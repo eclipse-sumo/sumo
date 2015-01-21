@@ -53,7 +53,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/duarouterD.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -115,7 +115,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) $(FOX16_LIB) ws2_32.lib"
 				OutputFile=".\Release/duarouter.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -179,7 +179,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) $(FOX16_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Fastbuild/duarouterF.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"

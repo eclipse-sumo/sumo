@@ -54,7 +54,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile="$(OutDir)\sumoD.exe"
 				AdditionalLibraryDirectories=""
 				IgnoreAllDefaultLibraries="false"
@@ -119,7 +119,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) $(FOX16_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile="$(OutDir)\sumo.exe"
 				AdditionalLibraryDirectories=""
 				RandomizedBaseAddress="1"
@@ -183,7 +183,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) $(FOX16_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile="$(OutDir)\meso.exe"
 				AdditionalLibraryDirectories=""
 				RandomizedBaseAddress="1"
@@ -247,7 +247,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile="$(OutDir)\mesoD.exe"
 				AdditionalLibraryDirectories=""
 				IgnoreAllDefaultLibraries="false"
@@ -314,7 +314,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) $(FOX16_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile="$(OutDir)\sumoF.exe"
 				AdditionalLibraryDirectories=""
 				RandomizedBaseAddress="1"

@@ -87,9 +87,9 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/PedestrianRouter.h>
 #include "MSGlobals.h"
-#include "MSPModel.h"
+#include <microsim/pedestrians/MSPModel.h>
 #include <utils/geom/GeoConvHelper.h>
-#include "MSPerson.h"
+#include <microsim/pedestrians/MSPerson.h>
 #include "MSEdgeWeightsStorage.h"
 #include "MSStateHandler.h"
 

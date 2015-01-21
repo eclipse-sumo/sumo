@@ -37,11 +37,11 @@
 #include "MSNet.h"
 #include "MSLink.h"
 #include "MSLane.h"
-#include "MSPerson.h"
+#include <microsim/pedestrians/MSPerson.h>
 #include "MSEdge.h"
 #include "MSGlobals.h"
 #include "MSVehicle.h"
-#include "MSPModel.h"
+#include <microsim/pedestrians/MSPModel.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
