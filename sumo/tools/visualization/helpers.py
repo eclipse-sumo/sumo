@@ -24,6 +24,7 @@ if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in 
     matplotlib.use('Agg')
 from pylab import *
 from matplotlib.ticker import FuncFormatter as ff
+import gc
 
 # http://datadebrief.blogspot.de/2010/10/plotting-sunrise-sunset-times-in-python.html
 def m2hm1(x, i):
@@ -192,15 +193,20 @@ def openFigure(options):
   return fig, ax
 
 
-def closeFigure(fig, ax, options, haveLabels=True):
+def closeFigure(fig, ax, options, haveLabels=True, optOut=None):
   if haveLabels and not options.nolegend: 
     if options.legendposition: legend(loc=options.legendposition)
     else: legend()
   applyPlotOptions(fig, ax, options)
-  if options.output:
-    for o in options.output.split(","):
+  if options.output or optOut!=None:
+    n = options.output
+    if optOut!=None: n = optOut  
+    for o in n.split(","):
       savefig(o)
   if not options.blind: show()
+  fig.clf()
+  close()
+  gc.collect()
 
 
 
