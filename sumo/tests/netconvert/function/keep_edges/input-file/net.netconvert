@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 21 15:58:24 2015 by SUMO netconvert Version dev-SVN-r17660ID
+<!-- generated on 01/22/15 11:49:49 by SUMO netconvert Version dev-SVN-r17669
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -15,7 +15,6 @@
     </output>
 
     <edge_removal>
-        <keep-edges.explicit value="--33#0,--33#1,--33#2,-33#0,-33#1,-33#2,"/>
         <keep-edges.input-file value="edge_ids.txt"/>
     </edge_removal>
 
