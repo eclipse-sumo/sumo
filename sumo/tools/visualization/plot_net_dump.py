@@ -164,8 +164,16 @@ def main(args=None):
     plt.colorbar(sm)
     
     options.nolegend = True
-    helpers.closeFigure(fig, ax, options)
-    return 0 # !!! hack 
+    optName = None
+    if options.output and options.output.find("%s")>=0:
+      m, s = divmod(int(t), 60)
+      h, m = divmod(m, 60)
+      timeStr = "%02d:%02d:%02d" % (h, m, s)
+      ax.text(7300, 15500, timeStr, bbox={'facecolor':'white', 'pad':10}, size=16)
+      optName = options.output.replace("%s", str(t))
+    helpers.closeFigure(fig, ax, options, optName)
+    if optName==None:
+      return 0
   return 0
 
 if __name__ == "__main__":
