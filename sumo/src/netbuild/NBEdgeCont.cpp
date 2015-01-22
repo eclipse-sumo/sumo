@@ -86,6 +86,18 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
     // set edges dismiss/accept options
     myEdgesMinSpeed = oc.isSet("keep-edges.min-speed") ? oc.getFloat("keep-edges.min-speed") : -1;
     myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
+    // we possibly have to load the edges to keep
+    if (oc.isSet("keep-edges.input-file")) {
+        std::ifstream strm(oc.getString("keep-edges.input-file").c_str());
+        if (!strm.good()) {
+            throw ProcessError("Could not load names of edges too keep from '" + oc.getString("keep-edges.input-file") + "'.");
+        }
+        while (strm.good()) {
+            std::string name;
+            strm >> name;
+            myEdges2Keep.insert(name);
+        }
+    }
     if (oc.isSet("keep-edges.explicit")) {
         const std::vector<std::string> edges = oc.getStringVector("keep-edges.explicit");
         myEdges2Keep.insert(edges.begin(), edges.end());

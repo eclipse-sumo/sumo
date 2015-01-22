@@ -72,25 +72,6 @@ NBNetBuilder::~NBNetBuilder() {}
 
 void
 NBNetBuilder::applyOptions(OptionsCont& oc) {
-    // we possibly have to load the edges to keep
-    if (oc.isSet("keep-edges.input-file")) {
-        std::ifstream strm(oc.getString("keep-edges.input-file").c_str());
-        if (!strm.good()) {
-            throw ProcessError("Could not load names of edges too keep from '" + oc.getString("keep-edges.input-file") + "'.");
-        }
-        std::ostringstream oss;
-        bool first = true;
-        while (strm.good()) {
-            if (!first) {
-                oss << ',';
-            }
-            std::string name;
-            strm >> name;
-            oss << name;
-            first = false;
-        }
-        oc.set("keep-edges.explicit", oss.str());
-    }
     // apply options to type control
     myTypeCont.setDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.speed"), oc.getInt("default.priority"));
     // apply options to edge control
