@@ -36,6 +36,7 @@
 #include <algorithm>
 #include <vector>
 #include <map>
+#include <functional>
 #include <utils/common/ValueSource.h>
 #include <utils/common/ValueRetriever.h>
 #include <utils/gui/globjects/GUIGlObject.h>

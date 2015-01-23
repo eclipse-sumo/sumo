@@ -35,6 +35,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <functional>
 #include <fx.h>
 #include <utils/foxtools/MFXMutex.h>
 #include <utils/common/ValueSource.h>
