@@ -635,11 +635,7 @@ MSLane::forceVehicleInsertion(MSVehicle* veh, SUMOReal pos) {
 SUMOReal
 MSLane::setPartialOccupation(MSVehicle* v, SUMOReal leftVehicleLength) {
     myInlappingVehicle = v;
-    if (leftVehicleLength > myLength) {
-        myInlappingVehicleEnd = 0;
-    } else {
-        myInlappingVehicleEnd = myLength - leftVehicleLength;
-    }
+    myInlappingVehicleEnd = myLength - leftVehicleLength;
     return myLength;
 }
 
