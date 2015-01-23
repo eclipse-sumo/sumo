@@ -79,7 +79,7 @@
         <amitran-output value="" type="FILE"/>
 
         <!-- Save aggregated vehicle departure info into FILE -->
-        <summary-output value="" synonymes="emissions emissions-output summary" type="FILE"/>
+        <summary-output value="" synonymes="summary" type="FILE"/>
 
         <!-- Save single vehicle trip info into FILE -->
         <tripinfo-output value="" synonymes="tripinfo" type="FILE"/>
