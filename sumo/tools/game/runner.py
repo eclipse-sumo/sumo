@@ -100,7 +100,7 @@ class StartDialog:
         # we use a grid layout with 4 columns
         COL_DLRLOGO, COL_START, COL_HIGH, COL_SUMOLOGO = range(4)
         # there is one column for every config, +2 more columns for control buttons
-        configs = glob.glob(os.path.join(base, "*.sumocfg"))
+        configs = sorted(glob.glob(os.path.join(base, "*.sumocfg")))
         numButtons = len(configs) + 3
         # button dimensions
         bWidth_start = 30
@@ -269,6 +269,8 @@ high = loadHighscore()
 def findSumoBinary(guisimBinary):
     if os.name != "posix":
         guisimBinary += ".exe"
+    elif guisimBinary.endswith("64"):
+        guisimBinary = guisimBinary[:-2]
     if os.path.exists(os.path.join(base, guisimBinary)):
         guisimPath = os.path.join(base, guisimBinary)
     else:
@@ -286,8 +288,11 @@ except OSError:
 
 
 lang = _LANGUAGE_EN
-os.environ["OSG_FILE_PATH"] += os.pathsep + os.path.join(os.environ.get("SUMO_HOME", ""), "data", "3D")
-    
+if "OSG_FILE_PATH" in os.environ:
+    os.environ["OSG_FILE_PATH"] += os.pathsep + os.path.join(os.environ.get("SUMO_HOME", ""), "data", "3D")
+else:
+    os.environ["OSG_FILE_PATH"] = os.path.join(os.environ.get("SUMO_HOME", ""), "data", "3D")
+
 while True:
     start = StartDialog(lang)
     totalDistance = 0
