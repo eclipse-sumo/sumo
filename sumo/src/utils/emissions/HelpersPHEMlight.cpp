@@ -4,7 +4,7 @@
 /// @author  Michael Behrisch
 /// @author  Nikolaus Furian
 /// @date    Sat, 20.04.2013
-/// @version $Id: HelpersPHEMlight.cpp 16575 2014-06-10 13:49:15Z behrisch $
+/// @version $Id$
 ///
 // Helper methods for PHEMlight-based emission computation
 /****************************************************************************/

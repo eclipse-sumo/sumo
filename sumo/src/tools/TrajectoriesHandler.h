@@ -2,7 +2,7 @@
 /// @file    TrajectoriesHandler.h
 /// @author  Michael Behrisch
 /// @date    14.03.2014
-/// @version $Id: TrajectoriesHandler.h 16560 2014-06-09 20:54:15Z behrisch $
+/// @version $Id$
 ///
 // An XML-Handler for amitran and netstate trajectories
 /****************************************************************************/

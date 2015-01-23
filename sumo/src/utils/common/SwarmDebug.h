@@ -2,7 +2,7 @@
 /// @file    SwarmDebug.h
 /// @author  Riccardo Belletti
 /// @date    Apr 2013
-/// @version $Id: SwarmDebug.h 1 2014-02-22 15:00:00Z riccardo_belletti $
+/// @version $Id$
 ///
 // Used for additional optional debug messages
 /****************************************************************************/
