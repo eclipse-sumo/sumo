@@ -6,3 +6,4 @@ patch_tls_from_sumonet
 
 # add sidewalk via typemap
 typemap
+addFromPlainXML

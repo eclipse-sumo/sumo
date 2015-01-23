@@ -141,6 +141,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myLength = NBEdge::UNSPECIFIED_LOADED_LENGTH;
     myCurrentStreetName = "";
     myReinitKeepEdgeShape = false;
+    mySidewalkWidth = NBEdge::UNSPECIFIED_WIDTH;
     // check whether a type's values shall be used
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         myCurrentType = attrs.get<std::string>(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
@@ -156,6 +157,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentLaneNo = myTypeCont.getNumLanes(myCurrentType);
         myPermissions = myTypeCont.getPermissions(myCurrentType);
         myCurrentWidth = myTypeCont.getWidth(myCurrentType);
+        mySidewalkWidth = myTypeCont.getSidewalkWidth(myCurrentType);
     }
     // use values from the edge to overwrite if existing, then
     if (myCurrentEdge != 0) {
@@ -236,6 +238,8 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myLanesSpread = tryGetLaneSpread(attrs);
     // try to get the length
     myLength = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok, myLength);
+    // tro to get the sidewalkWidth
+    mySidewalkWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_SIDEWALKWIDTH, myCurrentID.c_str(), ok, mySidewalkWidth);
     // insert the parsed edge into the edges map
     if (!ok) {
         return;
@@ -464,7 +468,7 @@ void
 NIXMLEdgesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_EDGE && myCurrentEdge != 0) {
         // add sidewalk, wait until lanes are loaded to avoid building if it already exists
-        if (myTypeCont.getSidewalkWidth(myCurrentType) != NBEdge::UNSPECIFIED_WIDTH) {
+        if (mySidewalkWidth != NBEdge::UNSPECIFIED_WIDTH) {
             myCurrentEdge->addSidewalk(myTypeCont.getSidewalkWidth(myCurrentType));
         }
         if (!myIsUpdate) {

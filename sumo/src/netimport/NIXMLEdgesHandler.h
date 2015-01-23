@@ -187,6 +187,9 @@ private:
     /// @brief Whether the edge shape shall be kept at reinitilization
     bool myReinitKeepEdgeShape;
 
+    /// @brief The width of the sidewalk that shall be added to the current edge
+    SUMOReal mySidewalkWidth;
+
     /// @}
 
 
