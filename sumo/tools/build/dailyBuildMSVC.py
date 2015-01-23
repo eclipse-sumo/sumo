@@ -55,6 +55,7 @@ import runInternalTests
 env = os.environ
 env["SMTP_SERVER"] = "smtprelay.dlr.de"
 env["TEMP"] = env["TMP"] = r"D:\Delphi\texttesttmp"
+env["REMOTEDIR_BASE"] = 'O:/Daten/Sumo'
 compiler = r"D:\Programme\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe"
 svnrev = ""
 
@@ -91,7 +92,7 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
         else:
             open(makeLog, 'a').write("Error parsing svn revision\n")
             sys.exit()
-        end_marker = 'Fetching external'        
+        end_marker = 'Fetching external'
         if end_marker in update_log:
             update_lines = len(update_log[:update_log.index(end_marker)].splitlines())
         else:

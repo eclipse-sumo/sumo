@@ -31,4 +31,5 @@ trac:http://sumo.dlr.de/trac.wsgi/
 
 [file_to_url]
 /home/delphi:http://sumo.dlr.de/daily
+$REMOTEDIR_BASE:http://sumo.dlr.de
 [end]
