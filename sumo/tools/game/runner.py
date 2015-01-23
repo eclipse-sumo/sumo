@@ -285,7 +285,8 @@ except OSError:
     guisimPath = findSumoBinary("sumo-gui")
 
 
-lang = _LANGUAGE_EN  
+lang = _LANGUAGE_EN
+os.environ["OSG_FILE_PATH"] += os.pathsep + os.path.join(os.environ.get("SUMO_HOME", ""), "data", "3D")
     
 while True:
     start = StartDialog(lang)
