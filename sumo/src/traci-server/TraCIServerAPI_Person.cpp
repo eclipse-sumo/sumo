@@ -130,9 +130,9 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (true) {
+//    if (true) {
         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Change Person State: unsupported variable specified", outputStorage);
-    }
+/*    }
     // id
     MSPersonControl& c = MSNet::getInstance()->getPersonControl();
     std::string id = inputStorage.readString();
@@ -146,7 +146,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             break;
     }
     server.writeStatusCmd(CMD_SET_PERSON_VARIABLE, RTYPE_OK, warning, outputStorage);
-    return true;
+    return true; */
 }
 
 
