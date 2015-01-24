@@ -1114,7 +1114,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             }
 
             if (isGaming()) {
-                setTitle("SUMO Traffic Light Game");
+                setTitle("SUMO Interactive Traffic Light");
             } else {
                 // set simulation name on the caption
                 std::string caption = "SUMO " + getBuildName(VERSION_STRING);
