@@ -22,6 +22,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 import os, subprocess, sys, re, pickle, httplib, glob, Tkinter
+from optparse import OptionParser
 from xml.dom import pulldom
 
 _SCOREFILE = "scores.pkl"
@@ -264,6 +265,12 @@ class ScoreDialog:
     def quit(self, event=None):
         self.root.destroy()
 
+stereoModes = ('ANAGLYPHIC', 'QUAD_BUFFER', 'VERTICAL_SPLIT', 'HORIZONTAL_SPLIT')
+optParser = OptionParser()
+optParser.add_option("-s", "--stereo", metavar="OSG_STEREO_MODE",
+                     help="Defines the stereo mode to use for 3D output; unique prefix of %s" % (", ".join(stereoModes)))
+options, args = optParser.parse_args()
+
 base = os.path.dirname(sys.argv[0])
 high = loadHighscore()
 def findSumoBinary(guisimBinary):
@@ -286,6 +293,13 @@ except OSError:
     print("meso-gui64 not found. 3D scenario will not work.")
     guisimPath = findSumoBinary("sumo-gui")
 
+
+if options.stereo:
+    for m in stereoModes:
+        if m.lower().startswith(options.stereo.lower()):
+            os.environ["OSG_STEREO_MODE"] = m
+            os.environ["OSG_STEREO"] = "ON"
+            break
 
 lang = _LANGUAGE_EN
 if "OSG_FILE_PATH" in os.environ:
