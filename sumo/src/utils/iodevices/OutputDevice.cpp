@@ -97,7 +97,7 @@ OutputDevice::getDevice(const std::string& name) {
                 strftime(buffer, 80, "%F-%H-%M-%S", localtime(&rawtime));
                 prefix.replace(metaTimeIndex, 4, std::string(buffer));
             }
-            name2 = prefix + name;
+            name2 = FileHelpers::prependToLastPathComponent(prefix, name);
         }
         dev = new OutputDevice_File(name2, len > 4 && name.substr(len - 4) == ".sbx");
     }

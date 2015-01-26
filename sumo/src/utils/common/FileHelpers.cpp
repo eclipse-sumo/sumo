@@ -136,6 +136,16 @@ FileHelpers::checkForRelativity(const std::string& filename,
 }
 
 
+std::string 
+FileHelpers::prependToLastPathComponent(const std::string& prefix, const std::string& path) {
+    size_t sep_index = path.find_last_of("\\/");
+    if (sep_index == std::string::npos) {
+        return prefix + path;
+    } else {
+        return path.substr(0, sep_index + 1) + prefix + path.substr(sep_index + 1);
+    }
+}
+
 // ---------------------------------------------------------------------------
 // binary reading/writing functions
 // ---------------------------------------------------------------------------

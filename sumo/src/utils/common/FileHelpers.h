@@ -125,6 +125,10 @@ public:
      */
     static std::string checkForRelativity(const std::string& filename,
                                           const std::string& basePath);
+
+    /// @brief prepend the given prefix to the last path component of the given file path
+    static std::string prependToLastPathComponent(const std::string& prefix, const std::string& path);
+
     //@}
 
 
