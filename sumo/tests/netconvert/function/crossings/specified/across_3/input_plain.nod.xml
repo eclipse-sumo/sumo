@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 26 Jan 2015 05:17:00 PM CET by Netedit Version dev-SVN-r17702I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoID/sumo/tests/netconvert/function/crossings/specified/across_3/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/home/erdm_ja/tmp/debug/net.net.xml"/>
+        <plain-output-prefix value="/home/erdm_ja/tmp/debug/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="100.00,100.00" convBoundary="-21.51,0.00,233.16,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <node id="C" x="100.00" y="100.00" type="traffic_light" tl="C" shape="86.63,75.76 113.11,75.66 112.08,111.82 85.70,112.03"/>
+    <node id="E" x="200.00" y="100.00" type="dead_end"/>
+    <node id="E2" x="233.16" y="93.40" type="dead_end"/>
+    <node id="N" x="100.00" y="200.00" type="dead_end"/>
+    <node id="S" x="100.00" y="0.00" type="dead_end"/>
+    <node id="W" x="0.00" y="100.00" type="dead_end"/>
+    <node id="W2" x="-21.51" y="93.68" type="dead_end"/>
+</nodes>
