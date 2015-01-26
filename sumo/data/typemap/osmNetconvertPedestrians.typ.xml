@@ -11,11 +11,11 @@
       <type id="highway.tertiary_link"  numLanes="1" speed="13.89" priority="5"                sidewalkWidth="2" disallow="pedestrian rail rail_urban rail_electric"/>
       <type id="highway.unclassified"   numLanes="1" speed="13.89" priority="5"                sidewalkWidth="2" disallow="pedestrian rail rail_urban rail_electric"/>
       <type id="highway.residential"    numLanes="1" speed="13.89" priority="4"                sidewalkWidth="2" disallow="pedestrian rail rail_urban rail_electric"/>
-      <type id="highway.living_street"  numLanes="1" speed="2.78"  priority="3"                                                       />
+      <type id="highway.living_street"  numLanes="1" speed="2.78"  priority="3"                                  disallow="rail rail_urban rail_electric"/>
       <type id="highway.service"        numLanes="1" speed="5.56"  priority="2"                                  allow="delivery pedestrian bicycle"/>
-      <type id="highway.track"          numLanes="1" speed="5.56"  priority="1"/>
-      <type id="highway.services"       numLanes="1" speed="8.33"  priority="1"/>
-      <type id="highway.unsurfaced"     numLanes="1" speed="8.33"  priority="1"/>
+      <type id="highway.track"          numLanes="1" speed="5.56"  priority="1"                                  disallow="rail rail_urban rail_electric"/>/>
+      <type id="highway.services"       numLanes="1" speed="8.33"  priority="1"                                  disallow="rail rail_urban rail_electric"/>/>
+      <type id="highway.unsurfaced"     numLanes="1" speed="8.33"  priority="1"                                  disallow="rail rail_urban rail_electric"/>/>
 
       <type id="highway.footway"        numLanes="1" speed="8.33"  priority="1"  oneway="true"                   allow="pedestrian"/>
       <type id="highway.pedestrian"     numLanes="1" speed="8.33"  priority="1"  oneway="true"                   allow="pedestrian"/>
