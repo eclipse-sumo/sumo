@@ -27,7 +27,7 @@ from xml.sax import parse, handler
 
 class RouteReader(handler.ContentHandler):
 
-    def __init__(self, attrList):
+    def __init__(self, attrList, outfile):
         self._vType = ''
         self._vID = ''
         self._vDepart = 0
@@ -36,6 +36,7 @@ class RouteReader(handler.ContentHandler):
         self._routes = {}
         self._attrList = attrList
         self._vehicleAttrs = None
+        self.outfile = outfile
         
     def startElement(self, name, attrs):
         if name == 'vehicle':
@@ -50,10 +51,14 @@ class RouteReader(handler.ContentHandler):
             self._routeString = ''
             if attrs.has_key('edges'):
                 self._routeString = attrs['edges']
+        elif name == 'vType':
+            # XXX does not handle child elements
+            print('    <vType %s/>' % (' '.join(['%s="%s"' % (key, value) for key, value in dict(attrs).items()])),
+                    file=self.outfile)
         elif name == 'routes':
             print("""<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
-<trips>""" % datetime.datetime.now())
+<trips>""" % datetime.datetime.now(), file=self.outfile)
 
     def endElement(self, name):
         if name == 'route':
@@ -66,20 +71,32 @@ class RouteReader(handler.ContentHandler):
             self._vehicleAttrs["from"] = edges[0]
             self._vehicleAttrs["to"] = edges[-1]
             if self._attrList:
-                print('    <trip %s/>' % (' '.join(['%s="%s"' % (key, self._vehicleAttrs[key]) for key in self._attrList])))
+                print('    <trip %s/>' % (' '.join(['%s="%s"' % (key, self._vehicleAttrs[key]) for key in self._attrList])), 
+                        file=self.outfile)
             else:
                 del self._vehicleAttrs['id']
                 items = sorted(['%s="%s"' % (key, val) for key, val in self._vehicleAttrs.iteritems()])
-                print('    <trip id="%s" %s/>' % (self._vID, ' '.join(items)))
+                print('    <trip id="%s" %s/>' % (self._vID, ' '.join(items)),
+                        file=self.outfile)
             self._vID = ''
             self._routeString = ''
         elif name == 'routes':
-            print("</trips>")
+            print("</trips>", file=self.outfile)
 
     def characters(self, content):
         self._routeString += content
 
+def main(argv, outfile=None):
+    routefile = argv[0]
+    attrList = argv[1:]
+    if outfile is None:
+        parse(routefile, RouteReader(attrList, sys.stdout))
+    else:
+        with open(outfile, 'w') as outf:
+            parse(routefile, RouteReader(attrList, outf))
 
-if len(sys.argv) < 2:
-    sys.exit("Usage: " + sys.argv[0] + " <routes> [<attribute>*]")
-parse(sys.argv[1], RouteReader(sys.argv[2:]))
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        sys.exit("Usage: " + sys.argv[0] + " <routes> [<attribute>*]")
+    main(sys.argv[1:])
