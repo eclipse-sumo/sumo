@@ -894,12 +894,16 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                     }
                 } else {
                     // disconnnected route. move to the next edge (arbitrariliy, maintaining current direction)
-                    myStage->moveToNextEdge(myPerson, currentTime, 0);
-                    myLane = myNLI.lane;
-                    assert(myLane != 0);
-                    assert(myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL);
-                    myNLI = getNextLane(*this, myLane, oldLane);
-                    myWalkingAreaPath = 0;
+                    if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
+                        myStage->moveToNextEdge(myPerson, currentTime, 0);
+                        myLane = myNLI.lane;
+                        assert(myLane != 0);
+                        assert(myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL);
+                        myNLI = getNextLane(*this, myLane, oldLane);
+                        myWalkingAreaPath = 0;
+                    } else {
+                        throw ProcessError("Disconnected walk for person '" + myPerson->getID() + "'.");
+                    }
                 }
             } else {
                 myWalkingAreaPath = 0;

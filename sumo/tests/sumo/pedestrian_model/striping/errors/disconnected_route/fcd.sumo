@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 26 13:16:39 2015 by SUMO Version dev-SVN-r17694ID
+<!-- generated on Mon Jan 26 13:57:21 2015 by SUMO Version dev-SVN-r17694ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -53,26 +53,4 @@
     <timestep time="7.00">
         <person id="p0" x="108.92" y="88.37" angle="-180.00" speed="1.39" pos="88.37" edge="SC" slope="0.00"/>
     </timestep>
-    <timestep time="8.00">
-        <person id="p0" x="87.54" y="108.92" angle="-90.00" speed="1.39" pos="1.11" edge="CW" slope="0.00"/>
-    </timestep>
-    <timestep time="9.00">
-        <person id="p0" x="86.15" y="108.92" angle="-90.00" speed="1.39" pos="2.50" edge="CW" slope="0.00"/>
-    </timestep>
-    <timestep time="10.00">
-        <person id="p0" x="84.76" y="108.92" angle="-90.00" speed="1.39" pos="3.89" edge="CW" slope="0.00"/>
-    </timestep>
-    <timestep time="11.00">
-        <person id="p0" x="83.37" y="108.92" angle="-90.00" speed="1.39" pos="5.28" edge="CW" slope="0.00"/>
-    </timestep>
-    <timestep time="12.00">
-        <person id="p0" x="81.98" y="108.92" angle="-90.00" speed="1.39" pos="6.67" edge="CW" slope="0.00"/>
-    </timestep>
-    <timestep time="13.00">
-        <person id="p0" x="80.59" y="108.92" angle="-90.00" speed="1.39" pos="8.06" edge="CW" slope="0.00"/>
-    </timestep>
-    <timestep time="14.00">
-        <person id="p0" x="79.21" y="108.92" angle="-90.00" speed="1.39" pos="9.44" edge="CW" slope="0.00"/>
-    </timestep>
-    <timestep time="15.00"/>
 </fcd-export>
