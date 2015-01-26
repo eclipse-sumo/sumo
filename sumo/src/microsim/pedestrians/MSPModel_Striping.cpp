@@ -329,7 +329,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                               << "' to '" << (nextRouteEdge == 0 ? "NULL" : nextRouteEdge->getID())
                               << "\n";
                 }
-                nextDir = FORWARD; // fallback
+                // error indicated by nextDir == UNDEFINED_DIRECTION
             }
         } else if (currentEdge == nextRouteEdge) {
             // strange loop in this route. No need to use walkingArea
@@ -884,12 +884,22 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                 std::cout << "    nextLane=" << (myNLI.lane == 0 ? "NULL" : myNLI.lane->getID()) << "\n";
             }
             if (myLane->getEdge().isWalkingArea()) {
-                myWalkingAreaPath = &myWalkingAreaPaths[std::make_pair(oldLane, myNLI.lane)];
-                assert(myWalkingAreaPath->from != 0);
-                assert(myWalkingAreaPath->to != 0);
-                assert(myWalkingAreaPath->shape.size() >= 2);
-                if DEBUGCOND(myPerson->getID()) {
-                    std::cout << "  mWAPath shape=" << myWalkingAreaPath->shape << " length=" << myWalkingAreaPath->length << "\n";
+                if (myNLI.dir != UNDEFINED_DIRECTION) {
+                    myWalkingAreaPath = &myWalkingAreaPaths[std::make_pair(oldLane, myNLI.lane)];
+                    assert(myWalkingAreaPath->from != 0);
+                    assert(myWalkingAreaPath->to != 0);
+                    assert(myWalkingAreaPath->shape.size() >= 2);
+                    if DEBUGCOND(myPerson->getID()) {
+                        std::cout << "  mWAPath shape=" << myWalkingAreaPath->shape << " length=" << myWalkingAreaPath->length << "\n";
+                    }
+                } else {
+                    // disconnnected route. move to the next edge (arbitrariliy, maintaining current direction)
+                    myStage->moveToNextEdge(myPerson, currentTime, 0);
+                    myLane = myNLI.lane;
+                    assert(myLane != 0);
+                    assert(myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL);
+                    myNLI = getNextLane(*this, myLane, oldLane);
+                    myWalkingAreaPath = 0;
                 }
             } else {
                 myWalkingAreaPath = 0;
