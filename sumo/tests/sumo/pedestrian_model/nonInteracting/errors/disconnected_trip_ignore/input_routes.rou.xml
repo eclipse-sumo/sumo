@@ -1,0 +1,6 @@
+<routes>
+    <person id="p0" depart="0">
+        <walk from="SC" to="CW" departPos="-10" arrivalPos="10"/>
+    </person>
+
+</routes>

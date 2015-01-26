@@ -15,4 +15,5 @@ counterflow_change_direction
 
 # test for subsecond behavior
 subsecond
+errors
 bugs

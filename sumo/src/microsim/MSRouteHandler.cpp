@@ -182,8 +182,7 @@ MSRouteHandler::myStartElement(int element,
                         const std::string error = "No connection found between '" + from->getID() + "' and '" + to->getID() + "' for person '" + myVehicleParameter->id + "'.";
                         if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
                             myActiveRoute.push_back(from);
-                            // XXX
-                            //myActiveRoute.push_back(to);
+                            myActiveRoute.push_back(to); // pedestrian will teleport
                             //WRITE_WARNING(error);
                         } else {
                             WRITE_ERROR(error);
