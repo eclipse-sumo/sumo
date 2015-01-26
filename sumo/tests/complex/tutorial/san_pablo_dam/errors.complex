@@ -1,1 +1,391 @@
+Warning: Value of tau=0.92 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Teleporting vehicle '891'; collision with '890', lane='1to7_0', gap=-0.03, time=26924.00 stage=move.
+Warning: Teleporting vehicle '860'; collision with '859', lane='1to7_0', gap=-0.13, time=26932.00 stage=move.
+Warning: Vehicle '891' teleports beyond end of route ('7to8'), time 26963.00.
+Warning: Vehicle '860' teleports beyond end of route ('7to8'), time 26967.00.
+Warning: Teleporting vehicle '930'; collision with '929', lane='1to7_0', gap=-0.22, time=27003.00 stage=move.
+Warning: Vehicle '930' ends teleporting on edge '7to8', time 27003.00.
+Warning: Teleporting vehicle '976'; collision with '975', lane='1to7_0', gap=-0.36, time=27140.00 stage=move.
+Warning: Vehicle '976' ends teleporting on edge '7to8', time 27191.00.
+Warning: Teleporting vehicle '980'; collision with '979', lane='1to7_0', gap=-0.04, time=27197.00 stage=move.
+Warning: Vehicle '980' ends teleporting on edge '7to8', time 27197.00.
+Warning: Teleporting vehicle '1075'; collision with '1074', lane='1to7_0', gap=-0.12, time=27474.00 stage=move.
+Warning: Vehicle '1075' ends teleporting on edge '7to8', time 27518.00.
+Warning: Teleporting vehicle '1067'; collision with '1066', lane='1to7_0', gap=-0.08, time=27540.00 stage=move.
+Warning: Vehicle '1067' ends teleporting on edge '7to8', time 27543.00.
+Warning: Teleporting vehicle '1117'; collision with '1116', lane='1to7_0', gap=-0.00, time=27573.00 stage=move.
+Warning: Vehicle '1117' ends teleporting on edge '7to8', time 27573.00.
+Warning: Teleporting vehicle '1098'; collision with '1097', lane='1to7_0', gap=-0.10, time=27652.00 stage=move.
+Warning: Vehicle '1098' ends teleporting on edge '7to8', time 27653.00.
+Warning: Teleporting vehicle '1168'; collision with '1167', lane='1to7_0', gap=-0.22, time=27727.00 stage=move.
+Warning: Teleporting vehicle '1139'; collision with '1138', lane='1to7_0', gap=-0.05, time=27744.00 stage=move.
+Warning: Vehicle '1168' ends teleporting on edge '7to8', time 27748.00.
+Warning: Vehicle '1139' ends teleporting on edge '7to8', time 27751.00.
+Warning: Teleporting vehicle '1190'; collision with '1189', lane='1to7_0', gap=-0.40, time=27798.00 stage=move.
+Warning: Vehicle '1190' ends teleporting on edge '7to8', time 27799.00.
+Warning: Teleporting vehicle '1156'; collision with '1155', lane='1to7_0', gap=-0.07, time=27803.00 stage=move.
+Warning: Vehicle '1156' ends teleporting on edge '7to8', time 27817.00.
+Warning: Teleporting vehicle '1184'; collision with '1183', lane='1to7_0', gap=-0.02, time=27852.00 stage=move.
+Warning: Vehicle '1184' ends teleporting on edge '7to8', time 27853.00.
+Warning: Teleporting vehicle '1175'; collision with '1174', lane='1to7_0', gap=-0.01, time=27897.00 stage=move.
+Warning: Vehicle '1175' ends teleporting on edge '7to8', time 27924.00.
+Warning: Teleporting vehicle '1217'; collision with '1216', lane='1to7_0', gap=-0.02, time=28007.00 stage=move.
+Warning: Vehicle '1217' ends teleporting on edge '7to8', time 28010.00.
+Warning: Teleporting vehicle '1239'; collision with '1238', lane='1to7_0', gap=-0.11, time=28036.00 stage=move.
+Warning: Vehicle '1239' ends teleporting on edge '7to8', time 28037.00.
+Warning: Teleporting vehicle '1285'; collision with '1284', lane='1to7_0', gap=-0.04, time=28218.00 stage=move.
+Warning: Vehicle '1285' ends teleporting on edge '7to8', time 28221.00.
+Warning: Teleporting vehicle '1908'; collision with '1907', lane='1to7_0', gap=-0.12, time=30664.00 stage=move.
+Warning: Vehicle '1908' ends teleporting on edge '7to8', time 30672.00.
+Warning: Value of tau=0.92 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Teleporting vehicle '148'; collision with '147', lane='1to7_0', gap=-0.22, time=25078.00 stage=move.
+Warning: Vehicle '148' ends teleporting on edge '7to8', time 25078.00.
+Warning: Teleporting vehicle '343'; collision with '342', lane='1to7_0', gap=-1.26, time=25574.00 stage=move.
+Warning: Vehicle '343' ends teleporting on edge '7to8', time 25574.00.
+Warning: Teleporting vehicle '387'; collision with '386', lane='1to7_0', gap=-0.47, time=25646.00 stage=move.
+Warning: Vehicle '387' ends teleporting on edge '7to8', time 25657.00.
+Warning: Teleporting vehicle '390'; collision with '389', lane='1to7_0', gap=-0.19, time=25663.00 stage=move.
+Warning: Teleporting vehicle '392'; collision with '391', lane='1to7_0', gap=-0.25, time=25676.00 stage=move.
+Warning: Teleporting vehicle '400'; collision with '399', lane='1to7_0', gap=-0.26, time=25688.00 stage=move.
+Warning: Teleporting vehicle '391'; collision with '389', lane='1to7_0', gap=-0.04, time=25688.00 stage=move.
+Warning: Teleporting vehicle '402'; collision with '401', lane='1to7_0', gap=-0.64, time=25713.00 stage=move.
+Warning: Teleporting vehicle '412'; collision with '411', lane='1to7_0', gap=-0.21, time=25729.00 stage=move.
+Warning: Teleporting vehicle '410'; collision with '409', lane='1to7_0', gap=-0.14, time=25733.00 stage=move.
+Warning: Vehicle '390' teleports beyond end of route ('7to8'), time 25745.00.
+Warning: Vehicle '392' teleports beyond end of route ('7to8'), time 25753.00.
+Warning: Vehicle '400' teleports beyond end of route ('7to8'), time 25760.00.
+Warning: Vehicle '391' teleports beyond end of route ('7to8'), time 25760.00.
+Warning: Vehicle '402' teleports beyond end of route ('7to8'), time 25772.00.
+Warning: Vehicle '412' teleports beyond end of route ('7to8'), time 25782.00.
+Warning: Vehicle '410' teleports beyond end of route ('7to8'), time 25784.00.
+Warning: Teleporting vehicle '731'; collision with '730', lane='1to7_0', gap=-0.43, time=26530.00 stage=move.
+Warning: Vehicle '731' ends teleporting on edge '7to8', time 26553.00.
+Warning: Teleporting vehicle '736'; collision with '735', lane='1to7_0', gap=-0.30, time=26560.00 stage=move.
+Warning: Teleporting vehicle '747'; collision with '746', lane='1to7_0', gap=-0.06, time=26576.00 stage=move.
+Warning: Vehicle '747' ends teleporting on edge '7to8', time 26578.00.
+Warning: Teleporting vehicle '760'; collision with '759', lane='1to7_0', gap=-0.03, time=26586.00 stage=move.
+Warning: Vehicle '760' ends teleporting on edge '7to8', time 26588.00.
+Warning: Teleporting vehicle '756'; collision with '755', lane='1to7_0', gap=-0.55, time=26590.00 stage=move.
+Warning: Vehicle '756' ends teleporting on edge '7to8', time 26592.00.
+Warning: Teleporting vehicle '763'; collision with '762', lane='1to7_0', gap=-0.01, time=26609.00 stage=move.
+Warning: Vehicle '763' ends teleporting on edge '7to8', time 26610.00.
+Warning: Teleporting vehicle '776'; collision with '775', lane='1to7_0', gap=-0.43, time=26617.00 stage=move.
+Warning: Vehicle '776' ends teleporting on edge '7to8', time 26619.00.
+Warning: Teleporting vehicle '775'; collision with '774', lane='1to7_0', gap=-0.22, time=26627.00 stage=move.
+Warning: Vehicle '736' ends teleporting on edge '7to8', time 26627.00.
+Warning: Vehicle '775' ends teleporting on edge '7to8', time 26631.00.
+Warning: Teleporting vehicle '773'; collision with '772', lane='1to7_0', gap=-0.03, time=26649.00 stage=move.
+Warning: Teleporting vehicle '781'; collision with '780', lane='1to7_0', gap=-0.46, time=26651.00 stage=move.
+Warning: Teleporting vehicle '788'; collision with '787', lane='1to7_0', gap=-0.04, time=26653.00 stage=move.
+Warning: Teleporting vehicle '793'; collision with '792', lane='1to7_0', gap=-0.10, time=26670.00 stage=move.
+Warning: Teleporting vehicle '785'; collision with '784', lane='1to7_0', gap=-0.19, time=26688.00 stage=move.
+Warning: Vehicle '788' ends teleporting on edge '7to8', time 26689.00.
+Warning: Vehicle '785' ends teleporting on edge '7to8', time 26694.00.
+Warning: Teleporting vehicle '808'; collision with '807', lane='1to7_0', gap=-0.26, time=26695.00 stage=move.
+Warning: Vehicle '808' ends teleporting on edge '7to8', time 26695.00.
+Warning: Teleporting vehicle '789'; collision with '787', lane='1to7_0', gap=-0.30, time=26699.00 stage=move.
+Warning: Vehicle '789' ends teleporting on edge '7to8', time 26700.00.
+Warning: Teleporting vehicle '811'; collision with '810', lane='1to7_0', gap=-0.11, time=26707.00 stage=move.
+Warning: Vehicle '811' ends teleporting on edge '7to8', time 26711.00.
+Warning: Teleporting vehicle '802'; collision with '801', lane='1to7_0', gap=-0.02, time=26714.00 stage=move.
+Warning: Teleporting vehicle '810'; collision with '809', lane='1to7_0', gap=-0.01, time=26716.00 stage=move.
+Warning: Vehicle '802' ends teleporting on edge '7to8', time 26716.00.
+Warning: Teleporting vehicle '814'; collision with '813', lane='1to7_0', gap=-0.48, time=26726.00 stage=move.
+Warning: Vehicle '773' teleports beyond end of route ('7to8'), time 26726.00.
+Warning: Vehicle '781' teleports beyond end of route ('7to8'), time 26728.00.
+Warning: Teleporting vehicle '813'; collision with '812', lane='1to7_0', gap=-0.23, time=26729.00 stage=move.
+Warning: Vehicle '814' ends teleporting on edge '7to8', time 26730.00.
+Warning: Teleporting vehicle '803'; collision with '801', lane='1to7_0', gap=-0.78, time=26735.00 stage=move.
+Warning: Vehicle '813' ends teleporting on edge '7to8', time 26739.00.
+Warning: Teleporting vehicle '824'; collision with '823', lane='1to7_0', gap=-0.26, time=26743.00 stage=move.
+Warning: Vehicle '803' ends teleporting on edge '7to8', time 26743.00.
+Warning: Teleporting vehicle '834'; collision with '833', lane='1to7_0', gap=-0.17, time=26745.00 stage=move.
+Warning: Vehicle '793' teleports beyond end of route ('7to8'), time 26745.00.
+Warning: Vehicle '824' ends teleporting on edge '7to8', time 26748.00.
+Warning: Teleporting vehicle '835'; collision with '833', lane='1to7_0', gap=-0.59, time=26751.00 stage=move.
+Warning: Teleporting vehicle '825'; collision with '823', lane='1to7_0', gap=-0.14, time=26754.00 stage=move.
+Warning: Teleporting vehicle '822'; collision with '821', lane='1to7_0', gap=-0.06, time=26756.00 stage=move.
+Warning: Vehicle '822' ends teleporting on edge '7to8', time 26757.00.
+Warning: Teleporting vehicle '819'; collision with '818', lane='1to7_0', gap=-0.23, time=26759.00 stage=move.
+Warning: Vehicle '819' ends teleporting on edge '7to8', time 26761.00.
+Warning: Teleporting vehicle '831'; collision with '830', lane='1to7_0', gap=-0.59, time=26762.00 stage=move.
+Warning: Teleporting vehicle '817'; collision with '816', lane='1to7_0', gap=-0.18, time=26773.00 stage=move.
+Warning: Vehicle '831' ends teleporting on edge '7to8', time 26774.00.
+Warning: Teleporting vehicle '836'; collision with '833', lane='1to7_0', gap=-0.02, time=26775.00 stage=move.
+Warning: Teleporting vehicle '830'; collision with '829', lane='1to7_0', gap=-0.37, time=26775.00 stage=move.
+Warning: Vehicle '817' ends teleporting on edge '7to8', time 26783.00.
+Warning: Teleporting vehicle '833'; collision with '832', lane='1to7_0', gap=-0.09, time=26788.00 stage=move.
+Warning: Teleporting vehicle '832'; collision with '829', lane='1to7_0', gap=-0.09, time=26788.00 stage=move.
+Warning: Vehicle '825' ends teleporting on edge '7to8', time 26796.00.
+Warning: Vehicle '830' ends teleporting on edge '7to8', time 26800.00.
+Warning: Teleporting vehicle '842'; collision with '841', lane='1to7_0', gap=-0.10, time=26801.00 stage=move.
+Warning: Teleporting vehicle '837'; collision with '829', lane='1to7_0', gap=-0.20, time=26802.00 stage=move.
+Warning: Teleporting vehicle '847'; collision with '846', lane='1to7_0', gap=-0.44, time=26804.00 stage=move.
+Warning: Teleporting vehicle '829'; collision with '828', lane='1to7_0', gap=-0.29, time=26805.00 stage=move.
+Warning: Teleporting vehicle '843'; collision with '841', lane='1to7_0', gap=-0.19, time=26813.00 stage=move.
+Warning: Teleporting vehicle '845'; collision with '844', lane='1to7_0', gap=-0.46, time=26818.00 stage=move.
+Warning: Vehicle '810' ends teleporting on edge '7to8', time 26819.00.
+Warning: Vehicle '833' ends teleporting on edge '7to8', time 26830.00.
+Warning: Teleporting vehicle '851'; collision with '850', lane='1to7_0', gap=-0.04, time=26834.00 stage=move.
+Warning: Vehicle '835' ends teleporting on edge '7to8', time 26837.00.
+Warning: Vehicle '834' teleports beyond end of route ('7to8'), time 26846.00.
+Warning: Teleporting vehicle '858'; collision with '857', lane='1to7_0', gap=-0.20, time=26847.00 stage=move.
+Warning: Vehicle '836' ends teleporting on edge '7to8', time 26847.00.
+Warning: Teleporting vehicle '846'; collision with '844', lane='1to7_0', gap=-0.25, time=26852.00 stage=move.
+Warning: Vehicle '842' ends teleporting on edge '7to8', time 26860.00.
+Warning: Teleporting vehicle '872'; collision with '871', lane='1to7_0', gap=-0.10, time=26869.00 stage=move.
+Warning: Teleporting vehicle '881'; collision with '880', lane='1to7_0', gap=-0.17, time=26870.00 stage=move.
+Warning: Vehicle '832' teleports beyond end of route ('7to8'), time 26888.00.
+Warning: Teleporting vehicle '886'; collision with '885', lane='1to7_0', gap=-0.13, time=26890.00 stage=move.
+Warning: Vehicle '837' teleports beyond end of route ('7to8'), time 26896.00.
+Warning: Vehicle '847' teleports beyond end of route ('7to8'), time 26899.00.
+Warning: Vehicle '829' teleports beyond end of route ('7to8'), time 26900.00.
+Warning: Vehicle '843' teleports beyond end of route ('7to8'), time 26903.00.
+Warning: Vehicle '845' teleports beyond end of route ('7to8'), time 26908.00.
+Warning: Teleporting vehicle '888'; collision with '887', lane='1to7_0', gap=-0.59, time=26916.00 stage=move.
+Warning: Vehicle '851' teleports beyond end of route ('7to8'), time 26920.00.
+Warning: Vehicle '858' teleports beyond end of route ('7to8'), time 26932.00.
+Warning: Vehicle '846' teleports beyond end of route ('7to8'), time 26932.00.
+Warning: Teleporting vehicle '907'; collision with '906', lane='1to7_0', gap=-1.06, time=26941.00 stage=move.
+Warning: Vehicle '872' teleports beyond end of route ('7to8'), time 26944.00.
+Warning: Vehicle '881' teleports beyond end of route ('7to8'), time 26945.00.
+Warning: Vehicle '886' teleports beyond end of route ('7to8'), time 26952.00.
+Warning: Vehicle '888' teleports beyond end of route ('7to8'), time 26952.00.
+Warning: Vehicle '907' teleports beyond end of route ('7to8'), time 26974.00.
+Warning: Teleporting vehicle '912'; collision with '911', lane='1to7_0', gap=-0.92, time=26987.00 stage=move.
+Warning: Vehicle '912' ends teleporting on edge '7to8', time 26987.00.
+Warning: Teleporting vehicle '919'; collision with '918', lane='1to7_0', gap=-0.18, time=26997.00 stage=move.
+Warning: Teleporting vehicle '930'; collision with '929', lane='1to7_0', gap=-0.04, time=27012.00 stage=move.
+Warning: Teleporting vehicle '932'; collision with '931', lane='1to7_0', gap=-0.14, time=27024.00 stage=move.
+Warning: Teleporting vehicle '938'; collision with '937', lane='1to7_0', gap=-0.56, time=27026.00 stage=move.
+Warning: Vehicle '932' ends teleporting on edge '7to8', time 27027.00.
+Warning: Teleporting vehicle '935'; collision with '934', lane='1to7_0', gap=-0.08, time=27031.00 stage=move.
+Warning: Vehicle '935' ends teleporting on edge '7to8', time 27034.00.
+Warning: Vehicle '919' ends teleporting on edge '7to8', time 27045.00.
+Warning: Teleporting vehicle '945'; collision with '944', lane='1to7_0', gap=-0.55, time=27049.00 stage=move.
+Warning: Teleporting vehicle '941'; collision with '940', lane='1to7_0', gap=-0.20, time=27050.00 stage=move.
+Warning: Vehicle '945' ends teleporting on edge '7to8', time 27051.00.
+Warning: Vehicle '941' ends teleporting on edge '7to8', time 27057.00.
+Warning: Teleporting vehicle '940'; collision with '939', lane='1to7_0', gap=-0.07, time=27059.00 stage=move.
+Warning: Teleporting vehicle '949'; collision with '948', lane='1to7_0', gap=-0.25, time=27061.00 stage=move.
+Warning: Teleporting vehicle '948'; collision with '947', lane='1to7_0', gap=-0.06, time=27071.00 stage=move.
+Warning: Vehicle '948' ends teleporting on edge '7to8', time 27073.00.
+Warning: Teleporting vehicle '952'; collision with '951', lane='1to7_0', gap=-0.21, time=27079.00 stage=move.
+Warning: Teleporting vehicle '950'; collision with '947', lane='1to7_0', gap=-0.06, time=27085.00 stage=move.
+Warning: Vehicle '930' ends teleporting on edge '7to8', time 27099.00.
+Warning: Vehicle '938' ends teleporting on edge '7to8', time 27112.00.
+Warning: Teleporting vehicle '938'; collision with '953', lane='7to8_0', gap=-0.04, time=27113.00 stage=move.
+Warning: Vehicle '938' teleports beyond end of route ('7to8'), time 27113.00.
+Warning: Vehicle '940' ends teleporting on edge '7to8', time 27113.00.
+Warning: Vehicle '949' ends teleporting on edge '7to8', time 27116.00.
+Warning: Teleporting vehicle '940'; collision with '953', lane='7to8_0', gap=-0.08, time=27118.00 stage=move.
+Warning: Vehicle '940' teleports beyond end of route ('7to8'), time 27118.00.
+Warning: Vehicle '952' ends teleporting on edge '7to8', time 27119.00.
+Warning: Vehicle '950' ends teleporting on edge '7to8', time 27127.00.
+Warning: Teleporting vehicle '986'; collision with '985', lane='1to7_0', gap=-0.40, time=27197.00 stage=move.
+Warning: Vehicle '986' ends teleporting on edge '7to8', time 27201.00.
+Warning: Teleporting vehicle '996'; collision with '995', lane='1to7_0', gap=-0.63, time=27210.00 stage=move.
+Warning: Vehicle '996' ends teleporting on edge '7to8', time 27213.00.
+Warning: Teleporting vehicle '998'; collision with '997', lane='1to7_0', gap=-0.01, time=27215.00 stage=move.
+Warning: Teleporting vehicle '1004'; collision with '1003', lane='1to7_0', gap=-0.15, time=27233.00 stage=move.
+Warning: Teleporting vehicle '1008'; collision with '1007', lane='1to7_0', gap=-0.11, time=27252.00 stage=move.
+Warning: Vehicle '1008' ends teleporting on edge '7to8', time 27252.00.
+Warning: Teleporting vehicle '1023'; collision with '1022', lane='1to7_0', gap=-1.68, time=27320.00 stage=move.
+Warning: Vehicle '1023' ends teleporting on edge '7to8', time 27320.00.
+Warning: Vehicle '998' teleports beyond end of route ('7to8'), time 27322.00.
+Warning: Teleporting vehicle '1028'; collision with '1027', lane='1to7_0', gap=-0.01, time=27326.00 stage=move.
+Warning: Teleporting vehicle '1030'; collision with '1029', lane='1to7_0', gap=-0.12, time=27330.00 stage=move.
+Warning: Vehicle '1004' teleports beyond end of route ('7to8'), time 27341.00.
+Warning: Teleporting vehicle '1038'; collision with '1037', lane='1to7_0', gap=-0.00, time=27343.00 stage=move.
+Warning: Vehicle '1038' ends teleporting on edge '7to8', time 27344.00.
+Warning: Teleporting vehicle '1048'; collision with '1047', lane='1to7_0', gap=-1.11, time=27368.00 stage=move.
+Warning: Vehicle '1048' ends teleporting on edge '7to8', time 27369.00.
+Warning: Teleporting vehicle '1057'; collision with '1056', lane='1to7_0', gap=-0.03, time=27384.00 stage=move.
+Warning: Teleporting vehicle '1056'; collision with '1055', lane='1to7_0', gap=-0.06, time=27389.00 stage=move.
+Warning: Teleporting vehicle '1058'; collision with '1055', lane='1to7_0', gap=-0.10, time=27398.00 stage=move.
+Warning: Teleporting vehicle '1041'; collision with '1040', lane='1to7_0', gap=-0.07, time=27403.00 stage=move.
+Warning: Teleporting vehicle '1034'; collision with '1033', lane='1to7_0', gap=-0.05, time=27406.00 stage=move.
+Warning: Teleporting vehicle '1063'; collision with '1062', lane='1to7_0', gap=-0.06, time=27407.00 stage=move.
+Warning: Vehicle '1057' ends teleporting on edge '7to8', time 27413.00.
+Warning: Teleporting vehicle '1042'; collision with '1040', lane='1to7_0', gap=-0.17, time=27415.00 stage=move.
+Warning: Teleporting vehicle '1068'; collision with '1067', lane='1to7_0', gap=-0.30, time=27416.00 stage=move.
+Warning: Teleporting vehicle '1051'; collision with '1050', lane='1to7_0', gap=-0.01, time=27416.00 stage=move.
+Warning: Teleporting vehicle '1039'; collision with '1037', lane='1to7_0', gap=-0.06, time=27416.00 stage=move.
+Warning: Vehicle '1056' ends teleporting on edge '7to8', time 27424.00.
+Warning: Teleporting vehicle '1070'; collision with '1069', lane='1to7_0', gap=-0.32, time=27429.00 stage=move.
+Warning: Teleporting vehicle '1049'; collision with '1047', lane='1to7_0', gap=-0.05, time=27432.00 stage=move.
+Warning: Teleporting vehicle '1060'; collision with '1059', lane='1to7_0', gap=-0.61, time=27443.00 stage=move.
+Warning: Teleporting vehicle '1076'; collision with '1075', lane='1to7_0', gap=-0.48, time=27446.00 stage=move.
+Warning: Vehicle '1041' ends teleporting on edge '7to8', time 27446.00.
+Warning: Teleporting vehicle '1081'; collision with '1080', lane='1to7_0', gap=-0.21, time=27453.00 stage=move.
+Warning: Teleporting vehicle '1075'; collision with '1074', lane='1to7_0', gap=-0.19, time=27459.00 stage=move.
+Warning: Teleporting vehicle '1074'; collision with '1073', lane='1to7_0', gap=-0.04, time=27460.00 stage=move.
+Warning: Teleporting vehicle '1044'; collision with '1043', lane='7to8_0', gap=-0.13, time=27465.00 stage=move.
+Warning: Vehicle '1044' teleports beyond end of route ('7to8'), time 27465.00.
+Warning: Teleporting vehicle '1071'; collision with '1069', lane='1to7_0', gap=-0.37, time=27466.00 stage=move.
+Warning: Teleporting vehicle '1085'; collision with '1084', lane='1to7_0', gap=-0.13, time=27473.00 stage=move.
+Warning: Vehicle '1028' teleports beyond end of route ('7to8'), time 27475.00.
+Warning: Vehicle '1030' teleports beyond end of route ('7to8'), time 27477.00.
+Warning: Teleporting vehicle '1088'; collision with '1087', lane='1to7_0', gap=-0.06, time=27483.00 stage=move.
+Warning: Vehicle '1042' ends teleporting on edge '7to8', time 27495.00.
+Warning: Vehicle '1058' teleports beyond end of route ('7to8'), time 27497.00.
+Warning: Vehicle '1034' teleports beyond end of route ('7to8'), time 27501.00.
+Warning: Vehicle '1063' teleports beyond end of route ('7to8'), time 27503.00.
+Warning: Vehicle '1068' teleports beyond end of route ('7to8'), time 27506.00.
+Warning: Vehicle '1051' teleports beyond end of route ('7to8'), time 27506.00.
+Warning: Vehicle '1039' teleports beyond end of route ('7to8'), time 27506.00.
+Warning: Vehicle '1070' teleports beyond end of route ('7to8'), time 27519.00.
+Warning: Vehicle '1049' teleports beyond end of route ('7to8'), time 27520.00.
+Warning: Vehicle '1060' ends teleporting on edge '7to8', time 27521.00.
+Warning: Vehicle '1076' ends teleporting on edge '7to8', time 27522.00.
+Warning: Teleporting vehicle '1087'; collision with '1086', lane='1to7_0', gap=-0.12, time=27523.00 stage=move.
+Warning: Vehicle '1075' ends teleporting on edge '7to8', time 27527.00.
+Warning: Vehicle '1074' ends teleporting on edge '7to8', time 27528.00.
+Warning: Vehicle '1071' ends teleporting on edge '7to8', time 27534.00.
+Warning: Teleporting vehicle '1098'; collision with '1097', lane='1to7_0', gap=-0.71, time=27535.00 stage=move.
+Warning: Vehicle '1081' teleports beyond end of route ('7to8'), time 27535.00.
+Warning: Vehicle '1085' ends teleporting on edge '7to8', time 27540.00.
+Warning: Teleporting vehicle '1106'; collision with '1105', lane='1to7_0', gap=-0.14, time=27545.00 stage=move.
+Warning: Vehicle '1088' ends teleporting on edge '7to8', time 27546.00.
+Warning: Teleporting vehicle '1110'; collision with '1109', lane='1to7_0', gap=-0.08, time=27552.00 stage=move.
+Warning: Vehicle '1087' ends teleporting on edge '7to8', time 27552.00.
+Warning: Vehicle '1098' ends teleporting on edge '7to8', time 27558.00.
+Warning: Vehicle '1106' ends teleporting on edge '7to8', time 27563.00.
+Warning: Vehicle '1110' ends teleporting on edge '7to8', time 27569.00.
+Warning: Teleporting vehicle '1120'; collision with '1119', lane='1to7_0', gap=-1.36, time=27570.00 stage=move.
+Warning: Teleporting vehicle '1124'; collision with '1123', lane='1to7_0', gap=-0.41, time=27593.00 stage=move.
+Warning: Vehicle '1124' ends teleporting on edge '7to8', time 27597.00.
+Warning: Teleporting vehicle '1128'; collision with '1127', lane='1to7_0', gap=-0.66, time=27600.00 stage=move.
+Warning: Vehicle '1128' ends teleporting on edge '7to8', time 27602.00.
+Warning: Teleporting vehicle '1118'; collision with '1117', lane='1to7_0', gap=-0.07, time=27611.00 stage=move.
+Warning: Vehicle '1118' ends teleporting on edge '7to8', time 27612.00.
+Warning: Teleporting vehicle '1132'; collision with '1131', lane='1to7_0', gap=-0.45, time=27616.00 stage=move.
+Warning: Vehicle '1132' ends teleporting on edge '7to8', time 27617.00.
+Warning: Teleporting vehicle '1123'; collision with '1122', lane='1to7_0', gap=-0.75, time=27619.00 stage=move.
+Warning: Vehicle '1123' ends teleporting on edge '7to8', time 27622.00.
+Warning: Teleporting vehicle '1134'; collision with '1133', lane='1to7_0', gap=-0.12, time=27629.00 stage=move.
+Warning: Vehicle '1134' ends teleporting on edge '7to8', time 27631.00.
+Warning: Teleporting vehicle '1130'; collision with '1129', lane='1to7_0', gap=-0.04, time=27638.00 stage=move.
+Warning: Vehicle '1130' ends teleporting on edge '7to8', time 27639.00.
+Warning: Teleporting vehicle '1144'; collision with '1143', lane='1to7_0', gap=-0.20, time=27647.00 stage=move.
+Warning: Teleporting vehicle '1141'; collision with '1140', lane='1to7_0', gap=-0.14, time=27650.00 stage=move.
+Warning: Teleporting vehicle '1133'; collision with '1131', lane='1to7_0', gap=-0.06, time=27652.00 stage=move.
+Warning: Teleporting vehicle '1135'; collision with '1131', lane='1to7_0', gap=-0.00, time=27657.00 stage=move.
+Warning: Teleporting vehicle '1129'; collision with '1127', lane='1to7_0', gap=-0.08, time=27661.00 stage=move.
+Warning: Teleporting vehicle '1136'; collision with '1131', lane='1to7_0', gap=-0.46, time=27672.00 stage=move.
+Warning: Vehicle '1120' ends teleporting on edge '7to8', time 27682.00.
+Warning: Teleporting vehicle '1149'; collision with '1148', lane='1to7_0', gap=-0.32, time=27693.00 stage=move.
+Warning: Vehicle '1144' ends teleporting on edge '7to8', time 27718.00.
+Warning: Vehicle '1141' teleports beyond end of route ('7to8'), time 27746.00.
+Warning: Vehicle '1133' teleports beyond end of route ('7to8'), time 27748.00.
+Warning: Vehicle '1135' ends teleporting on edge '7to8', time 27749.00.
+Warning: Vehicle '1129' ends teleporting on edge '7to8', time 27753.00.
+Warning: Vehicle '1136' ends teleporting on edge '7to8', time 27754.00.
+Warning: Vehicle '1149' ends teleporting on edge '7to8', time 27758.00.
+Warning: Teleporting vehicle '1221'; collision with '1220', lane='1to7_0', gap=-0.45, time=28017.00 stage=move.
+Warning: Teleporting vehicle '1229'; collision with '1228', lane='1to7_0', gap=-0.13, time=28026.00 stage=move.
+Warning: Vehicle '1229' ends teleporting on edge '7to8', time 28026.00.
+Warning: Teleporting vehicle '1243'; collision with '1242', lane='1to7_0', gap=-0.19, time=28047.00 stage=move.
+Warning: Vehicle '1243' ends teleporting on edge '7to8', time 28047.00.
+Warning: Vehicle '1221' ends teleporting on edge '7to8', time 28068.00.
+Warning: Teleporting vehicle '1280'; collision with '1279', lane='1to7_0', gap=-1.01, time=28188.00 stage=move.
+Warning: Vehicle '1280' ends teleporting on edge '7to8', time 28188.00.
+Warning: Teleporting vehicle '1293'; collision with '1292', lane='1to7_0', gap=-0.51, time=28232.00 stage=move.
+Warning: Vehicle '1293' ends teleporting on edge '7to8', time 28232.00.
+Warning: Teleporting vehicle '1300'; collision with '1299', lane='1to7_0', gap=-0.17, time=28273.00 stage=move.
+Warning: Vehicle '1300' ends teleporting on edge '7to8', time 28291.00.
+Warning: Teleporting vehicle '1328'; collision with '1327', lane='1to7_0', gap=-1.39, time=28444.00 stage=move.
+Warning: Vehicle '1328' ends teleporting on edge '7to8', time 28444.00.
+Warning: Teleporting vehicle '1400'; collision with '1399', lane='1to7_0', gap=-0.43, time=28712.00 stage=move.
+Warning: Teleporting vehicle '1410'; collision with '1409', lane='1to7_0', gap=-0.28, time=28733.00 stage=move.
+Warning: Vehicle '1410' ends teleporting on edge '7to8', time 28733.00.
+Warning: Teleporting vehicle '1429'; collision with '1428', lane='1to7_0', gap=-0.42, time=28782.00 stage=move.
+Warning: Vehicle '1400' teleports beyond end of route ('7to8'), time 28782.00.
+Warning: Teleporting vehicle '1438'; collision with '1437', lane='1to7_0', gap=-0.10, time=28834.00 stage=move.
+Warning: Vehicle '1429' ends teleporting on edge '7to8', time 28887.00.
+Warning: Vehicle '1438' ends teleporting on edge '7to8', time 28895.00.
+Warning: Teleporting vehicle '1452'; collision with '1451', lane='1to7_0', gap=-0.72, time=28903.00 stage=move.
+Warning: Teleporting vehicle '1462'; collision with '1461', lane='1to7_0', gap=-1.67, time=28914.00 stage=move.
+Warning: Teleporting vehicle '1469'; collision with '1468', lane='1to7_0', gap=-0.07, time=28921.00 stage=move.
+Warning: Vehicle '1462' ends teleporting on edge '7to8', time 28936.00.
+Warning: Teleporting vehicle '1476'; collision with '1475', lane='1to7_0', gap=-0.26, time=28949.00 stage=move.
+Warning: Vehicle '1476' ends teleporting on edge '7to8', time 28952.00.
+Warning: Vehicle '1452' teleports beyond end of route ('7to8'), time 28964.00.
+Warning: Vehicle '1469' teleports beyond end of route ('7to8'), time 28970.00.
+Warning: Teleporting vehicle '1487'; collision with '1486', lane='1to7_0', gap=-0.57, time=28986.00 stage=move.
+Warning: Vehicle '1487' ends teleporting on edge '7to8', time 28988.00.
+Warning: Teleporting vehicle '1497'; collision with '1496', lane='1to7_0', gap=-0.58, time=29026.00 stage=move.
+Warning: Vehicle '1497' teleports beyond end of route ('7to8'), time 29108.00.
+Warning: Teleporting vehicle '1805'; collision with '1804', lane='1to7_0', gap=-0.47, time=30255.00 stage=move.
+Warning: Vehicle '1805' ends teleporting on edge '7to8', time 30255.00.
+Warning: Teleporting vehicle '1831'; collision with '1830', lane='1to7_0', gap=-0.12, time=30338.00 stage=move.
+Warning: Vehicle '1831' ends teleporting on edge '7to8', time 30338.00.
+Warning: Teleporting vehicle '1953'; collision with '1952', lane='1to7_0', gap=-0.12, time=30825.00 stage=move.
+Warning: Vehicle '1953' ends teleporting on edge '7to8', time 30855.00.
+Warning: Teleporting vehicle '2006'; collision with '2005', lane='1to7_0', gap=-1.45, time=31047.00 stage=move.
+Warning: Teleporting vehicle '2013'; collision with '2012', lane='1to7_0', gap=-0.23, time=31056.00 stage=move.
+Warning: Teleporting vehicle '2034'; collision with '2033', lane='1to7_0', gap=-0.16, time=31154.00 stage=move.
+Warning: Vehicle '2006' teleports beyond end of route ('7to8'), time 31165.00.
+Warning: Vehicle '2034' ends teleporting on edge '7to8', time 31172.00.
+Warning: Teleporting vehicle '2041'; collision with '2040', lane='1to7_0', gap=-0.11, time=31177.00 stage=move.
+Warning: Vehicle '2013' teleports beyond end of route ('7to8'), time 31178.00.
+Warning: Teleporting vehicle '2079'; collision with '2078', lane='1to7_0', gap=-0.04, time=31311.00 stage=move.
+Warning: Vehicle '2041' teleports beyond end of route ('7to8'), time 31311.00.
+Warning: Vehicle '2079' ends teleporting on edge '7to8', time 31311.00.
+Warning: Teleporting vehicle '2093'; collision with '2092', lane='1to7_0', gap=-0.04, time=31376.00 stage=move.
+Warning: Vehicle '2093' ends teleporting on edge '7to8', time 31378.00.
+Warning: Teleporting vehicle '2106'; collision with '2105', lane='1to7_0', gap=-0.12, time=31425.00 stage=move.
+Warning: Teleporting vehicle '2110'; collision with '2109', lane='1to7_0', gap=-0.06, time=31472.00 stage=move.
+Warning: Teleporting vehicle '2111'; collision with '2109', lane='1to7_0', gap=-0.03, time=31476.00 stage=move.
+Warning: Vehicle '2110' ends teleporting on edge '7to8', time 31483.00.
+Warning: Teleporting vehicle '2120'; collision with '2119', lane='1to7_0', gap=-0.53, time=31488.00 stage=move.
+Warning: Vehicle '2111' ends teleporting on edge '7to8', time 31497.00.
+Warning: Vehicle '2120' ends teleporting on edge '7to8', time 31511.00.
+Warning: Vehicle '2106' teleports beyond end of route ('7to8'), time 31546.00.
+Warning: Teleporting vehicle '2139'; collision with '2138', lane='1to7_0', gap=-0.59, time=31630.00 stage=move.
+Warning: Vehicle '2139' ends teleporting on edge '7to8', time 31662.00.
+Warning: Teleporting vehicle '2147'; collision with '2146', lane='1to7_0', gap=-0.11, time=31703.00 stage=move.
+Warning: Vehicle '2147' ends teleporting on edge '7to8', time 31725.00.
+Warning: Teleporting vehicle '2159'; collision with '2158', lane='1to7_0', gap=-0.06, time=31768.00 stage=move.
+Warning: Vehicle '2159' teleports beyond end of route ('7to8'), time 31879.00.
+Warning: Teleporting vehicle '2191'; collision with '2190', lane='1to7_0', gap=-0.09, time=31908.00 stage=move.
+Warning: Teleporting vehicle '2190'; collision with '2189', lane='1to7_0', gap=-0.17, time=31908.00 stage=move.
+Warning: Vehicle '2190' ends teleporting on edge '7to8', time 31918.00.
+Warning: Vehicle '2191' ends teleporting on edge '7to8', time 31924.00.
+Warning: Teleporting vehicle '872'; collision with '871', lane='1to7_0', gap=-0.10, time=27265.00 stage=move.
+Warning: Vehicle '872' ends teleporting on edge '7to8', time 27265.00.
+Warning: Teleporting vehicle '884'; collision with '883', lane='1to7_0', gap=-0.11, time=27288.00 stage=move.
+Warning: Teleporting vehicle '880'; collision with '879', lane='1to7_0', gap=-0.04, time=27291.00 stage=move.
+Warning: Teleporting vehicle '876'; collision with '875', lane='1to7_0', gap=-0.15, time=27292.00 stage=move.
+Warning: Vehicle '884' ends teleporting on edge '7to8', time 27292.00.
+Warning: Vehicle '876' ends teleporting on edge '7to8', time 27294.00.
+Warning: Teleporting vehicle '889'; collision with '888', lane='1to7_0', gap=-0.09, time=27316.00 stage=move.
+Warning: Vehicle '889' ends teleporting on edge '7to8', time 27318.00.
+Warning: Teleporting vehicle '899'; collision with '898', lane='1to7_0', gap=-0.06, time=27341.00 stage=move.
+Warning: Vehicle '899' ends teleporting on edge '7to8', time 27344.00.
+Warning: Teleporting vehicle '897'; collision with '896', lane='1to7_0', gap=-0.05, time=27357.00 stage=move.
+Warning: Teleporting vehicle '907'; collision with '906', lane='1to7_0', gap=-0.13, time=27359.00 stage=move.
+Warning: Vehicle '897' ends teleporting on edge '7to8', time 27360.00.
+Warning: Vehicle '907' ends teleporting on edge '7to8', time 27378.00.
+Warning: Teleporting vehicle '893'; collision with '892', lane='1to7_0', gap=-0.01, time=27381.00 stage=move.
+Warning: Teleporting vehicle '908'; collision with '906', lane='1to7_0', gap=-0.08, time=27385.00 stage=move.
+Warning: Teleporting vehicle '905'; collision with '904', lane='1to7_0', gap=-0.06, time=27387.00 stage=move.
+Warning: Vehicle '880' ends teleporting on edge '7to8', time 27399.00.
+Warning: Vehicle '893' ends teleporting on edge '7to8', time 27407.00.
+Warning: Vehicle '908' ends teleporting on edge '7to8', time 27419.00.
+Warning: Vehicle '905' ends teleporting on edge '7to8', time 27423.00.
+Warning: Teleporting vehicle '2049'; collision with '2048', lane='1to7_0', gap=-0.14, time=31223.00 stage=move.
+Warning: Vehicle '2049' ends teleporting on edge '7to8', time 31227.00.
+Warning: Teleporting vehicle '2080'; collision with '2079', lane='1to7_0', gap=-0.22, time=31353.00 stage=move.
+Warning: Teleporting vehicle '2076'; collision with '2075', lane='1to7_0', gap=-0.13, time=31369.00 stage=move.
+Warning: Teleporting vehicle '2087'; collision with '2086', lane='1to7_0', gap=-0.04, time=31373.00 stage=move.
+Warning: Vehicle '2080' ends teleporting on edge '7to8', time 31379.00.
+Warning: Vehicle '2076' ends teleporting on edge '7to8', time 31404.00.
+Warning: Teleporting vehicle '2107'; collision with '2106', lane='1to7_0', gap=-0.05, time=31438.00 stage=move.
+Warning: Teleporting vehicle '2099'; collision with '2098', lane='1to7_0', gap=-0.04, time=31453.00 stage=move.
+Warning: Vehicle '2107' ends teleporting on edge '7to8', time 31456.00.
+Warning: Teleporting vehicle '2092'; collision with '2091', lane='1to7_0', gap=-0.11, time=31477.00 stage=move.
+Warning: Vehicle '2099' ends teleporting on edge '7to8', time 31502.00.
+Warning: Vehicle '2087' teleports beyond end of route ('7to8'), time 31508.00.
+Warning: Vehicle '2092' ends teleporting on edge '7to8', time 31567.00.
 Warning: Value of tau=1.00 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
