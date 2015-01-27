@@ -30,6 +30,7 @@
 #include <config.h>
 #endif
 
+#include <cstdlib>
 #include <fstream>
 #include <sstream>
 #include <string>
