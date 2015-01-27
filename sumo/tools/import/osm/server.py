@@ -45,9 +45,18 @@ import route2trips
 
 def build(handler, prefix, bbox=False):
     def callSumo(extraopts):
+        guisettingsname = prefix + ".view.xml"
+        print "Writing gui settings file:", guisettingsname
+        with open(guisettingsname, 'w') as f:
+            f.write("""
+<viewsettings>
+    <scheme name="real world"/>
+    <delay value="20"/>
+</viewsettings>
+""")
         configname = prefix + ".sumocfg"
         print "Writing config file:", configname
-        opts = ["sumo", "-n", netname, "-a", polyname, "--save-configuration", configname]
+        opts = ["sumo", "-n", netname, "-a", polyname, "--gui-settings-file", guisettingsname, "--save-configuration", configname]
         opts += extraopts
         subprocess.call(opts)
 
