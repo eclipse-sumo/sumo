@@ -98,7 +98,15 @@ PHEMCEPHandler::Load(SUMOEmissionClass emissionClass, const std::string& emissio
     double pNormP1;
 
     OptionsCont& oc = OptionsCont::getOptions();
-    std::string phemPath = oc.getString("phemlight-path") + "/";
+    //std::string phemPath = oc.getString("phemlight-path") + "/";
+    std::vector<std::string> phemPath;
+    phemPath.push_back(oc.getString("phemlight-path") + "/");
+    if (getenv("PHEMLIGHT_PATH") != 0) {
+        phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
+    }
+    if (getenv("SUMO_HOME") != 0) {
+        phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight/");
+    }
     if (!ReadVehicleFile(phemPath, emissionClassIdentifier,
 						vehicleMass, 
 						vehicleLoading, 
@@ -180,7 +188,7 @@ PHEMCEPHandler::GetCep(SUMOEmissionClass emissionClass) {
 
 
 bool
-PHEMCEPHandler::ReadVehicleFile(const std::string& path, const std::string& emissionClass,
+PHEMCEPHandler::ReadVehicleFile(const std::vector<std::string>& path, const std::string& emissionClass,
 									 double &vehicleMass,
 									 double &vehicleLoading,
 									 double &vehicleMassRot,
@@ -206,8 +214,13 @@ PHEMCEPHandler::ReadVehicleFile(const std::string& path, const std::string& emis
 									 std::vector< std::vector<double> > &normedDragTable)
 
 {
-    std::ifstream fileVehicle(std::string(path + emissionClass + ".PHEMLight.veh").c_str());
-
+    std::ifstream fileVehicle;
+    for (std::vector<std::string>::const_iterator i = path.begin(); i != path.end(); i++) {
+        fileVehicle.open(((*i) + emissionClass + ".PHEMLight.veh").c_str());
+        if (fileVehicle.good()) {
+            break;
+        }
+    }
     if (!fileVehicle.good()) {
         return false;
     }
@@ -374,7 +387,7 @@ PHEMCEPHandler::ReadVehicleFile(const std::string& path, const std::string& emis
 } // end of ReadVehicleFile
 
 
-bool PHEMCEPHandler::ReadEmissionData(bool readFC, const std::string& path, const std::string& emissionClass,
+bool PHEMCEPHandler::ReadEmissionData(bool readFC, const std::vector<std::string>& path, const std::string& emissionClass,
     std::vector<std::string> &header, std::vector<std::vector<double> > &matrix, std::vector<double> &idlingValues)
 {
 
@@ -383,7 +396,13 @@ bool PHEMCEPHandler::ReadEmissionData(bool readFC, const std::string& path, cons
         pollutantExtension += "_FC";
     }
     // declare file stream
-    std::ifstream fileEmission(std::string(path + emissionClass + pollutantExtension + ".csv").c_str());
+    std::ifstream fileEmission;
+    for (std::vector<std::string>::const_iterator i = path.begin(); i != path.end(); i++) {
+        fileEmission.open(((*i) + emissionClass + pollutantExtension + ".csv").c_str());
+        if (fileEmission.good()) {
+            break;
+        }
+    }
 
     if (!fileEmission.good()) {
         return false;

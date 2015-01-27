@@ -72,7 +72,7 @@ public:
 
 private:
     /** @brief Helper method to read a vehicle file from file system
-    * @param[in] path The path to PHEMlight data files
+    * @param[in] path The possible paths to PHEMlight data files
     * @param[in] emissionClass desired PHEM emission class
     * @param[in] vehicleMass out variable for vehicle mass
     * @param[in] vehivleLoading out variable for vehicle loading
@@ -93,7 +93,7 @@ private:
     * @param[in] matrixRotFactor out variable for rotational factors over speed for more accurate power calculation
     * @return Indicator if reading was successul
     */
-    bool ReadVehicleFile(const std::string& path, const std::string& emissionClass,
+    bool ReadVehicleFile(const std::vector<std::string>& path, const std::string& emissionClass,
 									 double &vehicleMass,
 									 double &vehicleLoading,
 									 double &vehicleMassRot,
@@ -121,13 +121,13 @@ private:
 
 
     /** @brief Helper method to read a CEP file from file system
-     * @param[in] path The path to PHEMlight data files
+     * @param[in] path The possible paths to PHEMlight data files
      * @param[in] emissionClass desired PHEM emission class
      * @param[in] header vector of pollutant identifiers
      * @param[in] matrix matrix holding power pattern and CEP curves
      * @return Indicator if reading was successul
      */
-    bool ReadEmissionData(bool readFC, const std::string& path, const std::string& emissionClass,
+    bool ReadEmissionData(bool readFC, const std::vector<std::string>& path, const std::string& emissionClass,
                           std::vector<std::string> &header, std::vector<std::vector<double> > &matrix, std::vector<double> &idlingValues);
 
 
