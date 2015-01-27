@@ -44,7 +44,7 @@ dist-hook:
 	    mv -v ${abs_distdir}/tests/complex/tutorial $(abs_distdir)/docs ; \
 	    rm -rf $(abs_distdir)/tests ; \
 	    tests/extractTest.py -i -f tests/examples.txt -o $(abs_distdir)/docs ; \
-	    find build -regex ".*\.\(vcproj\|vsprops\|vcxproj\|vcxproj\.filters\|props\|sln\|spec\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
+	    find build -regex ".*\.\(vcxproj\|vcxproj\.filters\|props\|sln\|spec\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    find data -regex ".*\.\(xsd\|xml\|csv\|veh\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    ( svn export --force tools $(distdir)/tools && cd $(distdir) && find tools -type f > ../tools_filelist; true ) ; \
 	    xargs cp --parents --target-directory $(abs_distdir) < tools_filelist ; \
