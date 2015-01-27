@@ -979,6 +979,17 @@ public:
     SUMOReal getAngleAtNode(const NBNode* const node) const;
 
 
+    /** @brief Returns the angle of from the node shape center to where the edge meets
+     * the node shape
+     *
+     * The angle is signed, disregards direction, and starts at 12 o'clock
+     *  (north->south), proceeds positive clockwise.
+     * @param[in] node The node for which the edge's angle shall be returned
+     * @return This edge's angle at the given node shape
+     */
+    SUMOReal getAngleAtNodeToCenter(const NBNode* const node) const;
+
+
     void incLaneNo(unsigned int by);
 
     void decLaneNo(unsigned int by, int dir = 0);

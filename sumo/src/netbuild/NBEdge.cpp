@@ -1179,6 +1179,21 @@ NBEdge::getAngleAtNode(const NBNode* const atNode) const {
 }
 
 
+SUMOReal
+NBEdge::getAngleAtNodeToCenter(const NBNode* const atNode) const {
+    if (atNode == myFrom) {
+        SUMOReal res = myStartAngle - 180;
+        if (res < 0) {
+            res += 360;
+        }
+        return res;
+    } else {
+        assert(atNode == myTo);
+        return myEndAngle;
+    }
+}
+
+
 void
 NBEdge::setTurningDestination(NBEdge* e) {
     myTurnDestination = e;

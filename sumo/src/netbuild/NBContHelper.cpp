@@ -258,8 +258,13 @@ int
 NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter::operator()(const NBEdge* e1, const NBEdge* e2) const {
     assert(e1->getFromNode() == myNode || e1->getToNode() == myNode);
     assert(e2->getFromNode() == myNode || e2->getToNode() == myNode);
-    const SUMOReal angle1 = e1->getFromNode() == myNode ? e1->getStartAngle() : e1->getEndAngle();
-    const SUMOReal angle2 = e2->getFromNode() == myNode ? e2->getStartAngle() : e2->getEndAngle();
+    const SUMOReal angle1 = e1->getAngleAtNodeToCenter(myNode);
+    const SUMOReal angle2 = e2->getAngleAtNodeToCenter(myNode);
+    const SUMOReal absDiff = abs(angle1 - angle2);
+    if (absDiff < NUMERICAL_EPS || absDiff > 360 - NUMERICAL_EPS) {
+        // cannot trust the angle difference hence a heuristic: sort incoming before outgoing
+        return e1->getToNode() == myNode;
+    }
     return angle1 < angle2;
 }
 
