@@ -635,11 +635,11 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 11);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 11);
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
     ret->mkItem("length [m]", false, myLength);
+    ret->mkItem("width [m]", false, myWidth);
     ret->mkItem("street name", false, myEdge->getStreetName());
     ret->mkItem("stored traveltime [s]", true, new FunctionBinding<GUILane, SUMOReal>(this, &GUILane::getStoredEdgeTravelTime));
     ret->mkItem("loaded weight", true, new FunctionBinding<GUILane, SUMOReal>(this, &GUILane::getLoadedEdgeWeight));
