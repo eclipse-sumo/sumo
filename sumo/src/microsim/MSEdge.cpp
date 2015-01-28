@@ -429,11 +429,14 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
         switch (v.getParameter().departLaneProcedure) {
             case DEPART_LANE_GIVEN:
             case DEPART_LANE_DEFAULT:
-            case DEPART_LANE_FIRST_ALLOWED:
-                return getDepartLane(static_cast<MSVehicle&>(v))->getBruttoOccupancy() * myLength + v.getVehicleType().getLengthWithGap() <= myLength;
+            case DEPART_LANE_FIRST_ALLOWED: {
+                const SUMOReal occupancy = getDepartLane(static_cast<MSVehicle&>(v))->getBruttoOccupancy();
+                return occupancy == (SUMOReal)0 || occupancy * myLength + v.getVehicleType().getLengthWithGap() <= myLength;
+            }
             default:
                 for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-                    if ((*i)->getBruttoOccupancy() * myLength + v.getVehicleType().getLengthWithGap() <= myLength) {
+                    const SUMOReal occupancy = (*i)->getBruttoOccupancy();
+                    if (occupancy == (SUMOReal)0 || occupancy * myLength + v.getVehicleType().getLengthWithGap() <= myLength) {
                         return true;
                     }
                 }
