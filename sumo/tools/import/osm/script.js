@@ -26,11 +26,11 @@ on("ready", function(){
      * @param de: the display string
      * @param en: the internal string
      */
-    function Settings(de, en){
-        this._init(de, en);
+    function Settings(de, en, fringeFactor){
+        this._init(de, en, fringeFactor);
     }
     Settings.prototype = {
-        _init: function(de, en){
+        _init: function(de, en, fringeFactor){
             var node = elem("<span>", {className: "container", textContent: de});
             var checkbox = elem("<input>", {type: "checkbox"});
             checkbox.on("click", function(evt){
@@ -40,7 +40,7 @@ on("ready", function(){
 
             var options = elem("<div>", {className: "options"});
             var label = elem("<label>", {textContent: "Durchgangsverkehr"});
-            var input = elem("<input>", {type: "number", min: .5, max: 100, step: .1, value: 1});
+            var input = elem("<input>", {type: "number", min: .5, max: 100, step: .1, value: fringeFactor});
             input.on("input", function(evt){
                 socket.send(en + "FringeFactor: " + evt.target.value);
             });
@@ -68,10 +68,10 @@ on("ready", function(){
         }
     };
 
-    new Settings("Fahrzeuge", "vehicles");
-    new Settings("Fahrradfahrer", "bicycles");
-    new Settings("Fußgänger", "pedestrians");
-    new Settings("Züge", "rails");
+    new Settings("Fahrzeuge", "vehicles", 5);
+    new Settings("Fahrradfahrer", "bicycles", 2);
+    new Settings("Fußgänger", "pedestrians", 1);
+    new Settings("Züge", "rails", 40);
 
     var canvas = elem("canvas");
     var canvasActive = false,

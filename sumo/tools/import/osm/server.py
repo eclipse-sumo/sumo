@@ -149,9 +149,9 @@ class Settings:
 
 
 def initSettings(handler):
-    handler.vehicles = Settings(["--vehicle-class", "passenger", "--vclass", "passenger", "--prefix", "veh"])
-    handler.bicycles = Settings(["--vehicle-class", "bicycle", "--vclass", "bicycle", "--prefix", "bike"])
-    handler.pedestrians = Settings(["--pedestrians", "--prefix", "ped"])
+    handler.vehicles = Settings(["--vehicle-class", "passenger", "--vclass", "passenger", "--prefix", "veh", "--min-distance", "300"])
+    handler.bicycles = Settings(["--vehicle-class", "bicycle", "--vclass", "bicycle", "--prefix", "bike", "--max-distance", "8000"])
+    handler.pedestrians = Settings(["--pedestrians", "--prefix", "ped", "--max-distance", "2000"])
     handler.rails = Settings(["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "train"])
 
 class WebSocketsHandler(SocketServer.StreamRequestHandler):
