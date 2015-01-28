@@ -315,7 +315,7 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 35);
+        new GUIParameterTableWindow(app, *this, 36);
     // add items
     ret->mkItem("lane [id]", false, myLane->getID());
     ret->mkItem("position [m]", true,
@@ -346,6 +346,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         ret->mkItem("insertion probability", false, getParameter().repetitionProbability);
     }
     ret->mkItem("stop info", false, getStopInfo());
+    ret->mkItem("line", false, myParameter->line);
     ret->mkItem("CO2 [mg/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getCO2Emissions));
     ret->mkItem("CO [mg/s]", true,
@@ -1050,9 +1051,13 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     }
     */
     glPopMatrix();
-    drawName(getPosition(-MIN2(getVehicleType().getLength() / 2, SUMOReal(5))),
-             s.scale,
+    const Position namePos = getPosition(-MIN2(getVehicleType().getLength() / 2, SUMOReal(5)));
+    drawName(namePos, s.scale,
              getVehicleType().getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName);
+    if (s.vehicleName.show && myParameter->line != "") {
+        GLHelper::drawText("line:" + myParameter->line, namePos + Position(0, -0.6 * s.vehicleName.size / s.scale), 
+                GLO_MAX, s.vehicleName.size / s.scale, s.vehicleName.color);
+    }
     glPopName();
     if (myPersonDevice != 0) {
         const std::vector<MSPerson*>& ps = myPersonDevice->getPersons();
