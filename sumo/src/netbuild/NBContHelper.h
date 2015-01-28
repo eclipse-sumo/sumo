@@ -374,7 +374,7 @@ public:
     class edge_by_angle_to_nodeShapeCentroid_sorter {
     public:
         /// constructor
-        explicit edge_by_angle_to_nodeShapeCentroid_sorter(NBNode* n) : myNode(n) {}
+        explicit edge_by_angle_to_nodeShapeCentroid_sorter(const NBNode* n) : myNode(n) {}
 
     public:
         /// comparing operation
@@ -382,7 +382,7 @@ public:
 
     private:
         /// the edge to compute the relative angle of
-        NBNode* myNode;
+        const NBNode* myNode;
     };
 
 };

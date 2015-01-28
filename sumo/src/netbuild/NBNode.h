@@ -646,6 +646,10 @@ private:
     /// @brief return whether there is a non-sidewalk lane after the given index;
     bool forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalizedLanes, int startIndex);
 
+
+    /// @brief returns the list of all edges sorted clockwise by getAngleAtNodeToCenter
+    EdgeVector getEdgesSortedByAngleAtNodeCenter() const;
+
 private:
     /// @brief The position the node lies at
     Position myPosition;

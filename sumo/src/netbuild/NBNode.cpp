@@ -78,6 +78,8 @@
 // do not build uncontrolled crossings across edges with a speed above the threshold
 #define UNCONTROLLED_CROSSING_SPEED_THRESHOLD 13.89 // meters/second
 
+#define DEBUGID "C"
+
 // ===========================================================================
 // static members
 // ===========================================================================
@@ -1457,7 +1459,7 @@ NBNode::isDistrict() const {
 
 int
 NBNode::guessCrossings() {
-    //gDebugFlag1 = getID() == "C";
+    //gDebugFlag1 = getID() == DEBUGID;
     int numGuessed = 0;
     if (myCrossings.size() > 0) {
         // user supplied crossings, do not guess
@@ -1466,12 +1468,10 @@ NBNode::guessCrossings() {
     if (gDebugFlag1) {
         std::cout << "guess crossings for " << getID() << "\n";
     }
-    if (gDebugFlag1) {
-        std::cout << "ordering of myAllEdges=" << toString(myAllEdges) << "\n";
-    }
+    EdgeVector allEdges = getEdgesSortedByAngleAtNodeCenter();
     // check for pedestrial lanes going clockwise around the node
     std::vector<std::pair<NBEdge*, bool> > normalizedLanes;
-    for (EdgeVector::const_iterator it = myAllEdges.begin(); it != myAllEdges.end(); ++it) {
+    for (EdgeVector::const_iterator it = allEdges.begin(); it != allEdges.end(); ++it) {
         NBEdge* edge = *it;
         const std::vector<NBEdge::Lane>& lanes = edge->getLanes();
         if (edge->getFromNode() == this) {
@@ -1524,7 +1524,7 @@ NBNode::guessCrossings() {
             numGuessed += checkCrossing(candidates);
         }
     }
-    std::sort(myCrossings.begin(), myCrossings.end(), NBNodesEdgesSorter::crossing_by_junction_angle_sorter(myAllEdges));
+    std::sort(myCrossings.begin(), myCrossings.end(), NBNodesEdgesSorter::crossing_by_junction_angle_sorter(this, myAllEdges));
     return numGuessed;
 }
 
@@ -1668,7 +1668,7 @@ NBNode::buildInnerEdges(bool buildCrossingsAndWalkingAreas) {
 
 unsigned int
 NBNode::buildCrossings() {
-    //gDebugFlag1 = getID() == "C";
+    //gDebugFlag1 = getID() == DEBUGID;
     if (gDebugFlag1) {
         std::cout << "build crossings for " << getID() << ":\n";
     }
@@ -1696,15 +1696,13 @@ NBNode::buildCrossings() {
                 maxAngleDiffIndex = i;
             }
         }
-        if (maxAngleDiff < NUMERICAL_EPS || maxAngleDiff > 360 - NUMERICAL_EPS) {
-            // cannot trust the angles. use simpler heuristic
-            std::sort(edges.begin(), edges.end(), edge_by_direction_sorter(this));
-        } else {
+        if (maxAngleDiff > 2 && maxAngleDiff < 360 - 2) {
+            // if the angle differences is too small, we better not rotate
             std::rotate(edges.begin(), edges.begin() + (maxAngleDiffIndex + 1) % edges.size(), edges.end());
             if (gDebugFlag1)  std::cout << " rotatedEdges=" << toString(edges);
-            // reverse to get them in CCW order (walking direction around the node)
-            std::reverse(edges.begin(), edges.end());
         }
+        // reverse to get them in CCW order (walking direction around the node)
+        std::reverse(edges.begin(), edges.end());
         if (gDebugFlag1)  std::cout << " finalEdges=" << toString(edges) << "\n";
         // compute shape
         (*it).shape.clear();
@@ -1727,27 +1725,13 @@ NBNode::buildCrossings() {
 
 void
 NBNode::buildWalkingAreas() {
-    //gDebugFlag1 = getID() == "C";
+    //gDebugFlag1 = getID() == DEBUGID;
     unsigned int index = 0;
     myWalkingAreas.clear();
     if (gDebugFlag1) {
         std::cout << "build walkingAreas for " << getID() << ":\n";
     }
-    EdgeVector allEdges = myAllEdges;
-    if (gDebugFlag1) {
-        std::cout << "  angles:\n";
-        for (EdgeVector::const_iterator it = allEdges.begin(); it != allEdges.end(); ++it) {
-            std::cout << std::setprecision(40);
-            std::cout << "    edge=" << (*it)->getID() << " edgeAngle=" << (*it)->getAngleAtNode(this) << " angleToShape=" << (*it)->getAngleAtNodeToCenter(this) << "\n";
-        }
-        std::cout << "  allEdges before: " << toString(allEdges) << "\n";
-    }
-    sort(allEdges.begin(), allEdges.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(this));
-    // let the first edge in myAllEdges remain the first
-    if (gDebugFlag1) std::cout << "  allEdges sorted: " << toString(allEdges) << "\n";
-    rotate(allEdges.begin(), std::find(allEdges.begin(), allEdges.end(), *myAllEdges.begin()), allEdges.end());
-    if (gDebugFlag1) std::cout << "  allEdges rotated: " << toString(allEdges) << "\n";
-    // get begin shapes of all lanes in outgoing direction ordered clockwise
+    EdgeVector allEdges = getEdgesSortedByAngleAtNodeCenter();
     std::vector<std::pair<NBEdge*, NBEdge::Lane> > normalizedLanes;
     for (EdgeVector::const_iterator it = allEdges.begin(); it != allEdges.end(); ++it) {
         NBEdge* edge = *it;
@@ -1971,6 +1955,7 @@ NBNode::buildWalkingAreas() {
     for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); ++it) {
         Crossing& prev = *it;
         Crossing& next = (it !=  myCrossings.begin() ? * (it - 1) : * (myCrossings.end() - 1));
+        if (gDebugFlag1) std::cout << "  checkIntermediate: prev=" << prev.id << " next=" << next.id << " prev.nextWA=" << prev.nextWalkingArea << "\n";
         if (prev.nextWalkingArea == "") {
             WalkingArea wa(":" + getID() + "_w" + toString(index++), prev.width);
             prev.nextWalkingArea = wa.id;
@@ -1994,6 +1979,7 @@ NBNode::buildWalkingAreas() {
             // length (special case)
             wa.length = MAX2(POSITION_EPS, prev.shape.back().distanceTo2D(next.shape.front()));
             myWalkingAreas.push_back(wa);
+            if (gDebugFlag1) std::cout << "     build wa=" << wa.id << "\n";
         }
     }
 }
@@ -2112,6 +2098,25 @@ NBNode::getCenter() const {
     }
 }
 
+
+EdgeVector
+NBNode::getEdgesSortedByAngleAtNodeCenter() const {
+    EdgeVector result = myAllEdges;
+    if (gDebugFlag1) {
+        std::cout << "  angles:\n";
+        for (EdgeVector::const_iterator it = result.begin(); it != result.end(); ++it) {
+            std::cout << std::setprecision(40);
+            std::cout << "    edge=" << (*it)->getID() << " edgeAngle=" << (*it)->getAngleAtNode(this) << " angleToShape=" << (*it)->getAngleAtNodeToCenter(this) << "\n";
+        }
+        std::cout << "  allEdges before: " << toString(result) << "\n";
+    }
+    sort(result.begin(), result.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(this));
+    // let the first edge in myAllEdges remain the first
+    if (gDebugFlag1) std::cout << "  allEdges sorted: " << toString(result) << "\n";
+    rotate(result.begin(), std::find(result.begin(), result.end(), *myAllEdges.begin()), result.end());
+    if (gDebugFlag1) std::cout << "  allEdges rotated: " << toString(result) << "\n";
+    return result;
+}
 
 /****************************************************************************/
 

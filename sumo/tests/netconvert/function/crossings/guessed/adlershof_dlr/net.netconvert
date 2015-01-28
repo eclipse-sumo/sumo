@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan 27 17:23:09 2015 by SUMO netconvert Version dev-SVN-r17702ID
+<!-- generated on Wed Jan 28 10:00:16 2015 by SUMO netconvert Version dev-SVN-r17722ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -337,7 +337,7 @@
         <lane id=":1472995248_8_0" index="0" allow="delivery pedestrian" speed="5.56" length="4.82" shape="4389.60,818.53 4390.87,817.75 4391.79,817.71 4392.37,818.43 4392.61,819.90"/>
     </edge>
     <edge id=":1472995248_w0" function="walkingarea">
-        <lane id=":1472995248_w0_0" index="0" allow="pedestrian" speed="1.00" length="5.51" width="3.20" shape="4393.30,817.91 4396.39,817.09 4394.85,817.10 4393.60,814.15 4390.30,810.01 4388.89,812.88 4388.84,812.97 4387.43,815.84 4388.15,817.86 4391.06,819.19 4391.15,819.24 4394.06,820.57"/>
+        <lane id=":1472995248_w0_0" index="0" allow="pedestrian" speed="1.00" length="5.51" width="3.20" shape="4393.30,817.91 4396.39,817.09 4394.85,817.10 4393.60,814.15 4388.84,812.97 4387.43,815.84 4388.15,817.86 4391.06,819.19 4391.15,819.24 4394.06,820.57 4390.30,810.01 4388.89,812.88"/>
     </edge>
     <edge id=":1472995250_0" function="internal">
         <lane id=":1472995250_0_0" index="0" disallow="pedestrian" speed="22.22" length="6.03" shape="4226.29,820.58 4225.75,826.58"/>
@@ -16895,8 +16895,8 @@
     <connection from=":1472995248_w0" to="70214888#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1472995248_w0" to="133858189" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="156071615#4" to=":1472995248_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-70214888#1" to=":1472995248_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-133858189" to=":1472995248_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-70214888#1" to=":1472995248_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1472995250_w0" to="-143308562#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="133858190#1" to=":1472995250_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-143308562#2" to=":1472995250_w0" fromLane="0" toLane="0" dir="s" state="M"/>
