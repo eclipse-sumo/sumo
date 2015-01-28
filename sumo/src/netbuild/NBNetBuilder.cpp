@@ -102,7 +102,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
     //
     if (oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
-        if (oc.isSet("keep-edges.explicit")) {
+        if (oc.isSet("keep-edges.explicit") || oc.isSet("keep-edges.input-file")) {
             PROGRESS_BEGIN_MESSAGE("Removing unwished edges");
             myEdgeCont.removeUnwishedEdges(myDistrictCont);
             PROGRESS_DONE_MESSAGE();

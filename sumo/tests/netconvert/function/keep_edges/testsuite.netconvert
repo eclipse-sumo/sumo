@@ -14,3 +14,4 @@ by-type
 
 # keep edge ids from input file
 input-file
+input-file_postload
