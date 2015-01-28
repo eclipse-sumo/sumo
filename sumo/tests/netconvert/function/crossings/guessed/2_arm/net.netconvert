@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec  5 14:03:27 2014 by SUMO netconvert Version dev-SVN-r17448ID
+<!-- generated on Wed Jan 28 15:41:43 2015 by SUMO netconvert Version dev-SVN-r17734ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -40,16 +40,16 @@
         <lane id=":C_2_1" index="1" allow="passenger" speed="13.89" length="0.10" shape="100.00,-1.65 100.00,-1.65"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CE EC">
-        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="16.30" width="4.00" shape="98.00,-8.15 98.00,8.15"/>
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="13.10" width="4.00" shape="98.00,-6.55 98.00,6.55"/>
     </edge>
     <edge id=":C_c1" function="crossing" crossingEdges="CW WC">
-        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="1.00" length="16.30" width="4.00" shape="102.00,8.15 102.00,-8.15"/>
+        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="1.00" length="13.10" width="4.00" shape="102.00,6.55 102.00,-6.55"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.85" width="4.00" shape="104.00,8.15 100.00,8.25 100.00,11.25 100.00,11.25 100.00,8.25 96.00,8.15"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.82" width="4.00" shape="104.00,6.55 100.00,6.55 100.00,8.25 100.00,11.25 100.00,11.25 100.00,8.25 100.00,6.55 96.00,6.55"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.85" width="4.00" shape="96.00,-8.15 100.00,-8.25 100.00,-11.25 100.00,-11.25 100.00,-8.25 104.00,-8.15"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.82" width="4.00" shape="96.00,-6.55 100.00,-6.55 100.00,-8.25 100.00,-11.25 100.00,-11.25 100.00,-8.25 100.00,-6.55 104.00,-6.55"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
         <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="19.50" width="3.00" shape="200.00,8.25 200.00,11.25 200.00,-11.25 200.00,-8.25"/>

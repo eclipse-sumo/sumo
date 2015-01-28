@@ -2218,7 +2218,8 @@ NBEdge::getFirstNonPedestrianLaneIndex(int direction) const {
     const int start = (direction == NBNode::FORWARD ? 0 : (int)myLanes.size() - 1);
     const int end = (direction == NBNode::FORWARD ? (int)myLanes.size() : - 1);
     for (int i = start; i != end; i += direction) {
-        if ((myLanes[i].permissions & SVC_PEDESTRIAN) == 0) {
+        // green verges (permissions = 0) do not count
+        if ((myLanes[i].permissions & SVC_PEDESTRIAN) == 0 && myLanes[i].permissions != 0) {
             return i;
         }
     }
