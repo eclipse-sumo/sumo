@@ -1,21 +1,21 @@
 <types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/types_file.xsd">
-      <type id="highway.motorway"       numLanes="2" speed="27.78" priority="13" oneway="true" disallow="pedestrian bicycle moped"/>
-      <type id="highway.motorway_link"  numLanes="1" speed="16.67" priority="12" oneway="true" disallow="pedestrian bicycle moped"/>
-      <type id="highway.trunk"          numLanes="2" speed="13.89" priority="11"               disallow="pedestrian bicycle"/>
-      <type id="highway.trunk_link"     numLanes="1" speed="13.89" priority="10"               disallow="pedestrian bicycle"/>
-      <type id="highway.primary"        numLanes="2" speed="13.89" priority="9"                />
-      <type id="highway.primary_link"   numLanes="1" speed="13.89" priority="8"                />
-      <type id="highway.secondary"      numLanes="2" speed="13.89" priority="7"                />
-      <type id="highway.secondary_link" numLanes="1" speed="13.89" priority="6"                />
-      <type id="highway.tertiary"       numLanes="1" speed="13.89" priority="6"                />
-      <type id="highway.tertiary_link"  numLanes="1" speed="13.89" priority="5"                />
-      <type id="highway.unclassified"   numLanes="1" speed="13.89" priority="5"                />
-      <type id="highway.residential"    numLanes="1" speed="13.89" priority="4"                />
-      <type id="highway.living_street"  numLanes="1" speed="2.78"  priority="3"                                     />
+      <type id="highway.motorway"       numLanes="2" speed="27.78" priority="13" oneway="true" disallow="pedestrian bicycle moped rail rail_urban rail_electric"/>
+      <type id="highway.motorway_link"  numLanes="1" speed="16.67" priority="12" oneway="true" disallow="pedestrian bicycle moped rail rail_urban rail_electric"/>
+      <type id="highway.trunk"          numLanes="2" speed="13.89" priority="11"               disallow="pedestrian bicycle rail rail_urban rail_electric"/>
+      <type id="highway.trunk_link"     numLanes="1" speed="13.89" priority="10"               disallow="pedestrian bicycle rail rail_urban rail_electric"/>
+      <type id="highway.primary"        numLanes="2" speed="13.89" priority="9"                disallow="rail rail_urban rail_electric"/>
+      <type id="highway.primary_link"   numLanes="1" speed="13.89" priority="8"                disallow="rail rail_urban rail_electric"/>
+      <type id="highway.secondary"      numLanes="2" speed="13.89" priority="7"                disallow="rail rail_urban rail_electric"/>
+      <type id="highway.secondary_link" numLanes="1" speed="13.89" priority="6"                disallow="rail rail_urban rail_electric"/>
+      <type id="highway.tertiary"       numLanes="1" speed="13.89" priority="6"                disallow="rail rail_urban rail_electric"/>
+      <type id="highway.tertiary_link"  numLanes="1" speed="13.89" priority="5"                disallow="rail rail_urban rail_electric"/>
+      <type id="highway.unclassified"   numLanes="1" speed="13.89" priority="5"                disallow="rail rail_urban rail_electric"/>
+      <type id="highway.residential"    numLanes="1" speed="13.89" priority="4"                disallow="rail rail_urban rail_electric"/>
+      <type id="highway.living_street"  numLanes="1" speed="2.78"  priority="3"                disallow="rail rail_urban rail_electric"/>
       <type id="highway.service"        numLanes="1" speed="5.56"  priority="2"                allow="delivery pedestrian bicycle"/>
-      <type id="highway.track"          numLanes="1" speed="5.56"  priority="1"/>
-      <type id="highway.services"       numLanes="1" speed="8.33"  priority="1"/>
-      <type id="highway.unsurfaced"     numLanes="1" speed="8.33"  priority="1"/>
+      <type id="highway.track"          numLanes="1" speed="5.56"  priority="1"                disallow="rail rail_urban rail_electric"/>
+      <type id="highway.services"       numLanes="1" speed="8.33"  priority="1"                disallow="rail rail_urban rail_electric"/>
+      <type id="highway.unsurfaced"     numLanes="1" speed="8.33"  priority="1"                disallow="rail rail_urban rail_electric"/>
                                                                                                
       <type id="highway.footway"        numLanes="1" speed="8.33"  priority="1"  oneway="true" allow="pedestrian"/>
       <type id="highway.pedestrian"     numLanes="1" speed="8.33"  priority="1"  oneway="true" allow="pedestrian"/>
