@@ -708,25 +708,28 @@ NBNode::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
     //  --> highway on-ramp
     if (myIncomingEdges.size() == 2 && myOutgoingEdges.size() == 1) {
         NBEdge* out = myOutgoingEdges[0];
-        NBEdge* inc1 = myIncomingEdges[0];
-        NBEdge* inc2 = myIncomingEdges[1];
-        if (inc1->getNumLanes() + inc2->getNumLanes() == out->getNumLanes()
-                && (inc1->getStep() <= NBEdge::LANES2EDGES)
-                && (inc2->getStep() <= NBEdge::LANES2EDGES)
-                && inc1 != out
-                && inc2 != out
-                && inc1->isConnectedTo(out)
-                && inc2->isConnectedTo(out)) {
+        NBEdge* in1 = myIncomingEdges[0];
+        NBEdge* in2 = myIncomingEdges[1];
+        if (in1->getNumLanes() + in2->getNumLanes() == out->getNumLanes()
+                && (in1->getStep() <= NBEdge::LANES2EDGES)
+                && (in2->getStep() <= NBEdge::LANES2EDGES)
+                && in1 != out
+                && in2 != out
+                && in1->isConnectedTo(out)
+                && in2->isConnectedTo(out)) {
             // for internal: check which one is the rightmost
-            SUMOReal a1 = inc1->getAngleAtNode(this);
-            SUMOReal a2 = inc2->getAngleAtNode(this);
+            SUMOReal a1 = in1->getAngleAtNode(this);
+            SUMOReal a2 = in2->getAngleAtNode(this);
             SUMOReal ccw = GeomHelper::getCCWAngleDiff(a1, a2);
             SUMOReal cw = GeomHelper::getCWAngleDiff(a1, a2);
             if (ccw > cw) {
-                std::swap(inc1, inc2);
+                std::swap(in1, in2);
             }
-            inc1->addLane2LaneConnections(0, out, 0, inc1->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
-            inc2->addLane2LaneConnections(0, out, inc1->getNumLanes(), inc2->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
+            const int outOffset = out->getFirstNonPedestrianLaneIndex(FORWARD);
+            const int in1Offset = in1->getFirstNonPedestrianLaneIndex(FORWARD);
+            const int in2Offset = in2->getFirstNonPedestrianLaneIndex(FORWARD);
+            in1->addLane2LaneConnections(in1Offset, out, outOffset, in1->getNumLanes() - in1Offset, NBEdge::L2L_VALIDATED, true, true);
+            in2->addLane2LaneConnections(in2Offset, out, in1->getNumLanes() + outOffset - in1Offset, in2->getNumLanes() - in2Offset, NBEdge::L2L_VALIDATED, true, true);
             return;
         }
     }
@@ -747,8 +750,11 @@ NBNode::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
             if (NBContHelper::relative_outgoing_edge_sorter(in)(out2, out1)) {
                 std::swap(out1, out2);
             }
-            in->addLane2LaneConnections(0, out1, 0, out1->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
-            in->addLane2LaneConnections(out1->getNumLanes(), out2, 0, out2->getNumLanes(), NBEdge::L2L_VALIDATED, false, true);
+            const int inOffset = in->getFirstNonPedestrianLaneIndex(FORWARD);
+            const int out1Offset = out1->getFirstNonPedestrianLaneIndex(FORWARD);
+            const int out2Offset = out2->getFirstNonPedestrianLaneIndex(FORWARD);
+            in->addLane2LaneConnections(inOffset, out1, out1Offset, out1->getNumLanes() - out1Offset, NBEdge::L2L_VALIDATED, true, true);
+            in->addLane2LaneConnections(out1->getNumLanes() + inOffset - out1Offset, out2, out2Offset, out2->getNumLanes() - out2Offset, NBEdge::L2L_VALIDATED, false, true);
             return;
         }
     }
