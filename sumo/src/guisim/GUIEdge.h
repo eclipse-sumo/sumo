@@ -79,6 +79,12 @@ public:
      */
     static std::vector<GUIGlID> getIDs(bool includeInternal);
 
+    /* @brief Returns the combined length of all edges
+     * @param[in] includeInternal Whether to include lengths of internal edges
+     * @param[in] eachLane Whether to count each lane separately
+     */
+    static SUMOReal getTotalLength(bool includeInternal, bool eachLane);
+
     /// Returns the street's geometry
     Boundary getBoundary() const;
 

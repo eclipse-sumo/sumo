@@ -99,14 +99,28 @@ std::vector<GUIGlID>
 GUIEdge::getIDs(bool includeInternal) {
     std::vector<GUIGlID> ret;
     ret.reserve(MSEdge::myDict.size());
-    for (MSEdge::DictType::iterator i = MSEdge::myDict.begin(); i != MSEdge::myDict.end(); ++i) {
-        GUIEdge* edge = dynamic_cast<GUIEdge*>(i->second);
+    for (MSEdge::DictType::const_iterator i = MSEdge::myDict.begin(); i != MSEdge::myDict.end(); ++i) {
+        const GUIEdge* edge = dynamic_cast<const GUIEdge*>(i->second);
         assert(edge);
         if (edge->getPurpose() != EDGEFUNCTION_INTERNAL || includeInternal) {
             ret.push_back(edge->getGlID());
         }
     }
     return ret;
+}
+
+
+SUMOReal
+GUIEdge::getTotalLength(bool includeInternal, bool eachLane) {
+    SUMOReal result = 0;
+    for (MSEdge::DictType::const_iterator i = MSEdge::myDict.begin(); i != MSEdge::myDict.end(); ++i) {
+        const MSEdge* edge = i->second;
+        if (edge->getPurpose() != EDGEFUNCTION_INTERNAL || includeInternal) {
+            // @note needs to be change once lanes may have different length
+            result += edge->getLength() * (eachLane ? edge->getLanes().size() : 1);
+        }
+    }
+    return result;
 }
 
 
