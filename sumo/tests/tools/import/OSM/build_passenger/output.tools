@@ -29,6 +29,7 @@ Dividing of lanes on approached lanes... done.
 Processing turnarounds... done.
 Rechecking of lane endings... done.
 Assigning nodes to traffic lights... done.
+Joining traffic light nodes... done.
 Computing traffic light control information... done.
 Computing node logics... done.
 Computing traffic light logics... 
