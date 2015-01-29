@@ -102,6 +102,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
 
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,        GUIApplicationWindow::onCmdAppSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_GAMING,             GUIApplicationWindow::onCmdGaming),
+    FXMAPFUNC(SEL_COMMAND,  MID_FULLSCREEN,         GUIApplicationWindow::onCmdFullScreen),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTINTERNAL,       GUIApplicationWindow::onCmdListInternal),
     FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,              GUIApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,      GUIApplicationWindow::onCmdNewView),
@@ -175,6 +176,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
       myRecentNets(a, "nets"), myConfigPattern(configPattern),
       hadDependentBuild(false),
       myShowTimeAsHMS(false),
+      myAmFullScreen(false),
       // game specific
       myJamSoundTime(60),
       myWaitingTime(0),
@@ -425,6 +427,9 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCheck(mySettingsMenu,
                     "Gaming Mode\tCtl-G\tToggle gaming mode on/off.",
                     this, MID_GAMING);
+    new FXMenuCheck(mySettingsMenu,
+                    "Full Screen Mode\tCtl-F\tToggle full screen mode on/off.",
+                    this, MID_FULLSCREEN);
     // build Locate menu
     myLocatorMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Locate", NULL, myLocatorMenu);
@@ -958,6 +963,32 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         gSchemeStorage.getDefault().gaming = false;
     }
     update();
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
+    myAmFullScreen = !myAmFullScreen;
+    if (myAmFullScreen) {
+        setDecorations(DECOR_NONE);
+        place(PLACEMENT_MAXIMIZED);
+        myMenuBar->hide();
+        myStatusbar->hide();
+        myToolBar1->hide();
+        myToolBar2->hide();
+        myToolBar3->hide();
+        myToolBar4->hide();
+        myToolBar5->hide();
+        myToolBar6->hide();
+        myToolBar7->hide();
+        myMessageWindow->hide();
+        update();
+    } else {
+        setDecorations(DECOR_ALL);
+        myAmGaming = !myAmGaming;
+        onCmdGaming(0,0,0);
+    }
     return 1;
 }
 

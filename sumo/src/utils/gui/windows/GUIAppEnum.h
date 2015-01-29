@@ -135,6 +135,8 @@ enum {
     MID_APPSETTINGS,
     /// Gaming mode - menu entry
     MID_GAMING,
+    /// Fullscreen mode - menu entry
+    MID_FULLSCREEN,
     /// Locator configuration - menu entry
     MID_LISTINTERNAL,
     /// The Simulation delay control
