@@ -706,53 +706,51 @@ NBNode::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
     // special case b):
     //  two in, one out, the outgoing has the same number of lanes as the sum of the incoming
     //  --> highway on-ramp
-    bool check = false;
     if (myIncomingEdges.size() == 2 && myOutgoingEdges.size() == 1) {
-        check = myIncomingEdges[0]->getNumLanes() + myIncomingEdges[1]->getNumLanes() == myOutgoingEdges[0]->getNumLanes();
-        check &= (myIncomingEdges[0]->getStep() <= NBEdge::LANES2EDGES);
-        check &= (myIncomingEdges[1]->getStep() <= NBEdge::LANES2EDGES);
-        check &= myIncomingEdges[0] != myOutgoingEdges[0];
-        check &= myIncomingEdges[1] != myOutgoingEdges[0];
-        check &= myIncomingEdges[0]->isConnectedTo(myOutgoingEdges[0]);
-        check &= myIncomingEdges[1]->isConnectedTo(myOutgoingEdges[0]);
-    }
-    if (check) {
+        NBEdge* out = myOutgoingEdges[0];
         NBEdge* inc1 = myIncomingEdges[0];
         NBEdge* inc2 = myIncomingEdges[1];
-        // for internal: check which one is the rightmost
-        SUMOReal a1 = inc1->getAngleAtNode(this);
-        SUMOReal a2 = inc2->getAngleAtNode(this);
-        SUMOReal ccw = GeomHelper::getCCWAngleDiff(a1, a2);
-        SUMOReal cw = GeomHelper::getCWAngleDiff(a1, a2);
-        if (ccw > cw) {
-            std::swap(inc1, inc2);
+        if (inc1->getNumLanes() + inc2->getNumLanes() == out->getNumLanes()
+                && (inc1->getStep() <= NBEdge::LANES2EDGES)
+                && (inc2->getStep() <= NBEdge::LANES2EDGES)
+                && inc1 != out
+                && inc2 != out
+                && inc1->isConnectedTo(out)
+                && inc2->isConnectedTo(out)) {
+            // for internal: check which one is the rightmost
+            SUMOReal a1 = inc1->getAngleAtNode(this);
+            SUMOReal a2 = inc2->getAngleAtNode(this);
+            SUMOReal ccw = GeomHelper::getCCWAngleDiff(a1, a2);
+            SUMOReal cw = GeomHelper::getCWAngleDiff(a1, a2);
+            if (ccw > cw) {
+                std::swap(inc1, inc2);
+            }
+            inc1->addLane2LaneConnections(0, out, 0, inc1->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
+            inc2->addLane2LaneConnections(0, out, inc1->getNumLanes(), inc2->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
+            return;
         }
-        inc1->addLane2LaneConnections(0, myOutgoingEdges[0], 0, inc1->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
-        inc2->addLane2LaneConnections(0, myOutgoingEdges[0], inc1->getNumLanes(), inc2->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
-        return;
     }
     // special case c):
     //  one in, two out, the incoming has the same number of lanes as the sum of the outgoing
     //  --> highway off-ramp
-    check = false;
     if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 2) {
-        check = myIncomingEdges[0]->getNumLanes() == myOutgoingEdges[1]->getNumLanes() + myOutgoingEdges[0]->getNumLanes();
-        check &= (myIncomingEdges[0]->getStep() <= NBEdge::LANES2EDGES);
-        check &= myIncomingEdges[0] != myOutgoingEdges[0];
-        check &= myIncomingEdges[0] != myOutgoingEdges[1];
-        check &= myIncomingEdges[0]->isConnectedTo(myOutgoingEdges[0]);
-        check &= myIncomingEdges[0]->isConnectedTo(myOutgoingEdges[1]);
-    }
-    if (check) {
+        NBEdge* in = myIncomingEdges[0];
         NBEdge* out1 = myOutgoingEdges[0];
         NBEdge* out2 = myOutgoingEdges[1];
-        // for internal: check which one is the rightmost
-        if (NBContHelper::relative_outgoing_edge_sorter(myIncomingEdges[0])(out2, out1)) {
-            std::swap(out1, out2);
+        if (in->getNumLanes() == out2->getNumLanes() + out1->getNumLanes()
+                && (in->getStep() <= NBEdge::LANES2EDGES)
+                && in != out1
+                && in != out2
+                && in->isConnectedTo(out1)
+                && in->isConnectedTo(out2)) {
+            // for internal: check which one is the rightmost
+            if (NBContHelper::relative_outgoing_edge_sorter(in)(out2, out1)) {
+                std::swap(out1, out2);
+            }
+            in->addLane2LaneConnections(0, out1, 0, out1->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
+            in->addLane2LaneConnections(out1->getNumLanes(), out2, 0, out2->getNumLanes(), NBEdge::L2L_VALIDATED, false, true);
+            return;
         }
-        myIncomingEdges[0]->addLane2LaneConnections(0, out1, 0, out1->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
-        myIncomingEdges[0]->addLane2LaneConnections(out1->getNumLanes(), out2, 0, out2->getNumLanes(), NBEdge::L2L_VALIDATED, false, true);
-        return;
     }
 
     // go through this node's outgoing edges
