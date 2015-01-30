@@ -466,6 +466,9 @@
 // assumed time to next switch (get: traffic lights)
 #define TL_NEXT_SWITCH 0x2d
 
+// current state, using external signal names (get: traffic lights)
+#define TL_EXTERNAL_STATE 0x2e
+
 
 
 // outgoing link number (get: lanes)

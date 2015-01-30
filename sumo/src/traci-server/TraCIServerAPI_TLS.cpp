@@ -36,6 +36,7 @@
 #include "TraCIConstants.h"
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include "TraCIServerAPI_TLS.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -57,7 +58,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
             && variable != TL_CONTROLLED_LANES && variable != TL_CONTROLLED_LINKS
             && variable != TL_CURRENT_PHASE && variable != TL_CURRENT_PROGRAM
             && variable != TL_NEXT_SWITCH && variable != TL_PHASE_DURATION && variable != ID_COUNT
-            && variable != VAR_PARAMETER) {
+            && variable != VAR_PARAMETER && variable != TL_EXTERNAL_STATE) {
         return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Get TLS Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
@@ -221,6 +222,63 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
             case TL_CONTROLLED_JUNCTIONS: {
             }
             break;
+            case TL_EXTERNAL_STATE: {
+                MSTrafficLightLogic *tls = vars.getActive();
+                const std::string& state = tls->getCurrentPhaseDef().getState();
+                const std::map<std::string, std::string> &params = tls->getMap();
+                unsigned int num = 0;
+                for(std::map<std::string, std::string>::const_iterator i=params.begin(); i!=params.end(); ++i) {
+                    if("connection:"==(*i).first.substr(0, 11)) {
+                        ++num;
+                    }
+                }
+
+                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(num*2);
+                for(std::map<std::string, std::string>::const_iterator i=params.begin(); i!=params.end(); ++i) {
+                    if("connection:"!=(*i).first.substr(0, 11)) {
+                        continue;
+                    }
+                    tempMsg.writeUnsignedByte(TYPE_STRING);
+                    tempMsg.writeString((*i).second); // foreign id
+                    std::string connection = (*i).first.substr(11);
+                    std::string from, to;
+                    size_t b = connection.find("->");
+                    if(b==std::string::npos) {
+                        from = connection;
+                    } else {
+                        from = connection.substr(0, b);
+                        to = connection.substr(b+2);
+                    }
+                    bool denotesEdge = from.find("_")==std::string::npos;
+                    MSLane *fromLane = 0;
+                    const MSTrafficLightLogic::LaneVectorVector& lanes = tls->getLaneVectors();
+                    MSTrafficLightLogic::LaneVectorVector::const_iterator j = lanes.begin();
+                    for(; j!=lanes.end()&&fromLane==0; ) {
+                        for(MSTrafficLightLogic::LaneVector::const_iterator k=(*j).begin(); k!=(*j).end()&&fromLane==0; ) {
+                            if(denotesEdge && (*k)->getEdge().getID()==from) {
+                                fromLane = *k;
+                            } else if(!denotesEdge && (*k)->getID()==from) {
+                                fromLane = *k;
+                            }
+                            if(fromLane==0) {
+                                ++k;
+                            }
+                        }
+                        if(fromLane==0) {
+                            ++j;
+                        }
+                    }
+                    if(fromLane==0) {
+                        return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Could not find edge or lane '" + from + "' in traffic light '" + id + "'.", outputStorage);
+                    }
+                    unsigned int pos = std::distance(lanes.begin(), j);
+                    tempMsg.writeUnsignedByte(TYPE_UBYTE);
+                    tempMsg.writeUnsignedByte(state[pos]); // state
+                }
+            }
+                break;
             default:
                 break;
         }
