@@ -67,3 +67,6 @@ ticket1483
 # remove edges from a sumo net which contains pedestrian crossings
 ticket1557
 ticket1586
+
+# a non-pedestrian network with allowAll which falls under the special cases of connection building
+ticket1586b
