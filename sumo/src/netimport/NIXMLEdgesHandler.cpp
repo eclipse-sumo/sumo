@@ -208,7 +208,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
         myCurrentWidth = attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok);
     }
-    // try to get the width
+    // try to get the offset of the stop line from the intersection
     if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
         myCurrentEndOffset = attrs.get<SUMOReal>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
     }
