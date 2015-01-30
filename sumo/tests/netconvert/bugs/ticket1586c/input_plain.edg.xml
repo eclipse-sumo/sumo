@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 29 Jan 2015 10:35:29 AM CET by Netedit Version dev-SVN-r17735I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/scr2/debug/1586/net.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/1586/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge allow="pedestrian" id="beg" from="gneJ4" to="gneJ0" priority="1" numLanes="2" speed="13.89"/>
+    <edge allow="pedestrian" id="end" from="gneJ1" to="gneJ2" priority="1" numLanes="2" speed="13.89"/>
+    <edge allow="pedestrian" id="middle" from="gneJ0" to="gneJ1" priority="1" numLanes="4" speed="13.89"/>
+    <edge allow="pedestrian" id="beg2" from="gneJ5" to="gneJ0" priority="1" numLanes="2" speed="13.89" shape="251.34,79.45 130.63,63.50 127.58,44.37"/>
+    <edge allow="pedestrian" id="end2" from="gneJ1" to="gneJ3" priority="1" numLanes="2" speed="13.89" shape="36.95,45.08 24.97,71.65 -43.24,74.38"/>
+</edges>

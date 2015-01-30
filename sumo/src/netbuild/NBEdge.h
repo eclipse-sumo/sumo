@@ -505,8 +505,11 @@ public:
     }
     //@}
 
-    /// @brief return the first lane with permissions other than SVC_PEDESTRIAN and 0
-    int getFirstNonPedestrianLaneIndex(int direction) const;
+    /** @brief return the first lane with permissions other than SVC_PEDESTRIAN and 0
+     * @param[in] direction The direction in which the lanes shall be checked
+     * @param[in] exclusive Whether lanes that allow pedestrians along with other classes shall be counted as non-pedestrian
+     */
+    int getFirstNonPedestrianLaneIndex(int direction, bool exclusive=false) const;
     NBEdge::Lane getFirstNonPedestrianLane(int direction) const;
 
     /// @brief return the angle for computing pedestrian crossings at the given node

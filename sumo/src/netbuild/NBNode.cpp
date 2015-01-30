@@ -725,9 +725,9 @@ NBNode::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
             if (ccw > cw) {
                 std::swap(in1, in2);
             }
-            const int outOffset = out->getFirstNonPedestrianLaneIndex(FORWARD);
-            const int in1Offset = in1->getFirstNonPedestrianLaneIndex(FORWARD);
-            const int in2Offset = in2->getFirstNonPedestrianLaneIndex(FORWARD);
+            const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
+            const int in1Offset = MAX2(0, in1->getFirstNonPedestrianLaneIndex(FORWARD, true));
+            const int in2Offset = MAX2(0, in2->getFirstNonPedestrianLaneIndex(FORWARD, true));
             in1->addLane2LaneConnections(in1Offset, out, outOffset, in1->getNumLanes() - in1Offset, NBEdge::L2L_VALIDATED, true, true);
             in2->addLane2LaneConnections(in2Offset, out, in1->getNumLanes() + outOffset - in1Offset, in2->getNumLanes() - in2Offset, NBEdge::L2L_VALIDATED, true, true);
             return;
@@ -750,9 +750,9 @@ NBNode::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
             if (NBContHelper::relative_outgoing_edge_sorter(in)(out2, out1)) {
                 std::swap(out1, out2);
             }
-            const int inOffset = in->getFirstNonPedestrianLaneIndex(FORWARD);
-            const int out1Offset = out1->getFirstNonPedestrianLaneIndex(FORWARD);
-            const int out2Offset = out2->getFirstNonPedestrianLaneIndex(FORWARD);
+            const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
+            const int out1Offset = MAX2(0, out1->getFirstNonPedestrianLaneIndex(FORWARD, true));
+            const int out2Offset = MAX2(0, out2->getFirstNonPedestrianLaneIndex(FORWARD, true));
             in->addLane2LaneConnections(inOffset, out1, out1Offset, out1->getNumLanes() - out1Offset, NBEdge::L2L_VALIDATED, true, true);
             in->addLane2LaneConnections(out1->getNumLanes() + inOffset - out1Offset, out2, out2Offset, out2->getNumLanes() - out2Offset, NBEdge::L2L_VALIDATED, false, true);
             return;

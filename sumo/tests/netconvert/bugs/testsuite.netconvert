@@ -70,3 +70,6 @@ ticket1586
 
 # a non-pedestrian network with allowAll which falls under the special cases of connection building
 ticket1586b
+
+# all lanes allow pedestrians only
+ticket1586c
