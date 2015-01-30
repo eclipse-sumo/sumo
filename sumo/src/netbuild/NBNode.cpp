@@ -1688,7 +1688,7 @@ NBNode::buildCrossings() {
         // rotate the edges so that the largest relative angle difference comes at the end
         SUMOReal maxAngleDiff = 0;
         int maxAngleDiffIndex = 0; // index before maxDist
-        for (int i = 0; i < edges.size(); i++) {
+        for (int i = 0; i < (int) edges.size(); i++) {
             SUMOReal diff = NBHelpers::relAngle(edges[i]->getAngleAtNodeToCenter(this), 
                     edges[(i + 1) % edges.size()]->getAngleAtNodeToCenter(this));
             if (diff < 0) {
