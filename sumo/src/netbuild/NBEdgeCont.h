@@ -506,8 +506,8 @@ public:
     /// @brief assigns street signs to edges based on toNode types
     void generateStreetSigns();
 
-    /// @brief add sidwalks to edges within the given limits and return the number of edges affected
-    int guessSidewalks(SUMOReal width, SUMOReal minSpeed, SUMOReal maxSpeed);
+    /// @brief add sidwalks to edges within the given limits or permissions and return the number of edges affected
+    int guessSidewalks(SUMOReal width, SUMOReal minSpeed, SUMOReal maxSpeed, bool fromPermissions);
 
 
     /** @brief Returns the determined roundabouts

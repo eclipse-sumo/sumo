@@ -447,6 +447,9 @@
         <!-- Add sidewalks for edges with a speed above the given limit -->
         <sidewalks.guess.min-speed value="5.8" type="FLOAT"/>
 
+        <!-- Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed -->
+        <sidewalks.guess.from-permissions value="false" type="BOOL"/>
+
         <!-- Guess pedestrian crossings based on the presence of sidewalks -->
         <crossings.guess value="false" type="BOOL"/>
 

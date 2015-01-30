@@ -981,11 +981,17 @@ NBEdgeCont::generateStreetSigns() {
 
 
 int
-NBEdgeCont::guessSidewalks(SUMOReal width, SUMOReal minSpeed, SUMOReal maxSpeed) {
+NBEdgeCont::guessSidewalks(SUMOReal width, SUMOReal minSpeed, SUMOReal maxSpeed, bool fromPermissions) {
     int sidewalksCreated = 0;
     for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         NBEdge* edge = it->second;
-        if (edge->getSpeed() > minSpeed && edge->getSpeed() <= maxSpeed && edge->getPermissions(0) != SVC_PEDESTRIAN) {
+        if ((
+                // guess.from-permissions
+                (fromPermissions && (edge->getPermissions() & SVC_PEDESTRIAN) != 0)
+                // guess from speed
+                || (!fromPermissions && edge->getSpeed() > minSpeed && edge->getSpeed() <= maxSpeed))
+                // does not yet have a sidewalk
+                && edge->getPermissions(0) != SVC_PEDESTRIAN) {
             edge->addSidewalk(width);
             sidewalksCreated += 1;
         }

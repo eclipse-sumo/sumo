@@ -197,10 +197,11 @@ NBNetBuilder::compute(OptionsCont& oc,
         PROGRESS_DONE_MESSAGE();
     }
     // guess sidewalks
-    if (oc.getBool("sidewalks.guess")) {
+    if (oc.getBool("sidewalks.guess") || oc.getBool("sidewalks.guess.from-permissions")) {
         const int sidewalks = myEdgeCont.guessSidewalks(oc.getFloat("default.sidewalk-width"),
                               oc.getFloat("sidewalks.guess.min-speed"),
-                              oc.getFloat("sidewalks.guess.max-speed"));
+                              oc.getFloat("sidewalks.guess.max-speed"),
+                              oc.getBool("sidewalks.guess.from-permissions"));
         WRITE_MESSAGE("Guessed " + toString(sidewalks) + " sidewalks.");
     }
 
