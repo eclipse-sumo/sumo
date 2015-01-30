@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r17463
+SUMO Version dev-SVN-r17751
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -83,8 +83,7 @@ Processing Options:
   --ignore-junction-blocker TIME       Ignore vehicles which block the junction
                                          after they have been standing for
                                          SECONDS (-1 means never ignore)
-  --ignore-accidents                   Do not check whether accidents occure
-                                         more deeply
+  --ignore-accidents                   Do not check whether accidents occur
   --ignore-route-errors                Do not check whether routes are
                                          connected
   --max-num-vehicles INT               Quit simulation if this number of

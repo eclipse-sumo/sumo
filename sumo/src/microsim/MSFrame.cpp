@@ -223,7 +223,7 @@ MSFrame::fillOptions() {
 #endif
 
     oc.doRegister("ignore-accidents", new Option_Bool(false));
-    oc.addDescription("ignore-accidents", "Processing", "Do not check whether accidents occure more deeply");
+    oc.addDescription("ignore-accidents", "Processing", "Do not check whether accidents occur");
 
     oc.doRegister("ignore-route-errors", new Option_Bool(false));
     oc.addDescription("ignore-route-errors", "Processing", "Do not check whether routes are connected");
