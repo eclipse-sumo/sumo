@@ -989,7 +989,7 @@ public:
         }
 
         inline bool isVTDAffected(SUMOTime t) const {
-            return myAmVTDControlled && myLastVTDAccess<t; 
+            return myAmVTDControlled && myLastVTDAccess>=t-TIME2STEPS(10); 
         }
 
 

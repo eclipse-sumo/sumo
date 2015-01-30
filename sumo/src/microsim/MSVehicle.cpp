@@ -159,7 +159,7 @@ MSVehicle::Influencer::Influencer() :
     mySpeedGainLC(LC_NOCONFLICT),
     myRightDriveLC(LC_NOCONFLICT),
     myTraciLaneChangePriority(LCP_URGENT),
-    myLastVTDAccess(-1)
+    myLastVTDAccess(-TIME2STEPS(20))
 {}
 
 
