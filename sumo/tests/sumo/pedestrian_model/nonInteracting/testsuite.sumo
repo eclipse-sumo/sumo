@@ -7,9 +7,12 @@ use_crossing
 # tests related to pedestrians interacting with each other
 pedestrian_interactions
 
-# full connectivity among 3 one-way paths
-3_arm_pathing
-
 # test for subsecond behavior
 subsecond
 errors
+
+# full connectivity among 3 one-way paths
+3_arm_pathing
+
+# no sidewalks, walkingareas nor crossings
+no_sidewalks
