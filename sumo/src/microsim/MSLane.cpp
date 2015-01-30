@@ -690,9 +690,11 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     VehCont::iterator lastVeh = myVehicles.end() - 1;
     for (VehCont::iterator veh = myVehicles.begin(); veh != lastVeh;) {
         VehCont::iterator pred = veh + 1;
-        if (((*veh)->hasInfluencer() && (*veh)->getInfluencer().isVTDControlled())
-                || ((*pred)->hasInfluencer() && (*pred)->getInfluencer().isVTDControlled())) {
-            // ignore collisions of VTDControlled vehicles
+        if ((*veh)->hasInfluencer() && (*veh)->getInfluencer().isVTDAffected(timestep)) {
+            ++veh;
+            continue;
+        }
+        if ((*pred)->hasInfluencer() && (*pred)->getInfluencer().isVTDAffected(timestep)) {
             ++veh;
             continue;
         }

@@ -988,6 +988,11 @@ public:
             return myAmVTDControlled;
         }
 
+        inline bool isVTDAffected(SUMOTime t) const {
+            return myAmVTDControlled && myLastVTDAccess<t; 
+        }
+
+
     private:
         /// @brief The velocity time line to apply
         std::vector<std::pair<SUMOTime, SUMOReal> > mySpeedTimeLine;

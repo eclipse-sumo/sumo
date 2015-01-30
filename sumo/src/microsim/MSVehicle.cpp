@@ -158,7 +158,8 @@ MSVehicle::Influencer::Influencer() :
     myCooperativeLC(LC_NOCONFLICT),
     mySpeedGainLC(LC_NOCONFLICT),
     myRightDriveLC(LC_NOCONFLICT),
-    myTraciLaneChangePriority(LCP_URGENT)
+    myTraciLaneChangePriority(LCP_URGENT),
+    myLastVTDAccess(-1)
 {}
 
 
@@ -1403,7 +1404,6 @@ MSVehicle::executeMove() {
 
     if (myInfluencer != 0 && myInfluencer->isVTDControlled()) {
         myWaitingTime = 0;
-//    myInfluencer->setVTDControlled(false);
         return false;
     }
 
