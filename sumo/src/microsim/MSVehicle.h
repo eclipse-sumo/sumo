@@ -969,13 +969,18 @@ public:
             return myOriginalSpeed;
         }
 
-        void setVTDControlled(bool c, MSLane* l, SUMOReal pos, int edgeOffset, const MSEdgeVector& route) {
+        void setVTDControlled(bool c, MSLane* l, SUMOReal pos, int edgeOffset, const MSEdgeVector& route, SUMOTime t) {
             myAmVTDControlled = c;
             myVTDLane = l;
             myVTDPos = pos;
             myVTDEdgeOffset = edgeOffset;
             myVTDRoute = route;
+			myLastVTDAccess = t;
         }
+
+		SUMOTime getLastAccessTimeStep() const {
+			return myLastVTDAccess;
+		}
 
         void postProcessVTD(MSVehicle* v);
 
@@ -1016,6 +1021,7 @@ public:
         SUMOReal myVTDPos;
         int myVTDEdgeOffset;
         MSEdgeVector myVTDRoute;
+		SUMOTime myLastVTDAccess;
 
         /// @name Flags for managing conflicts between the laneChangeModel and TraCI laneTimeLine
         //@{

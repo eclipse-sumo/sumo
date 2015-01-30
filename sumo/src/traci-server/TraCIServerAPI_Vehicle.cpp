@@ -1239,15 +1239,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             SUMOReal maxRouteDistance = 50;
             if (cFound && (bestDistanceA > maxRouteDistance && bestDistanceC > maxRouteDistance)) {
                 // both route-based approach yield in a position too far away from the submitted --> new route!?
-                server.setVTDControlled(v, laneC, lanePosC, routeOffsetC, edgesC);
+                server.setVTDControlled(v, laneC, lanePosC, routeOffsetC, edgesC, MSNet::getInstance()->getCurrentTimeStep());
             } else {
                 // use the best we have
                 if (bFound) {
-                    server.setVTDControlled(v, laneB, lanePosB, routeOffsetB, edgesB);
+                    server.setVTDControlled(v, laneB, lanePosB, routeOffsetB, edgesB, MSNet::getInstance()->getCurrentTimeStep());
                 } else if (aFound) {
-                    server.setVTDControlled(v, laneA, lanePosA, routeOffsetA, edgesA);
+                    server.setVTDControlled(v, laneA, lanePosA, routeOffsetA, edgesA, MSNet::getInstance()->getCurrentTimeStep());
                 } else if (cFound) {
-                    server.setVTDControlled(v, laneC, lanePosC, routeOffsetC, edgesC);
+                    server.setVTDControlled(v, laneC, lanePosC, routeOffsetC, edgesC, MSNet::getInstance()->getCurrentTimeStep());
                 } else {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Could not map vehicle.", outputStorage);
                 }
