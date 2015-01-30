@@ -986,8 +986,9 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
         update();
     } else {
         setDecorations(DECOR_ALL);
+        myToolBar3->show();
         myAmGaming = !myAmGaming;
-        onCmdGaming(0,0,0);
+        onCmdGaming(0, 0, 0);
     }
     return 1;
 }
