@@ -402,6 +402,9 @@ private:
     /// @brief The following junction-internal lane if used
     MSLane* const myJunctionInlane;
 
+    /// @brief The preceding junction-internal lane if used
+    const MSLane* myInternalLaneBefore;
+
     /* @brief lengths after the crossing point with foeLane
      * (lengthOnThis, lengthOnFoe)
      * (index corresponds to myFoeLanes)
@@ -414,7 +417,7 @@ private:
     const MSJunction* myJunction;
 
     std::vector<MSLink*> myFoeLinks;
-    std::vector<MSLane*> myFoeLanes;
+    std::vector<const MSLane*> myFoeLanes;
     static SUMOTime myLookaheadTime;
 
 

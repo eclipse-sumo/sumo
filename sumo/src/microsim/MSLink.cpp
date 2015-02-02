@@ -80,6 +80,7 @@ MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state
     myHasFoes(false),
     myAmCont(false),
     myJunctionInlane(via),
+    myInternalLaneBefore(0),
     myJunction(0)
 #endif
 {}
@@ -97,11 +98,12 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
     myHasFoes = hasFoes;
     myAmCont = isCont;
     myFoeLinks = foeLinks;
-    myFoeLanes = foeLanes;
+    for (std::vector<MSLane*>::const_iterator it_lane = foeLanes.begin(); it_lane != foeLanes.end(); ++it_lane) {
+        // cannot assign vector due to const-ness
+        myFoeLanes.push_back(*it_lane);
+    }
     myJunction = myLane->getEdge().getFromJunction(); // junctionGraph is initialized after the whole network is loaded
-#ifdef MSLink_DEBUG_CROSSING_POINTS
-    std::cout << " link " << myIndex << " to " << getViaLaneOrLane()->getID() << " has foes: " << toString(foeLanes) << "\n";
-#endif
+    myInternalLaneBefore = internalLaneBefore;
 #ifdef HAVE_INTERNAL_LANES
     MSLane* lane = 0;
     if (internalLaneBefore != 0) {
@@ -112,8 +114,26 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         //    // @note not currently used by pedestrians
         //    lane = myLane;
     }
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+    std::cout << " link " << myIndex << " to " << getViaLaneOrLane()->getID() << " internalLane=" << (lane == 0 ? "NULL" : lane->getID()) << " has foes: " << toString(foeLanes) << "\n";
+#endif
     if (lane != 0) {
-        for (std::vector<MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
+        assert(lane->getIncomingLanes().size() == 1);
+        const MSLane* pred = lane->getLogicalPredecessorLane();
+        // to avoid overlap with vehicles that came from pred (especially when pred has endOffset > 0)
+        // we add all other internal lanes from pred as foeLanes
+        const MSLinkCont& predLinks = pred->getLinkCont();
+        for (MSLinkCont::const_iterator it = predLinks.begin(); it != predLinks.end(); ++it) {
+            const MSLane* sibling = (*it)->getViaLane();
+            if (sibling != lane && sibling != 0) {
+                myFoeLanes.push_back(sibling);
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                std::cout << " adding same-origin foe " << sibling->getID() << "\n";
+#endif
+            }
+        }
+        // now compute crossing points
+        for (std::vector<const MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
             if (myLane == (*it_lane)->getLinkCont()[0]->getLane() && !lane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal()) {
                 //if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
                 // this foeLane has the same target and merges at the end (lane exits the junction)
@@ -328,7 +348,7 @@ MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal spe
             return true;
         }
     }
-    for (std::vector<MSLane*>::const_iterator i = myFoeLanes.begin(); i != myFoeLanes.end(); ++i) {
+    for (std::vector<const MSLane*>::const_iterator i = myFoeLanes.begin(); i != myFoeLanes.end(); ++i) {
         if ((*i)->getVehicleNumber() > 0 || (*i)->getPartialOccupator() != 0) {
             return true;
         }
@@ -427,17 +447,18 @@ MSLink::getViaLane() const {
 MSLink::LinkLeaders
 MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson*>* collectBlockers) const {
     LinkLeaders result;
+    //gDebugFlag1 = true;
     // this link needs to start at an internal lane (either an exit link or between two internal lanes)
     if (MSGlobals::gUsingInternalLanes && (
                 (myJunctionInlane == 0 && getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL)
                 || (myJunctionInlane != 0 && myJunctionInlane->getLogicalPredecessorLane()->getEdge().isInternal()))) {
-        //std::cout << " getLeaderInfo link=" << getViaLaneOrLane()->getID() << "\n";
+        //if (gDebugFlag1) std::cout << SIMTIME << " getLeaderInfo link=" << getViaLaneOrLane()->getID() << "\n";
         // this is an exit link
         for (size_t i = 0; i < myFoeLanes.size(); ++i) {
-            MSLane* foeLane = myFoeLanes[i];
+            const MSLane* foeLane = myFoeLanes[i];
             // distance from the querying vehicle to the crossing point with foeLane
             const SUMOReal distToCrossing = dist - myLengthsBehindCrossing[i].first;
-            //std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << "\n";
+            //if (gDebugFlag1) std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << "\n";
             if (distToCrossing < 0) {
                 continue; // vehicle is behind the crossing point, continue with next foe lane
             }
@@ -449,8 +470,9 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
             // vehicles on these lanes should always block (gap = -1)
             const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL);
             const bool sameTarget = (myLane == foeLane->getLinkCont()[0]->getLane());
+            const bool sameSource = (myInternalLaneBefore != 0 && myInternalLaneBefore->getLogicalPredecessorLane() == foeLane->getLogicalPredecessorLane());
             // vehicles on cont. lanes or on internal lanes with the same target as this link can never be ignored
-            const bool cannotIgnore = contLane || sameTarget;
+            const bool cannotIgnore = contLane || sameTarget || sameSource;
             const MSLane::VehCont& vehicles = foeLane->getVehiclesSecure();
             foeLane->releaseVehicles();
             for (MSLane::VehCont::const_iterator it_veh = vehicles.begin(); it_veh != vehicles.end(); ++it_veh) {
@@ -459,12 +481,12 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                     // compute distance between vehicles on the the superimposition of both lanes
                     // where the crossing point is the common point
                     SUMOReal gap;
-                    if (contLane) {
+                    if (contLane && !sameSource) {
                         gap = -1; // always break for vehicles which are on a continuation lane
                     } else {
                         const SUMOReal leaderBack = leader->getPositionOnLane() - leader->getVehicleType().getLength();
                         const SUMOReal leaderBackDist = foeDistToCrossing - leaderBack;
-                        //std::cout << " distToCrossing=" << distToCrossing << " leader backDist=" << leaderBackDist << "\n";
+                        //if (gDebugFlag1) std::cout << " distToCrossing=" << distToCrossing << " leader back=" << leaderBack << " backDist=" << leaderBackDist << "\n";
                         if (leaderBackDist < 0) {
                             // leader is completely past the crossing point
                             // or there is no crossing point
@@ -482,11 +504,11 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                     // compute distance between vehicles on the the superimposition of both lanes
                     // where the crossing point is the common point
                     SUMOReal gap;
-                    if (contLane) {
+                    if (contLane && !sameSource) {
                         gap = -1; // always break for vehicles which are on a continuation lane
                     } else {
                         const SUMOReal leaderBackDist = foeDistToCrossing - foeLane->getPartialOccupatorEnd();
-                        //std::cout << " distToCrossing=" << distToCrossing << " leader (partialOccupator) backDist=" << leaderBackDist << "\n";
+                        //if (gDebugFlag1) std::cout << " distToCrossing=" << distToCrossing << " leader (partialOccupator) backDist=" << leaderBackDist << "\n";
                         if (leaderBackDist < 0) {
                             // leader is completely past the crossing point
                             // or there is no crossing point
