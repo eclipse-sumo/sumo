@@ -166,7 +166,7 @@ def main(args=None):
       timeStr = "%02d:%02d:%02d" % (h, m, s)
       ax.text(7300, 15500, timeStr, bbox={'facecolor':'white', 'pad':10}, size=16)
       optName = options.output.replace("%s", str(t))
-    helpers.closeFigure(fig, ax, options, optName)
+    helpers.closeFigure(fig, ax, options, False, optName)
     if optName==None:
       return 0
   return 0
