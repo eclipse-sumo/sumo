@@ -17,12 +17,12 @@ the Free Software Foundation; either version 3 of the License, or
                     
 import os, subprocess, sys, random
 from xml.sax.handler import ContentHandler
-from pylab import *
-import matplotlib.pyplot as plt
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib
 from sumolib.visualization import helpers
+
+import matplotlib.pyplot as plt
 
 
 class WeightsReader(ContentHandler):
