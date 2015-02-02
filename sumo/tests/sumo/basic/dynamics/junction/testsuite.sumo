@@ -7,3 +7,6 @@ unregulated
 
 # test the ApproachingVehicleInformation for accuracy
 approachInformation
+
+# test dynamics on internal lanes
+internalLanes
