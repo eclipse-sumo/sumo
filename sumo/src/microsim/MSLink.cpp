@@ -119,20 +119,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 #endif
     if (lane != 0) {
         assert(lane->getIncomingLanes().size() == 1);
-        const MSLane* pred = lane->getLogicalPredecessorLane();
-        // to avoid overlap with vehicles that came from pred (especially when pred has endOffset > 0)
-        // we add all other internal lanes from pred as foeLanes
-        const MSLinkCont& predLinks = pred->getLinkCont();
-        for (MSLinkCont::const_iterator it = predLinks.begin(); it != predLinks.end(); ++it) {
-            const MSLane* sibling = (*it)->getViaLane();
-            if (sibling != lane && sibling != 0) {
-                myFoeLanes.push_back(sibling);
-#ifdef MSLink_DEBUG_CROSSING_POINTS
-                std::cout << " adding same-origin foe " << sibling->getID() << "\n";
-#endif
-            }
-        }
-        // now compute crossing points
+        // compute crossing points
         for (std::vector<const MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
             if (myLane == (*it_lane)->getLinkCont()[0]->getLane() && !lane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal()) {
                 //if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
@@ -149,14 +136,18 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 #endif
             } else {
                 std::vector<SUMOReal> intersections1 = lane->getShape().intersectsAtLengths2D((*it_lane)->getShape());
-                //std::cout << " number of intersections1=" << intersections1.size() << "\n";
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                //std::cout << " intersections1=" << toString(intersections1) << "\n";
+#endif
                 if (intersections1.size() == 0) {
                     intersections1.push_back(10000.0); // disregard this foe (using maxdouble leads to nasty problems down the line)
                 } else if (intersections1.size() > 1) {
                     std::sort(intersections1.begin(), intersections1.end());
                 }
                 std::vector<SUMOReal> intersections2 = (*it_lane)->getShape().intersectsAtLengths2D(lane->getShape());
-                //std::cout << " number of intersections2=" << intersections2.size() << "\n";
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                //std::cout << " intersections2=" << toString(intersections2) << "\n";
+#endif
                 if (intersections2.size() == 0) {
                     intersections2.push_back(0);
                 } else if (intersections2.size() > 1) {
@@ -177,12 +168,45 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 #endif
             }
         }
+        // check for overlap with internal lanes from the same source lane
+        const MSLane* pred = lane->getLogicalPredecessorLane();
+        // to avoid overlap with vehicles that came from pred (especially when pred has endOffset > 0)
+        // we add all other internal lanes from pred as foeLanes
+        const MSLinkCont& predLinks = pred->getLinkCont();
+        for (MSLinkCont::const_iterator it = predLinks.begin(); it != predLinks.end(); ++it) {
+            const MSLane* sibling = (*it)->getViaLane();
+            if (sibling != lane && sibling != 0) {
+                std::vector<SUMOReal> intersections1 = lane->getShape().intersectsAtLengths2D(sibling->getShape());
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                //std::cout << " intersections1=" << toString(intersections1) << "\n";
+#endif
+                if (intersections1.size() > 0) {
+                    std::sort(intersections1.begin(), intersections1.end());
+                    if (intersections1.back() > NUMERICAL_EPS) {
+                        // siblings share a common shape up to the last crossing point so intersections are identical and only need to be computed once
+                        myLengthsBehindCrossing.push_back(std::make_pair(
+                                    lane->getLength() - intersections1.back(),
+                                    sibling->getLength() - intersections1.back()));
+                        myFoeLanes.push_back(sibling);
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                        std::cout << " adding same-origin foe" << sibling->getID() 
+                            << " dist1=" << myLengthsBehindCrossing.back().first
+                            << " dist2=" << myLengthsBehindCrossing.back().second
+                            << "\n";
+#endif
+                    }
+                }
+            }
+        }
     }
 #else
     UNUSED_PARAMETER(internalLaneBefore);
 #endif
 }
 
+
+std::pair<SUMOReal, SUMOReal> 
+getLastIntersections(const MSLane* lane, const MSLane* foe);
 
 void
 MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime, const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed,
