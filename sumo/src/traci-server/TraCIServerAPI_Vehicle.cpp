@@ -58,6 +58,9 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+#define DEBUG_VTD 0
+#define DEBUG_VTD_ANGLE 0
+
 
 // ===========================================================================
 // static member variables
@@ -1213,7 +1216,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
             Position vehPos = v->getPosition();
             v->updateBestLanes();
-            bool report = server.vtdDebug();
+            bool report = DEBUG_VTD;
             if (report) {
                 std::cout << std::endl << "begin vehicle " << v->getID() << " vehPos:" << vehPos << " lane:" << v->getLane()->getID() << std::endl;
             }
@@ -1230,11 +1233,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             int routeOffsetA, routeOffsetB, routeOffsetC;
             routeOffsetA = routeOffsetB = routeOffsetC = 0;
             // case a): edge/lane is known and matches route
-            bool aFound = vtdMap_matchingEdgeLane(pos, origID, *v, server.vtdDebug(), bestDistanceA, &laneA, lanePosA, routeOffsetA, edgesA);
+            bool aFound = vtdMap_matchingEdgeLane(pos, origID, *v, DEBUG_VTD, bestDistanceA, &laneA, lanePosA, routeOffsetA, edgesA);
             // case b): position is at route, should be somewhere near to it
-            bool bFound = vtdMap_matchingRoutePosition(pos, origID, *v, server.vtdDebug(), bestDistanceB, &laneB, lanePosB, routeOffsetB, edgesB);
+            bool bFound = vtdMap_matchingRoutePosition(pos, origID, *v, DEBUG_VTD, bestDistanceB, &laneB, lanePosB, routeOffsetB, edgesB);
             // case c) nearest matching lane
-            bool cFound = vtdMap_matchingNearest(pos, origID, *v, server, server.vtdDebug(), bestDistanceC, &laneC, lanePosC, routeOffsetC, edgesC);
+            bool cFound = vtdMap_matchingNearest(pos, origID, *v, server, DEBUG_VTD, bestDistanceC, &laneC, lanePosC, routeOffsetC, edgesC);
             //
             SUMOReal maxRouteDistance = 50;
             if (cFound && (bestDistanceA > maxRouteDistance && bestDistanceC > maxRouteDistance)) {

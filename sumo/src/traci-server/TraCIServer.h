@@ -114,8 +114,6 @@ public:
 
     void postProcessVTD();
 
-    bool vtdDebug() const;
-
 
 
 #ifdef HAVE_PYTHON

@@ -235,12 +235,6 @@ TraCIServer::postProcessVTD() {
 }
 
 
-bool
-TraCIServer::vtdDebug() const {
-    return true;
-}
-
-
 // ---------- Initialisation and Shutdown
 
 
