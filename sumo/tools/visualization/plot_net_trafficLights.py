@@ -15,18 +15,14 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
                     
-import os, subprocess, sys, random, helpers
-from xml.sax import make_parser
+import os, subprocess, sys, random
 from xml.sax.handler import ContentHandler
-from pylab import *
-from matplotlib.ticker import FuncFormatter as ff
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib
+from sumolib.visualization import helpers
+
 import matplotlib.pyplot as plt
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'tools'))
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), '..', '..')), 'tools'))
-import sumolib.output
-
-
 
 
 def main(args=None):

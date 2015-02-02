@@ -6,7 +6,7 @@
 @date    2013-11-11
 @version $Id$
 
-This script plots measures from the tripinfor output, classified into bins
+This script plots measures from the tripinfo output, classified into bins
 matplotlib (http://matplotlib.org/) has to be installed for this purpose
  
 
@@ -20,17 +20,13 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, random, helpers
-from pylab import *
-from matplotlib.ticker import FuncFormatter as ff
-import numpy as np
+import os, subprocess, sys, random
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'tools'))
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), '..', '..')), 'tools'))
-import sumolib.output
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib
+from sumolib.visualization import helpers
 
-
-
+import matplotlib.pyplot as plt
 
 
 def main(args=None):
@@ -99,7 +95,7 @@ def main(args=None):
   for i,f in enumerate(files):
     c = helpers.getColor(options, i, len(files))
     l = helpers.getLabel(f, i, options)
-    bar(center, hists[f], width = width, label=l, color=c)
+    plt.bar(center, hists[f], width = width, label=l, color=c)
     for j in range(0, options.bins):
       center[j] = center[j] + width
   helpers.closeFigure(fig, ax, options)

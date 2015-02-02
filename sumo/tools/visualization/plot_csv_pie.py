@@ -22,14 +22,13 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, random, helpers
-from pylab import *
-from matplotlib.ticker import FuncFormatter as ff
+import os, subprocess, sys, random
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'tools'))
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), '..', '..')), 'tools'))
-import sumolib.output
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib
+from sumolib.visualization import helpers
 
+import matplotlib.pyplot as plt
 
   
 def main(args=None):
@@ -89,9 +88,8 @@ def main(args=None):
     autopct=lambda(p): '{:.1f}%'.format(p)
   else:
     autopct=lambda(p): '{:.0f}'.format(p * total / 100)
-  patches, texts, autotexts  = pie(vals, labels=labels, autopct=autopct, colors=colors, shadow=shadow, startangle=options.startangle)
+  patches, texts, autotexts = plt.pie(vals, labels=labels, autopct=autopct, colors=colors, shadow=shadow, startangle=options.startangle)
   helpers.closeFigure(fig, ax, options)
 
 if __name__ == "__main__":
   sys.exit(main(sys.argv))
-    

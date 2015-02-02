@@ -21,14 +21,13 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, random, helpers
-from pylab import *
-from matplotlib.ticker import FuncFormatter as ff
+import os, subprocess, sys, random
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'tools'))
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), '..', '..')), 'tools'))
-import sumolib.output
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib
+from sumolib.visualization import helpers
 
+import matplotlib.pyplot as plt
 
   
 def main(args=None):
@@ -102,25 +101,25 @@ def main(args=None):
 
   fig, ax = helpers.openFigure(options)
   if not options.vertical:
-    rects = barh(xs, vals, height=options.width)
+    rects = plt.barh(xs, vals, height=options.width)
     for i,rect in enumerate(rects):
       if options.showValues:
         width = rect.get_width()
         ax.text(width+options.valuesOffset, rect.get_y()+rect.get_height()/2., vlabels[i], va='center', ha='left')
       rect.set_color(colors[i])
       rect.set_edgecolor('k')
-    ylim(0, x)
-    yticks(ts, labels)
+    plt.ylim(0, x)
+    plt.yticks(ts, labels)
   else:
-    rects = bar(xs, vals, width=options.width)
+    rects = plt.bar(xs, vals, width=options.width)
     for i,rect in enumerate(rects):
       if options.showValues:
         height = rect.get_height()
         ax.text(rect.get_x()+rect.get_width()/2., height+options.valuesOffset, vlabels[i], ha='center', va='bottom')
       rect.set_color(colors[i])
       rect.set_edgecolor('k')
-    xlim(0, x)
-    xticks(ts, labels)
+    plt.xlim(0, x)
+    plt.xticks(ts, labels)
   helpers.closeFigure(fig, ax, options, False)
 
 if __name__ == "__main__":

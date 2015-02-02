@@ -96,6 +96,11 @@ def addInteractionOptions(optParser):
     optParser.add_option("-b", "--blind", dest="blind", action="store_true",
                          default=False, help="If set, the figure will not be shown")
 
+def addNetOptions(optParser):
+    optParser.add_option("-w", "--default-width", dest="defaultWidth", 
+                         type="float", default=.1, help="Defines the default edge width")
+    optParser.add_option("-c", "--default-color", dest="defaultColor", 
+                         default='k', help="Defines the default edge color")
 
 
 def applyPlotOptions(fig, ax, options):

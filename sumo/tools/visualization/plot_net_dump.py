@@ -15,16 +15,14 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
                     
-import os, subprocess, sys, random, helpers
-from xml.sax import make_parser
+import os, subprocess, sys, random
 from xml.sax.handler import ContentHandler
 from pylab import *
-from matplotlib.ticker import FuncFormatter as ff
 import matplotlib.pyplot as plt
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'tools'))
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), '..', '..')), 'tools'))
-import sumolib.output
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib
+from sumolib.visualization import helpers
 
 
 class WeightsReader(ContentHandler):
@@ -57,10 +55,6 @@ def main(args=None):
                          help="Defines the dump-output files to use as input")
   optParser.add_option("-m", "--measures", dest="measures", 
                          default="speed,entered", help="Define which measure to plot")
-  optParser.add_option("-w", "--default-width", dest="defaultWidth", 
-                         type="float", default=.1, help="Defines the default edge width")
-  optParser.add_option("-c", "--default-color", dest="defaultColor", 
-                         default='k', help="Defines the default edge color")
   optParser.add_option("--min-width", dest="minWidth", 
                          type="float", default=.5, help="Defines the minimum edge width")
   optParser.add_option("--max-width", dest="maxWidth", 
@@ -82,6 +76,7 @@ def main(args=None):
   # standard plot options
   helpers.addInteractionOptions(optParser)
   helpers.addPlotOptions(optParser)
+  helpers.addNetOptions(optParser)
   # parse
   options, remaining_args = optParser.parse_args(args=args)
 

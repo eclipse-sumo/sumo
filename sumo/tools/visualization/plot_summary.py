@@ -21,14 +21,13 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, random, helpers
-from pylab import *
-from matplotlib.ticker import FuncFormatter as ff
+import os, subprocess, sys, random
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'tools'))
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), '..', '..')), 'tools'))
-import sumolib.output
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib
+from sumolib.visualization import helpers
 
+import matplotlib.pyplot as plt
 
   
 def readValues(files, verbose, measure):
@@ -74,7 +73,7 @@ def main(args=None):
     v = sumolib.output.toList(nums[f], options.measure)
     c = helpers.getColor(options, i, len(files))
     l = helpers.getLabel(f, i, options)
-    plot(ts[0:len(v)], v, label=l, color=c)
+    plt.plot(ts[0:len(v)], v, label=l, color=c)
   helpers.closeFigure(fig, ax, options)
 
 if __name__ == "__main__":
