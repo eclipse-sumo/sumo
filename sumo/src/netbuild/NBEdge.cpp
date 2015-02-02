@@ -1099,7 +1099,8 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
 
                 if (dir == LINKDIR_TURN && crossingPositions.first < 0 && crossingPositions.second.size() != 0 && shape.length() > 2. * POSITION_EPS) {
                     // let turnarounds wait in the middle if no other crossing point was found and it has a sensible length
-                    crossingPositions.first = (SUMOReal) shape.length() / 2.;
+                    // (if endOffset is used, the crossing point is in the middle of the part within the junction shape)
+                    crossingPositions.first = (SUMOReal) (shape.length() + getEndOffset(con.fromLane)) / 2.;
                 }
             }
             break;
