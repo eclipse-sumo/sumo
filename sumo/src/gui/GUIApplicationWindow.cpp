@@ -977,6 +977,7 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
         getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
         getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
         getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
+        maximize();
         setDecorations(DECOR_NONE);
         place(PLACEMENT_MAXIMIZED);
         myMenuBar->hide();
@@ -993,6 +994,7 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
     } else {
         place(PLACEMENT_VISIBLE);
         setDecorations(DECOR_ALL);
+        restore();
         myToolBar3->show();
         myAmGaming = !myAmGaming;
         onCmdGaming(0, 0, 0);
