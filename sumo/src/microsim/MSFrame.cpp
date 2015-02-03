@@ -118,6 +118,11 @@ MSFrame::fillOptions() {
     oc.addSynonyme("netstate-dump.empty-edges", "netstate-output.empty-edges");
     oc.addSynonyme("netstate-dump.empty-edges", "dump-empty-edges", true);
     oc.addDescription("netstate-dump.empty-edges", "Output", "Write also empty edges completely when dumping");
+    oc.doRegister("netstate-dump.precision", new Option_Integer(OUTPUT_ACCURACY));
+    oc.addSynonyme("netstate-dump.precision", "netstate.precision");
+    oc.addSynonyme("netstate-dump.precision", "netstate-output.precision");
+    oc.addSynonyme("netstate-dump.precision", "dump-precision", true);
+    oc.addDescription("netstate-dump.precision", "Output", "Write positions and speeds with the given precision (default 2)");
 
 
     oc.doRegister("emission-output", new Option_FileName());

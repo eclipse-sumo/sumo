@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r17751
+SUMO Version dev-SVN-r17777
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -31,6 +31,8 @@ Output Options:
   --netstate-dump FILE                 Save complete network states into FILE
   --netstate-dump.empty-edges          Write also empty edges completely when
                                          dumping
+  --netstate-dump.precision INT        Write positions and speeds with the
+                                         given precision (default 2)
   --emission-output FILE               Save the emission values of each vehicle
   --fcd-output FILE                    Save the Floating Car Data
   --fcd-output.geo                     Save the Floating Car Data using

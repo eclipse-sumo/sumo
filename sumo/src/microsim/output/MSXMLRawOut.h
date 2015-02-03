@@ -69,10 +69,11 @@ public:
      * @param[in] of The output device to use
      * @param[in] ec The EdgeControl which holds the edges to write
      * @param[in] timestep The current time step
+     * @param[in] precision The output precision
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     static void write(OutputDevice& of, const MSEdgeControl& ec,
-                      SUMOTime timestep);
+                      SUMOTime timestep, int precision);
 
 
     /** @brief Writes the dump of the given vehicle into the given device

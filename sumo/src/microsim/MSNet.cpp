@@ -542,10 +542,12 @@ void
 MSNet::writeOutput() {
     // update detector values
     myDetectorControl->updateDetectors(myStep);
+    const OptionsCont& oc = OptionsCont::getOptions();
 
     // check state dumps
-    if (OptionsCont::getOptions().isSet("netstate-dump")) {
-        MSXMLRawOut::write(OutputDevice::getDeviceByOption("netstate-dump"), *myEdges, myStep);
+    if (oc.isSet("netstate-dump")) {
+        MSXMLRawOut::write(OutputDevice::getDeviceByOption("netstate-dump"), *myEdges, myStep,
+                oc.getInt("netstate-dump.precision"));
     }
 
     // check fcd dumps

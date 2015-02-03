@@ -24,6 +24,7 @@
         <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE" help="Save complete network states into FILE"/>
         <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" type="BOOL" help="Write also empty edges completely when dumping"/>
+        <netstate-dump.precision value="2" synonymes="dump-precision netstate-output.precision netstate.precision" type="INT" help="Write positions and speeds with the given precision (default 2)"/>
         <emission-output value="" type="FILE" help="Save the emission values of each vehicle"/>
         <fcd-output value="" type="FILE" help="Save the Floating Car Data"/>
         <fcd-output.geo value="false" type="BOOL" help="Save the Floating Car Data using geo-coordinates (lon/lat)"/>
