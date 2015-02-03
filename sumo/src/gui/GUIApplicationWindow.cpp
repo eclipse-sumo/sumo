@@ -644,10 +644,12 @@ GUIApplicationWindow::buildToolBars() {
 
 long
 GUIApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
-    getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
-    getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
-    getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
-    getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
+    if (!myAmFullScreen) {
+        getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
+        getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
+        getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
+        getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
+    }
     getApp()->reg().writeStringEntry("SETTINGS", "basedir", gCurrentFolder.text());
     getApp()->reg().writeIntEntry("SETTINGS", "maximized", isMaximized() ? 1 : 0);
     getApp()->reg().writeIntEntry("gui", "timeasHMS", myShowTimeAsHMS ? 1 : 0);
@@ -971,6 +973,10 @@ long
 GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
     myAmFullScreen = !myAmFullScreen;
     if (myAmFullScreen) {
+        getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
+        getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
+        getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
+        getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
         setDecorations(DECOR_NONE);
         place(PLACEMENT_MAXIMIZED);
         myMenuBar->hide();
@@ -985,10 +991,15 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
         myMessageWindow->hide();
         update();
     } else {
+        place(PLACEMENT_VISIBLE);
         setDecorations(DECOR_ALL);
         myToolBar3->show();
         myAmGaming = !myAmGaming;
         onCmdGaming(0, 0, 0);
+        setWidth(getApp()->reg().readIntEntry("SETTINGS", "width", 600));
+        setHeight(getApp()->reg().readIntEntry("SETTINGS", "height", 400));
+        setX(getApp()->reg().readIntEntry("SETTINGS", "x", 150));
+        setY(getApp()->reg().readIntEntry("SETTINGS", "y", 150));
     }
     return 1;
 }
