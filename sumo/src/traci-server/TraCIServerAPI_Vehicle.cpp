@@ -1384,7 +1384,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
         SUMOReal angleDiffN = 1. - (u.angleDiff / 180.);
         SUMOReal idN = u.ID ? 1 : 0;
         SUMOReal onRouteN = u.onRoute ? 1 : 0;
-        SUMOReal sameEdgeN = u.sameEdge ? MIN2(v.getEdge()->getLength() / speed, 1.) : 0;
+        SUMOReal sameEdgeN = u.sameEdge ? MIN2(v.getEdge()->getLength() / speed, (SUMOReal)1.) : 0;
         SUMOReal value = distN*.5 
             + angleDiffN*0/*.5 */
             + idN*.5 

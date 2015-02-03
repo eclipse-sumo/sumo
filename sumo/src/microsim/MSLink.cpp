@@ -103,8 +103,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         myFoeLanes.push_back(*it_lane);
     }
     myJunction = myLane->getEdge().getFromJunction(); // junctionGraph is initialized after the whole network is loaded
-    myInternalLaneBefore = internalLaneBefore;
 #ifdef HAVE_INTERNAL_LANES
+    myInternalLaneBefore = internalLaneBefore;
     MSLane* lane = 0;
     if (internalLaneBefore != 0) {
         // this is an exit link. compute crossing points with all foeLanes
