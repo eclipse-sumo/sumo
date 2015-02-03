@@ -2,12 +2,11 @@
 @file    helpers.py
 @author  Daniel Krajzewicz
 @author  Laura Bieker
+@author  Michael Behrisch
 @date    2013-11-11
 @version $Id$
 
-
 Helper methods for plotting
-
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
