@@ -1150,7 +1150,7 @@ MSLane::getFollowerOnConsecutive(
     // important vehicle (the one requiring the largest reargap)
     // to get a safe bound on the necessary search depth, we need to consider the maximum speed and minimum
     // deceleration of potential follower vehicles
-    SUMOReal dist = getMaximumBrakeDist();
+    SUMOReal dist = getMaximumBrakeDist() - backOffset;
 
     std::pair<MSVehicle*, SUMOReal> result(static_cast<MSVehicle*>(0), -1);
     SUMOReal missingRearGapMax = -std::numeric_limits<SUMOReal>::max();
@@ -1160,6 +1160,7 @@ MSLane::getFollowerOnConsecutive(
     while (toExamine.size() != 0) {
         for (std::vector<MSLane::IncomingLaneInfo>::iterator i = toExamine.begin(); i != toExamine.end(); ++i) {
             MSLane* next = (*i).lane;
+            dist = MAX2(dist, next->getMaximumBrakeDist() - backOffset);
             MSVehicle* v = 0;
             SUMOReal agap = 0;
             if (next->getPartialOccupator() != 0) {
@@ -1196,7 +1197,6 @@ MSLane::getFollowerOnConsecutive(
                             ili.length = (*j).length + (*i).length;
                             ili.viaLink = (*j).viaLink;
                             newFound.push_back(ili);
-                            dist = MAX2(dist, ili.lane->getMaximumBrakeDist());
                         }
                     }
                 }
