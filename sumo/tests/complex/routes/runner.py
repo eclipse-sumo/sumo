@@ -46,17 +46,20 @@ def runInstance(elem, attrSet, childSet, depart):
     print(elem, attrSet, childSet)
     sys.stdout.flush()
     with open("routes.xml", "w") as routes:
-        routes.write('<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n    <route id="a" edges="1fi 1si 2o 2fi 2si"/>\n    <%s id="v" %s' % (elem, depart))
+        routes.write('''<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="a" edges="1fi 1si 2o 2fi 2si"/>
+    <%s id="v" %s''' % (elem, depart))
         for idx, attr in enumerate(attrs):
-            if attrSet & idx:
+            if attrSet & (2 ** idx):
                 routes.write(attr)
         routes.write('>\n')
         for idx, child in enumerate(childs):
-            if childSet & idx:
-                routes.write(child)
+            if childSet & (2 ** idx):
+                routes.write((8*" ")+child)
         routes.write('    </%s>\n</routes>\n' % elem)
     retCode = subprocess.call(call + ["-n", "input_net.net.xml", "-r", routes.name], stdout=sys.stdout, stderr=sys.stdout)
-    if retCode < 0:
+    retCodeTaz = subprocess.call(call + ["-n", "input_net.net.xml", "-r", routes.name, "--with-taz"], stdout=sys.stdout, stderr=sys.stdout)
+    if retCode < 0 or retCodeTaz < 0:
         sys.stdout.write(open(routes.name).read())
         sys.exit()
 
