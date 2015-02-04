@@ -33,7 +33,7 @@ def get_options(args=None):
     optParser = OptionParser()
     optParser.add_option("-o", "--outfile", help="name of output file")
     optParser.add_option("-b", "--big", action="store_true", default=False, 
-            help="Use alternative sortign strategy for large files (slower but more memory efficient)")
+            help="Use alternative sorting strategy for large files (slower but more memory efficient)")
     options, args = optParser.parse_args(args=args)
     if len(args) != 1:
         sys.exit(USAGE)
@@ -56,14 +56,14 @@ def sort_departs(routefilename, outfile):
             routes_doc.expandNode(parsenode)
             departAttr = DEPART_ATTRS.get(parsenode.localName)
             if departAttr is not None:
-                start = int(float(parsenode.getAttribute(departAttr)))
+                start = float(parsenode.getAttribute(departAttr))
                 vehicles.append((start, parsenode.toprettyxml(indent="", newl="")))
             else:
                 # copy to output
                 outfile.write(" "*4 + parsenode.toprettyxml(indent="", newl="") + "\n")
 
     print('read %s elements.' % len(vehicles))
-    vehicles.sort()
+    vehicles.sort(key=lambda v: v[0])
     for depart, vehiclexml in vehicles:
         outfile.write(" "*4)
         outfile.write(vehiclexml)

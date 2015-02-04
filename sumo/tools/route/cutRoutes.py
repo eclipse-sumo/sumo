@@ -240,7 +240,7 @@ def main():
         sort_routes.main([tmpname, '--big', '--outfile', options.output])
     else:
         routes = list(cut_routes(edges, orig_net, options, busStopEdges))
-        routes.sort()
+        routes.sort(key=lambda v: v[0])
         with codecs.open(options.output, 'w', encoding='utf8') as f:
             write_to_file(routes, f)
 
