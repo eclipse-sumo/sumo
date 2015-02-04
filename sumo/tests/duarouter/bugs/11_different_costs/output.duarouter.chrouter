@@ -1,10 +1,10 @@
 Loading net... done.
 Loading precomputed net weights from 'input_weights.dump.xml'... done.
 Skipped until: 0.00
-Building Contraction Hierarchy for vClass='ignoring' and time=0.00 (7 edges)
+Building Contraction Hierarchy for all vehicle classes and time=0.00 (7 edges)
 ... 
 Created 1 shortcuts.
-Recomputed priority 10 times.
+Recomputed priority 11 times.
 done (0ms).
 done.
 CHRouter answered 10 queries and explored 7.00 edges on average.
