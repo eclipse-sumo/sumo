@@ -134,6 +134,7 @@ GUILoadThread::run() {
                 myFile = oc.getString("configuration-file");
             } else if (oc.isSet("net-file")) {
                 myFile = oc.getString("net-file");
+                myLoadNet = true;
             }
         }
         // within gui-based applications, nothing is reported to the console
@@ -252,7 +253,6 @@ GUILoadThread::submitEndAndCleanup(GUINet* net,
 
 void
 GUILoadThread::reloadConfigOrNet() {
-    myFile = "";
     start();
 }
 
