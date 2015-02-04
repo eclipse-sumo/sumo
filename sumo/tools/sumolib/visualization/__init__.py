@@ -1,7 +1,8 @@
 """
 @file    __init__.py
-@date    2015-02-02
 @author  Jakob Erdmann
+@author  Michael Behrisch
+@date    2015-02-02
 @version $Id$
 
 module for visualization stuff
