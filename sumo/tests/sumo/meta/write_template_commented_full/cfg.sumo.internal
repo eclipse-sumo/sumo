@@ -54,6 +54,9 @@
         <!-- Write also empty edges completely when dumping -->
         <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" type="BOOL"/>
 
+        <!-- Write positions and speeds with the given precision (default 2) -->
+        <netstate-dump.precision value="2" synonymes="dump-precision netstate-output.precision netstate.precision" type="INT"/>
+
         <!-- Save the emission values of each vehicle -->
         <emission-output value="" type="FILE"/>
 
@@ -79,7 +82,7 @@
         <amitran-output value="" type="FILE"/>
 
         <!-- Save aggregated vehicle departure info into FILE -->
-        <summary-output value="" synonymes="emissions emissions-output summary" type="FILE"/>
+        <summary-output value="" synonymes="summary" type="FILE"/>
 
         <!-- Save single vehicle trip info into FILE -->
         <tripinfo-output value="" synonymes="tripinfo" type="FILE"/>
@@ -114,6 +117,12 @@
         <!-- Save bt visibilities into FILE -->
         <bt-output value="" type="FILE"/>
 
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -147,7 +156,7 @@
         <!-- Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore) -->
         <ignore-junction-blocker value="-1" type="TIME"/>
 
-        <!-- Do not check whether accidents occure more deeply -->
+        <!-- Do not check whether accidents occur -->
         <ignore-accidents value="false" type="BOOL"/>
 
         <!-- Do not check whether routes are connected -->

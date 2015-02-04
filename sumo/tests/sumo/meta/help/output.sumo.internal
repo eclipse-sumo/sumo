@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r17474
+SUMO Version dev-SVN-r17783ID
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -31,6 +31,8 @@ Output Options:
   --netstate-dump FILE                 Save complete network states into FILE
   --netstate-dump.empty-edges          Write also empty edges completely when
                                          dumping
+  --netstate-dump.precision INT        Write positions and speeds with the
+                                         given precision (default 2)
   --emission-output FILE               Save the emission values of each vehicle
   --fcd-output FILE                    Save the Floating Car Data
   --fcd-output.geo                     Save the Floating Car Data using
@@ -64,6 +66,10 @@ Output Options:
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE
   --bt-output FILE                     Save bt visibilities into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR   List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.prefix FILE             Prefix for network states
@@ -83,8 +89,7 @@ Processing Options:
   --ignore-junction-blocker TIME       Ignore vehicles which block the junction
                                          after they have been standing for
                                          SECONDS (-1 means never ignore)
-  --ignore-accidents                   Do not check whether accidents occure
-                                         more deeply
+  --ignore-accidents                   Do not check whether accidents occur
   --ignore-route-errors                Do not check whether routes are
                                          connected
   --max-num-vehicles INT               Quit simulation if this number of
