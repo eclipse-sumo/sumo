@@ -508,7 +508,9 @@ GUISUMOAbstractView::centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist) {
     if (o != 0 && dynamic_cast<GUIGlObject*>(o) != 0) {
         if (applyZoom && zoomDist < 0) {
             myChanger->setViewport(o->getCenteringBoundary());
+            update(); // only update when centering onto an object once
         } else {
+            // called during tracking. update is triggered somewhere else 
             myChanger->centerTo(o->getCenteringBoundary().getCenter(), zoomDist, applyZoom);
         }
     }
