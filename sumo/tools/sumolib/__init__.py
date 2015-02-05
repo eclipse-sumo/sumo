@@ -22,7 +22,14 @@ import os, sys, subprocess
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
-from . import files, net, output, sensors, shapes, visualization
+try:
+    from . import visualization
+except ImportError as e:
+    class VisDummy:
+        def __getattr__(self, name):
+            raise e
+    visualization = VisDummy()
+from . import files, net, output, sensors, shapes
 from . import color, geomhelper, miscutils, options, route
 
 class ConfigurationReader(handler.ContentHandler):
