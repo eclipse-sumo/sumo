@@ -396,15 +396,15 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(v->getChosenSpeedFactor());
                 break;
-        case VAR_PARAMETER: {
-            std::string paramName = "";
-            if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+            case VAR_PARAMETER: {
+                std::string paramName = "";
+                if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                }
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(v->getParameter().getParameter(paramName, ""));
             }
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(v->getParameter().getParameter(paramName, ""));
-                            }
-                            break;
+                break;
             default:
                 TraCIServerAPI_VehicleType::getVariable(variable, v->getVehicleType(), tempMsg);
                 break;
