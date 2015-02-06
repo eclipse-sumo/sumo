@@ -156,9 +156,10 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-//    if (true) {
+    if (variable != VAR_PARAMETER
+            ) {
         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Change Person State: unsupported variable specified", outputStorage);
-/*    }
+    }
     // id
     MSPersonControl& c = MSNet::getInstance()->getPersonControl();
     std::string id = inputStorage.readString();
@@ -168,11 +169,37 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
     }
     // process
     switch (variable) {
+        case VAR_PARAMETER: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
+            }
+            //readt itemNo
+            inputStorage.readInt();
+            std::string name;
+            if (!server.readTypeCheckingString(inputStorage, name)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
+            }
+            std::string value;
+            if (!server.readTypeCheckingString(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
+            }
+            ((SUMOVehicleParameter&) p->getParameter()).addParameter(name, value);
+                            }
+                            break;
         default:
+            /*
+            try {
+                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_PERSON_VARIABLE, variable, getSingularType(v), server, inputStorage, outputStorage)) {
+                    return false;
+                }
+            } catch (ProcessError& e) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
+            }
+            */
             break;
     }
     server.writeStatusCmd(CMD_SET_PERSON_VARIABLE, RTYPE_OK, warning, outputStorage);
-    return true; */
+    return true; 
 }
 
 
@@ -185,6 +212,19 @@ TraCIServerAPI_Person::getPosition(const std::string& id, Position& p) {
     p = person->getPosition();
     return true;
 }
+
+
+/*
+MSVehicleType&
+TraCIServerAPI_Person::getSingularType(MSPerson* const person) {
+    const MSVehicleType& oType = person->getVehicleType();
+    std::string newID = oType.getID().find('@') == std::string::npos ? oType.getID() + "@" + person->getID() : oType.getID();
+    MSVehicleType* type = MSVehicleType::build(newID, &oType);
+    person->replaceVehicleType(type);
+    return *type;
+}
+*/
+
 
 
 #endif
