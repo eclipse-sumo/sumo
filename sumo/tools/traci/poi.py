@@ -133,3 +133,6 @@ def remove(poiID, layer=0):
     traci._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.REMOVE, poiID, 1+4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
     traci._sendExact()
+
+
+getParameter, setParameter = traci.getParameterAccessors(tc.CMD_GET_POI_VARIABLE, tc.CMD_SET_POI_VARIABLE)

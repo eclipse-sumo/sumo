@@ -137,3 +137,6 @@ def remove(polygonID, layer=0):
     traci._beginMessage(tc.CMD_SET_POLYGON_VARIABLE, tc.REMOVE, polygonID, 1+4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
     traci._sendExact()
+
+
+getParameter, setParameter = traci.getParameterAccessors(tc.CMD_GET_POLYGON_VARIABLE, tc.CMD_SET_POLYGON_VARIABLE)

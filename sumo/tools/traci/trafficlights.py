@@ -250,3 +250,6 @@ def setCompleteRedYellowGreenDefinition(tlsID, tls):
         traci._message.string += struct.pack("!BiBiBi", tc.TYPE_INTEGER, p._duration, tc.TYPE_INTEGER, p._duration1, tc.TYPE_INTEGER, p._duration2)
         traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(p._phaseDef)) + p._phaseDef
     traci._sendExact()
+
+
+getParameter, setParameter = traci.getParameterAccessors(tc.CMD_GET_TL_VARIABLE, tc.CMD_SET_TL_VARIABLE)

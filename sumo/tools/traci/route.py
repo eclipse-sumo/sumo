@@ -84,3 +84,6 @@ def add(routeID, edges):
     for e in edges:
         traci._message.string += struct.pack("!i", len(e)) + e
     traci._sendExact()
+
+
+getParameter, setParameter = traci.getParameterAccessors(tc.CMD_GET_ROUTE_VARIABLE, tc.CMD_SET_ROUTE_VARIABLE)

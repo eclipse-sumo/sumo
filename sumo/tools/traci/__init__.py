@@ -157,6 +157,33 @@ class SubscriptionResults:
 
 
 from . import constants
+
+def getParameterAccessors(cmdGetID, cmdSetID):
+
+    def getParameter(objID, param):
+        """getParameter(string, string) -> string
+        
+        Returns the value of the given parameter for the given objID
+        """
+        _beginMessage(cmdGetID, constants.VAR_PARAMETER, objID, 1+4+len(param))
+        _message.string += struct.pack("!Bi", constants.TYPE_STRING, len(param)) + param
+        result = _checkResult(cmdGetID, constants.VAR_PARAMETER, objID)
+        return result.readString()
+
+    def setParameter(objID, param, value):
+        """setParameter(string, string, string) -> string
+        
+        Sets the value of the given parameter to value for the given objID
+        """
+        _beginMessage(cmdSetID, constants.VAR_PARAMETER, objID, 1+4+1+4+len(param)+1+4+len(value))
+        _message.string += struct.pack("!Bi", constants.TYPE_COMPOUND, 2)
+        _message.string += struct.pack("!Bi", constants.TYPE_STRING, len(param)) + param
+        _message.string += struct.pack("!Bi", constants.TYPE_STRING, len(value)) + value
+        _sendExact()
+
+    return getParameter, setParameter
+
+
 from . import inductionloop, multientryexit, trafficlights
 from . import lane, vehicle, vehicletype, person, route, areal
 from . import poi, polygon, junction, edge, simulation, gui
@@ -432,3 +459,6 @@ def close():
 
 def switch(label):
     _connections[""] = _connections[label]
+
+
+

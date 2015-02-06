@@ -770,3 +770,5 @@ def moveToVTD(vehID, edgeID, lane, x, y):
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, y)
     traci._sendExact()
 
+
+getParameter, setParameter = traci.getParameterAccessors(tc.CMD_GET_VEHICLE_VARIABLE, tc.CMD_SET_VEHICLE_VARIABLE)

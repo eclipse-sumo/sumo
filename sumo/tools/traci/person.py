@@ -173,3 +173,5 @@ def subscribeContext(personID, domain, dist, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANE
 def getContextSubscriptionResults(personID=None):
     return subscriptionResults.getContext(personID)
 
+
+getParameter, setParameter = traci.getParameterAccessors(tc.CMD_GET_PERSON_VARIABLE, tc.CMD_SET_PERSON_VARIABLE)

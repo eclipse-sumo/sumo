@@ -251,3 +251,5 @@ def setMaxSpeed(edgeID, speed):
     Set a new maximum speed (in m/s) for all lanes of the edge.
     """
     traci._sendDoubleCmd(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_MAXSPEED, edgeID, speed)
+
+getParameter, setParameter = traci.getParameterAccessors(tc.CMD_GET_EDGE_VARIABLE, tc.CMD_SET_EDGE_VARIABLE)

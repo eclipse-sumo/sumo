@@ -337,3 +337,6 @@ def setLength(laneID, length):
     Sets the length of the lane in m.
     """
     traci._sendDoubleCmd(tc.CMD_SET_LANE_VARIABLE, tc.VAR_LENGTH, laneID, length)
+
+
+getParameter, setParameter = traci.getParameterAccessors(tc.CMD_GET_LANE_VARIABLE, tc.CMD_SET_LANE_VARIABLE)
