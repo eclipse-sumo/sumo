@@ -59,7 +59,7 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file) :
     myCurrentVType(0),
     myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
-    myFirstDepart(-1) {
+    myFirstDepart(-1), myInsertStopEdgesAt(-1) {
 }
 
 
@@ -190,9 +190,6 @@ SUMORouteHandler::myEndElement(int element) {
             myBeginDefault = string2time(OptionsCont::getOptions().getString("begin"));
             myEndDefault = string2time(OptionsCont::getOptions().getString("end"));
             break;
-        case SUMO_TAG_TRIP:
-            delete myVehicleParameter;
-            myVehicleParameter = 0;
         default:
             break;
     }
@@ -273,7 +270,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (stop.busstop != "") {
         errorSuffix = " at '" + stop.busstop + "'" + errorSuffix;
     } else {
-        errorSuffix = " on lane '" + stop.busstop + "'" + errorSuffix;
+        errorSuffix = " on lane '" + stop.lane + "'" + errorSuffix;
     }
     // get the standing duration
     if (!attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL)) {

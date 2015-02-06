@@ -239,9 +239,12 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
         ret->line = attrs.get<std::string>(SUMO_ATTR_LINE, ret->id.c_str(), ok);
     }
     // parse zone information
-    if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) && attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
-        ret->setParameter |= VEHPARS_TAZ_SET;
+    if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) {
+        ret->setParameter |= VEHPARS_FROM_TAZ_SET;
         ret->fromTaz = attrs.get<std::string>(SUMO_ATTR_FROM_TAZ, ret->id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
+        ret->setParameter |= VEHPARS_TO_TAZ_SET;
         ret->toTaz = attrs.get<std::string>(SUMO_ATTR_TO_TAZ, ret->id.c_str(), ok);
     }
     // parse reroute information

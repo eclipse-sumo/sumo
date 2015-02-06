@@ -426,6 +426,9 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
     UNUSED_PARAMETER(time);
 #endif
     if (checkOnly) {
+        if (v.getEdge()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
+            return true;
+        }
         switch (v.getParameter().departLaneProcedure) {
             case DEPART_LANE_GIVEN:
             case DEPART_LANE_DEFAULT:

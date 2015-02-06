@@ -1108,6 +1108,10 @@ protected:
     /// updates LaneQ::nextOccupation and myCurrentLaneInBestLanes
     void updateOccupancyAndCurrentBestLane(const MSLane* startLane);
 
+    /** @brief Returns the list of still pending stop edges
+     */
+    const std::vector<const MSEdge*> getStopEdges() const;
+
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
     SUMOTime myWaitingTime;

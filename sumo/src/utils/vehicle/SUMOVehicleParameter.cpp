@@ -231,8 +231,11 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
     if (wasSet(VEHPARS_LINE_SET)) {
         dev.writeAttr(SUMO_ATTR_LINE, line);
     }
-    if (wasSet(VEHPARS_TAZ_SET)) {
-        dev.writeAttr(SUMO_ATTR_FROM_TAZ, fromTaz).writeAttr(SUMO_ATTR_TO_TAZ, toTaz);
+    if (wasSet(VEHPARS_FROM_TAZ_SET)) {
+        dev.writeAttr(SUMO_ATTR_FROM_TAZ, fromTaz);
+    }
+    if (wasSet(VEHPARS_TO_TAZ_SET)) {
+        dev.writeAttr(SUMO_ATTR_TO_TAZ, toTaz);
     }
     if (wasSet(VEHPARS_PERSON_CAPACITY_SET)) {
         dev.writeAttr(SUMO_ATTR_PERSON_CAPACITY, personCapacity);

@@ -87,6 +87,53 @@ MSRouteHandler::~MSRouteHandler() {
 
 
 void
+MSRouteHandler::parseFromViaTo(std::string element,
+                               const SUMOSAXAttributes& attrs) {
+    bool useTaz = OptionsCont::getOptions().getBool("with-taz");
+    if (useTaz && !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
+        WRITE_WARNING("Taz usage was requested but no taz present in " + element + " '" + myVehicleParameter->id + "'!");
+        useTaz = false;
+    }
+    bool ok = true;
+    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) && myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET)) {
+        const MSEdge* fromTaz = MSEdge::dictionary(myVehicleParameter->fromTaz + "-source");
+        if (fromTaz == 0) {
+            throw ProcessError("Source taz '" + myVehicleParameter->fromTaz + "' not known for " + element + " '" + myVehicleParameter->id + "'!");
+        } else if (fromTaz->getNumSuccessors() == 0) {
+            throw ProcessError("Source taz '" + myVehicleParameter->fromTaz + "' has no outgoing edges for " + element + " '" + myVehicleParameter->id + "'!");
+        } else {
+            myActiveRoute.push_back(fromTaz);
+        }
+    } else {
+        MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "", true),
+                   myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+    }
+    if (!attrs.hasAttribute(SUMO_ATTR_VIA) && !attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
+        myInsertStopEdgesAt = (int)myActiveRoute.size();
+    }
+    MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true),
+               myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) && myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
+        const MSEdge* toTaz = MSEdge::dictionary(myVehicleParameter->toTaz + "-sink");
+        if (toTaz == 0) {
+            throw ProcessError("Sink taz '" + myVehicleParameter->toTaz + "' not known for " + element + " '" + myVehicleParameter->id + "'!");
+        } else if (toTaz->getNumPredecessors() == 0) {
+            throw ProcessError("Sink taz '" + myVehicleParameter->toTaz + "' has no incoming edges for " + element + " '" + myVehicleParameter->id + "'!");
+        } else {
+            myActiveRoute.push_back(toTaz);
+        }
+    } else {
+        MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "", true),
+                               myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+    }
+    myActiveRouteID = "!" + myVehicleParameter->id;
+    if (myVehicleParameter->routeid == "") {
+        myVehicleParameter->routeid = myActiveRouteID;
+    }
+}
+
+
+void
 MSRouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
     SUMORouteHandler::myStartElement(element, attrs);
@@ -206,38 +253,11 @@ MSRouteHandler::myStartElement(int element,
             break;
         }
         case SUMO_TAG_FLOW:
-            if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
-                myActiveRouteID = "!" + myVehicleParameter->id;
-                bool ok = true;
-                MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
-                                       myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
-                MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok),
-                                       myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
-                closeRoute(true);
-                myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
-            }
+            parseFromViaTo("flow", attrs);
             break;
-        case SUMO_TAG_TRIP: {
-            bool ok = true;
-            if (attrs.hasAttribute(SUMO_ATTR_FROM) || !myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
-                MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
-                                       myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
-                MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok),
-                                       myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
-            } else {
-                const MSEdge* fromTaz = MSEdge::dictionary(myVehicleParameter->fromTaz + "-source");
-                if (fromTaz == 0) {
-                    WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' not known for '" + myVehicleParameter->id + "'!");
-                } else if (fromTaz->getNumSuccessors() == 0) {
-                    WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' has no outgoing edges for '" + myVehicleParameter->id + "'!");
-                } else {
-                    myActiveRoute.push_back(fromTaz->getSuccessor(0));
-                }
-            }
-            closeRoute(true);
-            closeVehicle();
-        }
-        break;
+        case SUMO_TAG_TRIP:
+            parseFromViaTo("trip", attrs);
+            break;
         default:
             break;
     }
@@ -293,6 +313,8 @@ MSRouteHandler::closeVehicleTypeDistribution() {
 
 void
 MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
+    myActiveRoute.clear();
+    myInsertStopEdgesAt = -1;
     // check whether the id is really necessary
     std::string rid;
     if (myCurrentRouteDistribution != 0) {
@@ -354,6 +376,14 @@ MSRouteHandler::myEndElement(int element) {
             }
         }
         break;
+        case SUMO_TAG_TRIP:
+            myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
+            closeRoute(true);
+            closeVehicle();
+            delete myVehicleParameter;
+            myVehicleParameter = 0;
+            myInsertStopEdgesAt = -1;
+            break;
         default:
             break;
     }
@@ -361,7 +391,15 @@ MSRouteHandler::myEndElement(int element) {
 
 
 void
-MSRouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
+MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
+    std::string type = "vehicle";
+    if (mayBeDisconnected) {
+        if (myVehicleParameter->repetitionNumber >= 0) {
+            type = "flow";
+        } else {
+            type = "trip";
+        }
+    }
     if (myActiveRoute.size() == 0) {
         delete myActiveRouteColor;
         myActiveRouteColor = 0;
@@ -377,10 +415,13 @@ MSRouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
             return;
         }
         if (myVehicleParameter != 0) {
-            throw ProcessError("Vehicle's '" + myVehicleParameter->id + "' route has no edges.");
+            throw ProcessError("The route for " + type + " '" + myVehicleParameter->id + "' has no edges.");
         } else {
             throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         }
+    }
+    if (myActiveRoute.size() == 1 && myActiveRoute.front()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
+        throw ProcessError("The routing information for " + type + " '" + myVehicleParameter->id + "' is insufficient.");
     }
     MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
                                  myVehicleParameter == 0 || myVehicleParameter->repetitionNumber >= 1,
@@ -392,7 +433,7 @@ MSRouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
         if (!MSGlobals::gStateLoaded) {
             if (myVehicleParameter != 0) {
                 if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id) == 0) {
-                    throw ProcessError("Another route for vehicle '" + myVehicleParameter->id + "' exists.");
+                    throw ProcessError("Another route for " + type + " '" + myVehicleParameter->id + "' exists.");
                 } else {
                     throw ProcessError("A vehicle with id '" + myVehicleParameter->id + "' already exists.");
                 }
@@ -618,31 +659,12 @@ MSRouteHandler::closeFlow() {
     if (MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG) == 0) {
         throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for flow '" + myVehicleParameter->id + "' is not known.");
     }
-    if (MSRoute::dictionary("!" + myVehicleParameter->id, &myParsingRNG) == 0) {
-        // if not, try via the (hopefully) given route-id
-        if (MSRoute::dictionary(myVehicleParameter->routeid, &myParsingRNG) == 0) {
-            if (myVehicleParameter->routeid != "") {
-                throw ProcessError("The route '" + myVehicleParameter->routeid + "' for flow '" + myVehicleParameter->id + "' is not known.");
-            } else {
-                if (myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
-                    myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
-                    const MSEdge* fromTaz = MSEdge::dictionary(myVehicleParameter->fromTaz + "-source");
-                    if (fromTaz == 0) {
-                        WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' not known for '" + myVehicleParameter->id + "'!");
-                    } else if (fromTaz->getNumSuccessors() == 0) {
-                        WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' has no outgoing edges for '" + myVehicleParameter->id + "'!");
-                    } else {
-                        myActiveRoute.push_back(fromTaz->getSuccessor(0));
-                    }
-                    closeRoute(true);
-                    myVehicleParameter->routeid = "!" + myVehicleParameter->id;
-                } else {
-                    throw ProcessError("Flow '" + myVehicleParameter->id + "' has no route.");
-                }
-            }
-        }
-    } else {
-        myVehicleParameter->routeid = "!" + myVehicleParameter->id;
+    if (myVehicleParameter->routeid[0] == '!' && MSRoute::dictionary(myVehicleParameter->routeid, &myParsingRNG) == 0) {
+        myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
+        closeRoute(true);
+    }
+    if (MSRoute::dictionary(myVehicleParameter->routeid, &myParsingRNG) == 0) {
+        throw ProcessError("The route '" + myVehicleParameter->routeid + "' for flow '" + myVehicleParameter->id + "' is not known.");
     }
     myActiveRouteID = "";
 
@@ -653,37 +675,39 @@ MSRouteHandler::closeFlow() {
         registerLastDepart();
     }
     myVehicleParameter = 0;
+    myInsertStopEdgesAt = -1;
 }
 
 
 void
 MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     std::string errorSuffix;
-    if (myActiveRouteID != "") {
-        errorSuffix = " in route '" + myActiveRouteID + "'.";
-    } else if (myActivePlan) {
+    if (myActivePlan != 0) {
         errorSuffix = " in person '" + myVehicleParameter->id + "'.";
-    } else {
+    } else if (myVehicleParameter != 0) {
         errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
+    } else {
+        errorSuffix = " in route '" + myActiveRouteID + "'.";
     }
     SUMOVehicleParameter::Stop stop;
     bool ok = parseStop(stop, attrs, errorSuffix, MsgHandler::getErrorInstance());
     if (!ok) {
         return;
     }
+    MSEdge* edge = 0;
     // try to parse the assigned bus stop
     if (stop.busstop != "") {
         // ok, we have obviously a bus stop
         MSBusStop* bs = MSNet::getInstance()->getBusStop(stop.busstop);
-        if (bs != 0) {
-            const MSLane& l = bs->getLane();
-            stop.lane = l.getID();
-            stop.endPos = bs->getEndLanePosition();
-            stop.startPos = bs->getBeginLanePosition();
-        } else {
+        if (bs == 0) {
             WRITE_ERROR("The bus stop '" + stop.busstop + "' is not known" + errorSuffix);
             return;
         }
+        const MSLane& l = bs->getLane();
+        stop.lane = l.getID();
+        stop.endPos = bs->getEndLanePosition();
+        stop.startPos = bs->getBeginLanePosition();
+        edge = &l.getEdge();
     } else {
         // no, the lane and the position should be given
         // get the lane
@@ -697,14 +721,15 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("A stop must be placed on a bus stop or a lane" + errorSuffix);
             return;
         }
+        edge = &MSLane::dictionary(stop.lane)->getEdge();
         if (myActivePlan &&
                 !myActivePlan->empty() &&
-                &myActivePlan->back()->getDestination() != &MSLane::dictionary(stop.lane)->getEdge()) {
-            throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + MSLane::dictionary(stop.lane)->getEdge().getID() + "!=" + myActivePlan->back()->getDestination().getID() + ").");
+                &myActivePlan->back()->getDestination() != edge) {
+            throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + edge->getID() + "!=" + myActivePlan->back()->getDestination().getID() + ").");
         }
         if (myActivePlan && myActivePlan->empty()) {
             myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
-                                        MSLane::dictionary(stop.lane)->getEdge(), -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
+                                        *edge, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
         }
         stop.endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, 0, ok, MSLane::dictionary(stop.lane)->getLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
@@ -718,14 +743,18 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             return;
         }
     }
-    if (myActiveRouteID != "") {
-        myActiveRouteStops.push_back(stop);
-    } else if (myActivePlan) {
+    if (myActivePlan != 0) {
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, 0, ok, "waiting");
         myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
                                     MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until, stop.startPos, actType));
-    } else {
+    } else if (myVehicleParameter != 0) {
         myVehicleParameter->stops.push_back(stop);
+    } else {
+        myActiveRouteStops.push_back(stop);
+    }
+    if (myInsertStopEdgesAt >= 0) {
+        myActiveRoute.insert(myActiveRoute.begin() + myInsertStopEdgesAt, edge);
+        myInsertStopEdgesAt++;
     }
 }
 

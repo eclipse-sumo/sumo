@@ -186,6 +186,9 @@ protected:
     /// @brief the first read departure time
     SUMOTime myFirstDepart;
 
+    /// @brief where stop edges can be inserted into the current route (-1 means no insertion)
+    int myInsertStopEdgesAt;
+
 private:
     /// @brief Invalidated copy constructor
     SUMORouteHandler(const SUMORouteHandler& s);

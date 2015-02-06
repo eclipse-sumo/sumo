@@ -270,11 +270,14 @@ public:
     /// @name Access to succeeding/predecessing edges
     /// @{
 
-    /** @brief Returns the list of edges which may be reached from this edge
-     * @return Edges reachable from this edge
+    /** @brief Adds an edge to the list of edges which may be reached from this edge and to the incoming of the other edge
+     *
+     * This is mainly used by the taz (district) parsing
+     * @param[in] edge The edge to add
      */
     void addSuccessor(MSEdge* edge) {
         mySuccessors.push_back(edge);
+        edge->myPredecessors.push_back(this);
     }
 
 

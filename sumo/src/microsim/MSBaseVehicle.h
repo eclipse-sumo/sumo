@@ -156,7 +156,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, bool withTaz = false);
+    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false);
 
 
     /** @brief Replaces the current route by the given edges
@@ -315,6 +315,10 @@ protected:
     /** @brief (Re-)Calculates the arrival position from the vehicle parameters
      */
     void calculateArrivalPos();
+
+    /** @brief Returns the list of still pending stop edges
+     */
+    virtual const std::vector<const MSEdge*> getStopEdges() const = 0;
 
 protected:
     /// @brief This Vehicle's parameter.

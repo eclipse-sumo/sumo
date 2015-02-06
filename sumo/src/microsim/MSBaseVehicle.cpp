@@ -83,7 +83,9 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
         myMoveReminders.push_back(std::make_pair(*dev, 0.));
     }
     myRoute->addReference();
-    calculateArrivalPos();
+    if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
+        calculateArrivalPos();
+    }
 }
 
 MSBaseVehicle::~MSBaseVehicle() {
@@ -133,28 +135,43 @@ MSBaseVehicle::getEdge() const {
 
 
 void
-MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, bool withTaz) {
+MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz) {
     // check whether to reroute
+    const MSEdge* source = withTaz && onInit ? MSEdge::dictionary(myParameter->fromTaz + "-source") : getRerouteOrigin();
+    if (source == 0) {
+        source = getRerouteOrigin();
+    }
+    const MSEdge* sink = withTaz ? MSEdge::dictionary(myParameter->toTaz + "-sink") : myRoute->getLastEdge();
+    if (sink == 0) {
+        sink = myRoute->getLastEdge();
+    }
     std::vector<const MSEdge*> edges;
-    if (withTaz && MSEdge::dictionary(myParameter->fromTaz + "-source") && MSEdge::dictionary(myParameter->toTaz + "-sink")) {
-        router.compute(MSEdge::dictionary(myParameter->fromTaz + "-source"), MSEdge::dictionary(myParameter->toTaz + "-sink"), this, t, edges);
-        if (edges.size() >= 2) {
-            edges.erase(edges.begin());
+    const std::vector<const MSEdge*> stops = getStopEdges();
+    for (MSRouteIterator s = stops.begin(); s != stops.end(); ++s) {
+        if (*s != source) {
+            // !!! need to adapt t here
+            router.compute(source, *s, this, t, edges);
+            source = *s;
             edges.pop_back();
         }
-    } else {
-        router.compute(getRerouteOrigin(), myRoute->getLastEdge(), this, t, edges);
     }
-    if (edges.empty()) {
-        WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
-        return;
+    router.compute(source, sink, this, t, edges);
+    if (!edges.empty() && edges.front()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
+        edges.erase(edges.begin());
     }
-    replaceRouteEdges(edges, withTaz);
+    if (!edges.empty() && edges.back()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
+        edges.pop_back();
+    }
+    replaceRouteEdges(edges, onInit);
 }
 
 
 bool
 MSBaseVehicle::replaceRouteEdges(MSEdgeVector& edges, bool onInit) {
+    if (edges.empty()) {
+        WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
+        return false;
+    }
     // build a new id, first
     std::string id = getID();
     if (id[0] != '!') {

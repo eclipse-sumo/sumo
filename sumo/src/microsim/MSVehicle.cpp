@@ -407,18 +407,20 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     , myInfluencer(0)
 #endif
 {
-    if (pars->departLaneProcedure == DEPART_LANE_GIVEN) {
-        if ((*myCurrEdge)->getDepartLane(*this) == 0) {
-            throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
+    if ((*myCurrEdge)->getPurpose() != MSEdge::EDGEFUNCTION_DISTRICT) {
+        if (pars->departLaneProcedure == DEPART_LANE_GIVEN) {
+            if ((*myCurrEdge)->getDepartLane(*this) == 0) {
+                throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
+            }
+        } else {
+            if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == 0) {
+                throw ProcessError("Vehicle '" + pars->id + "' is not allowed to depart on any lane of its first edge.");
+            }
         }
-    } else {
-        if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == 0) {
-            throw ProcessError("Vehicle '" + pars->id + "' is not allowed to depart on any lane of its first edge.");
+        if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > type->getMaxSpeed()) {
+            throw ProcessError("Departure speed for vehicle '" + pars->id +
+                               "' is too high for the vehicle type '" + type->getID() + "'.");
         }
-    }
-    if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > type->getMaxSpeed()) {
-        throw ProcessError("Departure speed for vehicle '" + pars->id +
-                           "' is too high for the vehicle type '" + type->getID() + "'.");
     }
     myLaneChangeModel = MSAbstractLaneChangeModel::build(type->getLaneChangeModel(), *this);
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
@@ -882,6 +884,16 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
         }
     }
     return currentVelocity;
+}
+
+
+const std::vector<const MSEdge*>
+MSVehicle::getStopEdges() const {
+    std::vector<const MSEdge*> result;
+    for (std::list<Stop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
+        result.push_back(*iter->edge);
+    }
+    return result;
 }
 
 

@@ -62,10 +62,11 @@ const int VEHPARS_ARRIVALLANE_SET = 2 << 7;
 const int VEHPARS_ARRIVALPOS_SET = 2 << 8;
 const int VEHPARS_ARRIVALSPEED_SET = 2 << 9;
 const int VEHPARS_LINE_SET = 2 << 10;
-const int VEHPARS_TAZ_SET = 2 << 11;
-const int VEHPARS_FORCE_REROUTE = 2 << 12;
-const int VEHPARS_PERSON_CAPACITY_SET = 2 << 13;
-const int VEHPARS_PERSON_NUMBER_SET = 2 << 14;
+const int VEHPARS_FROM_TAZ_SET = 2 << 11;
+const int VEHPARS_TO_TAZ_SET = 2 << 12;
+const int VEHPARS_FORCE_REROUTE = 2 << 13;
+const int VEHPARS_PERSON_CAPACITY_SET = 2 << 14;
+const int VEHPARS_PERSON_NUMBER_SET = 2 << 15;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
