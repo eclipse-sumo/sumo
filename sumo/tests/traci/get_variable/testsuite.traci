@@ -19,6 +19,9 @@ Vehicle
 # Tests retrieval of variables from vehicle types (0xa5)
 VehicleType
 
+# Tests retrieval of variables from vehicles (0xae)
+Person
+
 # Tests retrieval of variables from routes (0xa6)
 Route
 
@@ -36,7 +39,3 @@ Edge
 
 # Tests retrieval of variables from the simulation (0xab)
 Simulation
-
-
-
-

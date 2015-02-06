@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Fri Feb  6 08:52:06 2015
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=174 varID=64 objID=xxx
+.. Answered with error to command (174), [description: Person 'xxx' is not known]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]
