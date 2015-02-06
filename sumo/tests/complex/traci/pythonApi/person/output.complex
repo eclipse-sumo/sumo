@@ -1,0 +1,57 @@
+Loading configuration... done.
+step 0
+step 1
+step 2
+persons ['horiz']
+person count 1
+examining horiz
+speed 1.19097406556
+pos (759.16763946655874, 502.32500000000005)
+angle -90.0
+road 2fi
+type DEFAULT_PEDTYPE
+lanePos 240.832360533
+color (255, 255, 0, 255)
+length 0.215
+MinGap 0.25
+width 0.478
+waiting time 0.0
+{80: '2fi', 86: 240.8323605334412}
+step 3
+{80: '2fi', 86: 242.20861624975481}
+step 4
+{80: '2fi', 86: 243.46099258275029}
+step 5
+{80: '2fi', 86: 244.68600513941297}
+persons ['horiz']
+person count 1
+examining horiz
+speed 1.22501255666
+pos (755.31399486058706, 502.32500000000005)
+angle -90.0
+road 2fi
+type DEFAULT_PEDTYPE
+lanePos 244.686005139
+color (255, 255, 0, 255)
+length 0.215
+MinGap 0.25
+width 0.478
+waiting time 0.0
+persons ['horiz']
+person count 1
+examining bla
+speed recovering from exception after asking for unknown person
+step 6
+getIDList ['horiz']
+step 7
+{80: '2fi', 86: 247.24520813541795}
+step 8
+{80: '2si', 86: 0.065346881488522968}
+step 9
+{80: '2si', 86: 1.3027704289156929}
+step 10
+{80: '2si', 86: 2.4846816914052376}
+step 11
+{80: '2si', 86: 3.8718941666108022}
+step 12
+{80: '2si', 86: 5.0738375271773775}
