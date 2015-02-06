@@ -1,3 +1,2 @@
-Error: Source district '1' has no outgoing edges for '0'!
-Error: Vehicle's '0' route has no edges.
+Error: Source taz '1' has no outgoing edges for trip '0'!
 Quitting (on error).
