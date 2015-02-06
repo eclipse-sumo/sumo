@@ -440,6 +440,7 @@ TraCIServer::dispatchCommand() {
             case CMD_SUBSCRIBE_TL_VARIABLE:
             case CMD_SUBSCRIBE_LANE_VARIABLE:
             case CMD_SUBSCRIBE_VEHICLE_VARIABLE:
+            case CMD_SUBSCRIBE_PERSON_VARIABLE:
             case CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE:
             case CMD_SUBSCRIBE_ROUTE_VARIABLE:
             case CMD_SUBSCRIBE_POI_VARIABLE:
@@ -455,6 +456,7 @@ TraCIServer::dispatchCommand() {
             case CMD_SUBSCRIBE_TL_CONTEXT:
             case CMD_SUBSCRIBE_LANE_CONTEXT:
             case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+            case CMD_SUBSCRIBE_PERSON_CONTEXT:
             case CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
             case CMD_SUBSCRIBE_ROUTE_CONTEXT:
             case CMD_SUBSCRIBE_POI_CONTEXT:
@@ -640,6 +642,12 @@ TraCIServer::findObjectShape(int domain, const std::string& id, PositionVector& 
             break;
         case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
             if (TraCIServerAPI_Vehicle::getPosition(id, p)) {
+                shape.push_back(p);
+                return true;
+            }
+            break;
+        case CMD_SUBSCRIBE_PERSON_CONTEXT:
+            if (TraCIServerAPI_Person::getPosition(id, p)) {
                 shape.push_back(p);
                 return true;
             }

@@ -176,6 +176,17 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
 }
 
 
+bool
+TraCIServerAPI_Person::getPosition(const std::string& id, Position& p) {
+    MSPerson* person = dynamic_cast<MSPerson*>(MSNet::getInstance()->getPersonControl().get(id));
+    if (person == 0) {
+        return false;
+    }
+    p = person->getPosition();
+    return true;
+}
+
+
 #endif
 
 
