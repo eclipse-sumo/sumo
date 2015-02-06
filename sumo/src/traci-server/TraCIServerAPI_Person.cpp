@@ -54,12 +54,12 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable != ID_LIST && variable != VAR_POSITION && variable != VAR_ANGLE
-            && variable != VAR_ROAD_ID && variable != VAR_COLOR && variable != VAR_LANEPOSITION
-            && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
-            && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
-            && variable != VAR_TAU && variable != VAR_BEST_LANES && variable != DISTANCE_REQUEST
-            && variable != ID_COUNT && variable != VAR_STOPSTATE && variable !=  VAR_WAITING_TIME
+    if (variable != ID_LIST && variable != ID_COUNT 
+            && variable != VAR_POSITION && variable != VAR_POSITION3D && variable != VAR_ANGLE && variable != VAR_SPEED
+            && variable != VAR_ROAD_ID && variable != VAR_LANEPOSITION
+            && variable != VAR_WIDTH && variable != VAR_LENGTH && variable != VAR_MINGAP 
+            && variable != VAR_TYPE && variable != VAR_SHAPECLASS && variable != VAR_COLOR
+            && variable != VAR_WAITING_TIME && variable != VAR_PARAMETER 
        ) {
         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable specified", outputStorage);
     }
@@ -94,9 +94,19 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 tempMsg.writeDouble(p->getPosition().y());
                 }
                 break;
+            case VAR_POSITION3D:
+                tempMsg.writeUnsignedByte(POSITION_3D);
+                tempMsg.writeDouble(p->getPosition().x());
+                tempMsg.writeDouble(p->getPosition().y());
+                tempMsg.writeDouble(p->getPosition().z());
+                break;
             case VAR_ANGLE:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(p->getAngle());
+                break;
+            case VAR_SPEED:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(p->getSpeed());
                 break;
             case VAR_ROAD_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
@@ -113,6 +123,22 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 tempMsg.writeUnsignedByte(p->getParameter().color.blue());
                 tempMsg.writeUnsignedByte(p->getParameter().color.alpha());
                 break;
+            case VAR_WAITING_TIME:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(p->getWaitingSeconds());
+                break;
+            case VAR_TYPE:
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(p->getVehicleType().getID());
+                break;
+            case VAR_PARAMETER: {
+                std::string paramName = "";
+                if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                }
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(p->getParameter().getParameter(paramName, ""));
+            }
             default:
                 TraCIServerAPI_VehicleType::getVariable(variable, p->getVehicleType(), tempMsg);
                 break;
