@@ -83,9 +83,6 @@ NWFrame::fillOptions(bool forNetgen) {
     }
 #endif // HAVE_PROJ
 
-    oc.doRegister("map-output", 'M', new Option_FileName());
-    oc.addDescription("map-output", "Output", "Writes joined edges information to FILE");
-
     oc.doRegister("amitran-output", new Option_FileName());
     oc.addDescription("amitran-output", "Output", "The generated net will be written to FILE using Amitran format");
 
@@ -139,12 +136,6 @@ NWFrame::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NWWriter_OpenDrive::writeNetwork(oc, nb);
     NWWriter_DlrNavteq::writeNetwork(oc, nb);
     NWWriter_XML::writeNetwork(oc, nb);
-    // save the mapping information when wished
-    if (oc.isSet("map-output")) {
-        OutputDevice& mdevice = OutputDevice::getDevice(oc.getString("map-output"));
-        mdevice << nb.getJoinedEdgesMap();
-        mdevice.close();
-    }
 }
 
 

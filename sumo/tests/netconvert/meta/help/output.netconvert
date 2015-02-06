@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r17743ID
+SUMO netconvert Version dev-SVN-r17805
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -45,7 +45,6 @@ Output Options:
   --junctions.join-output FILE         Writes information about joined
                                          junctions to FILE (can be loaded as
                                          additional node-file to reproduce joins
-  -M, --map-output FILE                Writes joined edges information to FILE
   --amitran-output FILE                The generated net will be written to
                                          FILE using Amitran format
   --matsim-output FILE                 The generated net will be written to
