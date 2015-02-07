@@ -313,7 +313,7 @@
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME"/>
 
         <!-- Use zones (districts) as routing end points -->
-        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz" type="BOOL"/>
+        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL"/>
 
         <!-- Use given weight files for initializing edge weights -->
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL"/>

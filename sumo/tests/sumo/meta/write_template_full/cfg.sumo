@@ -122,7 +122,7 @@
         <device.rerouting.pre-period value="1" synonymes="device.routing.pre-period" type="TIME" help="The rerouting period before depart"/>
         <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights"/>
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights"/>
-        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz" type="BOOL" help="Use zones (districts) as routing end points"/>
+        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL" help="Use zones (districts) as routing end points"/>
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use given weight files for initializing edge weights"/>
         <device.rerouting.shortest-path-file value="" type="FILE" help="Initialize lookup table for astar from the given distance matrix"/>
         <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
