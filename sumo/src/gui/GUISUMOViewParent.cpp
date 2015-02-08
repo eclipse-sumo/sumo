@@ -133,11 +133,11 @@ GUISUMOViewParent::~GUISUMOViewParent() {
 
 
 void
-GUISUMOViewParent::toggleGaming() {
-    if (myParent->isGaming()) {
-        myNavigationToolBar->hide();
-    } else {
+GUISUMOViewParent::setToolBarVisibility(const bool value) {
+    if (value) {
         myNavigationToolBar->show();
+    } else {
+        myNavigationToolBar->hide();
     }
 }
 

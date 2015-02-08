@@ -120,7 +120,7 @@ public:
     bool isSelected(GUIGlObject* o) const;
 
     /// @notify about toggled gaming status
-    void toggleGaming();
+    void setToolBarVisibility(const bool value);
 
 protected:
     /// @brief FOX needs this

@@ -964,6 +964,12 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::GREEN));
         gSchemeStorage.getDefault().gaming = false;
     }
+    if (myMDIClient->numChildren() > 0) {
+        GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+        if (w != 0) {
+            w->setToolBarVisibility(!myAmGaming && !myAmFullScreen);
+        }
+    }
     update();
     return 1;
 }
@@ -990,6 +996,12 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
         myToolBar6->hide();
         myToolBar7->hide();
         myMessageWindow->hide();
+        if (myMDIClient->numChildren() > 0) {
+            GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+            if (w != 0) {
+                w->setToolBarVisibility(false);
+            }
+        }
         update();
     } else {
         place(PLACEMENT_VISIBLE);
