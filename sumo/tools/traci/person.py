@@ -3,7 +3,7 @@
 @file    person.py
 @author  Jakob Erdmann
 @date    2015-02-06
-@version $Id: person.py 17521 2014-12-18 12:40:42Z namdre $
+@version $Id$
 
 Python implementation of the TraCI interface.
 

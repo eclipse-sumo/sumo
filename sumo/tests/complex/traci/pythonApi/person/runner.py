@@ -4,7 +4,7 @@
 @file    runner.py
 @author  Jakob Erdmann
 @date    2015-02-06
-@version $Id: runner.py 17235 2014-11-03 10:53:02Z behrisch $
+@version $Id$
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
