@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 29 11:02:55 2015 by SUMO netconvert Version dev-SVN-r17735ID
+<!-- generated on Mon Feb  9 17:11:10 2015 by SUMO netconvert Version dev-SVN-r17814ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -30,71 +30,71 @@
     <location netOffset="43.24,-44.37" convBoundary="0.00,0.00,299.61,35.08" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" disallow="pedestrian" speed="13.89" length="7.44" shape="171.44,14.39 170.87,11.71 170.12,9.79 169.19,8.65 168.09,8.27"/>
+        <lane id=":gneJ0_0_0" index="0" disallow="pedestrian" speed="13.89" length="6.94" shape="171.35,13.79 170.81,11.37 170.07,9.64 169.13,8.61 168.00,8.27"/>
     </edge>
     <edge id=":gneJ0_1" function="internal">
-        <lane id=":gneJ0_1_0" index="0" disallow="pedestrian" speed="13.89" length="5.92" shape="173.94,5.01 168.06,4.97"/>
-        <lane id=":gneJ0_1_1" index="1" disallow="pedestrian" speed="13.89" length="5.92" shape="174.00,1.71 168.04,1.67"/>
+        <lane id=":gneJ0_1_0" index="0" disallow="pedestrian" speed="13.89" length="5.90" shape="173.83,5.01 167.97,4.97"/>
+        <lane id=":gneJ0_1_1" index="1" disallow="pedestrian" speed="13.89" length="5.90" shape="173.89,1.71 167.95,1.67"/>
     </edge>
     <edge id=":gneJ0_c0" function="crossing" crossingEdges="cyclepath_in">
-        <lane id=":gneJ0_c0_0" index="0" allow="pedestrian" speed="1.00" length="3.20" width="4.00" shape="172.71,12.16 169.55,12.67"/>
+        <lane id=":gneJ0_c0_0" index="0" allow="pedestrian" speed="1.00" length="3.20" width="4.00" shape="172.61,11.56 169.45,12.07"/>
     </edge>
     <edge id=":gneJ0_w0" function="walkingarea">
-        <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.02" width="4.00" shape="172.39,10.19 173.02,14.14 173.84,9.91 173.91,6.71"/>
+        <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.03" width="4.00" shape="172.30,9.59 172.93,13.54 173.76,8.71 173.80,6.71"/>
     </edge>
     <edge id=":gneJ0_w1" function="walkingarea">
-        <lane id=":gneJ0_w1_0" index="0" allow="pedestrian" speed="1.00" length="1.80" width="4.00" shape="168.10,9.97 168.13,13.17 169.86,14.64 169.23,10.69"/>
+        <lane id=":gneJ0_w1_0" index="0" allow="pedestrian" speed="1.00" length="1.80" width="4.00" shape="168.01,9.97 168.03,11.97 169.77,14.04 169.14,10.09"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" allow="bicycle" speed="13.89" length="8.68" shape="81.75,8.95 80.07,9.31 78.51,10.37 77.07,12.13 75.74,14.59"/>
+        <lane id=":gneJ1_0_0" index="0" allow="bicycle" speed="13.89" length="8.06" shape="81.75,8.95 80.09,9.27 78.58,10.22 77.22,11.79 76.01,13.99"/>
     </edge>
     <edge id=":gneJ1_1" function="internal">
-        <lane id=":gneJ1_1_0" index="0" disallow="pedestrian" speed="13.89" length="7.55" shape="81.73,5.65 74.19,5.76"/>
-        <lane id=":gneJ1_1_1" index="1" disallow="pedestrian" speed="13.89" length="7.55" shape="81.70,2.35 74.14,2.46"/>
+        <lane id=":gneJ1_1_0" index="0" disallow="pedestrian" speed="13.89" length="7.27" shape="81.73,5.65 74.47,5.75"/>
+        <lane id=":gneJ1_1_1" index="1" disallow="pedestrian" speed="13.89" length="7.27" shape="81.70,2.35 74.42,2.45"/>
     </edge>
     <edge id=":gneJ1_c0" function="crossing" crossingEdges="cyclepath_out">
-        <lane id=":gneJ1_c0_0" index="0" allow="pedestrian" speed="1.00" length="3.20" width="4.00" shape="78.02,13.42 75.11,12.11"/>
+        <lane id=":gneJ1_c0_0" index="0" allow="pedestrian" speed="1.00" length="3.20" width="4.00" shape="78.29,12.82 75.38,11.51"/>
     </edge>
     <edge id=":gneJ1_w0" function="walkingarea">
-        <lane id=":gneJ1_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.94" width="4.00" shape="78.84,11.60 77.20,15.25 81.79,13.85 81.77,10.65"/>
+        <lane id=":gneJ1_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.67" width="4.00" shape="79.12,11.00 77.47,14.64 81.78,12.65 81.77,10.65"/>
     </edge>
     <edge id=":gneJ1_w1" function="walkingarea">
-        <lane id=":gneJ1_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.17" width="4.00" shape="74.22,7.46 74.27,10.66 74.28,13.93 75.93,10.28"/>
+        <lane id=":gneJ1_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.17" width="4.00" shape="74.50,7.45 74.53,9.45 74.56,13.33 76.20,9.68"/>
     </edge>
 
     <edge id="beg" from="gneJ4" to="gneJ0" priority="1">
-        <lane id="beg_0" index="0" allow="pedestrian" speed="13.89" length="125.60" shape="299.45,10.73 173.88,8.31"/>
-        <lane id="beg_1" index="1" disallow="pedestrian" speed="13.89" length="125.60" shape="299.51,7.43 173.94,5.01"/>
-        <lane id="beg_2" index="2" disallow="pedestrian" speed="13.89" length="125.60" shape="299.58,4.13 174.00,1.71"/>
+        <lane id="beg_0" index="0" allow="pedestrian" speed="13.89" length="125.71" width="2.00" shape="299.46,10.13 173.78,7.71"/>
+        <lane id="beg_1" index="1" disallow="pedestrian" speed="13.89" length="125.71" shape="299.51,7.43 173.83,5.01"/>
+        <lane id="beg_2" index="2" disallow="pedestrian" speed="13.89" length="125.71" shape="299.58,4.13 173.89,1.71"/>
     </edge>
     <edge id="cyclepath_in" from="gneJ5" to="gneJ0" priority="1" shape="294.58,35.08 173.87,19.13 170.82,0.00">
-        <lane id="cyclepath_in_0" index="0" allow="bicycle" speed="13.89" length="129.28" shape="294.36,36.72 172.43,20.60 171.44,14.39"/>
+        <lane id="cyclepath_in_0" index="0" allow="bicycle" speed="13.89" length="129.89" shape="294.36,36.72 172.43,20.60 171.35,13.79"/>
     </edge>
     <edge id="cyclepath_out" from="gneJ1" to="gneJ3" priority="1" shape="80.19,0.71 68.21,27.28 0.00,30.01">
-        <lane id="cyclepath_out_0" index="0" allow="bicycle" speed="13.89" length="84.97" shape="75.74,14.59 69.29,28.89 0.07,31.66"/>
+        <lane id="cyclepath_out_0" index="0" allow="bicycle" speed="13.89" length="85.63" shape="76.01,13.99 69.29,28.89 0.07,31.66"/>
     </edge>
     <edge id="end" from="gneJ1" to="gneJ2" priority="1">
-        <lane id="end_0" index="0" allow="pedestrian" speed="13.89" length="73.88" shape="74.24,9.06 0.37,10.26"/>
-        <lane id="end_1" index="1" disallow="pedestrian" speed="13.89" length="73.88" shape="74.19,5.76 0.32,6.96"/>
-        <lane id="end_2" index="2" disallow="pedestrian" speed="13.89" length="73.88" shape="74.14,2.46 0.27,3.66"/>
+        <lane id="end_0" index="0" allow="pedestrian" speed="13.89" length="74.16" width="2.00" shape="74.52,8.45 0.36,9.66"/>
+        <lane id="end_1" index="1" disallow="pedestrian" speed="13.89" length="74.16" shape="74.47,5.75 0.32,6.96"/>
+        <lane id="end_2" index="2" disallow="pedestrian" speed="13.89" length="74.16" shape="74.42,2.45 0.27,3.66"/>
     </edge>
     <edge id="middle" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="middle_0" index="0" allow="pedestrian" speed="13.89" length="86.34" shape="168.11,11.57 81.78,12.25"/>
-        <lane id="middle_1" index="1" disallow="pedestrian" speed="13.89" length="86.34" shape="168.09,8.27 81.75,8.95"/>
-        <lane id="middle_2" index="2" disallow="pedestrian" speed="13.89" length="86.34" shape="168.06,4.97 81.73,5.65"/>
-        <lane id="middle_3" index="3" disallow="pedestrian" speed="13.89" length="86.34" shape="168.04,1.67 81.70,2.35"/>
+        <lane id="middle_0" index="0" allow="pedestrian" speed="13.89" length="86.25" width="2.00" shape="168.02,10.97 81.78,11.65"/>
+        <lane id="middle_1" index="1" disallow="pedestrian" speed="13.89" length="86.25" shape="168.00,8.27 81.75,8.95"/>
+        <lane id="middle_2" index="2" disallow="pedestrian" speed="13.89" length="86.25" shape="167.97,4.97 81.73,5.65"/>
+        <lane id="middle_3" index="3" disallow="pedestrian" speed="13.89" length="86.25" shape="167.95,1.67 81.70,2.35"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="170.82" y="0.00" incLanes="cyclepath_in_0 beg_0 beg_1 beg_2 :gneJ0_w0_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_1_1 :gneJ0_c0_0" shape="169.86,14.64 173.02,14.14 173.84,9.91 174.03,0.11 168.02,0.07 168.13,13.17"/>
-    <junction id="gneJ1" type="priority" x="80.19" y="0.71" incLanes="middle_0 middle_1 middle_2 middle_3 :gneJ1_w0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_1_1 :gneJ1_c0_0" shape="81.79,13.85 81.69,0.75 74.11,0.86 74.27,10.66 74.28,13.93 77.20,15.25">
+    <junction id="gneJ0" type="unregulated" x="170.82" y="0.00" incLanes="cyclepath_in_0 beg_0 beg_1 beg_2 :gneJ0_w0_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_1_1 :gneJ0_c0_0" shape="169.77,14.04 172.93,13.54 173.75,9.31 173.93,0.11 167.93,0.07 168.03,12.57"/>
+    <junction id="gneJ1" type="priority" x="80.19" y="0.71" incLanes="middle_0 middle_1 middle_2 middle_3 :gneJ1_w0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_1_1 :gneJ1_c0_0" shape="81.79,13.25 81.69,0.75 74.39,0.85 74.54,10.05 74.56,13.33 77.47,14.64">
         <request index="0" response="1000" foes="1000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0001" cont="0"/>
     </junction>
-    <junction id="gneJ2" type="unregulated" x="0.24" y="2.01" incLanes="end_0 end_1 end_2" intLanes="" shape="0.40,11.86 0.24,2.06"/>
+    <junction id="gneJ2" type="unregulated" x="0.24" y="2.01" incLanes="end_0 end_1 end_2" intLanes="" shape="0.39,11.26 0.24,2.06"/>
     <junction id="gneJ3" type="unregulated" x="0.00" y="30.01" incLanes="cyclepath_out_0" intLanes="" shape="0.13,33.26 0.00,30.06"/>
-    <junction id="gneJ4" type="unregulated" x="299.61" y="2.48" incLanes="" intLanes="" shape="299.61,2.53 299.42,12.33"/>
+    <junction id="gneJ4" type="unregulated" x="299.61" y="2.48" incLanes="" intLanes="" shape="299.61,2.53 299.43,11.73"/>
     <junction id="gneJ5" type="unregulated" x="294.58" y="35.08" incLanes="" intLanes="" shape="294.57,35.13 294.15,38.30"/>
 
     <connection from="beg" to="middle" fromLane="1" toLane="2" pass="1" via=":gneJ0_1_0" dir="s" state="M"/>

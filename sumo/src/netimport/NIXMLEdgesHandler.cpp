@@ -469,7 +469,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_EDGE && myCurrentEdge != 0) {
         // add sidewalk, wait until lanes are loaded to avoid building if it already exists
         if (mySidewalkWidth != NBEdge::UNSPECIFIED_WIDTH) {
-            myCurrentEdge->addSidewalk(myTypeCont.getSidewalkWidth(myCurrentType));
+            myCurrentEdge->addSidewalk(mySidewalkWidth);
         }
         if (!myIsUpdate) {
             try {
