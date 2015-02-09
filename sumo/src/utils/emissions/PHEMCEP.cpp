@@ -295,7 +295,7 @@ PHEMCEP::Interpolate(double px, double p1, double p2, double e1, double e2) cons
 } // end of Interpolate
 
 
-double PHEMCEP::GetDecelCoast(double speed, double acc, double gradient, double vehicleLoading) const
+double PHEMCEP::GetDecelCoast(double speed, double acc, double gradient, double /* vehicleLoading */) const
 {
 	if (speed < SPEED_DCEL_MIN)
     {
@@ -419,7 +419,7 @@ void PHEMCEP::FindLowerUpperInPattern(int &lowerIndex, int &upperIndex, const st
 
 
 double
-PHEMCEP::CalcPower(double v, double a, double slope, double vehicleLoading) const {
+PHEMCEP::CalcPower(double v, double a, double slope, double /* vehicleLoading */) const {
     const double rotFactor = GetRotationalCoeffecient(v);
     double power = (_massVehicle + _vehicleLoading) * GRAVITY_CONST * (_resistanceF0 + _resistanceF1 * v + _resistanceF4 * pow(v, 4)) * v;
     power += (_crossSectionalArea * _cdValue * AIR_DENSITY_CONST / 2) * pow(v, 3);
@@ -430,7 +430,7 @@ PHEMCEP::CalcPower(double v, double a, double slope, double vehicleLoading) cons
 
 
 double
-PHEMCEP::GetMaxAccel(double v, double a, double gradient, double vehicleLoading) const {
+PHEMCEP::GetMaxAccel(double v, double a, double gradient, double /* vehicleLoading */) const {
     UNUSED_PARAMETER(a);
 	double rotFactor = GetRotationalCoeffecient(v);
     const double pMaxForAcc = GetPMaxNorm(v) * _ratedPower - PHEMCEP::CalcPower(v, 0, gradient, _vehicleLoading); // !!!vehicleLoading
