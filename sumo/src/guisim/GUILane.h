@@ -272,6 +272,9 @@ private:
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;
 
+    /// @brief whether to draw this lane as a waterway
+    bool drawAsWaterway(const GUIVisualizationSettings& s) const;
+
     /// The rotations of the shape parts
     std::vector<SUMOReal> myShapeRotations;
 

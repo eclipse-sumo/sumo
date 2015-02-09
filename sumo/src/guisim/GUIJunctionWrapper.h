@@ -163,6 +163,9 @@ private:
     /// @brief whether this wraps an instance of MSInternalJunction
     bool myIsInner;
 
+    /// @brief whether this junction has only waterways as incoming and outgoing edges
+    bool myAmWaterway;
+
 #ifdef HAVE_OSG
     osg::Geometry* myGeom;
 #endif

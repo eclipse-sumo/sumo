@@ -308,9 +308,9 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
                 break;
         }
         GLHelper::setColor(getLinkColor(link->getState()));
-        if (!drawAsRailway(s) || link->getState() != LINKSTATE_MAJOR) {
-            // THE WHITE BAR SHOULD BE THE DEFAULT FOR MOST RAILWAY
-            // LINKS AND LOOKS UGLY SO WE DO NOT DRAW IT
+        if (!(drawAsRailway(s) || drawAsWaterway(s)) || link->getState() != LINKSTATE_MAJOR) {
+            // the white bar should be the default for most railway
+            // links and looks ugly so we do not draw it
             glBegin(GL_QUADS);
             glVertex2d(x1 - myHalfLaneWidth, 0.0);
             glVertex2d(x1 - myHalfLaneWidth, 0.5);
@@ -489,7 +489,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 #endif
             } else {
                 const SUMOReal halfWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
-                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0; 
+                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions); 
                 const int cornerDetail = drawDetails ? s.scale * exaggeration : 0;
                 const SUMOReal offset = halfWidth * MAX2((SUMOReal)0, (exaggeration - 1));
                 if (myShapeColors.size() > 0) {
@@ -505,7 +505,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
                 glTranslated(0, 0, .5);
                 drawLinkRules(s, *net);
-                if (s.showLinkDecals && !drawAsRailway(s) && myPermissions != SVC_PEDESTRIAN) {
+                if (s.showLinkDecals && !drawAsRailway(s) && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
                     drawArrows();
                 }
                 if (s.showLane2Lane) {
@@ -930,6 +930,12 @@ GUILane::getScaleValue(size_t activeScheme) const {
 bool 
 GUILane::drawAsRailway(const GUIVisualizationSettings& s) const {
     return isRailway(myPermissions) && s.showRails;
+}
+
+
+bool 
+GUILane::drawAsWaterway(const GUIVisualizationSettings& s) const {
+    return isWaterway(myPermissions) && s.showRails; // reusing the showRails setting
 }
 
 

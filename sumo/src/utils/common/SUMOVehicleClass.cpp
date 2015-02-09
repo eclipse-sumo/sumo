@@ -294,6 +294,11 @@ bool isRailway(SVCPermissions permissions) {
 }
 
 
+bool isWaterway(SVCPermissions permissions) {
+    return permissions == SVC_SHIP;
+}
+
+
 bool isForbidden(SVCPermissions permissions) {
     return (permissions & SVCAll) == 0;
 }
