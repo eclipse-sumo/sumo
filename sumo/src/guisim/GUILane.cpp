@@ -783,6 +783,8 @@ GUILane::getColorValue(size_t activeScheme) const {
                     return 2;
                 case 0:
                     return 3;
+                case SVC_SHIP:
+                    return 4;
                 default:
                     return 0;
             }

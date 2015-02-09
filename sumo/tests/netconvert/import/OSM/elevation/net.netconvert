@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 14 10:03:27 2014 by SUMO netconvert Version dev-SVN-r17338I
+<!-- generated on Mon Feb  9 12:34:47 2015 by SUMO netconvert Version dev-SVN-r17812I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,7 +31,7 @@
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="-399343.89,-5808929.68" convBoundary="0.00,0.00,1645.69,1206.12" origBoundary="13.519576,52.421550,13.543874,52.432345" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-399343.89,-5808929.68" convBoundary="0.00,0.00,1645.69,1206.12" origBoundary="13.453860,52.421550,13.575739,52.459735" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-114024900" from="1292264832" to="1292264830" priority="2" type="highway.service">
         <lane id="-114024900_0" index="0" allow="delivery" speed="5.56" length="13.26" shape="501.38,691.85,33.54 493.11,693.03,33.68"/>

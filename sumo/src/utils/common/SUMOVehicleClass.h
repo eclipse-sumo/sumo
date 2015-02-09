@@ -93,7 +93,9 @@ enum SUMOVehicleShape {
     /// @brief render as a (futuristic) e-vehicle
     SVS_E_VEHICLE,
     /// @brief render as a giant ant
-    SVS_ANT
+    SVS_ANT,
+    /// @brief render as a arbitrary ship
+    SVS_SHIP
 };
 
 
@@ -176,11 +178,13 @@ enum SUMOVehicleClass {
     SVC_PEDESTRIAN = 1 << 20,
     /// @brief is an electric vehicle
     SVC_E_VEHICLE = 1 << 21,
+    /// @brief is an arbitrary ship
+    SVC_SHIP = 1 << 22,
     /// @brief is a user-defined type
-    SVC_CUSTOM1 = 1 << 22,
+    SVC_CUSTOM1 = 1 << 23,
     /// @brief is a user-defined type
-    SVC_CUSTOM2 = 1 << 23
-                  //@}
+    SVC_CUSTOM2 = 1 << 24
+    //@}
 };
 
 extern const int SUMOVehicleClass_MAX;

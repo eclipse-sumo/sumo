@@ -1,3 +1,5 @@
+Warning: Discarding unusable type "waterway.riverbank" (first occurence for edge "4616435#0").
+Warning: Discarding unusable type "waterway.canal" (first occurence for edge "31233332#0").
 Warning: Discarding unusable type "highway.construction" (first occurence for edge "190461577").
 Warning: Discarding unusable type "railway.abandoned" (first occurence for edge "219832513").
 Warning: No way found for reference '48858193' in relation '2439689'

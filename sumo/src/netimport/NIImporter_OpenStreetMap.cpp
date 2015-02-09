@@ -708,7 +708,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, false);
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
-        if (key == "highway" || key == "railway") {
+        if (key == "highway" || key == "railway" || key == "waterway") {
             const std::string singleTypeID = key + "." + value;
             if (myCurrentEdge->myHighWayType != "") {
                 // osm-ways may be used by more than one mode (eg railway.tram + highway.residential. this is relevant for multimodal traffic)

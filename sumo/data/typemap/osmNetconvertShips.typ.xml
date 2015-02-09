@@ -1,0 +1,4 @@
+<types>
+      <type id="waterway.river" width="7" numLanes="1" speed="10" priority="13" allow="ship"/>
+      <type id="waterway.canal" width="5" numLanes="1" speed="10" priority="13" allow="ship"/>
+</types>
