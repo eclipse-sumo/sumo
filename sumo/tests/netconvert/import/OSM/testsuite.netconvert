@@ -15,6 +15,9 @@ false_edge_join
 # OSM allows edges which are used by multiple modes at the same time (i.e. tram/cars). The imported edge should still be allowed for all listed modes
 multimodal_edge
 
+# an edge with multiple mode definitions should be discarded if all individual modes are set to be discarded
+multimodal_edge_discard
+
 # when a list of lane numbers is given, use the minimum value 
 # (larger values are probably short turning lanes)
 key_lanes_non_numerical
