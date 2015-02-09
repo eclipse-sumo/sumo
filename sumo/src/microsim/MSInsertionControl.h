@@ -110,8 +110,9 @@ public:
     /** @brief Adds parameter for a vehicle flow for departure
      *
      * @param[in] flow The flow to add for later insertion
+     * @return whether it could be added (no other flow with the same id was present)
      */
-    void add(SUMOVehicleParameter* pars);
+    bool add(SUMOVehicleParameter* const pars);
 
 
     /** @brief Returns the number of waiting vehicles
@@ -212,6 +213,9 @@ private:
 
     /// @brief Container for periodical vehicle parameters
     std::vector<Flow> myFlows;
+
+    /// @brief Cache for periodical vehicle ids for quicker checking
+    std::set<std::string> myFlowIDs;
 
     /// @brief The maximum waiting time; vehicles waiting longer are deleted (-1: no deletion)
     SUMOTime myMaxDepartDelay;

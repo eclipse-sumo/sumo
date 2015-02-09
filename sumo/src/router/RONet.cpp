@@ -235,7 +235,7 @@ RONet::addVehicle(const std::string& id, ROVehicle* veh) {
         myReadRouteNo++;
         return true;
     }
-    WRITE_ERROR("The vehicle '" + id + "' occurs at least twice.");
+    WRITE_ERROR("Another vehicle with the id '" + id + "' exists.");
     return false;
 }
 
@@ -304,9 +304,8 @@ RONet::checkFlows(SUMOTime time) {
                     toRemove.push_back(i->first);
                     break;
                 }
-                if (
-                        // only call rand if all other conditions are met
-                        RandHelper::rand() < (pars->repetitionProbability * TS)) {
+                // only call rand if all other conditions are met
+                if (RandHelper::rand() < (pars->repetitionProbability * TS)) {
                     SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
                     newPars->id = pars->id + "." + toString(pars->repetitionsDone);
                     newPars->depart = pars->depart;

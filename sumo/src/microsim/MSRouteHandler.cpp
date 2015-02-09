@@ -89,6 +89,7 @@ MSRouteHandler::~MSRouteHandler() {
 void
 MSRouteHandler::parseFromViaTo(std::string element,
                                const SUMOSAXAttributes& attrs) {
+    myActiveRoute.clear();
     bool useTaz = OptionsCont::getOptions().getBool("with-taz");
     if (useTaz && !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
         WRITE_WARNING("Taz usage was requested but no taz present in " + element + " '" + myVehicleParameter->id + "'!");
@@ -671,8 +672,11 @@ MSRouteHandler::closeFlow() {
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
     if (myAddVehiclesDirectly || checkLastDepart()) {
-        MSNet::getInstance()->getInsertionControl().add(myVehicleParameter);
-        registerLastDepart();
+        if (MSNet::getInstance()->getInsertionControl().add(myVehicleParameter)) {
+            registerLastDepart();
+        } else {
+            throw ProcessError("Another flow with the id '" + myVehicleParameter->id + "' exists.");
+        }
     }
     myVehicleParameter = 0;
     myInsertStopEdgesAt = -1;

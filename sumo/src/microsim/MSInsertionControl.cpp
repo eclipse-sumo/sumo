@@ -72,8 +72,11 @@ MSInsertionControl::add(SUMOVehicle* veh) {
 }
 
 
-void
-MSInsertionControl::add(SUMOVehicleParameter* pars) {
+bool
+MSInsertionControl::add(SUMOVehicleParameter* const pars) {
+    if (myFlowIDs.count(pars->id) > 0) {
+        return false;
+    }
     Flow flow;
     flow.pars = pars;
     flow.isVolatile = pars->departLaneProcedure == DEPART_LANE_RANDOM ||
@@ -99,6 +102,8 @@ MSInsertionControl::add(SUMOVehicleParameter* pars) {
     }
     flow.vehicle = 0;
     myFlows.push_back(flow);
+    myFlowIDs.insert(pars->id);
+    return true;
 }
 
 

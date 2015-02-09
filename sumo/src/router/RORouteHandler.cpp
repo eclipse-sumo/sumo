@@ -84,6 +84,7 @@ RORouteHandler::~RORouteHandler() {
 void
 RORouteHandler::parseFromViaTo(std::string element,
                                const SUMOSAXAttributes& attrs) {
+    myActiveRoute.clear();
     bool useTaz = OptionsCont::getOptions().getBool("with-taz");
     if (useTaz && !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
         WRITE_WARNING("Taz usage was requested but no taz present in " + element + " '" + myVehicleParameter->id + "'!");
@@ -125,7 +126,6 @@ RORouteHandler::parseFromViaTo(std::string element,
     if (myVehicleParameter->routeid == "") {
         myVehicleParameter->routeid = myActiveRouteID;
     }
-    closeRoute(true);
 }
 
 
@@ -167,7 +167,6 @@ RORouteHandler::myStartElement(int element,
         case SUMO_TAG_TRIP: {
             myActiveRouteProbability = DEFAULT_VEH_PROB;
             parseFromViaTo("trip", attrs);
-            closeVehicle();
         }
         break;
         default:
@@ -278,6 +277,8 @@ RORouteHandler::myEndElement(int element) {
             myCurrentVType = 0;
             break;
         case SUMO_TAG_TRIP:
+            closeRoute(true);
+            closeVehicle();
             delete myVehicleParameter;
             myVehicleParameter = 0;
             myInsertStopEdgesAt = -1;
@@ -415,8 +416,9 @@ RORouteHandler::closeVehicle() {
     // build the vehicle
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
         ROVehicle* veh = new ROVehicle(*myVehicleParameter, route, type, &myNet);
-        myNet.addVehicle(myVehicleParameter->id, veh);
-        registerLastDepart();
+        if (myNet.addVehicle(myVehicleParameter->id, veh)) {
+            registerLastDepart();
+        }
     }
 }
 
@@ -457,20 +459,26 @@ RORouteHandler::closeFlow() {
             return;
         }
     }
-    SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
-    RORouteDef* route = myNet.getRouteDef(myVehicleParameter->routeid);
-    if (type == 0) {
-        myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
+    if (myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid) == 0) {
+        myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for flow '" + myVehicleParameter->id + "' is not known.");
     }
-    if (route == 0) {
-        myErrorOutput->inform("Vehicle '" + myVehicleParameter->id + "' has no route.");
+    if (myVehicleParameter->routeid[0] == '!' && myNet.getRouteDef(myVehicleParameter->routeid) == 0) {
+        closeRoute(true);
+    }
+    if (myNet.getRouteDef(myVehicleParameter->routeid) == 0) {
+        myErrorOutput->inform("The route '" + myVehicleParameter->routeid + "' for flow '" + myVehicleParameter->id + "' is not known.");
         delete myVehicleParameter;
         myVehicleParameter = 0;
         return;
     }
     myActiveRouteID = "";
-    myNet.addFlow(myVehicleParameter, OptionsCont::getOptions().getBool("randomize-flows"));
-    registerLastDepart();
+    if (!MsgHandler::getErrorInstance()->wasInformed()) {
+        if (myNet.addFlow(myVehicleParameter, OptionsCont::getOptions().getBool("randomize-flows"))) {
+            registerLastDepart();
+        } else {
+            myErrorOutput->inform("Another flow with the id '" + myVehicleParameter->id + "' exists.");
+        }
+    }
     myVehicleParameter = 0;
     myInsertStopEdgesAt = -1;
 }
