@@ -129,6 +129,9 @@ double vehiclePoly_EVehicleFrontGlass[] = { .5, 0,  0.05, .05,  0.05, .25,  0.13
 //double vehiclePoly_EVehicleFrontGlass[] = { 0.35,0,  0.1,0,  0.1,0.4,  0.43,0.3,  0.43,-0.3,  0.1,-0.4,  0.1,0,  -10000 };
 double vehiclePoly_EVehicleBackGlass[] =  { 0.65, 0,  0.9, 0,  0.9, 0.4,  0.57, 0.3,  0.57, -0.3,  0.9, -0.4,  0.9, 0,  -10000 };
 
+double vehiclePoly_Ship[] =  { 0.25,0,  0,0,  0.1,0.5, 0.2,0.9, 0.25,1.0,  0.95,1.0, 1.0,0.9,   1.0,-0.9, 0.95,-1.0,  0.25,-1.0, 0.2,-0.9,  0.1,-0.5, 0,0,   -10000 };
+double vehiclePoly_ShipDeck[] =  { 0.5,0,  0.25,0.8,  0.95,0.8, 0.95,-0.8, 0.25,-0.8, 0.25,0.8, -10000 };
+double vehiclePoly_ShipSuperStructure[] =  { 0.8,0,  0.5,0.6,  0.85,0.6,  0.85,-0.6, 0.5,-0.6,  0.5,0.6,  -10000 };
 
 // ===========================================================================
 // method definitions
@@ -646,6 +649,16 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             GLHelper::drawFilledCircle(.3, 16);
             glPopMatrix();
             break;
+        case SVS_SHIP: {
+            RGBColor darker = current.changedBrightness(-30);
+            RGBColor darker2 = current.changedBrightness(-70);
+            drawPoly(vehiclePoly_Ship, 4);
+            GLHelper::setColor(darker);
+            drawPoly(vehiclePoly_ShipDeck, 5);
+            GLHelper::setColor(darker2);
+            drawPoly(vehiclePoly_ShipSuperStructure, 6);
+            break;
+        }
         default: // same as passenger
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             glColor3d(1, 1, 1);
@@ -748,6 +761,7 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
         case SVS_RAIL_CARGO:
         case SVS_E_VEHICLE:
         case SVS_ANT:
+        case SVS_SHIP:
             break;
         default: // same as passenger/sedan
             drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
