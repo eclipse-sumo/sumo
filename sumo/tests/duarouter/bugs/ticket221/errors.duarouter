@@ -1,2 +1,2 @@
-Error: The vehicle '0' occurs at least twice.
+Error: Another vehicle with the id '0' exists.
 Quitting (on error).
