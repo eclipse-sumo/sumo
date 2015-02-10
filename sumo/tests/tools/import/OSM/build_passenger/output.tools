@@ -5,7 +5,7 @@ Parsing relations from osm-file 'osm.xml'...
 done.
  Removed 20 traffic lights before loading plain-XML
  Import done:
-   290 nodes loaded.
+   295 nodes loaded.
    33 types loaded.
    243 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
@@ -13,7 +13,7 @@ Removing self-loops... done.
 Joining junction clusters... done.
  Joined 6 junction cluster(s).
 Removing empty nodes and geometry nodes... done.
-   230 nodes removed.
+   235 nodes removed.
 Moving network to origin... done.
 Joining similar edges... done.
 Guessing and setting on-/off-ramps... done.
@@ -43,7 +43,7 @@ Summary:
   Priority junctions          : 44
   Right-before-left junctions : 0
  Network boundaries:
-  Original boundary  : 13.50,52.42,13.54,52.43
+  Original boundary  : 13.45,52.42,13.58,52.46
   Applied offset     : -398348.81,-5809189.04
   Converted boundary : 0.00,0.00,2640.77,946.75
 -----------------------------------------------------

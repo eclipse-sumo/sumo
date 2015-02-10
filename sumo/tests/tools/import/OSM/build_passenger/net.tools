@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 14 08:44:38 2015 by SUMO netconvert Version dev-SVN-r17587ID
+<!-- generated on Tue Feb 10 08:37:37 2015 by SUMO netconvert Version dev-SVN-r17821
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.14Jan084437.13262/tools/import/OSM/build_passenger/net.net.xml"/>
+        <output-file value="/home/kobo/.texttest/tmp/tools.10Feb083717.8008/tools/import/OSM/build_passenger/net.net.xml"/>
     </output>
 
     <projection>
@@ -19,6 +19,7 @@
 
     <tls_building>
         <tls.discard-simple value="true"/>
+        <tls.join value="true"/>
     </tls_building>
 
     <ramp_guessing>
@@ -45,7 +46,7 @@
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="-398348.81,-5809189.04" convBoundary="0.00,0.00,2640.77,946.75" origBoundary="13.504862,52.423643,13.543874,52.432723" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-398348.81,-5809189.04" convBoundary="0.00,0.00,2640.77,946.75" origBoundary="13.453860,52.423643,13.575739,52.459735" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":143308546#0-AddedOffRampNode_0" function="internal">
         <lane id=":143308546#0-AddedOffRampNode_0_0" index="0" speed="13.89" length="3.48" shape="1762.69,709.59 1758.34,710.41"/>
