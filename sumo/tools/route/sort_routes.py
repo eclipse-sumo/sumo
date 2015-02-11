@@ -82,7 +82,7 @@ class RouteHandler(handler.ContentHandler):
 
     def startElement(self,name,attrs):
         if name in DEPART_ATTRS.keys():
-            self._depart = attrs[DEPART_ATTRS[name]]
+            self._depart = float(attrs[DEPART_ATTRS[name]])
             self._start_line = self.locator.getLineNumber()
 
     def endElement(self,name):
