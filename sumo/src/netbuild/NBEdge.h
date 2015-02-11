@@ -950,8 +950,11 @@ public:
     void addCrossingPointsAsIncomingWithGivenOutgoing(NBEdge* o,
             PositionVector& into);
 
-    PositionVector getCWBoundaryLine(const NBNode& n, SUMOReal offset) const;
-    PositionVector getCCWBoundaryLine(const NBNode& n, SUMOReal offset) const;
+    /// @brief get the outer boundary of this edge when going clock-wise around the given node
+    PositionVector getCWBoundaryLine(const NBNode& n) const;
+
+    /// @brief get the outer boundary of this edge when going counter-clock-wise around the given node
+    PositionVector getCCWBoundaryLine(const NBNode& n) const;
 
     bool expandableBy(NBEdge* possContinuation) const;
     void append(NBEdge* continuation);

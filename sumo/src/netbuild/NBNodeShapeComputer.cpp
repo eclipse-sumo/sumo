@@ -306,9 +306,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 }
                 (*i)->setGeometry(g);
                 // and rebuild previous information
-                geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+                geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode);
                 geomsCCW[*i].extrapolate(100);
-                geomsCW[*i] = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+                geomsCW[*i] = (*i)->getCWBoundaryLine(myNode);
                 geomsCW[*i].extrapolate(100);
                 // the distance is now = zero (the point we have appended)
                 distances[*i] = 100;
@@ -522,9 +522,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             }
             cwBoundary[*i]->setGeometry(g);
             myExtended[cwBoundary[*i]] = true;
-            geomsCW[*i] = cwBoundary[*i]->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            geomsCW[*i] = cwBoundary[*i]->getCWBoundaryLine(myNode);
         } else {
-            geomsCW[*i] = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            geomsCW[*i] = (*i)->getCWBoundaryLine(myNode);
 
         }
 
@@ -553,9 +553,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             }
             ccwBoundary[*i]->setGeometry(g);
             myExtended[ccwBoundary[*i]] = true;
-            geomsCCW[*i] = ccwBoundary[*i]->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            geomsCCW[*i] = ccwBoundary[*i]->getCCWBoundaryLine(myNode);
         } else {
-            geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode);
 
         }
         geomsCCW[*i].extrapolate(100);
@@ -615,13 +615,13 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
     for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end() - 1; i++) {
         // store current edge's boundary as current ccw/cw boundary
         try {
-            geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode);
         } catch (InvalidArgument& e) {
             WRITE_WARNING(std::string("While computing intersection geometry: ") + std::string(e.what()));
             geomsCCW[*i] = (*i)->getGeometry();
         }
         try {
-            geomsCW[*i] = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            geomsCW[*i] = (*i)->getCWBoundaryLine(myNode);
         } catch (InvalidArgument& e) {
             WRITE_WARNING(std::string("While computing intersection geometry: ") + std::string(e.what()));
             geomsCW[*i] = (*i)->getGeometry();
@@ -629,8 +629,8 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
         // extend the boundary by extroplating it by 100m
         PositionVector g1 =
             myNode.hasIncoming(*i)
-            ? (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth)
-            : (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            ? (*i)->getCCWBoundaryLine(myNode)
+            : (*i)->getCWBoundaryLine(myNode);
         Line l1 = g1.lineAt(0);
         Line tmp = geomsCCW[*i].lineAt(0);
         tmp.extrapolateBy(100);
@@ -640,12 +640,12 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
         geomsCW[*i].replaceAt(0, tmp.p1());
         //
         for (j = i + 1; j != myNode.myAllEdges.end(); j++) {
-            geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-            geomsCW[*j] = (*j)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode);
+            geomsCW[*j] = (*j)->getCWBoundaryLine(myNode);
             PositionVector g2 =
                 myNode.hasIncoming(*j)
-                ? (*j)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth)
-                : (*j)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+                ? (*j)->getCCWBoundaryLine(myNode)
+                : (*j)->getCWBoundaryLine(myNode);
             Line l2 = g2.lineAt(0);
             tmp = geomsCCW[*j].lineAt(0);
             tmp.extrapolateBy(100);
@@ -726,8 +726,8 @@ NBNodeShapeComputer::computeNodeShapeSmall() {
     EdgeVector::const_iterator i;
     for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
         // compute crossing with normal
-        Line edgebound1 = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth).lineAt(0);
-        Line edgebound2 = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth).lineAt(0);
+        Line edgebound1 = (*i)->getCCWBoundaryLine(myNode).lineAt(0);
+        Line edgebound2 = (*i)->getCWBoundaryLine(myNode).lineAt(0);
         Line cross(edgebound1);
         cross.rotateAtP1(M_PI / 2.);
         cross.add(myNode.getPosition() - cross.p1());

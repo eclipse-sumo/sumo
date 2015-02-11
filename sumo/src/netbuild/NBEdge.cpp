@@ -1841,31 +1841,37 @@ NBEdge::disableConnection4TLS(int fromLane, NBEdge* toEdge, int toLane) {
 
 
 PositionVector
-NBEdge::getCWBoundaryLine(const NBNode& n, SUMOReal offset) const {
+NBEdge::getCWBoundaryLine(const NBNode& n) const {
     PositionVector ret;
+    SUMOReal width;
     if (myFrom == (&n)) {
         // outgoing
         ret = !myAmLeftHand ? myLanes[0].shape : myLanes.back().shape;
+        width = getLaneWidth(0);
     } else {
         // incoming
         ret = !myAmLeftHand ? myLanes.back().shape.reverse() : myLanes[0].shape.reverse();
+        width = getLaneWidth((int)getNumLanes() - 1);
     }
-    ret.move2side(offset);
+    ret.move2side(width * 0.5);
     return ret;
 }
 
 
 PositionVector
-NBEdge::getCCWBoundaryLine(const NBNode& n, SUMOReal offset) const {
+NBEdge::getCCWBoundaryLine(const NBNode& n) const {
     PositionVector ret;
+    SUMOReal width;
     if (myFrom == (&n)) {
         // outgoing
         ret = !myAmLeftHand ? myLanes.back().shape : myLanes[0].shape;
+        width = getLaneWidth((int)getNumLanes() - 1);
     } else {
         // incoming
         ret = !myAmLeftHand ? myLanes[0].shape.reverse() : myLanes.back().shape.reverse();
+        width = getLaneWidth(0);
     }
-    ret.move2side(-offset);
+    ret.move2side(-width * 0.5);
     return ret;
 }
 
