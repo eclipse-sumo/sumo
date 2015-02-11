@@ -165,6 +165,8 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("speed.factor", "Processing", "Modifies all edge speeds by multiplying by FLOAT");
     }
 
+    oc.doRegister("junctions.corner-detail", new Option_Integer(0));
+    oc.addDescription("junctions.corner-detail", "Processing", "Generate INT intermediate points to smooth out intersection corners");
 
     oc.doRegister("check-lane-foes.roundabout", new Option_Bool(true));
     oc.addDescription("check-lane-foes.roundabout", "Processing",

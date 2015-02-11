@@ -198,6 +198,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     }
     // magic values
     const SUMOReal radius = (myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS ? NBNode::DEFAULT_RADIUS : myNode.getRadius());
+    const int cornerDetail = OptionsCont::getOptions().getInt("junctions.corner-detail");
     // initialise
     const SUMOReal twoPI = (SUMOReal)(2 * M_PI);
     EdgeVector::const_iterator i;
@@ -577,30 +578,56 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     // build
     PositionVector ret;
     for (i = newAll.begin(); i != newAll.end(); ++i) {
-        PositionVector l = geomsCCW[*i];
-        SUMOReal len = l.length();
+        const PositionVector& ccwBound = geomsCCW[*i];
+        SUMOReal len = ccwBound.length();
         SUMOReal offset = distances[*i];
         if (offset == -1) {
             offset = (SUMOReal) - .1;
         }
         Position p;
         if (len >= offset) {
-            p = l.positionAtOffset2D(offset);
+            p = ccwBound.positionAtOffset2D(offset);
         } else {
-            p = l.positionAtOffset2D(len);
+            p = ccwBound.positionAtOffset2D(len);
         }
         p.set(p.x(), p.y(), myNode.getPosition().z());
+        if (cornerDetail > 0 && i != newAll.begin()) {
+            // smooth connection with the previous edge
+            PositionVector begShape = geomsCW[*(i-1)];
+            begShape[-1] = ret[-1];
+            PositionVector endShape = ccwBound;
+            endShape[0] = p;
+            PositionVector curve = myNode.computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
+            if (curve.size() > 2) {
+                curve.eraseAt(0);
+                curve.eraseAt(-1);
+                ret.append(curve);
+            }
+        }
         ret.push_back_noDoublePos(p);
         //
-        l = geomsCW[*i];
-        len = l.length();
+        const PositionVector& cwBound = geomsCW[*i];
+        len = cwBound.length();
         if (len >= offset) {
-            p = l.positionAtOffset2D(offset);
+            p = cwBound.positionAtOffset2D(offset);
         } else {
-            p = l.positionAtOffset2D(len);
+            p = cwBound.positionAtOffset2D(len);
         }
         p.set(p.x(), p.y(), myNode.getPosition().z());
         ret.push_back_noDoublePos(p);
+    }
+    // final curve segment
+    if (cornerDetail > 0) {
+        PositionVector begShape = geomsCW[*(newAll.end() - 1)];
+        begShape[-1] = ret[-1];
+        PositionVector endShape = geomsCCW[*newAll.begin()];
+        endShape[0] = ret[0];
+        PositionVector curve = myNode.computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
+        if (curve.size() > 2) {
+            curve.eraseAt(0);
+            curve.eraseAt(-1);
+            ret.append(curve);
+        }
     }
     return ret;
 }

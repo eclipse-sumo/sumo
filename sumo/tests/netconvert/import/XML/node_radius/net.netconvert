@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 11 15:15:29 2015 by SUMO netconvert Version dev-SVN-r17829ID
+<!-- generated on Wed Feb 11 16:59:44 2015 by SUMO netconvert Version dev-SVN-r17830ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -14,6 +14,10 @@
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
+
+    <processing>
+        <junctions.corner-detail value="3"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -157,7 +161,7 @@
         <phase duration="4" state="rrrrrrryyrrrrrrryy"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_18_0 :C_19_0 :C_5_0 :C_6_0 :C_20_0 :C_21_0 :C_9_0 :C_10_0 :C_10_1 :C_22_0 :C_23_0 :C_14_0 :C_15_0 :C_24_0 :C_25_0" shape="93.45,111.55 106.55,111.55 111.55,106.55 111.55,93.45 106.55,88.45 93.45,88.45 88.45,93.45 88.45,106.55" radius="5.00">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_18_0 :C_19_0 :C_5_0 :C_6_0 :C_20_0 :C_21_0 :C_9_0 :C_10_0 :C_10_1 :C_22_0 :C_23_0 :C_14_0 :C_15_0 :C_24_0 :C_25_0" shape="93.45,111.55 106.55,111.55 106.86,109.36 107.80,107.80 109.36,106.86 111.55,106.55 111.55,93.45 109.36,93.14 107.80,92.20 106.86,90.64 106.55,88.45 93.45,88.45 93.14,90.64 92.20,92.20 90.64,93.14 88.45,93.45 88.45,106.55 90.64,106.86 92.20,107.80 93.14,109.36" radius="5.00">
         <request index="0" response="000000000000000000" foes="100001000001000000" cont="0"/>
         <request index="1" response="000000000000000000" foes="011111000011000000" cont="0"/>
         <request index="2" response="000000000000000000" foes="011111000011000000" cont="0"/>
