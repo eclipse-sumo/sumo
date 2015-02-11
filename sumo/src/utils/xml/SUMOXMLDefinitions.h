@@ -368,6 +368,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_SHAPE,
     /// The information about how to spread the lanes from the given position
     SUMO_ATTR_SPREADTYPE,
+    /// The turning radius at an intersection in m 
+    SUMO_ATTR_RADIUS,
     /// A color information
     SUMO_ATTR_COLOR,
     /// The abstract direction of a link

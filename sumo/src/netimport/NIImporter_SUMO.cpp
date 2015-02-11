@@ -503,6 +503,10 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     }
     myCurrentJunction.node = node;
     SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_INTLANES, 0, ok, false), myCurrentJunction.intLanes);
+    // set optional radius
+    if (attrs.hasAttribute(SUMO_ATTR_RADIUS)) {
+        node->setRadius(attrs.get<SUMOReal>(SUMO_ATTR_RADIUS, id.c_str(), ok));
+    }
 }
 
 

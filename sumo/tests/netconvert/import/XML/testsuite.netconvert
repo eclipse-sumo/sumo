@@ -66,3 +66,6 @@ junctionLogic
 
 # tests for roundabouts specified via xml
 roundabout
+
+# set a non-default node-radius
+node_radius

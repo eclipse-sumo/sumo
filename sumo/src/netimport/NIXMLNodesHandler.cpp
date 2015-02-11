@@ -191,6 +191,10 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
         }
         node->setCustomShape(shape);
     }
+    // set optional radius
+    if (attrs.hasAttribute(SUMO_ATTR_RADIUS)) {
+        node->setRadius(attrs.get<SUMOReal>(SUMO_ATTR_RADIUS, myID.c_str(), ok));
+    }
 }
 
 

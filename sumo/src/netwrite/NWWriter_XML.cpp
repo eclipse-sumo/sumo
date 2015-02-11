@@ -134,6 +134,9 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
         if (n->hasCustomShape()) {
             device.writeAttr(SUMO_ATTR_SHAPE, n->getShape());
         }
+        if (n->getRadius() != NBNode::UNSPECIFIED_RADIUS) {
+            device.writeAttr(SUMO_ATTR_RADIUS, n->getRadius());
+        }
         device.closeTag();
     }
     device.close();

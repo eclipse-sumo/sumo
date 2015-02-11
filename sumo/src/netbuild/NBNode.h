@@ -188,6 +188,11 @@ public:
     /// @brief default width of pedetrian crossings
     static const SUMOReal DEFAULT_CROSSING_WIDTH;
 
+    /// @brief the default turning radius at intersections in m
+    static const SUMOReal DEFAULT_RADIUS;
+
+    /// @brief unspecified lane width
+    static const SUMOReal UNSPECIFIED_RADIUS;
 
 public:
     /// @brief maximum number of connections allowed
@@ -268,6 +273,13 @@ public:
      */
     SumoXMLNodeType getType() const {
         return myType;
+    }
+
+    /** @brief Returns the turning radius of this node
+     * @return The turning radius of this node
+     */
+    SUMOReal getRadius() const {
+        return myRadius;
     }
     /// @}
 
@@ -479,6 +491,11 @@ public:
     /// @brief set the junction shape
     void setCustomShape(const PositionVector& shape);
 
+    /// @brief set the turning radius
+    void setRadius(SUMOReal radius) {
+        myRadius = radius;
+    }
+
     /// @brief return whether the shape was set by the user
     bool hasCustomShape() {
         return myHaveCustomPoly;
@@ -687,6 +704,9 @@ private:
     NBRequest* myRequest;
 
     std::set<NBTrafficLightDefinition*> myTrafficLights;
+
+    /// @brief the turning radius (for all corners) at this node in m.
+    SUMOReal myRadius;
 
 private:
     /// @brief invalidated copy constructor

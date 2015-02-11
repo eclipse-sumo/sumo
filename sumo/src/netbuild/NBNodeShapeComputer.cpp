@@ -197,7 +197,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         return PositionVector();
     }
     // magic values
-    const SUMOReal radius = 1.5;
+    const SUMOReal radius = (myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS ? NBNode::DEFAULT_RADIUS : myNode.getRadius());
     // initialise
     const SUMOReal twoPI = (SUMOReal)(2 * M_PI);
     EdgeVector::const_iterator i;

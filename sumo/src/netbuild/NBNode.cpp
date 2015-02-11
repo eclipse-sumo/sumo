@@ -87,6 +87,8 @@ const int NBNode::MAX_CONNECTIONS(64);
 const int NBNode::FORWARD(1);
 const int NBNode::BACKWARD(-1);
 const SUMOReal NBNode::DEFAULT_CROSSING_WIDTH(4);
+const SUMOReal NBNode::UNSPECIFIED_RADIUS = -1;
+const SUMOReal NBNode::DEFAULT_RADIUS = 1.5;
 
 // ===========================================================================
 // method definitions
@@ -234,7 +236,8 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myType(type),
     myDistrict(0),
     myHaveCustomPoly(false),
-    myRequest(0)
+    myRequest(0),
+    myRadius(UNSPECIFIED_RADIUS)
 { }
 
 
@@ -244,7 +247,8 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myType(district == 0 ? NODETYPE_UNKNOWN : NODETYPE_DISTRICT),
     myDistrict(district),
     myHaveCustomPoly(false),
-    myRequest(0)
+    myRequest(0),
+    myRadius(UNSPECIFIED_RADIUS)
 { }
 
 
