@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r17805
+SUMO netgenerate Version dev-SVN-r17834
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -142,6 +142,8 @@ Processing Options:
                                          other (recommended for OSM import)
   --junctions.join-dist FLOAT          Determines the maximal distance for
                                          joining junctions (defaults to 10)
+  --junctions.corner-detail INT        Generate INT intermediate points to
+                                         smooth out intersection corners
   --check-lane-foes.roundabout         Allow driving onto a multi-lane road if
                                          there are foes on other lanes (at
                                          roundabouts)

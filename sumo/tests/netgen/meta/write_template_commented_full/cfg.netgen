@@ -255,6 +255,9 @@
         <!-- Determines the maximal distance for joining junctions (defaults to 10) -->
         <junctions.join-dist value="10" type="FLOAT"/>
 
+        <!-- Generate INT intermediate points to smooth out intersection corners -->
+        <junctions.corner-detail value="0" type="INT"/>
+
         <!-- Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts) -->
         <check-lane-foes.roundabout value="true" type="BOOL"/>
 
