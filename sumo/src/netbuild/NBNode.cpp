@@ -451,33 +451,31 @@ NBNode::isSimpleContinuation() const {
 }
 
 
-PositionVector
-NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
-                                 NBEdge* toE, int toL, int numPoints) const {
-    if (fromL >= (int) fromE->getNumLanes()) {
-        throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' starts at a not existing lane.");
-    }
-    if (toL >= (int) toE->getNumLanes()) {
-        throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' yields in a not existing lane.");
-    }
-    bool noSpline = false;
+PositionVector 
+NBNode::computeSmoothShape(const PositionVector& begShape,
+        const PositionVector& endShape,
+        int numPoints,
+        bool isTurnaround,
+        SUMOReal extrapolateBeg,
+        SUMOReal extrapolateEnd) const {
+
+    const Position beg = begShape.back();
+    const Position end = endShape.front();
     PositionVector ret;
     PositionVector init;
-    Position beg = fromE->getLaneShape(fromL).back();
-    Position end = toE->getLaneShape(toL).front();
-    Position intersection;
     unsigned int noInitialPoints = 0;
+    bool noSpline = false;
     if (beg.distanceTo(end) <= POSITION_EPS) {
         noSpline = true;
     } else {
-        if (fromE->getTurnDestination() == toE) {
+        if (isTurnaround) {
             // turnarounds:
             //  - end of incoming lane
             //  - position between incoming/outgoing end/begin shifted by the distance orthogonally
             //  - begin of outgoing lane
             noInitialPoints = 3;
             init.push_back(beg);
-            Line straightConn(fromE->getLaneShape(fromL)[-1], toE->getLaneShape(toL)[0]);
+            Line straightConn(begShape[-1], endShape[0]);
             Position straightCenter = straightConn.getPositionAtDistance((SUMOReal) straightConn.length() / (SUMOReal) 2.);
             Position center = straightCenter;//.add(straightCenter);
             Line cross(straightConn);
@@ -487,25 +485,25 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
             init.push_back(center);
             init.push_back(end);
         } else {
-            const SUMOReal angle = fabs(fromE->getLaneShape(fromL).getEndLine().atan2Angle() - toE->getLaneShape(toL).getBegLine().atan2Angle());
+            const SUMOReal angle = fabs(begShape.getEndLine().atan2Angle() - endShape.getBegLine().atan2Angle());
             if (angle < M_PI / 4. || angle > 7. / 4.*M_PI) {
                 // very low angle: almost straight
                 noInitialPoints = 4;
                 init.push_back(beg);
-                Line begL = fromE->getLaneShape(fromL).getEndLine();
+                Line begL = begShape.getEndLine();
                 begL.extrapolateSecondBy(100);
-                Line endL = toE->getLaneShape(toL).getBegLine();
+                Line endL = endShape.getBegLine();
                 endL.extrapolateFirstBy(100);
                 SUMOReal distance = beg.distanceTo(end);
                 if (distance > 10) {
                     {
-                        SUMOReal off1 = fromE->getLaneShape(fromL).getEndLine().length() + (SUMOReal) 5. * (SUMOReal) fromE->getNumLanes();
-                        off1 = MIN2(off1, (SUMOReal)(fromE->getLaneShape(fromL).getEndLine().length() + distance / 2.));
+                        SUMOReal off1 = begShape.getEndLine().length() + extrapolateBeg;
+                        off1 = MIN2(off1, (SUMOReal)(begShape.getEndLine().length() + distance / 2.));
                         Position tmp = begL.getPositionAtDistance(off1);
                         init.push_back(tmp);
                     }
                     {
-                        SUMOReal off1 = (SUMOReal) 100. - (SUMOReal) 5. * (SUMOReal) toE->getNumLanes();
+                        SUMOReal off1 = (SUMOReal) 100. - extrapolateEnd;
                         off1 = MAX2(off1, (SUMOReal)(100. - distance / 2.));
                         Position tmp = endL.getPositionAtDistance(off1);
                         init.push_back(tmp);
@@ -522,8 +520,8 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
                 // attention: if there is no intersection, use a straight line
                 noInitialPoints = 3;
                 init.push_back(beg);
-                Line begL = fromE->getLaneShape(fromL).getEndLine();
-                Line endL = toE->getLaneShape(toL).getBegLine();
+                Line begL = begShape.getEndLine();
+                Line endL = endShape.getBegLine();
                 bool check = !begL.p1().almostSame(begL.p2()) && !endL.p1().almostSame(endL.p2());
                 if (check) {
                     begL.extrapolateSecondBy(100);
@@ -542,8 +540,8 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
     }
     //
     if (noSpline) {
-        ret.push_back(fromE->getLaneShape(fromL).back());
-        ret.push_back(toE->getLaneShape(toL).front());
+        ret.push_back(begShape.back());
+        ret.push_back(endShape.front());
     } else {
         SUMOReal* def = new SUMOReal[1 + noInitialPoints * 3];
         for (int i = 0; i < (int) init.size(); ++i) {
@@ -565,6 +563,23 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
         }
         delete[] ret_buf;
     }
+    return ret;
+}
+
+
+PositionVector
+NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
+                                 NBEdge* toE, int toL, int numPoints) const {
+    if (fromL >= (int) fromE->getNumLanes()) {
+        throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' starts at a not existing lane.");
+    }
+    if (toL >= (int) toE->getNumLanes()) {
+        throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' yields in a not existing lane.");
+    }
+    PositionVector ret = computeSmoothShape(fromE->getLaneShape(fromL), toE->getLaneShape(toL), 
+            numPoints, fromE->getTurnDestination() == toE,
+            (SUMOReal) 5. * (SUMOReal) fromE->getNumLanes(),
+            (SUMOReal) 5. * (SUMOReal) toE->getNumLanes());
     const NBEdge::Lane& lane = fromE->getLaneStruct(fromL);
     if (lane.endOffset > 0) {
         PositionVector beg = lane.shape.getSubpart(lane.shape.length() - lane.endOffset, lane.shape.length());;

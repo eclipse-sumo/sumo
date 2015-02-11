@@ -526,6 +526,24 @@ public:
         NBEdge* fromE, int fromL, NBEdge* toE, int toL, int numPoints = 5) const;
 
 
+    /** @brief Compute a smooth curve between the given geometries
+     * @param[in] begShape The geometry at the start
+     * @param[in] endShape The geometry at the end
+     * @param[in] numPoints The number of geometry points for the internal lane
+     * @param[in] isTurnaround Whether this shall be the shape for a turnaround
+     * @param[in] extrapolateBeg Extrapolation distance at the beginning
+     * @param[in] extrapolateEnd Extrapolation distance at the end
+     * @return The shape of the internal lane
+     */
+    PositionVector computeSmoothShape(
+            const PositionVector& begShape,
+            const PositionVector& endShape,
+            int numPoints,
+            bool isTurnaround,
+            SUMOReal extrapolateBeg,
+            SUMOReal extrapolateEnd) const;
+
+
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
         Connections are remapped, too */
     void replaceIncoming(NBEdge* which, NBEdge* by, unsigned int laneOff);
