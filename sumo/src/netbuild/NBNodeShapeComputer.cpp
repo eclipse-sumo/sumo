@@ -197,6 +197,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         return PositionVector();
     }
     // initialise
+    const SUMOReal twoPI = (SUMOReal)(2 * M_PI);
     EdgeVector::const_iterator i;
     // edges located in the value-vector have the same direction as the key edge
     std::map<NBEdge*, EdgeVector > same;
@@ -243,7 +244,6 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         SUMOReal angleCW = geomsCW[*cwi].lineAt(0).atan2PositiveAngle();
         SUMOReal ccad;
         SUMOReal cad;
-        SUMOReal twoPI = (SUMOReal)(2 * M_PI);
         if (angleI > angleCCW) {
             ccad = angleI - angleCCW;
         } else {
@@ -415,7 +415,6 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         SUMOReal angleCW = geomsCW[*cwi].lineAt(0).atan2PositiveAngle();
         SUMOReal ccad;
         SUMOReal cad;
-        SUMOReal twoPI = (SUMOReal)(2 * M_PI);
         if (angleI > angleCCW) {
             ccad = angleI - angleCCW;
         } else {
