@@ -1,0 +1,14 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+   <vType id="ship_default" vClass="ship"/>
+   <vType id="ship_custom" vClass="ship" maxSpeed="9" length="10" width="2"/>
+
+   <vehicle id="ship1" type="ship_default" depart="0">
+       <route edges="beg middle end"/>
+   </vehicle>
+
+   <vehicle id="ship2" type="ship_custom" depart="0">
+       <route edges="-end -middle -beg"/>
+   </vehicle>
+
+</routes>

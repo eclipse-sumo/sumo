@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 11 Feb 2015 12:03:13 PM CET by SUMO gui Version dev-SVN-r17824ID
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumo-gui.exeConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <message-log value="stdout"/>
+        <error-log value="stderr"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <quit-on-end value="true"/>
+        <start value="true"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="ship2" depart="0.00" departLane="-end_0" departPos="10.10" departSpeed="0.00" departDelay="0.00" arrival="117.00" arrivalLane="-beg_0" arrivalPos="204.19" arrivalSpeed="9.00" duration="117.00" routeLength="650.36" waitSteps="1" timeLoss="44.46" rerouteNo="0" devices="tripinfo_ship2" vType="ship_custom" vaporized=""/>
+    <tripinfo id="ship1" depart="0.00" departLane="beg_0" departPos="17.10" departSpeed="0.00" departDelay="0.00" arrival="178.00" arrivalLane="end_0" arrivalPos="229.16" arrivalSpeed="4.12" duration="178.00" routeLength="650.84" waitSteps="1" timeLoss="20.10" rerouteNo="0" devices="tripinfo_ship1" vType="ship_default" vaporized=""/>
+</tripinfos>
