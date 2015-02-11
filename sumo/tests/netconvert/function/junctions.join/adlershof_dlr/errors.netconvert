@@ -13,7 +13,6 @@ Warning: Not joining junctions 1560223834,1599958746 because the cluster is too 
 Warning: Not joining junctions 1560224080,1599958758,607684208 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 1560224141,1560224152,1560224191,1560224195 because the cluster is too complex (6 incoming edges)
 Warning: Not joining junctions 1560224281,1568241661,1685653117,2471305128,837749839 because the cluster is too complex (6 incoming edges)
-Warning: Not joining junctions 1560224386,1685653124 because the cluster is too complex (parallel outgoing -156294408,142575693#1)
 Warning: Not joining junctions 1568241533,1853142988,283018844,283018932,607638014 because the cluster is too complex (6 incoming edges)
 Warning: Not joining junctions 1568241232,1654992651,283018497,283018514 because the cluster is too complex (7 incoming edges)
 Warning: Not joining junctions 283018845,38919880 because the cluster is too complex (5 incoming edges)
@@ -47,4 +46,4 @@ Warning: Found angle of 138.44 degrees at edge 71960638#0, segment 5
 Warning: In lane '-70214888#0_0': Could not build shape.
 Warning: In lane '156071615#4_0': Could not build shape.
 Warning: Junction shape for '1370020147' has distance 21.50 to its given position
-Warning: Junction shape for '473482356' has distance 27.53 to its given position
+Warning: Junction shape for '473482356' has distance 27.54 to its given position

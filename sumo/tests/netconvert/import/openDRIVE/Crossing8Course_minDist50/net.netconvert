@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/16/13 12:26:36 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Wed Feb 11 14:25:59 2015 by SUMO netconvert Version dev-SVN-r17826ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -20,6 +20,7 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
     </report>
 
 </configuration>
@@ -30,10 +31,10 @@
     <location netOffset="198.90,86.38" convBoundary="0.00,0.00,397.80,170.59" origBoundary="-198.90,-86.38,198.90,84.21" projParameter="!"/>
 
     <edge id="-501.0.00" from="2" to="508.501" priority="1" shape="205.97,93.45 208.80,96.28">
-        <lane id="-501.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="203.82,88.57 210.16,94.92"/>
+        <lane id="-501.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="204.01,88.77 210.16,94.92"/>
     </edge>
     <edge id="-502.0.00" from="2" to="509.502" priority="1" shape="191.83,93.45 189.00,96.28">
-        <lane id="-502.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="196.71,91.29 190.34,97.66"/>
+        <lane id="-502.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="196.51,91.49 190.34,97.66"/>
     </edge>
     <edge id="-508.0.00" from="516.508" to="508.501" priority="1" shape="208.80,76.48 258.95,26.33 311.64,0.00 367.88,16.47 397.80,66.86 394.77,118.27 338.66,170.59 280.52,163.31 208.80,96.28">
         <lane id="-508.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="532.01" width="3.75" shape="207.44,75.12 257.81,24.75 311.45,-2.06 369.15,14.84 399.76,66.38 396.64,119.15 339.32,172.61 279.66,165.14 207.47,97.67"/>
@@ -42,16 +43,16 @@
         <lane id="-509.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="532.01" width="3.75" shape="187.64,77.84 137.71,27.91 85.98,2.06 31.19,18.11 1.96,67.34 4.91,117.39 59.79,168.56 116.43,161.48 187.69,94.87"/>
     </edge>
     <edge id="-514.0.00" from="2" to="514.509" priority="1" shape="191.83,79.31 189.00,76.48">
-        <lane id="-514.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="193.99,84.19 187.64,77.84"/>
+        <lane id="-514.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="193.79,83.99 187.64,77.84"/>
     </edge>
     <edge id="-516.0.00" from="2" to="516.508" priority="1" shape="205.97,79.31 208.80,76.48">
-        <lane id="-516.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="201.09,81.47 207.44,75.12"/>
+        <lane id="-516.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="201.29,81.27 207.44,75.12"/>
     </edge>
     <edge id="501.0.00" from="508.501" to="2" priority="2" shape="208.80,96.28 205.97,93.45">
-        <lane id="501.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="207.47,97.67 201.09,91.29"/>
+        <lane id="501.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="207.47,97.67 201.29,91.49"/>
     </edge>
     <edge id="502.0.00" from="509.502" to="2" priority="0" shape="189.00,96.28 191.83,93.45">
-        <lane id="502.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="187.64,94.92 193.99,88.57"/>
+        <lane id="502.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="187.64,94.92 193.79,88.77"/>
     </edge>
     <edge id="508.0.00" from="508.501" to="516.508" priority="1" shape="208.80,96.28 280.52,163.31 338.66,170.59 394.77,118.27 397.80,66.86 367.88,16.47 311.64,0.00 258.95,26.33 208.80,76.48">
         <lane id="508.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="532.01" width="3.75" shape="210.11,94.87 281.37,161.48 338.01,168.56 392.89,117.39 395.85,67.34 366.61,18.11 311.82,2.06 260.09,27.91 210.16,77.84"/>
@@ -60,10 +61,10 @@
         <lane id="509.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="532.01" width="3.75" shape="190.34,97.66 118.15,165.14 58.48,172.61 1.16,119.15 -1.96,66.38 28.65,14.84 86.35,-2.06 139.99,24.75 190.36,75.12"/>
     </edge>
     <edge id="514.0.00" from="514.509" to="2" priority="2" shape="189.00,76.48 191.83,79.31">
-        <lane id="514.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="190.36,75.12 196.71,81.47"/>
+        <lane id="514.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="190.36,75.12 196.51,81.27"/>
     </edge>
     <edge id="516.0.00" from="516.508" to="2" priority="0" shape="208.80,76.48 205.97,79.31">
-        <lane id="516.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="210.16,77.84 203.82,84.19"/>
+        <lane id="516.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="210.16,77.84 204.01,83.99"/>
     </edge>
 
     <tlLogic id="2" type="static" programID="0" offset="0">
@@ -77,7 +78,7 @@
         <phase duration="4" state="yygrrryygrrr"/>
     </tlLogic>
 
-    <junction id="2" type="traffic_light" x="198.90" y="86.38" incLanes="501.0.00_0 516.0.00_0 514.0.00_0 502.0.00_0" intLanes="" shape="199.96,92.43 204.95,87.44 204.95,85.32 199.96,80.33 197.84,80.33 192.86,85.32 192.86,87.44 197.84,92.43">
+    <junction id="2" type="traffic_light" x="198.90" y="86.38" incLanes="501.0.00_0 516.0.00_0 514.0.00_0 502.0.00_0" intLanes="" shape="199.96,92.81 205.34,87.44 205.34,85.32 199.96,79.94 197.84,79.94 192.47,85.32 192.47,87.44 197.84,92.81">
         <request index="0" response="000000000000" foes="000100010000"/>
         <request index="1" response="000000000000" foes="111100110000"/>
         <request index="2" response="000011000000" foes="110011110000"/>
@@ -91,19 +92,19 @@
         <request index="10" response="000111000110" foes="000111100110"/>
         <request index="11" response="000110011110" foes="000110011110"/>
     </junction>
-    <junction id="508.501" type="priority" x="208.80" y="96.28" incLanes="-508.0.00_0 -501.0.00_0" intLanes="" shape="206.37,98.83 211.19,93.68 211.31,93.81 206.33,98.79">
+    <junction id="508.501" type="priority" x="208.80" y="96.28" incLanes="-508.0.00_0 -501.0.00_0" intLanes="" shape="206.18,99.04 211.37,93.48 211.51,93.61 206.13,98.99">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="509.502" type="priority" x="189.00" y="96.28" incLanes="-502.0.00_0 -509.0.00_0" intLanes="" shape="191.47,98.79 186.49,93.81 186.62,93.68 191.43,98.83">
+    <junction id="509.502" type="priority" x="189.00" y="96.28" incLanes="-502.0.00_0 -509.0.00_0" intLanes="" shape="191.67,98.99 186.29,93.61 186.43,93.48 191.62,99.04">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="514.509" type="priority" x="189.00" y="76.48" incLanes="-514.0.00_0 509.0.00_0" intLanes="" shape="186.51,78.97 191.49,73.99 186.51,78.97">
+    <junction id="514.509" type="priority" x="189.00" y="76.48" incLanes="-514.0.00_0 509.0.00_0" intLanes="" shape="186.31,79.17 191.69,73.79 186.31,79.17">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="516.508" type="priority" x="208.80" y="76.48" incLanes="508.0.00_0 -516.0.00_0" intLanes="" shape="211.29,78.97 206.31,73.99 211.29,78.97">
+    <junction id="516.508" type="priority" x="208.80" y="76.48" incLanes="508.0.00_0 -516.0.00_0" intLanes="" shape="211.49,79.17 206.11,73.79 211.49,79.17">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec  5 14:03:27 2014 by SUMO netconvert Version dev-SVN-r17448ID
+<!-- generated on Wed Feb 11 14:26:01 2015 by SUMO netconvert Version dev-SVN-r17826ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -52,12 +52,12 @@
         <lane id="EC_3" index="3" allow="passenger" speed="13.89" length="100.00" shape="200.00,1.65 100.00,1.65"/>
     </edge>
 
-    <junction id="C" type="priority" x="100.00" y="0.00" incLanes="EC_0 EC_1 EC_2 EC_3" intLanes=":C_0_0 :C_0_1" shape="100.00,11.35 100.00,0.05 100.00,11.35">
+    <junction id="C" type="priority" x="100.00" y="0.00" incLanes="EC_0 EC_1 EC_2 EC_3" intLanes=":C_0_0 :C_0_1" shape="100.00,11.25 100.00,0.05 100.00,11.25">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="E" type="unregulated" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.00,0.05 200.00,11.35"/>
-    <junction id="W" type="unregulated" x="0.00" y="0.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="0.00,11.35 0.00,0.05"/>
+    <junction id="E" type="unregulated" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.00,0.05 200.00,11.25"/>
+    <junction id="W" type="unregulated" x="0.00" y="0.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="0.00,11.25 0.00,0.05"/>
 
     <connection from="EC" to="CW" fromLane="2" toLane="2" via=":C_0_0" dir="s" state="M"/>
     <connection from="EC" to="CW" fromLane="3" toLane="3" via=":C_0_1" dir="s" state="M"/>

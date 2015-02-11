@@ -13,7 +13,7 @@ Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +
 Removing self-loops... done.
 Joining junction clusters... 
 done.
- Joined 16 junction cluster(s).
+ Joined 17 junction cluster(s).
 Removing empty nodes and geometry nodes... done.
    90 nodes removed.
 Moving network to origin... done.
@@ -40,7 +40,7 @@ Computing traffic light logics... done.
 Summary:
  Node type statistics:
   Unregulated junctions       : 35
-  Priority junctions          : 229
+  Priority junctions          : 228
   Right-before-left junctions : 75
  Network boundaries:
   Original boundary  : 13.45,52.42,13.58,52.46

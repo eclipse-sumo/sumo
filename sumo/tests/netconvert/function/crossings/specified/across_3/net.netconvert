@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 28 15:41:43 2015 by SUMO netconvert Version dev-SVN-r17734ID
+<!-- generated on Wed Feb 11 14:26:01 2015 by SUMO netconvert Version dev-SVN-r17826ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -220,11 +220,11 @@
         <request index="18" response="00000000000000000000" foes="00000010111101000110" cont="0"/>
         <request index="19" response="00000000000000000000" foes="00001111100010100001" cont="0"/>
     </junction>
-    <junction id="E" type="dead_end" x="221.51" y="100.00" incLanes="CE_0 CE_1 CE_2 CE_3" intLanes="" shape="221.51,100.05 221.51,111.35 221.47,76.90 221.49,88.20"/>
+    <junction id="E" type="dead_end" x="221.51" y="100.00" incLanes="CE_0 CE_1 CE_2 CE_3" intLanes="" shape="221.51,100.05 221.51,111.25 221.48,77.00 221.49,88.20"/>
     <junction id="E2" type="dead_end" x="254.67" y="93.40" incLanes="CE2_0" intLanes="" shape="254.67,93.45 254.67,96.65 254.67,90.15 254.67,93.35"/>
-    <junction id="N" type="dead_end" x="121.51" y="200.00" incLanes="CN_0 CN_1 CN_2 CN_3" intLanes="" shape="121.46,200.00 110.16,200.00 132.86,200.00 121.56,200.00"/>
-    <junction id="S" type="dead_end" x="121.51" y="0.00" incLanes="CS_0 CS_1 CS_2 CS_3" intLanes="" shape="121.56,-0.00 132.86,-0.00 110.16,0.00 121.46,0.00"/>
-    <junction id="W" type="dead_end" x="21.51" y="100.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="21.51,88.59 21.51,77.29 21.51,111.35 21.51,100.05"/>
+    <junction id="N" type="dead_end" x="121.51" y="200.00" incLanes="CN_0 CN_1 CN_2 CN_3" intLanes="" shape="121.46,200.00 110.26,200.00 132.76,200.00 121.56,200.00"/>
+    <junction id="S" type="dead_end" x="121.51" y="0.00" incLanes="CS_0 CS_1 CS_2 CS_3" intLanes="" shape="121.56,-0.00 132.76,-0.00 110.26,0.00 121.46,0.00"/>
+    <junction id="W" type="dead_end" x="21.51" y="100.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="21.51,88.59 21.51,77.39 21.51,111.25 21.51,100.05"/>
     <junction id="W2" type="dead_end" x="0.00" y="93.68" incLanes="CW2_0" intLanes="" shape="-0.00,93.63 -0.00,90.43 -0.02,96.93 -0.00,93.73"/>
 
     <junction id=":C_16_0" type="internal" x="120.57" y="103.29" incLanes=":C_3_0 SC_2 SC_3" intLanes=":C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_9_0 :C_9_1 :C_12_0 :C_14_0 :C_15_0 :C_c0_0 :C_c1_0"/>
