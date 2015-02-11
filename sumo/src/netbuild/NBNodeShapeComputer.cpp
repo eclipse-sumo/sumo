@@ -196,6 +196,8 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     if (myNode.myAllEdges.size() < 2) {
         return PositionVector();
     }
+    // magic values
+    const SUMOReal radius = 1.5;
     // initialise
     const SUMOReal twoPI = (SUMOReal)(2 * M_PI);
     EdgeVector::const_iterator i;
@@ -314,7 +316,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             } else {
                 if (!simpleContinuation) {
                     // let us put some geometry stuff into it
-                    dist = (SUMOReal) 1.5 + dist;
+                    dist = radius + dist;
                 }
                 distances[*i] = dist;
             }
@@ -323,10 +325,10 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             if (ccad < cad) {
                 if (!simpleContinuation) {
                     if (geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                        distances[*i] = (SUMOReal) 1.5 + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0];
+                        distances[*i] = radius + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0];
                         if (*cwi != *ccwi && geomsCW[*i].intersects(geomsCCW[*cwi])) {
                             SUMOReal a1 = distances[*i];
-                            SUMOReal a2 = (SUMOReal) 1.5 + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0];
+                            SUMOReal a2 = radius + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0];
                             if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
                                 SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
                                 if (mmin > 100) {
@@ -338,9 +340,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         }
                     } else {
                         if (*cwi != *ccwi && geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                            distances[*i] = (SUMOReal) 1.5 + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0];
+                            distances[*i] = radius + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0];
                         } else {
-                            distances[*i] = (SUMOReal)(100. + 1.5);
+                            distances[*i] = 100 + radius;
                         }
                     }
                 } else {
@@ -353,10 +355,10 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             } else {
                 if (!simpleContinuation) {
                     if (geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                        distances[*i] = (SUMOReal)(1.5 + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0]);
+                        distances[*i] = (radius + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0]);
                         if (*cwi != *ccwi && geomsCCW[*i].intersects(geomsCW[*ccwi])) {
                             SUMOReal a1 = distances[*i];
-                            SUMOReal a2 = (SUMOReal)(1.5 + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0]);
+                            SUMOReal a2 = (radius + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0]);
                             if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
                                 SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
                                 if (mmin > 100) {
@@ -368,9 +370,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         }
                     } else {
                         if (*cwi != *ccwi && geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                            distances[*i] = (SUMOReal) 1.5 + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0];
+                            distances[*i] = radius + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0];
                         } else {
-                            distances[*i] = (SUMOReal)(100. + 1.5);
+                            distances[*i] = 100 + radius;
                         }
                     }
                 } else {
