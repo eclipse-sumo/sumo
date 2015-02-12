@@ -40,6 +40,7 @@
 #include "NIXMLConnectionsHandler.h"
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBNode.h>
 #include <utils/common/StringTokenizer.h>
@@ -59,9 +60,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) :
+NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont& ec, NBNodeCont& nc, NBTrafficLightLogicCont& tlc) :
     SUMOSAXHandler("xml-connection-description"),
     myEdgeCont(ec),
+    myNodeCont(nc),
     myTLLogicCont(tlc),
     myHaveWarnedAboutDeprecatedLanes(false),
     myErrorMsgHandler(OptionsCont::getOptions().getBool("ignore-errors.connections") ?
@@ -163,6 +165,9 @@ NIXMLConnectionsHandler::myStartElement(int element,
     }
     if (element == SUMO_TAG_CROSSING) {
         addCrossing(attrs);
+    }
+    if (element == SUMO_TAG_CUSTOMSHAPE) {
+        addCustomShape(attrs);
     }
 }
 
@@ -355,6 +360,24 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         priority = true;
     }
     node->addCrossing(edges, width, priority);
+}
+
+
+void
+NIXMLConnectionsHandler::addCustomShape(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
+    if (!ok) {
+        return;
+    }
+    const std::string nodeID = NBNode::getNodeIDFromInternalLane(id);
+    NBNode* node = myNodeCont.retrieve(nodeID);
+    if (node == 0) {
+        WRITE_ERROR("Node '" + nodeID + "' in customShape is not known.");
+        return;
+    }
+    node->setCustomLaneShape(id, shape);
 }
 
 

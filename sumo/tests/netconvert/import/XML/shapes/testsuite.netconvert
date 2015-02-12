@@ -1,3 +1,6 @@
 # using shapes to model hokkaido (recheck whether the plain output is almost the same as the input edges)
 hokkaido
 set_node_shape
+
+# set custom shape for an internal lane
+set_internalShape

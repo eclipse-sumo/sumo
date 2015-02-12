@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 11 14:26:01 2015 by SUMO netconvert Version dev-SVN-r17826ID
+<!-- generated on Thu Feb 12 13:42:31 2015 by SUMO netconvert Version dev-SVN-r17839I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -198,7 +198,7 @@
         <phase duration="4" state="rrrrrrryrrrryrrrrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="121.51" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 E2C_0 SC_0 SC_1 SC_2 SC_3 W2C_0 WC_0 WC_1 WC_2 WC_3 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_16_0 :C_4_0 :C_5_0 :C_17_0 :C_7_0 :C_8_0 :C_9_0 :C_9_1 :C_18_0 :C_12_0 :C_13_0 :C_14_0 :C_19_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="108.14,75.76 134.62,75.66 133.59,111.82 107.21,112.03 108.14,75.76">
+    <junction id="C" type="traffic_light" x="121.51" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 E2C_0 SC_0 SC_1 SC_2 SC_3 W2C_0 WC_0 WC_1 WC_2 WC_3 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_16_0 :C_4_0 :C_5_0 :C_17_0 :C_7_0 :C_8_0 :C_9_0 :C_9_1 :C_18_0 :C_12_0 :C_13_0 :C_14_0 :C_19_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="108.14,75.76 134.62,75.66 133.59,111.82 107.21,112.03 108.14,75.76" customShape="1">
         <request index="0" response="10010000000000000000" foes="10011111100000100000" cont="0"/>
         <request index="1" response="01010000000000000000" foes="01011111100011100000" cont="0"/>
         <request index="2" response="01010000000000000000" foes="01011111100011100000" cont="0"/>

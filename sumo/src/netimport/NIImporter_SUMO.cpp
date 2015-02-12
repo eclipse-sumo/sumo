@@ -436,6 +436,11 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR("Found lane '" + id  + "' not within edge element");
         return;
     }
+    if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false)) {
+        const std::string nodeID = NBNode::getNodeIDFromInternalLane(id);
+        NBNode* node = myNodeCont.retrieve(nodeID);
+        node->setCustomShape(attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok));
+    }
     myCurrentLane = new LaneAttrs;
     if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
         // save the width and the lane id of the crossing but don't do anything else
@@ -506,6 +511,10 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     // set optional radius
     if (attrs.hasAttribute(SUMO_ATTR_RADIUS)) {
         node->setRadius(attrs.get<SUMOReal>(SUMO_ATTR_RADIUS, id.c_str(), ok));
+    }
+    // handle custom shape
+    if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false)) {
+        node->setCustomShape(attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok));
     }
 }
 

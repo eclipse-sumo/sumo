@@ -11,6 +11,7 @@
             <xsd:element name="prohibition" type="prohibitionType"/>
             <xsd:element name="delete" type="deleteType"/>
             <xsd:element name="crossing" type="crossingType"/>
+            <xsd:element name="customShape" type="customShapeType"/>
         </xsd:choice>
         <xsd:attribute name="version" use="optional">
             <xsd:simpleType>
@@ -58,6 +59,11 @@
         <xsd:attribute name="node" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="required"/>
         <xsd:attribute name="priority" type="xsd:int" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="customShapeType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="shape" type="shapeType" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

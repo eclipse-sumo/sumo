@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <customShape id=":C_9_1" shape="88.65,95.05 100.00,80.00 111.35,95.05"/>
+
+</connections>

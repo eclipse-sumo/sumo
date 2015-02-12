@@ -115,6 +115,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "join",             SUMO_TAG_JOIN },
     { "joinExclude",      SUMO_TAG_JOINEXCLUDE },
     { "crossing",         SUMO_TAG_CROSSING },
+    { "customShape",      SUMO_TAG_CUSTOMSHAPE },
 
     { "way",              SUMO_TAG_WAY },
     { "nd",               SUMO_TAG_ND },
@@ -297,6 +298,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "shape",          SUMO_ATTR_SHAPE },
     { "spreadType",     SUMO_ATTR_SPREADTYPE },
     { "radius",         SUMO_ATTR_RADIUS },
+    { "customShape",    SUMO_ATTR_CUSTOMSHAPE },
     { "color",          SUMO_ATTR_COLOR },
     { "dir",            SUMO_ATTR_DIR },
     { "state",          SUMO_ATTR_STATE },

@@ -80,6 +80,8 @@ class NBNode : public Named {
     friend class NBEdgePriorityComputer; // < computes priorities of edges per intersection
 
 public:
+    typedef std::map<std::string, PositionVector> CustomShapeMap;
+
     /**
      * @class ApproachingDivider
      * @brief Computes lane-2-lane connections
@@ -491,13 +493,23 @@ public:
     /// @brief set the junction shape
     void setCustomShape(const PositionVector& shape);
 
+    /// @brief sets a custom shape for an internal lane
+    void setCustomLaneShape(const std::string& laneID, const PositionVector& shape) {
+        myCustomLaneShapes[laneID] = shape;
+    }
+
+    /// @brief sets a custom shape for an internal lane
+    const CustomShapeMap& getCustomLaneShapes() const {
+        return myCustomLaneShapes;
+    }
+
     /// @brief set the turning radius
     void setRadius(SUMOReal radius) {
         myRadius = radius;
     }
 
     /// @brief return whether the shape was set by the user
-    bool hasCustomShape() {
+    bool hasCustomShape() const {
         return myHaveCustomPoly;
     }
 
@@ -656,6 +668,9 @@ public:
 
     };
 
+    /// @brief returns the node id for internal lanes, crossings and walkingareas
+    static std::string getNodeIDFromInternalLane(const std::string id);
+
 private:
     bool isSimpleContinuation() const;
 
@@ -724,6 +739,8 @@ private:
 
     /// @brief the turning radius (for all corners) at this node in m.
     SUMOReal myRadius;
+
+    CustomShapeMap myCustomLaneShapes;
 
 private:
     /// @brief invalidated copy constructor

@@ -87,6 +87,7 @@
         <xsd:attribute name="endOffset" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="shape" type="shapeTypeTwo" use="required"/>
+        <xsd:attribute name="customShape" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="junctionType">
@@ -116,6 +117,7 @@
         <xsd:attribute name="intLanes" type="xsd:string" use="required"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
         <xsd:attribute name="radius" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="customShape" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="requestType">

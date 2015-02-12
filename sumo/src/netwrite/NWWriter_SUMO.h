@@ -140,11 +140,13 @@ protected:
      * @param[in] length Lane's length
      * @param[in] index The index of the lane within the edge
      * @param[in] origNames Whether original names shall be written as parameter
+     * @param[in] node The node to check for custom shape data 
      */
     static void writeLane(OutputDevice& into, const std::string& eID, const std::string& lID,
                           SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
-                          SUMOReal endOffset, SUMOReal width, const PositionVector& shape,
-                          const std::string& origID, SUMOReal length, unsigned int index, bool origNames);
+                          SUMOReal endOffset, SUMOReal width, PositionVector shape,
+                          const std::string& origID, SUMOReal length, unsigned int index, bool origNames, 
+                          const NBNode* node = 0);
 
 
     /** @brief Writes a junction (<junction ...)

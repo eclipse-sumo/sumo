@@ -156,6 +156,7 @@ enum SumoXMLTag {
     SUMO_TAG_JOIN,
     SUMO_TAG_JOINEXCLUDE,
     SUMO_TAG_CROSSING,
+    SUMO_TAG_CUSTOMSHAPE,
 
     SUMO_TAG_WAY,
     SUMO_TAG_ND,
@@ -370,6 +371,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_SPREADTYPE,
     /// The turning radius at an intersection in m 
     SUMO_ATTR_RADIUS,
+    /// whether a given shape is user-defined
+    SUMO_ATTR_CUSTOMSHAPE,
     /// A color information
     SUMO_ATTR_COLOR,
     /// The abstract direction of a link

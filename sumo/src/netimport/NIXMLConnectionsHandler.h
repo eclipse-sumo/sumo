@@ -41,6 +41,7 @@
 // ===========================================================================
 class NBEdge;
 class NBEdgeCont;
+class NBNodeCont;
 class NBTrafficLightLogicCont;
 class MsgHandler;
 
@@ -60,7 +61,7 @@ public:
     /** @brief Constructor
      * @param[in] ec The edge container which includes the edges to change connections of
      */
-    NIXMLConnectionsHandler(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
+    NIXMLConnectionsHandler(NBEdgeCont& ec, NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
 
 
     /// @brief Destructor
@@ -137,9 +138,17 @@ private:
      */
     void addCrossing(const SUMOSAXAttributes& attrs);
 
+    /** @brief Parses a customShape and updates the referenced node
+     * @param[in] attrs The attributes to get the customShapes's values from
+     */
+    void addCustomShape(const SUMOSAXAttributes& attrs);
+
 private:
     /// @brief The edge container to fill
     NBEdgeCont& myEdgeCont;
+
+    /// @brief The edge container to fill
+    NBNodeCont& myNodeCont;
 
     /** @brief The traffic lights container to add built tls to (when
      * invalidating tls)  */
