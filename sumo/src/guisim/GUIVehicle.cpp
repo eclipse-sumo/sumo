@@ -1007,6 +1007,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             case SVS_PEDESTRIAN:
             case SVS_BICYCLE:
             case SVS_ANT:
+            case SVS_SHIP:
             case SVS_RAIL:
             case SVS_RAIL_CARGO:
                 // only SVS_RAIL_CAR has blinkers and brake lights
