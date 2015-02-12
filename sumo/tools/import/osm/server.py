@@ -35,6 +35,7 @@ sys.path.append(os.path.join(SUMO_HOME, "tools"))
 polyfile = os.path.join(SUMO_HOME, "data", "typemap", "osmPolyconvert.typ.xml")
 typefile = os.path.join(SUMO_HOME, "data", "typemap", "osmNetconvert.typ.xml")
 pedestrianstypefile = os.path.join(SUMO_HOME, "data", "typemap", "osmNetconvertPedestrians.typ.xml")
+shipstypefile = os.path.join(SUMO_HOME, "data", "typemap", "osmNetconvertShips.typ.xml")
 
 import osmGet
 import osmBuild
@@ -86,10 +87,17 @@ def build(handler, prefix, bbox=False):
     #output name for the poly file, will be used by osmBuild and sumo-gui
     polyname = prefix + ".poly.xml"
     options = ["-f", osmname, "-p", prefix, "-m", polyfile]
+    typefiles = []
+    netconvertOptions = "-R,--ramps.guess,-v,--junctions.join,--osm.railway.oneway-default,--tls.guess-signals,--tls.discard-simple,--tls.join,--junctions.corner-detail,5"
     if handler.pedestrians.enable: #drop?
-        options += ["--pedestrians", "--netconvert-typemap", pedestrianstypefile]
+        netconvertOptions += ",--crossings.guess" # sidewalks are already included via typefile
+        typefiles.append(pedestrianstypefile)
     else:
-        options += ["--netconvert-typemap", typefile]
+        typefiles.append(typefile)
+    if handler.ships.enable: 
+        typefiles.append(shipstypefile)
+    options += ["--netconvert-typemap", ','.join(typefiles)]
+    options += ["--netconvert-options", netconvertOptions]
     osmBuild.build(options)
 
     if handler.vehicles.enable or handler.bicycles.enable or handler.pedestrians.enable or handler.rails.enable:
@@ -123,6 +131,13 @@ def build(handler, prefix, bbox=False):
             randomTrips.main(randomTrips.get_options(handler.rails.parseTripOpts(netname, routename, areaFactor)))
             route2trips.main([routename], outfile=tripname)
 
+        if handler.ships.enable:
+            routename = prefix + ".ships.rou.xml"
+            tripname = prefix + ".ships.trips.xml"
+            routenames.append(tripname)
+            randomTrips.main(randomTrips.get_options(handler.ships.parseTripOpts(netname, routename, areaFactor)))
+            route2trips.main([routename], outfile=tripname)
+
         callSumo(["-r", ",".join(routenames), "--ignore-route-errors"])
 
     else:
@@ -150,9 +165,17 @@ class Settings:
 
 def initSettings(handler):
     handler.vehicles = Settings(["--vehicle-class", "passenger", "--vclass", "passenger", "--prefix", "veh", "--min-distance", "300"])
+    handler.vehicles.fringeFactor = 5
     handler.bicycles = Settings(["--vehicle-class", "bicycle", "--vclass", "bicycle", "--prefix", "bike", "--max-distance", "8000"])
+    handler.bicycles.fringeFactor = 2
     handler.pedestrians = Settings(["--pedestrians", "--prefix", "ped", "--max-distance", "2000"])
     handler.rails = Settings(["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "train"])
+    handler.rails.fringeFactor = 40
+    handler.ships = Settings(["--vehicle-class", "ship", "--vclass", "ship", "--prefix", "ship"])
+    handler.ships.fringeFactor = 40
+    handler.ships.period = 100
+
+
 
 class WebSocketsHandler(SocketServer.StreamRequestHandler):
     magic = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11'
@@ -285,6 +308,7 @@ if __name__ == "__main__":
         dh.bicycles.enable = True
         dh.pedestrians.enable = True
         dh.rails.enable = True
+        dh.ships.enable = True
         build(dh, *sys.argv[1:])
     else:
         main()
