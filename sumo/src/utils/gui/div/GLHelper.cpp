@@ -183,7 +183,7 @@ GLHelper::drawBoxLines(const PositionVector& geom,
     if (cornerDetail > 0) {
         for (int i = 1; i < e; i++) {
             glPushMatrix();
-            glTranslated(geom[i].x(), geom[i].y(), 1);
+            glTranslated(geom[i].x(), geom[i].y(), 0.1);
             if (rightTurn(rots[i-1], rots[i])) {
                 // inside corner
                 drawFilledCircle(width - offset, cornerDetail);
