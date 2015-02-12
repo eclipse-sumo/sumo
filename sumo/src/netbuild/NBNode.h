@@ -578,10 +578,9 @@ public:
     unsigned int buildCrossings();
 
     /* @brief build pedestrian walking areas and set connections from/to walkingAreas
-     * @param[in] index The starting index for naming the created internal lanes
-     * @param[in] tlIndex The starting traffic light index to assign to connections to controlled crossings
+     * @param[in] cornerDetail The detail level when generating the inner curve
      * */
-    void buildWalkingAreas();
+    void buildWalkingAreas(int cornerDetail);
 
     /// @brief return all edges that lie clockwise between the given edges
     EdgeVector edgesBetween(const NBEdge* e1, const NBEdge* e2) const;

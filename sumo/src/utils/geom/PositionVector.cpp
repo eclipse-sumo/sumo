@@ -606,8 +606,8 @@ PositionVector::appendWithCrossingPoint(const PositionVector& v) {
 
 
 void
-PositionVector::append(const PositionVector& v) {
-    if (back().distanceTo(v[0]) < 2) {
+PositionVector::append(const PositionVector& v, SUMOReal sameThreshold) {
+    if (back().distanceTo(v[0]) < sameThreshold) {
         copy(v.begin() + 1, v.end(), back_inserter(*this));
     } else {
         copy(v.begin(), v.end(), back_inserter(*this));

@@ -217,7 +217,7 @@ public:
     int appendWithCrossingPoint(const PositionVector& v);
 
     // @brief append the given vector to this one
-    void append(const PositionVector& v);
+    void append(const PositionVector& v, SUMOReal sameThreshold = 2.0);
 
     PositionVector getSubpart(SUMOReal beginOffset, SUMOReal endOffset) const;
 

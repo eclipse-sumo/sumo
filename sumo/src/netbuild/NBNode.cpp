@@ -1674,7 +1674,7 @@ NBNode::buildInnerEdges(bool buildCrossingsAndWalkingAreas) {
     }
     if (buildCrossingsAndWalkingAreas) {
         buildCrossings();
-        buildWalkingAreas();
+        buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"));
         // ensure that all crossings are properly connected
         for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
             if ((*it).prevWalkingArea == "" || (*it).nextWalkingArea == "") {
@@ -1747,7 +1747,7 @@ NBNode::buildCrossings() {
 
 
 void
-NBNode::buildWalkingAreas() {
+NBNode::buildWalkingAreas(int cornerDetail) {
     //gDebugFlag1 = getID() == DEBUGID;
     unsigned int index = 0;
     myWalkingAreas.clear();
@@ -1755,6 +1755,7 @@ NBNode::buildWalkingAreas() {
         std::cout << "build walkingAreas for " << getID() << ":\n";
     }
     EdgeVector allEdges = getEdgesSortedByAngleAtNodeCenter();
+    // shapes are all pointing away from the intersection
     std::vector<std::pair<NBEdge*, NBEdge::Lane> > normalizedLanes;
     for (EdgeVector::const_iterator it = allEdges.begin(); it != allEdges.end(); ++it) {
         NBEdge* edge = *it;
@@ -1763,6 +1764,7 @@ NBNode::buildWalkingAreas() {
             for (std::vector<NBEdge::Lane>::const_reverse_iterator it_l = lanes.rbegin(); it_l != lanes.rend(); ++it_l) {
                 NBEdge::Lane l = *it_l;
                 l.shape = l.shape.getSubpartByIndex(0, 2);
+                l.width = (l.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : l.width);
                 normalizedLanes.push_back(std::make_pair(edge, l));
             }
         } else {
@@ -1770,6 +1772,7 @@ NBNode::buildWalkingAreas() {
                 NBEdge::Lane l = *it_l;
                 l.shape = l.shape.reverse();
                 l.shape = l.shape.getSubpartByIndex(0, 2);
+                l.width = (l.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : l.width);
                 normalizedLanes.push_back(std::make_pair(edge, l));
             }
         }
@@ -1854,8 +1857,8 @@ NBNode::buildWalkingAreas() {
         if (gDebugFlag1) {
             std::cout << "build walkingArea " << wa.id << " start=" << start << " end=" << end << " count=" << count << " prev=" << prev << ":\n";
         }
-        SUMOReal endCrossingWidth = DEFAULT_CROSSING_WIDTH;
-        SUMOReal startCrossingWidth = DEFAULT_CROSSING_WIDTH;
+        SUMOReal endCrossingWidth = 0;
+        SUMOReal startCrossingWidth = 0;
         PositionVector endCrossingShape;
         PositionVector startCrossingShape;
         // check for connected crossings
@@ -1909,7 +1912,6 @@ NBNode::buildWalkingAreas() {
             const int nlI = (start + j) % normalizedLanes.size();
             NBEdge* edge = normalizedLanes[nlI].first;
             NBEdge::Lane l = normalizedLanes[nlI].second;
-            l.width = (l.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : l.width);
             wa.width = MAX2(wa.width, l.width);
             if (connected.count(edge) == 0) {
                 if (edge->getFromNode() == this) {
@@ -1950,6 +1952,45 @@ NBNode::buildWalkingAreas() {
             NBEdge* e2 = *(++connected.begin());
             if (e1->hasConnectionTo(e2, 0, 0) || e2->hasConnectionTo(e1, 0, 0)) {
                 continue;
+            }
+        }
+        // build smooth inner curve (optional)
+        if (cornerDetail > 0) {
+            int smoothEnd = end;
+            int smoothPrev = prev;
+            // extend to green verge
+            if (endCrossingWidth > 0 && normalizedLanes[smoothEnd].second.permissions == 0) {
+                smoothEnd = (smoothEnd + 1) % normalizedLanes.size();
+            }
+            if (startCrossingWidth > 0 && normalizedLanes[smoothPrev].second.permissions == 0) {
+                if (smoothPrev == 0) {
+                    smoothPrev = (int)normalizedLanes.size() - 1;
+                } else {
+                    smoothPrev--;
+                }
+            }
+            PositionVector begShape = normalizedLanes[smoothEnd].second.shape;
+            begShape = begShape.reverse();
+            //begShape.extrapolate(endCrossingWidth);
+            begShape.move2side(normalizedLanes[smoothEnd].second.width / 2);
+            PositionVector endShape = normalizedLanes[smoothPrev].second.shape;
+            endShape.move2side(normalizedLanes[smoothPrev].second.width / 2);
+            //endShape.extrapolate(startCrossingWidth);
+            PositionVector curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
+            if (gDebugFlag1) std::cout 
+                << " end=" << smoothEnd << " prev=" << smoothPrev 
+                << " endCrossingWidth=" << endCrossingWidth << " startCrossingWidth=" << startCrossingWidth 
+                << "  begShape=" << begShape << " endShape=" << endShape << " smooth curve=" << curve << "\n";
+            if (curve.size() > 2) {
+                curve.eraseAt(0);
+                curve.eraseAt(-1);
+                if (endCrossingWidth > 0) {
+                    wa.shape.eraseAt(-1);
+                }
+                if (startCrossingWidth > 0) {
+                    wa.shape.eraseAt(0);
+                }
+                wa.shape.append(curve, 0);
             }
         }
         // determine length (average of all possible connections)
@@ -2128,7 +2169,6 @@ NBNode::getEdgesSortedByAngleAtNodeCenter() const {
     if (gDebugFlag1) {
         std::cout << "  angles:\n";
         for (EdgeVector::const_iterator it = result.begin(); it != result.end(); ++it) {
-            std::cout << std::setprecision(40);
             std::cout << "    edge=" << (*it)->getID() << " edgeAngle=" << (*it)->getAngleAtNode(this) << " angleToShape=" << (*it)->getAngleAtNodeToCenter(this) << "\n";
         }
         std::cout << "  allEdges before: " << toString(result) << "\n";

@@ -24,6 +24,10 @@
 
 # 4 arm junction with 2 crossings on neighboring sides
 4_arm_2_neighboring
+4_arm_2_neighboring_corner_detail
+
+# without green verge
+4_arm_2_neighboring_corner_detail_noverge
 
 # crossings have intermediate walking areas
 4_arm_3_neighboring_split
