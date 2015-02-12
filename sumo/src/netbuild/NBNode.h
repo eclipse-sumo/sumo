@@ -494,9 +494,7 @@ public:
     void setCustomShape(const PositionVector& shape);
 
     /// @brief sets a custom shape for an internal lane
-    void setCustomLaneShape(const std::string& laneID, const PositionVector& shape) {
-        myCustomLaneShapes[laneID] = shape;
-    }
+    void setCustomLaneShape(const std::string& laneID, const PositionVector& shape);
 
     /// @brief sets a custom shape for an internal lane
     const CustomShapeMap& getCustomLaneShapes() const {

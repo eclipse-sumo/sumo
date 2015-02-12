@@ -1,0 +1,3 @@
+--sumo-net-file input_net.net.xml --node-files input_plain.nod.xml  --output net.net.xml --offset.disable-normalization --plain-output-prefix plain --connection-files input_plain.con.xml
+
+

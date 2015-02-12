@@ -438,8 +438,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     }
     if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false)) {
         const std::string nodeID = NBNode::getNodeIDFromInternalLane(id);
-        NBNode* node = myNodeCont.retrieve(nodeID);
-        node->setCustomShape(attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok));
+        myCustomShapeMaps[nodeID][id] = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     }
     myCurrentLane = new LaneAttrs;
     if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
@@ -515,6 +514,12 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     // handle custom shape
     if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false)) {
         node->setCustomShape(attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok));
+    }
+    if (myCustomShapeMaps.count(id) > 0) {
+        NBNode::CustomShapeMap customShapes = myCustomShapeMaps[id];
+        for (NBNode::CustomShapeMap::const_iterator it = customShapes.begin(); it != customShapes.end(); ++it) {
+            node->setCustomLaneShape(it->first, it->second);
+        }
     }
 }
 
