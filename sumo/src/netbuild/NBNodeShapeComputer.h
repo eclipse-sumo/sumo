@@ -61,6 +61,8 @@ public:
     PositionVector compute(bool leftHand);
 
 private:
+    typedef std::map<NBEdge*, PositionVector> GeomsMap;
+
     /** @brief Computes the node geometry
      * Edges with the same direction are grouped.
      * Then the node geometry is built from intersection between the borders
@@ -101,8 +103,8 @@ private:
      *  less than 1 from the key-edge's direction.
      */
     void joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same,
-                                std::map<NBEdge*, PositionVector>& geomsCCW,
-                                std::map<NBEdge*, PositionVector>& geomsCW);
+                                GeomsMap& geomsCCW,
+                                GeomsMap& geomsCW);
 
     /** @brief Joins edges and computes ccw/cw boundaries
      *
@@ -113,10 +115,30 @@ private:
      */
     EdgeVector computeUniqueDirectionList(
         const std::map<NBEdge*, EdgeVector >& same,
-        std::map<NBEdge*, PositionVector>& geomsCCW,
-        std::map<NBEdge*, PositionVector>& geomsCW,
+        GeomsMap& geomsCCW,
+        GeomsMap& geomsCW,
         std::map<NBEdge*, NBEdge*>& ccwBoundary,
         std::map<NBEdge*, NBEdge*>& cwBoundary);
+
+
+    /** @brief Compute the shape for an internal lane
+     * @param[in] edges The list of edges sorted in clockwise direction
+     * @param[in] current An iterator to the current edge
+     * @param[in] simpleContinuation Whether myNode is a simple continuation node (geometrylike)
+     * @param[in] geomsCW geometry map
+     * @param[in] geomsCCW geometry map
+     * @param[out] cwi An iterator to the clockwise neighbor
+     * @param[out] ccwi An iterator to the counter-clockwise neighbor
+     * @param[out] cad The angle difference to the clockwise neighbor
+     * @param[out] ccad The angle difference to the counter-clockwise neighbor
+     */
+    static void initNeighbors(const EdgeVector& edges, const EdgeVector::const_iterator& current, bool simpleContinuation,
+            GeomsMap& geomsCW,
+            GeomsMap& geomsCCW,
+            EdgeVector::const_iterator& cwi,
+            EdgeVector::const_iterator& ccwi,
+            SUMOReal& cad,
+            SUMOReal& ccad);
 
 
 private:
