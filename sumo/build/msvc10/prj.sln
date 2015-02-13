@@ -134,6 +134,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_lcmodels", "z
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_pedestrians", "z_libmicrosim_pedestrians\z_libmicrosim_pedestrians.vcxproj", "{371DC8ED-2D5B-42F7-94B8-03AD4892E179}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libod", "y_libod\y_libod.vcxproj", "{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -1668,6 +1670,33 @@ Global
 		{371DC8ED-2D5B-42F7-94B8-03AD4892E179}.Unittest|Win32.ActiveCfg = Release|x64
 		{371DC8ED-2D5B-42F7-94B8-03AD4892E179}.Unittest|x64.ActiveCfg = Release|x64
 		{371DC8ED-2D5B-42F7-94B8-03AD4892E179}.Unittest|x64.Build.0 = Release|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Debug|Win32.Build.0 = Debug|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Debug|x64.ActiveCfg = Debug|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Debug|x64.Build.0 = Debug|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Fastbuild|x64.Build.0 = Fastbuild|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalDebug|Win32.ActiveCfg = Debug|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalDebug|Win32.Build.0 = Debug|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalDebug|x64.ActiveCfg = Debug|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalDebug|x64.Build.0 = Debug|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalFastbuild|Win32.ActiveCfg = Fastbuild|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalFastbuild|Win32.Build.0 = Fastbuild|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalFastbuild|x64.ActiveCfg = Fastbuild|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalFastbuild|x64.Build.0 = Fastbuild|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalRelease|Win32.ActiveCfg = Release|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalRelease|Win32.Build.0 = Release|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalRelease|x64.ActiveCfg = Release|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.InternalRelease|x64.Build.0 = Release|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Release|Win32.ActiveCfg = Release|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Release|Win32.Build.0 = Release|Win32
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Release|x64.ActiveCfg = Release|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Release|x64.Build.0 = Release|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Unittest|Win32.ActiveCfg = Release|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Unittest|x64.ActiveCfg = Release|x64
+		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Unittest|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

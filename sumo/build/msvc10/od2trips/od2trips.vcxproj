@@ -141,22 +141,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\od2trips\od2trips_main.cpp" />
-    <ClCompile Include="..\..\..\src\od2trips\ODAmitranHandler.cpp" />
-    <ClCompile Include="..\..\..\src\od2trips\ODDistrict.cpp" />
-    <ClCompile Include="..\..\..\src\od2trips\ODDistrictCont.cpp" />
-    <ClCompile Include="..\..\..\src\od2trips\ODDistrictHandler.cpp" />
-    <ClCompile Include="..\..\..\src\od2trips\ODMatrix.cpp" />
+    <ClCompile Include="..\..\..\src\od2trips_main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\od2trips\ODCell.h" />
-    <ClInclude Include="..\..\..\src\od2trips\ODAmitranHandler.h" />
-    <ClInclude Include="..\..\..\src\od2trips\ODDistrict.h" />
-    <ClInclude Include="..\..\..\src\od2trips\ODDistrictCont.h" />
-    <ClInclude Include="..\..\..\src\od2trips\ODDistrictHandler.h" />
-    <ClInclude Include="..\..\..\src\od2trips\ODMatrix.h" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\y_libod\y_libod.vcxproj">
+      <Project>{d782b3e9-c1d4-4541-9f7c-1ac05abf4b32}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
       <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
