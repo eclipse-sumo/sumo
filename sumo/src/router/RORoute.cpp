@@ -107,8 +107,10 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
     if (myColor != 0) {
         dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
     }
-    if (!myRoute.empty() && myRoute.front()->getType() == ROEdge::ET_DISTRICT) {
-        std::vector<const ROEdge*> temp(myRoute.begin() + 1, myRoute.end() - 1);
+    const int frontOffset = myRoute.front()->getType() == ROEdge::ET_DISTRICT ? 1 : 0;
+    const int backOffset = myRoute.back()->getType() == ROEdge::ET_DISTRICT ? 1 : 0;
+    if (!myRoute.empty() && frontOffset + backOffset > 0) {
+        std::vector<const ROEdge*> temp(myRoute.begin() + frontOffset, myRoute.end() - backOffset);
         dev.writeAttr(SUMO_ATTR_EDGES, temp);
     } else {
         dev.writeAttr(SUMO_ATTR_EDGES, myRoute);

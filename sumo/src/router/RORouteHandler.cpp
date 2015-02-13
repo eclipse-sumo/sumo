@@ -307,6 +307,12 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
         myActiveRouteStops.clear();
         return;
     }
+    if (myActiveRoute.size() == 1 && myActiveRoute.front()->getType() == ROEdge::ET_DISTRICT) {
+        myErrorOutput->inform("The routing information for vehicle '" + myVehicleParameter->id + "' is insufficient.");
+        myActiveRouteID = "";
+        myActiveRouteStops.clear();
+        return;
+    }
     RORoute* route = new RORoute(myActiveRouteID, myCurrentCosts, myActiveRouteProbability, myActiveRoute,
                                  myActiveRouteColor, myActiveRouteStops);
     myActiveRoute.clear();
