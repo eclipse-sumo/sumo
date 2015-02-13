@@ -67,11 +67,11 @@
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <od2trips/ODCell.h>
-#include <od2trips/ODDistrict.h>
-#include <od2trips/ODDistrictCont.h>
-#include <od2trips/ODDistrictHandler.h>
-#include <od2trips/ODMatrix.h>
+#include <od/ODCell.h>
+#include <od/ODDistrict.h>
+#include <od/ODDistrictCont.h>
+#include <od/ODDistrictHandler.h>
+#include <od/ODMatrix.h>
 #include <utils/distribution/Distribution_Points.h>
 
 #include "ROMAFrame.h"

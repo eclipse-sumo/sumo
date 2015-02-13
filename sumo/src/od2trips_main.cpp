@@ -53,9 +53,9 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/StringUtils.h>
-#include <od2trips/ODDistrictCont.h>
-#include <od2trips/ODDistrictHandler.h>
-#include <od2trips/ODMatrix.h>
+#include <od/ODDistrictCont.h>
+#include <od/ODDistrictHandler.h>
+#include <od/ODMatrix.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StringTokenizer.h>

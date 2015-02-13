@@ -31,20 +31,20 @@
 #endif
 
 #include <string>
-#include "ODDistrict.h"
-#include "ODDistrictCont.h"
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/NamedObjectCont.h>
-#include <od2trips/ODDistrictCont.h>
-#include <od2trips/ODDistrictHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/options/OptionsCont.h>
+#include "ODDistrict.h"
+#include "ODDistrictHandler.h"
+#include "ODDistrictCont.h"
+
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
-#include <utils/options/OptionsCont.h>
 #endif // CHECK_MEMORY_LEAKS
 
 

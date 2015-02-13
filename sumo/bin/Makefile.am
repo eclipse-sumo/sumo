@@ -64,8 +64,8 @@ netgenerate: ../src/netgen/netgenerate
 	if [ ! -e netgenerateD -a -e netgenerateIntD ]; then ln -s netgenerateIntD netgenerateD; fi
 	if [ ! -e netgenerate -a -e netgenerateD ]; then ln -s netgenerateD netgenerate; fi
 	if [ ! -e netgenerateInt -a -e netgenerateIntD ]; then ln -s netgenerateIntD netgenerateInt; fi
-od2trips: ../src/od2trips/od2trips
-	cp ../src/od2trips/od2trips ./`echo od2trips | sed '$(transform)'`
+od2trips: ../src/od2trips
+	cp ../src/od2trips ./`echo od2trips | sed '$(transform)'`
 	if [ ! -e od2trips -a -e od2tripsInt ]; then ln -s od2tripsInt od2trips; fi
 	if [ ! -e od2tripsD -a -e od2tripsIntD ]; then ln -s od2tripsIntD od2tripsD; fi
 	if [ ! -e od2trips -a -e od2tripsD ]; then ln -s od2tripsD od2trips; fi

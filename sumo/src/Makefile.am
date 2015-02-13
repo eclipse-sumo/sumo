@@ -19,7 +19,7 @@ TRACI_LIBS = ./traci-server/libtraciserver.a ./utils/traci/libtraci.a
 TRACI_DIRS = traci-server traci_testclient
 endif
 
-bin_PROGRAMS = sumo netconvert $(GUI_APPS)
+bin_PROGRAMS = od2trips sumo netconvert $(GUI_APPS)
 
 COMMON_LIBS = ./utils/options/liboptions.a \
 ./utils/xml/libxml.a \
@@ -29,6 +29,17 @@ COMMON_LIBS = ./utils/options/liboptions.a \
 ./foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
 $(XERCES_LIBS)
+
+
+od2trips_SOURCES = od2trips_main.cpp
+
+od2trips_LDADD   = ./od/libod.a \
+./utils/options/liboptions.a \
+./utils/distribution/libdistribution.a \
+./utils/vehicle/libvehicle.a \
+./utils/common/libcommon.a \
+./utils/geom/libgeom.a \
+$(COMMON_LIBS) $(XERCES_LDFLAGS)
 
 
 sumo_SOURCES = sumo_main.cpp
@@ -95,7 +106,7 @@ $(sumo_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 endif
 
 
-SUBDIRS = foreign utils microsim router od2trips marouter $(INTERNAL_DIRS) \
+SUBDIRS = foreign utils microsim router od marouter $(INTERNAL_DIRS) \
 netbuild netwrite netgen netimport netload \
 polyconvert dfrouter duarouter jtrrouter activitygen tools \
 $(TRACI_DIRS) $(GUI_DIRS)

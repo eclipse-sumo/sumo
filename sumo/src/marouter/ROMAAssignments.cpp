@@ -36,7 +36,7 @@
 #include <router/RONet.h>
 #include <router/RORoute.h>
 #include <utils/distribution/Distribution_Points.h>
-#include <od2trips/ODMatrix.h>
+#include <od/ODMatrix.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
 #include "ROMAEdge.h"

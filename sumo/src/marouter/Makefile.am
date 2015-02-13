@@ -13,11 +13,7 @@ ROMAFrame.cpp ROMAFrame.h
 marouter_LDFLAGS = $(XERCES_LDFLAGS)
 
 marouter_LDADD   = ../router/librouter.a \
-../od2trips/ODAmitranHandler.o \
-../od2trips/ODDistrict.o \
-../od2trips/ODDistrictCont.o \
-../od2trips/ODDistrictHandler.o \
-../od2trips/ODMatrix.o \
+../od/libod.a \
 ../utils/distribution/libdistribution.a \
 ../utils/options/liboptions.a \
 ../utils/xml/libxml.a \
