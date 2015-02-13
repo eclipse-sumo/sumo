@@ -129,12 +129,20 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge = myEdgeCont.retrieve(myCurrentID);
     // check deprecated (unused) attributes
     // use default values, first
-    myCurrentSpeed = myTypeCont.getSpeed("");
     myCurrentPriority = myTypeCont.getPriority("");
     myCurrentLaneNo = myTypeCont.getNumLanes("");
-    myPermissions = myTypeCont.getPermissions("");
-    myCurrentWidth = myTypeCont.getWidth("");
     myCurrentEndOffset = NBEdge::UNSPECIFIED_OFFSET;
+    if (myCurrentEdge != 0) {
+        // update existing edge. only update lane-specific settings when explicitly requested
+        myCurrentSpeed = NBEdge::UNSPECIFIED_SPEED;
+        myPermissions = SVC_UNSPECIFIED;
+        myCurrentWidth = NBEdge::UNSPECIFIED_WIDTH;
+    } else {
+        // this is a completely new edge. get the type specific defaults
+        myCurrentSpeed = myTypeCont.getSpeed("");
+        myPermissions = myTypeCont.getPermissions("");
+        myCurrentWidth = myTypeCont.getWidth("");
+    }
     myCurrentType = "";
     myShape = PositionVector();
     myLanesSpread = LANESPREAD_RIGHT;
@@ -171,17 +179,13 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
             myCurrentEdge = 0;
             return;
         }
-        myCurrentSpeed = myCurrentEdge->getSpeed();
         myCurrentPriority = myCurrentEdge->getPriority();
         myCurrentLaneNo = myCurrentEdge->getNumLanes();
         myCurrentType = myCurrentEdge->getTypeID();
-        myPermissions = myCurrentEdge->getPermissions();
         if (!myCurrentEdge->hasDefaultGeometry()) {
             myShape = myCurrentEdge->getGeometry();
             myReinitKeepEdgeShape = true;
         }
-        myCurrentWidth = myCurrentEdge->getLaneWidth();
-        myCurrentEndOffset = myCurrentEdge->getEndOffset();
         myLanesSpread = myCurrentEdge->getLaneSpreadFunction();
         if (myCurrentEdge->hasLoadedLength()) {
             myLength = myCurrentEdge->getLoadedLength();
@@ -193,7 +197,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
         myCurrentSpeed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok);
     }
-    if (myOptions.getBool("speed-in-kmh")) {
+    if (myOptions.getBool("speed-in-kmh") && myCurrentSpeed != NBEdge::UNSPECIFIED_SPEED) {
         myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
     }
     // try to get the number of lanes
@@ -265,7 +269,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         }
     }
     myCurrentEdge->setLoadedLength(myLength);
-    myCurrentEdge->setPermissions(myPermissions);
+    if (myPermissions != SVC_UNSPECIFIED) {
+        myCurrentEdge->setPermissions(myPermissions);
+    }
 }
 
 

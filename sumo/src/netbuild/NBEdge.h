@@ -201,11 +201,14 @@ public:
     static const SUMOReal UNSPECIFIED_WIDTH;
     /// @brief unspecified lane offset
     static const SUMOReal UNSPECIFIED_OFFSET;
-    /// @brief unspecified signal offset
-    static const SUMOReal UNSPECIFIED_SIGNAL_OFFSET;
+    /// @brief unspecified lane speed
+    static const SUMOReal UNSPECIFIED_SPEED;
+
     /// @brief no length override given
     static const SUMOReal UNSPECIFIED_LOADED_LENGTH;
-    /// @brief the distance at which to take the default anglen
+    /// @brief unspecified signal offset
+    static const SUMOReal UNSPECIFIED_SIGNAL_OFFSET;
+    /// @brief the distance at which to take the default angle
     static const SUMOReal ANGLE_LOOKAHEAD;
 
 public:

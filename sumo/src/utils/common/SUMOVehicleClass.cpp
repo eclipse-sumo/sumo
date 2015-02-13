@@ -139,6 +139,7 @@ StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings(
 
 const int SUMOVehicleClass_MAX = SVC_CUSTOM2;
 const SVCPermissions SVCAll = 2 * SUMOVehicleClass_MAX - 1; // all relevant bits set to 1
+const SVCPermissions SVC_UNSPECIFIED = -1;
 
 
 // ===========================================================================

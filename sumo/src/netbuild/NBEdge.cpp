@@ -62,9 +62,11 @@
 // static members
 // ===========================================================================
 const SUMOReal NBEdge::UNSPECIFIED_WIDTH = -1;
-const SUMOReal NBEdge::UNSPECIFIED_LOADED_LENGTH = -1;
 const SUMOReal NBEdge::UNSPECIFIED_OFFSET = 0;
+const SUMOReal NBEdge::UNSPECIFIED_SPEED = -1;
+
 const SUMOReal NBEdge::UNSPECIFIED_SIGNAL_OFFSET = -1;
+const SUMOReal NBEdge::UNSPECIFIED_LOADED_LENGTH = -1;
 const SUMOReal NBEdge::ANGLE_LOOKAHEAD = 10.0;
 
 // ===========================================================================
@@ -271,18 +273,34 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
     myFrom = from;
     myTo = to;
     myPriority = priority;
-    mySpeed = speed;
     //?myTurnDestination(0),
     //?myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom = geom;
     myLaneSpreadFunction = spread;
-    myEndOffset = offset;
-    myLaneWidth = laneWidth;
     myLoadedLength = UNSPECIFIED_LOADED_LENGTH;
     myStreetName = streetName;
     //?, myAmTurningWithAngle(0), myAmTurningOf(0),
     //?myAmInnerEdge(false), myAmMacroscopicConnector(false)
+
+    // preserve lane-specific settings (geometry must be recomputed)
+    // if new lanes are added they copy the values from the leftmost lane (if specified)
+    const std::vector<Lane> oldLanes = myLanes;
     init(nolanes, tryIgnoreNodePositions);
+    for (int i = 0; i < nolanes; ++i) {
+        PositionVector newShape = myLanes[i].shape;
+        myLanes[i] = oldLanes[MIN2(i, (int)oldLanes.size() - 1)];
+        myLanes[i].shape = newShape;
+    }
+    // however, if the new edge defaults are explicityly given, they override the old settings
+    if (offset != UNSPECIFIED_OFFSET) {
+        setEndOffset(-1, offset);
+    }
+    if (laneWidth != UNSPECIFIED_WIDTH) {
+        setLaneWidth(-1, laneWidth);
+    }
+    if (speed != UNSPECIFIED_SPEED) {
+        setSpeed(-1, speed);
+    }
 }
 
 
