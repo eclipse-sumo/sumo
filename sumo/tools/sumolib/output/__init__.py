@@ -101,8 +101,11 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={}):
     the subtree in which they occur
     @Note: Attribute names may be modified to avoid name clashes
     with python keywords.
+    @Note: The element_names may be either a single string or a list of strings.
     @Example: parse('plain.edg.xml', ['edge'])
     """
+    if isinstance(element_names, str):
+        element_names = [element_names]
     elementTypes = {}
     xml_doc = pulldom.parse(xmlfile)
     for event, parsenode in xml_doc:
