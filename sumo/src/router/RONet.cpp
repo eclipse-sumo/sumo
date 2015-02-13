@@ -92,6 +92,45 @@ RONet::addEdge(ROEdge* edge) {
 }
 
 
+bool
+RONet::addDistrict(const std::string id, ROEdge* source, ROEdge* sink) {
+    if (myDistricts.count(id) > 0) {
+        WRITE_ERROR("The TAZ '" + id + "' occurs at least twice.");
+        delete source;
+        delete sink;
+        return false;
+    }
+    sink->setType(ROEdge::ET_DISTRICT);
+    addEdge(sink);
+    source->setType(ROEdge::ET_DISTRICT);
+    addEdge(source);
+    myDistricts[id] = std::make_pair(std::vector<std::string>(), std::vector<std::string>());
+    return true;
+}
+
+
+bool
+RONet::addDistrictEdge(const std::string tazID, const std::string edgeID, const bool isSource) {
+    if (myDistricts.count(tazID) == 0) {
+        WRITE_ERROR("The TAZ '" + tazID + "' is unknown.");
+        return false;
+    }
+    ROEdge* edge = getEdge(edgeID);
+    if (edge == 0) {
+        WRITE_ERROR("The edge '" + edgeID + "' for TAZ '" + tazID + "' is unknown.");
+        return false;
+    }
+    if (isSource) {
+        getEdge(tazID + "-source")->addSuccessor(edge);
+        myDistricts[tazID].first.push_back(edgeID);
+    } else {
+        edge->addSuccessor(getEdge(tazID + "-sink"));
+        myDistricts[tazID].second.push_back(edgeID);
+    }
+    return true;
+}
+
+
 void
 RONet::addNode(RONode* node) {
     if (!myNodes.add(node->getID(), node)) {

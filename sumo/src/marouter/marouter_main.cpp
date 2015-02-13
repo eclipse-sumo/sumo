@@ -344,7 +344,7 @@ main(int argc, char** argv) {
         initNet(*net, loader, oc);
         if (oc.isSet("all-pairs-output")) {
             computeAllPairs(*net, oc);
-            if (!oc.isSet("additional-files")) {
+            if (net->getDistricts().empty()) {
                 delete net;
                 SystemFrame::close();
                 if (ret == 0) {
@@ -353,12 +353,12 @@ main(int argc, char** argv) {
                 return ret;
             }
         }
-        // load districts
-        ODDistrictCont districts;
-        districts.loadDistricts(oc.getString("additional-files"));
-        if (districts.size() == 0) {
+        if (net->getDistricts().empty()) {
             throw ProcessError("No districts loaded.");
         }
+        // load districts
+        ODDistrictCont districts;
+        districts.makeDistricts(net->getDistricts());
         // load the matrix
         ODMatrix matrix(districts);
         matrix.loadMatrix(oc);

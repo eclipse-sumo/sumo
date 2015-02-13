@@ -76,6 +76,7 @@ ODDistrictCont::getRandomSinkFromDistrict(const std::string& name) const {
     return district->getRandomSink();
 }
 
+
 void
 ODDistrictCont::loadDistricts(std::string districtfile) {
     if (!FileHelpers::isReadable(districtfile)) {
@@ -91,5 +92,22 @@ ODDistrictCont::loadDistricts(std::string districtfile) {
     }
 }
 
-/****************************************************************************/
 
+void
+ODDistrictCont::makeDistricts(const std::map<std::string, std::pair<std::vector<std::string>, std::vector<std::string> > >& districts) {
+    for (std::map<std::string, std::pair<std::vector<std::string>, std::vector<std::string> > >::const_iterator it = districts.begin(); it != districts.end(); ++it) {
+        ODDistrict* current = new ODDistrict(it->first);
+        const std::vector<std::string>& sources = it->second.first;
+        for (std::vector<std::string>::const_iterator i = sources.begin(); i != sources.end(); ++i) {
+            current->addSource(*i, 1.);
+        }
+        const std::vector<std::string>& sinks = it->second.second;
+        for (std::vector<std::string>::const_iterator i = sinks.begin(); i != sinks.end(); ++i) {
+            current->addSink(*i, 1.);
+        }
+        add(current->getID(), current);
+    }
+}
+
+
+/****************************************************************************/

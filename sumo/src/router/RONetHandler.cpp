@@ -329,22 +329,12 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    ROEdge* sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", 0, 0, 0);
-    sink->setType(ROEdge::ET_DISTRICT);
-    myNet.addEdge(sink);
-    ROEdge* source = myEdgeBuilder.buildEdge(myCurrentName + "-source", 0, 0, 0);
-    source->setType(ROEdge::ET_DISTRICT);
-    myNet.addEdge(source);
+    myNet.addDistrict(myCurrentName, myEdgeBuilder.buildEdge(myCurrentName + "-source", 0, 0, 0), myEdgeBuilder.buildEdge(myCurrentName + "-sink", 0, 0, 0));
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
         for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
-            ROEdge* edge = myNet.getEdge(*i);
-            // check whether the edge exists
-            if (edge == 0) {
-                throw ProcessError("The edge '" + *i + "' within district '" + myCurrentName + "' is not known.");
-            }
-            source->addSuccessor(edge);
-            edge->addSuccessor(sink);
+            myNet.addDistrictEdge(myCurrentName, *i, true);
+            myNet.addDistrictEdge(myCurrentName, *i, false);
         }
     }
 }
@@ -354,17 +344,7 @@ void
 RONetHandler::parseDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, myCurrentName.c_str(), ok);
-    ROEdge* succ = myNet.getEdge(id);
-    if (succ != 0) {
-        // connect edge
-        if (isSource) {
-            myNet.getEdge(myCurrentName + "-source")->addSuccessor(succ);
-        } else {
-            succ->addSuccessor(myNet.getEdge(myCurrentName + "-sink"));
-        }
-    } else {
-        WRITE_ERROR("At district '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
-    }
+    myNet.addDistrictEdge(myCurrentName, id, isSource);
 }
 
 

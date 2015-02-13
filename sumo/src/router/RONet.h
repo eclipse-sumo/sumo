@@ -96,6 +96,37 @@ public:
     virtual bool addEdge(ROEdge* edge);
 
 
+    /* @brief Adds a district and connecting edges to the network
+     *
+     * If the district is already known (another one with the same id exists),
+     *  an error is generated and given to msg-error-handler. The edges
+     *  are deleted in this case and false is returned.
+     *
+     * @param[in] id The district to add
+     * @return Whether the district was added
+     */
+    bool addDistrict(const std::string id, ROEdge* source, ROEdge* sink);
+
+
+    /* @brief Adds a district and connecting edges to the network
+     *
+     * If the district is already known (another one with the same id exists),
+     *  an error is generated and given to msg-error-handler. The edges
+     *  are deleted in this case and false is returned.
+     *
+     * @param[in] id The district to add
+     * @return Whether the district was added
+     */
+    bool addDistrictEdge(const std::string tazID, const std::string edgeID, const bool isSource);
+
+    /** @brief Retrieves all TAZ (districts) from the network
+     *
+     * @return The map of all districts
+     */
+    const std::map<std::string, std::pair<std::vector<std::string>, std::vector<std::string> > >& getDistricts() const {
+        return myDistricts;
+    }
+
     /** @brief Retrieves an edge from the network
      *
      * This is not very pretty, but necessary, though, as routes run
@@ -390,6 +421,9 @@ protected:
 
     /// @brief Departure times for randomized flows
     std::map<std::string, std::vector<SUMOTime> > myDepartures;
+
+    /// @brief traffic assignment zones with sources and sinks
+    std::map<std::string, std::pair<std::vector<std::string>, std::vector<std::string> > > myDistricts;
 
     /// @brief The file to write the computed routes into
     OutputDevice* myRoutesOutput;
