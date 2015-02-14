@@ -64,7 +64,7 @@ def parseRevision(svnFile):
         # new style wc.db
         svnRevision = -1
         for l in open(svnFile, 'rb'):
-            m = re.search('[!]svn[/]ver[/](\d*)', l)
+            m = re.search('[!]svn[/]ver[/](\d*)[/]', l)
             if m:
                 try:
                     svnRevision = max(svnRevision, int(m.group(1)))
