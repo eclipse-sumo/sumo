@@ -24,17 +24,20 @@ the Free Software Foundation; either version 3 of the License, or
 
 from matplotlib import rcParams
 from pylab import *
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 import math
 from optparse import OptionParser
 from xml.sax import saxutils, make_parser, handler
 
 
-
 def toHex(val):
     """Converts the given value (0-255) into its hexadecimal representation"""
     hex = "0123456789abcdef"
-    return hex[int(val/16)] + hex[int(val - int(val/16)*16)]
+    return hex[int(val / 16)] + hex[int(val - int(val / 16) * 16)]
+
 
 def toColor(val):
     """Converts the given value (0-1) into a color definition as parseable by matplotlib"""
@@ -42,16 +45,16 @@ def toColor(val):
     return "#" + toHex(g) + toHex(g) + toHex(g)
 
 
-
 def updateMinMax(min, max, value):
-    if min==None or min>value:
+    if min == None or min > value:
         min = value
-    if max==None or max<value:
+    if max == None or max < value:
         max = value
     return (min, max)
 
 
 class VehroutesReader(handler.ContentHandler):
+
     """Reads the vehroutes file"""
 
     def __init__(self, value):
@@ -73,43 +76,41 @@ class VehroutesReader(handler.ContentHandler):
                 self._veh2time[id] = float(attrs["wished"])
 
 
-
-
-# initialise 
+# initialise
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
-    # i/o
+# i/o
 optParser.add_option("-1", "--tripinfos1", dest="tripinfos1",
                      help="First tripinfos (mandatory)", metavar="FILE")
 optParser.add_option("-2", "--tripinfos2", dest="tripinfos2",
                      help="Second tripinfos (mandatory)", metavar="FILE")
 optParser.add_option("-o", "--output", dest="output",
                      help="Name of the image to generate", metavar="FILE")
-optParser.add_option("--size", dest="size",type="string", default="",
+optParser.add_option("--size", dest="size", type="string", default="",
                      help="defines the output size")
-    # processing
-optParser.add_option("--value", dest="value", 
+# processing
+optParser.add_option("--value", dest="value",
                      type="string", default="duration", help="which value shall be used")
 optParser.add_option("-s", "--show", action="store_true", dest="show",
                      default=False, help="shows plot after generating it")
 optParser.add_option("-C", "--time-coloring", action="store_true", dest="time_coloring",
                      default=False, help="colors the points by the time")
-    # axes/legend
-optParser.add_option("--xticks", dest="xticks",type="string", default="",
+# axes/legend
+optParser.add_option("--xticks", dest="xticks", type="string", default="",
                      help="defines ticks on x-axis")
-optParser.add_option("--yticks", dest="yticks",type="string",  default="",
+optParser.add_option("--yticks", dest="yticks", type="string",  default="",
                      help="defines ticks on y-axis")
-optParser.add_option("--xlim", dest="xlim",type="string",  default="",
+optParser.add_option("--xlim", dest="xlim", type="string",  default="",
                      help="defines x-axis range")
-optParser.add_option("--ylim", dest="ylim",type="string",  default="",
+optParser.add_option("--ylim", dest="ylim", type="string",  default="",
                      help="defines y-axis range")
 # parse options
 (options, args) = optParser.parse_args()
 # check set options
 if not options.show and not options.output:
-	print "Neither show (--show) not write (--output <FILE>)? Exiting..."
-	exit()
+    print "Neither show (--show) not write (--output <FILE>)? Exiting..."
+    exit()
 
 
 parser = make_parser()
@@ -137,11 +138,11 @@ else:
     f = figure()
 xs = []
 ys = []
-    # compute values and color(s)
+# compute values and color(s)
 c = 'k'
 min = None
 max = None
-#if options.time_coloring:
+# if options.time_coloring:
 c = []
 for veh in r1._veh2value:
     if veh in r2._veh2value:
@@ -163,18 +164,18 @@ if options.time_coloring:
 else:
     plot(xs, ys, ',k')
 # set axes
-if options.xticks!="":
+if options.xticks != "":
     (xb, xe, xd, xs) = options.xticks.split(",")
-    xticks(arange(xb, xe, xd), size = xs)
-if options.yticks!="":
+    xticks(arange(xb, xe, xd), size=xs)
+if options.yticks != "":
     (yb, ye, yd, ys) = options.yticks.split(",")
-    yticks(arange(yb, ye, yd), size = ys)
-if options.xlim!="":
+    yticks(arange(yb, ye, yd), size=ys)
+if options.xlim != "":
     (xb, xe) = options.xlim.split(",")
     xlim(int(xb), int(xe))
 else:
     xlim(min, max)
-if options.ylim!="":
+if options.ylim != "":
     (yb, ye) = options.ylim.split(",")
     ylim(int(yb), int(ye))
 else:
@@ -183,6 +184,4 @@ else:
 if options.show:
     show()
 if options.output:
-    savefig(options.output);
-
-
+    savefig(options.output)

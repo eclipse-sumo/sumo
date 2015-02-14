@@ -24,17 +24,20 @@ the Free Software Foundation; either version 3 of the License, or
 
 from matplotlib import rcParams
 from pylab import *
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 import math
 from optparse import OptionParser
 from xml.sax import saxutils, make_parser, handler
 
 
-
 def toHex(val):
     """Converts the given value (0-255) into its hexadecimal representation"""
     hex = "0123456789abcdef"
-    return hex[int(val/16)] + hex[int(val - int(val/16)*16)]
+    return hex[int(val / 16)] + hex[int(val - int(val / 16) * 16)]
+
 
 def toColor(val):
     """Converts the given value (0-1) into a color definition as parseable by matplotlib"""
@@ -42,16 +45,16 @@ def toColor(val):
     return "#" + toHex(g) + toHex(g) + toHex(g)
 
 
-
 def updateMinMax(min, max, value):
-    if min==None or min>value:
+    if min == None or min > value:
         min = value
-    if max==None or max<value:
+    if max == None or max < value:
         max = value
     return (min, max)
 
 
 class WeightsReader(handler.ContentHandler):
+
     """Reads the dump file"""
 
     def __init__(self, value):
@@ -68,23 +71,24 @@ class WeightsReader(handler.ContentHandler):
             self._id = attrs['id']
             if self._id not in self._edge2value[self._time]:
                 self._edge2value[self._time][self._id] = 0.
-            self._edge2value[self._time][self._id] = self._edge2value[self._time][self._id] + float(attrs[self._value])
+            self._edge2value[self._time][self._id] = self._edge2value[
+                self._time][self._id] + float(attrs[self._value])
 
-# initialise 
+# initialise
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
-    # i/o
+# i/o
 optParser.add_option("-1", "--dump1", dest="dump1",
                      help="First dump (mandatory)", metavar="FILE")
 optParser.add_option("-2", "--dump2", dest="dump2",
                      help="Second dump (mandatory)", metavar="FILE")
 optParser.add_option("-o", "--output", dest="output",
                      help="Name of the image to generate", metavar="FILE")
-optParser.add_option("--size", dest="size",type="string", default="",
+optParser.add_option("--size", dest="size", type="string", default="",
                      help="defines the output size")
-    # processing
-optParser.add_option("--value", dest="value", 
+# processing
+optParser.add_option("--value", dest="value",
                      type="string", default="speed", help="which value shall be used")
 optParser.add_option("-s", "--show", action="store_true", dest="show",
                      default=False, help="shows plot after generating it")
@@ -92,21 +96,21 @@ optParser.add_option("-j", "--join", action="store_true", dest="join",
                      default=False, help="aggregates each edge's values")
 optParser.add_option("-C", "--time-coloring", action="store_true", dest="time_coloring",
                      default=False, help="colors the points by the time")
-    # axes/legend
-optParser.add_option("--xticks", dest="xticks",type="string", default="",
+# axes/legend
+optParser.add_option("--xticks", dest="xticks", type="string", default="",
                      help="defines ticks on x-axis")
-optParser.add_option("--yticks", dest="yticks",type="string",  default="",
+optParser.add_option("--yticks", dest="yticks", type="string",  default="",
                      help="defines ticks on y-axis")
-optParser.add_option("--xlim", dest="xlim",type="string",  default="",
+optParser.add_option("--xlim", dest="xlim", type="string",  default="",
                      help="defines x-axis range")
-optParser.add_option("--ylim", dest="ylim",type="string",  default="",
+optParser.add_option("--ylim", dest="ylim", type="string",  default="",
                      help="defines y-axis range")
 # parse options
 (options, args) = optParser.parse_args()
 # check set options
 if not options.show and not options.output:
-	print "Neither show (--show) not write (--output <FILE>)? Exiting..."
-	exit()
+    print "Neither show (--show) not write (--output <FILE>)? Exiting..."
+    exit()
 
 
 parser = make_parser()
@@ -134,7 +138,7 @@ else:
     f = figure()
 xs = []
 ys = []
-    # compute values and color(s)
+# compute values and color(s)
 c = 'k'
 min = None
 max = None
@@ -176,15 +180,19 @@ else:
                 if t in weights2._edge2value and edge in weights2._edge2value[t]:
                     xs[-1].append(weights1._edge2value[t][edge])
                     ys[-1].append(weights2._edge2value[t][edge])
-                    (min, max) = updateMinMax(min, max, weights1._edge2value[t][edge])
-                    (min, max) = updateMinMax(min, max, weights2._edge2value[t][edge])
+                    (min, max) = updateMinMax(
+                        min, max, weights1._edge2value[t][edge])
+                    (min, max) = updateMinMax(
+                        min, max, weights2._edge2value[t][edge])
         else:
             for edge in weights1._edge2value[t]:
                 if t in weights2._edge2value and edge in weights2._edge2value[t]:
                     xs.append(weights1._edge2value[t][edge])
                     ys.append(weights2._edge2value[t][edge])
-                    (min, max) = updateMinMax(min, max, weights1._edge2value[t][edge])
-                    (min, max) = updateMinMax(min, max, weights2._edge2value[t][edge])
+                    (min, max) = updateMinMax(
+                        min, max, weights1._edge2value[t][edge])
+                    (min, max) = updateMinMax(
+                        min, max, weights2._edge2value[t][edge])
      # plot
 print "data range: " + str(min) + " - " + str(max)
 if options.verbose:
@@ -195,18 +203,18 @@ if options.time_coloring and iterable(c):
 else:
     plot(xs, ys, ',', color=c)
 # set axes
-if options.xticks!="":
+if options.xticks != "":
     (xb, xe, xd, xs) = options.xticks.split(",")
-    xticks(arange(xb, xe, xd), size = xs)
-if options.yticks!="":
+    xticks(arange(xb, xe, xd), size=xs)
+if options.yticks != "":
     (yb, ye, yd, ys) = options.yticks.split(",")
-    yticks(arange(yb, ye, yd), size = ys)
-if options.xlim!="":
+    yticks(arange(yb, ye, yd), size=ys)
+if options.xlim != "":
     (xb, xe) = options.xlim.split(",")
     xlim(int(xb), int(xe))
 else:
     xlim(min, max)
-if options.ylim!="":
+if options.ylim != "":
     (yb, ye) = options.ylim.split(",")
     ylim(int(yb), int(ye))
 else:
@@ -215,6 +223,4 @@ else:
 if options.show:
     show()
 if options.output:
-    savefig(options.output);
-
-
+    savefig(options.output)

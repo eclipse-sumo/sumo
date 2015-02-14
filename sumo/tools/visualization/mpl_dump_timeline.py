@@ -24,22 +24,25 @@ the Free Software Foundation; either version 3 of the License, or
 
 from matplotlib import rcParams
 from pylab import *
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 import math
 from optparse import OptionParser
 from xml.sax import saxutils, make_parser, handler
 
 
-
 def updateMinMax(min, max, value):
-    if min==None or min>value:
+    if min == None or min > value:
         min = value
-    if max==None or max<value:
+    if max == None or max < value:
         max = value
     return (min, max)
 
 
 class WeightsReader(handler.ContentHandler):
+
     """Reads the dump file"""
 
     def __init__(self, value, edges):
@@ -58,11 +61,11 @@ class WeightsReader(handler.ContentHandler):
             if id in self._edges:
                 self._edge2value[self._time][id] = float(attrs[self._value])
 
-# initialise 
+# initialise
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
-    # i/o
+# i/o
 optParser.add_option("-d", "--dumps", dest="dumps",
                      help="The dump files to parse, divided by a ','", metavar="FILE")
 optParser.add_option("-e", "--edges", dest="edges",
@@ -71,28 +74,28 @@ optParser.add_option("-c", "--colors", dest="colors",
                      help="The colors to use, divided by a ',' (over dumps, then edges)", metavar="FILE")
 optParser.add_option("-o", "--output", dest="output",
                      help="Name of the image to generate", metavar="FILE")
-optParser.add_option("--size", dest="size",type="string", default="",
+optParser.add_option("--size", dest="size", type="string", default="",
                      help="defines the output size")
-    # processing
-optParser.add_option("--value", dest="value", 
+# processing
+optParser.add_option("--value", dest="value",
                      type="string", default="speed", help="which value shall be used")
 optParser.add_option("-s", "--show", action="store_true", dest="show",
                      default=False, help="shows plot after generating it")
-    # axes/legend
-optParser.add_option("--xticks", dest="xticks",type="string", default="",
+# axes/legend
+optParser.add_option("--xticks", dest="xticks", type="string", default="",
                      help="defines ticks on x-axis")
-optParser.add_option("--yticks", dest="yticks",type="string",  default="",
+optParser.add_option("--yticks", dest="yticks", type="string",  default="",
                      help="defines ticks on y-axis")
-optParser.add_option("--xlim", dest="xlim",type="string",  default="",
+optParser.add_option("--xlim", dest="xlim", type="string",  default="",
                      help="defines x-axis range")
-optParser.add_option("--ylim", dest="ylim",type="string",  default="",
+optParser.add_option("--ylim", dest="ylim", type="string",  default="",
                      help="defines y-axis range")
 # parse options
 (options, args) = optParser.parse_args()
 # check set options
 if not options.show and not options.output:
-	print "Neither show (--show) not write (--output <FILE>)? Exiting..."
-	exit()
+    print "Neither show (--show) not write (--output <FILE>)? Exiting..."
+    exit()
 
 
 parser = make_parser()
@@ -144,18 +147,18 @@ print "data y-range: " + str(ymin) + " - " + str(ymax)
 for i in range(0, len(cs)):
     plot(xss[i], yss[i], color=cs[i], )
 # set axes
-if options.xticks!="":
+if options.xticks != "":
     (xb, xe, xd, xs) = options.xticks.split(",")
-    xticks(arange(xb, xe, xd), size = xs)
-if options.yticks!="":
+    xticks(arange(xb, xe, xd), size=xs)
+if options.yticks != "":
     (yb, ye, yd, ys) = options.yticks.split(",")
-    yticks(arange(yb, ye, yd), size = ys)
-if options.xlim!="":
+    yticks(arange(yb, ye, yd), size=ys)
+if options.xlim != "":
     (xb, xe) = options.xlim.split(",")
     xlim(int(xb), int(xe))
 else:
     xlim(xmin, xmax)
-if options.ylim!="":
+if options.ylim != "":
     (yb, ye) = options.ylim.split(",")
     ylim(int(yb), int(ye))
 else:
@@ -164,6 +167,4 @@ else:
 if options.show:
     show()
 if options.output:
-    savefig(options.output);
-
-
+    savefig(options.output)

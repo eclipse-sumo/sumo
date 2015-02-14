@@ -26,34 +26,41 @@ the Free Software Foundation; either version 3 of the License, or
 
 from matplotlib import rcParams
 from pylab import *
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 import math
 from optparse import OptionParser
 from xml.sax import saxutils, make_parser, handler
 
 
-
 def toHex(val):
     """Converts the given value (0-255) into its hexadecimal representation"""
     hex = "0123456789abcdef"
-    return hex[int(val/16)] + hex[int(val - int(val/16)*16)]
+    return hex[int(val / 16)] + hex[int(val - int(val / 16) * 16)]
+
 
 def toFloat(val):
     """Converts the given value (0-255) into its hexadecimal representation"""
     hex = "0123456789abcdef"
-    return float(hex.find(val[0])*16 + hex.find(val[1]))
+    return float(hex.find(val[0]) * 16 + hex.find(val[1]))
 
 
 def toColor(val, colormap):
     """Converts the given value (0-1) into a color definition parseable by matplotlib"""
-    for i in range(0, len(colormap)-1):
-        if colormap[i+1][0]>val:
-            scale = (val - colormap[i][0]) / (colormap[i+1][0] - colormap[i][0])
-            r = colormap[i][1][0] + (colormap[i+1][1][0] - colormap[i][1][0]) * scale 
-            g = colormap[i][1][1] + (colormap[i+1][1][1] - colormap[i][1][1]) * scale 
-            b = colormap[i][1][2] + (colormap[i+1][1][2] - colormap[i][1][2]) * scale 
+    for i in range(0, len(colormap) - 1):
+        if colormap[i + 1][0] > val:
+            scale = (val - colormap[i][0]) / \
+                (colormap[i + 1][0] - colormap[i][0])
+            r = colormap[i][1][0] + \
+                (colormap[i + 1][1][0] - colormap[i][1][0]) * scale
+            g = colormap[i][1][1] + \
+                (colormap[i + 1][1][1] - colormap[i][1][1]) * scale
+            b = colormap[i][1][2] + \
+                (colormap[i + 1][1][2] - colormap[i][1][2]) * scale
             return "#" + toHex(r) + toHex(g) + toHex(b)
-    return "#" + toHex(colormap[-1][1][0]) + toHex(colormap[-1][1][1]) + toHex(colormap[-1][1][2]) 
+    return "#" + toHex(colormap[-1][1][0]) + toHex(colormap[-1][1][1]) + toHex(colormap[-1][1][2])
 
 
 def parseColorMap(mapDef):
@@ -64,14 +71,12 @@ def parseColorMap(mapDef):
         r = color[1:3]
         g = color[3:5]
         b = color[5:7]
-        ret.append( (float(value), ( toFloat(r), toFloat(g), toFloat(b) ) ) )
+        ret.append((float(value), (toFloat(r), toFloat(g), toFloat(b))))
     return ret
 
 
-
-
-
 class NetReader(handler.ContentHandler):
+
     """Reads a network, storing the edge geometries, lane numbers and max. speeds"""
 
     def __init__(self):
@@ -97,14 +102,14 @@ class NetReader(handler.ContentHandler):
                 self._currentShapes = []
             else:
                 self._id = ""
-        if name == 'lane' and self._id!="":
+        if name == 'lane' and self._id != "":
             self._edge2speed[self._id] = float(attrs['speed'])
             self._edge2lanes[self._id] = self._edge2lanes[self._id] + 1
             self._parseLane = True
             self._currentShapes.append(attrs["shape"])
         if name == 'junction':
             self._id = attrs['id']
-            if self._id[0]!=':':
+            if self._id[0] != ':':
                 self._node2x[attrs['id']] = attrs['x']
                 self._node2y[attrs['id']] = attrs['y']
             else:
@@ -113,11 +118,12 @@ class NetReader(handler.ContentHandler):
     def endElement(self, name):
         if self._parseLane:
             self._parseLane = False
-        if name == 'edge' and self._id!="":
+        if name == 'edge' and self._id != "":
             noShapes = len(self._currentShapes)
-            if noShapes%2 == 1 and noShapes>0:
-                self._edge2shape[self._id] = self._currentShapes[int(noShapes/2)]
-            elif noShapes%2 == 0 and len(self._currentShapes[0])!=2:
+            if noShapes % 2 == 1 and noShapes > 0:
+                self._edge2shape[self._id] = self._currentShapes[
+                    int(noShapes / 2)]
+            elif noShapes % 2 == 0 and len(self._currentShapes[0]) != 2:
                 cshapes = []
                 minLen = -1
                 for i in self._currentShapes:
@@ -127,10 +133,10 @@ class NetReader(handler.ContentHandler):
                         p = e.split(",")
                         cshape.append((float(p[0]), float(p[1])))
                     cshapes.append(cshape)
-                    if minLen==-1 or minLen>len(cshape):
+                    if minLen == -1 or minLen > len(cshape):
                         minLen = len(cshape)
                 self._edge2shape[self._id] = ""
-                if minLen>2:
+                if minLen > 2:
                     for i in range(0, minLen):
                         x = 0.
                         y = 0.
@@ -140,10 +146,10 @@ class NetReader(handler.ContentHandler):
                         x = x / float(noShapes)
                         y = y / float(noShapes)
                         if self._edge2shape[self._id] != "":
-                            self._edge2shape[self._id] = self._edge2shape[self._id] + " "
-                        self._edge2shape[self._id] = self._edge2shape[self._id] + str(x) + "," + str(y)
-    
-
+                            self._edge2shape[self._id] = self._edge2shape[
+                                self._id] + " "
+                        self._edge2shape[self._id] = self._edge2shape[
+                            self._id] + str(x) + "," + str(y)
 
     def plotData(self, weights, options, values1, values2, saveName, colorMap):
         edge2plotLines = {}
@@ -157,53 +163,53 @@ class NetReader(handler.ContentHandler):
         if options.min_width:
             min_width = options.min_width
         for edge in self._edge2from:
-           # compute shape
-           xs = []
-           ys = []
-           if edge not in self._edge2shape or self._edge2shape[edge]=="":
-               xs.append(float(self._node2x[self._edge2from[edge]]))
-               xs.append(float(self._node2x[self._edge2to[edge]]))
-               ys.append(float(self._node2y[self._edge2from[edge]]))
-               ys.append(float(self._node2y[self._edge2to[edge]]))
-           else:
-               shape = self._edge2shape[edge].split(" ")
-               l = []
-               for s in shape:
-                   p = s.split(",")
-                   xs.append(float(p[0]))
-                   ys.append(float(p[1]))
-           for x in xs:
-               if x<xmin:
-                   xmin = x
-               if x>xmax:
-                   xmax = x
-           for y in ys:
-               if y<ymin:
-                   ymin = y
-               if y>ymax:
-                   ymax = y
-           # save shape
-           edge2plotLines[edge] = (xs, ys)
-           # compute color
-           if edge in values2:
-               c = values2[edge]
-           else:
-               c = 0
-           edge2plotColors[edge] = toColor(c, colorMap)
-           # compute width
-           if edge in values1:
-               w = values1[edge]
-               if w>0:
-                   w = 10. * math.log(1 + values1[edge]) + min_width
-               else:
-                   w = min_width
-               if options.max_width and w>options.max_width:
-                   w = options.max_width
-               if w<min_width:
-                   w = min_width
-               edge2plotWidth[edge] = w
-           else:
-               edge2plotWidth[edge] = min_width
+            # compute shape
+            xs = []
+            ys = []
+            if edge not in self._edge2shape or self._edge2shape[edge] == "":
+                xs.append(float(self._node2x[self._edge2from[edge]]))
+                xs.append(float(self._node2x[self._edge2to[edge]]))
+                ys.append(float(self._node2y[self._edge2from[edge]]))
+                ys.append(float(self._node2y[self._edge2to[edge]]))
+            else:
+                shape = self._edge2shape[edge].split(" ")
+                l = []
+                for s in shape:
+                    p = s.split(",")
+                    xs.append(float(p[0]))
+                    ys.append(float(p[1]))
+            for x in xs:
+                if x < xmin:
+                    xmin = x
+                if x > xmax:
+                    xmax = x
+            for y in ys:
+                if y < ymin:
+                    ymin = y
+                if y > ymax:
+                    ymax = y
+            # save shape
+            edge2plotLines[edge] = (xs, ys)
+            # compute color
+            if edge in values2:
+                c = values2[edge]
+            else:
+                c = 0
+            edge2plotColors[edge] = toColor(c, colorMap)
+            # compute width
+            if edge in values1:
+                w = values1[edge]
+                if w > 0:
+                    w = 10. * math.log(1 + values1[edge]) + min_width
+                else:
+                    w = min_width
+                if options.max_width and w > options.max_width:
+                    w = options.max_width
+                if w < min_width:
+                    w = min_width
+                edge2plotWidth[edge] = w
+            else:
+                edge2plotWidth[edge] = min_width
         if options.verbose:
             print "x-limits: " + str(xmin) + " - " + str(xmax)
             print "y-limits: " + str(ymin) + " - " + str(ymax)
@@ -215,30 +221,30 @@ class NetReader(handler.ContentHandler):
         else:
             f = figure()
         for edge in edge2plotLines:
-           plot(edge2plotLines[edge][0], edge2plotLines[edge][1], color=edge2plotColors[edge], linewidth=edge2plotWidth[edge])
+            plot(edge2plotLines[edge][0], edge2plotLines[edge][
+                 1], color=edge2plotColors[edge], linewidth=edge2plotWidth[edge])
         # set axes
-        if options.xticks!="":
-           (xb, xe, xd, xs) = options.xticks.split(",")
-           xticks(arange(xb, xe, xd), size = xs)
-        if options.yticks!="":
-           (yb, ye, yd, ys) = options.yticks.split(",")
-           yticks(arange(yb, ye, yd), size = ys)
-        if options.xlim!="":
-           (xb, xe) = options.xlim.split(",")
-           xlim(int(xb), int(xe))
+        if options.xticks != "":
+            (xb, xe, xd, xs) = options.xticks.split(",")
+            xticks(arange(xb, xe, xd), size=xs)
+        if options.yticks != "":
+            (yb, ye, yd, ys) = options.yticks.split(",")
+            yticks(arange(yb, ye, yd), size=ys)
+        if options.xlim != "":
+            (xb, xe) = options.xlim.split(",")
+            xlim(int(xb), int(xe))
         else:
-           xlim(xmin, xmax)
-        if options.ylim!="":
-           (yb, ye) = options.ylim.split(",")
-           ylim(int(yb), int(ye))
+            xlim(xmin, xmax)
+        if options.ylim != "":
+            (yb, ye) = options.ylim.split(",")
+            ylim(int(yb), int(ye))
         else:
-           ylim(ymin, ymax)
+            ylim(ymin, ymax)
 
         if saveName:
-           savefig(saveName);
+            savefig(saveName)
         if options.show:
-           show()
-
+            show()
 
     def plot(self, weights, options, colorMap):
         self._minValue1 = weights._minValue1
@@ -247,7 +253,8 @@ class NetReader(handler.ContentHandler):
         self._maxValue2 = weights._maxValue2
 
         if options.join:
-            self.plotData(weights, options, weights._edge2value1, weights._edge2value2, options.output, colorMap)
+            self.plotData(weights, options, weights._edge2value1,
+                          weights._edge2value2, options.output, colorMap)
         else:
             for i in weights._intervalBegins:
                 if options.verbose:
@@ -256,17 +263,15 @@ class NetReader(handler.ContentHandler):
                 if output:
                     output = output.replace("HERE", "%")
                     output = output % i
-                self.plotData(weights, options, weights._unaggEdge2value1[i], weights._unaggEdge2value2[i], output, colorMap )
-
+                self.plotData(weights, options, weights._unaggEdge2value1[
+                              i], weights._unaggEdge2value2[i], output, colorMap)
 
     def knowsEdge(self, id):
         return id in self._edge2from
 
 
-
-
-
 class WeightsReader(handler.ContentHandler):
+
     """Reads the dump file"""
 
     def __init__(self, net, value1, value2):
@@ -303,7 +308,8 @@ class WeightsReader(handler.ContentHandler):
                     self._edge2no1[self._id] = self._edge2no1[self._id] + 1
                 else:
                     value1 = 0
-                self._edge2value1[self._id] = self._edge2value1[self._id] + value1
+                self._edge2value1[self._id] = self._edge2value1[
+                    self._id] + value1
                 self._unaggEdge2value1[self._beginTime][self._id] = value1
                 value2 = self._value2
                 if attrs.has_key(value2):
@@ -311,35 +317,34 @@ class WeightsReader(handler.ContentHandler):
                     self._edge2no2[self._id] = self._edge2no2[self._id] + 1
                 else:
                     value2 = 0
-                self._edge2value2[self._id] = self._edge2value2[self._id] + value2
+                self._edge2value2[self._id] = self._edge2value2[
+                    self._id] + value2
                 self._unaggEdge2value2[self._beginTime][self._id] = value2
-
 
     def updateExtrema(self, values1ByEdge, values2ByEdge):
         for edge in values1ByEdge:
-            if self._minValue1==-1 or self._minValue1>values1ByEdge[edge]:
+            if self._minValue1 == -1 or self._minValue1 > values1ByEdge[edge]:
                 self._minValue1 = values1ByEdge[edge]
-            if self._maxValue1==-1 or self._maxValue1<values1ByEdge[edge]:
+            if self._maxValue1 == -1 or self._maxValue1 < values1ByEdge[edge]:
                 self._maxValue1 = values1ByEdge[edge]
-            if self._minValue2==-1 or self._minValue2>values2ByEdge[edge]:
+            if self._minValue2 == -1 or self._minValue2 > values2ByEdge[edge]:
                 self._minValue2 = values2ByEdge[edge]
-            if self._maxValue2==-1 or self._maxValue2<values2ByEdge[edge]:
+            if self._maxValue2 == -1 or self._maxValue2 < values2ByEdge[edge]:
                 self._maxValue2 = values2ByEdge[edge]
 
     def valueDependantNorm(self, values, minV, maxV, tendency, percSpeed):
         if tendency:
             for edge in self._edge2value2:
-                if values[edge]<0:
+                if values[edge] < 0:
                     values[edge] = 0
                 else:
                     values[edge] = 1
         elif percSpeed:
             for edge in self._edge2value2:
                 values[edge] = (values[edge] / self._net._edge2speed[edge])
-        elif minV!=maxV:
+        elif minV != maxV:
             for edge in self._edge2value2:
                 values[edge] = (values[edge] - minV) / (maxV - minV)
-
 
     def norm(self, tendency, percSpeed):
         self._minValue1 = -1
@@ -349,12 +354,14 @@ class WeightsReader(handler.ContentHandler):
         # compute mean value if join is set
         if options.join:
             for edge in self._edge2value2:
-                if float(self._edge2no1[edge])!=0:
-                    self._edge2value1[edge] = float(self._edge2value1[edge]) / float(self._edge2no1[edge])
+                if float(self._edge2no1[edge]) != 0:
+                    self._edge2value1[edge] = float(
+                        self._edge2value1[edge]) / float(self._edge2no1[edge])
                 else:
                     self._edge2value1[edge] = float(self._edge2value1[edge])
-                if float(self._edge2no2[edge])!=0:
-                    self._edge2value2[edge] = float(self._edge2value2[edge]) / float(self._edge2no2[edge])
+                if float(self._edge2no2[edge]) != 0:
+                    self._edge2value2[edge] = float(
+                        self._edge2value2[edge]) / float(self._edge2no2[edge])
                 else:
                     self._edge2value2[edge] = float(self._edge2value2[edge])
         # compute min/max
@@ -362,33 +369,37 @@ class WeightsReader(handler.ContentHandler):
             self.updateExtrema(self._edge2value1, self._edge2value2)
         else:
             for i in weights._intervalBegins:
-                self.updateExtrema(self._unaggEdge2value1[i], self._unaggEdge2value2[i])
+                self.updateExtrema(
+                    self._unaggEdge2value1[i], self._unaggEdge2value2[i])
         # norm
         if options.verbose:
             print "w range: " + str(self._minValue1) + " - " + str(self._maxValue1)
             print "c range: " + str(self._minValue2) + " - " + str(self._maxValue2)
         if options.join:
-            self.valueDependantNorm(self._edge2value1, self._minValue1, self._maxValue1, False, percSpeed and self._value1=="speed")
-            self.valueDependantNorm(self._edge2value2, self._minValue2, self._maxValue2, tendency, percSpeed and self._value2=="speed")
+            self.valueDependantNorm(
+                self._edge2value1, self._minValue1, self._maxValue1, False, percSpeed and self._value1 == "speed")
+            self.valueDependantNorm(
+                self._edge2value2, self._minValue2, self._maxValue2, tendency, percSpeed and self._value2 == "speed")
         else:
             for i in weights._intervalBegins:
-                self.valueDependantNorm(self._unaggEdge2value1[i], self._minValue1, self._maxValue1, False, percSpeed and self._value1=="speed")
-                self.valueDependantNorm(self._unaggEdge2value2[i], self._minValue2, self._maxValue2, tendency, percSpeed and self._value2=="speed")
+                self.valueDependantNorm(self._unaggEdge2value1[
+                                        i], self._minValue1, self._maxValue1, False, percSpeed and self._value1 == "speed")
+                self.valueDependantNorm(self._unaggEdge2value2[
+                                        i], self._minValue2, self._maxValue2, tendency, percSpeed and self._value2 == "speed")
 
-    
 
-# initialise 
+# initialise
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
-    # i/o
+# i/o
 optParser.add_option("-n", "--net-file", dest="net",
                      help="SUMO network to use (mandatory)", metavar="FILE")
 optParser.add_option("-d", "--dump", dest="dump",
                      help="dump file to use", metavar="FILE")
 optParser.add_option("-o", "--output", dest="output",
                      help="(base) name for the output", metavar="FILE")
-    # data handling
+# data handling
 optParser.add_option("-j", "--join", action="store_true", dest="join",
                      default=False, help="sums up values from all read intervals")
 optParser.add_option("-w", "--min-width", dest="min_width",
@@ -403,31 +414,31 @@ optParser.add_option("--tendency-coloring", action="store_true", dest="tendency_
                      default=False, help="show only 0/1 color for egative/positive values")
 optParser.add_option("--percentage-speed", action="store_true", dest="percentage_speed",
                      default=False, help="speed is normed to maximum allowed speed on an edge")
-optParser.add_option("--values", dest="values", 
+optParser.add_option("--values", dest="values",
                      type="string", default="entered,speed", help="which values shall be parsed")
-optParser.add_option("--color-map", dest="colormap", 
+optParser.add_option("--color-map", dest="colormap",
                      type="string", default="0:#ff0000,.5:#ffff00,1:#00ff00", help="Defines the color map")
-    # axes/legend
-optParser.add_option("--xticks", dest="xticks",type="string", default="",
+# axes/legend
+optParser.add_option("--xticks", dest="xticks", type="string", default="",
                      help="defines ticks on x-axis")
-optParser.add_option("--yticks", dest="yticks",type="string",  default="",
+optParser.add_option("--yticks", dest="yticks", type="string",  default="",
                      help="defines ticks on y-axis")
-optParser.add_option("--xlim", dest="xlim",type="string",  default="",
+optParser.add_option("--xlim", dest="xlim", type="string",  default="",
                      help="defines x-axis range")
-optParser.add_option("--ylim", dest="ylim",type="string",  default="",
+optParser.add_option("--ylim", dest="ylim", type="string",  default="",
                      help="defines y-axis range")
-    # output
-optParser.add_option("--size", dest="size",type="string", default="",
+# output
+optParser.add_option("--size", dest="size", type="string", default="",
                      help="defines the output size")
-    # processing
+# processing
 optParser.add_option("-s", "--show", action="store_true", dest="show",
                      default=False, help="shows each plot after generating it")
 # parse options
 (options, args) = optParser.parse_args()
 # check set options
 if not options.show and not options.output:
-	print "Neither show (--show) not write (--output <FILE>)? Exiting..."
-	exit()
+    print "Neither show (--show) not write (--output <FILE>)? Exiting..."
+    exit()
 
 
 # init color map
@@ -453,4 +464,3 @@ weights.norm(options.tendency_coloring, options.percentage_speed)
 if options.verbose:
     print "Plotting..."
 net.plot(weights, options, colorMap)
-
