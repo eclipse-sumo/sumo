@@ -50,7 +50,7 @@ public class Command {
 	 * <p>
 	 * Note that this will advance the storage's internal pointer to the next
 	 * data.
-	 * @param rawStorage
+	 * @param rawStorage raw storage
 	 */
 	public Command(Storage rawStorage) {
 		int contentLen = rawStorage.readUnsignedByte();
@@ -71,7 +71,7 @@ public class Command {
 	
 	/**
 	 * Creates a command with a given identifier and an empty content.
-	 * @param id
+	 * @param id id
 	 */
 	public Command(int id) {
 		if (id > 255)
@@ -101,7 +101,7 @@ public class Command {
 	 * object.
 	 * <p>
 	 * Note: this will advance the internal pointer of the given storage. 
-	 * @param out
+	 * @param out output
 	 */
 	public void writeRawTo(Storage out) {
 		/*
@@ -119,6 +119,7 @@ public class Command {
 
 	/**
 	 * Returns the expected size of the serialized form of this command.
+	 * @return raw size
 	 */
 	public int rawSize() {
 		return HEADER_SIZE + content.size();

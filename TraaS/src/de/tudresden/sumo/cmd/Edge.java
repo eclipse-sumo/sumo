@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -266,7 +266,11 @@ public class Edge {
 
 	
 	/**
-	 * getWaitingTime
+	 *Returns the waiting time (in s) on the given edge on this edge
+	 * within the last time step.
+	 *  @param edgeID
+	 *            a string identifying the edge
+	 * @return the waiting time
 	 */
 
 	public static SumoCommand getWaitingTime(String edgeID){
@@ -284,6 +288,7 @@ public class Edge {
 	 *            a string identifying the edge
 	 * @param time
 	 *            travel time value (in s)
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand adaptTraveltime(String edgeID, int time){
@@ -298,6 +303,7 @@ public class Edge {
 	 *            a string identifying the edge
 	 * @param effort
 	 *            effort value
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setEffort(String edgeID, double effort){
@@ -312,6 +318,8 @@ public class Edge {
 	 *            a string identifying the edge
 	 * @param speed
 	 *            maximum speed (in m/s)
+	 * @return SumoCommand
+	
 	 */
 
 	public static SumoCommand setMaxSpeed(String edgeID, double speed){

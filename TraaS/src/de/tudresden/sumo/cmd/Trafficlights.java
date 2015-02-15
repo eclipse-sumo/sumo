@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -37,6 +37,7 @@ public class Trafficlights {
 	 * Returns the complete traffic light program.
 	 * 
 	 * @param tlsID a string identifying the traffic light
+	 * @return program definition
 	 */
 
 	public static SumoCommand getCompleteRedYellowGreenDefinition(String tlsID){
@@ -46,6 +47,7 @@ public class Trafficlights {
 	
 	/**
 	 * Returns the number of all traffic lights in the network.
+	 * @return number of traffic lights
 	 */
 	
 	public static SumoCommand getIDCount(){
@@ -54,6 +56,8 @@ public class Trafficlights {
 	
 	/**
 	 * getPhaseDuration
+	 * @param tlsID a string identifying the traffic light
+	 * @return phase duration
 	 */
 
 	public static SumoCommand getPhaseDuration(String tlsID){
@@ -130,6 +134,7 @@ public class Trafficlights {
 	 * Returns the named tl's state as a tuple of light definitions from rRgGyYoO, for red, green, yellow, off, where lower case letters mean that the stream has to decelerate.
 	 * 
 	 * @param tlsID a string identifying the traffic light
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand getRedYellowGreenState(String tlsID){
@@ -143,10 +148,10 @@ public class Trafficlights {
 	 * 
 	 * @param tlsID a string identifying the traffic light
 	 * @param tls complete program definition
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setCompleteRedYellowGreenDefinition(String tlsID, SumoTLSLogic tls){
-
 		return new SumoCommand(Constants.CMD_SET_TL_VARIABLE, Constants.TL_COMPLETE_PROGRAM_RYG, tlsID, tls);
 	}
 
@@ -155,6 +160,7 @@ public class Trafficlights {
 	 * 
 	 * @param tlsID a string identifying the traffic light
 	 * @param index an integer identifying the phase (it must be between 0 and the number of phases known to the current program of the tls - 1)
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setPhase(String tlsID, int index){
@@ -167,6 +173,7 @@ public class Trafficlights {
 	 * 
 	 * @param tlsID a string identifying the traffic light
 	 * @param phaseDuration remaining duration of the current phase
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setPhaseDuration(String tlsID, int phaseDuration){
@@ -179,10 +186,10 @@ public class Trafficlights {
 	 * 
 	 * @param tlsID a string identifying the traffic light
 	 * @param programID a string identifying the program
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setProgram(String tlsID, String programID){
-
 		return new SumoCommand(Constants.CMD_SET_TL_VARIABLE, Constants.TL_PROGRAM, tlsID, programID);
 	}
 
@@ -191,12 +198,11 @@ public class Trafficlights {
 	 * 
 	 * @param tlsID a string identifying the traffic light
 	 * @param state as a tuple of light definitions from rRgGyYoO, for red, green, yellow, off, where lower case letters mean that the stream has to decelerate
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setRedYellowGreenState(String tlsID, String state){
-
 		return new SumoCommand(Constants.CMD_SET_TL_VARIABLE, Constants.TL_RED_YELLOW_GREEN_STATE, tlsID, state);
 	}
-
 
 }

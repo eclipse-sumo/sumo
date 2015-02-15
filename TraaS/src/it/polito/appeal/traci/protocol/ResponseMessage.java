@@ -44,6 +44,7 @@ public class ResponseMessage {
 		Constants.CMD_SET_EDGE_VARIABLE,
 		Constants.CMD_SET_GUI_VARIABLE,
 		Constants.CMD_SET_LANE_VARIABLE,
+		Constants.CMD_SET_PERSON_VARIABLE,
 		Constants.CMD_SET_POI_VARIABLE,
 		Constants.CMD_SET_POLYGON_VARIABLE,
 		Constants.CMD_SET_ROUTE_VARIABLE,
@@ -75,8 +76,8 @@ public class ResponseMessage {
 	 * A new {@link ResponseMessage}, collecting all the data that belong to the
 	 * same request, is built and appended to an internal list.
 	 * 
-	 * @param dis
-	 * @throws IOException
+	 * @param dis dis
+	 * @throws IOException Exception
 	 */
 	public ResponseMessage(DataInputStream dis) throws IOException {
 		int totalLen = dis.readInt() - Integer.SIZE/8;

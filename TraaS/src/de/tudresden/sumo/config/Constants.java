@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -34,11 +34,8 @@ public class Constants {
 	   
 	public static final int VAR_LEADER = 0x68;
 
-	public static final byte STOP_DEFAULT = 0;
-	
-	public static final byte STOP_PARKING = 1;
-	
-	public static final byte STOP_TRIGGERED = 2;
+	/**sets/retrieves abstract parameter*/
+	public static final int VAR_PARAMETER = 0x7e;
 	
 	
 	/** how lane changing is performed (set: vehicle)*/
@@ -190,13 +187,35 @@ public class Constants {
 	public static final int RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x9d;
 
 	/**command: subscribe areal detector (e2) variable*/
-	public static final int CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0x8f;
+	public static final int CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0xdd;
 
 	/**response: subscribe areal detector (e2) variable*/
-	public static final int RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0x9f;
+	public static final int RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0xed;
 	
 	
-	/**route id (get & set: vehicles)*/
+	/**command: get person variable*/
+	public static final int  CMD_GET_PERSON_VARIABLE = 0xae;
+	
+	/**command: set person variable*/
+	public static final int  CMD_SET_PERSON_VARIABLE = 0xce;
+	
+	/**response: get person variable*/
+	public static final int  RESPONSE_GET_PERSON_VARIABLE = 0xbe;
+	
+	/**command: subscribe person context*/
+	public static final int  CMD_SUBSCRIBE_PERSON_CONTEXT = 0x8e;
+	
+	/**command: subscribe person variable*/
+	public static final int  CMD_SUBSCRIBE_PERSON_VARIABLE = 0xde;
+	
+	/**response: subscribe person context*/
+	public static final int  RESPONSE_SUBSCRIBE_PERSON_CONTEXT = 0x9e;
+	
+	/**response: subscribe person variable*/
+	public static final int  RESPONSE_SUBSCRIBE_PERSON_VARIABLE = 0xee;
+	
+	
+	/**route id (get and set: vehicles)*/
 	public static final int VAR_ROUTE_ID = 0x53;
 
 	/**response: subscribe poi context*/
@@ -242,7 +261,7 @@ public class Constants {
 	public static final int VAR_WIDTH = 0x4d;
 
 	/**get area detector (e2) variable*/
-	public static final int CMD_GET_AREAL_DETECTOR_VARIABLE = 0x8e;
+	public static final int CMD_GET_AREAL_DETECTOR_VARIABLE = 0xad;
 
 	
 	/**get multi-entry/multi-exit detector (e3) variable*/
@@ -601,7 +620,7 @@ public class Constants {
 	/**current CO emission of a node (get: vehicle, lane, edge)*/
 	public static final int VAR_COEMISSION = 0x61;
 
-	/**list of allowed vehicle classes (get&set: lanes)*/
+	/**list of allowed vehicle classes (get and set: lanes)*/
 	public static final int LANE_ALLOWED = 0x34;
 
 	/**subscribe edge context*/
@@ -640,7 +659,7 @@ public class Constants {
 	/**response: subscribe polygon variable*/
 	public static final int RESPONSE_SUBSCRIBE_POLYGON_VARIABLE = 0xe8;
 
-	/**effort information (get&set: vehicle)*/
+	/**effort information (get and set: vehicle)*/
 	public static final int VAR_EDGE_EFFORT = 0x59;
 
 	/**subscribe simulation variable*/
@@ -670,7 +689,7 @@ public class Constants {
 	/**outgoing link definitions (get: lanes)*/
 	public static final int LANE_LINKS = 0x33;
 
-	/**list of not allowed vehicle classes (get&set: lanes)*/
+	/**list of not allowed vehicle classes (get and set: lanes)*/
 	public static final int LANE_DISALLOWED = 0x35;
 
 	/**response: subscribe lane context*/
@@ -755,7 +774,7 @@ public class Constants {
 
 	
 	/**response: get area detector (e3) variable*/
-	public static final int RESPONSE_GET_AREAL_DETECTOR_VARIABLE = 0x9e;
+	public static final int RESPONSE_GET_AREAL_DETECTOR_VARIABLE = 0xbd;
 	
 	
 	/**response: get multi-/entry detector (e3) variable*/
@@ -802,7 +821,7 @@ public class Constants {
 	/**response: subscribe simulation variable*/
 	public static final int RESPONSE_SUBSCRIBE_SIM_VARIABLE = 0xeb;
 
-	/**travel time information (get&set: vehicle)*/
+	/**travel time information (get and set: vehicle)*/
 	public static final int VAR_EDGE_TRAVELTIME = 0x58;
 
 	/**current PMx emission of a node (get: vehicle, lane, edge)*/

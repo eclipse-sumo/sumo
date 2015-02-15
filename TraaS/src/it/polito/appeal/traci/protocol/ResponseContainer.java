@@ -38,9 +38,9 @@ public class ResponseContainer {
 	 * Constructor for a response container with status response, response
 	 * command and zero or more sub-responses.
 	 * 
-	 * @param status
-	 * @param response
-	 * @param subResponses
+	 * @param status status
+	 * @param response response
+	 * @param subResponses sub response
 	 */
 	public ResponseContainer(StatusResponse status, Command response, 
 			List<Command> subResponses) {
@@ -53,8 +53,8 @@ public class ResponseContainer {
 	 * Constructor for a response container with status response and a response
 	 * command.
 	 * 
-	 * @param status
-	 * @param response
+	 * @param status status
+	 * @param response response
 	 */
 	public ResponseContainer(StatusResponse status, Command response) {
 		this(status, response, null);

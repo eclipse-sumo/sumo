@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -44,6 +44,7 @@ public class Multientryexit {
 
 	/**
 	 * Returns the number of all multi-entry/multi-exit detectors in the network.
+	 * @return the number of detectors
 	 */
 
 	public static SumoCommand getIDCount(){

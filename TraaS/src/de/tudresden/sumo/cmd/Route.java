@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -56,6 +56,7 @@ public class Route {
 
 	/**
 	 * Returns the number of all Routes in the network.
+	 * @return the number of routes in the network
 	 */
 
 	public static SumoCommand getIDCount(){
@@ -72,6 +73,7 @@ public class Route {
 	 *            a string identifying the route
 	 * @param edges
 	 *            list of edges the new route is following
+	 *  @return SumoCommand 
 	 */
 
 	public static SumoCommand add(String routeID, SumoStringList edges){

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -34,14 +34,16 @@ public class Vehicletype {
 
 	/**
 	 * Returns the maximum acceleration of the named vehicle class.
+	 * @param typeID  type id
+	 * @return acceleration
 	 */
-
 	public static SumoCommand getAccel(String typeID){
 		return new SumoCommand(Constants.CMD_GET_VEHICLETYPE_VARIABLE, Constants.VAR_ACCEL, typeID, Constants.RESPONSE_GET_VEHICLETYPE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
 	 * Returns the number of all vehicle types in the network.
+	 * @return number of vehicle types 
 	 */
 
 	public static SumoCommand getIDCount(){
@@ -50,14 +52,17 @@ public class Vehicletype {
 	
 	/**
 	 *  Returns the vehicle type's color.
+	 * @param typeID  type id
+	 * @return color color
 	 */
-
 	public static SumoCommand getColor(String typeID){
 		return new SumoCommand(Constants.CMD_GET_VEHICLETYPE_VARIABLE, Constants.VAR_COLOR, typeID, Constants.RESPONSE_GET_VEHICLETYPE_VARIABLE, Constants.TYPE_COLOR);
 	}
 
 	/**
 	 * Returns the maximum deceleration of the names vehicle type.
+	 * @param typeID  type id
+	 * @return deceleration
 	 */
 
 	public static SumoCommand getDecel(String typeID){
@@ -66,6 +71,8 @@ public class Vehicletype {
 
 	/**
 	 * Returns the emission class of the named vehicle type.
+	 * @param typeID  type id
+	 * @return emission class
 	 */
 
 	public static SumoCommand getEmissionClass(String typeID){
@@ -74,6 +81,7 @@ public class Vehicletype {
 
 	/**
 	 * Returns a list of all known vehicle types.
+	 * @return list of vechicle types
 	 */
 
 	public static SumoCommand getIDList(){
@@ -82,6 +90,8 @@ public class Vehicletype {
 
 	/**
 	 * getImperfection
+	 * @param typeID type id
+	 * @return imperfection
 	 */
 
 	public static SumoCommand getImperfection(String typeID){
@@ -90,6 +100,8 @@ public class Vehicletype {
 
 	/**
 	 * Returns the length of the named vehicle type.
+	 * @param typeID type id
+	 * @return length
 	 */
 
 	public static SumoCommand getLength(String typeID){
@@ -98,6 +110,8 @@ public class Vehicletype {
 
 	/**
 	 * Return the maximum speed of the named vehicle type.
+	 * @param typeID type id
+	 * @return max speed
 	 */
 
 	public static SumoCommand getMaxSpeed(String typeID){
@@ -106,6 +120,8 @@ public class Vehicletype {
 
 	/**
 	 * Returns the minimum headway gap of the named vehicle type.
+	 * @param typeID type id
+	 * @return min gap
 	 */
 
 	public static SumoCommand getMinGap(String typeID){
@@ -114,6 +130,8 @@ public class Vehicletype {
 
 	/**
 	 * getShapeClass
+	 * @param typeID type id
+	 * @return shape class
 	 */
 
 	public static SumoCommand getShapeClass(String typeID){
@@ -122,6 +140,8 @@ public class Vehicletype {
 
 	/**
 	 * Returns the speed deviation of the named vehicle type.
+	 * @param typeID type id
+	 * @return speed deviation
 	 */
 
 	public static SumoCommand getSpeedDeviation(String typeID){
@@ -130,6 +150,8 @@ public class Vehicletype {
 
 	/**
 	 * Return the speed factor of the names vehicle type.
+	 * @param typeID type id
+	 * @return speed factor
 	 */
 
 	public static SumoCommand getSpeedFactor(String typeID){
@@ -138,6 +160,8 @@ public class Vehicletype {
 
 	/**
 	 * getTau
+	 * @param typeID type id
+	 * @return tau
 	 */
 
 	public static SumoCommand getTau(String typeID){
@@ -146,6 +170,8 @@ public class Vehicletype {
 
 	/**
 	 * Returns the vehicle class of the names vehicle type.
+	 * @param typeID type id
+	 * @return vehicle class
 	 */
 
 	public static SumoCommand getVehicleClass(String typeID){
@@ -154,6 +180,8 @@ public class Vehicletype {
 
 	/**
 	 * Returns the width of the named vehicle type.
+	 * @param typeID type id
+	 * @return width
 	 */
 
 	public static SumoCommand getWidth(String typeID){
@@ -164,8 +192,10 @@ public class Vehicletype {
 
 	/**
 	 * Sets the vehicle type's wished maximum acceleration to the given value.
+	 * @param typeID type id
+	 * @param accel acceleration
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setAccel(String typeID, double accel){
 
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_ACCEL, typeID, accel);
@@ -173,8 +203,10 @@ public class Vehicletype {
 
 	/**
 	 * Sets the vehicle type's color.
+	 * @param typeID type id
+	 * @param color color
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setColor(String typeID, SumoColor color){
 
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_COLOR, typeID, color);
@@ -182,8 +214,11 @@ public class Vehicletype {
 
 	/**
 	 * Sets the vehicle type's wished maximum deceleration to the given value.
-	 */
 
+	 * @param typeID type id
+	 * @param decel deceleration
+	 * @return SumoCommand
+	 */
 	public static SumoCommand setDecel(String typeID, double decel){
 
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_DECEL, typeID, decel);
@@ -191,8 +226,10 @@ public class Vehicletype {
 
 	/**
 	 * Sets the vehicle type's emission class to the given value.
+	 * @param typeID type id
+	 * @param clazz emission class
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setEmissionClass(String typeID, String clazz){
 
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_EMISSIONCLASS, typeID, clazz);
@@ -200,8 +237,10 @@ public class Vehicletype {
 
 	/**
 	 * setImperfection
+	 * @param typeID type id
+	 * @param imperfection imperfection
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setImperfection(String typeID, double imperfection){
 
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_IMPERFECTION, typeID, imperfection);
@@ -209,80 +248,91 @@ public class Vehicletype {
 
 	/**
 	 * Sets the vehicle type's length to the given value.
+	 * @param typeID type id
+	 * @param length length
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setLength(String typeID, double length){
-
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_LENGTH, typeID, length);
 	}
 
 	/**
 	 * Sets the vehicle type's maximum speed to the given value.
+	 * @param typeID type id
+	 * @param speed speed
+	 * @return SumoCommand
 	 */
-
+	
 	public static SumoCommand setMaxSpeed(String typeID, double speed){
-
-		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_MAXSPEED, typeID, speed);
+	return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_MAXSPEED, typeID, speed);
 	}
 
 	/**
 	 * Sets the vehicle type's minimum headway gap to the given value.
+	 * @param typeID type id
+	 * @param minGap minimum gap
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setMinGap(String typeID, double minGap){
-
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_MINGAP, typeID, minGap);
 	}
 
 	/**
 	 * setShapeClass
+	 * @param typeID type id
+	 * @param clazz shape class
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setShapeClass(String typeID, String clazz){
-
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_SHAPECLASS, typeID, clazz);
 	}
 
 	/**
 	 * Sets the vehicle type's speed deviation to the given value.
+	 * @param typeID type id
+	 * @param deviation deviation
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setSpeedDeviation(String typeID, double deviation){
-
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_SPEED_DEVIATION, typeID, deviation);
 	}
 
 	/**
 	 * Sets the vehicle type's speed factor to the given value.
+	 * @param typeID type id
+	 * @param factor factor
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setSpeedFactor(String typeID, double factor){
-
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_SPEED_FACTOR, typeID, factor);
 	}
 
 	/**
 	 * setTau
+	 * @param typeID type id
+	 * @param tau tau
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setTau(String typeID, double tau){
-
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_TAU, typeID, tau);
 	}
 
 	/**
 	 * Sets the vehicle type's vehicle class to the given value.
+	 * @param typeID type id
+	 * @param clazz vehicle class
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setVehicleClass(String typeID, String clazz){
-
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_VEHICLECLASS, typeID, clazz);
 	}
 
 	/**
 	 * Sets the vehicle type's width to the given value.
+	 * @param typeID type id
+	 * @param width width
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand setWidth(String typeID, double width){
 
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_WIDTH, typeID, width);

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -103,6 +103,7 @@ public class Gui {
 	 *            extension, the available formats differ from platform to
 	 *            platform but should at least include ps, svg and pdf, on linux
 	 *            probably gif, png and jpg as well
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand screenshot(String viewID, String filename){
@@ -127,6 +128,7 @@ public class Gui {
 	 * @param ymax
 	 *            y-coordinate (double) of the upper right corner of the current
 	 *            view
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setBoundary(String viewID, double xmin, double ymin, double xmax, double ymax){
@@ -144,6 +146,7 @@ public class Gui {
 	 *            x-offset of the center of the visible network
 	 * @param y
 	 *            y-offset of the center of the visible network
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setOffset(String viewID, double x, double y){
@@ -159,10 +162,10 @@ public class Gui {
 	 *            a string identifying the view in the simulation GUI
 	 * @param schemeName
 	 *            the coloring scheme
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setSchema(String viewID, String schemeName){
-
 		return new SumoCommand(Constants.CMD_SET_GUI_VARIABLE, Constants.VAR_VIEW_SCHEMA, viewID, schemeName);
 	}
 
@@ -173,10 +176,10 @@ public class Gui {
 	 *            a string identifying the view in the simulation GUI
 	 * @param zoom
 	 *            desired zoom factor
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setZoom(String viewID, double zoom){
-
 		return new SumoCommand(Constants.CMD_SET_GUI_VARIABLE, Constants.VAR_VIEW_ZOOM, viewID, zoom);
 	}
 
@@ -187,10 +190,10 @@ public class Gui {
 	 *            a string identifying the view in the simulation GUI
 	 * @param vehID
 	 *            a string identifying the vehicle
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand trackVehicle(String viewID, String vehID){
-
 		return new SumoCommand(Constants.CMD_SET_GUI_VARIABLE, Constants.VAR_TRACK_VEHICLE, viewID, vehID);
 	}
 

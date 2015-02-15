@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -335,6 +335,8 @@ public class SumoCommand {
 			this.cmd.content().writeUnsignedByte(Constants.POSITION_3D);
 		}else if(input.getClass().equals(Boolean.class)){
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_UBYTE);
+		}else if(input.getClass().equals(SumoStringList.class)){
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_STRINGLIST);
 		}
 		
 	}
@@ -389,9 +391,15 @@ public class SumoCommand {
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_STRING);
 			cmd.content().writeStringASCII(stp.phasedef);
 			
+		}else if(input.getClass().equals(SumoStringList.class)){
+			
+			SumoStringList sl = (SumoStringList) input;
+			cmd.content().writeInt(sl.size());
+			for(String s : sl) {
+				cmd.content().writeStringASCII(s);
+			}
+		
 		}
-		
-		
 		
 	}
 

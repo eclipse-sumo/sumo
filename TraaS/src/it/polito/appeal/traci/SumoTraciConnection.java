@@ -265,15 +265,12 @@ public class SumoTraciConnection {
 	 * Closes the connection, quits the simulator, frees any stale
 	 * resource and makes all {@link Vehicle} instances inactive.
 	 * 
-	 * @throws InterruptedException
-	 *             if the current thread was interrupted while waiting for SUMO
-	 *             to close.
 	 */
+
 	public void close(){
 		try {
 			socket.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -290,6 +287,7 @@ public class SumoTraciConnection {
 	 * Returns <code>true</code> if the connection was closed by the user, or if
 	 * an {@link IOException} was thrown after the connection was made.
 	 * @see #close()
+	 * @return boolean
 	 */
 	public boolean isClosed() {
 		return socket == null || socket.isClosed();

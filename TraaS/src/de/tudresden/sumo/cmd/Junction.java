@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -43,6 +43,7 @@ public class Junction {
 
 	/**
 	 * Returns the number of all junctions in the network.
+	 * @return the number of junctions
 	 */
 
 	public static SumoCommand getIDCount(){
@@ -63,6 +64,9 @@ public class Junction {
 	
 	/**
 	* getShape
+ 	*@param junctionID
+	* a string identifying the junction
+	* @return the shape
 	*/
 
 	public static SumoCommand getShape(String junctionID){

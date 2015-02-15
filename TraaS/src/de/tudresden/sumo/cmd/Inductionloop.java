@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -44,6 +44,7 @@ public class Inductionloop {
 	
 	/**
 	 * Returns the number of all induction loops in the network.
+	 * @return the number of detectors
 	 */
 
 	public static SumoCommand getIDCount(){
@@ -159,6 +160,7 @@ public class Inductionloop {
 	 * 
 	 * @param loopID
 	 *            a SumoStringList containing induction loops
+	 * @return several information about vehicles which passed the detector.
 	 */
 
 	public static SumoCommand getVehicleData(String loopID){

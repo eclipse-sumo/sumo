@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -28,10 +28,10 @@ public class Log_txt implements Log{
 	private boolean txt_output = false;
 	
 	@Override
-	public void write(String input, int Prioritaet) {
+	public void write(String input, int priority) {
 		    
 		
-		if(Prioritaet==1){
+		if(priority==1){
 			System.out.println(input);
 		}
 		

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -33,6 +33,7 @@ public class ArealDetector {
 
 	/**
 	 * Returns a list of all areal detectors in the network.
+	 * @return a list of IDs of all areal detectors
 	 */
 
 	public static SumoCommand getIDList(){
@@ -41,6 +42,7 @@ public class ArealDetector {
 
 	/**
 	 * Returns the number of the areal detectors in the network.
+	 * @return the number of areal detectors
 	 */
 
 	public static SumoCommand getIDCount(){
@@ -50,7 +52,10 @@ public class ArealDetector {
 	
 	/**
 	 * getJamLengthVehicle
+	 * @param loopID a string identifying the loop
+	 * @return jam length in vehicles
 	 */
+
 
 	public static SumoCommand getJamLengthVehicle(String loopID){
 		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.JAM_LENGTH_VEHICLE, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
@@ -58,6 +63,8 @@ public class ArealDetector {
 	
 	/**
 	 * getJamLengthMeters
+	 * @param loopID a string identifying the loop
+	 * @return  jam length in [m]
 	 */
 
 	public static SumoCommand getJamLengthMeters(String loopID){
@@ -66,6 +73,8 @@ public class ArealDetector {
 	
 	/**
 	 * getLastStepMeanSpeed
+	 * @param loopID a string identifying the loop
+	 * @return last step mean speed
 	 */
 
 	public static SumoCommand getLastStepMeanSpeed(String loopID){
@@ -75,6 +84,8 @@ public class ArealDetector {
 	
 	/**
 	 * getLastStepOccupancy
+	 * @param loopID a string identifying the loop
+	 * @return last step occupancy
 	 */
 
 	public static SumoCommand getLastStepOccupancy(String loopID){

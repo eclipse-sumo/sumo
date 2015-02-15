@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -47,6 +47,7 @@ public class Lane {
 
 	/**
 	 * Returns the number of all lanes in the network.
+	 * @return the number of lanes
 	 */
 
 	public static SumoCommand getIDCount(){
@@ -340,6 +341,9 @@ public class Lane {
 
 	/**
 	 * getWaitingTime
+	  * @param laneID
+	 *            a string identifying a lane
+	 * @return the waiting time of the lane (in s)
 	 */
 
 	public static SumoCommand getWaitingTime(String laneID){
@@ -356,6 +360,7 @@ public class Lane {
 	 *            a string identifying a lane
 	 * @param allowedClasses
 	 *            allowed vehicle classes
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setAllowed(String laneID, SumoStringList allowedClasses){
@@ -370,6 +375,7 @@ public class Lane {
 	 *            a string identifying a lane
 	 * @param disallowedClasses
 	 *            not allowed vehicle classes
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setDisallowed(String laneID, SumoStringList disallowedClasses){
@@ -384,6 +390,7 @@ public class Lane {
 	 *            a string identifying a lane
 	 * @param length
 	 *            new length (in m) of the lane
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setLength(String laneID, double length){
@@ -398,6 +405,7 @@ public class Lane {
 	 *            a string identifying a lane
 	 * @param speed
 	 *            maximum velocity allowed (in m/s)
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setMaxSpeed(String laneID, double speed){

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -29,10 +29,20 @@ public interface Log {
 	 *
 	 * @param input the input
 	 */
-	public void write(String input, int Prioritaet);
+	/**
+	 * @param input input
+	 * @param priority priority level
+	 */
+	public void write(String input, int priority);
 	
+	/**
+	 * @param el stacktrace
+	 */
 	public void write(StackTraceElement[] el);
 	
+	/**
+	 * @param txt_output boolean text output
+	 */
 	public void txt_output(boolean txt_output);
 	
 }

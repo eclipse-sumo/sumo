@@ -49,7 +49,7 @@ public class RequestMessage {
 
 	/**
 	 * Adds a command to the tail of this message.
-	 * @param c
+	 * @param c c
 	 * @throws NullPointerException if the command is <code>null</code>.
 	 */
 	public void append(Command c) {
@@ -61,8 +61,8 @@ public class RequestMessage {
 	/**
 	 * Writes the commands to the specified {@link DataOutputStream} object, in
 	 * the same order as the calls of {@link #append(Command)}.
-	 * @param dos
-	 * @throws IOException
+	 * @param dos data output stream
+	 * @throws IOException Exception
 	 */
 	public void writeTo(DataOutputStream dos) throws IOException {
 		int totalLen = Integer.SIZE / 8; // the length header
@@ -72,12 +72,6 @@ public class RequestMessage {
 		}
 
 		Checksum checksum = null;
-//		if (log.isDebugEnabled()) {
-//			checksum = new CRC32();
-//			log.debug("sending a message " + totalLen + " bytes long");
-//			
-//		}
-		
 		dos.writeInt(totalLen);
 
 
@@ -87,10 +81,14 @@ public class RequestMessage {
 			writeStorage(s, dos, checksum);
 		}
 
-//		if (log.isDebugEnabled())
-//			log.debug("message checksum (without len) = " + checksum.getValue());
 	}
 
+	/**
+	 * @param storage storage
+	 * @param os os
+	 * @param checksum checksum
+	 * @throws IOException Exception
+	 */
 	private void writeStorage(Storage storage, OutputStream os, Checksum checksum)
 			throws IOException {
 		

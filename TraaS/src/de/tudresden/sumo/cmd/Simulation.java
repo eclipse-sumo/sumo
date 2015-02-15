@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -33,8 +33,12 @@ public class Simulation {
 
 	/**
 	 * convert2D
+	 * @param edgeID edge id
+	 * @param pos pos 
+	 * @param laneIndex index
+	 * @param toGeo geo
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand convert2D(String edgeID, double pos, byte laneIndex, String toGeo){
 		Object[] array = new Object[]{pos, laneIndex, toGeo};
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.POSITION_CONVERSION, edgeID, array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_STRINGLIST);
@@ -42,8 +46,12 @@ public class Simulation {
 
 	/**
 	 * convert3D
+	 * @return SumoCommand
+	 * @param edgeID edge id
+	 * @param pos pos
+	 * @param laneIndex index
+	 * @param toGeo geo
 	 */
-
 	public static SumoCommand convert3D(String edgeID, double pos, byte laneIndex, String toGeo){
 		Object[] array = new Object[]{pos, laneIndex, toGeo};
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.POSITION_CONVERSION, edgeID, array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_STRINGLIST);
@@ -52,8 +60,11 @@ public class Simulation {
 	
 	/**
 	 * convertGeo
+	 * @return SumoCommand
+	 * @param x x 
+	 * @param y y
+	 * @param fromGeo geo
 	 */
-
 	public static SumoCommand convertGeo(double x, double y, String fromGeo){
 		Object[] array = new Object[]{y, fromGeo};
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.POSITION_CONVERSION, x, array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_STRINGLIST);
@@ -61,8 +72,11 @@ public class Simulation {
 
 	/**
 	 * convertRoad
+	 * @return SumoCommand
+	 * @param x x
+	 * @param y y
+	 * @param isGeo geo
 	 */
-
 	public static SumoCommand convertRoad(double x, double y, String isGeo){
 		Object[] array = new Object[]{y, isGeo};
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_POSITION, x, array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.POSITION_2D);
@@ -70,6 +84,7 @@ public class Simulation {
 
 	/**
 	 * Returns a list of IDs of vehicles which arrived in this time step.
+	 * @return list of vehicles
 	 */
 
 	public static SumoCommand getArrivedIDList(){
@@ -78,6 +93,7 @@ public class Simulation {
 
 	/**
 	 * Returns the number of vehicles which arrived in this time step.
+	 * @return number of vehicles
 	 */
 
 	public static SumoCommand getArrivedNumber(){
@@ -85,17 +101,17 @@ public class Simulation {
 	}
 
 	/**
-	 * Returns the current simulation time (in ms).
+	 * Returns the current waiting time on bus stops(in ms).
+	 * @return waiting time
 	 */
 
 	public static SumoCommand getBusStopWaiting(){
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_BUS_STOP_WAITING, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
-	
-
 	/**
 	 * getParkingEndingVehiclesIDList()
+	 * @return number of vehicles
 	 */
 
 	public static SumoCommand getParkingEndingVehiclesIDList(){
@@ -105,6 +121,7 @@ public class Simulation {
 	
 	/**
 	 * getParkingEndingVehiclesNumber()
+	 * @return number of vehicles
 	 */
 
 	public static SumoCommand getParkingEndingVehiclesNumber(){
@@ -113,6 +130,7 @@ public class Simulation {
 
 	/**
 	 * getParkingStartingVehiclesIDList()
+	 * @return number of vehicles
 	 */
 
 	public static SumoCommand getParkingStartingVehiclesIDList(){
@@ -122,6 +140,7 @@ public class Simulation {
 
 	/**
 	 * getParkingStartingVehiclesNumber()
+	 * @return number of vehicles
 	 */
 
 	public static SumoCommand getParkingStartingVehiclesNumber(){
@@ -131,6 +150,7 @@ public class Simulation {
 	
 	/**
 	 * getStopEndingVehiclesIDList()
+	 * @return number of vehicles
 	 */
 
 	public static SumoCommand getStopEndingVehiclesIDList(){
@@ -140,6 +160,7 @@ public class Simulation {
 	
 	/**
 	 * getStopEndingVehiclesNumber()
+	 * @return number of vehicles
 	 */
 
 	public static SumoCommand getStopEndingVehiclesNumber(){
@@ -148,6 +169,7 @@ public class Simulation {
 	
 	/**
 	 * getStopStartingVehiclesIDList()
+	 * @return list of vehicles
 	 */
 
 	public static SumoCommand getStopStartingVehiclesIDList(){
@@ -157,6 +179,7 @@ public class Simulation {
 
 	/**
 	 * getStopStartingVehiclesIDList()
+	 * @return list of vehicles
 	 */
 
 	public static SumoCommand getStopStartingVehiclesNumber(){
@@ -166,6 +189,7 @@ public class Simulation {
 	
 	/**
 	 * getCurrentTime
+	 * @return current time
 	 */
 
 	public static SumoCommand getCurrentTime(){
@@ -174,6 +198,7 @@ public class Simulation {
 
 	/**
 	 * getDeltaT
+	 * @return delat time
 	 */
 
 	public static SumoCommand getDeltaT(){
@@ -182,6 +207,7 @@ public class Simulation {
 
 	/**
 	 * Returns a list of IDs of vehicles which departed in this time step.
+	 * @return  list of IDs of vehicles which departed in this time step.
 	 */
 
 	public static SumoCommand getDepartedIDList(){
@@ -190,6 +216,7 @@ public class Simulation {
 
 	/**
 	 * Returns the number of vehicles which departed in this time step.
+	 * @return the number of vehicles which departed in this time step.
 	 */
 
 	public static SumoCommand getDepartedNumber(){
@@ -200,6 +227,15 @@ public class Simulation {
 	 * getDistance2D
 	 */
 
+	/**
+	 * @param x1 x1
+	 * @param y1 y1
+	 * @param x2 x2
+	 * @param y2 y2
+	 * @param isGeo is geo
+	 * @param isDriving is driving
+	 * @return distance
+	 */
 	public static SumoCommand getDistance2D(double x1, double y1, double x2, double y2, String isGeo, String isDriving){
 		Object[] array = new Object[]{y1, x2, y2, isGeo, isDriving};
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.POSITION_LON_LAT, x1, array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_DOUBLE);
@@ -209,6 +245,14 @@ public class Simulation {
 	 * getDistanceRoad
 	 */
 
+	/**
+	 * @param edgeID1 first edge
+	 * @param pos1 first position
+	 * @param edgeID2 second edge
+	 * @param pos2 second position
+	 * @param isDriving is drinving
+	 * @return the distance in [m]
+	 */
 	public static SumoCommand getDistanceRoad(String edgeID1, double pos1, String edgeID2, double pos2, String isDriving){
 		Object[] array = new Object[]{pos1, edgeID2, pos2, isDriving};
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.REQUEST_DRIVINGDIST, edgeID1, array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_DOUBLE);
@@ -216,6 +260,7 @@ public class Simulation {
 
 	/**
 	 * Returns a list of IDs of vehicles which ended to be teleported in this time step.
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand getEndingTeleportIDList(){
@@ -224,6 +269,7 @@ public class Simulation {
 
 	/**
 	 * Returns the number of vehicles which ended to be teleported in this time step.
+ 	 * @return SumoCommand
 	 */
 
 	public static SumoCommand getEndingTeleportNumber(){
@@ -232,6 +278,7 @@ public class Simulation {
 
 	/**
 	 * Returns a list of IDs of vehicles which were loaded in this time step.
+ 	 * @return SumoCommand
 	 */
 
 	public static SumoCommand getLoadedIDList(){
@@ -239,7 +286,8 @@ public class Simulation {
 	}
 
 	/**
-	 * Return the number of vehicles which were loaded in this time step.
+	 * Return the number of vehicles which were loaded in this time step.	 * @return SumoCommand
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand getLoadedNumber(){
@@ -248,6 +296,7 @@ public class Simulation {
 
 	/**
 	 * Returns the number of vehicles which are in the net plus the ones still waiting to start.
+ 	 * @return SumoCommand
 	 */
 
 	public static SumoCommand getMinExpectedNumber(){
@@ -256,14 +305,15 @@ public class Simulation {
 
 	/**
 	 * Returns the boundary box of the simulation network.
+	 * @return SumoCommand
 	 */
-
 	public static SumoCommand getNetBoundary(){
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_NET_BOUNDING_BOX, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_BOUNDINGBOX);
 	}
 
 	/**
 	 * Returns a list of IDs of vehicles which started to teleport in this time step.
+ 	 * @return SumoCommand
 	 */
 
 	public static SumoCommand getStartingTeleportIDList(){
@@ -272,6 +322,7 @@ public class Simulation {
 
 	/**
 	 * Returns the number of vehicles which started to teleport in this time step.
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand getStartingTeleportNumber(){
@@ -282,11 +333,11 @@ public class Simulation {
 
 	/**
 	 * Clear pending
-	 * 
+	 * @param routeID route id
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand clearPending(String routeID){
-
 		return new SumoCommand(Constants.CMD_SET_SIM_VARIABLE, Constants.CMD_CLEAR_PENDING_VEHICLES, "", routeID);
 	}
 

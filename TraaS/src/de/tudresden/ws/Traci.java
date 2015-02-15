@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -28,6 +28,7 @@ import de.tudresden.sumo.cmd.Junction;
 import de.tudresden.sumo.cmd.ArealDetector;
 import de.tudresden.sumo.cmd.Lane;
 import de.tudresden.sumo.cmd.Multientryexit;
+import de.tudresden.sumo.cmd.Person;
 import de.tudresden.sumo.cmd.Poi;
 import de.tudresden.sumo.cmd.Polygon;
 import de.tudresden.sumo.cmd.Route;
@@ -582,6 +583,86 @@ public class Traci{
 	@WebMethod(action="ArealDetector: getLastStepOccupancy")
 	public double ArealDetector_getLastStepOccupancy(@WebParam(name = "loopID") String loopID){
 		return this.helper.getDouble(this.sumo.get_cmd(ArealDetector.getLastStepOccupancy(loopID)));
+	}
+	
+	
+	
+	//new
+	
+	
+	@WebMethod(action="Person: getIDList")
+	public SumoStringList Person_getIDList(){
+		return this.helper.getStringList(this.sumo.get_cmd(Person.getIDList()));
+	}
+	
+	@WebMethod(action="Person: getIDCount")
+	public int Person_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Person.getIDCount()));
+	}
+	
+	@WebMethod(action="Person: getSpeed")
+	public double Person_getSpeed(@WebParam(name = "personID") String personID){
+		return this.helper.getDouble(this.sumo.get_cmd(Person.getSpeed(personID)));
+	}
+	
+	@WebMethod(action="Person: getPosition")
+	public SumoPosition2D Person_getPosition(@WebParam(name = "personID") String personID){
+		return this.helper.getPosition2D(this.sumo.get_cmd(Person.getPosition(personID)));
+	}
+	
+	@WebMethod(action="Person: getPosition3D")
+	public SumoPosition3D Person_getPosition3D(@WebParam(name = "personID") String personID){
+		return this.helper.getPosition3D(this.sumo.get_cmd(Person.getPosition3D(personID)));
+	}
+
+	@WebMethod(action="Person: getAngle")
+	public int Person_getAngle(@WebParam(name = "vehID") String personID){
+		return this.helper.getInt(this.sumo.get_cmd(Person.getAngle(personID)));
+	}
+
+	@WebMethod(action="Person: getRoadID")
+	public String Person_getRoadID(@WebParam(name = "personID") String personID){
+		return this.helper.getString(this.sumo.get_cmd(Person.getRoadID(personID)));
+	}
+
+	@WebMethod(action="Person: getTypeID")
+	public String Person_getTypeID(@WebParam(name = "personID") String personID){
+		return this.helper.getString(this.sumo.get_cmd(Person.getTypeID(personID)));
+	}
+
+	@WebMethod(action="Person: getLanePosition")
+	public double Person_getLanePosition(@WebParam(name = "personID") String personID){
+		return this.helper.getDouble(this.sumo.get_cmd(Person.getLanePosition(personID)));
+	}
+
+	@WebMethod(action="Person: getColor")
+	public SumoColor Person_getColor(@WebParam(name = "personID") String personID){
+		return this.helper.getColor(this.sumo.get_cmd(Person.getColor(personID)));
+	}
+
+	@WebMethod(action="Person: getPersonNumber")
+	public int Person_getPersonNumber(@WebParam(name = "personID") String personID){
+		return this.helper.getInt(this.sumo.get_cmd(Person.getPersonNumber(personID)));
+	}
+	
+	@WebMethod(action="Person: getLength")
+	public double Person_getLength(@WebParam(name = "personID") String personID){
+		return this.helper.getDouble(this.sumo.get_cmd(Person.getLength(personID)));
+	}
+	
+	@WebMethod(action="Person: getWaitingTime")
+	public double Person_getWaitingTime(@WebParam(name = "personID") String personID){
+		return this.helper.getDouble(this.sumo.get_cmd(Person.getWaitingTime(personID)));
+	}
+	
+	@WebMethod(action="Person: getWidth")
+	public double Person_getWidth(@WebParam(name = "personID") String personID){
+		return this.helper.getDouble(this.sumo.get_cmd(Person.getWidth(personID)));
+	}
+	
+	@WebMethod(action="Person: getMinGap")
+	public double Person_getMinGap(@WebParam(name = "personID") String personID){
+		return this.helper.getDouble(this.sumo.get_cmd(Person.getMinGap(personID)));
 	}
 	
 	@WebMethod(action="Vehicle: getAccel")

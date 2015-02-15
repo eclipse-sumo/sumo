@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -47,6 +47,8 @@ public class Poi {
 	 *            a string identifying the type of a poi
 	 * @param layer
 	 *            an integer identifying the layer
+	 *            
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand add(String poiID, double x, double y, SumoColor color, String poiType, int layer){
@@ -56,6 +58,7 @@ public class Poi {
 
 	/**
 	 * Returns the number of all Poi's in the network.
+	 * @return the number of POI's in the network
 	 */
 
 	public static SumoCommand getIDCount(){
@@ -117,6 +120,7 @@ public class Poi {
 	 *            a string identifying the point-of-interest
 	 * @param layer
 	 *            an integer identifying the layer
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand remove(String poiID, int layer){
@@ -131,6 +135,7 @@ public class Poi {
 	 *            a string identifying the point-of-interest
 	 * @param color
 	 *            value (r,g,b,a) of color
+	 *  @return SumoCommand
 	 */
 
 	public static SumoCommand setColor(String poiID, SumoColor color){
@@ -147,6 +152,7 @@ public class Poi {
 	 *            x-coordinate of the point
 	 * @param y
 	 *            y-coordinate of the point
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setPosition(String poiID, double x, double y){
@@ -162,6 +168,7 @@ public class Poi {
 	 *            a string identifying the point-of-interest
 	 * @param poiType
 	 *            a string identifying the type of a poi
+	 * @return SumoCommand
 	 */
 
 	public static SumoCommand setType(String poiID, String poiType){
