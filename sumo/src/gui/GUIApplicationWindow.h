@@ -134,6 +134,9 @@ public:
     /// @brief Called on menu File->Open Network
     long onCmdOpenNetwork(FXObject*, FXSelector, void*);
 
+    /// @brief Called on menu File->Load Shapes
+    long onCmdOpenShapes(FXObject*, FXSelector, void*);
+
     /// @brief Called on reload
     long onCmdReload(FXObject*, FXSelector, void*);
 

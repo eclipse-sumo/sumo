@@ -73,6 +73,8 @@ enum {
     MID_OPEN_CONFIG,
     /// Open network - ID
     MID_OPEN_NETWORK,
+    /// Load additional file with poi and polygons
+    MID_OPEN_SHAPES,
     /// Reload the previously loaded simulation
     MID_RELOAD,
     /// Loads a file previously loaded

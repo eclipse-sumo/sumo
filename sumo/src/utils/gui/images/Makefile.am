@@ -13,7 +13,7 @@ flag.cpp flag_minus.cpp flag_plus.cpp halt.xpm locate.xpm \
 locate_add.xpm locate_edge.xpm locate_junction.xpm \
 locate_person.xpm locate_poi.xpm locate_poly.xpm \
 locate_tls.xpm locate_vehicle.xpm \
-magnify.xpm zoomstyle.xpm manip.cpp netopen.xpm new_window.xpm no.xpm \
+magnify.xpm zoomstyle.xpm manip.cpp netopen.xpm shapeopen.xpm new_window.xpm no.xpm \
 open_bmp_dialog.xpm opening.xpm \
 paintbrush1x.xpm paintbrush2x.xpm paintbrush3x.xpm paintbrush4x.xpm \
 paintbrush5x.xpm play.xpm \

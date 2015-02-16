@@ -192,6 +192,11 @@ NLBuilder::build() {
         if (!load("additional-files")) {
             return false;
         }
+        // load shapes with separate handler
+        NLShapeHandler sh("", myNet.getShapeContainer());
+        if (!ShapeHandler::loadFiles(myOptions.getStringVector("additional-files"), sh)) {
+            return false;
+        }
     }
     WRITE_MESSAGE("Loading done.");
     return true;
