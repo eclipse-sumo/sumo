@@ -830,7 +830,7 @@ PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular)
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const SUMOReal pos =
             GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, perpendicular);
-        const SUMOReal dist = pos < 0 ? minDist : p.distanceTo2D(Line(*i, *(i + 1)).getPositionAtDistance(pos));
+        const SUMOReal dist = pos < 0 ? minDist : p.distanceTo2D(Line(*i, *(i + 1)).getPositionAtDistance2D(pos));
         if (dist < minDist) {
             nearestPos = pos + seen;
             minDist = dist;
