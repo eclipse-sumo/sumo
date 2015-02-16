@@ -50,6 +50,9 @@
     <ClCompile Include="..\..\..\src\utils\geom\Position.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\shapes\ShapeHandler.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\geom\AbstractPoly.h">
@@ -95,6 +98,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\shapes\Shape.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\shapes\ShapeHandler.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
