@@ -259,9 +259,11 @@ Success.
 Warning: Taz usage was requested but no taz present in flow 'v'!
 Success.
 flow 4 0
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
 flow 4 1
 Success.
@@ -310,7 +312,8 @@ Success.
 Success.
 flow 5 0
 Success.
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
 flow 5 1
 Success.
@@ -454,9 +457,11 @@ flow 7 15
 Success.
 Success.
 flow 8 0
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
 flow 8 1
 Success.
@@ -553,7 +558,8 @@ Success.
 Success.
 flow 10 0
 Success.
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
 flow 10 1
 Success.
@@ -2189,9 +2195,11 @@ Error: no declaration found for element 'route'
 
 Quitting (on error).
 trip 4 0
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
 trip 4 1
 Error: no declaration found for element 'route'
@@ -2304,7 +2312,8 @@ Error: no declaration found for element 'route'
 Quitting (on error).
 trip 5 0
 Success.
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
 trip 5 1
 Error: no declaration found for element 'route'
@@ -2640,9 +2649,11 @@ Error: no declaration found for element 'route'
 
 Quitting (on error).
 trip 8 0
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
 trip 8 1
 Error: no declaration found for element 'route'
@@ -2867,7 +2878,8 @@ Error: no declaration found for element 'route'
 Quitting (on error).
 trip 10 0
 Success.
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
 trip 10 1
 Error: no declaration found for element 'route'

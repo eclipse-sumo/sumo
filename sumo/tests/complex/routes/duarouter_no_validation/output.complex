@@ -259,9 +259,11 @@ Success.
 Warning: Taz usage was requested but no taz present in flow 'v'!
 Success.
 flow 4 0
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
 flow 4 1
 Success.
@@ -310,7 +312,8 @@ Success.
 Success.
 flow 5 0
 Success.
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
 flow 5 1
 Success.
@@ -454,9 +457,11 @@ flow 7 15
 Success.
 Success.
 flow 8 0
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
 flow 8 1
 Success.
@@ -553,7 +558,8 @@ Success.
 Success.
 flow 10 0
 Success.
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
 Quitting (on error).
 flow 10 1
 Success.
@@ -1997,9 +2003,11 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
 trip 4 0
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
 trip 4 1
 Error: The route for vehicle 'v' has no edges.
@@ -2064,7 +2072,8 @@ Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
 trip 5 0
 Success.
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
 trip 5 1
 Error: The route for vehicle 'v' has no edges.
@@ -2256,9 +2265,11 @@ Quitting (on error).
 Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
 trip 8 0
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
 trip 8 1
 Error: The route for vehicle 'v' has no edges.
@@ -2387,7 +2398,8 @@ Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
 trip 10 0
 Success.
-Error: vector<T> too long
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
 Quitting (on error).
 trip 10 1
 Error: The route for vehicle 'v' has no edges.
@@ -3093,8 +3105,10 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
 trip 20 0
-Success.
-Success.
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
 trip 20 1
 Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
@@ -3158,7 +3172,8 @@ Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
 trip 21 0
 Success.
-Success.
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
 trip 21 1
 Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
@@ -3349,8 +3364,10 @@ Quitting (on error).
 Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
 trip 24 0
-Success.
-Success.
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
 trip 24 1
 Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
@@ -3478,7 +3495,8 @@ Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
 trip 26 0
 Success.
-Success.
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
 trip 26 1
 Error: The route for vehicle 'v' has no edges.
 Quitting (on error).
