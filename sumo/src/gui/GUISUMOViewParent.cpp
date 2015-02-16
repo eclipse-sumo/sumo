@@ -34,7 +34,6 @@
 
 #include <string>
 #include <vector>
-#include <guisim/GUIShapeContainer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
@@ -43,6 +42,7 @@
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/images/GUIIcons.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIGlobalSelection.h>

@@ -11,7 +11,6 @@ GUILane.cpp GUILane.h \
 GUILaneSpeedTrigger.cpp GUILaneSpeedTrigger.h \
 GUIPerson.cpp GUIPerson.h GUIPersonControl.cpp GUIPersonControl.h \
 GUINet.cpp GUINet.h \
-GUIShapeContainer.cpp GUIShapeContainer.h \
 GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \
 GUITriggeredRerouter.cpp GUITriggeredRerouter.h \
 GUICalibrator.cpp GUICalibrator.h \

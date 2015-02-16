@@ -38,6 +38,7 @@
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/RGBColor.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
@@ -60,7 +61,6 @@
 #include <guisim/GUIVehicleControl.h>
 #include <gui/GUIGlobals.h>
 #include "GUINet.h"
-#include "GUIShapeContainer.h"
 
 #ifdef HAVE_INTERNAL
 #include <mesogui/GUIMEVehicleControl.h>
