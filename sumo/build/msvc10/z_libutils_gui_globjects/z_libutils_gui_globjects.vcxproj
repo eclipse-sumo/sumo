@@ -153,6 +153,7 @@
     <ClCompile Include="..\..\..\src\utils\gui\globjects\GUIGlObjectStorage.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\globjects\GUIPointOfInterest.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\globjects\GUIPolygon.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\globjects\GUIShapeContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\gui\globjects\GLIncludes.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIGlObjectTypes.h" />
     <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIPointOfInterest.h" />
     <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIPolygon.h" />
+    <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIShapeContainer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

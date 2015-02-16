@@ -47,9 +47,6 @@
     <ClCompile Include="..\..\..\src\guisim\GUINet.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\guisim\GUIShapeContainer.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\guisim\GUITrafficLightLogicWrapper.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -110,9 +107,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\guisim\GUINet.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\guisim\GUIShapeContainer.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\guisim\GUITrafficLightLogicWrapper.h">

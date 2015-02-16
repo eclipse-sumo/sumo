@@ -62,7 +62,7 @@ public:
     /// @brief Destructor
     virtual ~ShapeContainer();
 
-    typedef NamedObjectCont<Polygon*> Polygons;
+    typedef NamedObjectCont< SUMO::Polygon* > Polygons;
     typedef NamedObjectCont< PointOfInterest*> POIs;
 
     /** @brief Builds a polygon using the given values and adds it to the container
