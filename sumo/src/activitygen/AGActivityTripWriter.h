@@ -35,11 +35,11 @@
 #include <config.h>
 #endif
 
-#include "activities/AGTrip.h"
-#include <iostream>
-#include <map>
-#include <string>
-#include <utils/iodevices/OutputDevice.h>
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
+class AGTrip;
 
 
 // ===========================================================================
@@ -47,19 +47,12 @@
 // ===========================================================================
 class AGActivityTripWriter {
 public:
-    AGActivityTripWriter(OutputDevice& file) :
-        routes(file) {
-        initialize();
-    }
+    AGActivityTripWriter(OutputDevice& file);
 
-    void initialize();
-    void addTrip(AGTrip trip);
+    void addTrip(const AGTrip& trip);
 
 private:
-    OutputDevice& routes;
-    std::map<std::string, std::string> colors;
-
-    void vtypes();
+    OutputDevice& myTripOutput;
 
 private:
     /// @brief Invalidated copy constructor.

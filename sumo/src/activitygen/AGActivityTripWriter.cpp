@@ -32,6 +32,9 @@
 #include <config.h>
 #endif
 
+#include <utils/common/RGBColor.h>
+#include <utils/iodevices/OutputDevice.h>
+#include "activities/AGTrip.h"
 #include "city/AGStreet.h"
 #include "AGActivityTripWriter.h"
 
@@ -39,48 +42,48 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-void
-AGActivityTripWriter::initialize() {
-    vtypes();
+AGActivityTripWriter::AGActivityTripWriter(OutputDevice& file) : myTripOutput(file) {
+    myTripOutput.openTag(SUMO_TAG_VTYPE)
+        .writeAttr(SUMO_ATTR_ID, "default")
+        .writeAttr(SUMO_ATTR_VCLASS, "passenger")
+        .writeAttr(SUMO_ATTR_COLOR, RGBColor::RED).closeTag();
+    myTripOutput.openTag(SUMO_TAG_VTYPE)
+        .writeAttr(SUMO_ATTR_ID, "random")
+        .writeAttr(SUMO_ATTR_VCLASS, "passenger")
+        .writeAttr(SUMO_ATTR_COLOR, RGBColor::BLUE).closeTag();
+    myTripOutput.openTag(SUMO_TAG_VTYPE)
+        .writeAttr(SUMO_ATTR_ID, "bus")
+        .writeAttr(SUMO_ATTR_VCLASS, "bus")
+        .writeAttr(SUMO_ATTR_COLOR, RGBColor::GREEN).closeTag();
+    myTripOutput.lf();
 }
 
-void
-AGActivityTripWriter::vtypes() {
-    routes << "    <vType id=\"default\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" minGap=\"2.5\" maxSpeed=\"90\"/>\n";
-    routes << "    <vType id=\"random\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" minGap=\"2.5\" maxSpeed=\"90\"/>\n";
-    routes << "    <vType id=\"bus\" accel=\"2.0\" decel=\"4.0\" sigma=\"0.0\" length=\"10\" minGap=\"3\" maxSpeed=\"70\"/>\n\n";
-
-    colors["default"] = "1,0,0";
-    colors["bus"] = "0,1,0";
-    colors["random"] = "0,0,1";
-}
 
 void
-AGActivityTripWriter::addTrip(AGTrip trip) {
-    std::list<AGPosition>::iterator it;
+AGActivityTripWriter::addTrip(const AGTrip& trip) {
     int time = (trip.getDay() - 1) * 86400 + trip.getTime();
 
-    //the vehicle:
-    routes << "    <vehicle"
-           << " id=\"" << trip.getVehicleName()
-           << "\" type=\"" << trip.getType()
-           << "\" depart=\"" << time
-           << "\" departPos=\"" << trip.getDep().getPosition()
-           << "\" arrivalPos=\"" << trip.getArr().getPosition()
-           << "\" departSpeed=\"" << 0
-           << "\" arrivalSpeed=\"" << 0
-           << "\" color=\"" << colors[trip.getType()]
-           << "\">\n";
+    myTripOutput.openTag(SUMO_TAG_TRIP)
+        .writeAttr(SUMO_ATTR_ID, trip.getVehicleName())
+        .writeAttr(SUMO_ATTR_TYPE, trip.getType())
+        .writeAttr(SUMO_ATTR_DEPART, time)
+        .writeAttr(SUMO_ATTR_DEPARTPOS, trip.getDep().getPosition())
+        .writeAttr(SUMO_ATTR_ARRIVALPOS, trip.getArr().getPosition())
+        .writeAttr(SUMO_ATTR_ARRIVALSPEED, 0.)
+        .writeAttr(SUMO_ATTR_FROM, trip.getDep().getStreet().getName());
 
-    //the route
-    routes << "        <route edges=\"" << trip.getDep().getStreet().getName();
-    for (it = trip.getPassed()->begin(); it != trip.getPassed()->end(); ++it) {
-        routes << " " << it->getStreet().getName();
+    if (!trip.getPassed()->empty()) {
+        std::ostringstream oss;
+        for (std::list<AGPosition>::const_iterator it = trip.getPassed()->begin(); it != trip.getPassed()->end(); ++it) {
+            if (it != trip.getPassed()->begin()) {
+                oss << " ";
+            }
+            oss << it->getStreet().getName();
+        }
+        myTripOutput.writeAttr(SUMO_ATTR_VIA, oss.str());
     }
-    routes << " " << trip.getArr().getStreet().getName();
-    routes << "\"/>\n";
-
-    routes << "    </vehicle>\n";
+    myTripOutput.writeAttr(SUMO_ATTR_TO, trip.getArr().getStreet().getName());
+    myTripOutput.closeTag();
 }
 
 

@@ -100,7 +100,7 @@ public:
     void setDay(int day);
     const std::string& getType() const;
     void setType(std::string type);
-    std::list<AGPosition>* getPassed();
+    const std::list<AGPosition>* getPassed() const;
 
     /**
      * returns the time regarding the departure time

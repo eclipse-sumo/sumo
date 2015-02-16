@@ -99,7 +99,7 @@ AGActivityGen::importInfoCity() {
 }
 
 bool
-AGActivityGen::timeTripValidation(AGTrip trip) {
+AGActivityGen::timeTripValidation(const AGTrip& trip) const {
     if (trip.getDay() > durationInDays + 1) {
         return false;
     }
@@ -123,7 +123,7 @@ AGActivityGen::timeTripValidation(AGTrip trip) {
 }
 
 void
-AGActivityGen::varDepTime(AGTrip& trip) {
+AGActivityGen::varDepTime(AGTrip& trip) const {
     if (trip.getType() != "default") {
         return;
     }

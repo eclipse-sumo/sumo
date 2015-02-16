@@ -86,8 +86,8 @@ AGTrip::addLayOverWithoutDestination(AGTrip& trip) {
     }
 }
 
-std::list<AGPosition>*
-AGTrip::getPassed() {
+const std::list<AGPosition>*
+AGTrip::getPassed() const {
     return &myPassBy;
 }
 
