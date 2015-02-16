@@ -1,4 +1,4 @@
-SUMO activitygen Version dev-SVN-r17463
+SUMO activitygen Version dev-SVN-r17860
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates routes of persons throughout a day for the microscopic road traffic
@@ -15,14 +15,14 @@ Configuration Options:
                                      configuration, or schema
 
 Input Options:
-  -n, --net-file FILE              Use FILE as SUMO-network to route on
+  -n, --net-file FILE              Use FILE as SUMO-network to create trips for
   -s, --stat-file FILE             Loads the SUMO-statistics FILE
 
 Output Options:
   --output-prefix FILE             Prefix which is applied to all output files.
                                      The special string 'TIME' is replaced by
                                      the current time.
-  -o, --output-file FILE           Write generated routes to FILE
+  -o, --output-file FILE           Write generated trips to FILE
 
 Processing Options:
   --weights.interpolate            Interpolate edge weights at interval
@@ -62,9 +62,9 @@ Random Number Options:
 
 Examples:
   activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --rand
-    generate a route file from a stats file on a given net using arbitrary random seed
+    generate a trips file from a stats file on a given net using arbitrary random seed
   activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>
-    generate a route file from a stats file on a given net for numerous days (with fixed random seed)
+    generate a trips file from a stats file on a given net for numerous days (with fixed random seed)
 
 Report bugs at <http://sumo.dlr.de/trac/>.
 Get in contact via <sumo@dlr.de>.

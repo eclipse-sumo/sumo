@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/08/13 16:23:26 by SUMO activitygen Version dev-SVN-rUNKNOWN
+<!-- generated on 02/16/15 13:34:30 by SUMO activitygen Version dev-SVN-r17860
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/activitygenConfiguration.xsd">
@@ -14,6 +14,10 @@
         <output-file value="routes.activitygen"/>
     </output>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
     <random_number>
         <seed value="1"/>
     </random_number>
@@ -22,8 +26,8 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="default" accel="4.0" decel="8.0" sigma="0.0" length="5" minGap="2.5" maxSpeed="90"/>
-    <vType id="random" accel="4.0" decel="8.0" sigma="0.0" length="5" minGap="2.5" maxSpeed="90"/>
-    <vType id="bus" accel="2.0" decel="4.0" sigma="0.0" length="10" minGap="3" maxSpeed="70"/>
+    <vType id="default" vClass="passenger" color="red"/>
+    <vType id="random" vClass="passenger" color="blue"/>
+    <vType id="bus" vClass="bus" color="green"/>
 
 </routes>

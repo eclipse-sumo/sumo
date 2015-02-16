@@ -11,13 +11,13 @@
     </configuration>
 
     <input>
-        <net-file value="" synonymes="n net" type="FILE" help="Use FILE as SUMO-network to route on"/>
+        <net-file value="" synonymes="n net" type="FILE" help="Use FILE as SUMO-network to create trips for"/>
         <stat-file value="" synonymes="s" type="FILE" help="Loads the SUMO-statistics FILE"/>
     </input>
 
     <output>
         <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
-        <output-file value="" synonymes="o output" type="FILE" help="Write generated routes to FILE"/>
+        <output-file value="" synonymes="o output" type="FILE" help="Write generated trips to FILE"/>
     </output>
 
     <processing>
