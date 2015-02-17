@@ -286,7 +286,7 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
     // if new lanes are added they copy the values from the leftmost lane (if specified)
     const std::vector<Lane> oldLanes = myLanes;
     init(nolanes, tryIgnoreNodePositions);
-    for (int i = 0; i < nolanes; ++i) {
+    for (int i = 0; i < (int)nolanes; ++i) {
         PositionVector newShape = myLanes[i].shape;
         myLanes[i] = oldLanes[MIN2(i, (int)oldLanes.size() - 1)];
         myLanes[i].shape = newShape;

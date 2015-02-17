@@ -1407,10 +1407,6 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
     bestDistance = u.dist;
     *lane = bestLane;
     lanePos = bestLane->getShape().nearest_offset_to_point2D(pos);
-    if(lanePos<0) {
-        int bla = MSNet::getInstance()->getCurrentTimeStep();
-        int bla2 = 0;
-    }
     const MSEdge *prevEdge = u.prevEdge;
     if(u.onRoute) {
         const MSEdgeVector &ev = v.getRoute().getEdges();
