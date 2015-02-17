@@ -539,7 +539,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         p.set(p.x(), p.y(), myNode.getPosition().z());
         if (cornerDetail > 0 && i != newAll.begin()) {
             // smooth connection with the previous edge
-            PositionVector begShape = geomsCW[*(i-1)];
+            PositionVector begShape = geomsCW[*(i-1)].reverse();
             begShape[-1] = ret[-1];
             PositionVector endShape = ccwBound;
             endShape[0] = p;
@@ -564,7 +564,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     }
     // final curve segment
     if (cornerDetail > 0) {
-        PositionVector begShape = geomsCW[*(newAll.end() - 1)];
+        PositionVector begShape = geomsCW[*(newAll.end() - 1)].reverse();
         begShape[-1] = ret[-1];
         PositionVector endShape = geomsCCW[*newAll.begin()];
         endShape[0] = ret[0];
