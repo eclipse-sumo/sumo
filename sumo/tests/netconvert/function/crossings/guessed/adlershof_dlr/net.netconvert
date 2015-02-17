@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 11 14:26:02 2015 by SUMO netconvert Version dev-SVN-r17826ID
+<!-- generated on Mon Feb 16 10:44:41 2015 by SUMO netconvert Version dev-SVN-r17859I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -141,10 +141,10 @@
         <lane id=":1370020144_w0_0" index="0" allow="pedestrian" speed="1.00" length="7.08" width="3.20" shape="4518.89,741.75 4520.08,738.77 4520.11,738.68 4521.30,735.71 4520.41,733.74 4517.40,732.66 4517.30,732.63 4514.29,731.55 4510.32,736.10 4510.73,739.27"/>
     </edge>
     <edge id=":1370020147_0" function="internal">
-        <lane id=":1370020147_0_0" index="0" allow="delivery pedestrian" speed="5.56" length="4.82" shape="4531.59,687.91 4532.79,687.02 4533.70,686.91 4534.34,687.58 4534.70,689.02"/>
+        <lane id=":1370020147_0_0" index="0" allow="delivery pedestrian" speed="5.56" length="4.82" shape="4523.89,709.45 4525.09,708.56 4526.00,708.45 4526.64,709.11 4527.00,710.56"/>
     </edge>
     <edge id=":1370020147_w0" function="walkingarea">
-        <lane id=":1370020147_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.25" width="3.20" shape="4533.30,688.17 4530.22,687.31 4530.09,687.37 4533.10,688.45 4533.20,688.48 4536.21,689.56"/>
+        <lane id=":1370020147_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.23" width="3.20" shape="4527.82,707.82 4524.74,706.96 4522.39,708.91 4525.40,709.99 4525.49,710.02 4528.51,711.10"/>
     </edge>
     <edge id=":1370020156_0" function="internal">
         <lane id=":1370020156_0_0" index="0" disallow="pedestrian" speed="22.22" length="9.58" shape="4537.28,787.70 4528.31,784.33"/>
@@ -1193,37 +1193,37 @@
         <lane id=":1560223404_w4_0" index="0" allow="pedestrian" speed="1.00" length="5.75" width="4.00" shape="4413.83,378.24 4413.49,374.25 4414.25,368.52 4413.90,372.50"/>
     </edge>
     <edge id=":1560223468_0" function="internal">
-        <lane id=":1560223468_0_0" index="0" disallow="pedestrian" speed="13.89" length="3.37" shape="4340.44,390.37 4337.18,390.68"/>
-        <lane id=":1560223468_0_1" index="1" disallow="pedestrian" speed="13.89" length="3.37" shape="4340.22,387.08 4336.77,387.41"/>
+        <lane id=":1560223468_0_0" index="0" disallow="pedestrian" speed="13.89" length="2.59" shape="4340.07,390.40 4337.59,390.63"/>
+        <lane id=":1560223468_0_1" index="1" disallow="pedestrian" speed="13.89" length="2.59" shape="4339.85,387.10 4337.18,387.36"/>
     </edge>
     <edge id=":1560223468_2" function="internal">
-        <lane id=":1560223468_2_0" index="0" disallow="pedestrian" speed="13.89" length="2.41" shape="4340.22,387.08 4338.93,386.34 4338.46,385.54"/>
+        <lane id=":1560223468_2_0" index="0" disallow="pedestrian" speed="13.89" length="2.41" shape="4339.85,387.10 4338.56,386.36 4338.10,385.57"/>
     </edge>
     <edge id=":1560223468_7" function="internal">
-        <lane id=":1560223468_7_0" index="0" speed="13.89" length="2.41" shape="4338.46,385.54 4338.82,384.69 4340.00,383.79"/>
+        <lane id=":1560223468_7_0" index="0" speed="13.89" length="2.41" shape="4338.10,385.57 4338.45,384.72 4339.63,383.81"/>
     </edge>
     <edge id=":1560223468_3" function="internal">
-        <lane id=":1560223468_3_0" index="0" disallow="pedestrian" speed="13.89" length="4.60" shape="4335.94,380.86 4339.56,377.20"/>
-        <lane id=":1560223468_3_1" index="1" disallow="pedestrian" speed="13.89" length="4.60" shape="4336.35,384.14 4339.78,380.49"/>
-        <lane id=":1560223468_3_2" index="2" disallow="pedestrian" speed="13.89" length="4.60" shape="4336.35,384.14 4340.00,383.79"/>
+        <lane id=":1560223468_3_0" index="0" disallow="pedestrian" speed="13.89" length="3.96" shape="4336.36,380.81 4339.19,377.22"/>
+        <lane id=":1560223468_3_1" index="1" disallow="pedestrian" speed="13.89" length="3.96" shape="4336.77,384.08 4339.41,380.52"/>
+        <lane id=":1560223468_3_2" index="2" disallow="pedestrian" speed="13.89" length="3.96" shape="4336.77,384.08 4339.63,383.81"/>
     </edge>
     <edge id=":1560223468_6" function="internal">
-        <lane id=":1560223468_6_0" index="0" disallow="pedestrian" speed="13.89" length="2.41" shape="4336.35,384.14 4337.69,384.80 4338.20,385.57"/>
+        <lane id=":1560223468_6_0" index="0" disallow="pedestrian" speed="13.89" length="2.41" shape="4336.77,384.08 4338.10,384.75 4338.61,385.51"/>
     </edge>
     <edge id=":1560223468_8" function="internal">
-        <lane id=":1560223468_8_0" index="0" speed="13.89" length="2.41" shape="4338.20,385.57 4337.89,386.44 4336.77,387.41"/>
+        <lane id=":1560223468_8_0" index="0" speed="13.89" length="2.41" shape="4338.61,385.51 4338.31,386.38 4337.18,387.36"/>
     </edge>
     <edge id=":1560223468_c0" function="crossing" crossingEdges="196674458#0 -196674458#1">
-        <lane id=":1560223468_c0_0" index="0" allow="pedestrian" speed="1.00" length="16.40" width="4.00" shape="4337.46,375.74 4338.55,392.10"/>
+        <lane id=":1560223468_c0_0" index="0" allow="pedestrian" speed="1.00" length="16.40" width="4.00" shape="4337.09,375.76 4338.18,392.12"/>
     </edge>
     <edge id=":1560223468_c1" function="crossing" crossingEdges="-190083610#1 190083610#1">
-        <lane id=":1560223468_c1_0" index="0" allow="pedestrian" speed="1.00" length="13.10" width="4.00" shape="4339.36,392.02 4337.73,379.02"/>
+        <lane id=":1560223468_c1_0" index="0" allow="pedestrian" speed="1.00" length="13.10" width="4.00" shape="4339.78,391.97 4338.14,378.97"/>
     </edge>
     <edge id=":1560223468_w0" function="walkingarea">
-        <lane id=":1560223468_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.17" width="4.00" shape="4341.35,391.77 4337.39,392.37 4337.77,395.35 4340.75,395.06 4340.55,392.07 4336.55,392.23"/>
+        <lane id=":1560223468_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.07" width="4.00" shape="4341.76,391.72 4337.81,392.32 4338.18,395.30 4340.38,395.08 4340.18,392.09 4336.19,392.26"/>
     </edge>
     <edge id=":1560223468_w1" function="walkingarea">
-        <lane id=":1560223468_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.62" width="4.00" shape="4335.46,375.87 4339.45,375.50 4339.25,372.51 4335.36,376.20 4335.73,379.17 4339.71,378.77"/>
+        <lane id=":1560223468_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.40" width="4.00" shape="4335.10,375.89 4339.08,375.53 4338.88,372.53 4335.77,376.15 4336.14,379.12 4340.13,378.72"/>
     </edge>
     <edge id=":1560223484_0" function="internal">
         <lane id=":1560223484_0_0" index="0" disallow="pedestrian" speed="13.89" length="10.17" shape="4145.38,410.68 4143.41,411.34 4141.93,412.88 4140.93,415.29 4140.41,418.59"/>
@@ -2685,13 +2685,13 @@
         <lane id=":158710666_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.56" width="4.00" shape="3506.46,621.41 3505.91,617.45 3502.93,617.79"/>
     </edge>
     <edge id=":158710676_0" function="internal">
-        <lane id=":158710676_0_0" index="0" disallow="bicycle pedestrian" speed="19.45" length="4.73" shape="3203.02,671.94 3206.69,671.79"/>
-        <lane id=":158710676_0_1" index="1" disallow="bicycle pedestrian" speed="19.45" length="4.73" shape="3203.02,671.94 3208.02,674.83"/>
+        <lane id=":158710676_0_0" index="0" disallow="bicycle pedestrian" speed="19.45" length="4.46" shape="3203.19,671.85 3206.52,671.89"/>
+        <lane id=":158710676_0_1" index="1" disallow="bicycle pedestrian" speed="19.45" length="4.46" shape="3203.19,671.85 3207.85,674.94"/>
     </edge>
     <edge id=":158710676_2" function="internal">
-        <lane id=":158710676_2_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="4.12" shape="3204.49,674.89 3206.12,670.48"/>
-        <lane id=":158710676_2_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="4.12" shape="3205.97,677.84 3207.44,673.51"/>
-        <lane id=":158710676_2_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="4.12" shape="3205.97,677.84 3208.76,676.53"/>
+        <lane id=":158710676_2_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="3.81" shape="3204.67,674.80 3205.94,670.56"/>
+        <lane id=":158710676_2_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="3.81" shape="3206.15,677.75 3207.26,673.59"/>
+        <lane id=":158710676_2_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="3.81" shape="3206.15,677.75 3208.59,676.61"/>
     </edge>
     <edge id=":1597984543_0" function="internal">
         <lane id=":1597984543_0_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="3.36" shape="3767.65,529.19 3770.82,528.09"/>
@@ -4865,13 +4865,13 @@
         <lane id=":260479332_0_0" index="0" allow="delivery pedestrian" speed="5.56" length="4.82" shape="3966.58,80.89 3968.01,80.49 3968.91,80.72 3969.26,81.57 3969.08,83.05"/>
     </edge>
     <edge id=":260479469_0" function="internal">
-        <lane id=":260479469_0_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="4.59" shape="3855.48,509.89 3851.99,510.19"/>
-        <lane id=":260479469_0_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="4.59" shape="3855.48,509.89 3850.44,507.24"/>
+        <lane id=":260479469_0_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="4.46" shape="3855.32,509.98 3851.99,510.19"/>
+        <lane id=":260479469_0_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="4.46" shape="3855.32,509.98 3850.44,507.24"/>
     </edge>
     <edge id=":260479469_2" function="internal">
-        <lane id=":260479469_2_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="3.97" shape="3853.80,507.05 3852.67,511.47"/>
-        <lane id=":260479469_2_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="3.97" shape="3852.12,504.21 3851.13,508.55"/>
-        <lane id=":260479469_2_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="3.97" shape="3852.12,504.21 3849.59,505.63"/>
+        <lane id=":260479469_2_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="3.82" shape="3853.64,507.15 3852.67,511.47"/>
+        <lane id=":260479469_2_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="3.82" shape="3851.96,504.31 3851.13,508.55"/>
+        <lane id=":260479469_2_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="3.82" shape="3851.96,504.31 3849.59,505.63"/>
     </edge>
     <edge id=":260702781_0" function="internal">
         <lane id=":260702781_0_0" index="0" disallow="pedestrian" speed="8.33" length="4.82" shape="4177.36,229.37 4175.93,228.96 4175.28,228.30 4175.43,227.39 4176.36,226.22"/>
@@ -5102,12 +5102,12 @@
         <lane id=":269366978_w0_0" index="0" allow="pedestrian" speed="1.00" length="7.04" width="3.20" shape="4387.15,895.29 4388.60,892.45 4388.65,892.36 4390.10,889.51 4381.26,885.25 4379.94,888.17 4379.90,888.26 4378.59,891.17 4379.26,893.33 4382.19,894.64 4382.28,894.68 4385.20,895.98"/>
     </edge>
     <edge id=":27555350_0" function="internal">
-        <lane id=":27555350_0_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="3.24" shape="3262.72,672.44 3259.63,673.40"/>
+        <lane id=":27555350_0_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="3.64" shape="3241.11,677.34 3240.61,680.94"/>
     </edge>
     <edge id=":27555350_1" function="internal">
-        <lane id=":27555350_1_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="2.48" shape="3262.82,672.88 3259.63,673.40"/>
-        <lane id=":27555350_1_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="2.48" shape="3261.29,669.93 3258.41,670.33"/>
-        <lane id=":27555350_1_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="2.48" shape="3258.47,667.43 3257.19,667.26"/>
+        <lane id=":27555350_1_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="0.95" shape="3240.60,680.92 3240.61,680.94"/>
+        <lane id=":27555350_1_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="0.95" shape="3241.09,677.23 3239.39,677.87"/>
+        <lane id=":27555350_1_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="0.95" shape="3239.05,674.46 3238.17,674.81"/>
     </edge>
     <edge id=":280095054_0" function="internal">
         <lane id=":280095054_0_0" index="0" disallow="pedestrian" speed="11.11" length="11.22" shape="4390.11,182.72 4389.33,179.93 4387.75,177.99 4385.37,176.89 4382.19,176.63"/>
@@ -5565,41 +5565,41 @@
         <lane id=":294830953_0_0" index="0" allow="delivery pedestrian" speed="5.56" length="4.82" shape="4641.54,490.45 4642.98,490.09 4643.87,490.34 4644.20,491.20 4643.98,492.67"/>
     </edge>
     <edge id=":301292499_0" function="internal">
-        <lane id=":301292499_0_0" index="0" disallow="pedestrian" speed="13.89" length="2.97" shape="3841.88,619.93 3839.03,620.75"/>
+        <lane id=":301292499_0_0" index="0" disallow="pedestrian" speed="13.89" length="2.04" shape="3841.33,620.05 3839.37,620.64"/>
     </edge>
     <edge id=":301292499_1" function="internal">
-        <lane id=":301292499_1_0" index="0" disallow="pedestrian" speed="13.89" length="2.33" shape="3840.48,616.86 3841.90,617.09 3842.60,617.65"/>
+        <lane id=":301292499_1_0" index="0" disallow="pedestrian" speed="13.89" length="2.42" shape="3839.93,616.99 3841.40,617.23 3842.12,617.81"/>
     </edge>
     <edge id=":301292499_5" function="internal">
-        <lane id=":301292499_5_0" index="0" speed="13.89" length="2.33" shape="3842.60,617.65 3842.57,618.55 3841.81,619.77"/>
+        <lane id=":301292499_5_0" index="0" speed="13.89" length="2.42" shape="3842.12,617.81 3842.09,618.73 3841.31,620.00"/>
     </edge>
     <edge id=":301292499_2" function="internal">
-        <lane id=":301292499_2_0" index="0" disallow="pedestrian" speed="13.89" length="3.42" shape="3838.06,617.59 3840.44,616.77"/>
-        <lane id=":301292499_2_1" index="1" disallow="pedestrian" speed="13.89" length="3.42" shape="3838.06,617.59 3841.81,619.77"/>
+        <lane id=":301292499_2_0" index="0" disallow="pedestrian" speed="13.89" length="2.72" shape="3838.41,617.49 3839.93,617.00"/>
+        <lane id=":301292499_2_1" index="1" disallow="pedestrian" speed="13.89" length="2.72" shape="3838.41,617.49 3841.31,620.00"/>
     </edge>
     <edge id=":301292499_4" function="internal">
-        <lane id=":301292499_4_0" index="0" disallow="pedestrian" speed="13.89" length="2.41" shape="3838.06,617.59 3839.49,618.02 3840.12,618.69"/>
+        <lane id=":301292499_4_0" index="0" disallow="pedestrian" speed="13.89" length="2.41" shape="3838.41,617.49 3839.83,617.91 3840.47,618.58"/>
     </edge>
     <edge id=":301292499_6" function="internal">
-        <lane id=":301292499_6_0" index="0" speed="13.89" length="2.41" shape="3840.12,618.69 3839.97,619.60 3839.03,620.75"/>
+        <lane id=":301292499_6_0" index="0" speed="13.89" length="2.41" shape="3840.47,618.58 3840.32,619.49 3839.37,620.64"/>
     </edge>
     <edge id=":301292499_c0" function="crossing" crossingEdges="46039051">
-        <lane id=":301292499_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.53" width="4.00" shape="3838.17,615.76 3840.29,621.94"/>
+        <lane id=":301292499_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.54" width="4.00" shape="3837.62,615.88 3839.74,622.07"/>
     </edge>
     <edge id=":301292499_c1" function="crossing" crossingEdges="46150483">
-        <lane id=":301292499_c1_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="3837.95,616.15 3840.66,622.06"/>
+        <lane id=":301292499_c1_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="3837.45,616.38 3840.15,622.29"/>
     </edge>
     <edge id=":301292499_c2" function="crossing" crossingEdges="-141968853#2 141968853#2">
-        <lane id=":301292499_c2_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="3841.41,621.69 3839.51,615.48"/>
+        <lane id=":301292499_c2_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="3841.75,621.59 3839.85,615.37"/>
     </edge>
     <edge id=":301292499_w0" function="walkingarea">
-        <lane id=":301292499_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.38" width="4.00" shape="3843.32,621.11 3839.53,622.37 3840.41,625.24 3843.57,624.36 3842.90,621.44 3842.18,621.29 3838.40,622.59"/>
+        <lane id=":301292499_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.27" width="4.00" shape="3843.67,621.00 3839.87,622.27 3840.75,625.14 3843.03,624.48 3842.35,621.56 3841.63,621.42 3837.85,622.72"/>
     </edge>
     <edge id=":301292499_w1" function="walkingarea">
-        <lane id=":301292499_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.07" width="4.00" shape="3836.13,616.98 3839.73,615.22 3838.48,612.49 3836.69,613.10 3837.57,615.97 3841.42,614.89"/>
+        <lane id=":301292499_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.11" width="4.00" shape="3835.63,617.21 3839.23,615.45 3837.98,612.73 3837.03,612.99 3837.91,615.86 3841.76,614.79"/>
     </edge>
     <edge id=":301292499_w2" function="walkingarea">
-        <lane id=":301292499_w2_0" index="0" allow="pedestrian" speed="1.00" length="6.77" width="4.00" shape="3838.84,622.89 3842.48,621.23 3840.06,615.11 3836.28,616.41"/>
+        <lane id=":301292499_w2_0" index="0" allow="pedestrian" speed="1.00" length="6.89" width="4.00" shape="3838.34,623.12 3841.97,621.46 3839.51,615.23 3835.73,616.53"/>
     </edge>
     <edge id=":311418359_0" function="internal">
         <lane id=":311418359_0_0" index="0" disallow="pedestrian" speed="13.89" length="4.82" shape="4445.80,1623.89 4446.18,1625.33 4445.95,1626.22 4445.09,1626.57 4443.62,1626.37"/>
@@ -7771,7 +7771,7 @@
         <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_c3_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="4546.87,687.31 4548.67,681.06"/>
     </edge>
     <edge id=":cluster_56231598_56242441_945141647_945141732_945141877_w0" function="walkingarea">
-        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_w0_0" index="0" allow="pedestrian" speed="1.00" length="6.61" width="4.00" shape="4548.80,687.86 4544.92,686.85 4544.10,689.74 4530.27,687.12 4533.35,687.98 4544.08,690.08 4545.15,687.28 4541.48,685.76"/>
+        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_w0_0" index="0" allow="pedestrian" speed="1.00" length="6.64" width="4.00" shape="4548.80,687.86 4544.92,686.85 4544.10,689.74 4530.22,687.31 4533.30,688.17 4544.08,690.08 4545.15,687.28 4541.48,685.76"/>
     </edge>
     <edge id=":cluster_56231598_56242441_945141647_945141732_945141877_w1" function="walkingarea">
         <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_w1_0" index="0" allow="pedestrian" speed="1.00" length="9.38" width="4.00" shape="4547.27,670.92 4551.04,672.29 4552.13,669.50 4559.81,658.76 4557.42,656.63 4556.62,656.27 4553.45,655.84 4550.35,667.99 4549.50,670.87 4549.49,670.98 4553.33,672.10"/>
@@ -7799,7 +7799,7 @@
         <lane id="-122666828#0_0" index="0" allow="delivery pedestrian" speed="5.56" length="58.09" shape="4520.71,737.19 4541.45,745.46 4546.03,754.70 4537.74,777.67 4537.36,778.63"/>
     </edge>
     <edge id="-122666828#1" from="1370020147" to="1370020144" priority="2" type="highway.service">
-        <lane id="-122666828#1_0" index="0" allow="delivery pedestrian" speed="5.56" length="46.92" shape="4534.70,689.02 4518.90,733.20"/>
+        <lane id="-122666828#1_0" index="0" allow="delivery pedestrian" speed="5.56" length="24.05" shape="4527.00,710.56 4518.90,733.20"/>
     </edge>
     <edge id="-122868966" from="1371616238" to="1371616230" priority="2" type="highway.service">
         <lane id="-122868966_0" index="0" allow="delivery pedestrian" speed="5.56" length="32.17" shape="4579.97,524.03 4555.09,503.63"/>
@@ -7884,8 +7884,8 @@
         <lane id="-141968853#1_1" index="1" disallow="pedestrian" speed="13.89" length="72.47" shape="3724.92,655.72 3662.73,674.79 3655.63,676.96"/>
     </edge>
     <edge id="-141968853#2" from="301292499" to="663353216" name="Eisenhutweg" priority="6" type="highway.tertiary">
-        <lane id="-141968853#2_0" index="0" allow="pedestrian" speed="13.89" length="113.15" width="3.00" shape="3839.97,623.81 3731.78,656.96"/>
-        <lane id="-141968853#2_1" index="1" disallow="pedestrian" speed="13.89" length="113.15" shape="3839.03,620.75 3730.85,653.90"/>
+        <lane id="-141968853#2_0" index="0" allow="pedestrian" speed="13.89" length="113.51" width="3.00" shape="3840.31,623.70 3731.78,656.96"/>
+        <lane id="-141968853#2_1" index="1" disallow="pedestrian" speed="13.89" length="113.51" shape="3839.37,620.64 3730.85,653.90"/>
     </edge>
     <edge id="-142575657#0" from="2247697355" to="cluster_1560224356_1560224368" name="Barbara McClintock Straße" priority="5" type="highway.unclassified" shape="4234.32,1011.07 4256.65,985.96 4307.54,929.85">
         <lane id="-142575657#0_0" index="0" allow="pedestrian" speed="22.22" length="97.98" width="2.00" shape="4232.95,1006.06 4253.40,983.07 4298.56,933.27"/>
@@ -8303,9 +8303,9 @@
         <lane id="-190083610#0_2" index="2" disallow="pedestrian" speed="13.89" length="90.72" shape="4131.25,408.78 4047.64,417.21"/>
     </edge>
     <edge id="-190083610#1" from="1560223468" to="1560223484" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" shape="4338.33,385.55 4294.23,391.10 4139.66,406.27">
-        <lane id="-190083610#1_0" index="0" allow="pedestrian" speed="13.89" length="192.85" width="3.00" shape="4337.58,393.86 4295.25,399.19 4145.69,413.87"/>
-        <lane id="-190083610#1_1" index="1" disallow="pedestrian" speed="13.89" length="192.85" shape="4337.18,390.68 4294.85,396.01 4145.38,410.68"/>
-        <lane id="-190083610#1_2" index="2" disallow="pedestrian" speed="13.89" length="192.85" shape="4336.77,387.41 4294.44,392.74 4145.06,407.40"/>
+        <lane id="-190083610#1_0" index="0" allow="pedestrian" speed="13.89" length="193.27" width="3.00" shape="4337.99,393.81 4295.25,399.19 4145.69,413.87"/>
+        <lane id="-190083610#1_1" index="1" disallow="pedestrian" speed="13.89" length="193.27" shape="4337.59,390.63 4294.85,396.01 4145.38,410.68"/>
+        <lane id="-190083610#1_2" index="2" disallow="pedestrian" speed="13.89" length="193.27" shape="4337.18,387.36 4294.44,392.74 4145.06,407.40"/>
     </edge>
     <edge id="-190083616#0" from="2380911862" to="2007005037" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="-190083616#0_0" index="0" allow="pedestrian" speed="13.89" length="24.28" width="3.00" shape="4393.89,221.10 4391.83,196.91"/>
@@ -8331,9 +8331,9 @@
         <lane id="-190083625#1_0" index="0" allow="delivery pedestrian" speed="5.56" length="162.45" shape="4127.17,481.78 4040.82,480.74 4040.02,511.51 3994.78,508.87"/>
     </edge>
     <edge id="-196674458#1" from="1560223404" to="1560223468" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" shape="4413.21,379.91 4391.35,382.02 4338.33,385.55">
-        <lane id="-196674458#1_0" index="0" allow="pedestrian" speed="13.89" length="58.37" width="3.00" shape="4398.97,389.47 4392.13,390.13 4340.65,393.56"/>
-        <lane id="-196674458#1_1" index="1" disallow="pedestrian" speed="13.89" length="58.37" shape="4398.66,386.29 4391.83,386.95 4340.44,390.37"/>
-        <lane id="-196674458#1_2" index="2" disallow="pedestrian" speed="13.89" length="58.37" shape="4398.34,383.00 4391.51,383.66 4340.22,387.08"/>
+        <lane id="-196674458#1_0" index="0" allow="pedestrian" speed="13.89" length="58.73" width="3.00" shape="4398.97,389.47 4392.13,390.13 4340.28,393.59"/>
+        <lane id="-196674458#1_1" index="1" disallow="pedestrian" speed="13.89" length="58.73" shape="4398.66,386.29 4391.83,386.95 4340.07,390.40"/>
+        <lane id="-196674458#1_2" index="2" disallow="pedestrian" speed="13.89" length="58.73" shape="4398.34,383.00 4391.51,383.66 4339.85,387.10"/>
     </edge>
     <edge id="-203935280" from="2139379543" to="2222995054" priority="2" type="highway.service" shape="3748.81,153.47 3754.46,188.30 3759.24,193.07 3791.21,186.22 3788.37,171.68 3785.03,152.10">
         <lane id="-203935280_0" index="0" allow="delivery pedestrian" speed="5.56" length="103.35" shape="3750.44,153.21 3756.00,187.51 3759.77,191.27 3789.28,184.95 3786.75,172.00 3783.40,152.38"/>
@@ -8758,13 +8758,13 @@
         <lane id="116343628_0" index="0" allow="pedestrian" speed="2.78" length="470.98" shape="4582.62,389.06 4595.50,387.79 4643.40,382.38 4743.47,371.60 4781.16,366.99 5050.81,337.89"/>
     </edge>
     <edge id="122666823" from="1370020147" to="cluster_56231598_56242441_945141647_945141732_945141877" priority="1" type="highway.footway" spreadType="center" shape="4525.91,708.71 4533.85,680.24">
-        <lane id="122666823_0" index="0" allow="pedestrian" speed="8.33" length="0.20" shape="4531.76,687.74 4531.81,687.55"/>
+        <lane id="122666823_0" index="0" allow="pedestrian" speed="8.33" length="20.40" shape="4526.28,707.39 4531.76,687.74"/>
     </edge>
     <edge id="122666828#0" from="1370020156" to="1370020144" priority="2" type="highway.service" shape="4533.28,784.46 4536.19,777.11 4544.24,754.80 4540.25,746.76 4515.79,737.01">
         <lane id="122666828#0_0" index="0" allow="delivery pedestrian" speed="5.56" length="52.65" shape="4534.30,777.41 4534.66,776.50 4542.45,754.90 4539.05,748.06 4519.48,740.26"/>
     </edge>
     <edge id="122666828#1" from="1370020144" to="1370020147" priority="2" type="highway.service">
-        <lane id="122666828#1_0" index="0" allow="delivery pedestrian" speed="5.56" length="46.92" shape="4515.80,732.09 4531.59,687.91"/>
+        <lane id="122666828#1_0" index="0" allow="delivery pedestrian" speed="5.56" length="24.05" shape="4515.80,732.09 4523.89,709.45"/>
     </edge>
     <edge id="122868960" from="1371616213" to="1371616216" priority="1" type="highway.footway" spreadType="center" shape="4595.86,566.29 4580.98,583.62 4582.70,584.90">
         <lane id="122868960_0" index="0" allow="pedestrian" speed="8.33" length="24.99" shape="4595.86,566.29 4580.98,583.62 4582.70,584.90"/>
@@ -8926,8 +8926,8 @@
         <lane id="141968853#1_1" index="1" disallow="pedestrian" speed="13.89" length="72.46" shape="3654.67,673.80 3661.77,671.63 3723.95,652.56"/>
     </edge>
     <edge id="141968853#2" from="663353216" to="301292499" name="Eisenhutweg" priority="6" type="highway.tertiary">
-        <lane id="141968853#2_0" index="0" allow="pedestrian" speed="13.89" length="113.15" width="3.00" shape="3728.94,647.68 3837.13,614.53"/>
-        <lane id="141968853#2_1" index="1" disallow="pedestrian" speed="13.89" length="113.15" shape="3729.88,650.74 3838.06,617.59"/>
+        <lane id="141968853#2_0" index="0" allow="pedestrian" speed="13.89" length="113.51" width="3.00" shape="3728.94,647.68 3837.47,614.43"/>
+        <lane id="141968853#2_1" index="1" disallow="pedestrian" speed="13.89" length="113.51" shape="3729.88,650.74 3838.41,617.49"/>
     </edge>
     <edge id="141968913" from="1552842738" to="1552842729" name="Straße am Flugplatz" priority="4" type="highway.residential" spreadType="center" shape="3513.80,755.48 3509.46,743.45 3504.60,733.04">
         <lane id="141968913_0" index="0" allow="pedestrian" speed="8.33" length="9.42" width="2.00" shape="3509.63,748.79 3507.91,744.01 3506.12,740.19"/>
@@ -9339,14 +9339,14 @@
         <lane id="143308700#1_0" index="0" speed="2.78" length="131.67" shape="4299.58,146.98 4292.69,105.83 4288.69,81.84 4280.92,61.63 4271.41,30.19 4267.92,19.62"/>
     </edge>
     <edge id="145586607#0" from="206191819" to="158710676" priority="13" type="highway.motorway" spreadType="center" shape="2762.43,990.55 2884.52,888.31 3020.56,778.78 3124.29,715.13 3205.95,674.16">
-        <lane id="145586607#0_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="545.33" shape="2760.31,988.02 2882.40,885.78 3018.49,776.21 3122.56,712.32 3203.02,671.94"/>
-        <lane id="145586607#0_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="545.33" shape="2762.43,990.55 2884.52,888.31 3020.56,778.78 3124.29,715.13 3204.49,674.89"/>
-        <lane id="145586607#0_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="545.33" shape="2764.55,993.08 2886.64,890.84 3022.63,781.35 3126.02,717.94 3205.97,677.84"/>
+        <lane id="145586607#0_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="545.53" shape="2760.31,988.02 2882.40,885.78 3018.49,776.21 3122.56,712.32 3203.19,671.85"/>
+        <lane id="145586607#0_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="545.53" shape="2762.43,990.55 2884.52,888.31 3020.56,778.78 3124.29,715.13 3204.67,674.80"/>
+        <lane id="145586607#0_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="545.53" shape="2764.55,993.08 2886.64,890.84 3022.63,781.35 3126.02,717.94 3206.15,677.75"/>
     </edge>
     <edge id="145586607#1" from="158710676" to="1597984543" priority="13" type="highway.motorway" spreadType="center" shape="3205.95,674.16 3257.15,651.73 3328.08,628.48 3387.09,615.03 3495.75,595.13 3522.77,590.50 3609.08,575.71 3695.69,555.79 3735.49,543.72 3783.01,525.79">
-        <lane id="145586607#1_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="583.10" shape="3206.12,670.48 3255.83,648.71 3327.05,625.34 3386.36,611.81 3495.16,591.88 3522.21,587.25 3608.52,572.46 3694.95,552.57 3734.53,540.56 3767.42,528.15"/>
-        <lane id="145586607#1_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="583.10" shape="3207.44,673.51 3257.15,651.73 3328.08,628.48 3387.09,615.03 3495.75,595.13 3522.77,590.50 3609.08,575.71 3695.69,555.79 3735.49,543.72 3771.77,530.03"/>
-        <lane id="145586607#1_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="583.10" shape="3208.76,676.53 3258.47,654.75 3329.11,631.62 3387.82,618.25 3496.34,598.38 3523.33,593.75 3609.64,578.96 3696.43,559.01 3736.45,546.88 3773.23,533.00"/>
+        <lane id="145586607#1_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="583.29" shape="3205.94,670.56 3255.83,648.71 3327.05,625.34 3386.36,611.81 3495.16,591.88 3522.21,587.25 3608.52,572.46 3694.95,552.57 3734.53,540.56 3767.42,528.15"/>
+        <lane id="145586607#1_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="583.29" shape="3207.26,673.59 3257.15,651.73 3328.08,628.48 3387.09,615.03 3495.75,595.13 3522.77,590.50 3609.08,575.71 3695.69,555.79 3735.49,543.72 3771.77,530.03"/>
+        <lane id="145586607#1_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="583.29" shape="3208.59,676.61 3258.47,654.75 3329.11,631.62 3387.82,618.25 3496.34,598.38 3523.33,593.75 3609.64,578.96 3696.43,559.01 3736.45,546.88 3773.23,533.00"/>
     </edge>
     <edge id="145586617#0" from="35215930" to="1832089447" name="Kanalstraße" priority="6" type="highway.tertiary" shape="3578.56,106.43 3574.96,121.15 3565.15,136.83 3548.42,145.18 3531.42,153.67 3528.51,155.12 3485.52,179.60 3450.68,199.45">
         <lane id="145586617#0_0" index="0" allow="pedestrian" speed="13.89" length="161.91" width="3.00" shape="3583.27,107.58 3579.49,123.06 3568.54,140.56 3550.59,149.52 3533.59,158.01 3530.67,159.46 3487.92,183.81 3457.39,201.21"/>
@@ -9377,8 +9377,8 @@
         <lane id="145586634_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="153.51" shape="3502.01,622.19 3404.20,638.71 3351.13,650.71"/>
     </edge>
     <edge id="145586635" from="158710676" to="158710664" priority="12" type="highway.motorway_link" spreadType="center" shape="3205.95,674.16 3258.45,642.37 3357.32,604.15 3448.11,582.37 3492.50,571.74 3506.97,568.07">
-        <lane id="145586635_0" index="0" disallow="bicycle pedestrian" speed="16.67" length="307.99" shape="3206.69,671.79 3257.72,640.88 3356.73,602.61 3447.73,580.77 3492.12,570.14 3495.24,569.34"/>
-        <lane id="145586635_1" index="1" disallow="bicycle pedestrian" speed="16.67" length="307.99" shape="3208.02,674.83 3259.18,643.86 3357.91,605.69 3448.49,583.97 3492.88,573.34 3496.05,572.54"/>
+        <lane id="145586635_0" index="0" disallow="bicycle pedestrian" speed="16.67" length="308.19" shape="3206.52,671.89 3257.72,640.88 3356.73,602.61 3447.73,580.77 3492.12,570.14 3495.24,569.34"/>
+        <lane id="145586635_1" index="1" disallow="bicycle pedestrian" speed="16.67" length="308.19" shape="3207.85,674.94 3259.18,643.86 3357.91,605.69 3448.49,583.97 3492.88,573.34 3496.05,572.54"/>
     </edge>
     <edge id="146511465" from="158710664" to="1597984547" priority="12" type="highway.motorway_link" spreadType="center" shape="3506.97,568.07 3582.65,557.63 3709.34,540.16">
         <lane id="146511465_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="189.85" shape="3519.56,564.67 3582.42,556.00 3707.63,538.73"/>
@@ -9594,9 +9594,9 @@
         <lane id="190083610#0_2" index="2" disallow="pedestrian" speed="13.89" length="88.57" shape="4046.76,413.98 4130.91,405.49"/>
     </edge>
     <edge id="190083610#1" from="1560223484" to="1560223468" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" shape="4139.66,406.27 4294.23,391.10 4338.33,385.55">
-        <lane id="190083610#1_0" index="0" allow="pedestrian" speed="13.89" length="192.58" width="3.00" shape="4144.10,397.64 4293.43,382.99 4335.54,377.69"/>
-        <lane id="190083610#1_1" index="1" disallow="pedestrian" speed="13.89" length="192.58" shape="4144.42,400.83 4293.75,386.17 4335.94,380.86"/>
-        <lane id="190083610#1_2" index="2" disallow="pedestrian" speed="13.89" length="192.58" shape="4144.74,404.11 4294.07,389.46 4336.35,384.14"/>
+        <lane id="190083610#1_0" index="0" allow="pedestrian" speed="13.89" length="193.00" width="3.00" shape="4144.10,397.64 4293.43,382.99 4335.96,377.63"/>
+        <lane id="190083610#1_1" index="1" disallow="pedestrian" speed="13.89" length="193.00" shape="4144.42,400.83 4293.75,386.17 4336.36,380.81"/>
+        <lane id="190083610#1_2" index="2" disallow="pedestrian" speed="13.89" length="193.00" shape="4144.74,404.11 4294.07,389.46 4336.77,384.08"/>
     </edge>
     <edge id="190083616#0" from="2007005037" to="2380911862" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="190083616#0_0" index="0" allow="pedestrian" speed="13.89" length="24.28" width="3.00" shape="4401.50,196.09 4403.55,220.28"/>
@@ -9628,18 +9628,18 @@
         <lane id="190083625#1_0" index="0" allow="delivery pedestrian" speed="5.56" length="162.15" shape="3994.97,505.58 4036.80,508.01 4037.60,477.40 4127.21,478.48"/>
     </edge>
     <edge id="196674458#0" from="1560223468" to="1560223404" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" shape="4338.33,385.55 4391.35,382.02 4413.21,379.91">
-        <lane id="196674458#0_0" index="0" allow="pedestrian" speed="13.89" length="58.02" width="3.00" shape="4339.35,374.01 4390.59,370.60 4397.08,369.97"/>
-        <lane id="196674458#0_1" index="1" disallow="pedestrian" speed="13.89" length="58.02" shape="4339.56,377.20 4390.80,373.79 4397.39,373.15"/>
-        <lane id="196674458#0_2" index="2" disallow="pedestrian" speed="13.89" length="58.02" shape="4339.78,380.49 4391.02,377.08 4397.71,376.43"/>
-        <lane id="196674458#0_3" index="3" disallow="pedestrian" speed="13.89" length="58.02" shape="4340.00,383.79 4391.24,380.37 4398.03,379.72"/>
+        <lane id="196674458#0_0" index="0" allow="pedestrian" speed="13.89" length="58.39" width="3.00" shape="4338.98,374.03 4390.59,370.60 4397.08,369.97"/>
+        <lane id="196674458#0_1" index="1" disallow="pedestrian" speed="13.89" length="58.39" shape="4339.19,377.22 4390.80,373.79 4397.39,373.15"/>
+        <lane id="196674458#0_2" index="2" disallow="pedestrian" speed="13.89" length="58.39" shape="4339.41,380.52 4391.02,377.08 4397.71,376.43"/>
+        <lane id="196674458#0_3" index="3" disallow="pedestrian" speed="13.89" length="58.39" shape="4339.63,383.81 4391.24,380.37 4398.03,379.72"/>
     </edge>
     <edge id="203935280" from="2222995054" to="2139379543" priority="2" type="highway.service" shape="3785.03,152.10 3788.37,171.68 3791.21,186.22 3759.24,193.07 3754.46,188.30 3748.81,153.47">
         <lane id="203935280_0" index="0" allow="delivery pedestrian" speed="5.56" length="115.47" shape="3786.66,151.82 3790.00,171.40 3793.14,187.49 3758.71,194.87 3752.92,189.09 3747.18,153.73"/>
     </edge>
     <edge id="206579055#1" from="27555350" to="206191818" priority="13" type="highway.motorway" spreadType="center" shape="3240.23,677.54 3199.22,693.80 3115.24,733.95 3042.64,779.30 2983.99,821.27 2783.22,992.68 2756.57,1014.22 2736.05,1031.56">
-        <lane id="206579055#1_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="639.60" shape="3259.63,673.40 3200.44,696.87 3116.66,736.93 3044.39,782.10 2985.91,823.95 2785.36,995.19 2758.64,1016.79 2738.18,1034.08"/>
-        <lane id="206579055#1_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="639.60" shape="3258.41,670.33 3199.22,693.80 3115.24,733.95 3042.64,779.30 2983.99,821.27 2783.22,992.68 2756.57,1014.22 2736.05,1031.56"/>
-        <lane id="206579055#1_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="639.60" shape="3257.19,667.26 3198.00,690.73 3113.82,730.97 3040.89,776.50 2982.07,818.59 2781.08,990.17 2754.50,1011.65 2733.92,1029.04"/>
+        <lane id="206579055#1_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="619.14" shape="3240.61,680.94 3200.44,696.87 3116.66,736.93 3044.39,782.10 2985.91,823.95 2785.36,995.19 2758.64,1016.79 2738.18,1034.08"/>
+        <lane id="206579055#1_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="619.14" shape="3239.39,677.87 3199.22,693.80 3115.24,733.95 3042.64,779.30 2983.99,821.27 2783.22,992.68 2756.57,1014.22 2736.05,1031.56"/>
+        <lane id="206579055#1_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="619.14" shape="3238.17,674.81 3198.00,690.73 3113.82,730.97 3040.89,776.50 2982.07,818.59 2781.08,990.17 2754.50,1011.65 2733.92,1029.04"/>
     </edge>
     <edge id="206579057" from="2165987554" to="cluster_492462300_671564296" name="Eisenhutweg" priority="6" type="highway.tertiary" spreadType="center" shape="3864.38,605.89 3882.56,597.97 3919.63,587.51 3937.16,586.12">
         <lane id="206579057_0" index="0" allow="pedestrian" speed="13.89" length="58.50" width="3.00" shape="3863.75,600.76 3880.58,593.43 3918.75,582.61 3920.61,582.47"/>
@@ -9680,7 +9680,7 @@
         <lane id="206579064#2_1" index="1" disallow="pedestrian" speed="13.89" length="56.20" shape="3965.59,444.38 3959.30,482.90 3956.54,499.85"/>
     </edge>
     <edge id="206579083" from="2165987555" to="27555350" priority="12" type="highway.motorway_link" spreadType="center">
-        <lane id="206579083_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="88.03" shape="3348.57,652.98 3262.72,672.44"/>
+        <lane id="206579083_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="110.18" shape="3348.57,652.98 3241.11,677.34"/>
     </edge>
     <edge id="206579084" from="1597984547" to="1597984543" priority="12" type="highway.motorway_link" spreadType="center" shape="3709.34,540.16 3730.78,537.37 3783.01,525.79">
         <lane id="206579084_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="57.89" shape="3710.83,539.97 3730.78,537.37 3767.65,529.19"/>
@@ -9817,9 +9817,9 @@
         <lane id="225232900_0" index="0" allow="delivery pedestrian" speed="5.56" length="8.74" shape="3988.76,502.11 3989.24,493.38"/>
     </edge>
     <edge id="22762377#1" from="260479469" to="27555350" priority="13" type="highway.motorway" spreadType="center" shape="3852.40,507.88 3797.21,536.89 3741.97,560.18 3698.32,571.89 3611.77,592.24 3524.49,606.58 3496.83,611.42 3383.65,632.79 3333.18,644.34 3286.55,660.79 3240.23,677.54">
-        <lane id="22762377#1_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="615.22" shape="3852.67,511.47 3798.75,539.81 3743.25,563.22 3699.18,575.08 3612.53,595.45 3525.03,609.84 3497.40,614.67 3384.26,636.03 3333.92,647.56 3287.65,663.90 3262.82,672.88"/>
-        <lane id="22762377#1_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="615.22" shape="3851.13,508.55 3797.21,536.89 3741.97,560.18 3698.32,571.89 3611.77,592.24 3524.49,606.58 3496.83,611.42 3383.65,632.79 3333.18,644.34 3286.55,660.79 3261.29,669.93"/>
-        <lane id="22762377#1_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="615.22" shape="3849.59,505.63 3795.67,533.97 3740.69,557.14 3697.46,568.70 3611.01,589.03 3523.95,603.32 3496.26,608.17 3383.04,629.55 3332.44,641.12 3285.45,657.68 3258.47,667.43"/>
+        <lane id="22762377#1_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="637.14" shape="3852.67,511.47 3798.75,539.81 3743.25,563.22 3699.18,575.08 3612.53,595.45 3525.03,609.84 3497.40,614.67 3384.26,636.03 3333.92,647.56 3287.65,663.90 3240.60,680.92"/>
+        <lane id="22762377#1_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="637.14" shape="3851.13,508.55 3797.21,536.89 3741.97,560.18 3698.32,571.89 3611.77,592.24 3524.49,606.58 3496.83,611.42 3383.65,632.79 3333.18,644.34 3286.55,660.79 3241.09,677.23"/>
+        <lane id="22762377#1_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="637.14" shape="3849.59,505.63 3795.67,533.97 3740.69,557.14 3697.46,568.70 3611.01,589.03 3523.95,603.32 3496.26,608.17 3383.04,629.55 3332.44,641.12 3285.45,657.68 3239.05,674.46"/>
     </edge>
     <edge id="22917250#1" from="1597984543" to="32266899" priority="13" type="highway.motorway" spreadType="center" shape="3783.01,525.79 3820.80,507.28 3855.18,487.62 3876.43,471.91 3890.27,462.31 3908.82,447.89 3935.56,421.97 3961.20,393.34 3991.17,351.89 4015.16,309.09 4018.81,301.12 4037.56,260.24 4050.89,217.72 4061.30,174.73 4069.32,134.50 4074.00,79.86">
         <lane id="22917250#1_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="574.69" shape="3770.82,528.09 3819.35,504.32 3853.54,484.76 3874.47,469.26 3888.39,459.60 3906.79,445.28 3933.26,419.60 3958.74,391.14 3988.50,349.96 4012.28,307.48 4015.81,299.75 4034.56,258.86 4047.74,216.73 4058.09,173.95 4066.08,133.85 4070.71,79.58"/>
@@ -9921,9 +9921,9 @@
         <lane id="252597735_0" index="0" allow="pedestrian" speed="2.78" length="0.20" shape="3946.41,429.92 3946.42,429.72"/>
     </edge>
     <edge id="25382187" from="32266901" to="260479469" priority="13" type="highway.motorway" spreadType="center" shape="4087.65,76.59 4081.33,141.27 4074.86,179.82 4064.96,218.68 4053.96,253.46 4035.42,300.71 4009.70,349.66 3997.22,369.27 3992.50,375.20 3982.26,390.79 3948.89,428.46 3909.82,465.08 3893.28,479.28 3865.22,500.29 3852.40,507.88">
-        <lane id="25382187_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="510.18" shape="4090.93,76.91 4084.61,141.59 4078.11,180.37 4068.16,219.49 4057.11,254.46 4038.49,301.92 4012.62,351.19 4000.00,371.04 3995.08,377.26 3985.02,392.60 3951.36,430.65 3912.08,467.49 3895.43,481.78 3867.20,502.93 3855.48,509.89"/>
-        <lane id="25382187_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="510.18" shape="4087.65,76.59 4081.33,141.27 4074.86,179.82 4064.96,218.68 4053.96,253.46 4035.42,300.71 4009.70,349.66 3997.22,369.27 3992.50,375.20 3982.26,390.79 3948.89,428.46 3909.82,465.08 3893.28,479.28 3865.22,500.29 3853.80,507.05"/>
-        <lane id="25382187_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="510.18" shape="4084.37,76.27 4078.05,140.95 4071.61,179.27 4061.76,217.87 4050.81,252.46 4032.35,299.50 4006.78,348.13 3994.44,367.50 3989.92,373.14 3979.50,388.98 3946.42,426.27 3907.56,462.67 3891.13,476.78 3863.24,497.65 3852.12,504.21"/>
+        <lane id="25382187_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="510.37" shape="4090.93,76.91 4084.61,141.59 4078.11,180.37 4068.16,219.49 4057.11,254.46 4038.49,301.92 4012.62,351.19 4000.00,371.04 3995.08,377.26 3985.02,392.60 3951.36,430.65 3912.08,467.49 3895.43,481.78 3867.20,502.93 3855.32,509.98"/>
+        <lane id="25382187_1" index="1" disallow="bicycle pedestrian" speed="22.22" length="510.37" shape="4087.65,76.59 4081.33,141.27 4074.86,179.82 4064.96,218.68 4053.96,253.46 4035.42,300.71 4009.70,349.66 3997.22,369.27 3992.50,375.20 3982.26,390.79 3948.89,428.46 3909.82,465.08 3893.28,479.28 3865.22,500.29 3853.64,507.15"/>
+        <lane id="25382187_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="510.37" shape="4084.37,76.27 4078.05,140.95 4071.61,179.27 4061.76,217.87 4050.81,252.46 4032.35,299.50 4006.78,348.13 3994.44,367.50 3989.92,373.14 3979.50,388.98 3946.42,426.27 3907.56,462.67 3891.13,476.78 3863.24,497.65 3851.96,504.31"/>
     </edge>
     <edge id="25944450#0" from="1645798498" to="1935182227" priority="1" type="highway.path" spreadType="center">
         <lane id="25944450#0_0" index="0" allow="pedestrian" speed="2.78" length="3.77" shape="4045.68,74.57 4046.12,78.32"/>
@@ -10067,9 +10067,9 @@
         <lane id="46039050#6_2" index="2" disallow="pedestrian" speed="13.89" length="172.11" shape="4246.46,610.43 4281.85,613.09 4327.19,619.95 4406.08,637.87 4415.20,640.03"/>
     </edge>
     <edge id="46039051" from="cluster_492462300_671564296" to="301292499" name="Eisenhutweg" priority="6" type="highway.tertiary" spreadType="center" shape="3935.15,602.65 3921.93,604.33 3900.69,606.18 3840.39,620.17">
-        <lane id="46039051_0" index="0" allow="pedestrian" speed="13.89" length="83.15" width="3.00" shape="3923.77,607.42 3922.35,607.60 3900.98,609.47 3843.23,622.90"/>
-        <lane id="46039051_1" index="1" disallow="pedestrian" speed="13.89" length="83.15" shape="3923.37,604.25 3921.94,604.43 3900.70,606.28 3841.88,619.93"/>
-        <lane id="46039051_2" index="2" disallow="pedestrian" speed="13.89" length="83.15" shape="3922.95,600.97 3921.53,601.16 3900.41,602.99 3840.48,616.86"/>
+        <lane id="46039051_0" index="0" allow="pedestrian" speed="13.89" length="83.72" width="3.00" shape="3923.77,607.42 3922.35,607.60 3900.98,609.47 3842.69,623.02"/>
+        <lane id="46039051_1" index="1" disallow="pedestrian" speed="13.89" length="83.72" shape="3923.37,604.25 3921.94,604.43 3900.70,606.28 3841.33,620.05"/>
+        <lane id="46039051_2" index="2" disallow="pedestrian" speed="13.89" length="83.72" shape="3922.95,600.97 3921.53,601.16 3900.41,602.99 3839.93,616.99"/>
     </edge>
     <edge id="46150481#0" from="280095054" to="1654992589" name="Wegedornstraße" priority="7" type="highway.secondary" shape="4394.12,174.41 4386.24,133.65 4384.37,124.52 4379.95,106.53">
         <lane id="46150481#0_0" index="0" allow="pedestrian" speed="13.89" length="59.32" width="3.00" shape="4384.54,167.81 4378.24,135.20 4376.39,126.16 4372.39,109.93"/>
@@ -10082,9 +10082,9 @@
         <lane id="46150481#1_2" index="2" disallow="pedestrian" speed="13.89" length="100.55" shape="4376.17,98.04 4365.21,53.43 4352.17,0.39"/>
     </edge>
     <edge id="46150483" from="301292499" to="2165987554" name="Eisenhutweg" priority="6" type="highway.tertiary" spreadType="center" shape="3839.43,617.34 3864.35,605.91">
-        <lane id="46150483_0" index="0" allow="pedestrian" speed="13.89" length="24.79" width="3.00" shape="3839.11,613.86 3861.64,603.52"/>
-        <lane id="46150483_1" index="1" disallow="pedestrian" speed="13.89" length="24.79" shape="3840.44,616.77 3862.97,606.43"/>
-        <lane id="46150483_2" index="2" disallow="pedestrian" speed="13.89" length="24.79" shape="3841.81,619.77 3864.35,609.43"/>
+        <lane id="46150483_0" index="0" allow="pedestrian" speed="13.89" length="25.34" width="3.00" shape="3838.60,614.09 3861.64,603.52"/>
+        <lane id="46150483_1" index="1" disallow="pedestrian" speed="13.89" length="25.34" shape="3839.93,617.00 3862.97,606.43"/>
+        <lane id="46150483_2" index="2" disallow="pedestrian" speed="13.89" length="25.34" shape="3841.31,620.00 3864.35,609.43"/>
     </edge>
     <edge id="47765615#0" from="607601623" to="607601653" priority="2" type="highway.service">
         <lane id="47765615#0_0" index="0" allow="delivery pedestrian" speed="5.56" length="69.48" shape="4180.27,705.13 4174.70,774.39"/>
@@ -10356,7 +10356,7 @@
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="0"/>
     </junction>
-    <junction id="1370020147" type="priority" x="4525.91" y="708.71" incLanes="122666828#1_0" intLanes=":1370020147_0_0" shape="4534.08,685.38 4531.00,684.52 4530.09,687.37 4536.21,689.56">
+    <junction id="1370020147" type="priority" x="4525.91" y="708.71" incLanes="122666828#1_0" intLanes=":1370020147_0_0" shape="4527.82,707.82 4524.74,706.96 4522.39,708.91 4528.51,711.10">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="1370020156" type="priority" x="4533.28" y="784.46" incLanes="-142575690#7_0 -142575690#7_1 -122666828#0_0 142575690#6_0 142575690#6_1" intLanes=":1370020156_0_0 :1370020156_9_0 :1370020156_10_0 :1370020156_3_0 :1370020156_4_0 :1370020156_5_0 :1370020156_6_0 :1370020156_7_0 :1370020156_11_0" shape="4536.00,791.17 4539.71,781.13 4538.85,779.22 4532.81,776.82 4530.81,777.79 4526.99,787.78">
@@ -10694,7 +10694,7 @@
         <request index="21" response="00000000001000000000010" foes="00000000011000010000010" cont="0"/>
         <request index="22" response="00000111110000001100000" foes="00000111110100001100001" cont="0"/>
     </junction>
-    <junction id="1560223468" type="priority" x="4338.33" y="385.55" incLanes="-196674458#1_0 -196674458#1_1 -196674458#1_2 190083610#1_0 190083610#1_1 190083610#1_2 :1560223468_w1_0 :1560223468_w0_0" intLanes=":1560223468_0_0 :1560223468_0_1 :1560223468_7_0 :1560223468_3_0 :1560223468_3_1 :1560223468_3_2 :1560223468_8_0 :1560223468_c0_0 :1560223468_c1_0" shape="4340.75,395.06 4339.25,372.51 4335.36,376.20 4337.77,395.35">
+    <junction id="1560223468" type="priority" x="4338.33" y="385.55" incLanes="-196674458#1_0 -196674458#1_1 -196674458#1_2 190083610#1_0 190083610#1_1 190083610#1_2 :1560223468_w1_0 :1560223468_w0_0" intLanes=":1560223468_0_0 :1560223468_0_1 :1560223468_7_0 :1560223468_3_0 :1560223468_3_1 :1560223468_3_2 :1560223468_8_0 :1560223468_c0_0 :1560223468_c1_0" shape="4340.38,395.08 4338.88,372.53 4335.77,376.15 4338.18,395.30">
         <request index="0" response="000000000" foes="111000000" cont="0"/>
         <request index="1" response="000000000" foes="111000000" cont="0"/>
         <request index="2" response="000111000" foes="010111000" cont="1"/>
@@ -11153,7 +11153,7 @@
         <request index="6" response="00001100" foes="10001100" cont="0"/>
         <request index="7" response="01110000" foes="01111100" cont="0"/>
     </junction>
-    <junction id="158710676" type="priority" x="3205.95" y="674.16" incLanes="145586607#0_0 145586607#0_1 145586607#0_2" intLanes=":158710676_0_0 :158710676_0_1 :158710676_2_0 :158710676_2_1 :158710676_2_2" shape="3209.41,678.00 3205.47,669.02 3202.30,670.51 3206.69,679.27">
+    <junction id="158710676" type="priority" x="3205.95" y="674.16" incLanes="145586607#0_0 145586607#0_1 145586607#0_2" intLanes=":158710676_0_0 :158710676_0_1 :158710676_2_0 :158710676_2_1 :158710676_2_2" shape="3209.23,678.07 3205.30,669.10 3202.47,670.42 3206.87,679.18">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00011" foes="00011" cont="0"/>
@@ -11919,7 +11919,7 @@
     <junction id="260479332" type="priority" x="3967.83" y="81.97" incLanes="-5357888#0_0" intLanes=":260479332_0_0" shape="3967.87,82.00 3970.29,84.09 3965.37,79.85 3967.79,81.94">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="260479469" type="priority" x="3852.40" y="507.88" incLanes="25382187_0 25382187_1 25382187_2" intLanes=":260479469_0_0 :260479469_0_1 :260479469_2_0 :260479469_2_1 :260479469_2_2" shape="3856.30,511.27 3851.31,502.84 3848.85,504.21 3853.41,512.88">
+    <junction id="260479469" type="priority" x="3852.40" y="507.88" incLanes="25382187_0 25382187_1 25382187_2" intLanes=":260479469_0_0 :260479469_0_1 :260479469_2_0 :260479469_2_1 :260479469_2_2" shape="3856.13,511.36 3851.14,502.93 3848.85,504.21 3853.41,512.88">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00011" foes="00011" cont="0"/>
@@ -12012,7 +12012,7 @@
         <request index="7" response="000011000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="0"/>
     </junction>
-    <junction id="27555350" type="priority" x="3240.23" y="677.54" incLanes="206579083_0 22762377#1_0 22762377#1_1 22762377#1_2" intLanes=":27555350_0_0 :27555350_1_0 :27555350_1_1 :27555350_1_2" shape="3263.07,674.00 3262.37,670.88 3256.60,665.78 3260.22,674.89">
+    <junction id="27555350" type="priority" x="3240.23" y="677.54" incLanes="206579083_0 22762377#1_0 22762377#1_1 22762377#1_2" intLanes=":27555350_0_0 :27555350_1_0 :27555350_1_1 :27555350_1_2" shape="3241.47,678.90 3240.76,675.78 3237.58,673.32 3241.20,682.43">
         <request index="0" response="1110" foes="1110" cont="0"/>
         <request index="1" response="0000" foes="0001" cont="0"/>
         <request index="2" response="0000" foes="0001" cont="0"/>
@@ -12161,7 +12161,7 @@
     <junction id="294830953" type="priority" x="4642.76" y="491.56" incLanes="115227682#1_0" intLanes=":294830953_0_0" shape="4642.80,491.59 4645.17,493.74 4640.35,489.38 4642.72,491.53">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="301292499" type="priority" x="3840.05" y="618.71" incLanes="46039051_0 46039051_1 46039051_2 141968853#2_0 141968853#2_1 :301292499_w2_0 :301292499_w1_0 :301292499_w0_0" intLanes=":301292499_0_0 :301292499_5_0 :301292499_2_0 :301292499_2_1 :301292499_6_0 :301292499_c0_0 :301292499_c1_0 :301292499_c2_0" shape="3843.87,624.29 3838.49,612.49 3836.69,613.10 3840.41,625.24">
+    <junction id="301292499" type="priority" x="3840.05" y="618.71" incLanes="46039051_0 46039051_1 46039051_2 141968853#2_0 141968853#2_1 :301292499_w2_0 :301292499_w1_0 :301292499_w0_0" intLanes=":301292499_0_0 :301292499_5_0 :301292499_2_0 :301292499_2_1 :301292499_6_0 :301292499_c0_0 :301292499_c1_0 :301292499_c2_0" shape="3843.33,624.42 3837.98,612.73 3837.03,612.99 3840.75,625.14">
         <request index="0" response="00000000" foes="10110000" cont="0"/>
         <request index="1" response="00001100" foes="01101100" cont="1"/>
         <request index="2" response="00000000" foes="11000010" cont="0"/>
@@ -12872,8 +12872,8 @@
     <junction id=":1560223404_19_0" type="internal" x="4420.24" y="379.28" incLanes=":1560223404_8_0 -239335494#0_1 190083618#0_3 196674458#0_1 196674458#0_2" intLanes=":1560223404_2_0 :1560223404_9_0 :1560223404_14_0 :1560223404_14_1 :1560223404_c1_0 :1560223404_c1_0"/>
     <junction id=":1560223404_20_0" type="internal" x="4411.60" y="383.68" incLanes=":1560223404_16_0 -190083609#1_1 -190083609#1_2" intLanes=":1560223404_1_0 :1560223404_2_0 :1560223404_3_0 :1560223404_4_0 :1560223404_5_0 :1560223404_5_1 :1560223404_10_0 :1560223404_11_0 :1560223404_c0_0 :1560223404_c4_0"/>
     <junction id=":1560223404_21_0" type="internal" x="4399.83" y="381.20" incLanes=":1560223404_17_0 -190083609#1_1 -190083609#1_2 -239335494#0_1 190083618#0_1" intLanes=":1560223404_0_0 :1560223404_5_0 :1560223404_5_1 :1560223404_11_0 :1560223404_c4_0 :1560223404_c4_0"/>
-    <junction id=":1560223468_7_0" type="internal" x="4338.46" y="385.54" incLanes=":1560223468_2_0 190083610#1_1 190083610#1_2" intLanes=":1560223468_3_0 :1560223468_3_1 :1560223468_3_2 :1560223468_c0_0 :1560223468_c0_0"/>
-    <junction id=":1560223468_8_0" type="internal" x="4338.20" y="385.57" incLanes=":1560223468_6_0 -196674458#1_1 -196674458#1_2" intLanes=":1560223468_0_0 :1560223468_0_1 :1560223468_c1_0 :1560223468_c1_0"/>
+    <junction id=":1560223468_7_0" type="internal" x="4338.10" y="385.57" incLanes=":1560223468_2_0 190083610#1_1 190083610#1_2" intLanes=":1560223468_3_0 :1560223468_3_1 :1560223468_3_2 :1560223468_c0_0 :1560223468_c0_0"/>
+    <junction id=":1560223468_8_0" type="internal" x="4338.61" y="385.51" incLanes=":1560223468_6_0 -196674458#1_1 -196674458#1_2" intLanes=":1560223468_0_0 :1560223468_0_1 :1560223468_c1_0 :1560223468_c1_0"/>
     <junction id=":1560223484_11_0" type="internal" x="4143.26" y="405.92" incLanes=":1560223484_3_0 -142575699#0_1 190083610#0_1 190083610#0_2" intLanes=":1560223484_4_0 :1560223484_4_1 :1560223484_9_0 :1560223484_c0_0 :1560223484_c0_0"/>
     <junction id=":1560223484_12_0" type="internal" x="4138.32" y="408.06" incLanes=":1560223484_6_0 -190083610#1_1 -190083610#1_2" intLanes=":1560223484_0_0 :1560223484_1_0 :1560223484_1_1 :1560223484_9_0 :1560223484_10_0 :1560223484_c1_0 :1560223484_c2_0"/>
     <junction id=":1560223484_13_0" type="internal" x="4132.72" y="406.97" incLanes=":1560223484_7_0 -142575699#0_1 -190083610#1_1 -190083610#1_2" intLanes=":1560223484_1_0 :1560223484_1_1 :1560223484_8_0 :1560223484_c1_0 :1560223484_c1_0"/>
@@ -13024,8 +13024,8 @@
     <junction id=":294169342_9_0" type="internal" x="4429.76" y="562.30" incLanes=":294169342_1_0 -24214694#1_1" intLanes=":294169342_4_0 :294169342_5_0 :294169342_6_0 :294169342_7_0 :294169342_c0_0"/>
     <junction id=":294169342_10_0" type="internal" x="4428.45" y="565.92" incLanes=":294169342_2_0 -24214694#1_1 26816590#2_0" intLanes=":294169342_3_0 :294169342_7_0 :294169342_c0_0 :294169342_c0_0"/>
     <junction id=":294169342_11_0" type="internal" x="4427.86" y="559.75" incLanes=":294169342_8_0 24214694#0_1 26816590#2_0" intLanes=":294169342_0_0 :294169342_4_0 :294169342_c1_0 :294169342_c1_0"/>
-    <junction id=":301292499_5_0" type="internal" x="3842.60" y="617.65" incLanes=":301292499_1_0 141968853#2_1" intLanes=":301292499_2_0 :301292499_2_1 :301292499_c0_0 :301292499_c1_0"/>
-    <junction id=":301292499_6_0" type="internal" x="3840.12" y="618.69" incLanes=":301292499_4_0 46039051_1" intLanes=":301292499_0_0 :301292499_c2_0 :301292499_c2_0"/>
+    <junction id=":301292499_5_0" type="internal" x="3842.12" y="617.81" incLanes=":301292499_1_0 141968853#2_1" intLanes=":301292499_2_0 :301292499_2_1 :301292499_c0_0 :301292499_c1_0"/>
+    <junction id=":301292499_6_0" type="internal" x="3840.47" y="618.58" incLanes=":301292499_4_0 46039051_1" intLanes=":301292499_0_0 :301292499_c2_0 :301292499_c2_0"/>
     <junction id=":35215927_9_0" type="internal" x="3405.39" y="223.31" incLanes=":35215927_1_0 -145586617#2_1" intLanes=":35215927_4_0 :35215927_5_0 :35215927_6_0 :35215927_7_0 :35215927_c0_0 :35215927_c1_0"/>
     <junction id=":35215927_10_0" type="internal" x="3410.77" y="222.17" incLanes=":35215927_2_0 -145586617#2_1 -31763024#0_1" intLanes=":35215927_3_0 :35215927_7_0 :35215927_c0_0 :35215927_c0_0"/>
     <junction id=":35215927_11_0" type="internal" x="3401.55" y="227.29" incLanes=":35215927_8_0 -31763024#0_1 145586617#1_1" intLanes=":35215927_0_0 :35215927_4_0 :35215927_c2_0 :35215927_c2_0"/>

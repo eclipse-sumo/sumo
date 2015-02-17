@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 12 07:34:49 2013 by SUMO netconvert Version dev-SVN-r15319
+<!-- generated on Tue Feb 17 07:31:01 2015 by SUMO netconvert Version dev-SVN-r17867I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -13,8 +13,13 @@
         <output-file value="net.net.xml"/>
     </output>
 
+    <processing>
+        <geometry.junction-mismatch-threshold value="100"/>
+    </processing>
+
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
     </report>
 
 </configuration>
@@ -280,13 +285,13 @@
         <lane id=":8_5_1" index="1" speed="19.44" length="17.68" shape="2135.94,463.24 2140.84,464.67 2144.27,465.57 2147.47,466.91 2151.69,469.66"/>
     </edge>
     <edge id=":9_0" function="internal">
-        <lane id=":9_0_0" index="0" speed="19.44" length="4.07" shape="2247.43,552.71 2244.98,550.58"/>
-        <lane id=":9_0_1" index="1" speed="19.44" length="4.07" shape="2249.78,550.39 2246.93,547.92"/>
-        <lane id=":9_0_2" index="2" speed="19.44" length="4.07" shape="2249.78,550.39 2248.89,545.27"/>
+        <lane id=":9_0_0" index="0" speed="19.44" length="2.77" shape="2232.07,537.09 2229.42,539.13"/>
+        <lane id=":9_0_1" index="1" speed="19.44" length="2.77" shape="2234.43,534.77 2231.37,536.48"/>
+        <lane id=":9_0_2" index="2" speed="19.44" length="2.77" shape="2234.43,534.77 2233.33,533.82"/>
     </edge>
     <edge id=":9_3" function="internal">
-        <lane id=":9_3_0" index="0" speed="19.44" length="8.32" shape="2254.75,537.29 2254.49,545.77"/>
-        <lane id=":9_3_1" index="1" speed="19.44" length="8.32" shape="2252.80,539.95 2252.14,548.08"/>
+        <lane id=":9_3_0" index="0" speed="19.44" length="4.14" shape="2239.19,525.84 2239.14,530.15"/>
+        <lane id=":9_3_1" index="1" speed="19.44" length="4.14" shape="2237.24,528.50 2236.78,532.46"/>
     </edge>
 
     <edge id="-1" from="2" to="1" priority="-1" type="0" shape="461.00,576.00 196.00,616.00 69.00,636.00 26.00,656.00 0.00,688.00 3.00,743.00">
@@ -362,13 +367,13 @@
         <lane id="-7_1" index="1" speed="19.44" length="208.50" shape="2134.89,466.37 2069.78,444.67 1929.54,453.31"/>
     </edge>
     <edge id="-8" from="9" to="8" priority="-1" type="0">
-        <lane id="-8_0" index="0" speed="19.44" length="123.10" shape="2244.98,550.58 2145.82,477.64"/>
-        <lane id="-8_1" index="1" speed="19.44" length="123.10" shape="2246.93,547.92 2147.78,474.98"/>
-        <lane id="-8_2" index="2" speed="19.44" length="123.10" shape="2248.89,545.27 2149.73,472.32"/>
+        <lane id="-8_0" index="0" speed="19.44" length="103.78" shape="2229.42,539.13 2145.82,477.64"/>
+        <lane id="-8_1" index="1" speed="19.44" length="103.78" shape="2231.37,536.48 2147.78,474.98"/>
+        <lane id="-8_2" index="2" speed="19.44" length="103.78" shape="2233.33,533.82 2149.73,472.32"/>
     </edge>
     <edge id="-9" from="10" to="9" priority="-1" type="0">
-        <lane id="-9_0" index="0" speed="19.44" length="388.08" shape="2519.47,829.47 2247.43,552.71"/>
-        <lane id="-9_1" index="1" speed="19.44" length="388.08" shape="2521.82,827.16 2249.78,550.39"/>
+        <lane id="-9_0" index="0" speed="19.44" length="409.98" shape="2519.47,829.47 2232.07,537.09"/>
+        <lane id="-9_1" index="1" speed="19.44" length="409.98" shape="2521.82,827.16 2234.43,534.77"/>
     </edge>
     <edge id="1" from="1" to="2" priority="-1" type="0" shape="3.00,743.00 0.00,688.00 26.00,656.00 69.00,636.00 196.00,616.00 461.00,576.00">
         <lane id="1_0" index="0" speed="19.44" length="537.97" shape="-1.94,743.27 -5.05,686.36 22.88,651.99 67.54,631.22 195.23,611.11 452.99,572.20"/>
@@ -448,13 +453,13 @@
         <lane id="7_1" index="1" speed="19.44" length="211.06" shape="1929.34,450.02 2070.22,441.33 2135.94,463.24"/>
     </edge>
     <edge id="8" from="8" to="9" priority="-1" type="0">
-        <lane id="8_0" index="0" speed="19.44" length="123.10" shape="2155.60,464.35 2254.75,537.29"/>
-        <lane id="8_1" index="1" speed="19.44" length="123.10" shape="2153.64,467.01 2252.80,539.95"/>
-        <lane id="8_2" index="2" speed="19.44" length="123.10" shape="2151.69,469.66 2250.84,542.61"/>
+        <lane id="8_0" index="0" speed="19.44" length="103.78" shape="2155.60,464.35 2239.19,525.84"/>
+        <lane id="8_1" index="1" speed="19.44" length="103.78" shape="2153.64,467.01 2237.24,528.50"/>
+        <lane id="8_2" index="2" speed="19.44" length="103.78" shape="2151.69,469.66 2235.28,531.16"/>
     </edge>
     <edge id="9" from="9" to="10" priority="-1" type="0">
-        <lane id="9_0" index="0" speed="19.44" length="388.08" shape="2254.49,545.77 2526.53,822.53"/>
-        <lane id="9_1" index="1" speed="19.44" length="388.08" shape="2252.14,548.08 2524.18,824.84"/>
+        <lane id="9_0" index="0" speed="19.44" length="409.98" shape="2239.14,530.15 2526.53,822.53"/>
+        <lane id="9_1" index="1" speed="19.44" length="409.98" shape="2236.78,532.46 2524.18,824.84"/>
     </edge>
 
     <junction id="1" type="priority" x="3.00" y="743.00" incLanes="-1_0 -1_1" intLanes=":1_0_0" shape="2.95,743.00 -3.54,743.36 9.54,742.64 3.05,743.00">
@@ -594,7 +599,7 @@
         <request index="5" response="0000000" foes="0001010" cont="0"/>
         <request index="6" response="0000000" foes="0001010" cont="0"/>
     </junction>
-    <junction id="9" type="priority" x="2235.00" y="533.00" incLanes="-9_0 -9_1 8_0 8_1 8_2" intLanes=":9_0_0 :9_0_1 :9_0_2 :9_3_0 :9_3_1" shape="2246.29,553.83 2255.63,544.65 2255.70,536.00 2244.03,551.87">
+    <junction id="9" type="priority" x="2235.00" y="533.00" incLanes="-9_0 -9_1 8_0 8_1 8_2" intLanes=":9_0_0 :9_0_1 :9_0_2 :9_3_0 :9_3_1" shape="2230.93,538.21 2240.28,529.02 2240.14,524.55 2228.47,540.42">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>

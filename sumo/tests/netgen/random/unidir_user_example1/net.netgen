@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 12 07:35:30 2013 by SUMO netgenerate Version dev-SVN-r15319
+<!-- generated on Mon Feb 16 10:44:29 2015 by SUMO netgenerate Version dev-SVN-r17859I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -14,6 +14,10 @@
     <output>
         <output-file value="net.net.xml"/>
     </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -1128,7 +1132,7 @@
         <lane id="119_0" index="0" speed="13.90" length="117.05" shape="1145.34,1521.24 1034.84,1559.83"/>
     </edge>
     <edge id="1199" from="1026" to="1198" priority="-1">
-        <lane id="1199_0" index="0" speed="13.90" length="134.99" shape="977.41,2078.40 997.12,2211.95"/>
+        <lane id="1199_0" index="0" speed="13.90" length="97.98" shape="977.41,2078.40 991.72,2175.34"/>
     </edge>
     <edge id="1201" from="1026" to="1200" priority="-1">
         <lane id="1201_0" index="0" speed="13.90" length="190.07" shape="973.91,2075.76 785.38,2099.87"/>
@@ -1158,7 +1162,7 @@
         <lane id="1342_0" index="0" speed="13.90" length="167.95" shape="1029.08,2323.46 1148.39,2441.67"/>
     </edge>
     <edge id="1343" from="1092" to="1198" priority="-1">
-        <lane id="1343_0" index="0" speed="13.90" length="103.22" shape="1021.73,2315.42 997.71,2215.03"/>
+        <lane id="1343_0" index="0" speed="13.90" length="140.76" shape="1021.73,2315.42 988.98,2178.52"/>
     </edge>
     <edge id="1345" from="1010" to="1344" priority="-1">
         <lane id="1345_0" index="0" speed="13.90" length="203.37" shape="1147.95,2446.53 946.52,2474.58"/>
@@ -1965,7 +1969,7 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="1198" type="unregulated" x="990.26" y="2176.80" incLanes="1343_0 1199_0" intLanes="" shape="996.16,2215.40 999.27,2214.66 998.70,2211.71 995.54,2212.18"/>
+    <junction id="1198" type="unregulated" x="990.26" y="2176.80" incLanes="1343_0 1199_0" intLanes="" shape="987.42,2178.89 990.53,2178.15 993.30,2175.10 990.13,2175.57"/>
     <junction id="12" type="priority" x="1338.91" y="1705.41" incLanes="17_0 13_0" intLanes=":12_0_0 :12_6_0 :12_2_0 :12_3_0 :12_4_0 :12_5_0" shape="1337.15,1708.49 1339.72,1706.58 1343.22,1704.73 1342.76,1701.56 1342.11,1700.53 1339.45,1698.75 1335.66,1697.10 1332.68,1698.25 1331.82,1699.09 1330.64,1702.07">
         <request index="0" response="111000" foes="111000" cont="0"/>
         <request index="1" response="110000" foes="110000" cont="1"/>
