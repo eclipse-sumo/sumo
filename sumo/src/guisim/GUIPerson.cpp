@@ -62,7 +62,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-#define GUIPerson_DEBUG_DRAW_WALKINGAREA_PATHS false
+//#define GUIPerson_DEBUG_DRAW_WALKINGAREA_PATHS 1
 
 // ===========================================================================
 // FOX callback mapping
@@ -202,9 +202,9 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
             break;
     }
     glPopMatrix();
-    if (GUIPerson_DEBUG_DRAW_WALKINGAREA_PATHS) {
-        drawAction_drawWalkingareaPath(s);
-    }
+#ifdef GUIPerson_DEBUG_DRAW_WALKINGAREA_PATHS
+    drawAction_drawWalkingareaPath(s);
+#endif
     drawName(p1, s.scale, s.personName);
     glPopName();
 }

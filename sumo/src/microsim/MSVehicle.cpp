@@ -154,12 +154,12 @@ MSVehicle::Influencer::Influencer() :
     myRespectJunctionPriority(true),
     myEmergencyBrakeRedLight(true),
     myAmVTDControlled(false),
+    myLastVTDAccess(-TIME2STEPS(20)),
     myStrategicLC(LC_NOCONFLICT),
     myCooperativeLC(LC_NOCONFLICT),
     mySpeedGainLC(LC_NOCONFLICT),
     myRightDriveLC(LC_NOCONFLICT),
-    myTraciLaneChangePriority(LCP_URGENT),
-    myLastVTDAccess(-TIME2STEPS(20))
+    myTraciLaneChangePriority(LCP_URGENT)
 {}
 
 

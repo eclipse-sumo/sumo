@@ -58,8 +58,8 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-#define DEBUG_VTD 0
-#define DEBUG_VTD_ANGLE 0
+//#define DEBUG_VTD 1
+//#define DEBUG_VTD_ANGLE 1
 
 
 // ===========================================================================
@@ -1224,10 +1224,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
             Position vehPos = v->getPosition();
             v->getBestLanes();
-            if (DEBUG_VTD) {
-                std::cout << std::endl << "begin vehicle " << v->getID() << " vehPos:" << vehPos << " lane:" << v->getLane()->getID() << std::endl;
-                std::cout << " want pos:" << pos << " edge:" << edgeID << " laneNum:" << laneNum << " angle:" << angle << std::endl;
-            }
+#ifdef DEBUG_VTD
+            std::cout << std::endl << "begin vehicle " << v->getID() << " vehPos:" << vehPos << " lane:" << v->getLane()->getID() << std::endl;
+            std::cout << " want pos:" << pos << " edge:" << edgeID << " laneNum:" << laneNum << " angle:" << angle << std::endl;
+#endif
 
             MSEdgeVector edges;
             MSLane* lane = 0;
@@ -1365,9 +1365,9 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
                 MSLane *next = lane->getLinkCont()[0]->getLane();
                 rNextEdge = next==0 ? 0 : &next->getEdge();
             }
-            if(DEBUG_VTD_ANGLE) {
-                std::cout << lane->getID() << ": " << langle << " " << off << std::endl;
-            }
+#ifdef DEBUG_VTD_ANGLE
+            std::cout << lane->getID() << ": " << langle << " " << off << std::endl;
+#endif
             lane2utility[lane] = LaneUtility(
                 dist, GeomHelper::getMinAngleDiff(angle, langle), 
                 lane->getParameter("origId", "")==origID,
@@ -1391,10 +1391,10 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
             + onRouteN*0.5
             + sameEdgeN*0.5
             ;
-        if(DEBUG_VTD) {
-            std::cout << " x; l:" << l->getID() << " d:" << u.dist << " dN:" << distN << " aD:" << angleDiffN << 
+#ifdef DEBUG_VTD
+        std::cout << " x; l:" << l->getID() << " d:" << u.dist << " dN:" << distN << " aD:" << angleDiffN << 
                 " ID:" << idN << " oRN:" << onRouteN << " sEN:" << sameEdgeN << " value:" << value << std::endl;
-        }
+#endif
         if(value>bestValue || bestLane==0) {
             bestValue = value;
             bestLane = l;
