@@ -200,6 +200,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     // magic values
     const SUMOReal radius = (myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS ? NBNode::DEFAULT_RADIUS : myNode.getRadius());
     const int cornerDetail = OptionsCont::getOptions().getInt("junctions.corner-detail");
+
     // initialise
     EdgeVector::const_iterator i;
     // edges located in the value-vector have the same direction as the key edge
@@ -223,9 +224,15 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     if (newAll.size() < 2) {
         return PositionVector();
     }
-    // combine all geoms
-    std::map<NBEdge*, bool> myExtended;
+
+    // All geoms are outoing from myNode.
+    // for every direction in newAll we compute the offset at which the
+    // intersection ends and the edge starts. This value is saved in 'distances'
+    // If the geometries need to be extended to get an intersection, this is
+    // recorded in 'myExtended'
     std::map<NBEdge*, SUMOReal> distances;
+    std::map<NBEdge*, bool> myExtended;
+
     for (i = newAll.begin(); i != newAll.end(); ++i) {
         EdgeVector::const_iterator cwi = i;
         EdgeVector::const_iterator ccwi = i;
@@ -235,7 +242,16 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         assert(geomsCCW.find(*i) != geomsCCW.end());
         assert(geomsCW.find(*ccwi) != geomsCW.end());
         assert(geomsCW.find(*cwi) != geomsCW.end());
-        if (fabs(ccad - cad) < (SUMOReal) 0.1 && *cwi == *ccwi) {
+
+        // there are only 2 edges and they are almost parallel
+        if (*cwi == *ccwi &&
+           ( 
+            // no change in lane numbers, even low angles still give a good intersection
+            (simpleContinuation && fabs(ccad - cad) < (SUMOReal) 0.1) 
+            // lane numbers change, a direct intersection could be far away from the node position 
+            // so we use a larger threshold
+            || (!simpleContinuation && fabs(ccad - cad) < DEG2RAD(22.5)))
+           ) {
             // compute the mean position between both edges ends ...
             Position p;
             if (myExtended.find(*ccwi) != myExtended.end()) {
@@ -273,13 +289,19 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 myExtended[*i] = true;
             } else {
                 if (!simpleContinuation) {
-                    // let us put some geometry stuff into it
-                    dist = radius + dist;
+                    // since there are only two (almost parallel) directions, the
+                    // concept of a turning radius does not quite fit. Instead we need
+                    // to enlarge the intersection to accomodate the change in
+                    // the number of lanes
+                    // @todo: make this independently configurable
+                    dist += radius;
                 }
                 distances[*i] = dist;
             }
 
         } else {
+            // the angles are different enough to compute the intersection of
+            // the outer boundaries directly. The "nearer" neighbar causes the furthest distance
             if (ccad < cad) {
                 if (!simpleContinuation) {
                     if (geomsCCW[*i].intersects(geomsCW[*ccwi])) {
