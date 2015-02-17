@@ -197,6 +197,9 @@ public:
     /// @brief draw lane borders and white markings
     void drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const;
 
+    /// @brief bike lane markings on top of an intersection
+    void drawBikeMarkings() const;
+
     /// @brief draw crossties for railroads or pedestrian crossings
     void drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
 

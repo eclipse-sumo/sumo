@@ -523,6 +523,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         if (mustDrawMarkings && drawDetails) { // needs matrix reset
             drawMarkings(s, exaggeration);
         }
+        if (drawDetails && isInternal && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals) {
+            drawBikeMarkings();
+        }
     } else {
         glPopMatrix();
     }
@@ -584,6 +587,31 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
     glPopMatrix();
 }
 
+
+void
+GUILane::drawBikeMarkings() const {
+    // draw bike lane markings onto the intersection
+    glColor3d(1, 1, 1);
+    int e = (int) getShape().size() - 1;
+    SUMOReal mw = (myHalfLaneWidth + SUMO_const_laneOffset);
+    for (int i = 0; i < e; ++i) {
+        glPushMatrix();
+        glTranslated(getShape()[i].x(), getShape()[i].y(), GLO_JUNCTION + 0.1);
+        glRotated(myShapeRotations[i], 0, 0, 1);
+        for (SUMOReal t = 0; t < myShapeLengths[i]; t += 0.5) {
+            // left and right marking
+            for (int side = -1; side <= 1; side += 2) {
+                glBegin(GL_QUADS);
+                glVertex2d(side * mw, -t);
+                glVertex2d(side * mw, -t - 0.35);
+                glVertex2d(side * (mw + SUMO_const_laneOffset), -t - 0.35);
+                glVertex2d(side * (mw + SUMO_const_laneOffset), -t);
+                glEnd();
+            }
+        }
+        glPopMatrix();
+    }
+}
 
 void
 GUILane::drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const {
