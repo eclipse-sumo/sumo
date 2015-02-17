@@ -291,6 +291,9 @@ public:
                             const RGBColor& borderColor = RGBColor::BLACK,
                             const SUMOReal angle = 0);
 
+    /// @brief draw vertex numbers for the given shape (in a random color)
+    static void debugVertices(const PositionVector& shape, SUMOReal size, SUMOReal layer=256);
+
 private:
     /// @brief normalize angle for lookup in myCircleCoords
     static size_t angleLookup(SUMOReal angleDeg);

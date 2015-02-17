@@ -44,6 +44,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+//#define GUIPolygon_DEBUG_DRAW_VERTICES
 
 // ===========================================================================
 // method definitions
@@ -202,6 +203,9 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         glDisable(GL_TEXTURE_GEN_S);
         glDisable(GL_TEXTURE_GEN_T);
     }
+#ifdef GUIPolygon_DEBUG_DRAW_VERTICES
+    GLHelper::debugVertices(myShape, 80 / s.scale);
+#endif
     glPopMatrix();
     drawName(myShape.getPolygonCenter(), s.scale, s.polyName);
     glPopName();

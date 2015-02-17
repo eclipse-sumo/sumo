@@ -33,6 +33,8 @@
 #include <cassert>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/RandHelper.h>
+#include <utils/common/ToString.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include "GLHelper.h"
@@ -509,5 +511,13 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
     glPopMatrix();
 }
 
+
+void 
+GLHelper::debugVertices(const PositionVector& shape, SUMOReal size, SUMOReal layer) {
+    RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
+    for (int i = 0; i < (int)shape.size(); ++i) {
+        GLHelper::drawText(toString(i), shape[i], layer, size, color, 0);
+    }
+}
 /****************************************************************************/
 

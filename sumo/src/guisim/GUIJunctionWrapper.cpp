@@ -59,6 +59,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+//#define GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
 
 // ===========================================================================
 // method definitions
@@ -142,6 +143,9 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::drawFilledPolyTesselated(myJunction.getShape(), true);
         }
+#ifdef GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
+        GLHelper::debugVertices(myJunction.getShape(), 80 / s.scale);
+#endif
         glPopName();
         glPopMatrix();
     }

@@ -482,13 +482,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 glTranslated(0, 0, -.2);
 #ifdef GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
-                RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
-                glTranslated(0, 0, .4);
-                for (int i = 0; i < (int)myShape.size(); ++i) {
-                    GLHelper::drawText(toString(i), myShape[i], GLO_JUNCTION,
-                            80 / s.scale, color, 0);
-                }
-                glTranslated(0, 0, -.4);
+                GLHelper::debugVertices(myShape, 80 / s.scale);
 #endif
             } else {
                 const SUMOReal halfWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
