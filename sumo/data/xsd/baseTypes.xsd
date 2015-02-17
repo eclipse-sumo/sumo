@@ -191,7 +191,6 @@
     <xsd:simpleType name="tlTypeType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="actuated"/>
-            <xsd:enumeration value="agentbased"/>
             <xsd:enumeration value="static"/>
         </xsd:restriction>
     </xsd:simpleType>

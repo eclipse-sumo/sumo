@@ -45,7 +45,6 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSGlobals.h>
-#include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSOffTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -249,12 +248,6 @@ NLJunctionControlBuilder::closeTrafficLightLogic() {
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram,
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
-                    myAdditionalParameter);
-            break;
-        case TLTYPE_AGENT:
-            tlLogic = new MSAgentbasedTrafficLightLogic(getTLLogicControlToUse(),
-                    myActiveKey, myActiveProgram,
-                    myActivePhases, step, firstEventOffset,
                     myAdditionalParameter);
             break;
         case TLTYPE_STATIC:
