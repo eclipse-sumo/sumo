@@ -243,4 +243,12 @@ Line::rotateAtP1(SUMOReal rot) {
 }
 
 
+std::ostream&
+operator<<(std::ostream& os, const Line& line) {
+    os << line.myP1 << " " << line.myP2;
+    return os;
+}
+
+
+
 /****************************************************************************/

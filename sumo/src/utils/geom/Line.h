@@ -81,6 +81,9 @@ public:
     Line& reverse();
     void rotateAtP1(SUMOReal rot);
 
+    /// @brief Output operator
+    friend std::ostream& operator<<(std::ostream& os, const Line& geom);
+
 private:
     Position myP1, myP2;
 };
