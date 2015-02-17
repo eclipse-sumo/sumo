@@ -120,8 +120,18 @@ private:
         std::map<NBEdge*, NBEdge*>& ccwBoundary,
         std::map<NBEdge*, NBEdge*>& cwBoundary);
 
+    /** @brief Compute smoothed corner shape
+     * @param[in] begShape
+     * @param[in] endShape
+     * @param[in] begPoint
+     * @param[in] endPoint
+     * @param[in] cornerDetail
+     * @return shape to be appended between begPoint and endPoint
+     */
+    PositionVector getSmoothCorner(PositionVector begShape, PositionVector endShape, 
+            const Position& begPoint, const Position& endPoint, int cornerDetail);
 
-    /** @brief Compute the shape for an internal lane
+    /** @brief Initialize neighbors and angles
      * @param[in] edges The list of edges sorted in clockwise direction
      * @param[in] current An iterator to the current edge
      * @param[in] simpleContinuation Whether myNode is a simple continuation node (geometrylike)

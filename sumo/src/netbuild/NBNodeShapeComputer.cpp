@@ -537,18 +537,8 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             p = ccwBound.positionAtOffset2D(len);
         }
         p.set(p.x(), p.y(), myNode.getPosition().z());
-        if (cornerDetail > 0 && i != newAll.begin()) {
-            // smooth connection with the previous edge
-            PositionVector begShape = geomsCW[*(i-1)].reverse();
-            begShape[-1] = ret[-1];
-            PositionVector endShape = ccwBound;
-            endShape[0] = p;
-            PositionVector curve = myNode.computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
-            if (curve.size() > 2) {
-                curve.eraseAt(0);
-                curve.eraseAt(-1);
-                ret.append(curve);
-            }
+        if (i != newAll.begin()) {
+            ret.append(getSmoothCorner(geomsCW[*(i-1)].reverse(), ccwBound, ret[-1], p, cornerDetail));
         }
         ret.push_back_noDoublePos(p);
         //
@@ -563,22 +553,28 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         ret.push_back_noDoublePos(p);
     }
     // final curve segment
-    if (cornerDetail > 0) {
-        PositionVector begShape = geomsCW[*(newAll.end() - 1)].reverse();
-        begShape[-1] = ret[-1];
-        PositionVector endShape = geomsCCW[*newAll.begin()];
-        endShape[0] = ret[0];
-        PositionVector curve = myNode.computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
-        if (curve.size() > 2) {
-            curve.eraseAt(0);
-            curve.eraseAt(-1);
-            ret.append(curve);
-        }
-    }
+    ret.append(getSmoothCorner(geomsCW[*(newAll.end() - 1)], geomsCCW[*newAll.begin()], ret[-1], ret[0], cornerDetail));
     return ret;
 }
 
 
+PositionVector 
+NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector endShape, 
+        const Position& begPoint, const Position& endPoint, int cornerDetail) {
+    PositionVector ret;
+    if (cornerDetail > 0) {
+        begShape = begShape.reverse();
+        begShape[-1] = begPoint;
+        endShape[0] = endPoint;
+        PositionVector curve = myNode.computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
+        if (curve.size() > 2) {
+            curve.eraseAt(0);
+            curve.eraseAt(-1);
+            ret = curve;
+        }
+    }
+    return ret;
+}
 
 void
 NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same,
