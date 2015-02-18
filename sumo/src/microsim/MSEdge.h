@@ -60,6 +60,7 @@ class MSVehicle;
 class MSLane;
 class MSPerson;
 class MSJunction;
+class MSEdge;
 
 
 // ===========================================================================
@@ -72,6 +73,9 @@ class MSJunction;
  * A single connection between two junctions.
  * Holds lanes which are reponsible for vehicle movements.
  */
+
+typedef std::vector<const MSEdge*> MSEdgeVector;
+
 class MSEdge : public Named, public Parameterised {
 public:
     /**

@@ -71,9 +71,6 @@ class OutputDevice;
  *  in "patchActiveLanes".
  */
 class MSEdgeControl {
-public:
-    /// @brief Container for edges.
-    typedef std::vector< MSEdge* > EdgeCont;
 
 public:
     /** @brief Constructor

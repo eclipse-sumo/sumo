@@ -56,8 +56,6 @@ class MSVehicleType;
 class MSPModel;
 class PedestrianState;
 
-typedef std::vector<const MSEdge*> MSEdgeVector;
-
 
 // ===========================================================================
 // class definitions
