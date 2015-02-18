@@ -86,7 +86,7 @@ public:
     const AGStreet& getRandomStreet();
 
     AGDataAndStatistics& statData;
-    std::vector<AGStreet> streets;
+    std::vector<AGStreet*> streets;
     std::vector<AGWorkPosition> workPositions;
     std::list<AGSchool> schools;
     std::list<AGBusLine> busLines;

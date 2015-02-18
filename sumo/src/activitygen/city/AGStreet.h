@@ -36,12 +36,14 @@
 #endif
 
 #include <string>
+#include <utils/common/SUMOVehicleClass.h>
+#include <router/ROAbstractEdgeBuilder.h>
+#include <router/ROEdge.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class ROEdge;
 class AGPosition;
 
 
@@ -55,21 +57,24 @@ class AGPosition;
  * AGStreet represents a street in the city. It contains all model relevant
  * properties and is associated with a ROEdge of the routing network.
  */
-class AGStreet {
+class AGStreet : public ROEdge {
 public:
-    AGStreet(const ROEdge* edge, SUMOReal popD = 0, SUMOReal workD = 0);
+    class Builder : public ROAbstractEdgeBuilder {
+    public:
+        /** @brief Builds an edge with the given name
+         *
+         * @param[in] name The name of the edge
+         * @param[in] from The node the edge begins at
+         * @param[in] to The node the edge ends at
+         * @param[in] priority The edge priority (road class)
+         * @return A proper instance of the named edge
+         */
+        ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to, const int priority) {
+            return new AGStreet(name, from, to, getNextIndex(), priority);
+        }
+    };
 
-    /** @brief Provides the length of this edge.
-     *
-     * @return the length of this edge
-     */
-    SUMOReal getLength() const;
-
-    /** @brief Provides the id of this edge.
-     *
-     * @return the id of this edge
-     */
-    const std::string& getName() const;
+    AGStreet(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority);
 
     /** @brief Provides the number of persons living in this street.
      *
@@ -100,12 +105,16 @@ public:
      */
     void print() const;
 
-private:
-    friend class AGPosition;
+    /** @brief Returns whether the given vehicle class is allowed on this street.
+     *
+     * @param[in] vclass the class (passenger or bus) in question
+     * @return whether it is allowed on any of the lanes
+     */
+    bool allows(const SUMOVehicleClass vclass) const;
 
-    const ROEdge* edge;
-    SUMOReal pop;
-    SUMOReal work;
+private:
+    SUMOReal myPopulation;
+    SUMOReal myNumWorkplaces;
 };
 
 #endif

@@ -154,11 +154,19 @@ AGWorkAndSchool::carAllocation() {
 
 bool
 AGWorkAndSchool::carsToTrips() {
+    // check if the starting edge allows cars
+    if (!myHousehold->getPosition().getStreet().allows(SVC_PASSENGER)) {
+        return false;
+    }
     std::list<AGAdult>::const_iterator itDriA;
     std::list<AGCar>::const_iterator itCar = myHousehold->getCars().begin();
     for (itDriA = personsDrivingCars.begin(); itDriA != personsDrivingCars.end(); ++itDriA) {
         //check if the number of cars is lower than the number of drivers
         if (itCar == myHousehold->getCars().end()) {
+            return false;
+        }
+        // check if the destination edge allows cars
+        if (!itDriA->getWorkPosition().getPosition().getStreet().allows(SVC_PASSENGER)) {
             return false;
         }
         AGTrip trip(myHousehold->getPosition(), itDriA->getWorkPosition().getPosition(), *itCar, depHour(myHousehold->getPosition(), itDriA->getWorkPosition().getPosition(), itDriA->getWorkPosition().getOpening()));

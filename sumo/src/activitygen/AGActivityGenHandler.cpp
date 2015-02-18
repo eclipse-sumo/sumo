@@ -185,15 +185,14 @@ AGActivityGenHandler::parseStreets(const SUMOSAXAttributes& attrs) {
             work = attrs.getFloat(AGEN_ATTR_OUT_WORKPOSITION);
         }
         std::string eid = attrs.getString(SUMO_ATTR_EDGE);
-        ROEdge* e = net->getEdge(eid);
-        if (e == 0) {
+        AGStreet* street = dynamic_cast<AGStreet*>(net->getEdge(eid));
+        if (street == 0) {
             WRITE_ERROR("Edge '" + eid + "' is not known.");
             return;
         }
-
-        AGStreet str(e, pop, work);
-        myCity.streets.push_back(str);
-
+        street->setPopulation(pop * street->getLength());
+        street->setWorkplaceNumber(work * street->getLength());
+        myCity.streets.push_back(street);
     } catch (const std::exception& e) {
         WRITE_ERROR("Error while parsing the element " +
                     SUMOXMLDefinitions::Tags.getString(AGEN_TAG_STREET) + ": " +

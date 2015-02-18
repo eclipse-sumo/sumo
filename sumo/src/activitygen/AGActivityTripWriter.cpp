@@ -70,7 +70,7 @@ AGActivityTripWriter::addTrip(const AGTrip& trip) {
         .writeAttr(SUMO_ATTR_DEPARTPOS, trip.getDep().getPosition())
         .writeAttr(SUMO_ATTR_ARRIVALPOS, trip.getArr().getPosition())
         .writeAttr(SUMO_ATTR_ARRIVALSPEED, 0.)
-        .writeAttr(SUMO_ATTR_FROM, trip.getDep().getStreet().getName());
+        .writeAttr(SUMO_ATTR_FROM, trip.getDep().getStreet().getID());
 
     if (!trip.getPassed()->empty()) {
         std::ostringstream oss;
@@ -78,11 +78,11 @@ AGActivityTripWriter::addTrip(const AGTrip& trip) {
             if (it != trip.getPassed()->begin()) {
                 oss << " ";
             }
-            oss << it->getStreet().getName();
+            oss << it->getStreet().getID();
         }
         myTripOutput.writeAttr(SUMO_ATTR_VIA, oss.str());
     }
-    myTripOutput.writeAttr(SUMO_ATTR_TO, trip.getArr().getStreet().getName());
+    myTripOutput.writeAttr(SUMO_ATTR_TO, trip.getArr().getStreet().getID());
     myTripOutput.closeTag();
 }
 

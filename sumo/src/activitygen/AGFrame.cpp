@@ -92,15 +92,6 @@ void AGFrame::fillOptions() {
 
     oc.doRegister("duration-d", new Option_Integer());
     oc.addDescription("duration-d", "Time", "Sets the duration of the simulation in days");
-
-    // Options needed by the router
-    oc.doRegister("weights.interpolate", new Option_Bool(false));
-    oc.addSynonyme("weights.interpolate", "interpolate", true);
-    oc.addDescription("weights.interpolate", "Processing", "Interpolate edge weights at interval boundaries");
-
-    oc.doRegister("weights.expand", new Option_Bool(false));
-    oc.addSynonyme("weights.expand", "expand-weights", true);
-    oc.addDescription("weights.expand", "Processing", "Expand weights behind the simulation's end");
 }
 
 

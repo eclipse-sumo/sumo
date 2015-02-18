@@ -41,52 +41,45 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGStreet::AGStreet(const ROEdge* edge, SUMOReal popDensity, SUMOReal workDensity) :
-    edge(edge) {
-    pop = popDensity * edge->getLength();
-    work = workDensity * edge->getLength();
+AGStreet::AGStreet(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority) :
+    ROEdge(id, from, to, index, priority), myPopulation(0.), myNumWorkplaces(0.) {
 }
 
 
 void
 AGStreet::print() const {
-    std::cout << "- AGStreet: Name=" << edge->getID() << " Length=" << edge->getLength() << " pop=" << pop << " work=" << work << std::endl;
-}
-
-
-SUMOReal
-AGStreet::getLength() const {
-    return edge->getLength();
-}
-
-
-const std::string&
-AGStreet::getName() const {
-    return edge->getID();
+    std::cout << "- AGStreet: Name=" << getID() << " Length=" << getLength() << " pop=" << myPopulation << " work=" << myNumWorkplaces << std::endl;
 }
 
 
 SUMOReal
 AGStreet::getPopulation() const {
-    return pop;
+    return myPopulation;
 }
 
 
 void
 AGStreet::setPopulation(const SUMOReal population) {
-    pop = population;
+    myPopulation = population;
 }
 
 
 SUMOReal
 AGStreet::getWorkplaceNumber() const {
-    return work;
+    return myNumWorkplaces;
 }
 
 
 void
 AGStreet::setWorkplaceNumber(const SUMOReal workPositions) {
-    work = workPositions;
+    myNumWorkplaces = workPositions;
 }
+
+
+bool
+AGStreet::allows(const SUMOVehicleClass vclass) const {
+    return (getPermissions() & vclass) == vclass;
+}
+
 
 /****************************************************************************/

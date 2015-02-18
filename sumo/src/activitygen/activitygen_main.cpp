@@ -121,7 +121,7 @@ main(int argc, char* argv[]) {
 
         // Load network
         net = new RONet();
-        RODUAEdgeBuilder builder(oc.getBool("weights.expand"), oc.getBool("weights.interpolate"));
+        AGStreet::Builder builder;
         loadNet(*net, builder);
         WRITE_MESSAGE("Loaded " + toString(net->getEdgeNo()) + " edges.");
         if (oc.getBool("debug")) {
