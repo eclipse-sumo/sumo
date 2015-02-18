@@ -13,6 +13,7 @@
     <xsd:complexType name="edgesType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="edge" type="edgeType"/>
+            <xsd:element name="roundabout" type="roundaboutType"/>
             <xsd:element name="delete" type="deleteType"/>
         </xsd:choice>
         <xsd:attribute name="version" use="optional">
@@ -82,6 +83,11 @@
 
     <xsd:complexType name="deleteType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="roundaboutType">
+        <xsd:attribute name="nodes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="edges" type="xsd:string" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>
