@@ -20,11 +20,6 @@
         <output-file value="" synonymes="o output" type="FILE" help="Write generated trips to FILE"/>
     </output>
 
-    <processing>
-        <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
-        <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
-    </processing>
-
     <time>
         <begin value="" synonymes="b" type="INT" help="Sets the time of beginning of the simulation during the first day (in seconds)"/>
         <end value="" synonymes="e" type="INT" help="Sets the time of ending of the simulation during the last day (in seconds)"/>
