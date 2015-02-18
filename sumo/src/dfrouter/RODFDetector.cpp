@@ -91,7 +91,7 @@ SUMOReal
 RODFDetector::computeDistanceFactor(const RODFRouteDesc& rd) const {
     SUMOReal distance = rd.edges2Pass[0]->getFromNode()->getPosition().distanceTo(rd.edges2Pass.back()->getToNode()->getPosition());
     SUMOReal length = 0;
-    for (std::vector<ROEdge*>::const_iterator i = rd.edges2Pass.begin(); i != rd.edges2Pass.end(); ++i) {
+    for (ROEdgeVector::const_iterator i = rd.edges2Pass.begin(); i != rd.edges2Pass.end(); ++i) {
         length += (*i)->getLength();
     }
     return (distance / length);
@@ -112,7 +112,7 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
     for (std::vector<RODFRouteDesc>::const_iterator i = routes.begin(); i != routes.end(); ++i) {
         const RODFRouteDesc& rd = *i;
         bool hadSplit = false;
-        for (std::vector<ROEdge*>::const_iterator j = rd.edges2Pass.begin(); j != rd.edges2Pass.end(); ++j) {
+        for (ROEdgeVector::const_iterator j = rd.edges2Pass.begin(); j != rd.edges2Pass.end(); ++j) {
             if (hadSplit && net->hasDetector(*j)) {
                 if (find(nextDetEdges.begin(), nextDetEdges.end(), *j) == nextDetEdges.end()) {
                     nextDetEdges.push_back(static_cast<RODFEdge*>(*j));
@@ -132,7 +132,7 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
     if (OptionsCont::getOptions().getBool("respect-concurrent-inflows")) {
         for (std::vector<RODFEdge*>::const_iterator i = nextDetEdges.begin(); i != nextDetEdges.end(); ++i) {
             std::set<ROEdge*> seen(preSplitEdges);
-            std::vector<ROEdge*> pending;
+            ROEdgeVector pending;
             pending.push_back(*i);
             seen.insert(*i);
             while (!pending.empty()) {
@@ -194,7 +194,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
         size_t index = 0;
         for (std::vector<RODFRouteDesc>::iterator ri = descs.begin(); ri != descs.end(); ++ri, index++) {
             SUMOReal prob = 1.;
-            for (std::vector<ROEdge*>::iterator j = (*ri).edges2Pass.begin(); j != (*ri).edges2Pass.end() && prob > 0;) {
+            for (ROEdgeVector::iterator j = (*ri).edges2Pass.begin(); j != (*ri).edges2Pass.end() && prob > 0;) {
                 if (!net.hasDetector(*j)) {
                     ++j;
                     continue;

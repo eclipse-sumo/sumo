@@ -58,7 +58,7 @@ bool ROEdge::myUseBoundariesOnOverrideE = false;
 bool ROEdge::myInterpolate = false;
 bool ROEdge::myHaveTTWarned = false;
 bool ROEdge::myHaveEWarned = false;
-std::vector<ROEdge*> ROEdge::myEdges;
+ROEdgeVector ROEdge::myEdges;
 
 
 // ===========================================================================
@@ -260,7 +260,7 @@ ROEdge::buildTimeLines(const std::string& measure) {
 
 bool
 ROEdge::allFollowersProhibit(const ROVehicle* const vehicle) const {
-    for (std::vector<ROEdge*>::const_iterator i = myFollowingEdges.begin(); i != myFollowingEdges.end(); ++i) {
+    for (ROEdgeVector::const_iterator i = myFollowingEdges.begin(); i != myFollowingEdges.end(); ++i) {
         if (!(*i)->prohibits(vehicle)) {
             return false;
         }

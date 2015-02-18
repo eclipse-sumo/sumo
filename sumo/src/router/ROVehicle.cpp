@@ -77,7 +77,7 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net) 
     }
     // where to insert the stop
     std::vector<SUMOVehicleParameter::Stop>::iterator iter = myParameter.stops.begin();
-    std::vector<const ROEdge*>::iterator edgeIter = myStopEdges.begin();
+    ConstROEdgeVector::iterator edgeIter = myStopEdges.begin();
     if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(myParameter.stops.size())) {
         if (myParameter.stops.size() > 0) {
             iter = myParameter.stops.end();
@@ -85,8 +85,8 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net) 
         }
     } else {
         if (stopPar.index == STOP_INDEX_FIT) {
-            const std::vector<const ROEdge*> edges = myRoute->getFirstRoute()->getEdgeVector();
-            std::vector<const ROEdge*>::const_iterator stopEdgeIt = std::find(edges.begin(), edges.end(), stopEdge);
+            const ConstROEdgeVector edges = myRoute->getFirstRoute()->getEdgeVector();
+            ConstROEdgeVector::const_iterator stopEdgeIt = std::find(edges.begin(), edges.end(), stopEdge);
             if (stopEdgeIt == edges.end()) {
                 iter = myParameter.stops.end();
                 edgeIter = myStopEdges.end();

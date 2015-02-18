@@ -123,7 +123,7 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
     // build the router
     typedef DijkstraRouterTT<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> > Dijkstra;
     Dijkstra router(net.getEdgeNo(), oc.getBool("ignore-errors"), &getTravelTime);
-    std::vector<const ROEdge*> into;
+    ConstROEdgeVector into;
     const int numInternalEdges = net.getInternalEdgeNumber();
     const int numTotalEdges = (int)net.getEdgeNo();
     for (int i = numInternalEdges; i < numTotalEdges; i++) {

@@ -58,7 +58,7 @@ ROJTRRouter::~ROJTRRouter() {}
 void
 ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
                      const ROVehicle* const vehicle,
-                     SUMOTime time, std::vector<const ROEdge*>& into) {
+                     SUMOTime time, ConstROEdgeVector& into) {
     const ROJTREdge* current = static_cast<const ROJTREdge*>(from);
     SUMOReal timeS = STEPS2TIME(time);
     std::set<const ROEdge*> avoidEdges;
@@ -91,9 +91,9 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
 
 
 SUMOReal
-ROJTRRouter::recomputeCosts(const std::vector<const ROEdge*>& edges, const ROVehicle* const v, SUMOTime time) const {
+ROJTRRouter::recomputeCosts(const ConstROEdgeVector& edges, const ROVehicle* const v, SUMOTime time) const {
     SUMOReal costs = 0;
-    for (std::vector<const ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+    for (ConstROEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         costs += (*i)->getTravelTime(v, time);
     }
     return costs;

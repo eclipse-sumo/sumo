@@ -41,6 +41,8 @@
 // ===========================================================================
 class ROEdge;
 
+typedef std::vector<const ROEdge*> ConstROEdgeVector;
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -74,11 +76,11 @@ public:
     }
 
 
-    inline const std::vector<const ROEdge*>& getIncoming() const {
+    inline const ConstROEdgeVector& getIncoming() const {
         return myIncoming;
     }
 
-    inline const std::vector<const ROEdge*>& getOutgoing() const {
+    inline const ConstROEdgeVector& getOutgoing() const {
         return myOutgoing;
     }
 
@@ -95,9 +97,9 @@ private:
     Position myPosition;
 
     /// @brief incoming edges
-    std::vector<const ROEdge*> myIncoming;
+    ConstROEdgeVector myIncoming;
     /// @brief outgoing edges
-    std::vector<const ROEdge*> myOutgoing;
+    ConstROEdgeVector myOutgoing;
 
 
 private:

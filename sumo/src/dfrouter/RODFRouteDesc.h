@@ -42,6 +42,7 @@
 class ROEdge;
 class RODFDetector;
 
+typedef std::vector<ROEdge*> ROEdgeVector;
 
 // ===========================================================================
 // struct definitions
@@ -52,7 +53,7 @@ class RODFDetector;
  */
 struct RODFRouteDesc {
     /// @brief The edges the route is made of
-    std::vector<ROEdge*> edges2Pass;
+    ROEdgeVector edges2Pass;
     /// @brief The name of the route
     std::string routename;
     SUMOReal duration_2;

@@ -129,7 +129,7 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         myPrecomputed = myAlternatives[myLastUsed];
     } else {
         // build a new route to test whether it is better
-        std::vector<const ROEdge*> edges;
+        ConstROEdgeVector edges;
         router.compute(myAlternatives[0]->getFirst(), myAlternatives[0]->getLast(), &veh, begin, edges);
         // check whether the same route was already used
         int cheapest = -1;
@@ -155,9 +155,9 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                SUMOTime begin, const ROVehicle& veh) const {
     MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ?
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
-    std::vector<const ROEdge*> oldEdges = myAlternatives[0]->getEdgeVector();
-    std::vector<const ROEdge*> newEdges;
-    std::vector<const ROEdge*> mandatory;
+    ConstROEdgeVector oldEdges = myAlternatives[0]->getEdgeVector();
+    ConstROEdgeVector newEdges;
+    ConstROEdgeVector mandatory;
     if (oldEdges.size() == 1) {
         if (myUsingJTRR) {
             /// only ROJTRRouter is supposed to handle this type of input
@@ -168,8 +168,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     } else {
         // prepare mandatory edges
         mandatory.push_back(oldEdges.front());
-        std::vector<const ROEdge*> stops = veh.getStopEdges();
-        for (std::vector<const ROEdge*>::const_iterator i = stops.begin(); i != stops.end(); ++i) {
+        ConstROEdgeVector stops = veh.getStopEdges();
+        for (ConstROEdgeVector::const_iterator i = stops.begin(); i != stops.end(); ++i) {
             if (*i != mandatory.back()) {
                 mandatory.push_back(*i);
             }
@@ -179,7 +179,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
         assert(mandatory.size() >= 2);
         // removed prohibited
-        for (std::vector<const ROEdge*>::iterator i = oldEdges.begin(); i != oldEdges.end();) {
+        for (ConstROEdgeVector::iterator i = oldEdges.begin(); i != oldEdges.end();) {
             if ((*i)->prohibits(&veh)) {
                 if (std::find(mandatory.begin(), mandatory.end(), *i) != mandatory.end()) {
                     mh->inform("Mandatory edge '" + (*i)->getID() + "' does not allow vehicle '" + veh.getID() + "'.");
@@ -192,15 +192,15 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
         // reconnect remaining edges
         newEdges.push_back(*(oldEdges.begin()));
-        std::vector<const ROEdge*>::iterator nextMandatory = mandatory.begin() + 1;
+        ConstROEdgeVector::iterator nextMandatory = mandatory.begin() + 1;
         size_t lastMandatory = 0;
-        for (std::vector<const ROEdge*>::iterator i = oldEdges.begin() + 1;
+        for (ConstROEdgeVector::iterator i = oldEdges.begin() + 1;
                 i != oldEdges.end() && nextMandatory != mandatory.end(); ++i) {
             if ((*(i - 1))->isConnectedTo(*i)) {
                 /// XXX could be connected from a prohibited lane only
                 newEdges.push_back(*i);
             } else {
-                std::vector<const ROEdge*> edges;
+                ConstROEdgeVector edges;
                 router.compute(newEdges.back(), *i, &veh, begin, edges);
                 if (edges.size() == 0) {
                     // backtrack: try to route from last mandatory edge to next mandatory edge
@@ -355,7 +355,7 @@ RORouteDef::copyOrigDest(const std::string& id) const {
     RORouteDef* result = new RORouteDef(id, 0, true, true);
     RORoute* route = myAlternatives[0];
     RGBColor* col = route->getColor() != 0 ? new RGBColor(*route->getColor()) : 0;
-    std::vector<const ROEdge*> edges;
+    ConstROEdgeVector edges;
     edges.push_back(route->getFirst());
     edges.push_back(route->getLast());
     result->addLoadedAlternative(new RORoute(id, 0, 1, edges, col, route->getStops()));

@@ -116,7 +116,7 @@ public:
 
 private:
     /// @brief add a route and check for duplicates
-    bool addRoute(std::vector<const ROEdge*>& edges, std::vector<RORoute*>& paths, std::string routeId, SUMOReal costs, SUMOReal prob);
+    bool addRoute(ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, SUMOReal costs, SUMOReal prob);
 
     /// @brief get the k shortest paths
     void getKPaths(const int kPaths, const SUMOReal penalty);

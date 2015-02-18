@@ -48,6 +48,7 @@ class OutputDevice;
 class ROEdge;
 class RONet;
 
+typedef std::vector<const ROEdge*> ConstROEdgeVector;
 
 // ===========================================================================
 // class definitions
@@ -120,7 +121,7 @@ public:
         return myParameter.depart;
     }
 
-    const std::vector<const ROEdge*>& getStopEdges() const {
+    const ConstROEdgeVector& getStopEdges() const {
         return myStopEdges;
     }
 
@@ -183,7 +184,7 @@ protected:
     RORouteDef* const myRoute;
 
     /// @brief The edges where the vehicle stops
-    std::vector<const ROEdge*> myStopEdges;
+    ConstROEdgeVector myStopEdges;
 
     /// @brief Whether the last routing was successful
     bool myRoutingSuccess;

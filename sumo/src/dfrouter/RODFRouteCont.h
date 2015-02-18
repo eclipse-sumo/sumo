@@ -130,7 +130,7 @@ public:
      * @param[in] illegals List of edge combinations that shall not be passed
      * @todo Not used, yet
      */
-    void removeIllegal(const std::vector<std::vector<ROEdge*> >& illegals);
+    void removeIllegal(const std::vector<ROEdgeVector >& illegals);
 
 
 protected:

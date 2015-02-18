@@ -41,7 +41,7 @@
 
 namespace ROHelper {
 void
-recheckForLoops(std::vector<const ROEdge*>& edges) {
+recheckForLoops(ConstROEdgeVector& edges) {
     // XXX check for stops, departLane, departPos, departSpeed, ....
 
     // remove loops at the route's begin
@@ -84,7 +84,7 @@ recheckForLoops(std::vector<const ROEdge*>& edges) {
     // removal of node loops (node occurs twice) is not done because these may occur legitimately
     /*
     std::vector<RONode*> nodes;
-    for (std::vector<const ROEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
+    for (ConstROEdgeVector::iterator i = edges.begin(); i != edges.end(); ++i) {
         nodes.push_back((*i)->getFromNode());
     }
     nodes.push_back(edges.back()->getToNode());

@@ -104,20 +104,20 @@ protected:
 
     ROEdge* getDetectorEdge(const RODFDetector& det) const;
     bool isSource(const RODFDetector& det, ROEdge* edge,
-                  std::vector<ROEdge*>& seen, const RODFDetectorCon& detectors,
+                  ROEdgeVector& seen, const RODFDetectorCon& detectors,
                   bool strict) const;
     bool isFalseSource(const RODFDetector& det, ROEdge* edge,
-                       std::vector<ROEdge*>& seen, const RODFDetectorCon& detectors) const;
-    bool isDestination(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge*>& seen,
+                       ROEdgeVector& seen, const RODFDetectorCon& detectors) const;
+    bool isDestination(const RODFDetector& det, ROEdge* edge, ROEdgeVector& seen,
                        const RODFDetectorCon& detectors) const;
 
     void computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int no,
                           bool keepUnfoundEnds,
                           bool keepShortestOnly,
-                          std::vector<ROEdge*>& visited, const RODFDetector& det,
+                          ROEdgeVector& visited, const RODFDetector& det,
                           RODFRouteCont& into, const RODFDetectorCon& detectors,
                           int maxFollowingLength,
-                          std::vector<ROEdge*>& seen) const;
+                          ROEdgeVector& seen) const;
 
     void buildDetectorEdgeDependencies(RODFDetectorCon& dets) const;
 
@@ -158,10 +158,10 @@ private:
     };
 
     /// @brief Map of edge name->list of names of this edge approaching edges
-    std::map<ROEdge*, std::vector<ROEdge*> > myApproachingEdges;
+    std::map<ROEdge*, ROEdgeVector > myApproachingEdges;
 
     /// @brief Map of edge name->list of names of edges approached by this edge
-    std::map<ROEdge*, std::vector<ROEdge*> > myApproachedEdges;
+    std::map<ROEdge*, ROEdgeVector > myApproachedEdges;
 
     mutable std::map<ROEdge*, std::vector<std::string>, idComp> myDetectorsOnEdges;
     mutable std::map<std::string, ROEdge*> myDetectorEdges;

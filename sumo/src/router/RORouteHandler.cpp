@@ -555,7 +555,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 
 
 void
-RORouteHandler::parseEdges(const std::string& desc, std::vector<const ROEdge*>& into,
+RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
                            const std::string& rid) {
     if (desc[0] == BinaryFormatter::BF_ROUTE) {
         std::istringstream in(desc, std::ios::binary);

@@ -49,7 +49,7 @@
 // method definitions
 // ===========================================================================
 RORoute::RORoute(const std::string& id, SUMOReal costs, SUMOReal prop,
-                 const std::vector<const ROEdge*>& route,
+                 const ConstROEdgeVector& route,
                  const RGBColor* const color,
                  const std::vector<SUMOVehicleParameter::Stop>& stops)
     : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
@@ -111,7 +111,7 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
         const int frontOffset = myRoute.front()->getType() == ROEdge::ET_DISTRICT ? 1 : 0;
         const int backOffset = myRoute.back()->getType() == ROEdge::ET_DISTRICT ? 1 : 0;
         if (frontOffset + backOffset > 0) {
-            std::vector<const ROEdge*> temp(myRoute.begin() + frontOffset, myRoute.end() - backOffset);
+            ConstROEdgeVector temp(myRoute.begin() + frontOffset, myRoute.end() - backOffset);
             dev.writeAttr(SUMO_ATTR_EDGES, temp);
         } else {
             dev.writeAttr(SUMO_ATTR_EDGES, myRoute);
@@ -122,7 +122,7 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
     if (withExitTimes) {
         std::string exitTimes;
         SUMOReal time = STEPS2TIME(veh->getDepartureTime());
-        for (std::vector<const ROEdge*>::const_iterator i = myRoute.begin(); i != myRoute.end(); ++i) {
+        for (ConstROEdgeVector::const_iterator i = myRoute.begin(); i != myRoute.end(); ++i) {
             if (i != myRoute.begin()) {
                 exitTimes += " ";
             }

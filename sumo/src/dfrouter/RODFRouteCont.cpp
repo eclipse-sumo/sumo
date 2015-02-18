@@ -91,7 +91,7 @@ RODFRouteCont::save(std::vector<std::string>& saved,
         assert(desc.edges2Pass.size() >= 1);
         out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_ID, prependix + desc.routename);
         out << " edges=\"";
-        for (std::vector<ROEdge*>::const_iterator k = desc.edges2Pass.begin(); k != desc.edges2Pass.end(); k++) {
+        for (ROEdgeVector::const_iterator k = desc.edges2Pass.begin(); k != desc.edges2Pass.end(); k++) {
             if (k != desc.edges2Pass.begin()) {
                 out << ' ';
             }
@@ -112,13 +112,13 @@ RODFRouteCont::sortByDistance() {
 
 
 void
-RODFRouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> >& illegals) {
+RODFRouteCont::removeIllegal(const std::vector<ROEdgeVector >& illegals) {
     for (std::vector<RODFRouteDesc>::iterator i = myRoutes.begin(); i != myRoutes.end();) {
         RODFRouteDesc& desc = *i;
         bool remove = false;
-        for (std::vector<std::vector<ROEdge*> >::const_iterator j = illegals.begin(); !remove && j != illegals.end(); ++j) {
+        for (std::vector<ROEdgeVector >::const_iterator j = illegals.begin(); !remove && j != illegals.end(); ++j) {
             int noFound = 0;
-            for (std::vector<ROEdge*>::const_iterator k = (*j).begin(); !remove && k != (*j).end(); ++k) {
+            for (ROEdgeVector::const_iterator k = (*j).begin(); !remove && k != (*j).end(); ++k) {
                 if (find(desc.edges2Pass.begin(), desc.edges2Pass.end(), *k) != desc.edges2Pass.end()) {
                     noFound++;
                     if (noFound > 1) {
