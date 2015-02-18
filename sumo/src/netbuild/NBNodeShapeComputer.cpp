@@ -702,7 +702,7 @@ NBNodeShapeComputer::initNeighbors(const EdgeVector& edges, const EdgeVector::co
     cwi = current;
     cwi++;
     if (cwi == edges.end()) {
-        std::advance(cwi, -edges.size()); // set to edges.begin();
+        std::advance(cwi, -((int)edges.size())); // set to edges.begin();
     }
     ccwi = current;
     if (ccwi == edges.begin()) {
