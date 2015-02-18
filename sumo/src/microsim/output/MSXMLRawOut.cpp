@@ -60,8 +60,8 @@ MSXMLRawOut::write(OutputDevice& of, const MSEdgeControl& ec,
                    SUMOTime timestep, int precision) {
     of.openTag("timestep") << " time=\"" << time2string(timestep) << "\"";
     of.setPrecision(precision);
-    const std::vector<MSEdge*>& edges = ec.getEdges();
-    for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
+    const MSEdgeVector& edges = ec.getEdges();
+    for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         writeEdge(of, **e, timestep);
     }
     of.setPrecision(OUTPUT_ACCURACY);

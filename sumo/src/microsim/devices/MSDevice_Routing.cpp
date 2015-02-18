@@ -133,10 +133,10 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
         const SUMOTime prePeriod = string2time(oc.getString("device.rerouting.pre-period"));
         // initialise edge efforts if not done before
         if (myEdgeEfforts.size() == 0) {
-            const std::vector<MSEdge*>& edges = MSNet::getInstance()->getEdgeControl().getEdges();
+            const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
             const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
             const SUMOReal currentSecond = SIMTIME;
-            for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
                 while ((*i)->getNumericalID() >= (int)myEdgeEfforts.size()) {
                     myEdgeEfforts.push_back(0);
                 }
@@ -263,8 +263,8 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
     }
     myCachedRoutes.clear();
     const SUMOReal newWeightFactor = (SUMOReal)(1. - myAdaptationWeight);
-    const std::vector<MSEdge*>& edges = MSNet::getInstance()->getEdgeControl().getEdges();
-    for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+    const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
+    for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         const int id = (*i)->getNumericalID();
         const SUMOReal currTT = (*i)->getCurrentTravelTime();
         if (currTT != myEdgeEfforts[id]) {

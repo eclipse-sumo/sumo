@@ -618,8 +618,8 @@ MSNet::writeOutput() {
         OutputDevice& od = OutputDevice::getDeviceByOption("link-output");
         od.openTag("timestep");
         od.writeAttr(SUMO_ATTR_ID, STEPS2TIME(myStep));
-        const std::vector<MSEdge*>& edges = myEdges->getEdges();
-        for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+        const MSEdgeVector& edges = myEdges->getEdges();
+        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             const std::vector<MSLane*>& lanes = (*i)->getLanes();
             for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
                 const std::vector<MSLink*>& links = (*j)->getLinkCont();
@@ -741,7 +741,7 @@ MSNet::getBusStopID(const MSLane* lane, const SUMOReal pos) const {
 
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSNet::getRouterTT(const std::vector<MSEdge*>& prohibited) const {
+MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
     if (!myRouterTTInitialized) {
         myRouterTTInitialized = true;
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
@@ -768,7 +768,7 @@ MSNet::getRouterTT(const std::vector<MSEdge*>& prohibited) const {
 
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSNet::getRouterEffort(const std::vector<MSEdge*>& prohibited) const {
+MSNet::getRouterEffort(const MSEdgeVector& prohibited) const {
     if (myRouterEffort == 0) {
         myRouterEffort = new DijkstraRouterEffort<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
             MSEdge::numericalDictSize(), true, &MSNet::getEffort, &MSNet::getTravelTime);
@@ -779,7 +779,7 @@ MSNet::getRouterEffort(const std::vector<MSEdge*>& prohibited) const {
 
 
 MSNet::MSPedestrianRouterDijkstra&
-MSNet::getPedestrianRouter(const std::vector<MSEdge*>& prohibited) const {
+MSNet::getPedestrianRouter(const MSEdgeVector& prohibited) const {
     if (myPedestrianRouter == 0) {
         myPedestrianRouter = new MSPedestrianRouterDijkstra();
     }

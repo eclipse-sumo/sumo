@@ -51,7 +51,7 @@ class MSDevice;
 class MSPerson;
 class SUMOSAXAttributes;
 
-typedef std::vector<const MSEdge*> MSEdgeVector;
+typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
 
 // ===========================================================================
@@ -123,7 +123,7 @@ public:
     virtual const MSEdge* succEdge(unsigned int nSuccs) const = 0;
 
     /// Replaces the current route by the given edges
-    virtual bool replaceRouteEdges(MSEdgeVector& edges, bool onInit = false) = 0;
+    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false) = 0;
 
     /// Replaces the current route by the given one
     virtual bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0) = 0;
@@ -143,7 +143,7 @@ public:
     /** @brief Returns an iterator pointing to the current edge in this vehicles route
      * @return The current route pointer
      */
-    virtual const MSEdgeVector::const_iterator& getCurrentRouteEdge() const = 0;
+    virtual const ConstMSEdgeVector::const_iterator& getCurrentRouteEdge() const = 0;
 
     /** @brief Returns the vehicle's acceleration
      * @return The acceleration

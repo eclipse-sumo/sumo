@@ -56,8 +56,9 @@ class OutputDevice;
 // ===========================================================================
 // types definitions
 // ===========================================================================
-typedef std::vector<const MSEdge*> MSEdgeVector;
-typedef MSEdgeVector::const_iterator MSRouteIterator;
+typedef std::vector<const MSEdge*> ConstMSEdgeVector;
+typedef std::vector<MSEdge*> MSEdgeVector;
+typedef ConstMSEdgeVector::const_iterator MSRouteIterator;
 
 
 // ===========================================================================
@@ -69,7 +70,7 @@ typedef MSEdgeVector::const_iterator MSRouteIterator;
 class MSRoute : public Named, public Parameterised {
 public:
     /// Constructor
-    MSRoute(const std::string& id, const MSEdgeVector& edges,
+    MSRoute(const std::string& id, const ConstMSEdgeVector& edges,
             const bool isPermanent, const RGBColor* const c,
             const std::vector<SUMOVehicleParameter::Stop>& stops);
 
@@ -106,7 +107,7 @@ public:
         return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();
     }
 
-    bool containsAnyOf(const std::vector<MSEdge*>& edgelist) const;
+    bool containsAnyOf(const MSEdgeVector& edgelist) const;
 
     const MSEdge* operator[](unsigned index) const;
 
@@ -120,7 +121,7 @@ public:
     static void dict_saveState(OutputDevice& out);
     /// @}
 
-    const MSEdgeVector& getEdges() const {
+    const ConstMSEdgeVector& getEdges() const {
         return myEdges;
     }
 
@@ -226,7 +227,7 @@ public:
 
 private:
     /// The list of edges to pass
-    MSEdgeVector myEdges;
+    ConstMSEdgeVector myEdges;
 
     /// whether the route may be deleted after the last vehicle abandoned it
     const bool myAmPermanent;

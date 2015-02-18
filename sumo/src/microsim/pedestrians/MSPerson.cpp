@@ -116,7 +116,7 @@ MSPerson::MSPersonStage::getEdgeAngle(const MSEdge* e, SUMOReal at) const {
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::vector<const MSEdge*>& route,
+MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const ConstMSEdgeVector& route,
         MSBusStop* toBS,
         SUMOTime walkingTime, SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
@@ -211,7 +211,7 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSPerson* person, SUMOTime 
 SUMOReal
 MSPerson::MSPersonStage_Walking::computeAverageSpeed() const {
     SUMOReal length = 0;
-    for (std::vector<const MSEdge*>::const_iterator i = myRoute.begin(); i != myRoute.end(); ++i) {
+    for (ConstMSEdgeVector::const_iterator i = myRoute.begin(); i != myRoute.end(); ++i) {
         length += (*i)->getLength();
     }
     length -= myDepartPos;

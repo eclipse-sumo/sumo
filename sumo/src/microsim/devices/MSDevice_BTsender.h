@@ -197,7 +197,7 @@ public:
         bool haveArrived;
 
         /// @brief List of edges travelled
-        MSEdgeVector route;
+        ConstMSEdgeVector route;
 
     };
 

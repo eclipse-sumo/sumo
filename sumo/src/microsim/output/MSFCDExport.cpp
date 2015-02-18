@@ -88,8 +88,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
     if (MSNet::getInstance()->getPersonControl().hasPersons()) {
         // write persons
         MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
-        const std::vector<MSEdge*>& edges = ec.getEdges();
-        for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
+        const MSEdgeVector& edges = ec.getEdges();
+        for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
             const std::vector<MSPerson*>& persons = (*e)->getSortedPersons(timestep);
             for (std::vector<MSPerson*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
                 MSPerson* p = *it_p;

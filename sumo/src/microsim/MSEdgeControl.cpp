@@ -179,7 +179,7 @@ MSEdgeControl::detectCollisions(SUMOTime timestep, const std::string& stage) {
 std::vector<std::string>
 MSEdgeControl::getEdgeNames() const {
     std::vector<std::string> ret;
-    for (std::vector<MSEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
+    for (MSEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         ret.push_back((*i)->getID());
     }
     return ret;

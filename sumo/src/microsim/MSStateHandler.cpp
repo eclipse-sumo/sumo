@@ -119,7 +119,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_ROUTE: {
             const std::string id = attrs.getString(SUMO_ATTR_ID);
             if (MSRoute::dictionary(id) == 0) {
-                MSEdgeVector edges;
+                ConstMSEdgeVector edges;
                 MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_EDGES), edges, id);
                 MSRoute* r = new MSRoute(id, edges, attrs.getBool(SUMO_ATTR_STATE),
                                          0, std::vector<SUMOVehicleParameter::Stop>());

@@ -56,6 +56,7 @@ class MSVehicleType;
 class MSPModel;
 class PedestrianState;
 
+typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
 // ===========================================================================
 // class definitions
@@ -195,7 +196,7 @@ public:
 
     public:
         /// constructor
-        MSPersonStage_Walking(const std::vector<const MSEdge*>& route, MSBusStop* toBS, SUMOTime walkingTime, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
+        MSPersonStage_Walking(const ConstMSEdgeVector& route, MSBusStop* toBS, SUMOTime walkingTime, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
 
         /// destructor
         ~MSPersonStage_Walking();
@@ -267,7 +268,7 @@ public:
         inline const MSEdge* getNextRouteEdge() const {
             return myRouteStep == myRoute.end() - 1 ? 0 : *(myRouteStep + 1);
         }
-        inline const std::vector<const MSEdge*>& getRoute() const {
+        inline const ConstMSEdgeVector& getRoute() const {
             return myRoute;
         }
 
@@ -289,10 +290,10 @@ public:
         SUMOTime myWalkingTime;
 
         /// @brief The route of the person
-        std::vector<const MSEdge*> myRoute;
+        ConstMSEdgeVector myRoute;
 
 
-        std::vector<const MSEdge*>::iterator myRouteStep;
+        ConstMSEdgeVector::iterator myRouteStep;
 
         /// @brief The current internal edge this person is on or 0
         MSEdge* myCurrentInternalEdge;

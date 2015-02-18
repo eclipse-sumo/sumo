@@ -48,6 +48,7 @@ class MSEdge;
 class MSLane;
 class SUMOVehicle;
 
+typedef std::vector<MSEdge*> MSEdgeVector;
 
 // ===========================================================================
 // class definitions
@@ -447,7 +448,7 @@ private:
     const SUMOTime myDumpBegin, myDumpEnd;
 
     /// @brief The corresponding first edges
-    std::vector<MSEdge*> myEdges;
+    MSEdgeVector myEdges;
 
     /// @brief Whether empty lanes/edges shall be written
     const bool myPrintDefaults;

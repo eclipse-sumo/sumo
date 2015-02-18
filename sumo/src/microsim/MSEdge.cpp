@@ -63,7 +63,7 @@
 // static member definitions
 // ===========================================================================
 MSEdge::DictType MSEdge::myDict;
-std::vector<MSEdge*> MSEdge::myEdges;
+MSEdgeVector MSEdge::myEdges;
 
 
 // ===========================================================================
@@ -589,7 +589,7 @@ MSEdge::insertIDs(std::vector<std::string>& into) {
 
 
 void
-MSEdge::parseEdgesList(const std::string& desc, std::vector<const MSEdge*>& into,
+MSEdge::parseEdgesList(const std::string& desc, ConstMSEdgeVector& into,
                        const std::string& rid) {
     if (desc[0] == BinaryFormatter::BF_ROUTE) {
         std::istringstream in(desc, std::ios::binary);
@@ -604,7 +604,7 @@ MSEdge::parseEdgesList(const std::string& desc, std::vector<const MSEdge*>& into
 
 
 void
-MSEdge::parseEdgesList(const std::vector<std::string>& desc, std::vector<const MSEdge*>& into,
+MSEdge::parseEdgesList(const std::vector<std::string>& desc, ConstMSEdgeVector& into,
                        const std::string& rid) {
     for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
         const MSEdge* edge = MSEdge::dictionary(*i);

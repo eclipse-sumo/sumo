@@ -282,8 +282,8 @@ MSDevice_BTreceiver::BTreceiverUpdate::leaveRange(VehicleInformation& receiverIn
     addRecognitionPoint(SIMTIME + tOffset, receiverState, senderState, i->second);
     // build leaving point
     i->second->meetingEnd = new MeetingPoint(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) + tOffset, receiverState, senderState);
-    MSEdgeVector::const_iterator begin = receiverInfo.route.begin() + i->second->meetingBegin.observerState.routePos;
-    MSEdgeVector::const_iterator end = receiverInfo.route.begin() + receiverState.routePos + 1;
+    ConstMSEdgeVector::const_iterator begin = receiverInfo.route.begin() + i->second->meetingBegin.observerState.routePos;
+    ConstMSEdgeVector::const_iterator end = receiverInfo.route.begin() + receiverState.routePos + 1;
     i->second->receiverRoute = toString<const MSEdge>(begin, end);
     begin = senderInfo.route.begin() + i->second->meetingBegin.seenState.routePos;
     end = senderInfo.route.begin() + senderState.routePos + 1;

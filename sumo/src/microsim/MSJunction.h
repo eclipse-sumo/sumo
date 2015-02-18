@@ -49,6 +49,8 @@ class MSLink;
 class MSLane;
 class MSEdge;
 
+typedef std::vector<const MSEdge*> ConstMSEdgeVector;
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -97,11 +99,11 @@ public:
         return myEmptyLanes;
     }
 
-    inline const std::vector<const MSEdge*>& getIncoming() const {
+    inline const ConstMSEdgeVector& getIncoming() const {
         return myIncoming;
     }
 
-    inline const std::vector<const MSEdge*>& getOutgoing() const {
+    inline const ConstMSEdgeVector& getOutgoing() const {
         return myOutgoing;
     }
 
@@ -134,9 +136,9 @@ protected:
 
 
     /// @brief incoming edges
-    std::vector<const MSEdge*> myIncoming;
+    ConstMSEdgeVector myIncoming;
     /// @brief outgoing edges
-    std::vector<const MSEdge*> myOutgoing;
+    ConstMSEdgeVector myOutgoing;
 
     /// @brief definition of the static dictionary type
     typedef std::map<std::string, MSJunction* > DictType;

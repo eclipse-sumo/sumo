@@ -74,7 +74,8 @@ class MSEdge;
  * Holds lanes which are reponsible for vehicle movements.
  */
 
-typedef std::vector<const MSEdge*> MSEdgeVector;
+typedef std::vector<MSEdge*> MSEdgeVector;
+typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
 class MSEdge : public Named, public Parameterised {
 public:
@@ -288,7 +289,7 @@ public:
     /** @brief Returns the list of edges from which this edge may be reached
      * @return Edges from which this edge may be reached
      */
-    const std::vector<MSEdge*>& getIncomingEdges() const {
+    const MSEdgeVector& getIncomingEdges() const {
         return myPredecessors;
     }
 
@@ -598,7 +599,7 @@ public:
      * @param[in] rid The id of the route these description belongs to; used for error message generation
      * @exception ProcessError If one of the strings contained is not a known edge id
      */
-    static void parseEdgesList(const std::string& desc, std::vector<const MSEdge*>& into,
+    static void parseEdgesList(const std::string& desc, ConstMSEdgeVector& into,
                                const std::string& rid);
 
 
@@ -608,7 +609,7 @@ public:
      * @param[in] rid The id of the route these description belongs to; used for error message generation
      * @exception ProcessError If one of the strings contained is not a known edge id
      */
-    static void parseEdgesList(const std::vector<std::string>& desc, std::vector<const MSEdge*>& into,
+    static void parseEdgesList(const std::vector<std::string>& desc, ConstMSEdgeVector& into,
                                const std::string& rid);
     /// @}
 
@@ -679,10 +680,10 @@ protected:
     mutable SUMOTime myLastFailedInsertionTime;
 
     /// @brief The succeeding edges
-    std::vector<MSEdge*> mySuccessors;
+    MSEdgeVector mySuccessors;
 
     /// @brief The preceeding edges
-    std::vector<MSEdge*> myPredecessors;
+    MSEdgeVector myPredecessors;
 
     /// @brief the junctions for this edge
     MSJunction* myFromJunction;
@@ -742,7 +743,7 @@ protected:
     /** @brief Static list of edges
      * @deprecated Move to MSEdgeControl, make non-static
      */
-    static std::vector<MSEdge*> myEdges;
+    static MSEdgeVector myEdges;
     /// @}
 
 

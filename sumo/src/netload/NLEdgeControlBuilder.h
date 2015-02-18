@@ -62,9 +62,6 @@ class OutputDevice;
  * @todo Assignment of lanes is not really well. Should be reworked after shapes are given as params.
  */
 class NLEdgeControlBuilder {
-public:
-    /// @brief definition of the used storage for edges
-    typedef std::vector<MSEdge*> EdgeCont;
 
 public:
     /// @brief Constructor
@@ -140,7 +137,7 @@ protected:
     unsigned int myCurrentNumericalEdgeID;
 
     /// @brief Temporary, internal storage for built edges
-    EdgeCont myEdges;
+    MSEdgeVector myEdges;
 
     /// @brief pointer to the currently chosen edge
     MSEdge* myActiveEdge;

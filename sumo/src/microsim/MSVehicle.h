@@ -969,7 +969,7 @@ public:
             return myOriginalSpeed;
         }
 
-        void setVTDControlled(bool c, MSLane* l, SUMOReal pos, int edgeOffset, const MSEdgeVector& route, SUMOTime t) {
+        void setVTDControlled(bool c, MSLane* l, SUMOReal pos, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t) {
             myAmVTDControlled = c;
             myVTDLane = l;
             myVTDPos = pos;
@@ -1025,7 +1025,7 @@ public:
         MSLane* myVTDLane;
         SUMOReal myVTDPos;
         int myVTDEdgeOffset;
-        MSEdgeVector myVTDRoute;
+        ConstMSEdgeVector myVTDRoute;
 		SUMOTime myLastVTDAccess;
 
         /// @name Flags for managing conflicts between the laneChangeModel and TraCI laneTimeLine
@@ -1110,7 +1110,7 @@ protected:
 
     /** @brief Returns the list of still pending stop edges
      */
-    const std::vector<const MSEdge*> getStopEdges() const;
+    const ConstMSEdgeVector getStopEdges() const;
 
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds

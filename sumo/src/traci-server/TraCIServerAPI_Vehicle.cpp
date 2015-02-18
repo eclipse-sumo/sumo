@@ -632,7 +632,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Can not retrieve road with ID " + edgeID, outputStorage);
             }
             // build a new route between the vehicle's current edge and destination edge
-            MSEdgeVector newRoute;
+            ConstMSEdgeVector newRoute;
             const MSEdge* currentEdge = v->getRerouteOrigin();
             MSNet::getInstance()->getRouterTT().compute(
                 currentEdge, destEdge, (const MSVehicle * const) v, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
@@ -673,7 +673,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "A route must be defined as a list of edge ids.", outputStorage);
             }
-            std::vector<const MSEdge*> edges;
+            ConstMSEdgeVector edges;
             MSEdge::parseEdgesList(edgeIDs, edges, "<unknown>");
             if (!v->replaceRouteEdges(edges, v->getLane() == 0)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Route replacement failed for " + v->getID(), outputStorage);
@@ -1229,7 +1229,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             std::cout << " want pos:" << pos << " edge:" << edgeID << " laneNum:" << laneNum << " angle:" << angle << std::endl;
 #endif
 
-            MSEdgeVector edges;
+            ConstMSEdgeVector edges;
             MSLane* lane = 0;
             SUMOReal lanePos;
             SUMOReal bestDistance = std::numeric_limits<SUMOReal>::max();
@@ -1295,7 +1295,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
 bool
 TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, const SUMOReal angle,  MSVehicle& v, TraCIServer& server, 
-        SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, MSEdgeVector& edges) {
+        SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     SUMOReal speed = pos.distanceTo2D(v.getPosition()); // !!!v.getSpeed();
     std::set<std::string> into;
     PositionVector shape;
@@ -1310,12 +1310,12 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
         MSEdge::EdgeBasicFunction ef = e->getPurpose();
         bool onRoute = false;
         if(ef!=MSEdge::EDGEFUNCTION_INTERNAL) {
-            const MSEdgeVector &ev = v.getRoute().getEdges();
+            const ConstMSEdgeVector &ev = v.getRoute().getEdges();
             unsigned int routePosition = v.getRoutePosition();
             if(v.getLane()->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
                 ++routePosition;
             }
-            MSEdgeVector::const_iterator edgePos = std::find(ev.begin()+routePosition, ev.end(), e);
+            ConstMSEdgeVector::const_iterator edgePos = std::find(ev.begin()+routePosition, ev.end(), e);
             onRoute = edgePos!=ev.end();
             if(edgePos==ev.end()-1&&v.getEdge()==e) {
                 onRoute &= v.getEdge()->getLanes()[0]->getLength()>v.getPositionOnLane()+SPEED2DIST(speed);
@@ -1329,12 +1329,12 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
                 l = l->getLogicalPredecessorLane();
                 prevEdge = l==0 ? 0 : &l->getEdge();
             }
-            const MSEdgeVector &ev = v.getRoute().getEdges();
-            MSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin()+v.getRoutePosition(), ev.end(), prevEdge);
+            const ConstMSEdgeVector &ev = v.getRoute().getEdges();
+            ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin()+v.getRoutePosition(), ev.end(), prevEdge);
             if(prevEdgePos!=ev.end()&&ev.size()>1&&prevEdgePos!=ev.end()-1) {
                 const MSJunction *junction = e->getFromJunction();
-                const std::vector<const MSEdge*> &outgoing = junction->getOutgoing();
-                MSEdgeVector::const_iterator nextEdgePos = std::find(outgoing.begin(), outgoing.end(), *(ev.begin()+v.getRoutePosition()+1));
+                const ConstMSEdgeVector &outgoing = junction->getOutgoing();
+                ConstMSEdgeVector::const_iterator nextEdgePos = std::find(outgoing.begin(), outgoing.end(), *(ev.begin()+v.getRoutePosition()+1));
                 if(nextEdgePos!=outgoing.end()) {
                     nextEdge = *nextEdgePos;
                     onRoute = true;
@@ -1409,8 +1409,8 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
     lanePos = bestLane->getShape().nearest_offset_to_point2D(pos);
     const MSEdge *prevEdge = u.prevEdge;
     if(u.onRoute) {
-        const MSEdgeVector &ev = v.getRoute().getEdges();
-        MSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin()+v.getRoutePosition(), ev.end(), prevEdge);
+        const ConstMSEdgeVector &ev = v.getRoute().getEdges();
+        ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin()+v.getRoutePosition(), ev.end(), prevEdge);
         routeOffset = std::distance(ev.begin(), prevEdgePos)-v.getRoutePosition();
     } else {
         edges.push_back(prevEdge);
@@ -1513,8 +1513,8 @@ TraCIServerAPI_Vehicle::getSingularType(SUMOVehicle* const veh) {
 const std::map<std::string, std::vector<MSLane*> >&
 TraCIServerAPI_Vehicle::getOrBuildVTDMap() {
     if (gVTDMap.size() == 0) {
-        const std::vector<MSEdge*>& edges = MSNet::getInstance()->getEdgeControl().getEdges();
-        for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+        const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
+        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             const std::vector<MSLane*>& lanes = (*i)->getLanes();
             for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
                 if ((*j)->knowsParameter("origId")) {

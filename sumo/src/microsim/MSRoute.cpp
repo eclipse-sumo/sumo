@@ -58,7 +58,7 @@ MSRoute::RouteDistDict MSRoute::myDistDict;
 // member method definitions
 // ===========================================================================
 MSRoute::MSRoute(const std::string& id,
-                 const MSEdgeVector& edges,
+                 const ConstMSEdgeVector& edges,
                  const bool isPermanent, const RGBColor* const c,
                  const std::vector<SUMOVehicleParameter::Stop>& stops)
     : Named(id), myEdges(edges), myAmPermanent(isPermanent),
@@ -198,7 +198,7 @@ MSRoute::insertIDs(std::vector<std::string>& into) {
 int
 MSRoute::writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo) const {
     int numWritten = 0;
-    MSEdgeVector::const_iterator i = myEdges.begin();
+    ConstMSEdgeVector::const_iterator i = myEdges.begin();
     if (from != 0) {
         i = std::find(myEdges.begin(), myEdges.end(), from);
     }
@@ -217,8 +217,8 @@ MSRoute::writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* 
 
 
 bool
-MSRoute::containsAnyOf(const std::vector<MSEdge*>& edgelist) const {
-    std::vector<MSEdge*>::const_iterator i = edgelist.begin();
+MSRoute::containsAnyOf(const MSEdgeVector& edgelist) const {
+    MSEdgeVector::const_iterator i = edgelist.begin();
     for (; i != edgelist.end(); ++i) {
         if (contains(*i)) {
             return true;
@@ -254,12 +254,12 @@ MSRoute::dict_saveState(OutputDevice& out) {
 SUMOReal
 MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos,
                             const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal) const {
-    MSEdgeVector::const_iterator it = std::find(myEdges.begin(), myEdges.end(), fromEdge);
+    ConstMSEdgeVector::const_iterator it = std::find(myEdges.begin(), myEdges.end(), fromEdge);
     if (it == myEdges.end() || std::find(it, myEdges.end(), toEdge) == myEdges.end()) {
         // start or destination not contained in route
         return std::numeric_limits<SUMOReal>::max();
     }
-    MSEdgeVector::const_iterator it2 = std::find(it + 1, myEdges.end(), toEdge);
+    ConstMSEdgeVector::const_iterator it2 = std::find(it + 1, myEdges.end(), toEdge);
 
     if (fromEdge == toEdge) {
         if (fromPos < toPos) {

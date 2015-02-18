@@ -71,14 +71,14 @@ MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_te
 // method definitions
 // ===========================================================================
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
-        const std::vector<MSEdge*>& edges,
+        const MSEdgeVector& edges,
         SUMOReal prob, const std::string& file, bool off) :
     MSTrigger(id),
     MSMoveReminder(id),
     SUMOSAXHandler(file),
     myProbability(prob), myUserProbability(prob), myAmInUserMode(false) {
     // build actors
-    for (std::vector<MSEdge*>::const_iterator j = edges.begin(); j != edges.end(); ++j) {
+    for (MSEdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
 #ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**j);
@@ -211,7 +211,7 @@ SUMOTime
 MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
     for (std::vector<RerouteInterval>::iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
         if (i->begin == currentTime && !i->closed.empty() && i->permissions != SVCAll) {
-            for (std::vector<MSEdge*>::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
+            for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
                 for (std::vector<MSLane*>::const_iterator l = (*e)->getLanes().begin(); l != (*e)->getLanes().end(); ++l) {
                     i->prevPermissions.push_back((*l)->getPermissions());
                     (*l)->setPermissions(i->permissions);
@@ -223,7 +223,7 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
                 MSEventControl::ADAPT_AFTER_EXECUTION);
         }
         if (i->end == currentTime && !i->closed.empty() && i->permissions != SVCAll) {
-            for (std::vector<MSEdge*>::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
+            for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
                 std::vector<SVCPermissions>::const_iterator p = i->prevPermissions.begin();
                 for (std::vector<MSLane*>::const_iterator l = (*e)->getLanes().begin(); l != (*e)->getLanes().end(); ++l, ++p) {
                     (*l)->setPermissions(*p);
@@ -315,7 +315,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
         }
     }
     // we have a new destination, let's replace the vehicle route
-    std::vector<const MSEdge*> edges;
+    ConstMSEdgeVector edges;
     MSNet::getInstance()->getRouterTT(rerouteDef->closed).compute(
         veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
     veh.replaceRouteEdges(edges);

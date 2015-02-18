@@ -231,7 +231,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     if (!ok) {
         throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
     }
-    std::vector<MSEdge*> edges;
+    MSEdgeVector edges;
     std::vector<std::string> edgeIDs;
     SUMOSAXAttributes::parseStringVector(objectid, edgeIDs);
     for (std::vector<std::string>::iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
@@ -294,7 +294,7 @@ NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
 
 MSTriggeredRerouter*
 NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
-                                std::vector<MSEdge*>& edges,
+                                MSEdgeVector& edges,
                                 SUMOReal prob, const std::string& file, bool off) {
     return new MSTriggeredRerouter(id, edges, prob, file, off);
 }

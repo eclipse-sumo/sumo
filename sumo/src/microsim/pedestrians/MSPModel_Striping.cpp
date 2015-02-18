@@ -205,7 +205,7 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
             // build all possible paths across this walkingArea
             // gather all incident lanes
             std::vector<MSLane*> lanes;
-            const std::vector<MSEdge*>& incoming = edge->getIncomingEdges();
+            const MSEdgeVector& incoming = edge->getIncomingEdges();
             for (int j = 0; j < (int)incoming.size(); ++j) {
                 lanes.push_back(getSidewalk(incoming[j]));
             }
@@ -285,14 +285,14 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 std::cout << "  crossing\n";
             }
         } else if (currentEdge->isWalkingArea())  {
-            std::vector<const MSEdge*> crossingRoute;
+            ConstMSEdgeVector crossingRoute;
             // departPos can be 0 because the direction of the walkingArea does not matter
             // for the arrivalPos, we need to make sure that the route does not deviate across other junctions
             const int nextRouteEdgeDir = nextRouteEdge->getFromJunction() == junction ? FORWARD : BACKWARD;
             const SUMOReal arrivalPos = (nextRouteEdge == ped.myStage->getRoute().back()
                                          ? ped.myStage->getArrivalPos()
                                          : (nextRouteEdgeDir == FORWARD ? 0 : nextRouteEdge->getLength()));
-            std::vector<MSEdge*> prohibited;
+            MSEdgeVector prohibited;
             prohibited.push_back(&prevLane->getEdge());
             MSNet::getInstance()->getPedestrianRouter(prohibited).compute(currentEdge, nextRouteEdge, 0, arrivalPos, ped.myStage->getMaxSpeed(), 0, junction, crossingRoute, true);
             if DEBUGCOND(ped.myPerson->getID()) {
@@ -755,7 +755,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
 {
     const MSEdge* currentEdge = &lane->getEdge();
     assert(!currentEdge->isWalkingArea());
-    const std::vector<const MSEdge*>& route = myStage->getRoute();
+    const ConstMSEdgeVector& route = myStage->getRoute();
     if (route.size() == 1) {
         // only a single edge, move towards end pos
         myDir = (myRelX <= myStage->getArrivalPos()) ? FORWARD : BACKWARD;
@@ -767,7 +767,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
         }
         if (mayStartForward && mayStartBackward) {
             // figure out the best direction via routing
-            std::vector<const MSEdge*> crossingRoute;
+            ConstMSEdgeVector crossingRoute;
             MSNet::getInstance()->getPedestrianRouter().compute(currentEdge, route.back(), myRelX, myStage->getArrivalPos(), myStage->getMaxSpeed(), 0, 0, crossingRoute, true);
             if (crossingRoute.size() > 1) {
                 // route found

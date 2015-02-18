@@ -84,7 +84,7 @@ public:
     static const SUMOReal SIDEWALK_OFFSET;
 
     /// @brief return whether the route may traversed with the given starting direction
-    static bool canTraverse(int dir, const std::vector<const MSEdge*>& route);
+    static bool canTraverse(int dir, const ConstMSEdgeVector& route);
 
 private:
     static MSPModel* myModel;

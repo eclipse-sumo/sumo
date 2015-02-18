@@ -141,7 +141,7 @@ protected:
 
 protected:
     /// @brief The current route
-    MSEdgeVector myActiveRoute;
+    ConstMSEdgeVector myActiveRoute;
 
     /// @brief The plan of the current person
     MSPerson::MSPersonPlan* myActivePlan;

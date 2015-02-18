@@ -64,7 +64,7 @@ public:
      * @param[in] off Whether the rerouter is off (not working) initially
      */
     GUITriggeredRerouter(const std::string& id,
-                         const std::vector<MSEdge*>& edges, SUMOReal prob,
+                         const MSEdgeVector& edges, SUMOReal prob,
                          const std::string& aXMLFilename, bool off,
                          SUMORTree& rtree);
 

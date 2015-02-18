@@ -80,13 +80,13 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction)
     myIsInner = false;
 #endif
     myAmWaterway = true;
-    for(std::vector<const MSEdge*>::const_iterator it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end(); ++it) {
+    for(ConstMSEdgeVector::const_iterator it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end(); ++it) {
         if (!(*it)->isInternal() && !isWaterway((*it)->getPermissions())) {
             myAmWaterway = false;
             break;
         }
     }
-    for(std::vector<const MSEdge*>::const_iterator it = myJunction.getOutgoing().begin(); it != myJunction.getOutgoing().end(); ++it) {
+    for(ConstMSEdgeVector::const_iterator it = myJunction.getOutgoing().begin(); it != myJunction.getOutgoing().end(); ++it) {
         if (!(*it)->isInternal() && !isWaterway((*it)->getPermissions())) {
             myAmWaterway = false;
             break;

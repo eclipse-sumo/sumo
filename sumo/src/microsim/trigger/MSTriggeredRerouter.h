@@ -76,7 +76,7 @@ public:
      * @param[in] file The file to read the reroute definitions from
      */
     MSTriggeredRerouter(const std::string& id,
-                        const std::vector<MSEdge*>& edges,
+                        const MSEdgeVector& edges,
                         SUMOReal prob, const std::string& file, bool off);
 
 
@@ -94,7 +94,7 @@ public:
         /// The end time these definitions are valid
         SUMOTime end;
         /// The list of closed edges
-        std::vector<MSEdge*> closed;
+        MSEdgeVector closed;
         /// The distributions of new destinations to use
         RandomDistributor<MSEdge*> edgeProbs;
         /// The distributions of new routes to use
@@ -185,7 +185,7 @@ protected:
     /// The first and the last time steps of the interval
     SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
     /// List of closed edges
-    std::vector<MSEdge*> myCurrentClosed;
+    MSEdgeVector myCurrentClosed;
     /// List of permissions for closed edges
     SVCPermissions myCurrentPermissions;
     /// new destinations with probabilities

@@ -65,7 +65,7 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
 
 MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
-                                 std::vector<MSEdge*>& edges,
+                                 MSEdgeVector& edges,
                                  SUMOReal prob, const std::string& file, bool off) {
     GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off,
             dynamic_cast<GUINet&>(net).getVisualisationSpeedUp());

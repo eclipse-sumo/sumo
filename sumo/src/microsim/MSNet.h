@@ -80,6 +80,7 @@ class BinaryInputDevice;
 class MSEdgeWeightsStorage;
 class SUMOVehicle;
 
+typedef std::vector<MSEdge*> MSEdgeVector;
 
 // ===========================================================================
 // class definitions
@@ -526,10 +527,10 @@ public:
      * @param[in] prohibited The vector of forbidden edges (optional)
      */
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(
-        const std::vector<MSEdge*>& prohibited = std::vector<MSEdge*>()) const;
+        const MSEdgeVector& prohibited = MSEdgeVector()) const;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
-        const std::vector<MSEdge*>& prohibited = std::vector<MSEdge*>()) const;
-    MSPedestrianRouterDijkstra& getPedestrianRouter(const std::vector<MSEdge*>& prohibited = std::vector<MSEdge*>()) const;
+        const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSPedestrianRouterDijkstra& getPedestrianRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
 
 
     /** @brief Returns an RTree that contains lane IDs

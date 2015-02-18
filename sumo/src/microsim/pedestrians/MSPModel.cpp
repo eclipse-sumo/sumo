@@ -106,9 +106,9 @@ MSPModel::getSidewalk(const MSEdge* edge) {
 
 
 bool
-MSPModel::canTraverse(int dir, const std::vector<const MSEdge*>& route) {
+MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route) {
     const MSJunction* junction = 0;
-    for (std::vector<const MSEdge*>::const_iterator it = route.begin(); it != route.end(); ++it) {
+    for (ConstMSEdgeVector::const_iterator it = route.begin(); it != route.end(); ++it) {
         const MSEdge* edge = *it;
         if (junction != 0) {
             //std::cout << " junction=" << junction->getID() << " edge=" << edge->getID() << "\n";

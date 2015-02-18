@@ -228,13 +228,13 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUITriggeredRerouter(
     const std::string& id,
-    const std::vector<MSEdge*>& edges,
+    const MSEdgeVector& edges,
     SUMOReal prob, const std::string& aXMLFilename, bool off,
     SUMORTree& rtree) :
     MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
     GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) {
     // add visualisation objects for edges which trigger the rerouter
-    for (std::vector<MSEdge*>::const_iterator it = edges.begin(); it != edges.end(); ++it) {
+    for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
         myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, false));
         rtree.addAdditionalGLObject(myEdgeVisualizations.back());
         myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
@@ -256,7 +256,7 @@ GUITriggeredRerouter::myEndElement(int element) {
     if (element == SUMO_TAG_INTERVAL) {
         // add visualisation objects for closed edges
         const RerouteInterval& ri = myIntervals.back();
-        for (std::vector<MSEdge*>::const_iterator it = ri.closed.begin(); it != ri.closed.end(); ++it) {
+        for (MSEdgeVector::const_iterator it = ri.closed.begin(); it != ri.closed.end(); ++it) {
             myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, true));
             dynamic_cast<GUINet*>(GUINet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(myEdgeVisualizations.back());
             myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());

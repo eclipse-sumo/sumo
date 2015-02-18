@@ -94,8 +94,8 @@ void
 MSFullExport::writeEdge(OutputDevice& of) {
     of.openTag("edges");
     MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
-    const std::vector<MSEdge*>& edges = ec.getEdges();
-    for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
+    const MSEdgeVector& edges = ec.getEdges();
+    for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         MSEdge& edge = **e;
         of.openTag("edge").writeAttr("id", edge.getID()).writeAttr("traveltime", edge.getCurrentTravelTime());
         const std::vector<MSLane*>& lanes = edge.getLanes();

@@ -169,7 +169,7 @@ public:
      * @param[in] simTime The time at which the route was replaced
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(MSEdgeVector& edges, bool onInit = false);
+    bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false);
 
 
     /** @brief Returns the vehicle's acceleration
@@ -318,7 +318,7 @@ protected:
 
     /** @brief Returns the list of still pending stop edges
      */
-    virtual const std::vector<const MSEdge*> getStopEdges() const = 0;
+    virtual const ConstMSEdgeVector getStopEdges() const = 0;
 
 protected:
     /// @brief This Vehicle's parameter.

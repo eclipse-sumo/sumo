@@ -131,7 +131,7 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
                 return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "A string list is needed for adding a new route.", outputStorage);
             }
             //read itemNo
-            MSEdgeVector edges;
+            ConstMSEdgeVector edges;
             for (std::vector<std::string>::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
                 MSEdge* edge = MSEdge::dictionary(*i);
                 if (edge == 0) {

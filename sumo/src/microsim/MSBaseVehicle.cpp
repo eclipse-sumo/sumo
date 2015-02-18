@@ -145,8 +145,8 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
     if (sink == 0) {
         sink = myRoute->getLastEdge();
     }
-    std::vector<const MSEdge*> edges;
-    const std::vector<const MSEdge*> stops = getStopEdges();
+    ConstMSEdgeVector edges;
+    const ConstMSEdgeVector stops = getStopEdges();
     for (MSRouteIterator s = stops.begin(); s != stops.end(); ++s) {
         if (*s != source) {
             // !!! need to adapt t here
@@ -167,7 +167,7 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
 
 
 bool
-MSBaseVehicle::replaceRouteEdges(MSEdgeVector& edges, bool onInit) {
+MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit) {
     if (edges.empty()) {
         WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
         return false;

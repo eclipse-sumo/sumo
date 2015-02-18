@@ -98,7 +98,7 @@ protected:
      * @param[in] file The file to read the reroute definitions from
      */
     virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
-            const std::string& id, std::vector<MSEdge*>& edges,
+            const std::string& id, MSEdgeVector& edges,
             SUMOReal prob, const std::string& file, bool off);
 
 

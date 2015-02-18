@@ -464,7 +464,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
             // same edge
             distance = roadPos2.second - roadPos1.second;
         } else {
-            MSEdgeVector newRoute;
+            ConstMSEdgeVector newRoute;
             MSNet::getInstance()->getRouterTT().compute(
                 &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), 0, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
             MSRoute route("", newRoute, false, 0, std::vector<SUMOVehicleParameter::Stop>());

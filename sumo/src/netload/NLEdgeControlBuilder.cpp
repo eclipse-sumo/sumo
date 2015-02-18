@@ -108,7 +108,7 @@ NLEdgeControlBuilder::closeEdge() {
 
 MSEdgeControl*
 NLEdgeControlBuilder::build() {
-    for (EdgeCont::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
+    for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
         (*i1)->closeBuilding();
 #ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
@@ -118,7 +118,7 @@ NLEdgeControlBuilder::build() {
     }
     // mark internal edges belonging to a roundabout (after all edges are build)
     if (MSGlobals::gUsingInternalLanes) {
-        for (EdgeCont::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
+        for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
             MSEdge* edge = *i1;
             if (edge->isInternal()) {
                 if (edge->getNumSuccessors() != 1 || edge->getIncomingEdges().size() != 1) {

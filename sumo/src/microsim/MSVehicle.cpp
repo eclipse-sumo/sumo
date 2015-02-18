@@ -450,7 +450,7 @@ MSVehicle::hasArrived() const {
 
 bool
 MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
-    const MSEdgeVector& edges = newRoute->getEdges();
+    const ConstMSEdgeVector& edges = newRoute->getEdges();
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
     if (!onInit && !newRoute->contains(*myCurrEdge)) {
         return false;
@@ -887,9 +887,9 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
 }
 
 
-const std::vector<const MSEdge*>
+const ConstMSEdgeVector
 MSVehicle::getStopEdges() const {
-    std::vector<const MSEdge*> result;
+    ConstMSEdgeVector result;
     for (std::list<Stop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
         result.push_back(*iter->edge);
     }
