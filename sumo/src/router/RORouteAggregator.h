@@ -182,10 +182,7 @@ private:
     static EdgeSet approachingEdges(EdgeSet edges) {
         EdgeSet result;
         for (EdgeSet::iterator it = edges.begin(); it != edges.end(); it++) {
-            const unsigned int length_size = (*it)->getNumPredecessors();
-            for (unsigned int i = 0; i < length_size; i++) {
-                result.insert((*it)->getPredecessor(i));
-            }
+            result.insert((*it)->getPredecessors().begin(), (*it)->getPredecessors().end());
         }
         return result;
     }

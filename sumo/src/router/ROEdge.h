@@ -311,8 +311,8 @@ public:
      * @param[in] pos The position of the list within the list of incoming
      * @return The incoming edge, stored at position pos
      */
-    ROEdge* getPredecessor(unsigned int pos) const {
-        return myApproachingEdges[pos];
+    const ROEdgeVector& getPredecessors() const {
+        return myApproachingEdges;
     }
 
 

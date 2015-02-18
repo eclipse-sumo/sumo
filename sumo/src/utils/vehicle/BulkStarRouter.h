@@ -194,10 +194,8 @@ public:
             minimumInfo->visited = true;
             const SUMOReal traveltime = minimumInfo->traveltime + getMinEffort(minEdge, fastestVehicle);
             // check all ways from the node with the minimal length
-            unsigned int i = 0;
-            const unsigned int length_size = minEdge->getNumPredecessors();
-            for (i = 0; i < length_size; i++) {
-                const E* const follower = minEdge->getPredecessor(i);
+            for (typename std::vector<E*>::const_iterator it = minEdge->getPredecessors().begin(); it != minEdge->getPredecessors().end(); it++) {
+                const E* const follower = *it;
                 EdgeInfo* const followerInfo = &(myEdgeInfos[follower->getNumericalID()]);
                 const SUMOReal oldEffort = followerInfo->traveltime;
                 if (!followerInfo->visited && traveltime < oldEffort) {

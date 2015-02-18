@@ -324,8 +324,8 @@ public:
      * @param[in] pos The position of the list within the list of approached
      * @return The following edge, stored at position pos
      */
-    MSEdge* getPredecessor(unsigned int pos) const {
-        return myPredecessors[pos];
+    const MSEdgeVector& getPredecessors() const {
+        return myPredecessors;
     }
 
 

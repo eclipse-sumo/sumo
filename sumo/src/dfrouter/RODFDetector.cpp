@@ -138,9 +138,8 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
             while (!pending.empty()) {
                 ROEdge* e = pending.back();
                 pending.pop_back();
-                const unsigned int numAppr = e->getNumPredecessors();
-                for (unsigned int j = 0; j < numAppr; j++) {
-                    ROEdge* e2 = e->getPredecessor(j);
+                for (ROEdgeVector::const_iterator it = e->getPredecessors().begin(); it != e->getPredecessors().end(); it++) {
+                    ROEdge* e2 = *it;
                     if (e2->getNumSuccessors() == 1 && seen.count(e2) == 0) {
                         if (net->hasDetector(e2)) {
                             inFlows[*i] += detectors.getAggFlowFor(e2, 0, 0, flows);
