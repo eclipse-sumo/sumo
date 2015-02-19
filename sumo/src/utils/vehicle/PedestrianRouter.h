@@ -86,6 +86,11 @@ struct PedestrianTrip {
         return from->getID() + ":" + to->getID() + ":" + toString(departTime);
     }
 
+
+    inline SUMOVehicleClass getVClass() const {
+        return SVC_PEDESTRIAN;
+    }
+
     const E* from;
     const E* to;
     const N* node; // indicates whether only routing across this node shall be performed
@@ -338,6 +343,11 @@ public:
     }
 
     const std::vector<PedestrianEdge*>& getSuccessors() const {
+        return myFollowingEdges;
+    }
+
+    const std::vector<PedestrianEdge*>& getSuccessors(SUMOVehicleClass /*vClass*/) const {
+        // the network is already tailored for pedestrians. No need to check for permissions here
         return myFollowingEdges;
     }
 

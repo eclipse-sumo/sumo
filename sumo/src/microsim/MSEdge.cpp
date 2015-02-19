@@ -173,6 +173,7 @@ MSEdge::rebuildAllowedLanes() {
         }
     }
     myClassedAllowed.clear();
+    myClassesSuccessorMap.clear();
     // rebuild myMinimumPermissions and myCombinedPermissions
     myMinimumPermissions = SVCAll;
     myCombinedPermissions = 0;
@@ -659,6 +660,29 @@ MSEdge::person_by_offset_sorter::operator()(const MSPerson* const p1, const MSPe
     }
     return p1->getID() < p2->getID();
 }
+
+
+const MSEdgeVector& 
+MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
+    if (vClass == SVC_IGNORING) {
+        return mySuccessors;
+    }
+    ClassesSuccesorMap::const_iterator i = myClassesSuccessorMap.find(vClass);
+    if (i != myClassesSuccessorMap.end()) {
+        // can use cached value
+        return i->second;
+    } else {
+        // this vClass is requested for the first time. rebuild all succesors
+        for (MSEdgeVector::const_iterator it = mySuccessors.begin(); it != mySuccessors.end(); ++it) {
+            const std::vector<MSLane*>* allowed = allowedLanes(*it, vClass);
+            if (allowed == 0 || allowed->size() > 0) {
+                myClassesSuccessorMap[vClass].push_back(*it);
+            }
+        }
+        return myClassesSuccessorMap[vClass];
+    }
+}
+
 
 /****************************************************************************/
 

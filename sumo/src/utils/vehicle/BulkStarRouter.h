@@ -250,6 +250,7 @@ public:
                  SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && to != 0);
         this->startQuery();
+        const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         init();
         const Prepared prepared = (myPreparedDestination == 0 ?
                                    NO : (myPreparedDestination == to ? YES_EXACT : YES));
@@ -280,7 +281,7 @@ public:
             minimumInfo->visited = true;
             const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // check all ways from the node with the minimal length
-            const std::vector<E*>& successors = minEdge->getSuccessors();
+            const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
             for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
                 const E* const follower = *it;
                 EdgeInfo* const followerInfo = &(myEdgeInfos[follower->getNumericalID()]);

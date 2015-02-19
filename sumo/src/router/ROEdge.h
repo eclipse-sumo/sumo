@@ -227,11 +227,10 @@ public:
     /** @brief returns the information whether this edge is directly connected to the given
      *
      * @param[in] e The edge which may be connected
+     * @param[in] vehicle The vehicle for which the connectivity is checked
      * @return Whether the given edge is a direct successor to this one
      */
-    bool isConnectedTo(const ROEdge* const e) const {
-        return std::find(myFollowingEdges.begin(), myFollowingEdges.end(), e) != myFollowingEdges.end();
-    }
+    bool isConnectedTo(const ROEdge* const e, const ROVehicle* const vehicle) const;
 
 
     /** @brief Returns whether this edge prohibits the given vehicle to pass it
@@ -288,13 +287,18 @@ public:
     unsigned int getNumSuccessors() const;
 
 
-    /** @brief Returns the edge at the given position from the list of reachable edges
-     * @param[in] pos The position of the list within the list of following
-     * @return The following edge, stored at position pos
+    /** @brief Returns the following edges
      */
-    ROEdgeVector getSuccessors() const {
+    const ROEdgeVector& getSuccessors() const {
         return myFollowingEdges;
     }
+
+
+    /** @brief Returns the following edges, restricted by vClass
+     * @param[in] vClass The vClass for which to restrict the successors
+     * @return The eligible following edges
+     */
+    const ROEdgeVector& getSuccessors(SUMOVehicleClass vClass) const;
 
 
     /** @brief Returns the number of edges connected to this edge
@@ -505,6 +509,9 @@ protected:
     RONode* myFromJunction;
     RONode* myToJunction;
 
+    /// @brief The successors available for a given vClass
+    typedef std::map<SUMOVehicleClass, ROEdgeVector> ClassesSuccesorMap;
+    mutable ClassesSuccesorMap myClassesSuccessorMap;
 
 private:
     /// @brief Invalidated copy constructor

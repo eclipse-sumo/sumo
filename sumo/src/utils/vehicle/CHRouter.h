@@ -665,7 +665,7 @@ private:
         }
         const SUMOReal cost = this->getEffort(edge, vehicle, time);
 
-        const std::vector<E*>& successors = edge->getSuccessors();
+        const std::vector<E*>& successors = edge->getSuccessors(mySVC);
         for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
             const E* fEdge = *it;
             if (prune && ((fEdge->getPermissions() & mySVC) != mySVC)) {

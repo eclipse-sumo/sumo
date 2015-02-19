@@ -302,13 +302,18 @@ public:
     }
 
 
-    /** @brief Returns the n-th of the following edges
-     * @param[in] n The index within following edges of the edge to return
-     * @return The n-th of the following edges
+    /** @brief Returns the following edges
      */
     const MSEdgeVector& getSuccessors() const {
         return mySuccessors;
     }
+
+
+    /** @brief Returns the following edges, restricted by vClass
+     * @param[in] vClass The vClass for which to restrict the successors
+     * @return The eligible following edges
+     */
+    const MSEdgeVector& getSuccessors(SUMOVehicleClass vClass) const;
 
 
     /** @brief Returns the number of edges this edge is connected to
@@ -747,6 +752,9 @@ protected:
     /// @}
 
 
+    /// @brief The successors available for a given vClass
+    typedef std::map<SUMOVehicleClass, MSEdgeVector> ClassesSuccesorMap;
+    mutable ClassesSuccesorMap myClassesSuccessorMap;
 
 private:
     /// @brief Invalidated copy constructor.

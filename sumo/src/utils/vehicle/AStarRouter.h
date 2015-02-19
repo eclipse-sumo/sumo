@@ -175,6 +175,7 @@ public:
                          SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && to != 0);
         this->startQuery();
+        const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         const SUMOReal time = STEPS2TIME(msTime);
         init();
         // add begin node
@@ -205,7 +206,7 @@ public:
             // admissible A* heuristic: straight line distance at maximum speed
             const SUMOReal heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / vehicle->getMaxSpeed() : (*myLookupTable)[minEdge->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
             // check all ways from the node with the minimal length
-            const std::vector<E*>& successors = minEdge->getSuccessors();
+            const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
             for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
                 const E* const follower = *it;
                 EdgeInfo* const followerInfo = &(myEdgeInfos[follower->getNumericalID()]);
