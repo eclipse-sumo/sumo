@@ -2129,6 +2129,15 @@ NBEdge::getLaneWidth(int lane) const {
 }
 
 
+SUMOReal 
+NBEdge::getTotalWidth() const {
+    SUMOReal result = 0;
+    for (unsigned int i = 0; i < myLanes.size(); i++) {
+        result += getLaneWidth(i);
+    }
+    return result;
+}
+
 SUMOReal
 NBEdge::getEndOffset(int lane) const {
     return myLanes[lane].endOffset != UNSPECIFIED_OFFSET ? myLanes[lane].endOffset : getEndOffset();

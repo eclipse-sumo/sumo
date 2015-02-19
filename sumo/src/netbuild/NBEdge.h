@@ -456,6 +456,10 @@ public:
     SUMOReal getLaneWidth(int lane) const;
 
 
+    /** @brief Returns the combined width of all lanes of this edge
+     */
+    SUMOReal getTotalWidth() const;
+
     /** @brief Returns the street name of this edge
      */
     const std::string& getStreetName() const {
