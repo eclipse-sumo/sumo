@@ -118,7 +118,7 @@ public:
      * Return the distance from point to line as well as the intersection point.
      * If intersection does not lie within the line segment, the  start or end point of the segment is returned
      */
-    static SUMOReal closestDistancePointLine(const Position& point,
+    static SUMOReal closestDistancePointLine2D(const Position& point,
             const Position& lineStart, const Position& lineEnd,
             Position& outIntersection);
 
