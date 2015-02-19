@@ -583,6 +583,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
     // distance to look ahead for a misleading angle
     const SUMOReal angleChangeLookahead = 35;
     const SUMOReal angleChangeLookahead2 = 135;
+    EdgeSet foundOpposite;
 
     EdgeVector::const_iterator i, j;
     for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end() - 1; i++) {
@@ -644,7 +645,11 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
             //}
             if (fabs(angleDiff) < 20) {
                 // @todo in case of ambiguousGeometry it would be better to adapt the geoms instead of joining
-                if (differentDirs || ambiguousGeometry || badIntersection(*i, *j, fabs(angleDiff), 100, SUMO_const_laneWidth)) {
+                if ((differentDirs && foundOpposite.count(*i) == 0) || ambiguousGeometry || badIntersection(*i, *j, fabs(angleDiff), 100, SUMO_const_laneWidth)) {
+                    if (differentDirs) {
+                        foundOpposite.insert(*i);
+                        foundOpposite.insert(*j);
+                    }
                     if (same.find(*i) == same.end()) {
                         same[*i] = EdgeVector();
                     }
@@ -672,9 +677,11 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, SUMORea
     const SUMOReal commonLength = MIN3(distance, e1->getGeometry().length(), e2->getGeometry().length());
     PositionVector geom1 = e1->getGeometry();
     PositionVector geom2 = e2->getGeometry();
+    // always let geometry start at myNode
     if (e1->getToNode() == &myNode) {
-        // always let geometry start at myNode
         geom1 = geom1.reverse();
+    }
+    if (e2->getToNode() == &myNode) {
         geom2 = geom2.reverse();
     }
     geom1 = geom1.getSubpart2D(0, commonLength);

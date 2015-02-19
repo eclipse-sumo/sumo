@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 18 15:53:56 2015 by SUMO netconvert Version dev-SVN-r17901I
+<!-- generated on Thu Feb 19 13:04:08 2015 by SUMO netconvert Version dev-SVN-r17913I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -62,10 +62,10 @@
         <lane id="-26816413#1_0" index="0" allow="delivery" speed="5.56" length="25.92" shape="569.35,322.07 584.31,335.76"/>
     </edge>
     <edge id="-26816553" from="294168972" to="294168098" priority="2" type="highway.service" shape="714.97,226.01 706.28,235.54 682.39,261.75 633.73,223.14 570.98,302.73 563.73,311.92 566.45,321.65">
-        <lane id="-26816553_0" index="0" allow="delivery" speed="5.56" length="233.63" shape="712.94,230.68 707.50,236.65 682.58,264.00 634.00,225.46 572.28,303.75 565.55,312.29 567.02,317.56"/>
+        <lane id="-26816553_0" index="0" allow="delivery" speed="5.56" length="233.63" shape="712.94,230.68 707.50,236.65 682.58,264.00 634.00,225.46 572.28,303.75 570.10,306.51"/>
     </edge>
     <edge id="-26816590#0" from="294169338" to="294168098" priority="2" type="highway.service">
-        <lane id="-26816590#0_0" index="0" allow="delivery" speed="5.56" length="15.38" shape="561.14,309.83 566.19,318.06"/>
+        <lane id="-26816590#0_0" index="0" allow="delivery" speed="5.56" length="15.38" shape="560.09,308.12 560.20,308.29"/>
     </edge>
     <edge id="-26816590#1" from="294169339" to="294169338" priority="2" type="highway.service">
         <lane id="-26816590#1_0" index="0" allow="delivery" speed="5.56" length="15.40" shape="548.11,302.28 552.56,304.21"/>
@@ -353,13 +353,13 @@
         <lane id="26816413#1_0" index="0" allow="delivery" speed="5.56" length="25.92" shape="582.08,338.19 567.13,324.51"/>
     </edge>
     <edge id="26816541" from="294168098" to="294168710" priority="2" type="highway.service" spreadType="center" shape="566.45,321.65 534.87,327.64 539.54,356.67 560.71,364.39 585.57,339.15">
-        <lane id="26816541_0" index="0" allow="delivery" speed="5.56" length="119.51" shape="562.16,322.46 534.87,327.64 539.54,356.67 560.71,364.39 582.19,342.58"/>
+        <lane id="26816541_0" index="0" allow="delivery" speed="5.56" length="119.51" shape="560.96,322.69 534.87,327.64 539.54,356.67 560.71,364.39 582.19,342.58"/>
     </edge>
     <edge id="26816553" from="294168098" to="294168972" priority="2" type="highway.service" shape="566.45,321.65 563.73,311.92 570.98,302.73 633.73,223.14 682.39,261.75 706.28,235.54 714.97,226.01">
-        <lane id="26816553_0" index="0" allow="delivery" speed="5.56" length="233.63" shape="564.10,319.38 561.92,311.56 569.68,301.71 633.46,220.82 682.21,259.50 705.06,234.43 710.50,228.46"/>
+        <lane id="26816553_0" index="0" allow="delivery" speed="5.56" length="233.63" shape="565.43,307.10 569.68,301.71 633.46,220.82 682.21,259.50 705.06,234.43 710.50,228.46"/>
     </edge>
     <edge id="26816590#0" from="294168098" to="294169338" priority="2" type="highway.service">
-        <lane id="26816590#0_0" index="0" allow="delivery" speed="5.56" length="15.38" shape="563.41,319.85 558.33,311.55"/>
+        <lane id="26816590#0_0" index="0" allow="delivery" speed="5.56" length="15.38" shape="558.33,311.55 558.22,311.38"/>
     </edge>
     <edge id="26816590#1" from="294169338" to="294169339" priority="2" type="highway.service">
         <lane id="26816590#1_0" index="0" allow="delivery" speed="5.56" length="15.40" shape="551.25,307.24 546.80,305.30"/>
@@ -769,7 +769,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="294168098" type="right_before_left" x="566.45" y="321.65" incLanes="26816413#1_0 -26816553_0 -26816590#0_0" intLanes="" shape="566.05,325.69 570.44,320.89 568.93,318.43 562.89,322.06 567.55,317.23 564.82,318.90 561.86,320.89 562.46,324.03">
+    <junction id="294168098" type="right_before_left" x="566.45" y="321.65" incLanes="26816413#1_0 -26816553_0 -26816590#0_0" intLanes="" shape="566.05,325.69 570.44,320.89 572.36,306.23 563.17,307.39 561.46,307.29 555.92,310.68 560.67,321.12 561.26,324.26">
         <request index="0" response="000000000000" foes="010000100000"/>
         <request index="1" response="000000000000" foes="110001100000"/>
         <request index="2" response="001100000000" foes="001111100000"/>
