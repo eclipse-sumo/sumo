@@ -158,30 +158,7 @@ PCPolyContainer::save(const std::string& file) {
     out.writeXMLHeader("additional", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/additional_file.xsd\"");
     // write polygons
     for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); ++i) {
-        Polygon* p = i->second;
-        out.openTag(SUMO_TAG_POLY);
-        out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(p->getID()));
-        out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(p->getType()));
-        out.writeAttr(SUMO_ATTR_COLOR, p->getColor());
-        out.writeAttr(SUMO_ATTR_FILL,  p->getFill());
-        out.writeAttr(SUMO_ATTR_LAYER, p->getLayer());
-        out.writeAttr(SUMO_ATTR_SHAPE, p->getShape());
-        if (p->getAngle() != Shape::DEFAULT_ANGLE) {
-            out.writeAttr(SUMO_ATTR_ANGLE, p->getAngle());
-        }
-        if (p->getImgFile() != Shape::DEFAULT_IMG_FILE) {
-            out.writeAttr(SUMO_ATTR_IMGFILE, p->getImgFile());
-        }
-        const std::map<std::string, std::string>& attrs = p->getMap();
-        if (attrs.size() != 0) {
-            for (std::map<std::string, std::string>::const_iterator j = attrs.begin(); j != attrs.end(); ++j) {
-                out.openTag(SUMO_TAG_PARAM);
-                out.writeAttr(SUMO_ATTR_KEY, (*j).first);
-                out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
-                out.closeTag();
-            }
-        }
-        out.closeTag();
+        i->second->writeXML(out);
     }
     // write pois
     for (POICont::iterator i = myPOICont.begin(); i != myPOICont.end(); ++i) {

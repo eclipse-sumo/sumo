@@ -37,6 +37,8 @@
 #include <utils/common/Parameterised.h>
 #include "Shape.h"
 
+class OutputDevice;
+
 // we need to put this into a namespace to avoid clashing with wingdi.h::Polygon function
 namespace SUMO {
 
@@ -111,6 +113,8 @@ public:
     }
     /// @}
 
+    /// @brief polygon definition to the given device
+    void writeXML(OutputDevice& out);
 
 protected:
     /// @brief The positions of the polygon
