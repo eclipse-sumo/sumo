@@ -53,7 +53,11 @@
  * @brief Some static methods performing geometrical operations
  */
 class GeomHelper {
+
 public:
+    /// @brief a value to signify offsets outside the range of [0, Line.length()]
+    static const SUMOReal INVALID_OFFSET;
+
     /** @brief return whether given lines intersect
      * @param[in] p11 The begin position of the first line
      * @param[in] p12 The end position of the first line

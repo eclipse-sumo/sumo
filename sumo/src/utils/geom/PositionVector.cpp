@@ -53,7 +53,6 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -728,7 +727,7 @@ PositionVector::pruneFromBeginAt(const Position& p) {
     // replace first item by the new position
     SUMOReal lpos = GeomHelper::nearest_offset_on_line_to_point2D(
                         (*this)[0], (*this)[1], p);
-    if (lpos == -1) {
+    if (lpos == GeomHelper::INVALID_OFFSET) {
         return;
     }
     Position np = positionAtOffset(lpos);
@@ -789,7 +788,7 @@ PositionVector::pruneFromEndAt(const Position& p) {
     SUMOReal lpos =
         GeomHelper::nearest_offset_on_line_to_point2D(
             (*this)[static_cast<int>(size()) - 1], (*this)[static_cast<int>(size()) - 2], p);
-    if (lpos == -1) {
+    if (lpos ==  GeomHelper::INVALID_OFFSET) {
         return;
     }
     Position np = positionAtOffset(
@@ -830,12 +829,12 @@ PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular)
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const SUMOReal pos =
             GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, perpendicular);
-        const SUMOReal dist = pos < 0 ? minDist : p.distanceTo2D(Line(*i, *(i + 1)).getPositionAtDistance2D(pos));
+        const SUMOReal dist = pos == GeomHelper::INVALID_OFFSET ? minDist : p.distanceTo2D(Line(*i, *(i + 1)).getPositionAtDistance2D(pos));
         if (dist < minDist) {
             nearestPos = pos + seen;
             minDist = dist;
         }
-        if (perpendicular && i != begin() && pos == -1.) {
+        if (perpendicular && i != begin() && pos == GeomHelper::INVALID_OFFSET) {
             // even if perpendicular is set we still need to check the distance to the inner points
             const SUMOReal cornerDist = p.distanceTo2D(*i);
             if (cornerDist < minDist) {
@@ -877,7 +876,7 @@ PositionVector::transformToVectorCoordinates(const Position& p, bool extend) con
             minDist = dist;
             sign = isLeft(*i, *(i + 1), p) >= 0 ? -1 : 1;
         }
-        if (i != begin() && pos == -1.) {
+        if (i != begin() && pos == GeomHelper::INVALID_OFFSET) {
             // even if perpendicular is set we still need to check the distance to the inner points
             const SUMOReal cornerDist = p.distanceTo2D(*i);
             if (cornerDist < minDist) {
@@ -934,21 +933,6 @@ PositionVector::insertAtClosest(const Position& p) {
     }
     insertAt(insertionIndex, p);
     return insertionIndex;
-}
-
-
-SUMOReal
-PositionVector::distance(const Position& p) const {
-    if (size() == 1) {
-        return front().distanceTo(p);
-    }
-    Position outIntersection;
-    SUMOReal minDist = std::numeric_limits<double>::max();
-    for (const_iterator i = begin(); i != end() - 1; i++) {
-        minDist = MIN2(minDist, GeomHelper::closestDistancePointLine2D(
-                           p, *i, *(i + 1), outIntersection));
-    }
-    return minDist;
 }
 
 
@@ -1127,16 +1111,38 @@ PositionVector::closePolygon() {
 
 
 std::vector<SUMOReal>
-PositionVector::distances(const PositionVector& s) const {
+PositionVector::distances(const PositionVector& s, bool perpendicular) const {
     std::vector<SUMOReal> ret;
     const_iterator i;
     for (i = begin(); i != end(); i++) {
-        ret.push_back(s.distance(*i));
+        const SUMOReal dist = s.distance(*i, perpendicular);
+        if (dist != GeomHelper::INVALID_OFFSET) {
+            ret.push_back(dist);
+        }
     }
     for (i = s.begin(); i != s.end(); i++) {
-        ret.push_back(distance(*i));
+        const SUMOReal dist = distance(*i, perpendicular);
+        if (dist != GeomHelper::INVALID_OFFSET) {
+            ret.push_back(dist);
+        }
     }
     return ret;
+}
+
+
+SUMOReal
+PositionVector::distance(const Position& p, bool perpendicular) const {
+    if (size() == 0) {
+        return std::numeric_limits<double>::max();
+    } else if (size() == 1) {
+        return front().distanceTo(p);
+    }
+    const SUMOReal nearestOffset = nearest_offset_to_point2D(p, perpendicular);
+    if (nearestOffset == GeomHelper::INVALID_OFFSET) {
+        return GeomHelper::INVALID_OFFSET;
+    } else {
+        return p.distanceTo2D(positionAtOffset2D(nearestOffset));
+    }
 }
 
 

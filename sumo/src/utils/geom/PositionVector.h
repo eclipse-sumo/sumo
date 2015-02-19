@@ -293,10 +293,16 @@ public:
      * @note: may only be called for a non-empty vector */
     int indexOfClosest(const Position& p) const;
 
-    // distances of all my points to s and all of s points to myself
-    std::vector<SUMOReal> distances(const PositionVector& s) const;
+    /* @brief distances of all my points to s and all of s points to myself
+     * if perpenciualr is set to true, only the perpendicular distances are
+     * returned
+     */
+    std::vector<SUMOReal> distances(const PositionVector& s, bool perpendicular=false) const;
 
-    SUMOReal distance(const Position& p) const;
+    /* @brief closest distance to point p 
+     * (or -1 if perpendicular is true and the point is beyond this vector)
+     */
+    SUMOReal distance(const Position& p, bool perpendicular=false) const;
 
     void push_back_noDoublePos(const Position& p);
     void push_front_noDoublePos(const Position& p);

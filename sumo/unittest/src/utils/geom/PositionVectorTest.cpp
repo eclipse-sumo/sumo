@@ -23,10 +23,21 @@
 #include <gtest/gtest.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 
+
+#define EXPECT_DOUBLEVEC_EQUAL(v1, v2) \
+{ \
+    EXPECT_EQ(v1.size(), v2.size()); \
+    if (v1.size() == v2.size()) { \
+        for (int i = 0; i < (int)v1.size(); ++i) { \
+            EXPECT_DOUBLE_EQ(v1[i], v2[i]); \
+        } \
+    } \
+} \
 
 class PositionVectorTest : public testing::Test {
 	protected :
@@ -50,6 +61,7 @@ class PositionVectorTest : public testing::Test {
 			delete vectorPolygon;
 			delete vectorLine;
 		}
+
 };
 
 /* Test the method 'around'*/
@@ -375,4 +387,112 @@ TEST_F(PositionVectorTest, test_method_transformToVectorCoordinates) {
         EXPECT_EQ(Position(-1, -1),  vec1.transformToVectorCoordinates(before, true));
         EXPECT_EQ(Position(28, 4),  vec1.transformToVectorCoordinates(beyond, true));
     }
+}
+
+
+/* Test the method 'distance'*/
+TEST_F(PositionVectorTest, test_method_distance) {	
+    {
+        PositionVector vec1;
+        vec1.push_back(Position(1,0));
+        vec1.push_back(Position(10,0));
+        vec1.push_back(Position(10,5));
+        vec1.push_back(Position(20,5));
+        Position on(4,0);
+        Position left(4,1);
+        Position right(4,-1);
+        Position left2(4,2);
+        Position right2(4,-2);
+        Position cornerRight(13,-4);
+        Position cornerLeft(7,9);
+        Position before(-3,-3);
+        Position beyond(24,8);
+
+        EXPECT_EQ(0,  vec1.distance(on));
+        EXPECT_EQ(1,  vec1.distance(left));
+        EXPECT_EQ(1,  vec1.distance(right));
+        EXPECT_EQ(2,  vec1.distance(left2));
+        EXPECT_EQ(2,  vec1.distance(right2));
+        EXPECT_EQ(5,  vec1.distance(cornerRight));
+        EXPECT_EQ(5,  vec1.distance(cornerLeft));
+
+        EXPECT_EQ(GeomHelper::INVALID_OFFSET,  vec1.distance(before, true));
+        EXPECT_EQ(GeomHelper::INVALID_OFFSET,  vec1.distance(beyond, true));
+        EXPECT_EQ(5,  vec1.distance(before));
+        EXPECT_EQ(5,  vec1.distance(beyond));
+    }
+
+    { 
+        PositionVector vec1; // the same tests as before, mirrored on x-axis
+        vec1.push_back(Position(1,0));
+        vec1.push_back(Position(10,0));
+        vec1.push_back(Position(10,-5));
+        vec1.push_back(Position(20,-5));
+        Position on(4,0);
+        Position left(4,-1);
+        Position right(4,1);
+        Position left2(4,-2);
+        Position right2(4,2);
+        Position cornerRight(13,4);
+        Position cornerLeft(7,-9);
+        Position before(-3,3);
+        Position beyond(24,-8);
+
+        EXPECT_EQ(0,  vec1.distance(on));
+        EXPECT_EQ(1,  vec1.distance(left));
+        EXPECT_EQ(1,  vec1.distance(right));
+        EXPECT_EQ(2,  vec1.distance(left2));
+        EXPECT_EQ(2,  vec1.distance(right2));
+        EXPECT_EQ(5,  vec1.distance(cornerRight));
+        EXPECT_EQ(5,  vec1.distance(cornerLeft));
+
+        EXPECT_EQ(GeomHelper::INVALID_OFFSET,  vec1.distance(before, true));
+        EXPECT_EQ(GeomHelper::INVALID_OFFSET,  vec1.distance(beyond, true));
+        EXPECT_EQ(5,  vec1.distance(before));
+        EXPECT_EQ(5,  vec1.distance(beyond));
+    }
+}
+
+
+/* Test the method 'distance'*/
+TEST_F(PositionVectorTest, test_method_distances) {	
+    {
+        PositionVector vec1;
+        vec1.push_back(Position(0,0));
+        vec1.push_back(Position(10,0));
+
+        PositionVector vec2;
+        vec2.push_back(Position(1,0));
+        vec2.push_back(Position(5,2));
+        vec2.push_back(Position(10,0));
+        vec2.push_back(Position(14,3));
+
+        PositionVector vec3;
+
+        std::vector<SUMOReal> res1;
+        res1.push_back(1);
+        res1.push_back(0);
+        res1.push_back(0);
+        res1.push_back(2);
+        res1.push_back(0);
+        res1.push_back(5);
+        EXPECT_DOUBLEVEC_EQUAL(res1,  vec1.distances(vec2));
+
+
+        std::vector<SUMOReal> res2;
+        //invalid: res1.push_back(1);
+        res2.push_back(0);
+        res2.push_back(0);
+        res2.push_back(2);
+        res2.push_back(0);
+        //invalid: res2.push_back(5);
+        EXPECT_DOUBLEVEC_EQUAL(res2,  vec1.distances(vec2, true));
+
+
+        std::vector<SUMOReal> res3;
+        res3.push_back(std::numeric_limits<double>::max());
+        res3.push_back(std::numeric_limits<double>::max());
+        EXPECT_DOUBLEVEC_EQUAL(res3,  vec1.distances(vec3));
+    }
+
 }
