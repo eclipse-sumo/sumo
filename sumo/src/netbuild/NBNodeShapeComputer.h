@@ -150,6 +150,8 @@ private:
             SUMOReal& cad,
             SUMOReal& ccad);
 
+    /// @return whether trying to intersect these edges would probably fail
+    bool badIntersection(const NBEdge* e1, const NBEdge* e2, SUMOReal absAngleDiff, SUMOReal distance, SUMOReal threshold);
 
 private:
     /// The node to compute the geometry for

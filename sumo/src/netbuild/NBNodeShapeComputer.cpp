@@ -580,8 +580,13 @@ void
 NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW) {
+    // distance to look ahead for a misleading angle
+    const SUMOReal angleChangeLookahead = 35;
+    const SUMOReal angleChangeLookahead2 = 135;
+
     EdgeVector::const_iterator i, j;
     for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end() - 1; i++) {
+        const bool incoming = (*i)->getToNode() == &myNode;
         // store current edge's boundary as current ccw/cw boundary
         try {
             geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode);
@@ -607,6 +612,8 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
         tmp = geomsCW[*i].lineAt(0);
         tmp.extrapolateBy2D(100);
         geomsCW[*i].replaceAt(0, tmp.p1());
+        const SUMOReal angle1further = (g1.size() > 2 && l1.length2D() < angleChangeLookahead ? 
+                g1.lineAt(1).atan2DegreeAngle() : l1.atan2DegreeAngle());
         //
         for (j = i + 1; j != myNode.myAllEdges.end(); j++) {
             geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode);
@@ -622,22 +629,63 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
             tmp = geomsCW[*j].lineAt(0);
             tmp.extrapolateBy2D(100);
             geomsCW[*j].replaceAt(0, tmp.p1());
-            if (fabs(l1.atan2DegreeAngle() - l2.atan2DegreeAngle()) < 20) {
-                if (same.find(*i) == same.end()) {
-                    same[*i] = EdgeVector();
-                }
-                if (same.find(*j) == same.end()) {
-                    same[*j] = EdgeVector();
-                }
-                if (find(same[*i].begin(), same[*i].end(), *j) == same[*i].end()) {
-                    same[*i].push_back(*j);
-                }
-                if (find(same[*j].begin(), same[*j].end(), *i) == same[*j].end()) {
-                    same[*j].push_back(*i);
+            const SUMOReal angle2further = (g2.size() > 2 && l2.length2D() < angleChangeLookahead ? 
+                    g2.lineAt(1).atan2DegreeAngle() : l2.atan2DegreeAngle());
+            // do not join edges which are both entering or both leaving. A
+            // separation point must always be computed in later steps
+            const SUMOReal angleDiff = l1.atan2DegreeAngle() - l2.atan2DegreeAngle();
+            const bool differentDirs = ((incoming && (*j)->getFromNode() == &myNode) || 
+                    !incoming && (*j)->getToNode() == &myNode);
+            const SUMOReal angleDiffFurther = angle1further - angle2further;
+            const bool ambiguousGeometry = ((angleDiff > 0 && angleDiffFurther < 0) || (angleDiff < 0 && angleDiffFurther > 0));
+            //if (ambiguousGeometry) {
+            //    @todo: this warning would be helpful in many cases. However, if angle and angleFurther jump between 179 and -179 it is misleading
+            //    WRITE_WARNING("Ambigous angles at node '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
+            //}
+            if (fabs(angleDiff) < 20) {
+                // @todo in case of ambiguousGeometry it would be better to adapt the geoms instead of joining
+                if (differentDirs || ambiguousGeometry || badIntersection(*i, *j, fabs(angleDiff), 100, SUMO_const_laneWidth)) {
+                    if (same.find(*i) == same.end()) {
+                        same[*i] = EdgeVector();
+                    }
+                    if (same.find(*j) == same.end()) {
+                        same[*j] = EdgeVector();
+                    }
+                    if (find(same[*i].begin(), same[*i].end(), *j) == same[*i].end()) {
+                        same[*i].push_back(*j);
+                    }
+                    if (find(same[*j].begin(), same[*j].end(), *i) == same[*j].end()) {
+                        same[*j].push_back(*i);
+                    }
                 }
             }
         }
     }
+}
+
+
+bool 
+NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, SUMOReal absAngleDiff, 
+        SUMOReal distance, SUMOReal threshold) {
+    // check whether the two edges are on top of each other. In that case they should be joined
+    // @todo should differentiate accordint to sreadType
+    const SUMOReal commonLength = MIN3(distance, e1->getGeometry().length(), e2->getGeometry().length());
+    PositionVector geom1 = e1->getGeometry();
+    PositionVector geom2 = e2->getGeometry();
+    if (e1->getToNode() == &myNode) {
+        // always let geometry start at myNode
+        geom1 = geom1.reverse();
+        geom2 = geom2.reverse();
+    }
+    geom1 = geom1.getSubpart2D(0, commonLength);
+    geom2 = geom2.getSubpart2D(0, commonLength);
+    std::vector<SUMOReal> distances = geom1.distances(geom2, true);
+    const bool onTop = VectorHelper<SUMOReal>::maxValue(distances) < threshold;
+    const SUMOReal minDistanceThreshold = (e1->getTotalWidth() + e2->getTotalWidth()) / 2 + POSITION_EPS;
+    const SUMOReal minDist = VectorHelper<SUMOReal>::minValue(distances);
+    const bool parallelDistant = minDist > minDistanceThreshold;
+    const bool curvingTowards = geom1[0].distanceTo2D(geom2[0]) > minDistanceThreshold && minDist < minDistanceThreshold;
+    return onTop || curvingTowards || (parallelDistant && absAngleDiff < 5);
 }
 
 
