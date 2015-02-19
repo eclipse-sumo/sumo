@@ -292,8 +292,8 @@ public:
      * @param[in] pos The position of the list within the list of following
      * @return The following edge, stored at position pos
      */
-    ROEdge* getSuccessor(unsigned int pos) const {
-        return myFollowingEdges[pos];
+    ROEdgeVector getSuccessors() const {
+        return myFollowingEdges;
     }
 
 

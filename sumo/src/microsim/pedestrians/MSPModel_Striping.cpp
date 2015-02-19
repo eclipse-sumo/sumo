@@ -209,8 +209,9 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
             for (int j = 0; j < (int)incoming.size(); ++j) {
                 lanes.push_back(getSidewalk(incoming[j]));
             }
-            for (int j = 0; j < (int)edge->getNumSuccessors(); ++j) {
-                lanes.push_back(getSidewalk(edge->getSuccessor(j)));
+            const MSEdgeVector& outgoing = edge->getSuccessors();
+            for (int j = 0; j < (int)outgoing.size(); ++j) {
+                lanes.push_back(getSidewalk(outgoing[j]));
             }
             // build all combinations
             for (int j = 0; j < (int)lanes.size(); ++j) {

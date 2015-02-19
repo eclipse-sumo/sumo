@@ -124,7 +124,7 @@ NLEdgeControlBuilder::build() {
                 if (edge->getNumSuccessors() != 1 || edge->getIncomingEdges().size() != 1) {
                     throw ProcessError("Internal edge '" + edge->getID() + "' is not properly connected (probably a manually modified net.xml).");
                 }
-                if (edge->getSuccessor(0)->isRoundabout() || edge->getIncomingEdges()[0]->isRoundabout()) {
+                if (edge->getSuccessors()[0]->isRoundabout() || edge->getIncomingEdges()[0]->isRoundabout()) {
                     edge->markAsRoundabout();
                 }
             }

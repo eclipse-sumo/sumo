@@ -235,7 +235,7 @@ std::ostream& FileHelpers::writeEdgeVector(std::ostream& os, const std::vector<E
             if (idx > 15) {
                 break;
             }
-            if (prev->getSuccessor(idx) == (*i)) {
+            if (prev->getSuccessors()[idx] == (*i)) {
                 follow.push_back(idx);
                 if (idx > maxFollow) {
                     maxFollow = idx;
@@ -307,7 +307,7 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
             if (followIndex >= prev->getNumSuccessors()) {
                 throw ProcessError("Invalid follower index in route '" + rid + "'!");
             }
-            prev = prev->getSuccessor(followIndex);
+            prev = prev->getSuccessors()[followIndex];
             edges.push_back(prev);
             field++;
         }

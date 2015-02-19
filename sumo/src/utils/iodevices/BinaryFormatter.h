@@ -279,7 +279,7 @@ bool BinaryFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElem
             FileHelpers::writeInt(into, e->getNumSuccessors());
             for (unsigned int j = 0; j < e->getNumSuccessors(); j++) {
                 FileHelpers::writeByte(into, BF_INTEGER);
-                FileHelpers::writeInt(into, e->getSuccessor(j)->getNumericalID());
+                FileHelpers::writeInt(into, e->getSuccessors()[j]->getNumericalID());
             }
         }
         openTag(into, rootElement);

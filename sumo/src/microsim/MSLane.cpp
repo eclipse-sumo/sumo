@@ -843,7 +843,7 @@ const MSEdge*
 MSLane::getInternalFollower() const {
     const MSEdge* e = myEdge;
     while (e->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
-        e = e->getSuccessor(0);
+        e = e->getSuccessors()[0];
     }
     return e;
 }

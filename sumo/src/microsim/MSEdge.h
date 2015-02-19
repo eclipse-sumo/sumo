@@ -306,8 +306,8 @@ public:
      * @param[in] n The index within following edges of the edge to return
      * @return The n-th of the following edges
      */
-    const MSEdge* getSuccessor(unsigned int n) const {
-        return mySuccessors[n];
+    const MSEdgeVector& getSuccessors() const {
+        return mySuccessors;
     }
 
 

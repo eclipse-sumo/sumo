@@ -187,10 +187,9 @@ public:
             minimumInfo->visited = true;
             const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // check all ways from the node with the minimal length
-            unsigned int i = 0;
-            const unsigned int length_size = minEdge->getNumSuccessors();
-            for (i = 0; i < length_size; i++) {
-                const E* const follower = minEdge->getSuccessor(i);
+            const std::vector<E*>& successors = minEdge->getSuccessors();
+            for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
+                const E* const follower = *it;
                 EdgeInfo* const followerInfo = &(myEdgeInfos[follower->getNumericalID()]);
                 // check whether it can be used
                 if (PF::operator()(follower, vehicle)) {

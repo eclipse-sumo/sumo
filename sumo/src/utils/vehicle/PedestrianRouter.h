@@ -337,8 +337,8 @@ public:
         return (unsigned int)myFollowingEdges.size();
     }
 
-    PedestrianEdge* getSuccessor(unsigned int i) const {
-        return myFollowingEdges[i];
+    const std::vector<PedestrianEdge*>& getSuccessors() const {
+        return myFollowingEdges;
     }
 
     bool prohibits(const PedestrianTrip<E, N>* const trip) const {
