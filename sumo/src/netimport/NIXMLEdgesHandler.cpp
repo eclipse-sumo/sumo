@@ -579,10 +579,16 @@ NIXMLEdgesHandler::myEndElement(int element) {
             }
             // patch lane offsets
             e = myEdgeCont.retrieve(edgeid);
-            i = mySplits.begin();
-            if ((*i).pos != 0) {
-                e = e->getToNode()->getOutgoingEdges()[0];
+            if (mySplits.front().pos != 0) {
+                // add a dummy split at the beginning to ensure correct offset
+                Split start;
+                start.pos = 0;
+                for (int lane = 0; lane < (int)e->getNumLanes(); ++lane) {
+                    start.lanes.push_back(lane);
+                }
+                mySplits.insert(mySplits.begin(), start);
             }
+            i = mySplits.begin();
             for (; i != mySplits.end(); ++i) {
                 unsigned int maxLeft = (*i).lanes.back();
                 SUMOReal offset = 0;
