@@ -45,4 +45,6 @@ Warning: Found sharp turn with radius 2.03 at the start of edge 70214888#3
 Warning: Found angle of 138.44 degrees at edge 71960638#0, segment 5
 Warning: In lane '-70214888#0_0': Could not build shape.
 Warning: In lane '156071615#4_0': Could not build shape.
+Warning: Junction shape for '158710676' has distance 55.86 to its given position
+Warning: Junction shape for '27555350' has distance 48.91 to its given position
 Warning: Junction shape for '473482356' has distance 27.54 to its given position
