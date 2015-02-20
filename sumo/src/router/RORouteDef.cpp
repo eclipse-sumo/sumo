@@ -207,7 +207,9 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     // (i.e. previous edge to edge after *i)
                     // we would then need to decide whether we have found a good
                     // tradeoff between faithfulness to the input data and detour-length
-                    router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges);
+                    if (newEdges.back() != newEdges[lastMandatory]) {
+                        router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges);
+                    }
                     if (edges.size() == 0) {
                         mh->inform("Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
                         return;
