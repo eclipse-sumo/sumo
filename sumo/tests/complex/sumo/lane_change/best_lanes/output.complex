@@ -87,12 +87,12 @@ lane 1_0:
   allowsContinuation: 0
   over: ['1_0']
 lane 1_1:
-  length: 3494.96
+  length: 3462.59
   offset: 0
   allowsContinuation: 1
   over: ['1_1', '2_0', '3_1', '4_0', '5_0', '6_0', '7o_0']
 lane 1_2:
-  length: 2986.55
+  length: 2970.18
   offset: -1
   allowsContinuation: 1
   over: ['1_2', '2_1', '3_2', '4_1', '5_2', '6_2']
