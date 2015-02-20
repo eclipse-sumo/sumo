@@ -130,7 +130,6 @@ GUILoadThread::run() {
         } else {
             // triggered at application start or reload
             OptionsIO::getOptions(true);
-            // set myFile to get a useful Window title
             if (oc.isSet("configuration-file")) {
                 myTitle = oc.getString("configuration-file");
             } else if (oc.isSet("net-file")) {
