@@ -153,7 +153,10 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 } else if (intersections2.size() > 1) {
                     std::sort(intersections2.begin(), intersections2.end());
                 }
-                // need to deal with length/geometry factor
+                // lane width affects the crossing point
+                intersections1.back() -= (*it_lane)->getWidth() / 2;
+                intersections2.back() -= lane->getWidth() / 2;
+                // also length/geometry factor
                 intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
                 intersections2.back() = (*it_lane)->interpolateGeometryPosToLanePos(intersections2.back());
                 myLengthsBehindCrossing.push_back(std::make_pair(
@@ -485,8 +488,12 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
             const MSLane* foeLane = myFoeLanes[i];
             // distance from the querying vehicle to the crossing point with foeLane
             const SUMOReal distToCrossing = dist - myLengthsBehindCrossing[i].first;
+            const bool sameTarget = (myLane == foeLane->getLinkCont()[0]->getLane());
+            const bool sameSource = (myInternalLaneBefore != 0 && myInternalLaneBefore->getLogicalPredecessorLane() == foeLane->getLogicalPredecessorLane());
+            const SUMOReal crossingWidth = (sameTarget || sameSource) ? 0 : foeLane->getWidth();
+            const SUMOReal foeCrossingWidth = (sameTarget || sameSource) ? 0 : myInternalLaneBefore->getWidth();
             //if (gDebugFlag1) std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << "\n";
-            if (distToCrossing < 0) {
+            if (distToCrossing + crossingWidth < 0) {
                 continue; // vehicle is behind the crossing point, continue with next foe lane
             }
             const SUMOReal foeDistToCrossing = foeLane->getLength() - myLengthsBehindCrossing[i].second;
@@ -496,8 +503,6 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
             // special care must be taken for continuation lanes. (next lane is also internal)
             // vehicles on these lanes should always block (gap = -1)
             const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL);
-            const bool sameTarget = (myLane == foeLane->getLinkCont()[0]->getLane());
-            const bool sameSource = (myInternalLaneBefore != 0 && myInternalLaneBefore->getLogicalPredecessorLane() == foeLane->getLogicalPredecessorLane());
             // vehicles on cont. lanes or on internal lanes with the same target as this link can never be ignored
             const bool cannotIgnore = contLane || sameTarget || sameSource;
             const MSLane::VehCont& vehicles = foeLane->getVehiclesSecure();
@@ -514,7 +519,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                         const SUMOReal leaderBack = leader->getPositionOnLane() - leader->getVehicleType().getLength();
                         const SUMOReal leaderBackDist = foeDistToCrossing - leaderBack;
                         //if (gDebugFlag1) std::cout << " distToCrossing=" << distToCrossing << " leader back=" << leaderBack << " backDist=" << leaderBackDist << "\n";
-                        if (leaderBackDist < 0) {
+                        if (leaderBackDist + foeCrossingWidth < 0) {
                             // leader is completely past the crossing point
                             // or there is no crossing point
                             continue; // next vehicle
@@ -536,7 +541,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                     } else {
                         const SUMOReal leaderBackDist = foeDistToCrossing - foeLane->getPartialOccupatorEnd();
                         //if (gDebugFlag1) std::cout << " distToCrossing=" << distToCrossing << " leader (partialOccupator) backDist=" << leaderBackDist << "\n";
-                        if (leaderBackDist < 0) {
+                        if (leaderBackDist + foeCrossingWidth < 0) {
                             // leader is completely past the crossing point
                             // or there is no crossing point
                             continue; // next lane
@@ -547,7 +552,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                 }
             }
             // check for crossing pedestrians (keep driving if already on top of the crossing
-            const SUMOReal distToPeds = distToCrossing - MSPModel::SAFETY_GAP - foeLane->getWidth() * 0.5;
+            const SUMOReal distToPeds = distToCrossing - MSPModel::SAFETY_GAP;
             if (distToPeds >= -MSPModel::SAFETY_GAP && MSPModel::getModel()->blockedAtDist(foeLane, foeDistToCrossing, collectBlockers)) {
                 result.push_back(LinkLeader((MSVehicle*)0, -1, distToPeds));
             }
