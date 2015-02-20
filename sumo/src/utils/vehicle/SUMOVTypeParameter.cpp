@@ -323,7 +323,7 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
         case SVC_RAIL_ELECTRIC:
             return 1.3;
         case SVC_SHIP:
-            return 0.1;
+            return 0.15;
         default:
             return 4.5;//7.5;
     }
