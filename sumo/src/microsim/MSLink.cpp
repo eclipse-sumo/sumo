@@ -153,6 +153,9 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 } else if (intersections2.size() > 1) {
                     std::sort(intersections2.begin(), intersections2.end());
                 }
+                // need to deal with length/geometry factor
+                intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
+                intersections2.back() = (*it_lane)->interpolateGeometryPosToLanePos(intersections2.back());
                 myLengthsBehindCrossing.push_back(std::make_pair(
                                                       lane->getLength() - intersections1.back(),
                                                       (*it_lane)->getLength() - intersections2.back()));
