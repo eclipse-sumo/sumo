@@ -45,6 +45,12 @@ class Edge:
     def getName(self):
         return self._name
 
+    def isSpecial(self):
+        return self._function != ""
+
+    def getFunction(self):
+        return self._function
+
     def getTLS(self):
         return self._tls
 

@@ -46,3 +46,15 @@ class Connection:
                 self._toLane.getIndex(),
                 ('' if self._tls == '' else 'tl="%s" linkIndex="%s" ' % (self._tls, self._tlLink)),
                 self._direction)
+
+    def getFrom(self):
+        return self._fromLane.getEdge()
+
+    def getTo(self):
+        return self._toLane.getEdge()
+
+    def getFromLane(self):
+        return self._fromLane
+
+    def getToLane(self):
+        return self._toLane
