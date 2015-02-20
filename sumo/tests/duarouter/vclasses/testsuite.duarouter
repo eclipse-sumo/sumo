@@ -65,3 +65,6 @@ no_vclass_test_alts_shorter
 
 # Tests for importing alternatives with no vehicle class given (previous was longer)
 no_vclass_test_alts_longer
+
+# the desired trip is connected for some vClasses but not for the given one
+no_valid_connection

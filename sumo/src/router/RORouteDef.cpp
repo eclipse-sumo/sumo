@@ -197,7 +197,6 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         for (ConstROEdgeVector::iterator i = oldEdges.begin() + 1;
                 i != oldEdges.end() && nextMandatory != mandatory.end(); ++i) {
             if ((*(i - 1))->isConnectedTo(*i, &veh)) {
-                /// XXX could be connected from a prohibited lane only
                 newEdges.push_back(*i);
             } else {
                 ConstROEdgeVector edges;
