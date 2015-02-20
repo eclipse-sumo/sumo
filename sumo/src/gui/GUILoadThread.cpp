@@ -119,6 +119,7 @@ GUILoadThread::run() {
         oc.clear();
         MSFrame::fillOptions();
         if (myFile != "") {
+            myTitle = myFile;
             // triggered by menu option
             if (myLoadNet) {
                 oc.set("net-file", myFile);
@@ -131,10 +132,9 @@ GUILoadThread::run() {
             OptionsIO::getOptions(true);
             // set myFile to get a useful Window title
             if (oc.isSet("configuration-file")) {
-                myFile = oc.getString("configuration-file");
+                myTitle = oc.getString("configuration-file");
             } else if (oc.isSet("net-file")) {
-                myFile = oc.getString("net-file");
-                myLoadNet = true;
+                myTitle = oc.getString("net-file");
             }
         }
         // within gui-based applications, nothing is reported to the console
@@ -245,7 +245,7 @@ GUILoadThread::submitEndAndCleanup(GUINet* net,
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile, guiSettingsFiles, osgView);
+    GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myTitle, guiSettingsFiles, osgView);
     myEventQue.add(e);
     myEventThrow.signal();
 }

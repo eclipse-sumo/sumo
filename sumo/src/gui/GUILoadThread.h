@@ -95,6 +95,9 @@ protected:
     /// the path to load the simulation from
     std::string myFile;
 
+    /// the title string for the application
+    std::string myTitle;
+
     /** @brief The instances of message retriever encapsulations
         Needed to be deleted from the handler later on */
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
