@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 18 16:59:59 2015 by SUMO netconvert Version dev-SVN-r17901I
+<!-- generated on Fri Feb 20 17:25:27 2015 by SUMO netconvert Version dev-SVN-r17932I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -34,10 +34,7 @@
         <lane id=":54525860_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="12.10" shape="4225.83,2541.39 4221.58,2541.86 4219.25,2541.15 4218.86,2539.25 4220.40,2536.16"/>
     </edge>
     <edge id=":54525860_1" function="internal">
-        <lane id=":54525860_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="5.94" shape="4224.49,2537.98 4220.82,2539.94 4219.07,2540.27"/>
-    </edge>
-    <edge id=":54525860_2" function="internal">
-        <lane id=":54525860_2_0" index="0" speed="13.89" length="4.73" shape="4219.07,2540.27 4218.92,2540.29 4218.78,2539.03 4220.40,2536.16"/>
+        <lane id=":54525860_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="10.67" shape="4224.49,2537.98 4220.82,2539.94 4218.92,2540.29 4218.78,2539.03 4220.40,2536.16"/>
     </edge>
     <edge id=":54525871_0" function="internal">
         <lane id=":54525871_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="5.33" shape="4256.15,2510.06 4258.50,2505.28"/>
@@ -126,9 +123,9 @@
     </edge>
 
     <junction id="54525842" type="dead_end" x="4270.67" y="2341.00" incLanes="-51800057_0" intLanes="" shape="4267.57,2341.97 4273.77,2340.03 4269.07,2340.97 4272.27,2341.03"/>
-    <junction id="54525860" type="priority" x="4215.39" y="2543.52" incLanes="-51800062_0 51800061_0" intLanes=":54525860_0_0 :54525860_2_0" shape="4226.15,2542.96 4225.51,2539.82 4225.32,2539.34 4223.66,2536.61 4221.73,2537.06 4219.08,2535.26">
+    <junction id="54525860" type="priority" x="4215.39" y="2543.52" incLanes="-51800062_0 51800061_0" intLanes=":54525860_0_0 :54525860_1_0" shape="4226.15,2542.96 4225.51,2539.82 4225.32,2539.34 4223.66,2536.61 4221.73,2537.06 4219.08,2535.26">
         <request index="0" response="00" foes="10" cont="0"/>
-        <request index="1" response="01" foes="01" cont="1"/>
+        <request index="1" response="01" foes="01" cont="0"/>
     </junction>
     <junction id="54525871" type="priority" x="4254.33" y="2510.90" incLanes="-51800060_0" intLanes=":54525871_0_0 :54525871_1_0" shape="4261.44,2509.89 4260.29,2506.90 4259.79,2506.23 4257.22,2504.32 4255.47,2508.61 4256.82,2511.51">
         <request index="0" response="00" foes="00" cont="0"/>
@@ -158,8 +155,6 @@
     <junction id="54525882" type="unregulated" x="4296.89" y="2572.94" incLanes="" intLanes="" shape="4297.60,2565.57 4294.42,2565.96 4293.68,2566.27 4291.16,2568.25"/>
     <junction id="54525903" type="unregulated" x="4331.69" y="2716.03" incLanes="51800087_0 51800087_1" intLanes="" shape="4334.87,2715.36 4328.51,2716.70"/>
 
-    <junction id=":54525860_2_0" type="internal" x="4219.07" y="2540.27" incLanes=":54525860_1_0 -51800062_0" intLanes=":54525860_0_0"/>
-
     <connection from="-51800054" to="-51800056" fromLane="0" toLane="0" via=":54525875_0_0" dir="s" state="M"/>
     <connection from="-51800054" to="51800053" fromLane="0" toLane="0" via=":54525875_1_0" dir="l" state="M"/>
     <connection from="-51800056" to="-51800057" fromLane="0" toLane="0" via=":54525873_0_0" dir="s" state="M"/>
@@ -179,8 +174,7 @@
     <connection from="51800061" to="-51800060" fromLane="0" toLane="0" via=":54525860_1_0" dir="l" state="m"/>
 
     <connection from=":54525860_0" to="-51800060" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54525860_1" to="-51800060" fromLane="0" toLane="0" via=":54525860_2_0" dir="s" state="m"/>
-    <connection from=":54525860_2" to="-51800060" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54525860_1" to="-51800060" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525871_0" to="-51800058" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525871_1" to="-51800059" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525873_0" to="-51800057" fromLane="0" toLane="0" dir="s" state="M"/>

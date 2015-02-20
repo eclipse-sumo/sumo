@@ -1078,14 +1078,17 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         // compute the crossing point
                         if (needsCont) {
                             crossingPositions.second.push_back(index);
-                            const PositionVector otherShape = n.computeInternalLaneShape(*i2, (*k2).fromLane, (*k2).toEdge, (*k2).toLane);
-                            const std::vector<SUMOReal> dv = shape.intersectsAtLengths2D(otherShape);
-                            if (dv.size() > 0) {
-                                const SUMOReal minDV = dv[0];
-                                if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
-                                    assert(minDV >= 0);
-                                    if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
-                                        crossingPositions.first = minDV;
+                            // for left-turning vehicles only oncoming streams are relevant for waiting on the intersection
+                            if (con.toEdge != (*k2).toEdge || dir == LINKDIR_TURN) { 
+                                const PositionVector otherShape = n.computeInternalLaneShape(*i2, (*k2).fromLane, (*k2).toEdge, (*k2).toLane);
+                                const std::vector<SUMOReal> dv = shape.intersectsAtLengths2D(otherShape);
+                                if (dv.size() > 0) {
+                                    const SUMOReal minDV = dv[0];
+                                    if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
+                                        assert(minDV >= 0);
+                                        if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
+                                            crossingPositions.first = minDV;
+                                        }
                                     }
                                 }
                             }
