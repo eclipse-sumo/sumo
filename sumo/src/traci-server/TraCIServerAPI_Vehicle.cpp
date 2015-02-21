@@ -1411,7 +1411,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
     if(u.onRoute) {
         const ConstMSEdgeVector &ev = v.getRoute().getEdges();
         ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin()+v.getRoutePosition(), ev.end(), prevEdge);
-        routeOffset = std::distance(ev.begin(), prevEdgePos)-v.getRoutePosition();
+        routeOffset = (int)std::distance(ev.begin(), prevEdgePos)-v.getRoutePosition();
     } else {
         edges.push_back(prevEdge);
         if(u.nextEdge!=0) {
