@@ -37,7 +37,7 @@
 #include <map>
 #include <utils/common/RGBColor.h>
 #include <utils/common/ToString.h>
-#include "GUIColorer.h"
+#include "GUIPropertySchemeStorage.h"
 
 
 // ===========================================================================

@@ -33,7 +33,7 @@
 #include <map>
 #include <vector>
 #include "GUIVisualizationSettings.h"
-#include "GUIColorScheme.h"
+#include "GUIPropertyScheme.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

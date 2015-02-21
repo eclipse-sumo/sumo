@@ -1,7 +1,8 @@
 /****************************************************************************/
-/// @file    GUIColorScheme.h
+/// @file    GUIPropertyScheme.h
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
+/// @author  Jakob Erdmann
 /// @date    Mon, 20.07.2009
 /// @version $Id$
 ///

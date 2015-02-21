@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    GUIColorer.h
+/// @file    GUIPropertySchemeStorage.h
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
@@ -20,8 +20,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GUIColorer_h
-#define GUIColorer_h
+#ifndef GUIPropertySchemeStorage_h
+#define GUIPropertySchemeStorage_h
 
 
 // ===========================================================================
@@ -35,8 +35,13 @@
 
 #include <vector>
 #include <fx.h>
-#include <utils/iodevices/OutputDevice.h>
-#include "GUIColorScheme.h"
+#include "GUIPropertyScheme.h"
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
 
 
 // ===========================================================================

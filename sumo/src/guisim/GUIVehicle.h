@@ -42,7 +42,7 @@
 #include <microsim/MSVehicle.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/foxtools/MFXMutex.h>
-#include <utils/gui/settings/GUIColorer.h>
+#include <utils/gui/settings/GUIPropertySchemeStorage.h>
 
 
 // ===========================================================================
