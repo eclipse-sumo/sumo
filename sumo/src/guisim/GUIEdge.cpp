@@ -290,13 +290,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
         MESegment::Queue queue;
         for (std::vector<MSLane*>::const_iterator msl = myLanes->begin(); msl != myLanes->end(); ++msl, ++laneIndex) {
             GUILane* l = static_cast<GUILane*>(*msl);
-            const PositionVector& shape = l->getShape();
-            const std::vector<SUMOReal>& shapeRotations = l->getShapeRotations();
-            const std::vector<SUMOReal>& shapeLengths = l->getShapeLengths();
-            const Position& laneBeg = shape[0];
             // go through the vehicles
-            int shapeIndex = 0;
-            SUMOReal shapeOffset = 0; // offset at start of current shape
             SUMOReal segmentOffset = 0; // offset at start of current segment
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != 0; segment = segment->getNextSegment()) {

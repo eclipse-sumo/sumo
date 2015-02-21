@@ -582,7 +582,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
         GeomsMap& geomsCW) {
     // distance to look ahead for a misleading angle
     const SUMOReal angleChangeLookahead = 35;
-    const SUMOReal angleChangeLookahead2 = 135;
+    // const SUMOReal angleChangeLookahead2 = 135;
     EdgeSet foundOpposite;
 
     EdgeVector::const_iterator i, j;
