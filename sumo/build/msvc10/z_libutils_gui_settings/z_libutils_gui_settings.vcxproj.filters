@@ -22,12 +22,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\utils\gui\settings\GUIColorer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\gui\settings\GUIColorScheme.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\utils\gui\settings\GUICompleteSchemeStorage.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -35,6 +29,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\gui\settings\GUIVisualizationSettings.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\gui\settings\GUIPropertyScheme.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\gui\settings\GUIPropertySchemeStorage.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

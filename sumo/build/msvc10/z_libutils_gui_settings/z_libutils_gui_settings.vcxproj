@@ -175,9 +175,9 @@
     <ClCompile Include="..\..\..\src\utils\gui\settings\GUIVisualizationSettings.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\utils\gui\settings\GUIColorer.h" />
-    <ClInclude Include="..\..\..\src\utils\gui\settings\GUIColorScheme.h" />
     <ClInclude Include="..\..\..\src\utils\gui\settings\GUICompleteSchemeStorage.h" />
+    <ClInclude Include="..\..\..\src\utils\gui\settings\GUIPropertyScheme.h" />
+    <ClInclude Include="..\..\..\src\utils\gui\settings\GUIPropertySchemeStorage.h" />
     <ClInclude Include="..\..\..\src\utils\gui\settings\GUISettingsHandler.h" />
     <ClInclude Include="..\..\..\src\utils\gui\settings\GUIVisualizationSettings.h" />
   </ItemGroup>
