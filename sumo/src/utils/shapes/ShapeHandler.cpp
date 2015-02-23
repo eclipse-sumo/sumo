@@ -3,7 +3,7 @@
 /// @file    ShapeHandler.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2015
-/// @version $Id: ShapeHandler.cpp 17567 2015-01-08 13:53:07Z namdre $
+/// @version $Id$
 ///
 // The XML-Handler for network loading
 /****************************************************************************/
