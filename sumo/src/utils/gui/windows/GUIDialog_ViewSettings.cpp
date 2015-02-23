@@ -203,7 +203,6 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                          0, 0, 0, 0, 10, 10, 10, 2, 5, 5);
         new FXLabel(m21, "Color", 0, LAYOUT_CENTER_Y);
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
-        myLaneEdgeColorMode->setNumVisible(27);
         myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
         myLaneColorSettingFrame = new FXVerticalFrame(frame22, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
@@ -216,7 +215,6 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                          0, 0, 0, 0, 10, 10, 10, 2, 5, 5);
         new FXLabel(m23, "Scale width", 0, LAYOUT_CENTER_Y);
         myLaneEdgeScaleMode = new FXComboBox(m23, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
-        myLaneEdgeScaleMode->setNumVisible(21);
         myLaneScaleInterpolation = new FXCheckButton(m23, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
         myLaneScaleSettingFrame = new FXVerticalFrame(frame23, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
@@ -224,10 +222,14 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         if (GUIVisualizationSettings::UseMesoSim) {
             mySettings->edgeColorer.fill(*myLaneEdgeColorMode);
             mySettings->edgeScaler.fill(*myLaneEdgeScaleMode);
+            myLaneEdgeColorMode->setNumVisible((int)mySettings->edgeColorer.size());
+            myLaneEdgeScaleMode->setNumVisible((int)mySettings->edgeScaler.size());
         } else {
 #endif
             mySettings->laneColorer.fill(*myLaneEdgeColorMode);
             mySettings->laneScaler.fill(*myLaneEdgeScaleMode);
+            myLaneEdgeColorMode->setNumVisible((int)mySettings->laneColorer.size());
+            myLaneEdgeScaleMode->setNumVisible((int)mySettings->laneScaler.size());
 #ifdef HAVE_INTERNAL
         }
 #endif
@@ -288,7 +290,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         new FXLabel(m32, "Color", 0, LAYOUT_CENTER_Y);
         myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
         mySettings->vehicleColorer.fill(*myVehicleColorMode);
-        myVehicleColorMode->setNumVisible(mySettings->vehicleColorer.size());
+        myVehicleColorMode->setNumVisible((int)mySettings->vehicleColorer.size());
         myVehicleColorInterpolation = new FXCheckButton(m32, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
 
         myVehicleColorSettingFrame =
