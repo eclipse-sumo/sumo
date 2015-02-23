@@ -85,6 +85,13 @@ public:
 
     static GUIMainWindow* getInstance();
 
+    /** @brief Returns the delay (should be overwritten by subclasses if applicable)
+     * @return parsed delay in milliseconds
+     */
+    virtual SUMOReal getDelay() const {
+        return 0;
+    }
+
 protected:
     std::vector<FXMDIChild*> mySubWindows;
     std::vector<FXMainWindow*> myTrackerWindows;

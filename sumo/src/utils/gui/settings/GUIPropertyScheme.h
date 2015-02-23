@@ -171,28 +171,30 @@ public:
 
     void save(OutputDevice& dev) const {
         const std::string tag = getTagName(myColors);
-        dev << "            <" << tag << " name=\"" << myName;
+
+        dev.openTag(tag);
+        dev.writeAttr(SUMO_ATTR_NAME, myName);
         if (!myIsFixed) {
-            dev << "\" interpolated=\"" << myIsInterpolated;
+            dev.writeAttr(SUMO_ATTR_INTERPOLATED, myIsInterpolated);
         }
-        dev << "\">\n";
         typename std::vector<T>::const_iterator colIt = myColors.begin();
         std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin();
         std::vector<std::string>::const_iterator nameIt = myNames.begin();
         while (threshIt != myThresholds.end()) {
-            dev << "                <entry color=\"" << (*colIt);
+            dev.openTag(SUMO_TAG_ENTRY);
+            dev.writeAttr(SUMO_ATTR_COLOR, *colIt);
             if (!myIsFixed) {
-                dev << "\" threshold=\"" << (*threshIt);
+                dev.writeAttr(SUMO_ATTR_THRESHOLD, *threshIt);
             }
             if ((*nameIt) != "") {
-                dev << "\" name=\"" << (*nameIt);
+                dev.writeAttr(SUMO_ATTR_NAME, *nameIt);
             }
-            dev << "\"/>\n";
+            dev.closeTag();
             ++threshIt;
             ++colIt;
             ++nameIt;
         }
-        dev << "            </" << tag << ">\n";
+        dev.closeTag();
     }
 
     bool operator==(const GUIPropertyScheme& c) const {

@@ -180,12 +180,9 @@ GUIDialog_EditViewport::onCmdSave(FXObject*, FXSelector, void* /*data*/) {
     }
     try {
         OutputDevice& dev = OutputDevice::getDevice(file.text());
-        dev << "<viewsettings>\n";
-        dev << "    <viewport zoom=\"" << myZoom->getValue() << "\" x=\"" << myXOff->getValue() << "\" y=\"" << myYOff->getValue();
-#ifdef HAVE_OSG
-        dev << "\" centerX=\"" << myLookAtX->getValue() << "\" centerY=\"" << myLookAtY->getValue() << "\" centerZ=\"" << myLookAtZ->getValue();
-#endif
-        dev << "\"/>\n</viewsettings>\n";
+        dev.openTag(SUMO_TAG_VIEWSETTINGS);
+        writeXML(dev);
+        dev.closeTag();
         dev.close();
     } catch (IOError& e) {
         FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());
@@ -193,6 +190,20 @@ GUIDialog_EditViewport::onCmdSave(FXObject*, FXSelector, void* /*data*/) {
     return 1;
 }
 
+
+void 
+GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
+    dev.openTag(SUMO_TAG_VIEWPORT);
+    dev.writeAttr(SUMO_ATTR_ZOOM, myZoom->getValue());
+    dev.writeAttr(SUMO_ATTR_X, myXOff->getValue());
+    dev.writeAttr(SUMO_ATTR_Y, myYOff->getValue());
+#ifdef HAVE_OSG
+    dev.writeAttr(SUMO_ATTR_CENTER_X, myLookAtX->getValue());
+    dev.writeAttr(SUMO_ATTR_CENTER_Y, myLookAtY->getValue());
+    dev.writeAttr(SUMO_ATTR_CENTER_Z, myLookAtZ->getValue());
+#endif
+    dev.closeTag();
+}
 
 void
 GUIDialog_EditViewport::setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) {

@@ -46,6 +46,7 @@
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
+#include "GUIDialog_EditViewport.h"
 #include "GUIDialog_ViewSettings.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -124,6 +125,10 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         new FXButton(frame0, "\t\tLoad setting from file",
                      GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT,
                      ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+
+        new FXLabel(frame0, "Export includes:", 0, LAYOUT_CENTER_Y);
+        mySaveViewPort = new FXCheckButton(frame0, "Viewport");
+        mySaveDelay = new FXCheckButton(frame0, "Delay");
 
     }
     //
@@ -1059,7 +1064,17 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/
     }
     try {
         OutputDevice& dev = OutputDevice::getDevice(file.text());
+        dev.openTag(SUMO_TAG_VIEWSETTINGS);
         mySettings->save(dev);
+        if (mySaveViewPort->getCheck()) {
+            myParent->getViewportEditor()->writeXML(dev);
+        }
+        if (mySaveDelay->getCheck()) {
+            dev.openTag(SUMO_TAG_DELAY);
+            dev.writeAttr(SUMO_ATTR_VALUE, myParent->getDelay());
+            dev.closeTag();
+        }
+        dev.closeTag();
         dev.close();
     } catch (IOError& e) {
         FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());

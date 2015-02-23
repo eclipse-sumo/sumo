@@ -923,14 +923,20 @@ GUISUMOAbstractView::showViewschemeEditor() {
     myVisualizationChanger->show();
 }
 
-
-void
-GUISUMOAbstractView::showViewportEditor() {
+GUIDialog_EditViewport* 
+GUISUMOAbstractView::getViewportEditor() {
     if (myViewportChooser == 0) {
         myViewportChooser =
             new GUIDialog_EditViewport(this, "Edit Viewport...", 0, 0);
         myViewportChooser->create();
     }
+    return myViewportChooser;
+}
+
+
+void
+GUISUMOAbstractView::showViewportEditor() {
+    getViewportEditor(); // make sure it exists;
     Position p(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom());
     myViewportChooser->setOldValues(p, Position::INVALID);
     myViewportChooser->show();
@@ -1135,6 +1141,12 @@ GUISUMOAbstractView::applyGLTransform(bool fixRatio) {
     SUMOReal scaleY = (SUMOReal)getHeight() / bound.getHeight();
     glScaled(scaleX, scaleY, 1);
     glTranslated(-bound.xmin(), -bound.ymin(), 0);
+}
+
+
+SUMOReal 
+GUISUMOAbstractView::getDelay() const {
+    return myApp->getDelay();
 }
 
 /****************************************************************************/

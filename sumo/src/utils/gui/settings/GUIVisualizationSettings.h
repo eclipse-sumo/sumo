@@ -71,10 +71,10 @@ struct GUIVisualizationTextSettings {
         return !((*this) == other);
     }
 
-    std::string print(const std::string& name) const {
-        return name + "_show=\"" + toString(show) + "\" " +
-               name + "_size=\"" + toString(size) + "\" " +
-               name + "_color=\"" + toString(color) + "\" ";
+    void print(OutputDevice& dev, const std::string& name) const {
+        dev.writeAttr(name + "_show", show);
+        dev.writeAttr(name + "_size", size);
+        dev.writeAttr(name + "_color", color);
     }
 };
 
@@ -99,10 +99,10 @@ struct GUIVisualizationSizeSettings {
         return !((*this) == other);
     }
 
-    std::string print(const std::string& name) const {
-        return name + "_minSize=\"" + toString(minSize) + "\" " +
-               name + "_exaggeration=\"" + toString(exaggeration) + "\" " +
-               name + "_constantSize=\"" + toString(constantSize) + "\" ";
+    void print(OutputDevice& dev, const std::string& name) const {
+        dev.writeAttr(name + "_minSize", minSize);
+        dev.writeAttr(name + "_exaggeration", exaggeration);
+        dev.writeAttr(name + "_constantSize", constantSize);
     }
 
     /// @brief return the drawing size including exaggeration and constantSize values

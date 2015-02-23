@@ -189,8 +189,11 @@ public:
     /// @}
 
 
+    /// @brief get the viewport and create it on first access
+    GUIDialog_EditViewport* getViewportEditor(); 
 
     virtual void showViewportEditor();
+
     void showViewschemeEditor();
     void showToolTips(bool val);
     virtual bool setColorScheme(const std::string&) {
@@ -306,6 +309,10 @@ public:
         return myVisualizationSettings;
     }
 
+    /** @brief Returns the delay of the parent application
+     * @return delay in milliseconds
+     */
+    SUMOReal getDelay() const;
 
 protected:
     /// performs the painting of the simulation

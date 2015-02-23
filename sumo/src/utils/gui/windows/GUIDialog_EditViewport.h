@@ -97,7 +97,8 @@ public:
     long onCmdSave(FXObject*, FXSelector, void*);
     /// @}
 
-
+    /// write the settings to the given device
+    void writeXML(OutputDevice& dev); 
 
     /** @brief Sets the given values into the dialog
      * @param[in] zoom Current view's zoom
