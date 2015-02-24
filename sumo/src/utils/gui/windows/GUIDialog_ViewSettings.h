@@ -221,7 +221,7 @@ private:
     /** @brief Writes the currently used decals into a file
      * @param[in] file The name of the file to write the decals into
      */
-    void saveDecals(const std::string& file) const;
+    void saveDecals(OutputDevice& dev) const;
 
 
     /** @brief Loads decals from a file
@@ -316,7 +316,7 @@ private:
 
 
     // load/save-menu
-    FXCheckButton *mySaveViewPort, *mySaveDelay;
+    FXCheckButton *mySaveViewPort, *mySaveDelay, *mySaveDecals;
     /// @}
 
 

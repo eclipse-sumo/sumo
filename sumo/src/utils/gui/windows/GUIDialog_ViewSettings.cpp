@@ -126,9 +126,11 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                      GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT,
                      ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
 
+        new FXVerticalSeparator(frame0);
         new FXLabel(frame0, "Export includes:", 0, LAYOUT_CENTER_Y);
         mySaveViewPort = new FXCheckButton(frame0, "Viewport");
         mySaveDelay = new FXCheckButton(frame0, "Delay");
+        mySaveDecals = new FXCheckButton(frame0, "Decals");
 
     }
     //
@@ -938,30 +940,23 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
 
 
 void
-GUIDialog_ViewSettings::saveDecals(const std::string& file) const {
-    try {
-        OutputDevice& dev = OutputDevice::getDevice(file);
-        dev << "<decals>\n";
-        std::vector<GUISUMOAbstractView::Decal>::iterator j;
-        for (j = myDecals->begin(); j != myDecals->end(); ++j) {
-            GUISUMOAbstractView::Decal& d = *j;
-            dev << "    <decal filename=\"" << d.filename
-                << "\" centerX=\"" << d.centerX
-                << "\" centerY=\"" << d.centerY
-                << "\" centerZ=\"" << d.centerZ
-                << "\" width=\"" << d.width
-                << "\" height=\"" << d.height
-                << "\" altitude=\"" << d.altitude
-                << "\" rotation=\"" << d.rot
-                << "\" tilt=\"" << d.tilt
-                << "\" roll=\"" << d.roll
-                << "\" layer=\"" << d.layer
-                << "\"/>\n";
-        }
-        dev << "</decals>\n";
-        dev.close();
-    } catch (IOError& e) {
-        FXMessageBox::error(myParent, MBOX_OK, "Storing failed!", "%s", e.what());
+GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
+    std::vector<GUISUMOAbstractView::Decal>::iterator j;
+    for (j = myDecals->begin(); j != myDecals->end(); ++j) {
+        GUISUMOAbstractView::Decal& d = *j;
+        dev.openTag(SUMO_TAG_VIEWSETTINGS_DECAL);
+        dev.writeAttr("filename", d.filename);
+        dev.writeAttr(SUMO_ATTR_CENTER_X, d.centerX);
+        dev.writeAttr(SUMO_ATTR_CENTER_Y, d.centerY);
+        dev.writeAttr(SUMO_ATTR_CENTER_Z, d.centerZ);
+        dev.writeAttr(SUMO_ATTR_WIDTH, d.width);
+        dev.writeAttr(SUMO_ATTR_HEIGHT, d.height);
+        dev.writeAttr("altitude", d.altitude);
+        dev.writeAttr("rotation", d.rot);
+        dev.writeAttr("tilt", d.tilt);
+        dev.writeAttr("roll", d.roll);
+        dev.writeAttr(SUMO_ATTR_LAYER, d.layer);
+        dev.closeTag();
     }
 }
 
@@ -1076,6 +1071,9 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/
             dev.writeAttr(SUMO_ATTR_VALUE, myParent->getDelay());
             dev.closeTag();
         }
+        if (mySaveDecals->getCheck()) {
+            saveDecals(dev);
+        }
         dev.closeTag();
         dev.close();
     } catch (IOError& e) {
@@ -1088,8 +1086,9 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/
 long
 GUIDialog_ViewSettings::onUpdExportSetting(FXObject* sender, FXSelector, void* ptr) {
     sender->handle(this,
-                   mySchemeName->getCurrentItem() < (int) gSchemeStorage.getNumInitialSettings()
-                   ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
+                   (mySchemeName->getCurrentItem() < (int) gSchemeStorage.getNumInitialSettings()
+                   && !mySaveViewPort->getCheck() && !mySaveDelay->getCheck() && !mySaveDecals->getCheck()) ? 
+                   FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
                    ptr);
     return 1;
 }
@@ -1135,7 +1134,15 @@ GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*, FXSelector, void* /*data*/) {
     if (file == "") {
         return 1;
     }
-    saveDecals(file.text());
+    try {
+        OutputDevice& dev = OutputDevice::getDevice(file.text());
+        dev.openTag("decals");
+        saveDecals(dev);
+        dev.closeTag();
+        dev.close();
+    } catch (IOError& e) {
+        FXMessageBox::error(myParent, MBOX_OK, "Storing failed!", "%s", e.what());
+    }
     return 1;
 }
 
