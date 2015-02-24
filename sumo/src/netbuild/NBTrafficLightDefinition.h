@@ -282,14 +282,6 @@ public:
         UNUSED_PARAMETER(offset);
     }
 
-    /** @brief returns the information whether the given link is a left-mover
-     * @param[in] from The connection's start edge
-     * @param[in] to The connection's end edge
-     * @return Whether the connection is a left-mover
-     */
-    bool isLeftMover(const NBEdge* const from, const NBEdge* const to) const;
-
-
     /** @brief Returns the list of incoming edges (must be build first)
      * @return The edges which are incoming into the tls
      */

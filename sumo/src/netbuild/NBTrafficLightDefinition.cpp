@@ -180,22 +180,6 @@ NBTrafficLightDefinition::collectEdges() {
 
 
 bool
-NBTrafficLightDefinition::isLeftMover(const NBEdge* const from, const NBEdge* const to) const {
-    // the destination edge may be unused
-    if (to == 0) {
-        return false;
-    }
-    // get the node which is holding this connection
-    std::vector<NBNode*>::const_iterator i =
-        find_if(myControlledNodes.begin(), myControlledNodes.end(),
-                NBContHelper::node_with_incoming_finder(from));
-    assert(i != myControlledNodes.end());
-    NBNode* node = *i;
-    return node->isLeftMover(from, to);
-}
-
-
-bool
 NBTrafficLightDefinition::mustBrake(const NBEdge* const from, const NBEdge* const to) const {
     std::vector<NBNode*>::const_iterator i =
         find_if(myControlledNodes.begin(), myControlledNodes.end(),

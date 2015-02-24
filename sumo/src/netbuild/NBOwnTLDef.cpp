@@ -190,7 +190,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
     // build complete lists first
     const EdgeVector& incoming = getIncomingEdges();
     EdgeVector fromEdges, toEdges;
-    std::vector<bool> isLeftMoverV, isTurnaround;
+    std::vector<bool> isTurnaround;
     unsigned int noLanesAll = 0;
     unsigned int noLinksAll = 0;
     for (unsigned int i1 = 0; i1 < incoming.size(); i1++) {
@@ -211,16 +211,10 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
                 //myFromLanes.push_back(i2);
                 toEdges.push_back(toEdge);
                 if (toEdge != 0) {
-                    isLeftMoverV.push_back(
-                        isLeftMover(fromEdge, toEdge)
-                        ||
-                        fromEdge->isTurningDirectionAt(fromEdge->getToNode(), toEdge));
-
                     isTurnaround.push_back(
                         fromEdge->isTurningDirectionAt(
                             fromEdge->getToNode(), toEdge));
                 } else {
-                    isLeftMoverV.push_back(true);
                     isTurnaround.push_back(true);
                 }
             }
