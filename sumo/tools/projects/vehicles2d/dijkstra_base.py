@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 @file    dijkstra_base.py
@@ -167,7 +168,7 @@ class Dijkstra():
                 openDNL = DNList(self.open_nodes_list, 'tuple')            
                 some_open_node = openDNL.get_by_tuple(nn) # returns None if not in list
                 if some_open_node != None:  
-                    if sus_node.full < some_open_node.full:
+                    if sus_node.full_costs < some_open_node.full_costs:
                         self.open_nodes_list.remove(some_open_node)
                         self.open_nodes_list.append(sus_node)                
                 # neigther nor -> append to open list

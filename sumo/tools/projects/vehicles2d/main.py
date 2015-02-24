@@ -46,7 +46,10 @@ class Vessel():
         self.x = None
         self.y = None
         self.r = None
+        self.predefined_shadow_shapes=[]
+        self.predefined_shadow_shapes_blured=[]
 
+        self.generate_predefined_shadow_shapes()
         
     def physics_stearing(self, driving, delta):
         delta = float(delta)
@@ -132,6 +135,375 @@ class Vessel():
                                          for ii in self.hull_points]
 
         return self.transformed_hull_points
+
+
+    def generate_predefined_shadow_shapes(self, verbose=False):
+        """computes the shadowed shapes for all secotors """
+
+
+        # save the hull_points as they were before
+        transformed_hull_points_before = self.transformed_hull_points 
+
+
+        # compute the shadowed cells for the center of each sector
+        
+        for sector in range(self.flaeche.sectors):
+           self.predefined_shadow_shapes.append(self.get_black_shade(
+                                       self.flaeche.get_angle_from_sector_id(sector),
+                                       (0.5*self.flaeche.scale, 0.5*self.flaeche.scale),
+                                       visual=False))
+
+        # blur
+        # compute the blured shadowed cells for each sector,
+        # these are the cells that are shadowed from the center of the
+        #  * current sector
+        #  * the sectors left and right
+        # in case a vessel is very tight at the edge of the current sector,
+        # the shadow of the center might not be accurate
+            
+        blur = True
+        if blur:
+            for sector_center in range(self.flaeche.sectors):
+
+                # create an empty entry - not using default_dict
+                self.predefined_shadow_shapes_blured.append(None)
+            
+                sector_left  = sector_center-1
+                sector_right = sector_center+1
+                
+                if sector_left < 0:
+                    sector_left += self.flaeche.sectors
+                if sector_left >= self.flaeche.sectors:
+                    sector_left -= self.flaeche.sectors
+                
+                if sector_right < 0:
+                    sector_right += self.flaeche.sectors
+                if sector_right >= self.flaeche.sectors:
+                    sector_right -= self.flaeche.sectors
+
+                if verbose:
+
+                    print
+                    print sector_center
+                    print 'sector_left', sector_left
+                    print 'sector_right', sector_right
+
+                    
+                    print self.predefined_shadow_shapes[sector_left]
+                    print self.predefined_shadow_shapes[sector_center]
+                    print self.predefined_shadow_shapes[sector_right]
+
+                # create an empty entry - not using default_dict
+                self.predefined_shadow_shapes_blured.append(None)
+                self.predefined_shadow_shapes_blured[sector_center] = list(
+                    set().union(*[self.predefined_shadow_shapes[sector_left],
+                                  self.predefined_shadow_shapes[sector_center],
+                                  self.predefined_shadow_shapes[sector_right]]
+                            ))
+                if verbose:
+                    print self.predefined_shadow_shapes_blured[sector_center]
+
+        # reset to org. hull_points
+        self.transformed_hull_points = transformed_hull_points_before 
+
+        
+    def get_predefiend_shadow_shape_negatives(self, sector_id):
+        """returns the precomputed shadowed shapes of the given secotor """
+
+        # check sector_id
+        self.flaeche.is_valid_sector_id(sector_id)
+        
+        # return a predefined shadow
+        return self.predefined_shadow_shapes_blured[sector_id]
+
+
+    def get_predefiend_shadow_shape_from_cell_id(self, cell_id):
+        """returns the precomputed shadowed shapes for the given position andgiven secotor """
+
+        # check if sector_id is a tuple
+        if isinstance(cell_id, str):
+            cell_id = self.flaeche.convert_cell_id_to_tuple(cell_id)
+        
+        # check sector_id
+        self.flaeche.is_valid_node_pos(cell_id)
+
+        cell_id_x, cell_id_y, sector_id = cell_id
+
+        blured_default = self.predefined_shadow_shapes_blured[sector_id]
+        blured_for_this_cell = [(node[0] + cell_id_x, node[1] + cell_id_y)
+                                for node in blured_default]
+
+        # return the predefinined shadow
+        return sorted(blured_for_this_cell)
+    
+    
+        
+    def guess_best_way_to_point(self, from_point, omega_from, to_point,
+                                guess='best', verbose=False):
+
+        # convert points to ego_coordinates
+        
+        to_point_ego         = self.transform_coord_to_ego(p=to_point,
+                                                           omega=omega_from, offset=from_point)
+        x_to_ego, y_to_ego   = to_point_ego
+
+        # calculate guess, using left turn
+        
+        center_to_destination_left     =  math.sqrt( (x_to_ego)**2 + (y_to_ego + self.r )**2)
+
+        if center_to_destination_left >= self.r:
+        
+            angle_in_rectangle_left        = math.acos(self.r/center_to_destination_left)
+            angle_to_destination_left      = math.atan2( -y_to_ego - self.r, x_to_ego) + 0.5 * math.pi
+            if angle_to_destination_left < 0:
+                angle_to_destination_left += 2*math.pi
+            
+            angle_to_travel_left           = (angle_to_destination_left -
+                                              angle_in_rectangle_left)
+            
+            while  angle_to_travel_left >= 2*math.pi:
+                angle_to_travel_left -= 2*math.pi
+
+            while  angle_to_travel_left < 0:
+                angle_to_travel_left += 2*math.pi
+
+                
+            angle_to_travel_distance_left  = angle_to_travel_left * self.r
+            tangent_distance_left          = math.sqrt( center_to_destination_left**2
+                                                        - self.r**2 )
+            total_distance_left            = (tangent_distance_left
+                                              + angle_to_travel_distance_left)
+
+            if verbose: 
+                print
+                print
+                print 'from_point, to_point', from_point, to_point
+                print 'x_to_ego:', x_to_ego, (x_to_ego)**2
+                print 'y_to_ego:', y_to_ego, 'y_to_ego + r :', y_to_ego + self.r, (y_to_ego
+                                                                                   + self.r )**2
+
+                print 'r:', self.r, 'center_to_dest', center_to_destination_left
+                
+                print 'angle_in_rectangle_left', angle_in_rectangle_left*180/math.pi
+                print 'angle_to_destination_left', angle_to_destination_left * 180/math.pi
+                print 'angle_to_travel_left', angle_to_travel_left * 180/math.pi
+                print 'tangent_distance_left', tangent_distance_left
+                print 'total_distance_left', total_distance_left
+                
+        else: 
+            angle_to_travel_left = None
+            angle_to_travel_distance_left = None
+            tangent_distance_left= None
+            total_distance_left = None
+
+        
+        
+        # calculate guess, using right turn
+
+        center_to_destination_right     = math.sqrt( (x_to_ego)**2 + (y_to_ego - self.r )**2)
+
+        if center_to_destination_right >= self.r:
+            angle_in_rectangle_right        = math.acos(self.r/center_to_destination_right)
+#            angle_to_destination_right      = math.atan2( -y_to_ego + self.r, x_to_ego )
+            angle_to_destination_right      = -math.atan2( -y_to_ego + self.r, x_to_ego ) + 0.5*math.pi
+
+            if angle_to_destination_right < 0:
+                angle_to_destination_right += 2*math.pi
+     
+            angle_to_travel_right           = angle_to_destination_right-angle_in_rectangle_right
+        
+            while angle_to_travel_right >= 2*math.pi:
+                angle_to_travel_right -= 2*math.pi
+
+                
+            while  angle_to_travel_right < 0:
+                angle_to_travel_right += 2*math.pi
+
+
+                
+                
+            angle_to_travel_distance_right  = angle_to_travel_right * self.r
+            tangent_distance_right          = math.sqrt( center_to_destination_right**2
+                                                         - self.r**2 )
+            total_distance_right            = (tangent_distance_right
+                                               + angle_to_travel_distance_right)
+ 
+            if verbose: 
+                print
+                print
+                print 'from_point, to_point', from_point, to_point
+                print 'x_to_ego:', x_to_ego, (x_to_ego)**2
+                print 'y_to_ego:', y_to_ego, 'y_to_ego + r :', y_to_ego + self.r,  (y_to_ego
+                                                                                + self.r )**2
+
+                print 'r:', self.r, 'center_to_dest_right', center_to_destination_right
+
+                print 'angle_in_rectangle_right', angle_in_rectangle_right*180/math.pi
+                print 'angle_to_destination_right', angle_to_destination_right * 180/math.pi
+                print 'angle_to_travel_right', angle_to_travel_right * 180/math.pi
+                print 'tangent_distance_right', tangent_distance_right
+                print 'total_distance_right', total_distance_right
+
+        else: 
+            angle_to_travel_right = None
+            angle_to_travel_distance_right = None
+            tangent_distance_right= None
+            total_distance_right = None
+
+        # evaluate guesses
+        
+        return_dict = {'left':  ('left',
+                                angle_to_travel_left, angle_to_travel_distance_left,
+                                tangent_distance_left, total_distance_left),
+                      'right': ('right',
+                                angle_to_travel_right, angle_to_travel_distance_right,
+                                tangent_distance_right, total_distance_right)
+                      }
+        
+        if guess == 'best':
+            if total_distance_left is None:
+                guess = 'right'
+            elif total_distance_right is None:
+                guess = 'left'
+            elif total_distance_left < total_distance_right:
+                guess = 'left'
+            else:
+                guess= 'right'
+
+        assert (return_dict['left']  is not None and
+                return_dict['right'] is not None), 'point is inreachable -eighter left or right'
+                
+        return return_dict[guess]
+
+    def guess_best_way_to_point_old(self, from_point, omega_from, to_point,
+                                guess='best', verbose=False):
+
+        # convert points to ego_coordinates
+        
+        to_point_ego         = self.transform_coord_to_ego(p=to_point,
+                                                           omega=omega_from, offset=from_point)
+        x_to_ego, y_to_ego   = to_point_ego
+
+        # calculate guess, using left turn
+        
+        center_to_destination_left     =  math.sqrt( (x_to_ego)**2 + (y_to_ego + self.r )**2)
+
+        if center_to_destination_left >= self.r:
+        
+            angle_in_rectangle_left        = math.acos(self.r/center_to_destination_left)
+#            angle_in_rectangle_left        = math.asin(self.r/center_to_destination_left)
+            angle_to_destination_left      = math.atan2( -y_to_ego - self.r, x_to_ego)
+            if angle_to_destination_left < 0:
+                angle_to_destination_left += 2*math.pi
+            
+            angle_to_travel_left           = (angle_to_destination_left -
+                                              angle_in_rectangle_left + math.pi/2)
+            
+            while  angle_to_travel_left >= 2*math.pi:
+                angle_to_travel_left -= 2*math.pi
+
+            angle_to_travel_distance_left  = angle_to_travel_left * self.r
+            tangent_distance_left          = math.sqrt( center_to_destination_left**2
+                                                        - self.r**2 )
+            total_distance_left            = (tangent_distance_left
+                                              + angle_to_travel_distance_left)
+
+            if verbose: 
+                print
+                print
+                print 'from_point, to_point', from_point, to_point
+                print 'x_to_ego:', x_to_ego, (x_to_ego)**2
+                print 'y_to_ego:', y_to_ego, 'y_to_ego + r :', y_to_ego + self.r, (y_to_ego
+                                                                                   + self.r )**2
+
+                print 'r:', self.r, 'center_to_dest', center_to_destination_left
+                
+                print 'angle_in_rectangle_left', angle_in_rectangle_left*180/math.pi
+                print 'angle_to_destination_left', angle_to_destination_left * 180/math.pi
+                print 'angle_to_travel_left', angle_to_travel_left * 180/math.pi
+                print 'tangent_distance_left', tangent_distance_left
+                print 'total_distance_left', total_distance_left
+                
+        else: 
+            angle_to_travel_left = None
+            angle_to_travel_distance_left = None
+            tangent_distance_left= None
+            total_distance_left = None
+
+        
+        
+        # calculate guess, using right turn
+
+        center_to_destination_right     = math.sqrt( (x_to_ego)**2 + (y_to_ego - self.r )**2)
+
+        if center_to_destination_right >= self.r:
+            angle_in_rectangle_right        = math.acos(self.r/center_to_destination_right)
+            angle_to_destination_right      = math.atan2( -y_to_ego + self.r, x_to_ego )
+
+            if angle_to_destination_right > 0:
+                angle_to_destination_right -= 2*math.pi
+     
+            angle_to_destination_right     -= 0.5*math.pi
+            angle_to_travel_right           = angle_to_destination_right+angle_in_rectangle_right
+            angle_to_travel_right           = -angle_to_travel_right
+        
+            while angle_to_travel_right >= 2*math.pi:
+                angle_to_travel_right -= 2*math.pi
+
+            angle_to_travel_distance_right  = angle_to_travel_right * self.r
+            tangent_distance_right          = math.sqrt( center_to_destination_right**2
+                                                         - self.r**2 )
+            total_distance_right            = (tangent_distance_right
+                                               + angle_to_travel_distance_right)
+ 
+            if verbose: 
+                print
+                print
+                print 'from_point, to_point', from_point, to_point
+                print 'x_to_ego:', x_to_ego, (x_to_ego)**2
+                print 'y_to_ego:', y_to_ego, 'y_to_ego + r :', y_to_ego + self.r,  (y_to_ego
+                                                                                + self.r )**2
+
+                print 'r:', self.r, 'center_to_dest_right', center_to_destination_right
+
+                print 'angle_in_rectangle_right', angle_in_rectangle_right*180/math.pi
+                print 'angle_to_destination_right', angle_to_destination_right * 180/math.pi
+                print 'angle_to_travel_right', angle_to_travel_right * 180/math.pi
+                print 'tangent_distance_right', tangent_distance_right
+                print 'total_distance_right', total_distance_right
+
+        else: 
+            angle_to_travel_right = None
+            angle_to_travel_distance_right = None
+            tangent_distance_right= None
+            total_distance_right = None
+
+        # evaluate guesses
+        
+        return_dict = {'left':  ('left',
+                                angle_to_travel_left, angle_to_travel_distance_left,
+                                tangent_distance_left, total_distance_left),
+                      'right': ('right',
+                                angle_to_travel_right, angle_to_travel_distance_right,
+                                tangent_distance_right, total_distance_right)
+                      }
+        
+        if guess == 'best':
+            if total_distance_left is None:
+                guess = 'right'
+            elif total_distance_right is None:
+                guess = 'left'
+            elif total_distance_left < total_distance_right:
+                guess = 'left'
+            else:
+                guess= 'right'
+
+        assert (return_dict['left']  is not None and
+                return_dict['right'] is not None), 'points is inreachable -eighter left or right'
+                
+        return return_dict[guess]
+        
+            
         
     def get_inclination(self, lower, upper):
         # check that this has not been the last point
@@ -244,7 +616,7 @@ class Vessel():
          return (sorted(intersects_x), sorted(intersects_y))
 
 
-    def get_grey_shade(self, omega, offset):
+    def get_grey_shade(self, omega, offset, visual=False):
 
         self.transform_hull_points(omega, offset)
         
@@ -254,28 +626,29 @@ class Vessel():
             intersection_points += intersection_points_x
             intersection_points += intersection_points_y
         greys = []
+
+        
         for ip in intersection_points:
             greys_tmp = self.flaeche.get_cells(ip)
             for gt in greys_tmp:
                 if gt not in greys:
                     greys.append(gt)
 
-                    
-        ii = 0
-        for gg in greys:
-            ii +=1
-            self.flaeche.vis_add_colored_point(gg, 'gray')
-            if ii == 800 :
-                break
+
+        if visual:            
+            ii = 0
+            for gg in greys:
+                ii +=1
+                self.flaeche.vis_add_colored_point(gg, 'gray')
 
         return greys
 
-    def get_black_shade(self, omega, offset):
+    def get_black_shade(self, omega, offset, visual=False):
         self.transform_hull_points(omega, offset)
 
         
         blacks = []
-        greys = sorted(self.get_grey_shade(omega, offset))
+        greys = sorted(self.get_grey_shade(omega, offset, visual))
 
         min_max = {}
         
@@ -295,10 +668,11 @@ class Vessel():
         for gg in min_max:
             blacks += [(rr, gg) for rr in range (min_max[gg][0],min_max[gg][1] + 1)] 
 
-        ii = 0
-        for gg in blacks:
-            ii +=1
-            self.flaeche.vis_add_colored_point(gg, 'black')
+        if visual:     
+            ii = 0
+            for gg in blacks:
+                ii +=1
+                self.flaeche.vis_add_colored_point(gg, (0, 0, 0), 'black')
 
         return sorted(blacks)
 
@@ -315,7 +689,6 @@ class Vessel():
             else:
                 return False
 
-#            import pdb; pdb.set_trace()
                 
         # case1) x == 0, y == 0 
         assert not (nearly_zero(xx) and nearly_zero(yy)), """points must be different
@@ -325,8 +698,13 @@ class Vessel():
         # case2) x == 0 ; y != 0; 180° turn
         if nearly_zero(xx):
             rr = abs(yy/2)
-            aa = math.pi
-
+          
+            if yy > 0:
+                aa = math.pi
+            else:
+                aa = - math.pi
+            
+            
         # case3) yy == 0; x != 0; means go straight forward or backward
         elif nearly_zero(yy):
             if xx > 0:
@@ -341,8 +719,8 @@ class Vessel():
                 
         else:
             aa   = 2 * math.atan2(yy, xx)
-            if yy < 0:
-                aa = -aa
+        #    if yy < 0:
+        #        aa = -aa
             rr = abs(math.sqrt( xx**2 + yy**2) / 2 / math.sin(math.atan2(yy, xx)))
 
 #            print 'xx', xx
@@ -350,9 +728,86 @@ class Vessel():
 #            print 'aa', aa
 #            print 'ag', aa * 360 / 2 / math.pi
 
-        print rr, aa     
-        return (rr, aa) 
+        return (rr, aa)
 
+
+    def get_points_on_line(self, start_point, end_point, omega, scale_fraction=10):
+        """return multiple points along a line between start end point
+           there is no difference between global and ego coordinates
+
+           the angle omega has no impact on the calculations, but is appended to the
+           result, so the values returned have the same format as when used
+           get_points_on_the_circle_ego
+        """
+
+
+        
+        some_points                  = []
+        start_point_x, start_point_y = start_point 
+        end_point_x,   end_point_y   = end_point 
+        
+        start_point_x = float(start_point_x)
+        start_point_y = float(start_point_y)
+        end_point_x   = float(end_point_x)
+        end_point_y   = float(end_point_y)
+
+
+        assert(start_point != end_point ), "points must be different"
+        
+        if start_point_x == end_point_x:
+            full_way  = end_point_y - start_point_y       
+            num_steps = int(math.floor(abs(full_way / ( self.flaeche.scale / scale_fraction )))) 
+            delta_y   = full_way / num_steps
+            
+            
+            for step in range(num_steps + 1):
+                some_point_x = start_point_x 
+                some_point_y = start_point_y + step * delta_y 
+                some_points.append((some_point_x, some_point_y, omega))
+            
+        else:
+            inclination = (end_point_y - start_point_y) / (end_point_x - start_point_x)
+            full_way = math.sqrt((end_point_y - start_point_y)**2 + (end_point_x - start_point_x)**2)
+            num_steps = int(math.floor(full_way / ( self.flaeche.scale / scale_fraction ))) 
+            delta_x   = (end_point_x - start_point_x) / num_steps
+
+        
+            for step in range(num_steps + 1):
+                some_point_x = start_point_x + step * delta_x
+                some_point_y = start_point_y + step * delta_x * inclination
+                some_points.append((some_point_x, some_point_y, omega))
+                
+        return sorted(some_points)
+
+        
+    def get_points_on_the_circle_ego(self, radius_to_point, angle_ego, scale_fraction=10):
+        """return multiple points along the circle in ego coordinates
+
+        radius to point = the radius which is needed to reach the point
+        angle ego       = the angle traveled untill the point is reached
+        """
+        
+        some_points                    = []
+        some_point_x, some_point_y, current_partly_angle     = (0.0, 0.0, 0.0)
+        
+        full_way     = abs(radius_to_point * angle_ego)
+        num_steps    = math.floor(full_way / ( self.flaeche.scale / scale_fraction )) 
+        partly_angle = angle_ego / num_steps
+
+        
+        while ( abs(current_partly_angle) < abs(angle_ego) ):
+            some_points.append((some_point_x, some_point_y, current_partly_angle))
+            current_partly_angle += partly_angle
+            if current_partly_angle >= 0:
+                some_point_x = radius_to_point * math.sin(current_partly_angle)
+            else:
+                some_point_x = radius_to_point * math.sin(current_partly_angle + math.pi)
+            if current_partly_angle >= 0:
+                some_point_y = radius_to_point * ( 1 - math.cos(current_partly_angle))
+            else:
+                some_point_y = radius_to_point * ( math.cos(current_partly_angle) - 1)
+                
+        return some_points
 
         
     def get_reachables(self, step_length=None, legacy=True):
@@ -362,9 +817,12 @@ class Vessel():
             self.get_reachable_center_points(
             )
 
+            
     def get_reachable_center_points(self, offset, omega, test_result=None):
         """
+
         returns  (xx, yy, xx_stroke, yy_stroke,
+                  ....
                   radius_to_point, angle, yaw))
 
         """
@@ -496,8 +954,6 @@ class Vessel():
         
         # center points
 
-        
-        
         xx_start = cell_upper_left [0]
         xx_end   = cell_upper_right[0]
         yy_start = cell_upper_left [1]
@@ -606,16 +1062,49 @@ class Vessel():
 
         reachables = []
             
-        def set_reachables(zone, ll_yaw_max_left, ll_yaw_min_left, ll_yaw_max_right, ll_yaw_min_right ):
-
+        def set_reachables(zone,
+                           ll_yaw_max_left,  ll_yaw_min_left,
+                           ll_yaw_max_right, ll_yaw_min_right ):
             
             for xx, yy, xx_stroke, yy_stroke in zone: #zone_one:
-                radius_to_point , angle = self.get_radius_to_point_ego((xx_stroke, yy_stroke))
-            
+                
+                radius_to_point , angle_ego = self.get_radius_to_point_ego((xx_stroke,
+                                                                            yy_stroke))
+
+                print
+                print 'reachables:'
+                print 'radius_to_point , angle_ego:', radius_to_point , angle_ego
+
+                ### get streight elements
+                if radius_to_point==float('inf') or radius_to_point==float('-inf'):
+                    trajectory = self.get_points_on_line(start_point   =(0, 0),
+                                                           end_point     =(xx_stroke, yy_stroke),
+                                                           omega         =omega,
+                                                           scale_fraction=10                   )
+                    print ("here")
+                    print 'xx, yy', xx, yy
+                    print 'xx_stroke, yy_stroke', xx_stroke, yy_stroke
+                    print trajectory
+                    
+
+                # get trajectory over bypased nodes/cells
+                else:
+                    trajectory = self.get_points_on_the_circle_ego(radius_to_point=radius_to_point,
+                                                               angle_ego      =angle_ego,
+                                                               scale_fraction =10              )
+
+                #convert to global
+                trajectory = [ self.transform_coord_and_angle(pp,
+                                                              omega=omega,
+                                                              offset=offset)
+                               for pp in trajectory ]
+
+                cells_in_beetween = self.flaeche.convert_trajectroy_points_to_bypassed_cells(
+                                                                                    trajectory)
+                
                 # get yaw:
-
                 yaw =  float(self.r)/ radius_to_point
-
+                
                 if yy_stroke >= 0:
                     if yaw > ll_yaw_max_left:
                         ll_yaw_max_left = yaw
@@ -626,14 +1115,22 @@ class Vessel():
                         ll_yaw_max_right = yaw
                     if ll_yaw_min_right is None or ll_yaw_min_right > yaw:
                         ll_yaw_min_right = yaw
-                    
+
+                #angle = omega + angle_ego if angle_ego > 0 else -omega + angle_ego
+                angle_global = omega + angle_ego
+
+             #   print 'angle_global, omega, angle_ego', angle_global, omega, angle_ego
+             #   if angle == 0:
+             #       radius_to_point = float('inf')
+  
                 reachables.append( (xx, yy, xx_stroke, yy_stroke,
-                                    radius_to_point, angle, yaw))
+                                    cells_in_beetween,
+                                    angle_ego, radius_to_point, angle_global, yaw))
 
             return (ll_yaw_max_left, ll_yaw_min_left, ll_yaw_max_right, ll_yaw_min_right )
 
 
-        zone_three_extended = zone_three + global_ego_center_points_extention
+        zone_three_extended   = zone_three + global_ego_center_points_extention
         zone_inspection_order = [zone_one, zone_two, zone_three_extended]
 
         # need more points?
@@ -784,14 +1281,18 @@ class AdAStar():
             raise StandardError, 'Start point must not be equal to end point'
         
         self.reached_dest_node = None
-        self.iteration_step    = 0        
+#       self.iteration_step    = 0        
+        self.iteration_step    = -1        
         self.open_nodes_list   = []
         self.closed_nodes_list = []
         self.path              = []
+        self.current_node_copy = None
         
         # gbm bergamond
         
     def get_distance_between_points(self, node_1, node_2):
+        if len(node_1) != 3 or len(node_2) != 3:
+            raise StandardError('for ada always use three-tuple %s %s' % ( node_1,  node_2))
         for node in [node_1, node_2]:
             if not self.flaeche.is_valid_node_pos(node):
                 raise StandardError('node not legal %s' % node)
@@ -820,21 +1321,39 @@ class AdAStar():
         
     def step(self, visual=False, verbose=False):
         self.iteration_step += 1
-        if verbose:
+        print self.iteration_step
+
+#        if verbose:
+        if True:
             print '\n\nxxx step %s xxxxxxxxxxxxxxxxxxxxxxxxxxxxx' % self.iteration_step
         
         # first step ever
         if len(self.open_nodes_list) == 0 and len(self.closed_nodes_list) == 0:
+
+            fn_data                      = self.flaeche.get_node_data((self.start[0],
+                                                                       self.start[1]))
+            fn_sector_id                 = self.start[2]
+            fn_reached_by_angle          = self.flaeche.get_angle_from_sector_id(self.start[2])
+            fn_costs_till_here           = 0.0
+            fn_estimated_remaining_costs = self.vessel.guess_best_way_to_point(
+                             from_point  = self.flaeche.get_cell_center((self.start[0],
+                                                                         self.start[1])),
+                             omega_from  = self.flaeche.get_angle_from_sector_id(self.start[2]),
+                             to_point    = self.flaeche.get_cell_center((self.end[0],
+                                                                         self.end[1])),
+                             guess='best')[-1] / float(self.vessel.
+                                                       speed)
+            fn_previous_node             = None
+            fn_in_between_nodes          = []
             
-            first_node = StarNodeC(
-                node_data =self.flaeche.get_node_data((self.start[0],self.start[1])),
-                sector    =self.start[2],
-                tt        =0,
-                dd        =self.get_distance_between_points(
-                                                  (self.start[0],self.start[1]),
-                                                  (self.end[0],  self.end[1]) ),
-                reached_by_angle = self.flaeche.get_angle_from_sector(self.start[2]),
-                lastNode =None)
+            first_node = StarNodeC( node_data                   =fn_data,
+                                    sector_id                   =fn_sector_id,
+                                    reached_by_angle            =fn_reached_by_angle,
+                                    costs_till_here             =fn_costs_till_here,
+                                    estimated_remaining_costs   =fn_estimated_remaining_costs,
+                                    previous_node               =fn_previous_node,
+                                    in_between_nodes            =fn_in_between_nodes)
+
             
             self.open_nodes_list.append(first_node)
             return False    # Algorithm is not jet finished
@@ -844,13 +1363,25 @@ class AdAStar():
             
         # get the node with the best combined cost value
         current_node = ANList(self.open_nodes_list).get_min_node(pop=True)
-
+        self.current_node_copy = current_node
+        self.current_node_copy = current_node
+#        print '----'
+#        print 'costs', self.current_node_copy.id, self.current_node_copy.full_costs
+#        print 
+        
+        
         # Success critieria:
         # even if the destination node has been seen before,
         # the path is not prooven to be the shortest
         # until it has been teared from the open list
         if (current_node.get_coords()[0:2] == self.end[0:2]):
             self.reached_dest_node = current_node
+
+            print '########################'
+            print '########################'
+            print current_node.id
+            print
+            
             return True # finished / found
 
 
@@ -858,156 +1389,223 @@ class AdAStar():
 
 
         # get all possible next nodes
-        # (only coords are returned)  
-        suspicious_nodes = self.vessel.get_reachable_center_points(
+        # (only coords are returned)
+            
+        suspicious_center_points = self.vessel.get_reachable_center_points(
             (current_node.x_coord, current_node.y_coord),
-            self.flaeche.get_angle_from_sector(current_node.sector))  # aka  vessel.rotation,
-        print 'self.vessel.get_reachable_center_points((', current_node.x_coord, current_node.y_coord,')', current_node.sector,')'  # aka  vessel.rotation,
+            self.flaeche.get_angle_from_sector_id(current_node.sector_id))  #aka vessel.rotation,
+
+        speed = self.vessel.speed
+        assert(speed is not None), "vessels speed must be set"
+        assert(speed > 0)        , "vessels speed must be greater than 0"
 
 
-        print 'before suspicious counted points: ', len(suspicious_nodes)
-
+#        suspicious_nodes = [ convert_to_c_star_node(center_point) for center_point in suspicious_center_points  ]
         
-        speed = 10 # m/s
-
         HereNode = namedtuple('HereNode',
-                               """cell_x_id cell_y_id sector_id
-                              angle radius
-                              length durration""")
+                               ['cell_x_id', 'cell_y_id', 'sector_id',
+                                'cell_center_pos_x', 'cell_center_pos_y',
+                                'angle_global', 'angle_travel', 'radius', 'length', 'durration',
+                                'cells_in_between'])
 
         suspicious_nodes_a = []
-        for mm in suspicious_nodes:
+        for mm in suspicious_center_points:
 
-            print mm 
-            if mm[0] == 45 and mm[1] == 115:
-                import pdb; pdb.set_trace()
-                
-            
             cell_x_id = self.flaeche.get_cell((mm[0], mm[1]))[0] 
-            cell_y_id = self.flaeche.get_cell((mm[0], mm[1]))[1] 
-            sector_id = self.flaeche.get_sector_id_from_angle(mm[-2])
-            angle     = mm[-2]
-            radius    = mm[-3] 
+            cell_y_id = self.flaeche.get_cell((mm[0], mm[1]))[1]
+
+
+            angle_travel = mm[-4]
+            angle_global = mm[-2]
+            radius       = mm[-3] 
+
+            cells_in_between = mm[-5]
+            print 
+            print 'cells_in_between',
+            print current_node.x_id, current_node.y_id, '->', 
+            print cell_x_id, cell_y_id, ':', cells_in_between
+            
+            sector_id = self.flaeche.get_sector_id_from_angle(angle_global)
+
+            
+            
+            cell_center_pos_x, cell_center_pos_y = self.flaeche.get_cell_center((cell_x_id,
+                                                                                 cell_y_id))
+
 
             if radius==float('inf') or radius==float('-inf'):
                 length = self.get_distance_between_points((current_node.x_id,
-                                                           current_node.y_id ),
+                                                           current_node.y_id,
+                                                           current_node.sector_id),
                                                           (cell_x_id,
-                                                           cell_y_id))
+                                                           cell_y_id,
+                                                           sector_id))
             else:
-                length = radius*angle
+                length = radius*abs(angle_travel)
+            assert (length > 0), (cell_x_id, cell_y_id)
+            
             durration = length/speed
 
+
+            
             
             hn = HereNode(cell_x_id,
                           cell_y_id,
                           sector_id,
-                          angle,
+                          cell_center_pos_x,
+                          cell_center_pos_y,
+                          angle_global,
+                          angle_travel,
                           radius,
                           length,
-                          durration) 
+                          durration,
+                          cells_in_between
+                          
+            )
 
+#            print 'hn', hn
 
-            if hn.cell_x_id == 4 and hn.cell_y_id == 11:
-                import pdb; pdb. set_trace()
             
             suspicious_nodes_a.append(hn)
 
+            
         suspicious_nodes = suspicious_nodes_a
-        
+
+
         for nn in suspicious_nodes:
             # is in closed_list -> ignore
             closedDNL = ANList(self.closed_nodes_list, 'tuple')
             if not (nn.cell_x_id, nn.cell_y_id, nn.sector_id) in closedDNL:
 
+                # check all shadow_nodes of the current
+                # if there are blocked ones among
 
-               # if nn.cell_x_id == 12 and  nn.cell_y_id == 16 and  nn.sector_id == 1:
-                   # import pdb; pdb.set_trace()
+                shadow_current = self.vessel.get_predefiend_shadow_shape_from_cell_id(
+                                                                               (nn.cell_x_id,
+                                                                                nn.cell_y_id,
+                                                                                nn.sector_id))
+
                 
                 #skip if blocked 
-                if self.flaeche.is_blocked((nn.cell_x_id, nn.cell_y_id)):
+                if not self.flaeche.all_nodes_in_list_are_valid_and_not_blocked(shadow_current):
+                    print 'blocked', (nn.cell_x_id, nn.cell_y_id)
                     continue
 
-                # zone = any point in the rectengual between the sus_node
-                # and the current node
+                # get all the shadows of the bypassed nodes
 
-                zone_x_start = int(min(current_node.x_id, nn.cell_x_id ) )
-                zone_x_end   = int(max(current_node.x_id, nn.cell_x_id ) )
-                zone_y_start = int(min(current_node.y_id, nn.cell_y_id ) )
-                zone_y_end   = int(max(current_node.y_id, nn.cell_y_id ) )
-
-                if zone_x_start == zone_x_end:
-                    zone_x_end += 1
-                if zone_y_start == zone_y_end:
-                    zone_y_end += 1
+                shadow_of_all_bypassed_nodes = set()
+                for bypassed_node in nn.cells_in_between:
+                    shadow_of_one_bypassed_node = set(
+                        self.vessel.get_predefiend_shadow_shape_from_cell_id(bypassed_node))
+                    shadow_of_all_bypassed_nodes.update(shadow_of_one_bypassed_node)
                     
-                one_in_zone_is_bocked = False
-
-                zone = [ (z_ii, z_jj) for z_ii in range(zone_x_start, zone_x_end)
-                         for z_jj in range(zone_y_start, zone_y_end)]
-
-                illegal_points = 0
-                for z_pp in zone:
-                    if not self.flaeche.is_valid_node_pos(z_pp):
-                        illegal_points += 1
-                        continue
-                    if self.flaeche.is_blocked(z_pp):
-                        one_in_zone_is_bocked = True
-
-                assert illegal_points < len(zone), 'all zone nodes are illegal, must be wrong'
-                        
-                if one_in_zone_is_bocked:
-                    continue   # skip points
-
-                shade_check = True#False
-                if shade_check:
                     
-                # check black shade
-                # get black shade of destination point
-                # get coord_center to destination point
-                    offset = self.flaeche.get_possition_from_cell_center_id(
-                        (current_node.x_id, current_node.y_id))
-                    fake_omega = current_node.reached_by_angle
+                shadow_of_all_bypassed_nodes = list(shadow_of_all_bypassed_nodes)
+#                print 'shadow_of_all_bypassed_nodes', shadow_of_all_bypassed_nodes
+                
+                # check all bypassed nodes if there
+                # are blocked nodes in the shadow 
+                if not self.flaeche.all_nodes_in_list_are_valid_and_not_blocked(
+                                                           shadow_of_all_bypassed_nodes):
+                    print 'blocked in between', (nn.cell_x_id, nn.cell_y_id)
+                    continue
+                
 
-                    all_zone_nodes_black_shade_ok = True
+                
+#                #skip if blocked 
+#                if self.flaeche.is_blocked((nn.cell_x_id, nn.cell_y_id)):
+#                    print 'blocked', (nn.cell_x_id, nn.cell_y_id)
+#                    continue
+
+#                #skip if bypassed nodes are blocked
+#                bypassed_nodes_contain_blocked = False
+#                for bypassed_node in nn.cells_in_between:
+#                    if self.flaeche.is_blocked((bypassed_node[0], bypassed_node[1])):
+#                        print 'blocked in between', (nn.cell_x_id, nn.cell_y_id)
+#                        bypassed_nodes_contain_blocked = True
+
+#                if bypassed_nodes_contain_blocked:
+#                    continue
+
+                    
+
+#                if nn.cell_x_id ==  13 and nn.cell_y_id == 6 and nn.sector_id == 2:
 #                    import pdb; pdb.set_trace()
-                    for cc in zone + [(nn.cell_x_id,nn.cell_y_id)]:
-                        black_shade = self.vessel.get_black_shade(fake_omega, offset)
-                        for bb in black_shade:
-#                            print bb
-                            if not self.flaeche.is_valid_node_pos(bb):
-                                print 'not valid', bb
-                                all_zone_nodes_black_shade_ok = False
-                                break
-                            if self.flaeche.is_blocked(bb):
-                                print 'blocked', bb
-                                all_zone_nodes_black_shade_ok = False
-                                break
+                    
+                sn_reached_by_angle = nn.angle_global
+                sn_lastNode         = current_node
 
-                    if not all_zone_nodes_black_shade_ok:
-                        continue   # skip points
-                    
+                sn_data                       = self.flaeche.get_node_data((nn.cell_x_id,
+                                                                            nn.cell_y_id))
+                sn_sector_id                  = nn.sector_id
+                sn_costs_till_here            = current_node.costs_till_here + nn.durration
 
-                    del(offset, fake_omega, black_shade, bb, cc)
-                    
-                    
-                sus_node =  StarNodeC(
-                    node_data =self.flaeche.get_node_data((nn.cell_x_id,nn.cell_y_id)),
-                    sector    =nn.sector_id,
-                    tt        =current_node.tt + nn.durration,
-                    dd        = self.get_distance_between_points((nn[0], nn[1]),
-                                             (self.end[0], self.end[1])) /speed,
-                    reached_by_angle = nn.angle,
-                    lastNode  =current_node)
-                    
+                if False:
+                    print
+                    print '## calculation ################'
+                    print 'direction'
+                    print '.         angle_to_travel_left'
+                    print '.         .                angle_to_travel_distance_left, ',
+                    print 'tangent_distance_left, total_distance_left)'
+
+                    print    
+                    print 'c-n: ', current_node.id,
+                    print 'costs till current node :', current_node.costs_till_here
+                    print 'costs from current node to new open node :', nn.durration
+                    print 'circle travel to new open node :', nn.angle_travel
+                    print 'new open node : ', nn.cell_x_id, nn.cell_y_id, nn.sector_id,  '-> ',
+                    print self.end[0], self.end[1]
+                    print self.vessel.guess_best_way_to_point(
+                                   from_point = self.flaeche.get_cell_center((nn.cell_x_id,
+                                                                              nn.cell_y_id)),
+                                   omega_from = nn.angle_global,
+                                   to_point   = self.flaeche.get_cell_center((self.end[0],
+                                                                              self.end[1])),
+                                   guess      = 'best',
+                                   verbose    = False), 'new'
+                    print self.vessel.guess_best_way_to_point_old(
+                                   from_point = self.flaeche.get_cell_center((nn.cell_x_id,
+                                                                              nn.cell_y_id)),
+                                   omega_from = nn.angle_global,
+                                   to_point   = self.flaeche.get_cell_center((self.end[0],
+                                                                              self.end[1])),
+                                   guess      = 'best'), 'old'
+
+ 
+
+                sn_estimated_remaining_costs  = self.vessel.guess_best_way_to_point_old(
+                                   from_point = self.flaeche.get_cell_center((nn.cell_x_id,
+                                                                              nn.cell_y_id)),
+                                   omega_from = nn.angle_global,
+                                   to_point   = self.flaeche.get_cell_center((self.end[0],
+                                                                              self.end[1])),
+                                   guess      = 'best')[-1] / float(self.vessel.speed)
+
+#                print 'sum: ', sn_costs_till_here + sn_estimated_remaining_costs
+
+
+                sn_previous_node              = current_node
+                sn_in_between_nodes           = []
+                
+            
+                sus_node = StarNodeC( node_data                   =sn_data,
+                                      sector_id                   =sn_sector_id,
+                                      reached_by_angle            =sn_reached_by_angle,
+                                      costs_till_here             =sn_costs_till_here,
+                                      estimated_remaining_costs   =sn_estimated_remaining_costs,
+                                      previous_node               =sn_previous_node,
+                                      in_between_nodes            =sn_in_between_nodes)
+
+
+                
                 # is in open_list -> event. update open list
                 openDNL = ANList(self.open_nodes_list, 'tuple')            
                 # returns None if not in list
                 some_open_node = openDNL.get_by_tuple((nn.cell_x_id,nn.cell_y_id, nn.sector_id))
                 
                 if some_open_node != None:  
-                    if sus_node.full < some_open_node.full:
-#                        print 'fount in open list!!'
+                    if sus_node.full_costs < some_open_node.full_costs:
+#                       print 'fount in open list!!'
                         self.open_nodes_list.remove(some_open_node)
                         self.open_nodes_list.append(sus_node)                
                 # neigther nor -> append to open list
@@ -1015,13 +1613,10 @@ class AdAStar():
                     self.open_nodes_list.append(sus_node)        
                 del(some_open_node)
         self.closed_nodes_list.append(current_node)
-        
-        
-#        print 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'
-
 
         if visual:
             self.vis_debug(self.iteration_step)
+
 
         return False # not jet finshed
 
@@ -1040,7 +1635,24 @@ class AdAStar():
 
 #        print
 #        print self.iteration_step, 'open closed'
+
+        print (self.vessel,
+                                            self.current_node_copy.x_coord,
+                                            self.current_node_copy.y_coord,
+                                            self.current_node_copy.sector_id,
+                                            self.vessel.r,
+                                            self.vessel.r * math.pi
+        )
+        
+        # draw nodes in open and closed list 
         self.draw_open_closed(step)
+        self.flaeche.draw_course_ghost_ship(self.vessel,
+                                            self.current_node_copy.x_coord,
+                                            self.current_node_copy.y_coord,
+                                            self.current_node_copy.sector_id,
+                                            self.vessel.r,
+                                            self.vessel.r * math.pi
+        )
         
     def run(self, visual=False, verbose=False):
         while not self.step(visual, verbose):
@@ -1057,9 +1669,9 @@ class AdAStar():
         elif some_node == None and not first:
             assert False, 'Something went wrong when storing the previous node!'
         self.path[0:0] = [some_node]
-        if some_node.get_coords()[0:2] == self.start[0:2]:
+        if some_node.get_coords()[0:2] == self.start[0:2]:    # before 1 
             return    
-        self.rebuild_path_recursive(some_node.previousNode)
+        self.rebuild_path_recursive(some_node.previous_node)
 
 
     def patch_path(self):
@@ -1093,8 +1705,9 @@ class AdAStar():
                 # interpol nodes 
 
                 inter_last_node      = last_node
-                inclination_groth    = (curr_node.sector - last_node.sector) / len(myD.path)
-                tt_groth             = (curr_node.tt - last_node.tt) / len(myD.path)
+                inclination_groth    = (curr_node.sector_id - last_node.sector_id) / len(myD.path)
+#                tt_groth             = (curr_node.tt - last_node.tt) / len(myD.path)
+                tt_groth             = (curr_node.costs_till_here - last_node.costs_till_here) / len(myD.path)
                 counter              = 0
 
                 path_gap_fill        = []
@@ -1102,27 +1715,32 @@ class AdAStar():
                 
                 for gg in myD.path[1:-1]:
                     counter += 1
+#                    inter_node = StarNodeC(
+#                        node_data = self.flaeche.get_node_data((gg.x_id, gg.y_id)),
+#                        sector= int(math.floor(last_node.sector + counter * inclination_groth)),
+#                        tt        = math.floor(last_node.tt        + counter * tt_groth),
+#                        dd        = 0, ############!!!!!! not calculated here be aware it's fake
+#                        reached_by_angle = None,
+#                        lastNode  = inter_last_node)
+
                     inter_node = StarNodeC(
                         node_data = self.flaeche.get_node_data((gg.x_id, gg.y_id)),
-                        sector= int(math.floor(last_node.sector + counter * inclination_groth)),
-                        tt        = math.floor(last_node.tt        + counter * tt_groth),
-                        dd        = 0, ############!!!!!! not calculated here be aware it's fake
-                        reached_by_angle = None,
-                        lastNode  = inter_last_node)
+                        sector_id = int(math.floor(last_node.sector_id + counter * inclination_groth)),
+                        reached_by_angle            = 0, ############!!!!!! not calculated here be aware it's fake
+                        costs_till_here             = math.floor(last_node.costs_till_here        + counter * tt_groth),
+                        estimated_remaining_costs   = 1,
+                        previous_node               = inter_last_node
+                    )
+
+
+                    
                     inter_last_node = inter_node
 
                     path_gap_fill.append(inter_node)
 
-#                    print path_gap_fill[0].id
-#                    print inter_node.id
-
-#                print ANList(self.path, 'tuples').get_tuples()
-                    
                 self.path[ii:ii] = path_gap_fill
                 ii += len(path_gap_fill)
                 del(path_gap_fill)
-                
-#                print ANList(self.path, 'tuples').get_tuples()
  
             
         
@@ -1152,8 +1770,6 @@ class AdAStar():
         
     def draw_open_closed(self, step=None):
         self.flaeche.vis_reset()
-        self.flaeche.vis_add_start(self.start)
-        self.flaeche.vis_add_end(self.end)
         open_nodes = ANList(self.open_nodes_list).get_tuples()
         assert len(open_nodes) > 0 
         for nn in open_nodes:
@@ -1167,6 +1783,8 @@ class AdAStar():
                 if self.flaeche.cluster[xx][yy] != None:
                     if self.flaeche.cluster[xx][yy][NodeDataHandler.is_blocked]: 
                         self.flaeche.vis_add_blocked((xx, yy))
+        self.flaeche.vis_add_start(self.start)
+        self.flaeche.vis_add_end(self.end)
         self.flaeche.vis_show(step_num=step)
 
     def draw_path(self, final=False, vessel=None):
@@ -1189,8 +1807,8 @@ class AdAStar():
             #self.flaeche.vis_add_path(NodeDataHandler.get_x_and_y_id(nn.node_data))
 
             self.flaeche.vis_add_path((nn.x_id, nn.y_id))
-            print ('path_final', nn.id, self.flaeche.get_angle_from_sector(nn.sector),
-                   self.flaeche.get_angle_from_sector(nn.sector) * 180/math.pi)
+#            print ('path_final', nn.id, self.flaeche.get_angle_from_sector_id(nn.sector_id),
+#                   self.flaeche.get_angle_from_sector_id(nn.sector_id) * 180/math.pi, nn.reached_by_angle)
             if vessel is not None:
                 vessel.transform_hull_points(nn.reached_by_angle,
                                              self.flaeche.get_possition_from_cell_center_id(
@@ -1198,28 +1816,17 @@ class AdAStar():
                                              ))
                 self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'red')
 
-#        for nn in ANList(self.path).get_tuples():
-#            self.flaeche.vis_add_path(nn)
-#            print ('path_final', nn, self.flaeche.get_angle_from_sector(nn[2]),
-#                   self.flaeche.get_angle_from_sector(nn[2]) * 180/math.pi)
-#            if vessel is not None:
-#                vessel.transform_hull_points(self.flaeche.get_angle_from_sector(nn[2]),
-#                                             self.flaeche.get_possition_from_cell_center_id(
-#                                                 (nn[0],nn[1])
-#                                             ))
-#                self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'red')
-        if vessel is not None:
-            vessel.transform_hull_points(0, (240, 200))
-            self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
-            vessel.transform_hull_points(math.pi/4, (240, 240))
-            self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
 
-            vessel.transform_hull_points(math.pi/2, (240, 280))
-            self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
+        # this is just for drawing the vessel's shape somewhere check it's orientation
+        if True:
+            if vessel is not None:
+                vessel.transform_hull_points(0, (240, 200))
+                self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
+#                vessel.transform_hull_points(math.pi/4, (240, 240))
+#                self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
 
-#            vessel.transform_hull_points(8, (55, 115))
-#            self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'pink')
-
+#                vessel.transform_hull_points(math.pi/2, (240, 280))
+#                self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
             
         if final:
             self.flaeche.vis_show(step_num=self.iteration_step)
@@ -1249,6 +1856,10 @@ class Flaeche():
 
         # sectors = 2, 4, 8, 16 ---  2**n
         # sectors = 2**4
+
+        # sector ids: 0 ... sectors-1
+        # e.g.        0 ... 15
+
         self.sectors  = sectors
 
         if output is None:
@@ -1278,6 +1889,17 @@ class Flaeche():
         self.init_image()
         
 
+    def get_empty_gird_copy(self):
+        """returns an complete nude grid of the same dimentions, but
+        containing absolutely no information"""
+
+        return Flaeche(xdim    = self.abs_xdim,
+                       ydim    = self.abs_ydim,
+                       scale   = self.scale,
+                       sectors = self.sectors,
+                       output  = None
+        )
+        
     def reset_cluster(self):
         self.cluster = []
         for xx in range(self.cluster_length_x):
@@ -1329,7 +1951,28 @@ class Flaeche():
         else:
             return False
             
-    def is_valid_node_pos(self, (xx, yy)):
+    def is_valid_node_pos(self, node_tuple):
+        
+        # handle sector information if given
+        if len(node_tuple) == 3:
+            xx, yy, sector = node_tuple
+
+            
+            if not self.is_valid_node_sector_pos((xx, yy, sector)):
+                return False
+
+# used to be code dublication:            
+#            # sector number is too large
+#            if sector >= self.sectors:
+#                return False
+#            # sector number should never be below 0
+#            if sector < 0:
+#                return False
+            
+        else:
+            xx, yy = node_tuple
+
+        # check xx and yy coordinates
         if xx < 0:
             return False
         elif xx >= self.cluster_length_x:
@@ -1347,18 +1990,55 @@ class Flaeche():
             # everything else
             return True
 
+    def all_nodes_in_list_are_valid(self, node_list):
+        """all nodes in the list are nodes that are leagal,
+        e.g. outside the area"""
+
+        for node in node_list:
+            if not self.is_valid_node_pos(node):
+#               print 'node', node
+                return False
+
+        return True
+
+    def all_nodes_in_list_are_valid_and_not_blocked(self, node_list):
+        """all nodes in the list are nodes that are leagal,
+        e.g. __not_blocked__ or outside the area"""
+
+        if not self.all_nodes_in_list_are_valid(node_list):
+            return False
+
+        for node in node_list:
+            if self.is_blocked((node[0], node[1] )):
+                return False
+
+        return True
+
+
+        
     def is_valid_node_sector_pos(self, (xx, yy, sector)):
         if (self.is_valid_node_pos((xx, yy)) and
-            0 <= sector <= self.sectors):
+            0 <= sector < self.sectors):
             return True
         else:
             return False
 
-    def get_angle_from_sector(self, sector):
-        assert(sector < self.sectors)
-        assert int(sector) == sector
+    def is_valid_sector_id(self, sector_id):
+        assert(type(sector_id) is int), 'sector_id must be an integer'    
+        assert(sector_id >= 0), 'sector_id must be greater equal zero'    
+        assert(sector_id < self.sectors), 'sector_id is greater then the number of sectors'    
+        return True
 
-        return (sector * 2 * math.pi / self.sectors) + 0.5 * 2 * math.pi / self.sectors 
+        
+    def get_angle_from_sector_id(self, sector_id):
+        assert (sector_id < self.sectors)
+        assert (sector_id >= 0), sector_id
+        assert int(sector_id) == sector_id
+
+        angle =  sector_id * 2*math.pi/self.sectors
+        return angle
+        
+#       return (sector * 2 * math.pi / self.sectors) + 0.5 * 2 * math.pi / self.sectors 
 
     def get_node_data(self, (xx, yy)):
         assert self.is_valid_node_pos((xx, yy)) , 'self.is_valid_node_pos((%s, %s))' % (xx,yy) 
@@ -1423,6 +2103,13 @@ class Flaeche():
 #        pass
 #        return sector_center
 
+    def convert_cell_id_to_tuple(self, cell_id):
+#        assert (type(cell_id) == 'str')
+        components = [int(cc) for cc in  cell_id.split('_')]
+        assert (len(components) == 3 ) , 'wrong cell_id formant %s' % cell_id
+        return (components[0], components[1], components[2])
+        
+        
     def get_possition_from_cell_center_id(self, (center_id_x, center_id_y)):
         assert center_id_x >= 0
         assert center_id_x <= self.cluster_length_x
@@ -1445,6 +2132,117 @@ class Flaeche():
  
         
     def get_cells(self, p):
+        """returns the list of cells, a point is located in,
+
+           this can be more than one cell if the point is on
+           a border edge
+
+
+                |       |
+             --------------
+                |     x |
+                |  XX   |
+                |       |
+             --------------
+                |       |
+
+        
+                |       |
+             --------------
+                |       |
+            XX  x  XX   |
+                |       |
+             -------
+                |       |
+        
+        
+                |       |
+             --------------
+                |       |
+                |  XX   |
+                |       |
+              -------x---
+                |       |
+                |  XX   | 
+                |       |
+
+        
+                |       |
+            XX  |  XX   |
+                |       |
+              --x---------
+                |       |
+            XX  |  XX   |
+                |       |
+        
+        
+        """
+
+        def xxx(point):
+            int(math.floor(float(p[0])/self.scale))
+            
+        
+        rest_x = round(float(p[0]) % self.scale, 7)
+        rest_y = round(float(p[1]) % self.scale, 7)
+
+        vertical_one   = True if rest_x == 0 else False
+        horizontal_one = True if rest_y == 0 else False
+        
+        if not vertical_one and not horizontal_one:
+            return [(int(math.floor(float(p[0])/self.scale)),
+                     int(math.floor(float(p[1])/self.scale)))]
+
+        elif vertical_one and not horizontal_one:
+            ret_0 = (int(math.floor(float(p[0])/self.scale)),
+                     int(math.floor(float(p[1])/self.scale)))
+
+            ret_1 = (int(math.floor(float(p[0])/self.scale)) - 1,
+                     int(math.floor(float(p[1])/self.scale))     )
+            ret = [ret_0, ret_1]
+#            if not ret_1[0] < 0:
+#               ret.append(ret_1) 
+            
+            return sorted(ret)
+            
+        elif not vertical_one and horizontal_one:
+            ret_0 = (int(math.floor(float(p[0])/self.scale)),
+                     int(math.floor(float(p[1])/self.scale)) )
+            
+            ret_1 = (int(math.floor(float(p[0])/self.scale)),
+                     int(math.floor(float(p[1])/self.scale)) - 1 )
+            
+            ret = [ret_0, ret_1]
+#            if not ret_1[1] < 0:
+#            ret.append(ret_1) 
+            
+            return sorted(ret)
+
+        elif vertical_one and horizontal_one:
+            ret_0 = (int(math.floor(float(p[0])/self.scale)),
+                     int(math.floor(float(p[1])/self.scale)))
+            
+            ret_1 = (int(math.floor(float(p[0])/self.scale)) - 1,
+                     int(math.floor(float(p[1])/self.scale)))
+            
+            ret_2 = (int(math.floor(float(p[0])/self.scale)),
+                     int(math.floor(float(p[1])/self.scale)) - 1 )
+            
+            ret_3 = (int(math.floor(float(p[0])/self.scale)) - 1,
+                     int(math.floor(float(p[1])/self.scale)) - 1 )
+            ret = [ret_0, ret_1, ret_2 ,ret_3]
+
+            
+#            if not ret_1[0] < 0:
+#               ret.append(ret_1) 
+#            if not ret_2[1] < 0:
+#               ret.append(ret_2) 
+#            if ret_3[0] >= 0 and  ret_3[1] >= 0:
+#               ret.append(ret_3) 
+               
+        return sorted(ret)
+
+        
+    def get_cells_old(self, p):
         """returns the list of cells, a point is located in,
 
            this can be more than one cell if the point is on
@@ -1550,6 +2348,29 @@ class Flaeche():
                
         return sorted(ret)
 
+    def convert_trajectroy_points_to_bypassed_cells(self, trajectory):
+        """eats a list of trajectory points
+        for each point in the list, the corresponding cell is determined
+        all cell_ids are kept in a set to prevent dublictions
+        finaly a list of all cells is returned
+        """
+
+        nodes_in_between_set = set()
+                
+        for traj_point in trajectory:
+            traj_point_x     = traj_point[0]
+            traj_point_y     = traj_point[1]
+            traj_point_angle = traj_point[2]
+            
+            cell_id_x, cell_id_y = self.get_cell((traj_point_x, traj_point_y))
+            sector_id = self.get_sector_id_from_angle(traj_point_angle)
+            
+            nodes_in_between_set.add((cell_id_x, cell_id_y, sector_id))
+            
+        nodes_in_between_list = sorted(list(nodes_in_between_set))
+        
+        return nodes_in_between_list
+
         
             
     
@@ -1592,6 +2413,26 @@ class Flaeche():
     def vis_add_current(self, point):
         self.vis_add_colored_point(point, (255, 105, 180), 'current node')
 
+    def vis_add_green(self, points):
+        assert (isinstance(points, list))
+        for pp in points:
+            self.vis_add_colored_point(pp   , (0, 200, 0), 'green shadow')
+
+    def vis_add_red(self, points):
+        assert (isinstance(points, list))
+        for pp in points:
+            self.vis_add_colored_point(pp   , (200, 0, 0), 'red shadow')
+            
+    def vis_add_grey(self, points):
+        assert (isinstance(points, list))
+        for pp in points:
+            self.vis_add_colored_point(pp   , (100, 100, 100), 'grey shadow')
+            
+    def vis_add_black(self, points):
+        assert (isinstance(points, list))
+        for pp in points:
+            self.vis_add_colored_point(pp   , (0, 0, 0), 'black shadow')
+        
     def vis_add_reachable(self, points):
         if isinstance(points, tuple):
                 self.vis_add_colored_point(point, (255, 165, 0), 'reachable node')
@@ -1628,6 +2469,35 @@ class Flaeche():
     def draw_course(self, vessel, r, delta):
         args = []
         args.append(vessel)
+        args.append(r)
+        args.append(delta)
+
+        self.top_layer.append((self.draw_course_function, args))
+
+    def draw_course_ghost_ship(self, vessel, xx, yy, sector_id, r, delta):
+        """ the draw course functions makes heavy use of the
+        vessels true position.
+        For visualizing while pathfinding, the true vessel's position
+        will not be altered.
+
+        For not writing a new function, a copy of the orginal vessel
+        will be made and will be set up with the position of interest.
+
+        Then this ghost ship will be handed over to the normal function.
+        
+        """
+
+        
+        gost_vessel = Vessel(flaeche     = vessel.flaeche,
+                             hull_points = vessel.hull_points
+        )
+
+        gost_vessel.x = xx
+        gost_vessel.y = yy
+        gost_vessel.rotation = vessel.flaeche.get_angle_from_sector_id(sector_id)
+        
+        args = []
+        args.append(gost_vessel)
         args.append(r)
         args.append(delta)
 
@@ -1670,16 +2540,17 @@ class Flaeche():
         global_box_right = (int(global_center_right[0] - r), int(global_center_right[1] - r),
                             int(global_center_right[0] + r), int(global_center_right[1] + r)) 
 
+        # draw course
+        if False:
+            self.draw.line([(current_pos_x, current_pos_y), global_streight], 'blue')
+            
+            self.draw.arc (global_box_left,
+                           int(90 - angle + current_rot_deg),
+                           int(90 + current_rot_deg),  'red')  # end_angle, start_angle
 
-        self.draw.line([(current_pos_x, current_pos_y), global_streight], 'blue')
-        
-        self.draw.arc (global_box_left,
-                       int(90 - angle + current_rot_deg),
-                       int(90 + current_rot_deg),  'red')  # end_angle, start_angle
-
-        self.draw.arc (global_box_right,
-                       int(-90 + current_rot_deg),
-                       int(-90 + angle + current_rot_deg ),  'green')
+            self.draw.arc (global_box_right,
+                           int(-90 + current_rot_deg),
+                           int(-90 + angle + current_rot_deg ),  'green')
        
 
     def vis_add_poly(self, my_poly, color=None):
@@ -1694,7 +2565,8 @@ class Flaeche():
         self.points.append((point, color))
         
     def vis_show(self, my_poly=None, step_num=None):
-        
+
+        # draw the grid
         for xx in range(self.cluster_length_x):
 
             for yy in range(self.cluster_length_y):
@@ -1705,6 +2577,9 @@ class Flaeche():
                     self.draw.rectangle(self.get_node_box(xx, yy), 
                                         'white', outline=120)
 
+       
+
+                    
         if len(self.polies) > 0:            
             for poly in self.polies:
                 self.draw.line(poly[0], fill=poly[1])
@@ -1720,12 +2595,19 @@ class Flaeche():
         if step_num is not None:
             filename =  self.output + '%05i' % step_num + '.bmp' 
 
-        for fun in self.top_layer:
-            fun[0](*fun[1])
+        # draw course lines    
+#        for fun in self.top_layer:
+#            fun[0](*fun[1])
             
-            
-        #self.draw_course()
-            
+        if step_num is not None and len(self.top_layer) > 0:
+            if len(self.top_layer) >= step_num -1:
+                self.top_layer[step_num - 2][0](*self.top_layer[step_num - 2][1])
+                
+        else:
+            for fun in self.top_layer:
+                fun[0](*fun[1])
+        
+                        
         self.im.save(filename)
 
 #        im.show()
@@ -1773,3 +2655,104 @@ def make_movie(file_base):
     
 if __name__ =='__main__':
     print '...'
+
+
+#                sn_node_data = self.flaeche.get_node_data((nn.cell_x_id,nn.cell_y_id))
+#                sn_sector    = nn.sector_id
+#                sn_tt        = current_node.tt + nn.durration
+#                sn_dd        = self.vessel.guess_best_way_to_point(
+#                                 from_point = self.flaeche.get_cell_center((nn.cell_x_id,
+#                                                                            nn.cell_y_id)),
+#                                 omega_from = nn.angle,
+#                                 to_point   = self.flaeche.get_cell_center((self.end[0],
+#                                                                            self.end[1])),
+#                                 guess='best')[-1]
+
+
+
+
+#                sus_node =  StarNodeC(
+#                    node_data =self.flaeche.get_node_data((nn.cell_x_id,nn.cell_y_id)),
+#                    sector    =nn.sector_id,
+#                    tt        =current_node.tt + nn.durration,
+#
+#                    dd        =sn_dd,#
+#
+##                    dd        =self.vessel.guess_best_way_to_point(
+##                                 from_point = (nn.cell_x_id, nn.cell_y_id),
+##                                 omega_from = nn.angle,
+##                                 to_point   = self.flaeche.get_cell_center((self.end[0],
+##                                                                            self.end[1])),
+##                                 guess='best')[-1],
+#
+##                    dd        = self.get_distance_between_points((nn[0], nn[1]),
+##                                             (self.end[0], self.end[1])) /speed,
+#                    reached_by_angle = nn.angle,
+#                    lastNode  =current_node)
+                    
+####  zone checker code
+def zone_checker():
+    for ii in range(0): # dummy remove
+                check_zone = False
+                if check_zone:
+
+                # zone = any point in the rectengual between the sus_node
+                # and the current node
+
+                    zone_x_start = int(min(current_node.x_id, nn.cell_x_id ) )
+                    zone_x_end   = int(max(current_node.x_id, nn.cell_x_id ) )
+                    zone_y_start = int(min(current_node.y_id, nn.cell_y_id ) )
+                    zone_y_end   = int(max(current_node.y_id, nn.cell_y_id ) )
+
+                    if zone_x_start == zone_x_end:
+                        zone_x_end += 1
+                    if zone_y_start == zone_y_end:
+                        zone_y_end += 1
+                    
+                    one_in_zone_is_bocked = False
+
+                    zone = [ (z_ii, z_jj) for z_ii in range(zone_x_start, zone_x_end)
+                             for z_jj in range(zone_y_start, zone_y_end)]
+
+                    illegal_points = 0
+                    for z_pp in zone:
+                        if not self.flaeche.is_valid_node_pos(z_pp):
+                            illegal_points += 1
+                            continue
+                        if self.flaeche.is_blocked(z_pp):
+                            one_in_zone_is_bocked = True
+
+                    assert illegal_points < len(zone), 'all zone nodes are illegal, must be wrong'
+                        
+                    if one_in_zone_is_bocked:
+                        continue   # skip points
+
+                    shade_check = True#False
+                    if shade_check:
+                    
+                # check black shade
+                # get black shade of destination point
+                # get coord_center to destination point
+                        offset = self.flaeche.get_possition_from_cell_center_id(
+                            (current_node.x_id, current_node.y_id))
+                        fake_omega = current_node.reached_by_angle
+
+                        all_zone_nodes_black_shade_ok = True
+                        for cc in zone + [(nn.cell_x_id,nn.cell_y_id)]:
+                            black_shade = self.vessel.get_black_shade(fake_omega, offset, visual)
+                            for bb in black_shade:
+                                #                           print bb
+                                if not self.flaeche.is_valid_node_pos(bb):
+                                    #                               print 'not valid', bb
+                                    all_zone_nodes_black_shade_ok = False
+                                    break
+                                if self.flaeche.is_blocked(bb):
+                                    #                               print 'blocked', bb
+                                    all_zone_nodes_black_shade_ok = False
+                                    break
+
+                        if not all_zone_nodes_black_shade_ok:
+                            continue   # skip points
+                    
+
+                        del(offset, fake_omega, black_shade, bb, cc)

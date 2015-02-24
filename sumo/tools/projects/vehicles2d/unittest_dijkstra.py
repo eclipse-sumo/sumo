@@ -1,9 +1,9 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-@file    test_dijkstra.py
+@file    unittest_dijkstra.py
 @author  Marek Heinrich
-@date    2014-11-17
-@version $Id$
+@date    2015-02-24
 
 Unittests for Dijkstra.
 
@@ -22,20 +22,11 @@ import unittest
 import numpy, math
 import main
 
+
 from commons import StarNode, DNList
 from dijkstra_base import Dijkstra
 
-from test import VISUAL 
-from test import lost 
-from test import finished  
-from test import afinished 
-from test import unfinished
-from test import devel_skip
-from test import devel_run 
-from test import broken 
-from test import visual  
-
-
+from unittest_constants import VISUAL, lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual, known_bug, debugging 
 
 class someTestcaseDD(unittest.TestCase):
 
@@ -46,14 +37,19 @@ class someTestcaseDD(unittest.TestCase):
         """test to check the id string and get_coords of a DijkstraNode"""
 
         myFlaeche = main.Flaeche(xdim=30,ydim=30,scale=1)
-        myD = Dijkstra(myFlaeche, start_node=(0, 0), end_node=(20,10))
+        myD       = Dijkstra(myFlaeche,
+                             start_node=(0, 0),
+                             end_node=(20,10))
+        
         myDN_1 = StarNode(xx=3 ,yy=3 ,tt=4, dd=5, lastNode=None)
-        self.assertEqual(myDN_1.id, '3_3')
-        self.assertEqual(myDN_1.get_coords(), (3, 3))
+
+        self.assertEqual('3_3' , myDN_1.id)
+        self.assertEqual((3, 3), myDN_1.get_coords())
+
         #return myID = 21        
 
 
-    @unittest.skipIf(finished, '')    
+    @unittest.skipIf(finished, 'done')    
     def test_dijkstra_nodes_basic_funtionality(self):
         """testing init, get_min,  the home brewn node list """    
 
@@ -175,12 +171,14 @@ class someTestcaseDD(unittest.TestCase):
         end   = (20, 10)
         myFlaeche = main.Flaeche(xdim=30,ydim=30,scale=1)
         myD = Dijkstra(myFlaeche, start, end)
-        self.assertEqual(myFlaeche.get_neighbours((2,2)), [(1,1), (1,2), (1,3), (2,1), (2,3), (3,1), (3,2), (3,3)])
+        self.assertEqual(myFlaeche.get_neighbours((2,2)), [(1,1), (1,2), (1,3),
+                                                           (2,1), (2,3),
+                                                           (3,1), (3,2), (3,3)])
         self.assertEqual(myFlaeche.get_neighbours((0,2)), [(0,1), (0,3), (1,1), (1,2), (1,3)])
         #return myId = 5
 
 
-    @unittest.skipIf(devel_run, '')    
+    @unittest.skipIf(finished, 'done')    
     def test_neighbours(self):
         """test to vertify two cells are neibourghs """
 
@@ -228,6 +226,7 @@ class someTestcaseDD(unittest.TestCase):
 
     
     # is visual
+    @unittest.skipIf(finished, 'done')
     def test_dijsktra_step_internals(self):  
         """ Test for dijkstra's results after the first step        """
         
@@ -273,10 +272,10 @@ class someTestcaseDD(unittest.TestCase):
         # and finding a shorter path to myDN_0 
         # and should update the open list after the step
         self.assertEqual(sorted(myD_fake_open.get_open_nodes('tuples')), [( 0, 0), ( 1, 1)])
-        long_way = DNList(myD_fake_open.open_nodes_list).get_by_tuple((1, 1)).full
+        long_way = DNList(myD_fake_open.open_nodes_list).get_by_tuple((1, 1)).full_costs
         """test the unfished return value"""
         self.assertFalse(myD_fake_open.step()) 
-        short_way = DNList(myD_fake_open.open_nodes_list).get_by_tuple((1, 1)).full
+        short_way = DNList(myD_fake_open.open_nodes_list).get_by_tuple((1, 1)).full_costs
         self.assertGreater(long_way, short_way)
     
             
@@ -290,7 +289,7 @@ class someTestcaseDD(unittest.TestCase):
         myD_fake_end.open_nodes_list.append(myDN_2) # some point the longest
         self.assertTrue(myD_fake_end.step())
 
-    @unittest.skipIf(devel_run, 'done')
+    @unittest.skipIf(finished, 'done')
     def test_dijsktra_run_and_rebuild (self): 
         """run the algorithm on a simple example"""
         visual = VISUAL
@@ -329,7 +328,7 @@ class someTestcaseDD(unittest.TestCase):
             myD.draw_path()
 
 
-    @unittest.skipIf(visual, 'done')
+    @unittest.skipIf(devel_run, 'done')
     def test_wiki (self):
         visual = VISUAL
 #        visual = True
@@ -361,19 +360,7 @@ class someTestcaseDD(unittest.TestCase):
             myD.draw_path(final=True)
             main.make_movie(myFlaeche.output)
 
-    @unittest.skipIf(broken, '')
-    def test_dijstra_node_class(self):
-        myDiNode = Dijkstra.DijkstraNode()    
-        self.assertIsInt(myDiNode.x_id)
-        self.assertIs(int, myDiNode.y_id)
-        self.assertGreaterEqual(0, myDiNode.x_id)
-        self.assertGreaterEqual(0, myDiNode.y_id)
-        
-        self.assertNone(myDiNode.getLast())
-        dijk.step()
-        self.assertIsClass(myDiNode.getLast(),Dikstra_node_Class)
-
-
+            
     @unittest.skipIf(finished, 'done')
     def test_get_distance_to_end(self):
         """ttel the distance heurisitics from the point to dest."""
