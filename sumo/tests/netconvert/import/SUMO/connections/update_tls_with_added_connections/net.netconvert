@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/28/14 19:42:53 by SUMO netconvert Version dev-SVN-r15519
+<!-- generated on Tue Feb 24 15:45:12 2015 by SUMO netconvert Version dev-SVN-r17955I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -49,10 +49,10 @@
         <lane id=":0_5_0" index="0" speed="45.00" length="22.98" shape="504.95,488.65 504.43,496.33 503.30,502.43 502.17,507.31 501.65,511.35"/>
     </edge>
     <edge id=":0_6" function="internal">
-        <lane id=":0_6_0" index="0" speed="45.00" length="10.48" shape="501.65,488.65 500.84,494.34 498.40,498.40"/>
+        <lane id=":0_6_0" index="0" speed="45.00" length="10.78" shape="501.65,488.65 500.84,494.34 498.40,498.40 498.15,498.55"/>
     </edge>
     <edge id=":0_9" function="internal">
-        <lane id=":0_9_0" index="0" speed="45.00" length="10.48" shape="498.40,498.40 494.34,500.84 488.65,501.65"/>
+        <lane id=":0_9_0" index="0" speed="45.00" length="10.19" shape="498.15,498.55 494.34,500.84 488.65,501.65"/>
     </edge>
     <edge id=":0_7" function="internal">
         <lane id=":0_7_0" index="0" speed="45.00" length="10.88" shape="488.65,491.75 492.89,491.56 495.92,490.98 497.74,490.01 498.35,488.65"/>
@@ -175,7 +175,7 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <junction id=":0_9_0" type="internal" x="498.40" y="498.40" incLanes=":0_6_0 4si_0 4si_1" intLanes=":0_0_0 :0_1_0 :0_3_0 :0_8_0"/>
+    <junction id=":0_9_0" type="internal" x="498.15" y="498.55" incLanes=":0_6_0 4si_0 4si_1" intLanes=":0_0_0 :0_1_0 :0_3_0 :0_8_0"/>
 
     <connection from="1fi" to="1si" fromLane="0" toLane="0" via=":m1_0_0" dir="s" state="M"/>
     <connection from="1fi" to="1si" fromLane="0" toLane="1" via=":m1_0_1" dir="s" state="M"/>

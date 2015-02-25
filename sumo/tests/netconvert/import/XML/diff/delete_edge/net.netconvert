@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 12 07:34:45 2013 by SUMO netconvert Version dev-SVN-r15319
+<!-- generated on Tue Feb 24 15:45:10 2015 by SUMO netconvert Version dev-SVN-r17955I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -22,6 +22,10 @@
         <offset.disable-normalization value="true"/>
     </processing>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
@@ -36,16 +40,13 @@
         <lane id=":node_C_1_0" index="0" speed="11.50" length="8.29" shape="4.82,1.85 -3.44,2.62"/>
     </edge>
     <edge id=":node_C_2" function="internal">
-        <lane id=":node_C_2_0" index="0" speed="13.50" length="3.29" shape="4.82,1.85 1.99,1.36 1.65,1.11"/>
+        <lane id=":node_C_2_0" index="0" speed="13.50" length="11.60" shape="4.82,1.85 1.99,1.36 -0.03,-0.12 -1.25,-2.59 -1.65,-6.04"/>
     </edge>
     <edge id=":node_C_3" function="internal">
-        <lane id=":node_C_3_0" index="0" speed="12.50" length="3.44" shape="4.82,1.85 3.10,0.60 2.56,-0.60"/>
+        <lane id=":node_C_3_0" index="0" speed="12.50" length="4.54" shape="4.82,1.85 3.10,0.60 2.56,-0.60 3.09,-1.57"/>
     </edge>
     <edge id=":node_C_8" function="internal">
-        <lane id=":node_C_8_0" index="0" speed="13.50" length="8.31" shape="1.65,1.11 -0.03,-0.12 -1.25,-2.59 -1.65,-6.04"/>
-    </edge>
-    <edge id=":node_C_9" function="internal">
-        <lane id=":node_C_9_0" index="0" speed="12.50" length="3.44" shape="2.56,-0.60 3.20,-1.76 5.01,-2.86"/>
+        <lane id=":node_C_8_0" index="0" speed="12.50" length="2.34" shape="3.09,-1.57 3.20,-1.76 5.01,-2.86"/>
     </edge>
     <edge id=":node_C_4" function="internal">
         <lane id=":node_C_4_0" index="0" speed="13.50" length="5.22" shape="1.65,-6.04 1.86,-4.70 2.49,-3.73 3.54,-3.11 5.01,-2.86"/>
@@ -93,10 +94,10 @@
         <phase duration="4" state="rrrryyyy"/>
     </tlLogic>
 
-    <junction id="node_C" type="traffic_light" x="0.00" y="0.00" incLanes="edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_8_0 :node_C_9_0 :node_C_4_0 :node_C_5_0 :node_C_6_0 :node_C_7_0" shape="0.05,4.85 3.25,4.85 4.75,3.45 5.08,-4.46 3.25,-6.04 -3.25,-6.04 -4.70,-2.11 -3.02,4.17">
+    <junction id="node_C" type="traffic_light" x="0.00" y="0.00" incLanes="edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_2_0 :node_C_8_0 :node_C_4_0 :node_C_5_0 :node_C_6_0 :node_C_7_0" shape="0.05,4.85 3.25,4.85 4.75,3.45 5.08,-4.46 3.25,-6.04 -3.25,-6.04 -4.70,-2.11 -3.02,4.17">
         <request index="0" response="00100000" foes="00100000" cont="0"/>
         <request index="1" response="00100000" foes="00100000" cont="0"/>
-        <request index="2" response="01100000" foes="11100000" cont="1"/>
+        <request index="2" response="01100000" foes="11100000" cont="0"/>
         <request index="3" response="00010000" foes="00010000" cont="1"/>
         <request index="4" response="00000000" foes="00001000" cont="0"/>
         <request index="5" response="00000000" foes="00000111" cont="0"/>
@@ -112,8 +113,7 @@
     </junction>
     <junction id="node_U" type="unregulated" x="0.00" y="40.00" incLanes="edge_C2U_0" intLanes="" shape="3.25,40.00 0.05,40.00"/>
 
-    <junction id=":node_C_8_0" type="internal" x="1.65" y="1.11" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_5_0 :node_C_6_0 :node_C_7_0"/>
-    <junction id=":node_C_9_0" type="internal" x="2.56" y="-0.60" incLanes=":node_C_3_0 edge_D2C_0" intLanes=":node_C_4_0"/>
+    <junction id=":node_C_8_0" type="internal" x="3.09" y="-1.57" incLanes=":node_C_3_0 edge_D2C_0" intLanes=":node_C_4_0"/>
 
     <connection from="edge_C2D" to="edge_D2C" fromLane="0" toLane="0" via=":node_D_0_0" dir="t" state="M"/>
     <connection from="edge_C2R" to="edge_R2C" fromLane="0" toLane="0" via=":node_R_0_0" dir="t" state="M"/>
@@ -128,10 +128,9 @@
 
     <connection from=":node_C_0" to="edge_C2U" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_C_1" to="edge_C2L" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_C_2" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_8_0" dir="s" state="m"/>
-    <connection from=":node_C_8" to="edge_C2D" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_C_3" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_9_0" dir="s" state="m"/>
-    <connection from=":node_C_9" to="edge_C2R" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_C_2" to="edge_C2D" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_C_3" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_8_0" dir="s" state="m"/>
+    <connection from=":node_C_8" to="edge_C2R" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_C_4" to="edge_C2R" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_C_5" to="edge_C2U" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_C_6" to="edge_C2L" fromLane="0" toLane="1" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan 13 08:28:51 2015 by SUMO netconvert Version dev-SVN-r17575ID
+<!-- generated on Wed Feb 25 10:54:43 2015 by SUMO netconvert Version dev-SVN-r17955I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -180,10 +180,8 @@
         <phase duration="4" state="yy"/>
     </tlLogic>
     <tlLogic id="32950084" type="static" programID="0" offset="0">
-        <phase duration="31" state="GgGr"/>
-        <phase duration="4" state="yyyr"/>
-        <phase duration="31" state="GrGg"/>
-        <phase duration="4" state="yryy"/>
+        <phase duration="31" state="GgGg"/>
+        <phase duration="4" state="yyyy"/>
     </tlLogic>
     <tlLogic id="449262" type="static" programID="0" offset="0">
         <phase duration="31" state="GGG"/>

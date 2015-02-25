@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 12 07:34:45 2013 by SUMO netconvert Version dev-SVN-r15319
+<!-- generated on Tue Feb 24 15:45:10 2015 by SUMO netconvert Version dev-SVN-r17955I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -22,6 +22,10 @@
         <offset.disable-normalization value="true"/>
     </processing>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
@@ -36,10 +40,10 @@
         <lane id=":node_C_1_0" index="0" speed="13.50" length="11.34" shape="4.49,1.85 1.80,1.36 -0.12,-0.12 -1.27,-2.59 -1.65,-6.04"/>
     </edge>
     <edge id=":node_C_2" function="internal">
-        <lane id=":node_C_2_0" index="0" speed="12.50" length="3.45" shape="4.49,1.85 2.76,0.60 2.22,-0.61"/>
+        <lane id=":node_C_2_0" index="0" speed="12.50" length="4.59" shape="4.49,1.85 2.76,0.60 2.22,-0.61 2.77,-1.60"/>
     </edge>
     <edge id=":node_C_6" function="internal">
-        <lane id=":node_C_6_0" index="0" speed="12.50" length="3.45" shape="2.22,-0.61 2.86,-1.77 4.68,-2.88"/>
+        <lane id=":node_C_6_0" index="0" speed="12.50" length="2.32" shape="2.77,-1.60 2.86,-1.77 4.68,-2.88"/>
     </edge>
     <edge id=":node_C_3" function="internal">
         <lane id=":node_C_3_0" index="0" speed="13.50" length="4.95" shape="1.65,-6.04 1.84,-4.70 2.41,-3.73 3.36,-3.12 4.68,-2.88"/>
@@ -97,7 +101,7 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":node_C_6_0" type="internal" x="2.22" y="-0.61" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_3_0"/>
+    <junction id=":node_C_6_0" type="internal" x="2.77" y="-1.60" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_3_0"/>
 
     <connection from="edge_C2D" to="edge_D2C" fromLane="0" toLane="0" via=":node_D_0_0" dir="t" state="M"/>
     <connection from="edge_C2R" to="edge_R2C" fromLane="0" toLane="0" via=":node_R_0_0" dir="t" state="M"/>

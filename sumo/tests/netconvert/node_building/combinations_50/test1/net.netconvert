@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 12 07:34:23 2013 by SUMO netconvert Version dev-SVN-r15319
+<!-- generated on Tue Feb 24 15:25:21 2015 by SUMO netconvert Version dev-SVN-r17955I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -18,6 +18,10 @@
         <speed-in-kmh value="true"/>
     </processing>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
@@ -32,13 +36,13 @@
         <lane id=":0_1_0" index="0" speed="13.89" length="9.50" shape="48.35,54.75 48.35,45.25"/>
     </edge>
     <edge id=":0_2" function="internal">
-        <lane id=":0_2_0" index="0" speed="13.89" length="7.14" shape="48.35,54.75 48.75,51.95 49.95,49.95 51.65,48.93"/>
+        <lane id=":0_2_0" index="0" speed="13.89" length="5.28" shape="48.35,54.75 48.75,51.95 49.95,49.95 50.05,49.89"/>
     </edge>
     <edge id=":0_3" function="internal">
         <lane id=":0_3_0" index="0" speed="13.89" length="2.41" shape="48.35,54.75 49.18,53.51 50.00,53.10"/>
     </edge>
     <edge id=":0_16" function="internal">
-        <lane id=":0_16_0" index="0" speed="13.89" length="3.18" shape="51.65,48.93 51.95,48.75 54.75,48.35"/>
+        <lane id=":0_16_0" index="0" speed="13.89" length="5.04" shape="50.05,49.89 51.95,48.75 54.75,48.35"/>
     </edge>
     <edge id=":0_17" function="internal">
         <lane id=":0_17_0" index="0" speed="13.89" length="2.41" shape="50.00,53.10 50.83,53.51 51.65,54.75"/>
@@ -62,13 +66,13 @@
         <lane id=":0_9_0" index="0" speed="13.89" length="9.50" shape="51.65,45.25 51.65,54.75"/>
     </edge>
     <edge id=":0_10" function="internal">
-        <lane id=":0_10_0" index="0" speed="13.89" length="7.14" shape="51.65,45.25 51.25,48.05 50.05,50.05 48.35,51.07"/>
+        <lane id=":0_10_0" index="0" speed="13.89" length="5.28" shape="51.65,45.25 51.25,48.05 50.05,50.05 49.95,50.11"/>
     </edge>
     <edge id=":0_11" function="internal">
         <lane id=":0_11_0" index="0" speed="13.89" length="2.41" shape="51.65,45.25 50.82,46.49 50.00,46.90"/>
     </edge>
     <edge id=":0_18" function="internal">
-        <lane id=":0_18_0" index="0" speed="13.89" length="3.18" shape="48.35,51.07 48.05,51.25 45.25,51.65"/>
+        <lane id=":0_18_0" index="0" speed="13.89" length="5.04" shape="49.95,50.11 48.05,51.25 45.25,51.65"/>
     </edge>
     <edge id=":0_19" function="internal">
         <lane id=":0_19_0" index="0" speed="13.89" length="2.41" shape="50.00,46.90 49.17,46.49 48.35,45.25"/>
@@ -154,9 +158,9 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":0_16_0" type="internal" x="51.65" y="48.93" incLanes=":0_2_0 3i_0" intLanes=":0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_13_0 :0_14_0"/>
+    <junction id=":0_16_0" type="internal" x="50.05" y="49.89" incLanes=":0_2_0 3i_0" intLanes=":0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_13_0 :0_14_0"/>
     <junction id=":0_17_0" type="internal" x="50.00" y="53.10" incLanes=":0_3_0 1i_0 2i_0 3i_0" intLanes=":0_4_0 :0_9_0 :0_14_0"/>
-    <junction id=":0_18_0" type="internal" x="48.35" y="51.07" incLanes=":0_10_0 4i_0" intLanes=":0_0_0 :0_1_0 :0_5_0 :0_6_0 :0_13_0 :0_14_0 :0_15_0"/>
+    <junction id=":0_18_0" type="internal" x="49.95" y="50.11" incLanes=":0_10_0 4i_0" intLanes=":0_0_0 :0_1_0 :0_5_0 :0_6_0 :0_13_0 :0_14_0 :0_15_0"/>
     <junction id=":0_19_0" type="internal" x="50.00" y="46.90" incLanes=":0_11_0 1i_0 2i_0 4i_0" intLanes=":0_1_0 :0_6_0 :0_12_0"/>
 
     <connection from="1i" to="3o" fromLane="0" toLane="0" via=":0_12_0" dir="r" state="m"/>

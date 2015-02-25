@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 17 10:02:40 2015 by SUMO netconvert Version dev-SVN-r17871I
+<!-- generated on Wed Feb 25 10:54:37 2015 by SUMO netconvert Version dev-SVN-r17955I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -657,32 +657,24 @@
     </edge>
 
     <tlLogic id="1560223399" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGGgGGr"/>
-        <phase duration="4" state="yyyyyyr"/>
-        <phase duration="31" state="GGGrGGg"/>
-        <phase duration="4" state="yyyryyy"/>
+        <phase duration="31" state="GGGgGGg"/>
+        <phase duration="4" state="yyyyyyy"/>
     </tlLogic>
     <tlLogic id="1560223408" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGgGGGr"/>
-        <phase duration="4" state="yyyyyyr"/>
-        <phase duration="31" state="GGrGGGg"/>
-        <phase duration="4" state="yyryyyy"/>
+        <phase duration="31" state="GGgGGGg"/>
+        <phase duration="4" state="yyyyyyy"/>
     </tlLogic>
     <tlLogic id="1560223489" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGGgGr"/>
-        <phase duration="4" state="yyyyyr"/>
-        <phase duration="31" state="GGGrGg"/>
-        <phase duration="4" state="yyyryy"/>
+        <phase duration="31" state="GGGgGg"/>
+        <phase duration="4" state="yyyyyy"/>
     </tlLogic>
     <tlLogic id="1560223813" type="static" programID="0" offset="0">
         <phase duration="31" state="GG"/>
         <phase duration="4" state="yy"/>
     </tlLogic>
     <tlLogic id="32266938" type="static" programID="0" offset="0">
-        <phase duration="31" state="GgGr"/>
-        <phase duration="4" state="yyyr"/>
-        <phase duration="31" state="GrGg"/>
-        <phase duration="4" state="yryy"/>
+        <phase duration="31" state="GgGg"/>
+        <phase duration="4" state="yyyy"/>
     </tlLogic>
     <tlLogic id="32266940" type="static" programID="0" offset="0">
         <phase duration="31" state="G"/>

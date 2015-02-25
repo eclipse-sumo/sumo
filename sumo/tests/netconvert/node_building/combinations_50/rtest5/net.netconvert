@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 12 07:34:24 2013 by SUMO netconvert Version dev-SVN-r15319
+<!-- generated on Tue Feb 24 15:25:22 2015 by SUMO netconvert Version dev-SVN-r17955I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -17,6 +17,10 @@
     <processing>
         <speed-in-kmh value="true"/>
     </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -41,13 +45,13 @@
         <lane id=":0_3_0" index="0" speed="15.28" length="9.50" shape="51.65,48.55 51.65,58.05"/>
     </edge>
     <edge id=":0_4" function="internal">
-        <lane id=":0_4_0" index="0" speed="12.50" length="4.73" shape="51.65,48.55 51.25,49.91 50.05,50.88 48.35,51.37"/>
+        <lane id=":0_4_0" index="0" speed="12.50" length="3.06" shape="51.65,48.55 51.25,49.91 50.05,50.88 49.95,50.90"/>
     </edge>
     <edge id=":0_5" function="internal">
         <lane id=":0_5_0" index="0" speed="15.28" length="2.41" shape="51.65,48.55 50.82,49.79 50.00,50.20"/>
     </edge>
     <edge id=":0_7" function="internal">
-        <lane id=":0_7_0" index="0" speed="12.50" length="3.12" shape="48.35,51.37 48.05,51.46 45.25,51.65"/>
+        <lane id=":0_7_0" index="0" speed="12.50" length="4.79" shape="49.95,50.90 48.05,51.46 45.25,51.65"/>
     </edge>
     <edge id=":0_8" function="internal">
         <lane id=":0_8_0" index="0" speed="15.28" length="2.41" shape="50.00,50.20 49.17,49.79 48.35,48.55"/>
@@ -93,7 +97,7 @@
     </junction>
 
     <junction id=":0_6_0" type="internal" x="50.00" y="56.40" incLanes=":0_2_0 3i_0" intLanes=":0_3_0"/>
-    <junction id=":0_7_0" type="internal" x="48.35" y="51.37" incLanes=":0_4_0 4i_0" intLanes=":0_1_0"/>
+    <junction id=":0_7_0" type="internal" x="49.95" y="50.90" incLanes=":0_4_0 4i_0" intLanes=":0_1_0"/>
     <junction id=":0_8_0" type="internal" x="50.00" y="50.20" incLanes=":0_5_0 4i_0" intLanes=":0_1_0"/>
 
     <connection from="3i" to="4o" fromLane="0" toLane="0" via=":0_3_0" dir="s" state="M"/>
