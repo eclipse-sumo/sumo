@@ -41,6 +41,7 @@
 #include <utils/options/OptionsCont.h>
 #include "NBLinkPossibilityMatrix.h"
 #include "NBTrafficLightLogic.h"
+#include "NBOwnTLDef.h"
 #include "NBContHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -61,7 +62,9 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     Named(id),
     myControlledNodes(junctions),
     mySubID(programID), myOffset(offset),
-    myType(type) {
+    myType(type),
+    myNeedsContRelationReady(false)
+{
     std::vector<NBNode*>::iterator i = myControlledNodes.begin();
     while (i != myControlledNodes.end()) {
         for (std::vector<NBNode*>::iterator j = i + 1; j != myControlledNodes.end();) {
@@ -85,9 +88,10 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     Named(id),
     mySubID(programID),
     myOffset(offset),
-    myType(type) {
+    myType(type),
+    myNeedsContRelationReady(false)
+{
     addNode(junction);
-    junction->addTrafficLight(this);
 }
 
 
@@ -96,7 +100,9 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id, const 
     Named(id),
     mySubID(programID),
     myOffset(offset),
-    myType(type) {}
+    myType(type),
+    myNeedsContRelationReady(false)
+{}
 
 
 NBTrafficLightDefinition::~NBTrafficLightDefinition() {}
@@ -374,6 +380,32 @@ NBTrafficLightDefinition::collectAllLinks() {
             }
         }
     }
+}
+
+
+bool 
+NBTrafficLightDefinition::needsCont(NBEdge* fromE, NBEdge* toE, NBEdge* otherFromE, NBEdge* otherToE) const {
+    if (!myNeedsContRelationReady) {
+        initNeedsContRelation();
+        assert(myNeedsContRelationReady);
+    }
+    return std::find(myNeedsContRelation.begin(), myNeedsContRelation.end(), 
+            StreamPair(fromE, toE, otherFromE, otherToE)) != myNeedsContRelation.end();
+}
+
+
+void 
+NBTrafficLightDefinition::initNeedsContRelation() const {
+    if (!amInvalid()) {
+        NBOwnTLDef dummy("dummy", myControlledNodes, 0, TLTYPE_STATIC);
+        dummy.setParticipantsInformation();
+        dummy.computeLogicAndConts(0);
+        myNeedsContRelation = dummy.myNeedsContRelation;
+        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+            (*i)->removeTrafficLight(&dummy);
+        }
+    }
+    myNeedsContRelationReady = true;
 }
 
 /****************************************************************************/

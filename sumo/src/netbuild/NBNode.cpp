@@ -592,7 +592,7 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
 
 bool
 NBNode::needsCont(NBEdge* fromE, NBEdge* toE, NBEdge* otherFromE, NBEdge* otherToE, const NBEdge::Connection& c) const {
-    if (myType == NODETYPE_RIGHT_BEFORE_LEFT) {
+    if (myType == NODETYPE_RIGHT_BEFORE_LEFT || myType == NODETYPE_ALLWAY_STOP) {
         return false;
     }
     if (fromE == otherFromE) {
@@ -605,12 +605,15 @@ NBNode::needsCont(NBEdge* fromE, NBEdge* toE, NBEdge* otherFromE, NBEdge* otherT
     }
     LinkDirection d1 = getDirection(fromE, toE);
     LinkDirection d2 = getDirection(otherFromE, otherToE);
+    if (d2 == LINKDIR_TURN) {
+        return false;
+    }
     bool thisLeft = (d1 == LINKDIR_LEFT || d1 == LINKDIR_TURN);
     bool otherLeft = (d2 == LINKDIR_LEFT || d2 == LINKDIR_TURN);
     bool bothLeft = thisLeft && otherLeft;
     if (c.tlID != "" && !bothLeft) {
-        // tls-controlled links will have space
-        return true;
+        assert(myTrafficLights.size() > 0);
+        return (*myTrafficLights.begin())->needsCont(fromE, toE, otherFromE, otherToE);
     }
     if (fromE->getJunctionPriority(this) > 0 && otherFromE->getJunctionPriority(this) > 0) {
         return mustBrake(fromE, toE, c.toLane);

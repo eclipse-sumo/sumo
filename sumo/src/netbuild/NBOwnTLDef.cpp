@@ -182,9 +182,14 @@ NBOwnTLDef::getBestPair(EdgeVector& incoming) {
     return ret;
 }
 
-
 NBTrafficLightLogic*
 NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
+    return computeLogicAndConts(brakingTimeSeconds);
+}
+
+NBTrafficLightLogic* 
+NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds) {
+    myNeedsContRelation.clear();
     const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
     const SUMOTime leftTurnTime = TIME2STEPS(6); // make configurable
     // build complete lists first
@@ -237,8 +242,16 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
     while (toProc.size() > 0) {
         std::pair<NBEdge*, NBEdge*> chosen;
         if (incoming.size() == 2) {
-            chosen = std::pair<NBEdge*, NBEdge*>(toProc[0], static_cast<NBEdge*>(0));
-            toProc.erase(toProc.begin());
+            // if there are only 2 incoming edges we need to decide whether they are a crossing or a "continuation"
+            // @node: this heuristic could be extended to also check the number of outgoing edges
+            SUMOReal angle = fabs(NBHelpers::relAngle(toProc[0]->getAngleAtNode(toProc[0]->getToNode()), toProc[1]->getAngleAtNode(toProc[1]->getToNode())));
+            // angle would be 180 for straight opposing incoming edges
+            if (angle < 135) {
+                chosen = std::pair<NBEdge*, NBEdge*>(toProc[0], static_cast<NBEdge*>(0));
+                toProc.erase(toProc.begin());
+            } else {
+                chosen = getBestPair(toProc);
+            }
         } else {
             chosen = getBestPair(toProc);
         }
@@ -289,6 +302,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
             for (unsigned int i2 = 0; i2 < pos; ++i2) {
                 if ((state[i2] == 'G' || state[i2] == 'g') && forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true)) {
                     state[i1] = 'g';
+                    myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2])); 
                     if (!isTurnaround[i1]) {
                         haveForbiddenLeftMover = true;
                     }
@@ -345,6 +359,8 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
         }
     }
     const SUMOTime totalDuration = logic->getDuration();
+    // this computation only makes sense for single nodes
+    myNeedsContRelationReady = (myControlledNodes.size() == 1);
     if (totalDuration > 0) {
         if (totalDuration > 3 * (greenTime + 2 * brakingTime + leftTurnTime)) {
             WRITE_WARNING("The traffic light '" + getID() + "' has a high cycle time of " + time2string(totalDuration) + ".");
@@ -496,5 +512,31 @@ NBOwnTLDef::replaceRemoved(NBEdge* /*removed*/, int /*removedLane*/,
                            NBEdge* /*by*/, int /*byLane*/) {}
 
 
+void 
+NBOwnTLDef::initNeedsContRelation() const {
+    if (!myNeedsContRelationReady) {
+        assert(myControlledNodes.size() > 0);
+        // there are basically 2 cases for controlling multiple nodes
+        // a) a complex (unjoined) intersection. Here, internal junctions should
+        // not be needed since real nodes are used instead
+        // b) two far-away junctions which shall be coordinated
+        // This is likely to mess up the bestPair computation for each
+        // individual node and thus generate incorrect needsCont data
+        //
+        // Therefore we compute needsCont for individual nodes which doesn't
+        // matter for a) and is better for b)
+        myNeedsContRelation.clear();
+        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+            NBNode* n = *i;
+            NBOwnTLDef dummy("dummy", n, 0, TLTYPE_STATIC);
+            dummy.setParticipantsInformation();
+            dummy.computeLogicAndConts(0);
+            myNeedsContRelation.insert(dummy.myNeedsContRelation.begin(), dummy.myNeedsContRelation.end());
+            n->removeTrafficLight(&dummy);
+        }
+        myNeedsContRelationReady = true;
+    }
+
+}
 
 /****************************************************************************/

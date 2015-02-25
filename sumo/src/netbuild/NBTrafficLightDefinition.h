@@ -323,6 +323,11 @@ public:
         return myType;
     }
 
+    /* @brief computes whether the given stream may have green minor while the
+     * other stream has green major in the same phase
+     */
+    bool needsCont(NBEdge* fromE, NBEdge* toE, NBEdge* otherFromE, NBEdge* otherToE) const;
+
 protected:
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] ec The edge container
@@ -358,6 +363,10 @@ protected:
     /// @brief helper method for use in NBOwnTLDef and NBLoadedSUMOTLDef
     void collectAllLinks();
 
+    /* initialize myNeedsContRelation and set myNeedsContRelationReady to true
+     * This information is a byproduct of NBOwnTLDef::myCompute. All other
+     * subclasses instantiate a private instance of NBOwnTLDef to answer this query */
+    virtual void initNeedsContRelation() const;
 
 protected:
     /// @brief The container with participating nodes
@@ -383,6 +392,41 @@ protected:
 
     /// @brief The algorithm type for the traffic light
     TrafficLightType myType;
+
+    /// @brief data structure for caching needsCont information
+    struct StreamPair {
+        StreamPair(const NBEdge* _from1, const NBEdge* _to1, const NBEdge* _from2, const NBEdge* _to2):
+            from1(_from1),
+            to1(_to1),
+            from2(_from2),
+            to2(_to2) {}
+
+        bool operator==(const StreamPair& o) const {
+                return (from1 == o.from1 && to1 == o.to1
+                        && from2 == o.from2 && to2 == o.to2);
+        }
+
+        bool operator<(const StreamPair& o) const {
+            if (from1 != o.from1) {
+                return from1 < o.from1;
+            }
+            if (to1 != o.to1) {
+                return to1 < o.to1;
+            }
+            if (from2 != o.from2) {
+                return from2 < o.from2;
+            }
+            return to2 < o.to2;
+        }
+
+        const NBEdge* from1;
+        const NBEdge* to1;
+        const NBEdge* from2;
+        const NBEdge* to2;
+    };
+    typedef std::set<StreamPair> NeedsContRelation;
+    mutable NeedsContRelation myNeedsContRelation;
+    mutable bool myNeedsContRelationReady;
 
 
 };

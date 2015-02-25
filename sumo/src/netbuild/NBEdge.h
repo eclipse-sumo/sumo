@@ -1218,6 +1218,11 @@ private:
 
     /// @brief computes the angle of this edge and stores it in myAngle
     void computeAngle();
+    
+
+    /* @brief compute the first intersection point between the given lane
+     * geometries considering their rspective widths */
+    static SUMOReal firstIntersection(const PositionVector& v1, const PositionVector& v2, SUMOReal width2);
 
 private:
     /** @brief The building step

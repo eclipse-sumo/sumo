@@ -1078,18 +1078,12 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         // compute the crossing point
                         if (needsCont) {
                             crossingPositions.second.push_back(index);
-                            // for left-turning vehicles only oncoming streams are relevant for waiting on the intersection
-                            if (con.toEdge != (*k2).toEdge || dir == LINKDIR_TURN) { 
-                                const PositionVector otherShape = n.computeInternalLaneShape(*i2, (*k2).fromLane, (*k2).toEdge, (*k2).toLane);
-                                const std::vector<SUMOReal> dv = shape.intersectsAtLengths2D(otherShape);
-                                if (dv.size() > 0) {
-                                    const SUMOReal minDV = dv[0];
-                                    if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
-                                        assert(minDV >= 0);
-                                        if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
-                                            crossingPositions.first = minDV;
-                                        }
-                                    }
+                            const PositionVector otherShape = n.computeInternalLaneShape(*i2, (*k2).fromLane, (*k2).toEdge, (*k2).toLane);
+                            const SUMOReal minDV = firstIntersection(shape, otherShape, (*k2).toEdge->getLaneWidth((*k2).toLane));
+                            if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
+                                assert(minDV >= 0);
+                                if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
+                                    crossingPositions.first = minDV;
                                 }
                             }
                         }
@@ -1167,6 +1161,29 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
         ++linkIndex;
     }
 }
+
+
+SUMOReal 
+NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, SUMOReal width2) {
+    PositionVector v2Right = v2;
+    v2Right.move2side(width2 / 2);
+
+    PositionVector v2Left = v2;
+    v2Left.move2side(-width2 / 2);
+
+    SUMOReal intersect = std::numeric_limits<double>::max();
+    // intersect center line of v1 with left and right border of v2
+    std::vector<SUMOReal> tmp = v1.intersectsAtLengths2D(v2Right);
+    if (tmp.size() > 0) {
+        intersect = MIN2(intersect, tmp[0]);
+    }
+    tmp = v1.intersectsAtLengths2D(v2Left);
+    if (tmp.size() > 0) {
+        intersect = MIN2(intersect, tmp[0]);
+    }
+    return intersect;
+}
+
 
 // -----------
 int

@@ -128,6 +128,12 @@ public:
     static std::string patchStateForCrossings(const std::string& state,
             const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
+    /** @brief helper function for myCompute
+     * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
+     * @return The computed logic
+     */
+    NBTrafficLightLogic* computeLogicAndConts(unsigned int brakingTimeSeconds);
+
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface
     /// @{
@@ -229,10 +235,13 @@ protected:
         }
     };
 
+
+    /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
+    void initNeedsContRelation() const;
+
 private:
     /// @brief Whether left-mover should not have an additional phase
     bool myHaveSinglePhase;
-
 
 };
 
