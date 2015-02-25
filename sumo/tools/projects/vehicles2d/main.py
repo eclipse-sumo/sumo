@@ -20,7 +20,7 @@ the Free Software Foundation; either version 3 of the License, or
 
 import sys
 import inspect
-import Image, ImageDraw
+import Image, ImageDraw, ImageColor
 import numpy, math
 
 from collections import namedtuple
@@ -1814,13 +1814,13 @@ class AdAStar():
                                              self.flaeche.get_possition_from_cell_center_id(
                                                  (nn.x_id,nn.y_id)
                                              ))
-                self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'red')
+                self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'red', width=2)
 
 
         # this is just for drawing the vessel's shape somewhere check it's orientation
         if True:
             if vessel is not None:
-                vessel.transform_hull_points(0, (240, 200))
+                vessel.transform_hull_points(0, (242, 195))
                 self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
 #                vessel.transform_hull_points(math.pi/4, (240, 240))
 #                self.flaeche.vis_add_poly(vessel.transformed_hull_points, 'orange')
@@ -2399,13 +2399,16 @@ class Flaeche():
         self.vis_add_colored_point(point, (0, 100, 100), 'end')
 
     def vis_add_open(self, point):
-        self.vis_add_colored_point(point, (0, 0, 500), 'open node')
+#        self.vis_add_colored_point(point, (0, 0, 500), 'open node')
+        self.vis_add_colored_point(point, (150, 150, 500), 'open node')
 
     def vis_add_closed(self, point):
-        self.vis_add_colored_point(point, (300, 200, 200), 'closed node')
+#        self.vis_add_colored_point(point, (300, 200, 200), 'closed node')
+        self.vis_add_colored_point(point, (120, 120, 500), 'closed node')
 
     def vis_add_path(self, point):
-        self.vis_add_colored_point(point, (0, 200, 0), 'path node')
+#        self.vis_add_colored_point(point, (0, 200, 0), 'path node')
+        self.vis_add_colored_point(point, (80, 80, 250), 'path node')
 
     def vis_add_blocked(self, point):
         self.vis_add_colored_point(point, (100, 100, 100), 'blocked node')
@@ -2461,9 +2464,13 @@ class Flaeche():
         self.image_length_x = self.cluster_length_x * self.tile_length
         self.image_length_y = self.cluster_length_y * self.tile_length
 
-        self.im = Image.new("RGB", (int(self.image_length_x),
-                                    int(self.image_length_y)), "white")
+#        self.im = Image.new("RGB", (int(self.image_length_x),
+#                                    int(self.image_length_y)), "white")
 
+        self.im = Image.new("RGB", (int(self.image_length_x),
+#                                    int(self.image_length_y)), 'blue')
+                                    int(self.image_length_y)), 'rgb(0%,0%,20%)')
+        
         self.draw = ImageDraw.Draw(self.im)
 
     def draw_course(self, vessel, r, delta):
@@ -2553,10 +2560,13 @@ class Flaeche():
                            int(-90 + angle + current_rot_deg ),  'green')
        
 
-    def vis_add_poly(self, my_poly, color=None):
+    def vis_add_poly(self, my_poly, color=None, width=None):
         if color is None:
             color = 'red'
-        self.polies.append((my_poly, color))
+#            color = 'green'
+        if width is None:
+            width=1
+        self.polies.append((my_poly, color, width))
 
 
     def vis_add_single_point(self, point, color=None):    
@@ -2575,14 +2585,16 @@ class Flaeche():
                                         self.vis_cluster[xx][yy].color, outline=120)
                 else:
                     self.draw.rectangle(self.get_node_box(xx, yy), 
-                                        'white', outline=120)
+#                                        'white', outline=120)
+                                        'rgb(80%,80%,100%)', outline=120)
 
-       
+
+     
 
                     
         if len(self.polies) > 0:            
             for poly in self.polies:
-                self.draw.line(poly[0], fill=poly[1])
+                self.draw.line(poly[0], fill=poly[1], width=poly[2])
 
         if len(self.points) > 0:            
             for po in self.points:
@@ -2630,9 +2642,8 @@ class Layer():
         offset_y = 0
         my_poly = [ ((pp[0] + offset_x) * scale, (pp[1] + offset_y) * scale ) for pp in my_poly]
 
-         #xxx
-        #my_poly = my_poly[start:start+2]        
         self.draw_object.line(my_poly, fill='red')
+#        self.draw_object.line(my_poly, fill='green', width=5)
 
                 
                 

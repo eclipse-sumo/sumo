@@ -165,7 +165,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
 
         image_name   = self.__dict__['_testMethodName']
         
-        myFlaeche = main.Flaeche(xdim=500,ydim=500,scale=10,
+        myFlaeche = main.Flaeche(xdim=500,ydim=340,scale=10,
                                  output=image_name)
         vessel       = main.Vessel(myFlaeche,
                                    [(0, 0), (-10, 10), (-30, 10), (-30, -10),
@@ -175,10 +175,10 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         vessel.speed = 10
 
         blocked_nodes = [
-                         (20, 18), (21, 18), (22, 18), (23, 18), (24, 18), 
+                         (20, 18), (21, 18), (22, 18), (23, 18), #(24, 18), 
                          (20, 19), (21, 19), (22, 19), (23, 19), (24, 19), 
-                         (20, 20), (21, 20), (22, 20), (23, 20), (24, 20), 
-                         (20, 21), (21, 21), (22, 21), (23, 21), (24, 21), 
+                         (20, 20), (21, 20), (22, 20), (23, 20), #(24, 20), 
+#                         (20, 21), (21, 21), (22, 21), (23, 21), (24, 21), 
         ]
         myFlaeche.load_node_data(blocked_nodes)
 
