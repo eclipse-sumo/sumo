@@ -1168,13 +1168,16 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
 
 SUMOReal 
 NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, SUMOReal width2) {
+    SUMOReal intersect = std::numeric_limits<double>::max();
+    if (v2.length() < POSITION_EPS) {
+        return intersect;
+    }
     PositionVector v2Right = v2;
     v2Right.move2side(width2 / 2);
 
     PositionVector v2Left = v2;
     v2Left.move2side(-width2 / 2);
 
-    SUMOReal intersect = std::numeric_limits<double>::max();
     // intersect center line of v1 with left and right border of v2
     std::vector<SUMOReal> tmp = v1.intersectsAtLengths2D(v2Right);
     if (tmp.size() > 0) {
