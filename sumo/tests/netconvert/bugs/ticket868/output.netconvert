@@ -14,11 +14,11 @@ Removing empty nodes and geometry nodes... done.
    32 nodes removed.
 Moving network to origin... done.
 Joining similar edges... done.
+Computing turning directions... done.
 Guessing and setting on-/off-ramps... done.
 Removing sharp turn with radius 1.75 at the end of edge 151057631#0
 Removing sharp turn with radius 5.53 at the start of edge 151059738#0
 Removing sharp turn with radius 8.28 at the start of edge 151059738#0
-Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node shapes... done.
 Computing edge shapes... done.
