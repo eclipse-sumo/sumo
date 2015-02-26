@@ -1037,7 +1037,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             }
         }
 
-        const bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
+        bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
         SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
         const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime();
         if (yellowOrRed && seen >= brakeDist ) {
@@ -1065,6 +1065,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
                     // we are not yet on the junction with this linkLeader.
                     // at least we can drive up to the previous link and stop there
                     v = MAX2(v, lastLink->myVLinkWait);
+                }
+                // if blocked by a leader from the same lane we must yield our request
+                if (v < SUMO_const_haltingSpeed && leader->getLane()->getLogicalPredecessorLane() == myLane->getLogicalPredecessorLane()) {
+                    setRequest = false;
                 }
             }
         }
@@ -1555,7 +1559,8 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
         // check which links allow continuation and add pass available to the previous item
         for (int i = (int)(lfLinks.size() - 1); i > 0; --i) {
             DriveProcessItem& item = lfLinks[i - 1];
-            const bool opened = item.myLink != 0 && (item.myLink->havePriority() ||
+            const bool canLeaveJunction = item.myLink->getViaLane() == 0 || lfLinks[i].mySetRequest;
+            const bool opened = item.myLink != 0 && canLeaveJunction && (item.myLink->havePriority() ||
 #ifndef NO_TRACI
                                 (myInfluencer != 0 && !myInfluencer->getRespectJunctionPriority()) ||
 #endif
