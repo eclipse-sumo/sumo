@@ -829,7 +829,13 @@ public:
      * @return Whether the given edge is this edge's turnaround direction
      */
     bool isTurningDirectionAt(const NBNode* n, const NBEdge* const edge) const;
-    void setTurningDestination(NBEdge* e);
+
+
+    /** @brief Sets the turing destination at the given edge
+     * @param[in] e The turn destination
+     * @param[in] onlyPossible If true, only sets myPossibleTurnDestination 
+     */
+    void setTurningDestination(NBEdge* e, bool onlyPossible = false);
 
 
 
@@ -1259,8 +1265,10 @@ private:
      */
     std::vector<Connection> myConnectionsToDelete;
 
-    /// @brief The turn destination edge
+    /// @brief The turn destination edge (if a connection exists)
     NBEdge* myTurnDestination;
+    /// @brief The edge that would be the turn destination if there was one
+    NBEdge* myPossibleTurnDestination;
 
     /// @brief The priority normalised for the node the edge is outgoing of
     int myFromJunctionPriority;

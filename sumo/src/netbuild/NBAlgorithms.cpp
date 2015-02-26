@@ -68,22 +68,10 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node) {
         NBEdge* outedge = *j;
         for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
             NBEdge* e = *k;
-            if (e->getConnections().size() != 0 && !e->isConnectedTo(outedge)) {
-                // has connections, but not to outedge; outedge will not be the turn direction
-                //
-                // @todo: this seems to be needed due to legacy issues; actually, we could regard
-                //  such pairs, too, and it probably would increase the accuracy. But there is
-                //  no mechanism implemented, yet, which would avoid adding them as turnarounds though
-                //  no connection is specified.
-                continue;
-            }
-
             // @todo: check whether NBHelpers::relAngle is properly defined and whether it should really be used, here
             SUMOReal angle = fabs(NBHelpers::relAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node)));
-            if (angle < 160) {
-                continue;
-            }
-            if (e->getFromNode() == outedge->getToNode()) {
+            //std::cout << "incoming=" << e->getID() << " outgoing=" << outedge->getID() << " angle=" << angle << "\n";
+            if (e->getFromNode() == outedge->getToNode() && angle > 120) {
                 // they connect the same nodes; should be the turnaround direction
                 // we'll assign a maximum number
                 //
@@ -95,6 +83,9 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node) {
                 //  of delphi_muenchen (elmar), intersection "59534191". Not that it would
                 //  be realistic in any means; we will warn, here.
                 angle += 360;
+            }
+            if (angle < 160) {
+                continue;
             }
             Combination c;
             c.from = e;
@@ -120,7 +111,9 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node) {
         seen.insert((*j).from);
         seen.insert((*j).to);
         // set turnaround information
-        (*j).from->setTurningDestination((*j).to);
+        bool onlyPossible = (*j).from->getConnections().size() != 0 && !(*j).from->isConnectedTo((*j).to);
+        //std::cout << "    setTurningDestination from=" << (*j).from->getID() << " to=" << (*j).to->getID() << " onlyPossible=" << onlyPossible << "\n";
+        (*j).from->setTurningDestination((*j).to, onlyPossible);
     }
 }
 
@@ -129,7 +122,7 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node) {
 // NBNodesEdgesSorter
 // ---------------------------------------------------------------------------
 void
-NBNodesEdgesSorter::sortNodesEdges(NBNodeCont& nc, bool leftHand) {
+NBNodesEdgesSorter::sortNodesEdges(NBNodeCont& nc, bool leftHand, bool useNodeShape) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         if (n->myAllEdges.size() == 0) {
@@ -139,17 +132,39 @@ NBNodesEdgesSorter::sortNodesEdges(NBNodeCont& nc, bool leftHand) {
         EdgeVector& incoming = (*i).second->myIncomingEdges;
         EdgeVector& outgoing = (*i).second->myOutgoingEdges;
         std::vector<NBNode::Crossing>& crossings = (*i).second->myCrossings;
-        // sort the edges
-        std::sort(allEdges.begin(), allEdges.end(), edge_by_junction_angle_sorter(n));
-        std::sort(incoming.begin(), incoming.end(), edge_by_junction_angle_sorter(n));
-        std::sort(outgoing.begin(), outgoing.end(), edge_by_junction_angle_sorter(n));
-        std::vector<NBEdge*>::iterator j;
-        for (j = allEdges.begin(); j != allEdges.end() - 1 && j != allEdges.end(); ++j) {
-            swapWhenReversed(n, leftHand, j, j + 1);
+
+        if (!useNodeShape || n->getShape().area() < 1) {
+            // if the area is to small (i.e. for simple-continuation nodes) we better not use it
+            // sort by the angle of the adjoining line segment of the edge geometry
+            // sort the edges
+            std::sort(allEdges.begin(), allEdges.end(), edge_by_junction_angle_sorter(n));
+            std::sort(incoming.begin(), incoming.end(), edge_by_junction_angle_sorter(n));
+            std::sort(outgoing.begin(), outgoing.end(), edge_by_junction_angle_sorter(n));
+            std::vector<NBEdge*>::iterator j;
+            for (j = allEdges.begin(); j != allEdges.end() - 1 && j != allEdges.end(); ++j) {
+                swapWhenReversed(n, leftHand, j, j + 1);
+            }
+            if (allEdges.size() > 1 && j != allEdges.end()) {
+                swapWhenReversed(n, leftHand, allEdges.end() - 1, allEdges.begin());
+            }
+        } else {
+            NBEdge* firstOfAll = allEdges.front();
+            NBEdge* firstOfIncoming = incoming.size() > 0 ? incoming.front() : 0;
+            NBEdge* firstOfOutgoing = outgoing.size() > 0 ? outgoing.front() : 0;
+            // sort by the angle between the node shape center and the point where the edge meeds the node shape
+            sort(allEdges.begin(), allEdges.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(n));
+            sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(n));
+            sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(n));
+            // let the first edge remain the first
+            rotate(allEdges.begin(), std::find(allEdges.begin(), allEdges.end(), firstOfAll), allEdges.end());
+            if (firstOfIncoming != 0) {
+                rotate(incoming.begin(), std::find(incoming.begin(), incoming.end(), firstOfIncoming), incoming.end());
+            }
+            if (firstOfOutgoing != 0) {
+                rotate(outgoing.begin(), std::find(outgoing.begin(), outgoing.end(), firstOfOutgoing), outgoing.end());
+            }
         }
-        if (allEdges.size() > 1 && j != allEdges.end()) {
-            swapWhenReversed(n, leftHand, allEdges.end() - 1, allEdges.begin());
-        }
+
         // sort the crossings
         std::sort(crossings.begin(), crossings.end(), crossing_by_junction_angle_sorter(n, allEdges));
         // DEBUG

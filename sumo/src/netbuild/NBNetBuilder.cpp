@@ -189,6 +189,10 @@ NBNetBuilder::compute(OptionsCont& oc,
         myEdgeCont.splitGeometry(myNodeCont);
         PROGRESS_DONE_MESSAGE();
     }
+    // turning direction
+    PROGRESS_BEGIN_MESSAGE("Computing turning directions");
+    NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
+    PROGRESS_DONE_MESSAGE();
     // guess ramps
     if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
@@ -217,10 +221,6 @@ NBNetBuilder::compute(OptionsCont& oc,
 
     // GEOMETRY COMPUTATION
     //
-    PROGRESS_BEGIN_MESSAGE("Computing turning directions");
-    NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
-    PROGRESS_DONE_MESSAGE();
-    //
     PROGRESS_BEGIN_MESSAGE("Sorting nodes' edges");
     NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
     PROGRESS_DONE_MESSAGE();
@@ -237,6 +237,9 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_BEGIN_MESSAGE("Computing edge shapes");
     myEdgeCont.computeEdgeShapes();
     PROGRESS_DONE_MESSAGE();
+    // resort edges based on the node and edge shapes
+    NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"), true);
+    NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
 
     // APPLY SPEED MODIFICATIONS
     if (oc.exists("speed.offset")) {

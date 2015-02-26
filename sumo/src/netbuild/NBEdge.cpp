@@ -191,6 +191,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
+    myPossibleTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myLaneSpreadFunction(spread), myEndOffset(offset), myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
@@ -214,6 +215,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
+    myPossibleTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom(geom), myLaneSpreadFunction(spread), myEndOffset(offset), myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
@@ -232,6 +234,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, con
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
     myPriority(tpl->getPriority()), mySpeed(tpl->getSpeed()),
     myTurnDestination(0),
+    myPossibleTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom(geom),
     myLaneSpreadFunction(tpl->getLaneSpreadFunction()),
@@ -1234,8 +1237,11 @@ NBEdge::getAngleAtNodeToCenter(const NBNode* const atNode) const {
 
 
 void
-NBEdge::setTurningDestination(NBEdge* e) {
-    myTurnDestination = e;
+NBEdge::setTurningDestination(NBEdge* e, bool onlyPossible) {
+    if (!onlyPossible) {
+        myTurnDestination = e;
+    }
+    myPossibleTurnDestination = e;
 }
 
 
@@ -1723,23 +1729,8 @@ NBEdge::isTurningDirectionAt(const NBNode* n, const NBEdge* const edge) const {
         // otherwise - it's not if a turning direction exists
         return false;
     }
-    // if the same nodes are connected
-    if (myFrom == edge->myTo && myTo == edge->myFrom) {
-        return true;
-    }
-    // we have to check whether the connection between the nodes is
-    //  geometrically similar
-    SUMOReal thisFromAngle2 = getAngleAtNode(n);
-    SUMOReal otherToAngle2 = edge->getAngleAtNode(n);
-    if (thisFromAngle2 < otherToAngle2) {
-        std::swap(thisFromAngle2, otherToAngle2);
-    }
-    if (thisFromAngle2 - otherToAngle2 > 170 && thisFromAngle2 - otherToAngle2 < 190) {
-        return true;
-    }
-    return false;
+    return edge == myPossibleTurnDestination;
 }
-
 
 
 NBNode*
