@@ -6,3 +6,6 @@ net2
 
 # Simple test using the cross junction
 cross
+
+# networks that have dedicated bicycle lanes
+bicycle_lanes
