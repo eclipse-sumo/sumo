@@ -6,7 +6,7 @@
 @date    2014-11-17
 @version $Id$
 
-Unittests lauchner module.
+Unittests launcher module.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors

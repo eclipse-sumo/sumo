@@ -1,9 +1,9 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 @file    unittest_ada_star.py
 @author  Marek Heinrich
 @date    2015-02-24
+@version $Id$
 
 Test module for the standard path finding module.
 

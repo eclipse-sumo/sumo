@@ -1,9 +1,9 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 @file    unittest_ada_star_bugs_on_the_way.py
 @author  Marek Heinrich
 @date    2015-11-17
+@version $Id$
 
 Unittests for keeping records of bugs. Not for beauties.
 

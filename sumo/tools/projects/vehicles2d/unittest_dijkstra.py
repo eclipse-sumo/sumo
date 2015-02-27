@@ -1,9 +1,9 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 @file    unittest_dijkstra.py
 @author  Marek Heinrich
 @date    2015-02-24
+@version $Id$
 
 Unittests for Dijkstra.
 
