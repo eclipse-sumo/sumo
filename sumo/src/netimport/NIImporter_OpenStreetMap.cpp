@@ -613,15 +613,18 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         }
         bool ok = true;
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, false);
-        std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
-        if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
-            myToFill[myLastNodeID]->tlsControlled = true;
-        } else if (myImportElevation && key == "ele") {
-            try {
-                myToFill[myLastNodeID]->ele = TplConvert::_2SUMOReal(value.c_str());
-            } catch (...) {
-                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in node '" +
-                              toString(myLastNodeID) + "'.");
+        // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
+        if (key == "highway" || key == "ele") {
+            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
+            if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
+                myToFill[myLastNodeID]->tlsControlled = true;
+            } else if (myImportElevation && key == "ele") {
+                try {
+                    myToFill[myLastNodeID]->ele = TplConvert::_2SUMOReal(value.c_str());
+                } catch (...) {
+                    WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in node '" +
+                                toString(myLastNodeID) + "'.");
+                }
             }
         }
     }
@@ -706,6 +709,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         }
         bool ok = true;
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, false);
+        // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
+        if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes") && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks") {
+            return;
+        }
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
         if (key == "highway" || key == "railway" || key == "waterway") {
@@ -885,23 +892,25 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
     if (element == SUMO_TAG_TAG) {
         bool ok = true;
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentRelation).c_str(), ok, false);
-        std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
-
-        if (key == "type" && value == "restriction") {
-            myIsRestriction = true;
-            return;
-        }
-        if (key == "restriction") {
-            // @note: the 'right/left/straight' part is ignored since the information is
-            // redundantly encoded in the 'from', 'to' and 'via' members
-            if (value.substr(0, 5) == "only_") {
-                myRestrictionType = RESTRICTION_ONLY;
-            } else if (value.substr(0, 3) == "no_") {
-                myRestrictionType = RESTRICTION_NO;
-            } else {
-                WRITE_WARNING("Found unknown restriction type '" + value + "' in relation '" + toString(myCurrentRelation) + "'");
+        // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
+        if (key == "type" || key == "restriction") {
+            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+            if (key == "type" && value == "restriction") {
+                myIsRestriction = true;
+                return;
             }
-            return;
+            if (key == "restriction") {
+                // @note: the 'right/left/straight' part is ignored since the information is
+                // redundantly encoded in the 'from', 'to' and 'via' members
+                if (value.substr(0, 5) == "only_") {
+                    myRestrictionType = RESTRICTION_ONLY;
+                } else if (value.substr(0, 3) == "no_") {
+                    myRestrictionType = RESTRICTION_NO;
+                } else {
+                    WRITE_WARNING("Found unknown restriction type '" + value + "' in relation '" + toString(myCurrentRelation) + "'");
+                }
+                return;
+            }
         }
     }
 }
