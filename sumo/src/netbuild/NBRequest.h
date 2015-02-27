@@ -101,9 +101,11 @@ public:
     /** @brief Returns the information whether the described flow must let any other flow pass
      * @param[in] from The connection's start edge
      * @param[in] to The connection's end edge
+     * @param[in] fromLane The connection starting lane
+     * @param[in] includePedCrossings Whether braking due to a pedestrian crossing counts
      * @return Whether the described connection must brake (has higher priorised foes)
      */
-    bool mustBrake(const NBEdge* const from, const NBEdge* const to) const;   // !!!
+    bool mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, bool includePedCrossings) const; 
 
     /** @brief Returns the information whether the described flow must brake for the given crossing
      * @param[in] from The connection's start edge
@@ -142,6 +144,10 @@ public:
 
     /// prints the request
     friend std::ostream& operator<<(std::ostream& os, const NBRequest& r);
+
+    /** @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
+     */
+    bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane, const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const;
 
     /// reports warnings if any occured
     static void reportWarnings();
@@ -222,10 +228,6 @@ private:
      * under the assumption that the edge2edge connections are in conflict
      */
     bool laneConflict(const NBEdge* from, const NBEdge* to, int toLane, const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorToLane) const;
-
-    /** @brief return whether the given laneToLane connection is a right turn which must yield to pedestrian or bicycle crossings
-     */
-    bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane, const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const;
 
     /// @brief return to total number of edge-to-edge connections of this request-logic
     inline size_t numLinks() const;

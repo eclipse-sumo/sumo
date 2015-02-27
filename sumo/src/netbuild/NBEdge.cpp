@@ -1066,6 +1066,8 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
         std::pair<SUMOReal, std::vector<unsigned int> > crossingPositions(-1, std::vector<unsigned int>());
         std::set<std::string> tmpFoeIncomingLanes;
         switch (dir) {
+            case LINKDIR_RIGHT:
+            case LINKDIR_PARTRIGHT:
             case LINKDIR_LEFT:
             case LINKDIR_PARTLEFT:
             case LINKDIR_TURN: {
@@ -1077,7 +1079,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         if ((*k2).toEdge == 0) {
                             continue;
                         }
-                        bool needsCont = n.needsCont(this, con.toEdge, *i2, (*k2).toEdge, *k2);
+                        bool needsCont = n.needsCont(this, *i2, con, *k2);
                         // compute the crossing point
                         if (needsCont) {
                             crossingPositions.second.push_back(index);

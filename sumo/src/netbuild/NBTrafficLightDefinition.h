@@ -326,7 +326,7 @@ public:
     /* @brief computes whether the given stream may have green minor while the
      * other stream has green major in the same phase
      */
-    bool needsCont(NBEdge* fromE, NBEdge* toE, NBEdge* otherFromE, NBEdge* otherToE) const;
+    bool needsCont(const NBEdge* fromE, const NBEdge* toE, const NBEdge* otherFromE, const NBEdge* otherToE) const;
 
 protected:
     /** @brief Computes the traffic light logic finally in dependence to the type

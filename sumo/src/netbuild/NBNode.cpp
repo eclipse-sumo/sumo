@@ -591,32 +591,45 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
 
 
 bool
-NBNode::needsCont(NBEdge* fromE, NBEdge* toE, NBEdge* otherFromE, NBEdge* otherToE, const NBEdge::Connection& c) const {
+NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE, 
+        const NBEdge::Connection& c, const NBEdge::Connection& otherC) const {
+    const NBEdge* toE = c.toEdge;
+    const NBEdge* otherToE = otherC.toEdge;
+
     if (myType == NODETYPE_RIGHT_BEFORE_LEFT || myType == NODETYPE_ALLWAY_STOP) {
         return false;
     }
-    if (fromE == otherFromE) {
-        // ignore same edge links
+    LinkDirection d1 = getDirection(fromE, toE);
+    const bool thisRight = (d1 == LINKDIR_RIGHT || d1 == LINKDIR_PARTRIGHT);
+    const bool rightTurnConflict = (thisRight && 
+            myRequest->rightTurnConflict(fromE, toE, c.fromLane, otherFromE, otherToE, otherC.fromLane));
+    if (thisRight && !rightTurnConflict) {
         return false;
     }
-    if (!foes(otherFromE, otherToE, fromE, toE)) {
+    if (!(foes(otherFromE, otherToE, fromE, toE) || myRequest == 0 || rightTurnConflict)) {
         // if they do not cross, no waiting place is needed
         return false;
     }
-    LinkDirection d1 = getDirection(fromE, toE);
     LinkDirection d2 = getDirection(otherFromE, otherToE);
     if (d2 == LINKDIR_TURN) {
         return false;
     }
-    bool thisLeft = (d1 == LINKDIR_LEFT || d1 == LINKDIR_TURN);
-    bool otherLeft = (d2 == LINKDIR_LEFT || d2 == LINKDIR_TURN);
-    bool bothLeft = thisLeft && otherLeft;
+    const bool thisLeft = (d1 == LINKDIR_LEFT || d1 == LINKDIR_TURN);
+    const bool otherLeft = (d2 == LINKDIR_LEFT || d2 == LINKDIR_TURN);
+    const bool bothLeft = thisLeft && otherLeft;
+    if (fromE == otherFromE && !thisRight) {
+        // ignore same edge links except for right-turns
+        return false;
+    }
+    if (thisRight && d2 != LINKDIR_STRAIGHT) {
+        return false;
+    }
     if (c.tlID != "" && !bothLeft) {
         assert(myTrafficLights.size() > 0);
         return (*myTrafficLights.begin())->needsCont(fromE, toE, otherFromE, otherToE);
     }
     if (fromE->getJunctionPriority(this) > 0 && otherFromE->getJunctionPriority(this) > 0) {
-        return mustBrake(fromE, toE, c.toLane);
+        return mustBrake(fromE, toE, c.fromLane, false);
     }
     return false;
 }
@@ -1127,16 +1140,7 @@ NBNode::invalidateOutgoingConnections() {
 
 
 bool
-NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int /* toLane */) const {
-    // check whether it is participant to a traffic light
-    //  - controlled links are set by the traffic lights, not the normal
-    //    right-of-way rules
-    //  - uncontrolled participants (spip lanes etc.) should always break
-    if (myTrafficLights.size() != 0) {
-        // ok, we have a traffic light, return true by now, it will be later
-        //  controlled by the tls
-        return true;
-    }
+NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, bool includePedCrossings) const {
     // unregulated->does not need to brake
     if (myRequest == 0) {
         return false;
@@ -1146,12 +1150,19 @@ NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int /* toLan
         return true;
     }
     // check whether any other connection on this node prohibits this connection
-    return myRequest->mustBrake(from, to);
+    return myRequest->mustBrake(from, to, fromLane, includePedCrossings);
 }
 
 bool
 NBNode::mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) const {
     return myRequest->mustBrakeForCrossing(from, to, crossing);
+}
+
+
+bool 
+NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane, 
+        const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const {
+    return myRequest->rightTurnConflict(from, to, fromLane, prohibitorFrom, prohibitorTo, prohibitorFromLane);
 }
 
 
@@ -1333,7 +1344,7 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane,
     if (myType == NODETYPE_ALLWAY_STOP) {
         return LINKSTATE_ALLWAY_STOP; // all drive, first one to arrive may drive first
     }
-    if ((!incoming->isInnerEdge() && mustBrake(incoming, outgoing, fromlane)) && !mayDefinitelyPass) {
+    if ((!incoming->isInnerEdge() && mustBrake(incoming, outgoing, fromlane, true)) && !mayDefinitelyPass) {
         return myType == NODETYPE_PRIORITY_STOP ? LINKSTATE_STOP : LINKSTATE_MINOR; // minor road
     }
     // traffic lights are not regarded here

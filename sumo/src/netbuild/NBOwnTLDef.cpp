@@ -196,6 +196,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds) {
     const EdgeVector& incoming = getIncomingEdges();
     EdgeVector fromEdges, toEdges;
     std::vector<bool> isTurnaround;
+    std::vector<int> fromLanes;
     unsigned int noLanesAll = 0;
     unsigned int noLinksAll = 0;
     for (unsigned int i1 = 0; i1 < incoming.size(); i1++) {
@@ -213,7 +214,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds) {
                 assert(i3 < approached.size());
                 NBEdge* toEdge = approached[i3].toEdge;
                 fromEdges.push_back(fromEdge);
-                //myFromLanes.push_back(i2);
+                fromLanes.push_back((int)i2);
                 toEdges.push_back(toEdge);
                 if (toEdge != 0) {
                     isTurnaround.push_back(
@@ -300,7 +301,9 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds) {
                 continue;
             }
             for (unsigned int i2 = 0; i2 < pos; ++i2) {
-                if ((state[i2] == 'G' || state[i2] == 'g') && forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true)) {
+                if ((state[i2] == 'G' || state[i2] == 'g') && (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true)
+                            || fromEdges[i2]->getToNode()->rightTurnConflict(fromEdges[i1], toEdges[i1], fromLanes[i1],
+                                fromEdges[i2], toEdges[i2], fromLanes[i2]))) {
                     state[i1] = 'g';
                     myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2])); 
                     if (!isTurnaround[i1]) {

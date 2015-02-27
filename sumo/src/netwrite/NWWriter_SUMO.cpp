@@ -557,7 +557,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
             into.writeAttr(SUMO_ATTR_DIR, toString(dir));
             // write the state information
             const LinkState linkState = from.getToNode()->getLinkState(
-                                            &from, c.toEdge, c.toLane, c.mayDefinitelyPass, c.tlID);
+                                            &from, c.toEdge, c.fromLane, c.mayDefinitelyPass, c.tlID);
             into.writeAttr(SUMO_ATTR_STATE, linkState);
         }
     }

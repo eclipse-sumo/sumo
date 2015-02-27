@@ -195,7 +195,7 @@ NBTrafficLightDefinition::mustBrake(const NBEdge* const from, const NBEdge* cons
     if (!node->hasOutgoing(to)) {
         return true; // !!!
     }
-    return node->mustBrake(from, to, -1);
+    return node->mustBrake(from, to, -1, true);
 }
 
 
@@ -384,7 +384,7 @@ NBTrafficLightDefinition::collectAllLinks() {
 
 
 bool 
-NBTrafficLightDefinition::needsCont(NBEdge* fromE, NBEdge* toE, NBEdge* otherFromE, NBEdge* otherToE) const {
+NBTrafficLightDefinition::needsCont(const NBEdge* fromE, const NBEdge* toE, const NBEdge* otherFromE, const NBEdge* otherToE) const {
     if (!myNeedsContRelationReady) {
         initNeedsContRelation();
         assert(myNeedsContRelationReady);
