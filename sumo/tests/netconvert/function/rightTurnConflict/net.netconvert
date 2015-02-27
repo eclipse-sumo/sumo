@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 11 14:26:01 2015 by SUMO netconvert Version dev-SVN-r17826ID
+<!-- generated on Fri Feb 27 13:44:34 2015 by SUMO netconvert Version dev-SVN-r17973I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -55,7 +55,7 @@
 
     <connection from="SC" to="CE" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="SC" to="CE" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="SC" to="CE" fromLane="1" toLane="1" dir="r" state="m"/>
     <connection from="SC" to="CN" fromLane="1" toLane="1" dir="s" state="M"/>
 
 </net>
