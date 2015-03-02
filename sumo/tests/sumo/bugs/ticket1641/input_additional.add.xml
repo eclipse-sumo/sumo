@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Mar  2 08:36:20 2015 by SUMO netconvert Version dev-SVN-r17981I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="0" type="actuated" programID="unused_phases" offset="0">
+        <phase duration="31" state="GGggrrrrGGggrrrrrrG"/>
+        <phase duration="4"  state="yyggrrrryyggrrrrrrr"/>
+        <phase duration="6"  state="rrGGrrrrrrGGrrrrrrr"/>
+        <phase duration="4"  state="rryyrrrrrryyrrrrrrr"/>
+        <phase duration="31" state="rrrrGGggrrrrGGggrrr"/>
+        <phase duration="4"  state="rrrryyggrrrryyggrrr"/>
+        <phase duration="6"  state="rrrrrrGGrrrrrrGGrrr"/>
+        <phase duration="4"  state="rrrrrryyrrrrrryyrrr"/>
+    </tlLogic>
+
+</tlLogics>
