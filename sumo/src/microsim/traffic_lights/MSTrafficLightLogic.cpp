@@ -45,6 +45,10 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ===========================================================================
+// static value definitions
+// ===========================================================================
+const MSTrafficLightLogic::LaneVector MSTrafficLightLogic::myEmptyLaneVector;
 
 // ===========================================================================
 // member method definitions
@@ -116,13 +120,20 @@ void
 MSTrafficLightLogic::init(NLDetectorBuilder&) {
     const Phases& phases = getPhases();
     if (phases.size() > 1) {
+        bool haveWarnedAboutUnusedStates = false;
         // warn about transistions from green to red without intermediate yellow
         for (int i = 0; i < (int)phases.size(); ++i) {
             const int iNext = (i + 1) % phases.size();
             const std::string& state1 = phases[i]->getState();
             const std::string& state2 = phases[iNext]->getState();
             assert(state1.size() == state2.size());
-            for (int j = 0; j < (int)MIN2(state1.size(), state2.size()); ++j) {
+            if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size()) {
+                WRITE_WARNING("Unused states in tlLogic '" + getID()
+                                          + "', program '" + getProgramID() + "' in phase " + toString(i) 
+                                          + " after tl-index " + toString((int)myLanes.size() - 1));
+                haveWarnedAboutUnusedStates = true;
+            }
+            for (int j = 0; j < (int)MIN3(state1.size(), state2.size(), myLanes.size()); ++j) {
                 if ((LinkState)state2[j] == LINKSTATE_TL_RED
                         && ((LinkState)state1[j] == LINKSTATE_TL_GREEN_MAJOR
                             || (LinkState)state1[j] == LINKSTATE_TL_GREEN_MINOR)) {

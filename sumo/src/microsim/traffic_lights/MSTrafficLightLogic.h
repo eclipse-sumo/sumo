@@ -189,7 +189,11 @@ public:
      * @return The lanes controlled by the signal at the given index
      */
     const LaneVector& getLanesAt(unsigned int i) const {
-        return myLanes[i];
+        if ((size_t)i < myLanes.size()) {
+            return myLanes[i];
+        } else {
+            return myEmptyLaneVector;
+        }
     }
 
 
@@ -406,6 +410,9 @@ protected:
 
     /// @brief The cycle time (without changes)
     SUMOTime myDefaultCycleTime;
+
+    /// @brief An empty lane vector
+    static const LaneVector myEmptyLaneVector;
 
 
 private:
