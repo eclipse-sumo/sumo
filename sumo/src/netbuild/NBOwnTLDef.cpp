@@ -296,18 +296,23 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds) {
         }
         // correct behaviour for those that have to wait (mainly left-mover)
         bool haveForbiddenLeftMover = false;
+        std::vector<bool> rightTurnConflicts(pos, false);
         for (unsigned int i1 = 0; i1 < pos; ++i1) {
             if (state[i1] != 'G') {
                 continue;
             }
             for (unsigned int i2 = 0; i2 < pos; ++i2) {
-                if ((state[i2] == 'G' || state[i2] == 'g') && (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true)
-                            || fromEdges[i2]->getToNode()->rightTurnConflict(fromEdges[i1], toEdges[i1], fromLanes[i1],
-                                fromEdges[i2], toEdges[i2], fromLanes[i2]))) {
-                    state[i1] = 'g';
-                    myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2])); 
-                    if (!isTurnaround[i1]) {
-                        haveForbiddenLeftMover = true;
+                if ((state[i2] == 'G' || state[i2] == 'g')) {
+                    if (fromEdges[i2]->getToNode()->rightTurnConflict(
+                            fromEdges[i1], toEdges[i1], fromLanes[i1], fromEdges[i2], toEdges[i2], fromLanes[i2])) {
+                        rightTurnConflicts[i1] = true;
+                    }
+                    if (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || rightTurnConflicts[i1]) {
+                        state[i1] = 'g';
+                        myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2])); 
+                        if (!isTurnaround[i1]) {
+                            haveForbiddenLeftMover = true;
+                        }
                     }
                 }
             }
@@ -325,7 +330,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds) {
                 if (state[i1] != 'G' && state[i1] != 'g') {
                     continue;
                 }
-                if ((vehicleState[i1] >= 'a' && vehicleState[i1] <= 'z') && haveForbiddenLeftMover) {
+                if ((vehicleState[i1] >= 'a' && vehicleState[i1] <= 'z') && haveForbiddenLeftMover && !rightTurnConflicts[i1]) {
                     continue;
                 }
                 state[i1] = 'y';
