@@ -159,9 +159,17 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 // also length/geometry factor
                 intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
                 intersections2.back() = (*it_lane)->interpolateGeometryPosToLanePos(intersections2.back());
+
+                if (internalLaneBefore->getLogicalPredecessorLane()->getEdge().isInternal() && !(*it_lane)->getEdge().isCrossing())  {
+                    // wait at the internal junction 
+                    // (except for foes that are crossings since there is no internal junction)
+                    intersections1.back() = 0;
+                }
+
                 myLengthsBehindCrossing.push_back(std::make_pair(
                                                       lane->getLength() - intersections1.back(),
                                                       (*it_lane)->getLength() - intersections2.back()));
+                
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout
                         << " intersection of " << lane->getID()
