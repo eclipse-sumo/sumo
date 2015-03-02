@@ -1092,13 +1092,15 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                                 }
                             }
                         }
+                        const bool rightTurnConflict = n.rightTurnConflict(
+                                this, con.toEdge, con.fromLane, (*i2), (*k2).toEdge, (*k2).fromLane);
                         // compute foe internal lanes
-                        if (n.foes(this, con.toEdge, *i2, (*k2).toEdge)) {
+                        if (n.foes(this, con.toEdge, *i2, (*k2).toEdge) || rightTurnConflict) {
                             foeInternalLinks.push_back(index);
                         }
                         // compute foe incoming lanes
                         const bool signalised = hasSignalisedConnectionTo(con.toEdge);
-                        if (n.forbids(*i2, (*k2).toEdge, this, con.toEdge, signalised) && (needsCont || dir == LINKDIR_TURN)) {
+                        if ((n.forbids(*i2, (*k2).toEdge, this, con.toEdge, signalised) || rightTurnConflict) && (needsCont || dir == LINKDIR_TURN)) {
                             tmpFoeIncomingLanes.insert((*i2)->getID() + "_" + toString((*k2).fromLane));
                         }
                         index++;
