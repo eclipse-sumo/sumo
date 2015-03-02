@@ -534,14 +534,11 @@ public:
 
     /** @brief Compute the shape for an internal lane
      * @param[in] fromE The starting edge
-     * @param[in] fromL The index of the starting lane
-     * @param[in] toE The destination edge
-     * @param[in] toL The index of the destination lane
+     * @param[in] con The connection for this internal lane
      * @param[in] numPoints The number of geometry points for the internal lane
      * @return The shape of the internal lane
      */
-    PositionVector computeInternalLaneShape(
-        NBEdge* fromE, int fromL, NBEdge* toE, int toL, int numPoints = 5) const;
+    PositionVector computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints = 5) const;
 
 
     /** @brief Compute a smooth curve between the given geometries

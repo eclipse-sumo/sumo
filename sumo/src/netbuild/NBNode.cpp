@@ -568,19 +568,37 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
 
 
 PositionVector
-NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
-                                 NBEdge* toE, int toL, int numPoints) const {
-    if (fromL >= (int) fromE->getNumLanes()) {
-        throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' starts at a not existing lane.");
+NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints) const {
+    if (con.fromLane >= (int) fromE->getNumLanes()) {
+        throw ProcessError("Connection '" + fromE->getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' starts at a non-existant lane.");
     }
-    if (toL >= (int) toE->getNumLanes()) {
-        throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' yields in a not existing lane.");
+    if (con.toLane >= (int) con.toEdge->getNumLanes()) {
+        throw ProcessError("Connection '" + fromE->getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' targets a non-existant lane.");
     }
-    PositionVector ret = computeSmoothShape(fromE->getLaneShape(fromL), toE->getLaneShape(toL), 
-            numPoints, fromE->getTurnDestination() == toE,
+    PositionVector ret;
+    if (myCustomLaneShapes.size() > 0 && con.id != "") {
+        // this is the second pass (ids and shapes are already set
+        assert(con.shape.size() > 0);
+        CustomShapeMap::const_iterator it = myCustomLaneShapes.find(con.getInternalLaneID());
+        if (it != myCustomLaneShapes.end()) {
+            ret = it->second;
+        } else {
+            ret = con.shape;
+        }
+        it = myCustomLaneShapes.find(con.viaID + "_0");
+        if (it != myCustomLaneShapes.end()) {
+            ret.append(it->second);
+        } else {
+            ret.append(con.viaShape);
+        }
+        return ret;
+    }
+
+    ret = computeSmoothShape(fromE->getLaneShape(con.fromLane), con.toEdge->getLaneShape(con.toLane), 
+            numPoints, fromE->getTurnDestination() == con.toEdge,
             (SUMOReal) 5. * (SUMOReal) fromE->getNumLanes(),
-            (SUMOReal) 5. * (SUMOReal) toE->getNumLanes());
-    const NBEdge::Lane& lane = fromE->getLaneStruct(fromL);
+            (SUMOReal) 5. * (SUMOReal) con.toEdge->getNumLanes());
+    const NBEdge::Lane& lane = fromE->getLaneStruct(con.fromLane);
     if (lane.endOffset > 0) {
         PositionVector beg = lane.shape.getSubpart(lane.shape.length() - lane.endOffset, lane.shape.length());;
         beg.append(ret);
@@ -1696,6 +1714,16 @@ NBNode::buildInnerEdges(bool buildCrossingsAndWalkingAreas) {
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         (*i)->buildInnerEdges(*this, noInternalNoSplits, lno, splitNo);
     }
+    // if there are custom lane shapes we need to built twice: 
+    // first to set the ids then to build intersections with the custom geometries
+    if (myCustomLaneShapes.size() > 0) {
+        unsigned int lno = 0;
+        unsigned int splitNo = 0;
+        for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
+            (*i)->buildInnerEdges(*this, noInternalNoSplits, lno, splitNo);
+        }
+    }
+
     if (buildCrossingsAndWalkingAreas) {
         buildCrossings();
         buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"));
