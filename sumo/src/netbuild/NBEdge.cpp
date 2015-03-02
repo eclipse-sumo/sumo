@@ -1084,7 +1084,13 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         if (needsCont) {
                             crossingPositions.second.push_back(index);
                             const PositionVector otherShape = n.computeInternalLaneShape(*i2, *k2);
-                            const SUMOReal minDV = firstIntersection(shape, otherShape, (*k2).toEdge->getLaneWidth((*k2).toLane));
+                            // vehicles are typically less wide than the lane
+                            // they drive on but but bicycle lanes should be kept clear for their whole width
+                            SUMOReal width2 = (*k2).toEdge->getLaneWidth((*k2).toLane);
+                            if ((*k2).toEdge->getPermissions((*k2).toLane) != SVC_BICYCLE) {
+                                width2 *= 0.5;
+                            }
+                            const SUMOReal minDV = firstIntersection(shape, otherShape, width2);
                             if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
                                 assert(minDV >= 0);
                                 if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
@@ -1177,10 +1183,10 @@ NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, SU
         return intersect;
     }
     PositionVector v2Right = v2;
-    v2Right.move2side(width2 / 2);
+    v2Right.move2side(width2);
 
     PositionVector v2Left = v2;
-    v2Left.move2side(-width2 / 2);
+    v2Left.move2side(-width2);
 
     // intersect center line of v1 with left and right border of v2
     std::vector<SUMOReal> tmp = v1.intersectsAtLengths2D(v2Right);
