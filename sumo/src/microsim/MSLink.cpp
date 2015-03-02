@@ -517,7 +517,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
             foeLane->releaseVehicles();
             for (MSLane::VehCont::const_iterator it_veh = vehicles.begin(); it_veh != vehicles.end(); ++it_veh) {
                 MSVehicle* leader = *it_veh;
-                if (!sameSource && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass) {
+                if (!cannotIgnore && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass) {
                     continue;
                 }
                 if (cannotIgnore || leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {
