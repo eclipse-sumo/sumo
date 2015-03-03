@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSOffTrafficLightLogic.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSRailSignal.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSSimpleTrafficLightLogic.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSTLLogicControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSTrafficLightLogic.cpp" />
@@ -149,9 +150,13 @@
     <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSActuatedTrafficLightLogic.h" />
     <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSOffTrafficLightLogic.h" />
     <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSPhaseDefinition.h" />
+    <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSRailSignal.h" />
     <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSSimpleTrafficLightLogic.h" />
     <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSTLLogicControl.h" />
     <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSTrafficLightLogic.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

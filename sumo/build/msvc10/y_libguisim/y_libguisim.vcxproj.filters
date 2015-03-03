@@ -71,6 +71,15 @@
     <ClCompile Include="..\..\..\src\guisim\GUICalibrator.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\guisim\GUIContainerStop.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\guisim\GUIContainer.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\guisim\GUIContainerControl.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\guisim\GUI_E2_ZS_Collector.h">
@@ -131,6 +140,15 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\guisim\GUICalibrator.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\guisim\GUIContainerStop.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\guisim\GUIContainer.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\guisim\GUIContainerControl.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
