@@ -357,8 +357,8 @@ public:
             : myReferenceEdge(edge), myAtNode(n) { }
 
         bool operator()(NBEdge* e) const {
-            return e->isTurningDirectionAt(myAtNode, myReferenceEdge) ||
-                   myReferenceEdge->isTurningDirectionAt(myAtNode, e);
+            return e->isTurningDirectionAt(myReferenceEdge) ||
+                   myReferenceEdge->isTurningDirectionAt(e);
         }
 
     private:

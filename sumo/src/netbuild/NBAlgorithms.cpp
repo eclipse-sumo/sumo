@@ -194,7 +194,7 @@ NBNodesEdgesSorter::swapWhenReversed(const NBNode* const n, bool leftHand,
     //  is not nice. Maybe we could get rid of it if we would always mark edges
     //  as turnarounds, even if they do not have to be added, as mentioned in
     //  notes on NBTurningDirectionsComputer::computeTurnDirectionsForNode
-    if (e2->getToNode() == n && e2->isTurningDirectionAt(n, e1)) {
+    if (e2->getToNode() == n && e2->isTurningDirectionAt(e1)) {
         std::swap(*i1, *i2);
     }
 }
@@ -302,7 +302,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
                                            && (incoming.size() == 0 || bestIncoming[0]->getPriority() > incoming[0]->getPriority())
                                            && bestOutgoing.size() == 1 && n.myOutgoingEdges.size() <= 2
                                            && (outgoing.size() == 0 || bestOutgoing[0]->getPriority() > outgoing[0]->getPriority())
-                                           && !bestIncoming[0]->isTurningDirectionAt(&n, bestOutgoing[0]));
+                                           && !bestIncoming[0]->isTurningDirectionAt(bestOutgoing[0]));
     // now, let's compute for each of the best incoming edges
     //  the incoming which is most opposite
     //  the outgoing which is most opposite

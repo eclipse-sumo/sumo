@@ -235,11 +235,11 @@ NBRequest::setBlocking(bool leftHanded,
     }
     // check if one of the links is a turn; this link is always not priorised
     //  true for right-before-left and priority
-    if (from1->isTurningDirectionAt(myJunction, to1)) {
+    if (from1->isTurningDirectionAt(to1)) {
         myForbids[idx2][idx1] = true;
         return;
     }
-    if (from2->isTurningDirectionAt(myJunction, to2)) {
+    if (from2->isTurningDirectionAt(to2)) {
         myForbids[idx1][idx2] = true;
         return;
     }
@@ -635,8 +635,8 @@ NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane,
     }
     const SUMOReal prohibitorAngle = NBHelpers::relAngle(
                                          prohibitorFrom->getAngleAtNode(prohibitorFrom->getToNode()), to->getAngleAtNode(to->getFromNode()));
-    const bool rightOfProhibitor = prohibitorFrom->isTurningDirectionAt(prohibitorFrom->getToNode(), to)
-                                   || (angle > prohibitorAngle && !from->isTurningDirectionAt(from->getToNode(), to));
+    const bool rightOfProhibitor = prohibitorFrom->isTurningDirectionAt(to)
+                                   || (angle > prohibitorAngle && !from->isTurningDirectionAt(to));
     return rightOfProhibitor ? toLane >= prohibitorToLane : toLane <= prohibitorToLane;
 }
 
@@ -647,8 +647,8 @@ NBRequest::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
     if (from != prohibitorFrom) {
         return false;
     }
-    if (from->isTurningDirectionAt(from->getToNode(), to) 
-            || prohibitorFrom->isTurningDirectionAt(prohibitorFrom->getToNode(), prohibitorTo)) {
+    if (from->isTurningDirectionAt(to) 
+            || prohibitorFrom->isTurningDirectionAt(prohibitorTo)) {
         // XXX should warn if there are any non-turning connections left of this
         return false;
     }

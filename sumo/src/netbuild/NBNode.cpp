@@ -1198,7 +1198,7 @@ NBNode::isLeftMover(const NBEdge* const from, const NBEdge* const to) const {
     std::vector<NBEdge*>::const_iterator i = std::find(myAllEdges.begin(), myAllEdges.end(), from);
     do {
         NBContHelper::nextCW(myAllEdges, i);
-    } while ((!hasOutgoing(*i) || from->isTurningDirectionAt(this, *i)) && *i != from);
+    } while ((!hasOutgoing(*i) || from->isTurningDirectionAt(*i)) && *i != from);
     return cw < ccw && (*i) == to && myOutgoingEdges.size() > 2;
 }
 
@@ -1308,7 +1308,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing)
         return LINKDIR_NODIR;
     }
     // turning direction
-    if (incoming->isTurningDirectionAt(this, outgoing)) {
+    if (incoming->isTurningDirectionAt(outgoing)) {
         return LINKDIR_TURN;
     }
     // get the angle between incoming/outgoing at the junction
@@ -1338,7 +1338,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing)
         find(myAllEdges.begin(), myAllEdges.end(), outgoing);
     NBContHelper::nextCCW(myAllEdges, i);
     while ((*i) != incoming) {
-        if ((*i)->getFromNode() == this && !incoming->isTurningDirectionAt(this, *i)) {
+        if ((*i)->getFromNode() == this && !incoming->isTurningDirectionAt(*i)) {
             return LINKDIR_PARTLEFT;
         }
         NBContHelper::nextCCW(myAllEdges, i);

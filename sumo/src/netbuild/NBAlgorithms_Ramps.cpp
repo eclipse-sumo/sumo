@@ -167,7 +167,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
                 if (curr->getNumLanes() != firstLaneNumber) {
                     // the number of lanes changes along the computation; we'll stop...
                     curr = 0;
-                } else if (curr->isTurningDirectionAt(nextN, last)) {
+                } else if (curr->isTurningDirectionAt(last)) {
                     // turnarounds certainly should not be included in a ramp
                     curr = 0;
                 } else if (curr == potHighway || curr == potRamp) {
@@ -249,7 +249,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
                 if (curr->getNumLanes() != firstLaneNumber) {
                     // the number of lanes changes along the computation; we'll stop...
                     curr = 0;
-                } else if (last->isTurningDirectionAt(prevN, curr)) {
+                } else if (last->isTurningDirectionAt(curr)) {
                     // turnarounds certainly should not be included in a ramp
                     curr = 0;
                 } else if (curr == potHighway || curr == potRamp) {
@@ -422,14 +422,14 @@ NBRampsComputer::fulfillsRampConstraints(
     // is any of the connections a turnaround?
     if (other->getToNode() == potHighway->getFromNode()) {
         // off ramp
-        if (other->isTurningDirectionAt(other->getToNode(), potHighway) ||
-                other->isTurningDirectionAt(other->getToNode(), potRamp)) {
+        if (other->isTurningDirectionAt(potHighway) ||
+                other->isTurningDirectionAt(potRamp)) {
             return false;
         }
     } else {
         // on ramp
-        if (other->isTurningDirectionAt(other->getFromNode(), potHighway) ||
-                other->isTurningDirectionAt(other->getFromNode(), potRamp)) {
+        if (other->isTurningDirectionAt(potHighway) ||
+                other->isTurningDirectionAt(potRamp)) {
             return false;
         }
     }

@@ -824,11 +824,11 @@ public:
 
 
     /** @brief Returns whether the given edge is the opposite direction to this edge
-     * @param[in] n The node at which this may be turnaround direction
      * @param[in] edge The edge which may be the turnaround direction
      * @return Whether the given edge is this edge's turnaround direction
+     * (regardless of whether a connection exists)
      */
-    bool isTurningDirectionAt(const NBNode* n, const NBEdge* const edge) const;
+    bool isTurningDirectionAt(const NBEdge* const edge) const;
 
 
     /** @brief Sets the turing destination at the given edge

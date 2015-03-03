@@ -217,9 +217,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds) {
                 fromLanes.push_back((int)i2);
                 toEdges.push_back(toEdge);
                 if (toEdge != 0) {
-                    isTurnaround.push_back(
-                        fromEdge->isTurningDirectionAt(
-                            fromEdge->getToNode(), toEdge));
+                    isTurnaround.push_back(fromEdge->isTurningDirectionAt(toEdge));
                 } else {
                     isTurnaround.push_back(true);
                 }

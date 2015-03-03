@@ -69,7 +69,7 @@ NBNodeShapeComputer::compute(bool leftHand) {
         singleDirection = true;
     }
     if (myNode.myAllEdges.size() == 2 && myNode.getIncomingEdges().size() == 1) {
-        if (myNode.getIncomingEdges()[0]->isTurningDirectionAt(&myNode, myNode.getOutgoingEdges()[0])) {
+        if (myNode.getIncomingEdges()[0]->isTurningDirectionAt(myNode.getOutgoingEdges()[0])) {
             singleDirection = true;
         }
     }

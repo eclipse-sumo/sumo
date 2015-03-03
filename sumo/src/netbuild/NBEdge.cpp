@@ -1734,7 +1734,7 @@ NBEdge::appendTurnaround(bool noTLSControlled) {
 
 
 bool
-NBEdge::isTurningDirectionAt(const NBNode* n, const NBEdge* const edge) const {
+NBEdge::isTurningDirectionAt(const NBEdge* const edge) const {
     // maybe it was already set as the turning direction
     if (edge == myTurnDestination) {
         return true;
