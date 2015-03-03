@@ -109,6 +109,10 @@ SUMORouteHandler::myStartElement(int element,
             delete myVehicleParameter;
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, false, false, true);
             break;
+        case SUMO_TAG_CONTAINER:
+            delete myVehicleParameter;
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+            break;
         case SUMO_TAG_FLOW:
             delete myVehicleParameter;
             myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myBeginDefault, myEndDefault);
@@ -161,6 +165,11 @@ SUMORouteHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_PERSON:
             closePerson();
+            delete myVehicleParameter;
+            myVehicleParameter = 0;
+            break;
+        case SUMO_TAG_CONTAINER:
+            closeContainer();
             delete myVehicleParameter;
             myVehicleParameter = 0;
             break;
@@ -259,22 +268,37 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (attrs.hasAttribute(SUMO_ATTR_TRIGGERED)) {
         stop.setParameter |= STOP_TRIGGER_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
+        stop.setParameter |= STOP_CONTAINER_TRIGGER_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_PARKING)) {
         stop.setParameter |= STOP_PARKING_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EXPECTED)) {
         stop.setParameter |= STOP_EXPECTED_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_EXPECTED_CONTAINERS)) {
+        stop.setParameter |= STOP_EXPECTED_CONTAINERS_SET;
+    }
     bool ok = true;
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
+    stop.containerstop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, 0, ok, "");
     if (stop.busstop != "") {
         errorSuffix = " at '" + stop.busstop + "'" + errorSuffix;
+    } else if (stop.containerstop != "") {
+        errorSuffix = " at '" + stop.containerstop + "'" + errorSuffix;
     } else {
         errorSuffix = " on lane '" + stop.lane + "'" + errorSuffix;
     }
     // get the standing duration
     if (!attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL)) {
-        stop.triggered = attrs.getOpt<bool>(SUMO_ATTR_TRIGGERED, 0, ok, true);
+        if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
+            stop.containerTriggered = attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, 0, ok, true);
+            stop.triggered = attrs.getOpt<bool>(SUMO_ATTR_TRIGGERED, 0, ok, false);
+        } else {
+            stop.triggered = attrs.getOpt<bool>(SUMO_ATTR_TRIGGERED, 0, ok, true);
+            stop.containerTriggered = attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, 0, ok, false);
+        }
         stop.duration = -1;
         stop.until = -1;
     } else {
@@ -285,10 +309,11 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
             return false;
         }
         stop.triggered = attrs.getOpt<bool>(SUMO_ATTR_TRIGGERED, 0, ok, false);
+        stop.containerTriggered = attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, 0, ok, false);
     }
-    stop.parking = attrs.getOpt<bool>(SUMO_ATTR_PARKING, 0, ok, stop.triggered);
+    stop.parking = attrs.getOpt<bool>(SUMO_ATTR_PARKING, 0, ok, stop.triggered || stop.containerTriggered);
     if (!ok) {
-        errorOutput->inform("Invalid bool for 'triggered' or 'parking' for stop" + errorSuffix);
+        errorOutput->inform("Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop" + errorSuffix);
         return false;
     }
 
@@ -297,6 +322,12 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     std::set<std::string> personIDs;
     SUMOSAXAttributes::parseStringSet(expectedStr, personIDs);
     stop.awaitedPersons = personIDs;
+    
+    // expected containers
+    std::string expectedContainersStr = attrs.getOpt<std::string>(SUMO_ATTR_EXPECTED_CONTAINERS, 0, ok, "");
+    std::set<std::string> containerIDs;
+    SUMOSAXAttributes::parseStringSet(expectedContainersStr, containerIDs);
+    stop.awaitedContainers = containerIDs;
 
     const std::string idx = attrs.getOpt<std::string>(SUMO_ATTR_INDEX, 0, ok, "end");
     if (idx == "end") {

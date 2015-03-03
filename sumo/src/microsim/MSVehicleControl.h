@@ -236,12 +236,12 @@ public:
     unsigned int getQuota(SUMOReal frac = -1) const;
 
 
-    /** @brief Returns the number of build vehicles that have not been removed
-     * or need to wait for a passenger
+    /** @brief Returns the number of build vehicles that have not been removed or
+     * need to wait for a passenger or a container
      * @return Number of active vehicles
      */
     int getActiveVehicleCount() const {
-        return myLoadedVehNo - (myWaitingForPerson + myEndedVehNo);
+        return myLoadedVehNo - (myWaitingForPerson + myWaitingForContainer + myEndedVehNo);
     }
 
 
@@ -351,11 +351,19 @@ public:
     void insertVTypeIDs(std::vector<std::string>& into) const;
     /// @}
 
+    /// @brief Adds a vehicle to the list of waiting vehiclse to a given edge
     void addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
 
+    /// @brief Removes a vehicle from the list of waiting vehicles to a given edge
     void removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
 
-    SUMOVehicle* getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines);
+    /* @brief returns a vehicle of the given lines that is waiting for a for a person or a container at this edge at the given positions
+     * @param[in] edge The edge at which the vehicle is positioned.
+     * @param[in] lines The set of lines from which at least one must correspond to the line of the vehicle
+     * @param[in] position The vehicle shall be positioned in the interval [position - t, position + t], where t is some tolerance
+     * @param[in] ridingID The id of the person or container that wants to ride
+     */
+    SUMOVehicle* getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines, const SUMOReal position, const std::string ridingID);
 
     /** @brief increases the count of vehicles waiting for a person to allow recogniztion of person related deadlocks
      */
@@ -367,6 +375,18 @@ public:
      */
     void unregisterOneWaitingForPerson() {
         myWaitingForPerson--;
+    }
+   
+    /** @brief increases the count of vehicles waiting for a container to allow recogniztion of container related deadlocks
+     */
+    void registerOneWaitingForContainer() {
+        myWaitingForContainer++;
+    }
+
+    /** @brief decreases the count of vehicles waiting for a container to allow recogniztion of container related deadlocks
+     */
+    void unregisterOneWaitingForContainer() {
+        myWaitingForContainer--;
     }
 
     /// @brief registers one collision-related teleport
@@ -407,7 +427,7 @@ public:
     /// @}
 
 
-    /** @brief removes any vehicles that are still waiting
+    /** @brief informes about all waiting vehicles (deletion in destructor)
      */
     void abortWaiting();
 
@@ -507,11 +527,14 @@ protected:
     /// @brief Whether no pedestrian type was loaded
     bool myDefaultPedTypeMayBeDeleted;
 
-    /// the lists of waiting vehicles
+    /// the lists of waiting vehicles to a given edge
     std::map<const MSEdge* const, std::vector<SUMOVehicle*> > myWaiting;
 
-    /// the number of vehicles contained in myWaiting which can only continue by being triggered
+    /// the number of vehicles wainting for persons contained in myWaiting which can only continue by being triggered
     unsigned int myWaitingForPerson;
+
+    /// the number of vehicles wainting for containers contained in myWaiting which can only continue by being triggered
+    unsigned int myWaitingForContainer;
 
     /// @brief The scaling factor (especially for inc-dua)
     SUMOReal myScale;

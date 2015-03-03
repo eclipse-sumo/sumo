@@ -61,11 +61,14 @@
 #include <microsim/MSGlobals.h>
 #include "trigger/MSBusStop.h"
 #include "devices/MSDevice_Person.h"
+#include "devices/MSDevice_Container.h"
 #include "MSEdgeWeightsStorage.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSMoveReminder.h"
 #include <microsim/pedestrians/MSPerson.h>
 #include "MSPersonControl.h"
+#include "MSContainer.h"
+#include "MSContainerControl.h"
 #include "MSLane.h"
 #include "MSVehicle.h"
 #include "MSEdge.h"
@@ -396,10 +399,12 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myLastBestLanesEdge(0),
     myLastBestLanesInternalLane(0),
     myPersonDevice(0),
+    myContainerDevice(0),
     myAcceleration(0),
     mySignals(0),
     myAmOnNet(false),
     myAmRegisteredAsWaitingForPerson(false),
+    myAmRegisteredAsWaitingForContainer(false),
     myHaveToWaitOnNextLink(false),
     myCachedPosition(Position::INVALID),
     myEdgeWeights(0)
@@ -679,15 +684,20 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         return false;
     }
     stop.busstop = MSNet::getInstance()->getBusStop(stopPar.busstop);
+    stop.containerstop = MSNet::getInstance()->getContainerStop(stopPar.containerstop);
     stop.startPos = stopPar.startPos;
     stop.endPos = stopPar.endPos;
     stop.duration = stopPar.duration;
     stop.until = stopPar.until;
+	stop.timeToBoardNextPerson = 0;
+    stop.timeToLoadNextContainer = 0;
     stop.awaitedPersons = stopPar.awaitedPersons;
+    stop.awaitedContainers = stopPar.awaitedContainers;
     if (stop.until != -1) {
         stop.until += untilOffset;
     }
     stop.triggered = stopPar.triggered;
+    stop.containerTriggered = stopPar.containerTriggered;
     stop.parking = stopPar.parking;
     stop.reached = false;
     if (stop.startPos < 0 || stop.endPos > stop.lane->getLength()) {
@@ -701,6 +711,9 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     }
     if (stop.busstop != 0 && myType->getLength() / 2. > stop.endPos - stop.startPos) {
         errorMsg = "Bus stop '" + stop.busstop->getID() + "' on lane '" + stopPar.lane + "' is too short for vehicle '" + myParameter->id + "'.";
+    }
+    if (stop.containerstop != 0 && myType->getLength() / 2. > stop.endPos - stop.startPos) {
+        errorMsg = "Container stop '" + stop.containerstop->getID() + "' on lane '" + stopPar.lane + "' is too short for vehicle '" + myParameter->id + "'.";
     }
     stop.edge = find(myCurrEdge, myRoute->end(), &stop.lane->getEdge());
     MSRouteIterator prevStopEdge = myCurrEdge;
@@ -804,7 +817,13 @@ MSVehicle::isParking() const {
 
 bool
 MSVehicle::isStoppedTriggered() const {
-    return isStopped() && myStops.begin()->triggered;
+    return isStopped() && (myStops.begin()->triggered || myStops.begin()->containerTriggered);
+}
+
+
+bool
+MSVehicle::isStoppedInRange(SUMOReal pos) const {
+    return isStopped() && myStops.begin()->startPos <= pos && myStops.begin()->endPos >= pos;
 }
 
 
@@ -818,8 +837,11 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
     if (stop.reached) {
         // ok, we have already reached the next stop
         // any waiting persons may board now
-        bool boarded = MSNet::getInstance()->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this);
+        bool boarded = MSNet::getInstance()->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, &stop);
         boarded &= stop.awaitedPersons.size() == 0;
+        // load containers
+        bool loaded = MSNet::getInstance()->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, &stop);
+        loaded &= stop.awaitedContainers.size() == 0;
         if (boarded) {
             if (stop.busstop != 0) {
                 const std::vector<MSPerson*>& persons = myPersonDevice->getPersons();
@@ -834,7 +856,21 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 myAmRegisteredAsWaitingForPerson = false;
             }
         }
-        if (stop.duration <= 0 && !stop.triggered) {
+        if (loaded) {
+            if (stop.containerstop != 0) {
+                const std::vector<MSContainer*>& containers = myContainerDevice->getContainers();
+                for (std::vector<MSContainer*>::const_iterator i = containers.begin(); i != containers.end(); ++i) {
+                    stop.containerstop->removeContainer(*i);
+                }
+            }
+            // the triggering condition has been fulfilled
+            stop.containerTriggered = false;
+            if (myAmRegisteredAsWaitingForContainer) {
+                MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForContainer();
+                myAmRegisteredAsWaitingForContainer = false;
+            }
+        }
+        if (stop.duration <= 0 && !stop.triggered && !stop.containerTriggered) {
             resumeFromStopping();
         } else {
             // we have to wait some more time
@@ -842,6 +878,11 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
                 MSNet::getInstance()->getVehicleControl().registerOneWaitingForPerson();
                 myAmRegisteredAsWaitingForPerson = true;
+            }
+            if (stop.containerTriggered && !myAmRegisteredAsWaitingForContainer) {
+                // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
+                MSNet::getInstance()->getVehicleControl().registerOneWaitingForContainer();
+                myAmRegisteredAsWaitingForContainer = true;
             }
             stop.duration -= DELTA_T;
             return 0;
@@ -860,8 +901,18 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                     busStopsMustHaveSpace = false;
                 }
             }
+            bool containerStopsMustHaveSpace = true;
+            // if the stop is a container stop we check if the vehicle fits into the last free position of the stop
+            if (stop.containerstop != 0) {
+                // on container stops, we have to wait for free place if they are in use...
+                endPos = stop.containerstop->getLastFreePos(*this);
+                if (endPos != stop.containerstop->getEndLanePosition() && endPos - myType->getLength() / 2. < stop.containerstop->getBeginLanePosition()) { 
+                    containerStopsMustHaveSpace = false;
+                }
+            }
+            // we use the same offset for container stops as for bus stops. we might have to change it at some point!
             if (myState.pos() + getVehicleType().getMinGap() >= endPos - BUS_STOP_OFFSET && busStopsMustHaveSpace
-                    && myLane == stop.lane) {
+                    && containerStopsMustHaveSpace && myLane == stop.lane) {
                 // ok, we may stop (have reached the stop)
                 stop.reached = true;
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
@@ -877,6 +928,10 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 if (stop.busstop != 0) {
                     // let the bus stop know the vehicle
                     stop.busstop->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
+                }
+                if (stop.containerstop != 0) {
+                    // let the container stop know the vehicle
+                    stop.containerstop->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
                 }
             }
             // decelerate
@@ -2285,11 +2340,36 @@ MSVehicle::addPerson(MSPerson* person) {
     }
 }
 
+void
+MSVehicle::addContainer(MSContainer* container) {
+    if (myContainerDevice == 0) {
+        myContainerDevice = MSDevice_Container::buildVehicleDevices(*this, myDevices);
+        myMoveReminders.push_back(std::make_pair(myContainerDevice, 0.));
+    }
+    myContainerDevice->addContainer(container);
+    if (myStops.size() > 0 && myStops.front().reached && myStops.front().containerTriggered) {
+        unsigned int numExpected = (unsigned int) myStops.front().awaitedContainers.size();
+        if (numExpected != 0) {
+            myStops.front().awaitedContainers.erase(container->getID());
+            numExpected = (unsigned int) myStops.front().awaitedContainers.size();
+        }
+        if (numExpected == 0) {
+            myStops.front().duration = 0;
+        }
+    }
+}
+
 
 unsigned int
 MSVehicle::getPersonNumber() const {
     unsigned int boarded = myPersonDevice == 0 ? 0 : myPersonDevice->size();
     return boarded + myParameter->personNumber;
+}
+
+unsigned int
+MSVehicle::getContainerNumber() const {
+    unsigned int loaded = myContainerDevice == 0 ? 0 : myContainerDevice->size();
+    return loaded + myParameter->containerNumber;
 }
 
 
@@ -2350,7 +2430,7 @@ MSVehicle::setTentativeLaneAndPosition(MSLane* lane, const SUMOReal pos) {
 #ifndef NO_TRACI
 bool
 MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTime duration,
-                        bool parking, bool triggered, std::string& errorMsg) {
+                        bool parking, bool triggered, bool containerTriggered, std::string& errorMsg) {
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
         if (iter->lane == lane && fabs(iter->endPos - pos) < POSITION_EPS) {
@@ -2366,11 +2446,13 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTim
     SUMOVehicleParameter::Stop newStop;
     newStop.lane = lane->getID();
     newStop.busstop = MSNet::getInstance()->getBusStopID(lane, pos);
+    newStop.containerstop = MSNet::getInstance()->getContainerStopID(lane, pos);
     newStop.startPos = pos - POSITION_EPS;
     newStop.endPos = pos;
     newStop.duration = duration;
     newStop.until = -1;
     newStop.triggered = triggered;
+    newStop.containerTriggered = containerTriggered;
     newStop.parking = parking;
     newStop.index = STOP_INDEX_FIT;
     const bool result = addStop(newStop, errorMsg);
@@ -2388,10 +2470,19 @@ MSVehicle::resumeFromStopping() {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForPerson();
             myAmRegisteredAsWaitingForPerson = false;
         }
+        if (myAmRegisteredAsWaitingForContainer) {
+            MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForContainer();
+            myAmRegisteredAsWaitingForContainer = false;
+        }
         // we have waited long enough and fulfilled any passenger-requirements
         if (myStops.front().busstop != 0) {
             // inform bus stop about leaving it
             myStops.front().busstop->leaveFrom(this);
+        }
+        // we have waited long enough and fulfilled any container-requirements
+        if (myStops.front().containerstop != 0) {
+            // inform container stop about leaving it
+            myStops.front().containerstop->leaveFrom(this);
         }
         // the current stop is no longer valid
         MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);

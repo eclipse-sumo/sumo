@@ -207,6 +207,20 @@ public:
     //@}
 
 
+    /// @name container visualization settings
+    //@{
+
+    /// @brief The container colorer
+    GUIColorer containerColorer;
+    /// @brief The quality of container drawing
+    int containerQuality;
+    // Setting bundles for controling the size of the drawn containers
+    GUIVisualizationSizeSettings containerSize;
+    // Setting bundles for optional drawing person names
+    GUIVisualizationTextSettings containerName;
+    //@}
+
+
     /// @name junction visualization settings
     //@{
 

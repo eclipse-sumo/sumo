@@ -153,7 +153,17 @@ public:
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::removePerson(p);
     }
+    
 
+    void addContainer(MSContainer* c) const {
+        AbstractMutex::ScopedLocker locker(myLock);
+        MSEdge::addContainer(c);
+    }
+
+    void removeContainer(MSContainer* c) const {
+        AbstractMutex::ScopedLocker locker(myLock);
+        MSEdge::removeContainer(c);
+    }
 
 #ifdef HAVE_INTERNAL
     unsigned int getVehicleNo() const;
@@ -198,7 +208,7 @@ private:
 
 
 private:
-    /// The mutex used to avoid concurrent updates of myPersons
+    /// The mutex used to avoid concurrent updates of myPersons/ myContainers
     mutable MFXMutex myLock;
 
 };

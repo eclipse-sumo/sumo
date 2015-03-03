@@ -54,6 +54,7 @@
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUIPersonControl.h>
+#include <guisim/GUIContainerControl.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIDetectorWrapper.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
@@ -128,6 +129,15 @@ GUINet::getPersonControl() {
         myPersonControl = new GUIPersonControl();
     }
     return *myPersonControl;
+}
+
+
+MSContainerControl&
+GUINet::getContainerControl() {
+    if (myContainerControl == 0) {
+        myContainerControl = new GUIContainerControl();
+    }
+    return *myContainerControl;
 }
 
 

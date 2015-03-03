@@ -70,6 +70,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "calibrator",       SUMO_TAG_CALIBRATOR },
     { "rerouter",         SUMO_TAG_REROUTER },
     { "busStop",          SUMO_TAG_BUS_STOP },
+    { "containerStop",    SUMO_TAG_CONTAINER_STOP },
     { "vTypeProbe",       SUMO_TAG_VTYPEPROBE },
     { "routeProbe",       SUMO_TAG_ROUTEPROBE },
     { "routes",           SUMO_TAG_ROUTES },
@@ -132,6 +133,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "edges",            SUMO_TAG_VIEWSETTINGS_EDGES },
     { "vehicles",         SUMO_TAG_VIEWSETTINGS_VEHICLES },
     { "persons",          SUMO_TAG_VIEWSETTINGS_PERSONS },
+    { "containers",       SUMO_TAG_VIEWSETTINGS_CONTAINERS },
     { "junctions",        SUMO_TAG_VIEWSETTINGS_JUNCTIONS },
     { "additionals",      SUMO_TAG_VIEWSETTINGS_ADDITIONALS },
     { "pois",             SUMO_TAG_VIEWSETTINGS_POIS },
@@ -164,6 +166,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "person",           SUMO_TAG_PERSON },
     { "ride",             SUMO_TAG_RIDE },
     { "walk",             SUMO_TAG_WALK },
+    
+    { "container",        SUMO_TAG_CONTAINER },
+    { "transport",        SUMO_TAG_TRANSPORT },
+    { "transfer",         SUMO_TAG_TRANSFER },
 
     { "trajectories",     SUMO_TAG_TRAJECTORIES },
     { "timestep",         SUMO_TAG_TIMESTEP },
@@ -250,6 +256,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "speedDev",       SUMO_ATTR_SPEEDDEV },
     { "laneChangeModel", SUMO_ATTR_LANE_CHANGE_MODEL },
     { "minGap",         SUMO_ATTR_MINGAP },
+    { "boardingDuration", SUMO_ATTR_BOARDING_DURATION },
+    { "loadingDuration", SUMO_ATTR_LOADING_DURATION },
 
     { "sigma",          SUMO_ATTR_SIGMA },
     { "tau",            SUMO_ATTR_TAU },
@@ -275,7 +283,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "toTaz",          SUMO_ATTR_TO_TAZ },
     { "reroute",        SUMO_ATTR_REROUTE },
     { "personCapacity", SUMO_ATTR_PERSON_CAPACITY },
+    { "containerCapacity", SUMO_ATTR_CONTAINER_CAPACITY },
     { "personNumber",   SUMO_ATTR_PERSON_NUMBER },
+    { "containerNumber",SUMO_ATTR_CONTAINER_NUMBER },
 
     { "function",       SUMO_ATTR_FUNCTION },
     { "pos",            SUMO_ATTR_POSITION },
@@ -335,6 +345,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "uncontrolled",   SUMO_ATTR_UNCONTROLLED },
     { "pass",           SUMO_ATTR_PASS },
     { "busStop",        SUMO_ATTR_BUS_STOP },
+    { "containerStop",  SUMO_ATTR_CONTAINER_STOP },
     { "line",           SUMO_ATTR_LINE },
     { "lines",          SUMO_ATTR_LINES },
     { "value",          SUMO_ATTR_VALUE },
@@ -356,8 +367,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "startPos",       SUMO_ATTR_STARTPOS },
     { "endPos",         SUMO_ATTR_ENDPOS },
     { "triggered",      SUMO_ATTR_TRIGGERED },
+    { "containerTriggered", SUMO_ATTR_CONTAINER_TRIGGERED },
     { "parking",        SUMO_ATTR_PARKING },
     { "expected",       SUMO_ATTR_EXPECTED },
+    { "expectedContainers",       SUMO_ATTR_EXPECTED_CONTAINERS },
     { "index",          SUMO_ATTR_INDEX },
 
     { "entering",       SUMO_ATTR_ENTERING },
@@ -455,6 +468,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[] = {
     {"traffic_light",       NODETYPE_TRAFFIC_LIGHT},
     {"traffic_light_unregulated", NODETYPE_TRAFFIC_LIGHT_NOJUNCTION},
+    {"rail_signal",         NODETYPE_RAIL_SIGNAL},
     {"priority",            NODETYPE_PRIORITY},
     {"priority_stop",       NODETYPE_PRIORITY_STOP},
     {"right_before_left",   NODETYPE_RIGHT_BEFORE_LEFT},
@@ -518,6 +532,7 @@ StringBijection<LinkDirection>::Entry SUMOXMLDefinitions::linkDirectionValues[] 
 
 StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesVales[] = {
     { "static", TLTYPE_STATIC },
+    { "rail", TLTYPE_RAIL },
     { "actuated", TLTYPE_ACTUATED },
 };
 

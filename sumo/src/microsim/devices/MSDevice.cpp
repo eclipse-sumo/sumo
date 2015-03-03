@@ -36,6 +36,7 @@
 #include "MSDevice_Tripinfo.h"
 #include "MSDevice_Routing.h"
 #include "MSDevice_Person.h"
+#include "MSDevice_Container.h"
 #include "MSDevice_Emissions.h"
 #include "MSDevice_BTreceiver.h"
 #include "MSDevice_BTsender.h"

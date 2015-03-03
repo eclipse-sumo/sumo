@@ -255,6 +255,9 @@ void
 MSBaseVehicle::addPerson(MSPerson* /*person*/) {
 }
 
+void
+MSBaseVehicle::addContainer(MSContainer* /*container*/) {
+}
 
 bool
 MSBaseVehicle::hasValidRoute(std::string& msg) const {

@@ -293,6 +293,14 @@ private:
     std::vector<FXButton*> myPersonButtons;
     FXCheckButton* myPersonColorInterpolation;
 
+    FXComboBox* myContainerColorMode, *myContainerShapeDetail;
+    FXVerticalFrame* myContainerColorSettingFrame;
+    std::vector<FXColorWell*> myContainerColors;
+    std::vector<FXRealSpinDial*> myContainerThresholds;
+    std::vector<FXButton*> myContainerButtons;
+    FXCheckButton* myContainerColorInterpolation;
+    FXRealSpinDial* myContainerMinSizeDialer, *myContainerUpscaleDialer;
+
     FXComboBox* myJunctionColorMode;
     FXVerticalFrame* myJunctionColorSettingFrame;
     std::vector<FXColorWell*> myJunctionColors;
@@ -309,10 +317,10 @@ private:
 
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel,
                *myJunctionNamePanel, *myInternalJunctionNamePanel,
-               *myVehicleNamePanel, *myPersonNamePanel,
+               *myVehicleNamePanel, *myPersonNamePanel, *myContainerNamePanel,
                *myAddNamePanel, *myPOINamePanel, *myPolyNamePanel;
 
-    SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel;
+    SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel;
 
 
     // load/save-menu

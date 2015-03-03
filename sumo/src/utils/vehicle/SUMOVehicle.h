@@ -49,6 +49,7 @@ class MSEdge;
 class MSLane;
 class MSDevice;
 class MSPerson;
+class MSContainer;
 class SUMOSAXAttributes;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
@@ -216,6 +217,14 @@ public:
      */
     virtual void addPerson(MSPerson* person) = 0;
 
+    /** @brief Adds a container to this vehicle
+     *
+     * May do nothing since containers are not supported by default
+     *
+     * @param[in] container The container to add
+     */
+    virtual void addContainer(MSContainer* container) = 0;
+
     /** @brief Adds a stop
      *
      * The stop is put into the sorted list.
@@ -228,6 +237,11 @@ public:
      * @return Whether the has stopped
      */
     virtual bool isStopped() const = 0;
+
+
+    /** @brief Returns whether the vehicle is at a stop and waiting for a person or container to continue
+     */
+    virtual bool isStoppedTriggered() const = 0;
 
     /// @brief Returns a device of the given type if it exists or 0
     virtual MSDevice* getDevice(const std::type_info& type) const = 0;

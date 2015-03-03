@@ -953,6 +953,10 @@ MSLane::isLinkEnd(MSLinkCont::iterator& i) {
     return i == myLinks.end();
 }
 
+bool
+MSLane::isEmpty() const {
+    return (myVehicles.empty() && myInlappingVehicle == 0);
+}
 
 MSVehicle*
 MSLane::getLastVehicle() const {

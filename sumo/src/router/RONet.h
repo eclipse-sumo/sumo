@@ -173,6 +173,17 @@ public:
     void addBusStop(const std::string& id, SUMOVehicleParameter::Stop* stop);
 
 
+    /* @brief Adds a read container stop to the network
+     *
+     * If the container stop is already known (another one with the same id exists),
+     *  an error is generated and given to msg-error-handler. The stop
+     *  is deleted in this case
+     *
+     * @param[in] node The stop to add
+     */
+    void addContainerStop(const std::string& id, SUMOVehicleParameter::Stop* stop);
+
+
     /** @brief Retrieves a bus stop from the network
      *
      * @param[in] name The name of the stop to retrieve
@@ -181,6 +192,20 @@ public:
     const SUMOVehicleParameter::Stop* getBusStop(const std::string& id) const {
         std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myBusStops.find(id);
         if (it == myBusStops.end()) {
+            return 0;
+        }
+        return it->second;
+    }
+
+
+    /** @brief Retrieves a container stop from the network
+     *
+     * @param[in] name The name of the stop to retrieve
+     * @return The named stop if known, otherwise 0
+     */
+    const SUMOVehicleParameter::Stop* getContainerStop(const std::string& id) const {
+        std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myContainerStops.find(id);
+        if (it == myContainerStops.end()) {
             return 0;
         }
         return it->second;
@@ -303,6 +328,14 @@ public:
      * @param[in] desc   The xml description of the person
      */
     void addPerson(const SUMOTime depart, const std::string desc);
+
+
+    /* @brief Adds a container to the network
+     *
+     * @param[in] depart The departure time of the container
+     * @param[in] desc   The xml description of the container
+     */
+    void addContainer(const SUMOTime depart, const std::string desc);
     // @}
 
 
@@ -324,7 +357,7 @@ public:
                                       SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime time);
 
 
-    /// Returns the information whether further vehicles are stored
+    /// Returns the information whether further vehicles, persons or containers are stored
     virtual bool furtherStored();
     //@}
 
@@ -395,6 +428,9 @@ protected:
     /// @brief Known bus stops
     std::map<std::string, SUMOVehicleParameter::Stop*> myBusStops;
 
+    /// @brief Known container stops
+    std::map<std::string, SUMOVehicleParameter::Stop*> myContainerStops;
+
     /// @brief Known vehicle types
     NamedObjectCont<SUMOVTypeParameter*> myVehicleTypes;
 
@@ -418,6 +454,10 @@ protected:
     /// @brief Known persons
     typedef std::multimap<const SUMOTime, const std::string> PersonMap;
     PersonMap myPersons;
+
+    /// @brief Known containers
+    typedef std::multimap<const SUMOTime, const std::string> ContainerMap;
+    ContainerMap myContainers;
 
     /// @brief Departure times for randomized flows
     std::map<std::string, std::vector<SUMOTime> > myDepartures;

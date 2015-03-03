@@ -36,6 +36,7 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIBusStop.h>
+#include <guisim/GUIContainerStop.h>
 #include <guisim/GUICalibrator.h>
 #include "GUITriggerBuilder.h"
 
@@ -82,6 +83,19 @@ GUITriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
     if (!net.addBusStop(stop)) {
         delete stop;
         throw InvalidArgument("Could not build bus stop '" + id + "'; probably declared twice.");
+    }
+    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(stop);
+}
+
+void
+GUITriggerBuilder::buildContainerStop(MSNet& net, const std::string& id,
+                                const std::vector<std::string>& lines,
+                                MSLane* lane,
+                                SUMOReal frompos, SUMOReal topos) {
+    GUIContainerStop* stop = new GUIContainerStop(id, lines, *lane, frompos, topos);
+    if (!net.addContainerStop(stop)) {
+        delete stop;
+        throw InvalidArgument("Could not build container stop '" + id + "'; probably declared twice.");
     }
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(stop);
 }

@@ -46,6 +46,7 @@
 #include "MSGlobals.h"
 #include "MSVehicle.h"
 #include <microsim/pedestrians/MSPerson.h>
+#include "MSContainer.h"
 #include "MSEdgeWeightsStorage.h"
 
 #ifdef HAVE_INTERNAL
@@ -651,6 +652,14 @@ MSEdge::getSortedPersons(SUMOTime timestep) const {
 }
 
 
+std::vector<MSContainer*>
+MSEdge::getSortedContainers(SUMOTime timestep) const {
+    std::vector<MSContainer*> result(myContainers.begin(), myContainers.end());
+    sort(result.begin(), result.end(), container_by_position_sorter(timestep));
+    return result;
+}
+
+
 int
 MSEdge::person_by_offset_sorter::operator()(const MSPerson* const p1, const MSPerson* const p2) const {
     const SUMOReal pos1 = p1->getCurrentStage()->getEdgePos(myTime);
@@ -661,6 +670,15 @@ MSEdge::person_by_offset_sorter::operator()(const MSPerson* const p1, const MSPe
     return p1->getID() < p2->getID();
 }
 
+int
+MSEdge::container_by_position_sorter::operator()(const MSContainer* const c1, const MSContainer* const c2) const {
+    const SUMOReal pos1 = c1->getCurrentStage()->getEdgePos(myTime);
+    const SUMOReal pos2 = c2->getCurrentStage()->getEdgePos(myTime);
+    if (pos1 != pos2) {
+        return pos1 < pos2;
+    }
+    return c1->getID() < c2->getID();
+}
 
 const MSEdgeVector& 
 MSEdge::getSuccessors(SUMOVehicleClass vClass) const {

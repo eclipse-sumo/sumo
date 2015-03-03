@@ -368,6 +368,7 @@
     <xsd:complexType name="stopType">
         <xsd:attribute name="lane" type="xsd:string"/>
         <xsd:attribute name="busStop" type="xsd:string"/>
+        <xsd:attribute name="containerStop" type="xsd:string"/>
         <xsd:attribute name="startPos" type="xsd:float"/>
         <xsd:attribute name="endPos" type="xsd:float"/>
         <xsd:attribute name="friendlyPos" type="boolType"/>

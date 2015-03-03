@@ -66,6 +66,9 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       personQuality(0),
       personSize(1),
       personName(false, 50, RGBColor(0, 153, 204, 255)),
+      containerQuality(0), 
+      containerSize(1), 
+      containerName(false, 50, RGBColor(0, 153, 204, 255)),
       drawLinkTLIndex(false), drawLinkJunctionIndex(false),
       junctionName(false, 50, RGBColor(0, 255, 128, 255)),
       internalJunctionName(false, 50, RGBColor(0, 204, 128, 255)),
@@ -332,7 +335,33 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     personColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
     personColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
 
-    /// add junction coloring schemes
+	/// add container coloring schemes
+    containerColorer.addScheme(GUIColorScheme("given container/type color", RGBColor::YELLOW, "", true));
+    containerColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
+    containerColorer.addScheme(GUIColorScheme("given/assigned container color", RGBColor::YELLOW, "", true));
+    containerColorer.addScheme(GUIColorScheme("given/assigned type color", RGBColor::YELLOW, "", true));
+    scheme = GUIColorScheme("by speed", RGBColor::RED);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)(2.5 / 3.6));
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)(5 / 3.6));
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)(10 / 3.6));
+    containerColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by mode", RGBColor::YELLOW); // walking
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)(1)); // riding
+    scheme.addColor(RGBColor::RED, (SUMOReal)(2)); // stopped
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)(3)); // waiting for ride
+    containerColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by waiting time", RGBColor::BLUE);
+    scheme.addColor(RGBColor::CYAN, (SUMOReal)30);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)100);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)200);
+    scheme.addColor(RGBColor::RED, (SUMOReal)300);
+    containerColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
+    containerColorer.addScheme(scheme);
+    containerColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));    
+
+	/// add junction coloring schemes
     scheme = GUIColorScheme("uniform", RGBColor::BLACK, "", true);
     scheme.addColor(RGBColor(150, 200, 200), 1, "waterway");
     junctionColorer.addScheme(scheme);
@@ -582,7 +611,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     vehicleName.print(dev, "vehicleName");
     vehicleColorer.save(dev);
     dev.closeTag();
-    // vehicles
+    // persons
     dev.openTag(SUMO_TAG_VIEWSETTINGS_PERSONS);
     dev.writeAttr("personMode", personColorer.getActive());
     dev.writeAttr("personQuality", personQuality);
@@ -590,6 +619,16 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.lf();
     dev << "                ";
     personName.print(dev, "personName");
+    personColorer.save(dev);
+    dev.closeTag();
+	// persons
+    dev.openTag(SUMO_TAG_VIEWSETTINGS_CONTAINERS);
+    dev.writeAttr("containerMode", containerColorer.getActive());
+    dev.writeAttr("containerQuality", containerQuality);
+    personSize.print(dev, "container");
+    dev.lf();
+    dev << "                ";
+    personName.print(dev, "containerName");
     personColorer.save(dev);
     dev.closeTag();
     // junctions
@@ -731,6 +770,18 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     }
     if (personName != v2.personName) {
         return false;
+    }    
+    if (!(containerColorer == v2.containerColorer)) {
+        return false;
+    }
+    if (containerQuality != v2.containerQuality) {
+        return false;
+    }
+    if (containerSize != v2.containerSize) {
+        return false;
+    }
+    if (containerName != v2.containerName) {
+        return false;
     }
     if (!(junctionColorer == v2.junctionColorer)) {
         return false;
@@ -793,4 +844,5 @@ GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s)
 }
 
 /****************************************************************************/
+
 

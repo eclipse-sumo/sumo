@@ -47,6 +47,7 @@
 #include <utils/common/UtilExceptions.h>
 #include "MSNet.h"
 #include "MSPersonControl.h"
+#include "MSContainerControl.h"
 #include "MSEdgeControl.h"
 #include "MSJunctionControl.h"
 #include "MSInsertionControl.h"
@@ -90,6 +91,7 @@
 #include <microsim/pedestrians/MSPModel.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <microsim/pedestrians/MSPerson.h>
+#include "MSContainer.h"
 #include "MSEdgeWeightsStorage.h"
 #include "MSStateHandler.h"
 
@@ -188,6 +190,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myRouteLoaders = 0;
     myLogics = 0;
     myPersonControl = 0;
+    myContainerControl = 0;
     myEdgeWeights = 0;
     myShapeContainer = shapeCont == 0 ? new ShapeContainer() : shapeCont;
 
@@ -252,6 +255,9 @@ MSNet::~MSNet() {
     delete myVehicleControl;
     if (myPersonControl != 0) {
         delete myPersonControl;
+    }
+    if (myContainerControl != 0) {
+        delete myContainerControl;
     }
     delete myShapeContainer;
     delete myEdgeWeights;
@@ -440,8 +446,10 @@ MSNet::simulationStep() {
         myPersonControl->checkWaitingPersons(this, myStep);
     }
     // insert vehicles
-    myInserter->determineCandidates(myStep);
-    myInsertionEvents->execute(myStep);
+    myInserter->determineCandidates(myStep);    // containers
+    if (myContainerControl != 0) {
+        myContainerControl->checkWaitingContainers(this, myStep);
+    }    myInsertionEvents->execute(myStep);
 #ifdef HAVE_FOX
     MSDevice_Routing::waitForAll();
 #endif
@@ -487,9 +495,13 @@ MSNet::simulationState(SUMOTime stopTime) const {
         if (myInsertionEvents->isEmpty()
                 && (myVehicleControl->getActiveVehicleCount() == 0)
                 && (myInserter->getPendingFlowCount() == 0)
-                && (myPersonControl == 0 || !myPersonControl->hasNonWaiting())) {
+                && (myPersonControl == 0 || !myPersonControl->hasNonWaiting())
+                && (myContainerControl == 0 || !myContainerControl->hasNonWaiting())) {
             if (myPersonControl) {
                 myPersonControl->abortWaiting();
+            }
+            if (myContainerControl) {
+                myContainerControl->abortWaiting();
             }
             myVehicleControl->abortWaiting();
             return SIMSTATE_NO_FURTHER_VEHICLES;
@@ -647,6 +659,14 @@ MSNet::getPersonControl() {
     return *myPersonControl;
 }
 
+MSContainerControl&
+MSNet::getContainerControl() {
+    if (myContainerControl == 0) {
+        myContainerControl = new MSContainerControl();
+    }
+    return *myContainerControl;
+}
+
 
 MSEdgeWeightsStorage&
 MSNet::getWeightsStorage() {
@@ -732,6 +752,29 @@ MSNet::getBusStopID(const MSLane* lane, const SUMOReal pos) const {
     const std::map<std::string, MSBusStop*>& vals = myBusStopDict.getMyMap();
     for (std::map<std::string, MSBusStop*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
         MSBusStop* stop = it->second;
+        if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
+            return stop->getID();
+        }
+    }
+    return "";
+}
+
+// ------ Insertion and retrieval of container stops ------
+bool
+MSNet::addContainerStop(MSContainerStop* containerStop) {
+    return myContainerStopDict.add(containerStop->getID(), containerStop);
+}
+
+MSContainerStop*
+MSNet::getContainerStop(const std::string& id) const {
+    return myContainerStopDict.get(id);
+}
+
+std::string
+MSNet::getContainerStopID(const MSLane* lane, const SUMOReal pos) const {
+    const std::map<std::string, MSContainerStop*>& vals = myContainerStopDict.getMyMap();
+    for (std::map<std::string, MSContainerStop*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
+        MSContainerStop* stop = it->second;
         if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
             return stop->getID();
         }

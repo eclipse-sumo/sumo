@@ -66,7 +66,9 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myPedestrianRouter(0),
     myNet(net),
     myActivePlan(0),
+    myActiveContainerPlan(0),
     myActivePlanSize(0),
+    myActiveContainerPlanSize(0),
     myTryRepair(tryRepair),
     myEmptyDestinationsAllowed(emptyDestinationsAllowed),
     myErrorOutput(ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
@@ -157,6 +159,32 @@ RORouteHandler::myStartElement(int element,
                 myActivePlanSize++;
             } else {
                 routePedestrian(attrs, *myActivePlan);
+            }
+            break;
+        }
+        case SUMO_TAG_CONTAINER:
+            myActiveContainerPlan = new OutputDevice_String(false, 1);
+            myActiveContainerPlanSize = 0;
+            myActiveContainerPlan->openTag(SUMO_TAG_CONTAINER);
+            (*myActiveContainerPlan) << attrs;
+            break;
+        case SUMO_TAG_TRANSPORT: {
+            myActiveContainerPlan->openTag(SUMO_TAG_TRANSPORT);
+            (*myActiveContainerPlan) << attrs;
+            myActiveContainerPlan->closeTag();
+            myActiveContainerPlanSize++;
+            break;
+        }
+        case SUMO_TAG_TRANSFER: {
+            if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+                // copy walk as it is
+                // XXX allow --repair?
+                myActiveContainerPlan->openTag(SUMO_TAG_TRANSFER);
+                (*myActiveContainerPlan) << attrs;
+                myActiveContainerPlan->closeTag();
+                myActiveContainerPlanSize++;
+            } else {
+                routePedestrian(attrs, *myActiveContainerPlan);
             }
             break;
         }
@@ -445,6 +473,22 @@ RORouteHandler::closePerson() {
     myActivePlanSize = 0;
 }
 
+void
+RORouteHandler::closeContainer() {
+    myActiveContainerPlan->closeTag();
+    if (myActiveContainerPlanSize > 0) {
+        myNet.addContainer(myVehicleParameter->depart, myActiveContainerPlan->getString());
+        registerLastDepart();
+    } else {
+        WRITE_WARNING("Discarding container '" + myVehicleParameter->id + "' because it's plan is empty");
+    }
+    delete myVehicleParameter;
+    myVehicleParameter = 0;
+    delete myActiveContainerPlan;
+    myActiveContainerPlan = 0;
+    myActiveContainerPlanSize = 0;
+}
+
 
 void
 RORouteHandler::closeFlow() {
@@ -499,6 +543,13 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         myActivePlanSize++;
         return;
     }
+    if (myActiveContainerPlan) {
+        myActiveContainerPlan->openTag(SUMO_TAG_STOP);
+        (*myActiveContainerPlan) << attrs;
+        myActiveContainerPlan->closeTag();
+        myActiveContainerPlanSize++;
+        return;
+    }
     std::string errorSuffix;
     if (myVehicleParameter != 0) {
         errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
@@ -522,11 +573,21 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.endPos = busstop->endPos;
         stop.startPos = busstop->startPos;
         edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
+	} // try to parse the assigned container stop
+    else if (stop.containerstop != "") {
+        const SUMOVehicleParameter::Stop* containerstop = myNet.getContainerStop(stop.containerstop);
+        if (containerstop == 0) {
+            myErrorOutput->inform("Unknown container stop '" + stop.containerstop + "'" + errorSuffix);
+        } else {
+            stop.lane = containerstop->lane;
+            stop.endPos = containerstop->endPos;
+            stop.startPos = containerstop->startPos;
+        }
     } else {
         // no, the lane and the position should be given
         stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, 0, ok, "");
         if (!ok || stop.lane == "") {
-            myErrorOutput->inform("A stop must be placed on a bus stop or a lane" + errorSuffix);
+            myErrorOutput->inform("A stop must be placed on a bus stop, a container stop or a lane" + errorSuffix);
             return;
         }
         edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
@@ -635,5 +696,63 @@ RORouteHandler::routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& pl
 }
 
 
+
+bool
+RORouteHandler::routeContainer(const SUMOSAXAttributes& attrs, OutputDevice& plan) {
+    bool ok = true;
+    const char* id = myVehicleParameter->id.c_str();
+    SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok, 0);
+    SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, id, ok, -NUMERICAL_EPS);
+    assert(!attrs.hasAttribute(SUMO_ATTR_EDGES));
+    assert(myActiveRoute.size() == 0);
+    const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, id, ok);
+    const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, id, ok);
+    const ROEdge* from = myNet.getEdge(fromID);
+    if (from == 0) {
+        myErrorOutput->inform("The edge '" + fromID + "' within a transfer of container " + myVehicleParameter->id + " is not known."
+                              + "\n The route can not be build.");
+        ok = false;
+    }
+    const ROEdge* to = myNet.getEdge(toID);
+    if (to == 0) {
+        myErrorOutput->inform("The edge '" + toID + "' within a transfer of container " + myVehicleParameter->id + " is not known."
+                              + "\n The route can not be build.");
+        ok = false;
+    }
+    if (ok) {
+        if (myPedestrianRouter == 0) {
+            myPedestrianRouter = new ROPedestrianRouterDijkstra();
+        }
+        myPedestrianRouter->compute(from, to,
+                                    SUMOVehicleParameter::interpretEdgePos(departPos, from->getLength(), SUMO_ATTR_DEPARTPOS, "container getting tranfered from " + fromID),
+                                    SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting tranfered to " + toID),
+                                    DEFAULT_CONTAINER_TRANSFER_SPEED, 0, 0, myActiveRoute);
+        if (myActiveRoute.empty()) {
+            myErrorOutput->inform("No connection found between '" + fromID + "' and '" + toID + "' for container '" + myVehicleParameter->id + "'.");
+            return false;
+        }
+        myActiveContainerPlan->openTag(SUMO_TAG_TRANSFER);
+        if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
+            plan.writeAttr(SUMO_ATTR_DEPARTPOS, attrs.get<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok));
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+            plan.writeAttr(SUMO_ATTR_ARRIVALPOS, attrs.get<SUMOReal>(SUMO_ATTR_ARRIVALPOS, id, ok));
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_DURATION)) {
+            plan.writeAttr(SUMO_ATTR_DURATION, attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, id, ok));
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+            plan.writeAttr(SUMO_ATTR_SPEED, attrs.get<SUMOReal>(SUMO_ATTR_SPEED, id, ok));
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_STOP)) {
+            plan.writeAttr(SUMO_ATTR_CONTAINER_STOP, attrs.get<std::string>(SUMO_ATTR_CONTAINER_STOP, id, ok));
+        }
+        plan.writeAttr(SUMO_ATTR_EDGES, myActiveRoute);
+        myActiveContainerPlan->closeTag();
+        myActiveContainerPlanSize++;
+    }
+    myActiveRoute.clear();
+    return ok;
+}
 
 /****************************************************************************/

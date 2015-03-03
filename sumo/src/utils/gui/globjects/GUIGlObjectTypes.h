@@ -69,8 +69,10 @@ enum GUIGlObjectType {
     GLO_VEHICLE = 512,
     /// @brief a person
     GLO_PERSON = 1024,
+    /// @brief a container
+    GLO_CONTAINER = 2048,
     /// @brief empty max
-    GLO_MAX = 2048
+    GLO_MAX = 4096
 
 };
 

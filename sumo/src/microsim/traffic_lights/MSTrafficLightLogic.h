@@ -238,6 +238,11 @@ public:
      * @return The definition of the phase at the given position
      */
     virtual const MSPhaseDefinition& getPhase(unsigned int givenstep) const = 0;
+
+    /** @brief Returns the type of the logic as a string
+     * @return The type of the logic
+     */
+    virtual const std::string getLogicType() const = 0;
     /// @}
 
 
@@ -393,10 +398,10 @@ protected:
     /// @brief The id of the logic
     std::string myProgramID;
 
-    /// @brief The list of links which do participate in this traffic light
+    /// @brief The list of LinkVectors; each vector contains the links that belong to the same link index
     LinkVectorVector myLinks;
 
-    /// @brief The list of links which do participate in this traffic light
+    /// @brief The list of LaneVectors; each vector contains the incoming lanes that belong to the same link index
     LaneVectorVector myLanes;
 
     /// @brief A list of duration overrides

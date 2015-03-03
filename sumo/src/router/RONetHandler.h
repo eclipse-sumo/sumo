@@ -147,6 +147,13 @@ protected:
     void parseBusStop(const SUMOSAXAttributes& attrs);
 
 
+    /** @begin Parses a container stop
+     * Called on the occurence of a "containerStop" element
+     * @param[in] attrs The attributes (of the "containerStop"-element) to parse
+     */
+    void parseContainerStop(const SUMOSAXAttributes& attrs);
+
+
     /** @begin Parses a district and creates a pseudo edge for it
      *
      * Called on the occurence of a "district" element, this method

@@ -9,10 +9,10 @@
   </vehicle>
   <vehicle depart="10" id="veh1" route="route0" type="Car" departPos="0"/>
 
-  <person id="p1" depart="100">
+  <person id="p1" depart="100" departPos="4">
       <ride from="1to2" to="out" lines="veh0"/>
   </person>
-  <person id="p2" depart="200">
+  <person id="p2" depart="200" departPos="4">
       <ride from="1to2" to="out" lines="veh0"/>
   </person>
 </routes>

@@ -120,6 +120,13 @@ public:
      * @see MSTrafficLightLogic::getPhase
      */
     const MSPhaseDefinition& getPhase(unsigned int givenstep) const;
+
+    /** @brief Returns the type of the logic as a string
+     * @return The type of the logic
+     */
+    const std::string getLogicType() const {
+        return "simpleTrafficLightLogic";
+    }
     /// @}
 
 

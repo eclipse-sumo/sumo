@@ -220,6 +220,17 @@ public:
     MSPersonControl& getPersonControl();
 
 
+    /** @brief Returns the container control
+     *
+     * If the container control does not exist, yet, it is created.
+     *
+     * @return The container control
+     * @see MSContainerControl
+     * @see myContainerControl
+     */
+    MSContainerControl& getContainerControl();
+
+
     /** Returns the gl-id of the traffic light that controls the given link
      * valid only if the link is controlled by a tls */
     unsigned int getLinkTLID(MSLink* link) const;

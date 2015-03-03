@@ -243,6 +243,15 @@ public:
      */
     virtual void addPerson(MSPerson* person);
 
+
+    /** @brief Adds a container to this vehicle
+     *
+     * The default implementation does nothing since containers are not supported by default
+     *
+     * @param[in] container The person to add
+     */
+    virtual void addContainer(MSContainer* container);
+
     /** @brief Validates the current route
      * @param[out] msg Description why the route is not valid (if it is the case)
      * @return Whether the vehicle's current route is valid

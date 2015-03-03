@@ -105,6 +105,9 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             case NODETYPE_ALLWAY_STOP:
                 device << "\" type=\"allwayStop";
                 break;
+            case NODETYPE_RAIL_SIGNAL:
+                device << "\" type=\"railSignal";
+                break;
             case NODETYPE_DEAD_END:
             case NODETYPE_DEAD_END_DEPRECATED:
                 device << "\" type=\"deadEnd";

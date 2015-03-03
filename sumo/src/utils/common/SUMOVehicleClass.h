@@ -52,6 +52,8 @@ enum SUMOVehicleShape {
     SVS_UNKNOWN,
     /// @brief render as a pedestrian
     SVS_PEDESTRIAN,
+    /// @brief render as a container
+    SVS_CONTAINER,
     /// @brief render as a bicycle
     SVS_BICYCLE,
     /// @brief render as a moped
@@ -321,6 +323,8 @@ extern const std::string DEFAULT_PEDTYPE_ID;
 extern const SUMOReal DEFAULT_VEH_PROB; // !!! does this belong here?
 
 extern const SUMOReal DEFAULT_PEDESTRIAN_SPEED;
+
+extern const SUMOReal DEFAULT_CONTAINER_TRANSFER_SPEED;
 
 #endif
 

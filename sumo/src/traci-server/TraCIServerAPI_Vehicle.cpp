@@ -482,6 +482,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             // optional stop flags
             bool parking = false;
             bool triggered = false;
+            bool containerTriggered = false;
             if (compoundSize == 5) {
                 int stopFlags;
                 if (!server.readTypeCheckingByte(inputStorage, stopFlags)) {
@@ -505,7 +506,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             // Forward command to vehicle
             std::string error;
-            if (!v->addTraciStop(allLanes[laneIndex], pos, 0, waitTime, parking, triggered, error)) {
+            if (!v->addTraciStop(allLanes[laneIndex], pos, 0, waitTime, parking, triggered, containerTriggered, error)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
             }
         }

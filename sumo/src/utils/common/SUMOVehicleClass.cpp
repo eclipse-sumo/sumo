@@ -94,6 +94,7 @@ std::set<std::string> deprecatedVehicleClassesSeen;
 
 StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
     {"pedestrian",            SVS_PEDESTRIAN},
+    {"container",             SVS_CONTAINER},
     {"bicycle",               SVS_BICYCLE},
     {"moped",                 SVS_MOPED},
     {"motorcycle",            SVS_MOTORCYCLE},
@@ -311,6 +312,8 @@ const std::string DEFAULT_PEDTYPE_ID("DEFAULT_PEDTYPE");
 const SUMOReal DEFAULT_VEH_PROB(1.);
 
 const SUMOReal DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
+
+const SUMOReal DEFAULT_CONTAINER_TRANSFER_SPEED(5. / 3.6);
 
 /****************************************************************************/
 

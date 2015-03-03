@@ -43,6 +43,7 @@
                     <xsd:enumeration value="dead_end"/>
                     <xsd:enumeration value="unregulated"/>
                     <xsd:enumeration value="traffic_light_unregulated"/>
+                    <xsd:enumeration value="rail_signal"/>
                     <xsd:enumeration value="allway_stop"/>
                     <xsd:enumeration value="priority_stop"/>
                 </xsd:restriction>

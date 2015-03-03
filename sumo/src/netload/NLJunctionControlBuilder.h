@@ -41,6 +41,7 @@
 #include <utils/geom/PositionVector.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/MSBitSetLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/common/UtilExceptions.h>

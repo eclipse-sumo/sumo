@@ -55,7 +55,7 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       arrivalPos(0), arrivalPosProcedure(ARRIVAL_POS_DEFAULT),
       arrivalSpeed(-1), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
       repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1), repetitionProbability(-1), repetitionEnd(-1),
-      line(), fromTaz(), toTaz(), personCapacity(0), personNumber(0), setParameter(0) {
+      line(), fromTaz(), toTaz(), personCapacity(0), personNumber(0), containerNumber(0), setParameter(0) {
 }
 
 
@@ -73,6 +73,8 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
     }
     if (departProcedure == DEPART_TRIGGERED) {
         dev.writeAttr(SUMO_ATTR_DEPART, "triggered");
+    } else if (departProcedure == DEPART_CONTAINER_TRIGGERED) {
+        dev.writeAttr(SUMO_ATTR_DEPART, "containerTriggered");
     } else {
         dev.writeAttr(SUMO_ATTR_DEPART, time2string(depart));
     }
@@ -243,6 +245,9 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
     if (wasSet(VEHPARS_PERSON_NUMBER_SET)) {
         dev.writeAttr(SUMO_ATTR_PERSON_NUMBER, personNumber);
     }
+    if (wasSet(VEHPARS_CONTAINER_NUMBER_SET)) {
+        dev.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
+    }
 }
 
 
@@ -252,7 +257,11 @@ SUMOVehicleParameter::writeStops(OutputDevice& dev) const {
         dev.openTag(SUMO_TAG_STOP);
         if (stop->busstop != "") {
             dev.writeAttr(SUMO_ATTR_BUS_STOP, stop->busstop);
-        } else {
+        } 
+        if (stop->containerstop != "") {
+            dev.writeAttr(SUMO_ATTR_CONTAINER_STOP, stop->containerstop);
+        }
+        if (stop->busstop == "" && stop->containerstop == ""){
             dev.writeAttr(SUMO_ATTR_LANE, stop->lane);
             if ((stop->setParameter & STOP_START_SET) != 0) {
                 dev.writeAttr(SUMO_ATTR_STARTPOS, stop->startPos);
@@ -270,6 +279,9 @@ SUMOVehicleParameter::writeStops(OutputDevice& dev) const {
         if ((stop->setParameter & STOP_TRIGGER_SET) != 0) {
             dev.writeAttr(SUMO_ATTR_TRIGGERED, stop->triggered);
         }
+        if ((stop->setParameter & STOP_CONTAINER_TRIGGER_SET) != 0) {
+            dev.writeAttr(SUMO_ATTR_CONTAINER_TRIGGERED, stop->containerTriggered);
+        }
         if ((stop->setParameter & STOP_PARKING_SET) != 0) {
             dev.writeAttr(SUMO_ATTR_PARKING, stop->parking);
         }
@@ -279,6 +291,9 @@ SUMOVehicleParameter::writeStops(OutputDevice& dev) const {
         //  as the ones we write may hev changed.
         if ((stop->setParameter & STOP_EXPECTED_SET) != 0) {
             dev.writeAttr(SUMO_ATTR_EXPECTED, stop->awaitedPersons);
+        }
+        if ((stop->setParameter & STOP_EXPECTED_CONTAINERS_SET) != 0) {
+            dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, stop->awaitedContainers);
         }
         dev.closeTag();
     }
@@ -290,6 +305,8 @@ SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& ele
                                   SUMOTime& depart, DepartDefinition& dd, std::string& error) {
     if (val == "triggered") {
         dd = DEPART_TRIGGERED;
+    } else if (val == "containerTriggered") {
+        dd = DEPART_CONTAINER_TRIGGERED;
     } else if (val == "now") {
         dd = DEPART_NOW;
     } else {
@@ -301,7 +318,7 @@ SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& ele
                 return false;
             }
         } catch (...) {
-            error = "Invalid departure time for " + element + " '" + id + "';\n must be one of (\"triggered\", \"now\", or a float >= 0)";
+            error = "Invalid departure time for " + element + " '" + id + "';\n must be one of (\"triggered\", \"containerTriggered\", \"now\", or a float >= 0)";
             return false;
         }
     }

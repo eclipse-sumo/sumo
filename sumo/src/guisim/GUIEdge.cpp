@@ -57,6 +57,7 @@
 #include "GUINet.h"
 #include "GUILane.h"
 #include "GUIPerson.h"
+#include "GUIContainer.h"
 
 #ifdef HAVE_INTERNAL
 #include <mesogui/GUIMEVehicleControl.h>
@@ -271,6 +272,15 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
             assert(person != 0);
             person->drawGL(s);
+        }
+        myLock.unlock();
+    }
+    if (s.scale * s.containerSize.getExaggeration(s) > s.containerSize.minSize) {
+        myLock.lock();
+        for (std::set<MSContainer*>::const_iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
+            GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
+            assert(container != 0);
+            container->drawGL(s);
         }
         myLock.unlock();
     }

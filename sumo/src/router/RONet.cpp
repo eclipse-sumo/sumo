@@ -151,6 +151,17 @@ RONet::addBusStop(const std::string& id, SUMOVehicleParameter::Stop* stop) {
 }
 
 
+void
+RONet::addContainerStop(const std::string& id, SUMOVehicleParameter::Stop* stop) {
+    std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myContainerStops.find(id);
+    if (it != myContainerStops.end()) {
+        WRITE_ERROR("The container stop '" + id + "' occurs at least twice.");
+        delete stop;
+    }
+    myContainerStops[id] = stop;
+}
+
+
 bool
 RONet::addRouteDef(RORouteDef* def) {
     return myRoutes.add(def->getID(), def);
@@ -298,6 +309,11 @@ RONet::addPerson(const SUMOTime depart, const std::string desc) {
     myPersons.insert(std::pair<const SUMOTime, const std::string>(depart, desc));
 }
 
+void
+RONet::addContainer(const SUMOTime depart, const std::string desc) {
+    myContainers.insert(std::pair<const SUMOTime, const std::string>(depart, desc));
+}
+
 
 bool
 RONet::computeRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
@@ -428,18 +444,20 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
 #endif
     }
     // write all vehicles (and additional structures)
-    while (myVehicles.size() != 0 || myPersons.size() != 0) {
-        // get the next vehicle and person
+    while (myVehicles.size() != 0 || myPersons.size() != 0 || myContainers.size() != 0) {
+        // get the next vehicle, person or container
         const ROVehicle* const veh = myVehicles.getTopVehicle();
         const SUMOTime vehicleTime = veh == 0 ? SUMOTime_MAX : veh->getDepart();
         PersonMap::iterator person = myPersons.begin();
         const SUMOTime personTime = person == myPersons.end() ? SUMOTime_MAX : person->first;
+        ContainerMap::iterator container = myContainers.begin();
+        const SUMOTime containerTime = container == myContainers.end() ? SUMOTime_MAX : container->first;
         // check whether it shall not yet be computed
-        if (vehicleTime >= time && personTime >= time) {
-            lastTime = MIN2(vehicleTime, personTime);
-            break;
+        if (vehicleTime >= time && personTime >= time && containerTime >= time) {
+            lastTime = MIN3(vehicleTime, personTime, containerTime);            break;
         }
-        if (vehicleTime < personTime) {
+        SUMOTime minTime = MIN3(vehicleTime, personTime, containerTime);
+        if (vehicleTime == minTime) {
             // check whether to print the output
             if (lastTime != vehicleTime && lastTime != -1) {
                 // report writing progress
@@ -464,12 +482,20 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
                 }
             }
             myVehicles.erase(veh->getID());
-        } else {
+        } 
+        if (personTime == minTime) {
             myRoutesOutput->writePreformattedTag(person->second);
             if (myRouteAlternativesOutput != 0) {
                 myRouteAlternativesOutput->writePreformattedTag(person->second);
             }
             myPersons.erase(person);
+        } 
+        if (containerTime == minTime) {
+            myRoutesOutput->writePreformattedTag(container->second);
+            if (myRouteAlternativesOutput != 0) {
+                myRouteAlternativesOutput->writePreformattedTag(container->second);
+            }
+            myContainers.erase(container);
         }
     }
     return lastTime;
@@ -478,7 +504,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
 
 bool
 RONet::furtherStored() {
-    return myVehicles.size() > 0 || myFlows.size() > 0 || myPersons.size() > 0;
+    return myVehicles.size() > 0 || myFlows.size() > 0 || myPersons.size() > 0 || myContainers.size() > 0;
 }
 
 

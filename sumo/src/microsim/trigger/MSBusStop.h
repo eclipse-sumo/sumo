@@ -141,10 +141,12 @@ public:
         return static_cast<unsigned int>(myWaitingPersons.size());
     }
 
+    /// @brief adds a person to this stop
     void addPerson(MSPerson* p) {
         myWaitingPersons.push_back(p);
     }
 
+    /// @brief Removes a person from this stop
     void removePerson(MSPerson* p) {
         std::vector<MSPerson*>::iterator i = std::find(myWaitingPersons.begin(), myWaitingPersons.end(), p);
         if (i != myWaitingPersons.end()) {

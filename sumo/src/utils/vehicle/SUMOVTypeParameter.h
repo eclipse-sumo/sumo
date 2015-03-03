@@ -65,6 +65,10 @@ const int VTYPEPARS_OSGFILE_SET = 2 << 12;
 const int VTYPEPARS_IMGFILE_SET = 2 << 13;
 const int VTYPEPARS_IMPATIENCE_SET = 2 << 14;
 const int VTYPEPARS_LANE_CHANGE_MODEL_SET = 2 << 15;
+const int VTYPEPARS_PERSON_CAPACITY = 2 << 16;
+const int VTYPEPARS_BOARDING_DURATION = 2 << 17;
+const int VTYPEPARS_CONTAINER_CAPACITY = 2 << 18;
+const int VTYPEPARS_LOADING_DURATION = 2 << 19;
 
 
 // ===========================================================================
@@ -135,6 +139,15 @@ public:
     SUMOVehicleClass vehicleClass;
     /// @brief The vehicle's impatience (willingness to obstruct others)
     SUMOReal impatience;
+	/// @brief The person capacity of the vehicle
+	unsigned int personCapacity;
+	/// @brief The container capacity of the vehicle
+	unsigned int containerCapacity;
+	/// @brief The time a person needs to board the vehicle
+	SUMOTime boardingDuration;
+	/// @brief The time a container needs to get loaded on the vehicle
+	SUMOTime loadingDuration;
+
 
 
     /// @name Values for drawing this class' vehicles

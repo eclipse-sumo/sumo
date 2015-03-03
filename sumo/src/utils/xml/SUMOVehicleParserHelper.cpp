@@ -310,15 +310,15 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     } else {
         ret->color = RGBColor::DEFAULT_COLOR;
     }
-    // parse person capacity
-    if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
-        ret->setParameter |= VEHPARS_PERSON_CAPACITY_SET;
-        ret->personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, ret->id.c_str(), ok);
-    }
     // parse person number
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_NUMBER)) {
         ret->setParameter |= VEHPARS_PERSON_NUMBER_SET;
         ret->personNumber = attrs.get<int>(SUMO_ATTR_PERSON_NUMBER, ret->id.c_str(), ok);
+    }
+    // parse container number
+    if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_NUMBER)) {
+        ret->setParameter |= VEHPARS_CONTAINER_NUMBER_SET;
+        ret->containerNumber = attrs.get<int>(SUMO_ATTR_CONTAINER_NUMBER, ret->id.c_str(), ok);
     }
 }
 
@@ -409,6 +409,22 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             WRITE_ERROR("Unknown lane change model '" + lcmS + "' when parsing vtype '" + vtype->id + "'");
             throw ProcessError();
         }
+    }
+	if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
+        vtype->personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_PERSON_CAPACITY;
+    } 
+	if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_CAPACITY)) {
+        vtype->containerCapacity = attrs.get<int>(SUMO_ATTR_CONTAINER_CAPACITY, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_CONTAINER_CAPACITY;
+    } 
+	if (attrs.hasAttribute(SUMO_ATTR_BOARDING_DURATION)) {
+		vtype->boardingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_BOARDING_DURATION, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_BOARDING_DURATION;
+    }  
+	if (attrs.hasAttribute(SUMO_ATTR_LOADING_DURATION)) {
+		vtype->loadingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_LOADING_DURATION, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_LOADING_DURATION;
     }
     try {
         parseVTypeEmbedded(*vtype, SUMO_TAG_CF_KRAUSS, attrs, true);

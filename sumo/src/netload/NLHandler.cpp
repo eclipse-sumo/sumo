@@ -153,6 +153,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_BUS_STOP:
                 myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
                 break;
+            case SUMO_TAG_CONTAINER_STOP:
+                myTriggerBuilder.parseAndBuildContainerStop(myNet, attrs);
+                break;
             case SUMO_TAG_VTYPEPROBE:
                 addVTypeProbeDetector(attrs);
                 break;
@@ -231,7 +234,6 @@ NLHandler::myEndElement(int element) {
             endE3Detector();
             break;
         case SUMO_TAG_NET:
-            myJunctionControlBuilder.postLoadInitialization();
             // build junction graph
             for (JunctionGraph::iterator it = myJunctionGraph.begin(); it != myJunctionGraph.end(); ++it) {
                 MSEdge* edge = MSEdge::dictionary(it->first);
@@ -243,6 +245,8 @@ NLHandler::myEndElement(int element) {
                     to->addIncoming(edge);
                 }
             }
+            //initialise traffic lights 
+            myJunctionControlBuilder.postLoadInitialization();
             break;
         default:
             break;
@@ -918,7 +922,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             tlLinkIdx = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
             // make sure that the index is in range
             MSTrafficLightLogic* logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
-            if (tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size()) {
+            if ((tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size()) 
+                && logic->getLogicType() != "railSignal") {
                 WRITE_ERROR("Invalid " + toString(SUMO_ATTR_TLLINKINDEX) + " '" + toString(tlLinkIdx) +
                             "' in connection controlled by '" + tlID + "'");
                 return;

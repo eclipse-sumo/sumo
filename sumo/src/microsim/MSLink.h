@@ -278,6 +278,13 @@ public:
     MSLane* getLane() const;
 
 
+    /** @brief Returns the lane leading to this link
+     *
+     * @return The lane leading to this link
+     */
+    MSLane* getApproachingLane() const;
+
+
     /** @brief Returns the respond index (for visualization)
      *
      * @return The respond index for this link
@@ -372,7 +379,7 @@ private:
     static bool maybeOccupied(MSLane* lane);
 
 private:
-    /// @brief The lane approached by this link
+    /// @brief The lane (but the internal one) approached by this link
     MSLane* myLane;
 
     std::map<const SUMOVehicle*, ApproachingVehicleInformation> myApproachingVehicles;

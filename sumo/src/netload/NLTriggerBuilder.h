@@ -141,6 +141,15 @@ public:
     void parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attrs);
 
 
+    /** @brief Parses his values and builds a container stop
+     *
+     * @param[in] net The network the container stop belongs to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     */
+    void parseAndBuildContainerStop(MSNet& net, const SUMOSAXAttributes& attrs);
+
+
     /** @brief Parses his values and builds a mesoscopic or microscopic calibrator
      *
      * @param[in] net The network the calibrator belongs to
@@ -193,6 +202,23 @@ protected:
      * @exception InvalidArgument If the bus stop can not be added to the net (is duplicate)
      */
     virtual void buildBusStop(MSNet& net,
+                              const std::string& id, const std::vector<std::string>& lines,
+                              MSLane* lane, SUMOReal frompos, SUMOReal topos);
+
+
+    /** @brief Builds a container stop
+     *
+     * Simply calls the MSContainerStop constructor.
+     *
+     * @param[in] net The net the container stop belongs to
+     * @param[in] id The id of the container stop
+     * @param[in] lines Names of the lines that halt on this container stop
+     * @param[in] lane The lane the container stop is placed on
+     * @param[in] frompos Begin position of the container stop on the lane
+     * @param[in] topos End position of the container stop on the lane
+     * @exception InvalidArgument If the container stop can not be added to the net (is duplicate)
+     */
+    virtual void buildContainerStop(MSNet& net,
                               const std::string& id, const std::vector<std::string>& lines,
                               MSLane* lane, SUMOReal frompos, SUMOReal topos);
 

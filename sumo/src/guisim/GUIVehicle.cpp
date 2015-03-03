@@ -54,11 +54,13 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Person.h>
+#include <microsim/devices/MSDevice_Container.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include "GUIVehicle.h"
 #include "GUIPerson.h"
+#include "GUIContainer.h"
 #include "GUINet.h"
 #include "GUIEdge.h"
 #include "GUILane.h"
@@ -484,6 +486,7 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             GLHelper::drawFilledCircle(0.25);
             glTranslated(0, 0, -.04);
             break;
+        case SVS_CONTAINER:
         case SVS_BICYCLE:
         case SVS_MOPED:
         case SVS_MOTORCYCLE: {
@@ -684,6 +687,8 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
     // draw decorations
     switch (shape) {
         case SVS_PEDESTRIAN:
+            break;
+        case SVS_CONTAINER:
             break;
         case SVS_BICYCLE:
             //glScaled(length, 1, 1.);
@@ -1095,6 +1100,16 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             assert(person != 0);
             person->setPositionInVehicle(getSeatPosition(personIndex++));
             person->drawGL(s);
+        }
+    }
+    if (myContainerDevice != 0) {
+        const std::vector<MSContainer*>& cs = myContainerDevice->getContainers();
+        size_t containerIndex = 0;
+        for (std::vector<MSContainer*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {
+            GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
+            assert(container != 0);
+            container->setPositionInVehicle(getSeatPosition(containerIndex++));
+            container->drawGL(s);
         }
     }
 }
@@ -1568,6 +1583,8 @@ GUIVehicle::getStopInfo() const {
     }
     if (myStops.front().triggered) {
         result += ", triggered";
+    } else if (myStops.front().containerTriggered) {
+        result += ", containerTriggered";
     } else {
         result += ", duration=" + time2string(myStops.front().duration);
     }
