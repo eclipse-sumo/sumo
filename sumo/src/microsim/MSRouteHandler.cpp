@@ -745,8 +745,9 @@ MSRouteHandler::closePerson() {
             MSNet::getInstance()->getPersonControl().setDeparture(myVehicleParameter->depart, person);
             registerLastDepart();
         } else {
-            throw ProcessError("Another person with the id '" + myVehicleParameter->id + "' exists.");
+            ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists."); 
             delete person;
+            throw error;
         }
     } else {
         // warning already given
@@ -772,8 +773,9 @@ MSRouteHandler::closeContainer() {
             MSNet::getInstance()->getContainerControl().setDeparture(myVehicleParameter->depart, container);
             registerLastDepart();
         } else {
-            throw ProcessError("Another container with the id '" + myVehicleParameter->id + "' exists.");
+            ProcessError error("Another container with the id '" + myVehicleParameter->id + "' exists.");
             delete container;
+            throw error;
         }
     } else {
         // warning already given
@@ -860,15 +862,15 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     else if (stop.containerstop != "") {
         // ok, we have obviously a container stop
         MSContainerStop* cs = MSNet::getInstance()->getContainerStop(stop.containerstop);
-        if (cs != 0) {
-            const MSLane& l = cs->getLane();
-            stop.lane = l.getID();
-            stop.endPos = cs->getEndLanePosition();
-            stop.startPos = cs->getBeginLanePosition();
-        } else {
+        if (cs == 0) {
             WRITE_ERROR("The container stop '" + stop.containerstop + "' is not known" + errorSuffix);
             return;
         }
+        const MSLane& l = cs->getLane();
+        stop.lane = l.getID();
+        stop.endPos = cs->getEndLanePosition();
+        stop.startPos = cs->getBeginLanePosition();
+        edge = &l.getEdge();
     } else {
         // no, the lane and the position should be given
         // get the lane
