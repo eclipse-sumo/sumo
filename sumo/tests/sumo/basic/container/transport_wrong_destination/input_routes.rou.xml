@@ -7,6 +7,6 @@
     </vehicle>
     <container id="c1" depart="0" departPos="220">
         <transport from="beg" to="middle" lines="v1"/>
-        <transfer edges="middle end" duration="10"/>
+        <tranship edges="middle end" duration="10"/>
     </container>
 </routes>

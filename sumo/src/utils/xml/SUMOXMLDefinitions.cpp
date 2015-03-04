@@ -169,7 +169,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     
     { "container",        SUMO_TAG_CONTAINER },
     { "transport",        SUMO_TAG_TRANSPORT },
-    { "transfer",         SUMO_TAG_TRANSFER },
+    { "tranship",         SUMO_TAG_TRANSHIP },
 
     { "trajectories",     SUMO_TAG_TRAJECTORIES },
     { "timestep",         SUMO_TAG_TIMESTEP },

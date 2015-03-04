@@ -175,11 +175,11 @@ RORouteHandler::myStartElement(int element,
             myActiveContainerPlanSize++;
             break;
         }
-        case SUMO_TAG_TRANSFER: {
+        case SUMO_TAG_TRANSHIP: {
             if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
                 // copy walk as it is
                 // XXX allow --repair?
-                myActiveContainerPlan->openTag(SUMO_TAG_TRANSFER);
+                myActiveContainerPlan->openTag(SUMO_TAG_TRANSHIP);
                 (*myActiveContainerPlan) << attrs;
                 myActiveContainerPlan->closeTag();
                 myActiveContainerPlanSize++;
@@ -731,7 +731,7 @@ RORouteHandler::routeContainer(const SUMOSAXAttributes& attrs, OutputDevice& pla
             myErrorOutput->inform("No connection found between '" + fromID + "' and '" + toID + "' for container '" + myVehicleParameter->id + "'.");
             return false;
         }
-        myActiveContainerPlan->openTag(SUMO_TAG_TRANSFER);
+        myActiveContainerPlan->openTag(SUMO_TAG_TRANSHIP);
         if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
             plan.writeAttr(SUMO_ATTR_DEPARTPOS, attrs.get<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok));
         }

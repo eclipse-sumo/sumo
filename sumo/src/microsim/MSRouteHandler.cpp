@@ -297,7 +297,7 @@ MSRouteHandler::myStartElement(int element,
             myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Driving(*to, cs, st.getVector()));
             break;
         }
-        case SUMO_TAG_TRANSFER: {
+        case SUMO_TAG_TRANSHIP: {
             myActiveRoute.clear();
             bool ok = true;
             SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, myVehicleParameter->id.c_str(), ok, 0);
