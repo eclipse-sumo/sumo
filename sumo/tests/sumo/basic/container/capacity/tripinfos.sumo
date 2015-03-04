@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 02/25/15 15:17:10 by SUMO Version dev-SVN-r17952
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="1000"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <containerinfo id="c1" depart="20.00">
+        <stop arrival="20.00"/>
+        <transport depart="201.00" arrival="389.00"/>
+    </containerinfo>
+    <containerinfo id="c2" depart="20.00">
+        <stop arrival="20.00"/>
+        <transport depart="201.00" arrival="389.00"/>
+    </containerinfo>
+    <tripinfo id="truck0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="389.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="389.00" routeLength="3012.36" waitSteps="194" timeLoss="207.82" rerouteNo="0" devices="tripinfo_truck0 container_truck0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <containerinfo id="c3" depart="20.00">
+        <stop arrival="20.00"/>
+        <transport depart="296.00" arrival="484.00"/>
+    </containerinfo>
+    <tripinfo id="truck1" depart="120.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="484.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="364.00" routeLength="3012.36" waitSteps="166" timeLoss="182.82" rerouteNo="0" devices="tripinfo_truck1 container_truck1" vType="DEFAULT_VEHTYPE" vaporized=""/>
+</tripinfos>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 02/25/15 15:30:20 by SUMO Version dev-SVN-r17952
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="198.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="148.00" routeLength="467.98" waitSteps="102" timeLoss="113.68" rerouteNo="0" devices="tripinfo_train0 container_train0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <containerinfo id="container0" depart="0.00">
+        <stop arrival="0.00"/>
+        <transfer arrival="54.00"/>
+        <transport depart="156.00" arrival="175.00"/>
+        <transfer arrival="226.00"/>
+        <stop arrival="246.00"/>
+        <transport depart="247.00" arrival="292.00"/>
+    </containerinfo>
+    <tripinfo id="car0" depart="247.00" departLane="1/4to2/4_0" departPos="40.00" departSpeed="0.00" departDelay="247.00" arrival="292.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="45.00" routeLength="252.00" waitSteps="22" timeLoss="26.75" rerouteNo="0" devices="tripinfo_car0 container_car0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+</tripinfos>

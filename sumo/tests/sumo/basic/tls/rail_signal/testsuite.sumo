@@ -1,0 +1,34 @@
+# a forking rail line without a signal at the fork. a warning should appear
+fork_without_signal
+
+# a simulation with a step size of 0.3 seconds  involving rail signals
+small_step_size
+
+# a train is following another one through several blocks
+two_following_trains
+
+# two rail signals with the same programID
+two_signals_with_same_program
+
+# several blocks in a chain
+several_blocks
+
+# a rail signal with three incoming lanes, each with a train at the beginning of the simulation, and one outgoing lane.
+several_incoming_trains
+
+# a rail signal with three incoming, one outgoing lane, one train. 
+# with internal lanes
+several_incoming_lanes_2
+
+# a rail signal with three incoming, one outgoing lane, one train. 
+# no internal lanes
+several_incoming_lanes
+
+# a rail signal with one incoming and three outgoing lanes
+several_outgoing_lanes
+
+# a train gets inserted behind a rail signal
+inserted_behind_signal
+
+# a rail signal with one incoming lange
+single_incoming_lane

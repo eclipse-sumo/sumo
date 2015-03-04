@@ -1,5 +1,17 @@
+# person walking between two unconnected edges
+walk_unconnected
+
+# a bus will stop at two busstop that are located at the same edge and a person is waiting at the second bus stop. the person has to enter the bus when the bus stops at the second busstop and not before.
+two_busstops_at_one_edge
+
+# busses have a large boarding duration such that the stop duration will be extended by the boarding of the passengers
+boarding_duration_extension
+
 # person with a single ride
 ride
+
+# busses have a small boarding duration such that the stop duration will not be extended by the boarding of the passengers
+boarding_duration_no_extension
 
 # person with a single walk
 walk
@@ -34,3 +46,11 @@ abort_impossible_ride
 # test whether a chain of walks rides and stops works
 trip_chain
 
+# tests if a person leaves a vehicle not only if the destination edge is reached but also if the vehicle that is transporting the person reached its current destination stop (plus minos some tolerance)
+leaving_vehicle_at_stop
+
+# test wheather the personNumber of a vehicle decreases if persons leave the vehicle at a stop
+person_number
+
+# person ride for restricted capacity
+capacity
