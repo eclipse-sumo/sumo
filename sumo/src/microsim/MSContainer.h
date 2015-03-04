@@ -74,6 +74,10 @@ public:
         TRANSHIP = 2
     };
 
+    /// @brief the offset for computing container positions when standing at an edge
+    static const SUMOReal ROADSIDE_OFFSET;
+
+
 	 /**
      * The "abstract" class for a single stage of a container movement
      * Contains the destination of the current movement step

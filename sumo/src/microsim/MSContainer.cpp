@@ -51,6 +51,7 @@
 /* -------------------------------------------------------------------------
  * static member definitions
  * ----------------------------------------------------------------------- */
+const SUMOReal MSContainer::ROADSIDE_OFFSET(3);
 
 // ===========================================================================
 // method definitions
@@ -164,8 +165,7 @@ MSContainer::MSContainerStage_Driving::getPosition(SUMOTime /* now */) const {
         /// @bug this fails while vehicle is driving across a junction
         return myVehicle->getEdge()->getLanes()[0]->getShape().positionAtOffset(myVehicle->getPositionOnLane());
     }
-	//TODO: make class MSCModel
-    return getEdgePosition(myWaitingEdge, myWaitingPos, 0.0);
+    return getEdgePosition(myWaitingEdge, myWaitingPos, ROADSIDE_OFFSET);
 }
 
 SUMOReal
@@ -277,12 +277,12 @@ MSContainer::MSContainerStage_Waiting::getUntil() const {
 
 Position
 MSContainer::MSContainerStage_Waiting::getPosition(SUMOTime /* now */) const {
-    return getEdgePosition(&myDestination, myStartPos, 0.0);
+    return getEdgePosition(&myDestination, myStartPos, ROADSIDE_OFFSET);
 }
 
 SUMOReal
 MSContainer::MSContainerStage_Waiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(&myDestination, myStartPos) - 90;
+    return getEdgeAngle(&myDestination, myStartPos) - 180;
 }
 
 SUMOTime
