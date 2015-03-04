@@ -192,6 +192,7 @@ public:
     static const RGBColor YELLOW;
     static const RGBColor CYAN;
     static const RGBColor MAGENTA;
+    static const RGBColor ORANGE;
     static const RGBColor WHITE;
     static const RGBColor BLACK;
     static const RGBColor GREY;

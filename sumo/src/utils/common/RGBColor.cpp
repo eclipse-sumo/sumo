@@ -56,6 +56,7 @@ const RGBColor RGBColor::BLUE = RGBColor(0, 0, 255, 255);
 const RGBColor RGBColor::YELLOW = RGBColor(255, 255, 0, 255);
 const RGBColor RGBColor::CYAN = RGBColor(0, 255, 255, 255);
 const RGBColor RGBColor::MAGENTA = RGBColor(255, 0, 255, 255);
+const RGBColor RGBColor::ORANGE = RGBColor(255, 128, 0, 255);
 const RGBColor RGBColor::WHITE = RGBColor(255, 255, 255, 255);
 const RGBColor RGBColor::BLACK = RGBColor(0, 0, 0, 255);
 const RGBColor RGBColor::GREY = RGBColor(128, 128, 128, 255);
@@ -110,6 +111,9 @@ operator<<(std::ostream& os, const RGBColor& col) {
     }
     if (col == RGBColor::MAGENTA) {
         return os << "magenta";
+    }
+    if (col == RGBColor::ORANGE) {
+        return os << "orange";
     }
     if (col == RGBColor::WHITE) {
         return os << "white";
@@ -184,6 +188,9 @@ RGBColor::parseColor(std::string coldef) {
     }
     if (coldef == "magenta") {
         return MAGENTA;
+    }
+    if (coldef == "orange") {
+        return ORANGE;
     }
     if (coldef == "white") {
         return WHITE;
