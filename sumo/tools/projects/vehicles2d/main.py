@@ -20,7 +20,13 @@ the Free Software Foundation; either version 3 of the License, or
 
 import sys
 import inspect
-import Image, ImageDraw, ImageColor
+try:
+    import Image, ImageDraw, ImageColor
+    haveImaging = True
+except ImportError:
+    print >> sys.stderr, "No imaging"
+    haveImaging = False
+    pass
 import numpy, math
 
 from collections import namedtuple
@@ -2464,14 +2470,14 @@ class Flaeche():
         self.image_length_x = self.cluster_length_x * self.tile_length
         self.image_length_y = self.cluster_length_y * self.tile_length
 
-#        self.im = Image.new("RGB", (int(self.image_length_x),
-#                                    int(self.image_length_y)), "white")
-
-        self.im = Image.new("RGB", (int(self.image_length_x),
-#                                    int(self.image_length_y)), 'blue')
-                                    int(self.image_length_y)), 'rgb(0%,0%,20%)')
+        if haveImaging:
+#            self.im = Image.new("RGB", (int(self.image_length_x),
+#                                        int(self.image_length_y)), "white")
+            self.im = Image.new("RGB", (int(self.image_length_x),
+#                                        int(self.image_length_y)), 'blue')
+                                        int(self.image_length_y)), 'rgb(0%,0%,20%)')
         
-        self.draw = ImageDraw.Draw(self.im)
+            self.draw = ImageDraw.Draw(self.im)
 
     def draw_course(self, vessel, r, delta):
         args = []
@@ -2575,7 +2581,8 @@ class Flaeche():
         self.points.append((point, color))
         
     def vis_show(self, my_poly=None, step_num=None):
-
+        if not haveImaging:
+            return
         # draw the grid
         for xx in range(self.cluster_length_x):
 

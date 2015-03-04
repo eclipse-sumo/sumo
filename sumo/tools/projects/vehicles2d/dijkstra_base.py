@@ -18,10 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import sys
-import inspect
-import Image, ImageDraw
-import numpy, math
+import math
 
 from commons import NodeDataHandler, StarNode, DNList
 #from commons import StarNode as DijkstraNode
