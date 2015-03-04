@@ -745,8 +745,8 @@ MSRouteHandler::closePerson() {
             MSNet::getInstance()->getPersonControl().setDeparture(myVehicleParameter->depart, person);
             registerLastDepart();
         } else {
-            delete person;
             throw ProcessError("Another person with the id '" + myVehicleParameter->id + "' exists.");
+            delete person;
         }
     } else {
         // warning already given
@@ -772,8 +772,8 @@ MSRouteHandler::closeContainer() {
             MSNet::getInstance()->getContainerControl().setDeparture(myVehicleParameter->depart, container);
             registerLastDepart();
         } else {
-            delete container;
             throw ProcessError("Another container with the id '" + myVehicleParameter->id + "' exists.");
+            delete container;
         }
     } else {
         // warning already given
