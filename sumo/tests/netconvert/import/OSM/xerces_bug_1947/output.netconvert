@@ -1,2 +1,4 @@
-Parsing nodes from osm-file 'osm.xml'... 
-Found duplicate nodes. Substituting -20 with -14
+Parsing nodes from osm-file 'osm.xml'... done.
+Parsing edges from osm-file 'osm.xml'... done.
+Removing duplicate edges... done.
+Parsing relations from osm-file 'osm.xml'... done.
