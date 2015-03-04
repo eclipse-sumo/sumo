@@ -178,8 +178,6 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
     switch (s.containerQuality) {
         case 0:
         case 1:
-            drawAction_drawAsTriangle(s);
-            break;
         case 2:
             drawAction_drawAsPoly(s);
             break;
@@ -365,41 +363,24 @@ GUIContainer::getSpeed() const {
 
 
 void
-GUIContainer::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) const {
-    // draw triangle pointing forward
-    glRotated(getAngle(), 0, 0, 1);
-    glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
-    glBegin(GL_TRIANGLES);
-    glVertex2d(0., 0.);
-    glVertex2d(1, -0.5);
-    glVertex2d(1, 0.5);
-    glEnd();
-}
-
-
-void
 GUIContainer::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
     // draw pedestrian shape
     glRotated(getAngle(), 0, 0, 1);
     glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
-    RGBColor lighter = GLHelper::getColor().changedBrightness(51);
-    glTranslated(0, 0, .045);
-    // head
-    glScaled(1, 0.5, 1.);
-    GLHelper::drawFilledCircle(0.5);
-    // nose
-    glBegin(GL_TRIANGLES);
-    glVertex2d(0.0, -0.2);
-    glVertex2d(0.0, 0.2);
-    glVertex2d(-0.6, 0.0);
+    glBegin(GL_QUADS);
+    glVertex2d(0, 0.5);
+    glVertex2d(0, -0.5);
+    glVertex2d(-1, -0.5);
+    glVertex2d(-1, 0.5);
     glEnd();
-    glTranslated(0, 0, -.045);
-    // body
-    glScaled(0.9, 2.0, 1);
-    glTranslated(0, 0, .04);
-    GLHelper::setColor(lighter);
-    GLHelper::drawFilledCircle(0.5);
-    glTranslated(0, 0, -.04);
+    GLHelper::setColor(GLHelper::getColor().changedBrightness(-30));
+    glTranslated(0, 0, .045);
+    glBegin(GL_QUADS);
+    glVertex2d(-0.1, 0.4);
+    glVertex2d(-0.1, -0.4);
+    glVertex2d(-0.9, -0.4);
+    glVertex2d(-0.9, 0.4);
+    glEnd();
 }
 
 
