@@ -71,7 +71,7 @@ public:
 	enum StageType {
         DRIVING = 0,
         WAITING = 1,
-        TRANSFER = 2
+        TRANSHIP = 2
     };
 
 	 /**
@@ -426,19 +426,19 @@ public:
     };
 
      /**
-     * A "real" stage performing the transfer of a container
-     * A container is in this stage if it gets transferred between two stops that are
+     * A "real" stage performing the tranship of a container
+     * A container is in this stage if it gets transhipred between two stops that are
      * assumed to be connected.
      */
-    class MSContainerStage_Transfer : public MSContainerStage {
+    class MSContainerStage_Tranship : public MSContainerStage {
         friend class MSCModel_NonInteracting;
 
     public:
         /// constructor
-        MSContainerStage_Transfer(const std::vector<const MSEdge*>& route, MSContainerStop* toCS, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
+        MSContainerStage_Tranship(const std::vector<const MSEdge*>& route, MSContainerStop* toCS, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
 
         /// destructor
-        ~MSContainerStage_Transfer();
+        ~MSContainerStage_Tranship();
 
          /// proceeds to the next step
         virtual void proceed(MSNet* net, MSContainer* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at);
@@ -469,7 +469,7 @@ public:
 
         /// Returns the current stage description as a string
         std::string getStageDescription() const {
-            return "transfer";
+            return "tranship";
         }
         
         /// @brief returns the current destination container stop
@@ -561,10 +561,10 @@ public:
 
     private:
         /// @brief Invalidated copy constructor.
-        MSContainerStage_Transfer(const MSContainerStage_Transfer&);
+        MSContainerStage_Tranship(const MSContainerStage_Tranship&);
 
         /// @brief Invalidated assignment operator.
-        MSContainerStage_Transfer& operator=(const MSContainerStage_Transfer&);
+        MSContainerStage_Tranship& operator=(const MSContainerStage_Tranship&);
 
     };
 

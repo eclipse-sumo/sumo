@@ -324,7 +324,7 @@ extern const SUMOReal DEFAULT_VEH_PROB; // !!! does this belong here?
 
 extern const SUMOReal DEFAULT_PEDESTRIAN_SPEED;
 
-extern const SUMOReal DEFAULT_CONTAINER_TRANSFER_SPEED;
+extern const SUMOReal DEFAULT_CONTAINER_TRANSHIP_SPEED;
 
 #endif
 

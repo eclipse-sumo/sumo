@@ -313,7 +313,7 @@ const SUMOReal DEFAULT_VEH_PROB(1.);
 
 const SUMOReal DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
 
-const SUMOReal DEFAULT_CONTAINER_TRANSFER_SPEED(5. / 3.6);
+const SUMOReal DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
 
 /****************************************************************************/
 

@@ -5,7 +5,7 @@
 /// @date    Mon, 13.12.2005
 /// @version $Id: MSContainerTerminal.cpp 16005 2014-03-24 12:46:02Z cschmidt87 $
 ///
-// A collection of stops for container where containers can be transferred
+// A collection of stops for container where containers can be transhiped
 // from one stop to another within the terminal.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/

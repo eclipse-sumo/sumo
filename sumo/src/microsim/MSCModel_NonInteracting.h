@@ -5,7 +5,7 @@
 /// @date    Tue, 29 July 2014
 /// @version $Id: MSCModel_NonInteracting.h 16290 2014-05-05 12:38:38Z namdre $
 ///
-// The container following model for transfer (prototype)
+// The container following model for tranship (prototype)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
@@ -52,7 +52,7 @@ class CState;
 // ===========================================================================
 /**
  * @class MSCModel_NonInteracting
- * @brief The container following model for transfer
+ * @brief The container following model for tranship
  *
  */
 class MSCModel_NonInteracting {
@@ -65,8 +65,8 @@ public:
 
     static MSCModel_NonInteracting* getModel();
 
-    /// @brief register the given container as a transfered contaienr
-    CState* add(MSContainer* container, MSContainer::MSContainerStage_Transfer* stage, SUMOTime now);
+    /// @brief register the given container as a transhiped container
+    CState* add(MSContainer* container, MSContainer::MSContainerStage_Tranship* stage, SUMOTime now);
 
 private:
     static MSCModel_NonInteracting* myModel;
@@ -74,12 +74,12 @@ private:
 private:
     class MoveToNextEdge : public Command {
     public:
-        MoveToNextEdge(MSContainer* container, MSContainer::MSContainerStage_Transfer& transfer) : myParent(transfer), myContainer(container) {}
+        MoveToNextEdge(MSContainer* container, MSContainer::MSContainerStage_Tranship& tranship) : myParent(tranship), myContainer(container) {}
         ~MoveToNextEdge() {}
         SUMOTime execute(SUMOTime currentTime);
 
     private:
-        MSContainer::MSContainerStage_Transfer& myParent;
+        MSContainer::MSContainerStage_Tranship& myParent;
         MSContainer* myContainer;
     private:
         /// @brief Invalidated assignment operator.
@@ -104,19 +104,19 @@ public:
     static const int BACKWARD;
     static const int UNDEFINED_DIRECTION;
 
-    /// @brief the offset for computing container positions when being transfered
+    /// @brief the offset for computing container positions when being transhiped
     static const SUMOReal LATERAL_OFFSET;
 
     /// @brief return the offset from the start of the current edge measured in its natural direction
-    SUMOReal getEdgePos(const MSContainer::MSContainerStage_Transfer& stage, SUMOTime now) const;
+    SUMOReal getEdgePos(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const;
     /// @brief return the network coordinate of the container
-    Position getPosition(const MSContainer::MSContainerStage_Transfer& stage, SUMOTime now) const;
+    Position getPosition(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const;
     /// @brief return the direction in which the container heading to
-    SUMOReal getAngle(const MSContainer::MSContainerStage_Transfer& stage, SUMOTime now) const;
+    SUMOReal getAngle(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const;
     /// @brief return the current speed of the container
-    SUMOReal getSpeed(const MSContainer::MSContainerStage_Transfer& stage) const;
-    /// @brief compute transfer time on edge and update state members
-    SUMOTime computeTransferTime(const MSEdge* prev, const MSContainer::MSContainerStage_Transfer& stage, SUMOTime currentTime);
+    SUMOReal getSpeed(const MSContainer::MSContainerStage_Tranship& stage) const;
+    /// @brief compute tranship time on edge and update state members
+    SUMOTime computeTranshipTime(const MSEdge* prev, const MSContainer::MSContainerStage_Tranship& stage, SUMOTime currentTime);
 
 
 private:
@@ -124,8 +124,8 @@ private:
     SUMOTime myCurrentDuration;
     SUMOReal myCurrentBeginPos;
     SUMOReal myCurrentEndPos;
-    Position myCurrentBeginPosition;  //the position the container is moving from during its transfer stage
-    Position myCurrentEndPosition;  //the position the container is moving to during its transfer stage
+    Position myCurrentBeginPosition;  //the position the container is moving from during its tranship stage
+    Position myCurrentEndPosition;  //the position the container is moving to during its tranship stage
 
 };
 

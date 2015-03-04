@@ -344,31 +344,31 @@ MSContainer::MSContainerStage_Waiting::endEventOutput(const MSContainer& contain
 }
 
 /* -------------------------------------------------------------------------
- * MSContainer::MSContainerStage_Transfer - methods
+ * MSContainer::MSContainerStage_Tranship - methods
  * ----------------------------------------------------------------------- */
-MSContainer::MSContainerStage_Transfer::MSContainerStage_Transfer(const std::vector<const MSEdge*>& route,
+MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vector<const MSEdge*>& route,
         MSContainerStop* toCS,
         SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
-    MSContainerStage(*route.back(), TRANSFER), myRoute(route),
+    MSContainerStage(*route.back(), TRANSHIP), myRoute(route),
     myCurrentInternalEdge(0),
     myDepartPos(departPos), myArrivalPos(arrivalPos), myDestinationContainerStop(toCS),
     mySpeed(speed),
     myContainerState(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
-                      myDepartPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "container getting transfered from " + myRoute.front()->getID());
+                      myDepartPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "container getting transhipped from " + myRoute.front()->getID());
     myArrivalPos = SUMOVehicleParameter::interpretEdgePos(
-                       myArrivalPos, myRoute.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transfered to " + myRoute.back()->getID());
+                       myArrivalPos, myRoute.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transhipped to " + myRoute.back()->getID());
 }
 
-MSContainer::MSContainerStage_Transfer::~MSContainerStage_Transfer() {
+MSContainer::MSContainerStage_Tranship::~MSContainerStage_Tranship() {
 }
 
 void
-MSContainer::MSContainerStage_Transfer::proceed(MSNet* net, MSContainer* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at) {
+MSContainer::MSContainerStage_Tranship::proceed(MSNet* net, MSContainer* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at) {
     previousEdge->removeContainer(container);
     myRouteStep = myRoute.end() - 1;   //define that the container is already on its destination edge
-    MSNet::getInstance()->getContainerControl().setTransfer(container);
+    MSNet::getInstance()->getContainerControl().setTranship(container);
     if (at >= 0) {
         myDepartPos = at;
     }
@@ -377,7 +377,7 @@ MSContainer::MSContainerStage_Transfer::proceed(MSNet* net, MSContainer* contain
 }
 
 const MSEdge*
-MSContainer::MSContainerStage_Transfer::getEdge() const {
+MSContainer::MSContainerStage_Tranship::getEdge() const {
     if (myCurrentInternalEdge != 0) {
         return myCurrentInternalEdge;
     } else {
@@ -386,82 +386,82 @@ MSContainer::MSContainerStage_Transfer::getEdge() const {
 }
 
 const MSEdge*
-MSContainer::MSContainerStage_Transfer::getFromEdge() const {
+MSContainer::MSContainerStage_Tranship::getFromEdge() const {
     return myRoute.front();
 }
 
 const MSEdge*
-MSContainer::MSContainerStage_Transfer::getToEdge() const {
+MSContainer::MSContainerStage_Tranship::getToEdge() const {
     return myRoute.back();
 }
 
 SUMOReal
-MSContainer::MSContainerStage_Transfer::getEdgePos(SUMOTime now) const {
+MSContainer::MSContainerStage_Tranship::getEdgePos(SUMOTime now) const {
     return myContainerState->getEdgePos(*this, now);
 }
 
 Position
-MSContainer::MSContainerStage_Transfer::getPosition(SUMOTime now) const {
+MSContainer::MSContainerStage_Tranship::getPosition(SUMOTime now) const {
     return myContainerState->getPosition(*this, now);
 }
 
 SUMOReal
-MSContainer::MSContainerStage_Transfer::getAngle(SUMOTime now) const {
+MSContainer::MSContainerStage_Tranship::getAngle(SUMOTime now) const {
     return myContainerState->getAngle(*this, now);
 }
 
 SUMOTime
-MSContainer::MSContainerStage_Transfer::getWaitingTime(SUMOTime now) const {
+MSContainer::MSContainerStage_Tranship::getWaitingTime(SUMOTime now) const {
     return 0;
 }
 
 SUMOReal
-MSContainer::MSContainerStage_Transfer::getSpeed() const {
+MSContainer::MSContainerStage_Tranship::getSpeed() const {
     return myContainerState->getSpeed(*this);
 }
 
 MSContainerStop*
-MSContainer::MSContainerStage_Transfer::getDestinationContainerStop() const {
+MSContainer::MSContainerStage_Tranship::getDestinationContainerStop() const {
     return myDestinationContainerStop;
 }
 
 MSContainerStop*
-MSContainer::MSContainerStage_Transfer::getDepartContainerStop() const {
+MSContainer::MSContainerStage_Tranship::getDepartContainerStop() const {
     return myDepartContainerStop;
 }
 
 void
-MSContainer::MSContainerStage_Transfer::tripInfoOutput(OutputDevice& os) const {
-    os.openTag("transfer").writeAttr("arrival", time2string(myArrived)).closeTag();
+MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os) const {
+    os.openTag("tranship").writeAttr("arrival", time2string(myArrived)).closeTag();
 }
 
 
 void
-MSContainer::MSContainerStage_Transfer::routeOutput(OutputDevice& os) const {
-    os.openTag("transfer").writeAttr(SUMO_ATTR_EDGES, myRoute);
+MSContainer::MSContainerStage_Tranship::routeOutput(OutputDevice& os) const {
+    os.openTag("tranship").writeAttr(SUMO_ATTR_EDGES, myRoute);
     os.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     os.closeTag();
 }
 
 
 void
-MSContainer::MSContainerStage_Transfer::beginEventOutput(const MSContainer& c, SUMOTime t, OutputDevice& os) const {
+MSContainer::MSContainerStage_Tranship::beginEventOutput(const MSContainer& c, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "departure")
     .writeAttr("agent", c.getID()).writeAttr("link", myRoute.front()->getID()).closeTag();
 }
 
 
 void
-MSContainer::MSContainerStage_Transfer::endEventOutput(const MSContainer& c, SUMOTime t, OutputDevice& os) const {
+MSContainer::MSContainerStage_Tranship::endEventOutput(const MSContainer& c, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival")
     .writeAttr("agent", c.getID()).writeAttr("link", myRoute.back()->getID()).closeTag();
 }
 
 bool
-MSContainer::MSContainerStage_Transfer::moveToNextEdge(MSContainer* container, SUMOTime currentTime, MSEdge* nextInternal) {
+MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSContainer* container, SUMOTime currentTime, MSEdge* nextInternal) {
     ((MSEdge*)getEdge())->removeContainer(container);
     if (myRouteStep == myRoute.end() - 1) {
-        MSNet::getInstance()->getContainerControl().unsetTransfer(container);
+        MSNet::getInstance()->getContainerControl().unsetTranship(container);
         if (myDestinationContainerStop != 0) {
             myDestinationContainerStop->addContainer(container);    //jakob
         }

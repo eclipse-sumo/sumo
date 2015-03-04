@@ -5,7 +5,7 @@
 /// @date    Tue, 29 July 2014
 /// @version $Id: MSCModel_NonInteracting.cpp 16797 2014-07-28 12:08:15Z kend-an $
 ///
-// The container following model for transfer (prototype)
+// The container following model for tranship (prototype)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
@@ -73,9 +73,9 @@ MSCModel_NonInteracting::getModel() {
 }
 
 CState*
-MSCModel_NonInteracting::add(MSContainer* container, MSContainer::MSContainerStage_Transfer* stage, SUMOTime now) {
+MSCModel_NonInteracting::add(MSContainer* container, MSContainer::MSContainerStage_Tranship* stage, SUMOTime now) {
     CState* state = new CState();
-    const SUMOTime firstEdgeDuration = state->computeTransferTime(0, *stage, now);
+    const SUMOTime firstEdgeDuration = state->computeTranshipTime(0, *stage, now);
     myNet->getBeginOfTimestepEvents()->addEvent(new MoveToNextEdge(container, *stage),
             now + firstEdgeDuration, MSEventControl::ADAPT_AFTER_EXECUTION);
     return state;
@@ -88,31 +88,31 @@ MSCModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
     const MSEdge* old = myParent.getEdge();
     const bool arrived = myParent.moveToNextEdge(myContainer, currentTime);
     if (arrived) {
-        // transfer finished. clean up state
+        // tranship finished. clean up state
         delete state;
         return 0;
     } else {
-        return state->computeTransferTime(old, myParent, currentTime);
+        return state->computeTranshipTime(old, myParent, currentTime);
     }
 }
 
 
 SUMOReal
-CState::getEdgePos(const MSContainer::MSContainerStage_Transfer&, SUMOTime now) const {
+CState::getEdgePos(const MSContainer::MSContainerStage_Tranship&, SUMOTime now) const {
     return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime);
 }
 
 
 Position
-CState::getPosition(const MSContainer::MSContainerStage_Transfer& stage, SUMOTime now) const {
-    const SUMOReal dist = myCurrentBeginPosition.distanceTo2D(myCurrentEndPosition);    //distance between begin and end position of this transfer stage
+CState::getPosition(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const {
+    const SUMOReal dist = myCurrentBeginPosition.distanceTo2D(myCurrentEndPosition);    //distance between begin and end position of this tranship stage
     SUMOReal pos = MIN2(STEPS2TIME(now - myLastEntryTime) *  stage.getMaxSpeed(), dist);    //the containerd shall not go beyond its end position
     return PositionVector::positionAtOffset2D(myCurrentBeginPosition, myCurrentEndPosition, pos, 0);
 }
 
 
 SUMOReal
-CState::getAngle(const MSContainer::MSContainerStage_Transfer& stage, SUMOTime now) const {
+CState::getAngle(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const {
     //todo: change angle by 90 degree
     SUMOReal angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 180 : 0);
     if (angle > 180) {
@@ -123,21 +123,21 @@ CState::getAngle(const MSContainer::MSContainerStage_Transfer& stage, SUMOTime n
 
 
 SUMOReal
-CState::getSpeed(const MSContainer::MSContainerStage_Transfer& stage) const {
+CState::getSpeed(const MSContainer::MSContainerStage_Tranship& stage) const {
     return stage.getMaxSpeed();
 }
 
 
 SUMOTime
-CState::computeTransferTime(const MSEdge* prev, const MSContainer::MSContainerStage_Transfer& stage, SUMOTime currentTime) {
+CState::computeTranshipTime(const MSEdge* prev, const MSContainer::MSContainerStage_Tranship& stage, SUMOTime currentTime) {
     myLastEntryTime = currentTime;
 
     myCurrentBeginPos = stage.getDepartPos();  
     myCurrentEndPos = stage.getArrivalPos();    
 
-    const MSLane* fromLane = stage.getFromEdge()->getLanes().front(); //the lane the container starts from during its transfer stage
+    const MSLane* fromLane = stage.getFromEdge()->getLanes().front(); //the lane the container starts from during its tranship stage
     myCurrentBeginPosition = stage.getLanePosition(fromLane, myCurrentBeginPos, LATERAL_OFFSET);
-    const MSLane* toLane = stage.getToEdge()->getLanes().front(); //the lane the container ends during its transfer stage
+    const MSLane* toLane = stage.getToEdge()->getLanes().front(); //the lane the container ends during its tranship stage
     myCurrentEndPosition = stage.getLanePosition(toLane, myCurrentEndPos, LATERAL_OFFSET);
 
     myCurrentDuration = MAX2((SUMOTime)1, TIME2STEPS(fabs(myCurrentEndPosition.distanceTo(myCurrentBeginPosition)) / stage.getMaxSpeed()));

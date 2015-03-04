@@ -197,21 +197,21 @@ MSContainerControl::hasContainers() const {
 
 bool
 MSContainerControl::hasNonWaiting() const {
-    return !myWaiting4Departure.empty() || !myWaitingUntil.empty() || !myTransfer.empty();
+    return !myWaiting4Departure.empty() || !myWaitingUntil.empty() || !myTranship.empty();
 }
 
 
 void
-MSContainerControl::setTransfer(MSContainer* c) {
-    myTransfer[c->getID()] = c;
+MSContainerControl::setTranship(MSContainer* c) {
+    myTranship[c->getID()] = c;
 }
 
 
 void
-MSContainerControl::unsetTransfer(MSContainer* c) {
-    std::map<std::string, MSContainer*>::iterator i = myTransfer.find(c->getID());
-    if (i != myTransfer.end()) {
-        myTransfer.erase(i);
+MSContainerControl::unsetTranship(MSContainer* c) {
+    std::map<std::string, MSContainer*>::iterator i = myTranship.find(c->getID());
+    if (i != myTranship.end()) {
+        myTranship.erase(i);
     }
 }
 

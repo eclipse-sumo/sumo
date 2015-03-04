@@ -108,11 +108,11 @@ public:
      */
     virtual MSContainer* buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSContainer::MSContainerPlan* plan) const;
 
-    /// adds a container to myTransfer 
-    void setTransfer(MSContainer* c);
+    /// adds a container to myTranship 
+    void setTranship(MSContainer* c);
 
-    /// removes a container from myTransfer
-    void unsetTransfer(MSContainer* c);
+    /// removes a container from myTranship
+    void unsetTranship(MSContainer* c);
 //
 //    /// @brief returns whether the the given container is waiting for a vehicle on the given edge
 //    bool isWaiting4Vehicle(const MSEdge* const edge, MSContainer* p) const;
@@ -125,8 +125,8 @@ private:
     /// all containers by id
     std::map<std::string, MSContainer*> myContainers;
 
-    /// all containers being transfered
-    std::map<std::string, MSContainer*> myTransfer;
+    /// all containers being transhiped
+    std::map<std::string, MSContainer*> myTranship;
 
     /// @brief Containers waiting for departure
     std::map<SUMOTime, ContainerVector> myWaiting4Departure;

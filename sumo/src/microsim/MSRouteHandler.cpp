@@ -302,7 +302,7 @@ MSRouteHandler::myStartElement(int element,
             bool ok = true;
             SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, myVehicleParameter->id.c_str(), ok, 0);
             SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok, -NUMERICAL_EPS);
-            SUMOReal speed = DEFAULT_CONTAINER_TRANSFER_SPEED;
+            SUMOReal speed = DEFAULT_CONTAINER_TRANSHIP_SPEED;
             const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid);
             // need to check for explicitly set speed since we might have // DEFAULT_VEHTYPE
             if (vtype != 0 && vtype->wasSet(VTYPEPARS_MAXSPEED_SET)) {
@@ -310,7 +310,7 @@ MSRouteHandler::myStartElement(int element,
             }
             speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, 0, ok, speed);
             if (speed <= 0) {
-                throw ProcessError("Non-positive transfer speed for container  '" + myVehicleParameter->id + "'.");
+                throw ProcessError("Non-positive tranship speed for container  '" + myVehicleParameter->id + "'.");
             }
             std::string csID = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, 0, ok, "");
             MSContainerStop* cs = 0;
@@ -328,14 +328,14 @@ MSRouteHandler::myStartElement(int element,
                     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok);
                     MSEdge* from = MSEdge::dictionary(fromID);
                     if (from == 0) {
-                        throw ProcessError("The from edge '" + fromID + "' within a transfer of container '" + myVehicleParameter->id + "' is not known.");
+                        throw ProcessError("The from edge '" + fromID + "' within a tranship of container '" + myVehicleParameter->id + "' is not known.");
                     }
                     const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok);
                     MSEdge* to = MSEdge::dictionary(toID);
                     if (to == 0) {
-                        throw ProcessError("The to edge '" + toID + "' within a transfer of container '" + myVehicleParameter->id + "' is not known.");
+                        throw ProcessError("The to edge '" + toID + "' within a tranship of container '" + myVehicleParameter->id + "' is not known.");
                     }
-                    //the route of the container's transfer stage consists only of the 'from' and the 'to' edge
+                    //the route of the container's tranship stage consists only of the 'from' and the 'to' edge
                     myActiveRoute.push_back(from);
                     myActiveRoute.push_back(to);
                     if (myActiveRoute.empty()) {
@@ -349,7 +349,7 @@ MSRouteHandler::myStartElement(int element,
                 }
             }
             if (myActiveRoute.empty()) {
-                throw ProcessError("No edges to transfer container '" + myVehicleParameter->id + "'.");
+                throw ProcessError("No edges to tranship container '" + myVehicleParameter->id + "'.");
             }
             if (!myActiveContainerPlan->empty() && &myActiveContainerPlan->back()->getDestination() != myActiveRoute.front()) {
                 throw ProcessError("Disconnected plan for container '" + myVehicleParameter->id + "' (" + myActiveRoute.front()->getID() + "!=" + myActiveContainerPlan->back()->getDestination().getID() + ").");
@@ -358,7 +358,7 @@ MSRouteHandler::myStartElement(int element,
                 myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Waiting(
                                             *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start"));
             }
-            myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Transfer(myActiveRoute, cs, speed, departPos, arrivalPos));
+            myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Tranship(myActiveRoute, cs, speed, departPos, arrivalPos));
             myActiveRoute.clear();
             break;
         }

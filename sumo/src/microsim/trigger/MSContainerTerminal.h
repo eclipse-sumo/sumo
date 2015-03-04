@@ -5,7 +5,7 @@
 /// @date    Mon, 13.12.2005
 /// @version $Id: MSContainerTerminal.h 16005 2014-03-24 12:46:02Z cschmidt87 $
 ///
-// A collection of stops for container where containers can be transferred
+// A collection of stops for container where containers can be transhiped
 // from one stop to another within the terminal.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -54,7 +54,7 @@ class MSContainerStop;
 /**
  * @class MSContainerTerminal
  * @brief A collection of stops for containers where containers can be 
- *        transferred from one stop to another within the terminal.
+ *        transhiped from one stop to another within the terminal.
  *
  * A container terminal consists of several container stops. See MSContainerStop.
  *

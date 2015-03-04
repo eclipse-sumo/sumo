@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/23/15 14:20:46 by SUMO Version dev-SVN-r17935
+<!-- generated on Wed Mar  4 09:33:11 2015 by SUMO Version dev-SVN-r18000I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -27,7 +27,7 @@
     <containerinfo id="c1" depart="0.00">
         <stop arrival="0.00"/>
         <stop arrival="5.00"/>
-        <transfer arrival="34.00"/>
+        <tranship arrival="34.00"/>
         <stop arrival="39.00"/>
     </containerinfo>
 </tripinfos>
