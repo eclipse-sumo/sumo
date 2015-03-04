@@ -26,6 +26,7 @@
             <xsd:element name="rerouter" type="rerouterType" minOccurs="0"/>
             <xsd:element name="instantInductionLoop" type="instantInductionLoopType" minOccurs="0"/>
             <xsd:element name="busStop" type="busStopType" minOccurs="0"/>
+            <xsd:element name="containerStop" type="containerStopType" minOccurs="0"/>
             <xsd:element name="calibrator" type="calibratorType" minOccurs="0"/>
             <xsd:element name="vaporizer" type="vaporizerType" minOccurs="0"/>
 
@@ -240,6 +241,15 @@
     </xsd:complexType>
 
     <xsd:complexType name="busStopType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="startPos" type="xsd:float"/>
+        <xsd:attribute name="endPos" type="xsd:float"/>
+        <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
+        <xsd:attribute name="lines" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="containerStopType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
         <xsd:attribute name="startPos" type="xsd:float"/>

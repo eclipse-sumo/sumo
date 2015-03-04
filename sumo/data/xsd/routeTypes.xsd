@@ -34,6 +34,10 @@
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
+        <xsd:attribute name="personCapacity" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="containerCapacity" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="sigma">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:float">
@@ -416,6 +420,36 @@
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="walk">
+                <xsd:complexType>
+                    <xsd:attribute name="edges" type="xsd:string"/>
+                    <xsd:attribute name="from" type="xsd:string"/>
+                    <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="speed" type="positiveFloatType"/>
+                    <xsd:attribute name="duration" type="positiveFloatType"/>
+                    <xsd:attribute name="departPos" type="xsd:float"/>
+                    <xsd:attribute name="arrivalPos" type="xsd:float"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="stop" type="stopType"/>
+            <xsd:element name="param" type="paramType"/>
+        </xsd:choice>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="depart" type="xsd:float" use="required"/>
+        <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
+        <xsd:attribute name="type" type="xsd:string"/>
+        <xsd:attribute name="departPos" type="departPosType"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="containerType">
+        <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="transport">
+                <xsd:complexType>
+                    <xsd:attribute name="from" type="xsd:string"/>
+                    <xsd:attribute name="to" type="xsd:string" use="required"/>
+                    <xsd:attribute name="lines" type="xsd:string" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="tranship">
                 <xsd:complexType>
                     <xsd:attribute name="edges" type="xsd:string"/>
                     <xsd:attribute name="from" type="xsd:string"/>
