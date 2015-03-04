@@ -578,11 +578,11 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         const SUMOVehicleParameter::Stop* containerstop = myNet.getContainerStop(stop.containerstop);
         if (containerstop == 0) {
             myErrorOutput->inform("Unknown container stop '" + stop.containerstop + "'" + errorSuffix);
-        } else {
-            stop.lane = containerstop->lane;
-            stop.endPos = containerstop->endPos;
-            stop.startPos = containerstop->startPos;
         }
+        stop.lane = containerstop->lane;
+        stop.endPos = containerstop->endPos;
+        stop.startPos = containerstop->startPos;
+        edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
     } else {
         // no, the lane and the position should be given
         stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, 0, ok, "");
