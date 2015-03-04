@@ -486,7 +486,6 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             GLHelper::drawFilledCircle(0.25);
             glTranslated(0, 0, -.04);
             break;
-        case SVS_CONTAINER:
         case SVS_BICYCLE:
         case SVS_MOPED:
         case SVS_MOTORCYCLE: {
@@ -687,8 +686,6 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
     // draw decorations
     switch (shape) {
         case SVS_PEDESTRIAN:
-            break;
-        case SVS_CONTAINER:
             break;
         case SVS_BICYCLE:
             //glScaled(length, 1, 1.);

@@ -94,7 +94,6 @@ std::set<std::string> deprecatedVehicleClassesSeen;
 
 StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
     {"pedestrian",            SVS_PEDESTRIAN},
-    {"container",             SVS_CONTAINER},
     {"bicycle",               SVS_BICYCLE},
     {"moped",                 SVS_MOPED},
     {"motorcycle",            SVS_MOTORCYCLE},

@@ -52,8 +52,6 @@ enum SUMOVehicleShape {
     SVS_UNKNOWN,
     /// @brief render as a pedestrian
     SVS_PEDESTRIAN,
-    /// @brief render as a container
-    SVS_CONTAINER,
     /// @brief render as a bicycle
     SVS_BICYCLE,
     /// @brief render as a moped

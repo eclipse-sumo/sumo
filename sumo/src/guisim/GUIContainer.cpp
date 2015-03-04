@@ -388,10 +388,10 @@ void
 GUIContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
     const std::string& file = getVehicleType().getImgFile();
     if (file != "") {
-        //is rotating really necessary for containers?
-        if (getVehicleType().getGuiShape() == SVS_CONTAINER) {
-            glRotated(getAngle(), 0, 0, 1);
-        }
+        // @todo invent an option for controlling whether images should be rotated or not
+        //if (getVehicleType().getGuiShape() == SVS_CONTAINER) {
+        //    glRotated(getAngle(), 0, 0, 1);
+        //}
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
             const SUMOReal exaggeration = s.personSize.getExaggeration(s);
