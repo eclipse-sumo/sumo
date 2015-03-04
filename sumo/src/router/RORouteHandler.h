@@ -152,9 +152,6 @@ protected:
     /// @brief route a walking person and write the corresponding walk element (return whether sucessful)
     bool routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& plan);
 
-    /// @brief route a containers that is transfered and write the corresponding transfer element (return whether sucessful)
-    bool routeContainer(const SUMOSAXAttributes& attrs, OutputDevice& plan);
-
 protected:
     /// @brief the router for pedestrians
     typedef PedestrianRouterDijkstra<ROEdge, ROLane, RONode> ROPedestrianRouterDijkstra;
