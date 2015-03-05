@@ -660,7 +660,9 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
     const SUMOReal xpos = myChanger->getXPos();
     const SUMOReal ypos = myChanger->getYPos();
     const SUMOReal zoom = myChanger->getZoom();
-    myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
+    if (myViewportChooser != 0) {
+        myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
+    }
     updatePositionInformation();
     return 1;
 }
