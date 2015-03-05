@@ -1008,6 +1008,18 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
         mySchemeName->setCurrentItem(index);
         mySettings = &gSchemeStorage.get(settingsName);
     }
+    if (handler.hasDecals()) {
+        myDecalsLock->lock();
+        (*myDecals) = handler.getDecals();
+        rebuildList();
+        myParent->update();
+        myDecalsLock->unlock();
+    }
+    Position lookFrom, lookAt;
+    handler.setViewport(lookFrom, lookAt);
+    if (lookFrom.z() > 0) {
+        myParent->setViewport(lookFrom, lookAt);
+    }
     rebuildColorMatrices(true);
 }
 

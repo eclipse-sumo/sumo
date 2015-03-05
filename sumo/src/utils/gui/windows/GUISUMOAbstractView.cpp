@@ -930,6 +930,7 @@ GUISUMOAbstractView::getViewportEditor() {
             new GUIDialog_EditViewport(this, "Edit Viewport...", 0, 0);
         myViewportChooser->create();
     }
+    myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
     return myViewportChooser;
 }
 
