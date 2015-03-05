@@ -82,6 +82,15 @@ MSCModel_NonInteracting::add(MSContainer* container, MSContainer::MSContainerSta
 }
 
 
+void
+MSCModel_NonInteracting::cleanup() {
+    if (myModel != 0) {
+        delete myModel;
+        myModel = 0;
+    }
+}
+
+
 SUMOTime
 MSCModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
     CState* state = myParent.getContainerState();

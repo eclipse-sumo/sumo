@@ -65,6 +65,9 @@ public:
 
     static MSCModel_NonInteracting* getModel();
 
+    /// @brief remove state at simulation end
+    static void cleanup();
+
     /// @brief register the given container as a transhiped container
     CState* add(MSContainer* container, MSContainer::MSContainerStage_Tranship* stage, SUMOTime now);
 

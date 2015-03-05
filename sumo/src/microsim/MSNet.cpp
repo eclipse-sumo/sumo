@@ -89,6 +89,7 @@
 #include <utils/vehicle/PedestrianRouter.h>
 #include "MSGlobals.h"
 #include <microsim/pedestrians/MSPModel.h>
+#include <microsim/MSCModel_NonInteracting.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include "MSContainer.h"
@@ -546,6 +547,7 @@ MSNet::clearAll() {
     MSTrigger::cleanup();
     MSCalibrator::cleanup();
     MSPModel::cleanup();
+    MSCModel_NonInteracting::cleanup();
     PedestrianEdge<MSEdge, MSLane, MSJunction>::cleanup();
 }
 
