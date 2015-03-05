@@ -56,10 +56,6 @@
         <lane id="gneE6_0" index="0" allow="rail" speed="13.89" length="71.81" shape="334.81,10.34 406.62,9.81"/>
     </edge>
 
-    <tlLogic id="gneJ1" type="rail" programID="0"/>
-    <tlLogic id="gneJ3" type="rail" programID="0"/>
-    <tlLogic id="gneJ6" type="rail" programID="0"/>
-
     <junction id="gneJ0" type="unregulated" x="-29.35" y="53.62" incLanes="" intLanes="" shape="-29.35,53.57 -29.29,50.37"/>
     <junction id="gneJ1" type="rail_signal" x="115.74" y="56.34" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="115.75,56.29 115.74,53.09 115.74,56.29">
         <request index="0" response="0" foes="0" cont="0"/>

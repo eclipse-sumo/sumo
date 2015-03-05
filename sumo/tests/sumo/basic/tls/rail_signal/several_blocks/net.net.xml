@@ -57,9 +57,6 @@
         <lane id="gneE5_0" index="0" allow="rail" speed="13.89" length="97.93" shape="275.57,59.47 373.49,59.04"/>
     </edge>
 
-    <tlLogic id="gneJ2" type="rail" programID="0"/>
-    <tlLogic id="gneJ4" type="rail" programID="1"/>
-
     <junction id="gneJ0" type="unregulated" x="-295.30" y="50.00" incLanes="" intLanes="" shape="-295.30,49.95 -295.20,46.75"/>
     <junction id="gneJ1" type="priority" x="-184.97" y="53.42" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="-184.98,53.37 -185.02,50.17 -184.86,50.17 -184.96,53.37">
         <request index="0" response="0" foes="0" cont="0"/>

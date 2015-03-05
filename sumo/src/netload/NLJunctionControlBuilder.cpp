@@ -122,7 +122,6 @@ NLJunctionControlBuilder::closeJunction() {
             junction = buildNoLogicJunction();
             break;
         case NODETYPE_TRAFFIC_LIGHT:
-        case NODETYPE_RAIL_SIGNAL: 
         case NODETYPE_RIGHT_BEFORE_LEFT:
         case NODETYPE_PRIORITY:
         case NODETYPE_PRIORITY_STOP:
@@ -135,6 +134,14 @@ NLJunctionControlBuilder::closeJunction() {
                 junction = buildInternalJunction();
             }
 #endif
+            break;
+        case NODETYPE_RAIL_SIGNAL: 
+            myOffset = 0;
+            myActiveKey = myActiveID;
+            myActiveProgram = "0";
+            myLogicType = TLTYPE_RAIL;
+            closeTrafficLightLogic();
+            junction = buildLogicJunction();
             break;
         default:
             throw InvalidArgument("False junction logic type.");
@@ -218,7 +225,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic() {
     SUMOTime firstEventOffset = 0;
     unsigned int step = 0;
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
-    if (myLogicType != TLTYPE_RAIL){    //TODO: undo this if we initiallise rail signals in junctions with node type rail_signal 
+    if (myLogicType != TLTYPE_RAIL){
         if (myAbsDuration == 0) {
             throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
         }

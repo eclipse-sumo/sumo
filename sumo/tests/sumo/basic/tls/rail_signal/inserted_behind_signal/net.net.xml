@@ -39,8 +39,6 @@
         <lane id="gneE3_0" index="0" allow="rail" speed="3.86" length="171.44" shape="263.65,58.85 435.09,57.47"/>
     </edge>
     
-    <tlLogic id="gneJ2" type="rail" programID="0"/>
-
     <junction id="gneJ0" type="unregulated" x="-267.36" y="58.16" incLanes="" intLanes="" shape="-267.36,58.11 -267.29,54.91"/>
     <junction id="gneJ1" type="priority" x="-82.71" y="62.05" incLanes="gneE0_0" intLanes="" shape="-82.70,62.00 -82.67,58.80 -82.72,62.00">
         <request index="0" response="0" foes="0"/>
