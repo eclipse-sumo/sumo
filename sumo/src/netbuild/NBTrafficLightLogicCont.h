@@ -214,7 +214,7 @@ public:
      * @see NBTrafficLightDefinition::setParticipantsInformation
      * @see NBTrafficLightDefinition::setTLControllingInformation
      */
-    void setTLControllingInformation(const NBEdgeCont& ec);
+    void setTLControllingInformation(const NBEdgeCont& ec, const NBNodeCont& nc);
 
 
 private:

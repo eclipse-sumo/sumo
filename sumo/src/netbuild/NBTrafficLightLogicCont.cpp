@@ -39,7 +39,9 @@
 #include <utils/options/OptionsCont.h>
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicCont.h"
+#include "NBOwnTLDef.h"
 #include "NBEdgeCont.h"
+#include "NBNodeCont.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -272,7 +274,7 @@ NBTrafficLightLogicCont::getLogic(const std::string& id, const std::string& prog
 
 
 void
-NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec) {
+NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec, const NBNodeCont& nc) {
     Definitions definitions = getDefinitions();
     // set the information about all participants, first
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
@@ -283,6 +285,16 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec) {
     // insert the information about the tl-controlling
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
         (*it)->setTLControllingInformation(ec);
+    }
+    // handle rail signals which are not instantiated as normal definitions
+    for (std::map<std::string, NBNode*>::const_iterator it = nc.begin(); it != nc.end(); it ++) {
+        NBNode* n = it->second;
+        if (n->getType() == NODETYPE_RAIL_SIGNAL) {
+            NBOwnTLDef dummy(n->getID(), n, 0, TLTYPE_STATIC);
+            dummy.setParticipantsInformation();
+            dummy.setTLControllingInformation(ec);
+            n->removeTrafficLight(&dummy);
+        }
     }
 }
 

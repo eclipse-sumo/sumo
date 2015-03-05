@@ -343,7 +343,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     // COMPUTING RIGHT-OF-WAY AND TRAFFIC LIGHT PROGRAMS
     //
     PROGRESS_BEGIN_MESSAGE("Computing traffic light control information");
-    myTLLCont.setTLControllingInformation(myEdgeCont);
+    myTLLCont.setTLControllingInformation(myEdgeCont, myNodeCont);
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Computing node logics");
