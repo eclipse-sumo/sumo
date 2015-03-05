@@ -168,13 +168,16 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
         of.writeAttr(SUMO_ATTR_ID, veh.getID());
         of.writeAttr(SUMO_ATTR_POSITION, veh.getPositionOnLane());
         of.writeAttr(SUMO_ATTR_SPEED, veh.getSpeed());
-        const unsigned int personNumber = static_cast<const MSVehicle&>(veh).getPersonNumber();
-        if (personNumber > 0) {
-            of.writeAttr(SUMO_ATTR_PERSON_NUMBER, personNumber);
-        }
-        const unsigned int containerNumber = static_cast<const MSVehicle&>(veh).getContainerNumber();
-        if (containerNumber > 0) {
-            of.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
+        if (!MSGlobals::gUseMesoSim) {
+            // microsim-specific stuff
+            const unsigned int personNumber = static_cast<const MSVehicle&>(veh).getPersonNumber();
+            if (personNumber > 0) {
+                of.writeAttr(SUMO_ATTR_PERSON_NUMBER, personNumber);
+            }
+            const unsigned int containerNumber = static_cast<const MSVehicle&>(veh).getContainerNumber();
+            if (containerNumber > 0) {
+                of.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
+            }
         }
         of.closeTag();
     }
