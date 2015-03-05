@@ -319,6 +319,9 @@ private:
     /// @brief customLaneShape (cannot be added to the NBNode when parsed since the node doesn't yet exist
     std::map<std::string, NBNode::CustomShapeMap> myCustomShapeMaps;
 
+    /// @brief list of node id with rail signals (no NBTrafficLightDefinition exists)
+    std::set<std::string> myRailSignals;
+
     /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs
      * @param[in] edge The EdgeAttrs* which should contain the lane
      * @param[in] lane_id The ID of the lane

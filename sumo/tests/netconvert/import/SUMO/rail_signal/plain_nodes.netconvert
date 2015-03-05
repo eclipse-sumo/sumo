@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Mar  5 15:29:46 2015 by SUMO netconvert Version dev-SVN-r18027I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="500.00,0.00" convBoundary="0.00,0.00,1000.00,100.00" origBoundary="-500.00,0.00,500.00,100.00" projParameter="!"/>
+
+    <node id="C" x="500.00" y="0.00" type="rail_signal"/>
+    <node id="E" x="1000.00" y="0.00" type="unregulated"/>
+    <node id="N" x="1000.00" y="100.00" type="unregulated"/>
+    <node id="W" x="0.00" y="0.00" type="unregulated"/>
+</nodes>

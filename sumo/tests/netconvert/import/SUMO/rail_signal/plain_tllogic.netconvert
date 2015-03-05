@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Mar  5 15:29:46 2015 by SUMO netconvert Version dev-SVN-r18027I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <connection from="WC" to="CE" fromLane="0" toLane="0" tl="C" linkIndex="0"/>
+    <connection from="WC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="1"/>
+</tlLogics>

@@ -187,7 +187,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                     true, c.mayDefinitelyPass);
 
                 // maybe we have a tls-controlled connection
-                if (c.tlID != "") {
+                if (c.tlID != "" && myRailSignals.count(c.tlID) == 0) {
                     const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(c.tlID);
                     if (programs.size() > 0) {
                         std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
@@ -520,6 +520,9 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
         for (NBNode::CustomShapeMap::const_iterator it = customShapes.begin(); it != customShapes.end(); ++it) {
             node->setCustomLaneShape(it->first, it->second);
         }
+    }
+    if (type == NODETYPE_RAIL_SIGNAL) {
+        myRailSignals.insert(id);
     }
 }
 
