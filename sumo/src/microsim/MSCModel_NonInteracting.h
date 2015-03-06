@@ -3,7 +3,7 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Tue, 29 July 2014
-/// @version $Id: MSCModel_NonInteracting.h 16290 2014-05-05 12:38:38Z namdre $
+/// @version $Id$
 ///
 // The container following model for tranship (prototype)
 /****************************************************************************/

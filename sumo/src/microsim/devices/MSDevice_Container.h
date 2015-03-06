@@ -3,7 +3,7 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Mon, 16 Jun 2014
-/// @version $Id: MSDevice_Container.h 15707 2014-02-24 09:12:53Z dkrajzew $
+/// @version $Id$
 ///
 // A device which is used to keep track of containers riding with a vehicle
 /****************************************************************************/

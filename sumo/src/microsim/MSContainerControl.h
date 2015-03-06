@@ -3,7 +3,7 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Mon, 16 Jun 2014
-/// @version $Id: MSContainerControl.h 16525 2014-06-04 14:18:06Z kend-an $
+/// @version $Id$
 ///
 // Stores all containers in the net and handles their waiting for cars.
 /****************************************************************************/

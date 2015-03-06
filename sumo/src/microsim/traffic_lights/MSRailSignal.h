@@ -3,7 +3,7 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Jan 2015
-/// @version $Id: MSRailSignal.h 17236 2014-11-03 11:29:53Z behrisch $
+/// @version $Id$
 ///
 // A rail signal logic
 /****************************************************************************/

@@ -3,7 +3,7 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Mon, 13.12.2005
-/// @version $Id: MSContainerTerminal.h 16005 2014-03-24 12:46:02Z cschmidt87 $
+/// @version $Id$
 ///
 // A collection of stops for container where containers can be transhiped
 // from one stop to another within the terminal.

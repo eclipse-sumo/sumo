@@ -3,7 +3,7 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Wed, 01.08.2014
-/// @version $Id: GUIContainer.cpp 16658 2014-06-24 13:26:18Z kend-an $
+/// @version $Id$
 ///
 // A MSContainer extended by some values for usage within the gui
 /****************************************************************************/

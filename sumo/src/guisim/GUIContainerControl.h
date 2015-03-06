@@ -3,7 +3,7 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Wed, 01.08.2014
-/// @version $Id: GUIContainerControl.h 16005 2014-03-24 12:46:02Z cschmidt87 $
+/// @version $Id$
 ///
 // GUI-version of the container control for building gui containers
 /****************************************************************************/
