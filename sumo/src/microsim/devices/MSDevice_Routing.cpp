@@ -76,7 +76,6 @@ FXWorkerThread::Pool MSDevice_Routing::myThreadPool;
 // ---------------------------------------------------------------------------
 void
 MSDevice_Routing::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic("Routing");
     insertDefaultAssignmentOptions("rerouting", "Routing", oc);
 
     oc.doRegister("device.rerouting.period", new Option_String("0", "TIME"));

@@ -78,6 +78,7 @@ MSFrame::fillOptions() {
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Routing");
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
 
@@ -257,9 +258,6 @@ MSFrame::fillOptions() {
     oc.doRegister("random-depart-offset", new Option_String("0", "TIME"));
     oc.addDescription("random-depart-offset", "Processing", "Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]");
 
-    oc.doRegister("weights.random-factor", new Option_Float());
-    oc.addDescription("weights.random-factor", "Processing", "Edge weights for routing are dynamically disturbed by a random factor between [1-FLOAT,1+FLOAT]");
-
     oc.doRegister("lanechange.allow-swap", new Option_Bool(false));
     oc.addDescription("lanechange.allow-swap", "Processing", "Whether blocking vehicles trying to change lanes may be swapped");
 
@@ -269,9 +267,6 @@ MSFrame::fillOptions() {
     oc.doRegister("lanechange.overtake-right", new Option_Bool(false));
     oc.addDescription("lanechange.overtake-right", "Processing", "Whether overtaking on the right on motorways is permitted");
 
-    oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-    oc.addDescription("routing-algorithm", "Processing",
-                      "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
     oc.addDescription("pedestrian.model", "Processing", "Select among pedestrian models ['nonInteracting', 'striping']");
@@ -284,6 +279,13 @@ MSFrame::fillOptions() {
 
     oc.doRegister("pedestrian.striping.jamtime", new Option_String("300", "TIME"));
     oc.addDescription("pedestrian.striping.jamtime", "Processing", "Time in seconds after which pedestrians start squeezing through a jam when using model 'striping' (non-positive values disable squeezing)");
+
+    // generic routing options
+    oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
+    oc.addDescription("routing-algorithm", "Routing",
+                      "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
+    oc.doRegister("weights.random-factor", new Option_Float());
+    oc.addDescription("weights.random-factor", "Routing", "Edge weights for routing are dynamically disturbed by a random factor between [1-FLOAT,1+FLOAT]");
 
     // devices
     oc.addOptionSubTopic("Emissions");

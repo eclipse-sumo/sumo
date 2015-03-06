@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18036
+SUMO Version dev-SVN-r18039
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -109,18 +109,12 @@ Processing Options:
   --random-depart-offset TIME          Each vehicle receives a random offset to
                                          its depart value drawn uniformly from
                                          [0, TIME]
-  --weights.random-factor FLOAT        Edge weights for routing are dynamically
-                                         disturbed by a random factor between
-                                         [1-FLOAT,1+FLOAT]
   --lanechange.allow-swap              Whether blocking vehicles trying to
                                          change lanes may be swapped
   --lanechange.duration TIME           Duration of a lane change maneuver
                                          (default 0)
   --lanechange.overtake-right          Whether overtaking on the right on
                                          motorways is permitted
-  --routing-algorithm STR              Select among routing algorithms
-                                         ['dijkstra', 'astar', 'CH',
-                                         'CHWrapper']
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping']
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
@@ -132,6 +126,34 @@ Processing Options:
                                          start squeezing through a jam when
                                          using model 'striping' (non-positive
                                          values disable squeezing)
+
+Routing Options:
+  --routing-algorithm STR              Select among routing algorithms
+                                         ['dijkstra', 'astar', 'CH',
+                                         'CHWrapper']
+  --weights.random-factor FLOAT        Edge weights for routing are dynamically
+                                         disturbed by a random factor between
+                                         [1-FLOAT,1+FLOAT]
+  --device.rerouting.probability FLOAT  The probability for a vehicle to have a
+                                         'rerouting' device
+  --device.rerouting.explicit STR      Assign a 'rerouting' device to named
+                                         vehicles
+  --device.rerouting.deterministic     The 'rerouting' devices are set
+                                         deterministic using a fraction of 1000
+  --device.rerouting.period TIME       The period with which the vehicle shall
+                                         be rerouted
+  --device.rerouting.pre-period TIME   The rerouting period before depart
+  --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights
+  --device.rerouting.adaptation-interval TIME  The interval for updating the
+                                         edge weights
+  --device.rerouting.with-taz          Use zones (districts) as routing end
+                                         points
+  --device.rerouting.init-with-loaded-weights  Use given weight files for
+                                         initializing edge weights
+  --device.rerouting.shortest-path-file FILE  Initialize lookup table for astar
+                                         from the given distance matrix
+  --device.rerouting.threads INT       The number of parallel execution threads
+                                         used for rerouting
 
 Report Options:
   -v, --verbose                        Switches to verbose output
@@ -182,28 +204,6 @@ Communication Options:
                                          vehicles
   --device.btsender.deterministic      The 'btsender' devices are set
                                          deterministic using a fraction of 1000
-
-Routing Options:
-  --device.rerouting.probability FLOAT  The probability for a vehicle to have a
-                                         'rerouting' device
-  --device.rerouting.explicit STR      Assign a 'rerouting' device to named
-                                         vehicles
-  --device.rerouting.deterministic     The 'rerouting' devices are set
-                                         deterministic using a fraction of 1000
-  --device.rerouting.period TIME       The period with which the vehicle shall
-                                         be rerouted
-  --device.rerouting.pre-period TIME   The rerouting period before depart
-  --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights
-  --device.rerouting.adaptation-interval TIME  The interval for updating the
-                                         edge weights
-  --device.rerouting.with-taz          Use zones (districts) as routing end
-                                         points
-  --device.rerouting.init-with-loaded-weights  Use given weight files for
-                                         initializing edge weights
-  --device.rerouting.shortest-path-file FILE  Initialize lookup table for astar
-                                         from the given distance matrix
-  --device.rerouting.threads INT       The number of parallel execution threads
-                                         used for rerouting
 
 Example Device Options:
   --device.example.explicit STR        Assign a device to named vehicles

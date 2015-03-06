@@ -70,16 +70,30 @@
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed"/>
         <eager-insert value="false" type="BOOL" help="Whether each vehicle is checked separately for insertion on an edge"/>
         <random-depart-offset value="0" type="TIME" help="Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]"/>
-        <weights.random-factor value="" type="FLOAT" help="Edge weights for routing are dynamically disturbed by a random factor between [1-FLOAT,1+FLOAT]"/>
         <lanechange.allow-swap value="false" type="BOOL" help="Whether blocking vehicles trying to change lanes may be swapped"/>
         <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)"/>
         <lanechange.overtake-right value="false" type="BOOL" help="Whether overtaking on the right on motorways is permitted"/>
-        <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;]"/>
         <pedestrian.striping.stripe-width value="0.65" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
         <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
         <pedestrian.striping.jamtime value="300" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
     </processing>
+
+    <routing>
+        <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
+        <weights.random-factor value="" type="FLOAT" help="Edge weights for routing are dynamically disturbed by a random factor between [1-FLOAT,1+FLOAT]"/>
+        <device.rerouting.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;rerouting&apos; device"/>
+        <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR" help="Assign a &apos;rerouting&apos; device to named vehicles"/>
+        <device.rerouting.deterministic value="false" type="BOOL" help="The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000"/>
+        <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME" help="The period with which the vehicle shall be rerouted"/>
+        <device.rerouting.pre-period value="1" synonymes="device.routing.pre-period" type="TIME" help="The rerouting period before depart"/>
+        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights"/>
+        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights"/>
+        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL" help="Use zones (districts) as routing end points"/>
+        <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use given weight files for initializing edge weights"/>
+        <device.rerouting.shortest-path-file value="" type="FILE" help="Initialize lookup table for astar from the given distance matrix"/>
+        <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
+    </routing>
 
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
@@ -114,20 +128,6 @@
         <device.btsender.explicit value="" synonymes="device.btsender.knownveh" type="STR" help="Assign a &apos;btsender&apos; device to named vehicles"/>
         <device.btsender.deterministic value="false" type="BOOL" help="The &apos;btsender&apos; devices are set deterministic using a fraction of 1000"/>
     </communication>
-
-    <routing>
-        <device.rerouting.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;rerouting&apos; device"/>
-        <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR" help="Assign a &apos;rerouting&apos; device to named vehicles"/>
-        <device.rerouting.deterministic value="false" type="BOOL" help="The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME" help="The period with which the vehicle shall be rerouted"/>
-        <device.rerouting.pre-period value="1" synonymes="device.routing.pre-period" type="TIME" help="The rerouting period before depart"/>
-        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights"/>
-        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights"/>
-        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL" help="Use zones (districts) as routing end points"/>
-        <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use given weight files for initializing edge weights"/>
-        <device.rerouting.shortest-path-file value="" type="FILE" help="Initialize lookup table for astar from the given distance matrix"/>
-        <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
-    </routing>
 
     <example_device>
         <device.example.explicit value="" type="STR" help="Assign a device to named vehicles"/>
