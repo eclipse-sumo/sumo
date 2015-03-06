@@ -188,7 +188,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
 }
 
 NBTrafficLightLogic* 
-NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds) {
+NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts) {
     myNeedsContRelation.clear();
     const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
     const SUMOTime leftTurnTime = TIME2STEPS(6); // make configurable
@@ -228,8 +228,10 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds) {
     std::vector<NBNode::Crossing> crossings;
     for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
         const std::vector<NBNode::Crossing>& c = (*i)->getCrossings();
-        // set tl indices for crossings
-        (*i)->setCrossingTLIndices(noLinksAll);
+        if (!onlyConts) {
+            // set tl indices for crossings
+            (*i)->setCrossingTLIndices(noLinksAll);
+        }
         copy(c.begin(), c.end(), std::back_inserter(crossings));
         noLinksAll += (unsigned int)c.size();
     }
@@ -536,7 +538,7 @@ NBOwnTLDef::initNeedsContRelation() const {
             NBNode* n = *i;
             NBOwnTLDef dummy("dummy", n, 0, TLTYPE_STATIC);
             dummy.setParticipantsInformation();
-            dummy.computeLogicAndConts(0);
+            dummy.computeLogicAndConts(0, true);
             myNeedsContRelation.insert(dummy.myNeedsContRelation.begin(), dummy.myNeedsContRelation.end());
             n->removeTrafficLight(&dummy);
         }

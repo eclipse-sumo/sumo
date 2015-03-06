@@ -130,9 +130,10 @@ public:
 
     /** @brief helper function for myCompute
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
+     * @param[in] onlyConts whether the method is only called to compute myNeedsContRelation 
      * @return The computed logic
      */
-    NBTrafficLightLogic* computeLogicAndConts(unsigned int brakingTimeSeconds);
+    NBTrafficLightLogic* computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts = false);
 
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface

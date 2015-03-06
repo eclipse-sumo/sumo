@@ -399,7 +399,7 @@ NBTrafficLightDefinition::initNeedsContRelation() const {
     if (!amInvalid()) {
         NBOwnTLDef dummy("dummy", myControlledNodes, 0, TLTYPE_STATIC);
         dummy.setParticipantsInformation();
-        dummy.computeLogicAndConts(0);
+        dummy.computeLogicAndConts(0, true);
         myNeedsContRelation = dummy.myNeedsContRelation;
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
             (*i)->removeTrafficLight(&dummy);
