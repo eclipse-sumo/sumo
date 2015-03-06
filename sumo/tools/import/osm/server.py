@@ -45,6 +45,9 @@ import route2trips
 
 
 def build(handler, prefix, bbox=False):
+    sumo = sumolib.checkBinary('sumo')
+    sumogui = sumolib.checkBinary('sumo-gui')
+
     def callSumo(extraopts):
         guisettingsname = prefix + ".view.xml"
         print "Writing gui settings file:", guisettingsname
@@ -57,14 +60,14 @@ def build(handler, prefix, bbox=False):
 """)
         configname = prefix + ".sumocfg"
         print "Writing config file:", configname
-        opts = ["sumo", "-n", netname, "-a", polyname, "--gui-settings-file", guisettingsname, "--save-configuration", configname]
+        opts = [sumo, "-n", netname, "-a", polyname, "--gui-settings-file", guisettingsname, "--save-configuration", configname]
         opts += extraopts
         subprocess.call(opts)
 
         print "Calling SUMO GUI"
 
         try:
-            subprocess.call(["sumo-gui", "-c", configname])
+            subprocess.call([sumogui, "-c", configname])
         except:
             print "SUMO GUI canceled"
 
@@ -100,7 +103,7 @@ def build(handler, prefix, bbox=False):
     options += ["--netconvert-options", netconvertOptions]
     osmBuild.build(options)
 
-    if handler.vehicles.enable or handler.bicycles.enable or handler.pedestrians.enable or handler.rails.enable:
+    if handler.vehicles.enable or handler.bicycles.enable or handler.pedestrians.enable or handler.rails.enable or handler.ships.enable:
         print "Calling randomTrips"
         #routenames stores all routefiles and will join the items later, will be used by sumo-gui
         routenames = []
@@ -309,6 +312,11 @@ if __name__ == "__main__":
         dh.pedestrians.enable = True
         dh.rails.enable = True
         dh.ships.enable = True
+
+        dh.vehicles.period = 1
+        dh.pedestrians.period = 1
+        dh.rails.period = 5
+        dh.ships.period = 200
         build(dh, *sys.argv[1:])
     else:
         main()
