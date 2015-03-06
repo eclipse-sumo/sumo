@@ -325,6 +325,9 @@ private:
     /// @brief The router to use
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
 
+    /// @brief Whether to disturb edge weights dynamically
+    static SUMOReal myRandomizeWeightsFactor;
+
 #ifdef HAVE_FOX
     static FXWorkerThread::Pool myThreadPool;
 #endif

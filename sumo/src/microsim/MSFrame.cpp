@@ -257,6 +257,9 @@ MSFrame::fillOptions() {
     oc.doRegister("random-depart-offset", new Option_String("0", "TIME"));
     oc.addDescription("random-depart-offset", "Processing", "Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]");
 
+    oc.doRegister("weights.random-factor", new Option_Float());
+    oc.addDescription("weights.random-factor", "Processing", "Edge weights for routing are dynamically disturbed by a random factor between [1-FLOAT,1+FLOAT]");
+
     oc.doRegister("lanechange.allow-swap", new Option_Bool(false));
     oc.addDescription("lanechange.allow-swap", "Processing", "Whether blocking vehicles trying to change lanes may be swapped");
 

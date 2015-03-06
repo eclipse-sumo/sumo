@@ -62,6 +62,7 @@ SUMOTime MSDevice_Routing::myLastAdaptation = -1;
 bool MSDevice_Routing::myWithTaz;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSDevice_Routing::myCachedRoutes;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSDevice_Routing::myRouter = 0;
+SUMOReal MSDevice_Routing::myRandomizeWeightsFactor = 0;
 #ifdef HAVE_FOX
 FXWorkerThread::Pool MSDevice_Routing::myThreadPool;
 #endif
@@ -147,6 +148,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
                 }
             }
             myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
+            myRandomizeWeightsFactor = oc.isSet("weights.random-factor") ? oc.getFloat("weights.random-factor") : 1;
         }
         // make the weights be updated
         if (myAdaptationInterval == -1) {
@@ -246,7 +248,11 @@ SUMOReal
 MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal) {
     const int id = e->getNumericalID();
     if (id < (int)myEdgeEfforts.size()) {
-        return MAX2(myEdgeEfforts[id], e->getMinimumTravelTime(v));
+        SUMOReal effort = MAX2(myEdgeEfforts[id], e->getMinimumTravelTime(v));
+        if (myRandomizeWeightsFactor != 0) {
+            effort *= RandHelper::rand(1 - myRandomizeWeightsFactor, 1 + myRandomizeWeightsFactor);
+        }
+        return effort;
     }
     return 0;
 }
