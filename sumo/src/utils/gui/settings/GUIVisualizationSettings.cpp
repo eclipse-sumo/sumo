@@ -89,7 +89,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(150, 200, 200), 4, "waterway");
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(128, 128, 128, 255), "unselected", true);
-    scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
+    scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by permission code", RGBColor(240, 240, 240), "nobody");
     scheme.addColor(RGBColor(10, 10, 10), (SUMOReal)SVC_PASSENGER, "passenger");
@@ -366,7 +366,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(150, 200, 200), 1, "waterway");
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme("by selection", RGBColor(128, 128, 128, 255), "unselected", true);
-    scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
+    scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme("by type", RGBColor::GREEN, "traffic_light", true);
     scheme.addColor(RGBColor(0, 128, 0), 1, "traffic_light_unregulated");
@@ -463,7 +463,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     /// add edge coloring schemes
     edgeColorer.addScheme(GUIColorScheme("uniform (streetwise)", RGBColor::BLACK, "", true));
     scheme = GUIColorScheme("by selection (streetwise)", RGBColor(128, 128, 128, 255), "unselected", true);
-    scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
+    scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     edgeColorer.addScheme(scheme);
     scheme = GUIColorScheme("by purpose (streetwise)", RGBColor(), "normal", true);
     scheme.addColor(RGBColor(128, 0, 128, 255), 1, "connector"); // see MSEdge::EdgeBasicFunction::EDGEFUNCTION_CONNECTOR
