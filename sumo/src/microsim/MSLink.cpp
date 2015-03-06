@@ -139,8 +139,10 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 //std::cout << " intersections1=" << toString(intersections1) << "\n";
 #endif
+                bool haveIntersection = true;
                 if (intersections1.size() == 0) {
-                    intersections1.push_back(10000.0); // disregard this foe (using maxdouble leads to nasty problems down the line)
+                    intersections1.push_back(-10000.0); // disregard this foe (using maxdouble leads to nasty problems down the line)
+                    haveIntersection = false;
                 } else if (intersections1.size() > 1) {
                     std::sort(intersections1.begin(), intersections1.end());
                 }
@@ -153,17 +155,19 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 } else if (intersections2.size() > 1) {
                     std::sort(intersections2.begin(), intersections2.end());
                 }
-                // lane width affects the crossing point
-                intersections1.back() -= (*it_lane)->getWidth() / 2;
-                intersections2.back() -= lane->getWidth() / 2;
-                // also length/geometry factor
-                intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
-                intersections2.back() = (*it_lane)->interpolateGeometryPosToLanePos(intersections2.back());
+                if (haveIntersection) {
+                    // lane width affects the crossing point
+                    intersections1.back() -= (*it_lane)->getWidth() / 2;
+                    intersections2.back() -= lane->getWidth() / 2;
+                    // also length/geometry factor
+                    intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
+                    intersections2.back() = (*it_lane)->interpolateGeometryPosToLanePos(intersections2.back());
 
-                if (internalLaneBefore->getLogicalPredecessorLane()->getEdge().isInternal() && !(*it_lane)->getEdge().isCrossing())  {
-                    // wait at the internal junction 
-                    // (except for foes that are crossings since there is no internal junction)
-                    intersections1.back() = 0;
+                    if (internalLaneBefore->getLogicalPredecessorLane()->getEdge().isInternal() && !(*it_lane)->getEdge().isCrossing())  {
+                        // wait at the internal junction 
+                        // (except for foes that are crossings since there is no internal junction)
+                        intersections1.back() = 0;
+                    }
                 }
 
                 myLengthsBehindCrossing.push_back(std::make_pair(
