@@ -148,7 +148,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
                 }
             }
             myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
-            myRandomizeWeightsFactor = oc.isSet("weights.random-factor") ? oc.getFloat("weights.random-factor") : 1;
+            myRandomizeWeightsFactor = oc.isSet("weights.random-factor") ? oc.getFloat("weights.random-factor") : 0;
         }
         // make the weights be updated
         if (myAdaptationInterval == -1) {
