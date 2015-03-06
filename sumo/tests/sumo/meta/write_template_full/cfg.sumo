@@ -70,6 +70,7 @@
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed"/>
         <eager-insert value="false" type="BOOL" help="Whether each vehicle is checked separately for insertion on an edge"/>
         <random-depart-offset value="0" type="TIME" help="Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]"/>
+        <weights.random-factor value="" type="FLOAT" help="Edge weights for routing are dynamically disturbed by a random factor between [1-FLOAT,1+FLOAT]"/>
         <lanechange.allow-swap value="false" type="BOOL" help="Whether blocking vehicles trying to change lanes may be swapped"/>
         <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)"/>
         <lanechange.overtake-right value="false" type="BOOL" help="Whether overtaking on the right on motorways is permitted"/>

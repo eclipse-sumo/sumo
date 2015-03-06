@@ -180,6 +180,9 @@
         <!-- Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME] -->
         <random-depart-offset value="0" type="TIME"/>
 
+        <!-- Edge weights for routing are dynamically disturbed by a random factor between [1-FLOAT,1+FLOAT] -->
+        <weights.random-factor value="" type="FLOAT"/>
+
         <!-- Whether blocking vehicles trying to change lanes may be swapped -->
         <lanechange.allow-swap value="false" type="BOOL"/>
 

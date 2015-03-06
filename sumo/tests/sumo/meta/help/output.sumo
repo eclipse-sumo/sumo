@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r17777
+SUMO Version dev-SVN-r18036
  Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -109,6 +109,9 @@ Processing Options:
   --random-depart-offset TIME          Each vehicle receives a random offset to
                                          its depart value drawn uniformly from
                                          [0, TIME]
+  --weights.random-factor FLOAT        Edge weights for routing are dynamically
+                                         disturbed by a random factor between
+                                         [1-FLOAT,1+FLOAT]
   --lanechange.allow-swap              Whether blocking vehicles trying to
                                          change lanes may be swapped
   --lanechange.duration TIME           Duration of a lane change maneuver
