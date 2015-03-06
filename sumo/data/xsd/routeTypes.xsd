@@ -38,6 +38,8 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="boardingDuration" type="nonNegativeFloatType"/>
+        <xsd:attribute name="loadingDuration" type="nonNegativeFloatType"/>
         <xsd:attribute name="sigma">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:float">
@@ -269,6 +271,7 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="triggered"/>
+                    <xsd:enumeration value="containerTriggered"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>

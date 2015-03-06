@@ -109,6 +109,7 @@
                     <xsd:enumeration value="traffic_light_unregulated"/>
                     <xsd:enumeration value="allway_stop"/>
                     <xsd:enumeration value="priority_stop"/>
+                    <xsd:enumeration value="rail_signal"/>
                     <xsd:enumeration value="internal"/>
                 </xsd:restriction>
             </xsd:simpleType>

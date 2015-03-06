@@ -8,6 +8,7 @@
             <xsd:choice maxOccurs="unbounded">
                 <xsd:element minOccurs="0" ref="tripinfo"/>
                 <xsd:element minOccurs="0" ref="personinfo"/>
+                <xsd:element minOccurs="0" ref="containerinfo"/>
             </xsd:choice>
         </xsd:complexType>
     </xsd:element>
@@ -70,6 +71,18 @@
                 <xsd:element minOccurs="0" ref="stop"/>
                 <xsd:element minOccurs="0" ref="ride"/>
                 <xsd:element minOccurs="0" ref="walk"/>
+            </xsd:choice>
+            <xsd:attribute name="id" use="required" type="xsd:string"/>
+            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="containerinfo">
+        <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:element minOccurs="0" ref="stop"/>
+                <xsd:element minOccurs="0" ref="transport"/>
+                <xsd:element minOccurs="0" ref="tranship"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
