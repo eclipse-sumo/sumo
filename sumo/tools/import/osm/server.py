@@ -43,10 +43,16 @@ import randomTrips
 import sumolib
 import route2trips
 
+RANDOMSEED = "42"
 
 def build(handler, prefix, bbox=False):
     sumo = sumolib.checkBinary('sumo')
-    sumogui = sumolib.checkBinary('sumo-gui')
+
+    if bbox:
+        sumogui = sumolib.checkBinary('sumo-gui')
+    else:
+        # offline test mode
+        sumogui = sumo
 
     def callSumo(extraopts):
         guisettingsname = prefix + ".view.xml"
@@ -60,7 +66,7 @@ def build(handler, prefix, bbox=False):
 """)
         configname = prefix + ".sumocfg"
         print "Writing config file:", configname
-        opts = [sumo, "-n", netname, "-a", polyname, "--gui-settings-file", guisettingsname, "--save-configuration", configname]
+        opts = [sumo, "-n", netname, "-a", polyname, "--gui-settings-file", guisettingsname, "-v", "--no-step-log", "--save-configuration", configname]
         opts += extraopts
         subprocess.call(opts)
 
@@ -80,6 +86,7 @@ def build(handler, prefix, bbox=False):
         print "Calling osmGet"
         osmGet.get(["-b", bbox, "-p", prefix])
     else:
+        # offline test mode
         areaFactor = 1
 
     print "Calling osmBuild"
@@ -161,7 +168,7 @@ class Settings:
 
     #this method will be called to return an options array for randomTrips.py
     def parseTripOpts(self, netname, routename, areaFactor):
-        opts = ["-n", netname, "--fringe-factor", self.fringeFactor, "-p", self.period / areaFactor, "-r", routename, "-e", self.time]
+        opts = ["-n", netname, "--seed", RANDOMSEED, "--fringe-factor", self.fringeFactor, "-p", self.period / areaFactor, "-r", routename, "-e", self.time]
         opts += self.param
         return opts
 
@@ -313,9 +320,9 @@ if __name__ == "__main__":
         dh.rails.enable = True
         dh.ships.enable = True
 
-        dh.vehicles.period = 1
-        dh.pedestrians.period = 1
-        dh.rails.period = 5
+        dh.vehicles.period = 4
+        dh.pedestrians.period = 4
+        dh.rails.period = 10
         dh.ships.period = 200
         build(dh, *sys.argv[1:])
     else:

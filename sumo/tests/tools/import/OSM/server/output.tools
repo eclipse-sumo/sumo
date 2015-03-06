@@ -1,0 +1,182 @@
+Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
+Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
+Parsing nodes from osm-file 'osm_bbox.osm.xml'... 
+Found duplicate nodes. Substituting 1241955149 with 1026369077
+Found duplicate nodes. Substituting 1241955153 with 1241955144
+Found duplicate nodes. Substituting 2094266861 with 27410745
+Found duplicate nodes. Substituting 2454213455 with 2071423355
+Found duplicate nodes. Substituting 2477747597 with 1769589092
+Found duplicate nodes. Substituting 2710546371 with 2709412335
+Found duplicate nodes. Substituting 2710546372 with 2709412765
+Found duplicate nodes. Substituting 2710546373 with 2709412877
+Found duplicate nodes. Substituting 2710546374 with 2709412949
+Found duplicate nodes. Substituting 2710546375 with 2709406981
+Found duplicate nodes. Substituting 2710546385 with 2709412335
+Found duplicate nodes. Substituting 2710546387 with 2709412765
+Found duplicate nodes. Substituting 2710546389 with 2709412877
+Found duplicate nodes. Substituting 2710546391 with 2709412949
+Found duplicate nodes. Substituting 2710546393 with 2709406981
+Found duplicate nodes. Substituting 2710546403 with 2709412335
+Found duplicate nodes. Substituting 2710546404 with 2709412765
+Found duplicate nodes. Substituting 2710546405 with 2709412877
+Found duplicate nodes. Substituting 2710546406 with 2709412949
+Found duplicate nodes. Substituting 2710546407 with 2709406981
+Found duplicate nodes. Substituting 2710546413 with 2709412335
+Found duplicate nodes. Substituting 2710546423 with 2709412765
+Found duplicate nodes. Substituting 2710546453 with 2709412877
+Found duplicate nodes. Substituting 2710546485 with 2709412949
+Found duplicate nodes. Substituting 2710546513 with 2709406981
+Found duplicate nodes. Substituting 2721065868 with 2623839755
+Found duplicate nodes. Substituting 2721065877 with 2094266865
+Found duplicate nodes. Substituting 2777026023 with 2777026021
+Found duplicate nodes. Substituting 2777026105 with 2776837162
+Found duplicate nodes. Substituting 2841851001 with 307641771
+Found duplicate nodes. Substituting 2842307461 with 2842305914
+Found duplicate nodes. Substituting 2842307462 with 2842305915
+Found duplicate nodes. Substituting 2842307903 with 2842306163
+Found duplicate nodes. Substituting 2935222607 with 2935182602
+Found duplicate nodes. Substituting 2935223701 with 2935182602
+Found duplicate nodes. Substituting 2935229501 with 2935182602
+Found duplicate nodes. Substituting 3092811524 with 3092560687
+Found duplicate nodes. Substituting 3092811525 with 3092560690
+Found duplicate nodes. Substituting 3092817550 with 3092560662
+Found duplicate nodes. Substituting 3092818362 with 3092560684
+Found duplicate nodes. Substituting 3092818443 with 3092560474
+Found duplicate nodes. Substituting 3139370873 with 1447185655
+Found duplicate nodes. Substituting 3239759333 with 257237178
+Found duplicate nodes. Substituting 3276753106 with 429735126
+Found duplicate nodes. Substituting 3277662039 with 258083943
+Found duplicate nodes. Substituting 3287147821 with 539995491
+Found duplicate nodes. Substituting 3334358045 with 2166130450
+Found duplicate nodes. Substituting 3334358046 with 2166130454
+Found duplicate nodes. Substituting 3334358047 with 2166130452
+Found duplicate nodes. Substituting 3334358048 with 2166130458
+Found duplicate nodes. Substituting 3334358049 with 2166130456
+Found duplicate nodes. Substituting 3334358050 with 2166130461
+Found duplicate nodes. Substituting 3334358051 with 2166130460
+Found duplicate nodes. Substituting 3334358052 with 2166130465
+Found duplicate nodes. Substituting 3334358053 with 2166130463
+Found duplicate nodes. Substituting 3334358054 with 2166130475
+Found duplicate nodes. Substituting 3334358055 with 2166130473
+Found duplicate nodes. Substituting 3334358056 with 2166130478
+Found duplicate nodes. Substituting 3334358057 with 2166130477
+Found duplicate nodes. Substituting 3334358058 with 2166130482
+Found duplicate nodes. Substituting 3334358059 with 2166130480
+Found duplicate nodes. Substituting 3334358060 with 2166130486
+Found duplicate nodes. Substituting 3334358061 with 2166130484
+Found duplicate nodes. Substituting 3334358062 with 2166130489
+Found duplicate nodes. Substituting 3334358063 with 2166130487
+Found duplicate nodes. Substituting 3334358064 with 2166130491
+Found duplicate nodes. Substituting 3334358065 with 2245301689
+Found duplicate nodes. Substituting 3334358066 with 284557960
+Found duplicate nodes. Substituting 3334358068 with 2268185779
+Found duplicate nodes. Substituting 3334358069 with 197325375
+Found duplicate nodes. Substituting 3334358070 with 3060544357
+Found duplicate nodes. Substituting 3334358071 with 3075354372
+Found duplicate nodes. Substituting 3334358072 with 2166130493
+Found duplicate nodes. Substituting 3334358073 with 3075354371
+Found duplicate nodes. Substituting 3334358074 with 2166130497
+Found duplicate nodes. Substituting 3334358075 with 3060544356
+Found duplicate nodes. Substituting 3334358076 with 2166130500
+Found duplicate nodes. Substituting 3334358077 with 2245301690
+Found duplicate nodes. Substituting 3334358078 with 2166130504
+Found duplicate nodes. Substituting 3334358079 with 197325380
+Found duplicate nodes. Substituting 3334358080 with 2166130502
+Found duplicate nodes. Substituting 3334358081 with 2166130495
+Found duplicate nodes. Substituting 3334358082 with 2166130499
+done.
+Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
+Removing duplicate edges... done.
+Parsing relations from osm-file 'osm_bbox.osm.xml'... 
+done.
+ Removed 33 traffic lights before loading plain-XML
+ Import done:
+   2847 nodes loaded.
+   35 types loaded.
+   4189 edges loaded.
+Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
+Removing self-loops... done.
+Joining junction clusters... 
+done.
+ Joined 79 junction cluster(s).
+Removing empty nodes and geometry nodes... done.
+   598 nodes removed.
+Moving network to origin... done.
+Joining similar edges... done.
+Computing turning directions... 
+done.
+Guessing and setting on-/off-ramps... done.
+Sorting nodes' edges... done.
+Computing node shapes... 
+done.
+Computing edge shapes... done.
+Computing node types... done.
+Guessed 1174 pedestrian crossings.
+Computing priorities... done.
+Computing approached edges... done.
+Computing approaching lanes... done.
+Dividing of lanes on approached lanes... done.
+Processing turnarounds... done.
+Rechecking of lane endings... done.
+Assigning nodes to traffic lights... done.
+Joining traffic light nodes... done.
+Computing traffic light control information... done.
+Computing node logics... done.
+Computing traffic light logics... 
+done.
+ 33 traffic light(s) computed.
+Building inner edges... 
+done.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 471
+  Dead-end junctions          : 597
+  Priority junctions          : 874
+  Right-before-left junctions : 173
+ Network boundaries:
+  Original boundary  : 13.35,52.49,13.53,52.57
+  Applied offset     : -388415.86,-5817979.56
+  Converted boundary : 0.00,0.00,6080.75,5405.51
+-----------------------------------------------------
+Success.
+Parsing network projection from '/scr2/texttest_tmp/tools.06Mar150313.25620/tools/import/OSM/server/osm.net.xml'... done.
+Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
+Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
+Success.
+Success.
+Success.
+Success.
+Success.
+Success.
+Written configuration to 'osm.sumocfg'
+Loading configuration... done.
+Loading net-file from 'osm.net.xml'...  done (481ms).
+Loading additional-files from 'osm.poly.xml'...  done (81ms).
+Loading done.
+Simulation started with time: 0.00
+Simulation ended at time: 5608.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 25796ms
+ Real time factor: 217.398
+ UPS: 14558.187316
+Vehicles: 
+ Inserted: 1162
+ Running: 0
+ Waiting: 0
+Teleports: 13 (Jam: 5, Yield: 2, Wrong Lane: 6)
+
+DijkstraRouterTT answered 1191 queries and explored 623.15 edges on average.
+DijkstraRouterTT spent 289ms answering queries (0.24ms on average).
+Calling osmBuild
+Calling randomTrips
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.bicycles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.pedestrians.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.rails.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.ships.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+Writing gui settings file: osm.view.xml
+Writing config file: osm.sumocfg
+Calling SUMO GUI
+Done.

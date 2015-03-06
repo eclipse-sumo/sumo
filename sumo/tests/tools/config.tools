@@ -52,6 +52,7 @@ copy_test_path:fcd.xml
 copy_test_path:data.txt
 copy_test_path:source.csv
 copy_test_path:osm.xml
+copy_test_path:osm_bbox.osm.xml
 copy_test_path:weights.src.xml
 copy_test_path:weights.dst.xml
 copy_test_path:weights.via.xml
@@ -109,6 +110,8 @@ output:uration:
 output:<!-- generated on
 output:.* files checked{REPLACE <number> files checked}
 output:^calling.*duarouter
+output:Parsing network projection
+output:^Performance:{->}^Vehicles:
 trips:<!-- generated on
 pois:<!--
 routes:<!-- generated on

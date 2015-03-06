@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- generated on 2015-03-06 15:03:23.115661 by $Id: randomTrips.py 17235 2014-11-03 10:53:02Z behrisch $
+  options: osm
+-->
+<trips>
+    <vType id="ship" vClass="ship" />
+    <trip id="ship0" depart="0.00" from="180809009#0" to="-159534658#0"  type="ship"/>
+    <trip id="ship1" depart="200.00" from="-159534658#4" to="-180809009#0"  type="ship"/>
+    <trip id="ship2" depart="400.00" from="180809009#0" to="159534658#3"  type="ship"/>
+    <trip id="ship3" depart="600.00" from="180809009#1" to="-180809009#0"  type="ship"/>
+    <trip id="ship4" depart="800.00" from="-180809009#1" to="-159534658#1"  type="ship"/>
+    <trip id="ship5" depart="1000.00" from="-159534658#4" to="159534658#1"  type="ship"/>
+    <trip id="ship6" depart="1200.00" from="-159534658#0" to="-180809009#0"  type="ship"/>
+    <trip id="ship7" depart="1400.00" from="180809009#0" to="159534658#3"  type="ship"/>
+    <trip id="ship8" depart="1600.00" from="-159534658#4" to="159534658#3"  type="ship"/>
+    <trip id="ship9" depart="1800.00" from="180809009#0" to="-145662520"  type="ship"/>
+    <trip id="ship10" depart="2000.00" from="180809009#0" to="159534658#3"  type="ship"/>
+    <trip id="ship11" depart="2200.00" from="-159534658#4" to="-180809009#0"  type="ship"/>
+    <trip id="ship12" depart="2400.00" from="309903416#1" to="-180809009#0"  type="ship"/>
+    <trip id="ship13" depart="2600.00" from="-159534658#4" to="-180809009#0"  type="ship"/>
+    <trip id="ship14" depart="2800.00" from="180809009#0" to="159534658#3"  type="ship"/>
+    <trip id="ship15" depart="3000.00" from="180809009#0" to="159534658#3"  type="ship"/>
+    <trip id="ship16" depart="3200.00" from="180809009#0" to="321864252"  type="ship"/>
+    <trip id="ship17" depart="3400.00" from="-159534658#4" to="159534658#3"  type="ship"/>
+</trips>
