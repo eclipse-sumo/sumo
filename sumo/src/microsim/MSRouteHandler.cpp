@@ -676,7 +676,20 @@ MSRouteHandler::closeVehicle() {
     // try to build the vehicle
     SUMOVehicle* vehicle = 0;
     if (vehControl.getVehicle(myVehicleParameter->id) == 0) {
-        vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype, OptionsCont::getOptions().getBool("ignore-route-errors"));
+        const bool ignoreRouteErrors = OptionsCont::getOptions().getBool("ignore-route-errors");
+        try {
+            vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype, ignoreRouteErrors);
+        } catch (const ProcessError& e) {
+            if (ignoreRouteErrors) {
+                WRITE_WARNING(e.what());
+                vehControl.deleteVehicle(0, true);
+                myVehicleParameter = 0;
+                vehicle = 0;
+                return;
+            } else {
+                throw e;
+            }
+        }
         // maybe we do not want this vehicle to be inserted due to scaling
         unsigned int quota = vehControl.getQuota();
         if (quota > 0) {

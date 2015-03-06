@@ -51,3 +51,7 @@ disconnected_walk
 
 # position beyond the lanes end
 invalid_departpos
+first_edge_disallowed
+
+# with --ignore-route-errors
+first_edge_disallowed_ignore

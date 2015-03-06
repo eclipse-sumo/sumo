@@ -212,7 +212,9 @@ MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
     if (discard) {
         myDiscarded++;
     }
-    myVehicleDict.erase(veh->getID());
+    if (veh != 0) {
+        myVehicleDict.erase(veh->getID());
+    }
     delete veh;
 }
 
