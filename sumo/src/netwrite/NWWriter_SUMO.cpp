@@ -455,7 +455,7 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
             }
         }
     }
-    if (n.getType() != NODETYPE_DEAD_END) {
+    if (n.getType() != NODETYPE_DEAD_END && n.getType() != NODETYPE_NOJUNCTION) {
         for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
             intLanes += ' ' + (*it).id + "_0";
         }

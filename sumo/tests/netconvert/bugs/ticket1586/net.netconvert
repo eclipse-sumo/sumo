@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 11 14:26:02 2015 by SUMO netconvert Version dev-SVN-r17826ID
+<!-- generated on Fri Mar  6 13:41:40 2015 by SUMO netconvert Version dev-SVN-r18030I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -85,7 +85,7 @@
         <lane id="middle_3" index="3" disallow="pedestrian" speed="13.89" length="86.15" shape="167.86,1.67 81.70,2.35"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="170.82" y="0.00" incLanes="cyclepath_in_0 beg_0 beg_1 beg_2 :gneJ0_w0_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_1_1 :gneJ0_c0_0" shape="169.67,13.44 172.83,12.94 173.65,8.71 173.82,0.11 167.84,0.07 167.94,11.97"/>
+    <junction id="gneJ0" type="unregulated" x="170.82" y="0.00" incLanes="cyclepath_in_0 beg_0 beg_1 beg_2 :gneJ0_w0_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_1_1" shape="169.67,13.44 172.83,12.94 173.65,8.71 173.82,0.11 167.84,0.07 167.94,11.97"/>
     <junction id="gneJ1" type="priority" x="80.19" y="0.71" incLanes="middle_0 middle_1 middle_2 middle_3 :gneJ1_w0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_1_1 :gneJ1_c0_0" shape="81.78,12.65 81.69,0.75 74.68,0.85 74.82,9.45 74.83,12.73 77.74,14.04">
         <request index="0" response="1000" foes="1000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
