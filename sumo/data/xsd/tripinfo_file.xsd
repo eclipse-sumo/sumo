@@ -107,4 +107,17 @@
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
+
+    <xsd:element name="transport">
+        <xsd:complexType>
+            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="tranship">
+        <xsd:complexType>
+            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>
