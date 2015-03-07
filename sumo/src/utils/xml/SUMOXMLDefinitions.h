@@ -468,6 +468,7 @@ enum SumoXMLAttr {
 
     SUMO_ATTR_LON,
     SUMO_ATTR_LAT,
+    SUMO_ATTR_GEO,
     SUMO_ATTR_K,
     SUMO_ATTR_V,
     SUMO_ATTR_REF,

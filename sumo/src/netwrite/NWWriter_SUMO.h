@@ -93,9 +93,6 @@ public:
     /// @brief writes the traffic light logics to the given device
     static void writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont);
 
-    /// @brief writes the location element
-    static void writeLocation(OutputDevice& into);
-
     /// @brief writes allowed disallowed attributes if needed;
     static void writePermissions(OutputDevice& into, SVCPermissions permissions);
 

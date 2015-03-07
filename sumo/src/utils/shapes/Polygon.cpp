@@ -32,6 +32,7 @@
 
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StringUtils.h>
+#include <utils/geom/GeoConvHelper.h>
 #include "Polygon.h"
 using namespace SUMO;
 
@@ -56,14 +57,22 @@ Polygon::~Polygon() {}
 
 
 void 
-Polygon::writeXML(OutputDevice& out) {
+Polygon::writeXML(OutputDevice& out, bool geo) {
     out.openTag(SUMO_TAG_POLY);
     out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
     out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
     out.writeAttr(SUMO_ATTR_COLOR, getColor());
     out.writeAttr(SUMO_ATTR_FILL,  getFill());
     out.writeAttr(SUMO_ATTR_LAYER, getLayer());
-    out.writeAttr(SUMO_ATTR_SHAPE, getShape());
+    PositionVector shape = getShape();
+    if (geo) {
+        const GeoConvHelper& gch = GeoConvHelper::getFinal();
+        out.writeAttr(SUMO_ATTR_GEO, true);
+        for (int i = 0; i < (int) shape.size(); i++) {
+            GeoConvHelper::getFinal().cartesian2geo(shape[i]);
+        }
+    }
+    out.writeAttr(SUMO_ATTR_SHAPE, shape);
     if (getAngle() != Shape::DEFAULT_ANGLE) {
         out.writeAttr(SUMO_ATTR_ANGLE, getAngle());
     }

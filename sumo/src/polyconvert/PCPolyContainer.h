@@ -138,9 +138,10 @@ public:
 
     /** @brief Saves the stored polygons into the given file
      * @param[in] file The name of the file to write stored objects' definitions into
+     * @param[in] useGeo Whether to write output in geo-coordinates
      * @exception IOError If the file could not be opened
      */
-    void save(const std::string& file);
+    void save(const std::string& file, bool useGeo);
 
 
     /** @brief Retuns a unique id for a given name

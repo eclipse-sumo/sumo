@@ -4,7 +4,6 @@ use_name
 # same but without the osm.use-name option
 use_name.plain
 
-
 # using type name made from key/value pair
 keep_full_type
 
@@ -19,5 +18,4 @@ error_missing_key_way__ignored
 error_missing_node
 error_missing_shape
 error_missing_shape__ignored
-
-
+geo-output

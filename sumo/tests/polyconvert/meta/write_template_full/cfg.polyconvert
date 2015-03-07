@@ -40,6 +40,7 @@
         <proj value="!" type="STR" help="Uses STR as proj.4 definition for projection"/>
         <proj.inverse value="false" type="BOOL" help="Inverses projection"/>
         <proj.dhdnutm value="false" type="BOOL" help="Convert from Gauss-Krueger to UTM"/>
+        <proj.plain-geo value="false" type="BOOL" help="Write geo coordinates in output"/>
     </projection>
 
     <pruning>

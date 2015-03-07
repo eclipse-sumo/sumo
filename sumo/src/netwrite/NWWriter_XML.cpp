@@ -89,7 +89,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
 
     // write network offsets and projection to allow reconstruction of original coordinates
     if (!useGeo) {
-        NWWriter_SUMO::writeLocation(device);
+        GeoConvHelper::writeLocation(device);
     }
 
     // write nodes

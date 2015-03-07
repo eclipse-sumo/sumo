@@ -75,7 +75,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBDistrictCont& dc = nb.getDistrictCont();
 
     // write network offsets and projection
-    writeLocation(device);
+    GeoConvHelper::writeLocation(device);
 
     // write inner lanes
     bool origNames = oc.getBool("output.original-names");
@@ -755,25 +755,6 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
     if (logics.size() > 0) {
         into.lf();
     }
-}
-
-
-void
-NWWriter_SUMO::writeLocation(OutputDevice& into) {
-    const GeoConvHelper& geoConvHelper = GeoConvHelper::getFinal();
-    into.openTag(SUMO_TAG_LOCATION);
-    into.writeAttr(SUMO_ATTR_NET_OFFSET, geoConvHelper.getOffsetBase());
-    into.writeAttr(SUMO_ATTR_CONV_BOUNDARY, geoConvHelper.getConvBoundary());
-    if (geoConvHelper.usingGeoProjection()) {
-        into.setPrecision(GEO_OUTPUT_ACCURACY);
-    }
-    into.writeAttr(SUMO_ATTR_ORIG_BOUNDARY, geoConvHelper.getOrigBoundary());
-    if (geoConvHelper.usingGeoProjection()) {
-        into.setPrecision();
-    }
-    into.writeAttr(SUMO_ATTR_ORIG_PROJ, geoConvHelper.getProjString());
-    into.closeTag();
-    into.lf();
 }
 
 

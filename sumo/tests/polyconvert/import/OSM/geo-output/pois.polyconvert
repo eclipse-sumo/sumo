@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Mar  8 00:01:22 2015 by SUMO polyconvert Version dev-SVN-r18045
+<!-- generated on Sun Mar  8 00:00:38 2015 by SUMO polyconvert Version dev-SVN-r18045
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
 
     <input>
-        <dlr-navteq-poi-files value="dlr_navteq_pois.txt"/>
+        <osm-files value="osm.xml"/>
     </input>
 
     <output>
@@ -14,8 +14,9 @@
     </output>
 
     <projection>
-        <proj.scale value="5"/>
+        <proj.scale value="0"/>
         <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
     </projection>
 
     <report>
@@ -27,8 +28,6 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="360180.57,5781233.23,363758.16,5788908.83" origBoundary="1295257.000000,5216475.000000,1300801.000000,5223282.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
-
-    <poi id="1" type="unknown" color="51,128,255" layer="-1.00" x="363758.16" y="5781233.23"/>
-    <poi id="2" type="unknown" color="51,128,255" layer="-1.00" x="360180.57" y="5788908.83"/>
+    <poly id="-974" type="unknown" color="51,128,255" fill="0" layer="-1.000000" geo="1" shape="13.527302,52.425832 13.526713,52.426404 13.526699,52.426279 13.527275,52.426146 13.529100,52.426299"/>
+    <poi id="32266935" type="unknown" color="51,128,255" layer="-1.000000" lon="13.526713" lat="52.426404"/>
 </additional>

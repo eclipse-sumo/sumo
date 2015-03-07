@@ -38,6 +38,7 @@
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "GeoConvHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -437,6 +438,25 @@ void
 GeoConvHelper::resetLoaded() {
     myNumLoaded = 0;
 }
+
+
+void
+GeoConvHelper::writeLocation(OutputDevice& into) {
+    into.openTag(SUMO_TAG_LOCATION);
+    into.writeAttr(SUMO_ATTR_NET_OFFSET, myFinal.getOffsetBase());
+    into.writeAttr(SUMO_ATTR_CONV_BOUNDARY, myFinal.getConvBoundary());
+    if (myFinal.usingGeoProjection()) {
+        into.setPrecision(GEO_OUTPUT_ACCURACY);
+    }
+    into.writeAttr(SUMO_ATTR_ORIG_BOUNDARY, myFinal.getOrigBoundary());
+    if (myFinal.usingGeoProjection()) {
+        into.setPrecision();
+    }
+    into.writeAttr(SUMO_ATTR_ORIG_PROJ, myFinal.getProjString());
+    into.closeTag();
+    into.lf();
+}
+
 
 
 /****************************************************************************/

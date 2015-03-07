@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon May 12 12:04:57 2014 by SUMO polyconvert Version dev-SVN-r16348
+<!-- generated on Sun Mar  8 00:01:21 2015 by SUMO polyconvert Version dev-SVN-r18045
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -32,6 +32,8 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="399823.45,5809422.23,399986.69,5809486.66" origBoundary="13.526699,52.425832,13.529100,52.426404" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
     <poly id="-974" type="polygon.overpass" color="51,128,255" fill="0" layer="-1.00" shape="399863.40,5809422.23 399824.64,5809486.66 399823.45,5809472.85 399862.26,5809457.18 399986.69,5809471.75">
         <param key="class" value="polygon"/>
         <param key="name" value="p0045"/>

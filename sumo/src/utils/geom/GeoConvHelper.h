@@ -47,6 +47,7 @@
 // ===========================================================================
 class OptionsCont;
 class PositionVector;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -167,6 +168,9 @@ public:
 
     /// Returns the network offset
     const std::string& getProjString() const;
+
+    /// @brief writes the location element
+    static void writeLocation(OutputDevice& into);
 
 private:
     enum ProjectionMethod {
