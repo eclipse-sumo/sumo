@@ -169,7 +169,7 @@ NBOwnTLDef::getBestPair(EdgeVector& incoming) {
     used.push_back(*incoming.begin()); // the first will definitely be used
     // get the ones with the same priority
     int prio = getToPrio(*used.begin());
-    for (EdgeVector::iterator i = incoming.begin() + 1; i != incoming.end() && prio != getToPrio(*i); ++i) {
+    for (EdgeVector::iterator i = incoming.begin() + 1; i != incoming.end() && prio == getToPrio(*i); ++i) {
         used.push_back(*i);
     }
     //  if there only lower priorised, use these, too
