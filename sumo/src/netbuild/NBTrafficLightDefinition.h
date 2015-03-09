@@ -346,7 +346,7 @@ protected:
 
     /** @brief Build the list of participating edges
      */
-    void collectEdges();
+    virtual void collectEdges();
 
 
     /** @brief Computes the time vehicles may need to brake

@@ -227,6 +227,50 @@ NBLoadedSUMOTLDef::setType(TrafficLightType type) {
 
 
 void
+NBLoadedSUMOTLDef::collectEdges() {
+    if (myControlledLinks.size() == 0) {
+        NBTrafficLightDefinition::collectEdges();
+    }
+    myIncomingEdges.clear();
+    EdgeVector myOutgoing;
+    // collect the edges from the participating nodes
+    for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+        const EdgeVector& incoming = (*i)->getIncomingEdges();
+        copy(incoming.begin(), incoming.end(), back_inserter(myIncomingEdges));
+        const EdgeVector& outgoing = (*i)->getOutgoingEdges();
+        copy(outgoing.begin(), outgoing.end(), back_inserter(myOutgoing));
+    }
+    // check which of the edges are completely within the junction
+    // and which are uncontrolled as well (we already know myControlledLinks)
+    for (EdgeVector::iterator j = myIncomingEdges.begin(); j != myIncomingEdges.end();) {
+        NBEdge* edge = *j;
+        // an edge lies within the logic if it is outgoing as well as incoming
+        EdgeVector::iterator k = find(myOutgoing.begin(), myOutgoing.end(), edge);
+        if (k != myOutgoing.end()) {
+            if (myControlledInnerEdges.count(edge->getID()) == 0) {
+                bool controlled = false;
+                for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
+                    if ((*it).getFrom() == edge) {
+                        controlled = true;
+                        break;
+                    }
+                }
+                if (controlled) {
+                    myControlledInnerEdges.insert(edge->getID());
+                } else {
+                    myEdgesWithin.push_back(edge);
+                    (*j)->setIsInnerEdge();
+                    j = myIncomingEdges.erase(j);
+                    continue;
+                }
+            }
+        }
+        ++j;
+    }
+}
+
+
+void
 NBLoadedSUMOTLDef::collectLinks() {
     if (myControlledLinks.size() == 0) {
         // maybe we only loaded a different program for a default traffic light.

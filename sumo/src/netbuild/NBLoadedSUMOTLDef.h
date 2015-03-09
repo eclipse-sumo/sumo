@@ -137,6 +137,9 @@ protected:
      */
     void collectLinks();
 
+    /** @brief Build the list of participating edges
+     */
+    void collectEdges();
 
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] ec The edge container
