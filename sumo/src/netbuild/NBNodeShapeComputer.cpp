@@ -672,7 +672,7 @@ bool
 NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, SUMOReal absAngleDiff, 
         SUMOReal distance, SUMOReal threshold) {
     // check whether the two edges are on top of each other. In that case they should be joined
-    // @todo should differentiate accordint to sreadType
+    // @todo should differentiate according to spreadType
     const SUMOReal commonLength = MIN3(distance, e1->getGeometry().length(), e2->getGeometry().length());
     PositionVector geom1 = e1->getGeometry();
     PositionVector geom2 = e2->getGeometry();
