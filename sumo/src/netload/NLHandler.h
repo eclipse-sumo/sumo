@@ -330,6 +330,9 @@ protected:
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
 
+    /// @brief whether the location element was already loadee
+    bool myNetIsLoaded;
+
     /// @brief temporary data for building the junction graph after network parsing is finished
     typedef std::map<std::string, std::pair<std::string, std::string> > JunctionGraph;
     JunctionGraph myJunctionGraph;

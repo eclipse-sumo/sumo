@@ -78,7 +78,9 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myAmInTLLogicMode(false), myCurrentIsBroken(false),
     myHaveWarnedAboutDeprecatedLanes(false),
     myLastParameterised(0),
-    myHaveSeenInternalEdge(false) {}
+    myHaveSeenInternalEdge(false),
+    myNetIsLoaded(false)
+{}
 
 
 NLHandler::~NLHandler() {}
@@ -247,6 +249,7 @@ NLHandler::myEndElement(int element) {
             }
             //initialise traffic lights 
             myJunctionControlBuilder.postLoadInitialization();
+            myNetIsLoaded = true;
             break;
         default:
             break;
@@ -1001,6 +1004,10 @@ NLHandler::parseLinkState(const std::string& state) {
 // ----------------------------------
 void
 NLHandler::setLocation(const SUMOSAXAttributes& attrs) {
+    if (myNetIsLoaded) {
+        //WRITE_WARNING("POIs and Polygons should be loaded using option --po-files")
+        return;
+    }
     bool ok = true;
     PositionVector s = attrs.get<PositionVector>(SUMO_ATTR_NET_OFFSET, 0, ok);
     Boundary convBoundary = attrs.get<Boundary>(SUMO_ATTR_CONV_BOUNDARY, 0, ok);
