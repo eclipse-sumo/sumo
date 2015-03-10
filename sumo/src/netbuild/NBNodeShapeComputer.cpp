@@ -620,12 +620,13 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
             //    WRITE_WARNING("Ambigous angles at node '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
             //}
             if (fabs(angleDiff) < 20) {
+                const bool isOpposite = differentDirs && foundOpposite.count(*i) == 0;
+                if (isOpposite) {
+                    foundOpposite.insert(*i);
+                    foundOpposite.insert(*j);
+                }
                 // @todo in case of ambiguousGeometry it would be better to adapt the geoms instead of joining
-                if ((differentDirs && foundOpposite.count(*i) == 0) || ambiguousGeometry || badIntersection(*i, *j, fabs(angleDiff), 100, SUMO_const_laneWidth)) {
-                    if (differentDirs) {
-                        foundOpposite.insert(*i);
-                        foundOpposite.insert(*j);
-                    }
+                if (isOpposite || ambiguousGeometry || badIntersection(*i, *j, fabs(angleDiff), 100, SUMO_const_laneWidth)) {
                     if (same.find(*i) == same.end()) {
                         same[*i] = EdgeVector();
                     }
