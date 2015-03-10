@@ -579,6 +579,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
             geomsCW[*i] = (*i)->getGeometry();
         }
         // extend the boundary by extroplating it by 100m
+        Position positionAtNode = (*i)->getGeometry()[incoming ? -1 : 0];
         PositionVector g1 =
             myNode.hasIncoming(*i)
             ? (*i)->getCCWBoundaryLine(myNode)
@@ -594,8 +595,10 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
                 g1.lineAt(1).atan2DegreeAngle() : l1.atan2DegreeAngle());
         //
         for (j = i + 1; j != myNode.myAllEdges.end(); j++) {
+            const bool incoming2 = (*j)->getToNode() == &myNode;
             geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode);
             geomsCW[*j] = (*j)->getCWBoundaryLine(myNode);
+            Position positionAtNode2 = (*j)->getGeometry()[incoming2 ? -1 : 0];
             PositionVector g2 =
                 myNode.hasIncoming(*j)
                 ? (*j)->getCCWBoundaryLine(myNode)
@@ -612,7 +615,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
             // do not join edges which are both entering or both leaving. A
             // separation point must always be computed in later steps
             const SUMOReal angleDiff = l1.atan2DegreeAngle() - l2.atan2DegreeAngle();
-            const bool differentDirs = incoming ? (*j)->getFromNode() == &myNode : (*j)->getToNode() == &myNode;
+            const bool differentDirs = (incoming != incoming2);
             const SUMOReal angleDiffFurther = angle1further - angle2further;
             const bool ambiguousGeometry = ((angleDiff > 0 && angleDiffFurther < 0) || (angleDiff < 0 && angleDiffFurther > 0));
             //if (ambiguousGeometry) {
