@@ -303,65 +303,42 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         } else {
             // the angles are different enough to compute the intersection of
             // the outer boundaries directly (or there are more than 2 directions). The "nearer" neighbar causes the furthest distance
-            if (ccad < cad) {
-                if (!simpleContinuation) {
-                    if (geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                        distances[*i] = radius + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0];
-                        if (*cwi != *ccwi && geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                            SUMOReal a1 = distances[*i];
-                            SUMOReal a2 = radius + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0];
-                            if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
-                                SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
-                                if (mmin > 100) {
-                                    distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin - 100); //100 + 1.5;
-                                }
-                            } else  if (a2 > a1 + POSITION_EPS && a2 - a1 < (SUMOReal) 10) {
-                                distances[*i] = a2;
+            const bool ccwCloser = ccad < cad;
+            // the border facing the closer neighbor
+            const PositionVector& currGeom = ccwCloser ? geomsCCW[*i] : geomsCW[*i]; 
+            // the border facing the far neighbor
+            const PositionVector& currGeom2 = ccwCloser ? geomsCW[*i] : geomsCCW[*i]; 
+            // the border of the closer neighbor
+            const PositionVector& neighGeom = ccwCloser ? geomsCW[*ccwi] : geomsCCW[*cwi];
+            // the border of the far neighbor
+            const PositionVector& neighGeom2 = ccwCloser ? geomsCCW[*cwi] : geomsCW[*ccwi]; 
+            if (!simpleContinuation) {
+                if (currGeom.intersects(neighGeom)) {
+                    distances[*i] = radius + currGeom.intersectsAtLengths2D(neighGeom)[0];
+                    if (*cwi != *ccwi && currGeom2.intersects(neighGeom2)) {
+                        SUMOReal a1 = distances[*i];
+                        SUMOReal a2 = radius + currGeom2.intersectsAtLengths2D(neighGeom2)[0];
+                        if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
+                            SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
+                            if (mmin > 100) {
+                                distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin - 100); //100 + 1.5;
                             }
-                        }
-                    } else {
-                        if (*cwi != *ccwi && geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                            distances[*i] = radius + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0];
-                        } else {
-                            distances[*i] = 100 + radius;
+                        } else  if (a2 > a1 + POSITION_EPS && a2 - a1 < (SUMOReal) 10) {
+                            distances[*i] = a2;
                         }
                     }
                 } else {
-                    if (geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                        distances[*i] = geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0];
+                    if (*cwi != *ccwi && currGeom2.intersects(neighGeom2)) {
+                        distances[*i] = radius + currGeom2.intersectsAtLengths2D(neighGeom2)[0];
                     } else {
-                        distances[*i] = (SUMOReal) 100.;
+                        distances[*i] = 100 + radius;
                     }
                 }
             } else {
-                if (!simpleContinuation) {
-                    if (geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                        distances[*i] = (radius + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0]);
-                        if (*cwi != *ccwi && geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                            SUMOReal a1 = distances[*i];
-                            SUMOReal a2 = (radius + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0]);
-                            if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
-                                SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
-                                if (mmin > 100) {
-                                    distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin - 100); //100 + 1.5;
-                                }
-                            } else if (a2 > a1 + POSITION_EPS && a2 - a1 < (SUMOReal) 10) {
-                                distances[*i] = a2;
-                            }
-                        }
-                    } else {
-                        if (*cwi != *ccwi && geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                            distances[*i] = radius + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0];
-                        } else {
-                            distances[*i] = 100 + radius;
-                        }
-                    }
+                if (currGeom.intersects(neighGeom)) {
+                    distances[*i] = currGeom.intersectsAtLengths2D(neighGeom)[0];
                 } else {
-                    if (geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                        distances[*i] = geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0];
-                    } else {
-                        distances[*i] = (SUMOReal) 100;
-                    }
+                    distances[*i] = (SUMOReal) 100.;
                 }
             }
         }
