@@ -769,14 +769,6 @@ NBNodeShapeComputer::initNeighbors(const EdgeVector& edges, const EdgeVector::co
     if (cad > twoPI) {
         cad -= twoPI;
     }
-
-    if (simpleContinuation && ccad < DEG2RAD(45.)) {
-        ccad += twoPI;
-    }
-    if (simpleContinuation && cad < DEG2RAD(45.)) {
-        cad += twoPI;
-    }
-
 }
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 25 16:14:45 2015 by SUMO netconvert Version dev-SVN-r17962I
+<!-- generated on Tue Mar 10 14:40:55 2015 by SUMO netconvert Version dev-SVN-r18054I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -238,7 +238,7 @@
         <lane id="-7216737#3_1" index="1" speed="27.78" length="162.74" shape="483.60,118.94 636.23,104.89"/>
     </edge>
     <edge id="-7727483#0" from="294169342" to="38920501" name="Wegedornstraße" priority="6" type="highway.tertiary">
-        <lane id="-7727483#0_0" index="0" speed="22.22" length="4.46" shape="496.91,309.53 496.93,309.73"/>
+        <lane id="-7727483#0_0" index="0" speed="22.22" length="23.04" shape="496.91,309.53 496.93,309.73"/>
     </edge>
     <edge id="-7727483#1" from="261647692" to="294169342" name="Wegedornstraße" priority="6" type="highway.tertiary">
         <lane id="-7727483#1_0" index="0" speed="22.22" length="26.56" shape="494.45,280.95 496.32,302.63"/>
@@ -411,7 +411,7 @@
         <lane id="27441189_0" index="0" speed="22.22" length="13.78" shape="494.56,398.61 487.25,396.63"/>
     </edge>
     <edge id="27441289" from="59993001" to="38920501" name="Wegedornstraße" priority="6" type="highway.tertiary" spreadType="center" shape="486.97,382.40 493.84,346.12 495.47,311.99">
-        <lane id="27441289_0" index="0" speed="22.22" length="71.09" shape="487.56,379.30 493.84,346.12 494.87,324.48"/>
+        <lane id="27441289_0" index="0" speed="22.22" length="89.67" shape="487.56,379.30 493.84,346.12 494.43,333.82"/>
     </edge>
     <edge id="27445000" from="38919945" to="57343359" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="484.37,395.86 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 0.00,348.44">
         <lane id="27445000_0" index="0" speed="22.22" length="490.80" shape="481.29,395.12 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 3.17,348.50"/>
@@ -598,10 +598,10 @@
         <lane id="7216737#3_1" index="1" speed="27.78" length="162.74" shape="636.53,108.18 483.90,122.23"/>
     </edge>
     <edge id="7727482" from="38920501" to="56231397" name="Wegedornstraße" priority="6" type="highway.tertiary" spreadType="center" shape="495.47,311.99 498.64,344.10 500.40,385.30">
-        <lane id="7727482_0" index="0" speed="22.22" length="73.51" shape="496.67,324.11 498.64,344.10 500.25,381.73"/>
+        <lane id="7727482_0" index="0" speed="22.22" length="92.09" shape="497.62,333.74 498.64,344.10 500.25,381.73"/>
     </edge>
     <edge id="7727483#0" from="38920501" to="294169342" name="Wegedornstraße" priority="6" type="highway.tertiary">
-        <lane id="7727483#0_0" index="0" speed="22.22" length="4.46" shape="494.87,324.26 493.82,312.13"/>
+        <lane id="7727483#0_0" index="0" speed="22.22" length="23.04" shape="494.87,324.26 493.82,312.13"/>
     </edge>
     <edge id="7727483#1" from="294169342" to="261647692" name="Wegedornstraße" priority="6" type="highway.tertiary">
         <lane id="7727483#1_0" index="0" speed="22.22" length="26.56" shape="493.03,302.91 491.16,281.23"/>
@@ -1217,7 +1217,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="-7727483#0_0 27441289_0" intLanes="" shape="493.87,312.15 497.06,311.83 499.75,323.84 493.27,324.40 496.47,324.55">
+    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="-7727483#0_0 27441289_0" intLanes="" shape="496.03,333.89 499.21,333.58 499.75,323.84 493.27,324.40 492.83,333.74 496.03,333.89">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
