@@ -983,6 +983,7 @@ Warning: Could not use edge geometry for internal lane, node '956723422'.
 Warning: Could not use edge geometry for internal lane, node '961875311'.
 Warning: Could not use edge geometry for internal lane, node '98973667'.
 Warning: Could not use edge geometry for internal lane, node 'cluster_1509496403_2381159752'.
+Warning: Junction shape for 'cluster_2190311075_27412235' has distance 21.46 to its given position
 Warning: Could not use edge geometry for internal lane, node 'cluster_25661289_3345490416'.
 Warning: Could not use edge geometry for internal lane, node 'cluster_25661289_3345490416'.
 Warning: Junction shape for 'cluster_258485587_258485588_258485593_29219468_31154797' has distance 28.70 to its given position
@@ -2613,7 +2614,5 @@ Warning: The vehicle 'train358' has no valid route.
 Warning: No connection between '199579028#1' and '199425794#1' found.
 Warning: Mandatory edge '199425794#1' not reachable by vehicle 'train359'.
 Warning: The vehicle 'train359' has no valid route.
-Warning: Teleporting vehicle 'veh390'; waited too long (wrong lane), lane='4612963_1', time=1869.00.
-Warning: Vehicle 'veh390' ends teleporting on edge '4790808', time 1869.00.
-Warning: Teleporting vehicle 'veh500'; waited too long (wrong lane), lane='4612963_1', time=2633.00.
-Warning: Vehicle 'veh500' ends teleporting on edge '4790808', time 2633.00.
+Warning: Teleporting vehicle 'veh562'; waited too long (wrong lane), lane='4612963_2', time=2632.00.
+Warning: Vehicle 'veh562' ends teleporting on edge '156364566#0', time 2632.00.
