@@ -203,10 +203,6 @@ def main(options):
         if os.path.isfile(options.weightsprefix + VIA_SUFFIX):
             via_generator = RandomEdgeGenerator(net, LoadedProps(options.weightsprefix + VIA_SUFFIX))
 
-        source_generator.write_weights(options.weights_outprefix + SOURCE_SUFFIX)
-        sink_generator.write_weights(options.weights_outprefix + SINK_SUFFIX)
-        via_generator.write_weights(options.weights_outprefix + VIA_SUFFIX)
-
     edge_generator = RandomTripGenerator(source_generator, sink_generator, via_generator, options.intermediate)
 
     idx = 0
