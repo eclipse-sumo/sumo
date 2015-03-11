@@ -556,7 +556,7 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
         Position prev;
         for (int i = 0; i < (int) numPoints; i++) {
             Position current(ret_buf[i * 3 + 1], ret_buf[i * 3 + 3], myPosition.z());
-            if (prev != current) {
+            if (prev != current && !ISNAN(current.x()) && !ISNAN(current.y())) {
                 ret.push_back(current);
             }
             prev = current;
