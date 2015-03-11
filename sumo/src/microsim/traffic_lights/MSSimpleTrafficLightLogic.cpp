@@ -70,7 +70,7 @@ MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic() {
 
 // ------------ Switching and setting current rows
 SUMOTime
-MSSimpleTrafficLightLogic::trySwitch(bool) {
+MSSimpleTrafficLightLogic::trySwitch() {
     // check whether the current duration shall be increased
     if (myCurrentDurationIncrement > 0) {
         SUMOTime delay = myCurrentDurationIncrement;

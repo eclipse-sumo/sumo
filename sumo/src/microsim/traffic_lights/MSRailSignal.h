@@ -102,11 +102,10 @@ public:
     void updateCurrentPhase();
 
      /** @brief Switches to the next phase
-     * @param[in] isActive Whether this program is the currently used one
      * @return The time of the next switch (always the next step)
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch(bool isActive);
+    SUMOTime trySwitch();
 
     /// @}
 

@@ -151,7 +151,7 @@ public:
      * @param[in] isActive Whether this program is the currently used one
      * @return The time of the next switch
      */
-    virtual SUMOTime trySwitch(bool isActive) = 0;
+    virtual SUMOTime trySwitch() = 0;
 
 
     /** @brief Applies the current signal states to controlled links

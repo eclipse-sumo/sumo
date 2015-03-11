@@ -122,7 +122,7 @@ MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() {
 
 // ------------ Switching and setting current rows
 SUMOTime
-MSActuatedTrafficLightLogic::trySwitch(bool) {
+MSActuatedTrafficLightLogic::trySwitch() {
     // checks if the actual phase should be continued
     // @note any vehicles which arrived during the previous phases which are now waiting between the detector and the stop line are not
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector

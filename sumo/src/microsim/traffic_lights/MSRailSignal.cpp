@@ -34,7 +34,6 @@
 #include <vector>
 #include <bitset>
 #include <microsim/MSEventControl.h>
-//#include <microsim/output/MSInductLoop.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include "MSTrafficLightLogic.h"
@@ -42,8 +41,6 @@
 #include <microsim/MSLane.h>
 #include "MSPhaseDefinition.h"
 #include "MSTLLogicControl.h"
-//#include <netload/NLDetectorBuilder.h>
-//#include <utils/common/TplConvert.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -162,7 +159,7 @@ MSRailSignal::adaptLinkInformationFrom(const MSTrafficLightLogic& logic) {
 
 // ------------ Switching and setting current rows
 SUMOTime
-MSRailSignal::trySwitch(bool) {
+MSRailSignal::trySwitch() {
     updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
     return DELTA_T;

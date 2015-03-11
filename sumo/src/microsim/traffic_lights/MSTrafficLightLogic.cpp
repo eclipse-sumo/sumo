@@ -73,9 +73,9 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime t) {
         return 0;
     }
     //
-    bool isActive = myTLControl.isActive(myTLLogic);
+    const bool isActive = myTLControl.isActive(myTLLogic);
     size_t step1 = myTLLogic->getCurrentPhaseIndex();
-    SUMOTime next = myTLLogic->trySwitch(isActive);
+    SUMOTime next = myTLLogic->trySwitch();
     size_t step2 = myTLLogic->getCurrentPhaseIndex();
     if (step1 != step2) {
         if (isActive) {
