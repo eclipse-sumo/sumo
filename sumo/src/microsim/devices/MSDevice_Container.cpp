@@ -78,7 +78,6 @@ MSDevice_Container::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /
         if (veh.isStopped()) {
             for (std::vector<MSContainer*>::iterator i = myContainers.begin(); i != myContainers.end();) {
                 MSContainer* container = *i;
-                const MSContainerStop* currentDestinationStop = container->getDestinationContainerStop();
                 if (&(container->getDestination()) == veh.getEdge()){
                     if (!container->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
                         MSNet::getInstance()->getContainerControl().erase(container);

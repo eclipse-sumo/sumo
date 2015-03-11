@@ -207,11 +207,6 @@ MSContainer::MSContainerStage_Driving::getStageDescription() const {
 }
 
 MSContainerStop*
-MSContainer::MSContainerStage_Driving::getDestinationContainerStop() const {
-    return myDestinationContainerStop;
-}
-
-MSContainerStop*
 MSContainer::MSContainerStage_Driving::getDepartContainerStop() const {
     return myDepartContainerStop;
 }
@@ -293,11 +288,6 @@ MSContainer::MSContainerStage_Waiting::getWaitingTime(SUMOTime now) const {
 SUMOReal
 MSContainer::MSContainerStage_Waiting::getSpeed() const {
     return 0;
-}
-
-MSContainerStop*
-MSContainer::MSContainerStage_Waiting::getDestinationContainerStop() const{
-    return myCurrentContainerStop;
 }
 
 MSContainerStop*
@@ -418,11 +408,6 @@ MSContainer::MSContainerStage_Tranship::getWaitingTime(SUMOTime now) const {
 SUMOReal
 MSContainer::MSContainerStage_Tranship::getSpeed() const {
     return myContainerState->getSpeed(*this);
-}
-
-MSContainerStop*
-MSContainer::MSContainerStage_Tranship::getDestinationContainerStop() const {
-    return myDestinationContainerStop;
 }
 
 MSContainerStop*
@@ -551,11 +536,6 @@ MSContainer::getWaitingSeconds() const {
 SUMOReal 
 MSContainer::getSpeed() const {
     return (*myStep)->getSpeed();
-}
-
-MSContainerStop*
-MSContainer::getDestinationContainerStop() const {
-    return (*myStep)->getDestinationContainerStop();
 }
 
 MSContainerStop*

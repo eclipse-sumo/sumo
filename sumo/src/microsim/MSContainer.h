@@ -146,13 +146,6 @@ public:
 
         /* @brief Return the current ContainerStop or the destination containe stop
          *
-         * returns the current container stop if the stage=Waiting and the destination
-         * container stop if stage=Driving
-         */
-        virtual MSContainerStop* getDestinationContainerStop() const = 0;
-
-        /* @brief Return the current ContainerStop or the destination containe stop
-         *
          * returns the current container stop if the stage=Waiting and the
          * container stop from wich the container departs if stage=Driving
          */
@@ -251,9 +244,6 @@ public:
          * will be returned.
          */
         SUMOReal getSpeed() const;
-
-        /// @brief returns the current destination container stop
-        MSContainerStop* getDestinationContainerStop() const;
 
         /// @brief returns the container stop from which the container departs
         MSContainerStop* getDepartContainerStop() const;
@@ -357,13 +347,6 @@ public:
         std::string getStageDescription() const {
             return "waiting (" + myActType + ")";
         }
-
-        /* @brief returns the container stop at which the container is waiting 
-         *
-         * this method was added to have a method 'getDestinationContainerStop'
-         * for MSContainer.
-         */
-        MSContainerStop* getDestinationContainerStop() const;
 
         /* @brief returns the container stop at which the container is waiting 
          *
@@ -476,9 +459,6 @@ public:
             return "tranship";
         }
         
-        /// @brief returns the current destination container stop
-        MSContainerStop* getDestinationContainerStop() const;
-
         /// @brief returns the container stop from which the container departs
         MSContainerStop* getDepartContainerStop() const;
 
@@ -665,13 +645,6 @@ public:
     MSContainerStage* getCurrentStage() const {
         return *myStep;
     }
-
-    /* @brief Return the current ContainerStop or the destination containe stop
-     *
-     * returns the current container stop if the stage=Waiting and the destination
-     * container stop if stage=Driving
-     */
-    virtual MSContainerStop* getDestinationContainerStop() const;
 
     /* @brief Return the current ContainerStop or the destination containe stop
      *
