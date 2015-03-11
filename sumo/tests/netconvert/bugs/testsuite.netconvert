@@ -73,3 +73,6 @@ ticket1586b
 
 # all lanes allow pedestrians only
 ticket1586c
+
+# computing node shape with corner detail failed
+ticket1674
