@@ -145,7 +145,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
         }
     }
     updateCurrentPhase();   //check if this is necessary or if will be done already at another stage
-    setTrafficLightSignals(SIMTIME);
+    setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
 }
 
 
@@ -164,7 +164,7 @@ MSRailSignal::adaptLinkInformationFrom(const MSTrafficLightLogic& logic) {
 SUMOTime
 MSRailSignal::trySwitch(bool) {
     updateCurrentPhase();
-    setTrafficLightSignals(SIMTIME);
+    setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
     return DELTA_T;
 }
 
