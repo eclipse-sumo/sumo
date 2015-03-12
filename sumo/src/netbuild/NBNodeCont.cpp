@@ -371,6 +371,13 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
 }
 
 
+void
+NBNodeCont::avoidOverlap() {
+    for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
+        (*i).second->avoidOverlap();
+    }
+}
+
 // ----------- (Helper) methods for joining nodes
 void
 NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {

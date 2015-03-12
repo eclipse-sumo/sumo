@@ -189,6 +189,11 @@ public:
     void joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
 
+    /** @brief fix overlap
+     */
+    void avoidOverlap();
+
+
     /** @brief Removes sequences of edges that are not connected with a junction.
      * Simple roads without junctions sometimes remain when converting from OpenStreetMake,
      * but they make no sense. Remaining empty nodes are also deleted.

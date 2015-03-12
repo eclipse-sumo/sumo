@@ -2016,7 +2016,10 @@ NBEdge::hasSignalisedConnectionTo(const NBEdge* const e) const {
 
 
 NBEdge*
-NBEdge::getTurnDestination() const {
+NBEdge::getTurnDestination(bool possibleDestination) const {
+    if (myTurnDestination == 0 && possibleDestination) {
+        return myPossibleTurnDestination;
+    }
     return myTurnDestination;
 }
 
@@ -2353,6 +2356,19 @@ NBEdge::shiftToLanesToEdge(NBEdge* to, unsigned int laneOff) {
         if ((*it).toEdge == to && (*it).toLane >= 0) {
             (*it).toLane += laneOff;
         }
+    }
+}
+
+
+void 
+NBEdge::shiftPositionAtNode(NBNode* node) {
+    PositionVector tmp = myGeom;
+    tmp.move2side((getTotalWidth() + SUMO_const_laneOffset) / 2);
+    if (node == myTo) {
+        myGeom.back() = tmp.back();
+    } else {
+        assert(node == myFrom);
+        myGeom.front() = tmp.front();
     }
 }
 

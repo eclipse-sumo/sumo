@@ -636,6 +636,11 @@ public:
     /// @brief return the number of lane-to-lane connections at this junction (excluding crossings)
     int numNormalConnections() const;
 
+    /** @brief fix overlap
+     */
+    void avoidOverlap();
+
+
     /**
      * @class nodes_by_id_sorter
      * @brief Used for sorting the cells by the begin time they describe

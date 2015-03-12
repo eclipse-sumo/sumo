@@ -574,6 +574,10 @@ public:
      */
     void addGeometryPoint(int index, const Position& p);
 
+    /** @brief shift geometry at the given node
+     * to avoid overlap
+     */
+    void shiftPositionAtNode(NBNode* node);
 
     /** @brief Recomputeds the lane shapes to terminate at the node shape
      * For every lane the intersection with the fromNode and toNode is
@@ -977,7 +981,11 @@ public:
 
     void moveOutgoingConnectionsFrom(NBEdge* e, unsigned int laneOff);
 
-    NBEdge* getTurnDestination() const;
+    /* @brief return the turn destination if it exists
+     * @param[in] possibleDestination Wether myPossibleTurnDestination should be returned if no turnaround connection
+     * exists
+     */
+    NBEdge* getTurnDestination(bool possibleDestination=false) const;
 
     std::string getLaneID(unsigned int lane) const;
 

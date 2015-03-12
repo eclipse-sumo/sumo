@@ -193,6 +193,8 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_BEGIN_MESSAGE("Computing turning directions");
     NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
     PROGRESS_DONE_MESSAGE();
+    // correct edge geometries to avoid overlap
+    myNodeCont.avoidOverlap();
     // guess ramps
     if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");

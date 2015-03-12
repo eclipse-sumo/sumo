@@ -2253,5 +2253,26 @@ NBNode::getNodeIDFromInternalLane(const std::string id) {
     return id.substr(1, sep_index - 1);
 }
 
+
+void
+NBNode::avoidOverlap() {
+    // simple case: edges with LANESPREAD_CENTER and a (possible) turndirection at the same node
+    for (EdgeVector::iterator it = myIncomingEdges.begin(); it != myIncomingEdges.end(); it++) {
+        NBEdge* edge = *it;
+        NBEdge* turnDest = edge->getTurnDestination(true);
+        if (turnDest != 0) {
+            if (edge->getLaneSpreadFunction() == LANESPREAD_CENTER 
+                    && edge->getGeometry().back() == myPosition) {
+                edge->shiftPositionAtNode(this);
+            }
+            if (turnDest->getLaneSpreadFunction() == LANESPREAD_CENTER 
+                    && turnDest->getGeometry().front() == myPosition) {
+                turnDest->shiftPositionAtNode(this);
+            }
+        }
+    }
+    // @todo: edges in the same direction with sharp angles starting/ending at the same position
+}
+
 /****************************************************************************/
 
