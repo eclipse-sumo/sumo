@@ -131,8 +131,8 @@ done.
 Summary:
  Node type statistics:
   Unregulated junctions       : 471
-  Dead-end junctions          : 597
-  Priority junctions          : 874
+  Dead-end junctions          : 605
+  Priority junctions          : 866
   Right-before-left junctions : 173
  Network boundaries:
   Original boundary  : 13.35,52.49,13.53,52.57
@@ -140,7 +140,7 @@ Summary:
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
 Success.
-Parsing network projection from 'D:\erdm_ja\home\.texttest\tmp\tools.12Mar183835.5684\tools\import\OSM\server\osm.net.xml'... done.
+Parsing network projection from 'D:\erdm_ja\home\.texttest\tmp\tools.12Mar230614.6096\tools\import\OSM\server\osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
@@ -151,24 +151,23 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (633ms).
-Loading additional-files from 'osm.poly.xml'...  done (123ms).
+Loading net-file from 'osm.net.xml'...  done (1366ms).
+Loading additional-files from 'osm.poly.xml'...  done (241ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 5610.00
+Simulation ended at time: 5479.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 39169ms
- Real time factor: 143.226
- UPS: 9142.357477
+ Duration: 45088ms
+ Real time factor: 121.518
+ UPS: 8714.691270
 Vehicles: 
- Inserted: 1162
+ Inserted: 1262
  Running: 0
  Waiting: 0
-Teleports: 1 (Wrong Lane: 1)
 
-DijkstraRouterTT answered 1198 queries and explored 623.19 edges on average.
-DijkstraRouterTT spent 378ms answering queries (0.32ms on average).
+DijkstraRouterTT answered 1315 queries and explored 639.59 edges on average.
+DijkstraRouterTT spent 503ms answering queries (0.38ms on average).
 Calling osmBuild
 Calling randomTrips
 calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log

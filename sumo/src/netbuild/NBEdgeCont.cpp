@@ -667,11 +667,20 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
     }
     speed /= edges.size();
     // build the new edge
-    // @bug new edge does not know about allowed vclass of old edges
-    // @bug both the width and the offset are not regarded
     NBEdge* newEdge = new NBEdge(id, from, to, "", speed, nolanes, priority,
                                  NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                  tpledge->getStreetName(), tpledge->myLaneSpreadFunction);
+    // copy lane attributes
+    int laneIndex = 0;
+    for (i = edges.begin(); i != edges.end(); ++i) {
+        const std::vector<NBEdge::Lane>& lanes = (*i)->getLanes();
+        for (int j = 0; j < (int)lanes.size(); ++j) {
+            newEdge->setPermissions(lanes[j].permissions, laneIndex);
+            newEdge->setLaneWidth(laneIndex, lanes[j].width);
+            newEdge->setEndOffset(laneIndex, lanes[j].endOffset);
+            laneIndex++;
+        }
+    }
     insert(newEdge, true);
     // replace old edge by current within the nodes
     //  and delete the old
