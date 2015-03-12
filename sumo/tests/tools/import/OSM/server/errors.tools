@@ -610,7 +610,7 @@ Warning: Found sharp turn with radius 7.36 at the start of edge 272795503#0
 Warning: Found sharp turn with radius 3.14 at the start of edge 272795506#0
 Warning: Found sharp turn with radius 2.81 at the end of edge 272795506#1
 Warning: Found sharp turn with radius 5.69 at the start of edge 274513575#1
-Warning: Found sharp turn with radius 6.96 at the start of edge 274513577#0
+Warning: Found sharp turn with radius 1.92 at the start of edge 274513577#0
 Warning: Found sharp turn with radius 4.51 at the end of edge 274513581#1
 Warning: Found angle of 179.51 degrees at edge 274524371, segment 0
 Warning: Found sharp turn with radius 0.01 at the start of edge 274524371
@@ -766,13 +766,12 @@ Warning: Could not use edge geometry for internal lane, node '1864428535'.
 Warning: Could not use edge geometry for internal lane, node '1864428535'.
 Warning: Junction shape for '196721246' has distance 41.43 to its given position
 Warning: Junction shape for '2071374815' has distance 33.62 to its given position
-Warning: Junction shape for '2071374842' has distance 23.59 to its given position
-Warning: Junction shape for '2071374916' has distance 34.57 to its given position
 Warning: Could not use edge geometry for internal lane, node '2071423312'.
 Warning: Could not use edge geometry for internal lane, node '2071423312'.
 Warning: Could not use edge geometry for internal lane, node '2071423322'.
 Warning: Could not use edge geometry for internal lane, node '2071423322'.
 Warning: Could not use edge geometry for internal lane, node '2071423356'.
+Warning: Could not use edge geometry for internal lane, node '2094266949'.
 Warning: Junction shape for '2095738463' has distance 21.77 to its given position
 Warning: Could not use edge geometry for internal lane, node '21432801'.
 Warning: Could not use edge geometry for internal lane, node '21487220'.
@@ -787,6 +786,7 @@ Warning: Could not use edge geometry for internal lane, node '2601268881'.
 Warning: Could not use edge geometry for internal lane, node '2601268881'.
 Warning: Could not use edge geometry for internal lane, node '2601268923'.
 Warning: Could not use edge geometry for internal lane, node '2601268923'.
+Warning: Could not use edge geometry for internal lane, node '2601268931'.
 Warning: Could not use edge geometry for internal lane, node '2601268950'.
 Warning: Could not use edge geometry for internal lane, node '2601268950'.
 Warning: Could not use edge geometry for internal lane, node '2601268963'.
@@ -839,6 +839,7 @@ Warning: Could not use edge geometry for internal lane, node '2680763557'.
 Warning: Could not use edge geometry for internal lane, node '27411306'.
 Warning: Could not use edge geometry for internal lane, node '27411306'.
 Warning: Could not use edge geometry for internal lane, node '275525457'.
+Warning: Junction shape for '276689702' has distance 24.21 to its given position
 Warning: Could not use edge geometry for internal lane, node '2776837186'.
 Warning: Could not use edge geometry for internal lane, node '2776837188'.
 Warning: Could not use edge geometry for internal lane, node '2776837188'.
@@ -851,7 +852,6 @@ Warning: Could not use edge geometry for internal lane, node '2776837202'.
 Warning: Could not use edge geometry for internal lane, node '2776837204'.
 Warning: Could not use edge geometry for internal lane, node '2776837206'.
 Warning: Could not use edge geometry for internal lane, node '2776837206'.
-Warning: Could not use edge geometry for internal lane, node '2776837207'.
 Warning: Could not use edge geometry for internal lane, node '2776837208'.
 Warning: Could not use edge geometry for internal lane, node '2776837208'.
 Warning: Could not use edge geometry for internal lane, node '2776837211'.
@@ -1054,10 +1054,6 @@ Warning: The traffic light 'GS_961984606' does not control any links; it will no
 Warning: Could not build program '0' for traffic light 'GS_961984606'
 Warning: The traffic light 'GS_cluster_1448294081_2900797856_440880501' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'GS_cluster_1448294081_2900797856_440880501'
-Warning: Connection '148458495_0->148457212#0_0' is only 0.07 short.
-Warning: Connection '196844848_0->25946685#2_0' is only 0.09 short.
-Warning: Connection '196844845_0->29384660#1_0' is only 0.09 short.
-Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
 Warning: Connection '156364559#1_2->4612961_2' is only 0.09 short.
 Warning: Connection '203422459_0->32590433#2_0' is only 0.02 short.
 Warning: No connection between '83517336#3' and '24914141#1' found.
@@ -2614,5 +2610,5 @@ Warning: The vehicle 'train358' has no valid route.
 Warning: No connection between '199579028#1' and '199425794#1' found.
 Warning: Mandatory edge '199425794#1' not reachable by vehicle 'train359'.
 Warning: The vehicle 'train359' has no valid route.
-Warning: Teleporting vehicle 'veh562'; waited too long (wrong lane), lane='4612963_2', time=2632.00.
-Warning: Vehicle 'veh562' ends teleporting on edge '156364566#0', time 2632.00.
+Warning: Teleporting vehicle 'veh500'; waited too long (wrong lane), lane='4612963_1', time=2633.00.
+Warning: Vehicle 'veh500' ends teleporting on edge '4790808', time 2633.00.

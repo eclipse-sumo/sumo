@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 19 16:37:40 2014 by SUMO netconvert Version dev-SVN-r15637
+<!-- generated on 03/12/15 18:02:21 by SUMO netconvert Version dev-SVN-r18063
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -261,7 +261,7 @@
     <edge id="27437972#4" from="56242441" to="301292612" name="Rudower Chaussee" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" spreadType="center"/>
     <edge id="27441168" from="59993001" to="56231397" name="Rudower Chaussee" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" spreadType="center"/>
     <edge id="27441189" from="301292612" to="38919945" name="Rudower Chaussee" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" spreadType="center"/>
-    <edge id="27441289" from="59993001" to="38920501" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" shape="13.526752,52.428754 13.526864,52.428429 13.526898,52.428123" spreadType="center"/>
+    <edge id="27441289" from="59993001" to="38920501" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" shape="13.526752,52.428754 13.526864,52.428429 13.526874,52.428122" spreadType="center"/>
     <edge id="27445000" from="38919945" to="57343359" name="Rudower Chaussee" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" shape="13.526709,52.428875 13.525289,52.428649 13.524066,52.428533 13.522392,52.428438 13.521568,52.428407 13.519602,52.428360" spreadType="center"/>
     <edge id="27445003" from="56231397" to="301292612" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" spreadType="center"/>
     <edge id="27445015#0" from="56231397" to="56231598" name="Rudower Chaussee" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" spreadType="center"/>
@@ -322,7 +322,7 @@
     <edge id="7216737#1" from="36268421" to="261636678" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" numLanes="2" speed="27.78"/>
     <edge id="7216737#2" from="261636678" to="36268369" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" numLanes="2" speed="27.78" shape="13.536086,52.425910 13.535048,52.425928 13.533400,52.426001 13.531039,52.426132 13.529100,52.426299"/>
     <edge id="7216737#3" from="36268369" to="32266935" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" numLanes="2" speed="27.78"/>
-    <edge id="7727482" from="38920501" to="56231397" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" shape="13.526898,52.428123 13.526935,52.428412 13.526948,52.428783" spreadType="center"/>
+    <edge id="7727482" from="38920501" to="56231397" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" shape="13.526922,52.428122 13.526935,52.428412 13.526948,52.428783" spreadType="center"/>
     <edge id="7727483#0" from="38920501" to="294169342" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22"/>
     <edge id="7727483#1" from="294169342" to="261647692" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22"/>
     <edge id="7727483#2" from="261647692" to="261647702" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" shape="13.526868,52.427845 13.526822,52.427416 13.526777,52.426999 13.526758,52.426821"/>

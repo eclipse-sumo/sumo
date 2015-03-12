@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 24 15:45:09 2015 by SUMO netconvert Version dev-SVN-r17955I
+<!-- generated on 03/12/15 18:02:04 by SUMO netconvert Version dev-SVN-r18063
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,7 +31,7 @@
     <location netOffset="-681043.90,-5705098.27" convBoundary="0.00,0.00,793.35,615.19" origBoundary="5.538970,51.449400,5.678834,51.482295" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":42722822_0" function="internal">
-        <lane id=":42722822_0_0" index="0" speed="7.72" length="4.77" shape="138.33,615.16 138.99,613.85 139.75,613.34 140.61,613.64 141.57,614.75"/>
+        <lane id=":42722822_0_0" index="0" speed="7.72" length="4.56" shape="141.56,615.05 140.87,616.27 140.12,616.72 139.31,616.39 138.45,615.28"/>
     </edge>
     <edge id=":7152678.-165_0" function="internal">
         <lane id=":7152678.-165_0_0" index="0" speed="3.86" length="4.47" shape="360.33,469.87 357.46,468.96"/>
@@ -119,13 +119,13 @@
         <lane id="7152616_0" index="0" speed="7.72" length="378.75" shape="190.20,381.71 334.46,31.51"/>
         <lane id="7152616_1" index="1" speed="7.72" length="378.75" shape="193.25,382.97 337.52,32.77"/>
     </edge>
-    <edge id="7152669" from="cluster_42717004_42717128_42717332_42717527" to="42722822" priority="7" spreadType="center" shape="201.89,418.23 145.47,558.61 140.51,580.70 139.98,615.19">
-        <lane id="7152669_0" index="0" speed="7.72" length="200.41" shape="200.52,426.06 147.00,559.23 142.16,580.90 141.64,614.74"/>
-        <lane id="7152669_1" index="1" speed="7.72" length="200.41" shape="197.46,424.83 143.94,557.99 138.86,580.50 138.33,615.16"/>
+    <edge id="7152669" from="cluster_42717004_42717128_42717332_42717527" to="42722822" priority="7" spreadType="center" shape="201.89,418.23 145.47,558.61 140.51,580.70 143.23,615.24">
+        <lane id="7152669_0" index="0" speed="7.72" length="200.48" shape="200.52,426.06 147.00,559.23 142.17,580.82 144.85,614.80"/>
+        <lane id="7152669_1" index="1" speed="7.72" length="200.48" shape="197.46,424.83 143.94,557.99 138.85,580.58 141.56,615.05"/>
     </edge>
-    <edge id="7152674" from="42722822" to="cluster_42717004_42717128_42717332_42717527" priority="7" spreadType="center" shape="139.98,615.19 135.67,599.45 133.49,582.67 133.71,557.08 145.29,505.16 180.64,411.27">
-        <lane id="7152674_0" index="0" speed="7.72" length="205.80" shape="138.26,615.16 134.08,599.89 131.85,582.88 132.06,556.89 143.68,504.80 176.88,416.56"/>
-        <lane id="7152674_1" index="1" speed="7.72" length="205.80" shape="141.57,614.75 137.26,599.01 135.13,582.46 135.36,557.27 146.90,505.52 179.95,417.79"/>
+    <edge id="7152674" from="42722822" to="cluster_42717004_42717128_42717332_42717527" priority="7" spreadType="center" shape="136.85,616.05 135.67,599.45 133.49,582.67 133.71,557.08 145.29,505.16 180.64,411.27">
+        <lane id="7152674_0" index="0" speed="7.72" length="205.71" shape="135.15,615.53 134.02,599.57 131.85,582.88 132.06,556.89 143.68,504.80 176.88,416.56"/>
+        <lane id="7152674_1" index="1" speed="7.72" length="205.71" shape="138.45,615.28 137.32,599.33 135.13,582.46 135.36,557.27 146.90,505.52 179.95,417.79"/>
     </edge>
     <edge id="7152678" from="42720124" to="7152678.-165" priority="9" spreadType="center" shape="773.49,545.46 691.74,535.85 631.43,527.00 490.46,498.94 363.63,469.07 359.32,467.87">
         <lane id="7152678_0" index="0" speed="3.86" length="420.28" shape="773.30,547.10 691.55,537.49 631.19,528.63 490.14,500.56 363.26,470.68 360.33,469.87"/>
@@ -167,7 +167,7 @@
     <junction id="42716127" type="unregulated" x="0.00" y="345.87" incLanes="7152684_0 7152684_1" intLanes="" shape="-1.20,348.89 1.20,342.85"/>
     <junction id="42719485" type="unregulated" x="793.35" y="522.74" incLanes="7152680_0 7152680_1" intLanes="" shape="793.70,519.51 793.00,525.97"/>
     <junction id="42720124" type="unregulated" x="773.89" y="542.08" incLanes="" intLanes="" shape="773.87,542.23 773.11,548.68"/>
-    <junction id="42722822" type="priority" x="139.98" y="615.19" incLanes="7152669_0 7152669_1" intLanes=":42722822_0_0" shape="143.11,614.33 136.85,616.05 143.23,615.24 136.73,615.14">
+    <junction id="42722822" type="priority" x="139.98" y="615.19" incLanes="7152669_0 7152669_1" intLanes=":42722822_0_0" shape="140.04,615.19 133.56,615.64 146.45,614.68 139.97,615.19">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="7152678.-165" type="priority" x="360.23" y="464.60" incLanes="7152678_0 7152678_1" intLanes=":7152678.-165_0_0 :7152678.-165_0_1 :7152678.-165_0_2 :7152678.-165_0_3" shape="359.90,471.41 361.64,465.15 360.55,457.89 357.03,470.51">
