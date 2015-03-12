@@ -138,7 +138,7 @@ CState::getSpeed(const MSContainer::MSContainerStage_Tranship& stage) const {
 
 
 SUMOTime
-CState::computeTranshipTime(const MSEdge* prev, const MSContainer::MSContainerStage_Tranship& stage, SUMOTime currentTime) {
+CState::computeTranshipTime(const MSEdge* /* prev */, const MSContainer::MSContainerStage_Tranship& stage, SUMOTime currentTime) {
     myLastEntryTime = currentTime;
 
     myCurrentBeginPos = stage.getDepartPos();  

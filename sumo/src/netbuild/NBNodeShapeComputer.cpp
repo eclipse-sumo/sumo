@@ -238,7 +238,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         EdgeVector::const_iterator ccwi = i;
         SUMOReal ccad;
         SUMOReal cad;
-        initNeighbors(newAll, i, simpleContinuation, geomsCW, geomsCCW, cwi, ccwi, cad, ccad);
+        initNeighbors(newAll, i, geomsCW, geomsCCW, cwi, ccwi, cad, ccad);
         assert(geomsCCW.find(*i) != geomsCCW.end());
         assert(geomsCW.find(*ccwi) != geomsCW.end());
         assert(geomsCW.find(*cwi) != geomsCW.end());
@@ -352,7 +352,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         EdgeVector::const_iterator ccwi = i;
         SUMOReal ccad;
         SUMOReal cad;
-        initNeighbors(newAll, i, simpleContinuation, geomsCW, geomsCCW, cwi, ccwi, cad, ccad);
+        initNeighbors(newAll, i,  geomsCW, geomsCCW, cwi, ccwi, cad, ccad);
         assert(geomsCCW.find(*i) != geomsCCW.end());
         assert(geomsCW.find(*ccwi) != geomsCW.end());
         assert(geomsCW.find(*cwi) != geomsCW.end());
@@ -726,7 +726,6 @@ NBNodeShapeComputer::computeUniqueDirectionList(
 
 void 
 NBNodeShapeComputer::initNeighbors(const EdgeVector& edges, const EdgeVector::const_iterator& current,
-        bool simpleContinuation,
         GeomsMap& geomsCW,
         GeomsMap& geomsCCW,
         EdgeVector::const_iterator& cwi,

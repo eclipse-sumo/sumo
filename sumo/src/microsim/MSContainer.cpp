@@ -355,7 +355,7 @@ MSContainer::MSContainerStage_Tranship::~MSContainerStage_Tranship() {
 }
 
 void
-MSContainer::MSContainerStage_Tranship::proceed(MSNet* net, MSContainer* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at) {
+MSContainer::MSContainerStage_Tranship::proceed(MSNet* /* net */, MSContainer* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at) {
     previousEdge->removeContainer(container);
     myRouteStep = myRoute.end() - 1;   //define that the container is already on its destination edge
     MSNet::getInstance()->getContainerControl().setTranship(container);
@@ -401,7 +401,7 @@ MSContainer::MSContainerStage_Tranship::getAngle(SUMOTime now) const {
 }
 
 SUMOTime
-MSContainer::MSContainerStage_Tranship::getWaitingTime(SUMOTime now) const {
+MSContainer::MSContainerStage_Tranship::getWaitingTime(SUMOTime /* now */) const {
     return 0;
 }
 

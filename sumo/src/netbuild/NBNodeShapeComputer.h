@@ -134,7 +134,6 @@ private:
     /** @brief Initialize neighbors and angles
      * @param[in] edges The list of edges sorted in clockwise direction
      * @param[in] current An iterator to the current edge
-     * @param[in] simpleContinuation Whether myNode is a simple continuation node (geometrylike)
      * @param[in] geomsCW geometry map
      * @param[in] geomsCCW geometry map
      * @param[out] cwi An iterator to the clockwise neighbor
@@ -142,7 +141,7 @@ private:
      * @param[out] cad The angle difference to the clockwise neighbor
      * @param[out] ccad The angle difference to the counter-clockwise neighbor
      */
-    static void initNeighbors(const EdgeVector& edges, const EdgeVector::const_iterator& current, bool simpleContinuation,
+    static void initNeighbors(const EdgeVector& edges, const EdgeVector::const_iterator& current,
             GeomsMap& geomsCW,
             GeomsMap& geomsCCW,
             EdgeVector::const_iterator& cwi,
