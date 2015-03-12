@@ -19,6 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+from __future__ import print_function
 import os, sys, random, bisect, datetime, subprocess
 from collections import defaultdict
 import math
@@ -96,6 +97,9 @@ def get_options(args=None):
 def euclidean(a, b):
     return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 
+class InvalidGenerator(Exception):
+    pass
+
 # assigns a weight to each edge using weight_fun and then draws from a discrete
 # distribution with these weights
 class RandomEdgeGenerator:
@@ -108,7 +112,8 @@ class RandomEdgeGenerator:
             #print edge.getID(), weight_fun(edge)
             self.total_weight += weight_fun(edge)
             self.cumulative_weights.append(self.total_weight)
-        assert(self.total_weight > 0)
+        if self.total_weight == 0:
+            raise InvalidGenerator()
 
     def get(self):
         r = random.random() * self.total_weight
@@ -182,6 +187,33 @@ class LoadedProps:
         return self.weights[edge.getID()]
 
 
+def buildTripGenerator(net, options):
+    try:
+        source_generator = RandomEdgeGenerator(net, get_prob_fun(options, "_incoming", "_outgoing"))
+        sink_generator = RandomEdgeGenerator(net, get_prob_fun(options, "_outgoing", "_incoming"))
+        if options.weightsprefix:
+            if os.path.isfile(options.weightsprefix + SOURCE_SUFFIX):
+                source_generator = RandomEdgeGenerator(net, LoadedProps(options.weightsprefix + SOURCE_SUFFIX))
+            if os.path.isfile(options.weightsprefix + SINK_SUFFIX):
+                sink_generator = RandomEdgeGenerator(net, LoadedProps(options.weightsprefix + SINK_SUFFIX))
+    except InvalidGenerator:
+        print("Error: no valid edges for generating source or destination", file=sys.stderr)
+        return None
+
+    try:
+        via_generator = RandomEdgeGenerator(net, get_prob_fun(options, None, None))
+        if options.weightsprefix and os.path.isfile(options.weightsprefix + VIA_SUFFIX):
+            via_generator = RandomEdgeGenerator(net, LoadedProps(options.weightsprefix + VIA_SUFFIX))
+    except InvalidGenerator:
+        if options.intermediate > 0:
+            print("Error: no valid edges for generating intermediate points", file=sys.stderr)
+            return None
+        else:
+            via_generator = None
+
+    return RandomTripGenerator(source_generator, sink_generator, via_generator, options.intermediate)
+
+
 def main(options):
     if options.seed:
         random.seed(options.seed)
@@ -192,62 +224,57 @@ def main(options):
         print("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of %s in a network with diameter %s." % (
                 options.intermediate, options.min_distance, net.getBBoxDiameter()))
 
-    source_generator = RandomEdgeGenerator(net, get_prob_fun(options, "_incoming", "_outgoing"))
-    sink_generator = RandomEdgeGenerator(net, get_prob_fun(options, "_outgoing", "_incoming"))
-    via_generator = RandomEdgeGenerator(net, get_prob_fun(options, None, None))
-    if options.weightsprefix:
-        if os.path.isfile(options.weightsprefix + SOURCE_SUFFIX):
-            source_generator = RandomEdgeGenerator(net, LoadedProps(options.weightsprefix + SOURCE_SUFFIX))
-        if os.path.isfile(options.weightsprefix + SINK_SUFFIX):
-            sink_generator = RandomEdgeGenerator(net, LoadedProps(options.weightsprefix + SINK_SUFFIX))
-        if os.path.isfile(options.weightsprefix + VIA_SUFFIX):
-            via_generator = RandomEdgeGenerator(net, LoadedProps(options.weightsprefix + VIA_SUFFIX))
-
-    edge_generator = RandomTripGenerator(source_generator, sink_generator, via_generator, options.intermediate)
-
+    trip_generator = buildTripGenerator(net, options)
     idx = 0
     with open(options.tripfile, 'w') as fouttrips:
-        print >> fouttrips, """<?xml version="1.0"?>
+        fouttrips.write("""<?xml version="1.0"?>
 <!-- generated on %s by $Id$
   options: %s
 -->
-<trips>""" % (datetime.datetime.now(), (' '.join(sys.argv[1:]).replace('--','<doubleminus>')))
+<trips>
+""" % (datetime.datetime.now(), 
+    (' '.join(sys.argv[1:]).replace('--','<doubleminus>'))))
         if options.vehicle_class:
-            print >> fouttrips, '    <vType id="%s" vClass="%s" />' % (options.vehicle_class, options.vehicle_class)
+            fouttrips.write('    <vType id="%s" vClass="%s" />\n' % (options.vehicle_class, options.vehicle_class))
             options.tripattrs += ' type="%s"' % options.vehicle_class
         depart = options.begin
-        while depart < options.end:
-            label = "%s%s" % (options.tripprefix, idx)
-            try:
-                source_edge, sink_edge, intermediate = edge_generator.get_trip(options.min_distance, options.max_distance, options.maxtries)
-                via = ""
-                if len(intermediate) > 0:
-                    via='via="%s" ' % ' '.join([e.getID() for e in intermediate])
-                if options.pedestrians:
-                    print >> fouttrips, '    <person id="%s" depart="%.2f" %s>' % (label, depart, options.tripattrs)
-                    print >> fouttrips, '        <walk from="%s" to="%s"/>' % (source_edge.getID(), sink_edge.getID())
-                    print >> fouttrips, '    </person>'
-                else:
-                    print >> fouttrips, '    <trip id="%s" depart="%.2f" from="%s" to="%s" %s%s/>' % (
-                            label, depart, source_edge.getID(), sink_edge.getID(), via, options.tripattrs)
-            except Exception, exc:
-                print exc
-            idx += 1
-            depart += options.period
-        fouttrips.write("</trips>")
+        if trip_generator:
+            while depart < options.end:
+                label = "%s%s" % (options.tripprefix, idx)
+                try:
+                    source_edge, sink_edge, intermediate = trip_generator.get_trip(options.min_distance, options.max_distance, options.maxtries)
+                    via = ""
+                    if len(intermediate) > 0:
+                        via='via="%s" ' % ' '.join([e.getID() for e in intermediate])
+                    if options.pedestrians:
+                        fouttrips.write('    <person id="%s" depart="%.2f" %s>\n' % (label, depart, options.tripattrs))
+                        fouttrips.write('        <walk from="%s" to="%s"/>\n' % (source_edge.getID(), sink_edge.getID()))
+                        fouttrips.write('    </person>\n')
+                    else:
+                        fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s" %s%s/>\n' % (
+                                label, depart, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
+                except Exception, exc:
+                    print(exc, file=sys.stderr)
+                idx += 1
+                depart += options.period
+        fouttrips.write("</trips>\n")
 
     if options.routefile:
         args = [DUAROUTER, '-n', options.netfile, '-t', options.tripfile, '-o', options.routefile, '--ignore-errors',
             '--begin', str(options.begin), '--end', str(options.end), '--no-step-log']
         if options.additional is not None:
             args += ['--additional-files', options.additional]
-        print "calling ", " ".join(args)
+        print("calling ", " ".join(args))
         subprocess.call(args)
 
     if options.weights_outprefix:
-        source_generator.write_weights(options.weights_outprefix + SOURCE_SUFFIX)
-        sink_generator.write_weights(options.weights_outprefix + SINK_SUFFIX)
-        via_generator.write_weights(options.weights_outprefix + VIA_SUFFIX)
+        trip_generator.source_generator.write_weights(options.weights_outprefix + SOURCE_SUFFIX)
+        trip_generator.sink_generator.write_weights(options.weights_outprefix + SINK_SUFFIX)
+        trip_generator.via_generator.write_weights(options.weights_outprefix + VIA_SUFFIX)
+
+    # return wether trips could be genreated as requested
+    return trip_generator is not None
 
 if __name__ == "__main__":
-    main(get_options())
+    if not main(get_options()):
+        sys.exit(1)

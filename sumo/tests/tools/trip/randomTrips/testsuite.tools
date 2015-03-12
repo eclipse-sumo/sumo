@@ -28,3 +28,8 @@ weights_output
 
 # load some weights
 loaded_weights
+no_valid_edges
+no_valid_intermediate_edges
+
+# option --intermediate is given but no intermediate edges are available
+no_valid_intermediate_edges_fail

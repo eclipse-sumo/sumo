@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- generated on 2015-03-12 01:39:41.325000 by $Id: randomTrips.py 18071 2015-03-11 23:41:31Z namdre $
+  options: -n net2.net.xml -s 42 -e 10 <doubleminus>vclass bus
+-->
+<trips>
+    <trip id="0" depart="0.00" from="gneE0" to="gneE1" />
+    <trip id="1" depart="1.00" from="gneE0" to="gneE1" />
+    <trip id="2" depart="2.00" from="gneE0" to="gneE1" />
+    <trip id="3" depart="3.00" from="gneE0" to="gneE1" />
+    <trip id="4" depart="4.00" from="gneE0" to="gneE1" />
+    <trip id="5" depart="5.00" from="gneE0" to="gneE1" />
+    <trip id="6" depart="6.00" from="gneE0" to="gneE1" />
+    <trip id="7" depart="7.00" from="gneE0" to="gneE1" />
+    <trip id="8" depart="8.00" from="gneE0" to="gneE1" />
+    <trip id="9" depart="9.00" from="gneE0" to="gneE1" />
+</trips>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<!-- generated on 2015-03-12 01:41:12.491000 by $Id: randomTrips.py 18071 2015-03-11 23:41:31Z namdre $
+  options: -n net2.net.xml -s 42 -e 10 <doubleminus>vclass bus <doubleminus>intermediate 1
+-->
+<trips>
+</trips>

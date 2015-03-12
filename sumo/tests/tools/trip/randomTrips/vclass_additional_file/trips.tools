@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<!-- generated on 2014-05-14 14:02:12.292000 by $Id: randomTrips.py 16365 2014-05-13 08:50:42Z namdre $ 
-  options: -n net.net.xml -s 42 <doubleminus>vclass truck -a input_additional.add.xml -r out.rou.xml -t type="truck" -e 10
+<!-- generated on 2015-03-12 01:47:04.755000 by $Id: randomTrips.py 18071 2015-03-11 23:41:31Z namdre $
+  options: -n net2.net.xml -s 42 <doubleminus>vclass truck -a input_additional.add.xml -r out.rou.xml -t type="truck" -e 10
 -->
 <trips>
     <trip id="0" depart="0.00" from="left" to="beg2left" type="truck"/>
