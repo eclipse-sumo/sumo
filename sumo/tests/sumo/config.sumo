@@ -121,6 +121,7 @@ errors:Could not find connection between
 output:movereminder-output{LINES 2}
 cfg:<movereminder{LINES 2}
 cfg:movereminder
+weights:<!--{[->]}-->
 
 [floating_point_tolerance]
 detector:0.0101
@@ -138,6 +139,7 @@ rawdump:0.0101
 errors:0.0101
 full:0.0101
 vtypeprobe:0.0101
+weights:0.0101
 
 [relative_float_tolerance]
 aggregated1:0.00001
