@@ -112,6 +112,7 @@ output:<!-- generated on
 output:.* files checked{REPLACE <number> files checked}
 output:^calling.*duarouter
 output:Parsing network projection
+output:Parsing types from
 output:^Performance:{->}^Vehicles:
 trips:<!-- generated on
 pois:<!--
@@ -122,6 +123,7 @@ errors:*** 9 leaks found
 errors:delete: freed
 errors:Traceback{->}XMLSyntaxError
 errors:Traceback{->}IOError
+errors:.*RuntimeWarning: divide{REPLACE RuntimeWarning: divide}
 omnet:<!-- generated on
 shawn:<!-- generated on
 net:<!--{[->]}-->
