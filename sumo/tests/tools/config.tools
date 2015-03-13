@@ -114,6 +114,7 @@ output:^calling.*duarouter
 output:Parsing network projection
 output:Parsing types from
 output:^Performance:{->}^Vehicles:
+output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
 trips:<!-- generated on
 pois:<!--
 routes:<!-- generated on
@@ -124,6 +125,7 @@ errors:delete: freed
 errors:Traceback{->}XMLSyntaxError
 errors:Traceback{->}IOError
 errors:.*RuntimeWarning: divide{REPLACE RuntimeWarning: divide}
+errors:Ran [0-9]+ tests in [0-9]+\.[0-9]+s{REPLACE Ran <COUNT> tests in <TIME>}
 omnet:<!-- generated on
 shawn:<!-- generated on
 net:<!--{[->]}-->
@@ -133,4 +135,3 @@ net:0.0101
 
 [unordered_text]
 errors:ERROR:SCHEMA
-output:Parsing types from
