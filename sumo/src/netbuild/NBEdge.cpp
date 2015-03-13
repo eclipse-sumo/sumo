@@ -1058,6 +1058,8 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
         std::vector<unsigned int> foeInternalLinks;
 
         LinkDirection dir = n.getDirection(this, con.toEdge);
+        const bool isRightTurn = (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT);
+        const bool isTurn = (isRightTurn || dir == LINKDIR_LEFT || dir == LINKDIR_PARTLEFT);
         if (dir != LINKDIR_STRAIGHT && shape.length() < POSITION_EPS) {
             WRITE_WARNING("Connection '" + getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' is only " + toString(shape.length()) + " short.");
         }
@@ -1115,11 +1117,25 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                 // foe pedestrian crossings
                 const std::vector<NBNode::Crossing>& crossings = n.getCrossings();
                 for (std::vector<NBNode::Crossing>::const_iterator it_c = crossings.begin(); it_c != crossings.end(); ++it_c) {
-                    for (EdgeVector::const_iterator it_e = (*it_c).edges.begin(); it_e != (*it_c).edges.end(); ++it_e) {
+                    const NBNode::Crossing& crossing = *it_c;
+                    for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
                         const NBEdge* edge = *it_e;
                         // compute foe internal lanes
                         if (this == edge || con.toEdge == edge) {
                             foeInternalLinks.push_back(index);
+                            if (con.toEdge == edge && 
+                                    (isRightTurn || (isTurn && n.isTLControlled()))) {
+                                // build internal junctions (not for left turns at uncontrolled intersections)
+                                PositionVector crossingShape = crossing.shape;
+                                crossingShape.extrapolate(1.0); // sometimes shapes miss each other by a small margin
+                                const SUMOReal minDV = firstIntersection(shape, crossingShape, crossing.width / 2);
+                                if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { 
+                                    assert(minDV >= 0);
+                                    if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
+                                        crossingPositions.first = minDV;
+                                    }
+                                }
+                            }
                         }
                     }
                     index++;

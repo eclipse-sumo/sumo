@@ -1698,6 +1698,19 @@ NBNode::forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalize
 
 void
 NBNode::buildInnerEdges(bool buildCrossingsAndWalkingAreas) {
+    if (buildCrossingsAndWalkingAreas) {
+        buildCrossings();
+        buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"));
+        // ensure that all crossings are properly connected
+        for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
+            if ((*it).prevWalkingArea == "" || (*it).nextWalkingArea == "") {
+                // there is no way to check this apart from trying to build all
+                // walkingAreas and there is no way to recover because the junction
+                // logic assumes that the crossing can be built.
+                throw ProcessError("Invalid crossing '" + (*it).id + "' at node '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
+            }
+        }
+    }
     // build inner edges for vehicle movements across the junction
     unsigned int noInternalNoSplits = 0;
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
@@ -1723,21 +1736,6 @@ NBNode::buildInnerEdges(bool buildCrossingsAndWalkingAreas) {
             (*i)->buildInnerEdges(*this, noInternalNoSplits, lno, splitNo);
         }
     }
-
-    if (buildCrossingsAndWalkingAreas) {
-        buildCrossings();
-        buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"));
-        // ensure that all crossings are properly connected
-        for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
-            if ((*it).prevWalkingArea == "" || (*it).nextWalkingArea == "") {
-                // there is no way to check this apart from trying to build all
-                // walkingAreas and there is no way to recover because the junction
-                // logic assumes that the crossing can be built.
-                throw ProcessError("Invalid crossing '" + (*it).id + "' at node '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
-            }
-        }
-    }
-
 }
 
 
