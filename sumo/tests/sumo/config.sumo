@@ -65,6 +65,7 @@ links:linkstate.xml
 aggregated60Prefixed:pre_aggregated_60.xml
 tripinfosPrefix:pre_tripinfos.xml
 logPrefixed:pre_log.txt
+weights:weights.xml
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:

@@ -93,6 +93,7 @@
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use given weight files for initializing edge weights"/>
         <device.rerouting.shortest-path-file value="" type="FILE" help="Initialize lookup table for astar from the given distance matrix"/>
         <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
+        <device.rerouting.output value="" type="FILE" help="Save adapting weights to FILE"/>
     </routing>
 
     <report>

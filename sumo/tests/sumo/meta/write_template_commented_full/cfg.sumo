@@ -243,6 +243,9 @@
         <!-- The number of parallel execution threads used for rerouting -->
         <device.rerouting.threads value="0" type="INT"/>
 
+        <!-- Save adapting weights to FILE -->
+        <device.rerouting.output value="" type="FILE"/>
+
     </routing>
 
     <report>

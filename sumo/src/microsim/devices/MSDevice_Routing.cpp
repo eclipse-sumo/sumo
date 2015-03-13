@@ -110,6 +110,9 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.rerouting.threads", "Routing", "The number of parallel execution threads used for rerouting");
 #endif
 
+    oc.doRegister("device.rerouting.output", new Option_FileName());
+    oc.addDescription("device.rerouting.output", "Routing", "Save adapting weights to FILE");
+
     myEdgeWeightSettingCommand = 0;
     myEdgeEfforts.clear();
     myAdaptationInterval = -1;
@@ -166,6 +169,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
             } else if (period > 0) {
                 WRITE_WARNING("Rerouting is useless if the edge weights do not get updated!");
             }
+            OutputDevice::createDeviceByOption("device.rerouting.output", "weights", "meandata_file.xsd");
         }
         // build the device
         into.push_back(new MSDevice_Routing(v, "routing_" + v.getID(), period, prePeriod));
@@ -277,6 +281,21 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
         }
     }
     myLastAdaptation = currentTime + DELTA_T; // because we run at the end of the time step
+    if (OptionsCont::getOptions().isSet("device.rerouting.output")) {
+        OutputDevice& dev = OutputDevice::getDeviceByOption("device.rerouting.output");
+        dev.openTag(SUMO_TAG_INTERVAL);
+        dev.writeAttr(SUMO_ATTR_ID, "device.rerouting");
+        dev.writeAttr(SUMO_ATTR_BEGIN, STEPS2TIME(currentTime));
+        dev.writeAttr(SUMO_ATTR_END, STEPS2TIME(currentTime + myAdaptationInterval));
+        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            const int id = (*i)->getNumericalID();
+            dev.openTag(SUMO_TAG_EDGE);
+            dev.writeAttr(SUMO_ATTR_ID, (*i)->getID());
+            dev.writeAttr("traveltime", myEdgeEfforts[id]);
+            dev.closeTag();
+        }
+        dev.closeTag();
+    } 
     return myAdaptationInterval;
 }
 
