@@ -182,6 +182,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
       hadDependentBuild(false),
       myShowTimeAsHMS(false),
       myAmFullScreen(false),
+      myHaveNotifiedAboutSimEnd(false),
       // game specific
       myJamSoundTime(60),
       myWaitingTime(0),
@@ -1162,6 +1163,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             // report success
             setStatusBarText("'" + ec->myFile + "' loaded.");
             myWasStarted = false;
+            myHaveNotifiedAboutSimEnd = false;
             // initialise views
             myViewNumber = 0;
             const GUISUMOViewParent::ViewType defaultType = ec->myOsgView ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL;
@@ -1246,11 +1248,12 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
     if (GUIGlobals::gQuitOnEnd) {
         closeAllWindows();
         getApp()->exit(ec->getReason() == MSNet::SIMSTATE_ERROR_IN_SIM);
-    } else {
+    } else if (!myHaveNotifiedAboutSimEnd) {
         // build the text
         const std::string text = "Simulation ended at time: " + time2string(ec->getTimeStep()) +
                                  ".\nReason: " + MSNet::getStateMessage(ec->getReason());
         FXMessageBox::warning(this, MBOX_OK, "Simulation ended", "%s", text.c_str());
+        myHaveNotifiedAboutSimEnd = true;
     }
 }
 
