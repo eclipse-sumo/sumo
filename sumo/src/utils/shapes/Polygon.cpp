@@ -66,7 +66,6 @@ Polygon::writeXML(OutputDevice& out, bool geo) {
     out.writeAttr(SUMO_ATTR_LAYER, getLayer());
     PositionVector shape = getShape();
     if (geo) {
-        const GeoConvHelper& gch = GeoConvHelper::getFinal();
         out.writeAttr(SUMO_ATTR_GEO, true);
         for (int i = 0; i < (int) shape.size(); i++) {
             GeoConvHelper::getFinal().cartesian2geo(shape[i]);

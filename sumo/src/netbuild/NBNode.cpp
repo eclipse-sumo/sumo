@@ -433,7 +433,7 @@ NBNode::isSimpleContinuation() const {
     if (myIncomingEdges.size() == 2 && myOutgoingEdges.size() == 2) {
         for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
             NBEdge* in = *i;
-            EdgeVector::const_iterator opposite = find_if(myOutgoingEdges.begin(), myOutgoingEdges.end(), NBContHelper::opposite_finder(in, this));
+            EdgeVector::const_iterator opposite = find_if(myOutgoingEdges.begin(), myOutgoingEdges.end(), NBContHelper::opposite_finder(in));
             // must have an opposite edge
             if (opposite == myOutgoingEdges.end()) {
                 return false;

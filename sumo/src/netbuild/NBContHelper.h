@@ -353,8 +353,8 @@ public:
     class opposite_finder {
     public:
         /// constructor
-        opposite_finder(NBEdge* edge, const NBNode* n)
-            : myReferenceEdge(edge), myAtNode(n) { }
+        opposite_finder(NBEdge* edge)
+            : myReferenceEdge(edge) { }
 
         bool operator()(NBEdge* e) const {
             return e->isTurningDirectionAt(myReferenceEdge) ||
@@ -363,7 +363,6 @@ public:
 
     private:
         NBEdge* myReferenceEdge;
-        const NBNode* myAtNode;
 
     };
 
