@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/12/15 18:02:29 by SUMO netconvert Version dev-SVN-r18063
+<!-- generated on Sat Mar 14 00:32:43 2015 by SUMO netconvert Version dev-SVN-r18087
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -107,9 +107,9 @@
     <edge id="-51800063" from="54525882" to="54525876" priority="-1" spreadType="center">
         <lane id="-51800063_0" index="0" speed="19.44" length="52.35" shape="4296.01,2565.77 4289.63,2513.81"/>
     </edge>
-    <edge id="51800052" from="54525842" to="54525877" priority="-1" spreadType="center" shape="4273.77,2340.03 4278.40,2365.63 4297.54,2505.08">
-        <lane id="51800052_0" index="0" speed="19.44" length="161.31" shape="4275.47,2340.13 4280.02,2365.34 4298.49,2499.85"/>
-        <lane id="51800052_1" index="1" speed="19.44" length="161.31" shape="4272.22,2340.72 4276.78,2365.92 4295.22,2500.30"/>
+    <edge id="51800052" from="54525842" to="54525877" priority="-1" spreadType="center" shape="4273.82,2340.01 4278.40,2365.63 4297.54,2505.08">
+        <lane id="51800052_0" index="0" speed="19.44" length="161.31" shape="4275.52,2340.13 4280.02,2365.34 4298.49,2499.85"/>
+        <lane id="51800052_1" index="1" speed="19.44" length="161.31" shape="4272.27,2340.71 4276.78,2365.92 4295.22,2500.30"/>
     </edge>
     <edge id="51800053" from="54525875" to="54525877" priority="-1" spreadType="center">
         <lane id="51800053_0" index="0" speed="13.89" length="0.20" shape="4292.69,2503.28 4292.88,2503.35"/>
@@ -125,7 +125,7 @@
         <lane id="51800087_1" index="1" speed="19.44" length="209.01" shape="4296.57,2510.04 4314.50,2638.08 4316.93,2653.72 4330.08,2716.37"/>
     </edge>
 
-    <junction id="54525842" type="dead_end" x="4270.67" y="2341.00" incLanes="-51800057_0" intLanes="" shape="4270.64,2341.00 4277.04,2339.85 4267.43,2341.15 4270.62,2341.00"/>
+    <junction id="54525842" type="dead_end" x="4270.67" y="2341.00" incLanes="-51800057_0" intLanes="" shape="4270.69,2341.00 4277.09,2339.85 4267.43,2341.15 4270.62,2341.00"/>
     <junction id="54525860" type="priority" x="4215.39" y="2543.52" incLanes="-51800062_0 51800061_0" intLanes=":54525860_0_0 :54525860_2_0" shape="4226.15,2542.96 4225.51,2539.82 4225.32,2539.34 4223.66,2536.61 4221.73,2537.06 4219.08,2535.26">
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="1"/>

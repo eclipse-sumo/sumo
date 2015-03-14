@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/12/15 18:01:59 by SUMO netconvert Version dev-SVN-r18063
+<!-- generated on Sat Mar 14 00:32:17 2015 by SUMO netconvert Version dev-SVN-r18087
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -35,24 +35,24 @@
         <lane id="gneE0_1" index="1" speed="13.89" length="100.00" shape="0.00,-1.65 100.00,-1.65"/>
     </edge>
     <edge id="gneE1" from="gneJ2" to="gneJ1" priority="1">
-        <lane id="gneE1_0" index="0" speed="13.89" length="100.00" shape="100.00,4.95 0.00,4.95"/>
+        <lane id="gneE1_0" index="0" speed="13.89" length="100.00" shape="99.90,4.95 0.00,4.95"/>
         <lane id="gneE1_1" index="1" speed="13.89" length="100.00" shape="100.00,1.65 0.00,1.65"/>
     </edge>
-    <edge id="gneE2.0" from="gneJ2" to="gneJ5" priority="1" spreadType="center" shape="100.00,-3.25 170.00,0.00">
-        <lane id="gneE2.0_0" index="0" speed="13.89" length="73.33" shape="101.25,-4.84 169.95,-1.65"/>
-        <lane id="gneE2.0_1" index="1" speed="13.89" length="73.33" shape="101.09,-1.55 169.95,1.65"/>
+    <edge id="gneE2.0" from="gneJ2" to="gneJ5" priority="1" spreadType="center" shape="100.00,-3.30 170.00,0.00">
+        <lane id="gneE2.0_0" index="0" speed="13.89" length="73.38" shape="100.36,-4.93 169.94,-1.65"/>
+        <lane id="gneE2.0_1" index="1" speed="13.89" length="73.38" shape="100.21,-1.64 169.94,1.65"/>
     </edge>
     <edge id="gneE2b" from="gneJ5" to="gneJ4" priority="1" spreadType="center">
         <lane id="gneE2b_0" index="0" speed="13.89" length="230.00" shape="170.13,-1.65 400.00,-1.65"/>
-        <lane id="gneE2b_1" index="1" speed="13.89" length="230.00" shape="169.95,1.65 400.00,1.65"/>
+        <lane id="gneE2b_1" index="1" speed="13.89" length="230.00" shape="169.94,1.65 400.00,1.65"/>
     </edge>
-    <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1" spreadType="center" shape="400.00,20.00 99.78,3.24">
-        <lane id="gneE3_0" index="0" speed="13.89" length="303.93" shape="399.91,21.65 100.79,4.95"/>
-        <lane id="gneE3_1" index="1" speed="13.89" length="303.93" shape="400.09,18.35 100.95,1.66"/>
+    <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1" spreadType="center" shape="400.00,20.00 99.78,3.29">
+        <lane id="gneE3_0" index="0" speed="13.89" length="303.98" shape="399.91,21.65 99.99,4.96"/>
+        <lane id="gneE3_1" index="1" speed="13.89" length="303.98" shape="400.09,18.35 100.05,1.66"/>
     </edge>
 
     <junction id="gneJ1" type="dead_end" x="0.00" y="0.00" incLanes="gneE1_0 gneE1_1" intLanes="" shape="-0.00,-0.05 -0.00,-6.55 0.00,6.55 0.00,0.05"/>
-    <junction id="gneJ2" type="priority" x="100.00" y="0.00" incLanes="gneE3_0 gneE3_1 gneE0_0 gneE0_1" intLanes="" shape="100.72,6.55 101.32,-6.44 99.99,-6.55 99.99,6.55">
+    <junction id="gneJ2" type="priority" x="100.00" y="0.00" incLanes="gneE3_0 gneE3_1 gneE0_0 gneE0_1" intLanes="" shape="99.82,6.55 100.44,-6.53 99.99,-6.55 99.99,6.55">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
@@ -60,7 +60,7 @@
     </junction>
     <junction id="gneJ3" type="unregulated" x="400.00" y="20.00" incLanes="" intLanes="" shape="400.18,16.76 399.82,23.24"/>
     <junction id="gneJ4" type="unregulated" x="400.00" y="0.00" incLanes="gneE2b_0 gneE2b_1" intLanes="" shape="400.00,-3.25 400.00,3.25"/>
-    <junction id="gneJ5" type="priority" x="170.00" y="0.00" incLanes="gneE2.0_0 gneE2.0_1" intLanes="" shape="169.95,3.25 169.95,-3.25 170.20,-3.24 169.90,3.25">
+    <junction id="gneJ5" type="priority" x="170.00" y="0.00" incLanes="gneE2.0_0 gneE2.0_1" intLanes="" shape="169.94,3.25 169.94,-3.25 170.21,-3.24 169.90,3.25">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

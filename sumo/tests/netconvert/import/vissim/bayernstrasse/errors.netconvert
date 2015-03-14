@@ -233,8 +233,8 @@ Warning: Could not set 4 of 37 signals.
 Warning: Found sharp turn with radius 7.29 at the end of edge 3[1][1][0]
 Warning: Found sharp turn with radius 8.90 at the end of edge 3[1][1][1][1][1][1][0]
 Warning: Found sharp turn with radius 5.33 at the end of edge 6[0]
-Warning: Found angle of 143.89 degrees at edge 6[1][1][1][1][1][0], segment 0
-Warning: Found sharp turn with radius 3.42 at the start of edge 6[1][1][1][1][1][0]
+Warning: Found angle of 144.11 degrees at edge 6[1][1][1][1][1][0], segment 0
+Warning: Found sharp turn with radius 3.40 at the start of edge 6[1][1][1][1][1][0]
 Warning: Found sharp turn with radius 3.90 at the end of edge 82[0]
 Warning: Found sharp turn with radius 5.59 at the start of edge 82[1]
 Warning: Found sharp turn with radius 2.68 at the start of edge 83[1][1]
