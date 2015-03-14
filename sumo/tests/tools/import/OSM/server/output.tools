@@ -1,5 +1,5 @@
-Parsing types from 'D:\erdm_ja\sumoI\sumo\data\typemap\osmNetconvertPedestrians.typ.xml'... done.
-Parsing types from 'D:\erdm_ja\sumoI\sumo\data\typemap\osmNetconvertShips.typ.xml'... done.
+Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
+Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... 
 Found duplicate nodes. Substituting 1241955149 with 1026369077
 Found duplicate nodes. Substituting 1241955153 with 1241955144
@@ -140,7 +140,7 @@ Summary:
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
 Success.
-Parsing network projection from 'D:\erdm_ja\home\.texttest\tmp\tools.13Mar131529.7392\tools\import\OSM\server\osm.net.xml'... done.
+Parsing network projection from '/home/kobo/.texttest/tmp/tools.14Mar010247.15352/tools/import/OSM/server/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
@@ -151,30 +151,30 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (640ms).
-Loading additional-files from 'osm.poly.xml'...  done (116ms).
+Loading net-file from 'osm.net.xml'...  done (1187ms).
+Loading additional-files from 'osm.poly.xml'...  done (214ms).
 Loading done.
 Simulation started with time: 0.00
 Simulation ended at time: 5478.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 42681ms
- Real time factor: 128.348
- UPS: 9209.460884
+ Duration: 58831ms
+ Real time factor: 93.1142
+ UPS: 6666.094406
 Vehicles: 
  Inserted: 1262
  Running: 0
  Waiting: 0
 
-DijkstraRouterTT answered 1318 queries and explored 640.46 edges on average.
-DijkstraRouterTT spent 429ms answering queries (0.33ms on average).
+DijkstraRouterTT answered 1324 queries and explored 642.46 edges on average.
+DijkstraRouterTT spent 685ms answering queries (0.52ms on average).
 Calling osmBuild
 Calling randomTrips
-calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
-calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t trips.trips.xml -o osm.bicycles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
-calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t trips.trips.xml -o osm.pedestrians.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
-calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t trips.trips.xml -o osm.rails.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
-calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t trips.trips.xml -o osm.ships.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /home/kobo/dlr/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /home/kobo/dlr/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.bicycles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /home/kobo/dlr/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.pedestrians.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /home/kobo/dlr/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.rails.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /home/kobo/dlr/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.ships.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
 Writing gui settings file: osm.view.xml
 Writing config file: osm.sumocfg
 Calling SUMO GUI
