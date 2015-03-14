@@ -577,7 +577,7 @@ public:
     /** @brief shift geometry at the given node
      * to avoid overlap
      */
-    void shiftPositionAtNode(NBNode* node);
+    void shiftPositionAtNode(NBNode* node, NBEdge* opposite);
 
     /** @brief Recomputeds the lane shapes to terminate at the node shape
      * For every lane the intersection with the fromNode and toNode is

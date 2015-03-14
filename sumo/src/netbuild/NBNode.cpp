@@ -2259,14 +2259,8 @@ NBNode::avoidOverlap() {
         NBEdge* edge = *it;
         NBEdge* turnDest = edge->getTurnDestination(true);
         if (turnDest != 0) {
-            if (edge->getLaneSpreadFunction() == LANESPREAD_CENTER 
-                    && edge->getGeometry().back() == myPosition) {
-                edge->shiftPositionAtNode(this);
-            }
-            if (turnDest->getLaneSpreadFunction() == LANESPREAD_CENTER 
-                    && turnDest->getGeometry().front() == myPosition) {
-                turnDest->shiftPositionAtNode(this);
-            }
+            edge->shiftPositionAtNode(this, turnDest);
+            turnDest->shiftPositionAtNode(this, edge);
         }
     }
     // @todo: edges in the same direction with sharp angles starting/ending at the same position

@@ -2377,14 +2377,22 @@ NBEdge::shiftToLanesToEdge(NBEdge* to, unsigned int laneOff) {
 
 
 void 
-NBEdge::shiftPositionAtNode(NBNode* node) {
-    PositionVector tmp = myGeom;
-    tmp.move2side((getTotalWidth() + SUMO_const_laneOffset) / 2);
-    if (node == myTo) {
-        myGeom.back() = tmp.back();
-    } else {
-        assert(node == myFrom);
-        myGeom.front() = tmp.front();
+NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
+    if (myLaneSpreadFunction == LANESPREAD_CENTER) {
+        const int i = (node == myTo ? -1 : 0);
+        const int i2 = (node == myTo ? 0 : -1);
+        const SUMOReal dist = myGeom[i].distanceTo2D(node->getPosition());
+        const SUMOReal neededOffset = (getTotalWidth() + getNumLanes() * SUMO_const_laneOffset) / 2;
+        const SUMOReal dist2 = MIN2(myGeom.distance(other->getGeometry()[i2]),
+                    other->getGeometry().distance(myGeom[i]));
+        const SUMOReal neededOffset2 = neededOffset + (other->getTotalWidth() + other->getNumLanes() * SUMO_const_laneOffset) / 2;
+        if (dist < neededOffset && dist2 < neededOffset2) {
+            PositionVector tmp = myGeom;
+            // @note this doesn't work well for vissim networks
+            //tmp.move2side(MIN2(neededOffset - dist, neededOffset2 - dist2));
+            tmp.move2side(neededOffset - dist);
+            myGeom[i] = tmp[i];
+        }
     }
 }
 
