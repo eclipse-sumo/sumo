@@ -883,6 +883,9 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
     if (myTurnDestination == toEdge && fromLane < 0) {
         myTurnDestination = 0;
     }
+    if (myPossibleTurnDestination == toEdge && fromLane < 0) {
+        myPossibleTurnDestination = 0;
+    }
     if (tryLater) {
         myConnectionsToDelete.push_back(Connection(fromLane, toEdge, toLane));
     }
@@ -2009,6 +2012,7 @@ NBEdge::append(NBEdge* e) {
     myStep = e->myStep;
     myConnections = e->myConnections;
     myTurnDestination = e->myTurnDestination;
+    myPossibleTurnDestination = e->myPossibleTurnDestination;
     // set the node
     myTo = e->myTo;
     if (e->getSignalOffset() != UNSPECIFIED_SIGNAL_OFFSET) {
