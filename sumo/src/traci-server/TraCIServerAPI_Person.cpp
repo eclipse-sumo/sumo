@@ -49,17 +49,17 @@
 // ===========================================================================
 bool
 TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                tcpip::Storage& outputStorage) {
+                                  tcpip::Storage& outputStorage) {
     // variable
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable != ID_LIST && variable != ID_COUNT 
+    if (variable != ID_LIST && variable != ID_COUNT
             && variable != VAR_POSITION && variable != VAR_POSITION3D && variable != VAR_ANGLE && variable != VAR_SPEED
             && variable != VAR_ROAD_ID && variable != VAR_LANEPOSITION
-            && variable != VAR_WIDTH && variable != VAR_LENGTH && variable != VAR_MINGAP 
+            && variable != VAR_WIDTH && variable != VAR_LENGTH && variable != VAR_MINGAP
             && variable != VAR_TYPE && variable != VAR_SHAPECLASS && variable != VAR_COLOR
-            && variable != VAR_WAITING_TIME && variable != VAR_PARAMETER 
+            && variable != VAR_WAITING_TIME && variable != VAR_PARAMETER
        ) {
         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable specified", outputStorage);
     }
@@ -92,8 +92,8 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 tempMsg.writeUnsignedByte(POSITION_2D);
                 tempMsg.writeDouble(p->getPosition().x());
                 tempMsg.writeDouble(p->getPosition().y());
-                }
-                break;
+            }
+            break;
             case VAR_POSITION3D:
                 tempMsg.writeUnsignedByte(POSITION_3D);
                 tempMsg.writeDouble(p->getPosition().x());
@@ -152,12 +152,12 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
 
 bool
 TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                tcpip::Storage& outputStorage) {
+                                  tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != VAR_PARAMETER
-            ) {
+       ) {
         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Change Person State: unsupported variable specified", outputStorage);
     }
     // id
@@ -184,8 +184,8 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
             }
             ((SUMOVehicleParameter&) p->getParameter()).addParameter(name, value);
-                            }
-                            break;
+        }
+        break;
         default:
             /*
             try {
@@ -199,7 +199,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             break;
     }
     server.writeStatusCmd(CMD_SET_PERSON_VARIABLE, RTYPE_OK, warning, outputStorage);
-    return true; 
+    return true;
 }
 
 

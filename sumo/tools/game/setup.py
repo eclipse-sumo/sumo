@@ -17,10 +17,16 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from distutils.core import setup
-import py2exe, sys, shutil, os, glob, zipfile
-import subprocess, tempfile
+import py2exe
+import sys
+import shutil
+import os
+import glob
+import zipfile
+import subprocess
+import tempfile
 
-nightlyDir=r"O:\Daten\Sumo\Nightly"
+nightlyDir = r"O:\Daten\Sumo\Nightly"
 sevenZip = r'C:\Program Files\7-Zip\7z.exe'
 if not os.path.exists(sevenZip):
     sevenZip = r'C:\Program Files (x86)\7-Zip\7z.exe'
@@ -45,7 +51,8 @@ for f in glob.glob(os.path.join(base, "*.sumocfg")):
 for f in ['input_additional.add.xml', 'logo.gif', 'dlr.gif']:
     shutil.copy2(os.path.join(base, f), "dist")
 for dir in ['cross', 'square', 'kuehne', 'highway', 'sounds', 'ramp', 'bs3d']:
-    subprocess.call(['svn', 'export', os.path.join(base, dir), os.path.join("dist", dir)])
+    subprocess.call(
+        ['svn', 'export', os.path.join(base, dir), os.path.join("dist", dir)])
 os.chdir("dist")
 if internal:
     for dll in glob.glob(os.path.join(nightlyDir, 'bin64', '*.dll')):
@@ -56,14 +63,17 @@ if internal:
     for f in glob.glob(os.path.join(base, '..', '..', 'data', '3D', '*')):
         shutil.copy2(f, ".")
     os.chdir("bs3d")
-    subprocess.call([sevenZip, 'x', os.path.join(nightlyDir, '..', '3D_Modell_Forschungskreuzung_BS.7z')])
+    subprocess.call([sevenZip, 'x', os.path.join(
+        nightlyDir, '..', '3D_Modell_Forschungskreuzung_BS.7z')])
     os.chdir("..")
-    zipf = zipfile.ZipFile(os.path.join(nightlyDir, "sumo-game-internal.zip"), 'w', zipfile.ZIP_DEFLATED)
+    zipf = zipfile.ZipFile(
+        os.path.join(nightlyDir, "sumo-game-internal.zip"), 'w', zipfile.ZIP_DEFLATED)
 else:
     for dll in glob.glob(os.path.join(nightlyDir, "*.dll")):
         shutil.copy2(dll, ".")
     shutil.copy2(os.path.join(nightlyDir, "sumo-gui.exe"), ".")
-    zipf = zipfile.ZipFile(os.path.join(nightlyDir, "sumo-game.zip"), 'w', zipfile.ZIP_DEFLATED)
+    zipf = zipfile.ZipFile(
+        os.path.join(nightlyDir, "sumo-game.zip"), 'w', zipfile.ZIP_DEFLATED)
 
 root_len = len(os.path.abspath("."))
 for root, dirs, files in os.walk("."):

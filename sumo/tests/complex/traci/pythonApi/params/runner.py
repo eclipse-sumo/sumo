@@ -17,20 +17,28 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci, sumolib
+import os
+import subprocess
+import sys
+import random
+sys.path.append(os.path.join(
+    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
+import traci
+import sumolib
 
 sumoBinary = sumolib.checkBinary('sumo')
 
 PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen("%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+sumoProcess = subprocess.Popen(
+    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
+
 
 def step():
     s = traci.simulation.getCurrentTime() / 1000
     traci.simulationStep()
     return s
+
 
 def setGetParam(objectType, object, objectID):
     print objectType, 'foo="%s"' % object.getParameter(objectID, "foo")
@@ -41,14 +49,14 @@ print "step", step()
 
 # XXX test PoI, Polygon
 objects = [
-        ("vehicle", traci.vehicle, "veh0"),
-        ("person", traci.person, "ped0"),
-        ("edge", traci.edge, "1o"),
-        ("lane", traci.lane, "1o_0"),
-        ("vType", traci.vehicletype, "pType"),
-        ("route", traci.route, "horizontal"),
-        ("trafficlight", traci.trafficlights, "0"),
-        ]
+    ("vehicle", traci.vehicle, "veh0"),
+    ("person", traci.person, "ped0"),
+    ("edge", traci.edge, "1o"),
+    ("lane", traci.lane, "1o_0"),
+    ("vType", traci.vehicletype, "pType"),
+    ("route", traci.route, "horizontal"),
+    ("trafficlight", traci.trafficlights, "0"),
+]
 
 [setGetParam(*x) for x in objects]
 print "step", step()

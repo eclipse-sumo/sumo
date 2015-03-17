@@ -17,7 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys
+import os
+import sys
 import re
 import subprocess
 from Tkinter import *
@@ -31,45 +32,51 @@ BINDIR = os.path.join(THISDIR, '..', 'bin')
 APPLICATIONS = ['netconvert', 'netgenerate', 'polyconvert', 'od2trips', 'duarouter', 'jtrrouter',
                 'dfrouter', 'marouter', 'sumo', 'sumo-gui', 'activitygen']
 
+
 class ResizingCanvas(Canvas):
+
     """ a subclass of Canvas for dealing with resizing of windows
     http://stackoverflow.com/questions/22835289/how-to-get-tkinter-canvas-to-dynamically-resize-to-window-width
     """
-    def __init__(self,parent,**kwargs):
-        Canvas.__init__(self,parent,**kwargs)
+
+    def __init__(self, parent, **kwargs):
+        Canvas.__init__(self, parent, **kwargs)
         self.bind("<Configure>", self.on_resize)
         self.height = self.winfo_reqheight()
         self.width = self.winfo_reqwidth()
 
     def on_resize(self, event):
         # determine the ratio of old width/height to new width/height
-        wscale = float(event.width)/self.width
-        hscale = float(event.height)/self.height
+        wscale = float(event.width) / self.width
+        hscale = float(event.height) / self.height
         self.width = event.width - 2
         self.height = event.height - 2
-        #print "on_resize %s %s %s %s" % (self.width, self.height,
+        # print "on_resize %s %s %s %s" % (self.width, self.height,
         #        self.winfo_reqwidth(), self.winfo_reqheight())
-        # resize the canvas 
+        # resize the canvas
         self.config(width=self.width, height=self.height)
         # rescale all the objects tagged with the "all" tag
-        self.scale("all",0,0,wscale,hscale)
+        self.scale("all", 0, 0, wscale, hscale)
 
 
 class ScrollableFrame(Frame):
+
     def __init__(self, root):
         Frame.__init__(self, root)
         self.canvas = ResizingCanvas(self, borderwidth=0)
         self.frame = Frame(self.canvas)
-        self.vsb = Scrollbar(self, orient="vertical", command=self.canvas.yview)
+        self.vsb = Scrollbar(
+            self, orient="vertical", command=self.canvas.yview)
         self.canvas.configure(yscrollcommand=self.vsb.set)
         self.vsb.pack(side="right", fill="y")
         self.canvas.pack(side="left", fill="both", expand=True)
-        self.canvas.create_window((4,4), window=self.frame, anchor="nw", tags="self.frame")
+        self.canvas.create_window(
+            (4, 4), window=self.frame, anchor="nw", tags="self.frame")
         self.frame.bind("<Configure>", self.OnFrameConfigure)
 
     def OnFrameConfigure(self, event):
         '''Reset the scroll region to encompass the inner frame'''
-        #print "OnFrameConfigure"
+        # print "OnFrameConfigure"
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
 
@@ -82,8 +89,8 @@ def buildValueWidget(frame, optType):
         return widget, var
 
 
-
 class Launcher:
+
     def __init__(self, root, app, appOptions):
         self.title_prefix = "SUMO Application launcher"
         self.root = root
@@ -114,41 +121,41 @@ class Launcher:
         options['initialdir'] = self.filedir
         options['parent'] = root
 
-
     def buildAppOptions(self, appOptions):
         NAME, VALUE, HELP = range(3)
         row = 0
         for o in appOptions:
             row += 1
-            Label(self.optFrame, text=o.name).grid(row=row, column=NAME, sticky="NW")
+            Label(self.optFrame, text=o.name).grid(
+                row=row, column=NAME, sticky="NW")
             widget, var = buildValueWidget(self.optFrame, o.type)
             self.optionValues[o.name] = var
             widget.grid(row=row, column=VALUE, sticky="NW")
-            Label(self.optFrame, text=o.help, justify=LEFT).grid(row=row, column=HELP, sticky="NW")
-        
+            Label(self.optFrame, text=o.help, justify=LEFT).grid(
+                row=row, column=HELP, sticky="NW")
 
     def mainButtons(self):
         row = 0
         col = 0
         self.buttons = []
-        
+
         mb = Menubutton(self.root, text="Select Application")
-        mb.menu = Menu (mb, tearoff = 0)
+        mb.menu = Menu(mb, tearoff=0)
         mb["menu"] = mb.menu
         for app in APPLICATIONS:
             mb.menu.add_radiobutton(label=app, variable=self.appVar,
-                    command=self.onSelectApp)
+                                    command=self.onSelectApp)
         mb.grid(row=row, column=col, sticky="NEW")
         col += 1
 
         self.buttons.append(mb)
         otherButtons = (
-                ("Run %12s" % self.appVar.get(), self.runApp),
-                ("load Config", self.loadCfg),
-                ("Save Config", self.saveCfg),
-                ("Save Config as", self.saveCfgAs),
-                ("Quit", self.root.quit),
-                )
+            ("Run %12s" % self.appVar.get(), self.runApp),
+            ("load Config", self.loadCfg),
+            ("Save Config", self.saveCfg),
+            ("Save Config as", self.saveCfgAs),
+            ("Quit", self.root.quit),
+        )
 
         for text, command in otherButtons:
             self.buttons.append(Button(self.root, text=text, command=command))
@@ -157,10 +164,10 @@ class Launcher:
         return len(self.buttons)
 
     def onSelectApp(self):
-        self.buttons[1].configure(text = "Run %12s" % self.appVar.get())
+        self.buttons[1].configure(text="Run %12s" % self.appVar.get())
 
     def runApp(self):
-       subprocess.call(os.path.join(BINDIR, self.appVar.get()))
+        subprocess.call(os.path.join(BINDIR, self.appVar.get()))
 
     def loadCfg(self):
         self.file_opt['title'] = 'Load configuration file'
@@ -173,11 +180,10 @@ class Launcher:
     def saveCfg(self):
         pass
 
-
     def saveCfgAs(self):
         pass
 
-    
+
 def parse_help(app):
     binary = os.path.join(BINDIR, app)
     reOpt = re.compile("--([^ ]*) (\w*) (.*$)")
@@ -203,8 +209,9 @@ def parse_help(app):
 
     return options
 
+
 def main():
-    app="netconvert"
+    app = "netconvert"
     appOptions = parse_help(app)
     #appOptions = []
     root = Tk()

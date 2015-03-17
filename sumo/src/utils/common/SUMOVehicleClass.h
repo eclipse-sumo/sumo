@@ -184,7 +184,7 @@ enum SUMOVehicleClass {
     SVC_CUSTOM1 = 1 << 23,
     /// @brief is a user-defined type
     SVC_CUSTOM2 = 1 << 24
-    //@}
+                  //@}
 };
 
 extern const int SUMOVehicleClass_MAX;
@@ -196,7 +196,7 @@ extern StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings;
  */
 typedef int SVCPermissions;
 extern const SVCPermissions SVCAll; // everything allowed
-extern const SVCPermissions SVC_UNSPECIFIED; // permissions not specified 
+extern const SVCPermissions SVC_UNSPECIFIED; // permissions not specified
 
 
 /**

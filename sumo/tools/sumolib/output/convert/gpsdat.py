@@ -24,10 +24,14 @@ import sumolib.net
 
 TAXI_STATUS_FREE_FLOW = "70"
 
+
 def fcd2gpsdat(inpFCD, outSTRM, further):
-  date = further["base-date"]
-  for timestep in inpFCD:
-    if timestep.vehicle:
-      mtime = str(date + datetime.timedelta(seconds=int(float(timestep.time)))) # does not work with subseconds
-      for v in timestep.vehicle:
-        print('\t'.join([v.id, mtime, str(v.x), str(v.y), TAXI_STATUS_FREE_FLOW,str(float(v.speed)*3.6)]), file=outSTRM)
+    date = further["base-date"]
+    for timestep in inpFCD:
+        if timestep.vehicle:
+            # does not work with subseconds
+            mtime = str(
+                date + datetime.timedelta(seconds=int(float(timestep.time))))
+            for v in timestep.vehicle:
+                print('\t'.join([v.id, mtime, str(v.x), str(
+                    v.y), TAXI_STATUS_FREE_FLOW, str(float(v.speed) * 3.6)]), file=outSTRM)

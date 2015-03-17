@@ -842,7 +842,7 @@ PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular)
                     GeomHelper::nearest_offset_on_line_to_point2D(*(i - 1), *i, p, false);
                 const SUMOReal pos2 =
                     GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, false);
-                if (pos1 == (*(i-1)).distanceTo2D(*i) && pos2 == 0.) {
+                if (pos1 == (*(i - 1)).distanceTo2D(*i) && pos2 == 0.) {
                     nearestPos = seen;
                     minDist = cornerDist;
                 }
@@ -884,10 +884,10 @@ PositionVector::transformToVectorCoordinates(const Position& p, bool extend) con
                     GeomHelper::nearest_offset_on_line_to_point2D(*(i - 1), *i, p, false);
                 const SUMOReal pos2 =
                     GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, false);
-                if (pos1 == (*(i-1)).distanceTo2D(*i) && pos2 == 0.) {
+                if (pos1 == (*(i - 1)).distanceTo2D(*i) && pos2 == 0.) {
                     nearestPos = seen;
                     minDist = cornerDist;
-                    sign = isLeft(*(i-1), *i, p) >= 0 ? -1 : 1;
+                    sign = isLeft(*(i - 1), *i, p) >= 0 ? -1 : 1;
                 }
             }
         }

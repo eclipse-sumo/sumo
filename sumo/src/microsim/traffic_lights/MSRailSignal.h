@@ -60,8 +60,8 @@ public:
      * @param[in] parameters This tls' parameters
      */
     MSRailSignal(MSTLLogicControl& tlcontrol,
-                              const std::string& id, const std::string& subid,
-                              const std::map<std::string, std::string>& parameters);
+                 const std::string& id, const std::string& subid,
+                 const std::map<std::string, std::string>& parameters);
 
 
     /** @brief Initialises the rail signal with information about adjacent rail signals
@@ -69,7 +69,7 @@ public:
      * @exception ProcessError If something fails on initialisation
      */
     void init(NLDetectorBuilder& nb);
-    
+
 
     /// @brief Destructor
     ~MSRailSignal();
@@ -84,7 +84,7 @@ public:
     void adaptLinkInformationFrom(const MSTrafficLightLogic& logic);
     /// @}
 
-    
+
     /// @name Switching and setting current rows
     /// @{
 
@@ -98,13 +98,13 @@ public:
      */
     std::string getAppropriateState();
 
-    /// @brief updates the current phase of the signal 
+    /// @brief updates the current phase of the signal
     void updateCurrentPhase();
 
-     /** @brief Switches to the next phase
-     * @return The time of the next switch (always the next step)
-     * @see MSTrafficLightLogic::trySwitch
-     */
+    /** @brief Switches to the next phase
+    * @return The time of the next switch (always the next step)
+    * @see MSTrafficLightLogic::trySwitch
+    */
     SUMOTime trySwitch();
 
     /// @}
@@ -126,14 +126,14 @@ public:
      */
     const Phases& getPhases() const;
 
-     /** @brief Returns the definition of the phase from the given position within the plan
-     *
-     * Returns the current phase as there does not exist a plan of the phases.
-     *
-     * @param[in] givenstep The index of the phase within the plan
-     * @return The definition of the phase at the given position
-     * @see MSTrafficLightLogic::getPhase
-     */
+    /** @brief Returns the definition of the phase from the given position within the plan
+    *
+    * Returns the current phase as there does not exist a plan of the phases.
+    *
+    * @param[in] givenstep The index of the phase within the plan
+    * @return The definition of the phase at the given position
+    * @see MSTrafficLightLogic::getPhase
+    */
     const MSPhaseDefinition& getPhase(unsigned int givenstep) const;
 
     /** @brief Returns the type of the logic as a string
@@ -155,9 +155,9 @@ public:
     unsigned int getCurrentPhaseIndex() const;
 
 
-     /** @brief Returns the definition of the current phase
-     * @return The current phase
-     */
+    /** @brief Returns the definition of the current phase
+    * @return The current phase
+    */
     const MSPhaseDefinition& getCurrentPhaseDef() const;
     /// @}
 
@@ -180,15 +180,15 @@ public:
     SUMOTime getOffsetFromIndex(unsigned int index) const;
 
 
-     /** @brief Returns the step (the phasenumber) of a given position of the cycle
-     * @param[in] offset The offset (time) for which the according phase shall be returned
-     * @return The according phase (here, always zero will be returned)
-     * @see MSTrafficLightLogic::getIndexFromOffset
-     */
+    /** @brief Returns the step (the phasenumber) of a given position of the cycle
+    * @param[in] offset The offset (time) for which the according phase shall be returned
+    * @return The according phase (here, always zero will be returned)
+    * @see MSTrafficLightLogic::getIndexFromOffset
+    */
     unsigned int getIndexFromOffset(SUMOTime offset) const;
     /// @}
 
-    
+
     /// @name Changing phases and phase durations
     /// @{
 
@@ -211,7 +211,7 @@ protected:
 
     /// The set of lanes going out from the junction
     std::vector<MSLane*> myOutgoingLanes;
-    
+
     /// A map that maps a link to its link index
     std::map<MSLink*, unsigned int> myLinkIndices;
 

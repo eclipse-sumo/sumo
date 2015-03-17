@@ -21,7 +21,10 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, random, string, sys
+import os
+import random
+import string
+import sys
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
@@ -33,6 +36,8 @@ import detector
 # Vertex class which stores incoming and outgoing edges as well as
 # auxiliary data for the flow computation. The members are accessed
 # directly.
+
+
 class Vertex:
 
     def __init__(self):
@@ -77,7 +82,7 @@ class Edge:
         self.length = 0.0
         self.detGroup = []
         self.reset()
-    
+
     def reset(self):
         self.capacity = sys.maxint
         self.startCapacity = sys.maxint
@@ -88,7 +93,7 @@ class Edge:
         cap = str(self.capacity)
         if self.capacity == sys.maxint:
             cap = "inf"
-        return self.kind+"_"+self.label+"<"+str(self.flow)+"|"+cap+">"
+        return self.kind + "_" + self.label + "<" + str(self.flow) + "|" + cap + ">"
 
 
 # Route class storing the list of edges and the frequency of a route.
@@ -155,12 +160,12 @@ class Net:
                           "real"))
 
     def addSourceEdge(self, edgeObj):
-        newEdge = Edge("s_"+edgeObj.label, self._source, edgeObj.source,
+        newEdge = Edge("s_" + edgeObj.label, self._source, edgeObj.source,
                        "source")
         self.addEdge(newEdge)
 
     def addSinkEdge(self, edgeObj):
-        newEdge = Edge("t_"+edgeObj.label, edgeObj.target, self._sink,
+        newEdge = Edge("t_" + edgeObj.label, edgeObj.target, self._sink,
                        "sink")
         self.addEdge(newEdge)
 
@@ -187,7 +192,7 @@ class Net:
             if options.trimfile:
                 trimOut = open(options.trimfile, 'w')
                 for edge in self._edges.values():
-                    print >> trimOut, "edge:"+edge.label
+                    print >> trimOut, "edge:" + edge.label
                 trimOut.close()
 
     def detectSourceSink(self, sources, sinks):
@@ -253,7 +258,7 @@ class Net:
                     for edge in newRoute.edges:
                         edge.routes.append(newRoute)
                     newStubs.append(Route(newRoute.frequency,
-                                          route.edges[edgePos+1:]))
+                                          route.edges[edgePos + 1:]))
                     route.frequency -= newRoute.frequency
                     if route.frequency == 0:
                         for edge in route.edges:
@@ -328,7 +333,7 @@ class Net:
             print "Trying to increase flow on", unsatEdge
         for vertex in self._vertices:
             vertex.reset()
-        pred = {unsatEdge.target:unsatEdge, unsatEdge.source:unsatEdge}
+        pred = {unsatEdge.target: unsatEdge, unsatEdge.source: unsatEdge}
         unsatEdge.target.inPathEdge = unsatEdge
         unsatEdge.source.flowDelta = unsatEdge.capacity - unsatEdge.flow
         queue = [unsatEdge.source]
@@ -341,12 +346,14 @@ class Net:
                 if edge.source not in pred and edge.flow < edge.capacity:
                     queue.append(edge.source)
                     pred[edge.source] = edge
-                    edge.source.flowDelta = min(currVertex.flowDelta, edge.capacity - edge.flow)
+                    edge.source.flowDelta = min(
+                        currVertex.flowDelta, edge.capacity - edge.flow)
             for edge in currVertex.outEdges:
                 if edge.target not in pred and edge.flow > 0:
                     queue.append(edge.target)
                     pred[edge.target] = edge
-                    edge.target.flowDelta = min(currVertex.flowDelta, edge.flow)
+                    edge.target.flowDelta = min(
+                        currVertex.flowDelta, edge.flow)
         return False
 
     def calcRoutes(self):
@@ -392,7 +399,8 @@ class Net:
                 for redge in route.edges:
                     if redge.kind == "real":
                         if options.lanebased:
-                            routeString += redge.label[:redge.label.rfind("_")] + " "
+                            routeString += redge.label[:
+                                                       redge.label.rfind("_")] + " "
                         else:
                             routeString += redge.label + " "
                         if firstReal == '':
@@ -400,7 +408,8 @@ class Net:
                         lastReal = redge
                 assert firstReal != '' and lastReal != None
                 routeID = "%s.%s%s" % (firstReal, id, suffix)
-                print >> routeOut, '    <route id="%s" edges="%s"/>' % (routeID, routeString.strip())
+                print >> routeOut, '    <route id="%s" edges="%s"/>' % (
+                    routeID, routeString.strip())
 
     def writeEmitters(self, emitOut, begin=0, end=3600, suffix=""):
         if not emitOut:
@@ -412,12 +421,17 @@ class Net:
             edge = srcEdge.target.outEdges[0]
             vtype = ' type="%s"' % options.vtype if options.vtype else ""
             if len(srcEdge.routes) == 1:
-                print >> emitOut, '    <flow id="src_%s%s"%s route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (edge.label, suffix, vtype, edge.label, suffix, srcEdge.flow, begin, end)
+                print >> emitOut, '    <flow id="src_%s%s"%s route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (
+                    edge.label, suffix, vtype, edge.label, suffix, srcEdge.flow, begin, end)
             else:
-                ids = " ".join(["%s.%s%s" % (edge.label, id, suffix) for id in range(len(srcEdge.routes))])
-                probs = " ".join([str(route.frequency) for route in srcEdge.routes])
-                print >> emitOut, '    <flow id="src_%s%s"%s number="%s" begin="%s" end="%s">' % (edge.label, suffix, vtype, srcEdge.flow, begin, end)
-                print >> emitOut, '        <routeDistribution routes="%s" probabilities="%s"/>' % (ids, probs)
+                ids = " ".join(["%s.%s%s" % (edge.label, id, suffix)
+                                for id in range(len(srcEdge.routes))])
+                probs = " ".join([str(route.frequency)
+                                  for route in srcEdge.routes])
+                print >> emitOut, '    <flow id="src_%s%s"%s number="%s" begin="%s" end="%s">' % (
+                    edge.label, suffix, vtype, srcEdge.flow, begin, end)
+                print >> emitOut, '        <routeDistribution routes="%s" probabilities="%s"/>' % (
+                    ids, probs)
                 print >> emitOut, '    </flow>'
 
     def writeFlowPOIs(self, poiOut, suffix=""):
@@ -431,16 +445,18 @@ class Net:
                     break
             for sink in edge.target.outEdges:
                 if sink.target == self._sink:
-                    color = "1,"+color[2]+",0"
+                    color = "1," + color[2] + ",0"
                     break
             label = edge.label
             flow = str(edge.flow)
             cap = str(edge.startCapacity)
             if edge.startCapacity == sys.maxint:
                 cap = "inf"
-            print >> poiOut, '    <poi id="' + label + '_f' + flow + 'c' + cap + suffix + '"',
+            print >> poiOut, '    <poi id="' + label + \
+                '_f' + flow + 'c' + cap + suffix + '"',
             print >> poiOut, 'color = "' + color + '" lane="' + label + '_0"',
-            print >> poiOut, ' pos="' + str(random.random()*edge.length) + '"/>'
+            print >> poiOut, ' pos="' + \
+                str(random.random() * edge.length) + '"/>'
 
 
 # The class for parsing the XML and CSV input files. The data parsed is
@@ -465,7 +481,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
                 if options.lanebased:
                     fromEdgeID += "_" + attrs["fromLane"]
                     toEdgeID += "_" + attrs["toLane"]
-                newEdge = Edge(fromEdgeID+"_"+toEdgeID, self._net.getEdge(fromEdgeID).target,
+                newEdge = Edge(fromEdgeID + "_" + toEdgeID, self._net.getEdge(fromEdgeID).target,
                                self._net.getEdge(toEdgeID).source)
                 self._net.addEdge(newEdge)
         elif name == 'lane' and self._edge != '':
@@ -507,7 +523,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
         if t is None:
             return self._detReader.readFlows(flowFile, flow=options.flowcol)
         else:
-            return self._detReader.readFlows(flowFile, flow=options.flowcol, time="Time", timeVal=t)            
+            return self._detReader.readFlows(flowFile, flow=options.flowcol, time="Time", timeVal=t)
 
     def clearFlows(self):
         self._detReader.clearFlows()
@@ -516,6 +532,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
 def warn(msg):
     if not options.quiet:
         print >> sys.stderr, msg
+
 
 def addFlowFile(option, opt_str, value, parser):
     if not getattr(parser.values, option.dest, None):
@@ -555,7 +572,8 @@ optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectz
                      default=False, help="respect detectors without data (or with permanent zero) with zero flow")
 optParser.add_option("-l", "--lane-based", action="store_true", dest="lanebased",
                      default=False, help="do not aggregate detector data and connections to edges")
-optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
+optParser.add_option(
+    "-i", "--interval", type="int", help="aggregation interval in minutes")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
                      default=False, help="suppress warnings")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
@@ -610,7 +628,8 @@ if net.detectSourceSink(sources, sinks):
                     for edge in net._source.outEdges:
                         for route in edge.routes:
                             print route
-                net.writeEmitters(emitOut, 60*start, 60*(start+options.interval), suffix)
+                net.writeEmitters(
+                    emitOut, 60 * start, 60 * (start + options.interval), suffix)
                 net.writeFlowPOIs(poiOut, suffix)
             reader.clearFlows()
             start += options.interval

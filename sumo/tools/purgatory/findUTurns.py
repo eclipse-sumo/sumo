@@ -28,10 +28,12 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys
+import os
+import sys
 
 from xml.sax import make_parser, handler
 from optparse import OptionParser
+
 
 class RouteReader(handler.ContentHandler):
 

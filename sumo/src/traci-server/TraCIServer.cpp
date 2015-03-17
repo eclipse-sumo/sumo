@@ -189,7 +189,7 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
     }
     if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
         myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")),
-            OptionsCont::getOptions().getInt("remote-port"));
+                                     OptionsCont::getOptions().getInt("remote-port"));
         for (std::map<int, CmdExecutor>::const_iterator i = execs.begin(); i != execs.end(); ++i) {
             myInstance->myExecutors[i->first] = i->second;
         }
@@ -216,7 +216,7 @@ TraCIServer::wasClosed() {
 
 void
 TraCIServer::setVTDControlled(MSVehicle* v, MSLane* l, SUMOReal pos, int edgeOffset, ConstMSEdgeVector route,
-						SUMOTime t) {
+                              SUMOTime t) {
     myVTDControlledVehicles[v->getID()] = v;
     v->getInfluencer().setVTDControlled(true, l, pos, edgeOffset, route, t);
 }

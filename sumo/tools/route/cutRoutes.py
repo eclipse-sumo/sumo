@@ -19,7 +19,9 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, sys, codecs
+import os
+import sys
+import codecs
 from optparse import OptionParser
 from collections import defaultdict
 import sort_routes
@@ -40,20 +42,23 @@ departure times. If the option --orig-net is given departure times will be
 extrapolated based on edge-lengths and maximum speeds multiplied with --speed-factor"""
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
-            default=False, help="Give more output")
+                         default=False, help="Give more output")
     optParser.add_option("--trips-output", help="output trip file")
-    optParser.add_option("--min-length", type='int', default=0, help="minimum route length in the subnetwork")
+    optParser.add_option("--min-length", type='int',
+                         default=0, help="minimum route length in the subnetwork")
     optParser.add_option("--routes-output", help="output route file")
     optParser.add_option("--stops-output", help="output filtered stop file")
-    optParser.add_option("-a", "--additional-input", help="additional file (for bus stop locations)")
-    optParser.add_option("--speed-factor", type='float', default=1.0, 
-            help="Factor for modifying maximum edge speeds when extrapolating new departure times (default 1.0)")
-    optParser.add_option("--orig-net", help="complete network for retrieving edge lengths")
-    optParser.add_option("-b", "--big", action="store_true", default=False, 
-            help="Perform out-of-memory sort using module sort_routes (slower but more memory efficient)")
-    optParser.add_option("-d", "--disconnected-action", type='choice', default='discard', 
-            choices=['discard', 'keep'], # XXX 'split', 'longest'
-            help="How to deal with routes that are disconnected in the subnetwork. If 'keep' is chosen the route file must be processed with DUAROUTER with option --repair")
+    optParser.add_option(
+        "-a", "--additional-input", help="additional file (for bus stop locations)")
+    optParser.add_option("--speed-factor", type='float', default=1.0,
+                         help="Factor for modifying maximum edge speeds when extrapolating new departure times (default 1.0)")
+    optParser.add_option(
+        "--orig-net", help="complete network for retrieving edge lengths")
+    optParser.add_option("-b", "--big", action="store_true", default=False,
+                         help="Perform out-of-memory sort using module sort_routes (slower but more memory efficient)")
+    optParser.add_option("-d", "--disconnected-action", type='choice', default='discard',
+                         choices=['discard', 'keep'],  # XXX 'split', 'longest'
+                         help="How to deal with routes that are disconnected in the subnetwork. If 'keep' is chosen the route file must be processed with DUAROUTER with option --repair")
     #optParser.add_option("--orig-weights", help="weight file for the original network for extrapolating new departure times")
     options, args = optParser.parse_args()
     try:
@@ -63,7 +68,8 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
         sys.exit(USAGE)
     if ((options.trips_output is None and options.routes_output is None)
             or (options.trips_output is not None and options.routes_output is not None)):
-        sys.exit("Exactly one of the options --trips-output or --routes-output must be given")
+        sys.exit(
+            "Exactly one of the options --trips-output or --routes-output must be given")
     else:
         if options.trips_output:
             options.output = options.trips_output
@@ -79,8 +85,9 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
 def cut_routes(areaEdges, orig_net, options, busStopEdges=None):
     num_vehicles = 0
     num_returned = 0
-    missingEdgeOccurences = defaultdict(lambda:0)
-    multiAffectedRoutes = 0 # routes which enter the sub-scenario multiple times
+    missingEdgeOccurences = defaultdict(lambda: 0)
+    # routes which enter the sub-scenario multiple times
+    multiAffectedRoutes = 0
     teleportFactorSum = 0.0
     too_short = 0
     for routeFile in options.routeFiles:
@@ -90,8 +97,9 @@ def cut_routes(areaEdges, orig_net, options, busStopEdges=None):
             edges = vehicle.route[0].edges.split()
             fromIndex = getFirstIndex(areaEdges, edges)
             if fromIndex is None:
-                continue # route does not touch the area
-            toIndex = len(edges) - 1 - getFirstIndex(areaEdges, reversed(edges))
+                continue  # route does not touch the area
+            toIndex = len(edges) - 1 - \
+                getFirstIndex(areaEdges, reversed(edges))
             # check for minimum length
             if toIndex - fromIndex + 1 < options.min_length:
                 too_short += 1
@@ -106,9 +114,9 @@ def cut_routes(areaEdges, orig_net, options, busStopEdges=None):
                 if orig_net is not None:
                     # extrapolate new departure using default speed
                     newDepart = (float(vehicle.depart) +
-                            sum([(orig_net.getEdge(e).getLength() / 
-                                (orig_net.getEdge(e).getSpeed() * options.speed_factor)) 
-                                for e in edges[:fromIndex]]))
+                                 sum([(orig_net.getEdge(e).getLength() /
+                                       (orig_net.getEdge(e).getSpeed() * options.speed_factor))
+                                      for e in edges[:fromIndex]]))
                 else:
                     print "Could not reconstruct new departure time for vehicle '%s'. Using old departure time." % vehicle.id
                     newDepart = float(vehicle.depart)
@@ -120,7 +128,7 @@ def cut_routes(areaEdges, orig_net, options, busStopEdges=None):
                 # assume teleports were spread evenly across the vehicles route
                 newDepart = float(departTimes[int(fromIndex * teleportFactor)])
                 del vehicle.route[0].exitTimes
-            remaining = edges[fromIndex:toIndex+1]
+            remaining = edges[fromIndex:toIndex + 1]
             stops = []
             if vehicle.stop:
                 for stop in vehicle.stop:
@@ -142,7 +150,8 @@ def cut_routes(areaEdges, orig_net, options, busStopEdges=None):
             num_returned += 1
 
     if teleportFactorSum > 0:
-        teleports = " (avg teleportFactor %s)" % (1 - teleportFactorSum/num_returned)
+        teleports = " (avg teleportFactor %s)" % (
+            1 - teleportFactorSum / num_returned)
     else:
         teleports = ""
 
@@ -152,11 +161,13 @@ def cut_routes(areaEdges, orig_net, options, busStopEdges=None):
     print "Number of disconnected routes: %s. Most frequent missing edges:" % multiAffectedRoutes
     printTop(missingEdgeOccurences)
 
+
 def getFirstIndex(areaEdges, edges):
-    for i,edge in enumerate(edges):
+    for i, edge in enumerate(edges):
         if edge in areaEdges:
             return i
     return None
+
 
 def missingEdges(areaEdges, edges, missingEdgeOccurences):
     hasBeenAffectedOnce = False
@@ -168,7 +179,8 @@ def missingEdges(areaEdges, edges, missingEdgeOccurences):
 
 
 def printTop(missingEdgeOccurences, num=1000):
-    counts = sorted([(v, k) for k,v in missingEdgeOccurences.iteritems()], reverse=True)
+    counts = sorted(
+        [(v, k) for k, v in missingEdgeOccurences.iteritems()], reverse=True)
     counts.sort(reverse=True)
     for count, edge in counts[:num]:
         print count, edge
@@ -185,6 +197,7 @@ def write_trip(file, vehicle):
         file.write('</trip>\n')
     else:
         file.write('/>\n')
+
 
 def write_route(file, vehicle):
     file.write(vehicle.toXML('    '))
@@ -210,7 +223,8 @@ def main():
     busStopEdges = {}
     if options.stops_output:
         busStops = codecs.open(options.stops_output, 'w', encoding='utf8')
-        busStops.write('<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
+        busStops.write(
+            '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
     if options.additional_input:
         for busStop in parse(options.additional_input, 'busStop'):
             edge = busStop.lane[:-2]
@@ -222,8 +236,10 @@ def main():
         busStops.close()
 
     def write_to_file(vehicles, f):
-        f.write('<!-- generated with %s for %s from %s -->\n' % (os.path.basename(__file__), options.network, options.routeFiles))
-        f.write('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n' % output_type)
+        f.write('<!-- generated with %s for %s from %s -->\n' %
+                (os.path.basename(__file__), options.network, options.routeFiles))
+        f.write(
+            '<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n' % output_type)
         num_routes = 0
         for _, v in vehicles:
             num_routes += 1
@@ -235,7 +251,8 @@ def main():
         # write output unsorted
         tmpname = options.output + ".unsorted"
         with codecs.open(tmpname, 'w', encoding='utf8') as f:
-            write_to_file(cut_routes(edges, orig_net, options, busStopEdges), f)
+            write_to_file(
+                cut_routes(edges, orig_net, options, busStopEdges), f)
         # sort out of memory
         sort_routes.main([tmpname, '--big', '--outfile', options.output])
     else:

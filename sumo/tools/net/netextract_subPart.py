@@ -25,31 +25,36 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-import os, sys
+import os
+import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
+
 
 def writeNodes(net, file):
     fd = open(file, "w")
     fd.write("<nodes>\n")
     for node in net._nodes:
-        fd.write("   <node id=\"" + node._id + "\" x=\"" + str(node._coord[0]) + "\" y=\"" + str(node._coord[1]) + "\"/>\n")
+        fd.write("   <node id=\"" + node._id + "\" x=\"" +
+                 str(node._coord[0]) + "\" y=\"" + str(node._coord[1]) + "\"/>\n")
     fd.write("</nodes>\n")
+
 
 def writeEdges(net, file):
     fd = open(file, "w")
     fd.write("<edges>\n")
     for edge in net._edges:
-        fd.write("   <edge id=\"" + edge._id + "\" fromNode=\"" + edge._from._id + "\" toNode=\"" + edge._to._id)
+        fd.write("   <edge id=\"" + edge._id + "\" fromNode=\"" +
+                 edge._from._id + "\" toNode=\"" + edge._to._id)
         fd.write("\" speed=\"" + str(edge._speed))
         fd.write("\" priority=\"" + str(edge._priority))
         fd.write("\" spreadType=\"center")
         fd.write("\" numLanes=\"" + str(len(edge._lanes)) + "\"")
         shape = edge.getShape()
         fd.write(" shape=\"")
-        for i,c in enumerate(shape):
-            if i!=0:
+        for i, c in enumerate(shape):
+            if i != 0:
                 fd.write(" ")
             fd.write(str(c[0]) + "," + str(c[1]))
         fd.write("\"")
@@ -57,7 +62,6 @@ def writeEdges(net, file):
     fd.write("</edges>\n")
 
 
-    
 if len(sys.argv) < 4:
     print "Usage: " + sys.argv[0] + " <net> <prefix> <nodes>"
     sys.exit()
@@ -87,6 +91,6 @@ for n in nodes:
     net.addNode(n._id, n._coord)
 
 print "Writing nodes..."
-writeNodes(net, sys.argv[2]+"_nodes.nod.xml")
+writeNodes(net, sys.argv[2] + "_nodes.nod.xml")
 print "Writing edges..."
-writeEdges(net, sys.argv[2]+"_edges.edg.xml")
+writeEdges(net, sys.argv[2] + "_edges.edg.xml")

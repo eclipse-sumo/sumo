@@ -242,16 +242,16 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         assert(geomsCCW.find(*i) != geomsCCW.end());
         assert(geomsCW.find(*ccwi) != geomsCW.end());
         assert(geomsCW.find(*cwi) != geomsCW.end());
-       
+
 
         // there are only 2 directions and they are almost parallel
         if (*cwi == *ccwi &&
-           ( 
-            // no change in lane numbers, even low angles still give a good intersection
-            (simpleContinuation && fabs(ccad - cad) < (SUMOReal) 0.1) 
-            // lane numbers change, a direct intersection could be far away from the node position 
-            // so we use a larger threshold
-            || (!simpleContinuation && fabs(ccad - cad) < DEG2RAD(22.5)))
+                (
+                    // no change in lane numbers, even low angles still give a good intersection
+                    (simpleContinuation && fabs(ccad - cad) < (SUMOReal) 0.1)
+                    // lane numbers change, a direct intersection could be far away from the node position
+                    // so we use a larger threshold
+                    || (!simpleContinuation && fabs(ccad - cad) < DEG2RAD(22.5)))
            ) {
             // compute the mean position between both edges ends ...
             Position p;
@@ -305,13 +305,13 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             // the outer boundaries directly (or there are more than 2 directions). The "nearer" neighbar causes the furthest distance
             const bool ccwCloser = ccad < cad;
             // the border facing the closer neighbor
-            const PositionVector& currGeom = ccwCloser ? geomsCCW[*i] : geomsCW[*i]; 
+            const PositionVector& currGeom = ccwCloser ? geomsCCW[*i] : geomsCW[*i];
             // the border facing the far neighbor
-            const PositionVector& currGeom2 = ccwCloser ? geomsCW[*i] : geomsCCW[*i]; 
+            const PositionVector& currGeom2 = ccwCloser ? geomsCW[*i] : geomsCCW[*i];
             // the border of the closer neighbor
             const PositionVector& neighGeom = ccwCloser ? geomsCW[*ccwi] : geomsCCW[*cwi];
             // the border of the far neighbor
-            const PositionVector& neighGeom2 = ccwCloser ? geomsCCW[*cwi] : geomsCW[*ccwi]; 
+            const PositionVector& neighGeom2 = ccwCloser ? geomsCCW[*cwi] : geomsCW[*ccwi];
             if (!simpleContinuation) {
                 if (currGeom.intersects(neighGeom)) {
                     distances[*i] = radius + currGeom.intersectsAtLengths2D(neighGeom)[0];
@@ -515,7 +515,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         }
         p.set(p.x(), p.y(), myNode.getPosition().z());
         if (i != newAll.begin()) {
-            ret.append(getSmoothCorner(geomsCW[*(i-1)].reverse(), ccwBound, ret[-1], p, cornerDetail));
+            ret.append(getSmoothCorner(geomsCW[*(i - 1)].reverse(), ccwBound, ret[-1], p, cornerDetail));
         }
         ret.push_back_noDoublePos(p);
         //
@@ -535,9 +535,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 }
 
 
-PositionVector 
-NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector endShape, 
-        const Position& begPoint, const Position& endPoint, int cornerDetail) {
+PositionVector
+NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector endShape,
+                                     const Position& begPoint, const Position& endPoint, int cornerDetail) {
     PositionVector ret;
     if (cornerDetail > 0) {
         begShape = begShape.reverse();
@@ -591,8 +591,8 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
         tmp = geomsCW[*i].lineAt(0);
         tmp.extrapolateBy2D(100);
         geomsCW[*i].replaceAt(0, tmp.p1());
-        const SUMOReal angle1further = (g1.size() > 2 && l1.length2D() < angleChangeLookahead ? 
-                g1.lineAt(1).atan2DegreeAngle() : l1.atan2DegreeAngle());
+        const SUMOReal angle1further = (g1.size() > 2 && l1.length2D() < angleChangeLookahead ?
+                                        g1.lineAt(1).atan2DegreeAngle() : l1.atan2DegreeAngle());
         //
         for (j = i + 1; j != myNode.myAllEdges.end(); j++) {
             const bool incoming2 = (*j)->getToNode() == &myNode;
@@ -610,8 +610,8 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
             tmp = geomsCW[*j].lineAt(0);
             tmp.extrapolateBy2D(100);
             geomsCW[*j].replaceAt(0, tmp.p1());
-            const SUMOReal angle2further = (g2.size() > 2 && l2.length2D() < angleChangeLookahead ? 
-                    g2.lineAt(1).atan2DegreeAngle() : l2.atan2DegreeAngle());
+            const SUMOReal angle2further = (g2.size() > 2 && l2.length2D() < angleChangeLookahead ?
+                                            g2.lineAt(1).atan2DegreeAngle() : l2.atan2DegreeAngle());
             // do not join edges which are both entering or both leaving. A
             // separation point must always be computed in later steps
             const SUMOReal angleDiff = l1.atan2DegreeAngle() - l2.atan2DegreeAngle();
@@ -649,9 +649,9 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
 }
 
 
-bool 
-NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, SUMOReal absAngleDiff, 
-        SUMOReal distance, SUMOReal threshold) {
+bool
+NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, SUMOReal absAngleDiff,
+                                     SUMOReal distance, SUMOReal threshold) {
     // check whether the two edges are on top of each other. In that case they should be joined
     // @todo should differentiate according to spreadType
     const SUMOReal commonLength = MIN3(distance, e1->getGeometry().length(), e2->getGeometry().length());
@@ -724,14 +724,14 @@ NBNodeShapeComputer::computeUniqueDirectionList(
 }
 
 
-void 
+void
 NBNodeShapeComputer::initNeighbors(const EdgeVector& edges, const EdgeVector::const_iterator& current,
-        GeomsMap& geomsCW,
-        GeomsMap& geomsCCW,
-        EdgeVector::const_iterator& cwi,
-        EdgeVector::const_iterator& ccwi,
-        SUMOReal& cad,
-        SUMOReal& ccad) {
+                                   GeomsMap& geomsCW,
+                                   GeomsMap& geomsCCW,
+                                   EdgeVector::const_iterator& cwi,
+                                   EdgeVector::const_iterator& ccwi,
+                                   SUMOReal& cad,
+                                   SUMOReal& ccad) {
     const SUMOReal twoPI = (SUMOReal)(2 * M_PI);
     cwi = current;
     cwi++;

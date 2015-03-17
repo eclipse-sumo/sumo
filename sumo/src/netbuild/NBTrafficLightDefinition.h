@@ -402,8 +402,8 @@ protected:
             to2(_to2) {}
 
         bool operator==(const StreamPair& o) const {
-                return (from1 == o.from1 && to1 == o.to1
-                        && from2 == o.from2 && to2 == o.to2);
+            return (from1 == o.from1 && to1 == o.to1
+                    && from2 == o.from2 && to2 == o.to2);
         }
 
         bool operator<(const StreamPair& o) const {

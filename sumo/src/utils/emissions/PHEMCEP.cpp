@@ -47,26 +47,26 @@
 // method definitions
 // ===========================================================================
 PHEMCEP::PHEMCEP(bool heavyVehicle, SUMOEmissionClass emissionClass, const std::string& emissionClassIdentifier,
-		 double vehicleMass, double vehicleLoading, double vehicleMassRot,
-		 double crossArea, double cdValue,
-		 double f0, double f1, double f2, double f3, double f4,
-		 double ratedPower, double pNormV0, double pNormP0, double pNormV1, double pNormP1,
-		 double axleRatio, double engineIdlingSpeed, double engineRatedSpeed, double effectiveWheelDiameter,
-		 double idlingFC,
-		 const std::string &vehicleFuelType,
-         const std::vector< std::vector<double> > &matrixFC,
-		 const std::vector<std::string> &headerLinePollutants,
-		 const std::vector< std::vector<double> > &matrixPollutants,
-		 const std::vector< std::vector<double> > &matrixSpeedRotational,
-		 const std::vector< std::vector<double> > &normedDragTable,
-		 const std::vector<double> &idlingValuesPollutants) {
+                 double vehicleMass, double vehicleLoading, double vehicleMassRot,
+                 double crossArea, double cdValue,
+                 double f0, double f1, double f2, double f3, double f4,
+                 double ratedPower, double pNormV0, double pNormP0, double pNormV1, double pNormP1,
+                 double axleRatio, double engineIdlingSpeed, double engineRatedSpeed, double effectiveWheelDiameter,
+                 double idlingFC,
+                 const std::string& vehicleFuelType,
+                 const std::vector< std::vector<double> >& matrixFC,
+                 const std::vector<std::string>& headerLinePollutants,
+                 const std::vector< std::vector<double> >& matrixPollutants,
+                 const std::vector< std::vector<double> >& matrixSpeedRotational,
+                 const std::vector< std::vector<double> >& normedDragTable,
+                 const std::vector<double>& idlingValuesPollutants) {
     _emissionClass = emissionClass;
     _resistanceF0 = f0;
     _resistanceF1 = f1;
     _resistanceF2 = f2;
     _resistanceF3 = f3;
     _resistanceF4 = f4;
-	_cdValue = cdValue;
+    _cdValue = cdValue;
     _crossSectionalArea = crossArea;
     _massVehicle = vehicleMass;
     _vehicleLoading = vehicleLoading;
@@ -79,17 +79,17 @@ PHEMCEP::PHEMCEP(bool heavyVehicle, SUMOEmissionClass emissionClass, const std::
     _pNormV1 = pNormV1 / 3.6;
     _pNormP1 = pNormP1;
 
-	_axleRatio = axleRatio;
-	_engineIdlingSpeed = engineIdlingSpeed;
-	_engineRatedSpeed = engineRatedSpeed;
-	_effictiveWheelDiameter = effectiveWheelDiameter;
+    _axleRatio = axleRatio;
+    _engineIdlingSpeed = engineIdlingSpeed;
+    _engineRatedSpeed = engineRatedSpeed;
+    _effictiveWheelDiameter = effectiveWheelDiameter;
 
-	_heavyVehicle = heavyVehicle;
-	_idlingFC = idlingFC;
+    _heavyVehicle = heavyVehicle;
+    _idlingFC = idlingFC;
 
     std::vector<std::string> pollutantIdentifier;
     std::vector< std::vector<double> > pollutantMeasures;
-	std::vector<std::vector<double> > normalizedPollutantMeasures;
+    std::vector<std::vector<double> > normalizedPollutantMeasures;
 
     // init pollutant identifiers
     for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
@@ -103,13 +103,13 @@ PHEMCEP::PHEMCEP(bool heavyVehicle, SUMOEmissionClass emissionClass, const std::
     // initialize measures
     for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
         pollutantMeasures.push_back(std::vector<double>());
-		normalizedPollutantMeasures.push_back(std::vector<double>());
+        normalizedPollutantMeasures.push_back(std::vector<double>());
     } // end for
 
     // looping through matrix and assigning values for speed rotational table
     _speedCurveRotational.clear();
     _speedPatternRotational.clear();
-	_gearTransmissionCurve.clear();
+    _gearTransmissionCurve.clear();
     for (int i = 0; i < (int)matrixSpeedRotational.size(); i++) {
         if (matrixSpeedRotational[i].size() != 3) {
             throw InvalidArgument("Error loading vehicle file for: " + emissionClassIdentifier);
@@ -117,53 +117,53 @@ PHEMCEP::PHEMCEP(bool heavyVehicle, SUMOEmissionClass emissionClass, const std::
 
         _speedPatternRotational.push_back(matrixSpeedRotational[i][0] / 3.6);
         _speedCurveRotational.push_back(matrixSpeedRotational[i][1]);
-		_gearTransmissionCurve.push_back(matrixSpeedRotational[i][2]);
-	} // end for
+        _gearTransmissionCurve.push_back(matrixSpeedRotational[i][2]);
+    } // end for
 
-	// looping through matrix and assigning values for drag table
-	_nNormTable.clear();
-	_dragNormTable.clear();
-	for (int i = 0; i < (int) normedDragTable.size(); i++)
-    {
-        if (normedDragTable[i].size() != 2)
+    // looping through matrix and assigning values for drag table
+    _nNormTable.clear();
+    _dragNormTable.clear();
+    for (int i = 0; i < (int) normedDragTable.size(); i++) {
+        if (normedDragTable[i].size() != 2) {
             return;
+        }
 
-		_nNormTable.push_back(normedDragTable[i][0]);
-		_dragNormTable.push_back(normedDragTable[i][1]);
+        _nNormTable.push_back(normedDragTable[i][0]);
+        _dragNormTable.push_back(normedDragTable[i][1]);
 
     } // end for
 
     // looping through matrix and assigning values for Fuel consumption
     _cepCurveFC.clear();
-	_powerPatternFC.clear();
-	_normalizedPowerPatternFC.clear();
-	_normedCepCurveFC.clear();
+    _powerPatternFC.clear();
+    _normalizedPowerPatternFC.clear();
+    _normedCepCurveFC.clear();
     for (int i = 0; i < (int)matrixFC.size(); i++) {
         if (matrixFC[i].size() != 2) {
             throw InvalidArgument("Error loading vehicle file for: " + emissionClassIdentifier);
         }
 
-		_powerPatternFC.push_back(matrixFC[i][0] * _ratedPower);
+        _powerPatternFC.push_back(matrixFC[i][0] * _ratedPower);
         _normalizedPowerPatternFC.push_back(matrixFC[i][0]);
         _cepCurveFC.push_back(matrixFC[i][1] * _ratedPower);
         _normedCepCurveFC.push_back(matrixFC[i][1]);
 
     } // end for
 
-	_powerPatternPollutants.clear();
-	double pollutantMultiplyer = 1;
+    _powerPatternPollutants.clear();
+    double pollutantMultiplyer = 1;
 
-	_drivingPower = _normalizingPower = CalcPower(NORMALIZING_SPEED, NORMALIZING_ACCELARATION, 0, vehicleLoading);
+    _drivingPower = _normalizingPower = CalcPower(NORMALIZING_SPEED, NORMALIZING_ACCELARATION, 0, vehicleLoading);
 
     // looping through matrix and assigning values for pollutants
 
     if (heavyVehicle) {
-		_normalizingPower = _ratedPower;
-		pollutantMultiplyer = _ratedPower;
-		_normalizingType = RatedPower;
+        _normalizingPower = _ratedPower;
+        pollutantMultiplyer = _ratedPower;
+        _normalizingType = RatedPower;
     } else {
-		_normalizingPower = _drivingPower;
-		_normalizingType = DrivingPower;
+        _normalizingPower = _drivingPower;
+        _normalizingType = DrivingPower;
     } // end if
 
     const int headerCount = (int)headerLinePollutants.size();
@@ -174,8 +174,8 @@ PHEMCEP::PHEMCEP(bool heavyVehicle, SUMOEmissionClass emissionClass, const std::
             }
 
             if (j == 0) {
-				_normailzedPowerPatternPollutants.push_back(matrixPollutants[i][j]);
-				_powerPatternPollutants.push_back(matrixPollutants[i][j] * _normalizingPower);
+                _normailzedPowerPatternPollutants.push_back(matrixPollutants[i][j]);
+                _powerPatternPollutants.push_back(matrixPollutants[i][j] * _normalizingPower);
             } else {
                 pollutantMeasures[j - 1].push_back(matrixPollutants[i][j] * pollutantMultiplyer);
                 normalizedPollutantMeasures[j - 1].push_back(matrixPollutants[i][j]);
@@ -183,14 +183,13 @@ PHEMCEP::PHEMCEP(bool heavyVehicle, SUMOEmissionClass emissionClass, const std::
         } // end for
     } // end for
 
-	for(int i=0; i<(int) headerLinePollutants.size(); i++)
-	{
-		_cepCurvePollutants.insert(pollutantIdentifier[i], pollutantMeasures[i]);
-		_normalizedCepCurvePollutants.insert(pollutantIdentifier[i], normalizedPollutantMeasures[i]);
-		_idlingValuesPollutants.insert(pollutantIdentifier[i], idlingValuesPollutants[i] * pollutantMultiplyer);
-	} // end for
+    for (int i = 0; i < (int) headerLinePollutants.size(); i++) {
+        _cepCurvePollutants.insert(pollutantIdentifier[i], pollutantMeasures[i]);
+        _normalizedCepCurvePollutants.insert(pollutantIdentifier[i], normalizedPollutantMeasures[i]);
+        _idlingValuesPollutants.insert(pollutantIdentifier[i], idlingValuesPollutants[i] * pollutantMultiplyer);
+    } // end for
 
-	_idlingFC = idlingFC * _ratedPower;
+    _idlingFC = idlingFC * _ratedPower;
 
 } // end of Cep
 
@@ -207,82 +206,75 @@ PHEMCEP::~PHEMCEP() {
 
 double
 PHEMCEP::GetEmission(const std::string& pollutant, double power, double speed, bool normalized) const {
-	std::vector<double> emissionCurve;
-	std::vector<double> powerPattern; 
+    std::vector<double> emissionCurve;
+    std::vector<double> powerPattern;
 
-	if (!normalized && fabs(speed) <= ZERO_SPEED_ACCURACY)
-    {
-        if (pollutant == "FC")
+    if (!normalized && fabs(speed) <= ZERO_SPEED_ACCURACY) {
+        if (pollutant == "FC") {
             return _idlingFC;
-        else
-			return _idlingValuesPollutants.get(pollutant);
+        } else {
+            return _idlingValuesPollutants.get(pollutant);
+        }
     } // end if
 
-	if(pollutant=="FC")
-	{
-		if(normalized)
-		{
-			emissionCurve = _normedCepCurveFC;
-			powerPattern = _normalizedPowerPatternFC;
-		}
-		else
-		{
-			emissionCurve = _cepCurveFC;
-			powerPattern = _powerPatternFC;
-		}
-	}
-	else
-	{
-		if(!_cepCurvePollutants.hasString(pollutant))
-			throw InvalidArgument("Emission pollutant " + pollutant + " not found!");
+    if (pollutant == "FC") {
+        if (normalized) {
+            emissionCurve = _normedCepCurveFC;
+            powerPattern = _normalizedPowerPatternFC;
+        } else {
+            emissionCurve = _cepCurveFC;
+            powerPattern = _powerPatternFC;
+        }
+    } else {
+        if (!_cepCurvePollutants.hasString(pollutant)) {
+            throw InvalidArgument("Emission pollutant " + pollutant + " not found!");
+        }
 
-		if(normalized)
-		{
-			emissionCurve = _normalizedCepCurvePollutants.get(pollutant);
-			powerPattern = _normailzedPowerPatternPollutants;
-		}
-		else
-		{
-			emissionCurve = _cepCurvePollutants.get(pollutant);
-			powerPattern = _powerPatternPollutants;
-		}
+        if (normalized) {
+            emissionCurve = _normalizedCepCurvePollutants.get(pollutant);
+            powerPattern = _normailzedPowerPatternPollutants;
+        } else {
+            emissionCurve = _cepCurvePollutants.get(pollutant);
+            powerPattern = _powerPatternPollutants;
+        }
 
-	} // end if 
+    } // end if
 
 
 
-	if(emissionCurve.size()==0)
-		throw InvalidArgument("Empty emission curve for " + pollutant + " found!");
+    if (emissionCurve.size() == 0) {
+        throw InvalidArgument("Empty emission curve for " + pollutant + " found!");
+    }
 
-	if(emissionCurve.size()==1)
-		return emissionCurve[0];
+    if (emissionCurve.size() == 1) {
+        return emissionCurve[0];
+    }
 
-	// in case that the demanded power is smaller than the first entry (smallest) in the power pattern the first two entries are extrapolated
-	if(power <= powerPattern.front())
-	{ 
-		double calcEmission =  PHEMCEP::Interpolate(power, powerPattern[0], powerPattern[1], emissionCurve[0], emissionCurve[1]);
-	
-		if(calcEmission < 0)
-			return 0;
-		else
-			return calcEmission;
-			
-	} // end if
+    // in case that the demanded power is smaller than the first entry (smallest) in the power pattern the first two entries are extrapolated
+    if (power <= powerPattern.front()) {
+        double calcEmission =  PHEMCEP::Interpolate(power, powerPattern[0], powerPattern[1], emissionCurve[0], emissionCurve[1]);
 
-	// if power bigger than all entries in power pattern the last two values are linearly extrapolated
-	if(power >= powerPattern.back())
-	{
-		return PHEMCEP::Interpolate(power, powerPattern[powerPattern.size()-2], powerPattern.back(), emissionCurve[emissionCurve.size()-2], emissionCurve.back());
-	} // end if
+        if (calcEmission < 0) {
+            return 0;
+        } else {
+            return calcEmission;
+        }
 
-	// bisection search to find correct position in power pattern	
-	int upperIndex;
-	int lowerIndex;
+    } // end if
 
-	PHEMCEP::FindLowerUpperInPattern(lowerIndex, upperIndex, powerPattern, power);
+    // if power bigger than all entries in power pattern the last two values are linearly extrapolated
+    if (power >= powerPattern.back()) {
+        return PHEMCEP::Interpolate(power, powerPattern[powerPattern.size() - 2], powerPattern.back(), emissionCurve[emissionCurve.size() - 2], emissionCurve.back());
+    } // end if
 
-	return PHEMCEP::Interpolate(power, powerPattern[lowerIndex], powerPattern[upperIndex], emissionCurve[lowerIndex], emissionCurve[upperIndex]);
-	
+    // bisection search to find correct position in power pattern
+    int upperIndex;
+    int lowerIndex;
+
+    PHEMCEP::FindLowerUpperInPattern(lowerIndex, upperIndex, powerPattern, power);
+
+    return PHEMCEP::Interpolate(power, powerPattern[lowerIndex], powerPattern[upperIndex], emissionCurve[lowerIndex], emissionCurve[upperIndex]);
+
 } // end of GetEmission
 
 
@@ -295,10 +287,8 @@ PHEMCEP::Interpolate(double px, double p1, double p2, double e1, double e2) cons
 } // end of Interpolate
 
 
-double PHEMCEP::GetDecelCoast(double speed, double acc, double gradient, double /* vehicleLoading */) const
-{
-	if (speed < SPEED_DCEL_MIN)
-    {
+double PHEMCEP::GetDecelCoast(double speed, double acc, double gradient, double /* vehicleLoading */) const {
+    if (speed < SPEED_DCEL_MIN) {
         return speed / SPEED_DCEL_MIN * GetDecelCoast(SPEED_DCEL_MIN, acc, gradient, _vehicleLoading); // !!!vehicleLoading
     } // end if
 
@@ -311,29 +301,28 @@ double PHEMCEP::GetDecelCoast(double speed, double acc, double gradient, double 
 
     double iTot = iGear * _axleRatio;
 
-	double n = (30 * speed * iTot) / ((_effictiveWheelDiameter / 2) * M_PI2);
+    double n = (30 * speed * iTot) / ((_effictiveWheelDiameter / 2) * M_PI2);
     double nNorm = (n - _engineIdlingSpeed) / (_engineRatedSpeed - _engineIdlingSpeed);
 
     FindLowerUpperInPattern(lowerIndex, upperIndex, _nNormTable, nNorm);
 
     double fMot = 0;
 
-    if (speed >= 10e-2)
-    {
+    if (speed >= 10e-2) {
         fMot = (-GetDragCoeffecient(nNorm) * _ratedPower * 1000 / speed) / 0.9;
     } // end if
 
     double fRoll = (_resistanceF0
-        + _resistanceF1 * speed
-        + pow(_resistanceF2 * speed, 2)
-        + pow(_resistanceF3 * speed, 3)
-        + pow(_resistanceF4 * speed, 4)) * (_massVehicle + _vehicleLoading) * GRAVITY_CONST; // !!!vehicleLoading
+                    + _resistanceF1 * speed
+                    + pow(_resistanceF2 * speed, 2)
+                    + pow(_resistanceF3 * speed, 3)
+                    + pow(_resistanceF4 * speed, 4)) * (_massVehicle + _vehicleLoading) * GRAVITY_CONST; // !!!vehicleLoading
 
     double fAir = _cdValue * _crossSectionalArea * 1.2 * 0.5 * pow(speed, 2);
 
     double fGrad = (_massVehicle + _vehicleLoading) * GRAVITY_CONST * gradient / 100; // !!!vehicleLoading
 
-    return -(fMot+fRoll+fAir+fGrad)/((_massVehicle+_vehicleLoading)*rotCoeff); // !!!vehicleLoading
+    return -(fMot + fRoll + fAir + fGrad) / ((_massVehicle + _vehicleLoading) * rotCoeff); // !!!vehicleLoading
 } // end of GetDecelCoast
 
 
@@ -352,7 +341,7 @@ PHEMCEP::GetRotationalCoeffecient(double speed) const {
 } // end of GetRotationalCoeffecient
 
 double PHEMCEP::GetGearCoeffecient(double speed) const {
-	int upperIndex;
+    int upperIndex;
     int lowerIndex;
 
     FindLowerUpperInPattern(lowerIndex, upperIndex, _gearTransmissionCurve, speed);
@@ -365,7 +354,7 @@ double PHEMCEP::GetGearCoeffecient(double speed) const {
 } // end of GetGearCoefficient
 
 double PHEMCEP::GetDragCoeffecient(double nNorm)  const {
-	int upperIndex;
+    int upperIndex;
     int lowerIndex;
 
     FindLowerUpperInPattern(lowerIndex, upperIndex, _dragNormTable, nNorm);
@@ -377,7 +366,7 @@ double PHEMCEP::GetDragCoeffecient(double nNorm)  const {
                        _dragNormTable[upperIndex]);
 } // end of GetGearCoefficient
 
-void PHEMCEP::FindLowerUpperInPattern(int &lowerIndex, int &upperIndex, const std::vector<double> &pattern, double value) const {
+void PHEMCEP::FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, const std::vector<double>& pattern, double value) const {
     if (value <= pattern.front()) {
         lowerIndex = 0;
         upperIndex = 0;
@@ -432,7 +421,7 @@ PHEMCEP::CalcPower(double v, double a, double slope, double /* vehicleLoading */
 double
 PHEMCEP::GetMaxAccel(double v, double a, double gradient, double /* vehicleLoading */) const {
     UNUSED_PARAMETER(a);
-	double rotFactor = GetRotationalCoeffecient(v);
+    double rotFactor = GetRotationalCoeffecient(v);
     const double pMaxForAcc = GetPMaxNorm(v) * _ratedPower - PHEMCEP::CalcPower(v, 0, gradient, _vehicleLoading); // !!!vehicleLoading
     return (pMaxForAcc * 1000) / ((_massVehicle * rotFactor + _massRot + _vehicleLoading) * v); // !!!vehicleLoading
 }

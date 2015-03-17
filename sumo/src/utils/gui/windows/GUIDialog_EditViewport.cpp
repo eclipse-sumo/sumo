@@ -191,7 +191,7 @@ GUIDialog_EditViewport::onCmdSave(FXObject*, FXSelector, void* /*data*/) {
 }
 
 
-void 
+void
 GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
     dev.openTag(SUMO_TAG_VIEWPORT);
     dev.writeAttr(SUMO_ATTR_ZOOM, myZoom->getValue());

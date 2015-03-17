@@ -310,9 +310,9 @@ GeomHelper::distancePointLine(const Position& point,
 
 SUMOReal
 GeomHelper::closestDistancePointLine2D(const Position& point,
-                                     const Position& lineStart,
-                                     const Position& lineEnd,
-                                     Position& outIntersection) {
+                                       const Position& lineStart,
+                                       const Position& lineEnd,
+                                       Position& outIntersection) {
     const SUMOReal length = nearest_offset_on_line_to_point2D(lineStart, lineEnd, point, false);
     outIntersection.set(Line(lineStart, lineEnd).getPositionAtDistance2D(length));
     return point.distanceTo2D(outIntersection);

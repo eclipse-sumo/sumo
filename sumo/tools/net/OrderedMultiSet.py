@@ -22,12 +22,15 @@ the Free Software Foundation; either version 3 of the License, or
 import collections
 KEY, PREV, NEXT = range(3)
 
+
 class OrderedMultiSet(collections.MutableSet):
 
     def __init__(self, iterable=None):
-        self.end = end = [] 
-        end += [None, end, end]                                     # sentinel node for doubly linked list
-        self.map = collections.defaultdict(collections.deque) # key --> [(key, prev1, next1), (key, prev2, next2), ...]
+        self.end = end = []
+        # sentinel node for doubly linked list
+        end += [None, end, end]
+        # key --> [(key, prev1, next1), (key, prev2, next2), ...]
+        self.map = collections.defaultdict(collections.deque)
         self.size = 0
         if iterable is not None:
             self |= iterable
@@ -47,7 +50,7 @@ class OrderedMultiSet(collections.MutableSet):
         self.map[key].append(new)
 
     def discard(self, key):
-        if key in self.map:        
+        if key in self.map:
             self.size -= 1
             deque = self.map[key]
             key, prev, next = deque.popleft()
@@ -90,7 +93,6 @@ class OrderedMultiSet(collections.MutableSet):
     def __del__(self):
         self.clear()                    # remove circular references
 
-
     def __sub__(self, other):
         result = self.__class__()
         for x in self:
@@ -98,7 +100,6 @@ class OrderedMultiSet(collections.MutableSet):
         for x in other:
             result.discard(x)
         return result
-
 
     def __or__(self, other):
         result = self.__class__()

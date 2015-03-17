@@ -349,7 +349,7 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSPerson* person, SUMOTime 
     myWaitingPos = at;
     myWaitingSince = now;
     SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(previousEdge, myLines, myWaitingPos, person->getID());
-	if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_TRIGGERED) {
+    if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_TRIGGERED) {
         myVehicle = availableVehicle;
         previousEdge->removePerson(person);
         myVehicle->addPerson(person);

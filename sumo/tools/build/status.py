@@ -17,9 +17,13 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, sys, smtplib, re
+import os
+import sys
+import smtplib
+import re
 from os.path import basename, join, commonprefix
 from datetime import datetime
+
 
 def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
     failed = ""

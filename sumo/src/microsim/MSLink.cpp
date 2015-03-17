@@ -164,7 +164,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     intersections2.back() = (*it_lane)->interpolateGeometryPosToLanePos(intersections2.back());
 
                     if (internalLaneBefore->getLogicalPredecessorLane()->getEdge().isInternal() && !(*it_lane)->getEdge().isCrossing())  {
-                        // wait at the internal junction 
+                        // wait at the internal junction
                         // (except for foes that are crossings since there is no internal junction)
                         intersections1.back() = 0;
                     }
@@ -173,7 +173,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 myLengthsBehindCrossing.push_back(std::make_pair(
                                                       lane->getLength() - intersections1.back(),
                                                       (*it_lane)->getLength() - intersections2.back()));
-                
+
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout
                         << " intersection of " << lane->getID()
@@ -203,14 +203,14 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     if (intersections1.back() > NUMERICAL_EPS) {
                         // siblings share a common shape up to the last crossing point so intersections are identical and only need to be computed once
                         myLengthsBehindCrossing.push_back(std::make_pair(
-                                    lane->getLength() - intersections1.back(),
-                                    sibling->getLength() - intersections1.back()));
+                                                              lane->getLength() - intersections1.back(),
+                                                              sibling->getLength() - intersections1.back()));
                         myFoeLanes.push_back(sibling);
 #ifdef MSLink_DEBUG_CROSSING_POINTS
-                        std::cout << " adding same-origin foe" << sibling->getID() 
-                            << " dist1=" << myLengthsBehindCrossing.back().first
-                            << " dist2=" << myLengthsBehindCrossing.back().second
-                            << "\n";
+                        std::cout << " adding same-origin foe" << sibling->getID()
+                                  << " dist1=" << myLengthsBehindCrossing.back().first
+                                  << " dist2=" << myLengthsBehindCrossing.back().second
+                                  << "\n";
 #endif
                     }
                 }
@@ -223,7 +223,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 }
 
 
-std::pair<SUMOReal, SUMOReal> 
+std::pair<SUMOReal, SUMOReal>
 getLastIntersections(const MSLane* lane, const MSLane* foe);
 
 void

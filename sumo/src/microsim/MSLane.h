@@ -534,7 +534,7 @@ public:
         of the list of links (is not valid) */
     bool isLinkEnd(MSLinkCont::iterator& i);
 
-    /** Returns the information whether the lane is has no vehicle and no 
+    /** Returns the information whether the lane is has no vehicle and no
         partial occupation*/
     bool isEmpty() const;
 

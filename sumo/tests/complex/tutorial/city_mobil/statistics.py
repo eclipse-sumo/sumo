@@ -20,7 +20,9 @@ the Free Software Foundation; either version 3 of the License, or
 persons = {}
 personsRunning = 0
 
+
 class Person:
+
     def __init__(self, id, source, target, step):
         self.id = id
         self.source = source
@@ -29,22 +31,27 @@ class Person:
         self.depart = None
         self.arrive = None
 
+
 def personArrived(personID, edge, target, step):
     global personsRunning
     persons[personID] = Person(personID, edge, target, step)
     personsRunning += 1
 
+
 def personLoaded(personID, step):
     persons[personID].depart = step
+
 
 def personUnloaded(personID, step):
     global personsRunning
     persons[personID].arrive = step
     personsRunning -= 1
 
+
 def evaluate(forTest=False):
     try:
-        import numpy, math
+        import numpy
+        import math
     except ImportError:
         print "No numpy available, skipping statistics"
         return
@@ -52,23 +59,23 @@ def evaluate(forTest=False):
     routeTimes = {}
     for person in persons.itervalues():
         waitTimes.append(person.depart - person.waitStart)
-        route = (person.source, person.target) 
+        route = (person.source, person.target)
         if not route in routeTimes:
-            routeTimes[route] = [] 
-        routeTimes[route].append(person.arrive - person.depart) 
+            routeTimes[route] = []
+        routeTimes[route].append(person.arrive - person.depart)
     waitArray = numpy.array(waitTimes)
     if forTest:
         print "waiting time (max, mean, dev):", waitArray.max() < 1000, waitArray.mean() < 1000, math.sqrt(waitArray.var()) < 100
     else:
         print "waiting time (max, mean, dev):", waitArray.max(), waitArray.mean(), math.sqrt(waitArray.var())
-   
+
     for route, times in sorted(routeTimes.iteritems()):
         timeArray = numpy.array(times)
         if forTest:
             print route, timeArray.max() < 1000, timeArray.mean() < 1000, math.sqrt(timeArray.var()) < 100
-        else:       
+        else:
             print route, timeArray.max(), timeArray.mean(), math.sqrt(timeArray.var())
-    
+
     co2 = 0.
     for line in open("aggregated.xml"):
         if "cyber" in line:
@@ -76,10 +83,10 @@ def evaluate(forTest=False):
             if pos >= 9:
                 endpos = line.find('"', pos)
                 co2 += float(line[pos:endpos])
-    
+
     if forTest:
         print "CO2:", co2 < 10000000
-    else:  
+    else:
         print "CO2:", co2
 
 if __name__ == "__main__":
@@ -114,8 +121,10 @@ if __name__ == "__main__":
             rdev.append(float(line.split()[-1]))
     stats.close()
     figure()
-    errorbar(demand, simpleWaitMean, simpleWaitDev, lw=2, ms=10, fmt='o', label='standard bus scenario')
-    errorbar(demand, agentWaitMean, agentWaitDev, lw=2, ms=10, color="red", fmt='o', label='agent controlled cyber cars')
+    errorbar(demand, simpleWaitMean, simpleWaitDev, lw=2,
+             ms=10, fmt='o', label='standard bus scenario')
+    errorbar(demand, agentWaitMean, agentWaitDev, lw=2, ms=10,
+             color="red", fmt='o', label='agent controlled cyber cars')
     xlim(0, 50)
     ylim(0, 3300)
     xlabel('Repeater interval (s)')
@@ -124,8 +133,10 @@ if __name__ == "__main__":
     legend(numpoints=1)
     savefig("waitingtime.png")
     figure()
-    errorbar(demand, simpleRouteMean, simpleRouteDev, lw=2, ms=10, fmt='o', label='standard bus scenario')
-    errorbar(demand, agentRouteMean, agentRouteDev, lw=2, ms=10, color="red", fmt='o', label='agent controlled cyber cars')
+    errorbar(demand, simpleRouteMean, simpleRouteDev, lw=2,
+             ms=10, fmt='o', label='standard bus scenario')
+    errorbar(demand, agentRouteMean, agentRouteDev, lw=2, ms=10,
+             color="red", fmt='o', label='agent controlled cyber cars')
     xlim(0, 50)
     ylim(0, 300)
     xlabel('Repeater interval (s)')

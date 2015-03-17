@@ -22,21 +22,22 @@ VISUAL = False
 #VISUAL = True
 
 # skip short cuts
-lost       = True
-finished   = False # don't skip tests 
-afinished  = True  
+lost = True
+finished = False  # don't skip tests
+afinished = True
 unfinished = True  # tests that are more conceptal should not be run
-                   # unless they are under developement
+# unless they are under developement
 devel_skip = True  # things aren't ready jet for beeing tested
-devel_run  = False # this is what I am workin on, hence run this test and let it fail
-broken     = True  # did work somewhen,
-                   #  but due to developent this test was broken, fix after devel
-visual     = False # finished tests that draw things
-                   #
-known_bug  = True  # skip this test, as it will fail, but keep this example code
-                   # to check in the end that the bug is realy dead
-                   # good for buggs in multiple variants and good for stripping down and up
+# this is what I am workin on, hence run this test and let it fail
+devel_run = False
+broken = True  # did work somewhen,
+#  but due to developent this test was broken, fix after devel
+visual = False  # finished tests that draw things
+#
+known_bug = True  # skip this test, as it will fail, but keep this example code
+# to check in the end that the bug is realy dead
+# good for buggs in multiple variants and good for stripping down and up
 
 known_bug = False
 
-debugging  = False # run the test, while trying to find out what is wrong here
+debugging = False  # run the test, while trying to find out what is wrong here

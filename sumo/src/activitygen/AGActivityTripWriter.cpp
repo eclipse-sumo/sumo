@@ -44,17 +44,17 @@
 // ===========================================================================
 AGActivityTripWriter::AGActivityTripWriter(OutputDevice& file) : myTripOutput(file) {
     myTripOutput.openTag(SUMO_TAG_VTYPE)
-        .writeAttr(SUMO_ATTR_ID, "default")
-        .writeAttr(SUMO_ATTR_VCLASS, "passenger")
-        .writeAttr(SUMO_ATTR_COLOR, RGBColor::RED).closeTag();
+    .writeAttr(SUMO_ATTR_ID, "default")
+    .writeAttr(SUMO_ATTR_VCLASS, "passenger")
+    .writeAttr(SUMO_ATTR_COLOR, RGBColor::RED).closeTag();
     myTripOutput.openTag(SUMO_TAG_VTYPE)
-        .writeAttr(SUMO_ATTR_ID, "random")
-        .writeAttr(SUMO_ATTR_VCLASS, "passenger")
-        .writeAttr(SUMO_ATTR_COLOR, RGBColor::BLUE).closeTag();
+    .writeAttr(SUMO_ATTR_ID, "random")
+    .writeAttr(SUMO_ATTR_VCLASS, "passenger")
+    .writeAttr(SUMO_ATTR_COLOR, RGBColor::BLUE).closeTag();
     myTripOutput.openTag(SUMO_TAG_VTYPE)
-        .writeAttr(SUMO_ATTR_ID, "bus")
-        .writeAttr(SUMO_ATTR_VCLASS, "bus")
-        .writeAttr(SUMO_ATTR_COLOR, RGBColor::GREEN).closeTag();
+    .writeAttr(SUMO_ATTR_ID, "bus")
+    .writeAttr(SUMO_ATTR_VCLASS, "bus")
+    .writeAttr(SUMO_ATTR_COLOR, RGBColor::GREEN).closeTag();
     myTripOutput.lf();
 }
 
@@ -64,13 +64,13 @@ AGActivityTripWriter::addTrip(const AGTrip& trip) {
     int time = (trip.getDay() - 1) * 86400 + trip.getTime();
 
     myTripOutput.openTag(SUMO_TAG_TRIP)
-        .writeAttr(SUMO_ATTR_ID, trip.getVehicleName())
-        .writeAttr(SUMO_ATTR_TYPE, trip.getType())
-        .writeAttr(SUMO_ATTR_DEPART, time)
-        .writeAttr(SUMO_ATTR_DEPARTPOS, trip.getDep().getPosition())
-        .writeAttr(SUMO_ATTR_ARRIVALPOS, trip.getArr().getPosition())
-        .writeAttr(SUMO_ATTR_ARRIVALSPEED, 0.)
-        .writeAttr(SUMO_ATTR_FROM, trip.getDep().getStreet().getID());
+    .writeAttr(SUMO_ATTR_ID, trip.getVehicleName())
+    .writeAttr(SUMO_ATTR_TYPE, trip.getType())
+    .writeAttr(SUMO_ATTR_DEPART, time)
+    .writeAttr(SUMO_ATTR_DEPARTPOS, trip.getDep().getPosition())
+    .writeAttr(SUMO_ATTR_ARRIVALPOS, trip.getArr().getPosition())
+    .writeAttr(SUMO_ATTR_ARRIVALSPEED, 0.)
+    .writeAttr(SUMO_ATTR_FROM, trip.getDep().getStreet().getID());
 
     if (!trip.getPassed()->empty()) {
         std::ostringstream oss;

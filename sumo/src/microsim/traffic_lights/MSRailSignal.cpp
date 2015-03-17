@@ -52,11 +52,11 @@
 // method definitions
 // ===========================================================================
 MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
-        const std::string& id, const std::string& subid,
-        const std::map<std::string, std::string>& parameters) :
+                           const std::string& id, const std::string& subid,
+                           const std::map<std::string, std::string>& parameters) :
     MSTrafficLightLogic(tlcontrol, id, subid, DELTA_T, parameters),
-    myCurrentPhase(DELTA_T, ""){    
-        myDefaultCycleTime = DELTA_T;
+    myCurrentPhase(DELTA_T, "") {
+    myDefaultCycleTime = DELTA_T;
 }
 
 void
@@ -81,20 +81,20 @@ MSRailSignal::init(NLDetectorBuilder&) {
             MSLane* approachingLane = link->getApproachingLane();   //the lane this link is coming from
             afferentBlock.push_back(approachingLane);
             const MSLane* currentLane = approachingLane;
-            //look recursively for all lanes that lie before approachingLane and add them to afferentBlock until a rail signal is found 
+            //look recursively for all lanes that lie before approachingLane and add them to afferentBlock until a rail signal is found
             while (noRailSignal) {
                 std::vector<MSLane::IncomingLaneInfo> incomingLanes = currentLane->getIncomingLanes();
                 MSLane* precedentLane;
                 if (!incomingLanes.empty()) {
-                    precedentLane = incomingLanes.front().lane;  
-                } else { 
-                    precedentLane = 0; 
+                    precedentLane = incomingLanes.front().lane;
+                } else {
+                    precedentLane = 0;
                 }
-                if (precedentLane==0) { //if there is no preceeding lane
+                if (precedentLane == 0) { //if there is no preceeding lane
                     noRailSignal = false;
                 } else {
                     const MSJunction* junction = MSLinkContHelper::getConnectingLink(*precedentLane, *currentLane)->getJunction();  //the junction between precentLane and currentLane
-                    if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL)) { //if this junction exists and if it has a rail signal   
+                    if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL)) { //if this junction exists and if it has a rail signal
                         noRailSignal = false;
                     } else {
                         afferentBlock.push_back(precedentLane);
@@ -105,7 +105,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
             myAfferentBlocks[link] = afferentBlock;
 
             //find all lanes leading from toLane to the next signal if it was not already done
-            if (std::find(myOutgoingLanes.begin(), myOutgoingLanes.end(), toLane) == myOutgoingLanes.end()){//if toLane was not already contained in myOutgoingLanes
+            if (std::find(myOutgoingLanes.begin(), myOutgoingLanes.end(), toLane) == myOutgoingLanes.end()) { //if toLane was not already contained in myOutgoingLanes
                 myOutgoingLanes.push_back(toLane);
                 std::vector<const MSLane*> succeedingBlock;   //the vector of lanes leading to the next rail signal
                 succeedingBlock.push_back(toLane);
@@ -166,8 +166,8 @@ MSRailSignal::trySwitch() {
 }
 
 std::string
-MSRailSignal::getAppropriateState(){
-    std::string state (myLinks.size(), 'G');  //the state of the phase definition (all signal are green)
+MSRailSignal::getAppropriateState() {
+    std::string state(myLinks.size(), 'G');   //the state of the phase definition (all signal are green)
     std::vector<MSLane*>::const_iterator i;    //the iterator of outgoing lanes of this junction
     for (i = myOutgoingLanes.begin(); i != myOutgoingLanes.end(); i++) {    //for every outgoing lane
         MSLane* lane = (*i);
@@ -175,19 +175,19 @@ MSRailSignal::getAppropriateState(){
         //check if the succeeding block is used by a train
         bool succeedingBlockOccupied = false;
         std::vector<const MSLane*>::const_iterator j;
-        for (j = mySucceedingBlocks.at(lane).begin(); j != mySucceedingBlocks.at(lane).end(); j++){ //for every lane in the block between the current signal and the next signal
+        for (j = mySucceedingBlocks.at(lane).begin(); j != mySucceedingBlocks.at(lane).end(); j++) { //for every lane in the block between the current signal and the next signal
             if (!(*j)->isEmpty()) { //if this lane is not empty
                 succeedingBlockOccupied = true;
                 break;
             }
         }
-        
+
         /*-if the succeeding block is occupied the signals for all links leading to lane will be set to red.
-          -if the succeeding block is not occupied and all blocks leading to lane are not occupied all signal 
+          -if the succeeding block is not occupied and all blocks leading to lane are not occupied all signal
           will keep green.
-          -if the succeeding block is not occupied and there is only one block leading to lane its signal will 
+          -if the succeeding block is not occupied and there is only one block leading to lane its signal will
           keep green (no matter if this block is occupied or not).
-          -if the succeeding block is not occupied and there is more than one block leading to lane and some 
+          -if the succeeding block is not occupied and there is more than one block leading to lane and some
           of them are occupied the signals for all links leading to lane, except one whose corresponding block
           is occupied, will be set to red. the signal for the remaining block will keep green*/
         if (succeedingBlockOccupied) {      //if the succeeding block is used by a train
@@ -199,14 +199,14 @@ MSRailSignal::getAppropriateState(){
             if (myLinksToLane[lane].size() > 1) {   //if there is more than one link leading to lane
                 bool hasOccupiedBlock = false;
                 std::vector<MSLink*>::const_iterator k;
-                for (k = myLinksToLane[lane].begin(); k != myLinksToLane[lane].end(); k++){ //for every link leading to lane
+                for (k = myLinksToLane[lane].begin(); k != myLinksToLane[lane].end(); k++) { //for every link leading to lane
                     std::vector<MSLane*>::const_iterator l;
                     for (l = myAfferentBlocks[(*k)].begin(); l != myAfferentBlocks[(*k)].end(); l++) {    //for every lane of the block leading from a previous signal to the link (*k)
                         if (!(*l)->isEmpty()) { //if this lane is not empty
                             hasOccupiedBlock = true;
                             //set the signals for all links leading to lane, except for (*k), to red; the signal for (*k) will remain green
                             std::vector<MSLink*>::const_iterator m;
-                            for (m = myLinksToLane[lane].begin(); m != myLinksToLane[lane].end(); m++){ //for every link leading to lane
+                            for (m = myLinksToLane[lane].begin(); m != myLinksToLane[lane].end(); m++) { //for every link leading to lane
                                 if (*m != *k) { //if this link is not the one corresponding to occupiedBlock
                                     state.replace(myLinkIndices[*m], 1, "r");   //set the signal of this link to red
                                 }
@@ -218,7 +218,7 @@ MSRailSignal::getAppropriateState(){
                         break;
                     }
                 }
-            } 
+            }
         }
     }
     return state;
@@ -226,7 +226,7 @@ MSRailSignal::getAppropriateState(){
 
 
 void
-MSRailSignal::updateCurrentPhase(){
+MSRailSignal::updateCurrentPhase() {
     myCurrentPhase = MSPhaseDefinition(DELTA_T, getAppropriateState());
 }
 

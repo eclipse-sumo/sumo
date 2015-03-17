@@ -19,7 +19,10 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,subprocess,sys,time
+import os
+import subprocess
+import sys
+import time
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', "tools"))
 import sumolib
@@ -36,14 +39,17 @@ if server[-1] == "D":
     client += "D"
 if os.name != 'posix':
     client += ".exe"
-client_args = [os.path.join(binaryDir, client), "-def", "testclient.prog", "-o", "testclient_out.txt", "-p", PORT]
+client_args = [os.path.join(binaryDir, client), "-def",
+               "testclient.prog", "-o", "testclient_out.txt", "-p", PORT]
 
-#start sumo as server
-serverprocess = subprocess.Popen(server_args, stdout=sys.stdout, stderr=sys.stderr)
+# start sumo as server
+serverprocess = subprocess.Popen(
+    server_args, stdout=sys.stdout, stderr=sys.stderr)
 success = False
 for retry in range(7):
-    time.sleep(retry*retry)
-    clientProcess = subprocess.Popen(client_args, stdout=sys.stdout, stderr=sys.stderr)
+    time.sleep(retry * retry)
+    clientProcess = subprocess.Popen(
+        client_args, stdout=sys.stdout, stderr=sys.stderr)
     if serverprocess.poll() != None and clientProcess.poll() == None:
         time.sleep(10)
         if serverprocess.poll() != None and clientProcess.poll() == None:

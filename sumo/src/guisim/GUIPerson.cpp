@@ -209,7 +209,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     glPopName();
 }
 
-void 
+void
 GUIPerson::drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) const {
     MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
     if (stage != 0) {

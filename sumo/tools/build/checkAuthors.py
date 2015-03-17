@@ -18,12 +18,17 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, xml.sax
+import os
+import subprocess
+import sys
+import xml.sax
 from optparse import OptionParser
 
 _SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java"]
 
+
 class PropertyReader(xml.sax.handler.ContentHandler):
+
     """Reads the svn properties of files as written by svn log --xml"""
 
     def __init__(self, outfile):
@@ -55,7 +60,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 e = ticket + 1
                 while e < len(msg) and msg[e].isdigit():
                     e += 1
-                if msg[ticket+1:e] not in ignoreTickets:
+                if msg[ticket + 1:e] not in ignoreTickets:
                     keep = True
                     break
                 ticket = msg.find("#", e)
@@ -79,6 +84,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     pass
                 authorFiles["thank"].add(self._out.name)
 
+
 def checkAuthors(fullName, pattern):
     authors = set()
     found = False
@@ -95,16 +101,18 @@ def checkAuthors(fullName, pattern):
         print >> log, "no author", fullName
     return authors
 
+
 def setAuthors(fullName, removal, add, pattern):
     if options.fix:
-        out = open(fullName+".tmp", "w")
+        out = open(fullName + ".tmp", "w")
     authors = []
     for line in open(fullName):
         if line.startswith(pattern):
             for item in line[len(pattern):].split(","):
                 a = item.strip()
                 if a in removal:
-                    print >> log, "author %s not in svn log for %s" % (a, fullName)
+                    print >> log, "author %s not in svn log for %s" % (
+                        a, fullName)
                 authors.append(a)
         elif authors:
             if options.fix:
@@ -127,17 +135,19 @@ ignoreRevisions = set(["12129", "12128", "11445", "10974", "9705", "9477", "9429
                        "6399", "6069", "5922", "5048", "4669", "4389", "4257", "4166",
                        "4165", "4084", "4076", "4015", "3966", "3486"])
 ignoreTickets = set(["2", "22", "409"])
-sumoRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sumoRoot = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-f", "--fix", action="store_true",
-                      default=False, help="fix invalid svn properties")
+                     default=False, help="fix invalid svn properties")
 optParser.add_option("-a", "--authors", action="store_true",
-                      default=False, help="print author files")
-optParser.add_option("-r", "--root", default=sumoRoot, help="root to start parsing at")
+                     default=False, help="print author files")
+optParser.add_option(
+    "-r", "--root", default=sumoRoot, help="root to start parsing at")
 (options, args) = optParser.parse_args()
-authorFiles = {"thank":set()}
+authorFiles = {"thank": set()}
 realNames = {}
 for line in open(os.path.join(sumoRoot, 'AUTHORS')):
     entries = line.split()
@@ -171,17 +181,19 @@ for root, dirs, files in os.walk(options.root):
                 print >> log, "cannot parse for authors", fullName
                 continue
             authors = checkAuthors(fullName, pattern)
-            p = subprocess.Popen(["svn", "log", "--xml", fullName], stdout=subprocess.PIPE)
+            p = subprocess.Popen(
+                ["svn", "log", "--xml", fullName], stdout=subprocess.PIPE)
             output = p.communicate()[0]
             if p.returncode == 0:
                 if options.authors:
-                    out = open(fullName+".authors", "w")
+                    out = open(fullName + ".authors", "w")
                 else:
                     out = open(os.devnull, "w")
                 pr = PropertyReader(out)
                 xml.sax.parseString(output, pr)
                 out.close()
-                setAuthors(fullName, authors - pr._authors, pr._authors - authors, pattern)
+                setAuthors(
+                    fullName, authors - pr._authors, pr._authors - authors, pattern)
     for ignoreDir in ['.svn', 'foreign', 'contributed', 'foxtools']:
         if ignoreDir in dirs:
             dirs.remove(ignoreDir)

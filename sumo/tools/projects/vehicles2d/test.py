@@ -20,12 +20,13 @@ the Free Software Foundation; either version 3 of the License, or
 
 import sys
 import unittest
-import numpy, math
+import numpy
+import math
 import main
 
 from commons import StarNodeC, ANList
 
-from unittest_constants import VISUAL, lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual, known_bug, debugging 
+from unittest_constants import VISUAL, lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual, known_bug, debugging
 
 from unittest_utils import skip_all_but_selected, assertAlmostEqualTupleList
 
@@ -40,34 +41,31 @@ def notes():
     """this functions contains only comments
 
     continue developing the step
-    
+
     make a test where there are no points left in the 
     open list but the destinaition is not found
-    
-    """
- 
 
- 
+    """
+
+
 if __name__ == '__main__':
-#   unittest.main()
+    #   unittest.main()
 
     run_all_tests = False
 
     if len(sys.argv) > 1:
-        if 'all' in sys.argv: 
+        if 'all' in sys.argv:
             run_all_tests = True
-    
 
- 
     if run_all_tests:
-        suite   = unittest.TestSuite();
+        suite = unittest.TestSuite()
 
         suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
             unittest_flaeche.testCaseFlaeche))
 
         suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
             unittest_vessel.testCaseVessel))
-        
+
         suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
             unittest_dijkstra.someTestcaseDD))
 
@@ -77,9 +75,8 @@ if __name__ == '__main__':
 #        suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
 #            unittest_ada_star_bugs_on_the_way.someTestcase_ada_star_bugs))
 
-        
     else:
-        suite   = unittest.TestSuite();
+        suite = unittest.TestSuite()
 
 #        suite.addTest(unittest_flaeche.testCaseFlaeche(
 #            "test_all_nodes_in_list_are_valid_and_not_blocked"))
@@ -94,8 +91,6 @@ if __name__ == '__main__':
             "test_ada_run_and_rebuild_hindrance_one_spot_shadowed_improve"))
 
 
-        
-        
 #        suite.addTest(someTestcase_ada_star("test_get_reachable_center_points_spooky"))
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final__a"))
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final"))
@@ -104,6 +99,6 @@ if __name__ == '__main__':
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final__bug_b"))
 #        suite.addTest(someTestcase_ada_star("test_dijsktra_step_internals_find_final__bug_c"))
 
-        
+
 #    unittest.TextTestRunner(verbosity=2).run(suite)
     unittest.TextTestRunner().run(suite)

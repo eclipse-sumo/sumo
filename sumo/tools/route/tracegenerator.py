@@ -18,18 +18,21 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys
+import os
+import sys
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import sumolib
+
 
 def generateTrace(route, step):
     trace = []
     for edge in route:
         numSteps = int(edge.getLength() / step)
         for p in range(numSteps):
-            trace.append(sumolib.geomhelper.positionAtShapeOffset(edge.getShape(), p * step))
+            trace.append(
+                sumolib.geomhelper.positionAtShapeOffset(edge.getShape(), p * step))
     return trace
 
 
@@ -50,7 +53,6 @@ if __name__ == "__main__":
     optParser.add_option("-o", "--output",
                          help="trace or route output (mandatory)", metavar="FILE")
     (options, args) = optParser.parse_args()
-
 
     if not options.output or not options.net or not options.routes:
         optParser.exit("missing input or output")
@@ -77,5 +79,6 @@ if __name__ == "__main__":
                 print("No match for", route.id)
             print(route.id, path, file=f)
         else:
-            print("%s:%s" % (route.id, " ".join(["%s,%s" % p for p in trace])), file=f)
+            print("%s:%s" %
+                  (route.id, " ".join(["%s,%s" % p for p in trace])), file=f)
     f.close()

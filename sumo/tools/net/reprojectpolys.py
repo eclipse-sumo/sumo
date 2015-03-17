@@ -24,14 +24,18 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, string, sys
+import os
+import string
+import sys
 from optparse import OptionParser
 from xml.sax import saxutils, make_parser, handler
 from numpy import append, array, dot, shape, transpose, zeros
 sys.path.append("../lib")
 import rmsd
 
+
 class NetReader(handler.ContentHandler):
+
     """Reads a network, storing nodes and their positions"""
 
     def __init__(self):
@@ -43,27 +47,28 @@ class NetReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'junction':
             self._id = attrs['id']
-            if self._id[0]!=':':
+            if self._id[0] != ':':
                 self._node2x[attrs['id']] = float(attrs['x'])
                 self._node2y[attrs['id']] = float(attrs['y'])
                 self._nodes.append(attrs['id'])
             else:
                 self._id = ""
-    
+
     def getNodeIndex(self, name):
-        for i,n in enumerate(self._nodes):
-            if n==name:
+        for i, n in enumerate(self._nodes):
+            if n == name:
                 return i
         return -1
 
     def getNodePositionList(self):
         ret = []
         for n in self._nodes:
-            ret.append( (self._node2x[n], self._node2y[n]) )
+            ret.append((self._node2x[n], self._node2y[n]))
         return ret
 
 
 class PolyReader(handler.ContentHandler):
+
     """Reads a list of polygons, stores them"""
 
     def __init__(self):
@@ -90,8 +95,8 @@ class PolyReader(handler.ContentHandler):
             shape = []
             for pos in poses:
                 coord = pos.split(',')
-                shape.append( [float(coord[0]), float(coord[1])] )
-                self._shapes.append( [float(coord[0]), float(coord[1])] )
+                shape.append([float(coord[0]), float(coord[1])])
+                self._shapes.append([float(coord[0]), float(coord[1])])
             self._polys[-1]['shape'] = shape
 
     def getPositionList(self):
@@ -101,66 +106,67 @@ class PolyReader(handler.ContentHandler):
         for poly in self._polys:
             into.write("    <poly id=\"" + poly['id'])
             for attr in poly:
-                if attr!="id" and attr!="shape":
+                if attr != "id" and attr != "shape":
                     into.write("\" " + attr + "=\"" + poly[attr])
             into.write("\">")
             shape = poly["shape"]
-            for i,c in enumerate(shape):
-                if i!=0:
+            for i, c in enumerate(shape):
+                if i != 0:
                     into.write(" ")
-                into.write(str(c[0])+","+str(c[1]))
+                into.write(str(c[0]) + "," + str(c[1]))
             into.write("</poly>\n")
 
 
-
 class PolyReprojector:
-	def __init__(self, net1, net2):
-		self._net1 = net1
-		self._net2 = net2
 
-	def match(self, nodes1, nodes2, polys, verbose):
-		nodes1 = nodes1.split(',')
-		nodes2 = nodes2.split(',')
-		# build match matrix for nodes
-		#  and lists of matching indices
-		rmsdSelection1 = []
-		rmsdSelection2 = []
-		if verbose:
-			print " Setting initial nodes..."
-		for i in range(0, len(nodes1)):
-			index1 = self._net1.getNodeIndex(nodes1[i])
-			index2 = self._net2.getNodeIndex(nodes2[i])
-			rmsdSelection1.append(index1)
-			rmsdSelection2.append(index2)
-			if verbose:
-				print str(index1) + " " + str(index2)
-		# build rmsd matrices
-		if verbose:
-			print " Computing projection..."
-		rmsdNodePositions1 = self._net1.getNodePositionList()
-		rmsdNodePositions2 = self._net2.getNodePositionList()
-		rmsdNodePositions2.extend(polys.getPositionList())
-		projection = rmsd.superpose(rmsdNodePositions1, rmsdNodePositions2, rmsdSelection1, rmsdSelection2)
-		# we now have new coordinates for the second node set in projection
-		#  transfer to net
-		if verbose:
-			print " Applying projection..."
-		index = 0
-		for i,n in enumerate(self._net2._nodes):
-			self._net2._node2x[n] = projection[i][0]
-			self._net2._node2y[n] = projection[i][1]
-			index = index + 1
-		for poly in polys._polys:
-			for i in range(0, len(poly["shape"])):
-				poly["shape"][i][0] = projection[i][0]
-				poly["shape"][i][1] = projection[i][1]
-				index = index + 1
+    def __init__(self, net1, net2):
+        self._net1 = net1
+        self._net2 = net2
 
-# initialise 
+    def match(self, nodes1, nodes2, polys, verbose):
+        nodes1 = nodes1.split(',')
+        nodes2 = nodes2.split(',')
+        # build match matrix for nodes
+        #  and lists of matching indices
+        rmsdSelection1 = []
+        rmsdSelection2 = []
+        if verbose:
+            print " Setting initial nodes..."
+        for i in range(0, len(nodes1)):
+            index1 = self._net1.getNodeIndex(nodes1[i])
+            index2 = self._net2.getNodeIndex(nodes2[i])
+            rmsdSelection1.append(index1)
+            rmsdSelection2.append(index2)
+            if verbose:
+                print str(index1) + " " + str(index2)
+        # build rmsd matrices
+        if verbose:
+            print " Computing projection..."
+        rmsdNodePositions1 = self._net1.getNodePositionList()
+        rmsdNodePositions2 = self._net2.getNodePositionList()
+        rmsdNodePositions2.extend(polys.getPositionList())
+        projection = rmsd.superpose(
+            rmsdNodePositions1, rmsdNodePositions2, rmsdSelection1, rmsdSelection2)
+        # we now have new coordinates for the second node set in projection
+        #  transfer to net
+        if verbose:
+            print " Applying projection..."
+        index = 0
+        for i, n in enumerate(self._net2._nodes):
+            self._net2._node2x[n] = projection[i][0]
+            self._net2._node2y[n] = projection[i][1]
+            index = index + 1
+        for poly in polys._polys:
+            for i in range(0, len(poly["shape"])):
+                poly["shape"][i][0] = projection[i][0]
+                poly["shape"][i][1] = projection[i][1]
+                index = index + 1
+
+# initialise
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
-    # i/o
+# i/o
 optParser.add_option("-1", "--net1", dest="net1",
                      help="The network to project at", metavar="FILE")
 optParser.add_option("-2", "--net2", dest="net2",
@@ -215,5 +221,3 @@ fd.write("<polygons>\n\n")
 polys.write(fd)
 fd.write("</polygons>\n")
 fd.close()
-
-

@@ -18,16 +18,22 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import sys, os, re
+import sys
+import os
+import re
 from optparse import OptionParser
+
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
     optParser = OptionParser()
     optParser.add_option("-o", "--outfile", help="name of output file")
-    optParser.add_option("-r", "--repeat", default=1000, type="float", help="repeater interval")
-    optParser.add_option("-e", "--end", default=2147483, type="float", help="end of the flow")
-    optParser.add_option("-w", "--with-entities", action="store_true", default=False, help="store repeat and end as entities")
+    optParser.add_option(
+        "-r", "--repeat", default=1000, type="float", help="repeater interval")
+    optParser.add_option(
+        "-e", "--end", default=2147483, type="float", help="end of the flow")
+    optParser.add_option("-w", "--with-entities", action="store_true",
+                         default=False, help="store repeat and end as entities")
     options, args = optParser.parse_args()
     try:
         options.routefile = args[0]
@@ -35,7 +41,8 @@ def parse_args():
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefile + ".rou.xml"
-    return options 
+    return options
+
 
 def main():
     options = parse_args()
@@ -50,9 +57,11 @@ def main():
         <!ENTITY RepeatEnd "%s">
     ]>
     """ % (options.repeat, options.end))
-                    line = re.sub(r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="&RepeatEnd;" period="&RepeatInterval;"', line)
+                    line = re.sub(
+                        r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="&RepeatEnd;" period="&RepeatInterval;"', line)
                 else:
-                    line = re.sub(r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="%s" period="%s"' % (options.end, options.repeat), line)
+                    line = re.sub(
+                        r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="%s" period="%s"' % (options.end, options.repeat), line)
                 line = re.sub(r'</vehicle>', '</flow>', line)
                 outf.write(line)
 

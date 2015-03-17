@@ -100,7 +100,7 @@ public:
             const double v = rng->randExc(2.0) - 1;
             q  = u * u + v * v;
         } while (q == 0.0 || q >= 1.0);
-        return (SUMOReal) (mean + variance * u * sqrt(-2 * log(q) / q));
+        return (SUMOReal)(mean + variance * u * sqrt(-2 * log(q) / q));
     }
 
     /// @brief Returns a random element from the given vector

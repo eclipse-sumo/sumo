@@ -30,7 +30,10 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 from collections import defaultdict
@@ -53,6 +56,7 @@ camelCase = {"departlane": "departLane",
 
 deletedKeys = defaultdict(list)
 deletedKeys["route"] = ["edges", "multi_ref"]
+
 
 class NetReader(handler.ContentHandler):
 
@@ -78,7 +82,7 @@ class NetReader(handler.ContentHandler):
                 return inter
         return ''
 
-            
+
 class RouteReader(handler.ContentHandler):
 
     def __init__(self, net, outFileName):
@@ -94,7 +98,7 @@ class RouteReader(handler.ContentHandler):
         self._fileOut = None
         self._isRouteValid = True
         self._changed = False
-        
+
     def startDocument(self):
         if self._out:
             print >> self._out, '<?xml version="1.0"?>'
@@ -119,7 +123,8 @@ class RouteReader(handler.ContentHandler):
             if not self._isRouteValid:
                 self._fileOut.write(" -->")
             if self._addedString != '':
-                self._fileOut.write("<!-- added edges: " + self._addedString + "-->")
+                self._fileOut.write(
+                    "<!-- added edges: " + self._addedString + "-->")
                 self._addedString = ''
             self._out.close()
             self._out = self._fileOut
@@ -213,11 +218,12 @@ class RouteReader(handler.ContentHandler):
             while doConnectivityTest:
                 doConnectivityTest = False
                 for i, v in enumerate(cleanedEdgeList):
-                    if i < len(cleanedEdgeList) - 1 and not self._net.isNeighbor(v, cleanedEdgeList[i+1]):
-                        print "Warning: Route " + self._routeID + " disconnected between " + v + " and " + cleanedEdgeList[i+1]
-                        interEdge = self._net.getIntermediateEdge(v, cleanedEdgeList[i+1])
+                    if i < len(cleanedEdgeList) - 1 and not self._net.isNeighbor(v, cleanedEdgeList[i + 1]):
+                        print "Warning: Route " + self._routeID + " disconnected between " + v + " and " + cleanedEdgeList[i + 1]
+                        interEdge = self._net.getIntermediateEdge(
+                            v, cleanedEdgeList[i + 1])
                         if interEdge != '':
-                            cleanedEdgeList.insert(i+1, interEdge)
+                            cleanedEdgeList.insert(i + 1, interEdge)
                             self._changed = True
                             self._addedString += interEdge + " "
                             self._routeString = string.join(cleanedEdgeList)
@@ -226,17 +232,18 @@ class RouteReader(handler.ContentHandler):
                         returnValue = False
             return returnValue
         return False
-                    
+
     def ignorableWhitespace(self, content):
         if self._out:
             self._out.write(content)
-        
+
     def processingInstruction(self, target, data):
         if self._out:
             self._out.write('<?%s %s?>' % (target, data))
 
 
-optParser = OptionParser(usage=os.path.basename(__file__) + " [options] <routes>*")            
+optParser = OptionParser(
+    usage=os.path.basename(__file__) + " [options] <routes>*")
 optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-f", "--fix", action="store_true",

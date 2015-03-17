@@ -36,22 +36,22 @@ from OrderedMultiSet import OrderedMultiSet
 INDENT = 4
 
 # file types to compare
-TYPE_NODES       = '.nod.xml'
-TYPE_EDGES       = '.edg.xml'
+TYPE_NODES = '.nod.xml'
+TYPE_EDGES = '.edg.xml'
 TYPE_CONNECTIONS = '.con.xml'
-TYPE_TLLOGICS    = '.tll.xml'
+TYPE_TLLOGICS = '.tll.xml'
 PLAIN_TYPES = [
-        TYPE_NODES,
-        TYPE_EDGES,
-        TYPE_CONNECTIONS,
-        TYPE_TLLOGICS
-        ] 
+    TYPE_NODES,
+    TYPE_EDGES,
+    TYPE_CONNECTIONS,
+    TYPE_TLLOGICS
+]
 
 # traffic lights have some peculiarities
 # CAVEAT1 - ids are not unique (only in combination with programID)
 # CAVEAT2 - the order of their children (phases) is important.
 #     this makes partial diffs unfeasible. The easiest solution is to forgo diffs and always export the whole new traffic light
-# CAVEAT3 - deletes need not be written because they are also signaled by a changed node type 
+# CAVEAT3 - deletes need not be written because they are also signaled by a changed node type
 #     (and they complicate the handling of deleted tl-connections)
 # CAVEAT4 - deleted connections must be written with their tlID and tlIndex, otherwise
 #     parsing in netconvert becomes tedious
@@ -67,16 +67,17 @@ IDATTRS[TAG_TLL] = ('id', 'programID')
 IDATTRS[TAG_CONNECTION] = ('from', 'to', 'fromLane', 'toLane')
 IDATTRS['interval'] = ('begin', 'end')
 
-DELETE_ELEMENT = 'delete' # the xml element for signifying deletes
+DELETE_ELEMENT = 'delete'  # the xml element for signifying deletes
 
 # provide an order for the attribute names
 ATTRIBUTE_NAMES = {
-        #'.nod.xml' : ()
-        #'.edg.xml' : () 
-        #'.con.xml' : ()
-        }
+    #'.nod.xml' : ()
+    #'.edg.xml' : ()
+    #'.con.xml' : ()
+}
 
-# default values for the given attribute (needed when attributes appear in source but do not appear in dest)
+# default values for the given attribute (needed when attributes appear in
+# source but do not appear in dest)
 DEFAULT_VALUES = defaultdict(lambda: "")
 DEFAULT_VALUES['width'] = "-1"
 DEFAULT_VALUES['offset'] = "0"
@@ -95,17 +96,18 @@ class AttributeStore:
         self.level = level
         # dict of names-tuples
         self.attrnames = {}
-        # sets of (tag, id) preserve order to avoid dangling references during loading
+        # sets of (tag, id) preserve order to avoid dangling references during
+        # loading
         self.ids_deleted = OrderedMultiSet()
         self.ids_created = OrderedMultiSet()
         self.ids_copied = OrderedMultiSet()
         # dict from (tag, id) to (names, values, children)
         self.id_attrs = {}
-        # dict from tag to (names, values)-sets, need to preserve order (CAVEAT5)
-        self.idless_deleted = defaultdict(lambda:OrderedMultiSet())
-        self.idless_created = defaultdict(lambda:OrderedMultiSet())
-        self.idless_copied = defaultdict(lambda:OrderedMultiSet())
-
+        # dict from tag to (names, values)-sets, need to preserve order
+        # (CAVEAT5)
+        self.idless_deleted = defaultdict(lambda: OrderedMultiSet())
+        self.idless_created = defaultdict(lambda: OrderedMultiSet())
+        self.idless_copied = defaultdict(lambda: OrderedMultiSet())
 
     # getAttribute returns "" if not present
     def getValue(self, node, name):
@@ -113,7 +115,6 @@ class AttributeStore:
             return node.getAttribute(name)
         else:
             return None
-
 
     def getNames(self, xmlnode):
         idattrs = IDATTRS[xmlnode.localName]
@@ -125,17 +126,17 @@ class AttributeStore:
         # only store a single instance of this tuple to conserve memory
         return self.attrnames[instance]
 
-
     def getAttrs(self, xmlnode):
         names = self.getNames(xmlnode)
         values = tuple([self.getValue(xmlnode, a) for a in names])
         children = None
         if any([c.nodeType == Node.ELEMENT_NODE for c in xmlnode.childNodes]):
-            children = AttributeStore(self.type, self.copy_tags, self.level + 1)
+            children = AttributeStore(
+                self.type, self.copy_tags, self.level + 1)
         tag = xmlnode.localName
-        id = tuple([xmlnode.getAttribute(a) for a in IDATTRS[tag] if xmlnode.hasAttribute(a)])
+        id = tuple([xmlnode.getAttribute(a)
+                    for a in IDATTRS[tag] if xmlnode.hasAttribute(a)])
         return tag, id, children, (names, values, children)
-
 
     def store(self, xmlnode):
         tag, id, children, attrs = self.getAttrs(xmlnode)
@@ -151,14 +152,14 @@ class AttributeStore:
             self.no_children_supported(children, tag)
             self.idless_deleted[tag].add(attrs)
 
-
     def compare(self, xmlnode):
         tag, id, children, attrs = self.getAttrs(xmlnode)
         tagid = (tag, id)
         if id != ():
             if tagid in self.ids_deleted:
                 self.ids_deleted.remove(tagid)
-                self.id_attrs[tagid] = self.compareAttrs(self.id_attrs[tagid], attrs, tag)
+                self.id_attrs[tagid] = self.compareAttrs(
+                    self.id_attrs[tagid], attrs, tag)
             else:
                 self.ids_created.add(tagid)
                 self.id_attrs[tagid] = attrs
@@ -168,19 +169,20 @@ class AttributeStore:
                 for child in xmlnode.childNodes:
                     if child.nodeType == Node.ELEMENT_NODE:
                         children.compare(child)
-                if tag == TAG_TLL or tag in self.copy_tags: # see CAVEAT2
+                if tag == TAG_TLL or tag in self.copy_tags:  # see CAVEAT2
                     child_strings = StringIO.StringIO()
                     children.writeDeleted(child_strings)
                     children.writeCreated(child_strings)
                     children.writeChanged(child_strings)
                     if child_strings.len > 0 or tag in self.copy_tags:
                         # there are some changes. Go back and store everything
-                        children = AttributeStore(self.type, self.copy_tags, self.level + 1)
+                        children = AttributeStore(
+                            self.type, self.copy_tags, self.level + 1)
                         for child in xmlnode.childNodes:
                             if child.nodeType == Node.ELEMENT_NODE:
                                 children.compare(child)
-                        self.id_attrs[tagid] = self.id_attrs[tagid][0:2] + (children,)
-
+                        self.id_attrs[tagid] = self.id_attrs[
+                            tagid][0:2] + (children,)
 
         else:
             self.no_children_supported(children, tag)
@@ -191,11 +193,10 @@ class AttributeStore:
             else:
                 self.idless_created[tag].add(attrs)
 
-
     def no_children_supported(self, children, tag):
         if children:
-            print("WARNING: Handling of children only supported for elements with id. Ignored for element '%s'" % tag)
-
+            print(
+                "WARNING: Handling of children only supported for elements with id. Ignored for element '%s'" % tag)
 
     def compareAttrs(self, sourceAttrs, destAttrs, tag):
         snames, svalues, schildren = sourceAttrs
@@ -204,15 +205,15 @@ class AttributeStore:
         if schildren and dchildren:
             dchildren = schildren
         if snames == dnames:
-            values = tuple([self.diff(n,s,d) for n,s,d in zip (snames,svalues,dvalues)])
+            values = tuple([self.diff(n, s, d)
+                            for n, s, d in zip(snames, svalues, dvalues)])
             return snames, values, dchildren
         else:
-            sdict = defaultdict(lambda:None, zip(snames, svalues))
-            ddict = defaultdict(lambda:None, zip(dnames, dvalues))
+            sdict = defaultdict(lambda: None, zip(snames, svalues))
+            ddict = defaultdict(lambda: None, zip(dnames, dvalues))
             names = tuple(set(snames + dnames))
-            values = tuple([self.diff(n,sdict[n],ddict[n]) for n in names])
+            values = tuple([self.diff(n, sdict[n], ddict[n]) for n in names])
             return names, values, dchildren
-
 
     def diff(self, name, sourceValue, destValue):
         if sourceValue == destValue:
@@ -222,9 +223,8 @@ class AttributeStore:
         else:
             return destValue
 
-
     def writeDeleted(self, file):
-        # data loss if two elements with different tags 
+        # data loss if two elements with different tags
         # have the same id
         for tag, id in self.ids_deleted:
             additional = ""
@@ -234,40 +234,39 @@ class AttributeStore:
                 additional = " " + self.attr_string(names, values)
 
             comment_start, comment_end = ("", "")
-            if tag == TAG_TLL: # see CAVEAT3
-                comment_start, comment_end = ("<!-- implicit via changed node type: ", " -->")
+            if tag == TAG_TLL:  # see CAVEAT3
+                comment_start, comment_end = (
+                    "<!-- implicit via changed node type: ", " -->")
             self.write(file, '%s<%s %s%s/>%s\n' % (
                 comment_start,
                 DELETE_ELEMENT, self.id_string(tag, id), additional,
                 comment_end))
-        # data loss if two elements with different tags 
+        # data loss if two elements with different tags
         # have the same list of attributes and values
         for value_set in self.idless_deleted.itervalues():
             self.write_idless(file, value_set, DELETE_ELEMENT)
-
 
     def writeCreated(self, file):
         self.write_tagids(file, self.ids_created, True)
         for tag, value_set in self.idless_created.iteritems():
             self.write_idless(file, value_set, tag)
 
-
     def writeChanged(self, file):
-        tagids_changed = OrderedMultiSet(self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
+        tagids_changed = OrderedMultiSet(
+            self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
         self.write_tagids(file, tagids_changed, False)
 
-
     def writeCopies(self, file, copy_tags):
-        tagids_unchanged = OrderedMultiSet(self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
+        tagids_unchanged = OrderedMultiSet(
+            self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
         self.write_tagids(file, tagids_unchanged, False)
         for tag, value_set in self.idless_copied.iteritems():
             self.write_idless(file, value_set, tag)
 
-
     def write_idless(self, file, attr_set, tag):
         for names, values, children in attr_set:
-            self.write(file, '<%s %s/>\n' % (tag, self.attr_string(names, values)))
-
+            self.write(file, '<%s %s/>\n' %
+                       (tag, self.attr_string(names, values)))
 
     def write_tagids(self, file, tagids, create):
         for tagid in tagids:
@@ -292,49 +291,49 @@ class AttributeStore:
                 if child_strings.len > 0:
                     self.write(file, "</%s>\n" % tag)
 
-
     def write(self, file, item):
         file.write(" " * INDENT * self.level)
         file.write(item)
 
-
     def attr_string(self, names, values):
-        return ' '.join(['%s="%s"' % (n,v) for n,v in zip(names, values) if v != None])
+        return ' '.join(['%s="%s"' % (n, v) for n, v in zip(names, values) if v != None])
 
     def id_string(self, tag, id):
         idattrs = IDATTRS[tag]
-        return ' '.join(['%s="%s"' % (n,v) for n,v in zip(idattrs, id)])
+        return ' '.join(['%s="%s"' % (n, v) for n, v in zip(idattrs, id)])
 
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <source> <dest> <output-prefix>"
     optParser = OptionParser()
     optParser.add_option("-v", "--verbose", action="store_true",
-            default=False, help="Give more output")
+                         default=False, help="Give more output")
     optParser.add_option("-p", "--use-prefix", action="store_true",
-            default=False, help="interpret source and dest as plain-xml prefix instead of network names")
+                         default=False, help="interpret source and dest as plain-xml prefix instead of network names")
     optParser.add_option("-d", "--direct", action="store_true",
-            default=False, help="compare source and dest files directly")
-    optParser.add_option("-c", "--copy", help="comma-separated list of element names to copy (if they are unchanged)")
+                         default=False, help="compare source and dest files directly")
+    optParser.add_option(
+        "-c", "--copy", help="comma-separated list of element names to copy (if they are unchanged)")
     optParser.add_option("--path", dest="path", help="Path to binaries")
     options, args = optParser.parse_args()
     if len(args) != 3:
         sys.exit(USAGE)
     if options.use_prefix and options.direct:
-        optParser.error("Options --use-prefix and --direct are mutually exclusive")
+        optParser.error(
+            "Options --use-prefix and --direct are mutually exclusive")
     options.source, options.dest, options.outprefix = args
-    return options 
+    return options
 
 
 def create_plain(netfile, netconvert):
     prefix = netfile[:-8]
-    call([netconvert, 
-        "--sumo-net-file", netfile, 
-        "--plain-output-prefix", prefix])
+    call([netconvert,
+          "--sumo-net-file", netfile,
+          "--plain-output-prefix", prefix])
     return prefix
 
 
-# creates diff of a flat xml structure 
+# creates diff of a flat xml structure
 # (only children of the root element and their attrs are compared)
 def xmldiff(source, dest, diff, type, copy_tags):
     attributeStore = AttributeStore(type, copy_tags)
@@ -376,21 +375,23 @@ def handle_children(xmlfile, handle_parsenode):
     level = 0
     xml_doc = pulldom.parse(xmlfile)
     for event, parsenode in xml_doc:
-        if event == pulldom.START_ELEMENT: 
+        if event == pulldom.START_ELEMENT:
             # print level, parsenode.getAttribute(ID_ATTR)
             if level == 0:
                 root_open = parsenode.toprettyxml(indent="")
                 # since we did not expand root_open contains the closing slash
                 root_open = root_open[:-3] + ">\n"
                 # change the schema for edge diffs
-                root_open = root_open.replace("edges_file.xsd", "edgediff_file.xsd")
+                root_open = root_open.replace(
+                    "edges_file.xsd", "edgediff_file.xsd")
                 root_close = "</%s>\n" % parsenode.localName
             if level == 1:
-                xml_doc.expandNode(parsenode) # consumes END_ELEMENT, no level increase
+                # consumes END_ELEMENT, no level increase
+                xml_doc.expandNode(parsenode)
                 handle_parsenode(parsenode)
             else:
                 level += 1
-        elif event == pulldom.END_ELEMENT: 
+        elif event == pulldom.END_ELEMENT:
             level -= 1
     return root_open, root_close
 
@@ -401,9 +402,9 @@ def main():
     copy_tags = options.copy.split(',') if options.copy else []
     if options.direct:
         type = '.xml'
-        xmldiff(options.source, 
-                options.dest, 
-                options.outprefix + type, 
+        xmldiff(options.source,
+                options.dest,
+                options.outprefix + type,
                 type,
                 copy_tags)
     else:
@@ -412,9 +413,9 @@ def main():
             options.source = create_plain(options.source, netconvert)
             options.dest = create_plain(options.dest, netconvert)
         for type in PLAIN_TYPES:
-            xmldiff(options.source + type, 
-                    options.dest + type, 
-                    options.outprefix + type, 
+            xmldiff(options.source + type,
+                    options.dest + type,
+                    options.outprefix + type,
                     type,
                     copy_tags)
 

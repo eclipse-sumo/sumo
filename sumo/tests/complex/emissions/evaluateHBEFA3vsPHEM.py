@@ -18,13 +18,16 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import sys, os, collections
+import sys
+import os
+import collections
 import matplotlib.pyplot as plt
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "tools"))
+sys.path.append(
+    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "tools"))
 
 ec = None
-hbefa = collections.defaultdict(lambda:collections.defaultdict(list))
-phem = collections.defaultdict(lambda:collections.defaultdict(list))
+hbefa = collections.defaultdict(lambda: collections.defaultdict(list))
+phem = collections.defaultdict(lambda: collections.defaultdict(list))
 maxVal = collections.defaultdict(float)
 for line in open('nefz_hbefa3/output.complex'):
     l = line.split(":")
@@ -51,7 +54,8 @@ for line in open('nefz_phemlightV4/output.complex'):
 
 marker = {"PC_G_": "s", "PC_D_": "^", "LDV_G": "o", "LDV_D": "v"}
 #color = {"0": "k", "1": "r", "2": "y", "3": "g", "4": "m", "5": "b", "6": "c"}
-color = {"0": "0", "1": "0.3", "2": "0.45", "3": "0.6", "4": "0.75", "5": "0.9", "6": "1"}
+color = {"0": "0", "1": "0.3", "2": "0.45",
+         "3": "0.6", "4": "0.75", "5": "0.9", "6": "1"}
 limit = {"CO": 100000, "CO2": 5e6, "HC": 30000, "PMx": 6000, "fuel": 1700}
 
 for emission in ["CO", "CO2", "HC", "PMx", "fuel"]:
@@ -71,13 +75,15 @@ for emission in ["CO", "CO2", "HC", "PMx", "fuel"]:
     for ec in sorted(phem.iterkeys()):
         if ec in hbefa and hbefa[ec][emission][0] > 0:
             print(ec, phem[ec][emission], hbefa[ec][emission])
-            ax1.scatter(phem[ec][emission], hbefa[ec][emission], s=80, c=color[ec[-1]], marker=marker[ec[:5]], label=ec)
+            ax1.scatter(phem[ec][emission], hbefa[ec][emission], s=80, c=color[
+                        ec[-1]], marker=marker[ec[:5]], label=ec)
     ax1.plot((0, m), (0, m))
     plt.title(emission + (" [ml]" if emission == "fuel" else " [mg]"))
     plt.xlabel("PHEMlight")
     plt.ylabel("HBEFA3")
-    plt.legend(scatterpoints=1, fontsize=8, bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-    plt.savefig(emission+".png", bbox_inches="tight")
-    plt.xlim(0, m/5)
-    plt.ylim(0, m/5)
-    plt.savefig(emission+"Zoom.png", bbox_inches="tight")
+    plt.legend(scatterpoints=1, fontsize=8, bbox_to_anchor=(
+        1.05, 1), loc=2, borderaxespad=0.)
+    plt.savefig(emission + ".png", bbox_inches="tight")
+    plt.xlim(0, m / 5)
+    plt.ylim(0, m / 5)
+    plt.savefig(emission + "Zoom.png", bbox_inches="tight")

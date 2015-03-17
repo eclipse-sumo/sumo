@@ -17,18 +17,21 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os,sys
+import os
+import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from xml.sax import parse, handler
 
+
 class DumpReader(handler.ContentHandler):
+
     """Reads the dump file"""
 
     def __init__(self):
         self._edge = None
         self._lane = None
-        self.vehicles = {} # vehicle -> last edge id
+        self.vehicles = {}  # vehicle -> last edge id
         self.changes = 0
 
     def startElement(self, name, attrs):

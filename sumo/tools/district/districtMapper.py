@@ -36,6 +36,7 @@ def parseShape(shape):
 
 # All members are "private".
 class JunctionPositionsReader(handler.ContentHandler):
+
     def __init__(self):
         self._xPos = {}
         self._yPos = {}
@@ -58,9 +59,9 @@ class JunctionPositionsReader(handler.ContentHandler):
         return ret
 
 
-
 # All members are "private".
 class DistrictMapper(handler.ContentHandler):
+
     def __init__(self):
         self._haveDistrict = False
         self._parsingDistrictShape = False
@@ -69,7 +70,7 @@ class DistrictMapper(handler.ContentHandler):
         self._shape = ""
 
     def startElement(self, name, attrs):
-        if name == 'taz':    
+        if name == 'taz':
             self._haveDistrict = True
             self._currentID = attrs['id']
             if attrs.has_key('shape'):
@@ -82,7 +83,7 @@ class DistrictMapper(handler.ContentHandler):
             self._shape += content
 
     def endElement(self, name):
-        if name == 'taz':    
+        if name == 'taz':
             self._haveDistrict = False
             if self._shape != '':
                 self._districtShapes[self._currentID] = parseShape(self._shape)
@@ -95,8 +96,8 @@ class DistrictMapper(handler.ContentHandler):
             shape = self._districtShapes[district]
             nshape = []
             for i in range(0, len(shape)):
-                nx = ((shape[i][0]-xoff1) * xscale + xoff2)
-                ny = ((shape[i][1]-yoff1) * yscale + yoff2)
+                nx = ((shape[i][0] - xoff1) * xscale + xoff2)
+                ny = ((shape[i][1] - yoff1) * yscale + yoff2)
                 nshape.append((nx, ny))
             self._districtShapes[district] = nshape
 
@@ -115,12 +116,12 @@ class DistrictMapper(handler.ContentHandler):
             for district in self._districtShapes:
                 shape = self._districtShapes[district]
                 shapeStr = " ".join(["%s,%s" % s for s in shape])
-                fd.write('   <poly id="%s" color="%s" shape="%s"/>\n' % (district, color, shapeStr))
+                fd.write('   <poly id="%s" color="%s" shape="%s"/>\n' %
+                         (district, color, shapeStr))
             fd.write("</shapes>\n")
             fd.close()
 
 
-        
 if __name__ == "__main__":
     optParser = OptionParser()
     optParser.add_option("-v", "--verbose", action="store_true",
@@ -142,7 +143,8 @@ if __name__ == "__main__":
     (options, args) = optParser.parse_args()
     if not options.netfile1 or not options.netfile2 or not options.junctions1 or not options.junctions2:
         optParser.print_help()
-        optParser.exit("Error! Providing two networks and junction lists is mandatory")
+        optParser.exit(
+            "Error! Providing two networks and junction lists is mandatory")
     parser = make_parser()
     if options.verbose:
         print "Reading net#1"
@@ -179,5 +181,6 @@ if __name__ == "__main__":
     reader = DistrictMapper()
     parser.setContentHandler(reader)
     parser.parse(options.netfile1)
-    reader.convertShapes(xmin1, xmin2, width1/width2, ymin1, ymin2, height1/height2)
+    reader.convertShapes(
+        xmin1, xmin2, width1 / width2, ymin1, ymin2, height1 / height2)
     reader.writeResults(options.output, options.color, options.polyoutput)

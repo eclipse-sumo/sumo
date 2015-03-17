@@ -129,8 +129,8 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
             assert(state1.size() == state2.size());
             if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size()) {
                 WRITE_WARNING("Unused states in tlLogic '" + getID()
-                                          + "', program '" + getProgramID() + "' in phase " + toString(i) 
-                                          + " after tl-index " + toString((int)myLanes.size() - 1));
+                              + "', program '" + getProgramID() + "' in phase " + toString(i)
+                              + " after tl-index " + toString((int)myLanes.size() - 1));
                 haveWarnedAboutUnusedStates = true;
             }
             for (int j = 0; j < (int)MIN3(state1.size(), state2.size(), myLanes.size()); ++j) {

@@ -18,7 +18,9 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, sys, math
+import os
+import sys
+import math
 from optparse import OptionParser
 
 optParser = OptionParser()
@@ -52,7 +54,8 @@ for idx, d in enumerate(args):
     angle = 2 * math.pi / c
     shape = ""
     for i in range(c):
-        shape += "%s,%s " % (math.cos(i * angle) * r + x, math.sin(i * angle) * r + y)
+        shape += "%s,%s " % (math.cos(i * angle) * r + x,
+                             math.sin(i * angle) * r + y)
     print '    <poly id="%s%s" type="%s" color="%s"' % (options.prefix, idx, options.type, options.color),
     print 'fill="%i" layer="%s" shape="%s"/>' % (options.fill, options.layer, shape[:-1])
 print "</additional>"

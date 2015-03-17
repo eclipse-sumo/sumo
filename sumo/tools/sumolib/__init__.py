@@ -18,7 +18,9 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys, subprocess
+import os
+import sys
+import subprocess
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
@@ -26,13 +28,16 @@ try:
     from . import visualization
 except ImportError as e:
     class VisDummy:
+
         def __getattr__(self, name):
             raise e
     visualization = VisDummy()
 from . import files, net, output, sensors, shapes
 from . import color, geomhelper, miscutils, options, route
 
+
 class ConfigurationReader(handler.ContentHandler):
+
     """Reads a configuration template, storing the options in an OptionParser"""
 
     def __init__(self, optParse, groups, options):
@@ -52,7 +57,8 @@ class ConfigurationReader(handler.ContentHandler):
             help = attrs.get("help", "")
             option = Option("--" + name, help=help)
             if attrs["type"] == "BOOL":
-                option = Option("--" + name, action="store_true", default=False, help=help)
+                option = Option(
+                    "--" + name, action="store_true", default=False, help=help)
             elif attrs["type"] in ["FLOAT", "TIME"]:
                 option.type = "float"
                 if attrs["value"]:
@@ -72,12 +78,15 @@ class ConfigurationReader(handler.ContentHandler):
 
 
 def pullOptions(executable, optParse, groups=None, options=None):
-    output = subprocess.Popen([executable, "--save-template", "-"], stdout=subprocess.PIPE).communicate()[0]
+    output = subprocess.Popen(
+        [executable, "--save-template", "-"], stdout=subprocess.PIPE).communicate()[0]
     parseString(output, ConfigurationReader(optParse, groups, options))
+
 
 def saveConfiguration(executable, options, filename):
     options.save_configuration = filename
     call(executable, options)
+
 
 def call(executable, options):
     optParser = OptionParser()
@@ -92,10 +101,12 @@ def call(executable, options):
                 cmd.append(str(value))
     return subprocess.call(cmd)
 
+
 def exeExists(binary):
     if os.name == "nt" and binary[-4:] != ".exe":
         binary += ".exe"
     return os.path.exists(binary)
+
 
 def checkBinary(name, bindir=None):
     """
@@ -118,66 +129,75 @@ def checkBinary(name, bindir=None):
         binary = join(env.get("SUMO_HOME"), "bin", name)
         if exeExists(binary):
             return binary
-    binary = os.path.abspath(join(os.path.dirname(__file__), '..', '..', 'bin', name))
+    binary = os.path.abspath(
+        join(os.path.dirname(__file__), '..', '..', 'bin', name))
     if exeExists(binary):
         return binary
     return name
 
+
 class _Running:
-  """
-  A generator of running, numerical IDs
-  Should be enhanced by:
-  - a member method for returning the size
-  - a member iterator over the stored ids
-  """
-  def __init__(self, orig_ids=False, warn=False):
-    """Contructor"""
-    # whether original IDs shall be used instead of an index
-    self.orig_ids = orig_ids
-    # whether a warning for non-integer IDs shall be given
-    self.warn = warn
-    # running index of assigned numerical IDs
-    self.index = 0 
-    # map from known IDs to assigned numerical IDs
-    self._m = {}
-    
-  def g(self, id):
-    """
-    If the given id is known, the numerical representation is returned,
-    otherwise a new running number is assigned to the id and returned"""
-    if id not in self._m:
-      if self.orig_ids:
-          self._m[id] = id
-          if self.warn:
-              try:
-                  int(id)
-              except:
-                  sys.stderr.write('Warning: ID "%s" is not an integer.\n' % id)
-                  self.warn = False
-      else:
-          self._m[id] = self.index
-          self.index += 1
-    return self._m[id]
 
-  def k(self, id):
     """
-    Returns whether the given id is known."""
-    return id in self._m
+    A generator of running, numerical IDs
+    Should be enhanced by:
+    - a member method for returning the size
+    - a member iterator over the stored ids
+    """
 
-  def d(self, id):
-    """
-    Removed the element."""
-    del self._m[id]
+    def __init__(self, orig_ids=False, warn=False):
+        """Contructor"""
+        # whether original IDs shall be used instead of an index
+        self.orig_ids = orig_ids
+        # whether a warning for non-integer IDs shall be given
+        self.warn = warn
+        # running index of assigned numerical IDs
+        self.index = 0
+        # map from known IDs to assigned numerical IDs
+        self._m = {}
+
+    def g(self, id):
+        """
+        If the given id is known, the numerical representation is returned,
+        otherwise a new running number is assigned to the id and returned"""
+        if id not in self._m:
+            if self.orig_ids:
+                self._m[id] = id
+                if self.warn:
+                    try:
+                        int(id)
+                    except:
+                        sys.stderr.write(
+                            'Warning: ID "%s" is not an integer.\n' % id)
+                        self.warn = False
+            else:
+                self._m[id] = self.index
+                self.index += 1
+        return self._m[id]
+
+    def k(self, id):
+        """
+        Returns whether the given id is known."""
+        return id in self._m
+
+    def d(self, id):
+        """
+        Removed the element."""
+        del self._m[id]
 
 
 class TeeFile:
+
     """A helper class which allows simultaneous writes to several files"""
+
     def __init__(self, *files):
         self.files = files
+
     def write(self, txt):
         """Writes the text to all files"""
         for fp in self.files:
             fp.write(txt)
+
     def flush(self):
         """flushes all file contents to disc"""
         for fp in self.files:
@@ -187,11 +207,11 @@ class TeeFile:
 
 
 def _intTime(tStr):
-  """
-  Converts a time given as a string containing a float into an integer representation.
-  """
-  return int(float(tStr))
+    """
+    Converts a time given as a string containing a float into an integer representation.
+    """
+    return int(float(tStr))
 
 
 def _laneID2edgeID(laneID):
-  return laneID[:laneID.rfind("_")]
+    return laneID[:laneID.rfind("_")]

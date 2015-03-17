@@ -16,27 +16,28 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, sys, stat, shutil
+import os
+import sys
+import stat
+import shutil
 
 
 path = "./"
-if len(sys.argv)>1:
+if len(sys.argv) > 1:
     path = sys.argv[1]
 
 # remove files in ".svn"
 for root, dirs, files in os.walk(path):
-    if root.find(".svn")>=0:
+    if root.find(".svn") >= 0:
         for file in files:
-            os.chmod(os.path.join(root, file), stat.S_IWRITE|stat.S_IREAD)
+            os.chmod(os.path.join(root, file), stat.S_IWRITE | stat.S_IREAD)
             os.remove(os.path.join(root, file))
         for dir in dirs:
-            os.chmod(os.path.join(root, dir), stat.S_IWRITE|stat.S_IREAD)
-    
+            os.chmod(os.path.join(root, dir), stat.S_IWRITE | stat.S_IREAD)
+
 # remove dirs in ".svn"
 for root, dirs, files in os.walk(path):
     if ".svn" in dirs:
         dirs.remove(".svn")
-        os.chmod(os.path.join(root, ".svn"), stat.S_IWRITE|stat.S_IREAD)
+        os.chmod(os.path.join(root, ".svn"), stat.S_IWRITE | stat.S_IREAD)
         shutil.rmtree(os.path.join(root, ".svn"))
-
-

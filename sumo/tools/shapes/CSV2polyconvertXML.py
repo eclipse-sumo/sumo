@@ -21,7 +21,7 @@ the Free Software Foundation; either version 3 of the License, or
 
 import sys
 
-if len(sys.argv)<4:
+if len(sys.argv) < 4:
     print "Error: Missing argument(s)"
     print "Call: CSV2polyconvertXML.py <CSV_FILE> <OUTPUT_FILE> <VALUENAME>[,<VALUENAME>]*"
     print " The values within the csv-file are supposed to be divided by ';'."
@@ -34,12 +34,12 @@ inpf = open(sys.argv[1])
 outf = open(sys.argv[2], "w")
 outf.write("<pois>\n")
 for line in inpf:
-    if len(line)==0 or line[0]=='#':
+    if len(line) == 0 or line[0] == '#':
         continue
     vals = line.strip().split(';')
     outf.write("    <poi")
-    for i,n in enumerate(names):
-         outf.write(' ' + n + '="' + vals[i] + '"')
+    for i, n in enumerate(names):
+        outf.write(' ' + n + '="' + vals[i] + '"')
     outf.write("/>\n")
 outf.write("</pois>\n")
 inpf.close()

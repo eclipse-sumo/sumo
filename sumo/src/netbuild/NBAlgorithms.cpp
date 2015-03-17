@@ -416,7 +416,7 @@ NBEdgePriorityComputer::samePriority(const NBEdge* const e1, const NBEdge* const
 
 
 NBNodesEdgesSorter::crossing_by_junction_angle_sorter::crossing_by_junction_angle_sorter(const NBNode* node, const EdgeVector& ordering) {
-    // reorder based on getAngleAtNodeToCenter 
+    // reorder based on getAngleAtNodeToCenter
     myOrdering = ordering;
     sort(myOrdering.begin(), myOrdering.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(node));
     // let the first edge remain the first

@@ -19,13 +19,31 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess
+import os
+import subprocess
+try:
+    import autopep8
+    autopep = True
+except:
+    autopep = False
 
 srcRoot = os.path.join(os.path.dirname(__file__), "../../src/")
 for root, dirs, files in os.walk(srcRoot):
     for name in files:
         if name.endswith(".h") or name.endswith(".cpp"):
-            subprocess.call("astyle --style=java --unpad-paren --pad-header --pad-oper --add-brackets --indent-switches --align-pointer=type -n".split() + [os.path.join(root, name)])
+            subprocess.call(
+                "astyle --style=java --unpad-paren --pad-header --pad-oper --add-brackets --indent-switches --align-pointer=type -n".split() + [os.path.join(root, name)])
+        for ignoreDir in ['.svn', 'foreign']:
+            if ignoreDir in dirs:
+                dirs.remove(ignoreDir)
+
+if autopep:
+    sumoRoot = os.path.join(os.path.dirname(__file__), "../../")
+    for root, dirs, files in os.walk(sumoRoot):
+        for name in files:
+            if name.endswith(".py"):
+                subprocess.call(
+                    "autopep8 --in-place".split() + [os.path.join(root, name)])
         for ignoreDir in ['.svn', 'foreign']:
             if ignoreDir in dirs:
                 dirs.remove(ignoreDir)

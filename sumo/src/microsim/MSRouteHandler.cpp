@@ -110,13 +110,13 @@ MSRouteHandler::parseFromViaTo(std::string element,
         }
     } else {
         MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "", true),
-                   myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+                               myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
     }
     if (!attrs.hasAttribute(SUMO_ATTR_VIA) && !attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         myInsertStopEdgesAt = (int)myActiveRoute.size();
     }
     MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true),
-               myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+                           myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) && myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
         const MSEdge* toTaz = MSEdge::dictionary(myVehicleParameter->toTaz + "-sink");
         if (toTaz == 0) {
@@ -284,7 +284,7 @@ MSRouteHandler::myStartElement(int element,
                 }
                 if (myActiveContainerPlan->empty()) {
                     myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Waiting(
-                                                *from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
+                                                         *from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
                 }
             } else if (myActiveContainerPlan->empty()) {
                 throw ProcessError("The start edge within a transport of container '" + containerId + "' is not known.");
@@ -356,7 +356,7 @@ MSRouteHandler::myStartElement(int element,
             }
             if (myActiveContainerPlan->empty()) {
                 myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Waiting(
-                                            *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start"));
+                                                     *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start"));
             }
             myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Tranship(myActiveRoute, cs, speed, departPos, arrivalPos));
             myActiveRoute.clear();
@@ -758,7 +758,7 @@ MSRouteHandler::closePerson() {
             MSNet::getInstance()->getPersonControl().setDeparture(myVehicleParameter->depart, person);
             registerLastDepart();
         } else {
-            ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists."); 
+            ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists.");
             delete person;
             throw error;
         }
@@ -871,7 +871,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.endPos = bs->getEndLanePosition();
         stop.startPos = bs->getBeginLanePosition();
         edge = &l.getEdge();
-    } //try to parse the assigned container stop 
+    } //try to parse the assigned container stop
     else if (stop.containerstop != "") {
         // ok, we have obviously a container stop
         MSContainerStop* cs = MSNet::getInstance()->getContainerStop(stop.containerstop);
@@ -914,7 +914,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         }
         if (myActiveContainerPlan && myActiveContainerPlan->empty()) {
             myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Waiting(
-                                        MSLane::dictionary(stop.lane)->getEdge(), -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
+                                                 MSLane::dictionary(stop.lane)->getEdge(), -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
         }
         stop.endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, 0, ok, MSLane::dictionary(stop.lane)->getLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
@@ -935,7 +935,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } else if (myActiveContainerPlan != 0) {
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, 0, ok, "waiting");
         myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Waiting(
-                                    MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until, stop.startPos, actType));
+                                             MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until, stop.startPos, actType));
     } else if (myVehicleParameter != 0) {
         myVehicleParameter->stops.push_back(stop);
     } else {

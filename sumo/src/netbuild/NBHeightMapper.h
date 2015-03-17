@@ -33,9 +33,9 @@
 #endif
 
 #ifdef _MSC_VER
-   typedef __int16 int16_t;
+typedef __int16 int16_t;
 #else
-   #include <stdint.h>
+#include <stdint.h>
 #endif
 
 #include <string>

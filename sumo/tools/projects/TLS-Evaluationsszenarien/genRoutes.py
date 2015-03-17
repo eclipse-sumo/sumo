@@ -19,10 +19,14 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import struct, random, optparse, sys
+import struct
+import random
+import optparse
+import sys
+
 
 def genRoutes(N, dR, fR, dL, fL, dD, fD, dU, fU):
-    
+
     routes = open("cross.rou.xml", "w")
     print >> routes, '''\
 <routes>
@@ -38,82 +42,84 @@ def genRoutes(N, dR, fR, dL, fL, dD, fD, dU, fU):
 '''
     lastVeh = 0
     vehNr = 0
-    
+
     nbVehR = 0
     nbVehL = 0
     nbVehD = 0
     nbVehU = 0
-    
+
     if fR == 0:
         tR = N
         nextTR = N
     else:
         tR = (1.0 / fR) * 3600
         nextTR = 0
-        
-    if fL == 0:    
+
+    if fL == 0:
         tL = N
         nextTL = N
     else:
         tL = (1.0 / fL) * 3600
         nextTL = 0
-    
+
     if fD == 0:
         tD = N
         nextTD = N
     else:
         tD = (1.0 / fD) * 3600
         nextTD = 0
-        
+
     if fU == 0:
         tU = N
         nextTU = N
     else:
         tU = (1.0 / fU) * 3600
         nextTU = 0
-    
+
     pR = fR / 3600.0
     pL = fL / 3600.0
     pD = fD / 3600.0
     pU = fU / 3600.0
-    
-    
-        
+
     vehNr = 0
     for T in range(N):
-        if (dR == 'u' and nextTR <= T) or (dR == 'p' and random.uniform(0,1) < pR):
-            print >> routes, '    <vehicle id="%i" type="carRight" route="right" depart="%i" />' % (vehNr, T)
+        if (dR == 'u' and nextTR <= T) or (dR == 'p' and random.uniform(0, 1) < pR):
+            print >> routes, '    <vehicle id="%i" type="carRight" route="right" depart="%i" />' % (
+                vehNr, T)
             vehNr += 1
             nbVehR += 1
             nextTR = nextTR + tR
-    
-        if (dL == 'u' and nextTL <= T) or (dL == 'p' and random.uniform(0,1) < pL):
-            print >> routes, '    <vehicle id="%i" type="carLeft" route="left" depart="%i" />' % (vehNr, T)
+
+        if (dL == 'u' and nextTL <= T) or (dL == 'p' and random.uniform(0, 1) < pL):
+            print >> routes, '    <vehicle id="%i" type="carLeft" route="left" depart="%i" />' % (
+                vehNr, T)
             vehNr += 1
             nbVehL += 1
             nextTL = nextTL + tL
-            
-        if (dD == 'u' and nextTD <= T) or (dD == 'p' and random.uniform(0,1) < pD):
-            print >> routes, '    <vehicle id="%i" type="carDown" route="down" depart="%i" />' % (vehNr, T)
+
+        if (dD == 'u' and nextTD <= T) or (dD == 'p' and random.uniform(0, 1) < pD):
+            print >> routes, '    <vehicle id="%i" type="carDown" route="down" depart="%i" />' % (
+                vehNr, T)
             vehNr += 1
             nbVehD += 1
             nextTD = nextTD + tD
-    
-        if (dU == 'u' and nextTU <= T) or (dU == 'p' and random.uniform(0,1) < pU):
-            print >> routes, '    <vehicle id="%i" type="carUp" route="up" depart="%i" />' % (vehNr, T)
+
+        if (dU == 'u' and nextTU <= T) or (dU == 'p' and random.uniform(0, 1) < pU):
+            print >> routes, '    <vehicle id="%i" type="carUp" route="up" depart="%i" />' % (
+                vehNr, T)
             vehNr += 1
             nbVehU += 1
             nextTU = nextTU + tU
-                
+
     print >> routes, "</routes>"
     routes.close()
-        
-    
+
+
 #    print "Right: " + str(nbVehR*3600.0/N) + " veh/h"
 #    print "Left: " + str(nbVehL*3600.0/N) + " veh/h"
 #    print "Down: " + str(nbVehD*3600.0/N) + " veh/h"
 #    print "Up: " + str(nbVehU*3600.0/N) + " veh/h"
-    #print "%i vehicles were generated" % (vehNr)
+    # print "%i vehicles were generated" % (vehNr)
 
 if __name__ == "__main__":
 
@@ -125,7 +131,7 @@ if __name__ == "__main__":
         default="('u','u','u','u')",
         help="Distribution (Uniform (u), Poisson (p))"
     )
-    
+
     parser.add_option(
         "-f",
         "--flow",
@@ -133,7 +139,7 @@ if __name__ == "__main__":
         default="(360, 360, 360, 360)",
         help="Traffic flow (vehicles/hour)"
     )
-    
+
     parser.add_option(
         "-N",
         "--SimulationTime",
@@ -141,9 +147,9 @@ if __name__ == "__main__":
         default="1000",
         help="Simulation Time"
     )
-    
+
     (options, args) = parser.parse_args()
-    
+
     flows = eval(options.flow)
     if type(flows) == int:
         fR = flows
@@ -158,7 +164,7 @@ if __name__ == "__main__":
     else:
         print "Flow - wrong format"
         sys.exit()
-        
+
     distrs = eval(options.distr)
     if len(distrs) == 4:
         (dR, dL, dD, dU) = distrs
@@ -175,5 +181,5 @@ if __name__ == "__main__":
         sys.exit()
 
     N = int(options.N)
-    
+
     genRoutes(N, dR, fR, dL, fL, dD, fD, dU, fU)

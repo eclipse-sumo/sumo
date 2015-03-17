@@ -19,8 +19,12 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import sys,os,subprocess,random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
+import sys
+import os
+import subprocess
+import random
+sys.path.append(
+    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
 from sumolib import checkBinary
 
 net_output = 'joined.net.xml'
@@ -32,18 +36,18 @@ sumo = checkBinary('sumo')
 assert(sumo)
 
 args_netc = [netconvert,
-        '--node-files', 'input_nodes.nod.xml',
-        '--edge-files', 'input_edges.edg.xml',
-        '--output', net_output,
-        '--offset.disable-normalization']
+             '--node-files', 'input_nodes.nod.xml',
+             '--edge-files', 'input_edges.edg.xml',
+             '--output', net_output,
+             '--offset.disable-normalization']
 
 args_sumo = [sumo,
-        '--net-file', net_output,
-        '--route-files', 'input_routes.rou.xml',
-        '--end', '50',
-        '--no-step-log',
-        '--no-duration-log',
-        '--tripinfo-output', trips_output]
+             '--net-file', net_output,
+             '--route-files', 'input_routes.rou.xml',
+             '--end', '50',
+             '--no-step-log',
+             '--no-duration-log',
+             '--tripinfo-output', trips_output]
 
 subprocess.call(args_netc)
 subprocess.call(args_sumo)

@@ -78,7 +78,7 @@ MSDevice_Container::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /
         if (veh.isStopped()) {
             for (std::vector<MSContainer*>::iterator i = myContainers.begin(); i != myContainers.end();) {
                 MSContainer* container = *i;
-                if (&(container->getDestination()) == veh.getEdge()){
+                if (&(container->getDestination()) == veh.getEdge()) {
                     if (!container->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
                         MSNet::getInstance()->getContainerControl().erase(container);
                     }
@@ -107,7 +107,7 @@ MSDevice_Container::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notificati
 
 bool
 MSDevice_Container::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
-                             MSMoveReminder::Notification reason) {
+                                MSMoveReminder::Notification reason) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSContainer*>::iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
             MSContainer* container = *i;

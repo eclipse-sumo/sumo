@@ -81,14 +81,14 @@ public:
      */
     bool add(const std::string& id, MSPerson* person);
 
-    
+
     /** @brief Returns the named person, if existing
      * @param[in] id The id of the person
      * @return The named person, if existing, otherwise 0
      */
     MSPerson* get(const std::string& id) const;
 
-    
+
     /// removes a single person
     virtual void erase(MSPerson* person);
 
@@ -152,7 +152,7 @@ public:
         return myPersons.end();
     }
 
-    
+
     /** @brief Returns the number of known persons
      * @return The number of stored persons
      */

@@ -20,11 +20,14 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys, zipfile
+import os
+import sys
+import zipfile
 from optparse import OptionParser
 
+
 class Entry:
-    
+
     def __init__(self):
         self.carFlow = 0
         self.truckFlow = 0
@@ -33,14 +36,16 @@ class Entry:
 
     def add(self, qCar, qTruck, vCar, vTruck):
         if qCar > 0:
-            self.carSpeed = (self.carFlow * self.carSpeed + qCar * vCar) / (self.carFlow + qCar)
+            self.carSpeed = (
+                self.carFlow * self.carSpeed + qCar * vCar) / (self.carFlow + qCar)
             self.carFlow += qCar
         if qTruck > 0:
-            self.truckSpeed = (self.truckFlow * self.truckSpeed + qTruck * vTruck) / (self.truckFlow + qTruck)
+            self.truckSpeed = (
+                self.truckFlow * self.truckSpeed + qTruck * vTruck) / (self.truckFlow + qTruck)
             self.truckFlow += qTruck
 
     def __repr__(self):
-        return str(self.carFlow)+";"+str(self.truckFlow)+";"+str(self.carSpeed)+";"+str(self.truckSpeed)
+        return str(self.carFlow) + ";" + str(self.truckFlow) + ";" + str(self.carSpeed) + ";" + str(self.truckSpeed)
 
 
 def readLines(lines):
@@ -49,7 +54,8 @@ def readLines(lines):
         if not cityDets or flowDef[0] in cityDets:
             if not flowDef[0] in totalFlow:
                 totalFlow[flowDef[0]] = Entry()
-            totalFlow[flowDef[0]].add(int(flowDef[1]), int(flowDef[2]), float(flowDef[3]), float(flowDef[4]))
+            totalFlow[flowDef[0]].add(
+                int(flowDef[1]), int(flowDef[2]), float(flowDef[3]), float(flowDef[4]))
 
 optParser = OptionParser(usage="usage: %prog [options] [flow.txt|flows.zip]+")
 optParser.add_option("-d", "--det-file", dest="detfile",
@@ -67,7 +73,7 @@ else:
 totalFlow = {}
 for f in args:
     if os.access(f, os.R_OK):
-        if f.endswith(".zip"): 
+        if f.endswith(".zip"):
             zipf = zipfile.ZipFile(f)
             for fileName in zipf.namelist():
                 readLines(zipf.read(fileName).splitlines())
@@ -78,4 +84,4 @@ for f in args:
         print >> sys.stderr, "Cannot read", f
 print "Detector;Time;qPKW;qLKW;vPKW;vLKW"
 for det, flow in totalFlow.iteritems():
-    print det+";0;"+str(flow)
+    print det + ";0;" + str(flow)

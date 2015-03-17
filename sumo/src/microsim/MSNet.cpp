@@ -450,7 +450,8 @@ MSNet::simulationStep() {
     myInserter->determineCandidates(myStep);    // containers
     if (myContainerControl != 0) {
         myContainerControl->checkWaitingContainers(this, myStep);
-    }    myInsertionEvents->execute(myStep);
+    }
+    myInsertionEvents->execute(myStep);
 #ifdef HAVE_FOX
     MSDevice_Routing::waitForAll();
 #endif
@@ -561,7 +562,7 @@ MSNet::writeOutput() {
     // check state dumps
     if (oc.isSet("netstate-dump")) {
         MSXMLRawOut::write(OutputDevice::getDeviceByOption("netstate-dump"), *myEdges, myStep,
-                oc.getInt("netstate-dump.precision"));
+                           oc.getInt("netstate-dump.precision"));
     }
 
     // check fcd dumps

@@ -16,12 +16,16 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import optparse, os, subprocess, sys
+import optparse
+import os
+import subprocess
+import sys
 try:
     import texttestlib
     haveTextTestLib = True
 except ImportError:
     haveTextTestLib = False
+
 
 def runInternal(suffix, args, out=sys.stdout, gui=False):
     if os.name != "posix":
@@ -29,17 +33,26 @@ def runInternal(suffix, args, out=sys.stdout, gui=False):
     env = os.environ
     root = os.path.abspath(os.path.dirname(__file__))
     env["TEXTTEST_HOME"] = root
-    env["ACTIVITYGEN_BINARY"] = os.path.join(root, "..", "bin", "activitygenInt" + suffix)
-    env["DFROUTER_BINARY"] = os.path.join(root, "..", "bin", "dfrouterInt" + suffix)
-    env["DUAROUTER_BINARY"] = os.path.join(root, "..", "bin", "duarouterInt" + suffix)
-    env["JTRROUTER_BINARY"] = os.path.join(root, "..", "bin", "jtrrouterInt" + suffix)
-    env["NETCONVERT_BINARY"] = os.path.join(root, "..", "bin", "netconvertInt" + suffix)
-    env["NETGENERATE_BINARY"] = os.path.join(root, "..", "bin", "netgenerateInt" + suffix)
-    env["OD2TRIPS_BINARY"] = os.path.join(root, "..", "bin", "od2tripsInt" + suffix)
+    env["ACTIVITYGEN_BINARY"] = os.path.join(
+        root, "..", "bin", "activitygenInt" + suffix)
+    env["DFROUTER_BINARY"] = os.path.join(
+        root, "..", "bin", "dfrouterInt" + suffix)
+    env["DUAROUTER_BINARY"] = os.path.join(
+        root, "..", "bin", "duarouterInt" + suffix)
+    env["JTRROUTER_BINARY"] = os.path.join(
+        root, "..", "bin", "jtrrouterInt" + suffix)
+    env["NETCONVERT_BINARY"] = os.path.join(
+        root, "..", "bin", "netconvertInt" + suffix)
+    env["NETGENERATE_BINARY"] = os.path.join(
+        root, "..", "bin", "netgenerateInt" + suffix)
+    env["OD2TRIPS_BINARY"] = os.path.join(
+        root, "..", "bin", "od2tripsInt" + suffix)
     env["SUMO_BINARY"] = os.path.join(root, "..", "bin", "meso" + suffix)
-    env["POLYCONVERT_BINARY"] = os.path.join(root, "..", "bin", "polyconvertInt" + suffix)
+    env["POLYCONVERT_BINARY"] = os.path.join(
+        root, "..", "bin", "polyconvertInt" + suffix)
     env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "meso-gui" + suffix)
-    env["MAROUTER_BINARY"] = os.path.join(root, "..", "bin", "marouter" + suffix)
+    env["MAROUTER_BINARY"] = os.path.join(
+        root, "..", "bin", "marouter" + suffix)
     ttBin = 'texttest.py'
     if os.name == "posix":
         if subprocess.call(['which', 'texttest']) == 0:
@@ -49,11 +62,15 @@ def runInternal(suffix, args, out=sys.stdout, gui=False):
     apps = "sumo.internal,sumo.meso,complex.meso,duarouter.astar,duarouter.chrouter"
     if gui:
         apps = "sumo.gui"
-    subprocess.call("%s %s -a %s" % (ttBin, args, apps), stdout=out, stderr=out, shell=True)
+    subprocess.call("%s %s -a %s" %
+                    (ttBin, args, apps), stdout=out, stderr=out, shell=True)
 
 if __name__ == "__main__":
     optParser = optparse.OptionParser()
-    optParser.add_option("-s", "--suffix", default="", help="suffix to the fileprefix")
-    optParser.add_option("-g", "--gui", default=False, action="store_true", help="run gui tests")
+    optParser.add_option(
+        "-s", "--suffix", default="", help="suffix to the fileprefix")
+    optParser.add_option(
+        "-g", "--gui", default=False, action="store_true", help="run gui tests")
     (options, args) = optParser.parse_args()
-    runInternal(options.suffix, " ".join(["-" + a for a in args]), gui=options.gui)
+    runInternal(options.suffix, " ".join(
+        ["-" + a for a in args]), gui=options.gui)

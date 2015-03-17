@@ -78,8 +78,8 @@ public:
      * @param[in] endPos End position of the container stop on the lane
      */
     GUIContainerStop(const std::string& id,
-               const std::vector<std::string>& lines, MSLane& lane,
-               SUMOReal frompos, SUMOReal topos);
+                     const std::vector<std::string>& lines, MSLane& lane,
+                     SUMOReal frompos, SUMOReal topos);
 
 
     /// @brief Destructor

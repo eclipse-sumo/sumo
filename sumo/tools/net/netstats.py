@@ -17,7 +17,10 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
@@ -36,6 +39,7 @@ def renderHTML(values):
     print "<h2>Nodes</h2></br>"
     print "Node number: " + str(values["nodeNumber"]) + "</br>"
     print "</body></html>"
+
 
 def renderPNG(values):
     from matplotlib import rcParams
@@ -59,10 +63,12 @@ values["edgeNumber"] = len(net._edges)
 values["nodeNumber"] = len(net._nodes)
 for e in net._edges:
     values["edgeLengthSum"] = values["edgeLengthSum"] + e._length
-    values["laneLengthSum"] = values["laneLengthSum"] + (e._length * float(len(e._lanes)))
+    values["laneLengthSum"] = values["laneLengthSum"] + \
+        (e._length * float(len(e._lanes)))
     if len(e._lanes) not in values["edgesPerLaneNumber"]:
         values["edgesPerLaneNumber"][len(e._lanes)] = 0
-    values["edgesPerLaneNumber"][len(e._lanes)] = values["edgesPerLaneNumber"][len(e._lanes)] + 1
+    values["edgesPerLaneNumber"][
+        len(e._lanes)] = values["edgesPerLaneNumber"][len(e._lanes)] + 1
 
 renderHTML(values)
 renderPNG(values)

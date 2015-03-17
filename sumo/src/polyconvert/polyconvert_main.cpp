@@ -291,7 +291,7 @@ main(int argc, char** argv) {
         PCLoaderDlrNavteq::loadIfSet(oc, toFill, tm); // Elmar-files
         PCLoaderVisum::loadIfSet(oc, toFill, tm); // VISUM
         PCLoaderArcView::loadIfSet(oc, toFill, tm); // shape-files
-        GeoConvHelper::computeFinal(); 
+        GeoConvHelper::computeFinal();
         // error processing
         if (MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("ignore-errors")) {
             MsgHandler::getErrorInstance()->clear();

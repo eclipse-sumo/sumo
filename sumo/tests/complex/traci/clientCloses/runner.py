@@ -17,30 +17,39 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, time
+import os
+import subprocess
+import sys
+import time
 
-sumoHome = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
+sumoHome = os.path.abspath(
+    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
-import sumolib, traci
+import sumolib
+import traci
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
 
-if sys.argv[1]=="sumo":
-    sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
+if sys.argv[1] == "sumo":
+    sumoBinary = os.environ.get(
+        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
     addOption = "--remote-port %s" % PORT
 else:
-    sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
+    sumoBinary = os.environ.get(
+        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = "-S -Q --remote-port %s" % PORT
+
 
 def runSingle(traciEndTime, sumoEndTime=None):
     step = 0
     opt = addOption
     if sumoEndTime is not None:
         opt += (" --end %s" % sumoEndTime)
-    sumoProcess = subprocess.Popen("%s -c sumo.sumocfg %s" % (sumoBinary, opt), shell=True, stdout=sys.stdout)
+    sumoProcess = subprocess.Popen(
+        "%s -c sumo.sumocfg %s" % (sumoBinary, opt), shell=True, stdout=sys.stdout)
     traci.init(PORT)
-    while not step>traciEndTime:
+    while not step > traciEndTime:
         traci.simulationStep()
         step += 1
     print "Print ended at step %s" % (traci.simulation.getCurrentTime() / DELTA_T)

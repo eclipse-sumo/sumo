@@ -22,24 +22,30 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-import sys,os,subprocess
+import sys
+import os
+import subprocess
 import difflib
 import StringIO
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "import", "osm"))
+sys.path.append(
+    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
+sys.path.append(os.path.join(
+    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "import", "osm"))
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 from sumolib import checkBinary
 import fpdiff
 
 osm_input = 'osm.xml'
-net_output= 'from_osm'
-net_output2= 'reloaded'
+net_output = 'from_osm'
+net_output2 = 'reloaded'
 
 netconvert = checkBinary('netconvert')
 assert(netconvert)
 
 # filter header and projection clause
+
+
 def filter(lines, start_element):
     skippedHeader = False
     result = []
@@ -55,6 +61,7 @@ def filter(lines, start_element):
         result.append(l)
     return result
 
+
 def get_filtered_lines(prefix):
     result = []
     for suffix, start_element in [
@@ -67,20 +74,20 @@ def get_filtered_lines(prefix):
     return result
 
 args1 = [netconvert,
-        '--no-internal-links', 
-        '--osm-files',  osm_input, '--proj.utm',
-        '-R', '--ramps.guess', 
-        '--tls.guess', '--tls.join',
-        '--junctions.join',
-        '--plain-output-prefix', net_output,
-        '--output', net_output + '.net.xml']
+         '--no-internal-links',
+         '--osm-files',  osm_input, '--proj.utm',
+         '-R', '--ramps.guess',
+         '--tls.guess', '--tls.join',
+         '--junctions.join',
+         '--plain-output-prefix', net_output,
+         '--output', net_output + '.net.xml']
 
 args2 = [netconvert,
-        '--sumo-net-file', net_output + '.net.xml',
-        '--no-internal-links', 
-        '--offset.disable-normalization',
-        '--plain-output-prefix', net_output2,
-        '--output', net_output2 + '.net.xml']
+         '--sumo-net-file', net_output + '.net.xml',
+         '--no-internal-links',
+         '--offset.disable-normalization',
+         '--plain-output-prefix', net_output2,
+         '--output', net_output2 + '.net.xml']
 
 subprocess.call(args1)
 subprocess.call(args2)

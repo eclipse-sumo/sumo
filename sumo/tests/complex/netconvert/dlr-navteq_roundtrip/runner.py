@@ -22,22 +22,28 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-import sys,os,subprocess
+import sys
+import os
+import subprocess
 import difflib
 import StringIO
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "import", "osm"))
+sys.path.append(
+    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
+sys.path.append(os.path.join(
+    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "import", "osm"))
 from sumolib import checkBinary
 import fpdiff
 
 net_input = 'input_net.net.xml'
 dlr_navteq_prefix = 'elmar'
-net_output = 'output_net.net.xml' # do not collate
+net_output = 'output_net.net.xml'  # do not collate
 
 netconvert = checkBinary('netconvert')
 assert(netconvert)
 
 # filter header and projection clause
+
+
 def filter(lines):
     skippedHeader = False
     result = []
@@ -55,12 +61,12 @@ def filter(lines):
 
 
 args1 = [netconvert,
-        '--sumo-net-file', net_input,
-        '--dlr-navteq-output', dlr_navteq_prefix]
+         '--sumo-net-file', net_input,
+         '--dlr-navteq-output', dlr_navteq_prefix]
 
 args2 = [netconvert,
-        '--dlr-navteq-prefix', dlr_navteq_prefix,
-        '--output', net_output]
+         '--dlr-navteq-prefix', dlr_navteq_prefix,
+         '--output', net_output]
 
 subprocess.call(args1)
 subprocess.call(args2)

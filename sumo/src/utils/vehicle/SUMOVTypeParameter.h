@@ -139,14 +139,14 @@ public:
     SUMOVehicleClass vehicleClass;
     /// @brief The vehicle's impatience (willingness to obstruct others)
     SUMOReal impatience;
-	/// @brief The person capacity of the vehicle
-	unsigned int personCapacity;
-	/// @brief The container capacity of the vehicle
-	unsigned int containerCapacity;
-	/// @brief The time a person needs to board the vehicle
-	SUMOTime boardingDuration;
-	/// @brief The time a container needs to get loaded on the vehicle
-	SUMOTime loadingDuration;
+    /// @brief The person capacity of the vehicle
+    unsigned int personCapacity;
+    /// @brief The container capacity of the vehicle
+    unsigned int containerCapacity;
+    /// @brief The time a person needs to board the vehicle
+    SUMOTime boardingDuration;
+    /// @brief The time a container needs to get loaded on the vehicle
+    SUMOTime loadingDuration;
 
 
 

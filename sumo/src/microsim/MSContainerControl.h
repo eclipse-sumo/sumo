@@ -108,7 +108,7 @@ public:
      */
     virtual MSContainer* buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSContainer::MSContainerPlan* plan) const;
 
-    /// adds a container to myTranship 
+    /// adds a container to myTranship
     void setTranship(MSContainer* c);
 
     /// removes a container from myTranship

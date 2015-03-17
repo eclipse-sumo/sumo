@@ -19,33 +19,34 @@ the Free Software Foundation; either version 3 of the License, or
 
 import sys
 import unittest
-import numpy, math
+import numpy
+import math
 import main
 
 
-from unittest_constants import VISUAL, lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual, known_bug, debugging 
+from unittest_constants import VISUAL, lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual, known_bug, debugging
 
 
 def skip_all_but_selected():
-    global lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual 
-    
-    lost       = True
-    finished   = True  
-    afinished  = True
-    unfinished = True 
-    devel_skip = True 
-    devel_run  = True
-    broken     = True 
-    visual     = True 
+    global lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual
 
-#skip_all_but_selected()    
+    lost = True
+    finished = True
+    afinished = True
+    unfinished = True
+    devel_skip = True
+    devel_run = True
+    broken = True
+    visual = True
+
+# skip_all_but_selected()
+
 
 def assertAlmostEqualTupleList(not_self, result, expected_result):
-            if (len(result) == 0 or len(expected_result) == 0
-                or len(result) != len(expected_result)):
-                assert False, "lists have differing length or length of zero"
-                
-            for ii in range(len(result)):
-                not_self.assertAlmostEqual(result [ii][0], expected_result [ii][0])
-                not_self.assertAlmostEqual(result [ii][1], expected_result [ii][1])
+    if (len(result) == 0 or len(expected_result) == 0
+            or len(result) != len(expected_result)):
+        assert False, "lists have differing length or length of zero"
 
+    for ii in range(len(result)):
+        not_self.assertAlmostEqual(result[ii][0], expected_result[ii][0])
+        not_self.assertAlmostEqual(result[ii][1], expected_result[ii][1])

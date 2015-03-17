@@ -324,7 +324,7 @@ private:
 
 
     // load/save-menu
-    FXCheckButton *mySaveViewPort, *mySaveDelay, *mySaveDecals;
+    FXCheckButton* mySaveViewPort, *mySaveDelay, *mySaveDecals;
     /// @}
 
 

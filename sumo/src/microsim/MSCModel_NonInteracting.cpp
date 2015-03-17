@@ -141,8 +141,8 @@ SUMOTime
 CState::computeTranshipTime(const MSEdge* /* prev */, const MSContainer::MSContainerStage_Tranship& stage, SUMOTime currentTime) {
     myLastEntryTime = currentTime;
 
-    myCurrentBeginPos = stage.getDepartPos();  
-    myCurrentEndPos = stage.getArrivalPos();    
+    myCurrentBeginPos = stage.getDepartPos();
+    myCurrentEndPos = stage.getArrivalPos();
 
     const MSLane* fromLane = stage.getFromEdge()->getLanes().front(); //the lane the container starts from during its tranship stage
     myCurrentBeginPosition = stage.getLanePosition(fromLane, myCurrentBeginPos, LATERAL_OFFSET);

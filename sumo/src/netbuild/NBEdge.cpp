@@ -1104,7 +1104,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                             }
                         }
                         const bool rightTurnConflict = n.rightTurnConflict(
-                                this, con.toEdge, con.fromLane, (*i2), (*k2).toEdge, (*k2).fromLane);
+                                                           this, con.toEdge, con.fromLane, (*i2), (*k2).toEdge, (*k2).fromLane);
                         // compute foe internal lanes
                         if (n.foes(this, con.toEdge, *i2, (*k2).toEdge) || rightTurnConflict) {
                             foeInternalLinks.push_back(index);
@@ -1126,13 +1126,13 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         // compute foe internal lanes
                         if (this == edge || con.toEdge == edge) {
                             foeInternalLinks.push_back(index);
-                            if (con.toEdge == edge && 
+                            if (con.toEdge == edge &&
                                     (isRightTurn || (isTurn && n.isTLControlled()))) {
                                 // build internal junctions (not for left turns at uncontrolled intersections)
                                 PositionVector crossingShape = crossing.shape;
                                 crossingShape.extrapolate(1.0); // sometimes shapes miss each other by a small margin
                                 const SUMOReal minDV = firstIntersection(shape, crossingShape, crossing.width / 2);
-                                if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { 
+                                if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) {
                                     assert(minDV >= 0);
                                     if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
                                         crossingPositions.first = minDV;
@@ -1147,7 +1147,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                 if (dir == LINKDIR_TURN && crossingPositions.first < 0 && crossingPositions.second.size() != 0 && shape.length() > 2. * POSITION_EPS) {
                     // let turnarounds wait in the middle if no other crossing point was found and it has a sensible length
                     // (if endOffset is used, the crossing point is in the middle of the part within the junction shape)
-                    crossingPositions.first = (SUMOReal) (shape.length() + getEndOffset(con.fromLane)) / 2.;
+                    crossingPositions.first = (SUMOReal)(shape.length() + getEndOffset(con.fromLane)) / 2.;
                 }
             }
             break;
@@ -1195,7 +1195,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
 }
 
 
-SUMOReal 
+SUMOReal
 NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, SUMOReal width2) {
     SUMOReal intersect = std::numeric_limits<double>::max();
     if (v2.length() < POSITION_EPS) {
@@ -2176,7 +2176,7 @@ NBEdge::getLaneWidth(int lane) const {
 }
 
 
-SUMOReal 
+SUMOReal
 NBEdge::getTotalWidth() const {
     SUMOReal result = 0;
     for (unsigned int i = 0; i < myLanes.size(); i++) {
@@ -2380,7 +2380,7 @@ NBEdge::shiftToLanesToEdge(NBEdge* to, unsigned int laneOff) {
 }
 
 
-void 
+void
 NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
     if (myLaneSpreadFunction == LANESPREAD_CENTER) {
         const int i = (node == myTo ? -1 : 0);
@@ -2388,7 +2388,7 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
         const SUMOReal dist = myGeom[i].distanceTo2D(node->getPosition());
         const SUMOReal neededOffset = (getTotalWidth() + getNumLanes() * SUMO_const_laneOffset) / 2;
         const SUMOReal dist2 = MIN2(myGeom.distance(other->getGeometry()[i2]),
-                    other->getGeometry().distance(myGeom[i]));
+                                    other->getGeometry().distance(myGeom[i]));
         const SUMOReal neededOffset2 = neededOffset + (other->getTotalWidth() + other->getNumLanes() * SUMO_const_laneOffset) / 2;
         if (dist < neededOffset && dist2 < neededOffset2) {
             PositionVector tmp = myGeom;

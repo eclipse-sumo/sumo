@@ -94,29 +94,29 @@ private:
     * @return Indicator if reading was successul
     */
     bool ReadVehicleFile(const std::vector<std::string>& path, const std::string& emissionClass,
-									 double &vehicleMass,
-									 double &vehicleLoading,
-									 double &vehicleMassRot,
-									 double &crossArea,
-									 double &cWValue,
-									 double &f0,
-									 double &f1,
-									 double &f2,
-									 double &f3,
-									 double &f4,
-									 double &axleRatio,
-									 double &ratedPower,
-									 double &engineIdlingSpeed,
-									 double &engineRatedSpeed,
-									 double &effectiveWheelDiameter,
-									 std::string &vehicleMassType,
-									 std::string &vehicleFuelType,
-									 double &pNormV0,
-									 double &pNormP0,
-									 double &pNormV1,
-									 double &pNormP1,
-									 std::vector< std::vector<double> > &matrixSpeedInertiaTable,
-									 std::vector< std::vector<double> > &normedDragTable);
+                         double& vehicleMass,
+                         double& vehicleLoading,
+                         double& vehicleMassRot,
+                         double& crossArea,
+                         double& cWValue,
+                         double& f0,
+                         double& f1,
+                         double& f2,
+                         double& f3,
+                         double& f4,
+                         double& axleRatio,
+                         double& ratedPower,
+                         double& engineIdlingSpeed,
+                         double& engineRatedSpeed,
+                         double& effectiveWheelDiameter,
+                         std::string& vehicleMassType,
+                         std::string& vehicleFuelType,
+                         double& pNormV0,
+                         double& pNormP0,
+                         double& pNormV1,
+                         double& pNormP1,
+                         std::vector< std::vector<double> >& matrixSpeedInertiaTable,
+                         std::vector< std::vector<double> >& normedDragTable);
 
 
 
@@ -128,7 +128,7 @@ private:
      * @return Indicator if reading was successul
      */
     bool ReadEmissionData(bool readFC, const std::vector<std::string>& path, const std::string& emissionClass,
-                          std::vector<std::string> &header, std::vector<std::vector<double> > &matrix, std::vector<double> &idlingValues);
+                          std::vector<std::string>& header, std::vector<std::vector<double> >& matrix, std::vector<double>& idlingValues);
 
 
 private:

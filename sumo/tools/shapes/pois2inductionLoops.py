@@ -24,7 +24,10 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib
 
@@ -48,9 +51,8 @@ for poi in pois:
     edge = poi._lane[:poi._lane.rfind('_')]
     edge = net._id2edge[edge]
     for i, l in enumerate(edge._lanes):
-        print >> fdo, '    <e1Detector id="%s__l%s" lane="%s" pos="%s" freq="60" file="e1_output.xml"/>' % (poi._id, i, l.getID(), poi._pos)
+        print >> fdo, '    <e1Detector id="%s__l%s" lane="%s" pos="%s" freq="60" file="e1_output.xml"/>' % (
+            poi._id, i, l.getID(), poi._pos)
     print >> fdo, ''
 print >> fdo, '</additional>'
 fdo.close()
-
-

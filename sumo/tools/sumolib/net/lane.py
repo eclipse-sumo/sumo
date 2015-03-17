@@ -22,40 +22,40 @@ the Free Software Foundation; either version 3 of the License, or
 
 # taken from sumo/src/utils/common/SUMOVehicleClass.cpp
 SUMO_VEHICLE_CLASSES = (
-        "public_emergency",  # deprecated
-        "public_authority",  # deprecated
-        "public_army",       # deprecated
-        "public_transport",  # deprecated
-        "transport",         # deprecated
-        "lightrail",         # deprecated
-        "cityrail",          # deprecated
-        "rail_slow",         # deprecated
-        "rail_fast",         # deprecated
+    "public_emergency",  # deprecated
+    "public_authority",  # deprecated
+    "public_army",       # deprecated
+    "public_transport",  # deprecated
+    "transport",         # deprecated
+    "lightrail",         # deprecated
+    "cityrail",          # deprecated
+    "rail_slow",         # deprecated
+    "rail_fast",         # deprecated
 
-        "private",           
-        "emergency",  
-        "authority",  
-        "army",       
-        "vip",               
-        "passenger",         
-        "hov",               
-        "taxi",              
-        "bus",               
-        "coach",               
-        "delivery",          
-        "truck",         
-        "trailer",         
-        "tram",        
-        "rail_urban",        
-        "rail",        
-        "rail_electric",        
-        "motorcycle",        
-        "moped",        
-        "bicycle",           
-        "pedestrian",
-        "evehicle",
-        "custom1",           
-        "custom2")           
+    "private",
+    "emergency",
+    "authority",
+    "army",
+    "vip",
+    "passenger",
+    "hov",
+    "taxi",
+    "bus",
+    "coach",
+    "delivery",
+    "truck",
+    "trailer",
+    "tram",
+    "rail_urban",
+    "rail",
+    "rail_electric",
+    "motorcycle",
+    "moped",
+    "bicycle",
+    "pedestrian",
+    "evehicle",
+    "custom1",
+    "custom2")
 
 
 def get_allowed(allow, disallow):
@@ -70,6 +70,7 @@ def get_allowed(allow, disallow):
 
 
 class Lane:
+
     """ Lanes from a sumo network """
 
     def __init__(self, edge, speed, length, allow, disallow):
@@ -87,7 +88,7 @@ class Lane:
         return self._speed
 
     def getLength(self):
-        return self._length 
+        return self._length
 
     def setShape(self, shape):
         self._shape = shape
@@ -96,13 +97,15 @@ class Lane:
         if includeJunctions:
             if self._cachedShapeWithJunctions == None:
                 if self._edge.getFromNode()._coord != self._shape[0]:
-                    self._cachedShapeWithJunctions = [self._edge.getFromNode()._coord] + self._shape
+                    self._cachedShapeWithJunctions = [
+                        self._edge.getFromNode()._coord] + self._shape
                 else:
                     self._cachedShapeWithJunctions = list(self._shape)
                 if self._edge.getToNode()._coord != self._shape[-1]:
-                    self._cachedShapeWithJunctions += [self._edge.getToNode()._coord]
+                    self._cachedShapeWithJunctions += [
+                        self._edge.getToNode()._coord]
             return self._cachedShapeWithJunctions
-        return self._shape 
+        return self._shape
 
     def getBoundingBox(self, includeJunctions=True):
         s = self.getShape(includeJunctions)

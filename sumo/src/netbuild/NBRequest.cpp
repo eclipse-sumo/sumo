@@ -647,7 +647,7 @@ NBRequest::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
     if (from != prohibitorFrom) {
         return false;
     }
-    if (from->isTurningDirectionAt(to) 
+    if (from->isTurningDirectionAt(to)
             || prohibitorFrom->isTurningDirectionAt(prohibitorTo)) {
         // XXX should warn if there are any non-turning connections left of this
         return false;
@@ -734,8 +734,8 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
         const std::vector<NBEdge::Connection>& cons = from->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator i = cons.begin(); i != cons.end(); i++) {
-            if (rightTurnConflict(from, to, fromLane, 
-                        from, (*i).toEdge, (*i).fromLane)) {
+            if (rightTurnConflict(from, to, fromLane,
+                                  from, (*i).toEdge, (*i).fromLane)) {
                 return true;
             }
         }

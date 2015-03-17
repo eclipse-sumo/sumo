@@ -28,10 +28,15 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 from xml.sax import saxutils, make_parser, handler
 
+
 class Route:
+
     def __init__(self, vPars, edges):
         self._vPars = vPars
         self._edges = edges
@@ -39,15 +44,16 @@ class Route:
     def encodeVehicle(self):
         ret = "<vehicle"
         for a in self._vPars:
-            ret  = ret + " " + a + "=\"" + self._vPars[a] + "\""
+            ret = ret + " " + a + "=\"" + self._vPars[a] + "\""
         ret = ret + ">"
         return ret
 
     def firstEdge(self):
         return self._edges[0]
-    
+
 
 class RoutesReader(handler.ContentHandler):
+
     def __init__(self, prefix, replacements):
         self._prefix = prefix
         self._replacements = {}
@@ -66,13 +72,13 @@ class RoutesReader(handler.ContentHandler):
             self._continuationsBackup[e] = []
             self._continuationsBackup[e].extend(self._continuations[e])
             self._continuationsSumBackup[e] = self._continuationsSum[e]
-        
+
     def startElement(self, name, attrs):
-        if name=="vehicle":
+        if name == "vehicle":
             self._vPars = {}
             for a in attrs.keys():
                 self._vPars[a] = attrs[a]
-        if name=="route":
+        if name == "route":
             edges = attrs["edges"].split(" ")
             for i in range(0, len(edges)):
                 edges[i] = self._prefix + edges[i]
@@ -83,17 +89,18 @@ class RoutesReader(handler.ContentHandler):
                         self._continuations[edges[i]] = []
                         self._continuationsSum[edges[i]] = 0
                     self._continuations[edges[i]].append(edges[i:])
-                    self._continuationsSum[edges[i]] = self._continuationsSum[edges[i]] + 1
+                    self._continuationsSum[
+                        edges[i]] = self._continuationsSum[edges[i]] + 1
 
     def getContinuation(self, beginEdge, replacements):
         assert(beginEdge in replacements)
         rEdge = replacements[beginEdge]
-        if rEdge.find(",")>=0:
+        if rEdge.find(",") >= 0:
             rEdge = rEdge.split(",")[0]
         edges = self._continuations[rEdge][-1]
         self._continuations[rEdge].pop()
         self._continuationsSum[rEdge] = self._continuationsSum[rEdge] - 1
-        if self._continuationsSum[rEdge]==0:
+        if self._continuationsSum[rEdge] == 0:
             self._continuations[rEdge] = []
             self._continuations[rEdge].extend(self._continuationsBackup[rEdge])
             self._continuationsSum[rEdge] = self._continuationsSumBackup[rEdge]
@@ -109,7 +116,7 @@ def writeRoute(fdo, edges, conts1, conts2, replacements):
             continue
         fdo.write(e + " ")
     if replaceFrom:
-        if replaceFrom[0]==conts2._prefix:
+        if replaceFrom[0] == conts2._prefix:
             cont = conts1.getContinuation(replaceFrom, replacements)
             writeRoute(fdo, cont, conts1, conts2, replacements)
         else:
@@ -122,7 +129,7 @@ def writeVehicle(fdo, route, conts1, conts2, replacements):
     writeRoute(fdo, route._edges, conts1, conts2, replacements)
     fdo.write("\"></route></vehicle>\n")
 
-            
+
 if len(sys.argv) < 6:
     print "Usage: " + sys.argv[0] + " <prefix#1> <routes#1> <prefix#2> <routes#2> <mapfile>"
     sys.exit()
@@ -130,7 +137,7 @@ if len(sys.argv) < 6:
 mmap = {}
 fd = open(sys.argv[5])
 for line in fd:
-    if line.find("->")<0:
+    if line.find("->") < 0:
         continue
     (orig, dest) = line.strip().split("->")
     mmap[orig] = dest
@@ -151,17 +158,14 @@ fdo = open("joined.rou.xml", "w")
 fdo.write("<routes>\n")
 for r in routes1._routes:
     if r.firstEdge() in mmap:
-        continue; # skip, starts at a replaced edge
+        continue
+        # skip, starts at a replaced edge
     writeVehicle(fdo, r, routes1, routes2, mmap)
 print "Processing routes#2"
 for r in routes2._routes:
     if r.firstEdge() in mmap:
-        continue; # skip, starts at a replaced edge
+        continue
+        # skip, starts at a replaced edge
     writeVehicle(fdo, r, routes1, routes2, mmap)
 fdo.write("</routes>\n")
 fdo.close()
-
-
-
-
-

@@ -19,10 +19,11 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys
+import os
+import sys
 
 mRoot = "."
-if len(sys.argv)>1:
+if len(sys.argv) > 1:
     mRoot = sys.argv[1]
 for root, dirs, files in os.walk(mRoot):
     if ".svn" in dirs:

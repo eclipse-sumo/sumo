@@ -18,7 +18,8 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys
+import os
+import sys
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -37,7 +38,6 @@ if __name__ == "__main__":
     optParser.add_option("-o", "--output",
                          help="route output (mandatory)", metavar="FILE")
     (options, args) = optParser.parse_args()
-
 
     if not options.output or not options.net:
         optParser.exit("missing input or output")

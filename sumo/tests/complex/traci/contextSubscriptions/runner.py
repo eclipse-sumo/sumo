@@ -17,24 +17,34 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, time, math
+import os
+import subprocess
+import sys
+import time
+import math
 
-sumoHome = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
+sumoHome = os.path.abspath(
+    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
-import sumolib, traci
+import sumolib
+import traci
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
 
 if sys.argv[1] == "sumo":
-    sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
+    sumoBinary = os.environ.get(
+        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
     addOption = "--remote-port %s" % PORT
 else:
-    sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
+    sumoBinary = os.environ.get(
+        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = "-S -Q --remote-port %s" % PORT
+
 
 def dist2(v, w):
     return (v[0] - w[0]) ** 2 + (v[1] - w[1]) ** 2
+
 
 def distToSegmentSquared(p, v, w):
     l2 = dist2(v, w)
@@ -47,17 +57,20 @@ def distToSegmentSquared(p, v, w):
         return dist2(p, w)
     return dist2(p, (v[0] + t * (w[0] - v[0]), v[1] + t * (w[1] - v[1])))
 
+
 def runSingle(traciEndTime, viewRange, module, objID):
     seen1 = 0
     seen2 = 0
     step = 0
-    sumoProcess = subprocess.Popen("%s -c sumo.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
+    sumoProcess = subprocess.Popen(
+        "%s -c sumo.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
 #    time.sleep(20)
     traci.init(PORT)
-    traci.poi.add("poi", 400, 500, (1,0,0,0))
-    traci.polygon.add("poly", ((400, 400), (450, 400), (450, 400)), (1,0,0,0))
+    traci.poi.add("poi", 400, 500, (1, 0, 0, 0))
+    traci.polygon.add(
+        "poly", ((400, 400), (450, 400), (450, 400)), (1, 0, 0, 0))
     subscribed = False
-    while not step>traciEndTime:
+    while not step > traciEndTime:
         responses = traci.simulationStep()
         near1 = set()
         if objID in module.getContextSubscriptionResults():
@@ -74,8 +87,9 @@ def runSingle(traciEndTime, viewRange, module, objID):
         elif hasattr(module, "getShape"):
             shape = module.getShape(objID)
         elif module == traci.edge:
-            # it's a hack, I know,  but do we really need to introduce edge.getShape?
-            shape = traci.lane.getShape(objID+"_0")
+            # it's a hack, I know,  but do we really need to introduce
+            # edge.getShape?
+            shape = traci.lane.getShape(objID + "_0")
         near2 = set()
         for v in pos:
             if egoPos:
@@ -87,9 +101,10 @@ def runSingle(traciEndTime, viewRange, module, objID):
                     if math.sqrt(distToSegmentSquared(pos[v], lastP, p)) < viewRange:
                         near2.add(v)
                     lastP = p
-        
+
         if not subscribed:
-            module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange, [traci.constants.VAR_POSITION] )
+            module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange, [
+                                    traci.constants.VAR_POSITION])
             subscribed = True
         else:
             seen1 += len(near1)
@@ -101,13 +116,12 @@ def runSingle(traciEndTime, viewRange, module, objID):
                 if v not in near1:
                     print "timestep %s: %s is missing in surrounding vehicles" % (step, v)
 
-
         step += 1
     print "Print ended at step %s" % (traci.simulation.getCurrentTime() / DELTA_T)
     traci.close()
     sys.stdout.flush()
     print "uncheck: seen %s vehicles via subscription, %s in surrounding" % (seen1, seen2)
-    if seen1==seen2:
+    if seen1 == seen2:
         print "Ok: Subscription and computed are same"
     else:
         print "Error: subscribed number and computed number differ"

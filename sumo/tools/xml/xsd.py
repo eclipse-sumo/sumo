@@ -18,10 +18,13 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, pprint
+import os
+import pprint
 from xml.dom import minidom
 
+
 class XmlAttribute:
+
     def __init__(self, entity):
         if hasattr(entity, "getAttribute"):
             self.name = entity.getAttribute('name')
@@ -35,7 +38,9 @@ class XmlAttribute:
     def __repr__(self):
         return self.name
 
+
 class XmlElement:
+
     def __init__(self, entity):
         self.name = entity.getAttribute('name')
         self.ref = entity.getAttribute('ref')
@@ -46,9 +51,11 @@ class XmlElement:
 
     def __repr__(self):
         childList = [c.name for c in self.children]
-        return "name '%s' ref '%s' type '%s' attrs %s %s"  % (self.name, self.ref, self.type, self.attributes, childList)
+        return "name '%s' ref '%s' type '%s' attrs %s %s" % (self.name, self.ref, self.type, self.attributes, childList)
+
 
 class XsdStructure():
+
     def __init__(self, xsdFile):
         xmlDoc = minidom.parse(open(xsdFile))
         self.root = None
@@ -73,9 +80,11 @@ class XsdStructure():
                 self._namedTypes[el.name] = el
         for btEntity in xmlDoc.getElementsByTagName('xsd:simpleType'):
             if btEntity.nodeType == 1 and btEntity.hasAttribute('name'):
-                enum = [e.getAttribute('value') for e in btEntity.getElementsByTagName('xsd:enumeration')]
+                enum = [e.getAttribute(
+                    'value') for e in btEntity.getElementsByTagName('xsd:enumeration')]
                 if enum:
-                    self._namedEnumerations[btEntity.getAttribute('name')] = enum
+                    self._namedEnumerations[
+                        btEntity.getAttribute('name')] = enum
         self.resolveRefs()
 #        pp = pprint.PrettyPrinter(indent=4)
 #        pp.pprint(self._namedElements)
@@ -97,16 +106,16 @@ class XsdStructure():
         if checkNestedType:
             nestedTypes = entity.getElementsByTagName('xsd:complexType')
             if nestedTypes:
-                entity = nestedTypes[0] # skip xsd:complex-tag
+                entity = nestedTypes[0]  # skip xsd:complex-tag
         for ext in entity.getElementsByTagName('xsd:extension'):
             if ext.parentNode.parentNode == entity:
                 eleObj.type = ext.getAttribute('base')
                 entity = ext
                 break
         for aa in entity.childNodes:
-            if aa.nodeName =='xsd:attribute':
+            if aa.nodeName == 'xsd:attribute':
                 eleObj.attributes.append(XmlAttribute(aa))
-            elif aa.nodeName =='xsd:sequence' or aa.nodeName =='xsd:choice':
+            elif aa.nodeName == 'xsd:sequence' or aa.nodeName == 'xsd:choice':
                 for aae in aa.getElementsByTagName('xsd:element'):
                     eleObj.children.append(XmlElement(aae))
         return eleObj

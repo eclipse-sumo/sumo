@@ -454,7 +454,8 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
         const SUMOTime containerTime = container == myContainers.end() ? SUMOTime_MAX : container->first;
         // check whether it shall not yet be computed
         if (vehicleTime >= time && personTime >= time && containerTime >= time) {
-            lastTime = MIN3(vehicleTime, personTime, containerTime);            break;
+            lastTime = MIN3(vehicleTime, personTime, containerTime);
+            break;
         }
         SUMOTime minTime = MIN3(vehicleTime, personTime, containerTime);
         if (vehicleTime == minTime) {
@@ -482,14 +483,14 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
                 }
             }
             myVehicles.erase(veh->getID());
-        } 
+        }
         if (personTime == minTime) {
             myRoutesOutput->writePreformattedTag(person->second);
             if (myRouteAlternativesOutput != 0) {
                 myRouteAlternativesOutput->writePreformattedTag(person->second);
             }
             myPersons.erase(person);
-        } 
+        }
         if (containerTime == minTime) {
             myRoutesOutput->writePreformattedTag(container->second);
             if (myRouteAlternativesOutput != 0) {

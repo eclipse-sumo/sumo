@@ -404,7 +404,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeUnsignedByte(TYPE_STRING);
                 tempMsg.writeString(v->getParameter().getParameter(paramName, ""));
             }
-                break;
+            break;
             default:
                 TraCIServerAPI_VehicleType::getVariable(variable, v->getVehicleType(), tempMsg);
                 break;
@@ -1219,7 +1219,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             Position pos(x, y);
             angle *= -1.;
-            if(fabs(angle)>180.) {
+            if (fabs(angle) > 180.) {
                 angle = 180. - angle;
             }
 
@@ -1245,12 +1245,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.setVTDControlled(v, laneC, lanePosC, routeOffsetC, edgesC);
             } else {
             */
-                // use the best we have
-                if (dFound && maxRouteDistance>bestDistance) {
-					server.setVTDControlled(v, lane, lanePos, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
-                } else {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Could not map vehicle '" + id + "'.", outputStorage);
-                }
+            // use the best we have
+            if (dFound && maxRouteDistance > bestDistance) {
+                server.setVTDControlled(v, lane, lanePos, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
+            } else {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Could not map vehicle '" + id + "'.", outputStorage);
+            }
             //}
         }
         break;
@@ -1277,8 +1277,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
             }
             ((SUMOVehicleParameter&) v->getParameter()).addParameter(name, value);
-                            }
-                            break;
+        }
+        break;
         default:
             try {
                 if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, getSingularType(v), server, inputStorage, outputStorage)) {
@@ -1295,13 +1295,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
 
 bool
-TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, const SUMOReal angle,  MSVehicle& v, TraCIServer& server, 
-        SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
+TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, const SUMOReal angle,  MSVehicle& v, TraCIServer& server,
+                               SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     SUMOReal speed = pos.distanceTo2D(v.getPosition()); // !!!v.getSpeed();
     std::set<std::string> into;
     PositionVector shape;
     shape.push_back(pos);
-    server.collectObjectsInRange(CMD_GET_EDGE_VARIABLE, shape, speed*2, into);
+    server.collectObjectsInRange(CMD_GET_EDGE_VARIABLE, shape, speed * 2, into);
     SUMOReal maxDist = 0;
     std::map<MSLane*, LaneUtility> lane2utility;
     for (std::set<std::string>::const_iterator j = into.begin(); j != into.end(); ++j) {
@@ -1310,33 +1310,33 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
         const MSEdge* nextEdge = 0;
         MSEdge::EdgeBasicFunction ef = e->getPurpose();
         bool onRoute = false;
-        if(ef!=MSEdge::EDGEFUNCTION_INTERNAL) {
-            const ConstMSEdgeVector &ev = v.getRoute().getEdges();
+        if (ef != MSEdge::EDGEFUNCTION_INTERNAL) {
+            const ConstMSEdgeVector& ev = v.getRoute().getEdges();
             unsigned int routePosition = v.getRoutePosition();
-            if(v.getLane()->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+            if (v.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
                 ++routePosition;
             }
-            ConstMSEdgeVector::const_iterator edgePos = std::find(ev.begin()+routePosition, ev.end(), e);
-            onRoute = edgePos!=ev.end();
-            if(edgePos==ev.end()-1&&v.getEdge()==e) {
-                onRoute &= v.getEdge()->getLanes()[0]->getLength()>v.getPositionOnLane()+SPEED2DIST(speed);
+            ConstMSEdgeVector::const_iterator edgePos = std::find(ev.begin() + routePosition, ev.end(), e);
+            onRoute = edgePos != ev.end();
+            if (edgePos == ev.end() - 1 && v.getEdge() == e) {
+                onRoute &= v.getEdge()->getLanes()[0]->getLength() > v.getPositionOnLane() + SPEED2DIST(speed);
             }
             prevEdge = e;
-            nextEdge = !onRoute||edgePos==ev.end()-1 ? 0 : *(edgePos+1);
+            nextEdge = !onRoute || edgePos == ev.end() - 1 ? 0 : *(edgePos + 1);
         } else {
             prevEdge = e;
-            while(prevEdge!=0 && prevEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-                MSLane *l = prevEdge->getLanes()[0];
+            while (prevEdge != 0 && prevEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+                MSLane* l = prevEdge->getLanes()[0];
                 l = l->getLogicalPredecessorLane();
-                prevEdge = l==0 ? 0 : &l->getEdge();
+                prevEdge = l == 0 ? 0 : &l->getEdge();
             }
-            const ConstMSEdgeVector &ev = v.getRoute().getEdges();
-            ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin()+v.getRoutePosition(), ev.end(), prevEdge);
-            if(prevEdgePos!=ev.end()&&ev.size()>1&&prevEdgePos!=ev.end()-1) {
-                const MSJunction *junction = e->getFromJunction();
-                const ConstMSEdgeVector &outgoing = junction->getOutgoing();
-                ConstMSEdgeVector::const_iterator nextEdgePos = std::find(outgoing.begin(), outgoing.end(), *(ev.begin()+v.getRoutePosition()+1));
-                if(nextEdgePos!=outgoing.end()) {
+            const ConstMSEdgeVector& ev = v.getRoute().getEdges();
+            ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin() + v.getRoutePosition(), ev.end(), prevEdge);
+            if (prevEdgePos != ev.end() && ev.size() > 1 && prevEdgePos != ev.end() - 1) {
+                const MSJunction* junction = e->getFromJunction();
+                const ConstMSEdgeVector& outgoing = junction->getOutgoing();
+                ConstMSEdgeVector::const_iterator nextEdgePos = std::find(outgoing.begin(), outgoing.end(), *(ev.begin() + v.getRoutePosition() + 1));
+                if (nextEdgePos != outgoing.end()) {
                     nextEdge = *nextEdgePos;
                     onRoute = true;
                 }
@@ -1350,72 +1350,72 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
             SUMOReal off = lane->getShape().nearest_offset_to_point2D(pos);
             SUMOReal langle = 180.;
             SUMOReal dist = 1000.;
-            if(off>=0) {
+            if (off >= 0) {
                 dist = lane->getShape().distance(pos);
-                if(dist>lane->getLength()) { // this is a workaround
+                if (dist > lane->getLength()) { // this is a workaround
                     // a SmartDB, running at :49_2 delivers off=~9.24 while dist>24.?
-                    dist = 1000.; 
+                    dist = 1000.;
                 } else {
                     langle = lane->getShape().rotationDegreeAtOffset(off);
                 }
             }
             maxDist = MAX2(maxDist, dist);
-            bool sameEdge = &lane->getEdge()==&v.getLane()->getEdge() && v.getEdge()->getLanes()[0]->getLength()>v.getPositionOnLane()+SPEED2DIST(speed);
-            const MSEdge *rNextEdge = nextEdge;
-            if(rNextEdge==0&&lane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-                MSLane *next = lane->getLinkCont()[0]->getLane();
-                rNextEdge = next==0 ? 0 : &next->getEdge();
+            bool sameEdge = &lane->getEdge() == &v.getLane()->getEdge() && v.getEdge()->getLanes()[0]->getLength() > v.getPositionOnLane() + SPEED2DIST(speed);
+            const MSEdge* rNextEdge = nextEdge;
+            if (rNextEdge == 0 && lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+                MSLane* next = lane->getLinkCont()[0]->getLane();
+                rNextEdge = next == 0 ? 0 : &next->getEdge();
             }
 #ifdef DEBUG_VTD_ANGLE
             std::cout << lane->getID() << ": " << langle << " " << off << std::endl;
 #endif
             lane2utility[lane] = LaneUtility(
-                dist, GeomHelper::getMinAngleDiff(angle, langle), 
-                lane->getParameter("origId", "")==origID,
-                onRoute, sameEdge, prevEdge, rNextEdge);
+                                     dist, GeomHelper::getMinAngleDiff(angle, langle),
+                                     lane->getParameter("origId", "") == origID,
+                                     onRoute, sameEdge, prevEdge, rNextEdge);
         }
     }
 
     SUMOReal bestValue = 0;
-    MSLane *bestLane = 0;
-    for(std::map<MSLane*, LaneUtility>::iterator i=lane2utility.begin(); i!=lane2utility.end(); ++i) {
-        MSLane *l = (*i).first;
-        const LaneUtility &u = (*i).second;
-        SUMOReal distN = u.dist>999 ? -10 : 1. - (u.dist / maxDist);
+    MSLane* bestLane = 0;
+    for (std::map<MSLane*, LaneUtility>::iterator i = lane2utility.begin(); i != lane2utility.end(); ++i) {
+        MSLane* l = (*i).first;
+        const LaneUtility& u = (*i).second;
+        SUMOReal distN = u.dist > 999 ? -10 : 1. - (u.dist / maxDist);
         SUMOReal angleDiffN = 1. - (u.angleDiff / 180.);
         SUMOReal idN = u.ID ? 1 : 0;
         SUMOReal onRouteN = u.onRoute ? 1 : 0;
         SUMOReal sameEdgeN = u.sameEdge ? MIN2(v.getEdge()->getLength() / speed, (SUMOReal)1.) : 0;
-        SUMOReal value = distN*.5 
-            + angleDiffN*0/*.5 */
-            + idN*.5 
-            + onRouteN*0.5
-            + sameEdgeN*0.5
-            ;
+        SUMOReal value = distN * .5
+                         + angleDiffN * 0 /*.5 */
+                         + idN * .5
+                         + onRouteN * 0.5
+                         + sameEdgeN * 0.5
+                         ;
 #ifdef DEBUG_VTD
-        std::cout << " x; l:" << l->getID() << " d:" << u.dist << " dN:" << distN << " aD:" << angleDiffN << 
-                " ID:" << idN << " oRN:" << onRouteN << " sEN:" << sameEdgeN << " value:" << value << std::endl;
+        std::cout << " x; l:" << l->getID() << " d:" << u.dist << " dN:" << distN << " aD:" << angleDiffN <<
+                  " ID:" << idN << " oRN:" << onRouteN << " sEN:" << sameEdgeN << " value:" << value << std::endl;
 #endif
-        if(value>bestValue || bestLane==0) {
+        if (value > bestValue || bestLane == 0) {
             bestValue = value;
             bestLane = l;
         }
     }
-    if(bestLane==0) {
+    if (bestLane == 0) {
         return false;
     }
-    const LaneUtility &u = lane2utility.find(bestLane)->second;
+    const LaneUtility& u = lane2utility.find(bestLane)->second;
     bestDistance = u.dist;
     *lane = bestLane;
     lanePos = bestLane->getShape().nearest_offset_to_point2D(pos);
-    const MSEdge *prevEdge = u.prevEdge;
-    if(u.onRoute) {
-        const ConstMSEdgeVector &ev = v.getRoute().getEdges();
-        ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin()+v.getRoutePosition(), ev.end(), prevEdge);
-        routeOffset = (int)std::distance(ev.begin(), prevEdgePos)-v.getRoutePosition();
+    const MSEdge* prevEdge = u.prevEdge;
+    if (u.onRoute) {
+        const ConstMSEdgeVector& ev = v.getRoute().getEdges();
+        ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin() + v.getRoutePosition(), ev.end(), prevEdge);
+        routeOffset = (int)std::distance(ev.begin(), prevEdgePos) - v.getRoutePosition();
     } else {
         edges.push_back(prevEdge);
-        if(u.nextEdge!=0) {
+        if (u.nextEdge != 0) {
             edges.push_back(u.nextEdge);
         }
         routeOffset = 0;

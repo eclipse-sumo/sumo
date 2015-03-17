@@ -45,8 +45,8 @@
 // method definitions
 // ===========================================================================
 MSContainerTerminal::MSContainerTerminal(const std::string& id,
-    const std::set<MSContainerStop*> stops)
-    : Named(id), myStops(stops){}
+        const std::set<MSContainerStop*> stops)
+    : Named(id), myStops(stops) {}
 
 
 MSContainerTerminal::~MSContainerTerminal() {}

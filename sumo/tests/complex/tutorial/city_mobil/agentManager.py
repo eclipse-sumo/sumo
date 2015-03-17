@@ -17,18 +17,21 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import vehicleControl, statistics
+import vehicleControl
+import statistics
 from constants import *
 
+
 class PersonAgent:
+
     def __init__(self, id):
         self.id = id
-        
+
     def startRequest(self, source, target, cybers):
         minCost = INFINITY
         minCar = None
         for car in cybers:
-            cost = car.request(self, source, target) 
+            cost = car.request(self, source, target)
             if (cost < minCost):
                 if minCar:
                     minCar.reject(self)
@@ -38,18 +41,22 @@ class PersonAgent:
                 car.reject(self)
         minCar.accept(self)
 
+
 class Task:
+
     def __init__(self, person, source, target, estCost):
         self.person = person
         self.source = source
         self.target = target
         self.estCost = estCost
         self.startStep = None
-        
+
     def __repr__(self):
         return "<%s %s %s %s>" % (self.person.id, self.source, self.target, self.startStep)
 
+
 class CyberAgent:
+
     def __init__(self, id):
         self.id = id
         self.load = 0
@@ -60,7 +67,7 @@ class CyberAgent:
         self.totalEstimatedCost = 0
         self.position = None
         self.broken = False
-        
+
     def request(self, person, source, target):
         if self.broken:
             estCost = INFINITY
@@ -79,7 +86,6 @@ class CyberAgent:
 
     def reject(self, person):
         del self.pending[person]
-                    
 
     def _findNextTarget(self, wait):
         minTarget = "z"
@@ -100,7 +106,7 @@ class CyberAgent:
             if task.source < minDownstreamSource and task.source > edge:
                 minDownstreamSource = task.source
         if minDownstreamTarget != "z":
-            minTarget = minDownstreamTarget 
+            minTarget = minDownstreamTarget
         elif minDownstreamSource < minTarget:
             minTarget = minDownstreamSource
         elif minTarget < edge and minSource < minTarget:
@@ -124,12 +130,13 @@ class CyberAgent:
                 statistics.personUnloaded(task.person.id, step)
                 self.load -= 1
                 wait += WAIT_PER_PERSON
-                self.costMatrix[(task.source, task.target)] = step - task.startStep
+                self.costMatrix[
+                    (task.source, task.target)] = step - task.startStep
                 self.totalEstimatedCost -= task.estCost
             else:
                 running.append(task)
         self.running = running
-        if self.load < vehicleControl.getCapacity(): 
+        if self.load < vehicleControl.getCapacity():
             tasks = []
             for task in self.tasks:
                 if task.source == self.position and self.load < vehicleControl.getCapacity():
@@ -151,6 +158,7 @@ class CyberAgent:
         for task in tasks:
             task.person.startRequest(task.source, task.target, cybers)
 
+
 class AgentManager(vehicleControl.Manager):
 
     def __init__(self):
@@ -166,7 +174,7 @@ class AgentManager(vehicleControl.Manager):
 
     def cyberCarArrived(self, vehicleID, edge):
         if vehicleID in self.agents:
-            cyberCar = self.agents[vehicleID] 
+            cyberCar = self.agents[vehicleID]
         else:
             cyberCar = CyberAgent(vehicleID)
             self.agents[vehicleID] = cyberCar

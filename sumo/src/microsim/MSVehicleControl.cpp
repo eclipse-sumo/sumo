@@ -68,9 +68,8 @@ MSVehicleControl::MSVehicleControl() :
     myWaitingForPerson(0),
     myScale(-1),
     myMaxSpeedFactor(1),
-	myWaitingForContainer(0),
-    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING))
-{
+    myWaitingForContainer(0),
+    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_IGNORING);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
@@ -336,7 +335,7 @@ MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std
                 if ((position - 10 <= vehiclePosition) && (vehiclePosition <= position + 10)) {
                     return (*it);
                 } else if ((*it)->isStoppedTriggered() ||
-                        (*it)->getParameter().departProcedure == DEPART_TRIGGERED) {
+                           (*it)->getParameter().departProcedure == DEPART_TRIGGERED) {
                     // maybe we are within the range of the stop
                     MSVehicle* veh = static_cast<MSVehicle*>(*it);
                     if (veh->isStoppedInRange(position)) {

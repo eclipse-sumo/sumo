@@ -190,7 +190,7 @@ public:
 
 
     /// @brief get the viewport and create it on first access
-    GUIDialog_EditViewport* getViewportEditor(); 
+    GUIDialog_EditViewport* getViewportEditor();
 
     virtual void showViewportEditor();
 

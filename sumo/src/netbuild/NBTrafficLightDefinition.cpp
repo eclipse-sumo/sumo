@@ -63,8 +63,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     myControlledNodes(junctions),
     mySubID(programID), myOffset(offset),
     myType(type),
-    myNeedsContRelationReady(false)
-{
+    myNeedsContRelationReady(false) {
     std::vector<NBNode*>::iterator i = myControlledNodes.begin();
     while (i != myControlledNodes.end()) {
         for (std::vector<NBNode*>::iterator j = i + 1; j != myControlledNodes.end();) {
@@ -89,8 +88,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     mySubID(programID),
     myOffset(offset),
     myType(type),
-    myNeedsContRelationReady(false)
-{
+    myNeedsContRelationReady(false) {
     addNode(junction);
 }
 
@@ -383,18 +381,18 @@ NBTrafficLightDefinition::collectAllLinks() {
 }
 
 
-bool 
+bool
 NBTrafficLightDefinition::needsCont(const NBEdge* fromE, const NBEdge* toE, const NBEdge* otherFromE, const NBEdge* otherToE) const {
     if (!myNeedsContRelationReady) {
         initNeedsContRelation();
         assert(myNeedsContRelationReady);
     }
-    return std::find(myNeedsContRelation.begin(), myNeedsContRelation.end(), 
-            StreamPair(fromE, toE, otherFromE, otherToE)) != myNeedsContRelation.end();
+    return std::find(myNeedsContRelation.begin(), myNeedsContRelation.end(),
+                     StreamPair(fromE, toE, otherFromE, otherToE)) != myNeedsContRelation.end();
 }
 
 
-void 
+void
 NBTrafficLightDefinition::initNeedsContRelation() const {
     if (!amInvalid()) {
         NBOwnTLDef dummy("dummy", myControlledNodes, 0, TLTYPE_STATIC);

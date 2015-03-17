@@ -267,7 +267,7 @@ public:
      * @return The named vehicle type
      * @todo Check whether a const pointer may be returned
      */
-    SUMOVTypeParameter* getVehicleTypeSecure(const std::string& id, bool defaultIfMissing=false);
+    SUMOVTypeParameter* getVehicleTypeSecure(const std::string& id, bool defaultIfMissing = false);
 
 
     /* @brief Adds a route definition to the network

@@ -586,10 +586,10 @@ public:
         std::set<std::string> awaitedPersons;
         /// @brief IDs of containers the vehicle has to wait for until departing
         std::set<std::string> awaitedContainers;
-		/// @brief The time at which the vehicle is able to board another person
-		SUMOTime timeToBoardNextPerson;
-		/// @brief The time at which the vehicle is able to load another container
-		SUMOTime timeToLoadNextContainer;
+        /// @brief The time at which the vehicle is able to board another person
+        SUMOTime timeToBoardNextPerson;
+        /// @brief The time at which the vehicle is able to load another container
+        SUMOTime timeToLoadNextContainer;
 
     };
 
@@ -1007,12 +1007,12 @@ public:
             myVTDPos = pos;
             myVTDEdgeOffset = edgeOffset;
             myVTDRoute = route;
-			myLastVTDAccess = t;
+            myLastVTDAccess = t;
         }
 
-		SUMOTime getLastAccessTimeStep() const {
-			return myLastVTDAccess;
-		}
+        SUMOTime getLastAccessTimeStep() const {
+            return myLastVTDAccess;
+        }
 
         void postProcessVTD(MSVehicle* v);
 
@@ -1021,7 +1021,7 @@ public:
         }
 
         inline bool isVTDAffected(SUMOTime t) const {
-            return myAmVTDControlled && myLastVTDAccess>=t-TIME2STEPS(10); 
+            return myAmVTDControlled && myLastVTDAccess >= t - TIME2STEPS(10);
         }
 
 
@@ -1058,7 +1058,7 @@ public:
         SUMOReal myVTDPos;
         int myVTDEdgeOffset;
         ConstMSEdgeVector myVTDRoute;
-		SUMOTime myLastVTDAccess;
+        SUMOTime myLastVTDAccess;
 
         /// @name Flags for managing conflicts between the laneChangeModel and TraCI laneTimeLine
         //@{

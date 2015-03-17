@@ -69,7 +69,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
                      NLDetectorBuilder& detBuilder,
                      NLTriggerBuilder& triggerBuilder,
                      NLEdgeControlBuilder& edgeBuilder,
-                     NLJunctionControlBuilder& junctionBuilder) : 
+                     NLJunctionControlBuilder& junctionBuilder) :
     MSRouteHandler(file, true),
     myNet(net), myActionBuilder(net),
     myCurrentIsInternalToSkip(false),
@@ -247,7 +247,7 @@ NLHandler::myEndElement(int element) {
                     to->addIncoming(edge);
                 }
             }
-            //initialise traffic lights 
+            //initialise traffic lights
             myJunctionControlBuilder.postLoadInitialization();
             myNetIsLoaded = true;
             break;
@@ -925,8 +925,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             tlLinkIdx = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
             // make sure that the index is in range
             MSTrafficLightLogic* logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
-            if ((tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size()) 
-                && logic->getLogicType() != "railSignal") {
+            if ((tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size())
+                    && logic->getLogicType() != "railSignal") {
                 WRITE_ERROR("Invalid " + toString(SUMO_ATTR_TLLINKINDEX) + " '" + toString(tlLinkIdx) +
                             "' in connection controlled by '" + tlID + "'");
                 return;
@@ -1138,7 +1138,7 @@ NLHandler::closeWAUT() {
 }
 
 
-Position 
+Position
 NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos) {
     MSLane* lane = MSLane::dictionary(laneID);
     if (lane == 0) {

@@ -131,11 +131,11 @@ double vehiclePoly_EVehicleFrontGlass[] = { .5, 0,  0.05, .05,  0.05, .25,  0.13
 //double vehiclePoly_EVehicleFrontGlass[] = { 0.35,0,  0.1,0,  0.1,0.4,  0.43,0.3,  0.43,-0.3,  0.1,-0.4,  0.1,0,  -10000 };
 double vehiclePoly_EVehicleBackGlass[] =  { 0.65, 0,  0.9, 0,  0.9, 0.4,  0.57, 0.3,  0.57, -0.3,  0.9, -0.4,  0.9, 0,  -10000 };
 
-double vehiclePoly_Ship[] =  { 0.25,0,  0,0,  0.1,0.25, 0.2,0.45, 0.25,0.5,  0.95,0.5, 1.0,0.45,   1.0,-0.45, 0.95,-0.5,  0.25,-0.5, 0.2,-0.45,  0.1,-0.25, 0,0,   -10000 };
-double vehiclePoly_ShipDeck[] =  { 0.5,0,  0.25,0.4,  0.95,0.4, 0.95,-0.4, 0.25,-0.4, 0.25,0.4, -10000 };
-double vehiclePoly_ShipSuperStructure[] =  { 0.8,0,  0.5,0.3,  0.85,0.3,  0.85,-0.3, 0.5,-0.3,  0.5,0.3,  -10000 };
+double vehiclePoly_Ship[] =  { 0.25, 0,  0, 0,  0.1, 0.25, 0.2, 0.45, 0.25, 0.5,  0.95, 0.5, 1.0, 0.45,   1.0, -0.45, 0.95, -0.5,  0.25, -0.5, 0.2, -0.45,  0.1, -0.25, 0, 0,   -10000 };
+double vehiclePoly_ShipDeck[] =  { 0.5, 0,  0.25, 0.4,  0.95, 0.4, 0.95, -0.4, 0.25, -0.4, 0.25, 0.4, -10000 };
+double vehiclePoly_ShipSuperStructure[] =  { 0.8, 0,  0.5, 0.3,  0.85, 0.3,  0.85, -0.3, 0.5, -0.3,  0.5, 0.3,  -10000 };
 
-double vehiclePoly_Cyclist[] =  { 0.5,0,  0.25,0.45,  0.25,0.5, 0.8,0.15,     0.8,-0.15, 0.25,-0.5, 0.25,-0.45,     -10000 };
+double vehiclePoly_Cyclist[] =  { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
 
 // ===========================================================================
 // method definitions
@@ -1085,8 +1085,8 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     drawName(namePos, s.scale,
              getVehicleType().getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName);
     if (s.vehicleName.show && myParameter->line != "") {
-        GLHelper::drawText("line:" + myParameter->line, namePos + Position(0, -0.6 * s.vehicleName.size / s.scale), 
-                GLO_MAX, s.vehicleName.size / s.scale, s.vehicleName.color);
+        GLHelper::drawText("line:" + myParameter->line, namePos + Position(0, -0.6 * s.vehicleName.size / s.scale),
+                           GLO_MAX, s.vehicleName.size / s.scale, s.vehicleName.color);
     }
     glPopName();
     if (myPersonDevice != 0) {

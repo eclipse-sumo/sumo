@@ -16,11 +16,15 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys, subprocess
-homeDir = os.environ.get("SUMO_HOME", os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+import os
+import sys
+import subprocess
+homeDir = os.environ.get("SUMO_HOME", os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 for exe in "activitygen dfrouter duarouter marouter jtrrouter netconvert netgenerate od2trips polyconvert sumo".split():
     exePath = os.path.join(homeDir, "bin", exe)
     if os.path.exists(exePath) or os.path.exists(exePath + ".exe"):
-        subprocess.call([exePath, "--save-schema", os.path.join(homeDir, "data", "xsd" , exe+"Configuration.xsd")])
+        subprocess.call(
+            [exePath, "--save-schema", os.path.join(homeDir, "data", "xsd", exe + "Configuration.xsd")])
     else:
         print "Warning! %s not found." % exe

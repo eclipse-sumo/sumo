@@ -732,7 +732,7 @@ protected:
     /// @brief Persons on the edge (only for drawing)
     mutable std::set<MSPerson*> myPersons;
 
-    /// @brief Containers on the edge 
+    /// @brief Containers on the edge
     mutable std::set<MSContainer*> myContainers;
 
     /// @name Storages for allowed lanes (depending on vehicle classes)

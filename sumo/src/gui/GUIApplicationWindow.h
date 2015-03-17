@@ -234,9 +234,9 @@ public:
     /// @brief Somebody wants our clipped text
     long onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr);
     /// @}
-    
-    
-    /** @brief Returns the simulation delay 
+
+
+    /** @brief Returns the simulation delay
      * @return delay in milliseconds
      */
     virtual SUMOReal getDelay() const {

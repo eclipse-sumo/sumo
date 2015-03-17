@@ -17,7 +17,6 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-
 # ****************************************
 # VERSION
 # ****************************************
@@ -386,19 +385,23 @@ OBJECT_VARIABLES_SUBSCRIPTION = 0x02
 # subscribe context variables (get: all)
 SURROUNDING_VARIABLES_SUBSCRIPTION = 0x03
 
-# last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
+# last step vehicle number (get: induction loops, multi-entry/multi-exit
+# detector, lanes, edges)
 LAST_STEP_VEHICLE_NUMBER = 0x10
 
-# last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
+# last step vehicle number (get: induction loops, multi-entry/multi-exit
+# detector, lanes, edges)
 LAST_STEP_MEAN_SPEED = 0x11
 
-# last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
+# last step vehicle number (get: induction loops, multi-entry/multi-exit
+# detector, lanes, edges)
 LAST_STEP_VEHICLE_ID_LIST = 0x12
 
 # last step occupancy (get: induction loops, lanes, edges)
 LAST_STEP_OCCUPANCY = 0x13
 
-# last step vehicle halting number (get: multi-entry/multi-exit detector, lanes, edges)
+# last step vehicle halting number (get: multi-entry/multi-exit detector,
+# lanes, edges)
 LAST_STEP_VEHICLE_HALTING_NUMBER = 0x14
 
 # last step mean vehicle length (get: induction loops, lanes, edges)
@@ -452,7 +455,6 @@ TL_COMPLETE_PROGRAM_RYG = 0x2c
 
 # assumed time to next switch (get: traffic lights)
 TL_NEXT_SWITCH = 0x2d
-
 
 
 # outgoing link number (get: lanes)
@@ -571,7 +573,6 @@ VAR_SPEED_FACTOR = 0x5e
 VAR_SPEED_DEVIATION = 0x5f
 
 
-
 # speed without TraCI influence (get: vehicle)
 VAR_SPEED_WITHOUT_TRACI = 0xb1
 
@@ -591,7 +592,8 @@ VAR_STOPSTATE = 0xb5
 # how lane changing is performed (set: vehicle)
 VAR_LANECHANGE_MODE = 0xb6
 
-# maximum speed regarding max speed on the current lane and speed factor (get: vehicle)
+# maximum speed regarding max speed on the current lane and speed factor
+# (get: vehicle)
 VAR_ALLOWED_SPEED = 0xb7
 
 
@@ -625,7 +627,7 @@ VAR_BUS_STOP_WAITING = 0x67
 # current leader together with gap (get: vehicle)
 VAR_LEADER = 0x68
 
-#current waiting time (get: vehicle, lane)
+# current waiting time (get: vehicle, lane)
 VAR_WAITING_TIME = 0x7a
 
 # current time step (get: simulation)
@@ -701,7 +703,6 @@ CMD_CLEAR_PENDING_VEHICLES = 0x94
 VAR_PARAMETER = 0x7e
 
 
-
 # add an instance (poi, polygon, vehicle, route)
 ADD = 0x80
 
@@ -714,7 +715,7 @@ POSITION_CONVERSION = 0x82
 # distance between points or vehicles
 DISTANCE_REQUEST = 0x83
 
-#the current driving distance
+# the current driving distance
 VAR_DISTANCE = 0x84
 
 # add a fully specified instance (vehicle)
@@ -747,5 +748,3 @@ VAR_SCREENSHOT = 0xa5
 
 # track vehicle
 VAR_TRACK_VEHICLE = 0xa6
-
-

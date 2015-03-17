@@ -110,7 +110,7 @@ public:
     static void processCommandsUntilSimStep(SUMOTime step);
 
     void setVTDControlled(MSVehicle* v, MSLane* l, SUMOReal pos, int edgeOffset, ConstMSEdgeVector route,
-		SUMOTime t);
+                          SUMOTime t);
 
     void postProcessVTD();
 

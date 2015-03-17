@@ -17,12 +17,15 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys, subprocess
+import os
+import sys
+import subprocess
 
 mRoot = "."
-if len(sys.argv)>1:
+if len(sys.argv) > 1:
     mRoot = sys.argv[1]
-binPrefix = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'bin', 'net')
+binPrefix = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), '..', 'bin', 'net')
 for root, dirs, files in os.walk(mRoot):
     if ".svn" in dirs:
         dirs.remove(".svn")
@@ -35,10 +38,12 @@ for root, dirs, files in os.walk(mRoot):
             print "Rebuilding config: " + os.path.join(root, file)
             curDir = os.getcwd()
             os.chdir(root)
-            subprocess.call([exe, "--save-configuration", file+".tmp", "-c", file], stdout=sys.stdout, stderr=sys.stderr)
+            subprocess.call([exe, "--save-configuration", file +
+                             ".tmp", "-c", file], stdout=sys.stdout, stderr=sys.stderr)
             os.remove(file)
-            os.rename(file+".tmp", file)
+            os.rename(file + ".tmp", file)
             os.chdir(curDir)
             print "Running: " + file
-            subprocess.call([exe, "-v", "-c", os.path.join(root, file)], stdout=sys.stdout, stderr=sys.stderr)
+            subprocess.call(
+                [exe, "-v", "-c", os.path.join(root, file)], stdout=sys.stdout, stderr=sys.stderr)
             print "----------------------------------\n"

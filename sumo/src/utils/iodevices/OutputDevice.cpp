@@ -88,7 +88,7 @@ OutputDevice::getDevice(const std::string& name) {
         const size_t len = name.length();
         std::string name2 = name;
         if (OptionsCont::getOptions().isSet("output-prefix")) {
-            std::string prefix = OptionsCont::getOptions().getString("output-prefix"); 
+            std::string prefix = OptionsCont::getOptions().getString("output-prefix");
             size_t metaTimeIndex = prefix.find("TIME");
             if (metaTimeIndex != std::string::npos) {
                 time_t rawtime;

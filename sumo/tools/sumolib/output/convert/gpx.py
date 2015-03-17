@@ -19,6 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from collections import defaultdict
 
+
 def fcd2gpx(inpFCD, outSTRM, ignored):
     tracks = defaultdict(list)
     for timestep in inpFCD:
@@ -34,4 +35,3 @@ def fcd2gpx(inpFCD, outSTRM, ignored):
                 lon, lat, timestamp))
         outSTRM.write("  </trkseg></trk>\n")
     outSTRM.write('</gpx>\n')
-

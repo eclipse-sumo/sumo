@@ -573,7 +573,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.endPos = busstop->endPos;
         stop.startPos = busstop->startPos;
         edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
-	} // try to parse the assigned container stop
+    } // try to parse the assigned container stop
     else if (stop.containerstop != "") {
         const SUMOVehicleParameter::Stop* containerstop = myNet.getContainerStop(stop.containerstop);
         if (containerstop == 0) {

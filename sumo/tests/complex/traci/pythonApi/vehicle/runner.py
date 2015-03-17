@@ -19,15 +19,22 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci, sumolib
+import os
+import subprocess
+import sys
+import random
+sys.path.append(os.path.join(
+    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
+import traci
+import sumolib
 
 sumoBinary = sumolib.checkBinary('sumo')
 
 PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen("%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+sumoProcess = subprocess.Popen(
+    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
+
 
 def step():
     s = traci.simulation.getCurrentTime() / 1000
@@ -36,6 +43,7 @@ def step():
 
 for i in range(3):
     print "step", step()
+
 
 def check(vehID):
     print "vehicles", traci.vehicle.getIDList()
@@ -102,14 +110,16 @@ traci.vehicle.setShapeClass(vehID, "bicycle")
 traci.vehicle.setMinGap(vehID, 1.1)
 traci.vehicle.setWidth(vehID, 1.1)
 traci.vehicle.setColor(vehID, (255, 0, 0, 255))
-traci.vehicle.setStop(vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
+traci.vehicle.setStop(
+    vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
 check(vehID)
 try:
     check("bla")
 except traci.TraCIException:
     print "recovering from exception after asking for unknown vehicle"
 traci.vehicle.add("1", "horizontal")
-traci.vehicle.setStop("1", "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
+traci.vehicle.setStop(
+    "1", "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
 check("1")
 traci.vehicle.changeTarget("1", "4fi")
 print "routeID", traci.vehicle.getRouteID(vehID)
@@ -123,8 +133,8 @@ for i in range(6):
         traci.vehicle.resume("1")
     print traci.vehicle.getSubscriptionResults(vehID)
 check("2")
-traci.vehicle.setSpeedMode(vehID, 0) # disable all checks
-traci.vehicle.setSpeed(vehID, 20) 
+traci.vehicle.setSpeedMode(vehID, 0)  # disable all checks
+traci.vehicle.setSpeed(vehID, 20)
 print "leader", traci.vehicle.getLeader("2")
 traci.vehicle.subscribeLeader("2")
 for i in range(6):

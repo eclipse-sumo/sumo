@@ -20,15 +20,20 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 from xml.sax import saxutils, make_parser, handler
 
+
 class XMLNodesReader(handler.ContentHandler):
+
     def __init__(self, outFileName, xoff, yoff):
         self._out = open(outFileName, 'w')
         self._xoff = xoff
         self._yoff = yoff
-        
+
     def endDocument(self):
         self._out.close()
 
@@ -36,9 +41,11 @@ class XMLNodesReader(handler.ContentHandler):
         self._out.write('<' + name)
         for (key, value) in attrs.items():
             if key == "x":
-                self._out.write(' %s="%s"' % (key, saxutils.escape(str(float(value)+self._xoff))))
+                self._out.write(
+                    ' %s="%s"' % (key, saxutils.escape(str(float(value) + self._xoff))))
             elif key == "y":
-                self._out.write(' %s="%s"' % (key, saxutils.escape(str(float(value)+self._yoff))))
+                self._out.write(
+                    ' %s="%s"' % (key, saxutils.escape(str(float(value) + self._yoff))))
             else:
                 self._out.write(' %s="%s"' % (key, saxutils.escape(value)))
         self._out.write('>')
@@ -48,19 +55,19 @@ class XMLNodesReader(handler.ContentHandler):
 
     def characters(self, content):
         self._out.write(saxutils.escape(content))
-                    
+
     def ignorableWhitespace(self, content):
         self._out.write(content)
-        
+
     def processingInstruction(self, target, data):
         self._out.write('<?%s %s?>' % (target, data))
 
 
-            
 if len(sys.argv) < 4:
     print "Usage: " + sys.argv[0] + " <XMLNODES> <X-OFFSET> <Y-OFFSET>"
     sys.exit()
 parser = make_parser()
-reader = XMLNodesReader(sys.argv[1]+".mod.xml", float(sys.argv[2]), float(sys.argv[3]))
+reader = XMLNodesReader(
+    sys.argv[1] + ".mod.xml", float(sys.argv[2]), float(sys.argv[3]))
 parser.setContentHandler(reader)
 parser.parse(sys.argv[1])

@@ -71,10 +71,9 @@
 GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
                  MSEdge* const edge, unsigned int numericalID,
                  const PositionVector& shape, SUMOReal width,
-                 SVCPermissions permissions, unsigned int index) : 
+                 SVCPermissions permissions, unsigned int index) :
     MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions),
-    GUIGlObject(GLO_LANE, id)
-{
+    GUIGlObject(GLO_LANE, id) {
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
     myShapeColors.reserve(myShape.size() - 1);
@@ -486,7 +485,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 #endif
             } else {
                 const SUMOReal halfWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
-                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions); 
+                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions);
                 const int cornerDetail = drawDetails && !isInternal ? s.scale * exaggeration : 0;
                 const SUMOReal offset = halfWidth * MAX2((SUMOReal)0, (exaggeration - 1));
                 if (myShapeColors.size() > 0) {
@@ -786,7 +785,7 @@ GUILane::setMultiColor(const GUIColorer& c) const {
             return true;
         case 24: // color by inclination  at segment start
             for (int ii = 1; ii < (int)myShape.size(); ++ii) {
-                const SUMOReal inc =  (myShape[ii].z() - myShape[ii-1].z()) / myShape[ii].distanceTo2D(myShape[ii-1]);
+                const SUMOReal inc = (myShape[ii].z() - myShape[ii - 1].z()) / myShape[ii].distanceTo2D(myShape[ii - 1]);
                 myShapeColors.push_back(c.getScheme().getColor(inc));
             }
             return true;
@@ -951,13 +950,13 @@ GUILane::getScaleValue(size_t activeScheme) const {
 }
 
 
-bool 
+bool
 GUILane::drawAsRailway(const GUIVisualizationSettings& s) const {
     return isRailway(myPermissions) && s.showRails;
 }
 
 
-bool 
+bool
 GUILane::drawAsWaterway(const GUIVisualizationSettings& s) const {
     return isWaterway(myPermissions) && s.showRails; // reusing the showRails setting
 }

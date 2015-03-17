@@ -516,7 +516,7 @@ public:
      * @param[in] direction The direction in which the lanes shall be checked
      * @param[in] exclusive Whether lanes that allow pedestrians along with other classes shall be counted as non-pedestrian
      */
-    int getFirstNonPedestrianLaneIndex(int direction, bool exclusive=false) const;
+    int getFirstNonPedestrianLaneIndex(int direction, bool exclusive = false) const;
     NBEdge::Lane getFirstNonPedestrianLane(int direction) const;
 
     /// @brief return the angle for computing pedestrian crossings at the given node
@@ -837,7 +837,7 @@ public:
 
     /** @brief Sets the turing destination at the given edge
      * @param[in] e The turn destination
-     * @param[in] onlyPossible If true, only sets myPossibleTurnDestination 
+     * @param[in] onlyPossible If true, only sets myPossibleTurnDestination
      */
     void setTurningDestination(NBEdge* e, bool onlyPossible = false);
 
@@ -985,7 +985,7 @@ public:
      * @param[in] possibleDestination Wether myPossibleTurnDestination should be returned if no turnaround connection
      * exists
      */
-    NBEdge* getTurnDestination(bool possibleDestination=false) const;
+    NBEdge* getTurnDestination(bool possibleDestination = false) const;
 
     std::string getLaneID(unsigned int lane) const;
 
@@ -1232,7 +1232,7 @@ private:
 
     /// @brief computes the angle of this edge and stores it in myAngle
     void computeAngle();
-    
+
 
     /* @brief compute the first intersection point between the given lane
      * geometries considering their rspective widths */

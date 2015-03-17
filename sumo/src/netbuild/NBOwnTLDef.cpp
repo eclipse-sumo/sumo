@@ -187,7 +187,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
     return computeLogicAndConts(brakingTimeSeconds);
 }
 
-NBTrafficLightLogic* 
+NBTrafficLightLogic*
 NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts) {
     myNeedsContRelation.clear();
     const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
@@ -304,12 +304,12 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             for (unsigned int i2 = 0; i2 < pos; ++i2) {
                 if ((state[i2] == 'G' || state[i2] == 'g')) {
                     if (fromEdges[i2]->getToNode()->rightTurnConflict(
-                            fromEdges[i1], toEdges[i1], fromLanes[i1], fromEdges[i2], toEdges[i2], fromLanes[i2])) {
+                                fromEdges[i1], toEdges[i1], fromLanes[i1], fromEdges[i2], toEdges[i2], fromLanes[i2])) {
                         rightTurnConflicts[i1] = true;
                     }
                     if (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || rightTurnConflicts[i1]) {
                         state[i1] = 'g';
-                        myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2])); 
+                        myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2]));
                         if (!isTurnaround[i1]) {
                             haveForbiddenLeftMover = true;
                         }
@@ -382,7 +382,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
 }
 
 
-bool 
+bool
 NBOwnTLDef::hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<NBNode::Crossing>& crossings) {
     assert(from != 0);
     assert(to != 0);
@@ -520,7 +520,7 @@ NBOwnTLDef::replaceRemoved(NBEdge* /*removed*/, int /*removedLane*/,
                            NBEdge* /*by*/, int /*byLane*/) {}
 
 
-void 
+void
 NBOwnTLDef::initNeedsContRelation() const {
     if (!myNeedsContRelationReady) {
         assert(myControlledNodes.size() > 0);

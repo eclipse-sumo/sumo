@@ -18,25 +18,34 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import subprocess, random, sys, os
+import subprocess
+import random
+import sys
+import os
 from optparse import OptionParser
 
-from constants import * # sys.path is modified here
+from constants import *  # sys.path is modified here
 
 import traci
 import traci.constants as tc
 
 import statistics
 
+
 class Manager:
+
     def personArrived(self, vehicleID, edge, target):
         raise NotImplementedError
+
     def cyberCarArrived(self, vehicleID, edge):
         raise NotImplementedError
+
     def cyberCarBroken(self, vehicleID, edge):
         pass
+
     def setNewTargets(self):
         pass
+
 
 class Status:
 
@@ -52,9 +61,10 @@ class Status:
     def __repr__(self):
         return "%s,%s" % (self.edge, self.pos)
 
+
 class Setting:
     step = 0
-    manager = None 
+    manager = None
     verbose = False
     cyber = False
 
@@ -63,6 +73,7 @@ occupancy = {}
 vehicleStatus = {}
 persons = {}
 waiting = {}
+
 
 def init(manager, forTest=False):
     optParser = OptionParser()
@@ -83,7 +94,8 @@ def init(manager, forTest=False):
     sumoConfig = "%s%02i.sumocfg" % (PREFIX, options.demand)
     if options.cyber:
         sumoConfig = "%s%02i_cyber.sumocfg" % (PREFIX, options.demand)
-    sumoProcess = subprocess.Popen([sumoExe, sumoConfig], stdout=sys.stdout, stderr=sys.stderr)
+    sumoProcess = subprocess.Popen(
+        [sumoExe, sumoConfig], stdout=sys.stdout, stderr=sys.stderr)
     traci.init(PORT)
     traci.simulation.subscribe()
     setting.manager = manager
@@ -98,16 +110,20 @@ def init(manager, forTest=False):
         traci.close()
         sumoProcess.wait()
 
+
 def getCapacity():
     if setting.cyber:
         return CYBER_CAPACITY
     return BUS_CAPACITY
 
+
 def getStep():
     return setting.step
 
+
 def getPosition(vehicleID):
     return vehicleStatus[vehicleID].edge
+
 
 def stopAt(vehicleID, edge, pos=None):
     if pos == None:
@@ -123,6 +139,7 @@ def stopAt(vehicleID, edge, pos=None):
     vehicleStatus[vehicleID].target = edge
     vehicleStatus[vehicleID].targetPos = pos
 
+
 def leaveStop(vehicleID, newTarget=None, delay=0.):
     v = vehicleStatus[vehicleID]
     if newTarget:
@@ -132,6 +149,7 @@ def leaveStop(vehicleID, newTarget=None, delay=0.):
     v.targetPos = None
     v.parking = False
 
+
 def _rerouteCar(vehicleID):
     slotEdge = ""
     for rowIdx in range(DOUBLE_ROWS):
@@ -140,19 +158,22 @@ def _rerouteCar(vehicleID):
                 slotEdge = "slot%s-%s%s" % (rowIdx, idx, dir)
                 if not slotEdge in occupancy:
                     occupancy[slotEdge] = vehicleID
-                    stopAt(vehicleID, slotEdge, SLOT_LENGTH-5.)
+                    stopAt(vehicleID, slotEdge, SLOT_LENGTH - 5.)
                     return
+
 
 def _reroutePersons(edge):
     if edge in persons:
         for person in persons[edge]:
             if not vehicleStatus[person].slot:
                 row = int(edge[4])
-                targetEdge = "footmain%sto%s" % (row, row+1)
-                traci.vehicle.setStop(person, edge.replace("slot", "-foot"), 1., 0, 0.)
+                targetEdge = "footmain%sto%s" % (row, row + 1)
+                traci.vehicle.setStop(
+                    person, edge.replace("slot", "-foot"), 1., 0, 0.)
                 stopAt(person, targetEdge)
                 vehicleStatus[person].parking = False
                 vehicleStatus[person].slot = edge
+
 
 def _checkInitialPositions(vehicleID, edge, pos):
     if vehicleID in vehicleStatus:
@@ -167,16 +188,17 @@ def _checkInitialPositions(vehicleID, edge, pos):
         elif edge == "footfairin":
             stopAt(vehicleID, "footmainout")
         elif "foot" in edge:
-            traci.vehicle.setStop(vehicleID, "-"+edge)
+            traci.vehicle.setStop(vehicleID, "-" + edge)
             parkEdge = edge.replace("foot", "slot")
             if not parkEdge in persons:
                 persons[parkEdge] = []
             persons[parkEdge].append(vehicleID)
             vehicleStatus[vehicleID].parking = True
         elif edge.startswith("slot"):
-            stopAt(vehicleID, edge, SLOT_LENGTH-5.)
+            stopAt(vehicleID, edge, SLOT_LENGTH - 5.)
             occupancy[edge] = vehicleID
     _reroutePersons(edge)
+
 
 def doStep():
     setting.step += 1
@@ -185,8 +207,10 @@ def doStep():
     traci.simulationStep()
     moveNodes = []
     for veh, subs in traci.vehicle.getSubscriptionResults().iteritems():
-        moveNodes.append((veh, subs[tc.VAR_ROAD_ID], subs[tc.VAR_LANEPOSITION]))
-    departed = traci.simulation.getSubscriptionResults()[tc.VAR_DEPARTED_VEHICLES_IDS]
+        moveNodes.append(
+            (veh, subs[tc.VAR_ROAD_ID], subs[tc.VAR_LANEPOSITION]))
+    departed = traci.simulation.getSubscriptionResults(
+    )[tc.VAR_DEPARTED_VEHICLES_IDS]
     for v in departed:
         traci.vehicle.subscribe(v)
         subs = traci.vehicle.getSubscriptionResults(v)
@@ -200,7 +224,7 @@ def doStep():
                 target = "footmainout"
                 if edge == "footmainout":
                     row = random.randrange(0, DOUBLE_ROWS)
-                    target = "footmain%sto%s" % (row, row+1)
+                    target = "footmain%sto%s" % (row, row + 1)
                 statistics.personArrived(vehicleID, edge, target, setting.step)
                 setting.manager.personArrived(vehicleID, edge, target)
             if edge.startswith("cyber"):

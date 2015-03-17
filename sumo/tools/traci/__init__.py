@@ -21,7 +21,9 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import print_function
-import socket, time, struct
+import socket
+import time
+import struct
 try:
     import traciemb
     _embedded = True
@@ -31,45 +33,58 @@ except ImportError:
 _RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 _DEBUG = False
 
+
 def isEmbedded():
     return _embedded
 
+
 def _STEPS2TIME(step):
     """Conversion from time steps in milliseconds to seconds as float"""
-    return step/1000.
+    return step / 1000.
+
 
 def _TIME2STEPS(time):
     """Conversion from (float) time in seconds to milliseconds as int"""
-    return int(time*1000)
+    return int(time * 1000)
+
 
 class TraCIException(Exception):
+
     """Exception class for all TraCI errors which keep the connection intact"""
+
     def __init__(self, command, errorType, desc):
         Exception.__init__(self, desc)
         self._command = command
         self._type = errorType
-    
+
     def getCommand(self):
         return self._command
 
     def getType(self):
         return self._type
 
+
 class FatalTraCIError(Exception):
+
     """Exception class for all TraCI errors which do not allow for continuation"""
+
     def __init__(self, desc):
         Exception.__init__(self, desc)
 
+
 class Message:
+
     """ A named tuple for internal usage.
-    
+
     Simple "struct" for the composed message string
     together with a list of TraCI commands which are inside.
     """
     string = ""
     queue = []
 
+
 class Storage:
+
     def __init__(self, content):
         self._content = content
         self._pos = 0
@@ -107,14 +122,16 @@ class Storage:
         return [self.read("!dd") for i in range(length)]
 
     def ready(self):
-        return self._pos < len(self._content) 
+        return self._pos < len(self._content)
 
     def printDebug(self):
         if _DEBUG:
             for char in self._content[self._pos:]:
                 print("%03i %02x %s" % (ord(char), ord(char), char))
 
+
 class SubscriptionResults:
+
     def __init__(self, valueFunc):
         self._results = {}
         self._contextResults = {}
@@ -145,40 +162,47 @@ class SubscriptionResults:
         if objID not in self._contextResults[refID]:
             self._contextResults[refID][objID] = {}
         if varID != None and data != None:
-            self._contextResults[refID][objID][varID] = domain._parse(varID, data)
-        
+            self._contextResults[refID][objID][
+                varID] = domain._parse(varID, data)
+
     def getContext(self, refID=None):
         if refID == None:
             return self._contextResults
         return self._contextResults.get(refID, None)
-    
+
     def __repr__(self):
         return "<%s, %s>" % (self._results, self._contextResults)
 
 
 from . import constants
 
+
 def getParameterAccessors(cmdGetID, cmdSetID):
 
     def getParameter(objID, param):
         """getParameter(string, string) -> string
-        
+
         Returns the value of the given parameter for the given objID
         """
-        _beginMessage(cmdGetID, constants.VAR_PARAMETER, objID, 1+4+len(param))
-        _message.string += struct.pack("!Bi", constants.TYPE_STRING, len(param)) + param
+        _beginMessage(
+            cmdGetID, constants.VAR_PARAMETER, objID, 1 + 4 + len(param))
+        _message.string += struct.pack("!Bi",
+                                       constants.TYPE_STRING, len(param)) + param
         result = _checkResult(cmdGetID, constants.VAR_PARAMETER, objID)
         return result.readString()
 
     def setParameter(objID, param, value):
         """setParameter(string, string, string) -> string
-        
+
         Sets the value of the given parameter to value for the given objID
         """
-        _beginMessage(cmdSetID, constants.VAR_PARAMETER, objID, 1+4+1+4+len(param)+1+4+len(value))
+        _beginMessage(cmdSetID, constants.VAR_PARAMETER, objID,
+                      1 + 4 + 1 + 4 + len(param) + 1 + 4 + len(value))
         _message.string += struct.pack("!Bi", constants.TYPE_COMPOUND, 2)
-        _message.string += struct.pack("!Bi", constants.TYPE_STRING, len(param)) + param
-        _message.string += struct.pack("!Bi", constants.TYPE_STRING, len(value)) + value
+        _message.string += struct.pack("!Bi",
+                                       constants.TYPE_STRING, len(param)) + param
+        _message.string += struct.pack("!Bi",
+                                       constants.TYPE_STRING, len(value)) + value
         _sendExact()
 
     return getParameter, setParameter
@@ -189,7 +213,7 @@ from . import lane, vehicle, vehicletype, person, route, areal
 from . import poi, polygon, junction, edge, simulation, gui
 
 _modules = {constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
-            constants.RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:\
+            constants.RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
             multientryexit,
             constants.RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE: areal,
             constants.RESPONSE_SUBSCRIBE_TL_VARIABLE: trafficlights,
@@ -204,9 +228,9 @@ _modules = {constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
             constants.RESPONSE_SUBSCRIBE_EDGE_VARIABLE: edge,
             constants.RESPONSE_SUBSCRIBE_SIM_VARIABLE: simulation,
             constants.RESPONSE_SUBSCRIBE_GUI_VARIABLE: gui,
-            
+
             constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT: inductionloop,
-            constants.RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:\
+            constants.RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
             multientryexit,
             constants.RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT: areal,
             constants.RESPONSE_SUBSCRIBE_TL_CONTEXT: trafficlights,
@@ -221,9 +245,9 @@ _modules = {constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
             constants.RESPONSE_SUBSCRIBE_EDGE_CONTEXT: edge,
             constants.RESPONSE_SUBSCRIBE_SIM_CONTEXT: simulation,
             constants.RESPONSE_SUBSCRIBE_GUI_CONTEXT: gui,
-            
+
             constants.CMD_GET_INDUCTIONLOOP_VARIABLE: inductionloop,
-            constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:\
+            constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
             multientryexit,
             constants.CMD_GET_AREAL_DETECTOR_VARIABLE: areal,
             constants.CMD_GET_TL_VARIABLE: trafficlights,
@@ -239,6 +263,7 @@ _modules = {constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
             constants.CMD_GET_GUI_VARIABLE: gui}
 _connections = {}
 _message = Message()
+
 
 def _recvExact():
     try:
@@ -259,11 +284,12 @@ def _recvExact():
     except socket.error:
         return None
 
+
 def _sendExact():
     if _embedded:
         result = Storage(traciemb.execute(_message.string))
     else:
-        length = struct.pack("!i", len(_message.string)+4)
+        length = struct.pack("!i", len(_message.string) + 4)
         _connections[""].send(length + _message.string)
         result = _recvExact()
     if not result:
@@ -279,7 +305,7 @@ def _sendExact():
             raise TraCIException(prefix[1], _RESULTS[prefix[2]], err)
         elif prefix[1] != command:
             raise FatalTraCIError("Received answer %s for command %s." % (prefix[1],
-                                                                 command))
+                                                                          command))
         elif prefix[1] == constants.CMD_STOP:
             length = result.read("!B")[0] - 1
             result.read("!%sx" % length)
@@ -287,40 +313,47 @@ def _sendExact():
     _message.queue = []
     return result
 
+
 def _beginMessage(cmdID, varID, objID, length=0):
     _message.queue.append(cmdID)
-    length += 1+1+1+4+len(objID)
-    if length<=255:
+    length += 1 + 1 + 1 + 4 + len(objID)
+    if length <= 255:
         _message.string += struct.pack("!BBBi", length,
                                        cmdID, varID, len(objID)) + objID
     else:
-        _message.string += struct.pack("!BiBBi", 0, length+4,
+        _message.string += struct.pack("!BiBBi", 0, length + 4,
                                        cmdID, varID, len(objID)) + objID
+
 
 def _sendReadOneStringCmd(cmdID, varID, objID):
     _beginMessage(cmdID, varID, objID)
     return _checkResult(cmdID, varID, objID)
 
+
 def _sendIntCmd(cmdID, varID, objID, value):
-    _beginMessage(cmdID, varID, objID, 1+4)
+    _beginMessage(cmdID, varID, objID, 1 + 4)
     _message.string += struct.pack("!Bi", constants.TYPE_INTEGER, value)
     _sendExact()
 
+
 def _sendDoubleCmd(cmdID, varID, objID, value):
-    _beginMessage(cmdID, varID, objID, 1+8)
+    _beginMessage(cmdID, varID, objID, 1 + 8)
     _message.string += struct.pack("!Bd", constants.TYPE_DOUBLE, value)
     _sendExact()
 
+
 def _sendByteCmd(cmdID, varID, objID, value):
-    _beginMessage(cmdID, varID, objID, 1+1)
+    _beginMessage(cmdID, varID, objID, 1 + 1)
     _message.string += struct.pack("!BB", constants.TYPE_BYTE, value)
     _sendExact()
 
+
 def _sendStringCmd(cmdID, varID, objID, value):
-    _beginMessage(cmdID, varID, objID, 1+4+len(value))
+    _beginMessage(cmdID, varID, objID, 1 + 4 + len(value))
     _message.string += struct.pack("!Bi", constants.TYPE_STRING,
                                    len(value)) + value
     _sendExact()
+
 
 def _checkResult(cmdID, varID, objID):
     result = _sendExact()
@@ -328,16 +361,17 @@ def _checkResult(cmdID, varID, objID):
     response, retVarID = result.read("!BB")
     objectID = result.readString()
     if response - cmdID != 16 or retVarID != varID or objectID != objID:
-        raise FatalTraCIError("Received answer %s,%s,%s for command %s,%s,%s."\
-              % (response, retVarID, objectID, cmdID, varID, objID))
+        raise FatalTraCIError("Received answer %s,%s,%s for command %s,%s,%s."
+                              % (response, retVarID, objectID, cmdID, varID, objID))
     result.read("!B")     # Return type of the variable
     return result
 
+
 def _readSubscription(result):
-    result.printDebug() # to enable this you also need to set _DEBUG to True
+    result.printDebug()  # to enable this you also need to set _DEBUG to True
     result.readLength()
     response = result.read("!B")[0]
-    isVariableSubscription = response>=constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and response<=constants.RESPONSE_SUBSCRIBE_PERSON_VARIABLE
+    isVariableSubscription = response >= constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and response <= constants.RESPONSE_SUBSCRIBE_PERSON_VARIABLE
     objectID = result.readString()
     if not isVariableSubscription:
         domain = result.read("!B")[0]
@@ -349,30 +383,36 @@ def _readSubscription(result):
             if status:
                 print("Error!", result.readString())
             elif response in _modules:
-                _modules[response].subscriptionResults.add(objectID, varID, result)
+                _modules[response].subscriptionResults.add(
+                    objectID, varID, result)
             else:
-                raise FatalTraCIError("Cannot handle subscription response %02x for %s." % (response, objectID))
+                raise FatalTraCIError(
+                    "Cannot handle subscription response %02x for %s." % (response, objectID))
             numVars -= 1
     else:
         objectNo = result.read("!i")[0]
         for o in range(objectNo):
             oid = result.readString()
             if numVars == 0:
-                _modules[response].subscriptionResults.addContext(objectID, _modules[domain].subscriptionResults, oid)
+                _modules[response].subscriptionResults.addContext(
+                    objectID, _modules[domain].subscriptionResults, oid)
             for v in range(numVars):
                 varID = result.read("!B")[0]
                 status, varType = result.read("!BB")
                 if status:
                     print("Error!", result.readString())
                 elif response in _modules:
-                    _modules[response].subscriptionResults.addContext(objectID, _modules[domain].subscriptionResults, oid, varID, result)
+                    _modules[response].subscriptionResults.addContext(
+                        objectID, _modules[domain].subscriptionResults, oid, varID, result)
                 else:
-                    raise FatalTraCIError("Cannot handle subscription response %02x for %s." % (response, objectID))
+                    raise FatalTraCIError(
+                        "Cannot handle subscription response %02x for %s." % (response, objectID))
     return objectID, response
+
 
 def _subscribe(cmdID, begin, end, objID, varIDs, parameters=None):
     _message.queue.append(cmdID)
-    length = 1+1+4+4+4+len(objID)+1+len(varIDs)
+    length = 1 + 1 + 4 + 4 + 4 + len(objID) + 1 + len(varIDs)
     if parameters:
         for v in varIDs:
             if v in parameters:
@@ -380,8 +420,9 @@ def _subscribe(cmdID, begin, end, objID, varIDs, parameters=None):
     if length <= 255:
         _message.string += struct.pack("!B", length)
     else:
-        _message.string += struct.pack("!Bi", 0, length+4)
-    _message.string += struct.pack("!Biii", cmdID, begin, end, len(objID)) + objID
+        _message.string += struct.pack("!Bi", 0, length + 4)
+    _message.string += struct.pack("!Biii",
+                                   cmdID, begin, end, len(objID)) + objID
     _message.string += struct.pack("!B", len(varIDs))
     for v in varIDs:
         _message.string += struct.pack("!B", v)
@@ -390,28 +431,33 @@ def _subscribe(cmdID, begin, end, objID, varIDs, parameters=None):
     result = _sendExact()
     objectID, response = _readSubscription(result)
     if response - cmdID != 16 or objectID != objID:
-        raise FatalTraCIError("Received answer %02x,%s for subscription command %02x,%s." % (response, objectID, cmdID, objID))
+        raise FatalTraCIError("Received answer %02x,%s for subscription command %02x,%s." % (
+            response, objectID, cmdID, objID))
+
 
 def _subscribeContext(cmdID, begin, end, objID, domain, dist, varIDs):
     _message.queue.append(cmdID)
-    length = 1+1+4+4+4+len(objID)+1+8+1+len(varIDs)
-    if length<=255:
+    length = 1 + 1 + 4 + 4 + 4 + len(objID) + 1 + 8 + 1 + len(varIDs)
+    if length <= 255:
         _message.string += struct.pack("!B", length)
     else:
-        _message.string += struct.pack("!Bi", 0, length+4)
-    _message.string += struct.pack("!Biii", cmdID, begin, end, len(objID)) + objID
+        _message.string += struct.pack("!Bi", 0, length + 4)
+    _message.string += struct.pack("!Biii",
+                                   cmdID, begin, end, len(objID)) + objID
     _message.string += struct.pack("!BdB", domain, dist, len(varIDs))
     for v in varIDs:
         _message.string += struct.pack("!B", v)
     result = _sendExact()
     objectID, response = _readSubscription(result)
     if response - cmdID != 16 or objectID != objID:
-        raise FatalTraCIError("Received answer %02x,%s for context subscription command %02x,%s." % (response, objectID, cmdID, objID))
+        raise FatalTraCIError("Received answer %02x,%s for context subscription command %02x,%s." % (
+            response, objectID, cmdID, objID))
+
 
 def init(port=8813, numRetries=10, host="localhost", label="default"):
     if _embedded:
         return getVersion()
-    for wait in range(1, numRetries+2):
+    for wait in range(1, numRetries + 2):
         try:
             _connections[""] = _connections[label] = socket.socket()
             _connections[label].setsockopt(socket.IPPROTO_TCP,
@@ -422,12 +468,14 @@ def init(port=8813, numRetries=10, host="localhost", label="default"):
             time.sleep(wait)
     return getVersion()
 
+
 def simulationStep(step=0):
     """
     Make simulation step and simulate up to "step" second in sim time.
     """
     _message.queue.append(constants.CMD_SIMSTEP2)
-    _message.string += struct.pack("!BBi", 1+1+4, constants.CMD_SIMSTEP2, step)
+    _message.string += struct.pack("!BBi", 1 +
+                                   1 + 4, constants.CMD_SIMSTEP2, step)
     result = _sendExact()
     for module in _modules.values():
         module.subscriptionResults.reset()
@@ -438,27 +486,28 @@ def simulationStep(step=0):
         numSubs -= 1
     return responses
 
+
 def getVersion():
     command = constants.CMD_GETVERSION
     _message.queue.append(command)
-    _message.string += struct.pack("!BB", 1+1, command)
+    _message.string += struct.pack("!BB", 1 + 1, command)
     result = _sendExact()
     result.readLength()
     response = result.read("!B")[0]
     if response != command:
-        raise FatalTraCIError("Received answer %s for command %s." % (response, command))
+        raise FatalTraCIError(
+            "Received answer %s for command %s." % (response, command))
     return result.readInt(), result.readString()
+
 
 def close():
     if "" in _connections:
         _message.queue.append(constants.CMD_CLOSE)
-        _message.string += struct.pack("!BB", 1+1, constants.CMD_CLOSE)
+        _message.string += struct.pack("!BB", 1 + 1, constants.CMD_CLOSE)
         _sendExact()
         _connections[""].close()
         del _connections[""]
 
+
 def switch(label):
     _connections[""] = _connections[label]
-
-
-

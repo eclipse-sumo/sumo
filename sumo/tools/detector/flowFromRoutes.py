@@ -18,16 +18,21 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import math, string, sys
+import math
+import string
+import sys
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 
 import detector
 
+
 class LaneMap:
+
     def get(self, key, default):
         return key[0:-2]
+
 
 class DetectorRouteEmitterReader(handler.ContentHandler):
 
@@ -37,7 +42,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         self._edgeFlow = {}
         self._parser = make_parser()
         self._parser.setContentHandler(self)
-        
+
     def addEdgeFlow(self, edge, flow):
         if not edge in self._edgeFlow:
             self._edgeFlow[edge] = 0
@@ -76,7 +81,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                             sumSquaredPercent += dev * dev / dFlow / dFlow
                         n += 1
         print '# avgRouteFlow avgDetFlow avgDev RMSE RMSPE'
-        print '#', rSum/n, dSum/n, sumAbsDev/n, math.sqrt(sumSquaredDev/n), math.sqrt(sumSquaredPercent/n)
+        print '#', rSum / n, dSum / n, sumAbsDev / n, math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n)
 
     def printFlows(self, includeDets):
         if includeDets:

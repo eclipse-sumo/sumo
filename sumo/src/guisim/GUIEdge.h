@@ -153,7 +153,7 @@ public:
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::removePerson(p);
     }
-    
+
 
     void addContainer(MSContainer* c) const {
         AbstractMutex::ScopedLocker locker(myLock);

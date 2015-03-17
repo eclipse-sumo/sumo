@@ -21,9 +21,11 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import print_function
-import sys, datetime
+import sys
+import datetime
 
 from xml.sax import parse, handler
+
 
 class RouteReader(handler.ContentHandler):
 
@@ -37,7 +39,7 @@ class RouteReader(handler.ContentHandler):
         self._attrList = attrList
         self._vehicleAttrs = None
         self.outfile = outfile
-        
+
     def startElement(self, name, attrs):
         if name == 'vehicle':
             self._vehicleAttrs = dict(attrs)
@@ -54,7 +56,7 @@ class RouteReader(handler.ContentHandler):
         elif name == 'vType':
             # XXX does not handle child elements
             print('    <vType %s/>' % (' '.join(['%s="%s"' % (key, value) for key, value in dict(attrs).items()])),
-                    file=self.outfile)
+                  file=self.outfile)
         elif name == 'routes':
             print("""<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
@@ -71,13 +73,14 @@ class RouteReader(handler.ContentHandler):
             self._vehicleAttrs["from"] = edges[0]
             self._vehicleAttrs["to"] = edges[-1]
             if self._attrList:
-                print('    <trip %s/>' % (' '.join(['%s="%s"' % (key, self._vehicleAttrs[key]) for key in self._attrList])), 
-                        file=self.outfile)
+                print('    <trip %s/>' % (' '.join(['%s="%s"' % (key, self._vehicleAttrs[key]) for key in self._attrList])),
+                      file=self.outfile)
             else:
                 del self._vehicleAttrs['id']
-                items = sorted(['%s="%s"' % (key, val) for key, val in self._vehicleAttrs.iteritems()])
+                items = sorted(['%s="%s"' % (key, val)
+                                for key, val in self._vehicleAttrs.iteritems()])
                 print('    <trip id="%s" %s/>' % (self._vID, ' '.join(items)),
-                        file=self.outfile)
+                      file=self.outfile)
             self._vID = ''
             self._routeString = ''
         elif name == 'routes':
@@ -85,6 +88,7 @@ class RouteReader(handler.ContentHandler):
 
     def characters(self, content):
         self._routeString += content
+
 
 def main(argv, outfile=None):
     routefile = argv[0]

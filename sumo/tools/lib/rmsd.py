@@ -19,6 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 from numpy import append, array, dot, shape, transpose
 from numpy.linalg import det, svd
 
+
 def superpose(nodes1, nodes2, select1, select2):
     vecs1 = array(nodes1)[array(select1)]
     vecs2 = array(nodes2)[array(select2)]
@@ -34,7 +35,7 @@ def superpose(nodes1, nodes2, select1, select2):
 
     is_reflection = (det(V) * det(W_trans)) < 0.0
     if is_reflection:
-        V[-1,:] = V[-1,:] * (-1.0)
+        V[-1, :] = V[-1,:] * (-1.0)
 
     optimal_rotation = dot(V, W_trans)
     return dot(array(nodes2) - center2, optimal_rotation) + center1
@@ -42,4 +43,4 @@ def superpose(nodes1, nodes2, select1, select2):
 #a = [ (1,1), (4,4), (1,4) ]
 #b = [ (0,3), (3,0), (3,3), (5,5) ]
 
-#print superpose(a, b, (0,1,2), (0,1,2))
+# print superpose(a, b, (0,1,2), (0,1,2))

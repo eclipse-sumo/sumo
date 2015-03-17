@@ -136,7 +136,7 @@ public:
         }
 
     private:
-       EdgeVector myOrdering;
+        EdgeVector myOrdering;
 
     private:
         /// @brief invalidated assignment operator

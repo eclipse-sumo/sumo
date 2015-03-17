@@ -119,7 +119,7 @@ GUIContainer::~GUIContainer() {
 
 GUIGLObjectPopupMenu*
 GUIContainer::getPopUpMenu(GUIMainWindow& app,
-                        GUISUMOAbstractView& parent) {
+                           GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIContainerPopupMenu(app, parent, *this, myAdditionalVisualizations);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -134,7 +134,7 @@ GUIContainer::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIContainer::getParameterWindow(GUIMainWindow& app,
-                              GUISUMOAbstractView&) {
+                                 GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 8);
     // add items
@@ -332,7 +332,7 @@ GUIContainer::getPosition() const {
     if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle()) {
         return myPositionInVehicle;
     }
-    if (getCurrentStageType() == WAITING && getEdge()->getPermissions() == SVC_SHIP){
+    if (getCurrentStageType() == WAITING && getEdge()->getPermissions() == SVC_SHIP) {
         MSLane* lane = getEdge()->getLanes().front();   //the most right lane of the water way
         PositionVector laneShape = lane->getShape();
         return laneShape.positionAtOffset2D(getEdgePos(), WATER_WAY_OFFSET);

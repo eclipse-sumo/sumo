@@ -17,6 +17,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+
 def _getMinPath(paths):
     minDist = 1e400
     minPath = None
@@ -25,6 +26,7 @@ def _getMinPath(paths):
             minPath = path
             minDist = dist
     return minPath
+
 
 def mapTrace(trace, net, delta):
     """

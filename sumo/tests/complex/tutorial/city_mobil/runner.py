@@ -19,9 +19,12 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-import os, sys
+import os
+import sys
 import shutil
-import vehicleControl, simpleManager, agentManager
+import vehicleControl
+import simpleManager
+import agentManager
 
 # build/check network
 import createNet
@@ -29,5 +32,7 @@ import createNet
 vehicleControl.init(simpleManager.SimpleManager(), True)
 # perform agent scenario
 vehicleControl.init(agentManager.AgentManager(), True)
-try: shutil.copy("all-the-results.txt", "../result2")
-except: print "Missing 'all-the-results.txt'"
+try:
+    shutil.copy("all-the-results.txt", "../result2")
+except:
+    print "Missing 'all-the-results.txt'"

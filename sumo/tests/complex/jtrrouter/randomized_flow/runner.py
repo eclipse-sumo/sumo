@@ -21,9 +21,14 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import sys,os,subprocess,random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
+import sys
+import os
+import subprocess
+import random
+sys.path.append(
+    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
 from sumolib import checkBinary
+
 
 def get_depart_lines(route_file):
     return [l for l in open(route_file) if 'depart' in l]

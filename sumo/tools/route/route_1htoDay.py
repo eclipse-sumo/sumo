@@ -19,7 +19,9 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, sys, route_departOffset
+import os
+import sys
+import route_departOffset
 
 if len(sys.argv) < 2:
     print "Usage: route_1htoDay.py <INPUT_FILE>"
@@ -28,4 +30,4 @@ for i in range(0, 24):
     out = sys.argv[1]
     out = out[:out.find(".")] + "_" + str(i) + out[out.find("."):]
     print "Building routes for hour " + str(i) + " into '" + out + "'..."
-    route_departOffset.main(sys.argv[1], out, i*3600)
+    route_departOffset.main(sys.argv[1], out, i * 3600)

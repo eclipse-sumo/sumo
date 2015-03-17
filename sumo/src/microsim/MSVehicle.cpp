@@ -689,7 +689,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     stop.endPos = stopPar.endPos;
     stop.duration = stopPar.duration;
     stop.until = stopPar.until;
-	stop.timeToBoardNextPerson = 0;
+    stop.timeToBoardNextPerson = 0;
     stop.timeToLoadNextContainer = 0;
     stop.awaitedPersons = stopPar.awaitedPersons;
     stop.awaitedContainers = stopPar.awaitedContainers;
@@ -906,7 +906,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
             if (stop.containerstop != 0) {
                 // on container stops, we have to wait for free place if they are in use...
                 endPos = stop.containerstop->getLastFreePos(*this);
-                if (endPos != stop.containerstop->getEndLanePosition() && endPos - myType->getLength() / 2. < stop.containerstop->getBeginLanePosition()) { 
+                if (endPos != stop.containerstop->getEndLanePosition() && endPos - myType->getLength() / 2. < stop.containerstop->getBeginLanePosition()) {
                     containerStopsMustHaveSpace = false;
                 }
             }
@@ -1095,7 +1095,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
         SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
         const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime();
-        if (yellowOrRed && seen >= brakeDist ) {
+        if (yellowOrRed && seen >= brakeDist) {
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, SUMOTime_MAX, seen));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
@@ -1135,7 +1135,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             lastLink->adaptLeaveSpeed(laneMaxV);
         }
         SUMOReal arrivalSpeed = vLinkPass;
-        // vehicles should decelerate when approaching a minor link 
+        // vehicles should decelerate when approaching a minor link
         // - unless they are close enough to have clear visibility and may start to accelerate again
         // - and unless they are so close that stopping is impossible (i.e. when a green light turns to yellow when close to the junction)
         if (!(*link)->havePriority() && stopDist > cfModel.getMaxDecel() && brakeDist < seen) {

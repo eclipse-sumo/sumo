@@ -17,42 +17,47 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys, unittest
+import os
+import sys
+import unittest
 TOOLS_DIR = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'tools')
 sys.path.append(TOOLS_DIR)
 import sumolib
 
+
 class TestGeomhelper(unittest.TestCase):
+
     def testPolygonOffsetWithMinimumDistanceToPoint(self):
         """Return the offset from the polygon start where the distance to point is minimal"""
         offsetMinDist = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint
-        shape = ((0,1), (0,0), (1,0))
-        self.assertEqual(1, offsetMinDist((-1,-1), shape, False))
-        self.assertEqual(1, offsetMinDist((-1,-1), shape, True))
-        self.assertEqual(2, offsetMinDist((2,1), shape, False))
-        self.assertEqual(0, offsetMinDist((2,1), shape, True))
-        self.assertEqual(2, offsetMinDist((3,2), shape, False))
-        self.assertEqual(sumolib.geomhelper.INVALID_DISTANCE, offsetMinDist((3,2), shape, True))
+        shape = ((0, 1), (0, 0), (1, 0))
+        self.assertEqual(1, offsetMinDist((-1, -1), shape, False))
+        self.assertEqual(1, offsetMinDist((-1, -1), shape, True))
+        self.assertEqual(2, offsetMinDist((2, 1), shape, False))
+        self.assertEqual(0, offsetMinDist((2, 1), shape, True))
+        self.assertEqual(2, offsetMinDist((3, 2), shape, False))
+        self.assertEqual(
+            sumolib.geomhelper.INVALID_DISTANCE, offsetMinDist((3, 2), shape, True))
 
     def testDistancePointToPolygon(self):
         point = (81365.994719034992, 9326.8304398041219)
         polygon = [
-                (81639.699999999997, 9196.8400000000001),
-                (81554.910000000003, 9246.7600000000002),
-                (81488.800000000003, 9288.2999999999993),
-                (81376.100000000006, 9358.5799999999999),
-                (81305.089999999997, 9404.4400000000005),
-                (81230.610000000001, 9452.4200000000001),
-                (81154.699999999997, 9502.6000000000004),
-                (81063.419999999998, 9564.5799999999999),
-                (80969.389999999999, 9627.6100000000006),
-                (80882.990000000005, 9686.3899999999994),
-                (80772.160000000003, 9763.4200000000001),
-                (80682.259999999995, 9825.4500000000007),
-                (80617.509999999995, 9868.1499999999996),
-                (80552.660000000003, 9914.1900000000005)]
+            (81639.699999999997, 9196.8400000000001),
+            (81554.910000000003, 9246.7600000000002),
+            (81488.800000000003, 9288.2999999999993),
+            (81376.100000000006, 9358.5799999999999),
+            (81305.089999999997, 9404.4400000000005),
+            (81230.610000000001, 9452.4200000000001),
+            (81154.699999999997, 9502.6000000000004),
+            (81063.419999999998, 9564.5799999999999),
+            (80969.389999999999, 9627.6100000000006),
+            (80882.990000000005, 9686.3899999999994),
+            (80772.160000000003, 9763.4200000000001),
+            (80682.259999999995, 9825.4500000000007),
+            (80617.509999999995, 9868.1499999999996),
+            (80552.660000000003, 9914.1900000000005)]
         dist = sumolib.geomhelper.distancePointToPolygon(point, polygon, True)
         self.assertTrue(abs(dist - 32.288) < 0.01)
-    
+
 if __name__ == '__main__':
     unittest.main()

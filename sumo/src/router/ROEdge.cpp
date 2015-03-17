@@ -276,7 +276,7 @@ ROEdge::dictionary(size_t id) {
 }
 
 
-const ROEdgeVector& 
+const ROEdgeVector&
 ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
     if (vClass == SVC_IGNORING) {
         return myFollowingEdges;
@@ -300,15 +300,15 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
                 }
             }
         }
-        myClassesSuccessorMap[vClass].insert(myClassesSuccessorMap[vClass].begin(), 
-                followers.begin(), followers.end());
+        myClassesSuccessorMap[vClass].insert(myClassesSuccessorMap[vClass].begin(),
+                                             followers.begin(), followers.end());
         return myClassesSuccessorMap[vClass];
     }
 
 }
 
 
-bool 
+bool
 ROEdge::isConnectedTo(const ROEdge* const e, const ROVehicle* const vehicle) const {
     const SUMOVehicleClass vClass = (vehicle == 0 ? SVC_IGNORING : vehicle->getVClass());
     const ROEdgeVector& followers = getSuccessors(vClass);

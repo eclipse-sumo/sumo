@@ -311,8 +311,8 @@ NBRampsComputer::moveRampRight(NBEdge* ramp, int addedLanes) {
     }
     try {
         PositionVector g = ramp->getGeometry();
-        const SUMOReal offset = (0.5 * addedLanes * 
-                (ramp->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : ramp->getLaneWidth()));
+        const SUMOReal offset = (0.5 * addedLanes *
+                                 (ramp->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : ramp->getLaneWidth()));
         g.move2side(offset);
         ramp->setGeometry(g);
     } catch (InvalidArgument&) {

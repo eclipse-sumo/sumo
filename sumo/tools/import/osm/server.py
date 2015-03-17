@@ -20,7 +20,8 @@ the Free Software Foundation; either version 3 of the License, or
 import struct
 import SocketServer
 import webbrowser
-import os, sys
+import os
+import sys
 import datetime
 from base64 import b64encode
 from hashlib import sha1
@@ -28,14 +29,17 @@ from mimetools import Message
 from StringIO import StringIO
 import subprocess
 
-SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
+SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 sys.path.append(os.path.join(SUMO_HOME, "tools", "trip"))
 sys.path.append(os.path.join(SUMO_HOME, "tools"))
 
 polyfile = os.path.join(SUMO_HOME, "data", "typemap", "osmPolyconvert.typ.xml")
 typefile = os.path.join(SUMO_HOME, "data", "typemap", "osmNetconvert.typ.xml")
-pedestrianstypefile = os.path.join(SUMO_HOME, "data", "typemap", "osmNetconvertPedestrians.typ.xml")
-shipstypefile = os.path.join(SUMO_HOME, "data", "typemap", "osmNetconvertShips.typ.xml")
+pedestrianstypefile = os.path.join(
+    SUMO_HOME, "data", "typemap", "osmNetconvertPedestrians.typ.xml")
+shipstypefile = os.path.join(
+    SUMO_HOME, "data", "typemap", "osmNetconvertShips.typ.xml")
 
 import osmGet
 import osmBuild
@@ -44,6 +48,7 @@ import sumolib
 import route2trips
 
 RANDOMSEED = "42"
+
 
 def build(handler, prefix, bbox=False):
     sumo = sumolib.checkBinary('sumo')
@@ -66,7 +71,8 @@ def build(handler, prefix, bbox=False):
 """)
         configname = prefix + ".sumocfg"
         print "Writing config file:", configname
-        opts = [sumo, "-n", netname, "-a", polyname, "--gui-settings-file", guisettingsname, "-v", "--no-step-log", "--save-configuration", configname]
+        opts = [sumo, "-n", netname, "-a", polyname, "--gui-settings-file",
+                guisettingsname, "-v", "--no-step-log", "--save-configuration", configname]
         opts += extraopts
         subprocess.call(opts)
 
@@ -78,11 +84,12 @@ def build(handler, prefix, bbox=False):
             print "SUMO GUI canceled"
 
     if bbox:
-        #get the coordinates and cast them to float
+        # get the coordinates and cast them to float
         size = map(float, bbox.split(","))
-        #calculates the area
+        # calculates the area
         size = (size[0] - size[2]) * (size[3] - size[1])
-        areaFactor = abs(size) * 5000; #to adjust period by the area
+        areaFactor = abs(size) * 5000
+        # to adjust period by the area
         print "Calling osmGet"
         osmGet.get(["-b", bbox, "-p", prefix])
     else:
@@ -90,21 +97,24 @@ def build(handler, prefix, bbox=False):
         areaFactor = 1
 
     print "Calling osmBuild"
-    #output name for the osm file, will be used by osmBuild, can be after the process deleted
+    # output name for the osm file, will be used by osmBuild, can be after the
+    # process deleted
     osmname = prefix + "_bbox.osm.xml"
-    #output name for the net file, will be used by osmBuild, randomTrips and sumo-gui
+    # output name for the net file, will be used by osmBuild, randomTrips and
+    # sumo-gui
     netname = prefix + ".net.xml"
-    #output name for the poly file, will be used by osmBuild and sumo-gui
+    # output name for the poly file, will be used by osmBuild and sumo-gui
     polyname = prefix + ".poly.xml"
     options = ["-f", osmname, "-p", prefix, "-m", polyfile]
     typefiles = []
     netconvertOptions = "-R,--ramps.guess,-v,--junctions.join,--osm.railway.oneway-default,--tls.guess-signals,--tls.discard-simple,--tls.join,--junctions.corner-detail,5"
-    if handler.pedestrians.enable: #drop?
-        netconvertOptions += ",--crossings.guess" # sidewalks are already included via typefile
+    if handler.pedestrians.enable:  # drop?
+        # sidewalks are already included via typefile
+        netconvertOptions += ",--crossings.guess"
         typefiles.append(pedestrianstypefile)
     else:
         typefiles.append(typefile)
-    if handler.ships.enable: 
+    if handler.ships.enable:
         typefiles.append(shipstypefile)
     options += ["--netconvert-typemap", ','.join(typefiles)]
     options += ["--netconvert-options", netconvertOptions]
@@ -112,40 +122,46 @@ def build(handler, prefix, bbox=False):
 
     if handler.vehicles.enable or handler.bicycles.enable or handler.pedestrians.enable or handler.rails.enable or handler.ships.enable:
         print "Calling randomTrips"
-        #routenames stores all routefiles and will join the items later, will be used by sumo-gui
+        # routenames stores all routefiles and will join the items later, will
+        # be used by sumo-gui
         routenames = []
 
         if handler.vehicles.enable:
             routename = prefix + ".vehicles.rou.xml"
             tripname = prefix + ".vehicles.trips.xml"
             routenames.append(tripname)
-            randomTrips.main(randomTrips.get_options(handler.vehicles.parseTripOpts(netname, routename, areaFactor)))
+            randomTrips.main(randomTrips.get_options(
+                handler.vehicles.parseTripOpts(netname, routename, areaFactor)))
             route2trips.main([routename], outfile=tripname)
 
         if handler.bicycles.enable:
             routename = prefix + ".bicycles.rou.xml"
             tripname = prefix + ".bicycles.trips.xml"
             routenames.append(tripname)
-            randomTrips.main(randomTrips.get_options(handler.bicycles.parseTripOpts(netname, routename, areaFactor)))
+            randomTrips.main(randomTrips.get_options(
+                handler.bicycles.parseTripOpts(netname, routename, areaFactor)))
             route2trips.main([routename], outfile=tripname)
 
         if handler.pedestrians.enable:
             routename = prefix + ".pedestrians.rou.xml"
             routenames.append(routename)
-            randomTrips.main(randomTrips.get_options(handler.pedestrians.parseTripOpts(netname, routename, areaFactor)))
+            randomTrips.main(randomTrips.get_options(
+                handler.pedestrians.parseTripOpts(netname, routename, areaFactor)))
 
         if handler.rails.enable:
             routename = prefix + ".rails.rou.xml"
             tripname = prefix + ".rails.trips.xml"
             routenames.append(tripname)
-            randomTrips.main(randomTrips.get_options(handler.rails.parseTripOpts(netname, routename, areaFactor)))
+            randomTrips.main(randomTrips.get_options(
+                handler.rails.parseTripOpts(netname, routename, areaFactor)))
             route2trips.main([routename], outfile=tripname)
 
         if handler.ships.enable:
             routename = prefix + ".ships.rou.xml"
             tripname = prefix + ".ships.trips.xml"
             routenames.append(tripname)
-            randomTrips.main(randomTrips.get_options(handler.ships.parseTripOpts(netname, routename, areaFactor)))
+            randomTrips.main(randomTrips.get_options(
+                handler.ships.parseTripOpts(netname, routename, areaFactor)))
             route2trips.main([routename], outfile=tripname)
 
         callSumo(["-r", ",".join(routenames), "--ignore-route-errors"])
@@ -158,33 +174,39 @@ def build(handler, prefix, bbox=False):
 
 class Settings:
     enable = False
-    #randomTrips options
+    # randomTrips options
     fringeFactor = 1.0
     period = 10.0
     time = 3600
-    #param: additional parameters, should be defined later
-    def __init__(self, param):
-       self.param = param
+    # param: additional parameters, should be defined later
 
-    #this method will be called to return an options array for randomTrips.py
+    def __init__(self, param):
+        self.param = param
+
+    # this method will be called to return an options array for randomTrips.py
     def parseTripOpts(self, netname, routename, areaFactor):
-        opts = ["-n", netname, "--seed", RANDOMSEED, "--fringe-factor", self.fringeFactor, "-p", self.period / areaFactor, "-r", routename, "-e", self.time]
+        opts = ["-n", netname, "--seed", RANDOMSEED, "--fringe-factor", self.fringeFactor,
+                "-p", self.period / areaFactor, "-r", routename, "-e", self.time]
         opts += self.param
         return opts
 
 
 def initSettings(handler):
-    handler.vehicles = Settings(["--vehicle-class", "passenger", "--vclass", "passenger", "--prefix", "veh", "--min-distance", "300"])
+    handler.vehicles = Settings(
+        ["--vehicle-class", "passenger", "--vclass", "passenger", "--prefix", "veh", "--min-distance", "300"])
     handler.vehicles.fringeFactor = 5
-    handler.bicycles = Settings(["--vehicle-class", "bicycle", "--vclass", "bicycle", "--prefix", "bike", "--max-distance", "8000"])
+    handler.bicycles = Settings(
+        ["--vehicle-class", "bicycle", "--vclass", "bicycle", "--prefix", "bike", "--max-distance", "8000"])
     handler.bicycles.fringeFactor = 2
-    handler.pedestrians = Settings(["--pedestrians", "--prefix", "ped", "--max-distance", "2000"])
-    handler.rails = Settings(["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "train"])
+    handler.pedestrians = Settings(
+        ["--pedestrians", "--prefix", "ped", "--max-distance", "2000"])
+    handler.rails = Settings(
+        ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "train"])
     handler.rails.fringeFactor = 40
-    handler.ships = Settings(["--vehicle-class", "ship", "--vclass", "ship", "--prefix", "ship"])
+    handler.ships = Settings(
+        ["--vehicle-class", "ship", "--vclass", "ship", "--prefix", "ship"])
     handler.ships.fringeFactor = 40
     handler.ships.period = 100
-
 
 
 class WebSocketsHandler(SocketServer.StreamRequestHandler):
@@ -194,7 +216,7 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
         SocketServer.StreamRequestHandler.setup(self)
         print "connection established", self.client_address
         self.handshake_done = False
-        #initialises settings objects
+        # initialises settings objects
         initSettings(self)
 
     def handle(self):
@@ -229,7 +251,7 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
             self.request.send(struct.pack(">Q", length))
         self.request.send(message)
 
-    #Handshake method, needed to be a WebSocketServer
+    # Handshake method, needed to be a WebSocketServer
     def handshake(self):
         data = self.request.recv(1024).strip()
         headers = Message(StringIO(data.split('\r\n', 1)[1]))
@@ -247,16 +269,17 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
     def on_message(self, message):
         print message
         if message[0:8] == "coords: ":
-            #build with coordinates provided by JavaScript
+            # build with coordinates provided by JavaScript
             #bottom, left, top, right
-            #as prefix is currently used a timestamp
-            #try:
-                build(self, datetime.datetime.now().strftime("%Y-%m-%d-%H-%M"), message[8:])
-            #except:
+            # as prefix is currently used a timestamp
+            # try:
+            build(self, datetime.datetime.now().strftime(
+                "%Y-%m-%d-%H-%M"), message[8:])
+            # except:
             #    print "Build failed."
 
-        #settings handler, they have the syntax <target><setting>?: <value>
-        #target can be vehicles or pedestrians
+        # settings handler, they have the syntax <target><setting>?: <value>
+        # target can be vehicles or pedestrians
         elif message[:10] == "vehicles: ":
             self.vehicles.enable = bool(message[10:])
         elif message[:10] == "bicycles: ":
@@ -293,14 +316,16 @@ class WebSocketsHandler(SocketServer.StreamRequestHandler):
         elif message[:11] == "railsTime: " and message[11:] != "":
             self.rails.time = float(message[11:])
 
-        #else an invalid message
+        # else an invalid message
 
 
 def main():
-    #initializes a WebSocketServer at port 9999 -- if you change the port here, change it in script.js also!
+    # initializes a WebSocketServer at port 9999 -- if you change the port
+    # here, change it in script.js also!
     server = SocketServer.TCPServer(("localhost", 9999), WebSocketsHandler)
-    #to automatically open the webpage in a browser
-    webbrowser.open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "index.html"))
+    # to automatically open the webpage in a browser
+    webbrowser.open(
+        os.path.join(os.path.dirname(os.path.realpath(__file__)), "index.html"))
     try:
         server.serve_forever()
     except:

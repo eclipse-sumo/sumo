@@ -17,14 +17,17 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os,sys
+import os
+import sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse_fast
 from sumolib.miscutils import Statistics
 
+
 def accelStats(netstate):
     lastSpeed = {}
-    stats = Statistics("Accelerations", histogram=True, printMin=True, scale=0.2)
+    stats = Statistics(
+        "Accelerations", histogram=True, printMin=True, scale=0.2)
     for vehicle in parse_fast(netstate, 'vehicle', ['id', 'speed']):
         speed = float(vehicle.speed)
         prevSpeed = lastSpeed.get(vehicle.id, speed)

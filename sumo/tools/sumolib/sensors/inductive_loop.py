@@ -21,7 +21,9 @@ the Free Software Foundation; either version 3 of the License, or
 from xml.sax import handler, parse
 from .. import color
 
+
 class InductiveLoop:
+
     def __init__(self, id, lane, pos, frequency, file, friendlyPos=True):
         self.id = id
         self.lane = lane
@@ -35,6 +37,7 @@ class InductiveLoop:
 
 
 class InductiveLoopReader(handler.ContentHandler):
+
     def __init__(self):
         self._id2il = {}
         self._ils = []
@@ -43,18 +46,19 @@ class InductiveLoopReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'e1Detector':
-            poi = InductiveLoop(attrs['id'], attrs['lane'], float(attrs['pos']), float(attrs['freq']), attrs['file'])
+            poi = InductiveLoop(attrs['id'], attrs['lane'], float(
+                attrs['pos']), float(attrs['freq']), attrs['file'])
             self._id2il[poi.id] = poi
             self._ils.append(poi)
             self._lastIL = poi
-        if name == 'param' and self._lastIL!=None:
+        if name == 'param' and self._lastIL != None:
             self._lastIL.attributes[attrs['key']] = attrs['value']
 
     def endElement(self, name):
         if name == 'e1Detector':
             self._lastIL = None
 
-    
+
 def read(filename):
     ils = InductiveLoopReader()
     parse(filename, ils)

@@ -26,11 +26,13 @@ import xml.dom.minidom
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
+
 def get_net_file_directory(net_file):
     """ Returns the directory containing the net file given. """
 
     dirname = os.path.split(net_file)[0]
     return dirname
+
 
 def open_detector_file(destination_dir, detector_file_name):
     """ Opens a new detector file in given directory. """
@@ -44,40 +46,40 @@ if __name__ == "__main__":
 
     option_parser = optparse.OptionParser()
     option_parser.add_option("-n", "--net-file",
-                         dest="net_file",
-                         help="Network file to work with. Mandatory.",
-                         type="string")
+                             dest="net_file",
+                             help="Network file to work with. Mandatory.",
+                             type="string")
     option_parser.add_option("-l", "--detector-length",
-                         dest="requested_detector_length",
-                         help="Length of the detector in meters "
-                              "(-1 for maximal length).",
-                         type="int",
-                         default=250)
+                             dest="requested_detector_length",
+                             help="Length of the detector in meters "
+                             "(-1 for maximal length).",
+                             type="int",
+                             default=250)
     option_parser.add_option("-d", "--distance-to-TLS",
-                         dest="requested_distance_to_tls",
-                         help="Distance of the detector to the traffic "
-                              "light in meters. Defaults to 0.1m.",
-                         type="float",
-                         default=.1)
+                             dest="requested_distance_to_tls",
+                             help="Distance of the detector to the traffic "
+                             "light in meters. Defaults to 0.1m.",
+                             type="float",
+                             default=.1)
     option_parser.add_option("-f", "--frequency",
-                         dest="frequency",
-                         help="Detector's frequency. Defaults to 60.",
-                         type="int",
-                         default=60)
+                             dest="frequency",
+                             help="Detector's frequency. Defaults to 60.",
+                             type="int",
+                             default=60)
     option_parser.add_option("-o", "--output",
-                         dest="output",
-                         help="The name of the file to write the detector "
-                              "definitions into. Defaults to e1.add.xml.",
-                         type="string",
-                         default="e3.add.xml")
+                             dest="output",
+                             help="The name of the file to write the detector "
+                             "definitions into. Defaults to e1.add.xml.",
+                             type="string",
+                             default="e3.add.xml")
     option_parser.add_option("-r", "--results-file",
-                         dest="results",
-                         help="The name of the file the detectors write "
-                              "their output into. Defaults to e1output.xml.",
-                         type="string",
-                         default="e3output.xml")
+                             dest="results",
+                             help="The name of the file the detectors write "
+                             "their output into. Defaults to e1output.xml.",
+                             type="string",
+                             default="e3output.xml")
     option_parser.set_usage("generateTLSE3Detectors.py -n example.net.xml "
-                        "-l 250 -d .1 -f 60")
+                            "-l 250 -d .1 -f 60")
 
     (options, args) = option_parser.parse_args()
     if not options.net_file:
@@ -94,11 +96,13 @@ if __name__ == "__main__":
     for tls in network._tlss:
         for edge in sorted(tls.getEdges(), key=sumolib.net.edge.Edge.getID):
             detector_xml = xml.dom.minidom.Element("e3Detector")
-            detector_xml.setAttribute("id", "e3_" + str(tls._id) + "_" + str(edge._id))
+            detector_xml.setAttribute(
+                "id", "e3_" + str(tls._id) + "_" + str(edge._id))
             detector_xml.setAttribute("freq", str(options.frequency))
             detector_xml.setAttribute("file", options.results)
 
-            input_edges = network.getDownstreamEdges(edge, options.requested_detector_length, True)
+            input_edges = network.getDownstreamEdges(
+                edge, options.requested_detector_length, True)
             for input_edge in input_edges:
                 position = input_edge[1]
                 if input_edge[3]:
@@ -125,4 +129,3 @@ if __name__ == "__main__":
     detector_file.close()
 
     logging.info("%d e3 detectors generated!" % (generated_detectors))
-

@@ -20,19 +20,20 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import sys, os
+import sys
+import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
 
-if len(sys.argv)<2:
+if len(sys.argv) < 2:
     print >> sys.stderr, "Call: tls_check.py <NET>"
     sys.exit()
 
 net1 = sumolib.net.readNet(sys.argv[1], withPrograms=True)
 
 for tlsID in net1._id2tls:
-    print "Checking tls '%s'" % tlsID 
+    print "Checking tls '%s'" % tlsID
     tls = net1._id2tls[tlsID]
     noConnections = tls._maxConnectionNo + 1
     for prog in tls._programs:

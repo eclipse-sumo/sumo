@@ -17,23 +17,29 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 from xml.sax import saxutils, make_parser, handler
 
 # attributes sorting lists
 a = {}
-a['edge'] = ( 'id', 'from', 'to', 'priority', 'type', 'function', 'inner' )
-a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'shape' )
-a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
-a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
-a['succ'] = ( 'edge', 'lane', 'junction' )
-a['succlane'] = ( 'lane', 'via', 'tl', 'linkno', 'yield', 'dir', 'state', 'int_end' )
-a['row-logic'] = ( 'id', 'requestSize', 'laneNumber' )
-a['tl-logic'] = ( 'id', 'type', 'programID', 'offset' )
-a['location'] = ( 'netOffset', 'convBoundary', 'origBoundary', 'projParameter' )
+a['edge'] = ('id', 'from', 'to', 'priority', 'type', 'function', 'inner')
+a['lane'] = ('id', 'depart', 'vclasses', 'allow',
+             'disallow', 'maxspeed', 'length', 'shape')
+a['junction'] = ('id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape')
+a['logicitem'] = ('request', 'response', 'foes', 'cont')
+a['succ'] = ('edge', 'lane', 'junction')
+a['succlane'] = (
+    'lane', 'via', 'tl', 'linkno', 'yield', 'dir', 'state', 'int_end')
+a['row-logic'] = ('id', 'requestSize', 'laneNumber')
+a['tl-logic'] = ('id', 'type', 'programID', 'offset')
+a['location'] = ('netOffset', 'convBoundary', 'origBoundary', 'projParameter')
 
 # elements which are single (not using opening/closing tag)
-c = ( 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'roundabout', 'location', 'lane', 'timed_event' )
+c = ('logicitem', 'phase', 'succlane', 'dsource', 'dsink',
+     'junction', 'roundabout', 'location', 'lane', 'timed_event')
 
 # delay output till this point
 d = {}
@@ -43,44 +49,49 @@ d['tl-logic'] = 'phase'
 
 # subelements to use as attributes
 i = {}
-i['junction'] = ( ( 'inclanes', 'incLanes' ), ( 'intlanes', 'intLanes' ), ( 'shape', 'shape' ) )
-i['row-logic'] = ( ( 'key', 'id' ), ( 'requestsize', 'requestSize' ), ( 'lanenumber', 'laneNumber' ) )
-i['tl-logic'] = ( ( 'key', 'id' ), ( 'subkey', 'programID' ), ( 'phaseno', 'phaseNo' ), ( 'offset', 'offset' ), ( 'logicno', 'dismiss' ), ( 'inclanes', 'inclanes' )  )
+i['junction'] = (
+    ('inclanes', 'incLanes'), ('intlanes', 'intLanes'), ('shape', 'shape'))
+i['row-logic'] = (('key', 'id'),
+                  ('requestsize', 'requestSize'), ('lanenumber', 'laneNumber'))
+i['tl-logic'] = (('key', 'id'), ('subkey', 'programID'), ('phaseno', 'phaseNo'),
+                 ('offset', 'offset'), ('logicno', 'dismiss'), ('inclanes', 'inclanes'))
 
 # join these
-j = ( 'net-offset', 'conv-boundary', 'orig-boundary', 'orig-proj' )
+j = ('net-offset', 'conv-boundary', 'orig-boundary', 'orig-proj')
 
 
 def getBegin(file):
     fd = open(file)
-    content = "";
+    content = ""
     for line in fd:
-        if line.find("<net>")>=0:
+        if line.find("<net>") >= 0:
             fd.close()
             return content
         content = content + line
     fd.close()
     return ""
 
+
 def patchPhase(attrs):
     state = ""
     for i in range(0, len(attrs['phase'])):
         c = 'g'
-        if attrs['phase'][i]=='0':
-            if attrs['yellow'][i]=='1':
+        if attrs['phase'][i] == '0':
+            if attrs['yellow'][i] == '1':
                 c = 'y'
             else:
                 c = 'r'
-        if attrs['brake'][i]=='0':
-            if c=='y':
+        if attrs['brake'][i] == '0':
+            if c == 'y':
                 c = 'Y'
-            if c=='g':
+            if c == 'g':
                 c = 'G'
         state = c + state
     return state
 
 
 class NetConverter(handler.ContentHandler):
+
     def __init__(self, outFileName, begin):
         self._out = open(outFileName, "w")
         self._out.write(begin)
@@ -101,17 +112,18 @@ class NetConverter(handler.ContentHandler):
 
     def checkWrite(self, what, isCharacters=False):
         cp = None
-        if len(self._tree)>2:
+        if len(self._tree) > 2:
             if self._tree[-2] in i:
                 for p in i[self._tree[-2]]:
-                    if self._tree[-1]==p[0]:
+                    if self._tree[-1] == p[0]:
                         cp = p
                 if cp and isCharacters:
                     if cp[1] in self._attributes:
-                        self._attributes[cp[1]] = self._attributes[cp[1]] + what
+                        self._attributes[
+                            cp[1]] = self._attributes[cp[1]] + what
                     else:
                         self._attributes[cp[1]] = what
-        if len(self._tree)>1:
+        if len(self._tree) > 1:
             if self._tree[-1] in d:
                 cp = 1
         if not cp:
@@ -119,9 +131,8 @@ class NetConverter(handler.ContentHandler):
             if not self._skipping:
                 self._attributes = {}
 
-
     def flushStored(self, name):
-        if len(self._attributes)==0:
+        if len(self._attributes) == 0:
             return
         self._out.write("<" + name)
         for key in a[name]:
@@ -135,14 +146,12 @@ class NetConverter(handler.ContentHandler):
         else:
             self._out.write(">")
 
-
-
     def endDocument(self):
         self.checkWrite("\n")
         self._out.close()
 
     def startElement(self, name, attrs):
-        if len(self._tree)>0 and self._tree[-1] in d and d[self._tree[-1]]==name:
+        if len(self._tree) > 0 and self._tree[-1] in d and d[self._tree[-1]] == name:
             self.flushStored(self._tree[-1])
             self._out.write("\n" + self._lastChars)
         self._tree.append(name)
@@ -154,29 +163,30 @@ class NetConverter(handler.ContentHandler):
             self._attributes = {}
             for key in attrs.getNames():
                 self._attributes[key] = attrs[key]
-        elif name=="phase" and attrs.has_key('phase'):
+        elif name == "phase" and attrs.has_key('phase'):
             # patch phase definition
             state = patchPhase(attrs)
             for key in attrs.getNames():
-                if key=='phase':
+                if key == 'phase':
                     self.checkWrite(' state="' + state + '"')
-                elif key!='yellow' and key!='brake':
+                elif key != 'yellow' and key != 'brake':
                     self.checkWrite(' ' + key + '="' + attrs[key] + '"')
-        elif name=='lane' and attrs.has_key('vclasses'):
+        elif name == 'lane' and attrs.has_key('vclasses'):
             for key in a['lane']:
                 if key == 'vclasses':
                     allowed = []
                     disallowed = []
                     for clazz in attrs['vclasses'].split(";"):
-                    	if clazz:
-	                        if clazz[0] == '-':
-	                            disallowed.append(clazz[1:])
-	                        else:
-	                            allowed.append(clazz)
+                        if clazz:
+                            if clazz[0] == '-':
+                                disallowed.append(clazz[1:])
+                            else:
+                                allowed.append(clazz)
                     if allowed:
-                     	self.checkWrite(' allow="%s"' % (" ".join(allowed)))
+                        self.checkWrite(' allow="%s"' % (" ".join(allowed)))
                     if disallowed:
-                     	self.checkWrite(' disallow="%s"' % (" ".join(disallowed)))
+                        self.checkWrite(' disallow="%s"' %
+                                        (" ".join(disallowed)))
                 elif attrs.has_key(key):
                     self.checkWrite(' ' + key + '="' + attrs[key] + '"')
         else:
@@ -187,7 +197,7 @@ class NetConverter(handler.ContentHandler):
                 for key in a[name]:
                     if attrs.has_key(key):
                         self.checkWrite(' ' + key + '="' + attrs[key] + '"')
-        if (name!="lane" and name!="poly") or attrs.has_key("shape"):
+        if (name != "lane" and name != "poly") or attrs.has_key("shape"):
             if name in c:
                 self.checkWrite("/")
             self.checkWrite(">")
@@ -195,18 +205,21 @@ class NetConverter(handler.ContentHandler):
             self.checkWrite(" shape=\"")
             self._shapePatch = True
 
-
     def endElement(self, name):
         if name in d:
             if not d[name]:
                 self.flushStored(name)
             else:
                 self._out.write("\n" + self._lastChars + "</" + name + ">")
-        elif name=="orig-proj":
-            self._out.write("<location netOffset=\"" + self._attributes["net-offset"])
-            self._out.write("\" convBoundary=\"" + self._attributes["conv-boundary"])
-            self._out.write("\" origBoundary=\"" + self._attributes["orig-boundary"])
-            self._out.write("\" projParameter=\"" + self._attributes["orig-proj"])
+        elif name == "orig-proj":
+            self._out.write(
+                "<location netOffset=\"" + self._attributes["net-offset"])
+            self._out.write(
+                "\" convBoundary=\"" + self._attributes["conv-boundary"])
+            self._out.write(
+                "\" origBoundary=\"" + self._attributes["orig-boundary"])
+            self._out.write(
+                "\" projParameter=\"" + self._attributes["orig-proj"])
             self._out.write("\"/>")
             self._attributes = {}
             self._skipping = False
@@ -222,7 +235,7 @@ class NetConverter(handler.ContentHandler):
 
     def characters(self, content):
         if self._skipping:
-            if content.strip()!="":
+            if content.strip() != "":
                 e = self._tree[-1]
                 if e in self._attributes:
                     self._attributes[e] = self._attributes[e] + content
@@ -231,17 +244,15 @@ class NetConverter(handler.ContentHandler):
             return
         self._lastChars = content
         self.checkWrite(content, True)
-                    
+
     def ignorableWhitespace(self, content):
         self.checkWrite(content)
-        
+
     def skippedEntity(self, content):
         self.checkWrite(content)
-        
+
     def processingInstruction(self, target, data):
         self.checkWrite('<?%s %s?>' % (target, data))
-
-
 
 
 if len(sys.argv) < 2:
@@ -249,7 +260,6 @@ if len(sys.argv) < 2:
     sys.exit()
 beg = getBegin(sys.argv[1])
 parser = make_parser()
-net = NetConverter(sys.argv[1]+".chg", beg)
+net = NetConverter(sys.argv[1] + ".chg", beg)
 parser.setContentHandler(net)
 parser.parse(sys.argv[1])
-

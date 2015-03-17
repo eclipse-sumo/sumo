@@ -19,7 +19,8 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,sys
+import os
+import sys
 from collections import defaultdict
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from sumolib.output import parse, parse_fast
@@ -34,10 +35,12 @@ for walk in parse_fast(route_file, 'walk', ['edges']):
 # warn about potentially missing edges
 for trip in parse_fast(route_file, 'trip', ['id', 'from', 'to']):
     edges.update([trip.attr_from, trip.to])
-    print("Warning: Trip %s is not guaranteed to be connected within the extacted edges." % trip.id)
+    print(
+        "Warning: Trip %s is not guaranteed to be connected within the extacted edges." % trip.id)
 for walk in parse_fast(route_file, 'walk', ['from', 'to']):
     edges.update([walk.attr_from, walk.to])
-    print("Warning: Walk from %s to %s is not guaranteed to be connected within the extacted edges." % (walk.attr_from, walk.to))
+    print("Warning: Walk from %s to %s is not guaranteed to be connected within the extacted edges." % (
+        walk.attr_from, walk.to))
 
 with open(keep_file, 'w') as outf:
     outf.write(','.join(edges) + '\n')

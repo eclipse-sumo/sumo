@@ -19,18 +19,25 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, string, sys, datetime, math, operator
+import os
+import string
+import sys
+import datetime
+import math
+import operator
 from xml.sax import saxutils, make_parser, handler
 from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase
 from dijkstra import dijkstraPlain, dijkstraBoost, dijkstra
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
-# Net class stores the network (vertex and edge collection). 
+# Net class stores the network (vertex and edge collection).
 # Moreover, the methods for finding k shortest paths and for generating vehicular releasing times
 #  are also in this class.
 
+
 class Net(sumolib.net.Net):
+
     def __init__(self):
         sumolib.net.Net.__init__(self)
         self._startVertices = []
@@ -38,7 +45,7 @@ class Net(sumolib.net.Net):
         self._paths = {}
         self._detectedLinkCounts = 0.
         self._detectedEdges = []
-        
+
     def addNode(self, id, type=None, coord=None, incLanes=None):
         if id not in self._id2node:
             node = Vertex(id, coord, incLanes)
@@ -46,7 +53,7 @@ class Net(sumolib.net.Net):
             self._id2node[id] = node
         self.setAdditionalNodeInfo(self._id2node[id], type, coord, incLanes)
         return self._id2node[id]
-    
+
     def addEdge(self, id, fromID, toID, prio, function, name):
         if id not in self._id2edge:
             fromN = self.addNode(fromID)
@@ -70,39 +77,39 @@ class Net(sumolib.net.Net):
             self._paths[startVertex] = {}
             for endVertex in self._endVertices:
                 self._paths[startVertex][endVertex] = []
-    
+
     def cleanPathSet(self):
         for startVertex in self._startVertices:
             for endVertex in self._endVertices:
                 self._paths[startVertex][endVertex] = []
-                
+
     def addTLJunctions(self, junctionObj):
         self._junctions[junctionObj.label] = junctionObj
-        
+
     def getJunction(self, junctionlabel):
         junctionObj = None
         if junctionlabel in self._junctions:
             junctionObj = self._junctions[junctionlabel]
         return junctionObj
-        
+
     def getstartCounts(self):
         return len(self._startVertices)
-        
+
     def getendCounts(self):
         return len(self._endVertices)
-        
+
     def getstartVertices(self):
         return self._startVertices
-        
+
     def getendVertices(self):
         return self._endVertices
-        
+
     def geteffEdgeCounts(self):
         return len(self._edges)
-        
+
     def getfullEdgeCounts(self):
         return len(self._fullEdges)
-        
+
     def reduce(self):
         visited = set()
         for link in self._edges.itervalues():
@@ -159,7 +166,8 @@ class Net(sumolib.net.Net):
         self._boostGraph.add_vertex_property('distance')
         self._boostGraph.add_vertex_property('predecessor')
         for edge in self._fullEdges.itervalues():
-            edge.boost = self._boostGraph.add_edge(edge.source.boost, edge.target.boost)
+            edge.boost = self._boostGraph.add_edge(
+                edge.source.boost, edge.target.boost)
             edge.boost.weight = edge.actualtime
 
     def checkSmallDiff(self, ODPaths, helpPath, helpPathSet, pathcost):
@@ -171,12 +179,12 @@ class Net(sumolib.net.Net):
                 sameTravelTime = 0.0
                 for edge in path.edges:
                     if edge in helpPathSet:
-                        sameEdgeCount += 1 
+                        sameEdgeCount += 1
                         sameTravelTime += edge.actualtime
-                if abs(sameEdgeCount - len(path.edges))/len(path.edges) <= 0.1 and abs(sameTravelTime/3600. - pathcost) <= 0.05:
+                if abs(sameEdgeCount - len(path.edges)) / len(path.edges) <= 0.1 and abs(sameTravelTime / 3600. - pathcost) <= 0.05:
                     return False, True
         return True, False
-                        
+
     def findNewPath(self, startVertices, endVertices, newRoutes, matrixPshort, gamma, lohse, dk):
         """
         This method finds the new paths for all OD pairs.
@@ -189,28 +197,29 @@ class Net(sumolib.net.Net):
                 if startVertex._id != endVertex._id and matrixPshort[start][end] > 0.:
                     endSet.add(endVertex)
             if dk == 'boost':
-                D,P = dijkstraBoost(self._boostGraph, startVertex.boost)
-            elif dk == 'plain':          
-                D,P = dijkstraPlain(startVertex, endSet)
+                D, P = dijkstraBoost(self._boostGraph, startVertex.boost)
+            elif dk == 'plain':
+                D, P = dijkstraPlain(startVertex, endSet)
             elif dk == 'extend':
-                D,P = dijkstra(startVertex, endSet)
+                D, P = dijkstra(startVertex, endSet)
             for end, endVertex in enumerate(endVertices):
                 if startVertex._id != endVertex._id and matrixPshort[start][end] > 0.:
                     helpPath = []
                     helpPathSet = set()
-                    pathcost = D[endVertex]/3600.
+                    pathcost = D[endVertex] / 3600.
                     ODPaths = self._paths[startVertex][endVertex]
                     for path in ODPaths:
                         path.currentshortest = False
-                        
+
                     vertex = endVertex
                     while vertex != startVertex:
                         helpPath.append(P[vertex])
                         helpPathSet.add(P[vertex])
                         vertex = P[vertex]._from
                     helpPath.reverse()
-    
-                    newPath, smallDiffPath = self.checkSmallDiff(ODPaths, helpPath, helpPathSet, pathcost)
+
+                    newPath, smallDiffPath = self.checkSmallDiff(
+                        ODPaths, helpPath, helpPathSet, pathcost)
 
                     if newPath:
                         newpath = Path(startVertex, endVertex, helpPath)
@@ -218,12 +227,12 @@ class Net(sumolib.net.Net):
                         newpath.getPathLength()
                         for route in ODPaths:
                             route.updateSumOverlap(newpath, gamma)
-                        if len(ODPaths)> 1:
+                        if len(ODPaths) > 1:
                             for route in ODPaths[:-1]:
                                 newpath.updateSumOverlap(route, gamma)
                         if lohse:
                             newpath.pathhelpacttime = pathcost
-                        else:    
+                        else:
                             newpath.actpathtime = pathcost
                         for edge in newpath.edges:
                             newpath.freepathtime += edge.freeflowtime
@@ -257,7 +266,7 @@ class Net(sumolib.net.Net):
                 for edge in vertex.getOutgoing():
                     if edge._to != startVertex and edge._to.update(kPaths, edge):
                         updatedVertices.append(edge._to)
-    
+
             for end, endVertex in enumerate(endVertices):
                 ODPaths = self._paths[startVertex][endVertex]
                 if startVertex._id != endVertex._id and matrixPshort[start][end] != 0.:
@@ -271,10 +280,11 @@ class Net(sumolib.net.Net):
                             temppathcost += pred.edge.freeflowtime
                             vertex = pred.edge._from
                             pred = pred.pred
-                        
+
                         if len(ODPaths) > 0:
-                            minpath = min(ODPaths, key=operator.attrgetter('freepathtime'))
-                            if minpath.freepathtime*1.4 < temppathcost/3600.:
+                            minpath = min(
+                                ODPaths, key=operator.attrgetter('freepathtime'))
+                            if minpath.freepathtime * 1.4 < temppathcost / 3600.:
                                 break
                         temppath.reverse()
                         newpath = Path(startVertex, endVertex, temppath)
@@ -282,64 +292,74 @@ class Net(sumolib.net.Net):
                         ODPaths.append(newpath)
                         for route in ODPaths:
                             route.updateSumOverlap(newpath, gamma)
-                        if len(ODPaths)> 1:
+                        if len(ODPaths) > 1:
                             for route in ODPaths[:-1]:
                                 newpath.updateSumOverlap(route, gamma)
-                        newpath.freepathtime = temppathcost/3600.
+                        newpath.freepathtime = temppathcost / 3600.
                         newpath.actpathtime = newpath.freepathtime
                         newRoutes += 1
                         if verbose:
-                            foutkpath.write('    <path id="%s" source="%s" target="%s" pathcost="%s">\n' %(newpath.label, newpath.source, newpath.target, newpath.actpathtime))
+                            foutkpath.write('    <path id="%s" source="%s" target="%s" pathcost="%s">\n' % (
+                                newpath.label, newpath.source, newpath.target, newpath.actpathtime))
                             foutkpath.write('        <route>')
                             for edge in newpath.edges[1:-1]:
-                                foutkpath.write('%s ' %edge.label)
+                                foutkpath.write('%s ' % edge.label)
                             foutkpath.write('</route>\n')
                             foutkpath.write('    </path>\n')
         if verbose:
             foutkpath.write('</routes>\n')
             foutkpath.close()
-            
+
         return newRoutes
 
     def printNet(self, foutnet):
-        foutnet.write('Name\t Kind\t FrNode\t ToNode\t length\t MaxSpeed\t Lanes\t CR-Curve\t EstCap.\t Free-Flow TT\t ratio\t Connection\n')
+        foutnet.write(
+            'Name\t Kind\t FrNode\t ToNode\t length\t MaxSpeed\t Lanes\t CR-Curve\t EstCap.\t Free-Flow TT\t ratio\t Connection\n')
         for edgeName, edgeObj in self._edges.iteritems():
             foutnet.write('%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %d\n'
-            %(edgeName, edgeObj.kind, edgeObj.source, edgeObj.target, edgeObj.length, 
-              edgeObj.maxspeed, edgeObj.numberlane, edgeObj.CRcurve, edgeObj.estcapacity, edgeObj.freeflowtime, edgeObj.ratio, edgeObj.connection))
+                          % (edgeName, edgeObj.kind, edgeObj.source, edgeObj.target, edgeObj.length,
+                             edgeObj.maxspeed, edgeObj.numberlane, edgeObj.CRcurve, edgeObj.estcapacity, edgeObj.freeflowtime, edgeObj.ratio, edgeObj.connection))
 
 
 class DistrictsReader(handler.ContentHandler):
+
     """The class is for parsing the XML input file (districts).
        The data parsed is written into the net.
     """
+
     def __init__(self, net):
         self._net = net
         self._node = None
         self.I = 100
 
     def startElement(self, name, attrs):
-        if name=='taz':
+        if name == 'taz':
             self._node = self._net.addNode(attrs['id'])
             self._net._startVertices.append(self._node)
             self._net._endVertices.append(self._node)
-        elif name=='tazSink':
+        elif name == 'tazSink':
             sinklink = self._net.getEdge(attrs['id'])
             self.I += 1
-            newEdge = self._net.addEdge(self._node._id + str(self.I), sinklink._to._id, self._node._id, -1, "connector", "")
+            newEdge = self._net.addEdge(
+                self._node._id + str(self.I), sinklink._to._id, self._node._id, -1, "connector", "")
             newEdge._length = 0.
             newEdge.ratio = attrs['weight']
             newEdge.connection = 1
-        elif name=='tazSource':
+        elif name == 'tazSource':
             sourcelink = self._net.getEdge(attrs['id'])
             self.I += 1
-            newEdge = self._net.addEdge(self._node._id + str(self.I), self._node._id, sourcelink._from._id, -1, "connector", "")
+            newEdge = self._net.addEdge(
+                self._node._id + str(self.I), self._node._id, sourcelink._from._id, -1, "connector", "")
             newEdge._length = 0.
             newEdge.ratio = attrs['weight']
             newEdge.connection = 2
 
-## This class is for parsing the additional/updated information about singal timing plans
+# This class is for parsing the additional/updated information about
+# singal timing plans
+
+
 class ExtraSignalInformationReader(handler.ContentHandler):
+
     def __init__(self, net):
         self._net = net
         self._junctionObj = None
@@ -363,14 +383,16 @@ class ExtraSignalInformationReader(handler.ContentHandler):
                 self._phasenoInfo = False
         elif name == 'phase':
             if attrs.has_key('state'):
-                self._newphase = Signalphase(float(attrs['duration']), attrs['state'])
+                self._newphase = Signalphase(
+                    float(attrs['duration']), attrs['state'])
             else:
-                self._newphase = Signalphase(float(attrs['duration']), None, attrs['phase'], attrs['brake'], attrs['yellow'])
+                self._newphase = Signalphase(
+                    float(attrs['duration']), None, attrs['phase'], attrs['brake'], attrs['yellow'])
             if self._junctionObj:
                 self._junctionObj.phases.append(self._newphase)
                 self._counter += 1
                 self._newphase.label = self._counter
-      
+
     def characters(self, content):
         self._chars += content
 
@@ -396,7 +418,9 @@ class ExtraSignalInformationReader(handler.ContentHandler):
             self._junctionObj.label = None
             self._junctionObj = None
 
+
 class DetectedFlowsReader(handler.ContentHandler):
+
     def __init__(self, net):
         self._net = net
         self._edge = ''
@@ -404,7 +428,7 @@ class DetectedFlowsReader(handler.ContentHandler):
         self._detectorcounts = 0.
         self._renew = False
         self._skip = False
-    
+
     def startElement(self, name, attrs):
         if name == 'edge':
             if self._edge != '' and self._edge == attrs['id']:
@@ -417,18 +441,20 @@ class DetectedFlowsReader(handler.ContentHandler):
                 self._edge = attrs['id']
                 self._edgeObj = self._net.getEdge(self._edge)
                 self._edgeObj.detectorNum = float(attrs['detectors'])
-             
+
         elif name == 'flows':
             if self._renew == True:
                 self._newdata.label = attrs['weekday-time']
                 self._newdata.flowPger = float(attrs['passengercars'])
                 self._newdawta.flowTruck = float(attrs['truckflows'])
-    
+
             else:
                 if not self._skip:
-                    self._newdata = DetectedFlows(attrs['weekday-time'], float(attrs['passengercars']), float(attrs['truckflows']))
-                    self._edgeObj.detecteddata[self._newdata.label]= self._newdata
-                
+                    self._newdata = DetectedFlows(
+                        attrs['weekday-time'], float(attrs['passengercars']), float(attrs['truckflows']))
+                    self._edgeObj.detecteddata[
+                        self._newdata.label] = self._newdata
+
     def endElement(self, name):
         if name == 'edge':
             self._renew = False

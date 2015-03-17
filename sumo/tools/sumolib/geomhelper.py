@@ -21,10 +21,11 @@ import math
 
 INVALID_DISTANCE = -1
 
+
 def distance(p1, p2):
-  dx = p1[0]-p2[0]
-  dy = p1[1]-p2[1]
-  return math.sqrt(dx*dx + dy*dy)
+    dx = p1[0] - p2[0]
+    dy = p1[1] - p2[1]
+    return math.sqrt(dx * dx + dy * dy)
 
 
 def lineOffsetWithMinimumDistanceToPoint(point, line_start, line_end, perpendicular=False):
@@ -51,22 +52,27 @@ def polygonOffsetWithMinimumDistanceToPoint(point, polygon, perpendicular=False)
     seen = 0
     minDist = 1e400
     minOffset = INVALID_DISTANCE
-    for i in range(len(s)-1):
-        pos = lineOffsetWithMinimumDistanceToPoint(p, s[i], s[i+1], perpendicular)
-        dist = minDist if pos == INVALID_DISTANCE else distance(p, positionAtOffset(s[i], s[i+1], pos))
+    for i in range(len(s) - 1):
+        pos = lineOffsetWithMinimumDistanceToPoint(
+            p, s[i], s[i + 1], perpendicular)
+        dist = minDist if pos == INVALID_DISTANCE else distance(
+            p, positionAtOffset(s[i], s[i + 1], pos))
         if dist < minDist:
             minDist = dist
             minOffset = pos + seen
         if perpendicular and i != 0 and pos == INVALID_DISTANCE:
-            #even if perpendicular is set we still need to check the distance to the inner points
+            # even if perpendicular is set we still need to check the distance
+            # to the inner points
             cornerDist = distance(p, s[i])
             if cornerDist < minDist:
-                pos1 = lineOffsetWithMinimumDistanceToPoint(p, s[i-1], s[i], False);
-                pos2 = lineOffsetWithMinimumDistanceToPoint(p, s[i], s[i+1], False);
-                if pos1 == distance(s[i-1], s[i]) and pos2 == 0.:
+                pos1 = lineOffsetWithMinimumDistanceToPoint(
+                    p, s[i - 1], s[i], False)
+                pos2 = lineOffsetWithMinimumDistanceToPoint(
+                    p, s[i], s[i + 1], False)
+                if pos1 == distance(s[i - 1], s[i]) and pos2 == 0.:
                     minOffset = seen
                     minDist = cornerDist
-        seen += distance(s[i], s[i+1])
+        seen += distance(s[i], s[i + 1])
     return minOffset
 
 
@@ -74,13 +80,14 @@ def distancePointToLine(point, line_start, line_end, perpendicular=False):
     """Return the minimum distance between point and the line (line_start, line_end)"""
     p1 = line_start
     p2 = line_end
-    offset = lineOffsetWithMinimumDistanceToPoint(point, line_start, line_end, perpendicular)
-    if offset == INVALID_DISTANCE: 
+    offset = lineOffsetWithMinimumDistanceToPoint(
+        point, line_start, line_end, perpendicular)
+    if offset == INVALID_DISTANCE:
         return INVALID_DISTANCE
     if offset == 0:
         return distance(point, p1)
     u = offset / distance(line_start, line_end)
-    intersection = (p1[0] + u*(p2[0]-p1[0]), p1[1] + u*(p2[1]-p1[1]))
+    intersection = (p1[0] + u * (p2[0] - p1[0]), p1[1] + u * (p2[1] - p1[1]))
     return distance(point, intersection)
 
 
@@ -89,9 +96,9 @@ def distancePointToPolygon(point, polygon, perpendicular=False):
     p = point
     s = polygon
     minDist = None
-    for i in range(0, len(s)-1):
-        dist = distancePointToLine(p, s[i], s[i+1], perpendicular)
-        if dist == INVALID_DISTANCE and perpendicular and i != 0: 
+    for i in range(0, len(s) - 1):
+        dist = distancePointToLine(p, s[i], s[i + 1], perpendicular)
+        if dist == INVALID_DISTANCE and perpendicular and i != 0:
             # distance to inner corner
             dist = distance(point, s[i])
         if dist != INVALID_DISTANCE:

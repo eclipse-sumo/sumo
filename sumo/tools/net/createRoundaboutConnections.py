@@ -21,29 +21,32 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-import os, sys
+import os
+import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
+
 
 def writeConnections(net):
     fd = open("roundabout-connection.con.xml", "w")
     fd.write("<connections>\n")
     for ra in net.getRoundabouts():
         for node in ra.getNodes():
-            edgesOut= net.getNode(node)._outgoing
-            edgesIn= net.getNode(node)._incoming
+            edgesOut = net.getNode(node)._outgoing
+            edgesIn = net.getNode(node)._incoming
             for edgeOut in edgesOut:
-                outNumber= edgeOut.getLaneNumber() 
+                outNumber = edgeOut.getLaneNumber()
                 for edgeIn in edgesIn:
                     if not edgeOut in edgeIn._outgoing:
                         continue
-                    inNumber= edgeIn.getLaneNumber() 
+                    inNumber = edgeIn.getLaneNumber()
                     for x in range(inNumber):
                         if x < inNumber and x < outNumber:
-                            fd.write("   <connection from=\"" +str(edgeIn._id)+ "\" to=\"" + str(edgeOut._id)+ "\" lane=\""+ str(x) +":"+ str(x) +"\" />\n")
+                            fd.write("   <connection from=\"" + str(edgeIn._id) + "\" to=\"" + str(
+                                edgeOut._id) + "\" lane=\"" + str(x) + ":" + str(x) + "\" />\n")
     fd.write("</connections>\n")
 
-    
+
 if len(sys.argv) < 2:
     print "Usage: " + sys.argv[0] + " <net>"
     sys.exit()

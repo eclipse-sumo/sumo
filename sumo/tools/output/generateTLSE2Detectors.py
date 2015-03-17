@@ -27,16 +27,19 @@ import xml.dom.minidom
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
+
 def get_net_file_directory(net_file):
     """ Returns the directory containing the net file given. """
 
     dirname = os.path.split(net_file)[0]
     return dirname
 
+
 def open_detector_file(destination_dir, detector_file_name):
     """ Opens a new detector file in given directory. """
 
     return open(os.path.join(destination_dir, detector_file_name), "w")
+
 
 def adjust_detector_length(requested_detector_length,
                            requested_distance_to_tls,
@@ -47,7 +50,7 @@ def adjust_detector_length(requested_detector_length,
         If requested detector length is negative, the resulting detector length
         will match the distance between requested distance to TLS and lane
         beginning.
-        
+
 
         If the requested detector length is positive, it will be adjusted
         according to the end of lane ending with TLS: the resulting length
@@ -58,9 +61,10 @@ def adjust_detector_length(requested_detector_length,
 
     if requested_detector_length == -1:
         return lane_length - requested_distance_to_tls
-        
+
     return min(lane_length - requested_distance_to_tls,
                requested_detector_length)
+
 
 def adjust_detector_position(final_detector_length,
                              requested_distance_to_tls,
@@ -72,8 +76,8 @@ def adjust_detector_position(final_detector_length,
         and requested distance to TLS into accout). """
 
     return max(0,
-        lane_length - final_detector_length - requested_distance_to_tls)
-      
+               lane_length - final_detector_length - requested_distance_to_tls)
+
 if __name__ == "__main__":
     # pylint: disable-msg=C0103
 
@@ -81,40 +85,40 @@ if __name__ == "__main__":
 
     option_parser = optparse.OptionParser()
     option_parser.add_option("-n", "--net-file",
-                         dest="net_file",
-                         help="Network file to work with. Mandatory.",
-                         type="string")
+                             dest="net_file",
+                             help="Network file to work with. Mandatory.",
+                             type="string")
     option_parser.add_option("-l", "--detector-length",
-                         dest="requested_detector_length",
-                         help="Length of the detector in meters "
-                              "(-1 for maximal length).",
-                         type="int",
-                         default=250)
+                             dest="requested_detector_length",
+                             help="Length of the detector in meters "
+                             "(-1 for maximal length).",
+                             type="int",
+                             default=250)
     option_parser.add_option("-d", "--distance-to-TLS",
-                         dest="requested_distance_to_tls",
-                         help="Distance of the detector to the traffic "
-                              "light in meters. Defaults to 0.1m.",
-                         type="float",
-                         default=.1)
+                             dest="requested_distance_to_tls",
+                             help="Distance of the detector to the traffic "
+                             "light in meters. Defaults to 0.1m.",
+                             type="float",
+                             default=.1)
     option_parser.add_option("-f", "--frequency",
-                         dest="frequency",
-                         help="Detector's frequency. Defaults to 60.",
-                         type="int",
-                         default=60)
+                             dest="frequency",
+                             help="Detector's frequency. Defaults to 60.",
+                             type="int",
+                             default=60)
     option_parser.add_option("-o", "--output",
-                         dest="output",
-                         help="The name of the file to write the detector "
-                              "definitions into. Defaults to e2.add.xml.",
-                         type="string",
-                         default="e2.add.xml")
+                             dest="output",
+                             help="The name of the file to write the detector "
+                             "definitions into. Defaults to e2.add.xml.",
+                             type="string",
+                             default="e2.add.xml")
     option_parser.add_option("-r", "--results-file",
-                         dest="results",
-                         help="The name of the file the detectors write "
-                              "their output into. Defaults to e2output.xml.",
-                         type="string",
-                         default="e2output.xml")
+                             dest="results",
+                             help="The name of the file the detectors write "
+                             "their output into. Defaults to e2output.xml.",
+                             type="string",
+                             default="e2output.xml")
     option_parser.set_usage("generateTLSE2Detectors.py -n example.net.xml "
-                        "-l 250 -d .1 -f 60")
+                            "-l 250 -d .1 -f 60")
 
     (options, args) = option_parser.parse_args()
     if not options.net_file:
@@ -124,7 +128,7 @@ if __name__ == "__main__":
 
     logging.info("Reading net...")
     net = sumolib.net.readNet(options.net_file)
-    
+
     logging.info("Generating detectors...")
     detectors_xml = xml.dom.minidom.Element("additional")
     lanes_with_detectors = set()
@@ -133,13 +137,13 @@ if __name__ == "__main__":
             lane = connection[0]
             lane_length = lane.getLength()
             lane_id = lane.getID()
-            
+
             logging.debug("Creating detector for lane %s" % (str(lane_id)))
 
             if lane_id in lanes_with_detectors:
                 logging.warn("Detector for lane %s already generated" %
-                    (str(lane_id)))
-                continue           
+                             (str(lane_id)))
+                continue
 
             lanes_with_detectors.add(lane_id)
 
@@ -170,4 +174,3 @@ if __name__ == "__main__":
     detector_file.close()
 
     logging.info("%d e2 detectors generated!" % len(lanes_with_detectors))
-

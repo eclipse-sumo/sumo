@@ -510,7 +510,7 @@ GUISUMOAbstractView::centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist) {
             myChanger->setViewport(o->getCenteringBoundary());
             update(); // only update when centering onto an object once
         } else {
-            // called during tracking. update is triggered somewhere else 
+            // called during tracking. update is triggered somewhere else
             myChanger->centerTo(o->getCenteringBoundary().getCenter(), zoomDist, applyZoom);
         }
     }
@@ -919,7 +919,7 @@ GUISUMOAbstractView::showViewschemeEditor() {
     myVisualizationChanger->show();
 }
 
-GUIDialog_EditViewport* 
+GUIDialog_EditViewport*
 GUISUMOAbstractView::getViewportEditor() {
     if (myViewportChooser == 0) {
         myViewportChooser =
@@ -1141,7 +1141,7 @@ GUISUMOAbstractView::applyGLTransform(bool fixRatio) {
 }
 
 
-SUMOReal 
+SUMOReal
 GUISUMOAbstractView::getDelay() const {
     return myApp->getDelay();
 }

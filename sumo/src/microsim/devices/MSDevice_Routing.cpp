@@ -295,7 +295,7 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
             dev.closeTag();
         }
         dev.closeTag();
-    } 
+    }
     return myAdaptationInterval;
 }
 

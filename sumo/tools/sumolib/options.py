@@ -18,7 +18,8 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys
+import os
+import sys
 import subprocess
 from collections import namedtuple
 import re
@@ -26,12 +27,12 @@ from xml.sax import parse, handler
 
 
 def get_long_option_names(application):
-    # using option --save-template and parsing xml would be prettier 
+    # using option --save-template and parsing xml would be prettier
     # but we do not want to rely on a temporary file
-    output,error = subprocess.Popen(
-            [application, '--help'], 
-            stdout=subprocess.PIPE, 
-            stderr=subprocess.PIPE).communicate()
+    output, error = subprocess.Popen(
+        [application, '--help'],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE).communicate()
     reprog = re.compile('(--\S*)\s')
     result = []
     for line in output.split(os.linesep):
@@ -42,15 +43,19 @@ def get_long_option_names(application):
 
 
 Option = namedtuple("Option", ["name", "value", "type", "help"])
+
+
 class OptionReader(handler.ContentHandler):
+
     """Reads an option file"""
+
     def __init__(self):
-        self.opts = [] 
+        self.opts = []
 
     def startElement(self, name, attrs):
         if attrs.has_key('value'):
             self.opts.append(
-                    Option(name, attrs['value'], attrs.get('type'), attrs.get('help')))
+                Option(name, attrs['value'], attrs.get('type'), attrs.get('help')))
 
 
 def readOptions(filename):
@@ -64,5 +69,3 @@ def readOptions(filename):
         print("Invalid option file '%s'" % filename, file=sys.stderr)
         sys.exit(1)
     return optionReader.opts
-
-

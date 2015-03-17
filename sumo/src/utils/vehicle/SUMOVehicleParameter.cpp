@@ -257,11 +257,11 @@ SUMOVehicleParameter::writeStops(OutputDevice& dev) const {
         dev.openTag(SUMO_TAG_STOP);
         if (stop->busstop != "") {
             dev.writeAttr(SUMO_ATTR_BUS_STOP, stop->busstop);
-        } 
+        }
         if (stop->containerstop != "") {
             dev.writeAttr(SUMO_ATTR_CONTAINER_STOP, stop->containerstop);
         }
-        if (stop->busstop == "" && stop->containerstop == ""){
+        if (stop->busstop == "" && stop->containerstop == "") {
             dev.writeAttr(SUMO_ATTR_LANE, stop->lane);
             if ((stop->setParameter & STOP_START_SET) != 0) {
                 dev.writeAttr(SUMO_ATTR_STARTPOS, stop->startPos);

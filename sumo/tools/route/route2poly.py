@@ -27,30 +27,38 @@ from sumolib.output import parse
 from sumolib.net import readNet
 from sumolib.miscutils import Colorgen
 
+
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <netfile> <routefile> [options]"
     optParser = OptionParser()
     optParser.add_option("-o", "--outfile", help="name of output file")
-    optParser.add_option("-u", "--hue", default="random", help="hue for polygons (float from [0,1] or 'random')")
-    optParser.add_option("-s", "--saturation", default=1, help="saturation for polygons (float from [0,1] or 'random')")
-    optParser.add_option("-b", "--brightness", default=1, help="brightness for polygons (float from [0,1] or 'random')")
-    optParser.add_option("-l", "--layer", default=100, help="layer for generated polygons")
+    optParser.add_option("-u", "--hue", default="random",
+                         help="hue for polygons (float from [0,1] or 'random')")
+    optParser.add_option("-s", "--saturation", default=1,
+                         help="saturation for polygons (float from [0,1] or 'random')")
+    optParser.add_option("-b", "--brightness", default=1,
+                         help="brightness for polygons (float from [0,1] or 'random')")
+    optParser.add_option(
+        "-l", "--layer", default=100, help="layer for generated polygons")
     options, args = optParser.parse_args()
     try:
         options.net, options.routefile = args
-        options.colorgen = Colorgen((options.hue, options.saturation, options.brightness))
+        options.colorgen = Colorgen(
+            (options.hue, options.saturation, options.brightness))
     except:
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefile + ".poly.xml"
-    return options 
+    return options
 
 
 def generate_poly(net, id, color, layer, edges, outf):
-    shape = list(itertools.chain(*list(net.getEdge(e).getShape() for e in edges))) 
-    shapeString = ' '.join('%s,%s' % (x,y) for x,y in shape)
+    shape = list(itertools.chain(*list(net.getEdge(e).getShape()
+                                       for e in edges)))
+    shapeString = ' '.join('%s,%s' % (x, y) for x, y in shape)
     outf.write('<poly id="%s" color="%s" layer="%s" type="route" shape="%s"/>\n' % (
         id, color, layer, shapeString))
+
 
 def main():
     options = parse_args()
@@ -58,7 +66,8 @@ def main():
     with open(options.outfile, 'w') as outf:
         outf.write('<polygons>\n')
         for vehicle in parse(options.routefile, 'vehicle'):
-            generate_poly(net, vehicle.id, options.colorgen(), options.layer, vehicle.route[0].edges.split(), outf)
+            generate_poly(net, vehicle.id, options.colorgen(),
+                          options.layer, vehicle.route[0].edges.split(), outf)
         outf.write('</polygons>\n')
 
 if __name__ == "__main__":

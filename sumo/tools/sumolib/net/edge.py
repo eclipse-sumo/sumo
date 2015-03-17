@@ -21,7 +21,9 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from connection import Connection
 
+
 class Edge:
+
     """ Edges from a sumo network """
 
     def __init__(self, id, fromN, toN, prio, function, name):
@@ -88,12 +90,14 @@ class Edge:
     def getShape(self, includeJunctions=False):
         if not self._shape:
             if self._cachedShapeWithJunctions == None:
-                self._cachedShapeWithJunctions = [self._from._coord, self._to._coord]
+                self._cachedShapeWithJunctions = [
+                    self._from._coord, self._to._coord]
             return self._cachedShapeWithJunctions
         if includeJunctions:
             if self._cachedShapeWithJunctions == None:
                 if self._from._coord != self._shape[0]:
-                    self._cachedShapeWithJunctions = [self._from._coord] + self._shape
+                    self._cachedShapeWithJunctions = [
+                        self._from._coord] + self._shape
                 else:
                     self._cachedShapeWithJunctions = list(self._shape)
                 if self._to._coord != self._shape[-1]:
@@ -129,13 +133,13 @@ class Edge:
 
     def rebuildShape(self):
         noShapes = len(self._lanes)
-        if noShapes%2 == 1:
-            self.setShape(self._lanes[int(noShapes/2)]._shape)
+        if noShapes % 2 == 1:
+            self.setShape(self._lanes[int(noShapes / 2)]._shape)
         else:
             shape = []
             minLen = -1
             for l in self._lanes:
-                if minLen==-1 or minLen>len(l.getShape()):
+                if minLen == -1 or minLen > len(l.getShape()):
                     minLen = len(l._shape)
             for i in range(0, minLen):
                 x = 0.
@@ -145,14 +149,14 @@ class Edge:
                     y = y + self._lanes[j]._shape[i][1]
                 x = x / float(len(self._lanes))
                 y = y / float(len(self._lanes))
-                shape.append( [ x, y ] )
+                shape.append([x, y])
             self.setShape(shape)
 
     def getLength(self):
-         return self._lanes[0].getLength()
+        return self._lanes[0].getLength()
 
     def setTLS(self, tls):
-         self._tls = tls
+        self._tls = tls
 
     def getFromNode(self):
         return self._from

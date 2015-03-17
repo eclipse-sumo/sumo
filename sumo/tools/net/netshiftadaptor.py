@@ -30,6 +30,7 @@ the Free Software Foundation; either version 3 of the License, or
 
 
 class NetShiftAdaptor:
+
     def __init__(self, net1, net2, nodes1, nodes2):
         self._net1 = net1
         self._net2 = net2
@@ -51,25 +52,29 @@ class NetShiftAdaptor:
         y22 = self._net2._id2node[self._nodes2[1]]._coord[1]
         x23 = self._net2._id2node[self._nodes2[2]]._coord[0]
         y23 = self._net2._id2node[self._nodes2[2]]._coord[1]
-        b0 =  (x22 - x21) * (y23 - y21) - (x23 - x21) * (y22 - y21)
+        b0 = (x22 - x21) * (y23 - y21) - (x23 - x21) * (y22 - y21)
         for n in self._net2._nodes:
             x0 = n._coord[0]
             y0 = n._coord[1]
-            b1 = ((x22 - x0)  * (y23 - y0)  - (x23 - x0)  * (y22 - y0)) / b0
-            b2 = ((x23 - x0)  * (y21 - y0)  - (x21 - x0)  * (y23 - y0)) / b0
-            b3 = ((x21 - x0)  * (y22 - y0)  - (x22 - x0)  * (y21 - y0)) / b0
-            n._coord = (b1 * x11 + b2 * x12 + b3 * x13, b1 * y11 + b2 * y12 + b3 * y13)
+            b1 = ((x22 - x0) * (y23 - y0) - (x23 - x0) * (y22 - y0)) / b0
+            b2 = ((x23 - x0) * (y21 - y0) - (x21 - x0) * (y23 - y0)) / b0
+            b3 = ((x21 - x0) * (y22 - y0) - (x22 - x0) * (y21 - y0)) / b0
+            n._coord = (
+                b1 * x11 + b2 * x12 + b3 * x13, b1 * y11 + b2 * y12 + b3 * y13)
         for e in self._net2._edges:
             for l in e._lanes:
                 shape = []
                 for p in l._shape:
                     x0 = p[0]
                     y0 = p[1]
-                    b1 = ((x22 - x0)  * (y23 - y0)  - (x23 - x0)  * (y22 - y0)) / b0
-                    b2 = ((x23 - x0)  * (y21 - y0)  - (x21 - x0)  * (y23 - y0)) / b0
-                    b3 = ((x21 - x0)  * (y22 - y0)  - (x22 - x0)  * (y21 - y0)) / b0
-                    x = (b1 * x11 + b2 * x12 + b3 * x13);
-                    y = (b1 * y11 + b2 * y12 + b3 * y13);
-                    shape.append( (x,y) )
+                    b1 = (
+                        (x22 - x0) * (y23 - y0) - (x23 - x0) * (y22 - y0)) / b0
+                    b2 = (
+                        (x23 - x0) * (y21 - y0) - (x21 - x0) * (y23 - y0)) / b0
+                    b3 = (
+                        (x21 - x0) * (y22 - y0) - (x22 - x0) * (y21 - y0)) / b0
+                    x = (b1 * x11 + b2 * x12 + b3 * x13)
+                    y = (b1 * y11 + b2 * y12 + b3 * y13)
+                    shape.append((x, y))
                 l._shape = shape
             e.rebuildShape()

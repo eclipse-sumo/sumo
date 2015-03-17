@@ -212,7 +212,7 @@ enum SumoXMLTag {
     SUMO_TAG_CONTAINER,
     SUMO_TAG_TRANSPORT,
     SUMO_TAG_TRANSHIP,
-    SUMO_TAG_TRAJECTORIES,    
+    SUMO_TAG_TRAJECTORIES,
     SUMO_TAG_TIMESTEP,
     SUMO_TAG_TIMESLICE,
     SUMO_TAG_ACTORCONFIG,
@@ -379,7 +379,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_SHAPE,
     /// The information about how to spread the lanes from the given position
     SUMO_ATTR_SPREADTYPE,
-    /// The turning radius at an intersection in m 
+    /// The turning radius at an intersection in m
     SUMO_ATTR_RADIUS,
     /// whether a given shape is user-defined
     SUMO_ATTR_CUSTOMSHAPE,

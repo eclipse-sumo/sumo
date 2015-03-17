@@ -62,7 +62,7 @@ ShapeHandler::~ShapeHandler() {}
 
 void
 ShapeHandler::myStartElement(int element,
-                          const SUMOSAXAttributes& attrs) {
+                             const SUMOSAXAttributes& attrs) {
     try {
         switch (element) {
             case SUMO_TAG_POLY:
@@ -162,7 +162,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs) {
 
 
 
-bool 
+bool
 ShapeHandler::loadFiles(const std::vector<std::string>& files, ShapeHandler& sh) {
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         if (!XMLSubSys::runParser(sh, *fileIt, false)) {

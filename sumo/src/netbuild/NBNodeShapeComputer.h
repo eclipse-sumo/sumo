@@ -128,8 +128,8 @@ private:
      * @param[in] cornerDetail
      * @return shape to be appended between begPoint and endPoint
      */
-    PositionVector getSmoothCorner(PositionVector begShape, PositionVector endShape, 
-            const Position& begPoint, const Position& endPoint, int cornerDetail);
+    PositionVector getSmoothCorner(PositionVector begShape, PositionVector endShape,
+                                   const Position& begPoint, const Position& endPoint, int cornerDetail);
 
     /** @brief Initialize neighbors and angles
      * @param[in] edges The list of edges sorted in clockwise direction
@@ -142,12 +142,12 @@ private:
      * @param[out] ccad The angle difference to the counter-clockwise neighbor
      */
     static void initNeighbors(const EdgeVector& edges, const EdgeVector::const_iterator& current,
-            GeomsMap& geomsCW,
-            GeomsMap& geomsCCW,
-            EdgeVector::const_iterator& cwi,
-            EdgeVector::const_iterator& ccwi,
-            SUMOReal& cad,
-            SUMOReal& ccad);
+                              GeomsMap& geomsCW,
+                              GeomsMap& geomsCCW,
+                              EdgeVector::const_iterator& cwi,
+                              EdgeVector::const_iterator& ccwi,
+                              SUMOReal& cad,
+                              SUMOReal& ccad);
 
     /// @return whether trying to intersect these edges would probably fail
     bool badIntersection(const NBEdge* e1, const NBEdge* e2, SUMOReal absAngleDiff, SUMOReal distance, SUMOReal threshold);

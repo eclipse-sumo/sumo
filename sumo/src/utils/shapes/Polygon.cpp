@@ -56,7 +56,7 @@ Polygon::Polygon(const std::string& id, const std::string& type,
 Polygon::~Polygon() {}
 
 
-void 
+void
 Polygon::writeXML(OutputDevice& out, bool geo) {
     out.openTag(SUMO_TAG_POLY);
     out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));

@@ -21,24 +21,26 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys
+import os
+import sys
 from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
+
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <net> <options>"
     optParser = OptionParser()
     optParser.add_option("-s", "--source",
-            default=False, help="List edges reachable from the source")
-    optParser.add_option("--selection-output", 
-            help="When used with --source, write output to file as a loadable selection")
+                         default=False, help="List edges reachable from the source")
+    optParser.add_option("--selection-output",
+                         help="When used with --source, write output to file as a loadable selection")
 
     options, args = optParser.parse_args()
     if len(args) != 1:
         sys.exit(USAGE)
     options.net = args[0]
-    return options 
+    return options
 
 
 def getWeaklyConnected(net):
@@ -80,7 +82,7 @@ def getReachable(net, source_id, options):
         fringe = new_fringe
 
     print "%s of %s edges are reachable from edge '%s':" % (
-            len(found), len(net.getEdges()), source_id)
+        len(found), len(net.getEdges()), source_id)
 
     if options.selection_output:
         with open(options.selection_output, 'w') as f:
@@ -104,4 +106,3 @@ if __name__ == "__main__":
                 print "Component", idx
                 print " ".join(comp)
                 print
-

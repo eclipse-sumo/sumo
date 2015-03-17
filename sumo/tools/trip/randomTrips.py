@@ -20,13 +20,18 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys, random, bisect, datetime, subprocess
+import os
+import sys
+import random
+import bisect
+import datetime
+import subprocess
 from collections import defaultdict
 import math
 import optparse
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
-        os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib
 
@@ -36,12 +41,13 @@ SOURCE_SUFFIX = ".src.xml"
 SINK_SUFFIX = ".dst.xml"
 VIA_SUFFIX = ".via.xml"
 
+
 def get_options(args=None):
     optParser = optparse.OptionParser()
     optParser.add_option("-n", "--net-file", dest="netfile",
-                            help="define the net file (mandatory)")
+                         help="define the net file (mandatory)")
     optParser.add_option("-a", "--additional-files", dest="additional",
-                            help="define additional files to be loaded by the router")
+                         help="define additional files to be loaded by the router")
     optParser.add_option("-o", "--output-trip-file", dest="tripfile",
                          default="trips.trips.xml", help="define the output trip filename")
     optParser.add_option("-r", "--route-file", dest="routefile",
@@ -56,9 +62,12 @@ def get_options(args=None):
                          default="", help="prefix for the trip ids")
     optParser.add_option("-t", "--trip-attributes", dest="tripattrs",
                          default="", help="additional trip attributes")
-    optParser.add_option("-b", "--begin", type="float", default=0, help="begin time")
-    optParser.add_option("-e", "--end", type="float", default=3600, help="end time (default 3600)")
-    optParser.add_option("-p", "--period", type="float", default=1, help="repetition period (default 1)")
+    optParser.add_option(
+        "-b", "--begin", type="float", default=0, help="begin time")
+    optParser.add_option(
+        "-e", "--end", type="float", default=3600, help="end time (default 3600)")
+    optParser.add_option(
+        "-p", "--period", type="float", default=1, help="repetition period (default 1)")
     optParser.add_option("-s", "--seed", type="int", help="random seed")
     optParser.add_option("-l", "--length", action="store_true",
                          default=False, help="weight edge probability by length")
@@ -78,8 +87,10 @@ def get_options(args=None):
                          default=0, help="generates the given number of intermediate way points")
     optParser.add_option("--maxtries", type="int",
                          default=100, help="number of attemps for finding a trip which meets the distance constraints")
-    optParser.add_option("-c", "--vclass", help="only from and to edges which permit <vClass>")
-    optParser.add_option("--vehicle-class", help="The vehicle class assigned to the generated trips")
+    optParser.add_option(
+        "-c", "--vclass", help="only from and to edges which permit <vClass>")
+    optParser.add_option(
+        "--vehicle-class", help="The vehicle class assigned to the generated trips")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
@@ -92,24 +103,27 @@ def get_options(args=None):
     return options
 
 
-
 # euclidean distance between two coordinates in the plane
 def euclidean(a, b):
     return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
+
 
 class InvalidGenerator(Exception):
     pass
 
 # assigns a weight to each edge using weight_fun and then draws from a discrete
 # distribution with these weights
+
+
 class RandomEdgeGenerator:
+
     def __init__(self, net, weight_fun):
         self.net = net
         self.weight_fun = weight_fun
         self.cumulative_weights = []
         self.total_weight = 0
         for edge in self.net._edges:
-            #print edge.getID(), weight_fun(edge)
+            # print edge.getID(), weight_fun(edge)
             self.total_weight += weight_fun(edge)
             self.cumulative_weights.append(self.total_weight)
         if self.total_weight == 0:
@@ -127,12 +141,14 @@ class RandomEdgeGenerator:
             f.write('<edgedata>\n')
             f.write('    <interval begin="0" end="10">\n')
             for i, edge in enumerate(self.net._edges):
-                f.write('        <edge id="%s" value="%0.2f"/>\n' % (edge.getID(), self.weight_fun(edge) * normalizer))
+                f.write('        <edge id="%s" value="%0.2f"/>\n' %
+                        (edge.getID(), self.weight_fun(edge) * normalizer))
             f.write('    </interval>\n')
             f.write('</edgedata>\n')
 
 
 class RandomTripGenerator:
+
     def __init__(self, source_generator, sink_generator, via_generator, intermediate):
         self.source_generator = source_generator
         self.sink_generator = sink_generator
@@ -142,12 +158,14 @@ class RandomTripGenerator:
     def get_trip(self, min_distance, max_distance, maxtries=100):
         for i in range(maxtries):
             source_edge = self.source_generator.get()
-            intermediate = [self.via_generator.get() for i in range(self.intermediate)]
+            intermediate = [self.via_generator.get()
+                            for i in range(self.intermediate)]
             sink_edge = self.sink_generator.get()
             coords = ([source_edge.getFromNode().getCoord()]
-                    + [e.getFromNode().getCoord() for e in intermediate]
-                    + [sink_edge.getToNode().getCoord()])
-            distance = sum([euclidean(p,q) for p,q in zip(coords[:-1], coords[1:])])
+                      + [e.getFromNode().getCoord() for e in intermediate]
+                      + [sink_edge.getToNode().getCoord()])
+            distance = sum([euclidean(p, q)
+                            for p, q in zip(coords[:-1], coords[1:])])
             if distance >= min_distance and (max_distance is None or distance < max_distance):
                 return source_edge, sink_edge, intermediate
         raise Exception("no trip found after %s tries" % maxtries)
@@ -178,8 +196,9 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
 
 
 class LoadedProps:
+
     def __init__(self, fname):
-        self.weights = defaultdict(lambda:0)
+        self.weights = defaultdict(lambda: 0)
         for edge in sumolib.output.parse_fast(fname, 'edge', ['id', 'value']):
             self.weights[edge.id] = float(edge.value)
 
@@ -189,24 +208,32 @@ class LoadedProps:
 
 def buildTripGenerator(net, options):
     try:
-        source_generator = RandomEdgeGenerator(net, get_prob_fun(options, "_incoming", "_outgoing"))
-        sink_generator = RandomEdgeGenerator(net, get_prob_fun(options, "_outgoing", "_incoming"))
+        source_generator = RandomEdgeGenerator(
+            net, get_prob_fun(options, "_incoming", "_outgoing"))
+        sink_generator = RandomEdgeGenerator(
+            net, get_prob_fun(options, "_outgoing", "_incoming"))
         if options.weightsprefix:
             if os.path.isfile(options.weightsprefix + SOURCE_SUFFIX):
-                source_generator = RandomEdgeGenerator(net, LoadedProps(options.weightsprefix + SOURCE_SUFFIX))
+                source_generator = RandomEdgeGenerator(
+                    net, LoadedProps(options.weightsprefix + SOURCE_SUFFIX))
             if os.path.isfile(options.weightsprefix + SINK_SUFFIX):
-                sink_generator = RandomEdgeGenerator(net, LoadedProps(options.weightsprefix + SINK_SUFFIX))
+                sink_generator = RandomEdgeGenerator(
+                    net, LoadedProps(options.weightsprefix + SINK_SUFFIX))
     except InvalidGenerator:
-        print("Error: no valid edges for generating source or destination", file=sys.stderr)
+        print(
+            "Error: no valid edges for generating source or destination", file=sys.stderr)
         return None
 
     try:
-        via_generator = RandomEdgeGenerator(net, get_prob_fun(options, None, None))
+        via_generator = RandomEdgeGenerator(
+            net, get_prob_fun(options, None, None))
         if options.weightsprefix and os.path.isfile(options.weightsprefix + VIA_SUFFIX):
-            via_generator = RandomEdgeGenerator(net, LoadedProps(options.weightsprefix + VIA_SUFFIX))
+            via_generator = RandomEdgeGenerator(
+                net, LoadedProps(options.weightsprefix + VIA_SUFFIX))
     except InvalidGenerator:
         if options.intermediate > 0:
-            print("Error: no valid edges for generating intermediate points", file=sys.stderr)
+            print(
+                "Error: no valid edges for generating intermediate points", file=sys.stderr)
             return None
         else:
             via_generator = None
@@ -220,9 +247,10 @@ def main(options):
 
     net = sumolib.net.readNet(options.netfile)
     if options.min_distance > net.getBBoxDiameter() * (options.intermediate + 1):
-        options.intermediate = int(math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
+        options.intermediate = int(
+            math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
         print("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of %s in a network with diameter %s." % (
-                options.intermediate, options.min_distance, net.getBBoxDiameter()))
+            options.intermediate, options.min_distance, net.getBBoxDiameter()))
 
     trip_generator = buildTripGenerator(net, options)
     idx = 0
@@ -232,27 +260,32 @@ def main(options):
   options: %s
 -->
 <trips>
-""" % (datetime.datetime.now(), 
-    (' '.join(sys.argv[1:]).replace('--','<doubleminus>'))))
+""" % (datetime.datetime.now(),
+            (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))
         if options.vehicle_class:
-            fouttrips.write('    <vType id="%s" vClass="%s" />\n' % (options.vehicle_class, options.vehicle_class))
+            fouttrips.write('    <vType id="%s" vClass="%s" />\n' %
+                            (options.vehicle_class, options.vehicle_class))
             options.tripattrs += ' type="%s"' % options.vehicle_class
         depart = options.begin
         if trip_generator:
             while depart < options.end:
                 label = "%s%s" % (options.tripprefix, idx)
                 try:
-                    source_edge, sink_edge, intermediate = trip_generator.get_trip(options.min_distance, options.max_distance, options.maxtries)
+                    source_edge, sink_edge, intermediate = trip_generator.get_trip(
+                        options.min_distance, options.max_distance, options.maxtries)
                     via = ""
                     if len(intermediate) > 0:
-                        via='via="%s" ' % ' '.join([e.getID() for e in intermediate])
+                        via = 'via="%s" ' % ' '.join(
+                            [e.getID() for e in intermediate])
                     if options.pedestrians:
-                        fouttrips.write('    <person id="%s" depart="%.2f" %s>\n' % (label, depart, options.tripattrs))
-                        fouttrips.write('        <walk from="%s" to="%s"/>\n' % (source_edge.getID(), sink_edge.getID()))
+                        fouttrips.write(
+                            '    <person id="%s" depart="%.2f" %s>\n' % (label, depart, options.tripattrs))
+                        fouttrips.write(
+                            '        <walk from="%s" to="%s"/>\n' % (source_edge.getID(), sink_edge.getID()))
                         fouttrips.write('    </person>\n')
                     else:
                         fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s" %s%s/>\n' % (
-                                label, depart, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
+                            label, depart, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
                 except Exception, exc:
                     print(exc, file=sys.stderr)
                 idx += 1
@@ -261,16 +294,19 @@ def main(options):
 
     if options.routefile:
         args = [DUAROUTER, '-n', options.netfile, '-t', options.tripfile, '-o', options.routefile, '--ignore-errors',
-            '--begin', str(options.begin), '--end', str(options.end), '--no-step-log']
+                '--begin', str(options.begin), '--end', str(options.end), '--no-step-log']
         if options.additional is not None:
             args += ['--additional-files', options.additional]
         print("calling ", " ".join(args))
         subprocess.call(args)
 
     if options.weights_outprefix:
-        trip_generator.source_generator.write_weights(options.weights_outprefix + SOURCE_SUFFIX)
-        trip_generator.sink_generator.write_weights(options.weights_outprefix + SINK_SUFFIX)
-        trip_generator.via_generator.write_weights(options.weights_outprefix + VIA_SUFFIX)
+        trip_generator.source_generator.write_weights(
+            options.weights_outprefix + SOURCE_SUFFIX)
+        trip_generator.sink_generator.write_weights(
+            options.weights_outprefix + SINK_SUFFIX)
+        trip_generator.via_generator.write_weights(
+            options.weights_outprefix + VIA_SUFFIX)
 
     # return wether trips could be genreated as requested
     return trip_generator is not None

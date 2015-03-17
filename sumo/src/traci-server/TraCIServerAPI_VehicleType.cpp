@@ -84,19 +84,19 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
         if (v == 0) {
             return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known", outputStorage);
         }
-        switch(variable) {
-        case VAR_PARAMETER: {
-            std::string paramName = "";
-            if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+        switch (variable) {
+            case VAR_PARAMETER: {
+                std::string paramName = "";
+                if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                }
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(v->getParameter().getParameter(paramName, ""));
             }
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(v->getParameter().getParameter(paramName, ""));
-                            }
             break;
-        default:
-            getVariable(variable, *v, tempMsg);
-            break;
+            default:
+                getVariable(variable, *v, tempMsg);
+                break;
         }
     }
     server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_OK, "", outputStorage);
@@ -379,8 +379,8 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "The value of the parameter must be given as a string.", outputStorage);
             }
             ((SUMOVTypeParameter&) v.getParameter()).addParameter(name, value);
-                            }
-            break;
+        }
+        break;
         default:
             break;
     }

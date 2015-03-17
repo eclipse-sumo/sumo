@@ -74,8 +74,8 @@ public:
      * @param[in] endPos End position of the container stop on the lane
      */
     MSContainerStop(const std::string& id,
-              const std::vector<std::string>& lines, MSLane& lane,
-              SUMOReal begPos, SUMOReal endPos);
+                    const std::vector<std::string>& lines, MSLane& lane,
+                    SUMOReal begPos, SUMOReal endPos);
 
 
     /// @brief Destructor
@@ -170,8 +170,8 @@ protected:
     std::vector<std::string> myLines;
 
     /// @brief A map from objects (vehicles) to the areas they acquire after entering the stop
-    std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> > myEndPositions;  
-        
+    std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> > myEndPositions;
+
     /// @brief The lane this stop is located at
     MSLane& myLane;
 
@@ -180,10 +180,10 @@ protected:
 
     /// @brief The end position this stop is located at
     SUMOReal myEndPos;
-        
+
     /// @brief The last free position at this stop (variable)
     SUMOReal myLastFreePos;
-        
+
     /// @brief Containers waiting at this stop
     std::vector<MSContainer*> myWaitingContainers;
 

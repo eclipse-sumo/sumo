@@ -33,20 +33,20 @@ if len(sys.argv) < 2:
 mmap = {}
 fdi = open("edgemap.txt")
 for line in fdi:
-	if line.find("->")<0:
-		continue
-	(orig, dest) = line.strip().split("->")
-	dest = dest.split(",")
-	mmap[orig] = dest
+    if line.find("->") < 0:
+        continue
+    (orig, dest) = line.strip().split("->")
+    dest = dest.split(",")
+    mmap[orig] = dest
 fdi.close()
 
 fdi = open(sys.argv[1])
-fdo = open(sys.argv[1]+".mod.xml", "w")
+fdo = open(sys.argv[1] + ".mod.xml", "w")
 for line in fdi:
-	for orig in mmap:
-		line = line.replace('from="'+orig+'"', 'from="'+mmap[orig][-1]+'"')
-		line = line.replace('to="'+orig+'"', 'to="'+mmap[orig][0]+'"')
-	fdo.write(line)
+    for orig in mmap:
+        line = line.replace(
+            'from="' + orig + '"', 'from="' + mmap[orig][-1] + '"')
+        line = line.replace('to="' + orig + '"', 'to="' + mmap[orig][0] + '"')
+    fdo.write(line)
 fdi.close()
 fdo.close()
-		

@@ -25,26 +25,25 @@ the Free Software Foundation; either version 3 of the License, or
 import util.Path as path
 
 #global vars
-edgeList={}
+edgeList = {}
 
 
-
-def main():    
-    print "start program"     
+def main():
+    print "start program"
     countTaxisForEachEdge()
     writeOutput()
     print "end"
 
-    
+
 def countTaxisForEachEdge():
     """counts the frequency of each edge"""
-    inputFile=open(path.vls,'r')
+    inputFile = open(path.vls, 'r')
     for line in inputFile:
-        words= line.split("\t")
-        edgeList.setdefault(words[1],set())
+        words = line.split("\t")
+        edgeList.setdefault(words[1], set())
         edgeList[words[1]].add(words[4])
-    
-    for k in edgeList:     
+
+    for k in edgeList:
         print k
         print len(edgeList[k])
     print len(edgeList)
@@ -52,14 +51,15 @@ def countTaxisForEachEdge():
 
 def writeOutput():
     """Writes an XML-File with the extracted results"""
-    outputFile=open(path.taxisPerEdge,'w')
+    outputFile = open(path.taxisPerEdge, 'w')
     outputFile.write("<netstats>\n")
     outputFile.write("\t<interval begin=\"0\" end=\"899\" id=\"dump_900\">\n")
-    for k in edgeList:  
-        outputFile.write("\t\t<edge id=\"%s\" no=\"%s\" color=\"1.0\"/>\n" %(k, len(edgeList[k])))        
-    outputFile.write("\t</interval>\n")        
+    for k in edgeList:
+        outputFile.write(
+            "\t\t<edge id=\"%s\" no=\"%s\" color=\"1.0\"/>\n" % (k, len(edgeList[k])))
+    outputFile.write("\t</interval>\n")
     outputFile.write("</netstats>")
 
-    
-#start the program
+
+# start the program
 main()

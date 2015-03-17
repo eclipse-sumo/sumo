@@ -39,7 +39,7 @@
 // method definitions
 // ===========================================================================
 MSCFModel_KraussAccelBound::MSCFModel_KraussAccelBound(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
-                                   SUMOReal dawdle, SUMOReal headwayTime)
+        SUMOReal dawdle, SUMOReal headwayTime)
     : MSCFModel_Krauss(vtype, accel, decel, dawdle, headwayTime) {
 }
 

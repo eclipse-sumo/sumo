@@ -91,7 +91,7 @@ MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal lea
 }
 
 
-void 
+void
 MSMoveReminder::removeFromVehicleUpdateValues(SUMOVehicle& veh) {
     myLastVehicleUpdateValues.erase(&veh);
 }

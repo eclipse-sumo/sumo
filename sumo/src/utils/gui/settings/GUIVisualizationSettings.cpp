@@ -66,8 +66,8 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       personQuality(0),
       personSize(1),
       personName(false, 50, RGBColor(0, 153, 204, 255)),
-      containerQuality(0), 
-      containerSize(1), 
+      containerQuality(0),
+      containerSize(1),
       containerName(false, 50, RGBColor(0, 153, 204, 255)),
       drawLinkTLIndex(false), drawLinkJunctionIndex(false),
       junctionName(false, 50, RGBColor(0, 255, 128, 255)),
@@ -148,7 +148,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by noise emissions (Harmonoise)", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)100);
     laneColorer.addScheme(scheme);
-	// ... weights (experimental) ...
+    // ... weights (experimental) ...
     scheme = GUIColorScheme("by global travel time", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)100);
     scheme.setAllowsNegativeValues(true);
@@ -176,14 +176,14 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by height at start", RGBColor::RED);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal)-10);
+    scheme.addColor(RGBColor::BLUE, (SUMOReal) - 10);
     scheme.addColor(RGBColor::YELLOW, (SUMOReal)50);
     scheme.addColor(RGBColor::GREEN, (SUMOReal)100);
     scheme.addColor(RGBColor::MAGENTA, (SUMOReal)200);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by height at segment start", RGBColor::RED);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal)-10);
+    scheme.addColor(RGBColor::BLUE, (SUMOReal) - 10);
     scheme.addColor(RGBColor::YELLOW, (SUMOReal)50);
     scheme.addColor(RGBColor::GREEN, (SUMOReal)100);
     scheme.addColor(RGBColor::MAGENTA, (SUMOReal)200);
@@ -192,15 +192,15 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by inclination", RGBColor::GREY);
     scheme.addColor(RGBColor::YELLOW, (SUMOReal) .1);
     scheme.addColor(RGBColor::RED, (SUMOReal) .3);
-    scheme.addColor(RGBColor::GREEN, (SUMOReal)-.1);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal)-.3);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal) - .1);
+    scheme.addColor(RGBColor::BLUE, (SUMOReal) - .3);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by inclination at segment start", RGBColor::GREY);
     scheme.addColor(RGBColor::YELLOW, (SUMOReal) .1);
     scheme.addColor(RGBColor::RED, (SUMOReal) .3);
-    scheme.addColor(RGBColor::GREEN, (SUMOReal)-.1);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal)-.3);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal) - .1);
+    scheme.addColor(RGBColor::BLUE, (SUMOReal) - .3);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by average speed", RGBColor::RED);
@@ -335,7 +335,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     personColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
     personColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
 
-	/// add container coloring schemes
+    /// add container coloring schemes
     containerColorer.addScheme(GUIColorScheme("given container/type color", RGBColor::YELLOW, "", true));
     containerColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
     containerColorer.addScheme(GUIColorScheme("given/assigned container color", RGBColor::YELLOW, "", true));
@@ -359,9 +359,9 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     containerColorer.addScheme(scheme);
-    containerColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));    
+    containerColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
 
-	/// add junction coloring schemes
+    /// add junction coloring schemes
     scheme = GUIColorScheme("uniform", RGBColor::BLACK, "", true);
     scheme.addColor(RGBColor(150, 200, 200), 1, "waterway");
     junctionColorer.addScheme(scheme);
@@ -622,7 +622,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     personName.print(dev, "personName");
     personColorer.save(dev);
     dev.closeTag();
-	// persons
+    // persons
     dev.openTag(SUMO_TAG_VIEWSETTINGS_CONTAINERS);
     dev.writeAttr("containerMode", containerColorer.getActive());
     dev.writeAttr("containerQuality", containerQuality);
@@ -771,7 +771,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     }
     if (personName != v2.personName) {
         return false;
-    }    
+    }
     if (!(containerColorer == v2.containerColorer)) {
         return false;
     }

@@ -35,13 +35,15 @@ SVN16FILE = 'entries'
 SVN16FILE2 = 'all-wcprops'
 SVN17FILE = 'wc.db'
 
+
 def find_svnDir(searchRoot):
     # we need to find the .svn folder
-    # for subversion 1.7 and later, it only exists at the wc root and each externals root
+    # for subversion 1.7 and later, it only exists at the wc root and each
+    # externals root
     candidates = [
-            join(searchRoot, SVNDIR),              # src 
-            join(searchRoot, '..', SVNDIR),        # sumo 
-            join(searchRoot, '..', '..', SVNDIR)]  # trunk
+        join(searchRoot, SVNDIR),              # src
+        join(searchRoot, '..', SVNDIR),        # sumo
+        join(searchRoot, '..', '..', SVNDIR)]  # trunk
     for d in candidates:
         if isdir(d):
             return d
@@ -50,9 +52,9 @@ def find_svnDir(searchRoot):
 
 def find_svnFile(svnDir):
     candidates = [
-            join(svnDir, SVN17FILE), 
-            join(svnDir, SVN16FILE2), 
-            join(svnDir, SVN16FILE)]
+        join(svnDir, SVN17FILE),
+        join(svnDir, SVN16FILE2),
+        join(svnDir, SVN16FILE)]
     for f in candidates:
         if exists(f):
             return f
@@ -122,8 +124,8 @@ def main():
             # svnFile is newer. lets update the revision number
             try:
                 svnRevision = int(re.search(
-                        'Revision: (\d*)\n',
-                        Popen(['svn', 'info', sumoSrc], stdout=PIPE).communicate()[0]).group(1))
+                    'Revision: (\d*)\n',
+                    Popen(['svn', 'info', sumoSrc], stdout=PIPE).communicate()[0]).group(1))
             except:
                 svnRevision = parseRevision(svnFile)
             create_version_file(versionFile, svnRevision, svnFile)

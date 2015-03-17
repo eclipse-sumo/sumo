@@ -16,10 +16,13 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys, re
+import os
+import sys
+import re
 
 from xml.sax import make_parser, handler
 from optparse import OptionParser
+
 
 class ConfigReader(handler.ContentHandler):
 

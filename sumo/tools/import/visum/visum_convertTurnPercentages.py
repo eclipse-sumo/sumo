@@ -21,14 +21,17 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 from xml.sax import saxutils, make_parser, handler
 
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../lib"))
+sys.path.append(
+    os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../lib"))
 import sumonet
 
 
-    
 if len(sys.argv) < 4:
     print "Usage: " + sys.argv[0] + " <SUMO_NET> <VISUM_TURNINGS> <OUTPUT>"
     sys.exit()
@@ -61,7 +64,7 @@ missing = 0
 missingN = 0
 fd = open(sys.argv[2])
 for line in fd:
-    if line.find("$")==0 or line.find("*")==0 or line.find(";")<0:
+    if line.find("$") == 0 or line.find("*") == 0 or line.find(";") < 0:
         parse = False
 
     if parse:
@@ -74,13 +77,13 @@ for line in fd:
         vianode = amap["vianodeno"]
         number = float(amap["volvehprt(ah)"])
         if fromnode not in nmap:
-            if number!=0:
+            if number != 0:
                 print "Missing from-node '" + fromnode + "'; skipping"
             missing = missing + 1
             missingN = missingN + number
             continue
         if tonode not in nmap[fromnode]:
-            if number!=0:
+            if number != 0:
                 print "No connection between from-node '" + fromnode + "' and to-node '" + tonode + "'; skipping"
             missing = missing + 1
             missingN = missingN + number
@@ -90,7 +93,7 @@ for line in fd:
         found = found + 1
         foundN = foundN + number
 
-    if line.find("$TURN:")==0:
+    if line.find("$TURN:") == 0:
         attributes = line[6:].strip().lower().split(";")
         parse = True
 fd.close()
@@ -109,12 +112,12 @@ for i in emap:
     for o in emap[i]:
         sum = sum + emap[i][o]
     for o in emap[i]:
-        if sum!=0:
-           no = emap[i][o]/sum
+        if sum != 0:
+            no = emap[i][o] / sum
         else:
-           no = 0
-        fd.write('            <toEdge id="' + o + '" probability="' + str(no) + '"/>\n')
+            no = 0
+        fd.write('            <toEdge id="' + o +
+                 '" probability="' + str(no) + '"/>\n')
     fd.write('        </fromEdge>\n')
 fd.write('    </interval>\n')
 fd.write('</turns>\n')
-

@@ -19,12 +19,17 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, subprocess, sys
+import os
+import subprocess
+import sys
 from optparse import OptionParser, BadOptionError, AmbiguousOptionError
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', "tools"))
+sys.path.append(
+    os.path.join(os.path.dirname(__file__), '..', '..', '..', "tools"))
 from sumolib import checkBinary
 
+
 class PassThroughOptionParser(OptionParser):
+
     """
     An unknown option pass-through implementation of OptionParser.
     see http://stackoverflow.com/questions/1885161/how-can-i-get-optparses-optionparser-to-ignore-invalid-options
@@ -35,12 +40,14 @@ class PassThroughOptionParser(OptionParser):
     sys.exit(status) will still be called if a known argument is passed
     incorrectly (e.g. missing arguments or bad argument types, etc.)        
     """
+
     def _process_args(self, largs, rargs, values):
         while rargs:
             try:
-                OptionParser._process_args(self,largs,rargs,values)
-            except (BadOptionError,AmbiguousOptionError), e:
+                OptionParser._process_args(self, largs, rargs, values)
+            except (BadOptionError, AmbiguousOptionError), e:
                 largs.append(e.opt_str)
+
 
 def runInstance(elem, attrSet, childSet, depart):
     print(elem, attrSet, childSet)
@@ -55,18 +62,22 @@ def runInstance(elem, attrSet, childSet, depart):
         routes.write('>\n')
         for idx, child in enumerate(childs):
             if childSet & (2 ** idx):
-                routes.write((8*" ")+child)
+                routes.write((8 * " ") + child)
         routes.write('    </%s>\n</routes>\n' % elem)
-    retCode = subprocess.call(call + ["-n", "input_net.net.xml", "-r", routes.name], stdout=sys.stdout, stderr=sys.stdout)
-    retCodeTaz = subprocess.call(call + ["-n", "input_net.net.xml", "-r", routes.name, "--with-taz"], stdout=sys.stdout, stderr=sys.stdout)
+    retCode = subprocess.call(
+        call + ["-n", "input_net.net.xml", "-r", routes.name], stdout=sys.stdout, stderr=sys.stdout)
+    retCodeTaz = subprocess.call(
+        call + ["-n", "input_net.net.xml", "-r", routes.name, "--with-taz"], stdout=sys.stdout, stderr=sys.stdout)
     if retCode < 0 or retCodeTaz < 0:
         sys.stdout.write(open(routes.name).read())
         sys.exit()
 
 optParser = PassThroughOptionParser()
 optParser.add_option("-e", "--element", help="xml element to choose")
-optParser.add_option("-a", "--attr", type="int", default=0, help="attribute set to use")
-optParser.add_option("-c", "--child", type="int", default=0, help="child set to use")
+optParser.add_option(
+    "-a", "--attr", type="int", default=0, help="attribute set to use")
+optParser.add_option(
+    "-c", "--child", type="int", default=0, help="child set to use")
 options, args = optParser.parse_args()
 
 if len(args) == 0 or args[0] == "sumo":
@@ -85,14 +96,17 @@ else:
     print >> sys.stderr, "Unsupported application defined"
 call += args[1:]
 
-elements = {'vehicle': 'depart="0"', 'flow': 'begin="0" end="1" number="1"', 'trip': 'depart="0"'}
-attrs = [' from="1fi"', ' to="2si"', ' fromTaz="1"', ' toTaz="2"', ' route="a"']
+elements = {'vehicle': 'depart="0"',
+            'flow': 'begin="0" end="1" number="1"', 'trip': 'depart="0"'}
+attrs = [' from="1fi"', ' to="2si"',
+         ' fromTaz="1"', ' toTaz="2"', ' route="a"']
 childs = ['<route edges="1fi 1si 2o 2fi 2si"/>\n', '<stop lane="1fi_0" duration="10"/>\n',
           '<stop lane="1si_0" duration="10"/>\n', '<stop lane="2si_0" duration="10"/>\n']
 
 # check route processing
 if options.element:
-    runInstance(options.element, options.attr, options.child, elements[options.element])
+    runInstance(
+        options.element, options.attr, options.child, elements[options.element])
 else:
     for elem, depart in sorted(elements.iteritems()):
         for attrSet in range(2 ** len(attrs)):

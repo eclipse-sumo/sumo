@@ -20,7 +20,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import sys, math
+import sys
+import math
 from xml.sax import parse, handler
 from optparse import OptionParser
 
@@ -47,31 +48,32 @@ def getBoundingBox(shape):
 
 
 def angle2D(p1, p2):
-    theta1 = math.atan2(p1[1], p1[0]);
-    theta2 = math.atan2(p2[1], p2[0]);
-    dtheta = theta2 - theta1;
+    theta1 = math.atan2(p1[1], p1[0])
+    theta2 = math.atan2(p2[1], p2[0])
+    dtheta = theta2 - theta1
     while dtheta > math.pi:
-        dtheta -= 2.0*math.pi
+        dtheta -= 2.0 * math.pi
     while dtheta < -math.pi:
-        dtheta += 2.0*math.pi
+        dtheta += 2.0 * math.pi
     return dtheta
-    
+
 
 def isWithin(pos, shape):
     angle = 0.
-    for i in range(0, len(shape)-1):
-        p1 = ( (shape[i][0] - pos[0]), (shape[i][1] - pos[1]) )
-        p2 = ( (shape[i+1][0] - pos[0]), (shape[i+1][1] - pos[1]) )
+    for i in range(0, len(shape) - 1):
+        p1 = ((shape[i][0] - pos[0]), (shape[i][1] - pos[1]))
+        p2 = ((shape[i + 1][0] - pos[0]), (shape[i + 1][1] - pos[1]))
         angle = angle + angle2D(p1, p2)
-    i = len(shape)-1
-    p1 = ( (shape[i][0] - pos[0]), (shape[i][1] - pos[1]) )
-    p2 = ( (shape[0][0] - pos[0]), (shape[0][1] - pos[1]) )
+    i = len(shape) - 1
+    p1 = ((shape[i][0] - pos[0]), (shape[i][1] - pos[1]))
+    p2 = ((shape[0][0] - pos[0]), (shape[0][1] - pos[1]))
     angle = angle + angle2D(p1, p2)
     return math.fabs(angle) >= math.pi
 
 
 # written into the net. All members are "private".
 class NetDistrictEdgeHandler(handler.ContentHandler):
+
     def __init__(self):
         self._haveDistrict = False
         self._parsingDistrictShape = False
@@ -89,7 +91,7 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
         self._numLanes = {}
 
     def startElement(self, name, attrs):
-        if name == 'taz' or name == 'poly':    
+        if name == 'taz' or name == 'poly':
             self._haveDistrict = True
             self._currentID = attrs['id']
             self._districtEdges[self._currentID] = []
@@ -118,11 +120,12 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
             self._shape += content
 
     def endElement(self, name):
-        if name == 'taz' or name == 'poly':    
+        if name == 'taz' or name == 'poly':
             self._haveDistrict = False
             if self._shape != '':
                 self._districtShapes[self._currentID] = parseShape(self._shape)
-                self._districtBoxes[self._currentID] = getBoundingBox(self._districtShapes[self._currentID])
+                self._districtBoxes[self._currentID] = getBoundingBox(
+                    self._districtShapes[self._currentID])
                 self._shape = ""
         elif name == 'shape' and self._haveDistrict:
             self._parsingDistrictShape = False
@@ -183,17 +186,20 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
                     if edge not in self._invalidatedEdges:
                         weight = 1.
                         if weighted:
-                            weight = self._edgeSpeeds[edge] * self._edgeLengths[edge]
-                        fd.write("        <tazSource id=\"" + edge + "\" weight=\"" + str(weight) + "\"/>\n")
-                        fd.write("        <tazSink id=\"" + edge + "\" weight=\"" + str(weight) + "\"/>\n")
+                            weight = self._edgeSpeeds[
+                                edge] * self._edgeLengths[edge]
+                        fd.write(
+                            "        <tazSource id=\"" + edge + "\" weight=\"" + str(weight) + "\"/>\n")
+                        fd.write(
+                            "        <tazSink id=\"" + edge + "\" weight=\"" + str(weight) + "\"/>\n")
                 fd.write("    </taz>\n")
         fd.write("</tazs>\n")
         fd.close()
-    
+
     def getTotalLength(self, edge):
         return self._edgeLengths[edge] * self._numLanes[edge]
-                
-        
+
+
 if __name__ == "__main__":
     optParser = OptionParser()
     optParser.add_option("-v", "--verbose", action="store_true",
@@ -222,7 +228,8 @@ if __name__ == "__main__":
         parse(netfile, reader)
     if options.verbose:
         print "Calculating"
-    reader.computeWithin(options.complete, options.maxspeed, options.assign_from, options.verbose)
+    reader.computeWithin(
+        options.complete, options.maxspeed, options.assign_from, options.verbose)
     if options.verbose:
         print "Writing results"
     reader.writeResults(options.output, options.weighted)

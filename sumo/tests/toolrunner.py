@@ -17,7 +17,9 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os,subprocess,sys
+import os
+import subprocess
+import sys
 if len(sys.argv) < 2:
     sys.exit('required argument <tool> missing')
 tool = [os.path.join(os.path.dirname(sys.argv[0]), "..", sys.argv[-1])]
@@ -29,5 +31,5 @@ if tool[0].endswith(".py"):
 
 import os
 from sys import version_info
-subprocess.call(tool+sys.argv[1:-1], shell=(os.name=="nt"),
+subprocess.call(tool + sys.argv[1:-1], shell=(os.name == "nt"),
                 stdout=sys.stdout, stderr=sys.stderr)

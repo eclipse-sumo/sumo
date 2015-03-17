@@ -23,6 +23,7 @@ from xml.sax import make_parser, handler
 
 MAX_POS_DEVIATION = 10
 
+
 class DetectorGroupData:
 
     def __init__(self, pos, isValid, id=None):
@@ -40,7 +41,8 @@ class DetectorGroupData:
         self.totalFlow += flow
         count = self.entryCount
         if flow > 0:
-            self.avgSpeed = (self.avgSpeed * oldFlow + speed * flow) / self.totalFlow
+            self.avgSpeed = (
+                self.avgSpeed * oldFlow + speed * flow) / self.totalFlow
         self.entryCount += 1
 
     def clearFlow(self):
@@ -78,7 +80,8 @@ class DetectorReader(handler.ContentHandler):
                     haveGroup = True
                     break
             if not haveGroup:
-                self._edge2DetData[edge].append(DetectorGroupData(pos, True, id))
+                self._edge2DetData[edge].append(
+                    DetectorGroupData(pos, True, id))
         self._det2edge[id] = edge
 
     def startElement(self, name, attrs):
@@ -132,7 +135,9 @@ class DetectorReader(handler.ContentHandler):
                     if timeIdx == -1 or timeVal is None or float(flowDef[timeIdx]) == timeVal:
                         hadFlow = True
                         if speedIdx != -1:
-                            self.addFlow(flowDef[detIdx], float(flowDef[flowIdx]), float(flowDef[speedIdx]))
+                            self.addFlow(
+                                flowDef[detIdx], float(flowDef[flowIdx]), float(flowDef[speedIdx]))
                         else:
-                            self.addFlow(flowDef[detIdx], float(flowDef[flowIdx]))
+                            self.addFlow(
+                                flowDef[detIdx], float(flowDef[flowIdx]))
         return hadFlow

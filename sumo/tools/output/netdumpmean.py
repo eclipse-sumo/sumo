@@ -20,13 +20,16 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, string, sys
+import os
+import string
+import sys
 from optparse import OptionParser
 from xml.sax import saxutils, make_parser, handler
 from datetime import datetime
 
 
 class WeightsReader(handler.ContentHandler):
+
     """Reads the dump file"""
 
     def __init__(self):
@@ -45,16 +48,18 @@ class WeightsReader(handler.ContentHandler):
             self._id = attrs['id']
             self._edgeValues[self._beginTime][self._id] = {}
             for attr in attrs.getQNames():
-                if attr!="id":
-                    self._edgeValues[self._beginTime][self._id][attr] = float(attrs[attr])
-    
+                if attr != "id":
+                    self._edgeValues[self._beginTime][
+                        self._id][attr] = float(attrs[attr])
+
     def sub(self, weights, exclude):
-         for t in self._edgeValues:
-             for e in self._edgeValues[t]:
-                 for a in self._edgeValues[t][e]:
-                     if a not in exclude:
-                         self._edgeValues[t][e][a] = (self._edgeValues[t][e][a] + weights._edgeValues[t][e][a]) / 2.
- 
+        for t in self._edgeValues:
+            for e in self._edgeValues[t]:
+                for a in self._edgeValues[t][e]:
+                    if a not in exclude:
+                        self._edgeValues[t][e][a] = (
+                            self._edgeValues[t][e][a] + weights._edgeValues[t][e][a]) / 2.
+
     def write(self, options):
         fd = open(options.output, "w")
         fd.write("<?xml version=\"1.0\"?>\n\n")
@@ -65,7 +70,8 @@ class WeightsReader(handler.ContentHandler):
         fd.write("-->\n\n")
         fd.write("<netstats>\n")
         for i in range(0, len(self._intervalBegins)):
-            fd.write("   <interval begin=\"%s\" end=\"%s\">\n" % (self._intervalBegins[i], self._intervalEnds[i]))
+            fd.write("   <interval begin=\"%s\" end=\"%s\">\n" %
+                     (self._intervalBegins[i], self._intervalEnds[i]))
             t = self._intervalBegins[i]
             for e in self._edgeValues[t]:
                 fd.write("      <edge id=\"%s\"" % e)
@@ -76,11 +82,11 @@ class WeightsReader(handler.ContentHandler):
         fd.write("</netstats>\n")
 
 
-# initialise 
+# initialise
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
-    # i/o
+# i/o
 optParser.add_option("-1", "--dump1", dest="dump1",
                      help="First dump (mandatory)", metavar="FILE")
 optParser.add_option("-2", "--dump2", dest="dump2",
@@ -117,4 +123,3 @@ weights1.mean(weights2, exclude)
 if options.verbose:
     print "Writing..."
 weights1.write(options)
-

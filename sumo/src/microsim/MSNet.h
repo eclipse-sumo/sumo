@@ -674,7 +674,7 @@ protected:
 
     /// @brief Dictionary of bus stops
     NamedObjectCont<MSBusStop*> myBusStopDict;
-    
+
     /// @brief Dictionary of container stops
     NamedObjectCont<MSContainerStop*> myContainerStopDict;
 

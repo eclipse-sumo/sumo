@@ -43,9 +43,9 @@
 // ===========================================================================
 // enumerations
 // ===========================================================================
-enum NormalizingType{
-	RatedPower,
-	DrivingPower
+enum NormalizingType {
+    RatedPower,
+    DrivingPower
 };
 
 
@@ -83,19 +83,19 @@ public:
      * @param[in] matrixSpeedRotational Table for rotational coefficients over speed
      */
     PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass, const std::string& emissionClassIdentifier,
-		 double vehicleMass, double vehicleLoading, double vehicleMassRot,
-		 double crossArea, double cdValue,
-		 double f0, double f1, double f2, double f3, double f4,
-		 double ratedPower, double pNormV0, double pNormP0, double pNormV1, double pNormP1,
-		 double axleRatio, double engineIdlingSpeed, double engineRatedSpeed, double effectiveWheelDiameter,
-		 double idlingFC,
-		 const std::string &vehicleFuelType,
-		 const std::vector< std::vector<double> > &matrixFC,
-		 const std::vector<std::string> &headerLinePollutants,
-		 const std::vector< std::vector<double> > &matrixPollutants,
-		 const std::vector< std::vector<double> > &matrixSpeedRotational,
-		 const std::vector< std::vector<double> > &normedDragTable,
-		 const std::vector<double> &idlingValuesPollutants);
+            double vehicleMass, double vehicleLoading, double vehicleMassRot,
+            double crossArea, double cdValue,
+            double f0, double f1, double f2, double f3, double f4,
+            double ratedPower, double pNormV0, double pNormP0, double pNormV1, double pNormP1,
+            double axleRatio, double engineIdlingSpeed, double engineRatedSpeed, double effectiveWheelDiameter,
+            double idlingFC,
+            const std::string& vehicleFuelType,
+            const std::vector< std::vector<double> >& matrixFC,
+            const std::vector<std::string>& headerLinePollutants,
+            const std::vector< std::vector<double> >& matrixPollutants,
+            const std::vector< std::vector<double> >& matrixSpeedRotational,
+            const std::vector< std::vector<double> >& normedDragTable,
+            const std::vector<double>& idlingValuesPollutants);
 
     /// @brief Destructor
     ~PHEMCEP();
@@ -108,7 +108,7 @@ public:
          * @param{in] loading vehicle loading [kg]
          * @return The power demand for desired state [kW]
          */
-    double CalcPower(double v, double a, double slope, double vehicleLoading=0) const;
+    double CalcPower(double v, double a, double slope, double vehicleLoading = 0) const;
 
 
     /**	 @brief Returns the maximum accelaration for a vehicle at state v,a, slope and loading
@@ -119,7 +119,7 @@ public:
          * @param{in] loading vehicle loading [kg]
          * @return The maximum accelaration for desired state [kW]
          */
-    double GetMaxAccel(double v, double a, double gradient, double vehicleLoading=0) const;
+    double GetMaxAccel(double v, double a, double gradient, double vehicleLoading = 0) const;
 
     /** @brief Returns a emission measure for power[kW] level
      * @param[in] pollutantIdentifier Desired pollutant, e.g. NOx
@@ -127,7 +127,7 @@ public:
      * @return emission in [g/h]
      */
     double GetEmission(const std::string& pollutantIdentifier, double power, double speed, bool normalized = false) const;
-	double GetDecelCoast(double speed, double acc, double gradient, double vehicleLoading) const;
+    double GetDecelCoast(double speed, double acc, double gradient, double vehicleLoading) const;
 
 
     /** @brief Getter function to recieve vehicle data from CEP
@@ -248,14 +248,14 @@ private:
      * @param[in] pattern to search
      * @param[in] value to search
      */
-    void FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, const std::vector<double> &pattern, double value) const;
+    void FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, const std::vector<double>& pattern, double value) const;
 
     /** @brief Calculates rotational index for speed
      * @param[in] speed desired speed
      */
     double GetRotationalCoeffecient(double speed) const;
-	double GetGearCoeffecient(double speed) const;
-	double GetDragCoeffecient(double nNorm) const;
+    double GetGearCoeffecient(double speed) const;
+    double GetDragCoeffecient(double nNorm) const;
 
     /** @brief Calculates maximum available rated power for speed
      * @param[in] speed desired speed
@@ -265,7 +265,7 @@ private:
 private:
     /// @brief PHEM emission class of vehicle
     SUMOEmissionClass _emissionClass;
-	NormalizingType _normalizingType;
+    NormalizingType _normalizingType;
     /// @brief Rolling resistance f0
     double _resistanceF0;
     /// @brief Rolling resistance f1
@@ -277,7 +277,7 @@ private:
     /// @brief Rolling resistance f4
     double _resistanceF4;
     /// @brief Cw value
-	double _cdValue;
+    double _cdValue;
     /// @brief crosssectional area of vehicle
     double _crossSectionalArea;
     /// @brief vehicle mass
@@ -296,36 +296,36 @@ private:
     double _pNormV1;
     /// @brief Step functions parameter for maximum rated power
     double _pNormP1;
-	double _axleRatio;
-	double _engineIdlingSpeed;
+    double _axleRatio;
+    double _engineIdlingSpeed;
     double _engineRatedSpeed;
     double _effictiveWheelDiameter;
-	double _idlingFC;
-	std::string _vehicleFuelType;
+    double _idlingFC;
+    std::string _vehicleFuelType;
     int _sizeOfPatternFC;
     /// @todo describe
     int _sizeOfPatternPollutants;
-	double _normalizingPower;
-	double _drivingPower;
-	bool _heavyVehicle;
-	std::vector<double> _speedPatternRotational;	
+    double _normalizingPower;
+    double _drivingPower;
+    bool _heavyVehicle;
+    std::vector<double> _speedPatternRotational;
     /// @todo describe
     std::vector<double> _powerPatternFC;
     /// @todo describe
     std::vector<double> _powerPatternPollutants;
-	std::vector<double> _normalizedPowerPatternFC;
-	std::vector<double> _normailzedPowerPatternPollutants;
+    std::vector<double> _normalizedPowerPatternFC;
+    std::vector<double> _normailzedPowerPatternPollutants;
     /// @todo describe
     std::vector<double> _cepCurveFC;
     /// @todo describe
-	std::vector<double> _normedCepCurveFC;
-	std::vector<double> _speedCurveRotational;
-	std::vector<double> _gearTransmissionCurve;
-	std::vector<double> _nNormTable;
-	std::vector<double> _dragNormTable;
+    std::vector<double> _normedCepCurveFC;
+    std::vector<double> _speedCurveRotational;
+    std::vector<double> _gearTransmissionCurve;
+    std::vector<double> _nNormTable;
+    std::vector<double> _dragNormTable;
     StringBijection< std::vector<double> > _cepCurvePollutants;
-	StringBijection<std::vector<double> > _normalizedCepCurvePollutants;
-	StringBijection<double> _idlingValuesPollutants;
+    StringBijection<std::vector<double> > _normalizedCepCurvePollutants;
+    StringBijection<double> _idlingValuesPollutants;
 
 };
 

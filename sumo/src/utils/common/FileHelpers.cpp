@@ -136,7 +136,7 @@ FileHelpers::checkForRelativity(const std::string& filename,
 }
 
 
-std::string 
+std::string
 FileHelpers::prependToLastPathComponent(const std::string& prefix, const std::string& path) {
     size_t sep_index = path.find_last_of("\\/");
     if (sep_index == std::string::npos) {

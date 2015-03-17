@@ -18,8 +18,10 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import vehicleControl, statistics
+import vehicleControl
+import statistics
 from constants import *
+
 
 class SimpleManager(vehicleControl.Manager):
 
@@ -54,8 +56,9 @@ class SimpleManager(vehicleControl.Manager):
             row = -1
         else:
             row = int(edge[5])
-        if row < DOUBLE_ROWS-1:
-            vehicleControl.stopAt(vehicleID, "cyber%sto%s" % (row+1, row+2))
+        if row < DOUBLE_ROWS - 1:
+            vehicleControl.stopAt(
+                vehicleID, "cyber%sto%s" % (row + 1, row + 2))
         else:
             vehicleControl.stopAt(vehicleID, "cyberout")
         self.cyberCarLoad[vehicleID] = load

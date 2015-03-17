@@ -322,7 +322,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     std::set<std::string> personIDs;
     SUMOSAXAttributes::parseStringSet(expectedStr, personIDs);
     stop.awaitedPersons = personIDs;
-    
+
     // expected containers
     std::string expectedContainersStr = attrs.getOpt<std::string>(SUMO_ATTR_EXPECTED_CONTAINERS, 0, ok, "");
     std::set<std::string> containerIDs;

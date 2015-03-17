@@ -338,8 +338,8 @@ NLTriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
 
 void
 NLTriggerBuilder::buildContainerStop(MSNet& net, const std::string& id,
-                               const std::vector<std::string>& lines,
-                               MSLane* lane, SUMOReal frompos, SUMOReal topos) {
+                                     const std::vector<std::string>& lines,
+                                     MSLane* lane, SUMOReal frompos, SUMOReal topos) {
     MSContainerStop* stop = new MSContainerStop(id, lines, *lane, frompos, topos);
     if (!net.addContainerStop(stop)) {
         delete stop;

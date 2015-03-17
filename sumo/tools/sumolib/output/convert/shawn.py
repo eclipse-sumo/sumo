@@ -22,17 +22,20 @@ import datetime
 import sumolib.output
 import sumolib.net
 
-def fcd2shawn(inpFCD, outSTRM, further):
-  print('<?xml version="1.0" encoding="utf-8"?>', file=outSTRM)
-  print('<!-- generated on %s by %s -->\n' % (datetime.datetime.now(), further["app"]), file=outSTRM)
-  print('<scenario>', file=outSTRM)
-  vIDm = sumolib._Running(further["orig-ids"]) # is it necessary to convert the ids?
-  for timestep in inpFCD:
-    print('   <snapshot id="%s">' % timestep.time, file=outSTRM)
-    if timestep.vehicle:
-      for v in timestep.vehicle:
-        nid = vIDm.g(v.id)        
-        print('     <node id="%s"> <location x="%s" y="%s" z="%s"/> </node>' % (nid, v.x, v.y, v.z), file=outSTRM)
-    print('   </snapshot>', file=outSTRM)
-  print('</scenario>', file=outSTRM)
 
+def fcd2shawn(inpFCD, outSTRM, further):
+    print('<?xml version="1.0" encoding="utf-8"?>', file=outSTRM)
+    print('<!-- generated on %s by %s -->\n' %
+          (datetime.datetime.now(), further["app"]), file=outSTRM)
+    print('<scenario>', file=outSTRM)
+    # is it necessary to convert the ids?
+    vIDm = sumolib._Running(further["orig-ids"])
+    for timestep in inpFCD:
+        print('   <snapshot id="%s">' % timestep.time, file=outSTRM)
+        if timestep.vehicle:
+            for v in timestep.vehicle:
+                nid = vIDm.g(v.id)
+                print('     <node id="%s"> <location x="%s" y="%s" z="%s"/> </node>' %
+                      (nid, v.x, v.y, v.z), file=outSTRM)
+        print('   </snapshot>', file=outSTRM)
+    print('</scenario>', file=outSTRM)

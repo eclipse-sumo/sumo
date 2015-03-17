@@ -22,12 +22,16 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import sys, math, os
+import sys
+import math
+import os
 from tables import crCurveTable, laneTypeTable
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
 # This class is used for finding the k shortest paths.
+
+
 class Predecessor:
 
     def __init__(self, edge, pred, distance):
@@ -35,20 +39,24 @@ class Predecessor:
         self.pred = pred
         self.distance = distance
 
-# This class is used to build the nodes in the investigated network and 
+# This class is used to build the nodes in the investigated network and
 # includes the update-function for searching the k shortest paths.
+
+
 class Vertex(sumolib.net.Node):
+
     """
     This class is to store node attributes and the respective incoming/outgoing links.
     """
+
     def __init__(self, id, type=None, coord=None, incLanes=None):
         sumolib.net.Node.__init__(self, id, type, coord, incLanes)
         self.preds = []
         self.wasUpdated = False
-    
+
     def __repr__(self):
         return self._id
-        
+
     def _addNewPredecessor(self, edge, updatePred, newPreds):
         for pred in newPreds:
             if pred.pred == updatePred:
@@ -64,22 +72,24 @@ class Vertex(sumolib.net.Node):
     def update(self, KPaths, edge):
         updatePreds = edge._from.preds
         if len(self.preds) == KPaths\
-           and updatePreds[0].distance + edge.actualtime >= self.preds[KPaths-1].distance:
+           and updatePreds[0].distance + edge.actualtime >= self.preds[KPaths - 1].distance:
             return False
         newPreds = []
         updateIndex = 0
         predIndex = 0
         while len(newPreds) < KPaths\
-              and (updateIndex < len(updatePreds)\
-                   or predIndex < len(self.preds)):
+            and (updateIndex < len(updatePreds)
+                 or predIndex < len(self.preds)):
             if predIndex == len(self.preds):
-                self._addNewPredecessor(edge, updatePreds[updateIndex], newPreds)
+                self._addNewPredecessor(
+                    edge, updatePreds[updateIndex], newPreds)
                 updateIndex += 1
             elif updateIndex == len(updatePreds):
                 newPreds.append(self.preds[predIndex])
                 predIndex += 1
             elif updatePreds[updateIndex].distance + edge.actualtime < self.preds[predIndex].distance:
-                self._addNewPredecessor(edge, updatePreds[updateIndex], newPreds)
+                self._addNewPredecessor(
+                    edge, updatePreds[updateIndex], newPreds)
                 updateIndex += 1
             else:
                 newPreds.append(self.preds[predIndex])
@@ -91,15 +101,20 @@ class Vertex(sumolib.net.Node):
         self.wasUpdated = True
         return returnVal
 
-# This class is used to store link information and estimate 
+# This class is used to store link information and estimate
 # as well as flow and capacity for the flow computation and some parameters
 # read from the net.
+
+
 class Edge(sumolib.net.Edge):
+
     """
     This class is to record link attributes
     """
+
     def __init__(self, label, source, target, prio, function, name):
-        sumolib.net.Edge.__init__(self, label, source, target, prio, function, name)
+        sumolib.net.Edge.__init__(
+            self, label, source, target, prio, function, name)
         self.capacity = sys.maxint
         # parameter for estimating capacities according to signal timing plans
         self.junction = None
@@ -112,7 +127,7 @@ class Edge(sumolib.net.Edge):
         self.straightlink = []
         self.rightlink = []
         self.conflictlink = {}
-#        self.againstlinkexist = None  
+#        self.againstlinkexist = None
         self.flow = 0.0
         self.helpflow = 0.0
         self.freeflowtime = 0.0
@@ -131,7 +146,7 @@ class Edge(sumolib.net.Edge):
         self.TT = 0.
         # parameter in the Lohse traffic assignment
         self.delta = 0.
-        # parameter in the Lohse traffic assignment 
+        # parameter in the Lohse traffic assignment
         self.helpacttimeEx = 0.
         # parameter in the matrix estimation
         self.detected = False
@@ -142,7 +157,7 @@ class Edge(sumolib.net.Edge):
         self.capLeft = 0.
         self.capRight = 0.
         self.capThrough = 0.
-        
+
     def addLane(self, lane):
         sumolib.net.Edge.addLane(self, lane)
         if self._from._id == self._to._id:
@@ -157,9 +172,9 @@ class Edge(sumolib.net.Edge):
         if self.capacity == sys.maxint or self.connection != 0:
             cap = "inf"
         return "%s_%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self._function, self._id, self._from, self._to, self.junctiontype, self._speed,
-                                                      self.flow, self._length, self._lanes,
-                                                      self.CRcurve, self.estcapacity, cap, self.ratio)
-                                                      
+                                                            self.flow, self._length, self._lanes,
+                                                            self.CRcurve, self.estcapacity, cap, self.ratio)
+
     def getConflictLink(self):
         """
         method to get the conflict links for each link, when the respective left-turn behavior exists.
@@ -173,20 +188,21 @@ class Edge(sumolib.net.Edge):
                         affectedTurning.freeflowtime = 6.
                         affectedTurning.actualtime = affectedTurning.freeflowtime
                         affectedTurning.helpacttime = affectedTurning.freeflowtime
-                        
+
                 for edge in leftEdge.source.inEdges:
                     for upstreamlink in edge.source.inEdges:
                         if leftEdge in upstreamlink.rightlink and len(upstreamlink.straightlink) > 0:
                             if not upstreamlink in self.conflictlink:
-                                self.conflictlink[upstreamlink]= []
-                            self.conflictlink[upstreamlink].append(affectedTurning)
-    
+                                self.conflictlink[upstreamlink] = []
+                            self.conflictlink[upstreamlink].append(
+                                affectedTurning)
+
     def getFreeFlowTravelTime(self):
         return self.freeflowtime
-                
+
     def addDetectedData(self, detecteddataObj):
         self.detecteddata[detecteddataObj.label] = detecteddataObj
-        
+
     def getCapacity(self):
         """
         method to read the link capacity and the cr-curve type from the table.py
@@ -199,7 +215,7 @@ class Edge(sumolib.net.Edge):
 
         self.estcapacity = len(self._lanes) * laneType[1]
         self.CRcurve = laneType[2]
-              
+
     def getAdjustedCapacity(self, net):
         """
         method to adjust the link capacity based on the given signal timing plans
@@ -231,41 +247,48 @@ class Edge(sumolib.net.Edge):
                 if leftSymbol != -1 and phase.green[leftSymbol] == "1":
                     leftGreen += phase.duration
             if self.straight != None:
-                self.estcapacity = (straightGreen*(3600./cyclelength))/1.5 * len(self._lanes)
+                self.estcapacity = (
+                    straightGreen * (3600. / cyclelength)) / 1.5 * len(self._lanes)
             else:
                 greentime = max(rightGreen, leftGreen)
-                self.estcapacity = (greentime*(3600./cyclelength))/1.5 * len(self._lanes)
+                self.estcapacity = (
+                    greentime * (3600. / cyclelength)) / 1.5 * len(self._lanes)
 
     def getActualTravelTime(self, options, lohse):
         """
         method to calculate/update link travel time
-        """  
+        """
         foutcheck = file('queue_info.txt', 'a')
-        
+
         if self.CRcurve in crCurveTable:
             curve = crCurveTable[self.CRcurve]
             if self.flow == 0.0 or self.connection > 0:
                 self.actualtime = self.freeflowtime
             elif self.estcapacity != 0. and self.connection == 0:
-                self.actualtime = self.freeflowtime*(1+(curve[0]*(self.flow/(self.estcapacity*curve[2]))**curve[1]))
-                    
+                self.actualtime = self.freeflowtime * \
+                    (1 + (curve[0] * (self.flow /
+                                      (self.estcapacity * curve[2]))**curve[1]))
+
             if (self.flow > self.estcapacity or self.flow == self.estcapacity) and self.flow > 0. and self.connection == 0:
-                self.queuetime = self.queuetime + options.lamda*(self.actualtime - self.freeflowtime*(1+curve[0]))
+                self.queuetime = self.queuetime + options.lamda * \
+                    (self.actualtime - self.freeflowtime * (1 + curve[0]))
                 if self.queuetime < 1.:
                     self.queuetime = 0.
                 else:
-                    foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self._id, self.queuetime))
-                    foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+curve[0]), self.actualtime))
+                    foutcheck.write(
+                        'edge.label= %s: queuing time= %s.\n' % (self._id, self.queuetime))
+                    foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' % (
+                        self.freeflowtime * (1 + curve[0]), self.actualtime))
             else:
                 self.queuetime = 0.
-            
+
             self.actualtime += self.queuetime
-            
+
             if lohse:
                 self.getLohseParUpdate(options)
             else:
                 self.helpacttime = self.actualtime
-                            
+
             self.penalty = 0.
             if len(self.conflictlink) > 0:
                 for edge in self.conflictlink:
@@ -282,22 +305,28 @@ class Edge(sumolib.net.Edge):
                 if options.dijkstra != 'extend':
                     for edge in self.conflictlink:
                         penalty = 0.
-                        if edge.estcapacity > 0. and edge.flow/edge.estcapacity > 0.12:
-                            penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(edge.flow/edge.estcapacity) - 1.)
+                        if edge.estcapacity > 0. and edge.flow / edge.estcapacity > 0.12:
+                            penalty = weightFactor * \
+                                (math.exp(self.flow / self.estcapacity) - 1. +
+                                 math.exp(edge.flow / edge.estcapacity) - 1.)
                             for affectedTurning in self.conflictlink[edge]:
-                                affectedTurning.actualtime = self.actualtime * penalty
+                                affectedTurning.actualtime = self.actualtime * \
+                                    penalty
                                 if lohse:
-                                    affectedTurning.helpacttime = self.helpacttime * penalty
+                                    affectedTurning.helpacttime = self.helpacttime * \
+                                        penalty
                                 else:
                                     affectedTurning.helpacttime = affectedTurning.actualtime
-                else:            
+                else:
                     for edge in self.conflictlink:
-                        if edge.estcapacity > 0. and edge.flow/edge.estcapacity >= flowCapRatio:
+                        if edge.estcapacity > 0. and edge.flow / edge.estcapacity >= flowCapRatio:
                             conflictEdge = edge
-                            flowCapRatio = edge.flow/edge.estcapacity
-    
-                    if conflictEdge.estcapacity > 0. and conflictEdge.flow/conflictEdge.estcapacity > 0.12:
-                        self.penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(conflictEdge.flow/conflictEdge.estcapacity) - 1.)
+                            flowCapRatio = edge.flow / edge.estcapacity
+
+                    if conflictEdge.estcapacity > 0. and conflictEdge.flow / conflictEdge.estcapacity > 0.12:
+                        self.penalty = weightFactor * \
+                            (math.exp(self.flow / self.estcapacity) - 1. +
+                             math.exp(conflictEdge.flow / conflictEdge.estcapacity) - 1.)
                     if lohse:
                         self.penalty *= self.helpacttime
                     else:
@@ -308,39 +337,47 @@ class Edge(sumolib.net.Edge):
         """ method to reset link flows """
         self.flow = 0.
         self.helpflow = 0.
-  
+
     def getLohseParUpdate(self, options):
         """
         method to update the parameter used in the Lohse-assignment (learning method - Lernverfahren)
         """
         if self.helpacttime > 0.:
-            self.TT = abs(self.actualtime - self.helpacttime) / self.helpacttime
-            self.fTT = options.v1/(1 + math.exp(options.v2-options.v3*self.TT))
-            self.delta = options.under + (options.upper - options.under)/((1+self.TT)**self.fTT)
+            self.TT = abs(self.actualtime - self.helpacttime) / \
+                self.helpacttime
+            self.fTT = options.v1 / \
+                (1 + math.exp(options.v2 - options.v3 * self.TT))
+            self.delta = options.under + \
+                (options.upper - options.under) / ((1 + self.TT)**self.fTT)
             self.helpacttimeEx = self.helpacttime
-            self.helpacttime = self.helpacttime + self.delta*(self.actualtime - self.helpacttime)
-                
+            self.helpacttime = self.helpacttime + self.delta * \
+                (self.actualtime - self.helpacttime)
+
     def stopCheck(self, options):
         """
         method to check if the convergence reaches in the Lohse-assignment
         """
         stop = False
         criteria = 0.
-        criteria = options.cvg1 * self.helpacttimeEx**(options.cvg2/options.cvg3)
+        criteria = options.cvg1 * \
+            self.helpacttimeEx**(options.cvg2 / options.cvg3)
 
         if abs(self.actualtime - self.helpacttimeEx) <= criteria:
             stop = True
         return stop
 
+
 class Vehicle:
+
     """
     This class is to store vehicle information, such as departure time, route and travel time.
     """
+
     def __init__(self, label):
         self.label = label
         self.method = None
         self.depart = 0.
-        self.arrival = 0.       
+        self.arrival = 0.
         self.speed = 0.
         self.route = []
         self.traveltime = 0.
@@ -351,13 +388,16 @@ class Vehicle:
 
     def __repr__(self):
         return "%s_%s_%s_%s_%s_%s<%s>" % (self.label, self.depart, self.arrival, self.speed, self.traveltime, self.travellength, self.route)
-        
+
 pathNum = 0
-        
+
+
 class Path:
+
     """
     This class is to store path information which is mainly for the C-logit and the Lohse models.
     """
+
     def __init__(self, source, target, edges):
         self.source = source
         self.target = target
@@ -375,28 +415,29 @@ class Path:
         self.utility = 0.0
         # parameter used in the Lohse traffic assignment
         self.usedcounts = 1
-        # parameter used in the Lohse traffic assignment          
+        # parameter used in the Lohse traffic assignment
         self.pathhelpacttime = 0.
         # record if this path is the currrent shortest one.
         self.currentshortest = True
-    
+
     def __repr__(self):
         return "%s_%s_%s<%s|%s|%s|%s>" % (self.label, self.source, self.target, self.freepathtime, self.pathflow, self.actpathtime, self.edges)
-    
+
     def getPathLength(self):
         for edge in self.edges:
             self.length += edge._length
-            
+
     def updateSumOverlap(self, newpath, gamma):
         overlapLength = 0.
         for edge in self.edges:
             if edge in newpath.edges:
                 overlapLength += edge._length
-        overlapLength = overlapLength/1000.
-        lengthOne = self.length/1000.
-        lengthTwo = newpath.length/1000.
-        self.sumOverlap += math.pow(overlapLength/(math.pow(lengthOne,0.5) * math.pow(lengthTwo,0.5)), gamma)
-    
+        overlapLength = overlapLength / 1000.
+        lengthOne = self.length / 1000.
+        lengthTwo = newpath.length / 1000.
+        self.sumOverlap += math.pow(overlapLength /
+                                    (math.pow(lengthOne, 0.5) * math.pow(lengthTwo, 0.5)), gamma)
+
     def getPathTimeUpdate(self):
         """
         used to update the path travel time in the c-logit and the Lohse traffic assignments
@@ -407,21 +448,25 @@ class Path:
             self.actpathtime += edge.actualtime
             self.pathhelpacttime += edge.helpacttime
 
-        self.pathhelpacttime = self.pathhelpacttime/3600.
-        self.actpathtime = self.actpathtime/3600.
+        self.pathhelpacttime = self.pathhelpacttime / 3600.
+        self.actpathtime = self.actpathtime / 3600.
+
 
 class TLJunction:
+
     def __init__(self):
         self.label = None
         self.phaseNum = 0
         self.phases = []
-        
+
     def __repr__(self):
         return "%s_%s<%s>" % (self.label, self.phaseNum, self.phases)
-        
+
+
 class Signalphase:
+
     def __init__(self, duration, state=None, phase=None, brake=None, yellow=None):
-        self.label= None
+        self.label = None
         self.state = state
         self.duration = duration
         self.green = ''
@@ -448,6 +493,6 @@ class Signalphase:
                     self.yellow += '0'
         else:
             print 'no timing plans exist!'
-    
+
     def __repr__(self):
         return "%s_%s<%s|%s|%s>" % (self.label, self.duration, self.green, self.brake, self.yellow)

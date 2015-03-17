@@ -344,8 +344,8 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                             glTranslated(xOff, 0, 0);
                             glRotated(-angle, 0, 0, 1);
                             GLHelper::drawText(veh->getID(),
-                                    l->geometryPositionAtOffset(vehiclePosition - 0.5 * vehLength),
-                                    GLO_MAX, nameSettings.size / s.scale, nameSettings.color); 
+                                               l->geometryPositionAtOffset(vehiclePosition - 0.5 * vehLength),
+                                               GLO_MAX, nameSettings.size / s.scale, nameSettings.color);
                             glPopMatrix();
                         }
                         vehiclePosition -= vehLength;

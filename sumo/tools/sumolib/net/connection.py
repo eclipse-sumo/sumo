@@ -19,16 +19,19 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+
+
 class Connection:
     # constants as defined in sumo/src/utils/xml/SUMOXMLDefinitions.cpp
-    LINKDIR_STRAIGHT  = "s"
-    LINKDIR_TURN      = "t"
-    LINKDIR_LEFT      = "l"
-    LINKDIR_RIGHT     = "r"
-    LINKDIR_PARTLEFT  = "L"
+    LINKDIR_STRAIGHT = "s"
+    LINKDIR_TURN = "t"
+    LINKDIR_LEFT = "l"
+    LINKDIR_RIGHT = "r"
+    LINKDIR_PARTLEFT = "L"
     LINKDIR_PARTRIGHT = "R"
 
     """edge connection for a sumo network"""
+
     def __init__(self, fromEdge, toEdge, fromLane, toLane, direction, tls, tllink):
         self._from = fromEdge
         self._to = toEdge
@@ -40,12 +43,13 @@ class Connection:
 
     def __str__(self):
         return '<connection from="%s" to="%s" fromLane="%s" toLane="%s" %sdirection="%s">' % (
-                self._from.getID(), 
-                self._to.getID(),
-                self._fromLane.getIndex(),
-                self._toLane.getIndex(),
-                ('' if self._tls == '' else 'tl="%s" linkIndex="%s" ' % (self._tls, self._tlLink)),
-                self._direction)
+            self._from.getID(),
+            self._to.getID(),
+            self._fromLane.getIndex(),
+            self._toLane.getIndex(),
+            ('' if self._tls == '' else 'tl="%s" linkIndex="%s" ' %
+             (self._tls, self._tlLink)),
+            self._direction)
 
     def getFrom(self):
         return self._fromLane.getEdge()

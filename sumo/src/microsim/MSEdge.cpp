@@ -680,7 +680,7 @@ MSEdge::container_by_position_sorter::operator()(const MSContainer* const c1, co
     return c1->getID() < c2->getID();
 }
 
-const MSEdgeVector& 
+const MSEdgeVector&
 MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
     if (vClass == SVC_IGNORING) {
         return mySuccessors;

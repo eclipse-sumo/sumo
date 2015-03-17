@@ -203,7 +203,7 @@ public:
     long onRightButtonPress(FXObject*, FXSelector, void*);
     /// @}
 
-    /** @brief Updates all instances 
+    /** @brief Updates all instances
      */
     static void updateAll() {
         AbstractMutex::ScopedLocker locker(myGlobalContainerLock);

@@ -362,7 +362,7 @@ void
 NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::string& lID,
                          SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
                          SUMOReal endOffset, SUMOReal width, PositionVector shape,
-                         const std::string& origID, SUMOReal length, unsigned int index, bool origNames, 
+                         const std::string& origID, SUMOReal length, unsigned int index, bool origNames,
                          const NBNode* node) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
@@ -397,7 +397,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::
         }
     }
     into.writeAttr(SUMO_ATTR_SHAPE, endOffset > 0 ?
-            shape.getSubpart(0, shape.length() - endOffset) : shape);
+                   shape.getSubpart(0, shape.length() - endOffset) : shape);
     if (origNames && origID != "") {
         into.openTag(SUMO_TAG_PARAM);
         into.writeAttr(SUMO_ATTR_KEY, "origId");

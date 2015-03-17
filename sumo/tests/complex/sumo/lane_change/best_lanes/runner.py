@@ -17,9 +17,15 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,subprocess,sys,shutil,random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools"))
-import traci, sumolib
+import os
+import subprocess
+import sys
+import shutil
+import random
+sys.path.append(os.path.join(
+    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools"))
+import traci
+import sumolib
 
 sumoBinary = sumolib.checkBinary('sumo')
 netconvertBinary = sumolib.checkBinary('netconvert')
@@ -34,16 +40,17 @@ for root, dirs, files in os.walk(srcRoot):
         roots.append(root)
 
 for root in sorted(roots):
-    print "-- Test: %s" % root[len(srcRoot)+1:]
+    print "-- Test: %s" % root[len(srcRoot) + 1:]
     prefix = os.path.join(root, "input_")
     sys.stdout.flush()
-    subprocess.call([netconvertBinary, "-n", prefix+"nodes.nod.xml", "-e", prefix+"edges.edg.xml",
-                     "-x", prefix+"connections.con.xml", "-o", "./input_net.net.xml"], stdout=sys.stdout)
+    subprocess.call([netconvertBinary, "-n", prefix + "nodes.nod.xml", "-e", prefix + "edges.edg.xml",
+                     "-x", prefix + "connections.con.xml", "-o", "./input_net.net.xml"], stdout=sys.stdout)
     sys.stdout.flush()
     shutil.copy(prefix + "routes.rou.xml", "./input_routes.rou.xml")
     shutil.copy(prefix + "additional.add.xml", "./input_additional.add.xml")
 
-    sumoProcess = subprocess.Popen("%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+    sumoProcess = subprocess.Popen(
+        "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
     traci.init(PORT)
     step = 0
     traci.simulationStep()
@@ -51,19 +58,19 @@ for root in sorted(roots):
     lanes = traci.vehicle.getBestLanes("0")
     sys.stdout.flush()
     for l in lanes:
-       print "lane %s:" % (l[0])
-       print "  length: %s" % (l[1])
-       print "  offset: %s" % (l[3])
-       print "  allowsContinuation: %s" % (l[4])
-       print "  over: %s" % (l[5])
+        print "lane %s:" % (l[0])
+        print "  length: %s" % (l[1])
+        print "  offset: %s" % (l[3])
+        print "  allowsContinuation: %s" % (l[4])
+        print "  over: %s" % (l[5])
     traci.close()
     sys.stdout.flush()
 
     fdi = open(root + "/expected.txt")
-    for i,l in enumerate(lanes):
+    for i, l in enumerate(lanes):
         vals = fdi.readline().strip().split()
         length = int(vals[0])
-        if ((int(l[1])+500)/500)*500==length:
+        if ((int(l[1]) + 500) / 500) * 500 == length:
             print "lane %s ok" % i
         else:
             print "lane %s mismatches" % i

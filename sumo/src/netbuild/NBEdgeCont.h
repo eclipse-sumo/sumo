@@ -237,8 +237,8 @@ public:
      * @param[in] secondEdgeName The id the second part of the split edge shall have
      * @param[in] noLanesFirstEdge The number of lanes the second part of the split edge shall have
      * @param[in] noLanesSecondEdge The number of lanes the second part of the split edge shall have
-     * @param[in] speed The speed for the edge after the split 
-     * @param[in] changedLeft The number of lanes that is added or removed on the left side of the edge 
+     * @param[in] speed The speed for the edge after the split
+     * @param[in] changedLeft The number of lanes that is added or removed on the left side of the edge
      *            (By default all added/removed lanes are assumed to be on the right when computing connections)
      * @return Whether the edge could be split
      * @exception ProcessError If connections between the edges can not be built
@@ -246,8 +246,8 @@ public:
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge, 
-                 const SUMOReal speed = -1., const int changedLeft=0);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge,
+                 const SUMOReal speed = -1., const int changedLeft = 0);
 
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications
@@ -259,16 +259,16 @@ public:
      * @param[in] secondEdgeName The id the second part of the split edge shall have
      * @param[in] noLanesFirstEdge The number of lanes the second part of the split edge shall have
      * @param[in] noLanesSecondEdge The number of lanes the second part of the split edge shall have
-     * @param[in] speed The speed for the edge after the split 
-     * @param[in] changedLeft The number of lanes that is added or removed on the left side of the edge 
+     * @param[in] speed The speed for the edge after the split
+     * @param[in] changedLeft The number of lanes that is added or removed on the left side of the edge
      *            (By default all added/removed lanes are assumed to be on the right when computing connections)
      * @return Whether the edge could be split
      * @exception ProcessError If connections between the edges can not be built
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, SUMOReal edgepos, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge, 
-                 const SUMOReal speed = -1., const int changedLeft=0);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge,
+                 const SUMOReal speed = -1., const int changedLeft = 0);
     /// @}
 
 

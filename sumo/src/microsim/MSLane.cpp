@@ -1138,7 +1138,7 @@ SUMOReal MSLane::getMissingRearGap(
 }
 
 
-SUMOReal 
+SUMOReal
 MSLane::getMaximumBrakeDist() const {
     const MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     const SUMOReal maxSpeed = getSpeedLimit() * vc.getMaxSpeedFactor();

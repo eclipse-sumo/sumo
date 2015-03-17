@@ -200,8 +200,8 @@ public:
                 for (typename std::vector<const L*>::iterator it = outgoing.begin(); it != outgoing.end(); ++it) {
                     const L* target = *it;
                     const E* targetEdge = &(target->getEdge());
-                    const bool used = (target == getSidewalk<E, L>(targetEdge) 
-                            && (!hasWalkingArea || targetEdge->isWalkingArea()));
+                    const bool used = (target == getSidewalk<E, L>(targetEdge)
+                                       && (!hasWalkingArea || targetEdge->isWalkingArea()));
 #ifdef PedestrianRouter_DEBUG_NETWORK
                     const L* potTarget = getSidewalk<E, L>(targetEdge);
                     std::cout << "   lane=" << (potTarget == 0 ? "NULL" : potTarget->getID()) << (used ? "(used)" : "") << "\n";

@@ -53,13 +53,13 @@ class MSContainerStop;
 // ===========================================================================
 /**
  * @class MSContainerTerminal
- * @brief A collection of stops for containers where containers can be 
+ * @brief A collection of stops for containers where containers can be
  *        transhiped from one stop to another within the terminal.
  *
  * A container terminal consists of several container stops. See MSContainerStop.
  *
  *  Once a container arrives at the terminal (either by insertion or by arriving
- *  via a vehicle at a certain stop of the terminal), the container teleports 
+ *  via a vehicle at a certain stop of the terminal), the container teleports
  *  immediately to the stop it has to depart from.
  *
  */
@@ -70,8 +70,8 @@ public:
      * @param[in] id The id of the container terminal
      * @param[in] myStops The set of stops that belong to the container terminal
      */
-    MSContainerTerminal(const std::string& id, 
-              const std::set<MSContainerStop*> stops);
+    MSContainerTerminal(const std::string& id,
+                        const std::set<MSContainerStop*> stops);
 
 
     /// @brief Destructor

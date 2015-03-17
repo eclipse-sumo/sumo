@@ -16,7 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import sys, struct
+import sys
+import struct
 
 BYTE = 0
 INTEGER = 1
@@ -39,41 +40,49 @@ SCALED2INT = 17
 SCALED2INT_POSITION_2D = 18
 SCALED2INT_POSITION_3D = 19
 
+
 def read(content, format):
     return struct.unpack(format, content.read(struct.calcsize(format)))
+
 
 def readByte(content):
     return read(content, "B")[0]
 
+
 def readInt(content):
     return read(content, "i")[0]
 
+
 def readDouble(content):
     return read(content, "d")[0]
+
 
 def readString(content):
     length = readInt(content)
     return read(content, "%ss" % length)[0]
 
+
 def readStringList(content):
     n = readInt(content)
     list = []
     for i in range(n):
-        read(content, "B") #type
+        read(content, "B")  # type
         list.append(readString(content))
     return list
+
 
 def readIntListList(content):
     n = readInt(content)
     list = []
     for i in range(n):
-        read(content, "B") #type
+        read(content, "B")  # type
         n1 = readInt(content)
         list.append([])
         for j in range(n1):
-            read(content, "B") #type
+            read(content, "B")  # type
             list[-1].append(readInt(content))
     return list
+
 
 def readRoute(content):
     n = readInt(content)
@@ -91,7 +100,7 @@ def readRoute(content):
             if field == numFields:
                 data = readInt(content)
                 field = 0
-            followIndex = (data >> ((numFields - field - 1) * bits)) & mask;
+            followIndex = (data >> ((numFields - field - 1) * bits)) & mask
             edge = followers[edge][followIndex]
             list.append(edges[edge])
             field += 1
@@ -103,6 +112,7 @@ def readRoute(content):
             list.append(edges[readInt(content)])
             n -= 1
     return list
+
 
 def typedValueStr(content):
     valType = readByte(content)
@@ -124,15 +134,15 @@ def typedValueStr(content):
     elif valType == LANE:
         return '%s_%s' % (edges[readInt(content)], readByte(content))
     elif valType == POSITION_2D:
-        return '%.2f,%.2f' % (readDouble(content),readDouble(content))
+        return '%.2f,%.2f' % (readDouble(content), readDouble(content))
     elif valType == POSITION_3D:
-        return '%.2f,%.2f,%.2f' % (readDouble(content),readDouble(content),readDouble(content))
+        return '%.2f,%.2f,%.2f' % (readDouble(content), readDouble(content), readDouble(content))
     elif valType == BOUNDARY:
-        return '%.2f,%.2f,%.2f,%.2f' % (readDouble(content),readDouble(content),
-                                        readDouble(content),readDouble(content))
+        return '%.2f,%.2f,%.2f,%.2f' % (readDouble(content), readDouble(content),
+                                        readDouble(content), readDouble(content))
     elif valType == COLOR:
         val = read(content, "BBBB")
-        return '%.2f,%.2f,%.2f' % (val[0]/255.,val[1]/255.,val[2]/255.)
+        return '%.2f,%.2f,%.2f' % (val[0] / 255., val[1] / 255., val[2] / 255.)
     elif valType == NODE_TYPE:
         return nodeTypes[readByte(content)]
     elif valType == EDGE_FUNCTION:
@@ -140,27 +150,27 @@ def typedValueStr(content):
     elif valType == ROUTE:
         return " ".join(readRoute(content))
     elif valType == SCALED2INT:
-        return '%.2f' % (readInt(content)/100.)
+        return '%.2f' % (readInt(content) / 100.)
     elif valType == SCALED2INT_POSITION_2D:
-        return '%.2f,%.2f' % (readInt(content)/100.,readInt(content)/100.)
+        return '%.2f,%.2f' % (readInt(content) / 100., readInt(content) / 100.)
     elif valType == SCALED2INT_POSITION_3D:
-        return '%.2f,%.2f,%.2f' % (readInt(content)/100.,readInt(content)/100.,readInt(content)/100.)
+        return '%.2f,%.2f,%.2f' % (readInt(content) / 100., readInt(content) / 100., readInt(content) / 100.)
 
 out = sys.stdout
 content = open(sys.argv[1], 'rb')
-read(content, "BBB") #type, sbx version, type
-readString(content) #sumo version
-read(content, "B") #type
+read(content, "BBB")  # type, sbx version, type
+readString(content)  # sumo version
+read(content, "B")  # type
 elements = readStringList(content)
-read(content, "B") #type
+read(content, "B")  # type
 attributes = readStringList(content)
-read(content, "B") #type
+read(content, "B")  # type
 nodeTypes = readStringList(content)
-read(content, "B") #type
+read(content, "B")  # type
 edgeTypes = readStringList(content)
-read(content, "B") #type
+read(content, "B")  # type
 edges = readStringList(content)
-read(content, "B") #type
+read(content, "B")  # type
 followers = readIntListList(content)
 stack = []
 startOpen = False
@@ -179,12 +189,13 @@ while True:
             stack.pop()
             startOpen = False
         else:
-            out.write("    " * (len(stack)-1))
+            out.write("    " * (len(stack) - 1))
             out.write("</%s>\n" % elements[stack.pop()])
         readByte(content)
         if len(stack) == 0:
             break
     elif typ == XML_ATTRIBUTE:
-        out.write(' %s="%s"' % (attributes[readByte(content)], typedValueStr(content)))
+        out.write(' %s="%s"' %
+                  (attributes[readByte(content)], typedValueStr(content)))
     else:
         print >> sys.stderr, "Unknown type %s" % typ

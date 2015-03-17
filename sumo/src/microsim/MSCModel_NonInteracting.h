@@ -101,7 +101,7 @@ public:
     CState() {};
 
     ~CState() {};
-   
+
     // @brief walking directions
     static const int FORWARD;
     static const int BACKWARD;

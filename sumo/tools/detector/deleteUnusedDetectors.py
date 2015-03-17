@@ -22,28 +22,35 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-import os, string, sys, StringIO
+import os
+import string
+import sys
+import StringIO
 from xml.dom.minidom import *
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
+
 
 def writeDetectors(usedDet):
     """ Writes the detectors which are used in the network in a xml file. """
 
     fd = open("detectors.xml", "w")
-    fd.write('<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
+    fd.write(
+        '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
     for det in usedDet:
-        fd.write("   <e1Detector id= \"" + det.getAttribute('id') + "\" lane=\"" + det.getAttribute('lane') + "\" pos=\"" + det.getAttribute('pos'))
-        fd.write("\" freq=\"" + det.getAttribute('freq') + "\" file=\"" + det.getAttribute('file'))
+        fd.write("   <e1Detector id= \"" + det.getAttribute('id') + "\" lane=\"" +
+                 det.getAttribute('lane') + "\" pos=\"" + det.getAttribute('pos'))
+        fd.write("\" freq=\"" + det.getAttribute('freq') +
+                 "\" file=\"" + det.getAttribute('file'))
         # the position of some detectors are over the end of an edge.
         # the tag friendlyPos corrects the position
         if det.hasAttribute('friendlyPos'):
             fd.write("\" friendlyPos=\"" + det.getAttribute('friendlyPos'))
-        
+
         fd.write("\"")
         fd.write("/>\n")
     fd.write("</additional>\n")
-    
+
 
 def deleteUnused(detectors, net):
     """ This method gets all edges from a network and tests whether
@@ -60,16 +67,17 @@ in an edge from the network. """
     for i in detAttributes:
         laneID = i.getAttribute('lane')
         # the id from lanes have as preffix the id from edges
-        # the last two characters are not important they describe the position within the edge
-        if laneID[: len(laneID)-2] in edgelist:
+        # the last two characters are not important they describe the position
+        # within the edge
+        if laneID[: len(laneID) - 2] in edgelist:
             usedDet.append(i)
-    return usedDet 
+    return usedDet
 
 
 if len(sys.argv) < 3:
     print "Usage: " + sys.argv[0] + " <net> <detectors>"
     sys.exit()
-    
+
 print "Reading net..."
 net = sumolib.net.readNet(sys.argv[1])
 

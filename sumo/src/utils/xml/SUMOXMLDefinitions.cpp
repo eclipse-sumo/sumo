@@ -166,7 +166,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "person",           SUMO_TAG_PERSON },
     { "ride",             SUMO_TAG_RIDE },
     { "walk",             SUMO_TAG_WALK },
-    
+
     { "container",        SUMO_TAG_CONTAINER },
     { "transport",        SUMO_TAG_TRANSPORT },
     { "tranship",         SUMO_TAG_TRANSHIP },
@@ -285,7 +285,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "personCapacity", SUMO_ATTR_PERSON_CAPACITY },
     { "containerCapacity", SUMO_ATTR_CONTAINER_CAPACITY },
     { "personNumber",   SUMO_ATTR_PERSON_NUMBER },
-    { "containerNumber",SUMO_ATTR_CONTAINER_NUMBER },
+    { "containerNumber", SUMO_ATTR_CONTAINER_NUMBER },
 
     { "function",       SUMO_ATTR_FUNCTION },
     { "pos",            SUMO_ATTR_POSITION },

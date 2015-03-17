@@ -28,6 +28,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 class TurnDefinitions():
+
     """ Represents a connection of turn definitions. """
 
     logger = logging.getLogger(__name__)
@@ -42,7 +43,7 @@ class TurnDefinitions():
             a warning. """
 
         self.logger.debug("Adding turn definition for %s -> %s "
-            "with probability %f" % (source, destination, probability))
+                          "with probability %f" % (source, destination, probability))
 
         if source not in self.turn_definitions:
             self.turn_definitions[source] = {}
@@ -54,7 +55,7 @@ class TurnDefinitions():
 
         if self.turn_definitions[source][destination] > 100:
             self.logger.warn("Turn probability overflow: %f; lowered to 100" %
-                (self.turn_definitions[source][destination]))
+                             (self.turn_definitions[source][destination]))
             self.turn_definitions[source][destination] = 100
 
     def get_sources(self):
@@ -94,6 +95,7 @@ class TurnDefinitions():
 
         return self.turn_definitions == other.turn_definitions
 
+
 def from_connections(input_connections):
     """ Creates a TurnDefinitions object from given Connections' object. """
 
@@ -105,10 +107,10 @@ def from_connections(input_connections):
             for destination in input_connections.get_destinations(source,
                                                                   source_lane):
                 weight = input_connections.calculate_destination_weight(source,
-                    source_lane, destination)
+                                                                        source_lane, destination)
 
                 LOGGER.debug("Adding connection %s -> %s (%f)" %
-                    (source, destination, weight))
+                             (source, destination, weight))
 
                 turn_definitions.add(source,
                                      destination,
@@ -123,7 +125,7 @@ def to_xml(turn_definitions):
 
     LOGGER.info("Converting turn definitions to XML")
     LOGGER.debug("Turn definitions sources number: %i" %
-        (len(turn_definitions.get_sources())))
+                 (len(turn_definitions.get_sources())))
 
     turn_definitions_xml = xml.dom.minidom.Element("turn-defs")
     for source in turn_definitions.get_sources():
@@ -149,10 +151,8 @@ def to_xml(turn_definitions):
     return turn_definitions_xml.toprettyxml()
 
 
-
-
 class TurnDefinitionsTestCase(unittest.TestCase):
-    # pylint: disable=C,R,W,E,F  
+    # pylint: disable=C,R,W,E,F
 
     def setUp(self):
         self.turn_definitions = TurnDefinitions()
@@ -171,35 +171,35 @@ class TurnDefinitionsTestCase(unittest.TestCase):
         self.turn_definitions.add("source 1", "destination", 100)
         self.turn_definitions.add("source 2", "destination", 100)
         self.assertEqual(["source 1", "source 2"],
-            self.turn_definitions.get_sources())
+                         self.turn_definitions.get_sources())
 
     def test_get_destinations(self):
         self.turn_definitions.add("source", "destination", 100)
         self.assertEqual(["destination"],
-            self.turn_definitions.get_destinations("source"))
+                         self.turn_definitions.get_destinations("source"))
 
     def test_get_destinations_is_sorted(self):
         self.turn_definitions.add("source", "destination 1", 100)
         self.turn_definitions.add("source", "destination 2", 100)
         self.assertEqual(["destination 1", "destination 2"],
-            self.turn_definitions.get_destinations("source"))
+                         self.turn_definitions.get_destinations("source"))
 
     def test_get_turning_probability(self):
         self.turn_definitions.add("source", "destination", 100)
         self.assertEqual(100,
-            self.turn_definitions.get_turning_probability("source",
-                                                          "destination"))
+                         self.turn_definitions.get_turning_probability("source",
+                                                                       "destination"))
 
     def test_probability_overflow_raises_warning_on_initial_add(self):
         collecting_handler = collectinghandler.CollectingHandler()
         self.turn_definitions.logger.addHandler(collecting_handler)
-      
+
         self.turn_definitions.add("source", "destination", 101)
 
         self.assertTrue(
-           "Turn probability overflow: 101.000000; lowered to 100" 
-               in [ record.getMessage()
-                    for record in collecting_handler.log_records ])
+            "Turn probability overflow: 101.000000; lowered to 100"
+            in [record.getMessage()
+                for record in collecting_handler.log_records])
 
     def test_probability_overflow_raises_warning_after_addition(self):
         collecting_handler = collectinghandler.CollectingHandler()
@@ -209,17 +209,17 @@ class TurnDefinitionsTestCase(unittest.TestCase):
         self.turn_definitions.add("source", "destination", 11)
 
         self.assertTrue(
-            "Turn probability overflow: 101.000000; lowered to 100" 
-                in [ record.getMessage()
-                     for record in collecting_handler.log_records ])
+            "Turn probability overflow: 101.000000; lowered to 100"
+            in [record.getMessage()
+                for record in collecting_handler.log_records])
 
-          
+
 class CreateTurnDefinitionsTestCase(unittest.TestCase):
-    # pylint: disable=C,R,W,E,F  
+    # pylint: disable=C,R,W,E,F
 
     def test_creation_with_0_sources(self):
         self.assertEqual(TurnDefinitions(),
-            from_connections(connections.Connections()))
+                         from_connections(connections.Connections()))
 
     def test_creation_with_one_source(self):
         input_connections = connections.Connections()
@@ -229,7 +229,7 @@ class CreateTurnDefinitionsTestCase(unittest.TestCase):
         turn_definitions.add("source 1", "destination 1", 100.0)
 
         self.assertEqual(turn_definitions,
-            from_connections(input_connections))
+                         from_connections(input_connections))
 
     def test_creation_with_two_sources(self):
         input_connections = connections.Connections()
@@ -241,8 +241,7 @@ class CreateTurnDefinitionsTestCase(unittest.TestCase):
         turn_definitions.add("source 2", "destination 1", 100.0)
 
         self.assertEqual(turn_definitions,
-            from_connections(input_connections))
-
+                         from_connections(input_connections))
 
     def test_creation_two_destinations_from_two_lanes_overlapping(self):
         input_connections = connections.Connections()
@@ -251,11 +250,12 @@ class CreateTurnDefinitionsTestCase(unittest.TestCase):
         input_connections.add("source 1", "source lane 2", "destination 1")
 
         turn_definitions = TurnDefinitions()
-        turn_definitions.add("source 1", "destination 1", 100.0/2/2+100.0/2)
-        turn_definitions.add("source 1", "destination 2", 100.0/2/2)
+        turn_definitions.add(
+            "source 1", "destination 1", 100.0 / 2 / 2 + 100.0 / 2)
+        turn_definitions.add("source 1", "destination 2", 100.0 / 2 / 2)
 
         self.assertEqual(turn_definitions,
-            from_connections(input_connections))
+                         from_connections(input_connections))
 
     def test_creation_one_destination_from_two_lanes(self):
         input_connections = connections.Connections()
@@ -266,7 +266,7 @@ class CreateTurnDefinitionsTestCase(unittest.TestCase):
         turn_definitions.add("source 1", "destination 1", 100.0)
 
         self.assertEqual(turn_definitions,
-            from_connections(input_connections))
+                         from_connections(input_connections))
 
     def test_creation_with_one_destination_from_one_lane(self):
         input_connections = connections.Connections()
@@ -276,7 +276,7 @@ class CreateTurnDefinitionsTestCase(unittest.TestCase):
         turn_definitions.add("source 1", "destination 1", 100.0)
 
         self.assertEqual(turn_definitions,
-           from_connections(input_connections))
+                         from_connections(input_connections))
 
     def test_creation_with_two_destinations_from_one_lane(self):
         input_connections = connections.Connections()
@@ -284,26 +284,25 @@ class CreateTurnDefinitionsTestCase(unittest.TestCase):
         input_connections.add("source 1", "source lane 1", "destination 2")
 
         turn_definitions = TurnDefinitions()
-        turn_definitions.add("source 1", "destination 1", 100.0/2)
-        turn_definitions.add("source 1", "destination 2", 100.0/2)
+        turn_definitions.add("source 1", "destination 1", 100.0 / 2)
+        turn_definitions.add("source 1", "destination 2", 100.0 / 2)
 
         self.assertEqual(turn_definitions,
-            from_connections(input_connections))
+                         from_connections(input_connections))
 
     def test_creation_with_three_destinations_from_one_lane(self):
         input_connections = connections.Connections()
         input_connections.add("source 1", "source lane 1", "destination 1")
         input_connections.add("source 1", "source lane 1", "destination 2")
         input_connections.add("source 1", "source lane 1", "destination 3")
-    
+
         turn_definitions = TurnDefinitions()
-        turn_definitions.add("source 1", "destination 1", 100.0/3)
-        turn_definitions.add("source 1", "destination 2", 100.0/3)
-        turn_definitions.add("source 1", "destination 3", 100.0/3)
+        turn_definitions.add("source 1", "destination 1", 100.0 / 3)
+        turn_definitions.add("source 1", "destination 2", 100.0 / 3)
+        turn_definitions.add("source 1", "destination 3", 100.0 / 3)
 
         self.assertEqual(turn_definitions,
-            from_connections(input_connections))
+                         from_connections(input_connections))
 
 if __name__ == "__main__":
     unittest.main()
-

@@ -112,7 +112,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             }
         }
     }
-    if (MSNet::getInstance()->getContainerControl().hasContainers()){
+    if (MSNet::getInstance()->getContainerControl().hasContainers()) {
         // write containers
         MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
         const std::vector<MSEdge*>& edges = ec.getEdges();

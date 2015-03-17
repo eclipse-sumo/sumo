@@ -116,7 +116,7 @@ public:
     /* @brief polygon definition to the given device
      * @param[in] geo  Whether to write the output in geo-coordinates
      */
-    void writeXML(OutputDevice& out, bool geo=false);
+    void writeXML(OutputDevice& out, bool geo = false);
 
 protected:
     /// @brief The positions of the polygon

@@ -135,7 +135,7 @@ NLJunctionControlBuilder::closeJunction() {
             }
 #endif
             break;
-        case NODETYPE_RAIL_SIGNAL: 
+        case NODETYPE_RAIL_SIGNAL:
             myOffset = 0;
             myActiveKey = myActiveID;
             myActiveProgram = "0";
@@ -225,7 +225,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic() {
     SUMOTime firstEventOffset = 0;
     unsigned int step = 0;
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
-    if (myLogicType != TLTYPE_RAIL){
+    if (myLogicType != TLTYPE_RAIL) {
         if (myAbsDuration == 0) {
             throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
         }
@@ -269,8 +269,8 @@ NLJunctionControlBuilder::closeTrafficLightLogic() {
             break;
         case TLTYPE_RAIL:
             tlLogic = new MSRailSignal(getTLLogicControlToUse(),
-                                              myActiveKey, myActiveProgram,
-                                              myAdditionalParameter);
+                                       myActiveKey, myActiveProgram,
+                                       myAdditionalParameter);
             break;
     }
     myActivePhases.clear();

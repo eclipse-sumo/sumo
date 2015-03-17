@@ -23,6 +23,7 @@ from .. import color
 
 
 class Polygon:
+
     def __init__(self, id, type, color, layer, fill, shape):
         self.id = id
         self.type = type
@@ -49,8 +50,9 @@ class Polygon:
         s = []
         for e in self.shape:
             s.append("%s,%s" % (e[0], e[1]))
-        ret = '<poly id="%s" type="%s" color="%s" layer="%s" fill="%s" shape="%s"' % (self.id, self.type, self.color.toXML(), self.layer, self.fill, " ".join(s))
-        if len(self.attributes)==0:
+        ret = '<poly id="%s" type="%s" color="%s" layer="%s" fill="%s" shape="%s"' % (
+            self.id, self.type, self.color.toXML(), self.layer, self.fill, " ".join(s))
+        if len(self.attributes) == 0:
             ret += '/>'
         else:
             ret += '>'
@@ -59,8 +61,9 @@ class Polygon:
             ret += '</poly>'
         return ret
 
-        
+
 class PolygonReader(handler.ContentHandler):
+
     def __init__(self):
         self._id2poly = {}
         self._polys = []
@@ -74,18 +77,19 @@ class PolygonReader(handler.ContentHandler):
             for e in s1:
                 p = e.split(",")
                 cshape.append((float(p[0]), float(p[1])))
-            poly = Polygon(attrs['id'], attrs['type'], c, float(attrs['layer']), attrs['fill'], cshape)
+            poly = Polygon(attrs['id'], attrs['type'], c, float(
+                attrs['layer']), attrs['fill'], cshape)
             self._id2poly[poly.id] = poly
             self._polys.append(poly)
             self._lastPoly = poly
-        if name == 'param' and self._lastPoly!=None:
+        if name == 'param' and self._lastPoly != None:
             self._lastPoly.attributes[attrs['key']] = attrs['value']
 
     def endElement(self, name):
         if name == 'poly':
             self._lastPoly = None
 
-    
+
 def read(filename):
     polys = PolygonReader()
     parse(filename, polys)

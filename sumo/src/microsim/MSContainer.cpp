@@ -122,7 +122,7 @@ MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSContainer* containe
     myWaitingPos = at;
     myWaitingSince = now;
     SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(previousEdge, myLines, myWaitingPos, container->getID());
-	if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED) {
+    if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED) {
         myVehicle = availableVehicle;
         previousEdge->removeContainer(container);
         myVehicle->addContainer(container);
@@ -247,7 +247,7 @@ MSContainer::MSContainerStage_Waiting::MSContainerStage_Waiting(const MSEdge& de
     myStartPos = SUMOVehicleParameter::interpretEdgePos(
                      myStartPos, myDestination.getLength(), SUMO_ATTR_DEPARTPOS, "container stopping at " + myDestination.getID());
 }
-    
+
 MSContainer::MSContainerStage_Waiting::~MSContainerStage_Waiting() {}
 
 const MSEdge*
@@ -291,7 +291,7 @@ MSContainer::MSContainerStage_Waiting::getSpeed() const {
 }
 
 MSContainerStop*
-MSContainer::MSContainerStage_Waiting::getDepartContainerStop() const{
+MSContainer::MSContainerStage_Waiting::getDepartContainerStop() const {
     return myCurrentContainerStop;
 }
 
@@ -513,12 +513,12 @@ MSContainer::setDeparted(SUMOTime now) {
     (*myStep)->setDeparted(now);
 }
 
-SUMOReal 
+SUMOReal
 MSContainer::getEdgePos() const {
     return (*myStep)->getEdgePos(MSNet::getInstance()->getCurrentTimeStep());
 }
 
-Position 
+Position
 MSContainer::getPosition() const {
     return (*myStep)->getPosition(MSNet::getInstance()->getCurrentTimeStep());
 }
@@ -528,12 +528,12 @@ MSContainer::getAngle() const {
     return (*myStep)->getAngle(MSNet::getInstance()->getCurrentTimeStep());
 }
 
-SUMOReal 
+SUMOReal
 MSContainer::getWaitingSeconds() const {
     return STEPS2TIME((*myStep)->getWaitingTime(MSNet::getInstance()->getCurrentTimeStep()));
 }
 
-SUMOReal 
+SUMOReal
 MSContainer::getSpeed() const {
     return (*myStep)->getSpeed();
 }

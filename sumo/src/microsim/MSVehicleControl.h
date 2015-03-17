@@ -376,7 +376,7 @@ public:
     void unregisterOneWaitingForPerson() {
         myWaitingForPerson--;
     }
-   
+
     /** @brief increases the count of vehicles waiting for a container to allow recogniztion of container related deadlocks
      */
     void registerOneWaitingForContainer() {
