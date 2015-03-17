@@ -10,7 +10,7 @@
 Creates an Route-File, which contains for each Taxi the route, from an FCD-File.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

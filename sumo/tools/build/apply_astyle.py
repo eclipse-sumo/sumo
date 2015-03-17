@@ -10,7 +10,7 @@ Applies astyle with the proper settings used in SUMO on all
  files in src.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

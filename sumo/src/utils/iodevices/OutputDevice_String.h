@@ -7,7 +7,7 @@
 // An output device that encapsulates a stringstream
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

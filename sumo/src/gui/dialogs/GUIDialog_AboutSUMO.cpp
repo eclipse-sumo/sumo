@@ -8,7 +8,7 @@
 // The application's "About" - dialog
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -118,7 +118,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name, in
     // copyright notice
     new FXLabel(f3, "A microscopic, multi-modal, open source", 0, LABEL_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0);
     new FXLabel(f3, "road traffic simulation.", 0, LABEL_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0);
-    new FXLabel(f3, "Copyright (C) 2001-2014 DLR / Institute of Transportation Systems", 0, LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0);
+    new FXLabel(f3, "Copyright (C) 2001-2015 DLR / Institute of Transportation Systems", 0, LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0);
 
     FXLinkLabel* link = new FXLinkLabel(f3, "http://sumo.dlr.de", 0, LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL, 0, 0, 0, 0, 5, 5, 5, 5);
     link->setTipText("http://sumo.dlr.de");

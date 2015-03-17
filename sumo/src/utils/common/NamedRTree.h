@@ -9,7 +9,7 @@
 // A RT-tree for efficient storing of SUMO's Named objects
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

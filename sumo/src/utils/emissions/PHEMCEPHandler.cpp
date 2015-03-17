@@ -10,7 +10,7 @@
 // Helper class for PHEM Light, holds CEP data for emission computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
