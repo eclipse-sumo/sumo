@@ -285,7 +285,7 @@ MSFrame::fillOptions() {
     oc.addDescription("routing-algorithm", "Routing",
                       "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
     oc.doRegister("weights.random-factor", new Option_Float());
-    oc.addDescription("weights.random-factor", "Routing", "Edge weights for routing are dynamically disturbed by a random factor between [1-FLOAT,1+FLOAT]");
+    oc.addDescription("weights.random-factor", "Routing", "Edge weights for routing are dynamically disturbed by a random factor between [1,FLOAT]");
 
     // devices
     oc.addOptionSubTopic("Emissions");

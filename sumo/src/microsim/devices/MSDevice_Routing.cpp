@@ -150,7 +150,10 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
                 }
             }
             myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
-            myRandomizeWeightsFactor = oc.isSet("weights.random-factor") ? oc.getFloat("weights.random-factor") : 0;
+            myRandomizeWeightsFactor = oc.isSet("weights.random-factor") ? oc.getFloat("weights.random-factor") : 1;
+            if (myRandomizeWeightsFactor < 1) {
+                WRITE_ERROR("weights.random-factor cannot be less than 1");
+            }
         }
         // make the weights be updated
         if (myAdaptationInterval == -1) {
@@ -252,8 +255,8 @@ MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, S
     const int id = e->getNumericalID();
     if (id < (int)myEdgeEfforts.size()) {
         SUMOReal effort = MAX2(myEdgeEfforts[id], e->getMinimumTravelTime(v));
-        if (myRandomizeWeightsFactor != 0) {
-            effort *= RandHelper::rand(1 - myRandomizeWeightsFactor, 1 + myRandomizeWeightsFactor);
+        if (myRandomizeWeightsFactor != 1) {
+            effort *= RandHelper::rand((SUMOReal)1, myRandomizeWeightsFactor);
         }
         return effort;
     }

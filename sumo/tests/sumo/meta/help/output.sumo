@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18096
+SUMO Version dev-SVN-r18101
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -133,7 +133,7 @@ Routing Options:
                                          'CHWrapper']
   --weights.random-factor FLOAT        Edge weights for routing are dynamically
                                          disturbed by a random factor between
-                                         [1-FLOAT,1+FLOAT]
+                                         [1,FLOAT]
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
                                          'rerouting' device
   --device.rerouting.explicit STR      Assign a 'rerouting' device to named
