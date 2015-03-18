@@ -80,7 +80,6 @@ private:
 
     /** @brief Writes the links_unsplitted file
      * @param[in] oc The options to use
-     * @param[in] nc The node-container from which to read data
      * @param[in] ec The edge-container from which to read data
      */
     static void writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec);

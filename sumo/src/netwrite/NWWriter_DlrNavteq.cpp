@@ -141,6 +141,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
 
 void
 NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) {
+    std::map<const std::string, std::string> nameIDs;
     OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_links_unsplitted.txt");
     writeHeader(device, oc);
     // write format specifier
@@ -150,6 +151,14 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
         NBEdge* e = (*i).second;
         const int kph = speedInKph(e->getSpeed());
         const std::string& betweenNodeID = (e->getGeometry().size() > 2) ? e->getID() : UNDEFINED;
+        std::string nameID = UNDEFINED;
+        if (oc.getBool("output.street-names")) {
+            const std::string& name = i->second->getStreetName();
+            if (name != "" && nameIDs.count(name) == 0) {
+                nameID = toString(nameIDs.size());
+                nameIDs[name] = nameID;
+            }
+        }
         device << e->getID() << "\t"
                << e->getFromNode()->getID() << "\t"
                << e->getToNode()->getID() << "\t"
@@ -163,7 +172,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
                << getNavteqLaneCode(e->getNumLanes()) << "\t"
                << getSpeedCategoryUpperBound(kph) << "\t"
                << kph << "\t"
-               << UNDEFINED << "\t" // NAME_ID1_REGIONAL XXX
+               << nameID << "\t" // NAME_ID1_REGIONAL XXX
                << UNDEFINED << "\t" // NAME_ID2_LOCAL XXX
                << UNDEFINED << "\t" // housenumbers_right
                << UNDEFINED << "\t" // housenumbers_left
@@ -176,6 +185,15 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
                << UNDEFINED << "\t" // isRamp
                << "0\t" // connection (between nodes always in order)
                << "\n";
+    }
+    if (oc.getBool("output.street-names")) {
+        OutputDevice& namesDevice = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_names.txt");
+        writeHeader(namesDevice, oc);
+        // write format specifier
+        namesDevice << "# NAME_ID\tName\n" << nameIDs.size() << "\n";
+        for (std::map<const std::string, std::string>::const_iterator i = nameIDs.begin(); i != nameIDs.end(); ++i) {
+            namesDevice << i->second << "\t" << i->first << "\n";
+        }
     }
 }
 
