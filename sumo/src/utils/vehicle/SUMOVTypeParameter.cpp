@@ -53,7 +53,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       defaultProbability(DEFAULT_VEH_PROB),
       speedFactor(1.0), speedDev(0.0),
       emissionClass(PollutantsInterface::getClassByName("unknown", vclass)), color(RGBColor::DEFAULT_COLOR),
-      vehicleClass(vclass), impatience(0.0), personCapacity(5), containerCapacity(0), boardingDuration(500),
+      vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
       loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN),
       cfModel(SUMO_TAG_CF_KRAUSS), lcModel(LCM_LC2013),
       setParameter(0), saved(false), onlyReferenced(false) {
@@ -81,14 +81,14 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 0.8;
             height = 1.7;
             shape = SVS_MOPED;
-            personCapacity = 2;
+            personCapacity = 1;
             break;
         case SVC_MOTORCYCLE:
             length = 2.2;
             width = 0.9;
             height = 1.5;
             shape = SVS_MOTORCYCLE;
-            personCapacity = 2;
+            personCapacity = 1;
             break;
         case SVC_TRUCK:
             length = 7.1;
@@ -96,7 +96,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 2.4;
             height = 2.4;
             shape = SVS_TRUCK;
-            personCapacity = 3;
+            personCapacity = 2;
             containerCapacity = 1;
             break;
         case SVC_TRAILER:
@@ -105,7 +105,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 2.55;
             height = 4.;
             shape = SVS_TRUCK_SEMITRAILER;
-            personCapacity = 3;
+            personCapacity = 2;
             containerCapacity = 2;
             break;
         case SVC_BUS:
@@ -161,14 +161,14 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 2.16;
             height = 2.86;
             shape = SVS_DELIVERY;
-            personCapacity = 3;
+            personCapacity = 2;
             break;
         case SVC_EMERGENCY:
             length = 6.5;
             width = 2.16;
             height = 2.86;
             shape = SVS_DELIVERY;
-            personCapacity = 3;
+            personCapacity = 2;
             break;
         case SVC_PASSENGER:
             shape = SVS_PASSENGER;
