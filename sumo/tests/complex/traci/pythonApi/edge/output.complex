@@ -22,6 +22,7 @@ numVeh 1
 haltVeh 0
 vehIds ['horiz']
 waiting time 0.0
+checking occupancy with unicode id 0.0201207243461
 traveltime after adaption 79.7638272613
 adaptedTraveltime after adaption 42.0
 effort after adaption 1234.0

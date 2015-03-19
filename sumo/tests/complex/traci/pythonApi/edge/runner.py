@@ -56,6 +56,8 @@ print "numVeh", traci.edge.getLastStepVehicleNumber(edgeID)
 print "haltVeh", traci.edge.getLastStepHaltingNumber(edgeID)
 print "vehIds", traci.edge.getLastStepVehicleIDs(edgeID)
 print "waiting time", traci.edge.getWaitingTime(edgeID)
+# testing unicode
+print "checking occupancy with unicode id", traci.edge.getLastStepOccupancy(unicode(edgeID))
 
 traci.edge.adaptTraveltime(edgeID, 42.)
 print "traveltime after adaption", traci.edge.getTraveltime(edgeID)
