@@ -566,10 +566,11 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
             glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
             glRotated(myShapeRotations[i], 0, 0, 1);
             for (SUMOReal t = 0; t < myShapeLengths[i]; t += 6) {
+                const SUMOReal length = MIN2((SUMOReal)3, myShapeLengths[i] - t);
                 glBegin(GL_QUADS);
                 glVertex2d(-mw, -t);
-                glVertex2d(-mw, -t - 3.);
-                glVertex2d(myQuarterLaneWidth * scale, -t - 3.);
+                glVertex2d(-mw, -t - length);
+                glVertex2d(myQuarterLaneWidth * scale, -t - length);
                 glVertex2d(myQuarterLaneWidth * scale, -t);
                 glEnd();
             }
