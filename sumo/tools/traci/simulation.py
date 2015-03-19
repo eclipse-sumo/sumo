@@ -359,5 +359,5 @@ def clearPending(routeID=""):
     traci._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_CLEAR_PENDING_VEHICLES, "",
                         1 + 4 + len(routeID))
     traci._message.string += struct.pack("!Bi",
-                                         tc.TYPE_STRING, len(routeID)) + routeID
+                                         tc.TYPE_STRING, len(routeID)) + str(routeID)
     traci._sendExact()

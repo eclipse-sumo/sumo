@@ -93,7 +93,7 @@ def add(routeID, edges):
                         1 + 4 + sum(map(len, edges)) + 4 * len(edges))
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(edges))
     for e in edges:
-        traci._message.string += struct.pack("!i", len(e)) + e
+        traci._message.string += struct.pack("!i", len(e)) + str(e)
     traci._sendExact()
 
 

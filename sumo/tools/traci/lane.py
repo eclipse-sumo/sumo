@@ -345,7 +345,7 @@ def setAllowed(laneID, allowedClasses):
     traci._message.string += struct.pack("!Bi",
                                          tc.TYPE_STRINGLIST, len(allowedClasses))
     for c in allowedClasses:
-        traci._message.string += struct.pack("!i", len(c)) + c
+        traci._message.string += struct.pack("!i", len(c)) + str(c)
     traci._sendExact()
 
 
@@ -361,7 +361,7 @@ def setDisallowed(laneID, disallowedClasses):
     traci._message.string += struct.pack("!Bi",
                                          tc.TYPE_STRINGLIST, len(disallowedClasses))
     for c in disallowedClasses:
-        traci._message.string += struct.pack("!i", len(c)) + c
+        traci._message.string += struct.pack("!i", len(c)) + str(c)
     traci._sendExact()
 
 

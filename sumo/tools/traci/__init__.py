@@ -319,10 +319,10 @@ def _beginMessage(cmdID, varID, objID, length=0):
     length += 1 + 1 + 1 + 4 + len(objID)
     if length <= 255:
         _message.string += struct.pack("!BBBi", length,
-                                       cmdID, varID, len(objID)) + objID
+                                       cmdID, varID, len(objID)) + str(objID)
     else:
         _message.string += struct.pack("!BiBBi", 0, length + 4,
-                                       cmdID, varID, len(objID)) + objID
+                                       cmdID, varID, len(objID)) + str(objID)
 
 
 def _sendReadOneStringCmd(cmdID, varID, objID):
@@ -351,7 +351,7 @@ def _sendByteCmd(cmdID, varID, objID, value):
 def _sendStringCmd(cmdID, varID, objID, value):
     _beginMessage(cmdID, varID, objID, 1 + 4 + len(value))
     _message.string += struct.pack("!Bi", constants.TYPE_STRING,
-                                   len(value)) + value
+                                   len(value)) + str(value)
     _sendExact()
 
 

@@ -276,7 +276,7 @@ def setCompleteRedYellowGreenDefinition(tlsID, tls):
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, itemNo)
     # programID
     traci._message.string += struct.pack("!Bi",
-                                         tc.TYPE_STRING, len(tls._subID)) + tls._subID
+                                         tc.TYPE_STRING, len(tls._subID)) + str(tls._subID)
     traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, 0)  # type
     # subitems
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
@@ -290,7 +290,7 @@ def setCompleteRedYellowGreenDefinition(tlsID, tls):
         traci._message.string += struct.pack("!BiBiBi", tc.TYPE_INTEGER,
                                              p._duration, tc.TYPE_INTEGER, p._duration1, tc.TYPE_INTEGER, p._duration2)
         traci._message.string += struct.pack("!Bi",
-                                             tc.TYPE_STRING, len(p._phaseDef)) + p._phaseDef
+                                             tc.TYPE_STRING, len(p._phaseDef)) + str(p._phaseDef)
     traci._sendExact()
 
 
