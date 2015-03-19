@@ -243,7 +243,6 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         assert(geomsCW.find(*ccwi) != geomsCW.end());
         assert(geomsCW.find(*cwi) != geomsCW.end());
 
-
         // there are only 2 directions and they are almost parallel
         if (*cwi == *ccwi &&
                 (
@@ -745,20 +744,22 @@ NBNodeShapeComputer::initNeighbors(const EdgeVector& edges, const EdgeVector::co
         ccwi--;
     }
 
-    const SUMOReal angleI = geomsCCW[*current].lineAt(0).atan2PositiveAngle();
+    const SUMOReal angleCurCCW = geomsCCW[*current].lineAt(0).atan2PositiveAngle();
+    const SUMOReal angleCurCW = geomsCW[*current].lineAt(0).atan2PositiveAngle();
     const SUMOReal angleCCW = geomsCW[*ccwi].lineAt(0).atan2PositiveAngle();
-    const SUMOReal angleCW = geomsCW[*cwi].lineAt(0).atan2PositiveAngle();
-    if (angleI > angleCCW) {
-        ccad = angleI - angleCCW;
+    const SUMOReal angleCW = geomsCCW[*cwi].lineAt(0).atan2PositiveAngle();
+    if (angleCurCCW > angleCCW) {
+        ccad = angleCurCCW - angleCCW;
     } else {
-        ccad = twoPI - angleCCW + angleI;
+        ccad = twoPI - (angleCCW - angleCurCCW);
     }
 
-    if (angleI > angleCW) {
-        cad = twoPI - angleI + angleCW;
+    if (angleCurCW > angleCW) {
+        cad = twoPI - (angleCurCW - angleCW);
     } else {
-        cad = angleCW - angleI;
+        cad = angleCW - angleCurCW;
     }
+
     if (ccad < 0) {
         ccad += twoPI;
     }
