@@ -511,7 +511,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         nextLane = (*link)->getViaLaneOrLane();
         // check how next lane effects the journey
         if (nextLane != 0) {
-            arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
             // check leader on next lane
             SUMOReal gap = 0;
             MSVehicle* leader = nextLane->getLastVehicle();
@@ -549,15 +548,14 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // check traffic on next junction
             // we cannot use (*link)->opened because a vehicle without priority
             // may already be comitted to blocking the link and unable to stop
-            const SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));
-            const SUMOTime leaveTime = arrivalTime + TIME2STEPS((*link)->getLength() * speed);
+            const SUMOTime leaveTime = (*link)->getLeaveTime(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength());
             if ((*link)->hasApproachingFoe(arrivalTime, leaveTime, speed, cfModel.getMaxDecel())) {
-                if (checkFailure(aVehicle, speed, dist, cfModel.insertionFollowSpeed(aVehicle, speed, seen, 0, 0),
-                                 patchSpeed, "")) {
+                if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, seen), patchSpeed, "")) {
                     // we may not drive with the given velocity - we crash at the junction
                     return false;
                 }
             }
+            arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
             seen += nextLane->getLength();
             currentLane = nextLane;
 #ifdef HAVE_INTERNAL_LANES
