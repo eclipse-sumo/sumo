@@ -103,6 +103,7 @@ via_weights:weights.via.xml
 selection:selection.txt
 histogram:histogram.dat
 fullstats:fullstats.dat
+osmimport:osm.net.xml
 
 [run_dependent_text]
 output:Begin time
@@ -130,6 +131,7 @@ errors:No imaging
 omnet:<!-- generated on
 shawn:<!-- generated on
 net:<!--{[->]}-->
+osmimport:<!--{[->]}-->
 
 [floating_point_tolerance]
 net:0.0101
