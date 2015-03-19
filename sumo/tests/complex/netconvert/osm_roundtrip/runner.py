@@ -34,7 +34,7 @@ sys.path.append(os.path.join(
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 from sumolib import checkBinary
-import fpdiff
+import texttestlib.default.fpdiff
 
 osm_input = 'osm.xml'
 net_output = 'from_osm'
@@ -97,7 +97,7 @@ tolines = get_filtered_lines(net_output2)
 #with open('fromlines','w') as f: f.write('\n'.join(fromlines))
 #with open('tolines','w') as f: f.write('\n'.join(tolines))
 out = StringIO.StringIO()
-fpdiff.fpfilter(fromlines, tolines, out, 0.0201)
+texttestlib.default.fpdiff.fpfilter(fromlines, tolines, out, 0.0201)
 out.seek(0)
 tolines = out.readlines()
 sys.stderr.writelines(difflib.unified_diff(fromlines, tolines))

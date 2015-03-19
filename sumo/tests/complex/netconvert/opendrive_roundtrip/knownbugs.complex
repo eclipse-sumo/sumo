@@ -1,0 +1,7 @@
+
+[Reported by Windows at 19Mar08:37:52]
+search_string:Error
+search_file:errors
+ignore_other_errors:1
+bug_system:trac
+bug_id:1692
