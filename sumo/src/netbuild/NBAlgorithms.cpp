@@ -69,8 +69,14 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node) {
         for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
             NBEdge* e = *k;
             // @todo: check whether NBHelpers::relAngle is properly defined and whether it should really be used, here
-            SUMOReal angle = fabs(NBHelpers::relAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node)));
-            //std::cout << "incoming=" << e->getID() << " outgoing=" << outedge->getID() << " angle=" << angle << "\n";
+            const SUMOReal signedAngle = NBHelpers::normRelAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node));
+            if (signedAngle > 0 && signedAngle < 177 && e->getGeometry().back().distanceTo2D(outedge->getGeometry().front()) < POSITION_EPS) {
+                // backwards curving edges can only be turnaround when there are
+                // non-default endpoints
+                continue;
+            }
+            SUMOReal angle = fabs(signedAngle);
+            // std::cout << "incoming=" << e->getID() << " outgoing=" << outedge->getID() << " relAngle=" << NBHelpers::relAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node)) << "\n";
             if (e->getFromNode() == outedge->getToNode() && angle > 120) {
                 // they connect the same nodes; should be the turnaround direction
                 // we'll assign a maximum number
