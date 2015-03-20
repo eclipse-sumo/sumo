@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 18 Mar 2015 03:36:24 PM CET by Netedit Version dev-SVN-r18103I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/sip-svn-trunk/tests/scenario/use/DRIVE/Helmond_GLOSA_vehs1/net.scenario"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/sip-svn-trunk/tests/scenario/use/DRIVE/Helmond_GLOSA_vehs1/net.scenario"/>
+        <plain-output-prefix value="/scr2/debug/junctionPriority/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-7144711" from="42728382" to="42727650" priority="1" numLanes="1" speed="13.89" shape="6194.96,2007.66 6224.88,1987.59 6232.64,1984.53 6249.19,1988.47 6252.04,1986.34 6255.18,1976.44"/>
+    <edge id="-7144718" from="42727650" to="42726349" priority="1" numLanes="1" speed="13.89" shape="6255.18,1976.44 6298.40,1992.47 6307.51,1990.58 6311.22,1984.03 6332.76,1926.92"/>
+    <edge id="-7144720" from="42727650" to="42726840" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="7144711" from="42727650" to="42728382" priority="1" numLanes="1" speed="13.89" shape="6255.18,1976.44 6252.04,1986.34 6249.19,1988.47 6232.64,1984.53 6224.88,1987.59 6194.96,2007.66"/>
+    <edge id="7144718" from="42726349" to="42727650" priority="1" numLanes="1" speed="13.89" shape="6332.76,1926.92 6311.22,1984.03 6307.51,1990.58 6298.40,1992.47 6255.18,1976.44"/>
+    <edge id="7144720" from="42726840" to="42727650" priority="1" numLanes="1" speed="13.89"/>
+</edges>
