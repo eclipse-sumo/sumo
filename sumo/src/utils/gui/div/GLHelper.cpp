@@ -122,6 +122,7 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
     gluTessEndContour(tobj);
     gluTessEndPolygon(tobj);
     gluDeleteTess(tobj);
+    delete[] points;
 }
 
 
