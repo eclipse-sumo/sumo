@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 19 13:32:41 2015 by SUMO netconvert Version dev-SVN-r18107I
+<!-- generated on Fri Mar 20 10:21:52 2015 by SUMO netconvert Version dev-SVN-r18115I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -1178,10 +1178,10 @@
     <junction id="59-DestinationNode" type="unregulated" x="1466.00" y="1705.72" incLanes="59_0" intLanes="" shape="1466.75,1707.13 1465.25,1704.31"/>
     <junction id="59-SourceNode" type="unregulated" x="1488.61" y="1693.69" incLanes="" intLanes="" shape="1487.86,1692.27 1489.36,1695.10"/>
     <junction id="6" type="priority" x="1481.99" y="1680.09" incLanes="41_0 41_1 6[1][1][1][1][1][0]_0 6[1][1][1][1][1][0]_1 3[1][1][1][1][0]_0 3[1][1][1][1][0]_1" intLanes="" shape="1493.75,1679.99 1490.10,1673.65 1480.55,1673.34 1470.31,1684.55 1470.66,1685.82 1474.98,1690.67 1478.07,1689.33 1484.55,1689.79">
-        <request index="0" response="001100" foes="001100"/>
-        <request index="1" response="111100" foes="111100"/>
-        <request index="2" response="000000" foes="000011"/>
-        <request index="3" response="000000" foes="000011"/>
+        <request index="0" response="000000" foes="001100"/>
+        <request index="1" response="110000" foes="111100"/>
+        <request index="2" response="000011" foes="000011"/>
+        <request index="3" response="000011" foes="000011"/>
         <request index="4" response="000000" foes="000010"/>
         <request index="5" response="000000" foes="000010"/>
     </junction>
@@ -1457,7 +1457,7 @@
     <connection from="4+103" to="6[0]" fromLane="2" toLane="1" dir="l" state="m"/>
     <connection from="40" to="41" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="40" to="41" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="41" to="6[1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="41" to="6[1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="41" to="3[1][1][1][1][1][0]" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="5" to="7" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="5" to="20000" fromLane="0" toLane="0" dir="s" state="m"/>
@@ -1496,8 +1496,8 @@
     <connection from="6[1][1][1][1][0]" to="39" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][1][1][0]" to="6[1][1][1][1][1][0]" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="6[1][1][1][1][0]" to="6[1][1][1][1][1][0]" fromLane="1" toLane="1" dir="l" state="M"/>
-    <connection from="6[1][1][1][1][1][0]" to="6[1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="6[1][1][1][1][1][0]" to="6[1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="6[1][1][1][1][1][0]" to="6[1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="6[1][1][1][1][1][0]" to="6[1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="l" state="m"/>
     <connection from="6[1][1][1][1][1][1][0]" to="73" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][1][0]" to="70" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][1][0]" to="70" fromLane="0" toLane="1" dir="s" state="M"/>
