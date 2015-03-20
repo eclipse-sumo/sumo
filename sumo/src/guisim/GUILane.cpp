@@ -786,7 +786,7 @@ GUILane::setMultiColor(const GUIColorer& c) const {
             return true;
         case 24: // color by inclination  at segment start
             for (int ii = 1; ii < (int)myShape.size(); ++ii) {
-                const SUMOReal inc = (myShape[ii].z() - myShape[ii - 1].z()) / myShape[ii].distanceTo2D(myShape[ii - 1]);
+                const SUMOReal inc = (myShape[ii].z() - myShape[ii - 1].z()) / MAX2(POSITION_EPS, myShape[ii].distanceTo2D(myShape[ii - 1]));
                 myShapeColors.push_back(c.getScheme().getColor(inc));
             }
             return true;
