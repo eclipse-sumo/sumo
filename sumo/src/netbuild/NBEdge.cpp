@@ -2382,13 +2382,13 @@ NBEdge::shiftToLanesToEdge(NBEdge* to, unsigned int laneOff) {
 
 void
 NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
-    if (myLaneSpreadFunction == LANESPREAD_CENTER) {
+    if (myLaneSpreadFunction == LANESPREAD_CENTER && !isRailway(getPermissions())) {
         const int i = (node == myTo ? -1 : 0);
         const int i2 = (node == myTo ? 0 : -1);
         const SUMOReal dist = myGeom[i].distanceTo2D(node->getPosition());
         const SUMOReal neededOffset = (getTotalWidth() + getNumLanes() * SUMO_const_laneOffset) / 2;
         const SUMOReal dist2 = MIN2(myGeom.distance(other->getGeometry()[i2]),
-                                    other->getGeometry().distance(myGeom[i]));
+                other->getGeometry().distance(myGeom[i]));
         const SUMOReal neededOffset2 = neededOffset + (other->getTotalWidth() + other->getNumLanes() * SUMO_const_laneOffset) / 2;
         if (dist < neededOffset && dist2 < neededOffset2) {
             PositionVector tmp = myGeom;

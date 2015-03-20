@@ -767,6 +767,8 @@ Warning: Could not use edge geometry for internal lane, node '1864428535'.
 Warning: Could not use edge geometry for internal lane, node '1864428535'.
 Warning: Junction shape for '196721246' has distance 41.43 to its given position
 Warning: Junction shape for '2071374815' has distance 33.62 to its given position
+Warning: Junction shape for '2071374842' has distance 23.59 to its given position
+Warning: Junction shape for '2071374916' has distance 34.57 to its given position
 Warning: Could not use edge geometry for internal lane, node '2071423312'.
 Warning: Could not use edge geometry for internal lane, node '2071423312'.
 Warning: Could not use edge geometry for internal lane, node '2071423322'.
@@ -774,7 +776,6 @@ Warning: Could not use edge geometry for internal lane, node '2071423322'.
 Warning: Could not use edge geometry for internal lane, node '2071423355'.
 Warning: Could not use edge geometry for internal lane, node '2071423356'.
 Warning: Could not use edge geometry for internal lane, node '2071423357'.
-Warning: Could not use edge geometry for internal lane, node '2094266949'.
 Warning: Junction shape for '2095738463' has distance 21.77 to its given position
 Warning: Could not use edge geometry for internal lane, node '21432801'.
 Warning: Could not use edge geometry for internal lane, node '21487220'.
@@ -841,7 +842,6 @@ Warning: Could not use edge geometry for internal lane, node '2680763557'.
 Warning: Could not use edge geometry for internal lane, node '27411306'.
 Warning: Could not use edge geometry for internal lane, node '27411306'.
 Warning: Could not use edge geometry for internal lane, node '275525457'.
-Warning: Junction shape for '276689702' has distance 24.21 to its given position
 Warning: Could not use edge geometry for internal lane, node '2776837186'.
 Warning: Could not use edge geometry for internal lane, node '2776837188'.
 Warning: Could not use edge geometry for internal lane, node '2776837188'.
@@ -1055,6 +1055,13 @@ Warning: The traffic light 'GS_961984606' does not control any links; it will no
 Warning: Could not build program '0' for traffic light 'GS_961984606'
 Warning: The traffic light 'GS_cluster_1448294081_2900797856_440880501' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'GS_cluster_1448294081_2900797856_440880501'
+Warning: Connection '148458495_0->148457212#0_0' is only 0.07 short.
+Warning: Connection '196844848_0->25946685#2_0' is only 0.09 short.
+Warning: Connection '196844845_0->29384660#1_0' is only 0.09 short.
+Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
+Warning: Connection '23809678#2_1->153424801#2_0' is only 0.05 short.
+Warning: Connection '153424801#2_0->23809678#1_1' is only 0.07 short.
+Warning: Connection '11103418_1->143931934_0' is only 0.07 short.
 Warning: No connection between '4612961' and '110464118#1' found.
 Warning: Mandatory edge '110464118#1' not reachable by vehicle 'veh36'.
 Warning: The vehicle 'veh36' has no valid route.
@@ -2231,13 +2238,3 @@ Warning: The vehicle 'train358' has no valid route.
 Warning: No connection between '199579027' and '199425795#3' found.
 Warning: Mandatory edge '199425795#3' not reachable by vehicle 'train359'.
 Warning: The vehicle 'train359' has no valid route.
-Warning: Teleporting vehicle 'veh105'; waited too long (yield), lane='82649618#1_3', time=896.00.
-Warning: Vehicle 'veh105' ends teleporting on edge '82649618#3', time 896.00.
-Warning: Teleporting vehicle 'veh89'; waited too long (wrong lane), lane='4612963_1', time=903.00.
-Warning: Teleporting vehicle 'bike38'; waited too long (wrong lane), lane='4612963_2', time=903.00.
-Warning: Vehicle 'veh89' ends teleporting on edge '4790808', time 903.00.
-Warning: Vehicle 'bike38' ends teleporting on edge '156364566#0', time 903.00.
-Warning: Teleporting vehicle 'veh112'; waited too long (jam), lane='82654059#0_3', time=1222.00.
-Warning: Vehicle 'veh112' ends teleporting on edge '82654059#2', time 1222.00.
-Warning: Teleporting vehicle 'veh107'; waited too long (wrong lane), lane='4612963_1', time=1223.00.
-Warning: Vehicle 'veh107' ends teleporting on edge '4790808', time 1223.00.

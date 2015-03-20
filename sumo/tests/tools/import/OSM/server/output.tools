@@ -125,7 +125,8 @@ Computing node logics... done.
 Computing traffic light logics... 
 done.
  33 traffic light(s) computed.
-Building inner edges... done.
+Building inner edges... 
+done.
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -139,7 +140,7 @@ Summary:
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
 Success.
-Parsing network projection from '/scr2/texttest_tmp/tools.19Mar133240.27270/tools/import/OSM/server/osm.net.xml'... done.
+Parsing network projection from '/scr2/texttest_tmp/tools.20Mar094216.25159/tools/import/OSM/server/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
@@ -150,24 +151,23 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (1744ms).
-Loading additional-files from 'osm.poly.xml'...  done (214ms).
+Loading net-file from 'osm.net.xml'...  done (1301ms).
+Loading additional-files from 'osm.poly.xml'...  done (164ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 5460.00
+Simulation ended at time: 5453.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 56732ms
- Real time factor: 96.242
- UPS: 7053.179863
+ Duration: 47564ms
+ Real time factor: 114.646
+ UPS: 8245.185434
 Vehicles: 
  Inserted: 1263
  Running: 0
  Waiting: 0
-Teleports: 5 (Jam: 1, Yield: 1, Wrong Lane: 3)
 
-DijkstraRouterTT answered 1306 queries and explored 636.09 edges on average.
-DijkstraRouterTT spent 558ms answering queries (0.43ms on average).
+DijkstraRouterTT answered 1306 queries and explored 634.91 edges on average.
+DijkstraRouterTT spent 489ms answering queries (0.37ms on average).
 Calling osmBuild
 Calling randomTrips
 calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
