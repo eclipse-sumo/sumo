@@ -3,5 +3,8 @@ Warning: Discarding unusable type "waterway.canal" (first occurence for edge "31
 Warning: Discarding unusable type "highway.construction" (first occurence for edge "190461577").
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
+Warning: Removed a road without junctions: -69923147
+Warning: Removed a road without junctions: 22917250, 22762378, 152466382
+Warning: Removed a road without junctions: 69923147
 Warning: The traffic light '1704693513' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '1704693513'

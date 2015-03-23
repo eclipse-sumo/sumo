@@ -54,7 +54,7 @@ optParser.add_option("-c", "--vehicle-classes", default='all',
 optParser.add_option("-d", "--output-directory", default=os.getcwd(),
                      help="directory in which to put the output files")
 optParser.add_option("-n", "--netconvert-options",
-                     default="-R,--ramps.guess,-v,--junctions.join,--osm.railway.oneway-default,--tls.guess-signals,--tls.discard-simple,--tls.join", help="comma-separated options for netconvert")
+                     default="--geometry.remove,--remove-edges.isolated,--roundabouts.guess,--ramps.guess,-v,--junctions.join,--osm.railway.oneway-default,--tls.guess-signals,--tls.discard-simple,--tls.join", help="comma-separated options for netconvert")
 optParser.add_option("--pedestrians", action="store_true",
                      default=False, help="add pedestrian infrastructure to the network")
 optParser.add_option("-y", "--polyconvert-options",

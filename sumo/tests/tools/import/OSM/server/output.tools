@@ -96,11 +96,13 @@ done.
    4189 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done.
+Finding isolated roads... 
+done.
 Joining junction clusters... 
 done.
- Joined 77 junction cluster(s).
+ Joined 75 junction cluster(s).
 Removing empty nodes and geometry nodes... done.
-   598 nodes removed.
+   591 nodes removed.
 Moving network to origin... done.
 Joining similar edges... done.
 Computing turning directions... 
@@ -114,6 +116,7 @@ Computing node types... done.
 Guessed 1178 pedestrian crossings.
 Computing priorities... done.
 Computing approached edges... done.
+Guessing and setting roundabouts... done.
 Computing approaching lanes... done.
 Dividing of lanes on approached lanes... done.
 Processing turnarounds... done.
@@ -130,17 +133,17 @@ done.
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 471
-  Dead-end junctions          : 609
-  Priority junctions          : 865
+  Unregulated junctions       : 405
+  Dead-end junctions          : 601
+  Priority junctions          : 852
   Right-before-left junctions : 172
  Network boundaries:
   Original boundary  : 13.35,52.49,13.53,52.57
-  Applied offset     : -388415.86,-5817979.56
-  Converted boundary : 0.00,0.00,6080.75,5405.51
+  Applied offset     : -389562.46,-5817979.56
+  Converted boundary : 0.00,0.00,4934.15,5232.39
 -----------------------------------------------------
 Success.
-Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.20Mar165738.13396/tools/import/OSM/server/osm.net.xml'... done.
+Parsing network projection from '/scr2/texttest_tmp/tools.23Mar092525.32541/tools/import/OSM/server/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
@@ -151,23 +154,23 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (490ms).
-Loading additional-files from 'osm.poly.xml'...  done (80ms).
+Loading net-file from 'osm.net.xml'...  done (498ms).
+Loading additional-files from 'osm.poly.xml'...  done (81ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 5450.00
+Simulation ended at time: 5452.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 26647ms
- Real time factor: 204.526
- UPS: 14644.462791
+ Duration: 30868ms
+ Real time factor: 176.623
+ UPS: 12611.863418
 Vehicles: 
- Inserted: 1248
+ Inserted: 1245
  Running: 0
  Waiting: 0
 
-DijkstraRouterTT answered 1308 queries and explored 644.53 edges on average.
-DijkstraRouterTT spent 357ms answering queries (0.27ms on average).
+DijkstraRouterTT answered 1290 queries and explored 647.05 edges on average.
+DijkstraRouterTT spent 411ms answering queries (0.32ms on average).
 Calling osmBuild
 Calling randomTrips
 calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
