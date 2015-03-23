@@ -35,6 +35,8 @@ vclassRemove = {"passenger": " --keep-edges.by-vclass passenger",
                 "all": ""}
 possibleVClassOptions = '|'.join(vclassRemove.keys())
 
+DEFAULT_NETCONVERT_OPTS = "--geometry.remove,--remove-edges.isolated,--roundabouts.guess,--ramps.guess,-v,--junctions.join,--osm.railway.oneway-default,--tls.guess-signals,--tls.discard-simple,--tls.join"
+
 
 optParser = optparse.OptionParser()
 optParser.add_option("-p", "--prefix", default="osm", help="for output file")
@@ -54,7 +56,7 @@ optParser.add_option("-c", "--vehicle-classes", default='all',
 optParser.add_option("-d", "--output-directory", default=os.getcwd(),
                      help="directory in which to put the output files")
 optParser.add_option("-n", "--netconvert-options",
-                     default="--geometry.remove,--remove-edges.isolated,--roundabouts.guess,--ramps.guess,-v,--junctions.join,--osm.railway.oneway-default,--tls.guess-signals,--tls.discard-simple,--tls.join", help="comma-separated options for netconvert")
+                     default=DEFAULT_NETCONVERT_OPTS, help="comma-separated options for netconvert")
 optParser.add_option("--pedestrians", action="store_true",
                      default=False, help="add pedestrian infrastructure to the network")
 optParser.add_option("-y", "--polyconvert-options",

@@ -107,7 +107,7 @@ def build(handler, prefix, bbox=False):
     polyname = prefix + ".poly.xml"
     options = ["-f", osmname, "-p", prefix, "-m", polyfile]
     typefiles = []
-    netconvertOptions = "--geometry.remove,--remove-edges.isolated,--roundabouts.guess,--ramps.guess,-v,--junctions.join,--osm.railway.oneway-default,--tls.guess-signals,--tls.discard-simple,--tls.join,--junctions.corner-detail,5"
+    netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS + ",--junctions.corner-detail,5"
     if handler.pedestrians.enable:  # drop?
         # sidewalks are already included via typefile
         netconvertOptions += ",--crossings.guess"
