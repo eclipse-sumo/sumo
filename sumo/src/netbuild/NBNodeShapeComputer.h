@@ -102,7 +102,7 @@ private:
      *  all edges within the value-vector which direction at the node differs
      *  less than 1 from the key-edge's direction.
      */
-    void joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same,
+    void joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> >& same,
                                 GeomsMap& geomsCCW,
                                 GeomsMap& geomsCW);
 
@@ -114,7 +114,7 @@ private:
      *  ccwBoundary/cwBoundary.
      */
     EdgeVector computeUniqueDirectionList(
-        const std::map<NBEdge*, EdgeVector >& same,
+        std::map<NBEdge*, std::set<NBEdge*> >& same,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW,
         std::map<NBEdge*, NBEdge*>& ccwBoundary,

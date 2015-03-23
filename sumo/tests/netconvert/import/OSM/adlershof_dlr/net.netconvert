@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 19 13:32:43 2015 by SUMO netconvert Version dev-SVN-r18107I
+<!-- generated on Mon Mar 23 12:31:56 2015 by SUMO netconvert Version dev-SVN-r18123I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -195,10 +195,10 @@
         <lane id="-6137233#0_0" index="0" speed="13.89" length="42.56" shape="334.83,455.14 297.06,447.63"/>
     </edge>
     <edge id="-6137233#1" from="283018845" to="38919880" name="Ludwig-Boltzmann-Straße" priority="4" type="highway.residential">
-        <lane id="-6137233#1_0" index="0" speed="13.89" length="25.13" shape="360.94,461.42 344.39,457.31"/>
+        <lane id="-6137233#1_0" index="0" speed="13.89" length="21.92" shape="359.26,461.00 344.39,457.31"/>
     </edge>
     <edge id="-6137233#2" from="283018932" to="283018845" name="Ludwig-Boltzmann-Straße" priority="4" type="highway.residential">
-        <lane id="-6137233#2_0" index="0" speed="13.89" length="59.38" shape="408.74,473.30 365.57,462.57"/>
+        <lane id="-6137233#2_0" index="0" speed="13.89" length="56.17" shape="408.74,473.30 359.26,461.00"/>
     </edge>
     <edge id="-6137233#3" from="283018933" to="283018932" name="Ludwig-Boltzmann-Straße" priority="4" type="highway.residential" shape="537.36,508.91 496.24,493.33 413.88,472.88">
         <lane id="-6137233#3_0" index="0" speed="13.89" length="128.84" shape="533.80,509.33 495.65,494.87 415.11,474.88"/>
@@ -285,7 +285,7 @@
         <lane id="25944590#2_0" index="0" allow="pedestrian" speed="2.78" length="91.42" shape="482.83,522.83 420.24,495.86 405.58,487.96"/>
     </edge>
     <edge id="25944590#3" from="283018844" to="283018845" priority="1" type="highway.footway" spreadType="center">
-        <lane id="25944590#3_0" index="0" allow="pedestrian" speed="2.78" length="54.14" shape="399.71,484.54 365.45,462.96"/>
+        <lane id="25944590#3_0" index="0" allow="pedestrian" speed="2.78" length="50.93" shape="399.71,484.54 359.67,459.32"/>
     </edge>
     <edge id="25944601#0" from="38919854" to="283018844" priority="1" type="highway.footway" spreadType="center">
         <lane id="25944601#0_0" index="0" allow="pedestrian" speed="2.78" length="23.50" shape="390.80,500.32 400.39,488.87"/>
@@ -552,10 +552,10 @@
         <lane id="6137233#0_0" index="0" speed="13.89" length="42.56" shape="297.71,444.40 335.47,451.90"/>
     </edge>
     <edge id="6137233#1" from="38919880" to="283018845" name="Ludwig-Boltzmann-Straße" priority="4" type="highway.residential">
-        <lane id="6137233#1_0" index="0" speed="13.89" length="25.13" shape="345.19,454.11 362.61,458.44"/>
+        <lane id="6137233#1_0" index="0" speed="13.89" length="21.92" shape="345.19,454.11 359.89,457.76"/>
     </edge>
     <edge id="6137233#2" from="283018845" to="283018932" name="Ludwig-Boltzmann-Straße" priority="4" type="highway.residential">
-        <lane id="6137233#2_0" index="0" speed="13.89" length="59.38" shape="366.51,459.41 409.54,470.10"/>
+        <lane id="6137233#2_0" index="0" speed="13.89" length="56.17" shape="360.05,457.80 409.54,470.10"/>
     </edge>
     <edge id="6137233#3" from="283018932" to="283018933" name="Ludwig-Boltzmann-Straße" priority="4" type="highway.residential" shape="413.88,472.88 496.24,493.33 537.36,508.91">
         <lane id="6137233#3_0" index="0" speed="13.89" length="128.84" shape="415.91,471.68 496.64,491.73 534.96,506.24"/>
@@ -697,7 +697,7 @@
         <request index="2" response="0000" foes="0001"/>
         <request index="3" response="0000" foes="0011"/>
     </junction>
-    <junction id="283018845" type="priority" x="359.89" y="459.46" incLanes="25944590#3_0 -6137233#2_0 6137233#1_0" intLanes="" shape="364.98,464.56 366.97,457.87 360.56,462.98 361.33,459.87 363.82,457.09 362.25,463.39">
+    <junction id="283018845" type="priority" x="359.89" y="459.46" incLanes="25944590#3_0 -6137233#2_0 6137233#1_0" intLanes="" shape="359.13,460.87 360.27,456.21 360.44,456.25 358.87,462.56">
         <request index="0" response="000100" foes="100100"/>
         <request index="1" response="010100" foes="011100"/>
         <request index="2" response="000000" foes="100011"/>

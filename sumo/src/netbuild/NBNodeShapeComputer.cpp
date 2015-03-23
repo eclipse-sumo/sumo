@@ -204,7 +204,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     // initialise
     EdgeVector::const_iterator i;
     // edges located in the value-vector have the same direction as the key edge
-    std::map<NBEdge*, EdgeVector > same;
+    std::map<NBEdge*, std::set<NBEdge*> > same;
     // the counter-clockwise boundary of the edge regarding possible same-direction edges
     GeomsMap geomsCCW;
     // the clockwise boundary of the edge regarding possible same-direction edges
@@ -553,7 +553,7 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
 }
 
 void
-NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same,
+NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> >& same,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW) {
     // distance to look ahead for a misleading angle
@@ -622,25 +622,28 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
             //    WRITE_WARNING("Ambigous angles at node '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
             //}
             if (fabs(angleDiff) < 20) {
-                const bool isOpposite = differentDirs && foundOpposite.count(*i) == 0;
+                const bool isOpposite = differentDirs && /*(j - i == 1) &&*/ foundOpposite.count(*i) == 0;
                 if (isOpposite) {
                     foundOpposite.insert(*i);
                     foundOpposite.insert(*j);
                 }
                 // @todo in case of ambiguousGeometry it would be better to adapt the geoms instead of joining
                 if (isOpposite || ambiguousGeometry || badIntersection(*i, *j, fabs(angleDiff), 100, SUMO_const_laneWidth)) {
-                    if (same.find(*i) == same.end()) {
-                        same[*i] = EdgeVector();
+                    // maintain equivalence relation for all members of the equivalence class
+                    for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
+                        if (*j != *k) {
+                            same[*k].insert(*j);
+                            same[*j].insert(*k);
+                        }
                     }
-                    if (same.find(*j) == same.end()) {
-                        same[*j] = EdgeVector();
+                    for (std::set<NBEdge*>::iterator k = same[*j].begin(); k != same[*j].end(); ++k) {
+                        if (*i != *k) {
+                            same[*k].insert(*i);
+                            same[*i].insert(*k);
+                        }
                     }
-                    if (find(same[*i].begin(), same[*i].end(), *j) == same[*i].end()) {
-                        same[*i].push_back(*j);
-                    }
-                    if (find(same[*j].begin(), same[*j].end(), *i) == same[*j].end()) {
-                        same[*j].push_back(*i);
-                    }
+                    same[*i].insert(*j);
+                    same[*j].insert(*i);
                 }
             }
         }
@@ -677,23 +680,20 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, SUMORea
 
 EdgeVector
 NBNodeShapeComputer::computeUniqueDirectionList(
-    const std::map<NBEdge*, EdgeVector >& same,
+    std::map<NBEdge*, std::set<NBEdge*> >& same,
     GeomsMap& geomsCCW,
     GeomsMap& geomsCW,
     std::map<NBEdge*, NBEdge*>& ccwBoundary,
     std::map<NBEdge*, NBEdge*>& cwBoundary) {
     EdgeVector newAll = myNode.myAllEdges;
-    EdgeVector::const_iterator j;
+    std::set<NBEdge*>::const_iterator j;
     EdgeVector::iterator i2;
     std::map<NBEdge*, EdgeVector >::iterator k;
     bool changed = true;
     while (changed) {
         changed = false;
         for (i2 = newAll.begin(); !changed && i2 != newAll.end();) {
-            EdgeVector other;
-            if (same.find(*i2) != same.end()) {
-                other = same.find(*i2)->second;
-            }
+            std::set<NBEdge*> other = same[*i2];
             for (j = other.begin(); j != other.end(); ++j) {
                 EdgeVector::iterator k = find(newAll.begin(), newAll.end(), *j);
                 if (k != newAll.end()) {

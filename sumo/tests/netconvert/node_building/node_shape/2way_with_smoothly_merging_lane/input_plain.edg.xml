@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 23 Mar 2015 11:21:57 AM CET by Netedit Version dev-SVN-r18123I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net6.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net6.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/1694/input_plain7"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="-2" numLanes="2" speed="19.44" shape="166.22,50.99 206.73,42.87 247.96,32.55 286.51,19.95"/>
+    <edge id="CW" from="C" to="W" priority="-2" numLanes="3" speed="27.78" shape="166.22,50.99 96.97,59.65 87.38,60.58 54.56,59.94 0.00,52.21"/>
+    <edge id="EC" from="E" to="C" priority="-2" numLanes="2" speed="19.44" shape="286.51,19.95 247.96,32.55 206.73,42.87 166.22,50.99"/>
+    <edge id="NC" from="N" to="C" priority="-2" numLanes="1" speed="13.89" shape="235.12,130.21 233.53,106.81 227.85,82.23 221.91,70.98 216.62,61.98 205.81,55.09 188.78,51.43 166.22,50.99" spreadType="center">
+        <lane index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="-2" numLanes="3" speed="27.78" shape="0.00,52.21 54.56,59.94 87.38,60.58 96.97,59.65 166.22,50.99"/>
+</edges>
