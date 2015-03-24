@@ -3,7 +3,7 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Thu, 12 Jun 2014
-/// @version $$
+/// @version $Id$
 ///
 // The class for modelling container-movements
 /****************************************************************************/
@@ -341,14 +341,12 @@ MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vec
         SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
     MSContainerStage(*route.back(), TRANSHIP), myRoute(route),
-    myCurrentInternalEdge(0),
-    myDepartPos(departPos), myArrivalPos(arrivalPos), myDestinationContainerStop(toCS),
-    mySpeed(speed),
-    myContainerState(0) {
+    myDestinationContainerStop(toCS),
+    mySpeed(speed), myContainerState(0), myCurrentInternalEdge(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
-                      myDepartPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "container getting transhipped from " + myRoute.front()->getID());
+                      departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "container getting transhipped from " + myRoute.front()->getID());
     myArrivalPos = SUMOVehicleParameter::interpretEdgePos(
-                       myArrivalPos, myRoute.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transhipped to " + myRoute.back()->getID());
+                       arrivalPos, myRoute.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transhipped to " + myRoute.back()->getID());
 }
 
 MSContainer::MSContainerStage_Tranship::~MSContainerStage_Tranship() {

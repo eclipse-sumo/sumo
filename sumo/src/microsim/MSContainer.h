@@ -3,7 +3,7 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Thu, 12 Jun 2014
-/// @version $$
+/// @version $Id$
 ///
 // The class for modelling container-movements
 /****************************************************************************/
@@ -494,22 +494,18 @@ public:
         inline SUMOReal getMaxSpeed() const {
             return mySpeed;
         }
+
         inline SUMOReal getDepartPos() const {
             return myDepartPos;
         }
+
         inline SUMOReal getArrivalPos() const {
             return myArrivalPos;
         }
 
-        //inline const MSEdge* getRouteEdge() const {
-        //    return *myRouteStep;
-        //}
         inline const MSEdge* getNextRouteEdge() const {
             return myRouteStep == myRoute.end() - 1 ? 0 : *(myRouteStep + 1);
         }
-        //inline const std::vector<const MSEdge*>& getRoute() const {
-        //    return myRoute;
-        //}
 
         CState* getContainerState() const {
             return myContainerState;
@@ -519,26 +515,26 @@ public:
         /// @brief The route of the container
         std::vector<const MSEdge*> myRoute;
 
-        /// current step
+        /// @brief current step
         std::vector<const MSEdge*>::iterator myRouteStep;
 
-        /// @brief state that is to be manipulated by MSCModel
-        CState* myContainerState;
-
-        /// the depart position
+        /// @brief the depart position
         SUMOReal myDepartPos;
 
-        /// the arrival position
+        /// @brief the arrival position
         SUMOReal myArrivalPos;
 
-        /// the destination container stop
+        /// @brief the destination container stop
         MSContainerStop* myDestinationContainerStop;
 
         /// @brief The container stop from which the container departs
         MSContainerStop* myDepartContainerStop;
 
-        ///the speed of the container
+        /// @brief the speed of the container
         SUMOReal mySpeed;
+
+        /// @brief state that is to be manipulated by MSCModel
+        CState* myContainerState;
 
         /// @brief The current internal edge this container is on or 0
         MSEdge* myCurrentInternalEdge;
