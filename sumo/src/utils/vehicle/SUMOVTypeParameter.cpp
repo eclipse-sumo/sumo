@@ -273,6 +273,12 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         }
         dev.closeTag();
     }
+    for (std::map<std::string, std::string>::const_iterator j = getMap().begin(); j != getMap().end(); ++j) {
+        dev.openTag(SUMO_TAG_PARAM);
+        dev.writeAttr(SUMO_ATTR_KEY, (*j).first);
+        dev.writeAttr(SUMO_ATTR_VALUE, (*j).second);
+        dev.closeTag();
+    }
     dev.closeTag();
 }
 

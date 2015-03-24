@@ -142,20 +142,26 @@ public:
     }
 
 
-    /** @brief Saves the complete vehicle description.
-     *
-     * Saves the vehicle type if it was not saved before.
-     * Saves the vehicle route if it was not saved before.
-     * Saves the vehicle itself.
+    /** @brief  Saves the vehicle type if it was not saved before.
      *
      * @param[in] os The routes - output device to store the vehicle's description into
      * @param[in] altos The route alternatives - output device to store the vehicle's description into
      * @param[in] typeos The types - output device to store the vehicle types into
+     * @exception IOError If something fails (not yet implemented)
+     */
+    void saveTypeAsXML(OutputDevice& os, OutputDevice* const altos,
+                       OutputDevice* const typeos) const;
+
+    /** @brief Saves the complete vehicle description.
+     *
+     * Saves the vehicle itself including the route and stops.
+     *
+     * @param[in] os The routes or alternatives output device to store the vehicle's description into
+     * @param[in] asAlternatives Whether the route shall be saved as route alternatives
      * @param[in] withExitTimes whether exit times for the edges shall be written
      * @exception IOError If something fails (not yet implemented)
      */
-    void saveAllAsXML(OutputDevice& os, OutputDevice* const altos,
-                      OutputDevice* const typeos, bool withExitTimes) const;
+    void saveAllAsXML(OutputDevice& os, bool asAlternatives, bool withExitTimes) const;
 
     inline void setRoutingSuccess(const bool val) {
         myRoutingSuccess = val;

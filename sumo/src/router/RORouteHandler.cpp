@@ -201,7 +201,7 @@ RORouteHandler::myStartElement(int element,
             break;
     }
     // parse embedded vtype information
-    if (myCurrentVType != 0 && element != SUMO_TAG_VTYPE) {
+    if (myCurrentVType != 0 && element != SUMO_TAG_VTYPE && element != SUMO_TAG_PARAM) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         return;
     }
@@ -437,6 +437,9 @@ RORouteHandler::closeVehicle() {
     if (type == 0) {
         myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
         type = myNet.getVehicleTypeSecure(DEFAULT_VTYPE_ID);
+    } else {
+        // fix the type id in case we used a distribution
+        myVehicleParameter->vtypeid = type->id;
     }
     // get the route
     RORouteDef* route = myNet.getRouteDef(myVehicleParameter->routeid);

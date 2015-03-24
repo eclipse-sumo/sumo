@@ -214,7 +214,7 @@ RONet::cleanup(SUMOAbstractRouter<ROEdge, ROVehicle>* router) {
 
 
 SUMOVTypeParameter*
-RONet::getVehicleTypeSecure(const std::string& id, bool defaultIfMissing) {
+RONet::getVehicleTypeSecure(const std::string& id) {
     // check whether the type was already known
     SUMOVTypeParameter* type = myVehicleTypes.get(id);
     if (id == DEFAULT_VTYPE_ID) {
@@ -227,7 +227,7 @@ RONet::getVehicleTypeSecure(const std::string& id, bool defaultIfMissing) {
     if (it2 != myVTypeDistDict.end()) {
         return it2->second->get();
     }
-    if (id == "" || defaultIfMissing) {
+    if (id == "") {
         // ok, no vehicle type or an unknown type was given within the user input
         //  return the default type
         myDefaultVTypeMayBeDeleted = false;
@@ -366,7 +366,13 @@ RONet::checkFlows(SUMOTime time) {
                     newPars->depart = pars->depart;
                     pars->repetitionsDone++;
                     // try to build the vehicle
-                    SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid, true);
+                    SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                    if (type == 0) {
+                        type = getVehicleTypeSecure(DEFAULT_VTYPE_ID);
+                    } else {
+                        // fix the type id in case we used a distribution
+                        newPars->vtypeid = type->id;
+                    }
                     RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
                     ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
                     addVehicle(newPars->id, veh);
@@ -391,7 +397,13 @@ RONet::checkFlows(SUMOTime time) {
                 newPars->depart = depart;
                 pars->repetitionsDone++;
                 // try to build the vehicle
-                SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid, true);
+                SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                if (type == 0) {
+                    type = getVehicleTypeSecure(DEFAULT_VTYPE_ID);
+                } else {
+                    // fix the type id in case we used a distribution
+                    newPars->vtypeid = type->id;
+                }
                 RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
                 ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
                 addVehicle(newPars->id, veh);
@@ -471,7 +483,11 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
             // ok, compute the route (try it)
             if (veh->getRoutingSuccess()) {
                 // write the route
-                veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options.getBool("exit-times"));
+                veh->saveTypeAsXML(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput);
+                veh->saveAllAsXML(*myRoutesOutput, false, options.getBool("exit-times"));
+                if (myRouteAlternativesOutput != 0) {
+                    veh->saveAllAsXML(*myRouteAlternativesOutput, true, options.getBool("exit-times"));
+                }
                 myWrittenRouteNo++;
             } else {
                 myDiscardedRouteNo++;

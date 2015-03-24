@@ -258,16 +258,13 @@ public:
      *
      * If the name is "" the default type is returned.
      * If the named vehicle type (or typeDistribution) was not added to the net before
-     * the behavior depends on the value of defaultIfMissing
-     * If defaultIfMissing is true, the default type is returned,
-     * otherwise 0 is returned
+     * 0 is returned
      *
      * @param[in] id The id of the vehicle type to return
-     * @param[in] default Whether to return the default type in case of an unknown type
      * @return The named vehicle type
      * @todo Check whether a const pointer may be returned
      */
-    SUMOVTypeParameter* getVehicleTypeSecure(const std::string& id, bool defaultIfMissing = false);
+    SUMOVTypeParameter* getVehicleTypeSecure(const std::string& id);
 
 
     /* @brief Adds a route definition to the network
