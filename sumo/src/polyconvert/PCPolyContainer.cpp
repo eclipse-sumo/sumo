@@ -200,14 +200,11 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
         if (p->getHeight() != Shape::DEFAULT_IMG_HEIGHT) {
             out.writeAttr(SUMO_ATTR_HEIGHT, p->getHeight());
         }
-        const std::map<std::string, std::string>& attrs = p->getMap();
-        if (attrs.size() != 0) {
-            for (std::map<std::string, std::string>::const_iterator j = attrs.begin(); j != attrs.end(); ++j) {
-                out.openTag(SUMO_TAG_PARAM);
-                out.writeAttr(SUMO_ATTR_KEY, (*j).first);
-                out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
-                out.closeTag();
-            }
+        for (std::map<std::string, std::string>::const_iterator j = p->getMap().begin(); j != p->getMap().end(); ++j) {
+            out.openTag(SUMO_TAG_PARAM);
+            out.writeAttr(SUMO_ATTR_KEY, (*j).first);
+            out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
+            out.closeTag();
         }
         out.closeTag();
     }

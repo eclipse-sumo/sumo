@@ -78,14 +78,11 @@ Polygon::writeXML(OutputDevice& out, bool geo) {
     if (getImgFile() != Shape::DEFAULT_IMG_FILE) {
         out.writeAttr(SUMO_ATTR_IMGFILE, getImgFile());
     }
-    const std::map<std::string, std::string>& attrs = getMap();
-    if (attrs.size() != 0) {
-        for (std::map<std::string, std::string>::const_iterator j = attrs.begin(); j != attrs.end(); ++j) {
-            out.openTag(SUMO_TAG_PARAM);
-            out.writeAttr(SUMO_ATTR_KEY, (*j).first);
-            out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
-            out.closeTag();
-        }
+    for (std::map<std::string, std::string>::const_iterator j = getMap().begin(); j != getMap().end(); ++j) {
+        out.openTag(SUMO_TAG_PARAM);
+        out.writeAttr(SUMO_ATTR_KEY, (*j).first);
+        out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
+        out.closeTag();
     }
     out.closeTag();
 }

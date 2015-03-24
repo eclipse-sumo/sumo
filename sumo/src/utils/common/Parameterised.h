@@ -7,7 +7,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// An upper class for objects with additional parameters
+// A super class for objects with additional parameters
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
