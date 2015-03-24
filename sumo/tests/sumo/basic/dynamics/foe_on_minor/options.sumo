@@ -1,1 +1,1 @@
---net-file=net.net.xml --route-files input_routes.rou.xml --tripinfo-output tripinfo.xml --no-step-log
+--net-file=net.net.xml --route-files input_routes.rou.xml --tripinfo-output tripinfos.xml --no-step-log

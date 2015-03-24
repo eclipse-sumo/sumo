@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 03/24/15 16:19:04 by SUMO Version dev-SVN-r18127
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="v1" depart="6.00" departLane="3i_0" departPos="493.25" departSpeed="10.50" departDelay="1.00" arrival="158.00" arrivalLane="3i_0" arrivalPos="495.25" arrivalSpeed="18.24" duration="152.00" routeLength="2011.64" waitSteps="0" timeLoss="10.23" rerouteNo="0" devices="tripinfo_v1" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="h1" depart="0.00" departLane="2i_0" departPos="445.25" departSpeed="19.00" departDelay="0.00" arrival="162.00" arrivalLane="2i_0" arrivalPos="495.25" arrivalSpeed="19.14" duration="162.00" routeLength="2059.64" waitSteps="1" timeLoss="16.52" rerouteNo="0" devices="tripinfo_h1" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="v2" depart="106.00" departLane="3i_0" departPos="488.25" departSpeed="10.50" departDelay="1.00" arrival="259.00" arrivalLane="3i_0" arrivalPos="495.25" arrivalSpeed="18.88" duration="153.00" routeLength="2016.64" waitSteps="0" timeLoss="10.17" rerouteNo="0" devices="tripinfo_v2" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="h2" depart="100.00" departLane="2i_0" departPos="445.25" departSpeed="19.00" departDelay="0.00" arrival="260.00" arrivalLane="2i_0" arrivalPos="495.25" arrivalSpeed="18.24" duration="160.00" routeLength="2059.64" waitSteps="0" timeLoss="15.63" rerouteNo="0" devices="tripinfo_h2" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="v3" depart="206.00" departLane="3i_0" departPos="483.25" departSpeed="10.50" departDelay="1.00" arrival="359.00" arrivalLane="3i_0" arrivalPos="495.25" arrivalSpeed="18.61" duration="153.00" routeLength="2021.64" waitSteps="0" timeLoss="9.38" rerouteNo="0" devices="tripinfo_v3" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="h3" depart="200.00" departLane="2i_0" departPos="445.25" departSpeed="19.00" departDelay="0.00" arrival="362.00" arrivalLane="2i_0" arrivalPos="495.25" arrivalSpeed="18.78" duration="162.00" routeLength="2059.64" waitSteps="0" timeLoss="17.23" rerouteNo="0" devices="tripinfo_h3" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="v4" depart="306.00" departLane="3i_0" departPos="478.25" departSpeed="10.50" departDelay="1.00" arrival="460.00" arrivalLane="3i_0" arrivalPos="495.25" arrivalSpeed="19.37" duration="154.00" routeLength="2026.64" waitSteps="0" timeLoss="10.67" rerouteNo="0" devices="tripinfo_v4" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="h4" depart="300.00" departLane="2i_0" departPos="445.25" departSpeed="19.00" departDelay="0.00" arrival="463.00" arrivalLane="2i_0" arrivalPos="495.25" arrivalSpeed="19.28" duration="163.00" routeLength="2059.64" waitSteps="1" timeLoss="17.62" rerouteNo="0" devices="tripinfo_h4" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="v5" depart="405.00" departLane="3i_0" departPos="473.25" departSpeed="10.50" departDelay="0.00" arrival="558.00" arrivalLane="3i_0" arrivalPos="495.25" arrivalSpeed="18.66" duration="153.00" routeLength="2031.64" waitSteps="0" timeLoss="9.52" rerouteNo="0" devices="tripinfo_v5" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="h5" depart="400.00" departLane="2i_0" departPos="445.25" departSpeed="19.00" departDelay="0.00" arrival="562.00" arrivalLane="2i_0" arrivalPos="495.25" arrivalSpeed="18.93" duration="162.00" routeLength="2059.64" waitSteps="0" timeLoss="16.44" rerouteNo="0" devices="tripinfo_h5" vType="DEFAULT_VEHTYPE" vaporized=""/>
+</tripinfos>
