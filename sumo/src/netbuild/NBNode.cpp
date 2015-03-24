@@ -660,7 +660,12 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
     if (myIncomingEdges.size() == 0 || myOutgoingEdges.size() == 0) {
         // no logic if nothing happens here
         myType = NODETYPE_NOJUNCTION;
+        std::set<NBTrafficLightDefinition*> trafficLights = myTrafficLights; // make a copy because we will modify the original
         removeTrafficLights();
+        for (std::set<NBTrafficLightDefinition*>::const_iterator i = trafficLights.begin(); i != trafficLights.end(); ++i) {
+            (*i)->setParticipantsInformation();
+            (*i)->setTLControllingInformation(ec);
+        }
         return;
     }
     // check whether the node was set to be unregulated by the user
