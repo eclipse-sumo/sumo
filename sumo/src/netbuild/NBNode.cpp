@@ -660,6 +660,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
     if (myIncomingEdges.size() == 0 || myOutgoingEdges.size() == 0) {
         // no logic if nothing happens here
         myType = NODETYPE_NOJUNCTION;
+        removeTrafficLights();
         return;
     }
     // check whether the node was set to be unregulated by the user
