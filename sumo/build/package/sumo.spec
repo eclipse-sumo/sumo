@@ -75,7 +75,7 @@ install -Dm644 %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/%{name}.png
 %if 0%{?suse_version} > 1200
 install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %endif
-%suse_update_desktop_file %{name} Science Education
+%suse_update_desktop_file %{name} Education Science
 %fdupes -s docs
 %fdupes %{buildroot}
 %endif
@@ -89,6 +89,7 @@ install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 %if 0%{?suse_version} > 1200
+%{_datadir}/mime/application
 %{_datadir}/mime/application/%{name}.xml
 %endif
 

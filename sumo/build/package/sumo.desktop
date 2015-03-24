@@ -9,5 +9,5 @@ Name=Sumo
 GenericName=Sumo
 Comment=Microscopic Traffic Simulation
 Comment[de_DE]=Mikroskopische Verkehrssimulation
-Categories=Science;Education;
+Categories=Education;Engineering;Science;
 MimeType=application/sumo-configuration;
