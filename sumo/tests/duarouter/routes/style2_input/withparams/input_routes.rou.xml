@@ -76,4 +76,9 @@
       <route edges="beg middle end rend"/>
    </vehicle>
 
+   <vehicle id="72" depart="72">
+      <route edges="beg middle end rend"/>
+      <param key="blubber" value="zisch"/>
+   </vehicle>
+
 </routes>

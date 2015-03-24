@@ -10,6 +10,9 @@
    <vType id="8" emissionClass="P_7_1"/>
    <vType id="9" guiShape="passenger/hatchback"/>
    <vType id="10" width="100"/>
+   <vType id="11">
+    <param key="bla" value="blub"/>
+   </vType>
 
   <vehicle id="0" type="0" depart="0">
       <route edges="beg middle end rend"/>
@@ -42,6 +45,9 @@
       <route edges="beg middle end rend"/>
    </vehicle>
   <vehicle id="10" type="10" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="11" type="11" depart="0">
       <route edges="beg middle end rend"/>
    </vehicle>
 

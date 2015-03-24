@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/26/14 12:21:32 by SUMO duarouter Version dev-SVN-rUNKNOWN
+<!-- generated on 03/24/15 15:39:51 by SUMO duarouter Version dev-SVN-r18127
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -37,6 +37,12 @@
     </vehicle>
     <vType id="10" width="100.00"/>
     <vehicle id="10" type="10" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vType id="11">
+        <param key="bla" value="blub"/>
+    </vType>
+    <vehicle id="11" type="11" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vType id="2">
