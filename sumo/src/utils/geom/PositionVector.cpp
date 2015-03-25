@@ -413,6 +413,9 @@ PositionVector::length2D() const {
 
 SUMOReal
 PositionVector::area() const {
+    if (size() < 3) {
+        return 0;
+    }
     SUMOReal area = 0;
     PositionVector tmp = *this;
     if (!isClosed()) { // make sure its closed
