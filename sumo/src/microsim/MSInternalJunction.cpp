@@ -75,6 +75,7 @@ MSInternalJunction::postloadInit() {
         const MSLinkCont& lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
             if ((*q)->getViaLane() != 0) {
+                myInternalLaneFoes.push_back(*i);
                 myInternalLaneFoes.push_back((*q)->getViaLane());
             } else {
                 myInternalLaneFoes.push_back(*i);
