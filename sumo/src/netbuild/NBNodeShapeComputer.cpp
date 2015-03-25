@@ -313,17 +313,18 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             const PositionVector& neighGeom2 = ccwCloser ? geomsCCW[*cwi] : geomsCW[*ccwi];
             if (!simpleContinuation) {
                 if (currGeom.intersects(neighGeom)) {
-                    distances[*i] = radius + currGeom.intersectsAtLengths2D(neighGeom)[0];
+                    distances[*i] = radius + closestIntersection(currGeom, neighGeom, 100);
                     if (*cwi != *ccwi && currGeom2.intersects(neighGeom2)) {
+                        const SUMOReal farAngleDist = ccwCloser ? cad : ccad;
                         SUMOReal a1 = distances[*i];
-                        SUMOReal a2 = radius + currGeom2.intersectsAtLengths2D(neighGeom2)[0];
+                        SUMOReal a2 = radius + closestIntersection(currGeom2, neighGeom2, 100);
                         if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
                             SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
                             if (mmin > 100) {
                                 distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin - 100); //100 + 1.5;
                             }
-                        } else  if (a2 > a1 + POSITION_EPS && a2 - a1 < (SUMOReal) 10) {
-                            distances[*i] = a2;
+                        } else if (fabs(a2 - a1) < 10 || farAngleDist < DEG2RAD(135)) {
+                            distances[*i] = MAX2(a1, a2);
                         }
                     }
                 } else {
@@ -534,6 +535,19 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 }
 
 
+SUMOReal 
+NBNodeShapeComputer::closestIntersection(const PositionVector& geom1, const PositionVector& geom2, SUMOReal offset) {
+    std::vector<SUMOReal> intersections = geom1.intersectsAtLengths2D(geom2);
+    SUMOReal result = intersections[0];
+    for (std::vector<SUMOReal>::iterator it = intersections.begin() + 1; it != intersections.end(); ++it) {
+        if (fabs(*it - offset) < fabs(result - offset)) {
+            result = *it;
+        }
+    }
+    return result;
+}
+
+
 PositionVector
 NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector endShape,
                                      const Position& begPoint, const Position& endPoint, int cornerDetail) {
@@ -556,14 +570,9 @@ void
 NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> >& same,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW) {
-    // distance to look ahead for a misleading angle
-    const SUMOReal angleChangeLookahead = 35;
-    // const SUMOReal angleChangeLookahead2 = 135;
-    EdgeSet foundOpposite;
-
     EdgeVector::const_iterator i, j;
+    // compute boundary lines and extend it by 100m
     for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end() - 1; i++) {
-        const bool incoming = (*i)->getToNode() == &myNode;
         // store current edge's boundary as current ccw/cw boundary
         try {
             geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode);
@@ -578,7 +587,6 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
             geomsCW[*i] = (*i)->getGeometry();
         }
         // extend the boundary by extroplating it by 100m
-        Position positionAtNode = (*i)->getGeometry()[incoming ? -1 : 0];
         PositionVector g1 =
             myNode.hasIncoming(*i)
             ? (*i)->getCCWBoundaryLine(myNode)
@@ -590,14 +598,10 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
         tmp = geomsCW[*i].lineAt(0);
         tmp.extrapolateBy2D(100);
         geomsCW[*i].replaceAt(0, tmp.p1());
-        const SUMOReal angle1further = (g1.size() > 2 && l1.length2D() < angleChangeLookahead ?
-                                        g1.lineAt(1).atan2DegreeAngle() : l1.atan2DegreeAngle());
         //
         for (j = i + 1; j != myNode.myAllEdges.end(); j++) {
-            const bool incoming2 = (*j)->getToNode() == &myNode;
             geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode);
             geomsCW[*j] = (*j)->getCWBoundaryLine(myNode);
-            Position positionAtNode2 = (*j)->getGeometry()[incoming2 ? -1 : 0];
             PositionVector g2 =
                 myNode.hasIncoming(*j)
                 ? (*j)->getCCWBoundaryLine(myNode)
@@ -609,42 +613,60 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
             tmp = geomsCW[*j].lineAt(0);
             tmp.extrapolateBy2D(100);
             geomsCW[*j].replaceAt(0, tmp.p1());
-            const SUMOReal angle2further = (g2.size() > 2 && l2.length2D() < angleChangeLookahead ?
-                                            g2.lineAt(1).atan2DegreeAngle() : l2.atan2DegreeAngle());
-            // do not join edges which are both entering or both leaving. A
-            // separation point must always be computed in later steps
-            const SUMOReal angleDiff = l1.atan2DegreeAngle() - l2.atan2DegreeAngle();
-            const bool differentDirs = (incoming != incoming2);
-            const SUMOReal angleDiffFurther = angle1further - angle2further;
-            const bool ambiguousGeometry = ((angleDiff > 0 && angleDiffFurther < 0) || (angleDiff < 0 && angleDiffFurther > 0));
-            //if (ambiguousGeometry) {
-            //    @todo: this warning would be helpful in many cases. However, if angle and angleFurther jump between 179 and -179 it is misleading
-            //    WRITE_WARNING("Ambigous angles at node '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
-            //}
-            if (fabs(angleDiff) < 20) {
-                const bool isOpposite = differentDirs && /*(j - i == 1) &&*/ foundOpposite.count(*i) == 0;
-                if (isOpposite) {
-                    foundOpposite.insert(*i);
-                    foundOpposite.insert(*j);
-                }
-                // @todo in case of ambiguousGeometry it would be better to adapt the geoms instead of joining
-                if (isOpposite || ambiguousGeometry || badIntersection(*i, *j, fabs(angleDiff), 100, SUMO_const_laneWidth)) {
-                    // maintain equivalence relation for all members of the equivalence class
-                    for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
-                        if (*j != *k) {
-                            same[*k].insert(*j);
-                            same[*j].insert(*k);
-                        }
+        }
+    }
+    // compute same (edges where an intersection doesn't work well
+    // (always check an edge and its cw neightbor)
+    // distance to look ahead for a misleading angle
+    const SUMOReal angleChangeLookahead = 35;
+    EdgeSet foundOpposite;
+    for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end() - 1; i++) {
+        EdgeVector::const_iterator j = i + 1;
+        if (j == myNode.myAllEdges.end()) {
+            j = myNode.myAllEdges.begin();
+        }
+        const bool incoming = (*i)->getToNode() == &myNode;
+        const bool incoming2 = (*j)->getToNode() == &myNode;
+        const Position positionAtNode = (*i)->getGeometry()[incoming ? -1 : 0];
+        const Position positionAtNode2 = (*j)->getGeometry()[incoming2 ? -1 : 0];
+        PositionVector g1 = incoming ? (*i)->getCCWBoundaryLine(myNode) : (*i)->getCWBoundaryLine(myNode);
+        PositionVector g2 = incoming ? (*j)->getCCWBoundaryLine(myNode) : (*j)->getCWBoundaryLine(myNode);
+        Line l1 = g1.lineAt(0);
+        Line l2 = g2.lineAt(0);
+        const SUMOReal angle1further = (g1.size() > 2 && l1.length2D() < angleChangeLookahead ?
+                g1.lineAt(1).atan2DegreeAngle() : l1.atan2DegreeAngle());
+        const SUMOReal angle2further = (g2.size() > 2 && l2.length2D() < angleChangeLookahead ?
+                g2.lineAt(1).atan2DegreeAngle() : l2.atan2DegreeAngle());
+        const SUMOReal angleDiff = NBHelpers::relAngle(l1.atan2DegreeAngle(), l2.atan2DegreeAngle());
+        const SUMOReal angleDiffFurther = NBHelpers::relAngle(angle1further, angle2further);
+        const bool ambiguousGeometry = ((angleDiff > 0 && angleDiffFurther < 0) || (angleDiff < 0 && angleDiffFurther > 0));
+        const bool differentDirs = (incoming != incoming2);
+        //if (ambiguousGeometry) {
+        //    @todo: this warning would be helpful in many cases. However, if angle and angleFurther jump between 179 and -179 it is misleading
+        //    WRITE_WARNING("Ambigous angles at node '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
+        //}
+        if (fabs(angleDiff) < 20) {
+            const bool isOpposite = differentDirs && foundOpposite.count(*i) == 0;
+            if (isOpposite) {
+                foundOpposite.insert(*i);
+                foundOpposite.insert(*j);
+            }
+            if (isOpposite || ambiguousGeometry || badIntersection(*i, *j, geomsCW[*i], geomsCCW[*j], fabs(angleDiff), 100)) {
+                // maintain equivalence relation for all members of the equivalence class
+                for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
+                    if (*j != *k) {
+                        same[*k].insert(*j);
+                        same[*j].insert(*k);
                     }
-                    for (std::set<NBEdge*>::iterator k = same[*j].begin(); k != same[*j].end(); ++k) {
-                        if (*i != *k) {
-                            same[*k].insert(*i);
-                            same[*i].insert(*k);
-                        }
-                    }
-                    same[*i].insert(*j);
-                    same[*j].insert(*i);
                 }
+                for (std::set<NBEdge*>::iterator k = same[*j].begin(); k != same[*j].end(); ++k) {
+                    if (*i != *k) {
+                        same[*k].insert(*i);
+                        same[*i].insert(*k);
+                    }
+                }
+                same[*i].insert(*j);
+                same[*j].insert(*i);
             }
         }
     }
@@ -652,13 +674,21 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
 
 
 bool
-NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, SUMOReal absAngleDiff,
-                                     SUMOReal distance, SUMOReal threshold) {
+NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, 
+        const PositionVector& e1cw, const PositionVector& e2ccw, 
+        SUMOReal absAngleDiff, SUMOReal distance) {
     // check whether the two edges are on top of each other. In that case they should be joined
-    // @todo should differentiate according to spreadType
+    // also, if they never touch along their common length
     const SUMOReal commonLength = MIN3(distance, e1->getGeometry().length(), e2->getGeometry().length());
     PositionVector geom1 = e1->getGeometry();
     PositionVector geom2 = e2->getGeometry();
+    // shift to make geom the centerline of the edge regardless of spreadtype
+    if (e1->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+        geom1.move2side(e1->getTotalWidth() / 2);
+    }
+    if (e2->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+        geom2.move2side(e2->getTotalWidth() / 2);
+    }
     // always let geometry start at myNode
     if (e1->getToNode() == &myNode) {
         geom1 = geom1.reverse();
@@ -669,12 +699,13 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, SUMORea
     geom1 = geom1.getSubpart2D(0, commonLength);
     geom2 = geom2.getSubpart2D(0, commonLength);
     std::vector<SUMOReal> distances = geom1.distances(geom2, true);
-    const bool onTop = VectorHelper<SUMOReal>::maxValue(distances) < threshold;
     const SUMOReal minDistanceThreshold = (e1->getTotalWidth() + e2->getTotalWidth()) / 2 + POSITION_EPS;
     const SUMOReal minDist = VectorHelper<SUMOReal>::minValue(distances);
-    const bool parallelDistant = minDist > minDistanceThreshold;
+    const SUMOReal maxDist = VectorHelper<SUMOReal>::maxValue(distances);
+    const bool onTop = maxDist - POSITION_EPS < minDistanceThreshold;
     const bool curvingTowards = geom1[0].distanceTo2D(geom2[0]) > minDistanceThreshold && minDist < minDistanceThreshold;
-    return onTop || curvingTowards || (parallelDistant && absAngleDiff < 5);
+    const bool intersects = e1cw.intersects(e2ccw);
+    return onTop || curvingTowards || !intersects;
 }
 
 
