@@ -84,15 +84,6 @@ private:
     PositionVector computeNodeShapeSmall();
 
 
-    void replaceLastChecking(PositionVector& g, bool decenter,
-                             PositionVector counter, size_t counterLanes, SUMOReal counterDist,
-                             int laneDiff);
-
-
-    void replaceFirstChecking(PositionVector& g, bool decenter,
-                              PositionVector counter, size_t counterLanes, SUMOReal counterDist,
-                              int laneDiff);
-
     /** @brief Joins edges and computes ccw/cw boundaries
      *
      * This method goes through all edges and stores each edge's ccw and cw
