@@ -118,10 +118,12 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
     std::cout << " link " << myIndex << " to " << getViaLaneOrLane()->getID() << " internalLane=" << (lane == 0 ? "NULL" : lane->getID()) << " has foes: " << toString(foeLanes) << "\n";
 #endif
     if (lane != 0) {
+        const bool beforeInternalJunction = lane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal();
         assert(lane->getIncomingLanes().size() == 1);
         // compute crossing points
         for (std::vector<const MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
-            if (myLane == (*it_lane)->getLinkCont()[0]->getLane() && !lane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal()) {
+            const bool sameTarget = myLane == (*it_lane)->getLinkCont()[0]->getLane();
+            if (sameTarget && !beforeInternalJunction) {
                 //if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
                 // this foeLane has the same target and merges at the end (lane exits the junction)
                 myLengthsBehindCrossing.push_back(std::make_pair(0, 0)); // dummy value, never used
