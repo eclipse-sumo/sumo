@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 24 Mar 2015 01:04:03 PM CET by Netedit Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/debug/1694/net14.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/debug/1694/net14.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/1694/input_plain15"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-391777.54,-5819454.48" convBoundary="0.00,0.00,519.81,191.11" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="3091127668" x="0.00" y="191.11" type="priority"/>
+    <node id="C" x="180.00" y="58.11" type="right_before_left"/>
+    <node id="C2" x="519.81" y="4.59" type="right_before_left"/>
+</nodes>

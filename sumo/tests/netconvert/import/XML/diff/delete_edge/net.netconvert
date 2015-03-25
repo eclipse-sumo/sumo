@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 24 15:45:10 2015 by SUMO netconvert Version dev-SVN-r17955I
+<!-- generated on Tue Mar 24 12:23:19 2015 by SUMO netconvert Version dev-SVN-r18126I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -34,7 +34,7 @@
     <location netOffset="0.00,0.00" convBoundary="-40.00,-10.00,40.00,40.00" origBoundary="-40.00,-10.00,40.00,40.00" projParameter="!"/>
 
     <edge id=":node_C_0" function="internal">
-        <lane id=":node_C_0_0" index="0" speed="13.50" length="4.97" shape="4.82,1.85 3.43,2.04 2.44,2.60 1.85,3.54 1.65,4.85"/>
+        <lane id=":node_C_0_0" index="0" speed="13.50" length="5.05" shape="4.82,1.85 3.43,2.04 2.44,2.62 1.85,3.59 1.65,4.95"/>
     </edge>
     <edge id=":node_C_1" function="internal">
         <lane id=":node_C_1_0" index="0" speed="11.50" length="8.29" shape="4.82,1.85 -3.44,2.62"/>
@@ -52,7 +52,7 @@
         <lane id=":node_C_4_0" index="0" speed="13.50" length="5.22" shape="1.65,-6.04 1.86,-4.70 2.49,-3.73 3.54,-3.11 5.01,-2.86"/>
     </edge>
     <edge id=":node_C_5" function="internal">
-        <lane id=":node_C_5_0" index="0" speed="14.50" length="10.89" shape="1.65,-6.04 1.65,-2.93 1.65,-0.59 1.65,1.74 1.65,4.85"/>
+        <lane id=":node_C_5_0" index="0" speed="14.50" length="10.99" shape="1.65,-6.04 1.65,-2.91 1.65,-0.54 1.65,1.83 1.65,4.95"/>
     </edge>
     <edge id=":node_C_6" function="internal">
         <lane id=":node_C_6_0" index="0" speed="12.50" length="8.70" shape="1.65,-6.04 1.28,-4.24 0.17,-2.72 -1.69,-1.50 -4.29,-0.56"/>
@@ -78,7 +78,7 @@
         <lane id="edge_C2R_0" index="0" speed="13.00" length="35.11" shape="5.01,-2.86 40.09,-1.38"/>
     </edge>
     <edge id="edge_C2U" from="node_C" to="node_U" priority="2">
-        <lane id="edge_C2U_0" index="0" speed="15.00" length="35.15" shape="1.65,4.85 1.65,40.00"/>
+        <lane id="edge_C2U_0" index="0" speed="15.00" length="35.05" shape="1.65,4.95 1.65,40.00"/>
     </edge>
     <edge id="edge_D2C" from="node_D" to="node_C" priority="2">
         <lane id="edge_D2C_0" index="0" speed="14.00" length="3.96" shape="1.65,-10.00 1.65,-6.04"/>
@@ -94,7 +94,7 @@
         <phase duration="4" state="rrrryyyy"/>
     </tlLogic>
 
-    <junction id="node_C" type="traffic_light" x="0.00" y="0.00" incLanes="edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_2_0 :node_C_8_0 :node_C_4_0 :node_C_5_0 :node_C_6_0 :node_C_7_0" shape="0.05,4.85 3.25,4.85 4.75,3.45 5.08,-4.46 3.25,-6.04 -3.25,-6.04 -4.70,-2.11 -3.02,4.17">
+    <junction id="node_C" type="traffic_light" x="0.00" y="0.00" incLanes="edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_2_0 :node_C_8_0 :node_C_4_0 :node_C_5_0 :node_C_6_0 :node_C_7_0" shape="0.05,4.95 3.25,4.95 4.75,3.45 5.08,-4.46 3.25,-6.04 -3.25,-6.04 -4.70,-2.11 -3.02,4.17">
         <request index="0" response="00100000" foes="00100000" cont="0"/>
         <request index="1" response="00100000" foes="00100000" cont="0"/>
         <request index="2" response="01100000" foes="11100000" cont="0"/>

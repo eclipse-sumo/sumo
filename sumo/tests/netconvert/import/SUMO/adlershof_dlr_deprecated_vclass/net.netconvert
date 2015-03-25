@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 20 10:21:53 2015 by SUMO netconvert Version dev-SVN-r18115I
+<!-- generated on Tue Mar 24 15:08:05 2015 by SUMO netconvert Version dev-SVN-r18134I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -972,7 +972,7 @@
         <lane id="-70214888#2_0" index="0" allow="delivery pedestrian" speed="5.56" length="40.15" shape="4322.61,778.66 4351.74,792.80"/>
     </edge>
     <edge id="-70214888#3" from="38919854" to="1472995246" priority="2" type="highway.service" shape="4320.39,759.71 4318.27,778.12 4319.16,778.82">
-        <lane id="-70214888#3_0" index="0" allow="delivery pedestrian" speed="5.56" length="19.66" shape="4321.08,768.18 4320.32,774.74"/>
+        <lane id="-70214888#3_0" index="0" allow="delivery pedestrian" speed="5.56" length="19.66" shape="4321.08,768.18 4320.04,777.14"/>
     </edge>
     <edge id="-70255226#0" from="837749850" to="837749843" priority="2" type="highway.service" shape="4366.21,842.38 4361.97,848.34 4361.62,854.60 4364.94,859.29 4371.09,861.06 4375.84,858.77 4379.08,851.78 4382.05,839.03">
         <lane id="-70255226#0_0" index="0" allow="delivery pedestrian" speed="5.56" length="51.80" shape="4366.82,844.37 4363.59,848.91 4363.30,854.12 4365.95,857.86 4370.94,859.30 4374.59,857.54 4377.51,851.24 4378.94,845.09"/>
@@ -2631,7 +2631,7 @@
         <lane id="70214888#2_0" index="0" allow="delivery pedestrian" speed="5.56" length="40.15" shape="4350.29,795.77 4321.17,781.63"/>
     </edge>
     <edge id="70214888#3" from="1472995246" to="38919854" priority="2" type="highway.service" shape="4319.16,778.82 4318.27,778.12 4320.39,759.71">
-        <lane id="70214888#3_0" index="0" allow="delivery pedestrian" speed="5.56" length="19.66" shape="4316.96,775.03 4317.80,767.80"/>
+        <lane id="70214888#3_0" index="0" allow="delivery pedestrian" speed="5.56" length="19.66" shape="4316.56,778.54 4317.80,767.80"/>
     </edge>
     <edge id="70218677" from="838456012" to="838456023" priority="1" type="highway.footway" spreadType="center" shape="4436.85,883.30 4445.87,887.72 4448.23,888.88 4468.71,898.94 4473.93,901.50">
         <lane id="70218677_0" index="0" allow="pedestrian" speed="8.33" length="41.31" shape="4441.11,885.39 4445.87,887.72 4448.23,888.88 4468.71,898.94 4473.93,901.50"/>
@@ -2875,7 +2875,7 @@
     </junction>
     <junction id="1421174999" type="unregulated" x="4585.07" y="957.22" incLanes="128643752_0" intLanes="" shape="4586.08,955.98 4584.06,958.46"/>
     <junction id="1421187870" type="unregulated" x="4502.04" y="738.78" incLanes="128648605_0" intLanes="" shape="4502.24,740.37 4501.84,737.19"/>
-    <junction id="1472995246" type="priority" x="4319.16" y="778.82" incLanes="70214888#2_0 -70214888#3_0 133858187_0" intLanes="" shape="4320.47,783.07 4323.31,777.22 4318.76,773.44 4315.17,776.62 4315.59,782.30 4318.44,783.75">
+    <junction id="1472995246" type="priority" x="4319.16" y="778.82" incLanes="70214888#2_0 -70214888#3_0 133858187_0" intLanes="" shape="4320.47,783.07 4323.31,777.22 4321.76,776.22 4318.33,778.05 4318.37,776.82 4315.19,779.84 4315.59,782.30 4318.44,783.75">
         <request index="0" response="000000" foes="111000"/>
         <request index="1" response="100100" foes="100100"/>
         <request index="2" response="000000" foes="100010"/>

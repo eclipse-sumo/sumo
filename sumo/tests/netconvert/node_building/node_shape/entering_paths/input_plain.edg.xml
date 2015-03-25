@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 24 Mar 2015 01:28:09 PM CET by Netedit Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/tools/import/OSM/server/osmimport.tools"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/tools/import/OSM/server/osmimport.tools"/>
+        <plain-output-prefix value="/scr2/debug/1694/input_plain18"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="1" from="29207821" to="C" priority="9" type="highway.primary" numLanes="4" speed="13.89" shape="2017.84,1944.82 2053.56,1965.76 2055.09,1966.62" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="2" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="3" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="2" from="C" to="341340986" priority="9" type="highway.primary" numLanes="4" speed="13.89" shape="2061.06,1970.16 2085.57,1985.64 2132.05,2023.18" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="2" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="3" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="3" from="2381159855" to="C" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="2147.51,1997.81 2136.14,1993.21 2128.22,1985.66 2106.87,1972.42 2092.56,1964.39 2079.73,1960.17" spreadType="center">
+        <lane index="0" allow="pedestrian"/>
+    </edge>
+    <edge id="4" from="cluster_2121324847_2381159779_2381159806" to="C" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="2123.77,1923.65 2113.02,1934.50 2079.73,1960.17" spreadType="center">
+        <lane index="0" allow="pedestrian"/>
+    </edge>
+    <edge id="5" from="702048667" to="C" priority="1" type="highway.steps" numLanes="1" speed="1.39" shape="2068.91,1940.30 2054.35,1967.93" spreadType="center">
+        <lane index="0" allow="pedestrian"/>
+    </edge>
+
+
+</edges>

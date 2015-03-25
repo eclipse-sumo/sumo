@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 24 15:27:35 2015 by SUMO netconvert Version dev-SVN-r18134I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <ignore-errors.edge-type value="true"/>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-391777.54,-5819454.48" convBoundary="0.00,0.00,519.81,191.11" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-1" from="3091127668" to="C" priority="13" type="waterway.river" shape="0.00,191.11 36.75,150.03 74.72,111.20 128.02,72.67 180.00,58.11">
+        <lane id="-1_0" index="0" allow="ship" speed="2.78" length="273.56" width="7.00" shape="-2.65,188.74 34.10,147.66 72.18,108.72 126.45,69.42 218.94,43.52"/>
+    </edge>
+    <edge id="-2" from="C" to="C2" priority="13" type="waterway.river" shape="180.00,58.11 242.21,53.04 275.25,50.21 420.38,26.68 454.94,20.43 519.81,4.59">
+        <lane id="-2_0" index="0" allow="ship" speed="2.78" length="433.45" width="7.00" shape="225.99,50.80 241.92,49.50 274.95,46.67 419.81,23.18 454.31,16.94 474.80,11.93"/>
+    </edge>
+    <edge id="-3" from="C" to="C2" priority="13" type="waterway.river" shape="180.00,58.11 238.25,33.99 270.71,29.36 417.99,5.45 452.49,0.00 519.81,4.59">
+        <lane id="-3_0" index="0" allow="ship" speed="2.78" length="436.40" width="7.00" shape="221.54,37.07 237.31,30.54 270.21,25.85 417.42,1.95 452.33,-3.57 474.69,-2.04"/>
+    </edge>
+    <edge id="1" from="C" to="3091127668" priority="13" type="waterway.river" shape="180.00,58.11 128.02,72.67 74.72,111.20 36.75,150.03 0.00,191.11">
+        <lane id="1_0" index="0" allow="ship" speed="2.78" length="273.56" width="7.00" shape="220.85,50.35 129.59,75.92 76.80,114.08 39.29,152.51 2.65,193.48"/>
+    </edge>
+    <edge id="2" from="C2" to="C" priority="13" type="waterway.river" shape="519.81,4.59 454.94,20.43 420.38,26.68 275.25,50.21 242.21,53.04 180.00,58.11">
+        <lane id="2_0" index="0" allow="ship" speed="2.78" length="433.45" width="7.00" shape="476.48,18.82 455.78,23.88 421.01,30.17 275.82,53.71 242.51,56.58 226.57,57.88"/>
+    </edge>
+    <edge id="3" from="C2" to="C" priority="13" type="waterway.river" shape="519.81,4.59 452.49,0.00 417.99,5.45 270.71,29.36 238.25,33.99 180.00,58.11">
+        <lane id="3_0" index="0" allow="ship" speed="2.78" length="436.40" width="7.00" shape="474.21,5.04 452.65,3.57 418.54,8.96 271.28,32.86 239.19,37.44 224.26,43.63"/>
+    </edge>
+
+    <junction id="3091127668" type="dead_end" x="0.00" y="191.11" incLanes="1_0" intLanes="" shape="-0.04,191.08 -5.25,186.41 5.25,195.81 0.04,191.14"/>
+    <junction id="C" type="right_before_left" x="180.00" y="58.11" incLanes="2_0 3_0 -1_0" intLanes="" shape="226.85,61.36 225.71,47.31 225.60,46.86 220.20,33.83 218.00,40.15 221.80,53.72">
+        <request index="0" response="000000" foes="001000"/>
+        <request index="1" response="110000" foes="111000"/>
+        <request index="2" response="000000" foes="100000"/>
+        <request index="3" response="000011" foes="100011"/>
+        <request index="4" response="000000" foes="000010"/>
+        <request index="5" response="001100" foes="001110"/>
+    </junction>
+    <junction id="C2" type="right_before_left" x="519.81" y="4.59" incLanes="-3_0 -2_0" intLanes="" shape="474.93,-5.54 473.97,8.53 477.31,22.22">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+
+    <connection from="-1" to="-3" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="-1" to="-2" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="-2" to="3" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-3" to="2" fromLane="0" toLane="0" dir="l" state="="/>
+    <connection from="2" to="1" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="2" to="-3" fromLane="0" toLane="0" dir="l" state="="/>
+    <connection from="3" to="-2" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="3" to="1" fromLane="0" toLane="0" dir="s" state="="/>
+
+</net>

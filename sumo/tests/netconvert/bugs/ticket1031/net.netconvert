@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 13 15:42:28 2013 by SUMO netconvert Version dev-SVN-r14700
+<!-- generated on Tue Mar 24 12:23:28 2015 by SUMO netconvert Version dev-SVN-r18126I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -17,6 +17,10 @@
     <processing>
         <no-internal-links value="true"/>
     </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -36,13 +40,13 @@
         <lane id="minor2_2" index="2" speed="22.22" length="55.75" shape="6.33,76.24 1.64,127.09"/>
     </edge>
     <edge id="priority" from="gneJ3" to="under_test" priority="2">
-        <lane id="priority_0" index="0" speed="19.44" length="61.60" shape="66.36,78.31 16.27,74.04"/>
+        <lane id="priority_0" index="0" speed="19.44" length="61.60" shape="66.36,78.31 16.29,74.04"/>
     </edge>
 
     <junction id="gneJ0" type="unregulated" x="10.04" y="0.00" incLanes="" intLanes="" shape="10.09,0.00 19.87,0.68"/>
     <junction id="gneJ2" type="unregulated" x="0.00" y="126.94" incLanes="minor2_0 minor2_1 minor2_2" intLanes="" shape="9.81,127.84 0.05,126.94"/>
     <junction id="gneJ3" type="unregulated" x="66.50" y="76.67" incLanes="" intLanes="" shape="66.50,76.72 66.22,79.91"/>
-    <junction id="under_test" type="priority" x="5.12" y="71.43" incLanes="priority_0 minor1_0 minor1_1 minor1_2" intLanes="" shape="16.13,75.63 16.40,72.44 15.05,70.61 5.27,69.94 4.74,76.10 14.50,77.00">
+    <junction id="under_test" type="priority" x="5.12" y="71.43" incLanes="priority_0 minor1_0 minor1_1 minor1_2" intLanes="" shape="16.15,75.63 16.43,72.45 15.05,70.61 5.27,69.94 4.74,76.10 14.50,77.00">
         <request index="0" response="0000" foes="1110"/>
         <request index="1" response="0001" foes="0001"/>
         <request index="2" response="0001" foes="0001"/>

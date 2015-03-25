@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 24 15:25:22 2015 by SUMO netconvert Version dev-SVN-r17955I
+<!-- generated on Tue Mar 24 11:57:57 2015 by SUMO netconvert Version dev-SVN-r18126I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -33,7 +33,7 @@
         <lane id=":0_0_0" index="0" speed="12.50" length="5.00" shape="48.35,58.05 48.16,56.69 47.58,55.73 46.61,55.14 45.25,54.95"/>
     </edge>
     <edge id=":0_1" function="internal">
-        <lane id=":0_1_0" index="0" speed="15.28" length="9.50" shape="48.35,58.05 48.35,48.55"/>
+        <lane id=":0_1_0" index="0" speed="15.28" length="9.55" shape="48.35,58.05 48.35,48.50"/>
     </edge>
     <edge id=":0_2" function="internal">
         <lane id=":0_2_0" index="0" speed="15.28" length="2.41" shape="48.35,58.05 49.18,56.81 50.00,56.40"/>
@@ -42,19 +42,19 @@
         <lane id=":0_6_0" index="0" speed="15.28" length="2.41" shape="50.00,56.40 50.83,56.81 51.65,58.05"/>
     </edge>
     <edge id=":0_3" function="internal">
-        <lane id=":0_3_0" index="0" speed="15.28" length="9.50" shape="51.65,48.55 51.65,58.05"/>
+        <lane id=":0_3_0" index="0" speed="15.28" length="9.55" shape="51.65,48.50 51.65,58.05"/>
     </edge>
     <edge id=":0_4" function="internal">
-        <lane id=":0_4_0" index="0" speed="12.50" length="3.06" shape="51.65,48.55 51.25,49.91 50.05,50.88 49.95,50.90"/>
+        <lane id=":0_4_0" index="0" speed="12.50" length="3.09" shape="51.65,48.50 51.25,49.88 50.05,50.86 49.95,50.89"/>
     </edge>
     <edge id=":0_5" function="internal">
-        <lane id=":0_5_0" index="0" speed="15.28" length="2.41" shape="51.65,48.55 50.82,49.79 50.00,50.20"/>
+        <lane id=":0_5_0" index="0" speed="15.28" length="2.41" shape="51.65,48.50 50.82,49.74 50.00,50.15"/>
     </edge>
     <edge id=":0_7" function="internal">
-        <lane id=":0_7_0" index="0" speed="12.50" length="4.79" shape="49.95,50.90 48.05,51.46 45.25,51.65"/>
+        <lane id=":0_7_0" index="0" speed="12.50" length="4.79" shape="49.95,50.89 48.05,51.45 45.25,51.65"/>
     </edge>
     <edge id=":0_8" function="internal">
-        <lane id=":0_8_0" index="0" speed="15.28" length="2.41" shape="50.00,50.20 49.17,49.79 48.35,48.55"/>
+        <lane id=":0_8_0" index="0" speed="15.28" length="2.41" shape="50.00,50.15 49.17,49.74 48.35,48.50"/>
     </edge>
     <edge id=":3_0" function="internal">
         <lane id=":3_0_0" index="0" speed="15.28" length="4.82" shape="48.35,0.00 49.18,-1.24 50.00,-1.65 50.83,-1.24 51.65,0.00"/>
@@ -68,10 +68,10 @@
         <lane id="1o_1" index="1" speed="9.73" length="45.25" shape="45.25,51.65 0.00,51.65"/>
     </edge>
     <edge id="3i" from="3" to="0" priority="-1">
-        <lane id="3i_0" index="0" speed="15.28" length="48.55" shape="51.65,0.00 51.65,48.55"/>
+        <lane id="3i_0" index="0" speed="15.28" length="48.50" shape="51.65,0.00 51.65,48.50"/>
     </edge>
     <edge id="3o" from="0" to="3" priority="-1">
-        <lane id="3o_0" index="0" speed="15.28" length="48.55" shape="48.35,48.55 48.35,0.00"/>
+        <lane id="3o_0" index="0" speed="15.28" length="48.50" shape="48.35,48.50 48.35,0.00"/>
     </edge>
     <edge id="4i" from="4" to="0" priority="-1">
         <lane id="4i_0" index="0" speed="15.28" length="41.95" shape="48.35,100.00 48.35,58.05"/>
@@ -80,7 +80,7 @@
         <lane id="4o_0" index="0" speed="15.28" length="41.95" shape="51.65,58.05 51.65,100.00"/>
     </edge>
 
-    <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 3i_0" intLanes=":0_0_0 :0_1_0 :0_6_0 :0_3_0 :0_7_0 :0_8_0" shape="46.75,58.05 53.25,58.05 53.25,48.55 46.75,48.55 45.25,50.05 45.25,56.55">
+    <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 3i_0" intLanes=":0_0_0 :0_1_0 :0_6_0 :0_3_0 :0_7_0 :0_8_0" shape="46.75,58.05 53.25,58.05 53.25,48.50 46.75,48.50 45.25,50.05 45.25,56.55">
         <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="110000" cont="0"/>
         <request index="2" response="001000" foes="001000" cont="1"/>
@@ -97,8 +97,8 @@
     </junction>
 
     <junction id=":0_6_0" type="internal" x="50.00" y="56.40" incLanes=":0_2_0 3i_0" intLanes=":0_3_0"/>
-    <junction id=":0_7_0" type="internal" x="49.95" y="50.90" incLanes=":0_4_0 4i_0" intLanes=":0_1_0"/>
-    <junction id=":0_8_0" type="internal" x="50.00" y="50.20" incLanes=":0_5_0 4i_0" intLanes=":0_1_0"/>
+    <junction id=":0_7_0" type="internal" x="49.95" y="50.89" incLanes=":0_4_0 4i_0" intLanes=":0_1_0"/>
+    <junction id=":0_8_0" type="internal" x="50.00" y="50.15" incLanes=":0_5_0 4i_0" intLanes=":0_1_0"/>
 
     <connection from="3i" to="4o" fromLane="0" toLane="0" via=":0_3_0" dir="s" state="M"/>
     <connection from="3i" to="1o" fromLane="0" toLane="1" via=":0_4_0" dir="l" state="m"/>

@@ -430,8 +430,6 @@ Warning: Could not use edge geometry for internal lane, node '3179627077'.
 Warning: Could not use edge geometry for internal lane, node '3179641633'.
 Warning: Could not use edge geometry for internal lane, node '3187781913'.
 Warning: Could not use edge geometry for internal lane, node '3187781915'.
-Warning: Could not use edge geometry for internal lane, node '3269783482'.
-Warning: Could not use edge geometry for internal lane, node '3269783482'.
 Warning: Could not use edge geometry for internal lane, node '3279659028'.
 Warning: Could not use edge geometry for internal lane, node '3345490415'.
 Warning: Could not use edge geometry for internal lane, node '3345490415'.
@@ -495,7 +493,7 @@ Warning: Not joining junctions 611334710,611335401 because the cluster is too co
 Warning: Not joining junctions 160503138,670333026 because the cluster is too complex (parallel outgoing 137630051#2,23809670#4)
 Warning: Not joining junctions 160503146,2314394456,2314394457,27411250 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 2121324860,31160079,611328302,611330949 because the cluster is too complex (parallel outgoing 202156995#1,48095234)
-Warning: Not joining junctions 2796729135,2856686315,30731492,311264847,588181297,588181300,588181302,617915219,617915220,735132786 because the cluster is too complex (9 incoming edges)
+Warning: Not joining junctions 2796729135,2856686315,735132788 because the cluster is too complex (parallel outgoing 147686947,281683283)
 Warning: Not joining junctions 1615477665,1840326424,1840326426,997027037 because the cluster is too complex (parallel incoming 112128418#1,4791000#3)
 Warning: Not joining junctions 1615531695,2831092403,52153639 because the cluster is too complex (parallel incoming 148449390,158785194#0)
 Warning: Not joining junctions 1860777044,1860777046,1860777048,1860777050,3095536723 because the cluster is too complex (parallel incoming 169195791#0,169230291#1)
@@ -503,9 +501,10 @@ Warning: Not joining junctions 1630500695,21487184,27411306,310069196,735963001 
 Warning: Not joining junctions 1633112625,2831092402,30731499 because the cluster is too complex (parallel outgoing 195400997#1,22962554#1)
 Warning: Not joining junctions 258017933,258485791,27411258,2796846632,30731510,588181257,588181259 because the cluster is too complex (12 incoming edges)
 Warning: Not joining junctions 1667735093,2603295460,2603295466,2603295473,2603295479,2603295485,2603295488,2603295498,2603295502,2603295505,2603295525,2603295537,2603295539 because the cluster is too complex (parallel incoming 254523899#0,254523900#0)
-Warning: Not joining junctions 1668685184,1785414414,2924018416,2924018417,2924018418,3253177076,3253177078,3253177079 because the cluster is too complex (8 incoming edges)
+Warning: Not joining junctions 1785414414,2924018416,2924018417,2924018418,3253177076,3253177078,3253177079 because the cluster is too complex (7 incoming edges)
 Warning: Not joining junctions 1668717163,1668717165,258485805,588181279 because the cluster is too complex (parallel incoming 101699676#0,4610362#1)
 Warning: Not joining junctions 1673527106,1673527109,1864428519,1864428520,1864428521,1864428522 because the cluster is too complex (parallel incoming 195411594#1,195411604#2)
+Warning: Not joining junctions 1673585713,3269783482 because the cluster is too complex (parallel incoming 144014233,207364192#0)
 Warning: Not joining junctions 1769589131,1864428531,1864428532,1864428533,1864428534,1864428535,1864428536,1864428537,2792266062,2792266077,2792266079,2792266083,2792266096,2792266109,2792266111,2792266115,2792266119,2792266138,2792266154,2792266161,2792266170,2792266195,2792266205,2792266218,2792266222,2792266237,2792266238,541118892,837929252 because the cluster is too complex (12 incoming edges)
 Warning: Not joining junctions 1828018014,1828018027,1828018031,1828018034,1828018038,1828018040,768038183 because the cluster is too complex (parallel incoming 112128419#1,331114772#5)
 Warning: Not joining junctions 1828018077,1828018081,1828018092,1828018093,1828018094,1828018095,1840326399,1840326421,262469034,29123671,29123672,967017877 because the cluster is too complex (6 incoming edges)
@@ -568,13 +567,13 @@ Warning: Not joining junctions 2777153459,2777153482,2777153521,2777153528,27771
 Warning: Not joining junctions 28373970,28373972,2882261426,540698421 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 610319158,610319162 because the cluster is too complex (parallel incoming 123074181#4,182814027#8)
 Warning: Not joining junctions 2894540722,2894540724 because the cluster is too complex (parallel incoming -285825373,-285825375)
-Warning: Not joining junctions 29192127,98976234 because the cluster is too complex (parallel incoming -84960597#1,153537606#0)
 Warning: Not joining junctions 29192958,3378459483 because the cluster is too complex (parallel incoming 122820534#1,330840136)
 Warning: Not joining junctions 29215071,694599256,694599259 because the cluster is too complex (parallel outgoing 170077662#5,23443935#1)
 Warning: Not joining junctions 29219452,3179627077 because the cluster is too complex (parallel incoming 195407522,312127196#0)
 Warning: Not joining junctions 2933657337,3179614625 because the cluster is too complex (parallel incoming 289830408,312126779#0)
 Warning: Not joining junctions 2959830775,3343070503,3343070506,3343070507 because the cluster is too complex (parallel incoming -292429062#1,327519012#3)
 Warning: Not joining junctions 2959830776,3343070513,3343070514,3343070515,3343070517,3343070518 because the cluster is too complex (5 incoming edges)
+Warning: Not joining junctions 30731492,311264847,588181297,588181300,588181302,617915219,617915220,735132786,735132792 because the cluster is too complex (7 incoming edges)
 Warning: Not joining junctions 3148263649,3157319028,3183974420 because the cluster is too complex (parallel incoming 309489394#0,310313888#1)
 Warning: Not joining junctions 3157327720,677188172 because the cluster is too complex (parallel incoming 310186556#0,310314582#0)
 Warning: Not joining junctions 3183974424,3183974425 because the cluster is too complex (parallel incoming 310313888#0,312362360#0)
@@ -917,6 +916,8 @@ Warning: Could not use edge geometry for internal lane, node '2776837225'.
 Warning: Could not use edge geometry for internal lane, node '2776837227'.
 Warning: Could not use edge geometry for internal lane, node '2776837227'.
 Warning: Could not use edge geometry for internal lane, node '2776837227'.
+Warning: Could not use edge geometry for internal lane, node '2776837229'.
+Warning: Could not use edge geometry for internal lane, node '2776837229'.
 Warning: Could not use edge geometry for internal lane, node '2776837268'.
 Warning: Could not use edge geometry for internal lane, node '2776837269'.
 Warning: Could not use edge geometry for internal lane, node '2776837269'.
@@ -1007,8 +1008,6 @@ Warning: Could not use edge geometry for internal lane, node '3178079902'.
 Warning: Could not use edge geometry for internal lane, node '3178759584'.
 Warning: Could not use edge geometry for internal lane, node '3187781913'.
 Warning: Could not use edge geometry for internal lane, node '3187781915'.
-Warning: Could not use edge geometry for internal lane, node '3269783482'.
-Warning: Could not use edge geometry for internal lane, node '3269783482'.
 Warning: Could not use edge geometry for internal lane, node '3279659028'.
 Warning: Could not use edge geometry for internal lane, node '3378370155'.
 Warning: Could not use edge geometry for internal lane, node '365516693'.
@@ -1034,8 +1033,9 @@ Warning: Could not use edge geometry for internal lane, node '961875311'.
 Warning: Could not use edge geometry for internal lane, node '98973667'.
 Warning: Could not use edge geometry for internal lane, node 'cluster_1509496403_2381159752'.
 Warning: Could not use edge geometry for internal lane, node 'cluster_25661289_3345490416'.
-Warning: Could not use edge geometry for internal lane, node 'cluster_25661289_3345490416'.
 Warning: Junction shape for 'cluster_258485587_258485588_258485593_29219468_31154797' has distance 28.70 to its given position
+Warning: Could not use edge geometry for internal lane, node 'cluster_2776837281_2776837292_2776837294_2776837295_2776837310_2776837312_2776837314_2776837316'.
+Warning: Could not use edge geometry for internal lane, node 'cluster_2776837281_2776837292_2776837294_2776837295_2776837310_2776837312_2776837314_2776837316'.
 Warning: Could not use edge geometry for internal lane, node 'cluster_2776837307_2776837320_2776837321_2776837323_2776837331_2776837333_2776837334_2776837337'.
 Warning: Could not use edge geometry for internal lane, node 'cluster_2777026053_2777026068'.
 Warning: Could not use edge geometry for internal lane, node 'cluster_2777026101_2777026104'.

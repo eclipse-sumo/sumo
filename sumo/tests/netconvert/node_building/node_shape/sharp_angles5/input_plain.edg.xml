@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 23 Mar 2015 04:31:15 PM CET by Netedit Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/sip-svn-trunk/tests/netconvert/shapefiles/netconvertshapefile/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/sip-svn-trunk/tests/netconvert/shapefiles/netconvertshapefile/net.netconvert"/>
+        <plain-output-prefix value="/scr2/debug/1694/input_plain9"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="1" from="C" to="407629006" priority="0" numLanes="1" speed="13.90" spreadType="center"/>
+    <edge id="2" from="408672323" to="C" priority="0" numLanes="1" speed="13.90" spreadType="center"/>
+    <edge id="3" from="407629005" to="C" priority="0" numLanes="1" speed="13.90" shape="11796.20,33801.44 11863.07,33810.97 12015.04,33826.36 12067.40,33848.87 12094.56,33902.62" spreadType="center"/>
+    <edge id="4" from="C" to="408672330" priority="0" numLanes="1" speed="13.90" spreadType="center"/>
+</edges>

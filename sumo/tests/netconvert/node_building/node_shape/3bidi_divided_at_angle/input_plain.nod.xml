@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 24 13:21:23 2015 by SUMO netconvert Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osmserver.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain17"/>
+    </output>
+
+    <edge_removal>
+        <keep-edges.input-file value="edgesel.txt"/>
+    </edge_removal>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-389562.46,-5817979.56" convBoundary="1918.09,1889.64,2017.86,1951.82" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1472911019" x="2008.38" y="1950.52" type="unregulated"/>
+    <node id="2121324849" x="1926.18" y="1937.10" type="right_before_left"/>
+    <node id="29207821" x="2017.09" y="1946.12" type="unregulated"/>
+    <node id="cluster_1472911017_697323164" x="1944.01" y="1907.99" type="priority"/>
+    <node id="cluster_258127854_29194675" x="1921.62" y="1896.16" type="priority"/>
+</nodes>

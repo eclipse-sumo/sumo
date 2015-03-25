@@ -113,7 +113,7 @@ Computing node shapes...
 done.
 Computing edge shapes... done.
 Computing node types... done.
-Guessed 1178 pedestrian crossings.
+Guessed 1176 pedestrian crossings.
 Computing priorities... done.
 Computing approached edges... done.
 Guessing and setting roundabouts... done.
@@ -143,7 +143,7 @@ Summary:
   Converted boundary : 0.00,0.00,4934.15,5232.39
 -----------------------------------------------------
 Success.
-Parsing network projection from '/scr2/texttest_tmp/tools.23Mar092525.32541/tools/import/OSM/server/osm.net.xml'... done.
+Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.24Mar152727.8398/tools/import/OSM/server/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
@@ -154,23 +154,23 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (498ms).
-Loading additional-files from 'osm.poly.xml'...  done (81ms).
+Loading net-file from 'osm.net.xml'...  done (780ms).
+Loading additional-files from 'osm.poly.xml'...  done (175ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 5452.00
+Simulation ended at time: 5434.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 30868ms
- Real time factor: 176.623
- UPS: 12611.863418
+ Duration: 42554ms
+ Real time factor: 127.697
+ UPS: 9161.465432
 Vehicles: 
  Inserted: 1245
  Running: 0
  Waiting: 0
 
-DijkstraRouterTT answered 1290 queries and explored 647.05 edges on average.
-DijkstraRouterTT spent 411ms answering queries (0.32ms on average).
+DijkstraRouterTT answered 1285 queries and explored 645.49 edges on average.
+DijkstraRouterTT spent 477ms answering queries (0.37ms on average).
 Calling osmBuild
 Calling randomTrips
 calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log

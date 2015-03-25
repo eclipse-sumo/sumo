@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 24 15:55:10 2015 by SUMO netconvert Version dev-SVN-r18134I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net20.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain21"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-684148.78,-5706279.49" convBoundary="0.00,0.00,205.87,92.40" origBoundary="5.538970,51.449400,5.678834,51.487414" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="287360464" x="0.00" y="90.97" type="priority"/>
+    <node id="42734846" x="205.87" y="0.00" type="priority"/>
+    <node id="42736497" x="198.75" y="62.09" type="priority"/>
+    <node id="A" x="119.72" y="91.01" type="traffic_light" tl="joinedS_4"/>
+    <node id="B" x="133.94" y="90.32" type="traffic_light" tl="joinedS_4"/>
+    <node id="C" x="182.48" y="88.37" type="priority"/>
+</nodes>

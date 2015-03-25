@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 25 Mar 2015 09:02:41 AM CET by Netedit Version dev-SVN-r18134I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/sip-svn-trunk/tests/netconvert/opendrive/Ingolstadt130325/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/sip-svn-trunk/tests/netconvert/opendrive/Ingolstadt130325/net.netconvert"/>
+        <plain-output-prefix value="/scr2/debug/1694/input_plain26"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="516.87,4897.89" convBoundary="5103.12,1408.97,5277.38,1562.44" origBoundary="-516.87,-4897.89,5594.65,1679.30" projParameter="!"/>
+
+    <node id="1422" x="5135.21" y="1562.44" type="dead_end"/>
+    <node id="1426" x="5277.38" y="1463.69" type="dead_end"/>
+    <node id="1436" x="5134.69" y="1408.97" type="dead_end"/>
+    <node id="A" x="5103.12" y="1501.35" type="dead_end"/>
+    <node id="C" x="5118.80" y="1483.42" type="priority"/>
+</nodes>

@@ -421,8 +421,8 @@
     <link id="79" from="70" to="23" roadClass="1" length="109800" speedLimitKmh="80" laneNr="2"/>
     <link id="80" from="326" to="70" roadClass="1" length="72262" speedLimitKmh="80" laneNr="2"/>
     <link id="81" from="61" to="326" roadClass="1" length="61526" speedLimitKmh="80" laneNr="2"/>
-    <link id="82" from="330" to="329" roadClass="4" length="106086" speedLimitKmh="30" laneNr="2"/>
-    <link id="83" from="221" to="330" roadClass="4" length="27526" speedLimitKmh="30" laneNr="2"/>
+    <link id="82" from="330" to="329" roadClass="4" length="92716" speedLimitKmh="30" laneNr="2"/>
+    <link id="83" from="221" to="330" roadClass="4" length="17999" speedLimitKmh="30" laneNr="2"/>
     <link id="84" from="153" to="232" roadClass="3" length="11497" speedLimitKmh="50" laneNr="3"/>
     <link id="85" from="16" to="296" roadClass="4" length="10128" speedLimitKmh="20" laneNr="1"/>
     <link id="86" from="226" to="16" roadClass="4" length="3469" speedLimitKmh="20" laneNr="1"/>
@@ -599,7 +599,7 @@
     <link id="257" from="22" to="28" roadClass="4" length="199" speedLimitKmh="20" laneNr="1"/>
     <link id="258" from="21" to="22" roadClass="4" length="32667" speedLimitKmh="20" laneNr="1"/>
     <link id="259" from="20" to="21" roadClass="4" length="32375" speedLimitKmh="20" laneNr="1"/>
-    <link id="260" from="263" to="20" roadClass="4" length="6601" speedLimitKmh="20" laneNr="1"/>
+    <link id="260" from="263" to="20" roadClass="4" length="9018" speedLimitKmh="20" laneNr="1"/>
     <link id="261" from="304" to="303" roadClass="4" length="37880" speedLimitKmh="20" laneNr="1"/>
     <link id="262" from="303" to="304" roadClass="4" length="8315" speedLimitKmh="20" laneNr="1"/>
     <link id="263" from="77" to="75" roadClass="1" length="73430" speedLimitKmh="80" laneNr="2"/>
@@ -750,8 +750,8 @@
     <link id="408" from="23" to="70" roadClass="1" length="109800" speedLimitKmh="80" laneNr="2"/>
     <link id="409" from="70" to="326" roadClass="1" length="72262" speedLimitKmh="80" laneNr="2"/>
     <link id="410" from="326" to="61" roadClass="1" length="61526" speedLimitKmh="80" laneNr="2"/>
-    <link id="411" from="329" to="330" roadClass="4" length="106409" speedLimitKmh="30" laneNr="2"/>
-    <link id="412" from="330" to="221" roadClass="4" length="27849" speedLimitKmh="30" laneNr="2"/>
+    <link id="411" from="329" to="330" roadClass="4" length="92716" speedLimitKmh="30" laneNr="2"/>
+    <link id="412" from="330" to="221" roadClass="4" length="17999" speedLimitKmh="30" laneNr="2"/>
     <link id="413" from="232" to="153" roadClass="3" length="11497" speedLimitKmh="50" laneNr="3"/>
     <link id="414" from="327" to="64" roadClass="3" length="58736" speedLimitKmh="50" laneNr="2"/>
     <link id="415" from="64" to="327" roadClass="3" length="60718" speedLimitKmh="50" laneNr="3"/>
@@ -1026,7 +1026,7 @@
     <link id="684" from="305" to="311" roadClass="4" length="23905" speedLimitKmh="10" laneNr="1"/>
     <link id="685" from="22" to="21" roadClass="4" length="32667" speedLimitKmh="20" laneNr="1"/>
     <link id="686" from="21" to="20" roadClass="4" length="32375" speedLimitKmh="20" laneNr="1"/>
-    <link id="687" from="20" to="263" roadClass="4" length="7278" speedLimitKmh="20" laneNr="1"/>
+    <link id="687" from="20" to="263" roadClass="4" length="10807" speedLimitKmh="20" laneNr="1"/>
     <link id="688" from="306" to="307" roadClass="4" length="36564" speedLimitKmh="30" laneNr="1"/>
     <link id="689" from="303" to="304" roadClass="4" length="49967" speedLimitKmh="20" laneNr="1"/>
     <link id="690" from="304" to="303" roadClass="4" length="8315" speedLimitKmh="20" laneNr="1"/>

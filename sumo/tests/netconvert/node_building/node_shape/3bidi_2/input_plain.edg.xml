@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 24 15:55:10 2015 by SUMO netconvert Version dev-SVN-r18134I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net20.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain21"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-1" from="C" to="42736497" priority="1" type="highway.unclassified" numLanes="1" speed="13.89" shape="182.48,88.37 184.59,88.29 192.39,84.12 194.14,78.05 198.75,62.09"/>
+    <edge id="-2" from="C" to="B" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="182.48,88.37 178.63,64.59 138.57,74.29 134.78,80.84 133.94,90.32">
+        <lane index="0" allow="delivery"/>
+    </edge>
+    <edge id="-3" from="B" to="C" priority="1" type="highway.unclassified" numLanes="1" speed="13.89"/>
+    <edge id="-4" from="A" to="B" priority="1" type="highway.unclassified" numLanes="1" speed="13.89" shape="119.72,91.01 123.05,90.76 133.94,90.32"/>
+    <edge id="-5" from="A" to="42734846" priority="1" type="highway.unclassified" numLanes="1" speed="13.89" shape="119.72,91.01 119.62,91.26 118.37,63.81 112.31,11.08 120.68,10.27 200.19,3.13 205.87,0.00"/>
+    <edge id="-6" from="287360464" to="A" priority="1" type="highway.unclassified" numLanes="1" speed="13.89" shape="0.00,90.97 43.04,89.52 80.80,88.25 84.26,88.13 110.25,92.40 119.72,91.01"/>
+    <edge id="1" from="42736497" to="C" priority="1" type="highway.unclassified" numLanes="1" speed="13.89" shape="198.75,62.09 194.14,78.05 192.39,84.12 184.59,88.29 182.48,88.37"/>
+    <edge id="2" from="B" to="C" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="133.94,90.32 134.78,80.84 138.57,74.29 178.63,64.59 182.48,88.37">
+        <lane index="0" allow="delivery"/>
+    </edge>
+    <edge id="3" from="C" to="B" priority="1" type="highway.unclassified" numLanes="1" speed="13.89"/>
+    <edge id="4" from="B" to="A" priority="1" type="highway.unclassified" numLanes="1" speed="13.89" shape="133.94,90.32 123.05,90.76 119.72,91.01"/>
+    <edge id="5" from="42734846" to="A" priority="1" type="highway.unclassified" numLanes="1" speed="13.89" shape="205.87,0.00 200.19,3.13 120.68,10.27 112.31,11.08 118.37,63.81 119.62,91.26 119.72,91.01"/>
+    <edge id="6" from="A" to="287360464" priority="1" type="highway.unclassified" numLanes="1" speed="13.89" shape="119.72,91.01 110.25,92.40 84.26,88.13 80.80,88.25 43.04,89.52 0.00,90.97"/>
+</edges>

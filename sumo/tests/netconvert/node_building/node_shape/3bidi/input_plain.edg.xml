@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 24 Mar 2015 01:04:03 PM CET by Netedit Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/debug/1694/net14.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/debug/1694/net14.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/1694/input_plain15"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-1" from="3091127668" to="C" priority="13" type="waterway.river" numLanes="1" speed="2.78" shape="0.00,191.11 36.75,150.03 74.72,111.20 128.02,72.67 180.00,58.11" width="7.00">
+        <lane index="0" allow="ship"/>
+    </edge>
+    <edge id="-2" from="C" to="C2" priority="13" type="waterway.river" numLanes="1" speed="2.78" shape="180.00,58.11 242.21,53.04 275.25,50.21 420.38,26.68 454.94,20.43 519.81,4.59" width="7.00">
+        <lane index="0" allow="ship"/>
+    </edge>
+    <edge id="-3" from="C" to="C2" priority="13" type="waterway.river" numLanes="1" speed="2.78" shape="180.00,58.11 238.25,33.99 270.71,29.36 417.99,5.45 452.49,0.00 519.81,4.59" width="7.00">
+        <lane index="0" allow="ship"/>
+    </edge>
+    <edge id="1" from="C" to="3091127668" priority="13" type="waterway.river" numLanes="1" speed="2.78" shape="180.00,58.11 128.02,72.67 74.72,111.20 36.75,150.03 0.00,191.11" width="7.00">
+        <lane index="0" allow="ship"/>
+    </edge>
+    <edge id="2" from="C2" to="C" priority="13" type="waterway.river" numLanes="1" speed="2.78" shape="519.81,4.59 454.94,20.43 420.38,26.68 275.25,50.21 242.21,53.04 180.00,58.11" width="7.00">
+        <lane index="0" allow="ship"/>
+    </edge>
+    <edge id="3" from="C2" to="C" priority="13" type="waterway.river" numLanes="1" speed="2.78" shape="519.81,4.59 452.49,0.00 417.99,5.45 270.71,29.36 238.25,33.99 180.00,58.11" width="7.00">
+        <lane index="0" allow="ship"/>
+    </edge>
+</edges>

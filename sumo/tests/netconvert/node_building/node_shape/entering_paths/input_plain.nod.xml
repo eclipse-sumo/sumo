@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 24 Mar 2015 01:28:09 PM CET by Netedit Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/tools/import/OSM/server/osmimport.tools"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/tools/import/OSM/server/osmimport.tools"/>
+        <plain-output-prefix value="/scr2/debug/1694/input_plain18"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-389562.46,-5817979.56" convBoundary="2017.09,1915.53,2147.51,2024.35" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="2381159855" x="2147.51" y="1997.81" type="unregulated"/>
+    <node id="29207821" x="2017.09" y="1946.12" type="unregulated"/>
+    <node id="341340986" x="2131.10" y="2024.35" type="unregulated"/>
+    <node id="702048667" x="2068.91" y="1940.30" type="unregulated"/>
+    <node id="C" x="2064.78" y="1966.51" type="priority"/>
+    <node id="cluster_2121324847_2381159779_2381159806" x="2124.02" y="1915.53" type="unregulated"/>
+</nodes>

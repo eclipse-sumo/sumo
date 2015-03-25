@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 25 Mar 2015 09:15:03 AM CET by Netedit Version dev-SVN-r18134I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/sip-svn-trunk/tests/scenario/use/AIM/net_no_turnarounds/net.scenario"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/sip-svn-trunk/tests/scenario/use/AIM/net_no_turnarounds/net.scenario"/>
+        <plain-output-prefix value="/scr2/debug/1694/input_plain27"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-593345.09,-5779253.43" convBoundary="6735.31,19140.50,6933.03,19260.54" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="858738599" x="6933.03" y="19140.50" type="dead_end"/>
+    <node id="C" x="6775.49" y="19244.11" type="priority"/>
+    <node id="cluster_54545919_54545920" x="6738.44" y="19205.53" type="dead_end"/>
+</nodes>

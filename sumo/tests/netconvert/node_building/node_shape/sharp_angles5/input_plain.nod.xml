@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 23 Mar 2015 04:31:15 PM CET by Netedit Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/sip-svn-trunk/tests/netconvert/shapefiles/netconvertshapefile/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/sip-svn-trunk/tests/netconvert/shapefiles/netconvertshapefile/net.netconvert"/>
+        <plain-output-prefix value="/scr2/debug/1694/input_plain9"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-434459.34,-4298143.37" convBoundary="11796.20,33801.44,12260.25,34106.14" origBoundary="-75.760074,38.829851,-75.138461,39.387555" projParameter="+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="407629005" x="11796.20" y="33801.44" type="unregulated"/>
+    <node id="407629006" x="12127.15" y="33967.21" type="unregulated"/>
+    <node id="408672323" x="12260.25" y="34106.14" type="unregulated"/>
+    <node id="408672330" x="12076.96" y="33932.81" type="unregulated"/>
+    <node id="C" x="12094.56" y="33902.62" type="priority"/>
+</nodes>

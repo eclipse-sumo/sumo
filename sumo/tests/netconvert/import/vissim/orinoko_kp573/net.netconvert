@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 19 13:32:41 2015 by SUMO netconvert Version dev-SVN-r18107I
+<!-- generated on Tue Mar 24 12:54:54 2015 by SUMO netconvert Version dev-SVN-r18126I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -63,10 +63,10 @@
         <lane id="1000705[0]_0" index="0" speed="13.89" length="2.45" shape="1081.72,2828.43 1080.74,2827.40"/>
     </edge>
     <edge id="1000705[1]" from="605000047" to="605000045" priority="-1" type="200" spreadType="center" shape="1080.26,2826.89 1080.00,2826.62 1079.50,2825.92 1079.15,2825.27 1078.91,2824.66 1078.69,2824.05 1078.45,2823.44 1078.11,2822.80 1077.60,2822.09 1076.86,2821.31 931.52,2683.49">
-        <lane id="1000705[1]_0" index="0" speed="13.89" length="227.61" shape="1079.37,2825.69 1079.15,2825.27 1078.91,2824.66 1078.69,2824.05 1078.45,2823.44 1078.11,2822.80 1077.60,2822.09 1076.86,2821.31 925.08,2677.39"/>
+        <lane id="1000705[1]_0" index="0" speed="13.89" length="227.61" shape="1077.22,2821.69 1076.86,2821.31 925.08,2677.39"/>
     </edge>
     <edge id="1000706" from="605000047" to="605000045" priority="-1" type="200" spreadType="center" shape="1073.95,2823.37 929.11,2686.03">
-        <lane id="1000706_0" index="0" speed="13.89" length="228.84" shape="1073.95,2823.37 929.11,2686.03"/>
+        <lane id="1000706_0" index="0" speed="13.89" length="228.84" shape="1074.75,2824.13 929.11,2686.03"/>
     </edge>
     <edge id="1000707" from="605000045" to="605000033" priority="-1" type="200" spreadType="center" shape="916.69,2688.61 859.58,2771.03 852.71,2774.79">
         <lane id="1000707_0" index="0" speed="13.89" length="152.40" shape="926.02,2678.04 860.71,2772.29 835.91,2785.87"/>
@@ -578,7 +578,7 @@
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="605000047" type="priority" x="1080.26" y="2826.89" incLanes="1000705[0]_0" intLanes="" shape="1079.58,2828.50 1081.90,2826.30 1080.59,2824.55 1078.17,2826.81">
+    <junction id="605000047" type="priority" x="1080.26" y="2826.89" incLanes="1000705[0]_0" intLanes="" shape="1079.58,2828.50 1081.90,2826.30 1078.39,2820.60 1076.06,2822.79 1075.85,2822.97 1073.65,2825.29">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
