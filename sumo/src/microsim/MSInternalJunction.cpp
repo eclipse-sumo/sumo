@@ -85,7 +85,7 @@ MSInternalJunction::postloadInit() {
                 const int foeIndex = (*i)->getIncomingLanes()[0].viaLink->getIndex();
                 if (foeLinks.test(foeIndex)) {
                     // only respect vehicles before internal junctions if they
-                    // have priority (see the analogous foeLinks.text() when
+                    // have priority (see the analogous foeLinks.test() when
                     // initializing myLinkFoeInternalLanes in MSRightOfWayJunction
                     myInternalLaneFoes.push_back(*i);
                 }
