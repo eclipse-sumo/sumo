@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 15 09:15:12 2013 by SUMO netconvert Version dev-SVN-r15111
+<!-- generated on Thu Mar 26 08:45:26 2015 by SUMO netconvert Version dev-SVN-r18150I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -55,9 +55,9 @@
         <lane id=":f7_0_0" index="0" speed="13.90" length="7.25" shape="388.50,691.75 391.50,698.35"/>
     </edge>
     <edge id=":z0_0" function="internal">
-        <lane id=":z0_0_0" index="0" speed="13.90" length="6.88" shape="702.23,690.15 703.00,690.85 703.87,691.35 704.83,691.65 705.89,691.75"/>
-        <lane id=":z0_0_1" index="1" speed="13.90" length="6.88" shape="699.78,692.36 701.07,693.54 702.52,694.38 704.12,694.88 705.89,695.05"/>
-        <lane id=":z0_0_2" index="2" speed="13.90" length="6.88" shape="697.33,694.56 699.14,696.22 701.17,697.40 703.42,698.11 705.89,698.35"/>
+        <lane id=":z0_0_0" index="0" speed="13.90" length="6.93" shape="702.19,690.11 702.98,690.82 703.86,691.34 704.83,691.65 705.89,691.75"/>
+        <lane id=":z0_0_1" index="1" speed="13.90" length="6.93" shape="699.74,692.31 701.05,693.51 702.51,694.37 704.12,694.88 705.89,695.05"/>
+        <lane id=":z0_0_2" index="2" speed="13.90" length="6.93" shape="697.29,694.52 699.12,696.20 701.16,697.39 703.42,698.11 705.89,698.35"/>
     </edge>
     <edge id=":z0_3" function="internal">
         <lane id=":z0_3_0" index="0" speed="13.90" length="10.58" shape="695.64,698.35 698.60,697.83 700.62,696.70 702.72,695.57 705.89,695.05"/>
@@ -135,9 +135,9 @@
         <lane id="e7_2" index="2" speed="13.90" length="492.44" shape="611.65,103.78 611.65,596.22"/>
     </edge>
     <edge id="e8" from="z7" to="z0" priority="-1">
-        <lane id="e8_0" index="0" speed="13.90" length="124.93" shape="618.66,597.29 702.23,690.15"/>
-        <lane id="e8_1" index="1" speed="13.90" length="124.93" shape="616.21,599.50 699.78,692.36"/>
-        <lane id="e8_2" index="2" speed="13.90" length="124.93" shape="613.75,601.71 697.33,694.56"/>
+        <lane id="e8_0" index="0" speed="13.90" length="124.87" shape="618.66,597.29 702.19,690.11"/>
+        <lane id="e8_1" index="1" speed="13.90" length="124.87" shape="616.21,599.50 699.74,692.31"/>
+        <lane id="e8_2" index="2" speed="13.90" length="124.87" shape="613.75,601.71 697.29,694.52"/>
     </edge>
     <edge id="i1" from="f0" to="f1" priority="-1">
         <lane id="i1_0" index="0" speed="13.90" length="300.02" shape="0.00,-8.25 300.02,-8.25"/>
@@ -212,7 +212,7 @@
     <junction id="f7" type="priority" x="390.00" y="700.00" incLanes="i7_0 i7_1 i7_2" intLanes=":f7_0_0" shape="391.50,699.95 391.50,696.75 388.50,690.15 388.50,699.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="z0" type="priority" x="700.00" y="700.00" incLanes="e8_0 e8_1 e8_2 o_0" intLanes=":z0_0_0 :z0_0_1 :z0_0_2 :z0_3_0 :z0_3_1" shape="705.89,699.95 705.89,690.15 703.42,689.08 696.14,695.64 695.64,696.75 695.64,699.95">
+    <junction id="z0" type="priority" x="700.00" y="700.00" incLanes="e8_0 e8_1 e8_2 o_0" intLanes=":z0_0_0 :z0_0_1 :z0_0_2 :z0_3_0 :z0_3_1" shape="705.89,699.95 705.89,690.15 703.38,689.04 696.10,695.59 695.64,696.75 695.64,699.95">
         <request index="0" response="00000" foes="11000" cont="0"/>
         <request index="1" response="00000" foes="11000" cont="0"/>
         <request index="2" response="00000" foes="11000" cont="0"/>
