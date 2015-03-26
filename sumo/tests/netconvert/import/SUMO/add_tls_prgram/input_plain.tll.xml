@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<add>
+    <tlLogic id="210" type="static" programID="utopia" offset="0">
+        <phase duration="34" state="GGgrrrrrGGgrrrGGrrrr" minDur="6" maxDur="84"/>
+        <phase duration="5" state="yyyrrrrrGGgrrrGGrrrr" minDur="5" maxDur="5"/>
+        <phase duration="3" state="rrrrrrrryyyrrryyrrrr" minDur="3" maxDur="3"/>
+        <phase duration="2" state="rrrrrrrrrrrrrrrrrrrr" minDur="2" maxDur="2"/>
+        <phase duration="1" state="rrrGGGGgrrrGGgrrGGGG" minDur="1" maxDur="1"/>
+        <phase duration="1" state="rrrGGGGgrrrGGgrrGGGG" minDur="1" maxDur="1"/>
+        <phase duration="5" state="rrrGGGGgrrrGGgrrGGGG" minDur="5" maxDur="5"/>
+        <phase duration="3" state="rrrGGGGgrrrGGgrrGGGG" minDur="3" maxDur="3"/>
+        <phase duration="2" state="rrrGGGGgrrrGGgrrGGGG" minDur="2" maxDur="2"/>
+        <phase duration="10" state="rrrGGGGgrrrGGgrrGGGG" minDur="10" maxDur="10"/>
+        <phase duration="5" state="rrrGGGGgrrrGGgrrGGGG" minDur="5" maxDur="5"/>
+        <phase duration="3" state="rrrGGGGgrrryyyrryyyy" minDur="3" maxDur="3"/>
+        <phase duration="4" state="rrrGGGGGrrrrrrrrrrrr" minDur="4" maxDur="4"/>
+        <phase duration="1" state="rrrGGGGGrrrrrrrrrrrr" minDur="1" maxDur="1"/>
+        <phase duration="5" state="rrrGGGGGrrrrrrrrrrrr" minDur="5" maxDur="5"/>
+        <phase duration="3" state="rrryyyyyrrrrrrrrrrrr" minDur="3" maxDur="3"/>
+        <phase duration="3" state="rrrrrrrrrrrrrrrrrrrr" minDur="3" maxDur="3"/>
+    </tlLogic>
+</add>
+

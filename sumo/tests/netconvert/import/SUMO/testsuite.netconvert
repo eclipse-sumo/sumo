@@ -46,3 +46,6 @@ joined_traffic_light_with_internal_junctions
 
 # import network with a rail signal
 rail_signal
+
+# add another tls program to an existing tls definition
+add_tls_prgram

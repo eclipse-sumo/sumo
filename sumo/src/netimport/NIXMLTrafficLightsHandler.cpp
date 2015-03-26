@@ -109,10 +109,6 @@ NIXMLTrafficLightsHandler::myEndElement(int element) {
             if (!myCurrentTL) {
                 WRITE_ERROR("Unmatched closing tag for tlLogic.");
             } else {
-                if (!myTLLCont.insert(myCurrentTL)) {
-                    WRITE_MESSAGE("Updating program '" + myCurrentTL->getProgramID() +
-                                  "' for traffic light '" + myCurrentTL->getID() + "'");
-                }
                 myCurrentTL = 0;
             }
             break;
@@ -146,37 +142,61 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     //   simply retrieve the loaded definitions and update them
     // 2) the tll.xml is loaded to define new traffic lights
     //   nod.xml will have triggered building of NBOwnTLDef. Replace it with NBLoadedSUMOTLDef
+    // 3) the tll.xml is loaded to define new programs for a defined traffic light
+    //   there should be a definition with the same id but different programID
+    const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(id);
+    if (programs.size() == 0) {
+        WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
+        return 0;
+    }
+    const std::string existingProgram = programs.begin()->first; // arbitrary for our purpose
+    const NBTrafficLightDefinition* existingDef = myTLLCont.getDefinition(id, existingProgram);
     NBLoadedSUMOTLDef* loadedDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(id, programID));
     if (loadedDef == 0) {
-        // case 2
-        NBTrafficLightDefinition* newDef = dynamic_cast<NBOwnTLDef*>(myTLLCont.getDefinition(
-                                               id, NBTrafficLightDefinition::DefaultProgramID));
-        if (newDef == 0) {
-            // the default program may have already been replaced with a loaded program
-            newDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(
-                         id, NBTrafficLightDefinition::DefaultProgramID));
+        NBLoadedSUMOTLDef* oldDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(id, existingProgram));
+        if (oldDef == 0) {
+            // case 2
+            NBTrafficLightDefinition* newDef = dynamic_cast<NBOwnTLDef*>(myTLLCont.getDefinition(
+                        id, NBTrafficLightDefinition::DefaultProgramID));
             if (newDef == 0) {
-                WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
-                return 0;
+                // the default program may have already been replaced with a loaded program
+                newDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(
+                            id, NBTrafficLightDefinition::DefaultProgramID));
+                if (newDef == 0) {
+                    WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
+                    return 0;
+                }
             }
-        }
-        assert(newDef != 0);
-        loadedDef = new NBLoadedSUMOTLDef(id, programID, offset, type);
-        // copy nodes and controlled inner edges
-        std::vector<NBNode*> nodes = newDef->getNodes();
-        for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
-            loadedDef->addNode(*it);
-        }
-        loadedDef->addControlledInnerEdges(newDef->getControlledInnerEdges());
-        if (programID == NBTrafficLightDefinition::DefaultProgramID) {
-            // replace default Program
+            assert(newDef != 0);
+            loadedDef = new NBLoadedSUMOTLDef(id, programID, offset, type);
+            // copy nodes and controlled inner edges
             std::vector<NBNode*> nodes = newDef->getNodes();
             for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
-                (*it)->removeTrafficLight(newDef);
+                loadedDef->addNode(*it);
             }
-            myTLLCont.removeProgram(id, NBTrafficLightDefinition::DefaultProgramID);
+            loadedDef->addControlledInnerEdges(newDef->getControlledInnerEdges());
+            if (programID == NBTrafficLightDefinition::DefaultProgramID) {
+                // replace default Program
+                std::vector<NBNode*> nodes = newDef->getNodes();
+                for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
+                    (*it)->removeTrafficLight(newDef);
+                }
+                myTLLCont.removeProgram(id, NBTrafficLightDefinition::DefaultProgramID);
+            }
+            myTLLCont.insert(loadedDef);
+        } else {
+            // case 3
+            NBTrafficLightLogic* oldLogic = oldDef->getLogic();
+            NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(id, programID, 
+                    oldLogic->getNumLinks(), offset, type);
+            loadedDef = new NBLoadedSUMOTLDef(oldDef, newLogic);
+            // copy nodes 
+            std::vector<NBNode*> nodes = oldDef->getNodes();
+            for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
+                loadedDef->addNode(*it);
+            }
+            myTLLCont.insert(loadedDef);
         }
-        myTLLCont.insert(loadedDef);
     } else {
         // case 1
         loadedDef->setOffset(offset);

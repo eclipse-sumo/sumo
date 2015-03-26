@@ -60,7 +60,8 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& p
 
 
 NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLightLogic* logic) :
-    NBTrafficLightDefinition(def->getID(), def->getProgramID(), def->getOffset(), def->getType()),
+    // allow for adding a new program for the same def: take the programID from the new logic
+    NBTrafficLightDefinition(def->getID(), logic->getProgramID(), def->getOffset(), def->getType()),
     myTLLogic(new NBTrafficLightLogic(logic)),
     myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) {
     assert(def->getOffset() == logic->getOffset());
