@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb  2 08:36:49 2015 by SUMO netconvert Version dev-SVN-r17763I
+<!-- generated on Thu Mar 26 16:23:51 2015 by SUMO netconvert Version dev-SVN-r18156I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="input_dua2s.nod.xml"/>
-        <edge-files value="input_dua2s.edg.xml"/>
+        <node-files value="./duarouter/input_dua2s.nod.xml"/>
+        <edge-files value="./duarouter/input_dua2s.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value="./duarouter/input_net.net.xml"/>
     </output>
 
     <processing>
         <no-internal-links value="true"/>
     </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
