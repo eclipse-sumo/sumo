@@ -32,6 +32,7 @@
 
 #include "MSJunctionControl.h"
 #include "MSJunction.h"
+#include "MSInternalJunction.h"
 #include <algorithm>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -53,8 +54,17 @@ MSJunctionControl::~MSJunctionControl() {
 void
 MSJunctionControl::postloadInitContainer() {
     const std::vector<MSJunction*>& junctions = buildAndGetStaticVector();
+    // initialize normal junctions before internal junctions
+    // (to allow calling getIndex() during initialization of internal junction links)
     for (std::vector<MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
-        (*i)->postloadInit();
+        if (dynamic_cast<MSInternalJunction*>(*i) == 0) {
+            (*i)->postloadInit();
+        }
+    }
+    for (std::vector<MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
+        if (dynamic_cast<MSInternalJunction*>(*i) != 0) {
+            (*i)->postloadInit();
+        }
     }
 }
 

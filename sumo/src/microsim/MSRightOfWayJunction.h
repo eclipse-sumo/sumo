@@ -87,6 +87,10 @@ public:
         return myLinkFoeInternalLanes.find(srcLink)->second;
     }
 
+    // @brief return the underlying right-of-way and conflict matrix
+    const MSJunctionLogic* getLogic() const {
+        return myLogic;
+    }
 
 protected:
     /** the type of the junction (its logic) */

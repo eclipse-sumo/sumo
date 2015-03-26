@@ -32,7 +32,9 @@
 #endif
 
 #include "MSInternalJunction.h"
+#include "MSRightOfWayJunction.h"
 #include "MSLane.h"
+#include "MSEdge.h"
 #include "MSJunctionLogic.h"
 #include <algorithm>
 #include <cassert>
@@ -67,15 +69,26 @@ MSInternalJunction::postloadInit() {
     }
     // the first lane in the list of incoming lanes is special. It defines the
     // link that needs to do all the checking for this internal junction
-    assert(myIncomingLanes[0]->getLinkCont().size() == 1);
-    MSLink* thisLink = myIncomingLanes[0]->getLinkCont()[0];
+    const MSLane* specialLane = myIncomingLanes[0];
+    assert(specialLane->getLinkCont().size() == 1);
+    MSLink* thisLink = specialLane->getLinkCont()[0];
+    const MSRightOfWayJunction* parent = dynamic_cast<const MSRightOfWayJunction*>(specialLane->getEdge().getToJunction());
+    assert(parent != 0);
+    const int ownLinkIndex = specialLane->getIncomingLanes()[0].viaLink->getIndex();
+    const MSLogicJunction::LinkFoes& foeLinks = parent->getLogic()->getFoesFor(ownLinkIndex);
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
     for (std::vector<MSLane*>::iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
         const MSLinkCont& lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
             if ((*q)->getViaLane() != 0) {
-                myInternalLaneFoes.push_back(*i);
+                const int foeIndex = (*i)->getIncomingLanes()[0].viaLink->getIndex();
+                if (foeLinks.test(foeIndex)) {
+                    // only respect vehicles before internal junctions if they
+                    // have priority (see the analogous foeLinks.text() when
+                    // initializing myLinkFoeInternalLanes in MSRightOfWayJunction
+                    myInternalLaneFoes.push_back(*i);
+                }
                 myInternalLaneFoes.push_back((*q)->getViaLane());
             } else {
                 myInternalLaneFoes.push_back(*i);
