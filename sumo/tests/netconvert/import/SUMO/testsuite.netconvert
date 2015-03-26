@@ -42,6 +42,7 @@ add_split
 # importing a complex network with deprecated vclasses
 adlershof_dlr_deprecated_vclass
 joined_traffic_lights_with_controlledInner
+joined_traffic_light_with_internal_junctions
 
 # import network with a rail signal
 rail_signal

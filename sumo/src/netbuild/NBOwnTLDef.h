@@ -135,6 +135,9 @@ public:
      */
     NBTrafficLightLogic* computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts = false);
 
+    /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
+    void initNeedsContRelation() const;
+
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface
     /// @{
@@ -236,9 +239,6 @@ protected:
         }
     };
 
-
-    /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
-    void initNeedsContRelation() const;
 
 private:
     /// @brief Whether left-mover should not have an additional phase
