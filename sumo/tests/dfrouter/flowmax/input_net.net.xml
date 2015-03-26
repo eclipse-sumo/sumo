@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  4 23:07:40 2014 by SUMO netconvert Version dev-SVN-r17257
+<!-- generated on Thu Mar 26 16:23:57 2015 by SUMO netconvert Version dev-SVN-r18156I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -29,10 +29,10 @@
         <lane id=":10_0_0" index="0" speed="13.90" length="0.10" shape="400.00,98.35 400.00,98.35"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" speed="13.90" length="7.53" shape="198.52,-1.65 206.05,-1.65"/>
+        <lane id=":2_0_0" index="0" speed="13.90" length="7.55" shape="198.50,-1.65 206.05,-1.65"/>
     </edge>
     <edge id=":2_1" function="internal">
-        <lane id=":2_1_0" index="0" speed="13.90" length="7.19" shape="198.52,-1.65 199.70,-1.41 201.09,-0.70 202.68,0.48 204.48,2.14"/>
+        <lane id=":2_1_0" index="0" speed="13.90" length="7.21" shape="198.50,-1.65 199.69,-1.41 201.09,-0.70 202.68,0.48 204.48,2.14"/>
     </edge>
     <edge id=":3_0" function="internal">
         <lane id=":3_0_0" index="0" speed="13.90" length="0.10" shape="300.00,-1.65 300.00,-1.65"/>
@@ -60,7 +60,7 @@
         <lane id="10out_0" index="0" speed="13.90" length="10.00" shape="400.00,98.35 410.00,98.35"/>
     </edge>
     <edge id="1to2" from="1" to="2" priority="-1">
-        <lane id="1to2_0" index="0" speed="13.90" length="98.52" shape="100.00,-1.65 198.52,-1.65"/>
+        <lane id="1to2_0" index="0" speed="13.90" length="98.50" shape="100.00,-1.65 198.50,-1.65"/>
     </edge>
     <edge id="2to3" from="2" to="3" priority="-1">
         <lane id="2to3_0" index="0" speed="13.90" length="93.95" shape="206.05,-1.65 300.00,-1.65"/>
@@ -95,7 +95,7 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="10a" type="unregulated" x="410.00" y="100.00" incLanes="10out_0" intLanes="" shape="410.00,96.75 410.00,99.95"/>
-    <junction id="2" type="priority" x="200.00" y="0.00" incLanes="1to2_0" intLanes=":2_0_0 :2_1_0" shape="203.34,3.27 205.61,1.01 206.05,-0.05 206.05,-3.25 198.52,-3.25 198.52,-0.05">
+    <junction id="2" type="priority" x="200.00" y="0.00" incLanes="1to2_0" intLanes=":2_0_0 :2_1_0" shape="203.34,3.27 205.61,1.01 206.05,-0.05 206.05,-3.25 198.50,-3.25 198.50,-0.05">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>

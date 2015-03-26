@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  4 23:07:40 2014 by SUMO netconvert Version dev-SVN-r17257
+<!-- generated on Thu Mar 26 16:23:57 2015 by SUMO netconvert Version dev-SVN-r18156I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -93,19 +93,19 @@
         <lane id="70_60_0" index="0" speed="13.90" length="100.00" shape="1010.00,511.65 910.00,511.65"/>
     </edge>
     <edge id="a0_a2" from="a0" to="a2" priority="-1">
-        <lane id="a0_a2_0" index="0" speed="13.90" length="100.50" shape="498.36,399.84 508.33,300.12"/>
+        <lane id="a0_a2_0" index="0" speed="13.90" length="101.28" shape="498.36,399.84 508.36,299.84"/>
     </edge>
     <edge id="a1_40" from="a1" to="40" priority="-1">
         <lane id="a1_40_0" index="0" speed="13.90" length="110.00" shape="511.65,400.00 511.65,508.55"/>
     </edge>
     <edge id="a2_a1" from="a2" to="a1" priority="-1">
-        <lane id="a2_a1_0" index="0" speed="13.90" length="100.00" shape="511.65,300.12 511.65,400.00"/>
+        <lane id="a2_a1_0" index="0" speed="13.90" length="100.78" shape="511.65,299.84 511.65,400.00"/>
     </edge>
     <edge id="a2_a3" from="a2" to="a3" priority="-1">
-        <lane id="a2_a3_0" index="0" speed="13.90" length="100.00" shape="508.35,299.84 508.35,205.96"/>
+        <lane id="a2_a3_0" index="0" speed="13.90" length="100.78" shape="508.35,298.83 508.35,205.96"/>
     </edge>
     <edge id="a3_a2" from="a3" to="a2" priority="-1">
-        <lane id="a3_a2_0" index="0" speed="13.90" length="100.00" shape="511.65,205.96 511.65,299.84"/>
+        <lane id="a3_a2_0" index="0" speed="13.90" length="100.78" shape="511.65,205.96 511.65,299.00"/>
     </edge>
     <edge id="a3_a4" from="a3" to="a4" priority="-1">
         <lane id="a3_a4_0" index="0" speed="13.90" length="100.00" shape="508.35,196.13 508.35,100.00"/>
@@ -155,7 +155,7 @@
         <request index="0" response="10" foes="10"/>
         <request index="1" response="00" foes="01"/>
     </junction>
-    <junction id="40" type="priority" x="510.00" y="510.00" incLanes="50_40_0 41_40_0 a1_40_0" intLanes="" shape="514.75,513.25 514.75,510.05 513.25,508.55 510.05,508.55 508.55,510.05 508.55,513.25">
+    <junction id="40" type="priority" x="510.00" y="510.00" incLanes="50_40_0 a1_40_0 41_40_0" intLanes="" shape="514.75,513.25 514.75,510.05 513.25,508.55 510.05,508.55 508.55,510.05 508.55,513.25">
         <request index="0" response="000" foes="110"/>
         <request index="1" response="001" foes="101"/>
         <request index="2" response="011" foes="011"/>
@@ -190,7 +190,7 @@
     <junction id="a1" type="priority" x="510.00" y="400.00" incLanes="a2_a1_0" intLanes="" shape="510.05,400.00 513.25,400.00 510.05,400.00">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="a2" type="priority" x="510.00" y="300.00" incLanes="a3_a2_0 a0_a2_0" intLanes="" shape="506.75,299.84 513.25,299.84 513.25,300.12 506.75,300.12">
+    <junction id="a2" type="priority" x="510.00" y="300.00" incLanes="a3_a2_0 a0_a2_0" intLanes="" shape="510.05,299.00 513.25,299.00 513.25,299.84 506.75,299.84 506.87,298.68 510.05,299.00">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
