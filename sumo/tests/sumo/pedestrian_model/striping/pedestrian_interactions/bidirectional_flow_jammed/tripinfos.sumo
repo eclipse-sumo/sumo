@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec  5 11:14:20 2014 by SUMO Version dev-SVN-r17446ID
+<!-- generated on Thu Mar 26 18:06:49 2015 by SUMO Version dev-SVN-r18156I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -36,234 +36,338 @@
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="bwd1" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="119.00"/>
+        <walk arrival="113.00"/>
     </personinfo>
     <personinfo id="bwd5" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="252.00"/>
+        <walk arrival="229.00"/>
     </personinfo>
-    <personinfo id="bwd12" depart="1.00">
+    <personinfo id="fwd1" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="255.00"/>
+        <walk arrival="583.00"/>
     </personinfo>
     <personinfo id="fwd22" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="608.00"/>
-    </personinfo>
-    <personinfo id="fwd10" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="631.00"/>
+        <walk arrival="632.00"/>
     </personinfo>
     <personinfo id="fwd16" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="647.00"/>
+        <walk arrival="640.00"/>
     </personinfo>
-    <personinfo id="fwd4" depart="1.00">
+    <personinfo id="fwd10" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="644.00"/>
+    </personinfo>
+    <personinfo id="fwd29" depart="97.00">
+        <stop arrival="97.00"/>
+        <walk arrival="655.00"/>
+    </personinfo>
+    <personinfo id="fwd15" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="658.00"/>
+    </personinfo>
+    <personinfo id="fwd18" depart="1.00">
         <stop arrival="1.00"/>
         <walk arrival="659.00"/>
     </personinfo>
     <personinfo id="fwd11" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="664.00"/>
-    </personinfo>
-    <personinfo id="fwd27" depart="93.00">
-        <stop arrival="93.00"/>
-        <walk arrival="666.00"/>
-    </personinfo>
-    <personinfo id="fwd15" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="678.00"/>
+        <walk arrival="665.00"/>
     </personinfo>
     <personinfo id="fwd13" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="683.00"/>
+        <walk arrival="680.00"/>
     </personinfo>
-    <personinfo id="fwd29" depart="97.00">
-        <stop arrival="97.00"/>
-        <walk arrival="686.00"/>
-    </personinfo>
-    <personinfo id="bwd14" depart="1.00">
+    <personinfo id="fwd4" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="686.00"/>
-    </personinfo>
-    <personinfo id="fwd34" depart="109.00">
-        <stop arrival="109.00"/>
-        <walk arrival="687.00"/>
+        <walk arrival="681.00"/>
     </personinfo>
     <personinfo id="bwd10" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="688.00"/>
+        <walk arrival="684.00"/>
     </personinfo>
-    <personinfo id="fwd8" depart="1.00">
+    <personinfo id="bwd14" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="705.00"/>
-    </personinfo>
-    <personinfo id="bwd4" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="720.00"/>
+        <walk arrival="692.00"/>
     </personinfo>
     <personinfo id="bwd11" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="729.00"/>
+        <walk arrival="695.00"/>
     </personinfo>
-    <personinfo id="fwd14" depart="1.00">
+    <personinfo id="fwd6" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="741.00"/>
+        <walk arrival="696.00"/>
     </personinfo>
-    <personinfo id="fwd7" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="747.00"/>
-    </personinfo>
-    <personinfo id="bwd25" depart="105.00">
-        <stop arrival="105.00"/>
-        <walk arrival="753.00"/>
-    </personinfo>
-    <personinfo id="bwd16" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="755.00"/>
+    <personinfo id="fwd35" depart="110.00">
+        <stop arrival="110.00"/>
+        <walk arrival="697.00"/>
     </personinfo>
     <personinfo id="bwd15" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="758.00"/>
+        <walk arrival="704.00"/>
     </personinfo>
-    <personinfo id="bwd29" depart="116.00">
-        <stop arrival="116.00"/>
-        <walk arrival="760.00"/>
-    </personinfo>
-    <personinfo id="bwd40" depart="162.00">
-        <stop arrival="162.00"/>
-        <walk arrival="768.00"/>
-    </personinfo>
-    <personinfo id="fwd33" depart="107.00">
-        <stop arrival="107.00"/>
-        <walk arrival="791.00"/>
-    </personinfo>
-    <personinfo id="bwd32" depart="128.00">
-        <stop arrival="128.00"/>
-        <walk arrival="791.00"/>
-    </personinfo>
-    <personinfo id="fwd25" depart="1.00">
+    <personinfo id="fwd14" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="825.00"/>
-    </personinfo>
-    <personinfo id="bwd21" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="840.00"/>
-    </personinfo>
-    <personinfo id="bwd8" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="848.00"/>
-    </personinfo>
-    <personinfo id="bwd45" depart="174.00">
-        <stop arrival="174.00"/>
-        <walk arrival="850.00"/>
-    </personinfo>
-    <personinfo id="bwd18" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="859.00"/>
-    </personinfo>
-    <personinfo id="fwd20" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="869.00"/>
-    </personinfo>
-    <personinfo id="fwd12" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="872.00"/>
-    </personinfo>
-    <personinfo id="bwd24" depart="104.00">
-        <stop arrival="104.00"/>
-        <walk arrival="883.00"/>
-    </personinfo>
-    <personinfo id="fwd32" depart="105.00">
-        <stop arrival="105.00"/>
-        <walk arrival="885.00"/>
-    </personinfo>
-    <personinfo id="bwd31" depart="127.00">
-        <stop arrival="127.00"/>
-        <walk arrival="890.00"/>
-    </personinfo>
-    <personinfo id="bwd77" depart="279.00">
-        <stop arrival="279.00"/>
-        <walk arrival="899.00"/>
-    </personinfo>
-    <personinfo id="fwd26" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="901.00"/>
-    </personinfo>
-    <personinfo id="fwd0" depart="1.00">
-        <stop arrival="1.00"/>
-        <walk arrival="906.00"/>
+        <walk arrival="717.00"/>
     </personinfo>
     <personinfo id="bwd35" depart="136.00">
         <stop arrival="136.00"/>
-        <walk arrival="915.00"/>
+        <walk arrival="725.00"/>
     </personinfo>
-    <personinfo id="fwd2" depart="1.00">
+    <personinfo id="fwd24" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="921.00"/>
+        <walk arrival="727.00"/>
     </personinfo>
-    <personinfo id="fwd21" depart="1.00">
+    <personinfo id="fwd26" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="924.00"/>
+        <walk arrival="728.00"/>
     </personinfo>
-    <personinfo id="bwd44" depart="173.00">
-        <stop arrival="173.00"/>
-        <walk arrival="927.00"/>
+    <personinfo id="fwd3" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="729.00"/>
     </personinfo>
-    <personinfo id="bwd75" depart="277.00">
-        <stop arrival="277.00"/>
-        <walk arrival="931.00"/>
+    <personinfo id="bwd2" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="732.00"/>
     </personinfo>
-    <personinfo id="bwd87" depart="309.00">
-        <stop arrival="309.00"/>
-        <walk arrival="936.00"/>
+    <personinfo id="bwd16" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="737.00"/>
+    </personinfo>
+    <personinfo id="fwd47" depart="157.00">
+        <stop arrival="157.00"/>
+        <walk arrival="739.00"/>
+    </personinfo>
+    <personinfo id="fwd5" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="740.00"/>
+    </personinfo>
+    <personinfo id="bwd30" depart="120.00">
+        <stop arrival="120.00"/>
+        <walk arrival="741.00"/>
+    </personinfo>
+    <personinfo id="bwd25" depart="105.00">
+        <stop arrival="105.00"/>
+        <walk arrival="743.00"/>
+    </personinfo>
+    <personinfo id="bwd12" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="746.00"/>
+    </personinfo>
+    <personinfo id="bwd9" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="748.00"/>
+    </personinfo>
+    <personinfo id="bwd43" depart="171.00">
+        <stop arrival="171.00"/>
+        <walk arrival="772.00"/>
+    </personinfo>
+    <personinfo id="fwd54" depart="170.00">
+        <stop arrival="170.00"/>
+        <walk arrival="781.00"/>
     </personinfo>
     <personinfo id="bwd19" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="950.00"/>
+        <walk arrival="786.00"/>
     </personinfo>
-    <personinfo id="fwd106" depart="359.00">
-        <stop arrival="359.00"/>
-        <walk arrival="952.00"/>
+    <personinfo id="bwd6" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="793.00"/>
+    </personinfo>
+    <personinfo id="fwd21" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="794.00"/>
+    </personinfo>
+    <personinfo id="bwd22" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="797.00"/>
+    </personinfo>
+    <personinfo id="bwd7" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="804.00"/>
+    </personinfo>
+    <personinfo id="bwd45" depart="174.00">
+        <stop arrival="174.00"/>
+        <walk arrival="806.00"/>
+    </personinfo>
+    <personinfo id="bwd32" depart="128.00">
+        <stop arrival="128.00"/>
+        <walk arrival="828.00"/>
+    </personinfo>
+    <personinfo id="fwd50" depart="161.00">
+        <stop arrival="161.00"/>
+        <walk arrival="841.00"/>
+    </personinfo>
+    <personinfo id="fwd27" depart="93.00">
+        <stop arrival="93.00"/>
+        <walk arrival="843.00"/>
+    </personinfo>
+    <personinfo id="fwd34" depart="109.00">
+        <stop arrival="109.00"/>
+        <walk arrival="845.00"/>
+    </personinfo>
+    <personinfo id="bwd74" depart="276.00">
+        <stop arrival="276.00"/>
+        <walk arrival="855.00"/>
+    </personinfo>
+    <personinfo id="bwd29" depart="116.00">
+        <stop arrival="116.00"/>
+        <walk arrival="862.00"/>
     </personinfo>
     <personinfo id="bwd20" depart="1.00">
         <stop arrival="1.00"/>
-        <walk arrival="952.00"/>
+        <walk arrival="866.00"/>
     </personinfo>
-    <personinfo id="bwd26" depart="110.00">
-        <stop arrival="110.00"/>
-        <walk arrival="955.00"/>
+    <personinfo id="bwd33" depart="133.00">
+        <stop arrival="133.00"/>
+        <walk arrival="873.00"/>
     </personinfo>
-    <personinfo id="bwd112" depart="393.00">
-        <stop arrival="393.00"/>
-        <walk arrival="970.00"/>
+    <personinfo id="bwd77" depart="279.00">
+        <stop arrival="279.00"/>
+        <walk arrival="876.00"/>
+    </personinfo>
+    <personinfo id="bwd39" depart="154.00">
+        <stop arrival="154.00"/>
+        <walk arrival="880.00"/>
+    </personinfo>
+    <personinfo id="fwd37" depart="120.00">
+        <stop arrival="120.00"/>
+        <walk arrival="892.00"/>
+    </personinfo>
+    <personinfo id="fwd17" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="893.00"/>
+    </personinfo>
+    <personinfo id="fwd19" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="902.00"/>
+    </personinfo>
+    <personinfo id="fwd40" depart="131.00">
+        <stop arrival="131.00"/>
+        <walk arrival="906.00"/>
+    </personinfo>
+    <personinfo id="bwd3" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="913.00"/>
+    </personinfo>
+    <personinfo id="bwd87" depart="309.00">
+        <stop arrival="309.00"/>
+        <walk arrival="920.00"/>
+    </personinfo>
+    <personinfo id="fwd46" depart="155.00">
+        <stop arrival="155.00"/>
+        <walk arrival="926.00"/>
+    </personinfo>
+    <personinfo id="bwd100" depart="349.00">
+        <stop arrival="349.00"/>
+        <walk arrival="929.00"/>
     </personinfo>
     <personinfo id="fwd61" depart="198.00">
         <stop arrival="198.00"/>
-        <walk arrival="977.00"/>
+        <walk arrival="931.00"/>
+    </personinfo>
+    <personinfo id="fwd33" depart="107.00">
+        <stop arrival="107.00"/>
+        <walk arrival="935.00"/>
+    </personinfo>
+    <personinfo id="bwd8" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="936.00"/>
+    </personinfo>
+    <personinfo id="bwd112" depart="393.00">
+        <stop arrival="393.00"/>
+        <walk arrival="944.00"/>
+    </personinfo>
+    <personinfo id="bwd50" depart="192.00">
+        <stop arrival="192.00"/>
+        <walk arrival="948.00"/>
     </personinfo>
     <personinfo id="bwd111" depart="391.00">
         <stop arrival="391.00"/>
-        <walk arrival="989.00"/>
+        <walk arrival="951.00"/>
+    </personinfo>
+    <personinfo id="bwd13" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="952.00"/>
+    </personinfo>
+    <personinfo id="fwd44" depart="148.00">
+        <stop arrival="148.00"/>
+        <walk arrival="956.00"/>
+    </personinfo>
+    <personinfo id="fwd25" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="958.00"/>
+    </personinfo>
+    <personinfo id="fwd100" depart="337.00">
+        <stop arrival="337.00"/>
+        <walk arrival="958.00"/>
+    </personinfo>
+    <personinfo id="bwd82" depart="295.00">
+        <stop arrival="295.00"/>
+        <walk arrival="958.00"/>
+    </personinfo>
+    <personinfo id="fwd20" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="960.00"/>
     </personinfo>
     <personinfo id="bwd79" depart="281.00">
         <stop arrival="281.00"/>
-        <walk arrival="990.00"/>
-    </personinfo>
-    <personinfo id="fwd107" depart="361.00">
-        <stop arrival="361.00"/>
-        <walk arrival="996.00"/>
+        <walk arrival="960.00"/>
     </personinfo>
     <personinfo id="bwd114" depart="396.00">
         <stop arrival="396.00"/>
-        <walk arrival="998.00"/>
+        <walk arrival="964.00"/>
     </personinfo>
-    <personinfo id="fwd115" depart="401.00">
-        <stop arrival="401.00"/>
-        <walk arrival="999.00"/>
+    <personinfo id="bwd18" depart="1.00">
+        <stop arrival="1.00"/>
+        <walk arrival="966.00"/>
+    </personinfo>
+    <personinfo id="bwd104" depart="365.00">
+        <stop arrival="365.00"/>
+        <walk arrival="968.00"/>
     </personinfo>
     <personinfo id="bwd90" depart="324.00">
         <stop arrival="324.00"/>
-        <walk arrival="999.00"/>
+        <walk arrival="971.00"/>
+    </personinfo>
+    <personinfo id="bwd94" depart="334.00">
+        <stop arrival="334.00"/>
+        <walk arrival="974.00"/>
+    </personinfo>
+    <personinfo id="bwd80" depart="285.00">
+        <stop arrival="285.00"/>
+        <walk arrival="978.00"/>
+    </personinfo>
+    <personinfo id="fwd76" depart="253.00">
+        <stop arrival="253.00"/>
+        <walk arrival="980.00"/>
+    </personinfo>
+    <personinfo id="fwd107" depart="361.00">
+        <stop arrival="361.00"/>
+        <walk arrival="983.00"/>
+    </personinfo>
+    <personinfo id="bwd95" depart="336.00">
+        <stop arrival="336.00"/>
+        <walk arrival="983.00"/>
+    </personinfo>
+    <personinfo id="fwd75" depart="251.00">
+        <stop arrival="251.00"/>
+        <walk arrival="986.00"/>
+    </personinfo>
+    <personinfo id="bwd23" depart="101.00">
+        <stop arrival="101.00"/>
+        <walk arrival="986.00"/>
+    </personinfo>
+    <personinfo id="fwd31" depart="103.00">
+        <stop arrival="103.00"/>
+        <walk arrival="989.00"/>
+    </personinfo>
+    <personinfo id="bwd76" depart="278.00">
+        <stop arrival="278.00"/>
+        <walk arrival="991.00"/>
+    </personinfo>
+    <personinfo id="bwd78" depart="280.00">
+        <stop arrival="280.00"/>
+        <walk arrival="997.00"/>
     </personinfo>
 </tripinfos>
