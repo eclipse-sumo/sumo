@@ -90,6 +90,7 @@ bool
 GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
     assert(net != 0);
     // assign new values
+    myOk = true;
     myNet = net;
     mySimStartTime = start;
     mySimEndTime = end;
