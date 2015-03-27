@@ -334,7 +334,12 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
     } else if (myUseInverseProjection) {
         cartesian2geo(from);
     } else {
-        if (x > 180.1 || x < -180.1 || y > 90.1 || y < -90.1) {
+        if (x > 180.1 || x < -180.1) {
+            WRITE_WARNING("Invalid longitude " + toString(x));
+            return false;
+        }
+        if (y > 90.1 || y < -90.1) {
+            WRITE_WARNING("Invalid latitude " + toString(y));
             return false;
         }
 #ifdef HAVE_PROJ
