@@ -449,7 +449,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
                 foundOpposite.insert(*i);
                 foundOpposite.insert(*j);
             }
-            if (isOpposite || ambiguousGeometry || badIntersection(*i, *j, geomsCW[*i], geomsCCW[*j], fabs(angleDiff), 100)) {
+            if (isOpposite || ambiguousGeometry || badIntersection(*i, *j, geomsCW[*i], geomsCCW[*j], 100)) {
                 // maintain equivalence relation for all members of the equivalence class
                 for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
                     if (*j != *k) {
@@ -474,7 +474,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
 bool
 NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, 
         const PositionVector& e1cw, const PositionVector& e2ccw, 
-        SUMOReal absAngleDiff, SUMOReal distance) {
+        SUMOReal distance) {
     // check whether the two edges are on top of each other. In that case they should be joined
     // also, if they never touch along their common length
     const SUMOReal commonLength = MIN3(distance, e1->getGeometry().length(), e2->getGeometry().length());

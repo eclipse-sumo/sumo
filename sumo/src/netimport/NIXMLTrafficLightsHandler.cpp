@@ -150,7 +150,6 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
         return 0;
     }
     const std::string existingProgram = programs.begin()->first; // arbitrary for our purpose
-    const NBTrafficLightDefinition* existingDef = myTLLCont.getDefinition(id, existingProgram);
     NBLoadedSUMOTLDef* loadedDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(id, programID));
     if (loadedDef == 0) {
         NBLoadedSUMOTLDef* oldDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(id, existingProgram));
