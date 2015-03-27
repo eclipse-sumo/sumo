@@ -4,3 +4,5 @@ OSM
 # Tests for DLR Navteq (elmar2) import
 dlr_navteq
 
+# importing our own XML format
+XML

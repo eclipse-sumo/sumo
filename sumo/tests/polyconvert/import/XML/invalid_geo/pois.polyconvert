@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 03/27/15 15:41:11 by SUMO polyconvert Version dev-SVN-r18167
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <xml-files value="input_poi.poi.xml"/>
+    </input>
+
+    <output>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="0"/>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="399823.43,5809422.25,399986.72,5809486.69" origBoundary="13.526699,52.425832,13.529100,52.426404" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <poly id="-974" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="399863.41,5809422.25 399824.66,5809486.69 399823.43,5809472.80 399862.29,5809457.21 399986.72,5809471.70"/>
+    <poi id="32266935" type="unknown" color="51,128,255" layer="-1.00" x="399824.66" y="5809486.69"/>
+</additional>
