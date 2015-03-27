@@ -2200,6 +2200,20 @@ NBNode::addCrossing(EdgeVector edges, SUMOReal width, bool priority) {
 }
 
 
+void
+NBNode::removeCrossing(const EdgeVector& edges) {
+    EdgeSet edgeSet(edges.begin(), edges.end());
+    for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end();) {
+        EdgeSet edgeSet2((*it).edges.begin(), (*it).edges.end());
+        if (edgeSet == edgeSet2) {
+            it = myCrossings.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
+
+
 const NBNode::Crossing&
 NBNode::getCrossing(const std::string& id) const {
     for (std::vector<Crossing>::const_iterator it = myCrossings.begin(); it != myCrossings.end(); ++it) {

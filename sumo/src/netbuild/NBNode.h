@@ -617,6 +617,9 @@ public:
     /// @brief add a pedestrian crossing to this node
     void addCrossing(EdgeVector edges, SUMOReal width, bool priority);
 
+    /// @brief remove a pedestrian crossing from this node (identified by its edges)
+    void removeCrossing(const EdgeVector& edges);
+
     /// @brief return this junctions pedestrian crossings
     inline const std::vector<Crossing>& getCrossings() const {
         return myCrossings;
