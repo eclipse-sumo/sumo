@@ -241,6 +241,7 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
             } else {
                 WRITE_ERROR("Cannot prune edges using a geo-boundary because no projection has been loaded");
             }
+            myNeedGeoTransformedPrunningBoundary = false;
         }
         if (!(edge->getGeometry().getBoxBoundary().grow((SUMOReal) POSITION_EPS).overlapsWith(myPrunningBoundary))) {
             return true;
