@@ -1820,6 +1820,9 @@ NBNode::buildWalkingAreas(int cornerDetail) {
     if (gDebugFlag1) {
         std::cout << "build walkingAreas for " << getID() << ":\n";
     }
+    if (myAllEdges.size() == 0) {
+        return;
+    }
     EdgeVector allEdges = getEdgesSortedByAngleAtNodeCenter();
     // shapes are all pointing away from the intersection
     std::vector<std::pair<NBEdge*, NBEdge::Lane> > normalizedLanes;
