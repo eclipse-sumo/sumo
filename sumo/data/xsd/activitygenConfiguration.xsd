@@ -25,14 +25,13 @@
 
     <xsd:complexType name="outputType">
         <xsd:all>
+            <xsd:element name="output-prefix" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
     <xsd:complexType name="processingType">
         <xsd:all>
-            <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

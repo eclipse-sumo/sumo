@@ -34,6 +34,7 @@
 
     <xsd:complexType name="outputType">
         <xsd:all>
+            <xsd:element name="output-prefix" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vtype-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="exit-times" type="boolOptionType" minOccurs="0"/>

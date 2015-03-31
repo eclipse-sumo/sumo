@@ -39,15 +39,16 @@
             <xsd:element name="matsim-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="itsumo-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="heightmap.shapefiles" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="heightmap.geotiff" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
     <xsd:complexType name="outputType">
         <xsd:all>
+            <xsd:element name="output-prefix" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="plain-output-prefix" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-output" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="map-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="matsim-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="opendrive-output" type="fileOptionType" minOccurs="0"/>
@@ -186,11 +187,13 @@
             <xsd:element name="junctions.join-exclude" type="strOptionType" minOccurs="0"/>
             <xsd:element name="speed.offset" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="speed.factor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.corner-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.all" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="sidewalks.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="sidewalks.guess.max-speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="sidewalks.guess.min-speed" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="sidewalks.guess.from-permissions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="crossings.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.guess-signals" type="boolOptionType" minOccurs="0"/>
