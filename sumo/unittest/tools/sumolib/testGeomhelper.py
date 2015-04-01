@@ -59,5 +59,16 @@ class TestGeomhelper(unittest.TestCase):
         dist = sumolib.geomhelper.distancePointToPolygon(point, polygon, True)
         self.assertTrue(abs(dist - 32.288) < 0.01)
 
+    def testPointInPoly(self):
+        convex = [(0, 0), (2, 0), (2, 2), (0, 2)]
+        self.assertEqual(sumolib.geomhelper.isWithin((1, 1), convex), True)
+        self.assertEqual(sumolib.geomhelper.isWithin((-1, -1), convex), False)
+        self.assertEqual(sumolib.geomhelper.isWithin((3, 3), convex), False)
+        self.assertEqual(sumolib.geomhelper.isWithin((1.5, 1.5), convex), True)
+        concave = [(0, 0), (2, 0), (2, 1), (1, 1), (1, 2), (0, 2)]
+        self.assertEqual(sumolib.geomhelper.isWithin((0.5, 0.5), concave), True)
+        self.assertEqual(sumolib.geomhelper.isWithin((1.5, 1.5), concave), False)
+
+
 if __name__ == '__main__':
     unittest.main()

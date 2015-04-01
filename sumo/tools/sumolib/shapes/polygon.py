@@ -64,14 +64,18 @@ class Polygon:
 
 class PolygonReader(handler.ContentHandler):
 
-    def __init__(self):
+    def __init__(self, includeTaz=False):
+        self._includeTaz = includeTaz
         self._id2poly = {}
         self._polys = []
         self._lastPoly = None
 
     def startElement(self, name, attrs):
-        if name == 'poly':
-            c = color.decodeXML(attrs['color'])
+        if name == 'poly' or (self._includeTaz and name == 'taz'):
+            if name == 'poly':
+                c = color.decodeXML(attrs['color'])
+            else:
+                c = None
             s1 = attrs['shape'].strip().split(" ")
             cshape = []
             for e in s1:
@@ -88,9 +92,12 @@ class PolygonReader(handler.ContentHandler):
     def endElement(self, name):
         if name == 'poly':
             self._lastPoly = None
+            
+    def getPolygons(self):
+        return self._polys
 
 
-def read(filename):
-    polys = PolygonReader()
+def read(filename, includeTaz=False):
+    polys = PolygonReader(includeTaz)
     parse(filename, polys)
-    return polys._polys
+    return polys.getPolygons()
