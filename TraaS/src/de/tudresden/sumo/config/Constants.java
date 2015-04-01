@@ -172,6 +172,9 @@ public class Constants {
 
 	/**name of the current program (get: traffic lights)*/
 	public static final int TL_CURRENT_PROGRAM = 0x29;
+	
+	/**current state, using external signal names (get: traffic lights)*/
+	public static final int TL_EXTERNAL_STATE = 0x2e;
 
 	/**set simulation variable*/
 	public static final int CMD_SET_SIM_VARIABLE = 0xcb;

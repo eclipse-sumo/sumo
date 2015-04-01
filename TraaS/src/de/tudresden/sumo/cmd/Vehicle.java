@@ -863,7 +863,7 @@ public class Vehicle {
 	 * @param sm speed mode
 	 * @return SumoCommand
 	 */
-	public static SumoCommand setspeedMode(String vehID, int sm){
+	public static SumoCommand setSpeedMode(String vehID, int sm){
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_SPEEDSETMODE, vehID, sm);
 	}
 	
@@ -889,7 +889,7 @@ public class Vehicle {
 	 * @param vehID vehicle id
 	 * @return SumoCommand
 	 */
-	public static SumoCommand Resume(String vehID){
+	public static SumoCommand resume(String vehID){
 		Object[] array = new Object[]{vehID};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_RESUME, vehID, array);
 	}
