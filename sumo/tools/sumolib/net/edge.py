@@ -31,8 +31,10 @@ class Edge:
         self._from = fromN
         self._to = toN
         self._priority = prio
-        fromN.addOutgoing(self)
-        toN.addIncoming(self)
+        if fromN:
+            fromN.addOutgoing(self)
+        if toN:
+            toN.addIncoming(self)
         self._lanes = []
         self._speed = None
         self._length = None

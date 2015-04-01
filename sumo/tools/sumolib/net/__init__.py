@@ -129,6 +129,8 @@ class Net:
         self._location["projParameter"] = projParameter
 
     def addNode(self, id, type=None, coord=None, incLanes=None):
+        if id is None:
+            return None
         if id not in self._id2node:
             n = node.Node(id, type, coord, incLanes)
             self._nodes.append(n)
@@ -359,6 +361,7 @@ class NetReader(handler.ContentHandler):
         self._withPhases = others.get('withPrograms', False)
         self._withConnections = others.get('withConnections', True)
         self._withFoes = others.get('withFoes', True)
+        self._withInternal = others.get('withInternal', False)
 
     def startElement(self, name, attrs):
         if name == 'location':
@@ -366,7 +369,7 @@ class NetReader(handler.ContentHandler):
                                   "origBoundary"], attrs["projParameter"])
         if name == 'edge':
             function = attrs.get('function', '')
-            if function == '':
+            if function == '' or self._withInternal:
                 prio = -1
                 if attrs.has_key('priority'):
                     prio = int(attrs['priority'])
@@ -374,7 +377,7 @@ class NetReader(handler.ContentHandler):
                 if attrs.has_key('name'):
                     name = attrs['name']
                 self._currentEdge = self._net.addEdge(attrs['id'],
-                                                      attrs['from'], attrs['to'], prio, function, name)
+                                                      attrs.get('from', None), attrs.get('to', None), prio, function, name)
                 if attrs.has_key('shape'):
                     self.processShape(self._currentEdge, attrs['shape'])
             else:
