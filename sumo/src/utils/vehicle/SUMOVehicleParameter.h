@@ -499,13 +499,10 @@ public:
     /// @brief List of the stops the vehicle will make
     std::vector<Stop> stops;
 
-    /// @brief The vehicle's capacity (persons)
-    unsigned int personCapacity;
-
-    /// @brief The number of persons in the vehicle
+    /// @brief The static number of persons in the vehicle when it departs (not including boarding persons)
     unsigned int personNumber;
 
-    /// @brief The number of containers in the vehicle
+    /// @brief The static number of containers in the vehicle when it departs
     unsigned int containerNumber;
 
     /// @brief Information for the router which parameter were set

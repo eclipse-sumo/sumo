@@ -55,7 +55,7 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       arrivalPos(0), arrivalPosProcedure(ARRIVAL_POS_DEFAULT),
       arrivalSpeed(-1), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
       repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1), repetitionProbability(-1), repetitionEnd(-1),
-      line(), fromTaz(), toTaz(), personCapacity(0), personNumber(0), containerNumber(0), setParameter(0) {
+      line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0), setParameter(0) {
 }
 
 
@@ -238,9 +238,6 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
     }
     if (wasSet(VEHPARS_TO_TAZ_SET)) {
         dev.writeAttr(SUMO_ATTR_TO_TAZ, toTaz);
-    }
-    if (wasSet(VEHPARS_PERSON_CAPACITY_SET)) {
-        dev.writeAttr(SUMO_ATTR_PERSON_CAPACITY, personCapacity);
     }
     if (wasSet(VEHPARS_PERSON_NUMBER_SET)) {
         dev.writeAttr(SUMO_ATTR_PERSON_NUMBER, personNumber);

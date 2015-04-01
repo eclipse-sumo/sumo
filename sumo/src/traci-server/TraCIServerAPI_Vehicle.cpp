@@ -1124,7 +1124,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (!server.readTypeCheckingInt(inputStorage, num)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "13th parameter (person capacity) requires an int.", outputStorage);
             }
-            vehicleParams.personCapacity = num;
             if (!server.readTypeCheckingInt(inputStorage, num)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "14th parameter (person number) requires an int.", outputStorage);
             }
