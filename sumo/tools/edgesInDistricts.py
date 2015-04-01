@@ -43,25 +43,26 @@ class DistrictEdgeComputer:
         for edge in self._net.getEdges():
             shape = edge.getShape()
             if edge.getSpeed() < options.maxspeed and (options.internal or edge.getFunction() != "internal"):
-                if options.assign_from:
-                    xmin, ymin = shape[0]
-                    xmax, ymax = shape[0]
-                else:
-                    xmin, ymin, xmax, ymax = edge.getBoundingBox()
-                for district in polygons:
-                    dxmin, dymin, dxmax, dymax = districtBoxes[district.id]
-                    if dxmin <= xmax and dymin <= ymax and dxmax >= xmin and dymax >= ymin:
-                        if options.assign_from:
-                            if sumolib.geomhelper.isWithin(shape[0], dshape):
-                                self._districtEdges[district].append(edge)
-                                self._edgeDistricts[edge].append(district)
-                                break
-                        else:
-                            for pos in shape:
-                                if sumolib.geomhelper.isWithin(pos, dshape):
+                if options.vclass is None or edge.allows(options.vclass): 
+                    if options.assign_from:
+                        xmin, ymin = shape[0]
+                        xmax, ymax = shape[0]
+                    else:
+                        xmin, ymin, xmax, ymax = edge.getBoundingBox()
+                    for district in polygons:
+                        dxmin, dymin, dxmax, dymax = districtBoxes[district.id]
+                        if dxmin <= xmax and dymin <= ymax and dxmax >= xmin and dymax >= ymin:
+                            if options.assign_from:
+                                if sumolib.geomhelper.isWithin(shape[0], district.shape):
                                     self._districtEdges[district].append(edge)
                                     self._edgeDistricts[edge].append(district)
                                     break
+                            else:
+                                for pos in shape:
+                                    if sumolib.geomhelper.isWithin(pos, district.shape):
+                                        self._districtEdges[district].append(edge)
+                                        self._edgeDistricts[edge].append(district)
+                                        break
             if options.verbose and idx % 100 == 0:
                 sys.stdout.write("%s/%s\r" % (idx, len(self._edgeShapes)))
         if options.complete:
@@ -124,7 +125,7 @@ if __name__ == "__main__":
                          default=False, help="Assign the edge always to the district where the \"from\" node is located")
     optParser.add_option("-i", "--internal", action="store_true",
                          default=False, help="Include internal edges in output")
-    optParser.add_option("-l", "--vclass", default="passenger", help="Include only edges allowing VCLASS")
+    optParser.add_option("-l", "--vclass", help="Include only edges allowing VCLASS")
     (options, args) = optParser.parse_args()
     if not options.net_file:
         optParser.print_help()
@@ -135,11 +136,11 @@ if __name__ == "__main__":
     nets = options.net_file.split(",")
     if len(nets) > 1:
         print("Warning! Multiple networks specified. Parsing the first one for edges and tazs, the others for taz only.")
-    reader = DistrictEdgeComputer(sumolib.net.readNet(options.nets[0]))
+    reader = DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
     tazFiles = nets + options.taz_files.split(",")
-    polyReader = sumolib.shapes.polygons.PolygonReader(True)
+    polyReader = sumolib.shapes.polygon.PolygonReader(True)
     for tf in tazFiles:
-        parse(filename, polyReader)
+        parse(tf, polyReader)
     if options.verbose:
         print("Calculating")
     reader.computeWithin(polyReader.getPolygons(), options)

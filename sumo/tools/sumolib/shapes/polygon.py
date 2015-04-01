@@ -24,7 +24,7 @@ from .. import color
 
 class Polygon:
 
-    def __init__(self, id, type, color, layer, fill, shape):
+    def __init__(self, id, type=None, color=None, layer=None, fill=None, shape=None):
         self.id = id
         self.type = type
         self.color = color
@@ -50,8 +50,17 @@ class Polygon:
         s = []
         for e in self.shape:
             s.append("%s,%s" % (e[0], e[1]))
-        ret = '<poly id="%s" type="%s" color="%s" layer="%s" fill="%s" shape="%s"' % (
-            self.id, self.type, self.color.toXML(), self.layer, self.fill, " ".join(s))
+        ret = '<poly id="%s"' % self.id
+        if type is not None:
+            ret += ' type="%s"' % self.type
+        if color is not None:
+            ret += ' color="%s"' % self.color.toXML()
+        if layer is not None:
+            ret += ' layer="%s"' % self.layer
+        if fill is not None:
+            ret += ' fill="%s"' % self.fill
+        if shape is not None:
+            ret += ' shape="%s"' % (" ".join(s))
         if len(self.attributes) == 0:
             ret += '/>'
         else:
@@ -72,17 +81,16 @@ class PolygonReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'poly' or (self._includeTaz and name == 'taz'):
-            if name == 'poly':
-                c = color.decodeXML(attrs['color'])
-            else:
-                c = None
-            s1 = attrs['shape'].strip().split(" ")
             cshape = []
-            for e in s1:
+            for e in attrs['shape'].split():
                 p = e.split(",")
                 cshape.append((float(p[0]), float(p[1])))
-            poly = Polygon(attrs['id'], attrs['type'], c, float(
-                attrs['layer']), attrs['fill'], cshape)
+            if name == 'poly':
+                c = color.decodeXML(attrs['color'])
+                poly = Polygon(attrs['id'], attrs['type'], c, float(
+                               attrs['layer']), attrs['fill'], cshape)
+            else:
+                poly = Polygon(attrs['id'], shape=cshape)
             self._id2poly[poly.id] = poly
             self._polys.append(poly)
             self._lastPoly = poly
