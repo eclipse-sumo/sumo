@@ -5,8 +5,10 @@ Options:
   -v, --verbose         tell me what you are doing
   -c, --complete        assign edges only if they are not in more than one
                         district
-  -n FILE, --net-files=FILE
-                        read SUMO network(s) from FILE(s) (mandatory)
+  -n FILE, --net-file=FILE
+                        read SUMO network from FILE (mandatory)
+  -t FILE, --taz-files=FILE
+                        read districts from FILEs
   -o FILE, --output=FILE
                         write results to FILE (default: districts.taz.xml)
   -m MAXSPEED, --max-speed=MAXSPEED
@@ -15,3 +17,6 @@ Options:
   -w, --weighted        Weights sources/sinks by lane number and length
   -f, --assign-from     Assign the edge always to the district where the
                         "from" node is located
+  -i, --internal        Include internal edges in output
+  -l VCLASS, --vclass=VCLASS
+                        Include only edges allowing VCLASS
