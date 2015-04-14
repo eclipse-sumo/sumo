@@ -150,4 +150,14 @@ try:
     check("anotherOne")
 except traci.TraCIException as e:
     print e
+traci.vehicle.moveTo(vehID, "1o_0", 40)
+print "step", step()
+print traci.vehicle.getSubscriptionResults(vehID)
+print "step", step()
+print traci.vehicle.getSubscriptionResults(vehID)
+traci.vehicle.moveToVTD(vehID, "1o", 0, 482.49, 501.31, 0)
+print "step", step()
+print traci.vehicle.getSubscriptionResults(vehID)
+print "step", step()
+print traci.vehicle.getSubscriptionResults(vehID)
 traci.close()
