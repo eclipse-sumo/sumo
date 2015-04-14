@@ -705,7 +705,7 @@ MSRouteHandler::closeVehicle() {
                 vehControl.addWaiting(*route->begin(), vehicle);
                 vehControl.registerOneWaitingForContainer();
             } else {
-                // !!! no scaling for triggered vehicles yet
+                // !!! no upscaling for triggered vehicles yet
                 for (unsigned int i = 1; i < quota; i++) {
                     MSNet::getInstance()->getInsertionControl().add(vehicle);
                     SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
