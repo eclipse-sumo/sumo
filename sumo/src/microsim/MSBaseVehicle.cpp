@@ -182,12 +182,15 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit) {
     } else {
         id = id + "!var#1";
     }
-    const MSEdge* const origin = getRerouteOrigin();
-    if (origin != *myCurrEdge && edges.front() == origin) {
-        edges.insert(edges.begin(), *myCurrEdge);
+    int oldSize = (int)edges.size();
+    if (!onInit) {
+        const MSEdge* const origin = getRerouteOrigin();
+        if (origin != *myCurrEdge && edges.front() == origin) {
+            edges.insert(edges.begin(), *myCurrEdge);
+            oldSize = (int)edges.size();
+        }
+        edges.insert(edges.begin(), myRoute->begin(), myCurrEdge);
     }
-    const int oldSize = (int)edges.size();
-    edges.insert(edges.begin(), myRoute->begin(), myCurrEdge);
     if (edges == myRoute->getEdges()) {
         return true;
     }
