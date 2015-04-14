@@ -900,15 +900,16 @@ def remove(vehID, reason=tc.REMOVE_VAPORIZED):
     traci._sendByteCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, reason)
 
 
-def moveToVTD(vehID, edgeID, lane, x, y):
+def moveToVTD(vehID, edgeID, lane, x, y, angle):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MOVE_TO_VTD,
-                        vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4 + 1 + 8 + 1 + 8)
-    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
+                        vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
     traci._message.string += struct.pack("!Bi",
                                          tc.TYPE_STRING, len(edgeID)) + str(edgeID)
     traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, lane)
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, x)
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, y)
+    traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, angle)
     traci._sendExact()
 
 
