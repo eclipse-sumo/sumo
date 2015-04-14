@@ -235,3 +235,23 @@ step 22
 {80: '1o', 86: 26.160000000000025}
 step 23
 vehicles ['2', 'departInThePast', 'horiz']
+step 24
+vehicles ['2', 'departInThePast', 'horiz']
+step 25
+vehicles ['2', 'departInThePast', 'horiz']
+step 26
+vehicles ['2', 'departInThePast', 'horiz']
+step 27
+vehicles ['2', 'departInThePast', 'horiz']
+step 28
+vehicles ['2', 'departInThePast', 'horiz']
+step 29
+vehicles ['2', 'departInThePast', 'horiz']
+step 30
+vehicles ['2', 'departInTheFuture', 'departInThePast', 'horiz']
+step 31
+vehicles ['2', 'departInTheFuture', 'departInThePast', 'horiz']
+step 32
+vehicles ['2', 'departInTheFuture', 'departInThePast', 'horiz']
+step 33
+vehicles ['2', 'departInTheFuture', 'departInThePast', 'departTriggered', 'horiz']
