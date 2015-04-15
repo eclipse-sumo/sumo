@@ -106,7 +106,7 @@ MSFrame::fillOptions() {
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
     oc.addDescription("load-state", "Input", "Loads a network state from FILE");
     oc.doRegister("load-state.offset", new Option_String("0", "TIME"));//!!! check, describe
-    oc.addDescription("load-state.offset", "Input", "Sets the time offset for vehicle segment exit times");
+    oc.addDescription("load-state.offset", "Input", "Shifts all times loaded from a saved state by the given offset");
 
     //  register output options
     oc.doRegister("netstate-dump", new Option_FileName());

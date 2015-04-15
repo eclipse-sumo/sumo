@@ -17,7 +17,7 @@
         <weight-files value="" synonymes="w weights" type="FILE" help="Load edge/lane weights for online rerouting from FILE"/>
         <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
         <load-state value="" type="FILE" help="Loads a network state from FILE"/>
-        <load-state.offset value="0" type="TIME" help="Sets the time offset for vehicle segment exit times"/>
+        <load-state.offset value="0" type="TIME" help="Shifts all times loaded from a saved state by the given offset"/>
     </input>
 
     <output>

@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18101
+SUMO Version dev-SVN-r18199
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -21,8 +21,8 @@ Input Options:
   -x, --weight-attribute STR           Name of the xml attribute which gives
                                          the edge weight
   --load-state FILE                    Loads a network state from FILE
-  --load-state.offset TIME             Sets the time offset for vehicle segment
-                                         exit times
+  --load-state.offset TIME             Shifts all times loaded from a saved
+                                         state by the given offset
 
 Output Options:
   --output-prefix FILE                 Prefix which is applied to all output

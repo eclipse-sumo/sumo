@@ -39,7 +39,7 @@
         <!-- Loads a network state from FILE -->
         <load-state value="" type="FILE"/>
 
-        <!-- Sets the time offset for vehicle segment exit times -->
+        <!-- Shifts all times loaded from a saved state by the given offset -->
         <load-state.offset value="0" type="TIME"/>
 
     </input>
