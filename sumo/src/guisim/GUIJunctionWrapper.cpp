@@ -79,7 +79,7 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction)
 #else
     myIsInner = false;
 #endif
-    myAmWaterway = true;
+    myAmWaterway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
     for (ConstMSEdgeVector::const_iterator it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end(); ++it) {
         if (!(*it)->isInternal() && !isWaterway((*it)->getPermissions())) {
             myAmWaterway = false;
