@@ -1199,10 +1199,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second parameter for setting a VTD vehicle must be lane given as an int.", outputStorage);
             }
             // x
-            SUMOReal x = 0;
-            SUMOReal y = 0;
-            SUMOReal angle = 0;
-            SUMOReal origAngle = 0;
+            double x = 0;
+            double y = 0;
+            double angle = 0;
+            double origAngle = 0;
             if (!server.readTypeCheckingDouble(inputStorage, x)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third parameter for setting a VTD vehicle must be the x-position given as a double.", outputStorage);
             }
