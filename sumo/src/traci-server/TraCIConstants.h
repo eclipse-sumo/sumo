@@ -34,7 +34,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 9
+#define TRACI_VERSION 10
 
 
 // ****************************************
@@ -405,7 +405,7 @@
 // last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 #define LAST_STEP_MEAN_SPEED 0x11
 
-// last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
+// last step vehicle list (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 #define LAST_STEP_VEHICLE_ID_LIST 0x12
 
 // last step occupancy (get: induction loops, lanes, edges)
@@ -428,6 +428,9 @@
 
 // last step jam length in meters
 #define JAM_LENGTH_METERS 0x19
+
+// last step person list (get: edges)
+#define LAST_STEP_PERSON_ID_LIST 0x1a
 
 
 // traffic light states, encoded as rRgGyYoO tuple (get: traffic lights)

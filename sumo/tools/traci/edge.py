@@ -39,7 +39,9 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList
                       tc.VAR_CURRENT_TRAVELTIME:    traci.Storage.readDouble,
                       tc.LAST_STEP_VEHICLE_NUMBER:  traci.Storage.readInt,
                       tc.LAST_STEP_VEHICLE_HALTING_NUMBER: traci.Storage.readInt,
-                      tc.LAST_STEP_VEHICLE_ID_LIST: traci.Storage.readStringList}
+                      tc.LAST_STEP_VEHICLE_ID_LIST: traci.Storage.readStringList,
+                      tc.LAST_STEP_PERSON_ID_LIST: traci.Storage.readStringList,
+                      }
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 
@@ -212,6 +214,14 @@ def getLastStepVehicleIDs(edgeID):
     Returns the ids of the vehicles for the last time step on the given edge.
     """
     return _getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, edgeID)
+
+
+def getLastStepPersonIDs(edgeID):
+    """getLastStepPersonIDs(string) -> list(string)
+
+    Returns the ids of the persons on the given edge during the last time step.
+    """
+    return _getUniversal(tc.LAST_STEP_PERSON_ID_LIST, edgeID)
 
 
 def subscribe(edgeID, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31 - 1):

@@ -29,8 +29,10 @@ import sumolib
 sumoBinary = sumolib.checkBinary('sumo')
 
 PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen(
-    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+sumoProcess = subprocess.Popen([sumoBinary, 
+            '-c',  'sumo.sumocfg', 
+            '--remote-port', str(PORT),
+            '--pedestrian.model', 'nonInteracting'], stdout=sys.stdout)
 traci.init(PORT)
 for step in range(3):
     print "step", step
@@ -55,6 +57,7 @@ print "traveltime", traci.edge.getTraveltime(edgeID)
 print "numVeh", traci.edge.getLastStepVehicleNumber(edgeID)
 print "haltVeh", traci.edge.getLastStepHaltingNumber(edgeID)
 print "vehIds", traci.edge.getLastStepVehicleIDs(edgeID)
+print "personIds", traci.edge.getLastStepPersonIDs(edgeID)
 print "waiting time", traci.edge.getWaitingTime(edgeID)
 # testing unicode
 print "checking occupancy with unicode id", traci.edge.getLastStepOccupancy(unicode(edgeID))

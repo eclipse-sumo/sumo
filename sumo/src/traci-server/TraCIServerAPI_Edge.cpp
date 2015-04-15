@@ -41,6 +41,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/pedestrians/MSPerson.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Edge.h"
 #include <microsim/MSEdgeWeightsStorage.h>
@@ -66,6 +67,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             && variable != VAR_NOXEMISSION && variable != VAR_FUELCONSUMPTION && variable != VAR_NOISEEMISSION && variable != VAR_WAITING_TIME
             && variable != LAST_STEP_VEHICLE_NUMBER && variable != LAST_STEP_MEAN_SPEED && variable != LAST_STEP_OCCUPANCY
             && variable != LAST_STEP_VEHICLE_HALTING_NUMBER && variable != LAST_STEP_LENGTH
+            && variable != LAST_STEP_PERSON_ID_LIST
             && variable != LAST_STEP_VEHICLE_ID_LIST && variable != ID_COUNT && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "Get Edge Variable: unsupported variable specified", outputStorage);
     }
@@ -134,6 +136,16 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(wtime);
+            }
+            break;
+            case LAST_STEP_PERSON_ID_LIST: {
+                std::vector<std::string> personIDs;
+                std::vector<MSPerson*> persons = e->getSortedPersons(MSNet::getInstance()->getCurrentTimeStep());
+                for (std::vector<MSPerson*>::iterator it = persons.begin(); it != persons.end(); ++it) {
+                    personIDs.push_back((*it)->getID());
+                }
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                tempMsg.writeStringList(personIDs);
             }
             break;
             case LAST_STEP_VEHICLE_ID_LIST: {

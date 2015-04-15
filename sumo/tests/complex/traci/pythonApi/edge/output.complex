@@ -21,6 +21,7 @@ traveltime 79.7638272613
 numVeh 1
 haltVeh 0
 vehIds ['horiz']
+personIds ['p0']
 waiting time 0.0
 checking occupancy with unicode id 0.0201207243461
 traveltime after adaption 79.7638272613
