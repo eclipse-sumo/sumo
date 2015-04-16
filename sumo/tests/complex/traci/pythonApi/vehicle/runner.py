@@ -162,6 +162,7 @@ print "step", step()
 print traci.vehicle.getSubscriptionResults(vehID)
 print "step", step()
 print traci.vehicle.getSubscriptionResults(vehID)
+# test different departure options
 traci.vehicle.add("departInThePast", "horizontal", depart=5)
 print "step", step()
 print "vehicles", traci.vehicle.getIDList()
@@ -169,6 +170,7 @@ traci.vehicle.add("departInTheFuture", "horizontal", depart=30)
 for i in range(9):
     print "step", step()
     print "vehicles", traci.vehicle.getIDList()
+# XXX this doesn't work. see #1721
 traci.vehicle.add("departTriggered", "horizontal", depart=traci.vehicle.DEPART_TRIGGERED)
 print "step", step()
 print "vehicles", traci.vehicle.getIDList()
