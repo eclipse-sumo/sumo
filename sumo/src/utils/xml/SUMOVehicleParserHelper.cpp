@@ -165,7 +165,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     } else {
         // interpret repetitionNumber
         if (ok && ret->repetitionProbability > 0) {
-            ret->repetitionNumber = INT_MAX;
+            ret->repetitionNumber = std::numeric_limits<int_fast64_t>::max();
             ret->repetitionEnd = end;
         } else {
             if (ok && ret->repetitionOffset <= 0) {
@@ -173,7 +173,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
                 throw ProcessError("Invalid repetition rate in the definition of flow '" + id + "'.");
             }
             if (end == SUMOTime_MAX) {
-                ret->repetitionNumber = INT_MAX;
+                ret->repetitionNumber = std::numeric_limits<int_fast64_t>::max();
             } else {
                 ret->repetitionNumber = MAX2(1, (int)(((SUMOReal)(end - ret->depart)) / ret->repetitionOffset + 0.5));
             }

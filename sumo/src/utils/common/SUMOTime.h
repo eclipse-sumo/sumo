@@ -32,7 +32,6 @@
 #include <config.h>
 #endif
 
-#include <climits>
 #include <limits>
 #include <cstdint>
 #include <string>
