@@ -277,3 +277,41 @@ step 43
 vehicle 'routeTest' lane=2fi_0 lanePos=29.7250437202 stopped=True
 step 44
 vehicle 'routeTest' lane=2fi_0 lanePos=29.7250437202 stopped=True
+step 45
+vehicle 'routeTest' lane=2fi_0 lanePos=29.7250437202 stopped=True
+step 46
+vehicle 'routeTest' lane=2fi_0 lanePos=29.7250437202 stopped=True
+step 47
+vehicle 'routeTest' lane=2fi_0 lanePos=29.7250437202 stopped=False
+step 48
+vehicle 'routeTest' lane=2fi_0 lanePos=32.1763986043 stopped=False
+step 49
+vehicle 'routeTest' lane=2fi_0 lanePos=36.0107298119 stopped=False
+step 50
+vehicle 'routeTest2' lane=2fi_0 lanePos=0.0 stopped=False
+step 51
+vehicle 'routeTest2' lane=2fi_0 lanePos=2.39510012721 stopped=False
+step 52
+vehicle 'routeTest2' lane=2fi_0 lanePos=7.09412951393 stopped=False
+step 53
+vehicle 'routeTest2' lane=2fi_0 lanePos=14.1454788839 stopped=False
+step 54
+vehicle 'routeTest2' lane=2fi_0 lanePos=23.272511609 stopped=False
+step 55
+vehicle 'routeTest2' lane=2fi_0 lanePos=28.0198186064 stopped=False
+step 56
+vehicle 'routeTest2' lane=2fi_0 lanePos=29.2144092224 stopped=True
+step 57
+vehicle 'routeTest2' lane=2fi_0 lanePos=29.2144092224 stopped=True
+step 58
+vehicle 'routeTest2' lane=2fi_0 lanePos=29.2144092224 stopped=True
+step 59
+vehicle 'routeTest2' lane=2fi_0 lanePos=29.2144092224 stopped=True
+step 60
+vehicle 'routeTest2' lane=2fi_0 lanePos=29.2144092224 stopped=False
+step 61
+vehicle 'routeTest2' lane=2fi_0 lanePos=31.4442368474 stopped=False
+step 62
+vehicle 'routeTest2' lane=2fi_0 lanePos=35.3586165884 stopped=False
+step 63
+vehicle 'routeTest2' lane=2fi_0 lanePos=41.6733420558 stopped=False

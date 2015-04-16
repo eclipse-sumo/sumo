@@ -182,7 +182,16 @@ print "vehicle '%s' routeID=%s" % (routeTestVeh, traci.vehicle.getRouteID(routeT
 traci.vehicle.setRouteID(routeTestVeh, "withStop")
 print "step", step()
 print "vehicle '%s' routeID=%s" % (routeTestVeh, traci.vehicle.getRouteID(routeTestVeh))
-for i in range(9):
+for i in range(14):
+    print "step", step()
+    print "vehicle '%s' lane=%s lanePos=%s stopped=%s" % (routeTestVeh,
+            traci.vehicle.getLaneID(routeTestVeh),
+            traci.vehicle.getLanePosition(routeTestVeh),
+            traci.vehicle.isStopped(routeTestVeh))
+# test for adding a new vehicle with a route with busstop
+routeTestVeh = "routeTest2"
+traci.vehicle.add(routeTestVeh, "withStop")
+for i in range(14):
     print "step", step()
     print "vehicle '%s' lane=%s lanePos=%s stopped=%s" % (routeTestVeh,
             traci.vehicle.getLaneID(routeTestVeh),
