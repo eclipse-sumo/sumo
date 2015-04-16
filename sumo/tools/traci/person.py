@@ -35,6 +35,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.VAR_WAITING_TIME:    traci.Storage.readDouble,
                       tc.VAR_WIDTH:           traci.Storage.readDouble,
                       tc.VAR_MINGAP:          traci.Storage.readDouble,
+                      tc.VAR_NEXT_EDGE:       traci.Storage.readString,
                       }
 
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
@@ -165,6 +166,15 @@ def getMinGap(personID):
     Returns the offset (gap to front person if halting) of this person.
     """
     return _getUniversal(tc.VAR_MINGAP, personID)
+
+
+def getNextEdge(personID):
+    """getNextEdge() -> string
+    If the person is walking, returns the next edge on the persons route
+    (including crossing and walkingareas). If there is no further edge or the
+    person is in another stage, returns the empty string.
+    """
+    return _getUniversal(tc.VAR_NEXT_EDGE, personID)
 
 
 def subscribe(personID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
