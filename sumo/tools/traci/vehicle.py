@@ -615,7 +615,7 @@ def setType(vehID, typeID):
 def setRouteID(vehID, routeID):
     """setRouteID(string, string) -> None
 
-    Sets the id of the route for the named vehicle.
+    Changes the vehicles route to the route with the given id.
     """
     traci._sendStringCmd(
         tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ROUTE_ID, vehID, routeID)
