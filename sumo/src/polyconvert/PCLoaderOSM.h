@@ -76,7 +76,7 @@ protected:
      */
     struct PCOSMNode {
         /// @brief The node's id
-        SUMOLong id;
+        int_fast64_t id;
         /// @brief The longitude the node is located at
         SUMOReal lon;
         /// @brief The latitude the node is located at
@@ -96,7 +96,7 @@ protected:
         /// @brief Information whether this area is closed
         bool myIsClosed;
         /// @brief The list of nodes this edge is made of
-        std::vector<SUMOLong> myCurrentNodes;
+        std::vector<int_fast64_t> myCurrentNodes;
         /// @brief Additional attributes
         std::map<std::string, std::string> myAttributes;
     };
@@ -130,7 +130,7 @@ protected:
          * @param[in] withAttributes Whether all attributes shall be stored
          * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)
          */
-        NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill, bool withAttributes,
+        NodesHandler(std::map<int_fast64_t, PCOSMNode*>& toFill, bool withAttributes,
                      MsgHandler& errorHandler);
 
 
@@ -170,13 +170,13 @@ protected:
         MsgHandler& myErrorHandler;
 
         /// @brief The nodes container to fill
-        std::map<SUMOLong, PCOSMNode*>& myToFill;
+        std::map<int_fast64_t, PCOSMNode*>& myToFill;
 
         /// @brief Current path in order to know to what occuring values belong
         std::vector<int> myParentElements;
 
         /// @brief The id of the last parsed node
-        SUMOLong myLastNodeID;
+        int_fast64_t myLastNodeID;
 
     private:
         /// @brief Invalidated copy constructor
@@ -202,7 +202,7 @@ protected:
          * @param[in] withAttributes Whether all attributes shall be stored
          * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)
          */
-        EdgesHandler(const std::map<SUMOLong, PCOSMNode*>& osmNodes,
+        EdgesHandler(const std::map<int_fast64_t, PCOSMNode*>& osmNodes,
                      std::map<std::string, PCOSMEdge*>& toFill, bool withAttributes,
                      MsgHandler& errorHandler);
 
@@ -243,7 +243,7 @@ protected:
         MsgHandler& myErrorHandler;
 
         /// @brief The previously parsed nodes
-        const std::map<SUMOLong, PCOSMNode*>& myOSMNodes;
+        const std::map<int_fast64_t, PCOSMNode*>& myOSMNodes;
 
         /// @brief A map of built edges
         std::map<std::string, PCOSMEdge*>& myEdgeMap;

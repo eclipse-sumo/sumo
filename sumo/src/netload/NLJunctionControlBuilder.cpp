@@ -360,7 +360,7 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string& id, const std
 
 void
 NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state,
-                                   int minDuration, int maxDuration) {
+                                   SUMOTime minDuration, SUMOTime maxDuration) {
     // build and add the phase definition to the list
     myActivePhases.push_back(new MSPhaseDefinition(duration, minDuration, maxDuration, state));
     // add phase duration to the absolute duration

@@ -378,7 +378,7 @@ MSBaseVehicle::getDevice(const std::type_info& type) const {
 void
 MSBaseVehicle::saveState(OutputDevice& out) {
     out.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, myParameter->id);
-    out.writeAttr(SUMO_ATTR_DEPART, myParameter->depart);
+    out.writeAttr(SUMO_ATTR_DEPART, time2string(myParameter->depart));
     out.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
     out.writeAttr(SUMO_ATTR_TYPE, myType->getID());
     // here starts the vehicle internal part (see loading)

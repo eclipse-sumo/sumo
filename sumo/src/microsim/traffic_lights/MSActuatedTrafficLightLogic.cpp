@@ -153,7 +153,7 @@ MSActuatedTrafficLightLogic::duration(const SUMOReal detectionGap) const {
     // ensure that minimum duration is kept
     SUMOTime newDuration = getCurrentPhaseDef().minDuration - actDuration;
     // try to let the last detected vehicle pass the intersection (duration must be positive)
-    newDuration = MAX3(newDuration, TIME2STEPS(myDetectorGap - detectionGap), 1);
+    newDuration = MAX3(newDuration, TIME2STEPS(myDetectorGap - detectionGap), SUMOTime(1));
     // cut the decimal places to ensure that phases always have integer duration
     if (newDuration % 1000 != 0) {
         const SUMOTime totalDur = newDuration + actDuration;

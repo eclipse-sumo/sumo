@@ -87,10 +87,10 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     PCTypeMap& tm) {
     GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
     std::string what;
-    std::map<SUMOLong, Position> punkte;
-    std::map<SUMOLong, PositionVector> kanten;
-    std::map<SUMOLong, PositionVector> teilflaechen;
-    std::map<SUMOLong, SUMOLong> flaechenelemente;
+    std::map<int_fast64_t, Position> punkte;
+    std::map<int_fast64_t, PositionVector> kanten;
+    std::map<int_fast64_t, PositionVector> teilflaechen;
+    std::map<int_fast64_t, int_fast64_t> flaechenelemente;
     NamedColumnsParser lineParser;
     LineReader lr(file);
     while (lr.hasMore()) {
@@ -102,7 +102,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
         // read items
         if (what == "$PUNKT") {
             lineParser.parseLine(line);
-            SUMOLong id = TplConvert::_2long(lineParser.get("ID").c_str());
+            int_fast64_t id = TplConvert::_2long(lineParser.get("ID").c_str());
             SUMOReal x = TplConvert::_2SUMOReal(lineParser.get("XKOORD").c_str());
             SUMOReal y = TplConvert::_2SUMOReal(lineParser.get("YKOORD").c_str());
             Position pos(x, y);
@@ -113,9 +113,9 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             continue;
         } else if (what == "$KANTE") {
             lineParser.parseLine(line);
-            SUMOLong id = TplConvert::_2long(lineParser.get("ID").c_str());
-            SUMOLong fromID = TplConvert::_2long(lineParser.get("VONPUNKTID").c_str());
-            SUMOLong toID = TplConvert::_2long(lineParser.get("NACHPUNKTID").c_str());
+            int_fast64_t id = TplConvert::_2long(lineParser.get("ID").c_str());
+            int_fast64_t fromID = TplConvert::_2long(lineParser.get("VONPUNKTID").c_str());
+            int_fast64_t toID = TplConvert::_2long(lineParser.get("NACHPUNKTID").c_str());
             PositionVector vec;
             vec.push_back(punkte[fromID]);
             vec.push_back(punkte[toID]);
@@ -123,7 +123,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             continue;
         } else if (what == "$ZWISCHENPUNKT") {
             lineParser.parseLine(line);
-            SUMOLong id = TplConvert::_2long(lineParser.get("KANTEID").c_str());
+            int_fast64_t id = TplConvert::_2long(lineParser.get("KANTEID").c_str());
             int index = TplConvert::_2int(lineParser.get("INDEX").c_str());
             SUMOReal x = TplConvert::_2SUMOReal(lineParser.get("XKOORD").c_str());
             SUMOReal y = TplConvert::_2SUMOReal(lineParser.get("YKOORD").c_str());
@@ -135,10 +135,10 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             continue;
         } else if (what == "$TEILFLAECHENELEMENT") {
             lineParser.parseLine(line);
-            SUMOLong id = TplConvert::_2long(lineParser.get("TFLAECHEID").c_str());
+            int_fast64_t id = TplConvert::_2long(lineParser.get("TFLAECHEID").c_str());
             //int index = TplConvert::_2int(lineParser.get("INDEX").c_str());
             //index = 0; /// hmmmm - assume it's sorted...
-            SUMOLong kid = TplConvert::_2long(lineParser.get("KANTEID").c_str());
+            int_fast64_t kid = TplConvert::_2long(lineParser.get("KANTEID").c_str());
             int dir = TplConvert::_2int(lineParser.get("RICHTUNG").c_str());
             if (teilflaechen.find(id) == teilflaechen.end()) {
                 teilflaechen[id] = PositionVector();
@@ -155,8 +155,8 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             continue;
         } else if (what == "$FLAECHENELEMENT") {
             lineParser.parseLine(line);
-            SUMOLong id = TplConvert::_2long(lineParser.get("FLAECHEID").c_str());
-            SUMOLong tid = TplConvert::_2long(lineParser.get("TFLAECHEID").c_str());
+            int_fast64_t id = TplConvert::_2long(lineParser.get("FLAECHEID").c_str());
+            int_fast64_t tid = TplConvert::_2long(lineParser.get("TFLAECHEID").c_str());
             flaechenelemente[id] = tid;
             continue;
         }
@@ -221,7 +221,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             // parse the poi
             // $POI:Nr;CATID;CODE;NAME;Kommentar;XKoord;YKoord;
             lineParser.parseLine(line);
-            SUMOLong idL = TplConvert::_2long(lineParser.get("Nr").c_str());
+            int_fast64_t idL = TplConvert::_2long(lineParser.get("Nr").c_str());
             std::string id = toString(idL);
             std::string catid = lineParser.get("CATID");
             // process read values
@@ -299,9 +299,9 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
         if (parsingDistrictsDirectly) {
             //$BEZIRK:NR	CODE	NAME	TYPNR	XKOORD	YKOORD	FLAECHEID	BEZART	IVANTEIL_Q	IVANTEIL_Z	OEVANTEIL	METHODEANBANTEILE	ZWERT1	ZWERT2	ZWERT3	ISTINAUSWAHL	OBEZNR	NOM_COM	COD_COM
             lineParser.parseLine(line);
-            SUMOLong idL = TplConvert::_2long(lineParser.get("NR").c_str());
+            int_fast64_t idL = TplConvert::_2long(lineParser.get("NR").c_str());
             std::string id = toString(idL);
-            SUMOLong area = TplConvert::_2long(lineParser.get("FLAECHEID").c_str());
+            int_fast64_t area = TplConvert::_2long(lineParser.get("FLAECHEID").c_str());
             SUMOReal x = TplConvert::_2SUMOReal(lineParser.get("XKOORD").c_str());
             SUMOReal y = TplConvert::_2SUMOReal(lineParser.get("YKOORD").c_str());
             // patch the values

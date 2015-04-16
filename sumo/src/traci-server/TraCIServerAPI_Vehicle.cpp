@@ -251,7 +251,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires time, and edge as parameter.", outputStorage);
                 }
                 // time
-                SUMOTime time = 0;
+                int time = 0;
                 if (!server.readTypeCheckingInt(inputStorage, time)) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires the referenced time as first parameter.", outputStorage);
                 }
@@ -283,7 +283,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires time, and edge as parameter.", outputStorage);
                 }
                 // time
-                SUMOTime time = 0;
+                int time = 0;
                 if (!server.readTypeCheckingInt(inputStorage, time)) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires the referenced time as first parameter.", outputStorage);
                 }
@@ -478,7 +478,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third stop parameter must be the lane index given as a byte.", outputStorage);
             }
             // waitTime
-            SUMOTime waitTime = 0;
+            int waitTime = 0;
             if (!server.readTypeCheckingInt(inputStorage, waitTime)) {
                 return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "The fourth stop parameter must be the waiting time given as an integer.", outputStorage);
             }
@@ -509,7 +509,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             // Forward command to vehicle
             std::string error;
-            if (!v->addTraciStop(allLanes[laneIndex], pos, 0, waitTime, parking, triggered, containerTriggered, error)) {
+            if (!v->addTraciStop(allLanes[laneIndex], pos-POSITION_EPS, pos, waitTime, parking, triggered, containerTriggered, error)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
             }
         }
@@ -553,7 +553,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first lane change parameter must be the lane index given as a byte.", outputStorage);
             }
             // stickyTime
-            SUMOTime stickyTime = 0;
+            int stickyTime = 0;
             if (!server.readTypeCheckingInt(inputStorage, stickyTime)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second lane change parameter must be the duration given as an integer.", outputStorage);
             }
@@ -613,7 +613,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (newSpeed < 0) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Speed must not be negative", outputStorage);
             }
-            SUMOTime duration = 0;
+            int duration = 0;
             if (!server.readTypeCheckingInt(inputStorage, duration)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second slow down parameter must be the duration given as an integer.", outputStorage);
             }
@@ -691,7 +691,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             int parameterCount = inputStorage.readInt();
             if (parameterCount == 4) {
                 // begin time
-                SUMOTime begTime = 0, endTime = 0;
+                int begTime = 0, endTime = 0;
                 if (!server.readTypeCheckingInt(inputStorage, begTime)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the begin time as first parameter.", outputStorage);
                 }
@@ -734,7 +734,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 while (v->getWeightsStorage().knowsTravelTime(edge)) {
                     v->getWeightsStorage().removeTravelTime(edge);
                 }
-                v->getWeightsStorage().addTravelTime(edge, 0, SUMOTime_MAX, value);
+                v->getWeightsStorage().addTravelTime(edge, SUMOReal(0), SUMOReal(SUMOTime_MAX), value);
             } else if (parameterCount == 1) {
                 // edge
                 std::string edgeID;
@@ -761,7 +761,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             int parameterCount = inputStorage.readInt();
             if (parameterCount == 4) {
                 // begin time
-                SUMOTime begTime = 0, endTime = 0;
+                int begTime = 0, endTime = 0;
                 if (!server.readTypeCheckingInt(inputStorage, begTime)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the begin time as first parameter.", outputStorage);
                 }
@@ -804,7 +804,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 while (v->getWeightsStorage().knowsEffort(edge)) {
                     v->getWeightsStorage().removeEffort(edge);
                 }
-                v->getWeightsStorage().addEffort(edge, 0, SUMOTime_MAX, value);
+                v->getWeightsStorage().addEffort(edge, SUMOReal(0), SUMOReal(SUMOTime_MAX), value);
             } else if (parameterCount == 1) {
                 // edge
                 std::string edgeID;
@@ -964,19 +964,21 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (!route) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid route '" + routeID + "' for vehicle: '" + id + "'", outputStorage);
             }
-
-            if (!server.readTypeCheckingInt(inputStorage, vehicleParams.depart)) {
+            int depart;
+            if (!server.readTypeCheckingInt(inputStorage, depart)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Third parameter (depart) requires an integer.", outputStorage);
             }
-            if (vehicleParams.depart < 0) {
-                const int proc = static_cast<int>(-vehicleParams.depart);
+            if (depart < 0) {
+                const int proc = -depart;
                 if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid departure time.", outputStorage);
                 }
                 vehicleParams.departProcedure = (DepartDefinition)proc;
-            } else if (vehicleParams.depart < MSNet::getInstance()->getCurrentTimeStep()) {
+            } else if (depart < MSNet::getInstance()->getCurrentTimeStep()) {
                 vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
                 WRITE_WARNING("Departure time for vehicle '" + id + "' is in the past; using current time instead.");
+            } else {
+                vehicleParams.depart = depart;
             }
 
             double pos;

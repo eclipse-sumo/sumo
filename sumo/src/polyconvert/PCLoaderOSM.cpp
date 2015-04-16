@@ -103,7 +103,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("osm-files");
     // load nodes, first
-    std::map<SUMOLong, PCOSMNode*> nodes;
+    std::map<int_fast64_t, PCOSMNode*> nodes;
     bool withAttributes = oc.getBool("all-attributes");
     MsgHandler* m = OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
     NodesHandler nodesHandler(nodes, withAttributes, *m);
@@ -144,7 +144,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         }
         // compute shape
         PositionVector vec;
-        for (std::vector<SUMOLong>::iterator j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
+        for (std::vector<int_fast64_t>::iterator j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
             PCOSMNode* n = nodes.find(*j)->second;
             Position pos(n->lon, n->lat);
             if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
@@ -176,7 +176,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 
 
     // instantiate pois
-    for (std::map<SUMOLong, PCOSMNode*>::iterator i = nodes.begin(); i != nodes.end(); ++i) {
+    for (std::map<int_fast64_t, PCOSMNode*>::iterator i = nodes.begin(); i != nodes.end(); ++i) {
         PCOSMNode* n = (*i).second;
         if (n->myAttributes.size() == 0) {
             // cannot be relevant as a poi
@@ -208,7 +208,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         }
     }
     // delete nodes
-    for (std::map<SUMOLong, PCOSMNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
+    for (std::map<int_fast64_t, PCOSMNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
         delete(*i).second;
     }
     // delete edges
@@ -268,7 +268,7 @@ PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap:
 // ---------------------------------------------------------------------------
 // definitions of PCLoaderOSM::NodesHandler-methods
 // ---------------------------------------------------------------------------
-PCLoaderOSM::NodesHandler::NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill,
+PCLoaderOSM::NodesHandler::NodesHandler(std::map<int_fast64_t, PCOSMNode*>& toFill,
                                         bool withAttributes, MsgHandler& errorHandler) :
     SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes), myErrorHandler(errorHandler),
     myToFill(toFill), myLastNodeID(-1) {}
@@ -282,7 +282,7 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     myParentElements.push_back(element);
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
-        SUMOLong id = attrs.get<SUMOLong>(SUMO_ATTR_ID, 0, ok);
+        int_fast64_t id = attrs.get<int_fast64_t>(SUMO_ATTR_ID, 0, ok);
         if (!ok) {
             return;
         }
@@ -332,7 +332,7 @@ PCLoaderOSM::NodesHandler::myEndElement(int element) {
 // ---------------------------------------------------------------------------
 // definitions of PCLoaderOSM::EdgesHandler-methods
 // ---------------------------------------------------------------------------
-PCLoaderOSM::EdgesHandler::EdgesHandler(const std::map<SUMOLong, PCOSMNode*>& osmNodes,
+PCLoaderOSM::EdgesHandler::EdgesHandler(const std::map<int_fast64_t, PCOSMNode*>& osmNodes,
                                         std::map<std::string, PCOSMEdge*>& toFill, bool withAttributes, MsgHandler& errorHandler)
     : SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes), myErrorHandler(errorHandler),
       myOSMNodes(osmNodes), myEdgeMap(toFill) {
@@ -361,7 +361,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     // parse "nd" (node) elements
     if (element == SUMO_TAG_ND) {
         bool ok = true;
-        SUMOLong ref = attrs.get<SUMOLong>(SUMO_ATTR_REF, 0, ok);
+        int_fast64_t ref = attrs.get<int_fast64_t>(SUMO_ATTR_REF, 0, ok);
         if (ok) {
             if (myOSMNodes.find(ref) == myOSMNodes.end()) {
                 WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");

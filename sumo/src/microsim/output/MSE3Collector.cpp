@@ -291,7 +291,7 @@ MSE3Collector::detectorUpdate(const SUMOTime step) {
         values.intervalSpeedSum += veh->getSpeed() * TS;
         if (veh->getSpeed() < myHaltingSpeedThreshold) {
             if (values.haltingBegin == -1) {
-                values.haltingBegin = step;
+                values.haltingBegin = STEPS2TIME(step);
             }
             if (step - values.haltingBegin > myHaltingTimeThreshold) {
                 values.haltings++;

@@ -140,7 +140,7 @@ MSCalibrator::myStartElement(int element,
                              const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_FLOW) {
         AspiredState state;
-        int lastEnd = -1;
+        SUMOTime lastEnd = -1;
         if (myIntervals.size() > 0) {
             lastEnd = myIntervals.back().end;
             if (lastEnd == -1) {

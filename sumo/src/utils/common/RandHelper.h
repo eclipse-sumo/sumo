@@ -33,6 +33,7 @@
 #endif
 
 #include <cassert>
+#include <cstdint>
 #include <vector>
 #include <foreign/mersenne/MersenneTwister.h>
 
@@ -85,6 +86,16 @@ public:
 
     /// @brief Returns a random integer in [minV, maxV-1]
     static inline int rand(int minV, int maxV) {
+        return minV + rand(maxV - minV);
+    }
+
+    /// @brief Returns a random 64 bit integer in [0, maxV-1]
+    static inline int_fast64_t rand(int_fast64_t maxV) {
+        return (int_fast64_t) RandHelper::myRandomNumberGenerator.randInt64((uint_fast64_t)(maxV - 1));
+    }
+
+    /// @brief Returns a random 64 bit integer in [minV, maxV-1]
+    static inline int_fast64_t rand(int_fast64_t minV, int_fast64_t maxV) {
         return minV + rand(maxV - minV);
     }
 

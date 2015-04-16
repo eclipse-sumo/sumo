@@ -99,7 +99,7 @@ public:
      * @exception InvalidArgument If one of the values is invalid
      */
     void buildInductLoop(const std::string& id,
-                         const std::string& lane, SUMOReal pos, int splInterval,
+                         const std::string& lane, SUMOReal pos, SUMOTime splInterval,
                          const std::string& device, bool friendlyPos, bool splitByType);
 
 
@@ -148,7 +148,7 @@ public:
      * @exception InvalidArgument If one of the values is invalid
      */
     void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
-                         bool cont, int splInterval, const std::string& device, SUMOTime haltingTimeThreshold,
+                         bool cont, SUMOTime splInterval, const std::string& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
                          bool friendlyPos);
 
@@ -229,7 +229,7 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @exception InvalidArgument If one of the values is invalid
      */
-    void beginE3Detector(const std::string& id, const std::string& device, int splInterval,
+    void beginE3Detector(const std::string& id, const std::string& device, SUMOTime splInterval,
                          SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold);
 
 
@@ -503,7 +503,7 @@ protected:
          */
         E3DetectorDefinition(const std::string& id,
                              const std::string& device, SUMOReal haltingSpeedThreshold,
-                             SUMOTime haltingTimeThreshold, int splInterval);
+                             SUMOTime haltingTimeThreshold, SUMOTime splInterval);
 
         /// @brief Destructor
         ~E3DetectorDefinition();
@@ -521,7 +521,7 @@ protected:
         /// @brief List of detector's exits
         CrossSectionVector myExits;
         /// @brief The aggregation interval
-        int mySampleInterval;
+        SUMOTime mySampleInterval;
         //@}
 
     private:
@@ -610,7 +610,7 @@ protected:
      * @exception InvalidArgument If the given sample interval is invalid (<=0)
      * @todo Why is splInterval an int???
      */
-    void checkSampleInterval(int splInterval, SumoXMLTag type, const std::string& id);
+    void checkSampleInterval(SUMOTime splInterval, SumoXMLTag type, const std::string& id);
     /// @}
 
 

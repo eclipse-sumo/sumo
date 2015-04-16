@@ -854,16 +854,28 @@ public:
     /**
      * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
      * will wait for the given duration before continuing on its route
-     * @param lane  lane on wich to stop
-     * @param pos   position on the given lane at wich to stop
-     * @param radius  the vehicle will stop if it is within the range [pos-radius, pos+radius]
+     * @param lane     lane on wich to stop
+     * @param startPos start position on the given lane at wich to stop
+     * @param endPos   end position on the given lane at wich to stop
      * @param duration after waiting for the time period duration, the vehicle will
      * @param parking  a flag indicating whether the traci stop is used for parking or not
      * @param triggered a flag indicating whether the traci stop is triggered or not
      * @param containerTriggered a flag indicating whether the traci stop is triggered by a container or not
      */
-    bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration,
-                      bool parking, bool triggered, bool containerTriggered, std::string& errorMsg);
+    bool addTraciStop(MSLane* const lane, const SUMOReal startPos, const SUMOReal endPos, const SUMOTime duration,
+                      const bool parking, const bool triggered, const bool containerTriggered, std::string& errorMsg);
+
+    /**
+     * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
+     * will wait for the given duration before continuing on its route
+     * @param stopId    bus or container stop id
+     * @param duration  after waiting for the time period duration, the vehicle will
+     * @param parking   a flag indicating whether the traci stop is used for parking or not
+     * @param triggered a flag indicating whether the traci stop is triggered or not
+     * @param containerTriggered a flag indicating whether the traci stop is triggered by a container or not
+     */
+    bool addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime duration, const bool parking,
+                                    const bool triggered, const bool containerTriggered, std::string& errorMsg);
 
     /**
     * returns the next imminent stop in the stop queue

@@ -96,7 +96,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
         switch (variable) {
             case VAR_EDGE_TRAVELTIME: {
                 // time
-                SUMOTime time = 0;
+                int time = 0;
                 if (!server.readTypeCheckingInt(inputStorage, time)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The message must contain the time definition.", outputStorage);
                 }
@@ -111,7 +111,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             break;
             case VAR_EDGE_EFFORT: {
                 // time
-                SUMOTime time = 0;
+                int time = 0;
                 if (!server.readTypeCheckingInt(inputStorage, time)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The message must contain the time definition.", outputStorage);
                 }
@@ -374,7 +374,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             int parameterCount = inputStorage.readInt();
             if (parameterCount == 3) {
                 // bound by time
-                SUMOTime begTime = 0, endTime = 0;
+                int begTime = 0, endTime = 0;
                 double value = 0;
                 if (!server.readTypeCheckingInt(inputStorage, begTime)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The first variable must be the begin time given as int.", outputStorage);
@@ -392,7 +392,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 if (!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The variable must be the value given as double", outputStorage);
                 }
-                MSNet::getInstance()->getWeightsStorage().addTravelTime(e, 0, SUMOTime_MAX, value);
+                MSNet::getInstance()->getWeightsStorage().addTravelTime(e, SUMOReal(0), SUMOReal(SUMOTime_MAX), value);
             } else {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time requires either begin time, end time, and value, or only value as parameter.", outputStorage);
             }
@@ -406,7 +406,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             int parameterCount = inputStorage.readInt();
             if (parameterCount == 3) {
                 // bound by time
-                SUMOTime begTime = 0, endTime = 0;
+                int begTime = 0, endTime = 0;
                 double value = 0;
                 if (!server.readTypeCheckingInt(inputStorage, begTime)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The first variable must be the begin time given as int.", outputStorage);
@@ -424,7 +424,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 if (!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The variable must be the value given as double", outputStorage);
                 }
-                MSNet::getInstance()->getWeightsStorage().addEffort(e, 0, SUMOTime_MAX, value);
+                MSNet::getInstance()->getWeightsStorage().addEffort(e, SUMOReal(0), SUMOReal(SUMOTime_MAX), value);
             } else {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort requires either begin time, end time, and value, or only value as parameter.", outputStorage);
             }

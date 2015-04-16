@@ -34,6 +34,7 @@
 
 #include <string>
 #include <cmath>
+#include <cstdint>
 #include <limits>
 #include <algorithm>
 #include <utils/common/UtilExceptions.h>
@@ -112,7 +113,7 @@ public:
             not contain an integer */
     template<class E>
     static int _2int(const E* const data) {
-        SUMOLong result = _2long(data);
+        int_fast64_t result = _2long(data);
         if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min()) {
             throw NumberFormatException();
         }
@@ -126,7 +127,7 @@ public:
             not contain an integer */
     template<class E>
     static int _hex2int(const E* const data) {
-        SUMOLong result = _hex2long(data);
+        int_fast64_t result = _hex2long(data);
         if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min()) {
             throw NumberFormatException();
         }
@@ -139,11 +140,11 @@ public:
         throws a NumberFormatException - exception when the string does
             not contain a long */
     template<class E>
-    static SUMOLong _2long(const E* const data) {
+    static int_fast64_t _2long(const E* const data) {
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
         }
-        SUMOLong sgn = 1;
+        int_fast64_t sgn = 1;
         unsigned i = 0;
         if (data[0] == '+') {
             i++;
@@ -152,7 +153,7 @@ public:
             i++;
             sgn = -1;
         }
-        SUMOLong ret = 0;
+        int_fast64_t ret = 0;
         for (; data[i] != 0; i++) {
             ret *= 10;
             // !!! need to catch overflows
@@ -174,11 +175,11 @@ public:
         throws a NumberFormatException - exception when the string does
             not contain a long */
     template<class E>
-    static SUMOLong _hex2long(const E* const data) {
+    static int_fast64_t _hex2long(const E* const data) {
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
         }
-        SUMOLong sgn = 1;
+        int_fast64_t sgn = 1;
         unsigned i = 0;
         if (data[0] == '+') {
             i++;
@@ -193,7 +194,7 @@ public:
         if (data[i] == '0' && (data[i + 1] == 'x' || data[i + 1] == 'X')) {
             i += 2;
         }
-        SUMOLong ret = 0;
+        int_fast64_t ret = 0;
         for (; data[i] != 0; i++) {
             ret *= 16;
             // !!! need to catch overflows
@@ -233,10 +234,10 @@ public:
             i++;
             sgn = -1;
         }
-        // we try to parse it as a SUMOLong storing the decimal point pos
+        // we try to parse it as a int_fast64_t storing the decimal point pos
         int pointPos = -1;
-        int digits = std::numeric_limits<SUMOLong>::digits10;
-        SUMOLong ret = 0;
+        int digits = std::numeric_limits<int_fast64_t>::digits10;
+        int_fast64_t ret = 0;
         for (; data[i] != 0 && data[i] != 'e' && data[i] != 'E'; i++) {
             char akt = (char) data[i];
             if (akt < '0' || akt > '9') {
@@ -247,7 +248,7 @@ public:
                 throw NumberFormatException();
             }
             digits--;
-            if (digits >= 0) { // we skip the digits which don't fit into SUMOLong
+            if (digits >= 0) { // we skip the digits which don't fit into int_fast64_t
                 ret = ret * 10 + akt - 48;
             }
         }
@@ -321,7 +322,7 @@ public:
             described by it
         returns the default value if the data is empty */
     template<class E>
-    static SUMOLong _2longSec(const E* const data, long def) {
+    static int_fast64_t _2longSec(const E* const data, long def) {
         if (data == 0 || data[0] == 0) {
             return def;
         }

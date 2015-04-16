@@ -160,7 +160,7 @@ MSSimpleTrafficLightLogic::getOffsetFromIndex(unsigned int index) const {
     if (index == 0) {
         return 0;
     }
-    unsigned int pos = 0;
+    SUMOTime pos = 0;
     for (unsigned int i = 0; i < index; i++) {
         pos += getPhase(i).duration;
     }

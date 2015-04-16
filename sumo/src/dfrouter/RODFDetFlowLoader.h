@@ -59,7 +59,7 @@ public:
      */
     RODFDetFlowLoader(const RODFDetectorCon& dets, RODFDetectorFlows& into,
                       SUMOTime startTime, SUMOTime endTime,
-                      SUMOTime timeOffset, int timeScale);
+                      SUMOTime timeOffset, SUMOTime timeScale);
 
 
     /// @brief Destructor

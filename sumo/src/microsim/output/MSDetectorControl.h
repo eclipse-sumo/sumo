@@ -102,7 +102,7 @@ public:
      * @param[in] splInterval The sample interval of the detector
      * @exception ProcessError If the detector is already known
      */
-    void add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, int splInterval, SUMOTime begin = -1);
+    void add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, SUMOTime splInterval, SUMOTime begin = -1);
 
 
 

@@ -76,7 +76,7 @@ MSDetectorControl::close(SUMOTime step) {
 
 
 void
-MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, int splInterval, SUMOTime begin) {
+MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, SUMOTime splInterval, SUMOTime begin) {
     if (!myDetectors[type].add(d->getID(), d)) {
         throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
     }

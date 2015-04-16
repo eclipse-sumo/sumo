@@ -64,7 +64,7 @@ public:
      * @param[in] device The output device to write the detector values into
      */
     Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants& tlls,
-                             MSDetectorFileOutput* dtf, unsigned int begin, OutputDevice& device);
+                             MSDetectorFileOutput* dtf, SUMOTime begin, OutputDevice& device);
 
 
     /// @brief Destructor

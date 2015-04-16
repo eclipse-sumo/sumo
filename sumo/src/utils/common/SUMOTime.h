@@ -33,6 +33,7 @@
 #endif
 
 #include <climits>
+#include <cstdint>
 #include <string>
 #include "UtilExceptions.h"
 
@@ -40,10 +41,10 @@
 // ===========================================================================
 // type definitions
 // ===========================================================================
-typedef int SUMOTime;
-#define SUMOTime_MAX INT_MAX
-#define SUMOTime_MIN INT_MIN
-#define SUMOTIME_MAXSTRING "2147483" // INT_MAX / 1000
+typedef int_fast64_t SUMOTime;
+#define SUMOTime_MAX std::numeric_limits<SUMOTime>::max()
+#define SUMOTime_MIN std::numeric_limits<SUMOTime>::min()
+#define SUMOTIME_MAXSTRING "9223372036854775" // SUMOTime_MAX / 1000
 
 #ifndef HAVE_SUBSECOND_TIMESTEPS
 // the step length in s

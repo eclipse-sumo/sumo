@@ -33,6 +33,7 @@
 #include <config.h>
 #endif
 
+#include <cstdint>
 #include <sstream>
 #include <string>
 #include <iomanip>
@@ -192,6 +193,12 @@ inline std::string toString(const std::set<V*>& v, std::streamsize accuracy = OU
 
 template <>
 inline std::string toString(const std::vector<int>& v, std::streamsize accuracy) {
+    return joinToString(v, " ", accuracy);
+}
+
+
+template <>
+inline std::string toString(const std::vector<int_fast64_t>& v, std::streamsize accuracy) {
     return joinToString(v, " ", accuracy);
 }
 

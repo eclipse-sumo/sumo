@@ -87,7 +87,7 @@ SUMOSAXAttributesImpl_Xerces::getInt(int id) const {
 }
 
 
-SUMOLong
+int_fast64_t
 SUMOSAXAttributesImpl_Xerces::getLong(int id) const {
     return TplConvert::_2long(getAttributeValueSecure(id));
 }

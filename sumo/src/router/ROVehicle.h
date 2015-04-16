@@ -110,7 +110,7 @@ public:
      * @return The vehicle's depart time
      */
     SUMOTime getDepartureTime() const {
-        return MAX2(0, myParameter.depart);
+        return MAX2(SUMOTime(0), myParameter.depart);
     }
 
     /** @brief Returns the time the vehicle starts at, -1 for triggered vehicles

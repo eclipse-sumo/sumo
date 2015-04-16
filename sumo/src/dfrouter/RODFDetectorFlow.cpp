@@ -69,8 +69,9 @@ RODFDetectorFlows::addFlow(const std::string& id, SUMOTime t, const FlowDef& fd)
             (*i).firstSet = true;
         }
     }
-    assert((t - myBeginTime) / myStepOffset < (int) myFastAccessFlows[id].size());
-    FlowDef& ofd = myFastAccessFlows[id][(t - myBeginTime) / myStepOffset];
+    const int index = (int)((t - myBeginTime) / myStepOffset);
+    assert(index < (int) myFastAccessFlows[id].size());
+    FlowDef& ofd = myFastAccessFlows[id][index];
     if (ofd.firstSet) {
         ofd = fd;
         ofd.firstSet = false;

@@ -71,7 +71,7 @@ inline const L* getSidewalk(const E* edge) {
 template<class E, class N>
 struct PedestrianTrip {
 
-    PedestrianTrip(const E* _from, const E* _to, SUMOReal _departPos, SUMOReal _arrivalPos, SUMOReal _speed, SUMOReal _departTime, const N* _node) :
+    PedestrianTrip(const E* _from, const E* _to, SUMOReal _departPos, SUMOReal _arrivalPos, SUMOReal _speed, SUMOTime _departTime, const N* _node) :
         from(_from),
         to(_to),
         node(_node),
@@ -83,7 +83,7 @@ struct PedestrianTrip {
 
     // exists just for debugging purposes
     std::string getID() const {
-        return from->getID() + ":" + to->getID() + ":" + toString(departTime);
+        return from->getID() + ":" + to->getID() + ":" + time2string(departTime);
     }
 
 
@@ -97,7 +97,7 @@ struct PedestrianTrip {
     const SUMOReal departPos;
     const SUMOReal arrivalPos;
     const SUMOReal speed;
-    const SUMOReal departTime;
+    const SUMOTime departTime;
 private:
     /// @brief Invalidated assignment operator.
     PedestrianTrip& operator=(const PedestrianTrip&);
@@ -392,7 +392,7 @@ public:
         // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
         if (edge->myEdge->isCrossing() && edge->myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
             // red traffic lights occurring later in the route may be green by the time we arive
-            tlsDelay += MAX2(SUMOReal(0), TL_RED_PENALTY - (time - trip->departTime));
+            tlsDelay += MAX2(SUMOReal(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
 
         }
 #ifdef PedestrianRouter_DEBUG_EFFORTS

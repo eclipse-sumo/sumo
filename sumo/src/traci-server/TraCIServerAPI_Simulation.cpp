@@ -86,7 +86,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
     switch (variable) {
         case VAR_TIME_STEP:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(MSNet::getInstance()->getCurrentTimeStep());
+            tempMsg.writeInt((int)MSNet::getInstance()->getCurrentTimeStep());
             break;
         case VAR_LOADED_VEHICLES_NUMBER:
             writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_BUILT);
@@ -147,7 +147,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         case VAR_DELTA_T:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(DELTA_T);
+            tempMsg.writeInt((int)DELTA_T);
             break;
         case VAR_NET_BOUNDING_BOX: {
             tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);

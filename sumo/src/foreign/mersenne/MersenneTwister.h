@@ -67,6 +67,7 @@
 
 #include <iostream>
 #include <limits.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
@@ -106,6 +107,8 @@ public:
 	double randDblExc( const double& n );   // real number in (0,n)
 	uint32 randInt();                       // integer in [0,2^32-1]
 	uint32 randInt( const uint32& n );      // integer in [0,n] for n < 2^32
+
+    uint_fast64_t randInt64( const uint_fast64_t& n );      // integer in [0,n] for n < 2^64
 	double operator()() { return rand(); }  // same as rand()
 	
 	// Access to 53-bit random numbers (capacity of IEEE double precision)
@@ -213,6 +216,30 @@ inline MTRand::uint32 MTRand::randInt( const uint32& n )
 	uint32 i;
 	do
 		i = randInt() & used;  // toss unused bits to shorten search
+	while( i > n );
+	return i;
+}
+
+
+inline uint_fast64_t MTRand::randInt64( const uint_fast64_t& n )
+{
+    if (n <= INT_MAX) {
+        return randInt((uint32)n);
+    }
+	// Find which bits are used in n
+	// Optimized by Magnus Jonsson (magnus@smartelectronix.com)
+	uint_fast64_t used = n;
+	used |= used >> 1;
+	used |= used >> 2;
+	used |= used >> 4;
+	used |= used >> 8;
+	used |= used >> 16;
+	used |= used >> 32;
+	
+	// Draw numbers until one is found in [0,n]
+	uint_fast64_t i;
+	do
+		i = (((uint_fast64_t)randInt() << 32) | randInt()) & used;  // toss unused bits to shorten search
 	while( i > n );
 	return i;
 }

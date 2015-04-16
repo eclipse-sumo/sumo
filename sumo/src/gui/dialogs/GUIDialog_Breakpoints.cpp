@@ -143,7 +143,7 @@ GUIDialog_Breakpoints::rebuildList() {
     }
     // insert into table
     FXint row = 0;
-    std::vector<int>::iterator j;
+    std::vector<SUMOTime>::iterator j;
     for (j = myBreakpoints->begin(); j != myBreakpoints->end(); ++j) {
         myTable->setItemText(row, 0, time2string(*j).c_str());
         row++;
@@ -200,7 +200,7 @@ GUIDialog_Breakpoints::encode2TXT() {
     myBreakpointLock->lock();
     std::ostringstream strm;
     std::sort(myBreakpoints->begin(), myBreakpoints->end());
-    for (std::vector<int>::iterator j = myBreakpoints->begin(); j != myBreakpoints->end(); ++j) {
+    for (std::vector<SUMOTime>::iterator j = myBreakpoints->begin(); j != myBreakpoints->end(); ++j) {
         if ((*j) != INVALID_VALUE) {
             strm << time2string(*j) << std::endl;
         }

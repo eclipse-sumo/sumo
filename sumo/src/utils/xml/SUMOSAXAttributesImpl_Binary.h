@@ -133,7 +133,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    SUMOLong getLong(int id) const;
+    int_fast64_t getLong(int id) const;
 
 
     /**

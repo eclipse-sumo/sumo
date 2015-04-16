@@ -56,7 +56,7 @@ public:
      * @param[in] link The link that shall be observed
      */
     Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants& tlls,
-                                 MSDetectorFileOutput* dtf, unsigned int begin, OutputDevice& device,
+                                 MSDetectorFileOutput* dtf, SUMOTime begin, OutputDevice& device,
                                  MSLink* link);
 
 

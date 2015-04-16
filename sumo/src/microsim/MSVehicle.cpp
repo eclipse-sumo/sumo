@@ -1097,7 +1097,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime();
         if (yellowOrRed && seen >= brakeDist) {
             // the vehicle is able to brake in front of a yellow/red traffic light
-            lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, SUMOTime_MAX, seen));
+            lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, 0, seen));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
             break;
         }
@@ -2429,11 +2429,11 @@ MSVehicle::setTentativeLaneAndPosition(MSLane* lane, const SUMOReal pos) {
 
 #ifndef NO_TRACI
 bool
-MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTime duration,
-                        bool parking, bool triggered, bool containerTriggered, std::string& errorMsg) {
+MSVehicle::addTraciStop(MSLane* const lane, const SUMOReal startPos, const SUMOReal endPos, const SUMOTime duration,
+                        const bool parking, const bool triggered, const bool containerTriggered, std::string& errorMsg) {
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
-        if (iter->lane == lane && fabs(iter->endPos - pos) < POSITION_EPS) {
+        if (iter->lane == lane && fabs(iter->endPos - endPos) < POSITION_EPS) {
             if (duration == 0 && !iter->reached) {
                 myStops.erase(iter);
             } else {
@@ -2445,10 +2445,40 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTim
 
     SUMOVehicleParameter::Stop newStop;
     newStop.lane = lane->getID();
-    newStop.busstop = MSNet::getInstance()->getBusStopID(lane, pos);
-    newStop.containerstop = MSNet::getInstance()->getContainerStopID(lane, pos);
-    newStop.startPos = pos - POSITION_EPS;
-    newStop.endPos = pos;
+    newStop.startPos = startPos;
+    newStop.endPos = endPos;
+    newStop.duration = duration;
+    newStop.until = -1;
+    newStop.triggered = triggered;
+    newStop.containerTriggered = containerTriggered;
+    newStop.parking = parking;
+    newStop.index = STOP_INDEX_FIT;
+    const bool result = addStop(newStop, errorMsg);
+    if (myLane != 0) {
+        updateBestLanes(true);
+    }
+    return result;
+}
+
+
+bool
+MSVehicle::addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime duration, const bool parking,
+                                      const bool triggered, const bool containerTriggered, std::string& errorMsg) {
+    //if the stop exists update the duration
+    for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
+        if ((iter->busstop != 0 && iter->busstop->getID() == stopId) ||
+            (iter->containerstop != 0 && iter->containerstop->getID() == stopId)) {
+            if (duration == 0 && !iter->reached) {
+                myStops.erase(iter);
+            } else {
+                iter->duration = duration;
+            }
+            return true;
+        }
+    }
+
+    SUMOVehicleParameter::Stop newStop;
+//    newStop.stopId = stopId;
     newStop.duration = duration;
     newStop.until = -1;
     newStop.triggered = triggered;
@@ -2542,9 +2572,9 @@ void
 MSVehicle::saveState(OutputDevice& out) {
     MSBaseVehicle::saveState(out);
     // here starts the vehicle internal part (see loading)
-    std::vector<int> internals;
+    std::vector<SUMOTime> internals;
     internals.push_back(myDeparture);
-    internals.push_back((int)distance(myRoute->begin(), myCurrEdge));
+    internals.push_back((SUMOTime)distance(myRoute->begin(), myCurrEdge));
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
     out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);

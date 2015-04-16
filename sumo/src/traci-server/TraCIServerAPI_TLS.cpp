@@ -122,13 +122,13 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                     for (unsigned int j = 0; j < phaseNo; ++j) {
                         MSPhaseDefinition phase = logic->getPhase(j);
                         tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt(phase.duration);
+                        tempContent.writeInt((int)phase.duration);
                         ++cnt;
                         tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt(phase.minDuration);
+                        tempContent.writeInt((int)phase.minDuration);
                         ++cnt; // not implemented
                         tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt(phase.maxDuration);
+                        tempContent.writeInt((int)phase.maxDuration);
                         ++cnt; // not implemented
                         const std::string& state = phase.getState();
                         //unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
@@ -316,7 +316,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             if (index < 0 || vars.getActive()->getPhaseNumber() <= (unsigned int)index) {
                 return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase index is not in the allowed range.", outputStorage);
             }
-            int duration = vars.getActive()->getPhase(index).duration;
+            const SUMOTime duration = vars.getActive()->getPhase(index).duration;
             vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
         }
         break;

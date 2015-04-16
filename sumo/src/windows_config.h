@@ -52,9 +52,6 @@
 /* defines the precision of floats */
 #define SUMOReal double
 
-/* defines a long */
-#define SUMOLong long long
-
 /* defines the epsilon to use on position comparison */
 #define POSITION_EPS (SUMOReal)0.1
 

@@ -180,7 +180,7 @@ public:
      * @todo min/max: maybe only one type of a phase definition should be built
      */
     void addPhase(SUMOTime duration, const std::string& state,
-                  int min, int max);
+                  SUMOTime min, SUMOTime max);
 
 
     /** @brief Returns a previously build tls logic

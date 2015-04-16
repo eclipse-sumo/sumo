@@ -49,7 +49,7 @@
 // method definitions
 // ===========================================================================
 Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants& tlls,
-        MSDetectorFileOutput* dtf, unsigned int begin, OutputDevice& device, MSLink* link)
+        MSDetectorFileOutput* dtf, SUMOTime begin, OutputDevice& device, MSLink* link)
     : Command_SaveTLCoupledDet(tlls, dtf, begin, device),
       myLink(link), myLastState(LINKSTATE_TL_RED),
       myHadOne(false) {
