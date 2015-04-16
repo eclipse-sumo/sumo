@@ -1,0 +1,15 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t1" sigma="0"/>
+    <vehicle id="goingNorth" depart="0" type="t1">
+        <route edges="1/1to1/2"/>
+    </vehicle>
+    <vehicle id="goingEast" depart="0" type="t1">
+        <route edges="1/1to2/1"/>
+    </vehicle>
+    <vehicle id="goingSouth" depart="0" type="t1">
+        <route edges="1/1to1/0"/>
+    </vehicle>
+    <vehicle id="goingWest" depart="0" type="t1">
+        <route edges="1/1to0/1"/>
+    </vehicle>
+</routes>
