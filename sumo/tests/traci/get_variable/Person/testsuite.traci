@@ -24,6 +24,7 @@ VAR_TYPE_subseconds
 VAR_LANEPOSITION
 VAR_LANEPOSITION_subseconds
 VAR_WAITINGTIME
+VAR_NEXT_EDGE
 
 # Testing error cases
 errors

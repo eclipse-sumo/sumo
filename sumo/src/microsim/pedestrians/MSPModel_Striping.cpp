@@ -1168,6 +1168,13 @@ MSPModel_Striping::PState::getSpeed(const MSPerson::MSPersonStage_Walking&) cons
     return mySpeed;
 }
 
+
+const MSEdge* 
+MSPModel_Striping::PState::getNextEdge(const MSPerson::MSPersonStage_Walking&) const {
+    return myNLI.lane == 0 ? 0 : &myNLI.lane->getEdge();
+}
+
+
 // ===========================================================================
 // MSPModel_Striping::MovePedestrians method definitions
 // ===========================================================================

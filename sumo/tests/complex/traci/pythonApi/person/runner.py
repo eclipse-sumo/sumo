@@ -76,4 +76,11 @@ print "getIDList", traci.person.getIDList()
 for i in range(6):
     print "step", step()
     print traci.person.getSubscriptionResults(personID)
+
+for i in range(200):
+    step()
+# person should be on a walkingArea in front of a crossing now
+print traci.person.getRoadID(personID)
+print traci.person.getLanePosition(personID)
+print traci.person.getNextEdge(personID)
 traci.close()

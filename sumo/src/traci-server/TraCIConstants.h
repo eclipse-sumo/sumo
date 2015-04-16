@@ -383,6 +383,16 @@
 // vehicle finished route during teleport
 #define REMOVE_TELEPORT_ARRIVED 0x04
 
+// ****************************************
+// PERSON/CONTAINER STAGES
+// ****************************************
+// person walking / container transhiping
+#define STAGE_WALKING 0x00
+// person riding / container being transported
+#define STAGE_DRIVING 0x01
+// person / container stopping
+#define STAGE_WAITING 0x02
+
 
 // ****************************************
 // VARIABLE TYPES (for CMD_GET_*_VARIABLE)
@@ -748,6 +758,11 @@
 // validates current route (vehicles)
 #define VAR_ROUTE_VALID 0x92
 
+// retrieve information regarding the current person/container stage
+#define VAR_STAGE 0xc0
+
+// retrieve information regarding the next edge including crossings and walkingAreas (pedestrians only)
+#define VAR_NEXT_EDGE 0xc1
 
 // zoom
 #define VAR_VIEW_ZOOM 0xa0

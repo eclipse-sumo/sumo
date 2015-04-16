@@ -172,4 +172,10 @@ MSPModel_NonInteracting::PState::getSpeed(const MSPerson::MSPersonStage_Walking&
     return stage.getMaxSpeed();
 }
 
+
+const MSEdge* 
+MSPModel_NonInteracting::PState::getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const {
+    return stage.getNextRouteEdge();
+}
+
 /****************************************************************************/

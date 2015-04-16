@@ -60,6 +60,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
             && variable != VAR_WIDTH && variable != VAR_LENGTH && variable != VAR_MINGAP
             && variable != VAR_TYPE && variable != VAR_SHAPECLASS && variable != VAR_COLOR
             && variable != VAR_WAITING_TIME && variable != VAR_PARAMETER
+            && variable != VAR_NEXT_EDGE
        ) {
         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable specified", outputStorage);
     }
@@ -130,6 +131,10 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
             case VAR_TYPE:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
                 tempMsg.writeString(p->getVehicleType().getID());
+                break;
+            case VAR_NEXT_EDGE:
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(p->getNextEdge());
                 break;
             case VAR_PARAMETER: {
                 std::string paramName = "";

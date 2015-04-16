@@ -36,6 +36,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -638,5 +639,18 @@ MSPerson::getSpeed() const {
     return (*myStep)->getSpeed();
 }
 
+
+const std::string&
+MSPerson::getNextEdge() const {
+    if (getCurrentStageType() == WALKING) {
+        MSPersonStage_Walking* walkingStage =  dynamic_cast<MSPersonStage_Walking*>(*myStep);
+        assert(walkingStage != 0);
+        const MSEdge* nextEdge = walkingStage->getPedestrianState()->getNextEdge(*walkingStage);
+        if (nextEdge != 0) {
+            return nextEdge->getID();
+        }
+    }
+    return StringUtils::emptyString;
+}
 /****************************************************************************/
 

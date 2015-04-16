@@ -111,6 +111,9 @@ public:
 
     /// @brief return the current speed of the person
     virtual SUMOReal getSpeed(const MSPerson::MSPersonStage_Walking& stage) const = 0;
+
+    /// @brief return the list of internal edges if the pedestrian is on an intersection
+    virtual const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const = 0;
 };
 
 

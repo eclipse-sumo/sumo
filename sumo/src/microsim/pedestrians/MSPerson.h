@@ -611,6 +611,8 @@ public:
         return *myVType;
     }
 
+    /// @brief return the list of internal edges if this person is walking and the pedestrian model allows it
+    const std::string& getNextEdge() const; 
 
 protected:
     /// the plan of the person
