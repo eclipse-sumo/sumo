@@ -255,3 +255,25 @@ step 32
 vehicles ['2', 'departInTheFuture', 'departInThePast', 'horiz']
 step 33
 vehicles ['2', 'departInTheFuture', 'departInThePast', 'departTriggered', 'horiz']
+step 34
+vehicle 'routeTest' routeID=horizontal
+step 35
+vehicle 'routeTest' routeID=withStop
+step 36
+vehicle 'routeTest' lane=2fi_0 lanePos=0.0 stopped=False
+step 37
+vehicle 'routeTest' lane=2fi_0 lanePos=2.46386594328 stopped=False
+step 38
+vehicle 'routeTest' lane=2fi_0 lanePos=6.60375909933 stopped=False
+step 39
+vehicle 'routeTest' lane=2fi_0 lanePos=12.809248253 stopped=False
+step 40
+vehicle 'routeTest' lane=2fi_0 lanePos=20.5994359856 stopped=False
+step 41
+vehicle 'routeTest' lane=2fi_0 lanePos=26.4026205762 stopped=False
+step 42
+vehicle 'routeTest' lane=2fi_0 lanePos=28.7273224488 stopped=False
+step 43
+vehicle 'routeTest' lane=2fi_0 lanePos=29.7250437202 stopped=True
+step 44
+vehicle 'routeTest' lane=2fi_0 lanePos=29.7250437202 stopped=True

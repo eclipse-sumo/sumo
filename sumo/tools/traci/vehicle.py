@@ -107,6 +107,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.VAR_BEST_LANES:      _readBestLanes,
                       tc.VAR_LEADER:          _readLeader,
                       tc.DISTANCE_REQUEST:    traci.Storage.readDouble,
+                      tc.VAR_STOPSTATE: lambda result: result.read("!B")[0],
                       tc.VAR_DISTANCE:        traci.Storage.readDouble}
 
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
@@ -513,6 +514,33 @@ def getDistance(vehID):
     Returns the distance to the starting point like an odometer
     """
     return _getUniversal(tc.VAR_DISTANCE, vehID)
+
+def getStopState(vehID):
+    """getStopState(string) -> integer
+
+    Returns information in regard to stopping:
+    The returned integer is defined as 1 * stopped + 2 * parking + 4 * triggered 
+    with each of these flags defined as 0 or 1
+    """
+    return _getUniversal(tc.VAR_STOPSTATE, vehID)
+
+def isStopped(vehID):
+    """isStopped(string) -> bool
+    Return whether the vehicle is stopped
+    """
+    return (getStopState(vehID) & 1) == 1
+
+def isStoppedParking(vehID):
+    """isStoppedParking(string) -> bool
+    Return whether the vehicle is parking (implies stopped)
+    """
+    return (getStopState(vehID) & 2) == 2
+
+def isStoppedTriggered(vehID):
+    """isStoppedParking(string) -> bool
+    Return whether the vehicle is stopped and waiting for a person or container
+    """
+    return (getStopState(vehID) & 4) == 4
 
 
 def subscribe(vehID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):

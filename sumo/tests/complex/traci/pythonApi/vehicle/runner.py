@@ -31,8 +31,10 @@ import sumolib
 sumoBinary = sumolib.checkBinary('sumo')
 
 PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen(
-    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+sumoProcess = subprocess.Popen([sumoBinary,
+    '-c', 'sumo.sumocfg',
+    '--additional-files', 'input_additional.add.xml',
+    '--remote-port', str(PORT)], stdout=sys.stdout)
 traci.init(PORT)
 
 
@@ -170,4 +172,18 @@ for i in range(9):
 traci.vehicle.add("departTriggered", "horizontal", depart=traci.vehicle.DEPART_TRIGGERED)
 print "step", step()
 print "vehicles", traci.vehicle.getIDList()
+# test for setting a route with busstops
+routeTestVeh = "routeTest"
+traci.vehicle.add(routeTestVeh, "horizontal")
+print "step", step()
+print "vehicle '%s' routeID=%s" % (routeTestVeh, traci.vehicle.getRouteID(routeTestVeh))
+traci.vehicle.setRouteID(routeTestVeh, "withStop")
+print "step", step()
+print "vehicle '%s' routeID=%s" % (routeTestVeh, traci.vehicle.getRouteID(routeTestVeh))
+for i in range(9):
+    print "step", step()
+    print "vehicle '%s' lane=%s lanePos=%s stopped=%s" % (routeTestVeh,
+            traci.vehicle.getLaneID(routeTestVeh),
+            traci.vehicle.getLanePosition(routeTestVeh),
+            traci.vehicle.isStopped(routeTestVeh))
 traci.close()
