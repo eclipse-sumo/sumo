@@ -11,6 +11,7 @@ AM_INIT_AUTOMAKE([gnu dist-zip tar-ustar])
 
 AC_LANG([C++])
 
+CXXFLAGS="-std=c++0x $CXXFLAGS"
 dnl the debug check has to be made before the program checks
 dnl because it modifies CXXFLAGS
 if test x$CXX = xclang++; then

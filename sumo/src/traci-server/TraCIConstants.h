@@ -764,6 +764,9 @@
 // retrieve information regarding the next edge including crossings and walkingAreas (pedestrians only)
 #define VAR_NEXT_EDGE 0xc1
 
+// retrieve the number of stages (person, container)
+#define VAR_NUM_STAGES 0xc2
+
 // zoom
 #define VAR_VIEW_ZOOM 0xa0
 
