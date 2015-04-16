@@ -35,8 +35,8 @@
     <vType id="DEFAULT_VEHTYPE">
         <carFollowing-Krauss sigma="0.00"/>
     </vType>
-    <vehicle id="v0" depart="0.00" route="r0" type="DEFAULT_VEHTYPE" state="0 1 0 0 14199 7000 2147483647"/>
-    <vehicle id="v1" depart="0.00" route="r0" type="DEFAULT_VEHTYPE" state="7000 0 0 0 14000 7000 2147483647"/>
+    <vehicle id="v0" depart="0.00" route="r0" type="DEFAULT_VEHTYPE" state="0 1 0 0 14199 7000 9223372036854775807"/>
+    <vehicle id="v1" depart="0.00" route="r0" type="DEFAULT_VEHTYPE" state="7000 0 0 0 14000 7000 9223372036854775807"/>
     <segment>
         <vehicles time="8400" value="v1"/>
     </segment>
