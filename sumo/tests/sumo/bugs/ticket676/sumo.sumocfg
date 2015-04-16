@@ -12,10 +12,6 @@
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
-    <processing>
-        <routing-algorithm value="astar"/>
-    </processing>
-
     <report>
         <no-step-log value="true"/>
     </report>
@@ -24,6 +20,7 @@
         <device.rerouting.probability value="1"/>
         <device.rerouting.period value="240"/>
         <device.rerouting.adaptation-interval value="1"/>
+        <routing-algorithm value="astar"/>
     </routing>
 
 </configuration>
