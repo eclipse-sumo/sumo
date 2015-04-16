@@ -63,7 +63,8 @@
 // method definitions
 // ===========================================================================
 NBNetBuilder::NBNetBuilder() :
-    myEdgeCont(myTypeCont)
+    myEdgeCont(myTypeCont),
+    myHaveLoadedNetworkWithoutInternalEdges(false)
 {}
 
 
@@ -271,7 +272,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         }
         WRITE_MESSAGE("Guessed " + toString(crossings) + " pedestrian crossings.");
     }
-    if (!oc.getBool("no-internal-links") && !buildCrossingsAndWalkingAreas) {
+    if (!buildCrossingsAndWalkingAreas) {
         // recheck whether we had crossings in the input
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             if (i->second->getCrossings().size() > 0) {
@@ -280,6 +281,10 @@ NBNetBuilder::compute(OptionsCont& oc,
             }
         }
     }
+    if (oc.isDefault("no-internal-links") && !buildCrossingsAndWalkingAreas && myHaveLoadedNetworkWithoutInternalEdges) {
+        oc.set("no-internal-links", "true");
+    }
+    
     //
     PROGRESS_BEGIN_MESSAGE("Computing priorities");
     NBEdgePriorityComputer::computeEdgePriorities(myNodeCont);

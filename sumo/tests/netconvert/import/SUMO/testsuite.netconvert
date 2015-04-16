@@ -28,6 +28,9 @@ no_internal_lanes
 # load network without internal lanes and set option to output a network with internal lanes
 no_internal_lanes_modify
 
+# loading an network without internal lanes and adding crossings should enable internal lanes
+no_internal_lanes_add_crossings
+
 # when importing networks with roundabouts, the ouput network should have the same roundabouts
 # see ticket775
 roundabouts
@@ -42,10 +45,6 @@ add_split
 # importing a complex network with deprecated vclasses
 adlershof_dlr_deprecated_vclass
 joined_traffic_lights_with_controlledInner
-joined_traffic_light_with_internal_junctions
 
 # import network with a rail signal
 rail_signal
-
-# add another tls program to an existing tls definition
-add_tls_prgram

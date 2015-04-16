@@ -231,8 +231,8 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 NBConnection(prohibitedFrom, myEdges[it->prohibitedTo]->builtEdge));
         }
     }
-    if (!myHaveSeenInternalEdge && oc.isDefault("no-internal-links")) {
-        oc.set("no-internal-links", "true");
+    if (!myHaveSeenInternalEdge) {
+        myNetBuilder.haveLoadedNetworkWithoutInternalEdges();
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
