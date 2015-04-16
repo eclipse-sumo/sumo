@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Wed 09 Nov 2011 09:00:46 AM CET by Netedit Version dev-SVN-r11482
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/home/erdm_ja/debug/presentation/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<tlLogics version="0.13">
+
+    <connection from="gneE1" to="gneE3" fromLane="0" toLane="0" tl="gneJ3" linkIndex="2"/>
+    <connection from="gneE1" to="gneE5" fromLane="0" toLane="0" tl="gneJ3" linkIndex="5"/>
+    <connection from="gneE4" to="gneE5" fromLane="0" toLane="0" tl="gneJ3" linkIndex="2"/>
+    <connection from="gneE4" to="gneE2" fromLane="0" toLane="0" tl="gneJ3" linkIndex="2"/>
+    <connection from="gneE6" to="gneE2" fromLane="0" toLane="0" tl="gneJ3" linkIndex="0"/>
+    <connection from="gneE6" to="gneE3" fromLane="0" toLane="0" tl="gneJ3" linkIndex="0"/>
+</tlLogics>

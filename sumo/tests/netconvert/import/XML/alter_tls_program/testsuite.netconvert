@@ -9,3 +9,6 @@ offset_only
 
 # only change the type of the traffic light
 type_only
+
+# only modify the link indices for selected links
+linkIndex_only
