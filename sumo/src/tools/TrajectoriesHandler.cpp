@@ -71,7 +71,7 @@ TrajectoriesHandler::myStartElement(int element,
             break;
         case SUMO_TAG_VEHICLE:
             if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-                writeEmissions(std::cout, attrs.getString(SUMO_ATTR_ID), myDefaultClass, myCurrentTime, attrs.getFloat(SUMO_ATTR_SPEED));
+                writeEmissions(std::cout, attrs.getString(SUMO_ATTR_ID), myDefaultClass, STEPS2TIME(myCurrentTime), attrs.getFloat(SUMO_ATTR_SPEED));
             } else {
                 const std::string acId = attrs.getString(SUMO_ATTR_ACTORCONFIG);
                 const std::string id = attrs.getString(SUMO_ATTR_ID);
@@ -106,7 +106,7 @@ TrajectoriesHandler::myStartElement(int element,
                 writeXMLEmissions(id, c, time, v, a, s);
             }
             if (myStdOut != 0) {
-                writeEmissions(*myStdOut, id, c, time, v, a, s);
+                writeEmissions(*myStdOut, id, c, STEPS2TIME(time), v, a, s);
             }
             break;
         }
