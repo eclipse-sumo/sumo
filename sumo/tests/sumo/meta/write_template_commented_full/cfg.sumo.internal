@@ -39,7 +39,7 @@
         <!-- Loads a network state from FILE -->
         <load-state value="" type="FILE"/>
 
-        <!-- Sets the time offset for vehicle segment exit times -->
+        <!-- Shifts all times loaded from a saved state by the given offset -->
         <load-state.offset value="0" type="TIME"/>
 
     </input>
@@ -116,12 +116,6 @@
 
         <!-- Save bt visibilities into FILE -->
         <bt-output value="" type="FILE"/>
-
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
 
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
@@ -213,8 +207,8 @@
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
-        <!-- Edge weights for routing are dynamically disturbed by a random factor between [1-FLOAT,1+FLOAT] -->
-        <weights.random-factor value="" type="FLOAT"/>
+        <!-- Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT) -->
+        <weights.random-factor value="1" type="FLOAT"/>
 
         <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
         <device.rerouting.probability value="0" type="FLOAT"/>
@@ -248,6 +242,9 @@
 
         <!-- The number of parallel execution threads used for rerouting -->
         <device.rerouting.threads value="0" type="INT"/>
+
+        <!-- Save adapting weights to FILE -->
+        <device.rerouting.output value="" type="FILE"/>
 
     </routing>
 
@@ -347,9 +344,6 @@
     <traci_server>
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
-
-        <!-- Runs TraCI script with embedded python -->
-        <python-script value="" type="STR"/>
 
     </traci_server>
 

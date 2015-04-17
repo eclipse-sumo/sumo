@@ -207,8 +207,8 @@
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
-        <!-- Edge weights for routing are dynamically disturbed by a random factor between [1,FLOAT] -->
-        <weights.random-factor value="" type="FLOAT"/>
+        <!-- Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT) -->
+        <weights.random-factor value="1" type="FLOAT"/>
 
         <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
         <device.rerouting.probability value="0" type="FLOAT"/>

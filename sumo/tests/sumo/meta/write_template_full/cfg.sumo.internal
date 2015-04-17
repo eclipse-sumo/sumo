@@ -17,7 +17,7 @@
         <weight-files value="" synonymes="w weights" type="FILE" help="Load edge/lane weights for online rerouting from FILE"/>
         <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
         <load-state value="" type="FILE" help="Loads a network state from FILE"/>
-        <load-state.offset value="0" type="TIME" help="Sets the time offset for vehicle segment exit times"/>
+        <load-state.offset value="0" type="TIME" help="Shifts all times loaded from a saved state by the given offset"/>
     </input>
 
     <output>
@@ -45,8 +45,6 @@
         <vehroute-output.write-unfinished value="false" type="BOOL" help="Write vehroute output for vehicles which have not arrived at simulation end"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <bt-output value="" type="FILE" help="Save bt visibilities into FILE"/>
-        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
-        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
         <save-state.files value="" type="FILE" help="Files for network states"/>
@@ -83,7 +81,7 @@
 
     <routing>
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
-        <weights.random-factor value="" type="FLOAT" help="Edge weights for routing are dynamically disturbed by a random factor between [1-FLOAT,1+FLOAT]"/>
+        <weights.random-factor value="1" type="FLOAT" help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)"/>
         <device.rerouting.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;rerouting&apos; device"/>
         <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR" help="Assign a &apos;rerouting&apos; device to named vehicles"/>
         <device.rerouting.deterministic value="false" type="BOOL" help="The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000"/>
@@ -95,6 +93,7 @@
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use given weight files for initializing edge weights"/>
         <device.rerouting.shortest-path-file value="" type="FILE" help="Initialize lookup table for astar from the given distance matrix"/>
         <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
+        <device.rerouting.output value="" type="FILE" help="Save adapting weights to FILE"/>
     </routing>
 
     <report>
@@ -138,7 +137,6 @@
 
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
-        <python-script value="" type="STR" help="Runs TraCI script with embedded python"/>
     </traci_server>
 
     <mesoscopic>

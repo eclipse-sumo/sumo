@@ -1,5 +1,5 @@
-SUMO Version dev-SVN-r18054ID
- Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
+SUMO Version dev-SVN-r18224
+ Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
 Usage: sumo [OPTION]*
@@ -21,8 +21,8 @@ Input Options:
   -x, --weight-attribute STR           Name of the xml attribute which gives
                                          the edge weight
   --load-state FILE                    Loads a network state from FILE
-  --load-state.offset TIME             Sets the time offset for vehicle segment
-                                         exit times
+  --load-state.offset TIME             Shifts all times loaded from a saved
+                                         state by the given offset
 
 Output Options:
   --output-prefix FILE                 Prefix which is applied to all output
@@ -66,10 +66,6 @@ Output Options:
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE
   --bt-output FILE                     Save bt visibilities into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                         vehicles into FILE
-  --movereminder-output.vehicles STR   List of vehicle ids which shall save
-                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.prefix FILE             Prefix for network states
@@ -136,8 +132,8 @@ Routing Options:
                                          ['dijkstra', 'astar', 'CH',
                                          'CHWrapper']
   --weights.random-factor FLOAT        Edge weights for routing are dynamically
-                                         disturbed by a random factor between
-                                         [1-FLOAT,1+FLOAT]
+                                         disturbed by a random factor drawn
+                                         uniformly from [1,FLOAT)
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
                                          'rerouting' device
   --device.rerouting.explicit STR      Assign a 'rerouting' device to named
@@ -158,6 +154,7 @@ Routing Options:
                                          from the given distance matrix
   --device.rerouting.threads INT       The number of parallel execution threads
                                          used for rerouting
+  --device.rerouting.output FILE       Save adapting weights to FILE
 
 Report Options:
   -v, --verbose                        Switches to verbose output
@@ -216,7 +213,6 @@ Example Device Options:
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
-  --python-script STR                  Runs TraCI script with embedded python
 
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation

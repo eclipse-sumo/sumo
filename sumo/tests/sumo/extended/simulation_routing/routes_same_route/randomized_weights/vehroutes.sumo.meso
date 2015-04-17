@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 04/17/15 13:15:31 by SUMO Version dev-SVN-r18224
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <routing>
+        <weights.random-factor value="1.1"/>
+        <device.rerouting.period value="0"/>
+        <device.rerouting.pre-period value="0"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="flow.0" type="t0" depart="0.00" arrival="40.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.1" type="t0" depart="2.00" arrival="42.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="2.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to2/0 2/0to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.2" type="t0" depart="4.00" arrival="44.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="4.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to2/0 2/0to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.3" type="t0" depart="6.00" arrival="46.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="6.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.4" type="t0" depart="8.00" arrival="48.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="8.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to2/0 2/0to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.5" type="t0" depart="10.00" arrival="50.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="10.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to2/0 2/0to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.6" type="t0" depart="12.00" arrival="52.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="12.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.7" type="t0" depart="14.00" arrival="54.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="14.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.8" type="t0" depart="16.00" arrival="56.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="16.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.9" type="t0" depart="18.00" arrival="58.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="18.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to2/0 2/0to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.10" type="t0" depart="20.00" arrival="60.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="20.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to2/0 2/0to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.11" type="t0" depart="22.00" arrival="62.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="22.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.12" type="t0" depart="24.00" arrival="64.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="24.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.13" type="t0" depart="26.00" arrival="66.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="26.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.14" type="t0" depart="28.00" arrival="68.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="28.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.15" type="t0" depart="30.00" arrival="70.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="30.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.16" type="t0" depart="32.00" arrival="72.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="32.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to2/0 2/0to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.17" type="t0" depart="34.00" arrival="74.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="34.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to2/0 2/0to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.18" type="t0" depart="36.00" arrival="76.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="36.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to2/0 2/0to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.19" type="t0" depart="38.00" arrival="78.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="38.00" probability="0" edges="0/0to1/0 2/1to3/1"/>
+            <route edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>
