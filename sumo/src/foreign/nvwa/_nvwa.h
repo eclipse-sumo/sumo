@@ -2,7 +2,7 @@
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004-2013 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2013 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -27,36 +27,28 @@
  */
 
 /**
- * @file  static_assert.h
+ * @file  _nvwa.h
  *
- * Template class to check validity duing compile time (adapted from Loki).
+ * Common definitions for preprocessing.
  *
- * @date  2013-09-07
+ * @date  2013-04-22
  */
 
-#ifndef STATIC_ASSERT
+#ifndef NVWA_NVWA_H
+#define NVWA_NVWA_H
 
-#include "c++11.h"
+#ifndef NVWA_USE_NAMESPACE
+#define NVWA_USE_NAMESPACE 1
+#endif // NVWA_USE_NAMESPACE
 
-#if HAVE_CXX11_STATIC_ASSERT
+#if NVWA_USE_NAMESPACE
+#define NVWA_NAMESPACE_BEGIN namespace nvwa {
+#define NVWA_NAMESPACE_END }
+#define NVWA nvwa
+#else  // NVWA_USE_NAMESPACE
+#define NVWA_NAMESPACE_BEGIN
+#define NVWA_NAMESPACE_END
+#define NVWA
+#endif // NVWA_USE_NAMESPACE
 
-#define STATIC_ASSERT(_Expr, _Msg) static_assert(_Expr, #_Msg)
-
-#else
-
-namespace nvwa {
-
-template <bool> struct compile_time_error;
-template <>     struct compile_time_error<true> {};
-
-#define STATIC_ASSERT(_Expr, _Msg) \
-    { \
-        nvwa::compile_time_error<((_Expr) != 0)> ERROR_##_Msg; \
-        (void)ERROR_##_Msg; \
-    }
-
-}
-
-#endif // HAVE_CXX11_STATIC_ASSERT
-
-#endif // STATIC_ASSERT
+#endif // NVWA_NVWA_H
