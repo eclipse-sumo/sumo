@@ -44,7 +44,7 @@
 typedef int_fast64_t SUMOTime;
 #define SUMOTime_MAX std::numeric_limits<SUMOTime>::max()
 #define SUMOTime_MIN std::numeric_limits<SUMOTime>::min()
-#define SUMOTIME_MAXSTRING "9223372036854775" // SUMOTime_MAX / 1000
+#define SUMOTIME_MAXSTRING "9223372036854774" // SUMOTime_MAX / 1000 - 1 (because of rounding errors)
 
 #ifndef HAVE_SUBSECOND_TIMESTEPS
 // the step length in s
