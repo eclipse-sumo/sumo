@@ -90,7 +90,7 @@ NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow, bool forced) {
         // was not set before (was not loaded)
         myTYellow = tyellow;
     } else if (forced && myTYellow < tyellow) {
-        WRITE_WARNING("TYellow of signal group '" + getID() + "' was less than the computed one; patched (was:" + time2string(myTYellow) + ", is:" + time2string(tyellow) + ")");
+        WRITE_WARNING("TYellow of signal group '" + getID() + "' was less than the computed one; patched (was:" + toString<int>(myTYellow) + ", is:" + toString<int>(tyellow) + ")");
         myTYellow = tyellow;
     }
 }
