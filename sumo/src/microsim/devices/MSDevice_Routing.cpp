@@ -150,7 +150,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
                 }
             }
             myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
-            myRandomizeWeightsFactor = oc.isSet("weights.random-factor") ? oc.getFloat("weights.random-factor") : 1;
+            myRandomizeWeightsFactor = oc.getFloat("weights.random-factor");
             if (myRandomizeWeightsFactor < 1) {
                 WRITE_ERROR("weights.random-factor cannot be less than 1");
             }
