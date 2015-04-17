@@ -46,5 +46,9 @@ add_split
 adlershof_dlr_deprecated_vclass
 joined_traffic_lights_with_controlledInner
 
+joined_traffic_light_with_internal_junctions
+# add another tls program to an existing tls definition
+add_tls_prgram
+
 # import network with a rail signal
 rail_signal
