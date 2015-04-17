@@ -72,7 +72,7 @@
 
     <time>
         <begin value="0" synonymes="b" type="TIME" help="Defines the begin time; Previous trips will be discarded"/>
-        <end value="9223372036854775" synonymes="e" type="TIME" help="Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent"/>
+        <end value="9223372036854774" synonymes="e" type="TIME" help="Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent"/>
     </time>
 
     <report>
