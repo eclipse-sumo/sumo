@@ -35,6 +35,7 @@
 #endif
 
 #include <sstream>
+#include <utils/common/TplConvert.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
@@ -217,7 +218,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             SUMOSAXAttributes::parseStringVector(attrs.getString(SUMO_ATTR_VALUE), vehIDs);
             if (MSGlobals::gUseMesoSim) {
 #ifdef HAVE_INTERNAL
-                mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), attrs.getInt(SUMO_ATTR_TIME) - myOffset, myQueIndex++);
+                mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), TplConvert::_2long(attrs.getString(SUMO_ATTR_TIME).c_str()) - myOffset, myQueIndex++);
 #endif
             } else {
                 MSEdge::dictionary(myEdgeAndLane.first)->getLanes()[myEdgeAndLane.second]->loadState(
