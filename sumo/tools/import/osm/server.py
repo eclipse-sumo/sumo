@@ -31,7 +31,6 @@ import subprocess
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
-sys.path.append(os.path.join(SUMO_HOME, "tools", "trip"))
 sys.path.append(os.path.join(SUMO_HOME, "tools"))
 
 polyfile = os.path.join(SUMO_HOME, "data", "typemap", "osmPolyconvert.typ.xml")
