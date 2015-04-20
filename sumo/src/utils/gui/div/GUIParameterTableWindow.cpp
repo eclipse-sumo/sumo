@@ -233,8 +233,8 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                int_fast64_t value) {
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<int_fast64_t>(myTable, myCurrentPos++, name, dynamic, value);
+                                long long int value) {
+    GUIParameterTableItemInterface* i = new GUIParameterTableItem<long long int>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
 

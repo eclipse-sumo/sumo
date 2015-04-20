@@ -66,7 +66,7 @@
 // ---------------------------------------------------------------------------
 const SUMOReal NIImporter_OpenStreetMap::MAXSPEED_UNGIVEN = -1;
 
-const int_fast64_t NIImporter_OpenStreetMap::INVALID_ID = std::numeric_limits<int_fast64_t>::max();
+const long long int NIImporter_OpenStreetMap::INVALID_ID = std::numeric_limits<long long int>::max();
 
 // ===========================================================================
 // Private classes
@@ -121,7 +121,7 @@ NIImporter_OpenStreetMap::~NIImporter_OpenStreetMap() {
         delete *i;
     }
     // delete edges
-    for (std::map<int_fast64_t, Edge*>::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
+    for (std::map<long long int, Edge*>::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         delete(*i).second;
     }
 }
@@ -209,7 +209,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         PROGRESS_BEGIN_MESSAGE("Removing duplicate edges");
         if (myEdges.size() > 1) {
             std::set<const Edge*, CompareEdges> dupsFinder;
-            for (std::map<int_fast64_t, Edge*>::iterator it = myEdges.begin(); it != myEdges.end();) {
+            for (std::map<long long int, Edge*>::iterator it = myEdges.begin(); it != myEdges.end();) {
                 if (dupsFinder.count(it->second) > 0) {
                     WRITE_MESSAGE("Found duplicate edges. Removing " + toString(it->first));
                     delete it->second;
@@ -226,12 +226,12 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     /* Mark which nodes are used (by edges or traffic lights).
      * This is necessary to detect which OpenStreetMap nodes are for
      * geometry only */
-    std::map<int_fast64_t, int> nodeUsage;
+    std::map<long long int, int> nodeUsage;
     // Mark which nodes are used by edges (begin and end)
-    for (std::map<int_fast64_t, Edge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
+    for (std::map<long long int, Edge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         Edge* e = (*i).second;
         assert(e->myCurrentIsRoad);
-        for (std::vector<int_fast64_t>::const_iterator j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
+        for (std::vector<long long int>::const_iterator j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
             if (nodeUsage.find(*j) == nodeUsage.end()) {
                 nodeUsage[*j] = 0;
             }
@@ -239,7 +239,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         }
     }
     // Mark which nodes are used by traffic lights
-    for (std::map<int_fast64_t, NIOSMNode*>::const_iterator nodesIt = myOSMNodes.begin(); nodesIt != myOSMNodes.end(); ++nodesIt) {
+    for (std::map<long long int, NIOSMNode*>::const_iterator nodesIt = myOSMNodes.begin(); nodesIt != myOSMNodes.end(); ++nodesIt) {
         if (nodesIt->second->tlsControlled) {
             // If the key is not found in the map, the value is automatically
             // initialized with 0.
@@ -251,7 +251,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
      * one edge are instantiated. Other nodes are considered as geometry nodes. */
     NBNodeCont& nc = nb.getNodeCont();
     NBTrafficLightLogicCont& tlsc = nb.getTLLogicCont();
-    for (std::map<int_fast64_t, Edge*>::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
+    for (std::map<long long int, Edge*>::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         Edge* e = (*i).second;
         assert(e->myCurrentIsRoad);
         if (e->myCurrentNodes.size() < 2) {
@@ -265,8 +265,8 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         NBNode* currentFrom = insertNodeChecking(*e->myCurrentNodes.begin(), nc, tlsc);
         NBNode* last = insertNodeChecking(*(e->myCurrentNodes.end() - 1), nc, tlsc);
         int running = 0;
-        std::vector<int_fast64_t> passed;
-        for (std::vector<int_fast64_t>::iterator j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
+        std::vector<long long int> passed;
+        for (std::vector<long long int>::iterator j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
             passed.push_back(*j);
             if (nodeUsage[*j] > 1 && j != e->myCurrentNodes.end() - 1 && j != e->myCurrentNodes.begin()) {
                 NBNode* currentTo = insertNodeChecking(*j, nc, tlsc);
@@ -295,7 +295,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 NBNode*
-NIImporter_OpenStreetMap::insertNodeChecking(int_fast64_t id, NBNodeCont& nc, NBTrafficLightLogicCont& tlsc) {
+NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, NBTrafficLightLogicCont& tlsc) {
     NBNode* node = nc.retrieve(toString(id));
     if (node == 0) {
         NIOSMNode* n = myOSMNodes.find(id)->second;
@@ -330,7 +330,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(int_fast64_t id, NBNodeCont& nc, NB
 
 int
 NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
-                                     const std::vector<int_fast64_t>& passed, NBNetBuilder& nb) {
+                                     const std::vector<long long int>& passed, NBNetBuilder& nb) {
     NBNodeCont& nc = nb.getNodeCont();
     NBEdgeCont& ec = nb.getEdgeCont();
     NBTypeCont& tc = nb.getTypeCont();
@@ -349,7 +349,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (from == to) {
         // in the special case of a looped way split again using passed
         assert(passed.size() >= 2);
-        std::vector<int_fast64_t> geom(passed);
+        std::vector<long long int> geom(passed);
         geom.pop_back(); // remove to-node
         NBNode* intermediate = insertNodeChecking(geom.back(), nc, tlsc);
         index = insertEdge(e, index, from, intermediate, geom, nb);
@@ -361,7 +361,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     // convert the shape
     PositionVector shape;
     shape.push_back(from->getPosition());
-    for (std::vector<int_fast64_t>::const_iterator i = passed.begin(); i != passed.end(); ++i) {
+    for (std::vector<long long int>::const_iterator i = passed.begin(); i != passed.end(); ++i) {
         NIOSMNode* n = myOSMNodes.find(*i)->second;
         Position pos(n->lon, n->lat, n->ele);
         if (!NBNetBuilder::transformCoordinates(pos, true)) {
@@ -534,7 +534,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(
-    std::map<int_fast64_t, NIOSMNode*>& toFill,
+    std::map<long long int, NIOSMNode*>& toFill,
     std::set<NIOSMNode*, CompareNodes>& uniqueNodes,
     bool importElevation) :
     SUMOSAXHandler("osm - file"),
@@ -556,10 +556,10 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
         if (myHierarchyLevel != 2) {
-            WRITE_ERROR("Node element on wrong XML hierarchy level (id='" + toString(attrs.get<int_fast64_t>(SUMO_ATTR_ID, 0, ok)) + "', level='" + toString(myHierarchyLevel) + "').");
+            WRITE_ERROR("Node element on wrong XML hierarchy level (id='" + toString(attrs.get<long long int>(SUMO_ATTR_ID, 0, ok)) + "', level='" + toString(myHierarchyLevel) + "').");
             return;
         }
-        int_fast64_t id = attrs.get<int_fast64_t>(SUMO_ATTR_ID, 0, ok);
+        long long int id = attrs.get<long long int>(SUMO_ATTR_ID, 0, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action == "delete") {
             return;
@@ -645,8 +645,8 @@ NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) {
 // definitions of NIImporter_OpenStreetMap::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
-    const std::map<int_fast64_t, NIOSMNode*>& osmNodes,
-    std::map<int_fast64_t, Edge*>& toFill) :
+    const std::map<long long int, NIOSMNode*>& osmNodes,
+    std::map<long long int, Edge*>& toFill) :
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
     myEdgeMap(toFill) {
@@ -672,7 +672,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
     // parse "way" elements
     if (element == SUMO_TAG_WAY) {
         bool ok = true;
-        int_fast64_t id = attrs.get<int_fast64_t>(SUMO_ATTR_ID, 0, ok);
+        long long int id = attrs.get<long long int>(SUMO_ATTR_ID, 0, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action == "delete") {
             myCurrentEdge = 0;
@@ -687,9 +687,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
     // parse "nd" (node) elements
     if (element == SUMO_TAG_ND) {
         bool ok = true;
-        int_fast64_t ref = attrs.get<int_fast64_t>(SUMO_ATTR_REF, 0, ok);
+        long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, 0, ok);
         if (ok) {
-            std::map<int_fast64_t, NIOSMNode*>::const_iterator node = myOSMNodes.find(ref);
+            std::map<long long int, NIOSMNode*>::const_iterator node = myOSMNodes.find(ref);
             if (node == myOSMNodes.end()) {
                 WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");
                 return;
@@ -825,8 +825,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
 // definitions of NIImporter_OpenStreetMap::RelationHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::RelationHandler::RelationHandler(
-    const std::map<int_fast64_t, NIOSMNode*>& osmNodes,
-    const std::map<int_fast64_t, Edge*>& osmEdges) :
+    const std::map<long long int, NIOSMNode*>& osmNodes,
+    const std::map<long long int, Edge*>& osmEdges) :
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
     myOSMEdges(osmEdges) {
@@ -855,7 +855,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
     // parse "way" elements
     if (element == SUMO_TAG_RELATION) {
         bool ok = true;
-        myCurrentRelation = attrs.get<int_fast64_t>(SUMO_ATTR_ID, 0, ok);
+        myCurrentRelation = attrs.get<long long int>(SUMO_ATTR_ID, 0, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action == "delete" || !ok) {
             myCurrentRelation = INVALID_ID;
@@ -868,7 +868,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
     if (element == SUMO_TAG_MEMBER) {
         bool ok = true;
         std::string role = attrs.hasAttribute("role") ? attrs.getStringSecure("role", "") : "";
-        int_fast64_t ref = attrs.get<int_fast64_t>(SUMO_ATTR_REF, 0, ok);
+        long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, 0, ok);
         if (role == "via") {
             // u-turns for divided ways may be given with 2 via-nodes or 1 via-way
             std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
@@ -917,7 +917,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
 
 
 bool
-NIImporter_OpenStreetMap::RelationHandler::checkEdgeRef(int_fast64_t ref) const {
+NIImporter_OpenStreetMap::RelationHandler::checkEdgeRef(long long int ref) const {
     if (myOSMEdges.find(ref) != myOSMEdges.end()) {
         return true;
     } else {
@@ -994,7 +994,7 @@ NIImporter_OpenStreetMap::RelationHandler::applyRestriction() const {
 
 
 NBEdge*
-NIImporter_OpenStreetMap::RelationHandler::findEdgeRef(int_fast64_t wayRef, const std::vector<NBEdge*>& candidates) const {
+NIImporter_OpenStreetMap::RelationHandler::findEdgeRef(long long int wayRef, const std::vector<NBEdge*>& candidates) const {
     const std::string prefix = toString(wayRef);
     const std::string backPrefix = "-" + prefix;
     NBEdge* result = 0;

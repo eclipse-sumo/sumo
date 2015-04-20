@@ -33,7 +33,6 @@
 #include <config.h>
 #endif
 
-#include <cstdint>
 #include <sstream>
 #include <string>
 #include <iomanip>
@@ -198,7 +197,7 @@ inline std::string toString(const std::vector<int>& v, std::streamsize accuracy)
 
 
 template <>
-inline std::string toString(const std::vector<int_fast64_t>& v, std::streamsize accuracy) {
+inline std::string toString(const std::vector<long long int>& v, std::streamsize accuracy) {
     return joinToString(v, " ", accuracy);
 }
 

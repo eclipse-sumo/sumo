@@ -198,10 +198,10 @@ int SUMOSAXAttributes::getInternal(const int attr) const {
 }
 
 
-template<> const int_fast64_t invalid_return<int_fast64_t>::value = -1;
-template<> const std::string invalid_return<int_fast64_t>::type = "long";
+template<> const long long int invalid_return<long long int>::value = -1;
+template<> const std::string invalid_return<long long int>::type = "long";
 template<>
-int_fast64_t SUMOSAXAttributes::getInternal(const int attr) const {
+long long int SUMOSAXAttributes::getInternal(const int attr) const {
     return getLong(attr);
 }
 

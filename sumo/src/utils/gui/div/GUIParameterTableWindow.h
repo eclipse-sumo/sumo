@@ -168,7 +168,7 @@ public:
      * @param[in] value The value to show
      * @todo the dynamic-parameter is obsolete
      */
-    void mkItem(const char* name, bool dynamic, int_fast64_t value);
+    void mkItem(const char* name, bool dynamic, long long int value);
 
 
     /** @brief Adds a row which shows a SUMOReal-value

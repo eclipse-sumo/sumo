@@ -80,11 +80,11 @@ protected:
     /** @brief An internal representation of an OSM-node
      */
     struct NIOSMNode {
-        NIOSMNode(int_fast64_t _id, double _lon, double _lat) :
+        NIOSMNode(long long int _id, double _lon, double _lat) :
             id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), node(0) {}
 
         /// @brief The node's id
-        const int_fast64_t id;
+        const long long int id;
         /// @brief The longitude the node is located at
         const SUMOReal lon;
         /// @brief The latitude the node is located at
@@ -107,12 +107,12 @@ protected:
      */
     struct Edge {
 
-        Edge(int_fast64_t _id) :
+        Edge(long long int _id) :
             id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
             myCurrentIsRoad(false) {}
 
         /// @brief The edge's id
-        const int_fast64_t id;
+        const long long int id;
         /// @brief The edge's street name
         std::string streetName;
         /// @brief number of lanes, or -1 if unknown
@@ -126,7 +126,7 @@ protected:
         /// @brief Information whether this is an one-way road
         std::string  myIsOneWay;
         /// @brief The list of nodes this edge is made of
-        std::vector<int_fast64_t> myCurrentNodes;
+        std::vector<long long int> myCurrentNodes;
         /// @brief Information whether this is a road
         bool myCurrentIsRoad;
 
@@ -163,14 +163,14 @@ private:
     /** @brief the map from OSM node ids to actual nodes
      * @note: NIOSMNodes may appear multiple times due to substition
      */
-    std::map<int_fast64_t, NIOSMNode*> myOSMNodes;
+    std::map<long long int, NIOSMNode*> myOSMNodes;
 
     /// @brief the set of unique nodes used in NodesHandler, used when freeing memory
     std::set<NIOSMNode*, CompareNodes> myUniqueNodes;
 
 
     /** @brief the map from OSM way ids to edge objects */
-    std::map<int_fast64_t, Edge*> myEdges;
+    std::map<long long int, Edge*> myEdges;
 
     /// @brief The compounds types that do not contain known types
     std::set<std::string> myUnusableTypes;
@@ -192,7 +192,7 @@ private:
      * @return The built/found node
      * @exception ProcessError If the tls could not be added to the container
      */
-    NBNode* insertNodeChecking(int_fast64_t id, NBNodeCont& nc, NBTrafficLightLogicCont& tlsc);
+    NBNode* insertNodeChecking(long long int id, NBNodeCont& nc, NBTrafficLightLogicCont& tlsc);
 
 
     /** @brief Builds an NBEdge
@@ -208,12 +208,12 @@ private:
      * @exception ProcessError If the edge could not be added to the container
      */
     int insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
-                   const std::vector<int_fast64_t>& passed, NBNetBuilder& nb);
+                   const std::vector<long long int>& passed, NBNetBuilder& nb);
 
 
 protected:
     static const SUMOReal MAXSPEED_UNGIVEN;
-    static const int_fast64_t INVALID_ID;
+    static const long long int INVALID_ID;
 
     /**
      * @class NodesHandler
@@ -227,7 +227,7 @@ protected:
          * @param[in, out] uniqueNodes The nodes container for ensuring uniqueness
          * @param[in] options The options to use
          */
-        NodesHandler(std::map<int_fast64_t, NIOSMNode*>& toFill,
+        NodesHandler(std::map<long long int, NIOSMNode*>& toFill,
                      std::set<NIOSMNode*, CompareNodes>& uniqueNodes,
                      bool importElevation);
 
@@ -263,10 +263,10 @@ protected:
     private:
 
         /// @brief The nodes container to fill
-        std::map<int_fast64_t, NIOSMNode*>& myToFill;
+        std::map<long long int, NIOSMNode*>& myToFill;
 
         /// @brief ID of the currently parsed node, for reporting mainly
-        int_fast64_t myLastNodeID;
+        long long int myLastNodeID;
 
         /// @brief Hierarchy helper for parsing a node's tags
         bool myIsInValidNodeTag;
@@ -303,8 +303,8 @@ protected:
          * @param[in] osmNodes The previously parsed (osm-)nodes
          * @param[in, out] toFill The edges container to fill with read edges
          */
-        EdgesHandler(const std::map<int_fast64_t, NIOSMNode*>& osmNodes,
-                     std::map<int_fast64_t, Edge*>& toFill);
+        EdgesHandler(const std::map<long long int, NIOSMNode*>& osmNodes,
+                     std::map<long long int, Edge*>& toFill);
 
 
         /// @brief Destructor
@@ -337,10 +337,10 @@ protected:
 
     private:
         /// @brief The previously parsed nodes
-        const std::map<int_fast64_t, NIOSMNode*>& myOSMNodes;
+        const std::map<long long int, NIOSMNode*>& myOSMNodes;
 
         /// @brief A map of built edges
-        std::map<int_fast64_t, Edge*>& myEdgeMap;
+        std::map<long long int, Edge*>& myEdgeMap;
 
         /// @brief The currently built edge
         Edge* myCurrentEdge;
@@ -372,8 +372,8 @@ protected:
          * @param[in] osmNodes The previously parsed OSM-nodes
          * @param[in] osmEdges The previously parse OSM-edges
          */
-        RelationHandler(const std::map<int_fast64_t, NIOSMNode*>& osmNodes,
-                        const std::map<int_fast64_t, Edge*>& osmEdges);
+        RelationHandler(const std::map<long long int, NIOSMNode*>& osmNodes,
+                        const std::map<long long int, Edge*>& osmEdges);
 
 
         /// @brief Destructor
@@ -406,13 +406,13 @@ protected:
 
     private:
         /// @brief The previously parsed nodes
-        const std::map<int_fast64_t, NIOSMNode*>& myOSMNodes;
+        const std::map<long long int, NIOSMNode*>& myOSMNodes;
 
         /// @brief The previously parsed edges
-        const std::map<int_fast64_t, Edge*>& myOSMEdges;
+        const std::map<long long int, Edge*>& myOSMEdges;
 
         /// @brief The currently parsed relation
-        int_fast64_t myCurrentRelation;
+        long long int myCurrentRelation;
 
         /// @brief The element stack
         std::vector<int> myParentElements;
@@ -421,14 +421,14 @@ protected:
         bool myIsRestriction;
 
         /// @brief the origination way for the current restriction
-        int_fast64_t myFromWay;
+        long long int myFromWay;
 
         /// @brief the destination way for the current restriction
-        int_fast64_t myToWay;
+        long long int myToWay;
 
         /// @brief the via node/way for the current restriction
-        int_fast64_t myViaNode;
-        int_fast64_t myViaWay;
+        long long int myViaNode;
+        long long int myViaWay;
 
 
         /** @enum RestrictionType
@@ -448,13 +448,13 @@ protected:
         void resetValues();
 
         /// @brief check whether a referenced way has a corresponding edge
-        bool checkEdgeRef(int_fast64_t ref) const;
+        bool checkEdgeRef(long long int ref) const;
 
         /// @brief try to apply the parsed restriction and return whether successful
         bool applyRestriction() const;
 
         /// @brief try to find the way segment among candidates
-        NBEdge* findEdgeRef(int_fast64_t wayRef, const std::vector<NBEdge*>& candidates) const;
+        NBEdge* findEdgeRef(long long int wayRef, const std::vector<NBEdge*>& candidates) const;
 
     private:
         /** @brief invalidated copy constructor */

@@ -111,11 +111,11 @@ private:
     const std::string myType;
 
     /// @brief counters for performance logging
-    int_fast64_t myQueryVisits;
-    int_fast64_t myNumQueries;
+    long long int myQueryVisits;
+    long long int myNumQueries;
     /// @brief the time spent querying in milliseconds
-    int_fast64_t myQueryStartTime;
-    int_fast64_t myQueryTimeSum;
+    long long int myQueryStartTime;
+    long long int myQueryTimeSum;
 private:
     /// @brief Invalidated assignment operator
     SUMOAbstractRouter& operator=(const SUMOAbstractRouter& s);
