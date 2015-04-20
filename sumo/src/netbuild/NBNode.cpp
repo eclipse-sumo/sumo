@@ -1847,7 +1847,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
         }
     }
     //if (gDebugFlag1) std::cout << "  normalizedLanes=" << normalizedLanes.size() << "\n";
-    // collect [start,cound[ indices in normalizedLanes that belong to a walkingArea
+    // collect [start,count[ indices in normalizedLanes that belong to a walkingArea
     std::vector<std::pair<int, int> > waIndices;
     int start = -1;
     NBEdge* prevEdge = normalizedLanes.back().first;
