@@ -149,11 +149,12 @@ class RandomEdgeGenerator:
 
 class RandomTripGenerator:
 
-    def __init__(self, source_generator, sink_generator, via_generator, intermediate):
+    def __init__(self, source_generator, sink_generator, via_generator, intermediate, pedestrians):
         self.source_generator = source_generator
         self.sink_generator = sink_generator
         self.via_generator = via_generator
         self.intermediate = intermediate
+        self.pedestrians = pedestrians
 
     def get_trip(self, min_distance, max_distance, maxtries=100):
         for i in range(maxtries):
@@ -161,9 +162,14 @@ class RandomTripGenerator:
             intermediate = [self.via_generator.get()
                             for i in range(self.intermediate)]
             sink_edge = self.sink_generator.get()
+            if self.pedestrians:
+                destCoord = sink_edge.getFromNode().getCoord()
+            else: 
+                destCoord = sink_edge.getToNode().getCoord()
+
             coords = ([source_edge.getFromNode().getCoord()]
                       + [e.getFromNode().getCoord() for e in intermediate]
-                      + [sink_edge.getToNode().getCoord()])
+                      + [destCoord])
             distance = sum([euclidean(p, q)
                             for p, q in zip(coords[:-1], coords[1:])])
             if distance >= min_distance and (max_distance is None or distance < max_distance):
@@ -239,7 +245,7 @@ def buildTripGenerator(net, options):
         else:
             via_generator = None
 
-    return RandomTripGenerator(source_generator, sink_generator, via_generator, options.intermediate)
+    return RandomTripGenerator(source_generator, sink_generator, via_generator, options.intermediate, options.pedestrians)
 
 
 def main(options):
