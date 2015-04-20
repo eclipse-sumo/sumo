@@ -175,11 +175,11 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
     # fringe_bonus None generates intermediate way points
     def edge_probability(edge):
         if options.vclass and not edge.allows(options.vclass):
-            return 0
-        if fringe_bonus is None and edge.is_fringe():
-            return 0
-        if fringe_forbidden is not None and edge.is_fringe(getattr(edge, fringe_forbidden)):
-            return 0
+            return 0 # not allowed
+        if fringe_bonus is None and edge.is_fringe() and not options.pedestrians:
+            return 0 # not suitable as intermediate way point
+        if fringe_forbidden is not None and edge.is_fringe(getattr(edge, fringe_forbidden)) and not options.pedestrians:
+            return 0 # the wrong kind of fringe
         prob = 1
         if options.length:
             prob *= edge.getLength()
@@ -187,6 +187,7 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
             prob *= edge.getLaneNumber()
         prob *= (edge.getSpeed() ** options.speed_exponent)
         if (options.fringe_factor != 1.0
+                and not options.pedestrians
                 and fringe_bonus is not None
                 and edge.getSpeed() > options.fringe_threshold
                 and edge.is_fringe(getattr(edge, fringe_bonus))):
