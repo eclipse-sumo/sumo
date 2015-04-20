@@ -192,6 +192,10 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit) {
         edges.insert(edges.begin(), myRoute->begin(), myCurrEdge);
     }
     if (edges == myRoute->getEdges()) {
+        if (onInit) {
+            // if edges = 'from to' we still need to calculate the arrivalPos once
+            calculateArrivalPos();
+        }
         return true;
     }
     const RGBColor& c = myRoute->getColor();
@@ -220,6 +224,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit) {
 #endif
         return false;
     }
+    calculateArrivalPos();
     return true;
 }
 
