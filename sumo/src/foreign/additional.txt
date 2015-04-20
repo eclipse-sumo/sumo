@@ -9,7 +9,7 @@ The subfolders contain additional libraries used by SUMO:
 - Mersenne Twister Random Number Generator
  Random number generator
  Used Version: 1.0
- Modifications: none
+ Modifications: fixed compiler warnings, added 64bit version of randInt
  Original Page: http://www-personal.engin.umich.edu/~wagnerr/MersenneTwister.html
 
 - tcpip

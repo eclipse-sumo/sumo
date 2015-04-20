@@ -76,6 +76,7 @@ class MTRand {
 // Data
 public:
 	typedef unsigned long uint32;  // unsigned integer type, at least 32 bits
+	typedef unsigned long long int uint64;  // unsigned integer type, at least 64 bits
 	
 	enum { N = 624 };       // length of state vector
 	enum { SAVE = N + 1 };  // length of array for save()
@@ -108,7 +109,7 @@ public:
 	uint32 randInt();                       // integer in [0,2^32-1]
 	uint32 randInt( const uint32& n );      // integer in [0,n] for n < 2^32
 
-    uint_fast64_t randInt64( const uint_fast64_t& n );      // integer in [0,n] for n < 2^64
+    uint64 randInt64( const uint64& n );    // integer in [0,n] for n < 2^64
 	double operator()() { return rand(); }  // same as rand()
 	
 	// Access to 53-bit random numbers (capacity of IEEE double precision)
@@ -221,14 +222,14 @@ inline MTRand::uint32 MTRand::randInt( const uint32& n )
 }
 
 
-inline uint_fast64_t MTRand::randInt64( const uint_fast64_t& n )
+inline MTRand::uint64 MTRand::randInt64( const uint64& n )
 {
     if (n <= INT_MAX) {
         return randInt((uint32)n);
     }
 	// Find which bits are used in n
 	// Optimized by Magnus Jonsson (magnus@smartelectronix.com)
-	uint_fast64_t used = n;
+	uint64 used = n;
 	used |= used >> 1;
 	used |= used >> 2;
 	used |= used >> 4;
@@ -237,9 +238,9 @@ inline uint_fast64_t MTRand::randInt64( const uint_fast64_t& n )
 	used |= used >> 32;
 	
 	// Draw numbers until one is found in [0,n]
-	uint_fast64_t i;
+	uint64 i;
 	do
-		i = (((uint_fast64_t)randInt() << 32) | randInt()) & used;  // toss unused bits to shorten search
+		i = (((uint64)randInt() << 32) | randInt()) & used;  // toss unused bits to shorten search
 	while( i > n );
 	return i;
 }
