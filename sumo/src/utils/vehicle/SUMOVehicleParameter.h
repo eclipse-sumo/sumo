@@ -437,9 +437,9 @@ public:
     /// @{
 
     /// @brief The number of times the vehicle shall be repeatedly inserted
-    int_fast64_t repetitionNumber;
+    int repetitionNumber;
     /// @brief The number of times the vehicle was already inserted
-    int_fast64_t repetitionsDone;
+    int repetitionsDone;
     /// @brief The time offset between vehicle reinsertions
 #ifdef HAVE_SUBSECOND_TIMESTEPS
     SUMOTime repetitionOffset;
