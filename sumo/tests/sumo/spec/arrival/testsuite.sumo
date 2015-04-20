@@ -1,5 +1,6 @@
 # checks using the default position
 pos_default
+pos_default_trip
 
 # checks using the given position (0)
 pos_given0
