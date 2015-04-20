@@ -1605,7 +1605,6 @@ NBNode::guessCrossings() {
             }
         }
     }
-    std::sort(myCrossings.begin(), myCrossings.end(), NBNodesEdgesSorter::crossing_by_junction_angle_sorter(this, myAllEdges));
     // Avoid duplicate crossing between the same pair of walkingareas 
     if (gDebugFlag1) {
         std::cout << "  hadCandidates=" << hadCandidates << "  connectedCandidates=" << toString(connectedCandidates) << "\n";
@@ -1618,6 +1617,13 @@ NBNode::guessCrossings() {
         } else {
             numGuessed -= connectedCandidates.front();
             myCrossings.erase(myCrossings.begin(), myCrossings.begin() + connectedCandidates.front());
+        }
+    }
+    std::sort(myCrossings.begin(), myCrossings.end(), NBNodesEdgesSorter::crossing_by_junction_angle_sorter(this, myAllEdges));
+    if (gDebugFlag1) {
+        std::cout << "guessedCrossings:\n";
+        for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
+            std::cout << "  edges=" << toString((*it).edges) << "\n";
         }
     }
     return numGuessed;
