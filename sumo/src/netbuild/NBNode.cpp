@@ -1564,6 +1564,7 @@ NBNode::guessCrossings() {
         }
     }
     int hadCandidates = 0;
+    std::vector<int> connectedCandidates; // number of crossings that were built for each connected candidate
     if (firstSidewalk != -1) {
         // rotate lanes to ensure that the first one allows pedestrians
         std::vector<std::pair<NBEdge*, bool> > tmp;
@@ -1584,23 +1585,40 @@ NBNode::guessCrossings() {
                 if (candidates.size() > 0) {
                     if (hadCandidates > 0 || forbidsPedestriansAfter(normalizedLanes, i)) {
                         hadCandidates++;
-                        numGuessed += checkCrossing(candidates);
+                        const int n = checkCrossing(candidates);
+                        numGuessed += n;
+                        if (n > 0) {
+                            connectedCandidates.push_back(n);
+                        }
                     }
                     candidates.clear();
                 }
             }
         }
-        if (hadCandidates > 0) {
+        if (hadCandidates > 0 && candidates.size() > 0) {
             // avoid wrapping around to the same sidewalk
             hadCandidates++;
-            numGuessed += checkCrossing(candidates);
+            const int n = checkCrossing(candidates);
+            numGuessed += n;
+            if (n > 0) {
+                connectedCandidates.push_back(n);
+            }
         }
     }
     std::sort(myCrossings.begin(), myCrossings.end(), NBNodesEdgesSorter::crossing_by_junction_angle_sorter(this, myAllEdges));
-    // avoid duplicate crossing between the same pair of walkingareas
-    if (numGuessed == 2 && hadCandidates == 2) {
-        numGuessed--;
-        myCrossings.erase(myCrossings.end() - 1);
+    // Avoid duplicate crossing between the same pair of walkingareas 
+    if (gDebugFlag1) {
+        std::cout << "  hadCandidates=" << hadCandidates << "  connectedCandidates=" << toString(connectedCandidates) << "\n";
+    }
+    if (hadCandidates == 2 && connectedCandidates.size() == 2) {
+        // One or both of them might be split: remove the one with less splits
+        if (connectedCandidates.back() <= connectedCandidates.front()) {
+            numGuessed -= connectedCandidates.back();
+            myCrossings.erase(myCrossings.end() - connectedCandidates.back(), myCrossings.end());
+        } else {
+            numGuessed -= connectedCandidates.front();
+            myCrossings.erase(myCrossings.begin(), myCrossings.begin() + connectedCandidates.front());
+        }
     }
     return numGuessed;
 }

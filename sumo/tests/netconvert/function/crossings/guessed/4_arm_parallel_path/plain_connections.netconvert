@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 24 12:34:36 2015 by SUMO netconvert Version dev-SVN-r18126I
+<!-- generated on Mon Apr 20 12:17:51 2015 by SUMO netconvert Version dev-SVN-r18230I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -32,5 +32,4 @@
     <connection from="EC" to="CW" fromLane="3" toLane="3"/>
 
     <crossing node="C" edges="EC" priority="0"/>
-    <crossing node="C" edges="CW" priority="0"/>
 </connections>

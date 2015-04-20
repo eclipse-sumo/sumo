@@ -26,6 +26,7 @@
 
 # a pedestrian path crosses a street with sidewalks
 path_across_street
+path_across_street_split
 
 # a pedestrian path crosses a one-street with a sidewalk
 path_across_1way_street
