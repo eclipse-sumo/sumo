@@ -1563,6 +1563,7 @@ NBNode::guessCrossings() {
             break;
         }
     }
+    int hadCandidates = 0;
     if (firstSidewalk != -1) {
         // rotate lanes to ensure that the first one allows pedestrians
         std::vector<std::pair<NBEdge*, bool> > tmp;
@@ -1571,7 +1572,6 @@ NBNode::guessCrossings() {
         normalizedLanes = tmp;
         // find candidates
         EdgeVector candidates;
-        bool hadCandidates = false;
         for (int i = 0; i < (int)normalizedLanes.size(); ++i) {
             NBEdge* edge = normalizedLanes[i].first;
             const bool allowsPed = normalizedLanes[i].second;
@@ -1582,20 +1582,26 @@ NBNode::guessCrossings() {
                 candidates.push_back(edge);
             } else if (allowsPed) {
                 if (candidates.size() > 0) {
-                    if (hadCandidates || forbidsPedestriansAfter(normalizedLanes, i)) {
-                        hadCandidates = true;
+                    if (hadCandidates > 0 || forbidsPedestriansAfter(normalizedLanes, i)) {
+                        hadCandidates++;
                         numGuessed += checkCrossing(candidates);
                     }
                     candidates.clear();
                 }
             }
         }
-        if (hadCandidates) {
+        if (hadCandidates > 0) {
             // avoid wrapping around to the same sidewalk
+            hadCandidates++;
             numGuessed += checkCrossing(candidates);
         }
     }
     std::sort(myCrossings.begin(), myCrossings.end(), NBNodesEdgesSorter::crossing_by_junction_angle_sorter(this, myAllEdges));
+    // avoid duplicate crossing between the same pair of walkingareas
+    if (numGuessed == 2 && hadCandidates == 2) {
+        numGuessed--;
+        myCrossings.erase(myCrossings.end() - 1);
+    }
     return numGuessed;
 }
 
