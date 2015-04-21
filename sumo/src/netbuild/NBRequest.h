@@ -145,10 +145,6 @@ public:
     /// prints the request
     friend std::ostream& operator<<(std::ostream& os, const NBRequest& r);
 
-    /** @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
-     */
-    bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane, const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const;
-
     /// reports warnings if any occured
     static void reportWarnings();
 

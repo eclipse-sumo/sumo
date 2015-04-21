@@ -303,7 +303,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             }
             for (unsigned int i2 = 0; i2 < pos; ++i2) {
                 if ((state[i2] == 'G' || state[i2] == 'g')) {
-                    if (fromEdges[i2]->getToNode()->rightTurnConflict(
+                    if (NBNode::rightTurnConflict(
                                 fromEdges[i1], toEdges[i1], fromLanes[i1], fromEdges[i2], toEdges[i2], fromLanes[i2])) {
                         rightTurnConflicts[i1] = true;
                     }

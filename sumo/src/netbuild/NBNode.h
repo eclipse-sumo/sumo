@@ -450,8 +450,8 @@ public:
 
     /** @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
      */
-    bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
-                           const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const;
+    static bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
+                                  const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane);
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
      * @param[in] possProhibitedFrom The maybe prohibited connection's begin

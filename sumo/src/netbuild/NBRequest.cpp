@@ -566,7 +566,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
                     // check whether the connection is prohibited by another one
                     if ((myForbids[getIndex(*i, connected[k].toEdge)][idx] &&
                             (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
-                            || rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)) {
+                            || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)) {
                         result += '1';
                     } else {
                         result += '0';
@@ -607,7 +607,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
             for (int k = size; k-- > 0;) {
                 if ((foes(from, to, (*i), connected[k].toEdge) &&
                         (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
-                        || rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)) {
+                        || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)) {
                     result += '1';
                 } else {
                     result += '0';
@@ -638,34 +638,6 @@ NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane,
     const bool rightOfProhibitor = prohibitorFrom->isTurningDirectionAt(to)
                                    || (angle > prohibitorAngle && !from->isTurningDirectionAt(to));
     return rightOfProhibitor ? toLane >= prohibitorToLane : toLane <= prohibitorToLane;
-}
-
-
-bool
-NBRequest::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
-                             const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const {
-    if (from != prohibitorFrom) {
-        return false;
-    }
-    if (from->isTurningDirectionAt(to)
-            || prohibitorFrom->isTurningDirectionAt(prohibitorTo)) {
-        // XXX should warn if there are any non-turning connections left of this
-        return false;
-    }
-    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-    if ((!lefthand && fromLane <= prohibitorFromLane) ||
-            (lefthand && fromLane >= prohibitorFromLane)) {
-        return false;
-    }
-    // conflict if to is between prohibitorTo and from when going clockwise
-    if (to->getStartAngle() == prohibitorTo->getStartAngle()) {
-        // reduce rounding errors
-        return false;
-    }
-    const SUMOReal toAngleAtNode = fmod(to->getStartAngle() + 180, (SUMOReal)360.0);
-    const SUMOReal prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (SUMOReal)360.0);
-    return (lefthand != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) <
-                         GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
 }
 
 
@@ -734,7 +706,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
         const std::vector<NBEdge::Connection>& cons = from->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator i = cons.begin(); i != cons.end(); i++) {
-            if (rightTurnConflict(from, to, fromLane,
+            if (NBNode::rightTurnConflict(from, to, fromLane,
                                   from, (*i).toEdge, (*i).fromLane)) {
                 return true;
             }

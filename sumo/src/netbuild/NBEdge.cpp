@@ -1103,7 +1103,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                                 }
                             }
                         }
-                        const bool rightTurnConflict = n.rightTurnConflict(
+                        const bool rightTurnConflict = NBNode::rightTurnConflict(
                                                            this, con.toEdge, con.fromLane, (*i2), (*k2).toEdge, (*k2).fromLane);
                         // compute foe internal lanes
                         if (n.foes(this, con.toEdge, *i2, (*k2).toEdge) || rightTurnConflict) {

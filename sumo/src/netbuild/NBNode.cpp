@@ -620,7 +620,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     LinkDirection d1 = getDirection(fromE, toE);
     const bool thisRight = (d1 == LINKDIR_RIGHT || d1 == LINKDIR_PARTRIGHT);
     const bool rightTurnConflict = (thisRight &&
-                                    myRequest->rightTurnConflict(fromE, toE, c.fromLane, otherFromE, otherToE, otherC.fromLane));
+                                    NBNode::rightTurnConflict(fromE, toE, c.fromLane, otherFromE, otherToE, otherC.fromLane));
     if (thisRight && !rightTurnConflict) {
         return false;
     }
@@ -1185,8 +1185,29 @@ NBNode::mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, c
 
 bool
 NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
-                          const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const {
-    return myRequest->rightTurnConflict(from, to, fromLane, prohibitorFrom, prohibitorTo, prohibitorFromLane);
+                          const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) {
+    if (from != prohibitorFrom) {
+        return false;
+    }
+    if (from->isTurningDirectionAt(to)
+            || prohibitorFrom->isTurningDirectionAt(prohibitorTo)) {
+        // XXX should warn if there are any non-turning connections left of this
+        return false;
+    }
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+    if ((!lefthand && fromLane <= prohibitorFromLane) ||
+            (lefthand && fromLane >= prohibitorFromLane)) {
+        return false;
+    }
+    // conflict if to is between prohibitorTo and from when going clockwise
+    if (to->getStartAngle() == prohibitorTo->getStartAngle()) {
+        // reduce rounding errors
+        return false;
+    }
+    const SUMOReal toAngleAtNode = fmod(to->getStartAngle() + 180, (SUMOReal)360.0);
+    const SUMOReal prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (SUMOReal)360.0);
+    return (lefthand != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) <
+                         GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
 }
 
 
