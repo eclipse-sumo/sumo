@@ -14,8 +14,8 @@ The subfolders contain additional libraries used by SUMO:
 
 - tcpip
  Simple TCP/IP Socket Class to communicate with other programs
- Used Version: always the most recent one (included via svn:externals)
- Modifications: none
+ Used Version: https://github.com/itm/shawn/tree/master/src/apps/tcpip from 2012-09-28
+ Modifications: fixed invalid buffer length calculation, fixed compiler warnings, removed "using namespace std"
  Original Page: http://shawn.sf.net
  
 - Polyfonts

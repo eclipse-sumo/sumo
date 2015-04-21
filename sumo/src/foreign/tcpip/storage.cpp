@@ -23,8 +23,6 @@
 #include <iomanip>
 
 
-using namespace std;
-
 //#define NULLITER static_cast<list<unsigned char>::iterator>(0)
 
 namespace tcpip
@@ -40,8 +38,7 @@ namespace tcpip
 	// ----------------------------------------------------------------------
 	Storage::Storage(const unsigned char packet[], int length)
 	{
-		// Length is calculated, if -1, or given
-		if (length == -1) length = sizeof(packet) / sizeof(unsigned char);
+		assert(length >= 0); // fixed MB, 2015-04-21
 
 		store.reserve(length);
 		// Get the content
@@ -181,7 +178,7 @@ namespace tcpip
 		checkReadSafe(len);
 		StorageType::const_iterator end = iter_;
 		std::advance(end, len);
-		const string tmp(iter_, end);
+		const std::string tmp(iter_, end);
 		iter_ = end;
 		return tmp;
 	}
