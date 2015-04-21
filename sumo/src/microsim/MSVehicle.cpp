@@ -2478,10 +2478,21 @@ MSVehicle::addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime 
     }
 
     SUMOVehicleParameter::Stop newStop;
+    MSStoppingPlace* bs = 0;
     if (isContainerStop) {
         newStop.containerstop = stopId;
+        bs = MSNet::getInstance()->getContainerStop(stopId);
+        if (bs == 0) {
+            errorMsg = "The container stop '" + stopId + "' is not known for vehicle '" + getID() + "'";
+            return false;
+        }
     } else {
         newStop.busstop = stopId;
+        bs = MSNet::getInstance()->getBusStop(stopId);
+        if (bs == 0) {
+            errorMsg = "The bus stop '" + stopId + "' is not known for vehicle '" + getID() + "'";
+            return false;
+        }
     }
     newStop.duration = duration;
     newStop.until = until;
@@ -2489,6 +2500,9 @@ MSVehicle::addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime 
     newStop.containerTriggered = containerTriggered;
     newStop.parking = parking;
     newStop.index = STOP_INDEX_FIT;
+    newStop.lane = bs->getLane().getID();
+    newStop.endPos = bs->getEndLanePosition();
+    newStop.startPos = bs->getBeginLanePosition();
     const bool result = addStop(newStop, errorMsg);
     if (myLane != 0) {
         updateBestLanes(true);

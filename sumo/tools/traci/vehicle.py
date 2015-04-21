@@ -619,6 +619,24 @@ def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1, flags=STOP_D
     traci._sendExact()
 
 
+def setBusStop(vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEFAULT):
+    """setBusStop(string, string, integer, integer, integer) -> None
+
+    Adds or modifies a bus stop with the given parameters. The duration and the until attribute are
+    in milliseconds.
+    """
+    setStop(vehID, stopID, duration=duration, until=until, flags=flags|STOP_BUS_STOP)
+
+
+def setContainerStop(vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEFAULT):
+    """setContainerStop(string, string, integer, integer, integer) -> None
+
+    Adds or modifies a container stop with the given parameters. The duration and the until attribute are
+    in milliseconds.
+    """
+    setStop(vehID, stopID, duration=duration, until=until, flags=flags|STOP_CONTAINER_STOP)
+
+
 def resume(vehID):
     """resume(string) -> None
 

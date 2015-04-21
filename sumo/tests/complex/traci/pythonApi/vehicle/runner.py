@@ -197,4 +197,14 @@ for i in range(14):
             traci.vehicle.getLaneID(routeTestVeh),
             traci.vehicle.getLanePosition(routeTestVeh),
             traci.vehicle.isStopped(routeTestVeh))
+# test for adding a veh and a busstop
+busVeh = "bus"
+traci.vehicle.add(busVeh, "horizontal")
+traci.vehicle.setBusStop(busVeh, "busstop1", duration=2000)
+for i in range(14):
+    print "step", step()
+    print "vehicle '%s' lane=%s lanePos=%s stopped=%s" % (busVeh,
+            traci.vehicle.getLaneID(busVeh),
+            traci.vehicle.getLanePosition(busVeh),
+            traci.vehicle.isStopped(busVeh))
 traci.close()
