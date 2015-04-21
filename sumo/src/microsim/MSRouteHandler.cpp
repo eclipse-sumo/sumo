@@ -202,8 +202,8 @@ MSRouteHandler::myStartElement(int element,
             if (speed <= 0) {
                 throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
             }
-            SUMOReal departPos;
-            SUMOReal arrivalPos;
+            SUMOReal departPos = 0;
+            SUMOReal arrivalPos = 0;
             MSStoppingPlace* bs = 0;
             if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
                 MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
@@ -230,7 +230,7 @@ MSRouteHandler::myStartElement(int element,
                             myActiveRoute.push_back(to); // pedestrian will teleport
                             //WRITE_WARNING(error);
                         } else {
-                            WRITE_ERROR(error);
+                            throw ProcessError(error);
                         }
                     }
                     //std::cout << myVehicleParameter->id << " edges=" << toString(myActiveRoute) << "\n";
