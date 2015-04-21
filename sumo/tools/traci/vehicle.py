@@ -36,6 +36,9 @@ DEPART_SPEED_MAX = -3
 STOP_DEFAULT = 0
 STOP_PARKING = 1
 STOP_TRIGGERED = 2
+STOP_CONTAINER_TRIGGERED = 4
+STOP_BUS_STOP = 8
+STOP_CONTAINER_STOP = 16
 
 
 def _readBestLanes(result):
@@ -521,7 +524,9 @@ def getStopState(vehID):
     """getStopState(string) -> integer
 
     Returns information in regard to stopping:
-    The returned integer is defined as 1 * stopped + 2 * parking + 4 * triggered 
+    The returned integer is defined as 1 * stopped + 2 * parking
+    + 4 * personTriggered + 8 * containerTriggered + 16 * isBusStop
+    + 32 * isContainerStop
     with each of these flags defined as 0 or 1
     """
     return _getUniversal(tc.VAR_STOPSTATE, vehID)
@@ -539,10 +544,22 @@ def isStoppedParking(vehID):
     return (getStopState(vehID) & 2) == 2
 
 def isStoppedTriggered(vehID):
-    """isStoppedParking(string) -> bool
+    """isStoppedTriggered(string) -> bool
     Return whether the vehicle is stopped and waiting for a person or container
     """
-    return (getStopState(vehID) & 4) == 4
+    return (getStopState(vehID) & 12) > 0
+
+def isAtBusStop(vehID):
+    """isAtBusStop(string) -> bool
+    Return whether the vehicle is stopped at a bus stop
+    """
+    return (getStopState(vehID) & 16) == 16
+
+def isAtContainerStop(vehID):
+    """isAtContainerStop(string) -> bool
+    Return whether the vehicle is stopped at a container stop
+    """
+    return (getStopState(vehID) & 32) == 32
 
 
 def subscribe(vehID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
@@ -585,19 +602,20 @@ def setMaxSpeed(vehID, speed):
         tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED, vehID, speed)
 
 
-def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1, flags=STOP_DEFAULT):
-    """setStop(string, string, double, integer, integer, integer) -> None
+def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1, flags=STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE, until=-1):
+    """setStop(string, string, double, integer, integer, integer, double, integer) -> None
 
-    Adds or modifies a stop with the given parameters. The duration attribute is
+    Adds or modifies a stop with the given parameters. The duration and the until attribute are
     in milliseconds.
     """
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP,
-                        vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 1 + 1 + 4 + 1 + 1)
-    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
+                        vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 1 + 1 + 4 + 1 + 1 + 1 + 8 + 1 + 4)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 7)
     traci._message.string += struct.pack("!Bi",
                                          tc.TYPE_STRING, len(edgeID)) + str(edgeID)
     traci._message.string += struct.pack("!BdBBBiBB", tc.TYPE_DOUBLE, pos,
                                          tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, flags)
+    traci._message.string += struct.pack("!BdBi", tc.TYPE_DOUBLE, startPos, tc.TYPE_INTEGER, until)
     traci._sendExact()
 
 

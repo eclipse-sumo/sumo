@@ -942,7 +942,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 bool
 MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID, 
         const MSEdge* fromEdge, const MSEdge* toEdge, 
-        SUMOReal& departPos, SUMOReal& arrivalPos, MSBusStop*& bs, bool& ok) {
+        SUMOReal& departPos, SUMOReal& arrivalPos, MSStoppingPlace*& bs, bool& ok) {
     const std::string description = "person '" + personID + "' walking from " + fromEdge->getID();
 
     departPos = parseWalkPos(SUMO_ATTR_DEPARTPOS, description, fromEdge,

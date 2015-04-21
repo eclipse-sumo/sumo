@@ -506,8 +506,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             double startPos = pos - POSITION_EPS;
             if (compoundSize >= 6) {
-                if (!server.readTypeCheckingDouble(inputStorage, pos)) {
+                double tmp;
+                if (!server.readTypeCheckingDouble(inputStorage, tmp)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The sixth stop parameter must be the start position along the edge given as a double.", outputStorage);
+                }
+                if (tmp != INVALID_DOUBLE_VALUE) {
+                    startPos = tmp;
                 }
             }
             int until = -1;
