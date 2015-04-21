@@ -143,7 +143,7 @@ Summary:
   Converted boundary : 0.00,0.00,4934.15,5232.39
 -----------------------------------------------------
 Success.
-Parsing network projection from '/scr2/texttest_tmp/tools.20Apr140729.10304/tools/import/OSM/server/osm.net.xml'... done.
+Parsing network projection from '/scr2/texttest_tmp/tools.21Apr083209.12863/tools/import/OSM/server/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
@@ -154,23 +154,23 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (477ms).
-Loading additional-files from 'osm.poly.xml'...  done (80ms).
+Loading net-file from 'osm.net.xml'...  done (482ms).
+Loading additional-files from 'osm.poly.xml'...  done (78ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 5950.00
+Simulation ended at time: 5954.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 24913ms
- Real time factor: 238.831
- UPS: 15633.685225
+ Duration: 30844ms
+ Real time factor: 193.036
+ UPS: 12700.525224
 Vehicles: 
  Inserted: 1245
  Running: 0
  Waiting: 0
 
-DijkstraRouterTT answered 1290 queries and explored 643.90 edges on average.
-DijkstraRouterTT spent 325ms answering queries (0.25ms on average).
+DijkstraRouterTT answered 1298 queries and explored 642.94 edges on average.
+DijkstraRouterTT spent 398ms answering queries (0.31ms on average).
 Calling osmBuild
 Calling randomTrips
 calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
