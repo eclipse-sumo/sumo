@@ -65,7 +65,7 @@
 // ===========================================================================
 GUIContainerStop::GUIContainerStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
                                    SUMOReal frompos, SUMOReal topos)
-    : MSContainerStop(id, lines, lane, frompos, topos),
+    : MSStoppingPlace(id, lines, lane, frompos, topos),
       GUIGlObject_AbstractAdd("containerStop", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
     myFGShape.move2side((SUMOReal) 1.65);
@@ -115,7 +115,7 @@ GUIContainerStop::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem("begin position [m]", false, myBegPos);
     ret->mkItem("end position [m]", false, myEndPos);
-    ret->mkItem("container number [#]", true, new FunctionBinding<GUIContainerStop, unsigned int>(this, &MSContainerStop::getContainerNumber));
+    ret->mkItem("container number [#]", true, new FunctionBinding<GUIContainerStop, unsigned int>(this, &MSStoppingPlace::getTransportableNumber));
     // close building
     ret->closeBuilding();
     return ret;
@@ -168,7 +168,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
     glPopName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    for (std::vector<MSContainer*>::const_iterator i = myWaitingContainers.begin(); i != myWaitingContainers.end(); ++i) {
+    for (std::vector<MSTransportable*>::const_iterator i = myWaitingTransportables.begin(); i != myWaitingTransportables.end(); ++i) {
         glTranslated(0, 1, 0); // make multiple containers viewable
         static_cast<GUIContainer*>(*i)->drawGL(s);
     }

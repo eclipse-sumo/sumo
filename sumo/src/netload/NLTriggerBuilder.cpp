@@ -43,8 +43,7 @@
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/trigger/MSCalibrator.h>
-#include <microsim/trigger/MSBusStop.h>
-#include <microsim/trigger/MSContainerStop.h>
+#include <microsim/MSStoppingPlace.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
@@ -328,7 +327,7 @@ void
 NLTriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
                                const std::vector<std::string>& lines,
                                MSLane* lane, SUMOReal frompos, SUMOReal topos) {
-    MSBusStop* stop = new MSBusStop(id, lines, *lane, frompos, topos);
+    MSStoppingPlace* stop = new MSStoppingPlace(id, lines, *lane, frompos, topos);
     if (!net.addBusStop(stop)) {
         delete stop;
         throw InvalidArgument("Could not build bus stop '" + id + "'; probably declared twice.");
@@ -340,7 +339,7 @@ void
 NLTriggerBuilder::buildContainerStop(MSNet& net, const std::string& id,
                                      const std::vector<std::string>& lines,
                                      MSLane* lane, SUMOReal frompos, SUMOReal topos) {
-    MSContainerStop* stop = new MSContainerStop(id, lines, *lane, frompos, topos);
+    MSStoppingPlace* stop = new MSStoppingPlace(id, lines, *lane, frompos, topos);
     if (!net.addContainerStop(stop)) {
         delete stop;
         throw InvalidArgument("Could not build container stop '" + id + "'; probably declared twice.");

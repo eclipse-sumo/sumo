@@ -54,8 +54,7 @@
 #include <utils/options/OptionsCont.h>
 #include "MSNet.h"
 
-#include <microsim/trigger/MSBusStop.h>
-//#include <microsim/trigger/MSContainerStop.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/MSGlobals.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 
@@ -155,7 +154,7 @@ MSRouteHandler::myStartElement(int element,
             const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
             StringTokenizer st(desc);
             std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
-            MSBusStop* bs = 0;
+            MSStoppingPlace* bs = 0;
             if (bsID != "") {
                 bs = MSNet::getInstance()->getBusStop(bsID);
                 if (bs == 0) {
@@ -205,7 +204,7 @@ MSRouteHandler::myStartElement(int element,
             }
             SUMOReal departPos;
             SUMOReal arrivalPos;
-            MSBusStop* bs = 0;
+            MSStoppingPlace* bs = 0;
             if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
                 MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
                 parseWalkPositions(attrs, myVehicleParameter->id, myActiveRoute.front(), myActiveRoute.back(), departPos, arrivalPos, bs, ok);
@@ -258,7 +257,7 @@ MSRouteHandler::myStartElement(int element,
             const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, containerId.c_str(), ok);
             StringTokenizer st(desc);
             std::string csID = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, 0, ok, "");
-            MSContainerStop* cs = 0;
+            MSStoppingPlace* cs = 0;
             if (csID != "") {
                 cs = MSNet::getInstance()->getContainerStop(csID);
                 if (cs == 0) {
@@ -305,7 +304,7 @@ MSRouteHandler::myStartElement(int element,
                 throw ProcessError("Non-positive tranship speed for container  '" + myVehicleParameter->id + "'.");
             }
             std::string csID = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, 0, ok, "");
-            MSContainerStop* cs = 0;
+            MSStoppingPlace* cs = 0;
             if (csID != "") {
                 cs = MSNet::getInstance()->getContainerStop(csID);
                 if (cs == 0) {
@@ -853,7 +852,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     // try to parse the assigned bus stop
     if (stop.busstop != "") {
         // ok, we have obviously a bus stop
-        MSBusStop* bs = MSNet::getInstance()->getBusStop(stop.busstop);
+        MSStoppingPlace* bs = MSNet::getInstance()->getBusStop(stop.busstop);
         if (bs == 0) {
             WRITE_ERROR("The bus stop '" + stop.busstop + "' is not known" + errorSuffix);
             return;
@@ -866,7 +865,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } //try to parse the assigned container stop
     else if (stop.containerstop != "") {
         // ok, we have obviously a container stop
-        MSContainerStop* cs = MSNet::getInstance()->getContainerStop(stop.containerstop);
+        MSStoppingPlace* cs = MSNet::getInstance()->getContainerStop(stop.containerstop);
         if (cs == 0) {
             WRITE_ERROR("The container stop '" + stop.containerstop + "' is not known" + errorSuffix);
             return;

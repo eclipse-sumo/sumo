@@ -37,7 +37,7 @@
 #include <utils/common/Command.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/PositionVector.h>
-#include <microsim/trigger/MSBusStop.h>
+#include <microsim/MSStoppingPlace.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -61,14 +61,14 @@ class GUIManipulator;
  * @class GUIBusStop
  * @brief A lane area vehicles can halt at (gui-version)
  *
- * This gui-version of a bus-stop extends MSBusStop by methods for displaying
+ * This gui-version of a bus-stop extends MSStoppingPlace by methods for displaying
  *  and interaction.
  *
- * @see MSBusStop
+ * @see MSStoppingPlace
  * @see GUIGlObject_AbstractAdd
  * @see GUIGlObject
  */
-class GUIBusStop : public MSBusStop, public GUIGlObject_AbstractAdd {
+class GUIBusStop : public MSStoppingPlace, public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
      * @param[in] idStorage The gl-id storage for giving this object an gl-id

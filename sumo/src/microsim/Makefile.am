@@ -21,12 +21,14 @@ MSNet.cpp MSNet.h MSNoLogicJunction.cpp MSNoLogicJunction.h \
 MSPersonControl.cpp MSPersonControl.h \
 MSRightOfWayJunction.cpp MSRightOfWayJunction.h \
 MSRoute.cpp MSRoute.h MSRouteHandler.cpp MSRouteHandler.h \
+MSStoppingPlace.cpp MSStoppingPlace.h \
 MSVehicle.cpp MSVehicle.h \
 MSVehicleContainer.cpp MSVehicleContainer.h \
 MSVehicleControl.cpp MSVehicleControl.h \
 MSVehicleTransfer.cpp MSVehicleTransfer.h \
 MSVehicleType.cpp MSVehicleType.h \
-MSStateHandler.h MSStateHandler.cpp
+MSStateHandler.h MSStateHandler.cpp \
+MSTransportable.h
 
 SUBDIRS = actions cfmodels devices lcmodels logging output pedestrians \
 traffic_lights trigger

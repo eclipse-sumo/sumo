@@ -1,11 +1,11 @@
 /****************************************************************************/
-/// @file    MSContainerStop.h
-/// @author  Melanie Weber
-/// @author  Andreas Kendziorra
+/// @file    MSStoppingPlace.h
+/// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
 /// @date    Mon, 13.12.2005
 /// @version $Id$
 ///
-// A lane area vehicles can halt at and load and unload containers
+// A lane area vehicles can halt at
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2005-2015 DLR (http://www.dlr.de/) and contributors
@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSContainerStop_h
-#define MSContainerStop_h
+#ifndef MSStoppingPlace_h
+#define MSStoppingPlace_h
 
 
 // ===========================================================================
@@ -35,7 +35,6 @@
 #include <algorithm>
 #include <map>
 #include <string>
-#include <set>
 #include <utils/common/Named.h>
 
 
@@ -44,17 +43,17 @@
 // ===========================================================================
 class MSLane;
 class SUMOVehicle;
-class MSContainer;
+class MSTransportable;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class MSContainerStop
- * @brief A lane area vehicles can halt at and load and unload containers
+ * @class MSStoppingPlace
+ * @brief A lane area vehicles can halt at
  *
- * A container stop tracks the last free space a vehicle may halt at by being
+ * The stop tracks the last free space a vehicle may halt at by being
  *  informed about a vehicle's entering and depart. It keeps the information
  *  about entered vehicles' begin and end position within an internal
  *  container ("myEndPositions") and is so able to compute the last free space.
@@ -62,43 +61,43 @@ class MSContainer;
  * Please note that using the last free space disallows vehicles to enter a
  *  free space in between other vehicles.
  */
-class MSContainerStop : public Named {
+class MSStoppingPlace : public Named {
 public:
     /** @brief Constructor
      *
-     * @param[in] id The id of the container stop
-     * @param[in] net The net the container stop belongs to
-     * @param[in] lines Names of the vehicle lines that halt on this container stop
-     * @param[in] lane The lane the container stop is placed on
-     * @param[in] begPos Begin position of the container stop on the lane
-     * @param[in] endPos End position of the container stop on the lane
+     * @param[in] id The id of the stop
+     * @param[in] net The net the stop belongs to
+     * @param[in] lines Names of the lines that halt on this stop
+     * @param[in] lane The lane the stop is placed on
+     * @param[in] begPos Begin position of the stop on the lane
+     * @param[in] endPos End position of the stop on the lane
      */
-    MSContainerStop(const std::string& id,
-                    const std::vector<std::string>& lines, MSLane& lane,
-                    SUMOReal begPos, SUMOReal endPos);
+    MSStoppingPlace(const std::string& id,
+              const std::vector<std::string>& lines, MSLane& lane,
+              SUMOReal begPos, SUMOReal endPos);
 
 
     /// @brief Destructor
-    virtual ~MSContainerStop();
+    virtual ~MSStoppingPlace();
 
 
-    /** @brief Returns the lane this container stop is located at
+    /** @brief Returns the lane this stop is located at
      *
-     * @return Reference to the lane the container stop is located at
+     * @return Reference to the lane the stop is located at
      */
     const MSLane& getLane() const;
 
 
-    /** @brief Returns the begin position of this container stop
+    /** @brief Returns the begin position of this stop
      *
-     * @return The position the container stop begins at
+     * @return The position the stop begins at
      */
     SUMOReal getBeginLanePosition() const;
 
 
-    /** @brief Returns the end position of this container stop
+    /** @brief Returns the end position of this stop
      *
-     * @return The position the container stop ends at
+     * @return The position the stop ends at
      */
     SUMOReal getEndLanePosition() const;
 
@@ -109,7 +108,7 @@ public:
      *
      * Recomputes the free space using "computeLastFreePos" then.
      *
-     * @param[in] what The vehicle that enters the container stop
+     * @param[in] what The vehicle that enters the bus stop
      * @param[in] beg The begin halting position of the vehicle
      * @param[in] what The end halting position of the vehicle
      * @see computeLastFreePos
@@ -123,7 +122,7 @@ public:
      *
      * Recomputes the free space using "computeLastFreePos" then.
      *
-     * @param[in] what The vehicle that leaves the container stop
+     * @param[in] what The vehicle that leaves the bus stop
      * @see computeLastFreePos
      */
     void leaveFrom(SUMOVehicle* what);
@@ -131,27 +130,27 @@ public:
 
     /** @brief Returns the last free position on this stop
      *
-     * @return The last free position of this container stop
+     * @return The last free position of this bus stop
      */
     SUMOReal getLastFreePos(const SUMOVehicle& forVehicle) const;
 
 
-    /** @brief Returns the number of containers waiting on this stop
+    /** @brief Returns the number of transportables waiting on this stop
     */
-    unsigned int getContainerNumber() const {
-        return static_cast<unsigned int>(myWaitingContainers.size());
+    unsigned int getTransportableNumber() const {
+        return static_cast<unsigned int>(myWaitingTransportables.size());
     }
 
-    /// @brief Adds a container to this stop
-    void addContainer(MSContainer* container) {
-        myWaitingContainers.push_back(container);
+    /// @brief adds a transportable to this stop
+    void addTransportable(MSTransportable* p) {
+        myWaitingTransportables.push_back(p);
     }
 
-    /// @brief Removes a container from this stop
-    void removeContainer(MSContainer* container) {
-        std::vector<MSContainer*>::iterator i = std::find(myWaitingContainers.begin(), myWaitingContainers.end(), container);
-        if (i != myWaitingContainers.end()) {
-            myWaitingContainers.erase(i);
+    /// @brief Removes a transportable from this stop
+    void removeTransportable(MSTransportable* p) {
+        std::vector<MSTransportable*>::iterator i = std::find(myWaitingTransportables.begin(), myWaitingTransportables.end(), p);
+        if (i != myWaitingTransportables.end()) {
+            myWaitingTransportables.erase(i);
         }
     }
 
@@ -172,28 +171,28 @@ protected:
     /// @brief A map from objects (vehicles) to the areas they acquire after entering the stop
     std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> > myEndPositions;
 
-    /// @brief The lane this stop is located at
+    /// @brief The lane this bus stop is located at
     MSLane& myLane;
 
-    /// @brief The begin position this stop is located at
+    /// @brief The begin position this bus stop is located at
     SUMOReal myBegPos;
 
-    /// @brief The end position this stop is located at
+    /// @brief The end position this bus stop is located at
     SUMOReal myEndPos;
 
     /// @brief The last free position at this stop (variable)
     SUMOReal myLastFreePos;
 
-    /// @brief Containers waiting at this stop
-    std::vector<MSContainer*> myWaitingContainers;
+    /// @brief Persons waiting at this stop
+    std::vector<MSTransportable*> myWaitingTransportables;
 
 
 private:
     /// @brief Invalidated copy constructor.
-    MSContainerStop(const MSContainerStop&);
+    MSStoppingPlace(const MSStoppingPlace&);
 
     /// @brief Invalidated assignment operator.
-    MSContainerStop& operator=(const MSContainerStop&);
+    MSStoppingPlace& operator=(const MSStoppingPlace&);
 
 
 };

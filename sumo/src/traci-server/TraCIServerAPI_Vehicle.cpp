@@ -366,10 +366,15 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case VAR_STOPSTATE: {
-                char b = (
-                             1 * (v->isStopped() ? 1 : 0) +
-                             2 * (v->isParking() ? 1 : 0) +
-                             4 * (v->isStoppedTriggered() ? 1 : 0));
+                char b = 0;
+                if (v->isStopped()) {
+                    const MSVehicle::Stop& stop = v->getNextStop();
+                    b = 1 + (stop.parking ? 2 : 0) +
+                            (stop.triggered ? 4 : 0) + 
+                            (stop.containerTriggered ? 8 : 0) +
+                            (stop.busstop != 0 ? 16 : 0) +
+                            (stop.containerstop != 0 ? 32 : 0);
+                }
                 tempMsg.writeUnsignedByte(TYPE_UBYTE);
                 tempMsg.writeUnsignedByte(b);
             }
@@ -461,8 +466,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Stop needs a compound object description.", outputStorage);
             }
             int compoundSize = inputStorage.readInt();
-            if (compoundSize != 4 && compoundSize != 5) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Stop needs a compound object description of four of five items.", outputStorage);
+            if (compoundSize < 4 || compoundSize > 7) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Stop needs a compound object description of four to seven items.", outputStorage);
             }
             // read road map position
             std::string roadId;
@@ -471,14 +476,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             double pos = 0;
             if (!server.readTypeCheckingDouble(inputStorage, pos)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second stop parameter must be the position along the edge given as a double.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second stop parameter must be the end position along the edge given as a double.", outputStorage);
             }
             int laneIndex = 0;
             if (!server.readTypeCheckingByte(inputStorage, laneIndex)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third stop parameter must be the lane index given as a byte.", outputStorage);
             }
             // waitTime
-            int waitTime = 0;
+            int waitTime = -1;
             if (!server.readTypeCheckingInt(inputStorage, waitTime)) {
                 return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "The fourth stop parameter must be the waiting time given as an integer.", outputStorage);
             }
@@ -486,31 +491,58 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             bool parking = false;
             bool triggered = false;
             bool containerTriggered = false;
-            if (compoundSize == 5) {
+            bool isBusStop = false;
+            bool isContainerStop = false;
+            if (compoundSize >= 5) {
                 int stopFlags;
                 if (!server.readTypeCheckingByte(inputStorage, stopFlags)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fifth stop parameter must be a byte indicating its parking/triggered status.", outputStorage);
                 }
                 parking = ((stopFlags & 1) != 0);
                 triggered = ((stopFlags & 2) != 0);
+                containerTriggered = ((stopFlags & 4) != 0);
+                isBusStop = ((stopFlags & 8) != 0);
+                isContainerStop = ((stopFlags & 16) != 0);
             }
-            // check
-            if (pos < 0) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Position on lane must not be negative.", outputStorage);
+            double startPos = pos - POSITION_EPS;
+            if (compoundSize >= 6) {
+                if (!server.readTypeCheckingDouble(inputStorage, pos)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The sixth stop parameter must be the start position along the edge given as a double.", outputStorage);
+                }
             }
-            // get the actual lane that is referenced by laneIndex
-            MSEdge* road = MSEdge::dictionary(roadId);
-            if (road == 0) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Unable to retrieve road with given id.", outputStorage);
+            int until = -1;
+            if (compoundSize >= 7) {
+                if (!server.readTypeCheckingInt(inputStorage, until)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The seventh stop parameter must be the waiting end time given as integer.", outputStorage);
+                }
             }
-            const std::vector<MSLane*>& allLanes = road->getLanes();
-            if ((laneIndex < 0) || laneIndex >= (int)(allLanes.size())) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane with index '" + toString(laneIndex) + "' on road '" + roadId + "'.", outputStorage);
-            }
-            // Forward command to vehicle
             std::string error;
-            if (!v->addTraciStop(allLanes[laneIndex], pos-POSITION_EPS, pos, waitTime, parking, triggered, containerTriggered, error)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
+            if (isBusStop || isContainerStop) {
+                // Forward command to vehicle
+                if (!v->addTraciBusOrContainerStop(roadId, waitTime, until, parking, triggered, containerTriggered, isContainerStop, error)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
+                }
+            } else {                
+                // check
+                if (startPos < 0) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Position on lane must not be negative.", outputStorage);
+                }
+                if (pos < startPos) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "End position on lane must be after start position.", outputStorage);
+                }
+                // get the actual lane that is referenced by laneIndex
+                MSEdge* road = MSEdge::dictionary(roadId);
+                if (road == 0) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Unable to retrieve road with given id.", outputStorage);
+                }
+                const std::vector<MSLane*>& allLanes = road->getLanes();
+                if ((laneIndex < 0) || laneIndex >= (int)(allLanes.size())) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane with index '" + toString(laneIndex) + "' on road '" + roadId + "'.", outputStorage);
+                }
+                // Forward command to vehicle
+                if (!v->addTraciStop(allLanes[laneIndex], startPos, pos, waitTime, until, parking, triggered, containerTriggered, error)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
+                }
             }
         }
         break;

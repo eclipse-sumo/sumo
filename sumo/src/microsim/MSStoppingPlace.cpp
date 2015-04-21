@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSBusStop.cpp
+/// @file    MSStoppingPlace.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 13.12.2005
@@ -30,10 +30,9 @@
 #endif
 
 #include <cassert>
-#include "MSTrigger.h"
-#include "MSBusStop.h"
 #include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSVehicleType.h>
+#include "MSStoppingPlace.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -43,7 +42,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSBusStop::MSBusStop(const std::string& id,
+MSStoppingPlace::MSStoppingPlace(const std::string& id,
                      const std::vector<std::string>& lines,
                      MSLane& lane,
                      SUMOReal begPos, SUMOReal endPos)
@@ -53,36 +52,36 @@ MSBusStop::MSBusStop(const std::string& id,
 }
 
 
-MSBusStop::~MSBusStop() {}
+MSStoppingPlace::~MSStoppingPlace() {}
 
 
 const MSLane&
-MSBusStop::getLane() const {
+MSStoppingPlace::getLane() const {
     return myLane;
 }
 
 
 SUMOReal
-MSBusStop::getBeginLanePosition() const {
+MSStoppingPlace::getBeginLanePosition() const {
     return myBegPos;
 }
 
 
 SUMOReal
-MSBusStop::getEndLanePosition() const {
+MSStoppingPlace::getEndLanePosition() const {
     return myEndPos;
 }
 
 
 void
-MSBusStop::enter(SUMOVehicle* what, SUMOReal beg, SUMOReal end) {
+MSStoppingPlace::enter(SUMOVehicle* what, SUMOReal beg, SUMOReal end) {
     myEndPositions[what] = std::pair<SUMOReal, SUMOReal>(beg, end);
     computeLastFreePos();
 }
 
 
 SUMOReal
-MSBusStop::getLastFreePos(const SUMOVehicle& forVehicle) const {
+MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
     if (myLastFreePos != myEndPos) {
         return myLastFreePos - forVehicle.getVehicleType().getMinGap();
     }
@@ -91,7 +90,7 @@ MSBusStop::getLastFreePos(const SUMOVehicle& forVehicle) const {
 
 
 void
-MSBusStop::leaveFrom(SUMOVehicle* what) {
+MSStoppingPlace::leaveFrom(SUMOVehicle* what) {
     assert(myEndPositions.find(what) != myEndPositions.end());
     myEndPositions.erase(myEndPositions.find(what));
     computeLastFreePos();
@@ -99,7 +98,7 @@ MSBusStop::leaveFrom(SUMOVehicle* what) {
 
 
 void
-MSBusStop::computeLastFreePos() {
+MSStoppingPlace::computeLastFreePos() {
     myLastFreePos = myEndPos;
     std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> >::iterator i;
     for (i = myEndPositions.begin(); i != myEndPositions.end(); i++) {

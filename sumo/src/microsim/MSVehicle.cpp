@@ -59,7 +59,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSGlobals.h>
-#include "trigger/MSBusStop.h"
+#include "MSStoppingPlace.h"
 #include "devices/MSDevice_Person.h"
 #include "devices/MSDevice_Container.h"
 #include "MSEdgeWeightsStorage.h"
@@ -846,7 +846,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
             if (stop.busstop != 0) {
                 const std::vector<MSPerson*>& persons = myPersonDevice->getPersons();
                 for (std::vector<MSPerson*>::const_iterator i = persons.begin(); i != persons.end(); ++i) {
-                    stop.busstop->removePerson(*i);
+                    stop.busstop->removeTransportable(*i);
                 }
             }
             // the triggering condition has been fulfilled. Maybe we want to wait a bit longer for additional riders (car pooling)
@@ -860,7 +860,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
             if (stop.containerstop != 0) {
                 const std::vector<MSContainer*>& containers = myContainerDevice->getContainers();
                 for (std::vector<MSContainer*>::const_iterator i = containers.begin(); i != containers.end(); ++i) {
-                    stop.containerstop->removeContainer(*i);
+                    stop.containerstop->removeTransportable(*i);
                 }
             }
             // the triggering condition has been fulfilled
@@ -2429,7 +2429,7 @@ MSVehicle::setTentativeLaneAndPosition(MSLane* lane, const SUMOReal pos) {
 
 #ifndef NO_TRACI
 bool
-MSVehicle::addTraciStop(MSLane* const lane, const SUMOReal startPos, const SUMOReal endPos, const SUMOTime duration,
+MSVehicle::addTraciStop(MSLane* const lane, const SUMOReal startPos, const SUMOReal endPos, const SUMOTime duration, const SUMOTime until,
                         const bool parking, const bool triggered, const bool containerTriggered, std::string& errorMsg) {
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
@@ -2448,7 +2448,7 @@ MSVehicle::addTraciStop(MSLane* const lane, const SUMOReal startPos, const SUMOR
     newStop.startPos = startPos;
     newStop.endPos = endPos;
     newStop.duration = duration;
-    newStop.until = -1;
+    newStop.until = until;
     newStop.triggered = triggered;
     newStop.containerTriggered = containerTriggered;
     newStop.parking = parking;
@@ -2462,12 +2462,12 @@ MSVehicle::addTraciStop(MSLane* const lane, const SUMOReal startPos, const SUMOR
 
 
 bool
-MSVehicle::addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime duration, const bool parking,
-                                      const bool triggered, const bool containerTriggered, std::string& errorMsg) {
+MSVehicle::addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime duration, const SUMOTime until, const bool parking,
+                                      const bool triggered, const bool containerTriggered, const bool isContainerStop, std::string& errorMsg) {
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
-        if ((iter->busstop != 0 && iter->busstop->getID() == stopId) ||
-            (iter->containerstop != 0 && iter->containerstop->getID() == stopId)) {
+        const Named* const stop = isContainerStop ? (Named*)iter->containerstop : iter->busstop;
+        if (stop != 0 && stop->getID() == stopId) {
             if (duration == 0 && !iter->reached) {
                 myStops.erase(iter);
             } else {
@@ -2478,9 +2478,13 @@ MSVehicle::addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime 
     }
 
     SUMOVehicleParameter::Stop newStop;
-//    newStop.stopId = stopId;
+    if (isContainerStop) {
+        newStop.containerstop = stopId;
+    } else {
+        newStop.busstop = stopId;
+    }
     newStop.duration = duration;
-    newStop.until = -1;
+    newStop.until = until;
     newStop.triggered = triggered;
     newStop.containerTriggered = containerTriggered;
     newStop.parking = parking;

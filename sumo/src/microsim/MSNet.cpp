@@ -739,12 +739,12 @@ MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState
 
 // ------ Insertion and retrieval of bus stops ------
 bool
-MSNet::addBusStop(MSBusStop* busStop) {
+MSNet::addBusStop(MSStoppingPlace* busStop) {
     return myBusStopDict.add(busStop->getID(), busStop);
 }
 
 
-MSBusStop*
+MSStoppingPlace*
 MSNet::getBusStop(const std::string& id) const {
     return myBusStopDict.get(id);
 }
@@ -752,9 +752,9 @@ MSNet::getBusStop(const std::string& id) const {
 
 std::string
 MSNet::getBusStopID(const MSLane* lane, const SUMOReal pos) const {
-    const std::map<std::string, MSBusStop*>& vals = myBusStopDict.getMyMap();
-    for (std::map<std::string, MSBusStop*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
-        MSBusStop* stop = it->second;
+    const std::map<std::string, MSStoppingPlace*>& vals = myBusStopDict.getMyMap();
+    for (std::map<std::string, MSStoppingPlace*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
+        MSStoppingPlace* stop = it->second;
         if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
             return stop->getID();
         }
@@ -764,20 +764,20 @@ MSNet::getBusStopID(const MSLane* lane, const SUMOReal pos) const {
 
 // ------ Insertion and retrieval of container stops ------
 bool
-MSNet::addContainerStop(MSContainerStop* containerStop) {
+MSNet::addContainerStop(MSStoppingPlace* containerStop) {
     return myContainerStopDict.add(containerStop->getID(), containerStop);
 }
 
-MSContainerStop*
+MSStoppingPlace*
 MSNet::getContainerStop(const std::string& id) const {
     return myContainerStopDict.get(id);
 }
 
 std::string
 MSNet::getContainerStopID(const MSLane* lane, const SUMOReal pos) const {
-    const std::map<std::string, MSContainerStop*>& vals = myContainerStopDict.getMyMap();
-    for (std::map<std::string, MSContainerStop*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
-        MSContainerStop* stop = it->second;
+    const std::map<std::string, MSStoppingPlace*>& vals = myContainerStopDict.getMyMap();
+    for (std::map<std::string, MSStoppingPlace*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
+        MSStoppingPlace* stop = it->second;
         if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
             return stop->getID();
         }

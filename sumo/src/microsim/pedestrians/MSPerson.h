@@ -40,6 +40,7 @@
 #include <utils/common/Command.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
+#include <microsim/MSTransportable.h>
 
 
 // ===========================================================================
@@ -50,7 +51,7 @@ class MSEdge;
 class MSLane;
 class OutputDevice;
 class SUMOVehicleParameter;
-class MSBusStop;
+class MSStoppingPlace;
 class SUMOVehicle;
 class MSVehicleType;
 class MSPModel;
@@ -66,7 +67,7 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
   *
   * The class holds a simulated person together with her movement stages
   */
-class MSPerson {
+class MSPerson : public MSTransportable {
 public:
     enum StageType {
         WALKING = 0,
@@ -196,7 +197,7 @@ public:
 
     public:
         /// constructor
-        MSPersonStage_Walking(const ConstMSEdgeVector& route, MSBusStop* toBS, SUMOTime walkingTime, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
+        MSPersonStage_Walking(const ConstMSEdgeVector& route, MSStoppingPlace* toBS, SUMOTime walkingTime, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
 
         /// destructor
         ~MSPersonStage_Walking();
@@ -303,7 +304,7 @@ public:
 
         SUMOReal myDepartPos;
         SUMOReal myArrivalPos;
-        MSBusStop* myDestinationBusStop;
+        MSStoppingPlace* myDestinationBusStop;
         SUMOReal mySpeed;
 
         /// @brief state that is to be manipulated by MSPModel
@@ -340,7 +341,7 @@ public:
     class MSPersonStage_Driving : public MSPersonStage {
     public:
         /// constructor
-        MSPersonStage_Driving(const MSEdge& destination, MSBusStop* toBS,
+        MSPersonStage_Driving(const MSEdge& destination, MSStoppingPlace* toBS,
                               const std::vector<std::string>& lines);
 
         /// destructor
@@ -409,7 +410,7 @@ public:
         /// @brief The taken vehicle
         SUMOVehicle* myVehicle;
 
-        MSBusStop* myDestinationBusStop;
+        MSStoppingPlace* myDestinationBusStop;
         SUMOReal myWaitingPos;
         /// @brief The time since which this person is waiting for a ride
         SUMOTime myWaitingSince;
@@ -520,9 +521,6 @@ public:
     /// destructor
     virtual ~MSPerson();
 
-    /// returns the person id
-    const std::string& getID() const;
-
     /* @brief proceeds to the next step of the route,
      * @return Whether the persons plan continues  */
     bool proceed(MSNet* net, SUMOTime time);
@@ -602,34 +600,15 @@ public:
     }
 
 
-    const SUMOVehicleParameter& getParameter() const {
-        return *myParameter;
-    }
-
-
-    inline const MSVehicleType& getVehicleType() const {
-        return *myVType;
-    }
-
     /// @brief return the list of internal edges if this person is walking and the pedestrian model allows it
     const std::string& getNextEdge() const; 
 
 protected:
     /// the plan of the person
-    const SUMOVehicleParameter* myParameter;
-
-    /// @brief This Persons's type. (mainly used for drawing related information
-    const MSVehicleType* myVType;
-
-    /// the plan of the person
     MSPersonPlan* myPlan;
 
     /// the iterator over the route
     MSPersonPlan::iterator myStep;
-
-    /// @brief Whether events shall be written
-    bool myWriteEvents;
-
 
 private:
     /// @brief Invalidated copy constructor.

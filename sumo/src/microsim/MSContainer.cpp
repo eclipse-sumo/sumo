@@ -38,7 +38,7 @@
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSContainer.h"
-#include "microsim/trigger/MSContainerStop.h"
+#include "microsim/MSStoppingPlace.h"
 #include "MSContainerControl.h"
 #include "MSInsertionControl.h"
 #include "MSVehicle.h"
@@ -108,7 +108,7 @@ MSContainer::MSContainerStage::getEdgeAngle(const MSEdge* e, SUMOReal at) const 
  * MSContainer::MSContainerStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Driving::MSContainerStage_Driving(const MSEdge& destination,
-        MSContainerStop* toCS, const std::vector<std::string>& lines)
+        MSStoppingPlace* toCS, const std::vector<std::string>& lines)
     : MSContainerStage(destination, DRIVING), myLines(lines.begin(), lines.end()),
       myVehicle(0), myDestinationContainerStop(toCS) {}
 
@@ -206,7 +206,7 @@ MSContainer::MSContainerStage_Driving::getStageDescription() const {
     return isWaiting4Vehicle() ? "waiting for " + joinToString(myLines, ",") : "transport";
 }
 
-MSContainerStop*
+MSStoppingPlace*
 MSContainer::MSContainerStage_Driving::getDepartContainerStop() const {
     return myDepartContainerStop;
 }
@@ -290,7 +290,7 @@ MSContainer::MSContainerStage_Waiting::getSpeed() const {
     return 0;
 }
 
-MSContainerStop*
+MSStoppingPlace*
 MSContainer::MSContainerStage_Waiting::getDepartContainerStop() const {
     return myCurrentContainerStop;
 }
@@ -337,7 +337,7 @@ MSContainer::MSContainerStage_Waiting::endEventOutput(const MSContainer& contain
  * MSContainer::MSContainerStage_Tranship - methods
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vector<const MSEdge*>& route,
-        MSContainerStop* toCS,
+        MSStoppingPlace* toCS,
         SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
     MSContainerStage(*route.back(), TRANSHIP), myRoute(route),
@@ -408,7 +408,7 @@ MSContainer::MSContainerStage_Tranship::getSpeed() const {
     return myContainerState->getSpeed(*this);
 }
 
-MSContainerStop*
+MSStoppingPlace*
 MSContainer::MSContainerStage_Tranship::getDepartContainerStop() const {
     return myDepartContainerStop;
 }
@@ -446,7 +446,7 @@ MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSContainer* container, S
     if (myRouteStep == myRoute.end() - 1) {
         MSNet::getInstance()->getContainerControl().unsetTranship(container);
         if (myDestinationContainerStop != 0) {
-            myDestinationContainerStop->addContainer(container);    //jakob
+            myDestinationContainerStop->addTransportable(container);    //jakob
         }
         if (!container->proceed(MSNet::getInstance(), currentTime)) {
             MSNet::getInstance()->getContainerControl().erase(container);
@@ -468,9 +468,8 @@ MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSContainer* container, S
  * MSContainer - methods
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSContainerPlan* plan)
-    : myParameter(pars), myVType(vtype), myPlan(plan) {
+    : MSTransportable(pars, vtype), myPlan(plan) {
     myStep = myPlan->begin();
-    lastDestination = &(myPlan->back())->getDestination();
 }
 
 MSContainer::~MSContainer() {
@@ -478,12 +477,6 @@ MSContainer::~MSContainer() {
         delete *i;
     }
     delete myPlan;
-    delete myParameter;
-}
-
-const std::string&
-MSContainer::getID() const {
-    return myParameter->id;
 }
 
 bool
@@ -536,7 +529,7 @@ MSContainer::getSpeed() const {
     return (*myStep)->getSpeed();
 }
 
-MSContainerStop*
+MSStoppingPlace*
 MSContainer::getDepartContainerStop() const {
     return (*myStep)->getDepartContainerStop();
 }

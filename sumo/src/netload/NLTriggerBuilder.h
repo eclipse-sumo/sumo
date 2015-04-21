@@ -48,7 +48,7 @@ class NLHandler;
 class MSTriggeredRerouter;
 class MSLane;
 class MSEdge;
-class MSBusStop;
+class MSStoppingPlace;
 class MSCalibrator;
 class MSRouteProbe;
 
@@ -191,7 +191,7 @@ protected:
 
     /** @brief Builds a bus stop
      *
-     * Simply calls the MSBusStop constructor.
+     * Simply calls the MSStoppingPlace constructor.
      *
      * @param[in] net The net the bus stop belongs to
      * @param[in] id The id of the bus stop
@@ -208,7 +208,7 @@ protected:
 
     /** @brief Builds a container stop
      *
-     * Simply calls the MSContainerStop constructor.
+     * Simply calls the MSStoppingPlace constructor.
      *
      * @param[in] net The net the container stop belongs to
      * @param[in] id The id of the container stop

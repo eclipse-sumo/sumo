@@ -118,7 +118,7 @@ MSPerson::MSPersonStage::getEdgeAngle(const MSEdge* e, SUMOReal at) const {
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const ConstMSEdgeVector& route,
-        MSBusStop* toBS,
+        MSStoppingPlace* toBS,
         SUMOTime walkingTime, SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
     MSPersonStage(*route.back(), WALKING), myWalkingTime(walkingTime), myRoute(route),
@@ -260,7 +260,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
     if (myRouteStep == myRoute.end() - 1) {
         MSNet::getInstance()->getPersonControl().unsetWalking(person);
         if (myDestinationBusStop != 0) {
-            myDestinationBusStop->addPerson(person);
+            myDestinationBusStop->addTransportable(person);
         }
         if (!person->proceed(MSNet::getInstance(), currentTime)) {
             MSNet::getInstance()->getPersonControl().erase(person);
@@ -285,7 +285,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
  * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge& destination,
-        MSBusStop* toBS, const std::vector<std::string>& lines)
+        MSStoppingPlace* toBS, const std::vector<std::string>& lines)
     : MSPersonStage(destination, DRIVING), myLines(lines.begin(), lines.end()),
       myVehicle(0), myDestinationBusStop(toBS) {}
 
@@ -535,7 +535,7 @@ MSPerson::MSPersonStage_Waiting::getSpeed() const {
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPersonPlan* plan)
-    : myParameter(pars), myVType(vtype), myPlan(plan) {
+    : MSTransportable(pars, vtype), myPlan(plan) {
     myStep = myPlan->begin();
 }
 
@@ -545,13 +545,6 @@ MSPerson::~MSPerson() {
         delete *i;
     }
     delete myPlan;
-    delete myParameter;
-}
-
-
-const std::string&
-MSPerson::getID() const {
-    return myParameter->id;
 }
 
 

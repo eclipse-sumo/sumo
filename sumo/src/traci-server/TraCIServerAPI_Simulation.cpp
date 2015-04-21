@@ -190,12 +190,12 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             if (!server.readTypeCheckingString(inputStorage, id)) {
                 return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of persons at busstop requires a string.", outputStorage);
             }
-            MSBusStop* s = MSNet::getInstance()->getBusStop(id);
+            MSStoppingPlace* s = MSNet::getInstance()->getBusStop(id);
             if (s == 0) {
                 return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Unknown bus stop '" + id + "'.", outputStorage);
             }
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(s->getPersonNumber());
+            tempMsg.writeInt(s->getTransportableNumber());
             break;
         }
         default:

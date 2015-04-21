@@ -29,7 +29,7 @@
 //#include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSContainer.h>
-#include <microsim/trigger/MSContainerStop.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/MSContainerControl.h>
 #include "MSDevice_Container.h"
 

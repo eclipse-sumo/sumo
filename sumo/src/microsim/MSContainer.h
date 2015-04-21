@@ -37,6 +37,7 @@
 #include <utils/common/Command.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
+#include <microsim/MSTransportable.h>
 
 
 // ===========================================================================
@@ -47,7 +48,7 @@ class MSEdge;
 class MSLane;
 class OutputDevice;
 class SUMOVehicleParameter;
-class MSContainerStop;
+class MSStoppingPlace;
 class SUMOVehicle;
 class MSVehicleType;
 class MSCModel_NonInteracting;
@@ -66,7 +67,7 @@ class CState;
   */
 
 
-class MSContainer {
+class MSContainer : public MSTransportable {
 public:
     enum StageType {
         DRIVING = 0,
@@ -149,7 +150,7 @@ public:
          * returns the current container stop if the stage=Waiting and the
          * container stop from wich the container departs if stage=Driving
          */
-        virtual MSContainerStop* getDepartContainerStop() const = 0;
+        virtual MSStoppingPlace* getDepartContainerStop() const = 0;
 
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
@@ -205,7 +206,7 @@ public:
     class MSContainerStage_Driving : public MSContainerStage {
     public:
         /// constructor
-        MSContainerStage_Driving(const MSEdge& destination, MSContainerStop* toCS,
+        MSContainerStage_Driving(const MSEdge& destination, MSStoppingPlace* toCS,
                                  const std::vector<std::string>& lines);
 
         /// destructor
@@ -246,7 +247,7 @@ public:
         SUMOReal getSpeed() const;
 
         /// @brief returns the container stop from which the container departs
-        MSContainerStop* getDepartContainerStop() const;
+        MSStoppingPlace* getDepartContainerStop() const;
 
         /// @brief assign a vehicle to the container
         void setVehicle(SUMOVehicle* v) {
@@ -287,10 +288,10 @@ public:
         SUMOVehicle* myVehicle;
 
         /// @brief The destination container stop
-        MSContainerStop* myDestinationContainerStop;
+        MSStoppingPlace* myDestinationContainerStop;
 
         /// @brief The container stop from which the container departs
-        MSContainerStop* myDepartContainerStop;
+        MSStoppingPlace* myDepartContainerStop;
 
         SUMOReal myWaitingPos;
 
@@ -353,7 +354,7 @@ public:
          * this method was added to have a method 'getDepartContainerStop'
          * for MSContainer.
          */
-        MSContainerStop* getDepartContainerStop() const;
+        MSStoppingPlace* getDepartContainerStop() const;
 
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSContainer* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at);
@@ -400,7 +401,7 @@ public:
         SUMOReal myStartPos;
 
         /// @brief the container stop at which the container is waiting
-        MSContainerStop* myCurrentContainerStop;
+        MSStoppingPlace* myCurrentContainerStop;
 
 
     private:
@@ -422,7 +423,7 @@ public:
 
     public:
         /// constructor
-        MSContainerStage_Tranship(const std::vector<const MSEdge*>& route, MSContainerStop* toCS, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
+        MSContainerStage_Tranship(const std::vector<const MSEdge*>& route, MSStoppingPlace* toCS, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
 
         /// destructor
         ~MSContainerStage_Tranship();
@@ -460,7 +461,7 @@ public:
         }
 
         /// @brief returns the container stop from which the container departs
-        MSContainerStop* getDepartContainerStop() const;
+        MSStoppingPlace* getDepartContainerStop() const;
 
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
@@ -525,10 +526,10 @@ public:
         SUMOReal myArrivalPos;
 
         /// @brief the destination container stop
-        MSContainerStop* myDestinationContainerStop;
+        MSStoppingPlace* myDestinationContainerStop;
 
         /// @brief The container stop from which the container departs
-        MSContainerStop* myDepartContainerStop;
+        MSStoppingPlace* myDepartContainerStop;
 
         /// @brief the speed of the container
         SUMOReal mySpeed;
@@ -552,35 +553,12 @@ public:
     /// the structure holding the plan of a container
     typedef std::vector<MSContainerStage*> MSContainerPlan;
 
-    /// the last destination of the route of the container
-    const MSEdge* lastDestination;
-
-protected:
-    /// the plan of the container
-    const SUMOVehicleParameter* myParameter;
-
-    /// @brief This container's type. (mainly used for drawing related information
-    /// Note sure if it is really necessary
-    const MSVehicleType* myVType;
-
-    /// the plan of the container
-    MSContainerPlan* myPlan;
-
-    /// the iterator over the route
-    MSContainerPlan::iterator myStep;
-
-    /// @brief Whether events shall be written
-    bool myWriteEvents;
-
 public:
     /// constructor
     MSContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype,  MSContainerPlan* plan);
 
     /// destructor
     virtual ~MSContainer();
-
-    /// returns the container id
-    const std::string& getID() const;
 
     /* @brief proceeds to the next step of the route,
      * @return Whether the containers plan continues  */
@@ -647,7 +625,7 @@ public:
      * returns the current container stop if the stage=Waiting and the
      * container stop from wich the container departs if stage=Driving
      */
-    virtual MSContainerStop* getDepartContainerStop() const;
+    virtual MSStoppingPlace* getDepartContainerStop() const;
 
 
     /** @brief Called on writing tripinfo output
@@ -674,13 +652,12 @@ public:
         return (*myStep)->isWaiting4Vehicle();
     }
 
-    const SUMOVehicleParameter& getParameter() const {
-        return *myParameter;
-    }
+protected:
+    /// the plan of the container
+    MSContainerPlan* myPlan;
 
-    inline const MSVehicleType& getVehicleType() const {
-        return *myVType;
-    }
+    /// the iterator over the route
+    MSContainerPlan::iterator myStep;
 
 private:
     /// @brief Invalidated copy constructor.

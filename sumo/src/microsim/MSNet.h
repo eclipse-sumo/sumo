@@ -49,8 +49,7 @@
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include <utils/common/SUMOTime.h>
-#include <microsim/trigger/MSBusStop.h>
-#include <microsim/trigger/MSContainerStop.h>
+#include <microsim/MSStoppingPlace.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/NamedObjectCont.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
@@ -425,14 +424,14 @@ public:
      * @param[in] busStop The bus stop to add
      * @return Whether the bus stop could be added
      */
-    bool addBusStop(MSBusStop* busStop);
+    bool addBusStop(MSStoppingPlace* busStop);
 
 
     /** @brief Returns the named bus stop
      * @param[in] id The id of the bus stop to return.
      * @return The named bus stop, or 0 if no such stop exists
      */
-    MSBusStop* getBusStop(const std::string& id) const;
+    MSStoppingPlace* getBusStop(const std::string& id) const;
 
 
     /** @brief Returns the bus stop close to the given position
@@ -458,13 +457,13 @@ public:
      * @param[in] containerStop The container stop to add
      * @return Whether the container stop could be added
      */
-    bool addContainerStop(MSContainerStop* containerStop);
+    bool addContainerStop(MSStoppingPlace* containerStop);
 
     /** @brief Returns the named container stop
      * @param[in] id The id of the container stop to return.
      * @return The named container stop, or 0 if no such stop exists
      */
-    MSContainerStop* getContainerStop(const std::string& id) const;
+    MSStoppingPlace* getContainerStop(const std::string& id) const;
 
     /** @brief Returns the container stop close to the given position
      * @param[in] lane the lane of the container stop to return.
@@ -673,10 +672,10 @@ protected:
     int myTooManyVehicles;
 
     /// @brief Dictionary of bus stops
-    NamedObjectCont<MSBusStop*> myBusStopDict;
+    NamedObjectCont<MSStoppingPlace*> myBusStopDict;
 
     /// @brief Dictionary of container stops
-    NamedObjectCont<MSContainerStop*> myContainerStopDict;
+    NamedObjectCont<MSStoppingPlace*> myContainerStopDict;
 
     /// @brief Container for vehicle state listener
     std::vector<VehicleStateListener*> myVehicleStateListeners;
