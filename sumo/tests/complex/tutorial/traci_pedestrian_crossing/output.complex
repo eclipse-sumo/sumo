@@ -1,0 +1,72 @@
+Loading configuration... done.
+Success.
+Loading configuration... done.
+***Starting server on port 8873 ***
+Loading net-file from 'data/../pedcrossing.net.xml'...  done (2ms).
+Loading additional-files from 'data/pedcrossing.tll.xml'...  done (2ms).
+Loading done.
+Simulation started with time: 0.00
+Simulation ended at time: 3621.00
+Reason: TraCI requested termination.
+Performance: 
+ Duration: 958ms
+ Real time factor: 3779.75
+ UPS: 17059.498956
+Vehicles: 
+ Inserted: 680
+ Running: 0
+ Waiting: 0
+
+DijkstraRouterTT answered 942 queries and explored 2.00 edges on average.
+DijkstraRouterTT spent 2ms answering queries (0.00ms on average).
+es the button
+ped22 pushes the button
+ped23 pushes the button
+ped24 pushes the button
+ped25 pushes the button
+ped27 pushes the button
+ped28 pushes the button
+ped29 pushes the button
+ped30 pushes the button
+ped33 pushes the button
+ped32 pushes the button
+ped34 pushes the button
+ped36 pushes the button
+ped37 pushes the button
+ped38 pushes the button
+ped41 pushes the button
+ped42 pushes the button
+ped43 pushes the button
+ped46 pushes the button
+ped47 pushes the button
+ped49 pushes the button
+ped50 pushes the button
+ped51 pushes the button
+ped52 pushes the button
+ped54 pushes the button
+ped55 pushes the button
+ped56 pushes the button
+ped58 pushes the button
+ped62 pushes the button
+ped64 pushes the button
+ped63 pushes the button
+ped66 pushes the button
+ped68 pushes the button
+ped69 pushes the button
+ped70 pushes the button
+ped71 pushes the button
+ped72 pushes the button
+ped73 pushes the button
+ped75 pushes the button
+ped76 pushes the button
+ped77 pushes the button
+ped78 pushes the button
+ped80 pushes the button
+ped81 pushes the button
+ped82 pushes the button
+ped83 pushes the button
+ped86 pushes the button
+ped88 pushes the button
+ped89 pushes the button
+ped91 pushes the button
+ped93 pushes the button

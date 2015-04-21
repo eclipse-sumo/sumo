@@ -1,0 +1,4 @@
+<routes>
+    <flow id="EW" begin="0" end="3600" probability="0.1" from="EC" to="CW"/>
+    <flow id="WE" begin="0" end="3600" probability="0.1" from="WC" to="CE"/>
+</routes>
