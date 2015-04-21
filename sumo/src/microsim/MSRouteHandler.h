@@ -144,10 +144,10 @@ protected:
     void addStop(const SUMOSAXAttributes& attrs);
 
     ///@ brief parse depart- and arrival positions of a walk
-    static bool parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID, 
+    bool parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID, 
             const MSEdge* fromEdge, const MSEdge* toEdge, 
             SUMOReal& departPos, SUMOReal& arrivalPos, MSBusStop*& bs, bool& ok);
-    static SUMOReal parseWalkPos(SumoXMLAttr attr, const std::string& id, const MSEdge* edge, const std::string& val);
+    SUMOReal parseWalkPos(SumoXMLAttr attr, const std::string& id, const MSEdge* edge, const std::string& val);
 
 protected:
     /// @brief The current route

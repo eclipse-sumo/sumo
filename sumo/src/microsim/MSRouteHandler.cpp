@@ -981,7 +981,7 @@ MSRouteHandler::parseWalkPos(SumoXMLAttr attr, const std::string& id, const MSEd
         throw ProcessError(error);
     }
     if (proc == ARRIVAL_POS_RANDOM) {
-        result = RandHelper::rand(edge->getLength());
+        result = myParsingRNG.rand(edge->getLength());
     } else if (proc == ARRIVAL_POS_MAX) {
         result = edge->getLength();
     }
