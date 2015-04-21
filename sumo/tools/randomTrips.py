@@ -61,7 +61,7 @@ def get_options(args=None):
     optParser.add_option("--prefix", dest="tripprefix",
                          default="", help="prefix for the trip ids")
     optParser.add_option("-t", "--trip-attributes", dest="tripattrs",
-                         default="", help="additional trip attributes")
+                         default="", help="additional trip attributes. When generating pedestrians, attributes for <person> and <walk> are supported.")
     optParser.add_option(
         "-b", "--begin", type="float", default=0, help="begin time")
     optParser.add_option(
@@ -250,6 +250,13 @@ def buildTripGenerator(net, options):
     return RandomTripGenerator(source_generator, sink_generator, via_generator, options.intermediate, options.pedestrians)
 
 
+def is_walk_attribute(attr):
+    for cand in ['departPos', 'arrivalPos', 'speed', 'duration', 'busStop']:
+        if cand in attr:
+            return True
+    return False
+
+
 def main(options):
     if options.seed:
         random.seed(options.seed)
@@ -263,6 +270,13 @@ def main(options):
 
     trip_generator = buildTripGenerator(net, options)
     idx = 0
+    
+    if options.pedestrians:
+        # figure out which of the tripattrs belong to the <person> and which
+        # belong to the <walk>
+        walkattrs   = ' '.join([a for a in options.tripattrs.split() if is_walk_attribute(a)])
+        personattrs = ' '.join([a for a in options.tripattrs.split() if not is_walk_attribute(a)])
+
     def generate_one(idx):
         label = "%s%s" % (options.tripprefix, idx)
         try:
@@ -274,9 +288,9 @@ def main(options):
                     [e.getID() for e in intermediate])
             if options.pedestrians:
                 fouttrips.write(
-                    '    <person id="%s" depart="%.2f" %s>\n' % (label, depart, options.tripattrs))
+                    '    <person id="%s" depart="%.2f" %s>\n' % (label, depart, personattrs))
                 fouttrips.write(
-                    '        <walk from="%s" to="%s"/>\n' % (source_edge.getID(), sink_edge.getID()))
+                    '        <walk from="%s" to="%s" %s/>\n' % (source_edge.getID(), sink_edge.getID(), walkattrs))
                 fouttrips.write('    </person>\n')
             else:
                 fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s" %s%s/>\n' % (
