@@ -426,8 +426,8 @@
                     <xsd:attribute name="to" type="xsd:string"/>
                     <xsd:attribute name="speed" type="positiveFloatType"/>
                     <xsd:attribute name="duration" type="positiveFloatType"/>
-                    <xsd:attribute name="departPos" type="xsd:float"/>
-                    <xsd:attribute name="arrivalPos" type="xsd:float"/>
+                    <xsd:attribute name="departPos" type="arrivalPosType"/>
+                    <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="stop" type="stopType"/>
