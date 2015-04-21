@@ -10,7 +10,7 @@ What is SUMO?
 road traffic simulation package designed to handle large road networks. The project
 homepage can be found at
 
-        http://sumo-sim.org/
+        http://sumo.dlr.de/
 
 It is mainly developed by employees of the Institute of Transportation Systems
 at the German Aerospace Center (http://www.dlr.de/ts).
@@ -22,7 +22,7 @@ Where to get it?
 
 You can download SUMO from SourceForge via our downloads site:
 
-        http://sumo-sim.org/wiki/Downloads
+        http://sumo.dlr.de/wiki/Downloads
 
 
 As the program is still under development and is extended continuously, we advice you to
@@ -58,7 +58,7 @@ If configure does not find the libraries or includes needed, please check
 
 For detailed build instructions have a look at our wiki:
 
-        http://sumo-sim.org/wiki/Developer/Main#Build_instructions
+        http://sumo.dlr.de/wiki/Developer/Main#Build_instructions
 
 
 
@@ -77,7 +77,7 @@ Bugs.
 
 Please use for bugs and requests our bug tracking tool which provides OpenID access
 
-        http://sumo-sim.org/trac/
+        http://sumo.dlr.de/trac/
 
 or file them to the list sumo-users@lists.sourceforge.net. Before
 filing a bug, please consider to check with a current subversion checkout
