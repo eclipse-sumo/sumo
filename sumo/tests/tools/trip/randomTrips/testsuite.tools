@@ -34,3 +34,6 @@ no_valid_intermediate_edges
 # option --intermediate is given but no intermediate edges are available
 no_valid_intermediate_edges_fail
 pedestrians
+
+# use binomially distributed arrivals
+binomial

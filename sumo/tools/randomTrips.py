@@ -67,7 +67,7 @@ def get_options(args=None):
     optParser.add_option(
         "-e", "--end", type="float", default=3600, help="end time (default 3600)")
     optParser.add_option(
-        "-p", "--period", type="float", default=1, help="repetition period (default 1)")
+        "-p", "--period", type="float", default=1, help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period.")
     optParser.add_option("-s", "--seed", type="int", help="random seed")
     optParser.add_option("-l", "--length", action="store_true",
                          default=False, help="weight edge probability by length")
@@ -87,6 +87,8 @@ def get_options(args=None):
                          default=0, help="generates the given number of intermediate way points")
     optParser.add_option("--maxtries", type="int",
                          default=100, help="number of attemps for finding a trip which meets the distance constraints")
+    optParser.add_option("--binomial", type="int", metavar="N",
+                         help="If this is set, the number of departures per seconds will be drawn from a binomial distribution with n=N and p=PERIOD/N where PERIOD is the argument given to option --period. Tnumber of attemps for finding a trip which meets the distance constraints")
     optParser.add_option(
         "-c", "--vclass", help="only from and to edges which permit <vClass>")
     optParser.add_option(
@@ -261,6 +263,29 @@ def main(options):
 
     trip_generator = buildTripGenerator(net, options)
     idx = 0
+    def generate_one(idx):
+        label = "%s%s" % (options.tripprefix, idx)
+        try:
+            source_edge, sink_edge, intermediate = trip_generator.get_trip(
+                options.min_distance, options.max_distance, options.maxtries)
+            via = ""
+            if len(intermediate) > 0:
+                via = 'via="%s" ' % ' '.join(
+                    [e.getID() for e in intermediate])
+            if options.pedestrians:
+                fouttrips.write(
+                    '    <person id="%s" depart="%.2f" %s>\n' % (label, depart, options.tripattrs))
+                fouttrips.write(
+                    '        <walk from="%s" to="%s"/>\n' % (source_edge.getID(), sink_edge.getID()))
+                fouttrips.write('    </person>\n')
+            else:
+                fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s" %s%s/>\n' % (
+                    label, depart, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
+        except Exception, exc:
+            print(exc, file=sys.stderr)
+        return idx + 1
+
+
     with open(options.tripfile, 'w') as fouttrips:
         fouttrips.write("""<?xml version="1.0"?>
 <!-- generated on %s by $Id$
@@ -276,27 +301,18 @@ def main(options):
         depart = options.begin
         if trip_generator:
             while depart < options.end:
-                label = "%s%s" % (options.tripprefix, idx)
-                try:
-                    source_edge, sink_edge, intermediate = trip_generator.get_trip(
-                        options.min_distance, options.max_distance, options.maxtries)
-                    via = ""
-                    if len(intermediate) > 0:
-                        via = 'via="%s" ' % ' '.join(
-                            [e.getID() for e in intermediate])
-                    if options.pedestrians:
-                        fouttrips.write(
-                            '    <person id="%s" depart="%.2f" %s>\n' % (label, depart, options.tripattrs))
-                        fouttrips.write(
-                            '        <walk from="%s" to="%s"/>\n' % (source_edge.getID(), sink_edge.getID()))
-                        fouttrips.write('    </person>\n')
-                    else:
-                        fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s" %s%s/>\n' % (
-                            label, depart, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
-                except Exception, exc:
-                    print(exc, file=sys.stderr)
-                idx += 1
-                depart += options.period
+                if options.binomial is None:
+                    # generate with constant spacing
+                    idx = generate_one(idx)
+                    depart += options.period
+                else:
+                    # draw n times from a bernouli distribution 
+                    # for an average arrival rate of 1 / period
+                    prob = 1.0 / options.period / options.binomial
+                    for i in range(options.binomial):
+                        if random.random() < prob:
+                            idx = generate_one(idx)
+                    depart += 1
         fouttrips.write("</trips>\n")
 
     if options.routefile:
