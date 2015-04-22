@@ -358,14 +358,14 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             continuation->getToNode()->replaceIncoming(continuation, begin, 0);
             tlc.replaceRemoved(continuation, -1, begin, -1);
             je.appended(begin->getID(), continuation->getID());
-            ec.erase(dc, continuation);
+            ec.extract(dc, continuation, true);
         }
         toRemove.push_back(current);
         no++;
     }
     // erase all
     for (std::vector<NBNode*>::iterator j = toRemove.begin(); j != toRemove.end(); ++j) {
-        erase(*j);
+        extract(*j, true);
     }
     return no;
 }
