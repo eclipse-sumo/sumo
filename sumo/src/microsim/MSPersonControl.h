@@ -59,10 +59,10 @@ class MSVehicle;
 class MSPersonControl {
 public:
     /// @brief Definition of a list of persons
-    typedef std::vector<MSPerson*> PersonVector;
+    typedef std::vector<MSTransportable*> PersonVector;
 
     /// @brief Definition of the internal persons map iterator
-    typedef std::map<std::string, MSPerson*>::const_iterator constVehIt;
+    typedef std::map<std::string, MSTransportable*>::const_iterator constVehIt;
 
 
 public:
@@ -86,23 +86,23 @@ public:
      * @param[in] id The id of the person
      * @return The named person, if existing, otherwise 0
      */
-    MSPerson* get(const std::string& id) const;
+    MSTransportable* get(const std::string& id) const;
 
 
     /// removes a single person
-    virtual void erase(MSPerson* person);
+    virtual void erase(MSTransportable* person);
 
     /// sets the arrival time for a waiting or walking person
     void setDeparture(SUMOTime time, MSPerson* person);
 
     /// sets the arrival time for a waiting or walking person
-    void setWaitEnd(SUMOTime time, MSPerson* person);
+    void setWaitEnd(SUMOTime time, MSTransportable* person);
 
     /// checks whether any persons waiting or walking time is over
     void checkWaitingPersons(MSNet* net, const SUMOTime time);
 
     /// adds a person to the list of persons waiting for a vehicle on the specified edge
-    void addWaiting(const MSEdge* edge, MSPerson* person);
+    void addWaiting(const MSEdge* edge, MSTransportable* person);
 
     /** @brief board any applicable persons
      * Boards any people who wait on that edge for the given vehicle and removes them from myWaiting
@@ -128,10 +128,10 @@ public:
      * @param[in] vtype The type (reusing vehicle type container here)
      * @param[in] plan This person's plan
      */
-    virtual MSPerson* buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) const;
+    virtual MSPerson* buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const;
 
-    void setWalking(MSPerson* p);
-    void unsetWalking(MSPerson* p);
+    void setWalking(MSTransportable* p);
+    void unsetWalking(MSTransportable* p);
 
     /// @brief returns whether the the given person is waiting for a vehicle on the given edge
     bool isWaiting4Vehicle(const MSEdge* const edge, MSPerson* p) const;
@@ -163,10 +163,10 @@ public:
 
 protected:
     /// all persons by id
-    std::map<std::string, MSPerson*> myPersons;
+    std::map<std::string, MSTransportable*> myPersons;
 
     /// all persons by id
-    std::map<std::string, MSPerson*> myWalking;
+    std::map<std::string, MSTransportable*> myWalking;
 
     /// @brief Persons waiting for departure
     std::map<SUMOTime, PersonVector> myWaiting4Departure;

@@ -60,7 +60,7 @@ class GUIContainer : public MSContainer, public GUIGlObject {
 public:
     /** @brief Constructor
      */
-    GUIContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSContainer::MSContainerPlan* plan);
+    GUIContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan);
 
 
     /// @brief destructor

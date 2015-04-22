@@ -69,15 +69,15 @@ MSDevice_Container::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /
     if (myStopped) {
         // if veh is not anymore at the stop
         if (!veh.isStopped()) {
-            for (std::vector<MSContainer*>::iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
+            for (std::vector<MSTransportable*>::iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
                 (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
             }
             myStopped = false;
         }
     } else {
         if (veh.isStopped()) {
-            for (std::vector<MSContainer*>::iterator i = myContainers.begin(); i != myContainers.end();) {
-                MSContainer* container = *i;
+            for (std::vector<MSTransportable*>::iterator i = myContainers.begin(); i != myContainers.end();) {
+                MSTransportable* container = *i;
                 if (&(container->getDestination()) == veh.getEdge()) {
                     if (!container->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
                         MSNet::getInstance()->getContainerControl().erase(container);
@@ -97,7 +97,7 @@ MSDevice_Container::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /
 bool
 MSDevice_Container::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-        for (std::vector<MSContainer*>::iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
+        for (std::vector<MSTransportable*>::iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
             (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
         }
     }
@@ -109,8 +109,8 @@ bool
 MSDevice_Container::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
                                 MSMoveReminder::Notification reason) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
-        for (std::vector<MSContainer*>::iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
-            MSContainer* container = *i;
+        for (std::vector<MSTransportable*>::iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
+            MSTransportable* container = *i;
             if (&(container->getDestination()) != veh.getEdge()) {
                 WRITE_WARNING("Teleporting container '" + container->getID() +
                               "' from vehicle destination '" + veh.getEdge()->getID() +
@@ -126,7 +126,7 @@ MSDevice_Container::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
 
 
 void
-MSDevice_Container::addContainer(MSContainer* container) {
+MSDevice_Container::addContainer(MSTransportable* container) {
     myContainers.push_back(container);
 }
 

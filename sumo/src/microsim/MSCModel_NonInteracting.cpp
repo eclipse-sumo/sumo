@@ -73,7 +73,7 @@ MSCModel_NonInteracting::getModel() {
 }
 
 CState*
-MSCModel_NonInteracting::add(MSContainer* container, MSContainer::MSContainerStage_Tranship* stage, SUMOTime now) {
+MSCModel_NonInteracting::add(MSTransportable* container, MSContainer::MSContainerStage_Tranship* stage, SUMOTime now) {
     CState* state = new CState();
     const SUMOTime firstEdgeDuration = state->computeTranshipTime(0, *stage, now);
     myNet->getBeginOfTimestepEvents()->addEvent(new MoveToNextEdge(container, *stage),

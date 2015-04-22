@@ -112,6 +112,9 @@
     <ClCompile Include="..\..\..\src\microsim\MSStoppingPlace.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\MSTransportable.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\MSBitSetLogic.h">

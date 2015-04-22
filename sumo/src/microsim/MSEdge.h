@@ -192,14 +192,14 @@ public:
      *
      * @return This edge's persons sorted by pos
      */
-    std::vector<MSPerson*> getSortedPersons(SUMOTime timestep) const;
+    std::vector<MSTransportable*> getSortedPersons(SUMOTime timestep) const;
 
 
     /** @brief Returns this edge's containers sorted by pos
      *
      * @return This edge's containers sorted by pos
      */
-    std::vector<MSContainer*> getSortedContainers(SUMOTime timestep) const;
+    std::vector<MSTransportable*> getSortedContainers(SUMOTime timestep) const;
 
     /** @brief Get the allowed lanes to reach the destination-edge.
      *
@@ -553,25 +553,25 @@ public:
      */
     SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const;
 
-    virtual void addPerson(MSPerson* p) const {
+    virtual void addPerson(MSTransportable* p) const {
         myPersons.insert(p);
     }
 
-    virtual void removePerson(MSPerson* p) const {
-        std::set<MSPerson*>::iterator i = myPersons.find(p);
+    virtual void removePerson(MSTransportable* p) const {
+        std::set<MSTransportable*>::iterator i = myPersons.find(p);
         if (i != myPersons.end()) {
             myPersons.erase(i);
         }
     }
 
     /// @brief Add a container to myContainers
-    virtual void addContainer(MSContainer* container) const {
+    virtual void addContainer(MSTransportable* container) const {
         myContainers.insert(container);
     }
 
     /// @brief Remove container from myContainers
-    virtual void removeContainer(MSContainer* container) const {
-        std::set<MSContainer*>::iterator i = myContainers.find(container);
+    virtual void removeContainer(MSTransportable* container) const {
+        std::set<MSTransportable*>::iterator i = myContainers.find(container);
         if (i != myContainers.end()) {
             myContainers.erase(i);
         }
@@ -656,30 +656,16 @@ protected:
 
     };
 
-    /** @class person_by_offset_sorter
-     * @brief Sorts persons by their positions
+    /** @class transportable_by_position_sorter
+     * @brief Sorts transportables by their positions
      */
-    class person_by_offset_sorter {
+    class transportable_by_position_sorter {
     public:
         /// @brief constructor
-        explicit person_by_offset_sorter(SUMOTime timestep): myTime(timestep) { }
+        explicit transportable_by_position_sorter(SUMOTime timestep): myTime(timestep) { }
 
         /// @brief comparing operator
-        int operator()(const MSPerson* const p1, const MSPerson* const p2) const;
-    private:
-        SUMOTime myTime;
-    };
-
-    /** @class container_by_position_sorter
-     * @brief Sorts containers by their positions
-     */
-    class container_by_position_sorter {
-    public:
-        /// @brief constructor
-        explicit container_by_position_sorter(SUMOTime timestep): myTime(timestep) { }
-
-        /// @brief comparing operator
-        int operator()(const MSContainer* const c1, const MSContainer* const c2) const;
+        int operator()(const MSTransportable* const c1, const MSTransportable* const c2) const;
     private:
         SUMOTime myTime;
     };
@@ -730,10 +716,10 @@ protected:
     MSJunction* myToJunction;
 
     /// @brief Persons on the edge (only for drawing)
-    mutable std::set<MSPerson*> myPersons;
+    mutable std::set<MSTransportable*> myPersons;
 
     /// @brief Containers on the edge
-    mutable std::set<MSContainer*> myContainers;
+    mutable std::set<MSTransportable*> myContainers;
 
     /// @name Storages for allowed lanes (depending on vehicle classes)
     /// @{

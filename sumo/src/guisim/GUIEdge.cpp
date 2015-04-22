@@ -268,7 +268,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     if (s.scale * s.personSize.getExaggeration(s) > s.personSize.minSize) {
         myLock.lock();
-        for (std::set<MSPerson*>::const_iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
+        for (std::set<MSTransportable*>::const_iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
             GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
             assert(person != 0);
             person->drawGL(s);
@@ -277,7 +277,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     if (s.scale * s.containerSize.getExaggeration(s) > s.containerSize.minSize) {
         myLock.lock();
-        for (std::set<MSContainer*>::const_iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
+        for (std::set<MSTransportable*>::const_iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
             GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
             assert(container != 0);
             container->drawGL(s);

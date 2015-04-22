@@ -144,23 +144,23 @@ public:
     //@}
 
 
-    void addPerson(MSPerson* p) const {
+    void addPerson(MSTransportable* p) const {
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::addPerson(p);
     }
 
-    void removePerson(MSPerson* p) const {
+    void removePerson(MSTransportable* p) const {
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::removePerson(p);
     }
 
 
-    void addContainer(MSContainer* c) const {
+    void addContainer(MSTransportable* c) const {
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::addContainer(c);
     }
 
-    void removeContainer(MSContainer* c) const {
+    void removeContainer(MSTransportable* c) const {
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::removeContainer(c);
     }

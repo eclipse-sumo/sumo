@@ -69,7 +69,7 @@ public:
     static void cleanup();
 
     /// @brief register the given container as a transhiped container
-    CState* add(MSContainer* container, MSContainer::MSContainerStage_Tranship* stage, SUMOTime now);
+    CState* add(MSTransportable* container, MSContainer::MSContainerStage_Tranship* stage, SUMOTime now);
 
 private:
     static MSCModel_NonInteracting* myModel;
@@ -77,13 +77,13 @@ private:
 private:
     class MoveToNextEdge : public Command {
     public:
-        MoveToNextEdge(MSContainer* container, MSContainer::MSContainerStage_Tranship& tranship) : myParent(tranship), myContainer(container) {}
+        MoveToNextEdge(MSTransportable* container, MSContainer::MSContainerStage_Tranship& tranship) : myParent(tranship), myContainer(container) {}
         ~MoveToNextEdge() {}
         SUMOTime execute(SUMOTime currentTime);
 
     private:
         MSContainer::MSContainerStage_Tranship& myParent;
-        MSContainer* myContainer;
+        MSTransportable* myContainer;
     private:
         /// @brief Invalidated assignment operator.
         MoveToNextEdge& operator=(const MoveToNextEdge&);

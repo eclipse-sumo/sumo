@@ -726,7 +726,7 @@ public:
     /** @brief Adds a passenger
      * @param[in] person The person to add
      */
-    void addPerson(MSPerson* person);
+    void addPerson(MSTransportable* person);
 
     /// @name Interaction with containers
     //@{
@@ -734,7 +734,7 @@ public:
     /** @brief Adds a container
      * @param[in] container The container to add
      */
-    void addContainer(MSContainer* container);
+    void addContainer(MSTransportable* container);
 
 
     /** @brief Returns the number of persons

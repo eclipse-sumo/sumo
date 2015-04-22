@@ -73,15 +73,15 @@ bool
 MSDevice_Person::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) {
     if (myStopped) {
         if (!veh.isStopped()) {
-            for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
+            for (std::vector<MSTransportable*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
                 (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
             }
             myStopped = false;
         }
     } else {
         if (veh.isStopped()) {
-            for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end();) {
-                MSPerson* person = *i;
+            for (std::vector<MSTransportable*>::iterator i = myPersons.begin(); i != myPersons.end();) {
+                MSTransportable* person = *i;
                 if (&(person->getDestination()) == veh.getEdge()) {
                     if (!person->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
                         MSNet::getInstance()->getPersonControl().erase(person);
@@ -101,7 +101,7 @@ MSDevice_Person::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*ne
 bool
 MSDevice_Person::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-        for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
+        for (std::vector<MSTransportable*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
             (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
         }
     }
@@ -113,8 +113,8 @@ bool
 MSDevice_Person::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
                              MSMoveReminder::Notification reason) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
-        for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
-            MSPerson* person = *i;
+        for (std::vector<MSTransportable*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
+            MSTransportable* person = *i;
             if (&(person->getDestination()) != veh.getEdge()) {
                 WRITE_WARNING("Teleporting person '" + person->getID() +
                               "' from vehicle destination '" + veh.getEdge()->getID() +
@@ -130,7 +130,7 @@ MSDevice_Person::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
 
 
 void
-MSDevice_Person::addPerson(MSPerson* person) {
+MSDevice_Person::addPerson(MSTransportable* person) {
     myPersons.push_back(person);
 }
 

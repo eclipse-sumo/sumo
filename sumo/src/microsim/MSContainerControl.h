@@ -57,7 +57,7 @@ class MSVehicle;
 class MSContainerControl {
 public:
 
-    typedef std::vector<MSContainer*> ContainerVector;
+    typedef std::vector<MSTransportable*> ContainerVector;
 
     /// constructor
     MSContainerControl();
@@ -66,22 +66,22 @@ public:
     virtual ~MSContainerControl();
 
     /// adds a single container, returns false if an id clash occured
-    bool add(const std::string& id, MSContainer* container);
+    bool add(const std::string& id, MSTransportable* container);
 
     /// removes a single container
-    virtual void erase(MSContainer* container);
+    virtual void erase(MSTransportable* container);
 
     /// sets the arrival time for a waiting container
-    void setDeparture(SUMOTime time, MSContainer* container);
+    void setDeparture(SUMOTime time, MSTransportable* container);
 
     /// sets the arrival time for a waiting container
-    void setWaitEnd(SUMOTime time, MSContainer* container);
+    void setWaitEnd(SUMOTime time, MSTransportable* container);
 
     /// checks whether any containers waiting time is over
     void checkWaitingContainers(MSNet* net, const SUMOTime time);
 
     /// adds a container to the list of containers waiting for a vehicle on the specified edge
-    void addWaiting(const MSEdge* edge, MSContainer* container);
+    void addWaiting(const MSEdge* edge, MSTransportable* container);
 
     /** @brief load any applicable containers
      * Loads any container that is waiting on that edge for the given vehicle and removes them from myWaiting
@@ -106,27 +106,20 @@ public:
      * @param[in] vtype The type (reusing vehicle type container here)
      * @param[in] plan This container's plan
      */
-    virtual MSContainer* buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSContainer::MSContainerPlan* plan) const;
+    virtual MSContainer* buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const;
 
     /// adds a container to myTranship
-    void setTranship(MSContainer* c);
+    void setTranship(MSTransportable* c);
 
     /// removes a container from myTranship
-    void unsetTranship(MSContainer* c);
-//
-//    /// @brief returns whether the the given container is waiting for a vehicle on the given edge
-//    bool isWaiting4Vehicle(const MSEdge* const edge, MSContainer* p) const;
-//
-//    const std::map<std::string, MSContainer*>& getContainers() const {
-//        return myContainers;
-//    }
-//
+    void unsetTranship(MSTransportable* c);
+
 private:
     /// all containers by id
-    std::map<std::string, MSContainer*> myContainers;
+    std::map<std::string, MSTransportable*> myContainers;
 
     /// all containers being transhiped
-    std::map<std::string, MSContainer*> myTranship;
+    std::map<std::string, MSTransportable*> myTranship;
 
     /// @brief Containers waiting for departure
     std::map<SUMOTime, ContainerVector> myWaiting4Departure;

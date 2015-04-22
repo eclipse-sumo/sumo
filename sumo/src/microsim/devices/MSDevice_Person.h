@@ -117,7 +117,7 @@ public:
      *
      * @param[in] person The passenger to add.
      */
-    void addPerson(MSPerson* person);
+    void addPerson(MSTransportable* person);
 
 
     /** @brief Return the number of passengers
@@ -131,7 +131,7 @@ public:
     /** @brief Returns the list of persons using this vehicle
      * @return Persons within this vehicle
      */
-    const std::vector<MSPerson*>& getPersons() const {
+    const std::vector<MSTransportable*>& getPersons() const {
         return myPersons;
     }
 
@@ -149,7 +149,7 @@ private:
 
 private:
     /// @brief The passengers of the vehicle
-    std::vector<MSPerson*> myPersons;
+    std::vector<MSTransportable*> myPersons;
 
     /// @brief Whether the vehicle is at a stop
     bool myStopped;

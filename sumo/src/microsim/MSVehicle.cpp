@@ -844,8 +844,8 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
         loaded &= stop.awaitedContainers.size() == 0;
         if (boarded) {
             if (stop.busstop != 0) {
-                const std::vector<MSPerson*>& persons = myPersonDevice->getPersons();
-                for (std::vector<MSPerson*>::const_iterator i = persons.begin(); i != persons.end(); ++i) {
+                const std::vector<MSTransportable*>& persons = myPersonDevice->getPersons();
+                for (std::vector<MSTransportable*>::const_iterator i = persons.begin(); i != persons.end(); ++i) {
                     stop.busstop->removeTransportable(*i);
                 }
             }
@@ -858,8 +858,8 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
         }
         if (loaded) {
             if (stop.containerstop != 0) {
-                const std::vector<MSContainer*>& containers = myContainerDevice->getContainers();
-                for (std::vector<MSContainer*>::const_iterator i = containers.begin(); i != containers.end(); ++i) {
+                const std::vector<MSTransportable*>& containers = myContainerDevice->getContainers();
+                for (std::vector<MSTransportable*>::const_iterator i = containers.begin(); i != containers.end(); ++i) {
                     stop.containerstop->removeTransportable(*i);
                 }
             }
@@ -2319,7 +2319,7 @@ MSVehicle::getHarmonoise_NoiseEmissions() const {
 
 
 void
-MSVehicle::addPerson(MSPerson* person) {
+MSVehicle::addPerson(MSTransportable* person) {
     if (myPersonDevice == 0) {
         myPersonDevice = MSDevice_Person::buildVehicleDevices(*this, myDevices);
         myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
@@ -2341,7 +2341,7 @@ MSVehicle::addPerson(MSPerson* person) {
 }
 
 void
-MSVehicle::addContainer(MSContainer* container) {
+MSVehicle::addContainer(MSTransportable* container) {
     if (myContainerDevice == 0) {
         myContainerDevice = MSDevice_Container::buildVehicleDevices(*this, myDevices);
         myMoveReminders.push_back(std::make_pair(myContainerDevice, 0.));

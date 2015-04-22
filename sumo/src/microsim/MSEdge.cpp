@@ -644,34 +644,24 @@ MSEdge::getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
 }
 
 
-std::vector<MSPerson*>
+std::vector<MSTransportable*>
 MSEdge::getSortedPersons(SUMOTime timestep) const {
-    std::vector<MSPerson*> result(myPersons.begin(), myPersons.end());
-    sort(result.begin(), result.end(), person_by_offset_sorter(timestep));
+    std::vector<MSTransportable*> result(myPersons.begin(), myPersons.end());
+    sort(result.begin(), result.end(), transportable_by_position_sorter(timestep));
     return result;
 }
 
 
-std::vector<MSContainer*>
+std::vector<MSTransportable*>
 MSEdge::getSortedContainers(SUMOTime timestep) const {
-    std::vector<MSContainer*> result(myContainers.begin(), myContainers.end());
-    sort(result.begin(), result.end(), container_by_position_sorter(timestep));
+    std::vector<MSTransportable*> result(myContainers.begin(), myContainers.end());
+    sort(result.begin(), result.end(), transportable_by_position_sorter(timestep));
     return result;
 }
 
 
 int
-MSEdge::person_by_offset_sorter::operator()(const MSPerson* const p1, const MSPerson* const p2) const {
-    const SUMOReal pos1 = p1->getCurrentStage()->getEdgePos(myTime);
-    const SUMOReal pos2 = p2->getCurrentStage()->getEdgePos(myTime);
-    if (pos1 != pos2) {
-        return pos1 < pos2;
-    }
-    return p1->getID() < p2->getID();
-}
-
-int
-MSEdge::container_by_position_sorter::operator()(const MSContainer* const c1, const MSContainer* const c2) const {
+MSEdge::transportable_by_position_sorter::operator()(const MSTransportable* const c1, const MSTransportable* const c2) const {
     const SUMOReal pos1 = c1->getCurrentStage()->getEdgePos(myTime);
     const SUMOReal pos2 = c2->getCurrentStage()->getEdgePos(myTime);
     if (pos1 != pos2) {

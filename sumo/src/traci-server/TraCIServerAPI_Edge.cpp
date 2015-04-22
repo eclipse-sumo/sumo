@@ -140,8 +140,8 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             break;
             case LAST_STEP_PERSON_ID_LIST: {
                 std::vector<std::string> personIDs;
-                std::vector<MSPerson*> persons = e->getSortedPersons(MSNet::getInstance()->getCurrentTimeStep());
-                for (std::vector<MSPerson*>::iterator it = persons.begin(); it != persons.end(); ++it) {
+                std::vector<MSTransportable*> persons = e->getSortedPersons(MSNet::getInstance()->getCurrentTimeStep());
+                for (std::vector<MSTransportable*>::iterator it = persons.begin(); it != persons.end(); ++it) {
                     personIDs.push_back((*it)->getID());
                 }
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);

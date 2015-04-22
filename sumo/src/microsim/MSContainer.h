@@ -54,8 +54,6 @@ class MSVehicleType;
 class MSCModel_NonInteracting;
 class CState;
 
-//typedef std::vector<const MSEdge*> MSEdgeVector;
-
 
 // ===========================================================================
 // class definitions
@@ -69,141 +67,16 @@ class CState;
 
 class MSContainer : public MSTransportable {
 public:
-    enum StageType {
-        DRIVING = 0,
-        WAITING = 1,
-        TRANSHIP = 2
-    };
-
     /// @brief the offset for computing container positions when standing at an edge
     static const SUMOReal ROADSIDE_OFFSET;
 
-
-    /**
-    * The "abstract" class for a single stage of a container movement
-    * Contains the destination of the current movement step
-    */
-    class MSContainerStage {
-    public:
-        /// constructor
-        MSContainerStage(const MSEdge& destination, StageType type);
-
-        /// destructor
-        virtual ~MSContainerStage();
-
-        /// returns the destination edge
-        const MSEdge& getDestination() const;
-
-        /// Returns the current edge
-        virtual const MSEdge* getEdge() const = 0;
-        virtual const MSEdge* getFromEdge() const = 0;
-        virtual SUMOReal getEdgePos(SUMOTime now) const = 0;
-
-        /// returns the position of the container
-        virtual Position getPosition(SUMOTime now) const = 0;
-
-        /// returns the angle of the container
-        virtual SUMOReal getAngle(SUMOTime now) const = 0;
-
-        ///
-        StageType getStageType() const {
-            return myType;
-        }
-
-        /// @brief return string representation of the current stage
-        virtual std::string getStageDescription() const = 0;
-
-        /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSContainer* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at) = 0;
-
-        /// logs end of the step
-        void setDeparted(SUMOTime now);
-
-        /// logs end of the step
-        void setArrived(SUMOTime now);
-
-        /// Whether the container waits for a vehicle of the line specified.
-        virtual bool isWaitingFor(const std::string& line) const;
-
-        /// @brief Whether the container waits for a vehicle
-        virtual bool isWaiting4Vehicle() const {
-            return false;
-        }
-
-        /// @brief the time this container spent waiting
-        virtual SUMOTime getWaitingTime(SUMOTime now) const = 0;
-
-        /// @brief the speed of the container
-        virtual SUMOReal getSpeed() const = 0;
-
-        /// @brief get position on edge e at length at with orthogonal offset
-        Position getEdgePosition(const MSEdge* e, SUMOReal at, SUMOReal offset) const;
-
-        /// @brief get position on lane at length at with orthogonal offset
-        Position getLanePosition(const MSLane* lane, SUMOReal at, SUMOReal offset) const;
-
-        /// @brief get angle of the edge at a certain position
-        SUMOReal getEdgeAngle(const MSEdge* e, SUMOReal at) const;
-
-        /* @brief Return the current ContainerStop or the destination containe stop
-         *
-         * returns the current container stop if the stage=Waiting and the
-         * container stop from wich the container departs if stage=Driving
-         */
-        virtual MSStoppingPlace* getDepartContainerStop() const = 0;
-
-        /** @brief Called on writing tripinfo output
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void tripInfoOutput(OutputDevice& os) const = 0;
-
-        /** @brief Called on writing vehroute output
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void routeOutput(OutputDevice& os) const = 0;
-
-        /** @brief Called for writing the events output (begin of an action)
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void beginEventOutput(const MSContainer& container, SUMOTime t, OutputDevice& os) const = 0;
-
-        /** @brief Called for writing the events output (end of an action)
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void endEventOutput(const MSContainer& container, SUMOTime t, OutputDevice& os) const = 0;
-
-    protected:
-        /// the next edge to reach by getting transported
-        const MSEdge& myDestination;
-
-        /// the time at which this stage started
-        SUMOTime myDeparted;
-
-        /// the time at which this stage ended
-        SUMOTime myArrived;
-
-        /// The type of this stage
-        StageType myType;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        MSContainerStage(const MSContainerStage&);
-
-        /// @brief Invalidated assignment operator.
-        MSContainerStage& operator=(const MSContainerStage&);
-
-    };
 
     /**
      * A "real" stage performing the travelling by a transport system
      * A container is in this stage if it is on a ride or if its waiting for a ride.
      * The given route will be chosen. The travel time is computed by the simulation
      */
-    class MSContainerStage_Driving : public MSContainerStage {
+    class MSContainerStage_Driving : public MSTransportable::Stage {
     public:
         /// constructor
         MSContainerStage_Driving(const MSEdge& destination, MSStoppingPlace* toCS,
@@ -213,7 +86,7 @@ public:
         ~MSContainerStage_Driving();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSContainer* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at);
+        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at);
 
         /// Returns the current edge
         const MSEdge* getEdge() const;
@@ -272,13 +145,13 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void beginEventOutput(const MSContainer& container, SUMOTime t, OutputDevice& os) const;
+        virtual void beginEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const;
 
         /** @brief Called for writing the events output (end of an action)
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void endEventOutput(const MSContainer& container, SUMOTime t, OutputDevice& os) const;
+        virtual void endEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const;
 
     private:
         /// the lines  to choose from
@@ -314,7 +187,7 @@ public:
      * A container is in this stage if it is not on a ride or waiting for a ride, e.g.
      * if it is stored, or if gets filled or emptied.
      */
-    class MSContainerStage_Waiting : public MSContainerStage {
+    class MSContainerStage_Waiting : public MSTransportable::Stage {
     public:
         /// constructor
         MSContainerStage_Waiting(const MSEdge& destination,
@@ -357,7 +230,7 @@ public:
         MSStoppingPlace* getDepartContainerStop() const;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSContainer* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at);
+        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at);
 
         /** @brief Called on writing tripinfo output
          *
@@ -377,13 +250,13 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void beginEventOutput(const MSContainer& container, SUMOTime t, OutputDevice& os) const;
+        virtual void beginEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const;
 
         /** @brief Called for writing the events output (end of an action)
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void endEventOutput(const MSContainer& container, SUMOTime t, OutputDevice& os) const;
+        virtual void endEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const;
 
     private:
         /// the time the container is waiting
@@ -418,7 +291,7 @@ public:
     * A container is in this stage if it gets transhipred between two stops that are
     * assumed to be connected.
     */
-    class MSContainerStage_Tranship : public MSContainerStage {
+    class MSContainerStage_Tranship : public MSTransportable::Stage {
         friend class MSCModel_NonInteracting;
 
     public:
@@ -429,7 +302,7 @@ public:
         ~MSContainerStage_Tranship();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSContainer* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at);
+        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at);
 
         /// Returns the current edge
         const MSEdge* getEdge() const;
@@ -479,16 +352,16 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void beginEventOutput(const MSContainer& c, SUMOTime t, OutputDevice& os) const;
+        virtual void beginEventOutput(const MSTransportable& c, SUMOTime t, OutputDevice& os) const;
 
         /** @brief Called for writing the events output (end of an action)
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void endEventOutput(const MSContainer& c, SUMOTime t, OutputDevice& os) const;
+        virtual void endEventOutput(const MSTransportable& c, SUMOTime t, OutputDevice& os) const;
 
         /// @brief move forward and return whether the container arrived
-        bool moveToNextEdge(MSContainer* container, SUMOTime currentTime, MSEdge* nextInternal = 0);
+        bool moveToNextEdge(MSTransportable* container, SUMOTime currentTime, MSEdge* nextInternal = 0);
 
 
         /// @brief accessors to be used by MSCModel_NonInteracting
@@ -550,90 +423,15 @@ public:
     };
 
 public:
-    /// the structure holding the plan of a container
-    typedef std::vector<MSContainerStage*> MSContainerPlan;
-
-public:
     /// constructor
-    MSContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype,  MSContainerPlan* plan);
+    MSContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype,  MSTransportablePlan* plan);
 
     /// destructor
     virtual ~MSContainer();
 
     /* @brief proceeds to the next step of the route,
-     * @return Whether the containers plan continues  */
+     * @return Whether the persons plan continues  */
     bool proceed(MSNet* net, SUMOTime time);
-
-    /// Returns the desired departure time.
-    SUMOTime getDesiredDepart() const;
-
-    /// logs depart time of the current stage
-    void setDeparted(SUMOTime now);
-
-    /// Returns the current destination.
-    const MSEdge& getDestination() const {
-        return (*myStep)->getDestination();
-    }
-
-    /// Returns the destination after the current destination.
-    const MSEdge& getNextDestination() const {
-        return (*(myStep + 1))->getDestination();
-    }
-
-    /// @brief Returns the current edge
-    const MSEdge* getEdge() const {
-        return (*myStep)->getEdge();
-    }
-
-    /// @brief Returns the departure edge
-    const MSEdge* getFromEdge() const {
-        return (*myStep)->getFromEdge();
-    }
-
-    /// @brief Return the position on the edge
-    virtual SUMOReal getEdgePos() const;
-
-    /// @brief Return the Network coordinate of the container
-    virtual Position getPosition() const;
-
-    /// @brief return the current angle of the container
-    virtual SUMOReal getAngle() const;
-
-    /// @brief the time this container spent waiting in seconds
-    virtual SUMOReal getWaitingSeconds() const;
-
-    /// @brief the current speed of the container
-    virtual SUMOReal getSpeed() const;
-
-    /// @brief the current stage type of the container
-    StageType getCurrentStageType() const {
-        return (*myStep)->getStageType();
-    }
-
-    /// Returns the current stage description as a string
-    std::string getCurrentStageDescription() const {
-        return (*myStep)->getStageDescription();
-    }
-
-    /// @brief Return the current stage
-    MSContainerStage* getCurrentStage() const {
-        return *myStep;
-    }
-
-    /* @brief Return the current ContainerStop or the destination containe stop
-     *
-     * returns the current container stop if the stage=Waiting and the
-     * container stop from wich the container departs if stage=Driving
-     */
-    virtual MSStoppingPlace* getDepartContainerStop() const;
-
-
-    /** @brief Called on writing tripinfo output
-     *
-     * @param[in] os The stream to write the information into
-     * @exception IOError not yet implemented
-     */
-    void tripInfoOutput(OutputDevice& os) const;
 
     /** @brief Called on writing vehroute output
      *
@@ -641,23 +439,6 @@ public:
      * @exception IOError not yet implemented
      */
     void routeOutput(OutputDevice& os) const;
-
-    /// Whether the container waits for a vehicle of the line specified.
-    bool isWaitingFor(const std::string& line) const {
-        return (*myStep)->isWaitingFor(line);
-    }
-
-    /// Whether the container waits for a vehicle
-    bool isWaiting4Vehicle() const {
-        return (*myStep)->isWaiting4Vehicle();
-    }
-
-protected:
-    /// the plan of the container
-    MSContainerPlan* myPlan;
-
-    /// the iterator over the route
-    MSContainerPlan::iterator myStep;
 
 private:
     /// @brief Invalidated copy constructor.

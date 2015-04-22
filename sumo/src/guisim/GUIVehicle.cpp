@@ -1090,9 +1090,9 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPopName();
     if (myPersonDevice != 0) {
-        const std::vector<MSPerson*>& ps = myPersonDevice->getPersons();
+        const std::vector<MSTransportable*>& ps = myPersonDevice->getPersons();
         size_t personIndex = 0;
-        for (std::vector<MSPerson*>::const_iterator i = ps.begin(); i != ps.end(); ++i) {
+        for (std::vector<MSTransportable*>::const_iterator i = ps.begin(); i != ps.end(); ++i) {
             GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
             assert(person != 0);
             person->setPositionInVehicle(getSeatPosition(personIndex++));
@@ -1100,9 +1100,9 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     if (myContainerDevice != 0) {
-        const std::vector<MSContainer*>& cs = myContainerDevice->getContainers();
+        const std::vector<MSTransportable*>& cs = myContainerDevice->getContainers();
         size_t containerIndex = 0;
-        for (std::vector<MSContainer*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {
+        for (std::vector<MSTransportable*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {
             GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
             assert(container != 0);
             container->setPositionInVehicle(getSeatPosition(containerIndex++));

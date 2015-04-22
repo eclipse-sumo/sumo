@@ -114,7 +114,7 @@ GUIPerson::GUIPersonPopupMenu::onCmdHideWalkingareaPath(FXObject*, FXSelector, v
 /* -------------------------------------------------------------------------
  * GUIPerson - methods
  * ----------------------------------------------------------------------- */
-GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) :
+GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) :
     MSPerson(pars, vtype, plan),
     GUIGlObject(GLO_PERSON, pars->id)
 { }

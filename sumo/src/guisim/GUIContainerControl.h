@@ -56,7 +56,7 @@ public:
      * @param[in] vtype The type (reusing vehicle type container here)
      * @param[in] plan This container's plan
      */
-    virtual MSContainer* buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSContainer::MSContainerPlan* plan) const;
+    virtual MSContainer* buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const;
 
 };
 

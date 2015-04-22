@@ -154,10 +154,10 @@ protected:
     ConstMSEdgeVector myActiveRoute;
 
     /// @brief The plan of the current person
-    MSPerson::MSPersonPlan* myActivePlan;
+    MSTransportable::MSTransportablePlan* myActivePlan;
 
     /// @brief The plan of the current container
-    MSContainer::MSContainerPlan* myActiveContainerPlan;
+    MSTransportable::MSTransportablePlan* myActiveContainerPlan;
 
     /// @brief Information whether vehicles shall be directly added to the network or kept within the buffer
     bool myAddVehiclesDirectly;

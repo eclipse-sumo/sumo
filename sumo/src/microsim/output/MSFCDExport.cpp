@@ -91,9 +91,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
         MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
         const MSEdgeVector& edges = ec.getEdges();
         for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-            const std::vector<MSPerson*>& persons = (*e)->getSortedPersons(timestep);
-            for (std::vector<MSPerson*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
-                MSPerson* p = *it_p;
+            const std::vector<MSTransportable*>& persons = (*e)->getSortedPersons(timestep);
+            for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+                MSTransportable* p = *it_p;
                 Position pos = p->getPosition();
                 if (useGeo) {
                     of.setPrecision(GEO_OUTPUT_ACCURACY);
@@ -117,9 +117,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
         MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
         const std::vector<MSEdge*>& edges = ec.getEdges();
         for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-            const std::vector<MSContainer*>& containers = (*e)->getSortedContainers(timestep);
-            for (std::vector<MSContainer*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
-                MSContainer* c = *it_c;
+            const std::vector<MSTransportable*>& containers = (*e)->getSortedContainers(timestep);
+            for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
+                MSTransportable* c = *it_c;
                 Position pos = c->getPosition();
                 if (useGeo) {
                     of.setPrecision(GEO_OUTPUT_ACCURACY);

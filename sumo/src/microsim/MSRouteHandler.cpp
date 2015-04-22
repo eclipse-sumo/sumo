@@ -142,10 +142,10 @@ MSRouteHandler::myStartElement(int element,
     SUMORouteHandler::myStartElement(element, attrs);
     switch (element) {
         case SUMO_TAG_PERSON:
-            myActivePlan = new MSPerson::MSPersonPlan();
+            myActivePlan = new MSTransportable::MSTransportablePlan();
             break;
         case SUMO_TAG_CONTAINER:
-            myActiveContainerPlan = new MSContainer::MSContainerPlan();
+            myActiveContainerPlan = new MSTransportable::MSTransportablePlan();
             break;
         case SUMO_TAG_RIDE: {
             const std::string pid = myVehicleParameter->id;

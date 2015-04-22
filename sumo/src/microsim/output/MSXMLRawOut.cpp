@@ -99,8 +99,8 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
 #endif
     }
     //en
-    const std::vector<MSPerson*>& persons = edge.getSortedPersons(timestep);
-    const std::vector<MSContainer*>& containers = edge.getSortedContainers(timestep);
+    const std::vector<MSTransportable*>& persons = edge.getSortedPersons(timestep);
+    const std::vector<MSTransportable*>& containers = edge.getSortedContainers(timestep);
     if (dump || persons.size() > 0 || containers.size() > 0) {
         of.openTag("edge") << " id=\"" << edge.getID() << "\"";
         if (dump) {
@@ -122,7 +122,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
 #endif
         }
         // write persons
-        for (std::vector<MSPerson*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+        for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
             of.openTag(SUMO_TAG_PERSON);
             of.writeAttr(SUMO_ATTR_ID, (*it_p)->getID());
             of.writeAttr(SUMO_ATTR_POSITION, (*it_p)->getEdgePos());
@@ -131,7 +131,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
             of.closeTag();
         }
         // write containers
-        for (std::vector<MSContainer*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
+        for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
             of.openTag(SUMO_TAG_CONTAINER);
             of.writeAttr(SUMO_ATTR_ID, (*it_c)->getID());
             of.writeAttr(SUMO_ATTR_POSITION, (*it_c)->getEdgePos());

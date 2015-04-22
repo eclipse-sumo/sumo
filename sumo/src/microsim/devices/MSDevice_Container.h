@@ -116,7 +116,7 @@ public:
      *
      * @param[in] container The container to add.
      */
-    void addContainer(MSContainer* container);
+    void addContainer(MSTransportable* container);
 
 
     /** @brief Return the number of containers
@@ -130,7 +130,7 @@ public:
     /** @brief Returns the list of containers using this vehicle
      * @return Containers within this vehicle
      */
-    const std::vector<MSContainer*>& getContainers() const {
+    const std::vector<MSTransportable*>& getContainers() const {
         return myContainers;
     }
 
@@ -148,7 +148,7 @@ private:
 
 private:
     /// @brief The containers of the vehicle
-    std::vector<MSContainer*> myContainers;
+    std::vector<MSTransportable*> myContainers;
 
     /// @brief Whether the vehicle is at a stop
     bool myStopped;

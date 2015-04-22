@@ -193,6 +193,7 @@
     <ClCompile Include="..\..\..\src\microsim\MSRouteHandler.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSStateHandler.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSStoppingPlace.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSTransportable.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSVehicle.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSVehicleContainer.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSVehicleControl.cpp" />

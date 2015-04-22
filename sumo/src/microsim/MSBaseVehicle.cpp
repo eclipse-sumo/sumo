@@ -260,11 +260,11 @@ MSBaseVehicle::hasArrived() const {
 }
 
 void
-MSBaseVehicle::addPerson(MSPerson* /*person*/) {
+MSBaseVehicle::addPerson(MSTransportable* /*person*/) {
 }
 
 void
-MSBaseVehicle::addContainer(MSContainer* /*container*/) {
+MSBaseVehicle::addContainer(MSTransportable* /*container*/) {
 }
 
 bool

@@ -51,7 +51,7 @@ MSContainerControl::MSContainerControl() {}
 
 
 MSContainerControl::~MSContainerControl() {
-    for (std::map<std::string, MSContainer*>::iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
+    for (std::map<std::string, MSTransportable*>::iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
         delete(*i).second;
     }
     myContainers.clear();
@@ -60,7 +60,7 @@ MSContainerControl::~MSContainerControl() {
 
 
 bool
-MSContainerControl::add(const std::string& id, MSContainer* container) {
+MSContainerControl::add(const std::string& id, MSTransportable* container) {
     if (myContainers.find(id) == myContainers.end()) {
         myContainers[id] = container;
         return true;
@@ -70,7 +70,7 @@ MSContainerControl::add(const std::string& id, MSContainer* container) {
 
 
 void
-MSContainerControl::erase(MSContainer* container) {
+MSContainerControl::erase(MSTransportable* container) {
     const std::string& id = container->getID();
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("tripinfo-output");
@@ -85,7 +85,7 @@ MSContainerControl::erase(MSContainer* container) {
         od.closeTag();
         od << "\n";
     }
-    const std::map<std::string, MSContainer*>::iterator i = myContainers.find(id);
+    const std::map<std::string, MSTransportable*>::iterator i = myContainers.find(id);
     if (i != myContainers.end()) {
         delete i->second;
         myContainers.erase(i);
@@ -94,7 +94,7 @@ MSContainerControl::erase(MSContainer* container) {
 
 
 void
-MSContainerControl::setDeparture(const SUMOTime time, MSContainer* container) {
+MSContainerControl::setDeparture(const SUMOTime time, MSTransportable* container) {
     const SUMOTime step = time % DELTA_T == 0 ? time : (time / DELTA_T + 1) * DELTA_T;
     if (myWaiting4Departure.find(step) == myWaiting4Departure.end()) {
         myWaiting4Departure[step] = ContainerVector();
@@ -104,7 +104,7 @@ MSContainerControl::setDeparture(const SUMOTime time, MSContainer* container) {
 
 
 void
-MSContainerControl::setWaitEnd(const SUMOTime time, MSContainer* container) {
+MSContainerControl::setWaitEnd(const SUMOTime time, MSTransportable* container) {
     const SUMOTime step = time % DELTA_T == 0 ? time : (time / DELTA_T + 1) * DELTA_T;
     if (myWaitingUntil.find(step) == myWaitingUntil.end()) {
         myWaitingUntil[step] = ContainerVector();
@@ -139,9 +139,9 @@ MSContainerControl::checkWaitingContainers(MSNet* net, const SUMOTime time) {
 
 
 void
-MSContainerControl::addWaiting(const MSEdge* const edge, MSContainer* container) {
+MSContainerControl::addWaiting(const MSEdge* const edge, MSTransportable* container) {
     if (myWaiting4Vehicle.find(edge) == myWaiting4Vehicle.end()) {
-        myWaiting4Vehicle[edge] = std::vector<MSContainer*>();
+        myWaiting4Vehicle[edge] = std::vector<MSTransportable*>();
     }
     myWaiting4Vehicle[edge].push_back(container);
 }
@@ -202,14 +202,14 @@ MSContainerControl::hasNonWaiting() const {
 
 
 void
-MSContainerControl::setTranship(MSContainer* c) {
+MSContainerControl::setTranship(MSTransportable* c) {
     myTranship[c->getID()] = c;
 }
 
 
 void
-MSContainerControl::unsetTranship(MSContainer* c) {
-    std::map<std::string, MSContainer*>::iterator i = myTranship.find(c->getID());
+MSContainerControl::unsetTranship(MSTransportable* c) {
+    std::map<std::string, MSTransportable*>::iterator i = myTranship.find(c->getID());
     if (i != myTranship.end()) {
         myTranship.erase(i);
     }
@@ -222,7 +222,7 @@ MSContainerControl::abortWaiting() {
         const MSEdge* edge = (*i).first;
         const ContainerVector& pv = (*i).second;
         for (ContainerVector::const_iterator j = pv.begin(); j != pv.end(); ++j) {
-            MSContainer* p = (*j);
+            MSTransportable* p = (*j);
             edge->removeContainer(p);
             WRITE_WARNING("Container " + p->getID() + " aborted waiting for a transport that will never come.");
             erase(p);
@@ -232,7 +232,7 @@ MSContainerControl::abortWaiting() {
 
 
 MSContainer*
-MSContainerControl::buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSContainer::MSContainerPlan* plan) const {
+MSContainerControl::buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
     return new MSContainer(pars, vtype, plan);
 }
 

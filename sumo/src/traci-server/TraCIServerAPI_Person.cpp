@@ -84,7 +84,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
             tempMsg.writeInt((int) c.size());
         }
     } else {
-        MSPerson* p = c.get(id);
+        MSTransportable* p = c.get(id);
         if (p == 0) {
             return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Person '" + id + "' is not known", outputStorage);
         }
@@ -134,7 +134,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 break;
             case VAR_NEXT_EDGE:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(p->getNextEdge());
+                tempMsg.writeString(dynamic_cast<MSPerson*>(p)->getNextEdge());
                 break;
             case VAR_PARAMETER: {
                 std::string paramName = "";
@@ -168,7 +168,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
     // id
     MSPersonControl& c = MSNet::getInstance()->getPersonControl();
     std::string id = inputStorage.readString();
-    MSPerson* p = c.get(id);
+    MSTransportable* p = c.get(id);
     if (p == 0) {
         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Person '" + id + "' is not known", outputStorage);
     }

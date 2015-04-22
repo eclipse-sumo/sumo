@@ -50,70 +50,9 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-/* -------------------------------------------------------------------------
- * static member definitions
- * ----------------------------------------------------------------------- */
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * MSPerson::MSPersonStage - methods
- * ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage::MSPersonStage(const MSEdge& destination, StageType type)
-    : myDestination(destination), myDeparted(-1), myArrived(-1), myType(type) {}
-
-
-MSPerson::MSPersonStage::~MSPersonStage() {}
-
-
-const MSEdge&
-MSPerson::MSPersonStage::getDestination() const {
-    return myDestination;
-}
-
-
-void
-MSPerson::MSPersonStage::setDeparted(SUMOTime now) {
-    if (myDeparted < 0) {
-        myDeparted = now;
-    }
-}
-
-
-void
-MSPerson::MSPersonStage::setArrived(SUMOTime now) {
-    myArrived = now;
-}
-
-
-bool
-MSPerson::MSPersonStage::isWaitingFor(const std::string& /*line*/) const {
-    return false;
-}
-
-
-Position
-MSPerson::MSPersonStage::getEdgePosition(const MSEdge* e, SUMOReal at, SUMOReal offset) const {
-    return getLanePosition(e->getLanes()[0], at, offset);
-}
-
-
-Position
-MSPerson::MSPersonStage::getLanePosition(const MSLane* lane, SUMOReal at, SUMOReal offset) const {
-    return lane->getShape().positionAtOffset(lane->interpolateLanePosToGeometryPos(at), offset);
-}
-
-
-SUMOReal
-MSPerson::MSPersonStage::getEdgeAngle(const MSEdge* e, SUMOReal at) const {
-    // @todo: well, definitely not the nicest way... Should be precomputed
-    PositionVector shp = e->getLanes()[0]->getShape();
-    return -shp.rotationDegreeAtOffset(at);
-}
-
-
-
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
@@ -121,7 +60,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const ConstMSEdgeVector& 
         MSStoppingPlace* toBS,
         SUMOTime walkingTime, SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
-    MSPersonStage(*route.back(), WALKING), myWalkingTime(walkingTime), myRoute(route),
+    MSTransportable::Stage(*route.back(), MOVING_WITHOUT_VEHICLE), myWalkingTime(walkingTime), myRoute(route),
     myCurrentInternalEdge(0),
     myDepartPos(departPos), myArrivalPos(arrivalPos), myDestinationBusStop(toBS),
     mySpeed(speed),
@@ -187,7 +126,7 @@ MSPerson::MSPersonStage_Walking::getSpeed() const {
 
 
 void
-MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSPerson* person, SUMOTime now,
+MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SUMOTime now,
         MSEdge* previousEdge, const SUMOReal at) {
     previousEdge->removePerson(person);
     myRouteStep = myRoute.begin();
@@ -204,8 +143,8 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSPerson* person, SUMOTime 
             mySpeed = computeAverageSpeed();
         }
     }
-    myPedestrianState = MSPModel::getModel()->add(person, this, now);
-    ((MSEdge*) *myRouteStep)->addPerson(person);
+    myPedestrianState = MSPModel::getModel()->add(dynamic_cast<MSPerson*>(person), this, now);
+    (*myRouteStep)->addPerson(person);
 }
 
 
@@ -240,14 +179,14 @@ MSPerson::MSPersonStage_Walking::routeOutput(OutputDevice& os) const {
 
 
 void
-MSPerson::MSPersonStage_Walking::beginEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
+MSPerson::MSPersonStage_Walking::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "departure")
     .writeAttr("agent", p.getID()).writeAttr("link", myRoute.front()->getID()).closeTag();
 }
 
 
 void
-MSPerson::MSPersonStage_Walking::endEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
+MSPerson::MSPersonStage_Walking::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival")
     .writeAttr("agent", p.getID()).writeAttr("link", myRoute.back()->getID()).closeTag();
 }
@@ -286,7 +225,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge& destination,
         MSStoppingPlace* toBS, const std::vector<std::string>& lines)
-    : MSPersonStage(destination, DRIVING), myLines(lines.begin(), lines.end()),
+    : MSTransportable::Stage(destination, DRIVING), myLines(lines.begin(), lines.end()),
       myVehicle(0), myDestinationBusStop(toBS) {}
 
 
@@ -344,7 +283,7 @@ MSPerson::MSPersonStage_Driving::getAngle(SUMOTime /* now */) const {
 
 
 void
-MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSPerson* person, SUMOTime now,
+MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SUMOTime now,
         MSEdge* previousEdge, const SUMOReal at) {
     myWaitingEdge = previousEdge;
     myWaitingPos = at;
@@ -408,13 +347,13 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
 
 
 void
-MSPerson::MSPersonStage_Driving::beginEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
+MSPerson::MSPersonStage_Driving::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
 }
 
 
 void
-MSPerson::MSPersonStage_Driving::endEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
+MSPerson::MSPersonStage_Driving::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
 }
 
@@ -425,7 +364,7 @@ MSPerson::MSPersonStage_Driving::endEventOutput(const MSPerson& p, SUMOTime t, O
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge& destination,
         SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType) :
-    MSPersonStage(destination, WAITING),
+    MSTransportable::Stage(destination, WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
     myActType(actType),
@@ -475,7 +414,7 @@ MSPerson::MSPersonStage_Waiting::getAngle(SUMOTime /* now */) const {
 
 
 void
-MSPerson::MSPersonStage_Waiting::proceed(MSNet* net, MSPerson* person, SUMOTime now,
+MSPerson::MSPersonStage_Waiting::proceed(MSNet* net, MSTransportable* person, SUMOTime now,
         MSEdge* previousEdge, const SUMOReal /* at */) {
     previousEdge->addPerson(person);
     myWaitingStart = now;
@@ -504,14 +443,14 @@ MSPerson::MSPersonStage_Waiting::routeOutput(OutputDevice& os) const {
 
 
 void
-MSPerson::MSPersonStage_Waiting::beginEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
+MSPerson::MSPersonStage_Waiting::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actstart " + myActType)
     .writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
 }
 
 
 void
-MSPerson::MSPersonStage_Waiting::endEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
+MSPerson::MSPersonStage_Waiting::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actend " + myActType).writeAttr("agent", p.getID())
     .writeAttr("link", getEdge()->getID()).closeTag();
 }
@@ -534,17 +473,12 @@ MSPerson::MSPersonStage_Waiting::getSpeed() const {
 /* -------------------------------------------------------------------------
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPersonPlan* plan)
-    : MSTransportable(pars, vtype), myPlan(plan) {
-    myStep = myPlan->begin();
+MSPerson::MSPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan)
+    : MSTransportable(pars, vtype, plan) {
 }
 
 
 MSPerson::~MSPerson() {
-    for (MSPersonPlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        delete *i;
-    }
-    delete myPlan;
 }
 
 
@@ -575,29 +509,9 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
 }
 
 
-SUMOTime
-MSPerson::getDesiredDepart() const {
-    return myParameter->depart;
-}
-
-
-void
-MSPerson::setDeparted(SUMOTime now) {
-    (*myStep)->setDeparted(now);
-}
-
-
-void
-MSPerson::tripInfoOutput(OutputDevice& os) const {
-    for (MSPersonPlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->tripInfoOutput(os);
-    }
-}
-
-
 void
 MSPerson::routeOutput(OutputDevice& os) const {
-    MSPersonPlan::const_iterator i = myPlan->begin();
+    MSTransportable::MSTransportablePlan::const_iterator i = myPlan->begin();
     if ((*i)->getStageType() == WAITING && getDesiredDepart() == static_cast<MSPersonStage_Waiting*>(*i)->getUntil()) {
         ++i;
     }
@@ -606,36 +520,9 @@ MSPerson::routeOutput(OutputDevice& os) const {
     }
 }
 
-SUMOReal
-MSPerson::getEdgePos() const {
-    return (*myStep)->getEdgePos(MSNet::getInstance()->getCurrentTimeStep());
-}
-
-Position
-MSPerson::getPosition() const {
-    return (*myStep)->getPosition(MSNet::getInstance()->getCurrentTimeStep());
-}
-
-
-SUMOReal
-MSPerson::getAngle() const {
-    return (*myStep)->getAngle(MSNet::getInstance()->getCurrentTimeStep());
-}
-
-SUMOReal
-MSPerson::getWaitingSeconds() const {
-    return STEPS2TIME((*myStep)->getWaitingTime(MSNet::getInstance()->getCurrentTimeStep()));
-}
-
-SUMOReal
-MSPerson::getSpeed() const {
-    return (*myStep)->getSpeed();
-}
-
-
 const std::string&
 MSPerson::getNextEdge() const {
-    if (getCurrentStageType() == WALKING) {
+    if (getCurrentStageType() == MOVING_WITHOUT_VEHICLE) {
         MSPersonStage_Walking* walkingStage =  dynamic_cast<MSPersonStage_Walking*>(*myStep);
         assert(walkingStage != 0);
         const MSEdge* nextEdge = walkingStage->getPedestrianState()->getNextEdge(*walkingStage);
