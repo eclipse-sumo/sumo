@@ -48,7 +48,7 @@ except ImportError:
         "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
 
 # the port used for communicating with your sumo instance
-PORT = 8873
+PORT = 8874
 
 # minimum green time for the vehicles
 MIN_GREEN_TIME = 15
@@ -93,8 +93,8 @@ def run():
                     activeRequest = False
                     greenTimeSoFar = 0
 
-    traci.close()
     sys.stdout.flush()
+    traci.close()
 
 
 def checkWaitingPersons():
