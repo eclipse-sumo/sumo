@@ -1106,7 +1106,7 @@ PositionVector::getEndLine() const {
 
 void
 PositionVector::closePolygon() {
-    if ((*this)[0] == back()) {
+    if (size() == 0 || (*this)[0] == back()) {
         return;
     }
     push_back((*this)[0]);
