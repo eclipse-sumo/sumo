@@ -4,7 +4,7 @@
 
     <input>
         <net-file value="../pedcrossing.net.xml"/>
-        <route-files value="pedcrossing.rou.xml ../pedestrians.trip.xml"/>
+        <route-files value="pedcrossing.rou.xml,../pedestrians.trip.xml"/>
         <additional-files value="pedcrossing.tll.xml"/>
     </input>
 
@@ -13,6 +13,8 @@
         <no-step-log value="true"/>
     </report>
 
-    <gui-settings-file value="viewsettings.xml"/>
+    <gui_only>
+        <gui-settings-file value="viewsettings.xml"/>
+    </gui_only>
 
 </configuration>
