@@ -616,6 +616,8 @@ NWWriter_SUMO::writeRoundabouts(OutputDevice& into, const std::set<EdgeSet>& rou
     for (std::set<EdgeSet>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
         std::vector<std::string> tEdgeIDs;
         for (EdgeSet::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
+            // the edges may have been erased from NBEdgeCont but their pointers are still valid
+            // we verify their existance in writeRoundabout()
             tEdgeIDs.push_back((*j)->getID());
         }
         std::sort(tEdgeIDs.begin(), tEdgeIDs.end());
