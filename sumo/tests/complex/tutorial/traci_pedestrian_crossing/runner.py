@@ -6,7 +6,7 @@
 @author  Michael Behrisch
 @author  Jakob Erdmann
 @date    2009-03-26
-@version $Id: runner.py 18096 2015-03-17 09:50:59Z behrisch $
+@version $Id$
 
 Tutorial for traffic light control via the TraCI interface.
 This scenario models a pedestrian crossing which switches on demand.
