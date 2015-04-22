@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 22 Apr 2015 09:37:50 AM CEST by Netedit Version dev-SVN-r18262I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="SC4.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="SC4.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netconvert/node_building/node_shape/misleading_angles/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="237107504#2" from="cluster_2515519354_2515519360_254853488_254905633_9801927" to="cluster_502188736_9805207" priority="11" type="highway.trunk" numLanes="2" speed="13.41" shape="148431.87,243582.45 148415.45,243590.00 148404.54,243596.77 148397.07,243602.15 148385.05,243611.94 148368.41,243627.04 148353.23,243641.62 148344.48,243648.88 148333.43,243655.61" spreadType="center"/>
+    <edge id="4049871#1" from="cluster_2093621882_502188926_9805204" to="cluster_502188736_9805207" priority="11" type="highway.trunk" numLanes="2" speed="13.41" shape="148344.03,243684.78 148345.03,243681.47 148345.53,243678.05 148345.54,243674.59 148345.04,243671.16 148344.04,243667.85" spreadType="center"/>
+    <edge id="4049871#3" from="cluster_502188736_9805207" to="cluster_9805200_9805210" priority="11" type="highway.trunk" numLanes="2" speed="13.41" shape="148333.43,243655.61 148328.40,243653.52 148323.03,243652.63 148317.59,243652.98 148312.38,243654.57" spreadType="center"/>
+    <edge id="4049871#5" from="cluster_9805200_9805210" to="cluster_2093621882_502188926_9805204" priority="11" type="highway.trunk" numLanes="2" speed="13.41" shape="148298.11,243675.33 148298.19,243678.56 148298.72,243681.75 148299.68,243684.83 148301.04,243687.76 148302.80,243690.47 148304.90,243692.92 148307.33,243695.08 148310.02,243696.87 148312.92,243698.28 148316.00,243699.29 148319.18,243699.87 148322.42,243700.00" spreadType="center"/>
+    <edge id="4049872" from="cluster_9805200_9805210" to="cluster_254853447_299206553_9805190" priority="11" type="highway.trunk" numLanes="2" speed="17.88" shape="148312.38,243654.57 148300.25,243653.14 148288.02,243651.82 148272.48,243647.01 148256.63,243635.53 148216.63,243602.55 148157.57,243541.03 148093.24,243474.48 148065.82,243444.02 148043.51,243414.07 148023.15,243382.79 148008.81,243358.59 147989.32,243332.75 147957.49,243303.17 147914.87,243263.57 147838.17,243193.31 147784.56,243128.26 147784.90,243111.15" spreadType="center"/>
+    <edge id="4049873#2" from="471620785" to="cluster_9805200_9805210" priority="11" type="highway.trunk" numLanes="2" speed="17.88" shape="147934.67,243291.74 147951.39,243307.90 147979.28,243334.87 148001.85,243363.10 148017.05,243385.86 148035.73,243418.11 148058.66,243448.43 148086.88,243478.58 148148.34,243543.31 148208.77,243606.78 148251.29,243640.39 148270.89,243653.94 148289.72,243667.23 148298.11,243675.33" spreadType="center"/>
+    <edge id="4260758" from="cluster_502188736_9805207" to="354990984" priority="11" type="highway.trunk" numLanes="2" speed="13.41" shape="148344.04,243667.85 148351.48,243656.28 148359.37,243646.75 148376.62,243631.56 148390.68,243620.29 148406.59,243610.32" spreadType="center"/>
+
+
+</edges>
