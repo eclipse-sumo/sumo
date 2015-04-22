@@ -1951,6 +1951,10 @@ NBEdge::expandableBy(NBEdge* possContinuation) const {
     if (mySpeed != possContinuation->mySpeed) {
         return false;
     }
+    // spreadtype should match or it will look ugly
+    if (myLaneSpreadFunction != possContinuation->myLaneSpreadFunction) {
+        return false;
+    }
     // the vehicle class constraints, too
     /*!!!
     if (myAllowedOnLanes!=possContinuation->myAllowedOnLanes

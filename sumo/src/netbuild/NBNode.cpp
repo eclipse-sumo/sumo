@@ -1399,8 +1399,8 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane,
 
 bool
 NBNode::checkIsRemovable() const {
-    // check whether this node is included in a traffic light
-    if (myTrafficLights.size() != 0) {
+    // check whether this node is included in a traffic light or crossing
+    if (myTrafficLights.size() != 0 || myCrossings.size() != 0) {
         return false;
     }
     EdgeVector::const_iterator i;
@@ -1411,7 +1411,7 @@ NBNode::checkIsRemovable() const {
             return false;
         }
         //
-        return myIncomingEdges[0]->getFromNode() != myOutgoingEdges[0]->getToNode();
+        return myIncomingEdges[0]->getTurnDestination(true) != myOutgoingEdges[0];
     }
     // two in, two out -> may be something else
     if (myOutgoingEdges.size() == 2 && myIncomingEdges.size() == 2) {
@@ -1426,19 +1426,13 @@ NBNode::checkIsRemovable() const {
         // check whether this node is an intermediate node of
         //  a two-directional street
         for (i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-            // try to find the opposite direction
-            NBNode* origin = (*i)->getFromNode();
-            // find the back direction of the current edge
-            EdgeVector::const_iterator j =
-                find_if(myOutgoingEdges.begin(), myOutgoingEdges.end(),
-                        NBContHelper::edge_with_destination_finder(origin));
-            // check whether the back direction exists
-            if (j != myOutgoingEdges.end()) {
-                // check whether the edge from the backdirection (must be
-                //  the counter-clockwise one) may be joined with the current
-                NBContHelper::nextCCW(myOutgoingEdges, j);
+            // each of the edges must have an opposite direction edge
+            NBEdge* opposite = (*i)->getTurnDestination(true);
+            if (opposite != 0) {
+                // the other outgoing edges must be the continuation of the current
+                NBEdge* continuation = opposite == myOutgoingEdges.front() ? myOutgoingEdges.back() : myOutgoingEdges.front();
                 // check whether the types allow joining
-                if (!(*i)->expandableBy(*j)) {
+                if (!(*i)->expandableBy(continuation)) {
                     return false;
                 }
             } else {
@@ -1467,12 +1461,11 @@ NBNode::getEdgesToJoin() const {
     }
     // two in, two out-case
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        NBNode* origin = (*i)->getFromNode();
-        EdgeVector::const_iterator j =
-            find_if(myOutgoingEdges.begin(), myOutgoingEdges.end(),
-                    NBContHelper::edge_with_destination_finder(origin));
-        NBContHelper::nextCCW(myOutgoingEdges, j);
-        ret.push_back(std::pair<NBEdge*, NBEdge*>(*i, *j));
+        // join with the edge that is not a turning direction
+        NBEdge* opposite = (*i)->getTurnDestination(true);
+        assert(opposite != 0);
+        NBEdge* continuation = opposite == myOutgoingEdges.front() ? myOutgoingEdges.back() : myOutgoingEdges.front();
+        ret.push_back(std::pair<NBEdge*, NBEdge*>(*i, continuation));
     }
     return ret;
 }
