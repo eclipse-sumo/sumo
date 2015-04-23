@@ -21,8 +21,8 @@
     </configuration>
 
     <input>
-        <!-- Loads network (districts) from FILE -->
-        <net-file value="" synonymes="n net" type="FILE"/>
+        <!-- Loads TAZ (districts; also from networks) from FILE(s) -->
+        <taz-files value="" synonymes="n net net-file taz" type="FILE"/>
 
         <!-- Loads O/D-files from FILE(s) -->
         <od-matrix-files value="" synonymes="d od od-files" type="FILE"/>

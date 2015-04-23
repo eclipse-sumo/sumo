@@ -1,4 +1,4 @@
-SUMO od2trips Version dev-SVN-r18096
+SUMO od2trips Version dev-SVN-r18263
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Importer of O/D-matrices for the road traffic simulation SUMO.
 
@@ -13,7 +13,8 @@ Configuration Options:
                                      configuration, or schema
 
 Input Options:
-  -n, --net-file FILE              Loads network (districts) from FILE
+  -n, --taz-files FILE             Loads TAZ (districts;
+                                     also from networks) from FILE(s)
   -d, --od-matrix-files FILE       Loads O/D-files from FILE(s)
   --od-amitran-files FILE          Loads O/D-matrix in Amitran format from
                                      FILE(s)
