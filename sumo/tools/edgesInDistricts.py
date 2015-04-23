@@ -105,8 +105,7 @@ class DistrictEdgeComputer:
         return edge.getLength() * edge.getLaneNumber()
 
 
-if __name__ == "__main__":
-    optParser = OptionParser()
+def fillOptions(optParser):
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     optParser.add_option("-c", "--complete", action="store_true",
@@ -126,6 +125,11 @@ if __name__ == "__main__":
     optParser.add_option("-i", "--internal", action="store_true",
                          default=False, help="Include internal edges in output")
     optParser.add_option("-l", "--vclass", help="Include only edges allowing VCLASS")
+
+        
+if __name__ == "__main__":
+    optParser = OptionParser()
+    fillOptions(optParser)
     (options, args) = optParser.parse_args()
     if not options.net_file:
         optParser.print_help()
