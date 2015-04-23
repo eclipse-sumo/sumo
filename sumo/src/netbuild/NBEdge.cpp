@@ -1955,6 +1955,11 @@ NBEdge::expandableBy(NBEdge* possContinuation) const {
     if (myLaneSpreadFunction != possContinuation->myLaneSpreadFunction) {
         return false;
     }
+    // do not create self loops
+    if (myFrom == possContinuation->myTo) {
+        return false;
+    }
+
     // the vehicle class constraints, too
     /*!!!
     if (myAllowedOnLanes!=possContinuation->myAllowedOnLanes

@@ -1,0 +1,2 @@
+# removing geometry should not create self-loops
+no_self_loop

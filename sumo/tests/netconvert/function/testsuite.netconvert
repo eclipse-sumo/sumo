@@ -7,6 +7,9 @@ keep_edges_boundary
 # Tests for removing edges (--remove-edges)
 remove_edges
 
+# tests for option --geometry.remove
+geometry.remove
+
 # Tests for building tls programs
 tls_programs
 

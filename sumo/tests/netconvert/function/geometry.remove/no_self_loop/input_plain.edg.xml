@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 23 Apr 2015 11:01:34 AM CEST by Netedit Version dev-SVN-r18276I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="noremove.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="noremove.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/ben/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-254855303#0" from="1161556696" to="2606482694" priority="2" numLanes="1" speed="5.56" shape="1100.27,1010.71 1076.30,1003.77 1048.85,979.24">
+        <lane index="0" allow="delivery"/>
+    </edge>
+    <edge id="100481757#0" from="2606482692" to="2606482694" priority="2" numLanes="1" speed="5.56" shape="1021.74,960.35 999.23,949.75 988.11,931.97 979.04,902.61 969.98,818.11 988.81,730.87 998.80,717.43 1018.42,711.54 1133.27,739.64 1085.16,940.04 1073.72,945.12 1046.72,940.71 1040.49,962.23 1048.85,979.24">
+        <lane index="0" allow="delivery"/>
+    </edge>
+    <edge id="100481757#1" from="2606482694" to="2606482692" priority="2" numLanes="1" speed="5.56">
+        <lane index="0" allow="delivery"/>
+    </edge>
+    <edge id="254855303#0" from="2606482694" to="1161556696" priority="2" numLanes="1" speed="5.56" shape="1048.85,979.24 1076.30,1003.77 1100.27,1010.71">
+        <lane index="0" allow="delivery"/>
+    </edge>
+</edges>

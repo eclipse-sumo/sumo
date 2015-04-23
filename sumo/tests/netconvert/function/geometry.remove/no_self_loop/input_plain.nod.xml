@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 23 Apr 2015 11:01:34 AM CEST by Netedit Version dev-SVN-r18276I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="noremove.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="noremove.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/ben/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-401292.51,-6201978.88" convBoundary="969.98,711.54,1133.27,1010.71" origBoundary="-4.581491,55.953333,-4.555544,55.971182" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1161556696" x="1100.27" y="1010.71" type="priority"/>
+    <node id="2606482692" x="1021.74" y="960.35" type="priority"/>
+    <node id="2606482694" x="1048.85" y="979.24" type="priority"/>
+</nodes>
