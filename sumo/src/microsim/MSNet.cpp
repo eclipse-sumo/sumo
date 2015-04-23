@@ -170,11 +170,13 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myVehiclesMoved(0),
     myHaveRestrictions(false),
     myHasInternalLinks(false),
+    myHasElevation(false),
     myRouterTTInitialized(false),
     myRouterTTDijkstra(0),
     myRouterTTAStar(0),
     myRouterEffort(0),
-    myPedestrianRouter(0) {
+    myPedestrianRouter(0) 
+{
     if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
@@ -234,6 +236,7 @@ MSNet::closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
         mySimBeginMillis = SysUtils::getCurrentMillis();
     }
     myHasInternalLinks = hasInternalLinks;
+    myHasElevation = checkElevation();
 }
 
 
@@ -567,7 +570,7 @@ MSNet::writeOutput() {
 
     // check fcd dumps
     if (OptionsCont::getOptions().isSet("fcd-output")) {
-        MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-output"), myStep);
+        MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-output"), myStep, myHasElevation);
     }
 
     // check emission dumps
@@ -843,5 +846,18 @@ MSNet::getLanesRTree() const {
     return myLanesRTree.second;
 }
 
+
+bool 
+MSNet::checkElevation() {
+    const MSEdgeVector& edges = myEdges->getEdges();
+    for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
+        for (std::vector<MSLane*>::const_iterator i = (*e)->getLanes().begin(); i != (*e)->getLanes().end(); ++i) {
+            if ((*i)->getShape().hasElevation()) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 /****************************************************************************/

@@ -54,7 +54,7 @@
 // method definitions
 // ===========================================================================
 void
-MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
+MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     const bool useGeo = OptionsCont::getOptions().getBool("fcd-output.geo");
     const bool signals = OptionsCont::getOptions().getBool("fcd-output.signals");
     of.openTag("timestep").writeAttr(SUMO_ATTR_TIME, time2string(timestep));
@@ -72,6 +72,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             of.writeAttr(SUMO_ATTR_ID, veh->getID());
             of.writeAttr(SUMO_ATTR_X, pos.x());
             of.writeAttr(SUMO_ATTR_Y, pos.y());
+            if (elevation) {
+                of.writeAttr(SUMO_ATTR_Z, pos.z());
+            }
             of.writeAttr(SUMO_ATTR_ANGLE, veh->getAngle());
             of.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
             of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
@@ -103,6 +106,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
                 of.writeAttr(SUMO_ATTR_ID, p->getID());
                 of.writeAttr(SUMO_ATTR_X, pos.x());
                 of.writeAttr(SUMO_ATTR_Y, pos.y());
+                if (elevation) {
+                    of.writeAttr(SUMO_ATTR_Z, pos.z());
+                }
                 of.writeAttr(SUMO_ATTR_ANGLE, p->getAngle());
                 of.writeAttr(SUMO_ATTR_SPEED, p->getSpeed());
                 of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
@@ -129,6 +135,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
                 of.writeAttr(SUMO_ATTR_ID, c->getID());
                 of.writeAttr(SUMO_ATTR_X, pos.x());
                 of.writeAttr(SUMO_ATTR_Y, pos.y());
+                if (elevation) {
+                    of.writeAttr(SUMO_ATTR_Z, pos.z());
+                }
                 of.writeAttr(SUMO_ATTR_ANGLE, c->getAngle());
                 of.writeAttr(SUMO_ATTR_SPEED, c->getSpeed());
                 of.writeAttr(SUMO_ATTR_POSITION, c->getEdgePos());

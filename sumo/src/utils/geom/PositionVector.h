@@ -317,6 +317,9 @@ public:
 
     void removeColinearPoints();
 
+    /// @brief return whether two positions differ in z-coordinate
+    bool hasElevation() const;
+
 };
 
 

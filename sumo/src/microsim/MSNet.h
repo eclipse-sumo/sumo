@@ -585,6 +585,15 @@ public:
         return myHasInternalLinks;
     }
 
+    /// @brief return whether the network contains internal links
+    bool hasElevation() const {
+        return myHasElevation;
+    }
+
+protected:
+    /// @brief check all lanes for elevation data
+    bool checkElevation();
+
 protected:
     /// @brief Unique instance of MSNet
     static MSNet* myInstance;
@@ -667,6 +676,9 @@ protected:
 
     /// @brief Whether the network contains internal links/lanes/edges
     bool myHasInternalLinks;
+
+    /// @brief Whether the network contains elevation data
+    bool myHasElevation;
 
     /// @brief Storage for maximum vehicle number
     int myTooManyVehicles;

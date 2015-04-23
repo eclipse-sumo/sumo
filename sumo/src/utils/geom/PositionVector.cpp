@@ -1240,6 +1240,18 @@ PositionVector::operator==(const PositionVector& v2) const {
 }
 
 
+bool 
+PositionVector::hasElevation() const {
+    if (size() > 2) {
+        return false;
+    }
+    for (const_iterator i = begin(); i != end() - 1; i++) {
+        if ((*i).z() != (*(i + 1)).z()) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /****************************************************************************/
 
