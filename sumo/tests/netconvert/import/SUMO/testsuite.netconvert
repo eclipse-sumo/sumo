@@ -52,3 +52,6 @@ rail_signal
 
 # add another tls program to an existing tls definition
 add_tls_prgram
+
+# apply option --geometry.remove to a loaded .net.xml
+geometry.remove

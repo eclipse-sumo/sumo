@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.3.3 (20938 thorn-02.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="55.8908800" minlon="-4.2399600" maxlat="55.8919600" maxlon="-4.2397000"/>
+ <node id="1596765615" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:53Z" user="drnoble" uid="388774" lat="55.8884733" lon="-4.2405683"/>
+ <node id="1596765647" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:54Z" user="drnoble" uid="388774" lat="55.8887759" lon="-4.2404970"/>
+ <node id="1596765672" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:55Z" user="drnoble" uid="388774" lat="55.8890293" lon="-4.2404331"/>
+ <node id="1596765677" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:55Z" user="drnoble" uid="388774" lat="55.8890938" lon="-4.2403541"/>
+ <node id="1596765684" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:55Z" user="drnoble" uid="388774" lat="55.8892054" lon="-4.2402986"/>
+ <node id="1596765703" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:55Z" user="drnoble" uid="388774" lat="55.8893531" lon="-4.2402252"/>
+ <node id="1596765709" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:55Z" user="drnoble" uid="388774" lat="55.8894646" lon="-4.2401664"/>
+ <node id="1596765712" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:55Z" user="drnoble" uid="388774" lat="55.8894677" lon="-4.2402470"/>
+ <node id="1596765714" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:56Z" user="drnoble" uid="388774" lat="55.8894730" lon="-4.2403169"/>
+ <node id="1596765729" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:56Z" user="drnoble" uid="388774" lat="55.8896111" lon="-4.2400893"/>
+ <node id="1596765735" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:56Z" user="drnoble" uid="388774" lat="55.8896971" lon="-4.2400440"/>
+ <node id="1596765739" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:56Z" user="drnoble" uid="388774" lat="55.8897274" lon="-4.2401090"/>
+ <node id="1596765757" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:57Z" user="drnoble" uid="388774" lat="55.8898736" lon="-4.2399510"/>
+ <node id="1596765780" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:57Z" user="drnoble" uid="388774" lat="55.8901779" lon="-4.2398610"/>
+ <node id="1596765781" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:57Z" user="drnoble" uid="388774" lat="55.8901875" lon="-4.2397919"/>
+ <node id="1596765805" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:58Z" user="drnoble" uid="388774" lat="55.8904151" lon="-4.2397175"/>
+ <node id="1596765828" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:58Z" user="drnoble" uid="388774" lat="55.8906625" lon="-4.2397049"/>
+ <node id="1596765831" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:58Z" user="drnoble" uid="388774" lat="55.8906662" lon="-4.2397641"/>
+ <node id="1596765846" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:59Z" user="drnoble" uid="388774" lat="55.8909287" lon="-4.2397805"/>
+ <node id="1596765849" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:59Z" user="drnoble" uid="388774" lat="55.8909646" lon="-4.2397230"/>
+ <node id="1596765862" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:59Z" user="drnoble" uid="388774" lat="55.8912079" lon="-4.2397474"/>
+ <node id="1596765863" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:59Z" user="drnoble" uid="388774" lat="55.8913036" lon="-4.2397887"/>
+ <node id="1596765892" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:52:59Z" user="drnoble" uid="388774" lat="55.8913552" lon="-4.2398544"/>
+ <node id="1596765895" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:00Z" user="drnoble" uid="388774" lat="55.8914511" lon="-4.2397718"/>
+ <node id="1596765903" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:00Z" user="drnoble" uid="388774" lat="55.8916454" lon="-4.2398708"/>
+ <node id="1596765923" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:00Z" user="drnoble" uid="388774" lat="55.8916703" lon="-4.2397938"/>
+ <node id="1596765963" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:01Z" user="drnoble" uid="388774" lat="55.8920120" lon="-4.2398281"/>
+ <node id="1596765998" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:01Z" user="drnoble" uid="388774" lat="55.8921536" lon="-4.2398428"/>
+ <node id="1596766019" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:02Z" user="drnoble" uid="388774" lat="55.8922674" lon="-4.2398546"/>
+ <node id="1596766023" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:02Z" user="drnoble" uid="388774" lat="55.8926366" lon="-4.2398929"/>
+ <node id="1596766027" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:02Z" user="drnoble" uid="388774" lat="55.8929592" lon="-4.2399193"/>
+ <way id="146404892" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:05Z" user="drnoble" uid="388774">
+  <nd ref="1596766027"/>
+  <nd ref="1596766023"/>
+  <nd ref="1596766019"/>
+  <nd ref="1596765998"/>
+  <nd ref="1596765963"/>
+  <nd ref="1596765903"/>
+  <nd ref="1596765714"/>
+  <nd ref="1596765672"/>
+  <nd ref="1596765647"/>
+  <nd ref="1596765615"/>
+  <tag k="gauge" v="1435"/>
+  <tag k="railway" v="rail"/>
+  <tag k="service" v="siding"/>
+  <tag k="source" v="bing"/>
+ </way>
+ <way id="146404896" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:05Z" user="drnoble" uid="388774">
+  <nd ref="1596765647"/>
+  <nd ref="1596765677"/>
+  <nd ref="1596765684"/>
+  <nd ref="1596765703"/>
+  <nd ref="1596765709"/>
+  <nd ref="1596765729"/>
+  <nd ref="1596765735"/>
+  <nd ref="1596765757"/>
+  <nd ref="1596765781"/>
+  <nd ref="1596765805"/>
+  <nd ref="1596765828"/>
+  <nd ref="1596765849"/>
+  <nd ref="1596765862"/>
+  <nd ref="1596765895"/>
+  <nd ref="1596765923"/>
+  <nd ref="1596765963"/>
+  <tag k="gauge" v="1435"/>
+  <tag k="railway" v="rail"/>
+  <tag k="service" v="siding"/>
+  <tag k="source" v="bing"/>
+ </way>
+ <way id="146404901" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:07Z" user="drnoble" uid="388774">
+  <nd ref="1596765862"/>
+  <nd ref="1596765846"/>
+  <nd ref="1596765735"/>
+  <tag k="gauge" v="1435"/>
+  <tag k="railway" v="rail"/>
+  <tag k="service" v="siding"/>
+  <tag k="source" v="bing"/>
+ </way>
+ <way id="146404902" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:07Z" user="drnoble" uid="388774">
+  <nd ref="1596765757"/>
+  <nd ref="1596765780"/>
+  <nd ref="1596765831"/>
+  <nd ref="1596765849"/>
+  <tag k="gauge" v="1435"/>
+  <tag k="railway" v="rail"/>
+  <tag k="service" v="siding"/>
+  <tag k="source" v="bing"/>
+ </way>
+ <way id="146404904" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:08Z" user="drnoble" uid="388774">
+  <nd ref="1596765709"/>
+  <nd ref="1596765739"/>
+  <nd ref="1596765863"/>
+  <nd ref="1596765895"/>
+  <tag k="gauge" v="1435"/>
+  <tag k="railway" v="rail"/>
+  <tag k="service" v="siding"/>
+  <tag k="source" v="bing"/>
+ </way>
+ <way id="146404905" visible="true" version="1" changeset="10432096" timestamp="2012-01-18T21:53:08Z" user="drnoble" uid="388774">
+  <nd ref="1596765923"/>
+  <nd ref="1596765892"/>
+  <nd ref="1596765712"/>
+  <nd ref="1596765684"/>
+  <tag k="gauge" v="1435"/>
+  <tag k="railway" v="rail"/>
+  <tag k="service" v="siding"/>
+  <tag k="source" v="bing"/>
+ </way>
+</osm>

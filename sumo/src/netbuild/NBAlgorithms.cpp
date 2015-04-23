@@ -63,6 +63,10 @@ void
 NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node) {
     const std::vector<NBEdge*>& incoming = node->getIncomingEdges();
     const std::vector<NBEdge*>& outgoing = node->getOutgoingEdges();
+    // reset turning directions since this may be called multiple times
+    for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
+        (*k)->setTurningDestination(0);
+    }
     std::vector<Combination> combinations;
     for (std::vector<NBEdge*>::const_iterator j = outgoing.begin(); j != outgoing.end(); ++j) {
         NBEdge* outedge = *j;
