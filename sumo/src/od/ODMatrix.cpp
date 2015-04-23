@@ -182,7 +182,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
     std::vector<ODVehicle> vehicles;
     SUMOTime lastOut = -DELTA_T;
     // go through the time steps
-    for (SUMOTime t = begin; t != end;) {
+    for (SUMOTime t = begin; t < end;) {
         if (stepLog && t - lastOut >= DELTA_T) {
             std::cout << "Parsing time " + time2string(t) << '\r';
             lastOut = t;
