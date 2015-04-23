@@ -76,10 +76,10 @@ NBLoadedSUMOTLDef::~NBLoadedSUMOTLDef() {
 
 
 NBTrafficLightLogic*
-NBLoadedSUMOTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) {
+NBLoadedSUMOTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTimeSeconds) {
     // @todo what to do with those parameters?
     UNUSED_PARAMETER(ec);
-    UNUSED_PARAMETER(brakingTime);
+    UNUSED_PARAMETER(brakingTimeSeconds);
     myTLLogic->closeBuilding();
     patchIfCrossingsAdded();
     return new NBTrafficLightLogic(myTLLogic);

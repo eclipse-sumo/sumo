@@ -142,10 +142,10 @@ public:
         const NBConnection& getConnection(unsigned int pos) const;
 
         /** @brief Sets the yellow time
-         * @param[in] tyellow The yellow time to set
+         * @param[in] tyellow The yellow time to set in seconds
          * @param[in] forced Whether resetting tyellow was forced by the user by setting "tls.yellow.patch-small"
          */
-        void patchTYellow(SUMOTime tyellow, bool forced);
+        void patchTYellow(unsigned int tyellow, bool forced);
 
         /** @brief Replaces a removed edge/lane
          * @param[in] removed The edge to replace
@@ -320,12 +320,12 @@ protected:
 
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] ec The edge container
-     * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
+     * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls in seconds
      * @return The computed logic
      * @see NBTrafficLightDefinition::myCompute
      */
     NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
-                                   unsigned int brakingTime);
+                                   unsigned int brakingTimeSeconds);
 
 
     /** @brief Collects the nodes participating in this traffic light

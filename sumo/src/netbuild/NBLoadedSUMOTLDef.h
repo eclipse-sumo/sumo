@@ -143,11 +143,11 @@ protected:
 
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] ec The edge container
-     * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
+     * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls in seconds
      * @return The computed logic
      */
     NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
-                                   unsigned int brakingTime);
+                                   unsigned int brakingTimeSeconds);
 
     bool amInvalid() const;
 

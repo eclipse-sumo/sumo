@@ -85,12 +85,12 @@ NBLoadedTLDef::SignalGroup::sortPhases() {
 
 
 void
-NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow, bool forced) {
+NBLoadedTLDef::SignalGroup::patchTYellow(unsigned int tyellow, bool forced) {
     if (myTYellow < 0) {
         // was not set before (was not loaded)
         myTYellow = tyellow;
     } else if (forced && myTYellow < tyellow) {
-        WRITE_WARNING("TYellow of signal group '" + getID() + "' was less than the computed one; patched (was:" + time2string(myTYellow) + ", is:" + time2string(tyellow) + ")");
+        WRITE_WARNING("TYellow of signal group '" + getID() + "' was less than the computed one; patched (was:" + toString(myTYellow) + ", is:" + toString(tyellow) + ")");
         myTYellow = tyellow;
     }
 }
@@ -289,7 +289,7 @@ NBLoadedTLDef::~NBLoadedTLDef() {
 
 
 NBTrafficLightLogic*
-NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) {
+NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTimeSeconds) {
     MsgHandler::getWarningInstance()->clear(); // !!!
     NBLoadedTLDef::SignalGroupCont::const_iterator i;
     // compute the switching times
@@ -299,7 +299,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) {
         // needed later
         group->sortPhases();
         // patch the yellow time for this group
-        group->patchTYellow(brakingTime, OptionsCont::getOptions().getBool("tls.yellow.patch-small"));
+        group->patchTYellow(brakingTimeSeconds, OptionsCont::getOptions().getBool("tls.yellow.patch-small"));
         // copy the now valid times into the container
         //  both the given red and green phases are added and also the
         //  yellow times
