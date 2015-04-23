@@ -101,6 +101,9 @@ source_weights:weights.src.xml
 dest_weights:weights.dst.xml
 via_weights:weights.via.xml
 selection:selection.txt
+selection0:selection.comp0.txt
+selection1:selection.comp1.txt
+selection2:selection.comp2.txt
 histogram:histogram.dat
 fullstats:fullstats.dat
 osmimport:osm.net.xml
