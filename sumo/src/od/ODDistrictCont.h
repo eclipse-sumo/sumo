@@ -89,8 +89,8 @@ public:
      */
     std::string getRandomSinkFromDistrict(const std::string& name) const;
 
-    /// @brief load districts from FILE
-    void loadDistricts(std::string districtfile);
+    /// @brief load districts from files
+    void loadDistricts(std::vector<std::string> files);
 
     /// @brief create districts from description
     void makeDistricts(const std::map<std::string, std::pair<std::vector<std::string>, std::vector<std::string> > >& districts);

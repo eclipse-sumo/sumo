@@ -78,17 +78,20 @@ ODDistrictCont::getRandomSinkFromDistrict(const std::string& name) const {
 
 
 void
-ODDistrictCont::loadDistricts(std::string districtfile) {
-    if (!FileHelpers::isReadable(districtfile)) {
-        throw ProcessError("Could not access network file '" + districtfile + "' to load.");
-    }
-    PROGRESS_BEGIN_MESSAGE("Loading districts from '" + districtfile + "'");
-    // build the xml-parser and handler
-    ODDistrictHandler handler(*this, districtfile);
-    if (!XMLSubSys::runParser(handler, districtfile, true)) {
-        PROGRESS_FAILED_MESSAGE();
-    } else {
-        PROGRESS_DONE_MESSAGE();
+ODDistrictCont::loadDistricts(std::vector<std::string> files) {
+    for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
+        const std::string& districtfile = *i;
+        if (!FileHelpers::isReadable(districtfile)) {
+            throw ProcessError("Could not access network file '" + districtfile + "' to load.");
+        }
+        PROGRESS_BEGIN_MESSAGE("Loading districts from '" + districtfile + "'");
+        // build the xml-parser and handler
+        ODDistrictHandler handler(*this, districtfile);
+        if (!XMLSubSys::runParser(handler, districtfile, true)) {
+            PROGRESS_FAILED_MESSAGE();
+        } else {
+            PROGRESS_DONE_MESSAGE();
+        }
     }
 }
 
