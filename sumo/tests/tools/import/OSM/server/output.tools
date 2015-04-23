@@ -135,16 +135,16 @@ done.
 Summary:
  Node type statistics:
   Unregulated junctions       : 405
-  Dead-end junctions          : 601
-  Priority junctions          : 853
-  Right-before-left junctions : 172
+  Dead-end junctions          : 605
+  Priority junctions          : 851
+  Right-before-left junctions : 170
  Network boundaries:
   Original boundary  : 13.35,52.49,13.53,52.57
   Applied offset     : -389562.46,-5817979.56
   Converted boundary : 0.00,0.00,4934.15,5232.39
 -----------------------------------------------------
 Success.
-Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.22Apr144619.31528/tools/import/OSM/server/osm.net.xml'... done.
+Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.23Apr143358.5604/tools/import/OSM/server/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
@@ -155,24 +155,24 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (477ms).
-Loading additional-files from 'osm.poly.xml'...  done (79ms).
+Loading net-file from 'osm.net.xml'...  done (476ms).
+Loading additional-files from 'osm.poly.xml'...  done (81ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 5581.00
+Simulation ended at time: 5580.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 23905ms
- Real time factor: 233.466
- UPS: 16307.718051
+ Duration: 23680ms
+ Real time factor: 235.642
+ UPS: 16468.623311
 Vehicles: 
  Inserted: 1237
  Running: 0
  Waiting: 0
 Teleports: 3 (Jam: 1, Wrong Lane: 2)
 
-DijkstraRouterTT answered 1272 queries and explored 636.17 edges on average.
-DijkstraRouterTT spent 326ms answering queries (0.26ms on average).
+DijkstraRouterTT answered 1274 queries and explored 636.13 edges on average.
+DijkstraRouterTT spent 317ms answering queries (0.25ms on average).
 Calling osmBuild
 Calling randomTrips
 calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
