@@ -119,7 +119,7 @@ NBConnection::replaceFrom(NBEdge* which, NBEdge* by) {
 bool
 NBConnection::replaceFrom(NBEdge* which, int whichLane,
                           NBEdge* by, int byLane) {
-    if (myFrom == which && (myFromLane == (int) whichLane || myFromLane < 0)) {
+    if (myFrom == which && (myFromLane == whichLane || myFromLane < 0 || whichLane < 0)) {
         myFrom = by;
         myFromID = myFrom->getID();
         myFromLane = byLane;
@@ -143,7 +143,7 @@ NBConnection::replaceTo(NBEdge* which, NBEdge* by) {
 bool
 NBConnection::replaceTo(NBEdge* which, int whichLane,
                         NBEdge* by, int byLane) {
-    if (myTo == which && (myToLane == (int) whichLane || myFromLane < 0)) {
+    if (myTo == which && (myToLane == whichLane || myFromLane < 0 || whichLane < 0)) {
         myTo = by;
         myToID = myTo->getID();
         myToLane = byLane;
