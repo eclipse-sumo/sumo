@@ -431,6 +431,8 @@ enum {
     MID_GNE_ADD_REVERSE_EDGE,
     /** edit junction shape */
     MID_GNE_NODE_SHAPE,
+    /** turn junction into geometry node */
+    MID_GNE_NODE_REPLACE,
     /** set non-default geometry endpoint */
     MID_GNE_SET_EDGE_ENDPOINT,
     /** restore geometry endpoint to node position */
