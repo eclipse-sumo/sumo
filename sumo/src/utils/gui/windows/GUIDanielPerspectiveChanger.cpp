@@ -53,7 +53,9 @@ GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(
     myRotation(0),
     myMouseButtonState(MOUSEBTN_NONE),
     myMoveOnClick(false),
-    myDragDelay(0) {}
+    myDragDelay(0),
+    myZoomBase(viewPort.getCenter())
+{}
 
 
 GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger() {}
@@ -255,25 +257,71 @@ GUIDanielPerspectiveChanger::changeCanvassLeft(int change) {
 long 
 GUIDanielPerspectiveChanger::onKeyPress(void* data) {
     FXEvent* e = (FXEvent*) data;
+    SUMOReal zoomDiff = 0.1;
+    SUMOReal moveX = 0;
+    SUMOReal moveY = 0;
+    SUMOReal moveFactor = 1;
+    bool pageVertical = true;
+    if (e->state & CONTROLMASK) {
+        zoomDiff /= 2;
+        moveFactor /= 10;
+    } else if (e->state & SHIFTMASK) {
+        pageVertical = false;
+        zoomDiff *= 2;
+    }
     switch(e->code) {
     case FX::KEY_Left:
-        move( -myViewPort.getWidth()/10, 0);
+        moveX = -1;
+        moveFactor /= 10;
         break;
     case FX::KEY_Right:
-        move( myViewPort.getWidth()/10, 0);
+        moveX = 1;
+        moveFactor /= 10;
         break;
     case FX::KEY_Up:
-        move(0, -myViewPort.getHeight()/10);
+        moveY = -1;
+        moveFactor /= 10;
         break;
     case FX::KEY_Down:
-        move(0, myViewPort.getHeight()/10);
+        moveY = 1;
+        moveFactor /= 10;
         break;
+    case FX::KEY_Page_Up:
+        if (pageVertical) {
+            moveY = -1;
+        } else {
+            moveX = -1;
+        }
+        break;
+    case FX::KEY_Page_Down:
+        if (pageVertical) {
+            moveY = 1;
+        } else {
+            moveX = 1;
+        }
+        break;
+    case FX::KEY_plus:
+    case FX::KEY_KP_Add:
+        myZoomBase = myCallback.getPositionInformation();
+        zoom(1.0 + zoomDiff);
+        myCallback.updateToolTip();
+        return 1;
+    case FX::KEY_minus:
+    case FX::KEY_KP_Subtract:
+        zoomDiff = -zoomDiff;
+        myZoomBase = myCallback.getPositionInformation();
+        zoom(1.0 + zoomDiff);
+        myCallback.updateToolTip();
+        return 1;
     case FX::KEY_c:
         myCallback.recenterView();
-        break;
+        myCallback.update();
+        return 1;
     default:
         return 0;
     }
+    myViewPort.moveby(moveX * moveFactor * myViewPort.getWidth(), 
+            -moveY * moveFactor * myViewPort.getHeight());
     myCallback.update();
     return 1;
 }
