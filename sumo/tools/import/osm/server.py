@@ -106,7 +106,7 @@ def build(handler, prefix, bbox=False):
     polyname = prefix + ".poly.xml"
     options = ["-f", osmname, "-p", prefix, "-m", polyfile]
     typefiles = []
-    netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS + ",--junctions.corner-detail,5"
+    netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS + ",--junctions.corner-detail,5,--output.street-names"
     if handler.pedestrians.enable:  # drop?
         # sidewalks are already included via typefile
         netconvertOptions += ",--crossings.guess"
