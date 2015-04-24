@@ -116,6 +116,10 @@ public:
     /// @brief  locator-callback
     long onCmdLocate(FXObject*, FXSelector, void*);
 
+    /// @brief handle keys
+    long onKeyPress(FXObject* o, FXSelector sel, void* data);
+    long onKeyRelease(FXObject* o, FXSelector sel, void* data);
+
     /// @brief true if the object is selected (may include extra logic besides calling gSelected)
     bool isSelected(GUIGlObject* o) const;
 

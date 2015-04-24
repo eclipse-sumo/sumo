@@ -152,6 +152,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEADD,      GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOI,      GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOLY,     GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_KEYPRESS,              0,     GUIApplicationWindow::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,            0,     GUIApplicationWindow::onKeyRelease),
 
     FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0, GUIApplicationWindow::onClipboardRequest),
 
@@ -366,7 +368,7 @@ GUIApplicationWindow::fillMenuBar() {
                       GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
-                      "&Close\tCtl-W\tClose the simulation.",
+                      "Close\tCtl-W\tClose the simulation.",
                       GUIIconSubSys::getIcon(ICON_CLOSE), this, MID_CLOSE);
     // Recent files
     FXMenuSeparator* sep1 = new FXMenuSeparator(myFileMenu);
@@ -1434,6 +1436,32 @@ GUIApplicationWindow::updateTimeLCD(SUMOTime time) {
         snprintf(buffer, BuffSize, format.c_str(), fracSeconds);
     }
     myLCDLabel->setText(buffer);
+}
+
+
+long
+GUIApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* data) {
+    const long handled = FXMainWindow::onKeyPress(o, sel, data);
+    if (handled == 0 && myMDIClient->numChildren() > 0) {
+        GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+        if (w != 0) {
+            w->onKeyPress(0, sel, data);
+        }
+    }
+    return 0;
+}
+
+
+long
+GUIApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
+    const long handled = FXMainWindow::onKeyRelease(o, sel, data);
+    if (handled == 0 && myMDIClient->numChildren() > 0) {
+        GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+        if (w != 0) {
+            w->onKeyRelease(0, sel, data);
+        }
+    }
+    return 0;
 }
 
 /****************************************************************************/

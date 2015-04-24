@@ -71,6 +71,8 @@ public:
     bool onRightBtnRelease(void* data);
     void onMouseWheel(void* data);
     void onMouseMove(void* data);
+    long onKeyPress(void* data);
+    long onKeyRelease(void* data);
 
     /// Returns the rotation of the canvas stored in this changer
     virtual SUMOReal getRotation() const;

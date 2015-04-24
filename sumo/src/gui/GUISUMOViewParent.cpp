@@ -34,6 +34,7 @@
 
 #include <string>
 #include <vector>
+#include <fxkeys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
@@ -261,6 +262,20 @@ GUISUMOViewParent::isSelected(GUIGlObject* o) const {
     } else {
         return false;
     }
+}
+
+
+long
+GUISUMOViewParent::onKeyPress(FXObject* o, FXSelector sel, void* data) {
+    myView->onKeyPress(o, sel, data);
+    return 0;
+}
+
+
+long
+GUISUMOViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
+    myView->onKeyRelease(o, sel, data);
+    return 0;
 }
 
 

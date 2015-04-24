@@ -233,6 +233,10 @@ public:
 
     /// @brief Somebody wants our clipped text
     long onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief handle keys
+    long onKeyPress(FXObject* o, FXSelector sel, void* data);
+    long onKeyRelease(FXObject* o, FXSelector sel, void* data);
     /// @}
 
 

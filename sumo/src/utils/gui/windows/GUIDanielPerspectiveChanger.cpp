@@ -30,6 +30,7 @@
 #include <config.h>
 #endif
 
+#include <fxkeys.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
@@ -249,5 +250,39 @@ GUIDanielPerspectiveChanger::changeCanvassLeft(int change) {
                      myViewPort.xmax(),
                      myViewPort.ymax());
 }
+
+
+long 
+GUIDanielPerspectiveChanger::onKeyPress(void* data) {
+    FXEvent* e = (FXEvent*) data;
+    switch(e->code) {
+    case FX::KEY_Left:
+        move( -myViewPort.getWidth()/10, 0);
+        break;
+    case FX::KEY_Right:
+        move( myViewPort.getWidth()/10, 0);
+        break;
+    case FX::KEY_Up:
+        move(0, -myViewPort.getHeight()/10);
+        break;
+    case FX::KEY_Down:
+        move(0, myViewPort.getHeight()/10);
+        break;
+    case FX::KEY_c:
+        myCallback.recenterView();
+        break;
+    default:
+        return 0;
+    }
+    myCallback.update();
+    return 1;
+}
+
+long
+GUIDanielPerspectiveChanger::onKeyRelease(void* data) { 
+    return 0;
+}
+
+
 
 /****************************************************************************/
