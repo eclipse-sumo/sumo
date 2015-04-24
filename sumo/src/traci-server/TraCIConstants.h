@@ -506,7 +506,7 @@
 // maximum allowed/possible speed (get: vehicle types, lanes, set: edges, lanes)
 #define VAR_MAXSPEED 0x41
 
-// position (2D) (get: vehicle, poi, set: poi)
+// position (2D) (get: vehicle, poi, inductionloop, areadetector; set: poi)
 #define VAR_POSITION 0x42
 
 // position (3D) (get: vehicle, poi, set: poi)
@@ -515,7 +515,7 @@
 // angle (get: vehicle)
 #define VAR_ANGLE 0x43
 
-// angle (get: vehicle types, lanes, set: lanes)
+// angle (get: vehicle types, lanes, arealdetector, set: lanes)
 #define VAR_LENGTH 0x44
 
 // color (get: vehicles, vehicle types, polygons, pois)
@@ -554,7 +554,7 @@
 // road id (get: vehicles)
 #define VAR_ROAD_ID 0x50
 
-// lane id (get: vehicles)
+// lane id (get: vehicles, inductionloop, arealdetector)
 #define VAR_LANE_ID 0x51
 
 // lane index (get: vehicles)

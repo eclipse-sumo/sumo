@@ -26,7 +26,11 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:                          traci.Storage.readStr
                       tc.JAM_LENGTH_METERS:                traci.Storage.readDouble,
                       tc.JAM_LENGTH_VEHICLE:               traci.Storage.readInt,
                       tc.LAST_STEP_MEAN_SPEED:             traci.Storage.readDouble,
+                      tc.VAR_POSITION:                     traci.Storage.readDouble,
+                      tc.VAR_LENGTH:                       traci.Storage.readDouble,
+                      tc.VAR_LANE_ID:                      traci.Storage.readString,
                       tc.LAST_STEP_VEHICLE_ID_LIST:        traci.Storage.readStringList,
+                      tc.LAST_STEP_VEHICLE_NUMBER:         traci.Storage.readInt,
                       tc.LAST_STEP_OCCUPANCY:              traci.Storage.readDouble}
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
@@ -91,6 +95,39 @@ def getLastStepOccupancy(detID):
     Returns the percentage of space the detector was occupied by a vehicle [%]
     """
     return _getUniversal(tc.LAST_STEP_OCCUPANCY, detID)
+
+
+def getPosition(detID):
+    """getPosition(string) -> double
+
+    Returns the starting position of the detector measured from the beginning of the lane in meters.
+    """
+    return _getUniversal(tc.VAR_POSITION, detID)
+
+
+def getLaneID(detID):
+    """getLaneID(string) -> string
+
+    Returns the id of the lane the detector is on.
+    """
+    return _getUniversal(tc.VAR_LANE_ID, detID)
+
+
+def getLength(detID):
+    """getLength(string) -> double
+
+    Returns the length of the detector
+    """
+    return _getUniversal(tc.VAR_LENGTH, detID)
+
+
+def getLastStepVehicleNumber(detID):
+    """getLastStepVehicleNumber(string) -> integer
+
+    Returns the number of vehicles that were on the named induction loop within the last simulation step.
+    """
+    return _getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, detID)
+
 
 
 def subscribe(detID, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31 - 1):

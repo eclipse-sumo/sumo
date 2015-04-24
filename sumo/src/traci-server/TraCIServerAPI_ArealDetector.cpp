@@ -52,9 +52,19 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable != ID_LIST && variable != ID_COUNT && variable != JAM_LENGTH_VEHICLE && variable != JAM_LENGTH_METERS &&
-            variable != LAST_STEP_VEHICLE_NUMBER && variable != LAST_STEP_MEAN_SPEED && variable != LAST_STEP_VEHICLE_ID_LIST
-            && variable != LAST_STEP_VEHICLE_HALTING_NUMBER && variable != ID_COUNT && variable != LAST_STEP_OCCUPANCY) {
+    if (variable != ID_LIST 
+            && variable != ID_COUNT 
+            && variable != JAM_LENGTH_VEHICLE 
+            && variable != JAM_LENGTH_METERS 
+            && variable != LAST_STEP_VEHICLE_NUMBER 
+            && variable != LAST_STEP_MEAN_SPEED 
+            && variable != LAST_STEP_VEHICLE_ID_LIST
+            && variable != LAST_STEP_VEHICLE_HALTING_NUMBER 
+            && variable != ID_COUNT 
+            && variable != LAST_STEP_OCCUPANCY
+            && variable != VAR_POSITION 
+            && variable != VAR_LANE_ID
+            && variable != VAR_LENGTH) {
         return server.writeErrorStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, "Get Areal Detector Variable: unsupported variable specified", outputStorage);
     }
 
@@ -111,6 +121,18 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
             case LAST_STEP_OCCUPANCY:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(e2->getCurrentOccupancy());
+                break;
+            case VAR_POSITION:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(e2->getStartPos());
+                break;
+            case VAR_LANE_ID:
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(e2->getLane()->getID());
+                break;
+            case VAR_LENGTH:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(e2->getEndPos() - e2->getStartPos());
                 break;
             default:
                 break;

@@ -436,6 +436,7 @@ TraCIServer::dispatchCommand() {
                 success = commandCloseConnection();
                 break;
             case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
+            case CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE:
             case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
             case CMD_SUBSCRIBE_TL_VARIABLE:
             case CMD_SUBSCRIBE_LANE_VARIABLE:
@@ -452,6 +453,7 @@ TraCIServer::dispatchCommand() {
                 success = addObjectVariableSubscription(commandId, false);
                 break;
             case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
+            case CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT:
             case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
             case CMD_SUBSCRIBE_TL_CONTEXT:
             case CMD_SUBSCRIBE_LANE_CONTEXT:

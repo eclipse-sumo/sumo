@@ -3,6 +3,9 @@ ID_COUNT
 
 # Tests retrieval of areal-detectors in scenario (ID_LIST)
 ID_LIST
+VAR_LANE_ID
+VAR_POSITION
+VAR_LENGTH
 
 # Testing error cases
 errors

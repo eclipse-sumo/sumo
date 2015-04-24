@@ -1,0 +1,22 @@
+Loading configuration... done.
+step 0
+step 1
+step 2
+step 3
+areals ['det0']
+areal count 1
+examining det0
+pos 100.0
+length 25.0
+lane 2fi_0
+vehNum 0
+meanSpeed -1.0
+vehIDs []
+occupancy 0.0
+{16: 0}
+step 3
+{16: 0}
+step 4
+{16: 0}
+step 5
+{16: 0}
