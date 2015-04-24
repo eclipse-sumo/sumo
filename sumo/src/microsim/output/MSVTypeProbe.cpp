@@ -83,6 +83,9 @@ MSVTypeProbe::execute(SUMOTime currentTime) {
                 myOutputDevice.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
                 myOutputDevice.writeAttr(SUMO_ATTR_X, pos.x());
                 myOutputDevice.writeAttr(SUMO_ATTR_Y, pos.y());
+                if (MSNet::getInstance()->hasElevation()) {
+                    myOutputDevice.writeAttr(SUMO_ATTR_Z, pos.z());
+                }
                 if (GeoConvHelper::getFinal().usingGeoProjection()) {
                     GeoConvHelper::getFinal().cartesian2geo(pos);
                     myOutputDevice.setPrecision(GEO_OUTPUT_ACCURACY);
