@@ -326,11 +326,5 @@ GUIDanielPerspectiveChanger::onKeyPress(void* data) {
     return 1;
 }
 
-long
-GUIDanielPerspectiveChanger::onKeyRelease(void* data) { 
-    return 0;
-}
-
-
 
 /****************************************************************************/

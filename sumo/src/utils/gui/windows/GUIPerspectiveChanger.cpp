@@ -79,10 +79,14 @@ void
 GUIPerspectiveChanger::onMouseMove(void*) {}
 
 long 
-GUIPerspectiveChanger::onKeyPress(void* data) {}
+GUIPerspectiveChanger::onKeyPress(void* data) {
+    return 0;
+}
 
 long
-GUIPerspectiveChanger::onKeyRelease(void* data) {}
+GUIPerspectiveChanger::onKeyRelease(void* data) {
+    return 0;
+}
 
 FXint
 GUIPerspectiveChanger::getMouseXPosition() const {
