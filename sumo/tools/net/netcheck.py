@@ -99,7 +99,7 @@ def getReachable(net, source_id, options, useIncoming=False):
 
     if options.selection_output:
         with open(options.selection_output, 'w') as f:
-            for e in found:
+            for e in sorted(found):
                 f.write("edge:%s\n" % e.getID())
     else:
         print [e.getID() for e in found]
