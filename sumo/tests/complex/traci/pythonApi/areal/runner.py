@@ -5,7 +5,7 @@
 @author  Michael Behrisch
 @author  Daniel Krajzewicz
 @date    2011-03-04
-@version $Id: runner.py 18096 2015-03-17 09:50:59Z behrisch $
+@version $Id$
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
