@@ -42,3 +42,6 @@ umlaut
 
 # Tests configuration with umlauts and encoding
 umlaut_encoding
+
+# Tests configuration with space in file names
+space
