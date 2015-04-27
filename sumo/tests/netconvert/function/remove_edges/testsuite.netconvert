@@ -20,3 +20,6 @@ _deprecated_
 
 # remove edges with the given type
 by-type
+
+# remove edges listed in a file
+input-file

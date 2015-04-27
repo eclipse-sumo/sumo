@@ -198,6 +198,9 @@
         <!-- Only keep edges in FILE -->
         <keep-edges.input-file value="" type="FILE"/>
 
+        <!-- Remove edges in FILE -->
+        <remove-edges.input-file value="" type="FILE"/>
+
         <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;) -->
         <keep-edges.in-boundary value="" type="STR"/>
 

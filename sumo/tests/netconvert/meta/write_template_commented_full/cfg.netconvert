@@ -219,6 +219,9 @@
         <!-- Only keep edges in FILE -->
         <keep-edges.input-file value="" type="FILE"/>
 
+        <!-- Remove edges in FILE -->
+        <remove-edges.input-file value="" type="FILE"/>
+
         <!-- Remove edges after joining -->
         <keep-edges.postload value="false" type="BOOL"/>
 

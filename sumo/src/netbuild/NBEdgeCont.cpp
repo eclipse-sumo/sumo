@@ -44,6 +44,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include "NBNetBuilder.h"
 #include "NBEdgeCont.h"
@@ -86,7 +87,7 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
     // set edges dismiss/accept options
     myEdgesMinSpeed = oc.isSet("keep-edges.min-speed") ? oc.getFloat("keep-edges.min-speed") : -1;
     myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
-    // we possibly have to load the edges to keep
+    // we possibly have to load the edges to keep/remove
     if (oc.isSet("keep-edges.input-file")) {
         std::ifstream strm(oc.getString("keep-edges.input-file").c_str());
         if (!strm.good()) {
@@ -96,6 +97,25 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
             std::string name;
             strm >> name;
             myEdges2Keep.insert(name);
+            // maybe we're loading an edge-selection
+            if (StringUtils::startsWith(name, "edge:")) {
+                myEdges2Keep.insert(name.substr(5));
+            }
+        }
+    }
+    if (oc.isSet("remove-edges.input-file")) {
+        std::ifstream strm(oc.getString("remove-edges.input-file").c_str());
+        if (!strm.good()) {
+            throw ProcessError("Could not load names of edges too remove from '" + oc.getString("remove-edges.input-file") + "'.");
+        }
+        while (strm.good()) {
+            std::string name;
+            strm >> name;
+            myEdges2Remove.insert(name);
+            // maybe we're loading an edge-selection
+            if (StringUtils::startsWith(name, "edge:")) {
+                myEdges2Remove.insert(name.substr(5));
+            }
         }
     }
     if (oc.isSet("keep-edges.explicit")) {

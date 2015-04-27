@@ -284,6 +284,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("keep-edges.input-file", new Option_FileName());
     oc.addDescription("keep-edges.input-file", "Edge Removal", "Only keep edges in FILE");
 
+    oc.doRegister("remove-edges.input-file", new Option_FileName());
+    oc.addDescription("remove-edges.input-file", "Edge Removal", "Remove edges in FILE");
+
     if (!forNetgen) {
         oc.doRegister("keep-edges.postload", new Option_Bool(false));
         oc.addDescription("keep-edges.postload", "Edge Removal", "Remove edges after joining");
@@ -311,6 +314,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("remove-edges.isolated", new Option_Bool(false));
         oc.addSynonyme("remove-edges.isolated", "remove-isolated", true);
         oc.addDescription("remove-edges.isolated", "Edge Removal", "Removes isolated edges");
+
     }
 
 
