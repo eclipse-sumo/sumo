@@ -316,7 +316,7 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
                 if (!FileHelpers::isAbsolute(tmp)) {
                     tmp = FileHelpers::getConfigurationRelative(configuration, tmp);
                 }
-                conv += tmp;
+                conv += StringUtils::urlDecode(tmp);
             }
             if (conv != (*i)->getString()) {
                 (*i)->set(conv);

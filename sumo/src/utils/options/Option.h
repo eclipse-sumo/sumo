@@ -630,6 +630,17 @@ public:
      */
     bool isFileName() const;
 
+
+    /** @brief Returns the string-representation of the value
+     *
+     * The value is URL-encoded using StringUtils::urlEncode and returned.
+     *
+     * @see std::string Option::getValueString()
+     * @return The stored value encoded into a string
+     */
+    std::string getValueString() const;
+
+
 };
 
 

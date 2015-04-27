@@ -37,6 +37,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 
@@ -456,6 +457,12 @@ Option_FileName::operator=(const Option_FileName& s) {
 bool
 Option_FileName::isFileName() const {
     return true;
+}
+
+
+std::string
+Option_FileName::getValueString() const {
+    return StringUtils::urlEncode(myValue, " ,;%");
 }
 
 
