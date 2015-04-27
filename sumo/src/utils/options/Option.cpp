@@ -462,7 +462,7 @@ Option_FileName::isFileName() const {
 
 std::string
 Option_FileName::getValueString() const {
-    return StringUtils::urlEncode(myValue, " ,;%");
+    return StringUtils::urlEncode(myValue, " ;%");
 }
 
 
