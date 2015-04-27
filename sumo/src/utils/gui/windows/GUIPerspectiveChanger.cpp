@@ -79,12 +79,12 @@ void
 GUIPerspectiveChanger::onMouseMove(void*) {}
 
 long 
-GUIPerspectiveChanger::onKeyPress(void* data) {
+GUIPerspectiveChanger::onKeyPress(void*) {
     return 0;
 }
 
 long
-GUIPerspectiveChanger::onKeyRelease(void* data) {
+GUIPerspectiveChanger::onKeyRelease(void*) {
     return 0;
 }
 

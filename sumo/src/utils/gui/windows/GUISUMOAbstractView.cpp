@@ -124,9 +124,9 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p,
     myUseToolTips(false),
     myAmInitialised(false),
     myViewportChooser(0),
-    myVisualizationChanger(0),
     myWindowCursorPositionX(getWidth()/2),
-    myWindowCursorPositionY(getHeight()/2)
+    myWindowCursorPositionY(getHeight()/2),
+    myVisualizationChanger(0)
 {
     setTarget(this);
     enable();
