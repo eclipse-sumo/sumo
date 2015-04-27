@@ -119,7 +119,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         // preliminary geometry computations to determine the length of edges
         // This depends on turning directions and sorting of edge list
         // in case junctions are joined geometry computations have to be repeated
-        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
+        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
         NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
         myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
         myEdgeCont.computeEdgeShapes();
@@ -151,7 +151,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         const bool removeGeometryNodes = oc.exists("geometry.remove") && oc.getBool("geometry.remove");
         PROGRESS_BEGIN_MESSAGE("Removing empty nodes" + std::string(removeGeometryNodes ? " and geometry nodes" : ""));
         // removeUnwishedNodes needs turnDirections. @todo: try to call this less often
-        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
+        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
         no = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, removeGeometryNodes);
         PROGRESS_DONE_MESSAGE();
         WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
@@ -244,7 +244,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_DONE_MESSAGE();
     // resort edges based on the node and edge shapes
     NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"), true);
-    NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
+    NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
 
     // APPLY SPEED MODIFICATIONS
     if (oc.exists("speed.offset")) {

@@ -84,27 +84,6 @@ Warning: Removed a road without junctions: 88462827
 Warning: Removed a road without junctions: 88462851
 Warning: Removed a road without junctions: 88462853
 Warning: Removed a road without junctions: 88462855
-Warning: Ambiguity in turnarounds computation at node '1130114721'.
-Warning: Ambiguity in turnarounds computation at node '1206481791'.
-Warning: Ambiguity in turnarounds computation at node '1206481808'.
-Warning: Ambiguity in turnarounds computation at node '1349696695'.
-Warning: Ambiguity in turnarounds computation at node '1350637319'.
-Warning: Ambiguity in turnarounds computation at node '1365292207'.
-Warning: Ambiguity in turnarounds computation at node '1635318761'.
-Warning: Ambiguity in turnarounds computation at node '1635318763'.
-Warning: Ambiguity in turnarounds computation at node '1635318765'.
-Warning: Ambiguity in turnarounds computation at node '1635318767'.
-Warning: Ambiguity in turnarounds computation at node '247616302'.
-Warning: Ambiguity in turnarounds computation at node '2739143296'.
-Warning: Ambiguity in turnarounds computation at node '2739143307'.
-Warning: Ambiguity in turnarounds computation at node '2739143323'.
-Warning: Ambiguity in turnarounds computation at node '27411228'.
-Warning: Ambiguity in turnarounds computation at node '27411229'.
-Warning: Ambiguity in turnarounds computation at node '29192127'.
-Warning: Ambiguity in turnarounds computation at node '348454857'.
-Warning: Ambiguity in turnarounds computation at node '540971896'.
-Warning: Ambiguity in turnarounds computation at node '588181343'.
-Warning: Ambiguity in turnarounds computation at node '98976234'.
 Warning: Could not use edge geometry for internal lane, node '1026368619'.
 Warning: Could not use edge geometry for internal lane, node '1026368619'.
 Warning: Could not use edge geometry for internal lane, node '1026368751'.
@@ -594,24 +573,6 @@ Warning: Ambiguity in turnarounds computation at node '1350637319'.
 Warning: Ambiguity in turnarounds computation at node '1365292207'.
 Warning: Ambiguity in turnarounds computation at node '1635318765'.
 Warning: Ambiguity in turnarounds computation at node '1635318767'.
-Warning: Ambiguity in turnarounds computation at node '247616302'.
-Warning: Ambiguity in turnarounds computation at node '2739143296'.
-Warning: Ambiguity in turnarounds computation at node '2739143307'.
-Warning: Ambiguity in turnarounds computation at node '2739143323'.
-Warning: Ambiguity in turnarounds computation at node '27411228'.
-Warning: Ambiguity in turnarounds computation at node '27411229'.
-Warning: Ambiguity in turnarounds computation at node '29192127'.
-Warning: Ambiguity in turnarounds computation at node '540971896'.
-Warning: Ambiguity in turnarounds computation at node '588181343'.
-Warning: Ambiguity in turnarounds computation at node '98976234'.
-Warning: Ambiguity in turnarounds computation at node '1130114721'.
-Warning: Ambiguity in turnarounds computation at node '1206481791'.
-Warning: Ambiguity in turnarounds computation at node '1206481808'.
-Warning: Ambiguity in turnarounds computation at node '1349696695'.
-Warning: Ambiguity in turnarounds computation at node '1350637319'.
-Warning: Ambiguity in turnarounds computation at node '1365292207'.
-Warning: Ambiguity in turnarounds computation at node '1635318765'.
-Warning: Ambiguity in turnarounds computation at node '1635318767'.
 Warning: Ambiguity in turnarounds computation at node '196721246'.
 Warning: Ambiguity in turnarounds computation at node '247616302'.
 Warning: Ambiguity in turnarounds computation at node '2739143296'.
@@ -1059,26 +1020,6 @@ Warning: Could not use edge geometry for internal lane, node 'cluster_2777026053
 Warning: Could not use edge geometry for internal lane, node 'cluster_2777026101_2777026104'.
 Warning: Could not use edge geometry for internal lane, node 'cluster_2831135690_2831135691'.
 Warning: Could not use edge geometry for internal lane, node 'cluster_29215073_660778774'.
-Warning: Ambiguity in turnarounds computation at node '1130114721'.
-Warning: Ambiguity in turnarounds computation at node '1206481791'.
-Warning: Ambiguity in turnarounds computation at node '1206481808'.
-Warning: Ambiguity in turnarounds computation at node '1349696695'.
-Warning: Ambiguity in turnarounds computation at node '1350637319'.
-Warning: Ambiguity in turnarounds computation at node '1365292207'.
-Warning: Ambiguity in turnarounds computation at node '1635318765'.
-Warning: Ambiguity in turnarounds computation at node '1635318767'.
-Warning: Ambiguity in turnarounds computation at node '196721246'.
-Warning: Ambiguity in turnarounds computation at node '247616302'.
-Warning: Ambiguity in turnarounds computation at node '2739143296'.
-Warning: Ambiguity in turnarounds computation at node '2739143307'.
-Warning: Ambiguity in turnarounds computation at node '2739143323'.
-Warning: Ambiguity in turnarounds computation at node '27411228'.
-Warning: Ambiguity in turnarounds computation at node '27411229'.
-Warning: Ambiguity in turnarounds computation at node '29192127'.
-Warning: Ambiguity in turnarounds computation at node '540971896'.
-Warning: Ambiguity in turnarounds computation at node '588181343'.
-Warning: Ambiguity in turnarounds computation at node '740379739'.
-Warning: Ambiguity in turnarounds computation at node '98976234'.
 Warning: The traffic light '1275468905' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '1275468905'
 Warning: The traffic light '1275468907' does not control any links; it will not be build.

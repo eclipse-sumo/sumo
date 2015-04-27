@@ -53,14 +53,14 @@
 // NBTurningDirectionsComputer
 // ---------------------------------------------------------------------------
 void
-NBTurningDirectionsComputer::computeTurnDirections(NBNodeCont& nc) {
+NBTurningDirectionsComputer::computeTurnDirections(NBNodeCont& nc, bool warn) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        computeTurnDirectionsForNode(i->second);
+        computeTurnDirectionsForNode(i->second, warn);
     }
 }
 
 void
-NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node) {
+NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool warn) {
     const std::vector<NBEdge*>& incoming = node->getIncomingEdges();
     const std::vector<NBEdge*>& outgoing = node->getOutgoingEdges();
     // reset turning directions since this may be called multiple times
@@ -107,13 +107,12 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node) {
     // sort combinations so that the ones with the highest angle are at the begin
     std::sort(combinations.begin(), combinations.end(), combination_by_angle_sorter());
     std::set<NBEdge*> seen;
-    bool haveWarned = false;
     for (std::vector<Combination>::const_iterator j = combinations.begin(); j != combinations.end(); ++j) {
         if (seen.find((*j).from) != seen.end() || seen.find((*j).to) != seen.end()) {
             // do not regard already set edges
-            if ((*j).angle > 360 && !haveWarned) {
+            if ((*j).angle > 360 && warn) {
                 WRITE_WARNING("Ambiguity in turnarounds computation at node '" + node->getID() + "'.");
-                haveWarned = true;
+                warn = false;
             }
             continue;
         }

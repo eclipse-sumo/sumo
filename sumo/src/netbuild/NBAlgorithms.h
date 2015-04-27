@@ -54,14 +54,16 @@ class NBTurningDirectionsComputer {
 public:
     /** @brief Computes turnaround destinations for all edges (if exist)
      * @param[in] nc The container of nodes to loop along
+     * @param[in] warn Whether warnings shall be issued
      */
-    static void computeTurnDirections(NBNodeCont& nc);
+    static void computeTurnDirections(NBNodeCont& nc, bool warn=true);
 
     /** @brief Computes turnaround destinations for all incoming edges of the given nodes (if any)
      * @param[in] node The node for which to compute turnaround destinations
+     * @param[in] warn Whether warnings shall be issued
      * @note: This is needed by NETEDIT
      */
-    static void computeTurnDirectionsForNode(NBNode* node);
+    static void computeTurnDirectionsForNode(NBNode* node, bool warn);
 
 private:
     /** @struct Combination
