@@ -109,8 +109,12 @@ Edge Removal Options:
                                          meters/second > FLOAT
   --remove-edges.explicit STR          Remove edges in STR
   --keep-edges.explicit STR            Only keep edges in STR
-  --keep-edges.input-file FILE         Only keep edges in FILE
-  --remove-edges.input-file FILE       Remove edges in FILE
+  --keep-edges.input-file FILE         Only keep edges in FILE (Each id on a
+                                         single line. Selection files from
+                                         SUMO-GUI are also supported)
+  --remove-edges.input-file FILE       Remove edges in FILE. (Each id on a
+                                         single line. Selection files from
+                                         SUMO-GUI are also supported)
   --keep-edges.in-boundary STR         Only keep edges which are located within
                                          the given boundary (given either as
                                          CARTESIAN corner coordinates

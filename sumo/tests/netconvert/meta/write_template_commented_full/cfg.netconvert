@@ -216,10 +216,10 @@
         <!-- Only keep edges in STR -->
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR"/>
 
-        <!-- Only keep edges in FILE -->
+        <!-- Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
         <keep-edges.input-file value="" type="FILE"/>
 
-        <!-- Remove edges in FILE -->
+        <!-- Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
         <remove-edges.input-file value="" type="FILE"/>
 
         <!-- Remove edges after joining -->
