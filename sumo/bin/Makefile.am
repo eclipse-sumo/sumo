@@ -99,7 +99,7 @@ marouter: ../src/marouter/marouter
 	if [ ! -e marouter -a -e marouterInt ]; then ln -s marouterInt marouter; fi
 	if [ ! -e marouterD -a -e marouterIntD ]; then ln -s marouterIntD marouterD; fi
 	if [ ! -e marouter -a -e marouterD ]; then ln -s marouterD marouter; fi
-	if [ ! -e marouter -a -e marouterIntD ]; then ln -s marouterIntD marouterInt; fi
+	if [ ! -e marouterInt -a -e marouterIntD ]; then ln -s marouterIntD marouterInt; fi
 $(GUI_APP): ../src/$(GUI_APP)
 	cp ../src/$(GUI_APP) ./`echo $(GUI_APP) | sed '$(transform)'`
 	if [ ! -e $(GUI_APP) -a -e meso-gui ]; then ln -s meso-gui $(GUI_APP); fi
