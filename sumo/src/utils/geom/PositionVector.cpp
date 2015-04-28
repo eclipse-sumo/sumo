@@ -827,7 +827,7 @@ PositionVector::eraseAt(int i) {
 SUMOReal
 PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular) const {
     SUMOReal minDist = std::numeric_limits<SUMOReal>::max();
-    SUMOReal nearestPos = -1;
+    SUMOReal nearestPos = GeomHelper::INVALID_OFFSET;
     SUMOReal seen = 0;
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const SUMOReal pos =
