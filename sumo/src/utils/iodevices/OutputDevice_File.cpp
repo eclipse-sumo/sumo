@@ -58,7 +58,7 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool bin
     }
     if (!myFileStream->good()) {
         delete myFileStream;
-        throw IOError("Could not build output file '" + fullName + "'. " + std::strerror(errno));
+        throw IOError("Could not build output file '" + fullName + "' (" + std::strerror(errno) + ").");
     }
 }
 
