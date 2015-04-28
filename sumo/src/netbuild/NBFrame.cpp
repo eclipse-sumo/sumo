@@ -355,6 +355,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addSynonyme("ramps.set", "ramp-guess.explicite", true);
         oc.addDescription("ramps.set", "Ramp Guessing", "Tries to handle the given edges as ramps");
 
+        oc.doRegister("ramps.unset", new Option_String());
+        oc.addDescription("ramps.unset", "Ramp Guessing", "Do not consider the given edges as ramps");
+
         oc.doRegister("ramps.no-split", new Option_Bool(false));
         oc.addSynonyme("ramps.no-split", "ramp-guess.no-split", true);
         oc.addDescription("ramps.no-split", "Ramp Guessing", "Avoids edge splitting");

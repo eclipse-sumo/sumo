@@ -201,6 +201,9 @@
         <!-- Tries to handle the given edges as ramps -->
         <ramps.set value="" synonymes="ramp-guess.explicite" type="STR"/>
 
+        <!-- Do not consider the given edges as ramps -->
+        <ramps.unset value="" type="STR"/>
+
         <!-- Avoids edge splitting -->
         <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL"/>
 

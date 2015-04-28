@@ -33,6 +33,7 @@
 #include <cassert>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include "NBNetBuilder.h"
 #include "NBNodeCont.h"
 #include "NBNode.h"
@@ -64,6 +65,11 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
     std::set<NBEdge*> incremented;
     // check whether on-off ramps shall be guessed
     if (oc.getBool("ramps.guess")) {
+        std::set<std::string> noramps;
+        if (oc.isSet("ramps.unset")) {
+            std::vector<std::string> edges = oc.getStringVector("ramps.unset");
+            noramps.insert(edges.begin(), edges.end());
+        }
         NBNodeCont& nc = nb.getNodeCont();
         NBEdgeCont& ec = nb.getEdgeCont();
         NBDistrictCont& dc = nb.getDistrictCont();
@@ -71,10 +77,10 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
         std::set<NBNode*> potOffRamps;
         for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
             NBNode* cur = (*i).second;
-            if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed)) {
+            if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed, noramps)) {
                 potOnRamps.insert(cur);
             }
-            if (mayNeedOffRamp(cur, minHighwaySpeed, maxRampSpeed)) {
+            if (mayNeedOffRamp(cur, minHighwaySpeed, maxRampSpeed, noramps)) {
                 potOffRamps.insert(cur);
             }
         }
@@ -85,7 +91,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
             buildOffRamp(*i, nc, ec, dc, rampLength, dontSplit, incremented);
         }
     }
-    // check whether on-off ramps shall be guessed
+    // check whether on-off ramps are specified
     if (oc.isSet("ramps.set")) {
         std::vector<std::string> edges = oc.getStringVector("ramps.set");
         NBNodeCont& nc = nb.getNodeCont();
@@ -117,26 +123,26 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
 
 
 bool
-NBRampsComputer::mayNeedOnRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed) {
+NBRampsComputer::mayNeedOnRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed, const std::set<std::string>& noramps) {
     if (cur->getOutgoingEdges().size() != 1 || cur->getIncomingEdges().size() != 2) {
         return false;
     }
     NBEdge* potHighway, *potRamp, *cont;
     getOnRampEdges(cur, &potHighway, &potRamp, &cont);
     // may be an on-ramp
-    return fulfillsRampConstraints(potHighway, potRamp, cont, minHighwaySpeed, maxRampSpeed);
+    return fulfillsRampConstraints(potHighway, potRamp, cont, minHighwaySpeed, maxRampSpeed, noramps);
 }
 
 
 bool
-NBRampsComputer::mayNeedOffRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed) {
+NBRampsComputer::mayNeedOffRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed, const std::set<std::string>& noramps) {
     if (cur->getIncomingEdges().size() != 1 || cur->getOutgoingEdges().size() != 2) {
         return false;
     }
     // may be an off-ramp
     NBEdge* potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
-    return fulfillsRampConstraints(potHighway, potRamp, prev, minHighwaySpeed, maxRampSpeed);
+    return fulfillsRampConstraints(potHighway, potRamp, prev, minHighwaySpeed, maxRampSpeed, noramps);
 }
 
 
@@ -401,7 +407,9 @@ NBRampsComputer::getOffRampEdges(NBNode* n, NBEdge** potHighway, NBEdge** potRam
 
 bool
 NBRampsComputer::fulfillsRampConstraints(
-    NBEdge* potHighway, NBEdge* potRamp, NBEdge* other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed) {
+    NBEdge* potHighway, NBEdge* potRamp, NBEdge* other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
+    const std::set<std::string>& noramps) 
+{
     // do not build ramps on rail edges
     if (isRailway(potHighway->getPermissions()) || isRailway(potRamp->getPermissions())) {
         return false;
@@ -440,6 +448,9 @@ NBRampsComputer::fulfillsRampConstraints(
     */
     // is it really a ramp?
     if (maxRampSpeed > 0 && maxRampSpeed < potRamp->getSpeed()) {
+        return false;
+    }
+    if (noramps.find(other->getID()) != noramps.end()) {
         return false;
     }
     return true;

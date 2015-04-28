@@ -69,18 +69,22 @@ private:
      * @param[in] cur The node to check
      * @param[in] minHighwaySpeed The minimum speed limit a highway must have for being a highway
      * @param[in] maxRampSpeed The maximum speed limit a ramp must have for being a ramp
+     * @param[in] noramps Edges that shall not be treated as ramps
      * @return Whether the node is assumed to be an on-ramp begin
      */
-    static bool mayNeedOnRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed);
+    static bool mayNeedOnRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
+            const std::set<std::string>& noramps);
 
 
     /** @brief Determines whether the given node may be an off-ramp end
      * @param[in] cur The node to check
      * @param[in] minHighwaySpeed The minimum speed limit a highway must have for being a highway
      * @param[in] maxRampSpeed The maximum speed limit a ramp must have for being a ramp
+     * @param[in] noramps Edges that shall not be treated as ramps
      * @return Whether the node is assumed to be an off-ramp end
      */
-    static bool mayNeedOffRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed);
+    static bool mayNeedOffRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
+            const std::set<std::string>& noramps);
 
 
     /** @brief Builds an on-ramp starting at the given node
@@ -122,9 +126,11 @@ private:
      * @param[in] other The successor/predecessor edge
      * @param[in] minHighwaySpeed The minimum speed limit a highway must have for being a highway
      * @param[in] maxRampSpeed The maximum speed limit a ramp must have for being a ramp
+     * @param[in] noramps Edges that shall not be treated as ramps
      * @return Whether a ramp can be built here
      */
-    static bool fulfillsRampConstraints(NBEdge* potHighway, NBEdge* potRamp, NBEdge* other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed);
+    static bool fulfillsRampConstraints(NBEdge* potHighway, NBEdge* potRamp, NBEdge* other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
+            const std::set<std::string>& noramps);
 
 
     /** @brief Moves the ramp to the right, as new lanes were added
