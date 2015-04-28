@@ -31,6 +31,8 @@
 #endif
 
 #include <iostream>
+#include <cstring>
+#include <cerrno>
 #include <utils/common/UtilExceptions.h>
 #include "OutputDevice_File.h"
 
@@ -56,7 +58,7 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool bin
     }
     if (!myFileStream->good()) {
         delete myFileStream;
-        throw IOError("Could not build output file '" + fullName + "'.");
+        throw IOError("Could not build output file '" + fullName + "'. " + std::strerror(errno));
     }
 }
 
