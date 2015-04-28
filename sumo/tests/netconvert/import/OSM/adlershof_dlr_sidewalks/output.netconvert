@@ -4,18 +4,18 @@ Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate edges... done.
 Parsing relations from osm-file 'osm.xml'... 
 done.
- Removed 24 traffic lights before loading plain-XML
+ Removed 30 traffic lights before loading plain-XML
  Import done:
-   460 nodes loaded.
+   466 nodes loaded.
    33 types loaded.
-   876 edges loaded.
+   882 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done.
 Joining junction clusters... 
 done.
  Joined 17 junction cluster(s).
 Removing empty nodes and geometry nodes... done.
-   90 nodes removed.
+   96 nodes removed.
 Moving network to origin... done.
 Joining similar edges... done.
 Computing turning directions... done.
@@ -35,7 +35,7 @@ Assigning nodes to traffic lights... done.
 Computing traffic light control information... done.
 Computing node logics... done.
 Computing traffic light logics... done.
- 2 traffic light(s) computed.
+ 6 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:

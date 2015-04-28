@@ -619,7 +619,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
                 myToFill[myLastNodeID]->tlsControlled = true;
             } else if (key == "crossing" && value.find("traffic_signals") != std::string::npos) {
-                //myToFill[myLastNodeID]->tlsControlled = true;
+                myToFill[myLastNodeID]->tlsControlled = true;
             } else if (myImportElevation && key == "ele") {
                 try {
                     myToFill[myLastNodeID]->ele = TplConvert::_2SUMOReal(value.c_str());

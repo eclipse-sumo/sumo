@@ -839,6 +839,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
             NBNode* node = i->second;
             const EdgeVector& incoming = node->getIncomingEdges();
+            const EdgeVector& outgoing = node->getOutgoingEdges();
             if (!node->isTLControlled() && incoming.size() > 1 && !node->geometryLike()) {
                 std::vector<NBNode*> signals;
                 bool isTLS = true;
@@ -850,6 +851,15 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     }
                     if (inEdge->getSignalOffset() == inEdge->getLength()) {
                         signals.push_back(inEdge->getFromNode());
+                    }
+                }
+                // outgoing edges may be tagged with pedestrian crossings. These
+                // should also be morged into the main TLS
+                for (EdgeVector::const_iterator it_i = outgoing.begin(); it_i != outgoing.end(); ++it_i) {
+                    const NBEdge* outEdge = *it_i;
+                    NBNode* cand = outEdge->getToNode();
+                    if (cand->isTLControlled() && cand->geometryLike() && outEdge->getLength() <= signalDist) {
+                        signals.push_back(cand);
                     }
                 }
                 if (isTLS) {
