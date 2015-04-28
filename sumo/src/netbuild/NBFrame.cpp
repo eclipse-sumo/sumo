@@ -225,15 +225,15 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("tls.join", "TLS Building", "Tries to cluster tls-controlled nodes"); // !!! describe
 
     oc.doRegister("tls.join-dist", new Option_Float(20));
-    oc.addDescription("tls.join-dist", "Processing",
+    oc.addDescription("tls.join-dist", "TLS Building",
                       "Determines the maximal distance for joining traffic lights (defaults to 20)");
 
     if (!forNetgen) {
         oc.doRegister("tls.guess-signals", new Option_Bool(false));
-        oc.addDescription("tls.guess-signals", "Processing", "Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks");
+        oc.addDescription("tls.guess-signals", "TLS Building", "Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks");
 
         oc.doRegister("tls.guess-signals.dist", new Option_Float(25));
-        oc.addDescription("tls.guess-signals.dist", "Processing", "Distance for interpreting nodes as signal locations");
+        oc.addDescription("tls.guess-signals.dist", "TLS Building", "Distance for interpreting nodes as signal locations");
     }
 
 

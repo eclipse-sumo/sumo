@@ -162,6 +162,15 @@
         <!-- Tries to cluster tls-controlled nodes -->
         <tls.join value="false" synonymes="try-join-tls" type="BOOL"/>
 
+        <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
+        <tls.join-dist value="20" type="FLOAT"/>
+
+        <!-- Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks -->
+        <tls.guess-signals value="false" type="BOOL"/>
+
+        <!-- Distance for interpreting nodes as signal locations -->
+        <tls.guess-signals.dist value="25" type="FLOAT"/>
+
         <!-- Use INT as green phase duration -->
         <tls.green.time value="31" synonymes="traffic-light-green" type="INT"/>
 
@@ -458,15 +467,6 @@
 
         <!-- Guess pedestrian crossings based on the presence of sidewalks -->
         <crossings.guess value="false" type="BOOL"/>
-
-        <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
-        <tls.join-dist value="20" type="FLOAT"/>
-
-        <!-- Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks -->
-        <tls.guess-signals value="false" type="BOOL"/>
-
-        <!-- Distance for interpreting nodes as signal locations -->
-        <tls.guess-signals.dist value="25" type="FLOAT"/>
 
     </processing>
 

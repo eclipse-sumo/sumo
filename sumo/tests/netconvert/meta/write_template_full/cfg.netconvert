@@ -64,6 +64,9 @@
         <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes" type="BOOL" help="Sets district nodes as tls-controlled"/>
         <tls-guess.joining value="false" type="BOOL" help="Includes node clusters into guess"/>
         <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
+        <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
+        <tls.guess-signals value="false" type="BOOL" help="Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks"/>
+        <tls.guess-signals.dist value="25" type="FLOAT" help="Distance for interpreting nodes as signal locations"/>
         <tls.green.time value="31" synonymes="traffic-light-green" type="INT" help="Use INT as green phase duration"/>
         <tls.yellow.min-decel value="3" synonymes="D min-decel" type="FLOAT" help="Defines smallest vehicle deceleration"/>
         <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow" type="BOOL" help="Given yellow times are patched even if being too short"/>
@@ -171,9 +174,6 @@
         <sidewalks.guess.min-speed value="5.8" type="FLOAT" help="Add sidewalks for edges with a speed above the given limit"/>
         <sidewalks.guess.from-permissions value="false" type="BOOL" help="Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed"/>
         <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
-        <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
-        <tls.guess-signals value="false" type="BOOL" help="Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks"/>
-        <tls.guess-signals.dist value="25" type="FLOAT" help="Distance for interpreting nodes as signal locations"/>
     </processing>
 
     <building_defaults>
