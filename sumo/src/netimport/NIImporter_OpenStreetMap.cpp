@@ -614,10 +614,12 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         bool ok = true;
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, false);
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
-        if (key == "highway" || key == "ele") {
+        if (key == "highway" || key == "ele" || key == "crossing") {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
             if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
                 myToFill[myLastNodeID]->tlsControlled = true;
+            } else if (key == "crossing" && value.find("traffic_signals") != std::string::npos) {
+                //myToFill[myLastNodeID]->tlsControlled = true;
             } else if (myImportElevation && key == "ele") {
                 try {
                     myToFill[myLastNodeID]->ele = TplConvert::_2SUMOReal(value.c_str());

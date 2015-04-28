@@ -855,7 +855,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                 if (isTLS) {
                     for (std::vector<NBNode*>::iterator j = signals.begin(); j != signals.end(); ++j) {
                         std::set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
-                        (*j)->removeTrafficLights();
+                        (*j)->reinit((*j)->getPosition(), NODETYPE_PRIORITY);
                         for (std::set<NBTrafficLightDefinition*>::iterator k = tls.begin(); k != tls.end(); ++k) {
                             tlc.removeFully((*j)->getID());
                         }
