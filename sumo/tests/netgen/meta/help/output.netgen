@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r18299I
+SUMO netgenerate Version dev-SVN-r18316ID
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -91,6 +91,8 @@ TLS Building Options:
   --tls.guess                          Turns on TLS guessing
   --tls-guess.joining                  Includes node clusters into guess
   --tls.join                           Tries to cluster tls-controlled nodes
+  --tls.join-dist FLOAT                Determines the maximal distance for
+                                         joining traffic lights (defaults to 20)
   --tls.green.time INT                 Use INT as green phase duration
   -D, --tls.yellow.min-decel FLOAT     Defines smallest vehicle deceleration
   --tls.yellow.patch-small             Given yellow times are patched even if
@@ -166,8 +168,6 @@ Processing Options:
                                          regardless of speed
   --crossings.guess                    Guess pedestrian crossings based on the
                                          presence of sidewalks
-  --tls.join-dist FLOAT                Determines the maximal distance for
-                                         joining traffic lights (defaults to 20)
 
 Building Defaults Options:
   -L, --default.lanenumber INT         The default number of lanes in an edge
