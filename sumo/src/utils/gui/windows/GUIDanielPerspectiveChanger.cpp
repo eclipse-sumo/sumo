@@ -313,7 +313,8 @@ GUIDanielPerspectiveChanger::onKeyPress(void* data) {
         zoom(1.0 + zoomDiff);
         myCallback.updateToolTip();
         return 1;
-    case FX::KEY_c:
+    case FX::KEY_Home:
+    case FX::KEY_KP_Home:
         myCallback.recenterView();
         myCallback.update();
         return 1;
