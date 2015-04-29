@@ -93,6 +93,7 @@
             <xsd:element name="tls.half-offset" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.quarter-offset" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.default-type" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -137,7 +138,6 @@
             <xsd:element name="sidewalks.guess.min-speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="sidewalks.guess.from-permissions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="crossings.guess" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
