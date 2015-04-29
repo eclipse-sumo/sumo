@@ -262,7 +262,9 @@ GUIDanielPerspectiveChanger::onKeyPress(void* data) {
     SUMOReal moveY = 0;
     SUMOReal moveFactor = 1;
     bool pageVertical = true;
+    bool ctrl = false;
     if (e->state & CONTROLMASK) {
+        ctrl = true;
         zoomDiff /= 2;
         moveFactor /= 10;
     } else if (e->state & SHIFTMASK) {
@@ -318,6 +320,13 @@ GUIDanielPerspectiveChanger::onKeyPress(void* data) {
         myCallback.recenterView();
         myCallback.update();
         return 1;
+    case FX::KEY_v:
+        // from an architecture standpoint this isn't the best place to put
+        // this. But its simple
+        if (ctrl) {
+            myCallback.showViewschemeEditor();
+            return 1;
+        }
     default:
         return 0;
     }
