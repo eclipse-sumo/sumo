@@ -76,6 +76,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.sidewalk-width", new Option_Float((SUMOReal) 2.0));
     oc.addDescription("default.sidewalk-width", "Building Defaults", "The default width of added sidewalks");
 
+    oc.doRegister("default.junctions.keep-clear", new Option_Bool(true));
+    oc.addDescription("default.junctions.keep-clear", "Building Defaults", "Whether junctions should be kept clear by default");
+
     // register the data processing options
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Processing", "Omits internal links");

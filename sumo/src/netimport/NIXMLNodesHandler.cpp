@@ -195,6 +195,10 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_RADIUS)) {
         node->setRadius(attrs.get<SUMOReal>(SUMO_ATTR_RADIUS, myID.c_str(), ok));
     }
+    // set optional keepClear flag
+    if (attrs.hasAttribute(SUMO_ATTR_KEEP_CLEAR)) {
+        node->setKeepClear(attrs.get<bool>(SUMO_ATTR_KEEP_CLEAR, myID.c_str(), ok));
+    }
 }
 
 

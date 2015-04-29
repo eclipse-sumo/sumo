@@ -141,8 +141,9 @@ public:
      * @param[in] dir The direction of this link
      * @param[in] state The state of this link
      * @param[in] length The length of this link
+     * @param[in] keepClear Whether the junction after this link must be kept clear
      */
-    MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length);
+    MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear);
 #else
     /** @brief Constructor for simulation which uses internal lanes
      *
@@ -152,7 +153,7 @@ public:
      * @param[in] state The state of this link
      * @param[in] length The length of this link
      */
-    MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length);
+    MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear);
 #endif
 
 
@@ -331,6 +332,11 @@ public:
     }
 
 
+    /// @brief whether the junction after this link must be kept clear
+    bool keepClear() const {
+        return myKeepClear;
+    }
+
     /// @brief whether this is a link past an internal junction which currently has priority
     bool lastWasContMajor() const;
 
@@ -404,6 +410,8 @@ private:
     bool myHasFoes;
 
     bool myAmCont;
+
+    bool myKeepClear;
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used

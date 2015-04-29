@@ -895,6 +895,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         const int toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
         LinkDirection dir = parseLinkDir(attrs.get<std::string>(SUMO_ATTR_DIR, 0, ok));
         LinkState state = parseLinkState(attrs.get<std::string>(SUMO_ATTR_STATE, 0, ok));
+        bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, 0, ok, true);
         std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
 #ifdef HAVE_INTERNAL_LANES
         std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, 0, ok, "");
@@ -950,7 +951,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             }
             length = via->getLength();
         }
-        link = new MSLink(toLane, via, dir, state, length);
+        link = new MSLink(toLane, via, dir, state, length, keepClear);
         if (via != 0) {
             via->addIncomingLane(fromLane, link);
         } else {

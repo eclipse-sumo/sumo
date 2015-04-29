@@ -309,6 +309,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "spreadType",     SUMO_ATTR_SPREADTYPE },
     { "radius",         SUMO_ATTR_RADIUS },
     { "customShape",    SUMO_ATTR_CUSTOMSHAPE },
+    { "keepClear",      SUMO_ATTR_KEEP_CLEAR },
     { "color",          SUMO_ATTR_COLOR },
     { "dir",            SUMO_ATTR_DIR },
     { "state",          SUMO_ATTR_STATE },

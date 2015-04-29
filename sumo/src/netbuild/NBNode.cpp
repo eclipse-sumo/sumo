@@ -237,7 +237,8 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myDistrict(0),
     myHaveCustomPoly(false),
     myRequest(0),
-    myRadius(UNSPECIFIED_RADIUS)
+    myRadius(UNSPECIFIED_RADIUS),
+    myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear"))
 { }
 
 
@@ -248,7 +249,8 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myDistrict(district),
     myHaveCustomPoly(false),
     myRequest(0),
-    myRadius(UNSPECIFIED_RADIUS)
+    myRadius(UNSPECIFIED_RADIUS),
+    myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear"))
 { }
 
 

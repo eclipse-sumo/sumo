@@ -649,7 +649,8 @@ bool
 NBEdge::addLane2LaneConnection(unsigned int from, NBEdge* dest,
                                unsigned int toLane, Lane2LaneInfoType type,
                                bool mayUseSameDestination,
-                               bool mayDefinitelyPass) {
+                               bool mayDefinitelyPass,
+                               bool keepClear) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -662,7 +663,7 @@ NBEdge::addLane2LaneConnection(unsigned int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass);
+    setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear);
     return true;
 }
 
@@ -688,7 +689,8 @@ void
 NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
                       unsigned int destLane, Lane2LaneInfoType type,
                       bool mayUseSameDestination,
-                      bool mayDefinitelyPass) {
+                      bool mayDefinitelyPass,
+                      bool keepClear) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return;
     }
@@ -726,6 +728,7 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
     if (mayDefinitelyPass) {
         myConnections.back().mayDefinitelyPass = true;
     }
+    myConnections.back().keepClear = keepClear;
     if (type == L2L_USER) {
         myStep = LANES2LANES_USER;
     } else {

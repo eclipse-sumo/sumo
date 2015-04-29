@@ -1558,7 +1558,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
             // get the next lane, determine whether it is an internal lane
             const MSLane* approachedLane = item.myLink->getViaLane();
             if (approachedLane != 0) {
-                if (item.myLink->hasFoes()/* && item.myLink->willHaveBlockedFoe()*/) {
+                if (item.myLink->hasFoes() && item.myLink->keepClear()/* && item.myLink->willHaveBlockedFoe()*/) {
                     seenSpace = seenSpace - approachedLane->getBruttoVehLenSum();
                     hadVehicle |= approachedLane->getVehicleNumber() != 0;
                 } else {
@@ -1659,7 +1659,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
                     impatienceCorrection = MAX2(SUMOReal(0), STEPS2TIME(myWaitingTime));
                 }
                 */
-                if (leftSpace < -impatienceCorrection / 10. && item.myLink->hasFoes()) {
+                if (leftSpace < -impatienceCorrection / 10. && item.myLink->hasFoes() && item.myLink->keepClear()) {
                     removalBegin = i;
                 }
                 //removalBegin = i;

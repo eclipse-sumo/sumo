@@ -759,8 +759,8 @@ NBEdgeCont::recheckLaneSpread() {
 
 // ----- other
 void
-NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass) {
-    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass));
+NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear) {
+    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear));
 }
 
 
@@ -770,7 +770,7 @@ NBEdgeCont::recheckPostProcessConnections() {
         NBEdge* from = retrievePossiblySplit((*i).from, true);
         NBEdge* to = retrievePossiblySplit((*i).to, false);
         if (from != 0 && to != 0) {
-            if (!from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, false, (*i).mayDefinitelyPass)) {
+            if (!from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, false, (*i).mayDefinitelyPass, (*i).keepClear)) {
                 WRITE_WARNING("Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.");
             }
         }

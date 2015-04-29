@@ -483,6 +483,9 @@
         <!-- The default width of added sidewalks -->
         <default.sidewalk-width value="2" type="FLOAT"/>
 
+        <!-- Whether junctions should be kept clear by default -->
+        <default.junctions.keep-clear value="true" type="BOOL"/>
+
     </building_defaults>
 
     <report>

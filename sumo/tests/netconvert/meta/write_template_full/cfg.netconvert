@@ -181,6 +181,7 @@
         <default.speed value="13.9" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
+        <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
     </building_defaults>
 
     <report>

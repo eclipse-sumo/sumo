@@ -153,7 +153,7 @@ public:
          */
         Connection(int fromLane_, NBEdge* toEdge_, int toLane_)
             : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_),
-              mayDefinitelyPass(false), haveVia(false) { }
+              mayDefinitelyPass(false), keepClear(true), haveVia(false) { }
 
         ~Connection() { }
 
@@ -170,6 +170,8 @@ public:
         unsigned int tlLinkNo;
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
+        /// @brief whether the junction must be kept clear when using this connection
+        bool keepClear;
 
 
         std::string origID;
@@ -680,7 +682,8 @@ public:
     bool addLane2LaneConnection(unsigned int fromLane, NBEdge* dest,
                                 unsigned int toLane, Lane2LaneInfoType type,
                                 bool mayUseSameDestination = false,
-                                bool mayDefinitelyPass = false);
+                                bool mayDefinitelyPass = false,
+                                bool keepClear = true);
 
 
     /** @brief Builds no connections starting at the given lanes
@@ -720,7 +723,8 @@ public:
                        unsigned int destLane,
                        Lane2LaneInfoType type,
                        bool mayUseSameDestination = false,
-                       bool mayDefinitelyPass = false);
+                       bool mayDefinitelyPass = false,
+                       bool keepClear = true);
 
 
 

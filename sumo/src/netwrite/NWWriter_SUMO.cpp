@@ -541,6 +541,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
     if (c.mayDefinitelyPass && style != TLL) {
         into.writeAttr(SUMO_ATTR_PASS, c.mayDefinitelyPass);
     }
+    if ((from.getToNode()->getKeepClear() == false || c.keepClear == false) && style != TLL) {
+        into.writeAttr<bool>(SUMO_ATTR_KEEP_CLEAR, false);
+    }
     if (style != PLAIN) {
         if (includeInternal) {
             into.writeAttr(SUMO_ATTR_VIA, c.getInternalLaneID());

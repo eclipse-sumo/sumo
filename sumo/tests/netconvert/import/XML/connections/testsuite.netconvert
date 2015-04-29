@@ -48,3 +48,12 @@ delete
 
 # a two-way streat meets an 1-way street at a 3 arm junction
 3arm
+
+# set keepClear via node attribute
+keepClear_node
+
+# set keepClear via connection attribute
+keepClear_con
+
+# set keepClear via default option
+keepClear_default

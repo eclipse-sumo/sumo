@@ -381,6 +381,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_SPREADTYPE,
     /// The turning radius at an intersection in m
     SUMO_ATTR_RADIUS,
+    /// Whether vehicles must keep the junction clear
+    SUMO_ATTR_KEEP_CLEAR,
     /// whether a given shape is user-defined
     SUMO_ATTR_CUSTOMSHAPE,
     /// A color information

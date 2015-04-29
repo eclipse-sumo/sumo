@@ -283,6 +283,12 @@ public:
     SUMOReal getRadius() const {
         return myRadius;
     }
+
+    /** @brief Returns the keepClear flag
+     */
+    bool getKeepClear() const {
+        return myKeepClear;
+    }
     /// @}
 
 
@@ -510,6 +516,11 @@ public:
     /// @brief set the turning radius
     void setRadius(SUMOReal radius) {
         myRadius = radius;
+    }
+
+    /// @brief set the keepClear flag
+    void setKeepClear(bool keepClear) {
+        myKeepClear = keepClear;
     }
 
     /// @brief return whether the shape was set by the user
@@ -750,6 +761,9 @@ private:
 
     /// @brief the turning radius (for all corners) at this node in m.
     SUMOReal myRadius;
+
+    /// @brief whether the junction area must be kept clear
+    SUMOReal myKeepClear;
 
     CustomShapeMap myCustomLaneShapes;
 
