@@ -183,7 +183,11 @@ MSPersonControl::boardAnyWaiting(MSEdge* edge, MSVehicle* vehicle, MSVehicle::St
                     stop->duration = boardingDuration;
                 }
                 //update the time point at which the next person can board the vehicle
-                stop->timeToBoardNextPerson = currentTime + boardingDuration;
+                if (stop->timeToBoardNextPerson > currentTime - DELTA_T){
+                    stop->timeToBoardNextPerson += boardingDuration;
+                } else {    
+                    stop->timeToBoardNextPerson = currentTime + boardingDuration;
+                }
 
                 static_cast<MSPerson::MSPersonStage_Driving*>((*i)->getCurrentStage())->setVehicle(vehicle);
                 i = waitPersons.erase(i);
