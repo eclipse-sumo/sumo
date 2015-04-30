@@ -958,7 +958,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             toLane->addIncomingLane(fromLane, link);
         }
 #else
-        link = new MSLink(toLane, dir, state, length);
+        link = new MSLink(toLane, dir, state, length, keepClear);
         toLane->addIncomingLane(fromLane, link);
 #endif
         toLane->addApproachingLane(fromLane);
