@@ -1092,7 +1092,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             }
         }
 
-        bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
+        // - even if red, if we cannot break we should issue a request
+        // - always issue a request to leave the intersection we are currently on
+        bool setRequest = v > 0 || (myLane->getEdge().isInternal() && lastLink == 0); 
         SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
         const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime();
         if (yellowOrRed && seen >= brakeDist) {
