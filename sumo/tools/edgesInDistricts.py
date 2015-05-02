@@ -80,7 +80,7 @@ class DistrictEdgeComputer:
     def writeResults(self, output, weighted):
         fd = open(output, "w")
         fd.write("<tazs>\n")
-        for district, edges in self._districtEdges.iteritems():
+        for district, edges in sorted(self._districtEdges.iteritems()):
             validEdgeCount = 0
             for edge in edges:
                 if edge not in self._invalidatedEdges:
