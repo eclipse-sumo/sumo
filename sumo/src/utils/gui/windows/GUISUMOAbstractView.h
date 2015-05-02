@@ -384,9 +384,6 @@ protected:
     /// @brief Information whether too-tip informations shall be generated
     bool myInEditMode;
 
-    /// @brief Position of the cursor relative to the window
-    FXint myWindowCursorPositionX, myWindowCursorPositionY;
-
     /// @brief Offset to the mouse-hotspot from the mouse position
     int myMouseHotspotX, myMouseHotspotY;
 
@@ -400,8 +397,11 @@ protected:
     /// Internal information whether doInit() was called
     bool myAmInitialised;
 
-
     GUIDialog_EditViewport* myViewportChooser;
+
+    /// @brief Position of the cursor relative to the window
+    FXint myWindowCursorPositionX, myWindowCursorPositionY;
+
     GUIDialog_ViewSettings* myVisualizationChanger;
 
 

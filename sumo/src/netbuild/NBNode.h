@@ -763,7 +763,7 @@ private:
     SUMOReal myRadius;
 
     /// @brief whether the junction area must be kept clear
-    SUMOReal myKeepClear;
+    bool myKeepClear;
 
     CustomShapeMap myCustomLaneShapes;
 
