@@ -181,7 +181,7 @@ StringUtils::urlEncode(const std::string &toEncode, const std::string encodeWhic
     std::ostringstream out;
         
     for(std::string::size_type i=0; i < toEncode.length(); ++i) {
-        short t = toEncode.at(i);
+        const char t = toEncode.at(i);
             
         if((encodeWhich != "" && encodeWhich.find(t) == std::string::npos) ||
             (encodeWhich == "" &&
