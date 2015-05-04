@@ -1,5 +1,5 @@
-Parsing types from '/scr1/sumoID/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
-Parsing types from '/scr1/sumoID/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
+Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
+Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... 
 Found duplicate nodes. Substituting 1241955149 with 1026369077
 Found duplicate nodes. Substituting 1241955153 with 1241955144
@@ -143,7 +143,7 @@ Summary:
   Converted boundary : 0.00,0.00,4934.15,5232.39
 -----------------------------------------------------
 Success.
-Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.28Apr161711.24515/tools/import/OSM/server/osm.net.xml'... done.
+Parsing network projection from '/scr2/texttest_tmp/tools.04May080536.19186/tools/import/OSM/server/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
@@ -154,31 +154,31 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (876ms).
-Loading additional-files from 'osm.poly.xml'...  done (82ms).
+Loading net-file from 'osm.net.xml'...  done (483ms).
+Loading additional-files from 'osm.poly.xml'...  done (80ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 8175.00
+Simulation ended at time: 9488.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 218363ms
- Real time factor: 37.4377
- UPS: 4965.841283
+ Duration: 68858ms
+ Real time factor: 137.791
+ UPS: 16033.910366
 Vehicles: 
  Inserted: 1244
  Running: 0
  Waiting: 0
-Teleports: 203 (Jam: 79, Yield: 107, Wrong Lane: 17)
+Teleports: 173 (Jam: 64, Yield: 93, Wrong Lane: 16)
 
-DijkstraRouterTT answered 5302 queries and explored 328.51 edges on average.
-DijkstraRouterTT spent 2291ms answering queries (0.43ms on average).
+DijkstraRouterTT answered 5452 queries and explored 327.24 edges on average.
+DijkstraRouterTT spent 565ms answering queries (0.10ms on average).
 Calling osmBuild
 Calling randomTrips
-calling  /scr1/sumoID/sumo/bin/duarouterD -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
-calling  /scr1/sumoID/sumo/bin/duarouterD -n osm.net.xml -t trips.trips.xml -o osm.bicycles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
-calling  /scr1/sumoID/sumo/bin/duarouterD -n osm.net.xml -t trips.trips.xml -o osm.pedestrians.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
-calling  /scr1/sumoID/sumo/bin/duarouterD -n osm.net.xml -t trips.trips.xml -o osm.rails.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
-calling  /scr1/sumoID/sumo/bin/duarouterD -n osm.net.xml -t trips.trips.xml -o osm.ships.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.bicycles.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.pedestrians.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.rails.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.ships.rou.xml --ignore-errors --begin 0 --end 3600.0 --no-step-log
 Writing gui settings file: osm.view.xml
 Writing config file: osm.sumocfg
 Calling SUMO GUI
