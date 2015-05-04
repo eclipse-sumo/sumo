@@ -65,7 +65,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
         options.network = args[0]
         options.routeFiles = args[1:]
     except:
-        sys.exit(USAGE)
+        sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))
     if ((options.trips_output is None and options.routes_output is None)
             or (options.trips_output is not None and options.routes_output is not None)):
         sys.exit(
