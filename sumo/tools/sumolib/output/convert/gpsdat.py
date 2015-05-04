@@ -6,7 +6,7 @@
 @version $Id$
 
 This module includes functions for converting SUMO's fcd-output into
-data files read by Shawn.
+csv data files used by dlr-fcd processing chain
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2013-2015 DLR (http://www.dlr.de/) and contributors
