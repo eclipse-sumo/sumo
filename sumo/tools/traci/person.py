@@ -127,14 +127,6 @@ def getColor(personID):
     return _getUniversal(tc.VAR_COLOR, personID)
 
 
-def getPersonNumber(personID):
-    """getPersonNumber(string) -> integer
-
-    .
-    """
-    return _getUniversal(tc.VAR_PERSON_NUMBER, personID)
-
-
 def getLength(personID):
     """getLength(string) -> double
 
