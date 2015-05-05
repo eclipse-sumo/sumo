@@ -287,6 +287,7 @@
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="color" type="colorType" use="required"/>
         <xsd:attribute name="fill" type="boolType" use="optional"/>
+        <xsd:attribute name="geo" type="boolType" use="optional"/>
         <xsd:attribute name="layer" type="xsd:float" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="required"/>
         <xsd:attribute name="angle" type="xsd:float" use="optional"/>
