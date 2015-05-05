@@ -150,6 +150,13 @@ def build(handler, prefix, bbox=False):
             randomTrips.main(randomTrips.get_options(opts))
             randomTripsCalls.append(opts)
 
+        # create a batch file for reproducing calls to randomTrips.py
+        randomTripsPath = os.path.join(SUMO_HOME, "tools", "randomTrips.py")
+        batchFile = "%s.%s" % (prefix, ("bat" if os.name == "nt" else "sh"))
+        with open(batchFile, 'w') as f:
+            for opts in randomTripsCalls:
+                f.write("python %s %s\n" % (randomTripsPath, " ".join(map(str, opts))))
+
         callSumo(["-r", ",".join(routenames), "--ignore-route-errors"])
 
     else:

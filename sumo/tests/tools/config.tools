@@ -107,6 +107,8 @@ selection2:selection.comp2.txt
 histogram:histogram.dat
 fullstats:fullstats.dat
 osmimport:osm.net.xml
+osmbatch:osm.bat
+osmbatch:osm.sh
 
 [run_dependent_text]
 output:Begin time
