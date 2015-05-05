@@ -772,6 +772,7 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
         }
+        update();
     }
     return 1;
 }
