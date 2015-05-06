@@ -21,69 +21,6 @@ Warning: Ignoring restriction relation '2738894'.
 Warning: No way found for reference '44122832' in relation '3336092'
 Warning: Ignoring restriction relation '3336092' with unknown from-way.
 Warning: Ignoring restriction relation '4521655' with unknown from-way.
-Warning: Removed a road without junctions: -128488713
-Warning: Removed a road without junctions: -172283961
-Warning: Removed a road without junctions: -184605944
-Warning: Removed a road without junctions: -199579022
-Warning: Removed a road without junctions: -272795509
-Warning: Removed a road without junctions: -43231842
-Warning: Removed a road without junctions: 104991252
-Warning: Removed a road without junctions: 109444375, 230976793, 230976796
-Warning: Removed a road without junctions: 128488713
-Warning: Removed a road without junctions: 143931933, 153537612
-Warning: Removed a road without junctions: 169724406, 295250361, 295250353, 295376548, 278240007
-Warning: Removed a road without junctions: 172283961
-Warning: Removed a road without junctions: 176339603, 274513583, 295255789
-Warning: Removed a road without junctions: 181618202
-Warning: Removed a road without junctions: 184605944
-Warning: Removed a road without junctions: 191591507, 248099627
-Warning: Removed a road without junctions: 195088658
-Warning: Removed a road without junctions: 195088659
-Warning: Removed a road without junctions: 199425803
-Warning: Removed a road without junctions: 199426766
-Warning: Removed a road without junctions: 199579022
-Warning: Removed a road without junctions: 202157005, 199485599
-Warning: Removed a road without junctions: 221315510
-Warning: Removed a road without junctions: 221315511
-Warning: Removed a road without junctions: 221315512
-Warning: Removed a road without junctions: 23439780, 70268945
-Warning: Removed a road without junctions: 237519485
-Warning: Removed a road without junctions: 241324596
-Warning: Removed a road without junctions: 254523865
-Warning: Removed a road without junctions: 254523866
-Warning: Removed a road without junctions: 254523875
-Warning: Removed a road without junctions: 254523886
-Warning: Removed a road without junctions: 272795477
-Warning: Removed a road without junctions: 272795480
-Warning: Removed a road without junctions: 272795486
-Warning: Removed a road without junctions: 272810802
-Warning: Removed a road without junctions: 272810807
-Warning: Removed a road without junctions: 274524367
-Warning: Removed a road without junctions: 274524372
-Warning: Removed a road without junctions: 304514893#0
-Warning: Removed a road without junctions: 304514893#1
-Warning: Removed a road without junctions: 304517627#0
-Warning: Removed a road without junctions: 304517627#1
-Warning: Removed a road without junctions: 312192482
-Warning: Removed a road without junctions: 31619760#0
-Warning: Removed a road without junctions: 31619760#1
-Warning: Removed a road without junctions: 330840133
-Warning: Removed a road without junctions: 43185680
-Warning: Removed a road without junctions: 43185698
-Warning: Removed a road without junctions: 43231842
-Warning: Removed a road without junctions: 43232483
-Warning: Removed a road without junctions: 43243244
-Warning: Removed a road without junctions: 4611707
-Warning: Removed a road without junctions: 48524700
-Warning: Removed a road without junctions: 59286185#0
-Warning: Removed a road without junctions: 59286190#0
-Warning: Removed a road without junctions: 59286192#0
-Warning: Removed a road without junctions: 61579352
-Warning: Removed a road without junctions: 88361644
-Warning: Removed a road without junctions: 88462827
-Warning: Removed a road without junctions: 88462851
-Warning: Removed a road without junctions: 88462853
-Warning: Removed a road without junctions: 88462855
 Warning: Could not use edge geometry for internal lane, node '1026368619'.
 Warning: Could not use edge geometry for internal lane, node '1026368619'.
 Warning: Could not use edge geometry for internal lane, node '1026368751'.
@@ -242,6 +179,8 @@ Warning: Could not use edge geometry for internal lane, node '2603295753'.
 Warning: Could not use edge geometry for internal lane, node '2603295753'.
 Warning: Could not use edge geometry for internal lane, node '2603295793'.
 Warning: Could not use edge geometry for internal lane, node '2603295793'.
+Warning: Could not use edge geometry for internal lane, node '2603295795'.
+Warning: Could not use edge geometry for internal lane, node '2603295795'.
 Warning: Could not use edge geometry for internal lane, node '2603295799'.
 Warning: Could not use edge geometry for internal lane, node '2603295799'.
 Warning: Could not use edge geometry for internal lane, node '2603295799'.
@@ -339,6 +278,8 @@ Warning: Could not use edge geometry for internal lane, node '2777296581'.
 Warning: Could not use edge geometry for internal lane, node '2777296581'.
 Warning: Could not use edge geometry for internal lane, node '2777296586'.
 Warning: Could not use edge geometry for internal lane, node '2777296586'.
+Warning: Could not use edge geometry for internal lane, node '2777296590'.
+Warning: Could not use edge geometry for internal lane, node '2777296590'.
 Warning: Could not use edge geometry for internal lane, node '2792266077'.
 Warning: Could not use edge geometry for internal lane, node '2792266077'.
 Warning: Could not use edge geometry for internal lane, node '2792266096'.
@@ -652,6 +593,9 @@ Warning: Found sharp turn with radius 1.92 at the start of edge 274513577#0
 Warning: Found sharp turn with radius 4.51 at the end of edge 274513581#1
 Warning: Found angle of 142.92 degrees at edge 286653196#1, segment 2
 Warning: Found angle of 134.50 degrees at edge 286653196#2, segment 0
+Warning: Found angle of 109.30 degrees at edge 304517627#0, segment 0
+Warning: Found angle of 117.98 degrees at edge 304517627#0, segment 1
+Warning: Found sharp turn with radius 7.50 at the end of edge 304517627#0
 Warning: Found angle of 132.84 degrees at edge 309300320#0, segment 2
 Warning: Found angle of 132.84 degrees at edge 309300320#0, segment 3
 Warning: Found sharp turn with radius 3.82 at the start of edge 310184349#1
@@ -660,6 +604,7 @@ Warning: Found sharp turn with radius 5.47 at the start of edge 311677037
 Warning: Found sharp turn with radius 4.12 at the start of edge 312137064
 Warning: Found sharp turn with radius 3.24 at the start of edge 312532334#1
 Warning: Found sharp turn with radius 5.05 at the start of edge 312868182#1
+Warning: Found angle of 132.12 degrees at edge 31619760#0, segment 2
 Warning: Found sharp turn with radius 6.43 at the start of edge 316301061
 Warning: Found sharp turn with radius 3.62 at the end of edge 316301061
 Warning: Found sharp turn with radius 1.16 at the start of edge 321236118
@@ -686,6 +631,8 @@ Warning: Found sharp turn with radius 5.40 at the end of edge 59286181#2
 Warning: Found sharp turn with radius 8.74 at the start of edge 59286182#2
 Warning: Found sharp turn with radius 6.11 at the start of edge 59286182#3
 Warning: Found sharp turn with radius 5.35 at the end of edge 59286182#3
+Warning: Found angle of 104.25 degrees at edge 59286185#0, segment 0
+Warning: Found sharp turn with radius 7.25 at the end of edge 59286185#0
 Warning: Found sharp turn with radius 7.64 at the end of edge 59286188#1
 Warning: Found sharp turn with radius 3.85 at the start of edge 59286188#2
 Warning: Found sharp turn with radius 5.71 at the end of edge 59286188#3
@@ -848,6 +795,8 @@ Warning: Could not use edge geometry for internal lane, node '2603295753'.
 Warning: Could not use edge geometry for internal lane, node '2603295753'.
 Warning: Could not use edge geometry for internal lane, node '2603295793'.
 Warning: Could not use edge geometry for internal lane, node '2603295793'.
+Warning: Could not use edge geometry for internal lane, node '2603295795'.
+Warning: Could not use edge geometry for internal lane, node '2603295795'.
 Warning: Could not use edge geometry for internal lane, node '2603295799'.
 Warning: Could not use edge geometry for internal lane, node '2603295799'.
 Warning: Could not use edge geometry for internal lane, node '2603295799'.
@@ -935,6 +884,8 @@ Warning: Could not use edge geometry for internal lane, node '2777296581'.
 Warning: Could not use edge geometry for internal lane, node '2777296581'.
 Warning: Could not use edge geometry for internal lane, node '2777296586'.
 Warning: Could not use edge geometry for internal lane, node '2777296586'.
+Warning: Could not use edge geometry for internal lane, node '2777296590'.
+Warning: Could not use edge geometry for internal lane, node '2777296590'.
 Warning: Could not use edge geometry for internal lane, node '2792266077'.
 Warning: Could not use edge geometry for internal lane, node '2792266077'.
 Warning: Could not use edge geometry for internal lane, node '2792266096'.
@@ -1374,79 +1325,93 @@ Warning: The vehicle 'train87' has no valid route.
 Warning: No connection between '199425793' and '199579028#2' found.
 Warning: Mandatory edge '199579028#2' not reachable by vehicle 'train88'.
 Warning: The vehicle 'train88' has no valid route.
-Warning: No connection between '272795479_fwd_connector' and '-143201755#0_bwd_connector' found.
-Warning: No connection found between '272795479' and '-143201755#0' for person 'ped0'.
-Warning: Discarding person 'ped0' because it's plan is empty
-Warning: No connection between '194167258_fwd_connector' and '254523894#2_bwd_connector' found.
-Warning: No connection found between '194167258' and '254523894#2' for person 'ped15'.
-Warning: Discarding person 'ped15' because it's plan is empty
-Warning: No connection between '19002363#1_fwd_connector' and '108218081_bwd_connector' found.
-Warning: No connection found between '19002363#1' and '108218081' for person 'ped22'.
-Warning: Discarding person 'ped22' because it's plan is empty
-Warning: No connection between '88462842#14_fwd_connector' and '272795481_bwd_connector' found.
-Warning: No connection found between '88462842#14' and '272795481' for person 'ped25'.
-Warning: Discarding person 'ped25' because it's plan is empty
-Warning: No connection between '272810803_fwd_connector' and '195397561#3_bwd_connector' found.
-Warning: No connection found between '272810803' and '195397561#3' for person 'ped32'.
+Warning: No connection between '272795478_fwd_connector' and '19001381#0_bwd_connector' found.
+Warning: No connection found between '272795478' and '19001381#0' for person 'ped21'.
+Warning: Discarding person 'ped21' because it's plan is empty
+Warning: No connection between '88462842#16_fwd_connector' and '272795492_bwd_connector' found.
+Warning: No connection found between '88462842#16' and '272795492' for person 'ped26'.
+Warning: Discarding person 'ped26' because it's plan is empty
+Warning: No connection between '272810810#1_fwd_connector' and '195411606_bwd_connector' found.
+Warning: No connection found between '272810810#1' and '195411606' for person 'ped32'.
 Warning: Discarding person 'ped32' because it's plan is empty
-Warning: No connection between '88462862_fwd_connector' and '272795501#3_bwd_connector' found.
-Warning: No connection found between '88462862' and '272795501#3' for person 'ped67'.
+Warning: No connection between '-24241797#0_fwd_connector' and '-184605944_bwd_connector' found.
+Warning: No connection found between '-24241797#0' and '-184605944' for person 'ped38'.
+Warning: Discarding person 'ped38' because it's plan is empty
+Warning: No connection between '88462862_fwd_connector' and '272795504#2_bwd_connector' found.
+Warning: No connection found between '88462862' and '272795504#2' for person 'ped67'.
 Warning: Discarding person 'ped67' because it's plan is empty
-Warning: No connection between '237517876#1_fwd_connector' and '327730129#1_bwd_connector' found.
-Warning: No connection found between '237517876#1' and '327730129#1' for person 'ped78'.
-Warning: Discarding person 'ped78' because it's plan is empty
-Warning: No connection between '88462826#0_fwd_connector' and '-246011391#0_bwd_connector' found.
-Warning: No connection found between '88462826#0' and '-246011391#0' for person 'ped83'.
-Warning: Discarding person 'ped83' because it's plan is empty
-Warning: No connection between '-4610597#1_fwd_connector' and '165415461_bwd_connector' found.
-Warning: No connection found between '-4610597#1' and '165415461' for person 'ped100'.
-Warning: Discarding person 'ped100' because it's plan is empty
-Warning: No connection between '272757340#2_fwd_connector' and '88462839_bwd_connector' found.
-Warning: No connection found between '272757340#2' and '88462839' for person 'ped124'.
-Warning: Discarding person 'ped124' because it's plan is empty
-Warning: No connection between '46140377#0_fwd_connector' and '88361590_bwd_connector' found.
-Warning: No connection found between '46140377#0' and '88361590' for person 'ped150'.
-Warning: Discarding person 'ped150' because it's plan is empty
-Warning: No connection between '272795506#0_fwd_connector' and '234319315_bwd_connector' found.
-Warning: No connection found between '272795506#0' and '234319315' for person 'ped186'.
-Warning: Discarding person 'ped186' because it's plan is empty
-Warning: No connection between '237517877#1_fwd_connector' and '51234180#2_bwd_connector' found.
-Warning: No connection found between '237517877#1' and '51234180#2' for person 'ped188'.
-Warning: Discarding person 'ped188' because it's plan is empty
-Warning: No connection between '272810805_fwd_connector' and '-110676319_bwd_connector' found.
-Warning: No connection found between '272810805' and '-110676319' for person 'ped200'.
-Warning: Discarding person 'ped200' because it's plan is empty
-Warning: No connection between '274513575#1_fwd_connector' and '88462842#0_bwd_connector' found.
-Warning: No connection found between '274513575#1' and '88462842#0' for person 'ped206'.
+Warning: No connection between '237519485_fwd_connector' and '330832908_bwd_connector' found.
+Warning: No connection found between '237519485' and '330832908' for person 'ped77'.
+Warning: Discarding person 'ped77' because it's plan is empty
+Warning: No connection between '88462828_fwd_connector' and '-246011391#2_bwd_connector' found.
+Warning: No connection found between '88462828' and '-246011391#2' for person 'ped82'.
+Warning: Discarding person 'ped82' because it's plan is empty
+Warning: No connection between '194962380#1_fwd_connector' and '88462834_bwd_connector' found.
+Warning: No connection found between '194962380#1' and '88462834' for person 'ped95'.
+Warning: Discarding person 'ped95' because it's plan is empty
+Warning: No connection between '82168044_fwd_connector' and '88462862_bwd_connector' found.
+Warning: No connection found between '82168044' and '88462862' for person 'ped98'.
+Warning: Discarding person 'ped98' because it's plan is empty
+Warning: No connection between '104991252_fwd_connector' and '309300320#0_bwd_connector' found.
+Warning: No connection found between '104991252' and '309300320#0' for person 'ped112'.
+Warning: Discarding person 'ped112' because it's plan is empty
+Warning: No connection between '274524372_fwd_connector' and '169067264#1_bwd_connector' found.
+Warning: No connection found between '274524372' and '169067264#1' for person 'ped114'.
+Warning: Discarding person 'ped114' because it's plan is empty
+Warning: No connection between '272757345#1_fwd_connector' and '88462842#0_bwd_connector' found.
+Warning: No connection found between '272757345#1' and '88462842#0' for person 'ped122'.
+Warning: Discarding person 'ped122' because it's plan is empty
+Warning: No connection between '272810808_fwd_connector' and '-120675240#0_bwd_connector' found.
+Warning: No connection found between '272810808' and '-120675240#0' for person 'ped123'.
+Warning: Discarding person 'ped123' because it's plan is empty
+Warning: No connection between '46140382_fwd_connector' and '88361597#0_bwd_connector' found.
+Warning: No connection found between '46140382' and '88361597#0' for person 'ped149'.
+Warning: Discarding person 'ped149' because it's plan is empty
+Warning: No connection between '272810809#1_fwd_connector' and '235503139#1_bwd_connector' found.
+Warning: No connection found between '272810809#1' and '235503139#1' for person 'ped185'.
+Warning: Discarding person 'ped185' because it's plan is empty
+Warning: No connection between '4612968#0_fwd_connector' and '-199579022_bwd_connector' found.
+Warning: No connection found between '4612968#0' and '-199579022' for person 'ped195'.
+Warning: Discarding person 'ped195' because it's plan is empty
+Warning: No connection between '272810811#1_fwd_connector' and '-111251382#0_bwd_connector' found.
+Warning: No connection found between '272810811#1' and '-111251382#0' for person 'ped199'.
+Warning: Discarding person 'ped199' because it's plan is empty
+Warning: No connection between '274513581#2_fwd_connector' and '88462842#11_bwd_connector' found.
+Warning: No connection found between '274513581#2' and '88462842#11' for person 'ped206'.
 Warning: Discarding person 'ped206' because it's plan is empty
-Warning: No connection between '199426768#1_fwd_connector' and '105742457_bwd_connector' found.
-Warning: No connection found between '199426768#1' and '105742457' for person 'ped221'.
-Warning: Discarding person 'ped221' because it's plan is empty
-Warning: Teleporting vehicle 'veh46'; waited too long (yield), lane='4612964#0_4', time=552.00.
-Warning: Vehicle 'veh46' ends teleporting on edge '4612964#2', time 552.00.
-Warning: Teleporting vehicle 'veh50'; waited too long (yield), lane='82654059#0_1', time=634.00.
-Warning: Vehicle 'veh50' ends teleporting on edge '82654059#2', time 634.00.
-Warning: Teleporting vehicle 'veh106'; waited too long (yield), lane='187111590#0_3', time=794.00.
-Warning: Vehicle 'veh106' ends teleporting on edge '187111590#2', time 794.00.
-Warning: Teleporting vehicle 'veh62'; waited too long (yield), lane='4612964#0_4', time=857.00.
-Warning: Vehicle 'veh62' ends teleporting on edge '4612964#2', time 857.00.
-Warning: Teleporting vehicle 'veh91'; waited too long (yield), lane='301733776_1', time=976.00.
-Warning: Vehicle 'veh91' ends teleporting on edge '301733777#2', time 976.00.
-Warning: Teleporting vehicle 'bike57'; waited too long (yield), lane='4612964#0_4', time=1011.00.
-Warning: Vehicle 'bike57' ends teleporting on edge '4612964#2', time 1011.00.
-Warning: Teleporting vehicle 'veh180'; waited too long (yield), lane='4612964#0_3', time=1134.00.
-Warning: Vehicle 'veh180' ends teleporting on edge '24992428', time 1136.00.
-Warning: Teleporting vehicle 'veh16'; waited too long (yield), lane='82654059#0_3', time=1181.00.
-Warning: Vehicle 'veh16' ends teleporting on edge '82654059#2', time 1181.00.
-Warning: Teleporting vehicle 'bike19'; waited too long (yield), lane='301733776_1', time=1281.00.
-Warning: Vehicle 'bike19' ends teleporting on edge '301733777#2', time 1281.00.
-Warning: Teleporting vehicle 'veh37'; waited too long (yield), lane='82654059#0_3', time=1487.00.
-Warning: Vehicle 'veh37' ends teleporting on edge '82654059#2', time 1487.00.
-Warning: Teleporting vehicle 'veh172'; waited too long (wrong lane), lane='301733777#2_2', time=1597.00.
-Warning: Vehicle 'veh172' ends teleporting on edge '19801548#0', time 1597.00.
-Warning: Teleporting vehicle 'veh214'; waited too long (yield), lane='301733776_1', time=1600.00.
-Warning: Vehicle 'veh214' ends teleporting on edge '301733777#2', time 1600.00.
-Warning: Teleporting vehicle 'veh38'; waited too long (yield), lane='82654059#0_3', time=2020.00.
-Warning: Vehicle 'veh38' ends teleporting on edge '82654059#2', time 2020.00.
-Warning: Teleporting vehicle 'veh48'; waited too long (yield), lane='82654059#0_3', time=2324.00.
-Warning: Vehicle 'veh48' ends teleporting on edge '82654059#2', time 2324.00.
+Warning: No connection between '254523866_fwd_connector' and '-43156728#0_bwd_connector' found.
+Warning: No connection found between '254523866' and '-43156728#0' for person 'ped217'.
+Warning: Discarding person 'ped217' because it's plan is empty
+Warning: No connection between '202156998#1_fwd_connector' and '108218078_bwd_connector' found.
+Warning: No connection found between '202156998#1' and '108218078' for person 'ped219'.
+Warning: Discarding person 'ped219' because it's plan is empty
+Warning: Teleporting vehicle 'veh46'; waited too long (yield), lane='4612964#0_4', time=553.00.
+Warning: Vehicle 'veh46' ends teleporting on edge '4612964#2', time 553.00.
+Warning: Teleporting vehicle 'veh50'; waited too long (yield), lane='82654059#0_1', time=617.00.
+Warning: Vehicle 'veh50' ends teleporting on edge '82654059#2', time 617.00.
+Warning: Teleporting vehicle 'veh106'; waited too long (yield), lane='187111590#0_3', time=796.00.
+Warning: Vehicle 'veh106' ends teleporting on edge '187111590#2', time 796.00.
+Warning: Teleporting vehicle 'veh62'; waited too long (yield), lane='4612964#0_4', time=858.00.
+Warning: Vehicle 'veh62' ends teleporting on edge '4612964#2', time 858.00.
+Warning: Teleporting vehicle 'veh91'; waited too long (yield), lane='301733776_1', time=974.00.
+Warning: Vehicle 'veh91' ends teleporting on edge '19801548#0', time 976.00.
+Warning: Teleporting vehicle 'veh164'; waited too long (yield), lane='4612964#0_4', time=1004.00.
+Warning: Vehicle 'veh164' ends teleporting on edge '4612964#2', time 1004.00.
+Warning: Teleporting vehicle 'veh113'; waited too long (yield), lane='188046016#0_1', time=1049.00.
+Warning: Vehicle 'veh113' ends teleporting on edge '188046016#2', time 1049.00.
+Warning: Teleporting vehicle 'veh131'; waited too long (yield), lane='188046016#0_1', time=1258.00.
+Warning: Teleporting vehicle 'veh185'; waited too long (yield), lane='301733776_1', time=1258.00.
+Warning: Vehicle 'veh131' ends teleporting on edge '188046016#2', time 1258.00.
+Warning: Vehicle 'veh185' ends teleporting on edge '19801548#0', time 1260.00.
+Warning: Teleporting vehicle 'veh209'; waited too long (jam), lane='4612964#0_3', time=1295.00.
+Warning: Vehicle 'veh209' ends teleporting on edge '4612964#2', time 1295.00.
+Warning: Teleporting vehicle 'veh172'; waited too long (yield), lane='301733776_1', time=1363.00.
+Warning: Vehicle 'veh172' ends teleporting on edge '19801548#0', time 1365.00.
+Warning: Teleporting vehicle 'veh37'; waited too long (yield), lane='82654059#0_3', time=1390.00.
+Warning: Vehicle 'veh37' ends teleporting on edge '82654059#2', time 1390.00.
+Warning: Teleporting vehicle 'bike19'; waited too long (jam), lane='301733776_1', time=1505.00.
+Warning: Vehicle 'bike19' ends teleporting on edge '19801548#1', time 1508.00.
+Warning: Teleporting vehicle 'veh55'; waited too long (yield), lane='82654059#0_3', time=1695.00.
+Warning: Vehicle 'veh55' ends teleporting on edge '82654059#2', time 1695.00.
+Warning: Teleporting vehicle 'veh111'; waited too long (yield), lane='4612964#0_4', time=1810.00.
+Warning: Vehicle 'veh111' ends teleporting on edge '4612964#2', time 1810.00.
