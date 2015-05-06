@@ -137,6 +137,7 @@ omnet:<!-- generated on
 shawn:<!-- generated on
 net:<!--{[->]}-->
 osmimport:<!--{[->]}-->
+osmbatch:python.*randomTrips\.py{REPLACE python /path/to/randomTrips.py}
 
 [floating_point_tolerance]
 net:0.0101
