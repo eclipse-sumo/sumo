@@ -160,7 +160,7 @@ def build(handler, prefix, bbox=False):
             for opts in randomTripsCalls:
                 f.write("python %s %s\n" % (randomTripsPath, " ".join(map(str, opts))))
             for route, trips in route2TripsCalls:
-                f.write("python %s %s %s\n" % (route2TripsPath, route, trips))
+                f.write("python %s %s > %s\n" % (route2TripsPath, route, trips))
 
         callSumo(["-r", ",".join(routenames), "--ignore-route-errors"])
 
