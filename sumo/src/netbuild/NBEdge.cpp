@@ -2083,6 +2083,14 @@ NBEdge::incLaneNo(unsigned int by) {
     while (myLanes.size() < newLaneNo) {
         myLanes.push_back(Lane(this));
     }
+    // copy attributes
+    if (myLanes.size() > 1) {
+        myLanes.back().speed = myLanes[myLanes.size() - 2].speed;
+        myLanes.back().permissions = myLanes[myLanes.size() - 2].permissions;
+        myLanes.back().preferred = myLanes[myLanes.size() - 2].preferred;
+        myLanes.back().endOffset = myLanes[myLanes.size() - 2].endOffset;
+        myLanes.back().width = myLanes[myLanes.size() - 2].width;
+    }
     computeLaneShapes();
     const EdgeVector& incs = myFrom->getIncomingEdges();
     for (EdgeVector::const_iterator i = incs.begin(); i != incs.end(); ++i) {
