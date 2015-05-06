@@ -1074,24 +1074,33 @@ Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
 Warning: Connection '23809678#2_1->153424801#2_0' is only 0.05 short.
 Warning: Connection '153424801#2_0->23809678#1_1' is only 0.07 short.
 Warning: Connection '11103418_1->143931934_0' is only 0.07 short.
-Warning: No connection between '4612427#1' and '110464118#1' found.
-Warning: Mandatory edge '110464118#1' not reachable by vehicle 'veh34'.
-Warning: The vehicle 'veh34' has no valid route.
-Warning: No connection between '19801618#1' and '-4612981' found.
-Warning: Mandatory edge '-4612981' not reachable by vehicle 'veh38'.
-Warning: The vehicle 'veh38' has no valid route.
-Warning: No connection between '30721660#4' and '288726033#2' found.
-Warning: Mandatory edge '288726033#2' not reachable by vehicle 'veh85'.
-Warning: The vehicle 'veh85' has no valid route.
-Warning: No connection between '23443935#1' and '289966097' found.
-Warning: Mandatory edge '289966097' not reachable by vehicle 'veh107'.
-Warning: The vehicle 'veh107' has no valid route.
-Warning: No connection between '23443935#0' and '246052428' found.
-Warning: Mandatory edge '246052428' not reachable by vehicle 'veh110'.
-Warning: The vehicle 'veh110' has no valid route.
-Warning: No connection between '23443935#1' and '6227658#2' found.
-Warning: Mandatory edge '6227658#2' not reachable by vehicle 'veh204'.
+Warning: No connection between '4612427#1' and '109902441#1' found.
+Warning: Mandatory edge '109902441#1' not reachable by vehicle 'veh35'.
+Warning: The vehicle 'veh35' has no valid route.
+Warning: No connection between '19801618#0' and '-4612976#0' found.
+Warning: Mandatory edge '-4612976#0' not reachable by vehicle 'veh39'.
+Warning: The vehicle 'veh39' has no valid route.
+Warning: No connection between '4612427#0' and '-4612981' found.
+Warning: Mandatory edge '-4612981' not reachable by vehicle 'veh53'.
+Warning: The vehicle 'veh53' has no valid route.
+Warning: No connection between '326116285#1' and '-23852056' found.
+Warning: Mandatory edge '-23852056' not reachable by vehicle 'veh67'.
+Warning: The vehicle 'veh67' has no valid route.
+Warning: No connection between '23443935#0' and '288726033#2' found.
+Warning: Mandatory edge '288726033#2' not reachable by vehicle 'veh109'.
+Warning: The vehicle 'veh109' has no valid route.
+Warning: No connection between '-22954356#3' and '-23755739#0' found.
+Warning: Mandatory edge '-23755739#0' not reachable by vehicle 'veh126'.
+Warning: The vehicle 'veh126' has no valid route.
+Warning: No connection between '-23443935#1' and '-23852056' found.
+Warning: Mandatory edge '-23852056' not reachable by vehicle 'veh141'.
+Warning: The vehicle 'veh141' has no valid route.
+Warning: No connection between '19001381#2' and '-168940071#2' found.
+Warning: Mandatory edge '-168940071#2' not reachable by vehicle 'veh204'.
 Warning: The vehicle 'veh204' has no valid route.
+Warning: No connection between '23443935#0' and '6227658#2' found.
+Warning: Mandatory edge '6227658#2' not reachable by vehicle 'veh208'.
+Warning: The vehicle 'veh208' has no valid route.
 Warning: No connection between '29383966' and '24990776' found.
 Warning: Mandatory edge '24990776' not reachable by vehicle 'bike2'.
 Warning: The vehicle 'bike2' has no valid route.
@@ -1107,14 +1116,17 @@ Warning: The vehicle 'bike39' has no valid route.
 Warning: No connection between '98749939#4' and '194167254' found.
 Warning: Mandatory edge '194167254' not reachable by vehicle 'bike48'.
 Warning: The vehicle 'bike48' has no valid route.
+Warning: No connection between '-110676319' and '291542560' found.
+Warning: Mandatory edge '291542560' not reachable by vehicle 'bike50'.
+Warning: The vehicle 'bike50' has no valid route.
 Warning: No connection between '24914141#0' and '194952586#1' found.
 Warning: Mandatory edge '194952586#1' not reachable by vehicle 'bike51'.
 Warning: The vehicle 'bike51' has no valid route.
-Warning: No connection between '316746323#2' and '194167259#0' found.
+Warning: No connection between '316746323#3' and '194167259#0' found.
 Warning: Mandatory edge '194167259#0' not reachable by vehicle 'bike61'.
 Warning: The vehicle 'bike61' has no valid route.
-Warning: No connection between '-43139878' and '4611708#2' found.
-Warning: Mandatory edge '4611708#2' not reachable by vehicle 'bike71'.
+Warning: No connection between '-43139878' and '4611708#1' found.
+Warning: Mandatory edge '4611708#1' not reachable by vehicle 'bike71'.
 Warning: The vehicle 'bike71' has no valid route.
 Warning: No connection between '-304987178#1' and '46140377#2' found.
 Warning: Mandatory edge '46140377#2' not reachable by vehicle 'bike81'.
@@ -1410,17 +1422,31 @@ Warning: Discarding person 'ped206' because it's plan is empty
 Warning: No connection between '199426768#1_fwd_connector' and '105742457_bwd_connector' found.
 Warning: No connection found between '199426768#1' and '105742457' for person 'ped221'.
 Warning: Discarding person 'ped221' because it's plan is empty
-Warning: Teleporting vehicle 'veh15'; waited too long (yield), lane='82654059#0_3', time=623.00.
-Warning: Vehicle 'veh15' ends teleporting on edge '82654059#2', time 623.00.
-Warning: Teleporting vehicle 'veh80'; waited too long (yield), lane='4612964#0_4', time=970.00.
-Warning: Vehicle 'veh80' ends teleporting on edge '4612964#2', time 970.00.
-Warning: Teleporting vehicle 'veh30'; waited too long (yield), lane='82654059#0_3', time=975.00.
-Warning: Vehicle 'veh30' ends teleporting on edge '82654059#2', time 975.00.
-Warning: Teleporting vehicle 'veh90'; waited too long (jam), lane=':262469638_0_3', time=983.00.
-Warning: Vehicle 'veh90' ends teleporting on edge '82654059#0', time 983.00.
-Warning: Teleporting vehicle 'veh154'; waited too long (wrong lane), lane='301733777#2_2', time=1183.00.
-Warning: Vehicle 'veh154' ends teleporting on edge '19801548#0', time 1183.00.
-Warning: Teleporting vehicle 'veh208'; waited too long (yield), lane='4612964#0_3', time=1224.00.
-Warning: Vehicle 'veh208' ends teleporting on edge '4612964#2', time 1224.00.
-Warning: Teleporting vehicle 'veh223'; waited too long (yield), lane='82654059#0_3', time=1265.00.
-Warning: Vehicle 'veh223' ends teleporting on edge '82654059#2', time 1265.00.
+Warning: Teleporting vehicle 'veh46'; waited too long (yield), lane='4612964#0_4', time=552.00.
+Warning: Vehicle 'veh46' ends teleporting on edge '4612964#2', time 552.00.
+Warning: Teleporting vehicle 'veh50'; waited too long (yield), lane='82654059#0_1', time=634.00.
+Warning: Vehicle 'veh50' ends teleporting on edge '82654059#2', time 634.00.
+Warning: Teleporting vehicle 'veh106'; waited too long (yield), lane='187111590#0_3', time=794.00.
+Warning: Vehicle 'veh106' ends teleporting on edge '187111590#2', time 794.00.
+Warning: Teleporting vehicle 'veh62'; waited too long (yield), lane='4612964#0_4', time=857.00.
+Warning: Vehicle 'veh62' ends teleporting on edge '4612964#2', time 857.00.
+Warning: Teleporting vehicle 'veh91'; waited too long (yield), lane='301733776_1', time=976.00.
+Warning: Vehicle 'veh91' ends teleporting on edge '301733777#2', time 976.00.
+Warning: Teleporting vehicle 'bike57'; waited too long (yield), lane='4612964#0_4', time=1011.00.
+Warning: Vehicle 'bike57' ends teleporting on edge '4612964#2', time 1011.00.
+Warning: Teleporting vehicle 'veh180'; waited too long (yield), lane='4612964#0_3', time=1134.00.
+Warning: Vehicle 'veh180' ends teleporting on edge '24992428', time 1136.00.
+Warning: Teleporting vehicle 'veh16'; waited too long (yield), lane='82654059#0_3', time=1181.00.
+Warning: Vehicle 'veh16' ends teleporting on edge '82654059#2', time 1181.00.
+Warning: Teleporting vehicle 'bike19'; waited too long (yield), lane='301733776_1', time=1281.00.
+Warning: Vehicle 'bike19' ends teleporting on edge '301733777#2', time 1281.00.
+Warning: Teleporting vehicle 'veh37'; waited too long (yield), lane='82654059#0_3', time=1487.00.
+Warning: Vehicle 'veh37' ends teleporting on edge '82654059#2', time 1487.00.
+Warning: Teleporting vehicle 'veh172'; waited too long (wrong lane), lane='301733777#2_2', time=1597.00.
+Warning: Vehicle 'veh172' ends teleporting on edge '19801548#0', time 1597.00.
+Warning: Teleporting vehicle 'veh214'; waited too long (yield), lane='301733776_1', time=1600.00.
+Warning: Vehicle 'veh214' ends teleporting on edge '301733777#2', time 1600.00.
+Warning: Teleporting vehicle 'veh38'; waited too long (yield), lane='82654059#0_3', time=2020.00.
+Warning: Vehicle 'veh38' ends teleporting on edge '82654059#2', time 2020.00.
+Warning: Teleporting vehicle 'veh48'; waited too long (yield), lane='82654059#0_3', time=2324.00.
+Warning: Vehicle 'veh48' ends teleporting on edge '82654059#2', time 2324.00.
