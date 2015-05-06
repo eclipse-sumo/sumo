@@ -19,3 +19,4 @@ error_missing_node
 error_missing_shape
 error_missing_shape__ignored
 geo-output
+buildings_from_relation
