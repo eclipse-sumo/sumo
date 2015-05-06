@@ -182,7 +182,12 @@ ROLoader::openRoutes(RONet& net) {
             if (MsgHandler::getErrorInstance()->wasInformed()) {
                 throw ProcessError();
             } else {
-                throw ProcessError("No route input specified or all routes were invalid.");
+                const std::string error = "No route input specified or all routes were invalid.";
+                if (myOptions.getBool("ignore-errors")) {
+                    WRITE_WARNING(error);
+                } else {
+                    throw ProcessError(error);
+                }
             }
         }
         // skip routes prior to the begin time
