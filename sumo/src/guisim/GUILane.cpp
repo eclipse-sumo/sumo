@@ -810,7 +810,12 @@ GUILane::getColorValue(size_t activeScheme) const {
                 case SVC_SHIP:
                     return 4;
                 default:
-                    return 0;
+                    break;
+            }
+            if ((myPermissions & SVC_PASSENGER) != 0 || isRailway(myPermissions)) {
+                return 0;
+            } else {
+                return 5;
             }
         case 1:
             return gSelected.isSelected(getType(), getGlID()) ||
