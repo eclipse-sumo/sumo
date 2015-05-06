@@ -342,6 +342,14 @@ if __name__ == "__main__":
         dh.pedestrians.period = 4
         dh.rails.period = 10
         dh.ships.period = 200
+
+        # shorter running time
+        TIME = 900
+        dh.vehicles.time = 900
+        dh.bicycles.time = 900
+        dh.rails.time = 900
+        dh.ships.time = 900
+        dh.pedestrians.time = 900
         build(dh, *sys.argv[1:])
     else:
         main()
