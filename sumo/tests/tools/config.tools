@@ -138,6 +138,7 @@ shawn:<!-- generated on
 net:<!--{[->]}-->
 osmimport:<!--{[->]}-->
 osmbatch:python.*randomTrips\.py{REPLACE python /path/to/randomTrips.py}
+osmbatch:python.*route2trips\.py{REPLACE python /path/to/route2trips.py}
 
 [floating_point_tolerance]
 net:0.0101

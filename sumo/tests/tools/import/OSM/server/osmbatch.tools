@@ -3,3 +3,7 @@ python /scr1/sumoI/sumo/tools/randomTrips.py -n osm.net.xml --seed 42 --fringe-f
 python /scr1/sumoI/sumo/tools/randomTrips.py -n osm.net.xml --seed 42 --fringe-factor 40 -p 10 -r osm.rails.rou.xml -e 900 --vehicle-class rail_urban --vclass rail_urban --prefix train
 python /scr1/sumoI/sumo/tools/randomTrips.py -n osm.net.xml --seed 42 --fringe-factor 40 -p 200 -r osm.ships.rou.xml -e 900 --vehicle-class ship --vclass ship --prefix ship
 python /scr1/sumoI/sumo/tools/randomTrips.py -n osm.net.xml --seed 42 --fringe-factor 1.0 -p 4 -r osm.pedestrians.rou.xml -e 900 --pedestrians --prefix ped --max-distance 2000
+python /scr1/sumoI/sumo/tools/route2trips.py osm.vehicles.rou.xml osm.vehicles.trips.xml
+python /scr1/sumoI/sumo/tools/route2trips.py osm.bicycles.rou.xml osm.bicycles.trips.xml
+python /scr1/sumoI/sumo/tools/route2trips.py osm.rails.rou.xml osm.rails.trips.xml
+python /scr1/sumoI/sumo/tools/route2trips.py osm.ships.rou.xml osm.ships.trips.xml
