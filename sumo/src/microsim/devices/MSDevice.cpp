@@ -118,12 +118,16 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     }
     // assignment by abstract parameters
     bool haveByParameter = false;
-    if (v.getParameter().knowsParameter("has." + deviceName + ".device")) {
-        haveByParameter = TplConvert::_2bool(v.getParameter().getParameter("has." + deviceName + ".device", "false").c_str());
-    } else {
-        haveByParameter = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter("has." + deviceName + ".device", "false").c_str());
+    bool parameterGiven = false;
+    const std::string key = "has." + deviceName + ".device";
+    if (v.getParameter().knowsParameter(key)) {
+        parameterGiven = true;
+        haveByParameter = TplConvert::_2bool(v.getParameter().getParameter(key, "false").c_str());
+    } else if (v.getVehicleType().getParameter().knowsParameter(key)) {
+        parameterGiven = true;
+        haveByParameter = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter(key, "false").c_str());
     }
-    return haveByNumber || haveByName || haveByParameter;
+    return ((haveByNumber || haveByName) && !parameterGiven) || haveByParameter;
 }
 
 
