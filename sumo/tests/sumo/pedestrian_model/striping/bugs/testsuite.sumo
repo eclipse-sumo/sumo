@@ -1,1 +1,4 @@
 ticket1555
+
+# consecutive walks should not crash
+ticket1781
