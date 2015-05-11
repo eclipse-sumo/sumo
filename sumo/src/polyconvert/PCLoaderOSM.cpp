@@ -353,9 +353,9 @@ PCLoaderOSM::RelationsHandler::RelationsHandler(RelationsMap& additionalWays,
         MsgHandler& errorHandler) : 
     SUMOSAXHandler("osm - file"), 
     myWithAttributes(withAttributes), 
-    myCurrentRelation(0),
     myAdditionalWays(additionalWays),
     myRelations(relations),
+    myCurrentRelation(0),
     myErrorHandler(errorHandler)
 { }
 
