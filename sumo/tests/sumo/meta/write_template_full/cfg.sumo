@@ -131,7 +131,9 @@
     </communication>
 
     <example_device>
-        <device.example.explicit value="" type="STR" help="Assign a device to named vehicles"/>
+        <device.example.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;example&apos; device"/>
+        <device.example.explicit value="" synonymes="device.example.knownveh" type="STR" help="Assign a &apos;example&apos; device to named vehicles"/>
+        <device.example.deterministic value="false" type="BOOL" help="The &apos;example&apos; devices are set deterministic using a fraction of 1000"/>
         <device.example.parameter value="0" type="FLOAT" help="An exemplary parameter which can be used by all instances of the example device"/>
     </example_device>
 

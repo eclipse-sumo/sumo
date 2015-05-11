@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18224
+SUMO Version dev-SVN-r18362
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -207,7 +207,12 @@ Communication Options:
                                          deterministic using a fraction of 1000
 
 Example Device Options:
-  --device.example.explicit STR        Assign a device to named vehicles
+  --device.example.probability FLOAT   The probability for a vehicle to have a
+                                         'example' device
+  --device.example.explicit STR        Assign a 'example' device to named
+                                         vehicles
+  --device.example.deterministic       The 'example' devices are set
+                                         deterministic using a fraction of 1000
   --device.example.parameter FLOAT     An exemplary parameter which can be used
                                          by all instances of the example device
 

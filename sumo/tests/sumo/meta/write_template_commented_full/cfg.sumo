@@ -333,8 +333,14 @@
     </communication>
 
     <example_device>
-        <!-- Assign a device to named vehicles -->
-        <device.example.explicit value="" type="STR"/>
+        <!-- The probability for a vehicle to have a &apos;example&apos; device -->
+        <device.example.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;example&apos; device to named vehicles -->
+        <device.example.explicit value="" synonymes="device.example.knownveh" type="STR"/>
+
+        <!-- The &apos;example&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.example.deterministic value="false" type="BOOL"/>
 
         <!-- An exemplary parameter which can be used by all instances of the example device -->
         <device.example.parameter value="0" type="FLOAT"/>
