@@ -621,8 +621,11 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
             PState* p = *it;
             if (p->myDir != dir) {
                 ++it;
-            } else if (p->moveToNextLane(currentTime)) {
+            } else if (p->distToLaneEnd() < 0) {
+                // moveToNextLane may trigger re-insertion (for consecutive
+                // walks) so erase must be called first
                 it = pedestrians.erase(it);
+                p->moveToNextLane(currentTime);
                 if (p->myLane != 0) {
                     changedLane.insert(p->myPerson);
                     myActiveLanes[p->myLane].push_back(p);
