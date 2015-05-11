@@ -345,7 +345,8 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                     std::cout << "  next walkingArea " << (nextDir == FORWARD ? "forward" : "backward") << "\n";
                 }
             } else {
-                nextDir = junction == nextRouteEdge->getFromJunction() ? FORWARD : BACKWARD;
+                // walk forward by default
+                nextDir = junction == nextRouteEdge->getToJunction() ? BACKWARD : FORWARD;
                 // try to use a direct link as fallback
                 // direct links only exist if built explicitly. They are used to model tl-controlled links if there are no crossings
                 if (ped.myDir == FORWARD) {
