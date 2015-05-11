@@ -39,7 +39,7 @@ on("ready", function(){
             node.append(checkbox);
 
             var options = elem("<div>", {className: "options"});
-            var label = elem("<label>", {textContent: "Durchgangsverkehr"});
+            var label = elem("<label>", {textContent: "Through Traffic Factor"});
             var input = elem("<input>", {type: "number", min: .5, max: 100, step: .1, value: fringeFactor});
             input.on("input", function(evt){
                 socket.send(en + "FringeFactor: " + evt.target.value);
@@ -47,7 +47,7 @@ on("ready", function(){
             label.append(input);
             options.append(label);
 
-            label = elem("<label>", {textContent: "Frequenz"});
+            label = elem("<label>", {textContent: "Insertion Period (s)"});
             input = elem("<input>", {type: "number", min: .2, max: 100, step: .1, value: 10});
             input.on("input", function(evt){
                 socket.send(en + "Period: " + evt.target.value);
@@ -55,7 +55,7 @@ on("ready", function(){
             label.append(input);
             options.append(label);
 
-            label = elem("<label>", {textContent: "Dauer"});
+            label = elem("<label>", {textContent: "End time (s)"});
             input = elem("<input>", {type: "number", min: 60, max: 36000, step: 60, value: 3600});
             input.on("input", function(evt){
                 socket.send(en + "Time: " + evt.target.value);
@@ -68,10 +68,10 @@ on("ready", function(){
         }
     };
 
-    new Settings("Fahrzeuge", "vehicles", 5);
-    new Settings("Fahrradfahrer", "bicycles", 2);
-    new Settings("Fußgänger", "pedestrians", 1);
-    new Settings("Züge", "rails", 40);
+    new Settings("Cars", "vehicles", 5);
+    new Settings("Bicycles", "bicycles", 2);
+    new Settings("Pedestrians", "pedestrians", 1);
+    new Settings("Trains", "rails", 40);
 
     var canvas = elem("canvas");
     var canvasActive = false,
