@@ -468,7 +468,7 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     SUMOReal w = pfdkGetStringWidth(text.c_str());
     glRotated(180, 1, 0, 0);
     glRotated(angle, 0, 0, 1);
-    glTranslated(-w / 2., 0.4, 0);
+    glTranslated(-w / 2., size / 4, 0);
     pfDrawString(text.c_str());
     glPopMatrix();
 }
