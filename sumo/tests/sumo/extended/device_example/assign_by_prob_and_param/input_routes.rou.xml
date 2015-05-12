@@ -8,9 +8,9 @@
         <param key="has.example.device" value="false"/>
     </vType>
 
-    <route id="r0" edges="beg" arrivalPos="6"/>
-    <flow id="prob" type="device_by_prob" route="r0" begin="0" end="100" number="10"/>
-    <flow id="always" type="device_always" route="r0" begin="100" end="200" number="10"/>
-    <flow id="never" type="device_never" route="r0" begin="200" end="300" number="10"/>
+    <route id="r0" edges="beg"/>
+    <flow id="prob" type="device_by_prob" route="r0" begin="0" end="100" number="10" arrivalPos="6"/>
+    <flow id="always" type="device_always" route="r0" begin="100" end="200" number="10" arrivalPos="6"/>
+    <flow id="never" type="device_never" route="r0" begin="200" end="300" number="10" arrivalPos="6"/>
 
 </routes>
