@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 12 May 2015 09:19:20 AM CEST by SUMO gui Version dev-SVN-r18352I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumo-gui.exeConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="300"/>
+    </time>
+
+    <processing>
+        <pedestrian.model value="striping"/>
+        <pedestrian.striping.dawdling value="0"/>
+        <pedestrian.striping.jamtime value="-1"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="ped6" depart="5.00">
+        <stop arrival="5.00"/>
+        <walk arrival="216.00"/>
+    </personinfo>
+    <personinfo id="ped45" depart="40.00">
+        <stop arrival="40.00"/>
+        <walk arrival="222.00"/>
+    </personinfo>
+    <personinfo id="ped8" depart="7.00">
+        <stop arrival="7.00"/>
+        <walk arrival="227.00"/>
+    </personinfo>
+    <personinfo id="ped47" depart="43.00">
+        <stop arrival="43.00"/>
+        <walk arrival="228.00"/>
+    </personinfo>
+    <personinfo id="ped36" depart="28.00">
+        <stop arrival="28.00"/>
+        <walk arrival="229.00"/>
+    </personinfo>
+    <personinfo id="ped4" depart="2.00">
+        <stop arrival="2.00"/>
+        <walk arrival="230.00"/>
+    </personinfo>
+    <personinfo id="ped22" depart="17.00">
+        <stop arrival="17.00"/>
+        <walk arrival="230.00"/>
+    </personinfo>
+    <personinfo id="ped37" depart="29.00">
+        <stop arrival="29.00"/>
+        <walk arrival="231.00"/>
+    </personinfo>
+    <personinfo id="ped20" depart="17.00">
+        <stop arrival="17.00"/>
+        <walk arrival="232.00"/>
+    </personinfo>
+    <personinfo id="ped0" depart="0.00">
+        <stop arrival="0.00"/>
+        <walk arrival="237.00"/>
+    </personinfo>
+    <personinfo id="ped61" depart="58.00">
+        <stop arrival="58.00"/>
+        <walk arrival="239.00"/>
+    </personinfo>
+    <personinfo id="ped29" depart="24.00">
+        <stop arrival="24.00"/>
+        <walk arrival="239.00"/>
+    </personinfo>
+    <personinfo id="ped35" depart="28.00">
+        <stop arrival="28.00"/>
+        <walk arrival="241.00"/>
+    </personinfo>
+    <personinfo id="ped10" depart="10.00">
+        <stop arrival="10.00"/>
+        <walk arrival="243.00"/>
+    </personinfo>
+    <personinfo id="ped13" depart="13.00">
+        <stop arrival="13.00"/>
+        <walk arrival="243.00"/>
+    </personinfo>
+    <personinfo id="ped26" depart="20.00">
+        <stop arrival="20.00"/>
+        <walk arrival="244.00"/>
+    </personinfo>
+    <personinfo id="ped24" depart="18.00">
+        <stop arrival="18.00"/>
+        <walk arrival="245.00"/>
+    </personinfo>
+    <personinfo id="ped62" depart="59.00">
+        <stop arrival="59.00"/>
+        <walk arrival="253.00"/>
+    </personinfo>
+</tripinfos>

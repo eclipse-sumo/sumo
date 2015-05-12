@@ -483,6 +483,7 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
         }
         Pedestrians& pedestrians = getPedestrians(nextLane);
         if (nextLane->getEdge().isWalkingArea()) {
+            const SUMOReal minY = stripeWidth * - 0.5 + NUMERICAL_EPS;
             const SUMOReal maxY = stripeWidth * (stripes - 0.5) - NUMERICAL_EPS;
             // complex transformation into the coordinate system of the current lane
             // (pedestrians on next lane may walk at arbitrary angles relative to the current lane)
@@ -493,7 +494,7 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
                 PState& p = *pedestrians[ii];
                 Position relPos =  lane->getShape().transformToVectorCoordinates(p.getPosition(*p.myStage, -1), true);
                 const SUMOReal newY = relPos.y() + lateral_offset;
-                if (newY >= 0 && newY <= maxY) {
+                if (newY >= minY && newY <= maxY) {
                     addCloserObstacle(obs, relPos.x(), p.stripe(newY), p.myPerson->getID(), stripes, currentDir);
                     addCloserObstacle(obs, relPos.x(), p.otherStripe(newY), p.myPerson->getID(), stripes, currentDir);
                 }
