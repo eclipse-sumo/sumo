@@ -49,7 +49,12 @@ _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
                 'high': 'Highscore',
                 'reset': 'Reset Highscore',
                 'lang': 'Deutsch',
-                'quit': 'Quit'}
+                'quit': 'Quit',
+                'Highscore': 'Highscore',
+                'Congratulations': 'Congratulations',
+                'your score': 'Your Score',
+                'Continue': 'Continue',
+                }
 _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'cross': 'Einfache Kreuzung',
                 'cross_demo': 'Einfache Kreuzung (Demo)',
@@ -58,10 +63,15 @@ _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'bs3d': '3D Forschungskreuzung Virtuelle Welt',
                 'bs3Dosm': '3D Forschungskreuzung OpenStreetMap',
                 'ramp': 'Autobahnauffahrt',
-                'high': 'Highscore',
-                'reset': 'Highscore zurücksetzen',
+                'high': 'Bestenliste',
+                'reset': 'Bestenliste zurücksetzen',
                 'lang': 'Englisch',
-                'quit': 'Beenden'}
+                'quit': 'Beenden',
+                'Highscore': 'Bestenliste',
+                'Congratulations': 'Gratulation',
+                'your score': 'Deine Punkte',
+                'Continue': 'Weiter',
+                }
 
 
 def loadHighscore():
@@ -101,7 +111,7 @@ class StartDialog:
     def __init__(self, lang):
         # variables for changing language
         self._language_text = lang
-        self.buttons = {}
+        self.buttons = [] 
         # misc variables
         self.name = ''
         # setup gui
@@ -142,7 +152,8 @@ class StartDialog:
             button.grid(row=row, column=COL_START)
 
             button = Tkinter.Button(self.root, width=bWidth_high,
-                                    command=lambda cfg=cfg: ScoreDialog([], None, self.category_name(cfg)))  # .grid(row=row, column=COL_HIGH)
+                                    command=lambda cfg=cfg: ScoreDialog([],
+                                        None, self.category_name(cfg), self._language_text))  # .grid(row=row, column=COL_HIGH)
             self.addButton(button, 'high')
             button.grid(row=row, column=COL_HIGH)
 
@@ -172,14 +183,14 @@ class StartDialog:
 
     def addButton(self, button, text):
         button["text"] = self._language_text.get(text, text)
-        self.buttons[text] = button
+        self.buttons.append((text, button))
 
     def change_language(self):
         if self._language_text == _LANGUAGE_DE:
             self._language_text = _LANGUAGE_EN
         else:
             self._language_text = _LANGUAGE_DE
-        for text, button in self.buttons.iteritems():
+        for text, button in self.buttons:
             button["text"] = self._language_text[text]
 
     def category_name(self, cfg):
@@ -197,14 +208,14 @@ class StartDialog:
 
 class ScoreDialog:
 
-    def __init__(self, game, points, category):
+    def __init__(self, game, points, category, lang):
         self.root = Tkinter.Tk()
         self.name = None
         self.game = game
         self.points = points
         self.category = category
         haveHigh = False
-        self.root.title("Highscore")
+        self.root.title(lang["Highscore"])
         self.root.minsize(250, 50)
 
         if not category in high:
@@ -220,7 +231,7 @@ class ScoreDialog:
                                                 bg="pale green").grid(row=idx, column=2)
                 self.idx = idx
                 haveHigh = True
-                self.root.title("Congratulations!")
+                self.root.title(lang["Congratulations!"])
                 idx += 1
             if p == -1 or idx == _SCORES:
                 break
@@ -231,7 +242,7 @@ class ScoreDialog:
             idx += 1
         if not haveHigh:
             if points != None:  # not called from the main menue
-                Tkinter.Label(self.root, text='your score', padx=5,
+                Tkinter.Label(self.root, text=lang['your score'], padx=5,
                               bg="indian red").grid(row=idx, sticky=Tkinter.W, column=1)
                 Tkinter.Label(self.root, text=str(points),
                               bg="indian red").grid(row=idx, column=2)
@@ -240,7 +251,7 @@ class ScoreDialog:
             self.saveBut = Tkinter.Button(
                 self.root, text="Save", command=self.save)
             self.saveBut.grid(row=idx, column=1)
-        Tkinter.Button(self.root, text="Continue", command=self.quit).grid(
+        Tkinter.Button(self.root, text=lang["Continue"], command=self.quit).grid(
             row=idx, column=2)
         self.root.grid()
         self.root.bind("<Return>", self.save)
@@ -371,10 +382,10 @@ while True:
                 switch += [m.group(3), m.group(1)]
     # doing nothing gives a waitingTime of 6033 for cross and 6700 for square
     score = 10000 - totalWaitingTime
+    lang = start._language_text
     if _DEBUG:
         print switch, score, totalArrived, complete
     if complete:
-        ScoreDialog(switch, score, start.category)
+        ScoreDialog(switch, score, start.category, lang)
     if start.ret != 0:
         sys.exit(start.ret)
-    lang = start._language_text
