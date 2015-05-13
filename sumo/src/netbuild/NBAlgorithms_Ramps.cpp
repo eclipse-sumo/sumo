@@ -73,8 +73,9 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
         NBNodeCont& nc = nb.getNodeCont();
         NBEdgeCont& ec = nb.getEdgeCont();
         NBDistrictCont& dc = nb.getDistrictCont();
-        std::set<NBNode*> potOnRamps;
-        std::set<NBNode*> potOffRamps;
+        // if an edge is part of two ramps, ordering is important
+        std::set<NBNode*, Named::ComparatorIdLess> potOnRamps;
+        std::set<NBNode*, Named::ComparatorIdLess> potOffRamps;
         for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
             NBNode* cur = (*i).second;
             if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed, noramps)) {
