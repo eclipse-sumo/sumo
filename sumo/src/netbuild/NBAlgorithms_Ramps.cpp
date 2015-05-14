@@ -85,10 +85,10 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
                 potOffRamps.insert(cur);
             }
         }
-        for (std::set<NBNode*>::const_iterator i = potOnRamps.begin(); i != potOnRamps.end(); ++i) {
+        for (std::set<NBNode*, Named::ComparatorIdLess>::const_iterator i = potOnRamps.begin(); i != potOnRamps.end(); ++i) {
             buildOnRamp(*i, nc, ec, dc, rampLength, dontSplit, incremented);
         }
-        for (std::set<NBNode*>::const_iterator i = potOffRamps.begin(); i != potOffRamps.end(); ++i) {
+        for (std::set<NBNode*, Named::ComparatorIdLess>::const_iterator i = potOffRamps.begin(); i != potOffRamps.end(); ++i) {
             buildOffRamp(*i, nc, ec, dc, rampLength, dontSplit, incremented);
         }
     }
