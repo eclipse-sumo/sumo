@@ -175,6 +175,15 @@ public:
             // use the node with the minimal length
             EdgeInfo* const minimumInfo = myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
+            // check whether the destination node was already reached
+            if (minEdge == to) {
+                buildPathFrom(minimumInfo, into);
+                this->endQuery(num_visited);
+#ifdef DijkstraRouterTT_DEBUG_QUERY_PERF
+                std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
+#endif
+                return;
+            }
             pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
@@ -186,15 +195,6 @@ public:
             }
             std::cout << "\n";
 #endif
-            // check whether the destination node was already reached
-            if (minEdge == to) {
-                buildPathFrom(minimumInfo, into);
-                this->endQuery(num_visited);
-#ifdef DijkstraRouterTT_DEBUG_QUERY_PERF
-                std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
-#endif
-                return;
-            }
             const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // check all ways from the node with the minimal length
             const std::vector<E*>& successors = minEdge->getSuccessors(vClass);

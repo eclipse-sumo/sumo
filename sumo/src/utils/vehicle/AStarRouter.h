@@ -199,16 +199,16 @@ public:
             // use the node with the minimal length
             EdgeInfo* const minimumInfo = myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
-            pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
-            myFrontierList.pop_back();
-            myFound.push_back(minimumInfo);
-            minimumInfo->visited = true;
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
                 this->endQuery(num_visited);
                 return;
             }
+            pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
+            myFrontierList.pop_back();
+            myFound.push_back(minimumInfo);
+            minimumInfo->visited = true;
             const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // admissible A* heuristic: straight line distance at maximum speed
             const SUMOReal heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / vehicle->getMaxSpeed() : (*myLookupTable)[minEdge->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
