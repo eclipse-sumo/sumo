@@ -153,12 +153,21 @@ public:
         this->startQuery();
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         const SUMOReal time = STEPS2TIME(msTime);
-        init();
-        // add begin node
-        EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
-        fromInfo->traveltime = 0;
-        fromInfo->prev = 0;
-        myFrontierList.push_back(fromInfo);
+        if (this->myBulkMode) {
+            const EdgeInfo& toInfo = myEdgeInfos[to->getNumericalID()];
+            if (toInfo.visited) {
+                buildPathFrom(&toInfo, into);
+                this->endQuery(1);
+                return;
+            }
+        } else {
+            init();
+            // add begin node
+            EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
+            fromInfo->traveltime = 0;
+            fromInfo->prev = 0;
+            myFrontierList.push_back(fromInfo);
+        }
         // loop
         int num_visited = 0;
         while (!myFrontierList.empty()) {
@@ -169,6 +178,7 @@ public:
             pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
+            minimumInfo->visited = true;
 #ifdef DijkstraRouterTT_DEBUG_QUERY
             std::cout << "DEBUG: hit '" << minEdge->getID() << "' TT: " << minimumInfo->traveltime << " Q: ";
             for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
@@ -185,7 +195,6 @@ public:
 #endif
                 return;
             }
-            minimumInfo->visited = true;
             const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // check all ways from the node with the minimal length
             const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
@@ -235,7 +244,7 @@ public:
 
 public:
     /// Builds the path from marked edges
-    void buildPathFrom(EdgeInfo* rbegin, std::vector<const E*>& edges) {
+    void buildPathFrom(const EdgeInfo* rbegin, std::vector<const E*>& edges) {
         std::deque<const E*> tmp;
         while (rbegin != 0) {
             tmp.push_front((E*) rbegin->edge);  // !!!

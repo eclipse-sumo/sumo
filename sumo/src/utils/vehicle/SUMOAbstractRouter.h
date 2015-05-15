@@ -58,6 +58,7 @@ public:
     /// Constructor
     SUMOAbstractRouter(Operation operation, const std::string& type):
         myOperation(operation),
+        myBulkMode(false),
         myType(type),
         myQueryVisits(0),
         myNumQueries(0),
@@ -102,9 +103,16 @@ public:
         myQueryTimeSum += (SysUtils::getCurrentMillis() - myQueryStartTime);
     }
 
+    void setBulkMode(const bool mode) {
+        myBulkMode = mode;
+    }
+
 protected:
     /// @brief The object's operation to perform.
     Operation myOperation;
+
+    /// @brief whether we are currently operating several route queries in a bulk
+    bool myBulkMode;
 
 private:
     /// @brief the type of this router

@@ -398,7 +398,7 @@ public:
         return myRoutesOutput;
     }
 
-protected:
+private:
     static bool computeRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                              const ROVehicle* const veh, const bool removeLoops,
                              MsgHandler* errorHandler);
@@ -411,8 +411,9 @@ protected:
 
     void checkFlows(SUMOTime time);
 
+    void createBulkRouteRequests(SUMOAbstractRouter<ROEdge, ROVehicle>& router, const SUMOTime time, const bool removeLoops, const std::map<std::string, ROVehicle*>& mmap);
 
-protected:
+private:
     /// @brief Known vehicle ids
     std::set<std::string> myVehIDs;
 

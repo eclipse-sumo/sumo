@@ -420,6 +420,26 @@ RONet::checkFlows(SUMOTime time) {
 }
 
 
+void
+RONet::createBulkRouteRequests(SUMOAbstractRouter<ROEdge, ROVehicle>& router, const SUMOTime time, const bool removeLoops, const std::map<std::string, ROVehicle*>& mmap) {
+    std::map<const ROEdge*, std::vector<ROVehicle*> > bulkVehs;
+    for (std::map<std::string, ROVehicle*>::const_iterator i = mmap.begin(); i != mmap.end(); ++i) {
+        ROVehicle* const vehicle = i->second;
+        if (vehicle->getDepart() < time) {
+            const RORoute* const stub = vehicle->getRouteDefinition()->getFirstRoute();
+            bulkVehs[stub->getFirst()].push_back(vehicle);
+        }
+    }
+    for (std::map<const ROEdge*, std::vector<ROVehicle*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
+        for (std::vector<ROVehicle*>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
+            (*j)->setRoutingSuccess(computeRoute(router, *j, removeLoops, myErrorHandler));
+            router.setBulkMode(true);
+        }
+        router.setBulkMode(false);
+    }
+}
+
+
 SUMOTime
 RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                 SUMOTime time) {
@@ -431,25 +451,30 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
 #endif
     if (myVehicles.size() != 0) {
         const std::map<std::string, ROVehicle*>& mmap = myVehicles.getMyMap();
-        for (std::map<std::string, ROVehicle*>::const_iterator i = mmap.begin(); i != mmap.end(); ++i) {
-            if (i->second->getDepart() >= time) {
-                // we cannot go through a sorted list here, because the priority queue in the myVehicles container is not fully sorted
-                continue;
-            }
-            i->second->setRoutingSuccess(false);
+        if (options.getBool("bulk-routing")) {
+            createBulkRouteRequests(router, time, removeLoops, mmap);
+        } else {
+            for (std::map<std::string, ROVehicle*>::const_iterator i = mmap.begin(); i != mmap.end(); ++i) {
+                ROVehicle* const vehicle = i->second;
+                if (vehicle->getDepart() >= time) {
+                    // we cannot go through a sorted list here, because the priority queue in the myVehicles container is not fully sorted
+                    continue;
+                }
 #ifdef HAVE_FOX
-            // add thread if necessary
-            const int numThreads = (int)myThreadPool.size();
-            if (numThreads < maxNumThreads && myThreadPool.isFull()) {
-                new WorkerThread(myThreadPool, numThreads == 0 ? &router : router.clone());
-            }
-            // add task
-            if (maxNumThreads > 0) {
-                myThreadPool.add(new RoutingTask(i->second, removeLoops, myErrorHandler));
-                continue;
-            }
+                // add task
+                if (maxNumThreads > 0) {
+                    vehicle->setRoutingSuccess(false);
+                    // add thread if necessary
+                    const int numThreads = (int)myThreadPool.size();
+                    if (numThreads < maxNumThreads && myThreadPool.isFull()) {
+                        new WorkerThread(myThreadPool, numThreads == 0 ? &router : router.clone());
+                    }
+                    myThreadPool.add(new RoutingTask(vehicle, removeLoops, myErrorHandler));
+                    continue;
+                }
 #endif
-            i->second->setRoutingSuccess(computeRoute(router, i->second, removeLoops, myErrorHandler));
+                vehicle->setRoutingSuccess(computeRoute(router, vehicle, removeLoops, myErrorHandler));
+            }
         }
 #ifdef HAVE_FOX
         myThreadPool.waitAll();

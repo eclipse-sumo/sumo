@@ -177,12 +177,21 @@ public:
         this->startQuery();
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         const SUMOReal time = STEPS2TIME(msTime);
-        init();
-        // add begin node
-        EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
-        fromInfo->traveltime = 0;
-        fromInfo->prev = 0;
-        myFrontierList.push_back(fromInfo);
+        if (this->myBulkMode) {
+            const EdgeInfo& toInfo = myEdgeInfos[to->getNumericalID()];
+            if (toInfo.visited) {
+                buildPathFrom(&toInfo, into);
+                this->endQuery(1);
+                return;
+            }
+        } else {
+            init();
+            // add begin node
+            EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
+            fromInfo->traveltime = 0;
+            fromInfo->prev = 0;
+            myFrontierList.push_back(fromInfo);
+        }
         // loop
         int num_visited = 0;
         while (!myFrontierList.empty()) {
@@ -193,15 +202,13 @@ public:
             pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
+            minimumInfo->visited = true;
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
                 this->endQuery(num_visited);
-                // DEBUG
-                //std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
                 return;
             }
-            minimumInfo->visited = true;
             const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // admissible A* heuristic: straight line distance at maximum speed
             const SUMOReal heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / vehicle->getMaxSpeed() : (*myLookupTable)[minEdge->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
@@ -260,7 +267,7 @@ public:
 
 public:
     /// Builds the path from marked edges
-    void buildPathFrom(EdgeInfo* rbegin, std::vector<const E*>& edges) {
+    void buildPathFrom(const EdgeInfo* rbegin, std::vector<const E*>& edges) {
         std::deque<const E*> tmp;
         while (rbegin != 0) {
             tmp.push_front((E*) rbegin->edge);  // !!!
@@ -285,7 +292,6 @@ protected:
 
     /// @brief the lookup table for travel time heuristics
     const LookupTable* const myLookupTable;
-
 };
 
 
