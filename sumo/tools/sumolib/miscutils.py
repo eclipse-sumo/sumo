@@ -128,8 +128,8 @@ class Statistics:
         else:
             return None
 
-    def relStdDev(self, limit=None):
-        """return the relative standard deviation optionally limited to the last limit values"""
+    def meanAndStdDev(self, limit=None):
+        """return the mean and the standard deviation optionally limited to the last limit values"""
         if limit is None or len(self.values) < limit:
             limit = len(self.values)
         if limit > 0:
@@ -137,9 +137,16 @@ class Statistics:
             sumSq = 0.
             for v in self.values[-limit:]:
                 sumSq += (v - mean) * (v - mean)
-            return math.sqrt(sumSq / limit) / mean
+            return mean, math.sqrt(sumSq / limit)
         else:
             return None
+
+    def relStdDev(self, limit=None):
+        """return the relative standard deviation optionally limited to the last limit values"""
+        moments = self.meanAndStdDev(limit)
+        if moments is None:
+            return None
+        return moments[1] / moments[0]
 
     def mean(self):
         """return the median value"""
