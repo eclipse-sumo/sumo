@@ -81,6 +81,9 @@
         <!-- Use origin and destination zones (districts) for in- and output -->
         <with-taz value="false" type="BOOL"/>
 
+        <!-- Aggregate routing queries with the same origin -->
+        <bulk-routing value="false" type="BOOL"/>
+
         <!-- The number of parallel execution threads used for routing -->
         <routing-threads value="0" type="INT"/>
 

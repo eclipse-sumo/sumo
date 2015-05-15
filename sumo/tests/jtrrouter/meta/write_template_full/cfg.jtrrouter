@@ -35,6 +35,7 @@
         <repair value="false" type="BOOL" help="Tries to correct a false route"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
+        <bulk-routing value="false" type="BOOL" help="Aggregate routing queries with the same origin"/>
         <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
         <max-edges-factor value="2" type="FLOAT" help="Routes are cut off when the route edges to net edges ratio is larger than FLOAT"/>
         <turn-defaults value="30,50,20" synonymes="T" type="STR" help="Use STR as default turn definition"/>

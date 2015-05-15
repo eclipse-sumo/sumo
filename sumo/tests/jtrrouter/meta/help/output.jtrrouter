@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r18096
+SUMO jtrrouter Version dev-SVN-r18374I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Router for the microscopic road traffic simulation SUMO based on junction
   turning ratios.
@@ -45,6 +45,8 @@ Processing Options:
                                      boundaries
   --with-taz                       Use origin and destination zones (districts)
                                      for in- and output
+  --bulk-routing                   Aggregate routing queries with the same
+                                     origin
   --routing-threads INT            The number of parallel execution threads
                                      used for routing
   --max-edges-factor FLOAT         Routes are cut off when the route edges to
