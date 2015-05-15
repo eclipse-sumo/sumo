@@ -102,6 +102,9 @@
         <!-- Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy -->
         <weight-period value="3600" type="TIME"/>
 
+        <!-- Aggregate routing queries with the same origin -->
+        <bulk-routing value="false" type="BOOL"/>
+
         <!-- The number of parallel execution threads used for routing -->
         <routing-threads value="0" type="INT"/>
 

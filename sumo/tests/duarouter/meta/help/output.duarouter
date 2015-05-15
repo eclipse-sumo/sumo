@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r18096
+SUMO duarouter Version dev-SVN-r18374I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
@@ -58,6 +58,8 @@ Processing Options:
                                      files;
                                      triggers rebuilding of Contraction
                                      Hierarchy
+  --bulk-routing                   Aggregate routing queries with the same
+                                     origin
   --routing-threads INT            The number of parallel execution threads
                                      used for routing
   --weights.expand                 Expand weights behind the simulation's end

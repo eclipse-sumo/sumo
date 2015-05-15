@@ -70,5 +70,8 @@ busStop
 # test trip with intermediate container stop
 containerStop
 
+# Test with bulk routing 100 vehicles having one departure time
+bulk
+
 # Tests false input
 errors
