@@ -182,6 +182,7 @@
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
         <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
+        <xsd:attribute name="routeLength" type="nonNegativeFloatType"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
     </xsd:complexType>
