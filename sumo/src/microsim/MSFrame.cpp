@@ -179,6 +179,10 @@ MSFrame::fillOptions() {
     oc.addSynonyme("vehroute-output.intended-depart", "vehroutes.intended-depart");
     oc.addDescription("vehroute-output.intended-depart", "Output", "Write the output with the intended instead of the real departure time");
 
+    oc.doRegister("vehroute-output.route-length", new Option_Bool(false));
+    oc.addSynonyme("vehroute-output.route-length", "vehroutes.route-length");
+    oc.addDescription("vehroute-output.route-length", "Output", "Include total route length in the output");
+
     oc.doRegister("vehroute-output.write-unfinished", new Option_Bool(false));
     oc.addDescription("vehroute-output.write-unfinished", "Output", "Write vehroute output for vehicles which have not arrived at simulation end");
 

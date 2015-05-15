@@ -30,6 +30,7 @@
 #include <config.h>
 #endif
 
+#include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
@@ -53,7 +54,7 @@ bool MSDevice_Vehroutes::myLastRouteOnly = false;
 bool MSDevice_Vehroutes::myDUAStyle = false;
 bool MSDevice_Vehroutes::mySorted = false;
 bool MSDevice_Vehroutes::myIntendedDepart = false;
-bool MSDevice_Vehroutes::myWithTaz = false;
+bool MSDevice_Vehroutes::myRouteLength = false;
 MSDevice_Vehroutes::StateListener MSDevice_Vehroutes::myStateListener;
 std::map<const SUMOTime, int> MSDevice_Vehroutes::myDepartureCounts;
 std::map<const SUMOTime, std::map<const std::string, std::string> > MSDevice_Vehroutes::myRouteInfos;
@@ -74,7 +75,7 @@ MSDevice_Vehroutes::init() {
         myDUAStyle = OptionsCont::getOptions().getBool("vehroute-output.dua");
         mySorted = myDUAStyle || OptionsCont::getOptions().getBool("vehroute-output.sorted");
         myIntendedDepart = OptionsCont::getOptions().getBool("vehroute-output.intended-depart");
-        myWithTaz = OptionsCont::getOptions().getBool("device.rerouting.with-taz");
+        myRouteLength = OptionsCont::getOptions().getBool("vehroute-output.route-length");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
     }
 }
@@ -128,9 +129,12 @@ MSDevice_Vehroutes::~MSDevice_Vehroutes() {
 
 bool
 MSDevice_Vehroutes::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
-    if (mySorted && reason == NOTIFICATION_DEPARTED && myStateListener.myDevices[&veh] == this) {
-        const SUMOTime departure = myIntendedDepart ? myHolder.getParameter().depart : MSNet::getInstance()->getCurrentTimeStep();
-        myDepartureCounts[departure]++;
+    if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
+        myDepartPos = veh.getPositionOnLane();
+        if (mySorted && myStateListener.myDevices[&veh] == this) {
+            const SUMOTime departure = myIntendedDepart ? myHolder.getParameter().depart : MSNet::getInstance()->getCurrentTimeStep();
+            myDepartureCounts[departure]++;
+        }
     }
     return mySaveExits;
 }
@@ -225,9 +229,18 @@ MSDevice_Vehroutes::generateOutput() const {
     od.writeAttr(SUMO_ATTR_DEPART, time2string(departure));
     if (myHolder.hasArrived()) {
         od.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
+        if (myRouteLength) {
+            const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
+            const SUMOReal routeLength = myHolder.getRoute().getDistanceBetween(myDepartPos, myHolder.getArrivalPos(),
+                                         myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths);
+            od.writeAttr("routeLength", routeLength);
+        }
     }
-    if (myWithTaz) {
-        od.writeAttr(SUMO_ATTR_FROM_TAZ, myHolder.getParameter().fromTaz).writeAttr(SUMO_ATTR_TO_TAZ, myHolder.getParameter().toTaz);
+    if (myHolder.getParameter().wasSet(VEHPARS_FROM_TAZ_SET)) {
+        od.writeAttr(SUMO_ATTR_FROM_TAZ, myHolder.getParameter().fromTaz);
+    }
+    if (myHolder.getParameter().wasSet(VEHPARS_TO_TAZ_SET)) {
+        od.writeAttr(SUMO_ATTR_TO_TAZ, myHolder.getParameter().toTaz);
     }
     if (myDUAStyle) {
         const RandomDistributor<const MSRoute*>* const routeDist = MSRoute::distDictionary("!" + myHolder.getID());

@@ -172,8 +172,8 @@ private:
     /// @brief A shortcut for the Option "vehroute-output.intended-depart"
     static bool myIntendedDepart;
 
-    /// @brief A shortcut for the Option "device.routing.with-taz"
-    static bool myWithTaz;
+    /// @brief A shortcut for the Option "vehroute-output.route-length"
+    static bool myRouteLength;
 
 
     /** @class StateListener
@@ -238,6 +238,9 @@ private:
         const MSRoute* route;
 
     };
+
+    /// @brief The position on the lane the vehicle departed at
+    SUMOReal myDepartPos;
 
     /// @brief The currently used route
     const MSRoute* myCurrentRoute;

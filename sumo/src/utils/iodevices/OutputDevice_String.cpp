@@ -42,6 +42,8 @@
 // ===========================================================================
 OutputDevice_String::OutputDevice_String(const bool binary, const unsigned int defaultIndentation)
     : OutputDevice(binary, defaultIndentation) {
+    setPrecision();
+    myStream << std::setiosflags(std::ios::fixed);
 }
 
 
