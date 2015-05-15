@@ -21,6 +21,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import print_function
+import sys
 import collections
 from optparse import OptionParser
 from xml.sax import parse
@@ -64,7 +65,7 @@ class DistrictEdgeComputer:
                                         self._edgeDistricts[edge].append(district)
                                         break
             if options.verbose and idx % 100 == 0:
-                sys.stdout.write("%s/%s\r" % (idx, len(self._edgeShapes)))
+                sys.stdout.write("%s/%s\r" % (idx, len(self._net.getEdges())))
         if options.complete:
             for edge, districts in self._edgeDistricts.iteritems():
                 if len(districts) > 1:
