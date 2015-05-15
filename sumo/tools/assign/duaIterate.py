@@ -314,9 +314,11 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
             sumoCmd += ['--device.hbefa.probability', '1']
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
-            sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step]
+            sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step,
+                        '--vehroute-output.route-length']
         elif options.routefile == "detailed":
             sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step,
+                        '--vehroute-output.route-length',
                         '--vehroute-output.exit-times']
     if hasattr(options, "lastroute") and options.lastroute:
         sumoCmd += ['--vehroute-output.last-route', options.lastroute]
