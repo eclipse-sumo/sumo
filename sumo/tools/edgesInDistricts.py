@@ -40,7 +40,7 @@ class DistrictEdgeComputer:
         districtBoxes = {}
         for district in polygons:
             districtBoxes[district.id] = district.getBoundingBox()
-        for edge in self._net.getEdges():
+        for idx, edge in enumerate(self._net.getEdges()):
             shape = edge.getShape()
             if edge.getSpeed() < options.maxspeed and (options.internal or edge.getFunction() != "internal"):
                 if options.vclass is None or edge.allows(options.vclass): 
