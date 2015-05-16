@@ -125,13 +125,19 @@ public:
             myWorkers.push_back(w);
         }
 
-        /** @brief Gives a number to the given task and assigns it to a randomly chosen worker.
+        /** @brief Gives a number to the given task and assigns it to the given worker.
+         * If no worker is given, assign to the next (round robin) one.
          *
          * @param[in] t the task to add
+         * @param[in] w the worker thread to use or 0 for an arbitrary one
          */
-        void add(Task* const t) {
+        void add(Task* const t, FXWorkerThread* const w=0) {
             t->setIndex(myRunningIndex++);
-            myWorkers[myRunningIndex % myWorkers.size()]->add(t);
+            if (w == 0) {
+                myWorkers[myRunningIndex % myWorkers.size()]->add(t);
+            } else {
+                w->add(t);
+            }
         }
 
         /** @brief Adds the given task to the list of finished tasks and assigns it to a randomly chosen worker.

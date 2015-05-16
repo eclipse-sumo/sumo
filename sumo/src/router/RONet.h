@@ -491,8 +491,6 @@ private:
     MsgHandler* myErrorHandler;
 
 #ifdef HAVE_FOX
-    FXWorkerThread::Pool myThreadPool;
-
 private:
     class WorkerThread : public FXWorkerThread {
     public:
@@ -523,6 +521,14 @@ private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&);
     };
+
+    
+private:
+    /// @brief for multi threaded routing
+    FXWorkerThread::Pool myThreadPool;
+
+    /// @brief explicit access to the worker threads for multi threaded bulk routing
+    std::vector<WorkerThread*> myWorkers;
 #endif
 
 private:
