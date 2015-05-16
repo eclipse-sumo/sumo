@@ -350,13 +350,13 @@ PCLoaderOSM::NodesHandler::myEndElement(int element) {
 PCLoaderOSM::RelationsHandler::RelationsHandler(RelationsMap& additionalWays,
         Relations& relations,
         bool withAttributes,
-        MsgHandler& errorHandler) : 
-    SUMOSAXHandler("osm - file"), 
-    myWithAttributes(withAttributes), 
+        MsgHandler& errorHandler) :
+    SUMOSAXHandler("osm - file"),
     myAdditionalWays(additionalWays),
     myRelations(relations),
-    myCurrentRelation(0),
-    myErrorHandler(errorHandler)
+    myWithAttributes(withAttributes),
+    myErrorHandler(errorHandler),
+    myCurrentRelation(0)
 { }
 
 

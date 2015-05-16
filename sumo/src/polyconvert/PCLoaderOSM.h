@@ -252,17 +252,17 @@ protected:
 
 
     private:
-        /// @brief Whether all attributes shall be stored
-        bool myWithAttributes;
-
-        /// @brief The handler to report errors to (will be the WarningsHandler if --ignore-errors was set)
-        MsgHandler& myErrorHandler;
-
         /// @brief additional ways which are reference by relations
         RelationsMap& myAdditionalWays;
 
         /// @brief the loaded relations
         Relations& myRelations;
+
+        /// @brief Whether all attributes shall be stored
+        bool myWithAttributes;
+
+        /// @brief The handler to report errors to (will be the WarningsHandler if --ignore-errors was set)
+        MsgHandler& myErrorHandler;
 
         /// @brief The currently parsed relation
         PCOSMRelation* myCurrentRelation;
