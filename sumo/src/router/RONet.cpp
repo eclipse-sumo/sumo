@@ -449,6 +449,7 @@ RONet::createBulkRouteRequests(SUMOAbstractRouter<ROEdge, ROVehicle>& router, co
                 }
                 workerIndex = 0;
             }
+            continue;
         }
 #endif
         for (std::vector<ROVehicle*>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
