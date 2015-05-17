@@ -73,5 +73,8 @@ containerStop
 # Test with bulk routing 100 vehicles having one departure time
 bulk
 
+# Test with multi-threaded bulk routing
+bulk_parallel
+
 # Tests false input
 errors
