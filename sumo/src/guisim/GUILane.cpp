@@ -234,7 +234,7 @@ GUILane::drawTextAtEnd(const std::string& text, const PositionVector& shape, SUM
     const SUMOReal rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    GLHelper::drawText(text, Position(x, 0), 0, .6, RGBColor(128, 128, 255, 255), 180);
+    GLHelper::drawText(text, Position(x, 0.26), 0, .6, RGBColor(128, 128, 255, 255), 180);
     glPopMatrix();
 }
 
