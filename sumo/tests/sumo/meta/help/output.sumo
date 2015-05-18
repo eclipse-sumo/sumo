@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18362
+SUMO Version dev-SVN-r18390
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -62,6 +62,7 @@ Output Options:
                                          alternatives style
   --vehroute-output.intended-depart    Write the output with the intended
                                          instead of the real departure time
+  --vehroute-output.route-length       Include total route length in the output
   --vehroute-output.write-unfinished   Write vehroute output for vehicles which
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE

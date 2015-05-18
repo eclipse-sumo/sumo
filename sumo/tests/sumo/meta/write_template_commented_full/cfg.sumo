@@ -108,6 +108,9 @@
         <!-- Write the output with the intended instead of the real departure time -->
         <vehroute-output.intended-depart value="false" synonymes="vehroutes.intended-depart" type="BOOL"/>
 
+        <!-- Include total route length in the output -->
+        <vehroute-output.route-length value="false" synonymes="vehroutes.route-length" type="BOOL"/>
+
         <!-- Write vehroute output for vehicles which have not arrived at simulation end -->
         <vehroute-output.write-unfinished value="false" type="BOOL"/>
 

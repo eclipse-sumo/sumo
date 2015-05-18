@@ -42,6 +42,7 @@
         <vehroute-output.sorted value="false" synonymes="vehroutes.sorted" type="BOOL" help="Sorts the output by departure time"/>
         <vehroute-output.dua value="false" synonymes="vehroutes.dua" type="BOOL" help="Write the output in the duarouter alternatives style"/>
         <vehroute-output.intended-depart value="false" synonymes="vehroutes.intended-depart" type="BOOL" help="Write the output with the intended instead of the real departure time"/>
+        <vehroute-output.route-length value="false" synonymes="vehroutes.route-length" type="BOOL" help="Include total route length in the output"/>
         <vehroute-output.write-unfinished value="false" type="BOOL" help="Write vehroute output for vehicles which have not arrived at simulation end"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <bt-output value="" type="FILE" help="Save bt visibilities into FILE"/>
