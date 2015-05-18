@@ -197,7 +197,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::BLUE, (SUMOReal) - .3);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by inclination at segment start", RGBColor::GREY);
+    scheme = GUIColorScheme("by segment inclination", RGBColor::GREY);
     scheme.addColor(RGBColor::YELLOW, (SUMOReal) .1);
     scheme.addColor(RGBColor::RED, (SUMOReal) .3);
     scheme.addColor(RGBColor::GREEN, (SUMOReal) - .1);
