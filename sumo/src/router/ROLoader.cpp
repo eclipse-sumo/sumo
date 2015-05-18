@@ -54,7 +54,6 @@
 #include "ROLoader.h"
 #include "ROEdge.h"
 #include "RORouteHandler.h"
-#include "RORouteAggregator.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -227,15 +226,6 @@ ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime
     if (myLogSteps) {
         WRITE_MESSAGE("Routes found between time steps " + time2string(firstStep) + " and " + time2string(lastStep) + ".");
     }
-}
-
-
-void
-ROLoader::processAllRoutesWithBulkRouter(SUMOTime /* start */, SUMOTime end,
-        RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
-    myLoaders.loadNext(SUMOTime_MAX);
-    RORouteAggregator::processAllRoutes(net, router);
-    net.saveAndRemoveRoutesUntil(myOptions, router, end);
 }
 
 

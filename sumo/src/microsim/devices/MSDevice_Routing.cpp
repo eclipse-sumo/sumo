@@ -42,7 +42,6 @@
 #include <utils/common/StaticCommand.h>
 #include <utils/vehicle/DijkstraRouterTT.h>
 #include <utils/vehicle/AStarRouter.h>
-#include <utils/vehicle/BulkStarRouter.h>
 #include <utils/vehicle/CHRouter.h>
 #include <utils/vehicle/CHRouterWrapper.h>
 

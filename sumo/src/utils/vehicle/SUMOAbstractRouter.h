@@ -84,11 +84,6 @@ public:
     virtual SUMOReal recomputeCosts(const std::vector<const E*>& edges,
                                     const V* const v, SUMOTime msTime) const = 0;
 
-    // interface extension for BulkStarRouter
-    virtual void prepare(const E*, const V*, bool) {
-        assert(false);
-    }
-
     inline SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) const {
         return (*myOperation)(e, v, t);
     }

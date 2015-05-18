@@ -100,7 +100,7 @@ public:
             : edge(E::dictionary(id)), traveltime(std::numeric_limits<SUMOReal>::max()), prev(0), visited(false) {}
 
         /// The current edge
-        const E* const edge;
+        const E* edge;
 
         /// Effort to reach the edge
         SUMOReal traveltime;

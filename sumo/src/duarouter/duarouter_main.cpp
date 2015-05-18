@@ -47,7 +47,6 @@
 #include <utils/vehicle/DijkstraRouterTT.h>
 #include <utils/vehicle/DijkstraRouterEffort.h>
 #include <utils/vehicle/AStarRouter.h>
-#include <utils/vehicle/BulkStarRouter.h>
 #include <utils/vehicle/CHRouter.h>
 #include <utils/vehicle/CHRouterWrapper.h>
 #include "RODUAEdgeBuilder.h"
@@ -134,14 +133,6 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 router = new AStarRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             }
-        } else if (routingAlgorithm == "bulkstar") {
-            if (net.hasRestrictions()) {
-                router = new BulkStarRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, &ROEdge::getMinimumTravelTime);
-            } else {
-                router = new BulkStarRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, &ROEdge::getMinimumTravelTime);
-            }
         } else if (routingAlgorithm == "CH") {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
@@ -194,13 +185,8 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     net.openOutput(filename, altFilename, oc.getString("vtype-output"));
     // process route definitions
     try {
-        if (routingAlgorithm == "bulkstar") {
-            // need to load all routes for spatial aggregation
-            loader.processAllRoutesWithBulkRouter(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
-        } else {
-            loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
-                                 string2time(oc.getString("route-steps")), net, *router);
-        }
+        loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
+                                string2time(oc.getString("route-steps")), net, *router);
         // end the processing
         net.cleanup(router);
     } catch (ProcessError&) {

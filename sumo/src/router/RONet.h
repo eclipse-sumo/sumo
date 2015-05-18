@@ -70,8 +70,6 @@ class OutputDevice;
  * @todo Vehicle ids are not tracked; it may happen that the same id is added twice...
  */
 class RONet {
-    friend class RORouteAggregator;
-
 public:
     /// @brief Constructor
     RONet();

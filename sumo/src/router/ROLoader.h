@@ -88,10 +88,6 @@ public:
     void processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime increment,
                        RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
-    /** @brief Loads all routes and processes them with BulkStarRouter */
-    void processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
-                                        RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
-
 protected:
     /** @brief Opens route handler of the given type
      *

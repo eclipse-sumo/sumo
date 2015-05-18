@@ -120,7 +120,7 @@ public:
         {}
 
         /// The current edge
-        const E* const edge;
+        const E* edge;
 
         /// Effort to reach the edge
         SUMOReal traveltime;
