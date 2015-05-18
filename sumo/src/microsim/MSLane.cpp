@@ -805,7 +805,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
     if (myVehicles.size() > 0) {
         if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0) {
             MSVehicle* veh = myVehicles.back(); // the vehice at the front of the queue
-            if (!veh->isStopped()) {
+            if (!veh->isStopped() && veh->getLane() == this) {
                 const bool wrongLane = !veh->getLane()->appropriate(veh);
                 const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
                 const bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && veh->getLane()->getSpeedLimit() > 69. / 3.6 && wrongLane;
