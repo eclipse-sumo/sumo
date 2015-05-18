@@ -44,7 +44,6 @@
 #include <router/RONet.h>
 #include <router/ROLoader.h>
 #include <router/RONetHandler.h>
-#include <duarouter/RODUAEdgeBuilder.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>

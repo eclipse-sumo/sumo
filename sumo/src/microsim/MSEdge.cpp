@@ -45,9 +45,9 @@
 #include "MSLaneChanger.h"
 #include "MSGlobals.h"
 #include "MSVehicle.h"
-#include <microsim/pedestrians/MSPerson.h>
 #include "MSContainer.h"
 #include "MSEdgeWeightsStorage.h"
+#include <microsim/devices/MSDevice_Routing.h>
 
 #ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
@@ -672,21 +672,36 @@ MSEdge::transportable_by_position_sorter::operator()(const MSTransportable* cons
 
 const MSEdgeVector&
 MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
-    if (vClass == SVC_IGNORING) {
+    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasRestrictions()) {
         return mySuccessors;
     }
-    ClassesSuccesorMap::const_iterator i = myClassesSuccessorMap.find(vClass);
+#ifdef HAVE_FOX
+    if (MSDevice_Routing::isParallel()) {
+        MSDevice_Routing::lock();
+    }
+#endif
+    std::map<SUMOVehicleClass, MSEdgeVector>::const_iterator i = myClassesSuccessorMap.find(vClass);
     if (i != myClassesSuccessorMap.end()) {
         // can use cached value
+#ifdef HAVE_FOX
+        if (MSDevice_Routing::isParallel()) {
+            MSDevice_Routing::unlock();
+        }
+#endif
         return i->second;
     } else {
-        // this vClass is requested for the first time. rebuild all succesors
+        // this vClass is requested for the first time. rebuild all successors
         for (MSEdgeVector::const_iterator it = mySuccessors.begin(); it != mySuccessors.end(); ++it) {
             const std::vector<MSLane*>* allowed = allowedLanes(*it, vClass);
             if (allowed == 0 || allowed->size() > 0) {
                 myClassesSuccessorMap[vClass].push_back(*it);
             }
         }
+#ifdef HAVE_FOX
+        if (MSDevice_Routing::isParallel()) {
+            MSDevice_Routing::unlock();
+        }
+#endif
         return myClassesSuccessorMap[vClass];
     }
 }

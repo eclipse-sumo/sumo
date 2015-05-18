@@ -116,6 +116,9 @@ public:
     static void unlock() {
         myThreadPool.unlock();
     }
+    static bool isParallel() {
+        return myThreadPool.size() > 0;
+    }
 #endif
 
 

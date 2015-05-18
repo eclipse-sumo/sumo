@@ -403,13 +403,15 @@ public:
         return myEdges.size();
     };
 
-    static void setTimeLineOptions(
+    static void setGlobalOptions(
         bool useBoundariesOnOverrideTT,
         bool useBoundariesOnOverrideE,
-        bool interpolate) {
+        bool interpolate,
+        bool isParallel) {
         myUseBoundariesOnOverrideTT = useBoundariesOnOverrideTT;
         myUseBoundariesOnOverrideE = useBoundariesOnOverrideE;
         myInterpolate = interpolate;
+        myAmParallel = isParallel;
     }
 
     /// @brief get edge priority (road class)
@@ -483,6 +485,9 @@ protected:
     /// @brief Information whether to interpolate at interval boundaries
     static bool myInterpolate;
 
+    /// @brief Information whether we are routing multi-threaded
+    static bool myAmParallel;
+
     /// @brief Information whether the edge has reported missing weights
     static bool myHaveEWarned;
     /// @brief Information whether the edge has reported missing weights
@@ -510,8 +515,7 @@ protected:
     RONode* myToJunction;
 
     /// @brief The successors available for a given vClass
-    typedef std::map<SUMOVehicleClass, ROEdgeVector> ClassesSuccesorMap;
-    mutable ClassesSuccesorMap myClassesSuccessorMap;
+    mutable std::map<SUMOVehicleClass, ROEdgeVector> myClassesSuccessorMap;
 
 private:
     /// @brief Invalidated copy constructor

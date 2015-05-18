@@ -120,7 +120,7 @@ public:
         {}
 
         /// The current edge
-        const E* edge;
+        const E* const edge;
 
         /// Effort to reach the edge
         SUMOReal traveltime;
@@ -268,12 +268,12 @@ public:
 public:
     /// Builds the path from marked edges
     void buildPathFrom(const EdgeInfo* rbegin, std::vector<const E*>& edges) {
-        std::deque<const E*> tmp;
+        std::vector<const E*> tmp;
         while (rbegin != 0) {
-            tmp.push_front((E*) rbegin->edge);  // !!!
+            tmp.push_back(rbegin->edge);
             rbegin = rbegin->prev;
         }
-        std::copy(tmp.begin(), tmp.end(), std::back_inserter(edges));
+        std::copy(tmp.rbegin(), tmp.rend(), std::back_inserter(edges));
     }
 
 protected:

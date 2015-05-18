@@ -53,7 +53,6 @@
 #include <utils/vehicle/BulkStarRouter.h>
 #include <utils/vehicle/CHRouter.h>
 #include <utils/vehicle/CHRouterWrapper.h>
-#include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
@@ -97,7 +96,8 @@
 void
 initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // load the net
-    ROMAEdgeBuilder builder(oc.getBool("weights.expand"), oc.getBool("weights.interpolate"));
+    ROMAEdgeBuilder builder;
+    ROEdge::setGlobalOptions(oc.getBool("weights.expand"), oc.getBool("weights.expand"), oc.getBool("weights.interpolate"), false);
     loader.loadNet(net, builder);
     // load the weights when wished/available
     if (oc.isSet("weight-files")) {

@@ -41,8 +41,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROMAEdgeBuilder::ROMAEdgeBuilder(bool useBoundariesOnOverride, bool interpolate) {
-    ROEdge::setTimeLineOptions(useBoundariesOnOverride, useBoundariesOnOverride, interpolate);
+ROMAEdgeBuilder::ROMAEdgeBuilder() {
 }
 
 

@@ -53,8 +53,23 @@
 
 
 // ===========================================================================
+// static member definitions
+// ===========================================================================
+RONet* RONet::myInstance = 0;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
+RONet*
+RONet::getInstance(void) {
+    if (myInstance != 0) {
+        return myInstance;
+    }
+    throw ProcessError("A network was not yet constructed.");
+}
+
+
 RONet::RONet()
     : myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
       myRoutesOutput(0), myRouteAlternativesOutput(0), myTypesOutput(0),
@@ -63,9 +78,13 @@ RONet::RONet()
       myNumInternalEdges(0),
       myErrorHandler(OptionsCont::getOptions().exists("ignore-errors")
                      && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+    if (myInstance != 0) {
+        throw ProcessError("A network was already constructed.");
+    }
     SUMOVTypeParameter* type = new SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_IGNORING);
     type->onlyReferenced = true;
     myVehicleTypes.add(type->id, type);
+    myInstance = this;
 }
 
 

@@ -57,12 +57,8 @@ class RONode;
 class ROMAEdgeBuilder : public ROAbstractEdgeBuilder {
 public:
     /** @brief Constructor
-     *
-     * @param[in] useBoundariesOnOverride Whether edges shall use a boundary value if the requested is beyond known time scale
-     * @param[in] interpolate Whether edges shall interpolate at interval boundaries
-     * @todo useBoundariesOnOverride should not be a member of the edges
      */
-    ROMAEdgeBuilder(bool useBoundariesOnOverride, bool interpolate);
+    ROMAEdgeBuilder();
 
 
     /// @brief Destructor

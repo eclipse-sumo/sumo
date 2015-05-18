@@ -777,8 +777,7 @@ protected:
 
 
     /// @brief The successors available for a given vClass
-    typedef std::map<SUMOVehicleClass, MSEdgeVector> ClassesSuccesorMap;
-    mutable ClassesSuccesorMap myClassesSuccessorMap;
+    mutable std::map<SUMOVehicleClass, MSEdgeVector> myClassesSuccessorMap;
 
 private:
     /// @brief Invalidated copy constructor.

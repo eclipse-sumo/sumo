@@ -40,6 +40,7 @@
 #include <iostream>
 #include "ROLane.h"
 #include "ROEdge.h"
+#include "RONet.h"
 #include "ROVehicle.h"
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
@@ -56,6 +57,7 @@
 bool ROEdge::myUseBoundariesOnOverrideTT = false;
 bool ROEdge::myUseBoundariesOnOverrideE = false;
 bool ROEdge::myInterpolate = false;
+bool ROEdge::myAmParallel = false;
 bool ROEdge::myHaveTTWarned = false;
 bool ROEdge::myHaveEWarned = false;
 ROEdgeVector ROEdge::myEdges;
@@ -278,15 +280,25 @@ ROEdge::dictionary(size_t id) {
 
 const ROEdgeVector&
 ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
-    if (vClass == SVC_IGNORING) {
+    if (vClass == SVC_IGNORING || !RONet::getInstance()->hasRestrictions()) {
         return myFollowingEdges;
     }
-    ClassesSuccesorMap::const_iterator i = myClassesSuccessorMap.find(vClass);
+#ifdef HAVE_FOX
+    if (myAmParallel) {
+        RONet::getInstance()->lock();
+    }
+#endif
+    std::map<SUMOVehicleClass, ROEdgeVector>::const_iterator i = myClassesSuccessorMap.find(vClass);
     if (i != myClassesSuccessorMap.end()) {
         // can use cached value
+#ifdef HAVE_FOX
+        if (myAmParallel) {
+            RONet::getInstance()->unlock();
+        }
+#endif
         return i->second;
     } else {
-        // this vClass is requested for the first time. rebuild all succesors
+        // this vClass is requested for the first time. rebuild all successors
         std::set<ROEdge*> followers;
         for (std::vector<ROLane*>::const_iterator it = myLanes.begin(); it != myLanes.end(); ++it) {
             ROLane* lane = *it;
@@ -302,6 +314,11 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
         }
         myClassesSuccessorMap[vClass].insert(myClassesSuccessorMap[vClass].begin(),
                                              followers.begin(), followers.end());
+#ifdef HAVE_FOX
+        if (myAmParallel) {
+            RONet::getInstance()->unlock();
+        }
+#endif
         return myClassesSuccessorMap[vClass];
     }
 

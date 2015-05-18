@@ -42,8 +42,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODUAEdgeBuilder::RODUAEdgeBuilder(bool useBoundariesOnOverride, bool interpolate) {
-    ROEdge::setTimeLineOptions(useBoundariesOnOverride, useBoundariesOnOverride, interpolate);
+RODUAEdgeBuilder::RODUAEdgeBuilder() {
 }
 
 
