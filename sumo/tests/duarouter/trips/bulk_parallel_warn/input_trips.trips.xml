@@ -1,0 +1,34 @@
+<trips>
+    <vType id="d" maxSpeed="10"/>
+    <vType id="v" vClass="vip"/>
+    <trip depart="0" from="beg" to="rend"/>
+    <trip depart="0" from="beg" to="rend" type="d"/>
+    <trip depart="0" from="beg" to="rend" type="v"/>
+    <trip depart="0" from="beg" to="rend"/>
+    <trip depart="0" from="beg" to="rend"/>
+    <trip depart="0" from="beg" to="rend"/>
+    <trip depart="0" from="beg" to="rend"/>
+    <trip depart="0" from="beg" to="rend"/>
+    <trip depart="0" from="beg" to="rend"/>
+    <trip depart="0" from="beg" to="rend"/>
+    <trip depart="0" from="left" to="rend"/>
+    <trip depart="0" from="left" to="rend"/>
+    <trip depart="0" from="left" to="rend"/>
+    <trip depart="0" from="left" to="rend"/>
+    <trip depart="0" from="left" to="rend"/>
+    <trip depart="0" from="left" to="rend"/>
+    <trip depart="0" from="left" to="rend"/>
+    <trip depart="0" from="left" to="rend"/>
+    <trip depart="0" from="left" to="rend"/>
+    <trip depart="0" from="left" to="rend"/>
+    <trip depart="0" from="middle" to="rend"/>
+    <trip depart="0" from="middle" to="rend"/>
+    <trip depart="0" from="middle" to="rend"/>
+    <trip depart="0" from="middle" to="rend"/>
+    <trip depart="0" from="middle" to="rend"/>
+    <trip depart="0" from="middle" to="rend"/>
+    <trip depart="0" from="middle" to="rend"/>
+    <trip depart="0" from="middle" to="rend"/>
+    <trip depart="0" from="middle" to="rend"/>
+    <trip depart="0" from="middle" to="rend"/>
+</trips>

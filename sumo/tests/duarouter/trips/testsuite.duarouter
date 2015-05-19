@@ -76,5 +76,8 @@ bulk
 # Test with multi-threaded bulk routing
 bulk_parallel
 
+# Test with multi-threaded bulk routing warning about different types
+bulk_parallel_warn
+
 # Tests false input
 errors
