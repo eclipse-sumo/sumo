@@ -600,6 +600,15 @@ public:
     /// @brief return by how much further the leader must be inserted to avoid rear end collisions
     SUMOReal getMissingRearGap(SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const;
 
+    /** @brief Returns the immediate leader of veh and the distance to veh
+     * starting on this lane
+     *
+     * Iterates over the current lane to find a leader and then uses
+     * getLeaderOnConsecutive()
+     * @param[in] veh The vehicle for which the information shall be computed
+     * @return
+     */
+    std::pair<MSVehicle* const, SUMOReal> getLeader(const MSVehicle* veh) const;
 
     /** @brief Returns the immediate leader and the distance to him
      *

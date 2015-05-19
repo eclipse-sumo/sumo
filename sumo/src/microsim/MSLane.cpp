@@ -1210,6 +1210,33 @@ MSLane::getFollowerOnConsecutive(
     return result;
 }
 
+std::pair<MSVehicle* const, SUMOReal>
+MSLane::getLeader(const MSVehicle* veh) const {
+    // get the leading vehicle for (shadow) veh
+    // XXX this only works as long as all lanes of an edge have equal length
+    const SUMOReal vehPos = veh->getPositionOnLane();
+    for (VehCont::const_iterator i = myVehicles.begin(); i != myVehicles.end(); ++i) {
+        if ((*i)->getPositionOnLane() > vehPos) {
+            // XXX refactor leaderInfo to use a const vehicle all the way through the call hierarchy
+            MSVehicle* pred = (MSVehicle*)*i;
+            return std::pair<MSVehicle* const, SUMOReal>(pred, pred->getPositionOnLane() - pred->getVehicleType().getLength() - veh->getVehicleType().getMinGap() - vehPos);
+        }
+    }
+    // XXX from here on the code mirrors MSLaneChanger::getRealLeader
+    MSVehicle* pred = getPartialOccupator();
+    if (pred != 0) {
+        return std::pair<MSVehicle*, SUMOReal>(pred, getPartialOccupatorEnd() - veh->getVehicleType().getMinGap() - vehPos);
+    }
+    SUMOReal seen = getLength() - vehPos;
+    SUMOReal speed = veh->getSpeed();
+    SUMOReal dist = veh->getCarFollowModel().brakeGap(speed) + veh->getVehicleType().getMinGap();
+    if (seen > dist) {
+        return std::pair<MSVehicle* const, SUMOReal>(static_cast<MSVehicle*>(0), -1);
+    }
+    const std::vector<MSLane*>& bestLaneConts = veh->getBestLanesContinuation(this);
+    return getLeaderOnConsecutive(dist, seen, speed, *veh, bestLaneConts);
+}
+
 
 std::pair<MSVehicle* const, SUMOReal>
 MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle& veh,

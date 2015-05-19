@@ -1015,6 +1015,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         // check leader on lane
         //  leader is given for the first edge only
         adaptToLeader(leaderInfo, seen, lastLink, lane, v, vLinkPass);
+        if (getLaneChangeModel().hasShadowVehicle()) {
+            // also slow down for leaders on the shadowLane
+            const MSLane* shadowLane = getLaneChangeModel().getShadowLane();
+            std::pair<const MSVehicle*, SUMOReal> shadowLeaderInfo = shadowLane->getLeader(this);
+            adaptToLeader(shadowLeaderInfo, seen, lastLink, shadowLane, v, vLinkPass);
+        }
 
         // process stops
         if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge()) {
@@ -1081,8 +1087,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
                 // slow down to finish lane change before the shadow lane ends
                 (getLaneChangeModel().isLaneChangeMidpointPassed() &&
                  (*link)->getViaLaneOrLane()->getParallelLane(-getLaneChangeModel().getLaneChangeDirection()) == 0)) {
+                // XXX maybe this is too harsh. Vehicles could cut some corners here
                 const SUMOReal timeRemaining = STEPS2TIME((1 - getLaneChangeModel().getLaneChangeCompletion()) * MSGlobals::gLaneChangeDuration);
-                const SUMOReal va = seen / timeRemaining;
+                const SUMOReal va = (seen - POSITION_EPS) / timeRemaining;
                 v = MIN2(va, v);
             }
         }
