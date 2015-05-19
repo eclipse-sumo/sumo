@@ -87,13 +87,8 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// enable here and in utils/gui/globjects/GUIGLObjectPopupMenu.cpp
 //#define DEBUG_VEHICLE_GUI_SELECTION 1
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-#undef ID_LIST
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <guisim/GUIVehicle.h>
-#include <guisim/GUILane.h>
-#endif
 
 #define BUS_STOP_OFFSET 0.5
 
@@ -963,7 +958,7 @@ MSVehicle::planMove(const SUMOTime t, const MSVehicle* pred, const SUMOReal leng
 void
 MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVector& lfLinks) const {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
+    if (gDebugSelectedVehicle == getID()) {
         int bla = 0;
     }
 #endif
@@ -1251,7 +1246,7 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, SUMOReal> leader
 bool
 MSVehicle::executeMove() {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
+    if (gDebugSelectedVehicle == getID()) {
         int bla = 0;
     }
 #endif
@@ -1534,11 +1529,8 @@ MSVehicle::getSpaceTillLastStanding(const MSLane* l, bool& foundStopped) const {
 void
 MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& lfLinks) const {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
+    if (gDebugSelectedVehicle == getID()) {
         int bla = 0;
-        if (MSNet::getInstance()->getCurrentTimeStep() == 152000) {
-            bla = 0;
-        }
     }
 #endif
 #ifdef HAVE_INTERNAL_LANES
@@ -1609,7 +1601,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
 
 
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
-        if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
+        if (gDebugSelectedVehicle == getID()) {
             int bla = 0;
         }
 #endif
@@ -1903,7 +1895,7 @@ MSVehicle::getBestLanes() const {
 void
 MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
+    if (gDebugSelectedVehicle == getID()) {
         int bla = 0;
         myLastBestLanesEdge = 0;
     }

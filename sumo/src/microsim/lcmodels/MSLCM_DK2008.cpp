@@ -44,13 +44,6 @@
 #endif // CHECK_MEMORY_LEAKS
 
 //#define DEBUG_VEHICLE_GUI_SELECTION 1
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <guisim/GUIVehicle.h>
-#include <guisim/GUILane.h>
-#endif
-
-
 
 // ===========================================================================
 // variable definitions
@@ -110,7 +103,7 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
                                  MSVehicle** firstBlocked) {
     UNUSED_PARAMETER(firstBlocked);
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
+    if (gDebugSelectedVehicle == myVehicle.getID()) {
         int bla = 0;
     }
 #endif
@@ -322,7 +315,7 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
                                 MSVehicle** firstBlocked) {
     UNUSED_PARAMETER(firstBlocked);
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
+    if (gDebugSelectedVehicle == myVehicle.getID()) {
         int bla = 0;
     }
 #endif
@@ -523,7 +516,7 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
 SUMOReal
 MSLCM_DK2008::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
+    if (gDebugSelectedVehicle == myVehicle.getID()) {
         int bla = 0;
     }
 #endif

@@ -115,6 +115,8 @@ ISNAN(T a) {
 extern bool gDebugFlag1;
 extern bool gDebugFlag2;
 
+extern std::string gDebugSelectedVehicle;
+
 #endif
 
 /****************************************************************************/

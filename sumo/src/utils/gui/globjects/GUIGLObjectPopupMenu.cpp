@@ -46,6 +46,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+#define DEBUG_VEHICLE_GUI_SELECTION 1
 
 // ===========================================================================
 // FOX callback mapping
@@ -130,6 +131,9 @@ long
 GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*, FXSelector, void*) {
     gSelected.select(myObject->getGlID());
     myParent->update();
+#ifdef DEBUG_VEHICLE_GUI_SELECTION
+    gDebugSelectedVehicle = myObject->getMicrosimID();
+#endif 
     return 1;
 }
 

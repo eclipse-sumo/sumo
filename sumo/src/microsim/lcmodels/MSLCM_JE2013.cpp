@@ -43,13 +43,6 @@
 #endif // CHECK_MEMORY_LEAKS
 
 //#define DEBUG_VEHICLE_GUI_SELECTION 1
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <guisim/GUIVehicle.h>
-#include <guisim/GUILane.h>
-#endif
-
-
 
 // ===========================================================================
 // variable definitions

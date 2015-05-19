@@ -49,13 +49,6 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-//#define DEBUG_VEHICLE_GUI_SELECTION 1
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <guisim/GUIVehicle.h>
-#include <guisim/GUILane.h>
-#endif
-
 
 // ===========================================================================
 // member method definitions
@@ -136,7 +129,7 @@ MSLaneChanger::change() {
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(vehicle)->getGlID())) {
+    if (gDebugSelectedVehicle == vehicle->getID()) {
         int bla = 0;
     }
 #endif
