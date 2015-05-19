@@ -17,5 +17,6 @@
     <gui_only>
         <gui-settings-file value="ramp/ramp_settings.xml"/>
     </gui_only>
+    <output-prefix value="ramp."/>
 
 </configuration>

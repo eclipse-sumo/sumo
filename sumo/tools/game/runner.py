@@ -51,7 +51,7 @@ _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
                 'lang': 'Deutsch',
                 'quit': 'Quit',
                 'Highscore': 'Highscore',
-                'Congratulations': 'Congratulations',
+                'Congratulations': 'Congratulations!',
                 'your score': 'Your Score',
                 'Continue': 'Continue',
                 }
@@ -68,7 +68,7 @@ _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'lang': 'Englisch',
                 'quit': 'Beenden',
                 'Highscore': 'Bestenliste',
-                'Congratulations': 'Gratulation',
+                'Congratulations': 'Gratulation!',
                 'your score': 'Deine Punkte',
                 'Continue': 'Weiter',
                 }
@@ -85,8 +85,8 @@ def loadHighscore():
                 category, values = line.split()
                 scores[category] = _SCORES * [("", "", -1.)]
                 for idx, item in enumerate(values.split(':')):
-                    name, game, points = item.split(',')
-                    scores[category][idx] = (name, game, int(float(points)))
+                    name, game, score = item.split(',')
+                    scores[category][idx] = (name, game, int(float(score)))
             return scores
     except:
         pass
@@ -105,19 +105,23 @@ def parseEndTime(cfg):
             return float(parsenode.getAttribute('value'))
             break
 
+class IMAGE:
+    pass
 
-class StartDialog:
+class StartDialog(Tkinter.Frame):
 
-    def __init__(self, lang):
+    def __init__(self, parent, lang):
+        Tkinter.Frame.__init__(self, parent)
         # variables for changing language
+        self.parent = parent
         self._language_text = lang
         self.buttons = [] 
         # misc variables
         self.name = ''
         # setup gui
-        self.root = Tkinter.Tk()
-        self.root.title(self._language_text['title'])
-        self.root.minsize(250, 50)
+        self.parent.title(self._language_text['title'])
+        self.parent.minsize(250, 50)
+        self.category = None
 
         # we use a grid layout with 4 columns
         COL_DLRLOGO, COL_START, COL_HIGH, COL_SUMOLOGO = range(4)
@@ -133,53 +137,50 @@ class StartDialog:
         self.gametime = 0
         self.ret = 0
         # some pretty images
-        dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
-        sumoLogo = Tkinter.PhotoImage(file='logo.gif')
-        Tkinter.Label(self.root, image=dlrLogo).grid(
+        Tkinter.Label(self, image=IMAGE.dlrLogo).grid(
             row=0, rowspan=numButtons, column=COL_DLRLOGO)
-        Tkinter.Label(self.root, image=sumoLogo).grid(
+        Tkinter.Label(self, image=IMAGE.sumoLogo).grid(
             row=0, rowspan=numButtons, column=COL_SUMOLOGO)
 
         # 2 button for each config (start, highscore)
         for row, cfg in enumerate(configs):
             if "bs3" in cfg and "meso-gui" not in guisimPath:
                 continue
-            category = os.path.basename(cfg)[:-8]
+            category = self.category_name(cfg)
             # lambda must make a copy of cfg argument
-            button = Tkinter.Button(self.root, width=bWidth_start,
+            button = Tkinter.Button(self, width=bWidth_start,
                                     command=lambda cfg=cfg: self.start_cfg(cfg))
             self.addButton(button, category)
             button.grid(row=row, column=COL_START)
 
-            button = Tkinter.Button(self.root, width=bWidth_high,
-                                    command=lambda cfg=cfg: ScoreDialog([],
+            button = Tkinter.Button(self, width=bWidth_high,
+                                    command=lambda cfg=cfg: ScoreDialog(self, [],
                                         None, self.category_name(cfg), self._language_text))  # .grid(row=row, column=COL_HIGH)
             self.addButton(button, 'high')
             button.grid(row=row, column=COL_HIGH)
 
         # control buttons
         button = Tkinter.Button(
-            self.root, width=bWidth_control, command=high.clear)
+            self, width=bWidth_control, command=high.clear)
         self.addButton(button, 'reset')
         button.grid(row=numButtons - 3, column=COL_START, columnspan=2)
 
         button = Tkinter.Button(
-            self.root, width=bWidth_control, command=sys.exit)
+            self, width=bWidth_control, command=sys.exit)
         self.addButton(button, 'quit')
         button.grid(row=numButtons - 1, column=COL_START, columnspan=2)
 
         button = Tkinter.Button(
-            self.root, width=bWidth_control, command=lambda: self.change_language())
+            self, width=bWidth_control, command=lambda: self.change_language())
         self.addButton(button, 'lang')
         button.grid(row=numButtons - 2, column=COL_START, columnspan=2)
 
-        self.root.grid()
+        self.grid()
         # The following three commands are needed so the window pops
         # up on top on Windows...
-        self.root.iconify()
-        self.root.update()
-        self.root.deiconify()
-        self.root.mainloop()
+        self.parent.iconify()
+        self.parent.update()
+        self.parent.deiconify()
 
     def addButton(self, button, text):
         button["text"] = self._language_text.get(text, text)
@@ -197,41 +198,88 @@ class StartDialog:
         return os.path.basename(cfg)[:-8]
 
     def start_cfg(self, cfg):
-        self.root.destroy()
+        # remember which which cfg was launched
+        self.category = self.category_name(cfg)
         if _DEBUG:
             print "starting", cfg
         self.gametime = parseEndTime(cfg)
-        self.ret = subprocess.call([guisimPath, "-S", "-G", "-Q", "-c", cfg])
-        # remember which which cfg was launched
-        self.category = self.category_name(cfg)
+        self.ret = subprocess.call([guisimPath, "-S", "-G", "-Q", "-c", cfg, '-l', 'log'], stderr=sys.stderr)
+        if _DEBUG:
+            print "ended", cfg
+
+        # compute score
+        totalDistance = 0
+        totalFuel = 0
+        totalArrived = 0
+        totalWaitingTime = 0
+        complete = True
+        for line in open(os.path.join(base, "%s.netstate.xml" % start.category)):
+            m = re.search('<interval begin="0(.00)?" end="([^"]*)"', line)
+            if m and float(m.group(2)) != start.gametime:
+                print "error: incomplete output" 
+                complete = False
+            m = re.search('sampledSeconds="([^"]*)".*speed="([^"]*)"', line)
+            if m:
+                totalDistance += float(m.group(1)) * float(m.group(2))
+            m = re.search('fuel_abs="([^"]*)"', line)
+            if m:
+                totalFuel += float(m.group(1))
+            m = re.search('arrived="([^"]*)"', line)
+            if m:
+                totalArrived += float(m.group(1))
+            m = re.search('waitingTime="([^"]*)"', line)
+            if m:
+                totalWaitingTime += float(m.group(1))
+        switch = []
+        lastProg = {}
+        for line in open(os.path.join(base, "%s.tlsstate.xml" % start.category)):
+            m = re.search(
+                'tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
+            if m:
+                tls = m.group(3)
+                program = m.group(4)
+                if tls not in lastProg or lastProg[tls] != program:
+                    lastProg[tls] = program
+                    switch += [m.group(3), m.group(1)]
+        # doing nothing gives a waitingTime of 6033 for cross and 6700 for square
+        score = 10000 - totalWaitingTime
+        lang = start._language_text
+        if _DEBUG:
+            print switch, score, totalArrived, complete
+        if complete:
+            ScoreDialog(self, switch, score, self.category, lang)
+        #if ret != 0:
+        #    # quit on error
+        #    sys.exit(start.ret)
 
 
 class ScoreDialog:
 
-    def __init__(self, game, points, category, lang):
-        self.root = Tkinter.Tk()
+    def __init__(self, parent, switch, score, category, lang):
+        self.root = Tkinter.Toplevel(parent)
+        #self.root.transient(parent)
         self.name = None
-        self.game = game
-        self.points = points
+        self.switch = switch
+        self.score = score
         self.category = category
-        haveHigh = False
         self.root.title(lang["Highscore"])
         self.root.minsize(250, 50)
+        haveHigh = False
 
         if not category in high:
             high[category] = _SCORES * [("", "", -1.)]
         idx = 0
         for n, g, p in high[category]:
-            if not haveHigh and p < points:
+            if not haveHigh and p < score:
                 Tkinter.Label(
                     self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
                 self.name = Tkinter.Entry(self.root)
                 self.name.grid(row=idx, sticky=Tkinter.W, column=1)
-                self.scoreLabel = Tkinter.Label(self.root, text=str(points),
+                self.scoreLabel = Tkinter.Label(self.root, text=str(score),
                                                 bg="pale green").grid(row=idx, column=2)
                 self.idx = idx
                 haveHigh = True
-                self.root.title(lang["Congratulations!"])
+                self.root.title(lang["Congratulations"])
                 idx += 1
             if p == -1 or idx == _SCORES:
                 break
@@ -241,10 +289,10 @@ class ScoreDialog:
             Tkinter.Label(self.root, text=str(p)).grid(row=idx, column=2)
             idx += 1
         if not haveHigh:
-            if points != None:  # not called from the main menue
+            if score != None:  # not called from the main menue
                 Tkinter.Label(self.root, text=lang['your score'], padx=5,
                               bg="indian red").grid(row=idx, sticky=Tkinter.W, column=1)
-                Tkinter.Label(self.root, text=str(points),
+                Tkinter.Label(self.root, text=str(score),
                               bg="indian red").grid(row=idx, column=2)
                 idx += 1
         else:
@@ -253,6 +301,12 @@ class ScoreDialog:
             self.saveBut.grid(row=idx, column=1)
         Tkinter.Button(self.root, text=lang["Continue"], command=self.quit).grid(
             row=idx, column=2)
+
+        # add QR-code for LNDW
+        Tkinter.Label(self.root, image=IMAGE.qrCode).grid(
+            row=1, column=3, rowspan=22)
+
+
         self.root.grid()
         self.root.bind("<Return>", self.save)
         # self.root.wait_visibility()
@@ -261,16 +315,16 @@ class ScoreDialog:
             self.name.focus_set()
         # The following three commands are needed so the window pops
         # up on top on Windows...
-        self.root.iconify()
-        self.root.update()
-        self.root.deiconify()
-        self.root.mainloop()
+        #self.root.iconify()
+        #self.root.update()
+        #self.root.deiconify()
+        #self.root.mainloop()
 
     def save(self, event=None):
         if self.name:
             name = self.name.get()
             high[self.category].insert(
-                self.idx, (name, self.game, self.points))
+                self.idx, (name, self.switch, self.score))
             high[self.category].pop()
             self.saveBut.config(state=Tkinter.DISABLED)
             self.name.destroy()
@@ -286,7 +340,7 @@ class ScoreDialog:
             try:
                 conn = httplib.HTTPConnection(_SCORESERVER)
                 conn.request("GET", _SCORESCRIPT + "category=%s&name=%s&instance=%s&points=%s" % (
-                    self.category, name, "_".join(self.game), self.points))
+                    self.category, name, "_".join(self.switch), self.score))
                 if _DEBUG:
                     r1 = conn.getresponse()
                     print r1.status, r1.reason, r1.read()
@@ -346,46 +400,10 @@ else:
     os.environ["OSG_FILE_PATH"] = os.path.join(
         os.environ.get("SUMO_HOME", ""), "data", "3D")
 
-while True:
-    start = StartDialog(lang)
-    totalDistance = 0
-    totalFuel = 0
-    totalArrived = 0
-    totalWaitingTime = 0
-    complete = True
-    for line in open(os.path.join(base, "netstate.xml")):
-        m = re.search('<interval begin="0(.00)?" end="([^"]*)"', line)
-        if m and float(m.group(2)) != start.gametime:
-            complete = False
-        m = re.search('sampledSeconds="([^"]*)".*speed="([^"]*)"', line)
-        if m:
-            totalDistance += float(m.group(1)) * float(m.group(2))
-        m = re.search('fuel_abs="([^"]*)"', line)
-        if m:
-            totalFuel += float(m.group(1))
-        m = re.search('arrived="([^"]*)"', line)
-        if m:
-            totalArrived += float(m.group(1))
-        m = re.search('waitingTime="([^"]*)"', line)
-        if m:
-            totalWaitingTime += float(m.group(1))
-    switch = []
-    lastProg = {}
-    for line in open(os.path.join(base, "tlsstate.xml")):
-        m = re.search(
-            'tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
-        if m:
-            tls = m.group(3)
-            program = m.group(4)
-            if tls not in lastProg or lastProg[tls] != program:
-                lastProg[tls] = program
-                switch += [m.group(3), m.group(1)]
-    # doing nothing gives a waitingTime of 6033 for cross and 6700 for square
-    score = 10000 - totalWaitingTime
-    lang = start._language_text
-    if _DEBUG:
-        print switch, score, totalArrived, complete
-    if complete:
-        ScoreDialog(switch, score, start.category, lang)
-    if start.ret != 0:
-        sys.exit(start.ret)
+root = Tkinter.Tk()
+IMAGE.dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
+IMAGE.sumoLogo = Tkinter.PhotoImage(file='logo.gif')
+IMAGE.qrCode = Tkinter.PhotoImage(file='dlr_lndw_15_ts_4.gif')
+start = StartDialog(root, lang)
+root.mainloop()
+

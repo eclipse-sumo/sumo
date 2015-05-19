@@ -18,4 +18,5 @@
         <no-step-log value="true"/>
     </report>
     <osg-view value="true"/>
+    <output-prefix value="bs3d."/>
 </configuration>

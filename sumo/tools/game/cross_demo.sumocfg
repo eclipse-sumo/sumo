@@ -12,5 +12,6 @@
         <end value="36000"/>
         <step-length value=".2"/>
     </time>
+    <output-prefix value="cross_demo."/>
 
 </configuration>
