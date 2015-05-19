@@ -200,6 +200,7 @@ MSAbstractLaneChangeModel::removeLaneChangeShadow() {
     if (myShadowLane != 0 && myHaveShadow) {
         myShadowLane->removeVehicle(&myVehicle, MSMoveReminder::NOTIFICATION_LANE_CHANGE);
         myHaveShadow = false;
+        // maintain pointer to myShadowLane for interpolating position
     }
 }
 
