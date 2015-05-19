@@ -272,6 +272,11 @@ public:
         return myLaneChangeCompletion < (1 - NUMERICAL_EPS);
     }
 
+    /// @brief return true if the vehicle currently has a shadow vehicle
+    inline bool hasShadowVehicle() const {
+        return myHaveShadow;
+    }
+
     /// @brief return the direction of the current lane change maneuver
     inline int getLaneChangeDirection() const {
         return myLaneChangeDirection;

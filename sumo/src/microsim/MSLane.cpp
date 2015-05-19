@@ -774,7 +774,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
                 SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
                 veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
                 into.push_back(target);
-                if (veh->getLaneChangeModel().isChangingLanes()) {
+                if (veh->getLaneChangeModel().hasShadowVehicle()) {
                     MSLane* shadowLane = veh->getLaneChangeModel().getShadowLane();
                     if (shadowLane != 0) {
                         into.push_back(shadowLane);
