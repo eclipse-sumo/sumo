@@ -46,7 +46,7 @@
 
     <output>
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
-        <output-prefix value="" type="FILE"/>
+        <output-prefix value="" type="STR"/>
 
         <!-- Write route distributions to FILE -->
         <output-file value="" synonymes="o output" type="FILE"/>
@@ -81,7 +81,7 @@
         <!-- Expand weights behind the simulation&apos;s end -->
         <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
 
-        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;bulkstar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
+        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
         <!-- Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy -->

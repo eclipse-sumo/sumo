@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18390
+SUMO Version dev-SVN-r18401
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -25,7 +25,7 @@ Input Options:
                                          state by the given offset
 
 Output Options:
-  --output-prefix FILE                 Prefix which is applied to all output
+  --output-prefix STR                  Prefix which is applied to all output
                                          files. The special string 'TIME' is
                                          replaced by the current time.
   --netstate-dump FILE                 Save complete network states into FILE

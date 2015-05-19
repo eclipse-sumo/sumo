@@ -21,7 +21,7 @@
     </input>
 
     <output>
-        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
+        <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <output-file value="" synonymes="o output" type="FILE" help="Write route distributions to FILE"/>
         <flow-output value="" type="FILE" help="Writes flow definitions into FILE"/>
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL" help="Does not save vtype information"/>
@@ -35,7 +35,7 @@
         <max-alternatives value="5" type="INT" help="Prune the number of alternatives to INT"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
-        <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;bulkstar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
+        <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <weight-period value="3600" type="TIME" help="Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy"/>
         <scale value="1" synonymes="s" type="FLOAT" help="Scales the loaded flows by FLOAT"/>
         <vtype value="" type="STR" help="Defines the name of the vehicle type to use"/>

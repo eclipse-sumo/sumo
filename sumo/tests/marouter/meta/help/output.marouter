@@ -1,4 +1,4 @@
-SUMO marouter Version dev-SVN-r18096
+SUMO marouter Version dev-SVN-r18401
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment
 
@@ -26,7 +26,7 @@ Input Options:
                                       edge weight
 
 Output Options:
-  --output-prefix FILE              Prefix which is applied to all output
+  --output-prefix STR               Prefix which is applied to all output
                                       files. The special string 'TIME' is
                                       replaced by the current time.
   -o, --output-file FILE            Write route distributions to FILE
@@ -43,8 +43,7 @@ Processing Options:
                                       boundaries
   --weights.expand                  Expand weights behind the simulation's end
   --routing-algorithm STR           Select among routing algorithms
-                                      ['dijkstra', 'astar', 'bulkstar', 'CH',
-                                      'CHWrapper']
+                                      ['dijkstra', 'astar', 'CH', 'CHWrapper']
   --weight-period TIME              Aggregation period for the given weight
                                       files;
                                       triggers rebuilding of Contraction

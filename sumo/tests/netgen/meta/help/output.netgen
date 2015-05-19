@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r18316I
+SUMO netgenerate Version dev-SVN-r18401
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -59,7 +59,7 @@ Random Network Options:
   --rand.neighbor-dist6 FLOAT          
 
 Output Options:
-  --output-prefix FILE                 Prefix which is applied to all output
+  --output-prefix STR                  Prefix which is applied to all output
                                          files. The special string 'TIME' is
                                          replaced by the current time.
   -o, --output-file FILE               The generated net will be written to

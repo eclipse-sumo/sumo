@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r18096
+SUMO polyconvert Version dev-SVN-r18401
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
@@ -37,7 +37,7 @@ Input Options:
   --type-file FILE                 Reads types from FILE
 
 Output Options:
-  --output-prefix FILE             Prefix which is applied to all output files.
+  --output-prefix STR              Prefix which is applied to all output files.
                                      The special string 'TIME' is replaced by
                                      the current time.
   -o, --output-file FILE           Write generated polygons/pois to FILE

@@ -1,4 +1,4 @@
-SUMO activitygen Version dev-SVN-r18096
+SUMO activitygen Version dev-SVN-r18401
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates routes of persons throughout a day for the microscopic road traffic
@@ -19,7 +19,7 @@ Input Options:
   -s, --stat-file FILE             Loads the SUMO-statistics FILE
 
 Output Options:
-  --output-prefix FILE             Prefix which is applied to all output files.
+  --output-prefix STR              Prefix which is applied to all output files.
                                      The special string 'TIME' is replaced by
                                      the current time.
   -o, --output-file FILE           Write generated trips to FILE
