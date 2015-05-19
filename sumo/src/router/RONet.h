@@ -540,13 +540,23 @@ private:
         RoutingTask& operator=(const RoutingTask&);
     };
 
+    class BulkmodeTask : public FXWorkerThread::Task {
+    public:
+        BulkmodeTask(const bool value) : myValue(value) {}
+        void run(FXWorkerThread* context) {
+            static_cast<WorkerThread*>(context)->getRouter().setBulkMode(myValue);
+        }
+    private:
+        const bool myValue;
+    private:
+        /// @brief Invalidated assignment operator.
+        BulkmodeTask& operator=(const BulkmodeTask&);
+    };
+
     
 private:
     /// @brief for multi threaded routing
     FXWorkerThread::Pool myThreadPool;
-
-    /// @brief explicit access to the worker threads for multi threaded bulk routing
-    std::vector<WorkerThread*> myWorkers;
 #endif
 
 private:

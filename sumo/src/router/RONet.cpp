@@ -447,25 +447,28 @@ RONet::createBulkRouteRequests(SUMOAbstractRouter<ROEdge, ROVehicle>& router, co
         if (vehicle->getDepart() < time) {
             const RORoute* const stub = vehicle->getRouteDefinition()->getFirstRoute();
             bulkVehs[stub->getFirst()].push_back(vehicle);
+            ROVehicle* const first = bulkVehs[stub->getFirst()].front();
+            if (first->getMaxSpeed() != vehicle->getMaxSpeed()) {
+                WRITE_WARNING("Bulking different maximum speeds ('" + first->getID() + "' and '" + vehicle->getID() + "') may lead to suboptimal routes.");
+            }
+            if (first->getVClass() != vehicle->getVClass()) {
+                WRITE_WARNING("Bulking different vehicle classes ('" + first->getID() + "' and '" + vehicle->getID() + "') may lead to invalid routes.");
+            }
         }
     }
     int workerIndex = 0;
     for (std::map<const ROEdge*, std::vector<ROVehicle*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
 #ifdef HAVE_FOX
-        if (!myWorkers.empty()) {
-            WorkerThread* worker = myWorkers[workerIndex];
-            SUMOAbstractRouter<ROEdge, ROVehicle>& workRouter = worker->getRouter();
-            i->second.front()->setRoutingSuccess(computeRoute(workRouter, i->second.front(), removeLoops, myErrorHandler));
-            workRouter.setBulkMode(true);
+        if (myThreadPool.size() > 0) {
+            ROVehicle* const first = i->second.front();
+            myThreadPool.add(new RoutingTask(first, removeLoops, myErrorHandler), workerIndex);
+            myThreadPool.add(new BulkmodeTask(true), workerIndex);
             for (std::vector<ROVehicle*>::const_iterator j = i->second.begin() + 1; j != i->second.end(); ++j) {
-                myThreadPool.add(new RoutingTask(*j, removeLoops, myErrorHandler), worker);
+                myThreadPool.add(new RoutingTask(*j, removeLoops, myErrorHandler), workerIndex);
             }
+            myThreadPool.add(new BulkmodeTask(false), workerIndex);
             workerIndex++;
-            if (workerIndex == myWorkers.size()) {
-                myThreadPool.waitAll();
-                for (std::vector<WorkerThread*>::iterator t = myWorkers.begin(); t != myWorkers.end(); ++t) {
-                    (*t)->getRouter().setBulkMode(false);
-                }
+            if (workerIndex == (int)myThreadPool.size()) {
                 workerIndex = 0;
             }
             continue;
@@ -493,8 +496,8 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
         const std::map<std::string, ROVehicle*>& mmap = myVehicles.getMyMap();
         if (options.getBool("bulk-routing")) {
 #ifdef HAVE_FOX
-            while ((int)myWorkers.size() < maxNumThreads) {
-                myWorkers.push_back(new WorkerThread(myThreadPool, myWorkers.empty() ? &router : router.clone()));
+            while ((int)myThreadPool.size() < maxNumThreads) {
+                new WorkerThread(myThreadPool, myThreadPool.size() == 0 ? &router : router.clone());
             }
 #endif
             createBulkRouteRequests(router, time, removeLoops, mmap);
@@ -522,12 +525,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
             }
         }
 #ifdef HAVE_FOX
-        if (maxNumThreads > 0) {
-            myThreadPool.waitAll();
-            for (std::vector<WorkerThread*>::iterator t = myWorkers.begin(); t != myWorkers.end(); ++t) {
-                (*t)->getRouter().setBulkMode(false);
-            }
-        }
+        myThreadPool.waitAll();
 #endif
     }
     // write all vehicles (and additional structures)
