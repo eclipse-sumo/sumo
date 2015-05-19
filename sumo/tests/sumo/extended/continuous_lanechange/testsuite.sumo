@@ -6,6 +6,9 @@ block_both_lanes
 # consider remainig space to complete a lane change maneuver
 check_remaining_space
 
+# only change lanes if the manoeuvre can be completed before the next turning movement
+check_remaining_space2
+
 # check that a continuous lane change can proceed 
 # across a straight-running internal lane with a parallel internal lane
 internal_lane_straight
