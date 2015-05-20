@@ -508,6 +508,40 @@ MSLaneChanger::checkChange(
             }
         }
     }
+    if (blocked == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && MSGlobals::gLaneChangeDuration > DELTA_T) {
+        // ensure that a continuous lane change manoeuvre can be completed
+        // before the next turning movement
+        SUMOReal seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
+        const SUMOReal decel = vehicle->getCarFollowModel().getMaxDecel() * STEPS2TIME(MSGlobals::gLaneChangeDuration);
+        const SUMOReal avgSpeed = 0.5 * (vehicle->getSpeed() + MAX2((SUMOReal)0, vehicle->getSpeed() - decel));
+        const SUMOReal space2change = avgSpeed * STEPS2TIME(MSGlobals::gLaneChangeDuration);
+        // for finding turns it doesn't matter whether we look along the current lane or the target lane
+        const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
+        unsigned int view = 1;
+        MSLane* nextLane = vehicle->getLane();
+        //std::cout << SIMTIME << " seen=" << seen << " avgSpeed=" << avgSpeed << " space2change=" << space2change << "\n";
+        do {
+            // get the next link used
+            MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
+            if (nextLane->isLinkEnd(link) || seen > space2change) {
+                break;
+            }
+            if ((*link)->getDirection() == LINKDIR_LEFT || (*link)->getDirection() == LINKDIR_RIGHT) {
+                state |= LCA_INSUFFICIENT_SPACE;
+                break;
+            }
+#ifdef HAVE_INTERNAL_LANES
+            if ((*link)->getViaLane() == 0) {
+                view++;
+            }
+#else
+            view++;
+#endif
+            nextLane = (*link)->getViaLaneOrLane();
+            seen += nextLane->getLength();
+            //std::cout  << "   seen=" << seen << "\n";
+        } while (true);
+    }
 #ifndef NO_TRACI
     // let TraCI influence the wish to change lanes and the security to take
     //const int oldstate = state;
