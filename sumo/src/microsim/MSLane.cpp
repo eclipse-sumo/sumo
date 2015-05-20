@@ -722,6 +722,13 @@ MSLane::handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* 
     const SUMOReal gap = victimRear - collider->getPositionOnLane() - collider->getVehicleType().getMinGap();
     if (gap < -NUMERICAL_EPS) {
         if (collider->getLane() == this) {
+            if (MSGlobals::gLaneChangeDuration > DELTA_T 
+                    && collider->getLaneChangeModel().isChangingLanes()
+                    && victim->getLaneChangeModel().isChangingLanes()
+                    && victim->getLane() != this) {
+                // synchroneous lane change maneuver
+                return false;
+            }
             WRITE_WARNING("Teleporting vehicle '" + collider->getID() + "'; collision with '"
                     + victim->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
                     + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
