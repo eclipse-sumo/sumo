@@ -2382,6 +2382,12 @@ MSVehicle::setBlinkerInformation() {
         switchOnSignal(VEH_SIGNAL_BLINKER_LEFT);
     } else if ((state & LCA_RIGHT) != 0) {
         switchOnSignal(VEH_SIGNAL_BLINKER_RIGHT);
+    } else if (getLaneChangeModel().isChangingLanes()) {
+        if (getLaneChangeModel().getLaneChangeDirection() == 1) {
+            switchOnSignal(VEH_SIGNAL_BLINKER_LEFT);
+        } else {
+            switchOnSignal(VEH_SIGNAL_BLINKER_RIGHT);
+        }
     } else {
         const MSLane* lane = getLane();
         MSLinkCont::const_iterator link = MSLane::succLinkSec(*this, 1, *lane, getBestLanesContinuation());
