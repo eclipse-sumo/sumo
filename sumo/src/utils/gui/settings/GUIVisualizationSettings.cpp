@@ -75,8 +75,10 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       showLane2Lane(false), drawJunctionShape(true), addMode(0),
       addSize(1),
       addName(false, 50, RGBColor(255, 0, 128, 255)),
-      poiSize(0), poiName(false, 50, RGBColor(255, 0, 128, 255)),
+      poiSize(0), poiName(false, 50, RGBColor(255, 0, 128, 255)), 
+      poiType(false, 50, RGBColor(255, 0, 128, 255)),
       polySize(0), polyName(false, 50, RGBColor(255, 0, 128, 255)),
+      polyType(false, 50, RGBColor(255, 0, 128, 255)),
       showSizeLegend(true),
       gaming(false),
       selectionScale(1),
@@ -660,11 +662,13 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VIEWSETTINGS_POIS);
     poiSize.print(dev, "poi");
     poiName.print(dev, "poiName");
+    poiType.print(dev, "poiType");
     dev.closeTag();
     // polys
     dev.openTag(SUMO_TAG_VIEWSETTINGS_POLYS);
     polySize.print(dev, "poly");
     polyName.print(dev, "polyName");
+    polyType.print(dev, "polyType");
     dev.closeTag();
     // legend
     dev.openTag(SUMO_TAG_VIEWSETTINGS_LEGEND);
@@ -824,10 +828,16 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (poiName != v2.poiName) {
         return false;
     }
+    if (poiType != v2.poiType) {
+        return false;
+    }
     if (polySize != v2.polySize) {
         return false;
     }
     if (polyName != v2.polyName) {
+        return false;
+    }
+    if (polyType != v2.polyType) {
         return false;
     }
 

@@ -259,11 +259,15 @@ public:
     GUIVisualizationSizeSettings poiSize;
     // Setting bundles for optional drawing poi names
     GUIVisualizationTextSettings poiName;
+    // Setting bundles for optional drawing poi types
+    GUIVisualizationTextSettings poiType;
 
     // Setting bundles for controling the size of the drawn polygons
     GUIVisualizationSizeSettings polySize;
     // Setting bundles for optional drawing polygon names
     GUIVisualizationTextSettings polyName;
+    // Setting bundles for optional drawing polygon types
+    GUIVisualizationTextSettings polyType;
     //@}
 
     /// @brief Information whether the size legend shall be drawn

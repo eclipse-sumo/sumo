@@ -499,6 +499,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
             new FXMatrix(frame6, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
         myPOINamePanel = new NamePanel(m61, this, "Show poi names", mySettings->poiName);
+        myPOITypePanel = new NamePanel(m61, this, "Show poi types", mySettings->poiType);
         new FXHorizontalSeparator(frame6 , SEPARATOR_GROOVE | LAYOUT_FILL_X);
 
         FXMatrix* m62 =
@@ -517,6 +518,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
             new FXMatrix(frame9, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
         myPolyNamePanel = new NamePanel(m91, this, "Show polygon names", mySettings->polyName);
+        myPolyTypePanel = new NamePanel(m91, this, "Show polygon types", mySettings->polyType);
         new FXHorizontalSeparator(frame9 , SEPARATOR_GROOVE | LAYOUT_FILL_X);
 
         myPolySizePanel = new SizePanel(m91, this, mySettings->polySize);
@@ -576,7 +578,9 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myVehicleNamePanel;
     delete myAddNamePanel;
     delete myPOINamePanel;
+    delete myPOITypePanel;
     delete myPolyNamePanel;
+    delete myPolyTypePanel;
     delete myEdgeNamePanel;
     // delete size panels
     delete myVehicleSizePanel;
@@ -674,9 +678,11 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myAddSizePanel->update(mySettings->addSize);
 
     myPOINamePanel->update(mySettings->poiName);
+    myPOITypePanel->update(mySettings->poiType);
     myPOISizePanel->update(mySettings->poiSize);
 
     myPolyNamePanel->update(mySettings->polyName);
+    myPolyTypePanel->update(mySettings->polyType);
     myPolySizePanel->update(mySettings->polySize);
 
     myShowLane2Lane->setCheck(mySettings->showLane2Lane);
@@ -867,9 +873,11 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.addSize = myAddSizePanel->getSettings();
 
     tmpSettings.poiName = myPOINamePanel->getSettings();
+    tmpSettings.poiType = myPOITypePanel->getSettings();
     tmpSettings.poiSize = myPOISizePanel->getSettings();
 
     tmpSettings.polyName = myPolyNamePanel->getSettings();
+    tmpSettings.polyType = myPolyTypePanel->getSettings();
     tmpSettings.polySize = myPolySizePanel->getSettings();
 
     tmpSettings.showLane2Lane = (myShowLane2Lane->getCheck() != FALSE);

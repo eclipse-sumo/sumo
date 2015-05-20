@@ -207,7 +207,12 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::debugVertices(myShape, 80 / s.scale);
 #endif
     glPopMatrix();
-    drawName(myShape.getPolygonCenter(), s.scale, s.polyName);
+    const Position namePos = myShape.getPolygonCenter();
+    drawName(namePos, s.scale, s.polyName);
+    if (s.polyType.show) {
+        GLHelper::drawText(myType, namePos + Position(0, -0.6 * s.polyType.size / s.scale),
+                           GLO_MAX, s.polyType.size / s.scale, s.polyType.color);
+    }
     glPopName();
 }
 
