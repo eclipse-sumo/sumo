@@ -798,8 +798,8 @@ protected:
                                     MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
 
-    /// @brief issue warning and add the vehicle to MSVehicleTransfer
-    void handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim, const SUMOReal gap);
+    /// @brief detect whether there is a collision. then issue warning and add the vehicle to MSVehicleTransfer
+    bool handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim, const SUMOReal victimRear);
 
     /// @brief compute maximum braking distance on this lane
     SUMOReal getMaximumBrakeDist() const;
