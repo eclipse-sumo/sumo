@@ -1089,7 +1089,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
                  (*link)->getViaLaneOrLane()->getParallelLane(-getLaneChangeModel().getLaneChangeDirection()) == 0)) {
                 // XXX maybe this is too harsh. Vehicles could cut some corners here
                 const SUMOReal timeRemaining = STEPS2TIME((1 - getLaneChangeModel().getLaneChangeCompletion()) * MSGlobals::gLaneChangeDuration);
-                const SUMOReal va = (seen - POSITION_EPS) / timeRemaining;
+                const SUMOReal va = MAX2((SUMOReal)0, (seen - POSITION_EPS) / timeRemaining);
                 v = MIN2(va, v);
             }
         }
