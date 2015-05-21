@@ -113,7 +113,8 @@ PCNetProjectionLoader::myStartElement(int element,
     Boundary origBoundary = attrs.get<Boundary>(SUMO_ATTR_ORIG_BOUNDARY, 0, myFoundLocation);
     std::string proj = attrs.get<std::string>(SUMO_ATTR_ORIG_PROJ, 0, myFoundLocation);
     if (myFoundLocation) {
-        Position networkOffset = s[0];
+        OptionsCont& oc = OptionsCont::getOptions();
+        Position networkOffset = s[0] + Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
         GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary, myShift);
     }
 }
