@@ -57,12 +57,13 @@ const std::set<const MSVehicle*> MSVehicleTransfer::myEmptyVehicleSet;
 // ===========================================================================
 void
 MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
-    veh->getLaneChangeModel().endLaneChangeManeuver();
     if (veh->isParking()) {
+        veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_PARKING);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_PARKING);
         myParkingVehicles[veh->getLane()].insert(veh); // initialized to empty set on first use
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_PARKING);
     } else {
+        veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_TELEPORT);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
         if (veh->succEdge(1) == 0) {
             WRITE_WARNING("Vehicle '" + veh->getID() + "' teleports beyond end of route ('" + veh->getEdge()->getID() + "'), time " + time2string(t) + ".");

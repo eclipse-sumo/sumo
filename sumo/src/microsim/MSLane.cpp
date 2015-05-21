@@ -634,6 +634,16 @@ SUMOReal
 MSLane::setPartialOccupation(MSVehicle* v, SUMOReal leftVehicleLength) {
     myInlappingVehicle = v;
     myInlappingVehicleEnd = myLength - leftVehicleLength;
+    if (v->getLaneChangeModel().isChangingLanes()) {
+        MSLane* shadowLane = v->getLaneChangeModel().getShadowLane(this);
+        //std::cout << SIMTIME << " veh=" << v->getID() << " setting partialOccupator on " << getID() << "\n";
+        if (shadowLane != 0) {
+            //std::cout << "    veh=" << v->getID() << " setting shadow partialOccupator on " << shadowLane->getID() << "\n";
+            v->getLaneChangeModel().setShadowPartialOccupator(shadowLane);
+            shadowLane->myInlappingVehicle = v;
+            shadowLane->myInlappingVehicleEnd = myLength - leftVehicleLength;
+        }
+    }
     return myLength;
 }
 
@@ -643,6 +653,15 @@ MSLane::resetPartialOccupation(MSVehicle* v) {
     if (v == myInlappingVehicle) {
         myInlappingVehicleEnd = 10000;
         myInlappingVehicle = 0;
+        if (v->getLaneChangeModel().isChangingLanes()) {
+            MSLane* shadowLane = v->getLaneChangeModel().getShadowLane(this);
+            //std::cout << SIMTIME << " veh=" << v->getID() << " removing partialOccupator on " << getID() << "\n";
+            if (shadowLane != 0 && v == shadowLane->myInlappingVehicle) {
+                //std::cout << "    veh=" << v->getID() << " removing shadow partialOccupator on " << shadowLane->getID() << "\n";
+                shadowLane->myInlappingVehicle = 0;
+                shadowLane->myInlappingVehicleEnd = 10000;
+            }
+        }
     }
 }
 
@@ -741,7 +760,7 @@ MSLane::handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* 
             //WRITE_WARNING("Shadow of vehicle '" + collider->getID() + "'; collision with '"
             //        + victim->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
             //        + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
-            //collider->getLaneChangeModel().endLaneChangeManeuver();
+            //collider->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_TELEPORT);
         }
     }
     return false;

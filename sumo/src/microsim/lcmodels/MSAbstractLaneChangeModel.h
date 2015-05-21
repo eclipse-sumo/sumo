@@ -296,6 +296,8 @@ public:
         myAlreadyMoved = false;
     }
 
+    /// @brief return the shadow lane for the given lane
+    MSLane* getShadowLane(MSLane* lane) const;
 
     /// @brief start the lane change maneuver and return whether it continues
     bool startLaneChangeManeuver(MSLane* source, MSLane* target, int direction);
@@ -308,19 +310,19 @@ public:
 
     /* @brief finish the lane change maneuver
      */
-    inline void endLaneChangeManeuver() {
-        removeLaneChangeShadow();
-        myLaneChangeCompletion = 1;
-        myShadowLane = 0;
-    }
+    void endLaneChangeManeuver(const MSMoveReminder::Notification reason = MSMoveReminder::NOTIFICATION_LANE_CHANGE);
 
     /// @brief remove the shadow copy of a lane change maneuver
-    void removeLaneChangeShadow();
+    void removeLaneChangeShadow(const MSMoveReminder::Notification reason);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
     virtual void saveBlockerLength(SUMOReal length) {
         UNUSED_PARAMETER(length);
     };
+
+    void setShadowPartialOccupator(MSLane* lane) {
+        myPartiallyOccupatedByShadow.push_back(lane);
+    }
 
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
@@ -358,6 +360,9 @@ protected:
 
     /// @brief The vehicle's car following model
     const MSCFModel& myCarFollowModel;
+
+    /// @brief list of lanes where the shadow vehicle is partial occupator
+    std::vector<MSLane*> myPartiallyOccupatedByShadow;
 
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */

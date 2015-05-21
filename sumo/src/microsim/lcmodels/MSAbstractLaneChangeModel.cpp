@@ -146,13 +146,19 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
 }
 
 
+MSLane* 
+MSAbstractLaneChangeModel::getShadowLane(MSLane* lane) const {
+    const int shadowDirection = myLaneChangeMidpointPassed ? -myLaneChangeDirection : myLaneChangeDirection;
+    return lane->getParallelLane(shadowDirection);
+}
+
+
 void
 MSAbstractLaneChangeModel::continueLaneChangeManeuver(bool moved) {
     if (moved && myHaveShadow) {
         // move shadow to next lane
-        removeLaneChangeShadow();
-        const int shadowDirection = myLaneChangeMidpointPassed ? -myLaneChangeDirection : myLaneChangeDirection;
-        myShadowLane = myVehicle.getLane()->getParallelLane(shadowDirection);
+        removeLaneChangeShadow(MSMoveReminder::NOTIFICATION_JUNCTION);
+        myShadowLane = getShadowLane(myVehicle.getLane());
         if (myShadowLane == 0) {
             // abort lane change
             WRITE_WARNING("Vehicle '" + myVehicle.getID() + "' could not finish continuous lane change (lane disappeared) time=" +
@@ -184,7 +190,7 @@ MSAbstractLaneChangeModel::continueLaneChangeManeuver(bool moved) {
         const SUMOReal sourceHalfWidth = myShadowLane->getWidth() / 2.0;
         const SUMOReal targetHalfWidth = myVehicle.getLane()->getWidth() / 2.0;
         if (myLaneChangeCompletion * (sourceHalfWidth + targetHalfWidth) - myVehicle.getVehicleType().getWidth() / 2.0 > sourceHalfWidth) {
-            removeLaneChangeShadow();
+            removeLaneChangeShadow(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
         }
     }
     // finish maneuver
@@ -196,14 +202,25 @@ MSAbstractLaneChangeModel::continueLaneChangeManeuver(bool moved) {
 
 
 void
-MSAbstractLaneChangeModel::removeLaneChangeShadow() {
+MSAbstractLaneChangeModel::removeLaneChangeShadow(const MSMoveReminder::Notification reason) {
     if (myShadowLane != 0 && myHaveShadow) {
-        myShadowLane->removeVehicle(&myVehicle, MSMoveReminder::NOTIFICATION_LANE_CHANGE);
+        myShadowLane->removeVehicle(&myVehicle, reason);
         myHaveShadow = false;
         // maintain pointer to myShadowLane for interpolating position
     }
 }
 
+void 
+MSAbstractLaneChangeModel::endLaneChangeManeuver(const MSMoveReminder::Notification reason) {
+    removeLaneChangeShadow(reason);
+    myLaneChangeCompletion = 1;
+    myShadowLane = 0;
+    // removing partial occupator shadows
+    for (std::vector<MSLane*>::const_iterator it = myPartiallyOccupatedByShadow.begin(); it != myPartiallyOccupatedByShadow.end(); ++it) {
+        (*it)->resetPartialOccupation(&myVehicle);
+    }
+    myPartiallyOccupatedByShadow.clear();
+}
 
 bool
 MSAbstractLaneChangeModel::cancelRequest(int state) {
