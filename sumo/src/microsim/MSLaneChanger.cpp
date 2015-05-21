@@ -505,6 +505,7 @@ MSLaneChanger::checkChange(
                     && (neighLead2.second < vehicle->getCarFollowModel().getSecureGap(
                             vehicle->getSpeed(), neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel()))) {
                 state |= blockedByLeader;
+                if (vehicle->getID() == "bus_14_0") std::cout << " blocked after careful check\n";
             }
         }
     }
@@ -532,6 +533,7 @@ MSLaneChanger::checkChange(
                     || (nextLane->getEdge().isInternal() && (*link)->getViaLaneOrLane()->getEdge().isInternal())
                     ) {
                 state |= LCA_INSUFFICIENT_SPACE;
+                if (vehicle->getID() == "bus_14_0") std::cout << " LCA_INSUFFICIENT_SPACE\n";
                 break;
             }
 #ifdef HAVE_INTERNAL_LANES

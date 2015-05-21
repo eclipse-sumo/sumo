@@ -636,9 +636,7 @@ MSLane::setPartialOccupation(MSVehicle* v, SUMOReal leftVehicleLength) {
     myInlappingVehicleEnd = myLength - leftVehicleLength;
     if (v->getLaneChangeModel().isChangingLanes()) {
         MSLane* shadowLane = v->getLaneChangeModel().getShadowLane(this);
-        //std::cout << SIMTIME << " veh=" << v->getID() << " setting partialOccupator on " << getID() << "\n";
         if (shadowLane != 0) {
-            //std::cout << "    veh=" << v->getID() << " setting shadow partialOccupator on " << shadowLane->getID() << "\n";
             v->getLaneChangeModel().setShadowPartialOccupator(shadowLane);
             shadowLane->myInlappingVehicle = v;
             shadowLane->myInlappingVehicleEnd = myLength - leftVehicleLength;
@@ -655,9 +653,7 @@ MSLane::resetPartialOccupation(MSVehicle* v) {
         myInlappingVehicle = 0;
         if (v->getLaneChangeModel().isChangingLanes()) {
             MSLane* shadowLane = v->getLaneChangeModel().getShadowLane(this);
-            //std::cout << SIMTIME << " veh=" << v->getID() << " removing partialOccupator on " << getID() << "\n";
             if (shadowLane != 0 && v == shadowLane->myInlappingVehicle) {
-                //std::cout << "    veh=" << v->getID() << " removing shadow partialOccupator on " << shadowLane->getID() << "\n";
                 shadowLane->myInlappingVehicle = 0;
                 shadowLane->myInlappingVehicleEnd = 10000;
             }
@@ -1245,7 +1241,7 @@ MSLane::getLeader(const MSVehicle* veh) const {
     // XXX this only works as long as all lanes of an edge have equal length
     const SUMOReal vehPos = veh->getPositionOnLane();
     for (VehCont::const_iterator i = myVehicles.begin(); i != myVehicles.end(); ++i) {
-        if ((*i)->getPositionOnLane() > vehPos) {
+        if (&veh->getLane()->getEdge() != &getEdge() || (*i)->getPositionOnLane() > vehPos) {
             // XXX refactor leaderInfo to use a const vehicle all the way through the call hierarchy
             MSVehicle* pred = (MSVehicle*)*i;
             return std::pair<MSVehicle* const, SUMOReal>(pred, pred->getPositionOnLane() - pred->getVehicleType().getLength() - veh->getVehicleType().getMinGap() - vehPos);

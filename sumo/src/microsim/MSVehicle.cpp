@@ -1017,9 +1017,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         adaptToLeader(leaderInfo, seen, lastLink, lane, v, vLinkPass);
         if (getLaneChangeModel().hasShadowVehicle()) {
             // also slow down for leaders on the shadowLane
-            const MSLane* shadowLane = getLaneChangeModel().getShadowLane();
-            std::pair<const MSVehicle*, SUMOReal> shadowLeaderInfo = shadowLane->getLeader(this);
-            adaptToLeader(shadowLeaderInfo, seen, lastLink, shadowLane, v, vLinkPass);
+            const MSLane* shadowLane = getLaneChangeModel().getShadowLane(lane);
+            if (shadowLane != 0) {
+                std::pair<const MSVehicle*, SUMOReal> shadowLeaderInfo = shadowLane->getLeader(this);
+                adaptToLeader(shadowLeaderInfo, seen, lastLink, shadowLane, v, vLinkPass);
+            }
         }
 
         // process stops

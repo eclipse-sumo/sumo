@@ -147,7 +147,7 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
 
 
 MSLane* 
-MSAbstractLaneChangeModel::getShadowLane(MSLane* lane) const {
+MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane) const {
     const int shadowDirection = myLaneChangeMidpointPassed ? -myLaneChangeDirection : myLaneChangeDirection;
     return lane->getParallelLane(shadowDirection);
 }

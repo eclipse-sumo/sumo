@@ -255,6 +255,9 @@ public:
         return myShadowLane;
     }
 
+    /// @brief return the shadow lane for the given lane
+    MSLane* getShadowLane(const MSLane* lane) const;
+
 
     inline SUMOTime getLastLaneChangeOffset() const {
         return myLastLaneChangeOffset;
@@ -295,9 +298,6 @@ public:
     void resetMoved() {
         myAlreadyMoved = false;
     }
-
-    /// @brief return the shadow lane for the given lane
-    MSLane* getShadowLane(MSLane* lane) const;
 
     /// @brief start the lane change maneuver and return whether it continues
     bool startLaneChangeManeuver(MSLane* source, MSLane* target, int direction);
