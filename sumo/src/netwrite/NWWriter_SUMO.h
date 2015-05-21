@@ -93,12 +93,6 @@ public:
     /// @brief writes the traffic light logics to the given device
     static void writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont);
 
-    /// @brief writes allowed disallowed attributes if needed;
-    static void writePermissions(OutputDevice& into, SVCPermissions permissions);
-
-    /// @brief writes allowed disallowed attributes if needed;
-    static void writePreferences(OutputDevice& into, SVCPermissions preferred);
-
     /** @brief Writes roundabouts
      * @param[in] into The device to write the edge into
      * @param[in] roundaboutes The roundabouts to write

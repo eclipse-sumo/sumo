@@ -77,6 +77,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write network offsets and projection
     GeoConvHelper::writeLocation(device);
 
+    // write edge types and restrictions
+    nb.getTypeCont().writeTypes(device);
+
     // write inner lanes
     bool origNames = oc.getBool("output.original-names");
     if (!oc.getBool("no-internal-links")) {
@@ -759,39 +762,6 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
     }
     if (logics.size() > 0) {
         into.lf();
-    }
-}
-
-
-void
-NWWriter_SUMO::writePermissions(OutputDevice& into, SVCPermissions permissions) {
-    if (permissions == SVCAll) {
-        return;
-    } else if (permissions == 0) {
-        into.writeAttr(SUMO_ATTR_DISALLOW, "all");
-        return;
-    } else {
-        size_t num_allowed = 0;
-        for (int mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
-            if ((mask & permissions) == mask) {
-                ++num_allowed;
-            }
-        }
-        if (num_allowed <= (SumoVehicleClassStrings.size() - num_allowed) && num_allowed > 0) {
-            into.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(permissions));
-        } else {
-            into.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(~permissions));
-        }
-    }
-}
-
-
-void
-NWWriter_SUMO::writePreferences(OutputDevice& into, SVCPermissions preferred) {
-    if (preferred == SVCAll || preferred == 0) {
-        return;
-    } else {
-        into.writeAttr(SUMO_ATTR_PREFER, getVehicleClassNames(preferred));
     }
 }
 /****************************************************************************/

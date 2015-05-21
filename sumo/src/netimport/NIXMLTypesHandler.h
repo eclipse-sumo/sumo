@@ -88,6 +88,9 @@ private:
     /// @brief The type container to fill
     NBTypeCont& myTypeCont;
 
+    /// @brief The currently parsed type
+    std::string myCurrentTypeID;
+
 
 private:
     /** @brief invalid copy constructor */

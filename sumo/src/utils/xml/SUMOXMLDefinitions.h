@@ -61,6 +61,8 @@ enum SumoXMLTag {
     SUMO_TAG_POLY,
     /** begin/end of the description of a junction */
     SUMO_TAG_JUNCTION,
+    /** begin/end of the description of an edge restriction */
+    SUMO_TAG_RESTRICTION,
     /** an e1 detector */
     SUMO_TAG_E1DETECTOR,
     SUMO_TAG_INDUCTION_LOOP,

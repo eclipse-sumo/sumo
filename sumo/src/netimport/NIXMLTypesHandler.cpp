@@ -37,14 +37,15 @@
 #include <xercesc/sax/AttributeList.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/sax/SAXException.hpp>
-#include "NIXMLTypesHandler.h"
-#include <netbuild/NBTypeCont.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBTypeCont.h>
+#include "NIXMLTypesHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -65,33 +66,46 @@ NIXMLTypesHandler::~NIXMLTypesHandler() {}
 void
 NIXMLTypesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes& attrs) {
-    if (element != SUMO_TAG_TYPE) {
-        return;
-    }
-    bool ok = true;
-    // get the id, report a warning if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, myTypeCont.getPriority(""));
-    int noLanes = myTypeCont.getNumLanes("");
-    noLanes = attrs.getOpt<int>(SUMO_ATTR_NUMLANES, id.c_str(), ok, noLanes);
-    SUMOReal speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, id.c_str(), ok, (SUMOReal) myTypeCont.getSpeed(""));
-    std::string allowS = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
-    std::string disallowS = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
-    bool oneway = attrs.getOpt<bool>(SUMO_ATTR_ONEWAY, id.c_str(), ok, false);
-    bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
-    SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, NBEdge::UNSPECIFIED_WIDTH);
-    SUMOReal sidewalkWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_SIDEWALKWIDTH, id.c_str(), ok, NBEdge::UNSPECIFIED_WIDTH);
-    if (!ok) {
-        return;
-    }
-    // build the type
-    SVCPermissions permissions = parseVehicleClasses(allowS, disallowS);
-    if (!myTypeCont.insert(id, noLanes, speed, priority, permissions, width, oneway, sidewalkWidth)) {
-        WRITE_ERROR("Duplicate type occured. ID='" + id + "'");
-    } else {
-        if (discard) {
-            myTypeCont.markAsToDiscard(id);
+    switch (element) {
+        case SUMO_TAG_TYPE: {
+            bool ok = true;
+            // get the id, report a warning if not given or empty...
+            myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+            const char* const id = myCurrentTypeID.c_str();
+            const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id, ok, myTypeCont.getPriority(""));
+            const int numLanes = attrs.getOpt<int>(SUMO_ATTR_NUMLANES, id, ok, myTypeCont.getNumLanes(""));
+            const SUMOReal speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, id, ok, (SUMOReal) myTypeCont.getSpeed(""));
+            const std::string allowS = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id, ok, "");
+            const std::string disallowS = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id, ok, "");
+            const bool oneway = attrs.getOpt<bool>(SUMO_ATTR_ONEWAY, id, ok, false);
+            const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id, ok, false);
+            const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id, ok, NBEdge::UNSPECIFIED_WIDTH);
+            const SUMOReal sidewalkWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_SIDEWALKWIDTH, id, ok, NBEdge::UNSPECIFIED_WIDTH);
+            if (!ok) {
+                return;
+            }
+            // build the type
+            const SVCPermissions permissions = parseVehicleClasses(allowS, disallowS);
+            if (!myTypeCont.insert(myCurrentTypeID, numLanes, speed, priority, permissions, width, oneway, sidewalkWidth)) {
+                WRITE_ERROR("Duplicate type occured. ID='" + myCurrentTypeID + "'");
+            } else {
+                if (discard) {
+                    myTypeCont.markAsToDiscard(myCurrentTypeID);
+                }
+            }
+            break;
         }
+        case SUMO_TAG_RESTRICTION: {
+            bool ok = true;
+            const SUMOVehicleClass svc = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, myCurrentTypeID.c_str(), ok));
+            const SUMOReal speed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
+            if (ok) {
+                myTypeCont.addRestriction(myCurrentTypeID, svc, speed);
+            }
+            break;
+        }
+        default:
+            break;
     }
 }
 

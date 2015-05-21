@@ -62,6 +62,9 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // check whether plain-output files shall be generated
     if (oc.isSet("plain-output-prefix")) {
         writeNodes(oc, nb.getNodeCont());
+        if (nb.getTypeCont().size() > 0) {
+            writeTypes(oc, nb.getTypeCont());
+        }
         writeEdgesAndConnections(oc, nb.getNodeCont(), nb.getEdgeCont());
         writeTrafficLights(oc, nb.getTLLogicCont(), nb.getEdgeCont());
     }
@@ -147,6 +150,15 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
 
 
 void
+NWWriter_XML::writeTypes(const OptionsCont& oc, NBTypeCont& tc) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".typ.xml");
+    device.writeXMLHeader("types", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/types_file.xsd\"");
+    tc.writeTypes(device);
+    device.close();
+}
+
+
+void
 NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec) {
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
@@ -215,8 +227,8 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                 edevice.openTag(SUMO_TAG_LANE);
                 edevice.writeAttr(SUMO_ATTR_INDEX, i);
                 // write allowed lanes
-                NWWriter_SUMO::writePermissions(edevice, lane.permissions);
-                NWWriter_SUMO::writePreferences(edevice, lane.preferred);
+                writePermissions(edevice, lane.permissions);
+                writePreferences(edevice, lane.preferred);
                 // write other attributes
                 if (lane.width != NBEdge::UNSPECIFIED_WIDTH && e->hasLaneSpecificWidth()) {
                     edevice.writeAttr(SUMO_ATTR_WIDTH, lane.width);

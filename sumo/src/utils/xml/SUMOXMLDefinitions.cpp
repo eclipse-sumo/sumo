@@ -53,6 +53,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "poi",              SUMO_TAG_POI },
     { "poly",             SUMO_TAG_POLY },
     { "junction",         SUMO_TAG_JUNCTION },
+    { "restriction",      SUMO_TAG_RESTRICTION },
     { "e1Detector",       SUMO_TAG_E1DETECTOR },
     { "inductionLoop",    SUMO_TAG_INDUCTION_LOOP },
     { "e2Detector",       SUMO_TAG_E2DETECTOR },

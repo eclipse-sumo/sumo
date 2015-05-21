@@ -87,6 +87,12 @@ private:
      */
     static void writeNodes(const OptionsCont& oc, NBNodeCont& nc);
 
+    /** @brief Writes the types file
+     * @param[in] oc The options to use
+     * @param[in] nc The type-container from which to read data
+     */
+    static void writeTypes(const OptionsCont& oc, NBTypeCont& tc);
+
     /** @brief Writes the edges and connections files
      * @param[in] oc The options to use
      * @param[in] nb The network build from which to read data
