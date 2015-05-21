@@ -313,7 +313,7 @@ public:
     void endLaneChangeManeuver(const MSMoveReminder::Notification reason = MSMoveReminder::NOTIFICATION_LANE_CHANGE);
 
     /// @brief remove the shadow copy of a lane change maneuver
-    void removeLaneChangeShadow(const MSMoveReminder::Notification reason);
+    void removeLaneChangeShadow(const MSMoveReminder::Notification reason, bool notify = true);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
     virtual void saveBlockerLength(SUMOReal length) {

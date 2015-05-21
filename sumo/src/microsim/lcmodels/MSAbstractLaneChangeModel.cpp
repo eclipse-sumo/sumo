@@ -157,7 +157,7 @@ void
 MSAbstractLaneChangeModel::continueLaneChangeManeuver(bool moved) {
     if (moved && myHaveShadow) {
         // move shadow to next lane
-        removeLaneChangeShadow(MSMoveReminder::NOTIFICATION_JUNCTION);
+        removeLaneChangeShadow(MSMoveReminder::NOTIFICATION_JUNCTION, false);
         myShadowLane = getShadowLane(myVehicle.getLane());
         if (myShadowLane == 0) {
             // abort lane change
@@ -202,9 +202,9 @@ MSAbstractLaneChangeModel::continueLaneChangeManeuver(bool moved) {
 
 
 void
-MSAbstractLaneChangeModel::removeLaneChangeShadow(const MSMoveReminder::Notification reason) {
+MSAbstractLaneChangeModel::removeLaneChangeShadow(const MSMoveReminder::Notification reason, bool notify) {
     if (myShadowLane != 0 && myHaveShadow) {
-        myShadowLane->removeVehicle(&myVehicle, reason);
+        myShadowLane->removeVehicle(&myVehicle, reason, notify);
         myHaveShadow = false;
         // maintain pointer to myShadowLane for interpolating position
     }
