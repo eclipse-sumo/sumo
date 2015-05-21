@@ -656,7 +656,14 @@ public:
     std::pair<MSVehicle* const, SUMOReal> getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle& veh) const;
 
 
+    /** @brief get the most likely precedecessor lane (sorted using by_connections_to_sorter).
+     * The result is cached in myLogicalPredecessorLane
+     */
     MSLane* getLogicalPredecessorLane() const;
+
+    /** @brief return the (first) predecessor lane from the given edge
+     */
+    MSLane* getLogicalPredecessorLane(const MSEdge& fromEdge) const;
 
     /// @brief get the state of the link from the logical predecessor to this lane
     LinkState getIncomingLinkState() const;
@@ -897,7 +904,8 @@ private:
     };
 
     /** @class by_id_sorter
-     * @brief Sorts edges by their ids
+     * @brief Sorts edges by their angle relative to the given edge (straight comes first)
+     * 
      */
     class by_connections_to_sorter {
     public:

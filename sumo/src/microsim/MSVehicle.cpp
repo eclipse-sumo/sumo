@@ -1769,41 +1769,17 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         addReminder(*rem);
     }
     activateReminders(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
-    /*
-        for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
-            (*i)->resetPartialOccupation(this);
-        }
-        myFurtherLanes.clear();
-    */
-    if (myState.myPos - getVehicleType().getLength() < 0) {
-        // we have to rebuild "further lanes"
-        const MSRoute& route = getRoute();
-        MSRouteIterator i = myCurrEdge;
-        MSLane* lane = myLane;
-        SUMOReal leftLength = getVehicleType().getLength() - myState.myPos;
-        while (i != route.begin() && leftLength > 0) {
-            /* const MSEdge* const prev = */ *(--i);
-            lane = lane->getLogicalPredecessorLane();
-            if (lane == 0) {
-                break;
-            }
-            myFurtherLanes.push_back(lane);
+    MSLane* lane = myLane;
+    SUMOReal leftLength = getVehicleType().getLength() - myState.myPos;
+    for (int i = 0; i < myFurtherLanes.size(); i++) {
+        lane = lane->getLogicalPredecessorLane(myFurtherLanes[i]->getEdge());
+        if (lane != 0) {
+            myFurtherLanes[i]->resetPartialOccupation(this);
+            myFurtherLanes[i] = lane;
             leftLength -= (lane)->setPartialOccupation(this, leftLength);
-            /*
-            const std::vector<MSLane::IncomingLaneInfo> &incomingLanes = lane->getIncomingLanes();
-            for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = incomingLanes.begin(); j != incomingLanes.end(); ++j) {
-                if (&(*j).lane->getEdge() == prev) {
-            #ifdef HAVE_INTERNAL_LANES
-                    (*j).lane->setPartialOccupation(this, leftLength);
-            #else
-                    leftLength -= (*j).length;
-                    (*j).lane->setPartialOccupation(this, leftLength);
-            #endif
-                    leftLength -= (*j).lane->getLength();
-                    break;
-                }
-            }
-            */
+        } else {
+            // from here on, we keep the old values
+            break;
         }
     }
 }
@@ -1860,7 +1836,9 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason) {
             rem = myMoveReminders.erase(rem);
         }
     }
-    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
+    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
+        // @note. In case of lane change, myFurtherLanes and partial occupation
+        // are handled in enterLaneAtLaneChange()
         for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
             (*i)->resetPartialOccupation(this);
         }

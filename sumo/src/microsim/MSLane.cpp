@@ -1406,7 +1406,7 @@ MSLane::getLogicalPredecessorLane() const {
                 ++i;
             }
         }
-        // get the edge with the most connections to this lane's edge
+        // get the lane with the "straightest" connection
         if (pred.size() != 0) {
             std::sort(pred.begin(), pred.end(), by_connections_to_sorter(&getEdge()));
             MSEdge* best = *pred.begin();
@@ -1415,6 +1415,18 @@ MSLane::getLogicalPredecessorLane() const {
         }
     }
     return myLogicalPredecessorLane;
+}
+
+
+MSLane*
+MSLane::getLogicalPredecessorLane(const MSEdge& fromEdge) const {
+    for (std::vector<IncomingLaneInfo>::const_iterator i = myIncomingLanes.begin(); i != myIncomingLanes.end(); ++i) {
+        MSLane* cand = (*i).lane;
+        if (&(cand->getEdge()) == &fromEdge) {
+            return (*i).lane;
+        }
+    }
+    return 0;
 }
 
 

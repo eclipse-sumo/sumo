@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 21 May 2015 09:20:42 AM CEST by Netedit Version dev-SVN-r18421I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-18.33,16.58,108.87,56.05" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" speed="13.89" length="10.60" shape="58.53,44.30 58.68,45.69 59.24,46.68 60.21,47.26 61.60,47.44"/>
+        <lane id=":C_0_1" index="1" speed="13.89" length="10.60" shape="55.23,44.18 55.54,47.09 56.71,49.15 58.75,50.37 61.65,50.74"/>
+        <lane id=":C_0_2" index="2" speed="13.89" length="10.60" shape="51.93,44.05 52.40,48.49 54.19,51.63 57.29,53.48 61.71,54.04"/>
+    </edge>
+    <edge id=":C_3" function="internal">
+        <lane id=":C_3_0" index="0" speed="13.89" length="13.36" shape="48.32,50.94 52.28,50.92 54.99,50.88 57.70,50.81 61.65,50.74"/>
+        <lane id=":C_3_1" index="1" speed="13.89" length="13.36" shape="48.33,54.24 52.30,54.22 55.02,54.18 57.74,54.11 61.71,54.04"/>
+    </edge>
+
+    <edge id="beg1" from="W" to="C" priority="1">
+        <lane id="beg1_0" index="0" speed="13.89" length="66.66" shape="-18.34,51.10 48.32,50.94"/>
+        <lane id="beg1_1" index="1" speed="13.89" length="66.66" shape="-18.33,54.40 48.33,54.24"/>
+    </edge>
+    <edge id="beg2" from="S" to="C" priority="1">
+        <lane id="beg2_0" index="0" speed="13.89" length="27.43" shape="59.57,16.90 58.53,44.30"/>
+        <lane id="beg2_1" index="1" speed="13.89" length="27.43" shape="56.27,16.77 55.23,44.18"/>
+        <lane id="beg2_2" index="2" speed="13.89" length="27.43" shape="52.98,16.65 51.93,44.05"/>
+    </edge>
+    <edge id="end" from="C" to="E" priority="1">
+        <lane id="end_0" index="0" speed="13.89" length="47.14" shape="61.60,47.44 108.73,46.64"/>
+        <lane id="end_1" index="1" speed="13.89" length="47.14" shape="61.65,50.74 108.79,49.94"/>
+        <lane id="end_2" index="2" speed="13.89" length="47.14" shape="61.71,54.04 108.84,53.24"/>
+    </edge>
+
+    <junction id="C" type="priority" x="49.83" y="55.89" incLanes="beg2_0 beg2_1 beg2_2 beg1_0 beg1_1" intLanes=":C_0_0 :C_0_1 :C_0_2 :C_3_0 :C_3_1" shape="61.74,55.64 61.57,45.84 60.13,44.36 50.34,43.99 48.32,49.34 48.33,55.84">
+        <request index="0" response="00000" foes="11000" cont="0"/>
+        <request index="1" response="00000" foes="11000" cont="0"/>
+        <request index="2" response="00000" foes="11000" cont="0"/>
+        <request index="3" response="00111" foes="00111" cont="0"/>
+        <request index="4" response="00111" foes="00111" cont="0"/>
+    </junction>
+    <junction id="E" type="unregulated" x="108.87" y="54.89" incLanes="end_0 end_1 end_2" intLanes="" shape="108.71,45.04 108.87,54.84"/>
+    <junction id="S" type="unregulated" x="51.33" y="16.58" incLanes="" intLanes="" shape="51.38,16.59 61.17,16.96"/>
+    <junction id="W" type="unregulated" x="-18.33" y="56.05" incLanes="" intLanes="" shape="-18.33,56.00 -18.34,49.50"/>
+
+    <connection from="beg1" to="end" fromLane="0" toLane="1" via=":C_3_0" dir="s" state="m"/>
+    <connection from="beg1" to="end" fromLane="1" toLane="2" via=":C_3_1" dir="s" state="m"/>
+    <connection from="beg2" to="end" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="M"/>
+    <connection from="beg2" to="end" fromLane="1" toLane="1" via=":C_0_1" dir="r" state="M"/>
+    <connection from="beg2" to="end" fromLane="2" toLane="2" via=":C_0_2" dir="r" state="M"/>
+
+    <connection from=":C_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_0" to="end" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":C_0" to="end" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":C_3" to="end" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":C_3" to="end" fromLane="1" toLane="2" dir="s" state="M"/>
+
+</net>
