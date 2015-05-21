@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  9 13:03:27 2015 by SUMO netconvert Version dev-SVN-r18050I
+<!-- generated on 05/21/15 14:56:09 by SUMO netconvert Version dev-SVN-r18422
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -35,6 +35,11 @@
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
+
+    <type id="a" priority="3" numLanes="3" speed="13.89" oneway="0" discard="0"/>
+    <type id="b" priority="2" numLanes="2" speed="11.11" oneway="0" discard="0"/>
+    <type id="c" priority="1" numLanes="1" speed="11.11" allow="bicycle" oneway="0" discard="0"/>
+    <type id="d" priority="1" numLanes="1" speed="2.90" allow="pedestrian" oneway="0" discard="0"/>
 
     <edge id="1fi" from="1" to="m1" priority="-1" type="e">
         <lane id="1fi_0" index="0" speed="13.90" length="250.00" shape="0.00,498.35 250.00,498.35"/>

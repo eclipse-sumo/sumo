@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  2 14:35:41 2015 by SUMO netconvert Version dev-SVN-r17985I
+<!-- generated on 05/21/15 14:56:09 by SUMO netconvert Version dev-SVN-r18422
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -25,6 +25,11 @@
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
+
+    <type id="a" priority="3" numLanes="3" speed="13.89" oneway="0" discard="0"/>
+    <type id="b" priority="2" numLanes="2" speed="11.11" oneway="0" discard="0"/>
+    <type id="c" priority="1" numLanes="1" speed="11.11" allow="bicycle" oneway="0" discard="0"/>
+    <type id="d" priority="1" numLanes="1" speed="2.90" allow="pedestrian" oneway="0" discard="0"/>
 
     <edge id=":0_0" function="internal">
         <lane id=":0_0_0" index="0" allow="bicycle" speed="12.50" length="10.88" shape="491.75,511.35 491.56,507.11 490.98,504.08 490.01,502.26 488.65,501.65"/>

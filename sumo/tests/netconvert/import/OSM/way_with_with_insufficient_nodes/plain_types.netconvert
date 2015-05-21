@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/21/15 14:56:45 by SUMO netconvert Version dev-SVN-r18422
+<!-- generated on 05/21/15 14:56:28 by SUMO netconvert Version dev-SVN-r18422
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -10,16 +10,13 @@
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="ignore.net.xml"/>
+        <plain-output-prefix value="plain"/>
     </output>
 
     <projection>
         <proj.utm value="true"/>
     </projection>
-
-    <processing>
-        <ignore-errors value="true"/>
-    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -28,10 +25,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
-
-    <location netOffset="-323934.52,-4694846.49" convBoundary="0.00,0.00,83.10,130.36" origBoundary="-106.779095,-79.013333,21.566578,43.226864" projParameter="+proj=utm +zone=19 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
-
+<types version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
     <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="bicycle" oneway="0" discard="0"/>
     <type id="highway.bus_guideway" priority="1" numLanes="1" speed="8.33" allow="bus" oneway="0" discard="0"/>
     <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" discard="0"/>
@@ -66,12 +60,4 @@
     <type id="railway.subway" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1" discard="0"/>
     <type id="railway.tram" priority="15" numLanes="1" speed="27.78" allow="tram" oneway="1" discard="0"/>
 
-    <edge id="8614778" from="61330091" to="61321502" priority="4" type="highway.residential" spreadType="center" shape="0.00,0.00 27.12,43.21 52.94,84.22 83.10,130.36">
-        <lane id="8614778_0" index="0" speed="13.89" length="154.60" shape="1.40,-0.88 28.52,42.33 54.34,83.35 84.48,129.45"/>
-        <lane id="8614778_1" index="1" speed="13.89" length="154.60" shape="-1.40,0.88 25.72,44.08 51.55,85.10 81.72,131.26"/>
-    </edge>
-
-    <junction id="61321502" type="unregulated" x="83.10" y="130.36" incLanes="8614778_0 8614778_1" intLanes="" shape="85.82,128.58 80.38,132.13"/>
-    <junction id="61330091" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-2.75,1.73 2.75,-1.73"/>
-
-</net>
+</types>

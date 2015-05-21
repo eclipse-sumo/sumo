@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 24 11:02:00 2015 by SUMO netconvert Version dev-SVN-r18126I
+<!-- generated on 05/21/15 14:56:29 by SUMO netconvert Version dev-SVN-r18422
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -28,6 +28,13 @@
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="200.00,86.66" convBoundary="0.00,0.00,400.00,173.31" origBoundary="-200.00,-86.66,200.00,86.66" projParameter="!"/>
+
+    <type id="driving" priority="1" numLanes="1" speed="22.22" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
+    <type id="mwyEntry" priority="1" numLanes="1" speed="22.22" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
+    <type id="mwyExit" priority="1" numLanes="1" speed="22.22" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
+    <type id="parking" priority="1" numLanes="1" speed="1.39" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
+    <type id="special1" priority="1" numLanes="1" speed="22.22" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
+    <type id="stop" priority="1" numLanes="1" speed="22.22" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
 
     <edge id="-101.0.00" from="45" to="44" priority="1" shape="185.01,102.20 180.42,90.73 184.45,71.66">
         <lane id="-101.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="31.84" width="3.65" shape="177.24,97.94 174.56,91.24 178.64,71.94"/>
