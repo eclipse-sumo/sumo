@@ -9,3 +9,6 @@ poi_net
 
 # testing polygon processing with reference to a net
 polygon_net
+
+# testing polygon processing with reference to a net and additional offset
+polygon_net_offset

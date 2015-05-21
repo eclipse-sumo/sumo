@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/21/15 10:27:10 by SUMO polyconvert Version dev-SVN-r18410
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <dlr-navteq-poly-files value="dlr_navteq_polygons.txt"/>
+    </input>
+
+    <output>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <processing>
+        <offset.x value="100"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <location netOffset="-328148.16,-5776623.10" convBoundary="0.00,0.00,40469.96,26514.76" origBoundary="1248456.000000,5211834.000000,1307959.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <poly id="noname#0" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="38261.36,9358.03 38284.02,9310.68 38401.23,9270.79"/>
+    <poly id="noname#1" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="39993.88,3159.52 40428.85,2834.15 40463.50,2953.42 40469.96,3145.78"/>
+</additional>
