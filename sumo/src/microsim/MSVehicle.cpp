@@ -657,6 +657,10 @@ MSVehicle::getAngle() const {
         p2 = myFurtherLanes.size() > 0
              ? myFurtherLanes.back()->geometryPositionAtOffset(myFurtherLanes.back()->getPartialOccupatorEnd())
              : myLane->getShape().front();
+        if (getLaneChangeModel().isChangingLanes() && getLaneChangeModel().getShadowLane(myFurtherLanes.back()) == 0) {
+            // special case where there target lane has no predecessor
+            p2 = myLane->getShape().front();
+        }
     }
     SUMOReal result = (p1 != p2 ?
                        atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / M_PI :
@@ -1774,14 +1778,18 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     MSLane* lane = myLane;
     SUMOReal leftLength = getVehicleType().getLength() - myState.myPos;
     for (int i = 0; i < (int)myFurtherLanes.size(); i++) {
-        lane = lane->getLogicalPredecessorLane(myFurtherLanes[i]->getEdge());
+        if (lane != 0) {
+            lane = lane->getLogicalPredecessorLane(myFurtherLanes[i]->getEdge());
+        }
         if (lane != 0) {
             myFurtherLanes[i]->resetPartialOccupation(this);
             myFurtherLanes[i] = lane;
             leftLength -= (lane)->setPartialOccupation(this, leftLength);
         } else {
-            // from here on, we keep the old values
-            break;
+            // keep the old values, but ensure there is no shadow
+            if (myLaneChangeModel->isChangingLanes()) {
+                myLaneChangeModel->setNoShadowPartialOccupator(myFurtherLanes[i]);
+            }
         }
     }
 }

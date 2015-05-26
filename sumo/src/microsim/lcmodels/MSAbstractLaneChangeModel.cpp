@@ -148,8 +148,12 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
 
 MSLane* 
 MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane) const {
-    const int shadowDirection = myLaneChangeMidpointPassed ? -myLaneChangeDirection : myLaneChangeDirection;
-    return lane->getParallelLane(shadowDirection);
+    if (std::find(myNoPartiallyOccupatedByShadow.begin(), myNoPartiallyOccupatedByShadow.end(), lane) == myNoPartiallyOccupatedByShadow.end()) {
+        const int shadowDirection = myLaneChangeMidpointPassed ? -myLaneChangeDirection : myLaneChangeDirection;
+        return lane->getParallelLane(shadowDirection);
+    } else {
+        return 0;
+    }
 }
 
 
@@ -220,6 +224,7 @@ MSAbstractLaneChangeModel::endLaneChangeManeuver(const MSMoveReminder::Notificat
         (*it)->resetPartialOccupation(&myVehicle);
     }
     myPartiallyOccupatedByShadow.clear();
+    myNoPartiallyOccupatedByShadow.clear();
 }
 
 bool

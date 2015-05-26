@@ -324,6 +324,10 @@ public:
         myPartiallyOccupatedByShadow.push_back(lane);
     }
 
+    void setNoShadowPartialOccupator(MSLane* lane) {
+        myNoPartiallyOccupatedByShadow.push_back(lane);
+    }
+
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
 
@@ -363,6 +367,10 @@ protected:
 
     /// @brief list of lanes where the shadow vehicle is partial occupator
     std::vector<MSLane*> myPartiallyOccupatedByShadow;
+
+    /* @brief list of lanes where there is no shadow vehicle partial occupator
+     * (when changing to a lane that has no predecessor) */
+    std::vector<MSLane*> myNoPartiallyOccupatedByShadow;
 
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */
