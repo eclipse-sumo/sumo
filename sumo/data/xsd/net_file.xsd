@@ -21,6 +21,7 @@
     <xsd:complexType name="netType">
         <xsd:sequence>
             <xsd:element name="location" type="locationType" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="type" type="typeType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="edge" type="edgeType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="tlLogic" type="tlLogicType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="junction" type="junctionType" minOccurs="0" maxOccurs="unbounded"/>

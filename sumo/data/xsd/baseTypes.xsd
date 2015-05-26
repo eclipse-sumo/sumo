@@ -214,4 +214,16 @@
         <xsd:attribute name="value" type="xsd:string" use="required"/>
     </xsd:complexType>
 
+    <xsd:complexType name="typeType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="allow" type="xsd:string"/>
+        <xsd:attribute name="disallow" type="xsd:string"/>
+        <xsd:attribute name="priority" type="xsd:int"/>
+        <xsd:attribute name="numLanes" type="xsd:int"/>
+        <xsd:attribute name="speed" type="xsd:float"/>
+        <xsd:attribute name="discard" type="boolType"/>
+        <xsd:attribute name="oneway" type="boolType"/>
+        <xsd:attribute name="sidewalkWidth" type="xsd:float"/>
+    </xsd:complexType>
+
 </xsd:schema>
