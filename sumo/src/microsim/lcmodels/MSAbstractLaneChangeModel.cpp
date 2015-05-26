@@ -135,6 +135,7 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
         myLaneChangeMidpointPassed = false;
         myLaneChangeDirection = direction;
         continueLaneChangeManeuver(false);
+        myVehicle.switchOnSignal(direction == 1 ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
         return true;
     } else {
         myVehicle.leaveLane(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
