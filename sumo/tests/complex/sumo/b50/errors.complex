@@ -1,30 +1,20 @@
-Warning: Teleporting vehicle 'vehicle.809'; waited too long (jam), lane=':f1_0_2', time=2303.00.
-Warning: Vehicle 'vehicle.809' ends teleporting on edge 'i2', time 2303.00.
-Warning: Teleporting vehicle 'vehicle.825'; waited too long (jam), lane='i1_2', time=2321.00.
-Warning: Vehicle 'vehicle.825' ends teleporting on edge 'i2', time 2323.00.
-Warning: Teleporting vehicle 'vehicle.624'; waited too long (jam), lane='i5_1', time=2453.00.
-Warning: Vehicle 'vehicle.624' ends teleporting on edge 'i6', time 2453.00.
-Warning: Teleporting vehicle 'vehicle.798'; waited too long (jam), lane='i3_1', time=2619.00.
-Warning: Vehicle 'vehicle.798' ends teleporting on edge 'i5', time 2640.00.
-Warning: Teleporting vehicle 'vehicle.798'; waited too long (wrong lane), lane='i7_2', time=3135.00.
-Warning: Vehicle 'vehicle.798' ends teleporting on edge 'e2', time 3192.00.
-Warning: Teleporting vehicle 'vehicle.925'; waited too long (wrong lane), lane='i7_1', time=3447.00.
-Warning: Vehicle 'vehicle.925' ends teleporting on edge 'e1', time 3467.00.
-Warning: Teleporting vehicle 'vehicle.1046'; waited too long (jam), lane='i2_1', time=3529.00.
-Warning: Vehicle 'vehicle.1046' ends teleporting on edge 'i5', time 3870.00.
-Warning: Teleporting vehicle 'vehicle.1274'; waited too long (jam), lane=':f3_0_2', time=3937.00.
-Warning: Vehicle 'vehicle.1274' ends teleporting on edge 'i4', time 3937.00.
-Warning: Teleporting vehicle 'vehicle.1005'; waited too long (jam), lane='i5_1', time=4365.00.
-Warning: Vehicle 'vehicle.1005' ends teleporting on edge 'i6', time 4365.00.
-Warning: Teleporting vehicle 'vehicle.1524'; waited too long (jam), lane='i5_1', time=5021.00.
-Warning: Vehicle 'vehicle.1524' ends teleporting on edge 'i6', time 5043.00.
-Warning: Teleporting vehicle 'vehicle.2009'; waited too long (jam), lane='i3_1', time=6308.00.
-Warning: Vehicle 'vehicle.2009' ends teleporting on edge 'i4', time 6313.00.
-Warning: Teleporting vehicle 'vehicle.2058'; waited too long (jam), lane=':f2_0_1', time=6434.00.
-Warning: Vehicle 'vehicle.2058' ends teleporting on edge 'i3', time 6434.00.
-Warning: Teleporting vehicle 'vehicle.2114'; waited too long (jam), lane='i3_1', time=6968.00.
-Warning: Teleporting vehicle 'vehicle.2009'; waited too long (jam), lane='i5_1', time=6976.00.
-Warning: Vehicle 'vehicle.2114' ends teleporting on edge 'i4', time 6976.00.
-Warning: Vehicle 'vehicle.2009' ends teleporting on edge 'i6', time 6976.00.
-Warning: Teleporting vehicle 'vehicle.2431'; waited too long (jam), lane='i3_1', time=7587.00.
-Warning: Vehicle 'vehicle.2431' ends teleporting on edge 'i5', time 7727.00.
+Warning: Teleporting vehicle 'vehicle.296'; waited too long (jam), lane='i5_1', time=1084.00.
+Warning: Vehicle 'vehicle.296' ends teleporting on edge 'i6', time 1084.00.
+Warning: Teleporting vehicle 'vehicle.624'; waited too long (wrong lane), lane='i7_1', time=2055.00.
+Warning: Vehicle 'vehicle.624' ends teleporting on edge 'e3', time 2154.00.
+Warning: Teleporting vehicle 'vehicle.561'; waited too long (jam), lane='i4_1', time=2202.00.
+Warning: Vehicle 'vehicle.561' ends teleporting on edge 'i5', time 2202.00.
+Warning: Teleporting vehicle 'vehicle.982'; waited too long (wrong lane), lane='i7_2', time=3376.00.
+Warning: Vehicle 'vehicle.982' ends teleporting on edge 'e1', time 3407.00.
+Warning: Teleporting vehicle 'vehicle.1202'; waited too long (jam), lane='i2_1', time=3458.00.
+Warning: Vehicle 'vehicle.1202' ends teleporting on edge 'i3', time 3458.00.
+Warning: Teleporting vehicle 'vehicle.1005'; waited too long (jam), lane='i3_1', time=3519.00.
+Warning: Vehicle 'vehicle.1005' ends teleporting on edge 'i6', time 3695.00.
+Warning: Teleporting vehicle 'vehicle.1582'; waited too long (jam), lane='i3_1', time=4800.00.
+Warning: Vehicle 'vehicle.1582' ends teleporting on edge 'i4', time 4800.00.
+Warning: Teleporting vehicle 'vehicle.1582'; waited too long (jam), lane=':f4_0_2', time=5102.00.
+Warning: Vehicle 'vehicle.1582' ends teleporting on edge 'i5', time 5102.00.
+Warning: Teleporting vehicle 'vehicle.2079'; waited too long (jam), lane='i1_1', time=6076.00.
+Warning: Vehicle 'vehicle.2079' ends teleporting on edge 'i2', time 6076.00.
+Warning: Teleporting vehicle 'vehicle.2009'; waited too long (jam), lane='i2_1', time=6481.00.
+Warning: Vehicle 'vehicle.2009' ends teleporting on edge 'i3', time 6584.00.
