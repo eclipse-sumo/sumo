@@ -1773,7 +1773,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     activateReminders(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
     MSLane* lane = myLane;
     SUMOReal leftLength = getVehicleType().getLength() - myState.myPos;
-    for (int i = 0; i < myFurtherLanes.size(); i++) {
+    for (int i = 0; i < (int)myFurtherLanes.size(); i++) {
         lane = lane->getLogicalPredecessorLane(myFurtherLanes[i]->getEdge());
         if (lane != 0) {
             myFurtherLanes[i]->resetPartialOccupation(this);

@@ -711,7 +711,6 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             ++veh;
             continue;
         }
-        SUMOReal gap = (*pred)->getPositionOnLane() - (*pred)->getVehicleType().getLength() - (*veh)->getPositionOnLane() - (*veh)->getVehicleType().getMinGap();
         if (handleCollision(timestep, stage, *veh, *pred, (*pred)->getPositionOnLane() - (*pred)->getVehicleType().getLength())) {
             veh = myVehicles.erase(veh); // remove current vehicle
             lastVeh = myVehicles.end() - 1;
@@ -724,7 +723,6 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     }
     MSVehicle* predV = getPartialOccupator();
     if (predV != 0) {
-        SUMOReal gap = getPartialOccupatorEnd() - (*lastVeh)->getPositionOnLane() - (*lastVeh)->getVehicleType().getMinGap();
         if (handleCollision(timestep, stage, *lastVeh, predV, getPartialOccupatorEnd())) {
             myVehicles.erase(lastVeh);
         }
