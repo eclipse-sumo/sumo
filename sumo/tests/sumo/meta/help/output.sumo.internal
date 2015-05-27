@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18224
+SUMO Version dev-SVN-r18422
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -25,7 +25,7 @@ Input Options:
                                          state by the given offset
 
 Output Options:
-  --output-prefix FILE                 Prefix which is applied to all output
+  --output-prefix STR                  Prefix which is applied to all output
                                          files. The special string 'TIME' is
                                          replaced by the current time.
   --netstate-dump FILE                 Save complete network states into FILE
@@ -62,6 +62,7 @@ Output Options:
                                          alternatives style
   --vehroute-output.intended-depart    Write the output with the intended
                                          instead of the real departure time
+  --vehroute-output.route-length       Include total route length in the output
   --vehroute-output.write-unfinished   Write vehroute output for vehicles which
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE
@@ -207,7 +208,12 @@ Communication Options:
                                          deterministic using a fraction of 1000
 
 Example Device Options:
-  --device.example.explicit STR        Assign a device to named vehicles
+  --device.example.probability FLOAT   The probability for a vehicle to have a
+                                         'example' device
+  --device.example.explicit STR        Assign a 'example' device to named
+                                         vehicles
+  --device.example.deterministic       The 'example' devices are set
+                                         deterministic using a fraction of 1000
   --device.example.parameter FLOAT     An exemplary parameter which can be used
                                          by all instances of the example device
 

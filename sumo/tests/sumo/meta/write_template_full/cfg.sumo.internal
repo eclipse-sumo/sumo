@@ -21,7 +21,7 @@
     </input>
 
     <output>
-        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
+        <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE" help="Save complete network states into FILE"/>
         <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" type="BOOL" help="Write also empty edges completely when dumping"/>
         <netstate-dump.precision value="2" synonymes="dump-precision netstate-output.precision netstate.precision" type="INT" help="Write positions and speeds with the given precision (default 2)"/>
@@ -42,6 +42,7 @@
         <vehroute-output.sorted value="false" synonymes="vehroutes.sorted" type="BOOL" help="Sorts the output by departure time"/>
         <vehroute-output.dua value="false" synonymes="vehroutes.dua" type="BOOL" help="Write the output in the duarouter alternatives style"/>
         <vehroute-output.intended-depart value="false" synonymes="vehroutes.intended-depart" type="BOOL" help="Write the output with the intended instead of the real departure time"/>
+        <vehroute-output.route-length value="false" synonymes="vehroutes.route-length" type="BOOL" help="Include total route length in the output"/>
         <vehroute-output.write-unfinished value="false" type="BOOL" help="Write vehroute output for vehicles which have not arrived at simulation end"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <bt-output value="" type="FILE" help="Save bt visibilities into FILE"/>
@@ -131,7 +132,9 @@
     </communication>
 
     <example_device>
-        <device.example.explicit value="" type="STR" help="Assign a device to named vehicles"/>
+        <device.example.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;example&apos; device"/>
+        <device.example.explicit value="" synonymes="device.example.knownveh" type="STR" help="Assign a &apos;example&apos; device to named vehicles"/>
+        <device.example.deterministic value="false" type="BOOL" help="The &apos;example&apos; devices are set deterministic using a fraction of 1000"/>
         <device.example.parameter value="0" type="FLOAT" help="An exemplary parameter which can be used by all instances of the example device"/>
     </example_device>
 

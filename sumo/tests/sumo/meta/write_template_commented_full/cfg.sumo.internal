@@ -46,7 +46,7 @@
 
     <output>
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
-        <output-prefix value="" type="FILE"/>
+        <output-prefix value="" type="STR"/>
 
         <!-- Save complete network states into FILE -->
         <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE"/>
@@ -107,6 +107,9 @@
 
         <!-- Write the output with the intended instead of the real departure time -->
         <vehroute-output.intended-depart value="false" synonymes="vehroutes.intended-depart" type="BOOL"/>
+
+        <!-- Include total route length in the output -->
+        <vehroute-output.route-length value="false" synonymes="vehroutes.route-length" type="BOOL"/>
 
         <!-- Write vehroute output for vehicles which have not arrived at simulation end -->
         <vehroute-output.write-unfinished value="false" type="BOOL"/>
@@ -333,8 +336,14 @@
     </communication>
 
     <example_device>
-        <!-- Assign a device to named vehicles -->
-        <device.example.explicit value="" type="STR"/>
+        <!-- The probability for a vehicle to have a &apos;example&apos; device -->
+        <device.example.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;example&apos; device to named vehicles -->
+        <device.example.explicit value="" synonymes="device.example.knownveh" type="STR"/>
+
+        <!-- The &apos;example&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.example.deterministic value="false" type="BOOL"/>
 
         <!-- An exemplary parameter which can be used by all instances of the example device -->
         <device.example.parameter value="0" type="FLOAT"/>
