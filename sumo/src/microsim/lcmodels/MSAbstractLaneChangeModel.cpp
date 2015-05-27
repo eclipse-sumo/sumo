@@ -129,6 +129,20 @@ bool
 MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* target, int direction) {
     target->enteredByLaneChange(&myVehicle);
     if (MSGlobals::gLaneChangeDuration > DELTA_T) {
+        // initialize further lanes for shadow vehicle 
+        // (must come before myLaneChangeCompletion is initialized)
+        const std::vector<MSLane*>& further = myVehicle.getFurtherLanes();
+        SUMOReal leftLength = myVehicle.getVehicleType().getLength() - myVehicle.getPositionOnLane();
+        MSLane* lane = target;
+        for (int i = 0; i < (int)further.size(); i++) {
+            lane = lane->getLogicalPredecessorLane(further[i]->getEdge());
+            if (lane != 0) {
+                leftLength -= lane->setPartialOccupation(&myVehicle, leftLength);
+                setShadowPartialOccupator(lane);
+            } else {
+                break;
+            }
+        }
         myLaneChangeCompletion = 0;
         myShadowLane = target;
         myHaveShadow = true;
@@ -180,6 +194,11 @@ MSAbstractLaneChangeModel::continueLaneChangeManeuver(bool moved) {
         // maneuver midpoint reached, swap myLane and myShadowLane
         myLaneChangeMidpointPassed = true;
         MSLane* tmp = myVehicle.getLane();
+        // removing partial occupator shadows - will be rebuilt in enterLaneAtLaneChange
+        for (std::vector<MSLane*>::const_iterator it = myPartiallyOccupatedByShadow.begin(); it != myPartiallyOccupatedByShadow.end(); ++it) {
+            (*it)->resetPartialOccupation(&myVehicle);
+        }
+        myPartiallyOccupatedByShadow.clear();
         myVehicle.leaveLane(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
         myVehicle.enterLaneAtLaneChange(myShadowLane);
         myShadowLane = tmp;

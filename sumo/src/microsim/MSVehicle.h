@@ -447,6 +447,10 @@ public:
     MSAbstractLaneChangeModel& getLaneChangeModel();
     const MSAbstractLaneChangeModel& getLaneChangeModel() const;
 
+    const std::vector<MSLane*>& getFurtherLanes() const {
+        return myFurtherLanes;
+    }
+
     /// @name strategical/tactical lane choosing methods
     /// @{
 

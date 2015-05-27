@@ -606,9 +606,11 @@ public:
      * Iterates over the current lane to find a leader and then uses
      * getLeaderOnConsecutive()
      * @param[in] veh The vehicle for which the information shall be computed
+     * @param[in] vehPos The vehicle position relative to this lane (may be negative)
+     * @param[in] checkNext Whether lanes after this one shall be checked
      * @return
      */
-    std::pair<MSVehicle* const, SUMOReal> getLeader(const MSVehicle* veh) const;
+    std::pair<MSVehicle* const, SUMOReal> getLeader(const MSVehicle* veh, const SUMOReal vehPos, bool checkNext) const;
 
     /** @brief Returns the immediate leader and the distance to him
      *
