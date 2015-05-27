@@ -581,7 +581,6 @@ MSLaneChanger::checkChange(
 #endif
             seen += nextLane->getLength();
         } while (true);
-        gDebugFlag1 = false;
     }
 #ifndef NO_TRACI
     // let TraCI influence the wish to change lanes and the security to take
