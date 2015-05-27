@@ -37,3 +37,6 @@ pedestrians
 
 # use binomially distributed arrivals
 binomial
+
+# generate validated trips
+validate

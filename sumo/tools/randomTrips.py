@@ -34,6 +34,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib
+import route2trips
 
 DUAROUTER = sumolib.checkBinary('duarouter')
 
@@ -93,6 +94,8 @@ def get_options(args=None):
         "-c", "--vclass", help="only from and to edges which permit <vClass>")
     optParser.add_option(
         "--vehicle-class", help="The vehicle class assigned to the generated trips")
+    optParser.add_option("--validate", default=False, action="store_true",
+            help="Whether to produce trip output that is already checked for connectivity")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
@@ -102,6 +105,9 @@ def get_options(args=None):
 
     if options.pedestrians:
         options.vclass = 'pedestrian'
+
+    if options.validate and options.routefile is None:
+        options.routefile = "routes.rou.xml"
     return options
 
 
@@ -336,6 +342,10 @@ def main(options):
             args += ['--additional-files', options.additional]
         print("calling ", " ".join(args))
         subprocess.call(args)
+
+    if options.validate:
+        print("calling route2trips")
+        route2trips.main([options.routefile], outfile=options.tripfile)
 
     if options.weights_outprefix:
         trip_generator.source_generator.write_weights(
