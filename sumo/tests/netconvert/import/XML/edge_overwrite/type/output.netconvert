@@ -1,10 +1,14 @@
-Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/opendriveNetconvert.typ.xml'... done.
-Parsing opendrive from 'opendrive.xodr'... 
+Parsing types from 'input_types.typ.xml'... done.
+Parsing nodes from 'input_nodes.nod.xml'... done.
+Parsing edges from 'input_edges.edg.xml'... done.
+Parsing edges from 'input_edges2.edg.xml'... 
+Duplicate edge id occurred ('1fi'); assuming overwriting is wished.
+Edge '1fi' changed it's type; assuming type override is wished.
 done.
  Import done:
    5 nodes loaded.
-   6 types loaded.
-   12 edges loaded.
+   4 types loaded.
+   8 edges loaded.
 Removing self-loops... done.
 Removing empty nodes... done.
    0 nodes removed.
@@ -25,7 +29,7 @@ Assigning nodes to traffic lights... done.
 Computing traffic light control information... done.
 Computing node logics... done.
 Computing traffic light logics... done.
- 1 traffic light(s) computed.
+ 0 traffic light(s) computed.
 Building inner edges... done.
 -----------------------------------------------------
 Summary:
@@ -34,8 +38,8 @@ Summary:
   Priority junctions          : 5
   Right-before-left junctions : 0
  Network boundaries:
-  Original boundary  : -200.00,-86.66,200.00,86.70
-  Applied offset     : 200.00,86.66
-  Converted boundary : 0.00,0.00,400.00,173.36
+  Original boundary  : -500.00,-500.00,500.00,500.00
+  Applied offset     : 500.00,500.00
+  Converted boundary : 0.00,0.00,1000.00,1000.00
 -----------------------------------------------------
 Success.

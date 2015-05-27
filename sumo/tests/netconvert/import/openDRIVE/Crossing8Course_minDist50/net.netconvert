@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/21/15 14:56:31 by SUMO netconvert Version dev-SVN-r18422
+<!-- generated on 05/27/15 13:00:17 by SUMO netconvert Version dev-SVN-r18444
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
+        <type-files value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/opendriveNetconvert.typ.xml"/>
         <opendrive-files value="opendrive.xodr"/>
     </input>
 
@@ -30,12 +31,12 @@
 
     <location netOffset="198.90,86.38" convBoundary="0.00,0.00,397.80,170.59" origBoundary="-198.90,-86.38,198.90,84.21" projParameter="!"/>
 
-    <type id="driving" priority="1" numLanes="1" speed="22.22" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
-    <type id="mwyEntry" priority="1" numLanes="1" speed="22.22" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
-    <type id="mwyExit" priority="1" numLanes="1" speed="22.22" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
-    <type id="parking" priority="1" numLanes="1" speed="1.39" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
-    <type id="special1" priority="1" numLanes="1" speed="22.22" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
-    <type id="stop" priority="1" numLanes="1" speed="22.22" disallow="pedestrian" oneway="1" discard="0" width="3.65"/>
+    <type id="driving" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="mwyEntry" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="mwyExit" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="parking" priority="1" speed="1.39" disallow="pedestrian" width="3.65"/>
+    <type id="special1" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="stop" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
 
     <edge id="-501.0.00" from="2" to="508.501" priority="1" shape="205.97,93.45 208.80,96.28">
         <lane id="-501.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="14.00" width="3.75" shape="204.01,88.77 210.16,94.92"/>

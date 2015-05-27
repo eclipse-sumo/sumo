@@ -42,3 +42,6 @@ remove
 
 # overwriting name
 name
+
+# overwriting edge type
+type

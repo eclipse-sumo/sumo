@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 24 08:53:43 2014 by SUMO netconvert Version dev-SVN-r16229
+<!-- generated on 05/27/15 22:18:37 by SUMO netconvert Version dev-SVN-r18444
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -33,12 +33,8 @@
         <lane index="2" disallow="pedestrian"/>
         <lane index="3" disallow="pedestrian"/>
     </edge>
-    <edge id="NC" from="N" to="C" priority="1" numLanes="1" speed="5.00" spreadType="center" width="3.00">
-        <lane index="0" allow="pedestrian"/>
-    </edge>
-    <edge id="SC" from="S" to="C" priority="1" numLanes="1" speed="5.00" spreadType="center" width="3.00">
-        <lane index="0" allow="pedestrian"/>
-    </edge>
+    <edge id="NC" from="N" to="C" priority="1" numLanes="1" speed="5.00" spreadType="center" width="3.00" allow="pedestrian"/>
+    <edge id="SC" from="S" to="C" priority="1" numLanes="1" speed="5.00" spreadType="center" width="3.00" allow="pedestrian"/>
     <edge id="WC" from="W" to="C" priority="1" numLanes="4" speed="13.89">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>

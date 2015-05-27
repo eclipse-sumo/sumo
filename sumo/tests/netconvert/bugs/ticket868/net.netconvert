@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/21/15 14:56:45 by SUMO netconvert Version dev-SVN-r18422
+<!-- generated on 05/27/15 21:39:38 by SUMO netconvert Version dev-SVN-r18444
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
+        <type-files value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -46,145 +47,145 @@
 
     <location netOffset="-355340.39,-5645704.86" convBoundary="0.00,0.00,364.54,256.22" origBoundary="6.940205,50.941361,6.954300,50.949656" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="bicycle" oneway="0" discard="0"/>
-    <type id="highway.bus_guideway" priority="1" numLanes="1" speed="8.33" allow="bus" oneway="0" discard="0"/>
-    <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" discard="0"/>
-    <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" discard="0"/>
-    <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0" discard="0"/>
-    <type id="highway.living_street" priority="3" numLanes="1" speed="2.78" oneway="0" discard="0"/>
-    <type id="highway.motorway" priority="13" numLanes="2" speed="44.44" oneway="1" discard="0"/>
-    <type id="highway.motorway_link" priority="12" numLanes="1" speed="22.22" oneway="1" discard="0"/>
-    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" discard="0"/>
-    <type id="highway.pedestrian" priority="1" numLanes="1" speed="8.33" allow="pedestrian" oneway="1" discard="0"/>
-    <type id="highway.primary" priority="9" numLanes="2" speed="27.78" oneway="0" discard="0"/>
-    <type id="highway.primary_link" priority="8" numLanes="1" speed="22.22" oneway="0" discard="0"/>
-    <type id="highway.raceway" priority="14" numLanes="2" speed="83.33" allow="vip" oneway="0" discard="0"/>
-    <type id="highway.residential" priority="4" numLanes="1" speed="13.89" oneway="0" discard="0"/>
-    <type id="highway.secondary" priority="7" numLanes="2" speed="27.78" oneway="0" discard="0"/>
-    <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" oneway="0" discard="0"/>
-    <type id="highway.service" priority="2" numLanes="1" speed="5.56" allow="delivery" oneway="0" discard="0"/>
-    <type id="highway.services" priority="1" numLanes="1" speed="8.33" oneway="0" discard="0"/>
-    <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" discard="0"/>
-    <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" discard="0"/>
-    <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" discard="0"/>
-    <type id="highway.tertiary" priority="6" numLanes="1" speed="22.22" oneway="0" discard="0"/>
-    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" oneway="0" discard="0"/>
-    <type id="highway.track" priority="1" numLanes="1" speed="5.56" oneway="0" discard="0"/>
-    <type id="highway.trunk" priority="11" numLanes="2" speed="27.78" oneway="0" discard="0"/>
-    <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" oneway="0" discard="0"/>
-    <type id="highway.unclassified" priority="5" numLanes="1" speed="22.22" oneway="0" discard="0"/>
-    <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" oneway="0" discard="0"/>
-    <type id="railway.light_rail" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1" discard="0"/>
-    <type id="railway.preserved" priority="15" numLanes="1" speed="27.78" allow="rail" oneway="1" discard="0"/>
-    <type id="railway.rail" priority="15" numLanes="1" speed="83.33" allow="rail" oneway="1" discard="0"/>
-    <type id="railway.subway" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1" discard="0"/>
-    <type id="railway.tram" priority="15" numLanes="1" speed="27.78" allow="tram" oneway="1" discard="0"/>
+    <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1"/>
+    <type id="highway.bus_guideway" priority="1" numLanes="1" speed="8.33" allow="bus" oneway="1"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0"/>
+    <type id="highway.footway" priority="1" numLanes="1" speed="8.33" allow="pedestrian" oneway="1"/>
+    <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
+    <type id="highway.living_street" priority="3" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.motorway" priority="13" numLanes="2" speed="44.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.motorway_link" priority="12" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="bicycle pedestrian" oneway="1"/>
+    <type id="highway.pedestrian" priority="1" numLanes="1" speed="8.33" allow="pedestrian" oneway="1"/>
+    <type id="highway.primary" priority="9" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.primary_link" priority="8" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.raceway" priority="14" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
+    <type id="highway.residential" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.secondary" priority="7" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.service" priority="2" numLanes="1" speed="5.56" allow="delivery bicycle pedestrian" oneway="0"/>
+    <type id="highway.services" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1"/>
+    <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1"/>
+    <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1"/>
+    <type id="highway.tertiary" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.track" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.trunk" priority="11" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
+    <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
+    <type id="highway.unclassified" priority="5" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="railway.light_rail" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.preserved" priority="15" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
+    <type id="railway.rail" priority="15" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
+    <type id="railway.subway" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="15" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id="-205996114#1" from="256785829" to="32950084" priority="9" type="highway.primary" shape="250.62,228.55 287.81,251.46 294.84,254.79 300.40,256.12 304.97,256.22 309.19,255.49 312.02,253.23">
-        <lane id="-205996114#1_0" index="0" speed="13.89" length="69.65" shape="253.13,228.15 288.68,250.05 295.39,253.22 300.61,254.48 304.84,254.57 308.49,253.94 310.62,252.23"/>
+        <lane id="-205996114#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="69.65" shape="253.13,228.15 288.68,250.05 295.39,253.22 300.61,254.48 304.84,254.57 308.49,253.94 310.62,252.23"/>
     </edge>
     <edge id="-23543117#0" from="32950084" to="1610102670" priority="9" type="highway.primary" shape="312.02,253.23 321.41,239.86 335.79,215.42">
-        <lane id="-23543117#0_0" index="0" speed="13.89" length="44.69" shape="310.93,251.90 320.06,238.91 334.36,214.59"/>
+        <lane id="-23543117#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="44.69" shape="310.93,251.90 320.06,238.91 334.36,214.59"/>
     </edge>
     <edge id="151057631#0" from="1238706" to="449262" priority="4" type="highway.residential" spreadType="center" shape="154.36,165.37 276.00,148.09 280.11,145.22">
-        <lane id="151057631#0_0" index="0" speed="13.89" length="132.77" shape="157.49,164.92 276.00,148.09 277.00,147.39"/>
+        <lane id="151057631#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="132.77" shape="157.49,164.92 276.00,148.09 277.00,147.39"/>
     </edge>
     <edge id="151057658" from="1238711" to="256785829" priority="9" type="highway.primary" spreadType="center" shape="155.00,174.42 186.60,185.68 214.08,200.34 241.58,218.96 250.62,228.55">
-        <lane id="151057658_0" index="0" speed="13.89" length="111.09" shape="157.41,173.53 187.16,184.12 214.86,198.89 242.45,217.56"/>
-        <lane id="151057658_1" index="1" speed="13.89" length="111.09" shape="156.30,176.64 186.05,187.23 213.31,201.80 240.00,219.89"/>
+        <lane id="151057658_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="111.09" shape="157.41,173.53 187.16,184.12 214.86,198.89 242.45,217.56"/>
+        <lane id="151057658_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="111.09" shape="156.30,176.64 186.05,187.23 213.31,201.80 240.00,219.89"/>
     </edge>
     <edge id="151057664#0" from="21760939" to="1638951669" priority="4" type="highway.residential" spreadType="center" shape="255.06,3.14 301.57,118.59 306.36,130.47">
-        <lane id="151057664#0_0" index="0" speed="13.89" length="145.23" shape="255.06,3.14 301.57,118.59 301.96,119.54"/>
+        <lane id="151057664#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="145.23" shape="255.06,3.14 301.57,118.59 301.96,119.54"/>
     </edge>
     <edge id="151059738#0" from="804434748" to="1238706" priority="4" type="highway.residential" spreadType="center" shape="156.19,70.14 148.11,68.53 145.76,71.96 145.34,79.20 154.36,165.37">
-        <lane id="151059738#0_0" index="0" speed="13.89" length="108.74" shape="154.78,69.86 148.11,68.53 145.76,71.96 145.34,79.20 154.03,162.22"/>
+        <lane id="151059738#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="108.74" shape="154.78,69.86 148.11,68.53 145.76,71.96 145.34,79.20 154.03,162.22"/>
     </edge>
     <edge id="151059738#2" from="1238706" to="1238711" priority="4" type="highway.residential" spreadType="center">
-        <lane id="151059738#2_0" index="0" speed="13.89" length="9.07" shape="154.57,168.35 154.65,169.48"/>
+        <lane id="151059738#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="9.07" shape="154.57,168.35 154.65,169.48"/>
     </edge>
     <edge id="151060320#0" from="713758579" to="2109001185" priority="9" type="highway.primary" spreadType="center" shape="152.27,184.49 135.16,182.18 117.63,181.31 80.04,186.75">
-        <lane id="151060320#0_0" index="0" speed="27.78" length="72.80" shape="151.70,186.07 134.94,183.82 117.71,182.97 80.27,188.38"/>
-        <lane id="151060320#0_1" index="1" speed="27.78" length="72.80" shape="152.14,182.80 135.38,180.55 117.55,179.66 79.80,185.11"/>
+        <lane id="151060320#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="72.80" shape="151.70,186.07 134.94,183.82 117.71,182.97 80.27,188.38"/>
+        <lane id="151060320#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="72.80" shape="152.14,182.80 135.38,180.55 117.55,179.66 79.80,185.11"/>
     </edge>
     <edge id="151060320#1" from="2109001185" to="249536359" priority="9" type="highway.primary" spreadType="center" shape="80.04,186.75 72.77,187.80 60.11,189.62 0.00,199.34">
-        <lane id="151060320#1_0" index="0" speed="27.78" length="81.03" shape="80.27,188.38 73.01,189.43 60.35,191.25 0.26,200.97"/>
-        <lane id="151060320#1_1" index="1" speed="27.78" length="81.03" shape="79.80,185.11 72.54,186.16 59.88,187.98 -0.26,197.71"/>
+        <lane id="151060320#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="81.03" shape="80.27,188.38 73.01,189.43 60.35,191.25 0.26,200.97"/>
+        <lane id="151060320#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="81.03" shape="79.80,185.11 72.54,186.16 59.88,187.98 -0.26,197.71"/>
     </edge>
     <edge id="198188181#0" from="255072664" to="32949992" priority="9" type="highway.primary" spreadType="center" shape="70.15,177.56 85.93,175.77 108.94,173.16 145.01,173.17">
-        <lane id="198188181#0_0" index="0" speed="13.89" length="75.11" shape="69.96,175.93 85.75,174.13 108.76,171.52 144.75,171.52"/>
-        <lane id="198188181#0_1" index="1" speed="13.89" length="75.11" shape="70.34,179.20 86.12,177.41 109.13,174.79 144.74,174.82"/>
+        <lane id="198188181#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="75.11" shape="69.96,175.93 85.75,174.13 108.76,171.52 144.75,171.52"/>
+        <lane id="198188181#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="75.11" shape="70.34,179.20 86.12,177.41 109.13,174.79 144.74,174.82"/>
     </edge>
     <edge id="198188181#1" from="32949992" to="1238711" priority="9" type="highway.primary" spreadType="center" shape="145.01,173.17 151.48,174.25 155.00,174.42">
-        <lane id="198188181#1_0" index="0" speed="13.89" length="10.07" shape="145.55,171.59 151.59,172.60"/>
-        <lane id="198188181#1_1" index="1" speed="13.89" length="10.07" shape="145.01,174.84 151.20,175.88 151.43,175.89"/>
+        <lane id="198188181#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="10.07" shape="145.55,171.59 151.59,172.60"/>
+        <lane id="198188181#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="10.07" shape="145.01,174.84 151.20,175.88 151.43,175.89"/>
     </edge>
     <edge id="23543117#0" from="1610102670" to="32950084" priority="9" type="highway.primary" shape="335.79,215.42 321.41,239.86 312.02,253.23">
-        <lane id="23543117#0_0" index="0" speed="13.89" length="44.69" shape="337.21,216.26 322.83,240.70 313.63,253.80"/>
+        <lane id="23543117#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="44.69" shape="337.21,216.26 322.83,240.70 313.63,253.80"/>
     </edge>
     <edge id="23543117#1" from="32950084" to="256785829" priority="9" type="highway.primary" shape="312.02,253.23 309.19,255.49 304.97,256.22 300.40,256.12 294.84,254.79 287.81,251.46 250.62,228.55">
-        <lane id="23543117#1_0" index="0" speed="13.89" length="69.65" shape="312.69,254.81 309.89,257.04 305.09,257.87 300.19,257.77 294.29,256.35 287.11,252.95 251.40,230.96"/>
+        <lane id="23543117#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="69.65" shape="312.69,254.81 309.89,257.04 305.09,257.87 300.19,257.77 294.29,256.35 287.11,252.95 251.40,230.96"/>
     </edge>
     <edge id="23714484" from="256785829" to="713758579" priority="9" type="highway.primary" spreadType="center" shape="250.62,228.55 237.47,224.63 213.37,210.70 182.91,195.71 152.27,184.49">
-        <lane id="23714484_0" index="0" speed="13.89" length="108.14" shape="237.12,226.25 236.81,226.16 212.54,212.13 182.18,197.19 152.04,186.16"/>
-        <lane id="23714484_1" index="1" speed="13.89" length="108.14" shape="238.07,223.07 214.19,209.27 183.63,194.23 153.18,183.06"/>
+        <lane id="23714484_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="108.14" shape="237.12,226.25 236.81,226.16 212.54,212.13 182.18,197.19 152.04,186.16"/>
+        <lane id="23714484_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="108.14" shape="238.07,223.07 214.19,209.27 183.63,194.23 153.18,183.06"/>
     </edge>
     <edge id="37276365#0" from="32950045" to="449262" priority="9" type="highway.primary" spreadType="center" shape="352.90,185.17 337.45,175.85 318.70,164.16 282.91,141.20">
-        <lane id="37276365#0_0" index="0" speed="27.78" length="82.66" shape="352.04,186.58 336.59,177.27 317.82,165.56 285.15,144.60"/>
-        <lane id="37276365#0_1" index="1" speed="27.78" length="82.66" shape="353.75,183.76 338.30,174.44 319.57,162.76 286.93,141.82"/>
+        <lane id="37276365#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="82.66" shape="352.04,186.58 336.59,177.27 317.82,165.56 285.15,144.60"/>
+        <lane id="37276365#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="82.66" shape="353.75,183.76 338.30,174.44 319.57,162.76 286.93,141.82"/>
     </edge>
     <edge id="37276365#1" from="37276365#1-AddedOnRampNode" to="804434748" priority="9" type="highway.primary" spreadType="center" shape="198.90,86.88 177.52,72.22 170.33,68.49 163.35,66.65 157.25,65.31">
-        <lane id="37276365#1_0" index="0" speed="27.78" length="53.18" shape="194.87,90.11 174.72,76.30 168.53,73.14 162.08,71.43 157.65,70.46"/>
-        <lane id="37276365#1_1" index="1" speed="27.78" length="53.18" shape="196.73,87.39 176.59,73.58 169.73,70.04 162.92,68.24 158.36,67.24"/>
+        <lane id="37276365#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="53.18" shape="194.87,90.11 174.72,76.30 168.53,73.14 162.08,71.43 157.65,70.46"/>
+        <lane id="37276365#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="53.18" shape="196.73,87.39 176.59,73.58 169.73,70.04 162.92,68.24 158.36,67.24"/>
         <lane id="37276365#1_2" index="2" speed="27.78" length="53.18" shape="198.60,84.67 178.45,70.86 170.92,66.94 163.77,65.05 159.07,64.02"/>
         <lane id="37276365#1_3" index="3" speed="27.78" length="53.18" shape="200.47,81.95 180.32,68.14 172.12,63.85 164.61,61.86 159.77,60.80"/>
     </edge>
     <edge id="37276365#1-AddedOnRampEdge" from="449262" to="37276365#1-AddedOnRampNode" priority="9" type="highway.primary" spreadType="center" shape="281.99,142.51 222.78,101.31 199.81,85.56">
-        <lane id="37276365#1-AddedOnRampEdge_0" index="0" speed="27.78" length="103.19" shape="276.99,143.05 220.90,104.02 199.18,89.13"/>
-        <lane id="37276365#1-AddedOnRampEdge_1" index="1" speed="27.78" length="103.19" shape="278.88,140.34 222.78,101.31 201.05,86.41"/>
-        <lane id="37276365#1-AddedOnRampEdge_2" index="2" speed="27.78" length="103.19" shape="280.76,137.63 224.67,98.60 202.91,83.69"/>
+        <lane id="37276365#1-AddedOnRampEdge_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="103.19" shape="276.99,143.05 220.90,104.02 199.18,89.13"/>
+        <lane id="37276365#1-AddedOnRampEdge_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="103.19" shape="278.88,140.34 222.78,101.31 201.05,86.41"/>
+        <lane id="37276365#1-AddedOnRampEdge_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="103.19" shape="280.76,137.63 224.67,98.60 202.91,83.69"/>
     </edge>
     <edge id="4045172#0" from="449266" to="449272" priority="9" type="highway.primary" spreadType="center" shape="100.20,0.00 102.62,4.05 106.06,10.47 108.53,13.85 121.55,32.16 130.46,43.78 139.40,49.31">
-        <lane id="4045172#0_0" index="0" speed="13.89" length="63.81" shape="101.61,-0.85 104.03,3.20 107.52,9.69 109.86,12.88 122.90,31.21 131.58,42.53 139.84,47.64"/>
-        <lane id="4045172#0_1" index="1" speed="13.89" length="63.81" shape="98.78,0.85 101.20,4.90 104.61,11.25 107.19,14.83 120.21,33.12 129.33,45.02 138.10,50.45"/>
+        <lane id="4045172#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="63.81" shape="101.61,-0.85 104.03,3.20 107.52,9.69 109.86,12.88 122.90,31.21 131.58,42.53 139.84,47.64"/>
+        <lane id="4045172#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="63.81" shape="98.78,0.85 101.20,4.90 104.61,11.25 107.19,14.83 120.21,33.12 129.33,45.02 138.10,50.45"/>
     </edge>
     <edge id="4045172#1" from="449272" to="805802932" priority="9" type="highway.primary" spreadType="center" shape="139.40,49.31 146.64,51.13 158.97,51.85 168.28,52.35 178.59,53.60 186.17,54.74 192.71,56.88 201.99,62.43 209.71,67.72 239.01,87.37">
-        <lane id="4045172#1_0" index="0" speed="13.89" length="109.52" shape="140.29,47.84 146.89,49.49 159.07,50.20 168.37,50.70 178.79,51.96 186.41,53.11 193.40,55.37 202.83,61.02 210.64,66.35 238.69,85.17"/>
-        <lane id="4045172#1_1" index="1" speed="13.89" length="109.52" shape="139.49,51.04 146.38,52.76 158.88,53.50 168.19,53.99 178.39,55.23 185.92,56.37 192.02,58.40 201.14,63.85 208.78,69.08 236.85,87.91"/>
+        <lane id="4045172#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="109.52" shape="140.29,47.84 146.89,49.49 159.07,50.20 168.37,50.70 178.79,51.96 186.41,53.11 193.40,55.37 202.83,61.02 210.64,66.35 238.69,85.17"/>
+        <lane id="4045172#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="109.52" shape="139.49,51.04 146.38,52.76 158.88,53.50 168.19,53.99 178.39,55.23 185.92,56.37 192.02,58.40 201.14,63.85 208.78,69.08 236.85,87.91"/>
     </edge>
     <edge id="66389908#0" from="804434748" to="320920680" priority="9" type="highway.primary" spreadType="center" shape="157.94,62.18 152.51,61.51 138.82,58.90">
-        <lane id="66389908#0_0" index="0" speed="27.78" length="25.09" shape="156.72,65.36 152.11,64.79 138.85,62.26"/>
-        <lane id="66389908#0_1" index="1" speed="27.78" length="25.09" shape="158.44,62.25 152.51,61.51 139.47,59.02"/>
-        <lane id="66389908#0_2" index="2" speed="27.78" length="25.09" shape="158.34,58.91 152.92,58.24 140.09,55.78"/>
+        <lane id="66389908#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="25.09" shape="156.72,65.36 152.11,64.79 138.85,62.26"/>
+        <lane id="66389908#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="25.09" shape="158.44,62.25 152.51,61.51 139.47,59.02"/>
+        <lane id="66389908#0_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="25.09" shape="158.34,58.91 152.92,58.24 140.09,55.78"/>
     </edge>
     <edge id="66389908#1" from="320920680" to="2116887815" priority="9" type="highway.primary" spreadType="center" shape="138.82,58.90 124.33,51.79 116.14,42.85 101.78,21.61">
-        <lane id="66389908#1_0" index="0" speed="27.78" length="53.90" shape="136.78,61.57 122.32,54.48 113.71,45.08 99.05,23.46"/>
-        <lane id="66389908#1_1" index="1" speed="27.78" length="53.90" shape="138.23,58.61 124.33,51.79 116.14,42.85 101.78,21.61"/>
-        <lane id="66389908#1_2" index="2" speed="27.78" length="53.90" shape="139.69,55.65 126.35,49.10 118.57,40.62 104.52,19.76"/>
+        <lane id="66389908#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="53.90" shape="136.78,61.57 122.32,54.48 113.71,45.08 99.05,23.46"/>
+        <lane id="66389908#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="53.90" shape="138.23,58.61 124.33,51.79 116.14,42.85 101.78,21.61"/>
+        <lane id="66389908#1_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="53.90" shape="139.69,55.65 126.35,49.10 118.57,40.62 104.52,19.76"/>
     </edge>
     <edge id="66389908#2" from="2116887815" to="1638968562" priority="9" type="highway.primary" spreadType="center" shape="101.78,21.61 97.74,15.64 93.93,9.99 92.22,7.44">
-        <lane id="66389908#2_0" index="0" speed="27.78" length="17.09" shape="99.06,23.46 95.01,17.48 91.20,11.84 89.48,9.29"/>
-        <lane id="66389908#2_1" index="1" speed="27.78" length="17.09" shape="101.79,21.62 97.74,15.64 93.93,9.99 92.22,7.44"/>
-        <lane id="66389908#2_2" index="2" speed="27.78" length="17.09" shape="104.52,19.77 100.48,13.79 96.67,8.14 94.95,5.60"/>
+        <lane id="66389908#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="17.09" shape="99.06,23.46 95.01,17.48 91.20,11.84 89.48,9.29"/>
+        <lane id="66389908#2_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="17.09" shape="101.79,21.62 97.74,15.64 93.93,9.99 92.22,7.44"/>
+        <lane id="66389908#2_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="17.09" shape="104.52,19.77 100.48,13.79 96.67,8.14 94.95,5.60"/>
     </edge>
     <edge id="66598973#0" from="805802932" to="458602274" priority="9" type="highway.primary" spreadType="center">
-        <lane id="66598973#0_0" index="0" speed="13.89" length="61.12" shape="242.07,85.42 291.91,117.89"/>
-        <lane id="66598973#0_1" index="1" speed="13.89" length="61.12" shape="240.26,88.19 290.22,120.73"/>
-        <lane id="66598973#0_2" index="2" speed="13.89" length="61.12" shape="238.46,90.96 288.49,123.54"/>
+        <lane id="66598973#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="61.12" shape="242.07,85.42 291.91,117.89"/>
+        <lane id="66598973#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="61.12" shape="240.26,88.19 290.22,120.73"/>
+        <lane id="66598973#0_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="61.12" shape="238.46,90.96 288.49,123.54"/>
     </edge>
     <edge id="66598973#1" from="458602274" to="1638951669" priority="9" type="highway.primary" spreadType="center">
-        <lane id="66598973#1_0" index="0" speed="13.89" length="26.79" shape="292.05,117.98 298.92,122.13"/>
-        <lane id="66598973#1_1" index="1" speed="13.89" length="26.79" shape="290.22,120.73 297.22,124.95"/>
-        <lane id="66598973#1_2" index="2" speed="13.89" length="26.79" shape="288.49,123.54 295.51,127.78"/>
+        <lane id="66598973#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.79" shape="292.05,117.98 298.92,122.13"/>
+        <lane id="66598973#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.79" shape="290.22,120.73 297.22,124.95"/>
+        <lane id="66598973#1_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.79" shape="288.49,123.54 295.51,127.78"/>
     </edge>
     <edge id="66598973#2" from="1638951669" to="2107888870" priority="9" type="highway.primary" spreadType="center" shape="306.36,130.47 337.35,150.34 350.12,158.53">
-        <lane id="66598973#2_0" index="0" speed="13.89" length="59.92" shape="305.92,126.27 339.13,147.56 351.90,155.75"/>
-        <lane id="66598973#2_1" index="1" speed="13.89" length="59.92" shape="304.14,129.05 337.35,150.34 350.12,158.53"/>
-        <lane id="66598973#2_2" index="2" speed="13.89" length="59.92" shape="302.36,131.83 335.57,153.12 348.33,161.31"/>
+        <lane id="66598973#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="59.92" shape="305.92,126.27 339.13,147.56 351.90,155.75"/>
+        <lane id="66598973#2_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="59.92" shape="304.14,129.05 337.35,150.34 350.12,158.53"/>
+        <lane id="66598973#2_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="59.92" shape="302.36,131.83 335.57,153.12 348.33,161.31"/>
     </edge>
     <edge id="66598973#3" from="2107888870" to="474459" priority="9" type="highway.primary" spreadType="center">
-        <lane id="66598973#3_0" index="0" speed="13.89" length="17.14" shape="351.90,155.75 366.32,165.00"/>
-        <lane id="66598973#3_1" index="1" speed="13.89" length="17.14" shape="350.12,158.53 364.54,167.78"/>
-        <lane id="66598973#3_2" index="2" speed="13.89" length="17.14" shape="348.33,161.31 362.76,170.56"/>
+        <lane id="66598973#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="17.14" shape="351.90,155.75 366.32,165.00"/>
+        <lane id="66598973#3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="17.14" shape="350.12,158.53 364.54,167.78"/>
+        <lane id="66598973#3_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="17.14" shape="348.33,161.31 362.76,170.56"/>
     </edge>
 
     <tlLogic id="1638951669" type="static" programID="0" offset="0">
