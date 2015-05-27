@@ -152,17 +152,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     myImportAllTypes = oc.getBool("opendrive.import-all-lanes");
     myImportWidths = !oc.getBool("opendrive.ignore-widths");
     NBTypeCont& tc = nb.getTypeCont();
-    const SUMOReal WIDTH(3.65); // as wanted
-    const SVCPermissions defaultPermissions = SVCAll & ~SVC_PEDESTRIAN;
-    tc.insert("driving",  1, (SUMOReal)(80. / 3.6), 1, defaultPermissions, WIDTH, true, NBEdge::UNSPECIFIED_WIDTH);
-    tc.insert("mwyEntry", 1, (SUMOReal)(80. / 3.6), 1, defaultPermissions, WIDTH, true, NBEdge::UNSPECIFIED_WIDTH);
-    tc.insert("mwyExit",  1, (SUMOReal)(80. / 3.6), 1, defaultPermissions, WIDTH, true, NBEdge::UNSPECIFIED_WIDTH);
-    tc.insert("stop",     1, (SUMOReal)(80. / 3.6), 1, defaultPermissions, WIDTH, true, NBEdge::UNSPECIFIED_WIDTH);
-    tc.insert("special1", 1, (SUMOReal)(80. / 3.6), 1, defaultPermissions, WIDTH, true, NBEdge::UNSPECIFIED_WIDTH);
-    tc.insert("parking",  1, (SUMOReal)(5. / 3.6),  1, defaultPermissions, WIDTH, true, NBEdge::UNSPECIFIED_WIDTH);
     // build the handler
     std::map<std::string, OpenDriveEdge*> edges;
-    NIImporter_OpenDrive handler(tc, edges);
+    NIImporter_OpenDrive handler(nb.getTypeCont(), edges);
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("opendrive-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {

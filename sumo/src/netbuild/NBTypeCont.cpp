@@ -57,23 +57,10 @@ NBTypeCont::setDefaults(int defaultNumLanes,
 }
 
 
-bool
-NBTypeCont::insert(const std::string& id, int numLanes, SUMOReal maxSpeed, int prio,
-                   SUMOReal width, SUMOVehicleClass vClass, bool oneWayIsDefault, SUMOReal sidewalkWidth) {
-    SVCPermissions permissions = (vClass == SVC_IGNORING ? SVCAll : vClass);
-    return insert(id, numLanes, maxSpeed, prio, permissions, width, oneWayIsDefault, sidewalkWidth);
-}
-
-
-bool
+void
 NBTypeCont::insert(const std::string& id, int numLanes, SUMOReal maxSpeed, int prio,
                    SVCPermissions permissions, SUMOReal width, bool oneWayIsDefault, SUMOReal sidewalkWidth) {
-    TypesCont::iterator i = myTypes.find(id);
-    if (i != myTypes.end()) {
-        return false;
-    }
     myTypes[id] = TypeDefinition(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth);
-    return true;
 }
 
 
@@ -95,6 +82,17 @@ NBTypeCont::markAsToDiscard(const std::string& id) {
 
 
 bool
+NBTypeCont::markAsSet(const std::string& id, const SumoXMLAttr attr) {
+    TypesCont::iterator i = myTypes.find(id);
+    if (i == myTypes.end()) {
+        return false;
+    }
+    (*i).second.attrs.insert(attr);
+    return true;
+}
+
+
+bool
 NBTypeCont::addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed) {
     TypesCont::iterator i = myTypes.find(id);
     if (i == myTypes.end()) {
@@ -105,22 +103,49 @@ NBTypeCont::addRestriction(const std::string& id, const SUMOVehicleClass svc, co
 }
 
 
+bool
+NBTypeCont::copyRestrictionsAndAttrs(const std::string& fromId, const std::string& toId) {
+    TypesCont::iterator from = myTypes.find(fromId);
+    TypesCont::iterator to = myTypes.find(toId);
+    if (from == myTypes.end() || to == myTypes.end()) {
+        return false;
+    }
+    to->second.restrictions = from->second.restrictions;
+    to->second.attrs = from->second.attrs;
+    return true;
+}
+
+
 void
 NBTypeCont::writeTypes(OutputDevice& into) const {
     for (TypesCont::const_iterator i = myTypes.begin(); i != myTypes.end(); ++i) {
         into.openTag(SUMO_TAG_TYPE);
         into.writeAttr(SUMO_ATTR_ID, i->first);
         const NBTypeCont::TypeDefinition& type = i->second;
-        into.writeAttr(SUMO_ATTR_PRIORITY, type.priority);
-        into.writeAttr(SUMO_ATTR_NUMLANES, type.numLanes);
-        into.writeAttr(SUMO_ATTR_SPEED, type.speed);
-        writePermissions(into, type.permissions);
-        into.writeAttr(SUMO_ATTR_ONEWAY, type.oneWay);
-        into.writeAttr(SUMO_ATTR_DISCARD, type.discard);
-        if (type.width != NBEdge::UNSPECIFIED_WIDTH) {
+        if (type.attrs.count(SUMO_ATTR_PRIORITY) > 0) {
+            into.writeAttr(SUMO_ATTR_PRIORITY, type.priority);
+        }
+        if (type.attrs.count(SUMO_ATTR_NUMLANES) > 0) {
+            into.writeAttr(SUMO_ATTR_NUMLANES, type.numLanes);
+        }
+        if (type.attrs.count(SUMO_ATTR_SPEED) > 0) {
+            into.writeAttr(SUMO_ATTR_SPEED, type.speed);
+        }
+        if (type.permissions == SVCAll && type.attrs.count(SUMO_ATTR_ALLOW) > 0) {
+            into.writeAttr(SUMO_ATTR_ALLOW, "all");
+        } else if (type.attrs.count(SUMO_ATTR_DISALLOW) > 0 || type.attrs.count(SUMO_ATTR_ALLOW) > 0) {
+            writePermissions(into, type.permissions);
+        }
+        if (type.attrs.count(SUMO_ATTR_ONEWAY) > 0) {
+            into.writeAttr(SUMO_ATTR_ONEWAY, type.oneWay);
+        }
+        if (type.attrs.count(SUMO_ATTR_DISCARD) > 0) {
+            into.writeAttr(SUMO_ATTR_DISCARD, type.discard);
+        }
+        if (type.attrs.count(SUMO_ATTR_WIDTH) > 0) {
             into.writeAttr(SUMO_ATTR_WIDTH, type.width);
         }
-        if (type.sidewalkWidth != NBEdge::UNSPECIFIED_WIDTH) {
+        if (type.attrs.count(SUMO_ATTR_SIDEWALKWIDTH) > 0) {
             into.writeAttr(SUMO_ATTR_SIDEWALKWIDTH, type.sidewalkWidth);
         }
         for (std::map<SUMOVehicleClass, SUMOReal>::const_iterator j = type.restrictions.begin(); j != type.restrictions.begin(); ++j) {
@@ -168,6 +193,12 @@ NBTypeCont::getShallBeDiscarded(const std::string& type) const {
 }
 
 
+bool
+NBTypeCont::wasSet(const std::string& type, const SumoXMLAttr attr) const {
+    return getType(type).attrs.count(attr) > 0;
+}
+
+    
 SVCPermissions
 NBTypeCont::getPermissions(const std::string& type) const {
     return getType(type).permissions;

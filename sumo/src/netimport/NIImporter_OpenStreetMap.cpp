@@ -133,49 +133,6 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isSet("osm-files")) {
         return;
     }
-    // preset types
-    //  for highways
-    NBTypeCont& tc = nb.getTypeCont();
-    SUMOReal const WIDTH = NBEdge::UNSPECIFIED_WIDTH;
-    tc.insert("highway.motorway",      2, (SUMOReal)(160. / 3.6), 13, WIDTH, SVC_IGNORING, true);
-    tc.insert("highway.motorway_link", 1, (SUMOReal)(80. / 3.6), 12, WIDTH, SVC_IGNORING, true);
-    tc.insert("highway.trunk",         2, (SUMOReal)(100. / 3.6), 11, WIDTH); // !!! 130km/h?
-    tc.insert("highway.trunk_link",    1, (SUMOReal)(80. / 3.6), 10, WIDTH);
-    tc.insert("highway.primary",       2, (SUMOReal)(100. / 3.6),  9, WIDTH);
-    tc.insert("highway.primary_link",  1, (SUMOReal)(80. / 3.6),  8, WIDTH);
-    tc.insert("highway.secondary",     2, (SUMOReal)(100. / 3.6),  7, WIDTH);
-    tc.insert("highway.secondary_link", 1, (SUMOReal)(80. / 3.6),  6, WIDTH);
-    tc.insert("highway.tertiary",      1, (SUMOReal)(80. / 3.6),  6, WIDTH);
-    tc.insert("highway.tertiary_link", 1, (SUMOReal)(80. / 3.6),  5, WIDTH);
-    tc.insert("highway.unclassified",  1, (SUMOReal)(80. / 3.6),  5, WIDTH);
-    tc.insert("highway.residential",   1, (SUMOReal)(50. / 3.6),  4, WIDTH); // actually, maybe one lane for parking would be nice...
-    tc.insert("highway.living_street", 1, (SUMOReal)(10. / 3.6),  3, WIDTH);
-    tc.insert("highway.service",       1, (SUMOReal)(20. / 3.6),  2, WIDTH, SVC_DELIVERY);
-    tc.insert("highway.track",         1, (SUMOReal)(20. / 3.6),  1, WIDTH);
-    tc.insert("highway.services",      1, (SUMOReal)(30. / 3.6),  1, WIDTH); // service area i.e. on a motorway
-    tc.insert("highway.unsurfaced",    1, (SUMOReal)(30. / 3.6),  1, WIDTH); // unofficial value, used outside germany
-
-    tc.insert("highway.pedestrian",    1, (SUMOReal)(30. / 3.6),  1, WIDTH, SVC_PEDESTRIAN, true);
-    tc.insert("highway.path",          1, (SUMOReal)(10. / 3.6),  1, WIDTH, SVC_PEDESTRIAN, true);
-    tc.insert("highway.bridleway",     1, (SUMOReal)(10. / 3.6),  1, WIDTH, SVC_BICYCLE); // no horse stuff
-    tc.insert("highway.cycleway",      1, (SUMOReal)(20. / 3.6),  1, WIDTH, SVC_BICYCLE);
-    tc.insert("highway.footway",       1, (SUMOReal)(10. / 3.6),  1, WIDTH, SVC_PEDESTRIAN, true);
-    tc.insert("highway.step",          1, (SUMOReal)(5.  / 3.6),  1, WIDTH, SVC_PEDESTRIAN, true); // additional
-    tc.insert("highway.steps",         1, (SUMOReal)(5.  / 3.6),  1, WIDTH, SVC_PEDESTRIAN, true); // :-) do not run too fast
-    tc.insert("highway.stairs",        1, (SUMOReal)(5.  / 3.6),  1, WIDTH, SVC_PEDESTRIAN, true); // additional
-    tc.insert("highway.bus_guideway",  1, (SUMOReal)(30. / 3.6),  1, WIDTH, SVC_BUS);
-    tc.insert("highway.raceway",       2, (SUMOReal)(300. / 3.6), 14, WIDTH, SVC_VIP);
-    tc.insert("highway.ford",          1, (SUMOReal)(10. / 3.6),  1, WIDTH, SVC_ARMY);
-
-    //  for railways
-    const bool oneWay = oc.getBool("osm.railway.oneway-default");
-    tc.insert("railway.rail",          1, (SUMOReal)(300. / 3.6),  15, WIDTH, SVC_RAIL, oneWay);
-    tc.insert("railway.tram",          1, (SUMOReal)(100. / 3.6),  15, WIDTH, SVC_TRAM,  oneWay);
-    tc.insert("railway.light_rail",    1, (SUMOReal)(100. / 3.6),  15, WIDTH, SVC_RAIL_URBAN, oneWay); // might also correspond to higher standard trams
-    tc.insert("railway.subway",        1, (SUMOReal)(100. / 3.6),  15, WIDTH, SVC_RAIL_URBAN,  oneWay);
-    tc.insert("railway.preserved",     1, (SUMOReal)(100. / 3.6),  15, WIDTH, SVC_RAIL, oneWay);
-
-
     /* Parse file(s)
      * Each file is parsed twice: first for nodes, second for edges. */
     std::vector<std::string> files = oc.getStringVector("osm-files");

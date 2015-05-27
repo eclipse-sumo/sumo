@@ -1505,7 +1505,7 @@ NBEdge::hasLaneSpecificEndOffset() const {
 
 bool
 NBEdge::needsLaneSpecificOutput() const {
-    return hasRestrictions() || hasLaneSpecificSpeed() || hasLaneSpecificWidth() || hasLaneSpecificEndOffset();
+    return hasLaneSpecificPermissions() || hasLaneSpecificSpeed() || hasLaneSpecificWidth() || hasLaneSpecificEndOffset();
 }
 
 

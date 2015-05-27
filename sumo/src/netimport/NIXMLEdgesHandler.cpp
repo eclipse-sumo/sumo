@@ -81,6 +81,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
       myDistrictCont(dc),
       myTLLogicCont(tlc),
       myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
+      myHaveReportedAboutTypeOverride(false),
       myHaveWarnedAboutDeprecatedLaneId(false),
       myKeepEdgeShape(!options.getBool("plain.extend-edge-shape"))
 {}
@@ -134,6 +135,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEndOffset = NBEdge::UNSPECIFIED_OFFSET;
     if (myCurrentEdge != 0) {
         // update existing edge. only update lane-specific settings when explicitly requested
+        myIsUpdate = true;
         myCurrentSpeed = NBEdge::UNSPECIFIED_SPEED;
         myPermissions = SVC_UNSPECIFIED;
         myCurrentWidth = NBEdge::UNSPECIFIED_WIDTH;
@@ -168,11 +170,16 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         mySidewalkWidth = myTypeCont.getSidewalkWidth(myCurrentType);
     }
     // use values from the edge to overwrite if existing, then
-    if (myCurrentEdge != 0) {
-        myIsUpdate = true;
+    if (myIsUpdate) {
         if (!myHaveReportedAboutOverwriting) {
-            WRITE_MESSAGE("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
+            WRITE_MESSAGE("Duplicate edge id occurred ('" + myCurrentID + "'); assuming overwriting is wished.");
             myHaveReportedAboutOverwriting = true;
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_TYPE) && myCurrentType != myCurrentEdge->getTypeID()) {
+            if (!myHaveReportedAboutTypeOverride) {
+                WRITE_MESSAGE("Edge '" + myCurrentID + "' changed it's type; assuming type override is wished.");
+                myHaveReportedAboutTypeOverride = true;
+            }
         }
         if (attrs.getOpt<bool>(SUMO_ATTR_REMOVE, myCurrentID.c_str(), ok, false)) {
             myEdgeCont.erase(myDistrictCont, myCurrentEdge);
@@ -181,7 +188,6 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         }
         myCurrentPriority = myCurrentEdge->getPriority();
         myCurrentLaneNo = myCurrentEdge->getNumLanes();
-        myCurrentType = myCurrentEdge->getTypeID();
         if (!myCurrentEdge->hasDefaultGeometry()) {
             myShape = myCurrentEdge->getGeometry();
             myReinitKeepEdgeShape = true;

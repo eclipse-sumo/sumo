@@ -72,25 +72,35 @@ NIXMLTypesHandler::myStartElement(int element,
             // get the id, report a warning if not given or empty...
             myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
             const char* const id = myCurrentTypeID.c_str();
-            const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id, ok, myTypeCont.getPriority(""));
-            const int numLanes = attrs.getOpt<int>(SUMO_ATTR_NUMLANES, id, ok, myTypeCont.getNumLanes(""));
-            const SUMOReal speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, id, ok, (SUMOReal) myTypeCont.getSpeed(""));
+            const std::string defType = myTypeCont.knows(myCurrentTypeID) ? myCurrentTypeID : "";
+            const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id, ok, myTypeCont.getPriority(defType));
+            const int numLanes = attrs.getOpt<int>(SUMO_ATTR_NUMLANES, id, ok, myTypeCont.getNumLanes(defType));
+            const SUMOReal speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, id, ok, myTypeCont.getSpeed(defType));
             const std::string allowS = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id, ok, "");
             const std::string disallowS = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id, ok, "");
-            const bool oneway = attrs.getOpt<bool>(SUMO_ATTR_ONEWAY, id, ok, false);
-            const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id, ok, false);
-            const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id, ok, NBEdge::UNSPECIFIED_WIDTH);
-            const SUMOReal sidewalkWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_SIDEWALKWIDTH, id, ok, NBEdge::UNSPECIFIED_WIDTH);
+            const bool oneway = attrs.getOpt<bool>(SUMO_ATTR_ONEWAY, id, ok, myTypeCont.getIsOneWay(defType));
+            const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id, ok, myTypeCont.getShallBeDiscarded(defType));
+            const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id, ok, myTypeCont.getWidth(defType));
+            const SUMOReal sidewalkWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_SIDEWALKWIDTH, id, ok, myTypeCont.getSidewalkWidth(defType));
             if (!ok) {
                 return;
             }
             // build the type
-            const SVCPermissions permissions = parseVehicleClasses(allowS, disallowS);
-            if (!myTypeCont.insert(myCurrentTypeID, numLanes, speed, priority, permissions, width, oneway, sidewalkWidth)) {
-                WRITE_ERROR("Duplicate type occured. ID='" + myCurrentTypeID + "'");
-            } else {
-                if (discard) {
-                    myTypeCont.markAsToDiscard(myCurrentTypeID);
+            SVCPermissions permissions = myTypeCont.getPermissions(defType);
+            if (allowS != "" || disallowS != "") {
+                permissions = parseVehicleClasses(allowS, disallowS);
+            }
+            myTypeCont.insert(myCurrentTypeID, numLanes, speed, priority, permissions, width, oneway, sidewalkWidth);
+            if (discard) {
+                myTypeCont.markAsToDiscard(myCurrentTypeID);
+            }
+            myTypeCont.copyRestrictionsAndAttrs(defType, myCurrentTypeID);
+            SumoXMLAttr myAttrs[] = {SUMO_ATTR_PRIORITY, SUMO_ATTR_NUMLANES, SUMO_ATTR_SPEED,
+                                     SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_ONEWAY,
+                                     SUMO_ATTR_DISCARD, SUMO_ATTR_WIDTH, SUMO_ATTR_SIDEWALKWIDTH};
+            for (int i = 0; i < 9; i++) {
+                if (attrs.hasAttribute(myAttrs[i])) {
+                    myTypeCont.markAsSet(myCurrentTypeID, myAttrs[i]);
                 }
             }
             break;

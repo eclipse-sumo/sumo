@@ -78,21 +78,6 @@ public:
                      SUMOReal defaultSpeed, int defaultPriority);
 
 
-    /** @brief Adds a type into the list. This is a simplified convenience form
-     * of insert, if only one allowed vehicle class is necessary.
-     * @param[in] id The id of the type
-     * @param[in] numLanes The number of lanes an edge of this type has
-     * @param[in] maxSpeed The speed allowed on an edge of this type
-     * @param[in] prio The priority of an edge of this type
-     * @param[in] width The width of lanes of edgesof this type
-     * @param[in] vClasses The vehicle classes allowed on an edge of this type
-     * @param[in] oneWayIsDefault Whether edges of this type are one-way per default
-     * @return Whether the type could be added (no type with the same id existed)
-     */
-    bool insert(const std::string& id, int numLanes, SUMOReal maxSpeed, int prio,
-                SUMOReal width, SUMOVehicleClass vClasses = SVC_IGNORING, bool oneWayIsDefault = false,
-                SUMOReal sidewalkWidth = NBEdge::UNSPECIFIED_WIDTH);
-
     /** @brief Adds a type into the list
      * @param[in] id The id of the type
      * @param[in] numLanes The number of lanes an edge of this type has
@@ -103,7 +88,7 @@ public:
      * @param[in] oneWayIsDefault Whether edges of this type are one-way per default
      * @return Whether the type could be added (no type with the same id existed)
      */
-    bool insert(const std::string& id, int numLanes,
+    void insert(const std::string& id, int numLanes,
                 SUMOReal maxSpeed, int prio,
                 SVCPermissions permissions,
                 SUMOReal width, bool oneWayIsDefault,
@@ -128,12 +113,24 @@ public:
      */
     bool markAsToDiscard(const std::string& id);
 
+    /** @brief Marks an attribute of a type as set
+     * @param[in] id The id of the type
+     * @param[in] attr The id of the attribute
+     */
+    bool markAsSet(const std::string& id, const SumoXMLAttr attr);
+
     /** @brief Adds a restriction to a type
      * @param[in] id The id of the type
      * @param[in] svc The vehicle class the restriction refers to
      * @param[in] speed The restricted speed
      */
     bool addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed);
+
+    /** @brief Copy restrictions to a type
+     * @param[in] fromId The id of the source type
+     * @param[in] toId The id of the destination type
+     */
+    bool copyRestrictionsAndAttrs(const std::string& fromId, const std::string& toId);
 
     /// @brief writes all types a s XML
     void writeTypes(OutputDevice& into) const;
@@ -181,9 +178,18 @@ public:
     /** @brief Returns the information whether edges of this type shall be discarded.
      *
      * Returns false if the type is not known.
+     * @param[in] type The id of the type
      * @return Whether edges of this type shall be discarded.
      */
     bool getShallBeDiscarded(const std::string& type) const;
+
+
+    /** @brief Returns whether an attribute of a type was set
+     * @param[in] type The id of the type
+     * @param[in] attr The id of the attribute
+     * @return Whether the attribute was set
+     */
+    bool wasSet(const std::string& type, const SumoXMLAttr attr) const;
 
 
     /** @brief Returns allowed vehicle classes for the given type
@@ -219,7 +225,7 @@ private:
         /// @brief Constructor
         TypeDefinition() :
             numLanes(1), speed((SUMOReal) 13.9), priority(-1),
-            permissions(SVCAll),
+            permissions(SVC_UNSPECIFIED),
             oneWay(true), discard(false),
             width(NBEdge::UNSPECIFIED_WIDTH),
             sidewalkWidth(NBEdge::UNSPECIFIED_WIDTH)
@@ -254,6 +260,8 @@ private:
         SUMOReal sidewalkWidth;
         /// @brief The vehicle class specific speed restrictions
         std::map<SUMOVehicleClass, SUMOReal> restrictions;
+        /// @brief The attributes which have been set
+        std::set<SumoXMLAttr> attrs;
 
     };
 

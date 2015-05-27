@@ -168,7 +168,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     edevice.writeXMLHeader("edges", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/edges_file.xsd\"");
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
     cdevice.writeXMLHeader("connections", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/connections_file.xsd\"");
-    bool noNames = !oc.getBool("output.street-names");
+    const bool writeNames = oc.getBool("output.street-names");
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         // write the edge itself to the edges-files
         NBEdge* e = (*i).second;
@@ -176,7 +176,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         edevice.writeAttr(SUMO_ATTR_ID, e->getID());
         edevice.writeAttr(SUMO_ATTR_FROM, e->getFromNode()->getID());
         edevice.writeAttr(SUMO_ATTR_TO, e->getToNode()->getID());
-        if (!noNames && e->getStreetName() != "") {
+        if (writeNames && e->getStreetName() != "") {
             edevice.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(e->getStreetName()));
         }
         edevice.writeAttr(SUMO_ATTR_PRIORITY, e->getPriority());
@@ -219,6 +219,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (e->getEndOffset() != NBEdge::UNSPECIFIED_OFFSET && !e->hasLaneSpecificEndOffset()) {
             edevice.writeAttr(SUMO_ATTR_ENDOFFSET, e->getEndOffset());
         }
+        if (!e->hasLaneSpecificPermissions()) {
+            writePermissions(edevice, e->getPermissions(0));
+        }
         if (!e->needsLaneSpecificOutput()) {
             edevice.closeTag();
         } else {
@@ -227,7 +230,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                 edevice.openTag(SUMO_TAG_LANE);
                 edevice.writeAttr(SUMO_ATTR_INDEX, i);
                 // write allowed lanes
-                writePermissions(edevice, lane.permissions);
+                if (e->hasLaneSpecificPermissions()) {
+                    writePermissions(edevice, lane.permissions);
+                }
                 writePreferences(edevice, lane.preferred);
                 // write other attributes
                 if (lane.width != NBEdge::UNSPECIFIED_WIDTH && e->hasLaneSpecificWidth()) {

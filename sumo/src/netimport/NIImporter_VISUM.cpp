@@ -230,14 +230,17 @@ NIImporter_VISUM::parse_Types() {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     // get the maximum speed
-    SUMOReal speed = getNamedFloat("v0-IV", "V0IV");
+    const SUMOReal speed = getNamedFloat("v0-IV", "V0IV");
     // get the priority
-    int priority = 1000 - TplConvert::_2int(myLineParser.get("Rang").c_str());
+    const int priority = 1000 - TplConvert::_2int(myLineParser.get("Rang").c_str());
     // try to retrieve the number of lanes
-    SUMOReal cap = getNamedFloat("Kap-IV", "KAPIV");
-    int nolanes = myCapacity2Lanes.get(cap);
+    const int numLanes = myCapacity2Lanes.get(getNamedFloat("Kap-IV", "KAPIV"));
     // insert the type
-    myNetBuilder.getTypeCont().insert(myCurrentID, nolanes, speed / (SUMOReal) 3.6, priority, -1);
+    myNetBuilder.getTypeCont().insert(myCurrentID, numLanes, speed / (SUMOReal) 3.6, priority, SVCAll, NBEdge::UNSPECIFIED_WIDTH, false, NBEdge::UNSPECIFIED_WIDTH);
+    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_NUMLANES);
+    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_SPEED);
+    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_PRIORITY);
+    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_ONEWAY);
 }
 
 

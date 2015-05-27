@@ -251,9 +251,6 @@ NIFrame::fillOptions() {
     oc.doRegister("osm.skip-duplicates-check", new Option_Bool(false));
     oc.addDescription("osm.skip-duplicates-check", "Processing", "Skips the check for duplicate nodes and edges");
 
-    oc.doRegister("osm.railway.oneway-default", new Option_Bool(true));
-    oc.addDescription("osm.railway.oneway-default", "Processing", "Imports railway edges as one-way by default");
-
     oc.doRegister("osm.elevation", new Option_Bool(false));
     oc.addDescription("osm.elevation", "Processing", "Imports elevation data");
 
@@ -262,9 +259,6 @@ NIFrame::fillOptions() {
     oc.addDescription("opendrive.import-all-lanes", "Processing", "Imports all lane types");
     oc.doRegister("opendrive.ignore-widths", new Option_Bool(false));
     oc.addDescription("opendrive.ignore-widths", "Processing", "Whether lane widths shall be ignored.");
-
-
-
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));
@@ -305,6 +299,24 @@ NIFrame::checkOptions() {
         if (oc.isWriteable("offset.disable-normalization")) {
             // changed default since we wish to preserve the network as far as possible
             oc.set("offset.disable-normalization", "true");
+        }
+    }
+    const char* sumoPath = std::getenv("SUMO_HOME");
+    if (sumoPath == 0) {
+        WRITE_WARNING("Environment variable SUMO_HOME is not set, can not find default type maps.");
+    } else {
+        const std::string path = sumoPath + std::string("/data/typemap/");
+        std::string suffix = "";
+        if (oc.isSet("type-files")) {
+            suffix = "," + oc.getString("type-files");
+        }
+        if (oc.isSet("osm-files")) {
+            oc.unSet("type-files");
+            oc.set("type-files", path + "osmNetconvert.typ.xml" + suffix);
+        }
+        if (oc.isSet("opendrive-files")) {
+            oc.unSet("type-files");
+            oc.set("type-files", path + "opendriveNetconvert.typ.xml" + suffix);
         }
     }
     return ok;

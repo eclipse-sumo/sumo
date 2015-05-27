@@ -280,6 +280,9 @@ private:
     /// @brief Information whether at least one edge's attributes were overwritten
     bool myHaveReportedAboutOverwriting;
 
+    /// @brief Information whether at least one edge's type was changed
+    bool myHaveReportedAboutTypeOverride;
+
     bool myHaveWarnedAboutDeprecatedLaneId;
 
     /// @brief Whether the edge shape shall be kept generally
