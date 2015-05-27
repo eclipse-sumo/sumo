@@ -508,7 +508,7 @@ MSLaneChanger::checkChange(
             }
         }
     }
-    if (blocked == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && MSGlobals::gLaneChangeDuration > DELTA_T) {
+    if ((state & LCA_BLOCKED) == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && MSGlobals::gLaneChangeDuration > DELTA_T) {
         // ensure that a continuous lane change manoeuvre can be completed
         // before the next turning movement
         SUMOReal seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
@@ -544,43 +544,44 @@ MSLaneChanger::checkChange(
             seen += nextLane->getLength();
         } while (true);
 
-        // check for dangerous leaders in case the target lane changes laterally between
-        // now and the lane-changing midpoint
-        const SUMOReal speed = vehicle->getSpeed();
-        seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
-        nextLane = vehicle->getLane();
-        view = 1;
-        const SUMOReal dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
-        do {
-            // get the next link used
-            MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
-            if (nextLane->isLinkEnd(link) || seen > space2change || seen > dist) {
-                break;
-            }
-            nextLane = (*link)->getViaLaneOrLane();
-            MSLane* targetLane = nextLane->getParallelLane(laneOffset);
-            if (targetLane == 0) {
-                //std::cout << SIMTIME << " veh=" << vehicle->getID() << " LCA_INSUFFICIENT_SPACE (lane ends)\n";
-                state |= LCA_INSUFFICIENT_SPACE;
-                break;
-            } else {
-                std::pair<MSVehicle* const, SUMOReal> neighLead2 = targetLane->getLeader(vehicle,  -seen, true);
-                if (neighLead2.first != 0 && neighLead2.first != neighLead.first
-                        && (neighLead2.second < vehicle->getCarFollowModel().getSecureGap(
-                                vehicle->getSpeed(), neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel()))) {
-                    state |= blockedByLeader;
+        if ((state & LCA_BLOCKED) == 0) {
+            // check for dangerous leaders in case the target lane changes laterally between
+            // now and the lane-changing midpoint
+            const SUMOReal speed = vehicle->getSpeed();
+            seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
+            nextLane = vehicle->getLane();
+            view = 1;
+            const SUMOReal dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
+            do {
+                // get the next link used
+                MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
+                if (nextLane->isLinkEnd(link) || seen > space2change || seen > dist) {
                     break;
                 }
-            }
+                nextLane = (*link)->getViaLaneOrLane();
+                MSLane* targetLane = nextLane->getParallelLane(laneOffset);
+                if (targetLane == 0) {
+                    state |= LCA_INSUFFICIENT_SPACE;
+                    break;
+                } else {
+                    std::pair<MSVehicle* const, SUMOReal> neighLead2 = targetLane->getLeader(vehicle,  -seen, true);
+                    if (neighLead2.first != 0 && neighLead2.first != neighLead.first
+                            && (neighLead2.second < vehicle->getCarFollowModel().getSecureGap(
+                                    vehicle->getSpeed(), neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel()))) {
+                        state |= blockedByLeader;
+                        break;
+                    }
+                }
 #ifdef HAVE_INTERNAL_LANES
-            if ((*link)->getViaLane() == 0) {
-                view++;
-            }
+                if ((*link)->getViaLane() == 0) {
+                    view++;
+                }
 #else
-            view++;
+                view++;
 #endif
-            seen += nextLane->getLength();
-        } while (true);
+                seen += nextLane->getLength();
+            } while (true);
+        }
     }
 #ifndef NO_TRACI
     // let TraCI influence the wish to change lanes and the security to take
