@@ -3,9 +3,17 @@
 
     <xsd:include schemaLocation="baseTypes.xsd" />
 
-    <xsd:element name="types" type="typesType"></xsd:element>
+    <xsd:element name="types" type="typesType">
+        <xsd:key name="typeKey">
+            <xsd:selector xpath="type"/>
+            <xsd:field xpath="@id"/>
+        </xsd:key>
+    </xsd:element>
 
     <xsd:complexType name="typesType">
+        <xsd:sequence>
+            <xsd:element name="type" type="typeType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
         <xsd:attribute name="version" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -13,9 +21,6 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:sequence>
-            <xsd:element name="type" type="typeType" minOccurs="0" maxOccurs="unbounded"/>
-        </xsd:sequence>
     </xsd:complexType>
 
 </xsd:schema>
