@@ -63,6 +63,8 @@ sys.path.append(os.path.join(options.rootDir, options.testsDir))
 import runInternalTests
 
 env = os.environ
+if "SUMO_HOME" not in env:
+    env["SUMO_HOME"] = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 env["SMTP_SERVER"] = "smtprelay.dlr.de"
 env["TEMP"] = env["TMP"] = r"D:\Delphi\texttesttmp"
 env["REMOTEDIR_BASE"] = 'O:/Daten/Sumo'
@@ -183,16 +185,14 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
         print >> log, "I/O error(%s): %s" % (errno, strerror)
     if platform == "Win32" and options.sumoExe == "sumo":
         try:
-            setup = os.path.join(
-                os.path.dirname(__file__), '..', 'game', 'setup.py')
+            setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
             subprocess.call(
                 ['python', setup], stdout=log, stderr=subprocess.STDOUT)
         except Exception as e:
             print >> log, "Warning: Could not create nightly sumo-game.zip! (%s)" % e
     if platform == "x64" and options.sumoExe == "meso":
         try:
-            setup = os.path.join(
-                os.path.dirname(__file__), '..', 'game', 'setup.py')
+            setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
             subprocess.call(
                 ['python', setup, 'internal'], stdout=log, stderr=subprocess.STDOUT)
         except Exception as e:
@@ -208,8 +208,6 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
     env["TEXTTEST_TMP"] = os.path.join(
         options.rootDir, env["FILEPREFIX"] + "texttesttmp")
     env["TEXTTEST_HOME"] = os.path.join(options.rootDir, options.testsDir)
-    if "SUMO_HOME" not in env:
-        env["SUMO_HOME"] = os.path.join(os.path.dirname(__file__), '..', '..')
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
