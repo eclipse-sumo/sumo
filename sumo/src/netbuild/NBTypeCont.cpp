@@ -110,8 +110,8 @@ NBTypeCont::copyRestrictionsAndAttrs(const std::string& fromId, const std::strin
     if (from == myTypes.end() || to == myTypes.end()) {
         return false;
     }
-    to->second.restrictions = from->second.restrictions;
-    to->second.attrs = from->second.attrs;
+    to->second.restrictions.insert(from->second.restrictions.begin(), from->second.restrictions.end());
+    to->second.attrs.insert(from->second.attrs.begin(), from->second.attrs.end());
     return true;
 }
 
@@ -131,9 +131,7 @@ NBTypeCont::writeTypes(OutputDevice& into) const {
         if (type.attrs.count(SUMO_ATTR_SPEED) > 0) {
             into.writeAttr(SUMO_ATTR_SPEED, type.speed);
         }
-        if (type.permissions == SVCAll && type.attrs.count(SUMO_ATTR_ALLOW) > 0) {
-            into.writeAttr(SUMO_ATTR_ALLOW, "all");
-        } else if (type.attrs.count(SUMO_ATTR_DISALLOW) > 0 || type.attrs.count(SUMO_ATTR_ALLOW) > 0) {
+        if (type.attrs.count(SUMO_ATTR_DISALLOW) > 0 || type.attrs.count(SUMO_ATTR_ALLOW) > 0) {
             writePermissions(into, type.permissions);
         }
         if (type.attrs.count(SUMO_ATTR_ONEWAY) > 0) {

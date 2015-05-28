@@ -391,6 +391,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     } else {
                         WRITE_MESSAGE("Adding new type \"" + type + "\" (first occurence for edge \"" + id + "\").");
                         tc.insert(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay, sidewalkWidth);
+                        for (std::vector<std::string>::iterator it = types.begin(); it != types.end(); it++) {
+                            if (!tc.getShallBeDiscarded(*it)) {
+                                tc.copyRestrictionsAndAttrs(*it, newType);
+                            }
+                        }
                         myKnownCompoundTypes[type] = newType;
                         type = newType;
                     }
@@ -679,7 +684,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             if (myCurrentEdge->myHighWayType != "") {
                 // osm-ways may be used by more than one mode (eg railway.tram + highway.residential. this is relevant for multimodal traffic)
                 // we create a new type for this kind of situation which must then be resolved in insertEdge()
-                myCurrentEdge->myHighWayType = myCurrentEdge->myHighWayType + compoundTypeSeparator + singleTypeID;
+                std::vector<std::string> types = StringTokenizer(myCurrentEdge->myHighWayType, compoundTypeSeparator).getVector();
+                types.push_back(singleTypeID);
+                myCurrentEdge->myHighWayType = joinToStringSorting(types, compoundTypeSeparator);
             } else {
                 myCurrentEdge->myHighWayType = singleTypeID;
             }

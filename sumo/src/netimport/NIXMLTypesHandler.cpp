@@ -79,7 +79,7 @@ NIXMLTypesHandler::myStartElement(int element,
             const std::string allowS = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id, ok, "");
             const std::string disallowS = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id, ok, "");
             const bool oneway = attrs.getOpt<bool>(SUMO_ATTR_ONEWAY, id, ok, myTypeCont.getIsOneWay(defType));
-            const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id, ok, myTypeCont.getShallBeDiscarded(defType));
+            const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id, ok, false);
             const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id, ok, myTypeCont.getWidth(defType));
             const SUMOReal sidewalkWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_SIDEWALKWIDTH, id, ok, myTypeCont.getSidewalkWidth(defType));
             if (!ok) {
