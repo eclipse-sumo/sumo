@@ -61,7 +61,9 @@ Warning: Could not use edge geometry for internal lane, node '1474045664'.
 Warning: Could not use edge geometry for internal lane, node '1474316003'.
 Warning: Could not use edge geometry for internal lane, node '1509496403'.
 Warning: Could not use edge geometry for internal lane, node '1566942145'.
+Warning: Could not use edge geometry for internal lane, node '1566942145'.
 Warning: Could not use edge geometry for internal lane, node '1566942191'.
+Warning: Could not use edge geometry for internal lane, node '1566942204'.
 Warning: Could not use edge geometry for internal lane, node '1635318767'.
 Warning: Could not use edge geometry for internal lane, node '1635318767'.
 Warning: Could not use edge geometry for internal lane, node '1673527106'.
@@ -330,6 +332,7 @@ Warning: Could not use edge geometry for internal lane, node '29192960'.
 Warning: Could not use edge geometry for internal lane, node '29215073'.
 Warning: Could not use edge geometry for internal lane, node '29219452'.
 Warning: Could not use edge geometry for internal lane, node '29221588'.
+Warning: Could not use edge geometry for internal lane, node '29221588'.
 Warning: Could not use edge geometry for internal lane, node '293226261'.
 Warning: Could not use edge geometry for internal lane, node '2938442114'.
 Warning: Could not use edge geometry for internal lane, node '2951793511'.
@@ -337,7 +340,8 @@ Warning: Could not use edge geometry for internal lane, node '295705005'.
 Warning: Could not use edge geometry for internal lane, node '30731510'.
 Warning: Could not use edge geometry for internal lane, node '3153662374'.
 Warning: Could not use edge geometry for internal lane, node '3155751073'.
-Warning: Could not use edge geometry for internal lane, node '3157319029'.
+Warning: Could not use edge geometry for internal lane, node '3157319028'.
+Warning: Could not use edge geometry for internal lane, node '3157319028'.
 Warning: Could not use edge geometry for internal lane, node '3157327725'.
 Warning: Could not use edge geometry for internal lane, node '3168398951'.
 Warning: Could not use edge geometry for internal lane, node '3168398951'.
@@ -408,7 +412,7 @@ Warning: Not joining junctions 1474315960,1474315961,1474315962,1474315966,14743
 Warning: Not joining junctions 1503717917,1503717940,1503717955,1503718025 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 1503717699,1503717969,1503718045 because the cluster is too complex (parallel incoming -137085434#3,137085433#1)
 Warning: Not joining junctions 1566942175,1566942181 because the cluster is too complex (parallel incoming -143201761,-173197451#4)
-Warning: Not joining junctions 1566942191,29221588,3179774467,3204786099,3279659028 because the cluster is too complex (parallel incoming 143201756#0,4790813#2)
+Warning: Not joining junctions 1566942191,29221588,3179774467,3204786099,3279659028 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 611334710,611335401 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 160503138,670333026 because the cluster is too complex (parallel outgoing 137630051#2,23809670#4)
 Warning: Not joining junctions 160503146,2314394456,2314394457,27411250 because the cluster is too complex (5 incoming edges)
@@ -494,9 +498,8 @@ Warning: Not joining junctions 2933657337,3179614625 because the cluster is too 
 Warning: Not joining junctions 2959830775,3343070503,3343070506,3343070507 because the cluster is too complex (parallel incoming -292429062#1,327519012#3)
 Warning: Not joining junctions 2959830776,3343070513,3343070514,3343070515,3343070517,3343070518 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 30731492,311264847,588181297,588181300,588181302,617915219,617915220,735132786,735132792 because the cluster is too complex (7 incoming edges)
-Warning: Not joining junctions 3148263649,3157319028,3183974420 because the cluster is too complex (parallel incoming 309489394#0,310313888#1)
+Warning: Not joining junctions 3148263649,3157319028,3183974420,3183974424 because the cluster is too complex (parallel incoming 309489394#0,310313888#0)
 Warning: Not joining junctions 3157327720,677188172 because the cluster is too complex (parallel incoming 310186556#0,310314582#0)
-Warning: Not joining junctions 3183974424,3183974425 because the cluster is too complex (parallel incoming 310313888#0,312362360#0)
 Warning: Not joining junctions 3343070508,3343070509 because the cluster is too complex (parallel incoming -292429062#2,327519012#2)
 Warning: Not joining junctions 3343070511,3343070512,3343070516 because the cluster is too complex (parallel outgoing -24242892#2,327519012#0)
 Warning: Not joining junctions 735963263,735963264 because the cluster is too complex (parallel incoming 194962398#1,48164817#1)
@@ -695,6 +698,9 @@ Warning: Could not use edge geometry for internal lane, node '1448294025'.
 Warning: Could not use edge geometry for internal lane, node '1473258763'.
 Warning: Could not use edge geometry for internal lane, node '1474045664'.
 Warning: Could not use edge geometry for internal lane, node '1474316003'.
+Warning: Could not use edge geometry for internal lane, node '1566942145'.
+Warning: Could not use edge geometry for internal lane, node '1566942145'.
+Warning: Could not use edge geometry for internal lane, node '1566942204'.
 Warning: Could not use edge geometry for internal lane, node '1635318767'.
 Warning: Could not use edge geometry for internal lane, node '1673527106'.
 Warning: Could not use edge geometry for internal lane, node '1673527109'.
@@ -921,6 +927,7 @@ Warning: Could not use edge geometry for internal lane, node '2856686315'.
 Warning: Could not use edge geometry for internal lane, node '2882261426'.
 Warning: Could not use edge geometry for internal lane, node '29219452'.
 Warning: Could not use edge geometry for internal lane, node '29221588'.
+Warning: Could not use edge geometry for internal lane, node '29221588'.
 Warning: Could not use edge geometry for internal lane, node '2938442114'.
 Warning: Could not use edge geometry for internal lane, node '2951793511'.
 Warning: Could not use edge geometry for internal lane, node '295705005'.
@@ -929,7 +936,8 @@ Warning: Could not use edge geometry for internal lane, node '30731510'.
 Warning: Junction shape for '30731520' has distance 20.72 to its given position
 Warning: Junction shape for '3091127668' has distance 24.80 to its given position
 Warning: Could not use edge geometry for internal lane, node '3155751073'.
-Warning: Could not use edge geometry for internal lane, node '3157319029'.
+Warning: Could not use edge geometry for internal lane, node '3157319028'.
+Warning: Could not use edge geometry for internal lane, node '3157319028'.
 Warning: Could not use edge geometry for internal lane, node '3157327725'.
 Warning: Could not use edge geometry for internal lane, node '3168398951'.
 Warning: Could not use edge geometry for internal lane, node '3168398951'.
@@ -1052,36 +1060,24 @@ Warning: The vehicle 'veh204' has no valid route.
 Warning: No connection between '23443935#0' and '6227658#2' found.
 Warning: Mandatory edge '6227658#2' not reachable by vehicle 'veh208'.
 Warning: The vehicle 'veh208' has no valid route.
-Warning: No connection between '29383966' and '24990776' found.
-Warning: Mandatory edge '24990776' not reachable by vehicle 'bike2'.
-Warning: The vehicle 'bike2' has no valid route.
-Warning: No connection between '26322535#0' and '-147066248' found.
-Warning: Mandatory edge '-147066248' not reachable by vehicle 'bike20'.
+Warning: No connection between '4403559#0' and '236092221#0' found.
+Warning: Mandatory edge '236092221#0' not reachable by vehicle 'bike18'.
+Warning: The vehicle 'bike18' has no valid route.
+Warning: No connection between '262408058' and '-145279489#0' found.
+Warning: Mandatory edge '-145279489#0' not reachable by vehicle 'bike20'.
 Warning: The vehicle 'bike20' has no valid route.
-Warning: No connection between '-304987178#1' and '-137085411#0' found.
-Warning: Mandatory edge '-137085411#0' not reachable by vehicle 'bike33'.
-Warning: The vehicle 'bike33' has no valid route.
-Warning: No connection between '-43139878' and '-4396823#10' found.
-Warning: Mandatory edge '-4396823#10' not reachable by vehicle 'bike39'.
-Warning: The vehicle 'bike39' has no valid route.
-Warning: No connection between '98749939#4' and '194167254' found.
-Warning: Mandatory edge '194167254' not reachable by vehicle 'bike48'.
+Warning: No connection between '194952586#1' and '25086769' found.
+Warning: Mandatory edge '25086769' not reachable by vehicle 'bike31'.
+Warning: The vehicle 'bike31' has no valid route.
+Warning: No connection between '98749939#4' and '194167247#1' found.
+Warning: Mandatory edge '194167247#1' not reachable by vehicle 'bike48'.
 Warning: The vehicle 'bike48' has no valid route.
-Warning: No connection between '-110676319' and '291542560' found.
-Warning: Mandatory edge '291542560' not reachable by vehicle 'bike50'.
-Warning: The vehicle 'bike50' has no valid route.
-Warning: No connection between '24914141#0' and '194952586#1' found.
-Warning: Mandatory edge '194952586#1' not reachable by vehicle 'bike51'.
-Warning: The vehicle 'bike51' has no valid route.
-Warning: No connection between '316746323#3' and '194167259#0' found.
-Warning: Mandatory edge '194167259#0' not reachable by vehicle 'bike61'.
+Warning: No connection between '316746323#1' and '194167251' found.
+Warning: Mandatory edge '194167251' not reachable by vehicle 'bike61'.
 Warning: The vehicle 'bike61' has no valid route.
-Warning: No connection between '-43139878' and '4611708#1' found.
-Warning: Mandatory edge '4611708#1' not reachable by vehicle 'bike71'.
-Warning: The vehicle 'bike71' has no valid route.
-Warning: No connection between '-304987178#1' and '46140377#2' found.
-Warning: Mandatory edge '46140377#2' not reachable by vehicle 'bike81'.
-Warning: The vehicle 'bike81' has no valid route.
+Warning: No connection between '-304987178#1' and '-316746323#2' found.
+Warning: Mandatory edge '-316746323#2' not reachable by vehicle 'bike79'.
+Warning: The vehicle 'bike79' has no valid route.
 Warning: No connection between '252254904#0' and '196844844' found.
 Warning: Mandatory edge '196844844' not reachable by vehicle 'train0'.
 Warning: The vehicle 'train0' has no valid route.
@@ -1385,25 +1381,21 @@ Warning: Discarding person 'ped217' because it's plan is empty
 Warning: No connection between '202156998#1_fwd_connector' and '108218078_bwd_connector' found.
 Warning: No connection found between '202156998#1' and '108218078' for person 'ped219'.
 Warning: Discarding person 'ped219' because it's plan is empty
-Warning: Teleporting vehicle 'veh46'; waited too long (yield), lane='4612964#0_4', time=553.00.
-Warning: Vehicle 'veh46' ends teleporting on edge '4612964#2', time 553.00.
-Warning: Teleporting vehicle 'veh50'; waited too long (yield), lane='82654059#0_1', time=617.00.
-Warning: Vehicle 'veh50' ends teleporting on edge '82654059#2', time 617.00.
-Warning: Teleporting vehicle 'veh106'; waited too long (yield), lane='187111590#0_3', time=797.00.
-Warning: Vehicle 'veh106' ends teleporting on edge '187111590#2', time 797.00.
-Warning: Teleporting vehicle 'veh62'; waited too long (yield), lane='4612964#0_4', time=857.00.
-Warning: Vehicle 'veh62' ends teleporting on edge '4612964#2', time 857.00.
-Warning: Teleporting vehicle 'veh91'; waited too long (yield), lane='301733776_1', time=975.00.
-Warning: Vehicle 'veh91' ends teleporting on edge '301733777#2', time 975.00.
-Warning: Teleporting vehicle 'veh164'; waited too long (yield), lane='4612964#0_4', time=1005.00.
-Warning: Vehicle 'veh164' ends teleporting on edge '4612964#2', time 1005.00.
-Warning: Teleporting vehicle 'veh26'; waited too long (yield), lane='82654059#0_3', time=1181.00.
-Warning: Vehicle 'veh26' ends teleporting on edge '82654059#2', time 1181.00.
-Warning: Teleporting vehicle 'bike19'; waited too long (yield), lane='301733776_1', time=1281.00.
-Warning: Vehicle 'bike19' ends teleporting on edge '301733777#2', time 1281.00.
-Warning: Teleporting vehicle 'veh214'; waited too long (wrong lane), lane='301733777#2_2', time=1598.00.
-Warning: Vehicle 'veh214' ends teleporting on edge '19801548#0', time 1598.00.
-Warning: Teleporting vehicle 'veh72'; waited too long (yield), lane='82654059#0_3', time=2028.00.
-Warning: Vehicle 'veh72' ends teleporting on edge '82654059#2', time 2028.00.
-Warning: Teleporting vehicle 'veh48'; waited too long (yield), lane='82654059#0_3', time=2334.00.
-Warning: Vehicle 'veh48' ends teleporting on edge '82654059#2', time 2334.00.
+Warning: Teleporting vehicle 'veh46'; waited too long (yield), lane='4612964#0_4', time=554.00.
+Warning: Vehicle 'veh46' ends teleporting on edge '4612964#2', time 554.00.
+Warning: Teleporting vehicle 'veh50'; waited too long (yield), lane='82654059#0_1', time=632.00.
+Warning: Vehicle 'veh50' ends teleporting on edge '82654059#2', time 632.00.
+Warning: Teleporting vehicle 'veh62'; waited too long (yield), lane='4612964#0_4', time=859.00.
+Warning: Vehicle 'veh62' ends teleporting on edge '4612964#2', time 859.00.
+Warning: Teleporting vehicle 'veh81'; waited too long (yield), lane='47016365#1_2', time=935.00.
+Warning: Vehicle 'veh81' ends teleporting on edge '301241483#0', time 935.00.
+Warning: Teleporting vehicle 'veh43'; waited too long (jam), lane='4612964#0_4', time=1085.00.
+Warning: Vehicle 'veh43' ends teleporting on edge '24992428', time 1087.00.
+Warning: Teleporting vehicle 'veh32'; waited too long (yield), lane='82654059#0_3', time=1179.00.
+Warning: Vehicle 'veh32' ends teleporting on edge '82654059#2', time 1179.00.
+Warning: Teleporting vehicle 'veh155'; waited too long (yield), lane='301733776_2', time=1183.00.
+Warning: Vehicle 'veh155' ends teleporting on edge '301733777#2', time 1183.00.
+Warning: Teleporting vehicle 'veh26'; waited too long (yield), lane='82654059#0_3', time=1484.00.
+Warning: Vehicle 'veh26' ends teleporting on edge '82654059#2', time 1484.00.
+Warning: Teleporting vehicle 'veh72'; waited too long (yield), lane='82654059#0_3', time=2021.00.
+Warning: Vehicle 'veh72' ends teleporting on edge '82654059#2', time 2021.00.
