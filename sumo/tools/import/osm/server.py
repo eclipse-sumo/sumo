@@ -106,14 +106,12 @@ def build(handler, prefix, bbox=False):
     # output name for the poly file, will be used by osmBuild and sumo-gui
     polyname = prefix + ".poly.xml"
     options = ["-f", osmname, "-p", prefix, "-m", polyfile]
-    typefiles = []
+    typefiles = [typefile]
     netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS + ",--junctions.corner-detail,5,--output.street-names"
     if handler.pedestrians.enable:  # drop?
         # sidewalks are already included via typefile
         netconvertOptions += ",--crossings.guess"
         typefiles.append(pedestrianstypefile)
-    else:
-        typefiles.append(typefile)
     if handler.ships.enable:
         typefiles.append(shipstypefile)
     options += ["--netconvert-typemap", ','.join(typefiles)]

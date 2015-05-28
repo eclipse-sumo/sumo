@@ -35,7 +35,7 @@ vclassRemove = {"passenger": " --keep-edges.by-vclass passenger",
                 "all": ""}
 possibleVClassOptions = '|'.join(vclassRemove.keys())
 
-DEFAULT_NETCONVERT_OPTS = "--geometry.remove,--roundabouts.guess,--ramps.guess,-v,--junctions.join,--osm.railway.oneway-default,--tls.guess-signals,--tls.discard-simple,--tls.join"
+DEFAULT_NETCONVERT_OPTS = "--geometry.remove,--roundabouts.guess,--ramps.guess,-v,--junctions.join,--tls.guess-signals,--tls.discard-simple,--tls.join"
 
 
 optParser = optparse.OptionParser()
