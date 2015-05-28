@@ -108,12 +108,13 @@ public:
     bool mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, bool includePedCrossings) const;
 
     /** @brief Returns the information whether the described flow must brake for the given crossing
+     * @param[in] node The parent node of this request
      * @param[in] from The connection's start edge
      * @param[in] to The connection's end edge
      * @param[in] crossing The pedestrian crossing to check
      * @return Whether the described connection must brake (has higher priorised foes)
      */
-    bool mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) const;
+    static bool mustBrakeForCrossing(const NBNode* node, const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing);
 
     /** @brief Returns the information whether the given flows cross
      * @param[in] from1 The starting edge of the first stream

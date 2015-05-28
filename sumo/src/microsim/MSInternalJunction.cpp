@@ -73,7 +73,10 @@ MSInternalJunction::postloadInit() {
     assert(specialLane->getLinkCont().size() == 1);
     MSLink* thisLink = specialLane->getLinkCont()[0];
     const MSRightOfWayJunction* parent = dynamic_cast<const MSRightOfWayJunction*>(specialLane->getEdge().getToJunction());
-    assert(parent != 0);
+    if (parent == 0) {
+        // parent has type traffic_light_unregulated
+        return;
+    }
     const int ownLinkIndex = specialLane->getIncomingLanes()[0].viaLink->getIndex();
     const MSLogicJunction::LinkFoes& foeLinks = parent->getLogic()->getFoesFor(ownLinkIndex);
     // inform links where they have to report approaching vehicles to

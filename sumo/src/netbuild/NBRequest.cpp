@@ -519,7 +519,7 @@ NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& cross
                     }
                 }
                 foes += foe ? '1' : '0';
-                response += mustBrakeForCrossing(from, to, crossing) || !foe ? '0' : '1';
+                response += mustBrakeForCrossing(myJunction, from, to, crossing) || !foe ? '0' : '1';
             }
         }
     }
@@ -543,7 +543,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
     std::string result;
     // crossings
     for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
-        result += mustBrakeForCrossing(from, to, *i) ? '1' : '0';
+        result += mustBrakeForCrossing(myJunction, from, to, *i) ? '1' : '0';
     }
     // normal connections
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
@@ -695,7 +695,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     // maybe we need to brake for a pedestrian crossing
     if (includePedCrossings) {
         for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
-            if (mustBrakeForCrossing(from, to, *i)) {
+            if (mustBrakeForCrossing(myJunction, from, to, *i)) {
                 return true;
             }
         }
@@ -716,8 +716,8 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
 }
 
 bool
-NBRequest::mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) const {
-    const LinkDirection dir = myJunction->getDirection(from, to);
+NBRequest::mustBrakeForCrossing(const NBNode* node, const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) {
+    const LinkDirection dir = node->getDirection(from, to);
     const bool mustYield = dir == LINKDIR_LEFT || dir == LINKDIR_RIGHT;
     if (crossing.priority || mustYield) {
         for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {

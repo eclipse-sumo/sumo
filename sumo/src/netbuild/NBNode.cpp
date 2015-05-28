@@ -1181,7 +1181,7 @@ NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane
 
 bool
 NBNode::mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) const {
-    return myRequest->mustBrakeForCrossing(from, to, crossing);
+    return NBRequest::mustBrakeForCrossing(this, from, to, crossing);
 }
 
 
