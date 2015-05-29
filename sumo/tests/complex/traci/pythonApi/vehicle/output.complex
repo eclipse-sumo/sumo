@@ -82,7 +82,7 @@ signals 0
 length 1.0
 maxSpeed 9.0
 speedFactor 1.1
-allowedSpeed 12.221
+allowedSpeed 9.0
 accel 1.1
 decel 5.1
 imperfection 0.1
