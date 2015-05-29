@@ -207,7 +207,7 @@ ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const {
 
 unsigned int
 ROEdge::getNumSuccessors() const {
-    if (getType() == ET_SINK) {
+    if (getFunc() == ET_SINK) {
         return 0;
     }
     return (unsigned int) myFollowingEdges.size();
@@ -216,16 +216,10 @@ ROEdge::getNumSuccessors() const {
 
 unsigned int
 ROEdge::getNumPredecessors() const {
-    if (getType() == ET_SOURCE) {
+    if (getFunc() == ET_SOURCE) {
         return 0;
     }
     return (unsigned int) myApproachingEdges.size();
-}
-
-
-void
-ROEdge::setType(ROEdge::EdgeType type) {
-    myType = type;
 }
 
 
@@ -280,7 +274,7 @@ ROEdge::dictionary(size_t id) {
 
 const ROEdgeVector&
 ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
-    if (vClass == SVC_IGNORING || !RONet::getInstance()->hasRestrictions()) {
+    if (vClass == SVC_IGNORING || !RONet::getInstance()->hasPermissions()) {
         return myFollowingEdges;
     }
 #ifdef HAVE_FOX

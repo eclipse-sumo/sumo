@@ -914,7 +914,7 @@ public:
     bool needsLaneSpecificOutput() const;
 
     /// @brief whether at least one lane has restrictions
-    bool hasRestrictions() const;
+    bool hasPermissions() const;
 
     /// @brief whether lanes differ in allowed vehicle classes
     bool hasLaneSpecificPermissions() const;

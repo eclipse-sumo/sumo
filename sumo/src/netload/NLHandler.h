@@ -315,6 +315,9 @@ protected:
     /// The id of the currently processed WAUT
     std::string myCurrentWAUTID;
 
+    /// The id of the currently processed edge type
+    std::string myCurrentTypeID;
+
     /// The network offset
     Position myNetworkOffset;
 

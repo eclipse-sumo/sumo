@@ -409,7 +409,7 @@ public:
     /// @brief returns the minimum travel time for the given vehicle
     inline SUMOReal getMinimumTravelTime(const SUMOVehicle* const veh) const {
         if (veh != 0) {
-            return getLength() / MIN2(veh->getMaxSpeed(), getVehicleMaxSpeed(veh));
+            return getLength() / getVehicleMaxSpeed(veh);
         } else {
             return getLength() / getSpeedLimit();
         }
@@ -546,8 +546,6 @@ public:
 
     /** @brief Returns the maximum speed the vehicle may use on this edge
      *
-     * Note that the vehicle's max. speed is not considered herein, only the edge's speed limit and the
-     *  driver's adaptation of this speed.
      * @caution Only the first lane is considered
      * @return The maximum velocity on this edge for the given vehicle
      */

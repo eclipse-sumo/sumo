@@ -189,6 +189,9 @@ protected:
     /// @brief The name of the edge/node that is currently processed
     std::string myCurrentName;
 
+    /// The id of the currently processed edge type
+    std::string myCurrentTypeID;
+
     /// @brief The currently built edge
     ROEdge* myCurrentEdge;
 

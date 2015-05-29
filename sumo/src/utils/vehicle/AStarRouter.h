@@ -54,12 +54,12 @@
 // ===========================================================================
 /**
  * @class AStarRouter
- * @brief Computes the shortest path through a network using the Dijkstra algorithm.
+ * @brief Computes the shortest path through a network using the A* algorithm.
  *
  * The template parameters are:
  * @param E The edge class to use (MSEdge/ROEdge)
  * @param V The vehicle class to use (MSVehicle/ROVehicle)
- * @param PF The prohibition function to use (prohibited_withRestrictions/prohibited_noRestrictions)
+ * @param PF The prohibition function to use (prohibited_withPermissions/noProhibitions)
  * @param EC The class to retrieve the effort for an edge from
  *
  * The router is edge-based. It must know the number of edges for internal reasons

@@ -542,7 +542,7 @@ private:
 // common specializations
 template<class E, class L, class N>
 class PedestrianRouterDijkstra : public PedestrianRouter < E, L, N,
-        DijkstraRouterTT<PedestrianEdge<E, L, N>, PedestrianTrip<E, N>, prohibited_withRestrictions<PedestrianEdge<E, L, N>, PedestrianTrip<E, N> > > > { };
+        DijkstraRouterTT<PedestrianEdge<E, L, N>, PedestrianTrip<E, N>, prohibited_withPermissions<PedestrianEdge<E, L, N>, PedestrianTrip<E, N> > > > { };
 
 
 // ===========================================================================

@@ -126,7 +126,7 @@ private:
 
 
 template<class E, class V>
-struct prohibited_withRestrictions {
+struct prohibited_withPermissions {
 public:
     inline bool operator()(const E* edge, const V* vehicle) const {
         if (std::find(myProhibited.begin(), myProhibited.end(), edge) != myProhibited.end()) {
@@ -145,7 +145,7 @@ protected:
 };
 
 template<class E, class V>
-struct prohibited_noRestrictions {
+struct noProhibitions {
 public:
     inline bool operator()(const E*, const V*) const {
         return false;

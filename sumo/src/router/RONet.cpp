@@ -74,7 +74,7 @@ RONet::RONet()
     : myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
       myRoutesOutput(0), myRouteAlternativesOutput(0), myTypesOutput(0),
       myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
-      myHaveRestrictions(false),
+      myHavePermissions(false),
       myNumInternalEdges(0),
       myErrorHandler(OptionsCont::getOptions().exists("ignore-errors")
                      && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
@@ -97,6 +97,22 @@ RONet::~RONet() {
 }
 
 
+void
+RONet::addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed) {
+    myRestrictions[id][svc] = speed;
+}
+
+
+const std::map<SUMOVehicleClass, SUMOReal>*
+RONet::getRestrictions(const std::string& id) const {
+    std::map<std::string, std::map<SUMOVehicleClass, SUMOReal> >::const_iterator i = myRestrictions.find(id);
+    if (i == myRestrictions.end()) {
+        return 0;
+    }
+    return &i->second;
+}
+
+
 bool
 RONet::addEdge(ROEdge* edge) {
     if (!myEdges.add(edge->getID(), edge)) {
@@ -104,7 +120,7 @@ RONet::addEdge(ROEdge* edge) {
         delete edge;
         return false;
     }
-    if (edge->getType() == ROEdge::ET_INTERNAL) {
+    if (edge->getFunc() == ROEdge::ET_INTERNAL) {
         myNumInternalEdges += 1;
     }
     return true;
@@ -119,9 +135,9 @@ RONet::addDistrict(const std::string id, ROEdge* source, ROEdge* sink) {
         delete sink;
         return false;
     }
-    sink->setType(ROEdge::ET_DISTRICT);
+    sink->setFunc(ROEdge::ET_DISTRICT);
     addEdge(sink);
-    source->setType(ROEdge::ET_DISTRICT);
+    source->setFunc(ROEdge::ET_DISTRICT);
     addEdge(source);
     myDistricts[id] = std::make_pair(std::vector<std::string>(), std::vector<std::string>());
     return true;
@@ -617,14 +633,14 @@ RONet::getEdgeMap() const {
 
 
 bool
-RONet::hasRestrictions() const {
-    return myHaveRestrictions;
+RONet::hasPermissions() const {
+    return myHavePermissions;
 }
 
 
 void
-RONet::setRestrictionFound() {
-    myHaveRestrictions = true;
+RONet::setPermissionsFound() {
+    myHavePermissions = true;
 }
 
 

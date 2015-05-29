@@ -108,8 +108,8 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
         dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
     }
     if (!myRoute.empty()) {
-        const int frontOffset = myRoute.front()->getType() == ROEdge::ET_DISTRICT ? 1 : 0;
-        const int backOffset = myRoute.back()->getType() == ROEdge::ET_DISTRICT ? 1 : 0;
+        const int frontOffset = myRoute.front()->getFunc() == ROEdge::ET_DISTRICT ? 1 : 0;
+        const int backOffset = myRoute.back()->getFunc() == ROEdge::ET_DISTRICT ? 1 : 0;
         if (frontOffset + backOffset > 0) {
             ConstROEdgeVector temp(myRoute.begin() + frontOffset, myRoute.end() - backOffset);
             dev.writeAttr(SUMO_ATTR_EDGES, temp);

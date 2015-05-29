@@ -93,7 +93,9 @@ MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge
     myPermissions(permissions),
     myLogicalPredecessorLane(0),
     myBruttoVehicleLengthSum(0), myNettoVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0),
-    myLengthGeometryFactor(myShape.length() / myLength) {}
+    myLengthGeometryFactor(myShape.length() / myLength) {
+        myRestrictions = MSNet::getInstance()->getRestrictions(edge->getEdgeType());
+    }
 
 
 MSLane::~MSLane() {
@@ -368,11 +370,11 @@ MSLane::insertVehicle(MSVehicle& veh) {
             patchSpeed = false;
             break;
         case DEPART_SPEED_RANDOM:
-            speed = RandHelper::rand(MIN2(veh.getMaxSpeed(), getVehicleMaxSpeed(&veh)));
+            speed = RandHelper::rand(getVehicleMaxSpeed(&veh));
             patchSpeed = true; // @todo check
             break;
         case DEPART_SPEED_MAX:
-            speed = MIN2(veh.getMaxSpeed(), getVehicleMaxSpeed(&veh));
+            speed = getVehicleMaxSpeed(&veh);
             patchSpeed = true; // @todo check
             break;
         case DEPART_SPEED_DEFAULT:

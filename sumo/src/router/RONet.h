@@ -85,6 +85,22 @@ public:
     virtual ~RONet();
 
 
+    /** @brief Adds a restriction for an edge type
+     * @param[in] id The id of the type
+     * @param[in] svc The vehicle class the restriction refers to
+     * @param[in] speed The restricted speed
+     */
+    void addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed);
+
+
+    /** @brief Returns the restrictions for an edge type
+     * If no restrictions are present, 0 is returned.
+     * @param[in] id The id of the type
+     * @return The mapping of vehicle classes to maximum speeds
+     */
+    const std::map<SUMOVehicleClass, SUMOReal>* getRestrictions(const std::string& id) const;
+
+
     /// @name Insertion and retrieval of graph parts
     //@{
 
@@ -391,9 +407,9 @@ public:
 
     const std::map<std::string, ROEdge*>& getEdgeMap() const;
 
-    bool hasRestrictions() const;
+    bool hasPermissions() const;
 
-    void setRestrictionFound();
+    void setPermissionsFound();
 
     OutputDevice* getRouteOutput(const bool alternative = false) {
         if (alternative) {
@@ -500,7 +516,10 @@ private:
     unsigned int myWrittenRouteNo;
 
     /// @brief Whether the network contains edges which not all vehicles may pass
-    bool myHaveRestrictions;
+    bool myHavePermissions;
+
+    /// @brief The vehicle class specific speed restrictions
+    std::map<std::string, std::map<SUMOVehicleClass, SUMOReal> > myRestrictions;
 
     /// @brief The number of internal edges in the dictionary
     int myNumInternalEdges;

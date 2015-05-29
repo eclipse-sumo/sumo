@@ -63,7 +63,7 @@
  * The template parameters are:
  * @param E The edge class to use (MSEdge/ROEdge)
  * @param V The vehicle class to use (MSVehicle/ROVehicle)
- * @param PF The prohibition function to use (prohibited_withRestrictions/prohibited_noRestrictions)
+ * @param PF The prohibition function to use (prohibited_withPermissions/noProhibitions)
  *
  * The router is edge-based. It must know the number of edges for internal reasons
  *  and whether a missing connection between two given edges (unbuild route) shall

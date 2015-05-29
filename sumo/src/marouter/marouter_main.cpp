@@ -120,14 +120,14 @@ void
 computeAllPairs(RONet& net, OptionsCont& oc) {
     std::ofstream outFile(oc.getString("all-pairs-output").c_str(), std::ios::binary);
     // build the router
-    typedef DijkstraRouterTT<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> > Dijkstra;
+    typedef DijkstraRouterTT<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> > Dijkstra;
     Dijkstra router(net.getEdgeNo(), oc.getBool("ignore-errors"), &getTravelTime);
     ConstROEdgeVector into;
     const int numInternalEdges = net.getInternalEdgeNumber();
     const int numTotalEdges = (int)net.getEdgeNo();
     for (int i = numInternalEdges; i < numTotalEdges; i++) {
         const Dijkstra::EdgeInfo& ei = router.getEdgeInfo(i);
-        if (ei.edge->getType() != ROEdge::ET_INTERNAL) {
+        if (ei.edge->getFunc() != ROEdge::ET_INTERNAL) {
             router.compute(ei.edge, 0, 0, 0, into);
             for (int j = numInternalEdges; j < numTotalEdges; j++) {
                 FileHelpers::writeFloat(outFile, router.getEdgeInfo(j).traveltime);
@@ -147,38 +147,38 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
     if (measure == "traveltime") {
         if (routingAlgorithm == "dijkstra") {
-            if (net.hasRestrictions()) {
+            if (net.hasPermissions()) {
                 if (oc.getInt("paths") > 1) {
-                    router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                         net.getEdgeNo(), oc.getBool("ignore-errors"), &ROMAAssignments::getPenalizedTT);
                 } else {
-                    router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                         net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
                 }
             } else {
                 if (oc.getInt("paths") > 1) {
-                    router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                    router = new DijkstraRouterTT<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                         net.getEdgeNo(), oc.getBool("ignore-errors"), &ROMAAssignments::getPenalizedTT);
                 } else {
-                    router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                    router = new DijkstraRouterTT<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                         net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
                 }
             }
         } else if (routingAlgorithm == "astar") {
-            if (net.hasRestrictions()) {
+            if (net.hasPermissions()) {
                 if (oc.getInt("paths") > 1) {
-                    router = new AStarRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    router = new AStarRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                         net.getEdgeNo(), oc.getBool("ignore-errors"), &ROMAAssignments::getPenalizedTT);
                 } else {
-                    router = new AStarRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    router = new AStarRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                         net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
                 }
             } else {
                 if (oc.getInt("paths") > 1) {
-                    router = new AStarRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                    router = new AStarRouter<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                         net.getEdgeNo(), oc.getBool("ignore-errors"), &ROMAAssignments::getPenalizedTT);
                 } else {
-                    router = new AStarRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                    router = new AStarRouter<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                         net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
                 }
             }
@@ -186,11 +186,11 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
-            if (net.hasRestrictions()) {
-                router = new CHRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+            if (net.hasPermissions()) {
+                router = new CHRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, true);
             } else {
-                router = new CHRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                router = new CHRouter<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, false);
             }
         } else if (routingAlgorithm == "CHWrapper") {
@@ -199,14 +199,14 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
 
-            router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+            router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, begin, weightPeriod);
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
 
     } else {
-        DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
+        DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >::Operation op;
         if (measure == "CO") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO>;
         } else if (measure == "CO2") {
@@ -224,20 +224,20 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         } else {
             throw ProcessError("Unknown measure (weight attribute '" + measure + "')!");
         }
-        if (net.hasRestrictions()) {
+        if (net.hasPermissions()) {
             if (oc.getInt("paths") > 1) {
-                router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROMAAssignments::getPenalizedEffort, &ROMAAssignments::getTravelTime);
             } else {
-                router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
             }
         } else {
             if (oc.getInt("paths") > 1) {
-                router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                router = new DijkstraRouterEffort<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROMAAssignments::getPenalizedEffort, &ROMAAssignments::getTravelTime);
             } else {
-                router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                router = new DijkstraRouterEffort<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
             }
         }

@@ -95,7 +95,7 @@ AGCity::completeStreets() {
             }
         }
         //if this edge isn't represented by a street
-        if (itS == streets.end() && itE->second->getType() != ROEdge::ET_INTERNAL) {
+        if (itS == streets.end() && itE->second->getFunc() != ROEdge::ET_INTERNAL) {
             streets.push_back(static_cast<AGStreet*>(itE->second));
         }
     }

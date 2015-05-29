@@ -191,6 +191,20 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_ROUNDABOUT:
                 addRoundabout(attrs);
                 break;
+            case SUMO_TAG_TYPE: {
+                bool ok = true;
+                myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+                break;
+            }
+            case SUMO_TAG_RESTRICTION: {
+                bool ok = true;
+                const SUMOVehicleClass svc = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, myCurrentTypeID.c_str(), ok));
+                const SUMOReal speed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
+                if (ok) {
+                    myNet.addRestriction(myCurrentTypeID, svc, speed);
+                }
+                break;
+            }
             default:
                 break;
         }
@@ -321,7 +335,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     }
     // get the street name
     const std::string streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
-    // get the edge type (only for visualization)
+    // get the edge type
     const std::string edgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     // get the edge priority (only for visualization)
     const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1); // default taken from netbuild/NBFrame option 'default.priority'
@@ -381,7 +395,7 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     }
     const SVCPermissions permissions = parseVehicleClasses(allow, disallow);
     if (permissions != SVCAll) {
-        myNet.setRestrictionFound();
+        myNet.setPermissionsFound();
     }
     myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {

@@ -672,7 +672,7 @@ MSEdge::transportable_by_position_sorter::operator()(const MSTransportable* cons
 
 const MSEdgeVector&
 MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
-    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasRestrictions()) {
+    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions()) {
         return mySuccessors;
     }
 #ifdef HAVE_FOX

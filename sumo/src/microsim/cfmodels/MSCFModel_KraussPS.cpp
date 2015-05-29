@@ -50,7 +50,6 @@ MSCFModel_KraussPS::MSCFModel_KraussPS(const MSVehicleType* vtype, SUMOReal acce
 MSCFModel_KraussPS::~MSCFModel_KraussPS() {}
 
 
-
 SUMOReal
 MSCFModel_KraussPS::maxNextSpeed(SUMOReal speed, const MSVehicle* const veh) const {
     const SUMOReal gravity = 9.80665;
@@ -61,12 +60,10 @@ MSCFModel_KraussPS::maxNextSpeed(SUMOReal speed, const MSVehicle* const veh) con
 }
 
 
-
 MSCFModel*
 MSCFModel_KraussPS::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_KraussPS(vtype, myAccel, myDecel, myDawdle, myHeadwayTime);
 }
 
 
-//void MSCFModel::saveState(std::ostream &os) {}
-
+/****************************************************************************/

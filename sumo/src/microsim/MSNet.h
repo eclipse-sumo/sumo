@@ -164,18 +164,34 @@ public:
                        bool hasInternalLinks);
 
 
-    /** @brief Returns whether the network has vehicle class restrictions
-     * @return whether restrictions are present
+    /** @brief Returns whether the network has specific vehicle class permissions
+     * @return whether permissions are present
      */
-    bool hasRestrictions() const {
-        return myHaveRestrictions;
+    bool hasPermissions() const {
+        return myHavePermissions;
     }
 
 
-    /// @brief Labels the network to contain vehicle class restrictions
-    void setRestrictionFound() {
-        myHaveRestrictions = true;
+    /// @brief Labels the network to contain vehicle class permissions
+    void setPermissionsFound() {
+        myHavePermissions = true;
     }
+
+
+    /** @brief Adds a restriction for an edge type
+     * @param[in] id The id of the type
+     * @param[in] svc The vehicle class the restriction refers to
+     * @param[in] speed The restricted speed
+     */
+    void addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed);
+
+
+    /** @brief Returns the restrictions for an edge type
+     * If no restrictions are present, 0 is returned.
+     * @param[in] id The id of the type
+     * @return The mapping of vehicle classes to maximum speeds
+     */
+    const std::map<SUMOVehicleClass, SUMOReal>* getRestrictions(const std::string& id) const;
 
 
     /** @brief Clears all dictionaries
@@ -672,7 +688,10 @@ protected:
 
 
     /// @brief Whether the network contains edges which not all vehicles may pass
-    bool myHaveRestrictions;
+    bool myHavePermissions;
+
+    /// @brief The vehicle class specific speed restrictions
+    std::map<std::string, std::map<SUMOVehicleClass, SUMOReal> > myRestrictions;
 
     /// @brief Whether the network contains internal links/lanes/edges
     bool myHasInternalLinks;
@@ -698,9 +717,9 @@ protected:
      * @note we provide one member for every switchable router type
      * because the class structure makes it inconvenient to use a superclass*/
     mutable bool myRouterTTInitialized;
-    mutable DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterTTDijkstra;
-    mutable AStarRouter<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterTTAStar;
-    mutable DijkstraRouterEffort<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterEffort;
+    mutable DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* myRouterTTDijkstra;
+    mutable AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* myRouterTTAStar;
+    mutable DijkstraRouterEffort<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* myRouterEffort;
     mutable MSPedestrianRouterDijkstra* myPedestrianRouter;
 
 

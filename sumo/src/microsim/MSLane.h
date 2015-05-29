@@ -352,7 +352,13 @@ public:
      * @return This lane's resulting max. speed
      */
     inline SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
-        return myMaxSpeed * veh->getChosenSpeedFactor();
+        if (myRestrictions != 0) {
+            std::map<SUMOVehicleClass, SUMOReal>::const_iterator r = myRestrictions->find(veh->getVClass());
+            if (r != myRestrictions->end()) {
+                return MIN2(veh->getMaxSpeed(), r->second * veh->getChosenSpeedFactor());
+            }
+        }
+        return MIN2(veh->getMaxSpeed(), myMaxSpeed * veh->getChosenSpeedFactor());
     }
 
 
@@ -848,6 +854,9 @@ protected:
 
     /// The vClass permissions for this lane
     SVCPermissions myPermissions;
+
+    /// The vClass speed restrictions for this lane
+    const std::map<SUMOVehicleClass, SUMOReal>* myRestrictions;
 
     std::vector<IncomingLaneInfo> myIncomingLanes;
     mutable MSLane* myLogicalPredecessorLane;

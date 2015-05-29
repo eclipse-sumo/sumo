@@ -73,10 +73,10 @@ typedef std::vector<const ROEdge*> ConstROEdgeVector;
 class ROEdge : public Named {
 public:
     /**
-     * @enum EdgeType
-     * @brief Possible types of edges
+     * @enum EdgeFunc
+     * @brief Possible functions of edges
      */
-    enum EdgeType {
+    enum EdgeFunc {
         /// @brief A normal edge
         ET_NORMAL,
         /// @brief An edge representing a whole district
@@ -131,24 +131,35 @@ public:
     virtual void addSuccessor(ROEdge* s, std::string dir = "");
 
 
-    /** @brief Sets the type of te edge
-     * @param[in] type The new type for the edge
+    /** @brief Sets the function of the edge
+     * @param[in] func The new function for the edge
      */
-    void setType(EdgeType type);
+    inline void setFunc(EdgeFunc func) {
+        myFunc = func;
+    }
+
+
+    /** @brief Sets the vehicle class specific speed limits of the edge
+     * @param[in] restrictions The restrictions for the edge
+     */
+    inline void setRestrictions(const std::map<SUMOVehicleClass, SUMOReal>* restrictions) {
+        myRestrictions = restrictions;
+    }
+
 
     /// @brief return whether this edge is an internal edge
     inline bool isInternal() const {
-        return myType == ET_INTERNAL;
+        return myFunc == ET_INTERNAL;
     }
 
     /// @brief return whether this edge is a pedestrian crossing
     inline bool isCrossing() const {
-        return myType == ET_CROSSING;
+        return myFunc == ET_CROSSING;
     }
 
     /// @brief return whether this edge is walking area
     inline bool isWalkingArea() const {
-        return myType == ET_WALKINGAREA;
+        return myFunc == ET_WALKINGAREA;
     }
 
     /** @brief Builds the internal representation of the travel time/effort
@@ -168,12 +179,12 @@ public:
     /// @name Getter methods
     //@{
 
-    /** @brief Returns the type of the edge
-     * @return This edge's type
-     * @see EdgeType
+    /** @brief Returns the function of the edge
+     * @return This edge's basic function
+     * @see EdgeFunc
      */
-    EdgeType getType() const {
-        return myType;
+    EdgeFunc getFunc() const {
+        return myFunc;
     }
 
 
@@ -499,8 +510,11 @@ protected:
     /// @brief List of edges that approached this edge
     ROEdgeVector myApproachingEdges;
 
-    /// @brief The type of the edge
-    EdgeType myType;
+    /// @brief The function of the edge
+    EdgeFunc myFunc;
+
+    /// The vClass speed restrictions for this edge
+    const std::map<SUMOVehicleClass, SUMOReal>* myRestrictions;
 
     /// @brief This edge's lanes
     std::vector<ROLane*> myLanes;

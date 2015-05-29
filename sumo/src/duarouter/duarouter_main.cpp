@@ -118,30 +118,30 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
     if (measure == "traveltime") {
         if (routingAlgorithm == "dijkstra") {
-            if (net.hasRestrictions()) {
-                router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+            if (net.hasPermissions()) {
+                router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             } else {
-                router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                router = new DijkstraRouterTT<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             }
         } else if (routingAlgorithm == "astar") {
-            if (net.hasRestrictions()) {
-                router = new AStarRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+            if (net.hasPermissions()) {
+                router = new AStarRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             } else {
-                router = new AStarRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                router = new AStarRouter<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             }
         } else if (routingAlgorithm == "CH") {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
-            if (net.hasRestrictions()) {
-                router = new CHRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+            if (net.hasPermissions()) {
+                router = new CHRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, true);
             } else {
-                router = new CHRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                router = new CHRouter<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, false);
             }
         } else if (routingAlgorithm == "CHWrapper") {
@@ -150,13 +150,13 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
 
-            router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+            router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, begin, weightPeriod);
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
     } else {
-        DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
+        DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >::Operation op;
         if (measure == "CO") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO>;
         } else if (measure == "CO2") {
@@ -174,11 +174,11 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         } else {
             throw ProcessError("Unknown measure (weight attribute '" + measure + "')!");
         }
-        if (net.hasRestrictions()) {
-            router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+        if (net.hasPermissions()) {
+            router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
         } else {
-            router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+            router = new DijkstraRouterEffort<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
         }
     }

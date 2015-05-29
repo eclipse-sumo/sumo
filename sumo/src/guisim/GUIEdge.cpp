@@ -509,7 +509,7 @@ GUIEdge::getVehicleColorValue(size_t activeScheme, MSBaseVehicle* veh) const {
         case 10:
             return 0; // invalid getLastLaneChangeOffset();
         case 11:
-            return MIN2(veh->getMaxSpeed(), getVehicleMaxSpeed(veh));
+            return getVehicleMaxSpeed(veh);
         case 12:
             return 0; // invalid getCO2Emissions();
         case 13:

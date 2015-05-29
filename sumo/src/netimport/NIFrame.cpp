@@ -307,17 +307,13 @@ NIFrame::checkOptions() {
             WRITE_WARNING("Environment variable SUMO_HOME is not set, can not find default type maps.");
         } else {
             const std::string path = sumoPath + std::string("/data/typemap/");
-            std::string suffix = "";
-            if (oc.isSet("type-files")) {
-                suffix = "," + oc.getString("type-files");
-            }
             if (oc.isSet("osm-files")) {
                 oc.unSet("type-files");
-                oc.set("type-files", path + "osmNetconvert.typ.xml" + suffix);
+                oc.set("type-files", path + "osmNetconvert.typ.xml");
             }
             if (oc.isSet("opendrive-files")) {
                 oc.unSet("type-files");
-                oc.set("type-files", path + "opendriveNetconvert.typ.xml" + suffix);
+                oc.set("type-files", path + "opendriveNetconvert.typ.xml");
             }
         }
     }

@@ -168,7 +168,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
              MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
              ShapeContainer* shapeCont):
     myVehiclesMoved(0),
-    myHaveRestrictions(false),
+    myHavePermissions(false),
     myHasInternalLinks(false),
     myHasElevation(false),
     myRouterTTInitialized(false),
@@ -276,6 +276,22 @@ MSNet::~MSNet() {
     }
 #endif
     myInstance = 0;
+}
+
+
+void
+MSNet::addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed) {
+    myRestrictions[id][svc] = speed;
+}
+
+
+const std::map<SUMOVehicleClass, SUMOReal>*
+MSNet::getRestrictions(const std::string& id) const {
+    std::map<std::string, std::map<SUMOVehicleClass, SUMOReal> >::const_iterator i = myRestrictions.find(id);
+    if (i == myRestrictions.end()) {
+        return 0;
+    }
+    return &i->second;
 }
 
 
@@ -795,13 +811,13 @@ MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
         myRouterTTInitialized = true;
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
-            myRouterTTDijkstra = new DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+            myRouterTTDijkstra = new DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
                 MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
         } else {
             if (routingAlgorithm != "astar") {
                 WRITE_WARNING("TraCI and Triggers cannot use routing algorithm '" + routingAlgorithm + "'. using 'astar' instead.");
             }
-            myRouterTTAStar = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+            myRouterTTAStar = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
                 MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
         }
     }
@@ -819,7 +835,7 @@ MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSNet::getRouterEffort(const MSEdgeVector& prohibited) const {
     if (myRouterEffort == 0) {
-        myRouterEffort = new DijkstraRouterEffort<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+        myRouterEffort = new DijkstraRouterEffort<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
             MSEdge::numericalDictSize(), true, &MSNet::getEffort, &MSNet::getTravelTime);
     }
     myRouterEffort->prohibit(prohibited);

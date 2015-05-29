@@ -72,7 +72,7 @@ ROMAAssignments::~ROMAAssignments() {
 // based on the definitions in PTV-Validate and in the VISUM-Köln network
 SUMOReal
 ROMAAssignments::capacityConstraintFunction(const ROEdge* edge, const SUMOReal flow) const {
-    if (edge->getType() == ROEdge::ET_DISTRICT) {
+    if (edge->getFunc() == ROEdge::ET_DISTRICT) {
         return 0;
     }
     const int roadClass = -edge->getPriority();

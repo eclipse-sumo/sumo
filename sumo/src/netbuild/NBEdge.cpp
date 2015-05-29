@@ -1446,7 +1446,7 @@ NBEdge::computeAngle() {
 
 
 bool
-NBEdge::hasRestrictions() const {
+NBEdge::hasPermissions() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
         if ((*i).permissions != SVCAll) {
             return true;
