@@ -141,6 +141,11 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
                               MSVehicleContainer::VehicleVector& refusedEmits) {
     assert(veh->getParameter().depart < time + DELTA_T);
     const MSEdge& edge = *veh->getEdge();
+    if (veh->isOnRoad()) {
+        // may have been inserted forcefully already
+        veh->onDepart();
+        return 1;
+    }
     if ((!myCheckEdgesOnce || edge.getLastFailedInsertionTime() != time) && edge.insertVehicle(*veh, time)) {
         // Successful insertion
         checkFlowWait(veh);
