@@ -356,13 +356,9 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
 }
 
 
-bool
-MSLane::insertVehicle(MSVehicle& veh) {
-    SUMOReal pos = 0;
+SUMOReal 
+MSLane::getDepartSpeed(const MSVehicle& veh, bool& patchSpeed) {
     SUMOReal speed = 0;
-    bool patchSpeed = true; // whether the speed shall be adapted to infrastructure/traffic in front
-
-    // determine the speed
     const SUMOVehicleParameter& pars = veh.getParameter();
     switch (pars.departSpeedProcedure) {
         case DEPART_SPEED_GIVEN:
@@ -383,6 +379,16 @@ MSLane::insertVehicle(MSVehicle& veh) {
             patchSpeed = false; // @todo check
             break;
     }
+    return speed;
+}
+
+
+bool
+MSLane::insertVehicle(MSVehicle& veh) {
+    SUMOReal pos = 0;
+    bool patchSpeed = true; // whether the speed shall be adapted to infrastructure/traffic in front
+    const SUMOVehicleParameter& pars = veh.getParameter();
+    SUMOReal speed = getDepartSpeed(veh, patchSpeed);
 
     // determine the position
     switch (pars.departPosProcedure) {
@@ -627,7 +633,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 void
 MSLane::forceVehicleInsertion(MSVehicle* veh, SUMOReal pos) {
     veh->updateBestLanes(true, this);
-    incorporateVehicle(veh, pos, veh->getSpeed(), find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos)));
+    bool dummy;
+    const SUMOReal speed = veh->hasDeparted() ? veh->getSpeed() : getDepartSpeed(*veh, dummy);
+    incorporateVehicle(veh, pos, speed, find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos)));
 }
 
 

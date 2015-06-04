@@ -819,6 +819,13 @@ protected:
     /// @brief compute maximum braking distance on this lane
     SUMOReal getMaximumBrakeDist() const;
 
+    /* @brief determine depart speed and whether it may be patched
+     * @param[in] veh The departing vehicle 
+     * @param[out] whether the speed may be patched to account for safety
+     * @return the depart speed
+     */
+    SUMOReal getDepartSpeed(const MSVehicle& veh, bool& patchSpeed);
+
 protected:
     /// Unique numerical ID (set on reading by netload)
     size_t myNumericalID;
