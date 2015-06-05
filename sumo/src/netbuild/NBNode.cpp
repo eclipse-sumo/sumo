@@ -771,7 +771,10 @@ NBNode::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
         NBEdge* out = myOutgoingEdges[0];
         NBEdge* in1 = myIncomingEdges[0];
         NBEdge* in2 = myIncomingEdges[1];
-        if (in1->getNumLanes() + in2->getNumLanes() == out->getNumLanes()
+        const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        int in1Offset = MAX2(0, in1->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        int in2Offset = MAX2(0, in2->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        if (in1->getNumLanes() + in2->getNumLanes() - in1Offset - in2Offset == out->getNumLanes() - outOffset
                 && (in1->getStep() <= NBEdge::LANES2EDGES)
                 && (in2->getStep() <= NBEdge::LANES2EDGES)
                 && in1 != out
@@ -785,10 +788,8 @@ NBNode::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
             SUMOReal cw = GeomHelper::getCWAngleDiff(a1, a2);
             if (ccw > cw) {
                 std::swap(in1, in2);
+                std::swap(in1Offset, in2Offset);
             }
-            const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
-            const int in1Offset = MAX2(0, in1->getFirstNonPedestrianLaneIndex(FORWARD, true));
-            const int in2Offset = MAX2(0, in2->getFirstNonPedestrianLaneIndex(FORWARD, true));
             in1->addLane2LaneConnections(in1Offset, out, outOffset, in1->getNumLanes() - in1Offset, NBEdge::L2L_VALIDATED, true, true);
             in2->addLane2LaneConnections(in2Offset, out, in1->getNumLanes() + outOffset - in1Offset, in2->getNumLanes() - in2Offset, NBEdge::L2L_VALIDATED, true, true);
             return;
@@ -801,7 +802,10 @@ NBNode::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
         NBEdge* in = myIncomingEdges[0];
         NBEdge* out1 = myOutgoingEdges[0];
         NBEdge* out2 = myOutgoingEdges[1];
-        if (in->getNumLanes() == out2->getNumLanes() + out1->getNumLanes()
+        const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        int out1Offset = MAX2(0, out1->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        int out2Offset = MAX2(0, out2->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        if (in->getNumLanes() - inOffset == out2->getNumLanes() + out1->getNumLanes() - out1Offset - out2Offset
                 && (in->getStep() <= NBEdge::LANES2EDGES)
                 && in != out1
                 && in != out2
@@ -810,10 +814,8 @@ NBNode::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
             // for internal: check which one is the rightmost
             if (NBContHelper::relative_outgoing_edge_sorter(in)(out2, out1)) {
                 std::swap(out1, out2);
+                std::swap(out1Offset, out2Offset);
             }
-            const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
-            const int out1Offset = MAX2(0, out1->getFirstNonPedestrianLaneIndex(FORWARD, true));
-            const int out2Offset = MAX2(0, out2->getFirstNonPedestrianLaneIndex(FORWARD, true));
             in->addLane2LaneConnections(inOffset, out1, out1Offset, out1->getNumLanes() - out1Offset, NBEdge::L2L_VALIDATED, true, true);
             in->addLane2LaneConnections(out1->getNumLanes() + inOffset - out1Offset, out2, out2Offset, out2->getNumLanes() - out2Offset, NBEdge::L2L_VALIDATED, false, true);
             return;
