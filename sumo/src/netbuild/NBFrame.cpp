@@ -387,6 +387,10 @@ NBFrame::checkOptions() {
         WRITE_ERROR("only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-boundary' may be given");
         ok = false;
     }
+    if (oc.isSet("no-internal-links") && oc.isSet("crossings.guess")) {
+        WRITE_ERROR("only one of the options 'no-internal-links' or 'crossings.guess' may be given");
+        ok = false;
+    }
     return ok;
 }
 
