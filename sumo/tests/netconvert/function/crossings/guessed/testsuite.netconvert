@@ -46,3 +46,6 @@ patch_tls_from_sumonet
 adlershof_dlr
 unregulated_node
 joined_TLS
+
+# trying to combine crossings.guess with --no-internal-links
+invalid_options
