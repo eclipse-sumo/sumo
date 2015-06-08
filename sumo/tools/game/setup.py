@@ -46,13 +46,13 @@ os.mkdir("dist")
 
 setup(console=[os.path.join(base, 'runner.py')])
 
-for f in glob.glob(os.path.join(base, "*.sumocfg")):
-    shutil.copy2(f, "dist")
-for f in ['input_additional.add.xml', 'logo.gif', 'dlr.gif']:
-    shutil.copy2(os.path.join(base, f), "dist")
-for dir in ['cross', 'square', 'kuehne', 'highway', 'sounds', 'ramp', 'bs3d']:
-    subprocess.call(
-        ['svn', 'export', os.path.join(base, dir), os.path.join("dist", dir)])
+for pattern in ['*.sumocfg', 'input_additional.add.xml', '*.gif']:
+    for f in glob.glob(os.path.join(base, pattern)):
+        shutil.copy2(f, "dist")
+for d in os.listdir(base):
+    path = os.path.join(base, d)
+    if os.path.isdir(path):
+        subprocess.call(['svn', 'export', path, os.path.join("dist", d)])
 os.chdir("dist")
 if internal:
     for dll in glob.glob(os.path.join(nightlyDir, 'bin64', '*.dll')):
