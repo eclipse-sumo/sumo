@@ -215,6 +215,9 @@
     </xsd:complexType>
 
     <xsd:complexType name="typeType">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="restriction" type="restrictionType"/>
+        </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="allow" type="xsd:string"/>
         <xsd:attribute name="disallow" type="xsd:string"/>
@@ -225,6 +228,11 @@
         <xsd:attribute name="oneway" type="boolType"/>
         <xsd:attribute name="width" type="xsd:float"/>
         <xsd:attribute name="sidewalkWidth" type="xsd:float"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="restrictionType">
+        <xsd:attribute name="vClass" type="xsd:string" use="required"/>
+        <xsd:attribute name="speed" type="xsd:float" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

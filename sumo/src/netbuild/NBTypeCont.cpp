@@ -146,7 +146,7 @@ NBTypeCont::writeTypes(OutputDevice& into) const {
         if (type.attrs.count(SUMO_ATTR_SIDEWALKWIDTH) > 0) {
             into.writeAttr(SUMO_ATTR_SIDEWALKWIDTH, type.sidewalkWidth);
         }
-        for (std::map<SUMOVehicleClass, SUMOReal>::const_iterator j = type.restrictions.begin(); j != type.restrictions.begin(); ++j) {
+        for (std::map<SUMOVehicleClass, SUMOReal>::const_iterator j = type.restrictions.begin(); j != type.restrictions.end(); ++j) {
             into.openTag(SUMO_TAG_RESTRICTION);
             into.writeAttr(SUMO_ATTR_VCLASS, getVehicleClassNames(j->first));
             into.writeAttr(SUMO_ATTR_SPEED, j->second);
