@@ -45,3 +45,6 @@ name
 
 # overwriting edge type
 type
+
+# overwriting edge type with vclass specific speed restrictions
+type_vclass_speeds
