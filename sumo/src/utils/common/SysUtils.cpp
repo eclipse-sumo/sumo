@@ -73,9 +73,7 @@ SysUtils::getWindowsTicks() {
 
 unsigned long
 SysUtils::runHiddenCommand(const std::string& cmd) {
-#ifndef WIN32
-    return (unsigned long)system(cmd.c_str());
-#else
+#ifdef _MSC_VER
     // code inspired by http://www.codeproject.com/Articles/2537/Running-console-applications-silently
     STARTUPINFO StartupInfo;
     PROCESS_INFORMATION ProcessInfo;
@@ -107,6 +105,8 @@ SysUtils::runHiddenCommand(const std::string& cmd) {
 
     delete args;
     return rc;
+#else
+    return (unsigned long)system(cmd.c_str());
 #endif
 }
 

@@ -1,5 +1,6 @@
 #include "BiArc.h"
 #include <cassert>
+#include <cmath> // added for cygwin build 2015-06-10 MB
 
 void BiArc::compute_biarc_params(void)
 {

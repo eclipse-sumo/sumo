@@ -33,7 +33,7 @@ The subfolders contain additional libraries used by SUMO:
 - EulerSpiral
  Approximating curves
  Used version: unknown
- Modifications: fixing warnings (removing unused variables, initializing variables); relicensed under LGPL, see license file
+ Modifications: fixing warnings (removing unused variables, initializing variables), adding missing includes for cygwin; relicensed under LGPL, see license file
  Original page: http://www.lems.brown.edu/vision/researchAreas/EulerSpiral/
 
 - gl2ps
