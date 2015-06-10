@@ -14,7 +14,7 @@
 
     <time>
         <begin value="0"/>
-        <end value="900"/>
+        <end value="400"/>
         <step-length value=".2"/>
     </time>
 

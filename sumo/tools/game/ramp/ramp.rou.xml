@@ -14,14 +14,14 @@
     <flow id="onramp"   route="onramp"  begin="0" end="90000" probability="0.22" departSpeed="max"/>
 
     <!-- increase flow after some time -->
-    <flow id="highway2" route="highway" begin="300" end="90000" probability="0.4" departSpeed="max" departLane="free" departPos="free"/>
-    <flow id="offramp2" route="offramp" begin="300" end="90000" probability="0.05" departSpeed="max" departLane="0" departPos="random"/>
-    <flow id="onramp2"  route="onramp"  begin="300" end="90000" probability="0.04" departSpeed="max"/>
+    <flow id="highway2" route="highway" begin="200" end="90000" probability="0.4" departSpeed="max" departLane="free" departPos="free"/>
+    <flow id="offramp2" route="offramp" begin="200" end="90000" probability="0.05" departSpeed="max" departLane="0" departPos="random"/>
+    <flow id="onramp2"  route="onramp"  begin="200" end="90000" probability="0.04" departSpeed="max"/>
 
     <!-- increase flow after some time -->
-    <flow id="highway3" route="highway" begin="600" end="90000" probability="0.4" departSpeed="max" departLane="free" departPos="free"/>
-    <flow id="offramp3" route="offramp" begin="600" end="90000" probability="0.01" departSpeed="max" departLane="0" departPos="random"/>
-    <flow id="onramp3"  route="onramp"  begin="600" end="90000" probability="0.02" departSpeed="max"/>
+    <flow id="highway3" route="highway" begin="300" end="90000" probability="0.4" departSpeed="max" departLane="free" departPos="free"/>
+    <flow id="offramp3" route="offramp" begin="300" end="90000" probability="0.01" departSpeed="max" departLane="0" departPos="random"/>
+    <flow id="onramp3"  route="onramp"  begin="300" end="90000" probability="0.02" departSpeed="max"/>
     
     
 </routes>
