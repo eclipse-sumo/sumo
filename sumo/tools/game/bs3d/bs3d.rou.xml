@@ -18,14 +18,14 @@
     <route id="WS" edges="166445412 29136063#0"/>
     <route id="ES" edges="61734682#3 166445407 29136063#0"/>
 
-    <flow id="1_right" route="WS" begin="0" end="90000" period="30" departSpeed="13.89"/>
-    <flow id="2_right" route="EN" begin="0" end="90000" period="30" departSpeed="13.89"/>
+    <flow id="1_right" route="WS" begin="20" end="90000" period="30" departSpeed="13.89"/>
+    <flow id="2_right" route="EN" begin="20" end="90000" period="30" departSpeed="13.89"/>
 
-    <flow id="1_left" route="WN" begin="0" end="90000" period="45" departSpeed="13.89"/>
-    <flow id="2_left" route="ES" begin="0" end="90000" period="55" departSpeed="13.89"/>
+    <flow id="1_left" route="WN" begin="20" end="90000" period="45" departSpeed="13.89"/>
+    <flow id="2_left" route="ES" begin="20" end="90000" period="55" departSpeed="13.89"/>
 
-    <flow id="1_horizontal" route="WE" begin="0" end="90000" period="15" departSpeed="13.89"/>
-    <flow id="2_horizontal" route="EW" begin="0" end="90000" period="15" departSpeed="13.89"/>
+    <flow id="1_horizontal" route="WE" begin="20" end="90000" period="15" departSpeed="13.89"/>
+    <flow id="2_horizontal" route="EW" begin="20" end="90000" period="15" departSpeed="13.89"/>
 
     <flow id="3_right" route="NW" begin="20" end="90000" period="30" departSpeed="13.89"/>
     <flow id="4_right" route="SE" begin="20" end="90000" period="40" departSpeed="13.89"/>

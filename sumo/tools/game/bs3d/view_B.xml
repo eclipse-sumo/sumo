@@ -3,15 +3,15 @@
         <opengl antialiase="0" dither="0"/>
         <background backgroundColor="1.00,1.00,1.00"
                     showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
-        <edges laneEdgeMode="0" laneShowBorders="0" showLinkDecals="1" showRails="1" hideConnectors="0"
+        <edges laneEdgeMode="1" laneShowBorders="0" showLinkDecals="1" showRails="1" hideConnectors="0"
                edgeName_show="0" edgeName_size="50.00" edgeName_color="1.00,0.50,0.00" 
                internalEdgeName_show="0" internalEdgeName_size="40.00" internalEdgeName_color="0.50,0.25,0.00" 
                streetName_show="0" streetName_size="55.00" streetName_color="1.00,1.00,0.00" >
             <colorScheme name="uniform">
-                <entry color="0,0,0,0"/>
+                <entry color="1.0,0,0,1.0"/>
             </colorScheme>
             <colorScheme name="by selection (lane-/streetwise)">
-                <entry color="0.70,0.70,0.70" name="unselected"/>
+                <entry color="0.0,0.0,0.0,0.0" name="unselected"/>
                 <entry color="0.00,0.40,0.80" name="selected"/>
             </colorScheme>
             <colorScheme name="by vclass">
