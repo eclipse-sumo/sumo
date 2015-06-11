@@ -101,7 +101,7 @@ public:
     void loadOnStartup();
 
 
-    void dependentBuild(bool game);
+    void dependentBuild();
 
     void setStatusBarText(const std::string&);
 

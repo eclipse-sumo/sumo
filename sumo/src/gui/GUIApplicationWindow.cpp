@@ -194,8 +194,8 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
 
 
 void
-GUIApplicationWindow::dependentBuild(bool game) {
-    // do this not twice
+GUIApplicationWindow::dependentBuild() {
+    // don't do this twice
     if (hadDependentBuild) {
         return;
     }
@@ -249,12 +249,8 @@ GUIApplicationWindow::dependentBuild(bool game) {
     myMessageWindow = new GUIMessageWindow(myMainSplitter);
     // fill menu and tool bar
     fillMenuBar();
-    if (game) {
-        onCmdGaming(0, 0, 0);
-    } else {
-        myToolBar6->hide();
-        myToolBar7->hide();
-    }
+    myToolBar6->hide();
+    myToolBar7->hide();
     // build additional threads
     myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent);
     myRunThread = new GUIRunThread(getApp(), this, *mySimDelayTarget, myEvents,

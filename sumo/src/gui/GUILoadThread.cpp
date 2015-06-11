@@ -80,7 +80,7 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUILoadThread::GUILoadThread(FXApp* app, MFXInterThreadEventClient* mw,
+GUILoadThread::GUILoadThread(FXApp* app, GUIApplicationWindow* mw,
                              MFXEventQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev)
     : FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
       myEventThrow(ev) {
@@ -100,21 +100,13 @@ GUILoadThread::~GUILoadThread() {
 
 FXint
 GUILoadThread::run() {
-    GUINet* net = 0;
-    int simStartTime = 0;
-    int simEndTime = 0;
-    std::vector<std::string> guiSettingsFiles;
-    bool osgView = false;
-    OptionsCont& oc = OptionsCont::getOptions();
-
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
-    if (!OptionsCont::getOptions().getBool("no-warnings")) {
-        MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
-    }
+    MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
 
     // try to load the given configuration
+    OptionsCont& oc = OptionsCont::getOptions();
     try {
         oc.clear();
         MSFrame::fillOptions();
@@ -126,10 +118,10 @@ GUILoadThread::run() {
             } else {
                 oc.set("configuration-file", myFile);
             }
-            OptionsIO::getOptions(true, 1, 0);
+            OptionsIO::getOptions();
         } else {
             // triggered at application start or reload
-            OptionsIO::getOptions(true);
+            OptionsIO::getOptions();
             if (oc.isSet("configuration-file")) {
                 myTitle = oc.getString("configuration-file");
             } else if (oc.isSet("net-file")) {
@@ -155,7 +147,7 @@ GUILoadThread::run() {
         // the options are not valid but maybe we want to quit
         GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
-        submitEndAndCleanup(net, simStartTime, simEndTime);
+        submitEndAndCleanup(0, 0, 0);
         return 0;
     }
 
@@ -164,6 +156,9 @@ GUILoadThread::run() {
     RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
     MSFrame::setMSGlobals(oc);
     GUITexturesHelper::allowTextures(!oc.getBool("disable-textures"));
+    if (oc.getBool("game")) {
+        myParent->onCmdGaming(0, 0, 0);
+    }
     MSVehicleControl* vehControl = 0;
 #ifdef HAVE_INTERNAL
     GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;
@@ -173,6 +168,11 @@ GUILoadThread::run() {
 #endif
         vehControl = new GUIVehicleControl();
 
+    GUINet* net = 0;
+    int simStartTime = 0;
+    int simEndTime = 0;
+    std::vector<std::string> guiSettingsFiles;
+    bool osgView = false;
     GUIEdgeControlBuilder* eb = 0;
     try {
         net = new GUINet(

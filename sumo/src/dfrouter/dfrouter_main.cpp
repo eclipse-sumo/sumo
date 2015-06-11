@@ -273,7 +273,8 @@ main(int argc, char** argv) {
         // initialise the application system (messaging, xml, options)
         XMLSubSys::init();
         RODFFrame::fillOptions();
-        OptionsIO::getOptions(true, argc, argv);
+        OptionsIO::setArgs(argc, argv);
+        OptionsIO::getOptions();
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;

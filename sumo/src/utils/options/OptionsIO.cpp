@@ -61,19 +61,18 @@ char** OptionsIO::myArgV;
 // method definitions
 // ===========================================================================
 void
-OptionsIO::getOptions(bool loadConfig, int argc, char** argv) {
+OptionsIO::setArgs(int argc, char** argv) {
+    myArgC = argc;
+    myArgV = argv;
+}
+
+
+void
+OptionsIO::getOptions() {
     // preparse the options
     //  (maybe another configuration file was chosen)
-    if (argc > 0) {
-        myArgC = argc;
-        myArgV = argv;
-    }
     if (!OptionsParser::parse(myArgC, myArgV)) {
         throw ProcessError("Could not parse commandline options.");
-    }
-    // check whether to use the command line parameters only
-    if (!loadConfig) {
-        return;
     }
     // read the configuration when everything's ok
     OptionsCont::getOptions().resetWritable();

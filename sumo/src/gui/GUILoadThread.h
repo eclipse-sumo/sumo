@@ -43,7 +43,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MFXInterThreadEventClient;
+class GUIApplicationWindow;
 class GUINet;
 class GUIEvent;
 
@@ -57,7 +57,7 @@ class GUIEvent;
 class GUILoadThread : public FXSingleEventThread {
 public:
     /// constructor
-    GUILoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEventQue<GUIEvent*>& eq,
+    GUILoadThread(FXApp* app, GUIApplicationWindow* mw, MFXEventQue<GUIEvent*>& eq,
                   FXEX::FXThreadEvent& ev);
 
     /// destructor
@@ -90,7 +90,7 @@ protected:
 
 protected:
     /// the parent window to inform about the loading
-    MFXInterThreadEventClient* myParent;
+    GUIApplicationWindow* myParent;
 
     /// the path to load the simulation from
     std::string myFile;

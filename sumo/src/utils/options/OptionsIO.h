@@ -53,11 +53,18 @@ class OptionsCont;
  */
 class OptionsIO {
 public:
-    /** @brief Parses the command line arguments and loads the configuration optionally
+    /** @brief Stores the command line arguments for later parsing
+     *
+     * @param[in] argc number of arguments given at the command line
+     * @param[in] argv arguments given at the command line
+     */
+    static void setArgs(int argc, char** argv);
+
+
+    /** @brief Parses the command line arguments and loads the configuration
      *
      * Command line arguments are parsed, first, throwing a ProcessError
-     *  if something fails. If loadConfig is false, the method returns
-     *  after this. Otherwise, options are reset to being writeable and the
+     *  if something fails. Then options are reset to being writeable and the
      *  configuration is loaded using "loadConfiguration". After this,
      *  the options are reset again and the command line arguments are
      *  reparsed.
@@ -65,13 +72,8 @@ public:
      * This workflow allows to read the name of a configuration file from
      *  command line arguments, first, then to load values from this configuration
      *  file and reset them by other values from the command line.
-     *
-     * @param[in] loadConfig Whether the configuration shall be loaded
-     * @param[in] argc number of arguments given at the command line
-     * @param[in] argv arguments given at the command line
      */
-    static void getOptions(bool loadConfig,
-                           int argc = 0, char** argv = 0);
+    static void getOptions();
 
 
     /** @brief Loads and parses the configuration

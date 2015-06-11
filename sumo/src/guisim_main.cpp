@@ -75,15 +75,6 @@ main(int argc, char** argv) {
     oc.setApplicationName("sumo-gui.exe", "SUMO gui Version " + getBuildName(VERSION_STRING));
     int ret = 0;
     try {
-        // initialise subsystems
-        XMLSubSys::init();
-        MSFrame::fillOptions();
-        OptionsIO::getOptions(false, argc, argv);
-        if (oc.processMetaOptions(false)) {
-            SystemFrame::close();
-            return 0;
-        }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
         // Make application
         FXApp application("SUMO GUISimulation", "DLR");
         // Open display
@@ -97,12 +88,15 @@ main(int argc, char** argv) {
         GUIApplicationWindow* window =
             new GUIApplicationWindow(&application, "*.sumo.cfg,*.sumocfg");
         gSchemeStorage.init(&application);
-        window->dependentBuild(oc.getBool("game"));
+        window->dependentBuild();
         // Create app
         application.addSignal(SIGINT, window, MID_QUIT);
         application.create();
+        // initialise subsystems
+        XMLSubSys::init();
         // Load configuration given on command line
-        if (oc.isSet("configuration-file") || oc.isSet("net-file")) {
+        if (argc > 1) {
+            OptionsIO::setArgs(argc, argv);
             window->loadOnStartup();
         }
         // Run
