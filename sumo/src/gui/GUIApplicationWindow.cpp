@@ -1283,20 +1283,21 @@ GUIApplicationWindow::checkGamingEvents() {
         }
     }
 #endif
-    // updated peformance indicators
 
+    // update performance indicators
     for (it = vc.loadedVehBegin(); it != end; ++it) {
         const MSVehicle* veh = dynamic_cast<MSVehicle*>(it->second);
         assert(veh != 0);
-        const SUMOReal vmax = MIN2(veh->getVehicleType().getMaxSpeed(), veh->getEdge()->getSpeedLimit());
-        if (veh->isOnRoad() && veh->getSpeed() < SUMO_const_haltingSpeed) {
-            myWaitingTime += DELTA_T;
+        if (veh->isOnRoad()) {
+            const SUMOReal vmax = MIN2(veh->getVehicleType().getMaxSpeed(), veh->getEdge()->getSpeedLimit());
+            if (veh->getSpeed() < SUMO_const_haltingSpeed) {
+                myWaitingTime += DELTA_T;
+            }
+            myTimeLoss += TS * TIME2STEPS(vmax - veh->getSpeed()) / vmax; // may be negative with speedFactor > 1
         }
-        myTimeLoss += TS * TIME2STEPS(vmax - veh->getSpeed()) / vmax; // may be negative with speedFactor > 1
-        myWaitingTimeLabel->setText(time2string(myWaitingTime).c_str());
-        myTimeLossLabel->setText(time2string(myTimeLoss).c_str());
     }
-
+    myWaitingTimeLabel->setText(time2string(myWaitingTime).c_str());
+    myTimeLossLabel->setText(time2string(myTimeLoss).c_str());
 }
 
 
