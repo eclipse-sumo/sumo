@@ -94,7 +94,6 @@ NIXMLTypesHandler::myStartElement(int element,
             if (discard) {
                 myTypeCont.markAsToDiscard(myCurrentTypeID);
             }
-            myTypeCont.copyRestrictionsAndAttrs(defType, myCurrentTypeID);
             SumoXMLAttr myAttrs[] = {SUMO_ATTR_PRIORITY, SUMO_ATTR_NUMLANES, SUMO_ATTR_SPEED,
                                      SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_ONEWAY,
                                      SUMO_ATTR_DISCARD, SUMO_ATTR_WIDTH, SUMO_ATTR_SIDEWALKWIDTH};

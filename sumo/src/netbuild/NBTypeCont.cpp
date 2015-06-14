@@ -60,7 +60,14 @@ NBTypeCont::setDefaults(int defaultNumLanes,
 void
 NBTypeCont::insert(const std::string& id, int numLanes, SUMOReal maxSpeed, int prio,
                    SVCPermissions permissions, SUMOReal width, bool oneWayIsDefault, SUMOReal sidewalkWidth) {
-    myTypes[id] = TypeDefinition(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth);
+
+    TypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth);
+    TypesCont::iterator old = myTypes.find(id);
+    if (old != myTypes.end()) {
+        newType.restrictions.insert(old->second.restrictions.begin(), old->second.restrictions.end());
+        newType.attrs.insert(old->second.attrs.begin(), old->second.attrs.end());
+    }
+    myTypes[id] = newType;
 }
 
 
