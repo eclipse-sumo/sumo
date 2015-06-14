@@ -36,6 +36,8 @@ sys.path.append(os.path.join(SUMO_HOME, "tools"))
 
 polyfile = os.path.join(SUMO_HOME, "data", "typemap", "osmPolyconvert.typ.xml")
 typefile = os.path.join(SUMO_HOME, "data", "typemap", "osmNetconvert.typ.xml")
+urbantypefile = os.path.join(
+    SUMO_HOME, "data", "typemap", "osmNetconvertUrbanDe.typ.xml")
 pedestrianstypefile = os.path.join(
     SUMO_HOME, "data", "typemap", "osmNetconvertPedestrians.typ.xml")
 shipstypefile = os.path.join(
@@ -111,6 +113,7 @@ def build(handler, prefix, bbox=False):
     if handler.pedestrians.enable:  # drop?
         # sidewalks are already included via typefile
         netconvertOptions += ",--crossings.guess"
+        typefiles.append(urbantypefile)
         typefiles.append(pedestrianstypefile)
     if handler.ships.enable:
         typefiles.append(shipstypefile)

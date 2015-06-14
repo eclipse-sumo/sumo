@@ -1,18 +1,10 @@
 <types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
-    <type id="highway.motorway"       speed="27.78"/>
-    <type id="highway.motorway_link"  speed="16.67"/>
-    <type id="highway.trunk"          speed="13.89"/>
-    <type id="highway.trunk_link"     speed="13.89"/>
-    <type id="highway.primary"        speed="13.89" sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="highway.primary_link"   speed="13.89" sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="highway.secondary"      speed="13.89" sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="highway.secondary_link" speed="13.89" sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="highway.tertiary"       speed="13.89" sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="highway.tertiary_link"  speed="13.89" sidewalkWidth="2" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="highway.unclassified"   speed="13.89" sidewalkWidth="2" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="highway.residential"    speed="13.89" sidewalkWidth="2" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="highway.service"        speed="5.56"                    allow="delivery pedestrian bicycle"/>
-    <type id="highway.track"          speed="5.56"                    disallow="rail rail_urban rail_electric tram ship"/>
-    <type id="highway.services"       speed="8.33"                    disallow="rail rail_urban rail_electric tram ship"/>
-    <type id="highway.unsurfaced"     speed="8.33"                    disallow="rail rail_urban rail_electric tram ship"/>
+    <type id="highway.primary"        sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
+    <type id="highway.primary_link"   sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
+    <type id="highway.secondary"      sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
+    <type id="highway.secondary_link" sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
+    <type id="highway.tertiary"       sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
+    <type id="highway.tertiary_link"  sidewalkWidth="2" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
+    <type id="highway.unclassified"   sidewalkWidth="2" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
+    <type id="highway.residential"    sidewalkWidth="2" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
 </types>
