@@ -196,7 +196,7 @@ class Net:
     def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True):
         edges = []
         try:
-            if self._rtree == None:
+            if self._rtree is None:
                 self._initRTree(self._edges, includeJunctions)
             for i in self._rtree.intersection((x - r, y - r, x + r, y + r)):
                 e = self._edges[i]
@@ -215,7 +215,7 @@ class Net:
     def getNeighboringLanes(self, x, y, r=0.1, includeJunctions=True):
         lanes = []
         try:
-            if self._rtree == None:
+            if self._rtree is None:
                 if not self._allLanes:
                     for edge in self._edges:
                         self._allLanes += edge.getLanes()
