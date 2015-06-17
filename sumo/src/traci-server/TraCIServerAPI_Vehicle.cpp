@@ -97,6 +97,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
             && variable != VAR_TAU && variable != VAR_BEST_LANES && variable != DISTANCE_REQUEST
             && variable != ID_COUNT && variable != VAR_STOPSTATE && variable !=  VAR_WAITING_TIME
+            && variable != VAR_ROUTE_INDEX
             && variable != VAR_PARAMETER
        ) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable specified", outputStorage);
@@ -181,6 +182,14 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             case VAR_ROUTE_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
                 tempMsg.writeString(v->getRoute().getID());
+                break;
+            case VAR_ROUTE_INDEX:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                if (v->hasDeparted()) {
+                    tempMsg.writeInt((int)v->getRoutePosition());
+                } else {
+                    tempMsg.writeInt(INVALID_INT_VALUE);
+                }
                 break;
             case VAR_COLOR:
                 tempMsg.writeUnsignedByte(TYPE_COLOR);

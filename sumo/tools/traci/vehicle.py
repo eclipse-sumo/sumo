@@ -80,6 +80,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.VAR_LANE_INDEX:      traci.Storage.readInt,
                       tc.VAR_TYPE:            traci.Storage.readString,
                       tc.VAR_ROUTE_ID:        traci.Storage.readString,
+                      tc.VAR_ROUTE_INDEX:     traci.Storage.readInt,
                       tc.VAR_COLOR: lambda result: result.read("!BBBB"),
                       tc.VAR_LANEPOSITION:    traci.Storage.readDouble,
                       tc.VAR_CO2EMISSION:     traci.Storage.readDouble,
@@ -210,6 +211,15 @@ def getRouteID(vehID):
     Returns the id of the route of the named vehicle.
     """
     return _getUniversal(tc.VAR_ROUTE_ID, vehID)
+
+
+def getRouteIndex(vehID):
+    """getRouteIndex(string) -> int
+
+    Returns the index of the current edge within the vehicles route or -1 if the
+    vehicle has not yet departed
+    """
+    return _getUniversal(tc.VAR_ROUTE_INDEX, vehID)
 
 
 def getRoute(vehID):

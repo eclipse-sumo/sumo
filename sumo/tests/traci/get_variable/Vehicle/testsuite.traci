@@ -51,6 +51,9 @@ VAR_EDGE_EFFORT_subseconds
 VAR_STOPSTATE
 VAR_STOPSTATE_subseconds
 VAR_WAITINGTIME
+
+# edge index within the current route
+VAR_ROUTE_INDEX
 DISTANCE_REQUEST
 
 # Testing error cases

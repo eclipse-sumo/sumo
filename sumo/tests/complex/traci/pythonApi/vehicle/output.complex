@@ -14,6 +14,7 @@ lane 2fi_0
 laneIndex 0
 type DEFAULT_VEHTYPE
 routeID horizontal
+routeIndex 0
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 lanePos 9.65713596621
 color (255, 255, 0, 255)
@@ -64,6 +65,7 @@ lane 2fi_0
 laneIndex 0
 type DEFAULT_VEHTYPE@horiz
 routeID horizontal
+routeIndex 0
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 lanePos 32.3814093548
 color (255, 0, 0, 255)
@@ -111,6 +113,7 @@ lane
 laneIndex -1
 type DEFAULT_VEHTYPE
 routeID horizontal
+routeIndex -1
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 lanePos -1001.0
 color (255, 255, 0, 255)
@@ -170,6 +173,7 @@ lane 2fi_0
 laneIndex 0
 type DEFAULT_VEHTYPE
 routeID horizontal
+routeIndex 0
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 lanePos 10.2894243686
 color (255, 255, 0, 255)
