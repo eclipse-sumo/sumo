@@ -1250,8 +1250,12 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
     } else if (!myHaveNotifiedAboutSimEnd) {
         // build the text
         const std::string text = "Simulation ended at time: " + time2string(ec->getTimeStep()) +
-                                 ".\nReason: " + MSNet::getStateMessage(ec->getReason());
-        FXMessageBox::warning(this, MBOX_OK, "Simulation ended", "%s", text.c_str());
+                                 ".\nReason: " + MSNet::getStateMessage(ec->getReason()) +
+                                 "\nDo you want to close all open files and views?";
+        FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, "Simulation ended", "%s", text.c_str());
+        if (answer == 1) { //1:yes, 2:no, 4:esc
+            closeAllWindows();
+        }
         myHaveNotifiedAboutSimEnd = true;
     }
 }
