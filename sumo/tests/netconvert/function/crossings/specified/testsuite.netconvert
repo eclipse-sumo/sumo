@@ -51,3 +51,6 @@ uncontrolled_at_tls_node
 error_empty_edges
 across_3
 traffic_light_unregulated
+
+# remove a crossing
+discard

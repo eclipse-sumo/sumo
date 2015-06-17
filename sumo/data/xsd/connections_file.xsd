@@ -58,9 +58,10 @@
 
     <xsd:complexType name="crossingType">
         <xsd:attribute name="node" type="xsd:string" use="required"/>
-        <xsd:attribute name="edges" type="xsd:string" use="required"/>
+        <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="priority" type="xsd:int" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="discard" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="customShapeType">

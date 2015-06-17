@@ -252,7 +252,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
             }
             if (edges.size() > 0) {
-                node->addCrossing(edges, crossing.width, crossing.priority);
+                node->addCrossing(edges, crossing.width, crossing.priority, true);
             }
         }
     }

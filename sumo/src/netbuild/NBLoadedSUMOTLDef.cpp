@@ -304,7 +304,14 @@ void
 NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
     // XXX what to do if crossings are removed during network building?
     const unsigned int size = myTLLogic->getNumLinks();
-    unsigned int noLinksAll = size;
+    unsigned int noLinksAll = 0;
+    for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
+        const NBConnection& c = *it;
+        if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
+            noLinksAll = MAX2(noLinksAll, (unsigned int)c.getTLIndex() + 1);
+        }
+    }
+    int oldCrossings = 0;
     // collect crossings
     std::vector<NBNode::Crossing> crossings;
     for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
@@ -313,8 +320,10 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
         (*i)->setCrossingTLIndices(noLinksAll);
         copy(c.begin(), c.end(), std::back_inserter(crossings));
         noLinksAll += (unsigned int)c.size();
+        oldCrossings += (*i)->numCrossingsFromSumoNet();
     }
-    if (crossings.size() > 0) {
+    const int newCrossings = (int)crossings.size() - oldCrossings;
+    if (newCrossings > 0) {
         // collect edges
         assert(size > 0);
         EdgeVector fromEdges(size, 0);
@@ -327,8 +336,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
                 toEdges[c.getTLIndex()] = c.getTo();
             }
         }
-        /// XXX handle the case where some crossings are already loaded
-        const std::string crossingDefaultState(crossings.size(), 'r');
+        const std::string crossingDefaultState(newCrossings, 'r');
 
         // rebuild the logic (see NBOwnTLDef.cpp::myCompute)
         const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();

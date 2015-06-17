@@ -238,7 +238,9 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myHaveCustomPoly(false),
     myRequest(0),
     myRadius(UNSPECIFIED_RADIUS),
-    myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear"))
+    myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
+    myDiscardAllCrossings(false),
+    myCrossingsLoadedFromSumoNet(0)
 { }
 
 
@@ -250,7 +252,9 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myHaveCustomPoly(false),
     myRequest(0),
     myRadius(UNSPECIFIED_RADIUS),
-    myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear"))
+    myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
+    myDiscardAllCrossings(false),
+    myCrossingsLoadedFromSumoNet(0)
 { }
 
 
@@ -1550,7 +1554,7 @@ int
 NBNode::guessCrossings() {
     //gDebugFlag1 = getID() == DEBUGID;
     int numGuessed = 0;
-    if (myCrossings.size() > 0) {
+    if (myCrossings.size() > 0 || myDiscardAllCrossings) {
         // user supplied crossings, do not guess
         return numGuessed;
     }
@@ -1798,6 +1802,9 @@ NBNode::buildCrossings() {
     //gDebugFlag1 = getID() == DEBUGID;
     if (gDebugFlag1) {
         std::cout << "build crossings for " << getID() << ":\n";
+    }
+    if (myDiscardAllCrossings) {
+        myCrossings.clear();
     }
     unsigned int index = 0;
     for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
@@ -2243,8 +2250,11 @@ NBNode::setRoundabout() {
 
 
 void
-NBNode::addCrossing(EdgeVector edges, SUMOReal width, bool priority) {
+NBNode::addCrossing(EdgeVector edges, SUMOReal width, bool priority, bool fromSumoNet) {
     myCrossings.push_back(Crossing(this, edges, width, priority));
+    if (fromSumoNet) {
+        myCrossingsLoadedFromSumoNet += 1;
+    }
 }
 
 

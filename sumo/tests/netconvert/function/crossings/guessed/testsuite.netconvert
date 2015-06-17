@@ -49,3 +49,6 @@ joined_TLS
 
 # trying to combine crossings.guess with --no-internal-links
 invalid_options
+
+# do not guess crossings for a given node
+discard

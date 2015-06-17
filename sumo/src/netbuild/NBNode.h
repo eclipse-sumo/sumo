@@ -626,10 +626,18 @@ public:
     void setRoundabout();
 
     /// @brief add a pedestrian crossing to this node
-    void addCrossing(EdgeVector edges, SUMOReal width, bool priority);
+    void addCrossing(EdgeVector edges, SUMOReal width, bool priority, bool fromSumoNet=false);
 
     /// @brief remove a pedestrian crossing from this node (identified by its edges)
     void removeCrossing(const EdgeVector& edges);
+
+    void discardAllCrossings() {
+        myDiscardAllCrossings = true;
+    }
+
+    int numCrossingsFromSumoNet() const {
+        return myCrossingsLoadedFromSumoNet;
+    }
 
     /// @brief return this junctions pedestrian crossings
     inline const std::vector<Crossing>& getCrossings() const {
@@ -766,6 +774,12 @@ private:
     bool myKeepClear;
 
     CustomShapeMap myCustomLaneShapes;
+
+    /// @brief whether to discard all pedestrian crossings
+    bool myDiscardAllCrossings;
+
+    /// @brief number of crossings loaded from a sumo net
+    int myCrossingsLoadedFromSumoNet;
 
 private:
     /// @brief invalidated copy constructor

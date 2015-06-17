@@ -326,7 +326,22 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     EdgeVector edges;
     const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, 0, ok);
     const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, nodeID.c_str(), ok, NBNode::DEFAULT_CROSSING_WIDTH, true);
+    const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, nodeID.c_str(), ok, false, true);
     std::vector<std::string> edgeIDs;
+    if (!attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        if (discard) {
+            node = myNodeCont.retrieve(nodeID);
+            if (node == 0) {
+                WRITE_ERROR("Node '" + nodeID + "' in crossing is not known.");
+                return;
+            }
+            node->discardAllCrossings();
+            return;
+        } else {
+            WRITE_ERROR("No edges specified for crossing at node '" + nodeID + "'.");
+            return;
+        }
+    }
     SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_EDGES, 0, ok), edgeIDs);
     if (!ok) {
         return;
@@ -360,7 +375,11 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         WRITE_WARNING("Crossing at controlled node '" + nodeID + "' must be prioritized");
         priority = true;
     }
-    node->addCrossing(edges, width, priority);
+    if (discard) {
+        node->removeCrossing(edges);
+    } else {
+        node->addCrossing(edges, width, priority);
+    }
 }
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/13/15 12:47:02 by SUMO netconvert Version dev-SVN-r18083
+<!-- generated on Thu Jun 18 01:29:58 2015 by SUMO netconvert Version dev-SVN-r18493
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -131,18 +131,16 @@
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="21" state="gGGgrrrgGGgrrrrGrGrrG"/>
-        <phase duration="5" state="gGGgrrrgGGgrrrrGrGrrr"/>
-        <phase duration="5" state="gGGgrrrgGGgrrrrrrrrrr"/>
-        <phase duration="4" state="yyygrrryyygrrrrrrrrrr"/>
-        <phase duration="6" state="rrrGrrrrrrGrrrrrrrrrr"/>
-        <phase duration="4" state="rrryrrrrrryrrrrrrrrrr"/>
-        <phase duration="21" state="rrrrgGgrrrrgGgGrGrGGr"/>
-        <phase duration="5" state="rrrrgGgrrrrgGgGrGrrrr"/>
-        <phase duration="5" state="rrrrgGgrrrrgGgrrrrrrr"/>
-        <phase duration="4" state="rrrryygrrrryygrrrrrrr"/>
-        <phase duration="6" state="rrrrrrGrrrrrrGrrrrrrr"/>
-        <phase duration="4" state="rrrrrryrrrrrryrrrrrrr"/>
+        <phase duration="26" state="gGGgrrrgGGgrrrrGrG"/>
+        <phase duration="5" state="gGGgrrrgGGgrrrrrrr"/>
+        <phase duration="4" state="yyygrrryyygrrrrrrr"/>
+        <phase duration="6" state="rrrGrrrrrrGrrrrrrr"/>
+        <phase duration="4" state="rrryrrrrrryrrrrrrr"/>
+        <phase duration="26" state="rrrrgGgrrrrgGgGrGr"/>
+        <phase duration="5" state="rrrrgGgrrrrgGgrrrr"/>
+        <phase duration="4" state="rrrryygrrrryygrrrr"/>
+        <phase duration="6" state="rrrrrrGrrrrrrGrrrr"/>
+        <phase duration="4" state="rrrrrryrrrrrryrrrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w1_0 :C_w2_0 :C_w0_0" intLanes=":C_8_0 :C_1_0 :C_1_1 :C_3_0 :C_3_1 :C_9_0 :C_10_0 :C_11_0 :C_c0_0 :C_c1_0 :C_c2_0" shape="88.75,112.75 111.25,112.75 111.25,87.25 88.75,87.25 87.25,88.75 87.25,111.25">
@@ -192,13 +190,13 @@
     <connection from=":C_c0" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c1" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c2" to=":C_w2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w0" to=":C_c2" fromLane="0" toLane="0" tl="C" linkIndex="20" dir="s" state="M"/>
+    <connection from=":C_w0" to=":C_c2" fromLane="0" toLane="0" tl="C" linkIndex="16" dir="s" state="M"/>
     <connection from=":C_w0" to="CW" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="NC" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w1" to=":C_c0" fromLane="0" toLane="0" tl="C" linkIndex="18" dir="s" state="M"/>
+    <connection from=":C_w1" to=":C_c0" fromLane="0" toLane="0" tl="C" linkIndex="14" dir="s" state="M"/>
     <connection from=":C_w1" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="SC" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w2" to=":C_c1" fromLane="0" toLane="0" tl="C" linkIndex="19" dir="s" state="M"/>
+    <connection from=":C_w2" to=":C_c1" fromLane="0" toLane="0" tl="C" linkIndex="15" dir="s" state="M"/>
     <connection from=":C_w2" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="WC" to=":C_w2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":N_w0" to="NC" fromLane="0" toLane="0" dir="s" state="M"/>
