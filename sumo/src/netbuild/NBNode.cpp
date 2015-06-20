@@ -688,10 +688,15 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
         unsigned int numConnections = numNormalConnections();
         if (numConnections >= MAX_CONNECTIONS) {
             // yep -> make it untcontrolled, warn
-            WRITE_WARNING("Junction '" + getID() + "' is too complicated (#links>64); will be set to unregulated.");
             delete myRequest;
             myRequest = 0;
-            myType = NODETYPE_NOJUNCTION;
+            if (myType == NODETYPE_TRAFFIC_LIGHT) {
+                myType = NODETYPE_TRAFFIC_LIGHT_NOJUNCTION;
+            } else {
+                myType = NODETYPE_NOJUNCTION;
+            }
+            WRITE_WARNING("Junction '" + getID() + "' is too complicated (" + toString(numConnections) 
+                    + " connections, max 64); will be set to " + toString(myType));
         } else if (numConnections == 0) {
             delete myRequest;
             myRequest = 0;
