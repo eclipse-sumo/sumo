@@ -111,23 +111,24 @@ GUILoadThread::run() {
         oc.clear();
         MSFrame::fillOptions();
         if (myFile != "") {
-            myTitle = myFile;
-            // triggered by menu option
+            // triggered by menu option or reload
             if (myLoadNet) {
                 oc.set("net-file", myFile);
             } else {
                 oc.set("configuration-file", myFile);
             }
+            oc.resetWritable(); // there may be command line options
             OptionsIO::getOptions();
         } else {
-            // triggered at application start or reload
+            // triggered at application start
             OptionsIO::getOptions();
             if (oc.isSet("configuration-file")) {
-                myTitle = oc.getString("configuration-file");
+                myFile = oc.getString("configuration-file");
             } else if (oc.isSet("net-file")) {
-                myTitle = oc.getString("net-file");
+                myFile = oc.getString("net-file");
             }
         }
+        myTitle = myFile;
         // within gui-based applications, nothing is reported to the console
         MsgHandler::getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
         MsgHandler::getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
@@ -232,7 +233,6 @@ GUILoadThread::run() {
 }
 
 
-
 void
 GUILoadThread::submitEndAndCleanup(GUINet* net,
                                    const SUMOTime simStartTime,
@@ -251,14 +251,12 @@ GUILoadThread::submitEndAndCleanup(GUINet* net,
 
 
 void
-GUILoadThread::reloadConfigOrNet() {
-    start();
-}
-
-void
 GUILoadThread::loadConfigOrNet(const std::string& file, bool isNet) {
     myFile = file;
     myLoadNet = isNet;
+    if (myFile != "") {
+        OptionsIO::setArgs(0, 0);
+    }
     start();
 }
 
@@ -277,6 +275,4 @@ GUILoadThread::getFileName() const {
 }
 
 
-
 /****************************************************************************/
-

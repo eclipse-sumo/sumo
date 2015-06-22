@@ -252,7 +252,7 @@ protected:
 
 private:
     /** starts to load a simulation */
-    void loadConfigOrNet(const std::string& file, bool isNet, bool isReload = false);
+    void loadConfigOrNet(const std::string& file, bool isNet);
 
     /** this method closes all windows and deletes the current simulation */
     void closeAllWindows();

@@ -776,7 +776,12 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
-    loadConfigOrNet("", false, true);
+    getApp()->beginWaitCursor();
+    myAmLoading = true;
+    closeAllWindows();
+    myLoadThread->start();
+    setStatusBarText("Reloading.");
+    update();
     return 1;
 }
 
@@ -812,7 +817,7 @@ GUIApplicationWindow::onUpdOpen(FXObject* sender, FXSelector, void* ptr) {
 long
 GUIApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void* ptr) {
     sender->handle(this,
-                   myAmLoading || !myRunThread->simulationAvailable()
+                   myAmLoading || myLoadThread->getFileName() == ""
                    ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
                    ptr);
     return 1;
@@ -1302,18 +1307,13 @@ GUIApplicationWindow::checkGamingEvents() {
 
 
 void
-GUIApplicationWindow::loadConfigOrNet(const std::string& file, bool isNet, bool isReload) {
+GUIApplicationWindow::loadConfigOrNet(const std::string& file, bool isNet) {
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
-    if (isReload) {
-        myLoadThread->reloadConfigOrNet();
-        setStatusBarText("Reloading.");
-    } else {
-        gSchemeStorage.saveViewport(0, 0, -1); // recenter view
-        myLoadThread->loadConfigOrNet(file, isNet);
-        setStatusBarText("Loading '" + file + "'.");
-    }
+    gSchemeStorage.saveViewport(0, 0, -1); // recenter view
+    myLoadThread->loadConfigOrNet(file, isNet);
+    setStatusBarText("Loading '" + file + "'.");
     update();
 }
 
