@@ -169,7 +169,7 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
 bool
 MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit) {
     if (edges.empty()) {
-        WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
+        WRITE_WARNING("No route for vehicle '" + getID() + "' found" + (onInit ? " (skipping vehicle)." : "."));
         return false;
     }
     // build a new id, first
