@@ -781,7 +781,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
             } else {
                 errorMsg = "Stop";
             }
-            errorMsg += " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is behind departPos.";
+            errorMsg += " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is before departPos.";
             return false;
         }
     }
