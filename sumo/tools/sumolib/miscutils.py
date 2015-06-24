@@ -210,7 +210,7 @@ class Statistics:
                 result += '\n histogram: %s' % self.histogram()
             return result
         else:
-            return '"%s": no values' % self.label
+            return '%s: no values' % self.label
 
 
 def geh(m, c):
