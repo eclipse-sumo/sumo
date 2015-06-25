@@ -33,17 +33,17 @@
         <rand value="false" synonymes="r random-net" type="BOOL" help="Forces NETGEN to build a random network"/>
         <rand.iterations value="2000" synonymes="iterations rand-iterations" type="INT" help="Describes how many times an edge shall be added to the net"/>
         <rand.bidi-probability value="1" synonymes="bidi rand-bidi-probability" type="FLOAT" help="Defines the probability to build a reverse edge"/>
-        <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT" help=""/>
-        <rand.min-distance value="100" synonymes="min-dist rand-min-distance" type="FLOAT" help=""/>
-        <rand.min-angle value="0.785398" synonymes="min-angle rand-min-anglee" type="FLOAT" help=""/>
-        <rand.num-tries value="50" synonymes="num-tries rand-num-tries" type="INT" help=""/>
-        <rand.connectivity value="0.95" synonymes="connectivity rand-connectivity" type="FLOAT" help=""/>
-        <rand.neighbor-dist1 value="0" synonymes="dist1 rand-neighbor-dist1" type="FLOAT" help=""/>
-        <rand.neighbor-dist2 value="0" synonymes="dist2 rand-neighbor-dist2" type="FLOAT" help=""/>
-        <rand.neighbor-dist3 value="10" synonymes="dist3 rand-neighbor-dist3" type="FLOAT" help=""/>
-        <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT" help=""/>
-        <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT" help=""/>
-        <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT" help=""/>
+        <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT" help="The maximum distance for each edge"/>
+        <rand.min-distance value="100" synonymes="min-dist rand-min-distance" type="FLOAT" help="The minimum distance for each edge"/>
+        <rand.min-angle value="0.785398" synonymes="min-angle rand-min-anglee" type="FLOAT" help="The minimum angle for each pair of (bidirectional) roads"/>
+        <rand.num-tries value="50" synonymes="num-tries rand-num-tries" type="INT" help="The number of tries for creating each node"/>
+        <rand.connectivity value="0.95" synonymes="connectivity rand-connectivity" type="FLOAT" help="Probability for roads to continue at each node"/>
+        <rand.neighbor-dist1 value="0" synonymes="dist1 rand-neighbor-dist1" type="FLOAT" help="Probability for a node having exactly 1 neighbor"/>
+        <rand.neighbor-dist2 value="0" synonymes="dist2 rand-neighbor-dist2" type="FLOAT" help="Probability for a node having exactly 2 neighbors"/>
+        <rand.neighbor-dist3 value="10" synonymes="dist3 rand-neighbor-dist3" type="FLOAT" help="Probability for a node having exactly 3 neighbors"/>
+        <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT" help="Probability for a node having exactly 4 neighbors"/>
+        <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT" help="Probability for a node having exactly 5 neighbors"/>
+        <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT" help="Probability for a node having exactly 6 neighbors"/>
     </random_network>
 
     <output>

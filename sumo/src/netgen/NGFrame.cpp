@@ -134,57 +134,57 @@ NGFrame::fillOptions() {
     oc.doRegister("rand.max-distance", new Option_Float(250));
     oc.addSynonyme("rand.max-distance", "rand-max-distance", true);
     oc.addSynonyme("rand.max-distance", "max-dist");
-    oc.addDescription("rand.max-distance", "Random Network", "");
+    oc.addDescription("rand.max-distance", "Random Network", "The maximum distance for each edge");
 
     oc.doRegister("rand.min-distance", new Option_Float(100));
     oc.addSynonyme("rand.min-distance", "rand-min-distance", true);
     oc.addSynonyme("rand.min-distance", "min-dist");
-    oc.addDescription("rand.min-distance", "Random Network", "");
+    oc.addDescription("rand.min-distance", "Random Network", "The minimum distance for each edge");
 
     oc.doRegister("rand.min-angle", new Option_Float(DEG2RAD(45.0)));
     oc.addSynonyme("rand.min-angle", "rand-min-anglee", true);
     oc.addSynonyme("rand.min-angle", "min-angle");
-    oc.addDescription("rand.min-angle", "Random Network", "");
+    oc.addDescription("rand.min-angle", "Random Network", "The minimum angle for each pair of (bidirectional) roads");
 
     oc.doRegister("rand.num-tries", new Option_Integer(50));
     oc.addSynonyme("rand.num-tries", "rand-num-tries", true);
     oc.addSynonyme("rand.num-tries", "num-tries");
-    oc.addDescription("rand.num-tries", "Random Network", "");
+    oc.addDescription("rand.num-tries", "Random Network", "The number of tries for creating each node");
 
     oc.doRegister("rand.connectivity", new Option_Float((SUMOReal) 0.95));
     oc.addSynonyme("rand.connectivity", "rand-connectivity", true);
     oc.addSynonyme("rand.connectivity", "connectivity");
-    oc.addDescription("rand.connectivity", "Random Network", "");
+    oc.addDescription("rand.connectivity", "Random Network", "Probability for roads to continue at each node");
 
     oc.doRegister("rand.neighbor-dist1", new Option_Float(0));
     oc.addSynonyme("rand.neighbor-dist1", "rand-neighbor-dist1", true);
     oc.addSynonyme("rand.neighbor-dist1", "dist1");
-    oc.addDescription("rand.neighbor-dist1", "Random Network", "");
+    oc.addDescription("rand.neighbor-dist1", "Random Network", "Probability for a node having exactly 1 neighbor");
 
     oc.doRegister("rand.neighbor-dist2", new Option_Float(0));
     oc.addSynonyme("rand.neighbor-dist2", "rand-neighbor-dist2", true);
     oc.addSynonyme("rand.neighbor-dist2", "dist2");
-    oc.addDescription("rand.neighbor-dist2", "Random Network", "");
+    oc.addDescription("rand.neighbor-dist2", "Random Network", "Probability for a node having exactly 2 neighbors");
 
     oc.doRegister("rand.neighbor-dist3", new Option_Float(10));
     oc.addSynonyme("rand.neighbor-dist3", "rand-neighbor-dist3", true);
     oc.addSynonyme("rand.neighbor-dist3", "dist3");
-    oc.addDescription("rand.neighbor-dist3", "Random Network", "");
+    oc.addDescription("rand.neighbor-dist3", "Random Network", "Probability for a node having exactly 3 neighbors");
 
     oc.doRegister("rand.neighbor-dist4", new Option_Float(10));
     oc.addSynonyme("rand.neighbor-dist4", "rand-neighbor-dist4", true);
     oc.addSynonyme("rand.neighbor-dist4", "dist4");
-    oc.addDescription("rand.neighbor-dist4", "Random Network", "");
+    oc.addDescription("rand.neighbor-dist4", "Random Network", "Probability for a node having exactly 4 neighbors");
 
     oc.doRegister("rand.neighbor-dist5", new Option_Float(2));
     oc.addSynonyme("rand.neighbor-dist5", "rand-neighbor-dist5", true);
     oc.addSynonyme("rand.neighbor-dist5", "dist5");
-    oc.addDescription("rand.neighbor-dist5", "Random Network", "");
+    oc.addDescription("rand.neighbor-dist5", "Random Network", "Probability for a node having exactly 5 neighbors");
 
     oc.doRegister("rand.neighbor-dist6", new Option_Float(1));
     oc.addSynonyme("rand.neighbor-dist6", "rand-neighbor-dist6", true);
     oc.addSynonyme("rand.neighbor-dist6", "dist6");
-    oc.addDescription("rand.neighbor-dist6", "Random Network", "");
+    oc.addDescription("rand.neighbor-dist6", "Random Network", "Probability for a node having exactly 6 neighbors");
 }
 
 

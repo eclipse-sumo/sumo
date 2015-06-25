@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r18401
+SUMO netgenerate Version dev-SVN-r18502
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -46,17 +46,26 @@ Random Network Options:
                                          be added to the net
   --rand.bidi-probability FLOAT        Defines the probability to build a
                                          reverse edge
-  --rand.max-distance FLOAT            
-  --rand.min-distance FLOAT            
-  --rand.min-angle FLOAT               
-  --rand.num-tries INT                 
-  --rand.connectivity FLOAT            
-  --rand.neighbor-dist1 FLOAT          
-  --rand.neighbor-dist2 FLOAT          
-  --rand.neighbor-dist3 FLOAT          
-  --rand.neighbor-dist4 FLOAT          
-  --rand.neighbor-dist5 FLOAT          
-  --rand.neighbor-dist6 FLOAT          
+  --rand.max-distance FLOAT            The maximum distance for each edge
+  --rand.min-distance FLOAT            The minimum distance for each edge
+  --rand.min-angle FLOAT               The minimum angle for each pair of
+                                         (bidirectional) roads
+  --rand.num-tries INT                 The number of tries for creating each
+                                         node
+  --rand.connectivity FLOAT            Probability for roads to continue at
+                                         each node
+  --rand.neighbor-dist1 FLOAT          Probability for a node having exactly 1
+                                         neighbor
+  --rand.neighbor-dist2 FLOAT          Probability for a node having exactly 2
+                                         neighbors
+  --rand.neighbor-dist3 FLOAT          Probability for a node having exactly 3
+                                         neighbors
+  --rand.neighbor-dist4 FLOAT          Probability for a node having exactly 4
+                                         neighbors
+  --rand.neighbor-dist5 FLOAT          Probability for a node having exactly 5
+                                         neighbors
+  --rand.neighbor-dist6 FLOAT          Probability for a node having exactly 6
+                                         neighbors
 
 Output Options:
   --output-prefix STR                  Prefix which is applied to all output
