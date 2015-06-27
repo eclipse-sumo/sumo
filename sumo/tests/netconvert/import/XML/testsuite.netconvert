@@ -72,3 +72,5 @@ roundabout
 
 # set a non-default node-radius
 node_radius
+
+connection_guessing
