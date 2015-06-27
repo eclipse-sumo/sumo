@@ -1616,13 +1616,12 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing, const bool buildCrossingsAndWa
     }
     // compute the resulting number of lanes that should be used to
     //  reach the following edge
-    unsigned int size = (unsigned int) outgoing->size();
+    const int numOutgoing = (int) outgoing->size();
     std::vector<SUMOReal> resultingLanes;
-    resultingLanes.reserve(size);
-    SUMOReal sumResulting = 0; // the sum of resulting lanes
-    SUMOReal minResulting = 10000; // the least number of lanes to reach an edge
-    unsigned int i;
-    for (i = 0; i < size; i++) {
+    resultingLanes.reserve(numOutgoing);
+    SUMOReal sumResulting = 0.; // the sum of resulting lanes
+    SUMOReal minResulting = 10000.; // the least number of lanes to reach an edge
+    for (int i = 0; i < numOutgoing; i++) {
         // res will be the number of lanes which are meant to reach the
         //  current outgoing edge
         SUMOReal res =
@@ -1644,25 +1643,23 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing, const bool buildCrossingsAndWa
     //  a virtual edge is used as a replacement for a real edge from now on
     //  it shall ollow to divide the existing lanes on this structure without
     //  regarding the structure of outgoing edges
-    sumResulting += minResulting / (SUMOReal) 2.;
-    unsigned int noVirtual = (unsigned int)(sumResulting / minResulting);
+    const int numVirtual = (int)(sumResulting / minResulting + 0.5);
     // compute the transition from virtual to real edges
     EdgeVector transition;
-    transition.reserve(size);
-    for (i = 0; i < size; i++) {
+    transition.reserve(numOutgoing);
+    for (int i = 0; i < numOutgoing; i++) {
         // tmpNo will be the number of connections from this edge
         //  to the next edge
         assert(i < resultingLanes.size());
-        SUMOReal tmpNo = (SUMOReal) resultingLanes[i] / (SUMOReal) minResulting;
-        for (SUMOReal j = 0; j < tmpNo; j++) {
-            assert(outgoing->size() > i);
+        const SUMOReal tmpNum = resultingLanes[i] / minResulting;
+        for (SUMOReal j = 0; j < tmpNum; j++) {
             transition.push_back((*outgoing)[i]);
         }
     }
     // assign lanes to edges
     //  (conversion from virtual to real edges is done)
     ToEdgeConnectionsAdder adder(transition);
-    Bresenham::compute(&adder, static_cast<unsigned int>(availableLanes.size()), noVirtual);
+    Bresenham::compute(&adder, static_cast<unsigned int>(availableLanes.size()), numVirtual);
     const std::map<NBEdge*, std::vector<unsigned int> >& l2eConns = adder.getBuiltConnections();
     myConnections.clear();
     for (std::map<NBEdge*, std::vector<unsigned int> >::const_iterator i = l2eConns.begin(); i != l2eConns.end(); ++i) {
@@ -1713,17 +1710,21 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
     unsigned int dist = (unsigned int) distance(outgoing->begin(), i);
     if (dist != 0 && !mainDirections.includes(MainDirections::DIR_RIGHTMOST)) {
         assert(priorities->size() > 0);
-        (*priorities)[0] = (*priorities)[0] / 2;
+        (*priorities)[0] /= 2;
     }
     // HEURISTIC:
     // when no higher priority exists, let the forward direction be
     //  the main direction
     if (mainDirections.empty()) {
         assert(dist < priorities->size());
-        (*priorities)[dist] = (*priorities)[dist] * 2;
+        (*priorities)[dist] *= 2;
     }
-    if (mainDirections.includes(MainDirections::DIR_FORWARD) && myLanes.size() > 2) {
-        (*priorities)[dist] = (*priorities)[dist] * 2;
+    if (mainDirections.includes(MainDirections::DIR_FORWARD)) {
+        if (myLanes.size() > 2) {
+            (*priorities)[dist] *= 2;
+        } else {
+            (*priorities)[dist] *= 3;
+        }
     }
     // return
     return priorities;
