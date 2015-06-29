@@ -10,11 +10,15 @@
                 <xsd:choice>
                     <xsd:element name="carFollowing-Krauss" type="cfKraussType"/>
                     <xsd:element name="carFollowing-KraussPS" type="cfKraussType"/>
+                    <xsd:element name="carFollowing-KraussAB" type="cfKraussType"/>
                     <xsd:element name="carFollowing-KraussOrig1" type="cfKraussType"/>
                     <xsd:element name="carFollowing-IDM" type="cfIDMType"/>
                     <xsd:element name="carFollowing-IDMM" type="cfIDMMType"/>
                     <xsd:element name="carFollowing-BKerner" type="cfBKernerType"/>
                     <xsd:element name="carFollowing-Wiedemann" type="cfWiedemannType"/>
+                    <xsd:element name="carFollowing-SmartSK" type="cfKraussType"/>
+                    <xsd:element name="carFollowing-PWagner2009" type="cfKraussType"/>
+                    <xsd:element name="carFollowing-Daniel1" type="cfKraussType"/>
                 </xsd:choice>
                 <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
