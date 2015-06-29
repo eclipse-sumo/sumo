@@ -6,7 +6,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Sets and checks options for dua-routing
+// Sets and checks options for ma-routing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors

@@ -516,6 +516,19 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
             PROGRESS_DONE_MESSAGE();
         }
     }
+    std::vector<std::string> routeFiles = oc.getStringVector("route-files");
+    for (std::vector<std::string>::iterator i = routeFiles.begin(); i != routeFiles.end(); ++i) {
+        if (!FileHelpers::isReadable(*i)) {
+            throw ProcessError("Could not access route file '" + *i + "' to load.");
+        }
+        PROGRESS_BEGIN_MESSAGE("Loading routes and trips from '" + *i + "'");
+        ODAmitranHandler handler(*this, *i);
+        if (!XMLSubSys::runParser(handler, *i)) {
+            PROGRESS_FAILED_MESSAGE();
+        } else {
+            PROGRESS_DONE_MESSAGE();
+        }
+    }
 }
 
 

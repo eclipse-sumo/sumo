@@ -7,7 +7,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Sets and checks options for dua-routing
+// Sets and checks options for ma-routing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
@@ -114,6 +114,12 @@ ROMAFrame::addImportOptions() {
     oc.addSynonyme("od-amitran-files", "amitran-files");
     oc.addSynonyme("od-amitran-files", "amitran");
     oc.addDescription("od-amitran-files", "Input", "Loads O/D-matrix in Amitran format from FILE(s)");
+
+    oc.doRegister("route-files", 'r', new Option_FileName());
+    oc.addSynonyme("route-files", "routes");
+    oc.addSynonyme("route-files", "trips");
+    oc.addSynonyme("route-files", "trip-files");
+    oc.addDescription("route-files", "Input", "Read sumo-routes or trips from FILE(s)");
 
     oc.doRegister("weight-files", 'w', new Option_FileName());
     oc.addSynonyme("weight-files", "weights");
