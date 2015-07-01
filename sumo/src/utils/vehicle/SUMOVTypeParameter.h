@@ -69,6 +69,7 @@ const int VTYPEPARS_PERSON_CAPACITY = 2 << 16;
 const int VTYPEPARS_BOARDING_DURATION = 2 << 17;
 const int VTYPEPARS_CONTAINER_CAPACITY = 2 << 18;
 const int VTYPEPARS_LOADING_DURATION = 2 << 19;
+const int VTYPEPARS_CAR_FOLLOW_MODEL = 2 << 20;
 
 
 // ===========================================================================

@@ -261,7 +261,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_LOADING_DURATION, loadingDuration);
     }
 
-    if (cfParameter.size() != 0) {
+    if (wasSet(VTYPEPARS_CAR_FOLLOW_MODEL) || cfParameter.size() != 0) {
         dev.openTag(cfModel);
         std::vector<SumoXMLAttr> attrs;
         for (CFParams::const_iterator i = cfParameter.begin(); i != cfParameter.end(); ++i) {

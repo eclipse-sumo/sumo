@@ -321,6 +321,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_SPEEDFACTOR,
     SUMO_ATTR_SPEEDDEV,
     SUMO_ATTR_LANE_CHANGE_MODEL,
+    SUMO_ATTR_CAR_FOLLOW_MODEL,
     SUMO_ATTR_MINGAP,
     SUMO_ATTR_BOARDING_DURATION,
     SUMO_ATTR_LOADING_DURATION,
@@ -759,6 +760,8 @@ public:
     static StringBijection<TrafficLightType> TrafficLightTypes;
 
     static StringBijection<LaneChangeModel> LaneChangeModels;
+
+    static StringBijection<SumoXMLTag> CarFollowModels;
     //@}
 
     /// @name Helper functions for ID-string manipulations
@@ -787,6 +790,8 @@ private:
     static StringBijection<TrafficLightType>::Entry trafficLightTypesVales[];
 
     static StringBijection<LaneChangeModel>::Entry laneChangeModelValues[];
+
+    static StringBijection<SumoXMLTag>::Entry carFollowModelValues[];
 
 };
 

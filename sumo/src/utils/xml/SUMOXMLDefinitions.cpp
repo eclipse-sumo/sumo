@@ -256,6 +256,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "speedFactor",    SUMO_ATTR_SPEEDFACTOR },
     { "speedDev",       SUMO_ATTR_SPEEDDEV },
     { "laneChangeModel", SUMO_ATTR_LANE_CHANGE_MODEL },
+    { "carFollowModel", SUMO_ATTR_CAR_FOLLOW_MODEL },
     { "minGap",         SUMO_ATTR_MINGAP },
     { "boardingDuration", SUMO_ATTR_BOARDING_DURATION },
     { "loadingDuration", SUMO_ATTR_LOADING_DURATION },
@@ -546,6 +547,20 @@ StringBijection<LaneChangeModel>::Entry SUMOXMLDefinitions::laneChangeModelValue
     { "JE2013", LCM_JE2013 },
 };
 
+StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = {
+    { "IDM",         SUMO_TAG_CF_IDM },
+    { "IDMM",        SUMO_TAG_CF_IDMM },
+    { "Krauss",      SUMO_TAG_CF_KRAUSS },
+    { "KraussPS",    SUMO_TAG_CF_KRAUSS_PLUS_SLOPE },
+    { "KraussAB",    SUMO_TAG_CF_KRAUSS_ACCEL_BOUND },
+    { "KraussOrig1", SUMO_TAG_CF_KRAUSS_ORIG1 },
+    { "SmartSK",     SUMO_TAG_CF_SMART_SK },
+    { "Daniel1",     SUMO_TAG_CF_DANIEL1 },
+    { "PWagner2009", SUMO_TAG_CF_PWAGNER2009 },
+    { "BKerner",     SUMO_TAG_CF_BKERNER },
+    { "Wiedemann",   SUMO_TAG_CF_WIEDEMANN },
+};
+
 StringBijection<int> SUMOXMLDefinitions::Tags(
     SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
 
@@ -572,6 +587,9 @@ StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
 
 StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
     SUMOXMLDefinitions::laneChangeModelValues, LCM_JE2013);
+
+StringBijection<SumoXMLTag> SUMOXMLDefinitions::CarFollowModels(
+    SUMOXMLDefinitions::carFollowModelValues, SUMO_TAG_CF_KRAUSS);
 
 
 std::string
