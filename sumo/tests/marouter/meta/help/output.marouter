@@ -1,4 +1,4 @@
-SUMO marouter Version dev-SVN-r18401
+SUMO marouter Version dev-SVN-r18514I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment
 
@@ -19,6 +19,7 @@ Input Options:
   -m, --od-matrix-files FILE        Loads O/D-files from FILE(s)
   --od-amitran-files FILE           Loads O/D-matrix in Amitran format from
                                       FILE(s)
+  -r, --route-files FILE            Read sumo-routes or trips from FILE(s)
   -w, --weight-files FILE           Read network weights from FILE(s)
   --lane-weight-files FILE          Read lane-based network weights from
                                       FILE(s)

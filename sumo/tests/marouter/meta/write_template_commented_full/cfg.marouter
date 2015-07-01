@@ -33,6 +33,9 @@
         <!-- Loads O/D-matrix in Amitran format from FILE(s) -->
         <od-amitran-files value="" synonymes="amitran amitran-files" type="FILE"/>
 
+        <!-- Read sumo-routes or trips from FILE(s) -->
+        <route-files value="" synonymes="r routes trip-files trips" type="FILE"/>
+
         <!-- Read network weights from FILE(s) -->
         <weight-files value="" synonymes="w weights" type="FILE"/>
 
