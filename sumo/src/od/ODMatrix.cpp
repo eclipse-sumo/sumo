@@ -473,6 +473,7 @@ ODMatrix::applyCurve(const Distribution_Points& ps) {
     }
 }
 
+
 void
 ODMatrix::loadMatrix(OptionsCont& oc) {
     std::vector<std::string> files = oc.getStringVector("od-matrix-files");
@@ -516,6 +517,11 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
             PROGRESS_DONE_MESSAGE();
         }
     }
+}
+
+
+void
+ODMatrix::loadRoutes(OptionsCont& oc) {
     std::vector<std::string> routeFiles = oc.getStringVector("route-files");
     for (std::vector<std::string>::iterator i = routeFiles.begin(); i != routeFiles.end(); ++i) {
         if (!FileHelpers::isReadable(*i)) {

@@ -206,10 +206,15 @@ public:
     void readV(LineReader& lr, SUMOReal scale,
                std::string vehType, bool matrixHasVehType);
 
-    /** @brief read a VISUM-matrix with the V Format
+    /** @brief read a matrix in one of several formats
      *  @todo Describe
      */
     void loadMatrix(OptionsCont& oc);
+
+    /** @brief read SUMO routes
+     *  @todo Describe
+     */
+    void loadRoutes(OptionsCont& oc);
 
     /** @brief split the given timeline
      *  @todo Describe
