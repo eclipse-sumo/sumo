@@ -589,7 +589,7 @@ StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
     SUMOXMLDefinitions::laneChangeModelValues, LCM_JE2013);
 
 StringBijection<SumoXMLTag> SUMOXMLDefinitions::CarFollowModels(
-    SUMOXMLDefinitions::carFollowModelValues, SUMO_TAG_CF_KRAUSS);
+    SUMOXMLDefinitions::carFollowModelValues, SUMO_TAG_CF_WIEDEMANN);
 
 
 std::string
