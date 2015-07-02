@@ -82,22 +82,19 @@ class DistrictEdgeComputer:
         fd = open(output, "w")
         fd.write("<tazs>\n")
         for district, edges in sorted(self._districtEdges.iteritems()):
-            validEdgeCount = 0
-            for edge in edges:
-                if edge not in self._invalidatedEdges:
-                    validEdgeCount += 1
-            if validEdgeCount == 0:
+            filtered = [edge for edge in edges if edge not in self._invalidatedEdges]
+            if len(filtered) == 0:
                 print("District '" + district + "' has no edges!")
             else:
-                fd.write('    <taz id="%s">\n' % district.id)
-                for edge in edges:
-                    if edge not in self._invalidatedEdges:
-                        weight = 1.
-                        if weighted:
-                            weight = edge.getSpeed() * edge.getLength()
+                if weighted:
+                    fd.write('    <taz id="%s">\n' % district.id)
+                    for edge in filtered:
+                        weight = edge.getSpeed() * edge.getLength()
                         fd.write('        <tazSource id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
                         fd.write('        <tazSink id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
-                fd.write("    </taz>\n")
+                    fd.write("    </taz>\n")
+                else:
+                    fd.write('    <taz id="%s" edges="%s"/>\n' % (district.id, " ".join([e.getID() for e in filtered])))
         fd.write("</tazs>\n")
         fd.close()
 
