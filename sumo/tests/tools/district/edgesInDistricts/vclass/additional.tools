@@ -1,16 +1,4 @@
 <tazs>
-    <taz id="b">
-        <tazSource id="absBeg" weight="1.00"/>
-        <tazSink id="absBeg" weight="1.00"/>
-    </taz>
-    <taz id="e">
-        <tazSource id="absBeg" weight="1.00"/>
-        <tazSink id="absBeg" weight="1.00"/>
-        <tazSource id="absEnd" weight="1.00"/>
-        <tazSink id="absEnd" weight="1.00"/>
-        <tazSource id="end" weight="1.00"/>
-        <tazSink id="end" weight="1.00"/>
-        <tazSource id="middle" weight="1.00"/>
-        <tazSink id="middle" weight="1.00"/>
-    </taz>
+    <taz id="b" edges="absBeg"/>
+    <taz id="e" edges="absBeg absEnd end middle"/>
 </tazs>

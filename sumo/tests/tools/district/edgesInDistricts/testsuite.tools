@@ -5,3 +5,6 @@ simple
 
 # check for vclass
 vclass
+
+# one simple network with edge weights
+weighted
