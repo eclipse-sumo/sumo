@@ -1,0 +1,13 @@
+<trips>
+	<vType id="0" accel="1.6" decel="5.5" sigma="0.9" length="5" minGap="2" maxSpeed="30" carFollowModel="KraussOrig1" color="1,0,0"/>
+	<trip depart="0" from="beg" to="rend" type="0"/>
+	<trip depart="10" from="beg" to="rend" type="0"/>
+	<trip depart="20" from="beg" to="rend" type="0"/>
+	<trip depart="30" from="beg" to="rend" type="0"/>
+	<trip depart="40" from="beg" to="rend" type="0"/>
+	<trip depart="50" from="beg" to="rend" type="0"/>
+	<trip depart="60" from="beg" to="rend" type="0"/>
+	<trip depart="70" from="beg" to="rend" type="0"/>
+	<trip depart="80" from="beg" to="rend" type="0"/>
+	<trip depart="90" from="beg" to="rend" type="0"/>
+</trips>
