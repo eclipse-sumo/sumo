@@ -51,6 +51,7 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
+class SUMORouteHandler;
 
 
 // ===========================================================================
@@ -214,7 +215,7 @@ public:
     /** @brief read SUMO routes
      *  @todo Describe
      */
-    void loadRoutes(OptionsCont& oc);
+    void loadRoutes(OptionsCont& oc, SUMORouteHandler& handler);
 
     /** @brief split the given timeline
      *  @todo Describe

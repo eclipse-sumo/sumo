@@ -75,6 +75,7 @@
 #include "ROMAFrame.h"
 #include "ROMAAssignments.h"
 #include "ROMAEdgeBuilder.h"
+#include "ROMARouteHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -354,6 +355,8 @@ main(int argc, char** argv) {
         // load the matrix
         ODMatrix matrix(districts);
         matrix.loadMatrix(oc);
+        ROMARouteHandler handler(*net);
+        matrix.loadRoutes(oc, handler);
         if (matrix.getNoLoaded() == 0) {
             throw ProcessError("No vehicles loaded.");
         }

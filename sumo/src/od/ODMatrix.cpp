@@ -46,6 +46,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/importio/LineReader.h>
+#include <utils/xml/SUMORouteHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include "ODAmitranHandler.h"
 #include "ODMatrix.h"
@@ -521,14 +522,13 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
 
 
 void
-ODMatrix::loadRoutes(OptionsCont& oc) {
+ODMatrix::loadRoutes(OptionsCont& oc, SUMORouteHandler& handler) {
     std::vector<std::string> routeFiles = oc.getStringVector("route-files");
     for (std::vector<std::string>::iterator i = routeFiles.begin(); i != routeFiles.end(); ++i) {
         if (!FileHelpers::isReadable(*i)) {
             throw ProcessError("Could not access route file '" + *i + "' to load.");
         }
         PROGRESS_BEGIN_MESSAGE("Loading routes and trips from '" + *i + "'");
-        ODAmitranHandler handler(*this, *i);
         if (!XMLSubSys::runParser(handler, *i)) {
             PROGRESS_FAILED_MESSAGE();
         } else {

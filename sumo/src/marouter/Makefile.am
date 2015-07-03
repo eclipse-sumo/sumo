@@ -8,7 +8,8 @@ marouter_SOURCES = marouter_main.cpp \
 ROMAAssignments.cpp ROMAAssignments.h \
 ROMAEdge.cpp ROMAEdge.h \
 ROMAEdgeBuilder.cpp ROMAEdgeBuilder.h \
-ROMAFrame.cpp ROMAFrame.h
+ROMAFrame.cpp ROMAFrame.h \
+ROMARouteHandler.cpp ROMARouteHandler.h
 
 marouter_LDFLAGS = $(XERCES_LDFLAGS)
 
