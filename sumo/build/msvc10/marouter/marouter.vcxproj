@@ -142,12 +142,14 @@
     <ClCompile Include="..\..\..\src\marouter\ROMAEdge.cpp" />
     <ClCompile Include="..\..\..\src\marouter\ROMAEdgeBuilder.cpp" />
     <ClCompile Include="..\..\..\src\marouter\ROMAFrame.cpp" />
+    <ClCompile Include="..\..\..\src\marouter\ROMARouteHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\marouter\ROMAAssignments.h" />
     <ClInclude Include="..\..\..\src\marouter\ROMAEdge.h" />
     <ClInclude Include="..\..\..\src\marouter\ROMAEdgeBuilder.h" />
     <ClInclude Include="..\..\..\src\marouter\ROMAFrame.h" />
+    <ClInclude Include="..\..\..\src\marouter\ROMARouteHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\y_libod\y_libod.vcxproj">
