@@ -62,6 +62,17 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tmp1" type="xsd:float"/>
+        <xsd:attribute name="tmp2" type="xsd:float"/>
+        <xsd:attribute name="tmp3" type="xsd:float"/>
+        <xsd:attribute name="tmp4" type="xsd:float"/>
+        <xsd:attribute name="tmp5" type="xsd:float"/>
+        <xsd:attribute name="tauLast" type="xsd:float"/>
+        <xsd:attribute name="apProb" type="xsd:float"/>
+        <xsd:attribute name="k" type="xsd:float"/>
+        <xsd:attribute name="phi" type="xsd:float"/>
+        <xsd:attribute name="security" type="xsd:float"/>
+        <xsd:attribute name="estimation" type="xsd:float"/>
         <xsd:attribute name="carFollowModel" type="xsd:string"/>
         <xsd:attribute name="laneChangeModel">
             <xsd:simpleType>
