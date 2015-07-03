@@ -125,6 +125,7 @@ public class SumoTraciConnection {
 		
 		this.remote=true;
 		socket = new Socket();
+		socket.setTcpNoDelay(true);
 		
 		int waitTime = 500; // milliseconds
 		for (int i = 0; i < CONNECT_RETRIES; i++) {
@@ -185,6 +186,7 @@ public class SumoTraciConnection {
 			
 
 				socket = new Socket();
+				socket.setTcpNoDelay(true);
 				
 				try {
 					socket.connect(new InetSocketAddress("127.0.0.1", remotePort));
