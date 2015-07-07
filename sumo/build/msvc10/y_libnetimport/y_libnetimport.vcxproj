@@ -177,6 +177,10 @@
     <ResourceCompile>
       <Culture>0x0407</Culture>
     </ResourceCompile>
+    <PreBuildEvent>
+      <Command>..\..\..\tools\build\version.py
+..\..\..\tools\build\typemap.py</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">
     <ResourceCompile>

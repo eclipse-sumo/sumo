@@ -38,7 +38,6 @@
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include "NIFrame.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
@@ -46,6 +45,7 @@
 #include <netwrite/NWFrame.h>
 #include <utils/common/SystemFrame.h>
 #include "NIImporter_DlrNavteq.h"
+#include "NIFrame.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -304,7 +304,7 @@ NIFrame::checkOptions() {
     if (!oc.isSet("type-files")) {
         const char* sumoPath = std::getenv("SUMO_HOME");
         if (sumoPath == 0) {
-            WRITE_WARNING("Environment variable SUMO_HOME is not set, can not find default type maps.");
+            WRITE_WARNING("Environment variable SUMO_HOME is not set, using built in type maps.");
         } else {
             const std::string path = sumoPath + std::string("/data/typemap/");
             if (oc.isSet("osm-files")) {

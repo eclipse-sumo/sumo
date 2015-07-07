@@ -39,12 +39,16 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXReader.h>
+#include <utils/xml/XMLSubSys.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBHeightMapper.h>
 #include <netbuild/NBNetBuilder.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOSAXReader.h>
 #include <netimport/NIXMLEdgesHandler.h>
 #include <netimport/NIXMLNodesHandler.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
@@ -60,11 +64,8 @@
 #include <netimport/NIImporter_OpenDrive.h>
 #include <netimport/NIImporter_MATSim.h>
 #include <netimport/NIImporter_ITSUMO.h>
-#include <utils/xml/XMLSubSys.h>
+#include "typemap.h"
 #include "NILoader.h"
-#include <utils/common/TplConvert.h>
-#include <utils/geom/GeoConvHelper.h>
-#include <netbuild/NBHeightMapper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -86,7 +87,18 @@ NILoader::load(OptionsCont& oc) {
     // load types first
     NIXMLTypesHandler* handler =
         new NIXMLTypesHandler(myNetBuilder.getTypeCont());
-    loadXMLType(handler, oc.getStringVector("type-files"), "types");
+    if (!oc.isSet("type-files")) {
+        std::vector<std::string> files;
+        if (oc.isSet("osm-files")) {
+            files.push_back(osmTypemap);
+        }
+        if (oc.isSet("opendrive-files")) {
+            files.push_back(opendriveTypemap);
+        }
+        loadXMLType(handler, files, "types", true);
+    } else {
+        loadXMLType(handler, oc.getStringVector("type-files"), "types");
+    }
     // try to load height data so it is ready for use by other importers
     NBHeightMapper::loadIfSet(oc);
     // try to load using different methods
@@ -167,12 +179,19 @@ NILoader::loadXML(OptionsCont& oc) {
 
 void
 NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string>& files,
-                      const std::string& type) {
+                      const std::string& type, const bool stringParse) {
     // build parser
     std::string exceptMsg = "";
     // start the parsing
     try {
         for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
+            if (stringParse) {
+                handler->setFileName("built in type map");
+                SUMOSAXReader* reader = XMLSubSys::getSAXReader(*handler);
+                reader->parseString(*file);
+                delete reader;
+                continue;
+            }
             if (!FileHelpers::isReadable(*file)) {
                 WRITE_ERROR("Could not open " + type + "-file '" + *file + "'.");
                 exceptMsg = "Process Error";
