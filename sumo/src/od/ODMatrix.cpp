@@ -120,13 +120,13 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
     }
     if (cell == myContainer.rend()) {
         const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
-        const int intervalIdx = depart / interval;
+        const int intervalIdx = (int)(depart / interval);
         add(1., intervalIdx * interval, (intervalIdx + 1) * interval, origin, destination, vehicleType);
         cell = myContainer.rbegin();
     } else {
         (*cell)->vehicleNumber += 1.;
     }
-    (*cell)->departures[id] = depart;
+    (*cell)->departures[depart].push_back(id);
 }
 
 

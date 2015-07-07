@@ -77,8 +77,8 @@ struct ODCell {
     /// @brief the list of paths / routes
     std::vector<RORoute*> pathsVector;  // path_id, string of edges?
 
-    /// @brief mapping of ids to departure times,if already fixed
-    std::map<std::string, SUMOTime> departures;
+    /// @brief mapping of departure times to departing vehicles, if already fixed
+    std::map<SUMOTime, std::vector<std::string> > departures;
 };
 
 

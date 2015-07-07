@@ -280,17 +280,34 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             int num = 0;
             for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
                 const ODCell* const c = *i;
-                dev->openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, oc.getString("prefix") + toString(num++));
-                dev->writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin)).writeAttr(SUMO_ATTR_END, time2string(c->end));
-                dev->writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
-                matrix.writeDefaultAttrs(*dev, oc.getBool("ignore-vehicle-type"), c);
-                dev->openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-                for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
-                    (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
-                    (*j)->writeXMLDefinition(*dev, 0, true, false);
+                if (c->departures.empty()) {
+                    dev->openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, oc.getString("prefix") + toString(num++));
+                    dev->writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin)).writeAttr(SUMO_ATTR_END, time2string(c->end));
+                    dev->writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
+                    matrix.writeDefaultAttrs(*dev, oc.getBool("ignore-vehicle-type"), c);
+                    dev->openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
+                    for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
+                        (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
+                        (*j)->writeXMLDefinition(*dev, 0, true, false);
+                    }
+                    dev->closeTag();
+                    dev->closeTag();
+                } else {
+                    for (std::map<SUMOTime, std::vector<std::string> >::const_iterator deps = c->departures.begin(); deps != c->departures.end(); ++deps) {
+                        const std::string routeDistId = c->origin + "_" + c->destination + "_" + time2string(c->begin) + "_" + time2string(c->end);
+                        for (std::vector<std::string>::const_iterator id = deps->second.begin(); id != deps->second.end(); ++id) {
+                            dev->openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, *id).writeAttr(SUMO_ATTR_DEPART, time2string(deps->first));
+                            matrix.writeDefaultAttrs(*dev, oc.getBool("ignore-vehicle-type"), c);
+                            dev->openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
+                            for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
+                                (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
+                                (*j)->writeXMLDefinition(*dev, 0, true, false);
+                            }
+                            dev->closeTag();
+                            dev->closeTag();
+                        }
+                    }
                 }
-                dev->closeTag();
-                dev->closeTag();
             }
             haveOutput = true;
         }
