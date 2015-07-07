@@ -21,7 +21,7 @@ NINavTeqHelper.cpp NINavTeqHelper.h
 
 SUBDIRS = vissim
 
+BUILT_SOURCES = typemap.h
+EXTRA_DIST = typemap.h
 typemap.h:
 	../../tools/build/typemap.py
-
-EXTRA_DIST = typemap.h
