@@ -388,7 +388,7 @@ RORouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
         }
     }
     // try to get the index of the last element
-    int index = attrs.get<int>(SUMO_ATTR_LAST, id.c_str(), ok);
+    int index = attrs.getOpt<int>(SUMO_ATTR_LAST, id.c_str(), ok, 0);
     if (ok && index < 0) {
         myErrorOutput->inform("Negative index of a route alternative (id='" + id + "').");
         return;
