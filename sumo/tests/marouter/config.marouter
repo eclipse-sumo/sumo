@@ -12,10 +12,12 @@ copy_test_path:input_routes.rou.xml
 [collate_file]
 cfg:config.cfg
 routes:routes.rou.xml
+aggregated:aggregated.xml
 log:log.txt
 
 [run_dependent_text]
 routes:<!--{[->]}-->
+aggregated:<!--{[->]}-->
 
 [floating_point_tolerance]
 routes:0.0101
