@@ -1,4 +1,4 @@
-SUMO marouter Version dev-SVN-r18514I
+SUMO marouter Version dev-SVN-r18530
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment
 
@@ -38,6 +38,8 @@ Output Options:
   --exit-times                      Write exit times (weights) for each edge
 
 Processing Options:
+  --aggregation-interval TIME       Defines the time interval when aggregating
+                                      single vehicle input; Defaults to one hour
   --ignore-errors                   Continue if a route could not be build
   --max-alternatives INT            Prune the number of alternatives to INT
   --weights.interpolate             Interpolate edge weights at interval

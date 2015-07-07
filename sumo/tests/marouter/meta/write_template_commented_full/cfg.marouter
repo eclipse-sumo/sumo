@@ -72,6 +72,9 @@
     </output>
 
     <processing>
+        <!-- Defines the time interval when aggregating single vehicle input; Defaults to one hour -->
+        <aggregation-interval value="3600" type="TIME"/>
+
         <!-- Continue if a route could not be build -->
         <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" type="BOOL"/>
 
