@@ -31,23 +31,8 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <map>
-#include <vector>
-#include <iostream>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
-#include <utils/xml/SUMOSAXReader.h>
-#include <utils/xml/XMLSubSys.h>
-#include <utils/iodevices/OutputDevice_String.h>
-#include <router/RONet.h>
-#include <router/ROLane.h>
+#include <od/ODMatrix.h>
 #include "ROMARouteHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -58,9 +43,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROMARouteHandler::ROMARouteHandler(RONet& net) :
-    SUMORouteHandler(""),
-    myNet(net) {
+ROMARouteHandler::ROMARouteHandler(ODMatrix& matrix) :
+    SUMOSAXHandler(""),
+    myMatrix(matrix) {
 }
 
 
@@ -71,39 +56,10 @@ ROMARouteHandler::~ROMARouteHandler() {
 void
 ROMARouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
-    SUMORouteHandler::myStartElement(element, attrs);
-    switch (element) {
-        case SUMO_TAG_FLOW:
-            myActiveRouteProbability = DEFAULT_VEH_PROB;
-            break;
-        case SUMO_TAG_TRIP:
-        case SUMO_TAG_VEHICLE:
-            myActiveRouteProbability = DEFAULT_VEH_PROB;
-            break;
-        default:
-            break;
-    }
-}
-
-
-void
-ROMARouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
-                           const std::string& rid) {
-    if (desc[0] == BinaryFormatter::BF_ROUTE) {
-        std::istringstream in(desc, std::ios::binary);
-        char c;
-        in >> c;
-        FileHelpers::readEdgeVector(in, into, rid);
-    } else {
-        for (StringTokenizer st(desc); st.hasNext();) {
-            const std::string id = st.next();
-            const ROEdge* edge = myNet.getEdge(id);
-            if (edge == 0) {
-                WRITE_ERROR("The edge '" + id + "' within the route " + rid + " is not known.");
-            } else {
-                into.push_back(edge);
-            }
-        }
+    SUMOVehicleParameter* parameter = 0;
+    if (element == SUMO_TAG_TRIP || element == SUMO_TAG_VEHICLE) {
+        SUMOVehicleParameter* parameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+        myMatrix.add(parameter->id, parameter->depart, parameter->fromTaz, parameter->toTaz, parameter->vtypeid);
     }
 }
 

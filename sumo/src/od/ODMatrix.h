@@ -51,7 +51,7 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
-class SUMORouteHandler;
+class SUMOSAXHandler;
 
 
 // ===========================================================================
@@ -108,6 +108,21 @@ public:
      */
     void add(SUMOReal vehicleNumber, SUMOTime begin,
              SUMOTime end, const std::string& origin, const std::string& destination,
+             const std::string& vehicleType);
+
+    /** @brief Adds a single vehicle with departure time
+     *
+     * If there is no existing ODCell for the given parameters one is generated
+     * using add(...)
+     *
+     * @param[in] id The id of the vehicle
+     * @param[in] depart The departure time of the vehicle
+     * @param[in] origin The origin district to use for the cell's flows
+     * @param[in] destination The destination district to use for the cell's flows
+     * @param[in] vehicleType The vehicle type to use for the cell's flows
+     */
+    void add(const std::string& id, const SUMOTime depart,
+             const std::string& origin, const std::string& destination,
              const std::string& vehicleType);
 
     /** @brief Helper function for flow and trip output writing the depart
@@ -215,7 +230,7 @@ public:
     /** @brief read SUMO routes
      *  @todo Describe
      */
-    void loadRoutes(OptionsCont& oc, SUMORouteHandler& handler);
+    void loadRoutes(OptionsCont& oc, SUMOSAXHandler& handler);
 
     /** @brief split the given timeline
      *  @todo Describe

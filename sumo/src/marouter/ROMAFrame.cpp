@@ -140,6 +140,9 @@ ROMAFrame::addImportOptions() {
     oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent");
 
     // register the processing options
+    oc.doRegister("aggregation-interval", new Option_String("3600", "TIME"));
+    oc.addDescription("aggregation-interval", "Processing", "Defines the time interval when aggregating single vehicle input; Defaults to one hour");
+
     oc.doRegister("ignore-errors", new Option_Bool(false));
     oc.addSynonyme("ignore-errors", "continue-on-unbuild", true);
     oc.addSynonyme("ignore-errors", "dismiss-loading-errors", true);

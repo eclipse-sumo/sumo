@@ -32,6 +32,10 @@
 #include <config.h>
 #endif
 
+#include <vector>
+#include <map>
+#include <utils/common/SUMOTime.h>
+
 
 // ===========================================================================
 // class declarations
@@ -50,8 +54,6 @@ class RORoute;
  *  and destination via string-ids of the district, the begin and the end time
  *  for which this cell is valid, the id of the vehicle type to use, and the
  *  amount of vehicles to insert during the described interval.
- *
- * @todo Check whether the vehicle type is used and makes sense herein
  */
 struct ODCell {
     /// @brief The number of vehicles
@@ -74,6 +76,9 @@ struct ODCell {
 
     /// @brief the list of paths / routes
     std::vector<RORoute*> pathsVector;  // path_id, string of edges?
+
+    /// @brief mapping of ids to departure times,if already fixed
+    std::map<std::string, SUMOTime> departures;
 };
 
 

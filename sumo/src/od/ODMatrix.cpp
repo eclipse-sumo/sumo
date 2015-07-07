@@ -46,7 +46,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/importio/LineReader.h>
-#include <utils/xml/SUMORouteHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include "ODAmitranHandler.h"
 #include "ODMatrix.h"
@@ -102,6 +102,31 @@ ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
             myContainer.push_back(cell);
         }
     }
+}
+
+
+void
+ODMatrix::add(const std::string& id, const SUMOTime depart,
+              const std::string& origin, const std::string& destination,
+              const std::string& vehicleType) {
+    // we start looking from the end because there is a high probability that the input is sorted by time
+    std::vector<ODCell*>::reverse_iterator cell = myContainer.rbegin();
+    for (; cell != myContainer.rend(); ++cell) {
+        if ((*cell)->begin <= depart && (*cell)->end > depart &&
+            (*cell)->origin == origin && (*cell)-> destination == destination &&
+            (*cell)->vehicleType == vehicleType) {
+            break;
+        }
+    }
+    if (cell == myContainer.rend()) {
+        const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
+        const int intervalIdx = depart / interval;
+        add(1., intervalIdx * interval, (intervalIdx + 1) * interval, origin, destination, vehicleType);
+        cell = myContainer.rbegin();
+    } else {
+        (*cell)->vehicleNumber += 1.;
+    }
+    (*cell)->departures[id] = depart;
 }
 
 
@@ -522,7 +547,7 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
 
 
 void
-ODMatrix::loadRoutes(OptionsCont& oc, SUMORouteHandler& handler) {
+ODMatrix::loadRoutes(OptionsCont& oc, SUMOSAXHandler& handler) {
     std::vector<std::string> routeFiles = oc.getStringVector("route-files");
     for (std::vector<std::string>::iterator i = routeFiles.begin(); i != routeFiles.end(); ++i) {
         if (!FileHelpers::isReadable(*i)) {

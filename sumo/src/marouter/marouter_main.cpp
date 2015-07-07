@@ -355,7 +355,7 @@ main(int argc, char** argv) {
         // load the matrix
         ODMatrix matrix(districts);
         matrix.loadMatrix(oc);
-        ROMARouteHandler handler(*net);
+        ROMARouteHandler handler(matrix);
         matrix.loadRoutes(oc, handler);
         if (matrix.getNoLoaded() == 0) {
             throw ProcessError("No vehicles loaded.");
