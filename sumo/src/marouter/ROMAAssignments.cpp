@@ -51,7 +51,6 @@
 // static member variables
 // ===========================================================================
 std::map<const ROEdge* const, SUMOReal> ROMAAssignments::myPenalties;
-ROVehicle* ROMAAssignments::myDefaultVehicle = 0;
 
 
 // ===========================================================================

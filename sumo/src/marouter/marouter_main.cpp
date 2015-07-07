@@ -311,6 +311,18 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             }
             haveOutput = true;
         }
+        if (OutputDevice::createDeviceByOption("netload-output", "meandata")) {
+            dev = &OutputDevice::getDeviceByOption("netload-output");
+            dev->openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, oc.getString("begin")).writeAttr(SUMO_ATTR_END, oc.getString("end"));
+            for (std::map<std::string, ROEdge*>::const_iterator i = net.getEdgeMap().begin(); i != net.getEdgeMap().end(); ++i) {
+                ROEdge* edge = i->second;
+                if (edge->getFunc() == ROEdge::ET_NORMAL) {
+                    dev->openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, edge->getID());
+                    dev->writeAttr("traveltime", edge->getTravelTime(a.getDefaultVehicle(), 0)).closeTag();
+                }
+            }
+            haveOutput = true;
+        }
         if (!haveOutput) {
             throw ProcessError("No output file given.");
         }

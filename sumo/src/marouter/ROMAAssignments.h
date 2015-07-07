@@ -63,6 +63,10 @@ public:
     /// Destructor
     ~ROMAAssignments();
 
+    ROVehicle* getDefaultVehicle() {
+        return myDefaultVehicle;
+    }
+
     // @brief calculate edge travel time with the given road class and max link speed
     SUMOReal capacityConstraintFunction(const ROEdge* edge, const SUMOReal flow) const;
 
@@ -128,7 +132,7 @@ private:
     ODMatrix& myMatrix;
     SUMOAbstractRouter<ROEdge, ROVehicle>& myRouter;
     static std::map<const ROEdge* const, SUMOReal> myPenalties;
-    static ROVehicle* myDefaultVehicle;
+    ROVehicle* myDefaultVehicle;
 
 private:
     /// @brief Invalidated assignment operator
