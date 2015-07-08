@@ -233,7 +233,7 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], stdout=log, stderr=subprocess.STDOUT, shell=True)
     ago = datetime.datetime.now() - datetime.timedelta(50)
     subprocess.call('%s -s "batch.ArchiveRepository session=%s before=%s"' % (
-                     ttBin, env["FILEPREFIX"], ago.strftime("%d%b%Y"),
+                     ttBin, env["FILEPREFIX"], ago.strftime("%d%b%Y")),
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
     log = open(statusLog, 'w')
