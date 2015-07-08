@@ -1650,7 +1650,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing, const bool buildCrossingsAndWa
     for (int i = 0; i < numOutgoing; i++) {
         // tmpNo will be the number of connections from this edge
         //  to the next edge
-        assert(i < resultingLanes.size());
+        assert(i < (int)resultingLanes.size());
         const SUMOReal tmpNum = resultingLanes[i] / minResulting;
         for (SUMOReal j = 0; j < tmpNum; j++) {
             transition.push_back((*outgoing)[i]);
