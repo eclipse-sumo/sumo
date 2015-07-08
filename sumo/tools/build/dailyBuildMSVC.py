@@ -223,19 +223,17 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
             env[name.upper() + "_BINARY"] = binary
     log = open(testLog, 'w')
     # provide more information than just the date:
-    nameopt = " -name %sr%s" % (date.today().strftime("%d%b%y"), svnrev)
+    fullOpt = ["-b", env["FILEPREFIX"], "-name", "%sr%s" % (date.today().strftime("%d%b%y"), svnrev)]
+    ttBin = "texttestc.py"
     if options.sumoExe == "meso":
-        runInternalTests.runInternal(
-            programSuffix, "-b " + env["FILEPREFIX"] + nameopt, log)
+        runInternalTests.runInternal(programSuffix, fullOpt, log, console=True)
     else:
-        subprocess.call(
-            "texttest.py -b " + env["FILEPREFIX"] + nameopt, stdout=log, stderr=subprocess.STDOUT, shell=True)
-    subprocess.call("texttest.py -a sumo.gui -b " +
-                    env["FILEPREFIX"] + nameopt, stdout=log, stderr=subprocess.STDOUT, shell=True)
-    subprocess.call(
-        "texttest.py -b " + env["FILEPREFIX"] + " -coll", stdout=log, stderr=subprocess.STDOUT, shell=True)
+        subprocess.call([ttBin] + fullOpt, stdout=log, stderr=subprocess.STDOUT, shell=True)
+    subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, stdout=log, stderr=subprocess.STDOUT, shell=True)
+    subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], stdout=log, stderr=subprocess.STDOUT, shell=True)
     ago = datetime.datetime.now() - datetime.timedelta(50)
-    subprocess.call('texttest.py -s "batch.ArchiveRepository session=' + env["FILEPREFIX"] + ' before=%s"' % ago.strftime("%d%b%Y"),
+    subprocess.call('%s -s "batch.ArchiveRepository session=%s before=%s"' % (
+                     ttBin, env["FILEPREFIX"], ago.strftime("%d%b%Y"),
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
     log = open(statusLog, 'w')

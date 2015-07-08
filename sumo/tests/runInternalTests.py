@@ -27,7 +27,7 @@ except ImportError:
     haveTextTestLib = False
 
 
-def runInternal(suffix, args, out=sys.stdout, gui=False):
+def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False):
     if os.name != "posix":
         suffix += ".exe"
     env = os.environ
@@ -58,19 +58,23 @@ def runInternal(suffix, args, out=sys.stdout, gui=False):
         if subprocess.call(['which', 'texttest']) == 0:
             ttBin = 'texttest'
     elif haveTextTestLib:
-        ttBin += "w"
+        if console:
+            ttBin = 'texttestc.py'
+        else:
+            ttBin += "w"
     apps = "sumo.internal,sumo.meso,complex.meso,duarouter.astar,duarouter.chrouter"
-    if gui:
+    if guiTests:
         apps = "sumo.gui"
-    subprocess.call("%s %s -a %s" %
-                    (ttBin, args, apps), stdout=out, stderr=out, shell=True)
+    subprocess.call([ttBin] + args + ["-a", apps], stdout=out, stderr=out, shell=True)
 
 if __name__ == "__main__":
     optParser = optparse.OptionParser()
-    optParser.add_option(
-        "-s", "--suffix", default="", help="suffix to the fileprefix")
-    optParser.add_option(
-        "-g", "--gui", default=False, action="store_true", help="run gui tests")
+    optParser.add_option("-s", "--suffix", default="",
+                         help="suffix to the fileprefix")
+    optParser.add_option("-g", "--gui", default=False,
+                         action="store_true", help="run gui tests")
+    optParser.add_option("-c", "--console", default=False, 
+                         action="store_true", help="run texttest console interface")
     (options, args) = optParser.parse_args()
-    runInternal(options.suffix, " ".join(
-        ["-" + a for a in args]), gui=options.gui)
+    runInternal(options.suffix, ["-" + a for a in args],
+                guiTests=options.gui, console=options.console)
