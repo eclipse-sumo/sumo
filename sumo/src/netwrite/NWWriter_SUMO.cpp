@@ -372,7 +372,9 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::
     // the first lane of an edge will be the depart lane
     into.writeAttr(SUMO_ATTR_INDEX, index);
     // write the list of allowed/disallowed vehicle classes
-    writePermissions(into, permissions);
+    if (permissions != SVC_UNSPECIFIED) {
+        writePermissions(into, permissions);
+    }
     writePreferences(into, preferred);
     // some further information
     if (speed == 0) {

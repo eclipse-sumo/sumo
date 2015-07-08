@@ -245,7 +245,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
         if (incoming.size() == 2) {
             // if there are only 2 incoming edges we need to decide whether they are a crossing or a "continuation"
             // @node: this heuristic could be extended to also check the number of outgoing edges
-            SUMOReal angle = fabs(NBHelpers::relAngle(toProc[0]->getAngleAtNode(toProc[0]->getToNode()), toProc[1]->getAngleAtNode(toProc[1]->getToNode())));
+            SUMOReal angle = fabs(NBHelpers::relAngle(incoming[0]->getAngleAtNode(incoming[0]->getToNode()), incoming[1]->getAngleAtNode(incoming[1]->getToNode())));
             // angle would be 180 for straight opposing incoming edges
             if (angle < 135) {
                 chosen = std::pair<NBEdge*, NBEdge*>(toProc[0], static_cast<NBEdge*>(0));
