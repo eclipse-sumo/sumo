@@ -71,7 +71,8 @@ def compound_object(element_name, attrnames):
             if name in self._child_dict:
                 del self._child_dict[name]
             else:
-                del self.__dict__[name]
+                if name in self.__dict__:
+                    del self.__dict__[name]
                 self._fields.remove(name)
 
         def __getitem__(self, name):
