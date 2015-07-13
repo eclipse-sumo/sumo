@@ -814,7 +814,7 @@ MSPModel_Striping::PState::getLength() const {
 int
 MSPModel_Striping::PState::stripe(SUMOReal relY) const {
     const int max = numStripes(myLane) - 1;
-    return MIN2(MAX2(0, (int)floor((relY + 0.5 * stripeWidth) / stripeWidth)), max);
+    return MIN2(MAX2(0, (int)floor(relY / stripeWidth + 0.5)), max);
 }
 
 
@@ -933,7 +933,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                 myRelY = (numStripes(oldLane) - 1) * stripeWidth - myRelY;
             }
             // adjust to differences in sidewalk width
-            myRelY += 0.5 * stripeWidth * (numStripes(myLane) - oldStripes);
+            myRelY += 0.5 * (myLane->getWidth() - oldLane->getWidth());
         }
         return true;
     } else {
@@ -948,21 +948,20 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     const int sMax =  stripes - 1;
     assert(stripes == numStripes(myLane));
     const SUMOReal vMax = myStage->getMaxSpeed();
-    // ultimate goal is to chose the prefered stripe (chosen)
+    // ultimate goal is to choose the prefered stripe (chosen)
     const int current = stripe();
     const int other = otherStripe();
     int chosen = current;
     // compute utility for all stripes
-    std::vector<SUMOReal> utility(stripes, 0);
-
+    std::vector<SUMOReal> utility(stripes);
     // penalize lateral movement (may increase jamming)
     for (int i = 0; i < stripes; ++i) {
-        utility[i] += abs(i - current) * LATERAL_PENALTY;
+        utility[i] = abs(i - current) * LATERAL_PENALTY;
     }
     // compute distances
     std::vector<SUMOReal> distance(stripes);
     for (int i = 0; i < stripes; ++i) {
-        distance[i] += myDir * (obs[i].x - myRelX);
+        distance[i] = myDir * (obs[i].x - myRelX);
     }
     // forbid stripes which are blocked and also all stripes behind them
     for (int i = 0; i < stripes; ++i) {
@@ -1078,8 +1077,8 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     const SUMOReal yDist = (chosen * stripeWidth) - myRelY;
     if (fabs(yDist) > NUMERICAL_EPS) {
         ySpeed = (yDist > 0 ?
-                  MIN2(maxYSpeed, yDist) :
-                  MAX2(-maxYSpeed, yDist));
+                  MIN2(maxYSpeed, DIST2SPEED(yDist)) :
+                  MAX2(-maxYSpeed, DIST2SPEED(yDist)));
     }
     // DEBUG
     if DEBUGCOND(myPerson->getID()) {
