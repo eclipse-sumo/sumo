@@ -346,8 +346,8 @@ NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont) {
                 NBTrafficLightDefinition* newDef = new NBOwnTLDef(orig->getID(), orig->getOffset(), orig->getType());
                 const std::vector<NBNode*>& nodes = orig->getNodes();
                 while (!nodes.empty()) {
-                    nodes.front()->removeTrafficLight(orig);
                     newDef->addNode(nodes.front());
+                    nodes.front()->removeTrafficLight(orig);
                 }
                 tlCont.removeFully(orig->getID());
                 tlCont.insert(newDef);
