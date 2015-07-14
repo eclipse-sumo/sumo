@@ -252,7 +252,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
-        ROMAAssignments a(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, matrix, *router);
+        ROMAAssignments a(string2time(oc.getString("begin")), string2time(oc.getString("end")),
+                          oc.getBool("timesplit"), net, matrix, *router);
         const std::string assignMethod = oc.getString("assignment-method");
         if (assignMethod == "incremental") {
             a.incremental(oc.getInt("max-iterations"));

@@ -212,6 +212,9 @@ ROMAFrame::addAssignmentOptions() {
     oc.doRegister("timeline.day-in-hours", new Option_Bool(false));
     oc.addDescription("timeline.day-in-hours", "Processing", "Uses STR as a 24h-timeline definition");
 
+    oc.doRegister("timesplit", new Option_Bool(false));
+    oc.addDescription("timesplit", "Processing", "Do separate assignments for each time slot");
+
     // register macroscopic SUE-settings
     oc.doRegister("assignment-method", new Option_String("incremental"));
     oc.addDescription("assignment-method", "Processing", "Choose a assignment method: incremental, UE or SUE");

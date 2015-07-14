@@ -57,9 +57,10 @@ std::map<const ROEdge* const, SUMOReal> ROMAAssignments::myPenalties;
 // method definitions
 // ===========================================================================
 
-ROMAAssignments::ROMAAssignments(const SUMOTime begin, const SUMOTime end,
+ROMAAssignments::ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool timeSplit,
                                  RONet& net, ODMatrix& matrix,
-                                 SUMOAbstractRouter<ROEdge, ROVehicle>& router) : myBegin(begin), myEnd(end), myNet(net), myMatrix(matrix), myRouter(router) {
+                                 SUMOAbstractRouter<ROEdge, ROVehicle>& router)
+                                 : myBegin(begin), myEnd(end), myTimeSplit(timeSplit), myNet(net), myMatrix(matrix), myRouter(router) {
     myDefaultVehicle = new ROVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
 }
 
@@ -162,14 +163,16 @@ ROMAAssignments::incremental(const int numIter) {
         for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin(); i != myMatrix.getCells().end(); i++) {
             ODCell* c = *i;
             ConstROEdgeVector edges;
-            SUMOReal linkFlow = c->vehicleNumber / numIter;
-            myRouter.compute(myNet.getEdge(c->origin + "-source"), myNet.getEdge(c->destination + "-sink"), myDefaultVehicle, 0, edges);
+            const SUMOReal linkFlow = c->vehicleNumber / numIter;
+            const SUMOTime begin = myTimeSplit ? c->begin : myBegin;
+            const SUMOTime end = myTimeSplit ? c->end : myEnd;
+            myRouter.compute(myNet.getEdge(c->origin + "-source"), myNet.getEdge(c->destination + "-sink"), myDefaultVehicle, begin, edges);
             SUMOReal costs = 0.;
             for (ConstROEdgeVector::iterator e = edges.begin(); e != edges.end(); e++) {
                 ROEdge* edge = myNet.getEdge((*e)->getID());
-                edge->addEffort(linkFlow, STEPS2TIME(myBegin), STEPS2TIME(myEnd));
+                edge->addEffort(linkFlow, STEPS2TIME(begin), STEPS2TIME(end));
                 const SUMOReal travelTime = capacityConstraintFunction(edge, linkFlow);
-                edge->addTravelTime(travelTime, STEPS2TIME(myBegin), STEPS2TIME(myEnd));
+                edge->addTravelTime(travelTime, STEPS2TIME(begin), STEPS2TIME(end));
                 costs += travelTime;
             }
             addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), costs, linkFlow);
