@@ -2,8 +2,8 @@ Loading configuration... done.
 Success.
 Loading configuration... done.
 ***Starting server on port 8874 ***
-Loading net-file from 'data/../pedcrossing.net.xml'...  done (3ms).
-Loading additional-files from 'data/pedcrossing.tll.xml'...  done (2ms).
+Loading net-file from 'data/../pedcrossing.net.xml'...  done (2ms).
+Loading additional-files from 'data/pedcrossing.tll.xml'...  done (35ms).
 Loading done.
 Simulation started with time: 0.00
 ped0 pushes the button
@@ -23,7 +23,6 @@ ped18 pushes the button
 ped20 pushes the button
 ped22 pushes the button
 ped23 pushes the button
-ped24 pushes the button
 ped25 pushes the button
 ped27 pushes the button
 ped28 pushes the button
@@ -51,8 +50,8 @@ ped58 pushes the button
 ped62 pushes the button
 ped64 pushes the button
 ped63 pushes the button
-ped66 pushes the button
-ped68 pushes the button
+ped65 pushes the button
+ped67 pushes the button
 ped69 pushes the button
 ped70 pushes the button
 ped71 pushes the button
@@ -69,18 +68,18 @@ ped83 pushes the button
 ped86 pushes the button
 ped88 pushes the button
 ped89 pushes the button
-ped91 pushes the button
+ped92 pushes the button
 ped93 pushes the button
-Simulation ended at time: 3621.00
+Simulation ended at time: 3619.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 712ms
- Real time factor: 5085.67
- UPS: 22953.651685
+ Duration: 1410ms
+ Real time factor: 2566.67
+ UPS: 12461.702128
 Vehicles: 
- Inserted: 680
+ Inserted: 718
  Running: 0
  Waiting: 0
 
-DijkstraRouterTT answered 942 queries and explored 2.00 edges on average.
+DijkstraRouterTT answered 1043 queries and explored 2.00 edges on average.
 DijkstraRouterTT spent 1ms answering queries (0.00ms on average).
