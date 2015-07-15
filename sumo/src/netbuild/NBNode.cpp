@@ -469,9 +469,11 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
     const Position end = endShape.front();
     PositionVector ret;
     PositionVector init;
-    unsigned int noInitialPoints = 0;
+    unsigned int numInitialPoints = 0;
     bool noSpline = false;
-    if (beg.distanceTo(end) <= POSITION_EPS) {
+    Line begL = begShape.getEndLine();
+    Line endL = endShape.getBegLine();
+    if (beg.distanceTo(end) <= POSITION_EPS || begL.length() < POSITION_EPS || endL.length() < POSITION_EPS) {
         noSpline = true;
     } else {
         if (isTurnaround) {
@@ -479,7 +481,7 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
             //  - end of incoming lane
             //  - position between incoming/outgoing end/begin shifted by the distance orthogonally
             //  - begin of outgoing lane
-            noInitialPoints = 3;
+            numInitialPoints = 3;
             init.push_back(beg);
             Line straightConn(begShape[-1], endShape[0]);
             Position straightCenter = straightConn.getPositionAtDistance((SUMOReal) straightConn.length() / (SUMOReal) 2.);
@@ -491,14 +493,12 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
             init.push_back(center);
             init.push_back(end);
         } else {
-            const SUMOReal angle = fabs(begShape.getEndLine().atan2Angle() - endShape.getBegLine().atan2Angle());
+            const SUMOReal angle = fabs(begL.atan2Angle() - endL.atan2Angle());
             if (angle < M_PI / 4. || angle > 7. / 4.*M_PI) {
                 // very low angle: almost straight
-                noInitialPoints = 4;
+                numInitialPoints = 4;
                 init.push_back(beg);
-                Line begL = begShape.getEndLine();
                 begL.extrapolateSecondBy(100);
-                Line endL = endShape.getBegLine();
                 endL.extrapolateFirstBy(100);
                 SUMOReal distance = beg.distanceTo(end);
                 if (distance > 10) {
@@ -524,18 +524,11 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
                 //  - intersection of the extrapolated lanes
                 //  - begin of outgoing lane
                 // attention: if there is no intersection, use a straight line
-                noInitialPoints = 3;
+                numInitialPoints = 3;
                 init.push_back(beg);
-                Line begL = begShape.getEndLine();
-                Line endL = endShape.getBegLine();
-                bool check = !begL.p1().almostSame(begL.p2()) && !endL.p1().almostSame(endL.p2());
-                if (check) {
-                    begL.extrapolateSecondBy(100);
-                    endL.extrapolateFirstBy(100);
-                } else {
-                    WRITE_WARNING("Could not use edge geometry for internal lane, node '" + getID() + "'.");
-                }
-                if (!check || !begL.intersects(endL)) {
+                begL.extrapolateSecondBy(100);
+                endL.extrapolateFirstBy(100);
+                if (!begL.intersects(endL)) {
                     noSpline = true;
                 } else {
                     init.push_back(begL.intersectsAt(endL));
@@ -549,7 +542,7 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
         ret.push_back(begShape.back());
         ret.push_back(endShape.front());
     } else {
-        SUMOReal* def = new SUMOReal[1 + noInitialPoints * 3];
+        SUMOReal* def = new SUMOReal[1 + numInitialPoints * 3];
         for (int i = 0; i < (int) init.size(); ++i) {
             // starts at index 1
             def[i * 3 + 1] = init[i].x();
@@ -557,7 +550,7 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
             def[i * 3 + 3] = init[i].y();
         }
         SUMOReal* ret_buf = new SUMOReal[numPoints * 3 + 1];
-        bezier(noInitialPoints, def, numPoints, ret_buf);
+        bezier(numInitialPoints, def, numPoints, ret_buf);
         delete[] def;
         Position prev;
         for (int i = 0; i < (int) numPoints; i++) {
