@@ -1,7 +1,7 @@
-Parsing types from '/home/micha/sumo/data/typemap/osmNetconvert.typ.xml'... done.
-Parsing types from '/home/micha/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml'... done.
-Parsing types from '/home/micha/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
-Parsing types from '/home/micha/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
+Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo\data\typemap\osmNetconvert.typ.xml'... done.
+Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo\data\typemap\osmNetconvertUrbanDe.typ.xml'... done.
+Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo\data\typemap\osmNetconvertPedestrians.typ.xml'... done.
+Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo\data\typemap\osmNetconvertShips.typ.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... 
 Found duplicate nodes. Substituting 1241955149 with 1026369077
 Found duplicate nodes. Substituting 1241955153 with 1241955144
@@ -113,7 +113,7 @@ Computing node shapes...
 done.
 Computing edge shapes... done.
 Computing node types... done.
-Guessed 894 pedestrian crossings.
+Guessed 900 pedestrian crossings.
 Computing priorities... done.
 Computing approached edges... done.
 Guessing and setting roundabouts... done.
@@ -143,7 +143,7 @@ Summary:
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
 Success.
-Parsing network projection from '/home/micha/.texttest/tmp/tools.14Jul081509.14228/tools/import/OSM/server/osm.net.xml'... done.
+Parsing network projection from 'D:\tmp\dynamic_gui.15Jul100342.11076\tools\import\OSM\server\osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
@@ -155,31 +155,31 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (850ms).
-Loading additional-files from 'osm.poly.xml'...  done (193ms).
+Loading net-file from 'osm.net.xml'...  done (1195ms).
+Loading additional-files from 'osm.poly.xml'...  done (370ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 3569.00
+Simulation ended at time: 4199.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 16285ms
- Real time factor: 219.159
- UPS: 11325.575683
+ Duration: 26493ms
+ Real time factor: 158.495
+ UPS: 7215.453139
 Vehicles: 
  Inserted: 314
  Running: 0
  Waiting: 0
-Teleports: 13 (Yield: 13)
+Teleports: 12 (Yield: 12)
 
-DijkstraRouterTT answered 331 queries and explored 656.82 edges on average.
-DijkstraRouterTT spent 122ms answering queries (0.37ms on average).
+DijkstraRouterTT answered 337 queries and explored 663.13 edges on average.
+DijkstraRouterTT spent 200ms answering queries (0.59ms on average).
 Calling osmBuild
 Calling randomTrips
-calling  /home/micha/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
-calling  /home/micha/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.bicycles.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
-calling  /home/micha/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.rails.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
-calling  /home/micha/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.ships.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
-calling  /home/micha/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.pedestrians.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo\tests\..\bin\duarouter.exe -n osm.net.xml -t trips.trips.xml -o osm.vehicles.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo\tests\..\bin\duarouter.exe -n osm.net.xml -t trips.trips.xml -o osm.bicycles.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo\tests\..\bin\duarouter.exe -n osm.net.xml -t trips.trips.xml -o osm.rails.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo\tests\..\bin\duarouter.exe -n osm.net.xml -t trips.trips.xml -o osm.ships.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo\tests\..\bin\duarouter.exe -n osm.net.xml -t trips.trips.xml -o osm.pedestrians.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 Writing gui settings file: osm.view.xml
 Writing config file: osm.sumocfg
 Calling SUMO GUI
