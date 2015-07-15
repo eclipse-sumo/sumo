@@ -37,6 +37,10 @@ except ImportError:
 def validate(root, f):
     root = os.path.abspath(root)
     try:
+        if os.path.getsize(f) < 80:
+            # this is probably a texttest place holder file
+            # it is definitely too small to contain a schema
+            return
         doc = etree.parse(f)
         schemaLoc = doc.getroot().get(
             '{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation')
