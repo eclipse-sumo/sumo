@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/07/15 15:23:59 by SUMO marouter Version dev-SVN-r18530
+<!-- generated on 07/15/15 12:54:27 by SUMO marouter Version dev-SVN-r18572
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -24,7 +24,7 @@
 -->
 
 <meandata>
-    <interval begin="0" end="9223372036854774">
+    <interval begin="0.00" end="9223372036854774.00">
         <edge id="beg" traveltime="17.99"/>
         <edge id="beg2left" traveltime="18.10"/>
         <edge id="end" traveltime="18.02"/>
