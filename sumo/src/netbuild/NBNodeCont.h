@@ -323,6 +323,11 @@ public:
      */
     void discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals);
 
+    /// @brief mark a node as being created form a split
+    void markAsSplit(const NBNode* node) {
+        mySplit.insert(node);
+    }
+
 private:
     /// @name Helper methods for for joining nodes
     /// @{
@@ -383,6 +388,9 @@ private:
 
     /// @brief ids found in loaded join clusters used for error checking
     std::set<std::string> myJoined;
+
+    /// @brief nodes that were created when splitting an edge
+    std::set<const NBNode*> mySplit;
 
     /// @brief node positions for faster lookup
     NamedRTree myRTree;

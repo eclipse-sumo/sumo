@@ -530,6 +530,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
                     std::string nid = edgeid + "." +  toString(exp.nameid);
                     NBNode* rn = new NBNode(nid, exp.gpos);
                     if (myNodeCont.insert(rn)) {
+                        myNodeCont.markAsSplit(rn);
                         //  split the edge
                         std::string nid = myCurrentID + "." +  toString(exp.nameid);
                         std::string pid = e->getID();

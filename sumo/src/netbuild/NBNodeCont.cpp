@@ -335,7 +335,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             remove = true;
         }
         // check for nodes which are only geometry nodes
-        if (removeGeometryNodes) {
+        if (removeGeometryNodes && mySplit.count(current) == 0) {
             if ((current->getOutgoingEdges().size() == 1 && current->getIncomingEdges().size() == 1)
                     ||
                     (current->getOutgoingEdges().size() == 2 && current->getIncomingEdges().size() == 2)) {
