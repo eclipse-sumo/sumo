@@ -120,6 +120,16 @@ public:
     }
 
 
+    /** converts a string into the integer value described by it
+        by calling the char-type converter, which
+        throws an EmptyData - exception if the given string is empty
+        throws a NumberFormatException - exception when the string does
+            not contain an integer */
+    static int _str2int(const std::string& sData) {
+        return _2int(sData.c_str());
+    }
+
+
     /** converts a char-type array with a hex value into the integer value described by it
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
@@ -131,6 +141,15 @@ public:
             throw NumberFormatException();
         }
         return (int)result;
+    }
+
+    /** converts a string with a hex value into the integer value described by it
+        by calling the char-type converter, which
+        throws an EmptyData - exception if the given string is empty
+        throws a NumberFormatException - exception when the string does
+            not contain an integer */
+    static int _strHex2int(const std::string& sData) {
+        return _hex2int(sData.c_str());
     }
 
 
@@ -266,6 +285,16 @@ public:
             // the exponent was empty
             throw NumberFormatException();
         }
+    }
+
+
+    /** converts a string into the SUMOReal value described by it
+        by calling the char-type converter, which
+        throws an EmptyData - exception if the given string is empty
+        throws a NumberFormatException - exception when the string does
+            not contain a SUMOReal */
+    static SUMOReal _str2SUMOReal(const std::string& sData) {
+        return _2SUMOReal(sData.c_str());
     }
 
 

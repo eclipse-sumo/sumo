@@ -585,7 +585,8 @@ NIVissimEdge::recheckSpeedPatches()
 
 std::pair<NIVissimConnectionCluster*, NBNode*>
 NIVissimEdge::getFromNode(NBNodeCont& nc, ConnectionClusters& clusters) {
-    const SUMOReal MAX_DISTANCE = 10.;
+    // changed MAX_DISTANCE from 10 to 3.5, because 3.5 is the default lane width in VISSIM
+    const SUMOReal MAX_DISTANCE = 3.5;
     assert(clusters.size() >= 1);
     const Position& beg = myGeom.front();
     NIVissimConnectionCluster* c = *(clusters.begin());

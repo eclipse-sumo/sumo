@@ -2,6 +2,8 @@
 /// @file    NIImporter_Vissim.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Lukas Grohmann (AIT)
+/// @author  Gerald Richter (AIT)
 /// @date    Sept 2002
 /// @version $Id$
 ///
@@ -38,7 +40,13 @@
 #include <utils/geom/Position.h>
 #include "tempstructs/NIVissimExtendedEdgePoint.h"
 #include "NIVissimElements.h"
+#include <utils/xml/SUMOSAXHandler.h>
+#include "tempstructs/NIVissimEdge.h"
+#include "tempstructs/NIVissimConnection.h"
 
+#include <utils/common/StringBijection.h>
+#include <utils/common/StringTokenizer.h>
+#include <list>
 
 // ===========================================================================
 // class declarations
@@ -70,7 +78,370 @@ public:
     static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 
+
+private:
+
+    typedef std::map<std::string, std::list<std::string> > nodeMap;
+    //typedef std::vector< StringBijection * > nodeMap;
+    nodeMap elementData;
+
+
+    /**
+     * @class NIVissimSingleTypeXMLHandler_Streckendefinition
+     * @brief A class which extracts VISSIM-Strecken from a parsed VISSIM-file
+     */
+    class NIVissimXMLHandler_Streckendefinition : public GenericSAXHandler {
+    public:
+        /** @brief Constructor
+         * @param[in] strecken_dic  The strecken dictionary to fill
+         */
+        //NIVissimXMLHandler_Streckendefinition(std::map<int, VissimXMLEdge>& toFill);
+        NIVissimXMLHandler_Streckendefinition(nodeMap& elemData);
+
+
+        /// @brief Destructor
+        ~NIVissimXMLHandler_Streckendefinition();
+
+    protected:
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        //@}
+
+        void myEndElement(int element);
+        //@}
+
+    private:
+
+        /// @brief The current hierarchy level
+        int myHierarchyLevel;
+
+        /// @brief check if the link is a connector
+        bool isConnector;
+
+        //std::map<int, VissimXMLEdge> myToFill;
+        nodeMap& myElemData;
+
+        /// @brief ID of the currently parsed node, for reporting mainly
+        int myLastNodeID;
+
+        /** @brief invalidated copy constructor */
+        NIVissimXMLHandler_Streckendefinition(const NIVissimXMLHandler_Streckendefinition& s);
+
+        /** @brief invalidated assignment operator */
+        NIVissimXMLHandler_Streckendefinition& operator=(const NIVissimXMLHandler_Streckendefinition& s);
+    };
+
+
+private:
+    /**
+     * @class NIVissimSingleTypeXMLHandler_Zuflussdefinition
+     * @brief A class which extracts VISSIM-Zuflüsse from a parsed VISSIM-file
+     */
+    class NIVissimXMLHandler_Zuflussdefinition : public GenericSAXHandler {
+    public:
+        /** @brief Constructor
+         */
+        NIVissimXMLHandler_Zuflussdefinition();
+
+
+        /// @brief Destructor
+        ~NIVissimXMLHandler_Zuflussdefinition();
+
+    protected:
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        //@}
+
+
+    private:
+
+
+
+        /** @brief invalidated copy constructor */
+        NIVissimXMLHandler_Zuflussdefinition(const NIVissimXMLHandler_Zuflussdefinition& z);
+
+        /** @brief invalidated assignment operator */
+        NIVissimXMLHandler_Zuflussdefinition& operator=(const NIVissimXMLHandler_Zuflussdefinition& z);
+    };
+
+
+private:
+    /**
+     * @class NIVissimSingleTypeXMLHandler_Parkplatzdefinition
+     * @brief A class which extracts VISSIM-Parkplätze from a parsed VISSIM-file
+     */
+    class NIVissimXMLHandler_Parkplatzdefinition : public GenericSAXHandler {
+    public:
+        /** @brief Constructor
+         */
+        NIVissimXMLHandler_Parkplatzdefinition();
+
+
+        /// @brief Destructor
+        ~NIVissimXMLHandler_Parkplatzdefinition();
+
+    protected:
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        //@}
+
+
+    private:
+
+
+
+        /** @brief invalidated copy constructor */
+        NIVissimXMLHandler_Parkplatzdefinition(const NIVissimXMLHandler_Parkplatzdefinition& z);
+
+        /** @brief invalidated assignment operator */
+        NIVissimXMLHandler_Parkplatzdefinition& operator=(const NIVissimXMLHandler_Parkplatzdefinition& z);
+    };
+
+
+private:
+    /**
+     * @class NIVissimSingleTypeXMLHandler_Fahrzeugklassendefinition
+     * @brief A class which extracts VISSIM-Fahrzeugklassen from a parsed VISSIM-file
+     */
+    class NIVissimXMLHandler_Fahrzeugklassendefinition : public GenericSAXHandler {
+    public:
+        /** @brief Constructor
+         * @param[in] elemData  The string container to fill
+         */
+
+        NIVissimXMLHandler_Fahrzeugklassendefinition(nodeMap& elemData);
+
+
+        /// @brief Destructor
+        ~NIVissimXMLHandler_Fahrzeugklassendefinition();
+
+    protected:
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        //@}
+
+        void myEndElement(int element);
+        //@}
+
+    private:
+
+        /// @brief The current hierarchy level
+        int myHierarchyLevel;
+
+        //std::map<int, VissimXMLEdge> myToFill;
+        nodeMap& myElemData;
+
+        /// @brief ID of the currently parsed node, for reporting mainly
+        int myLastNodeID;
+
+        /** @brief invalidated copy constructor */
+        NIVissimXMLHandler_Fahrzeugklassendefinition(const NIVissimXMLHandler_Fahrzeugklassendefinition& f);
+
+        /** @brief invalidated assignment operator */
+        NIVissimXMLHandler_Fahrzeugklassendefinition& operator=(const NIVissimXMLHandler_Fahrzeugklassendefinition& f);
+    };
+
+private:
+    /**
+     * @class NIVissimSingleTypeXMLHandler_VWunschentscheidungsdefinition
+     * @brief A class which extracts VISSIM-VWunschentscheidungen from a parsed VISSIM-file
+     */
+    class NIVissimXMLHandler_VWunschentscheidungsdefinition : public GenericSAXHandler {
+    public:
+        /** @brief Constructor
+         * @param[in] elemData  The string container to fill
+         */
+
+        NIVissimXMLHandler_VWunschentscheidungsdefinition(nodeMap& elemData);
+
+
+        /// @brief Destructor
+        ~NIVissimXMLHandler_VWunschentscheidungsdefinition();
+
+    protected:
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        //@}
+
+        void myEndElement(int element);
+        //@}
+
+    private:
+
+        /// @brief The current hierarchy level
+        int myHierarchyLevel;
+
+        //std::map<int, VissimXMLEdge> myToFill;
+        nodeMap& myElemData;
+
+        /// @brief ID of the currently parsed node, for reporting mainly
+        int myLastNodeID;
+
+        /** @brief invalidated copy constructor */
+        NIVissimXMLHandler_VWunschentscheidungsdefinition(const NIVissimXMLHandler_VWunschentscheidungsdefinition& vW);
+
+        /** @brief invalidated assignment operator */
+        NIVissimXMLHandler_VWunschentscheidungsdefinition& operator=(const NIVissimXMLHandler_VWunschentscheidungsdefinition& vW);
+    };
+
+
+
+
+private:
+    /**
+     * @class NIVissimSingleTypeXMLHandler_Geschwindigkeitsverteilungsdefinition
+     * @brief A class which extracts VISSIM-Geschwindigkeitsverteilung from a parsed VISSIM-file
+     */
+    class NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition : public GenericSAXHandler {
+    public:
+        /** @brief Constructor
+         * @param[in] elemData  The string container to fill
+         */
+
+        NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition(nodeMap& elemData);
+
+
+        /// @brief Destructor
+        ~NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition();
+
+    protected:
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        //@}
+
+        void myEndElement(int element);
+        //@}
+
+    private:
+
+        /// @brief The current hierarchy level
+        int myHierarchyLevel;
+
+        //std::map<int, VissimXMLEdge> myToFill;
+        nodeMap& myElemData;
+
+        /// @brief ID of the currently parsed node, for reporting mainly
+        int myLastNodeID;
+
+        /** @brief invalidated copy constructor */
+        NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition(const NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition& vW);
+
+        /** @brief invalidated assignment operator */
+        NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition& operator=(const NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition& vW);
+    };
+
+
+private:
+    /**
+     * @class NIVissimXMLHandler_Routenentscheidungsdefinition
+     * @brief A class which extracts VISSIM-Routes from a parsed VISSIM-file
+     */
+    class NIVissimXMLHandler_Routenentscheidungsdefinition : public GenericSAXHandler {
+    public:
+        /** @brief Constructor
+         * @param[in] elemData  The string container to fill
+         */
+
+        NIVissimXMLHandler_Routenentscheidungsdefinition(nodeMap& elemData);
+
+
+        /// @brief Destructor
+        ~NIVissimXMLHandler_Routenentscheidungsdefinition();
+
+    protected:
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        //@}
+
+        void myEndElement(int element);
+        //@}
+
+    private:
+
+        /// @brief The current hierarchy level
+        int myHierarchyLevel;
+
+        //std::map<int, VissimXMLEdge> myToFill;
+        nodeMap& myElemData;
+
+        /// @brief ID of the currently parsed node, for reporting mainly
+        int myLastNodeID;
+
+        /** @brief invalidated copy constructor */
+        NIVissimXMLHandler_Routenentscheidungsdefinition(const NIVissimXMLHandler_Routenentscheidungsdefinition& r);
+
+        /** @brief invalidated assignment operator */
+        NIVissimXMLHandler_Routenentscheidungsdefinition& operator=(const NIVissimXMLHandler_Routenentscheidungsdefinition& r);
+    };
+
+
+
 protected:
+    bool inputIsLegacyFormat;
+
     /// constructor
     NIImporter_Vissim(NBNetBuilder& nb, const std::string& file);
 
@@ -79,6 +450,8 @@ protected:
 
     /// loads the vissim file
     void load(const OptionsCont& options);
+
+    void loadXML(const OptionsCont& options, NBNetBuilder& nb);
 
     bool admitContinue(const std::string& tag);
 
@@ -182,6 +555,72 @@ private:
 
     /// @brief Invalidated assignment operator.
     NIImporter_Vissim& operator=(const NIImporter_Vissim&);
+
+
+
+    /**
+     * @enum VissimXMLTag
+     * @brief Numbers representing VISSIM-XML - element names
+     * @see GenericSAXHandler
+     */
+    enum VissimXMLTag {
+        VISSIM_TAG_NOTHING = 0,
+        VISSIM_TAG_NETWORK,
+        VISSIM_TAG_LANES,
+        VISSIM_TAG_LANE,
+        VISSIM_TAG_LINK,
+        VISSIM_TAG_LINKS,
+        VISSIM_TAG_POINTS3D,
+        VISSIM_TAG_POINT3D,
+        VISSIM_TAG_FROM,
+        VISSIM_TAG_TO,
+        VISSIM_TAG_VEHICLE_INPUT,
+        VISSIM_TAG_PARKINGLOT,
+        VISSIM_TAG_VEHICLE_CLASS,
+        VISSIM_TAG_INTOBJECTREF,
+        VISSIM_TAG_SPEED_DECISION,
+        VISSIM_TAG_SPEED_DIST,
+        VISSIM_TAG_DATAPOINT,
+        VISSIM_TAG_DECISION_STATIC,
+        VISSIM_TAG_ROUTE_STATIC
+    };
+
+
+    /**
+     * @enum VissimXMLAttr
+     * @brief Numbers representing VISSIM-XML - attributes
+     * @see GenericSAXHandler
+     */
+    enum VissimXMLAttr {
+        VISSIM_ATTR_NOTHING = 0,
+        VISSIM_ATTR_NO,
+        VISSIM_ATTR_NAME,
+        VISSIM_ATTR_X,
+        VISSIM_ATTR_Y,
+        VISSIM_ATTR_ZOFFSET,
+        VISSIM_ATTR_ZUSCHLAG1,
+        VISSIM_ATTR_ZUSCHLAG2,
+        VISSIM_ATTR_WIDTH,
+        VISSIM_ATTR_LINKBEHAVETYPE,
+        VISSIM_ATTR_LANE,
+        VISSIM_ATTR_POS,
+        VISSIM_ATTR_LINK,
+        VISSIM_ATTR_INTLINK,
+        VISSIM_ATTR_PERCENTAGE,
+        VISSIM_ATTR_DISTRICT,
+        VISSIM_ATTR_COLOR,
+        VISSIM_ATTR_KEY,
+        VISSIM_ATTR_FX,
+        VISSIM_ATTR_DESTLINK,
+        VISSIM_ATTR_DESTPOS
+    };
+
+    /// The names of VISSIM-XML elements (for passing to GenericSAXHandler)
+    static StringBijection<int>::Entry vissimTags[];
+
+    /// The names of VISSIM-XML attributes (for passing to GenericSAXHandler)
+    static StringBijection<int>::Entry vissimAttrs[];
+
 
 };
 

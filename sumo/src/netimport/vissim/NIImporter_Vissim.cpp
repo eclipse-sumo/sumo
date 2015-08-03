@@ -3,6 +3,8 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Lukas Grohmann (AIT)
+/// @author  Gerald Richter (AIT)
 /// @date    Sept 2002
 /// @version $Id$
 ///
@@ -109,12 +111,88 @@
 #include "tempstructs/NIVissimDistrictConnection.h"
 #include "tempstructs/NIVissimVehicleType.h"
 
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/XMLSubSys.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/distribution/Distribution_Points.h>
+
 #include <netbuild/NBEdgeCont.h> // !!! only for debugging purposes
+#include <netbuild/NBDistribution.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+
+// ===========================================================================
+// static variables
+// ===========================================================================
+StringBijection<int>::Entry NIImporter_Vissim::vissimTags[] = {
+    { "network",          NIImporter_Vissim::VISSIM_TAG_NETWORK },
+    { "lanes",            NIImporter_Vissim::VISSIM_TAG_LANES },
+    { "lane",             NIImporter_Vissim::VISSIM_TAG_LANE },
+    { "link",             NIImporter_Vissim::VISSIM_TAG_LINK },
+    { "links",            NIImporter_Vissim::VISSIM_TAG_LINKS },
+    { "points3D",         NIImporter_Vissim::VISSIM_TAG_POINTS3D },
+    { "point3D",          NIImporter_Vissim::VISSIM_TAG_POINT3D },
+    { "fromLinkEndPt",    NIImporter_Vissim::VISSIM_TAG_FROM },
+    { "toLinkEndPt",      NIImporter_Vissim::VISSIM_TAG_TO },
+    { "vehicleInput",     NIImporter_Vissim::VISSIM_TAG_VEHICLE_INPUT },
+    { "parkingLot",       NIImporter_Vissim::VISSIM_TAG_PARKINGLOT },
+    { "vehicleClass",     NIImporter_Vissim::VISSIM_TAG_VEHICLE_CLASS },
+    { "intObjectRef",     NIImporter_Vissim::VISSIM_TAG_INTOBJECTREF },
+    { "desSpeedDecision", NIImporter_Vissim::VISSIM_TAG_SPEED_DECISION },
+    {
+        "desSpeedDistribution",
+        NIImporter_Vissim::VISSIM_TAG_SPEED_DIST
+    },
+    {
+        "speedDistributionDataPoint",
+        NIImporter_Vissim::VISSIM_TAG_DATAPOINT
+    },
+    {
+        "vehicleRoutingDecisionStatic",
+        NIImporter_Vissim::VISSIM_TAG_DECISION_STATIC
+    },
+    {
+        "vehicleRouteStatic",
+        NIImporter_Vissim::VISSIM_TAG_ROUTE_STATIC
+    },
+    { "",                 NIImporter_Vissim::VISSIM_TAG_NOTHING }
+};
+
+
+StringBijection<int>::Entry NIImporter_Vissim::vissimAttrs[] = {
+    { "no",             NIImporter_Vissim::VISSIM_ATTR_NO }, //id
+    { "name",           NIImporter_Vissim::VISSIM_ATTR_NAME },
+    { "x",              NIImporter_Vissim::VISSIM_ATTR_X },
+    { "y",              NIImporter_Vissim::VISSIM_ATTR_Y },
+    { "zOffset",        NIImporter_Vissim::VISSIM_ATTR_ZOFFSET },
+    { "surch1",         NIImporter_Vissim::VISSIM_ATTR_ZUSCHLAG1 },
+    { "surch2",         NIImporter_Vissim::VISSIM_ATTR_ZUSCHLAG2 },
+    { "width",          NIImporter_Vissim::VISSIM_ATTR_WIDTH },
+    { "linkBehavType",  NIImporter_Vissim::VISSIM_ATTR_LINKBEHAVETYPE},
+    { "lane",           NIImporter_Vissim::VISSIM_ATTR_LANE },
+    { "pos",            NIImporter_Vissim::VISSIM_ATTR_POS },
+    { "link",           NIImporter_Vissim::VISSIM_ATTR_LINK },
+    { "intLink",        NIImporter_Vissim::VISSIM_ATTR_INTLINK }, //edgeID
+    { "relFlow",        NIImporter_Vissim::VISSIM_ATTR_PERCENTAGE },
+    { "zone",           NIImporter_Vissim::VISSIM_ATTR_DISTRICT },
+    { "color",          NIImporter_Vissim::VISSIM_ATTR_COLOR },
+    { "key",            NIImporter_Vissim::VISSIM_ATTR_KEY },
+    { "fx",             NIImporter_Vissim::VISSIM_ATTR_FX },
+    { "destLink",       NIImporter_Vissim::VISSIM_ATTR_DESTLINK },
+    { "destPos",        NIImporter_Vissim::VISSIM_ATTR_DESTPOS },
+    { "",               NIImporter_Vissim::VISSIM_ATTR_NOTHING }
+};
+
+/*
+map< int, vector<int> > NIImporter_Vissim::vissimTagAttrs[] = {
+          { NIImporter_Vissim::VISSIM_TAG_LINK,
+            {VISSIM_ATTR_NO, VISSIM_ATTR_NAME, VISSIM_ATTR_LINKBEHAVETYPE, VISSIM_ATTR_ZUSCHLAG1, VISSIM_ATTR_ZUSCHLAG2, }},
+      }
+*/
 
 // ===========================================================================
 // method definitions
@@ -129,7 +207,460 @@ NIImporter_Vissim::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     // load the visum network
     NIImporter_Vissim loader(nb, oc.getString("vissim-file"));
-    loader.load(oc);
+    // check if legacy format file or newer XML file
+    // file name extension check
+    if ((oc.getString("vissim-file").find(".inpx") != std::string::npos))
+        //TODO: check if the given position of .inpx is at the end
+    {
+        // load the XML vissim network
+        loader.loadXML(oc, nb);
+        loader.inputIsLegacyFormat = false;
+    } else {
+        // load the legacy vissim network
+        loader.load(oc);
+        loader.inputIsLegacyFormat = true;
+    }
+}
+
+
+// ---------------------------------------------------------------------------
+// definitions of NIVissimXMLHandler_Streckendefinition-methods
+// ---------------------------------------------------------------------------
+NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::NIVissimXMLHandler_Streckendefinition(
+    //std::map<int, VissimXMLEdge>& toFill)
+    nodeMap& elemData)
+    : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
+                        vissimAttrs, VISSIM_ATTR_NOTHING,
+                        "vissim - file"),
+    myElemData(elemData),
+    myHierarchyLevel(0),
+    isConnector(false) {
+    myElemData.clear();
+}
+
+NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::~NIVissimXMLHandler_Streckendefinition() { }
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    myHierarchyLevel++;
+
+    // finding an actual LINK
+    if (element == VISSIM_TAG_LINK) {
+        //parse all links
+        bool ok = true;
+        int id = attrs.get<int>(VISSIM_ATTR_NO, 0, ok);
+        myLastNodeID = id;
+
+        // !!! assuming empty myElemData
+        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok));
+        // error ignored if name is empty
+        myElemData["name"].push_back(attrs.get<std::string>(VISSIM_ATTR_NAME, 0, ok, false));
+        myElemData["type"].push_back(attrs.get<std::string>(VISSIM_ATTR_LINKBEHAVETYPE, 0, ok));
+        myElemData["zuschlag1"].push_back(attrs.get<std::string>(VISSIM_ATTR_ZUSCHLAG1, 0, ok));
+        myElemData["zuschlag2"].push_back(attrs.get<std::string>(VISSIM_ATTR_ZUSCHLAG2, 0, ok));
+    }
+
+    if (element == VISSIM_TAG_LANE) {
+        bool ok = true;
+        // appends empty element if no width found
+        // error ignored if name is empty
+        myElemData["width"].push_back(attrs.get<std::string>(VISSIM_ATTR_WIDTH, 0, ok, false));
+    }
+
+    if (element == VISSIM_TAG_FROM) {
+        if (isConnector != true) {
+            isConnector = true;
+        }
+        bool ok = true;
+        std::vector<std::string> from(StringTokenizer(attrs.get<std::string>(
+                                          VISSIM_ATTR_LANE, 0, ok), " ").getVector());
+        myElemData["from_pos"].push_back(attrs.get<std::string>(VISSIM_ATTR_POS, 0, ok));
+        myElemData["from_id"].push_back(from[0]);
+        myElemData["from_lane"].push_back(from[1]);
+    }
+
+    if (element == VISSIM_TAG_TO) {
+        bool ok = true;
+        std::vector<std::string> to(StringTokenizer(attrs.get<std::string>(
+                                        VISSIM_ATTR_LANE, 0, ok), " ").getVector());
+        myElemData["to_pos"].push_back(attrs.get<std::string>(VISSIM_ATTR_POS, 0, ok));
+        myElemData["to_id"].push_back(to[0]);
+        myElemData["to_lane"].push_back(to[1]);
+    }
+
+    if (element == VISSIM_TAG_POINT3D) {
+        bool ok = true;
+        // create a <sep> separated string of coordinate data
+        std::string sep(" ");
+
+        std::string posS(attrs.get<std::string>(VISSIM_ATTR_X, 0, ok));
+        posS += sep;
+        posS.append(attrs.get<std::string>(VISSIM_ATTR_Y, 0, ok));
+        // allow for no Z
+        std::string z(attrs.get<std::string>(VISSIM_ATTR_ZOFFSET, 0, ok, false));
+        if (z.length() > 0) {
+            posS += sep;
+            posS.append(z);
+        }
+        myElemData["pos"].push_back(posS);
+    }
+
+
+}
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int element) {
+    if (element == VISSIM_TAG_LINK && myHierarchyLevel == 3) {
+        //std::cout << "elemData len:" << myElemData.size() << std::endl;
+
+        NIVissimClosedLanesVector clv;          //FIXME -> clv einlesen
+        std::vector<int> assignedVehicles;      //FIXME -> assignedVehicles einlesen
+        int id(TplConvert::_str2int(myElemData["id"].front()));
+
+        PositionVector geom;
+        // convert all position coordinate strings to PositionVectors
+        while (!myElemData["pos"].empty()) {
+            std::vector<std::string> sPos_v(StringTokenizer(
+                                                myElemData["pos"].front(), " ").getVector());
+            myElemData["pos"].pop_front();
+            std::vector<SUMOReal> pos_v(3);
+
+            // doing a transform with explicit hint on function signature
+            std::transform(sPos_v.begin(), sPos_v.end(), pos_v.begin(),
+                           TplConvert::_str2SUMOReal);
+            geom.push_back_noDoublePos(Position(pos_v[0], pos_v[1], pos_v[2]));
+        }
+        // FIXME: a length = 0 PosVec seems fatal -> segfault
+        SUMOReal length(geom.length());
+
+        if (isConnector == false) {
+            // Add Edge
+            NIVissimEdge* edge = new NIVissimEdge(id,
+                                                  myElemData["name"].front(),
+                                                  myElemData["type"].front(),
+                                                  myElemData["width"].size(),   // numLanes,
+                                                  TplConvert::_str2SUMOReal(myElemData["zuschlag1"].front()),
+                                                  TplConvert::_str2SUMOReal(myElemData["zuschlag2"].front()),
+                                                  length, geom, clv);
+            NIVissimEdge::dictionary(id, edge);
+            if (id == 85 || id == 91) {
+                std::cout << id << "\n";
+                std::cout << myElemData["width"].size() << "\n";
+                std::cout << length << "\n";
+                std::cout << geom << "\n";
+            }
+        } else {
+            int numLanes = myElemData["width"].size();
+            std::vector<int> laneVec(numLanes);
+            // Add Connector
+
+            //NOTE: there should be only 1 lane number in XML
+            // subtraction of 1 as in readExtEdgePointDef()
+            laneVec[0] = TplConvert::_str2int(myElemData["from_lane"].front()) - 1;
+            // then count up, building lane number vector
+            for (std::vector<int>::iterator each = ++laneVec.begin(); each != laneVec.end(); ++each) {
+                *each = *(each - 1) + 1;
+            }
+
+            NIVissimExtendedEdgePoint from_def(
+                TplConvert::_str2int(myElemData["from_id"].front()),
+                laneVec,
+                TplConvert::_str2SUMOReal(myElemData["from_pos"].front()),
+                assignedVehicles);
+
+            //NOTE: there should be only 1 lane number in XML
+            // subtraction of 1 as in readExtEdgePointDef()
+            laneVec[0] = TplConvert::_str2int(myElemData["to_lane"].front()) - 1;
+            // then count up, building lane number vector
+            for (std::vector<int>::iterator each = ++laneVec.begin(); each != laneVec.end(); ++each) {
+                *each = *(each - 1) + 1;
+            }
+
+            NIVissimExtendedEdgePoint to_def(
+                TplConvert::_str2int(myElemData["to_id"].front()),
+                laneVec,
+                TplConvert::_str2SUMOReal(myElemData["to_pos"].front()),
+                assignedVehicles);
+
+            NIVissimConnection* connector = new
+            NIVissimConnection(id,
+                               myElemData["name"].front(),
+                               from_def, to_def,
+                               geom, assignedVehicles, clv);
+
+            NIVissimConnection::dictionary(id, connector);
+        }
+        // clear the element data
+        myElemData.clear();
+        //std::cout << "elemData len (clear):" << myElemData.size() << std::endl;
+        //std::cout.flush();
+    }
+    --myHierarchyLevel;
+}
+
+
+// ---------------------------------------------------------------------------
+// definitions of NIVissimXMLHandler_Zuflussdefinition-methods
+// ---------------------------------------------------------------------------
+NIImporter_Vissim::NIVissimXMLHandler_Zuflussdefinition::NIVissimXMLHandler_Zuflussdefinition()
+    : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
+                        vissimAttrs, VISSIM_ATTR_NOTHING,
+                        "vissim - file") {
+}
+
+NIImporter_Vissim::NIVissimXMLHandler_Zuflussdefinition::~NIVissimXMLHandler_Zuflussdefinition() { }
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_Zuflussdefinition::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    // finding an actual flow
+    if (element == VISSIM_TAG_VEHICLE_INPUT) {
+        //parse all flows
+        bool ok = true;
+        std::string id = attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok);
+        std::string edgeid = attrs.get<std::string>(VISSIM_ATTR_LINK, 0, ok);
+        std::string name = attrs.get<std::string>(VISSIM_ATTR_NAME, 0, ok, false);
+
+        NIVissimSource::dictionary(id,
+                                   name,
+                                   edgeid);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// definitions of NIVissimXMLHandler_Parkplatzdefinition-methods
+// ---------------------------------------------------------------------------
+NIImporter_Vissim::NIVissimXMLHandler_Parkplatzdefinition::NIVissimXMLHandler_Parkplatzdefinition()
+    : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
+                        vissimAttrs, VISSIM_ATTR_NOTHING,
+                        "vissim - file") {
+}
+
+NIImporter_Vissim::NIVissimXMLHandler_Parkplatzdefinition::~NIVissimXMLHandler_Parkplatzdefinition() { }
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_Parkplatzdefinition::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    // finding an actual parkinglot
+    if (element == VISSIM_TAG_PARKINGLOT) {
+        //parse all parkinglots
+        bool ok = true;
+        int id = attrs.get<int>(VISSIM_ATTR_NO, 0, ok);
+        int edgeid = attrs.get<int>(VISSIM_ATTR_INTLINK, 0, ok);
+        std::string name = attrs.get<std::string>(VISSIM_ATTR_NAME, 0, ok, false);
+        SUMOReal position = attrs.get<SUMOReal>(VISSIM_ATTR_POS, 0, ok);
+        std::vector<std::pair<int, int> > assignedVehicles; // (vclass, vwunsch)
+        //FIXME: vWunsch + Fahzeugklassen einlesen
+        // There can be s
+        std::vector<int> districts;
+        //FIXME: Parkplatzdefinition für mehrere Zonen implementieren
+        std::vector<SUMOReal> percentages;
+        districts.push_back(attrs.get<int>(VISSIM_ATTR_DISTRICT, 0, ok));
+        percentages.push_back(attrs.get<SUMOReal>(VISSIM_ATTR_PERCENTAGE, 0, ok));
+
+        NIVissimDistrictConnection::dictionary(id,
+                                               name,
+                                               districts,
+                                               percentages,
+                                               edgeid,
+                                               position,
+                                               assignedVehicles);
+    }
+}
+
+
+// ---------------------------------------------------------------------------
+// definitions of NIVissimXMLHandler_Fahrzeugklassendefinition-methods
+// ---------------------------------------------------------------------------
+NIImporter_Vissim::NIVissimXMLHandler_Fahrzeugklassendefinition::NIVissimXMLHandler_Fahrzeugklassendefinition(nodeMap& elemData)
+    : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
+                        vissimAttrs, VISSIM_ATTR_NOTHING,
+                        "vissim - file"),
+    myElemData(elemData),
+    myHierarchyLevel(0) {
+    myElemData.clear();
+}
+
+NIImporter_Vissim::NIVissimXMLHandler_Fahrzeugklassendefinition::~NIVissimXMLHandler_Fahrzeugklassendefinition() { }
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_Fahrzeugklassendefinition::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    myHierarchyLevel++;
+
+    if (element == VISSIM_TAG_VEHICLE_CLASS) {
+        bool ok = true;
+        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok));
+        myElemData["name"].push_back(attrs.get<std::string>(VISSIM_ATTR_NAME, 0, ok, false));
+        std::string colorStr(attrs.get<std::string>(VISSIM_ATTR_COLOR, 0, ok));
+        for (size_t pos = colorStr.size() - 2; pos > 0; pos -= 2) {
+            colorStr.insert(pos, " ");
+        }
+        myElemData["color"].push_back(colorStr);
+    }
+    if (element == VISSIM_TAG_INTOBJECTREF) {
+        bool ok = true;
+        myElemData["types"].push_back(attrs.get<std::string>(VISSIM_ATTR_KEY, 0, ok));
+
+
+    }
+}
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_Fahrzeugklassendefinition::myEndElement(int element) {
+    if (element == VISSIM_TAG_VEHICLE_CLASS && myHierarchyLevel == 3) {
+        RGBColor color;
+        std::istringstream iss(myElemData["color"].front());
+        std::string s;
+        int hexNumber;
+        std::vector<std::string> sCol_v(StringTokenizer(
+                                            myElemData["color"].front(), " ").getVector());
+        std::vector<int> myColorVector(sCol_v.size());
+        std::transform(sCol_v.begin(), sCol_v.end(), myColorVector.begin(),
+                       (TplConvert::_strHex2int));
+
+        color = RGBColor((unsigned char)myColorVector[0],
+                         (unsigned char)myColorVector[1],
+                         (unsigned char)myColorVector[2],
+                         (unsigned char)myColorVector[3]);
+        std::vector<int> types;
+        while (!myElemData["types"].empty()) {
+            types.push_back(TplConvert::_str2int(myElemData["types"].front()));
+            myElemData["types"].pop_front();
+        }
+
+        NIVissimVehTypeClass::dictionary(TplConvert::_str2int(myElemData["id"].front()),
+                                         myElemData["name"].front(),
+                                         color,
+                                         types);
+        myElemData.clear();
+    }
+    --myHierarchyLevel;
+}
+
+// ---------------------------------------------------------------------------
+// definitions of NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition-methods
+// ---------------------------------------------------------------------------
+NIImporter_Vissim::NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition::NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition(nodeMap& elemData)
+    : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
+                        vissimAttrs, VISSIM_ATTR_NOTHING,
+                        "vissim - file"),
+    myElemData(elemData),
+    myHierarchyLevel(0) {
+    myElemData.clear();
+}
+
+NIImporter_Vissim::NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition::~NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition() { }
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    myHierarchyLevel++;
+    if (element == VISSIM_TAG_SPEED_DIST) {
+        bool ok = true;
+        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok));
+    }
+
+    if (element == VISSIM_TAG_DATAPOINT) {
+        bool ok = true;
+        std::string sep(" ");
+        std::string posS(attrs.get<std::string>(VISSIM_ATTR_X, 0, ok));
+        posS += sep;
+        posS.append(attrs.get<std::string>(VISSIM_ATTR_FX, 0, ok));
+        myElemData["points"].push_back(posS);
+
+    }
+
+}
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition::myEndElement(int element) {
+    if (element == VISSIM_TAG_SPEED_DIST && myHierarchyLevel == 3) {
+        PositionVector points;
+        while (!myElemData["points"].empty()) {
+            std::vector<std::string> sPos_v(StringTokenizer(
+                                                myElemData["points"].front(), " ").getVector());
+            myElemData["points"].pop_front();
+            std::vector<SUMOReal> pos_v(2);
+
+            // doing a transform with explicit hint on function signature
+            std::transform(sPos_v.begin(), sPos_v.end(), pos_v.begin(),
+                           TplConvert::_str2SUMOReal);
+            points.push_back_noDoublePos(Position(pos_v[0], pos_v[1]));
+        }
+        NBDistribution::dictionary("speed",
+                                   myElemData["id"].front(),
+                                   new Distribution_Points(myElemData["id"].front(),
+                                           points));
+        myElemData.clear();
+    }
+    --myHierarchyLevel;
+}
+
+// ---------------------------------------------------------------------------
+// definitions of NIVissimXMLHandler_VWunschentscheidungsdefinition-methods
+// ---------------------------------------------------------------------------
+NIImporter_Vissim::NIVissimXMLHandler_VWunschentscheidungsdefinition::NIVissimXMLHandler_VWunschentscheidungsdefinition(nodeMap& elemData)
+    : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
+                        vissimAttrs, VISSIM_ATTR_NOTHING,
+                        "vissim - file"),
+    myElemData(elemData),
+    myHierarchyLevel(0) {
+    myElemData.clear();
+}
+
+NIImporter_Vissim::NIVissimXMLHandler_VWunschentscheidungsdefinition::~NIVissimXMLHandler_VWunschentscheidungsdefinition() { }
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_VWunschentscheidungsdefinition::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    myHierarchyLevel++;
+    if (element == VISSIM_TAG_SPEED_DECISION) {
+        bool ok = true;
+        myElemData["name"].push_back(attrs.get<std::string>(VISSIM_ATTR_NAME, 0, ok, false));
+        //FIXME: 2 vWunsch in the xml file, but only 1 of them is set???
+    }
+
+}
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_VWunschentscheidungsdefinition::myEndElement(int element) {
+    --myHierarchyLevel;
+}
+
+
+// ---------------------------------------------------------------------------
+// definitions of NIVissimXMLHandler_Routenentscheidungsdefinition-methods
+// ---------------------------------------------------------------------------
+NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::NIVissimXMLHandler_Routenentscheidungsdefinition(nodeMap& elemData)
+    : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
+                        vissimAttrs, VISSIM_ATTR_NOTHING,
+                        "vissim - file"),
+    myElemData(elemData),
+    myHierarchyLevel(0) {
+    myElemData.clear();
+}
+
+NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::~NIVissimXMLHandler_Routenentscheidungsdefinition() { }
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    myHierarchyLevel++;
+    if (element == VISSIM_TAG_DECISION_STATIC) {
+        bool ok = true;
+        myElemData["startLink"].push_back(attrs.get<std::string>(VISSIM_ATTR_LINK, 0, ok));
+        myElemData["startPos"].push_back(attrs.get<std::string>(VISSIM_ATTR_POS, 0, ok));
+    }
+    if (element == VISSIM_TAG_ROUTE_STATIC) {
+        bool ok = true;
+        myElemData["destLink"].push_back(attrs.get<std::string>(VISSIM_ATTR_DESTLINK, 0, ok));
+        myElemData["destPos"].push_back(attrs.get<std::string>(VISSIM_ATTR_DESTPOS, 0, ok));
+        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok));
+    }
+    if (element == VISSIM_TAG_INTOBJECTREF) {
+        bool ok = true;
+    }
+
+}
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::myEndElement(int element) {
+    --myHierarchyLevel;
 }
 
 
@@ -314,7 +845,7 @@ NIImporter_Vissim::VissimSingleTypeParser::skipOverreading(std::istream& from,
  * NIImporter_Vissim-methods
  * ----------------------------------------------------------------------- */
 NIImporter_Vissim::NIImporter_Vissim(NBNetBuilder& nb, const std::string& file)
-    : myNetBuilder(nb) {
+    : myNetBuilder(nb), inputIsLegacyFormat(false) {
     UNUSED_PARAMETER(file);
     insertKnownElements();
     buildParsers();
@@ -372,6 +903,64 @@ NIImporter_Vissim::load(const OptionsCont& options) {
     postLoadBuild(options.getFloat("vissim.join-distance"));
 }
 
+void
+NIImporter_Vissim::loadXML(const OptionsCont& options, NBNetBuilder& nb) {
+    // Parse file
+    std::string file = options.getString("vissim-file");
+    // Create NIVissimXMLHandlers
+    NIVissimXMLHandler_Streckendefinition XMLHandler_Streckendefinition(elementData);
+    NIVissimXMLHandler_Zuflussdefinition XMLHandler_Zuflussdefinition;
+    //NIVissimXMLHandler_Parkplatzdefinition XMLHandler_Parkplatzdefinition;
+    NIVissimXMLHandler_Fahrzeugklassendefinition XMLHandler_Fahrzeugklassendefinition(elementData);
+    NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition XMLHandler_Geschwindigkeitsverteilung(elementData);
+    if (!FileHelpers::isReadable(file)) {
+        WRITE_ERROR("Could not open vissim-file '" + file + "'.");
+        return;
+    }
+
+    // Strecken + Verbinder
+    XMLHandler_Streckendefinition.setFileName(file);
+    PROGRESS_BEGIN_MESSAGE("Parsing strecken+verbinder from vissim-file '" + file + "'");
+    if (!XMLSubSys::runParser(XMLHandler_Streckendefinition, file)) {
+        return;
+    }
+    PROGRESS_DONE_MESSAGE();
+
+    // Zuflüsse
+    XMLHandler_Zuflussdefinition.setFileName(file);
+    PROGRESS_BEGIN_MESSAGE("Parsing zuflüsse from vissim-file '" + file + "'");
+    if (!XMLSubSys::runParser(XMLHandler_Zuflussdefinition, file)) {
+        return;
+    }
+    PROGRESS_DONE_MESSAGE();
+
+    //Geschwindigkeitsverteilungen
+    XMLHandler_Geschwindigkeitsverteilung.setFileName(file);
+    PROGRESS_BEGIN_MESSAGE("Parsing parkplätze from vissim-file '" + file + "'");
+    if (!XMLSubSys::runParser(XMLHandler_Geschwindigkeitsverteilung, file)) {
+        return;
+    }
+    PROGRESS_DONE_MESSAGE();
+
+
+    //Fahrzeugklassen
+    XMLHandler_Fahrzeugklassendefinition.setFileName(file);
+    PROGRESS_BEGIN_MESSAGE("Parsing parkplätze from vissim-file '" + file + "'");
+    if (!XMLSubSys::runParser(XMLHandler_Fahrzeugklassendefinition, file)) {
+        return;
+    }
+    PROGRESS_DONE_MESSAGE();
+
+    //Parkplätze
+    /*XMLHandler_Parkplatzdefinition.setFileName(file);
+    PROGRESS_BEGIN_MESSAGE("Parsing parkplätze from vissim-file '" + file + "'");
+    if (!XMLSubSys::runParser(XMLHandler_Parkplatzdefinition, file)) {
+        return;
+    }
+    PROGRESS_DONE_MESSAGE();*/
+
+    postLoadBuild(options.getFloat("vissim.join-distance"));
+}
 
 bool
 NIImporter_Vissim::admitContinue(const std::string& tag) {
