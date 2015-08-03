@@ -243,7 +243,7 @@ MSFrame::fillOptions() {
     oc.addDescription("max-num-vehicles", "Processing", "Quit simulation if this number of vehicles is exceeded");
 
     oc.doRegister("scale", new Option_Float());
-    oc.addDescription("scale", "Processing", "Scale demand by the given factor (0..1)");
+    oc.addDescription("scale", "Processing", "Scale demand by the given factor (by discarding or duplicating vehicles)");
 
     oc.doRegister("time-to-teleport", new Option_String("300", "TIME"));
     oc.addDescription("time-to-teleport", "Processing", "Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting");
