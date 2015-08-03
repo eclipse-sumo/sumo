@@ -53,7 +53,7 @@ def parse_args():
 
 
 def generate_poly(net, id, color, layer, edges, outf):
-    shape = list(itertools.chain(*list(net.getEdge(e).getShape()
+    shape = list(itertools.chain(*list(net.getEdge(e).getLane(0).getShape()
                                        for e in edges)))
     shapeString = ' '.join('%s,%s' % (x, y) for x, y in shape)
     outf.write('<poly id="%s" color="%s" layer="%s" type="route" shape="%s"/>\n' % (
