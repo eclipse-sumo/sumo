@@ -63,6 +63,9 @@
         <!-- Spreads trips uniformly over each time period -->
         <spread.uniform value="false" type="BOOL"/>
 
+        <!-- Always choose source and sink edge which are not identical -->
+        <different-source-sink value="false" type="BOOL"/>
+
         <!-- Defines the name of the vehicle type to use -->
         <vtype value="" type="STR"/>
 

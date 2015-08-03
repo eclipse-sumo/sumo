@@ -133,6 +133,9 @@ fillOptions() {
     oc.doRegister("spread.uniform", new Option_Bool(false));
     oc.addDescription("spread.uniform", "Processing", "Spreads trips uniformly over each time period");
 
+    oc.doRegister("different-source-sink", new Option_Bool(false));
+    oc.addDescription("different-source-sink", "Processing", "Always choose source and sink edge which are not identical");
+
     oc.doRegister("vtype", new Option_String(""));
     oc.addDescription("vtype", "Processing", "Defines the name of the vehicle type to use");
 
@@ -281,7 +284,8 @@ main(int argc, char** argv) {
         if (OutputDevice::createDeviceByOption("output-file", "routes", "routes_file.xsd")) {
             matrix.write(string2time(oc.getString("begin")), string2time(oc.getString("end")),
                          OutputDevice::getDeviceByOption("output-file"),
-                         oc.getBool("spread.uniform"), oc.getBool("ignore-vehicle-type"),
+                         oc.getBool("spread.uniform"), oc.getBool("different-source-sink"),
+                         oc.getBool("ignore-vehicle-type"),
                          oc.getString("prefix"), !oc.getBool("no-step-log"));
             haveOutput = true;
         }

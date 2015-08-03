@@ -133,7 +133,8 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
 SUMOReal
 ODMatrix::computeDeparts(ODCell* cell,
                          size_t& vehName, std::vector<ODVehicle>& into,
-                         bool uniform, const std::string& prefix) {
+                         const bool uniform, const bool differSourceSink,
+                         const std::string& prefix) {
     int vehicles2insert = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle insertion
     if (RandHelper::rand() < cell->vehicleNumber - (SUMOReal)vehicles2insert) {
@@ -155,7 +156,9 @@ ODMatrix::computeDeparts(ODCell* cell,
         }
 
         veh.from = myDistricts.getRandomSourceFromDistrict(cell->origin);
-        veh.to = myDistricts.getRandomSinkFromDistrict(cell->destination);
+        do {
+            veh.to = myDistricts.getRandomSinkFromDistrict(cell->destination);
+        } while (differSourceSink && (veh.to == veh.from));
         veh.cell = cell;
         into.push_back(veh);
     }
@@ -194,7 +197,8 @@ ODMatrix::writeDefaultAttrs(OutputDevice& dev, const bool noVtype,
 
 void
 ODMatrix::write(SUMOTime begin, const SUMOTime end,
-                OutputDevice& dev, const bool uniform, const bool noVtype,
+                OutputDevice& dev, const bool uniform,
+                const bool differSourceSink, const bool noVtype,
                 const std::string& prefix, const bool stepLog) {
     if (myContainer.size() == 0) {
         return;
@@ -224,7 +228,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
             }
             // get the new departures (into tmp)
             const size_t oldSize = vehicles.size();
-            const SUMOReal fraction = computeDeparts(*next, vehName, vehicles, uniform, prefix);
+            const SUMOReal fraction = computeDeparts(*next, vehName, vehicles, uniform, differSourceSink, prefix);
             if (oldSize != vehicles.size()) {
                 changed = true;
             }

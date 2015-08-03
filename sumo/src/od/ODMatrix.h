@@ -155,12 +155,14 @@ public:
      * @param[in] end The end time to generate vehicles for
      * @param[in] dev The stream to write the generated vehicle trips to
      * @param[in] uniform Information whether departure times shallbe uniformly spread or random
+     * @param[in] differSourceSink whether source and sink shall be different edges
      * @param[in] noVtype Whether vtype information shall not be written
      * @param[in] prefix A prefix for the vehicle names
      * @param[in] stepLog Whether processed time shall be written
      */
     void write(SUMOTime begin, const SUMOTime end,
-               OutputDevice& dev, const bool uniform, const bool noVtype,
+               OutputDevice& dev, const bool uniform,
+               const bool differSourceSink, const bool noVtype,
                const std::string& prefix, const bool stepLog);
 
 
@@ -282,11 +284,13 @@ protected:
      * @param[in,out] vehName An incremented index of the generated vehicle
      * @param[out] into The storage to put generated vehicles into
      * @param[in] uniform Information whether departure times shallbe uniformly spread or random
+     * @param[in] differSourceSink whether source and sink shall be different edges
      * @param[in] prefix A prefix for the vehicle names
      * @return The number of left vehicles to insert
      */
     SUMOReal computeDeparts(ODCell* cell,
-                            size_t& vehName, std::vector<ODVehicle>& into, bool uniform,
+                            size_t& vehName, std::vector<ODVehicle>& into,
+                            const bool uniform, const bool differSourceSink,
                             const std::string& prefix);
 
 
