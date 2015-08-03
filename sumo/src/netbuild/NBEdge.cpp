@@ -2356,10 +2356,23 @@ NBEdge::getFirstNonPedestrianLane(int direction) const {
     return myLanes[index];
 }
 
+
 void
 NBEdge::addSidewalk(SUMOReal width) {
-    if (myLanes[0].permissions == SVC_PEDESTRIAN) {
-        WRITE_WARNING("Edge '" + getID() + "' already has a sidewalk. Not adding another one.");
+    addRestrictedLane(width, SVC_PEDESTRIAN);
+}
+
+
+void
+NBEdge::addBikeLane(SUMOReal width) {
+    addRestrictedLane(width, SVC_BICYCLE);
+}
+
+
+void
+NBEdge::addRestrictedLane(SUMOReal width, SUMOVehicleClass vclass) {
+    if (myLanes[0].permissions == vclass) {
+        WRITE_WARNING("Edge '" + getID() + "' already has a dedicated lane for " + toString(vclass) + "s. Not adding another one.");
         return;
     }
     if (myLaneSpreadFunction == LANESPREAD_CENTER) {
@@ -2367,10 +2380,10 @@ NBEdge::addSidewalk(SUMOReal width) {
     }
     // disallow pedestrians on all lanes to ensure that sidewalks are used and
     // crossings can be guessed
-    disallowVehicleClass(-1, SVC_PEDESTRIAN);
+    disallowVehicleClass(-1, vclass);
     // add new lane
     myLanes.insert(myLanes.begin(), Lane(this));
-    myLanes[0].permissions = SVC_PEDESTRIAN;
+    myLanes[0].permissions = vclass;
     myLanes[0].width = width;
     // shift outgoing connections to the left
     for (std::vector<Connection>::iterator it = myConnections.begin(); it != myConnections.end(); ++it) {

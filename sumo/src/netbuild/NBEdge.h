@@ -1030,6 +1030,9 @@ public:
     /// add a pedestrian sidewalk of the given width and shift existing connctions
     void addSidewalk(SUMOReal width);
 
+    /// add a bicycle lane of the given width and shift existing connctions
+    void addBikeLane(SUMOReal width);
+
     /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given
     void setPermissions(SVCPermissions permissions, int lane = -1);
 
@@ -1241,6 +1244,10 @@ private:
     /* @brief compute the first intersection point between the given lane
      * geometries considering their rspective widths */
     static SUMOReal firstIntersection(const PositionVector& v1, const PositionVector& v2, SUMOReal width2);
+
+
+    /// add a lane of the given width, restricted to the given class and shift existing connctions
+    void addRestrictedLane(SUMOReal width, SUMOVehicleClass vclass);
 
 private:
     /** @brief The building step

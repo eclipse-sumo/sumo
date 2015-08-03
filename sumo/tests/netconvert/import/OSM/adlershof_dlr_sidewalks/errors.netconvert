@@ -1,5 +1,12 @@
 Warning: Discarding unusable type "waterway.riverbank" (first occurence for edge "4616435#0").
+Warning: Discarding unknown compound "cycleway.track" in type "cycleway.track|highway.secondary" (first occurence for edge "24214694#0").
 Warning: Discarding unusable type "waterway.canal" (first occurence for edge "31233332#0").
+Warning: Discarding unknown compound "cycleway.track" in type "cycleway.track|highway.residential" (first occurence for edge "52460499#0").
+Warning: Discarding unknown compound "cycleway.lane" in type "cycleway.lane|highway.unclassified" (first occurence for edge "81096583").
+Warning: Discarding unknown compound "cycleway.track" in type "cycleway.track|highway.unclassified" (first occurence for edge "135777010#0").
+Warning: Discarding unknown compound "cycleway.track" in type "cycleway.track|highway.tertiary" (first occurence for edge "141968799").
+Warning: Discarding unknown compound "cycleway.no" in type "cycleway.no|highway.secondary" (first occurence for edge "143308570").
+Warning: Discarding unknown compound "cycleway.track" in type "cycleway.track|highway.primary" (first occurence for edge "190083608#0").
 Warning: Discarding unusable type "highway.construction" (first occurence for edge "190461577").
 Warning: Discarding unusable type "railway.abandoned" (first occurence for edge "219832513").
 Warning: No way found for reference '48858193' in relation '2439689'

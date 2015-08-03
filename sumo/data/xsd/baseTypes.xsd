@@ -228,6 +228,7 @@
         <xsd:attribute name="oneway" type="boolType"/>
         <xsd:attribute name="width" type="xsd:float"/>
         <xsd:attribute name="sidewalkWidth" type="xsd:float"/>
+        <xsd:attribute name="bikeLaneWidth" type="xsd:float"/>
     </xsd:complexType>
 
     <xsd:complexType name="restrictionType">

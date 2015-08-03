@@ -1,8 +1,20 @@
+Warning: Discarding unknown compound "cycleway.track" in type "cycleway.track|highway.primary" (first occurence for edge "4067932").
+Warning: Discarding unknown compound "cycleway.opposite" in type "cycleway.opposite|highway.residential" (first occurence for edge "4592725#0").
 Warning: Discarding unusable type "highway.construction" (first occurence for edge "4611691").
+Warning: Discarding unknown compound "cycleway.share_busway" in type "cycleway.share_busway|highway.primary" (first occurence for edge "4611698#0").
+Warning: Discarding unknown compound "cycleway.lane" in type "cycleway.lane|highway.secondary" (first occurence for edge "4612961").
+Warning: Discarding unknown compound "cycleway.lane" in type "cycleway.lane|highway.primary" (first occurence for edge "4613110").
+Warning: Discarding unknown compound "cycleway.lane" in type "cycleway.lane|highway.tertiary" (first occurence for edge "4613308").
+Warning: Discarding unknown compound "cycleway.track" in type "cycleway.track|highway.tertiary" (first occurence for edge "4773465#0").
 Warning: Discarding unusable type "waterway.riverbank" (first occurence for edge "11548677#0").
+Warning: Discarding unknown compound "cycleway.track" in type "cycleway.track|highway.secondary" (first occurence for edge "23812656#0").
+Warning: Discarding unknown compound "cycleway.share_busway" in type "cycleway.share_busway|highway.secondary" (first occurence for edge "24240246#0").
+Warning: Discarding unknown compound "cycleway.lane" in type "cycleway.lane|highway.pedestrian" (first occurence for edge "24540240#0").
 Warning: Discarding unusable type "waterway.stream" (first occurence for edge "31112384").
 Warning: Discarding unusable type "waterway.weir" (first occurence for edge "31560876#0").
+Warning: Discarding unknown compound "cycleway.lane" in type "cycleway.lane|highway.residential" (first occurence for edge "38208961").
 Warning: Discarding unusable type "railway.platform" (first occurence for edge "48012113#0").
+Warning: Discarding unknown compound "cycleway.crossing" in type "cycleway.crossing|highway.footway" (first occurence for edge "59332212").
 Warning: Discarding unusable type "railway.construction" (first occurence for edge "71326270").
 Warning: Discarding unusable type "waterway.lock" (first occurence for edge "161668128#0").
 Warning: Discarding unusable type "railway.disused" (first occurence for edge "165411077").

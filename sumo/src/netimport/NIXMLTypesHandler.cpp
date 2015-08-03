@@ -82,6 +82,7 @@ NIXMLTypesHandler::myStartElement(int element,
             const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id, ok, false);
             const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id, ok, myTypeCont.getWidth(defType));
             const SUMOReal sidewalkWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_SIDEWALKWIDTH, id, ok, myTypeCont.getSidewalkWidth(defType));
+            const SUMOReal bikeLaneWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_BIKELANEWIDTH, id, ok, myTypeCont.getBikeLaneWidth(defType));
             if (!ok) {
                 return;
             }
@@ -90,14 +91,14 @@ NIXMLTypesHandler::myStartElement(int element,
             if (allowS != "" || disallowS != "") {
                 permissions = parseVehicleClasses(allowS, disallowS);
             }
-            myTypeCont.insert(myCurrentTypeID, numLanes, speed, priority, permissions, width, oneway, sidewalkWidth);
+            myTypeCont.insert(myCurrentTypeID, numLanes, speed, priority, permissions, width, oneway, sidewalkWidth, bikeLaneWidth);
             if (discard) {
                 myTypeCont.markAsToDiscard(myCurrentTypeID);
             }
             SumoXMLAttr myAttrs[] = {SUMO_ATTR_PRIORITY, SUMO_ATTR_NUMLANES, SUMO_ATTR_SPEED,
                                      SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_ONEWAY,
-                                     SUMO_ATTR_DISCARD, SUMO_ATTR_WIDTH, SUMO_ATTR_SIDEWALKWIDTH};
-            for (int i = 0; i < 9; i++) {
+                                     SUMO_ATTR_DISCARD, SUMO_ATTR_WIDTH, SUMO_ATTR_SIDEWALKWIDTH, SUMO_ATTR_BIKELANEWIDTH};
+            for (int i = 0; i < 10; i++) {
                 if (attrs.hasAttribute(myAttrs[i])) {
                     myTypeCont.markAsSet(myCurrentTypeID, myAttrs[i]);
                 }

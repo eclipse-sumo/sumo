@@ -366,6 +366,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     int prio = 0;
                     SUMOReal width = NBEdge::UNSPECIFIED_WIDTH;
                     SUMOReal sidewalkWidth = NBEdge::UNSPECIFIED_WIDTH;
+                    SUMOReal bikelaneWidth = NBEdge::UNSPECIFIED_WIDTH;
                     bool defaultIsOneWay = false;
                     SVCPermissions permissions = 0;
                     bool discard = true;
@@ -378,6 +379,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                             permissions |= tc.getPermissions(*it);
                             width = MAX2(width, tc.getWidth(*it));
                             sidewalkWidth = MAX2(sidewalkWidth, tc.getSidewalkWidth(*it));
+                            bikelaneWidth = MAX2(bikelaneWidth, tc.getBikeLaneWidth(*it));
                             discard = false;
                         }
                     }
@@ -390,7 +392,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                         return newIndex;
                     } else {
                         WRITE_MESSAGE("Adding new type \"" + type + "\" (first occurence for edge \"" + id + "\").");
-                        tc.insert(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay, sidewalkWidth);
+                        tc.insert(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay, sidewalkWidth, bikelaneWidth);
                         for (std::vector<std::string>::iterator it = types.begin(); it != types.end(); it++) {
                             if (!tc.getShallBeDiscarded(*it)) {
                                 tc.copyRestrictionsAndAttrs(*it, newType);
@@ -412,6 +414,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     bool defaultsToOneWay = tc.getIsOneWay(type);
     SVCPermissions permissions = tc.getPermissions(type);
     const bool addSidewalk = (tc.getSidewalkWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
+    const bool addBikeLane = (tc.getBikeLaneWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
     // check directions
     bool addForward = true;
     bool addBackward = true;
@@ -465,6 +468,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), from, to, type, speed, numLanesForward, tc.getPriority(type),
                                      tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape, StringUtils::escapeXML(e->streetName), lsf, true);
             nbe->setPermissions(permissions);
+            if (addBikeLane) {
+                nbe->addBikeLane(tc.getBikeLaneWidth(type));
+            }
             if (addSidewalk) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
@@ -479,6 +485,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), to, from, type, speed, numLanesBackward, tc.getPriority(type),
                                      tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), StringUtils::escapeXML(e->streetName), lsf, true);
             nbe->setPermissions(permissions);
+            if (addBikeLane) {
+                nbe->addBikeLane(tc.getBikeLaneWidth(type));
+            }
             if (addSidewalk) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
@@ -673,13 +682,17 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         }
         bool ok = true;
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, false);
+        if (key.size() > 8 && StringUtils::startsWith(key, "cycleway.")) {
+            myCurrentEdge->myCyclewaySpec = key.substr(9);
+            key = "cycleway";
+        }
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes") && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks") {
             return;
         }
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
-        if (key == "highway" || key == "railway" || key == "waterway") {
+        if (key == "highway" || key == "railway" || key == "waterway" || key == "cycleway") {
             const std::string singleTypeID = key + "." + value;
             if (myCurrentEdge->myHighWayType != "") {
                 // osm-ways may be used by more than one mode (eg railway.tram + highway.residential. this is relevant for multimodal traffic)

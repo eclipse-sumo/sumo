@@ -36,3 +36,6 @@ adlershof_dlr_sidewalks
 
 # check for working around a xerces transcoding bug
 xerces_bug_1947
+
+# import dedicated bicycle lanes 
+bicycle_lanes

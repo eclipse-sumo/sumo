@@ -125,6 +125,8 @@ protected:
         std::string myHighWayType;
         /// @brief Information whether this is an one-way road
         std::string  myIsOneWay;
+        /// @brief Information about the kind of cycleway along this road
+        std::string  myCyclewaySpec;
         /// @brief The list of nodes this edge is made of
         std::vector<long long int> myCurrentNodes;
         /// @brief Information whether this is a road

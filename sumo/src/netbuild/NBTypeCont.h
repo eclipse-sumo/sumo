@@ -92,7 +92,8 @@ public:
                 SUMOReal maxSpeed, int prio,
                 SVCPermissions permissions,
                 SUMOReal width, bool oneWayIsDefault,
-                SUMOReal sidewalkWidth);
+                SUMOReal sidewalkWidth,
+                SUMOReal bikeLaneWidth);
 
     /** @brief Returns the number of known types
      * @return The number of known edge types (excluding the default)
@@ -217,6 +218,15 @@ public:
      * @return The width of lanes of edges of this type
      */
     SUMOReal getSidewalkWidth(const std::string& type) const;
+
+
+    /** @brief Returns the lane width for a bike lane to be added [m]
+     *
+     * If the named type is not known, the default is returned
+     * @param[in] type The name of the type to return the width for
+     * @return The width of lanes of edges of this type
+     */
+    SUMOReal getBikeLaneWidth(const std::string& type) const;
     /// @}
 
 
@@ -228,17 +238,20 @@ private:
             permissions(SVC_UNSPECIFIED),
             oneWay(true), discard(false),
             width(NBEdge::UNSPECIFIED_WIDTH),
-            sidewalkWidth(NBEdge::UNSPECIFIED_WIDTH)
+            sidewalkWidth(NBEdge::UNSPECIFIED_WIDTH),
+            bikeLaneWidth(NBEdge::UNSPECIFIED_WIDTH)
         { }
 
         /// @brief Constructor
         TypeDefinition(int _numLanes, SUMOReal _speed, int _priority,
                        SUMOReal _width, SVCPermissions _permissions, bool _oneWay,
-                       SUMOReal _sideWalkWidth) :
+                       SUMOReal _sideWalkWidth,
+                       SUMOReal _bikeLaneWidth) :
             numLanes(_numLanes), speed(_speed), priority(_priority),
             permissions(_permissions),
             oneWay(_oneWay), discard(false), width(_width),
-            sidewalkWidth(_sideWalkWidth)
+            sidewalkWidth(_sideWalkWidth),
+            bikeLaneWidth(_bikeLaneWidth)
         { }
 
         /// @brief The number of lanes of an edge
@@ -258,6 +271,9 @@ private:
         /* @brief The width of the sidewalk that should be added as an additional lane
          * a value of NBEdge::UNSPECIFIED_WIDTH indicates that no sidewalk should be added */
         SUMOReal sidewalkWidth;
+        /* @brief The width of the bike lane that should be added as an additional lane
+         * a value of NBEdge::UNSPECIFIED_WIDTH indicates that no bike lane should be added */
+        SUMOReal bikeLaneWidth;
         /// @brief The vehicle class specific speed restrictions
         std::map<SUMOVehicleClass, SUMOReal> restrictions;
         /// @brief The attributes which have been set
