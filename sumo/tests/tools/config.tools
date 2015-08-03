@@ -109,6 +109,7 @@ fullstats:fullstats.dat
 osmimport:osm.net.xml
 osmbatch:osm.bat
 osmbatch:osm.sh
+districts:districts.xml
 
 [run_dependent_text]
 output:Begin time
