@@ -41,6 +41,7 @@ max_segment_length
 
 # tests related to adding sidewalks
 sidewalks
+bikeLanes
 
 # test building of pedestrian crossings
 crossings

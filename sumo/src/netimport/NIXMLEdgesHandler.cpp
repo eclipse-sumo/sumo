@@ -152,6 +152,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentStreetName = "";
     myReinitKeepEdgeShape = false;
     mySidewalkWidth = NBEdge::UNSPECIFIED_WIDTH;
+    myBikeLaneWidth = NBEdge::UNSPECIFIED_WIDTH;
     // check whether a type's values shall be used
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         myCurrentType = attrs.get<std::string>(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
@@ -168,6 +169,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myPermissions = myTypeCont.getPermissions(myCurrentType);
         myCurrentWidth = myTypeCont.getWidth(myCurrentType);
         mySidewalkWidth = myTypeCont.getSidewalkWidth(myCurrentType);
+        myBikeLaneWidth = myTypeCont.getBikeLaneWidth(myCurrentType);
     }
     // use values from the edge to overwrite if existing, then
     if (myIsUpdate) {
@@ -248,8 +250,10 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myLanesSpread = tryGetLaneSpread(attrs);
     // try to get the length
     myLength = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok, myLength);
-    // tro to get the sidewalkWidth
+    // try to get the sidewalkWidth
     mySidewalkWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_SIDEWALKWIDTH, myCurrentID.c_str(), ok, mySidewalkWidth);
+    // try to get the bikeLaneWidth
+    myBikeLaneWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_BIKELANEWIDTH, myCurrentID.c_str(), ok, myBikeLaneWidth);
     // insert the parsed edge into the edges map
     if (!ok) {
         return;
@@ -479,6 +483,10 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
 void
 NIXMLEdgesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_EDGE && myCurrentEdge != 0) {
+        // add bike lane, wait until lanes are loaded to avoid building if it already exists
+        if (myBikeLaneWidth != NBEdge::UNSPECIFIED_WIDTH) {
+            myCurrentEdge->addBikeLane(myBikeLaneWidth);
+        }
         // add sidewalk, wait until lanes are loaded to avoid building if it already exists
         if (mySidewalkWidth != NBEdge::UNSPECIFIED_WIDTH) {
             myCurrentEdge->addSidewalk(mySidewalkWidth);

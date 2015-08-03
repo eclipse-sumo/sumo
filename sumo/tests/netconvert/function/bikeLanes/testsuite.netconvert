@@ -1,0 +1,5 @@
+# add bike lane via typemap
+typemap
+
+# add bike lane via plain-xml input
+addFromPlainXML

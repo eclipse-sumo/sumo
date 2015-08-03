@@ -190,6 +190,9 @@ private:
     /// @brief The width of the sidewalk that shall be added to the current edge
     SUMOReal mySidewalkWidth;
 
+    /// @brief The width of the bike lane that shall be added to the current edge
+    SUMOReal myBikeLaneWidth;
+
     /// @}
 
 
