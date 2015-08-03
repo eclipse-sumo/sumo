@@ -154,11 +154,14 @@ ODMatrix::computeDeparts(ODCell* cell,
         } else {
             veh.depart = (SUMOTime)RandHelper::rand(cell->begin, cell->end);
         }
-
-        veh.from = myDistricts.getRandomSourceFromDistrict(cell->origin);
+        const bool canDiffer = myDistricts.get(cell->origin)->sourceNumber() > 1 || myDistricts.get(cell->destination)->sinkNumber() > 1;
         do {
+            veh.from = myDistricts.getRandomSourceFromDistrict(cell->origin);
             veh.to = myDistricts.getRandomSinkFromDistrict(cell->destination);
-        } while (differSourceSink && (veh.to == veh.from));
+        } while (canDiffer && differSourceSink && (veh.to == veh.from));
+        if (!canDiffer && differSourceSink && (veh.to == veh.from)) {
+            WRITE_WARNING("Cannot find different source and sink edge for origin '" + cell->origin + "' and destination '" + cell->destination + "'.");
+        }
         veh.cell = cell;
         into.push_back(veh);
     }
