@@ -1015,9 +1015,9 @@ NBNodeCont::setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc,
 
 // -----------
 void
-NBNodeCont::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
+NBNodeCont::computeLanes2Lanes() {
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        (*i).second->computeLanes2Lanes(buildCrossingsAndWalkingAreas);
+        (*i).second->computeLanes2Lanes();
     }
 }
 

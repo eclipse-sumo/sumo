@@ -304,11 +304,11 @@ NBNetBuilder::compute(OptionsCont& oc,
     myEdgeCont.markRoundabouts();
     //
     PROGRESS_BEGIN_MESSAGE("Computing approaching lanes");
-    myEdgeCont.computeLanes2Edges(buildCrossingsAndWalkingAreas);
+    myEdgeCont.computeLanes2Edges();
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Dividing of lanes on approached lanes");
-    myNodeCont.computeLanes2Lanes(buildCrossingsAndWalkingAreas);
+    myNodeCont.computeLanes2Lanes();
     myEdgeCont.sortOutgoingLanesConnections();
     PROGRESS_DONE_MESSAGE();
     //
@@ -321,7 +321,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Rechecking of lane endings");
-    myEdgeCont.recheckLanes(buildCrossingsAndWalkingAreas);
+    myEdgeCont.recheckLanes();
     PROGRESS_DONE_MESSAGE();
 
 

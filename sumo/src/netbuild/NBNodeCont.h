@@ -262,7 +262,7 @@ public:
 
 
     /// divides the incoming lanes on outgoing lanes
-    void computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas);
+    void computeLanes2Lanes();
 
     /// build the list of outgoing edges and lanes
     void computeLogics(const NBEdgeCont& ec, OptionsCont& oc);

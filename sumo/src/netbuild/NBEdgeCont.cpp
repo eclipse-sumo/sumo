@@ -603,17 +603,17 @@ NBEdgeCont::computeEdge2Edges(bool noLeftMovers) {
 
 
 void
-NBEdgeCont::computeLanes2Edges(const bool buildCrossingsAndWalkingAreas) {
+NBEdgeCont::computeLanes2Edges() {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        (*i).second->computeLanes2Edges(buildCrossingsAndWalkingAreas);
+        (*i).second->computeLanes2Edges();
     }
 }
 
 
 void
-NBEdgeCont::recheckLanes(const bool buildCrossingsAndWalkingAreas) {
+NBEdgeCont::recheckLanes() {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        (*i).second->recheckLanes(buildCrossingsAndWalkingAreas);
+        (*i).second->recheckLanes();
     }
 }
 

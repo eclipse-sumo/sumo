@@ -1,4 +1,4 @@
-Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/osmNetconvert.typ.xml'... done.
+Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate edges... done.
@@ -34,8 +34,9 @@ Building inner edges... done.
 Summary:
  Node type statistics:
   Unregulated junctions       : 5
-  Priority junctions          : 69
-  Right-before-left junctions : 13
+  Dead-end junctions          : 9
+  Priority junctions          : 67
+  Right-before-left junctions : 6
  Network boundaries:
   Original boundary  : 13.36,52.42,13.57,52.46
   Applied offset     : -399345.66,-5809365.64

@@ -109,8 +109,7 @@ public:
          * @param[in] approaching The list of the edges that approach the outgoing edge
          * @param[in] currentOutgoing The outgoing edge
          */
-        ApproachingDivider(EdgeVector* approaching,
-                           NBEdge* currentOutgoing, const bool buildCrossingsAndWalkingAreas);
+        ApproachingDivider(EdgeVector* approaching, NBEdge* currentOutgoing);
 
         /// @brief Destructor
         ~ApproachingDivider();
@@ -379,7 +378,7 @@ public:
 
 
     /// computes the connections of lanes to edges
-    void computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas);
+    void computeLanes2Lanes();
 
     /// computes the node's type, logic and traffic light
     void computeLogic(const NBEdgeCont& ec, OptionsCont& oc);

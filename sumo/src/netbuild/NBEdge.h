@@ -932,11 +932,11 @@ public:
     bool computeEdge2Edges(bool noLeftMovers);
 
     /// computes the edge, step2: computation of which lanes approach the edges)
-    bool computeLanes2Edges(const bool buildCrossingsAndWalkingAreas);
+    bool computeLanes2Edges();
 
     /** recheck whether all lanes within the edge are all right and
         optimises the connections once again */
-    bool recheckLanes(const bool buildCrossingsAndWalkingAreas);
+    bool recheckLanes();
 
     /** @brief Add a connection to the previously computed turnaround, if wished
      *
@@ -1204,7 +1204,7 @@ private:
 
 
     /** divides the lanes on the outgoing edges */
-    void divideOnEdges(const EdgeVector* outgoing, const bool buildCrossingsAndWalkingAreas);
+    void divideOnEdges(const EdgeVector* outgoing);
 
     /** recomputes the edge priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
@@ -1220,14 +1220,14 @@ private:
 
     /** moves a connection one place to the left;
         Attention! no checking for field validity */
-    void moveConnectionToLeft(unsigned int lane, const bool buildCrossingsAndWalkingAreas);
+    void moveConnectionToLeft(unsigned int lane);
 
     /** moves a connection one place to the right;
         Attention! no checking for field validity */
-    void moveConnectionToRight(unsigned int lane, const bool buildCrossingsAndWalkingAreas);
+    void moveConnectionToRight(unsigned int lane);
 
     /// @brief whether the connection can originate on newFromLane
-    bool canMoveConnection(const Connection& con, unsigned int newFromLane, const bool buildCrossingsAndWalkingAreas) const;
+    bool canMoveConnection(const Connection& con, unsigned int newFromLane) const;
     /// @}
 
 

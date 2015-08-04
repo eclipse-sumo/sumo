@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 24 14:29:40 2015 by SUMO netconvert Version dev-SVN-r18126I
+<!-- generated on Tue Aug  4 13:34:15 2015 by SUMO netconvert Version dev-SVN-r18595I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -58,22 +58,14 @@
     <junction id="341340986" type="unregulated" x="114.01" y="108.82" incLanes="2_0 2_1 2_2 2_3" intLanes="" shape="119.01,102.63 110.91,112.67"/>
     <junction id="702048667" type="unregulated" x="51.82" y="24.77" incLanes="" intLanes="" shape="50.40,24.02 53.24,25.52"/>
     <junction id="C" type="priority" x="47.69" y="50.98" incLanes="3_0 4_0 5_0 1_0 1_1 1_2 1_3" intLanes="" shape="60.34,45.57 55.26,54.13 55.18,52.41 53.22,49.88 43.11,44.74 40.27,43.25 38.28,43.82 31.96,55.06">
-        <request index="0" response="1111000" foes="1111110"/>
-        <request index="1" response="1111001" foes="1111001"/>
-        <request index="2" response="1111001" foes="1111001"/>
-        <request index="3" response="0000000" foes="0000111"/>
-        <request index="4" response="0000000" foes="0000111"/>
-        <request index="5" response="0000000" foes="0000111"/>
-        <request index="6" response="0000000" foes="0000111"/>
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="cluster_2121324847_2381159779_2381159806" type="unregulated" x="106.93" y="0.00" incLanes="" intLanes="" shape="109.73,2.77 112.00,5.02"/>
 
-    <connection from="1" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1" to="2" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="1" to="2" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from="1" to="2" fromLane="3" toLane="3" dir="s" state="M"/>
-    <connection from="4" to="2" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="5" to="2" fromLane="0" toLane="1" dir="r" state="m"/>
-    <connection from="5" to="2" fromLane="0" toLane="2" dir="r" state="m"/>
 
 </net>
