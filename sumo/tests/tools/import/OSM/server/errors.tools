@@ -6,7 +6,9 @@ Warning: Discarding unknown compound "cycleway.lane" in type "cycleway.lane|high
 Warning: Discarding unknown compound "cycleway.lane" in type "cycleway.lane|highway.primary" (first occurence for edge "4613110").
 Warning: Discarding unknown compound "cycleway.lane" in type "cycleway.lane|highway.tertiary" (first occurence for edge "4613308").
 Warning: Discarding unknown compound "cycleway.track" in type "cycleway.track|highway.tertiary" (first occurence for edge "4773465#0").
+Warning: Discarding unknown compound "cycleway.shared_lane" in type "cycleway.shared_lane|highway.primary" (first occurence for edge "4790844").
 Warning: Discarding unusable type "waterway.riverbank" (first occurence for edge "11548677#0").
+Warning: Discarding unknown compound "cycleway.shared_lane" in type "cycleway.shared_lane|highway.secondary" (first occurence for edge "19801554").
 Warning: Discarding unknown compound "cycleway.track" in type "cycleway.track|highway.secondary" (first occurence for edge "23812656#0").
 Warning: Discarding unknown compound "cycleway.share_busway" in type "cycleway.share_busway|highway.secondary" (first occurence for edge "24240246#0").
 Warning: Discarding unknown compound "cycleway.lane" in type "cycleway.lane|highway.pedestrian" (first occurence for edge "24540240#0").

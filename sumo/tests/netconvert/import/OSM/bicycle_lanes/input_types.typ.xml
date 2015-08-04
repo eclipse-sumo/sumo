@@ -27,6 +27,8 @@
     <type id="highway.steps"          numLanes="1" speed="1.39"  priority="1"  oneway="true"  allow="pedestrian"/>
     <type id="highway.stairs"         numLanes="1" speed="1.39"  priority="1"  oneway="true"  allow="pedestrian"/>
 
-    <type id="cycleway.lane"  bikeLaneWidth="1"/>
+    <type id="cycleway.lane" bikeLaneWidth="1"/>
+    <type id="cycleway.opposite_lane" bikeLaneWidth="1"/>
     <type id="cycleway.track" bikeLaneWidth="1.5"/>
+    <type id="cycleway.opposite_track" bikeLaneWidth="1.5"/>
 </types>
