@@ -1641,7 +1641,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing, const bool buildCrossingsAndWa
     }
     // compute the number of virtual edges
     //  a virtual edge is used as a replacement for a real edge from now on
-    //  it shall ollow to divide the existing lanes on this structure without
+    //  it shall allow to divide the existing lanes on this structure without
     //  regarding the structure of outgoing edges
     const int numVirtual = (int)(sumResulting / minResulting + 0.5);
     // compute the transition from virtual to real edges
