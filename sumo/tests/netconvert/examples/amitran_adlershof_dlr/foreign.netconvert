@@ -324,7 +324,7 @@
     <node id="321"/>
     <node id="322" type="priority"/>
     <node id="323" type="priority"/>
-    <node id="324" type="priority"/>
+    <node id="324" type="deadEnd"/>
     <node id="325" type="priority"/>
     <node id="326" type="priority"/>
     <node id="327" type="priority"/>
@@ -336,7 +336,7 @@
     <node id="333" type="rightBeforeLeft"/>
     <node id="334" type="priority"/>
     <node id="335" type="priority"/>
-    <node id="336" type="priority"/>
+    <node id="336" type="deadEnd"/>
     <node id="337" type="priority"/>
     <node id="338" type="priority"/>
     <link id="0" from="1" to="0" roadClass="4" length="136448" speedLimitKmh="20" laneNr="1"/>

@@ -747,24 +747,26 @@ void
 NBNode::computeLanes2Lanes() {
     // special case a):
     //  one in, one out, the outgoing has one lane more
-    if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1
-            && myIncomingEdges[0]->getStep() <= NBEdge::LANES2EDGES
-            && myIncomingEdges[0]->getNumLanes() == myOutgoingEdges[0]->getNumLanes() - 1
-            && myIncomingEdges[0] != myOutgoingEdges[0]
-            && myIncomingEdges[0]->isConnectedTo(myOutgoingEdges[0])) {
-
-        NBEdge* incoming = myIncomingEdges[0];
-        NBEdge* outgoing = myOutgoingEdges[0];
+    if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1) {
+        NBEdge* in = myIncomingEdges[0];
+        NBEdge* out= myOutgoingEdges[0];
         // check if it's not the turnaround
-        if (incoming->getTurnDestination() == outgoing) {
+        if (in->getTurnDestination() == out) {
             // will be added later or not...
             return;
         }
-        for (int i = 0; i < (int) incoming->getNumLanes(); ++i) {
-            incoming->setConnection(i, outgoing, i + 1, NBEdge::L2L_COMPUTED);
+        const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        if ( in->getStep() <= NBEdge::LANES2EDGES
+                && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset - 1
+                && in != out
+                && in->isConnectedTo(out)) {
+            for (int i = inOffset; i < (int) in->getNumLanes(); ++i) {
+                in->setConnection(i, out, i + 1, NBEdge::L2L_COMPUTED);
+            }
+            in->setConnection(inOffset, out, outOffset, NBEdge::L2L_COMPUTED);
+            return;
         }
-        incoming->setConnection(0, outgoing, 0, NBEdge::L2L_COMPUTED);
-        return;
     }
     // special case b):
     //  two in, one out, the outgoing has the same number of lanes as the sum of the incoming

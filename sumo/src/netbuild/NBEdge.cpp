@@ -1583,6 +1583,14 @@ NBEdge::recheckLanes() {
                 }
             }
         }
+        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
+            if ((getPermissions((*i).fromLane) & (*i).toEdge->getPermissions((*i).toLane) & ~SVC_PEDESTRIAN) == 0) {
+                // no common permissions (except pedestrians)
+                i = myConnections.erase(i);
+            } else {
+                ++i;
+            }
+        }
     }
     // check delayed removals
     for (std::vector<Connection>::iterator it = myConnectionsToDelete.begin(); it != myConnectionsToDelete.end(); ++it) {
