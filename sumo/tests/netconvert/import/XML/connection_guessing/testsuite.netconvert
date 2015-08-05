@@ -1,3 +1,30 @@
 # a roundabout from the TAPASCologne scenario
 # (at 51.049877, 6.840966)
 test1
+
+# complete 4-arm intersection with 2 lanes for every edge and priority for the vertical streams
+4arm_2lane_prio_vert
+
+# complete 4-arm intersection with 3 lanes for every edge and priority for the vertical streams
+4arm_3lane_prio_vert
+
+# complete 4-arm intersection with 4 lanes for every edge and priority for the vertical streams
+4arm_4lane_prio_vert
+
+# complete 4-arm intersection with 2 lanes for every edge and priority for a turning  streamst
+4arm_2lane_prio_turn
+
+# complete 4-arm intersection with 3 lanes for every edge and priority for a turning stream
+4arm_3lane_prio_turn
+
+# complete 4-arm intersection with 4 lanes for every edge and priority for a turning stream
+4arm_4lane_prio_turn
+
+# complete 4-arm intersection with 2 lanes for every edge and tls
+4arm_2lane_tls
+
+# complete 4-arm intersection with 3 lanes for every edge and tls
+4arm_3lane_tls
+
+# complete 4-arm intersection with 4 lanes for every edge and tls
+4arm_4lane_tls
