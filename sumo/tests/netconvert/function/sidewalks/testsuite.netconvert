@@ -1,6 +1,9 @@
 # guess sidewalks using plain xml input
 basic
 
+# guess sidewalks using plain xml input
+basic_2lane
+
 # patch loaded signal plans when guessing sidewalks
 patch_tls_from_sumonet
 

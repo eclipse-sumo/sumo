@@ -23,12 +23,12 @@
 -->
 
 <edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="CE" from="C" to="E" priority="2" numLanes="1" allow="passenger" speed="13.89"/>
-    <edge id="CN" from="C" to="N" priority="2" numLanes="1" allow="passenger" speed="13.89"/>
-    <edge id="CS" from="C" to="S" priority="2" numLanes="1" allow="passenger" speed="13.89"/>
-    <edge id="CW" from="C" to="W" priority="2" numLanes="1" allow="passenger" speed="13.89"/>
-    <edge id="EC" from="E" to="C" priority="2" numLanes="1" allow="passenger" speed="13.89"/>
-    <edge id="NC" from="N" to="C" priority="2" numLanes="1" allow="passenger" speed="13.89"/>
-    <edge id="SC" from="S" to="C" priority="2" numLanes="1" allow="passenger" speed="13.89"/>
-    <edge id="WC" from="W" to="C" priority="2" numLanes="1" allow="passenger" speed="13.89"/>
+    <edge id="CE" from="C" to="E" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="2" allow="passenger" speed="13.89"/>
 </edges>
