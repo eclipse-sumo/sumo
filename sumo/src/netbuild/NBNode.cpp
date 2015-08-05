@@ -147,7 +147,6 @@ NBNode::ApproachingDivider::execute(const unsigned int src, const unsigned int d
         assert(approachedLanes->size() > i);
         assert(approachingLanes.size() > i);
         unsigned int approached = myAvailableLanes[(*approachedLanes)[i]];
-        //std::cout << "setting connection from " << incomingEdge->getID() << "_" << approachingLanes[i] << " to " << myCurrentOutgoing->getID() << "_" << approached << "\n";
         incomingEdge->setConnection((unsigned int) approachingLanes[i], myCurrentOutgoing,
                                     approached, NBEdge::L2L_COMPUTED);
     }
@@ -1212,6 +1211,12 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
         // reduce rounding errors
         return false;
     }
+    // must be a right turn to qualify as rightTurnConflict
+    //LinkDirection d1 = getDirection(from, to);
+    //if (d1 != LINKDIR_RIGHT && d1 != LINKDIR_PARTRIGHT) {
+    //    return false;
+    //}
+
     const SUMOReal toAngleAtNode = fmod(to->getStartAngle() + 180, (SUMOReal)360.0);
     const SUMOReal prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (SUMOReal)360.0);
     return (lefthand != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) <

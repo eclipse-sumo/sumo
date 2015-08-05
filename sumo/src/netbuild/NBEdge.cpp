@@ -58,6 +58,8 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+#define DEBUGID "disabled"
+
 // ===========================================================================
 // static members
 // ===========================================================================
@@ -1610,18 +1612,52 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     // precompute edge priorities; needed as some kind of assumptions for
     //  priorities of directions (see preparePriorities)
     std::vector<unsigned int>* priorities = prepareEdgePriorities(outgoing);
-    // compute the sum of priorities (needed for normalisation)
-    unsigned int prioSum = computePrioritySum(priorities);
     // compute the indices of lanes that should have connections (excluding
     // forbidden lanes and pedestrian lanes that will be connected via walkingAreas)
+
+
+    // build connections for miv lanes
     std::vector<int> availableLanes;
     for (int i = 0; i < (int)myLanes.size(); ++i) {
         const SVCPermissions perms = getPermissions(i);
-        if (perms == SVC_PEDESTRIAN || isForbidden(perms)) {
+        if (perms == SVC_PEDESTRIAN || perms == SVC_BICYCLE || isForbidden(perms)) {
             continue;
         }
         availableLanes.push_back(i);
     }
+    if (availableLanes.size() > 0) {
+        divideSelectedLanesOnEdges(outgoing, availableLanes, priorities);
+    }
+    // build connections for bicycles
+    availableLanes.clear();
+    for (int i = 0; i < (int)myLanes.size(); ++i) {
+        if (getPermissions(i)!= SVC_BICYCLE) {
+            continue;
+        }
+        availableLanes.push_back(i);
+    }
+    if (availableLanes.size() > 0) {
+        divideSelectedLanesOnEdges(outgoing, availableLanes, priorities);
+        sortOutgoingConnectionsByIndex();
+    }
+    // clean up unassigned fromLanes
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
+        if ((*i).fromLane == -1) {
+            i = myConnections.erase(i);
+        } else {
+            ++i;
+        }
+    }
+
+    delete priorities;
+}
+
+
+void
+NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<unsigned int>* priorities) {
+    //std::cout << "divideSelectedLanesOnEdges " << getID() << " out=" << toString(*outgoing) << " prios=" << toString(*priorities) << " avail=" << toString(availableLanes) << "\n";
+    // compute the sum of priorities (needed for normalisation)
+    unsigned int prioSum = computePrioritySum(*priorities);
     // compute the resulting number of lanes that should be used to
     //  reach the following edge
     const int numOutgoing = (int) outgoing->size();
@@ -1669,8 +1705,8 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     ToEdgeConnectionsAdder adder(transition);
     Bresenham::compute(&adder, static_cast<unsigned int>(availableLanes.size()), numVirtual);
     const std::map<NBEdge*, std::vector<unsigned int> >& l2eConns = adder.getBuiltConnections();
-    myConnections.clear();
     for (std::map<NBEdge*, std::vector<unsigned int> >::const_iterator i = l2eConns.begin(); i != l2eConns.end(); ++i) {
+        NBEdge* target = (*i).first;
         const std::vector<unsigned int> lanes = (*i).second;
         for (std::vector<unsigned int>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             const int fromIndex = availableLanes[*j];
@@ -1679,9 +1715,16 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
                 continue;
             }
             if ((getPermissions(fromIndex) & (*i).first->getPermissions()) == SVC_PEDESTRIAN) {
-                // exclude connection if the only commonly permitted class are pedestrians and there is already a walkingArea
+                // exclude connection if the only commonly permitted class are pedestrians 
+                // these connections are later built in NBNode::buildWalkingAreas
                 continue;
             }
+            // avoid building more connections than the edge has lanes (earlier
+            // ones have precedence). This is necessary when running divideSelectedLanesOnEdges more than once.
+            if (count_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(target, true)) >= (int)target->getNumLanes()) {
+                continue;
+            }
+
             if (myAmLeftHand) {
                 myConnections.push_back(Connection(int(myLanes.size() - 1 - fromIndex), (*i).first, -1));
             } else {
@@ -1689,7 +1732,6 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
             }
         }
     }
-    delete priorities;
 }
 
 
@@ -1740,10 +1782,10 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
 
 
 unsigned int
-NBEdge::computePrioritySum(std::vector<unsigned int>* priorities) {
+NBEdge::computePrioritySum(const std::vector<unsigned int>& priorities) {
     unsigned int sum = 0;
-    for (std::vector<unsigned int>::iterator i = priorities->begin(); i != priorities->end(); i++) {
-        sum += int(*i);
+    for (std::vector<unsigned int>::const_iterator i = priorities.begin(); i != priorities.end(); i++) {
+        sum += (int)*i;
     }
     return sum;
 }

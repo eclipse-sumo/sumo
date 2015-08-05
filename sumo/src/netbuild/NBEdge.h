@@ -1205,6 +1205,8 @@ private:
 
     /** divides the lanes on the outgoing edges */
     void divideOnEdges(const EdgeVector* outgoing);
+    void divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes,
+            const std::vector<unsigned int>* priorities); 
 
     /** recomputes the edge priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
@@ -1212,7 +1214,7 @@ private:
         const EdgeVector* outgoing);
 
     /** computes the sum of the given list's entries (sic!) */
-    unsigned int computePrioritySum(std::vector<unsigned int>* priorities);
+    static unsigned int computePrioritySum(const std::vector<unsigned int>& priorities);
 
 
     /// @name Setting and getting connections
@@ -1383,13 +1385,16 @@ public:
     class connections_toedge_finder {
     public:
         /// constructor
-        connections_toedge_finder(NBEdge* const edge2find) : myEdge2Find(edge2find) { }
+        connections_toedge_finder(NBEdge* const edge2find, bool hasFromLane=false) : 
+            myHasFromLane(hasFromLane),
+            myEdge2Find(edge2find) { }
 
         bool operator()(const Connection& c) const {
-            return c.toEdge == myEdge2Find;
+            return c.toEdge == myEdge2Find && (!myHasFromLane || c.fromLane != -1);
         }
 
     private:
+        const bool myHasFromLane;
         NBEdge* const myEdge2Find;
 
     private:
