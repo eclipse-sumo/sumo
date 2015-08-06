@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug  6 11:26:59 2015 by SUMO netconvert Version dev-SVN-r18605ID
+<!-- generated on Thu Aug  6 13:15:19 2015 by SUMO netconvert Version dev-SVN-r18605ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -143,10 +143,10 @@
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="31" state="GgggggrrrrrGGGgrrr"/>
-        <phase duration="4" state="ygyyygrrrrryyygrrr"/>
-        <phase duration="6" state="rGrrrGrrrrrrrrGrrr"/>
-        <phase duration="4" state="ryrrryrrrrrrrryrrr"/>
+        <phase duration="31" state="GggGGgrrrrrGGGgrrr"/>
+        <phase duration="4" state="yyyyygrrrrryyygrrr"/>
+        <phase duration="6" state="rrrrrGrrrrrrrrGrrr"/>
+        <phase duration="4" state="rrrrryrrrrrrrryrrr"/>
         <phase duration="31" state="rrrrrrGGgGgrrrrGGg"/>
         <phase duration="4" state="rrrrrryyyygrrrryyg"/>
         <phase duration="6" state="rrrrrrrrrrGrrrrrrG"/>
@@ -155,10 +155,10 @@
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_18_0 :C_2_0 :C_3_0 :C_3_1 :C_19_0 :C_6_0 :C_7_0 :C_20_0 :C_9_0 :C_21_0 :C_11_0 :C_12_0 :C_12_1 :C_22_0 :C_15_0 :C_16_0 :C_23_0" shape="90.25,111.25 109.75,111.25 111.25,109.75 111.25,90.25 106.55,88.75 90.15,88.75 88.65,93.45 88.65,109.75">
         <request index="0" response="000000000000000000" foes="000100001010000000" cont="0"/>
-        <request index="1" response="000011100000000000" foes="110011111010000000" cont="1"/>
+        <request index="1" response="000011100000011000" foes="110011111010011000" cont="1"/>
         <request index="2" response="000000000000000010" foes="000100001010000010" cont="0"/>
-        <request index="3" response="000000000000000010" foes="111100011010000010" cont="0"/>
-        <request index="4" response="000000000000000010" foes="111100011010000010" cont="0"/>
+        <request index="3" response="000000000000000000" foes="111100011010000000" cont="0"/>
+        <request index="4" response="000000000000000000" foes="111100011010000000" cont="0"/>
         <request index="5" response="000011100000000000" foes="110011111010000000" cont="1"/>
         <request index="6" response="000011000000000000" foes="100011000000000000" cont="0"/>
         <request index="7" response="000111000000111111" foes="100111000000111111" cont="0"/>
@@ -178,7 +178,7 @@
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1 CS_2" intLanes="" shape="100.05,-0.00 106.55,-0.00 90.15,0.00 99.95,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="-0.00,99.95 -0.00,93.45 0.00,109.75 0.00,100.05"/>
 
-    <junction id=":C_18_0" type="internal" x="100.05" y="93.67" incLanes=":C_1_0 SC_0 SC_1" intLanes=":C_7_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_12_1 :C_16_0 :C_17_0"/>
+    <junction id=":C_18_0" type="internal" x="100.05" y="93.67" incLanes=":C_1_0 SC_0 SC_1" intLanes=":C_3_0 :C_3_1 :C_7_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_12_1 :C_16_0 :C_17_0"/>
     <junction id=":C_19_0" type="internal" x="100.05" y="104.12" incLanes=":C_5_0 SC_0 SC_1" intLanes=":C_7_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_12_1 :C_16_0 :C_17_0"/>
     <junction id=":C_20_0" type="internal" x="105.94" y="107.50" incLanes=":C_8_0 EC_0" intLanes=":C_7_0 :C_12_0 :C_12_1 :C_17_0"/>
     <junction id=":C_21_0" type="internal" x="100.51" y="96.65" incLanes=":C_10_0 WC_0" intLanes=":C_1_0 :C_3_0 :C_3_1 :C_5_0 :C_12_0 :C_12_1 :C_14_0 :C_15_0 :C_16_0"/>

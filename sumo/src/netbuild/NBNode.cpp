@@ -1201,26 +1201,39 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
         // XXX should warn if there are any non-turning connections left of this
         return false;
     }
-    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-    if ((!lefthand && fromLane <= prohibitorFromLane) ||
-            (lefthand && fromLane >= prohibitorFromLane)) {
-        return false;
-    }
     // conflict if to is between prohibitorTo and from when going clockwise
     if (to->getStartAngle() == prohibitorTo->getStartAngle()) {
         // reduce rounding errors
         return false;
     }
+    const LinkDirection d1 = from->getToNode()->getDirection(from, to);
     // must be a right turn to qualify as rightTurnConflict
-    //LinkDirection d1 = getDirection(from, to);
-    //if (d1 != LINKDIR_RIGHT && d1 != LINKDIR_PARTRIGHT) {
-    //    return false;
-    //}
-
-    const SUMOReal toAngleAtNode = fmod(to->getStartAngle() + 180, (SUMOReal)360.0);
-    const SUMOReal prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (SUMOReal)360.0);
-    return (lefthand != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) <
-                         GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
+    if (d1 == LINKDIR_STRAIGHT) {
+        // no conflict for straight going connections
+        // XXX actually this should check the main direction (which could also
+        // be a turn)
+        return false;
+    } else {
+        const LinkDirection d2 = prohibitorFrom->getToNode()->getDirection(prohibitorFrom, prohibitorTo);
+        bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+        if (d1 == LINKDIR_LEFT || d1 == LINKDIR_PARTLEFT) {
+            // check for leftTurnConflicht
+            lefthand = !lefthand;
+            if (d2 == LINKDIR_RIGHT || d1 == LINKDIR_PARTRIGHT) {
+                // assume that the left-turning bicycle goes straight at first
+                // and thus gets precedence over a right turning vehicle
+                return false;
+            }
+        } 
+        if ((!lefthand && fromLane <= prohibitorFromLane) ||
+                (lefthand && fromLane >= prohibitorFromLane)) {
+            return false;
+        }
+        const SUMOReal toAngleAtNode = fmod(to->getStartAngle() + 180, (SUMOReal)360.0);
+        const SUMOReal prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (SUMOReal)360.0);
+        return (lefthand != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) <
+                    GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
+    }
 }
 
 

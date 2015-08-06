@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug  6 11:22:23 2015 by SUMO netconvert Version dev-SVN-r18605ID
+<!-- generated on Thu Aug  6 12:30:03 2015 by SUMO netconvert Version dev-SVN-r18605ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -222,9 +222,9 @@
         <request index="6" response="0000000000000" foes="1001000000011" cont="0"/>
         <request index="7" response="0110100000010" foes="0110100000010" cont="1"/>
         <request index="8" response="0000000000000" foes="0000010000010" cont="0"/>
-        <request index="9" response="0000001111000" foes="0000001111110" cont="1"/>
-        <request index="10" response="0001000000000" foes="0001010000010" cont="0"/>
-        <request index="11" response="0001000000000" foes="0001010000010" cont="0"/>
+        <request index="9" response="0110001111000" foes="0110001111110" cont="1"/>
+        <request index="10" response="0000000000000" foes="0000010000010" cont="0"/>
+        <request index="11" response="0000000000000" foes="0000010000010" cont="0"/>
         <request index="12" response="0000001110001" foes="0000001110001" cont="1"/>
     </junction>
     <junction id="35215949" type="priority" x="616.34" y="551.82" incLanes="153959895_0" intLanes=":35215949_0_0" shape="616.39,551.81 617.39,551.69 613.12,552.21 616.30,551.82">
@@ -241,7 +241,7 @@
     </junction>
 
     <junction id=":2627346845_13_0" type="internal" x="3163.75" y="154.22" incLanes=":2627346845_7_0 190083608#0_0 190083608#0_1 190083608#0_2 257131025_0" intLanes=":2627346845_1_0 :2627346845_8_0 :2627346845_10_0 :2627346845_10_1"/>
-    <junction id=":2627346845_14_0" type="internal" x="3161.45" y="154.52" incLanes=":2627346845_9_0 -190083608#1_0 -190083608#1_1 -190083608#1_2" intLanes=":2627346845_1_0 :2627346845_2_0 :2627346845_3_0 :2627346845_4_0 :2627346845_4_1 :2627346845_4_2"/>
+    <junction id=":2627346845_14_0" type="internal" x="3161.45" y="154.52" incLanes=":2627346845_9_0 -190083608#1_0 -190083608#1_1 -190083608#1_2" intLanes=":2627346845_1_0 :2627346845_2_0 :2627346845_3_0 :2627346845_4_0 :2627346845_4_1 :2627346845_4_2 :2627346845_10_0 :2627346845_10_1"/>
     <junction id=":2627346845_15_0" type="internal" x="3157.58" y="154.90" incLanes=":2627346845_12_0 -190083608#1_0 -190083608#1_1 -190083608#1_2 257131025_0" intLanes=":2627346845_0_0 :2627346845_4_0 :2627346845_4_1 :2627346845_4_2"/>
 
     <connection from="-153959895" to="22721677#1" fromLane="0" toLane="0" via=":1665723004_0_0" dir="r" state="m"/>
