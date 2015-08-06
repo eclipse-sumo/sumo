@@ -1585,10 +1585,47 @@ NBEdge::recheckLanes() {
                 }
             }
         }
+        // check restrictions
         for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
-            if ((getPermissions((*i).fromLane) & (*i).toEdge->getPermissions((*i).toLane) & ~SVC_PEDESTRIAN) == 0) {
-                // no common permissions (except pedestrians)
+            Connection& c = *i;
+            const SVCPermissions common = getPermissions(c.fromLane) & c.toEdge->getPermissions(c.toLane);
+            if (common == SVC_PEDESTRIAN || getPermissions(c.fromLane) == SVC_PEDESTRIAN) {
+                // these are computed in NBNode::buildWalkingAreas
                 i = myConnections.erase(i);
+            } else if (common == 0) {
+                // no common permissions.
+                // try to find a suitable target lane to the right
+                const int origToLane = c.toLane;
+                c.toLane = -1; // ignore this connection when calling hasConnectionTo
+                int toLane = origToLane;
+                while (toLane > 0 
+                        && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
+                        && !hasConnectionTo(c.toEdge, toLane) 
+                        ) {
+                    toLane--;
+                }
+                if ((getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) != 0
+                        && !hasConnectionTo(c.toEdge, toLane)) {
+                    c.toLane = toLane;
+                    ++i;
+                } else {
+                    // try to find a suitable target lane to the left
+                    int toLane = origToLane;
+                    while (toLane < (int)c.toEdge->getNumLanes() - 1 
+                            && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
+                            && !hasConnectionTo(c.toEdge, toLane) 
+                          ) {
+                        toLane++;
+                    }
+                    if ((getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) != 0
+                            && !hasConnectionTo(c.toEdge, toLane)) {
+                        c.toLane = toLane;
+                        ++i;
+                    } else {
+                        // no alternative target found
+                        i = myConnections.erase(i);
+                    }
+                }
             } else {
                 ++i;
             }
