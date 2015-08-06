@@ -466,21 +466,21 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     // deal with cycleways that run in the opposite direction of a one-way street
     if (addBikeLane) {
-        if (!addForward && (e->myCyclewayType & CYCLEWAY_FORWARD) != 0) {
+        if (!addForward && (e->myCyclewayType & WAY_FORWARD) != 0) {
             addForward = true;
             forwardPermissions = SVC_BICYCLE;
             forwardWidth = tc.getBikeLaneWidth(type);
             numLanesForward = 1;
             // do not add an additional cycle lane
-            e->myCyclewayType = (CyclewayType)(e->myCyclewayType & !CYCLEWAY_FORWARD);
+            e->myCyclewayType = (WayType)(e->myCyclewayType & !WAY_FORWARD);
         }
-        if (!addBackward && (e->myCyclewayType & CYCLEWAY_BACKWARD) != 0) {
+        if (!addBackward && (e->myCyclewayType & WAY_BACKWARD) != 0) {
             addBackward = true;
             backwardPermissions = SVC_BICYCLE;
             backwardWidth = tc.getBikeLaneWidth(type);
             numLanesBackward = 1;
             // do not add an additional cycle lane
-            e->myCyclewayType = (CyclewayType)(e->myCyclewayType & !CYCLEWAY_BACKWARD);
+            e->myCyclewayType = (WayType)(e->myCyclewayType & !WAY_BACKWARD);
         }
     }
 
@@ -491,7 +491,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), from, to, type, speed, numLanesForward, tc.getPriority(type),
                                      forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape, StringUtils::escapeXML(e->streetName), lsf, true);
             nbe->setPermissions(forwardPermissions);
-            if (addBikeLane && (e->myCyclewayType == CYCLEWAY_UNKNOWN || (e->myCyclewayType & CYCLEWAY_FORWARD) != 0)) {
+            if (addBikeLane && (e->myCyclewayType == WAY_UNKNOWN || (e->myCyclewayType & WAY_FORWARD) != 0)) {
                 nbe->addBikeLane(tc.getBikeLaneWidth(type));
             }
             if (addSidewalk) {
@@ -508,7 +508,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), to, from, type, speed, numLanesBackward, tc.getPriority(type),
                                      backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), StringUtils::escapeXML(e->streetName), lsf, true);
             nbe->setPermissions(backwardPermissions);
-            if (addBikeLane && (e->myCyclewayType == CYCLEWAY_UNKNOWN || (e->myCyclewayType & CYCLEWAY_BACKWARD) != 0)) {
+            if (addBikeLane && (e->myCyclewayType == WAY_UNKNOWN || (e->myCyclewayType & WAY_BACKWARD) != 0)) {
                 nbe->addBikeLane(tc.getBikeLaneWidth(type));
             }
             if (addSidewalk) {
@@ -709,17 +709,17 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             const std::string cyclewaySpec = key.substr(9);
             key = "cycleway";
             if (cyclewaySpec == "right") {
-                myCurrentEdge->myCyclewayType = (CyclewayType)(myCurrentEdge->myCyclewayType | CYCLEWAY_FORWARD);
+                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType | WAY_FORWARD);
             } else if (cyclewaySpec == "left") {
-                myCurrentEdge->myCyclewayType = (CyclewayType)(myCurrentEdge->myCyclewayType | CYCLEWAY_BACKWARD);
+                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType | WAY_BACKWARD);
             } else if (cyclewaySpec == "both") {
-                myCurrentEdge->myCyclewayType = (CyclewayType)(myCurrentEdge->myCyclewayType | CYCLEWAY_BOTH);
+                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType | WAY_BOTH);
             } else {
                 key = "ignore";
             }
-            if ((myCurrentEdge->myCyclewayType & CYCLEWAY_BOTH) != 0) {
+            if ((myCurrentEdge->myCyclewayType & WAY_BOTH) != 0) {
                 // now we have some info on directionality
-                myCurrentEdge->myCyclewayType = (CyclewayType)(myCurrentEdge->myCyclewayType & !CYCLEWAY_UNKNOWN);
+                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType & !WAY_UNKNOWN);
             }
         }
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
@@ -734,9 +734,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 if (value == "no") {
                     return;
                 } else if (value == "opposite_track") {
-                    myCurrentEdge->myCyclewayType = CYCLEWAY_BACKWARD;
+                    myCurrentEdge->myCyclewayType = WAY_BACKWARD;
                 } else if (value == "opposite_lane") {
-                    myCurrentEdge->myCyclewayType = CYCLEWAY_BACKWARD;
+                    myCurrentEdge->myCyclewayType = WAY_BACKWARD;
                 }
             }
             // build type id

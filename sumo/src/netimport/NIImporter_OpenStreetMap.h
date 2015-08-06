@@ -105,12 +105,12 @@ protected:
     /** @enum CycleWayType
      * @brief details on the kind of cycleway along this road
      */
-    enum CyclewayType {
-        CYCLEWAY_NONE = 0,
-        CYCLEWAY_FORWARD = 1,
-        CYCLEWAY_BACKWARD = 2,
-        CYCLEWAY_BOTH = CYCLEWAY_FORWARD | CYCLEWAY_BACKWARD,
-        CYCLEWAY_UNKNOWN = 4,
+    enum WayType {
+        WAY_NONE = 0,
+        WAY_FORWARD = 1,
+        WAY_BACKWARD = 2,
+        WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
+        WAY_UNKNOWN = 4,
     };
 
 
@@ -120,7 +120,7 @@ protected:
 
         Edge(long long int _id) :
             id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
-            myCyclewayType(CYCLEWAY_UNKNOWN),
+            myCyclewayType(WAY_UNKNOWN),
             myCurrentIsRoad(false) {}
 
         /// @brief The edge's id
@@ -138,7 +138,7 @@ protected:
         /// @brief Information whether this is an one-way road
         std::string  myIsOneWay;
         /// @brief Information about the kind of cycleway along this road
-        CyclewayType myCyclewayType;
+        WayType myCyclewayType;
         /// @brief The list of nodes this edge is made of
         std::vector<long long int> myCurrentNodes;
         /// @brief Information whether this is a road
