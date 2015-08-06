@@ -190,8 +190,11 @@ enum SUMOVehicleClass {
     /// @brief is a user-defined type
     SVC_CUSTOM1 = 1 << 23,
     /// @brief is a user-defined type
-    SVC_CUSTOM2 = 1 << 24
-                  //@}
+    SVC_CUSTOM2 = 1 << 24,
+    //@}
+
+    /// @brief classes which (normally) do not drive on normal roads
+    SVC_NON_ROAD = SVC_TRAM | SVC_RAIL | SVC_RAIL_URBAN | SVC_RAIL_ELECTRIC | SVC_SHIP
 };
 
 extern const int SUMOVehicleClass_MAX;
