@@ -1657,7 +1657,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     std::vector<int> availableLanes;
     for (int i = 0; i < (int)myLanes.size(); ++i) {
         const SVCPermissions perms = getPermissions(i);
-        if (perms == SVC_PEDESTRIAN || perms == SVC_BICYCLE || isForbidden(perms)) {
+        if ((perms & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_BUS)) == 0 || isForbidden(perms)) {
             continue;
         }
         availableLanes.push_back(i);
@@ -1665,17 +1665,29 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     if (availableLanes.size() > 0) {
         divideSelectedLanesOnEdges(outgoing, availableLanes, priorities);
     }
-    // build connections for bicycles
+    // build connections for busses (possibly combined with bicycles)
     availableLanes.clear();
     for (int i = 0; i < (int)myLanes.size(); ++i) {
-        if (getPermissions(i)!= SVC_BICYCLE) {
+        const SVCPermissions perms = getPermissions(i);
+        if (perms != SVC_BUS && perms != (SVC_BUS | SVC_BICYCLE)) {
             continue;
         }
         availableLanes.push_back(i);
     }
     if (availableLanes.size() > 0) {
         divideSelectedLanesOnEdges(outgoing, availableLanes, priorities);
-        sortOutgoingConnectionsByIndex();
+    }
+    // build connections for bicycles (possibly combined with pedestrians)
+    availableLanes.clear();
+    for (int i = 0; i < (int)myLanes.size(); ++i) {
+        const SVCPermissions perms = getPermissions(i);
+        if (perms != SVC_BICYCLE && perms != (SVC_BICYCLE | SVC_PEDESTRIAN)) {
+            continue;
+        }
+        availableLanes.push_back(i);
+    }
+    if (availableLanes.size() > 0) {
+        divideSelectedLanesOnEdges(outgoing, availableLanes, priorities);
     }
     // clean up unassigned fromLanes
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
@@ -1685,6 +1697,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
             ++i;
         }
     }
+    sortOutgoingConnectionsByIndex();
 
     delete priorities;
 }

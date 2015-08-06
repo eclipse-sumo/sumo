@@ -483,6 +483,17 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             e->myCyclewayType = (WayType)(e->myCyclewayType & !WAY_BACKWARD);
         }
     }
+    // deal with busways that run in the opposite direction of a one-way street
+    if (!addForward && (e->myBuswayType & WAY_FORWARD) != 0) {
+        addForward = true;
+        forwardPermissions = SVC_BUS;
+        numLanesForward = 1;
+    }
+    if (!addBackward && (e->myBuswayType & WAY_BACKWARD) != 0) {
+        addBackward = true;
+        backwardPermissions = SVC_BUS;
+        numLanesBackward = 1;
+    }
 
     if (ok) {
         LaneSpreadFunction lsf = addBackward ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
@@ -491,6 +502,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), from, to, type, speed, numLanesForward, tc.getPriority(type),
                                      forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape, StringUtils::escapeXML(e->streetName), lsf, true);
             nbe->setPermissions(forwardPermissions);
+            if ((e->myBuswayType & WAY_FORWARD) != 0) {
+                nbe->setPermissions(SVC_BUS, 0);
+            }
             if (addBikeLane && (e->myCyclewayType == WAY_UNKNOWN || (e->myCyclewayType & WAY_FORWARD) != 0)) {
                 nbe->addBikeLane(tc.getBikeLaneWidth(type));
             }
@@ -508,6 +522,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), to, from, type, speed, numLanesBackward, tc.getPriority(type),
                                      backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), StringUtils::escapeXML(e->streetName), lsf, true);
             nbe->setPermissions(backwardPermissions);
+            if ((e->myBuswayType & WAY_BACKWARD) != 0) {
+                nbe->setPermissions(SVC_BUS, 0);
+            }
             if (addBikeLane && (e->myCyclewayType == WAY_UNKNOWN || (e->myCyclewayType & WAY_BACKWARD) != 0)) {
                 nbe->addBikeLane(tc.getBikeLaneWidth(type));
             }
@@ -706,6 +723,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         bool ok = true;
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, false);
         if (key.size() > 8 && StringUtils::startsWith(key, "cycleway:")) {
+            // handle special busway keys
             const std::string cyclewaySpec = key.substr(9);
             key = "cycleway";
             if (cyclewaySpec == "right") {
@@ -721,14 +739,29 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 // now we have some info on directionality
                 myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType & !WAY_UNKNOWN);
             }
+        } else if (key.size() > 6 && StringUtils::startsWith(key, "busway:")) {
+            // handle special busway keys
+            const std::string buswaySpec = key.substr(7);
+            key = "busway";
+            if (buswaySpec == "right") {
+                myCurrentEdge->myBuswayType = (WayType)(myCurrentEdge->myBuswayType | WAY_FORWARD);
+            } else if (buswaySpec == "left") {
+                myCurrentEdge->myBuswayType = (WayType)(myCurrentEdge->myBuswayType | WAY_BACKWARD);
+            } else if (buswaySpec == "both") {
+                myCurrentEdge->myBuswayType = (WayType)(myCurrentEdge->myBuswayType | WAY_BOTH);
+            } else {
+                key = "ignore";
+            }
         }
+
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes") && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks") {
             return;
         }
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
-        if (key == "highway" || key == "railway" || key == "waterway" || key == "cycleway") {
+        if (key == "highway" || key == "railway" || key == "waterway" || key == "cycleway" || key == "busway") {
+            myCurrentEdge->myCurrentIsRoad = true;
             // special cycleway stuff
             if (key == "cycleway") {
                 if (value == "no") {
@@ -738,6 +771,18 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 } else if (value == "opposite_lane") {
                     myCurrentEdge->myCyclewayType = WAY_BACKWARD;
                 }
+            }
+            // special busway stuff
+            if (key == "busway") {
+                if (value == "no") {
+                    return;
+                } else if (value == "opposite_track") {
+                    myCurrentEdge->myBuswayType = WAY_BACKWARD;
+                } else if (value == "opposite_lane") {
+                    myCurrentEdge->myBuswayType = WAY_BACKWARD;
+                }
+                // no need to extend the type id
+                return;
             }
             // build type id
             const std::string singleTypeID = key + "." + value;
@@ -750,7 +795,6 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             } else {
                 myCurrentEdge->myHighWayType = singleTypeID;
             }
-            myCurrentEdge->myCurrentIsRoad = true;
         } else if (key == "lanes") {
             try {
                 myCurrentEdge->myNoLanes = TplConvert::_2int(value.c_str());

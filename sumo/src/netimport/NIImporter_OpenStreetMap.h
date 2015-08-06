@@ -120,7 +120,8 @@ protected:
 
         Edge(long long int _id) :
             id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
-            myCyclewayType(WAY_UNKNOWN),
+            myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
+            myBuswayType(WAY_NONE), // buslanes are always built when declared
             myCurrentIsRoad(false) {}
 
         /// @brief The edge's id
@@ -139,6 +140,8 @@ protected:
         std::string  myIsOneWay;
         /// @brief Information about the kind of cycleway along this road
         WayType myCyclewayType;
+        /// @brief Information about the kind of busway along this road
+        WayType myBuswayType;
         /// @brief The list of nodes this edge is made of
         std::vector<long long int> myCurrentNodes;
         /// @brief Information whether this is a road
