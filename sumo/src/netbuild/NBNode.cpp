@@ -1772,21 +1772,24 @@ NBNode::forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalize
 }
 
 
-void
-NBNode::buildInnerEdges(bool buildCrossingsAndWalkingAreas) {
-    if (buildCrossingsAndWalkingAreas) {
-        buildCrossings();
-        buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"));
-        // ensure that all crossings are properly connected
-        for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
-            if ((*it).prevWalkingArea == "" || (*it).nextWalkingArea == "") {
-                // there is no way to check this apart from trying to build all
-                // walkingAreas and there is no way to recover because the junction
-                // logic assumes that the crossing can be built.
-                throw ProcessError("Invalid crossing '" + (*it).id + "' at node '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
-            }
+void 
+NBNode::buildCrossingsAndWalkingAreas() {
+    buildCrossings();
+    buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"));
+    // ensure that all crossings are properly connected
+    for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end();) {
+        if ((*it).prevWalkingArea == "" || (*it).nextWalkingArea == "") {
+            WRITE_WARNING("Discarding Invalid crossing '" + (*it).id + "' at node '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
+            it = myCrossings.erase(it);
+        } else {
+            ++it;
         }
     }
+}
+
+
+void
+NBNode::buildInnerEdges() {
     // build inner edges for vehicle movements across the junction
     unsigned int noInternalNoSplits = 0;
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
@@ -1825,9 +1828,12 @@ NBNode::buildCrossings() {
         myCrossings.clear();
     }
     unsigned int index = 0;
-    for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
+    for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end();) {
         (*it).id = ":" + getID() + "_c" + toString(index++);
-        (*it).nextWalkingArea = ""; // reset this field, so repeated computation (Netedit) will sucessfully perform the check at NBNode.cpp:2174 (split crossings)
+        // reset fields, so repeated computation (Netedit) will sucessfully perform the checks
+        // in buildWalkingAreas (split crossings) and buildInnerEdges (sanity check)
+        (*it).nextWalkingArea = ""; 
+        (*it).prevWalkingArea = ""; 
         EdgeVector& edges = (*it).edges;
         if (gDebugFlag1) {
             std::cout << "  crossing=" << (*it).id << " edges=" << toString(edges);
@@ -1871,16 +1877,24 @@ NBNode::buildCrossings() {
         (*it).shape.clear();
         const int begDir = (edges.front()->getFromNode() == this ? FORWARD : BACKWARD);
         const int endDir = (edges.back()->getToNode() == this ? FORWARD : BACKWARD);
-        NBEdge::Lane crossingBeg = edges.front()->getFirstNonPedestrianLane(begDir);
-        NBEdge::Lane crossingEnd = edges.back()->getFirstNonPedestrianLane(endDir);
-        crossingBeg.width = (crossingBeg.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : crossingBeg.width);
-        crossingEnd.width = (crossingEnd.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : crossingEnd.width);
-        crossingBeg.shape.move2side(begDir * crossingBeg.width / 2);
-        crossingEnd.shape.move2side(endDir * crossingEnd.width / 2);
-        crossingBeg.shape.extrapolate((*it).width / 2);
-        crossingEnd.shape.extrapolate((*it).width / 2);
-        (*it).shape.push_back(crossingBeg.shape[begDir == FORWARD ? 0 : -1]);
-        (*it).shape.push_back(crossingEnd.shape[endDir == FORWARD ? -1 : 0]);
+        if (edges.front()->getFirstNonPedestrianLaneIndex(begDir) < 0 
+                || edges.back()->getFirstNonPedestrianLaneIndex(endDir) < 0) {
+            // invalid crossing
+            WRITE_WARNING("Discarding Invalid crossing '" + (*it).id + "' at node '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
+            it = myCrossings.erase(it);
+        } else {
+            NBEdge::Lane crossingBeg = edges.front()->getFirstNonPedestrianLane(begDir);
+            NBEdge::Lane crossingEnd = edges.back()->getFirstNonPedestrianLane(endDir);
+            crossingBeg.width = (crossingBeg.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : crossingBeg.width);
+            crossingEnd.width = (crossingEnd.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : crossingEnd.width);
+            crossingBeg.shape.move2side(begDir * crossingBeg.width / 2);
+            crossingEnd.shape.move2side(endDir * crossingEnd.width / 2);
+            crossingBeg.shape.extrapolate((*it).width / 2);
+            crossingEnd.shape.extrapolate((*it).width / 2);
+            (*it).shape.push_back(crossingBeg.shape[begDir == FORWARD ? 0 : -1]);
+            (*it).shape.push_back(crossingEnd.shape[endDir == FORWARD ? -1 : 0]);
+            ++it;
+        }
     }
     return index;
 }

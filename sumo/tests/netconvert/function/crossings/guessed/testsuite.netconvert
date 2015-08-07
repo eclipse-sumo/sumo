@@ -52,3 +52,9 @@ invalid_options
 
 # do not guess crossings for a given node
 discard
+
+# load a net.xml with crossing which gets invalidated due to patched lane permissions
+loaded_crossing_invalidated
+
+# load a net.xml with crossing which gets invalidated due to patched lane permissions
+loaded_crossing_invalidated2

@@ -595,7 +595,7 @@ public:
     int checkCrossing(EdgeVector candidates);
 
     /// @brief build internal lanes, pedestrian crossings and walking areas
-    void buildInnerEdges(bool buildCrossingsAndWalkingAreas);
+    void buildInnerEdges();
 
     /* @brief build pedestrian crossings
      * @return The next index for creating internal lanes
@@ -606,6 +606,10 @@ public:
      * @param[in] cornerDetail The detail level when generating the inner curve
      * */
     void buildWalkingAreas(int cornerDetail);
+
+    /* @brief build crossings, and walkingareas. Also removes invalid loaded
+     * crossings*/
+    void buildCrossingsAndWalkingAreas();
 
     /// @brief return all edges that lie clockwise between the given edges
     EdgeVector edgesBetween(const NBEdge* e1, const NBEdge* e2) const;

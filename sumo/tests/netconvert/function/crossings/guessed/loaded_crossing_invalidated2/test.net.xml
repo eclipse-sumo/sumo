@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 07 Aug 2015 02:22:12 PM CEST by Netedit Version dev-SVN-r18615I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="E.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/netconvert/function/crossings/guessed/loaded_crossing_invalidated/test.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-557819.63,-5772331.51" convBoundary="46706.37,17981.84,46994.34,18049.27" origBoundary="9.849355,52.097071,11.146853,52.419944" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":54534944_0" function="internal">
+        <lane id=":54534944_0_0" index="0" speed="8.33" length="9.25" shape="46878.87,17991.60 46876.78,17992.14 46875.23,17993.42 46874.21,17995.45 46873.73,17998.22"/>
+    </edge>
+    <edge id=":54534944_1" function="internal">
+        <lane id=":54534944_1_0" index="0" speed="8.33" length="13.87" shape="46878.87,17991.60 46874.76,17991.90 46871.95,17992.11 46869.14,17992.34 46865.04,17992.70"/>
+    </edge>
+    <edge id=":54534944_2" function="internal">
+        <lane id=":54534944_2_0" index="0" speed="8.33" length="13.93" shape="46864.76,17989.41 46868.88,17989.05 46871.70,17988.82 46874.52,17988.61 46878.64,17988.31"/>
+    </edge>
+    <edge id=":54534944_3" function="internal">
+        <lane id=":54534944_3_0" index="0" speed="8.33" length="14.91" shape="46864.76,17989.41 46868.93,17989.65 46871.82,17991.20 46873.42,17994.06 46873.73,17998.22"/>
+    </edge>
+    <edge id=":54534944_4" function="internal">
+        <lane id=":54534944_4_0" index="0" speed="8.33" length="8.97" shape="46870.44,17998.00 46870.25,17995.49 46869.29,17993.77 46867.55,17992.84 46865.04,17992.70"/>
+    </edge>
+    <edge id=":54534944_5" function="internal">
+        <lane id=":54534944_5_0" index="0" speed="8.33" length="14.05" shape="46870.44,17998.00 46871.19,17993.96 46872.80,17991.00 46875.29,17989.12 46878.64,17988.31"/>
+    </edge>
+    <edge id=":54534944_c0" function="crossing" crossingEdges="-51811211 51811211">
+        <lane id=":54534944_c0_0" index="0" allow="pedestrian" speed="1.00" length="10.70" width="4.00" shape="46876.39,17984.76 46877.13,17995.44"/>
+    </edge>
+    <edge id=":54534944_c1" function="crossing" crossingEdges="51811214 -51811214">
+        <lane id=":54534944_c1_0" index="0" allow="pedestrian" speed="1.00" length="10.70" width="4.00" shape="46867.35,17996.21 46866.43,17985.55"/>
+    </edge>
+    <edge id=":54534944_c2" function="crossing" crossingEdges="51811210 -51811210">
+        <lane id=":54534944_c2_0" index="0" allow="pedestrian" speed="1.00" length="10.70" width="4.00" shape="46877.56,17996.48 46866.89,17995.76"/>
+    </edge>
+    <edge id=":54534944_w0" function="walkingarea">
+        <lane id=":54534944_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.88" width="3.20" shape="46872.14,17998.12 46875.33,17998.33 46875.43,17998.34 46877.43,17998.47 46879.13,17995.30 46878.99,17993.30 46878.98,17993.20 46878.76,17990.01"/>
+    </edge>
+    <edge id=":54534944_w1" function="walkingarea">
+        <lane id=":54534944_w1_0" index="0" allow="pedestrian" speed="1.00" length="13.97" width="3.20" shape="46878.75,17989.91 46878.53,17986.72 46878.52,17986.62 46878.38,17984.62 46864.44,17985.72 46864.61,17987.71 46864.62,17987.81 46864.89,17991.00"/>
+    </edge>
+    <edge id=":54534944_w2" function="walkingarea">
+        <lane id=":54534944_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.47" width="3.20" shape="46864.90,17991.10 46865.18,17994.29 46865.19,17994.39 46865.36,17996.38 46866.75,17997.75 46868.75,17997.89 46868.85,17997.89 46872.04,17998.11"/>
+    </edge>
+    <edge id=":54534944_w3" function="walkingarea">
+        <lane id=":54534944_w3_0" index="0" allow="pedestrian" speed="1.00" length="1.13" width="4.00" shape="46875.14,17995.58 46879.13,17995.30 46877.43,17998.47 46877.70,17994.48"/>
+    </edge>
+    <edge id=":54534944_w4" function="walkingarea">
+        <lane id=":54534944_w4_0" index="0" allow="pedestrian" speed="1.00" length="9.98" width="4.00" shape="46868.43,17985.38 46864.44,17985.72 46878.38,17984.62 46874.39,17984.90"/>
+    </edge>
+    <edge id=":54534944_w5" function="walkingarea">
+        <lane id=":54534944_w5_0" index="0" allow="pedestrian" speed="1.00" length="0.65" width="4.00" shape="46867.02,17993.76 46866.75,17997.75 46865.36,17996.38 46869.34,17996.04"/>
+    </edge>
+    <edge id=":54534952_0" function="internal">
+        <lane id=":54534952_0_0" index="0" speed="8.33" length="4.82" shape="46994.22,17980.19 46995.52,17980.93 46995.99,17981.72 46995.63,17982.58 46994.46,17983.49"/>
+    </edge>
+    <edge id=":54534952_w0" function="walkingarea">
+        <lane id=":54534952_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.70" width="3.20" shape="46994.34,17981.89 46994.57,17985.08 46994.57,17985.18 46994.71,17987.18 46993.97,17976.50 46994.11,17978.50 46994.11,17978.60 46994.34,17981.79"/>
+    </edge>
+    <edge id=":54535097_c0" function="crossing" crossingEdges="-51811214 51811214">
+        <lane id=":54535097_c0_0" index="0" allow="pedestrian" speed="1.00" length="10.70" width="4.00" shape="46703.92,17999.51 46704.84,18010.17"/>
+    </edge>
+    <edge id=":54535097_w0" function="walkingarea">
+        <lane id=":54535097_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="3.20" shape="46706.37,18004.62 46706.09,18001.43 46706.08,18001.33 46705.91,17999.34"/>
+    </edge>
+    <edge id=":54535097_w1" function="walkingarea">
+        <lane id=":54535097_w1_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="3.20" shape="46706.83,18010.00 46706.66,18008.01 46706.65,18007.91 46706.37,18004.72"/>
+    </edge>
+    <edge id=":54535097_w2" function="walkingarea">
+        <lane id=":54535097_w2_0" index="0" allow="pedestrian" speed="1.00" length="10.70" width="4.00" shape="46702.84,18010.34 46706.83,18010.00 46705.91,17999.34 46701.93,17999.68"/>
+    </edge>
+    <edge id=":54535115_c0" function="crossing" crossingEdges="-51811210 51811210">
+        <lane id=":54535115_c0_0" index="0" allow="pedestrian" speed="1.00" length="10.70" width="4.00" shape="46863.16,18050.90 46873.83,18051.63"/>
+    </edge>
+    <edge id=":54535115_w0" function="walkingarea">
+        <lane id=":54535115_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="3.20" shape="46868.58,18049.27 46865.39,18049.05 46865.29,18049.04 46863.29,18048.91"/>
+    </edge>
+    <edge id=":54535115_w1" function="walkingarea">
+        <lane id=":54535115_w1_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="3.20" shape="46873.97,18049.63 46871.97,18049.50 46871.87,18049.49 46868.68,18049.27"/>
+    </edge>
+    <edge id=":54535115_w2" function="walkingarea">
+        <lane id=":54535115_w2_0" index="0" allow="pedestrian" speed="1.00" length="10.70" width="4.00" shape="46873.70,18053.62 46873.97,18049.63 46863.29,18048.91 46863.02,18052.90"/>
+    </edge>
+
+    <edge id="-51811210" from="54535115" to="54534944" priority="-4">
+        <lane id="-51811210_0" index="0" speed="8.33" length="51.27" width="2.00" shape="46864.29,18048.98 46867.75,17997.82"/>
+        <lane id="-51811210_1" index="1" speed="8.33" length="51.27" shape="46866.98,18049.16 46870.44,17998.00"/>
+    </edge>
+    <edge id="-51811211" from="54534944" to="54534952" priority="-4">
+        <lane id="-51811211_0" index="0" speed="8.33" length="115.87" width="2.00" shape="46878.45,17985.62 46994.04,17977.50"/>
+        <lane id="-51811211_1" index="1" speed="8.33" length="115.87" shape="46878.64,17988.31 46994.22,17980.19"/>
+    </edge>
+    <edge id="-51811214" from="54535097" to="54534944" priority="-4">
+        <lane id="-51811214_0" index="0" speed="8.33" length="159.11" width="2.00" shape="46706.00,18000.34 46864.53,17986.72"/>
+        <lane id="-51811214_1" index="1" speed="8.33" length="159.11" shape="46706.23,18003.03 46864.76,17989.41"/>
+    </edge>
+    <edge id="51811210" from="54534944" to="54535115" priority="-4">
+        <lane id="51811210_0" index="0" speed="8.33" length="51.27" width="2.00" shape="46876.43,17998.41 46872.97,18049.56"/>
+        <lane id="51811210_1" index="1" speed="8.33" length="51.27" shape="46873.73,17998.22 46870.28,18049.38"/>
+    </edge>
+    <edge id="51811211" from="54534952" to="54534944" priority="-4">
+        <lane id="51811211_0" index="0" speed="8.33" length="115.87" width="2.00" shape="46994.64,17986.18 46879.06,17994.30"/>
+        <lane id="51811211_1" index="1" speed="8.33" length="115.87" shape="46994.46,17983.49 46878.87,17991.60"/>
+    </edge>
+    <edge id="51811214" from="54534944" to="54535097" priority="-4">
+        <lane id="51811214_0" index="0" speed="8.33" length="159.11" width="2.00" shape="46865.27,17995.39 46706.74,18009.00"/>
+        <lane id="51811214_1" index="1" speed="8.33" length="159.11" shape="46865.04,17992.70 46706.51,18006.31"/>
+    </edge>
+
+    <junction id="54534944" type="right_before_left" x="46872.61" y="17990.39" incLanes="51811211_0 51811211_1 -51811214_0 -51811214_1 -51811210_0 -51811210_1 :54534944_w4_0 :54534944_w5_0 :54534944_w3_0" intLanes=":54534944_0_0 :54534944_1_0 :54534944_2_0 :54534944_3_0 :54534944_4_0 :54534944_5_0 :54534944_c0_0 :54534944_c1_0 :54534944_c2_0" shape="46879.13,17995.30 46878.38,17984.62 46864.44,17985.72 46865.36,17996.38 46866.75,17997.75 46877.43,17998.47">
+        <request index="0" response="100000000" foes="101001000" cont="0"/>
+        <request index="1" response="000110000" foes="011111000" cont="0"/>
+        <request index="2" response="000000000" foes="011100000" cont="0"/>
+        <request index="3" response="100000011" foes="110100011" cont="0"/>
+        <request index="4" response="010000000" foes="110000010" cont="0"/>
+        <request index="5" response="001001100" foes="101001110" cont="0"/>
+        <request index="6" response="000000111" foes="000100111" cont="0"/>
+        <request index="7" response="000001110" foes="000011110" cont="0"/>
+        <request index="8" response="000110000" foes="000111001" cont="0"/>
+    </junction>
+    <junction id="54534952" type="priority" x="46994.34" y="17981.84" incLanes="-51811211_0 -51811211_1" intLanes=":54534952_0_0" shape="46994.34,17981.89 46994.71,17987.18 46993.97,17976.50 46994.34,17981.79">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="54535097" type="dead_end" x="46706.37" y="18004.67" incLanes="51811214_0 51811214_1 :54535097_w2_0" intLanes="" shape="46706.37,18004.62 46705.91,17999.34 46706.83,18010.00 46706.37,18004.72"/>
+    <junction id="54535115" type="dead_end" x="46868.63" y="18049.27" incLanes="51811210_0 51811210_1 :54535115_w2_0" intLanes="" shape="46868.58,18049.27 46863.29,18048.91 46873.97,18049.63 46868.68,18049.27"/>
+
+    <connection from="-51811210" to="51811214" fromLane="1" toLane="1" via=":54534944_4_0" dir="r" state="="/>
+    <connection from="-51811210" to="-51811211" fromLane="1" toLane="1" via=":54534944_5_0" dir="l" state="="/>
+    <connection from="-51811211" to="51811211" fromLane="1" toLane="1" via=":54534952_0_0" dir="t" state="M"/>
+    <connection from="-51811214" to="-51811211" fromLane="1" toLane="1" via=":54534944_2_0" dir="s" state="="/>
+    <connection from="-51811214" to="51811210" fromLane="1" toLane="1" via=":54534944_3_0" dir="l" state="="/>
+    <connection from="51811211" to="51811210" fromLane="1" toLane="1" via=":54534944_0_0" dir="r" state="="/>
+    <connection from="51811211" to="51811214" fromLane="1" toLane="1" via=":54534944_1_0" dir="s" state="="/>
+
+    <connection from=":54534944_0" to="51811210" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":54534944_1" to="51811214" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":54534944_2" to="-51811211" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":54534944_3" to="51811210" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":54534944_4" to="51811214" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":54534944_5" to="-51811211" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":54534952_0" to="51811211" fromLane="0" toLane="1" dir="s" state="M"/>
+
+    <connection from=":54534944_c0" to=":54534944_w3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54534944_c1" to=":54534944_w4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54534944_c2" to=":54534944_w5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54534944_w0" to="51811210" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="51811211" to=":54534944_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54534944_w1" to="-51811211" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-51811214" to=":54534944_w1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54534944_w2" to="51811214" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-51811210" to=":54534944_w2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54534944_w3" to=":54534944_c2" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":54534944_w4" to=":54534944_c0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":54534944_w5" to=":54534944_c1" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":54534952_w0" to="51811211" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-51811211" to=":54534952_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54535097_c0" to=":54535097_w2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54535097_w0" to="-51811214" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="51811214" to=":54535097_w1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54535097_w2" to=":54535097_c0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":54535115_c0" to=":54535115_w2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54535115_w0" to="-51811210" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="51811210" to=":54535115_w1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54535115_w2" to=":54535115_c0" fromLane="0" toLane="0" dir="s" state="m"/>
+
+</net>

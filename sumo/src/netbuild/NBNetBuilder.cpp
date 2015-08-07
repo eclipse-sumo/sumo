@@ -265,25 +265,26 @@ NBNetBuilder::compute(OptionsCont& oc,
     NBNodeTypeComputer::computeNodeTypes(myNodeCont);
     PROGRESS_DONE_MESSAGE();
     //
-    bool buildCrossingsAndWalkingAreas = false;
+    bool haveCrossings = false;
     if (oc.getBool("crossings.guess")) {
-        buildCrossingsAndWalkingAreas = true;
+        haveCrossings = true;
         int crossings = 0;
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             crossings += (*i).second->guessCrossings();
         }
         WRITE_MESSAGE("Guessed " + toString(crossings) + " pedestrian crossings.");
     }
-    if (!buildCrossingsAndWalkingAreas) {
+    if (!haveCrossings) {
         // recheck whether we had crossings in the input
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             if (i->second->getCrossings().size() > 0) {
-                buildCrossingsAndWalkingAreas = true;
+                haveCrossings = true;
                 break;
             }
         }
     }
-    if (oc.isDefault("no-internal-links") && !buildCrossingsAndWalkingAreas && myHaveLoadedNetworkWithoutInternalEdges) {
+
+    if (oc.isDefault("no-internal-links") && !haveCrossings && myHaveLoadedNetworkWithoutInternalEdges) {
         oc.set("no-internal-links", "true");
     }
     
@@ -324,6 +325,11 @@ NBNetBuilder::compute(OptionsCont& oc,
     myEdgeCont.recheckLanes();
     PROGRESS_DONE_MESSAGE();
 
+    if (haveCrossings) {
+        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
+            i->second->buildCrossingsAndWalkingAreas();
+        }
+    }
 
     // GUESS TLS POSITIONS
     PROGRESS_BEGIN_MESSAGE("Assigning nodes to traffic lights");
@@ -382,7 +388,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         }
         // walking areas shall only be built if crossings are wished as well
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            (*i).second->buildInnerEdges(buildCrossingsAndWalkingAreas);
+            (*i).second->buildInnerEdges();
         }
         PROGRESS_DONE_MESSAGE();
     }
