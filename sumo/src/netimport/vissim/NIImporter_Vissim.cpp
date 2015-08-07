@@ -338,7 +338,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int eleme
             NIVissimEdge* edge = new NIVissimEdge(id,
                                                   myElemData["name"].front(),
                                                   myElemData["type"].front(),
-                                                  myElemData["width"].size(),   // numLanes,
+                                                  (int)myElemData["width"].size(),   // numLanes,
                                                   TplConvert::_str2SUMOReal(myElemData["zuschlag1"].front()),
                                                   TplConvert::_str2SUMOReal(myElemData["zuschlag2"].front()),
                                                   length, geom, clv);
@@ -350,7 +350,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int eleme
                 std::cout << geom << "\n";
             }
         } else {
-            int numLanes = myElemData["width"].size();
+            int numLanes = (int)myElemData["width"].size();
             std::vector<int> laneVec(numLanes);
             // Add Connector
 
@@ -508,8 +508,6 @@ NIImporter_Vissim::NIVissimXMLHandler_Fahrzeugklassendefinition::myEndElement(in
     if (element == VISSIM_TAG_VEHICLE_CLASS && myHierarchyLevel == 3) {
         RGBColor color;
         std::istringstream iss(myElemData["color"].front());
-        std::string s;
-        int hexNumber;
         std::vector<std::string> sCol_v(StringTokenizer(
                                             myElemData["color"].front(), " ").getVector());
         std::vector<int> myColorVector(sCol_v.size());
