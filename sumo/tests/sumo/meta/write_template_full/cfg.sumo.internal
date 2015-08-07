@@ -64,7 +64,7 @@
         <ignore-accidents value="false" type="BOOL" help="Do not check whether accidents occur"/>
         <ignore-route-errors value="false" type="BOOL" help="Do not check whether routes are connected"/>
         <max-num-vehicles value="-1" synonymes="too-many-vehicles" type="INT" help="Quit simulation if this number of vehicles is exceeded"/>
-        <scale value="" type="FLOAT" help="Scale demand by the given factor (0..1)"/>
+        <scale value="" type="FLOAT" help="Scale demand by the given factor (by discarding or duplicating vehicles)"/>
         <time-to-teleport value="300" type="TIME" help="Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting"/>
         <time-to-teleport.highways value="0" type="TIME" help="The waiting time after which vehicles on a fast road (speed &gt; 69m/s) are teleported if they are on a non-continuing lane"/>
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>

@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18422
+SUMO Version dev-SVN-r18611I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -91,7 +91,8 @@ Processing Options:
                                          connected
   --max-num-vehicles INT               Quit simulation if this number of
                                          vehicles is exceeded
-  --scale FLOAT                        Scale demand by the given factor (0..1)
+  --scale FLOAT                        Scale demand by the given factor (by
+                                         discarding or duplicating vehicles)
   --time-to-teleport TIME              Specify how long a vehicle may wait
                                          until being teleported, defaults to
                                          300, non-positive values disable
