@@ -1827,6 +1827,7 @@ NBNode::buildCrossings() {
     unsigned int index = 0;
     for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
         (*it).id = ":" + getID() + "_c" + toString(index++);
+        (*it).nextWalkingArea = ""; // reset this field, so repeated computation (Netedit) will sucessfully perform the check at NBNode.cpp:2174 (split crossings)
         EdgeVector& edges = (*it).edges;
         if (gDebugFlag1) {
             std::cout << "  crossing=" << (*it).id << " edges=" << toString(edges);
