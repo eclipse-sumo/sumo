@@ -208,4 +208,9 @@ for i in range(14):
             traci.vehicle.getLaneID(busVeh),
             traci.vehicle.getLanePosition(busVeh),
             traci.vehicle.isStopped(busVeh))
+# test for adding a trip
+traci.route.add("trip", ["3si"])
+traci.vehicle.add("triptest", "trip")
+traci.vehicle.changeTarget("triptest", "4si")
+print traci.vehicle.getRoute("triptest")
 traci.close()
