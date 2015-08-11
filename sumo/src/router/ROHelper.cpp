@@ -44,6 +44,18 @@ void
 recheckForLoops(ConstROEdgeVector& edges) {
     // XXX check for stops, departLane, departPos, departSpeed, ....
 
+    // removal of edge loops within the route (edge occurs twice)
+    std::map<const ROEdge*, size_t> lastOccurence; // index of the last occurence of this edge
+    for (size_t ii = 0; ii < edges.size(); ++ii) {
+        std::map<const ROEdge*, size_t>::iterator it_pre = lastOccurence.find(edges[ii]);
+        if (it_pre != lastOccurence.end()) {
+            edges.erase(edges.begin() + it_pre->second, edges.begin() + ii);
+            ii = it_pre->second;
+        } else {
+            lastOccurence[edges[ii]] = ii;
+        }
+    }
+
     // remove loops at the route's begin
     //  (vehicle makes a turnaround to get into the right direction at an already passed node)
     RONode* start = edges[0]->getFromNode();
@@ -67,18 +79,6 @@ recheckForLoops(ConstROEdgeVector& edges) {
     }
     if (firstEnd < edges.size() - 1) {
         edges.erase(edges.begin() + firstEnd + 2, edges.end());
-    }
-
-    // removal of edge loops within the route (edge occurs twice)
-    std::map<const ROEdge*, size_t> lastOccurence; // index of the last occurence of this edge
-    for (size_t ii = 0; ii < edges.size(); ++ii) {
-        std::map<const ROEdge*, size_t>::iterator it_pre = lastOccurence.find(edges[ii]);
-        if (it_pre != lastOccurence.end()) {
-            edges.erase(edges.begin() + it_pre->second, edges.begin() + ii);
-            ii = it_pre->second;
-        } else {
-            lastOccurence[edges[ii]] = ii;
-        }
     }
 
     // removal of node loops (node occurs twice) is not done because these may occur legitimately
