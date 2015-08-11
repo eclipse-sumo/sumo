@@ -109,11 +109,15 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
     assert(myAlternatives[0]->getEdgeVector().size() > 0);
     MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ?
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
-    if (myAlternatives[0]->getFirst()->prohibits(&veh) && !oc.getBool("repair.from")) {
+    if (myAlternatives[0]->getFirst()->prohibits(&veh) && (!oc.getBool("repair.from") 
+                // do not try to reassign starting edge for trip input
+                || myMayBeDisconnected)) {
         mh->inform("Vehicle '" + veh.getID() + "' is not allowed to depart on edge '" +
                 myAlternatives[0]->getFirst()->getID() + "'.");
         return;
-    } else if (myAlternatives[0]->getLast()->prohibits(&veh) && !oc.getBool("repair.to")) {
+    } else if (myAlternatives[0]->getLast()->prohibits(&veh) && (!oc.getBool("repair.to")
+                // do not try to reassign destination edge for trip input
+                || myMayBeDisconnected)) {
         // this check is not strictly necessary unless myTryRepair is set.
         // However, the error message is more helpful than "no connection found"
         mh->inform("Vehicle '" + veh.getID() + "' is not allowed to arrive on edge '" +
@@ -179,6 +183,10 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     break;
                 }
             }
+        }
+        if (oldEdges.size() == 0) {
+            mh->inform("Could not find new starting edge for vehicle '" + veh.getID() + "'.");
+            return;
         }
         mandatory.push_back(oldEdges.front());
         ConstROEdgeVector stops = veh.getStopEdges();
