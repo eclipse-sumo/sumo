@@ -6,4 +6,8 @@
     <vehicle id="unrepairable_route" type="t0" depart="0">
         <route edges="beg2left left left2end"/>
     </vehicle>
+
+    <vehicle id="unrepairable_route2" type="t0" depart="0">
+        <route edges="beg2left"/>
+    </vehicle>
 </routes>

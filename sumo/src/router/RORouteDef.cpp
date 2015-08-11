@@ -111,13 +111,13 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
     if (myAlternatives[0]->getFirst()->prohibits(&veh) && (!oc.getBool("repair.from") 
                 // do not try to reassign starting edge for trip input
-                || myMayBeDisconnected)) {
+                || myMayBeDisconnected || myAlternatives[0]->getEdgeVector().size() < 2)) {
         mh->inform("Vehicle '" + veh.getID() + "' is not allowed to depart on edge '" +
                 myAlternatives[0]->getFirst()->getID() + "'.");
         return;
     } else if (myAlternatives[0]->getLast()->prohibits(&veh) && (!oc.getBool("repair.to")
                 // do not try to reassign destination edge for trip input
-                || myMayBeDisconnected)) {
+                || myMayBeDisconnected || myAlternatives[0]->getEdgeVector().size() < 2)) {
         // this check is not strictly necessary unless myTryRepair is set.
         // However, the error message is more helpful than "no connection found"
         mh->inform("Vehicle '" + veh.getID() + "' is not allowed to arrive on edge '" +
