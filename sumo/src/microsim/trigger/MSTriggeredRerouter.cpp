@@ -303,7 +303,10 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
         if (newEdge == &mySpecialDest_terminateRoute) {
             newEdge = veh.getEdge();
         } else if (newEdge == &mySpecialDest_keepDestination || newEdge == lastEdge) {
-            if (destUnreachable) {
+            if (destUnreachable && rerouteDef->permissions == SVCAll) {
+                // if permissions aren't set vehicles will simply drive through
+                // the closing unless terminated. If the permissions are specified, assume that the user wants
+                // vehicles to stand and wait until the closing ends
                 WRITE_WARNING("Cannot keep destination for vehicle '" + veh.getID() + "' due to closed edges. Terminating route.");
                 newEdge = veh.getEdge();
             } else {

@@ -1,0 +1,5 @@
+<rerouter>
+	<interval begin="50" end="100">
+		<closingReroute id="left" disallow="all"/>
+	</interval>
+</rerouter>
