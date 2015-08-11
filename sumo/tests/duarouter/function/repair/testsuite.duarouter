@@ -21,3 +21,9 @@ only1valid
 
 # the old route should be preserved even if it is longer, provided that it is not broken.
 preserve_old_route
+
+# test option repair.from
+repair.from
+
+# test option repair.to
+repair.to

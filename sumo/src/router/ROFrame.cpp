@@ -129,6 +129,12 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
     oc.doRegister("repair", new Option_Bool(false));
     oc.addDescription("repair", "Processing", "Tries to correct a false route");
 
+    oc.doRegister("repair.from", new Option_Bool(false));
+    oc.addDescription("repair.from", "Processing", "Tries to correct an invalid starting edge by using the first usable edge instead");
+
+    oc.doRegister("repair.to", new Option_Bool(false));
+    oc.addDescription("repair.to", "Processing", "Tries to correct an invalid destination edge by using the last usable edge instead");
+
     oc.doRegister("weights.interpolate", new Option_Bool(false));
     oc.addSynonyme("weights.interpolate", "interpolate", true);
     oc.addDescription("weights.interpolate", "Processing", "Interpolate edge weights at interval boundaries");
