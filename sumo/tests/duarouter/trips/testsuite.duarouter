@@ -55,6 +55,9 @@ increasing_time_typedefined_nestedmodel
 # using zones for start / end
 with_taz
 
+# use taz and vehicles with a vClass
+with_taz_vClass
+
 # using zones for start / end with no edge specified
 taz_noedge
 

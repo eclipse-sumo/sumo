@@ -78,6 +78,10 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int ind
         myEdges.push_back(0);
     }
     myEdges[index] = this;
+    if (from == 0 && to == 0) {
+        // TAZ edge, no lanes
+        myCombinedPermissions = SVCAll;
+    }
 }
 
 
@@ -274,7 +278,7 @@ ROEdge::dictionary(size_t id) {
 
 const ROEdgeVector&
 ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
-    if (vClass == SVC_IGNORING || !RONet::getInstance()->hasPermissions()) {
+    if (vClass == SVC_IGNORING || !RONet::getInstance()->hasPermissions() || myFunc == ET_DISTRICT) {
         return myFollowingEdges;
     }
 #ifdef HAVE_FOX
@@ -304,6 +308,12 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
                         followers.insert(&next->getEdge());
                     }
                 }
+            }
+        }
+        // also add district edges (they are not connected at the lane level
+        for (ROEdgeVector::const_iterator it = myFollowingEdges.begin(); it != myFollowingEdges.end(); ++it) {
+            if ((*it)->getFunc() == ET_DISTRICT) {
+                followers.insert(*it);
             }
         }
         myClassesSuccessorMap[vClass].insert(myClassesSuccessorMap[vClass].begin(),
