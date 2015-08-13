@@ -58,10 +58,10 @@ recheckForLoops(ConstROEdgeVector& edges) {
 
     // remove loops at the route's begin
     //  (vehicle makes a turnaround to get into the right direction at an already passed node)
-    RONode* start = edges[0]->getFromNode();
+    const RONode* start = edges[0]->getFromJunction();
     unsigned lastStart = 0;
     for (unsigned i = 1; i < edges.size(); i++) {
-        if (edges[i]->getFromNode() == start) {
+        if (edges[i]->getFromJunction() == start) {
             lastStart = i;
         }
     }
@@ -70,10 +70,10 @@ recheckForLoops(ConstROEdgeVector& edges) {
     }
     // remove loops at the route's end
     //  (vehicle makes a turnaround to get into the right direction at an already passed node)
-    RONode* end = edges.back()->getToNode();
+    const RONode* end = edges.back()->getToJunction();
     size_t firstEnd = edges.size() - 1;
     for (unsigned i = 0; i < firstEnd; i++) {
-        if (edges[i]->getToNode() == end) {
+        if (edges[i]->getToJunction() == end) {
             firstEnd = i;
         }
     }
@@ -85,9 +85,9 @@ recheckForLoops(ConstROEdgeVector& edges) {
     /*
     std::vector<RONode*> nodes;
     for (ConstROEdgeVector::iterator i = edges.begin(); i != edges.end(); ++i) {
-        nodes.push_back((*i)->getFromNode());
+        nodes.push_back((*i)->getFromJunction());
     }
-    nodes.push_back(edges.back()->getToNode());
+    nodes.push_back(edges.back()->getToJunction());
     bool changed = false;
     do {
         changed = false;

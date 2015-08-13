@@ -77,7 +77,7 @@ RODFNet::buildApproachList() {
                 // edges in sinks will not be used
                 continue;
             }
-            if (!myKeepTurnarounds && help->getToNode() == ce->getFromNode()) {
+            if (!myKeepTurnarounds && help->getToJunction() == ce->getFromJunction()) {
                 // do not use turnarounds
                 continue;
             }
@@ -223,7 +223,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
         if (!hasApproached(last)) {
             // ok, no further connections to follow
             current.factor = 1.;
-            SUMOReal cdist = current.edges2Pass[0]->getFromNode()->getPosition().distanceTo(current.edges2Pass.back()->getToNode()->getPosition());
+            SUMOReal cdist = current.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(current.edges2Pass.back()->getToJunction()->getPosition());
             if (minDist < cdist) {
                 into.addRouteDesc(current);
             }
@@ -247,7 +247,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
 ///!!!                        //toDiscard.push_back(current);
                     }
                     current.factor = 1.;
-                    SUMOReal cdist = current.edges2Pass[0]->getFromNode()->getPosition().distanceTo(current.edges2Pass.back()->getToNode()->getPosition());
+                    SUMOReal cdist = current.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(current.edges2Pass.back()->getToJunction()->getPosition());
                     if (minDist < cdist) {
                         into.addRouteDesc(current);
                     }
@@ -283,7 +283,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
                 WRITE_WARNING("Could not close route for '" + det.getID() + "'");
                 unfoundEnds.push_back(current);
                 current.factor = 1.;
-                SUMOReal cdist = current.edges2Pass[0]->getFromNode()->getPosition().distanceTo(current.edges2Pass.back()->getToNode()->getPosition());
+                SUMOReal cdist = current.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(current.edges2Pass.back()->getToJunction()->getPosition());
                 if (minDist < cdist) {
                     into.addRouteDesc(current);
                 }
@@ -308,7 +308,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
             } else {
                 if (!hadOne) {
                     t.factor = (SUMOReal) 1. / (SUMOReal) appr.size();
-                    SUMOReal cdist = current.edges2Pass[0]->getFromNode()->getPosition().distanceTo(current.edges2Pass.back()->getToNode()->getPosition());
+                    SUMOReal cdist = current.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(current.edges2Pass.back()->getToJunction()->getPosition());
                     if (minDist < cdist) {
                         into.addRouteDesc(t);
                     }

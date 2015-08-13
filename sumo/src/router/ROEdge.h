@@ -219,22 +219,6 @@ public:
     }
 
 
-    /** @brief Returns the node this edge starts at
-     * @return The node this edge starts at
-     */
-    RONode* getFromNode() const {
-        return myFromNode;
-    }
-
-
-    /** @brief Returns the node this edge ends at
-     * @return The node this edge ends at
-     */
-    RONode* getToNode() const {
-        return myToNode;
-    }
-
-
     /** @brief returns the information whether this edge is directly connected to the given
      *
      * @param[in] e The edge which may be connected
@@ -439,11 +423,6 @@ public:
     }
 
 
-    void setJunctions(RONode* from, RONode* to) {
-        myFromJunction = from;
-        myToJunction = to;
-    }
-
     /** @brief Returns this edge's lanes
      *
      * @return This edge's lanes
@@ -463,8 +442,9 @@ protected:
 
 
 protected:
-    /// @brief The nodes this edge is connecting
-    RONode* const myFromNode, * const myToNode;
+    /// @brief the junctions for this edge
+    RONode* myFromJunction;
+    RONode* myToJunction;
 
     /// @brief The index (numeric id) of the edge
     const unsigned int myIndex;
@@ -524,9 +504,6 @@ protected:
 
     static ROEdgeVector myEdges;
 
-    /// @brief the junctions for this edge
-    RONode* myFromJunction;
-    RONode* myToJunction;
 
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, ROEdgeVector> myClassesSuccessorMap;

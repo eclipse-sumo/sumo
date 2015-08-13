@@ -66,14 +66,18 @@ ROEdgeVector ROEdge::myEdges;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority)
-    : Named(id), myFromNode(from), myToNode(to), myIndex(index), myPriority(priority),
-      mySpeed(-1), myLength(0),
-      myUsingTTTimeLine(false),
-      myUsingETimeLine(false),
-      myCombinedPermissions(0),
-      myFromJunction(0),
-      myToJunction(0) {
+ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority) : 
+    Named(id), 
+    myFromJunction(from), 
+    myToJunction(to), 
+    myIndex(index), 
+    myPriority(priority),
+    mySpeed(-1), 
+    myLength(0),
+    myUsingTTTimeLine(false),
+    myUsingETimeLine(false),
+    myCombinedPermissions(0) 
+{
     while (myEdges.size() <= index) {
         myEdges.push_back(0);
     }
@@ -140,8 +144,8 @@ ROEdge::getEffort(const ROVehicle* const veh, SUMOReal time) const {
 
 SUMOReal
 ROEdge::getDistanceTo(const ROEdge* other) const {
-    if (getToNode() != 0 && other->getFromNode() != 0) {
-        return getToNode()->getPosition().distanceTo2D(other->getFromNode()->getPosition());
+    if (getToJunction() != 0 && other->getFromJunction() != 0) {
+        return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
     } else {
         return 0; // optimism is just right for astar
     }

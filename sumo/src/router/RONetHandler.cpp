@@ -132,7 +132,6 @@ RONetHandler::myEndElement(int element) {
                 RONode* from = myNet.getNode(it->second.first);
                 RONode* to = myNet.getNode(it->second.second);
                 if (edge != 0 && from != 0 && to != 0) {
-                    edge->setJunctions(from, to);
                     from->addOutgoing(edge);
                     to->addIncoming(edge);
                 }

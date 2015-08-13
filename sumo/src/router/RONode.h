@@ -71,7 +71,7 @@ public:
     /** @brief Returns the position of the node
      * @return This node's position
      */
-    const Position& getPosition() {
+    const Position& getPosition() const {
         return myPosition;
     }
 
