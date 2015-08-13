@@ -75,6 +75,12 @@
         <!-- Tries to correct a false route -->
         <repair value="false" type="BOOL"/>
 
+        <!-- Tries to correct an invalid starting edge by using the first usable edge instead -->
+        <repair.from value="false" type="BOOL"/>
+
+        <!-- Tries to correct an invalid destination edge by using the last usable edge instead -->
+        <repair.to value="false" type="BOOL"/>
+
         <!-- Interpolate edge weights at interval boundaries -->
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL"/>
 
