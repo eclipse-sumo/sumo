@@ -10,4 +10,9 @@
     <vehicle depart="30" id="overtaking4" route="1" departPos="-150" arrivalLane="0" arrivalPos="10">
         <stop lane="beg_0" endPos="-20" duration="1"/>
     </vehicle>
+
+    <vehicle depart="50" id="stopped2" route="1" departPos="-20" arrivalPos="10">
+        <stop lane="beg_0" endPos="-20" duration="500"/>
+    </vehicle>
+    <vehicle depart="50" id="overtaking5" route="1" departPos="-150" arrivalLane="0" arrivalPos="10"/>
 </routes>
