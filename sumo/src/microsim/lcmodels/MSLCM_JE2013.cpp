@@ -89,7 +89,7 @@
 #define TURN_LANE_DIST (SUMOReal)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
 //#define DEBUG_COND (myVehicle.getID() == "1501_27271428" || myVehicle.getID() == "1502_27270000")
-//#define DEBUG_COND (myVehicle.getID() == "175129_26220000")
+//#define DEBUG_COND (myVehicle.getID() == "overtaking")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "Costa_12_13") // test stops_overtaking
@@ -756,6 +756,14 @@ MSLCM_JE2013::_wantsChange(
     //              : laSpeed *  LOOK_FORWARD_NEAR;
     SUMOReal laDist = myLookAheadSpeed * (right ? LOOK_FORWARD_RIGHT : LOOK_FORWARD_LEFT);
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (SUMOReal) 2.;
+
+    // react to a stopped leader on the current lane
+    if (bestLaneOffset == 0 && leader.first != 0 && leader.first->isStopped()) {
+        // value is doubled for the check since we change back and forth
+        laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap() 
+                + leader.first->getVehicleType().getLengthWithGap());
+    }
+
     // free space that is available for changing
     //const SUMOReal neighSpeed = (neighLead.first != 0 ? neighLead.first->getSpeed() :
     //        neighFollow.first != 0 ? neighFollow.first->getSpeed() :

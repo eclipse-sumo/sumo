@@ -454,6 +454,14 @@ MSLCM_LC2013::_wantsChange(
     }
     SUMOReal laDist = myLookAheadSpeed * (right ? LOOK_FORWARD_RIGHT : LOOK_FORWARD_LEFT);
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (SUMOReal) 2.;
+
+    // react to a stopped leader on the current lane
+    if (bestLaneOffset == 0 && leader.first != 0 && leader.first->isStopped()) {
+        // value is doubled for the check since we change back and forth
+        laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap() 
+                + leader.first->getVehicleType().getLengthWithGap());
+    }
+
     // free space that is available for changing
     //const SUMOReal neighSpeed = (neighLead.first != 0 ? neighLead.first->getSpeed() :
     //        neighFollow.first != 0 ? neighFollow.first->getSpeed() :
