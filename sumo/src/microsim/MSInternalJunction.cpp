@@ -78,7 +78,7 @@ MSInternalJunction::postloadInit() {
         return;
     }
     const int ownLinkIndex = specialLane->getIncomingLanes()[0].viaLink->getIndex();
-    const MSLogicJunction::LinkFoes& foeLinks = parent->getLogic()->getFoesFor(ownLinkIndex);
+    const MSLogicJunction::LinkBits& response = parent->getLogic()->getResponseFor(ownLinkIndex);
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
     for (std::vector<MSLane*>::iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
@@ -86,7 +86,7 @@ MSInternalJunction::postloadInit() {
         for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
             if ((*q)->getViaLane() != 0) {
                 const int foeIndex = (*i)->getIncomingLanes()[0].viaLink->getIndex();
-                if (foeLinks.test(foeIndex)) {
+                if (response.test(foeIndex)) {
                     // only respect vehicles before internal junctions if they
                     // have priority (see the analogous foeLinks.test() when
                     // initializing myLinkFoeInternalLanes in MSRightOfWayJunction

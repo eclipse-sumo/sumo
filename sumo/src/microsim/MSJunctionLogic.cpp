@@ -40,7 +40,7 @@
 // ===========================================================================
 // static variable definitions
 // ===========================================================================
-MSLogicJunction::LinkFoes MSJunctionLogic::myDummyFoes;
+MSLogicJunction::LinkBits MSJunctionLogic::myDummyFoes;
 
 
 // ===========================================================================

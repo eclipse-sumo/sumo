@@ -61,13 +61,8 @@ public:
     /// Destructor.
     virtual ~MSLogicJunction();
 
-    /** @brief Container for link foes */
-    typedef std::bitset<64> LinkFoes;
-
-    /** @brief Container for junction-internal lane occupation
-        Each element of this container represents one particular
-        junction-internal lane */
-    typedef std::bitset<64> InnerState;
+    /** @brief Container for link response and foes */
+    typedef std::bitset<64> LinkBits;
 
     /// initialises the junction after the whole net has been loaded
     virtual void postloadInit();

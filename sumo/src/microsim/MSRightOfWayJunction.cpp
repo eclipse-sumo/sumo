@@ -105,12 +105,12 @@ MSRightOfWayJunction::postloadInit() {
             if (myLogic->getLogicSize() <= requestPos) {
                 throw ProcessError("Found invalid logic position of a link for junction '" + getID() + "' (" + toString(requestPos) + ", max " + toString(myLogic->getLogicSize()) + ") -> (network error)");
             }
-            const MSLogicJunction::LinkFoes& foeLinks = myLogic->getFoesFor(requestPos); // SUMO_ATTR_RESPONSE
-            const std::bitset<64>& internalFoes = myLogic->getInternalFoesFor(requestPos); // SUMO_ATTR_FOES
+            const MSLogicJunction::LinkBits& linkResponse = myLogic->getResponseFor(requestPos); // SUMO_ATTR_RESPONSE
+            const MSLogicJunction::LinkBits& linkFoes = myLogic->getFoesFor(requestPos); // SUMO_ATTR_FOES
             bool cont = myLogic->getIsCont(requestPos);
             myLinkFoeLinks[*j] = std::vector<MSLink*>();
             for (unsigned int c = 0; c < maxNo; ++c) {
-                if (foeLinks.test(c)) {
+                if (linkResponse.test(c)) {
                     MSLink* foe = sortedLinks[c].second;
                     myLinkFoeLinks[*j].push_back(foe);
 #ifdef HAVE_INTERNAL_LANES
@@ -127,7 +127,7 @@ MSRightOfWayJunction::postloadInit() {
             }
             std::vector<MSLink*> foes;
             for (unsigned int c = 0; c < maxNo; ++c) {
-                if (internalFoes.test(c)) {
+                if (linkFoes.test(c)) {
                     MSLink* foe = sortedLinks[c].second;
                     foes.push_back(foe);
 #ifdef HAVE_INTERNAL_LANES
@@ -154,9 +154,9 @@ MSRightOfWayJunction::postloadInit() {
                     if (sortedLinks[c].second->getLane() == 0) { // dead end
                         continue;
                     }
-                    if (internalFoes.test(c)) {
+                    if (linkFoes.test(c)) {
                         myLinkFoeInternalLanes[*j].push_back(myInternalLanes[li]);
-                        if (foeLinks.test(c)) {
+                        if (linkResponse.test(c)) {
                             const std::vector<MSLane::IncomingLaneInfo>& l = myInternalLanes[li]->getIncomingLanes();
                             if (l.size() == 1 && l[0].lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
                                 myLinkFoeInternalLanes[*j].push_back(l[0].lane);

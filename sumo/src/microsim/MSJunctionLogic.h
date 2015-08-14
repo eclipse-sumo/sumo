@@ -51,13 +51,14 @@ public:
     /// Returns the logic's number of links.
     unsigned int nLinks();
 
-    /// Returns the foes of the given link
-    virtual const MSLogicJunction::LinkFoes& getFoesFor(unsigned int linkIndex) const {
+    /// @brief Returns the response for the given link
+    virtual const MSLogicJunction::LinkBits& getResponseFor(unsigned int linkIndex) const {
         UNUSED_PARAMETER(linkIndex);
         return myDummyFoes;
     }
 
-    virtual const std::bitset<64>& getInternalFoesFor(unsigned int linkIndex) const {
+    /// @brief Returns the foes for the given link 
+    virtual const MSLogicJunction::LinkBits& getFoesFor(unsigned int linkIndex) const {
         UNUSED_PARAMETER(linkIndex);
         return myDummyFoes;
     }
@@ -86,7 +87,7 @@ protected:
     unsigned int myNLinks;
 
     /// @brief A dummy foe container
-    static MSLogicJunction::LinkFoes myDummyFoes;
+    static MSLogicJunction::LinkBits myDummyFoes;
 
 private:
     /// Default constructor.

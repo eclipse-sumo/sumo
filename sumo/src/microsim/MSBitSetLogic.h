@@ -80,12 +80,13 @@ public:
     }
 
 
-    /// Returns the foes of the given link
-    const MSLogicJunction::LinkFoes& getFoesFor(unsigned int linkIndex) const {
+    /// @brief Returns the response for the given link
+    const MSLogicJunction::LinkBits& getResponseFor(unsigned int linkIndex) const {
         return (*myLogic)[linkIndex];
     }
 
-    const std::bitset<64>& getInternalFoesFor(unsigned int linkIndex) const {
+    /// @brief Returns the foes for the given link 
+    const MSLogicJunction::LinkBits& getFoesFor(unsigned int linkIndex) const {
         return (*myInternalLinksFoes)[linkIndex];
     }
 
