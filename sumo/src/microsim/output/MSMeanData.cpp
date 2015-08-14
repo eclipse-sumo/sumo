@@ -276,7 +276,9 @@ void
 MSMeanData::init() {
     const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
     for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        if (myDumpInternal || (*e)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+        const MSEdge::EdgeBasicFunction efun = (*e)->getPurpose();
+        if ((myDumpInternal || efun != MSEdge::EDGEFUNCTION_INTERNAL) 
+           && efun != MSEdge::EDGEFUNCTION_CROSSING && efun != MSEdge::EDGEFUNCTION_WALKINGAREA) {
             myEdges.push_back(*e);
             myMeasures.push_back(std::vector<MeanDataValues*>());
             const std::vector<MSLane*>& lanes = (*e)->getLanes();
