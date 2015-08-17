@@ -2047,9 +2047,6 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                 startCrossingShape = (*it).shape;
                 wa.width = MAX2(wa.width, startCrossingWidth);
                 connectsCrossing = true;
-                if (isTLControlled()) {
-                    wa.tlID = (*getControllingTLS().begin())->getID();
-                }
                 connectedPoints.push_back((*it).shape[0]);
                 if (gDebugFlag1) {
                     std::cout << "    crossing " << (*it).id << " starts\n";
@@ -2190,9 +2187,6 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             prev.nextWalkingArea = wa.id;
             wa.nextCrossing = next.id;
             next.prevWalkingArea = wa.id;
-            if (isTLControlled()) {
-                wa.tlID = (*getControllingTLS().begin())->getID();
-            }
             // back of previous crossing
             PositionVector tmp = prev.shape;
             tmp.move2side(-prev.width / 2);

@@ -173,8 +173,8 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device.writeAttr(SUMO_ATTR_TO, (*it).nextCrossing);
                 device.writeAttr(SUMO_ATTR_FROM_LANE, 0);
                 device.writeAttr(SUMO_ATTR_TO_LANE, 0);
-                if ((*it).tlID != "") {
-                    device.writeAttr(SUMO_ATTR_TLID, (*it).tlID);
+                if (node->isTLControlled()) {
+                    device.writeAttr(SUMO_ATTR_TLID, (*node->getControllingTLS().begin())->getID());
                     assert(nextCrossing.tlLinkNo >= 0);
                     device.writeAttr(SUMO_ATTR_TLLINKINDEX, nextCrossing.tlLinkNo);
                 }

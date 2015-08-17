@@ -162,8 +162,7 @@ public:
         WalkingArea(const std::string& _id, SUMOReal _width) :
             id(_id),
             width(_width),
-            nextCrossing(""),
-            tlID("")
+            nextCrossing("")
         {}
         /// @brief the (edge)-id of this walkingArea
         std::string id;
@@ -175,8 +174,6 @@ public:
         PositionVector shape;
         /// @brief the lane-id of the next crossing
         std::string nextCrossing;
-        /// @brief the traffic light id of the next crossing or ""
-        std::string tlID;
         /// @brief the lane-id of the next sidewalk lane or ""
         std::vector<std::string> nextSidewalks;
         /// @brief the lane-id of the previous sidewalk lane or ""
