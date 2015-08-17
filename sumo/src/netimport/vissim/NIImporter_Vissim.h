@@ -43,6 +43,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include "tempstructs/NIVissimEdge.h"
 #include "tempstructs/NIVissimConnection.h"
+#include "tempstructs/NIVissimConflictArea.h"
 
 #include <utils/common/StringBijection.h>
 #include <utils/common/StringTokenizer.h>
@@ -82,9 +83,7 @@ public:
 private:
 
     typedef std::map<std::string, std::list<std::string> > nodeMap;
-    //typedef std::vector< StringBijection * > nodeMap;
     nodeMap elementData;
-
 
     /**
      * @class NIVissimSingleTypeXMLHandler_Streckendefinition
@@ -438,6 +437,47 @@ private:
     };
 
 
+private:
+    /**
+     * @class NIVissimSingleTypeXMLHandler_ConflictArea
+     * @brief A class which extracts VISSIM-ConflictAreas from a parsed VISSIM-file
+     */
+    class NIVissimXMLHandler_ConflictArea : public GenericSAXHandler {
+    public:
+        /** @brief Constructor
+         */
+        NIVissimXMLHandler_ConflictArea();
+
+
+        /// @brief Destructor
+        ~NIVissimXMLHandler_ConflictArea();
+
+
+    protected:
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        //@}
+
+
+    private:
+
+
+        /** @brief invalidated copy constructor */
+        NIVissimXMLHandler_ConflictArea(const NIVissimXMLHandler_ConflictArea& c);
+
+        /** @brief invalidated assignment operator */
+        NIVissimXMLHandler_ConflictArea& operator=(const NIVissimXMLHandler_ConflictArea& c);
+    };
+
 
 protected:
     bool inputIsLegacyFormat;
@@ -582,7 +622,8 @@ private:
         VISSIM_TAG_SPEED_DIST,
         VISSIM_TAG_DATAPOINT,
         VISSIM_TAG_DECISION_STATIC,
-        VISSIM_TAG_ROUTE_STATIC
+        VISSIM_TAG_ROUTE_STATIC,
+        VISSIM_TAG_CA
     };
 
 
@@ -612,7 +653,10 @@ private:
         VISSIM_ATTR_KEY,
         VISSIM_ATTR_FX,
         VISSIM_ATTR_DESTLINK,
-        VISSIM_ATTR_DESTPOS
+        VISSIM_ATTR_DESTPOS,
+        VISSIM_ATTR_LINK1,
+        VISSIM_ATTR_LINK2,
+        VISSIM_ATTR_STATUS
     };
 
     /// The names of VISSIM-XML elements (for passing to GenericSAXHandler)

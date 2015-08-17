@@ -108,6 +108,7 @@
 #include "tempstructs/NIVissimConnectionCluster.h"
 #include "tempstructs/NIVissimNodeDef.h"
 #include "tempstructs/NIVissimEdge.h"
+#include "tempstructs/NIVissimConflictArea.h"
 #include "tempstructs/NIVissimDistrictConnection.h"
 #include "tempstructs/NIVissimVehicleType.h"
 
@@ -159,6 +160,7 @@ StringBijection<int>::Entry NIImporter_Vissim::vissimTags[] = {
         "vehicleRouteStatic",
         NIImporter_Vissim::VISSIM_TAG_ROUTE_STATIC
     },
+    { "conflictArea",     NIImporter_Vissim::VISSIM_TAG_CA },
     { "",                 NIImporter_Vissim::VISSIM_TAG_NOTHING }
 };
 
@@ -184,15 +186,12 @@ StringBijection<int>::Entry NIImporter_Vissim::vissimAttrs[] = {
     { "fx",             NIImporter_Vissim::VISSIM_ATTR_FX },
     { "destLink",       NIImporter_Vissim::VISSIM_ATTR_DESTLINK },
     { "destPos",        NIImporter_Vissim::VISSIM_ATTR_DESTPOS },
+    { "link1",          NIImporter_Vissim::VISSIM_ATTR_LINK1 },
+    { "link2",          NIImporter_Vissim::VISSIM_ATTR_LINK2 },
+    { "status",         NIImporter_Vissim::VISSIM_ATTR_STATUS },
     { "",               NIImporter_Vissim::VISSIM_ATTR_NOTHING }
 };
 
-/*
-map< int, vector<int> > NIImporter_Vissim::vissimTagAttrs[] = {
-          { NIImporter_Vissim::VISSIM_TAG_LINK,
-            {VISSIM_ATTR_NO, VISSIM_ATTR_NAME, VISSIM_ATTR_LINKBEHAVETYPE, VISSIM_ATTR_ZUSCHLAG1, VISSIM_ATTR_ZUSCHLAG2, }},
-      }
-*/
 
 // ===========================================================================
 // method definitions
@@ -205,7 +204,6 @@ NIImporter_Vissim::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isSet("vissim-file")) {
         return;
     }
-    // load the visum network
     NIImporter_Vissim loader(nb, oc.getString("vissim-file"));
     // check if legacy format file or newer XML file
     // file name extension check
@@ -661,6 +659,34 @@ NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::myEndElemen
     --myHierarchyLevel;
 }
 
+// ---------------------------------------------------------------------------
+// definitions of NIVissimXMLHandler_ConflictArea-methods
+// ---------------------------------------------------------------------------
+NIImporter_Vissim::NIVissimXMLHandler_ConflictArea::NIVissimXMLHandler_ConflictArea()
+    : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
+                        vissimAttrs, VISSIM_ATTR_NOTHING,
+                        "vissim - file"){}
+
+NIImporter_Vissim::NIVissimXMLHandler_ConflictArea::~NIVissimXMLHandler_ConflictArea() { }
+
+void
+NIImporter_Vissim::NIVissimXMLHandler_ConflictArea::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    // finding an actual flow
+    if (element == VISSIM_TAG_CA) {
+        //parse all flows
+        bool ok = true;
+        std::string status = attrs.get<std::string>(VISSIM_ATTR_STATUS, 0, ok);
+        //get only the conflict areas which were set in VISSIM
+        if (status != "PASSIVE") {
+            NIVissimConflictArea::dictionary(attrs.get<int>(VISSIM_ATTR_NO, 0, ok),
+                                             attrs.get<std::string>(VISSIM_ATTR_LINK1, 0, ok),
+                                             attrs.get<std::string>(VISSIM_ATTR_LINK2, 0, ok),
+                                             status);
+        }
+
+    }
+}
+
 
 /* -------------------------------------------------------------------------
  * NIImporter_Vissim::VissimSingleTypeParser-methods
@@ -880,6 +906,7 @@ NIImporter_Vissim::~NIImporter_Vissim() {
     NIVissimEdge::clearDict();
     NIVissimAbstractEdge::clearDict();
     NIVissimConnection::clearDict();
+    NIVissimConflictArea::clearDict();
     for (ToParserMap::iterator i = myParsers.begin(); i != myParsers.end(); i++) {
         delete(*i).second;
     }
@@ -911,6 +938,7 @@ NIImporter_Vissim::loadXML(const OptionsCont& options, NBNetBuilder& nb) {
     //NIVissimXMLHandler_Parkplatzdefinition XMLHandler_Parkplatzdefinition;
     NIVissimXMLHandler_Fahrzeugklassendefinition XMLHandler_Fahrzeugklassendefinition(elementData);
     NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition XMLHandler_Geschwindigkeitsverteilung(elementData);
+    NIVissimXMLHandler_ConflictArea XMLHandler_ConflictAreas;
     if (!FileHelpers::isReadable(file)) {
         WRITE_ERROR("Could not open vissim-file '" + file + "'.");
         return;
@@ -956,6 +984,15 @@ NIImporter_Vissim::loadXML(const OptionsCont& options, NBNetBuilder& nb) {
         return;
     }
     PROGRESS_DONE_MESSAGE();*/
+
+
+    //Konfliktflächen
+    XMLHandler_ConflictAreas.setFileName(file);
+    PROGRESS_BEGIN_MESSAGE("Parsing conflict areas from vissim-file '" + file + "'");
+    if (!XMLSubSys::runParser(XMLHandler_ConflictAreas, file)) {
+        return;
+    }
+    PROGRESS_DONE_MESSAGE();
 
     postLoadBuild(options.getFloat("vissim.join-distance"));
 }
@@ -1050,7 +1087,6 @@ NIImporter_Vissim::postLoadBuild(SUMOReal offset) {
     NIVissimConnectionCluster::buildNodeClusters();
 
 //    NIVissimNodeCluster::dict_recheckEdgeChanges();
-
     NIVissimNodeCluster::buildNBNodes(myNetBuilder.getNodeCont());
     NIVissimDistrictConnection::dict_BuildDistrictNodes(
         myNetBuilder.getDistrictCont(), myNetBuilder.getNodeCont());
@@ -1062,6 +1098,7 @@ NIImporter_Vissim::postLoadBuild(SUMOReal offset) {
     NIVissimDistrictConnection::dict_BuildDistricts(myNetBuilder.getDistrictCont(), myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont());
     NIVissimConnection::dict_buildNBEdgeConnections(myNetBuilder.getEdgeCont());
     NIVissimNodeCluster::dict_addDisturbances(myNetBuilder.getDistrictCont(), myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont());
+    NIVissimConflictArea::setPriorityRegulation(myNetBuilder.getEdgeCont());
     NIVissimTL::dict_SetSignals(myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont());
 }
 

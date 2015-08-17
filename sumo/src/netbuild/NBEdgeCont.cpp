@@ -290,7 +290,8 @@ NBEdgeCont::retrieve(const std::string& id, bool retrieveExtracted) const {
     return (*i).second;
 }
 
-
+// FIXME: This can't work
+/*
 NBEdge*
 NBEdgeCont::retrievePossiblySplit(const std::string& id, bool downstream) const {
     NBEdge* edge = retrieve(id);
@@ -305,6 +306,25 @@ NBEdgeCont::retrievePossiblySplit(const std::string& id, bool downstream) const 
         }
         edge = candidates->front();
         candidates = downstream ? &edge->getToNode()->getOutgoingEdges() : &edge->getFromNode()->getIncomingEdges();
+    }
+    return edge;
+}*/
+
+NBEdge*
+NBEdgeCont::retrievePossiblySplit(const std::string& id, bool downstream) const {
+    NBEdge* edge = retrieve(id);
+    if (edge != 0) {
+        return edge;
+    }
+    // NOTE: (TODO) for multiply split edges (e.g. 15[0][0]) one could try recursion
+    if ((retrieve(id + "[0]") != 0) && (retrieve(id + "[1]") != 0)){
+        // Edge was split during the netbuilding process
+        if (downstream == true){
+            return retrieve(id + "[1]");
+        }
+        else {
+            return retrieve(id + "[0]");
+        }
     }
     return edge;
 }

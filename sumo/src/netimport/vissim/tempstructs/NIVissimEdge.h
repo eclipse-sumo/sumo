@@ -259,7 +259,7 @@ private:
     /// The name of the edge
     std::string myName;
 
-    /// The tape of the edge
+    /// The type of the edge
     std::string myType;
 
     /// The number of lanes the edge has
