@@ -43,8 +43,11 @@ def nparr_from_dict_list(dicl_tab, col_ns, col_ts):
                      dicl_tab], dtype=np.dtype(list(zip(col_ns, col_ts))))
 
 
-# dictionary to get the connection id for a given verbinder id and vice versa
 def get_conn_verb_rel(conn_tab, from_to_tab):
+    """
+    returns a dictionary to get the connection id for a
+    given verbinder id and vice versa
+    """
     conn_link_d = {}  # key = verbinder.id, value = list<connection.id>
     for conn in conn_tab:
         if ':' not in conn['from']:
@@ -106,7 +109,11 @@ def parse_sumo_net_data(sumodoc):
 
 
 def compute_signal_tables(disp_name_id_d, signal_state_d, prog_list):
-    # FIXME: doc
+    """
+    completes the signal tables with all duration and beginning times
+    (in the VISSIm .sig files are only the beginning times of the red and
+    green phases as well as the durations of the other phases given )
+    """
     for key, program in signal_state_d.items():
         cycletime = int([prog for prog in prog_list
                          if prog["id"] == key][0]["cycletime"])
@@ -208,7 +215,9 @@ def compute_sumo_signal_tables(reference_time_d,
 
 
 def get_sigcon_junc_relation(sig_con_tab, sig_group_conn_d, junc_tab):
-    # FIXME: doc
+    """
+    allocates the VISSIM signalcontrollers to SUMO junctions
+    """
     sigCon_junc_d = {}
     for sig_con in sig_con_tab:
         conn_l = []
@@ -259,9 +268,7 @@ def get_sg_connection_data(
                     link = signal['link']
                     lane = str(int(signal['lane']) - 1)
                     # tls on normal edge or verbinder?
-                    # FIXME: this needs to be a sound checking function,
-                    # - NOT by number
-                    if int(link) < 10000:
+                    if is_verbinder_d[link] == False:
                         if link in edge_list:
                             connection = conn_tab[
                                 (conn_tab["from"] == link) & (
@@ -415,27 +422,16 @@ def edit_connections(conn_l, sumodoc, junc_id):
             connection.setAttribute("tl", junc_id)
         i += 1
 
-# FIXME: cleanup ? needed ?
-"""
-def create_tl_logic(sumodoc, prog_id,
-                    junc_id, prog_list_d):
-    tlLogic = sumodoc.createElement("tlLogic")
-    tlLogic.setAttribute("id", junc_id)
-    tlLogic.setAttribute("type", "static")
-    tlLogic.setAttribute("programID",
-                         [prog for prog in prog_list_d[tls_id] \
-                             if prog["id"] == prog_id][0]["name"])
-    tlLogic.setAttribute("offset", "0.00")
-    return tlLogic
 
-
-def edit_tl_logic(state_l, duration_l, sumodoc, tlLogic):
-    for state, duration in zip(state_l, duration_l):
-        phase = sumodoc.createElement("phase")
-        phase.setAttribute("duration", str(duration / 1000))
-        phase.setAttribute("state", state)
-        tlLogic.appendChild(phase)
-"""
+def is_verbinder(xmldoc):
+    """checks if a given link is a verbinder"""
+    is_verbinder_d = dict()
+    for link in xmldoc.getElementsByTagName("link"):
+        if len(link.getElementsByTagName("fromLinkEndPt")) > 0:
+            is_verbinder_d[link.getAttribute("no")] = True
+        else:
+            is_verbinder_d[link.getAttribute("no")] = False
+    return is_verbinder_d
 
 
 def generate_xml_doc(
@@ -547,6 +543,7 @@ if __name__ == '__main__':
     # INPX read
     sig_con_tab, sig_head_d = parse_inpx_sig_data(xmldoc)
     link_tab, from_to_tab = parse_vissim_net_data(xmldoc)
+    is_verbinder_d = is_verbinder(xmldoc)
 
     # SUMO NET read
     junc_tab, conn_tab = parse_sumo_net_data(sumodoc)

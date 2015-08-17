@@ -136,20 +136,28 @@ def parse_vehicle_types(xmldoc, acc_d, length_d):
     return veh_type_d
 
 
+# FIXME: not necessarily nicely done
+#	name doesn't fit functionality
 def is_verbinder(xmldoc):
     """checks if a given link is a verbinder"""
+    # simple implementation of static variable
+    #if not hasattr(is_verbinder, "v_dic"):
+    #    is_verbinder.v_dic = dict()  # doesn't exist yet, so initialize
+    # FIXME: xmldoc is in the way
     is_verbinder_d = dict()
     for link in xmldoc.getElementsByTagName("link"):
         if len(link.getElementsByTagName("fromLinkEndPt")) > 0:
             is_verbinder_d[link.getAttribute("no")] = True
         else:
             is_verbinder_d[link.getAttribute("no")] = False
+    # returning a dict...
     return is_verbinder_d
 
 
 # FIXME: just for static routes
 def parse_routes(xmldoc, edge_list, is_verbinder_d):
-    """parses the route information"""
+    """parses the VISSIM .inpx route information
+    of statically defined routes ONLY"""
     routes_by_start_d = dict()     # dictionary[start_link] = list(<Route>)
     for decision in xmldoc.getElementsByTagName('vehicleRoutingDecisionStatic'):
         start_link = decision.getAttribute('link')
@@ -164,7 +172,7 @@ def parse_routes(xmldoc, edge_list, is_verbinder_d):
             temp = statistic.getAttribute('relFlow').split(" ")
             while i < len(temp):
                 var = temp[i].split(":")
-                var[0] = float(var[0])
+                var[0] = float(var[0])/1000
                 var[1] = float(var[1].replace(",", ""))
                 route_d["rel_flow"].append(var)
                 i = i + 2
@@ -183,7 +191,7 @@ def parse_routes(xmldoc, edge_list, is_verbinder_d):
                         while check == 1:
                             if link.getAttribute(
                                     'key') + "[" + str(i) + "]" \
-                                    in split_edge_list:
+                                        in split_edge_list:
                                 route_d["links"].append(
                                     link.getAttribute('key') +
                                         "[" + str(i) + "]")
@@ -218,22 +226,13 @@ def set_probability(routes_by_start_d, flow_d):
 # Konversion von .inp zu .inpx verloren
 
 
-def is_valid_rel_flow(routes_by_start_d):
+def validate_rel_flow(routes_by_start_d):
     """checks if a relative flow is missing and completes it if necessary"""
-    max_len = 0
-    # Referenz-Struktur erzeugen
-    reference_time = routes_by_start_d[
-        list(routes_by_start_d.keys())[0]][0]
-    for routes in routes_by_start_d.values():
-        for route in routes:
-            data_len = len(route["rel_flow"])
-            if data_len > max_len:
-                max_len = data_len
-                reference_time = route["rel_flow"][:, 0]
     # compare alle rel_flows with the reference flow
-    for routes in routes_by_start_d.values():
-        for route in routes:
-            if np.array_equal(reference_time,
+    for start_link in routes_by_start_d.keys():
+        reference_time = flow_d[start_link]["flow"][:,0]
+        for route in routes_by_start_d[start_link]:
+            if np.array_equal(reference_time, \
                               route["rel_flow"][:, 0]) == False:
                 i = 0
                 while i < len(route["rel_flow"]):
@@ -243,7 +242,6 @@ def is_valid_rel_flow(routes_by_start_d):
                             route["rel_flow"], i, np.array(
                                 (reference_time[i], 1.0)), 0)
                     i = i + 1
-    return reference_time / 1000
 
 
 def set_v_types(veh_comp_d, route_doc, root, speed_d):
@@ -268,11 +266,12 @@ def set_v_types(veh_comp_d, route_doc, root, speed_d):
     return route_doc
 
 
-def set_route_distributions(route_doc, routes_by_start_d, ref_time, root):
+def set_route_distributions(route_doc, routes_by_start_d, root):
     """writes the route distribution data into the given dom document"""
     for start_id in routes_by_start_d:
         i = 0
         if len(routes_by_start_d[start_id]) > 0:
+            ref_time = flow_d[start_id]["flow"][:,0]
             for time in ref_time:
                 route_dist = route_doc.createElement("routeDistribution")
                 route_dist.setAttribute("id", "_".join([start_id,
@@ -294,31 +293,37 @@ def set_route_distributions(route_doc, routes_by_start_d, ref_time, root):
     return route_doc
 
 
-def set_flows(routes_by_start_d, ref_time, flow_d, route_doc):
+def set_flows(routes_by_start_d, flow_d, route_doc, root):
     """writes the flow data into the given dom document"""
     sim_end = XMLDOC.getElementsByTagName(
         "simulation")[0].getAttribute("simPeriod")
-    for time in ref_time:
-        for start_id in routes_by_start_d:
+    dom_flow_l = []
+    for start_id in routes_by_start_d:
+        ref_time = flow_d[start_id]["flow"][:,0]
+        for index, time in enumerate(ref_time):
             if len(routes_by_start_d[start_id]) > 0:
-                in_flow = [fl for fl in flow_d[start_id]["flow"] if
-                           fl[0] == time][0]
+                in_flow = [fl for fl in flow_d[start_id]["flow"] if \
+                    fl[0] == time][0]
                 if in_flow[1] > 0:
                     flow = route_doc.createElement("flow")
                     flow.setAttribute("id", "fl{}_st{}".format(start_id,
                                                                time))
                     flow.setAttribute("color", "1,1,0")
                     flow.setAttribute("begin", str(time))
-                    if len(ref_time) >= 2:
+                    if index < len(ref_time) - 1 and len(ref_time) > 1:
                         flow.setAttribute("end",
-                                          str(time + (ref_time[1] - ref_time[0])))
+                                          str(time + ref_time[index + 1]))
                     else:
                         flow.setAttribute("end", sim_end)
                     flow.setAttribute("vehsPerHour", str(in_flow[1]))
                     flow.setAttribute("type", str(int(in_flow[2])))
                     flow.setAttribute('route', "_".join([start_id,
                                                          str(time)]))
-                    root.appendChild(flow)
+                    dom_flow_l.append(flow)
+    dom_flow_l = sorted(dom_flow_l, 
+                        key = lambda dom: float(dom.getAttribute("begin")))
+    for dom_obj in dom_flow_l:
+        root.appendChild(dom_obj)
     return route_doc
 
 
@@ -374,7 +379,7 @@ if __name__ == '__main__':
     # parse routes
     routes_by_start_d = parse_routes(XMLDOC, edge_list, is_verbinder_d)
     # validate relative flows
-    reference_time = is_valid_rel_flow(routes_by_start_d)
+    validate_rel_flow(routes_by_start_d)
     # computes the probability for each route
     set_probability(routes_by_start_d, flow_d)
 
@@ -388,10 +393,8 @@ if __name__ == '__main__':
     result_doc.appendChild(root)
 
     result_doc = set_v_types(veh_comp_d, result_doc, root, speed_d)
-    resutl_doc = set_route_distributions(result_doc, routes_by_start_d,
-                                         reference_time, root)
-    result_doc = set_flows(routes_by_start_d, reference_time,
-                           flow_d, result_doc)
+    result_doc = set_route_distributions(result_doc, routes_by_start_d, root)
+    result_doc = set_flows(routes_by_start_d, flow_d, result_doc, root)
     # write the data into a .rou.xml file
     with open("%s.rou.xml" % args.output_file, "w") as ofh:
         result_doc.writexml(ofh, addindent='    ', newl='\n')
