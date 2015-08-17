@@ -203,11 +203,6 @@ public:
     /// @brief draw crossties for railroads or pedestrian crossings
     void drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
 
-    SUMOReal getHalfWidth() const {
-        return myHalfLaneWidth;
-    }
-
-
     SUMOReal getEdgeLaneNumber() const;
 
     /** @brief Returns the stored traveltime for the edge of this lane

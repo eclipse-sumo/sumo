@@ -583,7 +583,7 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
         getShape(),
         getShapeRotations(),
         getShapeLengths(),
-        (getHalfWidth() + SUMO_const_laneOffset) * scale);
+        (myHalfLaneWidth + SUMO_const_laneOffset) * scale);
     glPopMatrix();
 }
 
