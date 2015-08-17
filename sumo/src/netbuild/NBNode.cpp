@@ -295,6 +295,13 @@ NBNode::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
 }
 
 
+void
+NBNode::mirrorX() {
+    myPosition.mul(1, -1);
+    myPoly.mirrorX();
+}
+
+
 // -----------  Methods for dealing with assigned traffic lights
 void
 NBNode::addTrafficLight(NBTrafficLightDefinition* tlDef) {
@@ -1192,7 +1199,8 @@ NBNode::mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, c
 
 bool
 NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
-                          const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) {
+                          const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane,
+                          bool lefthand) {
     if (from != prohibitorFrom) {
         return false;
     }
@@ -1215,7 +1223,6 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
         return false;
     } else {
         const LinkDirection d2 = prohibitorFrom->getToNode()->getDirection(prohibitorFrom, prohibitorTo);
-        bool lefthand = OptionsCont::getOptions().getBool("lefthand");
         if (d1 == LINKDIR_LEFT || d1 == LINKDIR_PARTLEFT) {
             // check for leftTurnConflicht
             lefthand = !lefthand;
@@ -1355,14 +1362,14 @@ NBNode::remapRemoved(NBTrafficLightLogicCont& tc,
 
 
 LinkDirection
-NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing) const {
+NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand) const {
     // ok, no connection at all -> dead end
     if (outgoing == 0) {
         return LINKDIR_NODIR;
     }
     // turning direction
     if (incoming->isTurningDirectionAt(outgoing)) {
-        return LINKDIR_TURN;
+        return leftHand ? LINKDIR_TURN_LEFTHAND : LINKDIR_TURN;
     }
     // get the angle between incoming/outgoing at the junction
     SUMOReal angle =
@@ -1377,24 +1384,42 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing)
         // check whether any other edge goes further to the right
         EdgeVector::const_iterator i =
             find(myAllEdges.begin(), myAllEdges.end(), outgoing);
-        NBContHelper::nextCW(myAllEdges, i);
+        if (leftHand) {
+            NBContHelper::nextCCW(myAllEdges, i);
+        } else {
+            NBContHelper::nextCW(myAllEdges, i);
+        }
         while ((*i) != incoming) {
-            if ((*i)->getFromNode() == this) {
+            if ((*i)->getFromNode() == this && !incoming->isTurningDirectionAt(*i)) {
+                //std::cout << incoming->getID() << " -> " << outgoing->getID() << " partRight because auf " << (*i)->getID() << "\n";
                 return LINKDIR_PARTRIGHT;
             }
-            NBContHelper::nextCW(myAllEdges, i);
+            if (leftHand) {
+                NBContHelper::nextCCW(myAllEdges, i);
+            } else {
+                NBContHelper::nextCW(myAllEdges, i);
+            }
         }
         return LINKDIR_RIGHT;
     }
     // check whether any other edge goes further to the left
     EdgeVector::const_iterator i =
         find(myAllEdges.begin(), myAllEdges.end(), outgoing);
-    NBContHelper::nextCCW(myAllEdges, i);
+    if (leftHand) {
+        NBContHelper::nextCW(myAllEdges, i);
+    } else {
+        NBContHelper::nextCCW(myAllEdges, i);
+    }
     while ((*i) != incoming) {
         if ((*i)->getFromNode() == this && !incoming->isTurningDirectionAt(*i)) {
+            //std::cout << incoming->getID() << " -> " << outgoing->getID() << " partLeft because auf " << (*i)->getID() << "\n";
             return LINKDIR_PARTLEFT;
         }
-        NBContHelper::nextCCW(myAllEdges, i);
+        if (leftHand) {
+            NBContHelper::nextCW(myAllEdges, i);
+        } else {
+            NBContHelper::nextCCW(myAllEdges, i);
+        }
     }
     return LINKDIR_LEFT;
 }

@@ -560,7 +560,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         }
         if (style == SUMONET) {
             // write the direction information
-            LinkDirection dir = from.getToNode()->getDirection(&from, c.toEdge);
+            LinkDirection dir = from.getToNode()->getDirection(&from, c.toEdge, OptionsCont::getOptions().getBool("lefthand"));
             assert(dir != LINKDIR_NODIR);
             into.writeAttr(SUMO_ATTR_DIR, toString(dir));
             // write the state information

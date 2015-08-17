@@ -355,6 +355,12 @@ GUILane::drawArrows() const {
                 GLHelper::drawBoxLine(Position(0.5, 2.5), 180, 1, .05);
                 GLHelper::drawTriangleAtEnd(Line(Position(0.5, 2.5), Position(0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
                 break;
+            case LINKDIR_TURN_LEFTHAND:
+                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
+                GLHelper::drawBoxLine(Position(-0.5, 2.5), -180, 1, .05);
+                GLHelper::drawTriangleAtEnd(Line(Position(-0.5, 2.5), Position(-0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
+                break;
             case LINKDIR_LEFT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), 90, 1, .05);

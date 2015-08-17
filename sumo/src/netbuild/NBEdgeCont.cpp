@@ -83,7 +83,7 @@ NBEdgeCont::~NBEdgeCont() {
 
 void
 NBEdgeCont::applyOptions(OptionsCont& oc) {
-    myAmLeftHanded = oc.getBool("lefthand");
+    myAmLeftHanded = false; /// @todo refactor
     // set edges dismiss/accept options
     myEdgesMinSpeed = oc.isSet("keep-edges.min-speed") ? oc.getFloat("keep-edges.min-speed") : -1;
     myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");

@@ -536,6 +536,7 @@ NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& cross
 std::string
 NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
                              int fromLane, int toLane, bool mayDefinitelyPass, const bool checkLaneFoes) const {
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     int idx = 0;
     if (to != 0) {
         idx = getIndex(from, to);
@@ -566,7 +567,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
                     // check whether the connection is prohibited by another one
                     if ((myForbids[getIndex(*i, connected[k].toEdge)][idx] &&
                             (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
-                            || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)) {
+                            || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)) {
                         result += '1';
                     } else {
                         result += '0';

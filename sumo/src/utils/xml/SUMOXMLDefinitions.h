@@ -691,6 +691,8 @@ enum LinkDirection {
     LINKDIR_STRAIGHT = 0,
     /// The link is a 180 degree turn
     LINKDIR_TURN,
+    /// The link is a 180 degree turn (left-hand network)
+    LINKDIR_TURN_LEFTHAND,
     /// The link is a (hard) left direction
     LINKDIR_LEFT,
     /// The link is a (hard) right direction

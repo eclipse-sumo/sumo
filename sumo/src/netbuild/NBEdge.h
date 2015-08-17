@@ -329,6 +329,9 @@ public:
      * @param[in] yoff The y-offset to apply
      */
     void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
+
+    /// @brief mirror coordinates along the x-axis
+    void mirrorX();
     /// @}
 
 

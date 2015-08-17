@@ -89,6 +89,10 @@ NBNetBuilder::compute(OptionsCont& oc,
     GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
 
 
+    if (oc.getBool("lefthand")) {
+        mirrorX();
+    };
+
     // MODIFYING THE SETS OF NODES AND EDGES
 
     // Removes edges that are connecting the same node
@@ -120,8 +124,8 @@ NBNetBuilder::compute(OptionsCont& oc,
         // This depends on turning directions and sorting of edge list
         // in case junctions are joined geometry computations have to be repeated
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
-        NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
-        myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
+        NBNodesEdgesSorter::sortNodesEdges(myNodeCont, false);
+        myNodeCont.computeNodeShapes(false);
         myEdgeCont.computeEdgeShapes();
         // preliminary roundabout computations to avoid destroying roundabouts
         if (oc.getBool("roundabouts.guess")) {
@@ -201,7 +205,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     // guess ramps
     if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
-        NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
+        NBNodesEdgesSorter::sortNodesEdges(myNodeCont, false);
         NBRampsComputer::computeRamps(*this, oc);
         PROGRESS_DONE_MESSAGE();
     }
@@ -227,15 +231,15 @@ NBNetBuilder::compute(OptionsCont& oc,
     // GEOMETRY COMPUTATION
     //
     PROGRESS_BEGIN_MESSAGE("Sorting nodes' edges");
-    NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
+    NBNodesEdgesSorter::sortNodesEdges(myNodeCont, false);
     PROGRESS_DONE_MESSAGE();
     myEdgeCont.computeLaneShapes();
     //
     PROGRESS_BEGIN_MESSAGE("Computing node shapes");
     if (oc.exists("geometry.junction-mismatch-threshold")) {
-        myNodeCont.computeNodeShapes(oc.getBool("lefthand"), oc.getFloat("geometry.junction-mismatch-threshold"));
+        myNodeCont.computeNodeShapes(false, oc.getFloat("geometry.junction-mismatch-threshold"));
     } else {
-        myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
+        myNodeCont.computeNodeShapes(false);
     }
     PROGRESS_DONE_MESSAGE();
     //
@@ -243,7 +247,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     myEdgeCont.computeEdgeShapes();
     PROGRESS_DONE_MESSAGE();
     // resort edges based on the node and edge shapes
-    NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"), true);
+    NBNodesEdgesSorter::sortNodesEdges(myNodeCont, false, true);
     NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
 
     // APPLY SPEED MODIFICATIONS
@@ -392,7 +396,9 @@ NBNetBuilder::compute(OptionsCont& oc,
         }
         PROGRESS_DONE_MESSAGE();
     }
-
+    if (oc.getBool("lefthand")) {
+        mirrorX();
+    };
 
     // report
     WRITE_MESSAGE("-----------------------------------------------------");
@@ -418,6 +424,9 @@ NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper) {
     Boundary boundary = geoConvHelper.getConvBoundary();
     const SUMOReal x = -boundary.xmin();
     const SUMOReal y = -boundary.ymin();
+    //if (lefthand) {
+    //    y = boundary.ymax();
+    //}
     for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
         (*i).second->reshiftPosition(x, y);
     }
@@ -429,6 +438,21 @@ NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper) {
     }
     geoConvHelper.moveConvertedBy(x, y);
     PROGRESS_DONE_MESSAGE();
+}
+
+
+void
+NBNetBuilder::mirrorX() {
+    // mirror the network along the X-axis
+    for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
+        (*i).second->mirrorX();
+    }
+    for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
+        (*i).second->mirrorX();
+    }
+    for (std::map<std::string, NBDistrict*>::const_iterator i = myDistrictCont.begin(); i != myDistrictCont.end(); ++i) {
+        (*i).second->mirrorX();
+    }
 }
 
 

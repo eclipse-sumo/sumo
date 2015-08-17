@@ -361,6 +361,9 @@ public:
      * @param[in] yoff The y-offset to apply
      */
     void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
+
+    /// @brief mirror coordinates along the x-axis
+    void mirrorX();
     /// @}
 
 
@@ -453,7 +456,7 @@ public:
     /** @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
      */
     static bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
-                                  const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane);
+                                  const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane, bool lefthand=false);
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
      * @param[in] possProhibitedFrom The maybe prohibited connection's begin
@@ -482,9 +485,10 @@ public:
     /** @brief Returns the representation of the described stream's direction
      * @param[in] incoming The edge the stream starts at
      * @param[in] outgoing The edge the stream ends at
+     * @param[in] leftHand Whether a lefthand network is being built. Should only be set at writing time
      * @return The direction of the stream
      */
-    LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing) const;
+    LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand=false) const;
 
     LinkState getLinkState(const NBEdge* incoming, NBEdge* outgoing,
                            int fromLane, bool mayDefinitelyPass, const std::string& tlID) const;

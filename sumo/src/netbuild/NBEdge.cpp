@@ -388,6 +388,20 @@ NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
 }
 
 
+void
+NBEdge::mirrorX() {
+    myGeom.mirrorX();
+    for (unsigned int i = 0; i < myLanes.size(); i++) {
+        myLanes[i].shape.mirrorX();
+    }
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        (*i).shape.mirrorX();
+        (*i).viaShape.mirrorX();
+    }
+    computeAngle(); // update angles because they are numerically sensitive (especially where based on centroids)
+}
+
+
 // ----------- Edge geometry access and computation
 const PositionVector
 NBEdge::getInnerGeometry() const {

@@ -527,6 +527,7 @@ StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
 StringBijection<LinkDirection>::Entry SUMOXMLDefinitions::linkDirectionValues[] = {
     { "s", LINKDIR_STRAIGHT },
     { "t", LINKDIR_TURN },
+    { "T", LINKDIR_TURN_LEFTHAND },
     { "l", LINKDIR_LEFT },
     { "r", LINKDIR_RIGHT },
     { "L", LINKDIR_PARTLEFT },

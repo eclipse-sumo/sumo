@@ -255,6 +255,9 @@ private:
     /// @brief shift network so its lower left corner is at 0,0
     void moveToOrigin(GeoConvHelper& geoConvHelper);
 
+    /// @brief mirror the network along the X-axis
+    void mirrorX();
+
 private:
     /// @brief invalidated copy constructor
     NBNetBuilder(const NBNetBuilder& s);

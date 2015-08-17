@@ -70,6 +70,13 @@ NBDistrict::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
 }
 
 
+void
+NBDistrict::mirrorX() {
+    myPosition.mul(1, -1);
+    myShape.mirrorX();
+}
+
+
 bool
 NBDistrict::addSource(NBEdge* const source, SUMOReal weight) {
     EdgeVector::iterator i = find(mySources.begin(), mySources.end(), source);

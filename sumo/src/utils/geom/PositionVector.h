@@ -210,6 +210,9 @@ public:
 
     void add(SUMOReal xoff, SUMOReal yoff, SUMOReal zoff);
 
+    /// @brief mirror coordinates along the x-axis
+    void mirrorX();
+
     void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
     PositionVector convexHull() const;

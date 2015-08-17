@@ -519,6 +519,14 @@ PositionVector::add(SUMOReal xoff, SUMOReal yoff, SUMOReal zoff) {
 
 
 void
+PositionVector::mirrorX() {
+    for (int i = 0; i < static_cast<int>(size()); i++) {
+        (*this)[i].mul(1, -1);
+    }
+}
+
+
+void
 PositionVector::reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
     for (int i = 0; i < static_cast<int>(size()); i++) {
         (*this)[i].reshiftRotate(xoff, yoff, rot);
