@@ -1,8 +1,25 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#@file    vissimXML_parseRoutes.py
 """
-Created on Fri Jul 31 12:54:15 2015
+@file: convert_detectors2SUMO.py
+@date: Aug 14 2015
 
-@author: lukas
+@author: Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
+@version $Id: $
+
+Parses induction loops and travel time measurements from a VISSIM .inpx file
+and writes converted information to a given .add.xml file.
+see documentation
+
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
 """
 
 import argparse
@@ -310,6 +327,6 @@ if __name__ == '__main__':
                                          link_tab,
                                          net_offset)
 
-    with open("%s.add.xml" % "det_graz", "w") as ofh:
+    with open("%s.add.xml" % args.output_file, "w") as ofh:
         result_doc.writexml(ofh, addindent='    ', newl='\n')
         ofh.close()
