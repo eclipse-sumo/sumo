@@ -701,7 +701,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
             myRequest = 0;
             myType = NODETYPE_DEAD_END;
         } else {
-            myRequest->buildBitfieldLogic(ec.isLeftHanded());
+            myRequest->buildBitfieldLogic();
         }
     }
 }
@@ -718,7 +718,7 @@ NBNode::writeLogic(OutputDevice& into, const bool checkLaneFoes) const {
 
 
 void
-NBNode::computeNodeShape(bool leftHand, SUMOReal mismatchThreshold) {
+NBNode::computeNodeShape(SUMOReal mismatchThreshold) {
     if (myHaveCustomPoly) {
         return;
     }
@@ -730,7 +730,7 @@ NBNode::computeNodeShape(bool leftHand, SUMOReal mismatchThreshold) {
     }
     try {
         NBNodeShapeComputer computer(*this);
-        myPoly = computer.compute(leftHand);
+        myPoly = computer.compute();
         if (myPoly.size() > 0) {
             PositionVector tmp = myPoly;
             tmp.push_back_noDoublePos(tmp[0]); // need closed shape

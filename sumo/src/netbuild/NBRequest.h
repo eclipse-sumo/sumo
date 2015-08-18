@@ -81,7 +81,7 @@ public:
     ~NBRequest();
 
     /** builds the bitset-representation of the logic */
-    void buildBitfieldLogic(bool leftHanded);
+    void buildBitfieldLogic();
 
     /** @brief returns the number of the junction's lanes and the number
         of the junction's links in respect. @note: only connected lanes are counted */
@@ -153,7 +153,7 @@ public:
 private:
     /** sets the information that the edge from1->to1 blocks the edge
         from2->to2 (is higher priorised than this) */
-    void setBlocking(bool leftHanded, NBEdge* from1, NBEdge* to1, NBEdge* from2, NBEdge* to2);
+    void setBlocking(NBEdge* from1, NBEdge* to1, NBEdge* from2, NBEdge* to2);
 
     /** @brief writes the response of a certain lane
         Returns the next link index within the junction */
@@ -208,11 +208,11 @@ private:
 
     /** computes the relationships between links outgoing right of the given
         link */
-    void computeRightOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdge* to);
+    void computeRightOutgoingLinkCrossings(NBEdge* from, NBEdge* to);
 
     /** computes the relationships between links outgoing left of the given
         link */
-    void computeLeftOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdge* to);
+    void computeLeftOutgoingLinkCrossings(NBEdge* from, NBEdge* to);
 
 
     void resetSignalised();

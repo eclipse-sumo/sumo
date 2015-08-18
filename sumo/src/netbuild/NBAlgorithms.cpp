@@ -131,7 +131,7 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
 // NBNodesEdgesSorter
 // ---------------------------------------------------------------------------
 void
-NBNodesEdgesSorter::sortNodesEdges(NBNodeCont& nc, bool leftHand, bool useNodeShape) {
+NBNodesEdgesSorter::sortNodesEdges(NBNodeCont& nc, bool useNodeShape) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* const n = i->second;
         if (n->myAllEdges.size() == 0) {
@@ -150,10 +150,10 @@ NBNodesEdgesSorter::sortNodesEdges(NBNodeCont& nc, bool leftHand, bool useNodeSh
             std::sort(outgoing.begin(), outgoing.end(), edge_by_junction_angle_sorter(n));
             std::vector<NBEdge*>::iterator j;
             for (j = allEdges.begin(); j != allEdges.end() - 1 && j != allEdges.end(); ++j) {
-                swapWhenReversed(n, leftHand, j, j + 1);
+                swapWhenReversed(n, j, j + 1);
             }
             if (allEdges.size() > 1 && j != allEdges.end()) {
-                swapWhenReversed(n, leftHand, allEdges.end() - 1, allEdges.begin());
+                swapWhenReversed(n, allEdges.end() - 1, allEdges.begin());
             }
         } else {
             NBEdge* firstOfAll = allEdges.front();
@@ -205,15 +205,11 @@ NBNodesEdgesSorter::sortNodesEdges(NBNodeCont& nc, bool leftHand, bool useNodeSh
 
 
 void
-NBNodesEdgesSorter::swapWhenReversed(const NBNode* const n, bool leftHand,
+NBNodesEdgesSorter::swapWhenReversed(const NBNode* const n,
                                      const std::vector<NBEdge*>::iterator& i1,
                                      const std::vector<NBEdge*>::iterator& i2) {
     NBEdge* e1 = *i1;
     NBEdge* e2 = *i2;
-    if (leftHand) {
-        // @todo: check this; shouldn't it be "swap(*e1, *e2)"?
-        std::swap(e1, e2);
-    }
     // @todo: The difference between "isTurningDirectionAt" and "isTurnaround"
     //  is not nice. Maybe we could get rid of it if we would always mark edges
     //  as turnarounds, even if they do not have to be added, as mentioned in

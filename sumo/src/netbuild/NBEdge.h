@@ -197,7 +197,7 @@ public:
 
     /// Computes the offset from the edge shape on the current segment
     static std::pair<SUMOReal, SUMOReal> laneOffset(const Position& from,
-            const Position& to, SUMOReal laneCenterOffset, bool leftHand);
+            const Position& to, SUMOReal laneCenterOffset);
 
     /// @brief unspecified lane width
     static const SUMOReal UNSPECIFIED_WIDTH;
@@ -333,15 +333,6 @@ public:
     /// @brief mirror coordinates along the x-axis
     void mirrorX();
     /// @}
-
-
-
-    /** @brief Marks this edge to be left-handed
-     */
-    void setLeftHanded() {
-        myAmLeftHand = true;
-    }
-
 
     /// @name Atomar getter methods
     //@{
@@ -1319,10 +1310,6 @@ private:
 
     /// @brief An optional length to use (-1 if not valid)
     SUMOReal myLoadedLength;
-
-    /// @brief Whether this edge is a left-hand edge
-    bool myAmLeftHand;
-
 
     /// @brief Information whether this is a junction-inner edge
     bool myAmInnerEdge;

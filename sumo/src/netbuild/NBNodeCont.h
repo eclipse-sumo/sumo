@@ -282,10 +282,9 @@ public:
     std::string getFreeID();
 
     /** @brief Compute the junction shape for this node
-     * @param[in] lefhand Whether the network uses left-hand traffic
      * @param[in] mismatchThreshold The threshold for warning about shapes which are away from myPosition
      */
-    void computeNodeShapes(bool leftHand, SUMOReal mismatchThreshold = -1);
+    void computeNodeShapes(SUMOReal mismatchThreshold = -1);
 
     /** @brief Prints statistics about built nodes
      *

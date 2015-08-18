@@ -682,8 +682,8 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& fro
         Position from = firstLane[i - 1];
         Position me = firstLane[i];
         Position to = firstLane[i + 1];
-        std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(from, me, offset, false);
-        std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(me, to, offset, false);
+        std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(from, me, offset);
+        std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(me, to, offset);
 
         Line l1(
             Position(from.x() + offsets.first, from.y() + offsets.second),

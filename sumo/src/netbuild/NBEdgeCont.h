@@ -457,14 +457,6 @@ public:
     void guessRoundabouts();
 
 
-    /** @brief Returns whether the built edges are left-handed
-     * @return Whether this edge container is left-handed
-     */
-    bool isLeftHanded() const {
-        return myAmLeftHanded;
-    }
-
-
     /** @brief Returns whether the edge with the id was ignored during parsing
      * @return Whether the edge with the id was ignored during parsing
      */
@@ -586,10 +578,6 @@ private:
 
     /// @brief the number of splits of edges during the building
     unsigned int myEdgesSplit;
-
-    /// @brief Whether the network is left-handed
-    bool myAmLeftHanded;
-
 
     /// @name Settings for accepting/dismissing edges
     /// @{

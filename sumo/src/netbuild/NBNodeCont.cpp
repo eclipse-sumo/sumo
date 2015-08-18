@@ -1054,9 +1054,9 @@ NBNodeCont::getFreeID() {
 
 
 void
-NBNodeCont::computeNodeShapes(bool leftHand, SUMOReal mismatchThreshold) {
+NBNodeCont::computeNodeShapes(SUMOReal mismatchThreshold) {
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        (*i).second->computeNodeShape(leftHand, mismatchThreshold);
+        (*i).second->computeNodeShape(mismatchThreshold);
     }
 }
 

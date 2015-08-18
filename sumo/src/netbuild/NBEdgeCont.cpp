@@ -83,7 +83,6 @@ NBEdgeCont::~NBEdgeCont() {
 
 void
 NBEdgeCont::applyOptions(OptionsCont& oc) {
-    myAmLeftHanded = false; /// @todo refactor
     // set edges dismiss/accept options
     myEdgesMinSpeed = oc.isSet("keep-edges.min-speed") ? oc.getFloat("keep-edges.min-speed") : -1;
     myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
@@ -188,9 +187,6 @@ NBEdgeCont::clear() {
 // ----- edge access methods
 bool
 NBEdgeCont::insert(NBEdge* edge, bool ignorePrunning) {
-    if (myAmLeftHanded) {
-        edge->setLeftHanded();
-    }
     if (myEdges.count(edge->getID())) {
         return false;
     }

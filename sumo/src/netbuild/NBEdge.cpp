@@ -196,7 +196,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myPossibleTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myLaneSpreadFunction(spread), myEndOffset(offset), myLaneWidth(laneWidth),
-    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET) {
@@ -220,7 +220,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myPossibleTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom(geom), myLaneSpreadFunction(spread), myEndOffset(offset), myLaneWidth(laneWidth),
-    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET) {
@@ -243,7 +243,6 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, con
     myEndOffset(tpl->getEndOffset()),
     myLaneWidth(tpl->getLaneWidth()),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
-    myAmLeftHand(false),
     myAmInnerEdge(false),
     myAmMacroscopicConnector(false),
     myStreetName(tpl->getStreetName()),
@@ -1011,19 +1010,9 @@ NBEdge::canMoveConnection(const Connection& con, unsigned int newFromLane) const
 void
 NBEdge::moveConnectionToLeft(unsigned int lane) {
     unsigned int index = 0;
-    if (myAmLeftHand) {
-        for (int i = (int) myConnections.size() - 1; i >= 0; --i) {
-            if (myConnections[i].fromLane == (int)lane
-                    && getTurnDestination() != myConnections[i].toEdge
-                    && canMoveConnection(myConnections[i], lane + 1)) {
-                index = i;
-            }
-        }
-    } else {
-        for (unsigned int i = 0; i < myConnections.size(); ++i) {
-            if (myConnections[i].fromLane == (int)(lane) && canMoveConnection(myConnections[i], lane + 1)) {
-                index = i;
-            }
+    for (unsigned int i = 0; i < myConnections.size(); ++i) {
+        if (myConnections[i].fromLane == (int)(lane) && canMoveConnection(myConnections[i], lane + 1)) {
+            index = i;
         }
     }
     std::vector<Connection>::iterator i = myConnections.begin() + index;
@@ -1035,23 +1024,12 @@ NBEdge::moveConnectionToLeft(unsigned int lane) {
 
 void
 NBEdge::moveConnectionToRight(unsigned int lane) {
-    if (myAmLeftHand) {
-        for (int i = (int) myConnections.size() - 1; i >= 0; --i) {
-            if (myConnections[i].fromLane == (int)lane && getTurnDestination() != myConnections[i].toEdge && canMoveConnection(myConnections[i], lane - 1)) {
-                Connection c = myConnections[i];
-                myConnections.erase(myConnections.begin() + i);
-                setConnection(lane - 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
-                return;
-            }
-        }
-    } else {
-        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            if ((*i).fromLane == (int)lane && canMoveConnection(*i, lane - 1)) {
-                Connection c = *i;
-                i = myConnections.erase(i);
-                setConnection(lane - 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
-                return;
-            }
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        if ((*i).fromLane == (int)lane && canMoveConnection(*i, lane - 1)) {
+            Connection c = *i;
+            i = myConnections.erase(i);
+            setConnection(lane - 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
+            return;
         }
     }
 }
@@ -1331,9 +1309,6 @@ NBEdge::computeLaneShapes() {
     }
     for (unsigned int i = 0; i < myLanes.size(); ++i) {
         offsets[i] += offset;
-        if (myAmLeftHand) {
-            offsets[i] *= -1.;
-        }
     }
 
     // build the shape of each lane
@@ -1356,14 +1331,14 @@ NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) {
         if (i == 0) {
             Position from = myGeom[i];
             Position to = myGeom[i + 1];
-            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, offset, false);
+            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, offset);
             shape.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position(from.x() - offsets.first, from.y() - offsets.second, from.z()));
         } else if (i == static_cast<int>(myGeom.size() - 1)) {
             Position from = myGeom[i - 1];
             Position to = myGeom[i];
-            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, offset, false);
+            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, offset);
             shape.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position(to.x() - offsets.first, to.y() - offsets.second, to.z()));
@@ -1371,8 +1346,8 @@ NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) {
             Position from = myGeom[i - 1];
             Position me = myGeom[i];
             Position to = myGeom[i + 1];
-            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, me, offset, false);
-            std::pair<SUMOReal, SUMOReal> offsets2 = laneOffset(me, to, offset, false);
+            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, me, offset);
+            std::pair<SUMOReal, SUMOReal> offsets2 = laneOffset(me, to, offset);
             Line l1(
                 Position(from.x() - offsets.first, from.y() - offsets.second),
                 Position(me.x() - offsets.first, me.y() - offsets.second));
@@ -1403,20 +1378,10 @@ NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) {
 }
 
 
-/*std::pair<SUMOReal, SUMOReal>
-NBEdge::laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset) {
-    return laneOffset(from, to, laneCenterOffset, myAmLeftHand);
-}
-*/
-
 std::pair<SUMOReal, SUMOReal>
-NBEdge::laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset, bool leftHand) {
+NBEdge::laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset) {
     std::pair<SUMOReal, SUMOReal> offsets = GeomHelper::getNormal90D_CW(from, to, laneCenterOffset);
-    if (leftHand) {
-        return std::pair<SUMOReal, SUMOReal>(-offsets.first, -offsets.second);
-    } else {
-        return std::pair<SUMOReal, SUMOReal>(offsets.first, offsets.second);
-    }
+    return std::pair<SUMOReal, SUMOReal>(offsets.first, offsets.second);
 }
 
 
@@ -1789,11 +1754,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
                 continue;
             }
 
-            if (myAmLeftHand) {
-                myConnections.push_back(Connection(int(myLanes.size() - 1 - fromIndex), (*i).first, -1));
-            } else {
-                myConnections.push_back(Connection(fromIndex, (*i).first, -1));
-            }
+            myConnections.push_back(Connection(fromIndex, (*i).first, -1));
         }
     }
 }
@@ -2025,11 +1986,11 @@ NBEdge::getCWBoundaryLine(const NBNode& n) const {
     SUMOReal width;
     if (myFrom == (&n)) {
         // outgoing
-        ret = !myAmLeftHand ? myLanes[0].shape : myLanes.back().shape;
+        ret = myLanes[0].shape;
         width = getLaneWidth(0);
     } else {
         // incoming
-        ret = !myAmLeftHand ? myLanes.back().shape.reverse() : myLanes[0].shape.reverse();
+        ret = myLanes.back().shape.reverse();
         width = getLaneWidth((int)getNumLanes() - 1);
     }
     ret.move2side(width * 0.5);
@@ -2043,11 +2004,11 @@ NBEdge::getCCWBoundaryLine(const NBNode& n) const {
     SUMOReal width;
     if (myFrom == (&n)) {
         // outgoing
-        ret = !myAmLeftHand ? myLanes.back().shape : myLanes[0].shape;
+        ret = myLanes.back().shape;
         width = getLaneWidth((int)getNumLanes() - 1);
     } else {
         // incoming
-        ret = !myAmLeftHand ? myLanes[0].shape.reverse() : myLanes.back().shape.reverse();
+        ret = myLanes[0].shape.reverse();
         width = getLaneWidth(0);
     }
     ret.move2side(-width * 0.5);

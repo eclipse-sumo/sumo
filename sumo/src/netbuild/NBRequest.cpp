@@ -153,12 +153,12 @@ NBRequest::~NBRequest() {}
 
 
 void
-NBRequest::buildBitfieldLogic(bool leftHanded) {
+NBRequest::buildBitfieldLogic() {
     EdgeVector::const_iterator i, j;
     for (i = myIncoming.begin(); i != myIncoming.end(); i++) {
         for (j = myOutgoing.begin(); j != myOutgoing.end(); j++) {
-            computeRightOutgoingLinkCrossings(leftHanded, *i, *j);
-            computeLeftOutgoingLinkCrossings(leftHanded, *i, *j);
+            computeRightOutgoingLinkCrossings(*i, *j);
+            computeLeftOutgoingLinkCrossings(*i, *j);
         }
     }
     // reset signalised/non-signalised dependencies
@@ -169,7 +169,7 @@ NBRequest::buildBitfieldLogic(bool leftHanded) {
 
 
 void
-NBRequest::computeRightOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdge* to) {
+NBRequest::computeRightOutgoingLinkCrossings(NBEdge* from, NBEdge* to) {
     EdgeVector::const_iterator pfrom = find(myAll.begin(), myAll.end(), from);
     while (*pfrom != to) {
         NBContHelper::nextCCW(myAll, pfrom);
@@ -177,7 +177,7 @@ NBRequest::computeRightOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEd
             EdgeVector::const_iterator pto = find(myAll.begin(), myAll.end(), to);
             while (*pto != from) {
                 if (!((*pto)->getToNode() == myJunction)) {
-                    setBlocking(leftHanded, from, to, *pfrom, *pto);
+                    setBlocking(from, to, *pfrom, *pto);
                 }
                 NBContHelper::nextCCW(myAll, pto);
             }
@@ -187,7 +187,7 @@ NBRequest::computeRightOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEd
 
 
 void
-NBRequest::computeLeftOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdge* to) {
+NBRequest::computeLeftOutgoingLinkCrossings(NBEdge* from, NBEdge* to) {
     EdgeVector::const_iterator pfrom = find(myAll.begin(), myAll.end(), from);
     while (*pfrom != to) {
         NBContHelper::nextCW(myAll, pfrom);
@@ -195,7 +195,7 @@ NBRequest::computeLeftOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdg
             EdgeVector::const_iterator pto = find(myAll.begin(), myAll.end(), to);
             while (*pto != from) {
                 if (!((*pto)->getToNode() == myJunction)) {
-                    setBlocking(leftHanded, from, to, *pfrom, *pto);
+                    setBlocking(from, to, *pfrom, *pto);
                 }
                 NBContHelper::nextCW(myAll, pto);
             }
@@ -205,8 +205,7 @@ NBRequest::computeLeftOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdg
 
 
 void
-NBRequest::setBlocking(bool leftHanded,
-                       NBEdge* from1, NBEdge* to1,
+NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                        NBEdge* from2, NBEdge* to2) {
     // check whether one of the links has a dead end
     if (to1 == 0 || to2 == 0) {
@@ -287,11 +286,7 @@ NBRequest::setBlocking(bool leftHanded,
     while (*c1 != from1 && *c1 != from2) {
         if (*c1 == to2) {
             // if we encounter to2 the second one prohibits the first
-            if (!leftHanded) {
-                myForbids[idx2][idx1] = true;
-            } else {
-                myForbids[idx1][idx2] = true;
-            }
+            myForbids[idx2][idx1] = true;
             return;
         }
         NBContHelper::nextCW(myAll, c1);
@@ -303,11 +298,7 @@ NBRequest::setBlocking(bool leftHanded,
     while (*c2 != from2 && *c2 != from1) {
         if (*c2 == to1) {
             // if we encounter to1 the second one prohibits the first
-            if (!leftHanded) {
-                myForbids[idx1][idx2] = true;
-            } else {
-                myForbids[idx2][idx1] = true;
-            }
+            myForbids[idx1][idx2] = true;
             return;
         }
         NBContHelper::nextCW(myAll, c2);

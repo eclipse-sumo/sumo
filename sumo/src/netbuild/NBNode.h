@@ -494,10 +494,9 @@ public:
                            int fromLane, bool mayDefinitelyPass, const std::string& tlID) const;
 
     /** @brief Compute the junction shape for this node
-     * @param[in] lefhand Whether the network uses left-hand traffic
      * @param[in] mismatchThreshold The threshold for warning about shapes which are away from myPosition
      */
-    void computeNodeShape(bool leftHand, SUMOReal mismatchThreshold);
+    void computeNodeShape(SUMOReal mismatchThreshold);
 
     /// @brief retrieve the junction shape
     const PositionVector& getShape() const;

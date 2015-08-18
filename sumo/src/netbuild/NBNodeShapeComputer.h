@@ -58,7 +58,7 @@ public:
     ~NBNodeShapeComputer();
 
     /// Computes the shape of the assigned junction
-    PositionVector compute(bool leftHand);
+    PositionVector compute();
 
 private:
     typedef std::map<NBEdge*, PositionVector> GeomsMap;

@@ -124,8 +124,8 @@ NBNetBuilder::compute(OptionsCont& oc,
         // This depends on turning directions and sorting of edge list
         // in case junctions are joined geometry computations have to be repeated
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
-        NBNodesEdgesSorter::sortNodesEdges(myNodeCont, false);
-        myNodeCont.computeNodeShapes(false);
+        NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
+        myNodeCont.computeNodeShapes();
         myEdgeCont.computeEdgeShapes();
         // preliminary roundabout computations to avoid destroying roundabouts
         if (oc.getBool("roundabouts.guess")) {
@@ -205,7 +205,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     // guess ramps
     if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
-        NBNodesEdgesSorter::sortNodesEdges(myNodeCont, false);
+        NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
         NBRampsComputer::computeRamps(*this, oc);
         PROGRESS_DONE_MESSAGE();
     }
@@ -231,15 +231,15 @@ NBNetBuilder::compute(OptionsCont& oc,
     // GEOMETRY COMPUTATION
     //
     PROGRESS_BEGIN_MESSAGE("Sorting nodes' edges");
-    NBNodesEdgesSorter::sortNodesEdges(myNodeCont, false);
+    NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
     PROGRESS_DONE_MESSAGE();
     myEdgeCont.computeLaneShapes();
     //
     PROGRESS_BEGIN_MESSAGE("Computing node shapes");
     if (oc.exists("geometry.junction-mismatch-threshold")) {
-        myNodeCont.computeNodeShapes(false, oc.getFloat("geometry.junction-mismatch-threshold"));
+        myNodeCont.computeNodeShapes(oc.getFloat("geometry.junction-mismatch-threshold"));
     } else {
-        myNodeCont.computeNodeShapes(false);
+        myNodeCont.computeNodeShapes();
     }
     PROGRESS_DONE_MESSAGE();
     //
@@ -247,7 +247,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     myEdgeCont.computeEdgeShapes();
     PROGRESS_DONE_MESSAGE();
     // resort edges based on the node and edge shapes
-    NBNodesEdgesSorter::sortNodesEdges(myNodeCont, false, true);
+    NBNodesEdgesSorter::sortNodesEdges(myNodeCont, true);
     NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
 
     // APPLY SPEED MODIFICATIONS
