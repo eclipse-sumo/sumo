@@ -1087,6 +1087,8 @@ public:
         mySigns.push_back(sign);
     }
 
+    /// @brief cut shape at the intersection shapes
+    PositionVector cutAtIntersection(const PositionVector& old) const;
 
 private:
     /**
@@ -1169,7 +1171,7 @@ private:
     };
 
     /// Computes the shape for the given lane
-    PositionVector computeLaneShape(unsigned int lane, SUMOReal offset);
+    PositionVector computeLaneShape(unsigned int lane, SUMOReal offset) const;
 
     /// Computes the offset from the edge shape on the current segment
     //std::pair<SUMOReal, SUMOReal> laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset);

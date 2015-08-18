@@ -438,36 +438,42 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
 }
 
 
+PositionVector 
+NBEdge::cutAtIntersection(const PositionVector& old) const {
+    PositionVector shape = old;
+    shape = startShapeAt(shape, myFrom);
+    if (shape.size() >= 2) {
+        shape = startShapeAt(shape.reverse(), myTo).reverse();
+    }
+    // sanity checks
+    if (shape.length() < POSITION_EPS) {
+        if (old.length() < 2 * POSITION_EPS) {
+            shape = old;
+        } else {
+            const SUMOReal midpoint = old.length() / 2;
+            // EPS*2 because otherwhise shape has only a single point
+            shape = old.getSubpart(midpoint - POSITION_EPS, midpoint + POSITION_EPS);
+            assert(shape.size() >= 2);
+            assert(shape.length() > 0);
+        }
+    } else {
+        // @note If the node shapes are overlapping we may get a shape which goes in the wrong direction
+        // in this case the result shape should shortened
+        Line lc(shape[0], shape[-1]);
+        Line lo(old[0], old[-1]);
+        if (135 < GeomHelper::getMinAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle())) {
+            shape = shape.reverse();
+            shape = shape.getSubpart(0, 2 * POSITION_EPS); // *2 because otherwhise shape has only a single point
+        }
+    }
+    return shape;
+}
+
+
 void
 NBEdge::computeEdgeShape() {
     for (unsigned int i = 0; i < myLanes.size(); i++) {
-        PositionVector& shape = myLanes[i].shape;
-        PositionVector old = shape;
-        shape = startShapeAt(shape, myFrom);
-        if (shape.size() >= 2) {
-            shape = startShapeAt(shape.reverse(), myTo).reverse();
-        }
-        // sanity checks
-        if (shape.length() < POSITION_EPS) {
-            if (old.length() < 2 * POSITION_EPS) {
-                shape = old;
-            } else {
-                const SUMOReal midpoint = old.length() / 2;
-                // EPS*2 because otherwhise shape has only a single point
-                shape = old.getSubpart(midpoint - POSITION_EPS, midpoint + POSITION_EPS);
-                assert(shape.size() >= 2);
-                assert(shape.length() > 0);
-            }
-        } else {
-            // @note If the node shapes are overlapping we may get a shape which goes in the wrong direction
-            // in this case the result shape should shortened
-            Line lc(shape[0], shape[-1]);
-            Line lo(old[0], old[-1]);
-            if (135 < GeomHelper::getMinAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle())) {
-                shape = shape.reverse();
-                shape = shape.getSubpart(0, 2 * POSITION_EPS); // *2 because otherwhise shape has only a single point
-            }
-        }
+        myLanes[i].shape = cutAtIntersection(myLanes[i].shape);
     }
     // recompute edge's length as the average of lane lenghts
     SUMOReal avgLength = 0;
@@ -1324,7 +1330,7 @@ NBEdge::computeLaneShapes() {
 
 
 PositionVector
-NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) {
+NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) const {
     PositionVector shape;
     bool haveWarned = false;
     for (int i = 0; i < (int) myGeom.size(); i++) {
