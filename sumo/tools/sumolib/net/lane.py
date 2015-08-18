@@ -54,6 +54,7 @@ SUMO_VEHICLE_CLASSES = (
     "bicycle",
     "pedestrian",
     "evehicle",
+    "ship",
     "custom1",
     "custom2")
 
