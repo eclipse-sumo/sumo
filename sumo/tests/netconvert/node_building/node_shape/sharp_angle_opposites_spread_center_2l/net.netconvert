@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 24 12:20:41 2015 by SUMO netconvert Version dev-SVN-r18126I
+<!-- generated on Tue Aug 18 13:15:03 2015 by SUMO netconvert Version dev-SVN-r18647I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -43,8 +43,8 @@
         <lane id="gneE2_1" index="1" speed="13.89" length="303.32" shape="99.98,-1.65 399.98,1.65"/>
     </edge>
     <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1" spreadType="center" shape="400.00,20.00 99.78,3.29">
-        <lane id="gneE3_0" index="0" speed="13.89" length="303.98" shape="399.91,21.65 100.02,4.96"/>
-        <lane id="gneE3_1" index="1" speed="13.89" length="303.98" shape="400.09,18.35 100.02,1.65"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="303.75" shape="399.91,21.65 100.02,4.96"/>
+        <lane id="gneE3_1" index="1" speed="13.89" length="303.75" shape="400.09,18.35 100.02,1.65"/>
     </edge>
 
     <junction id="gneJ1" type="dead_end" x="0.00" y="0.00" incLanes="gneE1_0 gneE1_1" intLanes="" shape="-0.00,-0.05 -0.00,-6.55 0.00,6.55 0.00,0.05"/>

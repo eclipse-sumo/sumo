@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 19 13:32:35 2015 by SUMO netconvert Version dev-SVN-r18107I
+<!-- generated on Tue Aug 18 13:15:03 2015 by SUMO netconvert Version dev-SVN-r18647I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -39,16 +39,16 @@
         <lane id="gneE1_1" index="1" speed="13.89" length="100.00" shape="99.82,1.65 0.00,1.65"/>
     </edge>
     <edge id="gneE2.0" from="gneJ2" to="gneJ5" priority="1" spreadType="center" shape="100.00,-3.30 170.00,0.00">
-        <lane id="gneE2.0_0" index="0" speed="13.89" length="73.38" shape="100.36,-4.93 169.94,-1.65"/>
-        <lane id="gneE2.0_1" index="1" speed="13.89" length="73.38" shape="100.21,-1.64 169.94,1.65"/>
+        <lane id="gneE2.0_0" index="0" speed="13.89" length="73.09" shape="100.36,-4.93 169.94,-1.65"/>
+        <lane id="gneE2.0_1" index="1" speed="13.89" length="73.09" shape="100.21,-1.64 169.94,1.65"/>
     </edge>
     <edge id="gneE2b" from="gneJ5" to="gneJ4" priority="1" spreadType="center">
         <lane id="gneE2b_0" index="0" speed="13.89" length="230.00" shape="170.13,-1.65 400.00,-1.65"/>
         <lane id="gneE2b_1" index="1" speed="13.89" length="230.00" shape="169.94,1.65 400.00,1.65"/>
     </edge>
     <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1" spreadType="center" shape="400.00,20.00 99.78,3.29">
-        <lane id="gneE3_0" index="0" speed="13.89" length="303.98" shape="399.91,21.65 99.90,4.95"/>
-        <lane id="gneE3_1" index="1" speed="13.89" length="303.98" shape="400.09,18.35 100.05,1.66"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="303.79" shape="399.91,21.65 99.90,4.95"/>
+        <lane id="gneE3_1" index="1" speed="13.89" length="303.79" shape="400.09,18.35 100.05,1.66"/>
     </edge>
 
     <junction id="gneJ1" type="dead_end" x="0.00" y="0.00" incLanes="gneE1_0 gneE1_1" intLanes="" shape="-0.00,-0.05 -0.00,-6.55 0.00,6.55 0.00,0.05"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 30 15:49:45 2013 by SUMO netconvert Version dev-SVN-r14318
+<!-- generated on Tue Aug 18 13:15:13 2015 by SUMO netconvert Version dev-SVN-r18647I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,6 +26,10 @@
         <no-internal-links value="true"/>
     </processing>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
@@ -34,10 +38,10 @@
     <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,200.00" origBoundary="-1000.00,0.00,1000.00,200.00" projParameter="!"/>
 
     <edge id="off" from="2" to="2a" priority="-1" shape="500.00,11.55 200.00,200.00">
-        <lane id="off_0" index="0" speed="30.00" length="358.64" shape="501.44,12.59 200.88,201.40"/>
+        <lane id="off_0" index="0" speed="30.00" length="358.70" shape="501.44,12.59 200.88,201.40"/>
     </edge>
     <edge id="on" from="4a" to="4" priority="-1" shape="1800.00,200.00 1500.00,11.55">
-        <lane id="on_0" index="0" speed="30.00" length="358.64" shape="1799.12,201.40 1498.56,12.59"/>
+        <lane id="on_0" index="0" speed="30.00" length="358.70" shape="1799.12,201.40 1498.56,12.59"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1">
         <lane id="s1_0" index="0" speed="30.00" length="508.46" shape="2000.00,8.25 1498.70,8.25"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug  4 13:34:15 2015 by SUMO netconvert Version dev-SVN-r18595I
+<!-- generated on Tue Aug 18 13:15:03 2015 by SUMO netconvert Version dev-SVN-r18647I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -32,25 +32,25 @@
     <location netOffset="-391579.55,-5819895.09" convBoundary="0.00,0.00,130.42,108.82" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="1" from="29207821" to="C" priority="9" type="highway.primary" spreadType="center" shape="0.75,29.29 36.47,50.23 38.00,51.09">
-        <lane id="1_0" index="0" allow="pedestrian" speed="13.89" length="54.19" width="3.00" shape="3.25,25.02 37.55,45.12"/>
-        <lane id="1_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="54.19" shape="1.64,27.78 35.98,47.91"/>
-        <lane id="1_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="54.19" shape="-0.03,30.63 34.36,50.79"/>
-        <lane id="1_3" index="3" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="54.19" shape="-1.70,33.47 32.74,53.67"/>
+        <lane id="1_0" index="0" allow="pedestrian" speed="13.89" length="53.45" width="3.00" shape="3.25,25.02 37.55,45.12"/>
+        <lane id="1_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="53.45" shape="1.64,27.78 35.98,47.91"/>
+        <lane id="1_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="53.45" shape="-0.03,30.63 34.36,50.79"/>
+        <lane id="1_3" index="3" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="53.45" shape="-1.70,33.47 32.74,53.67"/>
     </edge>
     <edge id="2" from="C" to="341340986" priority="9" type="highway.primary" spreadType="center" shape="43.97,54.63 68.48,70.11 114.96,107.65">
-        <lane id="2_0" index="0" allow="pedestrian" speed="13.89" length="97.08" width="3.00" shape="37.71,44.82 71.12,65.92 118.07,103.80"/>
-        <lane id="2_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="97.08" shape="36.14,47.62 69.41,68.63 116.06,106.29"/>
-        <lane id="2_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="97.08" shape="34.53,50.50 67.65,71.42 113.99,108.86"/>
-        <lane id="2_3" index="3" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="97.08" shape="32.91,53.38 65.89,74.21 111.91,111.42"/>
+        <lane id="2_0" index="0" allow="pedestrian" speed="13.89" length="112.44" width="3.00" shape="37.71,44.82 71.12,65.92 118.07,103.80"/>
+        <lane id="2_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="112.44" shape="36.14,47.62 69.41,68.63 116.06,106.29"/>
+        <lane id="2_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="112.44" shape="34.53,50.50 67.65,71.42 113.99,108.86"/>
+        <lane id="2_3" index="3" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="112.44" shape="32.91,53.38 65.89,74.21 111.91,111.42"/>
     </edge>
     <edge id="3" from="2381159855" to="C" priority="1" type="highway.footway" spreadType="center" shape="130.42,82.28 119.05,77.68 111.13,70.13 89.78,56.89 75.47,48.86 62.64,44.64">
         <lane id="3_0" index="0" allow="pedestrian" speed="8.33" length="94.18" shape="130.42,82.28 119.05,77.68 111.13,70.13 89.78,56.89 75.47,48.86 62.64,44.64"/>
     </edge>
     <edge id="4" from="cluster_2121324847_2381159779_2381159806" to="C" priority="1" type="highway.footway" spreadType="center" shape="106.68,8.12 95.93,18.97 62.64,44.64">
-        <lane id="4_0" index="0" allow="pedestrian" speed="8.33" length="79.19" shape="110.86,3.90 95.93,18.97 59.41,47.13"/>
+        <lane id="4_0" index="0" allow="pedestrian" speed="8.33" length="79.63" shape="110.86,3.90 95.93,18.97 59.41,47.13"/>
     </edge>
     <edge id="5" from="702048667" to="C" priority="1" type="highway.steps" spreadType="center" shape="51.82,24.77 37.26,52.40">
-        <lane id="5_0" index="0" allow="pedestrian" speed="1.39" length="41.87" shape="51.82,24.77 41.69,43.99"/>
+        <lane id="5_0" index="0" allow="pedestrian" speed="1.39" length="28.92" shape="51.82,24.77 41.69,43.99"/>
     </edge>
 
     <junction id="2381159855" type="unregulated" x="130.42" y="82.28" incLanes="" intLanes="" shape="131.02,80.80 129.82,83.76"/>

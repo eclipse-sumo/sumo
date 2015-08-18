@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 25 08:08:20 2015 by SUMO netconvert Version dev-SVN-r18134I
+<!-- generated on Tue Aug 18 13:15:03 2015 by SUMO netconvert Version dev-SVN-r18647I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -33,7 +33,7 @@
     <location netOffset="-684148.78,-5706279.49" convBoundary="0.00,0.00,205.87,92.40" origBoundary="5.538970,51.449400,5.678834,51.487414" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-1" from="C" to="42736497" priority="1" type="highway.unclassified" shape="182.48,88.37 184.59,88.29 192.39,84.12 194.14,78.05 198.75,62.09">
-        <lane id="-1_0" index="0" speed="13.89" length="33.89" shape="186.54,85.37 191.00,82.99 192.55,77.59 197.16,61.63"/>
+        <lane id="-1_0" index="0" speed="13.89" length="33.77" shape="186.54,85.37 191.00,82.99 192.55,77.59 197.16,61.63"/>
     </edge>
     <edge id="-2" from="C" to="B" priority="2" type="highway.service" shape="182.48,88.37 178.63,64.59 138.57,74.29 134.78,80.84 133.94,90.32">
         <lane id="-2_0" index="0" allow="delivery" speed="5.56" length="82.39" shape="180.03,83.53 177.29,66.61 139.64,75.73 136.39,81.35 136.04,85.29"/>
@@ -51,7 +51,7 @@
         <lane id="-6_0" index="0" speed="13.89" length="120.22" shape="-0.06,89.32 42.98,87.87 80.74,86.60 84.37,86.48 110.26,90.73 115.08,90.02"/>
     </edge>
     <edge id="1" from="42736497" to="C" priority="1" type="highway.unclassified" shape="198.75,62.09 194.14,78.05 192.39,84.12 184.59,88.29 182.48,88.37">
-        <lane id="1_0" index="0" speed="13.89" length="33.89" shape="200.34,62.55 195.73,78.51 193.78,85.25 186.76,89.00"/>
+        <lane id="1_0" index="0" speed="13.89" length="33.77" shape="200.34,62.55 195.73,78.51 193.78,85.25 186.76,89.00"/>
     </edge>
     <edge id="2" from="B" to="C" priority="2" type="highway.service" shape="133.94,90.32 134.78,80.84 138.57,74.29 178.63,64.59 182.48,88.37">
         <lane id="2_0" index="0" allow="delivery" speed="5.56" length="82.39" shape="132.76,85.00 133.17,80.33 137.50,72.85 179.97,62.57 183.28,83.01"/>

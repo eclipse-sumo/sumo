@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 22 12:12:21 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Tue Aug 18 13:15:12 2015 by SUMO netconvert Version dev-SVN-r18647I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,10 @@
         <offset.disable-normalization value="true"/>
         <junctions.join value="true"/>
     </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -49,7 +53,7 @@
         <lane id="26751740#0_0" index="0" speed="22.22" length="26.23" shape="186.28,547.70 186.31,547.39 188.13,543.73 189.72,541.96 193.17,539.75 198.13,538.84 198.42,538.92"/>
     </edge>
     <edge id="26751740#1" from="293433422" to="26052297" priority="5" type="highway.unclassified" spreadType="center" shape="203.76,540.43 206.94,543.07 209.03,546.64 209.74,551.61">
-        <lane id="26751740#1_0" index="0" speed="22.22" length="13.29" shape="207.11,543.36 209.03,546.64 209.08,547.01"/>
+        <lane id="26751740#1_0" index="0" speed="22.22" length="13.27" shape="207.11,543.36 209.03,546.64 209.08,547.01"/>
     </edge>
     <edge id="75642183" from="26052328" to="293433420" priority="6" type="highway.tertiary" shape="0.00,612.19 73.88,582.31 118.79,564.93 153.34,556.82 185.89,552.14">
         <lane id="75642183_0" index="0" speed="22.22" length="196.22" shape="-0.62,610.66 73.26,580.78 118.19,563.39 152.96,555.21 183.08,550.88"/>
@@ -58,10 +62,10 @@
         <lane id="8166420_0" index="0" speed="22.22" length="501.16" shape="243.07,1061.03 242.42,1052.43 236.93,980.44 231.55,909.61 219.02,760.68 206.23,586.12 201.55,565.18"/>
     </edge>
     <edge id="94587485#0" from="26052297" to="671780782" priority="5" type="highway.unclassified" spreadType="center" shape="209.74,551.61 208.88,555.29 206.01,559.48 202.48,561.78">
-        <lane id="94587485#0_0" index="0" speed="22.22" length="13.07" shape="208.53,555.81 206.10,559.35"/>
+        <lane id="94587485#0_0" index="0" speed="22.22" length="13.02" shape="208.53,555.81 206.10,559.35"/>
     </edge>
     <edge id="94587485#1" from="671780782" to="293433420" priority="5" type="highway.unclassified" spreadType="center" shape="202.48,561.78 198.35,562.72 194.10,562.14 189.76,559.64 187.20,556.35 185.89,552.14">
-        <lane id="94587485#1_0" index="0" speed="22.22" length="22.11" shape="197.83,562.65 194.10,562.14 189.76,559.64 187.27,556.45"/>
+        <lane id="94587485#1_0" index="0" speed="22.22" length="22.07" shape="197.83,562.65 194.10,562.14 189.76,559.64 187.27,556.45"/>
     </edge>
 
     <junction id="1696142786" type="priority" x="245.25" y="0.00" incLanes="26751739_0" intLanes="" shape="245.30,-0.00 248.49,-0.21 242.01,0.21 245.20,0.00">
