@@ -26,3 +26,6 @@ closing_disconnects_dest_disallow
 
 # a vehicle on an internal edge suddenly has its follower edge disallowed
 disallowed_while_on_internal
+
+# the route is terminated on an edge, which the vehicle already passed
+terminateRoute_on_jumped_edge

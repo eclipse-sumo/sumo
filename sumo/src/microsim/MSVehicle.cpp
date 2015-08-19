@@ -1452,6 +1452,9 @@ MSVehicle::executeMove() {
                     assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
                     myLane = approachedLane;
+                    if (hasArrived()) {
+                        break;
+                    }
                     if (getLaneChangeModel().isChangingLanes()) {
                         if (link->getDirection() == LINKDIR_LEFT || link->getDirection() == LINKDIR_RIGHT) {
                             // abort lane change
