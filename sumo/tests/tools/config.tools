@@ -123,6 +123,7 @@ output:Parsing types from '.*sumo[\\/]data[\\/]typemap[\\/]{REPLACE Parsing type
 output:^Performance:{->}^Vehicles:
 output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
 trips:<!-- generated on
+osmtrips:<!-- generated on
 pois:<!--
 routes:<!-- generated on
 errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
