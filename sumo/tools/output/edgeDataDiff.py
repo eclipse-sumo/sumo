@@ -4,7 +4,7 @@
 @file    edgeDataDiff.py
 @author  Jakob Erdmann
 @date    2015-08-14
-@version $Id: edgeDataDiff.py 18096 2015-03-17 09:50:59Z behrisch $
+@version $Id$
 
 Compute differences between two edgeData-output files
 

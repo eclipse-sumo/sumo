@@ -6,7 +6,7 @@
 
 @author: Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
 @author: Gerald Richter <Gerald.Richter@ait.ac.at>
-@version $Id: $
+@version $Id$
 
 Converts a VISSIM-tls-description into a SUMO-tls-description and writes
 the appended information to a copy of the given sumo.net file

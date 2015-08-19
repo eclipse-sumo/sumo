@@ -6,7 +6,7 @@
 @date: Aug 14 2015
 
 @author: Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
-@version $Id: $
+@version $Id$
 
 Parses induction loops and travel time measurements from a VISSIM .inpx file
 and writes converted information to a given .add.xml file.

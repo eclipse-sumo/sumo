@@ -6,7 +6,7 @@
 @date: Jun 09 2015
 
 @author: Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
-@version $Id: $
+@version $Id$
 
 Parses flows and static routes from a VISSIM .inpx file
 and writes converted information to a given .rou.xml file.

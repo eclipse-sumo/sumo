@@ -3,7 +3,7 @@
 @file    districts2poly.py
 @author  Jakob Erdmann
 @date    2015-07-31
-@version $Id: route2poly.py 18096 2015-03-17 09:50:59Z behrisch $
+@version $Id$
 
 From a sumo network and a taz (district) file, this script colors each district
 with a unique color (by creating a colored polygon for each edge in that

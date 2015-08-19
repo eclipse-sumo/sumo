@@ -3,7 +3,7 @@
 @file    route2trips.py
 @author  Jakob Erdmann
 @date    2015-08-05
-@version $Id: route2sel.py 18237 2015-04-20 10:43:52Z namdre $
+@version $Id$
 
 This script converts SUMO routes into an edge selection
 
