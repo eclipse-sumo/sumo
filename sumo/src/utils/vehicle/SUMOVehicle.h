@@ -191,6 +191,10 @@ public:
      */
     virtual SUMOReal getArrivalPos() const = 0;
 
+    /** @brief Sets this vehicle's desired arrivalPos for its current route
+     */
+    virtual void setArrivalPos(SUMOReal arrivalPos) = 0;
+
     /** @brief Returns whether this vehicle has departed
      */
     virtual bool hasDeparted() const = 0;

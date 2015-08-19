@@ -208,6 +208,12 @@ public:
         return myArrivalPos;
     }
 
+    /** @brief Sets this vehicle's desired arrivalPos for its current route
+     */
+    virtual void setArrivalPos(SUMOReal arrivalPos) {
+        myArrivalPos = arrivalPos;
+    }
+
     /** @brief Returns whether this vehicle has already departed
      */
     bool hasDeparted() const;

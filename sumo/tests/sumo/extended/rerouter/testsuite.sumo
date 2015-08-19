@@ -29,3 +29,4 @@ disallowed_while_on_internal
 
 # the route is terminated on an edge, which the vehicle already passed
 terminateRoute_on_jumped_edge
+terminateRoute_on_depart

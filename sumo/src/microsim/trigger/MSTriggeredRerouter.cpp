@@ -302,6 +302,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
         newEdge = rerouteDef->edgeProbs.getOverallProb() > 0 ? rerouteDef->edgeProbs.get() : route.getLastEdge();
         if (newEdge == &mySpecialDest_terminateRoute) {
             newEdge = veh.getEdge();
+            veh.setArrivalPos(veh.getPositionOnLane()); // instant arrival
         } else if (newEdge == &mySpecialDest_keepDestination || newEdge == lastEdge) {
             if (destUnreachable && rerouteDef->permissions == SVCAll) {
                 // if permissions aren't set vehicles will simply drive through

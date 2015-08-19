@@ -262,7 +262,7 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos,
     ConstMSEdgeVector::const_iterator it2 = std::find(it + 1, myEdges.end(), toEdge);
 
     if (fromEdge == toEdge) {
-        if (fromPos < toPos) {
+        if (fromPos <= toPos) {
             return toPos - fromPos;
         } else if (it2 == myEdges.end()) {
             // we don't visit the edge again
