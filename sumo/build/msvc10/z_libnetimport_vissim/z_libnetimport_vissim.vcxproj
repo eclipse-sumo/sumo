@@ -144,6 +144,7 @@
     <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimBoundedClusterObject.cpp" />
     <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosedLaneDef.cpp" />
     <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosures.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConflictArea.cpp" />
     <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnection.cpp" />
     <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp" />
     <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosedLaneDef.h" />
     <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosedLanesVector.h" />
     <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosures.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConflictArea.h" />
     <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnection.h" />
     <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnectionCluster.h" />
     <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimDistrictConnection.h" />

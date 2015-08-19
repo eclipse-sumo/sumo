@@ -245,6 +245,9 @@
     <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehTypeClass.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConflictArea.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netimport\vissim\NIImporter_Vissim.h">
@@ -254,9 +257,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimBoundedClusterObject.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConflictArea.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosedLaneDef.h">
@@ -497,6 +497,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehTypeClass.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConflictArea.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
