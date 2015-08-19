@@ -106,9 +106,9 @@ selection1:selection.comp1.txt
 selection2:selection.comp2.txt
 histogram:histogram.dat
 fullstats:fullstats.dat
-osmimport:osm.net.xml
-osmbatch:osm.bat
-osmbatch:osm.sh
+osmimport:*/osm.net.xml
+osmbatch:*/build.bat
+osmtrips:*/trips.trips.xml
 districts:districts.xml
 
 [run_dependent_text]
