@@ -65,7 +65,7 @@ vehicleNames = {
     "bus": "Bus",
     "motorcycle": "Motorcycles",
     "bicycle": "Bicycles",
-    "pedestrian": "Pedestrains",
+    "pedestrian": "Pedestrians",
     "tram": "Trams",
     "rail_urban": "Urban Trains",
     "rail": "Trains",
@@ -93,10 +93,7 @@ class Builder(object):
         self.data = data
 
         if local:
-            stamp = datetime.datetime.now().strftime(
-                "%Y-%m-%d-%H-%M")
-
-            self.tmp = os.path.join(os.path.dirname(os.path.abspath(__file__)), stamp)
+            self.tmp = os.path.abspath(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
             os.mkdir(self.tmp)
         else:
             self.tmp = tempfile.mkdtemp()
@@ -117,8 +114,12 @@ class Builder(object):
         # sumo-gui
         self.filename("net", ".net.xml")
 
-        self.report("Downloading map data")
-        osmGet.get(["-b", ",".join(map(str, self.data["coords"])), "-p", self.prefix])
+        if 'osm' in data:
+            # testing mode
+            shutil.copy(data['osm'], self.files["osm"])
+        else:
+            self.report("Downloading map data")
+            osmGet.get(["-b", ",".join(map(str, self.data["coords"])), "-p", self.prefix])
 
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
 
@@ -173,16 +174,15 @@ class Builder(object):
                     route2trips.main([self.files["route"]], outfile=self.files["trips"])
                     route2TripsCalls.append([self.files["route"], self.files["trips"]])
 
-            # FIXME
             # create a batch file for reproducing calls to randomTrips.py and route2trips
-            #randomTripsPath = os.path.join(SUMO_HOME, "tools", "randomTrips.py")
-            #route2TripsPath = os.path.join(SUMO_HOME, "tools", "route2trips.py")
-            #batchFile = "build.%s" % BATCH_EXTENSION
-            #with open(batchFile, 'w') as f:
-            #    for opts in randomTripsCalls:
-            #        f.write("python %s %s\n" % (randomTripsPath, " ".join(map(str, opts))))
-            #    for route, trips in route2TripsCalls:
-            #        f.write("python %s %s > %s\n" % (route2TripsPath, route, trips))
+            randomTripsPath = os.path.join(SUMO_HOME, "tools", "randomTrips.py")
+            route2TripsPath = os.path.join(SUMO_HOME, "tools", "route2trips.py")
+            batchFile = "build.bat"
+            with open(batchFile, 'w') as f:
+                for opts in randomTripsCalls:
+                    f.write("python %s %s\n" % (randomTripsPath, " ".join(map(str, opts))))
+                for route, trips in route2TripsCalls:
+                    f.write("python %s %s > %s\n" % (route2TripsPath, route, trips))
 
     def parseTripOpts(self, vehicle, options):
         "Return an option list for randomTrips.py for a given vehicle"
@@ -281,6 +281,9 @@ class Builder(object):
             pass
 
 class OSMImporterWebSocket(WebSocket):
+
+    local = False
+
     def report(self, message):
         print message
         self.sendMessage(unicode("report " + message))
@@ -288,13 +291,12 @@ class OSMImporterWebSocket(WebSocket):
     def handleMessage(self):
         data = json.loads(self.data)
 
-        thread = threading.Thread(target = self.build, args = (data,))
+        thread = threading.Thread(target=self.build, args=(data,))
         thread.start()
 
     def build(self, data):
-        builder = Builder(data, args.local)
+        builder = Builder(data, self.local)
         builder.report = self.report
-
 
         steps = len(data["vehicles"]) + 4
         self.sendMessage(unicode("steps " + str(steps)))
@@ -303,7 +305,7 @@ class OSMImporterWebSocket(WebSocket):
         builder.makeConfigFile()
         builder.createBatch()
 
-        if args.local:
+        if self.local:
             builder.openSUMO()
         else:
             data = builder.createZip()
@@ -313,15 +315,30 @@ class OSMImporterWebSocket(WebSocket):
 
 parser = ArgumentParser(description = "OSM Importer for SUMO - Websocket Server")
 parser.add_argument("--local", action = "store_true", help = "Uses local mode. In local mode, SUMO GUI will be automatically opened instead of downloading a zip file.")
+parser.add_argument("--testing", action = "store_true", help = "Only a pre-defined scenario will be generated for testing purposes.")
 parser.add_argument("--address", default = "", help = "Address for the Websocket.")
 parser.add_argument("--port", type = int, default = 8010, help = "Port for the Websocket. Please edit script.js when using an other port than 8010.")
 
 if __name__ == "__main__":
-    global args
     args = parser.parse_args()
+    OSMImporterWebSocket.local = args.local or args.testing
+    if args.testing:
+        data = {u'duration': 900,
+                u'vehicles': {u'passenger': {u'count': 6, u'fringeFactor': 5},
+                              u'bicycle': {u'count': 2, u'fringeFactor': 2},
+                              u'pedestrian': {u'count': 4, u'fringeFactor': 1},
+                              u'rail_urban': {u'count': 8, u'fringeFactor': 40},
+                              u'ship': {u'count': 1, u'fringeFactor': 40}},
+                u'osm': os.path.abspath('osm_bbox.osm.xml'),
+                u'poly': True}
+        builder = Builder(data, True)
+        builder.build()
+        builder.makeConfigFile()
+        builder.createBatch()
+        subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
+    else:
+        if args.local:
+            webbrowser.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html"))
 
-    if args.local:
-        webbrowser.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html"))
-
-    server = SimpleWebSocketServer(args.address, args.port, OSMImporterWebSocket)
-    server.serveforever()
+        server = SimpleWebSocketServer(args.address, args.port, OSMImporterWebSocket)
+        server.serveforever()
