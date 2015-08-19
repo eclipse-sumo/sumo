@@ -1024,7 +1024,8 @@ MSLane::succLinkSec(const SUMOVehicle& veh, unsigned int nRouteSuccs,
     // if we are on an internal lane there should only be one link and it must be allowed
     if (succLinkSource.getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
         assert(succLinkSource.myLinks.size() == 1);
-        assert(succLinkSource.myLinks[0]->getLane()->allowsVehicleClass(veh.getVehicleType().getVehicleClass()));
+        // could have been disallowed dynamically with a rerouter or via TraCI
+        // assert(succLinkSource.myLinks[0]->getLane()->allowsVehicleClass(veh.getVehicleType().getVehicleClass()));
         return succLinkSource.myLinks.begin();
     }
     // a link may be used if
