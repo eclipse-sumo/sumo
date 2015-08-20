@@ -114,7 +114,7 @@ class Builder(object):
         # sumo-gui
         self.filename("net", ".net.xml")
 
-        if 'osm' in data:
+        if 'osm' in self.data:
             # testing mode
             shutil.copy(data['osm'], self.files["osm"])
         else:
