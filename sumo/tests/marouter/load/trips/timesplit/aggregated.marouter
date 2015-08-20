@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/15/15 12:54:28 by SUMO marouter Version dev-SVN-r18572
+<!-- generated on 07/17/15 13:00:13 by SUMO marouter Version dev-SVN-r18585
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -31,1203 +31,1203 @@
 
 <meandata>
     <interval begin="0.00" end="3600.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.12" entered="1.39"/>
+        <edge id="0/0to1/0" traveltime="28.12" entered="1.38"/>
+        <edge id="0/0tobottom0" traveltime="6.86" entered="1.17"/>
+        <edge id="0/0toleft0" traveltime="6.86" entered="1.17"/>
+        <edge id="0/1to0/0" traveltime="28.12" entered="1.39"/>
+        <edge id="0/1to0/2" traveltime="28.12" entered="1.39"/>
+        <edge id="0/1to1/1" traveltime="28.12" entered="1.38"/>
+        <edge id="0/1toleft1" traveltime="6.86" entered="1.17"/>
+        <edge id="0/2to0/1" traveltime="28.12" entered="1.39"/>
+        <edge id="0/2to1/2" traveltime="28.12" entered="1.38"/>
+        <edge id="0/2toleft2" traveltime="6.86" entered="1.17"/>
+        <edge id="0/2totop0" traveltime="6.86" entered="1.17"/>
+        <edge id="1/0to0/0" traveltime="28.12" entered="1.38"/>
+        <edge id="1/0to1/1" traveltime="28.12" entered="1.38"/>
+        <edge id="1/0to2/0" traveltime="28.12" entered="1.38"/>
+        <edge id="1/0tobottom1" traveltime="6.86" entered="1.17"/>
+        <edge id="1/1to0/1" traveltime="28.12" entered="1.38"/>
+        <edge id="1/1to1/0" traveltime="28.12" entered="1.38"/>
+        <edge id="1/1to1/2" traveltime="28.12" entered="1.37"/>
+        <edge id="1/1to2/1" traveltime="28.12" entered="1.38"/>
+        <edge id="1/2to0/2" traveltime="28.12" entered="1.38"/>
+        <edge id="1/2to1/1" traveltime="28.12" entered="1.38"/>
+        <edge id="1/2to2/2" traveltime="28.12" entered="1.38"/>
+        <edge id="1/2totop1" traveltime="6.86" entered="1.17"/>
+        <edge id="2/0to1/0" traveltime="28.12" entered="1.38"/>
+        <edge id="2/0to2/1" traveltime="28.12" entered="1.37"/>
+        <edge id="2/0tobottom2" traveltime="6.86" entered="1.17"/>
+        <edge id="2/0toright0" traveltime="6.86" entered="1.17"/>
+        <edge id="2/1to1/1" traveltime="28.12" entered="1.37"/>
+        <edge id="2/1to2/0" traveltime="28.12" entered="1.37"/>
+        <edge id="2/1to2/2" traveltime="28.12" entered="1.38"/>
+        <edge id="2/1toright1" traveltime="6.86" entered="1.17"/>
+        <edge id="2/2to1/2" traveltime="28.12" entered="1.39"/>
+        <edge id="2/2to2/1" traveltime="28.12" entered="1.37"/>
+        <edge id="2/2toright2" traveltime="6.86" entered="1.17"/>
+        <edge id="2/2totop2" traveltime="6.86" entered="1.17"/>
+        <edge id="bottom0to0/0" traveltime="6.86" entered="1.17"/>
+        <edge id="bottom1to1/0" traveltime="6.86" entered="1.17"/>
+        <edge id="bottom2to2/0" traveltime="6.86" entered="1.17"/>
+        <edge id="left0to0/0" traveltime="6.86" entered="1.17"/>
+        <edge id="left1to0/1" traveltime="6.86" entered="1.17"/>
+        <edge id="left2to0/2" traveltime="6.86" entered="1.17"/>
+        <edge id="right0to2/0" traveltime="6.86" entered="1.17"/>
+        <edge id="right1to2/1" traveltime="6.86" entered="1.17"/>
+        <edge id="right2to2/2" traveltime="6.86" entered="1.17"/>
+        <edge id="top0to0/2" traveltime="6.86" entered="1.17"/>
+        <edge id="top1to1/2" traveltime="6.86" entered="1.17"/>
+        <edge id="top2to2/2" traveltime="6.86" entered="1.17"/>
     </interval>
     <interval begin="3600.00" end="7200.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.11" entered="0.77"/>
+        <edge id="0/0to1/0" traveltime="28.11" entered="0.76"/>
+        <edge id="0/0tobottom0" traveltime="6.86" entered="0.65"/>
+        <edge id="0/0toleft0" traveltime="6.86" entered="0.65"/>
+        <edge id="0/1to0/0" traveltime="28.11" entered="0.77"/>
+        <edge id="0/1to0/2" traveltime="28.11" entered="0.77"/>
+        <edge id="0/1to1/1" traveltime="28.11" entered="0.77"/>
+        <edge id="0/1toleft1" traveltime="6.86" entered="0.65"/>
+        <edge id="0/2to0/1" traveltime="28.11" entered="0.77"/>
+        <edge id="0/2to1/2" traveltime="28.11" entered="0.77"/>
+        <edge id="0/2toleft2" traveltime="6.86" entered="0.65"/>
+        <edge id="0/2totop0" traveltime="6.86" entered="0.65"/>
+        <edge id="1/0to0/0" traveltime="28.11" entered="0.77"/>
+        <edge id="1/0to1/1" traveltime="28.11" entered="0.76"/>
+        <edge id="1/0to2/0" traveltime="28.11" entered="0.76"/>
+        <edge id="1/0tobottom1" traveltime="6.86" entered="0.65"/>
+        <edge id="1/1to0/1" traveltime="28.11" entered="0.76"/>
+        <edge id="1/1to1/0" traveltime="28.11" entered="0.77"/>
+        <edge id="1/1to1/2" traveltime="28.11" entered="0.76"/>
+        <edge id="1/1to2/1" traveltime="28.11" entered="0.76"/>
+        <edge id="1/2to0/2" traveltime="28.11" entered="0.77"/>
+        <edge id="1/2to1/1" traveltime="28.11" entered="0.76"/>
+        <edge id="1/2to2/2" traveltime="28.11" entered="0.77"/>
+        <edge id="1/2totop1" traveltime="6.86" entered="0.65"/>
+        <edge id="2/0to1/0" traveltime="28.11" entered="0.76"/>
+        <edge id="2/0to2/1" traveltime="28.11" entered="0.76"/>
+        <edge id="2/0tobottom2" traveltime="6.86" entered="0.65"/>
+        <edge id="2/0toright0" traveltime="6.86" entered="0.65"/>
+        <edge id="2/1to1/1" traveltime="28.11" entered="0.76"/>
+        <edge id="2/1to2/0" traveltime="28.11" entered="0.76"/>
+        <edge id="2/1to2/2" traveltime="28.11" entered="0.77"/>
+        <edge id="2/1toright1" traveltime="6.86" entered="0.65"/>
+        <edge id="2/2to1/2" traveltime="28.11" entered="0.77"/>
+        <edge id="2/2to2/1" traveltime="28.11" entered="0.76"/>
+        <edge id="2/2toright2" traveltime="6.86" entered="0.65"/>
+        <edge id="2/2totop2" traveltime="6.86" entered="0.65"/>
+        <edge id="bottom0to0/0" traveltime="6.86" entered="0.65"/>
+        <edge id="bottom1to1/0" traveltime="6.86" entered="0.65"/>
+        <edge id="bottom2to2/0" traveltime="6.86" entered="0.65"/>
+        <edge id="left0to0/0" traveltime="6.86" entered="0.65"/>
+        <edge id="left1to0/1" traveltime="6.86" entered="0.65"/>
+        <edge id="left2to0/2" traveltime="6.86" entered="0.65"/>
+        <edge id="right0to2/0" traveltime="6.86" entered="0.65"/>
+        <edge id="right1to2/1" traveltime="6.86" entered="0.65"/>
+        <edge id="right2to2/2" traveltime="6.86" entered="0.65"/>
+        <edge id="top0to0/2" traveltime="6.86" entered="0.65"/>
+        <edge id="top1to1/2" traveltime="6.86" entered="0.65"/>
+        <edge id="top2to2/2" traveltime="6.86" entered="0.65"/>
     </interval>
     <interval begin="7200.00" end="10800.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.10" entered="0.31"/>
+        <edge id="0/0to1/0" traveltime="28.10" entered="0.31"/>
+        <edge id="0/0tobottom0" traveltime="6.85" entered="0.26"/>
+        <edge id="0/0toleft0" traveltime="6.85" entered="0.26"/>
+        <edge id="0/1to0/0" traveltime="28.10" entered="0.31"/>
+        <edge id="0/1to0/2" traveltime="28.10" entered="0.31"/>
+        <edge id="0/1to1/1" traveltime="28.10" entered="0.31"/>
+        <edge id="0/1toleft1" traveltime="6.85" entered="0.26"/>
+        <edge id="0/2to0/1" traveltime="28.10" entered="0.31"/>
+        <edge id="0/2to1/2" traveltime="28.10" entered="0.31"/>
+        <edge id="0/2toleft2" traveltime="6.85" entered="0.26"/>
+        <edge id="0/2totop0" traveltime="6.85" entered="0.26"/>
+        <edge id="1/0to0/0" traveltime="28.10" entered="0.31"/>
+        <edge id="1/0to1/1" traveltime="28.10" entered="0.31"/>
+        <edge id="1/0to2/0" traveltime="28.10" entered="0.31"/>
+        <edge id="1/0tobottom1" traveltime="6.85" entered="0.26"/>
+        <edge id="1/1to0/1" traveltime="28.10" entered="0.31"/>
+        <edge id="1/1to1/0" traveltime="28.10" entered="0.31"/>
+        <edge id="1/1to1/2" traveltime="28.10" entered="0.31"/>
+        <edge id="1/1to2/1" traveltime="28.10" entered="0.31"/>
+        <edge id="1/2to0/2" traveltime="28.10" entered="0.31"/>
+        <edge id="1/2to1/1" traveltime="28.10" entered="0.31"/>
+        <edge id="1/2to2/2" traveltime="28.10" entered="0.31"/>
+        <edge id="1/2totop1" traveltime="6.85" entered="0.26"/>
+        <edge id="2/0to1/0" traveltime="28.10" entered="0.31"/>
+        <edge id="2/0to2/1" traveltime="28.10" entered="0.31"/>
+        <edge id="2/0tobottom2" traveltime="6.85" entered="0.26"/>
+        <edge id="2/0toright0" traveltime="6.85" entered="0.26"/>
+        <edge id="2/1to1/1" traveltime="28.10" entered="0.31"/>
+        <edge id="2/1to2/0" traveltime="28.10" entered="0.31"/>
+        <edge id="2/1to2/2" traveltime="28.10" entered="0.31"/>
+        <edge id="2/1toright1" traveltime="6.85" entered="0.26"/>
+        <edge id="2/2to1/2" traveltime="28.10" entered="0.31"/>
+        <edge id="2/2to2/1" traveltime="28.10" entered="0.31"/>
+        <edge id="2/2toright2" traveltime="6.85" entered="0.26"/>
+        <edge id="2/2totop2" traveltime="6.85" entered="0.26"/>
+        <edge id="bottom0to0/0" traveltime="6.85" entered="0.26"/>
+        <edge id="bottom1to1/0" traveltime="6.85" entered="0.26"/>
+        <edge id="bottom2to2/0" traveltime="6.85" entered="0.26"/>
+        <edge id="left0to0/0" traveltime="6.85" entered="0.26"/>
+        <edge id="left1to0/1" traveltime="6.85" entered="0.26"/>
+        <edge id="left2to0/2" traveltime="6.85" entered="0.26"/>
+        <edge id="right0to2/0" traveltime="6.85" entered="0.26"/>
+        <edge id="right1to2/1" traveltime="6.85" entered="0.26"/>
+        <edge id="right2to2/2" traveltime="6.85" entered="0.26"/>
+        <edge id="top0to0/2" traveltime="6.85" entered="0.26"/>
+        <edge id="top1to1/2" traveltime="6.85" entered="0.26"/>
+        <edge id="top2to2/2" traveltime="6.85" entered="0.26"/>
     </interval>
     <interval begin="10800.00" end="14400.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.10" entered="0.31"/>
+        <edge id="0/0to1/0" traveltime="28.10" entered="0.31"/>
+        <edge id="0/0tobottom0" traveltime="6.85" entered="0.26"/>
+        <edge id="0/0toleft0" traveltime="6.85" entered="0.26"/>
+        <edge id="0/1to0/0" traveltime="28.10" entered="0.31"/>
+        <edge id="0/1to0/2" traveltime="28.10" entered="0.31"/>
+        <edge id="0/1to1/1" traveltime="28.10" entered="0.31"/>
+        <edge id="0/1toleft1" traveltime="6.85" entered="0.26"/>
+        <edge id="0/2to0/1" traveltime="28.10" entered="0.31"/>
+        <edge id="0/2to1/2" traveltime="28.10" entered="0.31"/>
+        <edge id="0/2toleft2" traveltime="6.85" entered="0.26"/>
+        <edge id="0/2totop0" traveltime="6.85" entered="0.26"/>
+        <edge id="1/0to0/0" traveltime="28.10" entered="0.31"/>
+        <edge id="1/0to1/1" traveltime="28.10" entered="0.31"/>
+        <edge id="1/0to2/0" traveltime="28.10" entered="0.31"/>
+        <edge id="1/0tobottom1" traveltime="6.85" entered="0.26"/>
+        <edge id="1/1to0/1" traveltime="28.10" entered="0.31"/>
+        <edge id="1/1to1/0" traveltime="28.10" entered="0.31"/>
+        <edge id="1/1to1/2" traveltime="28.10" entered="0.31"/>
+        <edge id="1/1to2/1" traveltime="28.10" entered="0.31"/>
+        <edge id="1/2to0/2" traveltime="28.10" entered="0.31"/>
+        <edge id="1/2to1/1" traveltime="28.10" entered="0.31"/>
+        <edge id="1/2to2/2" traveltime="28.10" entered="0.31"/>
+        <edge id="1/2totop1" traveltime="6.85" entered="0.26"/>
+        <edge id="2/0to1/0" traveltime="28.10" entered="0.31"/>
+        <edge id="2/0to2/1" traveltime="28.10" entered="0.31"/>
+        <edge id="2/0tobottom2" traveltime="6.85" entered="0.26"/>
+        <edge id="2/0toright0" traveltime="6.85" entered="0.26"/>
+        <edge id="2/1to1/1" traveltime="28.10" entered="0.31"/>
+        <edge id="2/1to2/0" traveltime="28.10" entered="0.31"/>
+        <edge id="2/1to2/2" traveltime="28.10" entered="0.31"/>
+        <edge id="2/1toright1" traveltime="6.85" entered="0.26"/>
+        <edge id="2/2to1/2" traveltime="28.10" entered="0.31"/>
+        <edge id="2/2to2/1" traveltime="28.10" entered="0.31"/>
+        <edge id="2/2toright2" traveltime="6.85" entered="0.26"/>
+        <edge id="2/2totop2" traveltime="6.85" entered="0.26"/>
+        <edge id="bottom0to0/0" traveltime="6.85" entered="0.26"/>
+        <edge id="bottom1to1/0" traveltime="6.85" entered="0.26"/>
+        <edge id="bottom2to2/0" traveltime="6.85" entered="0.26"/>
+        <edge id="left0to0/0" traveltime="6.85" entered="0.26"/>
+        <edge id="left1to0/1" traveltime="6.85" entered="0.26"/>
+        <edge id="left2to0/2" traveltime="6.85" entered="0.26"/>
+        <edge id="right0to2/0" traveltime="6.85" entered="0.26"/>
+        <edge id="right1to2/1" traveltime="6.85" entered="0.26"/>
+        <edge id="right2to2/2" traveltime="6.85" entered="0.26"/>
+        <edge id="top0to0/2" traveltime="6.85" entered="0.26"/>
+        <edge id="top1to1/2" traveltime="6.85" entered="0.26"/>
+        <edge id="top2to2/2" traveltime="6.85" entered="0.26"/>
     </interval>
     <interval begin="14400.00" end="18000.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.11" entered="0.77"/>
+        <edge id="0/0to1/0" traveltime="28.11" entered="0.76"/>
+        <edge id="0/0tobottom0" traveltime="6.86" entered="0.65"/>
+        <edge id="0/0toleft0" traveltime="6.86" entered="0.65"/>
+        <edge id="0/1to0/0" traveltime="28.11" entered="0.77"/>
+        <edge id="0/1to0/2" traveltime="28.11" entered="0.77"/>
+        <edge id="0/1to1/1" traveltime="28.11" entered="0.77"/>
+        <edge id="0/1toleft1" traveltime="6.86" entered="0.65"/>
+        <edge id="0/2to0/1" traveltime="28.11" entered="0.77"/>
+        <edge id="0/2to1/2" traveltime="28.11" entered="0.77"/>
+        <edge id="0/2toleft2" traveltime="6.86" entered="0.65"/>
+        <edge id="0/2totop0" traveltime="6.86" entered="0.65"/>
+        <edge id="1/0to0/0" traveltime="28.11" entered="0.77"/>
+        <edge id="1/0to1/1" traveltime="28.11" entered="0.76"/>
+        <edge id="1/0to2/0" traveltime="28.11" entered="0.76"/>
+        <edge id="1/0tobottom1" traveltime="6.86" entered="0.65"/>
+        <edge id="1/1to0/1" traveltime="28.11" entered="0.76"/>
+        <edge id="1/1to1/0" traveltime="28.11" entered="0.77"/>
+        <edge id="1/1to1/2" traveltime="28.11" entered="0.76"/>
+        <edge id="1/1to2/1" traveltime="28.11" entered="0.76"/>
+        <edge id="1/2to0/2" traveltime="28.11" entered="0.77"/>
+        <edge id="1/2to1/1" traveltime="28.11" entered="0.76"/>
+        <edge id="1/2to2/2" traveltime="28.11" entered="0.77"/>
+        <edge id="1/2totop1" traveltime="6.86" entered="0.65"/>
+        <edge id="2/0to1/0" traveltime="28.11" entered="0.76"/>
+        <edge id="2/0to2/1" traveltime="28.11" entered="0.76"/>
+        <edge id="2/0tobottom2" traveltime="6.86" entered="0.65"/>
+        <edge id="2/0toright0" traveltime="6.86" entered="0.65"/>
+        <edge id="2/1to1/1" traveltime="28.11" entered="0.76"/>
+        <edge id="2/1to2/0" traveltime="28.11" entered="0.76"/>
+        <edge id="2/1to2/2" traveltime="28.11" entered="0.77"/>
+        <edge id="2/1toright1" traveltime="6.86" entered="0.65"/>
+        <edge id="2/2to1/2" traveltime="28.11" entered="0.77"/>
+        <edge id="2/2to2/1" traveltime="28.11" entered="0.76"/>
+        <edge id="2/2toright2" traveltime="6.86" entered="0.65"/>
+        <edge id="2/2totop2" traveltime="6.86" entered="0.65"/>
+        <edge id="bottom0to0/0" traveltime="6.86" entered="0.65"/>
+        <edge id="bottom1to1/0" traveltime="6.86" entered="0.65"/>
+        <edge id="bottom2to2/0" traveltime="6.86" entered="0.65"/>
+        <edge id="left0to0/0" traveltime="6.86" entered="0.65"/>
+        <edge id="left1to0/1" traveltime="6.86" entered="0.65"/>
+        <edge id="left2to0/2" traveltime="6.86" entered="0.65"/>
+        <edge id="right0to2/0" traveltime="6.86" entered="0.65"/>
+        <edge id="right1to2/1" traveltime="6.86" entered="0.65"/>
+        <edge id="right2to2/2" traveltime="6.86" entered="0.65"/>
+        <edge id="top0to0/2" traveltime="6.86" entered="0.65"/>
+        <edge id="top1to1/2" traveltime="6.86" entered="0.65"/>
+        <edge id="top2to2/2" traveltime="6.86" entered="0.65"/>
     </interval>
     <interval begin="18000.00" end="21600.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.14" entered="2.01"/>
+        <edge id="0/0to1/0" traveltime="28.14" entered="1.99"/>
+        <edge id="0/0tobottom0" traveltime="6.86" entered="1.69"/>
+        <edge id="0/0toleft0" traveltime="6.86" entered="1.69"/>
+        <edge id="0/1to0/0" traveltime="28.14" entered="2.00"/>
+        <edge id="0/1to0/2" traveltime="28.14" entered="2.00"/>
+        <edge id="0/1to1/1" traveltime="28.14" entered="2.00"/>
+        <edge id="0/1toleft1" traveltime="6.86" entered="1.69"/>
+        <edge id="0/2to0/1" traveltime="28.14" entered="2.00"/>
+        <edge id="0/2to1/2" traveltime="28.14" entered="2.00"/>
+        <edge id="0/2toleft2" traveltime="6.86" entered="1.69"/>
+        <edge id="0/2totop0" traveltime="6.86" entered="1.69"/>
+        <edge id="1/0to0/0" traveltime="28.14" entered="2.00"/>
+        <edge id="1/0to1/1" traveltime="28.14" entered="1.99"/>
+        <edge id="1/0to2/0" traveltime="28.14" entered="1.99"/>
+        <edge id="1/0tobottom1" traveltime="6.86" entered="1.69"/>
+        <edge id="1/1to0/1" traveltime="28.14" entered="1.99"/>
+        <edge id="1/1to1/0" traveltime="28.14" entered="2.00"/>
+        <edge id="1/1to1/2" traveltime="28.14" entered="1.98"/>
+        <edge id="1/1to2/1" traveltime="28.14" entered="2.00"/>
+        <edge id="1/2to0/2" traveltime="28.14" entered="2.00"/>
+        <edge id="1/2to1/1" traveltime="28.14" entered="2.00"/>
+        <edge id="1/2to2/2" traveltime="28.14" entered="2.00"/>
+        <edge id="1/2totop1" traveltime="6.86" entered="1.69"/>
+        <edge id="2/0to1/0" traveltime="28.14" entered="1.99"/>
+        <edge id="2/0to2/1" traveltime="28.14" entered="1.98"/>
+        <edge id="2/0tobottom2" traveltime="6.86" entered="1.69"/>
+        <edge id="2/0toright0" traveltime="6.86" entered="1.69"/>
+        <edge id="2/1to1/1" traveltime="28.14" entered="1.98"/>
+        <edge id="2/1to2/0" traveltime="28.14" entered="1.98"/>
+        <edge id="2/1to2/2" traveltime="28.14" entered="2.00"/>
+        <edge id="2/1toright1" traveltime="6.86" entered="1.69"/>
+        <edge id="2/2to1/2" traveltime="28.14" entered="2.01"/>
+        <edge id="2/2to2/1" traveltime="28.14" entered="1.98"/>
+        <edge id="2/2toright2" traveltime="6.86" entered="1.69"/>
+        <edge id="2/2totop2" traveltime="6.86" entered="1.69"/>
+        <edge id="bottom0to0/0" traveltime="6.86" entered="1.69"/>
+        <edge id="bottom1to1/0" traveltime="6.86" entered="1.69"/>
+        <edge id="bottom2to2/0" traveltime="6.86" entered="1.69"/>
+        <edge id="left0to0/0" traveltime="6.86" entered="1.69"/>
+        <edge id="left1to0/1" traveltime="6.86" entered="1.69"/>
+        <edge id="left2to0/2" traveltime="6.86" entered="1.69"/>
+        <edge id="right0to2/0" traveltime="6.86" entered="1.69"/>
+        <edge id="right1to2/1" traveltime="6.86" entered="1.69"/>
+        <edge id="right2to2/2" traveltime="6.86" entered="1.69"/>
+        <edge id="top0to0/2" traveltime="6.86" entered="1.69"/>
+        <edge id="top1to1/2" traveltime="6.86" entered="1.69"/>
+        <edge id="top2to2/2" traveltime="6.86" entered="1.69"/>
     </interval>
     <interval begin="21600.00" end="25200.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.33" entered="10.82"/>
+        <edge id="0/0to1/0" traveltime="28.32" entered="10.68"/>
+        <edge id="0/0tobottom0" traveltime="6.90" entered="9.10"/>
+        <edge id="0/0toleft0" traveltime="6.90" entered="9.10"/>
+        <edge id="0/1to0/0" traveltime="28.33" entered="10.75"/>
+        <edge id="0/1to0/2" traveltime="28.33" entered="10.82"/>
+        <edge id="0/1to1/1" traveltime="28.33" entered="10.75"/>
+        <edge id="0/1toleft1" traveltime="6.90" entered="9.10"/>
+        <edge id="0/2to0/1" traveltime="28.33" entered="10.78"/>
+        <edge id="0/2to1/2" traveltime="28.33" entered="10.78"/>
+        <edge id="0/2toleft2" traveltime="6.90" entered="9.10"/>
+        <edge id="0/2totop0" traveltime="6.90" entered="9.10"/>
+        <edge id="1/0to0/0" traveltime="28.33" entered="10.75"/>
+        <edge id="1/0to1/1" traveltime="28.32" entered="10.68"/>
+        <edge id="1/0to2/0" traveltime="28.33" entered="10.75"/>
+        <edge id="1/0tobottom1" traveltime="6.90" entered="9.10"/>
+        <edge id="1/1to0/1" traveltime="28.32" entered="10.71"/>
+        <edge id="1/1to1/0" traveltime="28.33" entered="10.75"/>
+        <edge id="1/1to1/2" traveltime="28.32" entered="10.64"/>
+        <edge id="1/1to2/1" traveltime="28.32" entered="10.71"/>
+        <edge id="1/2to0/2" traveltime="28.33" entered="10.75"/>
+        <edge id="1/2to1/1" traveltime="28.32" entered="10.68"/>
+        <edge id="1/2to2/2" traveltime="28.33" entered="10.75"/>
+        <edge id="1/2totop1" traveltime="6.90" entered="9.10"/>
+        <edge id="2/0to1/0" traveltime="28.33" entered="10.75"/>
+        <edge id="2/0to2/1" traveltime="28.32" entered="10.71"/>
+        <edge id="2/0tobottom2" traveltime="6.90" entered="9.10"/>
+        <edge id="2/0toright0" traveltime="6.90" entered="9.10"/>
+        <edge id="2/1to1/1" traveltime="28.32" entered="10.71"/>
+        <edge id="2/1to2/0" traveltime="28.32" entered="10.71"/>
+        <edge id="2/1to2/2" traveltime="28.33" entered="10.75"/>
+        <edge id="2/1toright1" traveltime="6.90" entered="9.10"/>
+        <edge id="2/2to1/2" traveltime="28.33" entered="10.75"/>
+        <edge id="2/2to2/1" traveltime="28.33" entered="10.75"/>
+        <edge id="2/2toright2" traveltime="6.90" entered="9.10"/>
+        <edge id="2/2totop2" traveltime="6.90" entered="9.10"/>
+        <edge id="bottom0to0/0" traveltime="6.90" entered="9.10"/>
+        <edge id="bottom1to1/0" traveltime="6.90" entered="9.10"/>
+        <edge id="bottom2to2/0" traveltime="6.90" entered="9.10"/>
+        <edge id="left0to0/0" traveltime="6.90" entered="9.10"/>
+        <edge id="left1to0/1" traveltime="6.90" entered="9.10"/>
+        <edge id="left2to0/2" traveltime="6.90" entered="9.10"/>
+        <edge id="right0to2/0" traveltime="6.90" entered="9.10"/>
+        <edge id="right1to2/1" traveltime="6.90" entered="9.10"/>
+        <edge id="right2to2/2" traveltime="6.90" entered="9.10"/>
+        <edge id="top0to0/2" traveltime="6.90" entered="9.10"/>
+        <edge id="top1to1/2" traveltime="6.90" entered="9.10"/>
+        <edge id="top2to2/2" traveltime="6.90" entered="9.10"/>
     </interval>
     <interval begin="25200.00" end="28800.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.41" entered="14.46"/>
+        <edge id="0/0to1/0" traveltime="28.40" entered="14.14"/>
+        <edge id="0/0tobottom0" traveltime="6.92" entered="12.09"/>
+        <edge id="0/0toleft0" traveltime="6.92" entered="12.09"/>
+        <edge id="0/1to0/0" traveltime="28.40" entered="14.37"/>
+        <edge id="0/1to0/2" traveltime="28.40" entered="14.32"/>
+        <edge id="0/1to1/1" traveltime="28.40" entered="14.32"/>
+        <edge id="0/1toleft1" traveltime="6.92" entered="12.09"/>
+        <edge id="0/2to0/1" traveltime="28.40" entered="14.28"/>
+        <edge id="0/2to1/2" traveltime="28.40" entered="14.32"/>
+        <edge id="0/2toleft2" traveltime="6.92" entered="12.09"/>
+        <edge id="0/2totop0" traveltime="6.92" entered="12.09"/>
+        <edge id="1/0to0/0" traveltime="28.40" entered="14.23"/>
+        <edge id="1/0to1/1" traveltime="28.40" entered="14.14"/>
+        <edge id="1/0to2/0" traveltime="28.40" entered="14.28"/>
+        <edge id="1/0tobottom1" traveltime="6.92" entered="12.09"/>
+        <edge id="1/1to0/1" traveltime="28.40" entered="14.28"/>
+        <edge id="1/1to1/0" traveltime="28.40" entered="14.23"/>
+        <edge id="1/1to1/2" traveltime="28.40" entered="14.18"/>
+        <edge id="1/1to2/1" traveltime="28.40" entered="14.23"/>
+        <edge id="1/2to0/2" traveltime="28.40" entered="14.28"/>
+        <edge id="1/2to1/1" traveltime="28.40" entered="14.28"/>
+        <edge id="1/2to2/2" traveltime="28.40" entered="14.28"/>
+        <edge id="1/2totop1" traveltime="6.92" entered="12.09"/>
+        <edge id="2/0to1/0" traveltime="28.40" entered="14.28"/>
+        <edge id="2/0to2/1" traveltime="28.40" entered="14.18"/>
+        <edge id="2/0tobottom2" traveltime="6.92" entered="12.09"/>
+        <edge id="2/0toright0" traveltime="6.92" entered="12.09"/>
+        <edge id="2/1to1/1" traveltime="28.40" entered="14.18"/>
+        <edge id="2/1to2/0" traveltime="28.40" entered="14.18"/>
+        <edge id="2/1to2/2" traveltime="28.40" entered="14.28"/>
+        <edge id="2/1toright1" traveltime="6.92" entered="12.09"/>
+        <edge id="2/2to1/2" traveltime="28.40" entered="14.32"/>
+        <edge id="2/2to2/1" traveltime="28.40" entered="14.23"/>
+        <edge id="2/2toright2" traveltime="6.92" entered="12.09"/>
+        <edge id="2/2totop2" traveltime="6.92" entered="12.09"/>
+        <edge id="bottom0to0/0" traveltime="6.92" entered="12.09"/>
+        <edge id="bottom1to1/0" traveltime="6.92" entered="12.09"/>
+        <edge id="bottom2to2/0" traveltime="6.92" entered="12.09"/>
+        <edge id="left0to0/0" traveltime="6.92" entered="12.09"/>
+        <edge id="left1to0/1" traveltime="6.92" entered="12.09"/>
+        <edge id="left2to0/2" traveltime="6.92" entered="12.09"/>
+        <edge id="right0to2/0" traveltime="6.92" entered="12.09"/>
+        <edge id="right1to2/1" traveltime="6.92" entered="12.09"/>
+        <edge id="right2to2/2" traveltime="6.92" entered="12.09"/>
+        <edge id="top0to0/2" traveltime="6.92" entered="12.09"/>
+        <edge id="top1to1/2" traveltime="6.92" entered="12.09"/>
+        <edge id="top2to2/2" traveltime="6.92" entered="12.09"/>
     </interval>
     <interval begin="28800.00" end="32400.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.32" entered="10.35"/>
+        <edge id="0/0to1/0" traveltime="28.32" entered="10.25"/>
+        <edge id="0/0tobottom0" traveltime="6.90" entered="8.71"/>
+        <edge id="0/0toleft0" traveltime="6.90" entered="8.71"/>
+        <edge id="0/1to0/0" traveltime="28.32" entered="10.32"/>
+        <edge id="0/1to0/2" traveltime="28.32" entered="10.32"/>
+        <edge id="0/1to1/1" traveltime="28.32" entered="10.28"/>
+        <edge id="0/1toleft1" traveltime="6.90" entered="8.71"/>
+        <edge id="0/2to0/1" traveltime="28.32" entered="10.28"/>
+        <edge id="0/2to1/2" traveltime="28.32" entered="10.28"/>
+        <edge id="0/2toleft2" traveltime="6.90" entered="8.71"/>
+        <edge id="0/2totop0" traveltime="6.90" entered="8.71"/>
+        <edge id="1/0to0/0" traveltime="28.32" entered="10.28"/>
+        <edge id="1/0to1/1" traveltime="28.32" entered="10.25"/>
+        <edge id="1/0to2/0" traveltime="28.32" entered="10.25"/>
+        <edge id="1/0tobottom1" traveltime="6.90" entered="8.71"/>
+        <edge id="1/1to0/1" traveltime="28.32" entered="10.28"/>
+        <edge id="1/1to1/0" traveltime="28.32" entered="10.25"/>
+        <edge id="1/1to1/2" traveltime="28.31" entered="10.22"/>
+        <edge id="1/1to2/1" traveltime="28.32" entered="10.28"/>
+        <edge id="1/2to0/2" traveltime="28.32" entered="10.25"/>
+        <edge id="1/2to1/1" traveltime="28.32" entered="10.28"/>
+        <edge id="1/2to2/2" traveltime="28.32" entered="10.28"/>
+        <edge id="1/2totop1" traveltime="6.90" entered="8.71"/>
+        <edge id="2/0to1/0" traveltime="28.32" entered="10.28"/>
+        <edge id="2/0to2/1" traveltime="28.31" entered="10.22"/>
+        <edge id="2/0tobottom2" traveltime="6.90" entered="8.71"/>
+        <edge id="2/0toright0" traveltime="6.90" entered="8.71"/>
+        <edge id="2/1to1/1" traveltime="28.31" entered="10.22"/>
+        <edge id="2/1to2/0" traveltime="28.32" entered="10.25"/>
+        <edge id="2/1to2/2" traveltime="28.32" entered="10.28"/>
+        <edge id="2/1toright1" traveltime="6.90" entered="8.71"/>
+        <edge id="2/2to1/2" traveltime="28.32" entered="10.32"/>
+        <edge id="2/2to2/1" traveltime="28.32" entered="10.25"/>
+        <edge id="2/2toright2" traveltime="6.90" entered="8.71"/>
+        <edge id="2/2totop2" traveltime="6.90" entered="8.71"/>
+        <edge id="bottom0to0/0" traveltime="6.90" entered="8.71"/>
+        <edge id="bottom1to1/0" traveltime="6.90" entered="8.71"/>
+        <edge id="bottom2to2/0" traveltime="6.90" entered="8.71"/>
+        <edge id="left0to0/0" traveltime="6.90" entered="8.71"/>
+        <edge id="left1to0/1" traveltime="6.90" entered="8.71"/>
+        <edge id="left2to0/2" traveltime="6.90" entered="8.71"/>
+        <edge id="right0to2/0" traveltime="6.90" entered="8.71"/>
+        <edge id="right1to2/1" traveltime="6.90" entered="8.71"/>
+        <edge id="right2to2/2" traveltime="6.90" entered="8.71"/>
+        <edge id="top0to0/2" traveltime="6.90" entered="8.71"/>
+        <edge id="top1to1/2" traveltime="6.90" entered="8.71"/>
+        <edge id="top2to2/2" traveltime="6.90" entered="8.71"/>
     </interval>
     <interval begin="32400.00" end="36000.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.23" entered="6.49"/>
+        <edge id="0/0to1/0" traveltime="28.23" entered="6.43"/>
+        <edge id="0/0tobottom0" traveltime="6.88" entered="5.46"/>
+        <edge id="0/0toleft0" traveltime="6.88" entered="5.46"/>
+        <edge id="0/1to0/0" traveltime="28.23" entered="6.47"/>
+        <edge id="0/1to0/2" traveltime="28.23" entered="6.47"/>
+        <edge id="0/1to1/1" traveltime="28.23" entered="6.45"/>
+        <edge id="0/1toleft1" traveltime="6.88" entered="5.46"/>
+        <edge id="0/2to0/1" traveltime="28.23" entered="6.47"/>
+        <edge id="0/2to1/2" traveltime="28.23" entered="6.45"/>
+        <edge id="0/2toleft2" traveltime="6.88" entered="5.46"/>
+        <edge id="0/2totop0" traveltime="6.88" entered="5.46"/>
+        <edge id="1/0to0/0" traveltime="28.23" entered="6.45"/>
+        <edge id="1/0to1/1" traveltime="28.23" entered="6.43"/>
+        <edge id="1/0to2/0" traveltime="28.23" entered="6.43"/>
+        <edge id="1/0tobottom1" traveltime="6.88" entered="5.46"/>
+        <edge id="1/1to0/1" traveltime="28.23" entered="6.43"/>
+        <edge id="1/1to1/0" traveltime="28.23" entered="6.45"/>
+        <edge id="1/1to1/2" traveltime="28.23" entered="6.40"/>
+        <edge id="1/1to2/1" traveltime="28.23" entered="6.43"/>
+        <edge id="1/2to0/2" traveltime="28.23" entered="6.45"/>
+        <edge id="1/2to1/1" traveltime="28.23" entered="6.43"/>
+        <edge id="1/2to2/2" traveltime="28.23" entered="6.47"/>
+        <edge id="1/2totop1" traveltime="6.88" entered="5.46"/>
+        <edge id="2/0to1/0" traveltime="28.23" entered="6.43"/>
+        <edge id="2/0to2/1" traveltime="28.23" entered="6.40"/>
+        <edge id="2/0tobottom2" traveltime="6.88" entered="5.46"/>
+        <edge id="2/0toright0" traveltime="6.88" entered="5.46"/>
+        <edge id="2/1to1/1" traveltime="28.23" entered="6.40"/>
+        <edge id="2/1to2/0" traveltime="28.23" entered="6.40"/>
+        <edge id="2/1to2/2" traveltime="28.23" entered="6.45"/>
+        <edge id="2/1toright1" traveltime="6.88" entered="5.46"/>
+        <edge id="2/2to1/2" traveltime="28.23" entered="6.49"/>
+        <edge id="2/2to2/1" traveltime="28.23" entered="6.43"/>
+        <edge id="2/2toright2" traveltime="6.88" entered="5.46"/>
+        <edge id="2/2totop2" traveltime="6.88" entered="5.46"/>
+        <edge id="bottom0to0/0" traveltime="6.88" entered="5.46"/>
+        <edge id="bottom1to1/0" traveltime="6.88" entered="5.46"/>
+        <edge id="bottom2to2/0" traveltime="6.88" entered="5.46"/>
+        <edge id="left0to0/0" traveltime="6.88" entered="5.46"/>
+        <edge id="left1to0/1" traveltime="6.88" entered="5.46"/>
+        <edge id="left2to0/2" traveltime="6.88" entered="5.46"/>
+        <edge id="right0to2/0" traveltime="6.88" entered="5.46"/>
+        <edge id="right1to2/1" traveltime="6.88" entered="5.46"/>
+        <edge id="right2to2/2" traveltime="6.88" entered="5.46"/>
+        <edge id="top0to0/2" traveltime="6.88" entered="5.46"/>
+        <edge id="top1to1/2" traveltime="6.88" entered="5.46"/>
+        <edge id="top2to2/2" traveltime="6.88" entered="5.46"/>
     </interval>
     <interval begin="36000.00" end="39600.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.23" entered="6.18"/>
+        <edge id="0/0to1/0" traveltime="28.23" entered="6.12"/>
+        <edge id="0/0tobottom0" traveltime="6.88" entered="5.20"/>
+        <edge id="0/0toleft0" traveltime="6.88" entered="5.20"/>
+        <edge id="0/1to0/0" traveltime="28.23" entered="6.14"/>
+        <edge id="0/1to0/2" traveltime="28.23" entered="6.16"/>
+        <edge id="0/1to1/1" traveltime="28.23" entered="6.14"/>
+        <edge id="0/1toleft1" traveltime="6.88" entered="5.20"/>
+        <edge id="0/2to0/1" traveltime="28.23" entered="6.16"/>
+        <edge id="0/2to1/2" traveltime="28.23" entered="6.14"/>
+        <edge id="0/2toleft2" traveltime="6.88" entered="5.20"/>
+        <edge id="0/2totop0" traveltime="6.88" entered="5.20"/>
+        <edge id="1/0to0/0" traveltime="28.23" entered="6.16"/>
+        <edge id="1/0to1/1" traveltime="28.23" entered="6.12"/>
+        <edge id="1/0to2/0" traveltime="28.23" entered="6.10"/>
+        <edge id="1/0tobottom1" traveltime="6.88" entered="5.20"/>
+        <edge id="1/1to0/1" traveltime="28.23" entered="6.10"/>
+        <edge id="1/1to1/0" traveltime="28.23" entered="6.14"/>
+        <edge id="1/1to1/2" traveltime="28.23" entered="6.10"/>
+        <edge id="1/1to2/1" traveltime="28.23" entered="6.14"/>
+        <edge id="1/2to0/2" traveltime="28.23" entered="6.14"/>
+        <edge id="1/2to1/1" traveltime="28.23" entered="6.12"/>
+        <edge id="1/2to2/2" traveltime="28.23" entered="6.16"/>
+        <edge id="1/2totop1" traveltime="6.88" entered="5.20"/>
+        <edge id="2/0to1/0" traveltime="28.23" entered="6.12"/>
+        <edge id="2/0to2/1" traveltime="28.23" entered="6.10"/>
+        <edge id="2/0tobottom2" traveltime="6.88" entered="5.20"/>
+        <edge id="2/0toright0" traveltime="6.88" entered="5.20"/>
+        <edge id="2/1to1/1" traveltime="28.23" entered="6.10"/>
+        <edge id="2/1to2/0" traveltime="28.23" entered="6.12"/>
+        <edge id="2/1to2/2" traveltime="28.23" entered="6.14"/>
+        <edge id="2/1toright1" traveltime="6.88" entered="5.20"/>
+        <edge id="2/2to1/2" traveltime="28.23" entered="6.18"/>
+        <edge id="2/2to2/1" traveltime="28.23" entered="6.12"/>
+        <edge id="2/2toright2" traveltime="6.88" entered="5.20"/>
+        <edge id="2/2totop2" traveltime="6.88" entered="5.20"/>
+        <edge id="bottom0to0/0" traveltime="6.88" entered="5.20"/>
+        <edge id="bottom1to1/0" traveltime="6.88" entered="5.20"/>
+        <edge id="bottom2to2/0" traveltime="6.88" entered="5.20"/>
+        <edge id="left0to0/0" traveltime="6.88" entered="5.20"/>
+        <edge id="left1to0/1" traveltime="6.88" entered="5.20"/>
+        <edge id="left2to0/2" traveltime="6.88" entered="5.20"/>
+        <edge id="right0to2/0" traveltime="6.88" entered="5.20"/>
+        <edge id="right1to2/1" traveltime="6.88" entered="5.20"/>
+        <edge id="right2to2/2" traveltime="6.88" entered="5.20"/>
+        <edge id="top0to0/2" traveltime="6.88" entered="5.20"/>
+        <edge id="top1to1/2" traveltime="6.88" entered="5.20"/>
+        <edge id="top2to2/2" traveltime="6.88" entered="5.20"/>
     </interval>
     <interval begin="39600.00" end="43200.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.22" entered="5.89"/>
+        <edge id="0/0to1/0" traveltime="28.22" entered="5.80"/>
+        <edge id="0/0tobottom0" traveltime="6.88" entered="4.94"/>
+        <edge id="0/0toleft0" traveltime="6.88" entered="4.94"/>
+        <edge id="0/1to0/0" traveltime="28.22" entered="5.85"/>
+        <edge id="0/1to0/2" traveltime="28.22" entered="5.87"/>
+        <edge id="0/1to1/1" traveltime="28.22" entered="5.83"/>
+        <edge id="0/1toleft1" traveltime="6.88" entered="4.94"/>
+        <edge id="0/2to0/1" traveltime="28.22" entered="5.85"/>
+        <edge id="0/2to1/2" traveltime="28.22" entered="5.85"/>
+        <edge id="0/2toleft2" traveltime="6.88" entered="4.94"/>
+        <edge id="0/2totop0" traveltime="6.88" entered="4.94"/>
+        <edge id="1/0to0/0" traveltime="28.22" entered="5.83"/>
+        <edge id="1/0to1/1" traveltime="28.22" entered="5.80"/>
+        <edge id="1/0to2/0" traveltime="28.22" entered="5.80"/>
+        <edge id="1/0tobottom1" traveltime="6.88" entered="4.94"/>
+        <edge id="1/1to0/1" traveltime="28.22" entered="5.81"/>
+        <edge id="1/1to1/0" traveltime="28.22" entered="5.81"/>
+        <edge id="1/1to1/2" traveltime="28.22" entered="5.78"/>
+        <edge id="1/1to2/1" traveltime="28.22" entered="5.83"/>
+        <edge id="1/2to0/2" traveltime="28.22" entered="5.83"/>
+        <edge id="1/2to1/1" traveltime="28.22" entered="5.81"/>
+        <edge id="1/2to2/2" traveltime="28.22" entered="5.85"/>
+        <edge id="1/2totop1" traveltime="6.88" entered="4.94"/>
+        <edge id="2/0to1/0" traveltime="28.22" entered="5.81"/>
+        <edge id="2/0to2/1" traveltime="28.22" entered="5.80"/>
+        <edge id="2/0tobottom2" traveltime="6.88" entered="4.94"/>
+        <edge id="2/0toright0" traveltime="6.88" entered="4.94"/>
+        <edge id="2/1to1/1" traveltime="28.22" entered="5.80"/>
+        <edge id="2/1to2/0" traveltime="28.22" entered="5.81"/>
+        <edge id="2/1to2/2" traveltime="28.22" entered="5.83"/>
+        <edge id="2/1toright1" traveltime="6.88" entered="4.94"/>
+        <edge id="2/2to1/2" traveltime="28.22" entered="5.87"/>
+        <edge id="2/2to2/1" traveltime="28.22" entered="5.81"/>
+        <edge id="2/2toright2" traveltime="6.88" entered="4.94"/>
+        <edge id="2/2totop2" traveltime="6.88" entered="4.94"/>
+        <edge id="bottom0to0/0" traveltime="6.88" entered="4.94"/>
+        <edge id="bottom1to1/0" traveltime="6.88" entered="4.94"/>
+        <edge id="bottom2to2/0" traveltime="6.88" entered="4.94"/>
+        <edge id="left0to0/0" traveltime="6.88" entered="4.94"/>
+        <edge id="left1to0/1" traveltime="6.88" entered="4.94"/>
+        <edge id="left2to0/2" traveltime="6.88" entered="4.94"/>
+        <edge id="right0to2/0" traveltime="6.88" entered="4.94"/>
+        <edge id="right1to2/1" traveltime="6.88" entered="4.94"/>
+        <edge id="right2to2/2" traveltime="6.88" entered="4.94"/>
+        <edge id="top0to0/2" traveltime="6.88" entered="4.94"/>
+        <edge id="top1to1/2" traveltime="6.88" entered="4.94"/>
+        <edge id="top2to2/2" traveltime="6.88" entered="4.94"/>
     </interval>
     <interval begin="43200.00" end="46800.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.23" entered="6.31"/>
+        <edge id="0/0to1/0" traveltime="28.23" entered="6.27"/>
+        <edge id="0/0tobottom0" traveltime="6.88" entered="5.33"/>
+        <edge id="0/0toleft0" traveltime="6.88" entered="5.33"/>
+        <edge id="0/1to0/0" traveltime="28.23" entered="6.29"/>
+        <edge id="0/1to0/2" traveltime="28.23" entered="6.31"/>
+        <edge id="0/1to1/1" traveltime="28.23" entered="6.29"/>
+        <edge id="0/1toleft1" traveltime="6.88" entered="5.33"/>
+        <edge id="0/2to0/1" traveltime="28.23" entered="6.33"/>
+        <edge id="0/2to1/2" traveltime="28.23" entered="6.29"/>
+        <edge id="0/2toleft2" traveltime="6.88" entered="5.33"/>
+        <edge id="0/2totop0" traveltime="6.88" entered="5.33"/>
+        <edge id="1/0to0/0" traveltime="28.23" entered="6.29"/>
+        <edge id="1/0to1/1" traveltime="28.23" entered="6.27"/>
+        <edge id="1/0to2/0" traveltime="28.23" entered="6.27"/>
+        <edge id="1/0tobottom1" traveltime="6.88" entered="5.33"/>
+        <edge id="1/1to0/1" traveltime="28.23" entered="6.25"/>
+        <edge id="1/1to1/0" traveltime="28.23" entered="6.29"/>
+        <edge id="1/1to1/2" traveltime="28.23" entered="6.25"/>
+        <edge id="1/1to2/1" traveltime="28.23" entered="6.29"/>
+        <edge id="1/2to0/2" traveltime="28.23" entered="6.31"/>
+        <edge id="1/2to1/1" traveltime="28.23" entered="6.27"/>
+        <edge id="1/2to2/2" traveltime="28.23" entered="6.29"/>
+        <edge id="1/2totop1" traveltime="6.88" entered="5.33"/>
+        <edge id="2/0to1/0" traveltime="28.23" entered="6.27"/>
+        <edge id="2/0to2/1" traveltime="28.23" entered="6.27"/>
+        <edge id="2/0tobottom2" traveltime="6.88" entered="5.33"/>
+        <edge id="2/0toright0" traveltime="6.88" entered="5.33"/>
+        <edge id="2/1to1/1" traveltime="28.23" entered="6.25"/>
+        <edge id="2/1to2/0" traveltime="28.23" entered="6.27"/>
+        <edge id="2/1to2/2" traveltime="28.23" entered="6.29"/>
+        <edge id="2/1toright1" traveltime="6.88" entered="5.33"/>
+        <edge id="2/2to1/2" traveltime="28.23" entered="6.33"/>
+        <edge id="2/2to2/1" traveltime="28.23" entered="6.25"/>
+        <edge id="2/2toright2" traveltime="6.88" entered="5.33"/>
+        <edge id="2/2totop2" traveltime="6.88" entered="5.33"/>
+        <edge id="bottom0to0/0" traveltime="6.88" entered="5.33"/>
+        <edge id="bottom1to1/0" traveltime="6.88" entered="5.33"/>
+        <edge id="bottom2to2/0" traveltime="6.88" entered="5.33"/>
+        <edge id="left0to0/0" traveltime="6.88" entered="5.33"/>
+        <edge id="left1to0/1" traveltime="6.88" entered="5.33"/>
+        <edge id="left2to0/2" traveltime="6.88" entered="5.33"/>
+        <edge id="right0to2/0" traveltime="6.88" entered="5.33"/>
+        <edge id="right1to2/1" traveltime="6.88" entered="5.33"/>
+        <edge id="right2to2/2" traveltime="6.88" entered="5.33"/>
+        <edge id="top0to0/2" traveltime="6.88" entered="5.33"/>
+        <edge id="top1to1/2" traveltime="6.88" entered="5.33"/>
+        <edge id="top2to2/2" traveltime="6.88" entered="5.33"/>
     </interval>
     <interval begin="46800.00" end="50400.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.25" entered="7.11"/>
+        <edge id="0/0to1/0" traveltime="28.25" entered="7.04"/>
+        <edge id="0/0tobottom0" traveltime="6.88" entered="5.98"/>
+        <edge id="0/0toleft0" traveltime="6.88" entered="5.98"/>
+        <edge id="0/1to0/0" traveltime="28.25" entered="7.08"/>
+        <edge id="0/1to0/2" traveltime="28.25" entered="7.08"/>
+        <edge id="0/1to1/1" traveltime="28.25" entered="7.06"/>
+        <edge id="0/1toleft1" traveltime="6.88" entered="5.98"/>
+        <edge id="0/2to0/1" traveltime="28.25" entered="7.08"/>
+        <edge id="0/2to1/2" traveltime="28.25" entered="7.06"/>
+        <edge id="0/2toleft2" traveltime="6.88" entered="5.98"/>
+        <edge id="0/2totop0" traveltime="6.88" entered="5.98"/>
+        <edge id="1/0to0/0" traveltime="28.25" entered="7.06"/>
+        <edge id="1/0to1/1" traveltime="28.25" entered="7.04"/>
+        <edge id="1/0to2/0" traveltime="28.25" entered="7.01"/>
+        <edge id="1/0tobottom1" traveltime="6.88" entered="5.98"/>
+        <edge id="1/1to0/1" traveltime="28.25" entered="7.04"/>
+        <edge id="1/1to1/0" traveltime="28.25" entered="7.04"/>
+        <edge id="1/1to1/2" traveltime="28.25" entered="7.01"/>
+        <edge id="1/1to2/1" traveltime="28.25" entered="7.06"/>
+        <edge id="1/2to0/2" traveltime="28.25" entered="7.06"/>
+        <edge id="1/2to1/1" traveltime="28.25" entered="7.04"/>
+        <edge id="1/2to2/2" traveltime="28.25" entered="7.08"/>
+        <edge id="1/2totop1" traveltime="6.88" entered="5.98"/>
+        <edge id="2/0to1/0" traveltime="28.25" entered="7.04"/>
+        <edge id="2/0to2/1" traveltime="28.25" entered="7.01"/>
+        <edge id="2/0tobottom2" traveltime="6.88" entered="5.98"/>
+        <edge id="2/0toright0" traveltime="6.88" entered="5.98"/>
+        <edge id="2/1to1/1" traveltime="28.25" entered="7.01"/>
+        <edge id="2/1to2/0" traveltime="28.25" entered="7.04"/>
+        <edge id="2/1to2/2" traveltime="28.25" entered="7.06"/>
+        <edge id="2/1toright1" traveltime="6.88" entered="5.98"/>
+        <edge id="2/2to1/2" traveltime="28.25" entered="7.11"/>
+        <edge id="2/2to2/1" traveltime="28.25" entered="7.04"/>
+        <edge id="2/2toright2" traveltime="6.88" entered="5.98"/>
+        <edge id="2/2totop2" traveltime="6.88" entered="5.98"/>
+        <edge id="bottom0to0/0" traveltime="6.88" entered="5.98"/>
+        <edge id="bottom1to1/0" traveltime="6.88" entered="5.98"/>
+        <edge id="bottom2to2/0" traveltime="6.88" entered="5.98"/>
+        <edge id="left0to0/0" traveltime="6.88" entered="5.98"/>
+        <edge id="left1to0/1" traveltime="6.88" entered="5.98"/>
+        <edge id="left2to0/2" traveltime="6.88" entered="5.98"/>
+        <edge id="right0to2/0" traveltime="6.88" entered="5.98"/>
+        <edge id="right1to2/1" traveltime="6.88" entered="5.98"/>
+        <edge id="right2to2/2" traveltime="6.88" entered="5.98"/>
+        <edge id="top0to0/2" traveltime="6.88" entered="5.98"/>
+        <edge id="top1to1/2" traveltime="6.88" entered="5.98"/>
+        <edge id="top2to2/2" traveltime="6.88" entered="5.98"/>
     </interval>
     <interval begin="50400.00" end="54000.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.26" entered="7.75"/>
+        <edge id="0/0to1/0" traveltime="28.26" entered="7.63"/>
+        <edge id="0/0tobottom0" traveltime="6.89" entered="6.50"/>
+        <edge id="0/0toleft0" traveltime="6.89" entered="6.50"/>
+        <edge id="0/1to0/0" traveltime="28.26" entered="7.73"/>
+        <edge id="0/1to0/2" traveltime="28.26" entered="7.73"/>
+        <edge id="0/1to1/1" traveltime="28.26" entered="7.68"/>
+        <edge id="0/1toleft1" traveltime="6.89" entered="6.50"/>
+        <edge id="0/2to0/1" traveltime="28.26" entered="7.73"/>
+        <edge id="0/2to1/2" traveltime="28.26" entered="7.70"/>
+        <edge id="0/2toleft2" traveltime="6.89" entered="6.50"/>
+        <edge id="0/2totop0" traveltime="6.89" entered="6.50"/>
+        <edge id="1/0to0/0" traveltime="28.26" entered="7.65"/>
+        <edge id="1/0to1/1" traveltime="28.26" entered="7.63"/>
+        <edge id="1/0to2/0" traveltime="28.26" entered="7.65"/>
+        <edge id="1/0tobottom1" traveltime="6.89" entered="6.50"/>
+        <edge id="1/1to0/1" traveltime="28.26" entered="7.65"/>
+        <edge id="1/1to1/0" traveltime="28.26" entered="7.65"/>
+        <edge id="1/1to1/2" traveltime="28.26" entered="7.60"/>
+        <edge id="1/1to2/1" traveltime="28.26" entered="7.68"/>
+        <edge id="1/2to0/2" traveltime="28.26" entered="7.70"/>
+        <edge id="1/2to1/1" traveltime="28.26" entered="7.65"/>
+        <edge id="1/2to2/2" traveltime="28.26" entered="7.68"/>
+        <edge id="1/2totop1" traveltime="6.89" entered="6.50"/>
+        <edge id="2/0to1/0" traveltime="28.26" entered="7.65"/>
+        <edge id="2/0to2/1" traveltime="28.26" entered="7.63"/>
+        <edge id="2/0tobottom2" traveltime="6.89" entered="6.50"/>
+        <edge id="2/0toright0" traveltime="6.89" entered="6.50"/>
+        <edge id="2/1to1/1" traveltime="28.26" entered="7.63"/>
+        <edge id="2/1to2/0" traveltime="28.26" entered="7.63"/>
+        <edge id="2/1to2/2" traveltime="28.26" entered="7.68"/>
+        <edge id="2/1toright1" traveltime="6.89" entered="6.50"/>
+        <edge id="2/2to1/2" traveltime="28.26" entered="7.73"/>
+        <edge id="2/2to2/1" traveltime="28.26" entered="7.63"/>
+        <edge id="2/2toright2" traveltime="6.89" entered="6.50"/>
+        <edge id="2/2totop2" traveltime="6.89" entered="6.50"/>
+        <edge id="bottom0to0/0" traveltime="6.89" entered="6.50"/>
+        <edge id="bottom1to1/0" traveltime="6.89" entered="6.50"/>
+        <edge id="bottom2to2/0" traveltime="6.89" entered="6.50"/>
+        <edge id="left0to0/0" traveltime="6.89" entered="6.50"/>
+        <edge id="left1to0/1" traveltime="6.89" entered="6.50"/>
+        <edge id="left2to0/2" traveltime="6.89" entered="6.50"/>
+        <edge id="right0to2/0" traveltime="6.89" entered="6.50"/>
+        <edge id="right1to2/1" traveltime="6.89" entered="6.50"/>
+        <edge id="right2to2/2" traveltime="6.89" entered="6.50"/>
+        <edge id="top0to0/2" traveltime="6.89" entered="6.50"/>
+        <edge id="top1to1/2" traveltime="6.89" entered="6.50"/>
+        <edge id="top2to2/2" traveltime="6.89" entered="6.50"/>
     </interval>
     <interval begin="54000.00" end="57600.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.32" entered="10.35"/>
+        <edge id="0/0to1/0" traveltime="28.32" entered="10.25"/>
+        <edge id="0/0tobottom0" traveltime="6.90" entered="8.71"/>
+        <edge id="0/0toleft0" traveltime="6.90" entered="8.71"/>
+        <edge id="0/1to0/0" traveltime="28.32" entered="10.32"/>
+        <edge id="0/1to0/2" traveltime="28.32" entered="10.32"/>
+        <edge id="0/1to1/1" traveltime="28.32" entered="10.28"/>
+        <edge id="0/1toleft1" traveltime="6.90" entered="8.71"/>
+        <edge id="0/2to0/1" traveltime="28.32" entered="10.28"/>
+        <edge id="0/2to1/2" traveltime="28.32" entered="10.28"/>
+        <edge id="0/2toleft2" traveltime="6.90" entered="8.71"/>
+        <edge id="0/2totop0" traveltime="6.90" entered="8.71"/>
+        <edge id="1/0to0/0" traveltime="28.32" entered="10.28"/>
+        <edge id="1/0to1/1" traveltime="28.32" entered="10.25"/>
+        <edge id="1/0to2/0" traveltime="28.32" entered="10.25"/>
+        <edge id="1/0tobottom1" traveltime="6.90" entered="8.71"/>
+        <edge id="1/1to0/1" traveltime="28.32" entered="10.28"/>
+        <edge id="1/1to1/0" traveltime="28.32" entered="10.25"/>
+        <edge id="1/1to1/2" traveltime="28.31" entered="10.22"/>
+        <edge id="1/1to2/1" traveltime="28.32" entered="10.28"/>
+        <edge id="1/2to0/2" traveltime="28.32" entered="10.25"/>
+        <edge id="1/2to1/1" traveltime="28.32" entered="10.28"/>
+        <edge id="1/2to2/2" traveltime="28.32" entered="10.28"/>
+        <edge id="1/2totop1" traveltime="6.90" entered="8.71"/>
+        <edge id="2/0to1/0" traveltime="28.32" entered="10.28"/>
+        <edge id="2/0to2/1" traveltime="28.31" entered="10.22"/>
+        <edge id="2/0tobottom2" traveltime="6.90" entered="8.71"/>
+        <edge id="2/0toright0" traveltime="6.90" entered="8.71"/>
+        <edge id="2/1to1/1" traveltime="28.31" entered="10.22"/>
+        <edge id="2/1to2/0" traveltime="28.32" entered="10.25"/>
+        <edge id="2/1to2/2" traveltime="28.32" entered="10.28"/>
+        <edge id="2/1toright1" traveltime="6.90" entered="8.71"/>
+        <edge id="2/2to1/2" traveltime="28.32" entered="10.32"/>
+        <edge id="2/2to2/1" traveltime="28.32" entered="10.25"/>
+        <edge id="2/2toright2" traveltime="6.90" entered="8.71"/>
+        <edge id="2/2totop2" traveltime="6.90" entered="8.71"/>
+        <edge id="bottom0to0/0" traveltime="6.90" entered="8.71"/>
+        <edge id="bottom1to1/0" traveltime="6.90" entered="8.71"/>
+        <edge id="bottom2to2/0" traveltime="6.90" entered="8.71"/>
+        <edge id="left0to0/0" traveltime="6.90" entered="8.71"/>
+        <edge id="left1to0/1" traveltime="6.90" entered="8.71"/>
+        <edge id="left2to0/2" traveltime="6.90" entered="8.71"/>
+        <edge id="right0to2/0" traveltime="6.90" entered="8.71"/>
+        <edge id="right1to2/1" traveltime="6.90" entered="8.71"/>
+        <edge id="right2to2/2" traveltime="6.90" entered="8.71"/>
+        <edge id="top0to0/2" traveltime="6.90" entered="8.71"/>
+        <edge id="top1to1/2" traveltime="6.90" entered="8.71"/>
+        <edge id="top2to2/2" traveltime="6.90" entered="8.71"/>
     </interval>
     <interval begin="57600.00" end="61200.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.41" entered="14.83"/>
+        <edge id="0/0to1/0" traveltime="28.41" entered="14.64"/>
+        <edge id="0/0tobottom0" traveltime="6.92" entered="12.48"/>
+        <edge id="0/0toleft0" traveltime="6.92" entered="12.48"/>
+        <edge id="0/1to0/0" traveltime="28.41" entered="14.74"/>
+        <edge id="0/1to0/2" traveltime="28.41" entered="14.83"/>
+        <edge id="0/1to1/1" traveltime="28.41" entered="14.74"/>
+        <edge id="0/1toleft1" traveltime="6.92" entered="12.48"/>
+        <edge id="0/2to0/1" traveltime="28.41" entered="14.78"/>
+        <edge id="0/2to1/2" traveltime="28.41" entered="14.78"/>
+        <edge id="0/2toleft2" traveltime="6.92" entered="12.48"/>
+        <edge id="0/2totop0" traveltime="6.92" entered="12.48"/>
+        <edge id="1/0to0/0" traveltime="28.41" entered="14.74"/>
+        <edge id="1/0to1/1" traveltime="28.41" entered="14.64"/>
+        <edge id="1/0to2/0" traveltime="28.41" entered="14.69"/>
+        <edge id="1/0tobottom1" traveltime="6.92" entered="12.48"/>
+        <edge id="1/1to0/1" traveltime="28.41" entered="14.69"/>
+        <edge id="1/1to1/0" traveltime="28.41" entered="14.69"/>
+        <edge id="1/1to1/2" traveltime="28.41" entered="14.59"/>
+        <edge id="1/1to2/1" traveltime="28.41" entered="14.74"/>
+        <edge id="1/2to0/2" traveltime="28.41" entered="14.74"/>
+        <edge id="1/2to1/1" traveltime="28.41" entered="14.64"/>
+        <edge id="1/2to2/2" traveltime="28.41" entered="14.74"/>
+        <edge id="1/2totop1" traveltime="6.92" entered="12.48"/>
+        <edge id="2/0to1/0" traveltime="28.41" entered="14.74"/>
+        <edge id="2/0to2/1" traveltime="28.41" entered="14.69"/>
+        <edge id="2/0tobottom2" traveltime="6.92" entered="12.48"/>
+        <edge id="2/0toright0" traveltime="6.92" entered="12.48"/>
+        <edge id="2/1to1/1" traveltime="28.41" entered="14.69"/>
+        <edge id="2/1to2/0" traveltime="28.41" entered="14.74"/>
+        <edge id="2/1to2/2" traveltime="28.41" entered="14.74"/>
+        <edge id="2/1toright1" traveltime="6.92" entered="12.48"/>
+        <edge id="2/2to1/2" traveltime="28.41" entered="14.74"/>
+        <edge id="2/2to2/1" traveltime="28.41" entered="14.74"/>
+        <edge id="2/2toright2" traveltime="6.92" entered="12.48"/>
+        <edge id="2/2totop2" traveltime="6.92" entered="12.48"/>
+        <edge id="bottom0to0/0" traveltime="6.92" entered="12.48"/>
+        <edge id="bottom1to1/0" traveltime="6.92" entered="12.48"/>
+        <edge id="bottom2to2/0" traveltime="6.92" entered="12.48"/>
+        <edge id="left0to0/0" traveltime="6.92" entered="12.48"/>
+        <edge id="left1to0/1" traveltime="6.92" entered="12.48"/>
+        <edge id="left2to0/2" traveltime="6.92" entered="12.48"/>
+        <edge id="right0to2/0" traveltime="6.92" entered="12.48"/>
+        <edge id="right1to2/1" traveltime="6.92" entered="12.48"/>
+        <edge id="right2to2/2" traveltime="6.92" entered="12.48"/>
+        <edge id="top0to0/2" traveltime="6.92" entered="12.48"/>
+        <edge id="top1to1/2" traveltime="6.92" entered="12.48"/>
+        <edge id="top2to2/2" traveltime="6.92" entered="12.48"/>
     </interval>
     <interval begin="61200.00" end="64800.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.40" entered="14.21"/>
+        <edge id="0/0to1/0" traveltime="28.40" entered="14.08"/>
+        <edge id="0/0tobottom0" traveltime="6.92" entered="11.96"/>
+        <edge id="0/0toleft0" traveltime="6.92" entered="11.96"/>
+        <edge id="0/1to0/0" traveltime="28.40" entered="14.21"/>
+        <edge id="0/1to0/2" traveltime="28.40" entered="14.17"/>
+        <edge id="0/1to1/1" traveltime="28.40" entered="14.12"/>
+        <edge id="0/1toleft1" traveltime="6.92" entered="11.96"/>
+        <edge id="0/2to0/1" traveltime="28.40" entered="14.17"/>
+        <edge id="0/2to1/2" traveltime="28.40" entered="14.12"/>
+        <edge id="0/2toleft2" traveltime="6.92" entered="11.96"/>
+        <edge id="0/2totop0" traveltime="6.92" entered="11.96"/>
+        <edge id="1/0to0/0" traveltime="28.40" entered="14.08"/>
+        <edge id="1/0to1/1" traveltime="28.40" entered="14.08"/>
+        <edge id="1/0to2/0" traveltime="28.40" entered="14.08"/>
+        <edge id="1/0tobottom1" traveltime="6.92" entered="11.96"/>
+        <edge id="1/1to0/1" traveltime="28.40" entered="14.12"/>
+        <edge id="1/1to1/0" traveltime="28.40" entered="14.08"/>
+        <edge id="1/1to1/2" traveltime="28.40" entered="14.03"/>
+        <edge id="1/1to2/1" traveltime="28.40" entered="14.08"/>
+        <edge id="1/2to0/2" traveltime="28.40" entered="14.12"/>
+        <edge id="1/2to1/1" traveltime="28.40" entered="14.08"/>
+        <edge id="1/2to2/2" traveltime="28.40" entered="14.17"/>
+        <edge id="1/2totop1" traveltime="6.92" entered="11.96"/>
+        <edge id="2/0to1/0" traveltime="28.40" entered="14.08"/>
+        <edge id="2/0to2/1" traveltime="28.40" entered="14.03"/>
+        <edge id="2/0tobottom2" traveltime="6.92" entered="11.96"/>
+        <edge id="2/0toright0" traveltime="6.92" entered="11.96"/>
+        <edge id="2/1to1/1" traveltime="28.40" entered="14.03"/>
+        <edge id="2/1to2/0" traveltime="28.40" entered="14.03"/>
+        <edge id="2/1to2/2" traveltime="28.40" entered="14.12"/>
+        <edge id="2/1toright1" traveltime="6.92" entered="11.96"/>
+        <edge id="2/2to1/2" traveltime="28.40" entered="14.21"/>
+        <edge id="2/2to2/1" traveltime="28.40" entered="14.08"/>
+        <edge id="2/2toright2" traveltime="6.92" entered="11.96"/>
+        <edge id="2/2totop2" traveltime="6.92" entered="11.96"/>
+        <edge id="bottom0to0/0" traveltime="6.92" entered="11.96"/>
+        <edge id="bottom1to1/0" traveltime="6.92" entered="11.96"/>
+        <edge id="bottom2to2/0" traveltime="6.92" entered="11.96"/>
+        <edge id="left0to0/0" traveltime="6.92" entered="11.96"/>
+        <edge id="left1to0/1" traveltime="6.92" entered="11.96"/>
+        <edge id="left2to0/2" traveltime="6.92" entered="11.96"/>
+        <edge id="right0to2/0" traveltime="6.92" entered="11.96"/>
+        <edge id="right1to2/1" traveltime="6.92" entered="11.96"/>
+        <edge id="right2to2/2" traveltime="6.92" entered="11.96"/>
+        <edge id="top0to0/2" traveltime="6.92" entered="11.96"/>
+        <edge id="top1to1/2" traveltime="6.92" entered="11.96"/>
+        <edge id="top2to2/2" traveltime="6.92" entered="11.96"/>
     </interval>
     <interval begin="64800.00" end="68400.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.33" entered="11.01"/>
+        <edge id="0/0to1/0" traveltime="28.33" entered="10.83"/>
+        <edge id="0/0tobottom0" traveltime="6.90" entered="9.23"/>
+        <edge id="0/0toleft0" traveltime="6.90" entered="9.23"/>
+        <edge id="0/1to0/0" traveltime="28.33" entered="10.93"/>
+        <edge id="0/1to0/2" traveltime="28.33" entered="10.93"/>
+        <edge id="0/1to1/1" traveltime="28.33" entered="10.93"/>
+        <edge id="0/1toleft1" traveltime="6.90" entered="9.23"/>
+        <edge id="0/2to0/1" traveltime="28.33" entered="10.93"/>
+        <edge id="0/2to1/2" traveltime="28.33" entered="10.90"/>
+        <edge id="0/2toleft2" traveltime="6.90" entered="9.23"/>
+        <edge id="0/2totop0" traveltime="6.90" entered="9.23"/>
+        <edge id="1/0to0/0" traveltime="28.33" entered="10.90"/>
+        <edge id="1/0to1/1" traveltime="28.33" entered="10.83"/>
+        <edge id="1/0to2/0" traveltime="28.33" entered="10.86"/>
+        <edge id="1/0tobottom1" traveltime="6.90" entered="9.23"/>
+        <edge id="1/1to0/1" traveltime="28.33" entered="10.86"/>
+        <edge id="1/1to1/0" traveltime="28.33" entered="10.86"/>
+        <edge id="1/1to1/2" traveltime="28.33" entered="10.83"/>
+        <edge id="1/1to2/1" traveltime="28.33" entered="10.90"/>
+        <edge id="1/2to0/2" traveltime="28.33" entered="10.90"/>
+        <edge id="1/2to1/1" traveltime="28.33" entered="10.86"/>
+        <edge id="1/2to2/2" traveltime="28.33" entered="10.90"/>
+        <edge id="1/2totop1" traveltime="6.90" entered="9.23"/>
+        <edge id="2/0to1/0" traveltime="28.33" entered="10.90"/>
+        <edge id="2/0to2/1" traveltime="28.33" entered="10.83"/>
+        <edge id="2/0tobottom2" traveltime="6.90" entered="9.23"/>
+        <edge id="2/0toright0" traveltime="6.90" entered="9.23"/>
+        <edge id="2/1to1/1" traveltime="28.33" entered="10.83"/>
+        <edge id="2/1to2/0" traveltime="28.33" entered="10.86"/>
+        <edge id="2/1to2/2" traveltime="28.33" entered="10.90"/>
+        <edge id="2/1toright1" traveltime="6.90" entered="9.23"/>
+        <edge id="2/2to1/2" traveltime="28.33" entered="10.93"/>
+        <edge id="2/2to2/1" traveltime="28.33" entered="10.86"/>
+        <edge id="2/2toright2" traveltime="6.90" entered="9.23"/>
+        <edge id="2/2totop2" traveltime="6.90" entered="9.23"/>
+        <edge id="bottom0to0/0" traveltime="6.90" entered="9.23"/>
+        <edge id="bottom1to1/0" traveltime="6.90" entered="9.23"/>
+        <edge id="bottom2to2/0" traveltime="6.90" entered="9.23"/>
+        <edge id="left0to0/0" traveltime="6.90" entered="9.23"/>
+        <edge id="left1to0/1" traveltime="6.90" entered="9.23"/>
+        <edge id="left2to0/2" traveltime="6.90" entered="9.23"/>
+        <edge id="right0to2/0" traveltime="6.90" entered="9.23"/>
+        <edge id="right1to2/1" traveltime="6.90" entered="9.23"/>
+        <edge id="right2to2/2" traveltime="6.90" entered="9.23"/>
+        <edge id="top0to0/2" traveltime="6.90" entered="9.23"/>
+        <edge id="top1to1/2" traveltime="6.90" entered="9.23"/>
+        <edge id="top2to2/2" traveltime="6.90" entered="9.23"/>
     </interval>
     <interval begin="68400.00" end="72000.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.25" entered="7.42"/>
+        <edge id="0/0to1/0" traveltime="28.25" entered="7.34"/>
+        <edge id="0/0tobottom0" traveltime="6.89" entered="6.24"/>
+        <edge id="0/0toleft0" traveltime="6.89" entered="6.24"/>
+        <edge id="0/1to0/0" traveltime="28.25" entered="7.39"/>
+        <edge id="0/1to0/2" traveltime="28.25" entered="7.37"/>
+        <edge id="0/1to1/1" traveltime="28.25" entered="7.37"/>
+        <edge id="0/1toleft1" traveltime="6.89" entered="6.24"/>
+        <edge id="0/2to0/1" traveltime="28.25" entered="7.37"/>
+        <edge id="0/2to1/2" traveltime="28.25" entered="7.37"/>
+        <edge id="0/2toleft2" traveltime="6.89" entered="6.24"/>
+        <edge id="0/2totop0" traveltime="6.89" entered="6.24"/>
+        <edge id="1/0to0/0" traveltime="28.25" entered="7.37"/>
+        <edge id="1/0to1/1" traveltime="28.25" entered="7.34"/>
+        <edge id="1/0to2/0" traveltime="28.25" entered="7.32"/>
+        <edge id="1/0tobottom1" traveltime="6.89" entered="6.24"/>
+        <edge id="1/1to0/1" traveltime="28.25" entered="7.34"/>
+        <edge id="1/1to1/0" traveltime="28.25" entered="7.34"/>
+        <edge id="1/1to1/2" traveltime="28.25" entered="7.34"/>
+        <edge id="1/1to2/1" traveltime="28.25" entered="7.34"/>
+        <edge id="1/2to0/2" traveltime="28.25" entered="7.37"/>
+        <edge id="1/2to1/1" traveltime="28.25" entered="7.34"/>
+        <edge id="1/2to2/2" traveltime="28.25" entered="7.42"/>
+        <edge id="1/2totop1" traveltime="6.89" entered="6.24"/>
+        <edge id="2/0to1/0" traveltime="28.25" entered="7.34"/>
+        <edge id="2/0to2/1" traveltime="28.25" entered="7.32"/>
+        <edge id="2/0tobottom2" traveltime="6.89" entered="6.24"/>
+        <edge id="2/0toright0" traveltime="6.89" entered="6.24"/>
+        <edge id="2/1to1/1" traveltime="28.25" entered="7.32"/>
+        <edge id="2/1to2/0" traveltime="28.25" entered="7.34"/>
+        <edge id="2/1to2/2" traveltime="28.25" entered="7.37"/>
+        <edge id="2/1toright1" traveltime="6.89" entered="6.24"/>
+        <edge id="2/2to1/2" traveltime="28.25" entered="7.42"/>
+        <edge id="2/2to2/1" traveltime="28.25" entered="7.37"/>
+        <edge id="2/2toright2" traveltime="6.89" entered="6.24"/>
+        <edge id="2/2totop2" traveltime="6.89" entered="6.24"/>
+        <edge id="bottom0to0/0" traveltime="6.89" entered="6.24"/>
+        <edge id="bottom1to1/0" traveltime="6.89" entered="6.24"/>
+        <edge id="bottom2to2/0" traveltime="6.89" entered="6.24"/>
+        <edge id="left0to0/0" traveltime="6.89" entered="6.24"/>
+        <edge id="left1to0/1" traveltime="6.89" entered="6.24"/>
+        <edge id="left2to0/2" traveltime="6.89" entered="6.24"/>
+        <edge id="right0to2/0" traveltime="6.89" entered="6.24"/>
+        <edge id="right1to2/1" traveltime="6.89" entered="6.24"/>
+        <edge id="right2to2/2" traveltime="6.89" entered="6.24"/>
+        <edge id="top0to0/2" traveltime="6.89" entered="6.24"/>
+        <edge id="top1to1/2" traveltime="6.89" entered="6.24"/>
+        <edge id="top2to2/2" traveltime="6.89" entered="6.24"/>
     </interval>
     <interval begin="72000.00" end="75600.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.21" entered="5.39"/>
+        <edge id="0/0to1/0" traveltime="28.21" entered="5.37"/>
+        <edge id="0/0tobottom0" traveltime="6.88" entered="4.55"/>
+        <edge id="0/0toleft0" traveltime="6.88" entered="4.55"/>
+        <edge id="0/1to0/0" traveltime="28.21" entered="5.39"/>
+        <edge id="0/1to0/2" traveltime="28.21" entered="5.39"/>
+        <edge id="0/1to1/1" traveltime="28.21" entered="5.36"/>
+        <edge id="0/1toleft1" traveltime="6.88" entered="4.55"/>
+        <edge id="0/2to0/1" traveltime="28.21" entered="5.39"/>
+        <edge id="0/2to1/2" traveltime="28.21" entered="5.37"/>
+        <edge id="0/2toleft2" traveltime="6.88" entered="4.55"/>
+        <edge id="0/2totop0" traveltime="6.88" entered="4.55"/>
+        <edge id="1/0to0/0" traveltime="28.21" entered="5.37"/>
+        <edge id="1/0to1/1" traveltime="28.21" entered="5.37"/>
+        <edge id="1/0to2/0" traveltime="28.21" entered="5.36"/>
+        <edge id="1/0tobottom1" traveltime="6.88" entered="4.55"/>
+        <edge id="1/1to0/1" traveltime="28.21" entered="5.36"/>
+        <edge id="1/1to1/0" traveltime="28.21" entered="5.37"/>
+        <edge id="1/1to1/2" traveltime="28.21" entered="5.34"/>
+        <edge id="1/1to2/1" traveltime="28.21" entered="5.37"/>
+        <edge id="1/2to0/2" traveltime="28.21" entered="5.37"/>
+        <edge id="1/2to1/1" traveltime="28.21" entered="5.36"/>
+        <edge id="1/2to2/2" traveltime="28.21" entered="5.37"/>
+        <edge id="1/2totop1" traveltime="6.88" entered="4.55"/>
+        <edge id="2/0to1/0" traveltime="28.21" entered="5.36"/>
+        <edge id="2/0to2/1" traveltime="28.21" entered="5.34"/>
+        <edge id="2/0tobottom2" traveltime="6.88" entered="4.55"/>
+        <edge id="2/0toright0" traveltime="6.88" entered="4.55"/>
+        <edge id="2/1to1/1" traveltime="28.21" entered="5.36"/>
+        <edge id="2/1to2/0" traveltime="28.21" entered="5.34"/>
+        <edge id="2/1to2/2" traveltime="28.21" entered="5.37"/>
+        <edge id="2/1toright1" traveltime="6.88" entered="4.55"/>
+        <edge id="2/2to1/2" traveltime="28.21" entered="5.39"/>
+        <edge id="2/2to2/1" traveltime="28.21" entered="5.36"/>
+        <edge id="2/2toright2" traveltime="6.88" entered="4.55"/>
+        <edge id="2/2totop2" traveltime="6.88" entered="4.55"/>
+        <edge id="bottom0to0/0" traveltime="6.88" entered="4.55"/>
+        <edge id="bottom1to1/0" traveltime="6.88" entered="4.55"/>
+        <edge id="bottom2to2/0" traveltime="6.88" entered="4.55"/>
+        <edge id="left0to0/0" traveltime="6.88" entered="4.55"/>
+        <edge id="left1to0/1" traveltime="6.88" entered="4.55"/>
+        <edge id="left2to0/2" traveltime="6.88" entered="4.55"/>
+        <edge id="right0to2/0" traveltime="6.88" entered="4.55"/>
+        <edge id="right1to2/1" traveltime="6.88" entered="4.55"/>
+        <edge id="right2to2/2" traveltime="6.88" entered="4.55"/>
+        <edge id="top0to0/2" traveltime="6.88" entered="4.55"/>
+        <edge id="top1to1/2" traveltime="6.88" entered="4.55"/>
+        <edge id="top2to2/2" traveltime="6.88" entered="4.55"/>
     </interval>
     <interval begin="75600.00" end="79200.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.18" entered="4.17"/>
+        <edge id="0/0to1/0" traveltime="28.18" entered="4.13"/>
+        <edge id="0/0tobottom0" traveltime="6.87" entered="3.51"/>
+        <edge id="0/0toleft0" traveltime="6.87" entered="3.51"/>
+        <edge id="0/1to0/0" traveltime="28.18" entered="4.16"/>
+        <edge id="0/1to0/2" traveltime="28.18" entered="4.16"/>
+        <edge id="0/1to1/1" traveltime="28.18" entered="4.14"/>
+        <edge id="0/1toleft1" traveltime="6.87" entered="3.51"/>
+        <edge id="0/2to0/1" traveltime="28.18" entered="4.16"/>
+        <edge id="0/2to1/2" traveltime="28.18" entered="4.14"/>
+        <edge id="0/2toleft2" traveltime="6.87" entered="3.51"/>
+        <edge id="0/2totop0" traveltime="6.87" entered="3.51"/>
+        <edge id="1/0to0/0" traveltime="28.18" entered="4.14"/>
+        <edge id="1/0to1/1" traveltime="28.18" entered="4.13"/>
+        <edge id="1/0to2/0" traveltime="28.18" entered="4.13"/>
+        <edge id="1/0tobottom1" traveltime="6.87" entered="3.51"/>
+        <edge id="1/1to0/1" traveltime="28.18" entered="4.13"/>
+        <edge id="1/1to1/0" traveltime="28.18" entered="4.14"/>
+        <edge id="1/1to1/2" traveltime="28.18" entered="4.12"/>
+        <edge id="1/1to2/1" traveltime="28.18" entered="4.14"/>
+        <edge id="1/2to0/2" traveltime="28.18" entered="4.14"/>
+        <edge id="1/2to1/1" traveltime="28.18" entered="4.14"/>
+        <edge id="1/2to2/2" traveltime="28.18" entered="4.14"/>
+        <edge id="1/2totop1" traveltime="6.87" entered="3.51"/>
+        <edge id="2/0to1/0" traveltime="28.18" entered="4.13"/>
+        <edge id="2/0to2/1" traveltime="28.18" entered="4.12"/>
+        <edge id="2/0tobottom2" traveltime="6.87" entered="3.51"/>
+        <edge id="2/0toright0" traveltime="6.87" entered="3.51"/>
+        <edge id="2/1to1/1" traveltime="28.18" entered="4.12"/>
+        <edge id="2/1to2/0" traveltime="28.18" entered="4.12"/>
+        <edge id="2/1to2/2" traveltime="28.18" entered="4.14"/>
+        <edge id="2/1toright1" traveltime="6.87" entered="3.51"/>
+        <edge id="2/2to1/2" traveltime="28.18" entered="4.17"/>
+        <edge id="2/2to2/1" traveltime="28.18" entered="4.12"/>
+        <edge id="2/2toright2" traveltime="6.87" entered="3.51"/>
+        <edge id="2/2totop2" traveltime="6.87" entered="3.51"/>
+        <edge id="bottom0to0/0" traveltime="6.87" entered="3.51"/>
+        <edge id="bottom1to1/0" traveltime="6.87" entered="3.51"/>
+        <edge id="bottom2to2/0" traveltime="6.87" entered="3.51"/>
+        <edge id="left0to0/0" traveltime="6.87" entered="3.51"/>
+        <edge id="left1to0/1" traveltime="6.87" entered="3.51"/>
+        <edge id="left2to0/2" traveltime="6.87" entered="3.51"/>
+        <edge id="right0to2/0" traveltime="6.87" entered="3.51"/>
+        <edge id="right1to2/1" traveltime="6.87" entered="3.51"/>
+        <edge id="right2to2/2" traveltime="6.87" entered="3.51"/>
+        <edge id="top0to0/2" traveltime="6.87" entered="3.51"/>
+        <edge id="top1to1/2" traveltime="6.87" entered="3.51"/>
+        <edge id="top2to2/2" traveltime="6.87" entered="3.51"/>
     </interval>
     <interval begin="79200.00" end="82800.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.17" entered="3.40"/>
+        <edge id="0/0to1/0" traveltime="28.17" entered="3.37"/>
+        <edge id="0/0tobottom0" traveltime="6.87" entered="2.86"/>
+        <edge id="0/0toleft0" traveltime="6.87" entered="2.86"/>
+        <edge id="0/1to0/0" traveltime="28.17" entered="3.39"/>
+        <edge id="0/1to0/2" traveltime="28.17" entered="3.39"/>
+        <edge id="0/1to1/1" traveltime="28.17" entered="3.38"/>
+        <edge id="0/1toleft1" traveltime="6.87" entered="2.86"/>
+        <edge id="0/2to0/1" traveltime="28.17" entered="3.39"/>
+        <edge id="0/2to1/2" traveltime="28.17" entered="3.38"/>
+        <edge id="0/2toleft2" traveltime="6.87" entered="2.86"/>
+        <edge id="0/2totop0" traveltime="6.87" entered="2.86"/>
+        <edge id="1/0to0/0" traveltime="28.17" entered="3.38"/>
+        <edge id="1/0to1/1" traveltime="28.17" entered="3.37"/>
+        <edge id="1/0to2/0" traveltime="28.17" entered="3.37"/>
+        <edge id="1/0tobottom1" traveltime="6.87" entered="2.86"/>
+        <edge id="1/1to0/1" traveltime="28.17" entered="3.37"/>
+        <edge id="1/1to1/0" traveltime="28.17" entered="3.38"/>
+        <edge id="1/1to1/2" traveltime="28.17" entered="3.35"/>
+        <edge id="1/1to2/1" traveltime="28.17" entered="3.38"/>
+        <edge id="1/2to0/2" traveltime="28.17" entered="3.38"/>
+        <edge id="1/2to1/1" traveltime="28.17" entered="3.38"/>
+        <edge id="1/2to2/2" traveltime="28.17" entered="3.38"/>
+        <edge id="1/2totop1" traveltime="6.87" entered="2.86"/>
+        <edge id="2/0to1/0" traveltime="28.17" entered="3.37"/>
+        <edge id="2/0to2/1" traveltime="28.17" entered="3.35"/>
+        <edge id="2/0tobottom2" traveltime="6.87" entered="2.86"/>
+        <edge id="2/0toright0" traveltime="6.87" entered="2.86"/>
+        <edge id="2/1to1/1" traveltime="28.17" entered="3.35"/>
+        <edge id="2/1to2/0" traveltime="28.17" entered="3.35"/>
+        <edge id="2/1to2/2" traveltime="28.17" entered="3.38"/>
+        <edge id="2/1toright1" traveltime="6.87" entered="2.86"/>
+        <edge id="2/2to1/2" traveltime="28.17" entered="3.40"/>
+        <edge id="2/2to2/1" traveltime="28.17" entered="3.35"/>
+        <edge id="2/2toright2" traveltime="6.87" entered="2.86"/>
+        <edge id="2/2totop2" traveltime="6.87" entered="2.86"/>
+        <edge id="bottom0to0/0" traveltime="6.87" entered="2.86"/>
+        <edge id="bottom1to1/0" traveltime="6.87" entered="2.86"/>
+        <edge id="bottom2to2/0" traveltime="6.87" entered="2.86"/>
+        <edge id="left0to0/0" traveltime="6.87" entered="2.86"/>
+        <edge id="left1to0/1" traveltime="6.87" entered="2.86"/>
+        <edge id="left2to0/2" traveltime="6.87" entered="2.86"/>
+        <edge id="right0to2/0" traveltime="6.87" entered="2.86"/>
+        <edge id="right1to2/1" traveltime="6.87" entered="2.86"/>
+        <edge id="right2to2/2" traveltime="6.87" entered="2.86"/>
+        <edge id="top0to0/2" traveltime="6.87" entered="2.86"/>
+        <edge id="top1to1/2" traveltime="6.87" entered="2.86"/>
+        <edge id="top2to2/2" traveltime="6.87" entered="2.86"/>
     </interval>
     <interval begin="82800.00" end="86400.00">
-        <edge id="0/0to0/1" traveltime="28.09"/>
-        <edge id="0/0to1/0" traveltime="28.09"/>
-        <edge id="0/0tobottom0" traveltime="6.85"/>
-        <edge id="0/0toleft0" traveltime="6.85"/>
-        <edge id="0/1to0/0" traveltime="28.09"/>
-        <edge id="0/1to0/2" traveltime="28.09"/>
-        <edge id="0/1to1/1" traveltime="28.09"/>
-        <edge id="0/1toleft1" traveltime="6.85"/>
-        <edge id="0/2to0/1" traveltime="28.09"/>
-        <edge id="0/2to1/2" traveltime="28.09"/>
-        <edge id="0/2toleft2" traveltime="6.85"/>
-        <edge id="0/2totop0" traveltime="6.85"/>
-        <edge id="1/0to0/0" traveltime="28.09"/>
-        <edge id="1/0to1/1" traveltime="28.09"/>
-        <edge id="1/0to2/0" traveltime="28.09"/>
-        <edge id="1/0tobottom1" traveltime="6.85"/>
-        <edge id="1/1to0/1" traveltime="28.09"/>
-        <edge id="1/1to1/0" traveltime="28.09"/>
-        <edge id="1/1to1/2" traveltime="28.09"/>
-        <edge id="1/1to2/1" traveltime="28.09"/>
-        <edge id="1/2to0/2" traveltime="28.09"/>
-        <edge id="1/2to1/1" traveltime="28.09"/>
-        <edge id="1/2to2/2" traveltime="28.09"/>
-        <edge id="1/2totop1" traveltime="6.85"/>
-        <edge id="2/0to1/0" traveltime="28.09"/>
-        <edge id="2/0to2/1" traveltime="28.09"/>
-        <edge id="2/0tobottom2" traveltime="6.85"/>
-        <edge id="2/0toright0" traveltime="6.85"/>
-        <edge id="2/1to1/1" traveltime="28.09"/>
-        <edge id="2/1to2/0" traveltime="28.09"/>
-        <edge id="2/1to2/2" traveltime="28.09"/>
-        <edge id="2/1toright1" traveltime="6.85"/>
-        <edge id="2/2to1/2" traveltime="28.09"/>
-        <edge id="2/2to2/1" traveltime="28.09"/>
-        <edge id="2/2toright2" traveltime="6.85"/>
-        <edge id="2/2totop2" traveltime="6.85"/>
-        <edge id="bottom0to0/0" traveltime="6.85"/>
-        <edge id="bottom1to1/0" traveltime="6.85"/>
-        <edge id="bottom2to2/0" traveltime="6.85"/>
-        <edge id="left0to0/0" traveltime="6.85"/>
-        <edge id="left1to0/1" traveltime="6.85"/>
-        <edge id="left2to0/2" traveltime="6.85"/>
-        <edge id="right0to2/0" traveltime="6.85"/>
-        <edge id="right1to2/1" traveltime="6.85"/>
-        <edge id="right2to2/2" traveltime="6.85"/>
-        <edge id="top0to0/2" traveltime="6.85"/>
-        <edge id="top1to1/2" traveltime="6.85"/>
-        <edge id="top2to2/2" traveltime="6.85"/>
+        <edge id="0/0to0/1" traveltime="28.16" entered="2.94"/>
+        <edge id="0/0to1/0" traveltime="28.16" entered="2.90"/>
+        <edge id="0/0tobottom0" traveltime="6.87" entered="2.47"/>
+        <edge id="0/0toleft0" traveltime="6.87" entered="2.47"/>
+        <edge id="0/1to0/0" traveltime="28.16" entered="2.92"/>
+        <edge id="0/1to0/2" traveltime="28.16" entered="2.94"/>
+        <edge id="0/1to1/1" traveltime="28.16" entered="2.92"/>
+        <edge id="0/1toleft1" traveltime="6.87" entered="2.47"/>
+        <edge id="0/2to0/1" traveltime="28.16" entered="2.93"/>
+        <edge id="0/2to1/2" traveltime="28.16" entered="2.93"/>
+        <edge id="0/2toleft2" traveltime="6.87" entered="2.47"/>
+        <edge id="0/2totop0" traveltime="6.87" entered="2.47"/>
+        <edge id="1/0to0/0" traveltime="28.16" entered="2.92"/>
+        <edge id="1/0to1/1" traveltime="28.16" entered="2.90"/>
+        <edge id="1/0to2/0" traveltime="28.16" entered="2.92"/>
+        <edge id="1/0tobottom1" traveltime="6.87" entered="2.47"/>
+        <edge id="1/1to0/1" traveltime="28.16" entered="2.91"/>
+        <edge id="1/1to1/0" traveltime="28.16" entered="2.92"/>
+        <edge id="1/1to1/2" traveltime="28.16" entered="2.89"/>
+        <edge id="1/1to2/1" traveltime="28.16" entered="2.91"/>
+        <edge id="1/2to0/2" traveltime="28.16" entered="2.92"/>
+        <edge id="1/2to1/1" traveltime="28.16" entered="2.90"/>
+        <edge id="1/2to2/2" traveltime="28.16" entered="2.92"/>
+        <edge id="1/2totop1" traveltime="6.87" entered="2.47"/>
+        <edge id="2/0to1/0" traveltime="28.16" entered="2.92"/>
+        <edge id="2/0to2/1" traveltime="28.16" entered="2.91"/>
+        <edge id="2/0tobottom2" traveltime="6.87" entered="2.47"/>
+        <edge id="2/0toright0" traveltime="6.87" entered="2.47"/>
+        <edge id="2/1to1/1" traveltime="28.16" entered="2.91"/>
+        <edge id="2/1to2/0" traveltime="28.16" entered="2.91"/>
+        <edge id="2/1to2/2" traveltime="28.16" entered="2.92"/>
+        <edge id="2/1toright1" traveltime="6.87" entered="2.47"/>
+        <edge id="2/2to1/2" traveltime="28.16" entered="2.92"/>
+        <edge id="2/2to2/1" traveltime="28.16" entered="2.92"/>
+        <edge id="2/2toright2" traveltime="6.87" entered="2.47"/>
+        <edge id="2/2totop2" traveltime="6.87" entered="2.47"/>
+        <edge id="bottom0to0/0" traveltime="6.87" entered="2.47"/>
+        <edge id="bottom1to1/0" traveltime="6.87" entered="2.47"/>
+        <edge id="bottom2to2/0" traveltime="6.87" entered="2.47"/>
+        <edge id="left0to0/0" traveltime="6.87" entered="2.47"/>
+        <edge id="left1to0/1" traveltime="6.87" entered="2.47"/>
+        <edge id="left2to0/2" traveltime="6.87" entered="2.47"/>
+        <edge id="right0to2/0" traveltime="6.87" entered="2.47"/>
+        <edge id="right1to2/1" traveltime="6.87" entered="2.47"/>
+        <edge id="right2to2/2" traveltime="6.87" entered="2.47"/>
+        <edge id="top0to0/2" traveltime="6.87" entered="2.47"/>
+        <edge id="top1to1/2" traveltime="6.87" entered="2.47"/>
+        <edge id="top2to2/2" traveltime="6.87" entered="2.47"/>
     </interval>
 </meandata>

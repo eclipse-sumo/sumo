@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/27/14 15:06:10 by SUMO marouter Version dev-SVN-r16626
+<!-- generated on 07/17/15 12:51:12 by SUMO marouter Version dev-SVN-r18585
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -28,6 +28,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <routeDistribution id="1_2_0.00_86400.00">
-        <route cost="108.00" probability="24.00000000" edges="beg middle end"/>
+        <route cost="109.11" probability="15.60000000" edges="beg middle end"/>
+        <route cost="109.16" probability="8.40000000" edges="beg beg2left left left2end end"/>
     </routeDistribution>
 </routes>
