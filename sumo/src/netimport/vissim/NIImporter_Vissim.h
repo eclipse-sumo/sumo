@@ -120,14 +120,14 @@ private:
 
     private:
 
+        //std::map<int, VissimXMLEdge> myToFill;
+        nodeMap& myElemData;
+
         /// @brief The current hierarchy level
         int myHierarchyLevel;
 
         /// @brief check if the link is a connector
         bool isConnector;
-
-        //std::map<int, VissimXMLEdge> myToFill;
-        nodeMap& myElemData;
 
         /// @brief ID of the currently parsed node, for reporting mainly
         int myLastNodeID;
@@ -260,11 +260,11 @@ private:
 
     private:
 
-        /// @brief The current hierarchy level
-        int myHierarchyLevel;
-
         //std::map<int, VissimXMLEdge> myToFill;
         nodeMap& myElemData;
+
+        /// @brief The current hierarchy level
+        int myHierarchyLevel;
 
         /// @brief ID of the currently parsed node, for reporting mainly
         int myLastNodeID;
@@ -312,11 +312,11 @@ private:
 
     private:
 
-        /// @brief The current hierarchy level
-        int myHierarchyLevel;
-
         //std::map<int, VissimXMLEdge> myToFill;
         nodeMap& myElemData;
+
+        /// @brief The current hierarchy level
+        int myHierarchyLevel;
 
         /// @brief ID of the currently parsed node, for reporting mainly
         int myLastNodeID;
@@ -367,11 +367,11 @@ private:
 
     private:
 
-        /// @brief The current hierarchy level
-        int myHierarchyLevel;
-
         //std::map<int, VissimXMLEdge> myToFill;
         nodeMap& myElemData;
+
+        /// @brief The current hierarchy level
+        int myHierarchyLevel;
 
         /// @brief ID of the currently parsed node, for reporting mainly
         int myLastNodeID;
@@ -420,11 +420,11 @@ private:
 
     private:
 
-        /// @brief The current hierarchy level
-        int myHierarchyLevel;
-
         //std::map<int, VissimXMLEdge> myToFill;
         nodeMap& myElemData;
+
+        /// @brief The current hierarchy level
+        int myHierarchyLevel;
 
         /// @brief ID of the currently parsed node, for reporting mainly
         int myLastNodeID;

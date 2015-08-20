@@ -110,7 +110,7 @@ protected:
         WAY_FORWARD = 1,
         WAY_BACKWARD = 2,
         WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
-        WAY_UNKNOWN = 4,
+        WAY_UNKNOWN = 4
     };
 
 
