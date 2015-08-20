@@ -80,6 +80,12 @@
         </xsd:attribute>
         <xsd:attribute name="pos" type="xsd:float" use="required"/>
         <xsd:attribute name="speed" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="type" type="nodeTypeType" use="optional"/>
+        <xsd:attribute name="tl" type="xsd:string" use="optional"/>
+        <xsd:attribute name="tlType" type="tlTypeType" use="optional"/>
+        <xsd:attribute name="shape" type="shapeType" use="optional"/>
+        <xsd:attribute name="radius" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="keepClear" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="roundaboutType">

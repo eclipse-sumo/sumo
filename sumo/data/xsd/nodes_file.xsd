@@ -34,21 +34,7 @@
         <xsd:attribute name="x" type="xsd:float" use="optional"/>
         <xsd:attribute name="y" type="xsd:float" use="optional"/>
         <xsd:attribute name="z" type="xsd:float" use="optional"/>
-        <xsd:attribute name="type" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="traffic_light"/>
-                    <xsd:enumeration value="right_before_left"/>
-                    <xsd:enumeration value="priority"/>
-                    <xsd:enumeration value="dead_end"/>
-                    <xsd:enumeration value="unregulated"/>
-                    <xsd:enumeration value="traffic_light_unregulated"/>
-                    <xsd:enumeration value="rail_signal"/>
-                    <xsd:enumeration value="allway_stop"/>
-                    <xsd:enumeration value="priority_stop"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="type" type="nodeTypeType" use="optional"/>
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
         <xsd:attribute name="tlType" type="tlTypeType" use="optional"/>
         <xsd:attribute name="controlledInner" type="xsd:string" use="optional"/>

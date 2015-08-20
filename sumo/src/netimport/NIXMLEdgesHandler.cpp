@@ -52,6 +52,7 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
+#include "NIXMLNodesHandler.h"
 #include "NIXMLEdgesHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -354,7 +355,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
             return;
         }
-        e.nameid = (int)e.pos;
+        const std::string nameid = toString((int)e.pos);
         if (e.pos < 0) {
             e.pos += myCurrentEdge->getGeometry().length();
         }
@@ -382,6 +383,10 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         if (!ok) {
             return;
         }
+        e.node = new NBNode(myCurrentID + "." + nameid,
+                myCurrentEdge->getGeometry().positionAtOffset(e.pos));
+        NIXMLNodesHandler::processNodeType(attrs, e.node, e.node->getID(), e.node->getPosition(), false,
+                myNodeCont, myTLLogicCont);
         mySplits.push_back(e);
     }
 }
@@ -511,7 +516,6 @@ NIXMLEdgesHandler::myEndElement(int element) {
             unsigned int noLanesMax = e->getNumLanes();
             // compute the node positions and sort the lanes
             for (i = mySplits.begin(); i != mySplits.end(); ++i) {
-                (*i).gpos = e->getGeometry().positionAtOffset((*i).pos);
                 sort((*i).lanes.begin(), (*i).lanes.end());
                 noLanesMax = MAX2(noLanesMax, (unsigned int)(*i).lanes.size());
             }
@@ -535,19 +539,16 @@ NIXMLEdgesHandler::myEndElement(int element) {
                 const Split& exp = *i;
                 assert(exp.lanes.size() != 0);
                 if (exp.pos > 0 && e->getGeometry().length() + seen > exp.pos && exp.pos > seen) {
-                    std::string nid = edgeid + "." +  toString(exp.nameid);
-                    NBNode* rn = new NBNode(nid, exp.gpos);
-                    if (myNodeCont.insert(rn)) {
-                        myNodeCont.markAsSplit(rn);
+                    if (myNodeCont.insert(exp.node)) {
+                        myNodeCont.markAsSplit(exp.node);
                         //  split the edge
-                        std::string nid = myCurrentID + "." +  toString(exp.nameid);
                         std::string pid = e->getID();
-                        myEdgeCont.splitAt(myDistrictCont, e, exp.pos - seen, rn,
-                                           pid, nid, e->getNumLanes(), (unsigned int) exp.lanes.size(), exp.speed);
+                        myEdgeCont.splitAt(myDistrictCont, e, exp.pos - seen, exp.node,
+                                           pid, exp.node->getID(), e->getNumLanes(), (unsigned int) exp.lanes.size(), exp.speed);
                         seen = exp.pos;
                         std::vector<int> newLanes = exp.lanes;
                         NBEdge* pe = myEdgeCont.retrieve(pid);
-                        NBEdge* ne = myEdgeCont.retrieve(nid);
+                        NBEdge* ne = myEdgeCont.retrieve(exp.node->getID());
                         // reconnect lanes
                         pe->invalidateConnections(true);
                         //  new on right

@@ -146,12 +146,21 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     if (myOptions.getBool("flip-y-axis")) {
         myPosition.mul(1.0, -1.0);
     }
+    processNodeType(attrs, node, myID, myPosition, updateEdgeGeometries, myNodeCont, myTLLogicCont);
+}
+
+
+void 
+NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position, 
+        bool updateEdgeGeometries, 
+        NBNodeCont& nc, NBTrafficLightLogicCont& tlc) {
+    bool ok = true;
     // get the type
     SumoXMLNodeType type = NODETYPE_UNKNOWN;
     if (node != 0) {
         type = node->getType();
     }
-    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myID.c_str(), ok, "");
+    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nodeID.c_str(), ok, "");
     if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::NodeTypes.get(typeS);
         if (type == NODETYPE_DEAD_END_DEPRECATED || type == NODETYPE_DEAD_END) {
@@ -162,9 +171,9 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     }
     // check whether a prior node shall be modified
     if (node == 0) {
-        node = new NBNode(myID, myPosition, type);
-        if (!myNodeCont.insert(node)) {
-            throw ProcessError("Could not insert node though checked this before (id='" + myID + "').");
+        node = new NBNode(nodeID, position, type);
+        if (!nc.insert(node)) {
+            throw ProcessError("Could not insert node though checked this before (id='" + nodeID + "').");
         }
     } else {
         // remove previously set tls if this node is not controlled by a tls
@@ -172,20 +181,20 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
         node->removeTrafficLights();
         for (std::set<NBTrafficLightDefinition*>::iterator i = tls.begin(); i != tls.end(); ++i) {
             if ((*i)->getNodes().size() == 0) {
-                myTLLogicCont.removeFully((*i)->getID());
+                tlc.removeFully((*i)->getID());
             }
         }
         // patch information
-        node->reinit(myPosition, type, updateEdgeGeometries);
+        node->reinit(position, type, updateEdgeGeometries);
     }
     // process traffic light definition
     if (type == NODETYPE_TRAFFIC_LIGHT || type == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
-        processTrafficLightDefinitions(attrs, node);
+        processTrafficLightDefinitions(attrs, node, tlc);
     }
     // set optional shape
     PositionVector shape;
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
-        shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, myID.c_str(), ok, PositionVector());
+        shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nodeID.c_str(), ok, PositionVector());
         if (shape.size() > 2) {
             shape.closePolygon();
         }
@@ -193,11 +202,11 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     }
     // set optional radius
     if (attrs.hasAttribute(SUMO_ATTR_RADIUS)) {
-        node->setRadius(attrs.get<SUMOReal>(SUMO_ATTR_RADIUS, myID.c_str(), ok));
+        node->setRadius(attrs.get<SUMOReal>(SUMO_ATTR_RADIUS, nodeID.c_str(), ok));
     }
     // set optional keepClear flag
     if (attrs.hasAttribute(SUMO_ATTR_KEEP_CLEAR)) {
-        node->setKeepClear(attrs.get<bool>(SUMO_ATTR_KEEP_CLEAR, myID.c_str(), ok));
+        node->setKeepClear(attrs.get<bool>(SUMO_ATTR_KEEP_CLEAR, nodeID.c_str(), ok));
     }
 }
 
@@ -245,7 +254,7 @@ NIXMLNodesHandler::addJoinExclusion(const SUMOSAXAttributes& attrs) {
 
 void
 NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs,
-        NBNode* currentNode) {
+        NBNode* currentNode, NBTrafficLightLogicCont& tlc) {
     // try to get the tl-id
     // if a tl-id is given, we will look whether this tl already exists
     //  if so, we will add the node to it (and to all programs with this id), otherwise allocate a new one with this id
@@ -259,12 +268,12 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
     if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
     } else {
-        WRITE_ERROR("Unknown traffic light type '" + typeS + "' for node '" + myID + "'.");
+        WRITE_ERROR("Unknown traffic light type '" + typeS + "' for node '" + currentNode->getID() + "'.");
         return;
     }
-    if (tlID != "" && myTLLogicCont.getPrograms(tlID).size() > 0) {
+    if (tlID != "" && tlc.getPrograms(tlID).size() > 0) {
         // we already have definitions for this tlID
-        const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLogicCont.getPrograms(tlID);
+        const std::map<std::string, NBTrafficLightDefinition*>& programs = tlc.getPrograms(tlID);
         std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
         for (it = programs.begin(); it != programs.end(); it++) {
             if (it->second->getType() != type) {
@@ -277,12 +286,12 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
         }
     } else {
         // we need to add a new defition
-        tlID = (tlID == "" ? myID : tlID);
+        tlID = (tlID == "" ? currentNode->getID() : tlID);
         NBTrafficLightDefinition* tlDef = new NBOwnTLDef(tlID, currentNode, 0, type);
-        if (!myTLLogicCont.insert(tlDef)) {
+        if (!tlc.insert(tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
-            throw ProcessError("Could not allocate tls '" + myID + "'.");
+            throw ProcessError("Could not allocate tls '" + currentNode->getID() + "'.");
         }
         tlDefs.insert(tlDef);
     }

@@ -236,4 +236,18 @@
         <xsd:attribute name="speed" type="xsd:float" use="required"/>
     </xsd:complexType>
 
+    <xsd:simpleType name="nodeTypeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="traffic_light"/>
+            <xsd:enumeration value="right_before_left"/>
+            <xsd:enumeration value="priority"/>
+            <xsd:enumeration value="dead_end"/>
+            <xsd:enumeration value="unregulated"/>
+            <xsd:enumeration value="traffic_light_unregulated"/>
+            <xsd:enumeration value="rail_signal"/>
+            <xsd:enumeration value="allway_stop"/>
+            <xsd:enumeration value="priority_stop"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
 </xsd:schema>
