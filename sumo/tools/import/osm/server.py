@@ -314,14 +314,14 @@ class OSMImporterWebSocket(WebSocket):
             self.sendMessage(unicode("zip " + data))
 
 parser = ArgumentParser(description = "OSM Importer for SUMO - Websocket Server")
-parser.add_argument("--local", action = "store_true", help = "Uses local mode. In local mode, SUMO GUI will be automatically opened instead of downloading a zip file.")
+parser.add_argument("--remote", action = "store_true", help = "In remote mode, SUMO GUI will not be automatically opened instead a zip file will be generated.")
 parser.add_argument("--testing", action = "store_true", help = "Only a pre-defined scenario will be generated for testing purposes.")
 parser.add_argument("--address", default = "", help = "Address for the Websocket.")
 parser.add_argument("--port", type = int, default = 8010, help = "Port for the Websocket. Please edit script.js when using an other port than 8010.")
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    OSMImporterWebSocket.local = args.local or args.testing
+    OSMImporterWebSocket.local = args.testing or not args.remote
     if args.testing:
         data = {u'duration': 900,
                 u'vehicles': {u'passenger': {u'count': 6, u'fringeFactor': 5},
@@ -337,7 +337,7 @@ if __name__ == "__main__":
         builder.createBatch()
         subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
     else:
-        if args.local:
+        if not args.remote:
             webbrowser.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html"))
 
         server = SimpleWebSocketServer(args.address, args.port, OSMImporterWebSocket)
