@@ -93,9 +93,8 @@ NBOwnTLDef::getDirectionalWeight(LinkDirection dir) {
         case LINKDIR_LEFT:
         case LINKDIR_RIGHT:
             return .5;
-        case LINKDIR_NODIR:
-        case LINKDIR_TURN:
-            return 0;
+        default:
+            break;
     }
     return 0;
 }

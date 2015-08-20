@@ -4,7 +4,7 @@
 /// @date    Aug 2015
 /// @version $Id$
 ///
-// A temporary storage for conflcit areas imported from Vissim
+// A temporary storage for conflict areas imported from Vissim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
@@ -116,7 +116,6 @@ NIVissimConflictArea::dict_findByLinks(const std::string& link1,
 }
 
 
-
 void
 NIVissimConflictArea::clearDict() {
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
@@ -125,35 +124,33 @@ NIVissimConflictArea::clearDict() {
     myDict.clear();
 }
 
+
 void
 NIVissimConflictArea::setPriorityRegulation(NBEdgeCont& ec){
     std::map<int, NIVissimConflictArea*>::iterator it;
     for (it = myDict.begin(); it != myDict.end(); it++){
-        NIVissimConflictArea* conflictArea = it->second;
-        std::string status = conflictArea->getStatus();
-        if ((NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getFirstLink().c_str())) == 0) ||
-            (NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getSecondLink().c_str())) == 0)){
+        NIVissimConflictArea* const conflictArea = it->second;
+        NIVissimConnection* const firstLink = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getFirstLink()));
+        NIVissimConnection* const secondLink = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getSecondLink()));
+        if (firstLink == 0 || secondLink == 0) {
             continue;
         }
-        NIVissimConnection* priority_conn;
-        NIVissimConnection* subordinate_conn;
-        if (status == "TWOYIELDSONE") {
-            priority_conn = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getFirstLink()));
-            subordinate_conn = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getSecondLink()));
+        // status == "TWOYIELDSONE"
+        NIVissimConnection* priority_conn = firstLink;
+        NIVissimConnection* subordinate_conn = secondLink;
+        if (conflictArea->getStatus() == "ONEYIELDSTWO"){
+            priority_conn = secondLink;
+            subordinate_conn = firstLink;
         }
-        else if (status == "ONEYIELDSTWO"){
-            priority_conn = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getSecondLink()));
-            subordinate_conn = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getFirstLink()));
-        }
-        std::string mayDriveFrom_id = toString<int>(priority_conn->getFromEdgeID());
-        std::string mayDriveTo_id = toString<int>(priority_conn->getToEdgeID());
-        std::string mustStopFrom_id = toString<int>(subordinate_conn->getFromEdgeID());
-        std::string mustStopTo_id = toString<int>(subordinate_conn->getToEdgeID());
+        const std::string mayDriveFrom_id = toString<int>(priority_conn->getFromEdgeID());
+        const std::string mayDriveTo_id = toString<int>(priority_conn->getToEdgeID());
+        const std::string mustStopFrom_id = toString<int>(subordinate_conn->getFromEdgeID());
+        const std::string mustStopTo_id = toString<int>(subordinate_conn->getToEdgeID());
 
-        NBEdge* mayDriveFrom =  ec.retrievePossiblySplit(mayDriveFrom_id, true);
-        NBEdge* mayDriveTo =  ec.retrievePossiblySplit(mayDriveTo_id, false);
-        NBEdge* mustStopFrom =  ec.retrievePossiblySplit(mustStopFrom_id, true);
-        NBEdge* mustStopTo =  ec.retrievePossiblySplit(mustStopTo_id, false);
+        NBEdge* const mayDriveFrom =  ec.retrievePossiblySplit(mayDriveFrom_id, true);
+        NBEdge* const mayDriveTo =  ec.retrievePossiblySplit(mayDriveTo_id, false);
+        NBEdge* const mustStopFrom =  ec.retrievePossiblySplit(mustStopFrom_id, true);
+        NBEdge* const mustStopTo =  ec.retrievePossiblySplit(mustStopTo_id, false);
 
         if (mayDriveFrom != 0 && mayDriveTo != 0 && mustStopFrom != 0 && mustStopTo != 0){
             NBNode* node = mayDriveFrom->getToNode();
