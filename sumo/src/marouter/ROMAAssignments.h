@@ -71,6 +71,9 @@ public:
     // @brief calculate edge travel time with the given road class and max link speed
     SUMOReal capacityConstraintFunction(const ROEdge* edge, const SUMOReal flow) const;
 
+    // @brief clear effort storage
+    void resetFlows();
+
     // @brief incremental method
     void incremental(const int numIter);
 

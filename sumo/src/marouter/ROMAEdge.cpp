@@ -43,7 +43,7 @@
 // method definitions
 // ===========================================================================
 ROMAEdge::ROMAEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority)
-    : ROEdge(id, from, to, index, priority), myHelpFlow(0.) {
+    : ROEdge(id, from, to, index, priority) {
 }
 
 

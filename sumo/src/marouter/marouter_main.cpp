@@ -76,6 +76,7 @@
 #include "ROMAAssignments.h"
 #include "ROMAEdgeBuilder.h"
 #include "ROMARouteHandler.h"
+#include "ROMAEdge.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -137,6 +138,25 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
     }
 }
 
+
+/**
+ * Writes the travel times for a single interval
+ */
+void
+writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const RONet& net, const ROVehicle* const veh) {
+    dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(begin)).writeAttr(SUMO_ATTR_END, time2string(end));
+    for (std::map<std::string, ROEdge*>::const_iterator i = net.getEdgeMap().begin(); i != net.getEdgeMap().end(); ++i) {
+        ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
+        if (edge->getFunc() == ROEdge::ET_NORMAL) {
+            dev.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, edge->getID());
+            dev.writeAttr("traveltime", edge->getTravelTime(veh, STEPS2TIME(begin)));
+            dev.writeAttr("entered", edge->getFlow(STEPS2TIME(begin))).closeTag();
+        }
+    }
+    dev.closeTag();
+}
+
+
 /**
  * Computes the routes saving them
  */
@@ -146,6 +166,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
     SUMOAbstractRouter<ROEdge, ROVehicle>* router;
     const std::string measure = oc.getString("weight-attribute");
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
+    const SUMOTime begin = string2time(oc.getString("begin"));
+    const SUMOTime end = string2time(oc.getString("end"));
     if (measure == "traveltime") {
         if (routingAlgorithm == "dijkstra") {
             if (net.hasPermissions()) {
@@ -195,7 +217,6 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, false);
             }
         } else if (routingAlgorithm == "CHWrapper") {
-            const SUMOTime begin = string2time(oc.getString("begin"));
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
@@ -252,8 +273,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
-        ROMAAssignments a(string2time(oc.getString("begin")), string2time(oc.getString("end")),
-                          oc.getBool("timesplit"), net, matrix, *router);
+        ROMAAssignments a(begin, end, oc.getBool("timesplit"), net, matrix, *router);
+        a.resetFlows();
         const std::string assignMethod = oc.getString("assignment-method");
         if (assignMethod == "incremental") {
             a.incremental(oc.getInt("max-iterations"));
@@ -269,7 +290,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                 const ODCell* const c = *i;
                 dev->openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, c->origin + "_" + c->destination + "_" + time2string(c->begin) + "_" + time2string(c->end));
                 for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
-                    (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
+                    (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, begin));
                     (*j)->writeXMLDefinition(*dev, 0, true, false);
                 }
                 dev->closeTag();
@@ -313,14 +334,19 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             haveOutput = true;
         }
         if (OutputDevice::createDeviceByOption("netload-output", "meandata")) {
-            dev = &OutputDevice::getDeviceByOption("netload-output");
-            dev->openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, oc.getString("begin")).writeAttr(SUMO_ATTR_END, oc.getString("end"));
-            for (std::map<std::string, ROEdge*>::const_iterator i = net.getEdgeMap().begin(); i != net.getEdgeMap().end(); ++i) {
-                ROEdge* edge = i->second;
-                if (edge->getFunc() == ROEdge::ET_NORMAL) {
-                    dev->openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, edge->getID());
-                    dev->writeAttr("traveltime", edge->getTravelTime(a.getDefaultVehicle(), 0)).closeTag();
+            if (oc.getBool("timesplit")) {
+                SUMOTime lastCell = 0;
+                for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
+                    if ((*i)->end > lastCell) {
+                        lastCell = (*i)->end;
+                    }
                 }
+                const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
+                for (SUMOTime start = begin; start < MIN2(end, lastCell); start += interval) {
+                    writeInterval(OutputDevice::getDeviceByOption("netload-output"), start, start + interval, net, a.getDefaultVehicle());
+                }
+            } else {
+                writeInterval(OutputDevice::getDeviceByOption("netload-output"), begin, end, net, a.getDefaultVehicle());
             }
             haveOutput = true;
         }
