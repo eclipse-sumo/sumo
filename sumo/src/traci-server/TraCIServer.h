@@ -280,12 +280,6 @@ private:
     bool commandGetVersion();
 
 
-    /** @brief Indicates the connection as being closed
-     * @return Always true
-     */
-    bool commandCloseConnection();
-
-
     /** @brief Handles subscriptions to send after a simstep2 command
      */
     void postProcessSimulationStep2();
