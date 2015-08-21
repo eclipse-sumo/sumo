@@ -88,7 +88,7 @@ dist-complete: dist dist-doc dist-tests traas traci4j trafficmodeler
 	$(am__remove_distdir)
 
 examples:
-	tests/extractTest.py -x -f tests/examples.txt
+	tools/extractTest.py -x -f tests/examples.txt
 
 traas:
 	ant -f tools/contributed/traas/build.xml clean release
