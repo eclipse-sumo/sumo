@@ -38,6 +38,8 @@
         <max-alternatives value="5" type="INT" help="Prune the number of alternatives to INT"/>
         <remove-loops value="false" type="BOOL" help="Remove loops within the route; Remove turnarounds at start and end of the route"/>
         <repair value="false" type="BOOL" help="Tries to correct a false route"/>
+        <repair.from value="false" type="BOOL" help="Tries to correct an invalid starting edge by using the first usable edge instead"/>
+        <repair.to value="false" type="BOOL" help="Tries to correct an invalid destination edge by using the last usable edge instead"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
         <routing-algorithm value="" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
