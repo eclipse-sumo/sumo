@@ -260,6 +260,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\guisim\GUICalibrator.cpp" />
+    <ClCompile Include="..\..\..\src\guisim\GUIChrgStn.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIContainer.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIContainerControl.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIContainerStop.cpp" />
@@ -285,6 +286,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\guisim\GUICalibrator.h" />
+    <ClInclude Include="..\..\..\src\guisim\GUIChrgStn.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIContainer.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIContainerControl.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIContainerStop.h" />
