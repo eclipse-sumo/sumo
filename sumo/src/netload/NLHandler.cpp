@@ -158,6 +158,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_CONTAINER_STOP:
                 myTriggerBuilder.parseAndBuildContainerStop(myNet, attrs);
                 break;
+            case SUMO_TAG_CHRG_STN:
+                myTriggerBuilder.parseAndBuildChrgStn(myNet, attrs);
+                break;
             case SUMO_TAG_VTYPEPROBE:
                 addVTypeProbeDetector(attrs);
                 break;

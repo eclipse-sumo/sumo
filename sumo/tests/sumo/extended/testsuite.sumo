@@ -47,3 +47,5 @@ state
 # tests for bt devices
 device_bt
 
+# tests for battery device and charging station
+electric

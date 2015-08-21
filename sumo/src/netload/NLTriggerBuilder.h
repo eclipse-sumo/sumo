@@ -1,4 +1,4 @@
-/****************************************************************************/
+﻿/****************************************************************************/
 /// @file    NLTriggerBuilder.h
 /// @author  Daniel Krajzewicz
 /// @author  Tino Morenz
@@ -150,6 +150,14 @@ public:
     void parseAndBuildContainerStop(MSNet& net, const SUMOSAXAttributes& attrs);
 
 
+    /** @brief Parses his values and builds a charging station
+     *
+     * @param[in] net The network the charging station belongs to
+     * @param[in] attrs SAXattributes which define the trigger
+     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     */
+    void parseAndBuildChrgStn(MSNet& net, const SUMOSAXAttributes& attrs);
+
     /** @brief Parses his values and builds a mesoscopic or microscopic calibrator
      *
      * @param[in] net The network the calibrator belongs to
@@ -205,6 +213,21 @@ protected:
                               const std::string& id, const std::vector<std::string>& lines,
                               MSLane* lane, SUMOReal frompos, SUMOReal topos);
 
+    /** @brief Builds a charging Station
+     *
+     * Simply calls the MSBusStop constructor.
+     *
+     * @param[in] net The net the charging Station belongs to
+     * @param[in] id The id of the charging Station
+     * @param[in] lines Names of the bus lines that halt on this charging Station
+     * @param[in] lane The lane the charging Station is placed on
+     * @param[in] frompos Begin position of the charging Station on the lane
+     * @param[in] topos End position of the charging Station on the lane
+     * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
+     */
+    virtual void buildChrgStn(MSNet& net, 
+            const std::string& id, const std::vector<std::string>& lines,
+            MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay);
 
     /** @brief Builds a container stop
      *

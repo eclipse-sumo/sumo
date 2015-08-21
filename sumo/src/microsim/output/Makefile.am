@@ -19,6 +19,7 @@ MSVTypeProbe.cpp MSVTypeProbe.h \
 MSXMLRawOut.cpp MSXMLRawOut.h \
 MSFCDExport.cpp MSFCDExport.h \
 MSAmitranTrajectories.cpp MSAmitranTrajectories.h  \
+MSBatteryExport.cpp MSBatteryExport.h  \
 MSEmissionExport.cpp MSEmissionExport.h  \
 MSVTKExport.cpp MSVTKExport.h \
 MSFullExport.cpp MSFullExport.h \

@@ -49,6 +49,7 @@
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include <utils/common/SUMOTime.h>
+#include <microsim/trigger/MSChrgStn.h>
 #include <microsim/MSStoppingPlace.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/NamedObjectCont.h>
@@ -415,7 +416,6 @@ public:
         return *myShapeContainer;
     }
 
-
     /** @brief Returns the net's internal edge travel times/efforts container
      *
      * If the net does not have such a container, it is built.
@@ -423,8 +423,6 @@ public:
      */
     MSEdgeWeightsStorage& getWeightsStorage();
     /// @}
-
-
 
     /// @name Insertion and retrieval of bus stops
     /// @{
@@ -489,6 +487,32 @@ public:
     std::string getContainerStopID(const MSLane* lane, const SUMOReal pos) const;
     /// @}
 
+    /** @brief Adds a chargingg station
+     *
+     * If another charging station with the same id exists, false is returned.
+     *  Otherwise, the charging station is added to the internal bus stop
+     *  container "myChrgStnDict".
+     *
+     * This control gets responsible for deletion of the added charging station.
+     *
+     * @param[in] chrgStn The charging station add
+     * @return Whether the charging station could be added
+     */
+    bool addChrgStn(MSChrgStn* chrgStn);
+
+    /** @brief Returns the named charging station
+     * @param[in] id The id of the charging station to return.
+     * @return The named charging station, or 0 if no such stop exists
+     */
+    MSChrgStn* getChrgStn(const std::string& id) const;
+
+    /** @brief Returns the charging station close to the given position
+     * @param[in] lane the lane of the charging station to return.
+     * @param[in] pos the position of the bus stop to return.
+     * @return The charging station id on the location, or "" if no such stop exists
+     */
+    std::string getChrgStnID(const MSLane* lane, const SUMOReal pos) const;
+    /// @}
 
 
     /// @name Notification about vehicle state changes
@@ -707,6 +731,9 @@ protected:
 
     /// @brief Dictionary of container stops
     NamedObjectCont<MSStoppingPlace*> myContainerStopDict;
+
+    /// @brief Dictionary of charging Stations
+    NamedObjectCont<MSChrgStn*> myChrgStnDict;
 
     /// @brief Container for vehicle state listener
     std::vector<VehicleStateListener*> myVehicleStateListeners;

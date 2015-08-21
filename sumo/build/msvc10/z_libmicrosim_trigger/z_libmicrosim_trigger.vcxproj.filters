@@ -23,6 +23,9 @@
     <ClCompile Include="..\..\..\src\microsim\trigger\MSCalibrator.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\trigger\MSChrgStn.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.h">
@@ -35,6 +38,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\trigger\MSCalibrator.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\trigger\MSChrgStn.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

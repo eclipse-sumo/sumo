@@ -136,6 +136,27 @@ protected:
                                     SUMOReal frompos, SUMOReal topos);
 
 
+    /** @brief Builds a charging station
+     *
+     * Simply calls the ChrgSTN constructor.
+     *
+     * @param[in] net The net the charging station belongs to
+     * @param[in] id The id of the charging station
+     * @param[in] lines Names of the bus lines that halt on this charging station
+     * @param[in] lane The lane the charging station is placed on
+     * @param[in] frompos Begin position of the charging station on the lane
+     * @param[in] topos End position of the charging station on the lane
+     * @param[in]
+     * @param[in] FALTAN ARGUMENTOS DE LA LLAMADA A FUNCION
+     * @param[in]
+     * @param[in]
+     * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
+     */
+    virtual void buildChrgStn(MSNet& net, const std::string& id,
+                              const std::vector<std::string>& lines, MSLane* lane, 
+                              SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, 
+                              SUMOReal chargeInTransit, SUMOReal chargeDelay);
+
     /** @brief builds a microscopic calibrator
      *
      * Simply calls the MSCalibrator constructor.

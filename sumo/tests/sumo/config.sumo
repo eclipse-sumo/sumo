@@ -43,6 +43,7 @@ full:full.xml
 vtk:vtk.txt
 queue:queue.xml
 emissions:emissions.xml
+battery:battery.xml
 tol_sql:tol_sql.txt
 tol_plain:tol_plain.txt
 tol_la_sql:tol_la_sql.txt
@@ -92,6 +93,7 @@ fcd:<!--{[->]}-->
 full:<!--{[->]}-->
 queue:<!--{[->]}-->
 emissions:<!--{[->]}-->
+battery:<!--{[->]}-->
 links:<!--{[->]}-->
 vtk:<!--{[->]}-->
 vehroutes_ignore_arrival:<!--{[->]}-->

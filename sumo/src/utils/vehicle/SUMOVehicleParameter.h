@@ -472,6 +472,8 @@ public:
         std::string busstop;
         /// @brief (Optional) container stop if one is assigned to the stop
         std::string containerstop;
+        /// @brief (Optional) charging station if one is assigned to the stop
+        std::string chrgStn;
         /// @brief The stopping position start
         SUMOReal startPos;
         /// @brief The stopping position end

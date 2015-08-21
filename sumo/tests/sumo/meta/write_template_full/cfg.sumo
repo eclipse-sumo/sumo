@@ -26,6 +26,8 @@
         <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" type="BOOL" help="Write also empty edges completely when dumping"/>
         <netstate-dump.precision value="2" synonymes="dump-precision netstate-output.precision netstate.precision" type="INT" help="Write positions and speeds with the given precision (default 2)"/>
         <emission-output value="" type="FILE" help="Save the emission values of each vehicle"/>
+        <battery-output value="" type="FILE" help="Save the battery values of each vehicle"/>
+        <battery-output.precision value="2" type="INT" help="Write battery values with the given precision (default 2)"/>
         <fcd-output value="" type="FILE" help="Save the Floating Car Data"/>
         <fcd-output.geo value="false" type="BOOL" help="Save the Floating Car Data using geo-coordinates (lon/lat)"/>
         <fcd-output.signals value="false" type="BOOL" help="Add the vehicle signal state to the FCD output (brake lights etc.)"/>
@@ -130,6 +132,12 @@
         <device.btsender.explicit value="" synonymes="device.btsender.knownveh" type="STR" help="Assign a &apos;btsender&apos; device to named vehicles"/>
         <device.btsender.deterministic value="false" type="BOOL" help="The &apos;btsender&apos; devices are set deterministic using a fraction of 1000"/>
     </communication>
+
+    <battery>
+        <device.battery.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;battery&apos; device"/>
+        <device.battery.explicit value="" synonymes="device.battery.knownveh" type="STR" help="Assign a &apos;battery&apos; device to named vehicles"/>
+        <device.battery.deterministic value="false" type="BOOL" help="The &apos;battery&apos; devices are set deterministic using a fraction of 1000"/>
+    </battery>
 
     <example_device>
         <device.example.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;example&apos; device"/>

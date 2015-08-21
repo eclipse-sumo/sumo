@@ -1,4 +1,4 @@
-/****************************************************************************/
+﻿/****************************************************************************/
 /// @file    MSDevice.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
@@ -41,6 +41,7 @@
 #include "MSDevice_BTreceiver.h"
 #include "MSDevice_BTsender.h"
 #include "MSDevice_Example.h"
+#include "MSDevice_Battery.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -66,6 +67,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_BTreceiver::insertOptions(oc);
     MSDevice_BTsender::insertOptions(oc);
     MSDevice_Example::insertOptions(oc);
+    MSDevice_Battery::insertOptions(oc);
 }
 
 
@@ -78,6 +80,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     MSDevice_BTreceiver::buildVehicleDevices(v, into);
     MSDevice_BTsender::buildVehicleDevices(v, into);
     MSDevice_Example::buildVehicleDevices(v, into);
+    MSDevice_Battery::buildVehicleDevices(v, into);
 }
 
 

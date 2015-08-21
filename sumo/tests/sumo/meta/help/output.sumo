@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18582
+SUMO Version dev-SVN-r18677
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -34,6 +34,9 @@ Output Options:
   --netstate-dump.precision INT        Write positions and speeds with the
                                          given precision (default 2)
   --emission-output FILE               Save the emission values of each vehicle
+  --battery-output FILE                Save the battery values of each vehicle
+  --battery-output.precision INT       Write battery values with the given
+                                         precision (default 2)
   --fcd-output FILE                    Save the Floating Car Data
   --fcd-output.geo                     Save the Floating Car Data using
                                          geo-coordinates (lon/lat)
@@ -206,6 +209,14 @@ Communication Options:
   --device.btsender.explicit STR       Assign a 'btsender' device to named
                                          vehicles
   --device.btsender.deterministic      The 'btsender' devices are set
+                                         deterministic using a fraction of 1000
+
+Battery Options:
+  --device.battery.probability FLOAT   The probability for a vehicle to have a
+                                         'battery' device
+  --device.battery.explicit STR        Assign a 'battery' device to named
+                                         vehicles
+  --device.battery.deterministic       The 'battery' devices are set
                                          deterministic using a fraction of 1000
 
 Example Device Options:

@@ -1,4 +1,4 @@
-/****************************************************************************/
+﻿/****************************************************************************/
 /// @file    MSFrame.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Eric Nicolay
@@ -128,6 +128,12 @@ MSFrame::fillOptions() {
 
     oc.doRegister("emission-output", new Option_FileName());
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle");
+
+    oc.doRegister("battery-output", new Option_FileName());
+    oc.addDescription("battery-output", "Output", "Save the battery values of each vehicle");
+    oc.doRegister("battery-output.precision", new Option_Integer(OUTPUT_ACCURACY));
+    oc.addDescription("battery-output.precision", "Output", "Write battery values with the given precision (default 2)");
+
     oc.doRegister("fcd-output", new Option_FileName());
     oc.addDescription("fcd-output", "Output", "Save the Floating Car Data");
     oc.doRegister("fcd-output.geo", new Option_Bool(false));
@@ -297,6 +303,7 @@ MSFrame::fillOptions() {
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
 
     oc.addOptionSubTopic("Communication");
+    oc.addOptionSubTopic("Battery");
     MSDevice::insertOptions(oc);
 
     // register report options
@@ -385,6 +392,7 @@ MSFrame::buildStreams() {
     //extended
     OutputDevice::createDeviceByOption("fcd-output", "fcd-export", "fcd_file.xsd");
     OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
+    OutputDevice::createDeviceByOption("battery-output", "battery-export");
     OutputDevice::createDeviceByOption("full-output", "full-export", "full_file.xsd");
     OutputDevice::createDeviceByOption("queue-output", "queue-export", "queue_file.xsd");
     OutputDevice::createDeviceByOption("amitran-output", "trajectories", "amitran/trajectories.xsd\" timeStepSize=\"" + toString(STEPS2MS(DELTA_T)));

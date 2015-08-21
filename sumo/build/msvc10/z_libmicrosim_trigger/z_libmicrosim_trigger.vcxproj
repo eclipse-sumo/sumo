@@ -175,12 +175,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\microsim\trigger\MSCalibrator.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\trigger\MSChrgStn.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSTrigger.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSTriggeredRerouter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\trigger\MSCalibrator.h" />
+    <ClInclude Include="..\..\..\src\microsim\trigger\MSChrgStn.h" />
     <ClInclude Include="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.h" />
     <ClInclude Include="..\..\..\src\microsim\trigger\MSTrigger.h" />
     <ClInclude Include="..\..\..\src\microsim\trigger\MSTriggeredRerouter.h" />
