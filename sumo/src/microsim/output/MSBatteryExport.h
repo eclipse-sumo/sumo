@@ -4,7 +4,7 @@
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez López
 /// @date    20-12-13
-/// @version $Id: MSBatteryExport.h 14695 2013-09-12 20:09:43Z behrisch $
+/// @version $Id$
 ///
 // Realises dumping Battery Data
 /****************************************************************************/

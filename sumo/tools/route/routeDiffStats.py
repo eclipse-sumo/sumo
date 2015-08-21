@@ -3,7 +3,7 @@
 @file    routeStats.py
 @author  Jakob Erdmann
 @date    2014-12-18
-@version $Id: routeStats.py 17527 2014-12-19 09:13:51Z behrisch $
+@version $Id$
 
 compute statistics for two sets of routes (for the same set of vehicles)
 

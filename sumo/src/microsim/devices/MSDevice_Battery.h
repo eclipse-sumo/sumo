@@ -3,7 +3,7 @@
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez López
 /// @date    20-12-13
-/// @version $Id: MSDevice_Battery.h 1 2013-09-17 12:38:16Z namdre $
+/// @version $Id$
 ///
 // The Battery parametereters from the vehicle
 /****************************************************************************/

@@ -4,7 +4,7 @@
 /// @author  Tamas Kurzveil
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
-/// @version $Id: MSChrgStn.h 1 2013-09-04 12:28:58Z dkrajzew $       //REVISION NEEDED
+/// @version $Id$       //REVISION NEEDED
 ///
 // Chargin Station for Electric vehicles //REVISION NEEDED
 /****************************************************************************/

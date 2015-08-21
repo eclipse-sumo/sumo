@@ -6,7 +6,7 @@
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez López
 /// @date    20-12-13
-/// @version $Id: GUIChrgStn.h 14425 2013-08-16 20:11:47Z behrisch $
+/// @version $Id$
 ///
 // A lane area vehicles can halt at (gui-version)
 /****************************************************************************/

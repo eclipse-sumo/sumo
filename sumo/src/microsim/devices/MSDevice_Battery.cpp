@@ -3,7 +3,7 @@
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez López
 /// @date    20.12.2013    
-/// @version $Id: MSDevice_Example.cpp 14577 2013-09-04 11:50:49Z dkrajzew $ // ATENCION
+/// @version $Id$ // ATENCION
 ///
 // ATENCION Descripcion
 /****************************************************************************/

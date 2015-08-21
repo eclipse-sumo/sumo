@@ -3,7 +3,7 @@
 @file    generateBidiDistricts.py
 @author  Jakob Erdmann
 @date    2015-07-31
-@version $Id: route2poly.py 18096 2015-03-17 09:50:59Z behrisch $
+@version $Id$
 
 Generate a taz (district) file which groups edges in opposite directions
 belonging to the same road. For each edge, a taz is created which contains this edge

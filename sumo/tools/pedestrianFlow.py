@@ -5,7 +5,7 @@ A script for generating a flow of pedestrians (a long list of person-walks)
 @file    pedestrianFlow.py
 @author  Jakob Erdmann
 @date    2014-01-16
-@version $Id: pedestrianFlow.py 17235 2014-11-03 10:53:02Z namdre $
+@version $Id$
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
