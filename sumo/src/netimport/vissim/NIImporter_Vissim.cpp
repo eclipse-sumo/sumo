@@ -212,11 +212,11 @@ NIImporter_Vissim::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     {
         // load the XML vissim network
         loader.loadXML(oc, nb);
-        loader.inputIsLegacyFormat = false;
+        loader.myInputIsLegacyFormat = false;
     } else {
         // load the legacy vissim network
         loader.load(oc);
-        loader.inputIsLegacyFormat = true;
+        loader.myInputIsLegacyFormat = true;
     }
 }
 
@@ -615,7 +615,7 @@ NIImporter_Vissim::NIVissimXMLHandler_VWunschentscheidungsdefinition::myStartEle
 }
 
 void
-NIImporter_Vissim::NIVissimXMLHandler_VWunschentscheidungsdefinition::myEndElement(int element) {
+NIImporter_Vissim::NIVissimXMLHandler_VWunschentscheidungsdefinition::myEndElement(int /* element */) {
     --myHierarchyLevel;
 }
 
@@ -649,7 +649,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::myStartElem
         myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok));
     }
     if (element == VISSIM_TAG_INTOBJECTREF) {
-        bool ok = true;
+        // bool ok = true;
     }
 
 }
@@ -869,7 +869,7 @@ NIImporter_Vissim::VissimSingleTypeParser::skipOverreading(std::istream& from,
  * NIImporter_Vissim-methods
  * ----------------------------------------------------------------------- */
 NIImporter_Vissim::NIImporter_Vissim(NBNetBuilder& nb, const std::string& file)
-    : myNetBuilder(nb), inputIsLegacyFormat(false) {
+    : myNetBuilder(nb), myInputIsLegacyFormat(false) {
     UNUSED_PARAMETER(file);
     insertKnownElements();
     buildParsers();

@@ -480,8 +480,6 @@ private:
 
 
 protected:
-    bool inputIsLegacyFormat;
-
     /// constructor
     NIImporter_Vissim(NBNetBuilder& nb, const std::string& file);
 
@@ -588,6 +586,8 @@ private:
     std::string myLastSecure;
 
     NBNetBuilder& myNetBuilder;
+
+    bool myInputIsLegacyFormat;
 
 private:
     /// @brief Invalidated copy constructor.
