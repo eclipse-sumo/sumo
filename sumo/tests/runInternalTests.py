@@ -28,6 +28,8 @@ except ImportError:
 
 
 def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False):
+    if type(args) is list:
+        args = " ".join(args)
     if os.name != "posix":
         suffix += ".exe"
     env = os.environ
@@ -76,5 +78,5 @@ if __name__ == "__main__":
     optParser.add_option("-c", "--console", default=False, 
                          action="store_true", help="run texttest console interface")
     (options, args) = optParser.parse_args()
-    runInternal(options.suffix, " ".join(["-" + a for a in args]),
+    runInternal(options.suffix, ["-" + a for a in args],
                 guiTests=options.gui, console=options.console)
