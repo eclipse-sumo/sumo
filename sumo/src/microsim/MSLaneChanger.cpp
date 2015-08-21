@@ -519,12 +519,8 @@ MSLaneChanger::checkChange(
         const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
         unsigned int view = 1;
         MSLane* nextLane = vehicle->getLane();
-        do {
-            // get the next link used
-            MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
-            if (nextLane->isLinkEnd(link) || seen > space2change) {
-                break;
-            }
+        MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
+        while (!nextLane->isLinkEnd(link) && seen <= space2change) {
             if ((*link)->getDirection() == LINKDIR_LEFT || (*link)->getDirection() == LINKDIR_RIGHT 
                     // the lanes after an internal junction are on different
                     // edges and do not allow lane-changing
@@ -542,7 +538,9 @@ MSLaneChanger::checkChange(
 #endif
             nextLane = (*link)->getViaLaneOrLane();
             seen += nextLane->getLength();
-        } while (true);
+            // get the next link used
+            link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
+        }
 
         if ((state & LCA_BLOCKED) == 0) {
             // check for dangerous leaders in case the target lane changes laterally between
@@ -552,19 +550,15 @@ MSLaneChanger::checkChange(
             nextLane = vehicle->getLane();
             view = 1;
             const SUMOReal dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
-            do {
-                // get the next link used
-                MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
-                if (nextLane->isLinkEnd(link) || seen > space2change || seen > dist) {
-                    break;
-                }
+            MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
+            while (!nextLane->isLinkEnd(link) && seen <= space2change && seen <= dist) {
                 nextLane = (*link)->getViaLaneOrLane();
                 MSLane* targetLane = nextLane->getParallelLane(laneOffset);
                 if (targetLane == 0) {
                     state |= LCA_INSUFFICIENT_SPACE;
                     break;
                 } else {
-                    std::pair<MSVehicle* const, SUMOReal> neighLead2 = targetLane->getLeader(vehicle,  -seen, true);
+                    std::pair<MSVehicle* const, SUMOReal> neighLead2 = targetLane->getLeader(vehicle, -seen, true);
                     if (neighLead2.first != 0 && neighLead2.first != neighLead.first
                             && (neighLead2.second < vehicle->getCarFollowModel().getSecureGap(
                                     vehicle->getSpeed(), neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel()))) {
@@ -580,7 +574,9 @@ MSLaneChanger::checkChange(
                 view++;
 #endif
                 seen += nextLane->getLength();
-            } while (true);
+                // get the next link used
+                link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
+            }
         }
     }
 #ifndef NO_TRACI

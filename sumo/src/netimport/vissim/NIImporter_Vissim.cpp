@@ -655,7 +655,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::myStartElem
 }
 
 void
-NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::myEndElement(int element) {
+NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::myEndElement(int /* element */) {
     --myHierarchyLevel;
 }
 
@@ -929,7 +929,7 @@ NIImporter_Vissim::load(const OptionsCont& options) {
 }
 
 void
-NIImporter_Vissim::loadXML(const OptionsCont& options, NBNetBuilder& nb) {
+NIImporter_Vissim::loadXML(const OptionsCont& options, NBNetBuilder& /* nb */) {
     // Parse file
     std::string file = options.getString("vissim-file");
     // Create NIVissimXMLHandlers
