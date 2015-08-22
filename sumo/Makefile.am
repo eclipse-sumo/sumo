@@ -44,7 +44,7 @@ dist-hook:
 	    find tests/complex/tutorial -regex ".*\.\(xml\|txt\|sumocfg\|netccfg\|py\)" -print0 | xargs -0 cp -v --parents --target-directory $(abs_distdir) ; \
 	    mv -v ${abs_distdir}/tests/complex/tutorial $(abs_distdir)/docs ; \
 	    rm -rf $(abs_distdir)/tests ; \
-	    tests/extractTest.py -i -f tests/examples.txt -o $(abs_distdir)/docs ; \
+	    tools/extractTest.py -i -f tests/examples.txt -o $(abs_distdir)/docs ; \
 	    find build -regex ".*\.\(vcxproj\|vcxproj\.filters\|props\|sln\|spec\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    find data -regex ".*\.\(xsd\|xml\|csv\|veh\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    ( svn export --force tools $(distdir)/tools && cd $(distdir) && find tools -type f -print0 > ../tools_filelist; true ) ; \
@@ -62,7 +62,7 @@ dist-doc: doc
 	rmdir $(distdir)/tests/complex
 	rmdir $(distdir)/tests
 	cp -r docs/pydoc docs/doxygen docs/userdoc $(distdir)/docs
-	tests/extractTest.py -i -f tests/examples.txt -o $(distdir)/docs
+	tools/extractTest.py -i -f tests/examples.txt -o $(distdir)/docs
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
 	rm -f $(PACKAGE)-doc-$(VERSION).zip
 	zip -r $(PACKAGE)-doc-$(VERSION).zip $(distdir)
