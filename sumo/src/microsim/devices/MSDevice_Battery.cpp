@@ -517,99 +517,99 @@ inline void MSDevice_Battery::increaseVehicleStoppedTimer()
 
 //GET FUNCTIONS
 
-const SUMOReal MSDevice_Battery::getActBatKap()
+SUMOReal MSDevice_Battery::getActBatKap() const
 {
     return ActBatKap;
 }
 
-const SUMOReal MSDevice_Battery::getMaxBatKap()
+SUMOReal MSDevice_Battery::getMaxBatKap() const
 {
     return MaxBatKap;
 }
 
-const SUMOReal MSDevice_Battery::getPowerMax()
+SUMOReal MSDevice_Battery::getPowerMax() const
 {
     return PowerMax;
 }
 
-const SUMOReal MSDevice_Battery::getMass()
+SUMOReal MSDevice_Battery::getMass() const
 {
     return Mass;
 }
 
-const SUMOReal MSDevice_Battery::getFrontSurfaceArea()
+SUMOReal MSDevice_Battery::getFrontSurfaceArea() const
 {
     return FrontSurfaceArea;
 }
 
-const SUMOReal MSDevice_Battery::getAirDragCoefficient()
+SUMOReal MSDevice_Battery::getAirDragCoefficient() const
 {
     return AirDragCoefficient;
 }
 
-const SUMOReal MSDevice_Battery::getInternalMomentOfInertia() {
+SUMOReal MSDevice_Battery::getInternalMomentOfInertia() const {
     return InternalMomentOfInertia;
 }
 
-const SUMOReal MSDevice_Battery::getRadialDragCoefficient() {
+SUMOReal MSDevice_Battery::getRadialDragCoefficient() const {
     return RadialDragCoefficient;
 }
 
-const SUMOReal MSDevice_Battery::getRollDragCoefficient() {
+SUMOReal MSDevice_Battery::getRollDragCoefficient() const {
     return RollDragCoefficient;
 }
 
-const SUMOReal MSDevice_Battery::getConstantPowerIntake() {
+SUMOReal MSDevice_Battery::getConstantPowerIntake() const {
     return ConstantPowerIntake;
 }
 
-const SUMOReal MSDevice_Battery::getPropulsionEfficiency() {
+SUMOReal MSDevice_Battery::getPropulsionEfficiency() const {
     return PropulsionEfficiency;
 }
 
-const SUMOReal MSDevice_Battery::getRecuperationEfficiency() {
+SUMOReal MSDevice_Battery::getRecuperationEfficiency() const {
     return RecuperationEfficiency;
 }
 
-const SUMOReal MSDevice_Battery::getLastAngle() {
+SUMOReal MSDevice_Battery::getLastAngle() const {
     return LastAngle;
 }
 
-const SUMOReal MSDevice_Battery::getLastEnergy() {
+SUMOReal MSDevice_Battery::getLastEnergy() const {
     return LastEnergy;    
 }
 
-const SUMOReal MSDevice_Battery::getConsum() {
+SUMOReal MSDevice_Battery::getConsum() const {
     return Consum;
 }
 
-bool MSDevice_Battery::isChargingStopped() {
+bool MSDevice_Battery::isChargingStopped() const {
     return ItsChargingStopped;
 }
 
-bool MSDevice_Battery::isChargingInTransit() {
+bool MSDevice_Battery::isChargingInTransit() const {
     return ItsChargingInTransit;
 }
 
-const SUMOReal MSDevice_Battery::getChargingStartTime() {
+SUMOReal MSDevice_Battery::getChargingStartTime() const {
     return ChargingStartTime;
 }
 
-const std::string& MSDevice_Battery::getChrgStnID() {
+const std::string& MSDevice_Battery::getChrgStnID() const {
     return actChrgStn;
 }
 
-const SUMOReal MSDevice_Battery::getChrgEnergy() {
+SUMOReal MSDevice_Battery::getChrgEnergy() const {
     return energyCharged;
 }
 
 
-const int MSDevice_Battery::getVehicleStopped() {
+int MSDevice_Battery::getVehicleStopped() const {
    return vehicleStopped;
 }
 
 
-const SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) 
+SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh)
 {    
     // calculate current kinetic energy
     SUMOReal height_cur = veh.getPositionOnLane() / veh.getLane()->getLength() * (veh.getLane()->getShape().back().z() - veh.getLane()->getShape().front().z());

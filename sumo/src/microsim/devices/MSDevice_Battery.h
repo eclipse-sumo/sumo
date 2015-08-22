@@ -148,70 +148,70 @@ public:
     // GET FUNCTIONS
 
     /// @brief Get parameter 01, the actual vehicles' Battery Capacity in kWh
-    const SUMOReal getActBatKap();
+    SUMOReal getActBatKap() const;
 
     /// @brief Get parameter 02, the total vehicles' Battery Capacity in kWh
-    const SUMOReal getMaxBatKap();
+    SUMOReal getMaxBatKap() const;
 
     /// @brief Get parameter 03, the maximum power when accelerating
-    inline const SUMOReal getPowerMax();
+    inline SUMOReal getPowerMax() const;
 
     /// @brief Get parameter 04, vehicle's Mass    
-    inline const SUMOReal getMass();
+    inline SUMOReal getMass() const;
 
     /// @brief Get parameter 05, vehicle's front surface Area    
-    inline const SUMOReal getFrontSurfaceArea();
+    inline SUMOReal getFrontSurfaceArea() const;
 
     /// @brief Get parameter 06, vehicle's drag coefficient    
-    inline const SUMOReal getAirDragCoefficient();
+    inline SUMOReal getAirDragCoefficient() const;
 
     /// @brief Get parameter 07, vehicles' internal moment of inertia
-    inline const SUMOReal getInternalMomentOfInertia();
+    inline SUMOReal getInternalMomentOfInertia() const;
 
     /// @brief Get parameter 08, vehicles' radial friction coefficient    
-    inline const SUMOReal getRadialDragCoefficient();
+    inline SUMOReal getRadialDragCoefficient() const;
 
     /// @brief Get parameter 09, vehicles' roll friction coefficient
-    inline const SUMOReal getRollDragCoefficient();
+    inline SUMOReal getRollDragCoefficient() const;
 
     /// @brief Get parameter 10, vehicles' constant power intake    
-    inline const SUMOReal getConstantPowerIntake();
+    inline SUMOReal getConstantPowerIntake() const;
 
     /// @brief Get parameter 11, vehicles' Propulsion efficiency
-    inline const SUMOReal getPropulsionEfficiency();
+    inline SUMOReal getPropulsionEfficiency() const;
 
     /// @brief Get parameter 12, vehicles' Recuparation efficiency    
-    inline const SUMOReal getRecuperationEfficiency();
+    inline SUMOReal getRecuperationEfficiency() const;
 
     /// @brief Get parameter 13, vehicles' last angle
-    inline const SUMOReal getLastAngle();
+    inline SUMOReal getLastAngle() const;
     
     /// @brief Get parameter 14, vehicles' last Energy
-    inline const SUMOReal getLastEnergy();
+    inline SUMOReal getLastEnergy() const;
 
     /// @brief Get parameter 15, true if Vehicle it's charging, false if not.
-    bool isChargingStopped();
+    bool isChargingStopped() const;
 
         /// @brief Get parameter 16, true if Vehicle it's charging, false if not.
-    bool isChargingInTransit();
+    bool isChargingInTransit() const;
 
     /// @brief Get parameter 17, charging start time.
-    inline const SUMOReal getChargingStartTime();
+    inline SUMOReal getChargingStartTime() const;
 
     /// @brief Get parameter 18, consum (Strange error with linker)
-    const SUMOReal getConsum();
+    SUMOReal getConsum() const;
 
     /// @brief Get parameter 19, Charging Station I
-    const std::string& getChrgStnID();
+    const std::string& getChrgStnID() const;
 
     /// @brief Get parameter 20, charging energy
-    const SUMOReal getChrgEnergy();
+    SUMOReal getChrgEnergy() const;
 
     /// @brief Get parameter 20, charging energy
-    const int getVehicleStopped();
+    int getVehicleStopped() const;
 
     /// @brief get propulsion energy
-    const SUMOReal getPropEnergy(SUMOVehicle& veh);
+    SUMOReal getPropEnergy(SUMOVehicle& veh);
 
 
     // SET FUNCTIONS
