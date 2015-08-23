@@ -136,7 +136,7 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
 }
 
 
-bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed)
+bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal /* newPos */, SUMOReal /* newSpeed */)
 {
     // Start vehicleStoppedTimer if the vehicle is stopped (that's mean, speed is < 0.2). In other case reset timer
     if(veh.getSpeed() < 0.2)
@@ -273,7 +273,7 @@ bool MSDevice_Battery::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notificatio
 void MSDevice_Battery::generateOutput() const 
 {
     //Function implemented in MSBatteryExport
-    if (false) /*OptionsCont::getOptions().isSet("tripinfo-output")*/
+    /*if (OptionsCont::getOptions().isSet("tripinfo-output"))
     {
         OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
         
@@ -292,7 +292,7 @@ void MSDevice_Battery::generateOutput() const
             os.writeAttr("Last Angle", toString(LastAngle));
             os.writeAttr("Last Energy", toString(LastEnergy));
         os.closeTag();
-    }
+    }*/
 }
 
 
