@@ -322,7 +322,7 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 36);
+        new GUIParameterTableWindow(app, *this, 40);
     // add items
     ret->mkItem("lane [id]", false, myLane->getID());
     ret->mkItem("position [m]", true,
@@ -376,6 +376,11 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         str << (*i)->getID().substr(0, (*i)->getID().find(getID()));
     }
     ret->mkItem("devices", false, str.str());
+    ret->mkItem("persons", true,
+                new FunctionBinding<GUIVehicle, unsigned int>(this, &GUIVehicle::getPersonNumber));
+    ret->mkItem("containers", true,
+                new FunctionBinding<GUIVehicle, unsigned int>(this, &GUIVehicle::getContainerNumber));
+
     ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
     ret->mkItem("", false, "");
     ret->mkItem("Type Information:", false, "");
@@ -389,6 +394,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
     ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
     ret->mkItem("reaction time (tau)", false, getCarFollowModel().getHeadwayTime());
+    ret->mkItem("person capacity", false, myType->getPersonCapacity());
+    ret->mkItem("container capacity", false, myType->getContainerCapacity());
+
     ret->mkItem("type parameters [key:val]", false, toString(myType->getParameter().getMap()));
     // close building
     ret->closeBuilding();
