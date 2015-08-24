@@ -35,132 +35,48 @@ Warning: Ignoring restriction relation '2738894'.
 Warning: No way found for reference '44122832' in relation '3336092'
 Warning: Ignoring restriction relation '3336092' with unknown from-way.
 Warning: Ignoring restriction relation '4521655' with unknown from-way.
-Warning: Not joining junctions 1075544310,29193512,293226261,357990115 because the cluster is too complex (parallel incoming 51236793#1,51236794)
-Warning: Not joining junctions 1026368491,1026368607,1026368690,1026368717,1026368751,1026368781,1026368812,1026368926,1026368955,1026369015,1026369106,1027484389,1027484398,1027484409,1027484429,1027484451,1027484583,1027484645,1027484665,1027484746,1027484756,1027484898,1027484912,1241955129 because the cluster is too complex (parallel outgoing 88361587,88462861#1)
-Warning: Not joining junctions 1026368562,1026368619,1026368919,1026369017,1026369077,1026369128,1027484407,1027484513,1241955144,1241955147,1241955148 because the cluster is too complex (parallel outgoing 88361597#1,88462842#0)
 Warning: Not joining junctions 1134198786,1134199074,1134199105,1147843154 because the cluster is too complex (6 incoming edges)
 Warning: Not joining junctions 1134198860,1134198951,1134198997,1137737056,1147843150,1147843156,1147843173,2451511170 because the cluster is too complex (8 incoming edges)
 Warning: Not joining junctions 1142557545,29192285 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 1157325158,1827996421,1827996431,1827996436,1827996440,1827996455,21487210,29221504,29221506,341340973 because the cluster is too complex (7 incoming edges)
-Warning: Not joining junctions 1157325166,1157325170,1157325172,1157325174,31160643 because the cluster is too complex (parallel incoming 144014234#0,156364556)
-Warning: Not joining junctions 1166137168,1566942145,1566942204,1752085816,2054664382,3101344339,3101344340,667465427,667465428,967017840 because the cluster is too complex (8 incoming edges)
-Warning: Not joining junctions 1244624818,848523545 because the cluster is too complex (parallel incoming 170077661,170077662#3)
-Warning: Not joining junctions 1264074482,1876468344,25665883,29219439,3184013261,3185908260,3185909161,3191026786,961875299,961984568,961984577,961984592 because the cluster is too complex (5 incoming edges)
+Warning: Not joining junctions 1166137168,1566942145,1566942204,1752085816,2054664382,3101344339,3101344340,667465427,667465428,967017840 because the cluster is too complex (7 incoming edges)
 Warning: Not joining junctions 1275468908,2054664417,2054664424,2054664430 because the cluster is too complex (parallel incoming -112128423,301241681#0)
 Warning: Not joining junctions 1275468917,2054664437,2054664439 because the cluster is too complex (parallel incoming -112128416,100405009#2)
-Warning: Not joining junctions 1288008787,275525457 because the cluster is too complex (parallel outgoing 25294729#1,25294731#0)
 Warning: Not joining junctions 1375229139,1445622300 because the cluster is too complex (parallel incoming -131330589,123264594)
-Warning: Not joining junctions 1827996501,1827996511,1827996522,1827996525,1827996550,1827996603 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 1419121876,3148263650,3157319029 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 1472911083,1473258664,1473258676,1473258678,2121324899 because the cluster is too complex (parallel incoming 133885750#3,23121444)
 Warning: Not joining junctions 1473258656,1473258657,1473258658,1473258660 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 1473296997,1474316003 because the cluster is too complex (parallel incoming -134021303,183649398)
-Warning: Not joining junctions 1474315960,1474315961,1474315962,1474315966,1474315968 because the cluster is too complex (parallel incoming 4773023#1,4773024#1)
-Warning: Not joining junctions 1503717917,1503717940,1503717955,1503718025 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 1503717699,1503717969,1503718045 because the cluster is too complex (parallel incoming -137085434#3,137085433#1)
 Warning: Not joining junctions 1566942175,1566942181 because the cluster is too complex (parallel incoming -143201761,-173197451#4)
-Warning: Not joining junctions 1566942191,29221588,3179774467,3204786099,3279659028 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 611334710,611335401 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 160503138,670333026 because the cluster is too complex (parallel outgoing 137630051#2,23809670#4)
-Warning: Not joining junctions 160503146,2314394456,2314394457,27411250 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 2796729135,2856686315,735132788 because the cluster is too complex (parallel outgoing 147686947,281683283)
-Warning: Not joining junctions 1615477665,1840326424,1840326426,997027037 because the cluster is too complex (parallel incoming 112128418#1,4791000#3)
 Warning: Not joining junctions 1615531695,2831092403,52153639 because the cluster is too complex (parallel incoming 148449390,158785194#0)
-Warning: Not joining junctions 1860777044,1860777046,1860777048,1860777050,3095536723 because the cluster is too complex (parallel incoming 169195791#0,169230291#1)
-Warning: Not joining junctions 1630500695,21487184,27411306,310069196,735963001 because the cluster is too complex (parallel incoming 139877309,86220069#0)
 Warning: Not joining junctions 1633112625,2831092402,30731499 because the cluster is too complex (parallel outgoing 195400997#1,22962554#1)
-Warning: Not joining junctions 258017933,258485791,27411258,2796846632,30731510,588181257,588181259 because the cluster is too complex (12 incoming edges)
-Warning: Not joining junctions 1667735093,2603295460,2603295466,2603295473,2603295479,2603295485,2603295488,2603295498,2603295502,2603295505,2603295525,2603295537,2603295539 because the cluster is too complex (parallel incoming 254523899#0,254523900#0)
+Warning: Not joining junctions 258017933,258485791,27411258,2796846632,30731510,588181257,588181259 because the cluster is too complex (11 incoming edges)
 Warning: Not joining junctions 1785414414,2924018416,2924018417,2924018418,3253177076,3253177078,3253177079 because the cluster is too complex (7 incoming edges)
 Warning: Not joining junctions 1668717163,1668717165,258485805,588181279 because the cluster is too complex (parallel incoming 101699676#0,4610362#1)
-Warning: Not joining junctions 1673527106,1673527109,1864428519,1864428520,1864428521,1864428522 because the cluster is too complex (parallel incoming 195411594#1,195411604#2)
 Warning: Not joining junctions 1673585713,3269783482 because the cluster is too complex (parallel incoming 144014233,207364192#0)
-Warning: Not joining junctions 1769589131,1864428531,1864428532,1864428533,1864428534,1864428535,1864428536,1864428537,2792266062,2792266077,2792266079,2792266083,2792266096,2792266109,2792266111,2792266115,2792266119,2792266138,2792266143,2792266154,2792266161,2792266170,2792266195,541118892,837929252 because the cluster is too complex (8 incoming edges)
-Warning: Not joining junctions 1828018077,1828018081,1828018092,1828018093,1828018094,1828018095,1840326399,1840326421,262469034,29123671,29123672,967017877 because the cluster is too complex (6 incoming edges)
-Warning: Not joining junctions 1828018014,1828018027,1828018031,1828018034,1828018038,1828018040,768038183 because the cluster is too complex (parallel incoming 112128419#1,331114772#5)
-Warning: Not joining junctions 588181343,860313203,860313218,860313221 because the cluster is too complex (7 incoming edges)
-Warning: Not joining junctions 1812142551,258017932,2796710209,2841807792,2841807797,2841851004,610319151,617915202 because the cluster is too complex (parallel outgoing 123074181#2,182814027#6)
-Warning: Not joining junctions 1812280488,2950103513,2950103514,848523542 because the cluster is too complex (parallel outgoing 170077662#1,66514420#1)
-Warning: Not joining junctions 1812280493,1812280494 because the cluster is too complex (parallel incoming 170077662#2,66514420#2)
-Warning: Not joining junctions 1815252268,1819894846,1860824640 because the cluster is too complex (parallel outgoing -170370361#2,170852455)
 Warning: Not joining junctions 1815335424,1819917465,662338385 because the cluster is too complex (parallel incoming -170855334,51912365#0)
-Warning: Not joining junctions 1815335458,652787427 because the cluster is too complex (parallel outgoing 170392873,51167932#2)
-Warning: Not joining junctions 1840382342,266540882,29123692,506357655,506357662,614483613 because the cluster is too complex (6 incoming edges)
-Warning: Not joining junctions 262469634,29219441,3187781912,3187781913,3187781914,3187781915,3191021702,3191021703,961875301,961875308,961875311,961984606 because the cluster is too complex (6 incoming edges)
-Warning: Not joining junctions 1876479331,2882261439 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 1902187851,1986489456 because the cluster is too complex (parallel incoming 170077662#1,66514420#1)
-Warning: Not joining junctions 2091651012,27412098 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 196763698,2776837367,2776837371,2776837373,2776837384,2776837386,768038174,768038175,863119413 because the cluster is too complex (6 incoming edges)
-Warning: Not joining junctions 196766307,3157327725,3157327726,3177625298,3178079902,3178079903,3178079904,3178079905,3178272061,667787109 because the cluster is too complex (parallel incoming 19801618#1,310186556#1)
+Warning: Not joining junctions 196766307,3177625298,3178079902,3178079903,3178079905,667787109 because the cluster is too complex (parallel outgoing 19801618#4,311681169#1)
 Warning: Not joining junctions 1988511977,29193494 because the cluster is too complex (parallel incoming -4610527#0,4610527#1)
 Warning: Not joining junctions 2003979131,25664779,25664841,746803372 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 2054664369,2054664372,677136772 because the cluster is too complex (parallel outgoing 288406367,48536047)
+Warning: Not joining junctions 2054664369,2054664372 because the cluster is too complex (parallel outgoing 288406367,48536047)
 Warning: Not joining junctions 2054724789,2054724822,2054724836,29219450 because the cluster is too complex (6 incoming edges)
-Warning: Not joining junctions 2054749637,2381159756,2656298171,29219469 because the cluster is too complex (parallel incoming -194963395,256939633)
-Warning: Not joining junctions 2454091577,2454091579,262482618 because the cluster is too complex (parallel outgoing 107747047#1,24243052#1)
-Warning: Not joining junctions 3180213035,768038173 because the cluster is too complex (parallel incoming 309155392,312175526)
 Warning: Not joining junctions 2071374906,2071374916,29805117 because the cluster is too complex (parallel outgoing 25386365#2,25946660)
-Warning: Not joining junctions 2071378250,213027553,2454103021,2454123445,2454155820,2601268855,2601268882,2601268888,2601268890,2601268919,2601268931,2601268944,2601268950,2601268951,2601268974,2601268982,2603295618,2603295621,2603295638,2603295644,2603295646,2603295663,2603295675,2603295685,2603295697,2603295705,2603295719,2603295723,2603295753,2603295793,2603295799,2603295803,2603295812,2603295825,2792325974,2792325983,2792325991 because the cluster is too complex (9 incoming edges)
-Warning: Not joining junctions 2071423311,2071423312,2071423313 because the cluster is too complex (parallel incoming 196850608#1,196850613)
-Warning: Not joining junctions 2071423321,2071423322,2071423323 because the cluster is too complex (parallel incoming 196850608#0,196850619)
-Warning: Not joining junctions 2071423345,2071423346,2071423347,2071423355,2071423356,2071423357 because the cluster is too complex (parallel incoming 196850609#0,196850612)
-Warning: Not joining junctions 2088252949,699669689 because the cluster is too complex (parallel incoming -327518240,55682913#1)
+Warning: Not joining junctions 2091651012,27412098 because the cluster is too complex (parallel outgoing -24243107#3,237751551#1)
 Warning: Not joining junctions 3104326558,315140135 because the cluster is too complex (parallel outgoing 199579026#1,199579028#0)
-Warning: Not joining junctions 2121324848,2121324849 because the cluster is too complex (parallel incoming 202157027#2,23121445#4)
-Warning: Not joining junctions 2121324854,29194677 because the cluster is too complex (parallel incoming 202157027#1,23121445#3)
-Warning: Not joining junctions 2121324864,29194678 because the cluster is too complex (parallel incoming 202157027#0,23121445#2)
-Warning: Not joining junctions 2121324868,2121324870 because the cluster is too complex (parallel outgoing 202157027#0,23121445#1)
-Warning: Not joining junctions 21432799,21432802,29221583,29221586,2951795004,3155751071,3155751072,3155751073,3155755392,3155779680,3155779681,3157327724,3163433362,3163433363,3173934741,3174192367,3174192368,3179641633,392182854,52151282,677136769,677136871,961807409,961807418 because the cluster is too complex (9 incoming edges)
-Warning: Not joining junctions 21432801,2531338707,295705005,3139140896,3153666985,3153670927,3178759584,735967920,735967921,961816249,961816257 because the cluster is too complex (8 incoming edges)
-Warning: Not joining junctions 21487220,3173934736 because the cluster is too complex (parallel incoming 187103791,312137596#0)
-Warning: Not joining junctions 21582728,3183994307 because the cluster is too complex (parallel incoming 309479676,312532631#0)
-Warning: Not joining junctions 2385462329,2385462338 because the cluster is too complex (parallel incoming -133885743#1,230015280)
-Warning: Not joining junctions 2454155817,2601268812,2603295454,2603295457,2792266113,2792266167,2792266176,2792266186,2792266202 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 2531338705,3153666983,3153670928,3174192371,3213513670 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 2548947450,3153662374,3192342856 because the cluster is too complex (parallel incoming 289666657,312174585)
-Warning: Not joining junctions 25661397,746780594 because the cluster is too complex (parallel incoming 236092221#3,317859982#1)
-Warning: Not joining junctions 258485777,652771245 because the cluster is too complex (parallel incoming 181587286#1,51167566)
-Warning: Not joining junctions 2601268979,2601268988,2601268991,2601268993,2601269000,2603295726,2603295816 because the cluster is too complex (parallel incoming 254523892#0,254523907#0)
-Warning: Not joining junctions 262487188,704999036 because the cluster is too complex (parallel incoming -4613096#3,48164817#0)
-Warning: Not joining junctions 262525631,365516693,825188268 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 266540878,506357654,506357660 because the cluster is too complex (parallel incoming 112128418#5,4791000#5)
+Warning: Not joining junctions 21432801,295705005,3139140896,3178759584,735967920,735967921,961816249,961816257 because the cluster is too complex (6 incoming edges)
 Warning: Not joining junctions 266540986,31154724 because the cluster is too complex (parallel incoming -24509315#0,156364553#1)
-Warning: Not joining junctions 27005148,3378459428,450169269,450169274 because the cluster is too complex (parallel incoming 171423002,171423004#0)
-Warning: Not joining junctions 27410698,2882261442,2894540717,2894540718,3153662368 because the cluster is too complex (6 incoming edges)
-Warning: Not joining junctions 27411252,617915491 because the cluster is too complex (6 incoming edges)
-Warning: Not joining junctions 275525459,662338388 because the cluster is too complex (parallel incoming 25294731#1,51912365#1)
-Warning: Not joining junctions 2776837159,2776837161,2776837166,2776837176,2776837177,2776837184,2776837186,2776837188,2776837189,2776837194,2776837195,2776837197,2776837200,2776837201,2776837202,2776837204,2776837206,2776837207,2776837208,2776837211,2776837213,2776837214,2776837217,2776837218,2776837219,2776837221,2776837225,2776837226,2776837227,2776837229,2776837230,2776837231,2776837233,2776837237,2776837240,2776837246,2776837248,2776837261,2776837280,2776837289,2776837296,2776837300,2776873623,2777025998,2777025999,2777026001,2777026005,2777026006,2777026013,2777026016,2777026021,2777026035,2777026036,2777026042,2777026046,2777026049,2777026065,2777153441,2777303216,888371797 because the cluster is too complex (17 incoming edges)
-Warning: Not joining junctions 2776837343,2776837351,2776837352,2776837360,2776837364,2776837369 because the cluster is too complex (parallel incoming 272757336#0,272757342#1)
-Warning: Not joining junctions 2776837388,2776837390,2776837391,2776837392,2776837395,2776837398,2776837401,2776837402,888363838,888363844,888375474 because the cluster is too complex (parallel outgoing 114133914#1,272757340#2)
-Warning: Not joining junctions 2777153521,2777153528,2777153538,2777153562,2777153567,2777153573,2777153582,2777153591,2777153598 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 28373970,28373972,2882261426,540698421 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 610319158,610319162 because the cluster is too complex (parallel incoming 123074181#4,182814027#8)
+Warning: Not joining junctions 27410698,2882261442,2894540717,2894540718,3153662368 because the cluster is too complex (5 incoming edges)
+Warning: Not joining junctions 27411228,588181343,860313203 because the cluster is too complex (5 incoming edges)
+Warning: Not joining junctions 28373970,28373972,2882261426 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 2894540722,2894540724 because the cluster is too complex (parallel incoming -285825373,-285825375)
 Warning: Not joining junctions 29192958,3378459483 because the cluster is too complex (parallel incoming 122820534#1,330840136)
-Warning: Not joining junctions 29215071,694599256,694599259 because the cluster is too complex (parallel outgoing 170077662#5,23443935#1)
-Warning: Not joining junctions 29219452,3179627077 because the cluster is too complex (parallel incoming 195407522,312127196#0)
-Warning: Not joining junctions 2933657337,3179614625 because the cluster is too complex (parallel incoming 289830408,312126779#0)
-Warning: Not joining junctions 2959830775,3343070503,3343070506,3343070507 because the cluster is too complex (parallel incoming -292429062#1,327519012#3)
-Warning: Not joining junctions 2959830776,3343070513,3343070514,3343070515,3343070517,3343070518 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 30731492,311264847,588181297,588181300,588181302,617915219,617915220,735132786,735132792 because the cluster is too complex (7 incoming edges)
-Warning: Not joining junctions 3148263649,3157319028,3183974420 because the cluster is too complex (parallel incoming 309489394#0,310313888#1)
-Warning: Not joining junctions 3157327720,677188172 because the cluster is too complex (parallel incoming 310186556#0,310314582#0)
-Warning: Not joining junctions 3183974424,3183974425 because the cluster is too complex (parallel incoming 310313888#0,312362360#0)
-Warning: Not joining junctions 3343070508,3343070509 because the cluster is too complex (parallel incoming -292429062#2,327519012#2)
-Warning: Not joining junctions 3343070511,3343070512,3343070516 because the cluster is too complex (parallel outgoing -24242892#2,327519012#0)
-Warning: Not joining junctions 588181295,617915216 because the cluster is too complex (parallel incoming 182814027#2,46140378)
-Warning: Not joining junctions 735963263,735963264 because the cluster is too complex (parallel incoming 194962398#1,48164817#1)
-Warning: Not joining junctions 615143503,615143506 because the cluster is too complex (parallel incoming 54618192#0,59286188#0)
-Warning: Not joining junctions 615143680,615144090,615144092 because the cluster is too complex (parallel incoming 59286182#0,59286188#1)
-Warning: Not joining junctions 652771224,652771226,652771253,652771254 because the cluster is too complex (parallel incoming 181587286#0,51234180#1)
-Warning: Not joining junctions 652787431,652787433 because the cluster is too complex (parallel incoming 23852053#0,51167932#0)
-Warning: Not joining junctions 694599269,694599277 because the cluster is too complex (parallel incoming 170077662#5,23443935#1)
+Warning: Not joining junctions 30731492,311264846,588181297,588181300,588181302 because the cluster is too complex (parallel outgoing 153522299#1,46140393)
+Warning: Not joining junctions 311264847,735132786,735132792,735132793 because the cluster is too complex (parallel outgoing 143931935,46140376#1)
 Warning: Ambiguity in turnarounds computation at node '1130114721'.
 Warning: Ambiguity in turnarounds computation at node '1206481791'.
 Warning: Ambiguity in turnarounds computation at node '1206481808'.
 Warning: Ambiguity in turnarounds computation at node '1349696695'.
 Warning: Ambiguity in turnarounds computation at node '1350637319'.
 Warning: Ambiguity in turnarounds computation at node '1365292207'.
+Warning: Ambiguity in turnarounds computation at node '1635318761'.
+Warning: Ambiguity in turnarounds computation at node '1635318763'.
 Warning: Ambiguity in turnarounds computation at node '1635318765'.
 Warning: Ambiguity in turnarounds computation at node '1635318767'.
 Warning: Ambiguity in turnarounds computation at node '196721246'.
@@ -171,10 +87,13 @@ Warning: Ambiguity in turnarounds computation at node '2739143323'.
 Warning: Ambiguity in turnarounds computation at node '27411228'.
 Warning: Ambiguity in turnarounds computation at node '27411229'.
 Warning: Ambiguity in turnarounds computation at node '29192127'.
+Warning: Ambiguity in turnarounds computation at node '348454857'.
 Warning: Ambiguity in turnarounds computation at node '540971896'.
 Warning: Ambiguity in turnarounds computation at node '588181343'.
 Warning: Ambiguity in turnarounds computation at node '740379739'.
 Warning: Ambiguity in turnarounds computation at node '98976234'.
+Warning: Ambiguity in turnarounds computation at node 'cluster_1264074482_1876468344_25665883_29219439_961875299_961984568_961984577_961984592'.
+Warning: Ambiguity in turnarounds computation at node 'cluster_262469634_29219441_961875301_961875308_961875311_961984606'.
 Warning: Found angle of 121.15 degrees at edge -194073678#1, segment 0
 Warning: Found sharp turn with radius 7.15 at the end of edge -194167259#1
 Warning: Found sharp turn with radius 3.54 at the start of edge -195071823
@@ -242,6 +161,7 @@ Warning: Found sharp turn with radius 2.81 at the end of edge 272795506#1
 Warning: Found sharp turn with radius 5.69 at the start of edge 274513575#1
 Warning: Found sharp turn with radius 2.51 at the start of edge 274513577#0
 Warning: Found sharp turn with radius 4.51 at the end of edge 274513581#1
+Warning: Found sharp turn with radius 7.07 at the start of edge 286414597
 Warning: Found angle of 142.73 degrees at edge 286653196#1, segment 2
 Warning: Found angle of 134.25 degrees at edge 286653196#2, segment 0
 Warning: Found angle of 109.30 degrees at edge 304517627#0, segment 0
@@ -266,6 +186,7 @@ Warning: Found sharp turn with radius 2.59 at the end of edge 37629773
 Warning: Found sharp turn with radius 6.54 at the end of edge 43185669#1
 Warning: Found sharp turn with radius 7.88 at the start of edge 48095234
 Warning: Found sharp turn with radius 3.94 at the start of edge 48524801#1
+Warning: Found sharp turn with radius 7.39 at the start of edge 48524801#2
 Warning: Found angle of 103.60 degrees at edge 51167561#2, segment 0
 Warning: Found sharp turn with radius 4.85 at the start of edge 54618192#1
 Warning: Found angle of 111.03 degrees at edge 54618192#1, segment 1
@@ -318,16 +239,22 @@ Warning: Junction shape for '2095738463' has distance 21.77 to its given positio
 Warning: Junction shape for '29805117' has distance 34.90 to its given position
 Warning: Junction shape for '30731520' has distance 20.72 to its given position
 Warning: Junction shape for '3091127668' has distance 24.80 to its given position
-Warning: The traffic light '1275468905' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '1275468905'
-Warning: The traffic light '1275468907' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '1275468907'
+Warning: The traffic light '160503146' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '160503146'
+Warning: The traffic light '1827996421' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1827996421'
+Warning: The traffic light '1828018094' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1828018094'
+Warning: The traffic light '1828018095' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1828018095'
 Warning: The traffic light '21487161' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '21487161'
 Warning: The traffic light '21487180' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '21487180'
 Warning: The traffic light '21487209' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '21487209'
+Warning: The traffic light '21487210' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '21487210'
 Warning: The traffic light '21487242' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '21487242'
 Warning: The traffic light '25662552' does not control any links; it will not be build.
@@ -336,76 +263,114 @@ Warning: The traffic light '25664680' does not control any links; it will not be
 Warning: Could not build program '0' for traffic light '25664680'
 Warning: The traffic light '25665636' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '25665636'
-Warning: The traffic light '258045541' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '258045541'
-Warning: The traffic light '258127854' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '258127854'
 Warning: The traffic light '25954547' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '25954547'
+Warning: The traffic light '262469034' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '262469034'
 Warning: The traffic light '262818920' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '262818920'
+Warning: The traffic light '266540882' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '266540882'
+Warning: The traffic light '27411250' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '27411250'
 Warning: The traffic light '28373974' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '28373974'
-Warning: The traffic light '29194675' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '29194675'
+Warning: The traffic light '29123671' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '29123671'
+Warning: The traffic light '29123672' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '29123672'
 Warning: The traffic light '29219437' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '29219437'
 Warning: The traffic light '29219440' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '29219440'
-Warning: The traffic light '29219465' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '29219465'
-Warning: The traffic light '526812433' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '526812433'
+Warning: The traffic light '29221504' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '29221504'
+Warning: The traffic light '29221506' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '29221506'
+Warning: The traffic light '3155751072' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '3155751072'
+Warning: The traffic light '3155751073' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '3155751073'
+Warning: The traffic light '3204786099' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '3204786099'
+Warning: The traffic light '392182854' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '392182854'
+Warning: The traffic light '52151282' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '52151282'
 Warning: The traffic light '538795142' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '538795142'
 Warning: The traffic light '677136755' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '677136755'
+Warning: The traffic light '961807409' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '961807409'
+Warning: The traffic light '961807418' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '961807418'
+Warning: The traffic light '961875299' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '961875299'
+Warning: The traffic light '961875301' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '961875301'
+Warning: The traffic light '961875308' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '961875308'
+Warning: The traffic light '961875311' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '961875311'
+Warning: The traffic light '961984568' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '961984568'
+Warning: The traffic light '961984577' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '961984577'
+Warning: The traffic light '961984592' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '961984592'
+Warning: The traffic light '961984606' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '961984606'
+Warning: The traffic light '967017877' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '967017877'
 Warning: The traffic light 'GS_1275468904' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'GS_1275468904'
 Warning: The traffic light 'GS_2425782615' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'GS_2425782615'
-Warning: The traffic light 'GS_cluster_1448294081_2900797856_440880501' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'GS_cluster_1448294081_2900797856_440880501'
-Warning: The traffic light 'joinedS_12' has a high cycle time of 210.00.
-Warning: The traffic light 'joinedS_13' has a high cycle time of 210.00.
-Warning: The traffic light 'joinedS_2' has a high cycle time of 210.00.
+Warning: The traffic light 'joinedS_1' has a high cycle time of 160.00.
+Warning: The traffic light 'joinedS_11' has a high cycle time of 160.00.
+Warning: The traffic light 'joinedS_8' has a high cycle time of 175.00.
 Warning: Connection '148458495_0->148457212#0_0' is only 0.07 short.
 Warning: Connection '196844848_0->25946685#2_0' is only 0.09 short.
 Warning: Connection '196844845_0->29384660#1_0' is only 0.09 short.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
-Warning: No connection between '4612427#1' and '109902441#0' found.
-Warning: Mandatory edge '109902441#0' not reachable by vehicle 'veh35'.
-Warning: The vehicle 'veh35' has no valid route.
-Warning: No connection between '19801618#0' and '-4612976#0' found.
-Warning: Mandatory edge '-4612976#0' not reachable by vehicle 'veh39'.
-Warning: The vehicle 'veh39' has no valid route.
-Warning: No connection between '326116285#1' and '-23852056' found.
-Warning: Mandatory edge '-23852056' not reachable by vehicle 'veh65'.
-Warning: The vehicle 'veh65' has no valid route.
-Warning: No connection between '23443935#1' and '288726033#2' found.
-Warning: Mandatory edge '288726033#2' not reachable by vehicle 'veh110'.
-Warning: The vehicle 'veh110' has no valid route.
-Warning: No connection between '23443935#0' and '246044848#2' found.
-Warning: Mandatory edge '246044848#2' not reachable by vehicle 'veh113'.
-Warning: The vehicle 'veh113' has no valid route.
-Warning: No connection between '-22954356#3' and '-234463925#0' found.
-Warning: Mandatory edge '-234463925#0' not reachable by vehicle 'veh129'.
+Warning: The traffic light 'dummy' has a high cycle time of 136.00.
+Warning: No connection between '4592725#1' and '24540242#1' found.
+Warning: Mandatory edge '24540242#1' not reachable by vehicle 'veh16'.
+Warning: The vehicle 'veh16' has no valid route.
+Warning: No connection between '-310176513#2' and '-23852056' found.
+Warning: Mandatory edge '-23852056' not reachable by vehicle 'veh79'.
+Warning: The vehicle 'veh79' has no valid route.
+Warning: No connection between '51167934#3' and '236092221#0' found.
+Warning: Mandatory edge '236092221#0' not reachable by vehicle 'veh80'.
+Warning: The vehicle 'veh80' has no valid route.
+Warning: No connection between '18997847#0' and '54781811#1' found.
+Warning: Mandatory edge '54781811#1' not reachable by vehicle 'veh112'.
+Warning: The vehicle 'veh112' has no valid route.
+Warning: No connection between '-22954356#1' and '-234463925#0' found.
+Warning: Mandatory edge '-234463925#0' not reachable by vehicle 'veh126'.
+Warning: The vehicle 'veh126' has no valid route.
+Warning: No connection between '29383966' and '-43159545#0' found.
+Warning: Mandatory edge '-43159545#0' not reachable by vehicle 'veh129'.
 Warning: The vehicle 'veh129' has no valid route.
-Warning: No connection between '-23443935#1' and '-23852056' found.
-Warning: Mandatory edge '-23852056' not reachable by vehicle 'veh144'.
-Warning: The vehicle 'veh144' has no valid route.
-Warning: No connection between '19001381#2' and '-168940071#2' found.
-Warning: Mandatory edge '-168940071#2' not reachable by vehicle 'veh207'.
+Warning: No connection between '-326116285#1' and '4610354#1' found.
+Warning: Mandatory edge '4610354#1' not reachable by vehicle 'veh154'.
+Warning: The vehicle 'veh154' has no valid route.
+Warning: No connection between '24913304#1' and '111251382#0' found.
+Warning: Mandatory edge '111251382#0' not reachable by vehicle 'veh174'.
+Warning: The vehicle 'veh174' has no valid route.
+Warning: No connection between '4592725#2' and '22954356#3' found.
+Warning: Mandatory edge '22954356#3' not reachable by vehicle 'veh207'.
 Warning: The vehicle 'veh207' has no valid route.
-Warning: No connection between '23443935#1' and '66071366#0' found.
-Warning: Mandatory edge '66071366#0' not reachable by vehicle 'veh211'.
-Warning: The vehicle 'veh211' has no valid route.
-Warning: No connection between '169195795#1' and '-23852056' found.
-Warning: Mandatory edge '-23852056' not reachable by vehicle 'veh238'.
-Warning: The vehicle 'veh238' has no valid route.
-Warning: No connection between '-22954356#3' and '18998324' found.
-Warning: Mandatory edge '18998324' not reachable by vehicle 'veh242'.
-Warning: The vehicle 'veh242' has no valid route.
+Warning: No connection between '-43159545#1' and '24914141#2' found.
+Warning: Mandatory edge '24914141#2' not reachable by vehicle 'veh210'.
+Warning: The vehicle 'veh210' has no valid route.
+Warning: No connection between '-22954356#3' and '189792572#1' found.
+Warning: Mandatory edge '189792572#1' not reachable by vehicle 'veh236'.
+Warning: The vehicle 'veh236' has no valid route.
+Warning: No connection between '24243107#3' and '43164692' found.
+Warning: Mandatory edge '43164692' not reachable by vehicle 'veh244'.
+Warning: The vehicle 'veh244' has no valid route.
 Warning: No connection between '252254904#0' and '196844844' found.
 Warning: Mandatory edge '196844844' not reachable by vehicle 'urban0'.
 Warning: The vehicle 'urban0' has no valid route.
@@ -661,115 +626,90 @@ Warning: The vehicle 'urban96' has no valid route.
 Warning: No connection between '199847339' and '237751551#1' found.
 Warning: Mandatory edge '237751551#1' not reachable by vehicle 'urban97'.
 Warning: The vehicle 'urban97' has no valid route.
-Warning: No connection between '-51167934#3' and '-23852056' found.
-Warning: Mandatory edge '-23852056' not reachable by vehicle 'bike11'.
-Warning: The vehicle 'bike11' has no valid route.
-Warning: No connection between '4403559#1' and '236092221#0' found.
-Warning: Mandatory edge '236092221#0' not reachable by vehicle 'bike18'.
-Warning: The vehicle 'bike18' has no valid route.
-Warning: No connection between '262408058' and '-145279489#0' found.
-Warning: Mandatory edge '-145279489#0' not reachable by vehicle 'bike20'.
-Warning: The vehicle 'bike20' has no valid route.
-Warning: No connection between '194952586#1' and '25086769' found.
-Warning: Mandatory edge '25086769' not reachable by vehicle 'bike31'.
-Warning: The vehicle 'bike31' has no valid route.
-Warning: No connection between '98749939#4' and '194167247#1' found.
-Warning: Mandatory edge '194167247#1' not reachable by vehicle 'bike48'.
-Warning: The vehicle 'bike48' has no valid route.
-Warning: No connection between '-110676319' and '291542560' found.
-Warning: Mandatory edge '291542560' not reachable by vehicle 'bike50'.
-Warning: The vehicle 'bike50' has no valid route.
-Warning: No connection between '310313888#0' and '194952586#1' found.
-Warning: Mandatory edge '194952586#1' not reachable by vehicle 'bike60'.
+Warning: No connection between '34848160#0' and '26322535#1' found.
+Warning: Mandatory edge '26322535#1' not reachable by vehicle 'bike10'.
+Warning: The vehicle 'bike10' has no valid route.
+Warning: No connection between '-176043822#2' and '-194167259#0' found.
+Warning: Mandatory edge '-194167259#0' not reachable by vehicle 'bike13'.
+Warning: The vehicle 'bike13' has no valid route.
+Warning: No connection between '4610355#0' and '226046736' found.
+Warning: Mandatory edge '226046736' not reachable by vehicle 'bike14'.
+Warning: The vehicle 'bike14' has no valid route.
+Warning: No connection between '18997847#0' and '81112790#1' found.
+Warning: Mandatory edge '81112790#1' not reachable by vehicle 'bike16'.
+Warning: The vehicle 'bike16' has no valid route.
+Warning: No connection between '23813206#0' and '194952586#1' found.
+Warning: Mandatory edge '194952586#1' not reachable by vehicle 'bike7'.
+Warning: The vehicle 'bike7' has no valid route.
+Warning: No connection between '-26322535#3' and '60333311#1' found.
+Warning: Mandatory edge '60333311#1' not reachable by vehicle 'bike35'.
+Warning: The vehicle 'bike35' has no valid route.
+Warning: No connection between '194952586#0' and '-4402228' found.
+Warning: Mandatory edge '-4402228' not reachable by vehicle 'bike40'.
+Warning: The vehicle 'bike40' has no valid route.
+Warning: No connection between '-194167255#1' and '237206972' found.
+Warning: Mandatory edge '237206972' not reachable by vehicle 'bike45'.
+Warning: The vehicle 'bike45' has no valid route.
+Warning: No connection between '246052428' and '194167254' found.
+Warning: Mandatory edge '194167254' not reachable by vehicle 'bike51'.
+Warning: The vehicle 'bike51' has no valid route.
+Warning: No connection between '-194167259#1' and '143201752' found.
+Warning: Mandatory edge '143201752' not reachable by vehicle 'bike53'.
+Warning: The vehicle 'bike53' has no valid route.
+Warning: No connection between '310176513#2' and '194167259#1' found.
+Warning: Mandatory edge '194167259#1' not reachable by vehicle 'bike60'.
 Warning: The vehicle 'bike60' has no valid route.
-Warning: No connection between '316746323#1' and '194167250' found.
-Warning: Mandatory edge '194167250' not reachable by vehicle 'bike61'.
-Warning: The vehicle 'bike61' has no valid route.
-Warning: No connection between '-48536047' and '202157003#1' found.
-Warning: Mandatory edge '202157003#1' not reachable by vehicle 'bike78'.
-Warning: The vehicle 'bike78' has no valid route.
-Warning: No connection between '272795478_fwd_connector' and '-143201755#1_bwd_connector' found.
-Warning: No connection found between '272795478' and '-143201755#1' for person 'ped0'.
-Warning: Discarding person 'ped0' because it's plan is empty
-Warning: No connection between '88462842#16_fwd_connector' and '272795480_bwd_connector' found.
-Warning: No connection found between '88462842#16' and '272795480' for person 'ped27'.
-Warning: Discarding person 'ped27' because it's plan is empty
-Warning: No connection between '272795506#1_fwd_connector' and '196845298#1_bwd_connector' found.
-Warning: No connection found between '272795506#1' and '196845298#1' for person 'ped33'.
-Warning: Discarding person 'ped33' because it's plan is empty
-Warning: No connection between '-24241797#0_fwd_connector' and '-184605944_bwd_connector' found.
-Warning: No connection found between '-24241797#0' and '-184605944' for person 'ped40'.
-Warning: Discarding person 'ped40' because it's plan is empty
-Warning: No connection between '168940071#1_fwd_connector' and '272795477_bwd_connector' found.
-Warning: No connection found between '168940071#1' and '272795477' for person 'ped52'.
-Warning: Discarding person 'ped52' because it's plan is empty
-Warning: No connection between '88462861#1_fwd_connector' and '272795501#1_bwd_connector' found.
-Warning: No connection found between '88462861#1' and '272795501#1' for person 'ped66'.
-Warning: Discarding person 'ped66' because it's plan is empty
-Warning: No connection between '88462827_fwd_connector' and '-246011391#2_bwd_connector' found.
-Warning: No connection found between '88462827' and '-246011391#2' for person 'ped82'.
-Warning: Discarding person 'ped82' because it's plan is empty
-Warning: No connection between '194962380#1_fwd_connector' and '88462834_bwd_connector' found.
-Warning: No connection found between '194962380#1' and '88462834' for person 'ped95'.
-Warning: Discarding person 'ped95' because it's plan is empty
-Warning: No connection between '230969739_fwd_connector' and '202157021#1_bwd_connector' found.
-Warning: No connection found between '230969739' and '202157021#1' for person 'ped96'.
-Warning: Discarding person 'ped96' because it's plan is empty
-Warning: No connection between '82168039_fwd_connector' and '88462862_bwd_connector' found.
-Warning: No connection found between '82168039' and '88462862' for person 'ped97'.
-Warning: Discarding person 'ped97' because it's plan is empty
-Warning: No connection between '-199579022_fwd_connector' and '231716555_bwd_connector' found.
-Warning: No connection found between '-199579022' and '231716555' for person 'ped115'.
-Warning: Discarding person 'ped115' because it's plan is empty
-Warning: No connection between '272757340#1_fwd_connector' and '88462842#0_bwd_connector' found.
-Warning: No connection found between '272757340#1' and '88462842#0' for person 'ped122'.
-Warning: Discarding person 'ped122' because it's plan is empty
-Warning: No connection between '30826268#1_fwd_connector' and '104991252_bwd_connector' found.
-Warning: No connection found between '30826268#1' and '104991252' for person 'ped128'.
-Warning: Discarding person 'ped128' because it's plan is empty
-Warning: No connection between '4611707_fwd_connector' and '-24242892#0_bwd_connector' found.
-Warning: No connection found between '4611707' and '-24242892#0' for person 'ped131'.
-Warning: Discarding person 'ped131' because it's plan is empty
-Warning: No connection between '46140376#0_fwd_connector' and '88361597#0_bwd_connector' found.
-Warning: No connection found between '46140376#0' and '88361597#0' for person 'ped148'.
-Warning: Discarding person 'ped148' because it's plan is empty
-Warning: No connection between '43231842_fwd_connector' and '48095588#1_bwd_connector' found.
-Warning: No connection found between '43231842' and '48095588#1' for person 'ped149'.
+Warning: No connection between '131505633#0' and '-304987178#0' found.
+Warning: Mandatory edge '-304987178#0' not reachable by vehicle 'bike72'.
+Warning: The vehicle 'bike72' has no valid route.
+Warning: No connection between '35269774#0' and '-26322535#1' found.
+Warning: Mandatory edge '-26322535#1' not reachable by vehicle 'bike87'.
+Warning: The vehicle 'bike87' has no valid route.
+Warning: No connection between '194167257_fwd_connector' and '111833185#1_bwd_connector' found.
+Warning: No connection found between '194167257' and '111833185#1' for person 'ped23'.
+Warning: Discarding person 'ped23' because it's plan is empty
+Warning: No connection between '88462842#16_fwd_connector' and '272780762#1_bwd_connector' found.
+Warning: No connection found between '88462842#16' and '272780762#1' for person 'ped28'.
+Warning: Discarding person 'ped28' because it's plan is empty
+Warning: No connection between '-195088845_fwd_connector' and '195088659_bwd_connector' found.
+Warning: No connection found between '-195088845' and '195088659' for person 'ped44'.
+Warning: Discarding person 'ped44' because it's plan is empty
+Warning: No connection between '230969739_fwd_connector' and '73310499#0_bwd_connector' found.
+Warning: No connection found between '230969739' and '73310499#0' for person 'ped50'.
+Warning: Discarding person 'ped50' because it's plan is empty
+Warning: No connection between '88462861#1_fwd_connector' and '272795499#0_bwd_connector' found.
+Warning: No connection found between '88462861#1' and '272795499#0' for person 'ped69'.
+Warning: Discarding person 'ped69' because it's plan is empty
+Warning: No connection between '225400600_fwd_connector' and '24992424#1_bwd_connector' found.
+Warning: No connection found between '225400600' and '24992424#1' for person 'ped70'.
+Warning: Discarding person 'ped70' because it's plan is empty
+Warning: No connection between '88462827_fwd_connector' and '-24992424#0_bwd_connector' found.
+Warning: No connection found between '88462827' and '-24992424#0' for person 'ped85'.
+Warning: Discarding person 'ped85' because it's plan is empty
+Warning: No connection between '194962998#0_fwd_connector' and '88462834_bwd_connector' found.
+Warning: No connection found between '194962998#0' and '88462834' for person 'ped98'.
+Warning: Discarding person 'ped98' because it's plan is empty
+Warning: No connection between '194167254_fwd_connector' and '-4611713#0_bwd_connector' found.
+Warning: No connection found between '194167254' and '-4611713#0' for person 'ped123'.
+Warning: Discarding person 'ped123' because it's plan is empty
+Warning: No connection between '272757340#0_fwd_connector' and '88462842#0_bwd_connector' found.
+Warning: No connection found between '272757340#0' and '88462842#0' for person 'ped125'.
+Warning: Discarding person 'ped125' because it's plan is empty
+Warning: No connection between '199426768#0_fwd_connector' and '272757349#1_bwd_connector' found.
+Warning: No connection found between '199426768#0' and '272757349#1' for person 'ped149'.
 Warning: Discarding person 'ped149' because it's plan is empty
-Warning: No connection between '237519485_fwd_connector' and '51234181#1_bwd_connector' found.
-Warning: No connection found between '237519485' and '51234181#1' for person 'ped184'.
-Warning: Discarding person 'ped184' because it's plan is empty
-Warning: No connection between '272780754#0_fwd_connector' and '172283961_bwd_connector' found.
-Warning: No connection found between '272780754#0' and '172283961' for person 'ped187'.
-Warning: Discarding person 'ped187' because it's plan is empty
-Warning: No connection between '4612961_fwd_connector' and '-199579022_bwd_connector' found.
-Warning: No connection found between '4612961' and '-199579022' for person 'ped192'.
-Warning: Discarding person 'ped192' because it's plan is empty
-Warning: No connection between '272810803_fwd_connector' and '-111251382#0_bwd_connector' found.
-Warning: No connection found between '272810803' and '-111251382#0' for person 'ped196'.
-Warning: Discarding person 'ped196' because it's plan is empty
-Warning: No connection between '274513575#0_fwd_connector' and '88462842#11_bwd_connector' found.
-Warning: No connection found between '274513575#0' and '88462842#11' for person 'ped203'.
-Warning: Discarding person 'ped203' because it's plan is empty
-Warning: Teleporting vehicle 'veh31'; waited too long (yield), lane='82654059#0_3', time=970.00.
-Warning: Vehicle 'veh31' ends teleporting on edge '82654059#2', time 970.00.
-Warning: Teleporting vehicle 'veh145'; waited too long (wrong lane), lane='4612964#2_3', time=975.00.
-Warning: Vehicle 'veh145' ends teleporting on edge '24992428', time 975.00.
-Warning: Teleporting vehicle 'veh147'; waited too long (yield), lane='4612964#0_3', time=976.00.
-Warning: Vehicle 'veh147' ends teleporting on edge '24992428', time 978.00.
-Warning: Teleporting vehicle 'veh167'; waited too long (yield), lane='4612964#0_3', time=999.00.
-Warning: Vehicle 'veh167' ends teleporting on edge '24992428', time 1001.00.
-Warning: Teleporting vehicle 'veh187'; waited too long (yield), lane='4612964#0_3', time=1011.00.
-Warning: Vehicle 'veh187' ends teleporting on edge '24992428', time 1013.00.
-Warning: Teleporting vehicle 'veh191'; waited too long (yield), lane='4612964#0_3', time=1047.00.
-Warning: Vehicle 'veh191' ends teleporting on edge '24992428', time 1049.00.
-Warning: Teleporting vehicle 'bike64'; waited too long (yield), lane='82649618#1_1', time=1145.00.
-Warning: Vehicle 'bike64' ends teleporting on edge '82649618#3', time 1145.00.
-Warning: Teleporting vehicle 'veh212'; waited too long (yield), lane='4612964#0_3', time=1176.00.
-Warning: Vehicle 'veh212' ends teleporting on edge '24992428', time 1178.00.
-Warning: Teleporting vehicle 'veh79'; waited too long (yield), lane='4612964#0_4', time=1180.00.
-Warning: Vehicle 'veh79' ends teleporting on edge '4612964#2', time 1180.00.
-Warning: Teleporting vehicle 'veh78'; waited too long (yield), lane='4612964#0_4', time=1485.00.
-Warning: Vehicle 'veh78' ends teleporting on edge '4612964#2', time 1485.00.
-Warning: Teleporting vehicle 'veh118'; waited too long (yield), lane='82654059#0_3', time=2020.00.
-Warning: Vehicle 'veh118' ends teleporting on edge '82654059#2', time 2020.00.
+Warning: No connection between '4613299#1_fwd_connector' and '88361597#0_bwd_connector' found.
+Warning: No connection found between '4613299#1' and '88361597#0' for person 'ped151'.
+Warning: Discarding person 'ped151' because it's plan is empty
+Warning: No connection between '172283961_fwd_connector' and '59636538_bwd_connector' found.
+Warning: No connection found between '172283961' and '59636538' for person 'ped154'.
+Warning: Discarding person 'ped154' because it's plan is empty
+Warning: No connection between '272795478_fwd_connector' and '196850626#1_bwd_connector' found.
+Warning: No connection found between '272795478' and '196850626#1' for person 'ped165'.
+Warning: Discarding person 'ped165' because it's plan is empty
+Warning: No connection between '4611707_fwd_connector' and '-202157031#0_bwd_connector' found.
+Warning: No connection found between '4611707' and '-202157031#0' for person 'ped198'.
+Warning: Discarding person 'ped198' because it's plan is empty
+Warning: No connection between '274513565#1_fwd_connector' and '88462842#11_bwd_connector' found.
+Warning: No connection found between '274513565#1' and '88462842#11' for person 'ped209'.
+Warning: Discarding person 'ped209' because it's plan is empty

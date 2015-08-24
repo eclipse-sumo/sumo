@@ -403,6 +403,9 @@ NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {
             for (EdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
                 NBEdge* e = *j;
                 NBNode* s = 0;
+                if (e->getPermissions() == SVC_PEDESTRIAN) {
+                    continue; // do not join pedestrian stuff
+                }
                 if (n->hasIncoming(e)) {
                     s = e->getFromNode();
                 } else {
@@ -503,20 +506,39 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
         }
         // iteratively remove the fringe
         bool pruneFringe = true;
+        const SUMOReal pedestrianFringeThreshold = 1.0;
         while (pruneFringe) {
             pruneFringe = false;
             for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end();) {
                 std::set<NBNode*>::iterator check = j;
                 NBNode* n = *check;
                 ++j;
+
+                // compute clusterDist for node (length of shortest edge which connects this node to the cluster)
+                SUMOReal clusterDist = std::numeric_limits<SUMOReal>::max();
+                for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
+                    NBNode* neighbor = (*it_edge)->getToNode();
+                    if (cluster.count(neighbor) != 0) {
+                        clusterDist = MIN2(clusterDist, (*it_edge)->getLoadedLength());
+                    }
+                }
+                for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
+                    NBNode* neighbor = (*it_edge)->getFromNode();
+                    if (cluster.count(neighbor) != 0) {
+                        clusterDist = MIN2(clusterDist, (*it_edge)->getLoadedLength());
+                    }
+                }
                 // remove geometry-like nodes at fringe of the cluster
                 // (they have 1 neighbor in the cluster and at most 1 neighbor outside the cluster)
                 std::set<NBNode*> neighbors;
                 std::set<NBNode*> clusterNeigbors;
+                const SUMOReal pedestrianFringeThreshold = 1.0;
                 for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
                     NBNode* neighbor = (*it_edge)->getToNode();
                     if (cluster.count(neighbor) == 0) {
-                        neighbors.insert(neighbor);
+                        if ((*it_edge)->getPermissions() != SVC_PEDESTRIAN || clusterDist < pedestrianFringeThreshold) {
+                            neighbors.insert(neighbor);
+                        }
                     } else {
                         clusterNeigbors.insert(neighbor);
                     }
@@ -524,7 +546,9 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
                     NBNode* neighbor = (*it_edge)->getFromNode();
                     if (cluster.count(neighbor) == 0) {
-                        neighbors.insert(neighbor);
+                        if ((*it_edge)->getPermissions() != SVC_PEDESTRIAN || clusterDist < pedestrianFringeThreshold) {
+                            neighbors.insert(neighbor);
+                        }
                     } else {
                         clusterNeigbors.insert(neighbor);
                     }
@@ -562,14 +586,14 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 nodeIDs.push_back((*j)->getID());
                 for (EdgeVector::const_iterator it_edge = (*j)->getIncomingEdges().begin(); it_edge != (*j)->getIncomingEdges().end(); ++it_edge) {
                     NBEdge* edge = *it_edge;
-                    if (cluster.count(edge->getFromNode()) == 0) {
+                    if (cluster.count(edge->getFromNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
                         // incoming edge, does not originate in the cluster
                         finalIncomingAngles[edge->getID()] = edge->getAngleAtNode(edge->getToNode());
                     }
                 }
                 for (EdgeVector::const_iterator it_edge = (*j)->getOutgoingEdges().begin(); it_edge != (*j)->getOutgoingEdges().end(); ++it_edge) {
                     NBEdge* edge = *it_edge;
-                    if (cluster.count(edge->getToNode()) == 0) {
+                    if (cluster.count(edge->getToNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
                         // outgoing edge, does not end in the cluster
                         finalOutgoingAngles[edge->getID()] = edge->getAngleAtNode(edge->getFromNode());
                     }
