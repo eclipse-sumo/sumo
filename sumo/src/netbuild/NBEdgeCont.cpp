@@ -731,7 +731,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
             newEdge->addEdge2EdgeConnection(*j);
         }
     }
-    //  move lane2lane-connections
+    //  copy outgoing connections to the new edge
     unsigned int currLane = 0;
     for (i = edges.begin(); i != edges.end(); i++) {
         newEdge->moveOutgoingConnectionsFrom(*i, currLane);

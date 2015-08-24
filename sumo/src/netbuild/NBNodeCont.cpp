@@ -179,7 +179,7 @@ void
 NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     // magic values
     SUMOReal distanceThreshold = 7; // don't merge edges further apart
-    SUMOReal lengthThreshold = 0.05; // don't merge edges with higher relative length-difference
+    SUMOReal lengthThreshold = 0.10; // don't merge edges with higher relative length-difference
 
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         // count the edges to other nodes outgoing from the current node
@@ -209,8 +209,8 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
                 const SUMOReal relativeLengthDifference = fabs(first->getLoadedLength() - (*jci)->getLoadedLength()) / first->getLoadedLength();
                 if ((!first->isNearEnough2BeJoined2(*jci, distanceThreshold)) ||
                         (relativeLengthDifference > lengthThreshold) ||
-                        (first->getSpeed() != (*jci)->getSpeed())
-                        // @todo check vclass
+                        (fabs(first->getSpeed() - (*jci)->getSpeed()) >= 0.01) || // output accuracy
+                        (first->getPermissions() != (*jci)->getPermissions())
                    ) {
                     break;
                 }

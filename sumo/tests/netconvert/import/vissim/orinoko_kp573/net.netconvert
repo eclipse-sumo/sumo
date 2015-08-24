@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 18 13:15:08 2015 by SUMO netconvert Version dev-SVN-r18647I
+<!-- generated on Mon Aug 24 13:09:12 2015 by SUMO netconvert Version dev-SVN-r18706I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -573,10 +573,9 @@
         <request index="16" response="01000000100000000" foes="01000000100001100"/>
     </junction>
     <junction id="605000046" type="priority" x="979.50" y="2619.09" incLanes="1000702[0]_0 1000702[0]_1" intLanes="" shape="983.83,2614.75 977.50,2613.29 976.10,2615.56 982.71,2622.80">
-        <request index="0" response="0000" foes="0000"/>
-        <request index="1" response="0000" foes="0000"/>
-        <request index="2" response="0000" foes="0000"/>
-        <request index="3" response="0000" foes="0000"/>
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="605000047" type="priority" x="1080.26" y="2826.89" incLanes="1000705[0]_0" intLanes="" shape="1079.58,2828.50 1081.90,2826.30 1078.39,2820.60 1076.06,2822.79 1075.85,2822.97 1073.65,2825.29">
         <request index="0" response="00" foes="00"/>
@@ -598,7 +597,6 @@
     <connection from="1000700" to="34" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1000700" to="34" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="1000702[0]" to="1000702[1]+1000701" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="1000702[0]" to="1000702[1]+1000701" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="1000702[0]" to="1000702[1]+1000701" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="1000702[0]" to="1000702[1]+1000701" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="1000702[1]+1000701" to="1000703" fromLane="0" toLane="0" tl="1" linkIndex="2" dir="r" state="o"/>
@@ -704,7 +702,7 @@
     <connection from="35" to="36" fromLane="1" toLane="2" dir="t" state="m"/>
     <connection from="36" to="1000714+1000713" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="36" to="1000714+1000713" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="36" to="1000714+1000713" fromLane="2" toLane="0" dir="s" state="M"/>
+    <connection from="36" to="1000714+1000713" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from="37" to="46" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="37" to="38" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="38" to="11" fromLane="0" toLane="0" dir="s" state="M"/>

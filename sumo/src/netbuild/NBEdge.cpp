@@ -930,11 +930,11 @@ NBEdge::invalidateConnections(bool reallowSetting) {
 
 void
 NBEdge::replaceInConnections(NBEdge* which, NBEdge* by, unsigned int laneOff) {
-    UNUSED_PARAMETER(laneOff);
     // replace in "_connectedEdges"
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         if ((*i).toEdge == which) {
             (*i).toEdge = by;
+            (*i).toLane += laneOff;
         }
     }
     // check whether it was the turn destination
