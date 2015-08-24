@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May  6 22:19:22 2015 by SUMO polyconvert Version dev-SVN-r18351
+<!-- generated on Mon Aug 24 09:24:46 2015 by SUMO polyconvert Version dev-SVN-r18698I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -21,6 +21,7 @@
 
     <processing>
         <all-attributes value="true"/>
+        <poi-layer-offset value="5"/>
     </processing>
 
     <report>
@@ -582,22 +583,22 @@
         <param key="name" value="Rutherfordstraße"/>
         <param key="postal_code" value="12489"/>
     </poly>
-    <poi id="1302791742" type="amenity.recycling" color="51,128,255" layer="-1.00" x="400033.49" y="5809626.94">
+    <poi id="1302791742" type="amenity.recycling" color="51,128,255" layer="4.00" x="400033.49" y="5809626.94">
         <param key="amenity" value="recycling"/>
     </poi>
-    <poi id="1302791743" type="amenity.bicycle_parking" color="51,128,255" layer="-1.00" x="400013.05" y="5809608.79">
+    <poi id="1302791743" type="amenity.bicycle_parking" color="51,128,255" layer="4.00" x="400013.05" y="5809608.79">
         <param key="amenity" value="bicycle_parking"/>
     </poi>
-    <poi id="1371616238" type="highway.turning_circle" color="51,128,255" layer="-1.00" x="399989.95" y="5809635.20">
+    <poi id="1371616238" type="highway.turning_circle" color="51,128,255" layer="4.00" x="399989.95" y="5809635.20">
         <param key="highway" value="turning_circle"/>
     </poi>
-    <poi id="1371616241" type="amenity.bicycle_parking" color="51,128,255" layer="-1.00" x="400012.91" y="5809705.89">
+    <poi id="1371616241" type="amenity.bicycle_parking" color="51,128,255" layer="4.00" x="400012.91" y="5809705.89">
         <param key="amenity" value="bicycle_parking"/>
     </poi>
-    <poi id="1371616242" type="amenity.bicycle_parking" color="51,128,255" layer="-1.00" x="399984.68" y="5809636.40">
+    <poi id="1371616242" type="amenity.bicycle_parking" color="51,128,255" layer="4.00" x="399984.68" y="5809636.40">
         <param key="amenity" value="bicycle_parking"/>
     </poi>
-    <poi id="317551933" type="amenity.restaurant" color="51,128,255" layer="-1.00" x="399952.58" y="5809755.59">
+    <poi id="317551933" type="amenity.restaurant" color="51,128,255" layer="4.00" x="399952.58" y="5809755.59">
         <param key="amenity" value="restaurant"/>
         <param key="contact:phone" value="+49-30-63926055"/>
         <param key="name" value="Caféteria Hummel"/>
@@ -605,12 +606,12 @@
         <param key="website" value="http://www.abr-berlin.de/"/>
         <param key="wheelchair" value="yes"/>
     </poi>
-    <poi id="38920751" type="highway.crossing" color="51,128,255" layer="-1.00" x="399998.11" y="5809814.36">
+    <poi id="38920751" type="highway.crossing" color="51,128,255" layer="4.00" x="399998.11" y="5809814.36">
         <param key="crossing" value="unmarked"/>
         <param key="highway" value="crossing"/>
         <param key="tactile_paving" value="yes"/>
     </poi>
-    <poi id="671564318" type="highway.crossing" color="51,128,255" layer="-1.00" x="400004.37" y="5809806.30">
+    <poi id="671564318" type="highway.crossing" color="51,128,255" layer="4.00" x="400004.37" y="5809806.30">
         <param key="crossing" value="unmarked"/>
         <param key="highway" value="crossing"/>
         <param key="tactile_paving" value="yes"/>

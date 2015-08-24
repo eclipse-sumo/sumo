@@ -187,6 +187,8 @@ fillOptions() {
     oc.doRegister("ignore-errors", new Option_Bool(false));
     oc.addDescription("ignore-errors", "Processing", "Continue on broken input");
 
+    oc.doRegister("poi-layer-offset", new Option_Float(0));
+    oc.addDescription("poi-layer-offset", "Processing", "Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)");
 
     // building defaults options
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
@@ -272,6 +274,9 @@ main(int argc, char** argv) {
             // !!! no proper error handling
             pruningBoundary = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.boundary"), "--prune.boundary", 0, ok);
             prune = true;
+        }
+        if (oc.isSet("osm-files") && oc.isDefault("poi-layer-offset")) {
+            oc.set("poi-layer-offset", "5"); // sufficient when using the default typemap
         }
 
         PCPolyContainer toFill(prune, pruningBoundary, oc.getStringVector("remove"));

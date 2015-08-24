@@ -56,6 +56,7 @@
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
         <all-attributes value="false" type="BOOL" help="Imports all attributes as key/value pairs"/>
         <ignore-errors value="false" type="BOOL" help="Continue on broken input"/>
+        <poi-layer-offset value="0" type="FLOAT" help="Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"/>
     </processing>
 
     <building_defaults>

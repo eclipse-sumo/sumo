@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r18401
+SUMO polyconvert Version dev-SVN-r18698I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
@@ -71,6 +71,8 @@ Processing Options:
   --offset.y FLOAT                 Adds FLOAT to net y-positions
   --all-attributes                 Imports all attributes as key/value pairs
   --ignore-errors                  Continue on broken input
+  --poi-layer-offset FLOAT         Adds FLOAT to the layer value for each poi
+                                     (i.e. to raise it above polygons)
 
 Building Defaults Options:
   --color STR                      Sets STR as default color
