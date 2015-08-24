@@ -333,6 +333,7 @@ private:
 
     /// @brief Definition of a node cluster container
     typedef std::vector<std::set<NBNode*> > NodeClusters;
+    typedef std::pair<NBNode*, SUMOReal> NodeAndDist;
 
 
     /** @brief Builds node clusters

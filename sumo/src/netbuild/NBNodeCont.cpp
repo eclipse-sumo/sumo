@@ -383,14 +383,16 @@ void
 NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {
     std::set<NBNode*> visited;
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        std::vector<NBNode*> toProc;
+        std::vector<NodeAndDist> toProc;
         if (visited.find((*i).second) != visited.end()) {
             continue;
         }
-        toProc.push_back((*i).second);
+        toProc.push_back(std::make_pair((*i).second, 0));
         std::set<NBNode*> c;
         while (!toProc.empty()) {
-            NBNode* n = toProc.back();
+            NodeAndDist nodeAndDist = toProc.back();
+            NBNode* n = nodeAndDist.first;
+            SUMOReal dist = nodeAndDist.second;
             toProc.pop_back();
             if (visited.find(n) != visited.end()) {
                 continue;
@@ -409,8 +411,12 @@ NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {
                 if (visited.find(s) != visited.end()) {
                     continue;
                 }
-                if (e->getLoadedLength() < maxDist) {
-                    toProc.push_back(s);
+                if (e->getLoadedLength() + dist < maxDist) {
+                    if (s->geometryLike()) {
+                        toProc.push_back(std::make_pair(s, dist + e->getLoadedLength()));
+                    } else {
+                        toProc.push_back(std::make_pair(s, 0));
+                    }
                 }
             }
         }
