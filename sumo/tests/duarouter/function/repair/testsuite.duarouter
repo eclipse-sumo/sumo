@@ -30,3 +30,6 @@ repair.to
 
 # no valid replacement edges are available
 repair.from_to_invalid
+
+# load a route distribution and try to repair it
+distribution
