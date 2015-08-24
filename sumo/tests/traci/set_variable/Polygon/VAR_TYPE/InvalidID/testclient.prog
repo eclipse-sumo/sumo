@@ -1,4 +1,4 @@
-simstep2 1
+simstep2 0
 setvalue 0xc8 0x4f xxx <string> new
-simstep2 2
+simstep2 0
 

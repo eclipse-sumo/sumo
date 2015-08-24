@@ -1,4 +1,4 @@
-simstep2 1
+simstep2 0
 getvariable 0xa1 0x10 4/1to3/1
 getvariable 0xa1 0x11 4/1to3/1
 getvariable 0xa1 0x12 4/1to3/1
