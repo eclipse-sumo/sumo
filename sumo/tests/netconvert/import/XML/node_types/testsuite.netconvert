@@ -16,3 +16,9 @@ allway_stop
 # explicitly unregulated
 unregulated
 rail_signal
+
+# explicitly unregulated
+waterway
+
+# explicitly unregulated
+waterway_explicit

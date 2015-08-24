@@ -231,6 +231,19 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
         if (n->myType != NODETYPE_UNKNOWN) {
             continue;
         }
+        // check whether the node is a waterway node. Set to unregulated by default
+        bool waterway = true;
+        for (EdgeVector::const_iterator i = n->getEdges().begin(); i != n->getEdges().end(); ++i) {
+            if (!isWaterway((*i)->getPermissions())) {
+                waterway = false;
+                break;
+            }
+        }
+        if (waterway && n->myType == NODETYPE_UNKNOWN) {
+            n->myType = NODETYPE_NOJUNCTION;
+            continue;
+        }
+
         // check whether the junction is not a real junction
         if (n->myIncomingEdges.size() == 1) {
             n->myType = NODETYPE_PRIORITY;
