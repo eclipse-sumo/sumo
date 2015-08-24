@@ -286,8 +286,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     if (myTryRepair) {
         if (myNewRoute) {
             delete myAlternatives[0];
-            myAlternatives.pop_back();
-            myAlternatives.push_back(current);
+            myAlternatives[0] = current;
         }
         const SUMOReal costs = router.recomputeCosts(current->getEdgeVector(), veh, begin);
         if (costs < 0) {
