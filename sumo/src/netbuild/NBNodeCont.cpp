@@ -576,95 +576,97 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
         for (std::set<NBNode*>::iterator j = toRemove.begin(); j != toRemove.end(); ++j) {
             cluster.erase(*j);
         }
-        if (cluster.size() > 1) {
-            // check for clusters which are to complex and probably won't work very well
-            // we count the incoming edges of the final junction
-            std::map<std::string, SUMOReal> finalIncomingAngles;
-            std::map<std::string, SUMOReal> finalOutgoingAngles;
-            std::vector<std::string> nodeIDs;
-            for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
-                nodeIDs.push_back((*j)->getID());
-                for (EdgeVector::const_iterator it_edge = (*j)->getIncomingEdges().begin(); it_edge != (*j)->getIncomingEdges().end(); ++it_edge) {
-                    NBEdge* edge = *it_edge;
-                    if (cluster.count(edge->getFromNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
-                        // incoming edge, does not originate in the cluster
-                        finalIncomingAngles[edge->getID()] = edge->getAngleAtNode(edge->getToNode());
-                    }
+        if (cluster.size() < 2) {
+            continue;
+        }
+        // check for clusters which are to complex and probably won't work very well
+        // we count the incoming edges of the final junction
+        std::map<std::string, SUMOReal> finalIncomingAngles;
+        std::map<std::string, SUMOReal> finalOutgoingAngles;
+        std::vector<std::string> nodeIDs;
+        for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
+            nodeIDs.push_back((*j)->getID());
+            for (EdgeVector::const_iterator it_edge = (*j)->getIncomingEdges().begin(); it_edge != (*j)->getIncomingEdges().end(); ++it_edge) {
+                NBEdge* edge = *it_edge;
+                if (cluster.count(edge->getFromNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
+                    // incoming edge, does not originate in the cluster
+                    finalIncomingAngles[edge->getID()] = edge->getAngleAtNode(edge->getToNode());
                 }
-                for (EdgeVector::const_iterator it_edge = (*j)->getOutgoingEdges().begin(); it_edge != (*j)->getOutgoingEdges().end(); ++it_edge) {
-                    NBEdge* edge = *it_edge;
-                    if (cluster.count(edge->getToNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
-                        // outgoing edge, does not end in the cluster
-                        finalOutgoingAngles[edge->getID()] = edge->getAngleAtNode(edge->getFromNode());
-                    }
-                }
-
             }
-            if (finalIncomingAngles.size() > 4) {
-                std::sort(nodeIDs.begin(), nodeIDs.end());
-                WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (" + toString(finalIncomingAngles.size()) + " incoming edges)");
-            } else {
-                // check for incoming parallel edges
-                const SUMOReal PARALLEL_INCOMING_THRESHOLD = 10.0;
-                bool foundParallel = false;
-                for (std::map<std::string, SUMOReal>::const_iterator j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
-                    std::map<std::string, SUMOReal>::const_iterator k = j;
-                    for (++k; k != finalIncomingAngles.end() && !foundParallel; ++k) {
-                        if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
-                            WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel incoming "
-                                          + j->first + "," + k->first + ")");
-                            foundParallel = true;
-                        }
+            for (EdgeVector::const_iterator it_edge = (*j)->getOutgoingEdges().begin(); it_edge != (*j)->getOutgoingEdges().end(); ++it_edge) {
+                NBEdge* edge = *it_edge;
+                if (cluster.count(edge->getToNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
+                    // outgoing edge, does not end in the cluster
+                    finalOutgoingAngles[edge->getID()] = edge->getAngleAtNode(edge->getFromNode());
+                }
+            }
+
+        }
+        if (finalIncomingAngles.size() > 4) {
+            std::sort(nodeIDs.begin(), nodeIDs.end());
+            WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (" + toString(finalIncomingAngles.size()) + " incoming edges)");
+            continue;
+        }
+        // check for incoming parallel edges
+        const SUMOReal PARALLEL_INCOMING_THRESHOLD = 10.0;
+        bool foundParallel = false;
+        for (std::map<std::string, SUMOReal>::const_iterator j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
+            std::map<std::string, SUMOReal>::const_iterator k = j;
+            for (++k; k != finalIncomingAngles.end() && !foundParallel; ++k) {
+                if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
+                    WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel incoming "
+                            + j->first + "," + k->first + ")");
+                    foundParallel = true;
+                }
+            }
+        }
+        // check for outgoing parallel edges
+        for (std::map<std::string, SUMOReal>::const_iterator j = finalOutgoingAngles.begin(); j != finalOutgoingAngles.end() && !foundParallel; ++j) {
+            std::map<std::string, SUMOReal>::const_iterator k = j;
+            for (++k; k != finalOutgoingAngles.end() && !foundParallel; ++k) {
+                if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
+                    WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing "
+                            + j->first + "," + k->first + ")");
+                    foundParallel = true;
+                }
+            }
+        }
+        if (foundParallel) {
+            continue;
+        }
+        // compute all connected components of this cluster
+        // (may be more than 1 if intermediate nodes were removed)
+        NodeClusters components;
+        for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end(); ++j) {
+            // merge all connected components into newComp
+            std::set<NBNode*> newComp;
+            NBNode* current = *j;
+            //std::cout << "checking connectivity for " << current->getID() << "\n";
+            newComp.insert(current);
+            for (NodeClusters::iterator it_comp = components.begin(); it_comp != components.end();) {
+                NodeClusters::iterator check = it_comp;
+                //std::cout << "   connected with " << toString(*check) << "?\n";
+                bool connected = false;
+                for (std::set<NBNode*>::iterator k = (*check).begin(); k != (*check).end(); ++k) {
+                    if (current->getConnectionTo(*k) != 0 || (*k)->getConnectionTo(current) != 0) {
+                        //std::cout << "joining with connected component " << toString(*check) << "\n";
+                        newComp.insert((*check).begin(), (*check).end());
+                        it_comp = components.erase(check);
+                        connected = true;
+                        break;
                     }
                 }
-                // check for outgoing parallel edges
-                for (std::map<std::string, SUMOReal>::const_iterator j = finalOutgoingAngles.begin(); j != finalOutgoingAngles.end() && !foundParallel; ++j) {
-                    std::map<std::string, SUMOReal>::const_iterator k = j;
-                    for (++k; k != finalOutgoingAngles.end() && !foundParallel; ++k) {
-                        if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
-                            WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing "
-                                          + j->first + "," + k->first + ")");
-                            foundParallel = true;
-                        }
-                    }
+                if (!connected) {
+                    it_comp++;
                 }
-                if (!foundParallel && cluster.size() > 1) {
-                    // compute all connected components of this cluster
-                    // (may be more than 1 if intermediate nodes were removed)
-                    NodeClusters components;
-                    for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end(); ++j) {
-                        // merge all connected components into newComp
-                        std::set<NBNode*> newComp;
-                        NBNode* current = *j;
-                        //std::cout << "checking connectivity for " << current->getID() << "\n";
-                        newComp.insert(current);
-                        for (NodeClusters::iterator it_comp = components.begin(); it_comp != components.end();) {
-                            NodeClusters::iterator check = it_comp;
-                            //std::cout << "   connected with " << toString(*check) << "?\n";
-                            bool connected = false;
-                            for (std::set<NBNode*>::iterator k = (*check).begin(); k != (*check).end(); ++k) {
-                                if (current->getConnectionTo(*k) != 0 || (*k)->getConnectionTo(current) != 0) {
-                                    //std::cout << "joining with connected component " << toString(*check) << "\n";
-                                    newComp.insert((*check).begin(), (*check).end());
-                                    it_comp = components.erase(check);
-                                    connected = true;
-                                    break;
-                                }
-                            }
-                            if (!connected) {
-                                it_comp++;
-                            }
-                        }
-                        //std::cout << "adding new component " << toString(newComp) << "\n";
-                        components.push_back(newComp);
-                    }
-                    for (NodeClusters::iterator it_comp = components.begin(); it_comp != components.end(); ++it_comp) {
-                        if ((*it_comp).size() > 1) {
-                            //std::cout << "adding cluster " << toString(*it_comp) << "\n";
-                            clusters.push_back(*it_comp);
-                        }
-                    }
-                }
+            }
+            //std::cout << "adding new component " << toString(newComp) << "\n";
+            components.push_back(newComp);
+        }
+        for (NodeClusters::iterator it_comp = components.begin(); it_comp != components.end(); ++it_comp) {
+            if ((*it_comp).size() > 1) {
+                //std::cout << "adding cluster " << toString(*it_comp) << "\n";
+                clusters.push_back(*it_comp);
             }
         }
     }
