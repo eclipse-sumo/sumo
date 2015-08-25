@@ -471,7 +471,9 @@ def init(port=8813, numRetries=10, host="localhost", label="default"):
 
 def simulationStep(step=0):
     """
-    Make simulation step and simulate up to "step" second in sim time.
+    Make a simulation step and simulate up to the given millisecond in sim time.
+    If the given value is 0 or absent, exactly one step is performed.
+    Values smaller than or equal to the current sim time result in no action.
     """
     _message.queue.append(constants.CMD_SIMSTEP2)
     _message.string += struct.pack("!BBi", 1 +
