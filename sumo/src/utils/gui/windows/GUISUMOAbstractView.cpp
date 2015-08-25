@@ -728,8 +728,9 @@ GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) {
 }
 
 
-void
+std::string
 GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
+    std::string errorMessage;
     FXString ext = FXPath::extension(destFile.c_str());
     bool useGL2PS = ext == "ps" || ext == "eps" || ext == "pdf" || ext == "svg" || ext == "tex" || ext == "pgf";
 
@@ -777,13 +778,11 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
         } else if (ext == "pgf") {
             format = GL2PS_PGF;
         } else {
-            WRITE_WARNING("Could not save '" + destFile + "'.\n Unrecognized format '" + std::string(ext.text()) + "'.");
-            return;
+            return "Could not save '" + destFile + "'.\n Unrecognized format '" + std::string(ext.text()) + "'.";
         }
         FILE* fp = fopen(destFile.c_str(), "wb");
         if (fp == 0) {
-            WRITE_WARNING("Could not save '" + destFile + "'.\n Could not open file for writing");
-            return;
+            return "Could not save '" + destFile + "'.\n Could not open file for writing";
         }
         GLint buffsize = 0, state = GL2PS_OVERFLOW;
         GLint viewport[4];
@@ -861,13 +860,14 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
         } while (paa < pbb);
         try {
             if (!MFXImageHelper::saveImage(destFile, getWidth(), getHeight(), buf)) {
-                WRITE_WARNING("Could not save '" + destFile + "'.");
+                errorMessage = "Could not save '" + destFile + "'.";
             }
         } catch (InvalidArgument& e) {
-            WRITE_WARNING("Could not save '" + destFile + "'.\n" + e.what());
+            errorMessage = "Could not save '" + destFile + "'.\n" + e.what();
         }
         FXFREE(&buf);
     }
+    return errorMessage;
 }
 
 
@@ -875,7 +875,10 @@ void
 GUISUMOAbstractView::checkSnapshots() {
     std::map<SUMOTime, std::string>::iterator snapIt = mySnapshots.find(getCurrentTimeStep());
     if (snapIt != mySnapshots.end()) {
-        makeSnapshot(snapIt->second);
+        std::string error = makeSnapshot(snapIt->second);
+        if (error != "") {
+            WRITE_WARNING(error);
+        }
     }
 }
 

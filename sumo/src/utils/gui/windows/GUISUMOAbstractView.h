@@ -173,8 +173,9 @@ public:
      *
      * The format to use is determined from the extension.
      * @param[in] destFile The name of the file to write the snapshot into
+     * @return The error message, if an error occcured; "" otherwise
      */
-    void makeSnapshot(const std::string& destFile);
+    std::string makeSnapshot(const std::string& destFile);
 
 
     /** @brief Checks whether it is time for a snapshot
