@@ -128,10 +128,9 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
     if options.addSln:
         subprocess.call(compiler + " /rebuild Release|%s %s\\%s /out %s" %
                         (platform, options.rootDir, options.addSln, makeLog))
-    programSuffix = envSuffix = ""
+    envSuffix = ""
     if platform == "x64":
         envSuffix = "_64"
-        programSuffix = "64"
     # we need to use io.open here due to http://bugs.python.org/issue16273
     log = io.open(makeLog, 'a')
     try:
@@ -177,8 +176,7 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
                     print >> log, "I/O error(%s): %s" % (errno, strerror)
         zipf.close()
         shutil.copy2(binaryZip, options.remoteDir)
-        wix.buildMSI(binaryZip, binaryZip.replace(
-            ".zip", ".msi"), platformSuffix=programSuffix)
+        wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"))
         shutil.copy2(binaryZip.replace(".zip", ".msi"), options.remoteDir)
     except IOError, (errno, strerror):
         print >> log, "Warning: Could not zip to %s!" % binaryZip
@@ -214,8 +212,7 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
     for name in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert", "netgenerate",
                  "od2trips", "sumo", "polyconvert", "sumo-gui", "activitygen",
                  "emissionsDrivingCycle", "emissionsMap"]:
-        binary = os.path.join(
-            options.rootDir, options.binDir, name + programSuffix + ".exe")
+        binary = os.path.join(options.rootDir, options.binDir, name + ".exe")
         if name == "sumo-gui":
             if os.path.exists(binary):
                 env["GUISIM_BINARY"] = binary
@@ -226,7 +223,7 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
     fullOpt = ["-b", env["FILEPREFIX"], "-name", "%sr%s" % (date.today().strftime("%d%b%y"), svnrev)]
     ttBin = "texttestc.py"
     if options.sumoExe == "meso":
-        runInternalTests.runInternal(programSuffix, fullOpt, log, console=True)
+        runInternalTests.runInternal("", fullOpt, log, console=True)
     else:
         subprocess.call([ttBin] + fullOpt, stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, stdout=log, stderr=subprocess.STDOUT, shell=True)

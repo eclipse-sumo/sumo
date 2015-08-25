@@ -50,7 +50,7 @@ def buildFragment(wixBin, sourceDir, targetLabel, tmpDir):
 
 
 def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT, wixBin=WIX_DEFAULT, wxs=WXS_DEFAULT,
-             license=LICENSE, platformSuffix=""):
+             license=LICENSE):
     tmpDir = tempfile.mkdtemp()
     zipfile.ZipFile(sourceZip).extractall(tmpDir)
     sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
@@ -66,8 +66,6 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT, wixBin=WIX_DEFAULT
     wxsOut = open(os.path.join(tmpDir, "sumo.wxs"), "w")
     for l in wxsIn:
         l = l.replace("License.rtf", license)
-        l = l.replace(".exe' />", "%s.exe' />" % platformSuffix).replace(
-            r"Nightly\sumo-gui.exe", r"Nightly\sumo-gui%s.exe" % platformSuffix)
         wxsOut.write(
             l.replace(r"O:\Daten\Sumo\Nightly", os.path.join(sumoRoot, "bin")))
     wxsOut.close()

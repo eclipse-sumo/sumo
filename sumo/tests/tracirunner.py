@@ -33,8 +33,6 @@ binaryDir, server = os.path.split(server_args[0])
 #server_args[0] = "sumoD"
 
 client = "TraCITestClient"
-if "64" in server:
-    client += "64"
 if server[-1] == "D":
     client += "D"
 if os.name != 'posix':
