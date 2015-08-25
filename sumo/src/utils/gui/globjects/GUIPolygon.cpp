@@ -138,6 +138,9 @@ GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
+    if (s.polySize.getExaggeration(s) == 0) {
+        return;
+    }
     Boundary boundary = myShape.getBoxBoundary();
     if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
         return;
