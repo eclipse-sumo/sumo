@@ -296,13 +296,14 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     }
     const MSEdge* newEdge = lastEdge;
     // ok, try using a new destination
+    SUMOReal newArrivalPos = -1;
     const bool destUnreachable = std::find(rerouteDef->closed.begin(), rerouteDef->closed.end(), lastEdge) != rerouteDef->closed.end();
     // if we have a closingReroute, only assign new destinations to vehicles which cannot reach their original destination
     if (rerouteDef->closed.size() == 0 || destUnreachable) {
         newEdge = rerouteDef->edgeProbs.getOverallProb() > 0 ? rerouteDef->edgeProbs.get() : route.getLastEdge();
         if (newEdge == &mySpecialDest_terminateRoute) {
             newEdge = veh.getEdge();
-            veh.setArrivalPos(veh.getPositionOnLane()); // instant arrival
+            newArrivalPos = veh.getPositionOnLane(); // instant arrival
         } else if (newEdge == &mySpecialDest_keepDestination || newEdge == lastEdge) {
             if (destUnreachable && rerouteDef->permissions == SVCAll) {
                 // if permissions aren't set vehicles will simply drive through
@@ -323,6 +324,10 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     MSNet::getInstance()->getRouterTT(rerouteDef->closed).compute(
         veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
     veh.replaceRouteEdges(edges);
+    if (newArrivalPos != -1) {
+        // must be called here because replaceRouteEdges may also set the arrivalPos
+        veh.setArrivalPos(newArrivalPos); 
+    }
     return false;
 }
 
