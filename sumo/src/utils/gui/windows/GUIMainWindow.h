@@ -41,6 +41,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class GUIEvent;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 class GUIMainWindow : public FXMainWindow {
@@ -90,6 +96,12 @@ public:
      */
     virtual SUMOReal getDelay() const {
         return 0;
+    }
+
+    /** @brief Sends an event from the application thread to the GUI
+     * @param event the event to send
+     */
+    virtual void sendEvent(GUIEvent* event) {
     }
 
 protected:

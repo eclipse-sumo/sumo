@@ -52,6 +52,7 @@
 #include "GUIApplicationWindow.h"
 #include "GUIEvent_SimulationLoaded.h"
 #include "GUIEvent_SimulationEnded.h"
+#include "GUIEvent_Screenshot.h"
 
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
@@ -1134,6 +1135,9 @@ GUIApplicationWindow::eventOccured() {
             case EVENT_SIMULATION_ENDED:
                 handleEvent_SimulationEnded(e);
                 break;
+            case EVENT_SCREENSHOT:
+                handleEvent_Screenshot(e);
+                break;
             default:
                 break;
         }
@@ -1263,6 +1267,13 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
         }
         myHaveNotifiedAboutSimEnd = true;
     }
+}
+
+
+void
+GUIApplicationWindow::handleEvent_Screenshot(GUIEvent* e) {
+    GUIEvent_Screenshot* ec = static_cast<GUIEvent_Screenshot*>(e);
+    ec->myView->makeSnapshot(ec->myFile);
 }
 
 
@@ -1466,5 +1477,12 @@ GUIApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
     return 0;
 }
 
-/****************************************************************************/
 
+void
+GUIApplicationWindow::sendEvent(GUIEvent* event) {
+    myEvents.add(event);
+    myRunThreadEvent.signal();
+}
+
+
+/****************************************************************************/

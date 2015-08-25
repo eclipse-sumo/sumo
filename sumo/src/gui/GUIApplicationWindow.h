@@ -121,6 +121,7 @@ public:
     void handleEvent_SimulationStep(GUIEvent* e);
     void handleEvent_Message(GUIEvent* e);
     void handleEvent_SimulationEnded(GUIEvent* e);
+    void handleEvent_Screenshot(GUIEvent* e);
     /// @}
 
 
@@ -246,6 +247,11 @@ public:
     virtual SUMOReal getDelay() const {
         return mySimDelayTarget->getValue();
     }
+
+   /** @brief Sends an event from the application thread to the GUI
+     * @param event the event to send
+     */
+    virtual void sendEvent(GUIEvent* event);
 
 protected:
     virtual void addToWindowsMenu(FXMenuPane*) { }

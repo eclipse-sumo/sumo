@@ -75,17 +75,12 @@ public:
 
 
 protected:
-    /** @brief Returns the main window
-     * @return The main window (should exist)
-     */
-    static GUIMainWindow* getMainWindow();
-
-
     /** @brief Returns the named view
      * @param[in] viewName The name of the view
      * @return The named view if existing, 0 otherwise
      */
     static GUISUMOAbstractView* getNamedView(const std::string& id);
+
 
 private:
     /// @brief invalidated copy constructor
