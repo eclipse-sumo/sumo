@@ -693,7 +693,7 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
         // this vClass is requested for the first time. rebuild all successors
         for (MSEdgeVector::const_iterator it = mySuccessors.begin(); it != mySuccessors.end(); ++it) {
             const std::vector<MSLane*>* allowed = allowedLanes(*it, vClass);
-            if (allowed == 0 || allowed->size() > 0) {
+            if (allowed != 0 && allowed->size() > 0) {
                 myClassesSuccessorMap[vClass].push_back(*it);
             }
         }
