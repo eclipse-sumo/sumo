@@ -54,4 +54,5 @@ for step in range(3, 6):
     print "step", step
     traci.simulationStep()
     print traci.gui.getSubscriptionResults(viewID)
+traci.gui.screenshot(viewID, "test.png")
 traci.close()
