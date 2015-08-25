@@ -35,3 +35,6 @@ same_angle_nojoin
 
 # a complex network
 adlershof_dlr
+
+# a complex example where bypass edges should not be joined
+bypass
