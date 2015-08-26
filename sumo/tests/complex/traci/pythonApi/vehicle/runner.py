@@ -223,7 +223,7 @@ traci.route.add("trip", ["3si"])
 traci.vehicle.add("triptest", "trip")
 traci.vehicle.changeTarget("triptest", "4si")
 print traci.vehicle.getRoute("triptest")
-# test handling of parking vehicle
+# test returned values of parking vehicle
 parkingVeh = "parking"
 traci.vehicle.add(parkingVeh, "horizontal")
 traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10000,
@@ -231,5 +231,27 @@ traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10000,
 for i in range(20):
     print "step", step()
     checkOffRoad(parkingVeh)
+# test moveTo of parking vehicle
+parkingVeh = "parking2"
+traci.vehicle.add(parkingVeh, "horizontal")
+traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10000,
+        flags=traci.vehicle.STOP_PARKING)
+for i in range(8):
+    print "step", step()
+traci.vehicle.moveTo(parkingVeh, "1o_0", 40)
+for i in range(8):
+    print "step", step()
+    checkOffRoad(parkingVeh)
+# test modifying a vehicle before insertion
+offRoad = "offRoad"
+traci.vehicle.add("blocker", "horizontal")
+traci.vehicle.add(offRoad, "horizontal")
+checkOffRoad(offRoad)
+traci.vehicle.setSpeedFactor(offRoad, 1.1)
+traci.vehicle.moveTo(offRoad, "1o_0", 40)
+for i in range(3):
+    print "step", step()
+    checkOffRoad(offRoad)
+
 # done
 traci.close()

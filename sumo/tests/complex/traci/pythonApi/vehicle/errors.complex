@@ -2,3 +2,4 @@ Error: Answered with error to command 0xa4: Vehicle 'bla' is not known
 Error: Answered with error to command 0xc4: Invalid departure position.
 Error: Answered with error to command 0xa4: Vehicle 'anotherOne' is not known
 Warning: Departure time for vehicle 'departInThePast' is in the past; using current time instead.
+Warning: Vehicle 'parking2' aborts stop.
