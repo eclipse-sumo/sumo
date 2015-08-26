@@ -44,6 +44,7 @@ typemaps = {
     "urban": os.path.join(typemapdir, "osmNetconvertUrbanDe.typ.xml"),
     "pedestrians": os.path.join(typemapdir, "osmNetconvertPedestrians.typ.xml"),
     "ships": os.path.join(typemapdir, "osmNetconvertShips.typ.xml"),
+    "bicycles": os.path.join(typemapdir, "osmNetconvertBicycle.typ.xml"),
 }
 
 vehicleParameters = {
@@ -137,6 +138,9 @@ class Builder(object):
             typefiles.append(typemaps["pedestrians"])
         if "ship" in self.data["vehicles"]:
             typefiles.append(typemaps["ships"])
+        # disabled pending #1865
+        #if "bicycle" in self.data["vehicles"]:
+        #    typefiles.append(typemaps["bicycles"])
         options += ["--netconvert-typemap", ','.join(typefiles)]
         options += ["--netconvert-options", netconvertOptions]
 
