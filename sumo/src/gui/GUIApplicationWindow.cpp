@@ -857,6 +857,7 @@ GUIApplicationWindow::onCmdStart(FXObject*, FXSelector, void*) {
         myWasStarted = true;
     }
     myRunThread->resume();
+    getApp()->forceRefresh(); // only callking myToolBar2->forceRefresh somehow loses keyboard focus
     return 1;
 }
 
@@ -864,6 +865,7 @@ GUIApplicationWindow::onCmdStart(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdStop(FXObject*, FXSelector, void*) {
     myRunThread->stop();
+    getApp()->forceRefresh(); // only callking myToolBar2->forceRefresh somehow loses keyboard focus
     return 1;
 }
 
@@ -1237,6 +1239,9 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
     updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     if (myAmGaming) {
         checkGamingEvents();
+    }
+    if (myRunThread->simulationIsStartable()) {
+        getApp()->forceRefresh(); // restores keyboard focus
     }
     update();
 }
