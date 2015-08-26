@@ -3,3 +3,4 @@ Error: Answered with error to command 0xc4: Invalid departure position.
 Error: Answered with error to command 0xa4: Vehicle 'anotherOne' is not known
 Warning: Departure time for vehicle 'departInThePast' is in the past; using current time instead.
 Warning: Vehicle 'parking2' aborts stop.
+Warning: Teleporting vehicle 'collider'; collision with 'blocker', lane='2fi_0', gap=-3.83, time=117.00 stage=events.

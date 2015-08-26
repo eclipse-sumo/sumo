@@ -252,6 +252,24 @@ traci.vehicle.moveTo(offRoad, "1o_0", 40)
 for i in range(3):
     print "step", step()
     checkOffRoad(offRoad)
+# test modifying a teleporting vehicle
+tele = "collider"
+traci.vehicle.add("victim", "horizontal")
+traci.vehicle.setStop("victim", "2fi", pos=5.0, laneIndex=0, duration=10000)
+# block the next lane to avoid instant insertion after teleport
+traci.vehicle.add("block_2si", "horizontal")
+traci.vehicle.moveTo("block_2si", "2si_1", 205) # 
+traci.vehicle.setLength("block_2si", 200)
+# cause collision on insertion
+traci.vehicle.add(tele, "horizontal")
+traci.vehicle.moveTo(tele, "2fi_0", 3) # 
+for i in range(5):
+    checkOffRoad(tele)
+    print "step", step()
+traci.vehicle.moveTo(tele, "1o_0", 40) # 
+for i in range(3):
+    checkOffRoad(tele)
+    print "step", step()
 
 # done
 traci.close()
