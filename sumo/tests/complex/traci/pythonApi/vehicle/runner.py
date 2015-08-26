@@ -99,7 +99,8 @@ def checkOffRoad(vehID):
             "angle", traci.vehicle.getAngle(vehID),
             "road", traci.vehicle.getRoadID(vehID),
             "lane", traci.vehicle.getLaneID(vehID),
-            "lanePos", traci.vehicle.getLanePosition(vehID)
+            "lanePos", traci.vehicle.getLanePosition(vehID),
+            "CO2", traci.vehicle.getCO2Emission(vehID)
             )
 
 vehID = "horiz"

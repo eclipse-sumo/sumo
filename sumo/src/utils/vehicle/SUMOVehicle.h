@@ -185,6 +185,11 @@ public:
      */
     virtual bool isOnRoad() const = 0;
 
+    /** @brief Returns the information whether the vehicle is parked
+     * @return Whether the vehicle is parked
+     */
+    virtual bool isParking() const = 0;
+
     /** @brief Returns this vehicle's real departure time
      * @return This vehicle's real departure time
      */

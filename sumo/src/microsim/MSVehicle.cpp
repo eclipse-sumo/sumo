@@ -803,7 +803,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
 
 bool
 MSVehicle::isStopped() const {
-    return !myStops.empty() && myStops.begin()->reached;
+    return !myStops.empty() && myStops.begin()->reached /*&& myState.mySpeed < SUMO_const_haltingSpeed @todo #1864#*/;
 }
 
 
