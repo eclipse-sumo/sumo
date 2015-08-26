@@ -928,6 +928,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
             if (v->getLane() != 0) {
                 v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
+            } else {
+                v->setTentativeLaneAndPosition(l, position);
             }
             while (v->getEdge() != &destinationEdge) {
                 const MSEdge* nextEdge = v->succEdge(1);
