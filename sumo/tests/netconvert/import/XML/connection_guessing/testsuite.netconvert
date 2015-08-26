@@ -28,3 +28,6 @@ test1
 
 # complete 4-arm intersection with 4 lanes for every edge and tls
 4arm_4lane_tls
+
+# vehicular lanes should be built rather than bicycle lanes
+bike_lane_ends
