@@ -1621,7 +1621,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
         }
 #endif
         // check which links allow continuation and add pass available to the previous item
-        for (int i = (int)(lfLinks.size() - 1); i > 0; --i) {
+        for (int i = ((int)lfLinks.size() - 1); i > 0; --i) {
             DriveProcessItem& item = lfLinks[i - 1];
             const bool canLeaveJunction = item.myLink->getViaLane() == 0 || lfLinks[i].mySetRequest;
             const bool opened = item.myLink != 0 && canLeaveJunction && (item.myLink->havePriority() ||
