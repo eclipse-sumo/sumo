@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<add>
+    <tlLogic id="0" type="static" programID="own1" offset="0">
+        <phase duration="15" state="GGggrrrrGGggrrrr" minDur="10" maxDur="30"/>
+        <phase duration="3" state="yyggrrrryyggrrrr" minDur="3" maxDur="3"/>
+        <phase duration="5" state="rrGGrrrrrrGGrrrr" minDur="5" maxDur="15"/>
+        <phase duration="3" state="rryyrrrrrryyrrrr" minDur="3" maxDur="3"/>
+        <phase duration="3" state="rrrrrrrrrrrrrrrr" minDur="3" maxDur="3"/>
+        <phase duration="45" state="rrrrGGggrrrrGGgg" minDur="10" maxDur="60"/>
+        <phase duration="3" state="rrrrGGyyrrrrGGyy" minDur="3" maxDur="3"/>
+        <phase duration="5" state="rrrrGGrrrrrrGGrr" minDur="5" maxDur="15"/>
+        <phase duration="3" state="rrrryyrrrrrryyrr" minDur="3" maxDur="3"/>
+        <phase duration="3" state="rrrrrrrrrrrrrrrr" minDur="3" maxDur="3"/>
+    </tlLogic>
+    <tlLogic id="0" type="static" programID="own2" offset="0">
+        <phase duration="31" state="GGggrrrrGGggrrrr"/>
+        <phase duration="16" state="yyggrrrryyggrrrr"/>
+        <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
+        <phase duration="16" state="rryyrrrrrryyrrrr"/>
+        <phase duration="31" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="16" state="rrrryyggrrrryygg"/>
+        <phase duration="6" state="rrrrrrGGrrrrrrGG"/>
+        <phase duration="16" state="rrrrrryyrrrrrryy"/>
+    </tlLogic>
+</add>
+

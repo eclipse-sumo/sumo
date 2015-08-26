@@ -57,24 +57,37 @@ allLink2Indices = []
 
 
 for tlsFile in allTLS:
-    minTimes = []
-    maxTimes = []
-    normTimes = []
-    defs = []
-    links = []
-    params = []
-    key = ""
-    subkey = ""
-    offset = 0
-    links2index = {}
-
     fd = open(tlsFile)
+    key = None
     for l in fd:
         l = l.strip()
         if len(l) > 0 and l[0] == '#':
             continue
         v = l.split(";")
         if v[0] == "key":
+            if key is not None:
+                allMinTimes.append(minTimes)
+                allMaxTimes.append(maxTimes)
+                allNormTimes.append(normTimes)
+                allDefs.append(defs)
+                allLinks.append(links)
+                allParams.append(params)
+                allKeys.append(key)
+                allSubkeys.append(subkey)
+                allOffsets.append(offset)
+                allLink2Indices.append(links2index)
+
+            minTimes = []
+            maxTimes = []
+            normTimes = []
+            defs = []
+            links = []
+            params = []
+            # key = ""
+            subkey = ""
+            offset = 0
+            links2index = {}
+
             key = v[1]
         elif v[0] == "subkey":
             subkey = v[1]
@@ -98,18 +111,21 @@ for tlsFile in allTLS:
             if len(v) > 1:
                 links2index[int(v[0])] = len(defs)
                 defs.append(v[1:])
-    fd.close()
 
-    allMinTimes.append(minTimes)
-    allMaxTimes.append(maxTimes)
-    allNormTimes.append(normTimes)
-    allDefs.append(defs)
-    allLinks.append(links)
-    allParams.append(params)
-    allKeys.append(key)
-    allSubkeys.append(subkey)
-    allOffsets.append(offset)
-    allLink2Indices.append(links2index)
+        pass
+
+    if key is not None:
+        allMinTimes.append(minTimes)
+        allMaxTimes.append(maxTimes)
+        allNormTimes.append(normTimes)
+        allDefs.append(defs)
+        allLinks.append(links)
+        allParams.append(params)
+        allKeys.append(key)
+        allSubkeys.append(subkey)
+        allOffsets.append(offset)
+        allLink2Indices.append(links2index)
+    fd.close()
 
 net1 = sumolib.net.readNet(sys.argv[2])
 

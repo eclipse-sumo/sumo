@@ -23,8 +23,7 @@ import os
 import subprocess
 import sys
 import random
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
+sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci
 import sumolib
 
@@ -92,6 +91,16 @@ def check(vehID):
     print "waiting time", traci.vehicle.getWaitingTime(vehID)
     print "driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.)
     print "driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.)
+
+def checkOffRoad(vehID):
+    print ("veh", vehID, 
+            "speed", traci.vehicle.getSpeed(vehID),
+            "pos", traci.vehicle.getPosition(vehID),
+            "angle", traci.vehicle.getAngle(vehID),
+            "road", traci.vehicle.getRoadID(vehID),
+            "lane", traci.vehicle.getLaneID(vehID),
+            "lanePos", traci.vehicle.getLanePosition(vehID)
+            )
 
 vehID = "horiz"
 check(vehID)
@@ -213,4 +222,13 @@ traci.route.add("trip", ["3si"])
 traci.vehicle.add("triptest", "trip")
 traci.vehicle.changeTarget("triptest", "4si")
 print traci.vehicle.getRoute("triptest")
+# test handling of parking vehicle
+parkingVeh = "parking"
+traci.vehicle.add(parkingVeh, "horizontal")
+traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10000,
+        flags=traci.vehicle.STOP_PARKING)
+for i in range(20):
+    print "step", step()
+    checkOffRoad(parkingVeh)
+# done
 traci.close()
