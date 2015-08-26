@@ -135,12 +135,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">meso</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'">mesoD</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">meso64</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalDebug|x64'">meso64D</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|Win32'">mesoF</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'">meso64F</TargetName>
+    <TargetName Condition="'$(Configuration)'=='InternalRelease'">meso</TargetName>
+    <TargetName Condition="'$(Configuration)'=='InternalDebug'">mesoD</TargetName>
+    <TargetName Condition="'$(Configuration)'=='InternalFastbuild'">mesoF</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
