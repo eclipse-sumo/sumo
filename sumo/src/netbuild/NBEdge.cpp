@@ -1745,11 +1745,11 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
         const std::vector<unsigned int> lanes = (*i).second;
         for (std::vector<unsigned int>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             const int fromIndex = availableLanes[*j];
-            if ((getPermissions(fromIndex) & (*i).first->getPermissions()) == 0) {
+            if ((getPermissions(fromIndex) & target->getPermissions()) == 0) {
                 // exclude connection if fromLane and toEdge have no common permissions
                 continue;
             }
-            if ((getPermissions(fromIndex) & (*i).first->getPermissions()) == SVC_PEDESTRIAN) {
+            if ((getPermissions(fromIndex) & target->getPermissions()) == SVC_PEDESTRIAN) {
                 // exclude connection if the only commonly permitted class are pedestrians 
                 // these connections are later built in NBNode::buildWalkingAreas
                 continue;
@@ -1760,7 +1760,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
                 continue;
             }
 
-            myConnections.push_back(Connection(fromIndex, (*i).first, -1));
+            myConnections.push_back(Connection(fromIndex, target, -1));
         }
     }
 }
