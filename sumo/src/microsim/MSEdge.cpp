@@ -237,7 +237,7 @@ MSEdge::getAllowedLanesWithDefault(const AllowedLanesCont& c, const MSEdge* dest
 
 const std::vector<MSLane*>*
 MSEdge::allowedLanes(const MSEdge* destination, SUMOVehicleClass vclass) const {
-    if ((myMinimumPermissions & vclass) == vclass) {
+    if (destination == 0 && (myMinimumPermissions & vclass) == vclass) {
         // all lanes allow vclass
         return getAllowedLanesWithDefault(myAllowed, destination);
     }
@@ -250,6 +250,11 @@ MSEdge::allowedLanes(const MSEdge* destination, SUMOVehicleClass vclass) const {
     } else {
         // this vclass is requested for the first time. rebuild all destinations
         // go through connected edges
+#ifdef HAVE_FOX
+    if (MSDevice_Routing::isParallel()) {
+        MSDevice_Routing::lock();
+    }
+#endif
         for (AllowedLanesCont::const_iterator i1 = myAllowed.begin(); i1 != myAllowed.end(); ++i1) {
             const MSEdge* edge = i1->first;
             const std::vector<MSLane*>* lanes = i1->second;
@@ -276,6 +281,11 @@ MSEdge::allowedLanes(const MSEdge* destination, SUMOVehicleClass vclass) const {
                 myClassedAllowed[vclass][edge] = 0;
             }
         }
+#ifdef HAVE_FOX
+        if (MSDevice_Routing::isParallel()) {
+            MSDevice_Routing::unlock();
+        }
+#endif
         return myClassedAllowed[vclass][destination];
     }
 }
