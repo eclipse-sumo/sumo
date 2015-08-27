@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/10/14 12:21:50 by SUMO Version dev-SVN-r17474
+<!-- generated on Thu Aug 27 07:13:33 2015 by SUMO Version dev-SVN-r18733I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -61,6 +61,13 @@
         </routeDistribution>
     </vehicle>
 
+    <vehicle id="flow_dest_forbidden.2" depart="220.00" arrival="224.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="220.00" probability="0" edges="beg middle"/>
+            <route edges="beg"/>
+        </routeDistribution>
+    </vehicle>
+
     <vehicle id="flow_unaffected.0" depart="100.00" arrival="227.00">
         <route edges="beg beg2left left"/>
     </vehicle>
@@ -87,13 +94,6 @@
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="40.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_dest_forbidden.2" depart="220.00" arrival="238.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="220.00" probability="0" edges="beg middle"/>
-            <route edges="beg"/>
         </routeDistribution>
     </vehicle>
 

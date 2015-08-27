@@ -60,6 +60,12 @@
         <!-- Save the emission values of each vehicle -->
         <emission-output value="" type="FILE"/>
 
+        <!-- Save the battery values of each vehicle -->
+        <battery-output value="" type="FILE"/>
+
+        <!-- Write battery values with the given precision (default 2) -->
+        <battery-output.precision value="2" type="INT"/>
+
         <!-- Save the Floating Car Data -->
         <fcd-output value="" type="FILE"/>
 
@@ -334,6 +340,18 @@
         <device.btsender.deterministic value="false" type="BOOL"/>
 
     </communication>
+
+    <battery>
+        <!-- The probability for a vehicle to have a &apos;battery&apos; device -->
+        <device.battery.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;battery&apos; device to named vehicles -->
+        <device.battery.explicit value="" synonymes="device.battery.knownveh" type="STR"/>
+
+        <!-- The &apos;battery&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.battery.deterministic value="false" type="BOOL"/>
+
+    </battery>
 
     <example_device>
         <!-- The probability for a vehicle to have a &apos;example&apos; device -->
