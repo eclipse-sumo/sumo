@@ -24,13 +24,13 @@
 -->
 
 <edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="-24992424#0" from="2882261426" to="28373972" name="Stralauer Straße" priority="7" type="cycleway.lane|highway.secondary" numLanes="4" speed="13.89">
+    <edge id="end" from="2882261426" to="28373972" name="Stralauer Straße" priority="7" type="cycleway.lane|highway.secondary" numLanes="4" speed="13.89">
         <lane index="0" allow="pedestrian" width="3.00"/>
         <lane index="1" allow="bicycle" width="1.00"/>
         <lane index="2" disallow="bicycle pedestrian"/>
         <lane index="3" disallow="bicycle pedestrian"/>
     </edge>
-    <edge id="-43159545#0" from="540698418" to="2882261426" name="Neue Jüdenstraße" priority="4" type="highway.residential" numLanes="2" speed="13.89" shape="3717.70,1547.72 3732.04,1627.13 3736.05,1648.36">
+    <edge id="beg" from="540698418" to="2882261426" name="Neue Jüdenstraße" priority="4" type="highway.residential" numLanes="2" speed="13.89" shape="3717.70,1547.72 3732.04,1627.13 3736.05,1648.36">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="tram rail_urban rail rail_electric pedestrian ship"/>
     </edge>
