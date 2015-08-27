@@ -1,4 +1,2 @@
---node-files input_plain.nod.xml --edge-files input_plain.edg.xml --output
-net.net.xml --no-internal-links --ignore-errors.edge-type
-
+--ignore-errors.edge-type 
 

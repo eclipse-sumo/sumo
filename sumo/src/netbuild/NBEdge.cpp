@@ -1754,9 +1754,26 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
                 // these connections are later built in NBNode::buildWalkingAreas
                 continue;
             }
-            // avoid building more connections than the edge has lanes (earlier
+            // avoid building more connections than the edge has viable lanes (earlier
             // ones have precedence). This is necessary when running divideSelectedLanesOnEdges more than once.
-            if (count_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(target, true)) >= (int)target->getNumLanes()) {
+            //    @todo To decide which target lanes are still available we need to do a
+            // preliminary lane-to-lane assignment in regard to permisions (rather than to ordering)
+            const int numConsToTarget = count_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(target, true));
+            int targetLanes = (int)target->getNumLanes();
+            if (target->getPermissions(0) == SVC_PEDESTRIAN) {
+                --targetLanes;
+            }
+            if (numConsToTarget >= targetLanes) {
+                // let bicycles move onto the road to allow continuation
+                // the speed limit is taken from rural roads (which allow cycles)
+                // (pending implementation of #1859)
+                if (getPermissions(fromIndex) == SVC_BICYCLE && getSpeed() <= (101 / 3.6)) {
+                    for (unsigned int ii = 0; ii < myLanes.size(); ++ii) {
+                        if (myLanes[ii].permissions != SVC_PEDESTRIAN) {
+                            myLanes[ii].permissions |= SVC_BICYCLE;
+                        }
+                    }
+                }
                 continue;
             }
 

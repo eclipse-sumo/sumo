@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed 26 Aug 2015 04:45:08 PM CEST by Netedit Version dev-SVN-r18733I
+<!-- generated on Thu Aug 27 09:15:47 2015 by SUMO netconvert Version dev-SVN-r18739I
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/bike_lane_ends/net.netconvert"/>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/bike_lane_ends/net.netconvert"/>
+        <output-file value="net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
     <processing>
+        <ignore-errors.edge-type value="true"/>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-        <offset.disable-normalization value="true"/>
     </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -30,12 +35,12 @@
     <edge id="-156364570#0" from="275525455" to="614674365" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary">
         <lane id="-156364570#0_0" index="0" allow="pedestrian" speed="13.89" length="18.46" width="3.00" shape="91.74,39.70 97.68,42.80"/>
         <lane id="-156364570#0_1" index="1" allow="bicycle" speed="13.89" length="18.46" width="1.00" shape="90.77,41.57 96.71,44.66"/>
-        <lane id="-156364570#0_2" index="2" disallow="bicycle pedestrian" speed="13.89" length="18.46" shape="89.75,43.52 95.69,46.61"/>
+        <lane id="-156364570#0_2" index="2" disallow="pedestrian" speed="13.89" length="18.46" shape="89.75,43.52 95.69,46.61"/>
     </edge>
     <edge id="-156364570#1" from="cluster_160503146_2314394457_27411250" to="275525455" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary" shape="12.44,6.14 35.62,18.12 80.71,40.67">
         <lane id="-156364570#1_0" index="0" allow="pedestrian" speed="13.89" length="90.63" width="3.00" shape="2.85,-5.51 38.35,12.83 79.14,33.23"/>
         <lane id="-156364570#1_1" index="1" allow="bicycle" speed="13.89" length="90.63" width="1.00" shape="1.89,-3.65 37.39,14.70 78.20,35.11"/>
-        <lane id="-156364570#1_2" index="2" disallow="bicycle pedestrian" speed="13.89" length="90.63" shape="0.88,-1.69 36.38,16.65 77.21,37.08"/>
+        <lane id="-156364570#1_2" index="2" disallow="pedestrian" speed="13.89" length="90.63" shape="0.88,-1.69 36.38,16.65 77.21,37.08"/>
     </edge>
     <edge id="-25294729#0" from="cluster_1288008787_275525457" to="275525455" name="Rosenstraße" priority="4" type="highway.residential" shape="114.37,6.18 80.71,40.67">
         <lane id="-25294729#0_0" index="0" allow="pedestrian" speed="8.33" length="51.98" width="2.00" shape="117.73,8.97 91.43,35.91"/>
@@ -48,7 +53,7 @@
     <edge id="156364570#0" from="614674365" to="275525455" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary">
         <lane id="156364570#0_0" index="0" allow="pedestrian" speed="13.89" length="18.46" width="3.00" shape="92.18,53.35 86.24,50.26"/>
         <lane id="156364570#0_1" index="1" allow="bicycle" speed="13.89" length="18.46" width="1.00" shape="93.15,51.49 87.21,48.40"/>
-        <lane id="156364570#0_2" index="2" disallow="bicycle pedestrian" speed="13.89" length="18.46" shape="94.17,49.54 88.23,46.45"/>
+        <lane id="156364570#0_2" index="2" disallow="pedestrian" speed="13.89" length="18.46" shape="94.17,49.54 88.23,46.45"/>
     </edge>
     <edge id="156364570#1" from="275525455" to="cluster_160503146_2314394457_27411250" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary" shape="80.71,40.67 35.62,18.12 12.44,6.14">
         <lane id="156364570#1_0" index="0" allow="pedestrian" speed="13.89" length="90.63" width="3.00" shape="73.81,43.87 32.96,23.44 -2.61,5.06"/>
@@ -87,7 +92,7 @@
     <connection from="-156364570#1" to="-156364570#0" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="-156364570#1" to="25294729#0" fromLane="2" toLane="1" dir="r" state="m"/>
     <connection from="-156364570#1" to="-156364570#0" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from="-25294729#0" to="-156364570#0" fromLane="1" toLane="2" dir="r" state="m"/>
+    <connection from="-25294729#0" to="-156364570#0" fromLane="1" toLane="1" dir="r" state="m"/>
     <connection from="-25294729#0" to="156364570#1" fromLane="1" toLane="2" dir="l" state="m"/>
     <connection from="156364570#0" to="156364570#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="156364570#0" to="156364570#1" fromLane="2" toLane="2" dir="s" state="M"/>
