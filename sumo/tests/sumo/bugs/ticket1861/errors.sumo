@@ -1,0 +1,4 @@
+Warning: No connection between 'beg' and 'end' found.
+Warning: No route for vehicle 'bikeDisconnected' found (skipping vehicle).
+Error: Vehicle 'bikeDisconnected' has no valid route. No connection between 'beg' and 'end'.
+Quitting (on error).
