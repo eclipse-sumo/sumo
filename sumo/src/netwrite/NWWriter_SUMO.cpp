@@ -320,8 +320,8 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
         into.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(e.getStreetName()));
     }
     into.writeAttr(SUMO_ATTR_PRIORITY, e.getPriority());
-    if (e.getTypeName() != "") {
-        into.writeAttr(SUMO_ATTR_TYPE, e.getTypeName());
+    if (e.getTypeID() != "") {
+        into.writeAttr(SUMO_ATTR_TYPE, e.getTypeID());
     }
     if (e.isMacroscopicConnector()) {
         into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_CONNECTOR);

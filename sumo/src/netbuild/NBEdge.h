@@ -492,14 +492,6 @@ public:
         mySignalOffset = offset;
     }
 
-    /** @brief Returns the type name
-     * @return The name of this edge's type
-     */
-    const std::string& getTypeName() const {
-        return myType;
-    }
-
-
     /** @brief Returns the lane definitions
      * @return The stored lane definitions
      */
