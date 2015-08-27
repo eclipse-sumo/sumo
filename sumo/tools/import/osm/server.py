@@ -48,16 +48,16 @@ typemaps = {
 }
 
 vehicleParameters = {
-    "passenger": ["--vehicle-class", "passenger", "--vclass", "passenger", "--prefix", "veh", "--min-distance", "300"],
-    "truck": ["--vehicle-class", "truck", "--vclass", "truck", "--prefix", "truck", "--min-distance", "600"],
-    "bus": ["--vehicle-class", "bus", "--vclass", "bus", "--prefix", "bus", "--min-distance", "600"],
-    "motorcycle": ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto", "--max-distance", "1200"],
-    "bicycle": ["--vehicle-class", "bicycle", "--vclass", "bicycle", "--prefix", "bike", "--max-distance", "8000"],
-    "pedestrian": ["--pedestrians", "--prefix", "ped", "--max-distance", "2000"],
-    "tram": ["--vehicle-class", "tram", "--vclass", "tram", "--prefix", "tram", "--min-distance", "1200"],
-    "rail_urban": ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban", "--min-distance", "1800"],
-    "rail": ["--vehicle-class", "rail", "--vclass", "rail", "--prefix", "rail", "--min-distance", "2400"],
-    "ship": ["--vehicle-class", "ship", "--vclass", "ship", "--prefix", "ship"]
+    "passenger"  : ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",   "--min-distance", "300" , "--trip-attributes", 'departLane="best"'],
+    "truck"      : ["--vehicle-class", "truck",      "--vclass", "truck",      "--prefix", "truck", "--min-distance", "600" , "--trip-attributes", 'departLane="best"'],
+    "bus"        : ["--vehicle-class", "bus",        "--vclass", "bus",        "--prefix", "bus",   "--min-distance", "600" , "--trip-attributes", 'departLane="best"'],
+    "motorcycle" : ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto",  "--max-distance", "1200", "--trip-attributes", 'departLane="best"'],
+    "bicycle"    : ["--vehicle-class", "bicycle",    "--vclass", "bicycle",    "--prefix", "bike",  "--max-distance", "8000", "--trip-attributes", 'departLane="best"'],
+    "tram"       : ["--vehicle-class", "tram",       "--vclass", "tram",       "--prefix", "tram",  "--min-distance", "1200", "--trip-attributes", 'departLane="best"'],
+    "rail_urban" : ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban", "--min-distance", "1800", "--trip-attributes", 'departLane="best"'],
+    "rail"       : ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",  "--min-distance", "2400", "--trip-attributes", 'departLane="best"'],
+    "ship"       : ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship"],
+    "pedestrian" : ["--pedestrians", "--prefix", "ped", "--max-distance", "2000"]
 }
 
 vehicleNames = {
@@ -85,6 +85,15 @@ RANDOMSEED = "42"
 BATCH_MODE = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH
 BATCH_MODE |= stat.S_IWUSR
 BATCH_MODE |= stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
+
+def quoted_str(s):
+    if type(s) != str:
+        return str(s)
+    elif '"' in s:
+        return "'%s'" % s
+    else:
+        return s
+
 
 class Builder(object):
     prefix = "osm"
@@ -138,9 +147,8 @@ class Builder(object):
             typefiles.append(typemaps["pedestrians"])
         if "ship" in self.data["vehicles"]:
             typefiles.append(typemaps["ships"])
-        # disabled pending #1865
-        #if "bicycle" in self.data["vehicles"]:
-        #    typefiles.append(typemaps["bicycles"])
+        if "bicycle" in self.data["vehicles"]:
+            typefiles.append(typemaps["bicycles"])
         options += ["--netconvert-typemap", ','.join(typefiles)]
         options += ["--netconvert-options", netconvertOptions]
 
@@ -184,7 +192,7 @@ class Builder(object):
             batchFile = "build.bat"
             with open(batchFile, 'w') as f:
                 for opts in randomTripsCalls:
-                    f.write("python %s %s\n" % (randomTripsPath, " ".join(map(str, opts))))
+                    f.write("python %s %s\n" % (randomTripsPath, " ".join(map(quoted_str, opts))))
                 for route, trips in route2TripsCalls:
                     f.write("python %s %s > %s\n" % (route2TripsPath, route, trips))
 
