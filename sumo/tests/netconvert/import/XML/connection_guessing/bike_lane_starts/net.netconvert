@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 27 Aug 2015 11:30:37 AM CEST by Netedit Version dev-SVN-r18739I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/bike_lane_starts/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/bike_lane_starts/net.netconvert"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-392124.73,-5819527.28" convBoundary="0.00,0.00,27.18,140.71" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-24992424#0" from="2882261426" to="28373972" name="Stralauer Straße" priority="7" type="cycleway.lane|highway.secondary">
+        <lane id="-24992424#0_0" index="0" allow="pedestrian" speed="13.89" length="27.73" width="3.00" shape="16.18,112.30 1.83,115.21"/>
+        <lane id="-24992424#0_1" index="1" allow="bicycle" speed="13.89" length="27.73" width="1.00" shape="15.77,110.24 1.42,113.15"/>
+        <lane id="-24992424#0_2" index="2" disallow="bicycle pedestrian" speed="13.89" length="27.73" shape="15.33,108.09 0.98,110.99"/>
+        <lane id="-24992424#0_3" index="3" disallow="bicycle pedestrian" speed="13.89" length="27.73" shape="14.68,104.85 0.33,107.76"/>
+    </edge>
+    <edge id="-43159545#0" from="540698418" to="2882261426" name="Neue Jüdenstraße" priority="4" type="highway.residential" shape="8.83,0.00 23.17,79.41 27.18,100.64">
+        <lane id="-43159545#0_0" index="0" allow="pedestrian" speed="13.89" length="102.30" width="2.00" shape="13.11,-0.77 27.45,78.64 29.19,87.86"/>
+        <lane id="-43159545#0_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="102.30" shape="10.45,-0.29 24.79,79.12 26.54,88.36"/>
+    </edge>
+    <edge id="-4612968#4" from="2882261426" to="540764864" name="Jüdenstraße" priority="4" type="highway.residential" shape="27.18,100.64 23.31,113.12 25.34,125.80 25.64,140.71">
+        <lane id="-4612968#4_0" index="0" allow="pedestrian" speed="8.33" length="40.53" width="2.00" shape="28.48,117.90 29.64,125.11 29.99,140.62"/>
+        <lane id="-4612968#4_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="40.53" shape="25.62,117.08 26.97,125.54 27.29,140.68"/>
+    </edge>
+    <edge id="24992424#0" from="28373972" to="2882261426" name="Stralauer Straße" priority="7" type="cycleway.lane|highway.secondary">
+        <lane id="24992424#0_0" index="0" allow="pedestrian" speed="13.89" length="27.73" width="3.00" shape="-1.83,97.07 12.51,94.17"/>
+        <lane id="24992424#0_1" index="1" allow="bicycle" speed="13.89" length="27.73" width="1.00" shape="-1.42,99.13 12.93,96.23"/>
+        <lane id="24992424#0_2" index="2" disallow="pedestrian" speed="13.89" length="27.73" shape="-0.98,101.29 13.37,98.38"/>
+        <lane id="24992424#0_3" index="3" disallow="pedestrian" speed="13.89" length="27.73" shape="-0.33,104.52 14.02,101.62"/>
+    </edge>
+    <edge id="43159545#0" from="2882261426" to="540698418" name="Neue Jüdenstraße" priority="4" type="highway.residential" shape="27.18,100.64 23.17,79.41 8.83,0.00">
+        <lane id="43159545#0_0" index="0" allow="pedestrian" speed="13.89" length="102.30" width="2.00" shape="20.64,89.48 18.90,80.22 4.55,0.77"/>
+        <lane id="43159545#0_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="102.30" shape="23.30,88.98 21.55,79.72 7.21,0.29"/>
+    </edge>
+    <edge id="4612968#4" from="540764864" to="2882261426" name="Jüdenstraße" priority="4" type="highway.residential" shape="25.64,140.71 25.34,125.80 23.31,113.12 27.18,100.64">
+        <lane id="4612968#4_0" index="0" allow="pedestrian" speed="8.33" length="40.53" width="2.00" shape="21.29,140.80 20.99,125.89 19.26,115.26"/>
+        <lane id="4612968#4_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="40.53" shape="23.99,140.74 23.69,125.83 22.12,116.08"/>
+    </edge>
+
+    <junction id="28373972" type="dead_end" x="0.00" y="106.14" incLanes="-24992424#0_0 -24992424#0_1 -24992424#0_2 -24992424#0_3" intLanes="" shape="-0.01,106.09 -2.13,95.60 2.13,116.68 0.01,106.19"/>
+    <junction id="2882261426" type="priority" x="27.18" y="100.64" incLanes="-43159545#0_0 -43159545#0_1 24992424#0_0 24992424#0_1 24992424#0_2 24992424#0_3 4612968#4_0 4612968#4_1" intLanes="" shape="30.18,87.68 19.66,89.66 12.22,92.70 16.48,113.77 18.19,114.96 29.54,118.21">
+        <request index="0" response="00100000" foes="00100000"/>
+        <request index="1" response="11100000" foes="11100000"/>
+        <request index="2" response="11100000" foes="11100000"/>
+        <request index="3" response="11100000" foes="11100000"/>
+        <request index="4" response="00000000" foes="10000000"/>
+        <request index="5" response="00000000" foes="10001111"/>
+        <request index="6" response="00000000" foes="00001110"/>
+        <request index="7" response="00110000" foes="00111110"/>
+    </junction>
+    <junction id="540698418" type="dead_end" x="8.83" y="0.00" incLanes="43159545#0_0 43159545#0_1" intLanes="" shape="8.88,-0.01 14.09,-0.95 3.57,0.95 8.78,0.01"/>
+    <junction id="540764864" type="dead_end" x="25.64" y="140.71" incLanes="-4612968#4_0 -4612968#4_1" intLanes="" shape="25.59,140.71 20.29,140.82 30.99,140.59 25.69,140.71"/>
+
+    <connection from="-43159545#0" to="-4612968#4" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="-43159545#0" to="-24992424#0" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="-43159545#0" to="-24992424#0" fromLane="1" toLane="2" dir="l" state="m"/>
+    <connection from="-43159545#0" to="-24992424#0" fromLane="1" toLane="3" dir="l" state="m"/>
+    <connection from="24992424#0" to="43159545#0" fromLane="2" toLane="1" dir="r" state="M"/>
+    <connection from="24992424#0" to="-4612968#4" fromLane="3" toLane="1" dir="l" state="M"/>
+    <connection from="4612968#4" to="-24992424#0" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="4612968#4" to="43159545#0" fromLane="1" toLane="1" dir="s" state="m"/>
+
+</net>
