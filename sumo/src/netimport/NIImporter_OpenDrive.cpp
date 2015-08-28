@@ -324,7 +324,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         int priorityL = e->getPriority(OPENDRIVE_TAG_LEFT);
         SUMOReal sB = 0;
         SUMOReal sE = e->length;
-        SUMOReal cF = e->length / e->geom.length2D();
+        // 0-length geometries are possible if only the inner points are represented
+        const SUMOReal length2D = e->geom.length2D();
+        SUMOReal cF = length2D == 0 ? 1 : e->length / length2D;
         NBEdge* prevRight = 0;
         NBEdge* prevLeft = 0;
 
