@@ -263,14 +263,18 @@ MSEdge::allowedLanes(const MSEdge* destination, SUMOVehicleClass vclass) const {
             for (std::vector<MSLane*>::const_iterator i2 = lanes->begin(); i2 != lanes->end(); ++i2) {
                 // origin lane allows the current vehicle class?
                 if ((*i2)->allowsVehicleClass(vclass)) {
-                    // target lane allows the current vehicle class?
-                    const MSLinkCont& lc = (*i2)->getLinkCont();
-                    for (MSLinkCont::const_iterator it_link = lc.begin(); it_link != lc.end(); ++it_link) {
-                        const MSLane* targetLane = (*it_link)->getLane(); 
-                        if ((&(targetLane->getEdge()) == edge || edge == 0) && targetLane->allowsVehicleClass(vclass)) {
-                            // -> may be used
-                            myClassedAllowed[vclass][edge]->push_back(*i2);
-                            break;
+                    if (edge == 0) {
+                        myClassedAllowed[vclass][edge]->push_back(*i2);
+                    } else {
+                        // target lane allows the current vehicle class?
+                        const MSLinkCont& lc = (*i2)->getLinkCont();
+                        for (MSLinkCont::const_iterator it_link = lc.begin(); it_link != lc.end(); ++it_link) {
+                            const MSLane* targetLane = (*it_link)->getLane(); 
+                            if ((&(targetLane->getEdge()) == edge) && targetLane->allowsVehicleClass(vclass)) {
+                                // -> may be used
+                                myClassedAllowed[vclass][edge]->push_back(*i2);
+                                break;
+                            }
                         }
                     }
                 }
