@@ -75,7 +75,9 @@ install -Dm644 %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/%{name}.png
 %if 0%{?suse_version} > 1200
 install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %endif
-%suse_update_desktop_file %{name} Education Science
+%if 0%{?suse_version} > 1320
+%suse_update_desktop_file -r %{name} 'Education;Engineering;'
+%endif
 %fdupes -s docs
 %fdupes %{buildroot}
 %endif
