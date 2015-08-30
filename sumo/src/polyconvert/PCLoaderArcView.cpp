@@ -84,8 +84,13 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     bool useRunningID = oc.getBool("shapefile.use-running-id");
     // start parsing
     std::string shpName = file + ".shp";
+#if GDAL_VERSION_MAJOR < 2
     OGRRegisterAll();
     OGRDataSource* poDS = OGRSFDriverRegistrar::Open(shpName.c_str(), FALSE);
+#else
+    GDALAllRegister();
+    GDALDataset* poDS = (GDALDataset*) GDALOpen(shpName.c_str(), GA_ReadOnly);
+#endif
     if (poDS == NULL) {
         throw ProcessError("Could not open shape description '" + shpName + "'.");
     }

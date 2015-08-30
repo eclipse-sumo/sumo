@@ -166,8 +166,13 @@ NBHeightMapper::loadIfSet(OptionsCont& oc) {
 int
 NBHeightMapper::loadShapeFile(const std::string& file) {
 #ifdef HAVE_GDAL
+#if GDAL_VERSION_MAJOR < 2
     OGRRegisterAll();
     OGRDataSource* ds = OGRSFDriverRegistrar::Open(file.c_str(), FALSE);
+#else
+    GDALAllRegister();
+    GDALDataset* ds = (GDALDataset*) GDALOpen(file.c_str(), GA_ReadOnly);
+#endif
     if (ds == NULL) {
         throw ProcessError("Could not open shape file '" + file + "'.");
     }
@@ -242,7 +247,11 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
         */
         OGRFeature::DestroyFeature(feature);
     }
+#if GDAL_VERSION_MAJOR < 2
     OGRDataSource::DestroyDataSource(ds);
+#else
+    GDALClose(ds);
+#endif
     OCTDestroyCoordinateTransformation(toWGS84);
     OGRCleanupAll();
     return numFeatures;

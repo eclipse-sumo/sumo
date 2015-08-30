@@ -125,8 +125,13 @@ void
 NIImporter_ArcView::load() {
 #ifdef HAVE_GDAL
     PROGRESS_BEGIN_MESSAGE("Loading data from '" + mySHPName + "'");
+#if GDAL_VERSION_MAJOR < 2
     OGRRegisterAll();
     OGRDataSource* poDS = OGRSFDriverRegistrar::Open(mySHPName.c_str(), FALSE);
+#else
+    GDALAllRegister();
+    GDALDataset* poDS = (GDALDataset*) GDALOpen(mySHPName.c_str(), GA_ReadOnly);
+#endif
     if (poDS == NULL) {
         WRITE_ERROR("Could not open shape description '" + mySHPName + "'.");
         return;
