@@ -126,7 +126,7 @@ else
     ac_disabled="$ac_disabled TRACI"
 fi
 
-AM_CONDITIONAL([WITH_VERSION_H], test -d .svn || test x$PACKAGE_VERSION == xsvn -a -f src/version.h)
+AM_CONDITIONAL([WITH_VERSION_H], test -d .svn)
 if test -d .svn || test x$PACKAGE_VERSION == xsvn -a -f src/version.h; then
    AC_DEFINE([HAVE_VERSION_H], [1], [Define if auto-generated version.h should be used.])
 else
