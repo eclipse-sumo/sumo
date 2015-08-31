@@ -27,7 +27,7 @@
 
     <xsd:complexType name="outputType">
         <xsd:all>
-            <xsd:element name="output-prefix" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="routes-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="routes-for-all" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="detector-output" type="fileOptionType" minOccurs="0"/>

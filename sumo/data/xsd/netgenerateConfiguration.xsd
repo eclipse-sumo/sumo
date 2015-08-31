@@ -65,7 +65,7 @@
 
     <xsd:complexType name="outputType">
         <xsd:all>
-            <xsd:element name="output-prefix" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="plain-output-prefix" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-output" type="fileOptionType" minOccurs="0"/>
@@ -86,6 +86,7 @@
             <xsd:element name="tls.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls-guess.joining" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.green.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.yellow.min-decel" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.yellow.patch-small" type="boolOptionType" minOccurs="0"/>
@@ -93,7 +94,6 @@
             <xsd:element name="tls.half-offset" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.quarter-offset" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.default-type" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -103,6 +103,7 @@
             <xsd:element name="remove-edges.explicit" type="strOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.explicit" type="strOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.input-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="remove-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.in-boundary" type="strOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.in-geo-boundary" type="strOptionType" minOccurs="0"/>
         </xsd:all>
@@ -147,6 +148,7 @@
             <xsd:element name="default.speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.priority" type="intOptionType" minOccurs="0"/>
             <xsd:element name="default.sidewalk-width" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.junctions.keep-clear" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="default-junction-type" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

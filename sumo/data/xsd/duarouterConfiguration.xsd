@@ -34,7 +34,7 @@
 
     <xsd:complexType name="outputType">
         <xsd:all>
-            <xsd:element name="output-prefix" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vtype-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="exit-times" type="boolOptionType" minOccurs="0"/>
@@ -50,10 +50,13 @@
             <xsd:element name="max-alternatives" type="intOptionType" minOccurs="0"/>
             <xsd:element name="remove-loops" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="repair" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="repair.from" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="repair.to" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="weight-period" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="bulk-routing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gawron.beta" type="floatOptionType" minOccurs="0"/>

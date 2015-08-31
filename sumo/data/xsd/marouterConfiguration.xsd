@@ -23,6 +23,7 @@
             <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="od-matrix-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="od-amitran-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="route-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lane-weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>
@@ -31,7 +32,7 @@
 
     <xsd:complexType name="outputType">
         <xsd:all>
-            <xsd:element name="output-prefix" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="flow-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ignore-vehicle-type" type="boolOptionType" minOccurs="0"/>
@@ -43,6 +44,7 @@
 
     <xsd:complexType name="processingType">
         <xsd:all>
+            <xsd:element name="aggregation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="max-alternatives" type="intOptionType" minOccurs="0"/>
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
@@ -54,6 +56,7 @@
             <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="timeline" type="strOptionType" minOccurs="0"/>
             <xsd:element name="timeline.day-in-hours" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="timesplit" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="assignment-method" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="left-turn-penalty" type="floatOptionType" minOccurs="0"/>
