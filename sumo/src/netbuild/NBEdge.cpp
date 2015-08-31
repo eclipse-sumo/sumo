@@ -1758,7 +1758,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
             // ones have precedence). This is necessary when running divideSelectedLanesOnEdges more than once.
             //    @todo To decide which target lanes are still available we need to do a
             // preliminary lane-to-lane assignment in regard to permisions (rather than to ordering)
-            const int numConsToTarget = count_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(target, true));
+            const int numConsToTarget = (int)count_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(target, true));
             int targetLanes = (int)target->getNumLanes();
             if (target->getPermissions(0) == SVC_PEDESTRIAN) {
                 --targetLanes;

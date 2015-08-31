@@ -506,7 +506,6 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
         }
         // iteratively remove the fringe
         bool pruneFringe = true;
-        const SUMOReal pedestrianFringeThreshold = 1.0;
         while (pruneFringe) {
             pruneFringe = false;
             for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end();) {

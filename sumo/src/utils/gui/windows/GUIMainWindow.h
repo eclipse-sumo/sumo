@@ -36,6 +36,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/foxtools/MFXMutex.h>
 
@@ -102,6 +103,7 @@ public:
      * @param event the event to send
      */
     virtual void sendEvent(GUIEvent* event) {
+        UNUSED_PARAMETER(event);
     }
 
 protected:
