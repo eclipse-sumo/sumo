@@ -25,7 +25,8 @@ from os.path import dirname, exists, getmtime, join
 
 
 def main():
-    typemapFile = join(dirname(__file__), '..', '..', 'src', 'netimport', 'typemap.h')
+    typemapFile = join(
+        dirname(__file__), '..', '..', 'src', 'netimport', 'typemap.h')
     typemapDir = join(dirname(__file__), '..', '..', 'data', 'typemap')
     # determine output file
     typemap = {}
@@ -39,7 +40,8 @@ def main():
             for format, mapFile in sorted(typemap.iteritems()):
                 print("const std::string %sTypemap =" % format, file=f)
                 for line in open(mapFile):
-                    print('"%s"' % line.replace('"', r'\"').replace('\n', r'\n'), file=f)
+                    print('"%s"' %
+                          line.replace('"', r'\"').replace('\n', r'\n'), file=f)
                 print(";", file=f)
 
 

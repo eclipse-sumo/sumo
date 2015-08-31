@@ -113,8 +113,8 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
     std::vector<ODCell*>::reverse_iterator cell = myContainer.rbegin();
     for (; cell != myContainer.rend(); ++cell) {
         if ((*cell)->begin <= depart && (*cell)->end > depart &&
-            (*cell)->origin == origin && (*cell)-> destination == destination &&
-            (*cell)->vehicleType == vehicleType) {
+                (*cell)->origin == origin && (*cell)-> destination == destination &&
+                (*cell)->vehicleType == vehicleType) {
             break;
         }
     }

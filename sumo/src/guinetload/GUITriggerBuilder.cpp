@@ -103,16 +103,14 @@ GUITriggerBuilder::buildContainerStop(MSNet& net, const std::string& id,
 }
 
 
-    void
+void
 GUITriggerBuilder::buildChrgStn(MSNet& net, const std::string& id,
-        const std::vector<std::string>& lines, 
-        MSLane* lane,
-        SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal chargeDelay) 
-{
+                                const std::vector<std::string>& lines,
+                                MSLane* lane,
+                                SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal chargeDelay) {
     GUIChrgStn* chrg = new GUIChrgStn(id, lines, *lane, frompos, topos, chrgpower, efficiency, chargeInTransit, chargeDelay);
 
-    if (!net.addChrgStn(chrg)) 
-    {
+    if (!net.addChrgStn(chrg)) {
         delete chrg;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
     }

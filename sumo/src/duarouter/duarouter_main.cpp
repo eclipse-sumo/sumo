@@ -186,7 +186,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // process route definitions
     try {
         loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
-                                string2time(oc.getString("route-steps")), net, *router);
+                             string2time(oc.getString("route-steps")), net, *router);
         // end the processing
         net.cleanup(router);
     } catch (ProcessError&) {

@@ -64,7 +64,8 @@ import runInternalTests
 
 env = os.environ
 if "SUMO_HOME" not in env:
-    env["SUMO_HOME"] = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    env["SUMO_HOME"] = os.path.dirname(
+        os.path.dirname(os.path.dirname(__file__)))
 env["SMTP_SERVER"] = "smtprelay.dlr.de"
 env["TEMP"] = env["TMP"] = r"D:\Delphi\texttesttmp"
 env["REMOTEDIR_BASE"] = 'O:/Daten/Sumo'
@@ -220,18 +221,22 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
             env[name.upper() + "_BINARY"] = binary
     log = open(testLog, 'w')
     # provide more information than just the date:
-    fullOpt = ["-b", env["FILEPREFIX"], "-name", "%sr%s" % (date.today().strftime("%d%b%y"), svnrev)]
+    fullOpt = ["-b", env["FILEPREFIX"], "-name", "%sr%s" %
+               (date.today().strftime("%d%b%y"), svnrev)]
     ttBin = "texttestc.py"
     if options.sumoExe == "meso":
         runInternalTests.runInternal("", fullOpt, log, console=True)
     else:
-        subprocess.call([ttBin] + fullOpt, stdout=log, stderr=subprocess.STDOUT, shell=True)
-    subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, stdout=log, stderr=subprocess.STDOUT, shell=True)
-    subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], stdout=log, stderr=subprocess.STDOUT, shell=True)
+        subprocess.call(
+            [ttBin] + fullOpt, stdout=log, stderr=subprocess.STDOUT, shell=True)
+    subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt,
+                    stdout=log, stderr=subprocess.STDOUT, shell=True)
+    subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"],
+                    stdout=log, stderr=subprocess.STDOUT, shell=True)
     ago = datetime.datetime.now() - datetime.timedelta(50)
     subprocess.call('%s -s "batch.ArchiveRepository session=%s before=%s"' % (
-                     ttBin, env["FILEPREFIX"], ago.strftime("%d%b%Y")),
-                    stdout=log, stderr=subprocess.STDOUT, shell=True)
+        ttBin, env["FILEPREFIX"], ago.strftime("%d%b%Y")),
+        stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
     log = open(statusLog, 'w')
     status.printStatus(

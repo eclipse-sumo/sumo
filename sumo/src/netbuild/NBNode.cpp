@@ -694,8 +694,8 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
             } else {
                 myType = NODETYPE_NOJUNCTION;
             }
-            WRITE_WARNING("Junction '" + getID() + "' is too complicated (" + toString(numConnections) 
-                    + " connections, max 64); will be set to " + toString(myType));
+            WRITE_WARNING("Junction '" + getID() + "' is too complicated (" + toString(numConnections)
+                          + " connections, max 64); will be set to " + toString(myType));
         } else if (numConnections == 0) {
             delete myRequest;
             myRequest = 0;
@@ -755,7 +755,7 @@ NBNode::computeLanes2Lanes() {
     //  one in, one out, the outgoing has one lane more
     if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1) {
         NBEdge* in = myIncomingEdges[0];
-        NBEdge* out= myOutgoingEdges[0];
+        NBEdge* out = myOutgoingEdges[0];
         // check if it's not the turnaround
         if (in->getTurnDestination() == out) {
             // will be added later or not...
@@ -763,7 +763,7 @@ NBNode::computeLanes2Lanes() {
         }
         const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        if ( in->getStep() <= NBEdge::LANES2EDGES
+        if (in->getStep() <= NBEdge::LANES2EDGES
                 && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset - 1
                 && in != out
                 && in->isConnectedTo(out)) {
@@ -1231,7 +1231,7 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
                 // and thus gets precedence over a right turning vehicle
                 return false;
             }
-        } 
+        }
         if ((!lefthand && fromLane <= prohibitorFromLane) ||
                 (lefthand && fromLane >= prohibitorFromLane)) {
             return false;
@@ -1239,7 +1239,7 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
         const SUMOReal toAngleAtNode = fmod(to->getStartAngle() + 180, (SUMOReal)360.0);
         const SUMOReal prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (SUMOReal)360.0);
         return (lefthand != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) <
-                    GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
+                             GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
     }
 }
 
@@ -1670,7 +1670,7 @@ NBNode::guessCrossings() {
             }
         }
     }
-    // Avoid duplicate crossing between the same pair of walkingareas 
+    // Avoid duplicate crossing between the same pair of walkingareas
     if (gDebugFlag1) {
         std::cout << "  hadCandidates=" << hadCandidates << "  connectedCandidates=" << toString(connectedCandidates) << "\n";
     }
@@ -1797,7 +1797,7 @@ NBNode::forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalize
 }
 
 
-void 
+void
 NBNode::buildCrossingsAndWalkingAreas() {
     buildCrossings();
     buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"));
@@ -1857,8 +1857,8 @@ NBNode::buildCrossings() {
         (*it).id = ":" + getID() + "_c" + toString(index++);
         // reset fields, so repeated computation (Netedit) will sucessfully perform the checks
         // in buildWalkingAreas (split crossings) and buildInnerEdges (sanity check)
-        (*it).nextWalkingArea = ""; 
-        (*it).prevWalkingArea = ""; 
+        (*it).nextWalkingArea = "";
+        (*it).prevWalkingArea = "";
         EdgeVector& edges = (*it).edges;
         if (gDebugFlag1) {
             std::cout << "  crossing=" << (*it).id << " edges=" << toString(edges);
@@ -1902,7 +1902,7 @@ NBNode::buildCrossings() {
         (*it).shape.clear();
         const int begDir = (edges.front()->getFromNode() == this ? FORWARD : BACKWARD);
         const int endDir = (edges.back()->getToNode() == this ? FORWARD : BACKWARD);
-        if (edges.front()->getFirstNonPedestrianLaneIndex(begDir) < 0 
+        if (edges.front()->getFirstNonPedestrianLaneIndex(begDir) < 0
                 || edges.back()->getFirstNonPedestrianLaneIndex(endDir) < 0) {
             // invalid crossing
             WRITE_WARNING("Discarding Invalid crossing '" + (*it).id + "' at node '" + getID() + "' with edges '" + toString((*it).edges) + "'.");

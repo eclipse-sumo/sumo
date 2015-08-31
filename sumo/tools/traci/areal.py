@@ -129,7 +129,6 @@ def getLastStepVehicleNumber(detID):
     return _getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, detID)
 
 
-
 def subscribe(detID, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31 - 1):
     """subscribe(string, list(integer), double, double) -> None
 

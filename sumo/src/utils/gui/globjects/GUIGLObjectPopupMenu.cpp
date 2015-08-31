@@ -133,7 +133,7 @@ GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*, FXSelector, void*) {
     myParent->update();
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     gDebugSelectedVehicle = myObject->getMicrosimID();
-#endif 
+#endif
     return 1;
 }
 

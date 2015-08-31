@@ -384,9 +384,9 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             return;
         }
         e.node = new NBNode(myCurrentID + "." + nameid,
-                myCurrentEdge->getGeometry().positionAtOffset(e.pos));
+                            myCurrentEdge->getGeometry().positionAtOffset(e.pos));
         NIXMLNodesHandler::processNodeType(attrs, e.node, e.node->getID(), e.node->getPosition(), false,
-                myNodeCont, myTLLogicCont);
+                                           myNodeCont, myTLLogicCont);
         mySplits.push_back(e);
     }
 }

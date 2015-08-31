@@ -572,7 +572,7 @@ private:
         BulkmodeTask& operator=(const BulkmodeTask&);
     };
 
-    
+
 private:
     /// @brief for multi threaded routing
     FXWorkerThread::Pool myThreadPool;

@@ -820,7 +820,7 @@ protected:
     SUMOReal getMaximumBrakeDist() const;
 
     /* @brief determine depart speed and whether it may be patched
-     * @param[in] veh The departing vehicle 
+     * @param[in] veh The departing vehicle
      * @param[out] whether the speed may be patched to account for safety
      * @return the depart speed
      */
@@ -923,7 +923,7 @@ private:
 
     /** @class by_id_sorter
      * @brief Sorts edges by their angle relative to the given edge (straight comes first)
-     * 
+     *
      */
     class by_connections_to_sorter {
     public:

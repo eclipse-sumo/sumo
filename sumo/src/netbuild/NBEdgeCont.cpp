@@ -313,12 +313,11 @@ NBEdgeCont::retrievePossiblySplit(const std::string& id, bool downstream) const 
         return edge;
     }
     // NOTE: (TODO) for multiply split edges (e.g. 15[0][0]) one could try recursion
-    if ((retrieve(id + "[0]") != 0) && (retrieve(id + "[1]") != 0)){
+    if ((retrieve(id + "[0]") != 0) && (retrieve(id + "[1]") != 0)) {
         // Edge was split during the netbuilding process
-        if (downstream == true){
+        if (downstream == true) {
             return retrieve(id + "[1]");
-        }
-        else {
+        } else {
             return retrieve(id + "[0]");
         }
     }

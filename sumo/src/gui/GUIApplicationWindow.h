@@ -248,9 +248,9 @@ public:
         return mySimDelayTarget->getValue();
     }
 
-   /** @brief Sends an event from the application thread to the GUI
-     * @param event the event to send
-     */
+    /** @brief Sends an event from the application thread to the GUI
+      * @param event the event to send
+      */
     virtual void sendEvent(GUIEvent* event);
 
 protected:

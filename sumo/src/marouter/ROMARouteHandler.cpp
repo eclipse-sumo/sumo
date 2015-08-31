@@ -55,7 +55,7 @@ ROMARouteHandler::~ROMARouteHandler() {
 
 void
 ROMARouteHandler::myStartElement(int element,
-                               const SUMOSAXAttributes& attrs) {
+                                 const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_TRIP || element == SUMO_TAG_VEHICLE) {
         SUMOVehicleParameter* parameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
         myMatrix.add(parameter->id, parameter->depart, parameter->fromTaz, parameter->toTaz, parameter->vtypeid);

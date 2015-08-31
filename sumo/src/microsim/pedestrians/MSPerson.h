@@ -412,7 +412,7 @@ public:
     void routeOutput(OutputDevice& os) const;
 
     /// @brief return the list of internal edges if this person is walking and the pedestrian model allows it
-    const std::string& getNextEdge() const; 
+    const std::string& getNextEdge() const;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -35,7 +35,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <sstream> 
+#include <sstream>
 #include <microsim/MSStoppingPlace.h>
 
 
@@ -58,9 +58,8 @@ class MSBusStop;
  * @class ChrgStn
  * @brief Definition of charging stations
  */
-class MSChrgStn : public MSStoppingPlace
-{
-    public:
+class MSChrgStn : public MSStoppingPlace {
+public:
 
     // CONSTRUCTORES
 
@@ -73,27 +72,27 @@ class MSChrgStn : public MSStoppingPlace
     // GET FUNCTIONS
 
 
-    /// @brief Get parameter 01, charging station's charging power 
+    /// @brief Get parameter 01, charging station's charging power
     SUMOReal getChrgPower() const;
 
-    /// @brief Get parameter 02, efficiency of the charging station    
+    /// @brief Get parameter 02, efficiency of the charging station
     SUMOReal getEfficency() const;
 
-    /// @brief Get parameter 03, get chargeInTransit    
+    /// @brief Get parameter 03, get chargeInTransit
     SUMOReal getChargeInTransit() const;
 
     /// @brief Get parameter 03, get Charge Delay
     SUMOReal getChargeDelay() const;
-    
+
 
     // SET FUNCTIONS
 
-    /// @brief Set parameter 05, charging station's charging power 
+    /// @brief Set parameter 05, charging station's charging power
     inline void setChrgPower(SUMOReal new_ChrgPower);
 
-    /// @brief Set parameter 06, efficiency of the charging station    
-    inline void setEfficency(SUMOReal new_Efficency);    
-        
+    /// @brief Set parameter 06, efficiency of the charging station
+    inline void setEfficency(SUMOReal new_Efficency);
+
 
     // OTHER FUNCTIONS
 
@@ -104,26 +103,26 @@ class MSChrgStn : public MSStoppingPlace
     bool vehicleIsInside(const SUMOReal position);
 
 
-    private:
+private:
 
     /// @brief Parameter 01, charging station's charging power
     SUMOReal ChrgPower;
 
-    /// @brief Parameter 02, efficiency of the charging station    
+    /// @brief Parameter 02, efficiency of the charging station
     SUMOReal Efficency;
 
-    /// @brief Parameter 03, Allow charge in transit    
-    SUMOReal ChargeInTransit; 
-    
+    /// @brief Parameter 03, Allow charge in transit
+    SUMOReal ChargeInTransit;
+
     /// @brief Parameter 03, Charge Delay
     SUMOReal ChargeDelay;
 
 
     /** @brief convert from SUMOReal to String
      * @param[in] var Variable in SUMOReal format
-     * @return Variable var in String format 
+     * @return Variable var in String format
      */
-    std::string SUMOReal_str(const SUMOReal &var);
+    std::string SUMOReal_str(const SUMOReal& var);
 
 
 };

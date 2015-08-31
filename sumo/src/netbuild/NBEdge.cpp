@@ -438,7 +438,7 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
 }
 
 
-PositionVector 
+PositionVector
 NBEdge::cutAtIntersection(const PositionVector& old) const {
     PositionVector shape = old;
     shape = startShapeAt(shape, myFrom);
@@ -1583,10 +1583,10 @@ NBEdge::recheckLanes() {
                 const int origToLane = c.toLane;
                 c.toLane = -1; // ignore this connection when calling hasConnectionTo
                 int toLane = origToLane;
-                while (toLane > 0 
+                while (toLane > 0
                         && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
-                        && !hasConnectionTo(c.toEdge, toLane) 
-                        ) {
+                        && !hasConnectionTo(c.toEdge, toLane)
+                      ) {
                     toLane--;
                 }
                 if ((getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) != 0
@@ -1596,9 +1596,9 @@ NBEdge::recheckLanes() {
                 } else {
                     // try to find a suitable target lane to the left
                     int toLane = origToLane;
-                    while (toLane < (int)c.toEdge->getNumLanes() - 1 
+                    while (toLane < (int)c.toEdge->getNumLanes() - 1
                             && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
-                            && !hasConnectionTo(c.toEdge, toLane) 
+                            && !hasConnectionTo(c.toEdge, toLane)
                           ) {
                         toLane++;
                     }
@@ -1750,7 +1750,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
                 continue;
             }
             if ((getPermissions(fromIndex) & target->getPermissions()) == SVC_PEDESTRIAN) {
-                // exclude connection if the only commonly permitted class are pedestrians 
+                // exclude connection if the only commonly permitted class are pedestrians
                 // these connections are later built in NBNode::buildWalkingAreas
                 continue;
             }
@@ -1833,7 +1833,7 @@ unsigned int
 NBEdge::computePrioritySum(const std::vector<unsigned int>& priorities) {
     unsigned int sum = 0;
     for (std::vector<unsigned int>::const_iterator i = priorities.begin(); i != priorities.end(); i++) {
-        sum += (int)*i;
+        sum += (int) * i;
     }
     return sum;
 }
@@ -2520,7 +2520,7 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
         const SUMOReal dist = myGeom[i].distanceTo2D(node->getPosition());
         const SUMOReal neededOffset = (getTotalWidth() + getNumLanes() * SUMO_const_laneOffset) / 2;
         const SUMOReal dist2 = MIN2(myGeom.distance(other->getGeometry()[i2]),
-                other->getGeometry().distance(myGeom[i]));
+                                    other->getGeometry().distance(myGeom[i]));
         const SUMOReal neededOffset2 = neededOffset + (other->getTotalWidth() + other->getNumLanes() * SUMO_const_laneOffset) / 2;
         if (dist < neededOffset && dist2 < neededOffset2) {
             PositionVector tmp = myGeom;

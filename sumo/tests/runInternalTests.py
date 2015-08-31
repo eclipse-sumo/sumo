@@ -67,7 +67,8 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False):
     apps = "sumo.internal,sumo.meso,complex.meso,duarouter.astar,duarouter.chrouter"
     if guiTests:
         apps = "sumo.gui"
-    subprocess.call("%s %s -a %s" % (ttBin, args, apps), stdout=out, stderr=out, shell=True)
+    subprocess.call("%s %s -a %s" %
+                    (ttBin, args, apps), stdout=out, stderr=out, shell=True)
 
 if __name__ == "__main__":
     optParser = optparse.OptionParser()
@@ -75,7 +76,7 @@ if __name__ == "__main__":
                          help="suffix to the fileprefix")
     optParser.add_option("-g", "--gui", default=False,
                          action="store_true", help="run gui tests")
-    optParser.add_option("-c", "--console", default=False, 
+    optParser.add_option("-c", "--console", default=False,
                          action="store_true", help="run texttest console interface")
     (options, args) = optParser.parse_args()
     runInternal(options.suffix, ["-" + a for a in args],

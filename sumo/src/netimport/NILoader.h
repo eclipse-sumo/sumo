@@ -80,7 +80,7 @@ private:
 
     /** loads data from the list of xml-files of certain type */
     void loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string>& files,
-                     const std::string& type, const bool stringParse=false);
+                     const std::string& type, const bool stringParse = false);
 
 private:
     /// @brief The network builder to fill with loaded data

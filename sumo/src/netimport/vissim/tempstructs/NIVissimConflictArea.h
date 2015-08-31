@@ -53,13 +53,12 @@
  * @class NIVissimConflictArea
  * @brief A temporary storage for conflict areas imported from Vissim
  */
-class NIVissimConflictArea
-{
+class NIVissimConflictArea {
 public:
     /// Constructor
-    NIVissimConflictArea(int id, const std::string &link1,
-                         const std::string &link2,
-                         const std::string &status);
+    NIVissimConflictArea(int id, const std::string& link1,
+                         const std::string& link2,
+                         const std::string& status);
 
 
     /// Destructor
@@ -80,33 +79,33 @@ public:
     /// Returns the conflict area from the dictionary, which defines
     /// the priority rule of the two given links
     static NIVissimConflictArea* dict_findByLinks(const std::string& link1,
-                                                  const std::string& link2);
+            const std::string& link2);
 
     /// Clears the dictionary
     static void clearDict();
 
     /// Returns the dictionary including all conflict areas
-    static std::map<int, NIVissimConflictArea*> getConflictAreas(){
+    static std::map<int, NIVissimConflictArea*> getConflictAreas() {
         return myDict;
     }
 
     /// Returns the ID of the conflic area
-    int getID(){
+    int getID() {
         return myConflictID;
     }
 
     /// Returns the first link of the conflic area
-    std::string getFirstLink(){
+    std::string getFirstLink() {
         return myFirstLink;
     }
 
     /// Returns the second link of the conflic area
-    std::string getSecondLink(){
+    std::string getSecondLink() {
         return mySecondLink;
     }
 
     /// Returns the priority regulation of the conflic area
-    std::string getStatus(){
+    std::string getStatus() {
         return myStatus;
     }
 

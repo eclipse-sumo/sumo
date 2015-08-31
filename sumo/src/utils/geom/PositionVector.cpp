@@ -1248,7 +1248,7 @@ PositionVector::operator==(const PositionVector& v2) const {
 }
 
 
-bool 
+bool
 PositionVector::hasElevation() const {
     if (size() > 2) {
         return false;

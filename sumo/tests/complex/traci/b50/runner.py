@@ -29,7 +29,7 @@ if "SUMO_HOME" in os.environ:
 sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib
 import traci
-PORT= 8765
+PORT = 8765
 
 sumoBinary = os.environ.get(
     "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
@@ -44,7 +44,7 @@ traci.init(PORT)
 traci.simulationStep(200000)
 for i in range(10):
     for j in range(10):
-        traci.gui.screenshot('View #0', "test_%s_%s.png" % (i,j))
+        traci.gui.screenshot('View #0', "test_%s_%s.png" % (i, j))
     traci.simulationStep()
 traci.close()
 p.wait()

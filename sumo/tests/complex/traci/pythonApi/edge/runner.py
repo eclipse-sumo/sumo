@@ -29,10 +29,10 @@ import sumolib
 sumoBinary = sumolib.checkBinary('sumo')
 
 PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary, 
-            '-c',  'sumo.sumocfg', 
-            '--remote-port', str(PORT),
-            '--pedestrian.model', 'nonInteracting'], stdout=sys.stdout)
+sumoProcess = subprocess.Popen([sumoBinary,
+                                '-c',  'sumo.sumocfg',
+                                '--remote-port', str(PORT),
+                                '--pedestrian.model', 'nonInteracting'], stdout=sys.stdout)
 traci.init(PORT)
 for step in range(3):
     print "step", step

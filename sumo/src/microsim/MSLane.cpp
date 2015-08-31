@@ -94,8 +94,8 @@ MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge
     myLogicalPredecessorLane(0),
     myBruttoVehicleLengthSum(0), myNettoVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0),
     myLengthGeometryFactor(myShape.length() / myLength) {
-        myRestrictions = MSNet::getInstance()->getRestrictions(edge->getEdgeType());
-    }
+    myRestrictions = MSNet::getInstance()->getRestrictions(edge->getEdgeType());
+}
 
 
 MSLane::~MSLane() {
@@ -356,7 +356,7 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
 }
 
 
-SUMOReal 
+SUMOReal
 MSLane::getDepartSpeed(const MSVehicle& veh, bool& patchSpeed) {
     SUMOReal speed = 0;
     const SUMOVehicleParameter& pars = veh.getParameter();
@@ -750,7 +750,7 @@ MSLane::handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* 
     const SUMOReal gap = victimRear - collider->getPositionOnLane() - collider->getVehicleType().getMinGap();
     if (gap < -NUMERICAL_EPS) {
         if (collider->getLane() == this) {
-            if (MSGlobals::gLaneChangeDuration > DELTA_T 
+            if (MSGlobals::gLaneChangeDuration > DELTA_T
                     && collider->getLaneChangeModel().isChangingLanes()
                     && victim->getLaneChangeModel().isChangingLanes()
                     && victim->getLane() != this) {
@@ -758,8 +758,8 @@ MSLane::handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* 
                 return false;
             }
             WRITE_WARNING("Teleporting vehicle '" + collider->getID() + "'; collision with '"
-                    + victim->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
-                    + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
+                          + victim->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
+                          + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
             MSNet::getInstance()->getVehicleControl().registerCollision();
             myBruttoVehicleLengthSum -= collider->getVehicleType().getLengthWithGap();
             myNettoVehicleLengthSum -= collider->getVehicleType().getLength();

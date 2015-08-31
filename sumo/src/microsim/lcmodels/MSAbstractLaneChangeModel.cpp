@@ -129,7 +129,7 @@ bool
 MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* target, int direction) {
     target->enteredByLaneChange(&myVehicle);
     if (MSGlobals::gLaneChangeDuration > DELTA_T) {
-        // initialize further lanes for shadow vehicle 
+        // initialize further lanes for shadow vehicle
         // (must come before myLaneChangeCompletion is initialized)
         const std::vector<MSLane*>& further = myVehicle.getFurtherLanes();
         SUMOReal leftLength = myVehicle.getVehicleType().getLength() - myVehicle.getPositionOnLane();
@@ -162,7 +162,7 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
 }
 
 
-MSLane* 
+MSLane*
 MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane) const {
     if (std::find(myNoPartiallyOccupatedByShadow.begin(), myNoPartiallyOccupatedByShadow.end(), lane) == myNoPartiallyOccupatedByShadow.end()) {
         const int shadowDirection = myLaneChangeMidpointPassed ? -myLaneChangeDirection : myLaneChangeDirection;
@@ -235,7 +235,7 @@ MSAbstractLaneChangeModel::removeLaneChangeShadow(const MSMoveReminder::Notifica
     }
 }
 
-void 
+void
 MSAbstractLaneChangeModel::endLaneChangeManeuver(const MSMoveReminder::Notification reason) {
     removeLaneChangeShadow(reason);
     myLaneChangeCompletion = 1;

@@ -60,7 +60,7 @@ std::map<const ROEdge* const, SUMOReal> ROMAAssignments::myPenalties;
 ROMAAssignments::ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool timeSplit,
                                  RONet& net, ODMatrix& matrix,
                                  SUMOAbstractRouter<ROEdge, ROVehicle>& router)
-                                 : myBegin(begin), myEnd(end), myTimeSplit(timeSplit), myNet(net), myMatrix(matrix), myRouter(router) {
+    : myBegin(begin), myEnd(end), myTimeSplit(timeSplit), myNet(net), myMatrix(matrix), myRouter(router) {
     myDefaultVehicle = new ROVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
 }
 

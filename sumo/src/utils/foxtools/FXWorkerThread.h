@@ -131,7 +131,7 @@ public:
          * @param[in] t the task to add
          * @param[in] index index of the worker thread to use or -1 for an arbitrary one
          */
-        void add(Task* const t, int index=-1) {
+        void add(Task* const t, int index = -1) {
             t->setIndex(myRunningIndex++);
             if (index < 0) {
                 index = myRunningIndex % myWorkers.size();

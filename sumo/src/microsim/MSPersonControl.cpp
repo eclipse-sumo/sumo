@@ -183,9 +183,9 @@ MSPersonControl::boardAnyWaiting(MSEdge* edge, MSVehicle* vehicle, MSVehicle::St
                     stop->duration = boardingDuration;
                 }
                 //update the time point at which the next person can board the vehicle
-                if (stop->timeToBoardNextPerson > currentTime - DELTA_T){
+                if (stop->timeToBoardNextPerson > currentTime - DELTA_T) {
                     stop->timeToBoardNextPerson += boardingDuration;
-                } else {    
+                } else {
                     stop->timeToBoardNextPerson = currentTime + boardingDuration;
                 }
 

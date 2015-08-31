@@ -126,9 +126,9 @@ NIVissimConflictArea::clearDict() {
 
 
 void
-NIVissimConflictArea::setPriorityRegulation(NBEdgeCont& ec){
+NIVissimConflictArea::setPriorityRegulation(NBEdgeCont& ec) {
     std::map<int, NIVissimConflictArea*>::iterator it;
-    for (it = myDict.begin(); it != myDict.end(); it++){
+    for (it = myDict.begin(); it != myDict.end(); it++) {
         NIVissimConflictArea* const conflictArea = it->second;
         NIVissimConnection* const firstLink = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getFirstLink()));
         NIVissimConnection* const secondLink = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getSecondLink()));
@@ -138,7 +138,7 @@ NIVissimConflictArea::setPriorityRegulation(NBEdgeCont& ec){
         // status == "TWOYIELDSONE"
         NIVissimConnection* priority_conn = firstLink;
         NIVissimConnection* subordinate_conn = secondLink;
-        if (conflictArea->getStatus() == "ONEYIELDSTWO"){
+        if (conflictArea->getStatus() == "ONEYIELDSTWO") {
             priority_conn = secondLink;
             subordinate_conn = firstLink;
         }
@@ -152,7 +152,7 @@ NIVissimConflictArea::setPriorityRegulation(NBEdgeCont& ec){
         NBEdge* const mustStopFrom =  ec.retrievePossiblySplit(mustStopFrom_id, true);
         NBEdge* const mustStopTo =  ec.retrievePossiblySplit(mustStopTo_id, false);
 
-        if (mayDriveFrom != 0 && mayDriveTo != 0 && mustStopFrom != 0 && mustStopTo != 0){
+        if (mayDriveFrom != 0 && mayDriveTo != 0 && mustStopFrom != 0 && mustStopTo != 0) {
             NBNode* node = mayDriveFrom->getToNode();
             node->addSortedLinkFoes(
                 NBConnection(mayDriveFrom, mayDriveTo),

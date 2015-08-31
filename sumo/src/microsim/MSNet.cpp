@@ -178,8 +178,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myRouterTTDijkstra(0),
     myRouterTTAStar(0),
     myRouterEffort(0),
-    myPedestrianRouter(0) 
-{
+    myPedestrianRouter(0) {
     if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
@@ -600,7 +599,7 @@ MSNet::writeOutput() {
     // battery dumps
     if (OptionsCont::getOptions().isSet("battery-output")) {
         MSBatteryExport::write(OutputDevice::getDeviceByOption("battery-output"), myStep,
-                oc.getInt("battery-output.precision"));
+                               oc.getInt("battery-output.precision"));
     }
 
     // check full dumps
@@ -818,9 +817,9 @@ bool
 MSNet::addChrgStn(MSChrgStn* chrgStn) {
     return myChrgStnDict.add(chrgStn->getID(), chrgStn);
 }
- 
 
-MSChrgStn* 
+
+MSChrgStn*
 MSNet::getChrgStn(const std::string& id) const {
     return myChrgStnDict.get(id);
 }
@@ -897,7 +896,7 @@ MSNet::getLanesRTree() const {
 }
 
 
-bool 
+bool
 MSNet::checkElevation() {
     const MSEdgeVector& edges = myEdges->getEdges();
     for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {

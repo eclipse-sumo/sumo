@@ -95,7 +95,7 @@ def get_options(args=None):
     optParser.add_option(
         "--vehicle-class", help="The vehicle class assigned to the generated trips")
     optParser.add_option("--validate", default=False, action="store_true",
-            help="Whether to produce trip output that is already checked for connectivity")
+                         help="Whether to produce trip output that is already checked for connectivity")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
@@ -172,7 +172,7 @@ class RandomTripGenerator:
             sink_edge = self.sink_generator.get()
             if self.pedestrians:
                 destCoord = sink_edge.getFromNode().getCoord()
-            else: 
+            else:
                 destCoord = sink_edge.getToNode().getCoord()
 
             coords = ([source_edge.getFromNode().getCoord()]
@@ -189,11 +189,11 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
     # fringe_bonus None generates intermediate way points
     def edge_probability(edge):
         if options.vclass and not edge.allows(options.vclass):
-            return 0 # not allowed
+            return 0  # not allowed
         if fringe_bonus is None and edge.is_fringe() and not options.pedestrians:
-            return 0 # not suitable as intermediate way point
+            return 0  # not suitable as intermediate way point
         if fringe_forbidden is not None and edge.is_fringe(getattr(edge, fringe_forbidden)) and not options.pedestrians:
-            return 0 # the wrong kind of fringe
+            return 0  # the wrong kind of fringe
         prob = 1
         if options.length:
             prob *= edge.getLength()
@@ -276,12 +276,14 @@ def main(options):
 
     trip_generator = buildTripGenerator(net, options)
     idx = 0
-    
+
     if options.pedestrians:
         # figure out which of the tripattrs belong to the <person> and which
         # belong to the <walk>
-        walkattrs   = ' '.join([a for a in options.tripattrs.split() if is_walk_attribute(a)])
-        personattrs = ' '.join([a for a in options.tripattrs.split() if not is_walk_attribute(a)])
+        walkattrs = ' '.join(
+            [a for a in options.tripattrs.split() if is_walk_attribute(a)])
+        personattrs = ' '.join(
+            [a for a in options.tripattrs.split() if not is_walk_attribute(a)])
 
     def generate_one(idx):
         label = "%s%s" % (options.tripprefix, idx)
@@ -305,7 +307,6 @@ def main(options):
             print(exc, file=sys.stderr)
         return idx + 1
 
-
     with open(options.tripfile, 'w') as fouttrips:
         fouttrips.write("""<?xml version="1.0"?>
 <!-- generated on %s by $Id$
@@ -326,7 +327,7 @@ def main(options):
                     idx = generate_one(idx)
                     depart += options.period
                 else:
-                    # draw n times from a bernouli distribution 
+                    # draw n times from a bernouli distribution
                     # for an average arrival rate of 1 / period
                     prob = 1.0 / options.period / options.binomial
                     for i in range(options.binomial):

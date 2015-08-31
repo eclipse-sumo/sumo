@@ -530,6 +530,7 @@ def getDistance(vehID):
     """
     return _getUniversal(tc.VAR_DISTANCE, vehID)
 
+
 def getStopState(vehID):
     """getStopState(string) -> integer
 
@@ -541,11 +542,13 @@ def getStopState(vehID):
     """
     return _getUniversal(tc.VAR_STOPSTATE, vehID)
 
+
 def isStopped(vehID):
     """isStopped(string) -> bool
     Return whether the vehicle is stopped
     """
     return (getStopState(vehID) & 1) == 1
+
 
 def isStoppedParking(vehID):
     """isStoppedParking(string) -> bool
@@ -553,17 +556,20 @@ def isStoppedParking(vehID):
     """
     return (getStopState(vehID) & 2) == 2
 
+
 def isStoppedTriggered(vehID):
     """isStoppedTriggered(string) -> bool
     Return whether the vehicle is stopped and waiting for a person or container
     """
     return (getStopState(vehID) & 12) > 0
 
+
 def isAtBusStop(vehID):
     """isAtBusStop(string) -> bool
     Return whether the vehicle is stopped at a bus stop
     """
     return (getStopState(vehID) & 16) == 16
+
 
 def isAtContainerStop(vehID):
     """isAtContainerStop(string) -> bool
@@ -625,7 +631,8 @@ def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1, flags=STOP_D
                                          tc.TYPE_STRING, len(edgeID)) + str(edgeID)
     traci._message.string += struct.pack("!BdBBBiBB", tc.TYPE_DOUBLE, pos,
                                          tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, flags)
-    traci._message.string += struct.pack("!BdBi", tc.TYPE_DOUBLE, startPos, tc.TYPE_INTEGER, until)
+    traci._message.string += struct.pack("!BdBi",
+                                         tc.TYPE_DOUBLE, startPos, tc.TYPE_INTEGER, until)
     traci._sendExact()
 
 
@@ -635,7 +642,8 @@ def setBusStop(vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEFAULT):
     Adds or modifies a bus stop with the given parameters. The duration and the until attribute are
     in milliseconds.
     """
-    setStop(vehID, stopID, duration=duration, until=until, flags=flags|STOP_BUS_STOP)
+    setStop(vehID, stopID, duration=duration,
+            until=until, flags=flags | STOP_BUS_STOP)
 
 
 def setContainerStop(vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEFAULT):
@@ -644,7 +652,8 @@ def setContainerStop(vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEF
     Adds or modifies a container stop with the given parameters. The duration and the until attribute are
     in milliseconds.
     """
-    setStop(vehID, stopID, duration=duration, until=until, flags=flags|STOP_CONTAINER_STOP)
+    setStop(vehID, stopID, duration=duration, until=until,
+            flags=flags | STOP_CONTAINER_STOP)
 
 
 def resume(vehID):
@@ -961,7 +970,8 @@ def addFull(vehID, routeID, typeID="DEFAULT_VEHTYPE", depart=None,
         depart = str(traci.simulation.getCurrentTime() / 1000.)
     for val in (routeID, typeID, depart, departLane, departPos, departSpeed,
                 arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line):
-        messageString += struct.pack("!Bi", tc.TYPE_STRING, len(val)) + str(val)
+        messageString += struct.pack("!Bi",
+                                     tc.TYPE_STRING, len(val)) + str(val)
     messageString += struct.pack("!Bi", tc.TYPE_INTEGER, personCapacity)
     messageString += struct.pack("!Bi", tc.TYPE_INTEGER, personNumber)
 

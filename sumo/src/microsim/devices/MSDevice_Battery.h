@@ -37,7 +37,7 @@
 #include <microsim/trigger/MSChrgStn.h>
 #include <utils/common/SUMOTime.h>
 #include <iostream>
-#include <sstream> 
+#include <sstream>
 #include <string>
 
 
@@ -54,11 +54,10 @@ class SUMOVehicle;
  * @class MSDevice_Battery
  * @brief The battery parametereter
  *
- * MSDevice_Battery //COMPLETAR 
+ * MSDevice_Battery //COMPLETAR
 
  */
-class MSDevice_Battery : public MSDevice
-{
+class MSDevice_Battery : public MSDevice {
 public:
     /** @brief Inserts MSDevice_Example-options
     * @param[filled] oc The options container to add the options to
@@ -96,7 +95,7 @@ public:
     * @return True (always).
     */
     bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                SUMOReal newPos, SUMOReal newSpeed);
+                    SUMOReal newPos, SUMOReal newSpeed);
 
 
     /** @brief Saves departure info on insertion
@@ -121,7 +120,7 @@ public:
     bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
                  MSMoveReminder::Notification reason);
     /// @}
-        
+
     */
 
     /** @brief Called on writing tripinfo output
@@ -156,43 +155,43 @@ public:
     /// @brief Get parameter 03, the maximum power when accelerating
     inline SUMOReal getPowerMax() const;
 
-    /// @brief Get parameter 04, vehicle's Mass    
+    /// @brief Get parameter 04, vehicle's Mass
     inline SUMOReal getMass() const;
 
-    /// @brief Get parameter 05, vehicle's front surface Area    
+    /// @brief Get parameter 05, vehicle's front surface Area
     inline SUMOReal getFrontSurfaceArea() const;
 
-    /// @brief Get parameter 06, vehicle's drag coefficient    
+    /// @brief Get parameter 06, vehicle's drag coefficient
     inline SUMOReal getAirDragCoefficient() const;
 
     /// @brief Get parameter 07, vehicles' internal moment of inertia
     inline SUMOReal getInternalMomentOfInertia() const;
 
-    /// @brief Get parameter 08, vehicles' radial friction coefficient    
+    /// @brief Get parameter 08, vehicles' radial friction coefficient
     inline SUMOReal getRadialDragCoefficient() const;
 
     /// @brief Get parameter 09, vehicles' roll friction coefficient
     inline SUMOReal getRollDragCoefficient() const;
 
-    /// @brief Get parameter 10, vehicles' constant power intake    
+    /// @brief Get parameter 10, vehicles' constant power intake
     inline SUMOReal getConstantPowerIntake() const;
 
     /// @brief Get parameter 11, vehicles' Propulsion efficiency
     inline SUMOReal getPropulsionEfficiency() const;
 
-    /// @brief Get parameter 12, vehicles' Recuparation efficiency    
+    /// @brief Get parameter 12, vehicles' Recuparation efficiency
     inline SUMOReal getRecuperationEfficiency() const;
 
     /// @brief Get parameter 13, vehicles' last angle
     inline SUMOReal getLastAngle() const;
-    
+
     /// @brief Get parameter 14, vehicles' last Energy
     inline SUMOReal getLastEnergy() const;
 
     /// @brief Get parameter 15, true if Vehicle it's charging, false if not.
     bool isChargingStopped() const;
 
-        /// @brief Get parameter 16, true if Vehicle it's charging, false if not.
+    /// @brief Get parameter 16, true if Vehicle it's charging, false if not.
     bool isChargingInTransit() const;
 
     /// @brief Get parameter 17, charging start time.
@@ -225,10 +224,10 @@ public:
     /// @brief Set parameter 03, The maximum power when accelerating
     inline void setPowerMax(const SUMOReal new_Pmax);
 
-    /// @brief Set parameter 04, vehicle's Mass    
+    /// @brief Set parameter 04, vehicle's Mass
     inline void setMass(const SUMOReal new_Mass);
 
-    /// @brief Set parameter 05, vehicle's front surface Area    
+    /// @brief Set parameter 05, vehicle's front surface Area
     inline void setFrontSurfaceArea(const SUMOReal new_FrontSurfaceArea);
 
     /// @brief Set parameter 06, vehicle's drag coefficient
@@ -237,19 +236,19 @@ public:
     /// @brief Set parameter 07, vehicles' internal moment of inertia
     inline void setInternalMomentOfInertia(const SUMOReal new_InternalMomentOfInertia);
 
-    /// @brief Set parameter 08, Vehicles' radial friction coefficient    
+    /// @brief Set parameter 08, Vehicles' radial friction coefficient
     inline void setRadialDragCoefficient(const SUMOReal new_RadialDragCoefficient);
 
     /// @brief Set parameter 09, vehicles' roll friction coefficient
     inline void setRollDragCoefficient(const SUMOReal new_RollDragCoefficient);
 
-    /// @brief Set parameter 10, vehicles' constant power intake    
+    /// @brief Set parameter 10, vehicles' constant power intake
     inline void setConstantPowerIntake(const SUMOReal new_ConstantPowerIntake);
 
     /// @brief Set parameter 11, vehicles' Propulsion efficiency
     inline void setPropulsionEfficiency(const SUMOReal new_PropulsionEfficiency);
 
-    /// @brief Set parameter 12, vehicles' Recuparation efficiency    
+    /// @brief Set parameter 12, vehicles' Recuparation efficiency
     inline void setRecuperationEfficiency(const SUMOReal new_RecuperationEfficiency);
 
     /// @brief Set parameter 13, vehicles' last Angle
@@ -270,7 +269,7 @@ public:
     /// @brief Set parameter 21a, increase vehicleStopped
     inline void increaseVehicleStoppedTimer();
 
-        
+
 
 
 
@@ -286,50 +285,50 @@ private:
     /// @condition [MaxBatKap >= 0]
     SUMOReal MaxBatKap;
 
-    /// @brief Parameter 03, The Maximum Power when accelerating                                                    
+    /// @brief Parameter 03, The Maximum Power when accelerating
     /// @condition [PowerMax >= 0]
-    SUMOReal PowerMax;                                                                                    
-    
-    /// @brief Parameter 04, Vehicle's Mass                                                                    
+    SUMOReal PowerMax;
+
+    /// @brief Parameter 04, Vehicle's Mass
     /// @condition [Mass >= 0]
-    SUMOReal Mass;                                                                                    
-    
-    /// @brief Parameter 05, Vehicle's front surface Area                                                        
+    SUMOReal Mass;
+
+    /// @brief Parameter 05, Vehicle's front surface Area
     /// @condition [FrontSurfaceArea >= 0]
-    SUMOReal FrontSurfaceArea;                                                                                    
-    
-    /// @brief Parameter 06, Vehicle's drag coefficient                                                
+    SUMOReal FrontSurfaceArea;
+
+    /// @brief Parameter 06, Vehicle's drag coefficient
     /// @condition [AirDragCoefficient >=0]
-    SUMOReal AirDragCoefficient;                                                                                    
-    
-    /// @brief Parameter 07, Vehicles' internal moment of inertia                                                
+    SUMOReal AirDragCoefficient;
+
+    /// @brief Parameter 07, Vehicles' internal moment of inertia
     /// @condition [InternalMomentOfInertia >= 0]
-    SUMOReal InternalMomentOfInertia;                                                                                    
-    
-    /// @brief Parameter 08, Vehicles' radial friction coefficient                                                    
+    SUMOReal InternalMomentOfInertia;
+
+    /// @brief Parameter 08, Vehicles' radial friction coefficient
     /// @condition [RadialDragCoefficient >=0]
-    SUMOReal RadialDragCoefficient;                                                                        
-    
-    /// @brief Parameter 09, Vehicles' roll friction coefficient                                                        
+    SUMOReal RadialDragCoefficient;
+
+    /// @brief Parameter 09, Vehicles' roll friction coefficient
     /// @condition [RollDragCoefficient >= 0]
-    SUMOReal RollDragCoefficient;                                                                        
-    
-    /// @brief Parameter 10, Vehicles' constant power intake                                                            
+    SUMOReal RollDragCoefficient;
+
+    /// @brief Parameter 10, Vehicles' constant power intake
     /// @condition [ConstantPowerIntake >= 0]
-    SUMOReal ConstantPowerIntake;                                                                        
-    
-    /// @brief Parameter 11, Vehicles' propulsion efficiency                                                
+    SUMOReal ConstantPowerIntake;
+
+    /// @brief Parameter 11, Vehicles' propulsion efficiency
     /// @condition [1 >= PropulsionEfficiency >= 0]
-    SUMOReal PropulsionEfficiency;                                                                    
-    
-    /// @brief Parameter 12, Vehicles' recuparation efficiency                                            
+    SUMOReal PropulsionEfficiency;
+
+    /// @brief Parameter 12, Vehicles' recuparation efficiency
     /// @condition [1 >= RecuperationEfficiency >= 0]
     SUMOReal RecuperationEfficiency;
-    
+
     /// @brief Parameter 13, Vehicles' last angle
     /// @condition none
     SUMOReal LastAngle;
-    
+
     /// @brief Parameter 14, Vehicles' last energy
     /// @condition none
     SUMOReal LastEnergy;
@@ -363,14 +362,14 @@ private:
 
     /** @brief convert from SUMOReal to String
      * @param[in] var Variable in SUMOReal format
-    * @return Variable var in String format 
+    * @return Variable var in String format
     */
-    std::string SUMOReal_str(const SUMOReal &var);
+    std::string SUMOReal_str(const SUMOReal& var);
 
 
     /// @brief Invalidated copy constructor.
     MSDevice_Battery(const MSDevice_Battery&);
-    
+
 
     /// @brief Invalidated assignment operator.
     MSDevice_Battery& operator=(const MSDevice_Battery&);

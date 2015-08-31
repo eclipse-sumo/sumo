@@ -73,7 +73,7 @@ private:
      * @return Whether the node is assumed to be an on-ramp begin
      */
     static bool mayNeedOnRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
-            const std::set<std::string>& noramps);
+                              const std::set<std::string>& noramps);
 
 
     /** @brief Determines whether the given node may be an off-ramp end
@@ -84,7 +84,7 @@ private:
      * @return Whether the node is assumed to be an off-ramp end
      */
     static bool mayNeedOffRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
-            const std::set<std::string>& noramps);
+                               const std::set<std::string>& noramps);
 
 
     /** @brief Builds an on-ramp starting at the given node
@@ -130,7 +130,7 @@ private:
      * @return Whether a ramp can be built here
      */
     static bool fulfillsRampConstraints(NBEdge* potHighway, NBEdge* potRamp, NBEdge* other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
-            const std::set<std::string>& noramps);
+                                        const std::set<std::string>& noramps);
 
 
     /** @brief Moves the ramp to the right, as new lanes were added

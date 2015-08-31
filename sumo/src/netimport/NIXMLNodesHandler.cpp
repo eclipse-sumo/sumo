@@ -150,10 +150,10 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
 }
 
 
-void 
-NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position, 
-        bool updateEdgeGeometries, 
-        NBNodeCont& nc, NBTrafficLightLogicCont& tlc) {
+void
+NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
+                                   bool updateEdgeGeometries,
+                                   NBNodeCont& nc, NBTrafficLightLogicCont& tlc) {
     bool ok = true;
     // get the type
     SumoXMLNodeType type = NODETYPE_UNKNOWN;

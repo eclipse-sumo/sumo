@@ -78,7 +78,7 @@ GUIPerspectiveChanger::onMouseWheel(void*) {}
 void
 GUIPerspectiveChanger::onMouseMove(void*) {}
 
-long 
+long
 GUIPerspectiveChanger::onKeyPress(void*) {
     return 0;
 }

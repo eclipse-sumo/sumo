@@ -27,8 +27,9 @@ def distance(p1, p2):
     dy = p1[1] - p2[1]
     return math.sqrt(dx * dx + dy * dy)
 
+
 def polyLength(polygon):
-    return sum([distance(a,b) for a,b in zip(polygon[:-1], polygon[1:])])
+    return sum([distance(a, b) for a, b in zip(polygon[:-1], polygon[1:])])
 
 
 def lineOffsetWithMinimumDistanceToPoint(point, line_start, line_end, perpendicular=False):

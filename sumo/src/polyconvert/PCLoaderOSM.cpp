@@ -228,7 +228,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     }
     // delete relations
     for (Relations::iterator i = relations.begin(); i != relations.end(); ++i) {
-        delete (*i);
+        delete(*i);
     }
 }
 
@@ -434,13 +434,13 @@ PCLoaderOSM::RelationsHandler::myEndElement(int element) {
 // definitions of PCLoaderOSM::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 PCLoaderOSM::EdgesHandler::EdgesHandler(const std::map<long long int, PCOSMNode*>& osmNodes,
-                                        EdgeMap& toFill, 
+                                        EdgeMap& toFill,
                                         const RelationsMap& additionalWays,
-                                        bool withAttributes, MsgHandler& errorHandler) : 
-    SUMOSAXHandler("osm - file"), 
-    myWithAttributes(withAttributes), 
+                                        bool withAttributes, MsgHandler& errorHandler) :
+    SUMOSAXHandler("osm - file"),
+    myWithAttributes(withAttributes),
     myErrorHandler(errorHandler),
-    myOSMNodes(osmNodes), 
+    myOSMNodes(osmNodes),
     myEdgeMap(toFill),
     myAdditionalWays(additionalWays)
 { }

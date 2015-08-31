@@ -218,9 +218,9 @@ protected:
          * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)
          */
         RelationsHandler(RelationsMap& additionalWays,
-                Relations& relations,
-                bool withAttributes,
-                MsgHandler& errorHandler);
+                         Relations& relations,
+                         bool withAttributes,
+                         MsgHandler& errorHandler);
 
 
         /// @brief Destructor
@@ -301,7 +301,7 @@ protected:
          * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)
          */
         EdgesHandler(const std::map<long long int, PCOSMNode*>& osmNodes,
-                     EdgeMap& toFill, 
+                     EdgeMap& toFill,
                      const RelationsMap& additionalWays,
                      bool withAttributes,
                      MsgHandler& errorHandler);

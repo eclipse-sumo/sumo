@@ -265,7 +265,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "chrgpower",      SUMO_ATTR_CHRGPOWER },
     { "efficiency",     SUMO_ATTR_EFFICIENCY },
-    { "chargeInTransit",SUMO_ATTR_CHRGINTRANSIT },
+    { "chargeInTransit", SUMO_ATTR_CHRGINTRANSIT },
     { "chargeDelay",    SUMO_ATTR_CHRGDELAY},
 
     { "sigma",          SUMO_ATTR_SIGMA },

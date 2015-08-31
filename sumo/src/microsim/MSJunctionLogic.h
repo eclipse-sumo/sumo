@@ -57,7 +57,7 @@ public:
         return myDummyFoes;
     }
 
-    /// @brief Returns the foes for the given link 
+    /// @brief Returns the foes for the given link
     virtual const MSLogicJunction::LinkBits& getFoesFor(unsigned int linkIndex) const {
         UNUSED_PARAMETER(linkIndex);
         return myDummyFoes;

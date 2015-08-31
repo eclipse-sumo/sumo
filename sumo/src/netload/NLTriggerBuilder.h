@@ -225,9 +225,9 @@ protected:
      * @param[in] topos End position of the charging Station on the lane
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    virtual void buildChrgStn(MSNet& net, 
-            const std::string& id, const std::vector<std::string>& lines,
-            MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay);
+    virtual void buildChrgStn(MSNet& net,
+                              const std::string& id, const std::vector<std::string>& lines,
+                              MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay);
 
     /** @brief Builds a container stop
      *

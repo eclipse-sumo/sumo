@@ -48,16 +48,16 @@ typemaps = {
 }
 
 vehicleParameters = {
-    "passenger"  : ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",   "--min-distance", "300" , "--trip-attributes", 'departLane="best"'],
-    "truck"      : ["--vehicle-class", "truck",      "--vclass", "truck",      "--prefix", "truck", "--min-distance", "600" , "--trip-attributes", 'departLane="best"'],
-    "bus"        : ["--vehicle-class", "bus",        "--vclass", "bus",        "--prefix", "bus",   "--min-distance", "600" , "--trip-attributes", 'departLane="best"'],
-    "motorcycle" : ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto",  "--max-distance", "1200", "--trip-attributes", 'departLane="best"'],
-    "bicycle"    : ["--vehicle-class", "bicycle",    "--vclass", "bicycle",    "--prefix", "bike",  "--max-distance", "8000", "--trip-attributes", 'departLane="best"'],
-    "tram"       : ["--vehicle-class", "tram",       "--vclass", "tram",       "--prefix", "tram",  "--min-distance", "1200", "--trip-attributes", 'departLane="best"'],
-    "rail_urban" : ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban", "--min-distance", "1800", "--trip-attributes", 'departLane="best"'],
-    "rail"       : ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",  "--min-distance", "2400", "--trip-attributes", 'departLane="best"'],
-    "ship"       : ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship"],
-    "pedestrian" : ["--pedestrians", "--prefix", "ped", "--max-distance", "2000"]
+    "passenger": ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",   "--min-distance", "300", "--trip-attributes", 'departLane="best"'],
+    "truck": ["--vehicle-class", "truck",      "--vclass", "truck",      "--prefix", "truck", "--min-distance", "600", "--trip-attributes", 'departLane="best"'],
+    "bus": ["--vehicle-class", "bus",        "--vclass", "bus",        "--prefix", "bus",   "--min-distance", "600", "--trip-attributes", 'departLane="best"'],
+    "motorcycle": ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto",  "--max-distance", "1200", "--trip-attributes", 'departLane="best"'],
+    "bicycle": ["--vehicle-class", "bicycle",    "--vclass", "bicycle",    "--prefix", "bike",  "--max-distance", "8000", "--trip-attributes", 'departLane="best"'],
+    "tram": ["--vehicle-class", "tram",       "--vclass", "tram",       "--prefix", "tram",  "--min-distance", "1200", "--trip-attributes", 'departLane="best"'],
+    "rail_urban": ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban", "--min-distance", "1800", "--trip-attributes", 'departLane="best"'],
+    "rail": ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",  "--min-distance", "2400", "--trip-attributes", 'departLane="best"'],
+    "ship": ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship"],
+    "pedestrian": ["--pedestrians", "--prefix", "ped", "--max-distance", "2000"]
 }
 
 vehicleNames = {
@@ -86,6 +86,7 @@ BATCH_MODE = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH
 BATCH_MODE |= stat.S_IWUSR
 BATCH_MODE |= stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
 
+
 def quoted_str(s):
     if type(s) != str:
         return str(s)
@@ -103,7 +104,8 @@ class Builder(object):
         self.data = data
 
         if local:
-            self.tmp = os.path.abspath(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+            self.tmp = os.path.abspath(
+                datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
             os.mkdir(self.tmp)
         else:
             self.tmp = tempfile.mkdtemp()
@@ -129,17 +131,20 @@ class Builder(object):
             shutil.copy(data['osm'], self.files["osm"])
         else:
             self.report("Downloading map data")
-            osmGet.get(["-b", ",".join(map(str, self.data["coords"])), "-p", self.prefix])
+            osmGet.get(
+                ["-b", ",".join(map(str, self.data["coords"])), "-p", self.prefix])
 
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
 
         if self.data["poly"]:
-            # output name for the poly file, will be used by osmBuild and sumo-gui
+            # output name for the poly file, will be used by osmBuild and
+            # sumo-gui
             self.filename("poly", ".poly.xml")
             options += ["-m", typemaps["poly"]]
 
         typefiles = [typemaps["net"]]
-        netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS + ",--junctions.corner-detail,5,--output.street-names"
+        netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS + \
+            ",--junctions.corner-detail,5,--output.street-names"
         if "pedestrian" in self.data["vehicles"]:
             # sidewalks are already included via typefile
             netconvertOptions += ",--crossings.guess"
@@ -183,18 +188,25 @@ class Builder(object):
                 else:
                     self.filename("trips", ".%s.trips.xml" % vehicle)
                     self.routenames.append(self.files["trips"])
-                    route2trips.main([self.files["route"]], outfile=self.files["trips"])
-                    route2TripsCalls.append([self.files["route"], self.files["trips"]])
+                    route2trips.main(
+                        [self.files["route"]], outfile=self.files["trips"])
+                    route2TripsCalls.append(
+                        [self.files["route"], self.files["trips"]])
 
-            # create a batch file for reproducing calls to randomTrips.py and route2trips
-            randomTripsPath = os.path.join(SUMO_HOME, "tools", "randomTrips.py")
-            route2TripsPath = os.path.join(SUMO_HOME, "tools", "route2trips.py")
+            # create a batch file for reproducing calls to randomTrips.py and
+            # route2trips
+            randomTripsPath = os.path.join(
+                SUMO_HOME, "tools", "randomTrips.py")
+            route2TripsPath = os.path.join(
+                SUMO_HOME, "tools", "route2trips.py")
             batchFile = "build.bat"
             with open(batchFile, 'w') as f:
                 for opts in randomTripsCalls:
-                    f.write("python %s %s\n" % (randomTripsPath, " ".join(map(quoted_str, opts))))
+                    f.write("python %s %s\n" %
+                            (randomTripsPath, " ".join(map(quoted_str, opts))))
                 for route, trips in route2TripsCalls:
-                    f.write("python %s %s > %s\n" % (route2TripsPath, route, trips))
+                    f.write("python %s %s > %s\n" %
+                            (route2TripsPath, route, trips))
 
     def parseTripOpts(self, vehicle, options):
         "Return an option list for randomTrips.py for a given vehicle"
@@ -229,7 +241,7 @@ class Builder(object):
 
         self.filename("config", ".sumocfg")
         opts = [sumo, "-n", self.files["net"], "--gui-settings-file", self.files["guisettings"],
-            "-v", "--no-step-log", "--save-configuration", self.files["config"], "--ignore-route-errors"]
+                "-v", "--no-step-log", "--save-configuration", self.files["config"], "--ignore-route-errors"]
 
         if self.data["vehicles"]:
             opts += ["-r", ",".join(self.routenames)]
@@ -292,6 +304,7 @@ class Builder(object):
         except:
             pass
 
+
 class OSMImporterWebSocket(WebSocket):
 
     local = False
@@ -325,11 +338,14 @@ class OSMImporterWebSocket(WebSocket):
 
             self.sendMessage(unicode("zip " + data))
 
-parser = ArgumentParser(description = "OSM Importer for SUMO - Websocket Server")
-parser.add_argument("--remote", action = "store_true", help = "In remote mode, SUMO GUI will not be automatically opened instead a zip file will be generated.")
-parser.add_argument("--testing", action = "store_true", help = "Only a pre-defined scenario will be generated for testing purposes.")
-parser.add_argument("--address", default = "", help = "Address for the Websocket.")
-parser.add_argument("--port", type = int, default = 8010, help = "Port for the Websocket. Please edit script.js when using an other port than 8010.")
+parser = ArgumentParser(description="OSM Importer for SUMO - Websocket Server")
+parser.add_argument("--remote", action="store_true",
+                    help="In remote mode, SUMO GUI will not be automatically opened instead a zip file will be generated.")
+parser.add_argument("--testing", action="store_true",
+                    help="Only a pre-defined scenario will be generated for testing purposes.")
+parser.add_argument("--address", default="", help="Address for the Websocket.")
+parser.add_argument("--port", type=int, default=8010,
+                    help="Port for the Websocket. Please edit script.js when using an other port than 8010.")
 
 if __name__ == "__main__":
     args = parser.parse_args()
@@ -347,10 +363,13 @@ if __name__ == "__main__":
         builder.build()
         builder.makeConfigFile()
         builder.createBatch()
-        subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
+        subprocess.call(
+            [sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
     else:
         if not args.remote:
-            webbrowser.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html"))
+            webbrowser.open(
+                os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html"))
 
-        server = SimpleWebSocketServer(args.address, args.port, OSMImporterWebSocket)
+        server = SimpleWebSocketServer(
+            args.address, args.port, OSMImporterWebSocket)
         server.serveforever()

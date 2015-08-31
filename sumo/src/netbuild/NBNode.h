@@ -456,7 +456,7 @@ public:
     /** @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
      */
     static bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
-                                  const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane, bool lefthand=false);
+                                  const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane, bool lefthand = false);
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
      * @param[in] possProhibitedFrom The maybe prohibited connection's begin
@@ -488,7 +488,7 @@ public:
      * @param[in] leftHand Whether a lefthand network is being built. Should only be set at writing time
      * @return The direction of the stream
      */
-    LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand=false) const;
+    LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand = false) const;
 
     LinkState getLinkState(const NBEdge* incoming, NBEdge* outgoing,
                            int fromLane, bool mayDefinitelyPass, const std::string& tlID) const;
@@ -629,7 +629,7 @@ public:
     void setRoundabout();
 
     /// @brief add a pedestrian crossing to this node
-    void addCrossing(EdgeVector edges, SUMOReal width, bool priority, bool fromSumoNet=false);
+    void addCrossing(EdgeVector edges, SUMOReal width, bool priority, bool fromSumoNet = false);
 
     /// @brief remove a pedestrian crossing from this node (identified by its edges)
     void removeCrossing(const EdgeVector& edges);

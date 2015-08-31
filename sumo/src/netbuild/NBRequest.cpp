@@ -699,7 +699,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
         const std::vector<NBEdge::Connection>& cons = from->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator i = cons.begin(); i != cons.end(); i++) {
             if (NBNode::rightTurnConflict(from, to, fromLane,
-                                  from, (*i).toEdge, (*i).fromLane)) {
+                                          from, (*i).toEdge, (*i).fromLane)) {
                 return true;
             }
         }

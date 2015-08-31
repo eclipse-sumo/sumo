@@ -607,4 +607,3 @@ if __name__ == '__main__':
     with open("%s.net.xml" % args.output_file, "w") as ofh:
         sumodoc.writexml(ofh, addindent='    ', newl='\n')
         ofh.close()
-

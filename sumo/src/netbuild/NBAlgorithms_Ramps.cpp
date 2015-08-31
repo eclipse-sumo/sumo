@@ -409,8 +409,7 @@ NBRampsComputer::getOffRampEdges(NBNode* n, NBEdge** potHighway, NBEdge** potRam
 bool
 NBRampsComputer::fulfillsRampConstraints(
     NBEdge* potHighway, NBEdge* potRamp, NBEdge* other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
-    const std::set<std::string>& noramps) 
-{
+    const std::set<std::string>& noramps) {
     // do not build ramps on rail edges
     if (isRailway(potHighway->getPermissions()) || isRailway(potRamp->getPermissions())) {
         return false;

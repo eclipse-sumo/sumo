@@ -458,8 +458,8 @@ MSLCM_LC2013::_wantsChange(
     // react to a stopped leader on the current lane
     if (bestLaneOffset == 0 && leader.first != 0 && leader.first->isStopped()) {
         // value is doubled for the check since we change back and forth
-        laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap() 
-                + leader.first->getVehicleType().getLengthWithGap());
+        laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap()
+                        + leader.first->getVehicleType().getLengthWithGap());
     }
 
     // free space that is available for changing

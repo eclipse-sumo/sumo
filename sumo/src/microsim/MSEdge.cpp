@@ -251,9 +251,9 @@ MSEdge::allowedLanes(const MSEdge* destination, SUMOVehicleClass vclass) const {
         // this vclass is requested for the first time. rebuild all destinations
         // go through connected edges
 #ifdef HAVE_FOX
-    if (MSDevice_Routing::isParallel()) {
-        MSDevice_Routing::lock();
-    }
+        if (MSDevice_Routing::isParallel()) {
+            MSDevice_Routing::lock();
+        }
 #endif
         for (AllowedLanesCont::const_iterator i1 = myAllowed.begin(); i1 != myAllowed.end(); ++i1) {
             const MSEdge* edge = i1->first;
@@ -269,7 +269,7 @@ MSEdge::allowedLanes(const MSEdge* destination, SUMOVehicleClass vclass) const {
                         // target lane allows the current vehicle class?
                         const MSLinkCont& lc = (*i2)->getLinkCont();
                         for (MSLinkCont::const_iterator it_link = lc.begin(); it_link != lc.end(); ++it_link) {
-                            const MSLane* targetLane = (*it_link)->getLane(); 
+                            const MSLane* targetLane = (*it_link)->getLane();
                             if ((&(targetLane->getEdge()) == edge) && targetLane->allowsVehicleClass(vclass)) {
                                 // -> may be used
                                 myClassedAllowed[vclass][edge]->push_back(*i2);

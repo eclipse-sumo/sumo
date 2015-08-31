@@ -32,13 +32,14 @@ import random
 THISDIR = os.path.dirname(__file__)
 
 
-
 # we need to import python modules from the $SUMO_HOME/tools directory
 # If the the environment variable SUMO_HOME is not set, try to locate the python
 # modules relative to this script
 try:
-    sys.path.append(os.path.join(THISDIR, '..', '..', '..', '..', "tools"))  # tutorial in tests
-    sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(THISDIR, "..", "..", "..")), "tools"))  # tutorial in docs
+    # tutorial in tests
+    sys.path.append(os.path.join(THISDIR, '..', '..', '..', '..', "tools"))
+    sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
+        THISDIR, "..", "..", "..")), "tools"))  # tutorial in docs
 
     import traci
     from sumolib import checkBinary
@@ -53,7 +54,7 @@ PORT = 8874
 # minimum green time for the vehicles
 MIN_GREEN_TIME = 15
 # the first phase in tls plan. see 'pedcrossing.tll.xml'
-VEHICLE_GREEN_PHASE = 0  
+VEHICLE_GREEN_PHASE = 0
 # the id of the traffic light (there is only one). This is identical to the
 # id of the controlled intersection (by default)
 TLSID = 'C'
@@ -62,11 +63,13 @@ TLSID = 'C'
 WALKINGAREAS = [':C_w0', ':C_w1']
 CROSSINGS = [':C_c0']
 
+
 def run():
     """execute the TraCI control loop"""
     traci.init(PORT)
 
-    # track the duration for which the green phase of the vehicles has been active
+    # track the duration for which the green phase of the vehicles has been
+    # active
     greenTimeSoFar = 0
 
     # whether the pedestrian button has been pressed
@@ -88,7 +91,8 @@ def run():
 
                 if activeRequest:
                     # switch to the next phase
-                    traci.trafficlights.setPhase(TLSID, VEHICLE_GREEN_PHASE + 1)
+                    traci.trafficlights.setPhase(
+                        TLSID, VEHICLE_GREEN_PHASE + 1)
                     # reset state
                     activeRequest = False
                     greenTimeSoFar = 0
@@ -103,7 +107,7 @@ def checkWaitingPersons():
     # check both sides of the crossing
     for edge in WALKINGAREAS:
         peds = traci.edge.getLastStepPersonIDs(edge)
-        # check who is waiting at the crossing 
+        # check who is waiting at the crossing
         # we assume that pedestrians push the button upon
         # standing still for 1s
         for ped in peds:
@@ -137,28 +141,29 @@ if __name__ == "__main__":
 
     net = 'pedcrossing.net.xml'
     # build the multi-modal network from plain xml inputs
-    subprocess.call([checkBinary('netconvert'), 
-        '-c', os.path.join('data', 'pedcrossing.netccfg'),
-        '--output-file', net],
-        stdout=sys.stdout, stderr=sys.stderr)
+    subprocess.call([checkBinary('netconvert'),
+                     '-c', os.path.join('data', 'pedcrossing.netccfg'),
+                     '--output-file', net],
+                    stdout=sys.stdout, stderr=sys.stderr)
 
     # generate the pedestrians for this simulation
     randomTrips.main(randomTrips.get_options([
         '--net-file', net,
         '--output-trip-file', 'pedestrians.trip.xml',
-        '--seed', '42', # make runs reproducible
-        '--pedestrians', 
+        '--seed', '42',  # make runs reproducible
+        '--pedestrians',
         '--prefix', 'ped',
-        '--min-distance', '1', # prevent trips that start and end on the same edge
+        # prevent trips that start and end on the same edge
+        '--min-distance', '1',
         '--trip-attributes', 'departPos="random" arrivalPos="random"',
         '--binomial', '4',
         '--period', '35']))
-    
+
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
-    sumoProcess = subprocess.Popen([sumoBinary, 
-        '-c', os.path.join('data', 'run.sumocfg'),
-        '--remote-port', str(PORT)], 
-        stdout=sys.stdout, stderr=sys.stderr)
+    sumoProcess = subprocess.Popen([sumoBinary,
+                                    '-c', os.path.join('data', 'run.sumocfg'),
+                                    '--remote-port', str(PORT)],
+                                   stdout=sys.stdout, stderr=sys.stderr)
     run()
     sumoProcess.wait()

@@ -77,9 +77,9 @@ public:
 
     /** @brief parses node attributes (not related to positioning)
      */
-    static void processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position, 
-            bool updateEdgeGeometries,
-            NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
+    static void processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
+                                bool updateEdgeGeometries,
+                                NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -131,8 +131,8 @@ private:
      * @param[in] currentNode The built node to add the tls information to
      */
     static void processTrafficLightDefinitions(const SUMOSAXAttributes& attrs,
-                                        NBNode* currentNode, NBTrafficLightLogicCont& tlc);
- 
+            NBNode* currentNode, NBTrafficLightLogicCont& tlc);
+
 
 private:
     /// @brief A reference to the program's options

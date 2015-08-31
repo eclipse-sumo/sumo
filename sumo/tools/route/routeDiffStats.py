@@ -17,7 +17,8 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, sys
+import os
+import sys
 from optparse import OptionParser
 
 if 'SUMO_HOME' in os.environ:
@@ -34,13 +35,13 @@ def get_options():
     USAGE = """Usage %prog [options] <net.xml> <rou1.xml> <rou2.xml>"""
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
-            default=False, help="Give more output")
+                         default=False, help="Give more output")
     optParser.add_option("--binwidth", type="float",
-            default=100, help="binning width of route length difference histogram")
+                         default=100, help="binning width of route length difference histogram")
     optParser.add_option("--hist-output", type="string",
-            default=None, help="output file for histogram (gnuplot compatible)")
+                         default=None, help="output file for histogram (gnuplot compatible)")
     optParser.add_option("--full-output", type="string",
-            default=None, help="output file for full data dump")
+                         default=None, help="output file for full data dump")
     options, args = optParser.parse_args()
     try:
         options.network = args[0]
@@ -50,8 +51,10 @@ def get_options():
         sys.exit(USAGE)
     return options
 
+
 def getRouteLength(net, vehicle):
     return sum([net.getEdge(e).getLength() for e in vehicle.route[0].edges.split()])
+
 
 def main():
     options = get_options()
@@ -60,15 +63,17 @@ def main():
 
     lengths1 = {}
     lengths2 = {}
-    lengthDiffStats = Statistics("route length difference", histogram=True, scale=options.binwidth) 
+    lengthDiffStats = Statistics(
+        "route length difference", histogram=True, scale=options.binwidth)
     for vehicle in parse(options.routeFile1, 'vehicle'):
         lengths1[vehicle.id] = getRouteLength(net, vehicle)
     for vehicle in parse(options.routeFile2, 'vehicle'):
         lengths2[vehicle.id] = getRouteLength(net, vehicle)
-        lengthDiffStats.add(lengths2[vehicle.id] - lengths1[vehicle.id], vehicle.id)
+        lengthDiffStats.add(
+            lengths2[vehicle.id] - lengths1[vehicle.id], vehicle.id)
 
     print lengthDiffStats
-    
+
     if options.hist_output is not None:
         with open(options.hist_output, 'w') as f:
             for bin, count in lengthDiffStats.histogram():
@@ -76,7 +81,8 @@ def main():
 
     if options.full_output is not None:
         with open(options.full_output, 'w') as f:
-            differences = sorted([(lengths2[id] - lengths1[id], id) for id in lengths1.keys()])
+            differences = sorted(
+                [(lengths2[id] - lengths1[id], id) for id in lengths1.keys()])
             for diff, id in differences:
                 f.write("%s %s\n" % (diff, id))
 

@@ -28,6 +28,7 @@ from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
+
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <net> <options>"
     optParser = OptionParser()
@@ -37,7 +38,8 @@ def parse_args():
                          default=False, help="List edges which can reach the destination")
     optParser.add_option("-o", "--selection-output",
                          help="Write output to file(s) as a loadable selection")
-    optParser.add_option("-l", "--vclass", help="Include only edges allowing VCLASS")
+    optParser.add_option(
+        "-l", "--vclass", help="Include only edges allowing VCLASS")
     optParser.add_option("-c", "--component-output",
                          default=None, help="Write components of disconnected network to file - not compatible with --source or --destination options")
     optParser.add_option("-r", "--results-output",
@@ -124,14 +126,16 @@ if __name__ == "__main__":
         total = 0
         max = 0
         max_idx = ""
-        edge_count_dist = {}    #Stores the distribution of components by edge counts - key: edge counts - value: number found
+        # Stores the distribution of components by edge counts - key: edge
+        # counts - value: number found
+        edge_count_dist = {}
         output_str_list = []
         dist_str_list = []
 
-        #Iterate through components to output and summarise
+        # Iterate through components to output and summarise
         for idx, comp in enumerate(sorted(components, key=lambda c: iter(c).next())):
             if options.selection_output:
-                with open("{}comp{}.txt".format(options.selection_output,idx), 'w') as f:
+                with open("{}comp{}.txt".format(options.selection_output, idx), 'w') as f:
                     for e in comp:
                         f.write("edge:{}\n".format(e))
 
@@ -144,33 +148,36 @@ if __name__ == "__main__":
             if edge_count not in edge_count_dist:
                 edge_count_dist[edge_count] = 0
             edge_count_dist[edge_count] += 1
-            output_str = "Component: #{} Edge Count: {}\n {}\n".format(idx, edge_count, " ".join(comp))
+            output_str = "Component: #{} Edge Count: {}\n {}\n".format(
+                idx, edge_count, " ".join(comp))
             print output_str
             output_str_list.append(output_str)
 
-        #Output the summary of all edges checked and largest component
-        coverage = 0.0      #To avoid divide by zero error if total is 0 for some reason.
+        # Output the summary of all edges checked and largest component
+        # To avoid divide by zero error if total is 0 for some reason.
+        coverage = 0.0
         if total > 0:
-            coverage = round(max*100.0/total, 2)
-        summary_str =  "Total Edges: {}\nLargest Component: #{} Edge Count: {} Coverage: {}%\n".format(total, max_idx, max, coverage)
+            coverage = round(max * 100.0 / total, 2)
+        summary_str = "Total Edges: {}\nLargest Component: #{} Edge Count: {} Coverage: {}%\n".format(
+            total, max_idx, max, coverage)
         print summary_str
         dist_str = "Edges\tIncidence"
         print dist_str
         dist_str_list.append(dist_str)
 
-        #Output the distribution of components by edge counts
+        # Output the distribution of components by edge counts
         for key, value in sorted(edge_count_dist.iteritems()):
             dist_str = "{}\t{}".format(key, value)
             print dist_str
             dist_str_list.append(dist_str)
 
-        #Check for output of components to file
+        # Check for output of components to file
         if options.component_output is not None:
             print "Writing component output to: {}".format(options.component_output)
             with open(options.component_output, 'w') as f:
                 f.write("\n".join(output_str_list))
 
-        #Check for output of results summary to file
+        # Check for output of results summary to file
         if options.results_output is not None:
             print "Writing results output to: {}".format(options.results_output)
             with open(options.results_output, 'w') as r:

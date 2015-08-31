@@ -84,7 +84,8 @@ def procFCDStream(fcdstream, options):
     lastExported = -1
     chosen = {}
     if options.boundary:
-        xmin,ymin,xmax,ymax = [float(e) for e in options.boundary.split(",")]
+        xmin, ymin, xmax, ymax = [float(e)
+                                  for e in options.boundary.split(",")]
     for i, q in enumerate(fcdstream):
         pt = lt
         lt = float(q.time.encode("latin1"))
@@ -109,7 +110,7 @@ def procFCDStream(fcdstream, options):
                         z = v.z
                     else:
                         z = 0
-                    if not options.boundary or (x >= xmin and x <= xmax and y >=ymin and y <= ymax):
+                    if not options.boundary or (x >= xmin and x <= xmax and y >= ymin and y <= ymax):
                         e.vehicle.append(
                             FCDVehicleEntry(v.id, x, y, z, v.speed, v.type, v.lane, v.slope))
         yield e
@@ -123,7 +124,8 @@ def runMethod(inputFile, outputFile, writer, options, further={}):
     if options.base >= 0:
         further["base-date"] = datetime.datetime.fromtimestamp(options.base)
     else:
-        further["base-date"] = datetime.datetime.now().replace(hour=0,minute=0,second=0,microsecond=0)
+        further["base-date"] = datetime.datetime.now().replace(hour=0,
+                                                               minute=0, second=0, microsecond=0)
     o = _getOutputStream(outputFile)
     fcdStream = sumolib.output.parse(inputFile, "timestep")
     ret = writer(procFCDStream(fcdStream, options), o, further)
@@ -155,7 +157,8 @@ output format. Optionally the output can be sampled, filtered and distorted.
                          type="float", help="Defines the export step length")
     optParser.add_option("--gps-blur", dest="blur", default=0,
                          type="float", help="Defines the GPS blur")
-    optParser.add_option("--boundary", help="Defines the bounding box as 'xmin,ymin,xmax,ymax'")
+    optParser.add_option(
+        "--boundary", help="Defines the bounding box as 'xmin,ymin,xmax,ymax'")
     optParser.add_option("-s", "--seed", dest="seed", default=42,
                          type="float", help="Defines the randomizer seed")
     optParser.add_option(

@@ -44,7 +44,7 @@ class DistrictEdgeComputer:
         for idx, edge in enumerate(self._net.getEdges()):
             shape = edge.getShape()
             if edge.getSpeed() < options.maxspeed and (options.internal or edge.getFunction() != "internal"):
-                if options.vclass is None or edge.allows(options.vclass): 
+                if options.vclass is None or edge.allows(options.vclass):
                     if options.assign_from:
                         xmin, ymin = shape[0]
                         xmax, ymax = shape[0]
@@ -61,8 +61,10 @@ class DistrictEdgeComputer:
                             else:
                                 for pos in shape:
                                     if sumolib.geomhelper.isWithin(pos, district.shape):
-                                        self._districtEdges[district].append(edge)
-                                        self._edgeDistricts[edge].append(district)
+                                        self._districtEdges[
+                                            district].append(edge)
+                                        self._edgeDistricts[
+                                            edge].append(district)
                                         break
             if options.verbose and idx % 100 == 0:
                 sys.stdout.write("%s/%s\r" % (idx, len(self._net.getEdges())))
@@ -82,7 +84,8 @@ class DistrictEdgeComputer:
         fd = open(output, "w")
         fd.write("<tazs>\n")
         for district, edges in sorted(self._districtEdges.iteritems()):
-            filtered = [edge for edge in edges if edge not in self._invalidatedEdges]
+            filtered = [
+                edge for edge in edges if edge not in self._invalidatedEdges]
             if len(filtered) == 0:
                 print("District '" + district + "' has no edges!")
             else:
@@ -90,11 +93,14 @@ class DistrictEdgeComputer:
                     fd.write('    <taz id="%s">\n' % district.id)
                     for edge in filtered:
                         weight = edge.getSpeed() * edge.getLength()
-                        fd.write('        <tazSource id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
-                        fd.write('        <tazSink id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
+                        fd.write(
+                            '        <tazSource id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
+                        fd.write(
+                            '        <tazSink id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
                     fd.write("    </taz>\n")
                 else:
-                    fd.write('    <taz id="%s" edges="%s"/>\n' % (district.id, " ".join([e.getID() for e in filtered])))
+                    fd.write('    <taz id="%s" edges="%s"/>\n' %
+                             (district.id, " ".join([e.getID() for e in filtered])))
         fd.write("</tazs>\n")
         fd.close()
 
@@ -122,9 +128,10 @@ def fillOptions(optParser):
                          default=False, help="Assign the edge always to the district where the \"from\" node is located")
     optParser.add_option("-i", "--internal", action="store_true",
                          default=False, help="Include internal edges in output")
-    optParser.add_option("-l", "--vclass", help="Include only edges allowing VCLASS")
+    optParser.add_option(
+        "-l", "--vclass", help="Include only edges allowing VCLASS")
 
-        
+
 if __name__ == "__main__":
     optParser = OptionParser()
     fillOptions(optParser)
@@ -137,7 +144,8 @@ if __name__ == "__main__":
         print("Reading net '" + net_file + "'")
     nets = options.net_file.split(",")
     if len(nets) > 1:
-        print("Warning! Multiple networks specified. Parsing the first one for edges and tazs, the others for taz only.")
+        print(
+            "Warning! Multiple networks specified. Parsing the first one for edges and tazs, the others for taz only.")
     reader = DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
     tazFiles = nets + options.taz_files.split(",")
     polyReader = sumolib.shapes.polygon.PolygonReader(True)

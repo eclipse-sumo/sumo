@@ -46,24 +46,26 @@
 // member method definitions
 // ===========================================================================
 
-MSChrgStn::MSChrgStn(const std::string& new_ChrgStnID, 
-        const std::vector<std::string>& new_lines, 
-        MSLane& new_Lane, SUMOReal new_StartPos, SUMOReal new_EndPos, SUMOReal new_ChrgPower, 
-        SUMOReal new_Efficency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay) : 
-    MSStoppingPlace(new_ChrgStnID, new_lines, new_Lane, new_StartPos, new_EndPos), 
-    ChrgPower(new_ChrgPower), 
-    Efficency(new_Efficency), 
-    ChargeInTransit(new_ChargeInTransit), 
-    ChargeDelay(new_ChargeDelay)
-{
-    if (getChrgPower() < 0)
+MSChrgStn::MSChrgStn(const std::string& new_ChrgStnID,
+                     const std::vector<std::string>& new_lines,
+                     MSLane& new_Lane, SUMOReal new_StartPos, SUMOReal new_EndPos, SUMOReal new_ChrgPower,
+                     SUMOReal new_Efficency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay) :
+    MSStoppingPlace(new_ChrgStnID, new_lines, new_Lane, new_StartPos, new_EndPos),
+    ChrgPower(new_ChrgPower),
+    Efficency(new_Efficency),
+    ChargeInTransit(new_ChargeInTransit),
+    ChargeDelay(new_ChargeDelay) {
+    if (getChrgPower() < 0) {
         std::cout << std::string("Warning: Charging Station with ID = " + getID() + " doesn't have a valid charging power(" + SUMOReal_str(getChrgPower()) + ").");
-    
-    if (getEfficency() < 0 || getEfficency() > 1)
-        std::cout << std::string("Warning: Charging Station with ID = " + getID() + " doesn't have a valid Efficency (" + SUMOReal_str(getEfficency()) + ").");
+    }
 
-    if (getBeginLanePosition() > getEndLanePosition())
+    if (getEfficency() < 0 || getEfficency() > 1) {
+        std::cout << std::string("Warning: Charging Station with ID = " + getID() + " doesn't have a valid Efficency (" + SUMOReal_str(getEfficency()) + ").");
+    }
+
+    if (getBeginLanePosition() > getEndLanePosition()) {
         std::cout << std::string("Warning: Charging Station with ID = " + getID() + " doesn't have a valid range (" + SUMOReal_str(getBeginLanePosition()) + " < " + SUMOReal_str(getEndLanePosition()) + ").");
+    }
 }
 
 
@@ -74,63 +76,58 @@ MSChrgStn::~MSChrgStn()
 // GET FUNCTIONS
 
 
-SUMOReal 
-MSChrgStn::getChrgPower() const
-{
+SUMOReal
+MSChrgStn::getChrgPower() const {
     return ChrgPower;
 }
 
-SUMOReal 
-MSChrgStn::getEfficency() const
-{
+SUMOReal
+MSChrgStn::getEfficency() const {
     return Efficency;
 }
 
-SUMOReal 
-MSChrgStn::getChargeInTransit() const
-{
+SUMOReal
+MSChrgStn::getChargeInTransit() const {
     return ChargeInTransit;
 }
 
-SUMOReal 
-MSChrgStn::getChargeDelay() const
-{
+SUMOReal
+MSChrgStn::getChargeDelay() const {
     return ChargeDelay;
 }
-    
+
 
 // SET FUNCTIONS
 
-void MSChrgStn::setChrgPower(SUMOReal new_ChrgPower)
-{
+void MSChrgStn::setChrgPower(SUMOReal new_ChrgPower) {
     ChrgPower = new_ChrgPower;
 
-    if (new_ChrgPower < 0)
+    if (new_ChrgPower < 0) {
         std::cout << std::string("Warning: Chargin Station with ID = " + getID() + " doesn't have a valid charging power(" + SUMOReal_str(getChrgPower()) + ").");
+    }
 }
 
 
-void MSChrgStn::setEfficency(SUMOReal new_Efficency)
-{
-    if (new_Efficency < 0 || new_Efficency > 1)
+void MSChrgStn::setEfficency(SUMOReal new_Efficency) {
+    if (new_Efficency < 0 || new_Efficency > 1) {
         std::cout << std::string("Warning: Chargin Station with ID = " + getID() + " doesn't have a valid Efficency (" + SUMOReal_str(getEfficency()) + ").");
+    }
 
     Efficency = new_Efficency;
-}    
+}
 
-bool MSChrgStn::vehicleIsInside(const SUMOReal position)
-{
-    if ((position >= getBeginLanePosition()) && (position <= getEndLanePosition()))
+bool MSChrgStn::vehicleIsInside(const SUMOReal position) {
+    if ((position >= getBeginLanePosition()) && (position <= getEndLanePosition())) {
         return true;
-    else
+    } else {
         return false;
+    }
 }
 
 // Private methods
 
-std::string MSChrgStn::SUMOReal_str(const SUMOReal &var)
-{
+std::string MSChrgStn::SUMOReal_str(const SUMOReal& var) {
     std::ostringstream convert;
-    convert << var; 
+    convert << var;
     return convert.str();
 }

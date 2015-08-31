@@ -100,7 +100,7 @@ class PolygonReader(handler.ContentHandler):
     def endElement(self, name):
         if name == 'poly':
             self._lastPoly = None
-            
+
     def getPolygons(self):
         return self._polys
 

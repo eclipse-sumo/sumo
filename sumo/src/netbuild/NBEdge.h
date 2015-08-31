@@ -1194,7 +1194,7 @@ private:
     /** divides the lanes on the outgoing edges */
     void divideOnEdges(const EdgeVector* outgoing);
     void divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes,
-            const std::vector<unsigned int>* priorities); 
+                                    const std::vector<unsigned int>* priorities);
 
     /** recomputes the edge priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
@@ -1369,7 +1369,7 @@ public:
     class connections_toedge_finder {
     public:
         /// constructor
-        connections_toedge_finder(NBEdge* const edge2find, bool hasFromLane=false) : 
+        connections_toedge_finder(NBEdge* const edge2find, bool hasFromLane = false) :
             myHasFromLane(hasFromLane),
             myEdge2Find(edge2find) { }
 

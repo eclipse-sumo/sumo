@@ -107,8 +107,10 @@ def parseEndTime(cfg):
             return float(parsenode.getAttribute('value'))
             break
 
+
 class IMAGE:
     pass
+
 
 class StartDialog(Tkinter.Frame):
 
@@ -117,7 +119,7 @@ class StartDialog(Tkinter.Frame):
         # variables for changing language
         self.parent = parent
         self._language_text = lang
-        self.buttons = [] 
+        self.buttons = []
         # misc variables
         self.name = ''
         # setup gui
@@ -157,7 +159,7 @@ class StartDialog(Tkinter.Frame):
 
             button = Tkinter.Button(self, width=bWidth_high,
                                     command=lambda cfg=cfg: ScoreDialog(self, [],
-                                        None, self.category_name(cfg), self._language_text))  # .grid(row=row, column=COL_HIGH)
+                                                                        None, self.category_name(cfg), self._language_text))  # .grid(row=row, column=COL_HIGH)
             self.addButton(button, 'high')
             button.grid(row=row, column=COL_HIGH)
 
@@ -205,7 +207,8 @@ class StartDialog(Tkinter.Frame):
         if _DEBUG:
             print "starting", cfg
         self.gametime = parseEndTime(cfg)
-        self.ret = subprocess.call([guisimPath, "-S", "-G", "-Q", "-c", cfg, '-l', 'log'], stderr=sys.stderr)
+        self.ret = subprocess.call(
+            [guisimPath, "-S", "-G", "-Q", "-c", cfg, '-l', 'log'], stderr=sys.stderr)
         if _DEBUG:
             print "ended", cfg
 
@@ -218,7 +221,7 @@ class StartDialog(Tkinter.Frame):
         for line in open(os.path.join(base, "%s.netstate.xml" % start.category)):
             m = re.search('<interval begin="0(.00)?" end="([^"]*)"', line)
             if m and float(m.group(2)) != start.gametime:
-                print "error: incomplete output" 
+                print "error: incomplete output"
                 complete = False
             m = re.search('sampledSeconds="([^"]*)".*speed="([^"]*)"', line)
             if m:
@@ -243,15 +246,16 @@ class StartDialog(Tkinter.Frame):
                 if tls not in lastProg or lastProg[tls] != program:
                     lastProg[tls] = program
                     switch += [m.group(3), m.group(1)]
-        # doing nothing gives a waitingTime of 6033 for cross and 6700 for square
+        # doing nothing gives a waitingTime of 6033 for cross and 6700 for
+        # square
         score = 10000 - totalWaitingTime
         lang = start._language_text
         if _DEBUG:
             print switch, score, totalArrived, complete
         if complete:
             ScoreDialog(self, switch, score, self.category, lang)
-        #if ret != 0:
-        #    # quit on error
+        # if ret != 0:
+        # quit on error
         #    sys.exit(start.ret)
 
 
@@ -259,7 +263,7 @@ class ScoreDialog:
 
     def __init__(self, parent, switch, score, category, lang):
         self.root = Tkinter.Toplevel(parent)
-        #self.root.transient(parent)
+        # self.root.transient(parent)
         self.name = None
         self.switch = switch
         self.score = score
@@ -308,7 +312,6 @@ class ScoreDialog:
         Tkinter.Label(self.root, image=IMAGE.qrCode).grid(
             row=1, column=3, rowspan=22)
 
-
         self.root.grid()
         self.root.bind("<Return>", self.save)
         # self.root.wait_visibility()
@@ -317,10 +320,10 @@ class ScoreDialog:
             self.name.focus_set()
         # The following three commands are needed so the window pops
         # up on top on Windows...
-        #self.root.iconify()
-        #self.root.update()
-        #self.root.deiconify()
-        #self.root.mainloop()
+        # self.root.iconify()
+        # self.root.update()
+        # self.root.deiconify()
+        # self.root.mainloop()
 
     def save(self, event=None):
         if self.name:
@@ -408,4 +411,3 @@ IMAGE.sumoLogo = Tkinter.PhotoImage(file='logo.gif')
 IMAGE.qrCode = Tkinter.PhotoImage(file='dlr_lndw_15_ts_4.gif')
 start = StartDialog(root, lang)
 root.mainloop()
-

@@ -46,24 +46,28 @@ def parse_args():
         options.outfile = options.net + ".taz.xml"
     return options
 
-DEBUGID = ["24214694","-24214694"]
+DEBUGID = ["24214694", "-24214694"]
+
 
 def computeBidiTaz(net, radius=10):
     taz = defaultdict(set)
     for edge in net.getEdges():
         candidates = []
         r = min(radius, geomhelper.polyLength(edge.getShape()) / 2)
-        if edge.getID() in DEBUGID: print r, edge.getLength(), edge.getShape()
-        for x,y in edge.getShape():
+        if edge.getID() in DEBUGID:
+            print r, edge.getLength(), edge.getShape()
+        for x, y in edge.getShape():
             nearby = set()
             for edge2, dist in net.getNeighboringEdges(x, y, r):
                 nearby.add(edge2)
-            if edge.getID() in DEBUGID: print "  ",[e.getID() for e in nearby]
+            if edge.getID() in DEBUGID:
+                print "  ", [e.getID() for e in nearby]
             candidates.append(nearby)
-        opposites = reduce(lambda a,b:a.intersection(b), candidates)
+        opposites = reduce(lambda a, b: a.intersection(b), candidates)
         # XXX edges with the same endpoints should have roughly the same length
         # to be considered as opposites
-        opposites.update(set(edge.getToNode().getOutgoing()).intersection(set(edge.getFromNode().getIncoming())))
+        opposites.update(set(edge.getToNode().getOutgoing()).intersection(
+            set(edge.getFromNode().getIncoming())))
         taz[edge.getID()] = opposites
     return taz
 

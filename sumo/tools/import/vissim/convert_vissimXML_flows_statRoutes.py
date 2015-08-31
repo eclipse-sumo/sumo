@@ -141,8 +141,8 @@ def parse_vehicle_types(xmldoc, acc_d, length_d):
 def is_verbinder(xmldoc):
     """checks if a given link is a verbinder"""
     # simple implementation of static variable
-    #if not hasattr(is_verbinder, "v_dic"):
-    #    is_verbinder.v_dic = dict()  # doesn't exist yet, so initialize
+    # if not hasattr(is_verbinder, "v_dic"):
+    # is_verbinder.v_dic = dict()  # doesn't exist yet, so initialize
     # FIXME: xmldoc is in the way
     is_verbinder_d = dict()
     for link in xmldoc.getElementsByTagName("link"):
@@ -172,7 +172,7 @@ def parse_routes(xmldoc, edge_list, is_verbinder_d):
             temp = statistic.getAttribute('relFlow').split(" ")
             while i < len(temp):
                 var = temp[i].split(":")
-                var[0] = float(var[0])/1000
+                var[0] = float(var[0]) / 1000
                 var[1] = float(var[1].replace(",", ""))
                 route_d["rel_flow"].append(var)
                 i = i + 2
@@ -190,11 +190,11 @@ def parse_routes(xmldoc, edge_list, is_verbinder_d):
                         i = 0
                         while check == 1:
                             if link.getAttribute(
-                                    'key') + "[" + str(i) + "]" \
-                                        in split_edge_list:
+                                'key') + "[" + str(i) + "]" \
+                                    in split_edge_list:
                                 route_d["links"].append(
                                     link.getAttribute('key') +
-                                        "[" + str(i) + "]")
+                                    "[" + str(i) + "]")
                                 i = i + 1
                             else:
                                 check = 0
@@ -230,9 +230,9 @@ def validate_rel_flow(routes_by_start_d):
     """checks if a relative flow is missing and completes it if necessary"""
     # compare alle rel_flows with the reference flow
     for start_link in routes_by_start_d.keys():
-        reference_time = flow_d[start_link]["flow"][:,0]
+        reference_time = flow_d[start_link]["flow"][:, 0]
         for route in routes_by_start_d[start_link]:
-            if np.array_equal(reference_time, \
+            if np.array_equal(reference_time,
                               route["rel_flow"][:, 0]) == False:
                 i = 0
                 while i < len(route["rel_flow"]):
@@ -271,7 +271,7 @@ def set_route_distributions(route_doc, routes_by_start_d, root):
     for start_id in routes_by_start_d:
         i = 0
         if len(routes_by_start_d[start_id]) > 0:
-            ref_time = flow_d[start_id]["flow"][:,0]
+            ref_time = flow_d[start_id]["flow"][:, 0]
             for time in ref_time:
                 route_dist = route_doc.createElement("routeDistribution")
                 route_dist.setAttribute("id", "_".join([start_id,
@@ -299,11 +299,11 @@ def set_flows(routes_by_start_d, flow_d, route_doc, root):
         "simulation")[0].getAttribute("simPeriod")
     dom_flow_l = []
     for start_id in routes_by_start_d:
-        ref_time = flow_d[start_id]["flow"][:,0]
+        ref_time = flow_d[start_id]["flow"][:, 0]
         for index, time in enumerate(ref_time):
             if len(routes_by_start_d[start_id]) > 0:
-                in_flow = [fl for fl in flow_d[start_id]["flow"] if \
-                    fl[0] == time][0]
+                in_flow = [fl for fl in flow_d[start_id]["flow"] if
+                           fl[0] == time][0]
                 if in_flow[1] > 0:
                     flow = route_doc.createElement("flow")
                     flow.setAttribute("id", "fl{}_st{}".format(start_id,
@@ -320,8 +320,8 @@ def set_flows(routes_by_start_d, flow_d, route_doc, root):
                     flow.setAttribute('route', "_".join([start_id,
                                                          str(time)]))
                     dom_flow_l.append(flow)
-    dom_flow_l = sorted(dom_flow_l, 
-                        key = lambda dom: float(dom.getAttribute("begin")))
+    dom_flow_l = sorted(dom_flow_l,
+                        key=lambda dom: float(dom.getAttribute("begin")))
     for dom_obj in dom_flow_l:
         root.appendChild(dom_obj)
     return route_doc
@@ -399,4 +399,3 @@ if __name__ == '__main__':
     with open("%s.rou.xml" % args.output_file, "w") as ofh:
         result_doc.writexml(ofh, addindent='    ', newl='\n')
         ofh.close()
-

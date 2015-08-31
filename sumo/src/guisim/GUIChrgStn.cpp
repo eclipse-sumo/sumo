@@ -68,8 +68,7 @@
 GUIChrgStn::GUIChrgStn(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
                        SUMOReal frompos, SUMOReal topos, SUMOReal new_chrgpower, SUMOReal new_efficiency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay)
     : MSChrgStn(id, lines, lane, frompos, topos, new_chrgpower, new_efficiency, new_ChargeInTransit, new_ChargeDelay),
-    GUIGlObject_AbstractAdd("chargingStation", GLO_TRIGGER, id)
-{
+      GUIGlObject_AbstractAdd("chargingStation", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(frompos, topos);
     myFGShapeRotations.reserve(myFGShape.size() - 1);
@@ -89,7 +88,7 @@ GUIChrgStn::GUIChrgStn(const std::string& id, const std::vector<std::string>& li
         myFGSignRot = myFGShape.rotationDegreeAtOffset(SUMOReal((myFGShape.length() / 2.)));
         myFGSignRot -= 90;
     }
-    
+
     chrgpower = new_chrgpower;
     efficiency = new_efficiency;
     chargeInTransit = new_ChargeInTransit;
@@ -97,14 +96,13 @@ GUIChrgStn::GUIChrgStn(const std::string& id, const std::vector<std::string>& li
 }
 
 
-GUIChrgStn::~GUIChrgStn() 
+GUIChrgStn::~GUIChrgStn()
 {}
 
 
 GUIParameterTableWindow*
 GUIChrgStn::getParameterWindow(GUIMainWindow& app,
-                               GUISUMOAbstractView&) 
-{
+                               GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 6);
 
     // add items
@@ -114,7 +112,7 @@ GUIChrgStn::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("charging efficiency []", false, efficiency);
     ret->mkItem("charge in transit [0/1]", false, chargeInTransit);
     ret->mkItem("charge delay [s]", false, chargeDelay);
-    
+
     // close building
     ret->closeBuilding();
     return ret;
@@ -122,8 +120,7 @@ GUIChrgStn::getParameterWindow(GUIMainWindow& app,
 
 
 GUIGLObjectPopupMenu*
-GUIChrgStn::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) 
-{
+GUIChrgStn::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -135,8 +132,7 @@ GUIChrgStn::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent)
 }
 
 Boundary
-GUIChrgStn::getCenteringBoundary() const 
-{
+GUIChrgStn::getCenteringBoundary() const {
     Boundary b = myFGShape.getBoxBoundary();
     b.grow(20);
     return b;
@@ -148,54 +144,56 @@ GUIChrgStn::drawGL(const GUIVisualizationSettings& s) const {
 
     glPushName(getGlID());
     glPushMatrix();
-    RGBColor blue (114, 210, 252, 255);
+    RGBColor blue(114, 210, 252, 255);
     RGBColor green(76, 170, 50, 255);
     RGBColor yellow(255, 235, 0, 255);
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(blue);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
-    
+
     // draw details unless zoomed out to far
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     if (s.scale * exaggeration >= 10) {
-    /**
-      size_t i;
-        // draw the lines
-        GLHelper::setColor(green);
+        /**
+          size_t i;
+            // draw the lines
+            GLHelper::setColor(green);
 
-        for (i = 0; i != myLines.size(); ++i) {
-        glPushMatrix();
-        glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
-        glRotated(180, 1, 0, 0);
-        glRotated(myFGSignRot, 0, 0, 1);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        pfSetPosition(0, 0);
-        pfSetScale(1.f);
-        glScaled(exaggeration, exaggeration, 1);
-        glTranslated(1.2, -(double)i, 0);
-        pfDrawString(myLines[i].c_str());
-        glPopMatrix();
-        }
-    */
+            for (i = 0; i != myLines.size(); ++i) {
+            glPushMatrix();
+            glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
+            glRotated(180, 1, 0, 0);
+            glRotated(myFGSignRot, 0, 0, 1);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            pfSetPosition(0, 0);
+            pfSetScale(1.f);
+            glScaled(exaggeration, exaggeration, 1);
+            glTranslated(1.2, -(double)i, 0);
+            pfDrawString(myLines[i].c_str());
+            glPopMatrix();
+            }
+        */
 
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
         int noPoints = 9;
-        if (s.scale * exaggeration > 25) 
+        if (s.scale * exaggeration > 25) {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
-        
+        }
+
         glScaled(exaggeration, exaggeration, 1);
         GLHelper::setColor(blue);
         GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
         glTranslated(0, 0, .1);
-        
+
         GLHelper::setColor(yellow);
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
-        
-        if (s.scale * exaggeration >= 4.5) 
+
+        if (s.scale * exaggeration >= 4.5) {
             GLHelper::drawText("C", Position(), .1, 1.6 * exaggeration, green, myFGSignRot);
-        
+        }
+
         /** draw the Sen function IGNORED
 
         //glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
@@ -208,9 +206,9 @@ GUIChrgStn::drawGL(const GUIVisualizationSettings& s) const {
         RGBColor green(76, 170, 50, 255);
 
 
-        
+
         for (double X = 0; X < 5; X+=0.01)
-        {    
+        {
             double Y = sin((4*X)-(PI/2))*0.8;
             glTranslated(0.01, Y, 0);
             GLHelper::drawFilledCircle(0.05, 9);

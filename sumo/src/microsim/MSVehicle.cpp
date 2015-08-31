@@ -1101,7 +1101,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
 
         // - even if red, if we cannot break we should issue a request
         // - always issue a request to leave the intersection we are currently on
-        bool setRequest = v > 0 || (myLane->getEdge().isInternal() && lastLink == 0); 
+        bool setRequest = v > 0 || (myLane->getEdge().isInternal() && lastLink == 0);
         SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
         const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime();
         if (yellowOrRed && seen >= brakeDist) {
@@ -1864,8 +1864,8 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason) {
     }
     if (reason != MSMoveReminder::NOTIFICATION_PARKING && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         while (!myStops.empty() && myStops.front().edge == myCurrEdge) {
-            WRITE_WARNING("Vehicle '" + getID() + "' skips stop on lane '" + myStops.front().lane->getID() 
-                    + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
+            WRITE_WARNING("Vehicle '" + getID() + "' skips stop on lane '" + myStops.front().lane->getID()
+                          + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
             myStops.pop_front();
         }
     }

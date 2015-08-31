@@ -27,9 +27,10 @@ from xml.dom import minidom
 from xml.dom.minidom import Document
 
 # want the sumolib tools
-import sys, os
+import sys
+import os
 THIS_PATH = os.path.abspath(__file__)
-addpath = os.path.abspath(THIS_PATH+'/../../../sumolib')
+addpath = os.path.abspath(THIS_PATH + '/../../../sumolib')
 if addpath not in sys.path:
     sys.path.append(addpath)
 import geomhelper
@@ -39,26 +40,26 @@ import numpy as np
 
 def dict_from_node_attributes(node):
     """takes a xml node and returns a dictionary with its attributes"""
-    return dict((attn, node.getAttribute(attn)) for attn in \
+    return dict((attn, node.getAttribute(attn)) for attn in
                 node.attributes.keys())
 
 
 def nparr_from_dict_list(dicl_tab, col_ns, col_ts):
     """converts a dictionary into an np array table structure"""
-    return np.array([tuple(rd.get(cn, '-1') for cn in col_ns) for rd in \
+    return np.array([tuple(rd.get(cn, '-1') for cn in col_ns) for rd in
                      dicl_tab], dtype=np.dtype(list(zip(col_ns, col_ts))))
 
 
 def get_induction_loops(inpx_doc):
-    induction_tab = [dict_from_node_attributes(nd) for nd in \
-                        inpx_doc.getElementsByTagName('dataCollectionPoint')]
+    induction_tab = [dict_from_node_attributes(nd) for nd in
+                     inpx_doc.getElementsByTagName('dataCollectionPoint')]
     return induction_tab
 
 
 def get_travel_time_detectors(inpx_doc):
     travel_time_tab = []
     for detector in \
-        inpx_doc.getElementsByTagName('vehicleTravelTimeMeasurement'):
+            inpx_doc.getElementsByTagName('vehicleTravelTimeMeasurement'):
         travel_time_d = dict_from_node_attributes(detector)
         start = detector.getElementsByTagName('start')[0]
         travel_time_d['startLink'] = start.getAttribute('link')
@@ -95,7 +96,7 @@ def create_measurement_file(induction_tab, travel_time_tab,
         ind_loop = result_doc.createElement("inductionLoop")
         ind_loop.setAttribute("id", "_".join([loop["no"], loop["name"]]))
         sumo_lane = "_".join([loop["lane"].split(" ")[0],
-                         str(int(loop["lane"].split(" ")[1]) - 1)])
+                              str(int(loop["lane"].split(" ")[1]) - 1)])
         ind_loop.setAttribute("lane", sumo_lane)
 
         pathlen = loop["pos"]
@@ -106,9 +107,10 @@ def create_measurement_file(induction_tab, travel_time_tab,
                                                            pathlen)
         sumo_loop_coords = convert_vissim_to_sumo_coords(vissim_loop_coords,
                                                          net_offset)
-        polyline = [lane for lane in \
-            [edge for edge in edge_tab if edge["id"] == link_id][0]["lanes"] \
-            if lane["index"] == lane_index][0]["shape"].split(" ")
+        polyline = [lane for lane in
+                    [edge for edge in edge_tab if edge["id"] == link_id][
+                        0]["lanes"]
+                    if lane["index"] == lane_index][0]["shape"].split(" ")
         shape = []
         for point in polyline:
             shape.append(point.split(","))
@@ -126,8 +128,8 @@ def create_measurement_file(induction_tab, travel_time_tab,
         travel_time.setAttribute("freq", "900")
         travel_time.setAttribute("file", "time_out.xml")
 
-        start_edge  = [edge for edge in edge_tab if
-                       edge["id"] == det["startLink"]]
+        start_edge = [edge for edge in edge_tab if
+                      edge["id"] == det["startLink"]]
         if len(start_edge) > 0:
             start_point = get_detector_coords_from_link(start_edge[0]["id"],
                                                         link_tab,
@@ -148,8 +150,8 @@ def create_measurement_file(induction_tab, travel_time_tab,
                 else:
                     det_entry.setAttribute("pos", lane["length"])
                 travel_time.appendChild(det_entry)
-        end_edge  = [edge for edge in edge_tab if
-                     edge["id"] == det["endLink"]]
+        end_edge = [edge for edge in edge_tab if
+                    edge["id"] == det["endLink"]]
         if len(end_edge) > 0:
             end_point = get_detector_coords_from_link(end_edge[0]["id"],
                                                       link_tab,
@@ -179,15 +181,15 @@ def get_point_on_polyline(points, pathlen):
     index, rem_len = get_segment_of_polyline(points, pathlen)
     # check if index is reasonable value
     if index <= 0:
-       print("WARNING: got invalid point on polyline")
-       return None
-    P=np.array(points[index-1])
+        print("WARNING: got invalid point on polyline")
+        return None
+    P = np.array(points[index - 1])
     # if the remaining length is within tolerance, snap to initial point
     if rem_len <= 1.0e-3:
         return P
-    Q=np.array(points[index])
-    PQ = Q-P #Vektior PQ
-    vn = PQ/np.linalg.norm(PQ)                # normierter Richtungsvektor
+    Q = np.array(points[index])
+    PQ = Q - P  # Vektior PQ
+    vn = PQ / np.linalg.norm(PQ)                # normierter Richtungsvektor
     return P + vn * rem_len
 
 
@@ -204,11 +206,11 @@ def get_segment_of_polyline(points, pathlen):
         return -1, pathlen - sum(seg_lens)
     lm_segG = np.r_[0., np.cumsum(seg_lens)]
     index = np.digitize([pathlen], lm_segG).item()
-    return (index, pathlen - lm_segG[index-1])
+    return (index, pathlen - lm_segG[index - 1])
 
 
 def get_segment_lengths(points):
-    dxyz=np.diff(points, axis = 0)
+    dxyz = np.diff(points, axis=0)
     return np.linalg.norm(dxyz, axis=1)
 
 
@@ -299,8 +301,7 @@ def get_conn_verb_rel(conn_tab, from_to_tab):
 # MAIN
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description = \
-            'detector conversion utility (VISSIM.inpx to SUMO)')
+        description='detector conversion utility (VISSIM.inpx to SUMO)')
     parser.add_argument('--vissim-input', '-V', type=str,
                         help='VISSIM inpx file path')
     parser.add_argument('--output-file', '-o', type=str,

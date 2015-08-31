@@ -93,7 +93,7 @@ MSTransportable::Stage::getEdgeAngle(const MSEdge* e, SUMOReal at) const {
  * MSTransportable - methods
  * ----------------------------------------------------------------------- */
 MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportablePlan* plan)
-        : myParameter(pars), myVType(vtype), myPlan(plan) {
+    : myParameter(pars), myVType(vtype), myPlan(plan) {
     myStep = myPlan->begin();
 }
 

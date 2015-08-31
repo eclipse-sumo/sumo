@@ -521,11 +521,11 @@ MSLaneChanger::checkChange(
         MSLane* nextLane = vehicle->getLane();
         MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
         while (!nextLane->isLinkEnd(link) && seen <= space2change) {
-            if ((*link)->getDirection() == LINKDIR_LEFT || (*link)->getDirection() == LINKDIR_RIGHT 
+            if ((*link)->getDirection() == LINKDIR_LEFT || (*link)->getDirection() == LINKDIR_RIGHT
                     // the lanes after an internal junction are on different
                     // edges and do not allow lane-changing
                     || (nextLane->getEdge().isInternal() && (*link)->getViaLaneOrLane()->getEdge().isInternal())
-                    ) {
+               ) {
                 state |= LCA_INSUFFICIENT_SPACE;
                 break;
             }

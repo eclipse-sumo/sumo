@@ -665,7 +665,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::myEndElemen
 NIImporter_Vissim::NIVissimXMLHandler_ConflictArea::NIVissimXMLHandler_ConflictArea()
     : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
                         vissimAttrs, VISSIM_ATTR_NOTHING,
-                        "vissim - file"){}
+                        "vissim - file") {}
 
 NIImporter_Vissim::NIVissimXMLHandler_ConflictArea::~NIVissimXMLHandler_ConflictArea() { }
 

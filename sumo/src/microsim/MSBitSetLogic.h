@@ -85,7 +85,7 @@ public:
         return (*myLogic)[linkIndex];
     }
 
-    /// @brief Returns the foes for the given link 
+    /// @brief Returns the foes for the given link
     const MSLogicJunction::LinkBits& getFoesFor(unsigned int linkIndex) const {
         return (*myInternalLinksFoes)[linkIndex];
     }

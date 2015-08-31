@@ -66,8 +66,10 @@ class TestGeomhelper(unittest.TestCase):
         self.assertEqual(sumolib.geomhelper.isWithin((3, 3), convex), False)
         self.assertEqual(sumolib.geomhelper.isWithin((1.5, 1.5), convex), True)
         concave = [(0, 0), (2, 0), (2, 1), (1, 1), (1, 2), (0, 2)]
-        self.assertEqual(sumolib.geomhelper.isWithin((0.5, 0.5), concave), True)
-        self.assertEqual(sumolib.geomhelper.isWithin((1.5, 1.5), concave), False)
+        self.assertEqual(
+            sumolib.geomhelper.isWithin((0.5, 0.5), concave), True)
+        self.assertEqual(
+            sumolib.geomhelper.isWithin((1.5, 1.5), concave), False)
 
 
 if __name__ == '__main__':

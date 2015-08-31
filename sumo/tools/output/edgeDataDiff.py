@@ -32,7 +32,8 @@ def write_diff(orig, new, out):
     with open(out, 'w') as f:
         f.write("<meandata>\n")
         for interval_old, interval_new in zip(parse(orig, 'interval'), parse(new, 'interval')):
-            f.write('    <interval begin="%s" end="%s">\n' % (interval_old.begin, interval_old.end))
+            f.write('    <interval begin="%s" end="%s">\n' %
+                    (interval_old.begin, interval_old.end))
             for edge_old, edge_new in zip(interval_old.edge, interval_new.edge):
                 assert(edge_old.id == edge_new.id)
                 f.write('    <edge id="%s"' % edge_old.id)
@@ -40,7 +41,8 @@ def write_diff(orig, new, out):
                     if attr == 'id':
                         continue
                     try:
-                        delta = float(getattr(edge_new, attr)) - float(getattr(edge_old, attr))
+                        delta = float(getattr(edge_new, attr)) - \
+                            float(getattr(edge_old, attr))
                         diffStats[attr].add(delta, edge_old.id)
                         f.write(' %s="%s"' % (attr, delta))
                     except:
@@ -61,4 +63,3 @@ if __name__ == "__main__":
         print("USAGE: %s <edgedata1.xml> <edgedata2.xml> <output_diff.xml>")
         sys.exit()
     write_diff(orig, new, out)
-

@@ -614,7 +614,7 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
             for (++k; k != finalIncomingAngles.end() && !foundParallel; ++k) {
                 if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
                     WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel incoming "
-                            + j->first + "," + k->first + ")");
+                                  + j->first + "," + k->first + ")");
                     foundParallel = true;
                 }
             }
@@ -625,7 +625,7 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
             for (++k; k != finalOutgoingAngles.end() && !foundParallel; ++k) {
                 if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
                     WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing "
-                            + j->first + "," + k->first + ")");
+                                  + j->first + "," + k->first + ")");
                     foundParallel = true;
                 }
             }

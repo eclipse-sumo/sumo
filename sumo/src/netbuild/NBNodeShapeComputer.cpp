@@ -289,10 +289,10 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     }
 
     for (i = newAll.begin(); i != newAll.end(); ++i) {
-         if (distances.find(*i) == distances.end()) {
-             assert(false);
-             distances[*i] = 100;
-         }
+        if (distances.find(*i) == distances.end()) {
+            assert(false);
+            distances[*i] = 100;
+        }
     }
 
     // build
@@ -332,7 +332,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 }
 
 
-SUMOReal 
+SUMOReal
 NBNodeShapeComputer::closestIntersection(const PositionVector& geom1, const PositionVector& geom2, SUMOReal offset) {
     std::vector<SUMOReal> intersections = geom1.intersectsAtLengths2D(geom2);
     SUMOReal result = intersections[0];
@@ -431,9 +431,9 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
         Line l1 = g1.lineAt(0);
         Line l2 = g2.lineAt(0);
         const SUMOReal angle1further = (g1.size() > 2 && l1.length2D() < angleChangeLookahead ?
-                g1.lineAt(1).atan2DegreeAngle() : l1.atan2DegreeAngle());
+                                        g1.lineAt(1).atan2DegreeAngle() : l1.atan2DegreeAngle());
         const SUMOReal angle2further = (g2.size() > 2 && l2.length2D() < angleChangeLookahead ?
-                g2.lineAt(1).atan2DegreeAngle() : l2.atan2DegreeAngle());
+                                        g2.lineAt(1).atan2DegreeAngle() : l2.atan2DegreeAngle());
         const SUMOReal angleDiff = NBHelpers::relAngle(l1.atan2DegreeAngle(), l2.atan2DegreeAngle());
         const SUMOReal angleDiffFurther = NBHelpers::relAngle(angle1further, angle2further);
         const bool ambiguousGeometry = ((angleDiff > 0 && angleDiffFurther < 0) || (angleDiff < 0 && angleDiffFurther > 0));
@@ -471,9 +471,9 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
 
 
 bool
-NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, 
-        const PositionVector& e1cw, const PositionVector& e2ccw, 
-        SUMOReal distance) {
+NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2,
+                                     const PositionVector& e1cw, const PositionVector& e2ccw,
+                                     SUMOReal distance) {
     // check whether the two edges are on top of each other. In that case they should be joined
     // also, if they never touch along their common length
     const SUMOReal commonLength = MIN3(distance, e1->getGeometry().length(), e2->getGeometry().length());

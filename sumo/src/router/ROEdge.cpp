@@ -66,18 +66,17 @@ ROEdgeVector ROEdge::myEdges;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority) : 
-    Named(id), 
-    myFromJunction(from), 
-    myToJunction(to), 
-    myIndex(index), 
+ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority) :
+    Named(id),
+    myFromJunction(from),
+    myToJunction(to),
+    myIndex(index),
     myPriority(priority),
-    mySpeed(-1), 
+    mySpeed(-1),
     myLength(0),
     myUsingTTTimeLine(false),
     myUsingETimeLine(false),
-    myCombinedPermissions(0) 
-{
+    myCombinedPermissions(0) {
     while (myEdges.size() <= index) {
         myEdges.push_back(0);
     }

@@ -75,7 +75,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       showLane2Lane(false), drawJunctionShape(true), addMode(0),
       addSize(1),
       addName(false, 50, RGBColor(255, 0, 128, 255)),
-      poiSize(0), poiName(false, 50, RGBColor(255, 0, 128, 255)), 
+      poiSize(0), poiName(false, 50, RGBColor(255, 0, 128, 255)),
       poiType(false, 50, RGBColor(255, 0, 128, 255)),
       polySize(0), polyName(false, 50, RGBColor(255, 0, 128, 255)),
       polyType(false, 50, RGBColor(255, 0, 128, 255)),
@@ -89,7 +89,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(192, 66, 44), 2, "bike lane");
     scheme.addColor(RGBColor(0, 0, 0, 0), 3, "green verge");
     scheme.addColor(RGBColor(150, 200, 200), 4, "waterway");
-    scheme.addColor(RGBColor(92,92,92), 5, "no passenger"); // paths, service roads etc
+    scheme.addColor(RGBColor(92, 92, 92), 5, "no passenger"); // paths, service roads etc
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(128, 128, 128, 255), "unselected", true);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");

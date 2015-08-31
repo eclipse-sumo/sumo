@@ -54,20 +54,17 @@
 // method definitions
 // ===========================================================================
 void
-MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) 
-{
+MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
     of.openTag("timestep").writeAttr("time", time2string(timestep));
     of.setPrecision(precision);
 
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
-    for (; it != end; ++it) 
-    {
+    for (; it != end; ++it) {
         const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
-        
-        if (!veh->isOnRoad()) 
-        {
+
+        if (!veh->isOnRoad()) {
             continue;
         }
 
@@ -75,9 +72,8 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision)
         fclass = fclass.substr(0, fclass.find_first_of("@"));
 
         Position pos = veh->getLane()->getShape().positionAtOffset(veh->getPositionOnLane());
-     
-        if(static_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery))) != 0)
-        {
+
+        if (static_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery))) != 0) {
             // Get battery
             MSDevice_Battery* batteryToExport = dynamic_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery)));
 
@@ -103,25 +99,19 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision)
             of.writeAttr("Charge", batteryToExport->getChrgEnergy());
 
             // Write ChargeInTransit
-            if(batteryToExport->isChargingInTransit())
-            {
-                of.writeAttr("ChargeInTransit",batteryToExport->getChrgEnergy());
-            }
-            else
-            {
+            if (batteryToExport->isChargingInTransit()) {
+                of.writeAttr("ChargeInTransit", batteryToExport->getChrgEnergy());
+            } else {
                 of.writeAttr("ChargeInTransit", 0.00);
             }
 
             // Write ChargingStopped
-            if(batteryToExport->isChargingStopped() )
-            {
+            if (batteryToExport->isChargingStopped()) {
                 of.writeAttr("ChargeStopped", batteryToExport->getChrgEnergy());
-            }
-            else
-            {
+            } else {
                 of.writeAttr("ChargeStopped", 0.00);
             }
-            
+
             // Write Speed
             of.writeAttr("speed", veh->getSpeed());
 
@@ -139,7 +129,7 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision)
 
             // Write vehicle position in the lane
             of.writeAttr("posOnLane", veh->getPositionOnLane());
-            
+
             // Write Time stopped (In all cases)
             of.writeAttr("timeStopped", batteryToExport->getVehicleStopped());
 
@@ -157,5 +147,5 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision)
         }
     }
     of.closeTag();
-    
+
 }

@@ -326,7 +326,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     veh.replaceRouteEdges(edges);
     if (newArrivalPos != -1) {
         // must be called here because replaceRouteEdges may also set the arrivalPos
-        veh.setArrivalPos(newArrivalPos); 
+        veh.setArrivalPos(newArrivalPos);
     }
     return false;
 }

@@ -254,7 +254,7 @@ GUIDanielPerspectiveChanger::changeCanvassLeft(int change) {
 }
 
 
-long 
+long
 GUIDanielPerspectiveChanger::onKeyPress(void* data) {
     FXEvent* e = (FXEvent*) data;
     SUMOReal zoomDiff = 0.1;
@@ -271,67 +271,67 @@ GUIDanielPerspectiveChanger::onKeyPress(void* data) {
         pageVertical = false;
         zoomDiff *= 2;
     }
-    switch(e->code) {
-    case FX::KEY_Left:
-        moveX = -1;
-        moveFactor /= 10;
-        break;
-    case FX::KEY_Right:
-        moveX = 1;
-        moveFactor /= 10;
-        break;
-    case FX::KEY_Up:
-        moveY = -1;
-        moveFactor /= 10;
-        break;
-    case FX::KEY_Down:
-        moveY = 1;
-        moveFactor /= 10;
-        break;
-    case FX::KEY_Page_Up:
-        if (pageVertical) {
-            moveY = -1;
-        } else {
+    switch (e->code) {
+        case FX::KEY_Left:
             moveX = -1;
-        }
-        break;
-    case FX::KEY_Page_Down:
-        if (pageVertical) {
-            moveY = 1;
-        } else {
+            moveFactor /= 10;
+            break;
+        case FX::KEY_Right:
             moveX = 1;
-        }
-        break;
-    case FX::KEY_plus:
-    case FX::KEY_KP_Add:
-        myZoomBase = myCallback.getPositionInformation();
-        zoom(1.0 + zoomDiff);
-        myCallback.updateToolTip();
-        return 1;
-    case FX::KEY_minus:
-    case FX::KEY_KP_Subtract:
-        zoomDiff = -zoomDiff;
-        myZoomBase = myCallback.getPositionInformation();
-        zoom(1.0 + zoomDiff);
-        myCallback.updateToolTip();
-        return 1;
-    case FX::KEY_Home:
-    case FX::KEY_KP_Home:
-        myCallback.recenterView();
-        myCallback.update();
-        return 1;
-    case FX::KEY_v:
-        // from an architecture standpoint this isn't the best place to put
-        // this. But its simple
-        if (ctrl) {
-            myCallback.showViewschemeEditor();
+            moveFactor /= 10;
+            break;
+        case FX::KEY_Up:
+            moveY = -1;
+            moveFactor /= 10;
+            break;
+        case FX::KEY_Down:
+            moveY = 1;
+            moveFactor /= 10;
+            break;
+        case FX::KEY_Page_Up:
+            if (pageVertical) {
+                moveY = -1;
+            } else {
+                moveX = -1;
+            }
+            break;
+        case FX::KEY_Page_Down:
+            if (pageVertical) {
+                moveY = 1;
+            } else {
+                moveX = 1;
+            }
+            break;
+        case FX::KEY_plus:
+        case FX::KEY_KP_Add:
+            myZoomBase = myCallback.getPositionInformation();
+            zoom(1.0 + zoomDiff);
+            myCallback.updateToolTip();
             return 1;
-        }
-    default:
-        return 0;
+        case FX::KEY_minus:
+        case FX::KEY_KP_Subtract:
+            zoomDiff = -zoomDiff;
+            myZoomBase = myCallback.getPositionInformation();
+            zoom(1.0 + zoomDiff);
+            myCallback.updateToolTip();
+            return 1;
+        case FX::KEY_Home:
+        case FX::KEY_KP_Home:
+            myCallback.recenterView();
+            myCallback.update();
+            return 1;
+        case FX::KEY_v:
+            // from an architecture standpoint this isn't the best place to put
+            // this. But its simple
+            if (ctrl) {
+                myCallback.showViewschemeEditor();
+                return 1;
+            }
+        default:
+            return 0;
     }
-    myViewPort.moveby(moveX * moveFactor * myViewPort.getWidth(), 
-            -moveY * moveFactor * myViewPort.getHeight());
+    myViewPort.moveby(moveX * moveFactor * myViewPort.getWidth(),
+                      -moveY * moveFactor * myViewPort.getHeight());
     myCallback.update();
     return 1;
 }

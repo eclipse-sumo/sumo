@@ -83,14 +83,14 @@ public:
      */
     GUIChrgStn(const std::string& id,
                const std::vector<std::string>& lines, MSLane& lane,
-               SUMOReal frompos, SUMOReal topos, 
+               SUMOReal frompos, SUMOReal topos,
                SUMOReal new_chrgpower, SUMOReal new_efficiency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay);
 
 
     /// @brief Destructor
     ~GUIChrgStn();
 
-    
+
     /// @name inherited from GUIGlObject
     //@{
 
@@ -146,7 +146,7 @@ private:
     /// @brief charge delay
     SUMOReal chargeDelay;
 
-    private:
+private:
     /// @brief The rotations of the shape parts
     std::vector<SUMOReal> myFGShapeRotations;
 

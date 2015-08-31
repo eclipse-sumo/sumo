@@ -206,7 +206,7 @@ NBTypeCont::wasSet(const std::string& type, const SumoXMLAttr attr) const {
     return getType(type).attrs.count(attr) > 0;
 }
 
-    
+
 SVCPermissions
 NBTypeCont::getPermissions(const std::string& type) const {
     return getType(type).permissions;

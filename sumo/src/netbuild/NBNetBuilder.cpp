@@ -291,7 +291,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     if (oc.isDefault("no-internal-links") && !haveCrossings && myHaveLoadedNetworkWithoutInternalEdges) {
         oc.set("no-internal-links", "true");
     }
-    
+
     //
     PROGRESS_BEGIN_MESSAGE("Computing priorities");
     NBEdgePriorityComputer::computeEdgePriorities(myNodeCont);

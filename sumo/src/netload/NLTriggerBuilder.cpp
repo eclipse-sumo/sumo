@@ -156,15 +156,13 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttribu
 }
 
 void
-NLTriggerBuilder::parseAndBuildChrgStn(MSNet& net, const SUMOSAXAttributes& attrs) 
-{
+NLTriggerBuilder::parseAndBuildChrgStn(MSNet& net, const SUMOSAXAttributes& attrs) {
     bool ok = true;
 
     // get the id, throw if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    
-    if (!ok) 
-    {
+
+    if (!ok) {
         throw ProcessError();
     }
 
@@ -181,8 +179,7 @@ NLTriggerBuilder::parseAndBuildChrgStn(MSNet& net, const SUMOSAXAttributes& attr
 
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
 
-    if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) 
-    {
+    if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for Charging Station '" + id + "'.");
     }
 
@@ -387,8 +384,8 @@ NLTriggerBuilder::buildContainerStop(MSNet& net, const std::string& id,
 
 void
 NLTriggerBuilder::buildChrgStn(MSNet& net, const std::string& id,
-        const std::vector<std::string>& lines,
-        MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay) {
+                               const std::vector<std::string>& lines,
+                               MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay) {
 
     MSChrgStn* chrgStn = new MSChrgStn(id, lines, *lane, frompos, topos, chrgpower, efficiency, chargeInTransit, ChargeDelay);
 
