@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#@file    vissimXML_parseRoutes.py
 """
-@file: convert_vissimXML_flows_statRoutes.py
-@date: Jun 09 2015
-
-@author: Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
+@file    convert_vissimXML_flows_statRoutes.py
+@author  Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
+@date    Jun 09 2015
 @version $Id$
 
 Parses flows and static routes from a VISSIM .inpx file

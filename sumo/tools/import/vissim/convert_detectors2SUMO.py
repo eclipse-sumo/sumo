@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#@file    vissimXML_parseRoutes.py
 """
-@file: convert_detectors2SUMO.py
-@date: Aug 14 2015
-
-@author: Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
+@file    convert_detectors2SUMO.py
+@author  Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
+@date    Aug 14 2015
 @version $Id$
 
 Parses induction loops and travel time measurements from a VISSIM .inpx file

@@ -2,16 +2,16 @@
 # -*- coding: utf-8 -*-
 """
 @file    tls_vissimXML2SUMOnet_update.py
-@date on Jun 11 2015
-
-@author: Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
-@author: Gerald Richter <Gerald.Richter@ait.ac.at>
+@author  Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
+@author  Gerald Richter <Gerald.Richter@ait.ac.at>
+@date    Jun 11 2015
 @version $Id$
 
 Converts a VISSIM-tls-description into a SUMO-tls-description and writes
 the appended information to a copy of the given sumo.net file
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
