@@ -5,10 +5,10 @@
 /// @date    20.12.2013
 /// @version $Id$ // ATENCION
 ///
-// ATENCION Descripcion
+// The Battery parameters for the vehicle
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+// Copyright (C) 2013-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
