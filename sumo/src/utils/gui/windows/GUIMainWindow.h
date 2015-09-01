@@ -99,10 +99,10 @@ public:
         return 0;
     }
 
-    /** @brief Sends an event from the application thread to the GUI
+    /** @brief Sends an event from the application thread to the GUI and waits until it is handled
      * @param event the event to send
      */
-    virtual void sendEvent(GUIEvent* event) {
+    virtual void sendBlockingEvent(GUIEvent* event) {
         UNUSED_PARAMETER(event);
     }
 

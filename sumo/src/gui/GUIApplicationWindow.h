@@ -248,10 +248,10 @@ public:
         return mySimDelayTarget->getValue();
     }
 
-    /** @brief Sends an event from the application thread to the GUI
-      * @param event the event to send
-      */
-    virtual void sendEvent(GUIEvent* event);
+    /** @brief Sends an event from the application thread to the GUI and waits until it is handled
+     * @param event the event to send
+     */
+    virtual void sendBlockingEvent(GUIEvent* event);
 
 protected:
     virtual void addToWindowsMenu(FXMenuPane*) { }
@@ -363,6 +363,12 @@ protected:
 
     /// @brief whether the simulation end was already announced
     bool myHaveNotifiedAboutSimEnd;
+
+    /// @brief the mutex for the waiting semaphore
+    FXMutex myEventMutex;
+
+    /// @brief the semaphore when waiting for event completion
+    FXCondition myEventCondition;
 
     /// @name game related things
     /// {

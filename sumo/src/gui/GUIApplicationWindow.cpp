@@ -1278,7 +1278,13 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
 void
 GUIApplicationWindow::handleEvent_Screenshot(GUIEvent* e) {
     GUIEvent_Screenshot* ec = static_cast<GUIEvent_Screenshot*>(e);
-    ec->myView->makeSnapshot(ec->myFile);
+    myEventMutex.lock();
+    const std::string error = ec->myView->makeSnapshot(ec->myFile);
+    if (error != "") {
+        WRITE_WARNING(error);
+    }
+    myEventCondition.signal();
+    myEventMutex.unlock();
 }
 
 
@@ -1484,9 +1490,12 @@ GUIApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
 
 
 void
-GUIApplicationWindow::sendEvent(GUIEvent* event) {
+GUIApplicationWindow::sendBlockingEvent(GUIEvent* event) {
+    myEventMutex.lock();
     myEvents.add(event);
     myRunThreadEvent.signal();
+    myEventCondition.wait(myEventMutex);
+    myEventMutex.unlock();
 }
 
 

@@ -175,7 +175,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             if (!server.readTypeCheckingString(inputStorage, filename)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Making a snapshot requires a file name.", outputStorage);
             }
-            GUIMainWindow::getInstance()->sendEvent(new GUIEvent_Screenshot(v, filename));
+            GUIMainWindow::getInstance()->sendBlockingEvent(new GUIEvent_Screenshot(v, filename));
         }
         break;
         case VAR_TRACK_VEHICLE: {

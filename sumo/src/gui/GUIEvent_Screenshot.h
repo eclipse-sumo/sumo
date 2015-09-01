@@ -62,10 +62,10 @@ public:
     ~GUIEvent_Screenshot() { }
 
 public:
-    /// the view to save
+    /// @brief the view to save
     GUISUMOAbstractView* const myView;
 
-    /// the name of the file to save to
+    /// @brief the name of the file to save to
     const std::string myFile;
 
 private:
