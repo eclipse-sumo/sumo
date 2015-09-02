@@ -86,7 +86,7 @@
         <xsd:attribute name="speed" type="positiveFloatType" use="required"/>
         <xsd:attribute name="length" type="positiveFloatType" use="required"/>
         <xsd:attribute name="endOffset" type="positiveFloatType" use="optional"/>
-        <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="width" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="shape" type="shapeTypeTwo" use="required"/>
         <xsd:attribute name="customShape" type="boolType" use="optional"/>
     </xsd:complexType>
@@ -160,6 +160,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="s"/>
                     <xsd:enumeration value="t"/>
+                    <xsd:enumeration value="T"/>
                     <xsd:enumeration value="l"/>
                     <xsd:enumeration value="r"/>
                     <xsd:enumeration value="L"/>
