@@ -457,13 +457,13 @@ RONet::checkFlows(SUMOTime time) {
 
 void
 RONet::createBulkRouteRequests(SUMOAbstractRouter<ROEdge, ROVehicle>& router, const SUMOTime time, const bool removeLoops, const std::map<std::string, ROVehicle*>& mmap) {
-    std::map<const ROEdge*, std::vector<ROVehicle*> > bulkVehs;
+    std::map<const unsigned int, std::vector<ROVehicle*> > bulkVehs;
     for (std::map<std::string, ROVehicle*>::const_iterator i = mmap.begin(); i != mmap.end(); ++i) {
         ROVehicle* const vehicle = i->second;
         if (vehicle->getDepart() < time) {
             const RORoute* const stub = vehicle->getRouteDefinition()->getFirstRoute();
-            bulkVehs[stub->getFirst()].push_back(vehicle);
-            ROVehicle* const first = bulkVehs[stub->getFirst()].front();
+            bulkVehs[stub->getFirst()->getNumericalID()].push_back(vehicle);
+            ROVehicle* const first = bulkVehs[stub->getFirst()->getNumericalID()].front();
             if (first->getMaxSpeed() != vehicle->getMaxSpeed()) {
                 WRITE_WARNING("Bulking different maximum speeds ('" + first->getID() + "' and '" + vehicle->getID() + "') may lead to suboptimal routes.");
             }
@@ -473,7 +473,7 @@ RONet::createBulkRouteRequests(SUMOAbstractRouter<ROEdge, ROVehicle>& router, co
         }
     }
     int workerIndex = 0;
-    for (std::map<const ROEdge*, std::vector<ROVehicle*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
+    for (std::map<const unsigned int, std::vector<ROVehicle*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
 #ifdef HAVE_FOX
         if (myThreadPool.size() > 0) {
             ROVehicle* const first = i->second.front();
