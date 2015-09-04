@@ -28,7 +28,8 @@ _TESTDATA_EXT = [".xml", ".prog", ".csv",
                  ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".marouter",
                  ".astar", ".chrouter", ".internal", ".tcl", ".txt",
                  ".netconvert", ".netgen", ".od2trips", ".polyconvert", ".sumo",
-                 ".meso", ".tools", ".traci", ".activitygen", ".scenario",
+                 ".meso", ".tools", ".traci", ".activitygen",
+                 ".scenario", ".tapasVEU",
                  ".sumocfg", ".netccfg", ".netgcfg"]
 _VS_EXT = [".vsprops", ".sln", ".vcproj",
            ".bat", ".props", ".vcxproj", ".filters"]
