@@ -58,7 +58,7 @@ class ROVehicle;
 class ROMAAssignments {
 public:
     /// Constructor
-    ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool timeSplit,
+    ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
                     RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
     /// Destructor
@@ -68,7 +68,7 @@ public:
         return myDefaultVehicle;
     }
 
-    // @brief calculate edge travel time with the given road class and max link speed
+    // @brief calculate edge travel time for the given edge and number of vehicles per hour
     SUMOReal capacityConstraintFunction(const ROEdge* edge, const SUMOReal flow) const;
 
     // @brief clear effort storage
@@ -132,7 +132,7 @@ private:
 private:
     const SUMOTime myBegin;
     const SUMOTime myEnd;
-    const bool myTimeSplit;
+    const bool myAdditiveTraffic;
     RONet& myNet;
     ODMatrix& myMatrix;
     SUMOAbstractRouter<ROEdge, ROVehicle>& myRouter;

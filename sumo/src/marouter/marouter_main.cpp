@@ -273,7 +273,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
-        ROMAAssignments a(begin, end, oc.getBool("timesplit"), net, matrix, *router);
+        ROMAAssignments a(begin, end, oc.getBool("additive-traffic"), net, matrix, *router);
         a.resetFlows();
         const std::string assignMethod = oc.getString("assignment-method");
         if (assignMethod == "incremental") {
@@ -334,7 +334,9 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             haveOutput = true;
         }
         if (OutputDevice::createDeviceByOption("netload-output", "meandata")) {
-            if (oc.getBool("timesplit")) {
+            if (oc.getBool("additive-traffic")) {
+                writeInterval(OutputDevice::getDeviceByOption("netload-output"), begin, end, net, a.getDefaultVehicle());
+            } else {
                 SUMOTime lastCell = 0;
                 for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
                     if ((*i)->end > lastCell) {
@@ -345,8 +347,6 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                 for (SUMOTime start = begin; start < MIN2(end, lastCell); start += interval) {
                     writeInterval(OutputDevice::getDeviceByOption("netload-output"), start, start + interval, net, a.getDefaultVehicle());
                 }
-            } else {
-                writeInterval(OutputDevice::getDeviceByOption("netload-output"), begin, end, net, a.getDefaultVehicle());
             }
             haveOutput = true;
         }

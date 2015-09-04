@@ -57,10 +57,10 @@ std::map<const ROEdge* const, SUMOReal> ROMAAssignments::myPenalties;
 // method definitions
 // ===========================================================================
 
-ROMAAssignments::ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool timeSplit,
+ROMAAssignments::ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
                                  RONet& net, ODMatrix& matrix,
                                  SUMOAbstractRouter<ROEdge, ROVehicle>& router)
-    : myBegin(begin), myEnd(end), myTimeSplit(timeSplit), myNet(net), myMatrix(matrix), myRouter(router) {
+    : myBegin(begin), myEnd(end), myAdditiveTraffic(additiveTraffic), myNet(net), myMatrix(matrix), myRouter(router) {
     myDefaultVehicle = new ROVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
 }
 
@@ -171,18 +171,19 @@ void
 ROMAAssignments::incremental(const int numIter) {
     for (int t = 0; t < numIter; t++) {
         for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin(); i != myMatrix.getCells().end(); i++) {
-            ODCell* c = *i;
+            ODCell* const c = *i;
             ConstROEdgeVector edges;
             const SUMOReal linkFlow = c->vehicleNumber / numIter;
-            const SUMOTime begin = myTimeSplit ? c->begin : myBegin;
-            const SUMOTime end = myTimeSplit ? c->end : myEnd;
+            const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;
+            const SUMOTime end = myAdditiveTraffic ? myEnd : c->end;
+            const SUMOReal intervalLengthInHours = STEPS2TIME(end - begin) / 3600.;
             myRouter.compute(myNet.getEdge(c->origin + "-source"), myNet.getEdge(c->destination + "-sink"), myDefaultVehicle, begin, edges);
             SUMOReal costs = 0.;
             for (ConstROEdgeVector::iterator e = edges.begin(); e != edges.end(); e++) {
                 ROMAEdge* edge = static_cast<ROMAEdge*>(myNet.getEdge((*e)->getID()));
                 const SUMOReal newFlow = edge->getFlow(STEPS2TIME(begin)) + linkFlow;
                 edge->setFlow(STEPS2TIME(begin), STEPS2TIME(end), newFlow);
-                const SUMOReal travelTime = capacityConstraintFunction(edge, newFlow);
+                const SUMOReal travelTime = capacityConstraintFunction(edge, newFlow / intervalLengthInHours);
                 edge->addTravelTime(travelTime, STEPS2TIME(begin), STEPS2TIME(end));
                 costs += travelTime;
             }
@@ -195,10 +196,20 @@ ROMAAssignments::incremental(const int numIter) {
 void
 ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, const int kPaths, const SUMOReal penalty, const SUMOReal tolerance, const std::string /* routeChoiceMethod */) {
     getKPaths(kPaths, penalty);
+    std::map<const SUMOReal, SUMOReal> intervals;
+    if (myAdditiveTraffic) {
+        intervals[STEPS2TIME(myBegin)] = STEPS2TIME(myEnd);
+    } else {
+        for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin(); i != myMatrix.getCells().end(); ++i) {
+            intervals[STEPS2TIME((*i)->begin)] = STEPS2TIME((*i)->end);
+        }
+    }
     for (int outer = 0; outer < maxOuterIteration; outer++) {
         for (int inner = 0; inner < maxInnerIteration; inner++) {
             for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin(); i != myMatrix.getCells().end(); ++i) {
-                ODCell* c = *i;
+                ODCell* const c = *i;
+                const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;
+                const SUMOTime end = myAdditiveTraffic ? myEnd : c->end;
                 // update path cost
                 for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
                     RORoute* r = *j;
@@ -214,38 +225,41 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
                     // assign edge flow deltas
                     for (ConstROEdgeVector::const_iterator e = r->getEdgeVector().begin(); e != r->getEdgeVector().end(); e++) {
                         ROMAEdge* edge = static_cast<ROMAEdge*>(myNet.getEdge((*e)->getID()));
-                        edge->setHelpFlow(STEPS2TIME(myBegin), STEPS2TIME(myEnd), edge->getHelpFlow(STEPS2TIME(myBegin)) + pathFlow);
+                        edge->setHelpFlow(STEPS2TIME(begin), STEPS2TIME(end), edge->getHelpFlow(STEPS2TIME(begin)) + pathFlow);
                     }
                 }
             }
             // calculate new edge flows and check for stability
             int unstableEdges = 0;
-            for (std::map<std::string, ROEdge*>::const_iterator i = myNet.getEdgeMap().begin(); i != myNet.getEdgeMap().end(); ++i) {
-                ROMAEdge* edge = static_cast<ROMAEdge*>((*i).second);
-                const SUMOReal oldFlow = edge->getFlow(STEPS2TIME(myBegin));
-                SUMOReal newFlow = oldFlow;
-                if (inner == 0 && outer == 0) {
-                    newFlow += edge->getHelpFlow(STEPS2TIME(myBegin));
-                } else {
-                    newFlow += (edge->getHelpFlow(STEPS2TIME(myBegin)) - oldFlow) / (inner + 1);
-                }
-//                if not lohse:
-                if (newFlow > 0.) {
-                    if (abs(newFlow - oldFlow) / newFlow > tolerance) {
-                        unstableEdges++;
+            for (std::map<const SUMOReal, SUMOReal>::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
+                const SUMOReal intervalLengthInHours = STEPS2TIME(i->second - i->first) / 3600.;
+                for (std::map<std::string, ROEdge*>::const_iterator e = myNet.getEdgeMap().begin(); e != myNet.getEdgeMap().end(); ++e) {
+                    ROMAEdge* edge = static_cast<ROMAEdge*>(e->second);
+                    const SUMOReal oldFlow = edge->getFlow(i->first);
+                    SUMOReal newFlow = oldFlow;
+                    if (inner == 0 && outer == 0) {
+                        newFlow += edge->getHelpFlow(i->first);
+                    } else {
+                        newFlow += (edge->getHelpFlow(i->first) - oldFlow) / (inner + 1);
                     }
-                } else if (newFlow == 0.) {
-                    if (oldFlow != 0. && (abs(newFlow - oldFlow) / oldFlow > tolerance)) {
+    //                if not lohse:
+                    if (newFlow > 0.) {
+                        if (abs(newFlow - oldFlow) / newFlow > tolerance) {
+                            unstableEdges++;
+                        }
+                    } else if (newFlow == 0.) {
+                        if (oldFlow != 0. && (abs(newFlow - oldFlow) / oldFlow > tolerance)) {
+                            unstableEdges++;
+                        }
+                    } else { // newFlow < 0.
                         unstableEdges++;
+                        newFlow = 0.;
                     }
-                } else { // newFlow < 0.
-                    unstableEdges++;
-                    newFlow = 0.;
+                    edge->setFlow(i->first, i->second, newFlow);
+                    const SUMOReal travelTime = capacityConstraintFunction(edge, newFlow / intervalLengthInHours);
+                    edge->addTravelTime(travelTime, i->first, i->second);
+                    edge->setHelpFlow(i->first, i->second, 0.);
                 }
-                edge->setFlow(STEPS2TIME(myBegin), STEPS2TIME(myEnd), newFlow);
-                const SUMOReal travelTime = capacityConstraintFunction(edge, newFlow);
-                edge->addTravelTime(travelTime, STEPS2TIME(myBegin), STEPS2TIME(myEnd));
-                edge->setHelpFlow(STEPS2TIME(myBegin), STEPS2TIME(myEnd), 0.);
             }
             // if stable break
             if (unstableEdges == 0) {
