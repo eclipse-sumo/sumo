@@ -13,5 +13,5 @@ hours_split_after12
 # real timeseries with 12 districts and v matrix
 timeline_v
 
-# real timeseries with new assignment fo every hour
-timesplit
+# real timeseries with additive traffic
+additive

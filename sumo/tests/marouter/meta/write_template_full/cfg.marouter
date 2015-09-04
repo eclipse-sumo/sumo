@@ -44,7 +44,7 @@
         <prefix value="" type="STR" help="Defines the prefix for vehicle flow names"/>
         <timeline value="" type="STR" help="Uses STR as a timeline definition"/>
         <timeline.day-in-hours value="false" type="BOOL" help="Uses STR as a 24h-timeline definition"/>
-        <timesplit value="false" type="BOOL" help="Do separate assignments for each time slot"/>
+        <additive-traffic value="false" type="BOOL" help="Keep traffic flows of all time slots in the net"/>
         <assignment-method value="incremental" type="STR" help="Choose a assignment method: incremental, UE or SUE"/>
         <tolerance value="0.001" type="FLOAT" help="Use FLOAT as tolerance when checking for SUE stability"/>
         <left-turn-penalty value="0" type="FLOAT" help="Use left-turn penalty FLOAT to calculate link travel time when searching routes"/>

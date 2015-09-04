@@ -1,4 +1,4 @@
-SUMO marouter Version dev-SVN-r18572
+SUMO marouter Version 0.24.0
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment
 
@@ -56,7 +56,8 @@ Processing Options:
   --prefix STR                      Defines the prefix for vehicle flow names
   --timeline STR                    Uses STR as a timeline definition
   --timeline.day-in-hours           Uses STR as a 24h-timeline definition
-  --timesplit                       Do separate assignments for each time slot
+  --additive-traffic                Keep traffic flows of all time slots in the
+                                      net
   --assignment-method STR           Choose a assignment method: incremental, UE
                                       or SUE
   --tolerance FLOAT                 Use FLOAT as tolerance when checking for

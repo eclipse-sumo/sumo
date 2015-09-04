@@ -108,8 +108,8 @@
         <!-- Uses STR as a 24h-timeline definition -->
         <timeline.day-in-hours value="false" type="BOOL"/>
 
-        <!-- Do separate assignments for each time slot -->
-        <timesplit value="false" type="BOOL"/>
+        <!-- Keep traffic flows of all time slots in the net -->
+        <additive-traffic value="false" type="BOOL"/>
 
         <!-- Choose a assignment method: incremental, UE or SUE -->
         <assignment-method value="incremental" type="STR"/>

@@ -1,4 +1,4 @@
 100vehs
 
-# real timeseries with new assignment fo every hour
-timesplit
+# real timeseries with additive traffic
+additive

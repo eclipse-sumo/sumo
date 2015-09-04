@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 09/04/15 13:01:47 by SUMO marouter Version 0.24.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <od-matrix-files value="input_od_v.fma"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <netload-output value="aggregated.xml"/>
+    </output>
+
+    <processing>
+        <timeline value="0.9,0.5,0.2,0.2,0.5,1.3,7.0,9.3,6.7,4.2,4.0,3.8,4.1,4.6,5.0,6.7,9.6,9.2,7.1,4.8,3.5,2.7,2.2,1.9"/>
+        <timeline.day-in-hours value="true"/>
+        <additive-traffic value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata>
+    <interval begin="0.00" end="9223372036854774.00">
+        <edge id="0/0to0/1" traveltime="28.09" entered="9.21"/>
+        <edge id="0/0to1/0" traveltime="28.09" entered="9.03"/>
+        <edge id="0/0tobottom0" traveltime="6.85" entered="0.00"/>
+        <edge id="0/0toleft0" traveltime="6.85" entered="0.00"/>
+        <edge id="0/1to0/0" traveltime="28.09" entered="9.03"/>
+        <edge id="0/1to0/2" traveltime="28.09" entered="18.89"/>
+        <edge id="0/1to1/1" traveltime="28.09" entered="9.28"/>
+        <edge id="0/1toleft1" traveltime="6.85" entered="0.00"/>
+        <edge id="0/2to0/1" traveltime="28.09" entered="18.31"/>
+        <edge id="0/2to1/2" traveltime="28.09" entered="11.69"/>
+        <edge id="0/2toleft2" traveltime="6.85" entered="0.00"/>
+        <edge id="0/2totop0" traveltime="6.85" entered="30.00"/>
+        <edge id="1/0to0/0" traveltime="28.09" entered="9.21"/>
+        <edge id="1/0to1/1" traveltime="28.09" entered="9.78"/>
+        <edge id="1/0to2/0" traveltime="28.09" entered="19.66"/>
+        <edge id="1/0tobottom1" traveltime="6.85" entered="0.00"/>
+        <edge id="1/1to0/1" traveltime="28.09" entered="9.67"/>
+        <edge id="1/1to1/0" traveltime="28.09" entered="10.63"/>
+        <edge id="1/1to1/2" traveltime="28.09" entered="18.04"/>
+        <edge id="1/1to2/1" traveltime="28.09" entered="16.80"/>
+        <edge id="1/2to0/2" traveltime="28.09" entered="11.11"/>
+        <edge id="1/2to1/1" traveltime="28.09" entered="18.16"/>
+        <edge id="1/2to2/2" traveltime="28.09" entered="13.54"/>
+        <edge id="1/2totop1" traveltime="6.85" entered="30.00"/>
+        <edge id="2/0to1/0" traveltime="28.09" entered="18.99"/>
+        <edge id="2/0to2/1" traveltime="28.09" entered="16.01"/>
+        <edge id="2/0tobottom2" traveltime="6.85" entered="0.00"/>
+        <edge id="2/0toright0" traveltime="6.85" entered="35.00"/>
+        <edge id="2/1to1/1" traveltime="28.09" entered="17.93"/>
+        <edge id="2/1to2/0" traveltime="28.09" entered="15.34"/>
+        <edge id="2/1to2/2" traveltime="28.09" entered="23.07"/>
+        <edge id="2/1toright1" traveltime="6.85" entered="35.00"/>
+        <edge id="2/2to1/2" traveltime="28.09" entered="13.07"/>
+        <edge id="2/2to2/1" traveltime="28.09" entered="23.54"/>
+        <edge id="2/2toright2" traveltime="6.85" entered="0.00"/>
+        <edge id="2/2totop2" traveltime="6.85" entered="30.00"/>
+        <edge id="bottom0to0/0" traveltime="6.85" entered="0.00"/>
+        <edge id="bottom1to1/0" traveltime="6.85" entered="0.00"/>
+        <edge id="bottom2to2/0" traveltime="6.85" entered="0.00"/>
+        <edge id="left0to0/0" traveltime="6.85" entered="0.00"/>
+        <edge id="left1to0/1" traveltime="6.85" entered="0.00"/>
+        <edge id="left2to0/2" traveltime="6.85" entered="0.00"/>
+        <edge id="right0to2/0" traveltime="6.85" entered="35.00"/>
+        <edge id="right1to2/1" traveltime="6.85" entered="35.00"/>
+        <edge id="right2to2/2" traveltime="6.85" entered="0.00"/>
+        <edge id="top0to0/2" traveltime="6.85" entered="30.00"/>
+        <edge id="top1to1/2" traveltime="6.85" entered="30.00"/>
+        <edge id="top2to2/2" traveltime="6.85" entered="30.00"/>
+    </interval>
+</meandata>
