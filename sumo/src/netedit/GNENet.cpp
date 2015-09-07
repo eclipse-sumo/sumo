@@ -117,7 +117,6 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     }
 
     // sort nodes edges so that arrows can be drawn correctly
-    OptionsCont& oc = OptionsCont::getOptions();
     NBNodesEdgesSorter::sortNodesEdges(nc);
 
     /*

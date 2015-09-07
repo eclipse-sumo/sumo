@@ -57,6 +57,8 @@ class GNEUndoList : public FXUndoList {
 
 public:
     /// constructor
+    /* be aware that "parent" may be not fully initialized when stored here,
+    so don't call any methods on it. */
     GNEUndoList(GNEApplicationWindow* parent) : FXUndoList(), myParent(parent) {}
 
     /**
@@ -133,7 +135,7 @@ private:
     std::stack<CommandGroup*> myCommandGroups;
 
     // the parent application for this undolist
-    GNEApplicationWindow* myParent;
+    GNEApplicationWindow* const myParent;
 };
 
 

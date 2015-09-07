@@ -151,6 +151,9 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(disable: 4355)
+#endif
 GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
         const std::string& configPattern)
     : GUIMainWindow(a),
@@ -164,6 +167,9 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
       myTitlePrefix(("NETEDIT " + getBuildName(VERSION_STRING)).c_str()) {
     GUIIconSubSys::init(a);
 }
+#ifdef _MSC_VER
+#pragma warning(default: 4355)
+#endif
 
 
 void
