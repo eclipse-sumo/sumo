@@ -65,6 +65,7 @@ MSVehicleControl::MSVehicleControl() :
     myTotalDepartureDelay(0),
     myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),
+    myDefaultPedTypeMayBeDeleted(true),
     myWaitingForPerson(0),
     myWaitingForContainer(0),
     myScale(-1),
