@@ -93,7 +93,8 @@ MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge
     myPermissions(permissions),
     myLogicalPredecessorLane(0),
     myBruttoVehicleLengthSum(0), myNettoVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0),
-    myLengthGeometryFactor(myShape.length() / myLength) {
+    myLengthGeometryFactor(MAX2(POSITION_EPS, myShape.length()) / myLength) // factor should not be 0
+{
     myRestrictions = MSNet::getInstance()->getRestrictions(edge->getEdgeType());
 }
 
