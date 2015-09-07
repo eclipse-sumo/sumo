@@ -7,7 +7,7 @@ endif
 
 if WITH_GUI
 GUI_APPS = sumo-gui
-GUI_DIRS = gui guinetload guisim $(GUI_INTERNAL_DIRS)
+GUI_DIRS = gui guinetload guisim netedit $(GUI_INTERNAL_DIRS)
 endif
 
 if CHECK_MEMORY_LEAKS
