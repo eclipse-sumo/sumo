@@ -136,6 +136,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_pedestrians",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libod", "y_libod\y_libod.vcxproj", "{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netedit", "..\..\..\sumoI\sumo\build\msvc10\netedit\netedit.vcxproj", "{813B2D7E-CC23-4650-892F-553B1AFD912C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -1697,6 +1699,33 @@ Global
 		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Unittest|Win32.ActiveCfg = Release|x64
 		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Unittest|x64.ActiveCfg = Release|x64
 		{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}.Unittest|x64.Build.0 = Release|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Debug|Win32.Build.0 = Debug|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Debug|x64.ActiveCfg = Debug|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Debug|x64.Build.0 = Debug|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Fastbuild|x64.Build.0 = Fastbuild|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalDebug|Win32.ActiveCfg = InternalDebug|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalDebug|Win32.Build.0 = InternalDebug|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalDebug|x64.ActiveCfg = InternalDebug|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalDebug|x64.Build.0 = InternalDebug|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalFastbuild|Win32.ActiveCfg = InternalFastbuild|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalFastbuild|Win32.Build.0 = InternalFastbuild|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalFastbuild|x64.ActiveCfg = InternalFastbuild|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalFastbuild|x64.Build.0 = InternalFastbuild|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalRelease|Win32.ActiveCfg = InternalRelease|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalRelease|Win32.Build.0 = InternalRelease|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalRelease|x64.ActiveCfg = InternalRelease|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.InternalRelease|x64.Build.0 = InternalRelease|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Release|Win32.ActiveCfg = Release|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Release|Win32.Build.0 = Release|Win32
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Release|x64.ActiveCfg = Release|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Release|x64.Build.0 = Release|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Unittest|Win32.ActiveCfg = InternalRelease|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Unittest|x64.ActiveCfg = InternalRelease|x64
+		{813B2D7E-CC23-4650-892F-553B1AFD912C}.Unittest|x64.Build.0 = InternalRelease|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
