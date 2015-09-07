@@ -136,7 +136,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_pedestrians",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libod", "y_libod\y_libod.vcxproj", "{D782B3E9-C1D4-4541-9F7C-1AC05ABF4B32}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netedit", "..\..\..\sumoI\sumo\build\msvc10\netedit\netedit.vcxproj", "{813B2D7E-CC23-4650-892F-553B1AFD912C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netedit", "netedit\netedit.vcxproj", "{813B2D7E-CC23-4650-892F-553B1AFD912C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
