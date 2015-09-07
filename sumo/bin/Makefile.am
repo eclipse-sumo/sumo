@@ -1,8 +1,6 @@
 if WITH_GUI
 GUI_APP = sumo-gui
-if INTERNAL
 NETEDIT_APP = netedit
-endif
 endif
 
 if TRACI
@@ -16,6 +14,7 @@ duarouter duarouterD duarouterInt duarouterIntD \
 jtrrouter jtrrouterD jtrrouterInt jtrrouterIntD \
 marouter marouterD marouterInt marouterIntD \
 netconvert netconvertD netconvertInt netconvertIntD \
+netedit neteditD neteditInt neteditIntD \
 netgenerate netgenerateD netgenerateInt netgenerateIntD \
 od2trips od2tripsD od2tripsInt od2tripsIntD \
 polyconvert polyconvertD polyconvertInt polyconvertIntD \
