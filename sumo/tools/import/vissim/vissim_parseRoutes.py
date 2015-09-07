@@ -13,12 +13,8 @@ Parses routes given in the Vissim file (first parameter) as (in-)flows and
 The read flows are saved as <OUTPUT_PREFIX>.flows.xml
 The read routes are saved as <OUTPUT_PREFIX>.rou.xml
 
-Where <OUTPUT_PREFIX> is the second parameter.
-
-A third parameter may be given to change the random number seed (default=42)
-
-(Starting?) edges of the route may be renamed by setting them within "edgemap"
- variable (see below).
+(Starting?) edges of the route may be renamed by setting them with "edgemap"
+ option (see below).
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
@@ -30,15 +26,9 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-edgemap = {}
-#edgemap["203"] = "203[0]"
-
-
-SEED = 42
-
-
 import sys
-from random import *
+import optparse
+import random
 
 
 def getName(vals, beg):
@@ -129,13 +119,24 @@ def sorter(idx):
             return 0
 
 
-if len(sys.argv) < 3:
-    print "Usage: " + sys.argv[0] + " <VISSIM_NETWORK> <OUTPUT_PREFIX>"
-    sys.exit()
-if len(sys.argv) > 3:
-    SEED = int(sys.argv[3])
+optParser = optparse.OptionParser(usage="%prog <VISSIM_NETWORK> <test directory>")
+optParser.add_option(
+    "-o", "--output", default="out", help="output filename prefix")
+optParser.add_option(
+    "-e", "--edgemap", help="mapping of edge names for renamed edges (orig1:renamed1,orig2:renamed2,...)")
+optParser.add_option("-s", "--seed", type=int, default=42, help="random seed")
+options, args = optParser.parse_args()
 
-seed(SEED)
+if len(args) < 1:
+    optParser.print_help
+    sys.exit()
+
+random.seed(options.seed)
+edgemap = {}
+if options.edgemap:
+    for entry in options.edgemap.split(","):
+        orig, renamed = entry.split(":")
+        edgemap[orig] = renamed
 print "Parsing Vissim input..."
 fd = open(sys.argv[1])
 routeDecisions = []
@@ -172,7 +173,7 @@ for line in fd:
 
 # process inflows
 print "Writing flows..."
-fdo = open(sys.argv[2] + ".flows.xml", "w")
+fdo = open(options.output + ".flows.xml", "w")
 fdo.write("<flowdefs>\n")
 flow_sn = 0
 for inflow in inflows:
@@ -203,7 +204,7 @@ for inflow in inflows:
         routes = edges2check[strecke]
         for vi in range(0, int(q)):
             t = von + float(bis - von) / float(q) * float(vi)
-            fi = random() * edgesSumFlows[strecke]
+            fi = random.random() * edgesSumFlows[strecke]
             edges = []
             ri = 0
             rid = ""
@@ -227,7 +228,7 @@ emissions.sort(sorter(0))
 
 # save emissions
 print "Writing routes..."
-fdo = open(sys.argv[2] + ".rou.xml", "w")
+fdo = open(options.output + ".rou.xml", "w")
 fdo.write("<routes>\n")
 for emission in emissions:
     if len(emission[2]) < 2:

@@ -1,2 +1,2 @@
-vissim.inp out tools/import/vissim/vissim_parseRoutes.py
+vissim.inp tools/import/vissim/vissim_parseRoutes.py
 
