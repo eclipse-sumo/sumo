@@ -123,7 +123,7 @@
         <!-- Save links states into FILE -->
         <link-output value="" type="FILE"/>
 
-        <!-- Save bt visibilities into FILE -->
+        <!-- Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender) -->
         <bt-output value="" type="FILE"/>
 
         <!-- Use INT[] as times at which a network state written -->

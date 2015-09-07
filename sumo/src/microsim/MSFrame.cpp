@@ -196,7 +196,7 @@ MSFrame::fillOptions() {
     oc.addDescription("link-output", "Output", "Save links states into FILE");
 
     oc.doRegister("bt-output", new Option_FileName());
-    oc.addDescription("bt-output", "Output", "Save bt visibilities into FILE");
+    oc.addDescription("bt-output", "Output", "Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)");
 
 
 #ifdef _DEBUG
