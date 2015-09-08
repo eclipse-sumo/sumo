@@ -1,4 +1,5 @@
 import_config_file:../config_all
+kill_timeout:900
 binary:$TEXTTEST_HOME/toolrunner.py
 use_case_record_mode:GUI
 copy_test_path:duarouter.duarcfg
