@@ -108,7 +108,7 @@ histogram:histogram.dat
 fullstats:fullstats.dat
 osmimport:*/osm.net.xml
 osmbatch:*/build.bat
-osmtrips:*/trips.trips.xml
+osmtrips:*/osm.pedestrian.trips.xml
 districts:districts.xml
 
 [run_dependent_text]

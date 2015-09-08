@@ -48,16 +48,16 @@ typemaps = {
 }
 
 vehicleParameters = {
-    "passenger": ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",   "--min-distance", "300", "--trip-attributes", 'departLane="best"'],
-    "truck": ["--vehicle-class", "truck",      "--vclass", "truck",      "--prefix", "truck", "--min-distance", "600", "--trip-attributes", 'departLane="best"'],
-    "bus": ["--vehicle-class", "bus",        "--vclass", "bus",        "--prefix", "bus",   "--min-distance", "600", "--trip-attributes", 'departLane="best"'],
-    "motorcycle": ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto",  "--max-distance", "1200", "--trip-attributes", 'departLane="best"'],
-    "bicycle": ["--vehicle-class", "bicycle",    "--vclass", "bicycle",    "--prefix", "bike",  "--max-distance", "8000", "--trip-attributes", 'departLane="best"'],
-    "tram": ["--vehicle-class", "tram",       "--vclass", "tram",       "--prefix", "tram",  "--min-distance", "1200", "--trip-attributes", 'departLane="best"'],
-    "rail_urban": ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban", "--min-distance", "1800", "--trip-attributes", 'departLane="best"'],
-    "rail": ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",  "--min-distance", "2400", "--trip-attributes", 'departLane="best"'],
-    "ship": ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship"],
-    "pedestrian": ["--pedestrians", "--prefix", "ped", "--max-distance", "2000"]
+    "passenger":  ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",   "--min-distance", "300",  "--trip-attributes", 'departLane="best"', "--validate"],
+    "truck":      ["--vehicle-class", "truck",      "--vclass", "truck",      "--prefix", "truck", "--min-distance", "600",  "--trip-attributes", 'departLane="best"', "--validate"],
+    "bus":        ["--vehicle-class", "bus",        "--vclass", "bus",        "--prefix", "bus",   "--min-distance", "600",  "--trip-attributes", 'departLane="best"', "--validate"],
+    "motorcycle": ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto",  "--max-distance", "1200", "--trip-attributes", 'departLane="best"', "--validate"],
+    "bicycle":    ["--vehicle-class", "bicycle",    "--vclass", "bicycle",    "--prefix", "bike",  "--max-distance", "8000", "--trip-attributes", 'departLane="best"', "--validate"],
+    "tram":       ["--vehicle-class", "tram",       "--vclass", "tram",       "--prefix", "tram",  "--min-distance", "1200", "--trip-attributes", 'departLane="best"', "--validate"],
+    "rail_urban": ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban", "--min-distance", "1800", "--trip-attributes", 'departLane="best"', "--validate"],
+    "rail":       ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",  "--min-distance", "2400", "--trip-attributes", 'departLane="best"', "--validate"],
+    "ship":       ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship",                                                                      "--validate"],
+    "pedestrian": ["--pedestrians",                                           "--prefix", "ped",   "--max-distance", "2000"]
 }
 
 vehicleNames = {
@@ -77,7 +77,6 @@ import osmGet
 import osmBuild
 import randomTrips
 import sumolib
-import route2trips
 
 RANDOMSEED = "42"
 
@@ -165,7 +164,6 @@ class Builder(object):
             # be used by sumo-gui
             self.routenames = []
             randomTripsCalls = []
-            route2TripsCalls = []
 
             self.edges = sumolib.net.readNet(self.files["net"]).getEdges()
 
@@ -173,6 +171,7 @@ class Builder(object):
                 self.report("Processing %s" % vehicleNames[vehicle])
 
                 self.filename("route", ".%s.rou.xml" % vehicle)
+                self.filename("trips", ".%s.trips.xml" % vehicle)
 
                 try:
                     options = self.parseTripOpts(vehicle, options)
@@ -182,31 +181,20 @@ class Builder(object):
                 randomTrips.main(randomTrips.get_options(options))
                 randomTripsCalls.append(options)
 
-                # route2trips is not called for pedestrians
+                # --validate is not called for pedestrians
                 if vehicle == "pedestrian":
                     self.routenames.append(self.files["route"])
                 else:
-                    self.filename("trips", ".%s.trips.xml" % vehicle)
                     self.routenames.append(self.files["trips"])
-                    route2trips.main(
-                        [self.files["route"]], outfile=self.files["trips"])
-                    route2TripsCalls.append(
-                        [self.files["route"], self.files["trips"]])
 
-            # create a batch file for reproducing calls to randomTrips.py and
-            # route2trips
+            # create a batch file for reproducing calls to randomTrips.py 
             randomTripsPath = os.path.join(
                 SUMO_HOME, "tools", "randomTrips.py")
-            route2TripsPath = os.path.join(
-                SUMO_HOME, "tools", "route2trips.py")
             batchFile = "build.bat"
             with open(batchFile, 'w') as f:
                 for opts in randomTripsCalls:
                     f.write("python %s %s\n" %
                             (randomTripsPath, " ".join(map(quoted_str, opts))))
-                for route, trips in route2TripsCalls:
-                    f.write("python %s %s > %s\n" %
-                            (route2TripsPath, route, trips))
 
     def parseTripOpts(self, vehicle, options):
         "Return an option list for randomTrips.py for a given vehicle"
@@ -220,7 +208,7 @@ class Builder(object):
         period = 3600 / (length / 1000) / options["count"]
 
         opts = ["-n", self.files["net"], "--seed", RANDOMSEED, "--fringe-factor", options["fringeFactor"],
-                "-p", period, "-r", self.files["route"], "-e", self.data["duration"]]
+                "-p", period, "-r", self.files["route"], "-o", self.files["trips"], "-e", self.data["duration"]]
         opts += vehicleParameters[vehicle]
         return opts
 

@@ -152,7 +152,7 @@ Summary:
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
 Success.
-Parsing network projection from '/scr2/texttest_tmp/tools.27Aug143352.6050/tools/import/OSM/server/2015-08-27-14-33-53/osm.net.xml'... done.
+Parsing network projection from '/scr2/texttest_tmp/tools.08Sep154806.19942/tools/import/OSM/server/2015-09-08-15-48-07/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
@@ -164,25 +164,29 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (492ms).
-Loading additional-files from 'osm.poly.xml'...  done (90ms).
+Loading net-file from 'osm.net.xml'...  done (495ms).
+Loading additional-files from 'osm.poly.xml'...  done (94ms).
 Loading done.
 Simulation started with time: 0.00
 Simulation ended at time: 3000.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 3244ms
- Real time factor: 924.784
- UPS: 38043.464858
+ Duration: 3262ms
+ Real time factor: 919.681
+ UPS: 37833.537707
 Vehicles: 
  Inserted: 344
  Running: 0
  Waiting: 0
 
 DijkstraRouterTT answered 1045 queries and explored 789.22 edges on average.
-DijkstraRouterTT spent 152ms answering queries (0.15ms on average).
-calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
-calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
-calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.rail_urban.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
-calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.bicycle.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
-calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t trips.trips.xml -o osm.pedestrian.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+DijkstraRouterTT spent 147ms answering queries (0.14ms on average).
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling route2trips
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling route2trips
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.rail_urban.trips.xml -o osm.rail_urban.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling route2trips
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.bicycle.trips.xml -o osm.bicycle.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling route2trips
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.pedestrian.trips.xml -o osm.pedestrian.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
