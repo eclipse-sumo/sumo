@@ -106,7 +106,10 @@ $(GUI_APP): ../src/$(GUI_APP)
 	if [ ! -e $(GUI_APP) -a -e $(GUI_APP)D ]; then ln -s $(GUI_APP)D $(GUI_APP); fi
 $(NETEDIT_APP):	../src/netedit/$(NETEDIT_APP)
 	cp ../src/netedit/$(NETEDIT_APP) ./`echo $(NETEDIT_APP) | sed '$(transform)'`
+	if [ ! -e $(NETEDIT_APP) -a -e $(NETEDIT_APP)Int ]; then ln -s $(NETEDIT_APP)Int $(NETEDIT_APP); fi
+	if [ ! -e $(NETEDIT_APP)D -a -e $(NETEDIT_APP)IntD ]; then ln -s $(NETEDIT_APP)IntD $(NETEDIT_APP)D; fi
 	if [ ! -e $(NETEDIT_APP) -a -e $(NETEDIT_APP)D ]; then ln -s $(NETEDIT_APP)D $(NETEDIT_APP); fi
+	if [ ! -e $(NETEDIT_APP)Int -a -e $(NETEDIT_APP)IntD ]; then ln -s $(NETEDIT_APP)IntD $(NETEDIT_APP)Int; fi
 $(TRACI_TESTCLIENT_APP): ../src/traci_testclient/$(TRACI_TESTCLIENT_APP)
 	cp ../src/traci_testclient/$(TRACI_TESTCLIENT_APP) ./`echo $(TRACI_TESTCLIENT_APP) | sed '$(transform)'`
 	if [ ! -e $(TRACI_TESTCLIENT_APP) -a -e $(TRACI_TESTCLIENT_APP)Int ]; then ln -s $(TRACI_TESTCLIENT_APP)Int $(TRACI_TESTCLIENT_APP); fi
