@@ -432,7 +432,7 @@ GUINet::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem("loaded vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
-    ret->mkItem("waiting vehicles [#]", true,
+    ret->mkItem("insertion-backlogged vehicles [#]", true,
                 new FunctionBinding<MSInsertionControl, unsigned int>(&getInsertionControl(), &MSInsertionControl::getWaitingVehicleNo));
     ret->mkItem("departed vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getDepartedVehicleNo));
