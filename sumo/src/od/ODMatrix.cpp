@@ -244,11 +244,13 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
             sort(vehicles.begin(), vehicles.end(), descending_departure_comperator());
         }
         for (std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin(); i != vehicles.rend() && (*i).depart == t; ++i) {
-            myNoWritten++;
-            dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
-            dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
-            writeDefaultAttrs(dev, noVtype, i->cell);
-            dev.closeTag();
+            if (t >= begin) {
+                myNoWritten++;
+                dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
+                dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+                writeDefaultAttrs(dev, noVtype, i->cell);
+                dev.closeTag();
+            }
         }
         while (vehicles.size() != 0 && vehicles.back().depart == t) {
             vehicles.pop_back();
