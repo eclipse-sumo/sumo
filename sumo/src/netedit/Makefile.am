@@ -18,7 +18,6 @@ bin_PROGRAMS = $(GUI_APPS)
 
 if WITH_GUI
 netedit_SOURCES = netedit_main.cpp \
-version.h \
 GNEApplicationWindow.h GNEApplicationWindow.cpp \
 GNELoadThread.h GNELoadThread.cpp \
 GNENet.h GNENet.cpp \
