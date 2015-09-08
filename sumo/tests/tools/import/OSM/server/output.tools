@@ -152,11 +152,13 @@ Summary:
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
 Success.
-Parsing network projection from '/scr2/texttest_tmp/tools.08Sep154806.19942/tools/import/OSM/server/2015-09-08-15-48-07/osm.net.xml'... done.
+Written configuration to '/scr2/texttest_tmp/tools.08Sep160745.20851/tools/import/OSM/server/2015-09-08-16-07-46/osm.netccfg'
+Parsing network projection from '/scr2/texttest_tmp/tools.08Sep160745.20851/tools/import/OSM/server/2015-09-08-16-07-46/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
+Written configuration to '/scr2/texttest_tmp/tools.08Sep160745.20851/tools/import/OSM/server/2015-09-08-16-07-46/osm.polycfg'
 Success.
 Success.
 Success.
@@ -164,23 +166,23 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (495ms).
-Loading additional-files from 'osm.poly.xml'...  done (94ms).
+Loading net-file from 'osm.net.xml'...  done (491ms).
+Loading additional-files from 'osm.poly.xml'...  done (91ms).
 Loading done.
 Simulation started with time: 0.00
 Simulation ended at time: 3000.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 3262ms
- Real time factor: 919.681
- UPS: 37833.537707
+ Duration: 3297ms
+ Real time factor: 909.918
+ UPS: 37431.907795
 Vehicles: 
  Inserted: 344
  Running: 0
  Waiting: 0
 
 DijkstraRouterTT answered 1045 queries and explored 789.22 edges on average.
-DijkstraRouterTT spent 147ms answering queries (0.14ms on average).
+DijkstraRouterTT spent 131ms answering queries (0.13ms on average).
 calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 calling route2trips
 calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log

@@ -112,13 +112,17 @@ def build(args=None, bindir=None):
         prefix = options.prefix
 
     remove = vclassRemove[options.vehicle_classes]
-    netfile = path.join(options.output_directory, prefix + '.net.xml')
-    polyfile = path.join(options.output_directory, prefix + '.poly.xml')
+    basename = path.join(options.output_directory, prefix)
+    netfile = basename + '.net.xml'
+    polyfile = basename + '.poly.xml'
 
     call(netconvert + netconvertOpts + remove + " -o %s" % netfile)
+    # write config
+    call(netconvert + netconvertOpts + remove + (" -o %s" % netfile) + " --save-configuration " + basename + ".netccfg")
     if options.typemap:
-        call(polyconvert + polyconvertOpts + " -n %s -o %s" %
-             (netfile, polyfile))
+        call(polyconvert + polyconvertOpts + " -n %s -o %s" % (netfile, polyfile))
+        # write config
+        call(polyconvert + polyconvertOpts + (" -n %s -o %s" % (netfile, polyfile)) + " --save-configuration " + basename + ".polycfg")
 
 
 def call(cmd):

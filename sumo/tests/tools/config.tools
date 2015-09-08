@@ -122,6 +122,7 @@ output:Parsing network projection
 output:Parsing types from '.*sumo[\\/]data[\\/]typemap[\\/]{REPLACE Parsing types from 'sumo/data/typemap/}
 output:^Performance:{->}^Vehicles:
 output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
+output:Written configuration to .*{REPLACE Written configuration to <PATH>}
 trips:<!-- generated on
 osmtrips:<!-- generated on
 pois:<!--

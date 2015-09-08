@@ -1,4 +1,4 @@
-Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/osmNetconvert.typ.xml'... done.
+Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate edges... done.
@@ -50,3 +50,4 @@ Summary:
   Converted boundary : 0.00,0.00,2640.77,946.75
 -----------------------------------------------------
 Success.
+Written configuration to '/scr2/texttest_tmp/tools.08Sep160745.20851/tools/import/OSM/build_passenger/net.netccfg'
