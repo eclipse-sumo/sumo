@@ -2,7 +2,7 @@
 /// @file    GNEPoly.cpp
 /// @author  Jakob Erdmann
 /// @date    Sept 2012
-/// @version $Id: GNEPoly.cpp 4159 2014-11-08 15:32:03Z behr_mi $
+/// @version $Id$
 ///
 // A class for visualizing and editing POIS in netedit (adapted from
 // GUIPolygon and NLHandler)

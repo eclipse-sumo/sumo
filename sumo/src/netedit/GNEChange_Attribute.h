@@ -2,7 +2,7 @@
 /// @file    GNEChange_Attribute.h
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id: GNEChange_Attribute.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // A network change in which the attribute of some object is modified
 /****************************************************************************/

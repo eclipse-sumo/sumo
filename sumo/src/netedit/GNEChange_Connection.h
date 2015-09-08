@@ -2,7 +2,7 @@
 /// @file    GNEChange_Connection.h
 /// @author  Jakob Erdmann
 /// @date    May 2011
-/// @version $Id: GNEChange_Connection.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // A network change in which a single connection is created or deleted
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GNEApplicationWindow.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNEApplicationWindow.h 4492 2015-04-29 12:46:42Z erdm_ja $
+/// @version $Id$
 ///
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/

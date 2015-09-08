@@ -2,7 +2,7 @@
 /// @file    GNETLSEditor.h
 /// @author  Jakob Erdmann
 /// @date    May 2011
-/// @version $Id: GNETLSEditor.h 3639 2014-07-01 21:32:12Z behr_mi $
+/// @version $Id$
 ///
 // The Widget for modifying traffic lights
 /****************************************************************************/

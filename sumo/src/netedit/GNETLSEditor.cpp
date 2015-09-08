@@ -2,7 +2,7 @@
 /// @file    GNETLSEditor.cpp
 /// @author  Jakob Erdmann
 /// @date    May 2011
-/// @version $Id: GNETLSEditor.cpp 4367 2015-03-02 08:18:02Z erdm_ja $
+/// @version $Id$
 ///
 // The Widget for modifying traffic lights
 /****************************************************************************/

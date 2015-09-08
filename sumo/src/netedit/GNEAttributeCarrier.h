@@ -2,7 +2,7 @@
 /// @file    GNEAttributeCarrier.h
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id: GNEAttributeCarrier.h 3655 2014-07-06 21:45:37Z behr_mi $
+/// @version $Id$
 ///
 // Abstract Base class for gui objects which carry attributes
 /****************************************************************************/

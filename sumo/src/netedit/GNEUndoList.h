@@ -2,7 +2,7 @@
 /// @file    GNEUndoList.h
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id: GNEUndoList.h 4419 2015-03-17 09:55:18Z erdm_ja $
+/// @version $Id$
 ///
 // FXUndoList is pretty dandy but some features are missing:
 //   - we cannot find out wether we have currently begun an undo-group and

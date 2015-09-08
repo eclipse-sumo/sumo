@@ -2,7 +2,7 @@
 /// @file    GNENet.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNENet.h 4476 2015-04-24 12:57:54Z erdm_ja $
+/// @version $Id$
 ///
 // The lop level container for GNE-network-components such as GNEEdge and
 // GNEJunction.  Contains an internal instances of NBNetBuilder GNE components

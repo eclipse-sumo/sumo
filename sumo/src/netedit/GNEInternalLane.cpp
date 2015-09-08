@@ -2,7 +2,7 @@
 /// @file    GNEInternalLane.cpp
 /// @author  Jakob Erdmann
 /// @date    June 2011
-/// @version $Id: GNEInternalLane.cpp 4037 2014-09-25 10:27:58Z erdm_ja $
+/// @version $Id$
 ///
 // A class for visualizing Inner Lanes (used when editing traffic lights)
 /****************************************************************************/

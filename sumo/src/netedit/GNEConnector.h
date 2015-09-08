@@ -2,7 +2,7 @@
 /// @file    GNEConnector.h
 /// @author  Jakob Erdmann
 /// @date    May 2011
-/// @version $Id: GNEConnector.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // The Widget for modifying lane-to-lane connections
 /****************************************************************************/

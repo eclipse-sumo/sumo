@@ -2,7 +2,7 @@
 /// @file    GNENet.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNENet.cpp 4697 2015-08-18 07:07:40Z erdm_ja $
+/// @version $Id$
 ///
 // A visual container for GNE-network-components such as GNEEdge and GNEJunction.
 // GNE components wrap netbuild-components and supply visualisation and editing

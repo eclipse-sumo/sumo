@@ -2,7 +2,7 @@
 /// @file    GNEChange_Edge.h
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id: GNEChange_Edge.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // A network change in which a single edge is created or deleted
 /****************************************************************************/

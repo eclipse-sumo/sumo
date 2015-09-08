@@ -2,7 +2,7 @@
 /// @file    GNEChange_Selection.h
 /// @author  Jakob Erdmann
 /// @date    Mar 2015
-/// @version $Id: GNEChange_Selection.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // A change to the network selection
 /****************************************************************************/

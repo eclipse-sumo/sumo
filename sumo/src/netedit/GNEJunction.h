@@ -2,7 +2,7 @@
 /// @file    GNEJunction.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNEJunction.h 4459 2015-03-27 11:25:36Z erdm_ja $
+/// @version $Id$
 ///
 // A class for visualizing and editing junctions in netedit (adapted from
 // GUIJunctionWrapper)

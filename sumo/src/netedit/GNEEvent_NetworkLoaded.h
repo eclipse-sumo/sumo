@@ -2,7 +2,7 @@
 /// @file    GNEEvent_NetworkLoaded.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNEEvent_NetworkLoaded.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // Event to send when the network has been loaded by GNELoadThread
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GNEViewParent.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNEViewParent.cpp 4474 2015-04-24 11:27:31Z erdm_ja $
+/// @version $Id$
 ///
 // A single child window which contains a view of the edited network (adapted
 // from GUISUMOViewParent)

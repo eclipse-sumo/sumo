@@ -2,7 +2,7 @@
 /// @file    GNEPOI.cpp
 /// @author  Jakob Erdmann
 /// @date    Sept 2012
-/// @version $Id: GNEPOI.cpp 4405 2015-03-09 07:30:57Z erdm_ja $
+/// @version $Id$
 ///
 // A class for visualizing and editing POIS in netedit (adapted from
 // GUIPointOfInterest and NLHandler)

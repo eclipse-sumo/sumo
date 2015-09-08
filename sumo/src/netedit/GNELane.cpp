@@ -2,7 +2,7 @@
 /// @file    GNELane.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNELane.cpp 4695 2015-08-17 10:31:16Z erdm_ja $
+/// @version $Id$
 ///
 // A class for visualizing Lane geometry (adapted from GUILaneWrapper)
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GNEChange_TLS.h
 /// @author  Jakob Erdmann
 /// @date    July 2011
-/// @version $Id: GNEChange_TLS.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // A network change in which a traffic light is created or deleted
 /****************************************************************************/

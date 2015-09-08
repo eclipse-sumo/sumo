@@ -2,7 +2,7 @@
 /// @file    GNESelector.h
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id: GNESelector.h 4344 2015-02-20 12:44:06Z erdm_ja $
+/// @version $Id$
 ///
 // The Widget for modifying selections of network-elements
 // (some elements adapted from GUIDialog_GLChosenEditor)

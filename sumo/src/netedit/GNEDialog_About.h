@@ -2,7 +2,7 @@
 /// @file    GNEDialog_About.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNEDialog_About.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // The "About" - dialog for NETEDIT, (adapted from GUIDialog_AboutSUMO)
 /****************************************************************************/

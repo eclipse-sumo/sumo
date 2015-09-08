@@ -2,7 +2,7 @@
 /// @file    GNEViewNet.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNEViewNet.h 4476 2015-04-24 12:57:54Z erdm_ja $
+/// @version $Id$
 ///
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/

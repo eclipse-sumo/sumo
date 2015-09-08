@@ -2,7 +2,7 @@
 /// @file    GNEChange_Attribute.cpp
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id: GNEChange_Attribute.cpp 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // A network change in which something is moved (for undo/redo)
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GNELoadThread.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNELoadThread.h 4492 2015-04-29 12:46:42Z erdm_ja $
+/// @version $Id$
 ///
 // The thread that performs the loading of a Netedit-net (adapted from
 // GUILoadThread)

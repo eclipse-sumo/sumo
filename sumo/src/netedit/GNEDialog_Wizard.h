@@ -2,7 +2,7 @@
 /// @file    GNEDialog_Wizard.h
 /// @author  Jakob Erdmann
 /// @date    July 2011
-/// @version $Id: GNEDialog_Wizard.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // A Dialog for setting options (see OptionsCont)
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GNEChange_Lane.h
 /// @author  Jakob Erdmann
 /// @date    April 2011
-/// @version $Id: GNEChange_Lane.h 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // A network change in which a single lane is created or deleted
 /****************************************************************************/

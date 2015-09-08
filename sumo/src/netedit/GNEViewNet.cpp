@@ -2,7 +2,7 @@
 /// @file    GNEViewNet.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNEViewNet.cpp 4697 2015-08-18 07:07:40Z erdm_ja $
+/// @version $Id$
 ///
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GNEChange_Junction.cpp
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id: GNEChange_Junction.cpp 3359 2014-02-22 09:38:00Z behr_mi $
+/// @version $Id$
 ///
 // A network change in which a single junction is created or deleted
 /****************************************************************************/

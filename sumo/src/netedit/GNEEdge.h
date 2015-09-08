@@ -2,7 +2,7 @@
 /// @file    GNEEdge.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNEEdge.h 4489 2015-04-28 12:58:04Z erdm_ja $
+/// @version $Id$
 ///
 // A road/street connecting two junctions (netedit-version, adapted from GUIEdge)
 // Basically a container for an NBEdge with drawing and editing capabilities
