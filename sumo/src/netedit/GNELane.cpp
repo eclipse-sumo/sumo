@@ -111,7 +111,7 @@ GNELane::drawArrows() const {
     NBNode* dest = myParentEdge.getNBEdge()->myTo;
     for (std::vector<NBEdge::Connection>::const_iterator i = edgeCons.begin(); i != edgeCons.end(); ++i) {
         if ((*i).fromLane == (int)myIndex) {
-            LinkDirection dir = dest->getDirection(myParentEdge.getNBEdge(), i->toEdge);
+            LinkDirection dir = dest->getDirection(myParentEdge.getNBEdge(), i->toEdge, OptionsCont::getOptions().getBool("lefthand"));
             switch (dir) {
                 case LINKDIR_STRAIGHT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
