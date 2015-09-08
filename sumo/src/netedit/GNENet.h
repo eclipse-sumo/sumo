@@ -404,17 +404,17 @@ private:
     GNEEdges myEdges;
     GNEJunctions myJunctions;
 
-    /// the container for additional pois and polygons
-    GUIShapeContainer myShapeContainer;
-
-    /// @brief list of edge ids for which turn-arounds must be added explicitly
-    std::set<std::string> myExplicitTurnarounds;
-
     /// @name ID Suppliers for newly created edges and junctions
     // @{
     IDSupplier myEdgeIDSupplier;
     IDSupplier myJunctionIDSupplier;
     // @}
+
+    /// the container for additional pois and polygons
+    GUIShapeContainer myShapeContainer;
+
+    /// @brief list of edge ids for which turn-arounds must be added explicitly
+    std::set<std::string> myExplicitTurnarounds;
 
     /// @brief whether the net needs recomputation
     bool myNeedRecompute;
