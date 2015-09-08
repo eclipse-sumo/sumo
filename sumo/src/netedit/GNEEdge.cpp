@@ -578,7 +578,6 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument("edge attribute '" + toString(key) + "' not allowed");
     }
-    return false; // compiler warns but how could control ever reach this line?
 }
 
 
