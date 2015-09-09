@@ -327,9 +327,9 @@ public:
 
 
 protected:
-    /** @brief (Re-)Calculates the arrival position from the vehicle parameters
+    /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */
-    void calculateArrivalPos();
+    void calculateArrivalParams();
 
     /** @brief Returns the list of still pending stop edges
      */
@@ -370,6 +370,9 @@ protected:
 
     /// the position on the destination lane where the vehicle stops
     SUMOReal myArrivalPos;
+
+    /// the position on the destination lane where the vehicle stops
+    int myArrivalLane;
 
     /// @brief The number of reroutings
     unsigned int myNumberReroutes;

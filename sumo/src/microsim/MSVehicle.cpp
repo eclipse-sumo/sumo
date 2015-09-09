@@ -470,7 +470,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
     myLastBestLanesInternalLane = 0;
     updateBestLanes(true, onInit ? (*myCurrEdge)->getLanes().front() : 0);
     // update arrival definition
-    calculateArrivalPos();
+    calculateArrivalParams();
     // save information that the vehicle was rerouted
     myNumberReroutes++;
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
@@ -1980,7 +1980,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     }
     if (myParameter->arrivalLaneProcedure == ARRIVAL_LANE_GIVEN && nextStopEdge == 0) {
         nextStopEdge = *(myRoute->end() - 1);
-        nextStopLane = nextStopEdge->getLanes()[myParameter->arrivalLane];
+        nextStopLane = nextStopEdge->getLanes()[myArrivalLane];
         nextStopPos = myArrivalPos;
     }
     if (nextStopEdge != 0) {
