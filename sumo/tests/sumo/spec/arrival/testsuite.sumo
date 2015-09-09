@@ -49,3 +49,6 @@ lane_given0
 
 # checks using the given lane (lane 1)
 lane_given1
+
+# Errors on emission
+errors
