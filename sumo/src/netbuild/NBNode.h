@@ -732,6 +732,8 @@ private:
     /// @brief returns the list of all edges sorted clockwise by getAngleAtNodeToCenter
     EdgeVector getEdgesSortedByAngleAtNodeCenter() const;
 
+    static bool isLongEnough(NBEdge* out, SUMOReal minLength);
+
 private:
     /// @brief The position the node lies at
     Position myPosition;

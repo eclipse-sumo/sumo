@@ -12,6 +12,7 @@ divided_attachment
 
 # load a sumo network which already contains a roundabout
 re-import
+ramp-like-attachment
 
 # network topologies that should not be classified as a roundabout
 no_roundabout

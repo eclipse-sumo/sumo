@@ -78,6 +78,9 @@
 // do not build uncontrolled crossings across edges with a speed above the threshold
 #define UNCONTROLLED_CROSSING_SPEED_THRESHOLD 13.89 // meters/second
 
+// minimum length for a weaving section at a combined on-off ramp 
+#define MIN_WEAVE_LENGTH 20.0
+
 #define DEBUGID "C"
 
 // ===========================================================================
@@ -790,7 +793,8 @@ NBNode::computeLanes2Lanes() {
                 && in1 != out
                 && in2 != out
                 && in1->isConnectedTo(out)
-                && in2->isConnectedTo(out)) {
+                && in2->isConnectedTo(out)
+                && isLongEnough(out, MIN_WEAVE_LENGTH)) {
             // for internal: check which one is the rightmost
             SUMOReal a1 = in1->getAngleAtNode(this);
             SUMOReal a2 = in2->getAngleAtNode(this);
@@ -867,6 +871,21 @@ NBNode::computeLanes2Lanes() {
     //}
 }
 
+bool 
+NBNode::isLongEnough(NBEdge* out, SUMOReal minLength) {
+    SUMOReal seen = out->getLoadedLength();
+    while (seen < minLength) {
+        // advance along trivial continuations
+        if (out->getToNode()->getOutgoingEdges().size() != 1 
+                || out->getToNode()->getIncomingEdges().size() != 1) {
+            return false;
+        } else {
+            out = out->getToNode()->getOutgoingEdges()[0];
+            seen += out->getLoadedLength();
+        }
+    }
+    return true;
+}
 
 EdgeVector*
 NBNode::getEdgesThatApproach(NBEdge* currentOutgoing) {
