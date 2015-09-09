@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 09 Sep 2015 10:46:38 AM CEST by Netedit Version dev-SVN-r18808I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netconvert/function/roundabouts/ramp-like-attachment/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-452366.43,-3109370.15" convBoundary="5495.27,4043.97,6576.37,4768.07" origBoundary="-15.485060,28.109214,-15.398371,28.170442" projParameter="+proj=utm +zone=28 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1877878467" x="5495.27" y="4043.97" type="unregulated"/>
+    <node id="205013618#0-AddedOffRampNode" x="6239.84" y="4382.54" type="unregulated"/>
+    <node id="2149919279" x="6330.43" y="4415.64" type="priority"/>
+    <node id="2149919303" x="6340.14" y="4295.29" type="unregulated"/>
+    <node id="2844510655" x="6309.07" y="4289.91" type="unregulated"/>
+    <node id="324041278#5-AddedOnRampNode" x="6386.00" y="4426.95" type="unregulated"/>
+    <node id="335691176" x="6292.85" y="4361.98" type="priority"/>
+    <node id="335691178" x="6338.67" y="4368.44" type="priority"/>
+    <node id="335691182" x="6288.55" y="4410.68" type="priority"/>
+    <node id="38922730#0-AddedOffRampNode" x="6558.35" y="4768.07" type="unregulated"/>
+    <node id="492500988" x="6328.25" y="4416.93" type="priority"/>
+    <node id="492500994" x="6281.65" y="4399.62" type="priority"/>
+    <node id="cluster_1877878502_1907731767" x="6275.13" y="4527.73" type="unregulated"/>
+    <node id="cluster_1907731754_338287766" x="6301.47" y="4532.66" type="unregulated"/>
+</nodes>

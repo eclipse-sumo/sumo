@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 09 Sep 2015 10:46:38 AM CEST by Netedit Version dev-SVN-r18808I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netconvert/function/roundabouts/ramp-like-attachment/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="177338975" from="492500988" to="cluster_1907731754_338287766" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="6331.58,4422.57 6321.60,4426.16 6306.20,4515.47 6303.45,4526.60" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="177338976" from="cluster_1877878502_1907731767" to="335691182" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="6275.72,4521.61 6293.08,4423.65 6287.82,4418.72 6283.37,4414.68" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="205013609#0" from="335691176" to="2844510655" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" shape="6292.85,4361.98 6297.69,4355.10 6300.32,4349.85 6302.54,4342.60 6303.73,4339.15 6306.52,4322.99 6309.31,4299.13 6309.07,4289.91" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="205013617#1" from="2149919303" to="335691178" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" shape="6340.14,4295.29 6337.26,4322.78 6335.24,4342.05 6335.39,4348.48 6335.95,4356.87 6338.67,4368.44" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="205013618#0" from="492500994" to="205013618#0-AddedOffRampNode" priority="11" type="highway.trunk" numLanes="2" speed="22.22" shape="6275.78,4402.52 6273.29,4391.48 6262.74,4386.35 6260.64,4386.01 6239.84,4382.54" spreadType="center" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="30417941#1" from="335691176" to="335691178" name="Plaza de Belén María" priority="6" type="highway.tertiary" numLanes="3" speed="22.22" shape="6292.85,4361.98 6301.89,4357.25 6311.96,4355.52 6322.07,4356.93 6331.27,4361.38 6338.67,4368.44" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="30417941#2" from="335691178" to="2149919279" name="Plaza de Belén María" priority="6" type="highway.tertiary" numLanes="3" speed="22.22" shape="6338.67,4368.44 6343.06,4376.20 6345.19,4384.86 6344.89,4393.78 6342.17,4402.30 6337.22,4409.77 6330.43,4415.64" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="30417941#3" from="2149919279" to="492500988" name="Plaza de Belén María" priority="6" type="highway.tertiary" numLanes="4" speed="22.22" shape="6331.25,4417.02 6329.06,4418.31" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="30417941#4" from="492500988" to="335691182" name="Plaza de Belén María" priority="6" type="highway.tertiary" numLanes="3" speed="22.22" shape="6328.25,4416.93 6320.20,4420.02 6311.63,4420.92 6303.11,4419.58 6295.24,4416.08 6288.55,4410.68" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="30417941#5" from="335691182" to="492500994" name="Plaza de Belén María" priority="6" type="highway.tertiary" numLanes="4" speed="22.22" shape="6287.29,4411.66 6283.18,4406.34 6280.22,4400.33" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="30417941#6" from="492500994" to="335691176" name="Plaza de Belén María" priority="6" type="highway.tertiary" numLanes="3" speed="22.22" shape="6281.65,4399.62 6279.61,4389.32 6280.95,4378.92 6285.52,4369.50 6292.85,4361.98" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="30534383#2" from="1877878467" to="335691176" priority="11" type="highway.trunk" numLanes="2" speed="22.22" shape="5495.27,4043.97 5506.65,4086.54 5522.89,4136.44 5536.24,4162.24 5549.75,4181.70 5563.67,4199.25 5579.67,4215.61 5594.84,4228.92 5621.18,4247.01 5654.57,4262.64 5691.87,4274.73 5724.25,4281.21 6031.72,4331.27 6262.98,4368.86 6265.59,4369.28 6277.15,4367.41 6292.85,4361.98" spreadType="center" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="324041278#5" from="324041278#5-AddedOnRampNode" to="2149919279" name="Calle Doctor Juan Domínguez Pérez" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" shape="6386.00,4426.95 6377.39,4419.51 6356.35,4411.65 6347.86,4411.39 6333.77,4421.28" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="38922730#0" from="335691178" to="38922730#0-AddedOffRampNode" name="Calle Doctor Juan Domínguez Pérez" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" shape="6338.67,4368.44 6362.55,4388.54 6378.98,4402.42 6414.51,4442.55 6454.25,4479.29 6514.48,4511.61 6547.78,4541.10 6563.73,4562.36 6571.31,4580.49 6576.37,4602.89 6575.05,4635.16 6571.21,4664.90 6560.56,4715.34 6555.74,4753.65 6558.35,4768.07" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+
+    <roundabout nodes="2149919279 335691176 335691178 335691182 492500988 492500994" edges="30417941#1 30417941#2 30417941#3 30417941#4 30417941#5 30417941#6"/>
+
+</edges>

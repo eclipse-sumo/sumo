@@ -14,5 +14,8 @@ divided_attachment
 re-import
 ramp-like-attachment
 
+# now with options ramps.guess
+ramp-like-attachment_guessRamps
+
 # network topologies that should not be classified as a roundabout
 no_roundabout
