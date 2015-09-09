@@ -994,7 +994,7 @@ NBEdgeCont::generateStreetSigns() {
         // is this a "real" junction?
         // XXX nyi
         //continue
-        const SUMOReal offset = e->getLength() - 3;
+        const SUMOReal offset = MAX2((SUMOReal)0, e->getLength() - 3);
         switch (e->getToNode()->getType()) {
             case NODETYPE_PRIORITY:
                 // yield or major?
