@@ -227,17 +227,30 @@
         <vehicle id="r1#1" x="988.42" y="501.65" angle="-90.00" type="passenger" speed="11.11" pos="11.58" lane="2fi_0" slope="0.00"/>
         <vehicle id="r1#2" x="794.20" y="498.35" angle="90.00" type="passenger" speed="11.11" pos="282.85" lane="2o_0" slope="0.00"/>
         <vehicle id="r2" x="498.35" y="94.70" angle="0.00" type="passenger" speed="11.11" pos="393.95" lane="3o_0" slope="0.00"/>
+        <person id="pNE" x="97.68" y="63.48" angle="0.00" speed="0.98" pos="36.52" edge="NC" slope="0.00"/>
+        <person id="pNW" x="97.68" y="59.15" angle="0.00" speed="0.92" pos="40.85" edge="NC" slope="0.00"/>
+        <person id="pWE" x="44.95" y="-2.33" angle="90.00" speed="0.99" pos="44.95" edge="WC" slope="0.00"/>
+        <person id="pWN" x="49.47" y="-2.33" angle="90.00" speed="0.89" pos="49.47" edge="WC" slope="0.00"/>
     </timestep>
     <timestep time="56.00">
         <vehicle id="r1#1" x="977.31" y="501.65" angle="-90.00" type="passenger" speed="11.11" pos="22.69" lane="2fi_0" slope="0.00"/>
         <vehicle id="r1#2" x="805.31" y="498.35" angle="90.00" type="passenger" speed="11.11" pos="293.96" lane="2o_0" slope="0.00"/>
         <vehicle id="r2" x="498.35" y="83.59" angle="0.00" type="passenger" speed="11.11" pos="405.06" lane="3o_0" slope="0.00"/>
+        <person id="pNE" x="97.68" y="62.63" angle="0.00" speed="0.85" pos="37.37" edge="NC" slope="0.00"/>
+        <person id="pNW" x="97.68" y="58.30" angle="0.00" speed="0.85" pos="41.70" edge="NC" slope="0.00"/>
+        <person id="pWE" x="45.93" y="-2.33" angle="90.00" speed="0.98" pos="45.93" edge="WC" slope="0.00"/>
+        <person id="pWN" x="50.34" y="-2.33" angle="90.00" speed="0.87" pos="50.34" edge="WC" slope="0.00"/>
     </timestep>
     <timestep time="57.00">
         <vehicle id="r1#1" x="966.20" y="501.65" angle="-90.00" type="passenger" speed="11.11" pos="33.80" lane="2fi_0" slope="0.00"/>
         <vehicle id="r1#2" x="816.42" y="498.35" angle="90.00" type="passenger" speed="11.11" pos="305.07" lane="2o_0" slope="0.00"/>
         <vehicle id="r2" x="498.35" y="72.48" angle="0.00" type="passenger" speed="11.11" pos="416.17" lane="3o_0" slope="0.00"/>
+        <person id="pNE" x="97.68" y="61.63" angle="0.00" speed="1.00" pos="38.37" edge="NC" slope="0.00"/>
+        <person id="pNW" x="97.68" y="57.39" angle="0.00" speed="0.91" pos="42.61" edge="NC" slope="0.00"/>
+        <person id="pWE" x="46.91" y="-2.33" angle="90.00" speed="0.98" pos="46.91" edge="WC" slope="0.00"/>
+        <person id="pWN" x="51.22" y="-2.33" angle="90.00" speed="0.88" pos="51.22" edge="WC" slope="0.00"/>
     </timestep>
+
     <timestep time="58.00">
         <vehicle id="r1#1" x="955.09" y="501.65" angle="-90.00" type="passenger" speed="11.11" pos="44.91" lane="2fi_0" slope="0.00"/>
         <vehicle id="r1#2" x="827.53" y="498.35" angle="90.00" type="passenger" speed="11.11" pos="316.18" lane="2o_0" slope="0.00"/>
