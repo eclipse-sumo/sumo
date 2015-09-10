@@ -544,6 +544,7 @@ def main(args=None):
                 cfgname = writeRouteConf(
                     step, options, router_input, output, options.routefile, initial_type)
                 log.flush()
+                sys.stdout.flush()
                 call([duaBinary, "-c", cfgname], log)
                 if options.clean_alt and not router_input in input_demands:
                     os.remove(router_input)
@@ -586,6 +587,7 @@ def main(args=None):
         writeSUMOConf(sumoBinary, step, options, sumo_args,
                       ",".join(simulation_demands))  # todo: change 'grou.xml'
         log.flush()
+        sys.stdout.flush()
         call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
         if options.tripinfoFilter:
             filterTripinfo(step, set(options.tripinfoFilter.split(",")))
@@ -646,6 +648,7 @@ def main(args=None):
         print("------------------\n")
 
         log.flush()
+        sys.stdout.flush()
         if converged:
             break
     if options.zip:
