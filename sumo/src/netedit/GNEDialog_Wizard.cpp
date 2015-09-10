@@ -35,6 +35,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/common/ToString.h>
 #include "GNEDialog_Wizard.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -51,10 +52,18 @@ FXDEFMAP(GNEDialog_Wizard::InputString) InputStringMap[] = {
 FXDEFMAP(GNEDialog_Wizard::InputBool) InputBoolMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GNEDialog_Wizard::InputBool::onCmdSetOption),
 };
+FXDEFMAP(GNEDialog_Wizard::InputInt) InputIntMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GNEDialog_Wizard::InputInt::onCmdSetOption),
+};
+FXDEFMAP(GNEDialog_Wizard::InputFloat) InputFloatMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GNEDialog_Wizard::InputFloat::onCmdSetOption),
+};
 
 // Object implementation
 FXIMPLEMENT(GNEDialog_Wizard::InputString, FXHorizontalFrame, InputStringMap, ARRAYNUMBER(InputStringMap))
 FXIMPLEMENT(GNEDialog_Wizard::InputBool, FXHorizontalFrame, InputBoolMap, ARRAYNUMBER(InputBoolMap))
+FXIMPLEMENT(GNEDialog_Wizard::InputInt, FXHorizontalFrame, InputIntMap, ARRAYNUMBER(InputIntMap))
+FXIMPLEMENT(GNEDialog_Wizard::InputFloat, FXHorizontalFrame, InputFloatMap, ARRAYNUMBER(InputFloatMap))
 
 // ===========================================================================
 // method definitions
@@ -84,8 +93,12 @@ GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* name, int widt
                 new InputString(tabContent, name);
             } else if (type == "BOOL") {
                 new InputBool(tabContent, name);
+            } else if (type == "INT") {
+                new InputInt(tabContent, name);
+            } else if (type == "FLOAT") {
+                new InputFloat(tabContent, name);
             }
-            // @todo types INT, FLOAT, (type INT[] is only used in microsim)
+            // @todo missing types (type INT[] is only used in microsim)
         }
     }
 
@@ -133,6 +146,44 @@ GNEDialog_Wizard::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.resetWritable();
     oc.set(myName, myCheck->getCheck() ? "true" : "false");
+    return 1;
+}
+
+
+GNEDialog_Wizard::InputInt::InputInt(FXComposite* parent, const std::string& name) :
+    FXHorizontalFrame(parent, LAYOUT_FILL_X),
+    myName(name) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    new FXLabel(this, name.c_str());
+    myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_INTEGER | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
+    myTextField->setText(toString(oc.getInt(name)).c_str());
+}
+
+
+long
+GNEDialog_Wizard::InputInt::onCmdSetOption(FXObject*, FXSelector, void*) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    oc.resetWritable();
+    oc.set(myName, myTextField->getText().text());
+    return 1;
+}
+
+
+GNEDialog_Wizard::InputFloat::InputFloat(FXComposite* parent, const std::string& name) :
+    FXHorizontalFrame(parent, LAYOUT_FILL_X),
+    myName(name) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    new FXLabel(this, name.c_str());
+    myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_REAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
+    myTextField->setText(toString(oc.getFloat(name)).c_str());
+}
+
+
+long
+GNEDialog_Wizard::InputFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    oc.resetWritable();
+    oc.set(myName, myTextField->getText().text());
     return 1;
 }
 

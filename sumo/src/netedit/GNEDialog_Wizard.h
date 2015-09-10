@@ -89,6 +89,38 @@ public:
     };
 
 
+    class InputInt : public FXHorizontalFrame {
+        // FOX-declarations
+        FXDECLARE(GNEDialog_Wizard::InputInt)
+    public:
+        InputInt(FXComposite* parent, const std::string& name);
+        /// @brief try to set new attribute value
+        long onCmdSetOption(FXObject*, FXSelector, void*);
+    protected:
+        /// @brief FOX needs this
+        InputInt() {}
+    private:
+        std::string myName;
+        FXTextField* myTextField;
+    };
+
+
+    class InputFloat : public FXHorizontalFrame {
+        // FOX-declarations
+        FXDECLARE(GNEDialog_Wizard::InputFloat)
+    public:
+        InputFloat(FXComposite* parent, const std::string& name);
+        /// @brief try to set new attribute value
+        long onCmdSetOption(FXObject*, FXSelector, void*);
+    protected:
+        /// @brief FOX needs this
+        InputFloat() {}
+    private:
+        std::string myName;
+        FXTextField* myTextField;
+    };
+
+
 };
 
 
