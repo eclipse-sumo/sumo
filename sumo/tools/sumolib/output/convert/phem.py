@@ -24,17 +24,17 @@ import sumolib
 
 
 def _convType(tID):
-    if tID.lower().startswith("passenger") or tID.lower().startswith("pkw"):
-        # needed for V2X applications only
-        if tID.lower().startswith("passenger_equipped") or tID.lower().startswith("pkw_equipped"):
-            return "PKW_equipped"
-        else:
+    if tID:
+        if tID.lower().startswith("passenger") or tID.lower().startswith("pkw"):
+            # needed for V2X applications only
+            if tID.lower().startswith("passenger_equipped") or tID.lower().startswith("pkw_equipped"):
+                return "PKW_equipped"
             return "PKW"
-    if tID.lower().startswith("bus"):
-        return "BUS"
-    if tID.lower().startswith("heavy") or tID.lower().startswith("lkw"):
-        return "LKW"
-    print("Could not convert the vehicle type properly")
+        if tID.lower().startswith("bus"):
+            return "BUS"
+        if tID.lower().startswith("heavy") or tID.lower().startswith("lkw"):
+            return "LKW"
+        print("Could not convert the vehicle type properly")
     return "unknown"
 
 
@@ -105,7 +105,7 @@ def fcd2fzp(inpFCD, outSTRM, further):
                 vid = vIDm.g(v.id)
                 aType = _convType(v.type)
                 vtid = vtIDm.g(aType)
-                sid = sIDm.g(sumolib._laneID2edgeID(v.lane))
+                sid = sIDm.g(v.edge)
                 percSlope = math.sin(float(v.slope)) * 100.
                 if outSTRM != None:
                     print("%s,%s,%s,%s,%s,%s,%s,%s" % (

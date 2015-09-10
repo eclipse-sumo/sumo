@@ -40,14 +40,14 @@ import sumolib.output.convert.poi as poi
 
 class FCDVehicleEntry:
 
-    def __init__(self, id, x, y, z, speed, typev, lane, slope):
+    def __init__(self, id, x, y, z, speed, typev, edge, slope):
         self.id = id
         self.x = x
         self.y = y
         self.z = z
         self.speed = speed
         self.type = typev
-        self.lane = lane
+        self.edge = edge
         self.slope = slope
 
 
@@ -77,21 +77,36 @@ def _closeOutputStream(strm):
         strm.close()
 
 
-def procFCDStream(fcdstream, options):
-    pt = -1  # "prior" time step
-    lt = -1  # "last" time step
-    ft = -1  # "first" time step
-    lastExported = -1
-    chosen = {}
+def makeEntries(movables, chosen, options):
     if options.boundary:
         xmin, ymin, xmax, ymax = [float(e)
                                   for e in options.boundary.split(",")]
+    result = []
+    for v in movables:
+        if v.id not in chosen:
+            chosen[v.id] = random.random() < options.penetration
+        if chosen[v.id]:
+            x, y = disturb_gps(float(v.x), float(v.y), options.blur)
+            if v.z:
+                z = v.z
+            else:
+                z = 0
+            if not options.boundary or (x >= xmin and x <= xmax and y >= ymin and y <= ymax):
+                edge = v.edge
+                if v.lane:
+                    edge = sumolib._laneID2edgeID(v.lane)
+                result.append(FCDVehicleEntry(v.id, x, y, z, v.speed, v.type, edge, v.slope))
+    return result
+
+
+def procFCDStream(fcdstream, options):
+    pt = -1  # "prior" time step
+    lt = -1  # "last" time step
+    lastExported = -1
+    chosen = {}
     for i, q in enumerate(fcdstream):
         pt = lt
         lt = float(q.time.encode("latin1"))
-        if ft < 0:
-            # this is the first step contained in the simulation
-            ft = lt  # save it for later purposes
         if options.begin and options.begin > lt:
             continue  # do not export steps before a set begin
         if options.end and options.end <= lt:
@@ -101,18 +116,9 @@ def procFCDStream(fcdstream, options):
         lastExported = lt
         e = FCDTimeEntry(lt)
         if q.vehicle:
-            for v in q.vehicle:
-                if v.id not in chosen:
-                    chosen[v.id] = random.random() < options.penetration
-                if chosen[v.id]:
-                    x, y = disturb_gps(float(v.x), float(v.y), options.blur)
-                    if v.z:
-                        z = v.z
-                    else:
-                        z = 0
-                    if not options.boundary or (x >= xmin and x <= xmax and y >= ymin and y <= ymax):
-                        e.vehicle.append(
-                            FCDVehicleEntry(v.id, x, y, z, v.speed, v.type, v.lane, v.slope))
+            e.vehicle += makeEntries(q.vehicle, chosen, options)
+        if options.persons and q.person:
+            e.vehicle += makeEntries(q.person, chosen, options)
         yield e
     t = lt - pt + lt
     yield FCDTimeEntry(t)
@@ -165,6 +171,8 @@ output format. Optionally the output can be sampled, filtered and distorted.
         "--base-date", dest="base", default=-1, type="int", help="Defines the base date")
     optParser.add_option("--orig-ids", dest="orig_ids", default=False, action="store_true",
                          help="Write original vehicle IDs instead of a running index")
+    optParser.add_option("--persons", default=False, action="store_true",
+                         help="Include person data")
     # PHEM
     optParser.add_option("--dri-output", dest="dri", metavar="FILE",
                          help="Defines the name of the PHEM .dri-file to generate")
