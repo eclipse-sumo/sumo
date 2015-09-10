@@ -39,8 +39,21 @@ def parse_args():
 def main():
     options = parse_args()
     edges = set()
+
     for route in parse_fast(options.routefile, 'route', ['edges']):
         edges.update(route.edges.split())
+    for walk in parse_fast(options.routefile, 'walk', ['edges']):
+        edges.update(walk.edges.split())
+  
+    # warn about potentially missing edges
+    for trip in parse_fast(options.routefile, 'trip', ['id', 'from', 'to']):
+        edges.update([trip.attr_from, trip.to])
+        print(
+            "Warning: Trip %s is not guaranteed to be connected within the extacted edges." % trip.id)
+    for walk in parse_fast(options.routefile, 'walk', ['from', 'to']):
+        edges.update([walk.attr_from, walk.to])
+        print("Warning: Walk from %s to %s is not guaranteed to be connected within the extacted edges." % (
+            walk.attr_from, walk.to))
 
     with open(options.outfile, 'w') as outf:
         for e in sorted(list(edges)):
