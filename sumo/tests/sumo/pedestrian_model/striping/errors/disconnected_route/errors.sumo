@@ -1,3 +1,4 @@
 Warning: No connection between ':C_w1' and 'CW_bwd_connector' found.
+Warning: Pedestrian 'p0' could not find route across junction 'C', time=8.00.
 Error: Disconnected walk for person 'p0'.
 Quitting (on error).
