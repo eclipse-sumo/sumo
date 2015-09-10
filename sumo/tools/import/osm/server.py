@@ -109,6 +109,7 @@ class Builder(object):
         else:
             self.tmp = tempfile.mkdtemp()
 
+        self.origDir = os.getcwd()
         os.chdir(self.tmp)
 
     def report(self, message):
@@ -325,6 +326,7 @@ class OSMImporterWebSocket(WebSocket):
             builder.finalize()
 
             self.sendMessage(unicode("zip " + data))
+        os.chdir(builder.origDir)
 
 parser = ArgumentParser(description="OSM Importer for SUMO - Websocket Server")
 parser.add_argument("--remote", action="store_true",
