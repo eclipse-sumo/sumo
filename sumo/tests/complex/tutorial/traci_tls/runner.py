@@ -41,14 +41,6 @@ import traci
 # the port used for communicating with your sumo instance
 PORT = 8873
 
-NSGREEN = "GrGr"
-NSYELLOW = "yryr"
-WEGREEN = "rGrG"
-WEYELLOW = "ryry"
-
-PROGRAM = [WEYELLOW, WEYELLOW, WEYELLOW, NSGREEN, NSGREEN, NSGREEN,
-           NSGREEN, NSGREEN, NSGREEN, NSGREEN, NSGREEN, NSYELLOW, NSYELLOW, WEGREEN]
-
 
 def generate_routefile():
     random.seed(42)  # make tests reproducible
@@ -60,7 +52,7 @@ def generate_routefile():
     with open("data/cross.rou.xml", "w") as routes:
         print >> routes, """<routes>
         <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
-        <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="17" minGap="3" maxSpeed="25" guiShape="bus"/>
+        <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="7" minGap="3" maxSpeed="25" guiShape="bus"/>
 
         <route id="right" edges="51o 1i 2o 52i" />
         <route id="left" edges="52o 2i 1o 51i" />
@@ -85,30 +77,31 @@ def generate_routefile():
                 lastVeh = i
         print >> routes, "</routes>"
 
+# The program looks like this
+#    <tlLogic id="0" type="static" programID="0" offset="0">
+## the locations of the tls are      NESW
+#        <phase duration="31" state="GrGr"/>
+#        <phase duration="6"  state="yryr"/>
+#        <phase duration="31" state="rGrG"/>
+#        <phase duration="6"  state="ryry"/>
+#    </tlLogic>
 
 def run():
     """execute the TraCI control loop"""
     traci.init(PORT)
-    programPointer = len(PROGRAM) - 1
     step = 0
+    # we start with phase 2 where EW has green
+    traci.trafficlights.setPhase("0", 2)
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-        programPointer = min(programPointer + 1, len(PROGRAM) - 1)
-        numPriorityVehicles = traci.inductionloop.getLastStepVehicleNumber("0")
-        if numPriorityVehicles > 0:
-            if programPointer == len(PROGRAM) - 1:
-                # we are in the WEGREEN phase. start the priority phase
-                # sequence
-                programPointer = 0
-            elif PROGRAM[programPointer] != WEYELLOW:
-                # horizontal traffic is already stopped. restart priority phase
-                # sequence at green
-                programPointer = 3
+        if traci.trafficlights.getPhase("0") == 2:
+            # we are not already switching
+            if traci.inductionloop.getLastStepVehicleNumber("0") > 0:
+                # there is a vehicle from the north, switch
+                traci.trafficlights.setPhase("0", 3)
             else:
-                # we are in the WEYELLOW phase. continue sequence
-                pass
-        traci.trafficlights.setRedYellowGreenState(
-            "0", PROGRAM[programPointer])
+                # otherwise try to keep green for EW
+                traci.trafficlights.setPhase("0", 2)
         step += 1
     traci.close()
     sys.stdout.flush()
