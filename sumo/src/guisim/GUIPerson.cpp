@@ -70,6 +70,8 @@
 FXDEFMAP(GUIPerson::GUIPersonPopupMenu) GUIPersonPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_WALKINGAREA_PATH, GUIPerson::GUIPersonPopupMenu::onCmdShowWalkingareaPath),
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_WALKINGAREA_PATH, GUIPerson::GUIPersonPopupMenu::onCmdHideWalkingareaPath),
+    FXMAPFUNC(SEL_COMMAND, MID_START_TRACK, GUIPerson::GUIPersonPopupMenu::onCmdStartTrack),
+    FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK, GUIPerson::GUIPersonPopupMenu::onCmdStopTrack),
 };
 
 // Object implementation
@@ -109,6 +111,25 @@ GUIPerson::GUIPersonPopupMenu::onCmdHideWalkingareaPath(FXObject*, FXSelector, v
 }
 
 
+long
+GUIPerson::GUIPersonPopupMenu::onCmdStartTrack(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_PERSON);
+    if (!static_cast<GUIPerson*>(myObject)->hasActiveAddVisualisation(myParent, VO_TRACKED)) {
+        myParent->startTrack(static_cast<GUIPerson*>(myObject)->getGlID());
+        static_cast<GUIPerson*>(myObject)->addActiveAddVisualisation(myParent, VO_TRACKED);
+    }
+    return 1;
+}
+
+long
+GUIPerson::GUIPersonPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_PERSON);
+    static_cast<GUIPerson*>(myObject)->removeActiveAddVisualisation(myParent, VO_TRACKED);
+    myParent->stopTrack();
+    return 1;
+}
+
+
 
 
 /* -------------------------------------------------------------------------
@@ -138,6 +159,14 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app,
     } else {
         new FXMenuCommand(ret, "Show Walkingarea Path", 0, ret, MID_SHOW_WALKINGAREA_PATH);
     }
+    new FXMenuSeparator(ret);
+    int trackedID = parent.getTrackedID();
+    if (trackedID < 0 || (size_t)trackedID != getGlID()) {
+        new FXMenuCommand(ret, "Start Tracking", 0, ret, MID_START_TRACK);
+    } else {
+        new FXMenuCommand(ret, "Stop Tracking", 0, ret, MID_STOP_TRACK);
+    }
+    new FXMenuSeparator(ret);
     //
     buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
