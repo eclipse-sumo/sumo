@@ -33,6 +33,7 @@
 #include <string>
 #include <vector>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/settings/GUIPropertySchemeStorage.h>
 #include "GNEAttributeCarrier.h"
 
 // ===========================================================================
@@ -187,13 +188,26 @@ private:
 
     // @brief return value for lane coloring according to the given scheme
     SUMOReal getColorValue(size_t activeScheme) const;
+		
+    /// @brief sets the color according to the current scheme index and some lane function
+    bool setFunctionalColor(size_t activeScheme) const;
+
+    /// @brief sets multiple colors according to the current scheme index and some lane function
+    bool setMultiColor(const GUIColorer& c) const;
 
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;
 
+    /// @brief whether to draw this lane as a waterways
+    bool drawAsWaterway(const GUIVisualizationSettings& s) const;
+
     /* @brief draw crossties for railroads 
      * @todo: XXX This duplicates the code of GUILane::drawCrossties and needs to be */
     void drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
+
+	
+    /// The color of the shape parts (cached)
+    mutable std::vector<RGBColor> myShapeColors;
 };
 
 

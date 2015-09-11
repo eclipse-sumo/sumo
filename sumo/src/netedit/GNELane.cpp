@@ -4,7 +4,7 @@
 /// @date    Feb 2011
 /// @version $Id$
 ///
-// A class for visualizing Lane geometry (adapted from GUILaneWrapper)
+// A class for visualizing Lane geometry (adapted from GNELaneWrapper)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
@@ -227,7 +227,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     } else if (selectedEdge) {
         GLHelper::setColor(GNENet::selectionColor);
     } else {
-        GLHelper::setColor(s.laneColorer.getScheme().getColor(getColorValue(s.laneColorer.getActive())));
+		const GUIColorer& c = s.laneColorer;
+		if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
+			GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+		}        
     };
 
     // draw lane
@@ -235,24 +238,36 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     const SUMOReal selectionScale = selected || selectedEdge ? s.selectionScale : 1;
     const SUMOReal exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     if (s.scale * exaggeration < 1.) {
-        GLHelper::drawLine(getShape());
+        if (myShapeColors.size() > 0) {
+            GLHelper::drawLine(getShape(), myShapeColors);
+        } else {
+            GLHelper::drawLine(getShape());
+        }
         glPopMatrix();
     } else {
         if (drawAsRailway(s)) {
             // draw as railway
             const SUMOReal halfRailWidth = 0.725 * exaggeration;
-            GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfRailWidth);
+			if (myShapeColors.size() > 0) {
+				GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
+			} else {
+				GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfRailWidth);
+			}            
             RGBColor current = GLHelper::getColor();
             glColor3d(1, 1, 1);
             glTranslated(0, 0, .1);
-            GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
+			GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
             GLHelper::setColor(current);
             drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
         } else {
             // the actual lane
             // reduce lane width to make sure that a selected edge can still be seen
-            GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths,
-                    selectionScale * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (selectedEdge ? .3 : 0)));
+			const SUMOReal halfWidth = selectionScale * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (selectedEdge ? .3 : 0));
+			if (myShapeColors.size() > 0) {
+                GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfWidth);
+            } else {
+                GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfWidth);
+            }
         }
         glPopMatrix();
         if (exaggeration == 1) {
@@ -507,24 +522,103 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-SUMOReal
-GNELane::getColorValue(size_t activeScheme) const {
+bool
+GNELane::setFunctionalColor(size_t activeScheme) const {
     switch (activeScheme) {
-        case 1:
-            // color by z of first shape point
-            return getShape()[0].z();
-        case 2:
-            // color by incline
-            return abs(getShape()[-1].z() - getShape()[0].z()) / myParentEdge.getNBEdge()->getLength();
+        case 6: {
+            SUMOReal hue = RAD2DEG(getShape().beginEndAngle()) + 180; // [0-360]
+            GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            return true;
+        }
         default:
-            return 0.;
+            return false;
     }
 }
 
 
-bool 
+bool
+GNELane::setMultiColor(const GUIColorer& c) const {
+    const size_t activeScheme = c.getActive();
+    myShapeColors.clear();
+    switch (activeScheme) {
+        case 9: // color by height at segment start
+            for (PositionVector::const_iterator ii = getShape().begin(); ii != getShape().end() - 1; ++ii) {
+                myShapeColors.push_back(c.getScheme().getColor(ii->z()));
+            }
+            return true;
+        case 11: // color by inclination  at segment start
+            for (int ii = 1; ii < (int)getShape().size(); ++ii) {
+                const SUMOReal inc = (getShape()[ii].z() - getShape()[ii - 1].z()) / MAX2(POSITION_EPS, getShape()[ii].distanceTo2D(getShape()[ii - 1]));
+                myShapeColors.push_back(c.getScheme().getColor(inc));
+            }
+            return true;
+        default:
+            return false;
+    }
+}
+
+
+SUMOReal
+GNELane::getColorValue(size_t activeScheme) const {
+	const SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
+    switch (activeScheme) {
+        case 0:
+			switch (myPermissions) {
+                case SVC_PEDESTRIAN:
+                    return 1;
+                case SVC_BICYCLE:
+                    return 2;
+                case 0:
+                    return 3;
+                case SVC_SHIP:
+                    return 4;
+                default:
+                    break;
+            }
+            if ((myPermissions & SVC_PASSENGER) != 0 || isRailway(myPermissions)) {
+                return 0;
+            } else {
+                return 5;
+            }
+        case 1:
+            return gSelected.isSelected(getType(), getGlID()) ||
+                   gSelected.isSelected(GLO_EDGE, dynamic_cast<GNEEdge*>(&myParentEdge)->getGlID());
+        case 2:
+            return (SUMOReal)myPermissions;
+        case 3:
+			return myParentEdge.getNBEdge()->getLaneSpeed(myIndex);
+        case 4:
+            return myParentEdge.getNBEdge()->getNumLanes();        
+        case 5: {
+            return myParentEdge.getNBEdge()->getLoadedLength() / myParentEdge.getNBEdge()->getLength();
+        }
+		// case 6: by angle (functional)
+       case 7: {
+            return myParentEdge.getNBEdge()->getPriority();
+        }
+        case 8: {
+            // color by z of first shape point
+            return getShape()[0].z();
+        }
+		// case 9: by segment height
+        case 10: {
+            // color by incline
+            return (getShape()[-1].z() - getShape()[0].z()) /  myParentEdge.getNBEdge()->getLength();
+        }        
+    }
+    return 0;
+}
+
+
+bool
 GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
     return isRailway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails;
+}
+
+
+bool
+GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
+    return isWaterway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails; // reusing the showRails setting
 }
 
 
