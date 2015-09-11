@@ -157,9 +157,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         // node shape has been computed and is valid for drawing
         const bool drawShape = myNBNode.getShape().size() > 0 && s.drawJunctionShape;
         const bool drawBubble = (!drawShape || myNBNode.getShape().area() < 4) && s.drawJunctionShape; // magic threshold
+
         if (drawShape) {
             glPushMatrix();
-            setColor(false);
+			setColor(s, false);                        
             glTranslated(0, 0, getType());
             PositionVector shape = myNBNode.getShape();
             shape.closePolygon();
@@ -175,7 +176,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         }
         if (drawBubble) {
             glPushMatrix();
-            setColor(true);
+            setColor(s, true);           
             Position pos = myNBNode.getPosition();
             glTranslated(pos.x(), pos.y(), getType() - 0.05);
             GLHelper::drawFilledCircle(myMaxSize * selectionScale, 32);
@@ -460,13 +461,55 @@ GNEJunction::setPosition(Position pos) {
 }
 
 
-void
-GNEJunction::setColor(bool bubble) const {
-    if (bubble) {
-        glColor3d(0.8, 0, 0);
-    } else {
-        glColor3d(0.4, 0, 0);
+SUMOReal
+GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const {
+	switch (s.junctionColorer.getActive()) {
+        case 0:
+            if (bubble) {
+                return 1;
+            } else {
+                return 0;
+            }
+        case 1:
+            return gSelected.isSelected(getType(), getGlID()) ? 1 : 0;
+        case 2:
+            switch (myNBNode.getType()) {
+                case NODETYPE_TRAFFIC_LIGHT:
+                    return 0;
+                case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
+                    return 1;
+                case NODETYPE_PRIORITY:
+                    return 2;
+                case NODETYPE_PRIORITY_STOP:
+                    return 3;
+                case NODETYPE_RIGHT_BEFORE_LEFT:
+                    return 4;
+                case NODETYPE_ALLWAY_STOP:
+                    return 5;
+                case NODETYPE_DISTRICT:
+                    return 6;
+                case NODETYPE_NOJUNCTION:
+                    return 7;
+                case NODETYPE_DEAD_END:
+                case NODETYPE_DEAD_END_DEPRECATED:
+                    return 8;
+                case NODETYPE_UNKNOWN:
+                case NODETYPE_INTERNAL:
+                    assert(false);
+                    return 8;
+                case NODETYPE_RAIL_SIGNAL:
+                    return 9;
+            }
+        default:
+            assert(false);
+            return 0;
     }
+}
+
+
+void
+GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
+	GLHelper::setColor(s.junctionColorer.getScheme().getColor(getColorValue(s, bubble)));
     // override with special colors
     if (gSelected.isSelected(getType(), getGlID())) {
         GLHelper::setColor(GNENet::selectionColor);

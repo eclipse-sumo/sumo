@@ -218,6 +218,27 @@ GNEViewNet::GNEViewNet(
     laneColorer.addScheme(scheme);
 
     myVisualizationSettings->laneColorer = laneColorer;
+
+	GUIColorer junctionColorer;
+    scheme = GUIColorScheme("uniform", RGBColor(102,0, 0), "", true); 
+	scheme.addColor(RGBColor(204,0, 0), 1, "shape not computed");
+	scheme.addColor(RGBColor(153,0, 0), 2, "geometry points");
+    junctionColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by selection", RGBColor(128, 128, 128, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
+    junctionColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by type", RGBColor::GREEN, "traffic_light", true);
+    scheme.addColor(RGBColor(0, 128, 0), 1, "traffic_light_unregulated");
+    scheme.addColor(RGBColor::YELLOW, 2, "priority");
+    scheme.addColor(RGBColor::RED, 3, "priority_stop");
+    scheme.addColor(RGBColor::BLUE, 4, "right_before_left");
+    scheme.addColor(RGBColor::CYAN, 5, "allway_stop");
+    scheme.addColor(RGBColor::GREY, 6, "district");
+    scheme.addColor(RGBColor::MAGENTA, 7, "unregulated");
+    scheme.addColor(RGBColor::BLACK, 8, "dead_end");
+    scheme.addColor(RGBColor::ORANGE, 9, "rail_signal");
+    junctionColorer.addScheme(scheme);
+    myVisualizationSettings->junctionColorer = junctionColorer;
 }
 
 

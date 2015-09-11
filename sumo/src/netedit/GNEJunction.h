@@ -266,7 +266,10 @@ private:
     void setPosition(Position pos);
 
     /// @brief sets junction color depending on circumstances
-    void setColor(bool bubble) const;
+    void setColor(const GUIVisualizationSettings& s, bool bubble) const;
+
+	/// @brief determines color value
+    SUMOReal getColorValue(const GUIVisualizationSettings& s, bool bubble) const;
 
     /// @brief adds a traffic light
     void addTrafficLight(NBTrafficLightDefinition* tlDef, bool forceInsert);

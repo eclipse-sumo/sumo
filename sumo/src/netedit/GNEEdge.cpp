@@ -151,13 +151,13 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 
     // draw geometry hints
     if (s.scale * SNAP_RADIUS > 1.) { // check whether it is not too small
+		GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
         glPushName(getGlID());
         PositionVector geom = myNBEdge.getGeometry();
         for (int i = 1; i < (int)geom.size() - 1; i++) {
             Position pos = geom[i];
             glPushMatrix();
-            glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
-            glColor3d(0.6, 0, 0);
+            glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);            
             GLHelper:: drawFilledCircle(SNAP_RADIUS, 32);
             glPopMatrix();
         }

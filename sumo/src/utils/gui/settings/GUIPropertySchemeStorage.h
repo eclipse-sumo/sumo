@@ -87,6 +87,10 @@ public:
         return mySchemes[myActiveScheme];
     }
 
+	const std::vector<T>& getSchemes() const {
+        return mySchemes;
+    }
+
     T* getSchemeByName(std::string name) {
         for (typename std::vector<T>::iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
             if ((*i).getName() == name) {
