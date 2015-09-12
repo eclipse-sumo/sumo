@@ -1824,6 +1824,11 @@ NBNode::buildCrossingsAndWalkingAreas() {
     for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end();) {
         if ((*it).prevWalkingArea == "" || (*it).nextWalkingArea == "") {
             WRITE_WARNING("Discarding Invalid crossing '" + (*it).id + "' at node '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
+            for (std::vector<WalkingArea>::iterator it_wa = myWalkingAreas.begin(); it_wa != myWalkingAreas.end(); it_wa++) {
+                if ((*it_wa).nextCrossing == (*it).id) {
+                    (*it_wa).nextCrossing = "";
+                }
+            }
             it = myCrossings.erase(it);
         } else {
             ++it;
@@ -2072,6 +2077,12 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             if ((*it).edges.back() == normalizedLanes[end].first
                     && (normalizedLanes[end].second.permissions & SVC_PEDESTRIAN) == 0) {
                 // crossing ends
+                if ((*it).nextWalkingArea != "") {
+                    WRITE_WARNING("Invalid pedestrian topology at node '" + getID() 
+                            + "'; crossing '" + (*it).id 
+                            + "' targets '" + (*it).nextWalkingArea 
+                            + "' and '" + wa.id + "'.");
+                }
                 (*it).nextWalkingArea = wa.id;
                 endCrossingWidth = (*it).width;
                 endCrossingShape = (*it).shape;
@@ -2085,6 +2096,12 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             if ((*it).edges.front() == normalizedLanes[prev].first
                     && (normalizedLanes[prev].second.permissions & SVC_PEDESTRIAN) == 0) {
                 // crossing starts
+                if ((*it).prevWalkingArea != "") {
+                    WRITE_WARNING("Invalid pedestrian topology at node '" + getID() 
+                            + "'; crossing '" + (*it).id 
+                            + "' is targeted by '" + (*it).prevWalkingArea 
+                            + "' and '" + wa.id + "'.");
+                }
                 (*it).prevWalkingArea = wa.id;
                 wa.nextCrossing = (*it).id;
                 startCrossingWidth = (*it).width;
@@ -2227,6 +2244,10 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             std::cout << "  checkIntermediate: prev=" << prev.id << " next=" << next.id << " prev.nextWA=" << prev.nextWalkingArea << "\n";
         }
         if (prev.nextWalkingArea == "") {
+            if (next.prevWalkingArea != "") {
+                WRITE_WARNING("Invalid pedestrian topology: crossing '" + prev.id + "' has no target.");
+                continue;
+            }
             WalkingArea wa(":" + getID() + "_w" + toString(index++), prev.width);
             prev.nextWalkingArea = wa.id;
             wa.nextCrossing = next.id;
