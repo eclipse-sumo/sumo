@@ -495,9 +495,16 @@ GNETLSEditor::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
             int tlIndex = it->getTLIndex();
             PositionVector shape = nbn->computeInternalLaneShape(it->getFrom(), NBEdge::Connection(it->getFromLane(),
                                    it->getTo(), it->getToLane()), NUM_POINTS);
-            GNEInternalLane* ilane = new GNEInternalLane(this, innerID + '_' + toString(tlIndex) , shape, tlIndex);
+            GNEInternalLane* ilane = new GNEInternalLane(this, innerID + '_' + toString(tlIndex),  shape, tlIndex);
             rtree.addAdditionalGLObject(ilane);
             myInternalLanes[tlIndex].push_back(ilane);
+        }
+        const std::vector<NBNode::Crossing>& crossings = nbn->getCrossings();
+        for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+            const NBNode::Crossing& c = *it;
+            GNEInternalLane* ilane = new GNEInternalLane(this, c.id, c.shape, c.tlLinkNo);
+            rtree.addAdditionalGLObject(ilane);
+            myInternalLanes[c.tlLinkNo].push_back(ilane);
         }
     }
 }
