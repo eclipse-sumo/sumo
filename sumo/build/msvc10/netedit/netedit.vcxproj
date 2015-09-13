@@ -266,7 +266,6 @@
     <ClInclude Include="..\..\..\src\netedit\GNEUndoList.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEViewNet.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEViewParent.h" />
-    <ClInclude Include="..\..\..\src\version.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\y_libnetbuild\y_libnetbuild.vcxproj">

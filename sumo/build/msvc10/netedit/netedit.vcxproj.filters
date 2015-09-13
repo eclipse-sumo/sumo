@@ -151,9 +151,6 @@
     <ClInclude Include="..\..\..\src\netedit\GNEUndoList.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\version.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEInspector.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
