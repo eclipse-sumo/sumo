@@ -115,8 +115,7 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent)
     //
     // additional infos
     FXVerticalFrame* f3 = new FXVerticalFrame(f1, FRAME_NONE, 0, 0, 0, 0, 0, 0, 0, 0);
-    // copyright notice
-    new FXLabel(f3, "For Internal Use Only!", 0, LABEL_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0);
+    // copyright notice    
     new FXLabel(f3, "Copyright (C) 2001-2015 DLR / Institute of Transportation Systems", 0, LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0);
 
     FXLinkLabel* link = new FXLinkLabel(f3, "http://sumo.dlr.de", 0, LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL, 0, 0, 0, 0, 5, 5, 5, 5);
