@@ -67,7 +67,7 @@ FXDEFMAP(GNESelector) GNESelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,      GNESelector::onCmdClear),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELMB_TAG,      GNESelector::onCmdSelMBTag),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELMB_STRING,   GNESelector::onCmdSelMBString),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HELP,           GNESelector::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNESelector::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT_SCALE,   GNESelector::onCmdScaleSelection)
 };
 
@@ -122,7 +122,7 @@ GNESelector::GNESelector(FXComposite* parent, GNEViewNet* updateTarget, GNEUndoL
     myMatchAttrBox->setCurrentItem(1); // speed
     myMatchString = new FXTextField(matchBox, 12, this, MID_GNE_SELMB_STRING, TEXTFIELD_NORMAL, 0, 0, 0, 0, 4, 2, 0, 2);
     myMatchString->setText(">10.0");
-    new FXButton(matchBox, "Help", 0, this, MID_GNE_HELP);
+    new FXButton(matchBox, "Help", 0, this, MID_HELP);
 
     FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling",
                                             GROUPBOX_NORMAL | FRAME_GROOVE | LAYOUT_FILL_X, 2, 0, 0, 0, 4, 2, 2, 2);

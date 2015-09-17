@@ -137,7 +137,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORT,                 GNEApplicationWindow::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,            GNEApplicationWindow::onCmdDel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ENTER,          GNEApplicationWindow::onCmdEnter),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HELP,                  GNEApplicationWindow::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                      GNEApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_COMPUTE_JUNCTIONS,     GNEApplicationWindow::onCmdComputeJunctions),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_COMPUTE_JUNCTIONS,     GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEAN_JUNCTIONS,       GNEApplicationWindow::onCmdCleanJunctions),
@@ -481,7 +481,7 @@ GNEApplicationWindow::fillMenuBar() {
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Help", 0, myHelpMenu);
-    new FXMenuCommand(myHelpMenu, "&Online Documentation", 0, this, MID_GNE_HELP);
+    new FXMenuCommand(myHelpMenu, "&Online Documentation", 0, this, MID_HELP);
     new FXMenuCommand(myHelpMenu, "&About", 0, this, MID_ABOUT);
 }
 

@@ -60,6 +60,7 @@
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXThreadEvent.h>
+#include <utils/foxtools/FXLinkLabel.h>
 
 #include <utils/xml/XMLSubSys.h>
 #include <utils/gui/images/GUITexturesHelper.h>
@@ -139,6 +140,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,        GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT,           GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,              GUIApplicationWindow::onCmdHelp),
 
     // forward requests to the active view
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUIApplicationWindow::onCmdLocate),
@@ -536,6 +538,7 @@ GUIApplicationWindow::fillMenuBar() {
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Help", NULL, myHelpMenu);
+    new FXMenuCommand(myHelpMenu, "&Online Documentation", 0, this, MID_HELP);
     new FXMenuCommand(myHelpMenu, "&About", GUIIconSubSys::getIcon(ICON_APP),
                       this, MID_ABOUT);
 }
@@ -715,6 +718,13 @@ GUIApplicationWindow::onCmdEditBreakpoints(FXObject*, FXSelector, void*) {
     GUIDialog_Breakpoints* chooser = new GUIDialog_Breakpoints(this, myRunThread->getBreakpoints(), myRunThread->getBreakpointLock());
     chooser->create();
     chooser->show();
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
+    FXLinkLabel::fxexecute("http://sumo.dlr.de/wiki/SUMO-GUI");
     return 1;
 }
 

@@ -158,6 +158,9 @@ public:
     /// @brief Called on menu Edit->Edit Breakpoints
     long onCmdEditBreakpoints(FXObject*, FXSelector, void*);
 
+    /// @brief called if the user selects help->Documentation
+    long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief Called on menu Edit->Netedit
     long onCmdNetedit(FXObject*, FXSelector, void*);
 

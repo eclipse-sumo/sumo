@@ -353,6 +353,8 @@ enum {
     MID_SIMPLE_VIEW_SAVE_DECALS,
     //@}
 
+    /** help button */
+    MID_HELP,
 
     /// @name NETEDIT Message IDs
     //@{
@@ -455,9 +457,6 @@ enum {
     MID_GNE_SELECT_PASS,
     /** changes the visual scaling of selected items */
     MID_GNE_SELECT_SCALE,
-
-    /** help button */
-    MID_GNE_HELP,
 
     //@}
 
