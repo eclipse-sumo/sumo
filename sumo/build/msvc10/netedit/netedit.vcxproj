@@ -134,15 +134,6 @@
     <Import Project="..\exe.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup>
-    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <TargetName Condition="'$(Configuration)'=='InternalDebug'">$(ProjectName)D</TargetName>
-    <TargetName Condition="'$(Configuration)'=='Debug'">$(ProjectName)D</TargetName>
-    <TargetName Condition="'$(Configuration)'=='InternalRelease'">$(ProjectName)</TargetName>
-    <TargetName Condition="'$(Configuration)'=='Release'">$(ProjectName)</TargetName>
-    <TargetName Condition="'$(Configuration)'=='InternalFastbuild'">$(ProjectName)F</TargetName>
-    <TargetName Condition="'$(Configuration)'=='Fastbuild'">$(ProjectName)F</TargetName>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'">
     <Link>
       <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
