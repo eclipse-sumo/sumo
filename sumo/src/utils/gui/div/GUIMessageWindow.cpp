@@ -114,7 +114,10 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
     if (idS >= 0 && idE >= 0 && idS >= lineS && idE <= lineE) {
         const FXint typeS = text.rfind(" ", idS - 1);
         if (typeS >= 0) {
-            const std::string type(text.mid(typeS + 1, idS - typeS - 1).lower().text());
+            std::string type(text.mid(typeS + 1, idS - typeS - 1).lower().text());
+            if (type == "tllogic") {
+                type = "tlLogic"; // see GUIGlObject.cpp
+            }
             const std::string id(text.mid(idS + 2, idE - idS - 2).text());
             return GUIGlObjectStorage::gIDStorage.getObjectBlocking(type + ":" + id);
         }
