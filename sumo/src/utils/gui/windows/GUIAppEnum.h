@@ -443,6 +443,8 @@ enum {
     MID_GNE_SET_EDGE_ENDPOINT,
     /** restore geometry endpoint to node position */
     MID_GNE_RESET_EDGE_ENDPOINT,
+    /** remove inner geometry */
+    MID_GNE_STRAIGHTEN,
     /** set object as template*/
     MID_GNE_SET_TEMPLATE,
     /** copy template*/

@@ -344,6 +344,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, "Add reverse direction", 0, &parent, MID_GNE_ADD_REVERSE_EDGE);
         new FXMenuCommand(ret, "Set geometry endpoint here", 0, &parent, MID_GNE_SET_EDGE_ENDPOINT);
         new FXMenuCommand(ret, "Restore geometry endpoint", 0, &parent, MID_GNE_RESET_EDGE_ENDPOINT);
+        new FXMenuCommand(ret, "Straighten", 0, &parent, MID_GNE_STRAIGHTEN);
     }
     // buildShowParamsPopupEntry(ret, false);
     const SUMOReal pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());

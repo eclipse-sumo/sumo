@@ -79,6 +79,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADD_REVERSE_EDGE, GNEViewNet::onCmdAddReversedEdge),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_EDGE_ENDPOINT, GNEViewNet::onCmdSetEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET_EDGE_ENDPOINT, GNEViewNet::onCmdResetEdgeEndpoint),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STRAIGHTEN, GNEViewNet::onCmdStraightenEdges),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NODE_SHAPE, GNEViewNet::onCmdNodeShape),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NODE_REPLACE, GNEViewNet::onCmdNodeReplace),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIS_HEIGHT, GNEViewNet::onCmdVisualizeHeight)
@@ -837,6 +838,27 @@ GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtCursorPosition(myPopupSpot);
     if (edge != 0) {
         edge->resetEndpoint(myPopupSpot, myUndoList);
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
+    GNEEdge* edge = getEdgeAtCursorPosition(myPopupSpot);
+    if (edge != 0) {
+        if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
+            myUndoList->p_begin("straighten selected edges");
+            std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
+            for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {
+                (*it)->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            myUndoList->p_begin("straighten edge");
+            edge->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
+            myUndoList->p_end();
+        }
     }
     return 1;
 }
