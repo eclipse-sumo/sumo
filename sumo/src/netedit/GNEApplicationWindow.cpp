@@ -315,25 +315,25 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&File", 0, myFileMenu);
     new FXMenuCommand(myFileMenu,
-                      "&New Network...\tCtl-A\tCreate a new network.",
+                      "&New Network...\tCtrl+A\tCreate a new network.",
                       GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_GNE_NEW_NETWORK);
     new FXMenuCommand(myFileMenu,
-                      "Open &Network...\tCtl-N\tOpen a SUMO network.",
+                      "Open &Network...\tCtrl+N\tOpen a SUMO network.",
                       GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_OPEN_NETWORK);
     new FXMenuCommand(myFileMenu,
-                      "&Open Configuration...\tCtl-O\tOpen a NETCONVERT configuration file.",
+                      "&Open Configuration...\tCtrl+O\tOpen a NETCONVERT configuration file.",
                       GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG);
     new FXMenuCommand(myFileMenu,
                       "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
                       GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_GNE_OPEN_FOREIGN);
     new FXMenuCommand(myFileMenu,
-                      "Load &Shapes...\tCtl-P\tLoad shapes into the network view.",
+                      "Load &Shapes...\tCtrl+P\tLoad shapes into the network view.",
                       GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), this, MID_OPEN_SHAPES);
     new FXMenuCommand(myFileMenu,
-                      "&Save Network...\tCtl-S\tSave the network.",
+                      "&Save Network...\tCtrl+S\tSave the network.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_NETWORK);
     new FXMenuCommand(myFileMenu,
-                      "&Save Network As...\tCtl-Shift-S\tSave the network.",
+                      "&Save Network As...\tCtrl+Shift-S\tSave the network.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_AS_NETWORK);
     new FXMenuCommand(myFileMenu,
                       "&Save plain xml...\t\tSave plain xml representation the network.",
@@ -346,7 +346,7 @@ GNEApplicationWindow::fillMenuBar() {
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_POIS);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
-                      "Close\tCtl-W\tClose the network.",
+                      "Close\tCtrl+W\tClose the network.",
                       GUIIconSubSys::getIcon(ICON_CLOSE), this, MID_CLOSE);
     // Recent files
     FXMenuSeparator* sep1 = new FXMenuSeparator(myFileMenu);
@@ -383,17 +383,17 @@ GNEApplicationWindow::fillMenuBar() {
     myRecentNets.setSelector(MID_RECENTFILE);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
-                      "&Quit\tCtl-Q\tQuit the Application.",
+                      "&Quit\tCtrl+Q\tQuit the Application.",
                       0, this, MID_QUIT, 0);
 
     // build edit menu
     myEditMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Edit", 0, myEditMenu);
     new FXMenuCommand(myEditMenu,
-                      "Undo\tCtl-Z\tUndo the last change.",
+                      "Undo\tCtrl+Z\tUndo the last change.",
                       GUIIconSubSys::getIcon(ICON_UNDO), myUndoList, FXUndoList::ID_UNDO);
     new FXMenuCommand(myEditMenu,
-                      "Redo\tCtl-Y\tRedo the last change.",
+                      "Redo\tCtrl+Y\tRedo the last change.",
                       GUIIconSubSys::getIcon(ICON_REDO), myUndoList, FXUndoList::ID_REDO);
 
 
@@ -753,6 +753,11 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
         getView()->setEditModeFromHotkey(MID_GNE_MODE_INSPECT);
         gSchemeStorage.setViewport(getView()); // refit the network to accomodate mode specific panel
+        if (ec->myViewportFromRegistry) {
+            Position off, p;
+            off.set(getApp()->reg().readIntEntry("viewport", "x"), getApp()->reg().readIntEntry("viewport", "y"), getApp()->reg().readIntEntry("viewport", "z"));
+            getView()->setViewport(off, p);
+        }
     }
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();

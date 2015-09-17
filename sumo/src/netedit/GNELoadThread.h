@@ -90,7 +90,7 @@ protected:
      * This method is called both on success and failure.
      * All message callbacks to this instance are removed and the parent
      * application is informed about the loading */
-    void submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFile);
+    void submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFile="", const bool viewportFromRegistry=false);
 
 protected:
     /// the parent window to inform about the loading

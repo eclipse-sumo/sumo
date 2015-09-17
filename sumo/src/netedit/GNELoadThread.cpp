@@ -104,7 +104,7 @@ GNELoadThread::run() {
     // try to load the given configuration
     if (!myOptionsReady && !initOptions()) {
         // the options are not valid
-        submitEndAndCleanup(net, "");
+        submitEndAndCleanup(net);
         return 0;
     }
     MsgHandler::initOutputOptions();
@@ -113,7 +113,7 @@ GNELoadThread::run() {
             NWFrame::checkOptions())) {
         // options are not valid
         WRITE_ERROR("Invalid Options. Nothing loaded");
-        submitEndAndCleanup(net, "");
+        submitEndAndCleanup(net);
         return 0;
     }
     MsgHandler::getErrorInstance()->clear();
@@ -123,14 +123,12 @@ GNELoadThread::run() {
     RandHelper::initRandGlobal();
     if (!GeoConvHelper::init(oc)) {
         WRITE_ERROR("Could not build projection!");
-        submitEndAndCleanup(net, "");
+        submitEndAndCleanup(net);
         return 0;
     }
     // this netbuilder instance becomes the responsibility of the GNENet
     NBNetBuilder* netBuilder = new NBNetBuilder();
     netBuilder->applyOptions(oc);
-    // only a single setting file is supported
-    const std::string guiSettingsFile = oc.getString("gui-settings-file");
 
     if (myNewNet) {
         // create new network
@@ -175,20 +173,21 @@ GNELoadThread::run() {
 #endif
         }
     }
-    submitEndAndCleanup(net, guiSettingsFile);
+    // only a single setting file is supported
+    submitEndAndCleanup(net, oc.getString("gui-settings-file"), oc.getBool("registry-viewport"));
     return 0;
 }
 
 
 
 void
-GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFile) {
+GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent* e = new GNEEvent_NetworkLoaded(net, myFile, guiSettingsFile);
+    GUIEvent* e = new GNEEvent_NetworkLoaded(net, myFile, guiSettingsFile, viewportFromRegistry);
     myEventQue.add(e);
     myEventThrow.signal();
 }
@@ -216,6 +215,8 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addDescription("disable-textures", "Visualisation", "");
     oc.doRegister("gui-settings-file", new Option_FileName());
     oc.addDescription("gui-settings-file", "Visualisation", "Load visualisation settings from FILE");
+    oc.doRegister("registry-viewport", new Option_Bool(false));
+    oc.addDescription("registry-viewport", "Visualisation", "Load current viewport from registry");
 
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 

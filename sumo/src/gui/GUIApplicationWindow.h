@@ -158,6 +158,9 @@ public:
     /// @brief Called on menu Edit->Edit Breakpoints
     long onCmdEditBreakpoints(FXObject*, FXSelector, void*);
 
+    /// @brief Called on menu Edit->Netedit
+    long onCmdNetedit(FXObject*, FXSelector, void*);
+
     /// @brief Opens the application settings menu (Settings->Application Settings...)
     long onCmdAppSettings(FXObject*, FXSelector, void*);
 

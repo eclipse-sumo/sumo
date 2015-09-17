@@ -56,9 +56,10 @@ public:
     /// constructor
     GNEEvent_NetworkLoaded(GNENet* net,
                            const std::string& file,
-                           const std::string& settingsFile)
+                           const std::string& settingsFile,
+                           const bool viewportFromRegistry)
         : GUIEvent(EVENT_SIMULATION_LOADED),
-          myNet(net), myFile(file), mySettingsFile(settingsFile) { }
+          myNet(net), myFile(file), mySettingsFile(settingsFile), myViewportFromRegistry(viewportFromRegistry) { }
 
     /// destructor
     ~GNEEvent_NetworkLoaded() { }
@@ -72,6 +73,9 @@ public:
 
     /// the name of the settings file to load
     std::string     mySettingsFile;
+
+    /// whether loading viewport from registry
+    bool myViewportFromRegistry;
 };
 
 

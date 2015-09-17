@@ -123,10 +123,12 @@ enum {
     /// @name Edit Menu Item - IDs
     //@{
 
-    /// Open chosen editor - ID
+    /// Open editor for selections
     MID_EDITCHOSEN,
     /// Edit simulation breakpoints
     MID_EDIT_BREAKPOINTS,
+    /// Open in netedit
+    MID_NETEDIT,
     //@}
 
 
