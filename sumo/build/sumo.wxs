@@ -19,14 +19,9 @@
               <Environment Id="SUMO_HOME" Name="SUMO_HOME" Value="[INSTALLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
             </Component>
             <Directory Id='BINDIR' Name='bin'>
-              <Component Id='Path' Guid='17359CBF-8C61-4C3D-B5A7-4407AFF096AA'>
-                <CreateFolder/>
-                <Environment Id="PATH" Name="PATH" Value="[BINDIR]" Permanent="no" Part="last" Action="set" System="yes" />
-              </Component>
               <Component Id='MainExecutables' Guid='BD1FC8EE-2B15-11E1-BA48-028037EC0200'>
                 <File Id='sumoGuiEXE' Name='sumo-gui.exe' Source='O:\Daten\Sumo\Nightly\sumo-gui.exe' KeyPath='yes'>
                   <Shortcut Id="startmenuSumoGui" Directory="ProgramMenuDir" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
-                  <Shortcut Id="desktopSumoGui" Directory="DesktopFolder" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
                 </File>
     <!-- Section copied from http://stackoverflow.com/questions/2772452/how-to-associate-application-with-existing-file-types-using-wix-installer -->
     <!-- Capabilities keys for Vista/7 "Set Program Access and Defaults" -->
@@ -61,10 +56,16 @@
                 <File Id='dfrouterEXE' Name='dfrouter.exe' Source='O:\Daten\Sumo\Nightly\dfrouter.exe' />
                 <File Id='duarouterEXE' Name='duarouter.exe' Source='O:\Daten\Sumo\Nightly\duarouter.exe' />
                 <File Id='jtrrouterEXE' Name='jtrrouter.exe' Source='O:\Daten\Sumo\Nightly\jtrrouter.exe' />
+                <File Id='marouterEXE' Name='marouter.exe' Source='O:\Daten\Sumo\Nightly\marouter.exe' />
                 <File Id='netconvertEXE' Name='netconvert.exe' Source='O:\Daten\Sumo\Nightly\netconvert.exe' />
                 <File Id='netgenEXE' Name='netgenerate.exe' Source='O:\Daten\Sumo\Nightly\netgenerate.exe' />
                 <File Id='od2tripsEXE' Name='od2trips.exe' Source='O:\Daten\Sumo\Nightly\od2trips.exe' />
                 <File Id='polyconvertEXE' Name='polyconvert.exe' Source='O:\Daten\Sumo\Nightly\polyconvert.exe' />
+              </Component>
+              <Component Id='NetEditExecutable' Guid='210F26F3-6040-4A1F-8513-4C75AB016B8B'>
+                <File Id='neteditEXE' Name='netedit.exe' Source='O:\Daten\Sumo\Nightly\netedit.exe' KeyPath='yes'>
+                  <Shortcut Id="startmenuNetEdit" Directory="ProgramMenuDir" Name="NetEdit" WorkingDirectory='INSTALLDIR' Icon="netedit.exe" IconIndex="0" Advertise="yes" />
+                </File>
               </Component>
 
               <Component Id='HelperLibraries' Guid='FD4424A1-2B13-11E1-A04E-028037EC0200'>
@@ -80,10 +81,24 @@
                   <Shortcut Id="startmenuBat" Directory="ProgramMenuDir" Name="SUMO Command Line" Advertise="yes" />
                 </File>
               </Component>
+              <Component Id='DesktopShortcuts' Guid='93433DF3-9A94-4B43-8591-F1C1804A2AC8'>
+                <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
+                <Shortcut Id="desktopSumoGui" Directory="DesktopFolder" Target="[sumoGuiEXE]" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" />
+                <Shortcut Id="desktopNetEdit" Directory="DesktopFolder" Target="[neteditEXE]" Name="NetEdit" WorkingDirectory='INSTALLDIR' Icon="netedit.exe" />
+              </Component>
             </Directory>
 
             <Directory Id='DOCDIR' Name='doc' />
-
+            <Directory Id='TOOLDIR' Name='tools'/>
+			
+  	        <Component Id='Path' Guid='17359CBF-8C61-4C3D-B5A7-4407AFF096AA'>
+              <CreateFolder/>
+			  <Environment Id="PATH" Name="PATH" Value="[BINDIR];[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+		    </Component>
+  	        <Component Id='PythonPath' Guid='3C6E4C8E-C4D3-483D-93C0-546A04D360F0'>
+              <CreateFolder/>
+			  <Environment Id="PYTHONPATH" Name="PYTHONPATH" Value="[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+		    </Component>
           </Directory>
         </Directory>
       </Directory>
@@ -104,6 +119,7 @@
       Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
       <Feature Id='MainProgram' Title='Program' Description='The main executables.' Level='1'>
         <ComponentRef Id='MainExecutables' />
+        <ComponentRef Id='NetEditExecutable' />
         <ComponentRef Id='HelperLibraries' />
         <ComponentRef Id='EnvironmentBatch' />
         <ComponentRef Id='ProgramMenuDir' />
@@ -124,9 +140,14 @@
         <ComponentGroupRef Id='data' />
       </Feature>
 
-      <Feature Id='EnvironmentVariables' Title='EnvironmentVariables' Description='Set SUMO_HOME and adapt PATH.' Level='1'>
+      <Feature Id='EnvironmentVariables' Title='EnvironmentVariables' Description='Set SUMO_HOME and adapt PATH and PYTHONPATH.' Level='1'>
         <ComponentRef Id='SumoHome' />
         <ComponentRef Id='Path' />
+        <ComponentRef Id='PythonPath' />
+      </Feature>
+
+      <Feature Id='Shortcuts' Title='Shortcuts' Description='Create shortcuts on the desktop.' Level='1'>
+        <ComponentRef Id='DesktopShortcuts' />
       </Feature>
     </Feature>
 
@@ -144,6 +165,7 @@
     <UIRef Id="WixUI_ErrorProgressText" />
 
     <Icon Id="sumogui.exe" SourceFile="O:\Daten\Sumo\Nightly\sumo-gui.exe" />
-
+    <Icon Id="netedit.exe" SourceFile="O:\Daten\Sumo\Nightly\netedit.exe" />
+    <Property Id="ARPPRODUCTICON" Value="sumogui.exe" />
   </Product>
 </Wix>
