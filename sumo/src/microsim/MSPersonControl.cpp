@@ -238,7 +238,7 @@ MSPersonControl::abortWaiting() {
         for (PersonVector::const_iterator j = pv.begin(); j != pv.end(); ++j) {
             MSTransportable* p = (*j);
             edge->removePerson(p);
-            WRITE_WARNING("Person " + p->getID() + " aborted waiting for a ride that will never come.");
+            WRITE_WARNING("Person '" + p->getID() + "' aborted waiting for a ride that will never come.");
             erase(p);
         }
     }

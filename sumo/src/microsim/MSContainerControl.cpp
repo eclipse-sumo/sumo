@@ -224,7 +224,7 @@ MSContainerControl::abortWaiting() {
         for (ContainerVector::const_iterator j = pv.begin(); j != pv.end(); ++j) {
             MSTransportable* p = (*j);
             edge->removeContainer(p);
-            WRITE_WARNING("Container " + p->getID() + " aborted waiting for a transport that will never come.");
+            WRITE_WARNING("Container '" + p->getID() + "' aborted waiting for a transport that will never come.");
             erase(p);
         }
     }

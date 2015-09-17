@@ -111,7 +111,7 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
         if (seen.find((*j).from) != seen.end() || seen.find((*j).to) != seen.end()) {
             // do not regard already set edges
             if ((*j).angle > 360 && warn) {
-                WRITE_WARNING("Ambiguity in turnarounds computation at node '" + node->getID() + "'.");
+                WRITE_WARNING("Ambiguity in turnarounds computation at junction '" + node->getID() + "'.");
                 warn = false;
             }
             continue;

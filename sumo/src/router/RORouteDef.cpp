@@ -204,7 +204,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                 } else {
                     WRITE_MESSAGE("Changing invalid destination edge '"
                                   + myAlternatives[0]->getEdgeVector().back()->getID()
-                                  + "' to '" + (*i)->getID() + "' for vehicle '" + veh.getID() + "'.");
+                                  + "' to edge '" + (*i)->getID() + "' for vehicle '" + veh.getID() + "'.");
                     break;
                 }
             }
@@ -236,7 +236,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             } else {
                 if (myAlternatives[0]->getEdgeVector().size() > 2) {
                     // only inform if the input is (probably) not a trip
-                    WRITE_MESSAGE("Edge '" + (*(i - 1))->getID() + "' not connected to '" + (*i)->getID() + " for vehicle '" + veh.getID() + "'.");
+                    WRITE_MESSAGE("Edge '" + (*(i - 1))->getID() + "' not connected to edge '" + (*i)->getID() + "' for vehicle '" + veh.getID() + "'.");
                 }
                 ConstROEdgeVector edges;
                 router.compute(newEdges.back(), *i, &veh, begin, edges);

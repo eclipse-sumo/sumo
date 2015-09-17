@@ -988,11 +988,11 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
                 fd.fLKW += (srcFD.fLKW / (SUMOReal) maxClique->size());
                 fd.isLKW += (srcFD.isLKW / (SUMOReal) maxClique->size());
                 if (!didWarn && srcFD.vPKW > 0 && srcFD.vPKW < 255 && srcFD.vPKW / 3.6 > into->getSpeed()) {
-                    WRITE_MESSAGE("Detected PKW speed higher than allowed speed at '" + (*l) + "' on '" + into->getID() + "'.");
+                    WRITE_MESSAGE("Detected PKW speed higher than allowed speed at '" + (*l) + "' on edge '" + into->getID() + "'.");
                     didWarn = true;
                 }
                 if (!didWarn && srcFD.vLKW > 0 && srcFD.vLKW < 255 && srcFD.vLKW / 3.6 > into->getSpeed()) {
-                    WRITE_MESSAGE("Detected LKW speed higher than allowed speed at '" + (*l) + "' on '" + into->getID() + "'.");
+                    WRITE_MESSAGE("Detected LKW speed higher than allowed speed at '" + (*l) + "' on edge '" + into->getID() + "'.");
                     didWarn = true;
                 }
             }

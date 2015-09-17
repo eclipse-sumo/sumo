@@ -613,7 +613,7 @@ NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius, bool fi
         const SUMOReal relAngle = fabs(NBHelpers::relAngle(angles[i], angles[i + 1]));
         //std::cout << relAngle << " ";
         if (maxAngle > 0 && relAngle > maxAngle) {
-            WRITE_WARNING("Found angle of " + toString(relAngle) + " degrees at edge " + getID() + ", segment " + toString(i));
+            WRITE_WARNING("Found angle of " + toString(relAngle) + " degrees at edge '" + getID() + "', segment " + toString(i));
         }
         if (relAngle < 1) {
             continue;
@@ -626,13 +626,13 @@ NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius, bool fi
             if (minRadius > 0 && r < minRadius) {
                 if (fix) {
                     WRITE_MESSAGE("Removing sharp turn with radius " + toString(r) + " at the " +
-                                  (start ? "start" : "end") + " of edge " + getID());
+                                  (start ? "start" : "end") + " of edge '" + getID() + "'.");
                     myGeom.eraseAt(start ? 1 : i + 1);
                     checkGeometry(maxAngle, minRadius, fix);
                     return;
                 } else {
                     WRITE_WARNING("Found sharp turn with radius " + toString(r) + " at the " +
-                                  (start ? "start" : "end") + " of edge " + getID());
+                                  (start ? "start" : "end") + " of edge '" + getID() + "'.");
                 }
             }
         }
@@ -1973,13 +1973,13 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
             no++;
         } else {
             if ((*i).tlID != tlID && static_cast<int>((*i).tlLinkNo) == tlIndex) {
-                WRITE_WARNING("The lane " + toString<int>((*i).fromLane) + " on edge " + getID() + " already had a traffic light signal.");
+                WRITE_WARNING("The lane '" + toString<int>((*i).fromLane) + "' on edge '" + getID() + "' already had a traffic light signal.");
                 hadError = true;
             }
         }
     }
     if (hadError && no == 0) {
-        WRITE_WARNING("Could not set any signal of the traffic light '" + tlID + "' (unknown group)");
+        WRITE_WARNING("Could not set any signal of the tlLogic '" + tlID + "' (unknown group)");
     }
     return true;
 }

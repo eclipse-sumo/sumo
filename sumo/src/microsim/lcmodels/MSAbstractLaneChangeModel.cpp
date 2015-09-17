@@ -203,8 +203,8 @@ MSAbstractLaneChangeModel::continueLaneChangeManeuver(bool moved) {
         myVehicle.enterLaneAtLaneChange(myShadowLane);
         myShadowLane = tmp;
         if (myVehicle.fixPosition()) {
-            WRITE_WARNING("vehicle '" + myVehicle.getID() + "' set back by " + toString(myVehicle.getPositionOnLane() - myVehicle.getLane()->getLength()) +
-                          "m when changing lanes on lane '" + myVehicle.getLane()->getID() + " time=" +
+            WRITE_WARNING("Vehicle '" + myVehicle.getID() + "' set back by " + toString(myVehicle.getPositionOnLane() - myVehicle.getLane()->getLength()) +
+                          "m when changing lanes on lane '" + myVehicle.getLane()->getID() + "' time=" +
                           time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         }
         changed(myLaneChangeDirection);

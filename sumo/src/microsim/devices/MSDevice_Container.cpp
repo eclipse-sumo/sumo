@@ -113,8 +113,8 @@ MSDevice_Container::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
             MSTransportable* container = *i;
             if (&(container->getDestination()) != veh.getEdge()) {
                 WRITE_WARNING("Teleporting container '" + container->getID() +
-                              "' from vehicle destination '" + veh.getEdge()->getID() +
-                              "' to intended destination '" + container->getDestination().getID() + "'");
+                              "' from vehicle destination edge '" + veh.getEdge()->getID() +
+                              "' to intended destination edge '" + container->getDestination().getID() + "'");
             }
             if (!container->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
                 MSNet::getInstance()->getContainerControl().erase(container);

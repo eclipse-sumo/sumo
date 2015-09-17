@@ -440,7 +440,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
         const bool differentDirs = (incoming != incoming2);
         //if (ambiguousGeometry) {
         //    @todo: this warning would be helpful in many cases. However, if angle and angleFurther jump between 179 and -179 it is misleading
-        //    WRITE_WARNING("Ambigous angles at node '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
+        //    WRITE_WARNING("Ambigous angles at junction '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
         //}
         if (fabs(angleDiff) < 20) {
             const bool isOpposite = differentDirs && foundOpposite.count(*i) == 0;

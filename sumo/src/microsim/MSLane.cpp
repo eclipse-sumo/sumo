@@ -828,7 +828,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
             // for any reasons the vehicle is beyond its lane...
             // this should never happen because it is handled in MSVehicle::executeMove
             assert(false);
-            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; beyond end of lane, targetLane='" + getID() + "', time=" +
+            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; beyond end of lane, target lane='" + getID() + "', time=" +
                           time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSNet::getInstance()->getVehicleControl().registerCollision();
             MSVehicleTransfer::getInstance()->add(t, veh);
@@ -1054,7 +1054,7 @@ MSLane::succLinkSec(const SUMOVehicle& veh, unsigned int nRouteSuccs,
     }
     // the only case where this should happen is for a disconnected route (deliberately ignored)
 #ifdef _DEBUG
-    WRITE_WARNING("Could not find connection between '" + succLinkSource.getID() + "' and '" + conts[nRouteSuccs]->getID() +
+    WRITE_WARNING("Could not find connection between lane '" + succLinkSource.getID() + "' and lane '" + conts[nRouteSuccs]->getID() +
                   "' for vehicle '" + veh.getID() + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
 #endif
     return succLinkSource.myLinks.end();

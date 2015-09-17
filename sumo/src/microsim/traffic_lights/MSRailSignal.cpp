@@ -129,7 +129,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
                             noRailSignal = false;
                         } else {
                             if (outGoingLanes.size() > 1) {
-                                WRITE_WARNING("Rail lane " + currentLane->getID() + " has more than one outgoing lane but does not have a rail signal at its end");
+                                WRITE_WARNING("Rail lane '" + currentLane->getID() + "' has more than one outgoing lane but does not have a rail signal at its end");
                             }
                             const MSLane* nextLane = outGoingLanes.front();
                             succeedingBlock.push_back(nextLane);

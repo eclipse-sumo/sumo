@@ -740,11 +740,11 @@ NBNode::computeNodeShape(SUMOReal mismatchThreshold) {
             if (mismatchThreshold >= 0
                     && !tmp.around(myPosition)
                     && tmp.distance(myPosition) > mismatchThreshold) {
-                WRITE_WARNING("Junction shape for '" + myID + "' has distance " + toString(tmp.distance(myPosition)) + " to its given position");
+                WRITE_WARNING("Shape for junction '" + myID + "' has distance " + toString(tmp.distance(myPosition)) + " to its given position");
             }
         }
     } catch (InvalidArgument&) {
-        WRITE_WARNING("For node '" + getID() + "': could not compute shape.");
+        WRITE_WARNING("For junction '" + getID() + "': could not compute shape.");
         // make sure our shape is not empty because our XML schema forbids empty attributes
         myPoly.clear();
         myPoly.push_back(myPosition);
@@ -1823,7 +1823,7 @@ NBNode::buildCrossingsAndWalkingAreas() {
     // ensure that all crossings are properly connected
     for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end();) {
         if ((*it).prevWalkingArea == "" || (*it).nextWalkingArea == "") {
-            WRITE_WARNING("Discarding Invalid crossing '" + (*it).id + "' at node '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
+            WRITE_WARNING("Discarding invalid crossing '" + (*it).id + "' at junction '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
             for (std::vector<WalkingArea>::iterator it_wa = myWalkingAreas.begin(); it_wa != myWalkingAreas.end(); it_wa++) {
                 if ((*it_wa).nextCrossing == (*it).id) {
                     (*it_wa).nextCrossing = "";
@@ -1929,7 +1929,7 @@ NBNode::buildCrossings() {
         if (edges.front()->getFirstNonPedestrianLaneIndex(begDir) < 0
                 || edges.back()->getFirstNonPedestrianLaneIndex(endDir) < 0) {
             // invalid crossing
-            WRITE_WARNING("Discarding Invalid crossing '" + (*it).id + "' at node '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
+            WRITE_WARNING("Discarding invalid crossing '" + (*it).id + "' at junction '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
             it = myCrossings.erase(it);
         } else {
             NBEdge::Lane crossingBeg = edges.front()->getFirstNonPedestrianLane(begDir);
@@ -2078,7 +2078,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                     && (normalizedLanes[end].second.permissions & SVC_PEDESTRIAN) == 0) {
                 // crossing ends
                 if ((*it).nextWalkingArea != "") {
-                    WRITE_WARNING("Invalid pedestrian topology at node '" + getID() 
+                    WRITE_WARNING("Invalid pedestrian topology at junction '" + getID() 
                             + "'; crossing '" + (*it).id 
                             + "' targets '" + (*it).nextWalkingArea 
                             + "' and '" + wa.id + "'.");
@@ -2097,7 +2097,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                     && (normalizedLanes[prev].second.permissions & SVC_PEDESTRIAN) == 0) {
                 // crossing starts
                 if ((*it).prevWalkingArea != "") {
-                    WRITE_WARNING("Invalid pedestrian topology at node '" + getID() 
+                    WRITE_WARNING("Invalid pedestrian topology at junction '" + getID() 
                             + "'; crossing '" + (*it).id 
                             + "' is targeted by '" + (*it).prevWalkingArea 
                             + "' and '" + wa.id + "'.");

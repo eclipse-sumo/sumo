@@ -105,7 +105,7 @@ MSDevice_BTsender::notifyEnter(SUMOVehicle& veh, Notification reason) {
 bool
 MSDevice_BTsender::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal newPos, SUMOReal newSpeed) {
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
-        WRITE_WARNING("btsender: Can not update position of a vehicle that is not within the road network (" + veh.getID() + ").");
+        WRITE_WARNING("btsender: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
         return true;
     }
     const MSVehicle& v = static_cast<MSVehicle&>(veh);
@@ -120,7 +120,7 @@ MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, SUMOReal /* lastPos */, Notific
         return true;
     }
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
-        WRITE_WARNING("btsender: Can not update position of a vehicle that is not within the road network (" + veh.getID() + ").");
+        WRITE_WARNING("btsender: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
         return true;
     }
     const MSVehicle& v = static_cast<MSVehicle&>(veh);

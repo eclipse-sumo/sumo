@@ -363,7 +363,7 @@ MSBaseVehicle::calculateArrivalParams() {
     }
     if (myParameter->arrivalLaneProcedure == ARRIVAL_LANE_GIVEN) {
         if (myParameter->arrivalLane >= (int)lanes.size() || !lanes[myParameter->arrivalLane]->allowsVehicleClass(myType->getVehicleClass())) {
-            WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive at the given lane!");
+            WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive at the given lane '" + myRoute->getLastEdge()->getID() + "_" + toString(myParameter->arrivalLane) + "'!");
         }
         myArrivalLane = MIN2(myParameter->arrivalLane, (int)(lanes.size() - 1));
     }

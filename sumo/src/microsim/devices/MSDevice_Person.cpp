@@ -117,8 +117,8 @@ MSDevice_Person::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
             MSTransportable* person = *i;
             if (&(person->getDestination()) != veh.getEdge()) {
                 WRITE_WARNING("Teleporting person '" + person->getID() +
-                              "' from vehicle destination '" + veh.getEdge()->getID() +
-                              "' to intended destination '" + person->getDestination().getID() + "'");
+                              "' from vehicle destination edge '" + veh.getEdge()->getID() +
+                              "' to intended destination edge '" + person->getDestination().getID() + "'");
             }
             if (!person->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
                 MSNet::getInstance()->getPersonControl().erase(person);

@@ -437,9 +437,9 @@ NBNodeCont::addJoinExclusion(const std::vector<std::string>& ids, bool check) {
         // error handling has to take place here since joinExclusions could be
         // loaded from multiple files / command line
         if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join exclusion for node '" + *it +  "' since it already occured in a list of nodes to be joined");
+            WRITE_WARNING("Ignoring join exclusion for junction '" + *it +  "' since it already occured in a list of nodes to be joined");
         } else if (check && retrieve(*it) == 0) {
-            WRITE_WARNING("Ignoring join exclusion for unknown node '" + *it + "'");
+            WRITE_WARNING("Ignoring join exclusion for unknown junction '" + *it + "'");
         } else {
             myJoinExclusions.insert(*it);
         }
@@ -452,10 +452,10 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster) {
     // error handling has to take place here since joins could be loaded from multiple files
     for (std::set<std::string>::const_iterator it = cluster.begin(); it != cluster.end(); it++) {
         if (myJoinExclusions.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because node '" + *it + "' was already excluded from joining");
+            WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' was already excluded from joining");
             return;
         } else if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because node '" + *it + "' already occured in another join-cluster");
+            WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' already occured in another join-cluster");
             return;
         } else {
             myJoined.insert(*it);
@@ -474,7 +474,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLigh
         for (std::set<std::string>::iterator it_id = it->begin(); it_id != it->end(); it_id++) {
             NBNode* node = retrieve(*it_id);
             if (node == 0) {
-                WRITE_WARNING("Ignoring unknown node '" + *it_id + "' while joining");
+                WRITE_WARNING("Ignoring unknown junction '" + *it_id + "' while joining");
             } else {
                 cluster.insert(node);
             }
@@ -829,7 +829,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         for (std::vector<std::string>::const_iterator i = notTLControlledNodes.begin(); i != notTLControlledNodes.end(); ++i) {
             NBNode* n = NBNodeCont::retrieve(*i);
             if (n == 0) {
-                throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
+                throw ProcessError(" The junction '" + *i + "' to set as not-controlled is not known.");
             }
             std::set<NBTrafficLightDefinition*> tls = n->getControllingTLS();
             for (std::set<NBTrafficLightDefinition*>::const_iterator j = tls.begin(); j != tls.end(); ++j) {
@@ -1037,7 +1037,7 @@ NBNodeCont::setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc,
     NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, node, 0, type);
     if (!tlc.insert(tlDef)) {
         // actually, nothing should fail here
-        WRITE_WARNING("Building a tl-logic for node '" + id + "' twice is not possible.");
+        WRITE_WARNING("Building a tl-logic for junction '" + id + "' twice is not possible.");
         delete tlDef;
         return;
     }

@@ -1493,7 +1493,7 @@ MSVehicle::executeMove() {
     if (!hasArrived() && !myLane->getEdge().isVaporizing()) {
         if (myState.myPos > myLane->getLength()) {
             WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop at the end of lane '" + myLane->getID()
-                          + emergencyReason
+                          + "'" + emergencyReason
                           + " (decel=" + toString(myAcceleration - myState.mySpeed)
                           + "), time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSNet::getInstance()->getVehicleControl().registerEmergencyStop();

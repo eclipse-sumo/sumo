@@ -258,12 +258,12 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
         NIOSMNode* n = myOSMNodes.find(id)->second;
         Position pos(n->lon, n->lat, n->ele);
         if (!NBNetBuilder::transformCoordinates(pos, true)) {
-            WRITE_ERROR("Unable to project coordinates for node " + toString(id) + ".");
+            WRITE_ERROR("Unable to project coordinates for junction '" + toString(id) + "'.");
             return 0;
         }
         node = new NBNode(toString(id), pos);
         if (!nc.insert(node)) {
-            WRITE_ERROR("Could not insert node '" + toString(id) + "').");
+            WRITE_ERROR("Could not insert junction '" + toString(id) + "'.");
             delete node;
             return 0;
         }
@@ -295,7 +295,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     // patch the id
     std::string id = toString(e->id);
     if (from == 0 || to == 0) {
-        WRITE_ERROR("Discarding edge " + id + " because the nodes could not be built.");
+        WRITE_ERROR("Discarding edge '" + id + "' because the nodes could not be built.");
         return index;
     }
     if (index >= 0) {
@@ -322,7 +322,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         NIOSMNode* n = myOSMNodes.find(*i)->second;
         Position pos(n->lon, n->lat, n->ele);
         if (!NBNetBuilder::transformCoordinates(pos, true)) {
-            WRITE_ERROR("Unable to project coordinates for edge " + id + ".");
+            WRITE_ERROR("Unable to project coordinates for edge '" + id + "'.");
         }
         shape.push_back_noDoublePos(pos);
     }
@@ -345,11 +345,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                         types.push_back(t);
                     }
                 } else if (tok.size() > 1) {
-                    WRITE_WARNING("Discarding unknown compound \"" + t + "\" in type \"" + type + "\" (first occurence for edge \"" + id + "\").");
+                    WRITE_WARNING("Discarding unknown compound '" + t + "' in type '" + type + "' (first occurence for edge '" + id + "').");
                 }
             }
             if (types.size() == 0) {
-                WRITE_WARNING("Discarding unusable type \"" + type + "\" (first occurence for edge \"" + id + "\").");
+                WRITE_WARNING("Discarding unusable type '" + type + "' (first occurence for edge '" + id + "').");
                 myUnusableTypes.insert(type);
                 return newIndex;
             } else {
@@ -387,11 +387,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                         width = MAX2(width, SUMO_const_laneWidth);
                     }
                     if (discard) {
-                        WRITE_WARNING("Discarding compound type \"" + newType + "\" (first occurence for edge \"" + id + "\").");
+                        WRITE_WARNING("Discarding compound type '" + newType + "' (first occurence for edge '" + id + "').");
                         myUnusableTypes.insert(newType);
                         return newIndex;
                     } else {
-                        WRITE_MESSAGE("Adding new type \"" + type + "\" (first occurence for edge \"" + id + "\").");
+                        WRITE_MESSAGE("Adding new type '" + type + "' (first occurence for edge '" + id + "').");
                         tc.insert(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay, sidewalkWidth, bikelaneWidth);
                         for (std::vector<std::string>::iterator it = types.begin(); it != types.end(); it++) {
                             if (!tc.getShallBeDiscarded(*it)) {
@@ -533,7 +533,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             if (!ec.insert(nbe)) {
                 delete nbe;
-                throw ProcessError("Could not add edge " + id + "'.");
+                throw ProcessError("Could not add edge '" + id + "'.");
             }
         }
     }

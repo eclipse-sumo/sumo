@@ -153,7 +153,7 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
             setActBatKap(0);
 
             if (getMaxBatKap() > 0) {
-                WRITE_WARNING("Battery from vehicle with ID =  '" + veh.getID() + "' is depleted.");
+                WRITE_WARNING("Battery of vehicle '" + veh.getID() + "' is depleted.");
             }
 
         } else if (getActBatKap() > getMaxBatKap()) {
@@ -310,51 +310,51 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     actChrgStn = "NULL";
 
     if (ActBatKap > MaxBatKap) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has a actual battery capacity ("  + SUMOReal_str(ActBatKap) + ") greater than it's max battery capacity(" + SUMOReal_str(MaxBatKap) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has a actual battery capacity ("  + SUMOReal_str(ActBatKap) + ") greater than it's max battery capacity(" + SUMOReal_str(MaxBatKap) + ").");
     }
 
     if (MaxBatKap < 0) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has not a valid battery capacity (" + SUMOReal_str(MaxBatKap) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid battery capacity (" + SUMOReal_str(MaxBatKap) + ").");
     }
 
     if (PowerMax < 0) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has not a valid power max (" + SUMOReal_str(PowerMax) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid power max (" + SUMOReal_str(PowerMax) + ").");
     }
 
     if (Mass < 0) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has not a valid mass (" + SUMOReal_str(Mass) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid mass (" + SUMOReal_str(Mass) + ").");
     }
 
     if (FrontSurfaceArea < 0) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has not a valid front surface Area (" + SUMOReal_str(FrontSurfaceArea) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid front surface Area (" + SUMOReal_str(FrontSurfaceArea) + ").");
     }
 
     if (AirDragCoefficient < 0) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has not a valid drag coefficient (" + SUMOReal_str(AirDragCoefficient) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid drag coefficient (" + SUMOReal_str(AirDragCoefficient) + ").");
     }
 
     if (InternalMomentOfInertia < 0) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has not a valid internal moment of inertia (" + SUMOReal_str(InternalMomentOfInertia) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid internal moment of inertia (" + SUMOReal_str(InternalMomentOfInertia) + ").");
     }
 
     if (RadialDragCoefficient < 0) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has not a valid radial friction coefficient (" + SUMOReal_str(RadialDragCoefficient) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid radial friction coefficient (" + SUMOReal_str(RadialDragCoefficient) + ").");
     }
 
     if (RollDragCoefficient < 0) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has not a valid roll friction coefficient (" + SUMOReal_str(RollDragCoefficient) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid roll friction coefficient (" + SUMOReal_str(RollDragCoefficient) + ").");
     }
 
     if (ConstantPowerIntake < 0) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has not a valid constant power intake (" + SUMOReal_str(ConstantPowerIntake) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid constant power intake (" + SUMOReal_str(ConstantPowerIntake) + ").");
     }
 
     if (PropulsionEfficiency < 0 || PropulsionEfficiency > 1) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has not a valid propulsion efficiency (" + SUMOReal_str(PropulsionEfficiency) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid propulsion efficiency (" + SUMOReal_str(PropulsionEfficiency) + ").");
     }
 
     if (RecuperationEfficiency < 0 || RecuperationEfficiency > 1) {
-        WRITE_WARNING("Battery builder: Vehicle with id = " + getID() + " has not a valid Recuparation efficiency (" + SUMOReal_str(RecuperationEfficiency) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid Recuparation efficiency (" + SUMOReal_str(RecuperationEfficiency) + ").");
     }
 }
 
@@ -369,7 +369,7 @@ void MSDevice_Battery::setActBatKap(const SUMOReal new_ActBatKap) {
     ActBatKap = new_ActBatKap;
 
     if (ActBatKap > MaxBatKap) {
-        WRITE_WARNING("Function setActBatKap: Actual battery capacity ("  + SUMOReal_str(ActBatKap) + ") from Vehicle with id = " + getID() + " is greater than it's max battery capacity(" + SUMOReal_str(MaxBatKap) + ").");
+        WRITE_WARNING("Function setActBatKap: Actual battery capacity ("  + SUMOReal_str(ActBatKap) + ") from Vehicle '" + getID() + "' is greater than it's max battery capacity(" + SUMOReal_str(MaxBatKap) + ").");
     }
 }
 
@@ -378,7 +378,7 @@ void MSDevice_Battery::setMaxBatKap(const SUMOReal new_MaxBatKap) {
     MaxBatKap = new_MaxBatKap;
 
     if (MaxBatKap < 0) {
-        WRITE_WARNING("Function setMaxBatKap: Vehicle with id = " + getID() + " has not a valid battery capacity (" + SUMOReal_str(MaxBatKap) + ").");
+        WRITE_WARNING("Function setMaxBatKap: Vehicle '" + getID() + "' has not a valid battery capacity (" + SUMOReal_str(MaxBatKap) + ").");
     }
 }
 
@@ -387,7 +387,7 @@ void MSDevice_Battery::setMass(const SUMOReal new_Mass) {
     Mass = new_Mass;
 
     if (Mass < 0) {
-        WRITE_WARNING("Function setMass: Vehicle with id = " + getID() + " has not a valid mass (" + SUMOReal_str(Mass) + ").");
+        WRITE_WARNING("Function setMass: Vehicle '" + getID() + "' has not a valid mass (" + SUMOReal_str(Mass) + ").");
     }
 }
 
@@ -396,7 +396,7 @@ void MSDevice_Battery::setPowerMax(const SUMOReal new_PowerMax) {
     PowerMax = new_PowerMax;
 
     if (PowerMax < 0) {
-        WRITE_WARNING("Function setPowerMax: Vehicle with id = " + getID() + " has not a valid power max (" + SUMOReal_str(PowerMax) + ").");
+        WRITE_WARNING("Function setPowerMax: Vehicle '" + getID() + "' has not a valid power max (" + SUMOReal_str(PowerMax) + ").");
     }
 }
 
@@ -404,7 +404,7 @@ void MSDevice_Battery::setFrontSurfaceArea(const SUMOReal new_FrontSurfaceArea) 
     FrontSurfaceArea = new_FrontSurfaceArea;
 
     if (FrontSurfaceArea < 0) {
-        WRITE_WARNING("Function setFrontSurfaceArea: Vehicle with id = " + getID() + " has not a valid front surface Area (" + SUMOReal_str(FrontSurfaceArea) + ").");
+        WRITE_WARNING("Function setFrontSurfaceArea: Vehicle '" + getID() + "' has not a valid front surface Area (" + SUMOReal_str(FrontSurfaceArea) + ").");
     }
 }
 
@@ -413,7 +413,7 @@ void MSDevice_Battery::setAirDragCoefficient(const SUMOReal new_AirDragCoefficie
     AirDragCoefficient = new_AirDragCoefficient;
 
     if (AirDragCoefficient < 0) {
-        WRITE_WARNING("Function setAirDragCoefficient: Vehicle with id = " + getID() + " has not a valid drag coefficient (" + SUMOReal_str(AirDragCoefficient) + ").");
+        WRITE_WARNING("Function setAirDragCoefficient: Vehicle '" + getID() + "' has not a valid drag coefficient (" + SUMOReal_str(AirDragCoefficient) + ").");
     }
 }
 
@@ -422,7 +422,7 @@ void MSDevice_Battery::setInternalMomentOfInertia(const SUMOReal new_InternalMom
     InternalMomentOfInertia = new_InternalMomentOfInertia;
 
     if (InternalMomentOfInertia < 0) {
-        WRITE_WARNING("Function setInternalMomentOfInertia: Vehicle with id = " + getID() + " has not a valid internal moment of inertia (" + SUMOReal_str(InternalMomentOfInertia) + ").");
+        WRITE_WARNING("Function setInternalMomentOfInertia: Vehicle '" + getID() + "' has not a valid internal moment of inertia (" + SUMOReal_str(InternalMomentOfInertia) + ").");
     }
 }
 
@@ -431,7 +431,7 @@ void MSDevice_Battery::setRadialDragCoefficient(const SUMOReal new_RadialDragCoe
     RadialDragCoefficient = new_RadialDragCoefficient;
 
     if (RadialDragCoefficient < 0) {
-        WRITE_WARNING("Function setRadialDragCoefficient: Vehicle with id = " + getID() + " has not a valid radial friction coefficient (" + SUMOReal_str(RadialDragCoefficient) + ").");
+        WRITE_WARNING("Function setRadialDragCoefficient: Vehicle '" + getID() + "' has not a valid radial friction coefficient (" + SUMOReal_str(RadialDragCoefficient) + ").");
     }
 }
 
@@ -440,7 +440,7 @@ void MSDevice_Battery::setRollDragCoefficient(const SUMOReal new_RollDragCoeffic
     RollDragCoefficient = new_RollDragCoefficient;
 
     if (RollDragCoefficient < 0) {
-        WRITE_WARNING("Function setRollDragCoefficient: Vehicle with id = " + getID() + " has not a valid roll friction coefficient (" + SUMOReal_str(RollDragCoefficient) + ").");
+        WRITE_WARNING("Function setRollDragCoefficient: Vehicle '" + getID() + "' has not a valid roll friction coefficient (" + SUMOReal_str(RollDragCoefficient) + ").");
     }
 }
 
@@ -449,7 +449,7 @@ void MSDevice_Battery::setConstantPowerIntake(const SUMOReal new_ConstantPowerIn
     ConstantPowerIntake = new_ConstantPowerIntake;
 
     if (ConstantPowerIntake < 0) {
-        WRITE_WARNING("Function setConstantPowerIntake: Vehicle with id = " + getID() + " has not a valid constant power intake (" + SUMOReal_str(ConstantPowerIntake) + ").");
+        WRITE_WARNING("Function setConstantPowerIntake: Vehicle '" + getID() + "' has not a valid constant power intake (" + SUMOReal_str(ConstantPowerIntake) + ").");
     }
 }
 
@@ -458,7 +458,7 @@ void MSDevice_Battery::setPropulsionEfficiency(const SUMOReal new_PropulsionEffi
     PropulsionEfficiency = new_PropulsionEfficiency;
 
     if (PropulsionEfficiency < 0 || PropulsionEfficiency > 1) {
-        WRITE_WARNING("Function setPropulsionEfficiency: Vehicle with id = " + getID() + " has not a valid propulsion efficiency (" + SUMOReal_str(PropulsionEfficiency) + ").");
+        WRITE_WARNING("Function setPropulsionEfficiency: Vehicle '" + getID() + "' has not a valid propulsion efficiency (" + SUMOReal_str(PropulsionEfficiency) + ").");
     }
 }
 
@@ -467,7 +467,7 @@ void MSDevice_Battery::setRecuperationEfficiency(const SUMOReal new_Recuperation
     RecuperationEfficiency = new_RecuperationEfficiency;
 
     if (RecuperationEfficiency < 0 || RecuperationEfficiency > 1) {
-        WRITE_WARNING("Function setRecuperationEfficiency: Vehicle with id = " + getID() + " has not a valid recuparation efficiency (" + SUMOReal_str(RecuperationEfficiency) + ").");
+        WRITE_WARNING("Function setRecuperationEfficiency: Vehicle '" + getID() + "' has not a valid recuparation efficiency (" + SUMOReal_str(RecuperationEfficiency) + ").");
     }
 }
 

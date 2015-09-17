@@ -252,7 +252,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::Veh
                 leaveRange(receiver, intersectionReceiverData,
                            sender, intersectionSenderData, (intersections.back() - 1.) * TS);
             } else {
-                WRITE_WARNING("The vehicle '" + sender.getID() + "' cannot be in the range of '" + receiver.getID() + "', leave, and enter it in one step.");
+                WRITE_WARNING("The vehicle '" + sender.getID() + "' cannot be in the range of vehicle '" + receiver.getID() + "', leave, and enter it in one step.");
             }
             break;
         default:
@@ -414,7 +414,7 @@ MSDevice_BTreceiver::notifyEnter(SUMOVehicle& veh, Notification reason) {
 bool
 MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal newPos, SUMOReal newSpeed) {
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
-        WRITE_WARNING("btreceiver: Can not update position of a vehicle that is not within the road network (" + veh.getID() + ").");
+        WRITE_WARNING("btreceiver: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
         return true;
     }
     const MSVehicle& v = static_cast<MSVehicle&>(veh);
@@ -429,7 +429,7 @@ MSDevice_BTreceiver::notifyLeave(SUMOVehicle& veh, SUMOReal /* lastPos */, Notif
         return true;
     }
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
-        WRITE_WARNING("btreceiver: Can not update position of a vehicle that is not within the road network (" + veh.getID() + ").");
+        WRITE_WARNING("btreceiver: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
         return true;
     }
     const MSVehicle& v = static_cast<MSVehicle&>(veh);

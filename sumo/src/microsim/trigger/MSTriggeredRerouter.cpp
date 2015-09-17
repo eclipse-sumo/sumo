@@ -309,7 +309,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
                 // if permissions aren't set vehicles will simply drive through
                 // the closing unless terminated. If the permissions are specified, assume that the user wants
                 // vehicles to stand and wait until the closing ends
-                WRITE_WARNING("Cannot keep destination for vehicle '" + veh.getID() + "' due to closed edges. Terminating route.");
+                WRITE_WARNING("Cannot keep destination edge '" + lastEdge->getID() + "' for vehicle '" + veh.getID() + "' due to closed edges. Terminating route.");
                 newEdge = veh.getEdge();
             } else {
                 newEdge = lastEdge;
