@@ -39,6 +39,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/foxtools/MFXUtils.h>
+#include <utils/foxtools/FXLinkLabel.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/options/OptionsCont.h>
@@ -480,7 +481,7 @@ GNEApplicationWindow::fillMenuBar() {
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Help", 0, myHelpMenu);
-    new FXMenuCommand(myHelpMenu, "&Hotkeys", 0, this, MID_GNE_HELP);
+    new FXMenuCommand(myHelpMenu, "&Online Documentation", 0, this, MID_GNE_HELP);
     new FXMenuCommand(myHelpMenu, "&About", 0, this, MID_ABOUT);
 }
 
@@ -956,44 +957,7 @@ GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
-    const char* help = "<Mouse>\n"
-            "    <Button-Left>: Execute mode specific action\n"
-            "    <Button-Right>: Open context-menu\n"
-            "    <Button-Right-Drag>: Change zoom\n"
-            "    <Button-Left-Drag>: Move the view around (\"panning\")\n"
-            "         in 'Move'-mode pointing at an edge: move / create geometry points\n"
-            "         in 'Move'-mode pointing at a node: move node\n"
-            "         in 'Move'-mode pointing at a selected object: move all selected nodes and edges including geometry\n"
-            "                If both nodes of an edge are selected, move the whole geometry\n"
-            "                Otherwise, move only the geometry near the cursor\n"
-            "\n"
-            "<ESC>\n"
-            "    in 'Create Edge'-mode:  clear the currently selected source junction\n"
-            "    in 'Select'-mode:  clear the currently selection; cancel rectangle selection\n"
-            "    in 'Connect'-mode:  revert changes to current lane\n"
-            "    in 'Traffic Light'-mode:  revert changes to current traffic light\n"
-            "<DEL>\n"
-            "    delete all currently selected items\n"
-            "<SHIFT>\n"
-            "    in 'Select'-mode:  hold <SHIFT> and drag the mouse for rectangle selection\n"
-            "<CTRL>\n"
-            "    in 'Create Edge'-mode, allow moving the view without defining junctions\n"
-            "<Enter>\n"
-            "    in 'Inspect'-mode: confirm attribute changes\n"
-            "    in 'Connect'-mode: save changes to current lane\n"
-            "    in 'Traffic Light'-mode: save changes to current traffic light\n"
-            "\n"
-            "Every edit mode can be selected with a hotkey.\n"
-            "That hotkey is shown in front of the mode name.\n"
-            "i.e. \"(i) Inspect\" has the hotkey \"i\"\n"
-            "Pressing the hotkey for a mode when already in that mode\n"
-            "toggles back to the previous mode.\n"
-            "\n"
-            "In addition to these hotkeys, all hotkeys for moving and zooming in SUMO-GUI are supported\n"
-            "\n"
-            "Hint: Most menu commands are accessible via hotkey.\n"
-            "The hotkey is shown right beside the command name.";
-    FXMessageBox::information(this, MBOX_OK, "Hotkey Help", "%s", help);
+    FXLinkLabel::fxexecute("http://sumo.dlr.de/wiki/NETEDIT");
     return 1;
 }
 

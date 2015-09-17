@@ -61,6 +61,9 @@ public:
     // FOX messages
     long onLeftBtnPress(FXObject*, FXSelector, void*);
     long onTimer(FXObject*, FXSelector, void*);
+
+    // open the given link in a browser or pdf viewer
+    static FXint fxexecute(FXString link); 
 };
 
 
