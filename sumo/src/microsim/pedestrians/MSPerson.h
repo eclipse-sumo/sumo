@@ -251,6 +251,11 @@ public:
         /// @brief Whether the person waits for a vehicle
         bool isWaiting4Vehicle() const;
 
+        /// @brief The vehicle the person is riding or 0
+        SUMOVehicle* getVehicle() const {
+            return myVehicle;
+        }
+
         /// @brief time spent waiting for a ride
         SUMOTime getWaitingTime(SUMOTime now) const;
 

@@ -156,7 +156,12 @@ GUIContainer::getParameterWindow(GUIMainWindow& app,
 Boundary
 GUIContainer::getCenteringBoundary() const {
     Boundary b;
-    b.add(getPosition());
+    // ensure that the vehicle is drawn, otherwise myPositionInVehicle will not be updated
+    if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle()) {
+        b.add(getVehicle()->getPosition());
+    } else {
+        b.add(getPosition());
+    }
     b.grow(20);
     return b;
 }

@@ -105,6 +105,11 @@ public:
         /// Whether the container waits for a vehicle of the line specified.
         bool isWaitingFor(const std::string& line) const;
 
+        /// @brief The vehicle the person is riding or 0
+        SUMOVehicle* getVehicle() const {
+            return myVehicle;
+        }
+
         /// @brief Whether the container waits for a vehicle
         bool isWaiting4Vehicle() const;
 

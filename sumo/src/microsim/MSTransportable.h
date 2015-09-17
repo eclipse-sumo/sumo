@@ -40,6 +40,7 @@ class MSVehicleType;
 class OutputDevice;
 class Position;
 class SUMOVehicleParameter;
+class SUMOVehicle;
 
 
 // ===========================================================================
@@ -109,6 +110,11 @@ public:
             return false;
         }
 
+        /// @brief Whether the transportable waits for a vehicle
+        virtual SUMOVehicle* getVehicle() const {
+            return 0;
+        }
+
         /// @brief the time this transportable spent waiting
         virtual SUMOTime getWaitingTime(SUMOTime now) const = 0;
 
@@ -140,13 +146,13 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void beginEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const = 0;
+        virtual void beginEventOutput(const MSTransportable& transportable, SUMOTime t, OutputDevice& os) const = 0;
 
         /** @brief Called for writing the events output (end of an action)
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void endEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const = 0;
+        virtual void endEventOutput(const MSTransportable& transportable, SUMOTime t, OutputDevice& os) const = 0;
 
     protected:
         /// the next edge to reach by getting transported
@@ -170,7 +176,7 @@ public:
 
     };
 
-    /// the structure holding the plan of a container
+    /// the structure holding the plan of a transportable
     typedef std::vector<MSTransportable::Stage*> MSTransportablePlan;
 
     /// constructor
@@ -180,7 +186,7 @@ public:
     virtual ~MSTransportable();
 
     /* @brief proceeds to the next step of the route,
-     * @return Whether the containers plan continues  */
+     * @return Whether the transportables plan continues  */
     virtual bool proceed(MSNet* net, SUMOTime time) = 0;
 
     /// returns the id of the transportable
@@ -223,19 +229,19 @@ public:
     /// @brief Return the position on the edge
     virtual SUMOReal getEdgePos() const;
 
-    /// @brief Return the Network coordinate of the container
+    /// @brief Return the Network coordinate of the transportable
     virtual Position getPosition() const;
 
-    /// @brief return the current angle of the container
+    /// @brief return the current angle of the transportable
     virtual SUMOReal getAngle() const;
 
-    /// @brief the time this container spent waiting in seconds
+    /// @brief the time this transportable spent waiting in seconds
     virtual SUMOReal getWaitingSeconds() const;
 
-    /// @brief the current speed of the container
+    /// @brief the current speed of the transportable
     virtual SUMOReal getSpeed() const;
 
-    /// @brief the current stage type of the container
+    /// @brief the current stage type of the transportable
     StageType getCurrentStageType() const {
         return (*myStep)->getStageType();
     }
@@ -264,28 +270,33 @@ public:
      */
     virtual void routeOutput(OutputDevice& os) const = 0;
 
-    /// Whether the container waits for a vehicle of the line specified.
+    /// Whether the transportable waits for a vehicle of the line specified.
     bool isWaitingFor(const std::string& line) const {
         return (*myStep)->isWaitingFor(line);
     }
 
-    /// Whether the container waits for a vehicle
+    /// Whether the transportable waits for a vehicle
     bool isWaiting4Vehicle() const {
         return (*myStep)->isWaiting4Vehicle();
     }
 
+    /// The vehicle associated with this transportable
+    SUMOVehicle* getVehicle() const {
+        return (*myStep)->getVehicle();
+    }
+
 protected:
-    /// the plan of the container
+    /// the plan of the transportable
     const SUMOVehicleParameter* myParameter;
 
-    /// @brief This container's type. (mainly used for drawing related information
+    /// @brief This transportable's type. (mainly used for drawing related information
     /// Note sure if it is really necessary
     const MSVehicleType* myVType;
 
     /// @brief Whether events shall be written
     bool myWriteEvents;
 
-    /// the plan of the container
+    /// the plan of the transportable
     MSTransportablePlan* myPlan;
 
     /// the iterator over the route
