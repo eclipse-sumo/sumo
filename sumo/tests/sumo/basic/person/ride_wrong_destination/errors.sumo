@@ -1,2 +1,2 @@
-Warning: Person p1 aborted waiting for a ride that will never come.
+Warning: Person 'p1' aborted waiting for a ride that will never come.
 Warning: Vehicle v1 aborted waiting for a person or a container that will never come.
