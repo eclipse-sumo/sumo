@@ -740,6 +740,12 @@ GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
         }
     }
     std::string cmd = netedit + " --registry-viewport -s "  + OptionsCont::getOptions().getString("net-file");
+    // start in background
+#ifndef WIN32
+    cmd = cmd + " &";
+#else
+    cmd = "start " + cmd;
+#endif
     WRITE_MESSAGE("Running " + cmd + ".");
     // yay! fun with dangerous commands... Never use this over the internet
     SysUtils::runHiddenCommand(cmd);
