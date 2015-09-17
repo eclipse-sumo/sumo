@@ -29,11 +29,12 @@
 #include <config.h>
 #endif
 
-#include "GUIDialog_AppSettings.h"
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <gui/GUIGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/div/GUIMessageWindow.h>
+#include <gui/GUIGlobals.h>
+#include "GUIDialog_AppSettings.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -46,6 +47,7 @@
 FXDEFMAP(GUIDialog_AppSettings) GUIDialog_AppSettingsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_AppSettings::onCmdQuitOnEnd),
     FXMAPFUNC(SEL_COMMAND,  MID_ALLOWTEXTURES,   GUIDialog_AppSettings::onCmdAllowTextures),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATELINKS,     GUIDialog_AppSettings::onCmdLocateLinks),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_AppSettings::onCmdOk),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_AppSettings::onCmdCancel),
 };
@@ -59,15 +61,17 @@ FXIMPLEMENT(GUIDialog_AppSettings, FXDialogBox, GUIDialog_AppSettingsMap, ARRAYN
 GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
     : FXDialogBox(parent, "Application Settings"),
       myAppQuitOnEnd(GUIGlobals::gQuitOnEnd),
-      myAllowTextures(GUITexturesHelper::texturesAllowed()) {
+      myAllowTextures(GUITexturesHelper::texturesAllowed()),
+      myLocateLinks(GUIMessageWindow::locateLinksEnabled()) {
     FXCheckButton* b = 0;
     FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
     b = new FXCheckButton(f1, "Quit on Simulation End", this , MID_QUITONSIMEND);
     b->setCheck(myAppQuitOnEnd);
+    b = new FXCheckButton(f1, "Locate elements when clicking on messages", this , MID_LOCATELINKS);
+    b->setCheck(myLocateLinks);
     new FXHorizontalSeparator(f1, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
     b = new FXCheckButton(f1, "Allow Textures", this , MID_ALLOWTEXTURES);
     b->setCheck(myAllowTextures);
-    b->disable();
     FXHorizontalFrame* f2 = new FXHorizontalFrame(f1, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 5);
     FXButton* initial = new FXButton(f2, "&OK", NULL, this, MID_SETTINGS_OK, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     new FXButton(f2, "&Cancel", NULL, this, MID_SETTINGS_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
@@ -83,6 +87,7 @@ long
 GUIDialog_AppSettings::onCmdOk(FXObject*, FXSelector, void*) {
     GUIGlobals::gQuitOnEnd = myAppQuitOnEnd;
     GUITexturesHelper::allowTextures(myAllowTextures);
+    GUIMessageWindow::enableLocateLinks(myLocateLinks);
     destroy();
     return 1;
 }
@@ -109,6 +114,11 @@ GUIDialog_AppSettings::onCmdAllowTextures(FXObject*, FXSelector, void*) {
 }
 
 
+long
+GUIDialog_AppSettings::onCmdLocateLinks(FXObject*, FXSelector, void*) {
+    myLocateLinks = !myLocateLinks;
+    return 1;
+}
+
 
 /****************************************************************************/
-

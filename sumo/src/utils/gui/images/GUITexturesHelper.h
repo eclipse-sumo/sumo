@@ -65,12 +65,12 @@ public:
     /// @brief clears loaded textures
     static void clearTextures();
 
-    /// @brief don't draw any textures
+    /// @brief switch texture drawing on and off
     static void allowTextures(const bool val) {
         myAllowTextures = val;
     }
 
-    /// @brief clears loaded textures
+    /// @brief ask whether texture drawing is enabled
     static bool texturesAllowed() {
         return myAllowTextures;
     }

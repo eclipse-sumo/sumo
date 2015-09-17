@@ -293,6 +293,8 @@ enum {
     MID_QUITONSIMEND,
     /// Allow textures - Option
     MID_ALLOWTEXTURES,
+    /// Locate links in messages - Option
+    MID_LOCATELINKS,
     //@}
 
 

@@ -71,6 +71,9 @@ public:
 
     /// @brief Called on "Allow textures"-button change
     long onCmdAllowTextures(FXObject*, FXSelector, void*);
+
+    /// @brief Called on "Locate links in messages"-button change
+    long onCmdLocateLinks(FXObject*, FXSelector, void*);
     /// @}
 
 
@@ -80,6 +83,9 @@ private:
 
     /// @brief Information whether textures may be used
     bool myAllowTextures;
+
+    /// @brief Information whether locate links appear in messages
+    bool myLocateLinks;
 
 
 protected:

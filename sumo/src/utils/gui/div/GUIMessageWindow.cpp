@@ -32,6 +32,9 @@
 
 #include <cassert>
 #include <utils/common/MsgHandler.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/windows/GUIGlChildWindow.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include "GUIMessageWindow.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -40,53 +43,57 @@
 
 
 // ===========================================================================
+// static members
+// ===========================================================================
+bool GUIMessageWindow::myLocateLinks = true;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 GUIMessageWindow::GUIMessageWindow(FXComposite* parent) :
     FXText(parent, 0, 0, 0, 0, 0, 0, 50),
-    myStyles(0),
+    myStyles(new FXHiliteStyle[7]),
     myErrorRetriever(0),
     myMessageRetriever(0),
     myWarningRetriever(0) {
     setStyled(true);
     setEditable(false);
-    myStyles = new FXHiliteStyle[4];
+    const FXColor white = FXRGB(0xff, 0xff, 0xff);
+    const FXColor blue  = FXRGB(0x00, 0x00, 0x88);
+    const FXColor green = FXRGB(0x00, 0x88, 0x00);
+    const FXColor red   = FXRGB(0x88, 0x00, 0x00);
+    const FXColor yellow = FXRGB(0xe6, 0x98, 0x00);
     // set separator style
-    myStyles[0].normalForeColor = FXRGB(0x00, 0x00, 0x88);
-    myStyles[0].normalBackColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[0].selectForeColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[0].selectBackColor = FXRGB(0x00, 0x00, 0x88);
-    myStyles[0].hiliteForeColor = FXRGB(0x00, 0x00, 0x88);
-    myStyles[0].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[0].activeBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[0].normalForeColor = blue;
+    myStyles[0].normalBackColor = white;
+    myStyles[0].selectForeColor = white;
+    myStyles[0].selectBackColor = blue;
+    myStyles[0].hiliteForeColor = blue;
+    myStyles[0].hiliteBackColor = white;
+    myStyles[0].activeBackColor = white;
     myStyles[0].style = 0;
     // set message text style
-    myStyles[1].normalForeColor = FXRGB(0x00, 0x88, 0x00);
-    myStyles[1].normalBackColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[1].selectForeColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[1].selectBackColor = FXRGB(0x00, 0x88, 0x00);
-    myStyles[1].hiliteForeColor = FXRGB(0x00, 0x88, 0x00);
-    myStyles[1].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[1].activeBackColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[1].style = 0;
+    myStyles[1] = myStyles[0];
+    myStyles[1].normalForeColor = green;
+    myStyles[1].selectBackColor = green;
+    myStyles[1].hiliteForeColor = green;
+    myStyles[4] = myStyles[1];
+    myStyles[4].style = STYLE_UNDERLINE;
     // set error text style
-    myStyles[2].normalForeColor = FXRGB(0x88, 0x00, 0x00);
-    myStyles[2].normalBackColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[2].selectForeColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[2].selectBackColor = FXRGB(0x88, 0x00, 0x00);
-    myStyles[2].hiliteForeColor = FXRGB(0x88, 0x00, 0x00);
-    myStyles[2].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[2].activeBackColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[2].style = 0;
+    myStyles[2] = myStyles[0];
+    myStyles[2].normalForeColor = red;
+    myStyles[2].selectBackColor = red;
+    myStyles[2].hiliteForeColor = red;
+    myStyles[5] = myStyles[2];
+    myStyles[5].style = STYLE_UNDERLINE;
     // set warning text style
-    myStyles[3].normalForeColor = FXRGB(0xe6, 0x98, 0x00);
-    myStyles[3].normalBackColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[3].selectForeColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[3].selectBackColor = FXRGB(0xe6, 0x98, 0x00);
-    myStyles[3].hiliteForeColor = FXRGB(0xe6, 0x98, 0x00);
-    myStyles[3].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[3].activeBackColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[3].style = 0;
+    myStyles[3] = myStyles[0];
+    myStyles[3].normalForeColor = yellow;
+    myStyles[3].selectBackColor = yellow;
+    myStyles[3].hiliteForeColor = yellow;
+    myStyles[6] = myStyles[3];
+    myStyles[6].style = STYLE_UNDERLINE;
     //
     setHiliteStyles(myStyles);
 }
@@ -97,6 +104,42 @@ GUIMessageWindow::~GUIMessageWindow() {
     delete myMessageRetriever;
     delete myErrorRetriever;
     delete myWarningRetriever;
+}
+
+
+const GUIGlObject*
+GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const {
+    const FXint idS = MAX2(text.rfind(" '", pos), text.rfind("='", pos));
+    const FXint idE = text.find("'", pos);
+    if (idS >= 0 && idE >= 0 && idS >= lineS && idE <= lineE) {
+        const FXint typeS = text.rfind(" ", idS - 1);
+        if (typeS >= 0) {
+            const std::string type(text.mid(typeS + 1, idS - typeS - 1).lower().text());
+            const std::string id(text.mid(idS + 2, idE - idS - 2).text());
+            return GUIGlObjectStorage::gIDStorage.getObjectBlocking(type + ":" + id);
+        }
+    }
+    return 0;
+}
+
+
+void
+GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
+    FXText::setCursorPos(pos, notify);
+    if (myLocateLinks) {
+        GUIMainWindow* const main = GUIMainWindow::getInstance();
+        std::vector<std::string> viewIDs = main->getViewIDs();
+        if (viewIDs.empty()) {
+            return;
+        }
+        GUIGlChildWindow* const child = dynamic_cast<GUIGlChildWindow*>(main->getViewByID(viewIDs[0]));
+        const FXString text = getText();
+        const GUIGlObject* const glObj = getActiveStringObject(text, pos, lineStart(pos), lineEnd(pos));
+        if (glObj != 0) {
+            child->setView(glObj->getGlID());
+            GUIGlObjectStorage::gIDStorage.unblockObject(glObj->getGlID());
+        }
+    }
 }
 
 
@@ -123,8 +166,26 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
         default:
             assert(false);
     }
-    // insert message to buffer
-    FXText::appendStyledText(msg.c_str(), (FXint) msg.length(), style + 1, true);
+    FXString text(msg.c_str());
+    if (myLocateLinks) {
+        FXint pos = text.find("'");
+        while (pos >= 0) {
+            const GUIGlObject* const glObj = getActiveStringObject(text, pos + 1, 0, text.length());
+            if (glObj != 0) {
+                GUIGlObjectStorage::gIDStorage.unblockObject(glObj->getGlID());
+                FXString insText = text.left(pos + 1);
+                FXText::appendStyledText(insText, style + 1);
+                text.erase(0, pos + 1);
+                pos = text.find("'");
+                insText = text.left(pos);
+                FXText::appendStyledText(insText, style + 4);
+                text.erase(0, pos);
+            }
+            pos = text.find("'", pos + 1);
+        }
+    }
+    // insert rest of the message
+    FXText::appendStyledText(text, style + 1, true);
     FXText::setCursorPos(getLength() - 1);
     FXText::setBottomLine(getLength() - 1);
     if (isEnabled()) {
