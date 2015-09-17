@@ -161,9 +161,11 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
     new FXMenuCommand(ret, "Track Phases", 0, ret, MID_TRACKPHASES);
     new FXMenuCommand(ret, "Show Phases", 0, ret, MID_SHOWPHASES);
     new FXMenuSeparator(ret);
-    //
+    MSTrafficLightLogic* tll = myTLLogicControl.getActive(myTLLogic.getID());
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
+    new FXMenuCommand(ret, ("phase: " + toString(tll->getCurrentPhaseIndex())).c_str(), 0, 0, 0);
+    new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     return ret;
 }
