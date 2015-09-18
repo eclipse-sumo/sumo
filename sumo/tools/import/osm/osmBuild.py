@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 """
-@file    osmGet.py
+@file    osmBuild.py
 @author  Daniel Krajzewicz
 @author  Jakob Erdmann
 @author  Michael Behrisch
 @date    2009-08-01
 @version $Id$
 
-Retrieves an area from OpenStreetMap.
+Builds a sumo network and polygons from a downloaded area from OpenStreetMap.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
@@ -30,9 +30,9 @@ sys.path.append(os.path.join(os.environ.get(
 import sumolib
 
 
-vclassRemove = {"passenger": " --keep-edges.by-vclass passenger",
-                "road": " --remove-edges.by-vclass tram,rail_urban,rail_electric,bicycle,pedestrian",
-                "all": ""}
+vclassRemove = {"passenger": ["--keep-edges.by-vclass", "passenger"],
+                "road": ["--remove-edges.by-vclass", "tram,rail_urban,rail_electric,bicycle,pedestrian"],
+                "all": []}
 possibleVClassOptions = '|'.join(vclassRemove.keys())
 
 DEFAULT_NETCONVERT_OPTS = "--geometry.remove,--roundabouts.guess,--ramps.guess,-v,--junctions.join,--tls.guess-signals,--tls.discard-simple,--tls.join"
@@ -65,8 +65,6 @@ optParser.add_option("-y", "--polyconvert-options",
 
 def build(args=None, bindir=None):
     (options, args) = optParser.parse_args(args=args)
-    netconvert = sumolib.checkBinary('netconvert', bindir)
-    polyconvert = sumolib.checkBinary('polyconvert', bindir)
 
     if ((options.oldapi_prefix and options.osm_file) or
             not (options.oldapi_prefix or options.osm_file)):
@@ -82,55 +80,42 @@ def build(args=None, bindir=None):
         optParser.error('output directory "%s" does not exist' %
                         options.output_directory)
 
-    netconvertOpts = ' ' + \
-        ' '.join(options.netconvert_options.split(',')) + ' --osm-files '
+    netconvertOpts = [sumolib.checkBinary('netconvert', bindir)]
     if options.pedestrians:
-        netconvertOpts = " --sidewalks.guess --crossings.guess" + \
-            netconvertOpts
+        netconvertOpts += ['--sidewalks.guess', '--crossings.guess']
     if options.netconvert_typemap:
-        netconvertOpts = " -t " + options.netconvert_typemap + netconvertOpts
-    polyconvertOpts = ' ' + \
-        ' '.join(options.polyconvert_options.split(',')) + \
-        ' --type-file %s --osm-files ' % options.typemap
+        netconvertOpts += ["-t", options.netconvert_typemap]
+    netconvertOpts += options.netconvert_options.split(',') + ['--osm-files']
+    polyconvertOpts = [sumolib.checkBinary('polyconvert', bindir)] + \
+                      options.polyconvert_options.split(',') + \
+                      ['--type-file', options.typemap, '--osm-files']
 
     prefix = options.oldapi_prefix
     if prefix:  # used old API
         num = options.tiles
-        for i in range(num):
-            if i != 0:
-                netconvertOpts += ","
-                polyconvertOpts += ","
-            netconvertOpts += "%s%s_%s.osm.xml" % (prefix, i, num)
-            polyconvertOpts += "%s%s_%s.osm.xml" % (prefix, i, num)
-
+        tiles = ",".join(["%s%s_%s.osm.xml" % (prefix, i, num) for i in range(num)])
+        netconvertOpts += [tiles]
+        polyconvertOpts += [tiles]
     else:  # used new API
-        netconvertOpts += options.osm_file
-        polyconvertOpts += options.osm_file
+        netconvertOpts += [options.osm_file]
+        polyconvertOpts += [options.osm_file]
         prefix = path.basename(options.osm_file).replace('.osm.xml', '')
 
     if options.prefix:
         prefix = options.prefix
 
-    remove = vclassRemove[options.vehicle_classes]
     basename = path.join(options.output_directory, prefix)
     netfile = basename + '.net.xml'
-    polyfile = basename + '.poly.xml'
+    netconvertOpts += vclassRemove[options.vehicle_classes] + ["-o", netfile]
 
-    call(netconvert + netconvertOpts + remove + " -o %s" % netfile)
+    subprocess.call(netconvertOpts)
     # write config
-    call(netconvert + netconvertOpts + remove + (" -o %s" % netfile) + " --save-configuration " + basename + ".netccfg")
+    subprocess.call(netconvertOpts + ["--save-configuration", basename + ".netccfg"])
     if options.typemap:
-        call(polyconvert + polyconvertOpts + " -n %s -o %s" % (netfile, polyfile))
+        polyconvertOpts += ["-n", netfile, "-o", basename + '.poly.xml']
+        subprocess.call(polyconvertOpts)
         # write config
-        call(polyconvert + polyconvertOpts + (" -n %s -o %s" % (netfile, polyfile)) + " --save-configuration " + basename + ".polycfg")
-
-
-def call(cmd):
-    # ensure unix compatibility
-    # print(cmd)
-    if isinstance(cmd, str):
-        cmd = filter(lambda a: a != '', cmd.split(' '))
-    subprocess.call(cmd)
+        subprocess.call(polyconvertOpts + ["--save-configuration", basename + ".polycfg"])
 
 
 if __name__ == "__main__":
