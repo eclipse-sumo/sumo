@@ -934,3 +934,16 @@ Warning: Discarding person 'ped214' because it's plan is empty
 Warning: No connection between '199425803_fwd_connector' and '254523869_bwd_connector' found.
 Warning: No connection found between '199425803' and '254523869' for person 'ped217'.
 Warning: Discarding person 'ped217' because it's plan is empty
+Warning: Missing green phase in tlLogic '2071423355', program '0' for tl-index 1
+Warning: Missing green phase in tlLogic '21487184', program '0' for tl-index 3
+Warning: Missing green phase in tlLogic '25664673', program '0' for tl-index 6
+Warning: Missing green phase in tlLogic '258045541', program '0' for tl-index 2
+Warning: Missing green phase in tlLogic '266540878', program '0' for tl-index 3
+Warning: Missing green phase in tlLogic '506357662', program '0' for tl-index 3
+Warning: Missing green phase in tlLogic '617915219', program '0' for tl-index 4
+Warning: Missing green phase in tlLogic 'cluster_2086246926_28373974', program '0' for tl-index 20
+Warning: Missing green phase in tlLogic 'cluster_25664680_577258918', program '0' for tl-index 14
+Warning: Missing green phase in tlLogic 'cluster_25954547_29221622', program '0' for tl-index 16
+Warning: Missing green phase in tlLogic 'joinedS_2', program '0' for tl-index 4
+Warning: Missing green phase in tlLogic 'joinedS_3', program '0' for tl-index 6
+Warning: Missing green phase in tlLogic 'joinedS_7', program '0' for tl-index 5

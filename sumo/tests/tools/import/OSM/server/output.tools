@@ -1,8 +1,8 @@
-Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml'... done.
-Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml'... done.
-Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
-Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
-Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertBicycle.typ.xml'... done.
+Parsing types from 'sumo\data\typemap\osmNetconvert.typ.xml'... done.
+Parsing types from 'sumo\data\typemap\osmNetconvertUrbanDe.typ.xml'... done.
+Parsing types from 'sumo\data\typemap\osmNetconvertPedestrians.typ.xml'... done.
+Parsing types from 'sumo\data\typemap\osmNetconvertShips.typ.xml'... done.
+Parsing types from 'sumo\data\typemap\osmNetconvertBicycle.typ.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... 
 Found duplicate nodes. Substituting 1241955149 with 1026369077
 Found duplicate nodes. Substituting 1241955153 with 1241955144
@@ -90,14 +90,14 @@ Found duplicate nodes. Substituting 3334358082 with 2166130499
 done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Removing duplicate edges... done.
-Adding new type "cycleway.track|highway.primary" (first occurence for edge "4067932").
-Adding new type "cycleway.lane|highway.secondary" (first occurence for edge "4612961").
-Adding new type "cycleway.lane|highway.primary" (first occurence for edge "4613110").
-Adding new type "cycleway.lane|highway.tertiary" (first occurence for edge "4613308").
-Adding new type "cycleway.track|highway.tertiary" (first occurence for edge "4773465#0").
-Adding new type "cycleway.track|highway.secondary" (first occurence for edge "23812656#0").
-Adding new type "cycleway.lane|highway.pedestrian" (first occurence for edge "24540240#0").
-Adding new type "cycleway.lane|highway.residential" (first occurence for edge "38208961").
+Adding new type 'cycleway.track|highway.primary' (first occurence for edge '4067932').
+Adding new type 'cycleway.lane|highway.secondary' (first occurence for edge '4612961').
+Adding new type 'cycleway.lane|highway.primary' (first occurence for edge '4613110').
+Adding new type 'cycleway.lane|highway.tertiary' (first occurence for edge '4613308').
+Adding new type 'cycleway.track|highway.tertiary' (first occurence for edge '4773465#0').
+Adding new type 'cycleway.track|highway.secondary' (first occurence for edge '23812656#0').
+Adding new type 'cycleway.lane|highway.pedestrian' (first occurence for edge '24540240#0').
+Adding new type 'cycleway.lane|highway.residential' (first occurence for edge '38208961').
 Parsing relations from osm-file 'osm_bbox.osm.xml'... 
 done.
  Removed 47 traffic lights before loading plain-XML
@@ -152,13 +152,13 @@ Summary:
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.08Sep160745.20851/tools/import/OSM/server/2015-09-08-16-07-46/osm.netccfg'
-Parsing network projection from '/scr2/texttest_tmp/tools.08Sep160745.20851/tools/import/OSM/server/2015-09-08-16-07-46/osm.net.xml'... done.
+Written configuration to 'D:\erdm_ja\home\.texttest\tmp\tools.18Sep112254.2192\tools\import\OSM\server\2015-09-18-11-22-58\osm.netccfg'
+Parsing network projection from 'D:\erdm_ja\home\.texttest\tmp\tools.18Sep112254.2192\tools\import\OSM\server\2015-09-18-11-22-58\osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.08Sep160745.20851/tools/import/OSM/server/2015-09-08-16-07-46/osm.polycfg'
+Written configuration to 'D:\erdm_ja\home\.texttest\tmp\tools.18Sep112254.2192\tools\import\OSM\server\2015-09-18-11-22-58\osm.polycfg'
 Success.
 Success.
 Success.
@@ -166,29 +166,30 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (491ms).
-Loading additional-files from 'osm.poly.xml'...  done (91ms).
+Loading net-file from 'osm.net.xml'... 
+ done (701ms).
+Loading additional-files from 'osm.poly.xml'...  done (127ms).
 Loading done.
 Simulation started with time: 0.00
 Simulation ended at time: 3000.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 3297ms
- Real time factor: 909.918
- UPS: 37431.907795
+ Duration: 8785ms
+ Real time factor: 341.491
+ UPS: 14048.150256
 Vehicles: 
  Inserted: 344
  Running: 0
  Waiting: 0
 
 DijkstraRouterTT answered 1045 queries and explored 789.22 edges on average.
-DijkstraRouterTT spent 131ms answering queries (0.13ms on average).
-calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+DijkstraRouterTT spent 430ms answering queries (0.41ms on average).
+calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 calling route2trips
-calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 calling route2trips
-calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.rail_urban.trips.xml -o osm.rail_urban.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t osm.rail_urban.trips.xml -o osm.rail_urban.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 calling route2trips
-calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.bicycle.trips.xml -o osm.bicycle.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t osm.bicycle.trips.xml -o osm.bicycle.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 calling route2trips
-calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.pedestrian.trips.xml -o osm.pedestrian.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t osm.pedestrian.trips.xml -o osm.pedestrian.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
