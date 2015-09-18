@@ -150,31 +150,11 @@ GUIChrgStn::drawGL(const GUIVisualizationSettings& s) const {
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(blue);
-    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
+    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
 
     // draw details unless zoomed out to far
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     if (s.scale * exaggeration >= 10) {
-        /**
-          size_t i;
-            // draw the lines
-            GLHelper::setColor(green);
-
-            for (i = 0; i != myLines.size(); ++i) {
-            glPushMatrix();
-            glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
-            glRotated(180, 1, 0, 0);
-            glRotated(myFGSignRot, 0, 0, 1);
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            pfSetPosition(0, 0);
-            pfSetScale(1.f);
-            glScaled(exaggeration, exaggeration, 1);
-            glTranslated(1.2, -(double)i, 0);
-            pfDrawString(myLines[i].c_str());
-            glPopMatrix();
-            }
-        */
-
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
         int noPoints = 9;
@@ -191,7 +171,7 @@ GUIChrgStn::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
 
         if (s.scale * exaggeration >= 4.5) {
-            GLHelper::drawText("C", Position(), .1, 1.6 * exaggeration, green, myFGSignRot);
+            GLHelper::drawText("C", Position(), .1, 1.6, green, myFGSignRot);
         }
 
         /** draw the Sen function IGNORED
