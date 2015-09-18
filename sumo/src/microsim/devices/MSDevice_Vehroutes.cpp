@@ -301,7 +301,11 @@ MSDevice_Vehroutes::generateOutput() const {
 
 const MSRoute*
 MSDevice_Vehroutes::getRoute(int index) const {
-    return myReplacedRoutes[index].route;
+    if (index < myReplacedRoutes.size()) {
+        return myReplacedRoutes[index].route;
+    } else {
+        return 0;
+    }
 }
 
 

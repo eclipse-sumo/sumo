@@ -1365,7 +1365,10 @@ GUIVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMOReal d
         return;
     }
     --routeNo; // only prior routes are stored
-    drawRouteHelper(*myRoutes->getRoute(routeNo), exaggeration);
+    const MSRoute* route = myRoutes->getRoute(routeNo);
+    if (route != 0) {
+        drawRouteHelper(*route, exaggeration);
+    }
 }
 
 
