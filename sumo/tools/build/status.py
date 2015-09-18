@@ -82,9 +82,12 @@ To: %s
 Subject: Error occurred while building
 
 %s""" % (build, fromAddr, toAddr, failed)
-        server = smtplib.SMTP(smtpServer)
-        server.sendmail(fromAddr, toAddr, message)
-        server.quit()
+        try:
+            server = smtplib.SMTP(smtpServer)
+            server.sendmail(fromAddr, toAddr, message)
+            server.quit()
+        except:
+            print "Could not send mail."
 
 if __name__ == "__main__":
     printStatus(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.stdout)
