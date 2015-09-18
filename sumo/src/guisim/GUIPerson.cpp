@@ -39,7 +39,6 @@
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
-//#include <microsim/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <utils/common/StringUtils.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
@@ -51,12 +50,13 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
-#include "GUIPerson.h"
+#include "GUILane.h"
 #include "GUINet.h"
 #include "GUIEdge.h"
-#include <utils/gui/globjects/GLIncludes.h>
+#include "GUIPerson.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -68,10 +68,12 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIPerson::GUIPersonPopupMenu) GUIPersonPopupMenuMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_SHOW_CURRENTROUTE,     GUIPerson::GUIPersonPopupMenu::onCmdShowCurrentRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_HIDE_CURRENTROUTE,     GUIPerson::GUIPersonPopupMenu::onCmdHideCurrentRoute),
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_WALKINGAREA_PATH, GUIPerson::GUIPersonPopupMenu::onCmdShowWalkingareaPath),
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_WALKINGAREA_PATH, GUIPerson::GUIPersonPopupMenu::onCmdHideWalkingareaPath),
-    FXMAPFUNC(SEL_COMMAND, MID_START_TRACK, GUIPerson::GUIPersonPopupMenu::onCmdStartTrack),
-    FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK, GUIPerson::GUIPersonPopupMenu::onCmdStopTrack),
+    FXMAPFUNC(SEL_COMMAND, MID_START_TRACK,           GUIPerson::GUIPersonPopupMenu::onCmdStartTrack),
+    FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK,            GUIPerson::GUIPersonPopupMenu::onCmdStopTrack),
 };
 
 // Object implementation
@@ -94,6 +96,24 @@ GUIPerson::GUIPersonPopupMenu::GUIPersonPopupMenu(
 
 
 GUIPerson::GUIPersonPopupMenu::~GUIPersonPopupMenu() {}
+
+long
+GUIPerson::GUIPersonPopupMenu::onCmdShowCurrentRoute(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_PERSON);
+    if (!static_cast<GUIPerson*>(myObject)->hasActiveAddVisualisation(myParent, VO_SHOW_ROUTE)) {
+        static_cast<GUIPerson*>(myObject)->addActiveAddVisualisation(myParent, VO_SHOW_ROUTE);
+    }
+    return 1;
+}
+
+long
+GUIPerson::GUIPersonPopupMenu::onCmdHideCurrentRoute(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_PERSON);
+    static_cast<GUIPerson*>(myObject)->removeActiveAddVisualisation(myParent, VO_SHOW_ROUTE);
+    return 1;
+}
+
+
 
 long
 GUIPerson::GUIPersonPopupMenu::onCmdShowWalkingareaPath(FXObject*, FXSelector, void*) {
@@ -155,7 +175,11 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app,
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
-
+    if (hasActiveAddVisualisation(&parent, VO_SHOW_ROUTE)) {
+        new FXMenuCommand(ret, "Hide Current Route", 0, ret, MID_HIDE_CURRENTROUTE);
+    } else {
+        new FXMenuCommand(ret, "Show Current Route", 0, ret, MID_SHOW_CURRENTROUTE);
+    }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_WALKINGAREA_PATH)) {
         new FXMenuCommand(ret, "Hide Walkingarea Path", 0, ret, MID_HIDE_WALKINGAREA_PATH);
     } else {
@@ -270,6 +294,22 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
     glTranslated(0, 0, getType() - .1); // don't draw on top of other cars
     if (hasActiveAddVisualisation(parent, VO_SHOW_WALKINGAREA_PATH)) {
         drawAction_drawWalkingareaPath(s);
+    }
+    if (hasActiveAddVisualisation(parent, VO_SHOW_ROUTE)) {
+        if (getCurrentStageType() == MOVING_WITHOUT_VEHICLE) {
+            setColor(s);
+            RGBColor current = GLHelper::getColor();
+            RGBColor darker = current.changedBrightness(-51);
+            GLHelper::setColor(darker);
+            MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
+            assert(state != 0);
+            const SUMOReal exaggeration = s.personSize.getExaggeration(s);
+            const ConstMSEdgeVector& edges = stage->getRoute();
+            for (ConstMSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
+                GUILane* lane = static_cast<GUILane*>((*it)->getLanes()[0]);
+                GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
+            }
+        }
     }
     glPopMatrix();
     glPopName();
