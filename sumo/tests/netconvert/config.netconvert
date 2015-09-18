@@ -51,7 +51,7 @@ joined_nodes:<!--{[->]}-->
 net:<!--{[->]}-->
 foreign:date="[^"]*"{REPLACE date="DATE"}
 pois:<!--{[->]}-->
-output:Parsing types from '.*sumo/data/typemap/{REPLACE Parsing types from 'sumo/data/typemap/}
+output:Parsing types from '.*/data/typemap/{REPLACE Parsing types from 'sumo/data/typemap/}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed

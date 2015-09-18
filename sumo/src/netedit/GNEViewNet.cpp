@@ -478,6 +478,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                     }
                     */
                     myNet->deleteJunction(pointed_junction, myUndoList);
+                } else if (pointed_lane && !mySelectEdges->getCheck()) {
+                    myNet->deleteLane(pointed_lane, myUndoList);
                 } else if (pointed_edge) {
                     /*
                     if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
@@ -1019,6 +1021,8 @@ GNEViewNet::updateModeSpecificControls() {
             myChainCreateEdge->show();
             myAutoCreateOppositeEdge->show();
             break;
+        case GNE_MODE_DELETE:
+            mySelectEdges->show();
         case GNE_MODE_INSPECT:
             widthChange -= myInspector->getWidth() + addChange;
             myInspector->show();
@@ -1066,10 +1070,18 @@ GNEViewNet::deleteSelectedJunctions() {
 
 void
 GNEViewNet::deleteSelectedEdges() {
-    myUndoList->p_begin("delete selected edges");
-    std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
-    for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {
-        myNet->deleteEdge(*it, myUndoList);
+    if (mySelectEdges->getCheck()) {
+        myUndoList->p_begin("delete selected edges");
+        std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
+        for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {
+            myNet->deleteEdge(*it, myUndoList);
+        }
+    } else {
+        myUndoList->p_begin("delete selected lanes");
+        std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
+        for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
+            myNet->deleteLane(*it, myUndoList);
+        }
     }
     myUndoList->p_end();
 }

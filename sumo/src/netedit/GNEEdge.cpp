@@ -681,21 +681,27 @@ GNEEdge::setNumLanes(unsigned int numLanes, GNEUndoList* undoList) {
 
 void
 GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
-    myNBEdge.incLaneNo(1);
     if (lane) {
         // restore a previously deleted lane
-        assert(lane->getIndex() == myNBEdge.getNumLanes() - 1);
+        myLanes.insert(myLanes.begin() + lane->getIndex(), lane); 
+
     } else {
         // create a new lane by copying leftmost lane
-        lane = new GNELane(*this, myNBEdge.getNumLanes() - 1);
+        lane = new GNELane(*this, myNBEdge.getNumLanes());
+        myLanes.push_back(lane);
     }
-    // we copy all attributes except shape since this is recomputed from edge
-    // shape
-    myLanes.push_back(lane);
-    myLanes.back()->incRef("GNEEdge::addLane");
+    myNBEdge.addLane(lane->getIndex()); 
+    lane->incRef("GNEEdge::addLane");
+    // we copy all attributes except shape since this is recomputed from edge shape
     myNBEdge.setSpeed(lane->getIndex(), laneAttrs.speed);
     myNBEdge.setPermissions(laneAttrs.permissions, lane->getIndex());
     myNBEdge.setPreferredVehicleClass(laneAttrs.preferred, lane->getIndex());
+    myNBEdge.setEndOffset(lane->getIndex(), laneAttrs.endOffset);
+    myNBEdge.setLaneWidth(lane->getIndex(), laneAttrs.width);
+    // udate indices
+    for (int i = 0; i < (int)myLanes.size(); ++i) {
+        myLanes[i]->setIndex(i);
+    }
     /* while technically correct, this looks ugly
     getSource()->invalidateShape();
     getDest()->invalidateShape();
@@ -706,19 +712,24 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
 
 void
 GNEEdge::removeLane(GNELane* lane) {
-    myNBEdge.decLaneNo(1);
-    if (lane) {
-        assert(lane == myLanes.back());
+    if (lane == 0) {
+        lane = myLanes.back();
     }
-    myLanes.back()->decRef("GNEEdge::removeLane");
+    myNBEdge.deleteLane(lane->getIndex());
+    lane->decRef("GNEEdge::removeLane");
+    myLanes.erase(myLanes.begin() + lane->getIndex());
     if (myLanes.back()->unreferenced()) {
-        delete myLanes.back();
+        delete lane;
     }
-    myLanes.pop_back();
+    // udate indices
+    for (int i = 0; i < (int)myLanes.size(); ++i) {
+        myLanes[i]->setIndex(i);
+    }
     /* while technically correct, this looks ugly
     getSource()->invalidateShape();
     getDest()->invalidateShape();
     */
+
     myNet->refreshElement(this);
 }
 

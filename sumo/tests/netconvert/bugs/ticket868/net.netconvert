@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 18 13:15:14 2015 by SUMO netconvert Version dev-SVN-r18647I
+<!-- generated on 09/19/15 01:35:11 by SUMO netconvert Version dev-SVN-r18858
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml"/>
+        <type-files value="D:\erdm_ja\sumo-dev/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -136,8 +136,8 @@
     <edge id="37276365#1" from="37276365#1-AddedOnRampNode" to="804434748" priority="9" type="highway.primary" spreadType="center" shape="198.90,86.88 177.52,72.22 170.33,68.49 163.35,66.65 157.25,65.31">
         <lane id="37276365#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="50.92" shape="194.87,90.11 174.72,76.30 168.53,73.14 162.08,71.43 157.65,70.46"/>
         <lane id="37276365#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="50.92" shape="196.73,87.39 176.59,73.58 169.73,70.04 162.92,68.24 158.36,67.24"/>
-        <lane id="37276365#1_2" index="2" speed="27.78" length="50.92" shape="198.60,84.67 178.45,70.86 170.92,66.94 163.77,65.05 159.07,64.02"/>
-        <lane id="37276365#1_3" index="3" speed="27.78" length="50.92" shape="200.47,81.95 180.32,68.14 172.12,63.85 164.61,61.86 159.77,60.80"/>
+        <lane id="37276365#1_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="50.92" shape="198.60,84.67 178.45,70.86 170.92,66.94 163.77,65.05 159.07,64.02"/>
+        <lane id="37276365#1_3" index="3" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="50.92" shape="200.47,81.95 180.32,68.14 172.12,63.85 164.61,61.86 159.77,60.80"/>
     </edge>
     <edge id="37276365#1-AddedOnRampEdge" from="449262" to="37276365#1-AddedOnRampNode" priority="9" type="highway.primary" spreadType="center" shape="281.99,142.51 222.78,101.31 199.81,85.56">
         <lane id="37276365#1-AddedOnRampEdge_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="101.01" shape="276.99,143.05 220.90,104.02 199.18,89.13"/>

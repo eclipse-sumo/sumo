@@ -65,6 +65,7 @@
 #include "GNEUndoList.h"
 #include "GNEChange_Junction.h"
 #include "GNEChange_Edge.h"
+#include "GNEChange_Lane.h"
 #include "GNEChange_Connection.h"
 #include "GNEChange_Selection.h"
 
@@ -313,6 +314,29 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
 
 
 void
+GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
+    undoList->p_begin("delete lane");
+    GNEEdge* edge = &lane->getParentEdge();
+    const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
+    const bool sidewalk = laneAttrs.permissions == SVC_PEDESTRIAN;
+    undoList->add(new GNEChange_Lane(edge, lane, laneAttrs, false), true);
+    if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
+        std::set<GUIGlID> deselected;
+        deselected.insert(lane->getGlID());
+        undoList->add(new GNEChange_Selection(std::set<GUIGlID>(), deselected, true), true);
+    }
+    if (sidewalk) {
+        edge->getSource()->removeFromCrossings(edge, undoList);
+        edge->getDest()->removeFromCrossings(edge, undoList);
+        edge->getSource()->setLogicValid(false, undoList);
+        edge->getDest()->setLogicValid(false, undoList);
+    }
+    requireRecompute();
+    undoList->p_end();
+}
+
+
+void
 GNENet::deleteGeometryOrEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList) {
     if (!edge->deleteGeometry(pos, undoList)) {
         deleteEdge(edge, undoList);
@@ -516,11 +540,25 @@ GNENet::retrieveEdge(const std::string& id, bool failHard) {
 std::vector<GNEEdge*>
 GNENet::retrieveEdges(bool onlySelected) {
     std::vector<GNEEdge*> result;
-    for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
+    for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); ++it) {
         if (!onlySelected || gSelected.isSelected(GLO_EDGE, it->second->getGlID())) {
             result.push_back(it->second);
         }
+    }
+    return result;
+}
 
+
+std::vector<GNELane*>
+GNENet::retrieveLanes(bool onlySelected) {
+    std::vector<GNELane*> result;
+    for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); ++it) {
+        const GNEEdge::LaneVector& lanes = it->second->getLanes(); 
+        for (GNEEdge::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
+            if (!onlySelected || gSelected.isSelected(GLO_LANE, (*it_lane)->getGlID())) {
+                result.push_back(*it_lane);
+            }
+        }
     }
     return result;
 }

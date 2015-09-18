@@ -2176,51 +2176,63 @@ NBEdge::isNearEnough2BeJoined2(NBEdge* e, SUMOReal threshold) const {
 }
 
 
+void 
+NBEdge::addLane(unsigned int index, bool recompute) {
+    assert(index <= myLanes.size());
+    myLanes.insert(myLanes.begin() + index, Lane(this));
+    // copy attributes
+    if (myLanes.size() > 1) {
+        int templateIndex = index > 0 ? index - 1 : index + 1;
+        myLanes[index].speed = myLanes[templateIndex].speed;
+        myLanes[index].permissions = myLanes[templateIndex].permissions;
+        myLanes[index].preferred = myLanes[templateIndex].preferred;
+        myLanes[index].endOffset = myLanes[templateIndex].endOffset;
+        myLanes[index].width = myLanes[templateIndex].width;
+    }
+    const EdgeVector& incs = myFrom->getIncomingEdges();
+    if (recompute) {
+        computeLaneShapes();
+        for (EdgeVector::const_iterator i = incs.begin(); i != incs.end(); ++i) {
+            (*i)->invalidateConnections(true);
+        }
+        invalidateConnections(true);
+    }
+}
+
 void
 NBEdge::incLaneNo(unsigned int by) {
     unsigned int newLaneNo = (unsigned int) myLanes.size() + by;
     while (myLanes.size() < newLaneNo) {
-        myLanes.push_back(Lane(this));
+        // recompute shapes on last addition
+        const bool recompute = myLanes.size() == newLaneNo - 1;
+        addLane((unsigned int)myLanes.size(), recompute);
     }
-    // copy attributes
-    if (myLanes.size() > 1) {
-        myLanes.back().speed = myLanes[myLanes.size() - 2].speed;
-        myLanes.back().permissions = myLanes[myLanes.size() - 2].permissions;
-        myLanes.back().preferred = myLanes[myLanes.size() - 2].preferred;
-        myLanes.back().endOffset = myLanes[myLanes.size() - 2].endOffset;
-        myLanes.back().width = myLanes[myLanes.size() - 2].width;
-    }
-    computeLaneShapes();
+}
+
+
+void 
+NBEdge::deleteLane(unsigned int index, bool recompute) {
+    assert(index < myLanes.size());
+    myLanes.erase(myLanes.begin() + index);
     const EdgeVector& incs = myFrom->getIncomingEdges();
-    for (EdgeVector::const_iterator i = incs.begin(); i != incs.end(); ++i) {
-        (*i)->invalidateConnections(true);
+    if (recompute) {
+        computeLaneShapes();
+        for (EdgeVector::const_iterator i = incs.begin(); i != incs.end(); ++i) {
+            (*i)->invalidateConnections(true);
+        }
+        invalidateConnections(true);
     }
-    invalidateConnections(true);
 }
 
 
 void
-NBEdge::decLaneNo(unsigned int by, int dir) {
+NBEdge::decLaneNo(unsigned int by) {
     unsigned int newLaneNo = (unsigned int) myLanes.size() - by;
+    assert(newLaneNo > 0);
     while (myLanes.size() > newLaneNo) {
-        myLanes.pop_back();
-    }
-    computeLaneShapes();
-    const EdgeVector& incs = myFrom->getIncomingEdges();
-    for (EdgeVector::const_iterator i = incs.begin(); i != incs.end(); ++i) {
-        (*i)->invalidateConnections(true);
-    }
-    if (dir == 0) {
-        invalidateConnections(true);
-    } else {
-        const EdgeVector& outs = myTo->getOutgoingEdges();
-        assert(outs.size() == 1);
-        NBEdge* out = outs[0];
-        if (dir < 0) {
-            removeFromConnections(out, 0);
-        } else {
-            removeFromConnections(out, (int) myLanes.size());
-        }
+        // recompute shapes on last removal
+        const bool recompute = myLanes.size() == newLaneNo + 1;
+        deleteLane((unsigned int)((int)myLanes.size() - 1), recompute);
     }
 }
 

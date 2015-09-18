@@ -1009,7 +1009,11 @@ public:
 
     void incLaneNo(unsigned int by);
 
-    void decLaneNo(unsigned int by, int dir = 0);
+    void decLaneNo(unsigned int by);
+
+    void deleteLane(unsigned int index, bool recompute=true);
+
+    void addLane(unsigned int index, bool recompute=true);
 
     void markAsInLane2LaneState();
 

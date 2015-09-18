@@ -126,8 +126,13 @@ public:
     //  @note: must be called when geometry changes (i.e. junction moved)
     void updateGeometry();
 
-    unsigned int getIndex() {
+    unsigned int getIndex() const {
         return myIndex;
+    }
+
+    void setIndex(unsigned int index) {
+        myIndex = index;
+        setMicrosimID(myParentEdge.getNBEdge()->getLaneID(index));
     }
 
     //@name inherited from GNEAttributeCarrier
@@ -153,7 +158,7 @@ private:
     GNEEdge& myParentEdge;
 
     /// The index of this lane
-    const unsigned int myIndex;
+    unsigned int myIndex;
 
     /// @name computed only once (for performance) in updateGeometry()
     //@{

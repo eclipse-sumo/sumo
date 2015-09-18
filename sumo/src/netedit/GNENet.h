@@ -63,6 +63,7 @@
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
 class GNEEdge;
+class GNELane;
 class GNEJunction;
 class GNEUndoList;
 
@@ -204,6 +205,11 @@ public:
      */
     void deleteEdge(GNEEdge* edge, GNEUndoList* undoList);
 
+    /** @brief removes lane
+     * @param[in] lane The lane to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteLane(GNELane* lane, GNEUndoList* undoList);
 
     /** @brief removes geometry when pos is close to a geometry node, deletes
      * the whole edge otherwise
@@ -278,6 +284,11 @@ public:
      * @param[in] onlySelected Whether to return only selected edges
      * */
     std::vector<GNEEdge*> retrieveEdges(bool onlySelected = false);
+
+    /** @brief return all lanes
+     * @param[in] onlySelected Whether to return only selected lanes
+     * */
+    std::vector<GNELane*> retrieveLanes(bool onlySelected = false);
 
     /** @brief return all junctions
      * @param[in] onlySelected Whether to return only selected junctions
