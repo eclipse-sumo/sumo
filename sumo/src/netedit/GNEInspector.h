@@ -90,6 +90,7 @@ public:
         AttrInput() {}
 
     private:
+        SumoXMLTag myTag;
         SumoXMLAttr myAttr;
         const std::vector<GNEAttributeCarrier*>* myACs;
         GNEUndoList* myUndoList;

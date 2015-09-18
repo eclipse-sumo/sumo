@@ -193,8 +193,22 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
         for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
             _discreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_SPREADTYPE].push_back(*it);
         }
+
+        choices = SumoVehicleClassStrings.getStrings();
+        for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
+            _discreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_ALLOW].push_back(*it);
+            _discreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_DISALLOW].push_back(*it);
+            _discreteChoices[SUMO_TAG_LANE][SUMO_ATTR_ALLOW].push_back(*it);
+            _discreteChoices[SUMO_TAG_LANE][SUMO_ATTR_DISALLOW].push_back(*it);
+        }
     }
     return _discreteChoices[tag][attr];
+}
+
+
+bool 
+GNEAttributeCarrier::discreteCombinableChoices(SumoXMLTag, SumoXMLAttr attr) {
+    return (attr == SUMO_ATTR_ALLOW || attr == SUMO_ATTR_DISALLOW); 
 }
 
 /****************************************************************************/

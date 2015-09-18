@@ -112,6 +112,9 @@ public:
     /// @brief return a list of discrete choices for this attribute or an empty vector
     static const std::vector<std::string>& discreteChoices(SumoXMLTag tag, SumoXMLAttr attr);
 
+    /// @brief return whether the given attribute allows for a combination of discrete values
+    static bool discreteCombinableChoices(SumoXMLTag tag, SumoXMLAttr attr);
+
     /// @brief true if an object of type T can be parsed from string
     template <class T>
     static bool canParse(const std::string& string) {
