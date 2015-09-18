@@ -1,4 +1,4 @@
-Loading net-file from 'net.net.xml'...  done (13ms).
+Loading net-file from 'net.net.xml'...  done (15ms).
 Loading additional-files from 'input_additional.add.xml'...  done (0ms).
 Loading done.
 Simulation started with time: 0.00
@@ -12,4 +12,7 @@ Vehicles:
  Inserted: 2
  Running: 0
  Waiting: 0
+Persons: 
+ Inserted: 1
+ Running: 0
 
