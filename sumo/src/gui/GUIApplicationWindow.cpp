@@ -745,7 +745,7 @@ GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != 0) {
         std::string newPath = std::string(sumoPath) + "/bin/netedit";
-        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath) + ".exe") {
+        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
             netedit = newPath;
         }
     }
