@@ -389,6 +389,14 @@ MSNet::closeSimulation(SUMOTime start) {
         if (myVehicleControl->getEmergencyStops() > 0) {
             msg << "Emergency Stops: " << myVehicleControl->getEmergencyStops() << "\n";
         }
+        if (myPersonControl != 0 && myPersonControl->getLoadedPersonNumber() > 0) {
+            msg << "Persons: " << "\n"
+                << " Inserted: " << myPersonControl->getLoadedPersonNumber() << "\n"
+                << " Running: " << myPersonControl->getRunningPersonNumber() << "\n";
+            if (myPersonControl->getJammedPersonNumber() > 0) {
+                msg << " Jammed: " << myPersonControl->getJammedPersonNumber() << "\n";
+            }
+        }
         WRITE_MESSAGE(msg.str());
     }
     myDetectorControl->close(myStep);

@@ -49,7 +49,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSPersonControl::MSPersonControl() {}
+MSPersonControl::MSPersonControl():
+    myLoadedPersonNumber(0),
+    myRunningPersonNumber(0),
+    myJammedPersonNumber(0)
+{}
 
 
 MSPersonControl::~MSPersonControl() {
@@ -65,6 +69,8 @@ bool
 MSPersonControl::add(const std::string& id, MSPerson* person) {
     if (myPersons.find(id) == myPersons.end()) {
         myPersons[id] = person;
+        myLoadedPersonNumber++;
+        myRunningPersonNumber++;
         return true;
     }
     return false;
@@ -99,6 +105,7 @@ MSPersonControl::erase(MSTransportable* person) {
     }
     const std::map<std::string, MSTransportable*>::iterator i = myPersons.find(id);
     if (i != myPersons.end()) {
+        myRunningPersonNumber--;
         delete i->second;
         myPersons.erase(i);
     }

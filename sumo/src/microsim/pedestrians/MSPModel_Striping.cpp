@@ -35,6 +35,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSJunction.h>
+#include <microsim/MSPersonControl.h>
 #include "MSPModel_Striping.h"
 
 
@@ -1052,7 +1053,13 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     if (xSpeed == 0) {
         if (myWaitingTime > jamTime || myAmJammed) {
             // squeeze slowly through the crowd ignoring others
-            myAmJammed = true;
+            if (!myAmJammed) {
+                MSNet::getInstance()->getPersonControl().registerJammed();
+                WRITE_WARNING("Person '" + myPerson->getID() 
+                        + "' is jammed on edge '" + myStage->getEdge()->getID() 
+                        + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                myAmJammed = true;
+            }
             xSpeed = vMax / 4;
         } else {
             myAmJammed = false;

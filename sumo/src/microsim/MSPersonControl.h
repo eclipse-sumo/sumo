@@ -160,6 +160,37 @@ public:
         return (unsigned int) myPersons.size();
     }
 
+    /// @brief register a jammed person
+    void registerJammed() {
+        myJammedPersonNumber++;
+    }
+
+    /// @name Retrieval of Person statistics (always accessable)
+    /// @{
+
+    /** @brief Returns the number of build Persons
+     * @return The number of loaded (build) Persons
+     */
+    unsigned int getLoadedPersonNumber() const {
+        return myLoadedPersonNumber;
+    }
+
+
+    /** @brief Returns the number of build and inserted, but not yet deleted Persons
+     * @return The number simulated Persons
+     */
+    unsigned int getRunningPersonNumber() const {
+        return myRunningPersonNumber;
+    }
+
+    /** @brief Returns the number of times a person was jammed
+     * @return The number of times persons were jammed
+     */
+    unsigned int getJammedPersonNumber() const {
+        return myJammedPersonNumber;
+    }
+
+    /// @}
 
 protected:
     /// all persons by id
@@ -176,6 +207,15 @@ protected:
 
     /// the lists of waiting persons
     std::map<const MSEdge*, PersonVector> myWaiting4Vehicle;
+
+    /// @brief The number of build persons
+    unsigned int myLoadedPersonNumber;
+
+    /// @brief The number of persons within the network (build and inserted but not removed)
+    unsigned int myRunningPersonNumber;
+
+    /// @brief The number of jammed persons
+    unsigned int myJammedPersonNumber;
 
 };
 
