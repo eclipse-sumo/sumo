@@ -302,7 +302,7 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
             RGBColor darker = current.changedBrightness(-51);
             GLHelper::setColor(darker);
             MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
-            assert(state != 0);
+            assert(stage != 0);
             const SUMOReal exaggeration = s.personSize.getExaggeration(s);
             const ConstMSEdgeVector& edges = stage->getRoute();
             for (ConstMSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
