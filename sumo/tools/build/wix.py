@@ -31,7 +31,7 @@ OUTPUT_DEFAULT = r"O:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.msi"
 WIX_DEFAULT = "%sbin" % os.environ.get(
     "WIX", r"D:\Programme\Windows Installer XML v3.5\\")
 WXS_DEFAULT = os.path.join(
-    os.path.dirname(__file__), "..", "..", "build", "sumo.wxs")
+    os.path.dirname(__file__), "..", "..", "build", "*.wxs")
 LICENSE = os.path.join(
     os.path.dirname(__file__), "..", "..", "build", "License.rtf")
 
@@ -49,30 +49,29 @@ def buildFragment(wixBin, sourceDir, targetLabel, tmpDir):
     return fragOut.name
 
 
-def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT, wixBin=WIX_DEFAULT, wxs=WXS_DEFAULT,
+def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT, wixBin=WIX_DEFAULT, wxsPattern=WXS_DEFAULT,
              license=LICENSE):
     tmpDir = tempfile.mkdtemp()
     zipfile.ZipFile(sourceZip).extractall(tmpDir)
     sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
-    fragments = []
+    fragments = [buildFragment(wixBin, os.path.join(sumoRoot, d), "INSTALLDIR", tmpDir) for d in ["data", "tools"]]
     for d in ["userdoc", "pydoc", "tutorial", "examples"]:
         fragments.append(
             buildFragment(wixBin, os.path.join(sumoRoot, "docs", d), "DOCDIR", tmpDir))
-    fragments.append(
-        buildFragment(wixBin, os.path.join(sumoRoot, "data"), "INSTALLDIR", tmpDir))
-    fragments.append(
-        buildFragment(wixBin, os.path.join(sumoRoot, "tools"), "INSTALLDIR", tmpDir))
-    wxsIn = open(wxs)
-    wxsOut = open(os.path.join(tmpDir, "sumo.wxs"), "w")
-    for l in wxsIn:
-        l = l.replace("License.rtf", license)
-        wxsOut.write(
-            l.replace(r"O:\Daten\Sumo\Nightly", os.path.join(sumoRoot, "bin")))
-    wxsOut.close()
-    wxsIn.close()
+    for wxs in glob.glob(wxsPattern):
+        with open(wxs) as wxsIn: 
+            with open(os.path.join(tmpDir, os.path.basename(wxs)), "w") as wxsOut:
+                for l in wxsIn:
+                    l = l.replace("License.rtf", license)
+                    dataDir = os.path.dirname(license)
+                    for data in ["bannrbmp.bmp", "dlgbmp.bmp"]:
+                        l = l.replace(data, os.path.join(dataDir, data))
+                    wxsOut.write(
+                        l.replace(r"O:\Daten\Sumo\Nightly", os.path.join(sumoRoot, "bin")))
+        fragments.append(wxsOut.name)
     subprocess.call(
-        [os.path.join(wixBin, "candle.exe"), "-o", tmpDir + "\\", wxsOut.name] + fragments)
-    wixObj = [f.replace(".wxs", ".wixobj") for f in [wxsOut.name] + fragments]
+        [os.path.join(wixBin, "candle.exe"), "-o", tmpDir + "\\"] + fragments)
+    wixObj = [f.replace(".wxs", ".wixobj") for f in fragments]
     subprocess.call([os.path.join(wixBin, "light.exe"),
                      "-ext", "WixUIExtension", "-o", outFile] + wixObj)
     shutil.rmtree(tmpDir, True)  # comment this out when debugging
@@ -86,7 +85,7 @@ if __name__ == "__main__":
     optParser.add_option(
         "-w", "--wix", default=WIX_DEFAULT, help="path to the wix binaries")
     optParser.add_option(
-        "-x", "--wxs", default=WXS_DEFAULT, help="path to wxs template")
+        "-x", "--wxs", default=WXS_DEFAULT, help="pattern for wxs templates")
     optParser.add_option(
         "-l", "--license", default=LICENSE, help="path to the license")
     (options, args) = optParser.parse_args()

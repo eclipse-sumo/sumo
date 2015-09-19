@@ -11,10 +11,10 @@
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
-        <Directory Id="APPLICATIONFOLDER" Name="AppFolder" />
         <Directory Id='DLR' Name='DLR'>
           <Directory Id='INSTALLDIR' Name='Sumo'>
             <Component Id='SumoHome' Guid='67D3110C-F900-461F-B836-177A7AE88BB9'>
+    		  <Condition>MODIFYENV</Condition>
               <CreateFolder/>
               <Environment Id="SUMO_HOME" Name="SUMO_HOME" Value="[INSTALLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
             </Component>
@@ -61,6 +61,11 @@
                 <File Id='netgenEXE' Name='netgenerate.exe' Source='O:\Daten\Sumo\Nightly\netgenerate.exe' />
                 <File Id='od2tripsEXE' Name='od2trips.exe' Source='O:\Daten\Sumo\Nightly\od2trips.exe' />
                 <File Id='polyconvertEXE' Name='polyconvert.exe' Source='O:\Daten\Sumo\Nightly\polyconvert.exe' />
+                <File Id='foxDLL' Name='FOXDLL-1.6.dll' Source='O:\Daten\Sumo\Nightly\FOXDLL-1.6.dll' />
+                <File Id='pngDLL' Name='libpng15.dll' Source='O:\Daten\Sumo\Nightly\libpng15.dll' />
+                <File Id='gdalDLL' Name='gdal18.dll' Source='O:\Daten\Sumo\Nightly\gdal18.dll' />
+                <File Id='projDLL' Name='proj.dll' Source='O:\Daten\Sumo\Nightly\proj.dll' />
+                <File Id='xercesDLL' Name='xerces-c_3_1.dll' Source='O:\Daten\Sumo\Nightly\xerces-c_3_1.dll' />
               </Component>
               <Component Id='NetEditExecutable' Guid='210F26F3-6040-4A1F-8513-4C75AB016B8B'>
                 <File Id='neteditEXE' Name='netedit.exe' Source='O:\Daten\Sumo\Nightly\netedit.exe' KeyPath='yes'>
@@ -68,23 +73,10 @@
                 </File>
               </Component>
 
-              <Component Id='HelperLibraries' Guid='FD4424A1-2B13-11E1-A04E-028037EC0200'>
-                <File Id='foxDLL' Name='FOXDLL-1.6.dll' Source='O:\Daten\Sumo\Nightly\FOXDLL-1.6.dll' KeyPath='yes' />
-                <File Id='pngDLL' Name='libpng15.dll' Source='O:\Daten\Sumo\Nightly\libpng15.dll' />
-                <File Id='gdalDLL' Name='gdal18.dll' Source='O:\Daten\Sumo\Nightly\gdal18.dll' />
-                <File Id='projDLL' Name='proj.dll' Source='O:\Daten\Sumo\Nightly\proj.dll' />
-                <File Id='xercesDLL' Name='xerces-c_3_1.dll' Source='O:\Daten\Sumo\Nightly\xerces-c_3_1.dll' />
-              </Component>
-
               <Component Id='EnvironmentBatch' Guid='0F045CF0-2B14-11E1-9943-028037EC0200'>
                 <File Id='EnvBat' Name='start-command-line.bat' Source='O:\Daten\Sumo\Nightly\start-command-line.bat' KeyPath='yes'>
                   <Shortcut Id="startmenuBat" Directory="ProgramMenuDir" Name="SUMO Command Line" Advertise="yes" />
                 </File>
-              </Component>
-              <Component Id='DesktopShortcuts' Guid='93433DF3-9A94-4B43-8591-F1C1804A2AC8'>
-                <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
-                <Shortcut Id="desktopSumoGui" Directory="DesktopFolder" Target="[sumoGuiEXE]" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" />
-                <Shortcut Id="desktopNetEdit" Directory="DesktopFolder" Target="[neteditEXE]" Name="NetEdit" WorkingDirectory='INSTALLDIR' Icon="netedit.exe" />
               </Component>
             </Directory>
 
@@ -92,10 +84,12 @@
             <Directory Id='TOOLDIR' Name='tools'/>
 			
   	        <Component Id='Path' Guid='17359CBF-8C61-4C3D-B5A7-4407AFF096AA'>
+    		  <Condition>MODIFYENV</Condition>
               <CreateFolder/>
 			  <Environment Id="PATH" Name="PATH" Value="[BINDIR];[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
 		    </Component>
   	        <Component Id='PythonPath' Guid='3C6E4C8E-C4D3-483D-93C0-546A04D360F0'>
+    		  <Condition>MODIFYENV</Condition>
               <CreateFolder/>
 			  <Environment Id="PYTHONPATH" Name="PYTHONPATH" Value="[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
 		    </Component>
@@ -111,8 +105,6 @@
           </Component>
         </Directory>
       </Directory>
-
-      <Directory Id="DesktopFolder" Name="Desktop" />
     </Directory>
 
     <Feature Id='Complete' Title='SUMO' Description='The complete package.'
@@ -120,7 +112,6 @@
       <Feature Id='MainProgram' Title='Program' Description='The main executables.' Level='1'>
         <ComponentRef Id='MainExecutables' />
         <ComponentRef Id='NetEditExecutable' />
-        <ComponentRef Id='HelperLibraries' />
         <ComponentRef Id='EnvironmentBatch' />
         <ComponentRef Id='ProgramMenuDir' />
       </Feature>
@@ -134,35 +125,23 @@
 
       <Feature Id='Tools' Title='Tools' Description='Additional Python tools.' Level='1'>
         <ComponentGroupRef Id='tools' />
-      </Feature>
-
-      <Feature Id='Data' Title='Data' Description='Additional data like XML schemata and edge type maps.' Level='1'>
-        <ComponentGroupRef Id='data' />
-      </Feature>
-
-      <Feature Id='EnvironmentVariables' Title='EnvironmentVariables' Description='Set SUMO_HOME and adapt PATH and PYTHONPATH.' Level='1'>
         <ComponentRef Id='SumoHome' />
         <ComponentRef Id='Path' />
         <ComponentRef Id='PythonPath' />
       </Feature>
 
-      <Feature Id='Shortcuts' Title='Shortcuts' Description='Create shortcuts on the desktop.' Level='1'>
-        <ComponentRef Id='DesktopShortcuts' />
+      <Feature Id='Data' Title='Data' Description='Additional data like XML schemata and edge type maps.' Level='1'>
+        <ComponentGroupRef Id='data' />
       </Feature>
     </Feature>
 
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+	<WixVariable Id="WixUIBannerBmp" Value="bannrbmp.bmp" />
+	<WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp" />
 
-    <!-- CA to launch the exe after install -->
-    <CustomAction Id="CA.StartAppOnExit" FileKey="sumoGuiEXE" ExeCommand="" Execute="immediate" Impersonate="yes" Return="asyncNoWait" />
-
-    <UI>
-      <Publish Dialog="ExitDialog" Control="Finish" Order="1" Event="DoAction" Value="CA.StartAppOnExit">"Launch SUMO GUI with an example when setup exits."</Publish>
-    </UI>
-    <Property Id="ApplicationFolderName" Value="AppFolder" />
-    <Property Id="WixAppFolder" Value="WixPerUserFolder" />
-    <UIRef Id="WixUI_Advanced" />
-    <UIRef Id="WixUI_ErrorProgressText" />
+	<Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+	<Property Id="MODIFYENV" Value="1" />
+    <UIRef Id="SUMOWixUI_InstallDir" />
 
     <Icon Id="sumogui.exe" SourceFile="O:\Daten\Sumo\Nightly\sumo-gui.exe" />
     <Icon Id="netedit.exe" SourceFile="O:\Daten\Sumo\Nightly\netedit.exe" />
