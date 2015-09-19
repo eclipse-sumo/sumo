@@ -142,7 +142,7 @@ GNEViewNet::GNEViewNet(
 	GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor::BLACK, "road", true);
 	scheme.addColor(RGBColor::GREY, 1, "sidewalk");
     scheme.addColor(RGBColor(192, 66, 44), 2, "bike lane");
-    scheme.addColor(RGBColor(0, 0, 0, 0), 3, "green verge");
+    scheme.addColor(RGBColor(200, 255, 200), 3, "green verge");
     scheme.addColor(RGBColor(150, 200, 200), 4, "waterway");
     scheme.addColor(RGBColor(92, 92, 92), 5, "no passenger"); // paths, service roads etc
     laneColorer.addScheme(scheme);
