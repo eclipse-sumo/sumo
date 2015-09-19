@@ -337,6 +337,18 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
 
 
 void
+GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList) {
+    undoList->p_begin("duplicate lane");
+    GNEEdge* edge = &lane->getParentEdge();
+    const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
+    GNELane* newLane = new GNELane(*edge, lane->getIndex());
+    undoList->add(new GNEChange_Lane(edge, newLane, laneAttrs, true), true);
+    requireRecompute();
+    undoList->p_end();
+}
+
+
+void
 GNENet::deleteGeometryOrEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList) {
     if (!edge->deleteGeometry(pos, undoList)) {
         deleteEdge(edge, undoList);

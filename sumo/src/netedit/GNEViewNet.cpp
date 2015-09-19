@@ -80,6 +80,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_EDGE_ENDPOINT, GNEViewNet::onCmdSetEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET_EDGE_ENDPOINT, GNEViewNet::onCmdResetEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_STRAIGHTEN, GNEViewNet::onCmdStraightenEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_DUPLICATE_LANE, GNEViewNet::onCmdDuplicateLane),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NODE_SHAPE, GNEViewNet::onCmdNodeShape),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NODE_REPLACE, GNEViewNet::onCmdNodeReplace),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIS_HEIGHT, GNEViewNet::onCmdVisualizeHeight)
@@ -759,6 +760,23 @@ GNEViewNet::getEdgeAtCursorPosition(Position& /* pos */) {
 }
 
 
+GNELane*
+GNEViewNet::getLaneAtCurserPosition(Position& /* pos */) {
+    GNELane* lane = 0;
+    if (makeCurrent()) {
+        unsigned int id = getObjectAtPosition(myPopupSpot);
+        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        if (pointed) {
+            if (pointed->getType() == GLO_LANE) {
+                lane = (GNELane*)pointed;
+            }
+        }
+    }
+    return lane;
+}
+
+
 std::set<GNEEdge*>
 GNEViewNet::getEdgesAtCursorPosition(Position& /* pos */) {
     std::set<GNEEdge*> result;
@@ -859,6 +877,27 @@ GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
         } else {
             myUndoList->p_begin("straighten edge");
             edge->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
+            myUndoList->p_end();
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
+    GNELane* lane = getLaneAtCurserPosition(myPopupSpot);
+    if (lane != 0) {
+        if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
+            myUndoList->p_begin("duplicate selected lanes");
+            std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
+            for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
+                myNet->duplicateLane(*it, myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            myUndoList->p_begin("duplicate lane");
+            myNet->duplicateLane(lane, myUndoList);
             myUndoList->p_end();
         }
     }

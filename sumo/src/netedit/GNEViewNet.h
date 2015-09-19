@@ -68,6 +68,7 @@ enum EditMode {
 class GNENet;
 class GNEJunction;
 class GNEEdge;
+class GNELane;
 class GNEViewParent;
 class GNEUndoList;
 class GNEInspector;
@@ -135,6 +136,9 @@ public:
 
     /// @brief makes selected edges straight
     long onCmdStraightenEdges(FXObject*, FXSelector, void*);
+
+    /// @brief duplicate selected lane
+    long onCmdDuplicateLane(FXObject*, FXSelector, void*);
 
     /// @brief input custom node shape
     long onCmdNodeShape(FXObject*, FXSelector, void*);
@@ -318,6 +322,9 @@ private:
 
     /// @brief try to retrieve an edge at the given position
     GNEEdge* getEdgeAtCursorPosition(Position& pos);
+
+    /// @brief try to retrieve a lane at the given position
+    GNELane* getLaneAtCurserPosition(Position& pos);
 
     /// @brief try to retrieve a junction at the given position
     GNEJunction* getJunctionAtCursorPosition(Position& pos);

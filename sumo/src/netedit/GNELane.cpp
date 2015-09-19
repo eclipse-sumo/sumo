@@ -344,7 +344,16 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, "Add reverse direction", 0, &parent, MID_GNE_ADD_REVERSE_EDGE);
         new FXMenuCommand(ret, "Set geometry endpoint here", 0, &parent, MID_GNE_SET_EDGE_ENDPOINT);
         new FXMenuCommand(ret, "Restore geometry endpoint", 0, &parent, MID_GNE_RESET_EDGE_ENDPOINT);
-        new FXMenuCommand(ret, "Straighten", 0, &parent, MID_GNE_STRAIGHTEN);
+        if (gSelected.isSelected(GLO_LANE, getGlID())) {
+            new FXMenuCommand(ret, "Straighten selected Edges", 0, &parent, MID_GNE_STRAIGHTEN);
+        } else {
+            new FXMenuCommand(ret, "Straighten edge", 0, &parent, MID_GNE_STRAIGHTEN);
+        }
+        if (gSelected.isSelected(GLO_LANE, getGlID())) {
+            new FXMenuCommand(ret, "Duplicate selected lanes", 0, &parent, MID_GNE_DUPLICATE_LANE);
+        } else {
+            new FXMenuCommand(ret, "Duplicate lane", 0, &parent, MID_GNE_DUPLICATE_LANE);
+        }
     }
     // buildShowParamsPopupEntry(ret, false);
     const SUMOReal pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());

@@ -211,6 +211,12 @@ public:
      */
     void deleteLane(GNELane* lane, GNEUndoList* undoList);
 
+    /** @brief duplicates lane
+     * @param[in] lane The lane to be duplicated
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void duplicateLane(GNELane* lane, GNEUndoList* undoList);
+
     /** @brief removes geometry when pos is close to a geometry node, deletes
      * the whole edge otherwise
      * @param[in] edge The edge to be removed

@@ -445,6 +445,8 @@ enum {
     MID_GNE_RESET_EDGE_ENDPOINT,
     /** remove inner geometry */
     MID_GNE_STRAIGHTEN,
+    /** duplicate a lane */
+    MID_GNE_DUPLICATE_LANE,
     /** set object as template*/
     MID_GNE_SET_TEMPLATE,
     /** copy template*/
