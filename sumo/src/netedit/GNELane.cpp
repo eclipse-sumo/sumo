@@ -423,6 +423,12 @@ GNELane::updateGeometry() {
     }
 }
 
+void 
+GNELane::setIndex(unsigned int index) {
+    myIndex = index;
+    setMicrosimID(myParentEdge.getNBEdge()->getLaneID(index));
+}
+
 
 std::string
 GNELane::getAttribute(SumoXMLAttr key) const {

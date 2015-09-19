@@ -130,10 +130,7 @@ public:
         return myIndex;
     }
 
-    void setIndex(unsigned int index) {
-        myIndex = index;
-        setMicrosimID(myParentEdge.getNBEdge()->getLaneID(index));
-    }
+    void setIndex(unsigned int index);
 
     //@name inherited from GNEAttributeCarrier
     //@{
