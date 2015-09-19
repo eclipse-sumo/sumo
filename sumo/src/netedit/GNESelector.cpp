@@ -88,7 +88,8 @@ GNESelector::GNESelector(FXComposite* parent, GNEViewNet* updateTarget, GNEUndoL
     myUpdateTarget(updateTarget),
     mySetOperation(SET_ADD),
     mySetOperationTarget(mySetOperation),
-    myUndoList(undoList)
+    myUndoList(undoList),
+    ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " "))
 {
     // stats
     myContentFrame = new FXVerticalFrame(this, LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH, 0, 0, WIDTH, 0);
@@ -119,7 +120,7 @@ GNESelector::GNESelector(FXComposite* parent, GNEViewNet* updateTarget, GNEUndoL
     myMatchTagBox->setNumVisible(myMatchTagBox->getNumItems());
     myMatchAttrBox = new FXListBox(matchBox);
     onCmdSelMBTag(0, 0, 0);
-    myMatchAttrBox->setCurrentItem(1); // speed
+    myMatchAttrBox->setCurrentItem(3); // speed
     myMatchString = new FXTextField(matchBox, 12, this, MID_GNE_SELMB_STRING, TEXTFIELD_NORMAL, 0, 0, 0, 0, 4, 2, 0, 2);
     myMatchString->setText(">10.0");
     new FXButton(matchBox, "Help", 0, this, MID_HELP);
@@ -256,35 +257,43 @@ GNESelector::onCmdSelMBString(FXObject*, FXSelector, void*) {
     std::string expr(myMatchString->getText().text());
     bool valid = true;
 
-    if (GNEAttributeCarrier::isNumerical(attr)) {
-        if (expr == "") {
-            handleIDs(getMatches(tag, attr, '@', 0, expr), false);
-        } else if (expr.size() < 2) {
-            valid = false;
-        } else {
-            // numerical attr must have the form [<,>,=]<nr>
-            // or be completely empty (matches all)
-            const char compOp = expr[0];
+    if (expr == "") {
+        // the empty expression matches all objects
+        handleIDs(getMatches(tag, attr, '@', 0, expr), false);
+    } else if (GNEAttributeCarrier::isNumerical(attr)) {
+        // The expression must have the form 
+        //  <val matches if attr < val
+        //  >val matches if attr > val
+        //  =val matches if attr = val
+        //  val matches if attr = val
+        char compOp = expr[0];
+        if (compOp == '<' || compOp == '>' || compOp == '=') {
             expr = expr.substr(1);
-            SUMOReal val;
-            std::istringstream buf(expr);
-            buf >> val;
-            if (!buf.fail() && (size_t)buf.tellg() == expr.size()) {
-                switch (compOp) {
-                    case '<':
-                    case '>':
-                    case '=':
-                        handleIDs(getMatches(tag, attr, compOp, val, ""), false);
-                        break;
-                    default:
-                        valid = false;
-                }
-            } else {
-                valid = false;
-            }
+        } else {
+            compOp = '=';
+        }
+        SUMOReal val;
+        std::istringstream buf(expr);
+        buf >> val;
+        if (!buf.fail() && (size_t)buf.tellg() == expr.size()) {
+            handleIDs(getMatches(tag, attr, compOp, val, expr), false);
+        } else {
+            valid = false;
         }
     } else {
-        handleIDs(getMatches(tag, attr, '@', 0, expr), false);
+        // The expression must have the form 
+        //   =str: matches if <str> is an exact match
+        //   !str: matches if <str> is not a substring
+        //   ^str: matches if <str> is not an exact match
+        //   str: matches if <str> is a substring (sends compOp '@')
+        // Alternatively, if the expression is empty it matches all objects
+        char compOp = expr[0];
+        if (compOp == '=' || compOp == '!' || compOp == '^') {
+            expr = expr.substr(1);
+        } else {
+            compOp = '@';
+        }
+        handleIDs(getMatches(tag, attr, compOp, 0, expr), false);
     }
     if (valid) {
         myMatchString->setTextColor(FXRGB(0, 0, 0));
@@ -299,21 +308,35 @@ GNESelector::onCmdSelMBString(FXObject*, FXSelector, void*) {
 
 long
 GNESelector::onCmdHelp(FXObject*, FXSelector, void*) {
+    FXDialogBox* helpDialog = new FXDialogBox(this, "Match Attribute Help", DECOR_CLOSE | DECOR_TITLE);
     std::ostringstream help;
-    help << "The 'Match Attribute' controls are a flexible tool for modifying the current selection\n"
-         << "It allows you to specify a set of objects which are then applied to the current selection "
+    help
+         << "The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection "
          << "according to the current 'Modification Mode'.\n"
-         << "To specify a set of objects you need to perform 3 steps:\n"
          << "1. Select an object type from the first input box\n"
          << "2. Select an attribute from the second input box\n"
-         << "3. Enter a 'match expression' in the third input box and press <return>\n\n"
-         << "For string attributes an object is selected if the match expression is a substring of that object's attribute.\n"
-         << "For numerical attributes the match expression must consist of a comparison operator ('<', '>', '='') and a number.\n"
+         << "3. Enter a 'match expression' in the third input box and press <return>\n"
+         << "\n"
+         << "The empty expression matches all objects\n"
+         << "For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
          << "An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
+         << "\n"
+         << "For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
+         << "  '' (no operator) matches if string is a substring of that object'ts attribute.\n"
+         << "  '=' matches if string is an exact match.\n"
+         << "  '!' matches if string is not a substring.\n"
+         << "  '^' matches if string is not an exact match.\n"
+         << "\n"
          << "Examples:\n"
          << "junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
          << "edge; speed; '>10' -> match all edges with a speed above 10\n";
-    FXMessageBox::question(this, MBOX_OK, "Selection Help", "%s", help.str().c_str());
+    new FXLabel(helpDialog, help.str().c_str(), 0, JUSTIFY_LEFT);
+    // "OK"
+    new FXButton(helpDialog, "OK\t\tSave modifications", 0, helpDialog, FXDialogBox::ID_ACCEPT,
+                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
+                 0, 0, 0, 0, 4, 4, 3, 3);
+    helpDialog->create();
+    helpDialog->show();
     return 1;
 }
 
@@ -437,6 +460,7 @@ GNESelector::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, SUMOReal 
     GNEAttributeCarrier* ac;
     std::vector<GUIGlID> result;
     const std::set<GUIGlID> allIDs = myUpdateTarget->getNet()->getGlIDs();
+    const bool numerical = GNEAttributeCarrier::isNumerical(attr);
     for (std::set<GUIGlID>::const_iterator it = allIDs.begin(); it != allIDs.end(); it++) {
         GUIGlID id = *it;
         object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
@@ -445,12 +469,9 @@ GNESelector::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, SUMOReal 
         }
         ac = dynamic_cast<GNEAttributeCarrier*>(object);
         if (ac && ac->getTag() == tag) { // not all objects need to be attribute carriers
-            if (compOp == '@') { // match against expr
-                std::string acVal = ac->getAttribute(attr);
-                if (acVal.find(expr) != std::string::npos) {
-                    result.push_back(id);
-                }
-            } else { // match against val
+            if (expr == "") {
+                result.push_back(id);
+            } else if (numerical) {
                 SUMOReal acVal;
                 std::istringstream buf(ac->getAttribute(attr));
                 buf >> acVal;
@@ -467,6 +488,34 @@ GNESelector::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, SUMOReal 
                         break;
                     case '=':
                         if (acVal == val) {
+                            result.push_back(id);
+                        }
+                        break;
+                }
+            } else {
+                // string match
+                std::string acVal = ac->getAttribute(attr);
+                if ((attr == SUMO_ATTR_ALLOW || attr == SUMO_ATTR_DISALLOW) && acVal == "all") {
+                    acVal = ALL_VCLASS_NAMES_MATCH_STRING;
+                }
+                switch (compOp) {
+                    case '@':
+                        if (acVal.find(expr) != std::string::npos) {
+                            result.push_back(id);
+                        }
+                        break;
+                    case '!':
+                        if (acVal.find(expr) == std::string::npos) {
+                            result.push_back(id);
+                        }
+                        break;
+                    case '=':
+                        if (acVal == expr) {
+                            result.push_back(id);
+                        }
+                        break;
+                    case '^':
+                        if (acVal != expr) {
                             result.push_back(id);
                         }
                         break;

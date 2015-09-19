@@ -2157,7 +2157,6 @@ NBEdge::getTurnDestination(bool possibleDestination) const {
 
 std::string
 NBEdge::getLaneID(unsigned int lane) const {
-    assert(lane < myLanes.size());
     return myID + "_" + toString(lane);
 }
 

@@ -681,16 +681,18 @@ GNEEdge::setNumLanes(unsigned int numLanes, GNEUndoList* undoList) {
 
 void
 GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
+    const int index = lane ? lane->getIndex(): myNBEdge.getNumLanes();
+    // the laneStruct must be created first to ensure we have some geometry
+    myNBEdge.addLane(index); 
     if (lane) {
         // restore a previously deleted lane
-        myLanes.insert(myLanes.begin() + lane->getIndex(), lane); 
+        myLanes.insert(myLanes.begin() + index, lane); 
 
     } else {
         // create a new lane by copying leftmost lane
-        lane = new GNELane(*this, myNBEdge.getNumLanes());
+        lane = new GNELane(*this, index);
         myLanes.push_back(lane);
     }
-    myNBEdge.addLane(lane->getIndex()); 
     lane->incRef("GNEEdge::addLane");
     // we copy all attributes except shape since this is recomputed from edge shape
     myNBEdge.setSpeed(lane->getIndex(), laneAttrs.speed);
