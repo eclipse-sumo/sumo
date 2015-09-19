@@ -284,12 +284,15 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
     for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
         NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(*it);
         if (tlDef != 0) {
-            NBLoadedSUMOTLDef* replacementDef = 0;
+            NBTrafficLightDefinition* replacementDef = 0;
             std::string newID = tlDef->getID(); // + "_reguessed"; // changes due to reguessing will be visible in diff
             if (deletedConnection != NBConnection::InvalidConnection) {
                 // create replacement before deleting the original because deletion will mess up saving original nodes
-                replacementDef = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
-                replacementDef->removeConnection(deletedConnection);
+                NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
+                repl->removeConnection(deletedConnection);
+                replacementDef = repl;
+            } else {
+                replacementDef = new NBOwnTLDef(newID, tlDef->getOffset(), tlDef->getType());
             }
             undoList->add(new GNEChange_TLS(this, tlDef, false), true);
             undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);
