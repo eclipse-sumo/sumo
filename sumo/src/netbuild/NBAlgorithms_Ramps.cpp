@@ -65,14 +65,23 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
     std::set<NBEdge*> incremented;
     // check whether on-off ramps shall be guessed
     if (oc.getBool("ramps.guess")) {
+        NBNodeCont& nc = nb.getNodeCont();
+        NBEdgeCont& ec = nb.getEdgeCont();
+        NBDistrictCont& dc = nb.getDistrictCont();
+        // collect join exclusions
         std::set<std::string> noramps;
         if (oc.isSet("ramps.unset")) {
             std::vector<std::string> edges = oc.getStringVector("ramps.unset");
             noramps.insert(edges.begin(), edges.end());
         }
-        NBNodeCont& nc = nb.getNodeCont();
-        NBEdgeCont& ec = nb.getEdgeCont();
-        NBDistrictCont& dc = nb.getDistrictCont();
+        // exclude roundabouts
+        const std::set<EdgeSet>& roundabouts = ec.getRoundabouts();
+        for (std::set<EdgeSet>::const_iterator it_round = roundabouts.begin();
+                it_round != roundabouts.end(); ++it_round) {
+            for (EdgeSet::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
+                noramps.insert((*it_edge)->getID());
+            }
+        }
         // if an edge is part of two ramps, ordering is important
         std::set<NBNode*, Named::ComparatorIdLess> potOnRamps;
         std::set<NBNode*, Named::ComparatorIdLess> potOffRamps;

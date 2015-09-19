@@ -113,6 +113,21 @@ NBNetBuilder::compute(OptionsCont& oc,
             PROGRESS_DONE_MESSAGE();
         }
     }
+    // preliminary roundabout computations to avoid damaging roundabouts via junctions.join or ramps.guess
+    if (oc.getBool("junctions.join") || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))) {
+        if (oc.getBool("roundabouts.guess")) {
+            myEdgeCont.guessRoundabouts();
+        }
+        const std::set<EdgeSet>& roundabouts = myEdgeCont.getRoundabouts();
+        for (std::set<EdgeSet>::const_iterator it_round = roundabouts.begin();
+                it_round != roundabouts.end(); ++it_round) {
+            std::vector<std::string> nodeIDs;
+            for (EdgeSet::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
+                nodeIDs.push_back((*it_edge)->getToNode()->getID());
+            }
+            myNodeCont.addJoinExclusion(nodeIDs);
+        }
+    }
     // join junctions (may create new "geometry"-nodes so it needs to come before removing these
     if (oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
         myNodeCont.addJoinExclusion(oc.getStringVector("junctions.join-exclude"));
@@ -127,19 +142,6 @@ NBNetBuilder::compute(OptionsCont& oc,
         NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
         myNodeCont.computeNodeShapes();
         myEdgeCont.computeEdgeShapes();
-        // preliminary roundabout computations to avoid destroying roundabouts
-        if (oc.getBool("roundabouts.guess")) {
-            myEdgeCont.guessRoundabouts();
-        }
-        const std::set<EdgeSet>& roundabouts = myEdgeCont.getRoundabouts();
-        for (std::set<EdgeSet>::const_iterator it_round = roundabouts.begin();
-                it_round != roundabouts.end(); ++it_round) {
-            std::vector<std::string> nodeIDs;
-            for (EdgeSet::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
-                nodeIDs.push_back((*it_edge)->getToNode()->getID());
-            }
-            myNodeCont.addJoinExclusion(nodeIDs);
-        }
         numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
         // reset geometry to avoid influencing subsequent steps (ramps.guess)
         myEdgeCont.computeLaneShapes();
