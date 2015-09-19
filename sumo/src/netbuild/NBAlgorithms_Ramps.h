@@ -139,6 +139,8 @@ private:
      */
     static void moveRampRight(NBEdge* ramp, int addedLanes);
 
+    /// @brief whether the edge has a mode that does not indicate a ramp edge
+    static bool hasWrongMode(NBEdge* edge);
 };
 
 

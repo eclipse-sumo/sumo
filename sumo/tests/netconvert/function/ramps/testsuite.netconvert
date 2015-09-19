@@ -55,3 +55,6 @@ on_turnaround_noramp
 # same as above with spreadType="center"
 3on_4main_4cont_centered
 off_ramp_preserve_permissions
+
+# no ramp should be guessed when there is a sidewalk
+sidewalks_no_ramp

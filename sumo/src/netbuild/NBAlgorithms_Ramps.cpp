@@ -410,8 +410,8 @@ bool
 NBRampsComputer::fulfillsRampConstraints(
     NBEdge* potHighway, NBEdge* potRamp, NBEdge* other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
     const std::set<std::string>& noramps) {
-    // do not build ramps on rail edges
-    if (isRailway(potHighway->getPermissions()) || isRailway(potRamp->getPermissions())) {
+    // check modes that are not appropriate for rampsdo not build ramps on rail edges
+    if (hasWrongMode(potHighway) || hasWrongMode(potRamp) || hasWrongMode(other)) {
         return false;
     }
     // do not build ramps on connectors
@@ -456,6 +456,21 @@ NBRampsComputer::fulfillsRampConstraints(
     return true;
 }
 
+
+bool 
+NBRampsComputer::hasWrongMode(NBEdge* edge) {
+    // must allow passenger vehicles
+    if ((edge->getPermissions() & SVC_PASSENGER) == 0) {
+        return true;
+    }
+    // must not have a green verge or a lane that is only for soft modes
+    for (int i = 0; i < (int)edge->getNumLanes(); ++i) {
+        if ((edge->getPermissions(i) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /****************************************************************************/
 
