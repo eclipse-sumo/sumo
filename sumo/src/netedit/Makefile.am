@@ -24,6 +24,7 @@ GNENet.h GNENet.cpp \
 GNEEdge.h GNEEdge.cpp \
 GNELane.h GNELane.cpp \
 GNEInternalLane.h GNEInternalLane.cpp \
+GNECrossing.h GNECrossing.cpp \
 GNEJunction.h GNEJunction.cpp \
 GNEPOI.h GNEPOI.cpp \
 GNEPoly.h GNEPoly.cpp \

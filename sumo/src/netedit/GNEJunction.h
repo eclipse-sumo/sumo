@@ -45,6 +45,7 @@
 class NBNode;
 class GNENet;
 class GNEEdge;
+class GNECrossing;
 class NBTrafficLightDefinition;
 
 // ===========================================================================
@@ -247,6 +248,9 @@ private:
     /// @brief whether this junction is selected in tls-mode
     bool myAmTLSSelected;
 
+    /// @brief the built crossing objects
+    std::vector<GNECrossing*> myCrossings;
+
     /// @brief gl-id of the tls-decal (drawn in tls-mode)
     static int TLSDecalGlID;
 
@@ -277,6 +281,8 @@ private:
     /// @brief removes a traffic light
     void removeTrafficLight(NBTrafficLightDefinition* tlDef);
 
+    /// @brief rebuilds crossing objects for this junction
+    void rebuiltCrossings(bool deleteOnly);
 };
 
 

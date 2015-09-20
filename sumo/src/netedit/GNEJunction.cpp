@@ -51,6 +51,7 @@
 #include "tlslogo.cpp"
 #include "GNENet.h"
 #include "GNEEdge.h"
+#include "GNECrossing.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEChange_Attribute.h"
@@ -88,12 +89,29 @@ GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
                      myOrigPos.x() - EXTENT, myOrigPos.y() - EXTENT,
                      myOrigPos.x() + EXTENT, myOrigPos.y() + EXTENT);
     myMaxSize = 2 * EXTENT;
+    rebuiltCrossings(false);
 }
 
 
 GNEJunction::~GNEJunction() {
     if (myAmResponsible) {
         delete &myNBNode;
+    }
+    rebuiltCrossings(true);
+}
+
+
+void 
+GNEJunction::rebuiltCrossings(bool deleteOnly) {
+    for (std::vector<GNECrossing*>::const_iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
+        delete *it;
+    }
+    myCrossings.clear();
+    if (!deleteOnly) {
+        const std::vector<NBNode::Crossing>& crossings = myNBNode.getCrossings();
+        for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+            myCrossings.push_back(new GNECrossing(*this, (*it).id));
+        }
     }
 }
 
@@ -200,6 +218,12 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             GUITexturesHelper::drawTexturedBox(TLSDecalGlID, -halfWidth, -halfHeight, halfWidth, halfHeight);
             glPopMatrix();
         }
+        // draw crossings
+        if (s.editMode != GNE_MODE_TLS) {
+            for (std::vector<GNECrossing*>::const_iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
+                (*it)->drawGL(s);
+            }
+        }
         // (optional) draw name @todo expose this setting
         drawName(myNBNode.getPosition(), s.scale, s.junctionName);
     }
@@ -272,6 +296,8 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
             undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, status), true);
         }
         invalidateTLS(undoList);
+    } else {
+        rebuiltCrossings(false);
     }
 }
 
