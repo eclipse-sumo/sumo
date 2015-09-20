@@ -947,3 +947,23 @@ Warning: Missing green phase in tlLogic 'cluster_25954547_29221622', program '0'
 Warning: Missing green phase in tlLogic 'joinedS_2', program '0' for tl-index 4
 Warning: Missing green phase in tlLogic 'joinedS_3', program '0' for tl-index 6
 Warning: Missing green phase in tlLogic 'joinedS_7', program '0' for tl-index 5
+Warning: Person 'ped10' is jammed on edge ':266540878_w1', time=380.00.
+Warning: Person 'ped8' is jammed on edge ':21487184_w0', time=515.00.
+Warning: Person 'ped23' is jammed on edge ':21487184_w1', time=667.00.
+Warning: Person 'ped39' is jammed on edge ':21487184_w1', time=670.00.
+Warning: Person 'ped108' is jammed on edge ':21487184_w1', time=869.00.
+Warning: Person 'ped161' is jammed on edge ':cluster_25664680_577258918_w1', time=951.00.
+Warning: Person 'ped7' is jammed on edge ':21487184_w1', time=971.00.
+Warning: Person 'ped17' is jammed on edge ':21487184_w0', time=994.00.
+Warning: Person 'ped40' is jammed on edge ':25664673_w3', time=1030.00.
+Warning: Person 'ped4' is jammed on edge ':25664673_w2', time=1047.00.
+Warning: Person 'ped135' is jammed on edge ':21487184_w1', time=1131.00.
+Warning: Person 'ped145' is jammed on edge ':1275468907_w0', time=1255.00.
+Warning: Person 'ped27' is jammed on edge ':1275468905_w1', time=1267.00.
+Warning: Person 'ped195' is jammed on edge ':21487184_w1', time=1396.00.
+Warning: Person 'ped140' is jammed on edge ':21487184_w0', time=1467.00.
+Warning: Person 'ped204' is jammed on edge ':21487184_w0', time=1472.00.
+Warning: Person 'ped133' is jammed on edge ':25664673_w2', time=1786.00.
+Warning: Person 'ped38' is jammed on edge ':21487184_w0', time=1986.00.
+Warning: Person 'ped218' is jammed on edge ':1275468905_w1', time=2006.00.
+Warning: Person 'ped209' is jammed on edge ':21487184_w0', time=2742.00.

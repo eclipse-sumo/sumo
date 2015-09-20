@@ -113,8 +113,16 @@ NBNetBuilder::compute(OptionsCont& oc,
             PROGRESS_DONE_MESSAGE();
         }
     }
-    // preliminary roundabout computations to avoid damaging roundabouts via junctions.join or ramps.guess
     if (oc.getBool("junctions.join") || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))) {
+        // preliminary geometry computations to determine the length of edges
+        // This depends on turning directions and sorting of edge list
+        // in case junctions are joined geometry computations have to be repeated
+        // preliminary roundabout computations to avoid damaging roundabouts via junctions.join or ramps.guess
+        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
+        NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
+        myEdgeCont.computeLaneShapes();
+        myNodeCont.computeNodeShapes();
+        myEdgeCont.computeEdgeShapes();
         if (oc.getBool("roundabouts.guess")) {
             myEdgeCont.guessRoundabouts();
         }
@@ -135,17 +143,12 @@ NBNetBuilder::compute(OptionsCont& oc,
     unsigned int numJoined = myNodeCont.joinLoadedClusters(myDistrictCont, myEdgeCont, myTLLCont);
     if (oc.getBool("junctions.join")) {
         PROGRESS_BEGIN_MESSAGE("Joining junction clusters");
-        // preliminary geometry computations to determine the length of edges
-        // This depends on turning directions and sorting of edge list
-        // in case junctions are joined geometry computations have to be repeated
-        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
-        NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
-        myNodeCont.computeNodeShapes();
-        myEdgeCont.computeEdgeShapes();
         numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
+        PROGRESS_DONE_MESSAGE();
+    }
+    if (oc.getBool("junctions.join") || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))) {
         // reset geometry to avoid influencing subsequent steps (ramps.guess)
         myEdgeCont.computeLaneShapes();
-        PROGRESS_DONE_MESSAGE();
     }
     if (numJoined > 0) {
         // bit of a misnomer since we're already done

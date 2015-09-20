@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 18 13:15:11 2015 by SUMO netconvert Version dev-SVN-r18647I
+<!-- generated on 09/20/15 03:00:29 by SUMO netconvert Version dev-SVN-r18876
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -72,14 +72,14 @@
         <lane id="10802650#1_0" index="0" speed="44.44" length="500.88" shape="2104.56,1161.53 2086.90,1123.52 2065.29,1082.45 2026.30,1016.48 1984.11,953.09 1959.18,916.06 1932.93,878.91 1879.78,804.83 1838.05,749.47"/>
         <lane id="10802650#1_1" index="1" speed="44.44" length="500.88" shape="2107.56,1160.14 2089.90,1122.12 2068.21,1080.91 2029.14,1014.80 1986.85,951.27 1961.92,914.22 1935.63,877.01 1882.46,802.91 1840.69,747.49"/>
     </edge>
-    <edge id="10802652" from="21425448" to="10802652-AddedOffRampNode" priority="13" spreadType="center" shape="2246.94,1576.50 2234.39,1522.34 2219.57,1468.83 2203.26,1411.95 2190.78,1372.58 2184.91,1353.95 2177.63,1334.98 2174.52,1325.96">
-        <lane id="10802652_0" index="0" speed="27.78" length="260.99" shape="2245.33,1576.87 2232.78,1522.71 2217.98,1469.27 2201.67,1412.40 2189.21,1373.08 2183.34,1354.45 2176.09,1335.57 2173.45,1327.92"/>
-        <lane id="10802652_1" index="1" speed="27.78" length="260.99" shape="2248.55,1576.13 2236.00,1521.97 2221.16,1468.39 2204.85,1411.50 2192.35,1372.08 2186.48,1353.45 2179.17,1334.39 2176.57,1326.84"/>
+    <edge id="10802652" from="21425448" to="10802652-AddedOffRampNode" priority="13" spreadType="center" shape="2246.94,1576.50 2234.39,1522.34 2219.57,1468.83 2203.26,1411.95 2190.78,1372.58 2184.91,1353.95 2177.63,1334.98 2174.54,1326.02">
+        <lane id="10802652_0" index="0" speed="27.78" length="260.92" shape="2245.33,1576.87 2232.78,1522.71 2217.98,1469.27 2201.67,1412.40 2189.21,1373.08 2183.34,1354.45 2176.09,1335.57 2173.47,1327.97"/>
+        <lane id="10802652_1" index="1" speed="27.78" length="260.92" shape="2248.55,1576.13 2236.00,1521.97 2221.16,1468.39 2204.85,1411.50 2192.35,1372.08 2186.48,1353.45 2179.17,1334.39 2176.59,1326.90"/>
     </edge>
-    <edge id="10802652-AddedOffRampEdge" from="10802652-AddedOffRampNode" to="21425445" priority="13" spreadType="center" shape="2173.01,1326.48 2168.08,1312.18 2159.10,1288.98 2140.02,1242.99">
-        <lane id="10802652-AddedOffRampEdge_0" index="0" speed="27.78" length="92.10" shape="2169.40,1326.14 2164.96,1313.26 2156.03,1290.17 2136.97,1244.24"/>
-        <lane id="10802652-AddedOffRampEdge_1" index="1" speed="27.78" length="92.10" shape="2172.52,1325.06 2168.08,1312.18 2159.10,1288.98 2140.02,1242.98"/>
-        <lane id="10802652-AddedOffRampEdge_2" index="2" speed="27.78" length="92.10" shape="2175.64,1323.99 2171.20,1311.10 2162.18,1287.79 2143.06,1241.71"/>
+    <edge id="10802652-AddedOffRampEdge" from="10802652-AddedOffRampNode" to="21425445" priority="13" spreadType="center" shape="2173.03,1326.54 2168.08,1312.18 2159.10,1288.98 2140.02,1242.99">
+        <lane id="10802652-AddedOffRampEdge_0" index="0" speed="27.78" length="92.16" shape="2169.42,1326.20 2164.96,1313.26 2156.03,1290.17 2136.97,1244.24"/>
+        <lane id="10802652-AddedOffRampEdge_1" index="1" speed="27.78" length="92.16" shape="2172.54,1325.12 2168.08,1312.18 2159.10,1288.98 2140.02,1242.98"/>
+        <lane id="10802652-AddedOffRampEdge_2" index="2" speed="27.78" length="92.16" shape="2175.66,1324.05 2171.20,1311.10 2162.18,1287.79 2143.06,1241.71"/>
     </edge>
     <edge id="134605344#0" from="28497546" to="30430105" priority="12" spreadType="center">
         <lane id="134605344#0_0" index="0" speed="22.22" length="245.06" shape="1502.16,791.16 1730.06,715.66"/>
@@ -375,7 +375,7 @@
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="10802652-AddedOffRampNode" type="priority" x="2174.52" y="1325.96" incLanes="10802652_0 10802652_1" intLanes="" shape="2171.94,1328.44 2178.08,1326.32 2177.15,1323.47 2167.89,1326.66">
+    <junction id="10802652-AddedOffRampNode" type="priority" x="2174.54" y="1326.02" incLanes="10802652_0 10802652_1" intLanes="" shape="2171.96,1328.50 2178.10,1326.38 2177.17,1323.52 2167.91,1326.72">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>

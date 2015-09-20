@@ -1,8 +1,8 @@
-Parsing types from 'sumo\data\typemap\osmNetconvert.typ.xml'... done.
-Parsing types from 'sumo\data\typemap\osmNetconvertUrbanDe.typ.xml'... done.
-Parsing types from 'sumo\data\typemap\osmNetconvertPedestrians.typ.xml'... done.
-Parsing types from 'sumo\data\typemap\osmNetconvertShips.typ.xml'... done.
-Parsing types from 'sumo\data\typemap\osmNetconvertBicycle.typ.xml'... done.
+Parsing types from 'D:\erdm_ja\sumo-dev\data\typemap\osmNetconvert.typ.xml'... done.
+Parsing types from 'D:\erdm_ja\sumo-dev\data\typemap\osmNetconvertUrbanDe.typ.xml'... done.
+Parsing types from 'D:\erdm_ja\sumo-dev\data\typemap\osmNetconvertPedestrians.typ.xml'... done.
+Parsing types from 'D:\erdm_ja\sumo-dev\data\typemap\osmNetconvertShips.typ.xml'... done.
+Parsing types from 'D:\erdm_ja\sumo-dev\data\typemap\osmNetconvertBicycle.typ.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... 
 Found duplicate nodes. Substituting 1241955149 with 1026369077
 Found duplicate nodes. Substituting 1241955153 with 1241955144
@@ -152,13 +152,13 @@ Summary:
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
 Success.
-Written configuration to 'D:\erdm_ja\home\.texttest\tmp\tools.18Sep112254.2192\tools\import\OSM\server\2015-09-18-11-22-58\osm.netccfg'
-Parsing network projection from 'D:\erdm_ja\home\.texttest\tmp\tools.18Sep112254.2192\tools\import\OSM\server\2015-09-18-11-22-58\osm.net.xml'... done.
+Written configuration to 'D:\erdm_ja\home\.texttest\tmp\dynamic_gui.20Sep031633.6936\tools\import\OSM\server\2015-09-20-03-16-41\osm.netccfg'
+Parsing network projection from 'D:\erdm_ja\home\.texttest\tmp\dynamic_gui.20Sep031633.6936\tools\import\OSM\server\2015-09-20-03-16-41\osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
-Written configuration to 'D:\erdm_ja\home\.texttest\tmp\tools.18Sep112254.2192\tools\import\OSM\server\2015-09-18-11-22-58\osm.polycfg'
+Written configuration to 'D:\erdm_ja\home\.texttest\tmp\dynamic_gui.20Sep031633.6936\tools\import\OSM\server\2015-09-20-03-16-41\osm.polycfg'
 Success.
 Success.
 Success.
@@ -167,23 +167,27 @@ Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
 Loading net-file from 'osm.net.xml'... 
- done (701ms).
-Loading additional-files from 'osm.poly.xml'...  done (127ms).
+ done (1140ms).
+Loading additional-files from 'osm.poly.xml'...  done (208ms).
 Loading done.
 Simulation started with time: 0.00
 Simulation ended at time: 3000.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 8785ms
- Real time factor: 341.491
- UPS: 14048.150256
+ Duration: 15122ms
+ Real time factor: 198.386
+ UPS: 8161.155932
 Vehicles: 
  Inserted: 344
  Running: 0
  Waiting: 0
+Persons: 
+ Inserted: 206
+ Running: 0
+ Jammed: 20
 
 DijkstraRouterTT answered 1045 queries and explored 789.22 edges on average.
-DijkstraRouterTT spent 430ms answering queries (0.41ms on average).
+DijkstraRouterTT spent 663ms answering queries (0.63ms on average).
 calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 calling route2trips
 calling  D:\erdm_ja\sumo-dev\tests\..\bin\duarouter.exe -n osm.net.xml -t osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log

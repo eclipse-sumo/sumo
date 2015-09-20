@@ -1,10 +1,11 @@
 Warning: In lane '-70214888#0_0': Could not build shape.
 Warning: In lane '156071615#4_0': Could not build shape.
+Warning: In lane '-70214888#0_0': Could not build shape.
+Warning: In lane '156071615#4_0': Could not build shape.
 Warning: Not joining junctions 1472995248,1472997321,1472997323 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 1560223834,1599958746 because the cluster is too complex (parallel incoming 142575679#7,146738852#2)
 Warning: Not joining junctions 1560224080,1599958758,607684208 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 1560224141,1560224152,1560224191,1560224195 because the cluster is too complex (5 incoming edges)
-Warning: Not joining junctions 1568241232,1654992651,283018497,283018514 because the cluster is too complex (7 incoming edges)
 Warning: Not joining junctions 1568241546,1568241558 because the cluster is too complex (parallel incoming -174657429,142575690#4)
 Warning: Not joining junctions 1685653117,837749839 because the cluster is too complex (parallel incoming -156294408,142575693#1)
 Warning: Not joining junctions 1789928382,664166124 because the cluster is too complex (parallel outgoing 142575693#0,158236729#1)

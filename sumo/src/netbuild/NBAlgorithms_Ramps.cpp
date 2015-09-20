@@ -174,7 +174,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
                 curr->invalidateConnections(true);
                 incremented.insert(curr);
                 moveRampRight(curr, toAdd);
-                currLength += curr->getLength(); // !!! loaded length?
+                currLength += curr->getGeometry().length(); // !!! loaded length?
                 last = curr;
             }
             NBNode* nextN = curr->getToNode();
@@ -256,7 +256,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
                 curr->invalidateConnections(true);
                 incremented.insert(curr);
                 moveRampRight(curr, toAdd);
-                currLength += curr->getLength(); // !!! loaded length?
+                currLength += curr->getGeometry().length(); // !!! loaded length?
                 last = curr;
             }
             NBNode* prevN = curr->getFromNode();
