@@ -105,11 +105,17 @@ class Builder(object):
         self.files = {}
         self.data = data
 
+        self.tmp = None
         if local:
-            self.tmp = os.path.abspath(
-                datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
-            os.mkdir(self.tmp)
-        else:
+            now = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+            for base in ['', os.path.expanduser('~/Sumo')]
+                try:
+                    self.tmp = os.path.abspath(os.path.join(base, now))
+                    os.path.makedirs(self.tmp)
+                    break
+                except:
+                    self.tmp = None
+        if self.tmp is None:
             self.tmp = tempfile.mkdtemp()
 
         self.origDir = os.getcwd()
