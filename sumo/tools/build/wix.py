@@ -31,9 +31,9 @@ OUTPUT_DEFAULT = r"O:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.msi"
 WIX_DEFAULT = "%sbin" % os.environ.get(
     "WIX", r"D:\Programme\Windows Installer XML v3.5\\")
 WXS_DEFAULT = os.path.join(
-    os.path.dirname(__file__), "..", "..", "build", "*.wxs")
+    os.path.dirname(__file__), "..", "..", "build", "wix", "*.wxs")
 LICENSE = os.path.join(
-    os.path.dirname(__file__), "..", "..", "build", "License.rtf")
+    os.path.dirname(__file__), "..", "..", "build", "wix", "License.rtf")
 
 
 def buildFragment(wixBin, sourceDir, targetLabel, tmpDir):
