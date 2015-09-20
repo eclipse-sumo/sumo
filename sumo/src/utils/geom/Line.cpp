@@ -215,16 +215,6 @@ Line::sub(SUMOReal x, SUMOReal y) {
 }
 
 
-
-Line&
-Line::reverse() {
-    Position tmp(myP1);
-    myP1 = myP2;
-    myP2 = tmp;
-    return *this;
-}
-
-
 SUMOReal
 Line::intersectsAtLength2D(const Line& v) {
     Position pos =

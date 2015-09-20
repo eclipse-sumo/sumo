@@ -78,7 +78,6 @@ public:
     void add(SUMOReal x, SUMOReal y);
     void add(const Position& p);
     void sub(SUMOReal x, SUMOReal y);
-    Line& reverse();
     void rotateAtP1(SUMOReal rot);
 
     /// @brief Output operator

@@ -187,7 +187,7 @@ public:
             if (e->getFromNode() == n) {
                 return e->getGeometry().getBegLine().atan2DegreeAngle();
             } else {
-                return e->getGeometry().getEndLine().reverse().atan2DegreeAngle();
+                return e->getGeometry().reverse().getBegLine().atan2DegreeAngle();
             }
         }
 
