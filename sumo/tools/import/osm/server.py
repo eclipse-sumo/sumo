@@ -121,7 +121,7 @@ class Builder(object):
 
         self.origDir = os.getcwd()
         os.chdir(self.tmp)
-        print("Building scenarion in '%s'" % self.tmp)
+        print("Building scenario in '%s'" % self.tmp)
 
     def report(self, message):
         pass
