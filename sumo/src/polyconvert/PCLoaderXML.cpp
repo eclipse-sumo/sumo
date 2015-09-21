@@ -160,6 +160,7 @@ PCLoaderXML::myStartElement(int element,
         bool ok = true;
         std::string id = attrs.getOpt<std::string>(SUMO_ATTR_ID, myCurrentID.c_str(), ok, "");
         std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok, myOptions.getString("type"));
+        bool fill = myOptions.getBool("fill");
         if (!ok) {
             return;
         }
@@ -171,6 +172,7 @@ PCLoaderXML::myStartElement(int element,
             color = def.color;
             discard = def.discard;
             layer = (SUMOReal)def.layer;
+            fill = def.allowFill;
         } else {
             id = myOptions.getString("prefix") + id;
             color = RGBColor::parseColor(myOptions.getString("color"));
@@ -184,7 +186,7 @@ PCLoaderXML::myStartElement(int element,
         if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
             imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
         }
-        bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, false);
+        fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, fill);
         if (!ok) {
             return;
         }

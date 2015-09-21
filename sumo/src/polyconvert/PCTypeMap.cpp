@@ -48,7 +48,7 @@ PCTypeMap::PCTypeMap(const OptionsCont& oc) {
     myDefaultType.color = RGBColor::parseColor(oc.getString("color"));
     myDefaultType.layer = oc.getInt("layer");
     myDefaultType.discard = oc.getBool("discard");
-    myDefaultType.allowFill = true;
+    myDefaultType.allowFill = oc.getBool("fill");
     myDefaultType.prefix = oc.getString("prefix");
 }
 

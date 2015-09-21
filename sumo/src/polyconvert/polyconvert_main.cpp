@@ -200,6 +200,9 @@ fillOptions() {
     oc.doRegister("type", new Option_String("unknown"));
     oc.addDescription("type", "Building Defaults", "Sets STR as default type");
 
+    oc.doRegister("fill", new Option_Bool("false"));
+    oc.addDescription("fill", "Building Defaults", "Fills polygons by default");
+
     oc.doRegister("layer", new Option_Integer(-1));
     oc.addDescription("layer", "Building Defaults", "Sets INT as default layer");
 

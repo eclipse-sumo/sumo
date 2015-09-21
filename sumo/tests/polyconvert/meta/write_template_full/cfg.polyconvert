@@ -63,6 +63,7 @@
         <color value="0.2,0.5,1." type="STR" help="Sets STR as default color"/>
         <prefix value="" type="STR" help="Sets STR as default prefix"/>
         <type value="unknown" type="STR" help="Sets STR as default type"/>
+        <fill value="true" type="BOOL" help="Fills polygons by default"/>
         <layer value="-1" type="INT" help="Sets INT as default layer"/>
         <discard value="false" type="BOOL" help="Sets default action to discard"/>
     </building_defaults>
