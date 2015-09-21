@@ -358,19 +358,6 @@ NIImporter_SUMO::myEndElement(int element) {
                 myCurrentTL = 0;
             }
             break;
-        case SUMO_TAG_JUNCTION:
-            // in a network without internal lanes, we do not need to check for crossings
-            if (myCurrentJunction.node != 0 && myCurrentJunction.intLanes.size() > 0) {
-                assert(myCurrentJunction.intLanes.size() == myCurrentJunction.response.size());
-                std::vector<Crossing>& crossings = myPedestrianCrossings[myCurrentJunction.node->getID()];
-                for (std::vector<Crossing>::iterator it = crossings.begin(); it != crossings.end(); ++it) {
-                    for (int i = 0; i < (int)myCurrentJunction.intLanes.size(); ++i) {
-                        if (myCurrentJunction.intLanes[i] == (*it).laneID) {
-                            (*it).priority = myCurrentJunction.response[i].find("1") == std::string::npos;
-                        }
-                    }
-                }
-            }
         default:
             break;
     }
@@ -391,8 +378,9 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     // get the function
     myCurrentEdge->func = attrs.getEdgeFunc(ok);
     if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
-        // add the crossing crossing but don't do anything else
+        // add the crossing but don't do anything else
         Crossing c;
+        c.edgeID = id;
         SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_CROSSING_EDGES, 0, ok), c.crossingEdges);
         myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id)].push_back(c);
         return;
@@ -445,7 +433,6 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         // save the width and the lane id of the crossing but don't do anything else
         std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentEdge->id)];
         assert(crossings.size() > 0);
-        crossings.back().laneID = id;
         crossings.back().width = attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok);
         return;
     } else if (myCurrentEdge->func == EDGEFUNC_INTERNAL || myCurrentEdge->func == EDGEFUNC_WALKINGAREA) {
@@ -560,6 +547,23 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         return;
     }
     from->lanes[fromLaneIdx]->connections.push_back(conn);
+
+    // determine crossing priority
+    if (myPedestrianCrossings.size() > 0
+            && from->func == EDGEFUNC_WALKINGAREA
+            && myEdges[conn.toEdgeID]->func == EDGEFUNC_CROSSING) {
+        std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(fromID)];
+        for (std::vector<Crossing>::iterator it = crossings.begin(); it != crossings.end(); ++it) {
+            if (conn.toEdgeID == (*it).edgeID) {
+                if (conn.tlID != "") {
+                    (*it).priority = true;
+                } else {
+                    LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, 0, ok));
+                    (*it).priority = state == LINKSTATE_MAJOR;
+                }
+            }
+        }
+    }
 }
 
 

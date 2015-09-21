@@ -262,7 +262,7 @@ private:
      * @brief Describes a pedestrian crossing
      */
     struct Crossing {
-        std::string laneID;
+        std::string edgeID;
         std::vector<std::string> crossingEdges;
         SUMOReal width;
         bool priority;
