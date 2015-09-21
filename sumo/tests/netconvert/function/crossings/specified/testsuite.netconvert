@@ -9,6 +9,7 @@
 
 # a service road (allowing pedestrians and delivery) enters a street with sidewalks at a T-junction
 3_arm_service_entering
+3_arm_unprioritized
 
 # 4 arm junction with crossings on all sides
 4_arm_complete
