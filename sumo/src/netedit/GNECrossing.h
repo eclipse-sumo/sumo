@@ -40,6 +40,7 @@
 // ===========================================================================
 class GUIGLObjectPopupMenu;
 class PositionVector;
+class GNEJunction;
 
 // ===========================================================================
 // class definitions
