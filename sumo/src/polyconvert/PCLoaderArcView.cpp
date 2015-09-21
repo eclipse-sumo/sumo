@@ -84,6 +84,12 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     bool useRunningID = oc.getBool("shapefile.use-running-id");
     // start parsing
     std::string shpName = file + ".shp";
+    int fillType = -1;
+    if (oc.getString("shapefile.fill") == "true") {
+        fillType = 1;
+    } else if (oc.getString("shapefile.fill") == "false") {
+        fillType = 0;
+    }
 #if GDAL_VERSION_MAJOR < 2
     OGRRegisterAll();
     OGRDataSource* poDS = OGRSFDriverRegistrar::Open(shpName.c_str(), FALSE);
@@ -152,6 +158,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             }
             break;
             case wkbLineString: {
+                bool fill = fillType < 0 ? false : (fillType == 1);
                 OGRLineString* cgeom = (OGRLineString*) poGeometry;
                 PositionVector shape;
                 for (int j = 0; j < cgeom->getNumPoints(); j++) {
@@ -161,13 +168,14 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     }
                     shape.push_back_noDoublePos(pos);
                 }
-                Polygon* poly = new Polygon(id, type, color, shape, false, (SUMOReal)layer);
+                Polygon* poly = new Polygon(id, type, color, shape, fill, (SUMOReal)layer);
                 if (toFill.insert(id, poly, layer)) {
                     parCont.push_back(poly);
                 }
             }
             break;
             case wkbPolygon: {
+                bool fill = fillType < 0 ? true : (fillType == 1);
                 OGRLinearRing* cgeom = ((OGRPolygon*) poGeometry)->getExteriorRing();
                 PositionVector shape;
                 for (int j = 0; j < cgeom->getNumPoints(); j++) {
@@ -177,7 +185,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     }
                     shape.push_back_noDoublePos(pos);
                 }
-                Polygon* poly = new Polygon(id, type, color, shape, true, (SUMOReal)layer);
+                Polygon* poly = new Polygon(id, type, color, shape, fill, (SUMOReal)layer);
                 if (toFill.insert(id, poly, layer)) {
                     parCont.push_back(poly);
                 }
@@ -200,6 +208,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             }
             break;
             case wkbMultiLineString: {
+                bool fill = fillType < 0 ? false : (fillType == 1);
                 OGRMultiLineString* cgeom = (OGRMultiLineString*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
                     OGRLineString* cgeom2 = (OGRLineString*) cgeom->getGeometryRef(i);
@@ -212,7 +221,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         }
                         shape.push_back_noDoublePos(pos);
                     }
-                    Polygon* poly = new Polygon(tid, type, color, shape, false, (SUMOReal)layer);
+                    Polygon* poly = new Polygon(tid, type, color, shape, fill, (SUMOReal)layer);
                     if (toFill.insert(tid, poly, layer)) {
                         parCont.push_back(poly);
                     }
@@ -220,6 +229,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             }
             break;
             case wkbMultiPolygon: {
+                bool fill = fillType < 0 ? true : (fillType == 1);
                 OGRMultiPolygon* cgeom = (OGRMultiPolygon*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
                     OGRLinearRing* cgeom2 = ((OGRPolygon*) cgeom->getGeometryRef(i))->getExteriorRing();
@@ -232,7 +242,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         }
                         shape.push_back_noDoublePos(pos);
                     }
-                    Polygon* poly = new Polygon(tid, type, color, shape, true, (SUMOReal)layer);
+                    Polygon* poly = new Polygon(tid, type, color, shape, fill, (SUMOReal)layer);
                     if (toFill.insert(tid, poly, layer)) {
                         parCont.push_back(poly);
                     }
