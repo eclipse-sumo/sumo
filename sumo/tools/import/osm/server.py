@@ -108,7 +108,7 @@ class Builder(object):
         self.tmp = None
         if local:
             now = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-            for base in ['', os.path.expanduser('~/Sumo')]
+            for base in ['', os.path.expanduser('~/Sumo')]:
                 try:
                     self.tmp = os.path.abspath(os.path.join(base, now))
                     os.path.makedirs(self.tmp)
