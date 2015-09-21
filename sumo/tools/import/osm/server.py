@@ -111,15 +111,17 @@ class Builder(object):
             for base in ['', os.path.expanduser('~/Sumo')]:
                 try:
                     self.tmp = os.path.abspath(os.path.join(base, now))
-                    os.path.makedirs(self.tmp)
+                    os.makedirs(self.tmp)
                     break
                 except:
+                    print("Cannot create directory '%s'" % self.tmp)
                     self.tmp = None
         if self.tmp is None:
             self.tmp = tempfile.mkdtemp()
 
         self.origDir = os.getcwd()
         os.chdir(self.tmp)
+        print("Building scenarion in '%s'" % self.tmp)
 
     def report(self, message):
         pass
@@ -308,8 +310,10 @@ class OSMImporterWebSocket(WebSocket):
     local = False
 
     def report(self, message):
-        print message
+        print(message)
         self.sendMessage(unicode("report " + message))
+        # number of remaining steps
+        self.steps -= 1
 
     def handleMessage(self):
         data = json.loads(self.data)
@@ -321,20 +325,25 @@ class OSMImporterWebSocket(WebSocket):
         builder = Builder(data, self.local)
         builder.report = self.report
 
-        steps = len(data["vehicles"]) + 4
-        self.sendMessage(unicode("steps " + str(steps)))
+        self.steps = len(data["vehicles"]) + 4
+        self.sendMessage(unicode("steps " + str(self.steps)))
 
-        builder.build()
-        builder.makeConfigFile()
-        builder.createBatch()
+        try:
+            builder.build()
+            builder.makeConfigFile()
+            builder.createBatch()
 
-        if self.local:
-            builder.openSUMO()
-        else:
-            data = builder.createZip()
-            builder.finalize()
+            if self.local:
+                builder.openSUMO()
+            else:
+                data = builder.createZip()
+                builder.finalize()
 
-            self.sendMessage(unicode("zip " + data))
+                self.sendMessage(unicode("zip " + data))
+        except:
+            # reset 'Generate Scenario' button
+            while self.steps > 0:
+                self.report("Recovering")
         os.chdir(builder.origDir)
 
 parser = ArgumentParser(description="OSM Importer for SUMO - Websocket Server")
