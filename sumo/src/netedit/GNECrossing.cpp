@@ -46,6 +46,8 @@
 
 #include "GNECrossing.h"
 #include "GNEJunction.h"
+#include "GNEUndoList.h"
+#include "GNEChange_Attribute.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -62,7 +64,8 @@
 // method definitions
 // ===========================================================================
 GNECrossing::GNECrossing(GNEJunction& parentJunction, const std::string& id) :
-    GUIGlObject(GLO_EDGE, id),
+    GUIGlObject(GLO_CROSSING, id),
+    GNEAttributeCarrier(SUMO_TAG_CROSSING),
     myParentJunction(parentJunction),
     myCrossing(parentJunction.getNBNode()->getCrossing(id)),
     myShape(myCrossing.shape)
@@ -157,4 +160,81 @@ GNECrossing::getCenteringBoundary() const {
 }
 
 
+std::string
+GNECrossing::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            return getMicrosimID();
+            break;
+        case SUMO_ATTR_WIDTH:
+            return toString(myCrossing.width);
+            break;
+        case SUMO_ATTR_PRIORITY:
+            return myCrossing.priority ? "true" : "false";
+            break;
+        case SUMO_ATTR_EDGES:
+            return toString(myCrossing.edges);
+            break;
+        default:
+            throw InvalidArgument("junction attribute '" + toString(key) + "' not allowed");
+    }
+}
+
+
+void
+GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    if (value == getAttribute(key)) {
+        return; //avoid needless changes, later logic relies on the fact that attributes have changed
+    }
+    switch (key) {
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_EDGES:
+            throw InvalidArgument("modifying crossing attribute '" + toString(key) + "' not allowed");
+        case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_PRIORITY:
+            undoList->add(new GNEChange_Attribute(this, key, value), true);
+            break;
+        default:
+            throw InvalidArgument("crossing attribute '" + toString(key) + "' not allowed");
+    }
+}
+
+
+bool
+GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_EDGES:
+            return false;
+        case SUMO_ATTR_WIDTH:
+            return isPositive<SUMOReal>(value); 
+        case SUMO_ATTR_PRIORITY:
+            return value == "true" || value == "false";
+        default:
+            throw InvalidArgument("crossing attribute '" + toString(key) + "' not allowed");
+    }
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
+void
+GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_EDGES:
+            throw InvalidArgument("modifying crossing attribute '" + toString(key) + "' not allowed");
+        case SUMO_ATTR_WIDTH:
+            myCrossing.width = parse<SUMOReal>(value);
+            myParentJunction.updateCrossingAttributes(myCrossing);
+            break;
+        case SUMO_ATTR_PRIORITY:
+            myCrossing.priority = value == "true";
+            myParentJunction.updateCrossingAttributes(myCrossing);
+            break;
+        default:
+            throw InvalidArgument("crossing attribute '" + toString(key) + "' not allowed");
+    }
+}
 /****************************************************************************/

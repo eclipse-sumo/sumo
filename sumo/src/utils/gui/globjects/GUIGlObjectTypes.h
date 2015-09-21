@@ -54,6 +54,8 @@ enum GUIGlObjectType {
     /// @brief a junction
     GLO_JUNCTION = 4,
     /// @brief a tl-logic
+    GLO_CROSSING = 5,
+    /// @brief a tl-logic
     GLO_TLLOGIC = 8,
     /// @brief a detector
     GLO_DETECTOR = 16,

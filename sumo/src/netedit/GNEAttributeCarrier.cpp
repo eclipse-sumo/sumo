@@ -125,6 +125,12 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(SUMO_ATTR_POSITION);
                 attrs.push_back(SUMO_ATTR_TYPE);
                 break;
+            case SUMO_TAG_CROSSING:
+                attrs.push_back(SUMO_ATTR_ID);
+                attrs.push_back(SUMO_ATTR_PRIORITY);
+                attrs.push_back(SUMO_ATTR_WIDTH);
+                attrs.push_back(SUMO_ATTR_EDGES);
+                break;
             default:
                 WRITE_WARNING("allowed attributes for tag '" +
                               toString(tag) + "' not defined");
@@ -172,6 +178,7 @@ GNEAttributeCarrier::isUnique(SumoXMLAttr attr) {
         _uniqueAttrs.insert(SUMO_ATTR_TO);
         _uniqueAttrs.insert(SUMO_ATTR_SHAPE);
         _uniqueAttrs.insert(SUMO_ATTR_POSITION);
+        _uniqueAttrs.insert(SUMO_ATTR_EDGES);
     }
     return _uniqueAttrs.count(attr) == 1;
 }
@@ -201,6 +208,9 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
             _discreteChoices[SUMO_TAG_LANE][SUMO_ATTR_ALLOW].push_back(*it);
             _discreteChoices[SUMO_TAG_LANE][SUMO_ATTR_DISALLOW].push_back(*it);
         }
+
+        _discreteChoices[SUMO_TAG_CROSSING][SUMO_ATTR_PRIORITY].push_back("true");
+        _discreteChoices[SUMO_TAG_CROSSING][SUMO_ATTR_PRIORITY].push_back("false");
     }
     return _discreteChoices[tag][attr];
 }

@@ -63,6 +63,7 @@
 #include "GNEConnector.h"
 #include "GNETLSEditor.h"
 #include "GNEPoly.h"
+#include "GNECrossing.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -379,6 +380,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
         GNELane* pointed_lane = 0;
         GNEEdge* pointed_edge = 0;
         GNEPOI* pointed_poi = 0;
+        GNECrossing* pointed_crossing = 0;
         if (pointed) {
             switch (pointed->getType()) {
                 case GLO_JUNCTION:
@@ -393,6 +395,9 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                     break;
                 case GLO_POI:
                     pointed_poi = (GNEPOI*)pointed;
+                    break;
+                case GLO_CROSSING:
+                    pointed_crossing = (GNECrossing*)pointed;
                     break;
                 default:
                     pointed = 0;
@@ -514,6 +519,9 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 } else if (pointed_edge) {
                     pointedAC = pointed_edge;
                     pointedO = pointed_edge;
+                } else if (pointed_crossing) {
+                    pointedAC = pointed_crossing;
+                    pointedO = pointed_crossing;
                 }
                 std::vector<GNEAttributeCarrier*> selected;
                 if (pointedO && gSelected.isSelected(pointedO->getType(), pointedO->getGlID())) {

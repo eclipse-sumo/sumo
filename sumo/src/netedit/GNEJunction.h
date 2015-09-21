@@ -35,6 +35,7 @@
 #include <utility>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <netbuild/NBConnection.h>
+#include <netbuild/NBNode.h>
 
 #include "GNEAttributeCarrier.h"
 
@@ -42,7 +43,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class NBNode;
 class GNENet;
 class GNEEdge;
 class GNECrossing;
@@ -215,6 +215,9 @@ public:
         TLSDecalInitialized = false;
     }
 
+    /// @brief modify the specified crossing (using friend privileges)
+    void updateCrossingAttributes(NBNode::Crossing crossing);
+
 private:
     /// @brief A reference to the represented junction
     NBNode& myNBNode;
@@ -264,6 +267,9 @@ private:
     /// @brief Invalidated assignment operator.
     GNEJunction& operator=(const GNEJunction&);
 
+    /* @brief method for setting the attribute and nothing else
+     * (used in GNEChange_Attribute)
+     * */
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief reposition the NBNnode and nothing else
@@ -282,7 +288,7 @@ private:
     void removeTrafficLight(NBTrafficLightDefinition* tlDef);
 
     /// @brief rebuilds crossing objects for this junction
-    void rebuiltCrossings(bool deleteOnly);
+    void rebuildCrossings(bool deleteOnly);
 };
 
 

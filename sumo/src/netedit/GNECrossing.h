@@ -34,6 +34,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <netbuild/NBNode.h>
+#include "GNEAttributeCarrier.h"
 
 // ===========================================================================
 // class declarations
@@ -51,7 +52,7 @@ class GNEJunction;
  * a popup menu. Messages are routeted to an internal dataTarget and to the
  * editor (hence inheritance from FXDelegator)
  */
-class GNECrossing : public GUIGlObject {
+class GNECrossing : public GUIGlObject, public GNEAttributeCarrier {
 
 public:
 
@@ -103,14 +104,27 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const ;
     //@}
 
+    //@name inherited from GNEAttributeCarrier
+    //@{
+    std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for setting the attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    bool isValid(SumoXMLAttr key, const std::string& value);
+    //@}
 
 
 private:
     /// @brief the parent junction of this crossing
-    const GNEJunction& myParentJunction;
+    GNEJunction& myParentJunction;
 
     /// @brief the data for this crossing
-    const NBNode::Crossing& myCrossing;
+    NBNode::Crossing myCrossing;
 
     /// @brief the shape of the edge
     const PositionVector myShape;
@@ -126,6 +140,11 @@ private:
 
     /// @brief the created popup
     GUIGLObjectPopupMenu* myPopup;
+
+    /* @brief method for setting the attribute and nothing else
+     * (used in GNEChange_Attribute)
+     * */
+    void setAttribute(SumoXMLAttr key, const std::string& value);
 
 private:
 

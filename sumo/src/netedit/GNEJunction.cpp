@@ -89,7 +89,7 @@ GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
                      myOrigPos.x() - EXTENT, myOrigPos.y() - EXTENT,
                      myOrigPos.x() + EXTENT, myOrigPos.y() + EXTENT);
     myMaxSize = 2 * EXTENT;
-    rebuiltCrossings(false);
+    rebuildCrossings(false);
 }
 
 
@@ -97,20 +97,24 @@ GNEJunction::~GNEJunction() {
     if (myAmResponsible) {
         delete &myNBNode;
     }
-    rebuiltCrossings(true);
+    rebuildCrossings(true);
 }
 
 
 void 
-GNEJunction::rebuiltCrossings(bool deleteOnly) {
+GNEJunction::rebuildCrossings(bool deleteOnly) {
     for (std::vector<GNECrossing*>::const_iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
-        delete *it;
+        (*it)->decRef();
+        if ((*it)->unreferenced()) {
+            delete *it;
+        }
     }
     myCrossings.clear();
     if (!deleteOnly) {
         const std::vector<NBNode::Crossing>& crossings = myNBNode.getCrossings();
         for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
             myCrossings.push_back(new GNECrossing(*this, (*it).id));
+            myCrossings.back()->incRef();
         }
     }
 }
@@ -297,7 +301,7 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         }
         invalidateTLS(undoList);
     } else {
-        rebuiltCrossings(false);
+        rebuildCrossings(false);
     }
 }
 
@@ -561,6 +565,20 @@ GNEJunction::removeTrafficLight(NBTrafficLightDefinition* tlDef) {
     NBTrafficLightLogicCont& tlCont = myNet->getTLLogicCont();
     tlCont.extract(tlDef);
     myNBNode.removeTrafficLight(tlDef);
+}
+
+void 
+GNEJunction::updateCrossingAttributes(NBNode::Crossing crossing) {
+    EdgeSet edgeSet(crossing.edges.begin(), crossing.edges.end());
+    for (std::vector<NBNode::Crossing>::iterator it = myNBNode.myCrossings.begin(); it != myNBNode.myCrossings.end(); ++it) {
+        EdgeSet edgeSet2((*it).edges.begin(), (*it).edges.end());
+        if (edgeSet == edgeSet2) {
+            (*it).width = crossing.width;
+            (*it).priority = crossing.priority;
+            myNet->refreshElement(this);
+            break;
+        }
+    }
 }
 
 /****************************************************************************/
