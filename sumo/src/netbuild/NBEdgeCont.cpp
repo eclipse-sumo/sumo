@@ -747,7 +747,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
     }
     // delete joined edges
     for (i = edges.begin(); i != edges.end(); i++) {
-        erase(dc, *i);
+        extract(dc, *i, true);
     }
 }
 
