@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/20/15 10:06:50 by SUMO netconvert Version dev-SVN-r18876
+<!-- generated on Tue Sep 22 08:06:42 2015 by SUMO netconvert Version dev-SVN-r18894I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="D:\erdm_ja\sumo-dev/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
+        <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -1370,7 +1370,7 @@
         <lane id="143308484_1" index="1" disallow="pedestrian" speed="8.33" length="62.90" shape="4215.62,271.30 4210.95,226.51 4210.72,224.86"/>
     </edge>
     <edge id="143308491" from="268816953" to="1560224195" priority="1" type="highway.footway" spreadType="center">
-        <lane id="143308491_0" index="0" allow="pedestrian" speed="8.33" length="10.06" width="2.00" shape="4558.56,821.81 4558.45,821.65"/>
+        <lane id="143308491_0" index="0" allow="pedestrian" speed="8.33" length="15.62" width="2.00" shape="4560.18,824.10 4560.06,823.94"/>
     </edge>
     <edge id="143308515" from="cluster_1568241251_260702783" to="1568241285" priority="4" type="highway.residential" shape="4317.28,179.56 4325.55,266.84">
         <lane id="143308515_0" index="0" allow="pedestrian" speed="8.33" length="89.14" width="2.00" shape="4322.26,185.96 4329.23,259.57"/>

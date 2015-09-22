@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18733I
+SUMO Version dev-SVN-r18894I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -69,7 +69,9 @@ Output Options:
   --vehroute-output.write-unfinished   Write vehroute output for vehicles which
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE
-  --bt-output FILE                     Save bt visibilities into FILE
+  --bt-output FILE                     Save bluetooth visibilities into FILE
+                                         (in conjunction with device.btreceiver
+                                         and device.btsender)
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.prefix FILE             Prefix for network states

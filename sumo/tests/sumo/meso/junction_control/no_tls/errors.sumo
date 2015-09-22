@@ -1,6 +1,6 @@
 Warning: Teleporting vehicle '2to1.0'; waited too long, from '2si:2' to '1o:1', time 343.30.
 Warning: Teleporting vehicle '2to4.33'; waited too long, from '2si:0', time 643.76.
-Warning: Vehicle '2to4.33' teleports beyond end of route ('4o'), time 661.76.
+Warning: Vehicle '2to4.33' teleports beyond arrival edge '4o', time 661.76.
 Warning: Teleporting vehicle '2to3.0'; waited too long, from '2si:2' to '3o:1', time 645.49.
 Warning: Teleporting vehicle '2to1.1'; waited too long, from '2si:2' to '1o:1', time 950.29.
 Warning: Teleporting vehicle '2to3.1'; waited too long, from '2si:2' to '3o:1', time 1252.49.

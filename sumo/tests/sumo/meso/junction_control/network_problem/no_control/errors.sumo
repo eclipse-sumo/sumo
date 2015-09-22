@@ -21,7 +21,7 @@ Warning: Teleporting vehicle 'cb.23'; waited too long, from 'c_in:0', time 2313.
 Warning: Vehicle 'cb.23' ends teleporting on segment 'ab:0', time 2317.09.
 Warning: Teleporting vehicle 'ba.15'; waited too long, from 'bc:0', time 2630.68.
 Warning: Teleporting vehicle 'cb.18'; waited too long, from 'ca:0', time 2634.68.
-Warning: Vehicle 'ba.15' teleports beyond end of route ('a_out'), time 2640.44.
+Warning: Vehicle 'ba.15' teleports beyond arrival edge 'a_out', time 2640.44.
 Warning: Vehicle 'cb.18' ends teleporting on segment 'b_out:0', time 2639.27.
 Warning: Teleporting vehicle 'cb.30'; waited too long, from 'c_in:0', time 3033.08.
 Warning: Teleporting vehicle 'ac.22'; waited too long, from 'ab:0', time 3035.48.
