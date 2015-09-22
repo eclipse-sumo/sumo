@@ -527,6 +527,9 @@ private:
     /// @brief Returns true if this edge matches one of the removal criteria
     bool ignoreFilterMatch(NBEdge* edge);
 
+    /// @brief Add edge ids defined in file (either ID or edge::ID per line) into the given set
+    void loadEdgesFromFile(const std::string& file, std::set<std::string>& into);
+
 private:
     /// @brief The network builder; used to obtain type information
     NBTypeCont& myTypeCont;

@@ -81,6 +81,23 @@ NBEdgeCont::~NBEdgeCont() {
 }
 
 
+void 
+NBEdgeCont::loadEdgesFromFile(const std::string& file, std::set<std::string>& into) {
+    std::ifstream strm(file.c_str());
+    if (!strm.good()) {
+        throw ProcessError("Could not load names of edges too keep from '" + file + "'.");
+    }
+    while (strm.good()) {
+        std::string name;
+        strm >> name;
+        into.insert(name);
+        // maybe we're loading an edge-selection
+        if (StringUtils::startsWith(name, "edge:")) {
+            into.insert(name.substr(5));
+        }
+    }
+}
+
 void
 NBEdgeCont::applyOptions(OptionsCont& oc) {
     // set edges dismiss/accept options
@@ -88,34 +105,10 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
     myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
     // we possibly have to load the edges to keep/remove
     if (oc.isSet("keep-edges.input-file")) {
-        std::ifstream strm(oc.getString("keep-edges.input-file").c_str());
-        if (!strm.good()) {
-            throw ProcessError("Could not load names of edges too keep from '" + oc.getString("keep-edges.input-file") + "'.");
-        }
-        while (strm.good()) {
-            std::string name;
-            strm >> name;
-            myEdges2Keep.insert(name);
-            // maybe we're loading an edge-selection
-            if (StringUtils::startsWith(name, "edge:")) {
-                myEdges2Keep.insert(name.substr(5));
-            }
-        }
+        loadEdgesFromFile(oc.getString("keep-edges.input-file"), myEdges2Keep); 
     }
     if (oc.isSet("remove-edges.input-file")) {
-        std::ifstream strm(oc.getString("remove-edges.input-file").c_str());
-        if (!strm.good()) {
-            throw ProcessError("Could not load names of edges too remove from '" + oc.getString("remove-edges.input-file") + "'.");
-        }
-        while (strm.good()) {
-            std::string name;
-            strm >> name;
-            myEdges2Remove.insert(name);
-            // maybe we're loading an edge-selection
-            if (StringUtils::startsWith(name, "edge:")) {
-                myEdges2Remove.insert(name.substr(5));
-            }
-        }
+        loadEdgesFromFile(oc.getString("remove-edges.input-file"), myEdges2Remove);
     }
     if (oc.isSet("keep-edges.explicit")) {
         const std::vector<std::string> edges = oc.getStringVector("keep-edges.explicit");
