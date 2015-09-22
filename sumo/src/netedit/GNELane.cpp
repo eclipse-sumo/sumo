@@ -33,17 +33,18 @@
 #include <utility>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/common/RandHelper.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/common/RandHelper.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 
 #include "GNELane.h"
@@ -334,6 +335,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
+    new FXMenuCommand(ret, "Copy edge name to clipboard", 0, ret, MID_COPY_EDGE_NAME);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
@@ -659,6 +661,12 @@ GNELane::drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) co
         glPopMatrix();
     }
     glPopMatrix();
+}
+
+
+const std::string& 
+GNELane::getParentName() const {
+    return myParentEdge.getMicrosimID();
 }
 
 /****************************************************************************/

@@ -38,6 +38,7 @@
 #include "GUIGlObjectTypes.h"
 #include <utils/geom/Boundary.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringBijection.h>
 #include <utils/common/RGBColor.h>
 
@@ -106,6 +107,13 @@ public:
      */
     const std::string& getFullName() const {
         return myFullName;
+    }
+
+    /** @brief Returns the name of the parent object (if any)
+     * @return This object's parent id
+     */
+    virtual const std::string& getParentName() const {
+        return StringUtils::emptyString;
     }
 
 

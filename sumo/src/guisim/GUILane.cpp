@@ -44,6 +44,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicleControl.h>
@@ -650,6 +651,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //
+    new FXMenuCommand(ret, "Copy edge name to clipboard", 0, ret, MID_COPY_EDGE_NAME);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //

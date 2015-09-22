@@ -91,6 +91,13 @@ public:
     /// @brief Destructor
     ~GUILane();
 
+    /** @brief Returns the name of the parent object (if any)
+     * @note Inherited from GUIGlObject
+     * @return This object's parent id
+     */
+    const std::string& getParentName() const {
+        return getEdge().getID();
+    }
 
 
     /// @name Access to vehicles

@@ -219,6 +219,8 @@ enum {
     MID_COPY_NAME,
     /// Copy typed object name - popup entry
     MID_COPY_TYPED_NAME,
+    /// Copy edge name (for lanes only)
+    MID_COPY_EDGE_NAME,
     /// Copy cursor position - popup entry
     MID_COPY_CURSOR_POSITION,
     /// Copy cursor geo-coordinate position - popup entry
