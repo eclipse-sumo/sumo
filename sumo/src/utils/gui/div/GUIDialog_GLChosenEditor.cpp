@@ -147,7 +147,7 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Open List of Selected Items");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("*.txt");
+    opendialog.setPatternList("*.txt\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
