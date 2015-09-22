@@ -49,10 +49,10 @@ def main():
     for trip in parse_fast(options.routefile, 'trip', ['id', 'from', 'to']):
         edges.update([trip.attr_from, trip.to])
         print(
-            "Warning: Trip %s is not guaranteed to be connected within the extacted edges." % trip.id)
+            "Warning: Trip %s is not guaranteed to be connected within the extracted edges." % trip.id)
     for walk in parse_fast(options.routefile, 'walk', ['from', 'to']):
         edges.update([walk.attr_from, walk.to])
-        print("Warning: Walk from %s to %s is not guaranteed to be connected within the extacted edges." % (
+        print("Warning: Walk from %s to %s is not guaranteed to be connected within the extracted edges." % (
             walk.attr_from, walk.to))
 
     with open(options.outfile, 'w') as outf:
