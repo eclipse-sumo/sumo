@@ -88,10 +88,9 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
     env["SUMO_BATCH_RESULT"] = os.path.join(
         options.rootDir, env["FILEPREFIX"] + "batch_result")
     env["SUMO_REPORT"] = prefix + "report"
-    binaryZip = os.path.join(nightlyDir, "sumo-%s-svn.zip" % env["FILEPREFIX"])
     binDir = "sumo-svn/bin/"
 
-    for f in [makeLog, makeAllLog, binaryZip] + glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")):
+    for f in [makeLog, makeAllLog] + glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")):
         try:
             os.remove(f)
         except WindowsError:
@@ -134,9 +133,9 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
         envSuffix = "_64"
     # we need to use io.open here due to http://bugs.python.org/issue16273
     log = io.open(makeLog, 'a')
-    try:
-        if sumoAllZip:
-            binaryZip = sumoAllZip.replace("-all-", "-%s-" % env["FILEPREFIX"])
+    if sumoAllZip:
+        try:
+            binaryZip = sumoAllZip.replace("-all-", "-win32-" if platform == "Win32" else "-win64-")
             zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
             srcZip = zipfile.ZipFile(sumoAllZip)
             write = False
@@ -153,35 +152,33 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
                 elif write or os.path.basename(f) in ["COPYING", "README"]:
                     zipf.writestr(f, srcZip.read(f))
             srcZip.close()
-        else:
-            zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
-        files_to_zip = (
-            glob.glob(os.path.join(env["XERCES" + envSuffix], "bin", "xerces-c_?_?.dll")) +
-            glob.glob(os.path.join(env["PROJ_GDAL" + envSuffix], "bin", "*.dll")) +
-            glob.glob(os.path.join(env["FOX16" + envSuffix], "lib",
-                                   "FOXDLL-1.6.dll")) +
-            glob.glob(os.path.join(env["FOX16" + envSuffix], "lib",
-                                   "libpng*.dll")) +
-            glob.glob(os.path.join(nightlyDir, "msvc?100.dll")) +
-            glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")) +
-            glob.glob(os.path.join(options.rootDir, options.binDir, "*.jar")) +
-            glob.glob(os.path.join(options.rootDir, options.binDir, "*.bat")))
-        for f in files_to_zip:
-            zipf.write(f, os.path.join(binDir, os.path.basename(f)))
-            if not f.startswith(nightlyDir):
-                try:
-                    shutil.copy2(f, nightlyDir)
-                except IOError, (errno, strerror):
-                    print >> log, "Warning: Could not copy %s to %s!" % (
-                        f, nightlyDir)
-                    print >> log, "I/O error(%s): %s" % (errno, strerror)
-        zipf.close()
-        shutil.copy2(binaryZip, options.remoteDir)
-        wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"))
-        shutil.copy2(binaryZip.replace(".zip", ".msi"), options.remoteDir)
-    except IOError, (errno, strerror):
-        print >> log, "Warning: Could not zip to %s!" % binaryZip
-        print >> log, "I/O error(%s): %s" % (errno, strerror)
+            files_to_zip = (
+                glob.glob(os.path.join(env["XERCES" + envSuffix], "bin", "xerces-c_?_?.dll")) +
+                glob.glob(os.path.join(env["PROJ_GDAL" + envSuffix], "bin", "*.dll")) +
+                glob.glob(os.path.join(env["FOX16" + envSuffix], "lib",
+                                       "FOXDLL-1.6.dll")) +
+                glob.glob(os.path.join(env["FOX16" + envSuffix], "lib",
+                                       "libpng*.dll")) +
+                glob.glob(os.path.join(nightlyDir, "msvc?100.dll")) +
+                glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")) +
+                glob.glob(os.path.join(options.rootDir, options.binDir, "*.jar")) +
+                glob.glob(os.path.join(options.rootDir, options.binDir, "*.bat")))
+            for f in files_to_zip:
+                zipf.write(f, os.path.join(binDir, os.path.basename(f)))
+                if not f.startswith(nightlyDir):
+                    try:
+                        shutil.copy2(f, nightlyDir)
+                    except IOError, (errno, strerror):
+                        print >> log, "Warning: Could not copy %s to %s!" % (
+                            f, nightlyDir)
+                        print >> log, "I/O error(%s): %s" % (errno, strerror)
+            zipf.close()
+            shutil.copy2(binaryZip, options.remoteDir)
+            wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
+            shutil.copy2(binaryZip.replace(".zip", ".msi"), options.remoteDir)
+        except IOError, (errno, strerror):
+            print >> log, "Warning: Could not zip to %s!" % binaryZip
+            print >> log, "I/O error(%s): %s" % (errno, strerror)
     if platform == "Win32" and options.sumoExe == "sumo":
         try:
             setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')

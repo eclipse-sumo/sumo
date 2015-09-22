@@ -36,10 +36,12 @@ LICENSE = os.path.join(
     os.path.dirname(__file__), "..", "..", "build", "wix", "License.rtf")
 
 
-def buildFragment(wixBin, sourceDir, targetLabel, tmpDir):
+def buildFragment(wixBin, sourceDir, targetLabel, tmpDir, log=None):
     base = os.path.basename(sourceDir)
     subprocess.call([os.path.join(wixBin, "heat.exe"), "dir", sourceDir,
-                     "-cg", base, "-gg", "-dr", targetLabel, "-out", os.path.join(tmpDir, "Fragment.wxs")])
+                     "-cg", base, "-gg", "-dr", targetLabel,
+                     "-out", os.path.join(tmpDir, "Fragment.wxs")],
+                    stdout=log, stderr=log)
     fragIn = open(os.path.join(tmpDir, "Fragment.wxs"))
     fragOut = open(os.path.join(tmpDir, base + "Fragment.wxs"), "w")
     for l in fragIn:
@@ -49,15 +51,16 @@ def buildFragment(wixBin, sourceDir, targetLabel, tmpDir):
     return fragOut.name
 
 
-def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT, wixBin=WIX_DEFAULT, wxsPattern=WXS_DEFAULT,
-             license=LICENSE):
+def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
+             wixBin=WIX_DEFAULT, wxsPattern=WXS_DEFAULT,
+             license=LICENSE, log=None):
     tmpDir = tempfile.mkdtemp()
     zipfile.ZipFile(sourceZip).extractall(tmpDir)
     sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
     fragments = [buildFragment(wixBin, os.path.join(sumoRoot, d), "INSTALLDIR", tmpDir) for d in ["data", "tools"]]
     for d in ["userdoc", "pydoc", "tutorial", "examples"]:
         fragments.append(
-            buildFragment(wixBin, os.path.join(sumoRoot, "docs", d), "DOCDIR", tmpDir))
+            buildFragment(wixBin, os.path.join(sumoRoot, "docs", d), "DOCDIR", tmpDir, log))
     for wxs in glob.glob(wxsPattern):
         with open(wxs) as wxsIn: 
             with open(os.path.join(tmpDir, os.path.basename(wxs)), "w") as wxsOut:
@@ -69,11 +72,13 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT, wixBin=WIX_DEFAULT
                     wxsOut.write(
                         l.replace(r"O:\Daten\Sumo\Nightly", os.path.join(sumoRoot, "bin")))
         fragments.append(wxsOut.name)
-    subprocess.call(
-        [os.path.join(wixBin, "candle.exe"), "-o", tmpDir + "\\"] + fragments)
+    subprocess.call([os.path.join(wixBin, "candle.exe"),
+                     "-o", tmpDir + "\\"] + fragments,
+                    stdout=log, stderr=log)
     wixObj = [f.replace(".wxs", ".wixobj") for f in fragments]
     subprocess.call([os.path.join(wixBin, "light.exe"),
-                     "-ext", "WixUIExtension", "-o", outFile] + wixObj)
+                     "-ext", "WixUIExtension", "-o", outFile] + wixObj,
+                    stdout=log, stderr=log)
     shutil.rmtree(tmpDir, True)  # comment this out when debugging
 
 if __name__ == "__main__":
