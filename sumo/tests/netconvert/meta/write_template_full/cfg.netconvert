@@ -148,6 +148,8 @@
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>
         <geometry.split value="false" synonymes="split-geometry" type="BOOL" help="Splits edges across geometry nodes"/>
         <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL" help="Replace nodes which only define edge geometry by geometry points (joins edges)"/>
+        <geometry.remove.keep-edges.explicit value="" type="STR" help="Ensure that the given list of edges is not modified"/>
+        <geometry.remove.keep-edges.input-file value="" type="FILE" help="Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
         <geometry.max-segment-length value="0" type="FLOAT" help="splits geometry to restrict segment length"/>
         <geometry.min-dist value="" type="FLOAT" help="reduces too similar geometry points"/>
         <geometry.max-angle value="99" type="FLOAT" help="Warn about edge geometries with an angle above DEGREES in successive segments"/>

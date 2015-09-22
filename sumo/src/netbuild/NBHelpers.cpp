@@ -34,12 +34,15 @@
 #include <cmath>
 #include <string>
 #include <sstream>
-#include "NBNode.h"
-#include "NBHelpers.h"
+#include <iostream>
+#include <fstream>
+//#include <iomanip>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
-#include <iostream>
+#include "NBNode.h"
+#include "NBHelpers.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -99,6 +102,23 @@ NBHelpers::distance(NBNode* node1, NBNode* node2) {
     return node1->getPosition().distanceTo(node2->getPosition());
 }
 
+
+void 
+NBHelpers::loadEdgesFromFile(const std::string& file, std::set<std::string>& into) {
+    std::ifstream strm(file.c_str());
+    if (!strm.good()) {
+        throw ProcessError("Could not load names of edges too keep from '" + file + "'.");
+    }
+    while (strm.good()) {
+        std::string name;
+        strm >> name;
+        into.insert(name);
+        // maybe we're loading an edge-selection
+        if (StringUtils::startsWith(name, "edge:")) {
+            into.insert(name.substr(5));
+        }
+    }
+}
 
 
 /****************************************************************************/

@@ -35,16 +35,12 @@
 #include <string>
 #include <cassert>
 #include <algorithm>
-#include <iostream>
-#include <fstream>
-#include <iomanip>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
-#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include "NBNetBuilder.h"
 #include "NBEdgeCont.h"
@@ -81,23 +77,6 @@ NBEdgeCont::~NBEdgeCont() {
 }
 
 
-void 
-NBEdgeCont::loadEdgesFromFile(const std::string& file, std::set<std::string>& into) {
-    std::ifstream strm(file.c_str());
-    if (!strm.good()) {
-        throw ProcessError("Could not load names of edges too keep from '" + file + "'.");
-    }
-    while (strm.good()) {
-        std::string name;
-        strm >> name;
-        into.insert(name);
-        // maybe we're loading an edge-selection
-        if (StringUtils::startsWith(name, "edge:")) {
-            into.insert(name.substr(5));
-        }
-    }
-}
-
 void
 NBEdgeCont::applyOptions(OptionsCont& oc) {
     // set edges dismiss/accept options
@@ -105,10 +84,10 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
     myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
     // we possibly have to load the edges to keep/remove
     if (oc.isSet("keep-edges.input-file")) {
-        loadEdgesFromFile(oc.getString("keep-edges.input-file"), myEdges2Keep); 
+        NBHelpers::loadEdgesFromFile(oc.getString("keep-edges.input-file"), myEdges2Keep); 
     }
     if (oc.isSet("remove-edges.input-file")) {
-        loadEdgesFromFile(oc.getString("remove-edges.input-file"), myEdges2Remove);
+        NBHelpers::loadEdgesFromFile(oc.getString("remove-edges.input-file"), myEdges2Remove);
     }
     if (oc.isSet("keep-edges.explicit")) {
         const std::vector<std::string> edges = oc.getStringVector("keep-edges.explicit");

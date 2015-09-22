@@ -390,6 +390,12 @@
         <!-- Replace nodes which only define edge geometry by geometry points (joins edges) -->
         <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL"/>
 
+        <!-- Ensure that the given list of edges is not modified -->
+        <geometry.remove.keep-edges.explicit value="" type="STR"/>
+
+        <!-- Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
+        <geometry.remove.keep-edges.input-file value="" type="FILE"/>
+
         <!-- splits geometry to restrict segment length -->
         <geometry.max-segment-length value="0" type="FLOAT"/>
 

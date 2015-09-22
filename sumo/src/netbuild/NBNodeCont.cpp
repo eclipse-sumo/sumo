@@ -49,6 +49,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
+#include "NBHelpers.h"
 #include "NBDistrict.h"
 #include "NBEdgeCont.h"
 #include "NBTrafficLightLogicCont.h"
@@ -323,6 +324,18 @@ unsigned int
 NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                                 NBJoinedEdgesMap& je, NBTrafficLightLogicCont& tlc,
                                 bool removeGeometryNodes) {
+    // load edges that shall not be modified
+    std::set<std::string> edges2keep;
+    if (removeGeometryNodes) {
+        const OptionsCont& oc = OptionsCont::getOptions();
+        if (oc.isSet("geometry.remove.keep-edges.input-file")) {
+            NBHelpers::loadEdgesFromFile(oc.getString("geometry.remove.keep-edges.input-file"), edges2keep); 
+        }
+        if (oc.isSet("geometry.remove.keep-edges.explicit")) {
+            const std::vector<std::string> edges = oc.getStringVector("geometry.remove.keep-edges.explicit");
+            edges2keep.insert(edges.begin(), edges.end());
+        }
+    }
     unsigned int no = 0;
     std::vector<NBNode*> toRemove;
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
@@ -342,6 +355,13 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                 // ok, one in, one out or two in, two out
                 //  -> ask the node whether to join
                 remove = current->checkIsRemovable();
+                // check whether any of the edges must be kept
+                for (EdgeVector::const_iterator it_edge = current->getEdges().begin(); it_edge != current->getEdges().end(); ++it_edge) {
+                    if (edges2keep.find((*it_edge)->getID()) != edges2keep.end()) {
+                        remove = false;
+                        break;
+                    }
+                }
                 if (remove) {
                     toJoin = current->getEdgesToJoin();
                 }

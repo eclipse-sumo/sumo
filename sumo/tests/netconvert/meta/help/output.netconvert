@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r18444
+SUMO netconvert Version dev-SVN-r18900I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -209,6 +209,12 @@ Processing Options:
   -R, --geometry.remove                Replace nodes which only define edge
                                          geometry by geometry points (joins
                                          edges)
+  --geometry.remove.keep-edges.explicit STR  Ensure that the given list of
+                                         edges is not modified
+  --geometry.remove.keep-edges.input-file FILE  Ensure that the edges in FILE
+                                         are not modified (Each id on a single
+                                         line. Selection files from SUMO-GUI are
+                                         also supported)
   --geometry.max-segment-length FLOAT  splits geometry to restrict segment
                                          length
   --geometry.min-dist FLOAT            reduces too similar geometry points

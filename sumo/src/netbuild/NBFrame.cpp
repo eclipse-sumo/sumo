@@ -107,6 +107,13 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addSynonyme("geometry.remove", "remove-geometry", true);
         oc.addDescription("geometry.remove", "Processing", "Replace nodes which only define edge geometry by geometry points (joins edges)");
 
+        oc.doRegister("geometry.remove.keep-edges.explicit", new Option_String());
+        oc.addDescription("geometry.remove.keep-edges.explicit", "Processing", "Ensure that the given list of edges is not modified");
+
+        oc.doRegister("geometry.remove.keep-edges.input-file", new Option_FileName());
+        oc.addDescription("geometry.remove.keep-edges.input-file", "Processing", 
+                "Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported)");
+
         oc.doRegister("geometry.max-segment-length", new Option_Float(0));
         oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");
 
