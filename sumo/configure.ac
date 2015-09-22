@@ -98,12 +98,6 @@ AC_DEFINE([NUMERICAL_EPS], [(SUMOReal)0.001], [defines the epsilon to use on gen
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
 AC_DEFINE([GEO_OUTPUT_ACCURACY], [6], [defines the number of digits after the comma in geo-coordinates output])
 
-dnl   ... for xerces 3.0
-PKG_CHECK_MODULES([XERCES], [xerces-c >= 3.0],
-                  [AC_DEFINE([XERCES3_SIZE_t],[XMLSize_t],[Define length for Xerces 3.])],
-                  [AC_DEFINE([XERCES3_SIZE_t],[unsigned int],[Define length for Xerces 2.])])
-
-
 AM_CONDITIONAL(INTERNAL, test -d $srcdir/src/mesosim)
 m4_syscmd([test -d src/mesosim])
 m4_if(m4_sysval,[0],[
@@ -143,12 +137,23 @@ case "$host" in
    AC_DEFINE([WIN32], [1], [Xerces and Fox expect this to be defined (cygwin)])
    AC_DEFINE([NOMINMAX], [1], [Including windows.h gives errors otherwise (cygwin)])
    ;;
+   *-darwin*)
+   CPPFLAGS="$CPPFLAGS -I/opt/local/include"
+   export CPPFLAGS
+   LDFLAGS="$LDFLAGS -L/opt/local/lib"
+   export LDFLAGS
+   ;;
 esac
 
 
 dnl ---------------------------------------------
 dnl check for libraries...
 dnl - - - - - - - - - - - - - - - - - - - - - - -
+
+dnl   ... for xerces 3.0
+PKG_CHECK_MODULES([XERCES], [xerces-c >= 3.0],
+                  [AC_DEFINE([XERCES3_SIZE_t],[XMLSize_t],[Define length for Xerces 3.])],
+                  [AC_DEFINE([XERCES3_SIZE_t],[unsigned int],[Define length for Xerces 2.])])
 
 dnl  ... for xerces
 AC_ARG_WITH([xerces], [AS_HELP_STRING([--with-xerces=DIR],[where Xerces-C is installed (libraries in DIR/lib, headers in DIR/include).])])
@@ -375,7 +380,7 @@ if test x"$with_python" == x; then
     with_python=no
 fi
 if test x"$with_python" != xno; then
-    PYTHON_LIBS=`python -c "import distutils.sysconfig; print distutils.sysconfig.get_config_var('BLDLIBRARY')"`
+    PYTHON_LIBS=`python -c "import distutils.sysconfig; bl = distutils.sysconfig.get_config_var('BLDLIBRARY'); print bl if bl else '-lpython2.7'"`
     AC_SUBST(PYTHON_LIBS)
     save_cppflags=$CPPFLAGS
     PYTHON_INCLUDES=`python -c "import distutils.sysconfig; print distutils.sysconfig.get_config_var('INCLUDEPY')"`
