@@ -92,7 +92,7 @@ public:
          *
          * @param[in] numThreads the number of threads to create
          */
-        Pool(int numThreads = 0) : myRunningIndex(0), myNumFinished(0) {
+        Pool(int numThreads = 0) : myPoolMutex(true), myRunningIndex(0), myNumFinished(0) {
             while (numThreads > 0) {
                 new FXWorkerThread(*this);
                 numThreads--;
