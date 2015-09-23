@@ -490,8 +490,13 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::RED, (SUMOReal)5000);
     edgeColorer.addScheme(scheme);
     scheme = GUIColorScheme("by relative speed (streetwise)", RGBColor::RED);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal)1);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)(0.25));
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)(0.5));
+    scheme.addColor(RGBColor::CYAN, (SUMOReal)(0.75));
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)(1));
+    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)(1.25));
     edgeColorer.addScheme(scheme);
+
 
     /// add edge scaling schemes
     {
