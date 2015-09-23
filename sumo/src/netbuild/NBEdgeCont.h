@@ -527,6 +527,9 @@ private:
     /// @brief Returns true if this edge matches one of the removal criteria
     bool ignoreFilterMatch(NBEdge* edge);
 
+    /// @brief compute the form factor for a loop of edges
+    static SUMOReal formFactor(const EdgeVector& loopEdges);
+
 private:
     /// @brief The network builder; used to obtain type information
     NBTypeCont& myTypeCont;

@@ -908,10 +908,24 @@ NBEdgeCont::guessRoundabouts() {
             }
         } while (doLoop);
         if (doLoop) {
-            // collected edges are marked in markRoundabouts
-            myGuessedRoundabouts.insert(EdgeSet(loopEdges.begin(), loopEdges.end()));
+            // check form factor to avoid elongated shapes (circle: 1, square: ~0.79)
+            if (formFactor(loopEdges) > 0.6) {
+                // collected edges are marked in markRoundabouts
+                myGuessedRoundabouts.insert(EdgeSet(loopEdges.begin(), loopEdges.end()));
+            }
         }
     }
+}
+
+
+SUMOReal 
+NBEdgeCont::formFactor(const EdgeVector& loopEdges) {
+    PositionVector points;
+    for (EdgeVector::const_iterator it = loopEdges.begin(); it != loopEdges.end(); ++it) {
+        points.append((*it)->getGeometry());
+    }
+    SUMOReal circumference = points.length2D();
+    return 4 * M_PI * points.area() / (circumference * circumference);
 }
 
 
