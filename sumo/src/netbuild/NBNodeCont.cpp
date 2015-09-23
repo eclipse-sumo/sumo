@@ -737,7 +737,7 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
                         (*l)->replaceInConnections(e, e->getConnections());
                     }
                 }
-                ec.erase(dc, e);
+                ec.extract(dc, e, true);
                 allEdges.erase(j++); // erase does not invalidate the other iterators
             } else {
                 ++j;
