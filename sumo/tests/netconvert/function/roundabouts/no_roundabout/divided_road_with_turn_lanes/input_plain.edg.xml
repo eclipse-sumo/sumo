@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 23 Sep 2015 09:15:07 AM CEST by Netedit Version dev-SVN-r18900I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="netplain.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="netplain.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netconvert/function/roundabouts/no_roundabout/divided_road_with_turn_lanes/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-53517343" from="565355469" to="61057727" priority="-4" numLanes="1" speed="8.33" shape="45478.67,36790.13 45469.80,36788.09 45467.04,36785.93 45465.58,36781.51 45466.77,36773.70" spreadType="center"/>
+    <edge id="-733292862" from="817135706" to="817135705" priority="-6" numLanes="1" speed="1.39" allow="pedestrian"/>
+    <edge id="-733292874" from="817135710" to="817135711" priority="-6" numLanes="1" speed="1.39" allow="pedestrian"/>
+    <edge id="-733292875" from="817135712" to="565355470" priority="-2" numLanes="4" speed="13.89" spreadType="center"/>
+    <edge id="-754278085" from="565355470" to="832012177" priority="-2" numLanes="5" speed="13.89" spreadType="center"/>
+    <edge id="-774056209" from="845427206" to="848552965" priority="-6" numLanes="1" speed="1.39" shape="45472.80,36707.91 45560.01,36660.38 45583.37,36704.38" allow="pedestrian"/>
+    <edge id="-778474594" from="61057727" to="848552962" priority="-2" numLanes="3" speed="13.89" spreadType="center"/>
+    <edge id="-778474597" from="848552964" to="61057727" priority="-2" numLanes="3" speed="13.89" spreadType="center"/>
+    <edge id="-778474599" from="848552965" to="817135712" priority="-2" numLanes="3" speed="13.89" spreadType="center"/>
+    <edge id="-778474600" from="848552962" to="848552965" priority="-2" numLanes="3" speed="13.89" spreadType="center"/>
+    <edge id="-782340477" from="817135712" to="851117110" priority="-6" numLanes="1" speed="1.39" shape="45687.99,36645.34 45654.95,36593.76 45652.04,36584.93 45663.36,36574.66 45690.14,36557.39 45729.59,36529.82" allow="pedestrian"/>
+    <edge id="53517341" from="565355470" to="61057722" priority="-4" numLanes="1" speed="8.33" shape="45728.19,36621.10 45736.38,36623.14 45740.62,36630.84 45737.40,36638.70" spreadType="center"/>
+    <edge id="733292861" from="817135705" to="565355469" priority="-2" numLanes="5" speed="13.89" spreadType="center"/>
+    <edge id="733292862" from="817135705" to="817135706" priority="-6" numLanes="1" speed="1.39" allow="pedestrian"/>
+    <edge id="733292872" from="61057722" to="817135711" priority="-2" numLanes="3" speed="13.89" spreadType="center"/>
+    <edge id="733292874" from="817135711" to="817135710" priority="-6" numLanes="1" speed="1.39" allow="pedestrian"/>
+    <edge id="733292978" from="817135763" to="61057722" priority="-2" numLanes="3" speed="13.89" spreadType="center"/>
+    <edge id="754262765" from="832002545" to="817135705" priority="-2" numLanes="4" speed="13.89" spreadType="center"/>
+    <edge id="774056209" from="848552965" to="845427206" priority="-6" numLanes="1" speed="1.39" shape="45583.37,36704.38 45560.01,36660.38 45472.80,36707.91" allow="pedestrian"/>
+    <edge id="778474595" from="565355469" to="848552963" priority="-2" numLanes="5" speed="13.89" spreadType="center"/>
+    <edge id="778474601" from="817135711" to="848552966" priority="-2" numLanes="3" speed="13.89" shape="45697.20,36662.94 45654.96,36687.23 45591.93,36723.11" spreadType="center"/>
+    <edge id="778474602" from="848552966" to="832002545" priority="-2" numLanes="3" speed="13.89" spreadType="center"/>
+    <edge id="781909616" from="850831077" to="817135763" priority="-2" numLanes="3" speed="13.89" spreadType="center"/>
+    <edge id="782340477" from="851117110" to="817135712" priority="-6" numLanes="1" speed="1.39" shape="45729.59,36529.82 45690.14,36557.39 45663.36,36574.66 45652.04,36584.93 45654.95,36593.76 45687.99,36645.34" allow="pedestrian"/>
+
+</edges>
