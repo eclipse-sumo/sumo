@@ -385,7 +385,7 @@ public:
         if (minTTSeen < std::numeric_limits<SUMOReal>::max()) {
             buildPathFromMeeting(meeting, into);
         } else {
-            myErrorMsgHandler->inform("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
+            myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
         }
 #ifdef CHRouter_DEBUG_QUERY_PERF
         std::cout << "visited " << num_visited_fw + num_visited_bw << " edges (" << num_visited_fw << "," << num_visited_bw << ") ,final path length: " + toString(into.size()) + ")\n";

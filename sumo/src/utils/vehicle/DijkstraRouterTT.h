@@ -150,6 +150,15 @@ public:
     virtual void compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && (vehicle == 0 || to != 0));
+        // check whether from and to can be used
+        if (PF::operator()(from, vehicle)) {
+            myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on from edge '" + from->getID() + "'.");
+            return;
+        }
+        if (PF::operator()(to, vehicle)) {
+            myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on to edge '" + to->getID() + "'.");
+            return;
+        }
         this->startQuery();
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         const SUMOReal time = STEPS2TIME(msTime);
@@ -225,7 +234,7 @@ public:
         std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
 #endif
         if (to != 0) {
-            myErrorMsgHandler->inform("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
+            myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
         }
     }
 

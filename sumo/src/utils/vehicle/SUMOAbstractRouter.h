@@ -6,7 +6,7 @@
 /// @date    25.Jan 2006
 /// @version $Id$
 ///
-// The dijkstra-router
+// An abstract router base class
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2006-2015 DLR (http://www.dlr.de/) and contributors
