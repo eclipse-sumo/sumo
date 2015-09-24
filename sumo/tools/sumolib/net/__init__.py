@@ -106,6 +106,9 @@ class TLSProgram:
         ret = ret + '  </tlLogic>\n'
         return ret
 
+    def getPhases(self):
+        return self._phases
+
 
 class Net:
 
