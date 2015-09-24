@@ -51,6 +51,9 @@
  */
 class MSBaseVehicle : public SUMOVehicle {
 public:
+
+    friend class GUIBaseVehicle;
+
     /** @brief Constructor
      * @param[in] pars The vehicle description
      * @param[in] route The vehicle's route

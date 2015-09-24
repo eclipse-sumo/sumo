@@ -34,23 +34,17 @@
 #endif
 
 #include <vector>
-#include <set>
 #include <string>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <microsim/MSVehicle.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/foxtools/MFXMutex.h>
-#include <utils/gui/settings/GUIPropertySchemeStorage.h>
+#include "GUIBaseVehicle.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class GUISUMOAbstractView;
-class GUIGLObjectPopupMenu;
-class MSDevice_Vehroutes;
 
 
 // ===========================================================================
@@ -65,7 +59,7 @@ class MSDevice_Vehroutes;
  * color of the vehicle which is available in different forms allowing an
  * easier recognition of done actions such as lane changing.
  */
-class GUIVehicle : public MSVehicle, public GUIGlObject {
+class GUIVehicle : public MSVehicle, public GUIBaseVehicle {
 public:
     /** @brief Constructor
      * @param[in] pars The vehicle description
@@ -81,82 +75,31 @@ public:
     /// @brief destructor
     ~GUIVehicle();
 
-
-    /// @name inherited from GUIGlObject
-    //@{
-
-    /** @brief Returns an own popup-menu
+    /** @brief Return current position (x/y, cartesian)
      *
-     * @param[in] app The application needed to build the popup-menu
-     * @param[in] parent The parent window needed to build the popup-menu
-     * @return The built popup-menu
-     * @see GUIGlObject::getPopUpMenu
+     * @note implementation of abstract method does not work otherwise
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    Position getPosition(const SUMOReal offset = 0) const {
+        return MSVehicle::getPosition(offset);
+    }
 
-
-    /** @brief Returns an own parameter window
+    /** @brief Return current angle
      *
-     * @param[in] app The application needed to build the parameter window
-     * @param[in] parent The parent window needed to build the parameter window
-     * @return The built parameter window
-     * @see GUIGlObject::getParameterWindow
+     * @note implementation of abstract method does not work otherwise
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    SUMOReal getAngle() const {
+        return MSVehicle::getAngle();
+    }
 
-
-    /** @brief Returns the boundary to which the view shall be centered in order to show the object
-     *
-     * @return The boundary the object is within
-     * @see GUIGlObject::getCenteringBoundary
+    /** @brief Draws the route
+     * @param[in] r The route to draw
      */
-    Boundary getCenteringBoundary() const;
+    void drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const;
 
-
-    /** @brief Draws the object
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @see GUIGlObject::drawGL
-     */
-    void drawGL(const GUIVisualizationSettings& s) const;
-
-
-
-    /** @brief Draws additionally triggered visualisations
-     * @param[in] parent The view
-     * @param[in] s The settings for the current view (may influence drawing)
-     */
-    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const;
-    //@}
-
-
-
-    /// @name Additional visualisations
-    /// @{
-
-    /** @brief Returns whether the named feature is enabled in the given view
-     * @param[in] parent The view for which the feature may be enabled
-     * @param[in] which The visualisation feature
-     * @return see comment
-     */
-    bool hasActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) const;
-
-
-    /** @brief Adds the named visualisation feature to the given view
-     * @param[in] parent The view for which the feature shall be enabled
-     * @param[in] which The visualisation feature to enable
-     * @see GUISUMOAbstractView::addAdditionalGLVisualisation
-     */
-    void addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
-
-
-    /** @brief Adds the named visualisation feature to the given view
-     * @param[in] parent The view for which the feature shall be enabled
-     * @param[in] which The visualisation feature to enable
-     * @see GUISUMOAbstractView::removeAdditionalGLVisualisation
-     */
-    void removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
-    /// @}
-
+    void drawAction_drawVehicleBlinker(SUMOReal length) const; 
+    void drawAction_drawVehicleBrakeLight(SUMOReal length) const; 
+    void drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const;
+    void drawAction_drawLinkItems(const GUIVisualizationSettings& s) const;
 
 
     /** @brief Returns the time since the last lane change in seconds
@@ -164,99 +107,6 @@ public:
      * @return The time since the last lane change in seconds
      */
     SUMOReal getLastLaneChangeOffset() const;
-
-
-    /**
-     * @class GUIVehiclePopupMenu
-     *
-     * A popup-menu for vehicles. In comparison to the normal popup-menu, this one
-     *  also allows to trigger further visualisations and to track the vehicle.
-     */
-    class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu {
-        FXDECLARE(GUIVehiclePopupMenu)
-    public:
-        /** @brief Constructor
-         * @param[in] app The main window for instantiation of other windows
-         * @param[in] parent The parent view for changing it
-         * @param[in] o The object of interest
-         * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
-         */
-        GUIVehiclePopupMenu(GUIMainWindow& app,
-                            GUISUMOAbstractView& parent, GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations);
-
-        /// @brief Destructor
-        ~GUIVehiclePopupMenu();
-
-        /// @brief Called if all routes of the vehicle shall be shown
-        long onCmdShowAllRoutes(FXObject*, FXSelector, void*);
-        /// @brief Called if all routes of the vehicle shall be hidden
-        long onCmdHideAllRoutes(FXObject*, FXSelector, void*);
-        /// @brief Called if the current route of the vehicle shall be shown
-        long onCmdShowCurrentRoute(FXObject*, FXSelector, void*);
-        /// @brief Called if the current route of the vehicle shall be hidden
-        long onCmdHideCurrentRoute(FXObject*, FXSelector, void*);
-        /// @brief Called if the vehicle's best lanes shall be shown
-        long onCmdShowBestLanes(FXObject*, FXSelector, void*);
-        /// @brief Called if the vehicle's best lanes shall be hidden
-        long onCmdHideBestLanes(FXObject*, FXSelector, void*);
-        /// @brief Called if the vehicle shall be tracked
-        long onCmdStartTrack(FXObject*, FXSelector, void*);
-        /// @brief Called if the current shall not be tracked any longer
-        long onCmdStopTrack(FXObject*, FXSelector, void*);
-        /// @brief Called if all routes of the vehicle shall be shown
-        long onCmdShowLFLinkItems(FXObject*, FXSelector, void*);
-        /// @brief Called if all routes of the vehicle shall be hidden
-        long onCmdHideLFLinkItems(FXObject*, FXSelector, void*);
-        /// @brief Called when show a vehicles foes
-        long onCmdShowFoes(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief Information which additional visualisations are enabled (per view)
-        std::map<GUISUMOAbstractView*, int>& myVehiclesAdditionalVisualizations;
-        /// @brief Needed for parameterless instantiation
-        std::map<GUISUMOAbstractView*, int> dummy;
-
-    protected:
-        /// @brief default constructor needed by FOX
-        GUIVehiclePopupMenu() : myVehiclesAdditionalVisualizations(dummy) { }
-
-    };
-
-
-    /// @name Additional visualisations
-    /// @{
-
-    /** @brief Additional visualisation feature ids
-     */
-    enum VisualisationFeatures {
-        /// @brief show vehicle's best lanes
-        VO_SHOW_BEST_LANES = 1,
-        /// @brief show vehicle's current route
-        VO_SHOW_ROUTE = 2,
-        /// @brief show all vehicle's routes
-        VO_SHOW_ALL_ROUTES = 4,
-        /// @brief track vehicle
-        VO_TRACKED = 8,
-        /// @brief LFLinkItems
-        VO_SHOW_LFLINKITEMS = 16
-    };
-
-    /// @brief Enabled visualisations, per view
-    std::map<GUISUMOAbstractView*, int> myAdditionalVisualizations;
-
-
-    /** @brief Draws the route
-     * @param[in] r The route to draw
-     */
-    void drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const;
-
-
-    /** @brief Chooses the route to draw and draws it, darkening it as given
-     * @param[in] s The visualisation settings, needed to determine the vehicle's color
-     * @param[in] routeNo The route to show (0: the current, >0: prior)
-     * @param[in] darken The amount to darken the route by
-     */
-    void drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMOReal darken) const;
 
 
     /** @brief Draws the vehicle's best lanes
@@ -270,27 +120,16 @@ public:
     /// @brief gets the color value according to the current scheme index
     SUMOReal getColorValue(size_t activeScheme) const;
 
-    /// @brief sets the color according to the current scheme index and some vehicle function
-    static bool setFunctionalColor(size_t activeScheme, const MSBaseVehicle* veh);
+    /** @brief Returns an own parameter window
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     * @see GUIGlObject::getParameterWindow
+     */
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
 private:
-    /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
-
-
-    /// @name drawing helper methods
-    /// @{
-    static void drawPoly(double* poses, SUMOReal offset);
-
-    void drawAction_drawVehicleAsBoxPlus() const;
-    void drawAction_drawVehicleAsTrianglePlus() const;
-    void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const;
-
-    /* @brief try to draw vehicle as raster image and return true if sucessful
-     * @param[in] length The custom length of the vehicle
-     *   (defaults to the * length specified in the vehicle type if -1 is passed)
-    */
-    bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUMOReal length = -1) const;
 
     /* @brief draw train with individual carriages. The number of carriages is
      * determined from defaultLength of carriages and vehicle length
@@ -320,17 +159,7 @@ private:
     /// @brief retrieve information about the current stop state
     std::string getStopInfo() const;
 
-    static void drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal exagerate);
-
 private:
-    /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex myLock;
-
-    /// Variable to set with the length of the last drawn carriage or the vehicle length
-    mutable SUMOReal myCarriageLength;
-
-    MSDevice_Vehroutes* myRoutes;
-
     /// @brief positions of seats in the vehicle (updated at every drawing step)
     mutable PositionVector mySeatPositions;
 

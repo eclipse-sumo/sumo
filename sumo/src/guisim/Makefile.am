@@ -18,6 +18,7 @@ GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \
 GUITriggeredRerouter.cpp GUITriggeredRerouter.h \
 GUICalibrator.cpp GUICalibrator.h \
 GUIChrgStn.cpp GUIChrgStn.h \
+GUIBaseVehicle.cpp GUIBaseVehicle.h \
 GUIVehicle.cpp GUIVehicle.h GUIVehicleControl.cpp GUIVehicleControl.h \
 GUI_E2_ZS_Collector.cpp GUI_E2_ZS_Collector.h \
 GUI_E2_ZS_CollectorOverLanes.cpp GUI_E2_ZS_CollectorOverLanes.h
