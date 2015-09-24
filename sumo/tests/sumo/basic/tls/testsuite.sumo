@@ -26,3 +26,6 @@ traffic_light_unregulated
 
 # tests for rail signals
 rail_signal
+
+# load another offset value for an existing traffic light
+offset_only

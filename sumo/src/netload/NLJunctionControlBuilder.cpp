@@ -224,10 +224,18 @@ NLJunctionControlBuilder::closeTrafficLightLogic() {
     }
     SUMOTime firstEventOffset = 0;
     unsigned int step = 0;
+    MSTrafficLightLogic* existing = 0;
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
     if (myLogicType != TLTYPE_RAIL) {
         if (myAbsDuration == 0) {
-            throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
+            existing = getTLLogicControlToUse().get(myActiveKey, myActiveProgram);
+            if (existing == 0) {
+                throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
+            } else {
+                // only modify the offset of an existing logic
+                myAbsDuration = existing->getDefaultCycleTime();
+                i = existing->getPhases().begin();
+            }
         }
         // compute the initial step and first switch time of the tls-logic
         // a positive offset delays all phases by x (advance by absDuration - x) while a negative offset advances all phases by x seconds
@@ -244,6 +252,11 @@ NLJunctionControlBuilder::closeTrafficLightLogic() {
             ++i;
         }
         firstEventOffset = (*i)->duration - offset + myNet.getCurrentTimeStep();
+        if (existing != 0) {
+            existing->changeStepAndDuration(getTLLogicControlToUse(), 
+                    myNet.getCurrentTimeStep(), step, firstEventOffset);
+            return;
+        }
     }
 
     if (myActiveProgram == "") {
