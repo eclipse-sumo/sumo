@@ -619,20 +619,24 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
     myAmInTLLogicMode = true;
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
     TrafficLightType type;
-    std::string typeS = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
-    if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
-        type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
-    } else {
-        WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'");
-        return;
-    }
+    std::string typeS;
+    if (myJunctionControlBuilder.getTLLogicControlToUse().get(id, programID) == 0) {
+        // SUMO_ATTR_TYPE is not needed when only modifying the offst of an
+        // existing program
+        typeS = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
+        if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
+            type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
+        } else {
+            WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'");
+        }
+    } 
     //
     SUMOTime offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
     if (!ok) {
         return;
     }
-    std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
     myJunctionControlBuilder.initTrafficLightLogic(id, programID, type, offset);
 }
 
