@@ -1811,10 +1811,6 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
         addReminder(*rem);
     }
     activateReminders(notification);
-    std::string msg;
-    if (MSGlobals::gCheckRoutes && !hasValidRoute(msg)) {
-        throw ProcessError("Vehicle '" + getID() + "' has no valid route. " + msg);
-    }
     // build the list of lanes the vehicle is lapping into
     SUMOReal leftLength = myType->getLength() - pos;
     MSLane* clane = enteredLane;

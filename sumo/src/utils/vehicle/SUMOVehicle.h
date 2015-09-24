@@ -145,6 +145,12 @@ public:
      */
     virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false) = 0;
 
+    /** @brief Validates the current route
+     * @param[out] msg Description why the route is not valid (if it is the case)
+     * @return Whether the vehicle's current route is valid
+     */
+    virtual bool hasValidRoute(std::string& msg) const = 0;
+
 
     /** @brief Returns an iterator pointing to the current edge in this vehicles route
      * @return The current route pointer

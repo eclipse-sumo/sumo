@@ -470,6 +470,10 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
         }
         return false;
     }
+    std::string msg;
+    if (MSGlobals::gCheckRoutes && !v.hasValidRoute(msg)) {
+        throw ProcessError("Vehicle '" + v.getID() + "' has no valid route. " + msg);
+    }
     MSLane* insertionLane = getDepartLane(static_cast<MSVehicle&>(v));
     return insertionLane != 0 && insertionLane->insertVehicle(static_cast<MSVehicle&>(v));
 }

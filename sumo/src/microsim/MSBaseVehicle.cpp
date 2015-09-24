@@ -274,7 +274,7 @@ MSBaseVehicle::hasValidRoute(std::string& msg) const {
     // check connectivity, first
     for (MSRouteIterator e = myCurrEdge; e != last; ++e) {
         if ((*e)->allowedLanes(**(e + 1), myType->getVehicleClass()) == 0) {
-            msg = "No connection between '" + (*e)->getID() + "' and '" + (*(e + 1))->getID() + "'.";
+            msg = "No connection between edge '" + (*e)->getID() + "' and edge '" + (*(e + 1))->getID() + "'.";
             return false;
         }
     }
