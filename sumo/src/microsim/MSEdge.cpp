@@ -698,7 +698,7 @@ MSEdge::transportable_by_position_sorter::operator()(const MSTransportable* cons
 
 const MSEdgeVector&
 MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
-    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions()) {
+    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions() || myFunction == EDGEFUNCTION_DISTRICT) {
         return mySuccessors;
     }
 #ifdef HAVE_FOX
@@ -706,30 +706,30 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
         MSDevice_Routing::lock();
     }
 #endif
-    std::map<SUMOVehicleClass, MSEdgeVector>::const_iterator i = myClassesSuccessorMap.find(vClass);
-    if (i != myClassesSuccessorMap.end()) {
-        // can use cached value
-#ifdef HAVE_FOX
-        if (MSDevice_Routing::isParallel()) {
-            MSDevice_Routing::unlock();
-        }
-#endif
-        return i->second;
-    } else {
+    std::map<SUMOVehicleClass, MSEdgeVector>::iterator i = myClassesSuccessorMap.find(vClass);
+    if (i == myClassesSuccessorMap.end()) {
+        // instantiate vector
+        myClassesSuccessorMap[vClass];
+        i = myClassesSuccessorMap.find(vClass);
         // this vClass is requested for the first time. rebuild all successors
         for (MSEdgeVector::const_iterator it = mySuccessors.begin(); it != mySuccessors.end(); ++it) {
-            const std::vector<MSLane*>* allowed = allowedLanes(*it, vClass);
-            if (allowed != 0 && allowed->size() > 0) {
-                myClassesSuccessorMap[vClass].push_back(*it);
+            if ((*it)->getPurpose() == EDGEFUNCTION_DISTRICT) {
+                i->second.push_back(*it);
+            } else {
+                const std::vector<MSLane*>* allowed = allowedLanes(*it, vClass);
+                if (allowed != 0 && allowed->size() > 0) {
+                    i->second.push_back(*it);
+                }
             }
         }
-#ifdef HAVE_FOX
-        if (MSDevice_Routing::isParallel()) {
-            MSDevice_Routing::unlock();
-        }
-#endif
-        return myClassesSuccessorMap[vClass];
     }
+    // can use cached value
+#ifdef HAVE_FOX
+    if (MSDevice_Routing::isParallel()) {
+        MSDevice_Routing::unlock();
+    }
+#endif
+    return i->second;
 }
 
 
