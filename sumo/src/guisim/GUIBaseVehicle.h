@@ -321,6 +321,9 @@ protected:
     /// Variable to set with the length of the last drawn carriage or the vehicle length
     mutable SUMOReal myCarriageLength;
 
+    /// @brief positions of seats in the vehicle (updated at every drawing step)
+    mutable PositionVector mySeatPositions;
+
 private:
     /// @brief The vehicle to which all calls should be delegated
     MSBaseVehicle& myVehicle;
@@ -329,9 +332,6 @@ private:
     const MSVehicleType& myVType;
 
     MSDevice_Vehroutes* myRoutes;
-
-    /// @brief positions of seats in the vehicle (updated at every drawing step)
-    mutable PositionVector mySeatPositions;
 
 };
 

@@ -516,13 +516,6 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
 }
 
 
-const Position&
-GUIVehicle::getSeatPosition(size_t personIndex) const {
-    /// if there are not enough seats in the vehicle people have to squeeze onto the last seat
-    return mySeatPositions[(int)MIN2(personIndex, mySeatPositions.size() - 1)];
-}
-
-
 int
 GUIVehicle::getNumPassengers() const {
     if (myPersonDevice != 0) {

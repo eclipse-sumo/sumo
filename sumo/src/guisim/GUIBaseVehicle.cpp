@@ -807,6 +807,8 @@ GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
     // one seat in the center of the vehicle by default
     if (myVehicle.getLane() != 0) {
         mySeatPositions[0] = myVehicle.getLane()->geometryPositionAtOffset(myVehicle.getPositionOnLane() - myVType.getLength() / 2);
+    } else {
+        mySeatPositions[0] = p1;
     }
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(getAngle(), 0, 0, 1);

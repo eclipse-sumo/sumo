@@ -147,9 +147,6 @@ private:
      */
     MSLane* getPreviousLane(MSLane* current, int& furtherIndex) const;
 
-    /// @brief returns the seat position for the person with the given index
-    const Position& getSeatPosition(size_t personIndex) const;
-
     /// @brief return the number of passengers
     int getNumPassengers() const;
 
@@ -158,10 +155,6 @@ private:
 
     /// @brief retrieve information about the current stop state
     std::string getStopInfo() const;
-
-private:
-    /// @brief positions of seats in the vehicle (updated at every drawing step)
-    mutable PositionVector mySeatPositions;
 
 };
 
