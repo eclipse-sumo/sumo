@@ -371,8 +371,6 @@ high = loadHighscore()
 def findSumoBinary(guisimBinary):
     if os.name != "posix":
         guisimBinary += ".exe"
-    elif guisimBinary.endswith("64"):
-        guisimBinary = guisimBinary[:-2]
     if os.path.exists(os.path.join(base, guisimBinary)):
         guisimPath = os.path.join(base, guisimBinary)
     else:
@@ -382,11 +380,11 @@ def findSumoBinary(guisimBinary):
         guisimPath = guisimBinary
     return guisimPath
 
-guisimPath = findSumoBinary("meso-gui64")
+guisimPath = findSumoBinary("meso-gui")
 try:
     subprocess.call([guisimPath, "-Q", "-c", "blub"], stderr=open(os.devnull))
 except OSError:
-    print("meso-gui64 not found. 3D scenario will not work.")
+    print("meso-gui not found. 3D scenario will not work.")
     guisimPath = findSumoBinary("sumo-gui")
 
 
