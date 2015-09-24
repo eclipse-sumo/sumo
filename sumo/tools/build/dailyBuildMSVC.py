@@ -71,7 +71,7 @@ env["TEMP"] = env["TMP"] = r"D:\Delphi\texttesttmp"
 env["REMOTEDIR_BASE"] = 'O:/Daten/Sumo'
 compiler = r"D:\Programme\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe"
 if "VS100COMNTOOLS" in env:
-    compiler = os.path.join(os.environ["VS100COMNTOOLS"], "..", "IDE", "devenv.exe")
+    compiler = os.path.join(env["VS100COMNTOOLS"], "..", "IDE", "devenv.exe")
 svnrev = ""
 
 maxTime = 0
