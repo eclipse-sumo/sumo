@@ -58,10 +58,15 @@
 #include <guisim/GUIVehicleControl.h>
 #include <guisim/GUIPersonControl.h>
 #include <microsim/MSJunction.h>
+#include <microsim/MSGlobals.h>
 #include "GUIGlobals.h"
 #include "GUIViewTraffic.h"
 #include "GUIApplicationWindow.h"
 #include "GUISUMOViewParent.h"
+
+#ifdef HAVE_INTERNAL
+#include <mesogui/GUIMEVehicleControl.h>
+#endif
 
 #ifdef HAVE_OSG
 #include <osgview/GUIOSGView.h>
@@ -189,7 +194,11 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             title = "Edge Chooser";
             break;
         case MID_LOCATEVEHICLE:
-            static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids);
+            if (MSGlobals::gUseMesoSim) {
+                static_cast<GUIMEVehicleControl*>(static_cast<GUINet*>(MSNet::getInstance())->getGUIMEVehicleControl())->insertVehicleIDs(ids);
+            } else {
+                static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids);
+            }
             icon = ICON_LOCATEVEHICLE;
             title = "Vehicle Chooser";
             break;

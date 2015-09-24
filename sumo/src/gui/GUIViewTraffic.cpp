@@ -111,17 +111,20 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
                  GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
-    if (!MSGlobals::gUseMesoSim) { // there are no gui-vehicles in mesosim
-        // for vehicles
-        new FXButton(v.getLocatorPopup(),
-                     "\tLocate Vehicle\tLocate a vehicle within the network.",
-                     GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
-                     ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-    }
+    // for vehicles
     new FXButton(v.getLocatorPopup(),
-                 "\tLocate Vehicle\tLocate a person within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEPERSON), &v, MID_LOCATEPERSON,
-                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+            "\tLocate Vehicle\tLocate a vehicle within the network.",
+            GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
+            ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+
+    // for persons
+    if (!MSGlobals::gUseMesoSim) { // there are no persons in mesosim (yet)
+        new FXButton(v.getLocatorPopup(),
+                "\tLocate Vehicle\tLocate a person within the network.",
+                GUIIconSubSys::getIcon(ICON_LOCATEPERSON), &v, MID_LOCATEPERSON,
+                ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    }
+
     // for tls
     new FXButton(v.getLocatorPopup(),
                  "\tLocate TLS\tLocate a tls within the network.",
