@@ -35,7 +35,6 @@
 
 #include <vector>
 #include <string>
-#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 #include <microsim/MSVehicle.h>
 #include "GUIBaseVehicle.h"

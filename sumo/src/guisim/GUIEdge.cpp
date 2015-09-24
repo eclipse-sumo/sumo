@@ -61,6 +61,7 @@
 
 #ifdef HAVE_INTERNAL
 #include <mesogui/GUIMEVehicleControl.h>
+#include <mesogui/GUIMEVehicle.h>
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MEVehicle.h>
@@ -314,9 +315,8 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                     // draw vehicles beginning with the leader at the end of the segment
                     SUMOReal xOff = 0;
                     for (size_t i = 0; i < queueSize; ++i) {
-                        MSBaseVehicle* veh = queue[queueSize - i - 1];
+                        GUIMEVehicle* veh = static_cast<GUIMEVehicle*>(queue[queueSize - i - 1]);
                         const SUMOReal vehLength = veh->getVehicleType().getLengthWithGap();
-                        setVehicleColor(s, veh);
                         while (vehiclePosition < segmentOffset) {
                             // if there is only a single queue for a
                             // multi-lane edge shift vehicles and start
@@ -326,27 +326,8 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                         }
                         const Position p = l->geometryPositionAtOffset(vehiclePosition);
                         const SUMOReal angle = -l->getShape().rotationDegreeAtOffset(l->interpolateLanePosToGeometryPos(vehiclePosition));
-                        glPushMatrix();
-                        glTranslated(p.x(), p.y(), 0);
-                        glRotated(angle, 0, 0, 1);
-                        glTranslated(xOff, 0, GLO_VEHICLE);
-                        glScaled(exaggeration, vehLength * exaggeration, 1);
-                        glBegin(GL_TRIANGLES);
-                        glVertex2d(0, 0);
-                        glVertex2d(0 - 1.25, 1);
-                        glVertex2d(0 + 1.25, 1);
-                        glEnd();
-                        glPopMatrix();
-                        if (nameSettings.show) {
-                            glPushMatrix();
-                            glRotated(angle, 0, 0, 1);
-                            glTranslated(xOff, 0, 0);
-                            glRotated(-angle, 0, 0, 1);
-                            GLHelper::drawText(veh->getID(),
-                                               l->geometryPositionAtOffset(vehiclePosition - 0.5 * vehLength),
-                                               GLO_MAX, nameSettings.size / s.scale, nameSettings.color);
-                            glPopMatrix();
-                        }
+                        veh->setPositionAndAngle(p, angle);
+                        veh->drawGL(s);
                         vehiclePosition -= vehLength;
                     }
                 }
@@ -487,64 +468,6 @@ GUIEdge::getSegmentAtPosition(const Position& pos) {
     const SUMOReal lanePos = shape.nearest_offset_to_point2D(pos);
     return MSGlobals::gMesoNet->getSegmentForEdge(*this, lanePos);
 }
-
-
-void
-GUIEdge::setVehicleColor(const GUIVisualizationSettings& s, MSBaseVehicle* veh) const {
-    const GUIColorer& c = s.vehicleColorer;
-    if (!GUIVehicle::setFunctionalColor(c.getActive(), veh)) {
-        GLHelper::setColor(c.getScheme().getColor(getVehicleColorValue(c.getActive(), veh)));
-    }
-}
-
-
-SUMOReal
-GUIEdge::getVehicleColorValue(size_t activeScheme, MSBaseVehicle* veh) const {
-    switch (activeScheme) {
-        case 8:
-            return veh->getSpeed();
-        case 9:
-            return STEPS2TIME(veh->getWaitingTime());
-        case 10:
-            return 0; // invalid getLastLaneChangeOffset();
-        case 11:
-            return getVehicleMaxSpeed(veh);
-        case 12:
-            return 0; // invalid getCO2Emissions();
-        case 13:
-            return 0; // invalid getCOEmissions();
-        case 14:
-            return 0; // invalid getPMxEmissions();
-        case 15:
-            return 0; // invalid  getNOxEmissions();
-        case 16:
-            return 0; // invalid getHCEmissions();
-        case 17:
-            return 0; // invalid getFuelConsumption();
-        case 18:
-            return 0; // invalid getHarmonoise_NoiseEmissions();
-        case 19: // !!! unused!?
-            if (veh->getNumberReroutes() == 0) {
-                return -1;
-            }
-            return veh->getNumberReroutes();
-        case 20:
-            return 0; // invalid gSelected.isSelected(GLO_VEHICLE, getGlID());
-        case 21:
-            return 0; // invalid getBestLaneOffset();
-        case 22:
-            return 0; // invalid getAcceleration();
-        case 23:
-            return 0; // invalid getTimeGap();
-    }
-    return 0;
-}
-
-
-
-
-
-
 
 
 #endif

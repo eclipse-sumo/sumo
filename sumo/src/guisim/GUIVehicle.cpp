@@ -83,7 +83,6 @@ GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                        const MSVehicleType* type, const SUMOReal speedFactor) :
     MSVehicle(pars, route, type, speedFactor),
     GUIBaseVehicle((MSBaseVehicle&)*this) {
-    mySeatPositions.push_back(Position(0, 0)); // ensure length 1
 }
 
 
