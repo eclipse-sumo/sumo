@@ -402,6 +402,15 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
                                "' is too high for the departure edge '" + getID() + "'.");
         }
     }
+    if (checkOnly && v.getEdge()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
+        return true;
+    }
+    if (!checkOnly) {
+        std::string msg;
+        if (MSGlobals::gCheckRoutes && !v.hasValidRoute(msg)) {
+            throw ProcessError("Vehicle '" + v.getID() + "' has no valid route. " + msg);
+        }
+    }
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         SUMOReal pos = 0.0;
@@ -450,9 +459,6 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
     UNUSED_PARAMETER(time);
 #endif
     if (checkOnly) {
-        if (v.getEdge()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
-            return true;
-        }
         switch (v.getParameter().departLaneProcedure) {
             case DEPART_LANE_GIVEN:
             case DEPART_LANE_DEFAULT:
@@ -469,10 +475,6 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
                 }
         }
         return false;
-    }
-    std::string msg;
-    if (MSGlobals::gCheckRoutes && !v.hasValidRoute(msg)) {
-        throw ProcessError("Vehicle '" + v.getID() + "' has no valid route. " + msg);
     }
     MSLane* insertionLane = getDepartLane(static_cast<MSVehicle&>(v));
     return insertionLane != 0 && insertionLane->insertVehicle(static_cast<MSVehicle&>(v));
