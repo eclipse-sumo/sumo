@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 09/24/15 10:42:33 by SUMO Version dev-SVN-r18913
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_districts.taz.xml,input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" type="passenger" depart="0.00" arrival="96.00" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="1-source 2-sink"/>
+            <route edges="beg2left left left2end end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="2" depart="40.00" arrival="139.00" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="40.00" probability="0" edges="1-source 2-sink"/>
+            <route edges="beg2left left left2end end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="1" type="bus" depart="20.00" arrival="144.00" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="20.00" probability="0" edges="1-source 2-sink"/>
+            <route edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="3" depart="60.00" arrival="160.00" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="60.00" probability="0" edges="1-source 2-sink"/>
+            <route edges="beg2left left left2end end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="4" depart="80.00" arrival="180.00" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="80.00" probability="0" edges="1-source 2-sink"/>
+            <route edges="beg2left left left2end end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="5" depart="100.00" arrival="200.00" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="100.00" probability="0" edges="1-source 2-sink"/>
+            <route edges="beg2left left left2end end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="6" depart="120.00" arrival="220.00" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="120.00" probability="0" edges="1-source 2-sink"/>
+            <route edges="beg2left left left2end end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="7" depart="140.00" arrival="240.00" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="140.00" probability="0" edges="1-source 2-sink"/>
+            <route edges="beg2left left left2end end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="8" depart="160.00" arrival="260.00" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="160.00" probability="0" edges="1-source 2-sink"/>
+            <route edges="beg2left left left2end end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="9" depart="180.00" arrival="279.00" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="180.00" probability="0" edges="1-source 2-sink"/>
+            <route edges="beg2left left left2end end"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>

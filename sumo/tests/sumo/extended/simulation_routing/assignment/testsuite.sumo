@@ -46,6 +46,9 @@ trip_taz_noedge
 # trips as input output of last route only
 trip_taz_lastroute
 
+# trips as input, net with permissions
+trip_taz_permissions
+
 # Errors on assignment
 errors
 
