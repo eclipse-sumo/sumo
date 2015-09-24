@@ -26,10 +26,9 @@ import os
 import itertools
 from collections import defaultdict
 from optparse import OptionParser
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 from sumolib.output import parse
 from sumolib.net import readNet
-from sumolib.miscutils import Colorgen
 from sumolib import geomhelper
 
 
@@ -46,7 +45,7 @@ def parse_args():
         options.outfile = options.net + ".taz.xml"
     return options
 
-DEBUGID = ["24214694", "-24214694"]
+#DEBUGID = ["24214694", "-24214694"]
 
 
 def computeBidiTaz(net, radius=10):
@@ -54,14 +53,14 @@ def computeBidiTaz(net, radius=10):
     for edge in net.getEdges():
         candidates = []
         r = min(radius, geomhelper.polyLength(edge.getShape()) / 2)
-        if edge.getID() in DEBUGID:
-            print r, edge.getLength(), edge.getShape()
+#        if edge.getID() in DEBUGID:
+#            print r, edge.getLength(), edge.getShape()
         for x, y in edge.getShape():
             nearby = set()
             for edge2, dist in net.getNeighboringEdges(x, y, r):
                 nearby.add(edge2)
-            if edge.getID() in DEBUGID:
-                print "  ", [e.getID() for e in nearby]
+#            if edge.getID() in DEBUGID:
+#                print "  ", [e.getID() for e in nearby]
             candidates.append(nearby)
         opposites = reduce(lambda a, b: a.intersection(b), candidates)
         # XXX edges with the same endpoints should have roughly the same length
@@ -72,10 +71,9 @@ def computeBidiTaz(net, radius=10):
     return taz
 
 
-def main():
-    options = parse_args()
-    net = readNet(options.net)
-    with open(options.outfile, 'w') as outf:
+def main(netFile, outFile):
+    net = readNet(netFile)
+    with open(outFile, 'w') as outf:
         outf.write('<tazs>\n')
         for tazID, edges in computeBidiTaz(net).items():
             outf.write('    <taz id="%s" edges="%s"/>\n' % (
@@ -83,4 +81,5 @@ def main():
         outf.write('</tazs>\n')
 
 if __name__ == "__main__":
-    main()
+    options = parse_args()
+    main(options.net, options.outfile)
