@@ -82,6 +82,9 @@ class TLS:
             ret = ret + self._programs[p].toXML(self._id)
         return ret
 
+    def getPrograms(self):
+        return self._programs
+
 
 class TLSProgram:
 
