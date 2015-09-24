@@ -83,6 +83,9 @@
     <ClCompile Include="..\..\..\src\guisim\GUIChrgStn.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\guisim\GUIBaseVehicle.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\guisim\GUI_E2_ZS_Collector.h">
@@ -155,6 +158,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\guisim\GUIChrgStn.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\guisim\GUIBaseVehicle.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

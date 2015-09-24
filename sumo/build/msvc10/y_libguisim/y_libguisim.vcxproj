@@ -259,6 +259,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\guisim\GUIBaseVehicle.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUICalibrator.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIChrgStn.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIContainer.cpp" />
@@ -285,6 +286,7 @@
     <ClCompile Include="..\..\..\src\guisim\GUIVehicleControl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\guisim\GUIBaseVehicle.h" />
     <ClInclude Include="..\..\..\src\guisim\GUICalibrator.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIChrgStn.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIContainer.h" />

@@ -41,6 +41,7 @@
 #include <traci-server/TraCIConstants.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
+#include <guisim/GUIBaseVehicle.h>
 #include "GUIEvent_Screenshot.h"
 #include "TraCIServerAPI_GUI.h"
 
@@ -190,9 +191,9 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (veh == 0) {
                     return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Could not find vehicle '" + id + "'.", outputStorage);
                 }
-                if (!static_cast<GUIVehicle*>(veh)->hasActiveAddVisualisation(v, GUIVehicle::VO_TRACKED)) {
+                if (!static_cast<GUIVehicle*>(veh)->hasActiveAddVisualisation(v, GUIBaseVehicle::VO_TRACKED)) {
                     v->startTrack(static_cast<GUIVehicle*>(veh)->getGlID());
-                    static_cast<GUIVehicle*>(veh)->addActiveAddVisualisation(v, GUIVehicle::VO_TRACKED);
+                    static_cast<GUIVehicle*>(veh)->addActiveAddVisualisation(v, GUIBaseVehicle::VO_TRACKED);
                 }
             }
         }
