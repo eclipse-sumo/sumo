@@ -90,7 +90,7 @@ class DistrictEdgeComputer:
                 print("District '" + district + "' has no edges!")
             else:
                 if weighted:
-                    fd.write('    <taz id="%s">\n' % district.id)
+                    fd.write('    <taz id="%s" shape="%s">\n' % (district.id, district.getShapeString()))
                     for edge in filtered:
                         weight = edge.getSpeed() * edge.getLength()
                         fd.write(
@@ -99,8 +99,8 @@ class DistrictEdgeComputer:
                             '        <tazSink id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
                     fd.write("    </taz>\n")
                 else:
-                    fd.write('    <taz id="%s" edges="%s"/>\n' %
-                             (district.id, " ".join([e.getID() for e in filtered])))
+                    fd.write('    <taz id="%s" shape="%s" edges="%s"/>\n' %
+                             (district.id, district.getShapeString(), " ".join([e.getID() for e in filtered])))
         fd.write("</tazs>\n")
         fd.close()
 

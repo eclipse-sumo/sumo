@@ -46,10 +46,10 @@ class Polygon:
         assert(xmin != xmax or ymin != ymax)
         return xmin, ymin, xmax, ymax
 
+    def getShapeString(self):
+        return " ".join([",".join(map(str, e)) for e in self.shape])
+
     def toXML(self):
-        s = []
-        for e in self.shape:
-            s.append("%s,%s" % (e[0], e[1]))
         ret = '<poly id="%s"' % self.id
         if type is not None:
             ret += ' type="%s"' % self.type
@@ -60,7 +60,7 @@ class Polygon:
         if fill is not None:
             ret += ' fill="%s"' % self.fill
         if shape is not None:
-            ret += ' shape="%s"' % (" ".join(s))
+            ret += ' shape="%s"' % self.getShapeString()
         if len(self.attributes) == 0:
             ret += '/>'
         else:
