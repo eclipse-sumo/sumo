@@ -307,8 +307,12 @@ MSFrame::fillOptions() {
     MSDevice::insertOptions(oc);
 
     // register report options
-    oc.doRegister("no-duration-log", new Option_Bool(false));
-    oc.addDescription("no-duration-log", "Report", "Disable performance reports for individual simulation steps");
+    oc.doRegister("duration-log.disable", new Option_Bool(false));
+    oc.addSynonyme("duration-log.disable", "no-duration-log", false);
+    oc.addDescription("duration-log.disable", "Report", "Disable performance reports for individual simulation steps");
+
+    oc.doRegister("duration-log.statistics", new Option_Bool(false));
+    oc.addDescription("duration-log.statistics", "Report", "Enable statistics on vehicle trips");
 
     oc.doRegister("no-step-log", new Option_Bool(false));
     oc.addDescription("no-step-log", "Report", "Disable console output of current simulation step");

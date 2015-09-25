@@ -397,6 +397,9 @@ MSNet::closeSimulation(SUMOTime start) {
                 msg << " Jammed: " << myPersonControl->getJammedPersonNumber() << "\n";
             }
         }
+        if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
+            msg << MSDevice_Tripinfo::printStatistics();
+        }
         WRITE_MESSAGE(msg.str());
     }
     myDetectorControl->close(myStep);
