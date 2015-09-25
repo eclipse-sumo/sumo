@@ -620,7 +620,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
-    TrafficLightType type;
+    TrafficLightType type = TLTYPE_STATIC;
     std::string typeS;
     if (myJunctionControlBuilder.getTLLogicControlToUse().get(id, programID) == 0) {
         // SUMO_ATTR_TYPE is not needed when only modifying the offst of an

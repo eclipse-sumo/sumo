@@ -120,10 +120,10 @@ public:
      */
     virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
     
-    virtual void drawAction_drawVehicleBlinker(SUMOReal length) const {}
-    virtual void drawAction_drawVehicleBrakeLight(SUMOReal length) const {}
-    virtual void drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {}
-    virtual void drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const {}
+    virtual void drawAction_drawVehicleBlinker(SUMOReal /*length*/) const {}
+    virtual void drawAction_drawVehicleBrakeLight(SUMOReal /*length*/) const {}
+    virtual void drawAction_drawLinkItems(const GUIVisualizationSettings& /*s*/) const {}
+    virtual void drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& /*s*/) const {}
     /** @brief Draws the vehicle's best lanes */
     virtual void drawBestLanes() const {};
 

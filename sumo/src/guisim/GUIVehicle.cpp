@@ -79,11 +79,17 @@
 /* -------------------------------------------------------------------------
  * GUIVehicle - methods
  * ----------------------------------------------------------------------- */
+#ifdef _MSC_VER
+#pragma warning(disable: 4355)
+#endif
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                        const MSVehicleType* type, const SUMOReal speedFactor) :
     MSVehicle(pars, route, type, speedFactor),
     GUIBaseVehicle((MSBaseVehicle&)*this) {
 }
+#ifdef _MSC_VER
+#pragma warning(default: 4355)
+#endif
 
 
 GUIVehicle::~GUIVehicle() {
