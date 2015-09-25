@@ -1,9 +1,9 @@
 <tazs>
-    <taz id="b">
+    <taz id="b" shape="-5.0,-5.0 5.0,-5.0 5.0,5.0 -5.0,5.0 -5.0,-5.0">
         <tazSource id="absBeg" weight="13859.69"/>
         <tazSink id="absBeg" weight="13859.69"/>
     </taz>
-    <taz id="e">
+    <taz id="e" shape="1995.0,-5.0 2005.0,-5.0 2005.0,5.0 1995.0,5.0 -1995.0,-5.0">
         <tazSource id="absBeg" weight="13859.69"/>
         <tazSink id="absBeg" weight="13859.69"/>
         <tazSource id="absEnd" weight="13900.00"/>
