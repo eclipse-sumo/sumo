@@ -91,10 +91,12 @@
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\mesogui\GUIMEInductLoop.cpp" />
+    <ClCompile Include="..\..\..\src\mesogui\GUIMEVehicle.cpp" />
     <ClCompile Include="..\..\..\src\mesogui\GUIMEVehicleControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\mesogui\GUIMEInductLoop.h" />
+    <ClInclude Include="..\..\..\src\mesogui\GUIMEVehicle.h" />
     <ClInclude Include="..\..\..\src\mesogui\GUIMEVehicleControl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
