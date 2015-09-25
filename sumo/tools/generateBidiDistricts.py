@@ -23,11 +23,8 @@ the Free Software Foundation; either version 3 of the License, or
 """
 import sys
 import os
-import itertools
-from collections import defaultdict
 from optparse import OptionParser
 
-from sumolib.output import parse
 from sumolib.net import readNet
 from sumolib import geomhelper
 
@@ -45,39 +42,29 @@ def parse_args():
         options.outfile = options.net + ".taz.xml"
     return options
 
-#DEBUGID = ["24214694", "-24214694"]
-
 
 def computeBidiTaz(net, radius=10):
-    taz = defaultdict(set)
     for edge in net.getEdges():
         candidates = []
         r = min(radius, geomhelper.polyLength(edge.getShape()) / 2)
-#        if edge.getID() in DEBUGID:
-#            print r, edge.getLength(), edge.getShape()
         for x, y in edge.getShape():
             nearby = set()
             for edge2, dist in net.getNeighboringEdges(x, y, r):
                 nearby.add(edge2)
-#            if edge.getID() in DEBUGID:
-#                print "  ", [e.getID() for e in nearby]
             candidates.append(nearby)
         opposites = reduce(lambda a, b: a.intersection(b), candidates)
-        # XXX edges with the same endpoints should have roughly the same length
-        # to be considered as opposites
         opposites.update(set(edge.getToNode().getOutgoing()).intersection(
             set(edge.getFromNode().getIncoming())))
-        taz[edge.getID()] = opposites
-    return taz
+        yield edge, opposites
 
 
 def main(netFile, outFile):
-    net = readNet(netFile)
+    net = readNet(netFile, withConnections=False, withFoes=False)
     with open(outFile, 'w') as outf:
         outf.write('<tazs>\n')
-        for tazID, edges in computeBidiTaz(net).items():
+        for taz, edges in computeBidiTaz(net):
             outf.write('    <taz id="%s" edges="%s"/>\n' % (
-                tazID, ' '.join(sorted([e.getID() for e in edges]))))
+                taz.getID(), ' '.join(sorted([e.getID() for e in edges]))))
         outf.write('</tazs>\n')
     return net
 
