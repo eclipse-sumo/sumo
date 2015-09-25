@@ -35,15 +35,8 @@ from collections import namedtuple
 
 TLTuple = namedtuple('TLTuple', ['edgeID', 'dist', 'time', 'connection'])
 PairKey = namedtuple('PairKey', ['edgeID', 'edgeID2', 'dist'])
-PairData = namedtuple('PairData', ['otl', 'oconnection', 'tl', 'connection', 'offset', 'offset1',
+PairData = namedtuple('PairData', ['otl', 'oconnection', 'tl', 'connection', 'betweenOffset', 'startOffset',
                                    'prio', 'timeBetween', 'numVehicles'])
-
-def merge(sets, list1 , list2 , dt):
-    for elem in list1:
-        elem = elem._replace(offset1=elem.offset1 + dt)
-    for elem in list2:
-        list1.append(elem)
-    sets.remove(list2)
 
 def locate(tlsToFind, sets):
     """return 
@@ -61,9 +54,9 @@ def locate(tlsToFind, sets):
 
 def coordinateAfterSet(TLSP, l1, l1Pair, l1Index):
     if l1Index == 0:
-        TLSP = TLSP._replace(offset1=l1Pair.offset1)
+        TLSP = TLSP._replace(startOffset=l1Pair.startOffset)
     else:
-        TLSP = TLSP._replace(offset1=l1Pair.offset1 + l1Pair.offset)
+        TLSP = TLSP._replace(startOffset=l1Pair.startOffset + l1Pair.betweenOffset)
     l1.append(TLSP)
 
 
@@ -73,7 +66,8 @@ def computeOffsets(TLSPList):
     sets = []
     operation = ""
     for TLSP in TLSPList:
-        offset = TLSP.offset
+        betweenOffset = TLSP.betweenOffset
+        startOffset = TLSP.startOffset
         l1, l1Pair, l1Index = locate(TLSP.otl, sets)
         l2, l2Pair, l2Index = locate(TLSP.tl, sets)
         #print(l1)
@@ -91,11 +85,11 @@ def computeOffsets(TLSPList):
             operation = "addToSet"
         elif l1 == None and not l2 == None:
             if l2Index == 0:
-                TLSP = TLSP._replace(offset1=l1Pair.offset1 - offset)
+                TLSP = TLSP._replace(startOffset=l1Pair.startOffset - betweenOffset)
             else:
-                TLSP = TLSP._replace(offset1=l1Pair.offset1 + l1Pair.offset - offset)
+                TLSP = TLSP._replace(startOffset=l1Pair.startOffset + l1Pair.betweenOffset - betweenOffset)
             # add to set 2 - add before existing set
-            TLSP = TLSP._replace(offset1 = l2[0].offset1 + l2[0].offset - offset)
+            TLSP = TLSP._replace(startOffset = l2[0].startOffset + l2[0].betweenOffset - betweenOffset)
             l2.append(TLSP)
             c3 += 1
             operation = "addToSet2"
@@ -108,41 +102,52 @@ def computeOffsets(TLSPList):
             else:
                 # merge sets
                 coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
-                merge(sets, l1 ,l2 ,offset)
+
+                if l1Index == 0:
+                    if l2Index == 0:
+                        dt = l1Pair.startOffset                 + betweenOffset - l2Pair.startOffset
+                    else:
+                        dt = l1Pair.startOffset + l1Pair.betweenOffset + betweenOffset - l2Pair.startOffset
+                else:
+                    if l2Index == 0:
+                        dt = l1Pair.startOffset                 + betweenOffset - (l2Pair.startOffset + l2Pair.betweenOffset)
+                    else:
+                        dt = l1Pair.startOffset + l1Pair.betweenOffset + betweenOffset - (l2Pair.startOffset + l2Pair.betweenOffset)
+
+                merge(sets, l1, l2, dt)
                 c5 += 1
                 operation = "mergeSets"
         #print(TLSP[4])
 
         print "added pair %s,%s with operation %s" % (TLSP.otl.getID(), TLSP.tl.getID(), operation)
         for s in sets:
+            #print "   ", ["%s,%s:%s,%s" % (pd.otl.getID(), pd.tl.getID(), pd.startOffset, pd.betweenOffset) for pd in s]
             print "  ", ["%s,%s" % (pd.otl.getID(), pd.tl.getID()) for pd in s]
 
     print("operations: newSet=%s addToSet=%s addToSet2=%s addHalfCoordinated=%s mergeSets=%s" % (c1, c2 , c3 , c4, c5))
     return(sets)
 
 
+def merge(sets, list1 , list2 , dt):
+    for elem in list2:
+        list1.append(elem._replace(startOffset=elem.startOffset + dt))
+    sets.remove(list2)
+
+
 def setsToDic(sets):
     TLSPDic = {}
     for singleSet in sets:
+        singleSet.sort(key=lambda pd:(pd.prio, pd.numVehicles / pd.timeBetween), reverse=True)
         for pair in singleSet:
+            #print "   %s,%s:%s,%s" % (pair.otl.getID(), pair.tl.getID(), pair.startOffset, pair.betweenOffset)
             tl1 = pair.otl.getID()
             tl2 = pair.tl.getID()       
-            offset = pair.offset
-            offset1 = pair.offset1
-            try:
-                if TLSPDic[tl1] != 0:
-                    a = TLSPDic[tl1]
-                else:
-                    TLSPDic.update({tl1 : offset1})
-            except KeyError:
-                TLSPDic.update({tl1 : offset1})
-            try:
-                if TLSPDic[tl2] != 0:
-                    a = TLSPDic[tl2]
-                else:
-                    TLSPDic.update({tl2 : (offset1 + offset)})
-            except KeyError:
-                TLSPDic.update({tl2 :(offset1 + offset)})
+            betweenOffset = pair.betweenOffset
+            startOffset = pair.startOffset
+            if not tl1 in TLSPDic:
+                TLSPDic[tl1] = startOffset
+            if not tl2 in TLSPDic:
+                TLSPDic[tl2] = startOffset + betweenOffset
     return TLSPDic
 
 
@@ -212,10 +217,10 @@ def routeToDic(net, routeFile):
                         start += duration
                 except IndexError:
                     t = 0
-            offset = TLelement.time + t1 - t2
-            offset1 = 0
+            betweenOffset = TLelement.time + t1 - t2
+            startOffset = 0
             # relevant data for a pair of traffic lights
-            TLPairs[key] = PairData(otl, oconnection,  tl, connection, offset, offset1,
+            TLPairs[key] = PairData(otl, oconnection,  tl, connection, betweenOffset, startOffset,
                     edge.getPriority(), TLelement.time, numVehicles + 1)
 
     return TLPairs
@@ -252,9 +257,9 @@ def main(netfile1, demand, outfile):
 
     with open(outfile, 'w') as outf:
         outf.write('<additional>\n')
-        for ID, offset in TLSPDic.items():
+        for ID, betweenOffset in TLSPDic.items():
             outf.write('    <tlLogic id="%s" programID="0" offset="%s"/>\n' %
-                    (ID, str(offset)))
+                    (ID, str(betweenOffset)))
         outf.write('</additional>\n')
 
     sumo = sumolib.checkBinary('sumo')
