@@ -126,6 +126,12 @@
         <!-- Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender) -->
         <bt-output value="" type="FILE"/>
 
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -289,7 +295,10 @@
         <error-log value="" type="FILE"/>
 
         <!-- Disable performance reports for individual simulation steps -->
-        <no-duration-log value="false" type="BOOL"/>
+        <duration-log.disable value="false" synonymes="no-duration-log" type="BOOL"/>
+
+        <!-- Enable statistics on vehicle trips -->
+        <duration-log.statistics value="false" type="BOOL"/>
 
         <!-- Disable console output of current simulation step -->
         <no-step-log value="false" type="BOOL"/>
