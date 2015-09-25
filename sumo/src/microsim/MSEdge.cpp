@@ -40,10 +40,12 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
 #include "MSEdge.h"
+#include "MSInsertionControl.h"
 #include "MSJunction.h"
 #include "MSLane.h"
 #include "MSLaneChanger.h"
 #include "MSGlobals.h"
+#include "MSNet.h"
 #include "MSVehicle.h"
 #include "MSContainer.h"
 #include "MSEdgeWeightsStorage.h"
@@ -407,8 +409,14 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
     }
     if (!checkOnly) {
         std::string msg;
-        if (MSGlobals::gCheckRoutes && !v.hasValidRoute(msg)) {
-            throw ProcessError("Vehicle '" + v.getID() + "' has no valid route. " + msg);
+        if (!v.hasValidRoute(msg)) {
+            if (MSGlobals::gCheckRoutes) {
+                throw ProcessError("Vehicle '" + v.getID() + "' has no valid route. " + msg);
+            } else if (v.getEdge()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
+                WRITE_WARNING("Removing vehicle '" + pars.id + "' which has no valid route.");
+                MSNet::getInstance()->getInsertionControl().descheduleDeparture(&v);
+                return false;
+            }
         }
     }
 #ifdef HAVE_INTERNAL

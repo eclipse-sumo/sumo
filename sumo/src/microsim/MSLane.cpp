@@ -461,11 +461,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                       aVehicle->getID() + "'. Inserting at lane end instead.");
         pos = myLength;
     }
-    std::string msg;
-    if (!MSGlobals::gCheckRoutes && aVehicle->getParameter().wasSet(VEHPARS_FORCE_REROUTE) && !aVehicle->hasValidRoute(msg)) {
-        MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
-        return false;
-    }
     aVehicle->setTentativeLaneAndPosition(this, pos);
     aVehicle->updateBestLanes(false, this);
     const MSCFModel& cfModel = aVehicle->getCarFollowModel();
