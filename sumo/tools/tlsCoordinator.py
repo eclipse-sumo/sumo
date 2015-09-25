@@ -3,7 +3,7 @@
 @file    tlsCoordinator.py
 @author  Martin Taraz (martin@taraz.de)
 @date    2015-09-07
-@version $Id: tlsCoordinator.py 18756 2015-08-31 19:16:33Z behrisch $
+@version $Id$
 
 Coordinates traffic lights in a sumo net for a given demand
 
