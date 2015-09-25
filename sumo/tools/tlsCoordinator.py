@@ -40,55 +40,75 @@ PairData = namedtuple('PairData', ['otl', 'oconnection', 'tl', 'connection', 'of
 
 def merge (list1 , list2 , dt):
     for elem in list1:
-        elem = elem._replace(offset=elem.offset + dt)
+        elem = elem._replace(offset1=elem.offset1 + dt)
     for elem in list2:
         list1.append(elem)
         list2.remove(elem)
 
-def locate (item, sets):
-    output = None
+def locate(tlsToFind, sets):
+    """return 
+        - the set in which the given traffic light exists 
+        - the pair in which it was found
+        - the index within the pair
+        """
     for s in sets:
-        for tup in s:
-            if item in tup:
-                output = s
-    return output
+        for pair in s:
+            for i, tls in enumerate(pair):
+                if tls == tlsToFind:
+                    return s, pair, i
+    return None, None, None
+
+
+def coordinateAfterSet(TLSP, l1, l1Pair, l1Index):
+    if l1Index == 0:
+        TLSP = TLSP._replace(offset1=l1Pair.offset1)
+    else:
+        TLSP = TLSP._replace(offset1=l1Pair.offset1 + l1Pair.offset)
+    l1.append(TLSP)
+
 
                        
 def computeOffsets(TLSPList):
     c1, c2 , c3 , c4 , c5 = 0 , 0 , 0 , 0 , 0
     sets = []
     for TLSP in TLSPList:
-        TLS1 = TLSP.otl
-        TLS2 = TLSP.tl
         offset = TLSP.offset
-        l1 = locate(TLS1, sets)
-        l2 = locate(TLS2, sets)
+        l1, l1Pair, l1Index = locate(TLSP.otl, sets)
+        l2, l2Pair, l2Index = locate(TLSP.tl, sets)
         #print(l1)
         if l1 == None and l2 == None:
+            # new set
             newlist = []
             newlist.append(TLSP)
             sets.append(newlist)
             c1 += 1
+        elif l2 == None and not l1 == None:
+            # add to set 1 - add after existing set
+            coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
+            c2 += 1
         elif l1 == None and not l2 == None:
+            if l2Index == 0:
+                TLSP = TLSP._replace(offset1=l1Pair.offset1 - offset)
+            else:
+                TLSP = TLSP._replace(offset1=l1Pair.offset1 + l1Pair.offset - offset)
+            # add to set 2 - add before existing set
             TLSP = TLSP._replace(offset1 = l2[0].offset1 + l2[0].offset - offset)
             l2.append(TLSP)
-            c2 += 1
-        elif l2 == None and not l1 == None:
-            #offset von 1?
-            TLSP = TLSP._replace(offset=l1[0].offset1)
-            
-            l1.append(TLSP)
             c3 += 1
         else:
             if l1 == l2:
-                l1.append(TLSP)
+                # cannot uncoordinated both tls. coordinate the first arbitrarily
+                coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
                 c4 +=1
             else:
-                l1.append(TLSP)
+                # merge sets
+                coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
                 merge(l1 , l2 , offset)
                 c5 += 1
         #print(TLSP[4])
-    print(c1, c2 , c3 , c4, c5)
+        for s in sets:
+            print ["%s,%s" % (pd.otl.getID(), pd.tl.getID()) for pd in s]
+    print("operations: newSet=%s addToSet=%s addToSet2=%s addHalfCoordinated=%s mergeSets=%s" % (c1, c2 , c3 , c4, c5))
     return(sets)
 
 
@@ -211,7 +231,7 @@ def main(netfile1, demand, outfile):
     tlPairsList = [value for sortKey, value in sorted(sortHelper, reverse=True)]
 
 
-    print(len(tlPairsList))
+    print("number of tls-pairs: %s" % (len(tlPairsList)))
     #print '\n'.join(["edges=%s,%s prio=%s numVehicles/time=%s" % (
     #    pairKey.edgeID, pairKey.edgeID2, pairData.prio, pairData.numVehicles / pairData.timeBetween) 
     #    for pairKey, pairData in tlPairsList])
