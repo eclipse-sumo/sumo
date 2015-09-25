@@ -79,6 +79,7 @@ def main(netFile, outFile):
             outf.write('    <taz id="%s" edges="%s"/>\n' % (
                 tazID, ' '.join(sorted([e.getID() for e in edges]))))
         outf.write('</tazs>\n')
+    return net
 
 if __name__ == "__main__":
     options = parse_args()
