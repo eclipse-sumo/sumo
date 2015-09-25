@@ -38,12 +38,12 @@ PairKey = namedtuple('PairKey', ['edgeID', 'edgeID2', 'dist'])
 PairData = namedtuple('PairData', ['otl', 'oconnection', 'tl', 'connection', 'offset', 'offset1',
                                    'prio', 'timeBetween', 'numVehicles'])
 
-def merge (list1 , list2 , dt):
+def merge(sets, list1 , list2 , dt):
     for elem in list1:
         elem = elem._replace(offset1=elem.offset1 + dt)
     for elem in list2:
         list1.append(elem)
-        list2.remove(elem)
+    sets.remove(list2)
 
 def locate(tlsToFind, sets):
     """return 
@@ -71,6 +71,7 @@ def coordinateAfterSet(TLSP, l1, l1Pair, l1Index):
 def computeOffsets(TLSPList):
     c1, c2 , c3 , c4 , c5 = 0 , 0 , 0 , 0 , 0
     sets = []
+    operation = ""
     for TLSP in TLSPList:
         offset = TLSP.offset
         l1, l1Pair, l1Index = locate(TLSP.otl, sets)
@@ -82,10 +83,12 @@ def computeOffsets(TLSPList):
             newlist.append(TLSP)
             sets.append(newlist)
             c1 += 1
+            operation = "newSet"
         elif l2 == None and not l1 == None:
             # add to set 1 - add after existing set
             coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
             c2 += 1
+            operation = "addToSet"
         elif l1 == None and not l2 == None:
             if l2Index == 0:
                 TLSP = TLSP._replace(offset1=l1Pair.offset1 - offset)
@@ -95,19 +98,25 @@ def computeOffsets(TLSPList):
             TLSP = TLSP._replace(offset1 = l2[0].offset1 + l2[0].offset - offset)
             l2.append(TLSP)
             c3 += 1
+            operation = "addToSet2"
         else:
             if l1 == l2:
                 # cannot uncoordinated both tls. coordinate the first arbitrarily
                 coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
                 c4 +=1
+                operation = "addHalfCoordinated"
             else:
                 # merge sets
                 coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
-                merge(l1 , l2 , offset)
+                merge(sets, l1 ,l2 ,offset)
                 c5 += 1
+                operation = "mergeSets"
         #print(TLSP[4])
+
+        print "added pair %s,%s with operation %s" % (TLSP.otl.getID(), TLSP.tl.getID(), operation)
         for s in sets:
-            print ["%s,%s" % (pd.otl.getID(), pd.tl.getID()) for pd in s]
+            print "  ", ["%s,%s" % (pd.otl.getID(), pd.tl.getID()) for pd in s]
+
     print("operations: newSet=%s addToSet=%s addToSet2=%s addHalfCoordinated=%s mergeSets=%s" % (c1, c2 , c3 , c4, c5))
     return(sets)
 

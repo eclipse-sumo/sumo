@@ -4,3 +4,6 @@ basic
 
 # 3 flows in a grid network allowing for full coordination
 3flows
+
+# 4 flows in a grid network that cannot be coordinate full
+4flows
