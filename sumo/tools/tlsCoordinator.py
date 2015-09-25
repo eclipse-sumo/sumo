@@ -171,6 +171,21 @@ def getTLSInRoute(net, edge_ids):
     return rTLSList
 
 
+def getFirstGreenOffset(tl, connection):
+    index = connection._tlLink
+    tlp = tl.getPrograms()
+    if len(tlp) != 1:
+        raise RuntimeError("Found %s programs for tl %s" % (len(tlp), connection._tls))
+    phases = tlp.values()[0].getPhases()
+    start = 0
+    for state, duration in phases:
+        if state[index] in ['G', 'g']:
+            return start
+        else:
+            start += duration
+    raise RuntimeError("No green light for tlIndex %s at tl %s" % (index, connection._tls))
+
+
 def routeToDic(net, routeFile):
     # pairs of traffic lights
     TLPairs = {} # PairKey -> PairData
@@ -183,40 +198,14 @@ def routeToDic(net, routeFile):
             numVehicles = 0 if not key in TLPairs else TLPairs[key].numVehicles
 
             tl = net.getEdge(TLelement.edgeID).getTLS()
-            tlp = tl.getPrograms()
             otl = net.getEdge(oldTL.edgeID).getTLS()
-            otlp = otl.getPrograms()
             edge = net.getEdge(TLelement.edgeID)
             connection = TLelement.connection
             oconnection = oldTL.connection
-            index =connection._tlLink
-            for k, programm in tlp.iteritems():
-                phases = programm.getPhases()
-            start = 0
-            for phase in phases:
-                duration = phase[1]
-                phase = phase[0]
-                try:
-                    if phase[index] == 'G' or phase[index] == 'g':
-                        t2 = start
-                    else:
-                        start += duration
-                except IndexError:
-                    t = 0  
-            index = oconnection._tlLink
-            for k , programm in otlp.iteritems():
-                phases = programm.getPhases()
-            start = 0
-            for phase in phases:
-                duration = phase[1]
-                phase = phase[0]
-                try:
-                    if phase[index] == 'G' or phase[index] == 'g':
-                        t1 = start
-                    else:
-                        start += duration
-                except IndexError:
-                    t = 0
+
+            t2 = getFirstGreenOffset(tl, connection)
+            t1 = getFirstGreenOffset(otl, oconnection)
+
             betweenOffset = TLelement.time + t1 - t2
             startOffset = 0
             # relevant data for a pair of traffic lights
