@@ -1,4 +1,2 @@
 number of tls-pairs: 1
-added pair gneJ1,gneJ2 with operation newSet
-   [u'gneJ1,gneJ2']
 operations: newSet=1 addToSet=0 addToSet2=0 addHalfCoordinated=0 mergeSets=0
