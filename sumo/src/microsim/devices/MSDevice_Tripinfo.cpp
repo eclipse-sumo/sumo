@@ -259,10 +259,10 @@ MSDevice_Tripinfo::printStatistics() {
     std::ostringstream msg;
     msg << "Statistics (avg):\n"
             << " RouteLength: " << toString(myTotalRouteLength / myVehicleCount) << "\n"
-            << " Duration: " << time2string(myTotalDuration / myVehicleCount) << "\n"
-            << " WaitingTime: " << time2string(myTotalWaitingTime / myVehicleCount) << "\n"
-            << " TimeLoss: " << time2string(myTotalTimeLoss / myVehicleCount) << "\n"
-            << " DepartDelay: " << time2string(myTotalDepartDelay / myVehicleCount) << "\n";
+            << " Duration: " << time2string((SUMOTime)(myTotalDuration / myVehicleCount)) << "\n"
+            << " WaitingTime: " << time2string((SUMOTime)(myTotalWaitingTime / myVehicleCount)) << "\n"
+            << " TimeLoss: " << time2string((SUMOTime)(myTotalTimeLoss / myVehicleCount)) << "\n"
+            << " DepartDelay: " << time2string((SUMOTime)(myTotalDepartDelay / myVehicleCount)) << "\n";
     return msg.str();
 }
 
