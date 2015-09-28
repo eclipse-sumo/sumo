@@ -2,6 +2,7 @@
 """
 @file    tlsCoordinator.py
 @author  Martin Taraz (martin@taraz.de)
+@author  Jakob Erdmann
 @date    2015-09-07
 @version $Id$
 
@@ -77,9 +78,9 @@ def coordinateBeforeSet(TLSP, l2, l2Pair, l2Index):
     l2.append(TLSP)
 
                        
-def computeOffsets(TLSPList):
+def computePairOffsets(TLSPList):
     c1, c2 , c3 , c4 , c5 = 0 , 0 , 0 , 0 , 0
-    sets = []
+    sets = [] # sets of coordinate TLPairs
     operation = ""
     for TLSP in TLSPList:
         betweenOffset = TLSP.betweenOffset
@@ -151,8 +152,8 @@ def merge(sets, list1 , list2 , dt):
     sets.remove(list2)
 
 
-def setsToDic(sets):
-    TLSPDic = {}
+def finalizeOffsets(sets):
+    offsetDict = {}
     for singleSet in sets:
         singleSet.sort(key=lambda pd:(pd.prio, pd.numVehicles / pd.timeBetween), reverse=True)
         for pair in singleSet:
@@ -161,11 +162,11 @@ def setsToDic(sets):
             tl2 = pair.tl.getID()       
             betweenOffset = pair.betweenOffset
             startOffset = pair.startOffset
-            if not tl1 in TLSPDic:
-                TLSPDic[tl1] = startOffset
-            if not tl2 in TLSPDic:
-                TLSPDic[tl2] = startOffset + betweenOffset
-    return TLSPDic
+            if not tl1 in offsetDict:
+                offsetDict[tl1] = startOffset
+            if not tl2 in offsetDict:
+                offsetDict[tl2] = startOffset + betweenOffset
+    return offsetDict
 
 
 def getTLSInRoute(net, edge_ids):
@@ -203,7 +204,7 @@ def getFirstGreenOffset(tl, connection):
     raise RuntimeError("No green light for tlIndex %s at tl %s" % (index, connection._tls))
 
 
-def routeToDic(net, routeFile):
+def getTLPairs(net, routeFile):
     # pairs of traffic lights
     TLPairs = {} # PairKey -> PairData
 
@@ -240,7 +241,7 @@ def removeDuplicates(TLPairs):
 
 def main(netfile1, demand, outfile):
     net = sumolib.net.readNet(netfile1, withPrograms = True)
-    TLPairs = routeToDic(net, demand)
+    TLPairs = getTLPairs(net, demand)
     TLPairs = removeDuplicates(TLPairs)
 
     sortHelper = [(
@@ -256,14 +257,14 @@ def main(netfile1, demand, outfile):
     #    pairKey.edgeID, pairKey.edgeID2, pairData.prio, pairData.numVehicles / pairData.timeBetween) 
     #    for pairKey, pairData in tlPairsList])
 
-    sets = computeOffsets([pairData for pairKey, pairData in tlPairsList])
+    coordinatedSets = computePairOffsets([pairData for pairKey, pairData in tlPairsList])
 
-    TLSPDic = setsToDic(sets)
+    offsetDict = finalizeOffsets(coordinatedSets)
     netfile2 = 'temp.'+ str(netfile1)
 
     with open(outfile, 'w') as outf:
         outf.write('<additional>\n')
-        for ID, betweenOffset in TLSPDic.items():
+        for ID, betweenOffset in offsetDict.items():
             outf.write('    <tlLogic id="%s" programID="0" offset="%s"/>\n' %
                     (ID, str(betweenOffset)))
         outf.write('</additional>\n')
