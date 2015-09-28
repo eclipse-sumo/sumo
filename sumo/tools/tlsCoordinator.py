@@ -21,6 +21,7 @@ the Free Software Foundation; either version 3 of the License, or
 import os, sys
 import subprocess
 import xml.etree.cElementTree as ET
+import optparse
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -39,6 +40,37 @@ PairKey = namedtuple('PairKey', ['edgeID', 'edgeID2', 'dist'])
 PairData = namedtuple('PairData', ['otl', 'oconnection', 'tl', 'connection', 'betweenOffset', 'startOffset',
                                    'prio', 'timeBetween', 'numVehicles', 'ogreen', 'green'])
 
+def pair2str(p, full=True):
+    brief = "%s,%s s=%.1f b=%.1f" % (
+             p.otl.getID(), p.tl.getID(), p.startOffset, p.betweenOffset) 
+    if full:
+        return brief + " og=%s g=%s p=%s n=%s" % (p.ogreen, p.green, p.prio, p.numVehicles)
+    else:
+        return brief
+
+def logAddedPair(TLSP, sets, operation):
+    print "added pair %s,%s with operation %s" % (TLSP.otl.getID(), TLSP.tl.getID(), operation)
+    for s in sets:
+        print "    " + ";".join([pair2str(p,False) for p in s])
+
+def get_options(args=None):
+    optParser = optparse.OptionParser()
+    optParser.add_option("-n", "--net-file", dest="netfile",
+                         help="define the net file (mandatory)")
+    optParser.add_option("-o", "--output-file", dest="outfile",
+                         default="tlsOffsets.add.xml", help="define the output filename")
+    optParser.add_option("-r", "--route-file", dest="routefile",
+                         help="define the inputroute file (mandatory)")
+    optParser.add_option("-v", "--verbose", action="store_true",
+                         default=False, help="tell me what you are doing")
+    (options, args) = optParser.parse_args(args=args)
+    if not options.netfile or not options.routefile:
+        optParser.print_help()
+        sys.exit()
+
+    return options
+
+
 def locate(tlsToFind, sets):
     """return 
         - the set in which the given traffic light exists 
@@ -54,7 +86,8 @@ def locate(tlsToFind, sets):
 
 
 def coordinateAfterSet(TLSP, l1, l1Pair, l1Index):
-    #print "add ", TLSP.otl.getID(),TLSP.tl.getID(), " to ", l1Pair.otl.getID(),l1Pair.tl.getID(), " l1green ", l1Pair.green, " tlsp.ogreen", TLSP.ogreen
+    #print "coordinateAfter\n  TLSP: %s\n  l1Pair: %s\n  l1Index=%s" % (
+    #        pair2str(TLSP), pair2str(l1Pair), l1Index)
     if l1Index == 0:
         TLSP = TLSP._replace(
                 startOffset=l1Pair.startOffset, 
@@ -67,18 +100,23 @@ def coordinateAfterSet(TLSP, l1, l1Pair, l1Index):
 
 
 def coordinateBeforeSet(TLSP, l2, l2Pair, l2Index):
+    #print "coordinateBeforeSet\n  TLSP: %s\n  l2Pair: %s\n  l2Index=%s" % (
+    #        pair2str(TLSP), pair2str(l2Pair), l2Index)
     if l2Index == 0:
+        #l2arrival = l2Pair.startOffset + TLSP.green
+        #TLSPdepart = l2arrival - TLSP.betweenOffset
+        #TLSPstartOffset = TLSPdepart - TLSP.ogreen
         TLSP = TLSP._replace(
-                startOffset=l2Pair.startOffset - betweenOffset,
-                betweenOffset=TLSP.betweenOffset + l2Pair.ogreen + TLSP.ogreen - TLSP.green)
+                startOffset=l2Pair.startOffset + TLSP.green - TLSP.betweenOffset - TLSP.ogreen,
+                betweenOffset=TLSP.betweenOffset + TLSP.green - TLSP.ogreen)
     else:
         TLSP = TLSP._replace(
-                startOffset=l2Pair.startOffset + l2Pair.betweenOffset - betweenOffset,
-                betweenOffset=TLSP.betweenOffset + l2Pair.ogreen + TLSP.ogreen - TLSP.green)
+                startOffset=l2Pair.startOffset - l2Pair.ogreen - TLSP.ogreen,
+                betweenOffset=TLSP.betweenOffset + TLSP.ogreen - TLSP.green)
     l2.append(TLSP)
 
                        
-def computePairOffsets(TLSPList):
+def computePairOffsets(TLSPList, verbose):
     c1, c2 , c3 , c4 , c5 = 0 , 0 , 0 , 0 , 0
     sets = [] # sets of coordinate TLPairs
     operation = ""
@@ -99,12 +137,12 @@ def computePairOffsets(TLSPList):
             # add to set 1 - add after existing set
             coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
             c2 += 1
-            operation = "addToSet"
+            operation = "addAfterSet"
         elif l1 == None and not l2 == None:
             # add to set 2 - add before existing set
             coordinateBeforeSet(TLSP, l2, l2Pair, l2Index)
             c3 += 1
-            operation = "addToSet2"
+            operation = "addBeforeSet"
         else:
             if l1 == l2:
                 # cannot uncoordinated both tls. coordinate the first arbitrarily
@@ -114,8 +152,8 @@ def computePairOffsets(TLSPList):
             else:
                 # merge sets
                 coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
-                #for s in sets:
-                #    print "       ", ["%s,%s:%s,%s" % (pd.otl.getID(), pd.tl.getID(), pd.startOffset, pd.betweenOffset) for pd in s]
+                if verbose:
+                    logAddedPair(TLSP, sets, "addAfterSet (intermediate)")
 
                 if l1Index == 0:
                     if l2Index == 0:
@@ -135,12 +173,9 @@ def computePairOffsets(TLSPList):
                 merge(sets, l1, l2, dt)
                 c5 += 1
                 operation = "mergeSets"
-        #print(TLSP[4])
 
-        #print "added pair %s,%s with operation %s" % (TLSP.otl.getID(), TLSP.tl.getID(), operation)
-        #for s in sets:
-            #print "   ", ["%s,%s:%s,%s" % (pd.otl.getID(), pd.tl.getID(), pd.startOffset, pd.betweenOffset) for pd in s]
-            #print "  ", ["%s,%s" % (pd.otl.getID(), pd.tl.getID()) for pd in s]
+        if verbose:
+            logAddedPair(TLSP, sets, operation)
 
     print("operations: newSet=%s addToSet=%s addToSet2=%s addHalfCoordinated=%s mergeSets=%s" % (c1, c2 , c3 , c4, c5))
     return(sets)
@@ -239,9 +274,9 @@ def removeDuplicates(TLPairs):
 
 
 
-def main(netfile1, demand, outfile):
-    net = sumolib.net.readNet(netfile1, withPrograms = True)
-    TLPairs = getTLPairs(net, demand)
+def main(options):
+    net = sumolib.net.readNet(options.netfile, withPrograms = True)
+    TLPairs = getTLPairs(net, options.routefile)
     TLPairs = removeDuplicates(TLPairs)
 
     sortHelper = [(
@@ -253,16 +288,16 @@ def main(netfile1, demand, outfile):
 
 
     print("number of tls-pairs: %s" % (len(tlPairsList)))
-    #print '\n'.join(["edges=%s,%s prio=%s numVehicles/time=%s" % (
-    #    pairKey.edgeID, pairKey.edgeID2, pairData.prio, pairData.numVehicles / pairData.timeBetween) 
-    #    for pairKey, pairData in tlPairsList])
+    if options.verbose:
+        print '\n'.join(["edges=%s,%s prio=%s numVehicles/time=%s" % (
+            pairKey.edgeID, pairKey.edgeID2, pairData.prio, pairData.numVehicles / pairData.timeBetween) 
+            for pairKey, pairData in tlPairsList])
 
-    coordinatedSets = computePairOffsets([pairData for pairKey, pairData in tlPairsList])
+    coordinatedSets = computePairOffsets([pairData for pairKey, pairData in tlPairsList], options.verbose)
 
     offsetDict = finalizeOffsets(coordinatedSets)
-    netfile2 = 'temp.'+ str(netfile1)
 
-    with open(outfile, 'w') as outf:
+    with open(options.outfile, 'w') as outf:
         outf.write('<additional>\n')
         for ID, betweenOffset in offsetDict.items():
             outf.write('    <tlLogic id="%s" programID="0" offset="%s"/>\n' %
@@ -271,20 +306,7 @@ def main(netfile1, demand, outfile):
 
     sumo = sumolib.checkBinary('sumo')
     netconvert = sumolib.checkBinary('netconvert')
-    #subprocess.call([netconvert, '-s', netfile1, '-o', netfile1])
-    #subprocess.call(['build.bat'])
-    #subprocess.call([netconvert, '-s', netfile1, '--tllogic-files', outfile, '-o', netfile2])
-    #subprocess.call([sumo, '-c','osm.sumocfg', '-n', netfile1,  '--tripinfo-output',  'tripinfos.xml'])
-    #subprocess.call([sumo, '-c','osm.sumocfg', '-n', netfile2, '--tripinfo-output', 'tripinfos2.xml'])
-
-    #durationStats = Statistics(' Traveltimes')
-    #for trip in parse_fast('tripinfos.xml', 'tripinfo', ['id', 'duration']):
-    #   durationStats.add(float(trip.duration), trip.id)
-    #print durationStats
-    #durationStats1 = Statistics(' Traveltimes')
-    #for trip in parse_fast('tripinfos2.xml', 'tripinfo', ['id', 'duration']):
-    #   durationStats1.add(float(trip.duration), trip.id)
-    #print durationStats1
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    options = get_options(sys.argv)
+    main(options)
