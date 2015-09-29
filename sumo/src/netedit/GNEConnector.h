@@ -140,15 +140,15 @@ private:
     static const int WIDTH;
 
     /// @brief color for the from-lane of a connection
-    static const RGBColor sourceColor;
+    static RGBColor sourceColor;
     /// @brief color for the to-lane of a connection
-    static const RGBColor targetColor;
+    static RGBColor targetColor;
     /// @brief color for a to-lane that cannot be used because another connection conflicts
-    static const RGBColor conflictColor;
+    static RGBColor conflictColor;
     /// @brief color for the to-lane of a connection with pass attribute
-    static const RGBColor targetPassColor;
+    static RGBColor targetPassColor;
     /// @brief color for potential to-lane targets (currently unconnected)
-    static const RGBColor potentialTargetColor;
+    static RGBColor potentialTargetColor;
 
 private:
     void updateDescription() const;

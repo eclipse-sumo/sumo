@@ -76,11 +76,11 @@ FXIMPLEMENT(GNEConnector, FXScrollWindow, GNEConnectorMap, ARRAYNUMBER(GNEConnec
 // static members
 // ===========================================================================
 const int GNEConnector::WIDTH = 140;
-const RGBColor GNEConnector::sourceColor(RGBColor::CYAN);
-const RGBColor GNEConnector::potentialTargetColor(RGBColor(0, 64, 0, 255));
-const RGBColor GNEConnector::targetColor(RGBColor::GREEN);
-const RGBColor GNEConnector::targetPassColor(RGBColor::MAGENTA);
-const RGBColor GNEConnector::conflictColor(RGBColor::YELLOW);
+RGBColor GNEConnector::sourceColor;
+RGBColor GNEConnector::potentialTargetColor;
+RGBColor GNEConnector::targetColor;
+RGBColor GNEConnector::targetPassColor;
+RGBColor GNEConnector::conflictColor;
 
 // ===========================================================================
 // method definitions
@@ -150,6 +150,13 @@ GNEConnector::GNEConnector(FXComposite* parent, GNEViewNet* updateTarget, GNEUnd
     // Selection Hint
     new FXLabel(myContentFrame, "Hold <SHIFT> while\nclicking to create\nunyielding conn's.\n", 0, JUSTIFY_LEFT);
     // Legend
+    // init colors here to avoid static order fiasco (https://isocpp.org/wiki/faq/ctors#static-init-order)
+    sourceColor = RGBColor::CYAN;
+    potentialTargetColor = RGBColor(0, 64, 0, 255);
+    targetColor = RGBColor::GREEN;
+    targetPassColor = RGBColor::MAGENTA;
+    conflictColor = RGBColor::YELLOW;
+
     new FXHorizontalSeparator(myContentFrame, SEPARATOR_GROOVE | LAYOUT_FILL_X, 0, 0, 0, 2, 2, 2, 4, 4);
     FXLabel* l;
     new FXLabel(myContentFrame, "Color Legend:", 0, JUSTIFY_LEFT);
