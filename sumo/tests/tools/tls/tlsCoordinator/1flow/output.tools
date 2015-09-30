@@ -1,0 +1,2 @@
+number of tls-pairs: 22
+operations: newSet=3 addToSet=6 addToSet2=11 addHalfCoordinated=0 mergeSets=2

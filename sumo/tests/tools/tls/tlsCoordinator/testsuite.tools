@@ -2,6 +2,9 @@
 2tls
 basic
 
+# 1 flow snaking through the grid but allowing for full coordination
+1flow
+
 # 3 flows in a grid network allowing for full coordination
 3flows
 
