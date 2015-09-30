@@ -105,7 +105,7 @@ public:
      * @param[in] includePedCrossings Whether braking due to a pedestrian crossing counts
      * @return Whether the described connection must brake (has higher priorised foes)
      */
-    bool mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, bool includePedCrossings) const;
+    bool mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings) const;
 
     /** @brief Returns the information whether the described flow must brake for the given crossing
      * @param[in] node The parent node of this request
@@ -148,6 +148,10 @@ public:
 
     /// reports warnings if any occured
     static void reportWarnings();
+
+    /// @brief whether multple connections from the same edge target the same lane
+    static bool mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
+                              const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes);
 
 
 private:

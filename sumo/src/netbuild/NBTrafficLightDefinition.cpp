@@ -193,7 +193,8 @@ NBTrafficLightDefinition::mustBrake(const NBEdge* const from, const NBEdge* cons
     if (!node->hasOutgoing(to)) {
         return true; // !!!
     }
-    return node->mustBrake(from, to, -1, true);
+    // @todo recheck relevance of lane indices
+    return node->mustBrake(from, to, -1, -1, true);
 }
 
 

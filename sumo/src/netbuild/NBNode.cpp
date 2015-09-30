@@ -655,7 +655,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
         return (*myTrafficLights.begin())->needsCont(fromE, toE, otherFromE, otherToE);
     }
     if (fromE->getJunctionPriority(this) > 0 && otherFromE->getJunctionPriority(this) > 0) {
-        return mustBrake(fromE, toE, c.fromLane, false);
+        return mustBrake(fromE, toE, c.fromLane, c.toLane, false);
     }
     return false;
 }
@@ -1197,7 +1197,7 @@ NBNode::invalidateOutgoingConnections() {
 
 
 bool
-NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, bool includePedCrossings) const {
+NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings) const {
     // unregulated->does not need to brake
     if (myRequest == 0) {
         return false;
@@ -1207,7 +1207,7 @@ NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane
         return true;
     }
     // check whether any other connection on this node prohibits this connection
-    return myRequest->mustBrake(from, to, fromLane, includePedCrossings);
+    return myRequest->mustBrake(from, to, fromLane, toLane, includePedCrossings);
 }
 
 bool
@@ -1445,7 +1445,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
 
 
 LinkState
-NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane,
+NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int toLane,
                      bool mayDefinitelyPass, const std::string& tlID) const {
     if (tlID != "") {
         return LINKSTATE_TL_OFF_BLINKING;
@@ -1459,7 +1459,7 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane,
     if (myType == NODETYPE_ALLWAY_STOP) {
         return LINKSTATE_ALLWAY_STOP; // all drive, first one to arrive may drive first
     }
-    if ((!incoming->isInnerEdge() && mustBrake(incoming, outgoing, fromlane, true)) && !mayDefinitelyPass) {
+    if ((!incoming->isInnerEdge() && mustBrake(incoming, outgoing, fromlane, toLane, true)) && !mayDefinitelyPass) {
         return myType == NODETYPE_PRIORITY_STOP ? LINKSTATE_STOP : LINKSTATE_MINOR; // minor road
     }
     // traffic lights are not regarded here

@@ -724,6 +724,12 @@ public:
      */
     std::vector<Connection> getConnectionsFromLane(unsigned int lane) const;
 
+    /** @brief Returns the specified connection
+     * This method goes through "myConnections" and returns the specified one
+     * @see NBEdge::Connection
+     */
+    Connection getConnection(int fromLane, const NBEdge* to, int toLane) const;
+
 
     /** @brief Retrieves info about a connection to a certain lane of a certain edge
      *

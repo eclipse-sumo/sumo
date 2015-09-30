@@ -176,7 +176,7 @@ GNELane::drawLane2LaneConnections() const {
     const Position& startPos = getShape()[-1];
     for (std::vector<NBEdge::Connection>::iterator it = connections.begin(); it != connections.end(); it++) {
         const LinkState state = node->getLinkState(
-                                    myParentEdge.getNBEdge(), it->toEdge, it->fromLane, it->mayDefinitelyPass, it->tlID);
+                                    myParentEdge.getNBEdge(), it->toEdge, it->fromLane, it->toLane, it->mayDefinitelyPass, it->tlID);
         switch (state) {
             case LINKSTATE_TL_OFF_NOSIGNAL:
                 glColor3d(1, 1, 0);

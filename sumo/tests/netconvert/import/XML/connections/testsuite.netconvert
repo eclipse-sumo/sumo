@@ -57,3 +57,12 @@ keepClear_con
 
 # set keepClear via default option
 keepClear_default
+
+# two connections from the same edge to the same lane. Priority resolved by defaults
+double_con_default
+
+# two connections from the same edge to the same lane. Priority resolved by setting attribute pass="true"
+double_con_custom
+
+# two connections from the same edge to the same lane. Forcing unsafe network by setting attribute pass="true" for both connections
+double_con_custom_unsafe

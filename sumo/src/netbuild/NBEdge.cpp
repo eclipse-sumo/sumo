@@ -776,6 +776,21 @@ NBEdge::getConnectionsFromLane(unsigned int lane) const {
         }
     }
     return ret;
+} 
+ 
+
+NBEdge::Connection 
+NBEdge::getConnection(int fromLane, const NBEdge* to, int toLane) const {
+    for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        if (
+                (*i).fromLane == fromLane
+                && (*i).toEdge == to
+                && (*i).toLane == toLane) {
+            return *i;
+        }
+    }
+    throw ProcessError("Connection from " + getID() + "_" + toString(fromLane) 
+            + " to " + to->getID() + "_" + toString(toLane) + " not found");
 }
 
 

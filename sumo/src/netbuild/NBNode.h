@@ -440,10 +440,11 @@ public:
      * @param[in] from The connection's start edge
      * @param[in] to The connection's end edge
      * @param[in] fromLane The lane the connection start at
+     * @param[in] toLane The lane the connection ends at
      * @param[in] includePedCrossings Whether braking due to a pedestrian crossing counts
      * @return Whether the described connection must brake (has higher priorised foes)
      */
-    bool mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, bool includePedCrossings) const;
+    bool mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings) const;
 
     /** @brief Returns the information whether the described flow must brake for the given crossing
      * @param[in] from The connection's start edge
@@ -491,7 +492,7 @@ public:
     LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand = false) const;
 
     LinkState getLinkState(const NBEdge* incoming, NBEdge* outgoing,
-                           int fromLane, bool mayDefinitelyPass, const std::string& tlID) const;
+                           int fromLane, int toLane, bool mayDefinitelyPass, const std::string& tlID) const;
 
     /** @brief Compute the junction shape for this node
      * @param[in] mismatchThreshold The threshold for warning about shapes which are away from myPosition

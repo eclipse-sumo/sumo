@@ -550,7 +550,7 @@ GNEConnector::buildIinternalLanes(NBNode* node) {
             const std::vector<NBEdge::Connection>& conns = (*it_edg)->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator it_con = conns.begin(); it_con != conns.end(); ++it_con) {
                 const PositionVector shape = node->computeInternalLaneShape(*it_edg, *it_con, NUM_POINTS);
-                LinkState state = node->getLinkState(*it_edg, it_con->toEdge, it_con->fromLane, it_con->mayDefinitelyPass, it_con->tlID);
+                LinkState state = node->getLinkState(*it_edg, it_con->toEdge, it_con->fromLane, it_con->toLane, it_con->mayDefinitelyPass, it_con->tlID);
                 GNEInternalLane* ilane = new GNEInternalLane(0, innerID + '_' + toString(index) , shape, -1, state);
                 rtree.addAdditionalGLObject(ilane);
                 myInternalLanes[index] = ilane;
