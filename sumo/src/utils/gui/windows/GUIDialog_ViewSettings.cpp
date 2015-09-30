@@ -450,12 +450,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXMatrix* m42 =
             new FXMatrix(frame4, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
-        myShowTLIndex = new FXCheckButton(m42, "Show link tls index", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
-        new FXLabel(m42, " ", 0, LAYOUT_CENTER_Y);
-        myShowJunctionIndex = new FXCheckButton(m42, "Show link junction index", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
-        new FXLabel(m42, " ", 0, LAYOUT_CENTER_Y);
+        myTLIndexPanel = new NamePanel(m42, this, "Show link tls index", mySettings->drawLinkTLIndex);
+        myJunctionIndexPanel = new NamePanel(m42, this, "Show link junction index", mySettings->drawLinkJunctionIndex);
         myShowLane2Lane = new FXCheckButton(m42, "Show lane to lane connections", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLane2Lane->setCheck(mySettings->showLane2Lane);
         new FXLabel(m42, " ", 0, LAYOUT_CENTER_Y);
@@ -574,6 +570,8 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myInternalEdgeNamePanel;
     delete myCwaEdgeNamePanel;
     delete myStreetNamePanel;
+    delete myJunctionIndexPanel;
+    delete myTLIndexPanel;
     delete myJunctionNamePanel;
     delete myVehicleNamePanel;
     delete myAddNamePanel;
@@ -669,8 +667,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myContainerSizePanel->update(mySettings->containerSize);
 
     myJunctionColorMode->setCurrentItem((FXint) mySettings->junctionColorer.getActive());
-    myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
-    myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
+    myTLIndexPanel->update(mySettings->drawLinkTLIndex);
+    myJunctionIndexPanel->update(mySettings->drawLinkJunctionIndex);
     myJunctionNamePanel->update(mySettings->junctionName);
     myInternalJunctionNamePanel->update(mySettings->internalJunctionName);
 
@@ -864,8 +862,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.containerSize = myContainerSizePanel->getSettings();
 
     tmpSettings.junctionColorer.setActive(myJunctionColorMode->getCurrentItem());
-    tmpSettings.drawLinkTLIndex = (myShowTLIndex->getCheck() != FALSE);
-    tmpSettings.drawLinkJunctionIndex = (myShowJunctionIndex->getCheck() != FALSE);
+    tmpSettings.drawLinkTLIndex = myTLIndexPanel->getSettings();
+    tmpSettings.drawLinkJunctionIndex = myJunctionIndexPanel->getSettings();
     tmpSettings.junctionName = myJunctionNamePanel->getSettings();
     tmpSettings.internalJunctionName = myInternalJunctionNamePanel->getSettings();
 

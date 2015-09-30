@@ -69,7 +69,8 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       containerQuality(0),
       containerSize(1),
       containerName(false, 50, RGBColor(0, 153, 204, 255)),
-      drawLinkTLIndex(false), drawLinkJunctionIndex(false),
+      drawLinkTLIndex(false, 50, RGBColor(128, 128, 255, 255)), 
+      drawLinkJunctionIndex(false, 50, RGBColor(128, 128, 255, 255)), 
       junctionName(false, 50, RGBColor(0, 255, 128, 255)),
       internalJunctionName(false, 50, RGBColor(0, 204, 128, 255)),
       showLane2Lane(false), drawJunctionShape(true), addMode(0),
@@ -648,8 +649,12 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     // junctions
     dev.openTag(SUMO_TAG_VIEWSETTINGS_JUNCTIONS);
     dev.writeAttr("junctionMode", junctionColorer.getActive());
-    dev.writeAttr("drawLinkTLIndex", drawLinkTLIndex);
-    dev.writeAttr("drawLinkJunctionIndex", drawLinkJunctionIndex);
+    dev.lf();
+    dev << "                  ";
+    drawLinkTLIndex.print(dev, "drawLinkTLIndex");
+    dev.lf();
+    dev << "                  ";
+    drawLinkTLIndex.print(dev, "drawLinkJunctionIndex");
     dev.lf();
     dev << "                  ";
     junctionName.print(dev, "junctionName");

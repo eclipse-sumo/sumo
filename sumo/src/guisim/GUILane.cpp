@@ -168,7 +168,7 @@ GUILane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 
 // ------ Drawing methods ------
 void
-GUILane::drawLinkNo() const {
+GUILane::drawLinkNo(const GUIVisualizationSettings& s) const {
     unsigned int noLinks = (unsigned int)myLinks.size();
     if (noLinks == 0) {
         return;
@@ -179,8 +179,8 @@ GUILane::drawLinkNo() const {
         MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
         PositionVector shape = getShape();
         shape.extrapolate(0.5); // draw on top of the walking area
-        drawTextAtEnd(toString(link->getIndex()), shape, 0);
-        drawTextAtEnd(toString(link->getIndex()), shape.reverse(), 0);
+        drawTextAtEnd(toString(link->getIndex()), shape, 0, s.drawLinkJunctionIndex);
+        drawTextAtEnd(toString(link->getIndex()), shape.reverse(), 0, s.drawLinkJunctionIndex);
         return;
     }
     // draw all links
@@ -188,14 +188,14 @@ GUILane::drawLinkNo() const {
     SUMOReal x1 = myHalfLaneWidth;
     for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
-        drawTextAtEnd(toString(myLinks[i]->getIndex()), getShape(), x2);
+        drawTextAtEnd(toString(myLinks[i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex);
         x1 -= w;
     }
 }
 
 
 void
-GUILane::drawTLSLinkNo(const GUINet& net) const {
+GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) const {
     unsigned int noLinks = (unsigned int)myLinks.size();
     if (noLinks == 0) {
         return;
@@ -207,8 +207,8 @@ GUILane::drawTLSLinkNo(const GUINet& net) const {
         if (linkNo >= 0) {
             PositionVector shape = getShape();
             shape.extrapolate(0.5); // draw on top of the walking area
-            drawTextAtEnd(toString(linkNo), shape, 0);
-            drawTextAtEnd(toString(linkNo), shape.reverse(), 0);
+            drawTextAtEnd(toString(linkNo), shape, 0, s.drawLinkTLIndex);
+            drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex);
         }
         return;
     }
@@ -221,21 +221,21 @@ GUILane::drawTLSLinkNo(const GUINet& net) const {
         if (linkNo < 0) {
             continue;
         }
-        drawTextAtEnd(toString(linkNo), getShape(), x2);
+        drawTextAtEnd(toString(linkNo), getShape(), x2, s.drawLinkTLIndex);
         x1 -= w;
     }
 }
 
 
 void
-GUILane::drawTextAtEnd(const std::string& text, const PositionVector& shape, SUMOReal x) const {
+GUILane::drawTextAtEnd(const std::string& text, const PositionVector& shape, SUMOReal x, const GUIVisualizationTextSettings& settings) const {
     glPushMatrix();
     const Position& end = shape.back();
     const Position& f = shape[-2];
     const SUMOReal rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    GLHelper::drawText(text, Position(x, 0.26), 0, .6, RGBColor(128, 128, 255, 255), 180);
+    GLHelper::drawText(text, Position(x, 0.26), 0, .6 * settings.size / 50, settings.color, 180);
     glPopMatrix();
 }
 
@@ -517,11 +517,11 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     drawLane2LaneConnections();
                 }
                 glTranslated(0, 0, .1);
-                if (s.drawLinkJunctionIndex) {
-                    drawLinkNo();
+                if (s.drawLinkJunctionIndex.show) {
+                    drawLinkNo(s);
                 }
-                if (s.drawLinkTLIndex) {
-                    drawTLSLinkNo(*net);
+                if (s.drawLinkTLIndex.show) {
+                    drawTLSLinkNo(s, *net);
                 }
                 glPopMatrix();
             }
