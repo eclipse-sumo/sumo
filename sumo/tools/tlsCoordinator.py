@@ -37,12 +37,12 @@ from collections import namedtuple
 
 TLTuple = namedtuple('TLTuple', ['edgeID', 'dist', 'time', 'connection'])
 PairKey = namedtuple('PairKey', ['edgeID', 'edgeID2', 'dist'])
-PairData = namedtuple('PairData', ['otl', 'oconnection', 'tl', 'connection', 'betweenOffset', 'startOffset',
+PairData = namedtuple('PairData', ['otl', 'oconnection', 'tl', 'connection', 'betweenOffset', 'startOffset', 'travelTime',
                                    'prio', 'timeBetween', 'numVehicles', 'ogreen', 'green'])
 
 def pair2str(p, full=True):
-    brief = "%s,%s s=%.1f b=%.1f" % (
-             p.otl.getID(), p.tl.getID(), p.startOffset, p.betweenOffset) 
+    brief = "%s,%s s=%.1f b=%.1f t=%.1f" % (
+             p.otl.getID(), p.tl.getID(), p.startOffset, p.betweenOffset, p.travelTime) 
     if full:
         return brief + " og=%s g=%s p=%s n=%s" % (p.ogreen, p.green, p.prio, p.numVehicles)
     else:
@@ -51,7 +51,7 @@ def pair2str(p, full=True):
 def logAddedPair(TLSP, sets, operation):
     print "added pair %s,%s with operation %s" % (TLSP.otl.getID(), TLSP.tl.getID(), operation)
     for s in sets:
-        print "    " + ";".join([pair2str(p,False) for p in s])
+        print "    " + "   ".join([pair2str(p,False) for p in s])
 
 def get_options(args=None):
     optParser = optparse.OptionParser()
@@ -81,9 +81,10 @@ def locate(tlsToFind, sets):
         """
     for s in sets:
         for pair in s:
-            for i, tls in enumerate(pair):
-                if tls == tlsToFind:
-                    return s, pair, i
+            if tlsToFind == pair.otl:
+                return s, pair, 0
+            elif tlsToFind == pair.tl:
+                return s, pair, 1
     return None, None, None
 
 
@@ -91,31 +92,34 @@ def coordinateAfterSet(TLSP, l1, l1Pair, l1Index):
     #print "coordinateAfter\n  TLSP: %s\n  l1Pair: %s\n  l1Index=%s" % (
     #        pair2str(TLSP), pair2str(l1Pair), l1Index)
     if l1Index == 0:
-        TLSP = TLSP._replace(
-                startOffset=l1Pair.startOffset, 
-                betweenOffset=TLSP.betweenOffset - l1Pair.green + TLSP.ogreen - TLSP.green)
+        TLSPdepart = l1Pair.startOffset - TLSP.ogreen
+        TLSParrival = TLSPdepart + TLSP.travelTime
+        TLSPstartOffset2 = TLSParrival - TLSP.green
+        TLSP = TLSP._replace(startOffset=l1Pair.startOffset, betweenOffset=TLSPstartOffset2 - l1Pair.startOffset)
     else:
-        TLSP = TLSP._replace(
-                startOffset=l1Pair.startOffset + l1Pair.betweenOffset,
-                betweenOffset=TLSP.betweenOffset - l1Pair.green + TLSP.ogreen - TLSP.green)
+        l1depart = l1Pair.startOffset + l1Pair.betweenOffset + TLSP.ogreen
+        TLSParrival = l1depart + TLSP.travelTime
+        TLSPstartOffset = TLSParrival - TLSP.green
+        TLSP = TLSP._replace(startOffset=l1depart, betweenOffset=TLSPstartOffset - l1depart)
     l1.append(TLSP)
+    return TLSP
 
 
 def coordinateBeforeSet(TLSP, l2, l2Pair, l2Index):
     #print "coordinateBeforeSet\n  TLSP: %s\n  l2Pair: %s\n  l2Index=%s" % (
     #        pair2str(TLSP), pair2str(l2Pair), l2Index)
     if l2Index == 0:
-        #l2arrival = l2Pair.startOffset + TLSP.green
-        #TLSPdepart = l2arrival - TLSP.betweenOffset
-        #TLSPstartOffset = TLSPdepart - TLSP.ogreen
-        TLSP = TLSP._replace(
-                startOffset=l2Pair.startOffset + TLSP.green - TLSP.betweenOffset - TLSP.ogreen,
-                betweenOffset=TLSP.betweenOffset + TLSP.green - TLSP.ogreen)
+        l2arrival = l2Pair.startOffset + TLSP.green
+        TLSPdepart = l2arrival - TLSP.travelTime
+        TLSPstartOffset = TLSPdepart - TLSP.ogreen
+        TLSP = TLSP._replace(startOffset=TLSPstartOffset, betweenOffset=l2Pair.startOffset - TLSPstartOffset)
     else:
-        TLSP = TLSP._replace(
-                startOffset=l2Pair.startOffset - l2Pair.ogreen - TLSP.ogreen,
-                betweenOffset=TLSP.betweenOffset + TLSP.ogreen - TLSP.green)
+        l2arrival = l2Pair.startOffset + l2Pair.betweenOffset + TLSP.green
+        TLSPdepart = l2arrival - TLSP.travelTime
+        TLSPstartOffset = TLSPdepart - TLSP.ogreen
+        TLSP = TLSP._replace(startOffset=TLSPstartOffset, betweenOffset=l2Pair.arrival - TLSPstartOffset)
     l2.append(TLSP)
+    return TLSP
 
                        
 def computePairOffsets(TLSPList, verbose):
@@ -123,8 +127,6 @@ def computePairOffsets(TLSPList, verbose):
     sets = [] # sets of coordinate TLPairs
     operation = ""
     for TLSP in TLSPList:
-        betweenOffset = TLSP.betweenOffset
-        startOffset = TLSP.startOffset
         l1, l1Pair, l1Index = locate(TLSP.otl, sets)
         l2, l2Pair, l2Index = locate(TLSP.tl, sets)
         #print(l1)
@@ -137,40 +139,43 @@ def computePairOffsets(TLSPList, verbose):
             operation = "newSet"
         elif l2 == None and not l1 == None:
             # add to set 1 - add after existing set
-            coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
+            TLSP = coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
             c2 += 1
             operation = "addAfterSet"
         elif l1 == None and not l2 == None:
             # add to set 2 - add before existing set
-            coordinateBeforeSet(TLSP, l2, l2Pair, l2Index)
+            TLSP = coordinateBeforeSet(TLSP, l2, l2Pair, l2Index)
             c3 += 1
             operation = "addBeforeSet"
         else:
             if l1 == l2:
                 # cannot uncoordinated both tls. coordinate the first arbitrarily
-                coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
+                TLSP = coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
                 c4 +=1
                 operation = "addHalfCoordinated"
             else:
                 # merge sets
-                coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
+                TLSP = coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
                 if verbose:
                     logAddedPair(TLSP, sets, "addAfterSet (intermediate)")
+
+                #print "merge\n  TLSP: %s\n  l1Pair: %s\n  l1Index=%s\n  l2Pair: %s\n  l2Index=%s" % (
+                #        pair2str(TLSP), pair2str(l1Pair), l1Index, pair2str(l2Pair), l2Index)
 
                 if l1Index == 0:
                     if l2Index == 0:
                         #print "    case a)"
-                        dt = l1Pair.startOffset                        + betweenOffset - l2Pair.startOffset
+                        dt = l1Pair.startOffset                        + TLSP.betweenOffset - l2Pair.startOffset
                     else:
                         #print "    case b)"
-                        dt = l1Pair.startOffset + l1Pair.betweenOffset + betweenOffset - l2Pair.startOffset
+                        dt = l1Pair.startOffset + l1Pair.betweenOffset + TLSP.betweenOffset - l2Pair.startOffset
                 else:
                     if l2Index == 0:
-                        #print "    case c)", l2Pair.green, TLSP.ogreen
-                        dt = l1Pair.startOffset                        + betweenOffset - (l2Pair.startOffset + l2Pair.betweenOffset) + l2Pair.green - TLSP.ogreen
+                        #print "    case c)" 
+                        dt = TLSP.startOffset + TLSP.betweenOffset - l2Pair.startOffset
                     else:
                         #print "    case d)"
-                        dt = l1Pair.startOffset + l1Pair.betweenOffset + betweenOffset - (l2Pair.startOffset + l2Pair.betweenOffset)
+                        dt = l1Pair.startOffset + l1Pair.betweenOffset + TLSP.betweenOffset - (l2Pair.startOffset + l2Pair.betweenOffset)
 
                 merge(sets, l1, l2, dt)
                 c5 += 1
@@ -200,8 +205,10 @@ def finalizeOffsets(sets):
             betweenOffset = pair.betweenOffset
             startOffset = pair.startOffset
             if not tl1 in offsetDict:
+                #print "     added %s offset %s" % (tl1, startOffset)
                 offsetDict[tl1] = startOffset
             if not tl2 in offsetDict:
+                #print "     added %s offset %s" % (tl2, startOffset + betweenOffset)
                 offsetDict[tl2] = startOffset + betweenOffset
     return offsetDict
 
@@ -264,7 +271,7 @@ def getTLPairs(net, routeFile):
             betweenOffset = TLelement.time + ogreen - green
             startOffset = 0
             # relevant data for a pair of traffic lights
-            TLPairs[key] = PairData(otl, oconnection,  tl, connection, betweenOffset, startOffset,
+            TLPairs[key] = PairData(otl, oconnection,  tl, connection, betweenOffset, startOffset, TLelement.time,
                     edge.getPriority(), TLelement.time, numVehicles + 1, ogreen, green)
 
     return TLPairs
@@ -301,9 +308,9 @@ def main(options):
 
     with open(options.outfile, 'w') as outf:
         outf.write('<additional>\n')
-        for ID, betweenOffset in offsetDict.items():
+        for ID, startOffset in offsetDict.items():
             outf.write('    <tlLogic id="%s" programID="0" offset="%s"/>\n' %
-                    (ID, str(betweenOffset)))
+                    (ID, str(startOffset)))
         outf.write('</additional>\n')
 
     sumo = sumolib.checkBinary('sumo')
