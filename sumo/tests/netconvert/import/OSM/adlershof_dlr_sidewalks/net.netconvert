@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 22 08:06:42 2015 by SUMO netconvert Version dev-SVN-r18894I
+<!-- generated on Wed Sep 30 08:54:01 2015 by SUMO netconvert Version dev-SVN-r18965I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -2518,11 +2518,11 @@
     </edge>
 
     <tlLogic id="GS_cluster_1560223815_1560223847_301292612_56231397" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGGgGGggrrrr"/>
+        <phase duration="36" state="GGGgGGggrrrr"/>
         <phase duration="4" state="yyygyyggrrrr"/>
         <phase duration="6" state="rrrGrrGGrrrr"/>
         <phase duration="4" state="rrryrryyrrrr"/>
-        <phase duration="31" state="GGrrrrrrGGGg"/>
+        <phase duration="36" state="GGrrrrrrGGGg"/>
         <phase duration="4" state="yyrrrrrryyyy"/>
     </tlLogic>
     <tlLogic id="GS_cluster_492462300_671564296" type="static" programID="0" offset="0">
@@ -2536,13 +2536,13 @@
         <phase duration="4" state="rrrrrrryyrrrrrrryy"/>
     </tlLogic>
     <tlLogic id="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585712_493585714_57343510" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGGgGGggrrr"/>
+        <phase duration="23" state="GGGgGGggrrr"/>
         <phase duration="4" state="yyygyyggrrr"/>
         <phase duration="6" state="rrrGrrGGrrr"/>
         <phase duration="4" state="rrryrryyrrr"/>
-        <phase duration="31" state="GrrrrrrrGGg"/>
+        <phase duration="23" state="GrrrrrrrGGg"/>
         <phase duration="4" state="yrrrrrrryyy"/>
-        <phase duration="31" state="GGGgGGrrrrr"/>
+        <phase duration="23" state="GGGgGGrrrrr"/>
         <phase duration="4" state="yyyyyyrrrrr"/>
     </tlLogic>
 

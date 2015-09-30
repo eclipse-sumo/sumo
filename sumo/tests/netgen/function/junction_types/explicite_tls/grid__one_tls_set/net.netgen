@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 24 17:25:18 2015 by SUMO netgenerate Version dev-SVN-r17955I
+<!-- generated on Wed Sep 30 08:53:54 2015 by SUMO netgenerate Version dev-SVN-r18965I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -382,9 +382,9 @@
     </edge>
 
     <tlLogic id="0/0" type="static" programID="0" offset="0">
-        <phase duration="31" state="GgGr"/>
+        <phase duration="41" state="GgGr"/>
         <phase duration="4" state="yyyr"/>
-        <phase duration="31" state="GrGg"/>
+        <phase duration="41" state="GrGg"/>
         <phase duration="4" state="yryy"/>
     </tlLogic>
 

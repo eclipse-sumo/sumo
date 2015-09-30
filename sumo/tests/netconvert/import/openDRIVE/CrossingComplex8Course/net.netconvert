@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 18 13:15:10 2015 by SUMO netconvert Version dev-SVN-r18647I
+<!-- generated on Wed Sep 30 08:54:01 2015 by SUMO netconvert Version dev-SVN-r18965I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -80,24 +80,24 @@
 
     <tlLogic id="2" type="static" programID="0" offset="0">
         <param key="connection:-71.0.00" value="_Sg270"/>
-        <phase duration="31" state="rrrGGgrrrGGg"/>
+        <phase duration="41" state="rrrGGgrrrGGg"/>
         <phase duration="4" state="rrryygrrryyg"/>
-        <phase duration="31" state="GGgrrrGGgrrr"/>
+        <phase duration="41" state="GGgrrrGGgrrr"/>
         <phase duration="4" state="yygrrryygrrr"/>
     </tlLogic>
     <tlLogic id="90.82" type="static" programID="0" offset="0">
         <param key="connection:-82.0.00" value="_Sg269"/>
-        <phase duration="31" state="GG"/>
+        <phase duration="86" state="GG"/>
         <phase duration="4" state="yy"/>
     </tlLogic>
     <tlLogic id="90.88" type="static" programID="0" offset="0">
         <param key="connection:-88.0.00" value="_Sg267"/>
-        <phase duration="31" state="GGGG"/>
+        <phase duration="86" state="GGGG"/>
         <phase duration="4" state="yyyy"/>
     </tlLogic>
     <tlLogic id="91.89" type="static" programID="0" offset="0">
         <param key="connection:-89.0.00" value="_Sg218"/>
-        <phase duration="31" state="GGGG"/>
+        <phase duration="86" state="GGGG"/>
         <phase duration="4" state="yyyy"/>
     </tlLogic>
 

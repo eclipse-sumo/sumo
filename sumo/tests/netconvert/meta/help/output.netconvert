@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r18900I
+SUMO netconvert Version dev-SVN-r18965I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -98,6 +98,7 @@ TLS Building Options:
                                          OSM-derived networks
   --tls.guess-signals.dist FLOAT       Distance for interpreting nodes as
                                          signal locations
+  --tls.cycle.time INT                 Use INT as cycle duration
   --tls.green.time INT                 Use INT as green phase duration
   -D, --tls.yellow.min-decel FLOAT     Defines smallest vehicle deceleration
   --tls.yellow.patch-small             Given yellow times are patched even if

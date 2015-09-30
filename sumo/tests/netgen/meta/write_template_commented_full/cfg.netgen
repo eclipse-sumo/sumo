@@ -165,6 +165,9 @@
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
 
+        <!-- Use INT as cycle duration -->
+        <tls.cycle.time value="90" type="INT"/>
+
         <!-- Use INT as green phase duration -->
         <tls.green.time value="31" synonymes="traffic-light-green" type="INT"/>
 

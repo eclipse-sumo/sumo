@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:21:03 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on Wed Sep 30 08:54:02 2015 by SUMO netconvert Version dev-SVN-r18965I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -20,6 +20,7 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
     </report>
 
 </configuration>
@@ -31,7 +32,7 @@
 
     <edge id=":15030102_0" function="internal">
         <lane id=":15030102_0_0" index="0" speed="13.89" length="9.49" shape="233.74,147.26 241.68,152.45"/>
-        <lane id=":15030102_0_1" index="1" speed="13.89" length="9.50" shape="231.93,150.02 239.88,155.22"/>
+        <lane id=":15030102_0_1" index="1" speed="13.89" length="9.49" shape="231.93,150.02 239.88,155.22"/>
     </edge>
     <edge id=":15030102_2" function="internal">
         <lane id=":15030102_2_0" index="0" speed="13.20" length="7.86" shape="231.93,150.02 234.16,151.71 235.52,153.30 235.99,154.77 235.59,156.13"/>
@@ -62,9 +63,9 @@
     </edge>
 
     <tlLogic id="15030102" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGGrr"/>
+        <phase duration="41" state="GGGrr"/>
         <phase duration="4" state="yyyrr"/>
-        <phase duration="31" state="rrrGG"/>
+        <phase duration="41" state="rrrGG"/>
         <phase duration="4" state="rrryy"/>
     </tlLogic>
 

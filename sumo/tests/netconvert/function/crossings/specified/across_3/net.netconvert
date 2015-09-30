@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/13/15 12:46:57 by SUMO netconvert Version dev-SVN-r18083
+<!-- generated on Wed Sep 30 13:27:10 2015 by SUMO netconvert Version dev-SVN-r18965I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -163,7 +163,7 @@
         <lane id="CW_3" index="3" allow="passenger" speed="13.89" length="85.86" shape="107.48,101.65 21.51,101.65"/>
     </edge>
     <edge id="CW2" from="C" to="W2" priority="1" shape="108.85,94.28 0.00,93.68">
-        <lane id="CW2_0" index="0" allow="rail" speed="13.89" length="107.64" shape="107.62,95.92 -0.01,95.33"/>
+        <lane id="CW2_0" index="0" allow="rail" speed="13.89" length="107.63" shape="107.62,95.92 -0.01,95.33"/>
     </edge>
     <edge id="E2C" from="E2" to="C" priority="1" shape="254.67,93.40 135.96,93.48">
         <lane id="E2C_0" index="0" allow="rail" speed="13.89" length="120.61" shape="254.67,95.05 134.07,95.13"/>
@@ -197,15 +197,15 @@
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGGgrrrrGGGgrrrrrrrr"/>
+        <phase duration="22" state="GGGgrrrrGGGgrrrrrrrr"/>
         <phase duration="4" state="yyygrrrryyygrrrrrrrr"/>
         <phase duration="6" state="rrrGrrrrrrrGrrrrrrrr"/>
         <phase duration="4" state="rrryrrrrrrryrrrrrrrr"/>
-        <phase duration="31" state="rrrrGGgrrrrrGGgrrrrr"/>
+        <phase duration="20" state="rrrrGGgrrrrrGGgrrrrr"/>
         <phase duration="4" state="rrrryygrrrrryygrrrrr"/>
         <phase duration="6" state="rrrrrrGrrrrrrrGrrrrr"/>
         <phase duration="4" state="rrrrrryrrrrrrryrrrrr"/>
-        <phase duration="26" state="rrrrrrrGrrrrrrrGGrGr"/>
+        <phase duration="15" state="rrrrrrrGrrrrrrrGGrGr"/>
         <phase duration="5" state="rrrrrrrGrrrrrrrGrrrr"/>
         <phase duration="4" state="rrrrrrryrrrrrrryrrrr"/>
     </tlLogic>
