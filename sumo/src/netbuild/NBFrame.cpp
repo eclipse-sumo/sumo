@@ -248,6 +248,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
 
     // computational
+    oc.doRegister("tls.cycle.time", new Option_Integer(90));
+    oc.addDescription("tls.cycle.time", "TLS Building", "Use INT as cycle duration");
+
     oc.doRegister("tls.green.time", new Option_Integer(31));
     oc.addSynonyme("tls.green.time", "traffic-light-green", true);
     oc.addDescription("tls.green.time", "TLS Building", "Use INT as green phase duration");
@@ -396,6 +399,10 @@ NBFrame::checkOptions() {
     }
     if (oc.getBool("no-internal-links") && oc.getBool("crossings.guess")) {
         WRITE_ERROR("only one of the options 'no-internal-links' or 'crossings.guess' may be given");
+        ok = false;
+    }
+    if (!oc.isDefault("tls.green.time") && !oc.isDefault("tls.cycle.time")) {
+        WRITE_ERROR("only one of the options 'tls.green.time' or 'tls.cycle.time' may be given");
         ok = false;
     }
     return ok;

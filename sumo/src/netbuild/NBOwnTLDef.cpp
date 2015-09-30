@@ -48,6 +48,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+#define MIN_GREEN_TIME 5
 
 // ===========================================================================
 // member method definitions
@@ -239,6 +240,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
     EdgeVector toProc = incoming;
     const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
     // build all phases
+    std::vector<int> greenPhases; // indices of green phases
     while (toProc.size() > 0) {
         std::pair<NBEdge*, NBEdge*> chosen;
         if (incoming.size() == 2) {
@@ -317,6 +319,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             }
         }
         const std::string vehicleState = state; // backup state before pedestrian modifications
+        greenPhases.push_back((int)logic->getPhases().size());
         state = addPedestrianPhases(logic, greenTime, state, crossings, fromEdges, toEdges);
         // pedestrians have 'r' from here on
         for (unsigned int i1 = pos; i1 < pos + crossings.size(); ++i1) {
@@ -366,6 +369,27 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
         }
     }
     const SUMOTime totalDuration = logic->getDuration();
+    if (OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) {
+        // adapt to cycle time by changing the duration of the green phases
+        const SUMOTime cycleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.cycle.time"));
+        SUMOTime greenPhaseTime = 0;
+        for (std::vector<int>::const_iterator it = greenPhases.begin(); it != greenPhases.end(); ++it) {
+            greenPhaseTime += logic->getPhases()[*it].duration;
+        }
+        const int patchSeconds = STEPS2TIME(cycleTime - totalDuration) / greenPhases.size();
+        const int patchSecondsRest = (int)(STEPS2TIME(cycleTime - totalDuration)) % greenPhases.size();
+        //std::cout << "cT=" << cycleTime << " td=" << totalDuration << " pS=" << patchSeconds << " pSR=" << patchSecondsRest << "\n";
+        if (greenTime + patchSeconds < MIN_GREEN_TIME || greenTime + patchSeconds + patchSecondsRest < MIN_GREEN_TIME) {
+            WRITE_WARNING("The traffic light '" + getID() + "' cannot be adapted to a cycle time of " + time2string(cycleTime) + ".");
+            // @todo use a multiple of cycleTime ?
+        } else {
+            for (std::vector<int>::const_iterator it = greenPhases.begin(); it != greenPhases.end(); ++it) {
+                logic->setPhaseDuration(*it, logic->getPhases()[*it].duration + TIME2STEPS(patchSeconds));
+            }
+            logic->setPhaseDuration(greenPhases.front(), logic->getPhases()[greenPhases.front()].duration + TIME2STEPS(patchSecondsRest));
+        }
+    }
+
     // this computation only makes sense for single nodes
     myNeedsContRelationReady = (myControlledNodes.size() == 1);
     if (totalDuration > 0) {
