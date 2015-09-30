@@ -63,6 +63,8 @@ def get_options(args=None):
                          help="define the inputroute file (mandatory)")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
+    optParser.add_option("-e", "--evaluate", action="store_true",
+                         default=False, help="run the scenario and print duration statistics")
     (options, args) = optParser.parse_args(args=args)
     if not options.netfile or not options.routefile:
         optParser.print_help()
@@ -305,7 +307,12 @@ def main(options):
         outf.write('</additional>\n')
 
     sumo = sumolib.checkBinary('sumo')
-    netconvert = sumolib.checkBinary('netconvert')
+    if options.evaluate:
+        subprocess.call([sumo, 
+            '-n', options.netfile, 
+            '-r', options.routefile,
+            '-a', options.outfile,
+            '-v', '--no-step-log', '--duration-log.statistics'], stdout=sys.stdout)
 
 if __name__ == "__main__":
     options = get_options(sys.argv)
