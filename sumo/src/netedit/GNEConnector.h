@@ -75,7 +75,7 @@ public:
      * @param[in] mayDefinitelyPass Whether new connections shall have the pass attribute set
      * @param[in] toggle Whether non-existing connections shall be created
      */
-    void handleLaneClick(GNELane* lane, bool mayDefinitelyPass = false, bool toggle = true);
+    void handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool allowConflict, bool toggle);
 
     /// @name FOX-callbacks
     /// @{

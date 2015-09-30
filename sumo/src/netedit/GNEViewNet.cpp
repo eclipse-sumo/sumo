@@ -556,7 +556,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
             case GNE_MODE_CONNECT:
                 if (pointed_lane) {
                     const bool mayPass = ((FXEvent*)data)->state & SHIFTMASK;
-                    myConnector->handleLaneClick(pointed_lane, mayPass);
+                    const bool allowConflict = ((FXEvent*)data)->state & CONTROLMASK;
+                    myConnector->handleLaneClick(pointed_lane, mayPass, allowConflict, true);
                     update();
                 }
                 GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);

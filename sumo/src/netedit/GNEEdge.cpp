@@ -739,7 +739,7 @@ GNEEdge::removeLane(GNELane* lane) {
 void
 GNEEdge::addConnection(unsigned int fromLane, const std::string& toEdgeID, unsigned int toLane, bool mayPass) {
     NBEdge* destEdge = myNet->retrieveEdge(toEdgeID)->getNBEdge();
-    myNBEdge.setConnection(fromLane, destEdge, toLane, NBEdge::L2L_USER, false, mayPass);
+    myNBEdge.setConnection(fromLane, destEdge, toLane, NBEdge::L2L_USER, true, mayPass);
     myNet->refreshElement(this); // actually we only do this to force a redraw
 }
 
