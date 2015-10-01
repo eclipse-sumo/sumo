@@ -75,6 +75,7 @@
 FXDEFMAP(GUIViewTraffic) GUIViewTrafficMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE, GUIViewTraffic::onCmdCloseLane),
     FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE, GUIViewTraffic::onCmdCloseEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_ADD_REROUTER, GUIViewTraffic::onCmdAddRerouter),
 };
 
 
@@ -328,6 +329,15 @@ GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
     GUILane* lane = getLaneUnderCursor();
     if (lane != 0) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+    }
+}
+
+long
+GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != 0) {
+        dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
     }
 }

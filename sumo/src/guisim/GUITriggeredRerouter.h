@@ -41,6 +41,10 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <gui/GUIManipulator.h>
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class GUIEdge;
 
 // ===========================================================================
 // class definitions

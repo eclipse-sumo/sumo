@@ -196,6 +196,9 @@ public:
     /// @brief close this edge for traffic
     void closeTraffic(const GUILane* lane);
 
+    /// @brief add a rerouter
+    void addRerouter();
+
 private:
     /// @brief invalidated copy constructor
     GUIEdge(const GUIEdge& s);

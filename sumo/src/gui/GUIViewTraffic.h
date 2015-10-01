@@ -100,6 +100,7 @@ public:
     /// @brief interaction with the simulation
     long onCmdCloseLane(FXObject*, FXSelector, void*);
     long onCmdCloseEdge(FXObject*, FXSelector, void*);
+    long onCmdAddRerouter(FXObject*, FXSelector, void*);
 
 protected:
     int doPaintGL(int mode, const Boundary& bound);

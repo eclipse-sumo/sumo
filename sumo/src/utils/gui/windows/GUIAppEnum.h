@@ -362,6 +362,7 @@ enum {
     //@{
     MID_CLOSE_LANE,
     MID_CLOSE_EDGE,
+    MID_ADD_REROUTER,
     //@}
     
 

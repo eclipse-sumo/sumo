@@ -670,6 +670,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
         new FXMenuCommand(ret, "Close lane", 0, &parent, MID_CLOSE_LANE);
         new FXMenuCommand(ret, "Close edge", 0, &parent, MID_CLOSE_EDGE);
     }
+    new FXMenuCommand(ret, "Add rerouter", 0, &parent, MID_ADD_REROUTER);
     return ret;
 }
 

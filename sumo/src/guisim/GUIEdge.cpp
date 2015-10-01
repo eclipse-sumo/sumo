@@ -52,6 +52,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
+#include "GUITriggeredRerouter.h"
 #include "GUIEdge.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
@@ -484,6 +485,21 @@ GUIEdge::closeTraffic(const GUILane* lane) {
         }
     }
     rebuildAllowedLanes();
+}
+
+
+void 
+GUIEdge::addRerouter() {
+    MSEdgeVector edges;
+    edges.push_back(this);
+    GUITriggeredRerouter* rr = new GUITriggeredRerouter(getID() + "_dynamic_rerouter", edges, 1, "", false,
+            GUINet::getGUIInstance()->getVisualisationSpeedUp());
+
+    MSTriggeredRerouter::RerouteInterval ri;
+    ri.begin = MSNet::getInstance()->getCurrentTimeStep();
+    ri.end = SUMOTime_MAX;
+    ri.edgeProbs.add(1, &MSTriggeredRerouter::mySpecialDest_keepDestination);
+    rr->myIntervals.push_back(ri);
 }
 
 /****************************************************************************/
