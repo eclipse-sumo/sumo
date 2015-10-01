@@ -225,7 +225,7 @@ MSRouteHandler::myStartElement(int element,
                             speed, 0, 0, myActiveRoute);
                     if (myActiveRoute.empty()) {
                         const std::string error = "No connection found between '" + from->getID() + "' and '" + to->getID() + "' for person '" + myVehicleParameter->id + "'.";
-                        if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
+                        if (!MSGlobals::gCheckRoutes) {
                             myActiveRoute.push_back(from);
                             myActiveRoute.push_back(to); // pedestrian will teleport
                             //WRITE_WARNING(error);
@@ -331,7 +331,7 @@ MSRouteHandler::myStartElement(int element,
                     myActiveRoute.push_back(to);
                     if (myActiveRoute.empty()) {
                         const std::string error = "No connection found between '" + from->getID() + "' and '" + to->getID() + "' for container '" + myVehicleParameter->id + "'.";
-                        if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
+                        if (!MSGlobals::gCheckRoutes) {
                             myActiveRoute.push_back(from);
                         } else {
                             WRITE_ERROR(error);
@@ -667,11 +667,10 @@ MSRouteHandler::closeVehicle() {
     // try to build the vehicle
     SUMOVehicle* vehicle = 0;
     if (vehControl.getVehicle(myVehicleParameter->id) == 0) {
-        const bool ignoreRouteErrors = OptionsCont::getOptions().getBool("ignore-route-errors");
         try {
-            vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype, ignoreRouteErrors);
+            vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype, !MSGlobals::gCheckRoutes);
         } catch (const ProcessError& e) {
-            if (ignoreRouteErrors) {
+            if (!MSGlobals::gCheckRoutes) {
                 WRITE_WARNING(e.what());
                 vehControl.deleteVehicle(0, true);
                 myVehicleParameter = 0;
@@ -701,7 +700,7 @@ MSRouteHandler::closeVehicle() {
                     MSNet::getInstance()->getInsertionControl().add(vehicle);
                     SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
                     newPars->id = myVehicleParameter->id + "." + toString(i);
-                    vehicle = vehControl.buildVehicle(newPars, route, vtype, OptionsCont::getOptions().getBool("ignore-route-errors"));
+                    vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
                     vehControl.addVehicle(newPars->id, vehicle);
                 }
             }

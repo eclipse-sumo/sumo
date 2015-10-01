@@ -47,6 +47,7 @@
 class MESegment;
 #endif
 class MSBaseVehicle;
+class GUILane;
 
 
 // ===========================================================================
@@ -192,6 +193,8 @@ public:
 
 #endif
 
+    /// @brief close this edge for traffic
+    void closeTraffic(const GUILane* lane);
 
 private:
     /// @brief invalidated copy constructor

@@ -358,6 +358,13 @@ enum {
     /** help button */
     MID_HELP,
 
+    /// @name dynamic interaction with the simulation via SUMO-GUI
+    //@{
+    MID_CLOSE_LANE,
+    MID_CLOSE_EDGE,
+    //@}
+    
+
     /// @name NETEDIT Message IDs
     //@{
     /** abort current edit operation */

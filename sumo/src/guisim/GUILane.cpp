@@ -74,7 +74,8 @@ GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
                  const PositionVector& shape, SUMOReal width,
                  SVCPermissions permissions, unsigned int index) :
     MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions),
-    GUIGlObject(GLO_LANE, id) {
+    GUIGlObject(GLO_LANE, id) 
+{
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
     myShapeColors.reserve(myShape.size() - 1);
@@ -661,6 +662,14 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
     new FXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
+    new FXMenuSeparator(ret);
+    if (myAmClosed) {
+        new FXMenuCommand(ret, "Reopen lane", 0, &parent, MID_CLOSE_LANE);
+        new FXMenuCommand(ret, "Reopen edge", 0, &parent, MID_CLOSE_EDGE);
+    } else {
+        new FXMenuCommand(ret, "Close lane", 0, &parent, MID_CLOSE_LANE);
+        new FXMenuCommand(ret, "Close edge", 0, &parent, MID_CLOSE_EDGE);
+    }
     return ret;
 }
 
@@ -817,6 +826,8 @@ GUILane::getColorValue(size_t activeScheme) const {
                     return 3;
                 case SVC_SHIP:
                     return 4;
+                case SVC_AUTHORITY:
+                    return 6;
                 default:
                     break;
             }
@@ -987,6 +998,20 @@ GUILane::updateColor(const GUIVisualizationSettings& s) {
 #endif
 
 
+void 
+GUILane::closeTraffic(bool rebuildAllowed) {
+    MSGlobals::gCheckRoutes = false;
+    if (myAmClosed) {
+        myPermissions = myOriginalPermissions;
+    } else {
+        myOriginalPermissions = myPermissions;
+        myPermissions = SVC_AUTHORITY;
+    }
+    myAmClosed = !myAmClosed;
+    if (rebuildAllowed) {
+        getEdge().rebuildAllowedLanes();
+    }
+}
 
 /****************************************************************************/
 

@@ -69,6 +69,17 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+/* -------------------------------------------------------------------------
+ * GUIViewTraffic - FOX callback mapping
+ * ----------------------------------------------------------------------- */
+FXDEFMAP(GUIViewTraffic) GUIViewTrafficMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE, GUIViewTraffic::onCmdCloseLane),
+    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE, GUIViewTraffic::onCmdCloseEdge),
+};
+
+
+FXIMPLEMENT_ABSTRACT(GUIViewTraffic, GUISUMOAbstractView, GUIViewTrafficMap, ARRAYNUMBER(GUIViewTrafficMap))
+
 
 // ===========================================================================
 // member method definitions
@@ -285,5 +296,40 @@ GUIViewTraffic::getCurrentTimeStep() const {
     return MSNet::getInstance()->getCurrentTimeStep();
 }
 
+
+GUILane* 
+GUIViewTraffic::getLaneUnderCursor() {
+    if (makeCurrent()) {
+        unsigned int id = getObjectUnderCursor();
+        if (id != 0) {
+            GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+            if (o != 0) {
+                return dynamic_cast<GUILane*>(o);
+            }
+        }
+        makeNonCurrent();
+    }
+    return 0;
+}
+
+long
+GUIViewTraffic::onCmdCloseLane(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != 0) {
+        lane->closeTraffic();
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+    }
+    return 1;
+}
+
+
+long
+GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != 0) {
+        dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+    }
+}
 
 /****************************************************************************/

@@ -226,7 +226,16 @@ public:
     }
 
     void updateColor(const GUIVisualizationSettings& s);
+
 #endif
+
+    /// @brief close this lane for traffic
+    void closeTraffic(bool rebuildAllowed=true);
+
+    bool isClosed() const {
+        return myAmClosed;
+    }
+
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     void swapAfterLaneChange(SUMOTime t);
@@ -302,6 +311,9 @@ private:
     osg::Geometry* myGeom;
 #endif
 
+    /// @brief state for dynamic lane closings
+    bool myAmClosed;
+    SVCPermissions myOriginalPermissions;
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

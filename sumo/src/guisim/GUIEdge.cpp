@@ -472,5 +472,19 @@ GUIEdge::getSegmentAtPosition(const Position& pos) {
 
 #endif
 
+
+void 
+GUIEdge::closeTraffic(const GUILane* lane) {
+    const std::vector<MSLane*>& lanes = getLanes();
+    const bool isClosed = lane->isClosed();
+    for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
+        GUILane* l = dynamic_cast<GUILane*>(*i);
+        if (l->isClosed() == isClosed) {
+            l->closeTraffic(false);
+        }
+    }
+    rebuildAllowedLanes();
+}
+
 /****************************************************************************/
 
