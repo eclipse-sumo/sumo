@@ -331,6 +331,7 @@ GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
     }
+    return 1;
 }
 
 long
@@ -340,6 +341,7 @@ GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
     }
+    return 1;
 }
 
 /****************************************************************************/
