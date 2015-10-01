@@ -6,7 +6,6 @@ Removing self-loops... done.
 Removing unwished edges... done.
 Removing empty nodes... done.
    5 nodes removed.
-Joining similar edges... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node shapes... done.

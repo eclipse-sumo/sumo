@@ -1,1 +1,1 @@
---geometry.junction-mismatch-threshold 100
+--edges.join --geometry.junction-mismatch-threshold 100

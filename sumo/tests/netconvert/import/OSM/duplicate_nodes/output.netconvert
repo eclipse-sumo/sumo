@@ -16,7 +16,6 @@ done.
 Removing empty nodes and geometry nodes... done.
    2 nodes removed.
 Moving network to origin... done.
-Joining similar edges... done.
 Computing turning directions... done.
 Guessing and setting on-/off-ramps... done.
 Sorting nodes' edges... done.

@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r18965I
+SUMO netconvert Version dev-SVN-r18972
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -236,6 +236,9 @@ Processing Options:
   --flip-y-axis                        Flips the y-coordinate along zero
   --roundabouts.guess                  Enable roundabout-guessing
   --lefthand                           Assumes left-hand traffic on the network
+  --edges.join                         Merges edges whch connect the same nodes
+                                         and are close to each other
+                                         (recommended for VISSIM import)
   --junctions.join                     Joins junctions that are close to each
                                          other (recommended for OSM import)
   --junctions.join-dist FLOAT          Determines the maximal distance for

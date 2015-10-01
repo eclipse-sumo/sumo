@@ -1,4 +1,4 @@
-Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml'... done.
+Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing types from 'input_types.typ.xml'... done.
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
@@ -18,7 +18,6 @@ done.
 Removing empty nodes and geometry nodes... done.
    95 nodes removed.
 Moving network to origin... done.
-Joining similar edges... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node shapes... 
