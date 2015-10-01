@@ -543,7 +543,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                     gSelected.toggleSelection(pointed->getGlID());
                 }
 
-                myAmInRectSelect = ((FXEvent*)data)->state & SHIFTMASK;
+                myAmInRectSelect = (((FXEvent*)data)->state & SHIFTMASK) != 0;
                 if (myAmInRectSelect) {
                     mySelCorner1 = getPositionInformation();
                     mySelCorner2 = getPositionInformation();
@@ -555,8 +555,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
 
             case GNE_MODE_CONNECT:
                 if (pointed_lane) {
-                    const bool mayPass = ((FXEvent*)data)->state & SHIFTMASK;
-                    const bool allowConflict = ((FXEvent*)data)->state & CONTROLMASK;
+                    const bool mayPass = (((FXEvent*)data)->state & SHIFTMASK) != 0;
+                    const bool allowConflict = (((FXEvent*)data)->state & CONTROLMASK) != 0;
                     myConnector->handleLaneClick(pointed_lane, mayPass, allowConflict, true);
                     update();
                 }

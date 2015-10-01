@@ -181,9 +181,9 @@ void
 GUIDanielPerspectiveChanger::onMouseWheel(void* data) {
     FXEvent* e = (FXEvent*) data;
     SUMOReal diff = 0.1;
-    if (e->state & CONTROLMASK) {
+    if ((e->state & CONTROLMASK) != 0) {
         diff /= 2;
-    } else if (e->state & SHIFTMASK) {
+    } else if ((e->state & SHIFTMASK) != 0) {
         diff *= 2;
     }
     if (e->code < 0) {

@@ -592,7 +592,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector , void* data) {
     setFocus();
     FXEvent* e = (FXEvent*) data;
     // check whether the selection-mode is activated
-    if (e->state & CONTROLMASK) {
+    if ((e->state & CONTROLMASK) != 0) {
         // try to get the object-id if so
         if (makeCurrent()) {
             unsigned int id = getObjectUnderCursor();
