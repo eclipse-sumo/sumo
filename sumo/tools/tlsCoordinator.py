@@ -63,6 +63,8 @@ def get_options(args=None):
                          help="define the inputroute file (mandatory)")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
+    optParser.add_option("--speed-factor", type="float", 
+                         default=0.9, help="avg ration of vehicle speed in relation to the speed limit")
     optParser.add_option("-e", "--evaluate", action="store_true",
                          default=False, help="run the scenario and print duration statistics")
     (options, args) = optParser.parse_args(args=args)
@@ -162,20 +164,10 @@ def computePairOffsets(TLSPList, verbose):
                 #print "merge\n  TLSP: %s\n  l1Pair: %s\n  l1Index=%s\n  l2Pair: %s\n  l2Index=%s" % (
                 #        pair2str(TLSP), pair2str(l1Pair), l1Index, pair2str(l2Pair), l2Index)
 
-                if l1Index == 0:
-                    if l2Index == 0:
-                        #print "    case a)"
-                        dt = l1Pair.startOffset                        + TLSP.betweenOffset - l2Pair.startOffset
-                    else:
-                        #print "    case b)"
-                        dt = l1Pair.startOffset + l1Pair.betweenOffset + TLSP.betweenOffset - l2Pair.startOffset
-                else:
-                    if l2Index == 0:
-                        #print "    case c)" 
+                if l2Index == 0:
                         dt = TLSP.startOffset + TLSP.betweenOffset - l2Pair.startOffset
-                    else:
-                        #print "    case d)"
-                        dt = l1Pair.startOffset + l1Pair.betweenOffset + TLSP.betweenOffset - (l2Pair.startOffset + l2Pair.betweenOffset)
+                else:
+                        dt = TLSP.startOffset + TLSP.betweenOffset - (l2Pair.startOffset + l2Pair.betweenOffset)
 
                 merge(sets, l1, l2, dt)
                 c5 += 1
@@ -248,7 +240,7 @@ def getFirstGreenOffset(tl, connection):
     raise RuntimeError("No green light for tlIndex %s at tl %s" % (index, connection._tls))
 
 
-def getTLPairs(net, routeFile):
+def getTLPairs(net, routeFile, speedFactor):
     # pairs of traffic lights
     TLPairs = {} # PairKey -> PairData
 
@@ -268,11 +260,12 @@ def getTLPairs(net, routeFile):
             ogreen = getFirstGreenOffset(otl, oconnection)
             green = getFirstGreenOffset(tl, connection)
 
-            betweenOffset = TLelement.time + ogreen - green
+            travelTime = TLelement.time / speedFactor
+            betweenOffset = travelTime + ogreen - green
             startOffset = 0
             # relevant data for a pair of traffic lights
             TLPairs[key] = PairData(otl, oconnection,  tl, connection, betweenOffset, startOffset, TLelement.time,
-                    edge.getPriority(), TLelement.time, numVehicles + 1, ogreen, green)
+                    edge.getPriority(), travelTime, numVehicles + 1, ogreen, green)
 
     return TLPairs
 
@@ -285,7 +278,7 @@ def removeDuplicates(TLPairs):
 
 def main(options):
     net = sumolib.net.readNet(options.netfile, withPrograms = True)
-    TLPairs = getTLPairs(net, options.routefile)
+    TLPairs = getTLPairs(net, options.routefile, options.speed_factor)
     TLPairs = removeDuplicates(TLPairs)
 
     sortHelper = [(
