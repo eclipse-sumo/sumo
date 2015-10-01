@@ -418,13 +418,15 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     const bool isWalkingArea = myEdge->getPurpose() == MSEdge::EDGEFUNCTION_WALKINGAREA;
     const bool isInternal = isCrossing || isWalkingArea || myEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
     bool mustDrawMarkings = false;
-    SUMOReal exaggeration = s.laneWidthExaggeration * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
-#ifdef HAVE_INTERNAL
+    SUMOReal exaggeration = s.laneWidthExaggeration;
     if (MSGlobals::gUseMesoSim) {
+#ifdef HAVE_INTERNAL
         GUIEdge* myGUIEdge = dynamic_cast<GUIEdge*>(myEdge);
         exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s.edgeScaler.getActive()));
-    }
 #endif
+    } else {
+        exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
+    }
     const bool drawDetails =  s.scale * exaggeration > 5;
     if (isCrossing || isWalkingArea) {
         // draw internal lanes on top of junctions
