@@ -189,7 +189,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
     // @note: removing geometry can create similar edges so joinSimilarEdges  must come afterwards
     // @note: likewise splitting can destroy similarities so joinSimilarEdges must come before
-    if (removeElements) {
+    if (removeElements && oc.getBool("edges.join")) {
         PROGRESS_BEGIN_MESSAGE("Joining similar edges");
         myJoinedEdges.init(myEdgeCont);
         myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);

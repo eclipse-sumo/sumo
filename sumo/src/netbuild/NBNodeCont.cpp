@@ -187,12 +187,7 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
         std::map<NBNode*, EdgeVector> connectionCount;
         const EdgeVector& outgoing = (*i).second->getOutgoingEdges();
         for (EdgeVector::const_iterator j = outgoing.begin(); j != outgoing.end(); j++) {
-            NBEdge* e = (*j);
-            NBNode* connected = e->getToNode();
-            if (connectionCount.find(connected) == connectionCount.end()) {
-                connectionCount[connected] = EdgeVector();
-            }
-            connectionCount[connected].push_back(e);
+            connectionCount[(*j)->getToNode()].push_back(*j);
         }
         // check whether more than a single edge connect another node and join them
         std::map<NBNode*, EdgeVector>::iterator k;

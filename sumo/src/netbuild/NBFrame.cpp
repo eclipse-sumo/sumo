@@ -156,6 +156,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("lefthand", new Option_Bool(false));
     oc.addDescription("lefthand", "Processing", "Assumes left-hand traffic on the network");
 
+    oc.doRegister("edges.join", new Option_Bool(false));
+    oc.addDescription("edges.join", "Processing",
+                      "Merges edges whch connect the same nodes and are close to each other (recommended for VISSIM import)");
+
     oc.doRegister("junctions.join", new Option_Bool(false));
     oc.addDescription("junctions.join", "Processing",
                       "Joins junctions that are close to each other (recommended for OSM import)");
