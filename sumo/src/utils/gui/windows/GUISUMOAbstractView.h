@@ -314,6 +314,10 @@ public:
      */
     SUMOReal getDelay() const;
 
+    /** @brief Sets the delay of the parent application
+     */
+     void setDelay(SUMOReal delay);
+
 protected:
     /// performs the painting of the simulation
     void paintGL();

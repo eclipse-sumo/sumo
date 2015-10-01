@@ -1021,6 +1021,9 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
         myParent->update();
         myDecalsLock->unlock();
     }
+    if (handler.getDelay() >= 0) {
+        myParent->setDelay(handler.getDelay());
+    }
     Position lookFrom, lookAt;
     handler.setViewport(lookFrom, lookAt);
     if (lookFrom.z() > 0) {

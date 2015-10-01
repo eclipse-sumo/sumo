@@ -254,6 +254,12 @@ public:
         return mySimDelayTarget->getValue();
     }
 
+    /** @brief Sets the delay of the parent application
+     */
+    virtual void setDelay(SUMOReal delay) {
+        mySimDelayTarget->setValue(delay);
+    }
+
     /** @brief Sends an event from the application thread to the GUI and waits until it is handled
      * @param event the event to send
      */

@@ -99,6 +99,10 @@ public:
         return 0;
     }
 
+    /** @brief Sets the delay of the parent application
+     */
+    virtual void setDelay(SUMOReal) {}
+
     /** @brief Sends an event from the application thread to the GUI and waits until it is handled
      * @param event the event to send
      */

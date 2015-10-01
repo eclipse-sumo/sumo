@@ -1123,5 +1123,11 @@ GUISUMOAbstractView::getDelay() const {
     return myApp->getDelay();
 }
 
+
+void
+GUISUMOAbstractView::setDelay(SUMOReal delay) {
+    myApp->setDelay(delay);
+}
+
 /****************************************************************************/
 
