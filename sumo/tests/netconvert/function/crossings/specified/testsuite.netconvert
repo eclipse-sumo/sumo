@@ -55,3 +55,6 @@ traffic_light_unregulated
 
 # remove a crossing
 discard
+
+# load a sumo network with crossing and discard them via option --no-internal-links
+discard_no_internal

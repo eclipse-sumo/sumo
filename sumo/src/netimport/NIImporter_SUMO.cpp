@@ -239,20 +239,22 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         deprecatedVehicleClassesSeen.clear();
     }
     // add loaded crossings
-    for (std::map<std::string, std::vector<Crossing> >::const_iterator it = myPedestrianCrossings.begin(); it != myPedestrianCrossings.end(); ++it) {
-        NBNode* node = myNodeCont.retrieve((*it).first);
-        for (std::vector<Crossing>::const_iterator it_c = (*it).second.begin(); it_c != (*it).second.end(); ++it_c) {
-            const Crossing& crossing = (*it_c);
-            EdgeVector edges;
-            for (std::vector<std::string>::const_iterator it_e = crossing.crossingEdges.begin(); it_e != crossing.crossingEdges.end(); ++it_e) {
-                NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_e);
-                // edge might have been removed due to options
-                if (edge != 0) {
-                    edges.push_back(edge);
+    if (!oc.getBool("no-internal-links")) {
+        for (std::map<std::string, std::vector<Crossing> >::const_iterator it = myPedestrianCrossings.begin(); it != myPedestrianCrossings.end(); ++it) {
+            NBNode* node = myNodeCont.retrieve((*it).first);
+            for (std::vector<Crossing>::const_iterator it_c = (*it).second.begin(); it_c != (*it).second.end(); ++it_c) {
+                const Crossing& crossing = (*it_c);
+                EdgeVector edges;
+                for (std::vector<std::string>::const_iterator it_e = crossing.crossingEdges.begin(); it_e != crossing.crossingEdges.end(); ++it_e) {
+                    NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_e);
+                    // edge might have been removed due to options
+                    if (edge != 0) {
+                        edges.push_back(edge);
+                    }
                 }
-            }
-            if (edges.size() > 0) {
-                node->addCrossing(edges, crossing.width, crossing.priority, true);
+                if (edges.size() > 0) {
+                    node->addCrossing(edges, crossing.width, crossing.priority, true);
+                }
             }
         }
     }

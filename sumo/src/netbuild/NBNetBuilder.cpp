@@ -334,7 +334,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     myEdgeCont.recheckLanes();
     PROGRESS_DONE_MESSAGE();
 
-    if (haveCrossings) {
+    if (haveCrossings && !oc.getBool("no-internal-links")) {
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             i->second->buildCrossingsAndWalkingAreas();
         }
