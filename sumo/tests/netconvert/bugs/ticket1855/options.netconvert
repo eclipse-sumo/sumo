@@ -1,1 +1,1 @@
---sumo-net-file input_net.net.xml 
+--sumo-net-file input_net.net.xml --edges.join
