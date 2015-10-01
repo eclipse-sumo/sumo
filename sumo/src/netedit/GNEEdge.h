@@ -227,6 +227,8 @@ public:
      * straight unless the user clicked near a geometry point */
     Position getSplitPos(const Position& clickPos);
 
+    /// @brief override to also set lane ids
+    void setMicrosimID(const std::string& newID);
 
 private:
     // the radius in which to register clicks for geometry nodes

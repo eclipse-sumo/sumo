@@ -157,7 +157,7 @@ public:
 
 
     /** @brief Changes the microsimID of the object (happens in NETEDIT) */
-    void setMicrosimID(const std::string& newID);
+    virtual void setMicrosimID(const std::string& newID);
 
 
     /** @brief Returns the type of the object as coded in GUIGlObjectType

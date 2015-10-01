@@ -754,4 +754,14 @@ GNEEdge::removeConnection(unsigned int fromLane, const std::string& toEdgeID, un
     myNet->refreshElement(this); // actually we only do this to force a redraw
 }
 
+
+void
+GNEEdge::setMicrosimID(const std::string& newID) {
+    GUIGlObject::setMicrosimID(newID);
+    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
+        (*i)->setMicrosimID(getNBEdge()->getLaneID((*i)->getIndex()));
+    }
+}
+
+
 /****************************************************************************/
