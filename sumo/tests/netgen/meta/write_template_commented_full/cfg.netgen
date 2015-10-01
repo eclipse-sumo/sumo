@@ -258,6 +258,9 @@
         <!-- Assumes left-hand traffic on the network -->
         <lefthand value="false" type="BOOL"/>
 
+        <!-- Merges edges whch connect the same nodes and are close to each other (recommended for VISSIM import) -->
+        <edges.join value="false" type="BOOL"/>
+
         <!-- Joins junctions that are close to each other (recommended for OSM import) -->
         <junctions.join value="false" type="BOOL"/>
 
