@@ -27,7 +27,7 @@ from collections import defaultdict
 def parse_log(logfile, edges=True, aggregate=3600):
     print "Parsing %s" % logfile
     reFrom = re.compile("lane='([^']*)'")
-    reFromMeso = re.compile("from '([^']*)'")
+    reFromMeso = re.compile("edge '([^']*)'")
     reTime = re.compile("time.(\d*)\.")
     # counts per lane
     waitingCounts = defaultdict(lambda: 0)
