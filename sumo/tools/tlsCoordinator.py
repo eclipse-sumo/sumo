@@ -119,7 +119,7 @@ def coordinateBeforeSet(TLSP, l2, l2Pair, l2Index):
         l2arrival = l2Pair.startOffset + l2Pair.betweenOffset + TLSP.green
         TLSPdepart = l2arrival - TLSP.travelTime
         TLSPstartOffset = TLSPdepart - TLSP.ogreen
-        TLSP = TLSP._replace(startOffset=TLSPstartOffset, betweenOffset=l2Pair.arrival - TLSPstartOffset)
+        TLSP = TLSP._replace(startOffset=TLSPstartOffset, betweenOffset=l2arrival - TLSPstartOffset)
     l2.append(TLSP)
     return TLSP
 
