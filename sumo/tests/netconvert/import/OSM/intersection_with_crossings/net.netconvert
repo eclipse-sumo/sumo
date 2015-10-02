@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 30 13:27:07 2015 by SUMO netconvert Version dev-SVN-r18965I
+<!-- generated on Sat Oct  3 01:34:20 2015 by SUMO netconvert Version dev-SVN-r19005
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml"/>
+        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -162,14 +162,16 @@
     </edge>
 
     <tlLogic id="cluster_1802245009_335683858" type="static" programID="0" offset="0">
-        <phase duration="33" state="rrrGGgGGGrrr"/>
+        <phase duration="28" state="rrrGGgGGGrrr"/>
         <phase duration="5" state="rrrGGgGGrrrr"/>
         <phase duration="3" state="rrryygyyrrrr"/>
         <phase duration="6" state="rrrrrGrrrrrr"/>
         <phase duration="3" state="rrrrryrrrrrr"/>
-        <phase duration="32" state="gGgrrrrrrGrG"/>
+        <phase duration="27" state="gGgrrrrrrGrG"/>
         <phase duration="5" state="gGgrrrrrrrrr"/>
         <phase duration="3" state="yyyrrrrrrrrr"/>
+        <phase duration="5" state="rrrrrrrrGGGG"/>
+        <phase duration="5" state="rrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="1802244960" type="unregulated" x="0.00" y="36.69" incLanes="177308083_0 177308083_1" intLanes="" shape="-0.19,40.34 0.08,35.04"/>

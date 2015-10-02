@@ -368,6 +368,29 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             }
         }
     }
+    // fix pedestrian crossings that did not get the green light yet
+    if (crossings.size() > 0) {
+        const int vehLinks = noLinksAll - crossings.size();
+        std::vector<bool> foundGreen(crossings.size(), false);
+        const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = logic->getPhases();
+        for (int i = 0; i < (int)phases.size(); ++i) {
+            const std::string state = phases[i].state;
+            for (int j = 0; j < (int)crossings.size(); ++j) {
+                LinkState ls = (LinkState)state[vehLinks + j];
+                if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
+                    foundGreen[j] = true;
+                }
+            }
+        }
+        for (int j = 0; j < (int)foundGreen.size(); ++j) {
+            if (!foundGreen[j]) {
+                // add a phase where all pedestrians may walk, followed by a clearing phase
+                addPedestrianPhases(logic, TIME2STEPS(10), std::string(noLinksAll, 'r'), crossings, fromEdges, toEdges);
+                break;
+            }
+        }
+    }
+    
     const SUMOTime totalDuration = logic->getDuration();
     if (OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) {
         // adapt to cycle time by changing the duration of the green phases
@@ -377,7 +400,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             greenPhaseTime += logic->getPhases()[*it].duration;
         }
         const int patchSeconds = STEPS2TIME(cycleTime - totalDuration) / greenPhases.size();
-        const int patchSecondsRest = (int)(STEPS2TIME(cycleTime - totalDuration)) % greenPhases.size();
+        const int patchSecondsRest = (int)(STEPS2TIME(cycleTime - totalDuration)) - patchSeconds * greenPhases.size();
         //std::cout << "cT=" << cycleTime << " td=" << totalDuration << " pS=" << patchSeconds << " pSR=" << patchSecondsRest << "\n";
         if (greenTime + patchSeconds < MIN_GREEN_TIME || greenTime + patchSeconds + patchSecondsRest < MIN_GREEN_TIME) {
             WRITE_WARNING("The traffic light '" + getID() + "' cannot be adapted to a cycle time of " + time2string(cycleTime) + ".");
