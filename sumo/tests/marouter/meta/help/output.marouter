@@ -1,4 +1,4 @@
-SUMO marouter Version 0.24.0
+SUMO marouter Version dev-SVN-r18990
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment
 
@@ -30,8 +30,8 @@ Output Options:
   --output-prefix STR               Prefix which is applied to all output
                                       files. The special string 'TIME' is
                                       replaced by the current time.
-  -o, --output-file FILE            Write route distributions to FILE
-  --flow-output FILE                Writes flow definitions into FILE
+  -o, --output-file FILE            Write flow definitions with route
+                                      distributions to FILE
   --ignore-vehicle-type             Does not save vtype information
   --netload-output FILE             Writes edge loads and final costs into FILE
   --all-pairs-output FILE           Writes complete distance matrix into FILE

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/04/15 13:01:46 by SUMO marouter Version 0.24.0
+<!-- generated on 10/02/15 12:27:50 by SUMO marouter Version dev-SVN-r18990
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -27,10 +27,14 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <routeDistribution id="1_2_0.00_43200.00">
-        <route cost="89.93" probability="0.00000000" edges="middle end"/>
-    </routeDistribution>
-    <routeDistribution id="1_2_43200.00_86400.00">
-        <route cost="89.93" probability="24.00000000" edges="middle end"/>
-    </routeDistribution>
+    <flow id="0" begin="0.00" end="43200.00" number="0" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="89.93" probability="0.00000000" edges="middle end"/>
+        </routeDistribution>
+    </flow>
+    <flow id="1" begin="43200.00" end="86400.00" number="24" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="89.93" probability="24.00000000" edges="middle end"/>
+        </routeDistribution>
+    </flow>
 </routes>
