@@ -189,7 +189,7 @@ GLHelper::drawBoxLines(const PositionVector& geom,
             glTranslated(geom[i].x(), geom[i].y(), 0.1);
             if (rightTurn(rots[i - 1], rots[i])) {
                 // inside corner
-                drawFilledCircle(width - offset, cornerDetail);
+                drawFilledCircle(MIN2(lengths[i], width - offset), cornerDetail);
             } else {
                 // outside corner, make sure to only draw a segment of the circle
                 SUMOReal angleBeg = -rots[i - 1];
@@ -205,7 +205,7 @@ GLHelper::drawBoxLines(const PositionVector& geom,
                 if (angleEnd > angleBeg) {
                     angleEnd -= 360;
                 }
-                drawFilledCircle(width + offset, cornerDetail, angleBeg, angleEnd);
+                drawFilledCircle(MIN2(lengths[i], width + offset), cornerDetail, angleBeg, angleEnd);
             }
             glEnd();
             glPopMatrix();
