@@ -74,6 +74,13 @@ public:
     /// @brief get statistics for printing to stdout
     static std::string printStatistics();
 
+    /// @brief accessors for GUINet-Parameters
+    static SUMOReal getAvgRouteLength();
+    static SUMOReal getAvgDuration();
+    static SUMOReal getAvgWaitingTime();
+    static SUMOReal getAvgTimeLoss();
+    static SUMOReal getAvgDepartDelay();
+
 public:
     /// @brief Destructor.
     ~MSDevice_Tripinfo();

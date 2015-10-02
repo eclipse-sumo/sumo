@@ -428,7 +428,7 @@ GUIParameterTableWindow*
 GUINet::getParameterWindow(GUIMainWindow& app,
                            GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 22);
+        new GUIParameterTableWindow(app, *this, 27);
     // add items
     ret->mkItem("loaded vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
@@ -472,6 +472,13 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                 */
         ret->mkItem("ups [#]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getUPS));
         ret->mkItem("mean ups [#]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getMeanUPS));
+        if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
+            ret->mkItem("avg. trip length [m]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getAvgRouteLength));
+            ret->mkItem("avg. trip duration [s]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getAvgDuration));
+            ret->mkItem("avg. trip waiting time [s]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getAvgWaitingTime));
+            ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getAvgTimeLoss));
+            ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getAvgDepartDelay));
+        }
     }
     ret->mkItem("nodes [#]", false, (int)myJunctions->size());
     ret->mkItem("edges [#]", false, (int)GUIEdge::getIDs(false).size());

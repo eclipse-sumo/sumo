@@ -258,13 +258,60 @@ std::string
 MSDevice_Tripinfo::printStatistics() {
     std::ostringstream msg;
     msg << "Statistics (avg):\n"
-            << " RouteLength: " << toString(myTotalRouteLength / myVehicleCount) << "\n"
-            << " Duration: " << time2string((SUMOTime)(myTotalDuration / myVehicleCount)) << "\n"
-            << " WaitingTime: " << time2string((SUMOTime)(myTotalWaitingTime / myVehicleCount)) << "\n"
-            << " TimeLoss: " << time2string((SUMOTime)(myTotalTimeLoss / myVehicleCount)) << "\n"
-            << " DepartDelay: " << time2string((SUMOTime)(myTotalDepartDelay / myVehicleCount)) << "\n";
+            << " RouteLength: " << getAvgRouteLength() << "\n"
+            << " Duration: " << getAvgDuration() << "\n"
+            << " WaitingTime: " << getAvgWaitingTime() << "\n"
+            << " TimeLoss: " << getAvgTimeLoss() << "\n"
+            << " DepartDelay: " << getAvgDepartDelay() << "\n";
     return msg.str();
 }
+
+
+SUMOReal
+MSDevice_Tripinfo::getAvgRouteLength() {
+    if (myVehicleCount > 0) {
+        return myTotalRouteLength / myVehicleCount;
+    } else {
+        return 0;
+    }
+}
+
+SUMOReal
+MSDevice_Tripinfo::getAvgDuration() {
+    if (myVehicleCount > 0) {
+        return STEPS2TIME(myTotalDuration / myVehicleCount);
+    } else {
+        return 0;
+    }
+}
+
+SUMOReal
+MSDevice_Tripinfo::getAvgWaitingTime() {
+    if (myVehicleCount > 0) {
+        return STEPS2TIME(myTotalWaitingTime / myVehicleCount);
+    } else {
+        return 0;
+    }
+}
+
+SUMOReal
+MSDevice_Tripinfo::getAvgTimeLoss() {
+    if (myVehicleCount > 0) {
+        return STEPS2TIME(myTotalTimeLoss / myVehicleCount);
+    } else {
+        return 0;
+    }
+}
+
+SUMOReal
+MSDevice_Tripinfo::getAvgDepartDelay() {
+    if (myVehicleCount > 0) {
+        return STEPS2TIME(myTotalDepartDelay / myVehicleCount);
+    } else {
+        return 0;
+    }
+}
+
 
 /****************************************************************************/
 
