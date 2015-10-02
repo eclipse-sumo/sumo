@@ -319,6 +319,7 @@ GUIViewTraffic::onCmdCloseLane(FXObject*, FXSelector, void*) {
     if (lane != 0) {
         lane->closeTraffic();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+		update();
     }
     return 1;
 }
@@ -330,6 +331,7 @@ GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
     if (lane != 0) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+		update();
     }
     return 1;
 }
@@ -340,6 +342,7 @@ GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
     if (lane != 0) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+		update();
     }
     return 1;
 }
