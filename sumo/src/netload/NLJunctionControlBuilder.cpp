@@ -254,7 +254,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic() {
         firstEventOffset = (*i)->duration - offset + myNet.getCurrentTimeStep();
         if (existing != 0) {
             existing->changeStepAndDuration(getTLLogicControlToUse(), 
-                    myNet.getCurrentTimeStep(), step, firstEventOffset);
+                    myNet.getCurrentTimeStep(), step, (*i)->duration - offset);
             return;
         }
     }
