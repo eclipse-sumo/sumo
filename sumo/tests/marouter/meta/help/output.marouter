@@ -25,6 +25,8 @@ Input Options:
                                       FILE(s)
   -x, --weight-attribute STR        Name of the xml attribute which gives the
                                       edge weight
+  --weight-adaption FLOAT           The travel time influence of prior
+                                      intervals
 
 Output Options:
   --output-prefix STR               Prefix which is applied to all output

@@ -45,6 +45,9 @@
         <!-- Name of the xml attribute which gives the edge weight -->
         <weight-attribute value="traveltime" synonymes="measure x" type="STR"/>
 
+        <!-- The travel time influence of prior intervals -->
+        <weight-adaption value="0" type="FLOAT"/>
+
     </input>
 
     <output>
