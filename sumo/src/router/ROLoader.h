@@ -79,7 +79,7 @@ public:
 
     /// Loads the net weights
     bool loadWeights(RONet& net, const std::string& optionName,
-                     const std::string& measure, bool useLanes);
+                     const std::string& measure, const bool useLanes, const bool boundariesOverride);
 
     /** @brief Builds and opens all route loaders */
     void openRoutes(RONet& net);

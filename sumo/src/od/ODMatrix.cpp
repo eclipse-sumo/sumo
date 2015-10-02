@@ -601,4 +601,11 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
     return Distribution_Points("N/A", points, interpolating);
 }
 
+
+void
+ODMatrix::sortByBeginTime() {
+    std::sort(myContainer.begin(), myContainer.end(), by_begin_sorter());
+}
+
+
 /****************************************************************************/

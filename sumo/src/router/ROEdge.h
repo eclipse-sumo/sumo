@@ -171,7 +171,7 @@ public:
      *
      * @param[in] measure The name of the measure to use.
      */
-    void buildTimeLines(const std::string& measure);
+    void buildTimeLines(const std::string& measure, const bool boundariesOverride);
     //@}
 
 
@@ -325,6 +325,14 @@ public:
     SUMOReal getEffort(const ROVehicle* const veh, SUMOReal time) const;
 
 
+    /** @brief Returns whether a travel time for this edge was loaded
+     *
+     * @param[in] time The time for which the travel time shall be returned [s]
+     * @return whether a value was loaded
+     */
+    bool hasLoadedTravelTime(SUMOReal time) const;
+
+
     /** @brief Returns the travel time for this edge
      *
      * @param[in] veh The vehicle for which the travel time on this edge shall be retrieved
@@ -399,12 +407,8 @@ public:
     };
 
     static void setGlobalOptions(
-        bool useBoundariesOnOverrideTT,
-        bool useBoundariesOnOverrideE,
         bool interpolate,
         bool isParallel) {
-        myUseBoundariesOnOverrideTT = useBoundariesOnOverrideTT;
-        myUseBoundariesOnOverrideE = useBoundariesOnOverrideE;
         myInterpolate = interpolate;
         myAmParallel = isParallel;
     }
@@ -463,15 +467,11 @@ protected:
     mutable ValueTimeLine<SUMOReal> myTravelTimes;
     /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingTTTimeLine;
-    /// @brief Whether overriding weight boundaries shall be reported
-    static bool myUseBoundariesOnOverrideTT;
 
     /// @brief Container storing passing time varying over time for the edge
     mutable ValueTimeLine<SUMOReal> myEfforts;
     /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingETimeLine;
-    /// @brief Whether overriding weight boundaries shall be reported
-    static bool myUseBoundariesOnOverrideE;
 
     /// @brief Information whether to interpolate at interval boundaries
     static bool myInterpolate;

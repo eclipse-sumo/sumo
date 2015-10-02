@@ -83,14 +83,14 @@ void
 initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // load the net
     RODUAEdgeBuilder builder;
-    ROEdge::setGlobalOptions(oc.getBool("weights.expand"), oc.getBool("weights.expand"), oc.getBool("weights.interpolate"), oc.getInt("routing-threads") > 1);
+    ROEdge::setGlobalOptions(oc.getBool("weights.interpolate"), oc.getInt("routing-threads") > 1);
     loader.loadNet(net, builder);
     // load the weights when wished/available
     if (oc.isSet("weight-files")) {
-        loader.loadWeights(net, "weight-files", oc.getString("weight-attribute"), false);
+        loader.loadWeights(net, "weight-files", oc.getString("weight-attribute"), false, oc.getBool("weights.expand"));
     }
     if (oc.isSet("lane-weight-files")) {
-        loader.loadWeights(net, "lane-weight-files", oc.getString("weight-attribute"), true);
+        loader.loadWeights(net, "lane-weight-files", oc.getString("weight-attribute"), true, oc.getBool("weights.expand"));
     }
 }
 

@@ -129,6 +129,9 @@ ROMAFrame::addImportOptions() {
     oc.addSynonyme("weight-attribute", "measure", true);
     oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
 
+    oc.doRegister("weight-adaption", new Option_Float(0.));
+    oc.addDescription("weight-adaption", "Input", "The travel time influence of prior intervals");
+
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");

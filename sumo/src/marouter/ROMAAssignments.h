@@ -59,7 +59,7 @@ class ROMAAssignments {
 public:
     /// Constructor
     ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
-                    RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
+                    const SUMOReal adaptionFactor, RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
     /// Destructor
     ~ROMAAssignments();
@@ -136,6 +136,7 @@ private:
     const SUMOTime myBegin;
     const SUMOTime myEnd;
     const bool myAdditiveTraffic;
+    const SUMOReal myAdaptionFactor;
     RONet& myNet;
     ODMatrix& myMatrix;
     SUMOAbstractRouter<ROEdge, ROVehicle>& myRouter;

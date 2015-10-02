@@ -54,8 +54,6 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-bool ROEdge::myUseBoundariesOnOverrideTT = false;
-bool ROEdge::myUseBoundariesOnOverrideE = false;
 bool ROEdge::myInterpolate = false;
 bool ROEdge::myAmParallel = false;
 bool ROEdge::myHaveTTWarned = false;
@@ -152,6 +150,12 @@ ROEdge::getDistanceTo(const ROEdge* other) const {
 }
 
 
+bool
+ROEdge::hasLoadedTravelTime(SUMOReal time) const {
+    return myUsingTTTimeLine && myTravelTimes.describesTime(time);
+}
+
+    
 SUMOReal
 ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
     if (myUsingTTTimeLine) {
@@ -231,7 +235,7 @@ ROEdge::getNumPredecessors() const {
 
 
 void
-ROEdge::buildTimeLines(const std::string& measure) {
+ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride) {
     if (myUsingETimeLine) {
         SUMOReal value = myLength / mySpeed;
         const SUMOEmissionClass c = PollutantsInterface::getClassByName("unknown");
@@ -253,10 +257,10 @@ ROEdge::buildTimeLines(const std::string& measure) {
         if (measure == "fuel") {
             value = PollutantsInterface::compute(c, PollutantsInterface::FUEL, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
-        myEfforts.fillGaps(value, myUseBoundariesOnOverrideE);
+        myEfforts.fillGaps(value, boundariesOverride);
     }
     if (myUsingTTTimeLine) {
-        myTravelTimes.fillGaps(myLength / mySpeed, myUseBoundariesOnOverrideTT);
+        myTravelTimes.fillGaps(myLength / mySpeed, boundariesOverride);
     }
 }
 
