@@ -500,6 +500,18 @@ GUIEdge::addRerouter() {
     ri.end = SUMOTime_MAX;
     ri.edgeProbs.add(1, &MSTriggeredRerouter::mySpecialDest_keepDestination);
     rr->myIntervals.push_back(ri);
+
+    // trigger rerouting for vehicles already on this edge
+    const std::vector<MSLane*>& lanes = getLanes();
+    for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
+        const MSLane::VehCont& vehicles = (*i)->getVehiclesSecure();
+        for (MSLane::VehCont::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {
+            if ((*v)->getLane() == (*i)) {
+                rr->notifyEnter(**v, MSMoveReminder::NOTIFICATION_JUNCTION);
+            } // else: this is the shadow during a continuous lane change
+        }
+        (*i)->releaseVehicles();
+    }
 }
 
 /****************************************************************************/
