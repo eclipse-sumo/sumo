@@ -68,6 +68,9 @@ public:
         return myDefaultVehicle;
     }
 
+    // @brief calculate edge capacity for the given edge
+    static SUMOReal getCapacity(const ROEdge* edge);
+
     // @brief calculate edge travel time for the given edge and number of vehicles per hour
     SUMOReal capacityConstraintFunction(const ROEdge* edge, const SUMOReal flow) const;
 

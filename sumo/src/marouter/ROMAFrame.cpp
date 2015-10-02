@@ -81,10 +81,7 @@ ROMAFrame::addImportOptions() {
     // register import options
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output");
-    oc.addDescription("output-file", "Output", "Write route distributions to FILE");
-
-    oc.doRegister("flow-output", new Option_FileName());
-    oc.addDescription("flow-output", "Output", "Writes flow definitions into FILE");
+    oc.addDescription("output-file", "Output", "Write flow definitions with route distributions to FILE");
 
     oc.doRegister("ignore-vehicle-type", new Option_Bool(false));
     oc.addSynonyme("ignore-vehicle-type", "no-vtype", true);
@@ -287,7 +284,7 @@ ROMAFrame::checkOptions() {
         WRITE_ERROR("invalid assignment method");
         return false;
     }
-    if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit" && oc.getString("route-choice-methods") != "lohse") {
+    if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit" && oc.getString("route-choice-method") != "lohse") {
         WRITE_ERROR("invalid route choice method");
         return false;
     }
