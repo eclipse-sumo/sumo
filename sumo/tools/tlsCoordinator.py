@@ -38,7 +38,7 @@ from collections import namedtuple
 TLTuple = namedtuple('TLTuple', ['edgeID', 'dist', 'time', 'connection'])
 PairKey = namedtuple('PairKey', ['edgeID', 'edgeID2', 'dist'])
 PairData = namedtuple('PairData', ['otl', 'oconnection', 'tl', 'connection', 'betweenOffset', 'startOffset', 'travelTime',
-                                   'prio', 'timeBetween', 'numVehicles', 'ogreen', 'green'])
+                                   'prio', 'numVehicles', 'ogreen', 'green'])
 
 def pair2str(p, full=True):
     brief = "%s,%s s=%.1f b=%.1f t=%.1f" % (
@@ -189,7 +189,7 @@ def merge(sets, list1 , list2 , dt):
 def finalizeOffsets(sets):
     offsetDict = {}
     for singleSet in sets:
-        singleSet.sort(key=lambda pd:(pd.prio, pd.numVehicles / pd.timeBetween), reverse=True)
+        singleSet.sort(key=lambda pd:(pd.prio, pd.numVehicles / pd.travelTime), reverse=True)
         for pair in singleSet:
             #print "   %s,%s:%s,%s" % (pair.otl.getID(), pair.tl.getID(), pair.startOffset, pair.betweenOffset)
             tl1 = pair.otl.getID()
@@ -264,8 +264,8 @@ def getTLPairs(net, routeFile, speedFactor):
             betweenOffset = travelTime + ogreen - green
             startOffset = 0
             # relevant data for a pair of traffic lights
-            TLPairs[key] = PairData(otl, oconnection,  tl, connection, betweenOffset, startOffset, TLelement.time,
-                    edge.getPriority(), travelTime, numVehicles + 1, ogreen, green)
+            TLPairs[key] = PairData(otl, oconnection,  tl, connection, betweenOffset, startOffset, travelTime,
+                    edge.getPriority(), numVehicles + 1, ogreen, green)
 
     return TLPairs
 
@@ -282,7 +282,7 @@ def main(options):
     TLPairs = removeDuplicates(TLPairs)
 
     sortHelper = [(
-        (pairData.prio, pairData.numVehicles / pairData.timeBetween), # sortKey
+        (pairData.prio, pairData.numVehicles / pairData.travelTime), # sortKey
         (pairKey, pairData)) # payload 
         for pairKey, pairData in TLPairs.items()]
 
@@ -292,7 +292,7 @@ def main(options):
     print("number of tls-pairs: %s" % (len(tlPairsList)))
     if options.verbose:
         print '\n'.join(["edges=%s,%s prio=%s numVehicles/time=%s" % (
-            pairKey.edgeID, pairKey.edgeID2, pairData.prio, pairData.numVehicles / pairData.timeBetween) 
+            pairKey.edgeID, pairKey.edgeID2, pairData.prio, pairData.numVehicles / pairData.travelTime) 
             for pairKey, pairData in tlPairsList])
 
     coordinatedSets = computePairOffsets([pairData for pairKey, pairData in tlPairsList], options.verbose)
