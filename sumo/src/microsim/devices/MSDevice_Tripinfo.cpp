@@ -257,6 +257,8 @@ MSDevice_Tripinfo::updateStatistics() const {
 std::string 
 MSDevice_Tripinfo::printStatistics() {
     std::ostringstream msg;
+    msg.setf(msg.fixed);
+    msg.precision(OUTPUT_ACCURACY);
     msg << "Statistics (avg):\n"
             << " RouteLength: " << getAvgRouteLength() << "\n"
             << " Duration: " << getAvgDuration() << "\n"
