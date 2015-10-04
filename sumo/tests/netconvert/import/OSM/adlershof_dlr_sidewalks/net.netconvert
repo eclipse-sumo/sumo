@@ -2536,7 +2536,7 @@
         <phase duration="4" state="rrrrrrryyrrrrrrryy"/>
     </tlLogic>
     <tlLogic id="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585712_493585714_57343510" type="static" programID="0" offset="0">
-        <phase duration="23" state="GGGgGGggrrr"/>
+        <phase duration="22" state="GGGgGGggrrr"/>
         <phase duration="4" state="yyygyyggrrr"/>
         <phase duration="6" state="rrrGrrGGrrr"/>
         <phase duration="4" state="rrryrryyrrr"/>
