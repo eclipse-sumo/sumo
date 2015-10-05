@@ -104,10 +104,8 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.shortest-path-file", new Option_FileName());
     oc.addDescription("device.rerouting.shortest-path-file", "Routing", "Initialize lookup table for astar from the given distance matrix");
 
-#ifdef HAVE_FOX
     oc.doRegister("device.rerouting.threads", new Option_Integer(0));
     oc.addDescription("device.rerouting.threads", "Routing", "The number of parallel execution threads used for rerouting");
-#endif
 
     oc.doRegister("device.rerouting.output", new Option_FileName());
     oc.addDescription("device.rerouting.output", "Routing", "Save adapting weights to FILE");
@@ -127,7 +125,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
         // no route computation is modelled
         return;
     }
-    needRerouting |= equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "rerouting", v);
+    needRerouting |= equippedByDefaultAssignmentOptions(oc, "rerouting", v);
     if (needRerouting) {
         // route computation is enabled
         myWithTaz = oc.getBool("device.rerouting.with-taz");
@@ -153,6 +151,11 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
             if (myRandomizeWeightsFactor < 1) {
                 WRITE_ERROR("weights.random-factor cannot be less than 1");
             }
+#ifndef HAVE_FOX
+            if (oc.getInt("device.rerouting.threads") > 1) {
+                WRITE_ERROR("Parallel routing is only possible when compiled with Fox.");
+            }
+#endif
         }
         // make the weights be updated
         if (myAdaptationInterval == -1) {

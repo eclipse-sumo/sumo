@@ -153,10 +153,8 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
     oc.doRegister("bulk-routing", new Option_Bool(false));
     oc.addDescription("bulk-routing", "Processing", "Aggregate routing queries with the same origin");
 
-#ifdef HAVE_FOX
     oc.doRegister("routing-threads", new Option_Integer(0));
     oc.addDescription("routing-threads", "Processing", "The number of parallel execution threads used for routing");
-#endif
 
     // register defaults options
     oc.doRegister("departlane", new Option_String());
@@ -199,9 +197,15 @@ ROFrame::checkOptions(OptionsCont& oc) {
     }
     //
     if (oc.getInt("max-alternatives") < 2) {
-        WRITE_ERROR("At least two alternatives should be enabled");
+        WRITE_ERROR("At least two alternatives should be enabled.");
         return false;
     }
+#ifndef HAVE_FOX
+    if (oc.getInt("routing-threads") > 1) {
+        WRITE_ERROR("Parallel routing is only possible when compiled with Fox.");
+        return false;
+    }
+#endif
     return true;
 }
 
