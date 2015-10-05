@@ -33,6 +33,8 @@ def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <netfile> [options]"
     optParser = OptionParser()
     optParser.add_option("-o", "--outfile", help="name of output file")
+    optParser.add_option("-t", "--travel-distance", action="store_true",
+                         default=False, help="use travel distance in the graph")
     options, args = optParser.parse_args()
     try:
         options.net, = args
@@ -43,26 +45,42 @@ def parse_args():
     return options
 
 
-def computeBidiTaz(net, radius=10):
+def computeBidiTaz(net, radius=10, useTravelDist=False):
     for edge in net.getEdges():
-        candidates = []
-        r = min(radius, geomhelper.polyLength(edge.getShape()) / 2)
-        for x, y in edge.getShape():
-            nearby = set()
-            for edge2, dist in net.getNeighboringEdges(x, y, r):
-                nearby.add(edge2)
-            candidates.append(nearby)
-        opposites = reduce(lambda a, b: a.intersection(b), candidates)
-        opposites.update(set(edge.getToNode().getOutgoing()).intersection(
-            set(edge.getFromNode().getIncoming())))
+        if useTravelDist:
+            opposites = set()
+            queue = [(edge, -1.)]
+            while not len(queue) == 0:
+                edge2, dist = queue.pop()
+                if edge2 not in opposites and dist < radius:
+                    opposites.add(edge2)
+                    if dist == -1.:
+                        dist = 0.
+                    else:
+                        dist += edge2.getLength()
+                    toN = edge2.getToNode()
+                    fromN = edge2.getFromNode()
+                    for e in toN.getOutgoing() + toN.getIncoming() + fromN.getOutgoing() + fromN.getIncoming():
+                        queue.append((e, dist))
+        else:
+            candidates = []
+            r = min(radius, geomhelper.polyLength(edge.getShape()) / 2)
+            for x, y in edge.getShape():
+                nearby = set()
+                for edge2, dist in net.getNeighboringEdges(x, y, r):
+                    nearby.add(edge2)
+                candidates.append(nearby)
+            opposites = reduce(lambda a, b: a.intersection(b), candidates)
+            opposites.update(set(edge.getToNode().getOutgoing()).intersection(
+                set(edge.getFromNode().getIncoming())))
         yield edge, opposites
 
 
-def main(netFile, outFile):
+def main(netFile, outFile, useTravelDist=False):
     net = readNet(netFile, withConnections=False, withFoes=False)
     with open(outFile, 'w') as outf:
         outf.write('<tazs>\n')
-        for taz, edges in computeBidiTaz(net):
+        for taz, edges in computeBidiTaz(net, useTravelDist=useTravelDist):
             outf.write('    <taz id="%s" edges="%s"/>\n' % (
                 taz.getID(), ' '.join(sorted([e.getID() for e in edges]))))
         outf.write('</tazs>\n')
@@ -70,4 +88,4 @@ def main(netFile, outFile):
 
 if __name__ == "__main__":
     options = parse_args()
-    main(options.net, options.outfile)
+    main(options.net, options.outfile, options.travel_distance)
