@@ -2,7 +2,7 @@ SUBDIRS = src unittest bin
 
 EXTRA_DIST = README ChangeLog AUTHORS COPYING INSTALL NEWS sumo.doxyconf
 
-doc: pydoc doxygen userdoc
+doc: pydoc doxygen userdoc javadoc
 
 pydoc:
 	rm -rf docs/pydoc
@@ -19,6 +19,14 @@ doxygen:
 
 userdoc:
 	tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -r $(VERSION) && cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
+
+javadoc:
+	rm -rf docs/javadoc
+	mkdir docs/javadoc
+	ant -f tools/contributed/traci4j/build.xml javadoc
+	mv tools/contributed/traci4j/doc docs/javadoc/traci4j
+	ant -f tools/contributed/traas/build.xml javadoc
+	mv tools/contributed/traas/javadoc docs/javadoc/traas
 
 man:
 	rm -rf docs/man
