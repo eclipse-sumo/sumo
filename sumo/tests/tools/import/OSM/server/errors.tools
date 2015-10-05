@@ -929,36 +929,3 @@ Warning: Discarding person 'ped202' because it's plan is empty
 Warning: No connection between edge '237519485_fwd_connector' and edge '137630050_bwd_connector' found.
 Warning: No connection found between '237519485' and '137630050' for person 'ped208'.
 Warning: Discarding person 'ped208' because it's plan is empty
-Warning: Missing green phase in tlLogic '2071423355', program '0' for tl-index 1
-Warning: Missing green phase in tlLogic '21487184', program '0' for tl-index 3
-Warning: Missing green phase in tlLogic '25664673', program '0' for tl-index 6
-Warning: Missing green phase in tlLogic '258045541', program '0' for tl-index 2
-Warning: Missing green phase in tlLogic '266540878', program '0' for tl-index 3
-Warning: Missing green phase in tlLogic '506357662', program '0' for tl-index 3
-Warning: Missing green phase in tlLogic '617915219', program '0' for tl-index 4
-Warning: Missing green phase in tlLogic 'cluster_2086246926_28373974', program '0' for tl-index 20
-Warning: Missing green phase in tlLogic 'cluster_25664680_577258918', program '0' for tl-index 14
-Warning: Missing green phase in tlLogic 'cluster_25954547_29221622', program '0' for tl-index 16
-Warning: Missing green phase in tlLogic 'joinedS_2', program '0' for tl-index 4
-Warning: Missing green phase in tlLogic 'joinedS_3', program '0' for tl-index 6
-Warning: Missing green phase in tlLogic 'joinedS_7', program '0' for tl-index 5
-Warning: Person 'ped35' is jammed on edge ':21487184_w1', time=632.00.
-Warning: Person 'ped38' is jammed on edge ':cluster_25664680_577258918_w2', time=661.00.
-Warning: Person 'ped7' is jammed on edge ':21487184_w1', time=714.00.
-Warning: Person 'ped89' is jammed on edge ':25664673_w3', time=750.00.
-Warning: Person 'ped116' is jammed on edge ':1275468905_w1', time=785.00.
-Warning: Person 'ped104' is jammed on edge ':21487184_w1', time=982.00.
-Warning: Person 'ped14' is jammed on edge ':21487184_w0', time=1062.00.
-Warning: Person 'ped194' is jammed on edge ':cluster_25954547_29221622_w0', time=1098.00.
-Warning: Person 'ped139' is jammed on edge ':25664673_w0', time=1118.00.
-Warning: Person 'ped144' is jammed on edge ':1275468907_w0', time=1139.00.
-Warning: Person 'ped98' is jammed on edge ':21487184_w0', time=1154.00.
-Warning: Person 'ped203' is jammed on edge ':21487184_w1', time=1245.00.
-Warning: Person 'ped16' is jammed on edge ':617915219_w0', time=1345.00.
-Warning: Person 'ped195' is jammed on edge ':21487184_w1', time=1363.00.
-Warning: Person 'ped224' is jammed on edge ':21487184_w1', time=1427.00.
-Warning: Person 'ped138' is jammed on edge ':21487184_w0', time=1810.00.
-Warning: Person 'ped225' is jammed on edge ':25664673_w2', time=2012.00.
-Warning: Person 'ped211' is jammed on edge ':cluster_2086246926_28373974_w0', time=2140.00.
-Warning: Person 'ped185' is jammed on edge ':21487184_w0', time=2457.00.
-Warning: Person 'ped171' is jammed on edge ':21487184_w0', time=2462.00.

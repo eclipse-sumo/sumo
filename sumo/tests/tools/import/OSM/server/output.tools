@@ -151,13 +151,13 @@ Summary:
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.01Oct082155.2902/tools/import/OSM/server/2015-10-01-08-21-56/osm.netccfg'
-Parsing network projection from '/scr2/texttest_tmp/tools.01Oct082155.2902/tools/import/OSM/server/2015-10-01-08-21-56/osm.net.xml'... done.
+Written configuration to '/scr2/texttest_tmp/tools.05Oct075052.12872/tools/import/OSM/server/2015-10-05-07-50-54/osm.netccfg'
+Parsing network projection from '/scr2/texttest_tmp/tools.05Oct075052.12872/tools/import/OSM/server/2015-10-05-07-50-54/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.01Oct082155.2902/tools/import/OSM/server/2015-10-01-08-21-56/osm.polycfg'
+Written configuration to '/scr2/texttest_tmp/tools.05Oct075052.12872/tools/import/OSM/server/2015-10-05-07-50-54/osm.polycfg'
 Success.
 Success.
 Success.
@@ -165,17 +165,16 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'... 
- done (501ms).
-Loading additional-files from 'osm.poly.xml'...  done (91ms).
+Loading net-file from 'osm.net.xml'...  done (668ms).
+Loading additional-files from 'osm.poly.xml'...  done (92ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 2803.00
+Simulation ended at time: 2764.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 3099ms
- Real time factor: 904.485
- UPS: 37093.255889
+ Duration: 3157ms
+ Real time factor: 875.515
+ UPS: 37172.632246
 Vehicles: 
  Inserted: 344
  Running: 0
@@ -183,11 +182,10 @@ Vehicles:
 Persons: 
  Inserted: 207
  Running: 0
- Jammed: 20
 
-DijkstraRouterTT answered 967 queries and explored 780.48 edges on average.
-DijkstraRouterTT spent 128ms answering queries (0.13ms on average).
-Building scenario in '/scr2/texttest_tmp/tools.01Oct082155.2902/tools/import/OSM/server/2015-10-01-08-21-56'
+DijkstraRouterTT answered 1041 queries and explored 788.54 edges on average.
+DijkstraRouterTT spent 158ms answering queries (0.15ms on average).
+Building scenario in '/scr2/texttest_tmp/tools.05Oct075052.12872/tools/import/OSM/server/2015-10-05-07-50-54'
 calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 calling route2trips
 calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
