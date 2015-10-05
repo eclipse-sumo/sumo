@@ -399,7 +399,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
         for (std::vector<int>::const_iterator it = greenPhases.begin(); it != greenPhases.end(); ++it) {
             greenPhaseTime += logic->getPhases()[*it].duration;
         }
-        const int patchSeconds = STEPS2TIME(cycleTime - totalDuration) / greenPhases.size();
+        const int patchSeconds = (int)(STEPS2TIME(cycleTime - totalDuration) / greenPhases.size());
         const int patchSecondsRest = (int)(STEPS2TIME(cycleTime - totalDuration)) - patchSeconds * greenPhases.size();
         //std::cout << "cT=" << cycleTime << " td=" << totalDuration << " pS=" << patchSeconds << " pSR=" << patchSecondsRest << "\n";
         if (greenTime + patchSeconds < MIN_GREEN_TIME || greenTime + patchSeconds + patchSecondsRest < MIN_GREEN_TIME) {
