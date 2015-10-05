@@ -300,7 +300,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     // Initially the energy charged is null
     energyCharged = 0;
 
-    // Initially the Vehicle stopped and the consum is cero.
+    // Initially the Vehicle stopped and the consum is zero.
     Consum = 0;
 
     // Initially the vehicle is stopped and the corresponding variable is 0
@@ -311,6 +311,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
 
     if (ActBatKap > MaxBatKap) {
         WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has a actual battery capacity ("  + SUMOReal_str(ActBatKap) + ") greater than it's max battery capacity(" + SUMOReal_str(MaxBatKap) + ").");
+		ActBatKap = MaxBatKap; //TAMAS!!!
     }
 
     if (MaxBatKap < 0) {
