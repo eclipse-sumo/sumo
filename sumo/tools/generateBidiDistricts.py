@@ -33,6 +33,7 @@ def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <netfile> [options]"
     optParser = OptionParser()
     optParser.add_option("-o", "--outfile", help="name of output file")
+    optParser.add_option("-r", "--radius", type=float, default=10., help="radius around the edge")
     optParser.add_option("-t", "--travel-distance", action="store_true",
                          default=False, help="use travel distance in the graph")
     options, args = optParser.parse_args()
@@ -45,7 +46,7 @@ def parse_args():
     return options
 
 
-def computeBidiTaz(net, radius=10, useTravelDist=False):
+def computeBidiTaz(net, radius=10., useTravelDist=False):
     for edge in net.getEdges():
         if useTravelDist:
             opposites = set()
@@ -76,11 +77,11 @@ def computeBidiTaz(net, radius=10, useTravelDist=False):
         yield edge, opposites
 
 
-def main(netFile, outFile, useTravelDist=False):
+def main(netFile, outFile, radius, useTravelDist):
     net = readNet(netFile, withConnections=False, withFoes=False)
     with open(outFile, 'w') as outf:
         outf.write('<tazs>\n')
-        for taz, edges in computeBidiTaz(net, useTravelDist=useTravelDist):
+        for taz, edges in computeBidiTaz(net, radius, useTravelDist):
             outf.write('    <taz id="%s" edges="%s"/>\n' % (
                 taz.getID(), ' '.join(sorted([e.getID() for e in edges]))))
         outf.write('</tazs>\n')
@@ -88,4 +89,4 @@ def main(netFile, outFile, useTravelDist=False):
 
 if __name__ == "__main__":
     options = parse_args()
-    main(options.net, options.outfile, options.travel_distance)
+    main(options.net, options.outfile, options.radius, options.travel_distance)
