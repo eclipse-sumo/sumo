@@ -8,7 +8,7 @@
     </input>
 
     <report>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
     </report>
 
 </configuration>

@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18894I
+SUMO Version dev-SVN-r19035I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -179,8 +179,9 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                          (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
-  --no-duration-log                    Disable performance reports for
+  --duration-log.disable               Disable performance reports for
                                          individual simulation steps
+  --duration-log.statistics            Enable statistics on vehicle trips
   --no-step-log                        Disable console output of current
                                          simulation step
 
