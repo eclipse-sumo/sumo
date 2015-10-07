@@ -18,7 +18,6 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-
 import os
 import sys
 import httplib
@@ -26,6 +25,10 @@ import StringIO
 import gzip
 import optparse
 from os import path
+SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
+sys.path.append(os.path.join(SUMO_HOME, "tools"))
+import sumolib
 
 
 def readCompressed(conn, query, filename):
@@ -61,21 +64,35 @@ optParser.add_option("-t", "--tiles", type="int",
 optParser.add_option(
     "-d", "--output-dir", help="optional output directory (must already exist)")
 optParser.add_option("-a", "--area", type="int", help="area id to retrieve")
+optParser.add_option("-x", "--polygon", help="calculate bounding box from polygon data in file")
 
 
 def get(args=None):
     (options, args) = optParser.parse_args(args=args)
-
-    if not options.bbox and not options.area:
-        optParser.error("At least one of 'bbox' and 'area' has to be set.")
+    if not options.bbox and not options.area and not options.polygon:
+        optParser.error("At least one of 'bbox' and 'area' and 'polygon' has to be set.")
     if options.oldapi and options.area:
         optParser.error("Only the new API supports 'area'.")
+    if options.polygon:
+        west = 1e400
+        south = 1e400
+        east = -1e400
+        north = -1e400
+        for area in sumolib.output.parse_fast(options.polygon, 'poly', ['shape']):
+            coordList =[tuple(map(float, x.split(','))) for x in area.shape.split() ]
+            for point in coordList:
+                west = min(point[0], west)
+                south = min(point[1], south)
+                east = max(point[0], east)
+                north = max(point[1], north)
     if options.bbox:
         south, west, north, east = [float(v) for v in options.bbox.split(',')]
         if south > north or west > east:
             optParser.error("Invalid geocoordinates in bbox.")
+    
     if options.output_dir:
         options.prefix = path.join(options.output_dir, options.prefix)
+    
 
     if options.oldapi:
         num = options.tiles
@@ -101,7 +118,7 @@ def get(args=None):
                 options.area += 3600000000
             readCompressed(conn, '<area-query ref="%s"/>' %
                            options.area, options.prefix + "_city.osm.xml")
-        if options.bbox:
+        if options.bbox or options.polygon:
             if options.tiles == 1:
                 readCompressed(conn, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' %
                                (north, south, west, east), options.prefix + "_bbox.osm.xml")
