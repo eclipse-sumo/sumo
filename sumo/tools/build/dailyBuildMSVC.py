@@ -226,12 +226,12 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
     if options.sumoExe == "meso":
         runInternalTests.runInternal("", fullOpt, log, console=True)
     else:
-        subprocess.call(["python", ttBin] + fullOpt, env=os.environ,
-                        stdout=log, stderr=subprocess.STDOUT)
-    subprocess.call(["python", ttBin, "-a", "sumo.gui"] + fullOpt, env=os.environ,
-                    stdout=log, stderr=subprocess.STDOUT)
-    subprocess.call(["python", ttBin, "-b", env["FILEPREFIX"], "-coll"], env=os.environ,
-                    stdout=log, stderr=subprocess.STDOUT)
+        subprocess.call([ttBin] + fullOpt, env=os.environ,
+                        stdout=log, stderr=subprocess.STDOUT, shell=True)
+    subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=os.environ,
+                    stdout=log, stderr=subprocess.STDOUT, shell=True)
+    subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=os.environ,
+                    stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
     log = open(statusLog, 'w')
     status.printStatus(
