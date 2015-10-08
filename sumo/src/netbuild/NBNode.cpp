@@ -302,6 +302,13 @@ void
 NBNode::mirrorX() {
     myPosition.mul(1, -1);
     myPoly.mirrorX();
+    // mirror pre-computed geometty of crossings and walkingareas
+    for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); ++it) {
+        (*it).shape.mirrorX();
+    }
+    for (std::vector<WalkingArea>::iterator it_wa = myWalkingAreas.begin(); it_wa != myWalkingAreas.end(); ++it_wa) {
+        (*it_wa).shape.mirrorX();
+    }
 }
 
 
