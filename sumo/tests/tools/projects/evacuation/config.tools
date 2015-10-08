@@ -1,0 +1,3 @@
+copy_test_path:inputLocations.poi.xml
+copy_test_path:population.csv
+copy_test_path:regions.poly.xml

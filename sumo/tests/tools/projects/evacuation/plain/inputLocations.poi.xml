@@ -1,0 +1,7 @@
+<additional>
+    <poi id="Center" lon="13.409629" lat="52.519413" color="255,0,0" radius="100" />
+    <poi id="EvacuationSite1" lon="13.472242" lat="52.536893" color="0,0,255" radius="100" />
+    <poi id="EvacuationSite2" lon="13.458166" lat="52.492495" color="0,0,255" radius="100" />
+    <poi id="EvacuationSite3" lon="13.360963" lat="52.507546" color="0,0,255" radius="100" />
+    <poi id="EvacuationSite4" lon="13.329978" lat="52.533398" color="0,0,255" radius="100" />
+</additional>
