@@ -39,7 +39,7 @@ def generate():
     options.verbose = False
     options.net_file = "testserveroutput.net.xml"
     options.taz_files = "Schnittflachen.xml"
-    options.output = "EdgesInSchnittflachen.taz"
+    options.output = "EdgesInSchnittflachen.taz.xml"
     options.weighted = False
     nets = options.net_file.split(",")
     reader = EID.DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
@@ -53,7 +53,7 @@ def generate():
     #Evakuierungsziele
     options.net_file = "testserveroutput.net.xml"
     options.taz_files = "ConvertedEvaSite.poly.xml"
-    options.output = "EvacuationsiteEdges.taz"
+    options.output = "EvacuationsiteEdges.taz.xml"
     options.weighted = False
     nets = options.net_file.split(",")
     reader = EID.DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
@@ -71,7 +71,7 @@ def generate():
     import xml.etree.cElementTree as ET
     Districts = ET.ElementTree(file='Schnittflachen.xml')
     root = Districts.getroot()
-    EVA = ET.ElementTree(file='EvacuationsiteEdges.taz')
+    EVA = ET.ElementTree(file='EvacuationsiteEdges.taz.xml')
     EV = EVA.getroot()
     EV.remove(EV[0])     
     for elem in root.findall("./poly"):
@@ -85,7 +85,7 @@ def generate():
 
     #OD2TRIPS
     od2t = sumolib.checkBinary('od2trips')
-    od2tOptions = [od2t ,'-d','ODMATRIX.xml', '-n', 'EdgesInSchnittflachen.taz,EvacuationsiteEdges.taz', '--output-prefix', 'TRAFFIC' , '-o' , '.xml']
+    od2tOptions = [od2t ,'-d','ODMATRIX.xml', '-n', 'EdgesInSchnittflachen.taz.xml,EvacuationsiteEdges.taz.xml', '--output-prefix', 'TRAFFIC' , '-o' , '.xml']
     subprocess.call(od2tOptions)
 if __name__ == "__main__":
     generate()
