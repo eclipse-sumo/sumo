@@ -600,10 +600,13 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
     SUMOReal radius = 0;
 
     if (getLastAngle() != veh.getAngle())
+	{
         radius = veh.getSpeed() * 180 / (PI * (
                                              (fabs(getLastAngle() - veh.getAngle()) < fabs(veh.getAngle() - getLastAngle())) ?
                                              fabs(getLastAngle() - veh.getAngle()) :
                                              fabs(veh.getAngle() - getLastAngle())));
+		radius = 0.0001 > radius ? 0.0001 : radius;
+	}
 
     // add current rotational energy of internal rotating elements
     currentEnergy += getInternalMomentOfInertia() * veh.getSpeed() * veh.getSpeed();
