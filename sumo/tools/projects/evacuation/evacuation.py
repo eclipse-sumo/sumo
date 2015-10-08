@@ -44,17 +44,10 @@ import generateTraffic
 
 def mergePopulationData(populationFile, regionFile, mergedFile):
     csvReader = csv.reader(open(populationFile), delimiter=',' , quotechar ='"')
-    InhabitantArray = []
-    for row in csvReader:
-        InhabitantArray.append(row);
-
-    Polygon = ET.ElementTree(file=regionFile)
-    root = Polygon.getroot()
-
-    counter = 0
-    fortschritt = 0
     inhabDict = {}
-    for entry in InhabitantArray[3:]:
+    for entry in csvReader:
+        if csvReader.line_num <= 3:
+            continue
         while(len(entry[0]) < 2 ):
             entry[0] = '0' + entry[0]  
         while(len(entry[2]) < 2 ):
@@ -65,6 +58,7 @@ def mergePopulationData(populationFile, regionFile, mergedFile):
             entry[4] = '0' + entry[4]          
         inhabDict["".join(entry[:5])] = str(entry[6]).replace(' ','')
                 
+    root = ET.ElementTree(file=regionFile).getroot()
     for parents in root.findall("./*"):
         for elem in parents.findall("param[7]"):
             RSValue =  str(elem.attrib)[11:23]
@@ -72,14 +66,13 @@ def mergePopulationData(populationFile, regionFile, mergedFile):
             if RSValue in inhabDict:
                 inhabitants.clear()
                 inhabitants.attrib = { 'key':"INHABITANTS", 'value': inhabDict[RSValue] }
-        counter = counter + 1    
-    outstr =  minidom.parseString(ET.tostring(root)).toprettyxml(indent="    ")
+    outstr = minidom.parseString(ET.tostring(root)).toprettyxml(indent="    ")
     with open(mergedFile, 'w') as out:
         out.write(outstr.encode('utf-8'))
 
-def extract():
-    PopulationXML = ET.ElementTree(file=("PopulationPolygons.xml"))
-    EvacuationXML = ET.ElementTree(file=("ConvertedEvaSite.poly.xml"))
+def extract(mergedPopulationFile, mappedSiteFile, intersectionFile):
+    PopulationXML = ET.ElementTree(file=mergedPopulationFile)
+    EvacuationXML = ET.ElementTree(file=mappedSiteFile)
     PopRoot = PopulationXML.getroot()
     EvaRoot = EvacuationXML.getroot()
     Schnittmenge = []
@@ -114,7 +107,7 @@ def extract():
         poly.attrib ={"id":identity , "shape":OutExterior, "inhabitants":G[1] }
         i += 1
     outstr =  minidom.parseString(ET.tostring(root)).toprettyxml(indent = "   ")
-    with open("Schnittflachen.xml", 'w') as out:
+    with open(intersectionFile, 'w') as out:
         out.write(outstr)
 
 def buildEvaSite(inputFile, siteFile):
@@ -138,7 +131,11 @@ def buildEvaSite(inputFile, siteFile):
 
 
 print("building Evacuation Site")
+prefix = "evacuationArea"
 siteFile = "site.poly.xml"
+mappedSiteFile = "mappedSite.poly.xml"
+mergedPopulationFile = "population.poly.xml"
+intersectionFile = "intersections.poly.xml"
 if len(sys.argv) > 1:
     buildEvaSite(sys.argv[1], siteFile)
 else:
@@ -146,23 +143,24 @@ else:
 print("osm Get")
 osmGet.get(["-x", siteFile])
 print("osm Build")
-osmOptions = ['-f', 'osm_bbox.osm.xml', '-p', 'testserveroutput', '--vehicle-classes', 'road',
+osmOptions = ['-f', 'osm_bbox.osm.xml', '-p', prefix, '--vehicle-classes', 'road',
               '-m', os.path.join(SUMO_HOME, 'data', 'typemap', 'osmPolyconvert.typ.xml')]
 osmBuild.build(osmOptions)
 print("polyconvert")
 sys.stdout.flush()
-subprocess.call([sumolib.checkBinary('polyconvert'), '-n', 'testserveroutput.net.xml', '--xml-files', siteFile, '-o', 'ConvertedEvaSite.poly.xml'])
+subprocess.call([sumolib.checkBinary('polyconvert'), '-n', '%s.net.xml' % prefix, '--xml-files', siteFile, '-o', mappedSiteFile])
 print("merging")
-mergePopulationData("population.csv", 'regions.poly.xml', "PopulationPolygons.xml")
+mergePopulationData("population.csv", 'regions.poly.xml', mergedPopulationFile)
 print("extracting population data")
-extract()
+extract(mergedPopulationFile, mappedSiteFile, intersectionFile)
 print("generating traffic")
-generateTraffic.generate()
+generateTraffic.generate('%s.net.xml' % prefix, mappedSiteFile, intersectionFile, '%s.rou.xml' % prefix)
 print("calling sumo")
 sys.stdout.flush()
 sumo= sumolib.checkBinary('sumo')
-sumoOptions = [sumo, '-n', "testserveroutput.net.xml" , '-a' , "testserveroutput.poly.xml,inputLocations.poi.xml,ConvertedEvaSite.poly.xml", '-r' , 'TRAFFIC.xml', '--ignore-route-errors', '--save-configuration', 'sumo.config']
+sumoOptions = [sumo, '-n', "%s.net.xml" % prefix, '-a' , "%s.poly.xml,inputLocations.poi.xml,%s" % (prefix, mappedSiteFile),
+               '-r' , '%s.rou.xml' % prefix, '--ignore-route-errors', '--no-step-log', '--save-configuration', '%s.sumocfg' % prefix]
 subprocess.call(sumoOptions)
-subprocess.call([sumo ,'-c' , 'sumo.config'])
-#subprocess.call([sumolib.checkBinary('sumo-gui') ,'-c' , 'sumo.config'])
+subprocess.call([sumo, '%s.sumocfg' % prefix])
+#subprocess.call([sumolib.checkBinary('sumo-gui'), '%s.sumocfg' % prefix])
 print("done")

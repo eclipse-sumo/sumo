@@ -23,11 +23,12 @@ from xml.sax import parse
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 sys.path.append(os.path.join(SUMO_HOME, "tools"))
 
-
 import edgesInDistricts as EID
 import subprocess
 import sumolib
-def generate():
+
+
+def generate(netFile, mappedSiteFile, intersectionFile, tripFile):
     #EdgesInDistricts
     #evakuierungsbereich
     options = OptionParser()
@@ -37,55 +38,37 @@ def generate():
     options.vclass = None
     options.assign_from = True
     options.verbose = False
-    options.net_file = "testserveroutput.net.xml"
-    options.taz_files = "Schnittflachen.xml"
-    options.output = "EdgesInSchnittflachen.taz.xml"
-    options.weighted = False
-    nets = options.net_file.split(",")
-    reader = EID.DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
-    tazFiles = nets + options.taz_files.split(",")
+    net = sumolib.net.readNet(netFile)
+    reader = EID.DistrictEdgeComputer(net)
     polyReader = sumolib.shapes.polygon.PolygonReader(True)
-    for tf in tazFiles:
-        parse(tf, polyReader)
+    parse(intersectionFile, polyReader)
     reader.computeWithin(polyReader.getPolygons(), options)
-    reader.writeResults(options.output, options.weighted)
+    reader.writeResults("edgesInIntersections.taz.xml", False)
 
     #Evakuierungsziele
-    options.net_file = "testserveroutput.net.xml"
-    options.taz_files = "ConvertedEvaSite.poly.xml"
-    options.output = "EvacuationsiteEdges.taz.xml"
-    options.weighted = False
-    nets = options.net_file.split(",")
-    reader = EID.DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
-    tazFiles = nets + options.taz_files.split(",")
+    reader = EID.DistrictEdgeComputer(net)
     polyReader = sumolib.shapes.polygon.PolygonReader(True)
-    for tf in tazFiles:
-        parse(tf, polyReader)
+    parse(mappedSiteFile, polyReader)
     reader.computeWithin(polyReader.getPolygons(), options)
-    print(polyReader.getPolygons())
-    reader.writeResults(options.output, options.weighted)
+    reader.writeResults("evacuationsiteEdges.taz.xml", False)
     print("EdgesInDistricts - done")
 
-    #O/D Matrix(V-fortmat)
-    outString = '$OR \n* From-Tome To-Time \n1.00 2.00\n* Factor \n1.00\n'
+    #O/D Matrix
     import xml.etree.cElementTree as ET
-    Districts = ET.ElementTree(file='Schnittflachen.xml')
+    Districts = ET.ElementTree(file=intersectionFile)
     root = Districts.getroot()
-    EVA = ET.ElementTree(file='EvacuationsiteEdges.taz.xml')
+    EVA = ET.ElementTree(file='evacuationsiteEdges.taz.xml')
     EV = EVA.getroot()
-    EV.remove(EV[0])     
-    for elem in root.findall("./poly"):
-        for ESite in EV.findall("./*"):
-            CarAmount = str(int(float(elem.attrib["inhabitants"])/float(3*(len(EV.findall("./*"))-1))))
-            outString += elem.attrib["id"] + '\t' + ESite.attrib["id"] + '\t' + CarAmount +'\n'
-    ODM = open('ODMatrix.xml','w')                     
-    ODM.write(outString)
-    ODM.close()
+    EV.remove(EV[0])
+    with open('ODMatrix.fma','w') as odm:
+        odm.write('$OR \n* From-Tome To-Time \n1.00 2.00\n* Factor \n1.00\n')
+        for elem in root.findall("./poly"):
+            for ESite in EV.findall("./*"):
+                CarAmount = str(int(float(elem.attrib["inhabitants"])/float(3*(len(EV.findall("./*"))-1))))
+                odm.write(elem.attrib["id"] + '\t' + ESite.attrib["id"] + '\t' + CarAmount + '\n')
     print("OD Matrix - done")
 
     #OD2TRIPS
     od2t = sumolib.checkBinary('od2trips')
-    od2tOptions = [od2t ,'-d','ODMATRIX.xml', '-n', 'EdgesInSchnittflachen.taz.xml,EvacuationsiteEdges.taz.xml', '--output-prefix', 'TRAFFIC' , '-o' , '.xml']
+    od2tOptions = [od2t, '--no-step-log', '-d', odm.name, '-n', 'edgesInIntersections.taz.xml,evacuationsiteEdges.taz.xml', '-o', tripFile]
     subprocess.call(od2tOptions)
-if __name__ == "__main__":
-    generate()
