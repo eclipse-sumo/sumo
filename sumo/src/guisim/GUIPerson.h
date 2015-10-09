@@ -10,7 +10,7 @@
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -62,7 +62,7 @@ class GUIPerson : public MSPerson, public GUIGlObject {
 public:
     /** @brief Constructor
      */
-    GUIPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan);
+    GUIPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan);
 
 
     /// @brief destructor
@@ -164,10 +164,18 @@ public:
         /// @brief Destructor
         ~GUIPersonPopupMenu();
 
+        /// @brief Called if the current route of the person shall be shown
+        long onCmdShowCurrentRoute(FXObject*, FXSelector, void*);
+        /// @brief Called if the current route of the person shall be hidden
+        long onCmdHideCurrentRoute(FXObject*, FXSelector, void*);
         /// @brief Called if the walkingarea path of the person shall be shown
         long onCmdShowWalkingareaPath(FXObject*, FXSelector, void*);
         /// @brief Called if the walkingarea path of the person shall be hidden
         long onCmdHideWalkingareaPath(FXObject*, FXSelector, void*);
+        /// @brief Called if the person shall be tracked
+        long onCmdStartTrack(FXObject*, FXSelector, void*);
+        /// @brief Called if the person shall not be tracked any longer
+        long onCmdStopTrack(FXObject*, FXSelector, void*);
 
 
     protected:

@@ -14,7 +14,7 @@ Optionally a district file may be given, then only routes with
 the same origin and destination district are matched.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -22,11 +22,14 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import sys, optparse, array
+import sys
+import optparse
+import array
 from xml.sax import make_parser, handler
 
 SCALE = 10000
 INFINITY = 2**30
+
 
 class RouteReader(handler.ContentHandler):
 
@@ -36,7 +39,7 @@ class RouteReader(handler.ContentHandler):
         self._vID = ''
         self._routeID = ''
         self._routeString = ''
-        
+
     def startElement(self, name, attrs):
         if name == 'vehicle':
             self._vID = attrs['id']
@@ -63,6 +66,7 @@ class RouteReader(handler.ContentHandler):
         if self._routeID != '':
             self._routeString += content
 
+
 class DistrictReader(handler.ContentHandler):
 
     def __init__(self, sourceEdges, sinkEdges, edges):
@@ -70,7 +74,7 @@ class DistrictReader(handler.ContentHandler):
         self._sinks = sinkEdges
         self._edges = edges
         self._districtID = ''
-        
+
     def startElement(self, name, attrs):
         if name == 'taz':
             self._districtID = attrs['id']
@@ -79,7 +83,7 @@ class DistrictReader(handler.ContentHandler):
                 self._sources[self._edges[attrs['id']]] = self._districtID
             else:
                 if options.verbose:
-                    print "Warning! No routes touching source edge %s of %s." % (attrs['id'], self._districtID) 
+                    print "Warning! No routes touching source edge %s of %s." % (attrs['id'], self._districtID)
         elif name == 'tazSink':
             if attrs['id'] in self._edges:
                 self._sinks[self._edges[attrs['id']]] = self._districtID
@@ -95,6 +99,7 @@ def compare(first, second):
             commonEdges += SCALE
     return commonEdges / max(len(first), len(second))
 
+
 def matching(routeIDs1, routeIDs2, similarityMatrix, match):
     matchVal = 0
     for id1 in routeIDs1:
@@ -109,6 +114,7 @@ def matching(routeIDs1, routeIDs2, similarityMatrix, match):
             matchVal += maxMatch
     return matchVal
 
+
 def identityCount(routeIDs1, routeIDs2, similarityMatrix):
     matched = set()
     for id1 in routeIDs1:
@@ -118,13 +124,16 @@ def identityCount(routeIDs1, routeIDs2, similarityMatrix):
                 break
     return len(matched)
 
+
 class Node:
+
     def __init__(self, routeID, weight):
         self.routeID = routeID
         self.weight = weight
         self.eps = INFINITY
         self.level = INFINITY
-        self.match = None 
+        self.match = None
+
 
 def augmentSimultan(vTerm):
     dead = set()
@@ -155,7 +164,8 @@ def augmentSimultan(vTerm):
                         path.append(None)
                     path[l + 1] = path[l].match
                     l += 1
-        
+
+
 def hungarianDAG(U, V, similarityMatrix):
     while True:
         S = set()
@@ -190,7 +200,8 @@ def hungarianDAG(U, V, similarityMatrix):
                         else:
                             t.pre.append(s)
                 else:
-                    t.eps = min(t.eps, s.weight + t.weight - similarityMatrix[s.routeID][t.routeID])
+                    t.eps = min(
+                        t.eps, s.weight + t.weight - similarityMatrix[s.routeID][t.routeID])
         if len(vTerm) > 0:
             break
         epsilon = INFINITY
@@ -198,12 +209,13 @@ def hungarianDAG(U, V, similarityMatrix):
             if t.eps < epsilon:
                 epsilon = t.eps
         if epsilon == INFINITY:
-            break 
+            break
         for x in S:
             x.weight -= epsilon
         for x in T:
             x.weight += epsilon
     return vTerm
+
 
 def maxMatching(routeIDs1, routeIDs2, similarityMatrix, match):
     maxSimilarity = 0
@@ -230,7 +242,8 @@ def maxMatching(routeIDs1, routeIDs2, similarityMatrix, match):
     return matchVal
 
 
-optParser = optparse.OptionParser(usage="usage: %prog [options] <routes1> <routes2>")
+optParser = optparse.OptionParser(
+    usage="usage: %prog [options] <routes1> <routes2>")
 optParser.add_option("-d", "--districts-file", dest="districts",
                      default="", help="read districts from FILE", metavar="FILE")
 optParser.add_option("-s", "--simple-match", action="store_true", dest="simple",
@@ -275,7 +288,7 @@ if options.districts:
                 routeMatrix[source] = {}
             if not sink in routeMatrix[source]:
                 routeMatrix[source][sink] = []
-            routeMatrix[source][sink].append(routeID)    
+            routeMatrix[source][sink].append(routeID)
 else:
     for routes, routeMatrix in [(routes1, routeMatrix1), (routes2, routeMatrix2)]:
         routeMatrix["dummySource"] = {}
@@ -306,11 +319,13 @@ for source in routeMatrix1.iterkeys():
             if not id1 in similarityMatrix:
                 similarityMatrix[id1] = {}
                 for id2 in routeIDs2:
-                    similarityMatrix[id1][id2] = compare(routes1[id1], routes2[id2])
+                    similarityMatrix[id1][id2] = compare(
+                        routes1[id1], routes2[id2])
         if options.simple:
             matchVal = matching(routeIDs1, routeIDs2, similarityMatrix, match)
         else:
-            matchVal = maxMatching(routeIDs1, routeIDs2, similarityMatrix, match)
+            matchVal = maxMatching(
+                routeIDs1, routeIDs2, similarityMatrix, match)
         totalMatch += matchVal
         identityVal = identityCount(routeIDs1, routeIDs2, similarityMatrix)
         totalIdentical += identityVal
@@ -319,4 +334,4 @@ for source in routeMatrix1.iterkeys():
 if options.printmatch:
     for r2, r1 in match.iteritems():
         print r1, r2
-print float(totalMatch) / len(routes1) / SCALE, float(totalIdentical) / len(routes1) 
+print float(totalMatch) / len(routes1) / SCALE, float(totalIdentical) / len(routes1)

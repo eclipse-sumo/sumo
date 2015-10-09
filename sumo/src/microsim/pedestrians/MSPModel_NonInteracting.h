@@ -7,7 +7,7 @@
 // The pedestrian following model (prototype)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2014-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -94,6 +94,7 @@ private:
         SUMOReal getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
         SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
         SUMOReal getSpeed(const MSPerson::MSPersonStage_Walking& stage) const;
+        const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const;
         /// @}
 
         /// @brief compute walking time on edge and update state members

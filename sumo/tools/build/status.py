@@ -8,7 +8,7 @@
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -17,9 +17,13 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, sys, smtplib, re
+import os
+import sys
+import smtplib
+import re
 from os.path import basename, join, commonprefix
 from datetime import datetime
+
 
 def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
     failed = ""
@@ -37,7 +41,7 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
             failed += l
         if re.search("[Ww]arn[ui]ng[: ]", l):
             warnings += 1
-        if re.search("[Ee]rror[: ]", l) or re.search("[Ff]ehler[: ]", l):
+        if re.search("[Ee]rror[: ]", l) or re.search("[Ff]ehler:", l):
             errors += 1
             failed += l
     if svnLocked:
@@ -78,9 +82,12 @@ To: %s
 Subject: Error occurred while building
 
 %s""" % (build, fromAddr, toAddr, failed)
-        server = smtplib.SMTP(smtpServer)
-        server.sendmail(fromAddr, toAddr, message)
-        server.quit()
+        try:
+            server = smtplib.SMTP(smtpServer)
+            server.sendmail(fromAddr, toAddr, message)
+            server.quit()
+        except:
+            print "Could not send mail."
 
 if __name__ == "__main__":
     printStatus(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.stdout)

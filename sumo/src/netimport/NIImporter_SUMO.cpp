@@ -9,7 +9,7 @@
 // Importer for networks stored in SUMO format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -184,10 +184,10 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
                 nbe->addLane2LaneConnection(
                     fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::L2L_VALIDATED,
-                    true, c.mayDefinitelyPass);
+                    true, c.mayDefinitelyPass, c.keepClear);
 
                 // maybe we have a tls-controlled connection
-                if (c.tlID != "") {
+                if (c.tlID != "" && myRailSignals.count(c.tlID) == 0) {
                     const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(c.tlID);
                     if (programs.size() > 0) {
                         std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
@@ -231,28 +231,30 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 NBConnection(prohibitedFrom, myEdges[it->prohibitedTo]->builtEdge));
         }
     }
-    if (!myHaveSeenInternalEdge && oc.isDefault("no-internal-links")) {
-        oc.set("no-internal-links", "true");
+    if (!myHaveSeenInternalEdge) {
+        myNetBuilder.haveLoadedNetworkWithoutInternalEdges();
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();
     }
     // add loaded crossings
-    for (std::map<std::string, std::vector<Crossing> >::const_iterator it = myPedestrianCrossings.begin(); it != myPedestrianCrossings.end(); ++it) {
-        NBNode* node = myNodeCont.retrieve((*it).first);
-        for (std::vector<Crossing>::const_iterator it_c = (*it).second.begin(); it_c != (*it).second.end(); ++it_c) {
-            const Crossing& crossing = (*it_c);
-            EdgeVector edges;
-            for (std::vector<std::string>::const_iterator it_e = crossing.crossingEdges.begin(); it_e != crossing.crossingEdges.end(); ++it_e) {
-                NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_e);
-                // edge might have been removed due to options
-                if (edge != 0) {
-                    edges.push_back(edge);
+    if (!oc.getBool("no-internal-links")) {
+        for (std::map<std::string, std::vector<Crossing> >::const_iterator it = myPedestrianCrossings.begin(); it != myPedestrianCrossings.end(); ++it) {
+            NBNode* node = myNodeCont.retrieve((*it).first);
+            for (std::vector<Crossing>::const_iterator it_c = (*it).second.begin(); it_c != (*it).second.end(); ++it_c) {
+                const Crossing& crossing = (*it_c);
+                EdgeVector edges;
+                for (std::vector<std::string>::const_iterator it_e = crossing.crossingEdges.begin(); it_e != crossing.crossingEdges.end(); ++it_e) {
+                    NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_e);
+                    // edge might have been removed due to options
+                    if (edge != 0) {
+                        edges.push_back(edge);
+                    }
                 }
-            }
-            if (edges.size() > 0) {
-                node->addCrossing(edges, crossing.width, crossing.priority);
+                if (edges.size() > 0) {
+                    node->addCrossing(edges, crossing.width, crossing.priority, true);
+                }
             }
         }
     }
@@ -358,19 +360,6 @@ NIImporter_SUMO::myEndElement(int element) {
                 myCurrentTL = 0;
             }
             break;
-        case SUMO_TAG_JUNCTION:
-            // in a network without internal lanes, we do not need to check for crossings
-            if (myCurrentJunction.node != 0 && myCurrentJunction.intLanes.size() > 0) {
-                assert(myCurrentJunction.intLanes.size() == myCurrentJunction.response.size());
-                std::vector<Crossing>& crossings = myPedestrianCrossings[myCurrentJunction.node->getID()];
-                for (std::vector<Crossing>::iterator it = crossings.begin(); it != crossings.end(); ++it) {
-                    for (int i = 0; i < (int)myCurrentJunction.intLanes.size(); ++i) {
-                        if (myCurrentJunction.intLanes[i] == (*it).laneID) {
-                            (*it).priority = myCurrentJunction.response[i].find("1") == std::string::npos;
-                        }
-                    }
-                }
-            }
         default:
             break;
     }
@@ -391,8 +380,9 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     // get the function
     myCurrentEdge->func = attrs.getEdgeFunc(ok);
     if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
-        // add the crossing crossing but don't do anything else
+        // add the crossing but don't do anything else
         Crossing c;
+        c.edgeID = id;
         SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_CROSSING_EDGES, 0, ok), c.crossingEdges);
         myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id)].push_back(c);
         return;
@@ -445,7 +435,6 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         // save the width and the lane id of the crossing but don't do anything else
         std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentEdge->id)];
         assert(crossings.size() > 0);
-        crossings.back().laneID = id;
         crossings.back().width = attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok);
         return;
     } else if (myCurrentEdge->func == EDGEFUNC_INTERNAL || myCurrentEdge->func == EDGEFUNC_WALKINGAREA) {
@@ -521,6 +510,9 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
             node->setCustomLaneShape(it->first, it->second);
         }
     }
+    if (type == NODETYPE_RAIL_SIGNAL) {
+        myRailSignals.insert(id);
+    }
 }
 
 
@@ -548,6 +540,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     conn.toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
     conn.tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
     conn.mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, 0, ok, false);
+    conn.keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, 0, ok, true);
     if (conn.tlID != "") {
         conn.tlLinkNo = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
     }
@@ -556,6 +549,23 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         return;
     }
     from->lanes[fromLaneIdx]->connections.push_back(conn);
+
+    // determine crossing priority
+    if (myPedestrianCrossings.size() > 0
+            && from->func == EDGEFUNC_WALKINGAREA
+            && myEdges[conn.toEdgeID]->func == EDGEFUNC_CROSSING) {
+        std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(fromID)];
+        for (std::vector<Crossing>::iterator it = crossings.begin(); it != crossings.end(); ++it) {
+            if (conn.toEdgeID == (*it).edgeID) {
+                if (conn.tlID != "") {
+                    (*it).priority = true;
+                } else {
+                    LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, 0, ok));
+                    (*it).priority = state == LINKSTATE_MAJOR;
+                }
+            }
+        }
+    }
 }
 
 
@@ -678,8 +688,8 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& fro
         Position from = firstLane[i - 1];
         Position me = firstLane[i];
         Position to = firstLane[i + 1];
-        std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(from, me, offset, false);
-        std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(me, to, offset, false);
+        std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(from, me, offset);
+        std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(me, to, offset);
 
         Line l1(
             Position(from.x() + offsets.first, from.y() + offsets.second),

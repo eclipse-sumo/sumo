@@ -1,0 +1,12 @@
+<polygons>
+<poly id="3/2to2/2_2/2to3/2" color="0,42,255" layer="100" type="taz_edge" shape="804.75,798.35 1195.25,798.35"/>
+<poly id="3/2to2/2_3/2to2/2" color="0,42,255" layer="100" type="taz_edge" shape="1195.25,801.65 804.75,801.65"/>
+<poly id="2/1to3/1_2/1to3/1" color="255,38,0" layer="100" type="taz_edge" shape="804.75,398.35 1195.25,398.35"/>
+<poly id="2/1to3/1_3/1to2/1" color="255,38,0" layer="100" type="taz_edge" shape="1195.25,401.65 804.75,401.65"/>
+<poly id="3/1to4/1_3/1to4/1" color="89,255,0" layer="100" type="taz_edge" shape="1204.75,398.35 1595.25,398.35"/>
+<poly id="3/1to4/1_4/1to3/1" color="89,255,0" layer="100" type="taz_edge" shape="1595.25,401.65 1204.75,401.65"/>
+<poly id="3/2to4/2_3/2to4/2" color="168,255,0" layer="100" type="taz_edge" shape="1204.75,798.35 1596.75,798.35"/>
+<poly id="3/2to4/2_4/2to3/2" color="168,255,0" layer="100" type="taz_edge" shape="1596.75,801.65 1204.75,801.65"/>
+<poly id="1/1to0/1_0/1to1/1" color="107,0,255" layer="100" type="taz_edge" shape="4.75,398.35 395.25,398.35"/>
+<poly id="1/1to0/1_1/1to0/1" color="107,0,255" layer="100" type="taz_edge" shape="395.25,401.65 4.75,401.65"/>
+</polygons>

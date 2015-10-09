@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 28 Aug 2015 08:52:59 AM CEST by Netedit Version dev-SVN-r18746I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="CE" from="C" to="E" priority="2">
+        <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" length="100.00" shape="0.00,-11.55 100.00,-11.55"/>
+        <lane id="CE_1" index="1" allow="bicycle" speed="13.89" length="100.00" shape="0.00,-8.25 100.00,-8.25"/>
+        <lane id="CE_2" index="2" disallow="bicycle pedestrian" speed="13.89" length="100.00" shape="0.00,-4.95 100.00,-4.95"/>
+        <lane id="CE_3" index="3" disallow="bicycle pedestrian" speed="13.89" length="100.00" shape="0.00,-1.65 100.00,-1.65"/>
+    </edge>
+
+    <junction id="C" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-13.15"/>
+    <junction id="E" type="unregulated" x="100.00" y="0.00" incLanes="CE_0 CE_1 CE_2 CE_3" intLanes="" shape="100.00,-13.15 100.00,-0.05"/>
+
+</net>

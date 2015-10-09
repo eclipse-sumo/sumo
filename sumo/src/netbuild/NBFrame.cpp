@@ -9,7 +9,7 @@
 // Sets and checks options for netbuild
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -76,6 +76,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.sidewalk-width", new Option_Float((SUMOReal) 2.0));
     oc.addDescription("default.sidewalk-width", "Building Defaults", "The default width of added sidewalks");
 
+    oc.doRegister("default.junctions.keep-clear", new Option_Bool(true));
+    oc.addDescription("default.junctions.keep-clear", "Building Defaults", "Whether junctions should be kept clear by default");
+
     // register the data processing options
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Processing", "Omits internal links");
@@ -103,6 +106,13 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("geometry.remove", 'R', new Option_Bool(false));
         oc.addSynonyme("geometry.remove", "remove-geometry", true);
         oc.addDescription("geometry.remove", "Processing", "Replace nodes which only define edge geometry by geometry points (joins edges)");
+
+        oc.doRegister("geometry.remove.keep-edges.explicit", new Option_String());
+        oc.addDescription("geometry.remove.keep-edges.explicit", "Processing", "Ensure that the given list of edges is not modified");
+
+        oc.doRegister("geometry.remove.keep-edges.input-file", new Option_FileName());
+        oc.addDescription("geometry.remove.keep-edges.input-file", "Processing", 
+                "Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported)");
 
         oc.doRegister("geometry.max-segment-length", new Option_Float(0));
         oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");
@@ -145,6 +155,10 @@ NBFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("lefthand", new Option_Bool(false));
     oc.addDescription("lefthand", "Processing", "Assumes left-hand traffic on the network");
+
+    oc.doRegister("edges.join", new Option_Bool(false));
+    oc.addDescription("edges.join", "Processing",
+                      "Merges edges whch connect the same nodes and are close to each other (recommended for VISSIM import)");
 
     oc.doRegister("junctions.join", new Option_Bool(false));
     oc.addDescription("junctions.join", "Processing",
@@ -225,19 +239,22 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("tls.join", "TLS Building", "Tries to cluster tls-controlled nodes"); // !!! describe
 
     oc.doRegister("tls.join-dist", new Option_Float(20));
-    oc.addDescription("tls.join-dist", "Processing",
+    oc.addDescription("tls.join-dist", "TLS Building",
                       "Determines the maximal distance for joining traffic lights (defaults to 20)");
 
     if (!forNetgen) {
         oc.doRegister("tls.guess-signals", new Option_Bool(false));
-        oc.addDescription("tls.guess-signals", "Processing", "Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks");
+        oc.addDescription("tls.guess-signals", "TLS Building", "Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks");
 
         oc.doRegister("tls.guess-signals.dist", new Option_Float(25));
-        oc.addDescription("tls.guess-signals.dist", "Processing", "Distance for interpreting nodes as signal locations");
+        oc.addDescription("tls.guess-signals.dist", "TLS Building", "Distance for interpreting nodes as signal locations");
     }
 
 
     // computational
+    oc.doRegister("tls.cycle.time", new Option_Integer(90));
+    oc.addDescription("tls.cycle.time", "TLS Building", "Use INT as cycle duration");
+
     oc.doRegister("tls.green.time", new Option_Integer(31));
     oc.addSynonyme("tls.green.time", "traffic-light-green", true);
     oc.addDescription("tls.green.time", "TLS Building", "Use INT as green phase duration");
@@ -282,7 +299,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("keep-edges.explicit", "Edge Removal", "Only keep edges in STR");
 
     oc.doRegister("keep-edges.input-file", new Option_FileName());
-    oc.addDescription("keep-edges.input-file", "Edge Removal", "Only keep edges in FILE");
+    oc.addDescription("keep-edges.input-file", "Edge Removal", "Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported)");
+
+    oc.doRegister("remove-edges.input-file", new Option_FileName());
+    oc.addDescription("remove-edges.input-file", "Edge Removal", "Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported)");
 
     if (!forNetgen) {
         oc.doRegister("keep-edges.postload", new Option_Bool(false));
@@ -311,6 +331,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("remove-edges.isolated", new Option_Bool(false));
         oc.addSynonyme("remove-edges.isolated", "remove-isolated", true);
         oc.addDescription("remove-edges.isolated", "Edge Removal", "Removes isolated edges");
+
     }
 
 
@@ -351,6 +372,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addSynonyme("ramps.set", "ramp-guess.explicite", true);
         oc.addDescription("ramps.set", "Ramp Guessing", "Tries to handle the given edges as ramps");
 
+        oc.doRegister("ramps.unset", new Option_String());
+        oc.addDescription("ramps.unset", "Ramp Guessing", "Do not consider the given edges as ramps");
+
         oc.doRegister("ramps.no-split", new Option_Bool(false));
         oc.addSynonyme("ramps.no-split", "ramp-guess.no-split", true);
         oc.addDescription("ramps.no-split", "Ramp Guessing", "Avoids edge splitting");
@@ -375,6 +399,14 @@ NBFrame::checkOptions() {
     }
     if (oc.isSet("keep-edges.in-boundary") && oc.isSet("keep-edges.in-geo-boundary")) {
         WRITE_ERROR("only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-boundary' may be given");
+        ok = false;
+    }
+    if (oc.getBool("no-internal-links") && oc.getBool("crossings.guess")) {
+        WRITE_ERROR("only one of the options 'no-internal-links' or 'crossings.guess' may be given");
+        ok = false;
+    }
+    if (!oc.isDefault("tls.green.time") && !oc.isDefault("tls.cycle.time")) {
+        WRITE_ERROR("only one of the options 'tls.green.time' or 'tls.cycle.time' may be given");
         ok = false;
     }
     return ok;

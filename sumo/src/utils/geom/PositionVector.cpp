@@ -10,7 +10,7 @@
 // A list of positions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -275,13 +275,16 @@ PositionVector::positionAtOffset(const Position& p1,
                                  const Position& p2,
                                  SUMOReal pos, SUMOReal lateralOffset) {
     const SUMOReal dist = p1.distanceTo(p2);
-    if (dist < pos) {
+    if (pos < 0 || dist < pos) {
         return Position::INVALID;
     }
     if (lateralOffset != 0) {
         Line l(p1, p2);
         l.move2side(-lateralOffset); // move in the same direction as Position::move2side
         return l.getPositionAtDistance(pos);
+    }
+    if (pos == 0.) {
+        return p1;
     }
     return p1 + (p2 - p1) * (pos / dist);
 }
@@ -292,13 +295,16 @@ PositionVector::positionAtOffset2D(const Position& p1,
                                    const Position& p2,
                                    SUMOReal pos, SUMOReal lateralOffset) {
     const SUMOReal dist = p1.distanceTo2D(p2);
-    if (dist < pos) {
+    if (pos < 0 || dist < pos) {
         return Position::INVALID;
     }
     if (lateralOffset != 0) {
         Line l(p1, p2);
         l.move2side(-lateralOffset); // move in the same direction as Position::move2side
         return l.getPositionAtDistance2D(pos);
+    }
+    if (pos == 0.) {
+        return p1;
     }
     return p1 + (p2 - p1) * (pos / dist);
 }
@@ -413,6 +419,9 @@ PositionVector::length2D() const {
 
 SUMOReal
 PositionVector::area() const {
+    if (size() < 3) {
+        return 0;
+    }
     SUMOReal area = 0;
     PositionVector tmp = *this;
     if (!isClosed()) { // make sure its closed
@@ -511,6 +520,14 @@ void
 PositionVector::add(SUMOReal xoff, SUMOReal yoff, SUMOReal zoff) {
     for (int i = 0; i < static_cast<int>(size()); i++) {
         (*this)[i].add(xoff, yoff, zoff);
+    }
+}
+
+
+void
+PositionVector::mirrorX() {
+    for (int i = 0; i < static_cast<int>(size()); i++) {
+        (*this)[i].mul(1, -1);
     }
 }
 
@@ -824,7 +841,7 @@ PositionVector::eraseAt(int i) {
 SUMOReal
 PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular) const {
     SUMOReal minDist = std::numeric_limits<SUMOReal>::max();
-    SUMOReal nearestPos = -1;
+    SUMOReal nearestPos = GeomHelper::INVALID_OFFSET;
     SUMOReal seen = 0;
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const SUMOReal pos =
@@ -842,7 +859,7 @@ PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular)
                     GeomHelper::nearest_offset_on_line_to_point2D(*(i - 1), *i, p, false);
                 const SUMOReal pos2 =
                     GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, false);
-                if (pos1 == (*(i-1)).distanceTo2D(*i) && pos2 == 0.) {
+                if (pos1 == (*(i - 1)).distanceTo2D(*i) && pos2 == 0.) {
                     nearestPos = seen;
                     minDist = cornerDist;
                 }
@@ -884,10 +901,10 @@ PositionVector::transformToVectorCoordinates(const Position& p, bool extend) con
                     GeomHelper::nearest_offset_on_line_to_point2D(*(i - 1), *i, p, false);
                 const SUMOReal pos2 =
                     GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, false);
-                if (pos1 == (*(i-1)).distanceTo2D(*i) && pos2 == 0.) {
+                if (pos1 == (*(i - 1)).distanceTo2D(*i) && pos2 == 0.) {
                     nearestPos = seen;
                     minDist = cornerDist;
-                    sign = isLeft(*(i-1), *i, p) >= 0 ? -1 : 1;
+                    sign = isLeft(*(i - 1), *i, p) >= 0 ? -1 : 1;
                 }
             }
         }
@@ -1103,7 +1120,7 @@ PositionVector::getEndLine() const {
 
 void
 PositionVector::closePolygon() {
-    if ((*this)[0] == back()) {
+    if (size() == 0 || (*this)[0] == back()) {
         return;
     }
     push_back((*this)[0]);
@@ -1237,6 +1254,18 @@ PositionVector::operator==(const PositionVector& v2) const {
 }
 
 
+bool
+PositionVector::hasElevation() const {
+    if (size() > 2) {
+        return false;
+    }
+    for (const_iterator i = begin(); i != end() - 1; i++) {
+        if ((*i).z() != (*(i + 1)).z()) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /****************************************************************************/
 

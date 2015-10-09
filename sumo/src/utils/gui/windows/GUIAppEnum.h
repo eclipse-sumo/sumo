@@ -10,7 +10,7 @@
 // Message and object IDs used by the FOX-version of the gui
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -123,10 +123,12 @@ enum {
     /// @name Edit Menu Item - IDs
     //@{
 
-    /// Open chosen editor - ID
+    /// Open editor for selections
     MID_EDITCHOSEN,
     /// Edit simulation breakpoints
     MID_EDIT_BREAKPOINTS,
+    /// Open in netedit
+    MID_NETEDIT,
     //@}
 
 
@@ -217,6 +219,8 @@ enum {
     MID_COPY_NAME,
     /// Copy typed object name - popup entry
     MID_COPY_TYPED_NAME,
+    /// Copy edge name (for lanes only)
+    MID_COPY_EDGE_NAME,
     /// Copy cursor position - popup entry
     MID_COPY_CURSOR_POSITION,
     /// Copy cursor geo-coordinate position - popup entry
@@ -293,6 +297,8 @@ enum {
     MID_QUITONSIMEND,
     /// Allow textures - Option
     MID_ALLOWTEXTURES,
+    /// Locate links in messages - Option
+    MID_LOCATELINKS,
     //@}
 
 
@@ -349,6 +355,16 @@ enum {
     MID_SIMPLE_VIEW_SAVE_DECALS,
     //@}
 
+    /** help button */
+    MID_HELP,
+
+    /// @name dynamic interaction with the simulation via SUMO-GUI
+    //@{
+    MID_CLOSE_LANE,
+    MID_CLOSE_EDGE,
+    MID_ADD_REROUTER,
+    //@}
+    
 
     /// @name NETEDIT Message IDs
     //@{
@@ -431,10 +447,16 @@ enum {
     MID_GNE_ADD_REVERSE_EDGE,
     /** edit junction shape */
     MID_GNE_NODE_SHAPE,
+    /** turn junction into geometry node */
+    MID_GNE_NODE_REPLACE,
     /** set non-default geometry endpoint */
     MID_GNE_SET_EDGE_ENDPOINT,
     /** restore geometry endpoint to node position */
     MID_GNE_RESET_EDGE_ENDPOINT,
+    /** remove inner geometry */
+    MID_GNE_STRAIGHTEN,
+    /** duplicate a lane */
+    MID_GNE_DUPLICATE_LANE,
     /** set object as template*/
     MID_GNE_SET_TEMPLATE,
     /** copy template*/
@@ -449,9 +471,6 @@ enum {
     MID_GNE_SELECT_PASS,
     /** changes the visual scaling of selected items */
     MID_GNE_SELECT_SCALE,
-
-    /** help button */
-    MID_GNE_HELP,
 
     //@}
 

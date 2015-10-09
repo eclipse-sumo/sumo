@@ -10,7 +10,7 @@ and automatic GUI control
 from AutoPy (http://github.com/msanders/autopy).
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2010-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2010-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -19,7 +19,8 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, time
+import os
+import time
 _libdir = os.path.abspath(os.path.dirname(__file__))
 _bindir = os.path.abspath(os.path.join(_libdir, '..', '..', 'bin'))
 
@@ -37,6 +38,7 @@ try:
         autopy.mouse.click()
 except ImportError:
     pass
+
 
 def checkBinary(name, bindir=_bindir):
     if name == "sumo-gui":

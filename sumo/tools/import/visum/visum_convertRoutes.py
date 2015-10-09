@@ -9,7 +9,7 @@
 This script converts given VISUM-routes for a given SUMO-network.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -19,10 +19,14 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, string, sys, random
+import os
+import string
+import sys
+import random
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 import sumolib
+
 
 class Statistics:
     found = 0
@@ -33,6 +37,7 @@ class Statistics:
 stats = Statistics()
 routes = []
 
+
 def addRouteChecking(route, id, count, ok):
     route = route.strip()
     if route != "":
@@ -40,11 +45,11 @@ def addRouteChecking(route, id, count, ok):
             if options.distribution and routes:
                 distID = routes[0][0][:routes[0][0].rfind("_")]
                 if distID != id[:id.rfind("_")]:
-                    sum = 0 
-                    r_max = (None, 0, None)    
+                    sum = 0
+                    r_max = (None, 0, None)
                     for r in routes:
                         sum += r[1]
-                        if r_max[1] < r[1]: 
+                        if r_max[1] < r[1]:
                             r_max = r
                     if sum < options.cutoff:
                         del routes[:]
@@ -60,10 +65,13 @@ def addRouteChecking(route, id, count, ok):
                                 edge = net.getEdge(e)
                                 numSteps = int(edge.getLength() / options.step)
                                 for p in range(numSteps):
-                                    trace.append(sumolib.geomhelper.positionAtShapeOffset(edge.getShape(), p * options.step))
-                            path = sumolib.route.mapTrace(trace, net2, options.delta)
+                                    trace.append(
+                                        sumolib.geomhelper.positionAtShapeOffset(edge.getShape(), p * options.step))
+                            path = sumolib.route.mapTrace(
+                                trace, net2, options.delta)
                             r = (r[0], r[1], " ".join(path))
-                        fdo.write('        <route id="%s" probability="%s" edges="%s"/>\n' % r)
+                        fdo.write(
+                            '        <route id="%s" probability="%s" edges="%s"/>\n' % r)
                     if len(routes) > 1:
                         fdo.write('    </routeDistribution>\n')
                     del routes[:]
@@ -73,6 +81,7 @@ def addRouteChecking(route, id, count, ok):
         else:
             stats.missing += 1
             stats.missingN += count
+
 
 def sorter(idx):
     def t(i, j):
@@ -84,8 +93,7 @@ def sorter(idx):
             return 0
 
 
-
-# initialise 
+# initialise
 optParser = OptionParser()
 optParser.add_option("-n", "--net-file", dest="netfile",
                      help="SUMO net file to work with", type="string")
@@ -120,7 +128,8 @@ optParser.add_option("-i", "--distribution", action="store_true",
 optParser.add_option("-c", "--cutoff",
                      help="Keep only one route when less than CUTOFF vehicles drive the OD", type="int", default=0)
 
-optParser.set_usage('\nvisum_convertRoutes.py -n visum.net.xml -r visum_routes.att -o visum.rou.xml')
+optParser.set_usage(
+    '\nvisum_convertRoutes.py -n visum.net.xml -r visum_routes.att -o visum.rou.xml')
 # parse options
 (options, args) = optParser.parse_args()
 if not options.netfile or not options.routes or not options.output:
@@ -160,9 +169,9 @@ fdo.write("<routes>\n")
 for idx, line in enumerate(fd):
     if options.verbose and idx % 10000 == 0:
         sys.stdout.write("%s lines read\r" % "{:,}".format(idx))
-    if line.find("$")==0 or line.find("*")==0 or line.find(separator)<0:
+    if line.find("$") == 0 or line.find("*") == 0 or line.find(separator) < 0:
         parse = False
-        addRouteChecking(route, id, count, ok);
+        addRouteChecking(route, id, count, ok)
     if parse:
         values = line.strip('\n\r').split(separator)
         amap = {}
@@ -170,55 +179,58 @@ for idx, line in enumerate(fd):
             amap[attributes[i]] = values[i]
         if amap["origzoneno"] != "":
             # route begin (not the route)
-            addRouteChecking(route, id, count, ok);
-            id = amap["origzoneno"] + "_" + amap["destzoneno"] + "_" + amap["pathindex"]
+            addRouteChecking(route, id, count, ok)
+            id = amap["origzoneno"] + "_" + \
+                amap["destzoneno"] + "_" + amap["pathindex"]
             count = float(amap["prtpath\\vol(ap)"])
             route = " "
             ok = True
         else:
             if not ok:
-                continue;
+                continue
             fromnode = amap["fromnodeno"]
             tonode = amap["tonodeno"]
             link = amap["linkno"]
             if fromnode not in emap:
-                if no!=0:
+                if no != 0:
                     print("Missing from-node '" + fromnode + "'; skipping")
                 ok = False
                 continue
             if tonode not in emap[fromnode]:
-                if no!=0:
-                    print("No connection between from-node '" + fromnode + "' and to-node '" + tonode + "'; skipping")
+                if no != 0:
+                    print("No connection between from-node '" +
+                          fromnode + "' and to-node '" + tonode + "'; skipping")
                 ok = False
                 continue
             edge = emap[fromnode][tonode]
-            if link!=edge and link!=edge[1:]:
-                if no!=0:
-                    print("Mismatching edge '" + link + "' (from '" + fromnode + "', to '" + tonode + "'); skipping")
+            if link != edge and link != edge[1:]:
+                if no != 0:
+                    print("Mismatching edge '" + link + "' (from '" +
+                          fromnode + "', to '" + tonode + "'); skipping")
                 ok = False
                 continue
             route = route + edge + " "
 
-    if line.find("$PRTPATHLINK:")==0 or line.find("$IVTEILWEG:")==0:
-        attributes = line[line.find(":")+1:].strip().lower().split(separator)
+    if line.find("$PRTPATHLINK:") == 0 or line.find("$IVTEILWEG:") == 0:
+        attributes = line[line.find(":") + 1:].strip().lower().split(separator)
         for i in range(0, len(attributes)):
-            if attributes[i]=="qbeznr":
+            if attributes[i] == "qbeznr":
                 attributes[i] = "origzoneno"
-            if attributes[i]=="zbeznr":
+            if attributes[i] == "zbeznr":
                 attributes[i] = "destzoneno"
-            if attributes[i]=="iv-weg\\bel(ap)":
+            if attributes[i] == "iv-weg\\bel(ap)":
                 attributes[i] = "prtpath\\vol(ap)"
-            if attributes[i]=="wegind":
+            if attributes[i] == "wegind":
                 attributes[i] = "pathindex"
-            if attributes[i]=="vonknotnr":
+            if attributes[i] == "vonknotnr":
                 attributes[i] = "fromnodeno"
-            if attributes[i]=="nachknotnr":
+            if attributes[i] == "nachknotnr":
                 attributes[i] = "tonodeno"
-            if attributes[i]=="strnr":
+            if attributes[i] == "strnr":
                 attributes[i] = "linkno"
         parse = True
 
-addRouteChecking(route, id, count, ok);
+addRouteChecking(route, id, count, ok)
 fd.close()
 
 if options.verbose:
@@ -230,9 +242,10 @@ if options.distribution:
         distID = routes[0][0][:routes[0][0].rfind("_")]
         fdo.write('    <routeDistribution id="%s">\n' % distID)
         for r in routes:
-            fdo.write('        <route id="%s" probability="%s" edges="%s"/>\n' % r)
+            fdo.write(
+                '        <route id="%s" probability="%s" edges="%s"/>\n' % r)
         fdo.write('    </routeDistribution>\n')
-    fdo.write("</routes>\n")    
+    fdo.write("</routes>\n")
     fdo.close()
     exit()
 
@@ -246,7 +259,7 @@ if options.timeline:
     for v in vals:
         timeline.append(float(v))
         sum += float(v)
-    if len(timeline)!=24:
+    if len(timeline) != 24:
         print("The timeline must have 24 entries")
         sys.exit()
     nRoutes = []
@@ -262,20 +275,20 @@ if not timeline:
     for r in routes:
         for i in range(0, int(r[1])):
             if options.uniform:
-                t = float(begin) + float(end-begin) / float(r[1]) * float(i)
+                t = float(begin) + float(end - begin) / float(r[1]) * float(i)
             else:
-                t = float(begin) + float(end-begin) * random.random()
-            emissions.append( ( int(t), r[0]+"__"+str(i), r[2] ) )
+                t = float(begin) + float(end - begin) * random.random()
+            emissions.append((int(t), r[0] + "__" + str(i), r[2]))
 else:
     for r in routes:
         left = 0.
         tbeg = 0
         j = 0
         for t in timeline:
-            fno = (float(r[1])+left) * t / 100.
+            fno = (float(r[1]) + left) * t / 100.
             no = int(fno)
             left += fno - no
-            if left>=1.:
+            if left >= 1.:
                 left -= 1
                 no += 1
             for i in range(0, no):
@@ -283,7 +296,7 @@ else:
                     t = tbeg + float(3600) / float(r[1]) * float(i)
                 else:
                     t = tbeg + float(3600) * random.random()
-                emissions.append( ( int(t), r[0]+"__"+str(j), r[2] ) )
+                emissions.append((int(t), r[0] + "__" + str(j), r[2]))
                 j = j + 1
             nNo += no
             tbeg += 3600
@@ -307,7 +320,7 @@ for emission in emissions:
     if options.type:
         fdo.write(' type="' + options.type + '"')
     fdo.write('><route edges="' + emission[2] + '"/></vehicle>\n')
-fdo.write("</routes>\n")    
+fdo.write("</routes>\n")
 fdo.close()
 if options.verbose:
     print(" %s vehicles written" % len(emissions))

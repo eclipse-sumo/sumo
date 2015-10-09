@@ -11,7 +11,7 @@
 // A fixed traffic light logic
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -70,7 +70,7 @@ MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic() {
 
 // ------------ Switching and setting current rows
 SUMOTime
-MSSimpleTrafficLightLogic::trySwitch(bool) {
+MSSimpleTrafficLightLogic::trySwitch() {
     // check whether the current duration shall be increased
     if (myCurrentDurationIncrement > 0) {
         SUMOTime delay = myCurrentDurationIncrement;
@@ -160,7 +160,7 @@ MSSimpleTrafficLightLogic::getOffsetFromIndex(unsigned int index) const {
     if (index == 0) {
         return 0;
     }
-    unsigned int pos = 0;
+    SUMOTime pos = 0;
     for (unsigned int i = 0; i < index; i++) {
         pos += getPhase(i).duration;
     }

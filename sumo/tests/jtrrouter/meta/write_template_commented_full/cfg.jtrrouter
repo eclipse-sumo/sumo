@@ -40,7 +40,7 @@
 
     <output>
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
-        <output-prefix value="" type="FILE"/>
+        <output-prefix value="" type="STR"/>
 
         <!-- Write generated routes to FILE -->
         <output-file value="" synonymes="o output" type="FILE"/>
@@ -75,11 +75,20 @@
         <!-- Tries to correct a false route -->
         <repair value="false" type="BOOL"/>
 
+        <!-- Tries to correct an invalid starting edge by using the first usable edge instead -->
+        <repair.from value="false" type="BOOL"/>
+
+        <!-- Tries to correct an invalid destination edge by using the last usable edge instead -->
+        <repair.to value="false" type="BOOL"/>
+
         <!-- Interpolate edge weights at interval boundaries -->
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL"/>
 
         <!-- Use origin and destination zones (districts) for in- and output -->
         <with-taz value="false" type="BOOL"/>
+
+        <!-- Aggregate routing queries with the same origin -->
+        <bulk-routing value="false" type="BOOL"/>
 
         <!-- The number of parallel execution threads used for routing -->
         <routing-threads value="0" type="INT"/>
@@ -133,7 +142,7 @@
         <begin value="0" synonymes="b" type="TIME"/>
 
         <!-- Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent -->
-        <end value="2147483" synonymes="e" type="TIME"/>
+        <end value="9223372036854774" synonymes="e" type="TIME"/>
 
     </time>
 

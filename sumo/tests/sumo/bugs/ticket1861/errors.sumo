@@ -1,0 +1,4 @@
+Warning: No connection between edge 'beg' and edge 'end' found.
+Warning: No route for vehicle 'bikeDisconnected' found.
+Error: Vehicle 'bikeDisconnected' has no valid route. No connection between edge 'beg' and edge 'end'.
+Quitting (on error).

@@ -11,7 +11,7 @@
 // A lane change model developed by D. Krajzewicz, J. Erdmann et al. between 2004 and 2013
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -44,13 +44,6 @@
 #endif // CHECK_MEMORY_LEAKS
 
 //#define DEBUG_VEHICLE_GUI_SELECTION 1
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <guisim/GUIVehicle.h>
-#include <guisim/GUILane.h>
-#endif
-
-
 
 // ===========================================================================
 // variable definitions
@@ -461,6 +454,14 @@ MSLCM_LC2013::_wantsChange(
     }
     SUMOReal laDist = myLookAheadSpeed * (right ? LOOK_FORWARD_RIGHT : LOOK_FORWARD_LEFT);
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (SUMOReal) 2.;
+
+    // react to a stopped leader on the current lane
+    if (bestLaneOffset == 0 && leader.first != 0 && leader.first->isStopped()) {
+        // value is doubled for the check since we change back and forth
+        laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap()
+                        + leader.first->getVehicleType().getLengthWithGap());
+    }
+
     // free space that is available for changing
     //const SUMOReal neighSpeed = (neighLead.first != 0 ? neighLead.first->getSpeed() :
     //        neighFollow.first != 0 ? neighFollow.first->getSpeed() :

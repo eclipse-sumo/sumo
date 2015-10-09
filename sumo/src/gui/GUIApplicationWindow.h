@@ -10,7 +10,7 @@
 // The main window of the SUMO-gui.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -101,7 +101,7 @@ public:
     void loadOnStartup();
 
 
-    void dependentBuild(bool game);
+    void dependentBuild();
 
     void setStatusBarText(const std::string&);
 
@@ -121,6 +121,7 @@ public:
     void handleEvent_SimulationStep(GUIEvent* e);
     void handleEvent_Message(GUIEvent* e);
     void handleEvent_SimulationEnded(GUIEvent* e);
+    void handleEvent_Screenshot(GUIEvent* e);
     /// @}
 
 
@@ -156,6 +157,12 @@ public:
 
     /// @brief Called on menu Edit->Edit Breakpoints
     long onCmdEditBreakpoints(FXObject*, FXSelector, void*);
+
+    /// @brief called if the user selects help->Documentation
+    long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief Called on menu Edit->Netedit
+    long onCmdNetedit(FXObject*, FXSelector, void*);
 
     /// @brief Opens the application settings menu (Settings->Application Settings...)
     long onCmdAppSettings(FXObject*, FXSelector, void*);
@@ -233,22 +240,37 @@ public:
 
     /// @brief Somebody wants our clipped text
     long onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief handle keys
+    long onKeyPress(FXObject* o, FXSelector sel, void* data);
+    long onKeyRelease(FXObject* o, FXSelector sel, void* data);
     /// @}
-    
-    
-    /** @brief Returns the simulation delay 
+
+
+    /** @brief Returns the simulation delay
      * @return delay in milliseconds
      */
     virtual SUMOReal getDelay() const {
         return mySimDelayTarget->getValue();
     }
 
+    /** @brief Sets the delay of the parent application
+     */
+    virtual void setDelay(SUMOReal delay) {
+        mySimDelayTarget->setValue(delay);
+    }
+
+    /** @brief Sends an event from the application thread to the GUI and waits until it is handled
+     * @param event the event to send
+     */
+    virtual void sendBlockingEvent(GUIEvent* event);
+
 protected:
     virtual void addToWindowsMenu(FXMenuPane*) { }
 
 private:
     /** starts to load a simulation */
-    void loadConfigOrNet(const std::string& file, bool isNet, bool isReload = false);
+    void loadConfigOrNet(const std::string& file, bool isNet);
 
     /** this method closes all windows and deletes the current simulation */
     void closeAllWindows();
@@ -351,6 +373,14 @@ protected:
     /// @brief whether to show the window in full screen mode
     bool myAmFullScreen;
 
+    /// @brief whether the simulation end was already announced
+    bool myHaveNotifiedAboutSimEnd;
+
+    /// @brief the mutex for the waiting semaphore
+    FXMutex myEventMutex;
+
+    /// @brief the semaphore when waiting for event completion
+    FXCondition myEventCondition;
 
     /// @name game related things
     /// {

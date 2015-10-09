@@ -9,7 +9,7 @@
 // Exporter writing networks using XML (native input) format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -86,6 +86,12 @@ private:
      * @param[in] nc The node-container from which to read data
      */
     static void writeNodes(const OptionsCont& oc, NBNodeCont& nc);
+
+    /** @brief Writes the types file
+     * @param[in] oc The options to use
+     * @param[in] nc The type-container from which to read data
+     */
+    static void writeTypes(const OptionsCont& oc, NBTypeCont& tc);
 
     /** @brief Writes the edges and connections files
      * @param[in] oc The options to use

@@ -9,7 +9,7 @@
 // Encapsulated SAX-Attributes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2007-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -198,10 +198,10 @@ int SUMOSAXAttributes::getInternal(const int attr) const {
 }
 
 
-template<> const SUMOLong invalid_return<SUMOLong>::value = -1;
-template<> const std::string invalid_return<SUMOLong>::type = "long";
+template<> const long long int invalid_return<long long int>::value = -1;
+template<> const std::string invalid_return<long long int>::type = "long";
 template<>
-SUMOLong SUMOSAXAttributes::getInternal(const int attr) const {
+long long int SUMOSAXAttributes::getInternal(const int attr) const {
     return getLong(attr);
 }
 

@@ -9,7 +9,7 @@
 // A class that allows to steer the visual output in dependence to user
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -78,6 +78,15 @@ GUIPerspectiveChanger::onMouseWheel(void*) {}
 void
 GUIPerspectiveChanger::onMouseMove(void*) {}
 
+long
+GUIPerspectiveChanger::onKeyPress(void*) {
+    return 0;
+}
+
+long
+GUIPerspectiveChanger::onKeyRelease(void*) {
+    return 0;
+}
 
 FXint
 GUIPerspectiveChanger::getMouseXPosition() const {

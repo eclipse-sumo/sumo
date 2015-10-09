@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 22 Apr 2015 09:37:50 AM CEST by Netedit Version dev-SVN-r18262I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="SC4.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="SC4.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netconvert/node_building/node_shape/misleading_angles/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-223031.63,-6055722.36" convBoundary="147781.25,243107.68,148443.62,243700.00" origBoundary="-7.653429,54.634633,-0.728158,60.839983" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="354990984" x="148406.59" y="243610.32" type="unregulated"/>
+    <node id="471620785" x="147934.67" y="243291.74" type="unregulated"/>
+    <node id="cluster_2093621882_502188926_9805204" x="148332.64" y="243694.25" type="priority"/>
+    <node id="cluster_2515519354_2515519360_254853488_254905633_9801927" x="148443.62" y="243579.24" type="unregulated"/>
+    <node id="cluster_254853447_299206553_9805190" x="147781.25" y="243107.68" type="unregulated"/>
+    <node id="cluster_502188736_9805207" x="148338.73" y="243661.73" type="right_before_left"/>
+    <node id="cluster_9805200_9805210" x="148305.25" y="243664.95" type="priority"/>
+</nodes>

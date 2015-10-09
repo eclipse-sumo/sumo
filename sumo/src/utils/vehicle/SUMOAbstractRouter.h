@@ -6,10 +6,10 @@
 /// @date    25.Jan 2006
 /// @version $Id$
 ///
-// The dijkstra-router
+// An abstract router base class
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2006-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2006-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -58,6 +58,7 @@ public:
     /// Constructor
     SUMOAbstractRouter(Operation operation, const std::string& type):
         myOperation(operation),
+        myBulkMode(false),
         myType(type),
         myQueryVisits(0),
         myNumQueries(0),
@@ -83,11 +84,6 @@ public:
     virtual SUMOReal recomputeCosts(const std::vector<const E*>& edges,
                                     const V* const v, SUMOTime msTime) const = 0;
 
-    // interface extension for BulkStarRouter
-    virtual void prepare(const E*, const V*, bool) {
-        assert(false);
-    }
-
     inline SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) const {
         return (*myOperation)(e, v, t);
     }
@@ -102,20 +98,27 @@ public:
         myQueryTimeSum += (SysUtils::getCurrentMillis() - myQueryStartTime);
     }
 
+    void setBulkMode(const bool mode) {
+        myBulkMode = mode;
+    }
+
 protected:
     /// @brief The object's operation to perform.
     Operation myOperation;
+
+    /// @brief whether we are currently operating several route queries in a bulk
+    bool myBulkMode;
 
 private:
     /// @brief the type of this router
     const std::string myType;
 
     /// @brief counters for performance logging
-    SUMOLong myQueryVisits;
-    SUMOLong myNumQueries;
+    long long int myQueryVisits;
+    long long int myNumQueries;
     /// @brief the time spent querying in milliseconds
-    SUMOLong myQueryStartTime;
-    SUMOLong myQueryTimeSum;
+    long long int myQueryStartTime;
+    long long int myQueryTimeSum;
 private:
     /// @brief Invalidated assignment operator
     SUMOAbstractRouter& operator=(const SUMOAbstractRouter& s);
@@ -123,7 +126,7 @@ private:
 
 
 template<class E, class V>
-struct prohibited_withRestrictions {
+struct prohibited_withPermissions {
 public:
     inline bool operator()(const E* edge, const V* vehicle) const {
         if (std::find(myProhibited.begin(), myProhibited.end(), edge) != myProhibited.end()) {
@@ -142,7 +145,7 @@ protected:
 };
 
 template<class E, class V>
-struct prohibited_noRestrictions {
+struct noProhibitions {
 public:
     inline bool operator()(const E*, const V*) const {
         return false;

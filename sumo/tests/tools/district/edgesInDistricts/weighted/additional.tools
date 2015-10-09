@@ -1,0 +1,18 @@
+<tazs>
+    <taz id="b" shape="-5.0,-5.0 5.0,-5.0 5.0,5.0 -5.0,5.0 -5.0,-5.0">
+        <tazSource id="absBeg" weight="13859.69"/>
+        <tazSink id="absBeg" weight="13859.69"/>
+    </taz>
+    <taz id="e" shape="1995.0,-5.0 2005.0,-5.0 2005.0,5.0 1995.0,5.0 -1995.0,-5.0">
+        <tazSource id="absBeg" weight="13859.69"/>
+        <tazSink id="absBeg" weight="13859.69"/>
+        <tazSource id="absEnd" weight="13900.00"/>
+        <tazSink id="absEnd" weight="13900.00"/>
+        <tazSource id="end" weight="13859.69"/>
+        <tazSink id="end" weight="13859.69"/>
+        <tazSource id="left2end" weight="13769.34"/>
+        <tazSink id="left2end" weight="13769.34"/>
+        <tazSource id="middle" weight="13767.95"/>
+        <tazSink id="middle" weight="13767.95"/>
+    </taz>
+</tazs>

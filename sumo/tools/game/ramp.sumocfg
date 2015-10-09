@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="ramp/ramp.net.xml"/>
@@ -8,9 +8,13 @@
         <additional-files value="input_additional.add.xml"/>
     </input>
 
+    <output>
+        <output-prefix value="ramp."/>
+    </output>
+
     <time>
         <begin value="0"/>
-        <end value="900"/>
+        <end value="400"/>
         <step-length value=".2"/>
     </time>
 

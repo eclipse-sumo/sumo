@@ -1,0 +1,5 @@
+--persons
+-i fcd.xml -n net.net.xml 
+--ns2activity-output activityfile.tcl
+--ns2config-output config.tcl
+--ns2mobility-output mobilityfile.tcl

@@ -8,7 +8,7 @@
 // Writes e2 state on each tls switch
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -64,7 +64,7 @@ public:
      * @param[in] device The output device to write the detector values into
      */
     Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants& tlls,
-                             MSDetectorFileOutput* dtf, unsigned int begin, OutputDevice& device);
+                             MSDetectorFileOutput* dtf, SUMOTime begin, OutputDevice& device);
 
 
     /// @brief Destructor

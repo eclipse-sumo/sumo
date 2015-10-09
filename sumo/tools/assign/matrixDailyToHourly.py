@@ -11,7 +11,7 @@ This script is to generate hourly matrices from a VISUM daily matrix.
 The taffic demand of the traffic zones, which have the same connection links, will be integrated.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -20,42 +20,53 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, random, string, sys, datetime, math, operator
+import os
+import random
+import string
+import sys
+import datetime
+import math
+import operator
 from optparse import OptionParser
 from xml.sax import saxutils, make_parser, handler
 
-OUTPUTDIR="./input/"    
+OUTPUTDIR = "./input/"
 optParser = OptionParser()
-optParser.add_option("-m", "--matrix-file", dest="mtxpsfile", 
+optParser.add_option("-m", "--matrix-file", dest="mtxpsfile",
                      help="read OD matrix for passenger vehicles(long dist.) from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-z", "--districts-file", dest="districtsfile", 
+optParser.add_option("-z", "--districts-file", dest="districtsfile",
                      help="read connecting links from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-t", "--timeSeries-file", dest="timeseries",
                      help="read hourly traffic demand rate from FILE", metavar="FILE")
-optParser.add_option("-d","--dir", dest="OUTPUTDIR", default=OUTPUTDIR, help="Directory to store the output files. Default: "+OUTPUTDIR)
+optParser.add_option("-d", "--dir", dest="OUTPUTDIR", default=OUTPUTDIR,
+                     help="Directory to store the output files. Default: " + OUTPUTDIR)
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 
 (options, args) = optParser.parse_args()
 
+
 class District:
+
     def __init__(self, label):
         self.label = label
         self.sourcelink = None
         self.sinklink = None
         self.combinedDistrict = []
         self.alreadyCombined = False
-        
+
     def __repr__(self):
 
         return "%s<%s|%s|%s>" % (self.label, self.sourcelink, self.sinklink, self.combinedDistrict)
 
+
 class DistrictsReader(handler.ContentHandler):
+
     def __init__(self, districtList):
         self._districtList = districtList
         self._newDistrict = None
         self._district = None
-        
+
     def startElement(self, name, attrs):
         if name == 'taz':
             self._newDistrict = District(attrs['id'])
@@ -69,28 +80,29 @@ class DistrictsReader(handler.ContentHandler):
     def endElement(self, name):
         if name == 'taz':
             self._district = None
-       
+
+
 def combineDemand(matrix, districtList, startVertices, endVertices):
     matrixMap = {}
     combinedCounter = 0
-    existCounter= 0
-    foutzone = file('combinedZones.txt','w')
-        
+    existCounter = 0
+    foutzone = file('combinedZones.txt', 'w')
+
     for i, start in enumerate(startVertices):
-        matrixMap[start]={}
+        matrixMap[start] = {}
         for j, end in enumerate(endVertices):
-            matrixMap[start][end]= matrix[i][j]
-    
+            matrixMap[start][end] = matrix[i][j]
+
     for district1 in districtList:
         if not district1.alreadyCombined:
-            foutzone.write('district:%s\n' %district1.label)
+            foutzone.write('district:%s\n' % district1.label)
             foutzone.write('combinedDistricts: ')
             for district2 in districtList:
                 if not district2.alreadyCombined:
                     if district1.label != district2.label and district1.sourcelink == district2.sourcelink:
                         district1.combinedDistrict.append(district2)
                         district2.alreadyCombined = True
-                        foutzone.write('%s, ' %district2.label)
+                        foutzone.write('%s, ' % district2.label)
             foutzone.write('\n')
 
     for start in startVertices:
@@ -102,10 +114,10 @@ def combineDemand(matrix, districtList, startVertices, endVertices):
                     for zone in district.combinedDistrict:
                         matrixMap[start][end] += matrixMap[zone.label][end]
                         matrixMap[zone.label][end] = 0.
-                        
+
             elif start == district.label and district.combinedDistrict == [] and not district.alreadyCombined:
                 existCounter += 1
-                    
+
     for i, start in enumerate(startVertices):
         for j, end in enumerate(endVertices):
             matrix[i][j] = matrixMap[start][end]
@@ -115,11 +127,13 @@ def combineDemand(matrix, districtList, startVertices, endVertices):
     print 'finish combining zones!'
     print 'number of zones (before):', len(startVertices)
     print 'number of zones (after):', existCounter
-    print 'number of the combined zones:', combinedCounter    
-    
+    print 'number of the combined zones:', combinedCounter
+
     return matrix
-# read the analyzed matrix         
-def getMatrix(verbose, matrix):#, mtxplfile, mtxtfile):
+# read the analyzed matrix
+
+
+def getMatrix(verbose, matrix):  # , mtxplfile, mtxtfile):
     matrixPshort = []
     startVertices = []
     endVertices = []
@@ -127,10 +141,10 @@ def getMatrix(verbose, matrix):#, mtxplfile, mtxtfile):
     periodList = []
     MatrixSum = 0.
     if verbose:
-        print 'matrix:', str(matrix)                                 
+        print 'matrix:', str(matrix)
     ODpairs = 0
     origins = 0
-    dest= 0
+    dest = 0
     CurrentMatrixSum = 0.0
     skipCount = 0
     zones = 0
@@ -165,14 +179,16 @@ def getMatrix(verbose, matrix):#, mtxplfile, mtxtfile):
                         matrixPshort[-1].append(float(item))
                         ODpairs += 1
                         MatrixSum += float(item)
-                        CurrentMatrixSum += float(item) 
+                        CurrentMatrixSum += float(item)
                         if float(item) > 0.0:
-                            Pshort_EffCells += 1                      
+                            Pshort_EffCells += 1
     begintime = int(periodList[0])
     if verbose:
         foutlog = file('log.txt', 'w')
-        foutlog.write('Number of zones:%s, Number of origins:%s, Number of destinations:%s, begintime:%s, \n' %(zones, origins, dest, begintime))
-        foutlog.write('CurrentMatrixSum:%s, total O-D pairs:%s, effective O-D pairs:%s\n' %(CurrentMatrixSum, ODpairs, Pshort_EffCells))
+        foutlog.write('Number of zones:%s, Number of origins:%s, Number of destinations:%s, begintime:%s, \n' % (
+            zones, origins, dest, begintime))
+        foutlog.write('CurrentMatrixSum:%s, total O-D pairs:%s, effective O-D pairs:%s\n' %
+                      (CurrentMatrixSum, ODpairs, Pshort_EffCells))
         print 'Number of zones:', zones
         print 'Number of origins:', origins
         print 'Number of destinations:', dest
@@ -185,80 +201,83 @@ def getMatrix(verbose, matrix):#, mtxplfile, mtxtfile):
         foutlog.close()
 
     return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime, zones
-      
+
+
 def main():
     if not options.mtxpsfile:
         optParser.print_help()
         sys.exit()
-    
+
     districtList = []
     parser = make_parser()
     parser.setContentHandler(DistrictsReader(districtList))
     parser.parse(options.districtsfile)
-        
+
     MTX_STUB = "mtx%02i_%02i.fma"
     matrix = options.mtxpsfile
     if options.OUTPUTDIR:
         OUTPUTDIR = options.OUTPUTDIR
-   
-    matrix, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime, zones = getMatrix(options.verbose, matrix)
+
+    matrix, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime, zones = getMatrix(
+        options.verbose, matrix)
     timeSeriesList = []
     hourlyMatrix = []
     subtotal = 0.
-    
+
     if options.verbose:
         foutlog = file('log.txt', 'a')
     if options.timeseries:
         print 'read the time-series profile'
-    # combine matrices    
+    # combine matrices
     matrix = combineDemand(matrix, districtList, startVertices, endVertices)
-    
-    for i in range (0, len(startVertices)):
+
+    for i in range(0, len(startVertices)):
         hourlyMatrix.append([])
-        for j in range (0, len(endVertices)):
+        for j in range(0, len(endVertices)):
             hourlyMatrix[-1].append(0.)
-    
+
     if options.timeseries:
         for line in open(options.timeseries):
             for elem in line.split():
                 timeSeriesList.append(float(elem))
     else:
-        factor = 1./24.
-        for i in range(0,24):
+        factor = 1. / 24.
+        for i in range(0, 24):
             timeSeriesList.append(factor)
-            
-    for hour in range (0, 24):
-        for i in range (0, len(startVertices)):
-            for j in range (0, len(endVertices)):
-                hourlyMatrix[i][j] = matrix[i][j] * timeSeriesList[0]
-        
-        filename = MTX_STUB % (hour, hour+1)
 
-        foutmatrix=file(OUTPUTDIR+filename,'w')  # /input/filename
+    for hour in range(0, 24):
+        for i in range(0, len(startVertices)):
+            for j in range(0, len(endVertices)):
+                hourlyMatrix[i][j] = matrix[i][j] * timeSeriesList[0]
+
+        filename = MTX_STUB % (hour, hour + 1)
+
+        foutmatrix = file(OUTPUTDIR + filename, 'w')  # /input/filename
 
         foutmatrix.write('$VMR;D2\n')
         foutmatrix.write('* Verkehrsmittelkennung\n')
         foutmatrix.write('   1\n')
         foutmatrix.write('*  ZeitIntervall\n')
-        foutmatrix.write('    %s.00  %s.00\n' %(hour, hour+1))
+        foutmatrix.write('    %s.00  %s.00\n' % (hour, hour + 1))
         foutmatrix.write('*  Faktor\n')
         foutmatrix.write('   1.000000\n')
         foutmatrix.write('*  Anzahl Bezirke\n')
-        foutmatrix.write('   %s\n' %zones)
+        foutmatrix.write('   %s\n' % zones)
         foutmatrix.write('*  BezirksNummern \n')
-        
+
         for count, start in enumerate(startVertices):
             count += 1
             if count == 1:
-                foutmatrix.write('          %s ' %start)
+                foutmatrix.write('          %s ' % start)
             else:
-                foutmatrix.write('%s ' %start)
+                foutmatrix.write('%s ' % start)
             if count != 1 and count % 10 == 0:
                 foutmatrix.write('\n')
                 foutmatrix.write('          ')
-            elif count % 10 != 0 and count == len(startVertices): # count == (len(startVertices) -1):
+            # count == (len(startVertices) -1):
+            elif count % 10 != 0 and count == len(startVertices):
                 foutmatrix.write('\n')
-                
+
         for i, start in enumerate(startVertices):
             subtotal = 0.
             foutmatrix.write('*  %s\n' % startVertices[i])
@@ -270,16 +289,17 @@ def main():
                 if k % 10 == 0:
                     foutmatrix.write('\n')
                     foutmatrix.write('         ')
-                elif k % 10 != 0 and j == (len(endVertices)-1):
+                elif k % 10 != 0 and j == (len(endVertices) - 1):
                     foutmatrix.write('\n')
             if options.verbose:
                 print 'origin:', startVertices[i]
-                print 'subtotal:',subtotal
-                foutlog.write('origin:%s, subtotal:%s\n' %(startVertices[i], subtotal))
+                print 'subtotal:', subtotal
+                foutlog.write('origin:%s, subtotal:%s\n' %
+                              (startVertices[i], subtotal))
         foutmatrix.close()
     if options.verbose:
         print 'done with generating', filename
-        
+
     if options.verbose:
         foutlog.close()
 main()

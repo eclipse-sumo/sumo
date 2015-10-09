@@ -1,0 +1,26 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+   <vType id="truck" sigma="0" length="25" containerCapacity="1"/>
+    <container id="container0" depart="0">
+        <tranship from="2/3to1/3" to="1/3to0/3" departPos="80" arrivalPos="55"/>
+        <transport from="1/3to0/3" to="0/4to1/4" lines="truck0"/>
+    </container>
+    
+    <container id="container1" depart="0">
+        <tranship from="2/3to1/3" to="1/3to0/3" departPos="80" arrivalPos="55"/>
+        <transport from="1/3to0/3" to="0/4to1/4" lines="truck1"/>
+    </container>
+
+    <vehicle id="truck0" depart="50" type="truck">
+        <route edges="1/4to1/3 1/3to0/3 0/3to0/4 0/4to1/4 1/4to1/3"/>
+        <stop containerStop="containerStop0" until="120" duration="10"/>
+        <stop containerStop="containerStop1" until="180" duration="10"/>
+    </vehicle>
+
+    <vehicle id="truck1" depart="50" type="truck">
+        <route edges="1/4to1/3 1/3to0/3 0/3to0/4 0/4to1/4 1/4to1/3"/>
+        <stop containerStop="containerStop0" until="120" duration="10"/>
+        <stop containerStop="containerStop1" until="180" duration="10"/>
+    </vehicle>
+
+</routes>

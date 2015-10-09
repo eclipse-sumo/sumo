@@ -64,3 +64,4 @@ resume_from_stop_triggered
 
 # resuming from a parking stop
 resume_from_stop_parking
+MoveToVTD

@@ -10,7 +10,7 @@ This script executes a config repeatedly and measures the execution time,
  computes the mean values and deviation.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -18,11 +18,14 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys, subprocess, numpy
+import os
+import sys
+import subprocess
+import numpy
 from optparse import OptionParser
 from datetime import datetime
 
-# initialise 
+# initialise
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
@@ -33,7 +36,8 @@ optParser.add_option("-r", "--repeat", type="int", default="20",
 # parse options
 (options, args) = optParser.parse_args()
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', 'bin', 'sumo'))
+sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
+    os.path.dirname(sys.argv[0]), '..', '..', 'bin', 'sumo'))
 elapsed = []
 for run in range(options.repeat):
     before = datetime.now()

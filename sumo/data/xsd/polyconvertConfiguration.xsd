@@ -38,6 +38,7 @@
 
     <xsd:complexType name="outputType">
         <xsd:all>
+            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -51,6 +52,7 @@
             <xsd:element name="proj" type="strOptionType" minOccurs="0"/>
             <xsd:element name="proj.inverse" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="proj.dhdnutm" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj.plain-geo" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -70,6 +72,7 @@
             <xsd:element name="offset.y" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="all-attributes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="poi-layer-offset" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

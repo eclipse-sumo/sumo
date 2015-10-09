@@ -1,0 +1,6 @@
+<add>
+    <busStop id="busstop1" lane="2fi_0" startPos="20" endPos="30" lines="foo"/>
+    <route id="withStop" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si">
+        <stop busStop="busstop1" duration="3"/>
+    </route>
+</add>

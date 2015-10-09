@@ -9,7 +9,7 @@
 // The router's network representation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -53,19 +53,38 @@
 
 
 // ===========================================================================
+// static member definitions
+// ===========================================================================
+RONet* RONet::myInstance = 0;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
+RONet*
+RONet::getInstance(void) {
+    if (myInstance != 0) {
+        return myInstance;
+    }
+    throw ProcessError("A network was not yet constructed.");
+}
+
+
 RONet::RONet()
     : myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
       myRoutesOutput(0), myRouteAlternativesOutput(0), myTypesOutput(0),
       myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
-      myHaveRestrictions(false),
+      myHavePermissions(false),
       myNumInternalEdges(0),
       myErrorHandler(OptionsCont::getOptions().exists("ignore-errors")
                      && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+    if (myInstance != 0) {
+        throw ProcessError("A network was already constructed.");
+    }
     SUMOVTypeParameter* type = new SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_IGNORING);
     type->onlyReferenced = true;
     myVehicleTypes.add(type->id, type);
+    myInstance = this;
 }
 
 
@@ -78,6 +97,22 @@ RONet::~RONet() {
 }
 
 
+void
+RONet::addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed) {
+    myRestrictions[id][svc] = speed;
+}
+
+
+const std::map<SUMOVehicleClass, SUMOReal>*
+RONet::getRestrictions(const std::string& id) const {
+    std::map<std::string, std::map<SUMOVehicleClass, SUMOReal> >::const_iterator i = myRestrictions.find(id);
+    if (i == myRestrictions.end()) {
+        return 0;
+    }
+    return &i->second;
+}
+
+
 bool
 RONet::addEdge(ROEdge* edge) {
     if (!myEdges.add(edge->getID(), edge)) {
@@ -85,7 +120,7 @@ RONet::addEdge(ROEdge* edge) {
         delete edge;
         return false;
     }
-    if (edge->getType() == ROEdge::ET_INTERNAL) {
+    if (edge->getFunc() == ROEdge::ET_INTERNAL) {
         myNumInternalEdges += 1;
     }
     return true;
@@ -100,9 +135,9 @@ RONet::addDistrict(const std::string id, ROEdge* source, ROEdge* sink) {
         delete sink;
         return false;
     }
-    sink->setType(ROEdge::ET_DISTRICT);
+    sink->setFunc(ROEdge::ET_DISTRICT);
     addEdge(sink);
-    source->setType(ROEdge::ET_DISTRICT);
+    source->setFunc(ROEdge::ET_DISTRICT);
     addEdge(source);
     myDistricts[id] = std::make_pair(std::vector<std::string>(), std::vector<std::string>());
     return true;
@@ -148,6 +183,17 @@ RONet::addBusStop(const std::string& id, SUMOVehicleParameter::Stop* stop) {
         delete stop;
     }
     myBusStops[id] = stop;
+}
+
+
+void
+RONet::addContainerStop(const std::string& id, SUMOVehicleParameter::Stop* stop) {
+    std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myContainerStops.find(id);
+    if (it != myContainerStops.end()) {
+        WRITE_ERROR("The container stop '" + id + "' occurs at least twice.");
+        delete stop;
+    }
+    myContainerStops[id] = stop;
 }
 
 
@@ -203,7 +249,7 @@ RONet::cleanup(SUMOAbstractRouter<ROEdge, ROVehicle>* router) {
 
 
 SUMOVTypeParameter*
-RONet::getVehicleTypeSecure(const std::string& id, bool defaultIfMissing) {
+RONet::getVehicleTypeSecure(const std::string& id) {
     // check whether the type was already known
     SUMOVTypeParameter* type = myVehicleTypes.get(id);
     if (id == DEFAULT_VTYPE_ID) {
@@ -216,7 +262,7 @@ RONet::getVehicleTypeSecure(const std::string& id, bool defaultIfMissing) {
     if (it2 != myVTypeDistDict.end()) {
         return it2->second->get();
     }
-    if (id == "" || defaultIfMissing) {
+    if (id == "") {
         // ok, no vehicle type or an unknown type was given within the user input
         //  return the default type
         myDefaultVTypeMayBeDeleted = false;
@@ -298,6 +344,11 @@ RONet::addPerson(const SUMOTime depart, const std::string desc) {
     myPersons.insert(std::pair<const SUMOTime, const std::string>(depart, desc));
 }
 
+void
+RONet::addContainer(const SUMOTime depart, const std::string desc) {
+    myContainers.insert(std::pair<const SUMOTime, const std::string>(depart, desc));
+}
+
 
 bool
 RONet::computeRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
@@ -350,7 +401,13 @@ RONet::checkFlows(SUMOTime time) {
                     newPars->depart = pars->depart;
                     pars->repetitionsDone++;
                     // try to build the vehicle
-                    SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid, true);
+                    SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                    if (type == 0) {
+                        type = getVehicleTypeSecure(DEFAULT_VTYPE_ID);
+                    } else {
+                        // fix the type id in case we used a distribution
+                        newPars->vtypeid = type->id;
+                    }
                     RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
                     ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
                     addVehicle(newPars->id, veh);
@@ -375,7 +432,13 @@ RONet::checkFlows(SUMOTime time) {
                 newPars->depart = depart;
                 pars->repetitionsDone++;
                 // try to build the vehicle
-                SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid, true);
+                SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                if (type == 0) {
+                    type = getVehicleTypeSecure(DEFAULT_VTYPE_ID);
+                } else {
+                    // fix the type id in case we used a distribution
+                    newPars->vtypeid = type->id;
+                }
                 RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
                 ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
                 addVehicle(newPars->id, veh);
@@ -392,6 +455,50 @@ RONet::checkFlows(SUMOTime time) {
 }
 
 
+void
+RONet::createBulkRouteRequests(SUMOAbstractRouter<ROEdge, ROVehicle>& router, const SUMOTime time, const bool removeLoops, const std::map<std::string, ROVehicle*>& mmap) {
+    std::map<const unsigned int, std::vector<ROVehicle*> > bulkVehs;
+    for (std::map<std::string, ROVehicle*>::const_iterator i = mmap.begin(); i != mmap.end(); ++i) {
+        ROVehicle* const vehicle = i->second;
+        if (vehicle->getDepart() < time) {
+            const RORoute* const stub = vehicle->getRouteDefinition()->getFirstRoute();
+            bulkVehs[stub->getFirst()->getNumericalID()].push_back(vehicle);
+            ROVehicle* const first = bulkVehs[stub->getFirst()->getNumericalID()].front();
+            if (first->getMaxSpeed() != vehicle->getMaxSpeed()) {
+                WRITE_WARNING("Bulking different maximum speeds ('" + first->getID() + "' and '" + vehicle->getID() + "') may lead to suboptimal routes.");
+            }
+            if (first->getVClass() != vehicle->getVClass()) {
+                WRITE_WARNING("Bulking different vehicle classes ('" + first->getID() + "' and '" + vehicle->getID() + "') may lead to invalid routes.");
+            }
+        }
+    }
+    int workerIndex = 0;
+    for (std::map<const unsigned int, std::vector<ROVehicle*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
+#ifdef HAVE_FOX
+        if (myThreadPool.size() > 0) {
+            ROVehicle* const first = i->second.front();
+            myThreadPool.add(new RoutingTask(first, removeLoops, myErrorHandler), workerIndex);
+            myThreadPool.add(new BulkmodeTask(true), workerIndex);
+            for (std::vector<ROVehicle*>::const_iterator j = i->second.begin() + 1; j != i->second.end(); ++j) {
+                myThreadPool.add(new RoutingTask(*j, removeLoops, myErrorHandler), workerIndex);
+            }
+            myThreadPool.add(new BulkmodeTask(false), workerIndex);
+            workerIndex++;
+            if (workerIndex == (int)myThreadPool.size()) {
+                workerIndex = 0;
+            }
+            continue;
+        }
+#endif
+        for (std::vector<ROVehicle*>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
+            (*j)->setRoutingSuccess(computeRoute(router, *j, removeLoops, myErrorHandler));
+            router.setBulkMode(true);
+        }
+        router.setBulkMode(false);
+    }
+}
+
+
 SUMOTime
 RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                 SUMOTime time) {
@@ -403,43 +510,56 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
 #endif
     if (myVehicles.size() != 0) {
         const std::map<std::string, ROVehicle*>& mmap = myVehicles.getMyMap();
-        for (std::map<std::string, ROVehicle*>::const_iterator i = mmap.begin(); i != mmap.end(); ++i) {
-            if (i->second->getDepart() >= time) {
-                // we cannot go through a sorted list here, because the priority queue in the myVehicles container is not fully sorted
-                continue;
-            }
-            i->second->setRoutingSuccess(false);
+        if (options.getBool("bulk-routing")) {
 #ifdef HAVE_FOX
-            // add thread if necessary
-            const int numThreads = (int)myThreadPool.size();
-            if (numThreads < maxNumThreads && myThreadPool.isFull()) {
-                new WorkerThread(myThreadPool, numThreads == 0 ? &router : router.clone());
-            }
-            // add task
-            if (maxNumThreads > 0) {
-                myThreadPool.add(new RoutingTask(i->second, removeLoops, myErrorHandler));
-                continue;
+            while ((int)myThreadPool.size() < maxNumThreads) {
+                new WorkerThread(myThreadPool, myThreadPool.size() == 0 ? &router : router.clone());
             }
 #endif
-            i->second->setRoutingSuccess(computeRoute(router, i->second, removeLoops, myErrorHandler));
+            createBulkRouteRequests(router, time, removeLoops, mmap);
+        } else {
+            for (std::map<std::string, ROVehicle*>::const_iterator i = mmap.begin(); i != mmap.end(); ++i) {
+                ROVehicle* const vehicle = i->second;
+                if (vehicle->getDepart() >= time) {
+                    // we cannot go through a sorted list here, because the priority queue in the myVehicles container is not fully sorted
+                    continue;
+                }
+#ifdef HAVE_FOX
+                // add task
+                if (maxNumThreads > 0) {
+                    vehicle->setRoutingSuccess(false);
+                    // add thread if necessary
+                    const int numThreads = (int)myThreadPool.size();
+                    if (numThreads < maxNumThreads && myThreadPool.isFull()) {
+                        new WorkerThread(myThreadPool, numThreads == 0 ? &router : router.clone());
+                    }
+                    myThreadPool.add(new RoutingTask(vehicle, removeLoops, myErrorHandler));
+                    continue;
+                }
+#endif
+                vehicle->setRoutingSuccess(computeRoute(router, vehicle, removeLoops, myErrorHandler));
+            }
         }
 #ifdef HAVE_FOX
         myThreadPool.waitAll();
 #endif
     }
     // write all vehicles (and additional structures)
-    while (myVehicles.size() != 0 || myPersons.size() != 0) {
-        // get the next vehicle and person
+    while (myVehicles.size() != 0 || myPersons.size() != 0 || myContainers.size() != 0) {
+        // get the next vehicle, person or container
         const ROVehicle* const veh = myVehicles.getTopVehicle();
         const SUMOTime vehicleTime = veh == 0 ? SUMOTime_MAX : veh->getDepart();
         PersonMap::iterator person = myPersons.begin();
         const SUMOTime personTime = person == myPersons.end() ? SUMOTime_MAX : person->first;
+        ContainerMap::iterator container = myContainers.begin();
+        const SUMOTime containerTime = container == myContainers.end() ? SUMOTime_MAX : container->first;
         // check whether it shall not yet be computed
-        if (vehicleTime >= time && personTime >= time) {
-            lastTime = MIN2(vehicleTime, personTime);
+        if (vehicleTime >= time && personTime >= time && containerTime >= time) {
+            lastTime = MIN3(vehicleTime, personTime, containerTime);
             break;
         }
-        if (vehicleTime < personTime) {
+        SUMOTime minTime = MIN3(vehicleTime, personTime, containerTime);
+        if (vehicleTime == minTime) {
             // check whether to print the output
             if (lastTime != vehicleTime && lastTime != -1) {
                 // report writing progress
@@ -452,7 +572,11 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
             // ok, compute the route (try it)
             if (veh->getRoutingSuccess()) {
                 // write the route
-                veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options.getBool("exit-times"));
+                veh->saveTypeAsXML(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput);
+                veh->saveAllAsXML(*myRoutesOutput, false, options.getBool("exit-times"));
+                if (myRouteAlternativesOutput != 0) {
+                    veh->saveAllAsXML(*myRouteAlternativesOutput, true, options.getBool("exit-times"));
+                }
                 myWrittenRouteNo++;
             } else {
                 myDiscardedRouteNo++;
@@ -464,12 +588,20 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
                 }
             }
             myVehicles.erase(veh->getID());
-        } else {
+        }
+        if (personTime == minTime) {
             myRoutesOutput->writePreformattedTag(person->second);
             if (myRouteAlternativesOutput != 0) {
                 myRouteAlternativesOutput->writePreformattedTag(person->second);
             }
             myPersons.erase(person);
+        }
+        if (containerTime == minTime) {
+            myRoutesOutput->writePreformattedTag(container->second);
+            if (myRouteAlternativesOutput != 0) {
+                myRouteAlternativesOutput->writePreformattedTag(container->second);
+            }
+            myContainers.erase(container);
         }
     }
     return lastTime;
@@ -478,7 +610,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
 
 bool
 RONet::furtherStored() {
-    return myVehicles.size() > 0 || myFlows.size() > 0 || myPersons.size() > 0;
+    return myVehicles.size() > 0 || myFlows.size() > 0 || myPersons.size() > 0 || myContainers.size() > 0;
 }
 
 
@@ -501,14 +633,14 @@ RONet::getEdgeMap() const {
 
 
 bool
-RONet::hasRestrictions() const {
-    return myHaveRestrictions;
+RONet::hasPermissions() const {
+    return myHavePermissions;
 }
 
 
 void
-RONet::setRestrictionFound() {
-    myHaveRestrictions = true;
+RONet::setPermissionsFound() {
+    myHavePermissions = true;
 }
 
 

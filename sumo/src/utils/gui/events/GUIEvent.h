@@ -7,7 +7,7 @@
 // Definition of an own event class
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -58,6 +58,10 @@ enum GUIEventType {
     /** @brief Send when the simulation is over;
         The reason and the time step are stored within the event */
     EVENT_SIMULATION_ENDED,
+
+    /** @brief Send when a screenshot is requested;
+        View and file name are stored within the event */
+    EVENT_SCREENSHOT,
 
     /// End of events list; use this to define new
     EVENT_END

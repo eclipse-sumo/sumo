@@ -8,7 +8,7 @@
 // The application-settings dialog
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -71,6 +71,9 @@ public:
 
     /// @brief Called on "Allow textures"-button change
     long onCmdAllowTextures(FXObject*, FXSelector, void*);
+
+    /// @brief Called on "Locate links in messages"-button change
+    long onCmdLocateLinks(FXObject*, FXSelector, void*);
     /// @}
 
 
@@ -80,6 +83,9 @@ private:
 
     /// @brief Information whether textures may be used
     bool myAllowTextures;
+
+    /// @brief Information whether locate links appear in messages
+    bool myLocateLinks;
 
 
 protected:

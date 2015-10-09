@@ -9,7 +9,7 @@
 // Main for DUAROUTER
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -47,7 +47,6 @@
 #include <utils/vehicle/DijkstraRouterTT.h>
 #include <utils/vehicle/DijkstraRouterEffort.h>
 #include <utils/vehicle/AStarRouter.h>
-#include <utils/vehicle/BulkStarRouter.h>
 #include <utils/vehicle/CHRouter.h>
 #include <utils/vehicle/CHRouterWrapper.h>
 #include "RODUAEdgeBuilder.h"
@@ -83,14 +82,15 @@
 void
 initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // load the net
-    RODUAEdgeBuilder builder(oc.getBool("weights.expand"), oc.getBool("weights.interpolate"));
+    RODUAEdgeBuilder builder;
+    ROEdge::setGlobalOptions(oc.getBool("weights.interpolate"), oc.getInt("routing-threads") > 1);
     loader.loadNet(net, builder);
     // load the weights when wished/available
     if (oc.isSet("weight-files")) {
-        loader.loadWeights(net, "weight-files", oc.getString("weight-attribute"), false);
+        loader.loadWeights(net, "weight-files", oc.getString("weight-attribute"), false, oc.getBool("weights.expand"));
     }
     if (oc.isSet("lane-weight-files")) {
-        loader.loadWeights(net, "lane-weight-files", oc.getString("weight-attribute"), true);
+        loader.loadWeights(net, "lane-weight-files", oc.getString("weight-attribute"), true, oc.getBool("weights.expand"));
     }
 }
 
@@ -118,38 +118,30 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
     if (measure == "traveltime") {
         if (routingAlgorithm == "dijkstra") {
-            if (net.hasRestrictions()) {
-                router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+            if (net.hasPermissions()) {
+                router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             } else {
-                router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                router = new DijkstraRouterTT<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             }
         } else if (routingAlgorithm == "astar") {
-            if (net.hasRestrictions()) {
-                router = new AStarRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+            if (net.hasPermissions()) {
+                router = new AStarRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             } else {
-                router = new AStarRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                router = new AStarRouter<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
-            }
-        } else if (routingAlgorithm == "bulkstar") {
-            if (net.hasRestrictions()) {
-                router = new BulkStarRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, &ROEdge::getMinimumTravelTime);
-            } else {
-                router = new BulkStarRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, &ROEdge::getMinimumTravelTime);
             }
         } else if (routingAlgorithm == "CH") {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
-            if (net.hasRestrictions()) {
-                router = new CHRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+            if (net.hasPermissions()) {
+                router = new CHRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, true);
             } else {
-                router = new CHRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                router = new CHRouter<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, false);
             }
         } else if (routingAlgorithm == "CHWrapper") {
@@ -158,13 +150,13 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
 
-            router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+            router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, begin, weightPeriod);
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
     } else {
-        DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
+        DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >::Operation op;
         if (measure == "CO") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO>;
         } else if (measure == "CO2") {
@@ -182,24 +174,19 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         } else {
             throw ProcessError("Unknown measure (weight attribute '" + measure + "')!");
         }
-        if (net.hasRestrictions()) {
-            router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+        if (net.hasPermissions()) {
+            router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
         } else {
-            router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+            router = new DijkstraRouterEffort<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
         }
     }
     net.openOutput(filename, altFilename, oc.getString("vtype-output"));
     // process route definitions
     try {
-        if (routingAlgorithm == "bulkstar") {
-            // need to load all routes for spatial aggregation
-            loader.processAllRoutesWithBulkRouter(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
-        } else {
-            loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
-                                 string2time(oc.getString("route-steps")), net, *router);
-        }
+        loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
+                             string2time(oc.getString("route-steps")), net, *router);
         // end the processing
         net.cleanup(router);
     } catch (ProcessError&) {
@@ -223,7 +210,8 @@ main(int argc, char** argv) {
     try {
         XMLSubSys::init();
         RODUAFrame::fillOptions();
-        OptionsIO::getOptions(true, argc, argv);
+        OptionsIO::setArgs(argc, argv);
+        OptionsIO::getOptions();
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;

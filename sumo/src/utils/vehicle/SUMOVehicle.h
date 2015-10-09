@@ -1,4 +1,4 @@
-/****************************************************************************/
+﻿/****************************************************************************/
 /// @file    SUMOVehicle.h
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
@@ -9,7 +9,7 @@
 // Abstract base class for vehicle representations
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -49,6 +49,7 @@ class MSEdge;
 class MSLane;
 class MSDevice;
 class MSPerson;
+class MSTransportable;
 class SUMOSAXAttributes;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
@@ -100,6 +101,11 @@ public:
      */
     virtual SUMOReal getSpeed() const = 0;
 
+    /** @brief Returns the lane the vehicle is on
+    * @return The vehicle's current lane
+    */
+    virtual MSLane* getLane() const = 0;
+
     /** @brief Returns the vehicle's type
      * @return The vehicle's type
      */
@@ -138,6 +144,12 @@ public:
      * @see replaceRoute
      */
     virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false) = 0;
+
+    /** @brief Validates the current route
+     * @param[out] msg Description why the route is not valid (if it is the case)
+     * @return Whether the vehicle's current route is valid
+     */
+    virtual bool hasValidRoute(std::string& msg) const = 0;
 
 
     /** @brief Returns an iterator pointing to the current edge in this vehicles route
@@ -179,6 +191,11 @@ public:
      */
     virtual bool isOnRoad() const = 0;
 
+    /** @brief Returns the information whether the vehicle is parked
+     * @return Whether the vehicle is parked
+     */
+    virtual bool isParking() const = 0;
+
     /** @brief Returns this vehicle's real departure time
      * @return This vehicle's real departure time
      */
@@ -189,6 +206,10 @@ public:
      * @return This vehicle's real arrivalPos
      */
     virtual SUMOReal getArrivalPos() const = 0;
+
+    /** @brief Sets this vehicle's desired arrivalPos for its current route
+     */
+    virtual void setArrivalPos(SUMOReal arrivalPos) = 0;
 
     /** @brief Returns whether this vehicle has departed
      */
@@ -214,7 +235,15 @@ public:
      *
      * @param[in] person The person to add
      */
-    virtual void addPerson(MSPerson* person) = 0;
+    virtual void addPerson(MSTransportable* person) = 0;
+
+    /** @brief Adds a container to this vehicle
+     *
+     * May do nothing since containers are not supported by default
+     *
+     * @param[in] container The container to add
+     */
+    virtual void addContainer(MSTransportable* container) = 0;
 
     /** @brief Adds a stop
      *
@@ -228,6 +257,11 @@ public:
      * @return Whether the has stopped
      */
     virtual bool isStopped() const = 0;
+
+
+    /** @brief Returns whether the vehicle is at a stop and waiting for a person or container to continue
+     */
+    virtual bool isStoppedTriggered() const = 0;
 
     /// @brief Returns a device of the given type if it exists or 0
     virtual MSDevice* getDevice(const std::type_info& type) const = 0;

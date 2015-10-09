@@ -9,7 +9,7 @@
 // A connnection between lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -141,8 +141,9 @@ public:
      * @param[in] dir The direction of this link
      * @param[in] state The state of this link
      * @param[in] length The length of this link
+     * @param[in] keepClear Whether the junction after this link must be kept clear
      */
-    MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length);
+    MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear);
 #else
     /** @brief Constructor for simulation which uses internal lanes
      *
@@ -152,7 +153,7 @@ public:
      * @param[in] state The state of this link
      * @param[in] length The length of this link
      */
-    MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length);
+    MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear);
 #endif
 
 
@@ -278,6 +279,13 @@ public:
     MSLane* getLane() const;
 
 
+    /** @brief Returns the lane leading to this link
+     *
+     * @return The lane leading to this link
+     */
+    MSLane* getApproachingLane() const;
+
+
     /** @brief Returns the respond index (for visualization)
      *
      * @return The respond index for this link
@@ -323,6 +331,11 @@ public:
         return myAmCont;
     }
 
+
+    /// @brief whether the junction after this link must be kept clear
+    bool keepClear() const {
+        return myKeepClear;
+    }
 
     /// @brief whether this is a link past an internal junction which currently has priority
     bool lastWasContMajor() const;
@@ -372,7 +385,7 @@ private:
     static bool maybeOccupied(MSLane* lane);
 
 private:
-    /// @brief The lane approached by this link
+    /// @brief The lane (but the internal one) approached by this link
     MSLane* myLane;
 
     std::map<const SUMOVehicle*, ApproachingVehicleInformation> myApproachingVehicles;
@@ -397,6 +410,8 @@ private:
     bool myHasFoes;
 
     bool myAmCont;
+
+    bool myKeepClear;
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used

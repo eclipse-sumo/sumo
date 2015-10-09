@@ -9,7 +9,7 @@
 // The Intelligent Driver Model (IDM) car-following model
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -157,10 +157,6 @@ private:
 private:
     SUMOReal _v(const MSVehicle* const veh, const SUMOReal gap2pred, const SUMOReal mySpeed,
                 const SUMOReal predSpeed, const SUMOReal desSpeed, const bool respectMinGap = true) const;
-
-    SUMOReal desiredSpeed(const MSVehicle* const veh) const {
-        return MIN2(myType->getMaxSpeed(), veh->getLane()->getVehicleMaxSpeed(veh));
-    }
 
 
 private:

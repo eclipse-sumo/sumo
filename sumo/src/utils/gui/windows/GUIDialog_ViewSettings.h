@@ -9,7 +9,7 @@
 // The dialog to change the view (gui) settings.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -221,7 +221,7 @@ private:
     /** @brief Writes the currently used decals into a file
      * @param[in] file The name of the file to write the decals into
      */
-    void saveDecals(const std::string& file) const;
+    void saveDecals(OutputDevice& dev) const;
 
 
     /** @brief Loads decals from a file
@@ -293,13 +293,20 @@ private:
     std::vector<FXButton*> myPersonButtons;
     FXCheckButton* myPersonColorInterpolation;
 
+    FXComboBox* myContainerColorMode, *myContainerShapeDetail;
+    FXVerticalFrame* myContainerColorSettingFrame;
+    std::vector<FXColorWell*> myContainerColors;
+    std::vector<FXRealSpinDial*> myContainerThresholds;
+    std::vector<FXButton*> myContainerButtons;
+    FXCheckButton* myContainerColorInterpolation;
+    FXRealSpinDial* myContainerMinSizeDialer, *myContainerUpscaleDialer;
+
     FXComboBox* myJunctionColorMode;
     FXVerticalFrame* myJunctionColorSettingFrame;
     std::vector<FXColorWell*> myJunctionColors;
     std::vector<FXRealSpinDial*> myJunctionThresholds;
     std::vector<FXButton*> myJunctionButtons;
     FXCheckButton* myJunctionColorInterpolation;
-    FXCheckButton* myShowTLIndex, *myShowJunctionIndex;
 
     FXCheckButton* myShowLane2Lane;
     FXCheckButton* myDrawJunctionShape;
@@ -308,15 +315,16 @@ private:
     FXCheckButton* myShowSizeLegend;
 
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel,
+               *myJunctionIndexPanel, *myTLIndexPanel,
                *myJunctionNamePanel, *myInternalJunctionNamePanel,
-               *myVehicleNamePanel, *myPersonNamePanel,
-               *myAddNamePanel, *myPOINamePanel, *myPolyNamePanel;
+               *myVehicleNamePanel, *myPersonNamePanel, *myContainerNamePanel,
+               *myAddNamePanel, *myPOINamePanel, *myPolyNamePanel, *myPOITypePanel, *myPolyTypePanel;
 
-    SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel;
+    SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel;
 
 
     // load/save-menu
-    FXCheckButton *mySaveViewPort, *mySaveDelay;
+    FXCheckButton* mySaveViewPort, *mySaveDelay, *mySaveDecals;
     /// @}
 
 

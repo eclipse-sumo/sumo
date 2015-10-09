@@ -10,7 +10,7 @@
 // Main for NETGENERATE
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -211,7 +211,8 @@ main(int argc, char** argv) {
         // initialise the application system (messaging, xml, options)
         XMLSubSys::init();
         fillOptions();
-        OptionsIO::getOptions(true, argc, argv);
+        OptionsIO::setArgs(argc, argv);
+        OptionsIO::getOptions();
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;

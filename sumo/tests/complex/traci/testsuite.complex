@@ -16,3 +16,6 @@ closingOutput
 # Tests for context subscriptions
 contextSubscriptions
 bugs
+
+# Test for many screenshots
+b50

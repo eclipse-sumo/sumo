@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 10Sep13:15:28]
+search_string:<phase duration="6" state="rrrrGrG"/>
+trigger_on_absence:1
+search_file:net
+full_description:crossing that never gets green
+brief_description:see #1363

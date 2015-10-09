@@ -8,7 +8,7 @@
 Handler for loggers from logging module. Collects all log messages.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -19,7 +19,9 @@ the Free Software Foundation; either version 3 of the License, or
 
 import logging
 
+
 class CollectingHandler(logging.Handler):
+
     """ Handler for loggers from logging module. Collects all log messages. """
 
     def __init__(self, level=0):
@@ -36,5 +38,4 @@ class CollectingHandler(logging.Handler):
     def emit(self, record):
         """ See logging.Handler.emit(self, record) docs. """
 
-        pass # do not emit the record. Other handlers can do that. 
-
+        pass  # do not emit the record. Other handlers can do that.

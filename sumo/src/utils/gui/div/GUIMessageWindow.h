@@ -8,7 +8,7 @@
 // A logging window for the gui
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2003-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2003-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -35,6 +35,12 @@
 #include <fx.h>
 #include <utils/gui/events/GUIEvent.h>
 #include <utils/iodevices/OutputDevice.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class GUIGlObject;
 
 
 // ===========================================================================
@@ -65,8 +71,7 @@ public:
     ~GUIMessageWindow();
 
 
-    /// @brief Adds a a separator to this log window
-    void addSeparator();
+    virtual void setCursorPos(FXint pos, FXbool notify=FALSE);
 
 
     /** @brief Adds new text to the window
@@ -80,12 +85,26 @@ public:
     void appendMsg(GUIEventType eType, const std::string& msg);
 
 
+    /// @brief Adds a a separator to this log window
+    void addSeparator();
+
+
     /// @brief Clears the window
     void clear();
 
     /// @brief register and unregister message handlers
     void registerMsgHandlers();
     void unregisterMsgHandlers();
+
+    /// @brief switch locate links on and off
+    static void enableLocateLinks(const bool val) {
+        myLocateLinks = val;
+    }
+
+    /// @brief ask whether locate links is enabled
+    static bool locateLinksEnabled() {
+        return myLocateLinks;
+    }
 
 
 private:
@@ -112,8 +131,13 @@ private:
         GUIEventType myType;
     };
 
+    const GUIGlObject* getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
 
 private:
+
+    /// @brief whether messages are linked to the GUI elements
+    static bool myLocateLinks;
+
     /// @brief The text colors used
     FXHiliteStyle* myStyles;
 

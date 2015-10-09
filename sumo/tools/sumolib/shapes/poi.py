@@ -10,7 +10,7 @@
 Library for reading and storing PoIs.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2010-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2010-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -22,7 +22,9 @@ the Free Software Foundation; either version 3 of the License, or
 from xml.sax import handler, parse
 from .. import color
 
+
 class PoI:
+
     def __init__(self, id, type, layer, color, x, y, lane=None, pos=None, lonLat=False):
         """interpret x,y as lon,lat if lonLat is True"""
         self.id = id
@@ -38,12 +40,15 @@ class PoI:
 
     def toXML(self):
         if self.lane:
-            ret = '<poi id="%s" type="%s" color="%s" layer="%s" lane="%s" pos="%s"' % (self.id, self.type, self.color.toXML(), self.layer, self.lane, self.pos)
+            ret = '<poi id="%s" type="%s" color="%s" layer="%s" lane="%s" pos="%s"' % (
+                self.id, self.type, self.color.toXML(), self.layer, self.lane, self.pos)
         elif self.lonLat:
-            ret = '<poi id="%s" type="%s" color="%s" layer="%s" lon="%s" lat="%s"' % (self.id, self.type, self.color.toXML(), self.layer, self.x, self.y)
+            ret = '<poi id="%s" type="%s" color="%s" layer="%s" lon="%s" lat="%s"' % (
+                self.id, self.type, self.color.toXML(), self.layer, self.x, self.y)
         else:
-            ret = '<poi id="%s" type="%s" color="%s" layer="%s" x="%s" y="%s"' % (self.id, self.type, self.color.toXML(), self.layer, self.x, self.y)
-        if len(self.attributes)==0:
+            ret = '<poi id="%s" type="%s" color="%s" layer="%s" x="%s" y="%s"' % (
+                self.id, self.type, self.color.toXML(), self.layer, self.x, self.y)
+        if len(self.attributes) == 0:
             ret += '/>'
         else:
             ret += '>'
@@ -54,6 +59,7 @@ class PoI:
 
 
 class PoIReader(handler.ContentHandler):
+
     def __init__(self):
         self._id2poi = {}
         self._pois = []
@@ -64,22 +70,25 @@ class PoIReader(handler.ContentHandler):
             c = color.decodeXML(attrs['color'])
             if not attrs.has_key('lane'):
                 if not attrs.has_key('x'):
-                    poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, float(attrs['lon']), float(attrs['lat']), lonLat=True)
+                    poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, float(
+                        attrs['lon']), float(attrs['lat']), lonLat=True)
                 else:
-                    poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, float(attrs['x']), float(attrs['y']))
+                    poi = PoI(attrs['id'], attrs['type'], float(
+                        attrs['layer']), c, float(attrs['x']), float(attrs['y']))
             else:
-                poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, None, None, attrs['lane'], float(attrs['pos']))
+                poi = PoI(attrs['id'], attrs['type'], float(
+                    attrs['layer']), c, None, None, attrs['lane'], float(attrs['pos']))
             self._id2poi[poi.id] = poi
             self._pois.append(poi)
             self._lastPOI = poi
-        if name == 'param' and self._lastPOI!=None:
+        if name == 'param' and self._lastPOI != None:
             self._lastPOI.attributes[attrs['key']] = attrs['value']
 
     def endElement(self, name):
         if name == 'poi':
             self._lastPOI = None
 
-    
+
 def read(filename):
     pois = PoIReader()
     parse(filename, pois)

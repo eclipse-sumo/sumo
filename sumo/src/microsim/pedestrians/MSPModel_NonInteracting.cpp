@@ -7,7 +7,7 @@
 // The pedestrian following model (prototype)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2014-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -170,6 +170,12 @@ MSPModel_NonInteracting::PState::getWaitingTime(const MSPerson::MSPersonStage_Wa
 SUMOReal
 MSPModel_NonInteracting::PState::getSpeed(const MSPerson::MSPersonStage_Walking& stage) const {
     return stage.getMaxSpeed();
+}
+
+
+const MSEdge*
+MSPModel_NonInteracting::PState::getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const {
+    return stage.getNextRouteEdge();
 }
 
 /****************************************************************************/

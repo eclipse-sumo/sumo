@@ -11,7 +11,7 @@
 // when constructing the full name
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -54,6 +54,8 @@ enum GUIGlObjectType {
     /// @brief a junction
     GLO_JUNCTION = 4,
     /// @brief a tl-logic
+    GLO_CROSSING = 5,
+    /// @brief a tl-logic
     GLO_TLLOGIC = 8,
     /// @brief a detector
     GLO_DETECTOR = 16,
@@ -69,8 +71,10 @@ enum GUIGlObjectType {
     GLO_VEHICLE = 512,
     /// @brief a person
     GLO_PERSON = 1024,
+    /// @brief a container
+    GLO_CONTAINER = 2048,
     /// @brief empty max
-    GLO_MAX = 2048
+    GLO_MAX = 4096
 
 };
 

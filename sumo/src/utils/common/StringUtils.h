@@ -9,7 +9,7 @@
 // Some static methods for string processing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -64,6 +64,12 @@ public:
     /// Builds a time string (hh:mm:ss) from the given seconds
     static std::string toTimeString(int time);
 
+    /// Checks whether a given string starts with the prefix
+    static bool startsWith(const std::string& str, const std::string prefix);
+
+    /// Checks whether a given string ends with the suffix
+    static bool endsWith(const std::string& str, const std::string suffix);
+
     /**
      * @brief Replaces the standard escapes by their XML entities.
      *
@@ -76,6 +82,14 @@ public:
 
     /// An empty string
     static std::string emptyString;
+
+    // the following methods stem from http://bogomip.net/blog/cpp-url-encoding-and-decoding/
+
+    static std::string urlEncode(const std::string& url, const std::string encodeWhich = "");
+    static std::string urlDecode(const std::string& encoded);
+
+    static std::string charToHex(unsigned char c);
+    static unsigned char hexToChar(const std::string& str);
 
 };
 

@@ -9,7 +9,7 @@
 // A lane area vehicles can halt at (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -66,7 +66,7 @@
 // ===========================================================================
 GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
                        SUMOReal frompos, SUMOReal topos)
-    : MSBusStop(id, lines, lane, frompos, topos),
+    : MSStoppingPlace(id, lines, lane, frompos, topos),
       GUIGlObject_AbstractAdd("busStop", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
     myFGShape.move2side((SUMOReal) 1.65);
@@ -116,7 +116,7 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem("begin position [m]", false, myBegPos);
     ret->mkItem("end position [m]", false, myEndPos);
-    ret->mkItem("person number [#]", true, new FunctionBinding<GUIBusStop, unsigned int>(this, &MSBusStop::getPersonNumber));
+    ret->mkItem("person number [#]", true, new FunctionBinding<GUIBusStop, unsigned int>(this, &MSStoppingPlace::getTransportableNumber));
     // close building
     ret->closeBuilding();
     return ret;
@@ -133,9 +133,9 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     size_t i;
     glTranslated(0, 0, getType());
     GLHelper::setColor(green);
-    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
-    // draw details unless zoomed out to far
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
+    // draw details unless zoomed out to far
     if (s.scale * exaggeration >= 10) {
         // draw the lines
         for (i = 0; i != myLines.size(); ++i) {
@@ -146,7 +146,6 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
             pfSetScale(1.f);
-            glScaled(exaggeration, exaggeration, 1);
             glTranslated(1.2, -(double)i, 0);
             pfDrawString(myLines[i].c_str());
             glPopMatrix();
@@ -163,13 +162,13 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(yellow);
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
         if (s.scale * exaggeration >= 4.5) {
-            GLHelper::drawText("H", Position(), .1, 1.6 * exaggeration, green, myFGSignRot);
+            GLHelper::drawText("H", Position(), .1, 1.6, green, myFGSignRot);
         }
     }
     glPopMatrix();
     glPopName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    for (std::vector<MSPerson*>::const_iterator i = myWaitingPersons.begin(); i != myWaitingPersons.end(); ++i) {
+    for (std::vector<MSTransportable*>::const_iterator i = myWaitingTransportables.begin(); i != myWaitingTransportables.end(); ++i) {
         glTranslated(0, 1, 0); // make multiple persons viewable
         static_cast<GUIPerson*>(*i)->drawGL(s);
     }

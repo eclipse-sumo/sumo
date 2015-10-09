@@ -15,7 +15,7 @@ todo:
 - make this read XML-files using an XML-API
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -25,16 +25,16 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-import os, sys
+import os
+import sys
 from optparse import OptionParser
+
 
 def getAttr(source, what):
     mbeg = source.find(what + "=")
     mbeg = source.find('"', mbeg) + 1
     mend = source.find('"', mbeg)
     return source[mbeg:mend]
-
-
 
 
 optParser = OptionParser()
@@ -57,13 +57,13 @@ if options.lsas:
     index = 0
     fd = open(options.lsas)
     for line in fd:
-        line = line.strip();
-        if line=="" or line[0]=='#':
+        line = line.strip()
+        if line == "" or line[0] == '#':
             continue
         (id, tls) = line.split(":")
         tls = tls.split(",")
-        if id=="tls":
-            if len(tls)>1:
+        if id == "tls":
+            if len(tls) > 1:
                 id = "j_" + str(index)
                 index = index + 1
             else:
@@ -78,8 +78,8 @@ lanes = {}
 if options.lanes:
     fd = open(options.lanes)
     for line in fd:
-        line = line.strip();
-        if line=="" or line[0]=='#':
+        line = line.strip()
+        if line == "" or line[0] == '#':
             continue
         (edge, laneNo) = line.split(":")
         if edge in lanes:
@@ -88,32 +88,30 @@ if options.lanes:
     fd.close()
 
 # patch
-	# edges
+    # edges
 fdi = open(options.edges)
 fdo = open(options.edges + ".new.xml", "w")
 for line in fdi:
-    if line.find("<edge ")>=0:
+    if line.find("<edge ") >= 0:
         id = getAttr(line, "id")
         if id in lanes:
             indexB = line.find("numLanes")
-            indexB = line.find('"', indexB)+1
+            indexB = line.find('"', indexB) + 1
             indexE = line.find('"', indexB)
             line = line[:indexB] + str(lanes[id]) + line[indexE:]
     fdo.write(line)
 fdo.close()
 fdi.close()
-	# nodes
+# nodes
 fdi = open(options.nodes)
 fdo = open(options.nodes + ".new.xml", "w")
 for line in fdi:
-    if line.find("<node ")>=0:
+    if line.find("<node ") >= 0:
         id = getAttr(line, "id")
         if id in lsas:
             indexE = line.find("/>")
-            line = line[:indexE] + " type=\"traffic_light\" tl=\"" + lsas[id] + "\"/>";
+            line = line[:indexE] + \
+                " type=\"traffic_light\" tl=\"" + lsas[id] + "\"/>"
     fdo.write(line)
 fdo.close()
 fdi.close()
-
-
-		

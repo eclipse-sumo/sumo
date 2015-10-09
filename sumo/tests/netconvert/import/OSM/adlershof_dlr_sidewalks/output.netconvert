@@ -1,23 +1,23 @@
+Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing types from 'input_types.typ.xml'... done.
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate edges... done.
 Parsing relations from osm-file 'osm.xml'... 
 done.
- Removed 24 traffic lights before loading plain-XML
+ Removed 30 traffic lights before loading plain-XML
  Import done:
-   460 nodes loaded.
+   466 nodes loaded.
    33 types loaded.
-   876 edges loaded.
+   882 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done.
 Joining junction clusters... 
 done.
- Joined 17 junction cluster(s).
+ Joined 19 junction cluster(s).
 Removing empty nodes and geometry nodes... done.
-   90 nodes removed.
+   95 nodes removed.
 Moving network to origin... done.
-Joining similar edges... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node shapes... 
@@ -34,14 +34,16 @@ Rechecking of lane endings... done.
 Assigning nodes to traffic lights... done.
 Computing traffic light control information... done.
 Computing node logics... done.
-Computing traffic light logics... done.
- 2 traffic light(s) computed.
+Computing traffic light logics... 
+done.
+ 3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 35
-  Priority junctions          : 228
-  Right-before-left junctions : 75
+  Dead-end junctions          : 29
+  Priority junctions          : 202
+  Right-before-left junctions : 65
  Network boundaries:
   Original boundary  : 13.45,52.42,13.58,52.46
   Applied offset     : -395408.93,-5809112.45

@@ -8,7 +8,7 @@
 Library for reading and encoding of colors.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2012-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -21,6 +21,7 @@ from xml.sax import handler, parse
 
 
 class RGBAColor:
+
     def __init__(self, r, g, b, a=None):
         self.r = r
         self.g = g
@@ -28,12 +29,11 @@ class RGBAColor:
         self.a = a
 
     def toXML(self):
-        if self.a!=None:
+        if self.a != None:
             return "%s,%s,%s,%s" % (self.r, self.g, self.b, self.a)
         else:
             return "%s,%s,%s" % (self.r, self.g, self.b)
 
-      
+
 def decodeXML(c):
     return RGBAColor(*[float(x) for x in c.split(",")])
-

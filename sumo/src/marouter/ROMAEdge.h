@@ -11,7 +11,7 @@
 // A basic edge for routing applications
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -86,17 +86,26 @@ public:
      */
     virtual void addSuccessor(ROEdge* s, std::string dir = "");
 
-    void setHelpFlow(const SUMOReal flow) {
-        myHelpFlow = flow;
+    void setFlow(const SUMOReal begin, const SUMOReal end, const SUMOReal flow) {
+        myFlow.add(begin, end, flow);
     }
 
-    SUMOReal getHelpFlow() const {
-        return myHelpFlow;
+    SUMOReal getFlow(const SUMOReal time) const {
+        return myFlow.getValue(time);
+    }
+
+    void setHelpFlow(const SUMOReal begin, const SUMOReal end, const SUMOReal flow) {
+        myHelpFlow.add(begin, end, flow);
+    }
+
+    SUMOReal getHelpFlow(const SUMOReal time) const {
+        return myHelpFlow.getValue(time);
     }
 
 private:
     std::set<ROMAEdge*> myLeftTurns;
-    SUMOReal myHelpFlow;
+    ValueTimeLine<SUMOReal> myFlow;
+    ValueTimeLine<SUMOReal> myHelpFlow;
 
 private:
     /// @brief Invalidated copy constructor

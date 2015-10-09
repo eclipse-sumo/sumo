@@ -10,7 +10,7 @@
 Runs the assignment tests.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -18,28 +18,35 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import glob, os, shutil, subprocess, time, optparse
+import glob
+import os
+import shutil
+import subprocess
+import time
+import optparse
+
 
 def detectCPUs():
     """Detects the number of effective CPUs in the system"""
-    #for Linux, Unix and MacOS
+    # for Linux, Unix and MacOS
     if hasattr(os, "sysconf"):
-        if os.sysconf_names.has_key("SC_NPROCESSORS_ONLN"): 
+        if os.sysconf_names.has_key("SC_NPROCESSORS_ONLN"):
             #Linux and Unix
             ncpus = os.sysconf("SC_NPROCESSORS_ONLN")
             if isinstance(ncpus, int) and ncpus > 0:
                 return ncpus
-        else: 
-            #MacOS X
+        else:
+            # MacOS X
             return int(os.popen2("sysctl -n hw.ncpu")[1].read())
-    #for Windows
+    # for Windows
     if os.environ.has_key("NUMBER_OF_PROCESSORS"):
-        ncpus = int(os.environ["NUMBER_OF_PROCESSORS"]);
+        ncpus = int(os.environ["NUMBER_OF_PROCESSORS"])
         if ncpus > 0:
             return ncpus
-    #return the default value
+    # return the default value
     return 1
-        
+
+
 def makeAndChangeDir(dirName):
     runID = 1
     fullName = "%s%03i" % (dirName, runID)
@@ -50,9 +57,10 @@ def makeAndChangeDir(dirName):
     os.chdir(fullName)
     return fullName
 
+
 def execute(command):
     if options.verbose:
-        print command 
+        print command
     os.system(command)
 
 optParser = optparse.OptionParser()
@@ -70,7 +78,8 @@ optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
 
 os.chdir("input")
 netFile = "../input/" + glob.glob("*.net.xml")[0]
-mtxNamesList = ",".join(["../input/" + item for item in sorted(glob.glob("*.fma"))])
+mtxNamesList = ",".join(
+    ["../input/" + item for item in sorted(glob.glob("*.fma"))])
 
 addFiles = ",".join(["../input/" + item for item in glob.glob("*.add.xml")])
 pyAdds = ""
@@ -94,12 +103,15 @@ if options.mesosim:
 if options.stats == 0:
     if not options.duaonly:
         succDir = makeAndChangeDir("../" + mesoAppendix + "successive")
-        execute("Assignment.py -e incremental -i 10 -d ../input/districts.xml -m %s -n %s" % (mtxNamesList, netFile))
+        execute("Assignment.py -e incremental -i 10 -d ../input/districts.xml -m %s -n %s" %
+                (mtxNamesList, netFile))
         if not options.od2trips:
             shutil.copy("%s/routes.rou.xml" % succDir, routes)
-            execute("route2trips.py %s > ../input/successive.trips.xml" % routes)
+            execute(
+                "route2trips.py %s > ../input/successive.trips.xml" % routes)
     duaDir = makeAndChangeDir("../" + mesoAppendix + "dua")
-    duaCall = "dua-iterate.py -e 90000 -C -n %s -t ../input/%s.trips.xml %s" % (netFile, trips, pyAdds)
+    duaCall = "dua-iterate.py -e 90000 -C -n %s -t ../input/%s.trips.xml %s" % (
+        netFile, trips, pyAdds)
     if options.mesosim:
         duaCall = duaCall + " --mesosim"
     duaProcess = subprocess.Popen(duaCall, shell=True)
@@ -110,7 +122,8 @@ if options.stats == 0:
                 time.sleep(1)
             shutil.copy("%s/trips_0.rou.xml" % duaDir, routes)
         shotDir = makeAndChangeDir("../" + mesoAppendix + "oneshot")
-        shotCall = "one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds)
+        shotCall = "one-shot.py -e 90000 -n %s -t %s %s" % (
+            netFile, routes, pyAdds)
         if options.mesosim:
             shotCall = shotCall + " --mesosim"
         if ncpus > 2:
@@ -118,9 +131,11 @@ if options.stats == 0:
         else:
             execute(shotCall)
         clogDir = makeAndChangeDir("../" + mesoAppendix + "clogit")
-        execute("Assignment.py -i 60 -d ../input/districts.xml -m %s -n %s %s" % (mtxNamesList, netFile, signalAdds))
+        execute("Assignment.py -i 60 -d ../input/districts.xml -m %s -n %s %s" %
+                (mtxNamesList, netFile, signalAdds))
         lohseDir = makeAndChangeDir("../" + mesoAppendix + "lohse")
-        execute("Assignment.py -e lohse -i 60 -d ../input/districts.xml -m %s -n %s %s" % (mtxNamesList, netFile, signalAdds))
+        execute("Assignment.py -e lohse -i 60 -d ../input/districts.xml -m %s -n %s %s" %
+                (mtxNamesList, netFile, signalAdds))
     if oneshotProcess:
         oneshotProcess.wait()
     duaProcess.wait()
@@ -130,7 +145,7 @@ else:
     clogDir = "../" + mesoAppendix + "clogit%03i" % options.stats
     lohseDir = "../" + mesoAppendix + "lohse%03i" % options.stats
     shotDir = "../" + mesoAppendix + "oneshot%03i" % options.stats
-    
+
 makeAndChangeDir("../" + mesoAppendix + "statistics")
 tripinfos = ""
 routes = []
@@ -138,23 +153,29 @@ for step in [0, 49]:
     tripinfofile = "tripinfo_dua_%s.xml" % step
     shutil.copy("%s/tripinfo_%s.xml" % (duaDir, step), tripinfofile)
     tripinfos += tripinfofile + ","
-    execute("networkStatistics.py -t tripinfo_dua_%s.xml -o networkStatistics_%s_%s.txt" % (step, os.path.basename(duaDir), step))
+    execute("networkStatistics.py -t tripinfo_dua_%s.xml -o networkStatistics_%s_%s.txt" %
+            (step, os.path.basename(duaDir), step))
     routes.append("%s/%s_%s.rou.xml" % (duaDir, trips, step))
 if not options.duaonly:
     for step in [-1, 15]:
-        tripinfofile =  "tripinfo_oneshot_%s.xml" % step
+        tripinfofile = "tripinfo_oneshot_%s.xml" % step
         shutil.copy("%s/tripinfo_%s.xml" % (shotDir, step), tripinfofile)
         tripinfos += tripinfofile + ","
         routes.append("%s/vehroutes_%s.xml" % (shotDir, step))
-    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_successive --dump-intervals 900 --emissions emissions_successive.xml --tripinfo-output tripinfo_successive.xml %s -l sumo_successive.log" % (netFile, succDir, sumoAdds))
-    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_clogit --dump-intervals 900 --emissions emissions_clogit.xml --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
-    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_lohse --dump-intervals 900 --emissions emissions_lohse.xml --tripinfo-output tripinfo_lohse.xml %s -l sumo_lohse.log" % (netFile, lohseDir, sumoAdds))
-    tripinfos += tripinfofile + ",tripinfo_successive.xml,tripinfo_clogit.xml,tripinfo_lohse.xml"
-    execute("networkStatistics.py -t %s -o networkStatisticsWithSgT.txt" % tripinfos)
-    for dir in succDir, clogDir, lohseDir: 
+    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_successive --dump-intervals 900 --emissions emissions_successive.xml --tripinfo-output tripinfo_successive.xml %s -l sumo_successive.log" %
+            (netFile, succDir, sumoAdds))
+    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_clogit --dump-intervals 900 --emissions emissions_clogit.xml --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" %
+            (netFile, clogDir, sumoAdds))
+    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_lohse --dump-intervals 900 --emissions emissions_lohse.xml --tripinfo-output tripinfo_lohse.xml %s -l sumo_lohse.log" %
+            (netFile, lohseDir, sumoAdds))
+    tripinfos += tripinfofile + \
+        ",tripinfo_successive.xml,tripinfo_clogit.xml,tripinfo_lohse.xml"
+    execute(
+        "networkStatistics.py -t %s -o networkStatisticsWithSgT.txt" % tripinfos)
+    for dir in succDir, clogDir, lohseDir:
         routes.append(dir + "/routes.rou.xml")
 #outfilename = "routecompare.txt"
-#for idx, route1 in enumerate(routes):
+# for idx, route1 in enumerate(routes):
 #    for route2 in routes[idx+1:]:
 #        outfile = open(outfilename, "a")
 #        print >> outfile, route1, route2

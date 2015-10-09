@@ -8,7 +8,7 @@
 // Exporter writing networks using DlrNavteq (Elmar) format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2012-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -80,7 +80,6 @@ private:
 
     /** @brief Writes the links_unsplitted file
      * @param[in] oc The options to use
-     * @param[in] nc The node-container from which to read data
      * @param[in] ec The edge-container from which to read data
      */
     static void writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec);

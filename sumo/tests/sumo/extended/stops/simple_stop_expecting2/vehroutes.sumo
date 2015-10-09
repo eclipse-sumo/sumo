@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08/05/13 12:29:52 by SUMO sumo Version dev-SVN-r14338
+<!-- generated on Tue Mar  3 16:27:06 2015 by SUMO Version dev-SVN-r17995I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -15,6 +15,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -27,15 +28,15 @@
         <route edges="1to2 out"/>
     </vehicle>
 
-    <person id="p1" depart="100.00" arrival="202.00">
+    <person id="p1" depart="100.00" arrival="203.00">
         <ride from="1to2" to="out" lines="veh0"/>
     </person>
 
-    <person id="p2" depart="200.00" arrival="202.00">
+    <person id="p2" depart="200.00" arrival="203.00">
         <ride from="1to2" to="out" lines="veh0"/>
     </person>
 
-    <vehicle id="veh0" type="Car" depart="1.00" arrival="202.00">
+    <vehicle id="veh0" type="Car" depart="1.00" arrival="203.00">
         <route edges="1to2 out"/>
     </vehicle>
 

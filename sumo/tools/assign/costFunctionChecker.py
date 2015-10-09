@@ -10,7 +10,7 @@
 Run duarouter repeatedly and simulate weight changes via a cost function.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -18,37 +18,44 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys, subprocess, types
+import os
+import sys
+import subprocess
+import types
 from datetime import datetime
 from optparse import OptionParser
 from xml.sax import make_parser, handler
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib
 
+
 def call(command, log):
     if not isinstance(args, types.StringTypes):
-        command = [str(c) for c in command] 
+        command = [str(c) for c in command]
     print >> log, "-" * 79
     print >> log, command
     log.flush()
     retCode = subprocess.call(command, stdout=log, stderr=log)
     if retCode != 0:
-        print >> sys.stderr, "Execution of %s failed. Look into %s for details." % (command, log.name)
-        sys.exit(retCode) 
+        print >> sys.stderr, "Execution of %s failed. Look into %s for details." % (
+            command, log.name)
+        sys.exit(retCode)
+
 
 def writeRouteConf(step, options, file, output):
     fd = open("iteration_" + str(step) + ".duarcfg", "w")
     print >> fd, """<configuration>
     <input>
         <net-file value="%s"/>""" % options.net
-    if step==0:
+    if step == 0:
         if options.flows:
             print >> fd, '        <flow-definition value="%s"/>' % file
         else:
             print >> fd, '        <trip-defs value="%s"/>' % file
     else:
         print >> fd, '        <alternatives value="%s"/>' % file
-        print >> fd, '        <weights value="dump_%s_%s.xml"/>' % (step-1, options.aggregation)
+        print >> fd, '        <weights value="dump_%s_%s.xml"/>' % (
+            step - 1, options.aggregation)
     print >> fd, """    </input>
     <output>
         <output-file value="%s"/>
@@ -72,6 +79,7 @@ def writeRouteConf(step, options, file, output):
 </configuration>""" % (options.verbose, options.noWarnings)
     fd.close()
 
+
 class RouteReader(handler.ContentHandler):
 
     def __init__(self):
@@ -94,6 +102,7 @@ class RouteReader(handler.ContentHandler):
     def getMaxDepart(self):
         return self._maxDepart
 
+
 class NetReader(handler.ContentHandler):
 
     def __init__(self):
@@ -107,18 +116,22 @@ class NetReader(handler.ContentHandler):
     def getEdges(self):
         return self._edges
 
+
 def identity(edge, weight):
     return weight
+
 
 def generateWeights(step, options, edges, weights, costFunction):
     fd = open("dump_%s_%s.xml" % (step, options.aggregation), "w")
     print >> fd, '<?xml version="1.0"?>\n<netstats>'
-    for time in range(0, int(reader.getMaxDepart()+1), options.aggregation):
-        print >> fd, '    <interval begin="%s" end="%s" id="dump_%s">' % (time, time + options.aggregation, options.aggregation)
+    for time in range(0, int(reader.getMaxDepart() + 1), options.aggregation):
+        print >> fd, '    <interval begin="%s" end="%s" id="dump_%s">' % (
+            time, time + options.aggregation, options.aggregation)
         for edge in edges:
             cost = costFunction(edge, weights.getWeight(edge))
             if cost != None:
-                print >> fd, '        <edge id="%s" traveltime="%s"/>' % (edge, cost)
+                print >> fd, '        <edge id="%s" traveltime="%s"/>' % (
+                    edge, cost)
         print >> fd, '    </interval>'
     print >> fd, '</netstats>'
     fd.close()
@@ -165,7 +178,8 @@ optParser.add_option("-c", "--cost-function", dest="costfunc",
                      default="identity", help="(python) function to use as cost function")
 (options, args) = optParser.parse_args()
 if not options.net or not (options.trips or options.flows):
-    optParser.error("At least --net-file and --trips or --flows have to be given!")
+    optParser.error(
+        "At least --net-file and --trips or --flows have to be given!")
 
 
 duaBinary = sumolib.checkBinary("duarouter", options.path)
@@ -180,7 +194,7 @@ edges = reader.getEdges()
 if "." in options.costfunc:
     idx = options.costfunc.rfind(".")
     module = options.costfunc[:idx]
-    func = options.costfunc[idx+1:]
+    func = options.costfunc[idx + 1:]
     exec("from %s import %s as costFunction" % (module, func))
 else:
     exec("costFunction = %s" % options.costfunc)
@@ -199,8 +213,9 @@ for step in range(options.firstStep, options.lastStep):
     for tripFile in tripFiles:
         file = tripFile
         tripFile = os.path.basename(tripFile)
-        if step>0:
-            file = tripFile[:tripFile.find(".")] + "_%s.rou.alt.xml" % (step-1)
+        if step > 0:
+            file = tripFile[
+                :tripFile.find(".")] + "_%s.rou.alt.xml" % (step - 1)
         output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
         print ">> Running router with " + file
         btime = datetime.now()
@@ -209,7 +224,7 @@ for step in range(options.firstStep, options.lastStep):
         retCode = call([duaBinary, "-c", "iteration_%s.duarcfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
-        print ">>> Duration: %s" % (etime-btime)
+        print ">>> Duration: %s" % (etime - btime)
         print "<<"
         files.append(output)
     # generating weights file

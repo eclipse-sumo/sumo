@@ -9,7 +9,7 @@
 // The class holds a description of a connection between two edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -119,7 +119,7 @@ NBConnection::replaceFrom(NBEdge* which, NBEdge* by) {
 bool
 NBConnection::replaceFrom(NBEdge* which, int whichLane,
                           NBEdge* by, int byLane) {
-    if (myFrom == which && (myFromLane == (int) whichLane || myFromLane < 0)) {
+    if (myFrom == which && (myFromLane == whichLane || myFromLane < 0 || whichLane < 0)) {
         myFrom = by;
         myFromID = myFrom->getID();
         myFromLane = byLane;
@@ -143,7 +143,7 @@ NBConnection::replaceTo(NBEdge* which, NBEdge* by) {
 bool
 NBConnection::replaceTo(NBEdge* which, int whichLane,
                         NBEdge* by, int byLane) {
-    if (myTo == which && (myToLane == (int) whichLane || myFromLane < 0)) {
+    if (myTo == which && (myToLane == whichLane || myFromLane < 0 || whichLane < 0)) {
         myTo = by;
         myToID = myTo->getID();
         myToLane = byLane;

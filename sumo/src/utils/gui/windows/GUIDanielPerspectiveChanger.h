@@ -9,7 +9,7 @@
 // A class that allows to steer the visual output in dependence to
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -71,6 +71,7 @@ public:
     bool onRightBtnRelease(void* data);
     void onMouseWheel(void* data);
     void onMouseMove(void* data);
+    long onKeyPress(void* data);
 
     /// Returns the rotation of the canvas stored in this changer
     virtual SUMOReal getRotation() const;

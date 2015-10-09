@@ -12,7 +12,7 @@
 // APIs for getting/setting edge values via TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -41,6 +41,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/pedestrians/MSPerson.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Edge.h"
 #include <microsim/MSEdgeWeightsStorage.h>
@@ -66,6 +67,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             && variable != VAR_NOXEMISSION && variable != VAR_FUELCONSUMPTION && variable != VAR_NOISEEMISSION && variable != VAR_WAITING_TIME
             && variable != LAST_STEP_VEHICLE_NUMBER && variable != LAST_STEP_MEAN_SPEED && variable != LAST_STEP_OCCUPANCY
             && variable != LAST_STEP_VEHICLE_HALTING_NUMBER && variable != LAST_STEP_LENGTH
+            && variable != LAST_STEP_PERSON_ID_LIST
             && variable != LAST_STEP_VEHICLE_ID_LIST && variable != ID_COUNT && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "Get Edge Variable: unsupported variable specified", outputStorage);
     }
@@ -94,7 +96,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
         switch (variable) {
             case VAR_EDGE_TRAVELTIME: {
                 // time
-                SUMOTime time = 0;
+                int time = 0;
                 if (!server.readTypeCheckingInt(inputStorage, time)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The message must contain the time definition.", outputStorage);
                 }
@@ -109,7 +111,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             break;
             case VAR_EDGE_EFFORT: {
                 // time
-                SUMOTime time = 0;
+                int time = 0;
                 if (!server.readTypeCheckingInt(inputStorage, time)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The message must contain the time definition.", outputStorage);
                 }
@@ -134,6 +136,16 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(wtime);
+            }
+            break;
+            case LAST_STEP_PERSON_ID_LIST: {
+                std::vector<std::string> personIDs;
+                std::vector<MSTransportable*> persons = e->getSortedPersons(MSNet::getInstance()->getCurrentTimeStep());
+                for (std::vector<MSTransportable*>::iterator it = persons.begin(); it != persons.end(); ++it) {
+                    personIDs.push_back((*it)->getID());
+                }
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                tempMsg.writeStringList(personIDs);
             }
             break;
             case LAST_STEP_VEHICLE_ID_LIST: {
@@ -290,15 +302,15 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 }
             }
             break;
-        case VAR_PARAMETER: {
-            std::string paramName = "";
-            if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+            case VAR_PARAMETER: {
+                std::string paramName = "";
+                if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                    return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                }
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(e->getParameter(paramName, ""));
             }
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(e->getParameter(paramName, ""));
-                            }
-                            break;
+            break;
             default:
                 break;
         }
@@ -362,7 +374,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             int parameterCount = inputStorage.readInt();
             if (parameterCount == 3) {
                 // bound by time
-                SUMOTime begTime = 0, endTime = 0;
+                int begTime = 0, endTime = 0;
                 double value = 0;
                 if (!server.readTypeCheckingInt(inputStorage, begTime)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The first variable must be the begin time given as int.", outputStorage);
@@ -380,7 +392,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 if (!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The variable must be the value given as double", outputStorage);
                 }
-                MSNet::getInstance()->getWeightsStorage().addTravelTime(e, 0, SUMOTime_MAX, value);
+                MSNet::getInstance()->getWeightsStorage().addTravelTime(e, SUMOReal(0), SUMOReal(SUMOTime_MAX), value);
             } else {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time requires either begin time, end time, and value, or only value as parameter.", outputStorage);
             }
@@ -394,7 +406,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             int parameterCount = inputStorage.readInt();
             if (parameterCount == 3) {
                 // bound by time
-                SUMOTime begTime = 0, endTime = 0;
+                int begTime = 0, endTime = 0;
                 double value = 0;
                 if (!server.readTypeCheckingInt(inputStorage, begTime)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The first variable must be the begin time given as int.", outputStorage);
@@ -412,7 +424,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 if (!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The variable must be the value given as double", outputStorage);
                 }
-                MSNet::getInstance()->getWeightsStorage().addEffort(e, 0, SUMOTime_MAX, value);
+                MSNet::getInstance()->getWeightsStorage().addEffort(e, SUMOReal(0), SUMOReal(SUMOTime_MAX), value);
             } else {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort requires either begin time, end time, and value, or only value as parameter.", outputStorage);
             }
@@ -445,8 +457,8 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
             }
             e->addParameter(name, value);
-                            }
-                            break;
+        }
+        break;
         default:
             break;
     }

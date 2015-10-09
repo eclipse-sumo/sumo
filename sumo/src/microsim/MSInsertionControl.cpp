@@ -11,7 +11,7 @@
 // Inserts vehicles into the network when their departure time is reached
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -54,9 +54,13 @@
 // ===========================================================================
 MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
                                        SUMOTime maxDepartDelay,
-                                       bool checkEdgesOnce)
-    : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay),
-      myCheckEdgesOnce(checkEdgesOnce) {}
+                                       bool checkEdgesOnce,
+                                       int maxVehicleNumber) : 
+    myVehicleControl(vc), 
+    myMaxDepartDelay(maxDepartDelay),
+    myCheckEdgesOnce(checkEdgesOnce),
+    myMaxVehicleNumber(maxVehicleNumber)
+{}
 
 
 MSInsertionControl::~MSInsertionControl() {
@@ -141,7 +145,14 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
                               MSVehicleContainer::VehicleVector& refusedEmits) {
     assert(veh->getParameter().depart < time + DELTA_T);
     const MSEdge& edge = *veh->getEdge();
-    if ((!myCheckEdgesOnce || edge.getLastFailedInsertionTime() != time) && edge.insertVehicle(*veh, time)) {
+    if (veh->isOnRoad()) {
+        // may have been inserted forcefully already
+        veh->onDepart();
+        return 1;
+    }
+    if ((myMaxVehicleNumber < 0 || (int)MSNet::getInstance()->getVehicleControl().getRunningVehicleNo() < myMaxVehicleNumber)
+            && (!myCheckEdgesOnce || edge.getLastFailedInsertionTime() != time) 
+            && edge.insertVehicle(*veh, time)) {
         // Successful insertion
         checkFlowWait(veh);
         veh->onDepart();

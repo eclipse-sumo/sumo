@@ -46,8 +46,17 @@ unsorted_time_typedefined
 # Test whether the vehicle class is processed
 increasing_time_typedefined_withclass
 
+# Test whether the cfmodel is processed
+increasing_time_typedefined_withmodel
+
+# Test whether the cfmodel is processed when nested
+increasing_time_typedefined_nestedmodel
+
 # using zones for start / end
 with_taz
+
+# use taz and vehicles with a vClass
+with_taz_vClass
 
 # using zones for start / end with no edge specified
 taz_noedge
@@ -60,6 +69,24 @@ vtypecheck
 
 # test trip with intermediate edge
 via
+
+# test trip with intermediate stop
+stop
+
+# test trip with intermediate bus stop
+busStop
+
+# test trip with intermediate container stop
+containerStop
+
+# Test with bulk routing 100 vehicles having one departure time
+bulk
+
+# Test with multi-threaded bulk routing
+bulk_parallel
+
+# Test with multi-threaded bulk routing warning about different types
+bulk_parallel_warn
 
 # Tests false input
 errors

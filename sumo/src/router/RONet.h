@@ -10,7 +10,7 @@
 // The router's network representation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -70,15 +70,35 @@ class OutputDevice;
  * @todo Vehicle ids are not tracked; it may happen that the same id is added twice...
  */
 class RONet {
-    friend class RORouteAggregator;
-
 public:
     /// @brief Constructor
     RONet();
 
 
+    /** @brief Returns the pointer to the unique instance of RONet (singleton).
+     * @return Pointer to the unique RONet-instance
+     */
+    static RONet* getInstance();
+
+
     /// @brief Destructor
     virtual ~RONet();
+
+
+    /** @brief Adds a restriction for an edge type
+     * @param[in] id The id of the type
+     * @param[in] svc The vehicle class the restriction refers to
+     * @param[in] speed The restricted speed
+     */
+    void addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed);
+
+
+    /** @brief Returns the restrictions for an edge type
+     * If no restrictions are present, 0 is returned.
+     * @param[in] id The id of the type
+     * @return The mapping of vehicle classes to maximum speeds
+     */
+    const std::map<SUMOVehicleClass, SUMOReal>* getRestrictions(const std::string& id) const;
 
 
     /// @name Insertion and retrieval of graph parts
@@ -173,6 +193,17 @@ public:
     void addBusStop(const std::string& id, SUMOVehicleParameter::Stop* stop);
 
 
+    /* @brief Adds a read container stop to the network
+     *
+     * If the container stop is already known (another one with the same id exists),
+     *  an error is generated and given to msg-error-handler. The stop
+     *  is deleted in this case
+     *
+     * @param[in] node The stop to add
+     */
+    void addContainerStop(const std::string& id, SUMOVehicleParameter::Stop* stop);
+
+
     /** @brief Retrieves a bus stop from the network
      *
      * @param[in] name The name of the stop to retrieve
@@ -181,6 +212,20 @@ public:
     const SUMOVehicleParameter::Stop* getBusStop(const std::string& id) const {
         std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myBusStops.find(id);
         if (it == myBusStops.end()) {
+            return 0;
+        }
+        return it->second;
+    }
+
+
+    /** @brief Retrieves a container stop from the network
+     *
+     * @param[in] name The name of the stop to retrieve
+     * @return The named stop if known, otherwise 0
+     */
+    const SUMOVehicleParameter::Stop* getContainerStop(const std::string& id) const {
+        std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myContainerStops.find(id);
+        if (it == myContainerStops.end()) {
             return 0;
         }
         return it->second;
@@ -233,16 +278,13 @@ public:
      *
      * If the name is "" the default type is returned.
      * If the named vehicle type (or typeDistribution) was not added to the net before
-     * the behavior depends on the value of defaultIfMissing
-     * If defaultIfMissing is true, the default type is returned,
-     * otherwise 0 is returned
+     * 0 is returned
      *
      * @param[in] id The id of the vehicle type to return
-     * @param[in] default Whether to return the default type in case of an unknown type
      * @return The named vehicle type
      * @todo Check whether a const pointer may be returned
      */
-    SUMOVTypeParameter* getVehicleTypeSecure(const std::string& id, bool defaultIfMissing=false);
+    SUMOVTypeParameter* getVehicleTypeSecure(const std::string& id);
 
 
     /* @brief Adds a route definition to the network
@@ -303,6 +345,14 @@ public:
      * @param[in] desc   The xml description of the person
      */
     void addPerson(const SUMOTime depart, const std::string desc);
+
+
+    /* @brief Adds a container to the network
+     *
+     * @param[in] depart The departure time of the container
+     * @param[in] desc   The xml description of the container
+     */
+    void addContainer(const SUMOTime depart, const std::string desc);
     // @}
 
 
@@ -324,7 +374,7 @@ public:
                                       SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime time);
 
 
-    /// Returns the information whether further vehicles are stored
+    /// Returns the information whether further vehicles, persons or containers are stored
     virtual bool furtherStored();
     //@}
 
@@ -357,9 +407,9 @@ public:
 
     const std::map<std::string, ROEdge*>& getEdgeMap() const;
 
-    bool hasRestrictions() const;
+    bool hasPermissions() const;
 
-    void setRestrictionFound();
+    void setPermissionsFound();
 
     OutputDevice* getRouteOutput(const bool alternative = false) {
         if (alternative) {
@@ -368,7 +418,18 @@ public:
         return myRoutesOutput;
     }
 
-protected:
+#ifdef HAVE_FOX
+    void lock() {
+        myThreadPool.lock();
+    }
+
+    void unlock() {
+        myThreadPool.unlock();
+    }
+#endif
+
+
+private:
     static bool computeRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                              const ROVehicle* const veh, const bool removeLoops,
                              MsgHandler* errorHandler);
@@ -381,8 +442,12 @@ protected:
 
     void checkFlows(SUMOTime time);
 
+    void createBulkRouteRequests(SUMOAbstractRouter<ROEdge, ROVehicle>& router, const SUMOTime time, const bool removeLoops, const std::map<std::string, ROVehicle*>& mmap);
 
-protected:
+private:
+    /// @brief Unique instance of RONet
+    static RONet* myInstance;
+
     /// @brief Known vehicle ids
     std::set<std::string> myVehIDs;
 
@@ -394,6 +459,9 @@ protected:
 
     /// @brief Known bus stops
     std::map<std::string, SUMOVehicleParameter::Stop*> myBusStops;
+
+    /// @brief Known container stops
+    std::map<std::string, SUMOVehicleParameter::Stop*> myContainerStops;
 
     /// @brief Known vehicle types
     NamedObjectCont<SUMOVTypeParameter*> myVehicleTypes;
@@ -418,6 +486,10 @@ protected:
     /// @brief Known persons
     typedef std::multimap<const SUMOTime, const std::string> PersonMap;
     PersonMap myPersons;
+
+    /// @brief Known containers
+    typedef std::multimap<const SUMOTime, const std::string> ContainerMap;
+    ContainerMap myContainers;
 
     /// @brief Departure times for randomized flows
     std::map<std::string, std::vector<SUMOTime> > myDepartures;
@@ -444,7 +516,10 @@ protected:
     unsigned int myWrittenRouteNo;
 
     /// @brief Whether the network contains edges which not all vehicles may pass
-    bool myHaveRestrictions;
+    bool myHavePermissions;
+
+    /// @brief The vehicle class specific speed restrictions
+    std::map<std::string, std::map<SUMOVehicleClass, SUMOReal> > myRestrictions;
 
     /// @brief The number of internal edges in the dictionary
     int myNumInternalEdges;
@@ -453,8 +528,6 @@ protected:
     MsgHandler* myErrorHandler;
 
 #ifdef HAVE_FOX
-    FXWorkerThread::Pool myThreadPool;
-
 private:
     class WorkerThread : public FXWorkerThread {
     public:
@@ -485,6 +558,24 @@ private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&);
     };
+
+    class BulkmodeTask : public FXWorkerThread::Task {
+    public:
+        BulkmodeTask(const bool value) : myValue(value) {}
+        void run(FXWorkerThread* context) {
+            static_cast<WorkerThread*>(context)->getRouter().setBulkMode(myValue);
+        }
+    private:
+        const bool myValue;
+    private:
+        /// @brief Invalidated assignment operator.
+        BulkmodeTask& operator=(const BulkmodeTask&);
+    };
+
+
+private:
+    /// @brief for multi threaded routing
+    FXWorkerThread::Pool myThreadPool;
 #endif
 
 private:

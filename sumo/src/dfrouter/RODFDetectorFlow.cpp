@@ -10,7 +10,7 @@
 // Storage for flows within the DFROUTER
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2006-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2006-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -69,8 +69,9 @@ RODFDetectorFlows::addFlow(const std::string& id, SUMOTime t, const FlowDef& fd)
             (*i).firstSet = true;
         }
     }
-    assert((t - myBeginTime) / myStepOffset < (int) myFastAccessFlows[id].size());
-    FlowDef& ofd = myFastAccessFlows[id][(t - myBeginTime) / myStepOffset];
+    const int index = (int)((t - myBeginTime) / myStepOffset);
+    assert(index < (int) myFastAccessFlows[id].size());
+    FlowDef& ofd = myFastAccessFlows[id][index];
     if (ofd.firstSet) {
         ofd = fd;
         ofd.firstSet = false;

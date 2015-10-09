@@ -9,7 +9,7 @@
 //
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2005-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2005-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -88,6 +88,16 @@ public:
         return minV + rand(maxV - minV);
     }
 
+    /// @brief Returns a random 64 bit integer in [0, maxV-1]
+    static inline long long int rand(long long int maxV) {
+        return (long long int) RandHelper::myRandomNumberGenerator.randInt64((unsigned long long int)(maxV - 1));
+    }
+
+    /// @brief Returns a random 64 bit integer in [minV, maxV-1]
+    static inline long long int rand(long long int minV, long long int maxV) {
+        return minV + rand(maxV - minV);
+    }
+
     /// @brief Access to a random number from a normal distribution
     static inline SUMOReal randNorm(SUMOReal mean, SUMOReal variance, MTRand* rng = 0) {
         if (rng == 0) {
@@ -100,7 +110,7 @@ public:
             const double v = rng->randExc(2.0) - 1;
             q  = u * u + v * v;
         } while (q == 0.0 || q >= 1.0);
-        return (SUMOReal) (mean + variance * u * sqrt(-2 * log(q) / q));
+        return (SUMOReal)(mean + variance * u * sqrt(-2 * log(q) / q));
     }
 
     /// @brief Returns a random element from the given vector

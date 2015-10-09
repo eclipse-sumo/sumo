@@ -9,7 +9,7 @@
 // Importer for network nodes stored in XML
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -75,6 +75,11 @@ public:
     /// @brief Destructor
     ~NIXMLNodesHandler();
 
+    /** @brief parses node attributes (not related to positioning)
+     */
+    static void processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
+                                bool updateEdgeGeometries,
+                                NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -119,13 +124,14 @@ private:
      */
     void addJoinExclusion(const SUMOSAXAttributes& attrs);
 
+
     /** @brief Builds the defined traffic light or adds a node to it
      *
      * @param[in] attrs Attributes within the currently opened node
      * @param[in] currentNode The built node to add the tls information to
      */
-    void processTrafficLightDefinitions(const SUMOSAXAttributes& attrs,
-                                        NBNode* currentNode);
+    static void processTrafficLightDefinitions(const SUMOSAXAttributes& attrs,
+            NBNode* currentNode, NBTrafficLightLogicCont& tlc);
 
 
 private:

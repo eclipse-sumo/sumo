@@ -12,7 +12,7 @@
 // The XML-Handler for network loading
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -69,7 +69,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
                      NLDetectorBuilder& detBuilder,
                      NLTriggerBuilder& triggerBuilder,
                      NLEdgeControlBuilder& edgeBuilder,
-                     NLJunctionControlBuilder& junctionBuilder) : 
+                     NLJunctionControlBuilder& junctionBuilder) :
     MSRouteHandler(file, true),
     myNet(net), myActionBuilder(net),
     myCurrentIsInternalToSkip(false),
@@ -78,7 +78,9 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myAmInTLLogicMode(false), myCurrentIsBroken(false),
     myHaveWarnedAboutDeprecatedLanes(false),
     myLastParameterised(0),
-    myHaveSeenInternalEdge(false) {}
+    myHaveSeenInternalEdge(false),
+    myNetIsLoaded(false)
+{}
 
 
 NLHandler::~NLHandler() {}
@@ -153,6 +155,12 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_BUS_STOP:
                 myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
                 break;
+            case SUMO_TAG_CONTAINER_STOP:
+                myTriggerBuilder.parseAndBuildContainerStop(myNet, attrs);
+                break;
+            case SUMO_TAG_CHRG_STN:
+                myTriggerBuilder.parseAndBuildChrgStn(myNet, attrs);
+                break;
             case SUMO_TAG_VTYPEPROBE:
                 addVTypeProbeDetector(attrs);
                 break;
@@ -186,6 +194,20 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_ROUNDABOUT:
                 addRoundabout(attrs);
                 break;
+            case SUMO_TAG_TYPE: {
+                bool ok = true;
+                myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+                break;
+            }
+            case SUMO_TAG_RESTRICTION: {
+                bool ok = true;
+                const SUMOVehicleClass svc = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, myCurrentTypeID.c_str(), ok));
+                const SUMOReal speed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
+                if (ok) {
+                    myNet.addRestriction(myCurrentTypeID, svc, speed);
+                }
+                break;
+            }
             default:
                 break;
         }
@@ -231,7 +253,6 @@ NLHandler::myEndElement(int element) {
             endE3Detector();
             break;
         case SUMO_TAG_NET:
-            myJunctionControlBuilder.postLoadInitialization();
             // build junction graph
             for (JunctionGraph::iterator it = myJunctionGraph.begin(); it != myJunctionGraph.end(); ++it) {
                 MSEdge* edge = MSEdge::dictionary(it->first);
@@ -243,6 +264,9 @@ NLHandler::myEndElement(int element) {
                     to->addIncoming(edge);
                 }
             }
+            //initialise traffic lights
+            myJunctionControlBuilder.postLoadInitialization();
+            myNetIsLoaded = true;
             break;
         default:
             break;
@@ -314,7 +338,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     }
     // get the street name
     const std::string streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
-    // get the edge type (only for visualization)
+    // get the edge type
     const std::string edgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     // get the edge priority (only for visualization)
     const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1); // default taken from netbuild/NBFrame option 'default.priority'
@@ -374,7 +398,7 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     }
     const SVCPermissions permissions = parseVehicleClasses(allow, disallow);
     if (permissions != SVCAll) {
-        myNet.setRestrictionFound();
+        myNet.setPermissionsFound();
     }
     myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {
@@ -595,20 +619,24 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
     myAmInTLLogicMode = true;
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    TrafficLightType type;
-    std::string typeS = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
-    if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
-        type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
-    } else {
-        WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'");
-        return;
-    }
+    std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
+    TrafficLightType type = TLTYPE_STATIC;
+    std::string typeS;
+    if (myJunctionControlBuilder.getTLLogicControlToUse().get(id, programID) == 0) {
+        // SUMO_ATTR_TYPE is not needed when only modifying the offst of an
+        // existing program
+        typeS = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
+        if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
+            type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
+        } else {
+            WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'");
+        }
+    } 
     //
     SUMOTime offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
     if (!ok) {
         return;
     }
-    std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
     myJunctionControlBuilder.initTrafficLightLogic(id, programID, type, offset);
 }
 
@@ -888,6 +916,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         const int toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
         LinkDirection dir = parseLinkDir(attrs.get<std::string>(SUMO_ATTR_DIR, 0, ok));
         LinkState state = parseLinkState(attrs.get<std::string>(SUMO_ATTR_STATE, 0, ok));
+        bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, 0, ok, true);
         std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
 #ifdef HAVE_INTERNAL_LANES
         std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, 0, ok, "");
@@ -918,7 +947,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             tlLinkIdx = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
             // make sure that the index is in range
             MSTrafficLightLogic* logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
-            if (tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size()) {
+            if ((tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size())
+                    && logic->getLogicType() != "railSignal") {
                 WRITE_ERROR("Invalid " + toString(SUMO_ATTR_TLLINKINDEX) + " '" + toString(tlLinkIdx) +
                             "' in connection controlled by '" + tlID + "'");
                 return;
@@ -942,14 +972,14 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             }
             length = via->getLength();
         }
-        link = new MSLink(toLane, via, dir, state, length);
+        link = new MSLink(toLane, via, dir, state, length, keepClear);
         if (via != 0) {
             via->addIncomingLane(fromLane, link);
         } else {
             toLane->addIncomingLane(fromLane, link);
         }
 #else
-        link = new MSLink(toLane, dir, state, length);
+        link = new MSLink(toLane, dir, state, length, keepClear);
         toLane->addIncomingLane(fromLane, link);
 #endif
         toLane->addApproachingLane(fromLane);
@@ -996,6 +1026,10 @@ NLHandler::parseLinkState(const std::string& state) {
 // ----------------------------------
 void
 NLHandler::setLocation(const SUMOSAXAttributes& attrs) {
+    if (myNetIsLoaded) {
+        //WRITE_WARNING("POIs and Polygons should be loaded using option --po-files")
+        return;
+    }
     bool ok = true;
     PositionVector s = attrs.get<PositionVector>(SUMO_ATTR_NET_OFFSET, 0, ok);
     Boundary convBoundary = attrs.get<Boundary>(SUMO_ATTR_CONV_BOUNDARY, 0, ok);
@@ -1126,7 +1160,7 @@ NLHandler::closeWAUT() {
 }
 
 
-Position 
+Position
 NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos) {
     MSLane* lane = MSLane::dictionary(laneID);
     if (lane == 0) {

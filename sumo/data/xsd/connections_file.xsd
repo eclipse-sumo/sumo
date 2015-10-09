@@ -29,6 +29,7 @@
         <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="optional"/>
         <xsd:attribute name="pass" type="boolType" use="optional"/>
         <xsd:attribute name="uncontrolled" type="boolType" use="optional"/>
+        <xsd:attribute name="keepClear" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="prohibitionType">
@@ -57,8 +58,10 @@
 
     <xsd:complexType name="crossingType">
         <xsd:attribute name="node" type="xsd:string" use="required"/>
-        <xsd:attribute name="edges" type="xsd:string" use="required"/>
+        <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="priority" type="xsd:int" use="optional"/>
+        <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="discard" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="customShapeType">

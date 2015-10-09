@@ -1,0 +1,2 @@
+--edge-files input_plain.edg.xml --node-files input_plain.nod.xml --tls.join
+--output net.net.xml --ignore-errors.edge-type

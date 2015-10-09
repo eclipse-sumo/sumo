@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 24 13:32:57 2015 by SUMO netconvert Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osmserver.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain19"/>
+    </output>
+
+    <edge_removal>
+        <keep-edges.input-file value="edgesel.txt"/>
+    </edge_removal>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-156364570#1" from="2314394457" to="cluster_275525455_2796688606_614674365" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="2102.41,2261.68 2125.59,2273.66 2170.68,2296.21">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="-234463925#0" from="cluster_1275468904_2425782615_887148902" to="614672638" priority="4" type="highway.residential" numLanes="2" speed="13.89" shape="2352.37,2416.13 2331.92,2397.56 2272.08,2352.95 2246.16,2334.55 2225.49,2323.29 2205.53,2312.73">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="-25294729#0" from="275525457" to="cluster_275525455_2796688606_614674365" priority="4" type="highway.residential" numLanes="2" speed="8.33" shape="2204.34,2261.72 2170.68,2296.21">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="-275177453" from="cluster_275525455_2796688606_614674365" to="2314394458" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="2190.01,2311.06 2190.11,2315.63 2188.40,2321.37 2170.60,2358.39 2151.95,2398.57">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="156364570#1" from="cluster_275525455_2796688606_614674365" to="2314394457" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="2170.68,2296.21 2125.59,2273.66 2102.41,2261.68">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="234463931" from="614672638" to="cluster_1275468904_2425782615_887148902" priority="4" type="highway.residential" numLanes="2" speed="13.89" shape="2205.53,2312.73 2225.49,2323.29 2246.16,2334.55 2272.08,2352.95 2331.92,2397.56 2352.37,2416.13">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="25294728" from="cluster_275525455_2796688606_614674365" to="614672638" priority="1" type="highway.pedestrian" numLanes="1" speed="8.33" shape="2190.01,2311.06 2205.53,2312.73" spreadType="center">
+        <lane index="0" allow="pedestrian"/>
+    </edge>
+    <edge id="25294729#0" from="cluster_275525455_2796688606_614674365" to="275525457" priority="4" type="highway.residential" numLanes="2" speed="8.33" shape="2170.68,2296.21 2204.34,2261.72">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="316746323#3" from="2314394458" to="cluster_275525455_2796688606_614674365" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="2151.95,2398.57 2170.60,2358.39 2188.40,2321.37 2190.11,2315.63 2190.01,2311.06">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+
+
+</edges>

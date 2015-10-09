@@ -1,5 +1,6 @@
 # checks using the default position
 pos_default
+pos_default_trip
 
 # checks using the given position (0)
 pos_given0
@@ -48,3 +49,6 @@ lane_given0
 
 # checks using the given lane (lane 1)
 lane_given1
+
+# Errors on emission
+errors

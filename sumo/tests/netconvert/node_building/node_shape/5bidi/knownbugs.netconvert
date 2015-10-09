@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 25Mar11:29:34]
+search_string:shape="4320.47,783.07 4323.31,777.22 4321.76,776.22 4318.33,778.05 4318.37,776.82 4315.19,779.84 4315.59,782.30 4318.44,783.75"
+trigger_on_absence:1
+search_file:net
+full_description:invalid node shape
+brief_description:see #1708

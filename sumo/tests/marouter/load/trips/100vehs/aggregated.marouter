@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 10/02/15 12:41:39 by SUMO marouter Version dev-SVN-r18990
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <route-files value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <netload-output value="aggregated.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata>
+    <interval begin="0.00" end="3600.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.72" speed="26.87" entered="45.00" flowCapacityRatio="2.25"/>
+        <edge id="end" traveltime="18.68" speed="26.77" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="37.45" speed="26.87" entered="45.00" flowCapacityRatio="2.25"/>
+        <edge id="left2end" traveltime="18.72" speed="26.87" entered="45.00" flowCapacityRatio="2.25"/>
+        <edge id="middle" traveltime="74.99" speed="13.34" entered="55.00" flowCapacityRatio="2.75"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+</meandata>

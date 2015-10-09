@@ -10,7 +10,7 @@
 // Base class for all objects that may be displayed within the openGL-gui
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -38,6 +38,7 @@
 #include "GUIGlObjectTypes.h"
 #include <utils/geom/Boundary.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringBijection.h>
 #include <utils/common/RGBColor.h>
 
@@ -108,6 +109,13 @@ public:
         return myFullName;
     }
 
+    /** @brief Returns the name of the parent object (if any)
+     * @return This object's parent id
+     */
+    virtual const std::string& getParentName() const {
+        return StringUtils::emptyString;
+    }
+
 
     /** @brief Returns the numerical id of the object
      * @return This object's gl-id
@@ -149,7 +157,7 @@ public:
 
 
     /** @brief Changes the microsimID of the object (happens in NETEDIT) */
-    void setMicrosimID(const std::string& newID);
+    virtual void setMicrosimID(const std::string& newID);
 
 
     /** @brief Returns the type of the object as coded in GUIGlObjectType

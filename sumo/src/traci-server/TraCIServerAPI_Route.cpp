@@ -9,7 +9,7 @@
 // APIs for getting/setting route values via TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -86,15 +86,15 @@ TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStora
                     tempMsg.writeString((*i)->getID());
                 }
                 break;
-        case VAR_PARAMETER: {
-            std::string paramName = "";
-            if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+            case VAR_PARAMETER: {
+                std::string paramName = "";
+                if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                    return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                }
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(r->getParameter(paramName, ""));
             }
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(r->getParameter(paramName, ""));
-                            }
-                            break;
+            break;
             default:
                 break;
         }
@@ -125,7 +125,7 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
     }
     // process
     switch (variable) {
-    case ADD: {
+        case ADD: {
             std::vector<std::string> edgeIDs;
             if (!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
                 return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "A string list is needed for adding a new route.", outputStorage);
@@ -143,9 +143,9 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
             if (!MSRoute::dictionary(id, new MSRoute(id, edges, true, 0, stops))) {
                 return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "Could not add route.", outputStorage);
             }
-              }
-            break;
-    case VAR_PARAMETER: {
+        }
+        break;
+        case VAR_PARAMETER: {
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
             }
@@ -160,11 +160,11 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
                 return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
             }
             ((MSRoute*) r)->addParameter(name, value);
-                        }
-                            break;
+        }
+        break;
         default:
             break;
-              }
+    }
     server.writeStatusCmd(CMD_SET_ROUTE_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
 }

@@ -8,7 +8,7 @@
 // A VISUM network importer
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -502,16 +502,16 @@ private:
 
 
     /// @brief A map of point ids to positions
-    std::map<SUMOLong, Position> myPoints;
+    std::map<long long int, Position> myPoints;
 
     /// @brief A map of edge (not road, but "edge" in this case) ids to from/to-points
-    std::map<SUMOLong, std::pair<SUMOLong, SUMOLong> > myEdges;
+    std::map<long long int, std::pair<long long int, long long int> > myEdges;
 
     /// @brief A map from district shape definition name to the district
-    std::map<SUMOLong, NBDistrict*> myShapeDistrictMap;
+    std::map<long long int, NBDistrict*> myShapeDistrictMap;
 
     /// @brief A map from area parts to area ids
-    std::map<SUMOLong, std::vector<SUMOLong> > mySubPartsAreas;
+    std::map<long long int, std::vector<long long int> > mySubPartsAreas;
 
     /// @brief A temporary storage for district shapes as they are filled incrementally
     std::map<NBDistrict*, PositionVector> myDistrictShapes;

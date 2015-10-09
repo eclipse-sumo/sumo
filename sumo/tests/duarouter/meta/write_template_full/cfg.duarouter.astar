@@ -24,7 +24,7 @@
     </input>
 
     <output>
-        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
+        <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <output-file value="" synonymes="o output" type="FILE" help="Write generated routes to FILE"/>
         <vtype-output value="" synonymes="vtype" type="FILE" help="Write used vehicle types into separate FILE"/>
         <exit-times value="false" type="BOOL" help="Write exit times (weights) for each edge"/>
@@ -38,10 +38,13 @@
         <max-alternatives value="5" type="INT" help="Prune the number of alternatives to INT"/>
         <remove-loops value="false" type="BOOL" help="Remove loops within the route; Remove turnarounds at start and end of the route"/>
         <repair value="false" type="BOOL" help="Tries to correct a false route"/>
+        <repair.from value="false" type="BOOL" help="Tries to correct an invalid starting edge by using the first usable edge instead"/>
+        <repair.to value="false" type="BOOL" help="Tries to correct an invalid destination edge by using the last usable edge instead"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
-        <routing-algorithm value="" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;bulkstar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
+        <routing-algorithm value="" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <weight-period value="3600" type="TIME" help="Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy"/>
+        <bulk-routing value="false" type="BOOL" help="Aggregate routing queries with the same origin"/>
         <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
         <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT" help="Use FLOAT as Gawron&apos;s beta"/>
@@ -67,7 +70,7 @@
 
     <time>
         <begin value="0" synonymes="b" type="TIME" help="Defines the begin time; Previous trips will be discarded"/>
-        <end value="2147483" synonymes="e" type="TIME" help="Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent"/>
+        <end value="9223372036854774" synonymes="e" type="TIME" help="Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent"/>
     </time>
 
     <report>

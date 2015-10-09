@@ -9,7 +9,7 @@
 // Calibrates the flow on an edge by removing an inserting vehicles
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2005-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2005-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -140,7 +140,7 @@ MSCalibrator::myStartElement(int element,
                              const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_FLOW) {
         AspiredState state;
-        int lastEnd = -1;
+        SUMOTime lastEnd = -1;
         if (myIntervals.size() > 0) {
             lastEnd = myIntervals.back().end;
             if (lastEnd == -1) {
@@ -267,7 +267,7 @@ MSCalibrator::removePending() {
                 vehicle->getLane()->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED);
                 vc.scheduleVehicleRemoval(vehicle);
             } else {
-                WRITE_WARNING("Calibrator '" + getID() + "' could not remove vehicle '" + *it);
+                WRITE_WARNING("Calibrator '" + getID() + "' could not remove vehicle '" + *it + "'.");
             }
         }
         myToRemove.clear();

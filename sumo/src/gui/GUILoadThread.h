@@ -10,7 +10,7 @@
 // Class describing the thread that performs the loading of a simulation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -43,7 +43,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MFXInterThreadEventClient;
+class GUIApplicationWindow;
 class GUINet;
 class GUIEvent;
 
@@ -57,7 +57,7 @@ class GUIEvent;
 class GUILoadThread : public FXSingleEventThread {
 public:
     /// constructor
-    GUILoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEventQue<GUIEvent*>& eq,
+    GUILoadThread(FXApp* app, GUIApplicationWindow* mw, MFXEventQue<GUIEvent*>& eq,
                   FXEX::FXThreadEvent& ev);
 
     /// destructor
@@ -66,9 +66,6 @@ public:
     /** starts the thread
         the thread ends after the net has been loaded */
     FXint run();
-
-    /// reloads according to the given input options
-    void reloadConfigOrNet();
 
     /// begins the loading of the given file
     void loadConfigOrNet(const std::string& file, bool isNet);
@@ -90,7 +87,7 @@ protected:
 
 protected:
     /// the parent window to inform about the loading
-    MFXInterThreadEventClient* myParent;
+    GUIApplicationWindow* myParent;
 
     /// the path to load the simulation from
     std::string myFile;

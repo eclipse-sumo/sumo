@@ -10,7 +10,7 @@
 // A wrapper for tl-logics to allow their visualisation and interaction
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -161,9 +161,11 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
     new FXMenuCommand(ret, "Track Phases", 0, ret, MID_TRACKPHASES);
     new FXMenuCommand(ret, "Show Phases", 0, ret, MID_SHOWPHASES);
     new FXMenuSeparator(ret);
-    //
+    MSTrafficLightLogic* tll = myTLLogicControl.getActive(myTLLogic.getID());
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
+    new FXMenuCommand(ret, ("phase: " + toString(tll->getCurrentPhaseIndex())).c_str(), 0, 0, 0);
+    new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     return ret;
 }

@@ -9,7 +9,7 @@
 // A class representing a single program option
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -37,6 +37,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 
@@ -456,6 +457,12 @@ Option_FileName::operator=(const Option_FileName& s) {
 bool
 Option_FileName::isFileName() const {
     return true;
+}
+
+
+std::string
+Option_FileName::getValueString() const {
+    return StringUtils::urlEncode(myValue, " ;%");
 }
 
 

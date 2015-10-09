@@ -1,4 +1,3 @@
-
 # Tests for importing V(R)-format
 v
 
@@ -10,5 +9,7 @@ o
 
 # Tests for importing OM(R)-format
 om
+trips
 
-
+# use routes as input
+routes

@@ -1,0 +1,8 @@
+Warning: Found angle of 111.46 degrees at edge '-69607680', segment 1
+Warning: Found angle of 111.93 degrees at edge '-69607680', segment 2
+Warning: Found sharp turn with radius 7.03 at the end of edge '-69607680'.
+Warning: Found sharp turn with radius 7.03 at the start of edge '69607680'.
+Warning: Found angle of 111.93 degrees at edge '69607680', segment 1
+Warning: Found angle of 111.46 degrees at edge '69607680', segment 2
+Warning: The traffic light '138559856' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '138559856'

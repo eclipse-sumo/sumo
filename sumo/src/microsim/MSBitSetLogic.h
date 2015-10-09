@@ -10,7 +10,7 @@
 // Container for holding a right-of-way matrix
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -80,12 +80,13 @@ public:
     }
 
 
-    /// Returns the foes of the given link
-    const MSLogicJunction::LinkFoes& getFoesFor(unsigned int linkIndex) const {
+    /// @brief Returns the response for the given link
+    const MSLogicJunction::LinkBits& getResponseFor(unsigned int linkIndex) const {
         return (*myLogic)[linkIndex];
     }
 
-    const std::bitset<64>& getInternalFoesFor(unsigned int linkIndex) const {
+    /// @brief Returns the foes for the given link
+    const MSLogicJunction::LinkBits& getFoesFor(unsigned int linkIndex) const {
         return (*myInternalLinksFoes)[linkIndex];
     }
 

@@ -10,7 +10,7 @@
 // The window that holds the table of an object's parameter
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -227,6 +227,14 @@ void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
                                 int value) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<int>(myTable, myCurrentPos++, name, dynamic, value);
+    myItems.push_back(i);
+}
+
+
+void
+GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
+                                long long int value) {
+    GUIParameterTableItemInterface* i = new GUIParameterTableItem<long long int>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
 

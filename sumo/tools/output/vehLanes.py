@@ -9,7 +9,7 @@
 Compute a vehroute-like output for lanes based on a sumo netstate-dump
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -17,10 +17,12 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os,sys
+import os
+import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse
+
 
 def trackLanes(netstate, out):
     # veh_id -> values
@@ -43,7 +45,8 @@ def trackLanes(netstate, out):
                                 for vehicle in lane.vehicle:
                                     seen.add(vehicle.id)
                                     if not vehicle.id in running or laneTimes[vehicle.id][-1][1] != lane.id:
-                                        laneTimes[vehicle.id].append((timestep.time, lane.id))
+                                        laneTimes[vehicle.id].append(
+                                            (timestep.time, lane.id))
                                         running.add(vehicle.id)
                                         if lastEdge[vehicle.id] == edge.id:
                                             laneChanges[vehicle.id] += 1
@@ -55,8 +58,8 @@ def trackLanes(netstate, out):
 
         for veh_id, lt in laneTimes.items():
             f.write('    <vehicle id="%s" laneTimes="%s" arrival="%s" laneChanges="%s"/>\n' % (
-                veh_id, 
-                ' '.join(['%s,%s' % (t,l) for t,l in lt]), 
+                veh_id,
+                ' '.join(['%s,%s' % (t, l) for t, l in lt]),
                 arrivals.get(veh_id),
                 laneChanges[veh_id]))
         f.write("</vehLanes>\n")

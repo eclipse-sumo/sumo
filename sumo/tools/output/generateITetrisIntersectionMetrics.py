@@ -8,7 +8,7 @@
 @version $Id$
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -17,11 +17,13 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from optparse import OptionParser
-import os, sys
+import os
+import sys
 from numpy import mean
 from xml.sax import parse, handler
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
+
 
 def getBasicStats(net, lanesInfo, T):
     tlsInfo = {}
@@ -52,17 +54,21 @@ def getBasicStats(net, lanesInfo, T):
         tlsInfo[tlID]['tWaitTime'] = sum(tWaitTime)
     return tlsInfo
 
+
 def mergeInfos(tlsInfoAll, tlsInfoOne, metric):
     for tl in tlsInfoOne.keys():
         tlsInfoAll[tl][metric] = tlsInfoOne[tl]
+
 
 def getStatisticsOutput(tlsInfo, outputfile):
     opfile = file(outputfile, 'w')
     for tl in tlsInfo.keys():
         opfile.write('Traffic Light %s\n' % tl)
         opfile.write('=================\n')
-        opfile.write('mean queue length in front of the junction: %s\n' % tlsInfo[tl]['mQueueLen'])
-        opfile.write('mean waiting time in front of the junction: %s\n' % tlsInfo[tl]['mWaitTime'])
+        opfile.write(
+            'mean queue length in front of the junction: %s\n' % tlsInfo[tl]['mQueueLen'])
+        opfile.write(
+            'mean waiting time in front of the junction: %s\n' % tlsInfo[tl]['mWaitTime'])
         if 'noise' in tlsInfo[tl]:
             opfile.write('mean noise emission: %s\n' % tlsInfo[tl]['noise'])
         if 'CO' in tlsInfo[tl]:
@@ -73,7 +79,8 @@ def getStatisticsOutput(tlsInfo, outputfile):
             opfile.write('mean NOx emission: %s\n' % tlsInfo[tl]['NOx'])
             opfile.write('mean fuel consumption: %s\n' % tlsInfo[tl]['fuel'])
         opfile.write('number of stops: %s\n' % tlsInfo[tl]['nbStops'])
-        opfile.write('total waiting time at junction: %s\n\n' % tlsInfo[tl]['tWaitTime'])
+        opfile.write('total waiting time at junction: %s\n\n' %
+                     tlsInfo[tl]['tWaitTime'])
 
 
 def tlsIDToNodeID(net):
@@ -92,12 +99,13 @@ def tlsIDToNodeID(net):
                 seenNodes.add(nodeID)
     return tlsID2NodeID
 
+
 class E2OutputReader(handler.ContentHandler):
+
     def __init__(self):
         self._lanes = {}
         self._maxT = 0
 
-            
     def startElement(self, name, attrs):
         if name == 'interval':
             detID = attrs['id']
@@ -109,20 +117,25 @@ class E2OutputReader(handler.ContentHandler):
                 self._lanes[laneID]['nbStops'] = []
                 self._lanes[laneID]['tWaitTime'] = []
             if float(attrs['end']) < 100000000:
-                self._lanes[laneID]['mQueueLen'].append(float(attrs['jamLengthInMetersSum']))
+                self._lanes[laneID]['mQueueLen'].append(
+                    float(attrs['jamLengthInMetersSum']))
  #               self._lanes[laneID]['mWaitTime'].append(float(attrs['meanHaltingDuration']))
-                self._lanes[laneID]['nbStops'].append(float(attrs['startedHalts']))
-                self._lanes[laneID]['tWaitTime'].append(float(attrs['haltingDurationSum']))
+                self._lanes[laneID]['nbStops'].append(
+                    float(attrs['startedHalts']))
+                self._lanes[laneID]['tWaitTime'].append(
+                    float(attrs['haltingDurationSum']))
                 self._maxT = max(float(attrs['end']), self._maxT)
 
+
 class HarmonoiseReader(handler.ContentHandler):
+
     def __init__(self, net, tlsID2NodeID):
         self._nodeIntervalNoise = {}
         self._maxT = 0
         self._net = net
         self._tlsNoise = {}
         self._tlsID2NodeID = tlsID2NodeID
-        
+
     def startElement(self, name, attrs):
         if name == 'interval':
             self._maxT = max(float(attrs['end']), self._maxT)
@@ -133,7 +146,7 @@ class HarmonoiseReader(handler.ContentHandler):
                 noise = float(noiseStr)
             else:
                 noise = 0
-            if edgeID[0]==':':
+            if edgeID[0] == ':':
                 nodeID = edgeID[1:edgeID.find('_')]
                 if nodeID not in self._nodeIntervalNoise:
                     self._nodeIntervalNoise[nodeID] = []
@@ -147,13 +160,13 @@ class HarmonoiseReader(handler.ContentHandler):
                 if toNodeID not in self._nodeIntervalNoise:
                     self._nodeIntervalNoise[toNodeID] = []
                 self._nodeIntervalNoise[toNodeID].append(noise)
-                
+
     def endElement(self, name):
         if name == 'interval':
             self.sumIntervalNoise()
         if name == 'netstats':
             self.sumNoise()
-            
+
     def sumIntervalNoise(self):
         for tls in net._tlss:
             sum = 0
@@ -162,15 +175,17 @@ class HarmonoiseReader(handler.ContentHandler):
                 self._tlsNoise[tlsID] = []
             for nodeID in self._tlsID2NodeID[tlsID]:
                 for noise in self._nodeIntervalNoise[nodeID]:
-                    sum = sum + pow(10, noise/10)
-            self._tlsNoise[tlsID].append(10 * log(sum)/log(10))
+                    sum = sum + pow(10, noise / 10)
+            self._tlsNoise[tlsID].append(10 * log(sum) / log(10))
 
     def sumNoise(self):
         for tls in net._tlss:
             tlsID = tls._id
             self._tlsNoise[tlsID] = sum(self._tlsNoise[tlsID]) / self._maxT
 
+
 class HBEFAReader(handler.ContentHandler):
+
     def __init__(self, net, tlsID2NodeID):
         self._maxT = 0
         self._net = net
@@ -187,7 +202,7 @@ class HBEFAReader(handler.ContentHandler):
         self._tlsNOx = {}
         self._tlsfuel = {}
         self._tlsID2NodeID = tlsID2NodeID
-        
+
     def startElement(self, name, attrs):
         if name == 'interval':
             self._maxT = max(float(attrs['end']), self._maxT)
@@ -199,7 +214,7 @@ class HBEFAReader(handler.ContentHandler):
             PMx = float(attrs['PMx_perVeh'])
             NOx = float(attrs['NOx_perVeh'])
             fuel = float(attrs['fuel_perVeh'])
-            if edgeID[0]==':':
+            if edgeID[0] == ':':
                 nodeIDs = edgeID[1:edgeID.find('_')]
             else:
                 fromNodeID = net.getEdge(edgeID)._from._id
@@ -220,13 +235,12 @@ class HBEFAReader(handler.ContentHandler):
                 self._nodeIntervalNOx[nodeID].append(NOx)
                 self._nodeIntervalfuel[nodeID].append(fuel)
 
-                
     def endElement(self, name):
         if name == 'interval':
             self.sumInterval()
         if name == 'netstats':
             self.sum()
-            
+
     def sumInterval(self):
         for tls in net._tlss:
             tlsID = tls._id
@@ -278,8 +292,8 @@ class HBEFAReader(handler.ContentHandler):
             self._tlsNOx[tlsID] = sum(self._tlsNOx[tlsID]) / self._maxT
             self._tlsfuel[tlsID] = sum(self._tlsfuel[tlsID]) / self._maxT
 
-            
-# initialise 
+
+# initialise
 optParser = OptionParser()
 optParser.add_option("-n", "--netfile", dest="netfile",
                      help="name of the netfile (f.e. 'inputs\\pasubio\\a_costa.net.xml')", metavar="<FILE>", type="string")
@@ -291,7 +305,8 @@ optParser.add_option("-e", "--HBEFAFile", dest="hbefaFile",
                      help="name of the HBEFA file", metavar="<FOLDER>", type="string")
 
 
-optParser.set_usage('\n-n inputs\\pasubio\\pasubio.net.xml -p inputs\\pasubio\\')
+optParser.set_usage(
+    '\n-n inputs\\pasubio\\pasubio.net.xml -p inputs\\pasubio\\')
 # parse options
 (options, args) = optParser.parse_args()
 if not options.netfile:
@@ -325,6 +340,7 @@ if options.hbefaFile:
     mergeInfos(tlsInfo, hbefaOutput._tlsNOx, 'NOx')
     mergeInfos(tlsInfo, hbefaOutput._tlsfuel, 'fuel')
 
-getStatisticsOutput(tlsInfo, os.path.join(options.path, "intersection_metrics_summary.txt"))
+getStatisticsOutput(
+    tlsInfo, os.path.join(options.path, "intersection_metrics_summary.txt"))
 
 print 'The calculation is done!'

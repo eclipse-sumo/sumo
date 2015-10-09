@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 24 Mar 2015 02:01:17 PM CET by Netedit Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/debug/1702_server.py_netconvert/net3.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/1702_server.py_netconvert/input_plain3"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="137082383#12" from="cluster_1129387341_1129387412" to="cluster_828110366_828110369" priority="9" type="highway.primary" numLanes="2" speed="27.78" shape="48257.90,14370.48 48346.61,14348.27 48516.86,14305.21 48545.64,14297.94 48595.30,14284.19 48767.13,14241.00 49093.64,14154.06 49150.76,14147.54 49211.18,14143.39 49217.40,14143.65 49323.93,14151.80 49405.45,14157.30" spreadType="center">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+        <lane index="1" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="137082383#14" from="cluster_828110366_828110369" to="828110409" priority="9" type="highway.primary" numLanes="2" speed="27.78" shape="49405.45,14157.30 49430.43,14158.23" spreadType="center">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+        <lane index="1" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="147676141#0" from="828110410" to="cluster_828110366_828110369" priority="9" type="highway.primary" numLanes="2" speed="27.78" shape="49434.15,14169.59 49408.75,14169.33" spreadType="center">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+        <lane index="1" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="147676141#1" from="cluster_828110366_828110369" to="cluster_1129387341_1129387412" priority="9" type="highway.primary" numLanes="2" speed="27.78" shape="49408.75,14169.33 49217.35,14153.36 49211.35,14155.19 49151.83,14159.26 49095.84,14165.66 48770.10,14252.39 48598.33,14295.57 48548.64,14309.31 48347.31,14358.43 48259.92,14377.61" spreadType="center">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+        <lane index="1" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="68992992#0" from="828110348" to="cluster_828110366_828110369" priority="9" type="highway.primary" numLanes="2" speed="27.78" shape="49463.54,14294.14 49450.89,14272.78 49436.87,14245.61 49424.82,14217.17 49413.94,14188.62 49408.75,14169.33" spreadType="center">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+        <lane index="1" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="68992992#2" from="cluster_828110366_828110369" to="cluster_828110201_828110211" priority="9" type="highway.primary" numLanes="2" speed="27.78" shape="49405.45,14157.30 49403.03,14132.46 49407.19,14094.89 49401.02,14037.55 49383.45,13683.17 49366.18,13373.98 49342.18,13239.32 49337.62,13135.37" spreadType="center">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+        <lane index="1" disallow="rail_urban rail rail_electric"/>
+    </edge>
+
+
+</edges>

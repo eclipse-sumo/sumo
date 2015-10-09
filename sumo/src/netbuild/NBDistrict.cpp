@@ -9,7 +9,7 @@
 // A class representing a single district
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -67,6 +67,13 @@ void
 NBDistrict::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
     myPosition.reshiftRotate(xoff, yoff, 0);
     myShape.reshiftRotate(xoff, yoff, 0);
+}
+
+
+void
+NBDistrict::mirrorX() {
+    myPosition.mul(1, -1);
+    myShape.mirrorX();
 }
 
 

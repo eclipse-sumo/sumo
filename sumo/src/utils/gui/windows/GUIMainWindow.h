@@ -9,7 +9,7 @@
 //
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -36,8 +36,15 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/foxtools/MFXMutex.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class GUIEvent;
 
 
 // ===========================================================================
@@ -90,6 +97,17 @@ public:
      */
     virtual SUMOReal getDelay() const {
         return 0;
+    }
+
+    /** @brief Sets the delay of the parent application
+     */
+    virtual void setDelay(SUMOReal) {}
+
+    /** @brief Sends an event from the application thread to the GUI and waits until it is handled
+     * @param event the event to send
+     */
+    virtual void sendBlockingEvent(GUIEvent* event) {
+        UNUSED_PARAMETER(event);
     }
 
 protected:

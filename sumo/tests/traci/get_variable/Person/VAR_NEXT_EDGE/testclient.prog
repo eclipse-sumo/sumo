@@ -1,0 +1,5 @@
+simstep2 5
+getvariable 0xae 0xc1 0
+simstep2 100
+getvariable 0xae 0xc1 0
+simstep2 0

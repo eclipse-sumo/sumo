@@ -12,7 +12,7 @@
 // The general windows configuration file
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -52,9 +52,6 @@
 /* defines the precision of floats */
 #define SUMOReal double
 
-/* defines a long */
-#define SUMOLong long long
-
 /* defines the epsilon to use on position comparison */
 #define POSITION_EPS (SUMOReal)0.1
 
@@ -72,7 +69,7 @@
 
 /* Version number of package */
 #ifndef HAVE_VERSION_H
-#define VERSION_STRING "0.22.0"
+#define VERSION_STRING "0.24.0"
 #endif
 
 /* Define if junction internal lanes should be used. */

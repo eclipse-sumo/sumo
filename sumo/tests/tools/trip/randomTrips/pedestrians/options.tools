@@ -1,0 +1,1 @@
+-n net.net.xml -s 42 --pedestrians -e 100 --min-distance 1 --trip-attributes 'departPos="random" color="red"'

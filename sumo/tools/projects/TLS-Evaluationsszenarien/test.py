@@ -10,7 +10,7 @@
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -21,7 +21,6 @@ the Free Software Foundation; either version 3 of the License, or
 
 from evaluator import *
 from plotter import *
-
 
 
 plotDiagram('data\\000')
@@ -37,17 +36,16 @@ print getMinTravelTime()
 print getAvgGreenTime(6, 6)
 
 
-
 filename = "data\\001.dat"
 
 X = load(filename)
 
-flowWEA = X[:,2]
-flowNSA = X[:,3]
-avgDelayWEA = X[:,4]
-avgDelayNSA = X[:,5]
+flowWEA = X[:, 2]
+flowNSA = X[:, 3]
+avgDelayWEA = X[:, 4]
+avgDelayNSA = X[:, 5]
 
-[X,Y] = meshgrid(range(300, 1300, 100), range(300, 1300, 100))
+[X, Y] = meshgrid(range(300, 1300, 100), range(300, 1300, 100))
 
 flow = X[0]
 
@@ -61,12 +59,12 @@ filename = "data\\003.dat"
 
 X = load(filename)
 
-flowWEA = X[:,2]
-flowNSA = X[:,3]
-avgDelayWEA = X[:,4]
-avgDelayNSA = X[:,5]
+flowWEA = X[:, 2]
+flowNSA = X[:, 3]
+avgDelayWEA = X[:, 4]
+avgDelayNSA = X[:, 5]
 
-[X,Y] = meshgrid(range(300, 1300, 100), range(300, 1300, 100))
+[X, Y] = meshgrid(range(300, 1300, 100), range(300, 1300, 100))
 
 Z = griddata(flowWEA, flowNSA, avgDelayWEA, X, Y)
 delayFCWE = Z[0]
@@ -74,18 +72,17 @@ Z = griddata(flowWEA, flowNSA, avgDelayNSA, X, Y)
 delayFCNS = Z[0]
 
 
-
-figure(figsize=(12,6))
-subplot(1,2,1)
+figure(figsize=(12, 6))
+subplot(1, 2, 1)
 plot(flow, delayFCWE, flow, delayVAWE)
-ylim(0,60)
+ylim(0, 60)
 xlabel("Flow")
 ylabel("Average Delay WE")
-legend(("FC", "VA"),loc='upper left')
-subplot(1,2,2)
+legend(("FC", "VA"), loc='upper left')
+subplot(1, 2, 2)
 plot(flow, delayFCNS, flow, delayVANS)
-ylim(0,60)
+ylim(0, 60)
 xlabel("Flow")
 ylabel("Average Delay NS")
-legend(("FC", "VA"),loc='upper left')
+legend(("FC", "VA"), loc='upper left')
 show()

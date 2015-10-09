@@ -11,7 +11,7 @@
 Tutorial for traffic light control via the TraCI interface.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2014 DLR/TS, Germany
+Copyright (C) 2009-2015 DLR/TS, Germany
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -20,8 +20,11 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, sys, subprocess
-# the embedded python does not add the current dir to the python path, so we need to do it
+import os
+import sys
+import subprocess
+# the embedded python does not add the current dir to the python path, so
+# we need to do it
 sys.path.append(os.path.dirname(__file__))
 import runner
 

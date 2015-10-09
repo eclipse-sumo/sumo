@@ -17,15 +17,17 @@
         <weight-files value="" synonymes="w weights" type="FILE" help="Load edge/lane weights for online rerouting from FILE"/>
         <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
         <load-state value="" type="FILE" help="Loads a network state from FILE"/>
-        <load-state.offset value="0" type="TIME" help="Sets the time offset for vehicle segment exit times"/>
+        <load-state.offset value="0" type="TIME" help="Shifts all times loaded from a saved state by the given offset"/>
     </input>
 
     <output>
-        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
+        <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE" help="Save complete network states into FILE"/>
         <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" type="BOOL" help="Write also empty edges completely when dumping"/>
         <netstate-dump.precision value="2" synonymes="dump-precision netstate-output.precision netstate.precision" type="INT" help="Write positions and speeds with the given precision (default 2)"/>
         <emission-output value="" type="FILE" help="Save the emission values of each vehicle"/>
+        <battery-output value="" type="FILE" help="Save the battery values of each vehicle"/>
+        <battery-output.precision value="2" type="INT" help="Write battery values with the given precision (default 2)"/>
         <fcd-output value="" type="FILE" help="Save the Floating Car Data"/>
         <fcd-output.geo value="false" type="BOOL" help="Save the Floating Car Data using geo-coordinates (lon/lat)"/>
         <fcd-output.signals value="false" type="BOOL" help="Add the vehicle signal state to the FCD output (brake lights etc.)"/>
@@ -42,11 +44,10 @@
         <vehroute-output.sorted value="false" synonymes="vehroutes.sorted" type="BOOL" help="Sorts the output by departure time"/>
         <vehroute-output.dua value="false" synonymes="vehroutes.dua" type="BOOL" help="Write the output in the duarouter alternatives style"/>
         <vehroute-output.intended-depart value="false" synonymes="vehroutes.intended-depart" type="BOOL" help="Write the output with the intended instead of the real departure time"/>
+        <vehroute-output.route-length value="false" synonymes="vehroutes.route-length" type="BOOL" help="Include total route length in the output"/>
         <vehroute-output.write-unfinished value="false" type="BOOL" help="Write vehroute output for vehicles which have not arrived at simulation end"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
-        <bt-output value="" type="FILE" help="Save bt visibilities into FILE"/>
-        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
-        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
+        <bt-output value="" type="FILE" help="Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
         <save-state.files value="" type="FILE" help="Files for network states"/>
@@ -65,7 +66,7 @@
         <ignore-accidents value="false" type="BOOL" help="Do not check whether accidents occur"/>
         <ignore-route-errors value="false" type="BOOL" help="Do not check whether routes are connected"/>
         <max-num-vehicles value="-1" synonymes="too-many-vehicles" type="INT" help="Quit simulation if this number of vehicles is exceeded"/>
-        <scale value="" type="FLOAT" help="Scale demand by the given factor (0..1)"/>
+        <scale value="" type="FLOAT" help="Scale demand by the given factor (by discarding or duplicating vehicles)"/>
         <time-to-teleport value="300" type="TIME" help="Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting"/>
         <time-to-teleport.highways value="0" type="TIME" help="The waiting time after which vehicles on a fast road (speed &gt; 69m/s) are teleported if they are on a non-continuing lane"/>
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
@@ -75,12 +76,28 @@
         <lanechange.allow-swap value="false" type="BOOL" help="Whether blocking vehicles trying to change lanes may be swapped"/>
         <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)"/>
         <lanechange.overtake-right value="false" type="BOOL" help="Whether overtaking on the right on motorways is permitted"/>
-        <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;]"/>
         <pedestrian.striping.stripe-width value="0.65" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
         <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
         <pedestrian.striping.jamtime value="300" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
     </processing>
+
+    <routing>
+        <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
+        <weights.random-factor value="1" type="FLOAT" help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)"/>
+        <device.rerouting.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;rerouting&apos; device"/>
+        <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR" help="Assign a &apos;rerouting&apos; device to named vehicles"/>
+        <device.rerouting.deterministic value="false" type="BOOL" help="The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000"/>
+        <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME" help="The period with which the vehicle shall be rerouted"/>
+        <device.rerouting.pre-period value="1" synonymes="device.routing.pre-period" type="TIME" help="The rerouting period before depart"/>
+        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights"/>
+        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights"/>
+        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL" help="Use zones (districts) as routing end points"/>
+        <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use given weight files for initializing edge weights"/>
+        <device.rerouting.shortest-path-file value="" type="FILE" help="Initialize lookup table for astar from the given distance matrix"/>
+        <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
+        <device.rerouting.output value="" type="FILE" help="Save adapting weights to FILE"/>
+    </routing>
 
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
@@ -93,7 +110,8 @@
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
-        <no-duration-log value="false" type="BOOL" help="Disable performance reports for individual simulation steps"/>
+        <duration-log.disable value="false" synonymes="no-duration-log" type="BOOL" help="Disable performance reports for individual simulation steps"/>
+        <duration-log.statistics value="false" type="BOOL" help="Enable statistics on vehicle trips"/>
         <no-step-log value="false" type="BOOL" help="Disable console output of current simulation step"/>
     </report>
 
@@ -116,28 +134,21 @@
         <device.btsender.deterministic value="false" type="BOOL" help="The &apos;btsender&apos; devices are set deterministic using a fraction of 1000"/>
     </communication>
 
-    <routing>
-        <device.rerouting.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;rerouting&apos; device"/>
-        <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR" help="Assign a &apos;rerouting&apos; device to named vehicles"/>
-        <device.rerouting.deterministic value="false" type="BOOL" help="The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME" help="The period with which the vehicle shall be rerouted"/>
-        <device.rerouting.pre-period value="1" synonymes="device.routing.pre-period" type="TIME" help="The rerouting period before depart"/>
-        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights"/>
-        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights"/>
-        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz" type="BOOL" help="Use zones (districts) as routing end points"/>
-        <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use given weight files for initializing edge weights"/>
-        <device.rerouting.shortest-path-file value="" type="FILE" help="Initialize lookup table for astar from the given distance matrix"/>
-        <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
-    </routing>
+    <battery>
+        <device.battery.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;battery&apos; device"/>
+        <device.battery.explicit value="" synonymes="device.battery.knownveh" type="STR" help="Assign a &apos;battery&apos; device to named vehicles"/>
+        <device.battery.deterministic value="false" type="BOOL" help="The &apos;battery&apos; devices are set deterministic using a fraction of 1000"/>
+    </battery>
 
     <example_device>
-        <device.example.explicit value="" type="STR" help="Assign a device to named vehicles"/>
+        <device.example.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;example&apos; device"/>
+        <device.example.explicit value="" synonymes="device.example.knownveh" type="STR" help="Assign a &apos;example&apos; device to named vehicles"/>
+        <device.example.deterministic value="false" type="BOOL" help="The &apos;example&apos; devices are set deterministic using a fraction of 1000"/>
         <device.example.parameter value="0" type="FLOAT" help="An exemplary parameter which can be used by all instances of the example device"/>
     </example_device>
 
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
-        <python-script value="" type="STR" help="Runs TraCI script with embedded python"/>
     </traci_server>
 
     <mesoscopic>

@@ -1,0 +1,1 @@
+--no-step-log --no-duration-log --net-file=three_split.net.xml -r input_routes.rou.xml --device.example.probability 0.5 --tripinfo-output tripinfos.xml

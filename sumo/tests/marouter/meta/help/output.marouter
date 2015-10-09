@@ -1,5 +1,5 @@
-SUMO marouter Version dev-SVN-r17463
- Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
+SUMO marouter Version dev-SVN-r18990
+ Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment
 
 Usage: marouter [OPTION]*
@@ -19,32 +19,36 @@ Input Options:
   -m, --od-matrix-files FILE        Loads O/D-files from FILE(s)
   --od-amitran-files FILE           Loads O/D-matrix in Amitran format from
                                       FILE(s)
+  -r, --route-files FILE            Read sumo-routes or trips from FILE(s)
   -w, --weight-files FILE           Read network weights from FILE(s)
   --lane-weight-files FILE          Read lane-based network weights from
                                       FILE(s)
   -x, --weight-attribute STR        Name of the xml attribute which gives the
                                       edge weight
+  --weight-adaption FLOAT           The travel time influence of prior
+                                      intervals
 
 Output Options:
-  --output-prefix FILE              Prefix which is applied to all output
+  --output-prefix STR               Prefix which is applied to all output
                                       files. The special string 'TIME' is
                                       replaced by the current time.
-  -o, --output-file FILE            Write route distributions to FILE
-  --flow-output FILE                Writes flow definitions into FILE
+  -o, --output-file FILE            Write flow definitions with route
+                                      distributions to FILE
   --ignore-vehicle-type             Does not save vtype information
   --netload-output FILE             Writes edge loads and final costs into FILE
   --all-pairs-output FILE           Writes complete distance matrix into FILE
   --exit-times                      Write exit times (weights) for each edge
 
 Processing Options:
+  --aggregation-interval TIME       Defines the time interval when aggregating
+                                      single vehicle input; Defaults to one hour
   --ignore-errors                   Continue if a route could not be build
   --max-alternatives INT            Prune the number of alternatives to INT
   --weights.interpolate             Interpolate edge weights at interval
                                       boundaries
   --weights.expand                  Expand weights behind the simulation's end
   --routing-algorithm STR           Select among routing algorithms
-                                      ['dijkstra', 'astar', 'bulkstar', 'CH',
-                                      'CHWrapper']
+                                      ['dijkstra', 'astar', 'CH', 'CHWrapper']
   --weight-period TIME              Aggregation period for the given weight
                                       files;
                                       triggers rebuilding of Contraction
@@ -54,6 +58,8 @@ Processing Options:
   --prefix STR                      Defines the prefix for vehicle flow names
   --timeline STR                    Uses STR as a timeline definition
   --timeline.day-in-hours           Uses STR as a 24h-timeline definition
+  --additive-traffic                Keep traffic flows of all time slots in the
+                                      net
   --assignment-method STR           Choose a assignment method: incremental, UE
                                       or SUE
   --tolerance FLOAT                 Use FLOAT as tolerance when checking for

@@ -9,7 +9,7 @@
 // A set of actions common to all applications
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -106,7 +106,7 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("error-log", new Option_FileName());
     oc.addDescription("error-log", "Report", "Writes all warnings and errors to FILE");
 
-    oc.doRegister("output-prefix", new Option_FileName());//!!! check, describe
+    oc.doRegister("output-prefix", new Option_String());
     oc.addDescription("output-prefix", "Output", "Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time.");
 }
 

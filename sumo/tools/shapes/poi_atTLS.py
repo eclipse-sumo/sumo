@@ -10,7 +10,7 @@ Generates a PoI-file containing a PoI for each tls controlled intersection
  from the given net.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2010-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2010-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -19,12 +19,13 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, sys
+import os
+import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
 
-if len(sys.argv)<2:
+if len(sys.argv) < 2:
     print >> sys.stderr, "Usage: " + sys.argv[0] + " <NET>"
     sys.exit()
 
@@ -44,18 +45,20 @@ for tlsID in net1._id2tls:
         iLane = c[0]
         iEdge = iLane.getEdge()
         nodes.add(iEdge._to)
-    if len(sys.argv)>2 and sys.argv[2]!="nojoin":
+    if len(sys.argv) > 2 and sys.argv[2] != "nojoin":
         c = [0, 0]
         for n in nodes:
             c[0] += n._coord[0]
             c[1] += n._coord[1]
-        if len(nodes)>1:
+        if len(nodes) > 1:
             c[0] = c[0] / float(len(nodes))
             c[1] = c[1] / float(len(nodes))
-        print >> fdo, '    <poi id="%s" type="default" color="1,0,0" layer="0" x="%s" y="%s"/>' % (tlsID, c[0], c[1])
+        print >> fdo, '    <poi id="%s" type="default" color="1,0,0" layer="0" x="%s" y="%s"/>' % (
+            tlsID, c[0], c[1])
     else:
         for n in nodes:
-            print >> fdo, '    <poi id="%s_at_%s" type="default" color="1,0,0" layer="0" x="%s" y="%s"/>' % (tlsID, n._id, n._coord[0], n._coord[1])
+            print >> fdo, '    <poi id="%s_at_%s" type="default" color="1,0,0" layer="0" x="%s" y="%s"/>' % (
+                tlsID, n._id, n._coord[0], n._coord[1])
 
 print >> fdo, '</additional>'
 fdo.close()

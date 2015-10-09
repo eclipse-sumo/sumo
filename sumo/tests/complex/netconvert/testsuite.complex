@@ -10,3 +10,9 @@ osm_roundtrip
 
 # export sumo.net.xml as dlr-navteq then reimport and check for consistency with the original net.xml
 dlr-navteq_roundtrip
+
+# export sumo.net.xml as matsim then reimport and check for consistency with the original net.xml
+matsim_roundtrip
+
+# export sumo.net.xml as opendrive then reimport and check for consistency with the original net.xml
+opendrive_roundtrip

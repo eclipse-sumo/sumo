@@ -9,7 +9,7 @@
 // Reroutes vehicles passing an edge
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -296,15 +296,20 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     }
     const MSEdge* newEdge = lastEdge;
     // ok, try using a new destination
+    SUMOReal newArrivalPos = -1;
     const bool destUnreachable = std::find(rerouteDef->closed.begin(), rerouteDef->closed.end(), lastEdge) != rerouteDef->closed.end();
     // if we have a closingReroute, only assign new destinations to vehicles which cannot reach their original destination
     if (rerouteDef->closed.size() == 0 || destUnreachable) {
         newEdge = rerouteDef->edgeProbs.getOverallProb() > 0 ? rerouteDef->edgeProbs.get() : route.getLastEdge();
         if (newEdge == &mySpecialDest_terminateRoute) {
             newEdge = veh.getEdge();
+            newArrivalPos = veh.getPositionOnLane(); // instant arrival
         } else if (newEdge == &mySpecialDest_keepDestination || newEdge == lastEdge) {
-            if (destUnreachable) {
-                WRITE_WARNING("Cannot keep destination for vehicle '" + veh.getID() + "' due to closed edges. Terminating route.");
+            if (destUnreachable && rerouteDef->permissions == SVCAll) {
+                // if permissions aren't set vehicles will simply drive through
+                // the closing unless terminated. If the permissions are specified, assume that the user wants
+                // vehicles to stand and wait until the closing ends
+                WRITE_WARNING("Cannot keep destination edge '" + lastEdge->getID() + "' for vehicle '" + veh.getID() + "' due to closed edges. Terminating route.");
                 newEdge = veh.getEdge();
             } else {
                 newEdge = lastEdge;
@@ -319,6 +324,10 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     MSNet::getInstance()->getRouterTT(rerouteDef->closed).compute(
         veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
     veh.replaceRouteEdges(edges);
+    if (newArrivalPos != -1) {
+        // must be called here because replaceRouteEdges may also set the arrivalPos
+        veh.setArrivalPos(newArrivalPos);
+    }
     return false;
 }
 

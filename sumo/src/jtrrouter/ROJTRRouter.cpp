@@ -9,7 +9,7 @@
 // Computes routes using junction turning percentages
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -64,7 +64,7 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
     std::set<const ROEdge*> avoidEdges;
     // route until a sinks has been found
     while (current != 0 && current != to &&
-            current->getType() != ROEdge::ET_SINK &&
+            current->getFunc() != ROEdge::ET_SINK &&
             (int)into.size() < myMaxEdges) {
         into.push_back(current);
         if (!myAllowLoops) {

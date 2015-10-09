@@ -11,7 +11,7 @@
 This script does multiple sumo runs with different rerouting intervals.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -20,19 +20,24 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import print_function
-import os, sys, subprocess
+import os
+import sys
+import subprocess
 from datetime import datetime
 from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib
+
 
 def call(command, log):
     print("-" * 79, file=log)
     print(command, file=log)
     retCode = subprocess.call(command, stdout=log, stderr=log)
     if retCode != 0:
-        print("Execution of %s failed. Look into %s for details." % (command, log.name), file=sys.stderr)
-        sys.exit(retCode) 
+        print("Execution of %s failed. Look into %s for details." %
+              (command, log.name), file=sys.stderr)
+        sys.exit(retCode)
+
 
 def writeSUMOConf(step, options, files):
     fd = open("one_shot_" + str(step) + ".sumocfg", "w")
@@ -46,7 +51,8 @@ def writeSUMOConf(step, options, files):
     if not options.noTripinfo:
         print('        <tripinfo value="tripinfo_%s.xml"/>' % step, file=fd)
     if options.weightfiles:
-        print('        <weight-files value="%s"/>' % options.weightfiles, file=fd)
+        print('        <weight-files value="%s"/>' %
+              options.weightfiles, file=fd)
 
     add = 'dump_%s.add.xml' % step
     if options.costmodifier != 'None':
@@ -64,7 +70,8 @@ def writeSUMOConf(step, options, files):
     if options.mesosim:
         print('        <mesosim value="True"/>', file=fd)
     if options.routingalgorithm:
-        print('        <routing-algorithm value="%s"/>' % options.routingalgorithm, file=fd)
+        print('        <routing-algorithm value="%s"/>' %
+              options.routingalgorithm, file=fd)
     print("""        <device.rerouting.probability value="1"/>
         <device.rerouting.period value="%s"/>
         <device.rerouting.adaptation-interval value="%s"/>
@@ -130,17 +137,17 @@ optParser.add_option("-L", "--lastRoutes", action="store_true", dest="lastRoutes
 optParser.add_option("-F", "--weight-files", dest="weightfiles",
                      help="Load edge/lane weights from FILE", metavar="FILE")
 optParser.add_option("-A", "--routing-algorithm", dest="routingalgorithm", type="choice",
-                    choices=('dijkstra', 'astar'),
-                    default="astar", help="type of routing algorithm [default: %default]")
+                     choices=('dijkstra', 'astar'),
+                     default="astar", help="type of routing algorithm [default: %default]")
 optParser.add_option("-r", "--rerouting-explicit", dest="reroutingexplicit", type="string",
-                     default = "", help="define the ids of the vehicles that should be re-routed.")
+                     default="", help="define the ids of the vehicles that should be re-routed.")
 optParser.add_option("-x", "--with-exittime", action="store_true", dest="withexittime",
-                    default= False, help="Write the exit times for all edges")
+                     default=False, help="Write the exit times for all edges")
 optParser.add_option("-s", "--route-sorted", action="store_true", dest="routesorted",
-                    default= False, help="sorts the output by departure time") 
+                     default=False, help="sorts the output by departure time")
 optParser.add_option("-p", "--path", dest="path", help="Path to binaries")
 optParser.add_option("--cost-modifier", dest="costmodifier", type="choice",
-                     choices=('grohnde', 'isar', 'None'), 
+                     choices=('grohnde', 'isar', 'None'),
                      default='None', help="Whether to modify link travel costs of the given routes")
 (options, args) = optParser.parse_args()
 
@@ -150,7 +157,8 @@ if options.mesosim:
 sumoBinary = sumolib.checkBinary(sumo, options.path)
 if options.costmodifier != 'None':
     pyPath = os.path.abspath(os.path.dirname(sys.argv[0]))
-    sys.path.append(os.path.join(pyPath, "..", "..", "..", "..","..", "tools", "kkwSim"))
+    sys.path.append(
+        os.path.join(pyPath, "..", "..", "..", "..", "..", "tools", "kkwSim"))
     from kkwCostModifier import costModifier
     print('use the cost modifier')
 
@@ -165,12 +173,13 @@ for step in options.frequencies.split(","):
         currentDir = os.getcwd()
         print(options.costmodifier)
         outputfile = '%s_weights_%s.xml' % (options.costmodifier, step)
-        costModifier(outputfile, step, "dump", options.aggregation, currentDir, options.costmodifier, 'one-shot')
+        costModifier(outputfile, step, "dump", options.aggregation,
+                     currentDir, options.costmodifier, 'one-shot')
     writeSUMOConf(step, options, options.trips)
     call([sumoBinary, "-c", "one_shot_%s.sumocfg" % step], log)
     etime = datetime.now()
     print(">> End time %s" % etime)
-    print("< Step %s ended (duration: %s)" % (step, etime-btime))
+    print("< Step %s ended (duration: %s)" % (step, etime - btime))
     print("------------------\n")
 print("one-shot ended (duration: %s)" % (datetime.now() - starttime))
 

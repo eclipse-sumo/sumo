@@ -10,7 +10,7 @@
 // The XML-Handler for network loading
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -315,6 +315,9 @@ protected:
     /// The id of the currently processed WAUT
     std::string myCurrentWAUTID;
 
+    /// The id of the currently processed edge type
+    std::string myCurrentTypeID;
+
     /// The network offset
     Position myNetworkOffset;
 
@@ -329,6 +332,9 @@ protected:
 
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
+
+    /// @brief whether the location element was already loadee
+    bool myNetIsLoaded;
 
     /// @brief temporary data for building the junction graph after network parsing is finished
     typedef std::map<std::string, std::pair<std::string, std::string> > JunctionGraph;

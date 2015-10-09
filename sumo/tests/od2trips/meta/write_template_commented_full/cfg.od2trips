@@ -21,8 +21,8 @@
     </configuration>
 
     <input>
-        <!-- Loads network (districts) from FILE -->
-        <net-file value="" synonymes="n net" type="FILE"/>
+        <!-- Loads TAZ (districts; also from networks) from FILE(s) -->
+        <taz-files value="" synonymes="n net net-file taz" type="FILE"/>
 
         <!-- Loads O/D-files from FILE(s) -->
         <od-matrix-files value="" synonymes="d od od-files" type="FILE"/>
@@ -34,7 +34,7 @@
 
     <output>
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
-        <output-prefix value="" type="FILE"/>
+        <output-prefix value="" type="STR"/>
 
         <!-- Writes trip definitions into FILE -->
         <output-file value="" synonymes="o output" type="FILE"/>
@@ -52,7 +52,7 @@
         <begin value="0" synonymes="b" type="TIME"/>
 
         <!-- Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent -->
-        <end value="2147483" synonymes="e" type="TIME"/>
+        <end value="9223372036854774" synonymes="e" type="TIME"/>
 
     </time>
 
@@ -62,6 +62,9 @@
 
         <!-- Spreads trips uniformly over each time period -->
         <spread.uniform value="false" type="BOOL"/>
+
+        <!-- Always choose source and sink edge which are not identical -->
+        <different-source-sink value="false" type="BOOL"/>
 
         <!-- Defines the name of the vehicle type to use -->
         <vtype value="" type="STR"/>

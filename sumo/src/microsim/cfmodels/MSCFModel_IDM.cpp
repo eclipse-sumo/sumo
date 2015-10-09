@@ -9,7 +9,7 @@
 // The Intelligent Driver Model (IDM) car-following model
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -71,7 +71,7 @@ MSCFModel_IDM::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     const SUMOReal vNext = MSCFModel::moveHelper(veh, vPos);
     if (myAdaptationFactor != 1.) {
         VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
-        vars->levelOfService += (vNext / desiredSpeed(veh) - vars->levelOfService) / myAdaptationTime * TS;
+        vars->levelOfService += (vNext / veh->getLane()->getVehicleMaxSpeed(veh) - vars->levelOfService) / myAdaptationTime * TS;
     }
     return vNext;
 }
@@ -79,7 +79,7 @@ MSCFModel_IDM::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
 
 SUMOReal
 MSCFModel_IDM::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
-    return _v(veh, gap2pred, speed, predSpeed, desiredSpeed(veh));
+    return _v(veh, gap2pred, speed, predSpeed, veh->getLane()->getVehicleMaxSpeed(veh));
 }
 
 
@@ -88,7 +88,7 @@ MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOR
     if (gap2pred < 0.01) {
         return 0;
     }
-    return _v(veh, gap2pred, speed, 0, desiredSpeed(veh), false);
+    return _v(veh, gap2pred, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
 }
 
 
@@ -98,7 +98,7 @@ MSCFModel_IDM::interactionGap(const MSVehicle* const veh, SUMOReal vL) const {
     // Resolve the IDM equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    const SUMOReal acc = myAccel * (1. - pow(veh->getSpeed() / desiredSpeed(veh), myDelta));
+    const SUMOReal acc = myAccel * (1. - pow(veh->getSpeed() / veh->getLane()->getVehicleMaxSpeed(veh), myDelta));
     const SUMOReal vNext = veh->getSpeed() + acc;
     const SUMOReal gap = (vNext - vL) * (veh->getSpeed() + vL) / (2 * myDecel) + vL;
 

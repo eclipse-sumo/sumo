@@ -7,7 +7,7 @@
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -18,7 +18,9 @@ the Free Software Foundation; either version 3 of the License, or
 
 from xml.sax import saxutils, make_parser, handler
 
+
 class InductLoopReader(handler.ContentHandler):
+
     def __init__(self, toCollect):
         self._values = {}
         self._toCollect = toCollect
@@ -57,12 +59,13 @@ class InductLoopReader(handler.ContentHandler):
                     no[e] = 0
                 ret[e] = ret[e] + i[e]
                 no[e] = no[e] + 1
-        if how=="sum":
+        if how == "sum":
             return ret
-        elif how=="average":
+        elif how == "average":
             for e in i:
                 ret[e] = ret[e] / float(no[e])
-        self._values[what] = [ ret ]
+        self._values[what] = [ret]
+
 
 def readInductLoop(file, toCollect):
     parser = make_parser()

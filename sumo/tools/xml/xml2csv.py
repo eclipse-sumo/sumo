@@ -11,7 +11,7 @@
 Convert hierarchical xml files to csv. This only makes sense if the hierarchy has low depth.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2013-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -21,7 +21,10 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys, socket, collections
+import os
+import sys
+import socket
+import collections
 from optparse import OptionParser
 import xml.sax
 try:
@@ -33,8 +36,11 @@ except ImportError:
 
 import xsd
 
+
 class NestingHandler(xml.sax.handler.ContentHandler):
+
     """A handler which knows the current nesting of tags"""
+
     def __init__(self):
         self.tagstack = []
 
@@ -48,14 +54,17 @@ class NestingHandler(xml.sax.handler.ContentHandler):
         # do not count the root element
         return len(self.tagstack) - 1
 
+
 class AttrFinder(NestingHandler):
+
     def __init__(self, xsdFile, source, split):
         NestingHandler.__init__(self)
-        self.tagDepths = {} # tag -> depth of appearance
-        self.tagAttrs = collections.defaultdict(collections.OrderedDict) # tag -> set of attrs
-        self.renamedAttrs = {} # (name, attr) -> renamedAttr
+        self.tagDepths = {}  # tag -> depth of appearance
+        self.tagAttrs = collections.defaultdict(
+            collections.OrderedDict)  # tag -> set of attrs
+        self.renamedAttrs = {}  # (name, attr) -> renamedAttr
         self.attrs = {}
-        self.depthTags = {} # child of root: depth of appearance -> tag list
+        self.depthTags = {}  # child of root: depth of appearance -> tag list
         self.rootDepth = 1 if split else 0
         if xsdFile:
             self.xsdStruc = xsd.XsdStructure(xsdFile)
@@ -67,7 +76,8 @@ class AttrFinder(NestingHandler):
             else:
                 self.attrs[self.xsdStruc.root.name] = []
                 self.depthTags[self.xsdStruc.root.name] = []
-                self.recursiveAttrFind(self.xsdStruc.root, self.xsdStruc.root, 0)
+                self.recursiveAttrFind(
+                    self.xsdStruc.root, self.xsdStruc.root, 0)
         else:
             self.xsdStruc = None
             xml.sax.parse(source, self)
@@ -80,14 +90,15 @@ class AttrFinder(NestingHandler):
             self.depthTags[root][depth].append(name)
             return True
         if name not in self.depthTags[root][depth]:
-            print("Ignoring tag %s at depth %s" % (name, depth), file=sys.stderr)
+            print("Ignoring tag %s at depth %s" %
+                  (name, depth), file=sys.stderr)
         return False
 
     def recursiveAttrFind(self, root, currEle, depth):
         if not self.addElement(root.name, currEle.name, depth):
             return
         for a in currEle.attributes:
-            if ":" not in a.name: # no namespace support yet
+            if ":" not in a.name:  # no namespace support yet
                 self.tagAttrs[currEle.name][a.name] = a
                 anew = "%s_%s" % (currEle.name, a.name)
                 self.renamedAttrs[(currEle.name, a.name)] = anew
@@ -118,6 +129,7 @@ class AttrFinder(NestingHandler):
 
 
 class CSVWriter(NestingHandler):
+
     def __init__(self, attrFinder, options):
         NestingHandler.__init__(self)
         self.attrFinder = attrFinder
@@ -137,9 +149,11 @@ class CSVWriter(NestingHandler):
                 if options.output:
                     outfilename = options.output + "%s.csv" % root
                 else:
-                    outfilename = os.path.splitext(options.source)[0] + "%s.csv" % root
+                    outfilename = os.path.splitext(
+                        options.source)[0] + "%s.csv" % root
                 self.outfiles[root] = open(outfilename, 'w')
-            self.outfiles[root].write(options.separator.join(map(self.quote,attrFinder.attrs[root])) + "\n")
+            self.outfiles[root].write(
+                options.separator.join(map(self.quote, attrFinder.attrs[root])) + "\n")
 
     def quote(self, s):
         return "%s%s%s" % (self.options.quotechar, s, self.options.quotechar)
@@ -163,7 +177,8 @@ class CSVWriter(NestingHandler):
 #                    print(a, dict(self.attrFinder.tagAttrs[name]))
                     if a in self.attrFinder.tagAttrs[name]:
                         if self.attrFinder.xsdStruc:
-                            enum = self.attrFinder.xsdStruc.getEnumeration(self.attrFinder.tagAttrs[name][a].type)
+                            enum = self.attrFinder.xsdStruc.getEnumeration(
+                                self.attrFinder.tagAttrs[name][a].type)
                             if enum:
                                 v = enum.index(v)
                         a2 = self.attrFinder.renamedAttrs.get((name, a), a)
@@ -184,6 +199,7 @@ class CSVWriter(NestingHandler):
                     del self.currentValues[a2]
         NestingHandler.endElement(self, name)
 
+
 def getSocketStream(port, mode='rb'):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(("localhost", port))
@@ -191,13 +207,16 @@ def getSocketStream(port, mode='rb'):
     conn, addr = s.accept()
     return conn.makefile(mode)
 
+
 def getOutStream(output):
     if output.isdigit():
         return getSocketStream(int(output), 'wb')
     return open(output, 'wb')
-    
+
+
 def get_options():
-    optParser = OptionParser(usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
+    optParser = OptionParser(
+        usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
     optParser.add_option("-s", "--separator", default=";",
                          help="separating character for fields")
     optParser.add_option("-q", "--quotechar", default='',
@@ -223,9 +242,11 @@ def get_options():
     else:
         options.source = args[0]
     if options.output and options.output.isdigit() and options.split:
-        print("it is not possible to use splitting together with stream output", file=sys.stderr)
+        print(
+            "it is not possible to use splitting together with stream output", file=sys.stderr)
         sys.exit()
-    return options 
+    return options
+
 
 def main():
     options = get_options()

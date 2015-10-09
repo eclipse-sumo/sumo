@@ -9,7 +9,7 @@
 // Parser for routes during their loading
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -128,6 +128,9 @@ protected:
     /// Ends the processing of a person
     virtual void closePerson() = 0;
 
+    /// Ends the processing of a container
+    virtual void closeContainer() = 0;
+
     /// Ends the processing of a flow
     virtual void closeFlow() = 0;
 
@@ -147,7 +150,7 @@ protected:
     bool parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix, MsgHandler* const errorOutput);
 
 protected:
-    /// @brief Parameter of the current vehicle, trip, person, or flow
+    /// @brief Parameter of the current vehicle, trip, person, container or flow
     SUMOVehicleParameter* myVehicleParameter;
 
     /// @brief The insertion time of the vehicle read last

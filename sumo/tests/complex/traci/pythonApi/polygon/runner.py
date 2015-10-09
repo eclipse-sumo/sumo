@@ -9,7 +9,7 @@
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -18,21 +18,28 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci, sumolib
+import os
+import subprocess
+import sys
+import random
+sys.path.append(os.path.join(
+    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
+import traci
+import sumolib
 
 sumoBinary = sumolib.checkBinary('sumo-gui')
 
 PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen("%s -S -Q -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+sumoProcess = subprocess.Popen(
+    "%s -S -Q -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
 for step in range(3):
     print "step", step
     traci.simulationStep()
 polygonID = "0"
 print "adding", polygonID
-traci.polygon.add(polygonID, ((1,1), (1,10), (10,10)), (1,2,3,4), True, "test")
+traci.polygon.add(
+    polygonID, ((1, 1), (1, 10), (10, 10)), (1, 2, 3, 4), True, "test")
 
 print "polygons", traci.polygon.getIDList()
 print "polygon count", traci.polygon.getIDCount()
@@ -43,7 +50,7 @@ print "color", traci.polygon.getColor(polygonID)
 
 traci.polygon.subscribe(polygonID)
 print traci.polygon.getSubscriptionResults(polygonID)
-for step in range(3,6):
+for step in range(3, 6):
     print "step", step
     traci.simulationStep()
     print traci.polygon.getSubscriptionResults(polygonID)

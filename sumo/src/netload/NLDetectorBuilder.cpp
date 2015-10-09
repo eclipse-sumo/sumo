@@ -12,7 +12,7 @@
 // Builds detectors for microsim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -78,7 +78,7 @@
  * ----------------------------------------------------------------------- */
 NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string& id,
         const std::string& device, SUMOReal haltingSpeedThreshold,
-        SUMOTime haltingTimeThreshold, int splInterval)
+        SUMOTime haltingTimeThreshold, SUMOTime splInterval)
     : myID(id), myDevice(device),
       myHaltingSpeedThreshold(haltingSpeedThreshold),
       myHaltingTimeThreshold(haltingTimeThreshold),
@@ -100,7 +100,7 @@ NLDetectorBuilder::~NLDetectorBuilder() {}
 
 void
 NLDetectorBuilder::buildInductLoop(const std::string& id,
-                                   const std::string& lane, SUMOReal pos, int splInterval,
+                                   const std::string& lane, SUMOReal pos, SUMOTime splInterval,
                                    const std::string& device, bool friendlyPos, bool splitByType) {
     checkSampleInterval(splInterval, SUMO_TAG_E1DETECTOR, id);
     // get and check the lane
@@ -159,7 +159,7 @@ NLDetectorBuilder::buildInstantInductLoop(const std::string& id,
 void
 NLDetectorBuilder::buildE2Detector(const std::string& id,
                                    const std::string& lane, SUMOReal pos, SUMOReal length,
-                                   bool cont, int splInterval,
+                                   bool cont, SUMOTime splInterval,
                                    const std::string& device,
                                    SUMOTime haltingTimeThreshold,
                                    SUMOReal haltingSpeedThreshold,
@@ -288,7 +288,7 @@ NLDetectorBuilder::convContE2PosLength(const std::string& id, MSLane* clane,
 
 void
 NLDetectorBuilder::beginE3Detector(const std::string& id,
-                                   const std::string& device, int splInterval,
+                                   const std::string& device, SUMOTime splInterval,
                                    SUMOReal haltingSpeedThreshold,
                                    SUMOTime haltingTimeThreshold) {
     checkSampleInterval(splInterval, SUMO_TAG_E3DETECTOR, id);
@@ -551,7 +551,7 @@ NLDetectorBuilder::getLaneChecking(const std::string& laneID, SumoXMLTag type,
 
 
 void
-NLDetectorBuilder::checkSampleInterval(int splInterval, SumoXMLTag type, const std::string& id) {
+NLDetectorBuilder::checkSampleInterval(SUMOTime splInterval, SumoXMLTag type, const std::string& id) {
     if (splInterval < 0) {
         throw InvalidArgument("Negative sampling frequency (in " + toString(type) + " '" + id + "').");
     }

@@ -11,7 +11,7 @@
 // An actuated (adaptive) traffic light logic
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -122,7 +122,7 @@ MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() {
 
 // ------------ Switching and setting current rows
 SUMOTime
-MSActuatedTrafficLightLogic::trySwitch(bool) {
+MSActuatedTrafficLightLogic::trySwitch() {
     // checks if the actual phase should be continued
     // @note any vehicles which arrived during the previous phases which are now waiting between the detector and the stop line are not
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
@@ -153,7 +153,7 @@ MSActuatedTrafficLightLogic::duration(const SUMOReal detectionGap) const {
     // ensure that minimum duration is kept
     SUMOTime newDuration = getCurrentPhaseDef().minDuration - actDuration;
     // try to let the last detected vehicle pass the intersection (duration must be positive)
-    newDuration = MAX3(newDuration, TIME2STEPS(myDetectorGap - detectionGap), 1);
+    newDuration = MAX3(newDuration, TIME2STEPS(myDetectorGap - detectionGap), SUMOTime(1));
     // cut the decimal places to ensure that phases always have integer duration
     if (newDuration % 1000 != 0) {
         const SUMOTime totalDur = newDuration + actDuration;

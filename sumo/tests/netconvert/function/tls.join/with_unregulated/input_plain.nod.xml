@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 24 Mar 2015 02:01:17 PM CET by Netedit Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/debug/1702_server.py_netconvert/net3.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/1702_server.py_netconvert/input_plain3"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-297171.88,-3446577.27" convBoundary="48257.90,13130.95,49463.54,14377.61" origBoundary="120.623290,31.010815,121.575855,31.636432" projParameter="+proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="828110348" x="49463.54" y="14294.14" type="unregulated"/>
+    <node id="828110409" x="49430.43" y="14158.23" type="traffic_light"/>
+    <node id="828110410" x="49434.15" y="14169.59" type="traffic_light"/>
+    <node id="cluster_1129387341_1129387412" x="48258.91" y="14374.04" type="traffic_light" tl="joinedS_21"/>
+    <node id="cluster_828110201_828110211" x="49337.39" y="13130.95" type="unregulated"/>
+    <node id="cluster_828110366_828110369" x="49407.10" y="14163.32" type="traffic_light" tl="joinedS_20"/>
+</nodes>

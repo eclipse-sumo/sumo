@@ -25,14 +25,14 @@
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r14576" time="1000">
+<snapshot version="dev-SVN-r14576" time="1.00">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE">
         <carFollowing-Krauss sigma="0.00"/>
     </vType>
-    <vehicle id="v0" depart="0" route="r0" type="DEFAULT_VEHTYPE" state="0 0" pos="5.10" speed="0.00"/>
-    <vehicle id="v1" depart="0" route="r0" type="DEFAULT_VEHTYPE" state="2147483647 0" pos="0.00" speed="0.00"/>
+    <vehicle id="v0" depart="0.00" route="r0" type="DEFAULT_VEHTYPE" state="0 0" pos="5.10" speed="0.00"/>
+    <vehicle id="v1" depart="0.00" route="r0" type="DEFAULT_VEHTYPE" state="9223372036854775807 0" pos="0.00" speed="0.00"/>
     <lane>
         <vehicles value="v0"/>
     </lane>

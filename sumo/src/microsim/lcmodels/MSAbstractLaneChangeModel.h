@@ -11,7 +11,7 @@
 // Interface for lane-change models
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -90,11 +90,15 @@ enum LaneChangeAction {
     // The vehicle is blocked being overlapping
     LCA_OVERLAPPING =  1 << 13,
 
+    // The vehicle does not have enough space to complete a continuous lane
+    // change before the next turning movement
+    LCA_INSUFFICIENT_SPACE =  1 << 14,
+
     LCA_BLOCKED_LEFT = LCA_BLOCKED_BY_LEFT_LEADER | LCA_BLOCKED_BY_LEFT_FOLLOWER,
     LCA_BLOCKED_RIGHT = LCA_BLOCKED_BY_RIGHT_LEADER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
     LCA_BLOCKED_BY_LEADER = LCA_BLOCKED_BY_LEFT_LEADER | LCA_BLOCKED_BY_RIGHT_LEADER,
     LCA_BLOCKED_BY_FOLLOWER = LCA_BLOCKED_BY_LEFT_FOLLOWER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
-    LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT
+    LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT | LCA_INSUFFICIENT_SPACE
 
                   /// @}
 
@@ -251,6 +255,9 @@ public:
         return myShadowLane;
     }
 
+    /// @brief return the shadow lane for the given lane
+    MSLane* getShadowLane(const MSLane* lane) const;
+
 
     inline SUMOTime getLastLaneChangeOffset() const {
         return myLastLaneChangeOffset;
@@ -272,6 +279,11 @@ public:
         return myLaneChangeCompletion < (1 - NUMERICAL_EPS);
     }
 
+    /// @brief return true if the vehicle currently has a shadow vehicle
+    inline bool hasShadowVehicle() const {
+        return myHaveShadow;
+    }
+
     /// @brief return the direction of the current lane change maneuver
     inline int getLaneChangeDirection() const {
         return myLaneChangeDirection;
@@ -287,7 +299,6 @@ public:
         myAlreadyMoved = false;
     }
 
-
     /// @brief start the lane change maneuver and return whether it continues
     bool startLaneChangeManeuver(MSLane* source, MSLane* target, int direction);
 
@@ -299,19 +310,23 @@ public:
 
     /* @brief finish the lane change maneuver
      */
-    inline void endLaneChangeManeuver() {
-        removeLaneChangeShadow();
-        myLaneChangeCompletion = 1;
-        myShadowLane = 0;
-    }
+    void endLaneChangeManeuver(const MSMoveReminder::Notification reason = MSMoveReminder::NOTIFICATION_LANE_CHANGE);
 
     /// @brief remove the shadow copy of a lane change maneuver
-    void removeLaneChangeShadow();
+    void removeLaneChangeShadow(const MSMoveReminder::Notification reason, bool notify = true);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
     virtual void saveBlockerLength(SUMOReal length) {
         UNUSED_PARAMETER(length);
     };
+
+    void setShadowPartialOccupator(MSLane* lane) {
+        myPartiallyOccupatedByShadow.push_back(lane);
+    }
+
+    void setNoShadowPartialOccupator(MSLane* lane) {
+        myNoPartiallyOccupatedByShadow.push_back(lane);
+    }
 
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
@@ -349,6 +364,13 @@ protected:
 
     /// @brief The vehicle's car following model
     const MSCFModel& myCarFollowModel;
+
+    /// @brief list of lanes where the shadow vehicle is partial occupator
+    std::vector<MSLane*> myPartiallyOccupatedByShadow;
+
+    /* @brief list of lanes where there is no shadow vehicle partial occupator
+     * (when changing to a lane that has no predecessor) */
+    std::vector<MSLane*> myNoPartiallyOccupatedByShadow;
 
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */

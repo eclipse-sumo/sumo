@@ -1,0 +1,3 @@
+Warning: Not joining junctions 1596765709,1596765735 because the cluster is too complex (parallel outgoing 146404896#3,146404904)
+Warning: Shape for junction '1596765757' has distance 24.84 to its given position
+Warning: Shape for junction '1596765849' has distance 25.32 to its given position

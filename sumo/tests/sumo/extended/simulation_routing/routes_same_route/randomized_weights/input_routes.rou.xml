@@ -1,0 +1,4 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <flow id="flow" type="t0" from="0/0to1/0" to="2/1to3/1" begin="0" end="40" period="2"/>
+</routes>

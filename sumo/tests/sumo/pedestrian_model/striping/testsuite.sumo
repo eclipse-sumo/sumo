@@ -20,3 +20,9 @@ counterflow_change_direction
 
 # no sidewalks, walkingareas nor crossings
 no_sidewalks
+
+# Copy of disconnected_route
+disconnected_route
+
+# instant travel between disconnected points
+beaming

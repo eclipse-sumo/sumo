@@ -10,7 +10,7 @@
 Extract statistics from the warning outputs of a simulation run for plotting.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2012-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -18,21 +18,23 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os,sys
+import os
+import sys
 import re
 from collections import defaultdict
+
 
 def parse_log(logfile, edges=True, aggregate=3600):
     print "Parsing %s" % logfile
     reFrom = re.compile("lane='([^']*)'")
-    reFromMeso = re.compile("from '([^']*)'")
+    reFromMeso = re.compile("edge '([^']*)'")
     reTime = re.compile("time.(\d*)\.")
     # counts per lane
-    waitingCounts = defaultdict(lambda:0)
-    collisionCounts = defaultdict(lambda:0)
+    waitingCounts = defaultdict(lambda: 0)
+    collisionCounts = defaultdict(lambda: 0)
     # counts per step
-    waitingStepCounts = defaultdict(lambda:0)
-    collisionStepCounts = defaultdict(lambda:0)
+    waitingStepCounts = defaultdict(lambda: 0)
+    collisionStepCounts = defaultdict(lambda: 0)
     for line in open(logfile):
         try:
             if "Warning: Teleporting vehicle" in line:
@@ -59,14 +61,15 @@ def parse_log(logfile, edges=True, aggregate=3600):
 
 
 def print_counts(countDict, label):
-    counts = [(v,k) for k,v in countDict.items()] 
+    counts = [(v, k) for k, v in countDict.items()]
     counts.sort()
     print counts
     print label, 'total:', sum(countDict.values())
 
 
 def main(logfile):
-    waitingCounts, collisionCounts, waitingStepCounts, collisionStepCounts = parse_log(logfile)
+    waitingCounts, collisionCounts, waitingStepCounts, collisionStepCounts = parse_log(
+        logfile)
     print_counts(waitingCounts, 'waiting')
     print_counts(collisionCounts, 'collisions')
     # generate plot
@@ -78,7 +81,8 @@ def main(logfile):
             f.write("# plot '%s' using 1:2 with lines title 'waiting', '%s' using 1:3 with lines title 'collisions'\n" % (
                 plotfile, plotfile))
             for step in range(min_step, max_step + 1):
-                print >>f, ' '.join(map(str,[step, waitingStepCounts[step], collisionStepCounts[step]]))
+                print >>f, ' '.join(
+                    map(str, [step, waitingStepCounts[step], collisionStepCounts[step]]))
 
 if __name__ == "__main__":
     main(*sys.argv[1:])

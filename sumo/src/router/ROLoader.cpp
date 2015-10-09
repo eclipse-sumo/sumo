@@ -11,7 +11,7 @@
 // Loader for networks and route imports
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -54,7 +54,6 @@
 #include "ROLoader.h"
 #include "ROEdge.h"
 #include "RORouteHandler.h"
-#include "RORouteAggregator.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -182,7 +181,12 @@ ROLoader::openRoutes(RONet& net) {
             if (MsgHandler::getErrorInstance()->wasInformed()) {
                 throw ProcessError();
             } else {
-                throw ProcessError("No route input specified or all routes were invalid.");
+                const std::string error = "No route input specified or all routes were invalid.";
+                if (myOptions.getBool("ignore-errors")) {
+                    WRITE_WARNING(error);
+                } else {
+                    throw ProcessError(error);
+                }
             }
         }
         // skip routes prior to the begin time
@@ -225,15 +229,6 @@ ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime
 }
 
 
-void
-ROLoader::processAllRoutesWithBulkRouter(SUMOTime /* start */, SUMOTime end,
-        RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
-    myLoaders.loadNext(SUMOTime_MAX);
-    RORouteAggregator::processAllRoutes(net, router);
-    net.saveAndRemoveRoutesUntil(myOptions, router, end);
-}
-
-
 bool
 ROLoader::openTypedRoutes(const std::string& optionName,
                           RONet& net) {
@@ -271,7 +266,7 @@ ROLoader::openTypedRoutes(const std::string& optionName,
 
 bool
 ROLoader::loadWeights(RONet& net, const std::string& optionName,
-                      const std::string& measure, bool useLanes) {
+                      const std::string& measure, const bool useLanes, const bool boundariesOverride) {
     // check whether the file exists
     if (!myOptions.isUsableFileList(optionName)) {
         return false;
@@ -306,7 +301,7 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
     // build edge-internal time lines
     const std::map<std::string, ROEdge*>& edges = net.getEdgeMap();
     for (std::map<std::string, ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        (*i).second->buildTimeLines(measure);
+        (*i).second->buildTimeLines(measure, boundariesOverride);
     }
     return true;
 }

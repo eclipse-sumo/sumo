@@ -9,7 +9,7 @@
 // A vehicle as used by router
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -110,7 +110,7 @@ public:
      * @return The vehicle's depart time
      */
     SUMOTime getDepartureTime() const {
-        return MAX2(0, myParameter.depart);
+        return MAX2(SUMOTime(0), myParameter.depart);
     }
 
     /** @brief Returns the time the vehicle starts at, -1 for triggered vehicles
@@ -142,20 +142,26 @@ public:
     }
 
 
-    /** @brief Saves the complete vehicle description.
-     *
-     * Saves the vehicle type if it was not saved before.
-     * Saves the vehicle route if it was not saved before.
-     * Saves the vehicle itself.
+    /** @brief  Saves the vehicle type if it was not saved before.
      *
      * @param[in] os The routes - output device to store the vehicle's description into
      * @param[in] altos The route alternatives - output device to store the vehicle's description into
      * @param[in] typeos The types - output device to store the vehicle types into
+     * @exception IOError If something fails (not yet implemented)
+     */
+    void saveTypeAsXML(OutputDevice& os, OutputDevice* const altos,
+                       OutputDevice* const typeos) const;
+
+    /** @brief Saves the complete vehicle description.
+     *
+     * Saves the vehicle itself including the route and stops.
+     *
+     * @param[in] os The routes or alternatives output device to store the vehicle's description into
+     * @param[in] asAlternatives Whether the route shall be saved as route alternatives
      * @param[in] withExitTimes whether exit times for the edges shall be written
      * @exception IOError If something fails (not yet implemented)
      */
-    void saveAllAsXML(OutputDevice& os, OutputDevice* const altos,
-                      OutputDevice* const typeos, bool withExitTimes) const;
+    void saveAllAsXML(OutputDevice& os, bool asAlternatives, bool withExitTimes) const;
 
     inline void setRoutingSuccess(const bool val) {
         myRoutingSuccess = val;

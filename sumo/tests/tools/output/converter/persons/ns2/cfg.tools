@@ -1,0 +1,21 @@
+# set number of nodes
+set opt(nn) 7
+
+# set activity file
+set opt(af) $opt(config-path)
+append opt(af) /activityfile.tcl
+
+# set mobility file
+set opt(mf) $opt(config-path)
+append opt(mf) /mobilityfile.tcl
+
+# set start/stop time
+set opt(start) 0.0
+set opt(stop) 116.0
+
+# set floor size
+set opt(x) 999.53
+set opt(y) 508.25
+set opt(min-x) 44.95
+set opt(min-y) -2.33
+

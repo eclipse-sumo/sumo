@@ -1,5 +1,5 @@
-SUMO netgenerate Version dev-SVN-r17834
- Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
+SUMO netgenerate Version dev-SVN-r18972
+ Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
 Usage: netgenerate [OPTION]*
@@ -46,20 +46,29 @@ Random Network Options:
                                          be added to the net
   --rand.bidi-probability FLOAT        Defines the probability to build a
                                          reverse edge
-  --rand.max-distance FLOAT            
-  --rand.min-distance FLOAT            
-  --rand.min-angle FLOAT               
-  --rand.num-tries INT                 
-  --rand.connectivity FLOAT            
-  --rand.neighbor-dist1 FLOAT          
-  --rand.neighbor-dist2 FLOAT          
-  --rand.neighbor-dist3 FLOAT          
-  --rand.neighbor-dist4 FLOAT          
-  --rand.neighbor-dist5 FLOAT          
-  --rand.neighbor-dist6 FLOAT          
+  --rand.max-distance FLOAT            The maximum distance for each edge
+  --rand.min-distance FLOAT            The minimum distance for each edge
+  --rand.min-angle FLOAT               The minimum angle for each pair of
+                                         (bidirectional) roads
+  --rand.num-tries INT                 The number of tries for creating each
+                                         node
+  --rand.connectivity FLOAT            Probability for roads to continue at
+                                         each node
+  --rand.neighbor-dist1 FLOAT          Probability for a node having exactly 1
+                                         neighbor
+  --rand.neighbor-dist2 FLOAT          Probability for a node having exactly 2
+                                         neighbors
+  --rand.neighbor-dist3 FLOAT          Probability for a node having exactly 3
+                                         neighbors
+  --rand.neighbor-dist4 FLOAT          Probability for a node having exactly 4
+                                         neighbors
+  --rand.neighbor-dist5 FLOAT          Probability for a node having exactly 5
+                                         neighbors
+  --rand.neighbor-dist6 FLOAT          Probability for a node having exactly 6
+                                         neighbors
 
 Output Options:
-  --output-prefix FILE                 Prefix which is applied to all output
+  --output-prefix STR                  Prefix which is applied to all output
                                          files. The special string 'TIME' is
                                          replaced by the current time.
   -o, --output-file FILE               The generated net will be written to
@@ -91,6 +100,9 @@ TLS Building Options:
   --tls.guess                          Turns on TLS guessing
   --tls-guess.joining                  Includes node clusters into guess
   --tls.join                           Tries to cluster tls-controlled nodes
+  --tls.join-dist FLOAT                Determines the maximal distance for
+                                         joining traffic lights (defaults to 20)
+  --tls.cycle.time INT                 Use INT as cycle duration
   --tls.green.time INT                 Use INT as green phase duration
   -D, --tls.yellow.min-decel FLOAT     Defines smallest vehicle deceleration
   --tls.yellow.patch-small             Given yellow times are patched even if
@@ -109,7 +121,12 @@ Edge Removal Options:
                                          meters/second > FLOAT
   --remove-edges.explicit STR          Remove edges in STR
   --keep-edges.explicit STR            Only keep edges in STR
-  --keep-edges.input-file FILE         Only keep edges in FILE
+  --keep-edges.input-file FILE         Only keep edges in FILE (Each id on a
+                                         single line. Selection files from
+                                         SUMO-GUI are also supported)
+  --remove-edges.input-file FILE       Remove edges in FILE. (Each id on a
+                                         single line. Selection files from
+                                         SUMO-GUI are also supported)
   --keep-edges.in-boundary STR         Only keep edges which are located within
                                          the given boundary (given either as
                                          CARTESIAN corner coordinates
@@ -138,6 +155,9 @@ Processing Options:
   --flip-y-axis                        Flips the y-coordinate along zero
   --roundabouts.guess                  Enable roundabout-guessing
   --lefthand                           Assumes left-hand traffic on the network
+  --edges.join                         Merges edges whch connect the same nodes
+                                         and are close to each other
+                                         (recommended for VISSIM import)
   --junctions.join                     Joins junctions that are close to each
                                          other (recommended for OSM import)
   --junctions.join-dist FLOAT          Determines the maximal distance for
@@ -161,14 +181,14 @@ Processing Options:
                                          regardless of speed
   --crossings.guess                    Guess pedestrian crossings based on the
                                          presence of sidewalks
-  --tls.join-dist FLOAT                Determines the maximal distance for
-                                         joining traffic lights (defaults to 20)
 
 Building Defaults Options:
   -L, --default.lanenumber INT         The default number of lanes in an edge
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
   -P, --default.priority INT           The default priority of an edge
   --default.sidewalk-width FLOAT       The default width of added sidewalks
+  --default.junctions.keep-clear       Whether junctions should be kept clear
+                                         by default
   -j, --default-junction-type STR      [traffic_light|priority|right_before_left] Determines the type of the build junctions
 
 Report Options:

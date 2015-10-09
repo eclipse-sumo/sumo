@@ -5,7 +5,6 @@ Parsing sumo-net from 'input_net.net.xml'... done.
 Removing self-loops... done.
 Removing empty nodes... done.
    1 nodes removed.
-Joining similar edges... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node shapes... done.

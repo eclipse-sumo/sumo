@@ -9,7 +9,7 @@
 // APIs for getting/setting GUI values via TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -41,6 +41,8 @@
 #include <traci-server/TraCIConstants.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
+#include <guisim/GUIBaseVehicle.h>
+#include "GUIEvent_Screenshot.h"
 #include "TraCIServerAPI_GUI.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -70,7 +72,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     tempMsg.writeString(id);
     // process request
     if (variable == ID_LIST) {
-        std::vector<std::string> ids = getMainWindow()->getViewIDs();
+        std::vector<std::string> ids = GUIMainWindow::getInstance()->getViewIDs();
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     } else {
@@ -174,10 +176,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             if (!server.readTypeCheckingString(inputStorage, filename)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Making a snapshot requires a file name.", outputStorage);
             }
-            std::string error = v->makeSnapshot(filename);
-            if (error != "") {
-                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, error, outputStorage);
-            }
+            GUIMainWindow::getInstance()->sendBlockingEvent(new GUIEvent_Screenshot(v, filename));
         }
         break;
         case VAR_TRACK_VEHICLE: {
@@ -192,9 +191,9 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (veh == 0) {
                     return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Could not find vehicle '" + id + "'.", outputStorage);
                 }
-                if (!static_cast<GUIVehicle*>(veh)->hasActiveAddVisualisation(v, GUIVehicle::VO_TRACKED)) {
+                if (!static_cast<GUIVehicle*>(veh)->hasActiveAddVisualisation(v, GUIBaseVehicle::VO_TRACKED)) {
                     v->startTrack(static_cast<GUIVehicle*>(veh)->getGlID());
-                    static_cast<GUIVehicle*>(veh)->addActiveAddVisualisation(v, GUIVehicle::VO_TRACKED);
+                    static_cast<GUIVehicle*>(veh)->addActiveAddVisualisation(v, GUIBaseVehicle::VO_TRACKED);
                 }
             }
         }
@@ -206,27 +205,13 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
 }
 
 
-GUIMainWindow*
-TraCIServerAPI_GUI::getMainWindow() {
-    FXWindow* w = FXApp::instance()->getRootWindow()->getFirst();
-    while (w != 0 && dynamic_cast<GUIMainWindow*>(w) == 0) {
-        w = w->getNext();
-    }
-    if (w == 0) {
-        // main window not found
-        return 0;
-    }
-    return dynamic_cast<GUIMainWindow*>(w);
-}
-
-
 GUISUMOAbstractView*
 TraCIServerAPI_GUI::getNamedView(const std::string& id) {
-    GUIMainWindow* mw = static_cast<GUIMainWindow*>(getMainWindow());
+    GUIMainWindow* const mw = GUIMainWindow::getInstance();
     if (mw == 0) {
         return 0;
     }
-    GUIGlChildWindow* c = static_cast<GUIGlChildWindow*>(mw->getViewByID(id));
+    GUIGlChildWindow* const c = static_cast<GUIGlChildWindow*>(mw->getViewByID(id));
     if (c == 0) {
         return 0;
     }

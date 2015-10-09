@@ -10,7 +10,7 @@
 // A storage for loaded polygons and pois
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2005-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2005-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -38,9 +38,11 @@
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/shapes/Polygon.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/options/OptionsCont.h>
 #include "PCPolyContainer.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -153,23 +155,41 @@ PCPolyContainer::report() {
 
 
 void
-PCPolyContainer::save(const std::string& file) {
+PCPolyContainer::save(const std::string& file, bool useGeo) {
+    const GeoConvHelper& gch = GeoConvHelper::getFinal();
+    if (useGeo && !gch.usingGeoProjection()) {
+        WRITE_WARNING("Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined");
+        useGeo = false;
+    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/additional_file.xsd\"");
+    if (useGeo) {
+        out.setPrecision(GEO_OUTPUT_ACCURACY);
+    } else {
+        GeoConvHelper::writeLocation(out);
+    }
     // write polygons
     for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); ++i) {
-        i->second->writeXML(out);
+        i->second->writeXML(out, useGeo);
     }
     // write pois
+    const SUMOReal zOffset = OptionsCont::getOptions().getFloat("poi-layer-offset");
     for (POICont::iterator i = myPOICont.begin(); i != myPOICont.end(); ++i) {
         PointOfInterest* p = i->second;
         out.openTag(SUMO_TAG_POI);
         out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(p->getID()));
         out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(p->getType()));
         out.writeAttr(SUMO_ATTR_COLOR, p->getColor());
-        out.writeAttr(SUMO_ATTR_LAYER, p->getLayer());
-        out.writeAttr(SUMO_ATTR_X, p->x());
-        out.writeAttr(SUMO_ATTR_Y, p->y());
+        out.writeAttr(SUMO_ATTR_LAYER, p->getLayer() + zOffset);
+        if (useGeo) {
+            Position pos(*p);
+            gch.cartesian2geo(pos);
+            out.writeAttr(SUMO_ATTR_LON, pos.x());
+            out.writeAttr(SUMO_ATTR_LAT, pos.y());
+        } else {
+            out.writeAttr(SUMO_ATTR_X, p->x());
+            out.writeAttr(SUMO_ATTR_Y, p->y());
+        }
         if (p->getAngle() != Shape::DEFAULT_ANGLE) {
             out.writeAttr(SUMO_ATTR_ANGLE, p->getAngle());
         }
@@ -182,14 +202,11 @@ PCPolyContainer::save(const std::string& file) {
         if (p->getHeight() != Shape::DEFAULT_IMG_HEIGHT) {
             out.writeAttr(SUMO_ATTR_HEIGHT, p->getHeight());
         }
-        const std::map<std::string, std::string>& attrs = p->getMap();
-        if (attrs.size() != 0) {
-            for (std::map<std::string, std::string>::const_iterator j = attrs.begin(); j != attrs.end(); ++j) {
-                out.openTag(SUMO_TAG_PARAM);
-                out.writeAttr(SUMO_ATTR_KEY, (*j).first);
-                out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
-                out.closeTag();
-            }
+        for (std::map<std::string, std::string>::const_iterator j = p->getMap().begin(); j != p->getMap().end(); ++j) {
+            out.openTag(SUMO_TAG_PARAM);
+            out.writeAttr(SUMO_ATTR_KEY, (*j).first);
+            out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
+            out.closeTag();
         }
         out.closeTag();
     }

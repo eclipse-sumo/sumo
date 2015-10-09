@@ -1,0 +1,6 @@
+Warning: Vehicle 'invalid_trip' is not allowed to arrive on edge 'beg2left'.
+Warning: The vehicle 'invalid_trip' has no valid route.
+Warning: Could not find new starting edge for vehicle 'unrepairable_route'.
+Warning: The vehicle 'unrepairable_route' has no valid route.
+Warning: Vehicle 'unrepairable_route2' is not allowed to depart on edge 'beg2left'.
+Warning: The vehicle 'unrepairable_route2' has no valid route.

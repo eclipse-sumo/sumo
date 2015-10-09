@@ -10,7 +10,7 @@
 // The base class for a view
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -190,7 +190,7 @@ public:
 
 
     /// @brief get the viewport and create it on first access
-    GUIDialog_EditViewport* getViewportEditor(); 
+    GUIDialog_EditViewport* getViewportEditor();
 
     virtual void showViewportEditor();
 
@@ -314,6 +314,10 @@ public:
      */
     SUMOReal getDelay() const;
 
+    /** @brief Sets the delay of the parent application
+     */
+     void setDelay(SUMOReal delay);
+
 protected:
     /// performs the painting of the simulation
     void paintGL();
@@ -384,9 +388,6 @@ protected:
     /// @brief Information whether too-tip informations shall be generated
     bool myInEditMode;
 
-    /// @brief Position of the cursor relative to the window
-    FXint myWindowCursorPositionX, myWindowCursorPositionY;
-
     /// @brief Offset to the mouse-hotspot from the mouse position
     int myMouseHotspotX, myMouseHotspotY;
 
@@ -400,8 +401,11 @@ protected:
     /// Internal information whether doInit() was called
     bool myAmInitialised;
 
-
     GUIDialog_EditViewport* myViewportChooser;
+
+    /// @brief Position of the cursor relative to the window
+    FXint myWindowCursorPositionX, myWindowCursorPositionY;
+
     GUIDialog_ViewSettings* myVisualizationChanger;
 
 

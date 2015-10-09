@@ -10,7 +10,7 @@
 // An O/D (origin/destination) matrix
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2006-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2006-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -46,6 +46,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/importio/LineReader.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include "ODAmitranHandler.h"
 #include "ODMatrix.h"
@@ -104,10 +105,36 @@ ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
 }
 
 
+void
+ODMatrix::add(const std::string& id, const SUMOTime depart,
+              const std::string& origin, const std::string& destination,
+              const std::string& vehicleType) {
+    // we start looking from the end because there is a high probability that the input is sorted by time
+    std::vector<ODCell*>::reverse_iterator cell = myContainer.rbegin();
+    for (; cell != myContainer.rend(); ++cell) {
+        if ((*cell)->begin <= depart && (*cell)->end > depart &&
+                (*cell)->origin == origin && (*cell)-> destination == destination &&
+                (*cell)->vehicleType == vehicleType) {
+            break;
+        }
+    }
+    if (cell == myContainer.rend()) {
+        const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
+        const int intervalIdx = (int)(depart / interval);
+        add(1., intervalIdx * interval, (intervalIdx + 1) * interval, origin, destination, vehicleType);
+        cell = myContainer.rbegin();
+    } else {
+        (*cell)->vehicleNumber += 1.;
+    }
+    (*cell)->departures[depart].push_back(id);
+}
+
+
 SUMOReal
 ODMatrix::computeDeparts(ODCell* cell,
                          size_t& vehName, std::vector<ODVehicle>& into,
-                         bool uniform, const std::string& prefix) {
+                         const bool uniform, const bool differSourceSink,
+                         const std::string& prefix) {
     int vehicles2insert = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle insertion
     if (RandHelper::rand() < cell->vehicleNumber - (SUMOReal)vehicles2insert) {
@@ -127,9 +154,14 @@ ODMatrix::computeDeparts(ODCell* cell,
         } else {
             veh.depart = (SUMOTime)RandHelper::rand(cell->begin, cell->end);
         }
-
-        veh.from = myDistricts.getRandomSourceFromDistrict(cell->origin);
-        veh.to = myDistricts.getRandomSinkFromDistrict(cell->destination);
+        const bool canDiffer = myDistricts.get(cell->origin)->sourceNumber() > 1 || myDistricts.get(cell->destination)->sinkNumber() > 1;
+        do {
+            veh.from = myDistricts.getRandomSourceFromDistrict(cell->origin);
+            veh.to = myDistricts.getRandomSinkFromDistrict(cell->destination);
+        } while (canDiffer && differSourceSink && (veh.to == veh.from));
+        if (!canDiffer && differSourceSink && (veh.to == veh.from)) {
+            WRITE_WARNING("Cannot find different source and sink edge for origin '" + cell->origin + "' and destination '" + cell->destination + "'.");
+        }
         veh.cell = cell;
         into.push_back(veh);
     }
@@ -168,7 +200,8 @@ ODMatrix::writeDefaultAttrs(OutputDevice& dev, const bool noVtype,
 
 void
 ODMatrix::write(SUMOTime begin, const SUMOTime end,
-                OutputDevice& dev, const bool uniform, const bool noVtype,
+                OutputDevice& dev, const bool uniform,
+                const bool differSourceSink, const bool noVtype,
                 const std::string& prefix, const bool stepLog) {
     if (myContainer.size() == 0) {
         return;
@@ -182,7 +215,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
     std::vector<ODVehicle> vehicles;
     SUMOTime lastOut = -DELTA_T;
     // go through the time steps
-    for (SUMOTime t = begin; t != end;) {
+    for (SUMOTime t = begin; t < end;) {
         if (stepLog && t - lastOut >= DELTA_T) {
             std::cout << "Parsing time " + time2string(t) << '\r';
             lastOut = t;
@@ -198,7 +231,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
             }
             // get the new departures (into tmp)
             const size_t oldSize = vehicles.size();
-            const SUMOReal fraction = computeDeparts(*next, vehName, vehicles, uniform, prefix);
+            const SUMOReal fraction = computeDeparts(*next, vehName, vehicles, uniform, differSourceSink, prefix);
             if (oldSize != vehicles.size()) {
                 changed = true;
             }
@@ -211,11 +244,13 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
             sort(vehicles.begin(), vehicles.end(), descending_departure_comperator());
         }
         for (std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin(); i != vehicles.rend() && (*i).depart == t; ++i) {
-            myNoWritten++;
-            dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
-            dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
-            writeDefaultAttrs(dev, noVtype, i->cell);
-            dev.closeTag();
+            if (t >= begin) {
+                myNoWritten++;
+                dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
+                dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+                writeDefaultAttrs(dev, noVtype, i->cell);
+                dev.closeTag();
+            }
         }
         while (vehicles.size() != 0 && vehicles.back().depart == t) {
             vehicles.pop_back();
@@ -473,6 +508,7 @@ ODMatrix::applyCurve(const Distribution_Points& ps) {
     }
 }
 
+
 void
 ODMatrix::loadMatrix(OptionsCont& oc) {
     std::vector<std::string> files = oc.getStringVector("od-matrix-files");
@@ -519,6 +555,23 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
 }
 
 
+void
+ODMatrix::loadRoutes(OptionsCont& oc, SUMOSAXHandler& handler) {
+    std::vector<std::string> routeFiles = oc.getStringVector("route-files");
+    for (std::vector<std::string>::iterator i = routeFiles.begin(); i != routeFiles.end(); ++i) {
+        if (!FileHelpers::isReadable(*i)) {
+            throw ProcessError("Could not access route file '" + *i + "' to load.");
+        }
+        PROGRESS_BEGIN_MESSAGE("Loading routes and trips from '" + *i + "'");
+        if (!XMLSubSys::runParser(handler, *i)) {
+            PROGRESS_FAILED_MESSAGE();
+        } else {
+            PROGRESS_DONE_MESSAGE();
+        }
+    }
+}
+
+
 Distribution_Points
 ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInHours) {
     bool interpolating = !timelineDayInHours;
@@ -547,5 +600,12 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
     }
     return Distribution_Points("N/A", points, interpolating);
 }
+
+
+void
+ODMatrix::sortByBeginTime() {
+    std::sort(myContainer.begin(), myContainer.end(), by_begin_sorter());
+}
+
 
 /****************************************************************************/

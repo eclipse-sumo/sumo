@@ -6,7 +6,7 @@
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -21,9 +21,10 @@ def constant(edge, weight):
         return weight
     return 0
 
+
 def w(edge, weight):
     if edge == "middle":
-        return weight+2
+        return weight + 2
     if edge == "left":
         return weight
     return 1

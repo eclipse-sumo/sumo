@@ -12,7 +12,7 @@
 /// A test execution class
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -263,7 +263,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string& objID,
 
 
 void
-TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& objID, int beginTime, int endTime, int varNo, std::ifstream& defFile) {
+TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int varNo, std::ifstream& defFile) {
     std::vector<int> vars;
     for (int i = 0; i < varNo; ++i) {
         int var;
@@ -287,7 +287,7 @@ TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& ob
 
 
 void
-TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& objID, int beginTime, int endTime,
+TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime,
         int domain, SUMOReal range, int varNo, std::ifstream& defFile) {
     std::vector<int> vars;
     for (int i = 0; i < varNo; ++i) {

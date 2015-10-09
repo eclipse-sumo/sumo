@@ -1,0 +1,1 @@
+-n input_net.net.xml -d input_taz.taz.xml -r input_trips.trips.xml --output routes.rou.xml

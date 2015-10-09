@@ -10,7 +10,7 @@
 // The car-following model and parameter
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -269,6 +269,36 @@ public:
      */
     std::string getImgFile() const {
         return myParameter.imgFile;
+    }
+
+
+    /** @brief Get this vehicle type's person capacity
+     * @return The person capacity of this vehicle type
+     */
+    unsigned int getPersonCapacity() const {
+        return myParameter.personCapacity;
+    }
+
+
+    /** @brief Get this vehicle type's container capacity
+     * @return The container capacity of this vehicle type
+     */
+    unsigned int getContainerCapacity() const {
+        return myParameter.containerCapacity;
+    }
+
+    /** @brief Get this vehicle type's boarding duration
+     * @return The time a person needs to board a vehicle of this type
+     */
+    SUMOTime getBoardingDuration() const {
+        return myParameter.boardingDuration;
+    }
+
+    /** @brief Get this vehicle type's loading duration
+     * @return The time a container needs to get laoded on a vehicle of this type
+     */
+    SUMOTime getLoadingDuration() const {
+        return myParameter.loadingDuration;
     }
 
     /// @}

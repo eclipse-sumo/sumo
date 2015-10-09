@@ -7,7 +7,7 @@
 // Krauss car-following model, with PHEMlight-based acceleration limits
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -39,7 +39,7 @@
 // method definitions
 // ===========================================================================
 MSCFModel_KraussAccelBound::MSCFModel_KraussAccelBound(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
-                                   SUMOReal dawdle, SUMOReal headwayTime)
+        SUMOReal dawdle, SUMOReal headwayTime)
     : MSCFModel_Krauss(vtype, accel, decel, dawdle, headwayTime) {
 }
 

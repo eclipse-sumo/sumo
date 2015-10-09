@@ -10,7 +10,7 @@
 Generates mean data files for given detectors.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -25,12 +25,12 @@ import logging
 import optparse
 import sys
 
+
 def generate_mean_data_xml(detectors_xml,
                            detectors_type,
                            detectors_frequency,
                            detectors_suffix,
                            detectors_output_type):
-
     """ Generates mean data definitions in XML format.
         - detectors_xml is the detectors XML read by xml.dom.minidom.
         - detectors_type is one of the supported detectors: 'e1', 'e2' or 'e3'
@@ -51,7 +51,7 @@ def generate_mean_data_xml(detectors_xml,
         meandata_element.setAttribute("id", detector_id)
         meandata_element.setAttribute("freq", str(detectors_frequency))
         meandata_element.setAttribute("file", detector_id
-            + detectors_suffix + ".xml")
+                                      + detectors_suffix + ".xml")
         meandata_xml.documentElement.appendChild(meandata_element)
 
     return meandata_xml
@@ -65,9 +65,9 @@ if __name__ == "__main__":
             detector file is invalid (None or empty). """
 
         if (provided_options.detector_file is None or
-            provided_options.detector_file is ""):
+                provided_options.detector_file is ""):
             logging.fatal("Invalid input file. \n"
-                + option_parser.format_help())
+                          + option_parser.format_help())
             exit()
         return xml.dom.minidom.parse(provided_options.detector_file)
 
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
         if provided_options.detector_type not in ('e1', 'e2', 'e3'):
             logging.fatal("Invalid detector type.\n"
-                + option_parser.format_help())
+                          + option_parser.format_help())
             exit()
         return provided_options.detector_type
 
@@ -94,7 +94,7 @@ if __name__ == "__main__":
                 return frequency
             except ValueError:
                 logging.fatal("Invalid time range length specified.\n" +
-                    option_parser.format_help())
+                              option_parser.format_help())
                 exit()
         return ""
 
@@ -130,7 +130,7 @@ if __name__ == "__main__":
                                   "detector collects shall be summed up. "
                                   "If not given, the whole time interval "
                                   "from begin to end is aggregated, which is "
-                                  "the default. If specified, must be a " 
+                                  "the default. If specified, must be a "
                                   "positive integer (seconds) representing "
                                   "time range length.",
                              dest="frequency",
@@ -177,4 +177,3 @@ if __name__ == "__main__":
             get_detector_output_type(options)).toprettyxml())
 
     output.close()
-

@@ -9,7 +9,7 @@
 // Some methods for traversing lists of edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -187,7 +187,7 @@ public:
             if (e->getFromNode() == n) {
                 return e->getGeometry().getBegLine().atan2DegreeAngle();
             } else {
-                return e->getGeometry().getEndLine().reverse().atan2DegreeAngle();
+                return e->getGeometry().reverse().getBegLine().atan2DegreeAngle();
             }
         }
 
@@ -353,17 +353,16 @@ public:
     class opposite_finder {
     public:
         /// constructor
-        opposite_finder(NBEdge* edge, const NBNode* n)
-            : myReferenceEdge(edge), myAtNode(n) { }
+        opposite_finder(NBEdge* edge)
+            : myReferenceEdge(edge) { }
 
         bool operator()(NBEdge* e) const {
-            return e->isTurningDirectionAt(myAtNode, myReferenceEdge) ||
-                   myReferenceEdge->isTurningDirectionAt(myAtNode, e);
+            return e->isTurningDirectionAt(myReferenceEdge) ||
+                   myReferenceEdge->isTurningDirectionAt(e);
         }
 
     private:
         NBEdge* myReferenceEdge;
-        const NBNode* myAtNode;
 
     };
 

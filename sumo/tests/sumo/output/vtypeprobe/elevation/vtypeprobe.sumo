@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Apr 24 12:10:42 2015 by SUMO Version dev-SVN-r18290ID
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml,input_routes.rou.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="130"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<vehicle-type-probes>
+    <timestep time="0.00" id="test1" vType="DEFAULT_VEHTYPE">
+        <vehicle id="1" lane="1_0" pos="0.00" x="0.00" y="-1.65" z="0.00" speed="20.00"/>
+    </timestep>
+    <timestep time="10.00" id="test1" vType="DEFAULT_VEHTYPE">
+        <vehicle id="1" lane="1_0" pos="200.00" x="74.94" y="-1.65" z="82.69" speed="20.00"/>
+    </timestep>
+    <timestep time="20.00" id="test1" vType="DEFAULT_VEHTYPE">
+        <vehicle id="1" lane="2_0" pos="158.13" x="172.11" y="-1.65" z="62.75" speed="20.00"/>
+    </timestep>
+    <timestep time="30.00" id="test1" vType="DEFAULT_VEHTYPE">
+        <vehicle id="1" lane="3_0" pos="145.88" x="275.17" y="-1.65" z="84.37" speed="20.00"/>
+    </timestep>
+    <timestep time="40.00" id="test1" vType="DEFAULT_VEHTYPE">
+        <vehicle id="1" lane="4_0" pos="133.63" x="352.58" y="-1.65" z="46.82" speed="20.00"/>
+    </timestep>
+    <timestep time="50.00" id="test1" vType="DEFAULT_VEHTYPE">
+        <vehicle id="1" lane="5_0" pos="82.33" x="464.90" y="-1.65" z="33.95" speed="20.00"/>
+    </timestep>
+    <timestep time="60.00" id="test1" vType="DEFAULT_VEHTYPE"/>
+    <timestep time="70.00" id="test1" vType="DEFAULT_VEHTYPE"/>
+    <timestep time="80.00" id="test1" vType="DEFAULT_VEHTYPE"/>
+    <timestep time="90.00" id="test1" vType="DEFAULT_VEHTYPE"/>
+    <timestep time="100.00" id="test1" vType="DEFAULT_VEHTYPE"/>
+    <timestep time="110.00" id="test1" vType="DEFAULT_VEHTYPE"/>
+    <timestep time="120.00" id="test1" vType="DEFAULT_VEHTYPE"/>
+</vehicle-type-probes>

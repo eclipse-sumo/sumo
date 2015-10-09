@@ -1,0 +1,19 @@
+sharp_angle_opposites_spread_center_1l
+sharp_angle_opposites_spread_center_2l
+
+# 1 of the edges is to short to find an intersection
+sharp_angle_opposites_spread_center_1l_no_intersect
+sharp_angle_opposites_spread_center_2l_no_intersect
+2way_with_smoothly_merging_lane
+sharp_angles5
+sharp_angles6
+sharp_angles7
+sharp_angles8
+sharp_angles9
+3bidi
+3bidi_divided_at_angle
+3bidi_2
+entering_paths
+4bidi
+5bidi
+misleading_angles

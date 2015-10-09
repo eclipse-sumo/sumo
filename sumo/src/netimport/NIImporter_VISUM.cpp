@@ -10,7 +10,7 @@
 // A VISUM network importer
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -230,14 +230,17 @@ NIImporter_VISUM::parse_Types() {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     // get the maximum speed
-    SUMOReal speed = getNamedFloat("v0-IV", "V0IV");
+    const SUMOReal speed = getNamedFloat("v0-IV", "V0IV");
     // get the priority
-    int priority = 1000 - TplConvert::_2int(myLineParser.get("Rang").c_str());
+    const int priority = 1000 - TplConvert::_2int(myLineParser.get("Rang").c_str());
     // try to retrieve the number of lanes
-    SUMOReal cap = getNamedFloat("Kap-IV", "KAPIV");
-    int nolanes = myCapacity2Lanes.get(cap);
+    const int numLanes = myCapacity2Lanes.get(getNamedFloat("Kap-IV", "KAPIV"));
     // insert the type
-    myNetBuilder.getTypeCont().insert(myCurrentID, nolanes, speed / (SUMOReal) 3.6, priority, -1);
+    myNetBuilder.getTypeCont().insert(myCurrentID, numLanes, speed / (SUMOReal) 3.6, priority, SVCAll, NBEdge::UNSPECIFIED_WIDTH, false, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_WIDTH);
+    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_NUMLANES);
+    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_SPEED);
+    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_PRIORITY);
+    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_ONEWAY);
 }
 
 
@@ -284,7 +287,7 @@ NIImporter_VISUM::parse_Districts() {
         return;
     }
     if (myLineParser.know("FLAECHEID")) {
-        SUMOLong flaecheID = TplConvert::_2long(myLineParser.get("FLAECHEID").c_str());
+        long long int flaecheID = TplConvert::_2long(myLineParser.get("FLAECHEID").c_str());
         myShapeDistrictMap[flaecheID] = district;
     }
 }
@@ -292,7 +295,7 @@ NIImporter_VISUM::parse_Districts() {
 
 void
 NIImporter_VISUM::parse_Point() {
-    SUMOLong id = TplConvert::_2long(myLineParser.get("ID").c_str());
+    long long int id = TplConvert::_2long(myLineParser.get("ID").c_str());
     SUMOReal x = TplConvert::_2SUMOReal(myLineParser.get("XKOORD").c_str());
     SUMOReal y = TplConvert::_2SUMOReal(myLineParser.get("YKOORD").c_str());
     Position pos(x, y);
@@ -412,19 +415,19 @@ NIImporter_VISUM::parse_Edges() {
 
 void
 NIImporter_VISUM::parse_Kante() {
-    SUMOLong id = TplConvert::_2long(myLineParser.get("ID").c_str());
-    SUMOLong from = TplConvert::_2long(myLineParser.get("VONPUNKTID").c_str());
-    SUMOLong to = TplConvert::_2long(myLineParser.get("NACHPUNKTID").c_str());
+    long long int id = TplConvert::_2long(myLineParser.get("ID").c_str());
+    long long int from = TplConvert::_2long(myLineParser.get("VONPUNKTID").c_str());
+    long long int to = TplConvert::_2long(myLineParser.get("NACHPUNKTID").c_str());
     myEdges[id] = std::make_pair(from, to);
 }
 
 
 void
 NIImporter_VISUM::parse_PartOfArea() {
-    SUMOLong flaecheID = TplConvert::_2long(myLineParser.get("FLAECHEID").c_str());
-    SUMOLong flaechePartID = TplConvert::_2long(myLineParser.get("TFLAECHEID").c_str());
+    long long int flaecheID = TplConvert::_2long(myLineParser.get("FLAECHEID").c_str());
+    long long int flaechePartID = TplConvert::_2long(myLineParser.get("TFLAECHEID").c_str());
     if (mySubPartsAreas.find(flaechePartID) == mySubPartsAreas.end()) {
-        mySubPartsAreas[flaechePartID] = std::vector<SUMOLong>();
+        mySubPartsAreas[flaechePartID] = std::vector<long long int>();
     }
     mySubPartsAreas[flaechePartID].push_back(flaecheID);
 }
@@ -865,8 +868,8 @@ NIImporter_VISUM::parse_TurnsToSignalGroups() {
 
 void
 NIImporter_VISUM::parse_AreaSubPartElement() {
-    SUMOLong id = TplConvert::_2long(myLineParser.get("TFLAECHEID").c_str());
-    SUMOLong edgeid = TplConvert::_2long(myLineParser.get("KANTEID").c_str());
+    long long int id = TplConvert::_2long(myLineParser.get("TFLAECHEID").c_str());
+    long long int edgeid = TplConvert::_2long(myLineParser.get("KANTEID").c_str());
     if (myEdges.find(edgeid) == myEdges.end()) {
         WRITE_ERROR("Unknown edge in TEILFLAECHENELEMENT");
         return;
@@ -892,8 +895,8 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
         return;
     }
 
-    const std::vector<SUMOLong>& areas = mySubPartsAreas.find(id)->second;
-    for (std::vector<SUMOLong>::const_iterator i = areas.begin(); i != areas.end(); ++i) {
+    const std::vector<long long int>& areas = mySubPartsAreas.find(id)->second;
+    for (std::vector<long long int>::const_iterator i = areas.begin(); i != areas.end(); ++i) {
         NBDistrict* d = myShapeDistrictMap[*i];
         if (d == 0) {
             continue;

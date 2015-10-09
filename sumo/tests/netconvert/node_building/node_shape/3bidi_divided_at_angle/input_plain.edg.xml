@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 24 13:21:23 2015 by SUMO netconvert Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osmserver.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain17"/>
+    </output>
+
+    <edge_removal>
+        <keep-edges.input-file value="edgesel.txt"/>
+    </edge_removal>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-23121445#5" from="cluster_1472911017_697323164" to="2121324849" priority="4" type="highway.residential" numLanes="2" speed="8.33" shape="1941.50,1912.02 1926.18,1937.10">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="23121445#5" from="2121324849" to="cluster_1472911017_697323164" priority="4" type="highway.residential" numLanes="2" speed="8.33" shape="1926.18,1937.10 1941.50,1912.02">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="4067932" from="1472911019" to="cluster_1472911017_697323164" priority="9" type="highway.primary" numLanes="3" speed="13.89" shape="2007.63,1951.82 1940.75,1913.32" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="2" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="54048862#1" from="cluster_258127854_29194675" to="cluster_1472911017_697323164" priority="9" type="highway.primary" numLanes="4" speed="13.89" shape="1925.27,1889.64 1942.81,1900.00 1947.30,1902.67" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="2" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="3" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="54048862#2" from="cluster_1472911017_697323164" to="29207821" priority="9" type="highway.primary" numLanes="4" speed="13.89" shape="1947.30,1902.67 1949.86,1904.21 1988.03,1927.02 2017.86,1944.83" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="2" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="3" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="61584187#0" from="cluster_1472911017_697323164" to="cluster_258127854_29194675" priority="9" type="highway.primary" numLanes="3" speed="13.89" shape="1940.86,1913.38 1918.09,1902.75" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="2" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+
+
+</edges>

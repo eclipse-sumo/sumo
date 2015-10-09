@@ -33,3 +33,11 @@ elevation
 
 # add sidewalks to appropriate edges
 adlershof_dlr_sidewalks
+
+# check for working around a xerces transcoding bug
+xerces_bug_1947
+
+# import dedicated bicycle lanes 
+bicycle_lanes
+bus_lanes
+intersection_with_crossings

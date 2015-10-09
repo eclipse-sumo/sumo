@@ -9,7 +9,7 @@
 // Helper methods for PHEMlight-based emission computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -236,12 +236,12 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
         return 0.;
     }
     const PHEMCEP* const currCep = PHEMCEPHandler::getHandlerInstance().GetCep(c);
-	const double corrSpeed = MAX2((double) 0.0, v);
-	const double decelCoast = currCep->GetDecelCoast(corrSpeed, a, slope, 0);
-	if(a < decelCoast) {
-		return 0;
-	}
-	double power = currCep->CalcPower(corrSpeed, a, slope);
+    const double corrSpeed = MAX2((double) 0.0, v);
+    const double decelCoast = currCep->GetDecelCoast(corrSpeed, a, slope, 0);
+    if (a < decelCoast) {
+        return 0;
+    }
+    double power = currCep->CalcPower(corrSpeed, a, slope);
     switch (e) {
         case PollutantsInterface::CO:
             return currCep->GetEmission("CO", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;

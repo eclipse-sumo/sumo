@@ -10,7 +10,7 @@
 // This class computes the logic of a junction
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -45,8 +45,6 @@
 #include <utils/iodevices/OutputDevice.h>
 #include "NBEdge.h"
 #include "NBContHelper.h"
-#include "NBTrafficLightLogic.h"
-#include "NBTrafficLightLogicCont.h"
 #include "NBNode.h"
 #include "NBRequest.h"
 
@@ -155,12 +153,12 @@ NBRequest::~NBRequest() {}
 
 
 void
-NBRequest::buildBitfieldLogic(bool leftHanded) {
+NBRequest::buildBitfieldLogic() {
     EdgeVector::const_iterator i, j;
     for (i = myIncoming.begin(); i != myIncoming.end(); i++) {
         for (j = myOutgoing.begin(); j != myOutgoing.end(); j++) {
-            computeRightOutgoingLinkCrossings(leftHanded, *i, *j);
-            computeLeftOutgoingLinkCrossings(leftHanded, *i, *j);
+            computeRightOutgoingLinkCrossings(*i, *j);
+            computeLeftOutgoingLinkCrossings(*i, *j);
         }
     }
     // reset signalised/non-signalised dependencies
@@ -171,7 +169,7 @@ NBRequest::buildBitfieldLogic(bool leftHanded) {
 
 
 void
-NBRequest::computeRightOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdge* to) {
+NBRequest::computeRightOutgoingLinkCrossings(NBEdge* from, NBEdge* to) {
     EdgeVector::const_iterator pfrom = find(myAll.begin(), myAll.end(), from);
     while (*pfrom != to) {
         NBContHelper::nextCCW(myAll, pfrom);
@@ -179,7 +177,7 @@ NBRequest::computeRightOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEd
             EdgeVector::const_iterator pto = find(myAll.begin(), myAll.end(), to);
             while (*pto != from) {
                 if (!((*pto)->getToNode() == myJunction)) {
-                    setBlocking(leftHanded, from, to, *pfrom, *pto);
+                    setBlocking(from, to, *pfrom, *pto);
                 }
                 NBContHelper::nextCCW(myAll, pto);
             }
@@ -189,7 +187,7 @@ NBRequest::computeRightOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEd
 
 
 void
-NBRequest::computeLeftOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdge* to) {
+NBRequest::computeLeftOutgoingLinkCrossings(NBEdge* from, NBEdge* to) {
     EdgeVector::const_iterator pfrom = find(myAll.begin(), myAll.end(), from);
     while (*pfrom != to) {
         NBContHelper::nextCW(myAll, pfrom);
@@ -197,7 +195,7 @@ NBRequest::computeLeftOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdg
             EdgeVector::const_iterator pto = find(myAll.begin(), myAll.end(), to);
             while (*pto != from) {
                 if (!((*pto)->getToNode() == myJunction)) {
-                    setBlocking(leftHanded, from, to, *pfrom, *pto);
+                    setBlocking(from, to, *pfrom, *pto);
                 }
                 NBContHelper::nextCW(myAll, pto);
             }
@@ -207,8 +205,7 @@ NBRequest::computeLeftOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdg
 
 
 void
-NBRequest::setBlocking(bool leftHanded,
-                       NBEdge* from1, NBEdge* to1,
+NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                        NBEdge* from2, NBEdge* to2) {
     // check whether one of the links has a dead end
     if (to1 == 0 || to2 == 0) {
@@ -237,11 +234,11 @@ NBRequest::setBlocking(bool leftHanded,
     }
     // check if one of the links is a turn; this link is always not priorised
     //  true for right-before-left and priority
-    if (from1->isTurningDirectionAt(myJunction, to1)) {
+    if (from1->isTurningDirectionAt(to1)) {
         myForbids[idx2][idx1] = true;
         return;
     }
-    if (from2->isTurningDirectionAt(myJunction, to2)) {
+    if (from2->isTurningDirectionAt(to2)) {
         myForbids[idx1][idx2] = true;
         return;
     }
@@ -289,11 +286,7 @@ NBRequest::setBlocking(bool leftHanded,
     while (*c1 != from1 && *c1 != from2) {
         if (*c1 == to2) {
             // if we encounter to2 the second one prohibits the first
-            if (!leftHanded) {
-                myForbids[idx2][idx1] = true;
-            } else {
-                myForbids[idx1][idx2] = true;
-            }
+            myForbids[idx2][idx1] = true;
             return;
         }
         NBContHelper::nextCW(myAll, c1);
@@ -305,11 +298,7 @@ NBRequest::setBlocking(bool leftHanded,
     while (*c2 != from2 && *c2 != from1) {
         if (*c2 == to1) {
             // if we encounter to1 the second one prohibits the first
-            if (!leftHanded) {
-                myForbids[idx1][idx2] = true;
-            } else {
-                myForbids[idx2][idx1] = true;
-            }
+            myForbids[idx1][idx2] = true;
             return;
         }
         NBContHelper::nextCW(myAll, c2);
@@ -521,7 +510,7 @@ NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& cross
                     }
                 }
                 foes += foe ? '1' : '0';
-                response += mustBrakeForCrossing(from, to, crossing) || !foe ? '0' : '1';
+                response += mustBrakeForCrossing(myJunction, from, to, crossing) || !foe ? '0' : '1';
             }
         }
     }
@@ -538,6 +527,7 @@ NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& cross
 std::string
 NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
                              int fromLane, int toLane, bool mayDefinitelyPass, const bool checkLaneFoes) const {
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     int idx = 0;
     if (to != 0) {
         idx = getIndex(from, to);
@@ -545,8 +535,9 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
     std::string result;
     // crossings
     for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
-        result += mustBrakeForCrossing(from, to, *i) ? '1' : '0';
+        result += mustBrakeForCrossing(myJunction, from, to, *i) ? '1' : '0';
     }
+    NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
     // normal connections
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
@@ -568,7 +559,8 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
                     // check whether the connection is prohibited by another one
                     if ((myForbids[getIndex(*i, connected[k].toEdge)][idx] &&
                             (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
-                            || rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)) {
+                            || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
+                            || mergeConflict(from, queryCon, *i, connected[k], false)) {
                         result += '1';
                     } else {
                         result += '0';
@@ -599,6 +591,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
         }
         result += foes ? '1' : '0';
     }
+    NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
     // normal connections
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin();
             i != myIncoming.rend(); i++) {
@@ -609,7 +602,8 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
             for (int k = size; k-- > 0;) {
                 if ((foes(from, to, (*i), connected[k].toEdge) &&
                         (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
-                        || rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)) {
+                        || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)
+                        || mergeConflict(from, queryCon, *i, connected[k], true)) {
                     result += '1';
                 } else {
                     result += '0';
@@ -618,6 +612,19 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
         }
     }
     return result;
+}
+
+
+bool 
+NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
+                         const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) {
+    return (from == prohibitorFrom
+            && con.toEdge == prohibitorCon.toEdge
+            && con.toLane == prohibitorCon.toLane
+            && con.fromLane != prohibitorCon.fromLane
+            && (foes ||
+                ((con.fromLane > prohibitorCon.fromLane && !con.mayDefinitelyPass)
+                || prohibitorCon.mayDefinitelyPass))); 
 }
 
 
@@ -637,36 +644,9 @@ NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane,
     }
     const SUMOReal prohibitorAngle = NBHelpers::relAngle(
                                          prohibitorFrom->getAngleAtNode(prohibitorFrom->getToNode()), to->getAngleAtNode(to->getFromNode()));
-    const bool rightOfProhibitor = prohibitorFrom->isTurningDirectionAt(prohibitorFrom->getToNode(), to)
-                                   || (angle > prohibitorAngle && !from->isTurningDirectionAt(from->getToNode(), to));
+    const bool rightOfProhibitor = prohibitorFrom->isTurningDirectionAt(to)
+                                   || (angle > prohibitorAngle && !from->isTurningDirectionAt(to));
     return rightOfProhibitor ? toLane >= prohibitorToLane : toLane <= prohibitorToLane;
-}
-
-
-bool
-NBRequest::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
-                             const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const {
-    if (from != prohibitorFrom) {
-        return false;
-    }
-    if (from->isTurningDirectionAt(from->getToNode(), to)) {
-        // XXX should warn if there are any non-turning connections left of this
-        return false;
-    }
-    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-    if ((!lefthand && fromLane <= prohibitorFromLane) ||
-            (lefthand && fromLane >= prohibitorFromLane)) {
-        return false;
-    }
-    // conflict if to is between prohibitorTo and from when going clockwise
-    if (to->getStartAngle() == prohibitorTo->getStartAngle()) {
-        // reduce rounding errors
-        return false;
-    }
-    const SUMOReal toAngleAtNode = fmod(to->getStartAngle() + 180, (SUMOReal)360.0);
-    const SUMOReal prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (SUMOReal)360.0);
-    return (lefthand != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) <
-                         GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
 }
 
 
@@ -702,7 +682,7 @@ operator<<(std::ostream& os, const NBRequest& r) {
 
 
 bool
-NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to) const {
+NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings) const {
     // vehicles which do not have a following lane must always decelerate to the end
     if (to == 0) {
         return true;
@@ -722,17 +702,47 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to) const {
         }
     }
     // maybe we need to brake for a pedestrian crossing
-    for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
-        if (mustBrakeForCrossing(from, to, *i)) {
-            return true;
+    if (includePedCrossings) {
+        for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
+            if (mustBrakeForCrossing(myJunction, from, to, *i)) {
+                return true;
+            }
         }
     }
+    // maybe we need to brake due to a right-turn conflict with straight-going
+    // bicycles
+    LinkDirection dir = myJunction->getDirection(from, to);
+    if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
+        const std::vector<NBEdge::Connection>& cons = from->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator i = cons.begin(); i != cons.end(); i++) {
+            if (NBNode::rightTurnConflict(from, to, fromLane,
+                                          from, (*i).toEdge, (*i).fromLane)) {
+                return true;
+            }
+        }
+    }
+    // maybe we need to brake due to a merge conflict
+    NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
+    for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
+        unsigned int noLanes = (*i)->getNumLanes();
+        for (int j = noLanes; j-- > 0;) {
+            std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
+            const int size = (int) connected.size();
+            for (int k = size; k-- > 0;) {
+                if ((*i) == from && fromLane != j
+                        && mergeConflict(from, queryCon, *i, connected[k], false)) {
+                    return true;
+                }
+            }
+        }
+    }
+
     return false;
 }
 
 bool
-NBRequest::mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) const {
-    const LinkDirection dir = myJunction->getDirection(from, to);
+NBRequest::mustBrakeForCrossing(const NBNode* node, const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) {
+    const LinkDirection dir = node->getDirection(from, to);
     const bool mustYield = dir == LINKDIR_LEFT || dir == LINKDIR_RIGHT;
     if (crossing.priority || mustYield) {
         for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {

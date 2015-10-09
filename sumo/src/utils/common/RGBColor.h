@@ -9,7 +9,7 @@
 // A RGB-color definition
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -192,6 +192,7 @@ public:
     static const RGBColor YELLOW;
     static const RGBColor CYAN;
     static const RGBColor MAGENTA;
+    static const RGBColor ORANGE;
     static const RGBColor WHITE;
     static const RGBColor BLACK;
     static const RGBColor GREY;

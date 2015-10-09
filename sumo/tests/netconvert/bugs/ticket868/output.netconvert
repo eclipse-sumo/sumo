@@ -1,3 +1,4 @@
+Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate edges... done.
@@ -13,12 +14,11 @@ Finding isolated roads... done.
 Removing empty nodes and geometry nodes... done.
    32 nodes removed.
 Moving network to origin... done.
-Joining similar edges... done.
-Guessing and setting on-/off-ramps... done.
-Removing sharp turn with radius 1.75 at the end of edge 151057631#0
-Removing sharp turn with radius 5.53 at the start of edge 151059738#0
-Removing sharp turn with radius 8.28 at the start of edge 151059738#0
 Computing turning directions... done.
+Guessing and setting on-/off-ramps... done.
+Removing sharp turn with radius 1.75 at the end of edge '151057631#0'.
+Removing sharp turn with radius 5.53 at the start of edge '151059738#0'.
+Removing sharp turn with radius 8.28 at the start of edge '151059738#0'.
 Sorting nodes' edges... done.
 Computing node shapes... done.
 Computing edge shapes... done.

@@ -84,7 +84,6 @@ else
     AC_DEFINE([SUMOReal], [float], [defines the precision of floats])
     ac_disabled="$ac_disabled DoublePrecision"
 fi
-AC_DEFINE([SUMOLong], [long long int], [defines a long])
 
 AC_ARG_ENABLE([subsecond], [AS_HELP_STRING([--disable-subsecond],[Disable subsecond timesteps.])])
 if test x$enable_subsecond != xno; then
@@ -98,25 +97,18 @@ AC_DEFINE([POSITION_EPS], [(SUMOReal)0.1], [defines the epsilon to use on positi
 AC_DEFINE([NUMERICAL_EPS], [(SUMOReal)0.001], [defines the epsilon to use on general floating point comparison])
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
 AC_DEFINE([GEO_OUTPUT_ACCURACY], [6], [defines the number of digits after the comma in geo-coordinates output])
-AC_DEFINE([SUMOLong], [long long int], [defines the type for very long integers])
-
-dnl   ... for xerces 3.0
-PKG_CHECK_MODULES([XERCES], [xerces-c >= 3.0],
-                  [AC_DEFINE([XERCES3_SIZE_t],[XMLSize_t],[Define length for Xerces 3.])],
-                  [AC_DEFINE([XERCES3_SIZE_t],[unsigned int],[Define length for Xerces 2.])])
-
 
 AM_CONDITIONAL(INTERNAL, test -d $srcdir/src/mesosim)
 m4_syscmd([test -d src/mesosim])
 m4_if(m4_sysval,[0],[
     AC_DEFINE([HAVE_INTERNAL], [1], [Define to enable internal code.])
-    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile src/netedit/Makefile src/osgview/Makefile])
+    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile src/osgview/Makefile])
     INTERNAL_DIRS="mesosim"
     AC_SUBST([INTERNAL_DIRS])
-    GUI_INTERNAL_DIRS="mesogui netedit osgview"
+    GUI_INTERNAL_DIRS="mesogui osgview"
     AC_SUBST([GUI_INTERNAL_DIRS])
     ac_enabled="$ac_enabled Internal"
-    program_transform_name="s,\$\$,Int,; s,sumoInt,meso,; s,sumo-guiInt,meso-gui,; s,neteditInt,netedit,; $program_transform_name"
+    program_transform_name="s,\$\$,Int,; s,sumoInt,meso,; s,sumo-guiInt,meso-gui,; $program_transform_name"
 ])
 
 AC_ARG_ENABLE([traci],[AS_HELP_STRING([--disable-traci],[disable Traffic Control Interface (TraCI) Server [default=no].])])
@@ -129,7 +121,7 @@ else
 fi
 
 AM_CONDITIONAL([WITH_VERSION_H], test -d .svn)
-if test -d .svn; then
+if test -d .svn || test x$PACKAGE_VERSION == xsvn -a -f src/version.h; then
    AC_DEFINE([HAVE_VERSION_H], [1], [Define if auto-generated version.h should be used.])
 else
    AC_DEFINE_UNQUOTED(VERSION_STRING, "$PACKAGE_VERSION", [Defined if auto-generated version.h is unavailable.])
@@ -145,12 +137,23 @@ case "$host" in
    AC_DEFINE([WIN32], [1], [Xerces and Fox expect this to be defined (cygwin)])
    AC_DEFINE([NOMINMAX], [1], [Including windows.h gives errors otherwise (cygwin)])
    ;;
+   *-darwin*)
+   CPPFLAGS="$CPPFLAGS -I/opt/local/include"
+   export CPPFLAGS
+   LDFLAGS="$LDFLAGS -L/opt/local/lib"
+   export LDFLAGS
+   ;;
 esac
 
 
 dnl ---------------------------------------------
 dnl check for libraries...
 dnl - - - - - - - - - - - - - - - - - - - - - - -
+
+dnl   ... for xerces 3.0
+PKG_CHECK_MODULES([XERCES], [xerces-c >= 3.0],
+                  [AC_DEFINE([XERCES3_SIZE_t],[XMLSize_t],[Define length for Xerces 3.])],
+                  [AC_DEFINE([XERCES3_SIZE_t],[unsigned int],[Define length for Xerces 2.])])
 
 dnl  ... for xerces
 AC_ARG_WITH([xerces], [AS_HELP_STRING([--with-xerces=DIR],[where Xerces-C is installed (libraries in DIR/lib, headers in DIR/include).])])
@@ -377,7 +380,7 @@ if test x"$with_python" == x; then
     with_python=no
 fi
 if test x"$with_python" != xno; then
-    PYTHON_LIBS=`python -c "import distutils.sysconfig; print distutils.sysconfig.get_config_var('BLDLIBRARY')"`
+    PYTHON_LIBS=`python -c "import distutils.sysconfig; bl = distutils.sysconfig.get_config_var('BLDLIBRARY'); print bl if bl else '-lpython2.7'"`
     AC_SUBST(PYTHON_LIBS)
     save_cppflags=$CPPFLAGS
     PYTHON_INCLUDES=`python -c "import distutils.sysconfig; print distutils.sysconfig.get_config_var('INCLUDEPY')"`
@@ -464,6 +467,7 @@ src/microsim/traffic_lights/Makefile
 src/microsim/trigger/Makefile
 src/marouter/Makefile
 src/netbuild/Makefile
+src/netedit/Makefile
 src/netgen/Makefile
 src/netimport/Makefile
 src/netimport/vissim/Makefile

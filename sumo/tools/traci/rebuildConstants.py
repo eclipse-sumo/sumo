@@ -11,7 +11,7 @@ This script extracts definitions from <SUMO>/src/traci-server/TraCIConstants.h
  and builds an according constants definition python file "constants.py".
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -21,7 +21,9 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys, datetime
+import os
+import sys
+import datetime
 from optparse import OptionParser
 
 dirname = os.path.dirname(__file__)
@@ -46,7 +48,7 @@ print("""@file    %s
 This script contains TraCI constant definitions from <SUMO_HOME>/src/traci-server/TraCIConstants.h.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -59,19 +61,21 @@ if options.java:
 else:
     print('"""\n', file=fdo)
 
-fdi = open(os.path.join(dirname, "..", "..", "src", "traci-server", "TraCIConstants.h"))
+fdi = open(
+    os.path.join(dirname, "..", "..", "src", "traci-server", "TraCIConstants.h"))
 started = False
 for line in fdi:
     if started:
-        if line.find("#endif")>=0:
+        if line.find("#endif") >= 0:
             started = False
             if options.java:
                 fdo.write("}")
             continue
-        if line.find("#define ")>=0:
+        if line.find("#define ") >= 0:
             vals = line.split(" ")
             if options.java:
-                line = "    public static final int " + vals[1] + " = " + vals[2].strip() + ";\n"
+                line = "    public static final int " + \
+                    vals[1] + " = " + vals[2].strip() + ";\n"
             else:
                 line = vals[1] + " = " + vals[2]
         if options.java:
@@ -79,7 +83,7 @@ for line in fdi:
         else:
             line = line.replace("//", "#")
         fdo.write(line)
-    if line.find("#define TRACICONSTANTS_H")>=0:
+    if line.find("#define TRACICONSTANTS_H") >= 0:
         started = True
         if options.java:
             fdo.write("public class TraCIConstants {")

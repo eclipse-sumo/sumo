@@ -12,7 +12,7 @@
 call jtrrouter twice and check that the output differs
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -21,9 +21,14 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import sys,os,subprocess,random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
+import sys
+import os
+import subprocess
+import random
+sys.path.append(
+    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
 from sumolib import checkBinary
+
 
 def get_depart_lines(route_file):
     return [l for l in open(route_file) if 'depart' in l]

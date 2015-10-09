@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <container id="c1" depart="0">
+        <tranship from="beg" to="end" speed="2" departPos="50" arrivalPos="50"/>
+    </container>
+</routes>

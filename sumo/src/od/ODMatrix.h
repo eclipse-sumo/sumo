@@ -9,7 +9,7 @@
 // An O/D (origin/destination) matrix
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2006-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2006-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -51,6 +51,7 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
+class SUMOSAXHandler;
 
 
 // ===========================================================================
@@ -109,6 +110,21 @@ public:
              SUMOTime end, const std::string& origin, const std::string& destination,
              const std::string& vehicleType);
 
+    /** @brief Adds a single vehicle with departure time
+     *
+     * If there is no existing ODCell for the given parameters one is generated
+     * using add(...)
+     *
+     * @param[in] id The id of the vehicle
+     * @param[in] depart The departure time of the vehicle
+     * @param[in] origin The origin district to use for the cell's flows
+     * @param[in] destination The destination district to use for the cell's flows
+     * @param[in] vehicleType The vehicle type to use for the cell's flows
+     */
+    void add(const std::string& id, const SUMOTime depart,
+             const std::string& origin, const std::string& destination,
+             const std::string& vehicleType);
+
     /** @brief Helper function for flow and trip output writing the depart
      *   and arrival attributes
      *
@@ -139,12 +155,14 @@ public:
      * @param[in] end The end time to generate vehicles for
      * @param[in] dev The stream to write the generated vehicle trips to
      * @param[in] uniform Information whether departure times shallbe uniformly spread or random
+     * @param[in] differSourceSink whether source and sink shall be different edges
      * @param[in] noVtype Whether vtype information shall not be written
      * @param[in] prefix A prefix for the vehicle names
      * @param[in] stepLog Whether processed time shall be written
      */
     void write(SUMOTime begin, const SUMOTime end,
-               OutputDevice& dev, const bool uniform, const bool noVtype,
+               OutputDevice& dev, const bool uniform,
+               const bool differSourceSink, const bool noVtype,
                const std::string& prefix, const bool stepLog);
 
 
@@ -206,10 +224,15 @@ public:
     void readV(LineReader& lr, SUMOReal scale,
                std::string vehType, bool matrixHasVehType);
 
-    /** @brief read a VISUM-matrix with the V Format
+    /** @brief read a matrix in one of several formats
      *  @todo Describe
      */
     void loadMatrix(OptionsCont& oc);
+
+    /** @brief read SUMO routes
+     *  @todo Describe
+     */
+    void loadRoutes(OptionsCont& oc, SUMOSAXHandler& handler);
 
     /** @brief split the given timeline
      *  @todo Describe
@@ -219,6 +242,8 @@ public:
     const std::vector<ODCell*>& getCells() {
         return myContainer;
     }
+
+    void sortByBeginTime();
 
 protected:
     /**
@@ -261,11 +286,13 @@ protected:
      * @param[in,out] vehName An incremented index of the generated vehicle
      * @param[out] into The storage to put generated vehicles into
      * @param[in] uniform Information whether departure times shallbe uniformly spread or random
+     * @param[in] differSourceSink whether source and sink shall be different edges
      * @param[in] prefix A prefix for the vehicle names
      * @return The number of left vehicles to insert
      */
     SUMOReal computeDeparts(ODCell* cell,
-                            size_t& vehName, std::vector<ODVehicle>& into, bool uniform,
+                            size_t& vehName, std::vector<ODVehicle>& into,
+                            const bool uniform, const bool differSourceSink,
                             const std::string& prefix);
 
 
@@ -309,6 +336,21 @@ private:
      */
     SUMOReal readFactor(LineReader& lr, SUMOReal scale);
 
+
+    /** @class by_begin_sorter
+     * @brief Sorts cells by their start time
+     */
+    class by_begin_sorter {
+    public:
+        /// @brief constructor
+        explicit by_begin_sorter() { }
+
+        /// @brief comparing operator
+        int operator()(const ODCell* const c1, const ODCell* const c2) const {
+            return c1->begin < c2->begin;
+        }
+
+    };
 
 protected:
     /// @brief The loaded cells

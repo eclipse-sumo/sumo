@@ -10,7 +10,7 @@
 // -------------------
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -192,6 +192,12 @@ inline std::string toString(const std::set<V*>& v, std::streamsize accuracy = OU
 
 template <>
 inline std::string toString(const std::vector<int>& v, std::streamsize accuracy) {
+    return joinToString(v, " ", accuracy);
+}
+
+
+template <>
+inline std::string toString(const std::vector<long long int>& v, std::streamsize accuracy) {
     return joinToString(v, " ", accuracy);
 }
 

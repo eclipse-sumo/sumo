@@ -10,7 +10,7 @@
 // A DFROUTER-network
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -77,7 +77,7 @@ RODFNet::buildApproachList() {
                 // edges in sinks will not be used
                 continue;
             }
-            if (!myKeepTurnarounds && help->getToNode() == ce->getFromNode()) {
+            if (!myKeepTurnarounds && help->getToJunction() == ce->getFromJunction()) {
                 // do not use turnarounds
                 continue;
             }
@@ -223,7 +223,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
         if (!hasApproached(last)) {
             // ok, no further connections to follow
             current.factor = 1.;
-            SUMOReal cdist = current.edges2Pass[0]->getFromNode()->getPosition().distanceTo(current.edges2Pass.back()->getToNode()->getPosition());
+            SUMOReal cdist = current.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(current.edges2Pass.back()->getToJunction()->getPosition());
             if (minDist < cdist) {
                 into.addRouteDesc(current);
             }
@@ -247,7 +247,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
 ///!!!                        //toDiscard.push_back(current);
                     }
                     current.factor = 1.;
-                    SUMOReal cdist = current.edges2Pass[0]->getFromNode()->getPosition().distanceTo(current.edges2Pass.back()->getToNode()->getPosition());
+                    SUMOReal cdist = current.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(current.edges2Pass.back()->getToJunction()->getPosition());
                     if (minDist < cdist) {
                         into.addRouteDesc(current);
                     }
@@ -283,7 +283,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
                 WRITE_WARNING("Could not close route for '" + det.getID() + "'");
                 unfoundEnds.push_back(current);
                 current.factor = 1.;
-                SUMOReal cdist = current.edges2Pass[0]->getFromNode()->getPosition().distanceTo(current.edges2Pass.back()->getToNode()->getPosition());
+                SUMOReal cdist = current.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(current.edges2Pass.back()->getToJunction()->getPosition());
                 if (minDist < cdist) {
                     into.addRouteDesc(current);
                 }
@@ -308,7 +308,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
             } else {
                 if (!hadOne) {
                     t.factor = (SUMOReal) 1. / (SUMOReal) appr.size();
-                    SUMOReal cdist = current.edges2Pass[0]->getFromNode()->getPosition().distanceTo(current.edges2Pass.back()->getToNode()->getPosition());
+                    SUMOReal cdist = current.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(current.edges2Pass.back()->getToJunction()->getPosition());
                     if (minDist < cdist) {
                         into.addRouteDesc(t);
                     }
@@ -988,11 +988,11 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
                 fd.fLKW += (srcFD.fLKW / (SUMOReal) maxClique->size());
                 fd.isLKW += (srcFD.isLKW / (SUMOReal) maxClique->size());
                 if (!didWarn && srcFD.vPKW > 0 && srcFD.vPKW < 255 && srcFD.vPKW / 3.6 > into->getSpeed()) {
-                    WRITE_MESSAGE("Detected PKW speed higher than allowed speed at '" + (*l) + "' on '" + into->getID() + "'.");
+                    WRITE_MESSAGE("Detected PKW speed higher than allowed speed at '" + (*l) + "' on edge '" + into->getID() + "'.");
                     didWarn = true;
                 }
                 if (!didWarn && srcFD.vLKW > 0 && srcFD.vLKW < 255 && srcFD.vLKW / 3.6 > into->getSpeed()) {
-                    WRITE_MESSAGE("Detected LKW speed higher than allowed speed at '" + (*l) + "' on '" + into->getID() + "'.");
+                    WRITE_MESSAGE("Detected LKW speed higher than allowed speed at '" + (*l) + "' on edge '" + into->getID() + "'.");
                     didWarn = true;
                 }
             }

@@ -13,7 +13,7 @@
 // A class that stores and controls tls and switching of their programs
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -348,7 +348,7 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step) {
     } else {
         deltaToStretch = (cycleTimeTo - currentPosTo + gspTo);
     }
-    unsigned int newdur = (unsigned int) myTo->getPhase(stepTo).duration - diff + deltaToStretch;
+    const SUMOTime newdur = myTo->getPhase(stepTo).duration - diff + deltaToStretch;
     myTo->changeStepAndDuration(myControl, step, stepTo, newdur);
 }
 
@@ -424,8 +424,8 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, SUMOTime 
     SUMOTime toCut = 0;
     for (int i = 0; i < areasNo; i++) {
         StretchBereichDef def = getStretchBereichDef(myTo, i + 1);
-        SUMOTime begin = TIME2STEPS(def.begin);
-        unsigned int end = TIME2STEPS(def.end);
+        const SUMOTime begin = TIME2STEPS(def.begin);
+        const SUMOTime end = TIME2STEPS(def.end);
         size_t stepOfBegin = myTo->getIndexFromOffset(begin);
         if (stepOfBegin == actStep) {
             if (begin < startPos) {

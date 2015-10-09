@@ -9,7 +9,7 @@
 // Static storage of an output device and its base (abstract) implementation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2004-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2004-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -88,7 +88,7 @@ OutputDevice::getDevice(const std::string& name) {
         const size_t len = name.length();
         std::string name2 = name;
         if (OptionsCont::getOptions().isSet("output-prefix")) {
-            std::string prefix = OptionsCont::getOptions().getString("output-prefix"); 
+            std::string prefix = OptionsCont::getOptions().getString("output-prefix");
             size_t metaTimeIndex = prefix.find("TIME");
             if (metaTimeIndex != std::string::npos) {
                 time_t rawtime;

@@ -12,7 +12,7 @@
 // A basic edge for routing applications
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -73,10 +73,10 @@ typedef std::vector<const ROEdge*> ConstROEdgeVector;
 class ROEdge : public Named {
 public:
     /**
-     * @enum EdgeType
-     * @brief Possible types of edges
+     * @enum EdgeFunc
+     * @brief Possible functions of edges
      */
-    enum EdgeType {
+    enum EdgeFunc {
         /// @brief A normal edge
         ET_NORMAL,
         /// @brief An edge representing a whole district
@@ -131,24 +131,35 @@ public:
     virtual void addSuccessor(ROEdge* s, std::string dir = "");
 
 
-    /** @brief Sets the type of te edge
-     * @param[in] type The new type for the edge
+    /** @brief Sets the function of the edge
+     * @param[in] func The new function for the edge
      */
-    void setType(EdgeType type);
+    inline void setFunc(EdgeFunc func) {
+        myFunc = func;
+    }
+
+
+    /** @brief Sets the vehicle class specific speed limits of the edge
+     * @param[in] restrictions The restrictions for the edge
+     */
+    inline void setRestrictions(const std::map<SUMOVehicleClass, SUMOReal>* restrictions) {
+        myRestrictions = restrictions;
+    }
+
 
     /// @brief return whether this edge is an internal edge
     inline bool isInternal() const {
-        return myType == ET_INTERNAL;
+        return myFunc == ET_INTERNAL;
     }
 
     /// @brief return whether this edge is a pedestrian crossing
     inline bool isCrossing() const {
-        return myType == ET_CROSSING;
+        return myFunc == ET_CROSSING;
     }
 
     /// @brief return whether this edge is walking area
     inline bool isWalkingArea() const {
-        return myType == ET_WALKINGAREA;
+        return myFunc == ET_WALKINGAREA;
     }
 
     /** @brief Builds the internal representation of the travel time/effort
@@ -160,7 +171,7 @@ public:
      *
      * @param[in] measure The name of the measure to use.
      */
-    void buildTimeLines(const std::string& measure);
+    void buildTimeLines(const std::string& measure, const bool boundariesOverride);
     //@}
 
 
@@ -168,12 +179,12 @@ public:
     /// @name Getter methods
     //@{
 
-    /** @brief Returns the type of the edge
-     * @return This edge's type
-     * @see EdgeType
+    /** @brief Returns the function of the edge
+     * @return This edge's basic function
+     * @see EdgeFunc
      */
-    EdgeType getType() const {
-        return myType;
+    EdgeFunc getFunc() const {
+        return myFunc;
     }
 
 
@@ -205,22 +216,6 @@ public:
      */
     unsigned int getLaneNo() const {
         return (unsigned int) myLanes.size();
-    }
-
-
-    /** @brief Returns the node this edge starts at
-     * @return The node this edge starts at
-     */
-    RONode* getFromNode() const {
-        return myFromNode;
-    }
-
-
-    /** @brief Returns the node this edge ends at
-     * @return The node this edge ends at
-     */
-    RONode* getToNode() const {
-        return myToNode;
     }
 
 
@@ -330,6 +325,14 @@ public:
     SUMOReal getEffort(const ROVehicle* const veh, SUMOReal time) const;
 
 
+    /** @brief Returns whether a travel time for this edge was loaded
+     *
+     * @param[in] time The time for which the travel time shall be returned [s]
+     * @return whether a value was loaded
+     */
+    bool hasLoadedTravelTime(SUMOReal time) const;
+
+
     /** @brief Returns the travel time for this edge
      *
      * @param[in] veh The vehicle for which the travel time on this edge shall be retrieved
@@ -403,13 +406,11 @@ public:
         return myEdges.size();
     };
 
-    static void setTimeLineOptions(
-        bool useBoundariesOnOverrideTT,
-        bool useBoundariesOnOverrideE,
-        bool interpolate) {
-        myUseBoundariesOnOverrideTT = useBoundariesOnOverrideTT;
-        myUseBoundariesOnOverrideE = useBoundariesOnOverrideE;
+    static void setGlobalOptions(
+        bool interpolate,
+        bool isParallel) {
         myInterpolate = interpolate;
+        myAmParallel = isParallel;
     }
 
     /// @brief get edge priority (road class)
@@ -425,11 +426,6 @@ public:
         return myToJunction;
     }
 
-
-    void setJunctions(RONode* from, RONode* to) {
-        myFromJunction = from;
-        myToJunction = to;
-    }
 
     /** @brief Returns this edge's lanes
      *
@@ -450,8 +446,9 @@ protected:
 
 
 protected:
-    /// @brief The nodes this edge is connecting
-    RONode* const myFromNode, * const myToNode;
+    /// @brief the junctions for this edge
+    RONode* myFromJunction;
+    RONode* myToJunction;
 
     /// @brief The index (numeric id) of the edge
     const unsigned int myIndex;
@@ -470,18 +467,17 @@ protected:
     mutable ValueTimeLine<SUMOReal> myTravelTimes;
     /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingTTTimeLine;
-    /// @brief Whether overriding weight boundaries shall be reported
-    static bool myUseBoundariesOnOverrideTT;
 
     /// @brief Container storing passing time varying over time for the edge
     mutable ValueTimeLine<SUMOReal> myEfforts;
     /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingETimeLine;
-    /// @brief Whether overriding weight boundaries shall be reported
-    static bool myUseBoundariesOnOverrideE;
 
     /// @brief Information whether to interpolate at interval boundaries
     static bool myInterpolate;
+
+    /// @brief Information whether we are routing multi-threaded
+    static bool myAmParallel;
 
     /// @brief Information whether the edge has reported missing weights
     static bool myHaveEWarned;
@@ -494,8 +490,11 @@ protected:
     /// @brief List of edges that approached this edge
     ROEdgeVector myApproachingEdges;
 
-    /// @brief The type of the edge
-    EdgeType myType;
+    /// @brief The function of the edge
+    EdgeFunc myFunc;
+
+    /// The vClass speed restrictions for this edge
+    const std::map<SUMOVehicleClass, SUMOReal>* myRestrictions;
 
     /// @brief This edge's lanes
     std::vector<ROLane*> myLanes;
@@ -505,13 +504,9 @@ protected:
 
     static ROEdgeVector myEdges;
 
-    /// @brief the junctions for this edge
-    RONode* myFromJunction;
-    RONode* myToJunction;
 
     /// @brief The successors available for a given vClass
-    typedef std::map<SUMOVehicleClass, ROEdgeVector> ClassesSuccesorMap;
-    mutable ClassesSuccesorMap myClassesSuccessorMap;
+    mutable std::map<SUMOVehicleClass, ROEdgeVector> myClassesSuccessorMap;
 
 private:
     /// @brief Invalidated copy constructor

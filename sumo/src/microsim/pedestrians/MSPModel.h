@@ -7,7 +7,7 @@
 // The pedestrian following model (prototype)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2014-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -111,6 +111,9 @@ public:
 
     /// @brief return the current speed of the person
     virtual SUMOReal getSpeed(const MSPerson::MSPersonStage_Walking& stage) const = 0;
+
+    /// @brief return the list of internal edges if the pedestrian is on an intersection
+    virtual const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const = 0;
 };
 
 

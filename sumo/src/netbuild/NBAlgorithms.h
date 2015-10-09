@@ -8,7 +8,7 @@
 // Algorithms for network computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2012-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -54,14 +54,16 @@ class NBTurningDirectionsComputer {
 public:
     /** @brief Computes turnaround destinations for all edges (if exist)
      * @param[in] nc The container of nodes to loop along
+     * @param[in] warn Whether warnings shall be issued
      */
-    static void computeTurnDirections(NBNodeCont& nc);
+    static void computeTurnDirections(NBNodeCont& nc, bool warn = true);
 
     /** @brief Computes turnaround destinations for all incoming edges of the given nodes (if any)
      * @param[in] node The node for which to compute turnaround destinations
+     * @param[in] warn Whether warnings shall be issued
      * @note: This is needed by NETEDIT
      */
-    static void computeTurnDirectionsForNode(NBNode* node);
+    static void computeTurnDirectionsForNode(NBNode* node, bool warn);
 
 private:
     /** @struct Combination
@@ -107,9 +109,9 @@ class NBNodesEdgesSorter {
 public:
     /** @brief Sorts a node's edges clockwise regarding driving direction
      * @param[in] nc The container of nodes to loop along
-     * @param[in] leftHand Whether the network is left-handed
+     * @param[in] useNodeShape Whether to sort based on the node shape (instead of only the edge angle)
      */
-    static void sortNodesEdges(NBNodeCont& nc, bool leftHand);
+    static void sortNodesEdges(NBNodeCont& nc, bool useNodeShape = false);
 
     /** @class crossing_by_junction_angle_sorter
      * @brief Sorts crossings by minimum clockwise clockwise edge angle. Use the
@@ -135,7 +137,7 @@ public:
         }
 
     private:
-       EdgeVector myOrdering;
+        EdgeVector myOrdering;
 
     private:
         /// @brief invalidated assignment operator
@@ -145,11 +147,10 @@ public:
 private:
     /** @brief Assures correct order for same-angle opposite-direction edges
      * @param[in] n The currently processed node
-     * @param[in] leftHand Whether the network is left-handed
      * @param[in] i1 Pointer to first edge
      * @param[in] i2 Pointer to second edge
      */
-    static void swapWhenReversed(const NBNode* const n, bool leftHand,
+    static void swapWhenReversed(const NBNode* const n,
                                  const std::vector<NBEdge*>::iterator& i1,
                                  const std::vector<NBEdge*>::iterator& i2);
 

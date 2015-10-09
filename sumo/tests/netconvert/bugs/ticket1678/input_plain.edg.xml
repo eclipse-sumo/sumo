@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 12.03.2015 22:13:53 by Netedit Version dev-SVN-r18056
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="D:\erdm_ja\sumo-dev\tests\netconvert\bugs\ticket1678\input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1" numLanes="3" speed="13.89" spreadType="center">
+        <lane index="0" allow="passenger"/>
+        <lane index="1" allow="bicycle"/>
+        <lane index="2" allow="pedestrian" width="1.00"/>
+    </edge>
+    <edge id="gneE1" from="gneJ0" to="gneJ1" priority="1" numLanes="2" speed="13.89">
+        <lane index="0" allow="rail" endOffset="5.00"/>
+        <lane index="1" allow="rail"/>
+    </edge>
+</edges>

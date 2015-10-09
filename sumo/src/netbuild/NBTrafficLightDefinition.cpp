@@ -9,7 +9,7 @@
 // The base class for traffic light logic definitions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -41,6 +41,7 @@
 #include <utils/options/OptionsCont.h>
 #include "NBLinkPossibilityMatrix.h"
 #include "NBTrafficLightLogic.h"
+#include "NBOwnTLDef.h"
 #include "NBContHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -61,7 +62,8 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     Named(id),
     myControlledNodes(junctions),
     mySubID(programID), myOffset(offset),
-    myType(type) {
+    myType(type),
+    myNeedsContRelationReady(false) {
     std::vector<NBNode*>::iterator i = myControlledNodes.begin();
     while (i != myControlledNodes.end()) {
         for (std::vector<NBNode*>::iterator j = i + 1; j != myControlledNodes.end();) {
@@ -85,9 +87,9 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     Named(id),
     mySubID(programID),
     myOffset(offset),
-    myType(type) {
+    myType(type),
+    myNeedsContRelationReady(false) {
     addNode(junction);
-    junction->addTrafficLight(this);
 }
 
 
@@ -96,7 +98,9 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id, const 
     Named(id),
     mySubID(programID),
     myOffset(offset),
-    myType(type) {}
+    myType(type),
+    myNeedsContRelationReady(false)
+{}
 
 
 NBTrafficLightDefinition::~NBTrafficLightDefinition() {}
@@ -180,22 +184,6 @@ NBTrafficLightDefinition::collectEdges() {
 
 
 bool
-NBTrafficLightDefinition::isLeftMover(const NBEdge* const from, const NBEdge* const to) const {
-    // the destination edge may be unused
-    if (to == 0) {
-        return false;
-    }
-    // get the node which is holding this connection
-    std::vector<NBNode*>::const_iterator i =
-        find_if(myControlledNodes.begin(), myControlledNodes.end(),
-                NBContHelper::node_with_incoming_finder(from));
-    assert(i != myControlledNodes.end());
-    NBNode* node = *i;
-    return node->isLeftMover(from, to);
-}
-
-
-bool
 NBTrafficLightDefinition::mustBrake(const NBEdge* const from, const NBEdge* const to) const {
     std::vector<NBNode*>::const_iterator i =
         find_if(myControlledNodes.begin(), myControlledNodes.end(),
@@ -205,7 +193,8 @@ NBTrafficLightDefinition::mustBrake(const NBEdge* const from, const NBEdge* cons
     if (!node->hasOutgoing(to)) {
         return true; // !!!
     }
-    return node->mustBrake(from, to, -1);
+    // @todo recheck relevance of lane indices
+    return node->mustBrake(from, to, -1, -1, true);
 }
 
 
@@ -390,6 +379,31 @@ NBTrafficLightDefinition::collectAllLinks() {
             }
         }
     }
+}
+
+
+bool
+NBTrafficLightDefinition::needsCont(const NBEdge* fromE, const NBEdge* toE, const NBEdge* otherFromE, const NBEdge* otherToE) const {
+    if (!myNeedsContRelationReady) {
+        initNeedsContRelation();
+        assert(myNeedsContRelationReady);
+    }
+    return std::find(myNeedsContRelation.begin(), myNeedsContRelation.end(),
+                     StreamPair(fromE, toE, otherFromE, otherToE)) != myNeedsContRelation.end();
+}
+
+
+void
+NBTrafficLightDefinition::initNeedsContRelation() const {
+    if (!amInvalid()) {
+        NBOwnTLDef dummy("dummy", myControlledNodes, 0, TLTYPE_STATIC);
+        dummy.initNeedsContRelation();
+        myNeedsContRelation = dummy.myNeedsContRelation;
+        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+            (*i)->removeTrafficLight(&dummy);
+        }
+    }
+    myNeedsContRelationReady = true;
 }
 
 /****************************************************************************/

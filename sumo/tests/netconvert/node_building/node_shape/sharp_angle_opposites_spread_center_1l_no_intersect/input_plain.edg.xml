@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 10 Mar 2015 01:34:58 PM CET by Netedit Version dev-SVN-r18054I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/scr2/debug/nodeShape/tests/net3.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/nodeShape/tests/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="gneE0" from="gneJ1" to="gneJ2" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE1" from="gneJ2" to="gneJ1" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE2.0" from="gneJ2" to="gneJ5" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE2b" from="gneJ5" to="gneJ4" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+</edges>

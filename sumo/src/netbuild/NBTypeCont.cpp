@@ -10,7 +10,7 @@
 // A storage for the available types of an edge
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -36,6 +36,7 @@
 #include <iostream>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "NBTypeCont.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -47,32 +48,26 @@
 // method definitions
 // ===========================================================================
 void
-NBTypeCont::setDefaults(int defaultNoLanes,
+NBTypeCont::setDefaults(int defaultNumLanes,
                         SUMOReal defaultSpeed,
                         int defaultPriority) {
-    myDefaultType.noLanes = defaultNoLanes;
+    myDefaultType.numLanes = defaultNumLanes;
     myDefaultType.speed = defaultSpeed;
     myDefaultType.priority = defaultPriority;
 }
 
 
-bool
-NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
-                   SUMOReal width, SUMOVehicleClass vClass, bool oneWayIsDefault, SUMOReal sidewalkWidth) {
-    SVCPermissions permissions = (vClass == SVC_IGNORING ? SVCAll : vClass);
-    return insert(id, noLanes, maxSpeed, prio, permissions, width, oneWayIsDefault, sidewalkWidth);
-}
+void
+NBTypeCont::insert(const std::string& id, int numLanes, SUMOReal maxSpeed, int prio,
+                   SVCPermissions permissions, SUMOReal width, bool oneWayIsDefault, SUMOReal sidewalkWidth, SUMOReal bikeLaneWidth) {
 
-
-bool
-NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
-                   SVCPermissions permissions, SUMOReal width, bool oneWayIsDefault, SUMOReal sidewalkWidth) {
-    TypesCont::iterator i = myTypes.find(id);
-    if (i != myTypes.end()) {
-        return false;
+    TypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth, bikeLaneWidth);
+    TypesCont::iterator old = myTypes.find(id);
+    if (old != myTypes.end()) {
+        newType.restrictions.insert(old->second.restrictions.begin(), old->second.restrictions.end());
+        newType.attrs.insert(old->second.attrs.begin(), old->second.attrs.end());
     }
-    myTypes[id] = TypeDefinition(noLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth);
-    return true;
+    myTypes[id] = newType;
 }
 
 
@@ -93,10 +88,92 @@ NBTypeCont::markAsToDiscard(const std::string& id) {
 }
 
 
+bool
+NBTypeCont::markAsSet(const std::string& id, const SumoXMLAttr attr) {
+    TypesCont::iterator i = myTypes.find(id);
+    if (i == myTypes.end()) {
+        return false;
+    }
+    (*i).second.attrs.insert(attr);
+    return true;
+}
+
+
+bool
+NBTypeCont::addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed) {
+    TypesCont::iterator i = myTypes.find(id);
+    if (i == myTypes.end()) {
+        return false;
+    }
+    (*i).second.restrictions[svc] = speed;
+    return true;
+}
+
+
+bool
+NBTypeCont::copyRestrictionsAndAttrs(const std::string& fromId, const std::string& toId) {
+    TypesCont::iterator from = myTypes.find(fromId);
+    TypesCont::iterator to = myTypes.find(toId);
+    if (from == myTypes.end() || to == myTypes.end()) {
+        return false;
+    }
+    to->second.restrictions.insert(from->second.restrictions.begin(), from->second.restrictions.end());
+    to->second.attrs.insert(from->second.attrs.begin(), from->second.attrs.end());
+    return true;
+}
+
+
+void
+NBTypeCont::writeTypes(OutputDevice& into) const {
+    for (TypesCont::const_iterator i = myTypes.begin(); i != myTypes.end(); ++i) {
+        into.openTag(SUMO_TAG_TYPE);
+        into.writeAttr(SUMO_ATTR_ID, i->first);
+        const NBTypeCont::TypeDefinition& type = i->second;
+        if (type.attrs.count(SUMO_ATTR_PRIORITY) > 0) {
+            into.writeAttr(SUMO_ATTR_PRIORITY, type.priority);
+        }
+        if (type.attrs.count(SUMO_ATTR_NUMLANES) > 0) {
+            into.writeAttr(SUMO_ATTR_NUMLANES, type.numLanes);
+        }
+        if (type.attrs.count(SUMO_ATTR_SPEED) > 0) {
+            into.writeAttr(SUMO_ATTR_SPEED, type.speed);
+        }
+        if (type.attrs.count(SUMO_ATTR_DISALLOW) > 0 || type.attrs.count(SUMO_ATTR_ALLOW) > 0) {
+            writePermissions(into, type.permissions);
+        }
+        if (type.attrs.count(SUMO_ATTR_ONEWAY) > 0) {
+            into.writeAttr(SUMO_ATTR_ONEWAY, type.oneWay);
+        }
+        if (type.attrs.count(SUMO_ATTR_DISCARD) > 0) {
+            into.writeAttr(SUMO_ATTR_DISCARD, type.discard);
+        }
+        if (type.attrs.count(SUMO_ATTR_WIDTH) > 0) {
+            into.writeAttr(SUMO_ATTR_WIDTH, type.width);
+        }
+        if (type.attrs.count(SUMO_ATTR_SIDEWALKWIDTH) > 0) {
+            into.writeAttr(SUMO_ATTR_SIDEWALKWIDTH, type.sidewalkWidth);
+        }
+        if (type.attrs.count(SUMO_ATTR_BIKELANEWIDTH) > 0) {
+            into.writeAttr(SUMO_ATTR_BIKELANEWIDTH, type.bikeLaneWidth);
+        }
+        for (std::map<SUMOVehicleClass, SUMOReal>::const_iterator j = type.restrictions.begin(); j != type.restrictions.end(); ++j) {
+            into.openTag(SUMO_TAG_RESTRICTION);
+            into.writeAttr(SUMO_ATTR_VCLASS, getVehicleClassNames(j->first));
+            into.writeAttr(SUMO_ATTR_SPEED, j->second);
+            into.closeTag();
+        }
+        into.closeTag();
+    }
+    if (!myTypes.empty()) {
+        into.lf();
+    }
+}
+
+
 // ------------ Type-dependant Retrieval methods
 int
 NBTypeCont::getNumLanes(const std::string& type) const {
-    return getType(type).noLanes;
+    return getType(type).numLanes;
 }
 
 
@@ -124,6 +201,12 @@ NBTypeCont::getShallBeDiscarded(const std::string& type) const {
 }
 
 
+bool
+NBTypeCont::wasSet(const std::string& type, const SumoXMLAttr attr) const {
+    return getType(type).attrs.count(attr) > 0;
+}
+
+
 SVCPermissions
 NBTypeCont::getPermissions(const std::string& type) const {
     return getType(type).permissions;
@@ -139,6 +222,12 @@ NBTypeCont::getWidth(const std::string& type) const {
 SUMOReal
 NBTypeCont::getSidewalkWidth(const std::string& type) const {
     return getType(type).sidewalkWidth;
+}
+
+
+SUMOReal
+NBTypeCont::getBikeLaneWidth(const std::string& type) const {
+    return getType(type).bikeLaneWidth;
 }
 
 

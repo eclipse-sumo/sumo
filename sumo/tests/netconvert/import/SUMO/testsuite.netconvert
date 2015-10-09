@@ -32,6 +32,9 @@ no_internal_lanes_modify
 # see ticket775
 roundabouts
 
+# modify edges within a roundabout using option --geometry.remove
+roundabout_modify
+
 # test discarding traffic lights for geometry-like junctions
 tls.discard-simple
 
@@ -42,3 +45,13 @@ add_split
 # importing a complex network with deprecated vclasses
 adlershof_dlr_deprecated_vclass
 joined_traffic_lights_with_controlledInner
+joined_traffic_light_with_internal_junctions
+
+# import network with a rail signal
+rail_signal
+
+# add another tls program to an existing tls definition
+add_tls_prgram
+
+# apply option --geometry.remove to a loaded .net.xml
+geometry.remove

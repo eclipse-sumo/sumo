@@ -9,7 +9,7 @@
 // Loader for the of turning percentages and source/sink definitions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -84,7 +84,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
                     if (edge == 0) {
                         throw ProcessError("The edge '" + id + "' declared as a sink is not known.");
                     }
-                    edge->setType(ROEdge::ET_SINK);
+                    edge->setFunc(ROEdge::ET_SINK);
                 }
             }
             break;
@@ -98,7 +98,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
                     if (edge == 0) {
                         throw ProcessError("The edge '" + id + "' declared as a source is not known.");
                     }
-                    edge->setType(ROEdge::ET_SOURCE);
+                    edge->setFunc(ROEdge::ET_SOURCE);
                 }
             }
             break;

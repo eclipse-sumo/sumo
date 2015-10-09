@@ -10,7 +10,7 @@
 // with one ore more logics.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -61,13 +61,8 @@ public:
     /// Destructor.
     virtual ~MSLogicJunction();
 
-    /** @brief Container for link foes */
-    typedef std::bitset<64> LinkFoes;
-
-    /** @brief Container for junction-internal lane occupation
-        Each element of this container represents one particular
-        junction-internal lane */
-    typedef std::bitset<64> InnerState;
+    /** @brief Container for link response and foes */
+    typedef std::bitset<64> LinkBits;
 
     /// initialises the junction after the whole net has been loaded
     virtual void postloadInit();

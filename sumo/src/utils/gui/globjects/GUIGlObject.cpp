@@ -10,7 +10,7 @@
 // Base class for all objects that may be displayed within the openGL-gui
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -59,6 +59,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"edge",          GLO_EDGE},
     {"lane",          GLO_LANE},
     {"junction",      GLO_JUNCTION},
+    {"crossing",      GLO_CROSSING},
     {"tlLogic",       GLO_TLLOGIC},
     {"detector",      GLO_DETECTOR},
     {"trigger",       GLO_TRIGGER},
@@ -67,6 +68,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"poi",           GLO_POI},
     {"vehicle",       GLO_VEHICLE},
     {"person",        GLO_PERSON},
+    {"container",     GLO_CONTAINER},
     {"undefined",     GLO_MAX}
 };
 

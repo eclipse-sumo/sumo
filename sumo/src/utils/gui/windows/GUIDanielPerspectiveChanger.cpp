@@ -9,7 +9,7 @@
 // A class that allows to steer the visual output in dependence to
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -30,6 +30,7 @@
 #include <config.h>
 #endif
 
+#include <fxkeys.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
@@ -52,7 +53,9 @@ GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(
     myRotation(0),
     myMouseButtonState(MOUSEBTN_NONE),
     myMoveOnClick(false),
-    myDragDelay(0) {}
+    myZoomBase(viewPort.getCenter()),
+    myDragDelay(0)
+{}
 
 
 GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger() {}
@@ -178,9 +181,9 @@ void
 GUIDanielPerspectiveChanger::onMouseWheel(void* data) {
     FXEvent* e = (FXEvent*) data;
     SUMOReal diff = 0.1;
-    if (e->state & CONTROLMASK) {
+    if ((e->state & CONTROLMASK) != 0) {
         diff /= 2;
-    } else if (e->state & SHIFTMASK) {
+    } else if ((e->state & SHIFTMASK) != 0) {
         diff *= 2;
     }
     if (e->code < 0) {
@@ -249,5 +252,89 @@ GUIDanielPerspectiveChanger::changeCanvassLeft(int change) {
                      myViewPort.xmax(),
                      myViewPort.ymax());
 }
+
+
+long
+GUIDanielPerspectiveChanger::onKeyPress(void* data) {
+    FXEvent* e = (FXEvent*) data;
+    SUMOReal zoomDiff = 0.1;
+    SUMOReal moveX = 0;
+    SUMOReal moveY = 0;
+    SUMOReal moveFactor = 1;
+    bool pageVertical = true;
+    bool ctrl = false;
+    if (e->state & CONTROLMASK) {
+        ctrl = true;
+        zoomDiff /= 2;
+        moveFactor /= 10;
+    } else if (e->state & SHIFTMASK) {
+        pageVertical = false;
+        zoomDiff *= 2;
+    }
+    switch (e->code) {
+        case FX::KEY_Left:
+            moveX = -1;
+            moveFactor /= 10;
+            break;
+        case FX::KEY_Right:
+            moveX = 1;
+            moveFactor /= 10;
+            break;
+        case FX::KEY_Up:
+            moveY = -1;
+            moveFactor /= 10;
+            break;
+        case FX::KEY_Down:
+            moveY = 1;
+            moveFactor /= 10;
+            break;
+        case FX::KEY_Page_Up:
+            if (pageVertical) {
+                moveY = -1;
+            } else {
+                moveX = -1;
+            }
+            break;
+        case FX::KEY_Page_Down:
+            if (pageVertical) {
+                moveY = 1;
+            } else {
+                moveX = 1;
+            }
+            break;
+        case FX::KEY_plus:
+        case FX::KEY_KP_Add:
+            myZoomBase = myCallback.getPositionInformation();
+            zoom(1.0 + zoomDiff);
+            myCallback.updateToolTip();
+            return 1;
+        case FX::KEY_minus:
+        case FX::KEY_KP_Subtract:
+            zoomDiff = -zoomDiff;
+            myZoomBase = myCallback.getPositionInformation();
+            zoom(1.0 + zoomDiff);
+            myCallback.updateToolTip();
+            return 1;
+        case FX::KEY_Home:
+        case FX::KEY_KP_Home:
+            myCallback.recenterView();
+            myCallback.update();
+            return 1;
+        case FX::KEY_v:
+            // from an architecture standpoint this isn't the best place to put
+            // this. But its simple
+            if (ctrl) {
+                myCallback.showViewschemeEditor();
+                return 1;
+            }
+        default:
+            return 0;
+    }
+    myViewPort.moveby(moveX * moveFactor * myViewPort.getWidth(),
+                      -moveY * moveFactor * myViewPort.getHeight());
+    myCallback.update();
+    return 1;
+}
+
 
 /****************************************************************************/

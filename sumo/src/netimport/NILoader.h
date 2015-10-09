@@ -9,7 +9,7 @@
 // Perfoms network import
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -79,8 +79,8 @@ private:
     void loadXML(OptionsCont& oc);
 
     /** loads data from the list of xml-files of certain type */
-    void loadXMLType(SUMOSAXHandler* handler,
-                     const std::vector<std::string>& files, const std::string& type);
+    void loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string>& files,
+                     const std::string& type, const bool stringParse = false);
 
 private:
     /// @brief The network builder to fill with loaded data

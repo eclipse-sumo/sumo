@@ -9,7 +9,7 @@
 // Exporter writing networks using XML (native input) format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -62,6 +62,9 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // check whether plain-output files shall be generated
     if (oc.isSet("plain-output-prefix")) {
         writeNodes(oc, nb.getNodeCont());
+        if (nb.getTypeCont().size() > 0) {
+            writeTypes(oc, nb.getTypeCont());
+        }
         writeEdgesAndConnections(oc, nb.getNodeCont(), nb.getEdgeCont());
         writeTrafficLights(oc, nb.getTLLogicCont(), nb.getEdgeCont());
     }
@@ -89,7 +92,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
 
     // write network offsets and projection to allow reconstruction of original coordinates
     if (!useGeo) {
-        NWWriter_SUMO::writeLocation(device);
+        GeoConvHelper::writeLocation(device);
     }
 
     // write nodes
@@ -137,8 +140,20 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
         if (n->getRadius() != NBNode::UNSPECIFIED_RADIUS) {
             device.writeAttr(SUMO_ATTR_RADIUS, n->getRadius());
         }
+        if (n->getKeepClear() == false) {
+            device.writeAttr<bool>(SUMO_ATTR_KEEP_CLEAR, n->getKeepClear());
+        }
         device.closeTag();
     }
+    device.close();
+}
+
+
+void
+NWWriter_XML::writeTypes(const OptionsCont& oc, NBTypeCont& tc) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".typ.xml");
+    device.writeXMLHeader("types", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/types_file.xsd\"");
+    tc.writeTypes(device);
     device.close();
 }
 
@@ -153,7 +168,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     edevice.writeXMLHeader("edges", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/edges_file.xsd\"");
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
     cdevice.writeXMLHeader("connections", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/connections_file.xsd\"");
-    bool noNames = !oc.getBool("output.street-names");
+    const bool writeNames = oc.getBool("output.street-names");
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         // write the edge itself to the edges-files
         NBEdge* e = (*i).second;
@@ -161,7 +176,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         edevice.writeAttr(SUMO_ATTR_ID, e->getID());
         edevice.writeAttr(SUMO_ATTR_FROM, e->getFromNode()->getID());
         edevice.writeAttr(SUMO_ATTR_TO, e->getToNode()->getID());
-        if (!noNames && e->getStreetName() != "") {
+        if (writeNames && e->getStreetName() != "") {
             edevice.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(e->getStreetName()));
         }
         edevice.writeAttr(SUMO_ATTR_PRIORITY, e->getPriority());
@@ -204,6 +219,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (e->getEndOffset() != NBEdge::UNSPECIFIED_OFFSET && !e->hasLaneSpecificEndOffset()) {
             edevice.writeAttr(SUMO_ATTR_ENDOFFSET, e->getEndOffset());
         }
+        if (!e->hasLaneSpecificPermissions()) {
+            writePermissions(edevice, e->getPermissions(0));
+        }
         if (!e->needsLaneSpecificOutput()) {
             edevice.closeTag();
         } else {
@@ -212,8 +230,10 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                 edevice.openTag(SUMO_TAG_LANE);
                 edevice.writeAttr(SUMO_ATTR_INDEX, i);
                 // write allowed lanes
-                NWWriter_SUMO::writePermissions(edevice, lane.permissions);
-                NWWriter_SUMO::writePreferences(edevice, lane.preferred);
+                if (e->hasLaneSpecificPermissions()) {
+                    writePermissions(edevice, lane.permissions);
+                }
+                writePreferences(edevice, lane.preferred);
                 // write other attributes
                 if (lane.width != NBEdge::UNSPECIFIED_WIDTH && e->hasLaneSpecificWidth()) {
                     edevice.writeAttr(SUMO_ATTR_WIDTH, lane.width);

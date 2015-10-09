@@ -1,9 +1,6 @@
 # some basic tests for importing files
 import
 
-# basic tests with flow outputs
-flow_output
-
 # testing meta processing
 meta
 
@@ -19,3 +16,4 @@ incremental
 # Tests for sue assignment
 sue
 all_pair
+load

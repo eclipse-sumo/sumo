@@ -3,6 +3,7 @@ binary:$TEXTTEST_HOME/toolrunner.py
 copy_test_path:routes.rou.xml
 copy_test_path:routes2.rou.xml
 copy_test_path:net.net.xml
+copy_test_path:net2.net.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:three_split.net.xml
 copy_test_path:input_net.net.xml
@@ -52,6 +53,7 @@ copy_test_path:fcd.xml
 copy_test_path:data.txt
 copy_test_path:source.csv
 copy_test_path:osm.xml
+copy_test_path:osm_bbox.osm.xml
 copy_test_path:weights.src.xml
 copy_test_path:weights.dst.xml
 copy_test_path:weights.via.xml
@@ -99,8 +101,15 @@ source_weights:weights.src.xml
 dest_weights:weights.dst.xml
 via_weights:weights.via.xml
 selection:selection.txt
+selection0:selection.comp0.txt
+selection1:selection.comp1.txt
+selection2:selection.comp2.txt
 histogram:histogram.dat
 fullstats:fullstats.dat
+osmimport:*/osm.net.xml
+osmbatch:*/build.bat
+osmtrips:*/osm.pedestrian.trips.xml
+districts:districts.xml
 
 [run_dependent_text]
 output:Begin time
@@ -109,7 +118,14 @@ output:uration:
 output:<!-- generated on
 output:.* files checked{REPLACE <number> files checked}
 output:^calling.*duarouter
+output:Parsing network projection
+output:Parsing types from '.*[\\/]data[\\/]typemap[\\/]{REPLACE Parsing types from 'sumo/data/typemap/}
+output:Building scenario in.*{REPLACE Building scenario in <DIR>}
+output:^Performance:{->}^Vehicles:
+output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
+output:Written configuration to .*{REPLACE Written configuration to <PATH>}
 trips:<!-- generated on
+osmtrips:<!-- generated on
 pois:<!--
 routes:<!-- generated on
 errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
@@ -118,9 +134,16 @@ errors:*** 9 leaks found
 errors:delete: freed
 errors:Traceback{->}XMLSyntaxError
 errors:Traceback{->}IOError
+errors:.*RuntimeWarning: divide{REPLACE RuntimeWarning: divide}
+errors:Ran [0-9]+ tests in [0-9]+\.[0-9]+s{REPLACE Ran <COUNT> tests in <TIME>}
+errors:No imaging
 omnet:<!-- generated on
 shawn:<!-- generated on
 net:<!--{[->]}-->
+osmimport:<!--{[->]}-->
+osmbatch:python.*randomTrips\.py{REPLACE python /path/to/randomTrips.py}
+osmbatch:python.*route2trips\.py{REPLACE python /path/to/route2trips.py}
+osmbatch:--trip-attributes.*--{REPLACE --trip-attributes <attrs-with-os-dependent-quoting> --}
 
 [floating_point_tolerance]
 net:0.0101

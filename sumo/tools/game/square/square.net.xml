@@ -413,39 +413,39 @@
     </edge>
 
     <tlLogic id="0/0" type="static" programID="0" offset="0">
-      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="2"     state="rrrruuuurrrruuuu"/>
       <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
    </tlLogic>
 
    <tlLogic id="0/0" type="static" programID="1" offset="0">
-      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="2"     state="uuuurrrruuuurrrr"/>
       <phase duration="10000" state="GGggrrrrGGggrrrr"/>
     </tlLogic>
     <tlLogic id="0/1" type="static" programID="0" offset="0">
-      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="2"     state="rrrruuuurrrruuuu"/>
       <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
    </tlLogic>
 
    <tlLogic id="0/1" type="static" programID="1" offset="0">
-      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="2"     state="uuuurrrruuuurrrr"/>
       <phase duration="10000" state="GGggrrrrGGggrrrr"/>
     </tlLogic>
     <tlLogic id="1/0" type="static" programID="0" offset="0">
-      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="2"     state="rrrruuuurrrruuuu"/>
       <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
    </tlLogic>
 
    <tlLogic id="1/0" type="static" programID="1" offset="0">
-      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="2"     state="uuuurrrruuuurrrr"/>
       <phase duration="10000" state="GGggrrrrGGggrrrr"/>
     </tlLogic>
     <tlLogic id="1/1" type="static" programID="0" offset="0">
-      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="2"     state="rrrruuuurrrruuuu"/>
       <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
    </tlLogic>
 
    <tlLogic id="1/1" type="static" programID="1" offset="0">
-      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="2"     state="uuuurrrruuuurrrr"/>
       <phase duration="10000" state="GGggrrrrGGggrrrr"/>
     </tlLogic>
     <tlLogic id="bottom0" type="static" programID="0" offset="0">
@@ -454,31 +454,31 @@
     </tlLogic>
     <tlLogic id="bottom1" type="static" programID="0" offset="0">
         <phase duration="31" state="G"/>
-        <phase duration="4" state="y"/>
+        <phase duration="4"  state="y"/>
     </tlLogic>
     <tlLogic id="left0" type="static" programID="0" offset="0">
         <phase duration="31" state="G"/>
-        <phase duration="4" state="y"/>
+        <phase duration="4"  state="y"/>
     </tlLogic>
     <tlLogic id="left1" type="static" programID="0" offset="0">
         <phase duration="31" state="G"/>
-        <phase duration="4" state="y"/>
+        <phase duration="4"  state="y"/>
     </tlLogic>
     <tlLogic id="right0" type="static" programID="0" offset="0">
         <phase duration="31" state="G"/>
-        <phase duration="4" state="y"/>
+        <phase duration="4"  state="y"/>
     </tlLogic>
     <tlLogic id="right1" type="static" programID="0" offset="0">
         <phase duration="31" state="G"/>
-        <phase duration="4" state="y"/>
+        <phase duration="4"  state="y"/>
     </tlLogic>
     <tlLogic id="top0" type="static" programID="0" offset="0">
         <phase duration="31" state="G"/>
-        <phase duration="4" state="y"/>
+        <phase duration="4"  state="y"/>
     </tlLogic>
     <tlLogic id="top1" type="static" programID="0" offset="0">
         <phase duration="31" state="G"/>
-        <phase duration="4" state="y"/>
+        <phase duration="4"  state="y"/>
     </tlLogic>
 
     <junction id="0/0" type="traffic_light" x="200.00" y="200.00" incLanes="0/1to0/0_0 1/0to0/0_0 bottom0to0/0_0 left0to0/0_0" intLanes=":0/0_0_0 :0/0_1_0 :0/0_16_0 :0/0_17_0 :0/0_4_0 :0/0_5_0 :0/0_18_0 :0/0_19_0 :0/0_8_0 :0/0_9_0 :0/0_20_0 :0/0_21_0 :0/0_12_0 :0/0_13_0 :0/0_22_0 :0/0_23_0" shape="196.75,204.75 203.25,204.75 204.75,203.25 204.75,196.75 203.25,195.25 196.75,195.25 195.25,196.75 195.25,203.25">

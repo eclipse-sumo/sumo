@@ -9,7 +9,7 @@
 // A MSNet extended by some values for usage within the gui
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -35,6 +35,7 @@
 #include <string>
 #include <utility>
 #include <microsim/MSNet.h>
+#include <microsim/devices/MSDevice_Tripinfo.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include <foreign/rtree/SUMORTree.h>
@@ -208,6 +209,11 @@ public:
     void setIdleDuration(int val);
     //}
 
+    SUMOReal getAvgRouteLength() const { return MSDevice_Tripinfo::getAvgRouteLength(); }
+    SUMOReal getAvgDuration() const { return MSDevice_Tripinfo::getAvgDuration(); }
+    SUMOReal getAvgWaitingTime() const { return MSDevice_Tripinfo::getAvgWaitingTime(); }
+    SUMOReal getAvgTimeLoss() const { return MSDevice_Tripinfo::getAvgTimeLoss(); }
+    SUMOReal getAvgDepartDelay() const { return MSDevice_Tripinfo::getAvgDepartDelay(); }
 
     /** @brief Returns the person control
      *
@@ -218,6 +224,17 @@ public:
      * @see myPersonControl
      */
     MSPersonControl& getPersonControl();
+
+
+    /** @brief Returns the container control
+     *
+     * If the container control does not exist, yet, it is created.
+     *
+     * @return The container control
+     * @see MSContainerControl
+     * @see myContainerControl
+     */
+    MSContainerControl& getContainerControl();
 
 
     /** Returns the gl-id of the traffic light that controls the given link

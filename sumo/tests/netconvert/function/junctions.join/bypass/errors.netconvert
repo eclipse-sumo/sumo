@@ -1,0 +1,33 @@
+Warning: No way found for reference '146235927' in relation '3335539'
+Warning: Ignoring restriction relation '3335539' with unknown to-way.
+Warning: No way found for reference '146236075' in relation '295792'
+Warning: Ignoring restriction relation '295792' with unknown from-way.
+Warning: No way found for reference '26493934' in relation '74756'
+Warning: Ignoring restriction relation '74756' with unknown to-way.
+Warning: Shape for junction '442659' has distance 31.78 to its given position
+Warning: The traffic light '1670775102' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1670775102'
+Warning: The traffic light '1670775121' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1670775121'
+Warning: The traffic light '1747124837' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1747124837'
+Warning: The traffic light '2203517104' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '2203517104'
+Warning: The traffic light '2546740044' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '2546740044'
+Warning: The traffic light '2546740101' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '2546740101'
+Warning: The traffic light '2546740114' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '2546740114'
+Warning: The traffic light '259566587' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '259566587'
+Warning: The traffic light '259566589' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '259566589'
+Warning: The traffic light '2949021901' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '2949021901'
+Warning: The traffic light '2949021902' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '2949021902'
+Warning: The traffic light '337962048' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '337962048'
+Warning: The traffic light '585156' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '585156'

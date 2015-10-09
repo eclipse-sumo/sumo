@@ -1,0 +1,4 @@
+<tazs>
+    <taz id="b" shape="-5.0,-5.0 5.0,-5.0 5.0,5.0 -5.0,5.0 -5.0,-5.0" edges="absBeg"/>
+    <taz id="e" shape="1995.0,-5.0 2005.0,-5.0 2005.0,5.0 1995.0,5.0 -1995.0,-5.0" edges="absBeg absEnd end left2end middle"/>
+</tazs>

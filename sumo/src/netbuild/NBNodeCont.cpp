@@ -13,7 +13,7 @@
 // Container for nodes during the netbuilding process
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -49,6 +49,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
+#include "NBHelpers.h"
 #include "NBDistrict.h"
 #include "NBEdgeCont.h"
 #include "NBTrafficLightLogicCont.h"
@@ -179,19 +180,14 @@ void
 NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     // magic values
     SUMOReal distanceThreshold = 7; // don't merge edges further apart
-    SUMOReal lengthThreshold = 0.05; // don't merge edges with higher relative length-difference
+    SUMOReal lengthThreshold = 0.10; // don't merge edges with higher relative length-difference
 
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         // count the edges to other nodes outgoing from the current node
         std::map<NBNode*, EdgeVector> connectionCount;
         const EdgeVector& outgoing = (*i).second->getOutgoingEdges();
         for (EdgeVector::const_iterator j = outgoing.begin(); j != outgoing.end(); j++) {
-            NBEdge* e = (*j);
-            NBNode* connected = e->getToNode();
-            if (connectionCount.find(connected) == connectionCount.end()) {
-                connectionCount[connected] = EdgeVector();
-            }
-            connectionCount[connected].push_back(e);
+            connectionCount[(*j)->getToNode()].push_back(*j);
         }
         // check whether more than a single edge connect another node and join them
         std::map<NBNode*, EdgeVector>::iterator k;
@@ -209,8 +205,8 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
                 const SUMOReal relativeLengthDifference = fabs(first->getLoadedLength() - (*jci)->getLoadedLength()) / first->getLoadedLength();
                 if ((!first->isNearEnough2BeJoined2(*jci, distanceThreshold)) ||
                         (relativeLengthDifference > lengthThreshold) ||
-                        (first->getSpeed() != (*jci)->getSpeed())
-                        // @todo check vclass
+                        (fabs(first->getSpeed() - (*jci)->getSpeed()) >= 0.01) || // output accuracy
+                        (first->getPermissions() != (*jci)->getPermissions())
                    ) {
                     break;
                 }
@@ -323,6 +319,18 @@ unsigned int
 NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                                 NBJoinedEdgesMap& je, NBTrafficLightLogicCont& tlc,
                                 bool removeGeometryNodes) {
+    // load edges that shall not be modified
+    std::set<std::string> edges2keep;
+    if (removeGeometryNodes) {
+        const OptionsCont& oc = OptionsCont::getOptions();
+        if (oc.isSet("geometry.remove.keep-edges.input-file")) {
+            NBHelpers::loadEdgesFromFile(oc.getString("geometry.remove.keep-edges.input-file"), edges2keep); 
+        }
+        if (oc.isSet("geometry.remove.keep-edges.explicit")) {
+            const std::vector<std::string> edges = oc.getStringVector("geometry.remove.keep-edges.explicit");
+            edges2keep.insert(edges.begin(), edges.end());
+        }
+    }
     unsigned int no = 0;
     std::vector<NBNode*> toRemove;
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
@@ -335,13 +343,20 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             remove = true;
         }
         // check for nodes which are only geometry nodes
-        if (removeGeometryNodes) {
+        if (removeGeometryNodes && mySplit.count(current) == 0) {
             if ((current->getOutgoingEdges().size() == 1 && current->getIncomingEdges().size() == 1)
                     ||
                     (current->getOutgoingEdges().size() == 2 && current->getIncomingEdges().size() == 2)) {
                 // ok, one in, one out or two in, two out
                 //  -> ask the node whether to join
                 remove = current->checkIsRemovable();
+                // check whether any of the edges must be kept
+                for (EdgeVector::const_iterator it_edge = current->getEdges().begin(); it_edge != current->getEdges().end(); ++it_edge) {
+                    if (edges2keep.find((*it_edge)->getID()) != edges2keep.end()) {
+                        remove = false;
+                        break;
+                    }
+                }
                 if (remove) {
                     toJoin = current->getEdgesToJoin();
                 }
@@ -358,32 +373,41 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             continuation->getToNode()->replaceIncoming(continuation, begin, 0);
             tlc.replaceRemoved(continuation, -1, begin, -1);
             je.appended(begin->getID(), continuation->getID());
-            ec.erase(dc, continuation);
+            ec.extract(dc, continuation, true);
         }
         toRemove.push_back(current);
         no++;
     }
     // erase all
     for (std::vector<NBNode*>::iterator j = toRemove.begin(); j != toRemove.end(); ++j) {
-        erase(*j);
+        extract(*j, true);
     }
     return no;
 }
 
+
+void
+NBNodeCont::avoidOverlap() {
+    for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
+        (*i).second->avoidOverlap();
+    }
+}
 
 // ----------- (Helper) methods for joining nodes
 void
 NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {
     std::set<NBNode*> visited;
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        std::vector<NBNode*> toProc;
+        std::vector<NodeAndDist> toProc;
         if (visited.find((*i).second) != visited.end()) {
             continue;
         }
-        toProc.push_back((*i).second);
+        toProc.push_back(std::make_pair((*i).second, 0));
         std::set<NBNode*> c;
         while (!toProc.empty()) {
-            NBNode* n = toProc.back();
+            NodeAndDist nodeAndDist = toProc.back();
+            NBNode* n = nodeAndDist.first;
+            SUMOReal dist = nodeAndDist.second;
             toProc.pop_back();
             if (visited.find(n) != visited.end()) {
                 continue;
@@ -394,6 +418,9 @@ NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {
             for (EdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
                 NBEdge* e = *j;
                 NBNode* s = 0;
+                if (e->getPermissions() == SVC_PEDESTRIAN) {
+                    continue; // do not join pedestrian stuff
+                }
                 if (n->hasIncoming(e)) {
                     s = e->getFromNode();
                 } else {
@@ -402,8 +429,12 @@ NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {
                 if (visited.find(s) != visited.end()) {
                     continue;
                 }
-                if (e->getLoadedLength() < maxDist) {
-                    toProc.push_back(s);
+                if (e->getLoadedLength() + dist < maxDist) {
+                    if (s->geometryLike()) {
+                        toProc.push_back(std::make_pair(s, dist + e->getLoadedLength()));
+                    } else {
+                        toProc.push_back(std::make_pair(s, 0));
+                    }
                 }
             }
         }
@@ -421,9 +452,9 @@ NBNodeCont::addJoinExclusion(const std::vector<std::string>& ids, bool check) {
         // error handling has to take place here since joinExclusions could be
         // loaded from multiple files / command line
         if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join exclusion for node '" + *it +  "' since it already occured in a list of nodes to be joined");
+            WRITE_WARNING("Ignoring join exclusion for junction '" + *it +  "' since it already occured in a list of nodes to be joined");
         } else if (check && retrieve(*it) == 0) {
-            WRITE_WARNING("Ignoring join exclusion for unknown node '" + *it + "'");
+            WRITE_WARNING("Ignoring join exclusion for unknown junction '" + *it + "'");
         } else {
             myJoinExclusions.insert(*it);
         }
@@ -436,10 +467,10 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster) {
     // error handling has to take place here since joins could be loaded from multiple files
     for (std::set<std::string>::const_iterator it = cluster.begin(); it != cluster.end(); it++) {
         if (myJoinExclusions.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because node '" + *it + "' was already excluded from joining");
+            WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' was already excluded from joining");
             return;
         } else if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because node '" + *it + "' already occured in another join-cluster");
+            WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' already occured in another join-cluster");
             return;
         } else {
             myJoined.insert(*it);
@@ -458,7 +489,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLigh
         for (std::set<std::string>::iterator it_id = it->begin(); it_id != it->end(); it_id++) {
             NBNode* node = retrieve(*it_id);
             if (node == 0) {
-                WRITE_WARNING("Ignoring unknown node '" + *it_id + "' while joining");
+                WRITE_WARNING("Ignoring unknown junction '" + *it_id + "' while joining");
             } else {
                 cluster.insert(node);
             }
@@ -496,14 +527,32 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 std::set<NBNode*>::iterator check = j;
                 NBNode* n = *check;
                 ++j;
+
+                // compute clusterDist for node (length of shortest edge which connects this node to the cluster)
+                SUMOReal clusterDist = std::numeric_limits<SUMOReal>::max();
+                for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
+                    NBNode* neighbor = (*it_edge)->getToNode();
+                    if (cluster.count(neighbor) != 0) {
+                        clusterDist = MIN2(clusterDist, (*it_edge)->getLoadedLength());
+                    }
+                }
+                for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
+                    NBNode* neighbor = (*it_edge)->getFromNode();
+                    if (cluster.count(neighbor) != 0) {
+                        clusterDist = MIN2(clusterDist, (*it_edge)->getLoadedLength());
+                    }
+                }
                 // remove geometry-like nodes at fringe of the cluster
                 // (they have 1 neighbor in the cluster and at most 1 neighbor outside the cluster)
                 std::set<NBNode*> neighbors;
                 std::set<NBNode*> clusterNeigbors;
+                const SUMOReal pedestrianFringeThreshold = 1.0;
                 for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
                     NBNode* neighbor = (*it_edge)->getToNode();
                     if (cluster.count(neighbor) == 0) {
-                        neighbors.insert(neighbor);
+                        if ((*it_edge)->getPermissions() != SVC_PEDESTRIAN || clusterDist < pedestrianFringeThreshold) {
+                            neighbors.insert(neighbor);
+                        }
                     } else {
                         clusterNeigbors.insert(neighbor);
                     }
@@ -511,7 +560,9 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
                     NBNode* neighbor = (*it_edge)->getFromNode();
                     if (cluster.count(neighbor) == 0) {
-                        neighbors.insert(neighbor);
+                        if ((*it_edge)->getPermissions() != SVC_PEDESTRIAN || clusterDist < pedestrianFringeThreshold) {
+                            neighbors.insert(neighbor);
+                        }
                     } else {
                         clusterNeigbors.insert(neighbor);
                     }
@@ -539,95 +590,97 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
         for (std::set<NBNode*>::iterator j = toRemove.begin(); j != toRemove.end(); ++j) {
             cluster.erase(*j);
         }
-        if (cluster.size() > 1) {
-            // check for clusters which are to complex and probably won't work very well
-            // we count the incoming edges of the final junction
-            std::map<std::string, SUMOReal> finalIncomingAngles;
-            std::map<std::string, SUMOReal> finalOutgoingAngles;
-            std::vector<std::string> nodeIDs;
-            for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
-                nodeIDs.push_back((*j)->getID());
-                for (EdgeVector::const_iterator it_edge = (*j)->getIncomingEdges().begin(); it_edge != (*j)->getIncomingEdges().end(); ++it_edge) {
-                    NBEdge* edge = *it_edge;
-                    if (cluster.count(edge->getFromNode()) == 0) {
-                        // incoming edge, does not originate in the cluster
-                        finalIncomingAngles[edge->getID()] = edge->getAngleAtNode(edge->getToNode());
-                    }
+        if (cluster.size() < 2) {
+            continue;
+        }
+        // check for clusters which are to complex and probably won't work very well
+        // we count the incoming edges of the final junction
+        std::map<std::string, SUMOReal> finalIncomingAngles;
+        std::map<std::string, SUMOReal> finalOutgoingAngles;
+        std::vector<std::string> nodeIDs;
+        for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
+            nodeIDs.push_back((*j)->getID());
+            for (EdgeVector::const_iterator it_edge = (*j)->getIncomingEdges().begin(); it_edge != (*j)->getIncomingEdges().end(); ++it_edge) {
+                NBEdge* edge = *it_edge;
+                if (cluster.count(edge->getFromNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
+                    // incoming edge, does not originate in the cluster
+                    finalIncomingAngles[edge->getID()] = edge->getAngleAtNode(edge->getToNode());
                 }
-                for (EdgeVector::const_iterator it_edge = (*j)->getOutgoingEdges().begin(); it_edge != (*j)->getOutgoingEdges().end(); ++it_edge) {
-                    NBEdge* edge = *it_edge;
-                    if (cluster.count(edge->getToNode()) == 0) {
-                        // outgoing edge, does not end in the cluster
-                        finalOutgoingAngles[edge->getID()] = edge->getAngleAtNode(edge->getFromNode());
-                    }
-                }
-
             }
-            if (finalIncomingAngles.size() > 4) {
-                std::sort(nodeIDs.begin(), nodeIDs.end());
-                WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (" + toString(finalIncomingAngles.size()) + " incoming edges)");
-            } else {
-                // check for incoming parallel edges
-                const SUMOReal PARALLEL_INCOMING_THRESHOLD = 10.0;
-                bool foundParallel = false;
-                for (std::map<std::string, SUMOReal>::const_iterator j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
-                    std::map<std::string, SUMOReal>::const_iterator k = j;
-                    for (++k; k != finalIncomingAngles.end() && !foundParallel; ++k) {
-                        if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
-                            WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel incoming "
-                                          + j->first + "," + k->first + ")");
-                            foundParallel = true;
-                        }
+            for (EdgeVector::const_iterator it_edge = (*j)->getOutgoingEdges().begin(); it_edge != (*j)->getOutgoingEdges().end(); ++it_edge) {
+                NBEdge* edge = *it_edge;
+                if (cluster.count(edge->getToNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
+                    // outgoing edge, does not end in the cluster
+                    finalOutgoingAngles[edge->getID()] = edge->getAngleAtNode(edge->getFromNode());
+                }
+            }
+
+        }
+        if (finalIncomingAngles.size() > 4) {
+            std::sort(nodeIDs.begin(), nodeIDs.end());
+            WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (" + toString(finalIncomingAngles.size()) + " incoming edges)");
+            continue;
+        }
+        // check for incoming parallel edges
+        const SUMOReal PARALLEL_INCOMING_THRESHOLD = 10.0;
+        bool foundParallel = false;
+        for (std::map<std::string, SUMOReal>::const_iterator j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
+            std::map<std::string, SUMOReal>::const_iterator k = j;
+            for (++k; k != finalIncomingAngles.end() && !foundParallel; ++k) {
+                if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
+                    WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel incoming "
+                                  + j->first + "," + k->first + ")");
+                    foundParallel = true;
+                }
+            }
+        }
+        // check for outgoing parallel edges
+        for (std::map<std::string, SUMOReal>::const_iterator j = finalOutgoingAngles.begin(); j != finalOutgoingAngles.end() && !foundParallel; ++j) {
+            std::map<std::string, SUMOReal>::const_iterator k = j;
+            for (++k; k != finalOutgoingAngles.end() && !foundParallel; ++k) {
+                if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
+                    WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing "
+                                  + j->first + "," + k->first + ")");
+                    foundParallel = true;
+                }
+            }
+        }
+        if (foundParallel) {
+            continue;
+        }
+        // compute all connected components of this cluster
+        // (may be more than 1 if intermediate nodes were removed)
+        NodeClusters components;
+        for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end(); ++j) {
+            // merge all connected components into newComp
+            std::set<NBNode*> newComp;
+            NBNode* current = *j;
+            //std::cout << "checking connectivity for " << current->getID() << "\n";
+            newComp.insert(current);
+            for (NodeClusters::iterator it_comp = components.begin(); it_comp != components.end();) {
+                NodeClusters::iterator check = it_comp;
+                //std::cout << "   connected with " << toString(*check) << "?\n";
+                bool connected = false;
+                for (std::set<NBNode*>::iterator k = (*check).begin(); k != (*check).end(); ++k) {
+                    if (current->getConnectionTo(*k) != 0 || (*k)->getConnectionTo(current) != 0) {
+                        //std::cout << "joining with connected component " << toString(*check) << "\n";
+                        newComp.insert((*check).begin(), (*check).end());
+                        it_comp = components.erase(check);
+                        connected = true;
+                        break;
                     }
                 }
-                // check for outgoing parallel edges
-                for (std::map<std::string, SUMOReal>::const_iterator j = finalOutgoingAngles.begin(); j != finalOutgoingAngles.end() && !foundParallel; ++j) {
-                    std::map<std::string, SUMOReal>::const_iterator k = j;
-                    for (++k; k != finalOutgoingAngles.end() && !foundParallel; ++k) {
-                        if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
-                            WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing "
-                                          + j->first + "," + k->first + ")");
-                            foundParallel = true;
-                        }
-                    }
+                if (!connected) {
+                    it_comp++;
                 }
-                if (!foundParallel && cluster.size() > 1) {
-                    // compute all connected components of this cluster
-                    // (may be more than 1 if intermediate nodes were removed)
-                    NodeClusters components;
-                    for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end(); ++j) {
-                        // merge all connected components into newComp
-                        std::set<NBNode*> newComp;
-                        NBNode* current = *j;
-                        //std::cout << "checking connectivity for " << current->getID() << "\n";
-                        newComp.insert(current);
-                        for (NodeClusters::iterator it_comp = components.begin(); it_comp != components.end();) {
-                            NodeClusters::iterator check = it_comp;
-                            //std::cout << "   connected with " << toString(*check) << "?\n";
-                            bool connected = false;
-                            for (std::set<NBNode*>::iterator k = (*check).begin(); k != (*check).end(); ++k) {
-                                if (current->getConnectionTo(*k) != 0 || (*k)->getConnectionTo(current) != 0) {
-                                    //std::cout << "joining with connected component " << toString(*check) << "\n";
-                                    newComp.insert((*check).begin(), (*check).end());
-                                    it_comp = components.erase(check);
-                                    connected = true;
-                                    break;
-                                }
-                            }
-                            if (!connected) {
-                                it_comp++;
-                            }
-                        }
-                        //std::cout << "adding new component " << toString(newComp) << "\n";
-                        components.push_back(newComp);
-                    }
-                    for (NodeClusters::iterator it_comp = components.begin(); it_comp != components.end(); ++it_comp) {
-                        if ((*it_comp).size() > 1) {
-                            //std::cout << "adding cluster " << toString(*it_comp) << "\n";
-                            clusters.push_back(*it_comp);
-                        }
-                    }
-                }
+            }
+            //std::cout << "adding new component " << toString(newComp) << "\n";
+            components.push_back(newComp);
+        }
+        for (NodeClusters::iterator it_comp = components.begin(); it_comp != components.end(); ++it_comp) {
+            if ((*it_comp).size() > 1) {
+                //std::cout << "adding cluster " << toString(*it_comp) << "\n";
+                clusters.push_back(*it_comp);
             }
         }
     }
@@ -679,7 +732,7 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
                         (*l)->replaceInConnections(e, e->getConnections());
                     }
                 }
-                ec.erase(dc, e);
+                ec.extract(dc, e, true);
                 allEdges.erase(j++); // erase does not invalidate the other iterators
             } else {
                 ++j;
@@ -791,7 +844,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         for (std::vector<std::string>::const_iterator i = notTLControlledNodes.begin(); i != notTLControlledNodes.end(); ++i) {
             NBNode* n = NBNodeCont::retrieve(*i);
             if (n == 0) {
-                throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
+                throw ProcessError(" The junction '" + *i + "' to set as not-controlled is not known.");
             }
             std::set<NBTrafficLightDefinition*> tls = n->getControllingTLS();
             for (std::set<NBTrafficLightDefinition*>::const_iterator j = tls.begin(); j != tls.end(); ++j) {
@@ -832,6 +885,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
             NBNode* node = i->second;
             const EdgeVector& incoming = node->getIncomingEdges();
+            const EdgeVector& outgoing = node->getOutgoingEdges();
             if (!node->isTLControlled() && incoming.size() > 1 && !node->geometryLike()) {
                 std::vector<NBNode*> signals;
                 bool isTLS = true;
@@ -845,10 +899,19 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                         signals.push_back(inEdge->getFromNode());
                     }
                 }
+                // outgoing edges may be tagged with pedestrian crossings. These
+                // should also be morged into the main TLS
+                for (EdgeVector::const_iterator it_i = outgoing.begin(); it_i != outgoing.end(); ++it_i) {
+                    const NBEdge* outEdge = *it_i;
+                    NBNode* cand = outEdge->getToNode();
+                    if (cand->isTLControlled() && cand->geometryLike() && outEdge->getLength() <= signalDist) {
+                        signals.push_back(cand);
+                    }
+                }
                 if (isTLS) {
                     for (std::vector<NBNode*>::iterator j = signals.begin(); j != signals.end(); ++j) {
                         std::set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
-                        (*j)->removeTrafficLights();
+                        (*j)->reinit((*j)->getPosition(), NODETYPE_PRIORITY);
                         for (std::set<NBTrafficLightDefinition*>::iterator k = tls.begin(); k != tls.end(); ++k) {
                             tlc.removeFully((*j)->getID());
                         }
@@ -989,7 +1052,7 @@ NBNodeCont::setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc,
     NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, node, 0, type);
     if (!tlc.insert(tlDef)) {
         // actually, nothing should fail here
-        WRITE_WARNING("Building a tl-logic for node '" + id + "' twice is not possible.");
+        WRITE_WARNING("Building a tl-logic for junction '" + id + "' twice is not possible.");
         delete tlDef;
         return;
     }
@@ -998,9 +1061,9 @@ NBNodeCont::setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc,
 
 // -----------
 void
-NBNodeCont::computeLanes2Lanes(const bool buildCrossingsAndWalkingAreas) {
+NBNodeCont::computeLanes2Lanes() {
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        (*i).second->computeLanes2Lanes(buildCrossingsAndWalkingAreas);
+        (*i).second->computeLanes2Lanes();
     }
 }
 
@@ -1037,9 +1100,9 @@ NBNodeCont::getFreeID() {
 
 
 void
-NBNodeCont::computeNodeShapes(bool leftHand, SUMOReal mismatchThreshold) {
+NBNodeCont::computeNodeShapes(SUMOReal mismatchThreshold) {
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        (*i).second->computeNodeShape(leftHand, mismatchThreshold);
+        (*i).second->computeNodeShape(mismatchThreshold);
     }
 }
 
@@ -1051,6 +1114,7 @@ NBNodeCont::printBuiltNodesStatistics() const {
     int numPriorityJunctions = 0;
     int numRightBeforeLeftJunctions = 0;
     int numAllWayStopJunctions = 0;
+    int numRailSignals = 0;
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         switch ((*i).second->getType()) {
             case NODETYPE_NOJUNCTION:
@@ -1076,6 +1140,9 @@ NBNodeCont::printBuiltNodesStatistics() const {
                 break;
             case NODETYPE_UNKNOWN:
                 break;
+            case NODETYPE_RAIL_SIGNAL:
+                ++numRailSignals;
+                break;
             default:
                 break;
         }
@@ -1089,6 +1156,9 @@ NBNodeCont::printBuiltNodesStatistics() const {
     WRITE_MESSAGE("  Right-before-left junctions : " + toString(numRightBeforeLeftJunctions));
     if (numAllWayStopJunctions > 0) {
         WRITE_MESSAGE("  All-way stop junctions      : " + toString(numAllWayStopJunctions));
+    }
+    if (numRailSignals > 0) {
+        WRITE_MESSAGE("  Rail signal junctions      : " + toString(numRailSignals));
     }
 }
 

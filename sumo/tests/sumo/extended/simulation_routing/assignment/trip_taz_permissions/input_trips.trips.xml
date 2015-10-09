@@ -1,0 +1,15 @@
+<trips>
+    <vType id="passenger" vClass="passenger" sigma="0"/>
+    <vType id="bus" vClass="bus" sigma="0"/>
+
+	<trip id="0" depart="0" fromTaz="1" toTaz="2" type="passenger"/>
+	<trip id="1" depart="20" fromTaz="1" toTaz="2" type="bus"/>
+	<trip id="2" depart="40" fromTaz="1" toTaz="2"/>
+	<trip id="3" depart="60" fromTaz="1" toTaz="2"/>
+	<trip id="4" depart="80" fromTaz="1" toTaz="2"/>
+	<trip id="5" depart="100" fromTaz="1" toTaz="2"/>
+	<trip id="6" depart="120" fromTaz="1" toTaz="2"/>
+	<trip id="7" depart="140" fromTaz="1" toTaz="2"/>
+	<trip id="8" depart="160" fromTaz="1" toTaz="2"/>
+	<trip id="9" depart="180" fromTaz="1" toTaz="2"/>
+</trips>

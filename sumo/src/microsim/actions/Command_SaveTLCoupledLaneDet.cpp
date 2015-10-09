@@ -9,7 +9,7 @@
 // Writes e2 state of a link for the time the link has yellow/red
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -49,7 +49,7 @@
 // method definitions
 // ===========================================================================
 Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants& tlls,
-        MSDetectorFileOutput* dtf, unsigned int begin, OutputDevice& device, MSLink* link)
+        MSDetectorFileOutput* dtf, SUMOTime begin, OutputDevice& device, MSLink* link)
     : Command_SaveTLCoupledDet(tlls, dtf, begin, device),
       myLink(link), myLastState(LINKSTATE_TL_RED),
       myHadOne(false) {

@@ -7,7 +7,7 @@
 // Realises dumping Floating Car Data (FCD) Data
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2012-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -62,9 +62,10 @@ public:
      *
      * @param[in] of The output device to use
      * @param[in] timestep The current time step
+     * @param[in] elevation Whether elevation data shall be written
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    static void write(OutputDevice& of, SUMOTime timestep);
+    static void write(OutputDevice& of, SUMOTime timestep, bool elevation);
 
 
 private:

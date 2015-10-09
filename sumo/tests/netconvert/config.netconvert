@@ -15,6 +15,7 @@ copy_test_path:vissim.inp
 copy_test_path:input_net.net.xml
 copy_test_path:osm.xml
 copy_test_path:matsim.xml
+copy_test_path:vissim.inpx
 copy_test_path:opendrive.xodr
 copy_test_path:input_plain.nod.xml
 copy_test_path:input_plain.edg.xml
@@ -29,6 +30,7 @@ plain_nodes:plain.nod.xml
 plain_edges:plain.edg.xml
 plain_connections:plain.con.xml
 plain_tllogic:plain.tll.xml
+plain_types:plain.typ.xml
 foreign:foreign.net
 cfg:config.cfg
 log:log.txt
@@ -44,10 +46,12 @@ plain_nodes:<!--{[->]}-->
 plain_edges:<!--{[->]}-->
 plain_connections:<!--{[->]}-->
 plain_tllogic:<!--{[->]}-->
+plain_types:<!--{[->]}-->
 joined_nodes:<!--{[->]}-->
 net:<!--{[->]}-->
 foreign:date="[^"]*"{REPLACE date="DATE"}
 pois:<!--{[->]}-->
+output:Parsing types from '.*/data/typemap/{REPLACE Parsing types from 'sumo/data/typemap/}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed

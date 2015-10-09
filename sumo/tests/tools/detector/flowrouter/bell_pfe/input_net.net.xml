@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  4 23:07:01 2014 by SUMO netconvert Version dev-SVN-r17257
+<!-- generated on Thu Mar 26 16:23:52 2015 by SUMO netconvert Version dev-SVN-r18156I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -55,7 +55,7 @@
         <lane id="16_0" index="0" speed="13.89" length="74.90" shape="116.45,335.59 116.25,273.75"/>
     </edge>
     <edge id="17" from="gneJ55" to="10" priority="1">
-        <lane id="17_0" index="0" speed="13.89" length="40.54" shape="33.46,292.91 67.64,311.75"/>
+        <lane id="17_0" index="0" speed="13.89" length="40.54" shape="33.46,292.91 67.91,311.90"/>
     </edge>
     <edge id="18" from="191" to="gneJ38" priority="1">
         <lane id="18_0" index="0" speed="13.89" length="118.14" shape="106.77,348.74 -0.01,348.27"/>
@@ -174,8 +174,8 @@
         <lane id="51_50_1" index="1" speed="13.89" length="118.14" shape="0.01,344.97 106.79,345.44"/>
     </edge>
     <edge id="53_52" from="10" to="191" priority="1">
-        <lane id="53_52_0" index="0" speed="13.89" length="60.01" shape="72.15,310.63 109.77,335.64"/>
-        <lane id="53_52_1" index="1" speed="13.89" length="60.01" shape="70.32,313.38 107.95,338.38"/>
+        <lane id="53_52_0" index="0" speed="13.89" length="60.01" shape="71.95,310.50 109.77,335.64"/>
+        <lane id="53_52_1" index="1" speed="13.89" length="60.01" shape="70.12,313.24 107.95,338.38"/>
     </edge>
     <edge id="6" from="103" to="104" priority="1">
         <lane id="6_0" index="0" speed="13.89" length="71.57" shape="111.99,49.41 112.28,111.44"/>
@@ -190,7 +190,7 @@
         <lane id="9_0" index="0" speed="13.89" length="82.40" shape="115.28,190.50 109.44,121.36"/>
     </edge>
 
-    <junction id="10" type="priority" x="68.16" y="313.92" incLanes="17_0" intLanes="" shape="69.44,314.71 73.03,309.29 68.42,310.35 66.87,313.15">
+    <junction id="10" type="priority" x="68.16" y="313.92" incLanes="17_0" intLanes="" shape="69.24,314.58 72.84,309.16 68.68,310.50 67.14,313.30">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

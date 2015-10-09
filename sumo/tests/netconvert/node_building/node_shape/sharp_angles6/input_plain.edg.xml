@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 23 Mar 2015 04:36:00 PM CET by Netedit Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/sip-svn-trunk/tests/netconvert/shapefiles/netconvertshapefile/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/sip-svn-trunk/tests/netconvert/shapefiles/netconvertshapefile/net.netconvert"/>
+        <plain-output-prefix value="/scr2/debug/1694/input_plain11"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="1" from="100793948" to="C" priority="0" numLanes="1" speed="13.90" shape="14301.47,51156.89 14290.34,51156.41 14264.63,51154.69 14239.09,51153.08 14209.14,51149.28 14173.76,51145.52 14154.16,51142.54 14144.92,51141.16 14117.18,51137.86" spreadType="center"/>
+    <edge id="2" from="C" to="100789693" priority="0" numLanes="1" speed="13.90" shape="14117.34,51134.60 14157.38,51133.09 14181.26,51132.15 14188.93,51132.32" spreadType="center"/>
+    <edge id="3" from="S" to="C" priority="0" numLanes="1" speed="13.90" spreadType="center"/>
+    <edge id="4" from="409851820" to="S" priority="0" numLanes="1" speed="13.90" shape="14102.20,51130.69 14118.65,51132.57" spreadType="center"/>
+    <edge id="5" from="C" to="409851820" priority="0" numLanes="1" speed="13.90" shape="14117.47,51136.24 14114.88,51135.81 14114.01,51135.48 14103.56,51132.66 14101.81,51133.95" spreadType="center"/>
+    <edge id="6" from="100793962" to="S" priority="0" numLanes="1" speed="13.90" shape="14160.83,51002.88 14152.21,51029.46 14126.17,51109.54 14118.65,51132.57" spreadType="center"/>
+</edges>

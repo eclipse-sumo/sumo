@@ -9,7 +9,7 @@
 // An actuated (adaptive) traffic light logic
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -93,11 +93,10 @@ public:
     /// @{
 
     /** @brief Switches to the next phase
-     * @param[in] isActive Whether this program is the currently used one
      * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch(bool isActive);
+    SUMOTime trySwitch();
     /// @}
 
 

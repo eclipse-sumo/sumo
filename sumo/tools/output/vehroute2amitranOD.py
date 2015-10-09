@@ -9,7 +9,7 @@
 Convert a vehroute-output file into amitran route and od files
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2014-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -17,15 +17,17 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os,sys
+import os
+import sys
 from collections import defaultdict
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 import sumolib
 
+
 def convert(vehRoutes, routeOut, odOut, interval):
     routeDict = {}
-    actorConfig = defaultdict(list) # map type -> list of time slices
+    actorConfig = defaultdict(list)  # map type -> list of time slices
     with open(routeOut, 'w') as routes:
         routes.write("<routes>\n")
         for v in sumolib.output.parse(vehRoutes, 'vehicle'):
@@ -48,7 +50,8 @@ def convert(vehRoutes, routeOut, odOut, interval):
             listPos = int(depart / interval)
             while len(actorConfig[ac]) <= listPos:
                 actorConfig[ac].append(defaultdict(dict))
-            od = actorConfig[ac][listPos] # map (origin, dest) -> map route -> (amount, travel time sum)
+            # map (origin, dest) -> map route -> (amount, travel time sum)
+            od = actorConfig[ac][listPos]
             key = (v.fromTaz, v.toTaz)
             if idx in od[key]:
                 oldValue = od[key][idx]
@@ -63,14 +66,17 @@ def convert(vehRoutes, routeOut, odOut, interval):
             od.write('    <actorConfig id="%s">\n' % ac)
             for idx, odMap in enumerate(odList):
                 if odMap:
-                    od.write('        <timeSlice startTime="%s" duration="%s">\n' % (idx * interval * 1000, interval * 1000))
+                    od.write('        <timeSlice startTime="%s" duration="%s">\n' % (
+                        idx * interval * 1000, interval * 1000))
                     for (orig, dest), routeMap in odMap.iteritems():
                         total = 0
                         for amount, _ in routeMap.itervalues():
                             total += amount
-                        od.write('            <odPair origin="%s" destination="%s" amount="%s">\n' % (orig, dest, total))
+                        od.write('            <odPair origin="%s" destination="%s" amount="%s">\n' % (
+                            orig, dest, total))
                         for idx, (amount, ttSum) in routeMap.iteritems():
-                            od.write('                <routeCost routeId="%s" amount="%s" averageTraveltime="%s"/>\n' % (idx, amount, int(1000. * ttSum / amount)))
+                            od.write('                <routeCost routeId="%s" amount="%s" averageTraveltime="%s"/>\n' % (
+                                idx, amount, int(1000. * ttSum / amount)))
                             total += amount
                         od.write('            </odPair>\n')
                     od.write('        </timeSlice>\n')
@@ -87,4 +93,3 @@ if __name__ == "__main__":
                          help="aggregation interval in seconds [default: %default]")
     (options, args) = optParser.parse_args()
     convert(args[0], options.routes, options.od_file, options.interval)
- 

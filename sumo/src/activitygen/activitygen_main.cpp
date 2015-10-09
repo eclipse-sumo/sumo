@@ -11,7 +11,7 @@
 // Main object of the ActivityGen application
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 /****************************************************************************/
@@ -44,7 +44,6 @@
 #include <router/RONet.h>
 #include <router/ROLoader.h>
 #include <router/RONetHandler.h>
-#include <duarouter/RODUAEdgeBuilder.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
@@ -110,7 +109,8 @@ main(int argc, char* argv[]) {
         // Initialise subsystems and process options
         XMLSubSys::init();
         AGFrame::fillOptions();
-        OptionsIO::getOptions(true, argc, argv);
+        OptionsIO::setArgs(argc, argv);
+        OptionsIO::getOptions();
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;

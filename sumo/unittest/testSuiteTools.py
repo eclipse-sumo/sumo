@@ -9,7 +9,7 @@
 Test suite to run all tests in the detector package.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -17,10 +17,14 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import unittest, os, sys
+import unittest
+import os
+import sys
 import tools
 
+
 class ToolsTestSuite(unittest.TestSuite):
+
     '''
     Test suite class for the package detector.
     All test have to be added in import and in method addTestCases.
@@ -34,7 +38,7 @@ class ToolsTestSuite(unittest.TestSuite):
     def __init__(self):
         #setUp = self.__setUpFunc
         unittest.TestSuite.__init__(self)
-        #self.addTest(self.suite())
+        # self.addTest(self.suite())
         self.addTestCases()
 
     def setUp(self):
@@ -91,14 +95,17 @@ class ToolsTestSuite(unittest.TestSuite):
         Currently each test class has to be added manually here and be imported.
         TODO: Apply or write a tool to automatically add the test cases.
         '''
-        self.addTest(unittest.TestLoader().loadTestsFromTestCase(tools.district.testEdgesInDistrict.TestEdgesInDistrict))
-        self.addTest(unittest.TestLoader().loadTestsFromTestCase(tools.sumolib.testGeomhelper.TestGeomhelper))
+        self.addTest(unittest.TestLoader().loadTestsFromTestCase(
+            tools.sumolib.testGeomhelper.TestGeomhelper))
+
 
 class ToolsTestResult(unittest.TestResult):
+
     '''
     Class to collect the results and format the output during the test run.
     '''
     shouldStop = False
+
     def __init__(self):
         unittest.TestResult.__init__(self)
 
@@ -106,16 +113,18 @@ class ToolsTestResult(unittest.TestResult):
         '''
         Overwitten from @see unittest.TestResult
         '''
-        #print "ERROR:  ", test, err
+        # print "ERROR:  ", test, err
         print test, "... Error!"
         unittest.TestResult.addError(self, test, err)
+
     def addFailure(self, test, err):
         '''
         Overwitten from @see unittest.TestResult
         '''
-        #print "Failed: ", test, err
+        # print "Failed: ", test, err
         print test, "... Failed!"
         unittest.TestResult.addFailure(self, test, err)
+
     def addSuccess(self, test):
         '''
         Overwitten from @see unittest.TestResult
@@ -126,4 +135,3 @@ class ToolsTestResult(unittest.TestResult):
 if __name__ == '__main__':
     testSuite = ToolsTestSuite()
     testSuite.run(ToolsTestResult())
-

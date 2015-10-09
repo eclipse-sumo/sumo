@@ -35,6 +35,7 @@
 #endif
 
 #include <sstream>
+#include <utils/common/TplConvert.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
@@ -77,7 +78,7 @@ void
 MSStateHandler::saveState(const std::string& file, SUMOTime step) {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeHeader<MSEdge>(SUMO_TAG_SNAPSHOT);
-    out.writeAttr(SUMO_ATTR_VERSION, VERSION_STRING).writeAttr(SUMO_ATTR_TIME, step);
+    out.writeAttr(SUMO_ATTR_VERSION, VERSION_STRING).writeAttr(SUMO_ATTR_TIME, time2string(step));
     MSRoute::dict_saveState(out);
     MSNet::getInstance()->getVehicleControl().saveState(out);
     if (MSGlobals::gUseMesoSim) {
@@ -104,7 +105,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     switch (element) {
         case SUMO_TAG_SNAPSHOT: {
-            myTime = attrs.getInt(SUMO_ATTR_TIME);
+            myTime = string2time(attrs.getString(SUMO_ATTR_TIME));
             const std::string& version = attrs.getString(SUMO_ATTR_VERSION);
             if (version != VERSION_STRING) {
                 WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING + ")!");
@@ -171,7 +172,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_VEHICLE: {
             SUMOVehicleParameter* p = new SUMOVehicleParameter();
             p->id = attrs.getString(SUMO_ATTR_ID);
-            p->depart = attrs.getInt(SUMO_ATTR_DEPART) - myOffset;
+            p->depart = string2time(attrs.getString(SUMO_ATTR_DEPART)) - myOffset;
             p->routeid = attrs.getString(SUMO_ATTR_ROUTE);
             p->vtypeid = attrs.getString(SUMO_ATTR_TYPE);
             const MSRoute* route = MSRoute::dictionary(p->routeid);
@@ -217,7 +218,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             SUMOSAXAttributes::parseStringVector(attrs.getString(SUMO_ATTR_VALUE), vehIDs);
             if (MSGlobals::gUseMesoSim) {
 #ifdef HAVE_INTERNAL
-                mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), attrs.getInt(SUMO_ATTR_TIME) - myOffset, myQueIndex++);
+                mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), TplConvert::_2long(attrs.getString(SUMO_ATTR_TIME).c_str()) - myOffset, myQueIndex++);
 #endif
             } else {
                 MSEdge::dictionary(myEdgeAndLane.first)->getLanes()[myEdgeAndLane.second]->loadState(

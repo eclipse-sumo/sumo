@@ -12,7 +12,7 @@ This script is to calculate the route choice probabilities based on different me
 - ......
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2007-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -21,13 +21,21 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import string, glob, os, sys, optparse, random,shutil
+import string
+import glob
+import os
+import sys
+import optparse
+import random
+import shutil
 from xml.sax import saxutils, make_parser, handler
 from xml.sax import parse
 from numpy import *
 
+
 class Vehicle:
-    def __init__(self,label,depart, departlane, departpos, departspeed):
+
+    def __init__(self, label, depart, departlane, departpos, departspeed):
         self.label = label
         self.CO_abs = 0.
         self.CO2_abs = 0.
@@ -38,13 +46,15 @@ class Vehicle:
         self.routesList = []
         #self.speed = 0.
         self.depart = float(depart)
-        self.departlane= departlane
-        self.departpos= departpos
+        self.departlane = departlane
+        self.departpos = departpos
         self.departspeed = departspeed
         self.selectedRoute = None
-        
+
+
 class Edge:
-    def __init__(self,label):
+
+    def __init__(self, label):
         self.label = label
         self.length = 0.
         self.freespeed = 0.
@@ -72,8 +82,10 @@ class Edge:
         self.freetraveltime = 0.
 
 pathNum = 0
-        
+
+
 class Route:
+
     def __init__(self, edges):
         global pathNum
         self.label = "%s" % pathNum
@@ -85,12 +97,14 @@ class Route:
         self.ex_cost = 0.
         self.act_cost = 0.
 
+
 class netReader(handler.ContentHandler):
+
     def __init__(self, edgesList, edgesMap):
         self._edgesList = edgesList
         self._edgesMap = edgesMap
         self._edgeObj = None
-        
+
     def startElement(self, name, attrs):
         if name == 'edge' and not attrs.has_key('function'):
             if attrs['id'] not in self._edgesMap:
@@ -100,18 +114,21 @@ class netReader(handler.ContentHandler):
         if self._edgeObj and name == 'lane':
             self._edgeObj.length = float(attrs['length'])
             self._edgeObj.freespeed = float(attrs['speed'])
-            self._edgeObj.freetraveltime = self._edgeObj.length/self._edgeObj.freespeed
+            self._edgeObj.freetraveltime = self._edgeObj.length / \
+                self._edgeObj.freespeed
 
     def endElement(self, name):
         if name == 'edge':
             self._edgeObj = None
-                
+
+
 class addweightsReader(handler.ContentHandler):
+
     def __init__(self, edgesList, edgesMap):
         self._edgesList = edgesList
         self._edgesMap = edgesMap
         self._edgObj = None
-        
+
     def startElement(self, name, attrs):
         if name == 'edge':
             if attrs['id'] in self._edgesMap:
@@ -143,7 +160,9 @@ class addweightsReader(handler.ContentHandler):
             if attrs.has_key('CO_abs'):
                 self._edgeObj.CO_abs_default = float(attrs['CO_abs'])
 
+
 class routeReader(handler.ContentHandler):
+
     def __init__(self, vehList, vehMap):
         self._vehList = vehList
         self._vehMap = vehMap
@@ -152,7 +171,8 @@ class routeReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'vehicle':
-            self._vehObj = Vehicle(attrs['id'], attrs['depart'], attrs['departLane'], attrs['departPos'], attrs['departSpeed'])
+            self._vehObj = Vehicle(attrs['id'], attrs['depart'], attrs[
+                                   'departLane'], attrs['departPos'], attrs['departSpeed'])
             self._vehMap[attrs['id']] = self._vehObj
             self._vehList.append(self._vehObj)
 
@@ -165,9 +185,11 @@ class routeReader(handler.ContentHandler):
         if name == 'vehicle':
             self._vehObj = None
             self._routObj = None
-                    
+
+
 class vehrouteReader(handler.ContentHandler):
-    def __init__(self, vehList, vehMap, edgesMap, fout, foutrout,ecoMeasure, alpha, beta):
+
+    def __init__(self, vehList, vehMap, edgesMap, fout, foutrout, ecoMeasure, alpha, beta):
         self._vehList = vehList
         self._vehMap = vehMap
         self._edgesMap = edgesMap
@@ -187,9 +209,9 @@ class vehrouteReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'vehicle':
             self._vehObj = self._vehMap[attrs['id']]
-            
+
         if self._vehObj and name == 'routeDistribution':
-             self._currentSelected = attrs['last']
+            self._currentSelected = attrs['last']
 
         if self._vehObj and name == 'route':
             if self._count == int(self._currentSelected):
@@ -207,7 +229,9 @@ class vehrouteReader(handler.ContentHandler):
             if attrs.has_key('probability'):
                 self._routObj.probability = float(attrs['probability'])
                 if self._routObj.probability == 0.0:
-                    self._routObj.probability = 1.02208127529e-16    # check with Micha if there is a better way to avoid the prob. = 0.
+                    # check with Micha if there is a better way to avoid the
+                    # prob. = 0.
+                    self._routObj.probability = 1.02208127529e-16
             if attrs.has_key('cost'):
                 self._routObj.ex_cost = float(attrs['cost'])
             for e in self._routObj.edges.split(' '):
@@ -225,7 +249,7 @@ class vehrouteReader(handler.ContentHandler):
 
     def endElement(self, name):
         if name == 'vehicle':
-            #if len(self._vehObj.routesList) == 1:
+            # if len(self._vehObj.routesList) == 1:
             #    self._vehObj.routesList[0].probability = 1.
             # for the routes which are from the sumo's rou.alt.xml file
             for r in self._vehObj.routesList:
@@ -244,14 +268,15 @@ class vehrouteReader(handler.ContentHandler):
                     r.ex_cost = r.act_cost
                 # calcuate the probabilites for the new routes
                 if not r.probability:
-                    r.probability = 1./float(len(self._vehObj.routesList))
+                    r.probability = 1. / float(len(self._vehObj.routesList))
                     print 'new probability for route', r.label, 'for veh', self._vehObj.label
                     self._newroutesList.append(r)
 
-            # adjust the probabilites of the existing routes due to the new routes
+            # adjust the probabilites of the existing routes due to the new
+            # routes
             if len(self._newroutesList) > 0:
                 addProb = 0.
-                origProbSum  = 0.
+                origProbSum = 0.
                 for r in self._vehObj.routesList:
                     if r in self._newroutesList:
                         addProb += r.probability
@@ -259,19 +284,22 @@ class vehrouteReader(handler.ContentHandler):
                         origProbSum += r.probability
                 for r in self._vehObj.routesList:
                     if r not in self._newroutesList:
-                        r.probability = r.probability/origProbSum * (1. - addProb)
-                        
+                        r.probability = r.probability / \
+                            origProbSum * (1. - addProb)
+
             # update the costs of routes not used by the driver
             for r in self._vehObj.routesList:
                 if r.edges != self._vehObj.selectedRouteEdges:
-                    r.act_cost = self._beta * r.act_cost + (1. - self._beta) * r.ex_cost
-                    
+                    r.act_cost = self._beta * r.act_cost + \
+                        (1. - self._beta) * r.ex_cost
+
             # calcuate the route choice probabilities based on Gawron
-            for r1 in self._vehObj.routesList:     # todo: add "one used route to all routes"
+            # todo: add "one used route to all routes"
+            for r1 in self._vehObj.routesList:
                 for r2 in self._vehObj.routesList:
                     if r1.label != r2.label:
                         gawron(r1, r2, self._alpha)
-                        
+
             # decide which route will be selected
             randProb = random.random()
             if len(self._vehObj.routesList) == 1:
@@ -286,21 +314,24 @@ class vehrouteReader(handler.ContentHandler):
                         break
 
             # generate the *.rou.xml
-            self._foutrout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n' 
-                              % (self._vehObj.label, self._vehObj.depart, self._vehObj.departlane, self._vehObj.departpos, self._vehObj.departspeed))
-            self._foutrout.write('        <route edges="%s"/>\n'% self._vehObj.routesList[self._selected].edges)
+            self._foutrout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n'
+                                 % (self._vehObj.label, self._vehObj.depart, self._vehObj.departlane, self._vehObj.departpos, self._vehObj.departspeed))
+            self._foutrout.write(
+                '        <route edges="%s"/>\n' % self._vehObj.routesList[self._selected].edges)
             self._foutrout.write('    </vehicle> \n')
-            
-            #generate the *.rou.alt.xml
-            self._fout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n' 
-                              % (self._vehObj.label, self._vehObj.depart, self._vehObj.departlane, self._vehObj.departpos, self._vehObj.departspeed))    
-            self._fout.write('        <routeDistribution last="%s">\n' % self._selected)
-                        
+
+            # generate the *.rou.alt.xml
+            self._fout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n'
+                             % (self._vehObj.label, self._vehObj.depart, self._vehObj.departlane, self._vehObj.departpos, self._vehObj.departspeed))
+            self._fout.write(
+                '        <routeDistribution last="%s">\n' % self._selected)
+
             for route in self._vehObj.routesList:
-                self._fout.write('            <route cost="%.4f" probability="%s" edges="%s"/>\n' % (route.act_cost, route.probability, route.edges))
+                self._fout.write('            <route cost="%.4f" probability="%s" edges="%s"/>\n' % (
+                    route.act_cost, route.probability, route.edges))
             self._fout.write('        </routeDistribution>\n')
             self._fout.write('    </vehicle> \n')
-            
+
             self._newroutesList = []
             self._vehObj = None
             self._selected = None
@@ -313,9 +344,11 @@ class vehrouteReader(handler.ContentHandler):
             self._fout.close()
             self._foutrout.write('</routes>\n')
             self._foutrout.close()
-                
+
+
 class dumpsReader(handler.ContentHandler):
-    def __init__(self, edgesList,edgesMap):
+
+    def __init__(self, edgesList, edgesMap):
         self._edgesList = edgesList
         self._edgeObj = None
         self._edgesMap = edgesMap
@@ -354,11 +387,12 @@ class dumpsReader(handler.ContentHandler):
             if attrs.has_key('CO2_abs'):
                 self._edgeObj.CO2_abs = float(attrs['CO2_abs'])
             if attrs.has_key('CO_abs'):
-                self._edgeObj.CO_abs = float(attrs['CO_abs'])                
-                
+                self._edgeObj.CO_abs = float(attrs['CO_abs'])
+
     def endElement(self, name):
         if name == 'edge':
             self._edgeObj = None
+
 
 def resetEdges(edgesMap):
     for eid in edgesMap:
@@ -377,7 +411,9 @@ def resetEdges(edgesMap):
         e.NOx_perVeh = 0.
         e.fuel_perVeh = 0.
 
-def getRouteChoices(edgesMap, dumpfile, routeAltfile, netfile, addWeightsfile, alpha, beta, step, ecoMeasure=None):  # check with Micha
+
+# check with Micha
+def getRouteChoices(edgesMap, dumpfile, routeAltfile, netfile, addWeightsfile, alpha, beta, step, ecoMeasure=None):
     random.seed(42)   # check with micha
     edgesList = []
     vehList = []
@@ -397,20 +433,22 @@ def getRouteChoices(edgesMap, dumpfile, routeAltfile, netfile, addWeightsfile, a
     if len(edgesMap) == 0:
         print 'parse network file'
         parse(netfile, netReader(edgesList, edgesMap))
-        parse(addWeightsfile, addweightsReader(edgesList,edgesMap))
+        parse(addWeightsfile, addweightsReader(edgesList, edgesMap))
     else:
         resetEdges(edgesMap)
-        
+
     fout = open(outputAltfile, 'w')
     foutrout = open(outputRoufile, 'w')
     fout.write('<?xml version="1.0"?>\n')
     fout.write('<!--\n')
-    fout.write('route choices are generated with use of %s' % os.path.join(os.getcwd(), 'routeChoices.py'))
-    fout.write('-->\n')    
+    fout.write('route choices are generated with use of %s' %
+               os.path.join(os.getcwd(), 'routeChoices.py'))
+    fout.write('-->\n')
     fout.write('<route-alternatives>\n')
     foutrout.write('<?xml version="1.0"?>\n')
     foutrout.write('<!--\n')
-    foutrout.write('route choices are generated with use of %s' % os.path.join(os.getcwd(), 'routeChoices.py'))
+    foutrout.write('route choices are generated with use of %s' %
+                   os.path.join(os.getcwd(), 'routeChoices.py'))
     foutrout.write('-->\n')
     foutrout.write('<routes>')
 
@@ -419,20 +457,26 @@ def getRouteChoices(edgesMap, dumpfile, routeAltfile, netfile, addWeightsfile, a
     parse(dumpfile, dumpsReader(edgesList, edgesMap))
     print 'parse routeAltfile'
     print routeAltfile
-    parse(routeAltfile, routeReader(vehList, vehMap))   # parse routeAltfile from SUMO
+    # parse routeAltfile from SUMO
+    parse(routeAltfile, routeReader(vehList, vehMap))
     print 'parse routeAltfile from externalGawron'
-    ex_outputAltFile = prefix[:prefix.rfind('_')] + '_%03i' %(step-1) + '.rou.galt.xml'
+    ex_outputAltFile = prefix[
+        :prefix.rfind('_')] + '_%03i' % (step - 1) + '.rou.galt.xml'
     print 'ex_outputAltFile:', ex_outputAltFile
-    parse(ex_outputAltFile, vehrouteReader(vehList,vehMap,edgesMap,fout,foutrout,ecoMeasure,alpha,beta))
+    parse(ex_outputAltFile, vehrouteReader(
+        vehList, vehMap, edgesMap, fout, foutrout, ecoMeasure, alpha, beta))
     return outputRoufile, edgesMap
+
 
 def gawron(r1, r2, alpha):
     a = alpha
-    delta = (r2.act_cost - r1.act_cost)/(r1.act_cost + r2.act_cost)
-    g = math.exp(a*delta/(1-delta*delta))
+    delta = (r2.act_cost - r1.act_cost) / (r1.act_cost + r2.act_cost)
+    g = math.exp(a * delta / (1 - delta * delta))
     ex_prob = r1.probability
-    r1.probability = (r1.probability*(r1.probability + r2.probability)*g)/(r1.probability*g + r2.probability)  # check together with Eva
+    r1.probability = (r1.probability * (r1.probability + r2.probability)
+                      * g) / (r1.probability * g + r2.probability)  # check together with Eva
     r2.probability = ex_prob + r2.probability - r1.probability
+
 
 def calFirstRouteProbs(dumpfile, sumoAltFile, addweights, ecoMeasure=None):
     basename = sumoAltFile.split('_')[0]
@@ -443,23 +487,25 @@ def calFirstRouteProbs(dumpfile, sumoAltFile, addweights, ecoMeasure=None):
     vehList = []
     vehMap = {}
     parse(netfile, netReader(edgesList, edgesMap))
-    parse(addweights, addweightsReader(edgesList,edgesMap))
+    parse(addweights, addweightsReader(edgesList, edgesMap))
     parse(dumpfile, dumpsReader(edgesList, edgesMap))
     parse(sumoAltFile, routeReader(vehList, vehMap))
-    
+
     fout = open(outputAltFile, 'w')
     foutrout = open(outputRouFile, 'w')
     fout.write('<?xml version="1.0"?>\n')
     fout.write('<!--\n')
-    fout.write('route choices are generated with use of %s' % os.path.join(os.getcwd(), 'routeChoices.py'))
-    fout.write('-->\n')    
+    fout.write('route choices are generated with use of %s' %
+               os.path.join(os.getcwd(), 'routeChoices.py'))
+    fout.write('-->\n')
     fout.write('<route-alternatives>\n')
     foutrout.write('<?xml version="1.0"?>\n')
     foutrout.write('<!--\n')
-    foutrout.write('route choices are generated with use of %s' % os.path.join(os.getcwd(), 'routeChoices.py'))
+    foutrout.write('route choices are generated with use of %s' %
+                   os.path.join(os.getcwd(), 'routeChoices.py'))
     foutrout.write('-->\n')
     foutrout.write('<routes>')
-    
+
     for v in vehMap:
         vehObj = vehMap[v]
         for r in vehObj.routesList:
@@ -481,8 +527,8 @@ def calFirstRouteProbs(dumpfile, sumoAltFile, addweights, ecoMeasure=None):
         for r in vehObj.routesList:
             costSum += r.ex_cost
         for r in vehObj.routesList:
-            r.ex_probability = r.ex_cost/costSum
-            
+            r.ex_probability = r.ex_cost / costSum
+
         randProb = random.random()
         selected = 0
         if len(vehObj.routesList) > 1:
@@ -492,20 +538,22 @@ def calFirstRouteProbs(dumpfile, sumoAltFile, addweights, ecoMeasure=None):
                 if cumulatedProbs >= randProb:
                     selected = i
                     break
-        
+
         # generate the *.rou.xml
-        foutrout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n' 
-                          % (vehObj.label, vehObj.depart, vehObj.departlane, vehObj.departpos, vehObj.departspeed))
-        self._foutrout.write('        <route edges="%s"/>\n'% vehObj.routesList[selected].edges)
+        foutrout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n'
+                       % (vehObj.label, vehObj.depart, vehObj.departlane, vehObj.departpos, vehObj.departspeed))
+        self._foutrout.write(
+            '        <route edges="%s"/>\n' % vehObj.routesList[selected].edges)
         self._foutrout.write('    </vehicle> \n')
-        
-        #generate the *.rou.alt.xml
-        self._fout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n' 
-                          % (vehObj.label, vehObj.depart, vehObj.departlane, vehObj.departpos, vehObj.departspeed))    
+
+        # generate the *.rou.alt.xml
+        self._fout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n'
+                         % (vehObj.label, vehObj.depart, vehObj.departlane, vehObj.departpos, vehObj.departspeed))
         self._fout.write('        <routeDistribution last="%s">\n' % selected)
-                    
+
         for route in self._vehObj.routesList:
-            self._fout.write('            <route cost="%.4f" probability="%s" edges="%s"/>\n' % (route.act_cost, route.ex_probability, route.edges))
+            self._fout.write('            <route cost="%.4f" probability="%s" edges="%s"/>\n' %
+                             (route.act_cost, route.ex_probability, route.edges))
         self._fout.write('        </routeDistribution>\n')
         self._fout.write('    </vehicle> \n')
     self._fout.write('</route-alternatives>\n')

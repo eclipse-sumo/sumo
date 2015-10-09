@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  4 23:07:07 2014 by SUMO netconvert Version dev-SVN-r17257
+<!-- generated on Thu Mar 26 16:23:57 2015 by SUMO netconvert Version dev-SVN-r18156I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -34,7 +34,7 @@
         <lane id="beg_1" index="1" speed="27.80" length="500.00" shape="0.00,-1.65 498.55,-1.65"/>
     </edge>
     <edge id="beg2left" from="beg" to="begleft" priority="-1">
-        <lane id="beg2left_0" index="0" speed="27.80" length="503.09" shape="501.65,1.45 501.65,496.75"/>
+        <lane id="beg2left_0" index="0" disallow="pedestrian" speed="27.80" length="503.09" shape="501.65,1.45 501.65,496.75"/>
     </edge>
     <edge id="end" from="end" to="absEnd" priority="-1">
         <lane id="end_0" index="0" speed="27.80" length="500.00" shape="1501.45,-4.95 2000.00,-4.95"/>
@@ -44,7 +44,7 @@
         <lane id="left_0" index="0" speed="27.80" length="1006.18" shape="503.25,498.35 1496.75,498.35"/>
     </edge>
     <edge id="left2end" from="endleft" to="end" priority="-1">
-        <lane id="left2end_0" index="0" speed="27.80" length="503.09" shape="1498.35,496.75 1498.35,1.45"/>
+        <lane id="left2end_0" index="0" disallow="pedestrian" speed="27.80" length="503.09" shape="1498.35,496.75 1498.35,1.45"/>
     </edge>
     <edge id="middle" from="beg" to="end" priority="-1">
         <lane id="middle_0" index="0" speed="13.90" length="1000.00" shape="504.75,-1.65 1495.25,-1.65"/>

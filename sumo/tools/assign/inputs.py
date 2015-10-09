@@ -10,7 +10,7 @@ This script is to retrieve the assignment parameters, the OD districts and the m
 Moreover, the link travel time for district connectors will be estimated.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2007-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -20,6 +20,8 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 # read the analyzed matrix
+
+
 def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
     matrixPshort = []
     startVertices = []
@@ -30,7 +32,7 @@ def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
         print 'matrix:', str(matrix)
     odpairs = 0
     origins = 0
-    dest= 0
+    dest = 0
     currentMatrixSum = 0.0
     skipCount = 0
     zones = 0
@@ -77,8 +79,8 @@ def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
                             smallDemandNum += 1
     begintime = int(periodList[0])
     assignPeriod = int(periodList[1]) - begintime
-    smallDemandRatio = float(smallDemandNum)/float(Pshort_EffCells)
-    
+    smallDemandRatio = float(smallDemandNum) / float(Pshort_EffCells)
+
     if verbose:
         print 'Number of zones:', zones
         print 'Number of origins:', origins
@@ -89,21 +91,24 @@ def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
         print 'number of start Vertices:', net.getstartCounts()
         print 'number of end Vertices):', net.getendCounts()
         print 'smallDemandRatio):', smallDemandRatio
-    
+
     return matrixPshort, startVertices, endVertices, currentMatrixSum, begintime, assignPeriod, Pshort_EffCells, matrixSum, smallDemandRatio
 
 # estimate the travel times on the district connectors
-# assumption: all vehilces can reach the access links within 20 min (1200 sec) from the respective traffic zone
+# assumption: all vehilces can reach the access links within 20 min (1200
+# sec) from the respective traffic zone
+
+
 def getConnectionTravelTime(startVertices, endVertices):
     for vertex in startVertices:
         weightList = []
         for edge in vertex.getOutgoing():
-           weightList.append(float(edge.ratio))
+            weightList.append(float(edge.ratio))
         if len(weightList) > 0:
             minWeight = min(weightList)
 
         for edge in vertex.getOutgoing():
-            edge.freeflowtime = (float(edge.ratio)/minWeight) * 1200.
+            edge.freeflowtime = (float(edge.ratio) / minWeight) * 1200.
             edge.actualtime = edge.freeflowtime
 
     for vertex in endVertices:
@@ -114,5 +119,5 @@ def getConnectionTravelTime(startVertices, endVertices):
             minWeight = min(weightList)
 
         for edge in vertex.getIncoming():
-            edge.freeflowtime = (float(edge.ratio)/minWeight) * 1200.
+            edge.freeflowtime = (float(edge.ratio) / minWeight) * 1200.
             edge.actualtime = edge.freeflowtime

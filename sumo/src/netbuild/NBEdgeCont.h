@@ -9,7 +9,7 @@
 // Storage for edges, including some functionality operating on multiple edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -237,8 +237,8 @@ public:
      * @param[in] secondEdgeName The id the second part of the split edge shall have
      * @param[in] noLanesFirstEdge The number of lanes the second part of the split edge shall have
      * @param[in] noLanesSecondEdge The number of lanes the second part of the split edge shall have
-     * @param[in] speed The speed for the edge after the split 
-     * @param[in] changedLeft The number of lanes that is added or removed on the left side of the edge 
+     * @param[in] speed The speed for the edge after the split
+     * @param[in] changedLeft The number of lanes that is added or removed on the left side of the edge
      *            (By default all added/removed lanes are assumed to be on the right when computing connections)
      * @return Whether the edge could be split
      * @exception ProcessError If connections between the edges can not be built
@@ -246,8 +246,8 @@ public:
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge, 
-                 const SUMOReal speed = -1., const int changedLeft=0);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge,
+                 const SUMOReal speed = -1., const int changedLeft = 0);
 
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications
@@ -259,16 +259,16 @@ public:
      * @param[in] secondEdgeName The id the second part of the split edge shall have
      * @param[in] noLanesFirstEdge The number of lanes the second part of the split edge shall have
      * @param[in] noLanesSecondEdge The number of lanes the second part of the split edge shall have
-     * @param[in] speed The speed for the edge after the split 
-     * @param[in] changedLeft The number of lanes that is added or removed on the left side of the edge 
+     * @param[in] speed The speed for the edge after the split
+     * @param[in] changedLeft The number of lanes that is added or removed on the left side of the edge
      *            (By default all added/removed lanes are assumed to be on the right when computing connections)
      * @return Whether the edge could be split
      * @exception ProcessError If connections between the edges can not be built
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, SUMOReal edgepos, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge, 
-                 const SUMOReal speed = -1., const int changedLeft=0);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge,
+                 const SUMOReal speed = -1., const int changedLeft = 0);
     /// @}
 
 
@@ -371,7 +371,7 @@ public:
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::computeLanes2Edges
      */
-    void computeLanes2Edges(const bool buildCrossingsAndWalkingAreas);
+    void computeLanes2Edges();
 
 
     /** @brief Rechecks whether all lanes have a successor for each of the stored edges
@@ -381,7 +381,7 @@ public:
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::recheckLanes
      */
-    void recheckLanes(const bool buildCrossingsAndWalkingAreas);
+    void recheckLanes();
 
 
     /** @brief Appends turnarounds to all edges stored in the container
@@ -457,14 +457,6 @@ public:
     void guessRoundabouts();
 
 
-    /** @brief Returns whether the built edges are left-handed
-     * @return Whether this edge container is left-handed
-     */
-    bool isLeftHanded() const {
-        return myAmLeftHanded;
-    }
-
-
     /** @brief Returns whether the edge with the id was ignored during parsing
      * @return Whether the edge with the id was ignored during parsing
      */
@@ -494,8 +486,9 @@ public:
      * @param[in] to The id of the edge the connection ends at
      * @param[in] toLane The number of the lane the connection ends at
      * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
+     * @param[in] keepClear Whether the connection must check to keep the junction clear
      */
-    void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass);
+    void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear);
 
 
     /** @brief Try to set any stored connections
@@ -534,6 +527,9 @@ private:
     /// @brief Returns true if this edge matches one of the removal criteria
     bool ignoreFilterMatch(NBEdge* edge);
 
+    /// @brief compute the form factor for a loop of edges
+    static SUMOReal formFactor(const EdgeVector& loopEdges);
+
 private:
     /// @brief The network builder; used to obtain type information
     NBTypeCont& myTypeCont;
@@ -550,8 +546,8 @@ private:
          * @param[in] toLane The number of the lane the connection ends at
          * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
          */
-        PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_, bool mayDefinitelyPass_)
-            : from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_)
+        PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_, bool mayDefinitelyPass_, bool keepClear_)
+            : from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_)
         { }
         /// @brief The id of the edge the connection starts at
         std::string from;
@@ -563,6 +559,8 @@ private:
         int toLane;
         /// @brief Whether the connection may be passed without braking
         bool mayDefinitelyPass;
+        /// @brief Whether the connection may be passed without braking
+        bool keepClear;
     };
 
     /// @brief The list of connections to recheck
@@ -583,10 +581,6 @@ private:
 
     /// @brief the number of splits of edges during the building
     unsigned int myEdgesSplit;
-
-    /// @brief Whether the network is left-handed
-    bool myAmLeftHanded;
-
 
     /// @name Settings for accepting/dismissing edges
     /// @{

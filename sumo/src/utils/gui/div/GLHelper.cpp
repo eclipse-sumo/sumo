@@ -9,7 +9,7 @@
 // Some methods which help to draw certain geometrical objects in openGL
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -122,6 +122,7 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
     gluTessEndContour(tobj);
     gluTessEndPolygon(tobj);
     gluDeleteTess(tobj);
+    delete[] points;
 }
 
 
@@ -158,7 +159,7 @@ GLHelper::drawBoxLine(const Position& beg1, const Position& beg2,
 }
 
 
-bool 
+bool
 GLHelper::rightTurn(SUMOReal angle1, SUMOReal angle2) {
     SUMOReal delta = angle2 - angle1;
     while (delta > 180) {
@@ -176,7 +177,7 @@ GLHelper::drawBoxLines(const PositionVector& geom,
                        const std::vector<SUMOReal>& rots,
                        const std::vector<SUMOReal>& lengths,
                        SUMOReal width, int cornerDetail, SUMOReal offset) {
-    // draw the lane 
+    // draw the lane
     int e = (int) geom.size() - 1;
     for (int i = 0; i < e; i++) {
         drawBoxLine(geom[i], rots[i], lengths[i], width, offset);
@@ -186,12 +187,12 @@ GLHelper::drawBoxLines(const PositionVector& geom,
         for (int i = 1; i < e; i++) {
             glPushMatrix();
             glTranslated(geom[i].x(), geom[i].y(), 0.1);
-            if (rightTurn(rots[i-1], rots[i])) {
+            if (rightTurn(rots[i - 1], rots[i])) {
                 // inside corner
-                drawFilledCircle(width - offset, cornerDetail);
+                drawFilledCircle(MIN2(lengths[i], width - offset), cornerDetail);
             } else {
                 // outside corner, make sure to only draw a segment of the circle
-                SUMOReal angleBeg = -rots[i-1];
+                SUMOReal angleBeg = -rots[i - 1];
                 SUMOReal angleEnd = 180 - rots[i];
                 // avoid drawing more than 360 degrees
                 if (angleEnd - angleBeg > 360) {
@@ -204,7 +205,7 @@ GLHelper::drawBoxLines(const PositionVector& geom,
                 if (angleEnd > angleBeg) {
                     angleEnd -= 360;
                 }
-                drawFilledCircle(width + offset, cornerDetail, angleBeg, angleEnd);
+                drawFilledCircle(MIN2(lengths[i], width + offset), cornerDetail, angleBeg, angleEnd);
             }
             glEnd();
             glPopMatrix();
@@ -327,7 +328,7 @@ GLHelper::drawLine(const Position& beg, const Position& end) {
 }
 
 
-size_t 
+size_t
 GLHelper::angleLookup(SUMOReal angleDeg) {
     const int numCoords = (int)myCircleCoords.size() - 1;
     int index = ((int)(floor(angleDeg * CIRCLE_RESOLUTION + 0.5))) % numCoords;
@@ -467,7 +468,7 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     SUMOReal w = pfdkGetStringWidth(text.c_str());
     glRotated(180, 1, 0, 0);
     glRotated(angle, 0, 0, 1);
-    glTranslated(-w / 2., 0.4, 0);
+    glTranslated(-w / 2., size / 4, 0);
     pfDrawString(text.c_str());
     glPopMatrix();
 }
@@ -512,7 +513,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
 }
 
 
-void 
+void
 GLHelper::debugVertices(const PositionVector& shape, SUMOReal size, SUMOReal layer) {
     RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
     for (int i = 0; i < (int)shape.size(); ++i) {

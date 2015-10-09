@@ -1,5 +1,5 @@
-SUMO Version dev-SVN-r17783ID
- Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
+SUMO Version dev-SVN-r19035I
+ Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
 Usage: sumo [OPTION]*
@@ -21,11 +21,11 @@ Input Options:
   -x, --weight-attribute STR           Name of the xml attribute which gives
                                          the edge weight
   --load-state FILE                    Loads a network state from FILE
-  --load-state.offset TIME             Sets the time offset for vehicle segment
-                                         exit times
+  --load-state.offset TIME             Shifts all times loaded from a saved
+                                         state by the given offset
 
 Output Options:
-  --output-prefix FILE                 Prefix which is applied to all output
+  --output-prefix STR                  Prefix which is applied to all output
                                          files. The special string 'TIME' is
                                          replaced by the current time.
   --netstate-dump FILE                 Save complete network states into FILE
@@ -34,6 +34,9 @@ Output Options:
   --netstate-dump.precision INT        Write positions and speeds with the
                                          given precision (default 2)
   --emission-output FILE               Save the emission values of each vehicle
+  --battery-output FILE                Save the battery values of each vehicle
+  --battery-output.precision INT       Write battery values with the given
+                                         precision (default 2)
   --fcd-output FILE                    Save the Floating Car Data
   --fcd-output.geo                     Save the Floating Car Data using
                                          geo-coordinates (lon/lat)
@@ -62,14 +65,13 @@ Output Options:
                                          alternatives style
   --vehroute-output.intended-depart    Write the output with the intended
                                          instead of the real departure time
+  --vehroute-output.route-length       Include total route length in the output
   --vehroute-output.write-unfinished   Write vehroute output for vehicles which
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE
-  --bt-output FILE                     Save bt visibilities into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                         vehicles into FILE
-  --movereminder-output.vehicles STR   List of vehicle ids which shall save
-                                         their movereminder states
+  --bt-output FILE                     Save bluetooth visibilities into FILE
+                                         (in conjunction with device.btreceiver
+                                         and device.btsender)
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.prefix FILE             Prefix for network states
@@ -94,7 +96,8 @@ Processing Options:
                                          connected
   --max-num-vehicles INT               Quit simulation if this number of
                                          vehicles is exceeded
-  --scale FLOAT                        Scale demand by the given factor (0..1)
+  --scale FLOAT                        Scale demand by the given factor (by
+                                         discarding or duplicating vehicles)
   --time-to-teleport TIME              Specify how long a vehicle may wait
                                          until being teleported, defaults to
                                          300, non-positive values disable
@@ -119,9 +122,6 @@ Processing Options:
                                          (default 0)
   --lanechange.overtake-right          Whether overtaking on the right on
                                          motorways is permitted
-  --routing-algorithm STR              Select among routing algorithms
-                                         ['dijkstra', 'astar', 'CH',
-                                         'CHWrapper']
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping']
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
@@ -133,6 +133,35 @@ Processing Options:
                                          start squeezing through a jam when
                                          using model 'striping' (non-positive
                                          values disable squeezing)
+
+Routing Options:
+  --routing-algorithm STR              Select among routing algorithms
+                                         ['dijkstra', 'astar', 'CH',
+                                         'CHWrapper']
+  --weights.random-factor FLOAT        Edge weights for routing are dynamically
+                                         disturbed by a random factor drawn
+                                         uniformly from [1,FLOAT)
+  --device.rerouting.probability FLOAT  The probability for a vehicle to have a
+                                         'rerouting' device
+  --device.rerouting.explicit STR      Assign a 'rerouting' device to named
+                                         vehicles
+  --device.rerouting.deterministic     The 'rerouting' devices are set
+                                         deterministic using a fraction of 1000
+  --device.rerouting.period TIME       The period with which the vehicle shall
+                                         be rerouted
+  --device.rerouting.pre-period TIME   The rerouting period before depart
+  --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights
+  --device.rerouting.adaptation-interval TIME  The interval for updating the
+                                         edge weights
+  --device.rerouting.with-taz          Use zones (districts) as routing end
+                                         points
+  --device.rerouting.init-with-loaded-weights  Use given weight files for
+                                         initializing edge weights
+  --device.rerouting.shortest-path-file FILE  Initialize lookup table for astar
+                                         from the given distance matrix
+  --device.rerouting.threads INT       The number of parallel execution threads
+                                         used for rerouting
+  --device.rerouting.output FILE       Save adapting weights to FILE
 
 Report Options:
   -v, --verbose                        Switches to verbose output
@@ -150,8 +179,9 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                          (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
-  --no-duration-log                    Disable performance reports for
+  --duration-log.disable               Disable performance reports for
                                          individual simulation steps
+  --duration-log.statistics            Enable statistics on vehicle trips
   --no-step-log                        Disable console output of current
                                          simulation step
 
@@ -184,36 +214,26 @@ Communication Options:
   --device.btsender.deterministic      The 'btsender' devices are set
                                          deterministic using a fraction of 1000
 
-Routing Options:
-  --device.rerouting.probability FLOAT  The probability for a vehicle to have a
-                                         'rerouting' device
-  --device.rerouting.explicit STR      Assign a 'rerouting' device to named
+Battery Options:
+  --device.battery.probability FLOAT   The probability for a vehicle to have a
+                                         'battery' device
+  --device.battery.explicit STR        Assign a 'battery' device to named
                                          vehicles
-  --device.rerouting.deterministic     The 'rerouting' devices are set
+  --device.battery.deterministic       The 'battery' devices are set
                                          deterministic using a fraction of 1000
-  --device.rerouting.period TIME       The period with which the vehicle shall
-                                         be rerouted
-  --device.rerouting.pre-period TIME   The rerouting period before depart
-  --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights
-  --device.rerouting.adaptation-interval TIME  The interval for updating the
-                                         edge weights
-  --device.rerouting.with-taz          Use zones (districts) as routing end
-                                         points
-  --device.rerouting.init-with-loaded-weights  Use given weight files for
-                                         initializing edge weights
-  --device.rerouting.shortest-path-file FILE  Initialize lookup table for astar
-                                         from the given distance matrix
-  --device.rerouting.threads INT       The number of parallel execution threads
-                                         used for rerouting
 
 Example Device Options:
-  --device.example.explicit STR        Assign a device to named vehicles
+  --device.example.probability FLOAT   The probability for a vehicle to have a
+                                         'example' device
+  --device.example.explicit STR        Assign a 'example' device to named
+                                         vehicles
+  --device.example.deterministic       The 'example' devices are set
+                                         deterministic using a fraction of 1000
   --device.example.parameter FLOAT     An exemplary parameter which can be used
                                          by all instances of the example device
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
-  --python-script STR                  Runs TraCI script with embedded python
 
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation

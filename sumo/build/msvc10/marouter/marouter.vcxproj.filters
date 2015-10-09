@@ -26,6 +26,9 @@
     <ClCompile Include="..\..\..\src\marouter\ROMAAssignments.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\marouter\ROMARouteHandler.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\marouter\ROMAEdgeBuilder.h">
@@ -38,6 +41,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\marouter\ROMAAssignments.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\marouter\ROMARouteHandler.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

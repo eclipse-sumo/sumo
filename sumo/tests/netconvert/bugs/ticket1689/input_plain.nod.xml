@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 18 Mar 2015 03:36:24 PM CET by Netedit Version dev-SVN-r18103I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/sip-svn-trunk/tests/scenario/use/DRIVE/Helmond_GLOSA_vehs1/net.scenario"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/sip-svn-trunk/tests/scenario/use/DRIVE/Helmond_GLOSA_vehs1/net.scenario"/>
+        <plain-output-prefix value="/scr2/debug/junctionPriority/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-677442.94,-5704002.06" convBoundary="6194.96,1926.92,6332.76,2007.66" origBoundary="5.538970,51.449400,5.678834,51.487414" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="42726349" x="6332.76" y="1926.92"/>
+    <node id="42726840" x="6268.19" y="1943.51"/>
+    <node id="42727650" x="6255.18" y="1976.44" type="traffic_light"/>
+    <node id="42728382" x="6194.96" y="2007.66"/>
+</nodes>

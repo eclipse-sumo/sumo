@@ -15,7 +15,7 @@
 // Representation of a vehicle in the micro simulation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -58,15 +58,17 @@ class MSMoveReminder;
 class MSLaneChanger;
 class MSVehicleTransfer;
 class MSAbstractLaneChangeModel;
-class MSBusStop;
+class MSStoppingPlace;
+class MSChrgStn;
 class MSPerson;
 class MSDevice;
 class MSEdgeWeightsStorage;
 class OutputDevice;
 class Position;
 class MSDevice_Person;
+class MSDevice_Container;
+class MSContainer;
 class MSJunction;
-
 
 // ===========================================================================
 // class definitions
@@ -445,6 +447,10 @@ public:
     MSAbstractLaneChangeModel& getLaneChangeModel();
     const MSAbstractLaneChangeModel& getLaneChangeModel() const;
 
+    const std::vector<MSLane*>& getFurtherLanes() const {
+        return myFurtherLanes;
+    }
+
     /// @name strategical/tactical lane choosing methods
     /// @{
 
@@ -561,7 +567,11 @@ public:
         /// @brief The lane to stop at
         const MSLane* lane;
         /// @brief (Optional) bus stop if one is assigned to the stop
-        MSBusStop* busstop;
+        MSStoppingPlace* busstop;
+        /// @brief (Optional) container stop if one is assigned to the stop
+        MSStoppingPlace* containerstop;
+        /// @brief (Optional) charging station if one is assigned to the stop
+        MSChrgStn* chrgStn;
         /// @brief The stopping position start
         SUMOReal startPos;
         /// @brief The stopping position end
@@ -572,12 +582,21 @@ public:
         SUMOTime until;
         /// @brief whether an arriving person lets the vehicle continue
         bool triggered;
+        /// @brief whether an arriving container lets the vehicle continue
+        bool containerTriggered;
         /// @brief whether the vehicle is removed from the net while stopping
         bool parking;
         /// @brief Information whether the stop has been reached
         bool reached;
         /// @brief IDs of persons the vehicle has to wait for until departing
         std::set<std::string> awaitedPersons;
+        /// @brief IDs of containers the vehicle has to wait for until departing
+        std::set<std::string> awaitedContainers;
+        /// @brief The time at which the vehicle is able to board another person
+        SUMOTime timeToBoardNextPerson;
+        /// @brief The time at which the vehicle is able to load another container
+        SUMOTime timeToLoadNextContainer;
+
     };
 
 
@@ -612,6 +631,10 @@ public:
      * @return whether the vehicle is on a triggered stop
      */
     bool isStoppedTriggered() const;
+
+    /** @brief return whether the given position is within range of the current stop
+     */
+    bool isStoppedInRange(SUMOReal pos) const;
     /// @}
 
     bool knowsEdgeTest(MSEdge& edge) const;
@@ -633,7 +656,8 @@ public:
      * @return The velocity in dependance to the next/current stop
      * @todo Describe more detailed
      * @see Stop
-     * @see MSBusStop
+     * @see MSStoppingPlace
+     * @see MSStoppingPlace
      */
     SUMOReal processNextStop(SUMOReal currentVelocity);
 
@@ -708,13 +732,26 @@ public:
     /** @brief Adds a passenger
      * @param[in] person The person to add
      */
-    void addPerson(MSPerson* person);
+    void addPerson(MSTransportable* person);
+
+    /// @name Interaction with containers
+    //@{
+
+    /** @brief Adds a container
+     * @param[in] container The container to add
+     */
+    void addContainer(MSTransportable* container);
 
 
     /** @brief Returns the number of persons
      * @return The number of passengers on-board
      */
     unsigned int getPersonNumber() const;
+
+    /** @brief Returns the number of containers
+     * @return The number of contaiers on-board
+     */
+    unsigned int getContainerNumber() const;
 
     /// @name Access to bool signals
     /// @{
@@ -823,15 +860,31 @@ public:
     /**
      * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
      * will wait for the given duration before continuing on its route
-     * @param lane  lane on wich to stop
-     * @param pos   position on the given lane at wich to stop
-     * @param radius  the vehicle will stop if it is within the range [pos-radius, pos+radius]
-     * @param duration after waiting for the time period duration, the vehicle will
+     * @param lane     lane on wich to stop
+     * @param startPos start position on the given lane at wich to stop
+     * @param endPos   end position on the given lane at wich to stop
+     * @param duration waiting time duration
+     * @param until    time step at which the stop shall end
      * @param parking  a flag indicating whether the traci stop is used for parking or not
      * @param triggered a flag indicating whether the traci stop is triggered or not
+     * @param containerTriggered a flag indicating whether the traci stop is triggered by a container or not
      */
-    bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration,
-                      bool parking, bool triggered, std::string& errorMsg);
+    bool addTraciStop(MSLane* const lane, const SUMOReal startPos, const SUMOReal endPos, const SUMOTime duration, const SUMOTime until,
+                      const bool parking, const bool triggered, const bool containerTriggered, std::string& errorMsg);
+
+    /**
+     * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
+     * will wait for the given duration before continuing on its route
+     * @param stopId    bus or container stop id
+     * @param duration waiting time duration
+     * @param until    time step at which the stop shall end
+     * @param parking   a flag indicating whether the traci stop is used for parking or not
+     * @param triggered a flag indicating whether the traci stop is triggered or not
+     * @param containerTriggered a flag indicating whether the traci stop is triggered by a container or not
+     * @param isContainerStop a flag indicating whether the stop is a container stop
+     */
+    bool addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime duration, const SUMOTime until, const bool parking,
+                                    const bool triggered, const bool containerTriggered, const bool isContainerStop, std::string& errorMsg);
 
     /**
     * returns the next imminent stop in the stop queue
@@ -975,12 +1028,12 @@ public:
             myVTDPos = pos;
             myVTDEdgeOffset = edgeOffset;
             myVTDRoute = route;
-			myLastVTDAccess = t;
+            myLastVTDAccess = t;
         }
 
-		SUMOTime getLastAccessTimeStep() const {
-			return myLastVTDAccess;
-		}
+        SUMOTime getLastAccessTimeStep() const {
+            return myLastVTDAccess;
+        }
 
         void postProcessVTD(MSVehicle* v);
 
@@ -989,7 +1042,7 @@ public:
         }
 
         inline bool isVTDAffected(SUMOTime t) const {
-            return myAmVTDControlled && myLastVTDAccess>=t-TIME2STEPS(10); 
+            return myAmVTDControlled && myLastVTDAccess >= t - TIME2STEPS(10);
         }
 
 
@@ -1026,7 +1079,7 @@ public:
         SUMOReal myVTDPos;
         int myVTDEdgeOffset;
         ConstMSEdgeVector myVTDRoute;
-		SUMOTime myLastVTDAccess;
+        SUMOTime myLastVTDAccess;
 
         /// @name Flags for managing conflicts between the laneChangeModel and TraCI laneTimeLine
         //@{
@@ -1137,6 +1190,9 @@ protected:
     /// @brief The passengers this vehicle may have
     MSDevice_Person* myPersonDevice;
 
+    /// @brief The containers this vehicle may have
+    MSDevice_Container* myContainerDevice;
+
     /// @brief The current acceleration after dawdling in m/s
     SUMOReal myAcceleration;
 
@@ -1151,6 +1207,9 @@ protected:
 
     /// @brief Whether this vehicle is registered as waiting for a person (for deadlock-recognition)
     bool myAmRegisteredAsWaitingForPerson;
+
+    /// @brief Whether this vehicle is registered as waiting for a container (for deadlock-recognition)
+    bool myAmRegisteredAsWaitingForContainer;
 
     bool myHaveToWaitOnNextLink;
 

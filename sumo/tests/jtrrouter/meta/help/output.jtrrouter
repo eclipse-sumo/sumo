@@ -1,5 +1,5 @@
-SUMO jtrrouter Version dev-SVN-r17463
- Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
+SUMO jtrrouter Version dev-SVN-r18620
+ Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Router for the microscopic road traffic simulation SUMO based on junction
   turning ratios.
 
@@ -22,7 +22,7 @@ Input Options:
   -t, --turn-ratio-files FILE      Read turning ratios from FILE(s)
 
 Output Options:
-  --output-prefix FILE             Prefix which is applied to all output files.
+  --output-prefix STR              Prefix which is applied to all output files.
                                      The special string 'TIME' is replaced by
                                      the current time.
   -o, --output-file FILE           Write generated routes to FILE
@@ -41,10 +41,16 @@ Processing Options:
                                      Remove turnarounds at start and end of the
                                      route
   --repair                         Tries to correct a false route
+  --repair.from                    Tries to correct an invalid starting edge by
+                                     using the first usable edge instead
+  --repair.to                      Tries to correct an invalid destination edge
+                                     by using the last usable edge instead
   --weights.interpolate            Interpolate edge weights at interval
                                      boundaries
   --with-taz                       Use origin and destination zones (districts)
                                      for in- and output
+  --bulk-routing                   Aggregate routing queries with the same
+                                     origin
   --routing-threads INT            The number of parallel execution threads
                                      used for routing
   --max-edges-factor FLOAT         Routes are cut off when the route edges to

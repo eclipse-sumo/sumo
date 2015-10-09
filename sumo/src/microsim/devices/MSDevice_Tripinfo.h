@@ -9,7 +9,7 @@
 // A device which collects info on the vehicle trip
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -65,8 +65,21 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
+    /// @brief update tripinfo statistics
+    void updateStatistics() const;
+
     /// @brief generate output for vehicles which are still in the network
     static void generateOutputForUnfinished();
+
+    /// @brief get statistics for printing to stdout
+    static std::string printStatistics();
+
+    /// @brief accessors for GUINet-Parameters
+    static SUMOReal getAvgRouteLength();
+    static SUMOReal getAvgDuration();
+    static SUMOReal getAvgWaitingTime();
+    static SUMOReal getAvgTimeLoss();
+    static SUMOReal getAvgDepartDelay();
 
 public:
     /// @brief Destructor.
@@ -135,6 +148,10 @@ private:
     MSDevice_Tripinfo();
 
 
+    /* @brief compute trip length and duration (depending on whether the
+       vehicle arrived or not */
+    void computeLengthAndDuration(SUMOReal& routeLength, SUMOTime& duration) const;
+
 private:
     /// @brief The lane the vehicle departed at
     std::string myDepartLane;
@@ -165,7 +182,16 @@ private:
 
     /// @brief devices which may still need to produce output
     typedef std::set<const MSDevice_Tripinfo*, Named::NamedLikeComparatorIdLess<MSDevice_Tripinfo> > DeviceSet;
+
     static DeviceSet myPendingOutput;
+
+    /// @brief global tripinfo statistics
+    static SUMOReal myVehicleCount;
+    static SUMOReal myTotalRouteLength;
+    static SUMOTime myTotalDuration;
+    static SUMOTime myTotalWaitingTime;
+    static SUMOTime myTotalTimeLoss;
+    static SUMOTime myTotalDepartDelay;
 
 private:
     /// @brief Invalidated copy constructor.

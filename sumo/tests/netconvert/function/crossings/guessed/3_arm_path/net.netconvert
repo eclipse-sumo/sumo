@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec  4 14:35:36 2014 by SUMO netconvert Version dev-SVN-r17423I
+<!-- generated on Tue Mar 24 12:23:27 2015 by SUMO netconvert Version dev-SVN-r18126I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,10 +31,10 @@
     <location netOffset="100.00,0.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.99" width="3.20" shape="96.75,1.45 99.95,1.45 101.45,-0.05 101.45,-3.25 95.25,-3.25 95.25,-0.05"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="5.02" width="3.20" shape="96.75,1.45 99.95,1.45 101.50,-0.05 101.50,-3.25 95.25,-3.25 95.25,-0.05"/>
     </edge>
     <edge id="CE" from="C" to="E" priority="-1">
-        <lane id="CE_0" index="0" allow="pedestrian" speed="13.90" length="98.55" shape="101.45,-1.65 200.00,-1.65"/>
+        <lane id="CE_0" index="0" allow="pedestrian" speed="13.90" length="98.50" shape="101.50,-1.65 200.00,-1.65"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="-1">
         <lane id="NC_0" index="0" allow="pedestrian" speed="13.90" length="98.55" shape="98.35,100.00 98.35,1.45"/>
@@ -43,7 +43,7 @@
         <lane id="WC_0" index="0" allow="pedestrian" speed="13.90" length="95.25" shape="0.00,-1.65 95.25,-1.65"/>
     </edge>
 
-    <junction id="C" type="dead_end" x="100.00" y="0.00" incLanes="NC_0 WC_0" intLanes="" shape="96.75,1.45 99.95,1.45 101.45,-0.05 101.45,-3.25 95.25,-3.25 95.25,-0.05"/>
+    <junction id="C" type="dead_end" x="100.00" y="0.00" incLanes="NC_0 WC_0" intLanes="" shape="96.75,1.45 99.95,1.45 101.50,-0.05 101.50,-3.25 95.25,-3.25 95.25,-0.05"/>
     <junction id="E" type="unregulated" x="200.00" y="0.00" incLanes="CE_0" intLanes="" shape="200.00,-3.25 200.00,-0.05"/>
     <junction id="N" type="unregulated" x="100.00" y="100.00" incLanes="" intLanes="" shape="99.95,100.00 96.75,100.00"/>
     <junction id="W" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>

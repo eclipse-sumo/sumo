@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 12 16:54:33 2013 by SUMO netconvert Version dev-SVN-r15089
+<!-- generated on Wed Feb 25 16:00:48 2015 by SUMO netconvert Version dev-SVN-r17962I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,10 @@
         <offset.disable-normalization value="true"/>
     </processing>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
@@ -27,14 +31,14 @@
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,40.00,20.00" origBoundary="0.00,0.00,40.00,20.00" projParameter="!"/>
 
     <edge id=":node_left_0" function="internal">
-        <lane id=":node_left_0_0" index="0" speed="13.90" length="14.80" shape="-5.83,5.83 -10.75,-0.33 -11.42,-4.73 -7.83,-7.37 0.00,-8.25"/>
-        <lane id=":node_left_0_1" index="1" speed="13.90" length="14.80" shape="-3.50,3.50 -6.45,-0.20 -6.85,-2.84 -4.70,-4.42 0.00,-4.95"/>
-        <lane id=":node_left_0_2" index="2" speed="13.90" length="14.80" shape="-1.17,1.17 -2.15,-0.07 -2.28,-0.95 -1.57,-1.47 0.00,-1.65"/>
+        <lane id=":node_left_0_0" index="0" speed="13.90" length="13.36" shape="-5.83,5.83 -9.66,0.13 -9.96,-4.12 -6.74,-6.92 0.00,-8.25"/>
+        <lane id=":node_left_0_1" index="1" speed="13.90" length="13.36" shape="-3.50,3.50 -5.79,0.08 -5.98,-2.47 -4.04,-4.15 0.00,-4.95"/>
+        <lane id=":node_left_0_2" index="2" speed="13.90" length="13.36" shape="-1.17,1.17 -1.93,0.03 -1.99,-0.82 -1.35,-1.38 0.00,-1.65"/>
     </edge>
     <edge id=":node_right_0" function="internal">
-        <lane id=":node_right_0_0" index="0" allow="bus" speed="13.90" length="15.80" shape="40.00,-8.25 47.83,-7.37 51.42,-4.73 50.75,-0.33 45.83,5.83"/>
-        <lane id=":node_right_0_1" index="1" disallow="bicycle" speed="13.90" length="15.80" shape="37.00,-4.95 40.00,-4.95 44.70,-4.42 46.85,-2.84 46.45,-0.20 43.50,3.50"/>
-        <lane id=":node_right_0_2" index="2" speed="13.90" length="15.80" shape="40.00,-1.65 41.57,-1.47 42.28,-0.95 42.15,-0.07 41.17,1.17"/>
+        <lane id=":node_right_0_0" index="0" allow="bus" speed="13.90" length="14.36" shape="40.00,-8.25 46.74,-6.92 49.96,-4.13 49.66,0.13 45.83,5.83"/>
+        <lane id=":node_right_0_1" index="1" disallow="bicycle" speed="13.90" length="14.36" shape="37.00,-4.95 40.00,-4.95 44.04,-4.15 45.98,-2.47 45.79,0.08 43.50,3.50"/>
+        <lane id=":node_right_0_2" index="2" speed="13.90" length="14.36" shape="40.00,-1.65 41.35,-1.38 41.99,-0.83 41.93,0.03 41.17,1.17"/>
     </edge>
 
     <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" shape="40.00,0.00 20.00,20.00 0.00,0.00">

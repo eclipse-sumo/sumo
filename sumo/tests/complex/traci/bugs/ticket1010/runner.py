@@ -8,7 +8,7 @@
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -17,19 +17,28 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, subprocess, sys, time, math
+import os
+import subprocess
+import sys
+import time
+import math
 
-sumoHome = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..'))
+sumoHome = os.path.abspath(
+    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
-import sumolib, traci
+import sumolib
+import traci
 
-if sys.argv[1]=="sumo":
-    sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
+if sys.argv[1] == "sumo":
+    sumoBinary = os.environ.get(
+        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
     addOption = ""
 else:
-    sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
+    sumoBinary = os.environ.get(
+        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = "-S -Q"
 PORT = sumolib.miscutils.getFreeSocketPort()
+
 
 def run():
     """execute the TraCI control loop"""
@@ -44,12 +53,11 @@ def run():
     sys.stdout.flush()
 
 sumoProcess = subprocess.Popen([sumoBinary,
-    "-n", "input_net.net.xml", 
-    "-r", "input_routes.rou.xml",
-    "-a", "input_additional.add.xml",
-    "--no-step-log", 
-    "--remote-port", str(PORT)], 
-    stdout=sys.stdout, stderr=sys.stderr)
+                                "-n", "input_net.net.xml",
+                                "-r", "input_routes.rou.xml",
+                                "-a", "input_additional.add.xml",
+                                "--no-step-log",
+                                "--remote-port", str(PORT)],
+                               stdout=sys.stdout, stderr=sys.stderr)
 run()
 sumoProcess.wait()
-

@@ -11,7 +11,7 @@ This script converts edge type definitions (STRECKENTYP) into their
  SUMO-representation.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -20,7 +20,8 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import sys, os
+import sys
+import os
 
 if len(sys.argv) < 3:
     print "Usage: " + sys.argv[0] + " <VISUM-NET> <OUTPUT>"
@@ -32,7 +33,7 @@ fdo.write("<types>\n")
 parsingTypes = False
 for line in fd:
     if parsingTypes:
-        if line[0]=='*' or line[0]=='$' or line.find(";")<0:
+        if line[0] == '*' or line[0] == '$' or line.find(";") < 0:
             parsingTypes = False
             continue
 
@@ -41,13 +42,12 @@ for line in fd:
         for i in range(0, len(attributes)):
             map[attributes[i]] = values[i]
         fdo.write('   <type id="' + map["nr"])
-        fdo.write('" priority="' + str(100-int(map["rang"])))
+        fdo.write('" priority="' + str(100 - int(map["rang"])))
         fdo.write('" numLanes="' + map["anzfahrstreifen"])
-        fdo.write('" speed="' + str(float(map["v0iv"])/3.6))
+        fdo.write('" speed="' + str(float(map["v0iv"]) / 3.6))
         fdo.write('"/>\n')
 
-    if line.find("$STRECKENTYP")==0:
+    if line.find("$STRECKENTYP") == 0:
         parsingTypes = True
         attributes = line[len("$STRECKENTYP:"):].lower().split(";")
 fdo.write("</types>\n")
-

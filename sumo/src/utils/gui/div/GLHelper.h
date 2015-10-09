@@ -9,7 +9,7 @@
 // Some methods which help to draw certain geometrical objects in openGL
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -128,7 +128,7 @@ public:
      */
     static void drawBoxLines(const PositionVector& geom,
                              const std::vector<SUMOReal>& rots, const std::vector<SUMOReal>& lengths,
-                             const std::vector<RGBColor>& cols, 
+                             const std::vector<RGBColor>& cols,
                              SUMOReal width, int cornerDetail = 0, SUMOReal offset = 0);
 
 
@@ -292,7 +292,7 @@ public:
                             const SUMOReal angle = 0);
 
     /// @brief draw vertex numbers for the given shape (in a random color)
-    static void debugVertices(const PositionVector& shape, SUMOReal size, SUMOReal layer=256);
+    static void debugVertices(const PositionVector& shape, SUMOReal size, SUMOReal layer = 256);
 
 private:
     /// @brief normalize angle for lookup in myCircleCoords

@@ -10,7 +10,7 @@
 // Based on DijkstraRouterTT. For routing by effort a novel heuristic would be needed.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2012-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -54,12 +54,12 @@
 // ===========================================================================
 /**
  * @class AStarRouter
- * @brief Computes the shortest path through a network using the Dijkstra algorithm.
+ * @brief Computes the shortest path through a network using the A* algorithm.
  *
  * The template parameters are:
  * @param E The edge class to use (MSEdge/ROEdge)
  * @param V The vehicle class to use (MSVehicle/ROVehicle)
- * @param PF The prohibition function to use (prohibited_withRestrictions/prohibited_noRestrictions)
+ * @param PF The prohibition function to use (prohibited_withPermissions/noProhibitions)
  * @param EC The class to retrieve the effort for an edge from
  *
  * The router is edge-based. It must know the number of edges for internal reasons
@@ -174,15 +174,33 @@ public:
     virtual void compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && to != 0);
+        // check whether from and to can be used
+        if (PF::operator()(from, vehicle)) {
+            myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on from edge '" + from->getID() + "'.");
+            return;
+        }
+        if (PF::operator()(to, vehicle)) {
+            myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on to edge '" + to->getID() + "'.");
+            return;
+        }
         this->startQuery();
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         const SUMOReal time = STEPS2TIME(msTime);
-        init();
-        // add begin node
-        EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
-        fromInfo->traveltime = 0;
-        fromInfo->prev = 0;
-        myFrontierList.push_back(fromInfo);
+        if (this->myBulkMode) {
+            const EdgeInfo& toInfo = myEdgeInfos[to->getNumericalID()];
+            if (toInfo.visited) {
+                buildPathFrom(&toInfo, into);
+                this->endQuery(1);
+                return;
+            }
+        } else {
+            init();
+            // add begin node
+            EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
+            fromInfo->traveltime = 0;
+            fromInfo->prev = 0;
+            myFrontierList.push_back(fromInfo);
+        }
         // loop
         int num_visited = 0;
         while (!myFrontierList.empty()) {
@@ -190,17 +208,15 @@ public:
             // use the node with the minimal length
             EdgeInfo* const minimumInfo = myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
-            pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
-            myFrontierList.pop_back();
-            myFound.push_back(minimumInfo);
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
                 this->endQuery(num_visited);
-                // DEBUG
-                //std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
                 return;
             }
+            pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
+            myFrontierList.pop_back();
+            myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
             const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // admissible A* heuristic: straight line distance at maximum speed
@@ -242,7 +258,7 @@ public:
             }
         }
         this->endQuery(num_visited);
-        myErrorMsgHandler->inform("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
+        myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
     }
 
 
@@ -260,13 +276,13 @@ public:
 
 public:
     /// Builds the path from marked edges
-    void buildPathFrom(EdgeInfo* rbegin, std::vector<const E*>& edges) {
-        std::deque<const E*> tmp;
+    void buildPathFrom(const EdgeInfo* rbegin, std::vector<const E*>& edges) {
+        std::vector<const E*> tmp;
         while (rbegin != 0) {
-            tmp.push_front((E*) rbegin->edge);  // !!!
+            tmp.push_back(rbegin->edge);
             rbegin = rbegin->prev;
         }
-        std::copy(tmp.begin(), tmp.end(), std::back_inserter(edges));
+        std::copy(tmp.rbegin(), tmp.rend(), std::back_inserter(edges));
     }
 
 protected:
@@ -285,7 +301,6 @@ protected:
 
     /// @brief the lookup table for travel time heuristics
     const LookupTable* const myLookupTable;
-
 };
 
 

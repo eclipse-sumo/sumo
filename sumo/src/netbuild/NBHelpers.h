@@ -10,7 +10,7 @@
 // Some mathematical helper methods
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -34,6 +34,7 @@
 #endif
 
 #include <string>
+#include <set>
 
 
 // ===========================================================================
@@ -67,6 +68,9 @@ public:
 
     /** returns the distance between both nodes */
     static SUMOReal distance(NBNode* node1, NBNode* node2);
+
+    /// @brief Add edge ids defined in file (either ID or edge::ID per line) into the given set
+    static void loadEdgesFromFile(const std::string& file, std::set<std::string>& into);
 
 };
 

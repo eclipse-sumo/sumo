@@ -9,7 +9,7 @@
 // A device that performs vehicle rerouting based on current edge speeds
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2007-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -115,6 +115,9 @@ public:
     }
     static void unlock() {
         myThreadPool.unlock();
+    }
+    static bool isParallel() {
+        return myThreadPool.size() > 0;
     }
 #endif
 
@@ -324,6 +327,9 @@ private:
 
     /// @brief The router to use
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
+
+    /// @brief Whether to disturb edge weights dynamically
+    static SUMOReal myRandomizeWeightsFactor;
 
 #ifdef HAVE_FOX
     static FXWorkerThread::Pool myThreadPool;

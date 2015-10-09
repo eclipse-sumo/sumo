@@ -11,7 +11,7 @@
 // A view on the simulation; this view is a microscopic one
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -69,6 +69,18 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+/* -------------------------------------------------------------------------
+ * GUIViewTraffic - FOX callback mapping
+ * ----------------------------------------------------------------------- */
+FXDEFMAP(GUIViewTraffic) GUIViewTrafficMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE, GUIViewTraffic::onCmdCloseLane),
+    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE, GUIViewTraffic::onCmdCloseEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_ADD_REROUTER, GUIViewTraffic::onCmdAddRerouter),
+};
+
+
+FXIMPLEMENT_ABSTRACT(GUIViewTraffic, GUISUMOAbstractView, GUIViewTrafficMap, ARRAYNUMBER(GUIViewTrafficMap))
+
 
 // ===========================================================================
 // member method definitions
@@ -111,17 +123,20 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
                  GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
-    if (!MSGlobals::gUseMesoSim) { // there are no gui-vehicles in mesosim
-        // for vehicles
-        new FXButton(v.getLocatorPopup(),
-                     "\tLocate Vehicle\tLocate a vehicle within the network.",
-                     GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
-                     ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-    }
+    // for vehicles
     new FXButton(v.getLocatorPopup(),
-            "\tLocate Vehicle\tLocate a person within the network.",
-            GUIIconSubSys::getIcon(ICON_LOCATEPERSON), &v, MID_LOCATEPERSON,
+            "\tLocate Vehicle\tLocate a vehicle within the network.",
+            GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
             ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+
+    // for persons
+    if (!MSGlobals::gUseMesoSim) { // there are no persons in mesosim (yet)
+        new FXButton(v.getLocatorPopup(),
+                "\tLocate Vehicle\tLocate a person within the network.",
+                GUIIconSubSys::getIcon(ICON_LOCATEPERSON), &v, MID_LOCATEPERSON,
+                ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    }
+
     // for tls
     new FXButton(v.getLocatorPopup(),
                  "\tLocate TLS\tLocate a tls within the network.",
@@ -282,5 +297,54 @@ GUIViewTraffic::getCurrentTimeStep() const {
     return MSNet::getInstance()->getCurrentTimeStep();
 }
 
+
+GUILane* 
+GUIViewTraffic::getLaneUnderCursor() {
+    if (makeCurrent()) {
+        unsigned int id = getObjectUnderCursor();
+        if (id != 0) {
+            GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+            if (o != 0) {
+                return dynamic_cast<GUILane*>(o);
+            }
+        }
+        makeNonCurrent();
+    }
+    return 0;
+}
+
+long
+GUIViewTraffic::onCmdCloseLane(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != 0) {
+        lane->closeTraffic();
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+		update();
+    }
+    return 1;
+}
+
+
+long
+GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != 0) {
+        dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+		update();
+    }
+    return 1;
+}
+
+long
+GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != 0) {
+        dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+		update();
+    }
+    return 1;
+}
 
 /****************************************************************************/

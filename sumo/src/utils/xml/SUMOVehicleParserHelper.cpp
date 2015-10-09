@@ -11,7 +11,7 @@
 // Helper methods for parsing vehicle attributes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -165,7 +165,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     } else {
         // interpret repetitionNumber
         if (ok && ret->repetitionProbability > 0) {
-            ret->repetitionNumber = INT_MAX;
+            ret->repetitionNumber = std::numeric_limits<int>::max();
             ret->repetitionEnd = end;
         } else {
             if (ok && ret->repetitionOffset <= 0) {
@@ -173,7 +173,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
                 throw ProcessError("Invalid repetition rate in the definition of flow '" + id + "'.");
             }
             if (end == SUMOTime_MAX) {
-                ret->repetitionNumber = INT_MAX;
+                ret->repetitionNumber = std::numeric_limits<int>::max();
             } else {
                 ret->repetitionNumber = MAX2(1, (int)(((SUMOReal)(end - ret->depart)) / ret->repetitionOffset + 0.5));
             }
@@ -310,15 +310,15 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     } else {
         ret->color = RGBColor::DEFAULT_COLOR;
     }
-    // parse person capacity
-    if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
-        ret->setParameter |= VEHPARS_PERSON_CAPACITY_SET;
-        ret->personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, ret->id.c_str(), ok);
-    }
     // parse person number
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_NUMBER)) {
         ret->setParameter |= VEHPARS_PERSON_NUMBER_SET;
         ret->personNumber = attrs.get<int>(SUMO_ATTR_PERSON_NUMBER, ret->id.c_str(), ok);
+    }
+    // parse container number
+    if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_NUMBER)) {
+        ret->setParameter |= VEHPARS_CONTAINER_NUMBER_SET;
+        ret->containerNumber = attrs.get<int>(SUMO_ATTR_CONTAINER_NUMBER, ret->id.c_str(), ok);
     }
 }
 
@@ -410,11 +410,33 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             throw ProcessError();
         }
     }
-    try {
-        parseVTypeEmbedded(*vtype, SUMO_TAG_CF_KRAUSS, attrs, true);
-    } catch (ProcessError&) {
-        throw;
+    if (attrs.hasAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL)) {
+        const std::string cfmS = attrs.get<std::string>(SUMO_ATTR_CAR_FOLLOW_MODEL, vtype->id.c_str(), ok);
+        if (SUMOXMLDefinitions::CarFollowModels.hasString(cfmS)) {
+            vtype->cfModel = SUMOXMLDefinitions::CarFollowModels.get(cfmS);
+            vtype->setParameter |= VTYPEPARS_CAR_FOLLOW_MODEL;
+        } else {
+            WRITE_ERROR("Unknown car following model '" + cfmS + "' when parsing vtype '" + vtype->id + "'");
+            throw ProcessError();
+        }
     }
+    if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
+        vtype->personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_PERSON_CAPACITY;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_CAPACITY)) {
+        vtype->containerCapacity = attrs.get<int>(SUMO_ATTR_CONTAINER_CAPACITY, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_CONTAINER_CAPACITY;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_BOARDING_DURATION)) {
+        vtype->boardingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_BOARDING_DURATION, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_BOARDING_DURATION;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_LOADING_DURATION)) {
+        vtype->loadingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_LOADING_DURATION, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_LOADING_DURATION;
+    }
+    parseVTypeEmbedded(*vtype, vtype->cfModel, attrs, true);
     if (!ok) {
         delete vtype;
         throw ProcessError();
@@ -445,6 +467,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into,
     }
     if (!fromVType) {
         into.cfModel = cf_it->first;
+        into.setParameter |= VTYPEPARS_CAR_FOLLOW_MODEL;
     }
     bool ok = true;
     for (std::set<SumoXMLAttr>::const_iterator it = cf_it->second.begin(); it != cf_it->second.end(); it++) {

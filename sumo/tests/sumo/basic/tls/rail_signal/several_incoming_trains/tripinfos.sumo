@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 02/13/15 11:16:20 by SUMO Version dev-SVN-r17845
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="200"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="rail3" depart="0.00" departLane="gneE8_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="70.00" arrivalLane="gneE3_0" arrivalPos="171.44" arrivalSpeed="13.89" duration="70.00" routeLength="583.96" waitSteps="0" timeLoss="27.28" rerouteNo="0" devices="tripinfo_rail3" vType="rail" vaporized=""/>
+    <tripinfo id="rail1" depart="0.00" departLane="gneE0_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="123.00" arrivalLane="gneE3_0" arrivalPos="171.44" arrivalSpeed="13.25" duration="123.00" routeLength="567.45" waitSteps="26" timeLoss="82.07" rerouteNo="0" devices="tripinfo_rail1" vType="rail" vaporized=""/>
+    <tripinfo id="rail2" depart="0.00" departLane="gneE6_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="176.00" arrivalLane="gneE3_0" arrivalPos="171.44" arrivalSpeed="13.25" duration="176.00" routeLength="589.27" waitSteps="77" timeLoss="133.52" rerouteNo="0" devices="tripinfo_rail2" vType="rail" vaporized=""/>
+</tripinfos>

@@ -10,7 +10,7 @@
 // Main for GUISIM
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -77,13 +77,6 @@ main(int argc, char** argv) {
     try {
         // initialise subsystems
         XMLSubSys::init();
-        MSFrame::fillOptions();
-        OptionsIO::getOptions(false, argc, argv);
-        if (oc.processMetaOptions(false)) {
-            SystemFrame::close();
-            return 0;
-        }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
         // Make application
         FXApp application("SUMO GUISimulation", "DLR");
         // Open display
@@ -97,12 +90,13 @@ main(int argc, char** argv) {
         GUIApplicationWindow* window =
             new GUIApplicationWindow(&application, "*.sumo.cfg,*.sumocfg");
         gSchemeStorage.init(&application);
-        window->dependentBuild(oc.getBool("game"));
+        window->dependentBuild();
         // Create app
         application.addSignal(SIGINT, window, MID_QUIT);
         application.create();
         // Load configuration given on command line
-        if (oc.isSet("configuration-file") || oc.isSet("net-file")) {
+        if (argc > 1) {
+            OptionsIO::setArgs(argc, argv);
             window->loadOnStartup();
         }
         // Run

@@ -11,7 +11,7 @@
 Convert csv files to selected xml input files for SUMO
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2013-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -21,21 +21,27 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys, csv, contextlib
+import os
+import sys
+import csv
+import contextlib
 
 from collections import defaultdict, OrderedDict
 from optparse import OptionParser
 
-import xsd, xml2csv
+import xsd
+import xml2csv
+
 
 def get_options():
-    optParser = OptionParser(usage=os.path.basename(sys.argv[0])+" [<options>] <input_file_or_port>")
+    optParser = OptionParser(
+        usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
     optParser.add_option("-q", "--quotechar", default="",
-             help="the quoting character for fields")
+                         help="the quoting character for fields")
     optParser.add_option("-d", "--delimiter", default=";",
-             help="the field separator of the input file")
-    optParser.add_option("-t", "--type", 
-             help="convert the given csv-file into the specified format")
+                         help="the field separator of the input file")
+    optParser.add_option("-t", "--type",
+                         help="convert the given csv-file into the specified format")
     optParser.add_option("-x", "--xsd", help="xsd schema to use")
     optParser.add_option("-p", "--skip-root", action="store_true",
                          default=False, help="the root element is not contained")
@@ -45,7 +51,8 @@ def get_options():
         optParser.print_help()
         sys.exit()
     if not options.xsd and not options.type:
-        print("either a schema or a type needs to be specified", file=sys.stderr)
+        print(
+            "either a schema or a type needs to be specified", file=sys.stderr)
         sys.exit()
     options.source = args[0]
     if not options.output:
@@ -54,8 +61,10 @@ def get_options():
 
 
 def row2xml(row, tag, close="/>\n", depth=1):
-    attrString = ' '.join(['%s="%s"' % (a[len(tag)+1:], v) for a,v in row.items() if v != "" and a.startswith(tag)])
+    attrString = ' '.join(['%s="%s"' % (a[len(tag) + 1:], v)
+                           for a, v in row.items() if v != "" and a.startswith(tag)])
     return ('%s<%s %s%s' % ((depth * '    '), tag, attrString, close))
+
 
 def row2vehicle_and_route(row, tag):
     if "vehicle_route" in row:
@@ -63,9 +72,11 @@ def row2vehicle_and_route(row, tag):
     else:
         edges = row.get("route_edges", "MISSING_VALUE")
         return ('    <%s %s>\n        <route edges="%s"/>\n    </%s>\n' % (
-            tag, 
-            ' '.join(['%s="%s"' % (a[len(tag)+1:], v) for a,v in row.items() if v != "" and a != "route_edges"]),
+            tag,
+            ' '.join(['%s="%s"' % (a[len(tag) + 1:], v)
+                      for a, v in row.items() if v != "" and a != "route_edges"]),
             edges, tag))
+
 
 def write_xml(toptag, tag, options, printer=row2xml):
     with open(options.output, 'w') as outputf:
@@ -78,6 +89,7 @@ def write_xml(toptag, tag, options, printer=row2xml):
             outputf.write(printer(row, tag))
         outputf.write('</%s>\n' % toptag)
 
+
 def checkAttributes(out, old, new, ele, tagStack, depth):
     for attr in ele.attributes:
         name = "%s_%s" % (ele.name, attr.name)
@@ -88,6 +100,7 @@ def checkAttributes(out, old, new, ele, tagStack, depth):
             return True
     return False
 
+
 def checkChanges(out, old, new, currEle, tagStack, depth):
     #print(depth, currEle.name, tagStack)
     if depth >= len(tagStack):
@@ -97,7 +110,7 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
                 #print(depth, "adding", ele.name, ele.children)
                 tagStack.append(ele.name)
                 if ele.children:
-                    checkChanges(out, old, new, ele, tagStack, depth+1)
+                    checkChanges(out, old, new, ele, tagStack, depth + 1)
     else:
         for ele in currEle.children:
             if ele.name in tagStack and tagStack.index(ele.name) != depth:
@@ -115,13 +128,14 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
                 out.write("/>\n")
                 del tagStack[-1]
                 while len(tagStack) > depth:
-                    out.write("%s</%s>\n" % ((len(tagStack)-1) * '    ', tagStack[-1]))
+                    out.write("%s</%s>\n" %
+                              ((len(tagStack) - 1) * '    ', tagStack[-1]))
                     del tagStack[-1]
                 out.write(row2xml(new, ele.name, "", depth))
                 tagStack.append(ele.name)
                 changed = False
             if present and ele.children:
-                checkChanges(out, old, new, ele, tagStack, depth+1)
+                checkChanges(out, old, new, ele, tagStack, depth + 1)
 
 
 def writeHierarchicalXml(struct, options):
@@ -148,17 +162,18 @@ def writeHierarchicalXml(struct, options):
                         enums[f] = enum
             else:
                 row = OrderedDict()
-                for field, entry in zip(fields,raw):
+                for field, entry in zip(fields, raw):
                     if field in enums and entry.isdigit():
                         entry = enums[field][int(entry)]
                     row[field] = entry
                 if first and not options.skip_root:
-                    checkAttributes(outputf, lastRow, row, struct.root, tagStack, 0)
+                    checkAttributes(
+                        outputf, lastRow, row, struct.root, tagStack, 0)
                     first = False
                 checkChanges(outputf, lastRow, row, struct.root, tagStack, 1)
                 lastRow = row
         outputf.write("/>\n")
-        for idx in range(len(tagStack)-2, -1, -1):
+        for idx in range(len(tagStack) - 2, -1, -1):
             outputf.write("%s</%s>\n" % (idx * '    ', tagStack[idx]))
 
 

@@ -9,7 +9,7 @@
 // A list of positions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -210,6 +210,9 @@ public:
 
     void add(SUMOReal xoff, SUMOReal yoff, SUMOReal zoff);
 
+    /// @brief mirror coordinates along the x-axis
+    void mirrorX();
+
     void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
     PositionVector convexHull() const;
@@ -287,7 +290,7 @@ public:
      * if extend is true, the vector is extended on both sides and the
      * x-coordinate of the result may be below 0 or above the length of the original vector
      */
-    Position transformToVectorCoordinates(const Position& p, bool extend=false) const;
+    Position transformToVectorCoordinates(const Position& p, bool extend = false) const;
 
     /* @brief index of the closest position to p
      * @note: may only be called for a non-empty vector */
@@ -297,12 +300,12 @@ public:
      * if perpenciualr is set to true, only the perpendicular distances are
      * returned
      */
-    std::vector<SUMOReal> distances(const PositionVector& s, bool perpendicular=false) const;
+    std::vector<SUMOReal> distances(const PositionVector& s, bool perpendicular = false) const;
 
-    /* @brief closest distance to point p 
+    /* @brief closest distance to point p
      * (or -1 if perpendicular is true and the point is beyond this vector)
      */
-    SUMOReal distance(const Position& p, bool perpendicular=false) const;
+    SUMOReal distance(const Position& p, bool perpendicular = false) const;
 
     void push_back_noDoublePos(const Position& p);
     void push_front_noDoublePos(const Position& p);
@@ -316,6 +319,9 @@ public:
     void removeDoublePoints(SUMOReal minDist = POSITION_EPS, bool assertLength = false);
 
     void removeColinearPoints();
+
+    /// @brief return whether two positions differ in z-coordinate
+    bool hasElevation() const;
 
 };
 

@@ -2,20 +2,20 @@ The subfolders contain additional libraries used by SUMO:
 
 - nvwa
  Memory checks library
- Used Version: 0.8.2
- Modifications: unused files removed, added compile guard to debug_new.cpp
+ Used Version: 1.0
+ Modifications: unused files removed, added compile guard to debug_new.cpp, fixed throw declarations
  Original Page: http://sourceforge.net/projects/nvwa
 
 - Mersenne Twister Random Number Generator
  Random number generator
  Used Version: 1.0
- Modifications: none
+ Modifications: fixed compiler warnings, added 64bit version of randInt
  Original Page: http://www-personal.engin.umich.edu/~wagnerr/MersenneTwister.html
 
 - tcpip
  Simple TCP/IP Socket Class to communicate with other programs
- Used Version: always the most recent one (included via svn:externals)
- Modifications: none
+ Used Version: https://github.com/itm/shawn/tree/master/src/apps/tcpip from 2012-09-28
+ Modifications: fixed invalid buffer length calculation, fixed compiler warnings, removed "using namespace std"
  Original Page: http://shawn.sf.net
  
 - Polyfonts
@@ -33,7 +33,7 @@ The subfolders contain additional libraries used by SUMO:
 - EulerSpiral
  Approximating curves
  Used version: unknown
- Modifications: fixing warnings (removing unused variables, initializing variables); relicensed under LGPL, see license file
+ Modifications: fixing warnings (removing unused variables, initializing variables), adding missing includes for cygwin; relicensed under LGPL, see license file
  Original page: http://www.lems.brown.edu/vision/researchAreas/EulerSpiral/
 
 - gl2ps

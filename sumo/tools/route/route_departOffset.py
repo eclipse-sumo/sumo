@@ -9,7 +9,7 @@
 Applies a given offset to the given route's departure time
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -17,22 +17,25 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import sys, optparse, array
+import sys
+import optparse
+import array
 from xml.sax import make_parser, handler
+
 
 class RouteReader(handler.ContentHandler):
 
     def __init__(self, offset, out):
         self._offset = offset
         self._out = out
-        
+
     def startElement(self, name, attrs):
         self._out.write('<' + name)
         for a in attrs.keys():
             val = attrs[a]
-            if a=="depart":
+            if a == "depart":
                 val = str(int(val) + self._offset)
-            if a=="id":
+            if a == "id":
                 val = val + "_" + str(self._offset)
             self._out.write(' ' + a + '="' + val + '"')
         self._out.write('>')
@@ -42,6 +45,7 @@ class RouteReader(handler.ContentHandler):
 
     def characters(self, content):
         self._out.write(content)
+
 
 def main(infile, outfile, offset):
     out = open(outfile, "w")

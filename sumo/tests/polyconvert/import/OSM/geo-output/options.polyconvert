@@ -1,0 +1,1 @@
+-v --osm osm.xml -o pois.poi.xml --proj.plain-geo true

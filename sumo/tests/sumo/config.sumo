@@ -43,6 +43,7 @@ full:full.xml
 vtk:vtk.txt
 queue:queue.xml
 emissions:emissions.xml
+battery:battery.xml
 tol_sql:tol_sql.txt
 tol_plain:tol_plain.txt
 tol_la_sql:tol_la_sql.txt
@@ -65,6 +66,7 @@ links:linkstate.xml
 aggregated60Prefixed:pre_aggregated_60.xml
 tripinfosPrefix:pre_tripinfos.xml
 logPrefixed:pre_log.txt
+weights:weights.xml
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:
@@ -91,6 +93,7 @@ fcd:<!--{[->]}-->
 full:<!--{[->]}-->
 queue:<!--{[->]}-->
 emissions:<!--{[->]}-->
+battery:<!--{[->]}-->
 links:<!--{[->]}-->
 vtk:<!--{[->]}-->
 vehroutes_ignore_arrival:<!--{[->]}-->
@@ -120,6 +123,7 @@ errors:Could not find connection between
 output:movereminder-output{LINES 2}
 cfg:<movereminder{LINES 2}
 cfg:movereminder
+weights:<!--{[->]}-->
 
 [floating_point_tolerance]
 detector:0.0101
@@ -137,6 +141,7 @@ rawdump:0.0101
 errors:0.0101
 full:0.0101
 vtypeprobe:0.0101
+weights:0.0101
 
 [relative_float_tolerance]
 aggregated1:0.00001

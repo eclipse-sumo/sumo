@@ -8,7 +8,7 @@
 // Main for an emissions calculator
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -129,7 +129,8 @@ main(int argc, char** argv) {
     try {
         // initialise the application system (messaging, xml, options)
         XMLSubSys::init();
-        OptionsIO::getOptions(true, argc, argv);
+        OptionsIO::setArgs(argc, argv);
+        OptionsIO::getOptions();
         OptionsCont& oc = OptionsCont::getOptions();
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();

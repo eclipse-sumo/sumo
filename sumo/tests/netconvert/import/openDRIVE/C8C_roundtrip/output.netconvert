@@ -1,3 +1,4 @@
+Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/opendriveNetconvert.typ.xml'... done.
 Parsing opendrive from 'opendrive.xodr'... 
 done.
  Import done:
@@ -8,7 +9,6 @@ Removing self-loops... done.
 Removing empty nodes... done.
    0 nodes removed.
 Moving network to origin... done.
-Joining similar edges... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node shapes... done.

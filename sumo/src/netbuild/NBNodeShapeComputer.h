@@ -9,7 +9,7 @@
 // This class computes shapes of junctions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -58,7 +58,7 @@ public:
     ~NBNodeShapeComputer();
 
     /// Computes the shape of the assigned junction
-    PositionVector compute(bool leftHand);
+    PositionVector compute();
 
 private:
     typedef std::map<NBEdge*, PositionVector> GeomsMap;
@@ -84,15 +84,6 @@ private:
     PositionVector computeNodeShapeSmall();
 
 
-    void replaceLastChecking(PositionVector& g, bool decenter,
-                             PositionVector counter, size_t counterLanes, SUMOReal counterDist,
-                             int laneDiff);
-
-
-    void replaceFirstChecking(PositionVector& g, bool decenter,
-                              PositionVector counter, size_t counterLanes, SUMOReal counterDist,
-                              int laneDiff);
-
     /** @brief Joins edges and computes ccw/cw boundaries
      *
      * This method goes through all edges and stores each edge's ccw and cw
@@ -102,7 +93,7 @@ private:
      *  all edges within the value-vector which direction at the node differs
      *  less than 1 from the key-edge's direction.
      */
-    void joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same,
+    void joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> >& same,
                                 GeomsMap& geomsCCW,
                                 GeomsMap& geomsCW);
 
@@ -114,7 +105,7 @@ private:
      *  ccwBoundary/cwBoundary.
      */
     EdgeVector computeUniqueDirectionList(
-        const std::map<NBEdge*, EdgeVector >& same,
+        std::map<NBEdge*, std::set<NBEdge*> >& same,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW,
         std::map<NBEdge*, NBEdge*>& ccwBoundary,
@@ -128,13 +119,12 @@ private:
      * @param[in] cornerDetail
      * @return shape to be appended between begPoint and endPoint
      */
-    PositionVector getSmoothCorner(PositionVector begShape, PositionVector endShape, 
-            const Position& begPoint, const Position& endPoint, int cornerDetail);
+    PositionVector getSmoothCorner(PositionVector begShape, PositionVector endShape,
+                                   const Position& begPoint, const Position& endPoint, int cornerDetail);
 
     /** @brief Initialize neighbors and angles
      * @param[in] edges The list of edges sorted in clockwise direction
      * @param[in] current An iterator to the current edge
-     * @param[in] simpleContinuation Whether myNode is a simple continuation node (geometrylike)
      * @param[in] geomsCW geometry map
      * @param[in] geomsCCW geometry map
      * @param[out] cwi An iterator to the clockwise neighbor
@@ -142,16 +132,20 @@ private:
      * @param[out] cad The angle difference to the clockwise neighbor
      * @param[out] ccad The angle difference to the counter-clockwise neighbor
      */
-    static void initNeighbors(const EdgeVector& edges, const EdgeVector::const_iterator& current, bool simpleContinuation,
-            GeomsMap& geomsCW,
-            GeomsMap& geomsCCW,
-            EdgeVector::const_iterator& cwi,
-            EdgeVector::const_iterator& ccwi,
-            SUMOReal& cad,
-            SUMOReal& ccad);
+    static void initNeighbors(const EdgeVector& edges, const EdgeVector::const_iterator& current,
+                              GeomsMap& geomsCW,
+                              GeomsMap& geomsCCW,
+                              EdgeVector::const_iterator& cwi,
+                              EdgeVector::const_iterator& ccwi,
+                              SUMOReal& cad,
+                              SUMOReal& ccad);
 
     /// @return whether trying to intersect these edges would probably fail
-    bool badIntersection(const NBEdge* e1, const NBEdge* e2, SUMOReal absAngleDiff, SUMOReal distance, SUMOReal threshold);
+    bool badIntersection(const NBEdge* e1, const NBEdge* e2,
+                         const PositionVector& e1cw, const PositionVector& e2ccw, SUMOReal distance);
+
+    /// @brief return the intersection point closest to the given offset
+    SUMOReal closestIntersection(const PositionVector& geom1, const PositionVector& geom2, SUMOReal offset);
 
 private:
     /// The node to compute the geometry for

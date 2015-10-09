@@ -11,6 +11,8 @@
 
 # 3 arm junction with 3 crossings
 3_arm_1_opposite_sidewalk_3_crossings
+3_arm_sharp_angle
+3_arm_with_oneway
 
 # 4 arm junction with crossings on all sides
 4_arm_complete
@@ -26,6 +28,7 @@
 
 # a pedestrian path crosses a street with sidewalks
 path_across_street
+path_across_street_split
 
 # a pedestrian path crosses a one-street with a sidewalk
 path_across_1way_street
@@ -42,3 +45,17 @@ patch_tls_from_sumonet
 
 # a complex network
 adlershof_dlr
+unregulated_node
+joined_TLS
+
+# trying to combine crossings.guess with --no-internal-links
+invalid_options
+
+# do not guess crossings for a given node
+discard
+
+# load a net.xml with crossing which gets invalidated due to patched lane permissions
+loaded_crossing_invalidated
+
+# load a net.xml with crossing which gets invalidated due to patched lane permissions
+loaded_crossing_invalidated2

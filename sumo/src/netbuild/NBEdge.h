@@ -9,7 +9,7 @@
 // The representation of a single edge during network building
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -153,7 +153,7 @@ public:
          */
         Connection(int fromLane_, NBEdge* toEdge_, int toLane_)
             : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_),
-              mayDefinitelyPass(false), haveVia(false) { }
+              mayDefinitelyPass(false), keepClear(true), haveVia(false) { }
 
         ~Connection() { }
 
@@ -170,6 +170,8 @@ public:
         unsigned int tlLinkNo;
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
+        /// @brief whether the junction must be kept clear when using this connection
+        bool keepClear;
 
 
         std::string origID;
@@ -195,7 +197,7 @@ public:
 
     /// Computes the offset from the edge shape on the current segment
     static std::pair<SUMOReal, SUMOReal> laneOffset(const Position& from,
-            const Position& to, SUMOReal laneCenterOffset, bool leftHand);
+            const Position& to, SUMOReal laneCenterOffset);
 
     /// @brief unspecified lane width
     static const SUMOReal UNSPECIFIED_WIDTH;
@@ -327,16 +329,10 @@ public:
      * @param[in] yoff The y-offset to apply
      */
     void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
+
+    /// @brief mirror coordinates along the x-axis
+    void mirrorX();
     /// @}
-
-
-
-    /** @brief Marks this edge to be left-handed
-     */
-    void setLeftHanded() {
-        myAmLeftHand = true;
-    }
-
 
     /// @name Atomar getter methods
     //@{
@@ -496,14 +492,6 @@ public:
         mySignalOffset = offset;
     }
 
-    /** @brief Returns the type name
-     * @return The name of this edge's type
-     */
-    const std::string& getTypeName() const {
-        return myType;
-    }
-
-
     /** @brief Returns the lane definitions
      * @return The stored lane definitions
      */
@@ -516,7 +504,7 @@ public:
      * @param[in] direction The direction in which the lanes shall be checked
      * @param[in] exclusive Whether lanes that allow pedestrians along with other classes shall be counted as non-pedestrian
      */
-    int getFirstNonPedestrianLaneIndex(int direction, bool exclusive=false) const;
+    int getFirstNonPedestrianLaneIndex(int direction, bool exclusive = false) const;
     NBEdge::Lane getFirstNonPedestrianLane(int direction) const;
 
     /// @brief return the angle for computing pedestrian crossings at the given node
@@ -574,6 +562,10 @@ public:
      */
     void addGeometryPoint(int index, const Position& p);
 
+    /** @brief shift geometry at the given node
+     * to avoid overlap
+     */
+    void shiftPositionAtNode(NBNode* node, NBEdge* opposite);
 
     /** @brief Recomputeds the lane shapes to terminate at the node shape
      * For every lane the intersection with the fromNode and toNode is
@@ -676,7 +668,8 @@ public:
     bool addLane2LaneConnection(unsigned int fromLane, NBEdge* dest,
                                 unsigned int toLane, Lane2LaneInfoType type,
                                 bool mayUseSameDestination = false,
-                                bool mayDefinitelyPass = false);
+                                bool mayDefinitelyPass = false,
+                                bool keepClear = true);
 
 
     /** @brief Builds no connections starting at the given lanes
@@ -716,7 +709,8 @@ public:
                        unsigned int destLane,
                        Lane2LaneInfoType type,
                        bool mayUseSameDestination = false,
-                       bool mayDefinitelyPass = false);
+                       bool mayDefinitelyPass = false,
+                       bool keepClear = true);
 
 
 
@@ -729,6 +723,12 @@ public:
      * @see NBEdge::Connection
      */
     std::vector<Connection> getConnectionsFromLane(unsigned int lane) const;
+
+    /** @brief Returns the specified connection
+     * This method goes through "myConnections" and returns the specified one
+     * @see NBEdge::Connection
+     */
+    Connection getConnection(int fromLane, const NBEdge* to, int toLane) const;
 
 
     /** @brief Retrieves info about a connection to a certain lane of a certain edge
@@ -824,12 +824,18 @@ public:
 
 
     /** @brief Returns whether the given edge is the opposite direction to this edge
-     * @param[in] n The node at which this may be turnaround direction
      * @param[in] edge The edge which may be the turnaround direction
      * @return Whether the given edge is this edge's turnaround direction
+     * (regardless of whether a connection exists)
      */
-    bool isTurningDirectionAt(const NBNode* n, const NBEdge* const edge) const;
-    void setTurningDestination(NBEdge* e);
+    bool isTurningDirectionAt(const NBEdge* const edge) const;
+
+
+    /** @brief Sets the turing destination at the given edge
+     * @param[in] e The turn destination
+     * @param[in] onlyPossible If true, only sets myPossibleTurnDestination
+     */
+    void setTurningDestination(NBEdge* e, bool onlyPossible = false);
 
 
 
@@ -900,7 +906,7 @@ public:
     bool needsLaneSpecificOutput() const;
 
     /// @brief whether at least one lane has restrictions
-    bool hasRestrictions() const;
+    bool hasPermissions() const;
 
     /// @brief whether lanes differ in allowed vehicle classes
     bool hasLaneSpecificPermissions() const;
@@ -918,11 +924,11 @@ public:
     bool computeEdge2Edges(bool noLeftMovers);
 
     /// computes the edge, step2: computation of which lanes approach the edges)
-    bool computeLanes2Edges(const bool buildCrossingsAndWalkingAreas);
+    bool computeLanes2Edges();
 
     /** recheck whether all lanes within the edge are all right and
         optimises the connections once again */
-    bool recheckLanes(const bool buildCrossingsAndWalkingAreas);
+    bool recheckLanes();
 
     /** @brief Add a connection to the previously computed turnaround, if wished
      *
@@ -971,7 +977,11 @@ public:
 
     void moveOutgoingConnectionsFrom(NBEdge* e, unsigned int laneOff);
 
-    NBEdge* getTurnDestination() const;
+    /* @brief return the turn destination if it exists
+     * @param[in] possibleDestination Wether myPossibleTurnDestination should be returned if no turnaround connection
+     * exists
+     */
+    NBEdge* getTurnDestination(bool possibleDestination = false) const;
 
     std::string getLaneID(unsigned int lane) const;
 
@@ -1005,12 +1015,19 @@ public:
 
     void incLaneNo(unsigned int by);
 
-    void decLaneNo(unsigned int by, int dir = 0);
+    void decLaneNo(unsigned int by);
+
+    void deleteLane(unsigned int index, bool recompute=true);
+
+    void addLane(unsigned int index, bool recompute=true);
 
     void markAsInLane2LaneState();
 
     /// add a pedestrian sidewalk of the given width and shift existing connctions
     void addSidewalk(SUMOReal width);
+
+    /// add a bicycle lane of the given width and shift existing connctions
+    void addBikeLane(SUMOReal width);
 
     /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given
     void setPermissions(SVCPermissions permissions, int lane = -1);
@@ -1072,6 +1089,8 @@ public:
         mySigns.push_back(sign);
     }
 
+    /// @brief cut shape at the intersection shapes
+    PositionVector cutAtIntersection(const PositionVector& old) const;
 
 private:
     /**
@@ -1154,7 +1173,7 @@ private:
     };
 
     /// Computes the shape for the given lane
-    PositionVector computeLaneShape(unsigned int lane, SUMOReal offset);
+    PositionVector computeLaneShape(unsigned int lane, SUMOReal offset) const;
 
     /// Computes the offset from the edge shape on the current segment
     //std::pair<SUMOReal, SUMOReal> laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset);
@@ -1183,7 +1202,9 @@ private:
 
 
     /** divides the lanes on the outgoing edges */
-    void divideOnEdges(const EdgeVector* outgoing, const bool buildCrossingsAndWalkingAreas);
+    void divideOnEdges(const EdgeVector* outgoing);
+    void divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes,
+                                    const std::vector<unsigned int>* priorities);
 
     /** recomputes the edge priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
@@ -1191,7 +1212,7 @@ private:
         const EdgeVector* outgoing);
 
     /** computes the sum of the given list's entries (sic!) */
-    unsigned int computePrioritySum(std::vector<unsigned int>* priorities);
+    static unsigned int computePrioritySum(const std::vector<unsigned int>& priorities);
 
 
     /// @name Setting and getting connections
@@ -1199,14 +1220,14 @@ private:
 
     /** moves a connection one place to the left;
         Attention! no checking for field validity */
-    void moveConnectionToLeft(unsigned int lane, const bool buildCrossingsAndWalkingAreas);
+    void moveConnectionToLeft(unsigned int lane);
 
     /** moves a connection one place to the right;
         Attention! no checking for field validity */
-    void moveConnectionToRight(unsigned int lane, const bool buildCrossingsAndWalkingAreas);
+    void moveConnectionToRight(unsigned int lane);
 
     /// @brief whether the connection can originate on newFromLane
-    bool canMoveConnection(const Connection& con, unsigned int newFromLane, const bool buildCrossingsAndWalkingAreas) const;
+    bool canMoveConnection(const Connection& con, unsigned int newFromLane) const;
     /// @}
 
 
@@ -1218,6 +1239,15 @@ private:
 
     /// @brief computes the angle of this edge and stores it in myAngle
     void computeAngle();
+
+
+    /* @brief compute the first intersection point between the given lane
+     * geometries considering their rspective widths */
+    static SUMOReal firstIntersection(const PositionVector& v1, const PositionVector& v2, SUMOReal width2);
+
+
+    /// add a lane of the given width, restricted to the given class and shift existing connctions
+    void addRestrictedLane(SUMOReal width, SUMOVehicleClass vclass);
 
 private:
     /** @brief The building step
@@ -1254,8 +1284,10 @@ private:
      */
     std::vector<Connection> myConnectionsToDelete;
 
-    /// @brief The turn destination edge
+    /// @brief The turn destination edge (if a connection exists)
     NBEdge* myTurnDestination;
+    /// @brief The edge that would be the turn destination if there was one
+    NBEdge* myPossibleTurnDestination;
 
     /// @brief The priority normalised for the node the edge is outgoing of
     int myFromJunctionPriority;
@@ -1282,10 +1314,6 @@ private:
 
     /// @brief An optional length to use (-1 if not valid)
     SUMOReal myLoadedLength;
-
-    /// @brief Whether this edge is a left-hand edge
-    bool myAmLeftHand;
-
 
     /// @brief Information whether this is a junction-inner edge
     bool myAmInnerEdge;
@@ -1351,13 +1379,16 @@ public:
     class connections_toedge_finder {
     public:
         /// constructor
-        connections_toedge_finder(NBEdge* const edge2find) : myEdge2Find(edge2find) { }
+        connections_toedge_finder(NBEdge* const edge2find, bool hasFromLane = false) :
+            myHasFromLane(hasFromLane),
+            myEdge2Find(edge2find) { }
 
         bool operator()(const Connection& c) const {
-            return c.toEdge == myEdge2Find;
+            return c.toEdge == myEdge2Find && (!myHasFromLane || c.fromLane != -1);
         }
 
     private:
+        const bool myHasFromLane;
         NBEdge* const myEdge2Find;
 
     private:

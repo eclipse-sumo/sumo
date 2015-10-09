@@ -4,6 +4,7 @@ libvissimtmpstr_a_SOURCES = NIVissimAbstractEdge.cpp NIVissimAbstractEdge.h \
 NIVissimBoundedClusterObject.cpp NIVissimBoundedClusterObject.h \
 NIVissimClosedLaneDef.cpp NIVissimClosedLaneDef.h \
 NIVissimClosedLanesVector.h NIVissimClosures.cpp NIVissimClosures.h \
+NIVissimConflictArea.cpp NIVissimConflictArea.h \
 NIVissimConnection.cpp NIVissimConnection.h \
 NIVissimConnectionCluster.cpp NIVissimConnectionCluster.h \
 NIVissimDistrictConnection.cpp NIVissimDistrictConnection.h \

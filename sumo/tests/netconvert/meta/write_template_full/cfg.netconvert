@@ -31,7 +31,7 @@
     </input>
 
     <output>
-        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
+        <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <output-file value="" synonymes="o output sumo-output" type="FILE" help="The generated net will be written to FILE"/>
         <plain-output-prefix value="" synonymes="plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
@@ -64,6 +64,10 @@
         <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes" type="BOOL" help="Sets district nodes as tls-controlled"/>
         <tls-guess.joining value="false" type="BOOL" help="Includes node clusters into guess"/>
         <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
+        <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
+        <tls.guess-signals value="false" type="BOOL" help="Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks"/>
+        <tls.guess-signals.dist value="25" type="FLOAT" help="Distance for interpreting nodes as signal locations"/>
+        <tls.cycle.time value="90" type="INT" help="Use INT as cycle duration"/>
         <tls.green.time value="31" synonymes="traffic-light-green" type="INT" help="Use INT as green phase duration"/>
         <tls.yellow.min-decel value="3" synonymes="D min-decel" type="FLOAT" help="Defines smallest vehicle deceleration"/>
         <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow" type="BOOL" help="Given yellow times are patched even if being too short"/>
@@ -79,6 +83,7 @@
         <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" type="FLOAT" help="Treat edges with speed &lt; FLOAT as no highways"/>
         <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" type="FLOAT" help="Use FLOAT as ramp-length"/>
         <ramps.set value="" synonymes="ramp-guess.explicite" type="STR" help="Tries to handle the given edges as ramps"/>
+        <ramps.unset value="" type="STR" help="Do not consider the given edges as ramps"/>
         <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL" help="Avoids edge splitting"/>
     </ramp_guessing>
 
@@ -86,7 +91,8 @@
         <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed in meters/second &gt; FLOAT"/>
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR" help="Remove edges in STR"/>
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR" help="Only keep edges in STR"/>
-        <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE"/>
+        <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
+        <remove-edges.input-file value="" type="FILE" help="Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
         <keep-edges.postload value="false" type="BOOL" help="Remove edges after joining"/>
         <keep-edges.in-boundary value="" type="STR" help="Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;)"/>
         <keep-edges.in-geo-boundary value="" type="STR" help="Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;)"/>
@@ -133,7 +139,6 @@
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges&apos; capacities"/>
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges"/>
-        <osm.railway.oneway-default value="true" type="BOOL" help="Imports railway edges as one-way by default"/>
         <osm.elevation value="false" type="BOOL" help="Imports elevation data"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types"/>
         <opendrive.ignore-widths value="false" type="BOOL" help="Whether lane widths shall be ignored."/>
@@ -144,6 +149,8 @@
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>
         <geometry.split value="false" synonymes="split-geometry" type="BOOL" help="Splits edges across geometry nodes"/>
         <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL" help="Replace nodes which only define edge geometry by geometry points (joins edges)"/>
+        <geometry.remove.keep-edges.explicit value="" type="STR" help="Ensure that the given list of edges is not modified"/>
+        <geometry.remove.keep-edges.input-file value="" type="FILE" help="Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
         <geometry.max-segment-length value="0" type="FLOAT" help="splits geometry to restrict segment length"/>
         <geometry.min-dist value="" type="FLOAT" help="reduces too similar geometry points"/>
         <geometry.max-angle value="99" type="FLOAT" help="Warn about edge geometries with an angle above DEGREES in successive segments"/>
@@ -156,6 +163,7 @@
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL" help="Flips the y-coordinate along zero"/>
         <roundabouts.guess value="false" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
+        <edges.join value="false" type="BOOL" help="Merges edges whch connect the same nodes and are close to each other (recommended for VISSIM import)"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
         <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
         <junctions.join-exclude value="" type="STR" help="Interprets STR as list of junctions to exclude from joining"/>
@@ -169,9 +177,6 @@
         <sidewalks.guess.min-speed value="5.8" type="FLOAT" help="Add sidewalks for edges with a speed above the given limit"/>
         <sidewalks.guess.from-permissions value="false" type="BOOL" help="Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed"/>
         <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
-        <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
-        <tls.guess-signals value="false" type="BOOL" help="Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks"/>
-        <tls.guess-signals.dist value="25" type="FLOAT" help="Distance for interpreting nodes as signal locations"/>
     </processing>
 
     <building_defaults>
@@ -179,6 +184,7 @@
         <default.speed value="13.9" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
+        <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
     </building_defaults>
 
     <report>

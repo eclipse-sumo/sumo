@@ -1,0 +1,15 @@
+# two tls with a long edge in between
+2tls
+basic
+
+# 1 flow snaking through the grid but allowing for full coordination
+1flow
+
+# 3 flows in a grid network allowing for full coordination
+3flows
+
+# 4 flows in a grid network that cannot be coordinate full
+4flows
+
+# 4 flows in a grid network that cannot be coordinate full (different demand levels)
+4flows_b

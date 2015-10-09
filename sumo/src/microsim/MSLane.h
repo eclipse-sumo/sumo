@@ -13,7 +13,7 @@
 // Representation of a lane in the micro simulation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -352,7 +352,13 @@ public:
      * @return This lane's resulting max. speed
      */
     inline SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
-        return myMaxSpeed * veh->getChosenSpeedFactor();
+        if (myRestrictions != 0) {
+            std::map<SUMOVehicleClass, SUMOReal>::const_iterator r = myRestrictions->find(veh->getVClass());
+            if (r != myRestrictions->end()) {
+                return MIN2(veh->getMaxSpeed(), r->second * veh->getChosenSpeedFactor());
+            }
+        }
+        return MIN2(veh->getMaxSpeed(), myMaxSpeed * veh->getChosenSpeedFactor());
     }
 
 
@@ -534,6 +540,10 @@ public:
         of the list of links (is not valid) */
     bool isLinkEnd(MSLinkCont::iterator& i);
 
+    /** Returns the information whether the lane is has no vehicle and no
+        partial occupation*/
+    bool isEmpty() const;
+
     /// returns the last vehicle
     MSVehicle* getLastVehicle() const;
     MSVehicle* getFirstVehicle() const;
@@ -596,6 +606,17 @@ public:
     /// @brief return by how much further the leader must be inserted to avoid rear end collisions
     SUMOReal getMissingRearGap(SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const;
 
+    /** @brief Returns the immediate leader of veh and the distance to veh
+     * starting on this lane
+     *
+     * Iterates over the current lane to find a leader and then uses
+     * getLeaderOnConsecutive()
+     * @param[in] veh The vehicle for which the information shall be computed
+     * @param[in] vehPos The vehicle position relative to this lane (may be negative)
+     * @param[in] checkNext Whether lanes after this one shall be checked
+     * @return
+     */
+    std::pair<MSVehicle* const, SUMOReal> getLeader(const MSVehicle* veh, const SUMOReal vehPos, bool checkNext) const;
 
     /** @brief Returns the immediate leader and the distance to him
      *
@@ -643,7 +664,14 @@ public:
     std::pair<MSVehicle* const, SUMOReal> getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle& veh) const;
 
 
+    /** @brief get the most likely precedecessor lane (sorted using by_connections_to_sorter).
+     * The result is cached in myLogicalPredecessorLane
+     */
     MSLane* getLogicalPredecessorLane() const;
+
+    /** @brief return the (first) predecessor lane from the given edge
+     */
+    MSLane* getLogicalPredecessorLane(const MSEdge& fromEdge) const;
 
     /// @brief get the state of the link from the logical predecessor to this lane
     LinkState getIncomingLinkState() const;
@@ -785,11 +813,18 @@ protected:
                                     MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
 
-    /// @brief issue warning and add the vehicle to MSVehicleTransfer
-    void handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim, const SUMOReal gap);
+    /// @brief detect whether there is a collision. then issue warning and add the vehicle to MSVehicleTransfer
+    bool handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim, const SUMOReal victimRear);
 
     /// @brief compute maximum braking distance on this lane
     SUMOReal getMaximumBrakeDist() const;
+
+    /* @brief determine depart speed and whether it may be patched
+     * @param[in] veh The departing vehicle
+     * @param[out] whether the speed may be patched to account for safety
+     * @return the depart speed
+     */
+    SUMOReal getDepartSpeed(const MSVehicle& veh, bool& patchSpeed);
 
 protected:
     /// Unique numerical ID (set on reading by netload)
@@ -826,6 +861,9 @@ protected:
 
     /// The vClass permissions for this lane
     SVCPermissions myPermissions;
+
+    /// The vClass speed restrictions for this lane
+    const std::map<SUMOVehicleClass, SUMOReal>* myRestrictions;
 
     std::vector<IncomingLaneInfo> myIncomingLanes;
     mutable MSLane* myLogicalPredecessorLane;
@@ -884,7 +922,8 @@ private:
     };
 
     /** @class by_id_sorter
-     * @brief Sorts edges by their ids
+     * @brief Sorts edges by their angle relative to the given edge (straight comes first)
+     *
      */
     class by_connections_to_sorter {
     public:

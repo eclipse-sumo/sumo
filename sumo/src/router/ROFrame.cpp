@@ -9,7 +9,7 @@
 // Sets and checks options for routing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -129,6 +129,12 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
     oc.doRegister("repair", new Option_Bool(false));
     oc.addDescription("repair", "Processing", "Tries to correct a false route");
 
+    oc.doRegister("repair.from", new Option_Bool(false));
+    oc.addDescription("repair.from", "Processing", "Tries to correct an invalid starting edge by using the first usable edge instead");
+
+    oc.doRegister("repair.to", new Option_Bool(false));
+    oc.addDescription("repair.to", "Processing", "Tries to correct an invalid destination edge by using the last usable edge instead");
+
     oc.doRegister("weights.interpolate", new Option_Bool(false));
     oc.addSynonyme("weights.interpolate", "interpolate", true);
     oc.addDescription("weights.interpolate", "Processing", "Interpolate edge weights at interval boundaries");
@@ -138,16 +144,17 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
 
     if (forDuarouter) {
         oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-        oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar', 'bulkstar', 'CH', 'CHWrapper']");
+        oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
 
         oc.doRegister("weight-period", new Option_String("3600", "TIME"));
         oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy");
     }
 
-#ifdef HAVE_FOX
+    oc.doRegister("bulk-routing", new Option_Bool(false));
+    oc.addDescription("bulk-routing", "Processing", "Aggregate routing queries with the same origin");
+
     oc.doRegister("routing-threads", new Option_Integer(0));
     oc.addDescription("routing-threads", "Processing", "The number of parallel execution threads used for routing");
-#endif
 
     // register defaults options
     oc.doRegister("departlane", new Option_String());
@@ -190,9 +197,15 @@ ROFrame::checkOptions(OptionsCont& oc) {
     }
     //
     if (oc.getInt("max-alternatives") < 2) {
-        WRITE_ERROR("At least two alternatives should be enabled");
+        WRITE_ERROR("At least two alternatives should be enabled.");
         return false;
     }
+#ifndef HAVE_FOX
+    if (oc.getInt("routing-threads") > 1) {
+        WRITE_ERROR("Parallel routing is only possible when compiled with Fox.");
+        return false;
+    }
+#endif
     return true;
 }
 

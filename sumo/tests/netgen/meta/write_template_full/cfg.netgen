@@ -33,21 +33,21 @@
         <rand value="false" synonymes="r random-net" type="BOOL" help="Forces NETGEN to build a random network"/>
         <rand.iterations value="2000" synonymes="iterations rand-iterations" type="INT" help="Describes how many times an edge shall be added to the net"/>
         <rand.bidi-probability value="1" synonymes="bidi rand-bidi-probability" type="FLOAT" help="Defines the probability to build a reverse edge"/>
-        <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT" help=""/>
-        <rand.min-distance value="100" synonymes="min-dist rand-min-distance" type="FLOAT" help=""/>
-        <rand.min-angle value="0.785398" synonymes="min-angle rand-min-anglee" type="FLOAT" help=""/>
-        <rand.num-tries value="50" synonymes="num-tries rand-num-tries" type="INT" help=""/>
-        <rand.connectivity value="0.95" synonymes="connectivity rand-connectivity" type="FLOAT" help=""/>
-        <rand.neighbor-dist1 value="0" synonymes="dist1 rand-neighbor-dist1" type="FLOAT" help=""/>
-        <rand.neighbor-dist2 value="0" synonymes="dist2 rand-neighbor-dist2" type="FLOAT" help=""/>
-        <rand.neighbor-dist3 value="10" synonymes="dist3 rand-neighbor-dist3" type="FLOAT" help=""/>
-        <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT" help=""/>
-        <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT" help=""/>
-        <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT" help=""/>
+        <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT" help="The maximum distance for each edge"/>
+        <rand.min-distance value="100" synonymes="min-dist rand-min-distance" type="FLOAT" help="The minimum distance for each edge"/>
+        <rand.min-angle value="0.785398" synonymes="min-angle rand-min-anglee" type="FLOAT" help="The minimum angle for each pair of (bidirectional) roads"/>
+        <rand.num-tries value="50" synonymes="num-tries rand-num-tries" type="INT" help="The number of tries for creating each node"/>
+        <rand.connectivity value="0.95" synonymes="connectivity rand-connectivity" type="FLOAT" help="Probability for roads to continue at each node"/>
+        <rand.neighbor-dist1 value="0" synonymes="dist1 rand-neighbor-dist1" type="FLOAT" help="Probability for a node having exactly 1 neighbor"/>
+        <rand.neighbor-dist2 value="0" synonymes="dist2 rand-neighbor-dist2" type="FLOAT" help="Probability for a node having exactly 2 neighbors"/>
+        <rand.neighbor-dist3 value="10" synonymes="dist3 rand-neighbor-dist3" type="FLOAT" help="Probability for a node having exactly 3 neighbors"/>
+        <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT" help="Probability for a node having exactly 4 neighbors"/>
+        <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT" help="Probability for a node having exactly 5 neighbors"/>
+        <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT" help="Probability for a node having exactly 6 neighbors"/>
     </random_network>
 
     <output>
-        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
+        <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <output-file value="" synonymes="o output sumo-output" type="FILE" help="The generated net will be written to FILE"/>
         <plain-output-prefix value="" synonymes="plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
@@ -66,6 +66,8 @@
         <tls.guess value="false" synonymes="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
         <tls-guess.joining value="false" type="BOOL" help="Includes node clusters into guess"/>
         <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
+        <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
+        <tls.cycle.time value="90" type="INT" help="Use INT as cycle duration"/>
         <tls.green.time value="31" synonymes="traffic-light-green" type="INT" help="Use INT as green phase duration"/>
         <tls.yellow.min-decel value="3" synonymes="D min-decel" type="FLOAT" help="Defines smallest vehicle deceleration"/>
         <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow" type="BOOL" help="Given yellow times are patched even if being too short"/>
@@ -79,7 +81,8 @@
         <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed in meters/second &gt; FLOAT"/>
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR" help="Remove edges in STR"/>
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR" help="Only keep edges in STR"/>
-        <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE"/>
+        <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
+        <remove-edges.input-file value="" type="FILE" help="Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
         <keep-edges.in-boundary value="" type="STR" help="Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;)"/>
         <keep-edges.in-geo-boundary value="" type="STR" help="Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;)"/>
     </edge_removal>
@@ -101,6 +104,7 @@
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL" help="Flips the y-coordinate along zero"/>
         <roundabouts.guess value="false" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
+        <edges.join value="false" type="BOOL" help="Merges edges whch connect the same nodes and are close to each other (recommended for VISSIM import)"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
         <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
         <junctions.corner-detail value="0" type="INT" help="Generate INT intermediate points to smooth out intersection corners"/>
@@ -111,7 +115,6 @@
         <sidewalks.guess.min-speed value="5.8" type="FLOAT" help="Add sidewalks for edges with a speed above the given limit"/>
         <sidewalks.guess.from-permissions value="false" type="BOOL" help="Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed"/>
         <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
-        <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
     </processing>
 
     <building_defaults>
@@ -119,6 +122,7 @@
         <default.speed value="13.9" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
+        <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
         <default-junction-type value="" synonymes="j junctions" type="STR" help="[traffic_light|priority|right_before_left] Determines the type of the build junctions"/>
     </building_defaults>
 

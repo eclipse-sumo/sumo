@@ -9,7 +9,7 @@
 // A junction with right-of-way - rules
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -87,6 +87,10 @@ public:
         return myLinkFoeInternalLanes.find(srcLink)->second;
     }
 
+    // @brief return the underlying right-of-way and conflict matrix
+    const MSJunctionLogic* getLogic() const {
+        return myLogic;
+    }
 
 protected:
     /** the type of the junction (its logic) */

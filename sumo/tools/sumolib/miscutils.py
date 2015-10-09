@@ -8,7 +8,7 @@
 Common utility functions
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2012-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -30,6 +30,8 @@ from collections import defaultdict
 #sys.path.append(os.path.join(THIS_DIR, 'foo', 'bar'))
 
 # http://www.python.org/dev/peps/pep-0326/
+
+
 class _ExtremeType(object):
 
     def __init__(self, cmpr, rep):
@@ -50,6 +52,8 @@ uMax = _ExtremeType(1, "uMax")
 uMin = _ExtremeType(-1, "uMin")
 
 # decorator for timing a function
+
+
 def benchmark(func):
     def benchmark_wrapper(*args, **kwargs):
         started = time.time()
@@ -57,13 +61,15 @@ def benchmark(func):
         print('function %s called at %s' % (func.__name__, now))
         sys.stdout.flush()
         result = func(*args, **kwargs)
-        print('function %s finished after %f seconds' % (func.__name__, time.time() - started))
+        print('function %s finished after %f seconds' %
+              (func.__name__, time.time() - started))
         sys.stdout.flush()
         return result
     return benchmark_wrapper
 
 
 class Statistics:
+
     def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1):
         self.label = label
         self.min = uMax
@@ -88,7 +94,7 @@ class Statistics:
             self.max = v
             self.max_label = label
         if self.counts is not None:
-            self.counts[int(round(v/self.scale))] += 1
+            self.counts[int(round(v / self.scale))] += 1
 
     def update(self, other):
         for v in other.values:
@@ -122,8 +128,8 @@ class Statistics:
         else:
             return None
 
-    def relStdDev(self, limit=None):
-        """return the relative standard deviation optionally limited to the last limit values"""
+    def meanAndStdDev(self, limit=None):
+        """return the mean and the standard deviation optionally limited to the last limit values"""
         if limit is None or len(self.values) < limit:
             limit = len(self.values)
         if limit > 0:
@@ -131,9 +137,16 @@ class Statistics:
             sumSq = 0.
             for v in self.values[-limit:]:
                 sumSq += (v - mean) * (v - mean)
-            return math.sqrt(sumSq / limit) / mean
+            return mean, math.sqrt(sumSq / limit)
         else:
             return None
+
+    def relStdDev(self, limit=None):
+        """return the relative standard deviation optionally limited to the last limit values"""
+        moments = self.meanAndStdDev(limit)
+        if moments is None:
+            return None
+        return moments[1] / moments[0]
 
     def mean(self):
         """return the median value"""
@@ -147,7 +160,7 @@ class Statistics:
         """return the median of absolute values"""
         # XXX rename this method
         if len(self.values) > 0:
-            return sorted(map(abs,self.values))[len(self.values) / 2]
+            return sorted(map(abs, self.values))[len(self.values) / 2]
         else:
             return None
 
@@ -181,33 +194,36 @@ class Statistics:
         if len(self.values) > 0:
             min = ''
             if self.printMin:
-                min = 'min %.2f%s, ' % (self.min, 
-                        ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
+                min = 'min %.2f%s, ' % (self.min,
+                                        ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
             result = '%s: count %s, %smax %.2f%s, mean %.2f' % (
-                    self.label, len(self.values), min,
-                    self.max, 
-                    ('' if self.max_label is None else ' (%s)' % (self.max_label,)), 
-                    self.avg())
+                self.label, len(self.values), min,
+                self.max,
+                ('' if self.max_label is None else ' (%s)' %
+                 (self.max_label,)),
+                self.avg())
             result += ' Q1 %.2f, median %.2f, Q3 %.2f' % self.quartiles()
             if self.abs:
-                result += ', mean_abs %.2f, median_abs %.2f' % (self.avg_abs(), self.mean_abs())
+                result += ', mean_abs %.2f, median_abs %.2f' % (
+                    self.avg_abs(), self.mean_abs())
             if self.counts is not None:
                 result += '\n histogram: %s' % self.histogram()
             return result
         else:
-            return '"%s": no values' % self.label
+            return '%s: no values' % self.label
 
 
-def geh(m,c):
+def geh(m, c):
     """Error function for hourly traffic flow measures after Geoffrey E. Havers"""
-    if m+c == 0:
+    if m + c == 0:
         return 0
     else:
-        return math.sqrt(2 * (m-c) * (m-c) / (m+c))
+        return math.sqrt(2 * (m - c) * (m - c) / (m + c))
 
 
 # temporarily change working directory using 'with' statement
 class working_dir:
+
     def __init__(self, dir):
         self.dir = dir
         self.origdir = os.getcwd()
@@ -220,8 +236,9 @@ class working_dir:
 
 
 class Colorgen:
+
     def __init__(self, hsv):
-        self.hsv = hsv 
+        self.hsv = hsv
 
     def get_value(self, opt):
         if opt == 'random':
@@ -236,7 +253,7 @@ class Colorgen:
     def byteTuple(self):
         """return color as a tuple of bytes each in [0,255]"""
         return tuple([int(round(255 * x)) for x in self.floatTuple()])
-        
+
     def __call__(self):
         """return constant or randomized rgb-color string"""
         return ','.join(map(str, self.byteTuple()))

@@ -8,7 +8,7 @@
 //
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2006-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2006-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -61,6 +61,9 @@ public:
     // FOX messages
     long onLeftBtnPress(FXObject*, FXSelector, void*);
     long onTimer(FXObject*, FXSelector, void*);
+
+    // open the given link in a browser or pdf viewer
+    static FXint fxexecute(FXString link); 
 };
 
 

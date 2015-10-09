@@ -9,7 +9,7 @@
 // Encapsulated SAX-Attributes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2007-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -222,7 +222,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    virtual SUMOLong getLong(int id) const = 0;
+    virtual long long int getLong(int id) const = 0;
 
 
     /**

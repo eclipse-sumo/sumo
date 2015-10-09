@@ -1,4 +1,4 @@
-/****************************************************************************/
+﻿/****************************************************************************/
 /// @file    NLTriggerBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Tino Morenz
@@ -12,7 +12,7 @@
 // Builds trigger objects for microsim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -43,7 +43,8 @@
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/trigger/MSCalibrator.h>
-#include <microsim/trigger/MSBusStop.h>
+#include <microsim/MSStoppingPlace.h>
+#include <microsim/trigger/MSChrgStn.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
@@ -154,6 +155,41 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttribu
     }
 }
 
+void
+NLTriggerBuilder::parseAndBuildChrgStn(MSNet& net, const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+
+    // get the id, throw if not given or empty...
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+
+    if (!ok) {
+        throw ProcessError();
+    }
+
+    // get the lane
+    MSLane* lane = getLane(attrs, "chargingStation", id);
+
+    // get the positions
+    SUMOReal frompos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    SUMOReal topos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
+    SUMOReal chrgpower = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHRGPOWER, id.c_str(), ok, 0);
+    SUMOReal efficiency = attrs.getOpt<SUMOReal>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0);
+    SUMOReal chargeInTransit = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHRGINTRANSIT, id.c_str(), ok, 0);
+    SUMOReal ChargeDelay = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHRGDELAY, id.c_str(), ok, 0);
+
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+
+    if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
+        throw InvalidArgument("Invalid position for Charging Station '" + id + "'.");
+    }
+
+    // get the lines
+    std::vector<std::string> lines;
+    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
+
+    // build the Charging Station
+    buildChrgStn(net, id, lines, lane, frompos, topos, chrgpower, efficiency, chargeInTransit, ChargeDelay);
+}
 
 void
 NLTriggerBuilder::parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attrs) {
@@ -179,6 +215,29 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attr
     buildBusStop(net, id, lines, lane, frompos, topos);
 }
 
+void
+NLTriggerBuilder::parseAndBuildContainerStop(MSNet& net, const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    // get the id, throw if not given or empty...
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
+        throw ProcessError();
+    }
+    // get the lane
+    MSLane* lane = getLane(attrs, "containerStop", id);
+    // get the positions
+    SUMOReal frompos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    SUMOReal topos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
+        throw InvalidArgument("Invalid position for container stop '" + id + "'.");
+    }
+    // get the lines
+    std::vector<std::string> lines;
+    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
+    // build the container stop
+    buildContainerStop(net, id, lines, lane, frompos, topos);
+}
 
 void
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& attrs,
@@ -304,7 +363,7 @@ void
 NLTriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
                                const std::vector<std::string>& lines,
                                MSLane* lane, SUMOReal frompos, SUMOReal topos) {
-    MSBusStop* stop = new MSBusStop(id, lines, *lane, frompos, topos);
+    MSStoppingPlace* stop = new MSStoppingPlace(id, lines, *lane, frompos, topos);
     if (!net.addBusStop(stop)) {
         delete stop;
         throw InvalidArgument("Could not build bus stop '" + id + "'; probably declared twice.");
@@ -312,7 +371,29 @@ NLTriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
 }
 
 
+void
+NLTriggerBuilder::buildContainerStop(MSNet& net, const std::string& id,
+                                     const std::vector<std::string>& lines,
+                                     MSLane* lane, SUMOReal frompos, SUMOReal topos) {
+    MSStoppingPlace* stop = new MSStoppingPlace(id, lines, *lane, frompos, topos);
+    if (!net.addContainerStop(stop)) {
+        delete stop;
+        throw InvalidArgument("Could not build container stop '" + id + "'; probably declared twice.");
+    }
+}
 
+void
+NLTriggerBuilder::buildChrgStn(MSNet& net, const std::string& id,
+                               const std::vector<std::string>& lines,
+                               MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay) {
+
+    MSChrgStn* chrgStn = new MSChrgStn(id, lines, *lane, frompos, topos, chrgpower, efficiency, chargeInTransit, ChargeDelay);
+
+    if (!net.addChrgStn(chrgStn)) {
+        delete chrgStn;
+        throw InvalidArgument("Could not build Charging Station '" + id + "'; probably declared twice.");
+    }
+}
 
 std::string
 NLTriggerBuilder::getFileName(const SUMOSAXAttributes& attrs,

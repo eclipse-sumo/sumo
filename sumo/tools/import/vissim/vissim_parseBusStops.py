@@ -16,7 +16,7 @@ The read routes are saved as <OUTPUT_PREFIX>_stops.add.xml
  variable (see below).
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -32,52 +32,52 @@ edgemap["77"] = "77[0]"
 edgemap["203"] = "203[0]"
 
 
-
-
 import sys
 from random import *
 
+
 def getName(vals, beg):
     name = vals[beg]
-    while name.count('"')!=2:
+    while name.count('"') != 2:
         beg = beg + 1
         name = name + " " + vals[beg]
     return name.replace('"', '')
-        
+
 
 def parseBusStop(bs):
     vals = bs.split()
     id = int(vals[1])
     i = vals.index("NAME")
-    name = getName(vals, i+1)
+    name = getName(vals, i + 1)
     i = vals.index("STRECKE", i)
-    strecke = vals[i+1]
+    strecke = vals[i + 1]
     i = vals.index("SPUR", i)
-    spur = int(vals[i+1]) - 1
+    spur = int(vals[i + 1]) - 1
     i = vals.index("BEI", i)
-    von = float(vals[i+1])
+    von = float(vals[i + 1])
     i = vals.index("LAENGE", i)
-    bis = von + float(vals[i+1])
+    bis = von + float(vals[i + 1])
     return (id, name, strecke, spur, von, bis)
+
 
 def parseBusRoute(br, stops):
     vals = br.split()
     id = vals[1]
     i = vals.index("NAME")
-    name = getName(vals, i+1)
+    name = getName(vals, i + 1)
     i = vals.index("EINFAHRT", i)
-    startKante = vals[i+2]
+    startKante = vals[i + 2]
     i = vals.index("ZIEL", i)
-    ziel = vals[i+2]
+    ziel = vals[i + 2]
     zeiten = []
     endI = vals.index("HALTESTELLE", i)
     i = vals.index("STARTZEITEN", i)
     i = i + 1
-    while i>0 and i<endI:
+    while i > 0 and i < endI:
         zeiten.append(int(float(vals[i])))
         i = i + 5
     stops = []
-    while i>0 and i<len(vals):
+    while i > 0 and i < len(vals):
         try:
             i = vals.index("HALTESTELLE", i)
             i = i + 1
@@ -85,6 +85,7 @@ def parseBusRoute(br, stops):
         except:
             i = len(vals) + 1
     return (id, name, startKante, ziel, zeiten, stops)
+
 
 def sorter(idx):
     def t(i, j):
@@ -109,24 +110,24 @@ stopsL = []
 routesL = []
 for line in fd:
     # process bus stops ("HALTESTELLE")
-    if line.find("HALTESTELLE")==0:
+    if line.find("HALTESTELLE") == 0:
         if haveStop:
             stopsL.append(" ".join(currentItem.split()))
         haveStop = True
         currentItem = ""
-    elif line[0]!=' ':
+    elif line[0] != ' ':
         if haveStop:
             stopsL.append(" ".join(currentItem.split()))
         haveStop = False
     if haveStop:
         currentItem = currentItem + line
     # process bus routes ("LINIE")
-    if line.find(" LINIE")==0:
+    if line.find(" LINIE") == 0:
         if haveRoute:
             routesL.append(" ".join(currentItem.split()))
         haveRoute = True
         currentItem = ""
-    elif len(line)>2 and line[0]!=' ' and line[1]!=' ':
+    elif len(line) > 2 and line[0] != ' ' and line[1] != ' ':
         if haveRoute:
             routesL.append(" ".join(currentItem.split()))
         haveRoute = False
@@ -157,7 +158,7 @@ for br in routesL:
             edges[i] = edgemap[edges[i]]
     for t in zeiten:
         id = str(pid) + "_" + str(t)
-        emissions.append( ( int(t), id, edges, stops ) )
+        emissions.append((int(t), id, edges, stops))
 
 # sort emissions
 print "Sorting routes..."
@@ -167,13 +168,15 @@ print "Writing bus routes..."
 fdo = open(sys.argv[2] + "_busses.rou.xml", "w")
 fdo.write("<routes>\n")
 for emission in emissions:
-    if len(emission[2])<2:
-        continue;
-    fdo.write('    <vehicle id="' + emission[1] + '" depart="' + str(emission[0]) + '" type="bus" color="0,1,0"><route>' + " ".join(emission[2]) + '</route>\n');
+    if len(emission[2]) < 2:
+        continue
+    fdo.write('    <vehicle id="' + emission[1] + '" depart="' + str(emission[
+              0]) + '" type="bus" color="0,1,0"><route>' + " ".join(emission[2]) + '</route>\n')
     for s in emission[3]:
-        fdo.write('        <stop bus_stop="' + str(s) + '_0" duration="20"/>\n')
-    fdo.write('    </vehicle>\n');
-fdo.write("</routes>\n")    
+        fdo.write(
+            '        <stop bus_stop="' + str(s) + '_0" duration="20"/>\n')
+    fdo.write('    </vehicle>\n')
+fdo.write("</routes>\n")
 
 # process bus stops
 print "Writing bus stops..."
@@ -181,7 +184,7 @@ fdo = open(sys.argv[2] + "_stops.add.xml", "w")
 fdo.write("<add>\n")
 for bs in stopsL:
     (id, name, strecke, spur, von, bis) = parseBusStop(bs)
-    fdo.write('    <busStop id="' + str(id) + '" lane="' + strecke + "_" + str(spur) + '" from="' + str(von) + '" to="' + str(bis) + '" lines="--"/>\n')
-fdo.write("</add>\n")    
+    fdo.write('    <busStop id="' + str(id) + '" lane="' + strecke + "_" +
+              str(spur) + '" from="' + str(von) + '" to="' + str(bis) + '" lines="--"/>\n')
+fdo.write("</add>\n")
 fdo.close()
-

@@ -7,7 +7,7 @@
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -16,8 +16,12 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,subprocess,sys,time
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
+import os
+import subprocess
+import sys
+import time
+sys.path.append(os.path.join(
+    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
 import testUtil
 
 guisimBinary = testUtil.checkBinary('sumo-gui')

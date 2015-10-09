@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 26 Aug 2015 04:38:10 PM CEST by Netedit Version dev-SVN-r18733I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="servertest.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="servertest.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/tmp/input_plain2"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-156364570#0" from="275525455" to="614674365" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="bicycle pedestrian"/>
+    </edge>
+    <edge id="-156364570#1" from="cluster_160503146_2314394457_27411250" to="275525455" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary" numLanes="3" speed="13.89" shape="3249.01,2261.68 3272.19,2273.66 3317.28,2296.21">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="bicycle pedestrian"/>
+    </edge>
+    <edge id="-25294729#0" from="cluster_1288008787_275525457" to="275525455" name="Rosenstraße" priority="4" type="highway.residential" numLanes="2" speed="8.33" shape="3350.94,2261.72 3317.28,2296.21">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="tram rail_urban rail rail_electric pedestrian ship"/>
+    </edge>
+    <edge id="-77348147" from="614674365" to="2796688606" name="An der Spandauer Brücke" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="3330.13,2302.90 3334.41,2306.79 3336.61,2311.06">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="tram rail_urban rail rail_electric pedestrian ship"/>
+    </edge>
+    <edge id="156364570#0" from="614674365" to="275525455" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="bicycle pedestrian"/>
+    </edge>
+    <edge id="156364570#1" from="275525455" to="cluster_160503146_2314394457_27411250" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary" numLanes="3" speed="13.89" shape="3317.28,2296.21 3272.19,2273.66 3249.01,2261.68">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="bicycle pedestrian"/>
+    </edge>
+    <edge id="25294729#0" from="275525455" to="cluster_1288008787_275525457" name="Rosenstraße" priority="4" type="highway.residential" numLanes="2" speed="8.33" shape="3317.28,2296.21 3350.94,2261.72">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="tram rail_urban rail rail_electric pedestrian ship"/>
+    </edge>
+    <edge id="77348147" from="2796688606" to="614674365" name="An der Spandauer Brücke" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="3336.61,2311.06 3334.41,2306.79 3330.13,2302.90">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="tram rail_urban rail rail_electric pedestrian ship"/>
+    </edge>
+
+
+</edges>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 12 11:02:56 2014 by SUMO duarouter Version dev-SVN-r16857ID
+<!-- generated on 03/24/15 15:34:01 by SUMO duarouter Version dev-SVN-r18127
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -137,5 +137,11 @@
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
+    </vehicle>
+    <vehicle id="72" depart="72.00">
+        <routeDistribution last="0">
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+        <param key="blubber" value="zisch"/>
     </vehicle>
 </routes>

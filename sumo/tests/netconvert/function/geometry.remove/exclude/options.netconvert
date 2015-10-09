@@ -1,0 +1,3 @@
+-e input_plain.edg.xml -n input_plain.nod.xml --geometry.remove
+--geometry.remove.keep-edges.explicit gneE7
+--geometry.remove.keep-edges.input-file edge_ids.txt

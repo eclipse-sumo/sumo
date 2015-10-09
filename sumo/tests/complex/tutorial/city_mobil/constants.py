@@ -9,7 +9,7 @@
 Defining constants for the CityMobil parking lot.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -17,14 +17,15 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import os, sys
+import os
+import sys
 
 INFINITY = 1e400
 
 PREFIX = "park"
 DOUBLE_ROWS = 8
 ROW_DIST = 35
-STOP_POS = ROW_DIST-12
+STOP_POS = ROW_DIST - 12
 SLOTS_PER_ROW = 10
 SLOT_WIDTH = 5
 SLOT_LENGTH = 9
@@ -40,7 +41,8 @@ OCCUPATION_PROBABILITY = 0.5
 BREAK_DELAY = 1200
 
 PORT = 8883
-SUMO_HOME = os.path.realpath(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")))
+SUMO_HOME = os.path.realpath(os.environ.get(
+    "SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")))
 sys.path.append(os.path.join(SUMO_HOME, "tools"))
 try:
     from sumolib import checkBinary

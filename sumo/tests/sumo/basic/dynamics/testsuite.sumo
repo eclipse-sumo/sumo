@@ -13,7 +13,7 @@ deadlock
 # tests for dynamics at ramps leading to and from motorways
 ramps
 
-# One vehicle moving along not yielding edges (achived through tls); should move constantly with 10m/s
+# One vehicle moving along not yielding edges (achieved through tls); should move constantly with 10m/s
 one_vehicle_10m_per_s_high_prio
 
 # Same as one_vehicle_10m_per_s_high_prio but two vehicles are moving (5 seconds time between emissions)
@@ -42,3 +42,6 @@ high_flow2
 
 # very high flow on 2-lanes
 high_flow1_extreme
+
+# foe on minor hindering insertion
+foe_on_minor

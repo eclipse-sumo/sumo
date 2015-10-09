@@ -9,7 +9,7 @@
 // Exporter writing networks using the SUMO format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -93,15 +93,6 @@ public:
     /// @brief writes the traffic light logics to the given device
     static void writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont);
 
-    /// @brief writes the location element
-    static void writeLocation(OutputDevice& into);
-
-    /// @brief writes allowed disallowed attributes if needed;
-    static void writePermissions(OutputDevice& into, SVCPermissions permissions);
-
-    /// @brief writes allowed disallowed attributes if needed;
-    static void writePreferences(OutputDevice& into, SVCPermissions preferred);
-
     /** @brief Writes roundabouts
      * @param[in] into The device to write the edge into
      * @param[in] roundaboutes The roundabouts to write
@@ -140,12 +131,12 @@ protected:
      * @param[in] length Lane's length
      * @param[in] index The index of the lane within the edge
      * @param[in] origNames Whether original names shall be written as parameter
-     * @param[in] node The node to check for custom shape data 
+     * @param[in] node The node to check for custom shape data
      */
     static void writeLane(OutputDevice& into, const std::string& eID, const std::string& lID,
                           SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
                           SUMOReal endOffset, SUMOReal width, PositionVector shape,
-                          const std::string& origID, SUMOReal length, unsigned int index, bool origNames, 
+                          const std::string& origID, SUMOReal length, unsigned int index, bool origNames,
                           const NBNode* node = 0);
 
 

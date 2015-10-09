@@ -9,7 +9,7 @@
 // Some conversion methods (from strings to other)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -112,11 +112,21 @@ public:
             not contain an integer */
     template<class E>
     static int _2int(const E* const data) {
-        SUMOLong result = _2long(data);
+        long long int result = _2long(data);
         if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min()) {
             throw NumberFormatException();
         }
         return (int)result;
+    }
+
+
+    /** converts a string into the integer value described by it
+        by calling the char-type converter, which
+        throws an EmptyData - exception if the given string is empty
+        throws a NumberFormatException - exception when the string does
+            not contain an integer */
+    static int _str2int(const std::string& sData) {
+        return _2int(sData.c_str());
     }
 
 
@@ -126,11 +136,20 @@ public:
             not contain an integer */
     template<class E>
     static int _hex2int(const E* const data) {
-        SUMOLong result = _hex2long(data);
+        long long int result = _hex2long(data);
         if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min()) {
             throw NumberFormatException();
         }
         return (int)result;
+    }
+
+    /** converts a string with a hex value into the integer value described by it
+        by calling the char-type converter, which
+        throws an EmptyData - exception if the given string is empty
+        throws a NumberFormatException - exception when the string does
+            not contain an integer */
+    static int _strHex2int(const std::string& sData) {
+        return _hex2int(sData.c_str());
     }
 
 
@@ -139,11 +158,11 @@ public:
         throws a NumberFormatException - exception when the string does
             not contain a long */
     template<class E>
-    static SUMOLong _2long(const E* const data) {
+    static long long int _2long(const E* const data) {
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
         }
-        SUMOLong sgn = 1;
+        long long int sgn = 1;
         unsigned i = 0;
         if (data[0] == '+') {
             i++;
@@ -152,7 +171,7 @@ public:
             i++;
             sgn = -1;
         }
-        SUMOLong ret = 0;
+        long long int ret = 0;
         for (; data[i] != 0; i++) {
             ret *= 10;
             // !!! need to catch overflows
@@ -174,11 +193,11 @@ public:
         throws a NumberFormatException - exception when the string does
             not contain a long */
     template<class E>
-    static SUMOLong _hex2long(const E* const data) {
+    static long long int _hex2long(const E* const data) {
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
         }
-        SUMOLong sgn = 1;
+        long long int sgn = 1;
         unsigned i = 0;
         if (data[0] == '+') {
             i++;
@@ -193,7 +212,7 @@ public:
         if (data[i] == '0' && (data[i + 1] == 'x' || data[i + 1] == 'X')) {
             i += 2;
         }
-        SUMOLong ret = 0;
+        long long int ret = 0;
         for (; data[i] != 0; i++) {
             ret *= 16;
             // !!! need to catch overflows
@@ -233,10 +252,10 @@ public:
             i++;
             sgn = -1;
         }
-        // we try to parse it as a SUMOLong storing the decimal point pos
+        // we try to parse it as a long long int storing the decimal point pos
         int pointPos = -1;
-        int digits = std::numeric_limits<SUMOLong>::digits10;
-        SUMOLong ret = 0;
+        int digits = std::numeric_limits<long long int>::digits10;
+        long long int ret = 0;
         for (; data[i] != 0 && data[i] != 'e' && data[i] != 'E'; i++) {
             char akt = (char) data[i];
             if (akt < '0' || akt > '9') {
@@ -247,7 +266,7 @@ public:
                 throw NumberFormatException();
             }
             digits--;
-            if (digits >= 0) { // we skip the digits which don't fit into SUMOLong
+            if (digits >= 0) { // we skip the digits which don't fit into long long int
                 ret = ret * 10 + akt - 48;
             }
         }
@@ -266,6 +285,16 @@ public:
             // the exponent was empty
             throw NumberFormatException();
         }
+    }
+
+
+    /** converts a string into the SUMOReal value described by it
+        by calling the char-type converter, which
+        throws an EmptyData - exception if the given string is empty
+        throws a NumberFormatException - exception when the string does
+            not contain a SUMOReal */
+    static SUMOReal _str2SUMOReal(const std::string& sData) {
+        return _2SUMOReal(sData.c_str());
     }
 
 
@@ -321,7 +350,7 @@ public:
             described by it
         returns the default value if the data is empty */
     template<class E>
-    static SUMOLong _2longSec(const E* const data, long def) {
+    static long long int _2longSec(const E* const data, long def) {
         if (data == 0 || data[0] == 0) {
             return def;
         }

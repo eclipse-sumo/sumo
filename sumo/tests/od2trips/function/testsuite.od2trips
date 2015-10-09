@@ -1,3 +1,9 @@
+# only different source and sink edges
+differSourceSink
+
+# only different source and sink edges is not always possible
+differSourceSinkWarn
+
 # Default departlane
 default_departlane
 
@@ -15,4 +21,3 @@ default_arrivalpos
 
 # Default arrivalspeed
 default_arrivalspeed
-

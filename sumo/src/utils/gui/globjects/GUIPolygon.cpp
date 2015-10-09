@@ -10,7 +10,7 @@
 // The GUI-version of a polygon
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -138,6 +138,9 @@ GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
+    if (s.polySize.getExaggeration(s) == 0) {
+        return;
+    }
     Boundary boundary = myShape.getBoxBoundary();
     if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
         return;
@@ -207,7 +210,12 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::debugVertices(myShape, 80 / s.scale);
 #endif
     glPopMatrix();
-    drawName(myShape.getPolygonCenter(), s.scale, s.polyName);
+    const Position namePos = myShape.getPolygonCenter();
+    drawName(namePos, s.scale, s.polyName);
+    if (s.polyType.show) {
+        GLHelper::drawText(myType, namePos + Position(0, -0.6 * s.polyType.size / s.scale),
+                           GLO_MAX, s.polyType.size / s.scale, s.polyType.color);
+    }
     glPopName();
 }
 

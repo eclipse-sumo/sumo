@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 24 Mar 2015 01:05:47 PM CET by Netedit Version dev-SVN-r18126I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/tools/import/OSM/server/osmimport.tools"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/tools/import/OSM/server/osmimport.tools"/>
+        <plain-output-prefix value="/scr2/debug/1694/input_plain16"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="1" from="C" to="2094266865" priority="15" type="railway.subway" numLanes="1" speed="27.78" shape="3055.79,1340.81 3056.05,1372.87 3053.78,1396.04 3043.85,1417.14 3024.71,1439.68 2995.20,1467.76 2952.36,1505.01 2917.30,1546.31 2889.48,1602.14 2855.13,1697.18 2851.23,1713.99 2837.33,1773.93 2821.73,1821.01 2803.97,1867.05 2783.49,1909.93 2768.58,1935.56 2756.58,1954.88 2743.10,1972.37 2734.48,1980.64 2723.93,1991.97" spreadType="center">
+        <lane index="0" allow="rail_urban"/>
+    </edge>
+    <edge id="2" from="2776873566" to="C" priority="15" type="railway.subway" numLanes="1" speed="27.78" shape="2843.76,2050.75 2867.42,2019.67 2888.33,1988.91 2903.63,1955.64 2914.55,1923.20 2922.51,1887.05 2932.07,1851.42 2944.13,1819.37 2964.50,1791.18 2997.48,1763.07 3056.30,1719.90 3078.42,1699.90 3095.47,1670.48 3101.50,1640.39 3098.83,1600.37 3091.80,1555.00 3062.93,1392.42 3055.79,1340.81" spreadType="center">
+        <lane index="0" allow="rail_urban"/>
+    </edge>
+    <edge id="3" from="C" to="940422472" priority="15" type="railway.subway" numLanes="1" speed="27.78" shape="3055.79,1340.81 3045.70,1299.17 3029.43,1249.60 2985.23,1114.98 2982.92,1108.41" spreadType="center">
+        <lane index="0" allow="rail_urban"/>
+    </edge>
+
+
+</edges>

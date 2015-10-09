@@ -7,7 +7,7 @@ endif
 
 if WITH_GUI
 GUI_APPS = sumo-gui
-GUI_DIRS = gui guinetload guisim $(GUI_INTERNAL_DIRS)
+GUI_DIRS = gui guinetload guisim netedit $(GUI_INTERNAL_DIRS)
 endif
 
 if CHECK_MEMORY_LEAKS
@@ -111,12 +111,13 @@ netbuild netwrite netgen netimport netload \
 polyconvert dfrouter duarouter jtrrouter activitygen tools \
 $(TRACI_DIRS) $(GUI_DIRS)
 
-EXTRA_DIST = config.h config.h.in \
-guisim.rc \
-windows_config.h
-
 if WITH_VERSION_H
-all: version.h
-version.h: ../.svn
+VERSION_H = version.h
+all: $(VERSION_H)
+$(VERSION_H): ../.svn
 	../tools/build/version.py $(CURDIR)
 endif
+
+EXTRA_DIST = config.h config.h.in \
+$(VERSION_H) guisim.rc \
+windows_config.h

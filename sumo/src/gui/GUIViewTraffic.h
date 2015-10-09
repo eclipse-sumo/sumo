@@ -10,7 +10,7 @@
 // A view on the simulation; this view is a microscopic one
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -60,6 +60,7 @@ class MSRoute;
  * Microsocopic view at the simulation
  */
 class GUIViewTraffic : public GUISUMOAbstractView {
+    FXDECLARE(GUIViewTraffic)
 public:
     /// constructor
     GUIViewTraffic(FXComposite* p, GUIMainWindow& app,
@@ -96,9 +97,15 @@ public:
     /// @brief get the current simulation time
     SUMOTime getCurrentTimeStep() const;
 
+    /// @brief interaction with the simulation
+    long onCmdCloseLane(FXObject*, FXSelector, void*);
+    long onCmdCloseEdge(FXObject*, FXSelector, void*);
+    long onCmdAddRerouter(FXObject*, FXSelector, void*);
+
 protected:
     int doPaintGL(int mode, const Boundary& bound);
 
+    GUILane* getLaneUnderCursor();
 
 private:
     int myTrackedID;

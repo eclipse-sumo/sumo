@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 13 08:46:13 2014 by SUMO duarouter Version dev-SVN-r16350
+<!-- generated on 03/12/15 01:00:50 by SUMO duarouter Version dev-SVN-r18056
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
-        <net-file value="net.net.xml"/>
+        <net-file value="net2.net.xml"/>
         <additional-files value="input_additional.add.xml"/>
         <trip-files value="trips.trips.xml"/>
     </input>

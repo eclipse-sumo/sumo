@@ -9,7 +9,7 @@
 // Sets and checks options for dua-routing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -173,6 +173,11 @@ RODUAFrame::checkOptions() {
 
     if (oc.getString("routing-algorithm") != "dijkstra" && oc.getString("weight-attribute") != "traveltime") {
         WRITE_ERROR("Routing algorithm '" + oc.getString("routing-algorithm") + "' does not support weight-attribute '" + oc.getString("weight-attribute") + "'.");
+        return false;
+    }
+
+    if (oc.getBool("bulk-routing") && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper")) {
+        WRITE_ERROR("Routing algorithm '" + oc.getString("routing-algorithm") + "' does not support bulk routing.");
         return false;
     }
 

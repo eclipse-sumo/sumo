@@ -10,7 +10,7 @@
 // A reader of pois and polygons stored in OSM-format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -72,11 +72,12 @@ public:
 
 
 protected:
+
     /** @brief An internal representation of an OSM-node
      */
     struct PCOSMNode {
         /// @brief The node's id
-        SUMOLong id;
+        long long int id;
         /// @brief The longitude the node is located at
         SUMOReal lon;
         /// @brief The latitude the node is located at
@@ -86,20 +87,36 @@ protected:
     };
 
 
+    /** @brief An internal definition of a loaded relation
+     */
+    struct PCOSMRelation {
+        /// @brief The relation's id
+        long long int id;
+        /// @brief The relation's name (if any)
+        std::string name;
+        /// @brief Additional attributes
+        std::map<std::string, std::string> myAttributes;
+    };
+
+
     /** @brief An internal definition of a loaded edge
      */
     struct PCOSMEdge {
         /// @brief The edge's id
-        std::string id;
+        long long int id;
         /// @brief The edge's name (if any)
         std::string name;
         /// @brief Information whether this area is closed
         bool myIsClosed;
         /// @brief The list of nodes this edge is made of
-        std::vector<SUMOLong> myCurrentNodes;
+        std::vector<long long int> myCurrentNodes;
         /// @brief Additional attributes
         std::map<std::string, std::string> myAttributes;
     };
+
+    typedef std::vector<PCOSMRelation*> Relations;
+    typedef std::map<long long int, PCOSMRelation*> RelationsMap;
+    typedef std::map<long long int, PCOSMEdge*> EdgeMap;
 
 protected:
     /// @brief try add the polygon and return the next index on success
@@ -130,7 +147,7 @@ protected:
          * @param[in] withAttributes Whether all attributes shall be stored
          * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)
          */
-        NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill, bool withAttributes,
+        NodesHandler(std::map<long long int, PCOSMNode*>& toFill, bool withAttributes,
                      MsgHandler& errorHandler);
 
 
@@ -170,13 +187,13 @@ protected:
         MsgHandler& myErrorHandler;
 
         /// @brief The nodes container to fill
-        std::map<SUMOLong, PCOSMNode*>& myToFill;
+        std::map<long long int, PCOSMNode*>& myToFill;
 
         /// @brief Current path in order to know to what occuring values belong
         std::vector<int> myParentElements;
 
         /// @brief The id of the last parsed node
-        SUMOLong myLastNodeID;
+        long long int myLastNodeID;
 
     private:
         /// @brief Invalidated copy constructor
@@ -187,6 +204,86 @@ protected:
 
     };
 
+    /**
+     * @class RelationsHandler
+     * @brief A class which extracts relevant way-ids from relations in a parsed OSM-file
+     */
+    class RelationsHandler : public SUMOSAXHandler {
+    public:
+        /** @brief Constructor
+         *
+         * @param[in] osmNodes The previously parsed (osm-)nodes
+         * @param[in] toFill The edges container to fill with read edges
+         * @param[in] withAttributes Whether all attributes shall be stored
+         * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)
+         */
+        RelationsHandler(RelationsMap& additionalWays,
+                         Relations& relations,
+                         bool withAttributes,
+                         MsgHandler& errorHandler);
+
+
+        /// @brief Destructor
+        ~RelationsHandler();
+
+
+    protected:
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+
+
+        /** @brief Called when a closing tag occurs
+         *
+         * @param[in] element ID of the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myEndElement
+         */
+        void myEndElement(int element);
+        //@}
+
+
+    private:
+        /// @brief additional ways which are reference by relations
+        RelationsMap& myAdditionalWays;
+
+        /// @brief the loaded relations
+        Relations& myRelations;
+
+        /// @brief Whether all attributes shall be stored
+        bool myWithAttributes;
+
+        /// @brief The handler to report errors to (will be the WarningsHandler if --ignore-errors was set)
+        MsgHandler& myErrorHandler;
+
+        /// @brief The currently parsed relation
+        PCOSMRelation* myCurrentRelation;
+
+        /// @brief the ways within the current relation
+        std::vector<long long int> myCurrentWays;
+
+        /// @brief Current path in order to know to what occuring values belong
+        std::vector<long long int> myParentElements;
+
+        /// @brief whether the last edge (way) should be kept because it had a key from the inclusion list
+        bool myKeep;
+
+    private:
+        /// @brief Invalidated copy constructor
+        RelationsHandler(const RelationsHandler& s);
+
+        /// @brief Invalidated assignment operator
+        RelationsHandler& operator=(const RelationsHandler& s);
+
+    };
 
 
     /**
@@ -200,10 +297,13 @@ protected:
          * @param[in] osmNodes The previously parsed (osm-)nodes
          * @param[in] toFill The edges container to fill with read edges
          * @param[in] withAttributes Whether all attributes shall be stored
+         * @param[in] additionalWays Additional ways which were identified as polygons to import
          * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)
          */
-        EdgesHandler(const std::map<SUMOLong, PCOSMNode*>& osmNodes,
-                     std::map<std::string, PCOSMEdge*>& toFill, bool withAttributes,
+        EdgesHandler(const std::map<long long int, PCOSMNode*>& osmNodes,
+                     EdgeMap& toFill,
+                     const RelationsMap& additionalWays,
+                     bool withAttributes,
                      MsgHandler& errorHandler);
 
 
@@ -243,10 +343,13 @@ protected:
         MsgHandler& myErrorHandler;
 
         /// @brief The previously parsed nodes
-        const std::map<SUMOLong, PCOSMNode*>& myOSMNodes;
+        const std::map<long long int, PCOSMNode*>& myOSMNodes;
 
         /// @brief A map of built edges
-        std::map<std::string, PCOSMEdge*>& myEdgeMap;
+        EdgeMap& myEdgeMap;
+
+        /// @brief additional ways which are reference by relations
+        const RelationsMap& myAdditionalWays;
 
         /// @brief The currently built edge
         PCOSMEdge* myCurrentEdge;

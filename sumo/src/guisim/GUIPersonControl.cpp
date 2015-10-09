@@ -9,7 +9,7 @@
 // GUI-version of the person control for building gui persons
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2012-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -52,7 +52,7 @@ GUIPersonControl::~GUIPersonControl() {
 
 
 MSPerson*
-GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) const {
+GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
     return new GUIPerson(pars, vtype, plan);
 }
 
@@ -60,7 +60,7 @@ GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleT
 void
 GUIPersonControl::insertPersonIDs(std::vector<GUIGlID>& into) {
     into.reserve(myPersons.size());
-    for (std::map<std::string, MSPerson*>::const_iterator it = myPersons.begin(); it != myPersons.end(); ++it) {
+    for (std::map<std::string, MSTransportable*>::const_iterator it = myPersons.begin(); it != myPersons.end(); ++it) {
         into.push_back(static_cast<const GUIPerson*>((*it).second)->getGlID());
     }
 }

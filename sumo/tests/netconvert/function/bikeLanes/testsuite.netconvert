@@ -1,0 +1,11 @@
+# add bike lane via typemap
+typemap
+
+# add bike lane via plain-xml input
+addFromPlainXML
+
+# test connection building in the presence of bicycle lanes
+connections
+
+# same as 'connections' but with different priorities
+connections2

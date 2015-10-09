@@ -9,7 +9,7 @@
 // Importer for edge type information stored in XML
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -87,6 +87,9 @@ protected:
 private:
     /// @brief The type container to fill
     NBTypeCont& myTypeCont;
+
+    /// @brief The currently parsed type
+    std::string myCurrentTypeID;
 
 
 private:

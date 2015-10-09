@@ -10,7 +10,7 @@
 // References a street of the city and defines a position in this street
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 /****************************************************************************/
@@ -125,8 +125,8 @@ AGPosition::randomPositionInStreet(const AGStreet& s) {
 Position
 AGPosition::compute2dPosition() const {
     // P = From + pos*(To - From) = pos*To + (1-pos)*From
-    Position From = street->getFromNode()->getPosition();
-    Position To = street->getToNode()->getPosition();
+    Position From = street->getFromJunction()->getPosition();
+    Position To = street->getToJunction()->getPosition();
     Position position2d(To);
 
     position2d.sub(From);

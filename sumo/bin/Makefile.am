@@ -1,8 +1,6 @@
 if WITH_GUI
 GUI_APP = sumo-gui
-if INTERNAL
 NETEDIT_APP = netedit
-endif
 endif
 
 if TRACI
@@ -16,6 +14,7 @@ duarouter duarouterD duarouterInt duarouterIntD \
 jtrrouter jtrrouterD jtrrouterInt jtrrouterIntD \
 marouter marouterD marouterInt marouterIntD \
 netconvert netconvertD netconvertInt netconvertIntD \
+netedit neteditD neteditInt neteditIntD \
 netgenerate netgenerateD netgenerateInt netgenerateIntD \
 od2trips od2tripsD od2tripsInt od2tripsIntD \
 polyconvert polyconvertD polyconvertInt polyconvertIntD \
@@ -99,7 +98,7 @@ marouter: ../src/marouter/marouter
 	if [ ! -e marouter -a -e marouterInt ]; then ln -s marouterInt marouter; fi
 	if [ ! -e marouterD -a -e marouterIntD ]; then ln -s marouterIntD marouterD; fi
 	if [ ! -e marouter -a -e marouterD ]; then ln -s marouterD marouter; fi
-	if [ ! -e marouter -a -e marouterIntD ]; then ln -s marouterIntD marouterInt; fi
+	if [ ! -e marouterInt -a -e marouterIntD ]; then ln -s marouterIntD marouterInt; fi
 $(GUI_APP): ../src/$(GUI_APP)
 	cp ../src/$(GUI_APP) ./`echo $(GUI_APP) | sed '$(transform)'`
 	if [ ! -e $(GUI_APP) -a -e meso-gui ]; then ln -s meso-gui $(GUI_APP); fi
@@ -107,7 +106,10 @@ $(GUI_APP): ../src/$(GUI_APP)
 	if [ ! -e $(GUI_APP) -a -e $(GUI_APP)D ]; then ln -s $(GUI_APP)D $(GUI_APP); fi
 $(NETEDIT_APP):	../src/netedit/$(NETEDIT_APP)
 	cp ../src/netedit/$(NETEDIT_APP) ./`echo $(NETEDIT_APP) | sed '$(transform)'`
+	if [ ! -e $(NETEDIT_APP) -a -e $(NETEDIT_APP)Int ]; then ln -s $(NETEDIT_APP)Int $(NETEDIT_APP); fi
+	if [ ! -e $(NETEDIT_APP)D -a -e $(NETEDIT_APP)IntD ]; then ln -s $(NETEDIT_APP)IntD $(NETEDIT_APP)D; fi
 	if [ ! -e $(NETEDIT_APP) -a -e $(NETEDIT_APP)D ]; then ln -s $(NETEDIT_APP)D $(NETEDIT_APP); fi
+	if [ ! -e $(NETEDIT_APP)Int -a -e $(NETEDIT_APP)IntD ]; then ln -s $(NETEDIT_APP)IntD $(NETEDIT_APP)Int; fi
 $(TRACI_TESTCLIENT_APP): ../src/traci_testclient/$(TRACI_TESTCLIENT_APP)
 	cp ../src/traci_testclient/$(TRACI_TESTCLIENT_APP) ./`echo $(TRACI_TESTCLIENT_APP) | sed '$(transform)'`
 	if [ ! -e $(TRACI_TESTCLIENT_APP) -a -e $(TRACI_TESTCLIENT_APP)Int ]; then ln -s $(TRACI_TESTCLIENT_APP)Int $(TRACI_TESTCLIENT_APP); fi

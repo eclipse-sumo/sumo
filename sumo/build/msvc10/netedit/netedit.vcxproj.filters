@@ -99,6 +99,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Selection.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECrossing.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -151,9 +154,6 @@
     <ClInclude Include="..\..\..\src\netedit\GNEUndoList.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\version.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEInspector.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
@@ -194,6 +194,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Selection.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECrossing.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

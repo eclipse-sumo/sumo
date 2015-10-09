@@ -11,7 +11,7 @@
 Main of GenerateTaxiRoutes.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -22,11 +22,12 @@ the Free Software Foundation; either version 3 of the License, or
 
 from GenerateTaxiRoutes import *
 
-def main():        
+
+def main():
     print "start program"
     readFCD()
-    writeRoutes()    
+    writeRoutes()
     print "end"
 
-#start the program
+# start the program
 main()

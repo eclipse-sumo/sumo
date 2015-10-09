@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May 11 12:47:03 2015 by SUMO Version dev-SVN-r18352ID
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <processing>
+        <pedestrian.model value="striping"/>
+        <pedestrian.striping.dawdling value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <person id="test" x="99.05" y="497.68" angle="90.00" speed="0.00" pos="100.00" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <person id="test" x="1603.31" y="497.68" angle="90.00" speed="499.50" pos="99.50" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <person id="test" x="1999.80" y="495.35" angle="0.00" speed="0.00" pos="499.80" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="3.00"/>
+</fcd-export>

@@ -19,3 +19,6 @@ specified_controlledInner
 
 # test heuristic for interpreting tls-nodes as signal locations
 guess-signals
+
+# close nodes are set as traffic_light but are acutally unregualated
+with_unregulated

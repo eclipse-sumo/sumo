@@ -1,7 +1,7 @@
 #
 # spec file for package sumo
 #
-# Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
+# Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 #  This file is part of SUMO.
 #  SUMO is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ Name:           sumo
 Summary:        Simulation of Urban Mobility - A Microscopic Traffic Simulation
 Version:        svn
 Release:        1
-Url:            http://sumo-sim.org/
+Url:            http://sumo.dlr.de/
 Source0:        %{name}-src-%{version}.tar.gz
 Source1:        %{name}-doc-%{version}.zip
 Source2:        %{name}.desktop
@@ -75,7 +75,9 @@ install -Dm644 %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/%{name}.png
 %if 0%{?suse_version} > 1200
 install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %endif
-%suse_update_desktop_file %{name} Science Education
+%if 0%{?suse_version} > 1320
+%suse_update_desktop_file -r %{name} 'Education;Engineering;'
+%endif
 %fdupes -s docs
 %fdupes %{buildroot}
 %endif
@@ -89,6 +91,7 @@ install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 %if 0%{?suse_version} > 1200
+%{_datadir}/mime/application
 %{_datadir}/mime/application/%{name}.xml
 %endif
 

@@ -9,7 +9,7 @@
 // C++ TraCI client API implementation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2012-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -707,7 +707,7 @@ protected:
      * @param[in] endTime The end time step of subscriptions
      * @param[in] vars The variables to subscribe
      */
-    void send_commandSubscribeObjectVariable(int domID, const std::string& objID, int beginTime, int endTime, const std::vector<int>& vars) const;
+    void send_commandSubscribeObjectVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
 
 
     /** @brief Sends a SubscribeContext request
@@ -719,7 +719,7 @@ protected:
      * @param[in] range The range around the obj to investigate
      * @param[in] vars The variables to subscribe
      */
-    void send_commandSubscribeObjectContext(int domID, const std::string& objID, int beginTime, int endTime,
+    void send_commandSubscribeObjectContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime,
                                             int domain, SUMOReal range, const std::vector<int>& vars) const;
     /// @}
 

@@ -9,7 +9,7 @@
 Generates turn definitions XML file based on connections XML file.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -33,25 +33,25 @@ if __name__ == "__main__":
 
     option_parser = optparse.OptionParser()
     option_parser.add_option("-c", "--connections-file",
-        dest="connections_file",
-        help="Read connections defined in CONNECTIONS_FILE. Mandatory.",
-        metavar="CONNECTIONS_FILE")
+                             dest="connections_file",
+                             help="Read connections defined in CONNECTIONS_FILE. Mandatory.",
+                             metavar="CONNECTIONS_FILE")
     option_parser.add_option("-t", "--turn-definitions-file",
-        dest="turn_definitions_file",
-        help="Write the resulting turn definitions to TURN_DEFINITIONS_FILE. "
-             "Mandatory.",
-        metavar="TURN_DEFINITIONS_FILE")
+                             dest="turn_definitions_file",
+                             help="Write the resulting turn definitions to TURN_DEFINITIONS_FILE. "
+                             "Mandatory.",
+                             metavar="TURN_DEFINITIONS_FILE")
 
     (options, args) = option_parser.parse_args()
 
     if options.connections_file is None:
         LOGGER.fatal("Missing CONNECTIONS_FILE.\n" +
-            option_parser.format_help())
+                     option_parser.format_help())
         exit()
 
     if options.turn_definitions_file is None:
         LOGGER.fatal("Missing TURN_DEFINITIONS_FILE.\n" +
-            option_parser.format_help())
+                     option_parser.format_help())
         exit()
 
     connections_file = open(options.connections_file, "r")
@@ -64,4 +64,3 @@ if __name__ == "__main__":
 
     connections_file.close()
     turn_definitions_file.close()
-

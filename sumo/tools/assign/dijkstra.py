@@ -14,7 +14,7 @@ the link information about the shortest paths and the corresponding travel times
 will be stored in the lists P and D respectively.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2007-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -23,7 +23,8 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,sys
+import os
+import sys
 from Queue import PriorityQueue
 from collections import defaultdict
 from xml.sax import make_parser, handler
@@ -32,6 +33,7 @@ from sumolib.net import readNet
 
 
 class priorityDictionary(dict):
+
     def __init__(self):
         '''Initialize priorityDictionary by creating binary heap
             of pairs (value,key).  Note that changing or removing a dict entry will
@@ -49,9 +51,9 @@ class priorityDictionary(dict):
             lastItem = heap.pop()
             insertionPoint = 0
             while 1:
-                smallChild = 2*insertionPoint+1
-                if smallChild+1 < len(heap) and \
-                        heap[smallChild][0] > heap[smallChild+1][0]:
+                smallChild = 2 * insertionPoint + 1
+                if smallChild + 1 < len(heap) and \
+                        heap[smallChild][0] > heap[smallChild + 1][0]:
                     smallChild += 1
                 if smallChild >= len(heap) or lastItem <= heap[smallChild]:
                     heap[insertionPoint] = lastItem
@@ -69,25 +71,25 @@ class priorityDictionary(dict):
                 del self[x]
         return iterfn()
 
-    def __setitem__(self,key,val):
+    def __setitem__(self, key, val):
         '''Change value stored in dictionary and add corresponding
             pair to heap.  Rebuilds the heap if the number of deleted items grows
             too large, to avoid memory leakage.'''
-        dict.__setitem__(self,key,val)
+        dict.__setitem__(self, key, val)
         heap = self.__heap
         if len(heap) > 2 * len(self):
-            self.__heap = [(v,k) for k,v in self.iteritems()]
+            self.__heap = [(v, k) for k, v in self.iteritems()]
             self.__heap.sort()  # builtin sort likely faster than O(n) heapify
         else:
-            newPair = (val,key)
+            newPair = (val, key)
             insertionPoint = len(heap)
             heap.append(None)
-            while insertionPoint > 0 and val < heap[(insertionPoint-1)//2][0]:
-                heap[insertionPoint] = heap[(insertionPoint-1)//2]
-                insertionPoint = (insertionPoint-1)//2
+            while insertionPoint > 0 and val < heap[(insertionPoint - 1) // 2][0]:
+                heap[insertionPoint] = heap[(insertionPoint - 1) // 2]
+                insertionPoint = (insertionPoint - 1) // 2
             heap[insertionPoint] = newPair
 
-    def setdefault(self,key,val):
+    def setdefault(self, key, val):
         '''Reimplement setdefault to call our customized __setitem__.'''
         if key not in self:
             self[key] = val
@@ -152,10 +154,12 @@ def dijkstraPlain(start, targets):
 def dijkstraBoost(boostGraph, start):
     from boost.graph import dijkstra_shortest_paths
     dijkstra_shortest_paths(boostGraph, start,
-                            distance_map = boostGraph.vertex_properties['distance'], 
-                            predecessor_map = boostGraph.vertex_properties['predecessor'], 
-                            weight_map = boostGraph.edge_properties['weight'])
-    
+                            distance_map=boostGraph.vertex_properties[
+                                'distance'],
+                            predecessor_map=boostGraph.vertex_properties[
+                                'predecessor'],
+                            weight_map=boostGraph.edge_properties['weight'])
+
     # dictionary of final distances
     D = {}
     # dictionary of predecessors
@@ -170,10 +174,12 @@ def dijkstraBoost(boostGraph, start):
 
 
 class DijkstraRouter(handler.ContentHandler):
+
     """standalone class for routing on a sumolib network.
     The edges from the network recieve new attribute 'cost' based on 
     a loaded meanData output
     """
+
     def __init__(self, netfile, weightfile=None):
         self.net = readNet(netfile)
         self.cost_attribute = 'traveltime'
@@ -195,12 +201,14 @@ class DijkstraRouter(handler.ContentHandler):
         if name == 'interval':
             self.intervals += 1
             if self.intervals > 1:
-                print("ignoring weights from interval [%s,%s]" % (attrs['begin'], attrs['end']))
+                print("ignoring weights from interval [%s,%s]" % (
+                    attrs['begin'], attrs['end']))
         if name == 'edge':
             if self.intervals > 1:
                 return
-            if attrs.has_key(self.cost_attribute): # may be missing for some
-                self.net.getEdge(attrs['id']).cost = float(attrs[self.cost_attribute])
+            if attrs.has_key(self.cost_attribute):  # may be missing for some
+                self.net.getEdge(attrs['id']).cost = float(
+                    attrs[self.cost_attribute])
 
     def _route(self, start, dest, costFactors):
         if self.weightfile is None:
@@ -216,7 +224,7 @@ class DijkstraRouter(handler.ContentHandler):
             D[edge] = Q[edge]
             #print("final const to %s: %s" % (edge.getID(), D[edge]))
             if edge == dest:
-                #print [(e.getID(), c) for e,c in Q.items()]
+                # print [(e.getID(), c) for e,c in Q.items()]
                 return (D, P)
             cost = Q[edge] + edge.cost * costFactors[edge.getID()]
             for succ in edge.getOutgoing():
@@ -239,12 +247,12 @@ class DijkstraRouter(handler.ContentHandler):
                 result.append(id)
         return result
 
-    def least_cost(self, start, dest, costFactors=defaultdict(lambda:1.0)):
+    def least_cost(self, start, dest, costFactors=defaultdict(lambda: 1.0)):
         """return the cost of the shortest path from start to destination edge"""
         start, dest = self._getEdge(start, dest)
         D, P = self._route(start, dest, costFactors)
         if dest in D:
             return D[dest]
         else:
-            raise("No path between %s and %s found" % (start.getID(), dest.getID()))
-
+            raise("No path between %s and %s found" %
+                  (start.getID(), dest.getID()))

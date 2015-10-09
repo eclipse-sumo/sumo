@@ -12,7 +12,7 @@
 // Detectors container; responsible for string and output generation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -76,7 +76,7 @@ MSDetectorControl::close(SUMOTime step) {
 
 
 void
-MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, int splInterval, SUMOTime begin) {
+MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, SUMOTime splInterval, SUMOTime begin) {
     if (!myDetectors[type].add(d->getID(), d)) {
         throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
     }

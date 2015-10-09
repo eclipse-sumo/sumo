@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Sep 24 21:39:50 2015 by SUMO duarouter Version dev-SVN-r18936
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="tm.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_routes.rou.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="WE.0" depart="0.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.1" depart="2.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.2" depart="4.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.3" depart="6.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.4" depart="8.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.5" depart="10.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.6" depart="12.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.7" depart="14.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.8" depart="16.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.9" depart="18.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.10" depart="20.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.11" depart="22.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.12" depart="24.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.13" depart="26.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.14" depart="28.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.15" depart="30.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.16" depart="32.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.17" depart="34.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.18" depart="36.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.19" depart="38.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.20" depart="40.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.21" depart="42.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.22" depart="44.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.23" depart="46.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.24" depart="48.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.25" depart="50.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.26" depart="52.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.27" depart="54.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.28" depart="56.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.29" depart="58.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.30" depart="60.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.31" depart="62.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.32" depart="64.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.33" depart="66.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.34" depart="68.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.35" depart="70.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.36" depart="72.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.37" depart="74.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.38" depart="76.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.39" depart="78.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.40" depart="80.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.41" depart="82.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.42" depart="84.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.43" depart="86.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.44" depart="88.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.45" depart="90.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.46" depart="92.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.47" depart="94.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.48" depart="96.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+    <vehicle id="WE.49" depart="98.00">
+        <route edges="gneE0 gneE2 gneE4"/>
+    </vehicle>
+</routes>

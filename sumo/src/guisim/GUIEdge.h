@@ -10,7 +10,7 @@
 // A road/street connecting two junctions (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -47,6 +47,7 @@
 class MESegment;
 #endif
 class MSBaseVehicle;
+class GUILane;
 
 
 // ===========================================================================
@@ -144,16 +145,26 @@ public:
     //@}
 
 
-    void addPerson(MSPerson* p) const {
+    void addPerson(MSTransportable* p) const {
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::addPerson(p);
     }
 
-    void removePerson(MSPerson* p) const {
+    void removePerson(MSTransportable* p) const {
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::removePerson(p);
     }
 
+
+    void addContainer(MSTransportable* c) const {
+        AbstractMutex::ScopedLocker locker(myLock);
+        MSEdge::addContainer(c);
+    }
+
+    void removeContainer(MSTransportable* c) const {
+        AbstractMutex::ScopedLocker locker(myLock);
+        MSEdge::removeContainer(c);
+    }
 
 #ifdef HAVE_INTERNAL
     unsigned int getVehicleNo() const;
@@ -178,16 +189,15 @@ public:
     /// @brief returns the segment closest to the given position
     MESegment* getSegmentAtPosition(const Position& pos);
 
-    /// @brief sets the vehicle color according to the currente settings
-    void setVehicleColor(const GUIVisualizationSettings& s, MSBaseVehicle* veh) const;
-
-    /// @brief gets the vehicle color value according to the current scheme index
-    SUMOReal getVehicleColorValue(size_t activeScheme, MSBaseVehicle* veh) const;
-
     void drawMesoVehicles(const GUIVisualizationSettings& s) const;
 
 #endif
 
+    /// @brief close this edge for traffic
+    void closeTraffic(const GUILane* lane);
+
+    /// @brief add a rerouter
+    void addRerouter();
 
 private:
     /// @brief invalidated copy constructor
@@ -198,7 +208,7 @@ private:
 
 
 private:
-    /// The mutex used to avoid concurrent updates of myPersons
+    /// The mutex used to avoid concurrent updates of myPersons/ myContainers
     mutable MFXMutex myLock;
 
 };

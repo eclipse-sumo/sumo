@@ -9,7 +9,7 @@
 // An output device that encapsulates an ofstream
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2004-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2004-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -31,6 +31,8 @@
 #endif
 
 #include <iostream>
+#include <cstring>
+#include <cerrno>
 #include <utils/common/UtilExceptions.h>
 #include "OutputDevice_File.h"
 
@@ -56,7 +58,7 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool bin
     }
     if (!myFileStream->good()) {
         delete myFileStream;
-        throw IOError("Could not build output file '" + fullName + "'.");
+        throw IOError("Could not build output file '" + fullName + "' (" + std::strerror(errno) + ").");
     }
 }
 

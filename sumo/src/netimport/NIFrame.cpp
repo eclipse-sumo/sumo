@@ -9,7 +9,7 @@
 // Sets and checks options for netimport
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -38,7 +38,6 @@
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include "NIFrame.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
@@ -46,6 +45,7 @@
 #include <netwrite/NWFrame.h>
 #include <utils/common/SystemFrame.h>
 #include "NIImporter_DlrNavteq.h"
+#include "NIFrame.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -251,9 +251,6 @@ NIFrame::fillOptions() {
     oc.doRegister("osm.skip-duplicates-check", new Option_Bool(false));
     oc.addDescription("osm.skip-duplicates-check", "Processing", "Skips the check for duplicate nodes and edges");
 
-    oc.doRegister("osm.railway.oneway-default", new Option_Bool(true));
-    oc.addDescription("osm.railway.oneway-default", "Processing", "Imports railway edges as one-way by default");
-
     oc.doRegister("osm.elevation", new Option_Bool(false));
     oc.addDescription("osm.elevation", "Processing", "Imports elevation data");
 
@@ -262,9 +259,6 @@ NIFrame::fillOptions() {
     oc.addDescription("opendrive.import-all-lanes", "Processing", "Imports all lane types");
     oc.doRegister("opendrive.ignore-widths", new Option_Bool(false));
     oc.addDescription("opendrive.ignore-widths", "Processing", "Whether lane widths shall be ignored.");
-
-
-
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));
@@ -305,6 +299,22 @@ NIFrame::checkOptions() {
         if (oc.isWriteable("offset.disable-normalization")) {
             // changed default since we wish to preserve the network as far as possible
             oc.set("offset.disable-normalization", "true");
+        }
+    }
+    if (!oc.isSet("type-files")) {
+        const char* sumoPath = std::getenv("SUMO_HOME");
+        if (sumoPath == 0) {
+            WRITE_WARNING("Environment variable SUMO_HOME is not set, using built in type maps.");
+        } else {
+            const std::string path = sumoPath + std::string("/data/typemap/");
+            if (oc.isSet("osm-files")) {
+                oc.unSet("type-files");
+                oc.set("type-files", path + "osmNetconvert.typ.xml");
+            }
+            if (oc.isSet("opendrive-files")) {
+                oc.unSet("type-files");
+                oc.set("type-files", path + "opendriveNetconvert.typ.xml");
+            }
         }
     }
     return ok;

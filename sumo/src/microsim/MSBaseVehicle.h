@@ -9,7 +9,7 @@
 // A base class for vehicle implementations
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2010-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2010-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -51,6 +51,9 @@
  */
 class MSBaseVehicle : public SUMOVehicle {
 public:
+
+    friend class GUIBaseVehicle;
+
     /** @brief Constructor
      * @param[in] pars The vehicle description
      * @param[in] route The vehicle's route
@@ -208,6 +211,12 @@ public:
         return myArrivalPos;
     }
 
+    /** @brief Sets this vehicle's desired arrivalPos for its current route
+     */
+    virtual void setArrivalPos(SUMOReal arrivalPos) {
+        myArrivalPos = arrivalPos;
+    }
+
     /** @brief Returns whether this vehicle has already departed
      */
     bool hasDeparted() const;
@@ -241,7 +250,16 @@ public:
      *
      * @param[in] person The person to add
      */
-    virtual void addPerson(MSPerson* person);
+    virtual void addPerson(MSTransportable* person);
+
+
+    /** @brief Adds a container to this vehicle
+     *
+     * The default implementation does nothing since containers are not supported by default
+     *
+     * @param[in] container The container to add
+     */
+    virtual void addContainer(MSTransportable* container);
 
     /** @brief Validates the current route
      * @param[out] msg Description why the route is not valid (if it is the case)
@@ -312,9 +330,9 @@ public:
 
 
 protected:
-    /** @brief (Re-)Calculates the arrival position from the vehicle parameters
+    /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */
-    void calculateArrivalPos();
+    void calculateArrivalParams();
 
     /** @brief Returns the list of still pending stop edges
      */
@@ -355,6 +373,9 @@ protected:
 
     /// the position on the destination lane where the vehicle stops
     SUMOReal myArrivalPos;
+
+    /// the position on the destination lane where the vehicle stops
+    int myArrivalLane;
 
     /// @brief The number of reroutings
     unsigned int myNumberReroutes;

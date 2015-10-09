@@ -9,7 +9,7 @@
 Converts all testclient.prog inputs to hexadecimal values.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2010-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2010-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -19,10 +19,11 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys
+import os
+import sys
 
 mRoot = "."
-if len(sys.argv)>1:
+if len(sys.argv) > 1:
     mRoot = sys.argv[1]
 for root, dirs, files in os.walk(mRoot):
     if ".svn" in dirs:

@@ -43,7 +43,7 @@ if make >> $MAKELOG 2>&1; then
             scp -q $f $REMOTEDIR
           fi
         done
-        rsync -rcz $PREFIX/sumo/docs/pydoc $PREFIX/sumo/docs/doxygen $PREFIX/sumo/docs/userdoc $REMOTEDIR
+        rsync -rcz $PREFIX/sumo/docs/pydoc $PREFIX/sumo/docs/doxygen $PREFIX/sumo/docs/userdoc $PREFIX/sumo/docs/javadoc $REMOTEDIR
       else
         echo "make dist-complete failed" | tee -a $STATUSLOG; tail -10 $MAKELOG
       fi
@@ -74,7 +74,7 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
   fi
   tests/runTests.sh -b $FILEPREFIX -name `date +%d%b%y`r$SVNREV -coll >> $TESTLOG 2>&1
   find $TEXTTEST_TMP -name batchreport."*" -exec echo -n '{} ' \; -exec head -1 '{}' \; | sort >> $STATUSLOG
-  rsync -r $SUMO_REPORT $REMOTEDIR
+  rsync -rL $SUMO_REPORT $REMOTEDIR
 fi
 
 echo "--" >> $STATUSLOG

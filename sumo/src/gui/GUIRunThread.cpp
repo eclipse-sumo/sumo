@@ -9,7 +9,7 @@
 // The thread that runs the simulation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -90,6 +90,7 @@ bool
 GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
     assert(net != 0);
     // assign new values
+    myOk = true;
     myNet = net;
     mySimStartTime = start;
     mySimEndTime = end;

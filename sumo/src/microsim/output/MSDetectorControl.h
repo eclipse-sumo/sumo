@@ -11,7 +11,7 @@
 // Detectors container; responsible for string and output generation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -102,7 +102,7 @@ public:
      * @param[in] splInterval The sample interval of the detector
      * @exception ProcessError If the detector is already known
      */
-    void add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, int splInterval, SUMOTime begin = -1);
+    void add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, SUMOTime splInterval, SUMOTime begin = -1);
 
 
 

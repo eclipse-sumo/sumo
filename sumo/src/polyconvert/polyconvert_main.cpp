@@ -11,7 +11,7 @@
 // Main for POLYCONVERT
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2005-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2005-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -139,6 +139,9 @@ fillOptions() {
     oc.doRegister("shapefile.add-param", new Option_Bool());
     oc.addDescription("shapefile.add-param", "Input", "Extract all additonal columns as params");
 
+    oc.doRegister("shapefile.fill", new Option_String());
+    oc.addDescription("shapefile.fill", "Input", "[auto|true|false]. Forces the 'fill' status to the given value. Default 'auto' tries to determine it from the data type");
+
     // typemap reading
     oc.doRegister("type-file", new Option_FileName());
     oc.addSynonyme("type-file", "typemap", true);
@@ -187,6 +190,8 @@ fillOptions() {
     oc.doRegister("ignore-errors", new Option_Bool(false));
     oc.addDescription("ignore-errors", "Processing", "Continue on broken input");
 
+    oc.doRegister("poi-layer-offset", new Option_Float(0));
+    oc.addDescription("poi-layer-offset", "Processing", "Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)");
 
     // building defaults options
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
@@ -198,11 +203,18 @@ fillOptions() {
     oc.doRegister("type", new Option_String("unknown"));
     oc.addDescription("type", "Building Defaults", "Sets STR as default type");
 
+    oc.doRegister("fill", new Option_Bool("false"));
+    oc.addDescription("fill", "Building Defaults", "Fills polygons by default");
+
     oc.doRegister("layer", new Option_Integer(-1));
     oc.addDescription("layer", "Building Defaults", "Sets INT as default layer");
 
     oc.doRegister("discard", new Option_Bool(false));
     oc.addDescription("discard", "Building Defaults", "Sets default action to discard");
+
+    // projection
+    oc.doRegister("proj.plain-geo", new Option_Bool(false));
+    oc.addDescription("proj.plain-geo", "Projection", "Write geo coordinates in output");
 }
 
 
@@ -216,7 +228,8 @@ main(int argc, char** argv) {
         // initialise subsystems
         XMLSubSys::init();
         fillOptions();
-        OptionsIO::getOptions(true, argc, argv);
+        OptionsIO::setArgs(argc, argv);
+        OptionsIO::getOptions();
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
@@ -268,6 +281,9 @@ main(int argc, char** argv) {
             pruningBoundary = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.boundary"), "--prune.boundary", 0, ok);
             prune = true;
         }
+        if (oc.isSet("osm-files") && oc.isDefault("poi-layer-offset")) {
+            oc.set("poi-layer-offset", "5"); // sufficient when using the default typemap
+        }
 
         PCPolyContainer toFill(prune, pruningBoundary, oc.getStringVector("remove"));
 
@@ -287,13 +303,14 @@ main(int argc, char** argv) {
         PCLoaderDlrNavteq::loadIfSet(oc, toFill, tm); // Elmar-files
         PCLoaderVisum::loadIfSet(oc, toFill, tm); // VISUM
         PCLoaderArcView::loadIfSet(oc, toFill, tm); // shape-files
+        GeoConvHelper::computeFinal();
         // error processing
         if (MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("ignore-errors")) {
             MsgHandler::getErrorInstance()->clear();
         }
         if (!MsgHandler::getErrorInstance()->wasInformed()) {
             // no? ok, save
-            toFill.save(oc.getString("output-file"));
+            toFill.save(oc.getString("output-file"), oc.getBool("proj.plain-geo"));
         } else {
             throw ProcessError();
         }

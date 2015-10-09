@@ -10,7 +10,7 @@
 // Interface for building instances of duarouter-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2004-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2004-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -58,12 +58,8 @@ class RONode;
 class RODUAEdgeBuilder : public ROAbstractEdgeBuilder {
 public:
     /** @brief Constructor
-     *
-     * @param[in] useBoundariesOnOverride Whether edges shall use a boundary value if the requested is beyond known time scale
-     * @param[in] interpolate Whether edges shall interpolate at interval boundaries
-     * @todo useBoundariesOnOverride should not be a member of the edges
      */
-    RODUAEdgeBuilder(bool useBoundariesOnOverride, bool interpolate);
+    RODUAEdgeBuilder();
 
 
     /// @brief Destructor

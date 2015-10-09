@@ -9,7 +9,7 @@
 // A container for traffic light definitions and built programs
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -214,7 +214,7 @@ public:
      * @see NBTrafficLightDefinition::setParticipantsInformation
      * @see NBTrafficLightDefinition::setTLControllingInformation
      */
-    void setTLControllingInformation(const NBEdgeCont& ec);
+    void setTLControllingInformation(const NBEdgeCont& ec, const NBNodeCont& nc);
 
 
 private:

@@ -8,7 +8,7 @@
 // Base class for nodes used by the router
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -71,7 +71,7 @@ public:
     /** @brief Returns the position of the node
      * @return This node's position
      */
-    const Position& getPosition() {
+    const Position& getPosition() const {
         return myPosition;
     }
 

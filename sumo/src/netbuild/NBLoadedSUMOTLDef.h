@@ -9,7 +9,7 @@
 // since NBLoadedTLDef is quite vissim specific)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2011-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -137,14 +137,17 @@ protected:
      */
     void collectLinks();
 
+    /** @brief Build the list of participating edges
+     */
+    void collectEdges();
 
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] ec The edge container
-     * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
+     * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls in seconds
      * @return The computed logic
      */
     NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
-                                   unsigned int brakingTime);
+                                   unsigned int brakingTimeSeconds);
 
     bool amInvalid() const;
 

@@ -10,7 +10,7 @@
 // Parser and container for routes during their loading
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -66,7 +66,9 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myPedestrianRouter(0),
     myNet(net),
     myActivePlan(0),
+    myActiveContainerPlan(0),
     myActivePlanSize(0),
+    myActiveContainerPlanSize(0),
     myTryRepair(tryRepair),
     myEmptyDestinationsAllowed(emptyDestinationsAllowed),
     myErrorOutput(ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
@@ -160,6 +162,32 @@ RORouteHandler::myStartElement(int element,
             }
             break;
         }
+        case SUMO_TAG_CONTAINER:
+            myActiveContainerPlan = new OutputDevice_String(false, 1);
+            myActiveContainerPlanSize = 0;
+            myActiveContainerPlan->openTag(SUMO_TAG_CONTAINER);
+            (*myActiveContainerPlan) << attrs;
+            break;
+        case SUMO_TAG_TRANSPORT: {
+            myActiveContainerPlan->openTag(SUMO_TAG_TRANSPORT);
+            (*myActiveContainerPlan) << attrs;
+            myActiveContainerPlan->closeTag();
+            myActiveContainerPlanSize++;
+            break;
+        }
+        case SUMO_TAG_TRANSHIP: {
+            if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+                // copy walk as it is
+                // XXX allow --repair?
+                myActiveContainerPlan->openTag(SUMO_TAG_TRANSHIP);
+                (*myActiveContainerPlan) << attrs;
+                myActiveContainerPlan->closeTag();
+                myActiveContainerPlanSize++;
+            } else {
+                routePedestrian(attrs, *myActiveContainerPlan);
+            }
+            break;
+        }
         case SUMO_TAG_FLOW:
             myActiveRouteProbability = DEFAULT_VEH_PROB;
             parseFromViaTo("flow", attrs);
@@ -173,7 +201,7 @@ RORouteHandler::myStartElement(int element,
             break;
     }
     // parse embedded vtype information
-    if (myCurrentVType != 0 && element != SUMO_TAG_VTYPE) {
+    if (myCurrentVType != 0 && element != SUMO_TAG_VTYPE && element != SUMO_TAG_PARAM) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         return;
     }
@@ -307,7 +335,7 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
         myActiveRouteStops.clear();
         return;
     }
-    if (myActiveRoute.size() == 1 && myActiveRoute.front()->getType() == ROEdge::ET_DISTRICT) {
+    if (myActiveRoute.size() == 1 && myActiveRoute.front()->getFunc() == ROEdge::ET_DISTRICT) {
         myErrorOutput->inform("The routing information for vehicle '" + myVehicleParameter->id + "' is insufficient.");
         myActiveRouteID = "";
         myActiveRouteStops.clear();
@@ -360,7 +388,7 @@ RORouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
         }
     }
     // try to get the index of the last element
-    int index = attrs.get<int>(SUMO_ATTR_LAST, id.c_str(), ok);
+    int index = attrs.getOpt<int>(SUMO_ATTR_LAST, id.c_str(), ok, 0);
     if (ok && index < 0) {
         myErrorOutput->inform("Negative index of a route alternative (id='" + id + "').");
         return;
@@ -409,6 +437,9 @@ RORouteHandler::closeVehicle() {
     if (type == 0) {
         myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
         type = myNet.getVehicleTypeSecure(DEFAULT_VTYPE_ID);
+    } else {
+        // fix the type id in case we used a distribution
+        myVehicleParameter->vtypeid = type->id;
     }
     // get the route
     RORouteDef* route = myNet.getRouteDef(myVehicleParameter->routeid);
@@ -443,6 +474,22 @@ RORouteHandler::closePerson() {
     delete myActivePlan;
     myActivePlan = 0;
     myActivePlanSize = 0;
+}
+
+void
+RORouteHandler::closeContainer() {
+    myActiveContainerPlan->closeTag();
+    if (myActiveContainerPlanSize > 0) {
+        myNet.addContainer(myVehicleParameter->depart, myActiveContainerPlan->getString());
+        registerLastDepart();
+    } else {
+        WRITE_WARNING("Discarding container '" + myVehicleParameter->id + "' because it's plan is empty");
+    }
+    delete myVehicleParameter;
+    myVehicleParameter = 0;
+    delete myActiveContainerPlan;
+    myActiveContainerPlan = 0;
+    myActiveContainerPlanSize = 0;
 }
 
 
@@ -499,6 +546,13 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         myActivePlanSize++;
         return;
     }
+    if (myActiveContainerPlan) {
+        myActiveContainerPlan->openTag(SUMO_TAG_STOP);
+        (*myActiveContainerPlan) << attrs;
+        myActiveContainerPlan->closeTag();
+        myActiveContainerPlanSize++;
+        return;
+    }
     std::string errorSuffix;
     if (myVehicleParameter != 0) {
         errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
@@ -522,11 +576,21 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.endPos = busstop->endPos;
         stop.startPos = busstop->startPos;
         edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
+    } // try to parse the assigned container stop
+    else if (stop.containerstop != "") {
+        const SUMOVehicleParameter::Stop* containerstop = myNet.getContainerStop(stop.containerstop);
+        if (containerstop == 0) {
+            myErrorOutput->inform("Unknown container stop '" + stop.containerstop + "'" + errorSuffix);
+        }
+        stop.lane = containerstop->lane;
+        stop.endPos = containerstop->endPos;
+        stop.startPos = containerstop->startPos;
+        edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
     } else {
         // no, the lane and the position should be given
         stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, 0, ok, "");
         if (!ok || stop.lane == "") {
-            myErrorOutput->inform("A stop must be placed on a bus stop or a lane" + errorSuffix);
+            myErrorOutput->inform("A stop must be placed on a bus stop, a container stop or a lane" + errorSuffix);
             return;
         }
         edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
@@ -633,7 +697,6 @@ RORouteHandler::routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& pl
     myActiveRoute.clear();
     return ok;
 }
-
 
 
 /****************************************************************************/

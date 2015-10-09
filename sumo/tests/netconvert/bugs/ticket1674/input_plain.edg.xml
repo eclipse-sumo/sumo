@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11.03.2015 17:26:07 by Netedit Version dev-SVN-r18056
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\erdm_ja\sumoI\sumo\tools\import\osm\2015-03-11-15-50.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\erdm_ja\sumoI\sumo\tools\import\osm\2015-03-11-15-50.net.xml"/>
+        <plain-output-prefix value="D:\erdm_ja\projekte\sumo\debug\1674\input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-68424027#0" from="829260313" to="829260331" priority="6" type="highway.tertiary" numLanes="1" speed="13.89">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="-68424027#1" from="829260314" to="829260313" priority="6" type="highway.tertiary" numLanes="1" speed="13.89">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="-68424027#2" from="823316987" to="829260314" priority="6" type="highway.tertiary" numLanes="1" speed="13.89">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="-68424027#3" from="847163225" to="823316987" priority="6" type="highway.tertiary" numLanes="1" speed="13.89" shape="15246.95,1647.22 15247.77,1644.43 15254.53,1620.12 15264.72,1597.12">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="-69122430" from="829260299" to="829260313" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="15378.06,1578.04 15348.44,1572.90 15320.75,1569.92 15310.64,1569.84 15300.25,1572.73 15287.93,1580.02 15279.60,1586.10 15273.48,1586.30">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="-70849826" from="829260290" to="829260314" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="15291.57,1604.18 15275.95,1591.78 15272.48,1587.89">
+        <lane index="0" allow="delivery bicycle pedestrian"/>
+    </edge>
+    <edge id="-75091036#1" from="823316987" to="829260312" priority="5" type="highway.unclassified" numLanes="1" speed="13.89">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="68424027#0" from="829260331" to="829260313" priority="6" type="highway.tertiary" numLanes="1" speed="13.89">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="68424027#1" from="829260313" to="829260314" priority="6" type="highway.tertiary" numLanes="1" speed="13.89">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="68424027#2" from="829260314" to="823316987" priority="6" type="highway.tertiary" numLanes="1" speed="13.89">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="68424027#3" from="823316987" to="847163225" priority="6" type="highway.tertiary" numLanes="1" speed="13.89" shape="15264.72,1597.12 15254.53,1620.12 15247.77,1644.43 15246.95,1647.22">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="69122430" from="829260313" to="829260299" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="15273.48,1586.30 15279.60,1586.10 15287.93,1580.02 15300.25,1572.73 15310.64,1569.84 15320.75,1569.92 15348.44,1572.90 15378.06,1578.04">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+    <edge id="70849826" from="829260314" to="829260290" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="15272.48,1587.89 15275.95,1591.78 15291.57,1604.18">
+        <lane index="0" allow="delivery bicycle pedestrian"/>
+    </edge>
+    <edge id="75091036#1" from="829260312" to="823316987" priority="5" type="highway.unclassified" numLanes="1" speed="13.89">
+        <lane index="0" disallow="rail_urban rail rail_electric"/>
+    </edge>
+</edges>

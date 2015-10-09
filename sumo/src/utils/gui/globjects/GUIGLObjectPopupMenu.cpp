@@ -9,7 +9,7 @@
 // The popup menu of a globject
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -46,6 +46,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+#define DEBUG_VEHICLE_GUI_SELECTION 1
 
 // ===========================================================================
 // FOX callback mapping
@@ -54,6 +55,7 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CENTER,                  GUIGLObjectPopupMenu::onCmdCenter),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_NAME,               GUIGLObjectPopupMenu::onCmdCopyName),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_TYPED_NAME,         GUIGLObjectPopupMenu::onCmdCopyTypedName),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_EDGE_NAME,          GUIGLObjectPopupMenu::onCmdCopyEdgeName),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_POSITION,    GUIGLObjectPopupMenu::onCmdCopyCursorPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_GEOPOSITION, GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,                GUIGLObjectPopupMenu::onCmdShowPars),
@@ -102,6 +104,14 @@ GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*, FXSelector, void*) {
 
 
 long
+GUIGLObjectPopupMenu::onCmdCopyEdgeName(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_LANE);
+    GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getParentName());
+    return 1;
+}
+
+
+long
 GUIGLObjectPopupMenu::onCmdCopyCursorPosition(FXObject*, FXSelector, void*) {
     GUIUserIO::copyToClipboard(*myParent->getApp(), toString(myNetworkPosition));
     return 1;
@@ -130,6 +140,9 @@ long
 GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*, FXSelector, void*) {
     gSelected.select(myObject->getGlID());
     myParent->update();
+#ifdef DEBUG_VEHICLE_GUI_SELECTION
+    gDebugSelectedVehicle = myObject->getMicrosimID();
+#endif
     return 1;
 }
 

@@ -9,7 +9,7 @@
 // The popup menu of a globject
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -79,6 +79,9 @@ public:
 
     /// Called if the typed name shall be copied to clipboard
     long onCmdCopyTypedName(FXObject*, FXSelector, void*);
+
+    /// Called if the edge name shall be copied to clipboard (for lanes only)
+    long onCmdCopyEdgeName(FXObject*, FXSelector, void*);
 
     /// Called if the cursor position shall be copied to clipboard
     long onCmdCopyCursorPosition(FXObject*, FXSelector, void*);

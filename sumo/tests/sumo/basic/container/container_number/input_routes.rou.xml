@@ -1,0 +1,13 @@
+<routes>
+   <vType id="DEFAULT_VEHTYPE" sigma="0" containerCapacity="1"/>
+       <vehicle id="vehicle1"  depart="0" departPos="0" >
+        <route edges="1/4to1/3 1/3to0/3 0/3to0/4 0/4to1/4 1/4to1/3">
+        <stop containerStop="containerStop0" duration="50"/>
+        <stop containerStop="containerStop1" duration="20"/>
+        </route>
+    </vehicle>
+    
+    <container id="container0" depart="0" departPos="50">
+        <transport from="1/3to0/3" to="0/4to1/4" lines="vehicle1"/>
+    </container>
+</routes>

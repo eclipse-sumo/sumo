@@ -11,7 +11,7 @@
 // }
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -79,14 +79,14 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction)
 #else
     myIsInner = false;
 #endif
-    myAmWaterway = true;
-    for(ConstMSEdgeVector::const_iterator it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end(); ++it) {
+    myAmWaterway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
+    for (ConstMSEdgeVector::const_iterator it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end(); ++it) {
         if (!(*it)->isInternal() && !isWaterway((*it)->getPermissions())) {
             myAmWaterway = false;
             break;
         }
     }
-    for(ConstMSEdgeVector::const_iterator it = myJunction.getOutgoing().begin(); it != myJunction.getOutgoing().end(); ++it) {
+    for (ConstMSEdgeVector::const_iterator it = myJunction.getOutgoing().begin(); it != myJunction.getOutgoing().end(); ++it) {
         if (!(*it)->isInternal() && !isWaterway((*it)->getPermissions())) {
             myAmWaterway = false;
             break;
@@ -193,6 +193,8 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& s) const {
                 case NODETYPE_INTERNAL:
                     assert(false);
                     return 8;
+                case NODETYPE_RAIL_SIGNAL:
+                    return 9;
             }
         default:
             assert(false);

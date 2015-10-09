@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 06 Mar 2015 01:49:20 PM CET by Netedit Version dev-SVN-r18039I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumo/tools/import/osm/debug2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumo/tools/import/osm/debug2.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/1660/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-194962398#2" from="29215077" to="735963263" priority="4" numLanes="2" speed="8.33" shape="4227.80,839.13 4224.23,836.82 4134.01,788.31">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="-4615548" from="21487229" to="29215077" priority="4" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="194962398#2" from="735963263" to="29215077" priority="4" numLanes="2" speed="8.33" shape="4134.01,788.31 4224.23,836.82 4227.80,839.13">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="246044848#1" from="cluster_2531313425_2531313439" to="29215077" priority="7" numLanes="3" speed="13.89" shape="4174.01,965.69 4184.87,945.21 4192.94,928.17 4202.57,906.31 4211.94,883.49 4221.87,855.13 4226.36,838.74" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="2" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="246044848#2" from="29215077" to="539782072" priority="7" numLanes="3" speed="13.89" shape="4226.35,838.78 4230.13,823.14 4234.98,799.11 4237.10,786.60 4239.93,768.59 4243.99,744.93" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="2" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="312533962#0" from="21487229" to="1193560217" priority="7" numLanes="4" speed="13.89" shape="4238.15,845.80 4234.24,858.83 4232.06,865.95 4225.48,884.51" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="2" disallow="rail_urban rail rail_electric pedestrian"/>
+        <lane index="3" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="4615548" from="29215077" to="21487229" priority="4" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+</edges>

@@ -9,7 +9,7 @@
 // The window that holds the table of an object's parameter
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -161,6 +161,16 @@ public:
     void mkItem(const char* name, bool dynamic, int value);
 
 
+    /** @brief Adds a row which shows a 64 bit integer-value
+     *
+     * @param[in] name The name of the row entry
+     * @param[in] dynamic Information whether the entry is dynamic
+     * @param[in] value The value to show
+     * @todo the dynamic-parameter is obsolete
+     */
+    void mkItem(const char* name, bool dynamic, long long int value);
+
+
     /** @brief Adds a row which shows a SUMOReal-value
      *
      * @param[in] name The name of the row entry
@@ -203,7 +213,7 @@ public:
     long onRightButtonPress(FXObject*, FXSelector, void*);
     /// @}
 
-    /** @brief Updates all instances 
+    /** @brief Updates all instances
      */
     static void updateAll() {
         AbstractMutex::ScopedLocker locker(myGlobalContainerLock);

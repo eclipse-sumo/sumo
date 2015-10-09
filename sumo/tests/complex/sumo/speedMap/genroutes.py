@@ -9,7 +9,7 @@
 Plot a speed heat map for different car following models
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2014-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -18,7 +18,10 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import print_function
-import os, sys, subprocess, numpy
+import os
+import sys
+import subprocess
+import numpy
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -73,12 +76,13 @@ for model in ["Krauss", "KraussPS", "KraussOrig1", "BKerner", "SmartSK", "IDM", 
     ''' % (i, 500 - i * 8) )
     routes.write('</routes>\n')
     routes.close()
-    subprocess.call([sumolib.checkBinary("sumo"), cfg.name], stdout=sys.stdout, stderr=sys.stderr)
+    subprocess.call(
+        [sumolib.checkBinary("sumo"), cfg.name], stdout=sys.stdout, stderr=sys.stderr)
 
     matrix = numpy.empty([numVehs, time])
     for count, vehicle in enumerate(sumolib.output.parse(stateFile, "vehicle")):
         matrix[int(vehicle.id)][count / numVehs] = 3.6 * float(vehicle.speed)
     plt.imshow(matrix)
-    plt.colorbar(orientation ='horizontal')
+    plt.colorbar(orientation='horizontal')
     plt.savefig("%s.png" % model)
     plt.clf()

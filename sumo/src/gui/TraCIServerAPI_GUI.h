@@ -8,7 +8,7 @@
 // APIs for getting/setting GUI values via TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -42,12 +42,6 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class GUIGlChildWindow;
-
-
-// ===========================================================================
-// class definitions
-// ===========================================================================
 /**
  * @class TraCIServerAPI_GUI
  * @brief APIs for getting/setting GUI values via TraCI
@@ -75,17 +69,12 @@ public:
 
 
 protected:
-    /** @brief Returns the main window
-     * @return The main window (should exist)
-     */
-    static GUIMainWindow* getMainWindow();
-
-
     /** @brief Returns the named view
      * @param[in] viewName The name of the view
      * @return The named view if existing, 0 otherwise
      */
     static GUISUMOAbstractView* getNamedView(const std::string& id);
+
 
 private:
     /// @brief invalidated copy constructor

@@ -62,7 +62,7 @@ ShapeHandler::~ShapeHandler() {}
 
 void
 ShapeHandler::myStartElement(int element,
-                          const SUMOSAXAttributes& attrs) {
+                             const SUMOSAXAttributes& attrs) {
     try {
         switch (element) {
             case SUMO_TAG_POLY:
@@ -143,6 +143,11 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs) {
     std::string colorStr = attrs.get<std::string>(SUMO_ATTR_COLOR, id.c_str(), ok);
     RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok);
     PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
+    if (attrs.getOpt<bool>(SUMO_ATTR_GEO, id.c_str(), ok, false)) {
+        for (int i = 0; i < (int) shape.size(); i++) {
+            GeoConvHelper::getFinal().x2cartesian_const(shape[i]);
+        }
+    }
     SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
     std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
     if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
@@ -157,7 +162,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs) {
 
 
 
-bool 
+bool
 ShapeHandler::loadFiles(const std::vector<std::string>& files, ShapeHandler& sh) {
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         if (!XMLSubSys::runParser(sh, *fileIt, false)) {

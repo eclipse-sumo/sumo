@@ -9,7 +9,7 @@
 // Variables, methods, and tools for internal time representation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -32,7 +32,7 @@
 #include <config.h>
 #endif
 
-#include <climits>
+#include <limits>
 #include <string>
 #include "UtilExceptions.h"
 
@@ -40,10 +40,10 @@
 // ===========================================================================
 // type definitions
 // ===========================================================================
-typedef int SUMOTime;
-#define SUMOTime_MAX INT_MAX
-#define SUMOTime_MIN INT_MIN
-#define SUMOTIME_MAXSTRING "2147483" // INT_MAX / 1000
+typedef long long int SUMOTime;
+#define SUMOTime_MAX std::numeric_limits<SUMOTime>::max()
+#define SUMOTime_MIN std::numeric_limits<SUMOTime>::min()
+#define SUMOTIME_MAXSTRING "9223372036854774" // SUMOTime_MAX / 1000 - 1 (because of rounding errors)
 
 #ifndef HAVE_SUBSECOND_TIMESTEPS
 // the step length in s

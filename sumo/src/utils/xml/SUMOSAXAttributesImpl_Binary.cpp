@@ -9,7 +9,7 @@
 // Encapsulated Xerces-SAX-attributes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -185,7 +185,7 @@ SUMOSAXAttributesImpl_Binary::getInt(int id) const {
 }
 
 
-SUMOLong
+long long int
 SUMOSAXAttributesImpl_Binary::getLong(int /* id */) const {
     throw NumberFormatException();
 }

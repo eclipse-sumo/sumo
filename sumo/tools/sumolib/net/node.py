@@ -11,7 +11,7 @@
 This file contains a Python-representation of a single node.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -19,8 +19,12 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+
+
 class Node:
+
     """ Nodes from a sumo network """
+
     def __init__(self, id, type, coord, incLanes):
         self._id = id
         self._type = type
@@ -36,7 +40,7 @@ class Node:
 
     def addOutgoing(self, edge):
         self._outgoing.append(edge)
-        
+
     def getOutgoing(self):
         return self._outgoing
 
@@ -60,10 +64,10 @@ class Node:
             lane = None
             for et in self._incoming:
                 for l in et._lanes:
-                    if l==link[0]:
+                    if l == link[0]:
                         lane = l
-            
-            if l[0]==link[0] and l[1]==link[1]:
+
+            if l[0] == link[0] and l[1] == link[1]:
                 return ret
             ret += 1
         return -1
@@ -74,11 +78,10 @@ class Node:
         if possProhibitorIndex < 0 or possProhibitedIndex < 0:
             return False
         ps = self._prohibits[possProhibitedIndex]
-        return ps[-(possProhibitorIndex-1)]=='1'
+        return ps[-(possProhibitorIndex - 1)] == '1'
 
     def getCoord(self):
         return self._coord
 
     def getType(self):
         return self._type
-

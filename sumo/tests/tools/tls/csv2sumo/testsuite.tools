@@ -6,11 +6,9 @@ cross3ltl_new
 
 # Test with the cross3ltl network
 cross3ltl_error_missinglink
-
 both_ok
 both_first_false
 both_second_false
 
-
-
-
+# multiple definitions in a single input file
+multiple_definitions

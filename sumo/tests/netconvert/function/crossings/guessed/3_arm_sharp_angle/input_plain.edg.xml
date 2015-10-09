@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 20 Apr 2015 12:29:43 PM CEST by Netedit Version dev-SVN-r18230I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="nocross.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="nocross.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/_import_OSM_server/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="24243052#1" from="2454091577" to="1387903273" priority="4" numLanes="2" speed="8.33" shape="2035.38,2083.49 2173.59,2091.87" spreadType="center">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="24243052#2" from="1387903273" to="1864428537" priority="4" numLanes="2" speed="8.33" shape="2173.47,2093.57 2185.76,2094.50 2217.63,2096.81 2228.72,2096.48" spreadType="center">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+    <edge id="24243056#0" from="1387903273" to="2071378250" priority="4" numLanes="2" speed="8.33" shape="2174.07,2097.18 2151.59,2101.23 2139.21,2104.44 2105.36,2118.36" spreadType="center">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="rail_urban rail rail_electric pedestrian"/>
+    </edge>
+</edges>

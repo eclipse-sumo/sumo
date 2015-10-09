@@ -9,7 +9,7 @@
 //
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2006-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2006-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -42,7 +42,8 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-FXint fxexecute(FXString link) {
+FXint 
+FXLinkLabel::fxexecute(FXString link) {
 #ifdef WIN32
     FXString quoted = FXPath::enquote(link);
     return (size_t)ShellExecute(NULL, "open", quoted.text(), NULL, NULL, SW_SHOW) > 32;

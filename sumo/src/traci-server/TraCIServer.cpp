@@ -16,7 +16,7 @@
 /// TraCI server used to control sumo by a remote TraCI client (e.g., ns2)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2007-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -189,7 +189,7 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
     }
     if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
         myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")),
-            OptionsCont::getOptions().getInt("remote-port"));
+                                     OptionsCont::getOptions().getInt("remote-port"));
         for (std::map<int, CmdExecutor>::const_iterator i = execs.begin(); i != execs.end(); ++i) {
             myInstance->myExecutors[i->first] = i->second;
         }
@@ -201,6 +201,10 @@ void
 TraCIServer::close() {
     if (myInstance == 0) {
         return;
+    }
+    if (myDoCloseConnection) {
+        myInstance->writeStatusCmd(CMD_CLOSE, RTYPE_OK, "");
+        myInstance->mySocket->sendExact(myInstance->myOutputStorage);
     }
     delete myInstance;
     myInstance = 0;
@@ -216,7 +220,7 @@ TraCIServer::wasClosed() {
 
 void
 TraCIServer::setVTDControlled(MSVehicle* v, MSLane* l, SUMOReal pos, int edgeOffset, ConstMSEdgeVector route,
-						SUMOTime t) {
+                              SUMOTime t) {
     myVTDControlledVehicles[v->getID()] = v;
     v->getInfluencer().setVTDControlled(true, l, pos, edgeOffset, route, t);
 }
@@ -299,11 +303,6 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         throw ProcessError(e.what());
     } catch (tcpip::SocketException& e) {
         throw ProcessError(e.what());
-    }
-    if (myInstance != NULL) {
-        delete myInstance;
-        myInstance = 0;
-        myDoCloseConnection = true;
     }
 }
 
@@ -433,9 +432,11 @@ TraCIServer::dispatchCommand() {
                 return commandId;
             }
             case CMD_CLOSE:
-                success = commandCloseConnection();
+                myDoCloseConnection = true;
+                success = true;
                 break;
             case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
+            case CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE:
             case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
             case CMD_SUBSCRIBE_TL_VARIABLE:
             case CMD_SUBSCRIBE_LANE_VARIABLE:
@@ -452,6 +453,7 @@ TraCIServer::dispatchCommand() {
                 success = addObjectVariableSubscription(commandId, false);
                 break;
             case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
+            case CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT:
             case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
             case CMD_SUBSCRIBE_TL_CONTEXT:
             case CMD_SUBSCRIBE_LANE_CONTEXT:
@@ -504,15 +506,6 @@ TraCIServer::commandGetVersion() {
     myOutputStorage.writeUnsignedByte(CMD_GETVERSION);
     // and the parameter dependant part
     myOutputStorage.writeStorage(answerTmp);
-    return true;
-}
-
-
-bool
-TraCIServer::commandCloseConnection() {
-    myDoCloseConnection = true;
-    // write answer
-    writeStatusCmd(CMD_CLOSE, RTYPE_OK, "");
     return true;
 }
 

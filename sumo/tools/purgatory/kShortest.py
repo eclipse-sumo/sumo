@@ -11,7 +11,7 @@ Calculating k shortest paths in a dijkstra like fashion
 storing k predecessors
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -20,12 +20,16 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, random, string, sys
+import os
+import random
+import string
+import sys
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
+
 
 class Predecessor:
 
@@ -48,17 +52,18 @@ def _addNewPredecessor(edge, updatePred, newPreds):
     newPreds.append(Predecessor(edge, updatePred,
                                 updatePred.distance + edge.weight))
 
+
 def update(vertex, edge):
     updatePreds = edge._from.preds
     if len(vertex.preds) == options.k\
-       and updatePreds[0].distance + edge.weight >= vertex.preds[options.k-1].distance:
+       and updatePreds[0].distance + edge.weight >= vertex.preds[options.k - 1].distance:
         return False
     newPreds = []
     updateIndex = 0
     predIndex = 0
     while len(newPreds) < options.k\
-          and (updateIndex < len(updatePreds)\
-               or predIndex < len(vertex.preds)):
+        and (updateIndex < len(updatePreds)
+             or predIndex < len(vertex.preds)):
         if predIndex == len(vertex.preds):
             _addNewPredecessor(edge, updatePreds[updateIndex], newPreds)
             updateIndex += 1
@@ -71,12 +76,13 @@ def update(vertex, edge):
         else:
             newPreds.append(vertex.preds[predIndex])
             predIndex += 1
-    if predIndex == len(newPreds): # no new added
+    if predIndex == len(newPreds):  # no new added
         return False
     vertex.preds = newPreds
     returnVal = not vertex.wasUpdated
     vertex.wasUpdated = True
     return returnVal
+
 
 def calcPaths(net, startEdgeLabel):
     for n in net.getNodes():
@@ -100,16 +106,17 @@ def calcPaths(net, startEdgeLabel):
                 updatedVertices.append(edge._to)
     printRoutes(net, startVertex)
 
+
 def printRoutes(net, startVertex):
     if options.traveltime:
-        weight="duration"
+        weight = "duration"
     else:
-        weight="length"
+        weight = "length"
     print "<routes>"
     for lastVertex in net.getNodes():
         routes = []
         for num, startPred in enumerate(lastVertex.preds):
-            vertex = lastVertex  
+            vertex = lastVertex
             pred = startPred
             route = ""
             lastEdge = None
@@ -122,9 +129,9 @@ def printRoutes(net, startVertex):
                 vertex = pred.edge._from
                 pred = pred.pred
             if lastEdge != firstEdge:
-                routes.append((startPred.distance, '%s_%s" %s="%s" edges="%s"/>'\
-                              % (firstEdge.getID(), lastEdge.getID(),
-                                 weight, startPred.distance, route[:-1])))
+                routes.append((startPred.distance, '%s_%s" %s="%s" edges="%s"/>'
+                               % (firstEdge.getID(), lastEdge.getID(),
+                                  weight, startPred.distance, route[:-1])))
         for num, route in enumerate(sorted(routes)):
             print '    <route id="route%s_%s' % (num, route[1])
         print

@@ -9,7 +9,7 @@
 // A reader for a SUMO network's projection description
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -113,7 +113,8 @@ PCNetProjectionLoader::myStartElement(int element,
     Boundary origBoundary = attrs.get<Boundary>(SUMO_ATTR_ORIG_BOUNDARY, 0, myFoundLocation);
     std::string proj = attrs.get<std::string>(SUMO_ATTR_ORIG_PROJ, 0, myFoundLocation);
     if (myFoundLocation) {
-        Position networkOffset = s[0];
+        OptionsCont& oc = OptionsCont::getOptions();
+        Position networkOffset = s[0] + Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
         GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary, myShift);
     }
 }

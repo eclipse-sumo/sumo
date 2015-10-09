@@ -9,7 +9,7 @@
 // Reroutes vehicles passing an edge
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -67,6 +67,9 @@ class SUMOVehicle;
 class MSTriggeredRerouter :
     public MSTrigger, public MSMoveReminder,
     public SUMOSAXHandler {
+
+friend class GUIEdge; // dynamic instantiation
+
 public:
     /** @brief Constructor
      *

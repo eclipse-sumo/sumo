@@ -11,7 +11,7 @@ This script rebuilds "../../build/msvc/python.props", the file which
 gives information about the python includes and library.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -20,10 +20,12 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import sys, distutils.sysconfig
+import sys
+import distutils.sysconfig
 from os.path import dirname, join
 
-propsFile = join(dirname(__file__), '..', '..', 'build', 'msvc10', 'python.props')
+propsFile = join(
+    dirname(__file__), '..', '..', 'build', 'msvc10', 'python.props')
 print('generating %s ' % propsFile)
 props = open(propsFile, 'w')
 libPrefix = "%s\libs\python%s%s" % (sys.prefix, sys.version[0], sys.version[2])

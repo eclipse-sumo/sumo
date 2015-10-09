@@ -9,7 +9,7 @@
 // Encapsulated Xerces-SAX-attributes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -35,6 +35,7 @@
 #include <xercesc/sax2/DefaultHandler.hpp>
 #include <xercesc/util/XercesVersion.hpp>
 #include <xercesc/util/TransService.hpp>
+#include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/TplConvert.h>
@@ -86,7 +87,7 @@ SUMOSAXAttributesImpl_Xerces::getInt(int id) const {
 }
 
 
-SUMOLong
+long long int
 SUMOSAXAttributesImpl_Xerces::getLong(int id) const {
     return TplConvert::_2long(getAttributeValueSecure(id));
 }
@@ -105,8 +106,12 @@ SUMOSAXAttributesImpl_Xerces::getString(int id) const {
         // TranscodeToStr and debug_new interact badly in this case;
         return "";
     } else {
-        XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
-        return TplConvert::_2str(utf8.str(), (unsigned)utf8.length());
+        try {
+            XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
+            return TplConvert::_2str(utf8.str(), (unsigned)utf8.length());
+        } catch (XERCES_CPP_NAMESPACE::TranscodingException e) {
+            return "?";
+        }
     }
 #endif
 }
@@ -126,8 +131,12 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
         // TranscodeToStr and debug_new interact badly in this case;
         return "";
     } else {
-        XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
-        return TplConvert::_2strSec(utf8.str(), (unsigned)utf8.length(), str);
+        try {
+            XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
+            return TplConvert::_2strSec(utf8.str(), (unsigned)utf8.length(), str);
+        } catch (XERCES_CPP_NAMESPACE::TranscodingException e) {
+            return "?";
+        }
     }
 #endif
 }

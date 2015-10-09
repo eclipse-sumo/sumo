@@ -23,7 +23,7 @@ After mirroring all pages, the images are downloaded and stored into
 MIRROR_FOLDER/images.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -31,13 +31,17 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import urllib, os, sys, shutil
+import urllib
+import os
+import sys
+import shutil
 from optparse import OptionParser
+
 
 def readParsePage(page):
     f = urllib.urlopen("http://sumo.dlr.de/wiki/%s" % page)
     c = f.read()
-    b = c.find("This page was last modified on");
+    b = c.find("This page was last modified on")
     e = c.find("<", b)
     lastMod = c[b:e]
     b = c.find('<a id="top"')
@@ -45,16 +49,19 @@ def readParsePage(page):
     c = c[b:e]
     c = c.replace('<h3 id="siteSub">From sumo</h3>', '')
     b = c.find('<div id="jump-to-nav"')
-    e = c.find('</div>', b)+6
+    e = c.find('</div>', b) + 6
     return c[:b] + c[e:] + '</div><hr/><div id="lastmod">' + lastMod + '</div>'
 
+
 def readParseEditPage(page):
-    f = urllib.urlopen("http://sumo.dlr.de/w/index.php?title=%s&action=edit" % page)
+    f = urllib.urlopen(
+        "http://sumo.dlr.de/w/index.php?title=%s&action=edit" % page)
     c = f.read()
     b = c.find("wpTextbox1")
     b = c.find('>', b) + 1
     e = c.find("</textarea>")
     return c[b:e]
+
 
 def getImages(page):
     images = set()
@@ -67,12 +74,13 @@ def getImages(page):
                 if pos >= 0 and pos < e:
                     e = pos
             images.add(page[b:e].strip())
-            b = page.find(t, b+1)
+            b = page.find(t, b + 1)
     return images
 
 if __name__ == "__main__":
     optParser = OptionParser()
-    optParser.add_option("-o", "--output", default="wiki", help="output folder")
+    optParser.add_option(
+        "-o", "--output", default="wiki", help="output folder")
     (options, args) = optParser.parse_args()
 
     try:
@@ -92,12 +100,13 @@ if __name__ == "__main__":
             continue
         b = p.find("/wiki/")
         e = p.find("\"", b)
-        name = p[b+6:e]
+        name = p[b + 6:e]
         print "Fetching %s" % name
         c = readParseEditPage(name)
-        if name.find("/")>0:
-            try: 
-                os.makedirs(os.path.join(options.output, name[:name.rfind("/")]))
+        if name.find("/") > 0:
+            try:
+                os.makedirs(
+                    os.path.join(options.output, name[:name.rfind("/")]))
             except:
                 pass
             images.update(getImages(c))
@@ -108,19 +117,19 @@ if __name__ == "__main__":
 
     for i in images:
         print "Fetching image %s" % i
-        if i.find(":")>=0:
+        if i.find(":") >= 0:
             f = urllib.urlopen("http://sumo.dlr.de/wiki/%s" % i)
             c = f.read()
             b = c.find("<div class=\"fullImageLink\" id=\"file\">")
-            b = c.find("href=", b)+6
-            e = c.find("\"", b+1)
+            b = c.find("href=", b) + 6
+            e = c.find("\"", b + 1)
             f = urllib.urlopen("http://sourceforge.net/%s" % c[b:e])
-            i = i[i.find(":")+1:]
+            i = i[i.find(":") + 1:]
         else:
             f = urllib.urlopen("http://sourceforge.net/%s" % i)
-            i = i[i.rfind("/")+1:]
+            i = i[i.rfind("/") + 1:]
         if i.find("px-") >= 0:
-            i = i[:i.find('-')+1]
+            i = i[:i.find('-') + 1]
         fd = open(os.path.join(options.output, "images", i), "wb")
         fd.write(f.read())
         fd.close()

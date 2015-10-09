@@ -52,9 +52,6 @@
     <ClInclude Include="..\..\..\src\utils\vehicle\SUMOVTypeParameter.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\vehicle\BulkStarRouter.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\utils\vehicle\CHRouter.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>

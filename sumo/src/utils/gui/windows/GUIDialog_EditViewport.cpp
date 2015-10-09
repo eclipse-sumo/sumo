@@ -9,7 +9,7 @@
 // A dialog to change the viewport
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2005-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2005-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -191,7 +191,7 @@ GUIDialog_EditViewport::onCmdSave(FXObject*, FXSelector, void* /*data*/) {
 }
 
 
-void 
+void
 GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
     dev.openTag(SUMO_TAG_VIEWPORT);
     dev.writeAttr(SUMO_ATTR_ZOOM, myZoom->getValue());

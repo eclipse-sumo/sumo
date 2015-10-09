@@ -9,7 +9,7 @@
 // static methods for processing the coordinates conversion for the current net
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -38,6 +38,7 @@
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "GeoConvHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -333,7 +334,12 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
     } else if (myUseInverseProjection) {
         cartesian2geo(from);
     } else {
-        if (x > 180.1 || x < -180.1 || y > 90.1 || y < -90.1) {
+        if (x > 180.1 || x < -180.1) {
+            WRITE_WARNING("Invalid longitude " + toString(x));
+            return false;
+        }
+        if (y > 90.1 || y < -90.1) {
+            WRITE_WARNING("Invalid latitude " + toString(y));
             return false;
         }
 #ifdef HAVE_PROJ
@@ -437,6 +443,25 @@ void
 GeoConvHelper::resetLoaded() {
     myNumLoaded = 0;
 }
+
+
+void
+GeoConvHelper::writeLocation(OutputDevice& into) {
+    into.openTag(SUMO_TAG_LOCATION);
+    into.writeAttr(SUMO_ATTR_NET_OFFSET, myFinal.getOffsetBase());
+    into.writeAttr(SUMO_ATTR_CONV_BOUNDARY, myFinal.getConvBoundary());
+    if (myFinal.usingGeoProjection()) {
+        into.setPrecision(GEO_OUTPUT_ACCURACY);
+    }
+    into.writeAttr(SUMO_ATTR_ORIG_BOUNDARY, myFinal.getOrigBoundary());
+    if (myFinal.usingGeoProjection()) {
+        into.setPrecision();
+    }
+    into.writeAttr(SUMO_ATTR_ORIG_PROJ, myFinal.getProjString());
+    into.closeTag();
+    into.lf();
+}
+
 
 
 /****************************************************************************/

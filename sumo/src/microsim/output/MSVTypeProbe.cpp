@@ -10,7 +10,7 @@
 // Writes positions of vehicles that have a certain (named) type
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -64,7 +64,10 @@ MSVTypeProbe::~MSVTypeProbe() {
 
 SUMOTime
 MSVTypeProbe::execute(SUMOTime currentTime) {
-    myOutputDevice.openTag("timestep") << " time=\"" << time2string(currentTime) << "\" id=\"" << getID() << "\" vType=\"" << myVType << "\"";
+    myOutputDevice.openTag(SUMO_TAG_TIMESTEP);
+    myOutputDevice.writeAttr(SUMO_ATTR_TIME, time2string(currentTime));
+    myOutputDevice.writeAttr(SUMO_ATTR_ID, getID());
+    myOutputDevice.writeAttr("vType", myVType);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
@@ -72,19 +75,25 @@ MSVTypeProbe::execute(SUMOTime currentTime) {
         if (myVType == "" || myVType == veh->getVehicleType().getID()) {
             if (veh->isOnRoad()) {
                 Position pos = veh->getPosition();
-                myOutputDevice.openTag("vehicle").writeAttr("id", veh->getID());
+                myOutputDevice.openTag(SUMO_TAG_VEHICLE);
+                myOutputDevice.writeAttr(SUMO_ATTR_ID, veh->getID());
                 if (microVeh != 0) {
-                    myOutputDevice.writeAttr("lane", microVeh->getLane()->getID());
+                    myOutputDevice.writeAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID());
                 }
-                myOutputDevice.writeAttr("pos", veh->getPositionOnLane());
-                myOutputDevice.writeAttr("x", pos.x()).writeAttr("y", pos.y());
+                myOutputDevice.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
+                myOutputDevice.writeAttr(SUMO_ATTR_X, pos.x());
+                myOutputDevice.writeAttr(SUMO_ATTR_Y, pos.y());
+                if (MSNet::getInstance()->hasElevation()) {
+                    myOutputDevice.writeAttr(SUMO_ATTR_Z, pos.z());
+                }
                 if (GeoConvHelper::getFinal().usingGeoProjection()) {
                     GeoConvHelper::getFinal().cartesian2geo(pos);
                     myOutputDevice.setPrecision(GEO_OUTPUT_ACCURACY);
-                    myOutputDevice.writeAttr("lat", pos.y()).writeAttr("lon", pos.x());
+                    myOutputDevice.writeAttr(SUMO_ATTR_LAT, pos.y());
+                    myOutputDevice.writeAttr(SUMO_ATTR_LON, pos.x());
                     myOutputDevice.setPrecision();
                 }
-                myOutputDevice.writeAttr("speed", veh->getSpeed());
+                myOutputDevice.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
                 myOutputDevice.closeTag();
             }
         }

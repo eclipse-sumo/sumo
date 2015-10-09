@@ -8,7 +8,7 @@
 // A temporary storage for edges imported from Vissim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -259,7 +259,7 @@ private:
     /// The name of the edge
     std::string myName;
 
-    /// The tape of the edge
+    /// The type of the edge
     std::string myType;
 
     /// The number of lanes the edge has

@@ -1,0 +1,5 @@
+<trips>
+	<trip depart="0" from="beg" to="rend">
+        <stop lane="left_0" duration="10"/>
+    </trip>
+</trips>

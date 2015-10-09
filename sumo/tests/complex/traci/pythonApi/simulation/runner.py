@@ -10,7 +10,7 @@
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -19,16 +19,25 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,subprocess,sys,shutil, struct, random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci, sumolib
+import os
+import subprocess
+import sys
+import shutil
+import struct
+import random
+sys.path.append(os.path.join(
+    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
+import traci
+import sumolib
 
 sumoBinary = sumolib.checkBinary('sumo')
 
 PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen("%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+sumoProcess = subprocess.Popen(
+    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
-traci.simulation.subscribe((traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS))
+traci.simulation.subscribe(
+    (traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS))
 print traci.simulation.getSubscriptionResults()
 for step in range(6):
     print "step", step
@@ -63,7 +72,7 @@ print "convertRoadGeoAlt", traci.simulation.convert3D("o", 0., toGeo=True)
 print "convert2DGeo", traci.simulation.convertGeo(488.65, 501.65)
 print "convertGeo2D", traci.simulation.convertGeo(12, 48, True)
 print "convert2DRoad", traci.simulation.convertRoad(488.65, 501.65)
-print "convertGeoRoad", traci.simulation.convertRoad(488.65, 501.65, True)
+print "convertGeoRoad", traci.simulation.convertRoad(12, 48.1, True)
 print "distance2D", traci.simulation.getDistance2D(488.65, 501.65, 498.65, 501.65)
 print "drivingDistance2D", traci.simulation.getDistance2D(488.65, 501.65, 498.65, 501.65, isDriving=True)
 print "distanceRoad", traci.simulation.getDistanceRoad("o", 0., "2o", 0.)
@@ -75,4 +84,3 @@ for step in range(6):
     traci.simulationStep()
     print traci.simulation.getSubscriptionResults()
 traci.close()
-

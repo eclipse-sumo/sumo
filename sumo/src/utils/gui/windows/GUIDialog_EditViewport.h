@@ -8,7 +8,7 @@
 // A dialog to change the viewport
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -98,7 +98,7 @@ public:
     /// @}
 
     /// write the settings to the given device
-    void writeXML(OutputDevice& dev); 
+    void writeXML(OutputDevice& dev);
 
     /** @brief Sets the given values into the dialog
      * @param[in] zoom Current view's zoom

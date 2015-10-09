@@ -12,7 +12,7 @@
 // streets, households, bus lines, work positions and school
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2010-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2010-2015 DLR (http://www.dlr.de/) and contributors
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 /****************************************************************************/
@@ -95,7 +95,7 @@ AGCity::completeStreets() {
             }
         }
         //if this edge isn't represented by a street
-        if (itS == streets.end() && itE->second->getType() != ROEdge::ET_INTERNAL) {
+        if (itS == streets.end() && itE->second->getFunc() != ROEdge::ET_INTERNAL) {
             streets.push_back(static_cast<AGStreet*>(itE->second));
         }
     }

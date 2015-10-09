@@ -11,7 +11,7 @@
 // A basic edge for routing applications
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -43,7 +43,7 @@
 // method definitions
 // ===========================================================================
 ROMAEdge::ROMAEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority)
-    : ROEdge(id, from, to, index, priority), myHelpFlow(0.) {
+    : ROEdge(id, from, to, index, priority) {
 }
 
 

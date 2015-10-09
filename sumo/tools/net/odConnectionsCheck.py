@@ -10,7 +10,7 @@
 This script checks if at least one route for a given OD pair exists.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2007-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -19,21 +19,29 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os, string, sys, operator
+import os
+import string
+import sys
+import operator
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 
 pyPath = os.path.dirname(sys.argv[0])
-sys.path.append(os.path.join("..", "..", "..", "..", "extern", "sumo", "tools", "assign"))
+sys.path.append(
+    os.path.join("..", "..", "..", "..", "extern", "sumo", "tools", "assign"))
 from dijkstra import dijkstraPlain
 
-# This class is used to build the nodes in the investigated network and 
+# This class is used to build the nodes in the investigated network and
 # includes the update-function for searching the k shortest paths.
+
+
 class Vertex:
+
     """
     This class is to store node attributes and the respective incoming/outgoing links.
     """
+
     def __init__(self, num):
         self.inEdges = []
         self.outEdges = []
@@ -44,13 +52,17 @@ class Vertex:
     def __repr__(self):
         return self.label
 
-# This class is uesed to store link information and estimate 
+# This class is uesed to store link information and estimate
 # as well as flow and capacity for the flow computation and some parameters
 # read from the net.
+
+
 class Edge:
+
     """
     This class is to record link attributes
     """
+
     def __init__(self, label, source, target, kind="junction"):
         self.label = label
         self.source = source
@@ -62,7 +74,7 @@ class Edge:
         self.freeflowtime = 0.0
         self.numberlane = 0
         self.helpacttime = self.freeflowtime
-        
+
     def init(self, speed, length, laneNumber):
         self.maxspeed = float(speed)
         self.length = float(length)
@@ -72,14 +84,16 @@ class Edge:
         else:
             self.freeflowtime = self.length / self.maxspeed
             self.helpacttime = self.freeflowtime
-        
+
     def __repr__(self):
         cap = str(self.capacity)
         if self.capacity == sys.maxint or self.connection != 0:
             cap = "inf"
         return "%s_<%s|%s|%s>" % (self.label, self.kind, self.source, self.target)
-                                                      
+
+
 class Net:
+
     def __init__(self):
         self._vertices = []
         self._edges = {}
@@ -88,7 +102,7 @@ class Net:
         self.separateZones = []
         self.sinkEdges = []
         self.sourceEdges = []
-        
+
     def newVertex(self):
         v = Vertex(len(self._vertices))
         self._vertices.append(v)
@@ -96,7 +110,7 @@ class Net:
 
     def getEdge(self, edgeLabel):
         return self._edges[edgeLabel]
-        
+
     def addEdge(self, edgeObj):
         edgeObj.source.outEdges.append(edgeObj)
         edgeObj.target.inEdges.append(edgeObj)
@@ -105,29 +119,34 @@ class Net:
 
     def addIsolatedRealEdge(self, edgeLabel):
         self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(),
-                          "real"))  
-                                            
+                          "real"))
+
     def getTargets(self, separateZones):
         target = set()
         for end in self._endVertices:
             if end not in separateZones:
                 target.add(end)
         return target
-        
+
     def checkRoute(self, startVertex, endVertex, totalCounts, subCounts, P, odPairSet, matrixEntry, skipList):
         totalCounts += 1
         vertex = endVertex
         if startVertex.label not in skipList and endVertex.label not in skipList:
             if vertex not in P:
                 subCounts += 1
-                odPairSet.append((startVertex.label, endVertex.label, matrixEntry))
+                odPairSet.append(
+                    (startVertex.label, endVertex.label, matrixEntry))
                 if options.verbose:
                     print "no connection to", endVertex.label
 
         return totalCounts, subCounts, odPairSet
-        
-# The class is for parsing the XML input file (network file). The data parsed is written into the net.
+
+# The class is for parsing the XML input file (network file). The data
+# parsed is written into the net.
+
+
 class NetworkReader(handler.ContentHandler):
+
     def __init__(self, net):
         self._net = net
         self._edge = ''
@@ -152,20 +171,21 @@ class NetworkReader(handler.ContentHandler):
             self._length = 0
         elif name == 'succ':
             self._edge = attrs['edge']
-            if self._edge[0]!=':':
+            if self._edge[0] != ':':
                 self._edgeObj = self._net.getEdge(self._edge)
-        elif name == 'succlane' and self._edge!="":       
+        elif name == 'succlane' and self._edge != "":
             l = attrs['lane']
             if l != "SUMO_NO_DESTINATION":
                 toEdge = self._net.getEdge(l[:l.rfind('_')])
-                newEdge = Edge(self._edge+"_"+l[:l.rfind('_')], self._edgeObj.target, toEdge.source)
+                newEdge = Edge(
+                    self._edge + "_" + l[:l.rfind('_')], self._edgeObj.target, toEdge.source)
                 self._net.addEdge(newEdge)
                 self._edgeObj.finalizer = l[:l.rfind('_')]
         elif name == 'lane' and self._edge != '':
             self._maxSpeed = max(self._maxSpeed, float(attrs['speed']))
             self._laneNumber = self._laneNumber + 1
             self._length = float(attrs['length'])
-      
+
     def characters(self, content):
         self._chars += content
 
@@ -173,9 +193,13 @@ class NetworkReader(handler.ContentHandler):
         if name == 'edge' and self._edge != '':
             self._edgeObj.init(self._maxSpeed, self._length, self._laneNumber)
             self._edge = ''
-                
-# The class is for parsing the XML input file (districts). The data parsed is written into the net.
+
+# The class is for parsing the XML input file (districts). The data parsed
+# is written into the net.
+
+
 class DistrictsReader(handler.ContentHandler):
+
     def __init__(self, net):
         self._net = net
         self._StartDTIn = None
@@ -197,7 +221,7 @@ class DistrictsReader(handler.ContentHandler):
             newEdge = Edge(conlink, sinklink.target, self._StartDTOut, "real")
             self._net.addEdge(newEdge)
             newEdge.weight = attrs['weight']
-            newEdge.connection = 1              
+            newEdge.connection = 1
         elif name == 'tazSource':
             sourcelink = self._net.getEdge(attrs['id'])
             self.I += 1
@@ -206,8 +230,9 @@ class DistrictsReader(handler.ContentHandler):
             self._net.addEdge(newEdge)
             newEdge.weight = attrs['weight']
             newEdge.connection = 2
-            
-def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
+
+
+def getMatrix(net, verbose, matrix, MatrixSum):  # , mtxplfile, mtxtfile):
     """
     This method is to read matrix from the given file.
     """
@@ -216,10 +241,10 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     endVertices = []
     Pshort_EffCells = 0
     periodList = []
-                          
+
     ODpairs = 0
     origins = 0
-    dest= 0
+    dest = 0
     CurrentMatrixSum = 0.0
     skipCount = 0
     zones = 0
@@ -250,10 +275,10 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                                 if endVertex.label == elem:
                                     endVertices.append(endVertex)
                     origins = len(startVertices)
-                    dest = len(endVertices)        
+                    dest = len(endVertices)
                 elif len(startVertices) == zones:
                     if ODpairs % origins == 0:
-                        matrixPshort.append([])          
+                        matrixPshort.append([])
                     for item in line.split():
                         matrixPshort[-1].append(float(item))
                         ODpairs += 1
@@ -265,10 +290,11 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                             smallDemandNum += 1
     begintime = int(periodList[0])
     assignPeriod = int(periodList[1]) - begintime
-    smallDemandRatio = float(smallDemandNum)/float(Pshort_EffCells)
+    smallDemandRatio = float(smallDemandNum) / float(Pshort_EffCells)
 
     return matrixPshort, startVertices, endVertices
-    
+
+
 def main():
     parser = make_parser()
     tripDir = os.getcwd()
@@ -279,9 +305,9 @@ def main():
     count = 0
     MatrixSum = 0.
     totalCounts = 0
-    subCounts = 0    
+    subCounts = 0
     separateZones = []
-    odPairSet= []
+    odPairSet = []
     skipList = []
     net = Net()
     if options.spearatezones:
@@ -289,9 +315,9 @@ def main():
             for district in net._startVertices:
                 if district.label == item:
                     separateZones.append(district)
-                    
+
     parser.setContentHandler(NetworkReader(net))
-    parser.parse(netfile)    
+    parser.parse(netfile)
 
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(districts)
@@ -299,16 +325,17 @@ def main():
         for elem in options.skipList.split(','):
             skipList.append(elem)
     if options.mtxfile:
-        matrixPshort, startVertices, endVertices = getMatrix(net, options.verbose, os.path.join(dataDir, options.mtxfile), MatrixSum)
+        matrixPshort, startVertices, endVertices = getMatrix(
+            net, options.verbose, os.path.join(dataDir, options.mtxfile), MatrixSum)
     else:
         matrixPshort = None
         startVertices = net._startVertices
         endVertices = net._endVertices
-    
+
     if options.verbose:
         print len(net._edges), "edges read"
         print len(startVertices), "start vertices read"
-        print len(endVertices), "target vertices read"    
+        print len(endVertices), "target vertices read"
 
     for start, startVertex in enumerate(startVertices):
         if startVertex not in separateZones:
@@ -324,28 +351,31 @@ def main():
                     else:
                         entry = 1
                     if entry > 0.:
-                        totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, totalCounts, subCounts, P, odPairSet, entry, skipList)
+                        totalCounts, subCounts, odPairSet = net.checkRoute(
+                            startVertex, endVertex, totalCounts, subCounts, P, odPairSet, entry, skipList)
         else:
             for endVertex in separateZones:
                 if startVertex.label != endVertex.label:
-                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, totalCounts, subCounts, P, odPairSet, matrixPshort[start][end], skipList)
+                    totalCounts, subCounts, odPairSet = net.checkRoute(
+                        startVertex, endVertex, totalCounts, subCounts, P, odPairSet, matrixPshort[start][end], skipList)
 
     print 'total OD connections:', totalCounts
     if len(odPairSet) > 0:
         foutzones = file('absentConnections.txt', 'w')
         for pair in odPairSet:
             sumDemand += float(pair[2])
-            foutzones.write('from: %s   to: %s; demand:%s\n' %(pair[0], pair[1], pair[2]))
+            foutzones.write('from: %s   to: %s; demand:%s\n' %
+                            (pair[0], pair[1], pair[2]))
         foutzones.close()
-        print subCounts, 'connections are absent!' 
+        print subCounts, 'connections are absent!'
         print sumDemand, 'vehicles are absent.'
     else:
         print 'all connections exist! '
-    
-    
+
+
 optParser = OptionParser()
 optParser.add_option("-r", "--data-dir", dest="datadir",
-                     default= os.getcwd(), help="give the data directory path")
+                     default=os.getcwd(), help="give the data directory path")
 optParser.add_option("-n", "--net-file", dest="netfile",
                      help="define the net file")
 optParser.add_option("-m", "--matrix-file", dest="mtxfile",
@@ -355,12 +385,12 @@ optParser.add_option("-d", "--districts-file", dest="districtfile",
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-i", "--separate-zones", dest="spearatezones", type='string',
-                     help="define the zones which should be separated") # e.g. dist_00101,dist_00102
+                     help="define the zones which should be separated")  # e.g. dist_00101,dist_00102
 optParser.add_option("-s", "--skip-list", dest="skipList", type='string',
-                     help="define the zones which will not be compared with each other")# e.g. dist_00101,dist_00102
+                     help="define the zones which will not be compared with each other")  # e.g. dist_00101,dist_00102
 optParser.add_option("-b", "--debug", action="store_true", dest="debug",
                      default=False, help="debug the program")
-                                    
+
 (options, args) = optParser.parse_args()
 
 if not options.netfile or not options.districtfile:

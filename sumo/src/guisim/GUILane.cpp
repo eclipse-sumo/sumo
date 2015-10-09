@@ -9,7 +9,7 @@
 // Representation of a lane in the micro simulation (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -44,6 +44,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicleControl.h>
@@ -71,9 +72,9 @@
 GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
                  MSEdge* const edge, unsigned int numericalID,
                  const PositionVector& shape, SUMOReal width,
-                 SVCPermissions permissions, unsigned int index) : 
+                 SVCPermissions permissions, unsigned int index) :
     MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions),
-    GUIGlObject(GLO_LANE, id)
+    GUIGlObject(GLO_LANE, id) 
 {
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
@@ -168,7 +169,7 @@ GUILane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 
 // ------ Drawing methods ------
 void
-GUILane::drawLinkNo() const {
+GUILane::drawLinkNo(const GUIVisualizationSettings& s) const {
     unsigned int noLinks = (unsigned int)myLinks.size();
     if (noLinks == 0) {
         return;
@@ -179,8 +180,8 @@ GUILane::drawLinkNo() const {
         MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
         PositionVector shape = getShape();
         shape.extrapolate(0.5); // draw on top of the walking area
-        drawTextAtEnd(toString(link->getIndex()), shape, 0);
-        drawTextAtEnd(toString(link->getIndex()), shape.reverse(), 0);
+        drawTextAtEnd(toString(link->getIndex()), shape, 0, s.drawLinkJunctionIndex);
+        drawTextAtEnd(toString(link->getIndex()), shape.reverse(), 0, s.drawLinkJunctionIndex);
         return;
     }
     // draw all links
@@ -188,14 +189,14 @@ GUILane::drawLinkNo() const {
     SUMOReal x1 = myHalfLaneWidth;
     for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
-        drawTextAtEnd(toString(myLinks[i]->getIndex()), getShape(), x2);
+        drawTextAtEnd(toString(myLinks[i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex);
         x1 -= w;
     }
 }
 
 
 void
-GUILane::drawTLSLinkNo(const GUINet& net) const {
+GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) const {
     unsigned int noLinks = (unsigned int)myLinks.size();
     if (noLinks == 0) {
         return;
@@ -207,8 +208,8 @@ GUILane::drawTLSLinkNo(const GUINet& net) const {
         if (linkNo >= 0) {
             PositionVector shape = getShape();
             shape.extrapolate(0.5); // draw on top of the walking area
-            drawTextAtEnd(toString(linkNo), shape, 0);
-            drawTextAtEnd(toString(linkNo), shape.reverse(), 0);
+            drawTextAtEnd(toString(linkNo), shape, 0, s.drawLinkTLIndex);
+            drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex);
         }
         return;
     }
@@ -221,21 +222,21 @@ GUILane::drawTLSLinkNo(const GUINet& net) const {
         if (linkNo < 0) {
             continue;
         }
-        drawTextAtEnd(toString(linkNo), getShape(), x2);
+        drawTextAtEnd(toString(linkNo), getShape(), x2, s.drawLinkTLIndex);
         x1 -= w;
     }
 }
 
 
 void
-GUILane::drawTextAtEnd(const std::string& text, const PositionVector& shape, SUMOReal x) const {
+GUILane::drawTextAtEnd(const std::string& text, const PositionVector& shape, SUMOReal x, const GUIVisualizationTextSettings& settings) const {
     glPushMatrix();
     const Position& end = shape.back();
     const Position& f = shape[-2];
     const SUMOReal rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    GLHelper::drawText(text, Position(x, 0), 0, .6, RGBColor(128, 128, 255, 255), 180);
+    GLHelper::drawText(text, Position(x, 0.26), 0, .6 * settings.size / 50, settings.color, 180);
     glPopMatrix();
 }
 
@@ -356,6 +357,12 @@ GUILane::drawArrows() const {
                 GLHelper::drawBoxLine(Position(0.5, 2.5), 180, 1, .05);
                 GLHelper::drawTriangleAtEnd(Line(Position(0.5, 2.5), Position(0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
                 break;
+            case LINKDIR_TURN_LEFTHAND:
+                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
+                GLHelper::drawBoxLine(Position(-0.5, 2.5), -180, 1, .05);
+                GLHelper::drawTriangleAtEnd(Line(Position(-0.5, 2.5), Position(-0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
+                break;
             case LINKDIR_LEFT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), 90, 1, .05);
@@ -411,13 +418,15 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     const bool isWalkingArea = myEdge->getPurpose() == MSEdge::EDGEFUNCTION_WALKINGAREA;
     const bool isInternal = isCrossing || isWalkingArea || myEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
     bool mustDrawMarkings = false;
-    SUMOReal exaggeration = s.laneWidthExaggeration * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
-#ifdef HAVE_INTERNAL
+    SUMOReal exaggeration = s.laneWidthExaggeration;
     if (MSGlobals::gUseMesoSim) {
+#ifdef HAVE_INTERNAL
         GUIEdge* myGUIEdge = dynamic_cast<GUIEdge*>(myEdge);
         exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s.edgeScaler.getActive()));
-    }
 #endif
+    } else {
+        exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
+    }
     const bool drawDetails =  s.scale * exaggeration > 5;
     if (isCrossing || isWalkingArea) {
         // draw internal lanes on top of junctions
@@ -486,8 +495,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 #endif
             } else {
                 const SUMOReal halfWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
-                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions); 
-                const int cornerDetail = drawDetails ? s.scale * exaggeration : 0;
+                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions);
+                const int cornerDetail = drawDetails && !isInternal ? s.scale * exaggeration : 0;
                 const SUMOReal offset = halfWidth * MAX2((SUMOReal)0, (exaggeration - 1));
                 if (myShapeColors.size() > 0) {
                     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfWidth * exaggeration, cornerDetail, offset);
@@ -511,11 +520,11 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     drawLane2LaneConnections();
                 }
                 glTranslated(0, 0, .1);
-                if (s.drawLinkJunctionIndex) {
-                    drawLinkNo();
+                if (s.drawLinkJunctionIndex.show) {
+                    drawLinkNo(s);
                 }
-                if (s.drawLinkTLIndex) {
-                    drawTLSLinkNo(*net);
+                if (s.drawLinkTLIndex.show) {
+                    drawTLSLinkNo(s, *net);
                 }
                 glPopMatrix();
             }
@@ -567,10 +576,11 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
             glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
             glRotated(myShapeRotations[i], 0, 0, 1);
             for (SUMOReal t = 0; t < myShapeLengths[i]; t += 6) {
+                const SUMOReal length = MIN2((SUMOReal)3, myShapeLengths[i] - t);
                 glBegin(GL_QUADS);
                 glVertex2d(-mw, -t);
-                glVertex2d(-mw, -t - 3.);
-                glVertex2d(myQuarterLaneWidth * scale, -t - 3.);
+                glVertex2d(-mw, -t - length);
+                glVertex2d(myQuarterLaneWidth * scale, -t - length);
                 glVertex2d(myQuarterLaneWidth * scale, -t);
                 glEnd();
             }
@@ -583,7 +593,7 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
         getShape(),
         getShapeRotations(),
         getShapeLengths(),
-        (getHalfWidth() + SUMO_const_laneOffset) * scale);
+        (myHalfLaneWidth + SUMO_const_laneOffset) * scale);
     glPopMatrix();
 }
 
@@ -644,6 +654,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //
+    new FXMenuCommand(ret, "Copy edge name to clipboard", 0, ret, MID_COPY_EDGE_NAME);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //
@@ -653,6 +664,15 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
     new FXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
+    new FXMenuSeparator(ret);
+    if (myAmClosed) {
+        new FXMenuCommand(ret, "Reopen lane", 0, &parent, MID_CLOSE_LANE);
+        new FXMenuCommand(ret, "Reopen edge", 0, &parent, MID_CLOSE_EDGE);
+    } else {
+        new FXMenuCommand(ret, "Close lane", 0, &parent, MID_CLOSE_LANE);
+        new FXMenuCommand(ret, "Close edge", 0, &parent, MID_CLOSE_EDGE);
+    }
+    new FXMenuCommand(ret, "Add rerouter", 0, &parent, MID_ADD_REROUTER);
     return ret;
 }
 
@@ -786,7 +806,7 @@ GUILane::setMultiColor(const GUIColorer& c) const {
             return true;
         case 24: // color by inclination  at segment start
             for (int ii = 1; ii < (int)myShape.size(); ++ii) {
-                const SUMOReal inc =  (myShape[ii].z() - myShape[ii-1].z()) / myShape[ii].distanceTo2D(myShape[ii-1]);
+                const SUMOReal inc = (myShape[ii].z() - myShape[ii - 1].z()) / MAX2(POSITION_EPS, myShape[ii].distanceTo2D(myShape[ii - 1]));
                 myShapeColors.push_back(c.getScheme().getColor(inc));
             }
             return true;
@@ -809,8 +829,15 @@ GUILane::getColorValue(size_t activeScheme) const {
                     return 3;
                 case SVC_SHIP:
                     return 4;
+                case SVC_AUTHORITY:
+                    return 6;
                 default:
-                    return 0;
+                    break;
+            }
+            if ((myPermissions & SVC_PASSENGER) != 0 || isRailway(myPermissions)) {
+                return 0;
+            } else {
+                return 5;
             }
         case 1:
             return gSelected.isSelected(getType(), getGlID()) ||
@@ -951,13 +978,13 @@ GUILane::getScaleValue(size_t activeScheme) const {
 }
 
 
-bool 
+bool
 GUILane::drawAsRailway(const GUIVisualizationSettings& s) const {
     return isRailway(myPermissions) && s.showRails;
 }
 
 
-bool 
+bool
 GUILane::drawAsWaterway(const GUIVisualizationSettings& s) const {
     return isWaterway(myPermissions) && s.showRails; // reusing the showRails setting
 }
@@ -974,6 +1001,20 @@ GUILane::updateColor(const GUIVisualizationSettings& s) {
 #endif
 
 
+void 
+GUILane::closeTraffic(bool rebuildAllowed) {
+    MSGlobals::gCheckRoutes = false;
+    if (myAmClosed) {
+        myPermissions = myOriginalPermissions;
+    } else {
+        myOriginalPermissions = myPermissions;
+        myPermissions = SVC_AUTHORITY;
+    }
+    myAmClosed = !myAmClosed;
+    if (rebuildAllowed) {
+        getEdge().rebuildAllowedLanes();
+    }
+}
 
 /****************************************************************************/
 

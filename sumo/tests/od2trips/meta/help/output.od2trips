@@ -1,5 +1,5 @@
-SUMO od2trips Version dev-SVN-r17463
- Copyright (C) 2001-2014 DLR and contributors; http://sumo.dlr.de
+SUMO od2trips Version dev-SVN-r18582
+ Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Importer of O/D-matrices for the road traffic simulation SUMO.
 
 Usage: od2trips [OPTION]*
@@ -13,13 +13,14 @@ Configuration Options:
                                      configuration, or schema
 
 Input Options:
-  -n, --net-file FILE              Loads network (districts) from FILE
+  -n, --taz-files FILE             Loads TAZ (districts;
+                                     also from networks) from FILE(s)
   -d, --od-matrix-files FILE       Loads O/D-files from FILE(s)
   --od-amitran-files FILE          Loads O/D-matrix in Amitran format from
                                      FILE(s)
 
 Output Options:
-  --output-prefix FILE             Prefix which is applied to all output files.
+  --output-prefix STR              Prefix which is applied to all output files.
                                      The special string 'TIME' is replaced by
                                      the current time.
   -o, --output-file FILE           Writes trip definitions into FILE
@@ -38,6 +39,8 @@ Processing Options:
   -s, --scale FLOAT                Scales the loaded flows by FLOAT
   --spread.uniform                 Spreads trips uniformly over each time
                                      period
+  --different-source-sink          Always choose source and sink edge which are
+                                     not identical
   --vtype STR                      Defines the name of the vehicle type to use
   --prefix STR                     Defines the prefix for vehicle names
   --timeline STR                   Uses STR as a timeline definition

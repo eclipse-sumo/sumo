@@ -9,7 +9,7 @@
 // Assignment methods
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -58,13 +58,24 @@ class ROVehicle;
 class ROMAAssignments {
 public:
     /// Constructor
-    ROMAAssignments(const SUMOTime begin, const SUMOTime end, RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
+    ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
+                    const SUMOReal adaptionFactor, RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
     /// Destructor
     ~ROMAAssignments();
 
-    // @brief calculate edge travel time with the given road class and max link speed
+    ROVehicle* getDefaultVehicle() {
+        return myDefaultVehicle;
+    }
+
+    // @brief calculate edge capacity for the given edge
+    static SUMOReal getCapacity(const ROEdge* edge);
+
+    // @brief calculate edge travel time for the given edge and number of vehicles per hour
     SUMOReal capacityConstraintFunction(const ROEdge* edge, const SUMOReal flow) const;
+
+    // @brief clear effort storage
+    void resetFlows();
 
     // @brief incremental method
     void incremental(const int numIter);
@@ -124,11 +135,13 @@ private:
 private:
     const SUMOTime myBegin;
     const SUMOTime myEnd;
+    const bool myAdditiveTraffic;
+    const SUMOReal myAdaptionFactor;
     RONet& myNet;
     ODMatrix& myMatrix;
     SUMOAbstractRouter<ROEdge, ROVehicle>& myRouter;
     static std::map<const ROEdge* const, SUMOReal> myPenalties;
-    static ROVehicle* myDefaultVehicle;
+    ROVehicle* myDefaultVehicle;
 
 private:
     /// @brief Invalidated assignment operator

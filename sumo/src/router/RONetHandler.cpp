@@ -11,7 +11,7 @@
 // The handler for SUMO-Networks
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -90,6 +90,9 @@ RONetHandler::myStartElement(int element,
         case SUMO_TAG_BUS_STOP:
             parseBusStop(attrs);
             break;
+        case SUMO_TAG_CONTAINER_STOP:
+            parseContainerStop(attrs);
+            break;
         case SUMO_TAG_TAZ:
             parseDistrict(attrs);
             break;
@@ -99,6 +102,20 @@ RONetHandler::myStartElement(int element,
         case SUMO_TAG_TAZSINK:
             parseDistrictEdge(attrs, false);
             break;
+        case SUMO_TAG_TYPE: {
+            bool ok = true;
+            myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+            break;
+        }
+        case SUMO_TAG_RESTRICTION: {
+            bool ok = true;
+            const SUMOVehicleClass svc = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, myCurrentTypeID.c_str(), ok));
+            const SUMOReal speed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
+            if (ok) {
+                myNet.addRestriction(myCurrentTypeID, svc, speed);
+            }
+            break;
+        }
         default:
             break;
     }
@@ -115,7 +132,6 @@ RONetHandler::myEndElement(int element) {
                 RONode* from = myNet.getNode(it->second.first);
                 RONode* to = myNet.getNode(it->second.second);
                 if (edge != 0 && from != 0 && to != 0) {
-                    edge->setJunctions(from, to);
                     from->addOutgoing(edge);
                     to->addIncoming(edge);
                 }
@@ -135,7 +151,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         throw ProcessError();
     }
-    const SumoXMLEdgeFunc type = attrs.getEdgeFunc(ok);
+    const SumoXMLEdgeFunc func = attrs.getEdgeFunc(ok);
     if (!ok) {
         WRITE_ERROR("Edge '" + myCurrentName + "' has an unknown type.");
         return;
@@ -147,7 +163,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     RONode* toNode;
     int priority;
     myCurrentEdge = 0;
-    if (type == EDGEFUNC_INTERNAL || type == EDGEFUNC_CROSSING || type == EDGEFUNC_WALKINGAREA) {
+    if (func == EDGEFUNC_INTERNAL || func == EDGEFUNC_CROSSING || func == EDGEFUNC_WALKINGAREA) {
         assert(myCurrentName[0] == ':');
         std::string junctionID = myCurrentName.substr(1, myCurrentName.rfind('_') - 1);
         myJunctionGraph[myCurrentName] = std::make_pair(junctionID, junctionID);
@@ -176,30 +192,31 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     // build the edge
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority);
     // set the type
+    myCurrentEdge->setRestrictions(myNet.getRestrictions(attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentName.c_str(), ok, "")));
     myProcess = true;
-    switch (type) {
+    switch (func) {
         case EDGEFUNC_CONNECTOR:
         case EDGEFUNC_NORMAL:
-            myCurrentEdge->setType(ROEdge::ET_NORMAL);
+            myCurrentEdge->setFunc(ROEdge::ET_NORMAL);
             break;
         case EDGEFUNC_SOURCE:
-            myCurrentEdge->setType(ROEdge::ET_SOURCE);
+            myCurrentEdge->setFunc(ROEdge::ET_SOURCE);
             break;
         case EDGEFUNC_SINK:
-            myCurrentEdge->setType(ROEdge::ET_SINK);
+            myCurrentEdge->setFunc(ROEdge::ET_SINK);
             break;
         case EDGEFUNC_WALKINGAREA:
-            myCurrentEdge->setType(ROEdge::ET_WALKINGAREA);
+            myCurrentEdge->setFunc(ROEdge::ET_WALKINGAREA);
             break;
         case EDGEFUNC_CROSSING:
-            myCurrentEdge->setType(ROEdge::ET_CROSSING);
+            myCurrentEdge->setFunc(ROEdge::ET_CROSSING);
             break;
         case EDGEFUNC_INTERNAL:
-            myCurrentEdge->setType(ROEdge::ET_INTERNAL);
+            myCurrentEdge->setFunc(ROEdge::ET_INTERNAL);
             myProcess = false;
             break;
         default:
-            throw ProcessError("Unhandled EdgeFunk " + toString(type));
+            throw ProcessError("Unhandled EdgeFunc " + toString(func));
     }
 
     if (!myNet.addEdge(myCurrentEdge)) {
@@ -232,7 +249,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     // get the vehicle classes
     SVCPermissions permissions = parseVehicleClasses(allow, disallow);
     if (permissions != SVCAll) {
-        myNet.setRestrictionFound();
+        myNet.setPermissionsFound();
     }
     // add when both values are valid
     if (maxSpeed > 0 && length > 0 && id.length() > 0) {
@@ -281,7 +298,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     if (to == 0) {
         throw ProcessError("unknown to-edge '" + toID + "' in connection");
     }
-    if (from->getType() == ROEdge::ET_INTERNAL) { // skip inner lane connections
+    if (from->getFunc() == ROEdge::ET_INTERNAL) { // skip inner lane connections
         return;
     }
     if (from->getLanes().size() <= (size_t)fromLane) {
@@ -318,6 +335,32 @@ RONetHandler::parseBusStop(const SUMOSAXAttributes& attrs) {
         throw InvalidArgument("Invalid position for bus stop '" + id + "'.");
     }
     myNet.addBusStop(id, stop);
+}
+
+
+void
+RONetHandler::parseContainerStop(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    SUMOVehicleParameter::Stop* stop = new SUMOVehicleParameter::Stop();
+    // get the id, throw if not given or empty...
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "containerStop", ok);
+    // get the lane
+    stop->lane = attrs.get<std::string>(SUMO_ATTR_LANE, "containerStop", ok);
+    if (!ok) {
+        throw ProcessError();
+    }
+    const ROEdge* edge = myNet.getEdge(stop->lane.substr(0, stop->lane.rfind("_")));
+    if (edge == 0) {
+        throw InvalidArgument("Unknown lane '" + stop->lane + "' for container stop '" + id + "'.");
+    }
+    // get the positions
+    stop->startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    stop->endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, edge->getLength());
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    if (!ok || !SUMORouteHandler::checkStopPos(stop->startPos, stop->endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
+        throw InvalidArgument("Invalid position for container stop '" + id + "'.");
+    }
+    myNet.addContainerStop(id, stop);
 }
 
 

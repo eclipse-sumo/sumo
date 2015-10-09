@@ -10,7 +10,7 @@
 // A vehicle route
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -262,7 +262,7 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos,
     ConstMSEdgeVector::const_iterator it2 = std::find(it + 1, myEdges.end(), toEdge);
 
     if (fromEdge == toEdge) {
-        if (fromPos < toPos) {
+        if (fromPos <= toPos) {
             return toPos - fromPos;
         } else if (it2 == myEdges.end()) {
             // we don't visit the edge again

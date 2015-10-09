@@ -11,3 +11,6 @@ cartesian_slope_length
 
 # test output of vehicle signals
 signals
+
+# test angle output in all cardinal directions
+angle

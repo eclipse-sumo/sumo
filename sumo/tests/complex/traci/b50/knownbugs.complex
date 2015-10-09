@@ -1,0 +1,14 @@
+
+[Reported by Windows at 07Mar11:13:35]
+search_string:emergency stop .* for unknown reason
+search_file:errors
+ignore_other_errors:1
+bug_system:trac
+bug_id:1186
+
+[Reported by erdm_ja at 23Sep12:54:44]
+search_string:collision
+search_file:errors
+ignore_other_errors:1
+full_description:collision with partial occupator
+brief_description:ticket #1448

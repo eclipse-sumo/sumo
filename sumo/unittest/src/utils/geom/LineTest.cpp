@@ -9,7 +9,7 @@
 // Tests the class Line
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -83,16 +83,6 @@ TEST(Line, test_method_sub_positive) {
 	EXPECT_DOUBLE_EQ(-2,(line.p1()).y());
 	EXPECT_DOUBLE_EQ(0,(line.p2()).x());
 	EXPECT_DOUBLE_EQ(0,(line.p2()).y());
-}
-
-/* Test the method 'reverse' */
-TEST(Line, test_method_reverse) {
-	Line line(Position(0,0),Position(2,2));
-	Line lineReverse = line.reverse();
-	EXPECT_DOUBLE_EQ(2,(lineReverse.p1()).x());
-	EXPECT_DOUBLE_EQ(2,(lineReverse.p1()).y());
-	EXPECT_DOUBLE_EQ(0,(lineReverse.p2()).x());
-	EXPECT_DOUBLE_EQ(0,(lineReverse.p2()).y());
 }
 
 /* Test the method 'intersectsAtLength2D' */

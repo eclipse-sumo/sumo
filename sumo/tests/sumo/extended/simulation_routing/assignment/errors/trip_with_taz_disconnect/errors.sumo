@@ -1,0 +1,4 @@
+Warning: No connection between edge '2-source' and edge '1-sink' found.
+Warning: No route for vehicle '0' found.
+Error: Vehicle '0' has no valid route. No connection between edge '2-source' and edge '1-sink'.
+Quitting (on error).

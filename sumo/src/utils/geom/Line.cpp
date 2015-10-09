@@ -10,7 +10,7 @@
 // }
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -212,16 +212,6 @@ void
 Line::sub(SUMOReal x, SUMOReal y) {
     myP1.sub(x, y);
     myP2.sub(x, y);
-}
-
-
-
-Line&
-Line::reverse() {
-    Position tmp(myP1);
-    myP1 = myP2;
-    myP2 = tmp;
-    return *this;
 }
 
 

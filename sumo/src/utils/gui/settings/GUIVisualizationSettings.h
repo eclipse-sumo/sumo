@@ -9,7 +9,7 @@
 // Stores the information about how to visualize structures
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -207,17 +207,27 @@ public:
     //@}
 
 
+    /// @name container visualization settings
+    //@{
+
+    /// @brief The container colorer
+    GUIColorer containerColorer;
+    /// @brief The quality of container drawing
+    int containerQuality;
+    // Setting bundles for controling the size of the drawn containers
+    GUIVisualizationSizeSettings containerSize;
+    // Setting bundles for optional drawing person names
+    GUIVisualizationTextSettings containerName;
+    //@}
+
+
     /// @name junction visualization settings
     //@{
 
     /// @brief The junction colorer
     GUIColorer junctionColorer;
-    /// @brief Information whether a link's tls index shall be drawn
-    bool drawLinkTLIndex;
-    /// @brief Information whether a link's junction index shall be drawn
-    bool drawLinkJunctionIndex;
-    // Setting bundles for optional drawing junction names
-    GUIVisualizationTextSettings junctionName, internalJunctionName;
+    // Setting bundles for optional drawing junction names and indices
+    GUIVisualizationTextSettings drawLinkTLIndex, drawLinkJunctionIndex, junctionName, internalJunctionName;
     /// @brief Information whether lane-to-lane arrows shall be drawn
     bool showLane2Lane;
     /// @brief whether the shape of the junction should be drawn
@@ -245,11 +255,15 @@ public:
     GUIVisualizationSizeSettings poiSize;
     // Setting bundles for optional drawing poi names
     GUIVisualizationTextSettings poiName;
+    // Setting bundles for optional drawing poi types
+    GUIVisualizationTextSettings poiType;
 
     // Setting bundles for controling the size of the drawn polygons
     GUIVisualizationSizeSettings polySize;
     // Setting bundles for optional drawing polygon names
     GUIVisualizationTextSettings polyName;
+    // Setting bundles for optional drawing polygon types
+    GUIVisualizationTextSettings polyType;
     //@}
 
     /// @brief Information whether the size legend shall be drawn

@@ -9,7 +9,7 @@
 // A BT sender
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -252,7 +252,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::Veh
                 leaveRange(receiver, intersectionReceiverData,
                            sender, intersectionSenderData, (intersections.back() - 1.) * TS);
             } else {
-                WRITE_WARNING("The vehicle '" + sender.getID() + "' cannot be in the range of '" + receiver.getID() + "', leave, and enter it in one step.");
+                WRITE_WARNING("The vehicle '" + sender.getID() + "' cannot be in the range of vehicle '" + receiver.getID() + "', leave, and enter it in one step.");
             }
             break;
         default:
@@ -264,8 +264,8 @@ MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::Veh
 
 void
 MSDevice_BTreceiver::BTreceiverUpdate::enterRange(SUMOReal atOffset, const MSDevice_BTsender::VehicleState& receiverState,
-                        const std::string& senderID, const MSDevice_BTsender::VehicleState& senderState,
-                        std::map<std::string, SeenDevice*>& currentlySeen) {
+        const std::string& senderID, const MSDevice_BTsender::VehicleState& senderState,
+        std::map<std::string, SeenDevice*>& currentlySeen) {
     MeetingPoint mp(SIMTIME + atOffset, receiverState, senderState);
     SeenDevice* sd = new SeenDevice(mp);
     currentlySeen[senderID] = sd;
@@ -275,8 +275,8 @@ MSDevice_BTreceiver::BTreceiverUpdate::enterRange(SUMOReal atOffset, const MSDev
 
 void
 MSDevice_BTreceiver::BTreceiverUpdate::leaveRange(VehicleInformation& receiverInfo, const MSDevice_BTsender::VehicleState& receiverState,
-                        MSDevice_BTsender::VehicleInformation& senderInfo, const MSDevice_BTsender::VehicleState& senderState,
-                        SUMOReal tOffset) {
+        MSDevice_BTsender::VehicleInformation& senderInfo, const MSDevice_BTsender::VehicleState& senderState,
+        SUMOReal tOffset) {
     std::map<std::string, SeenDevice*>::iterator i = receiverInfo.currentlySeen.find(senderInfo.getID());
     // check whether the other was recognized
     addRecognitionPoint(SIMTIME + tOffset, receiverState, senderState, i->second);
@@ -324,8 +324,8 @@ MSDevice_BTreceiver::inquiryDelaySlots(const int backoffLimit) {
 
 void
 MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(const SUMOReal tEnd, const MSDevice_BTsender::VehicleState& receiverState,
-                                 const MSDevice_BTsender::VehicleState& senderState,
-                                 SeenDevice* senderDevice) const {
+        const MSDevice_BTsender::VehicleState& senderState,
+        SeenDevice* senderDevice) const {
     if (senderDevice->nextView == -1.) {
         senderDevice->nextView = senderDevice->lastView + inquiryDelaySlots(int(myOffTime / 0.000625 + .5)) * 0.000625;
     }
@@ -349,25 +349,25 @@ MSDevice_BTreceiver::BTreceiverUpdate::writeOutput(const std::string& id, const 
             const MSDevice_BTsender::VehicleState& obsBeg = (*k)->meetingBegin.observerState;
             const MSDevice_BTsender::VehicleState& seenBeg = (*k)->meetingBegin.seenState;
             os.writeAttr("tBeg", (*k)->meetingBegin.t)
-                .writeAttr("observerPosBeg", obsBeg.position).writeAttr("observerSpeedBeg", obsBeg.speed)
-                .writeAttr("observerLaneIDBeg", obsBeg.laneID).writeAttr("observerLanePosBeg", obsBeg.lanePos)
-                .writeAttr("seenPosBeg", seenBeg.position).writeAttr("seenSpeedBeg", seenBeg.speed)
-                .writeAttr("seenLaneIDBeg", seenBeg.laneID).writeAttr("seenLanePosBeg", seenBeg.lanePos);
+            .writeAttr("observerPosBeg", obsBeg.position).writeAttr("observerSpeedBeg", obsBeg.speed)
+            .writeAttr("observerLaneIDBeg", obsBeg.laneID).writeAttr("observerLanePosBeg", obsBeg.lanePos)
+            .writeAttr("seenPosBeg", seenBeg.position).writeAttr("seenSpeedBeg", seenBeg.speed)
+            .writeAttr("seenLaneIDBeg", seenBeg.laneID).writeAttr("seenLanePosBeg", seenBeg.lanePos);
             const MSDevice_BTsender::VehicleState& obsEnd = (*k)->meetingEnd->observerState;
             const MSDevice_BTsender::VehicleState& seenEnd = (*k)->meetingEnd->seenState;
             os.writeAttr("tEnd", (*k)->meetingEnd->t)
-                .writeAttr("observerPosEnd", obsEnd.position).writeAttr("observerSpeedEnd", obsEnd.speed)
-                .writeAttr("observerLaneIDEnd", obsEnd.laneID).writeAttr("observerLanePosEnd", obsEnd.lanePos)
-                .writeAttr("seenPosEnd", seenEnd.position).writeAttr("seenSpeedEnd", seenEnd.speed)
-                .writeAttr("seenLaneIDEnd", seenEnd.laneID).writeAttr("seenLanePosEnd", seenEnd.lanePos)
-                .writeAttr("observerRoute", (*k)->receiverRoute).writeAttr("seenRoute", (*k)->senderRoute);
+            .writeAttr("observerPosEnd", obsEnd.position).writeAttr("observerSpeedEnd", obsEnd.speed)
+            .writeAttr("observerLaneIDEnd", obsEnd.laneID).writeAttr("observerLanePosEnd", obsEnd.lanePos)
+            .writeAttr("seenPosEnd", seenEnd.position).writeAttr("seenSpeedEnd", seenEnd.speed)
+            .writeAttr("seenLaneIDEnd", seenEnd.laneID).writeAttr("seenLanePosEnd", seenEnd.lanePos)
+            .writeAttr("observerRoute", (*k)->receiverRoute).writeAttr("seenRoute", (*k)->senderRoute);
             for (std::vector<MeetingPoint*>::iterator l = (*k)->recognitionPoints.begin(); l != (*k)->recognitionPoints.end(); ++l) {
                 os.openTag("recognitionPoint").writeAttr("t", (*l)->t)
-                    .writeAttr("observerPos", (*l)->observerState.position).writeAttr("observerSpeed", (*l)->observerState.speed)
-                    .writeAttr("observerLaneID", (*l)->observerState.laneID).writeAttr("observerLanePos", (*l)->observerState.lanePos)
-                    .writeAttr("seenPos", (*l)->seenState.position).writeAttr("seenSpeed", (*l)->seenState.speed)
-                    .writeAttr("seenLaneID", (*l)->seenState.laneID).writeAttr("seenLanePos", (*l)->seenState.lanePos)
-                    .closeTag();
+                .writeAttr("observerPos", (*l)->observerState.position).writeAttr("observerSpeed", (*l)->observerState.speed)
+                .writeAttr("observerLaneID", (*l)->observerState.laneID).writeAttr("observerLanePos", (*l)->observerState.lanePos)
+                .writeAttr("seenPos", (*l)->seenState.position).writeAttr("seenSpeed", (*l)->seenState.speed)
+                .writeAttr("seenLaneID", (*l)->seenState.laneID).writeAttr("seenLanePos", (*l)->seenState.lanePos)
+                .closeTag();
                 if (!allRecognitions) {
                     break;
                 }
@@ -414,7 +414,7 @@ MSDevice_BTreceiver::notifyEnter(SUMOVehicle& veh, Notification reason) {
 bool
 MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal newPos, SUMOReal newSpeed) {
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
-        WRITE_WARNING("btreceiver: Can not update position of a vehicle that is not within the road network (" + veh.getID() + ").");
+        WRITE_WARNING("btreceiver: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
         return true;
     }
     const MSVehicle& v = static_cast<MSVehicle&>(veh);
@@ -429,7 +429,7 @@ MSDevice_BTreceiver::notifyLeave(SUMOVehicle& veh, SUMOReal /* lastPos */, Notif
         return true;
     }
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
-        WRITE_WARNING("btreceiver: Can not update position of a vehicle that is not within the road network (" + veh.getID() + ").");
+        WRITE_WARNING("btreceiver: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
         return true;
     }
     const MSVehicle& v = static_cast<MSVehicle&>(veh);

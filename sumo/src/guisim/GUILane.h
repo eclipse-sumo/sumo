@@ -9,7 +9,7 @@
 // Representation of a lane in the micro simulation (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -91,6 +91,13 @@ public:
     /// @brief Destructor
     ~GUILane();
 
+    /** @brief Returns the name of the parent object (if any)
+     * @note Inherited from GUIGlObject
+     * @return This object's parent id
+     */
+    const std::string& getParentName() const {
+        return getEdge().getID();
+    }
 
 
     /// @name Access to vehicles
@@ -203,11 +210,6 @@ public:
     /// @brief draw crossties for railroads or pedestrian crossings
     void drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
 
-    SUMOReal getHalfWidth() const {
-        return myHalfLaneWidth;
-    }
-
-
     SUMOReal getEdgeLaneNumber() const;
 
     /** @brief Returns the stored traveltime for the edge of this lane
@@ -224,7 +226,16 @@ public:
     }
 
     void updateColor(const GUIVisualizationSettings& s);
+
 #endif
+
+    /// @brief close this lane for traffic
+    void closeTraffic(bool rebuildAllowed=true);
+
+    bool isClosed() const {
+        return myAmClosed;
+    }
+
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     void swapAfterLaneChange(SUMOTime t);
@@ -246,9 +257,9 @@ protected:
 
 private:
     /// @brief helper methods
-    void drawLinkNo() const;
-    void drawTLSLinkNo(const GUINet& net) const;
-    void drawTextAtEnd(const std::string& text, const PositionVector& shape, SUMOReal x) const;
+    void drawLinkNo(const GUIVisualizationSettings& s) const;
+    void drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) const;
+    void drawTextAtEnd(const std::string& text, const PositionVector& shape, SUMOReal x, const GUIVisualizationTextSettings& settings) const;
     void drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const;
     void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLink* link, const PositionVector& shape, SUMOReal x1, SUMOReal x2) const;
     void drawArrows() const;
@@ -300,6 +311,9 @@ private:
     osg::Geometry* myGeom;
 #endif
 
+    /// @brief state for dynamic lane closings
+    bool myAmClosed;
+    SVCPermissions myOriginalPermissions;
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

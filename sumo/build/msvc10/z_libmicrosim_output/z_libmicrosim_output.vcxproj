@@ -221,6 +221,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\microsim\output\MSBatteryExport.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSInstantInductLoop.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Emissions.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MS_E2_ZS_CollectorOverLanes.cpp" />
@@ -243,6 +244,7 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Amitran.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\microsim\output\MSBatteryExport.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSInstantInductLoop.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Emissions.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MS_E2_ZS_CollectorOverLanes.h" />

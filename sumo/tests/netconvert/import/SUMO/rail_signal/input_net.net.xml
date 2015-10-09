@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Mar  5 09:08:36 2015 by SUMO netconvert Version dev-SVN-r18023I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="500.00,0.00" convBoundary="0.00,0.00,1000.00,100.00" origBoundary="-500.00,0.00,500.00,100.00" projParameter="!"/>
+
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" allow="rail" speed="13.90" length="5.33" shape="512.50,-1.65 517.82,-1.65"/>
+    </edge>
+    <edge id=":C_1" function="internal">
+        <lane id=":C_1_0" index="0" allow="rail" speed="13.90" length="6.07" shape="512.50,-1.65 517.48,1.81"/>
+    </edge>
+
+    <edge id="CE" from="C" to="E" priority="-1">
+        <lane id="CE_0" index="0" allow="rail" speed="13.90" length="482.18" shape="517.82,-1.65 1000.00,-1.65"/>
+    </edge>
+    <edge id="CN" from="C" to="N" priority="-1">
+        <lane id="CN_0" index="0" allow="rail" speed="13.90" length="492.41" shape="517.48,1.81 1000.32,98.38"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="-1">
+        <lane id="WC_0" index="0" allow="rail" speed="13.90" length="512.50" shape="0.00,-1.65 512.50,-1.65"/>
+    </edge>
+
+    <junction id="C" type="rail_signal" x="500.00" y="0.00" incLanes="WC_0" intLanes=":C_0_0 :C_1_0" shape="517.17,3.38 517.79,0.24 517.82,-0.05 517.82,-3.25 512.50,-3.25 512.50,-0.05">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="E" type="unregulated" x="1000.00" y="0.00" incLanes="CE_0" intLanes="" shape="1000.00,-3.25 1000.00,-0.05"/>
+    <junction id="N" type="unregulated" x="1000.00" y="100.00" incLanes="CN_0" intLanes="" shape="1000.64,96.81 1000.01,99.95"/>
+    <junction id="W" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
+
+    <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="o"/>
+    <connection from="WC" to="CN" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="s" state="o"/>
+
+    <connection from=":C_0" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_1" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

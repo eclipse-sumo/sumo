@@ -9,7 +9,7 @@
 // The class responsible for building and deletion of vehicles
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -33,6 +33,7 @@
 #include "MSVehicleControl.h"
 #include "MSVehicle.h"
 #include "MSLane.h"
+#include "MSEdge.h"
 #include "MSNet.h"
 #include "MSRouteHandler.h"
 #include <microsim/devices/MSDevice.h>
@@ -64,11 +65,12 @@ MSVehicleControl::MSVehicleControl() :
     myTotalDepartureDelay(0),
     myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),
+    myDefaultPedTypeMayBeDeleted(true),
     myWaitingForPerson(0),
+    myWaitingForContainer(0),
     myScale(-1),
     myMaxSpeedFactor(1),
-    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING))
-{
+    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_IGNORING);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
@@ -210,7 +212,9 @@ MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
     if (discard) {
         myDiscarded++;
     }
-    myVehicleDict.erase(veh->getID());
+    if (veh != 0) {
+        myVehicleDict.erase(veh->getID());
+    }
     delete veh;
 }
 
@@ -319,13 +323,32 @@ MSVehicleControl::removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) 
 
 
 SUMOVehicle*
-MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines) {
+MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines, const SUMOReal position, const std::string ridingID) {
     if (myWaiting.find(edge) != myWaiting.end()) {
+        // for every vehicle waiting vehicle at this edge
+        std::vector<SUMOVehicle*> waitingTooFarAway;
         for (std::vector<SUMOVehicle*>::const_iterator it = myWaiting[edge].begin(); it != myWaiting[edge].end(); ++it) {
             const std::string& line = (*it)->getParameter().line == "" ? (*it)->getParameter().id : (*it)->getParameter().line;
+            SUMOReal vehiclePosition = (*it)->getPositionOnLane();
+            // if the line of the vehicle is contained in the set of given lines and the vehicle is stopped and is positioned
+            // in the interval [position - t, position + t] for a tolerance t=10
             if (lines.count(line)) {
-                return (*it);
+                if ((position - 10 <= vehiclePosition) && (vehiclePosition <= position + 10)) {
+                    return (*it);
+                } else if ((*it)->isStoppedTriggered() ||
+                           (*it)->getParameter().departProcedure == DEPART_TRIGGERED) {
+                    // maybe we are within the range of the stop
+                    MSVehicle* veh = static_cast<MSVehicle*>(*it);
+                    if (veh->isStoppedInRange(position)) {
+                        return (*it);
+                    } else {
+                        waitingTooFarAway.push_back(*it);
+                    }
+                }
             }
+        }
+        for (std::vector<SUMOVehicle*>::iterator it = waitingTooFarAway.begin(); it != waitingTooFarAway.end(); ++it) {
+            WRITE_WARNING(ridingID + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '" + (*it)->getID() + "' at position " + toString((*it)->getPositionOnLane()) + " because it is too far away.");
         }
     }
     return 0;
@@ -335,7 +358,7 @@ MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std
 void
 MSVehicleControl::abortWaiting() {
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        WRITE_WARNING("Vehicle " + i->first + " aborted waiting for a person that will never come.");
+        WRITE_WARNING("Vehicle " + i->first + " aborted waiting for a person or a container that will never come.");
     }
 }
 

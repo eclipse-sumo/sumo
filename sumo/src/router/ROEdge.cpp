@@ -12,7 +12,7 @@
 // A basic edge for routing applications
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -40,6 +40,7 @@
 #include <iostream>
 #include "ROLane.h"
 #include "ROEdge.h"
+#include "RONet.h"
 #include "ROVehicle.h"
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
@@ -53,9 +54,8 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-bool ROEdge::myUseBoundariesOnOverrideTT = false;
-bool ROEdge::myUseBoundariesOnOverrideE = false;
 bool ROEdge::myInterpolate = false;
+bool ROEdge::myAmParallel = false;
 bool ROEdge::myHaveTTWarned = false;
 bool ROEdge::myHaveEWarned = false;
 ROEdgeVector ROEdge::myEdges;
@@ -64,18 +64,25 @@ ROEdgeVector ROEdge::myEdges;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority)
-    : Named(id), myFromNode(from), myToNode(to), myIndex(index), myPriority(priority),
-      mySpeed(-1), myLength(0),
-      myUsingTTTimeLine(false),
-      myUsingETimeLine(false),
-      myCombinedPermissions(0),
-      myFromJunction(0),
-      myToJunction(0) {
+ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority) :
+    Named(id),
+    myFromJunction(from),
+    myToJunction(to),
+    myIndex(index),
+    myPriority(priority),
+    mySpeed(-1),
+    myLength(0),
+    myUsingTTTimeLine(false),
+    myUsingETimeLine(false),
+    myCombinedPermissions(0) {
     while (myEdges.size() <= index) {
         myEdges.push_back(0);
     }
     myEdges[index] = this;
+    if (from == 0 && to == 0) {
+        // TAZ edge, no lanes
+        myCombinedPermissions = SVCAll;
+    }
 }
 
 
@@ -134,8 +141,8 @@ ROEdge::getEffort(const ROVehicle* const veh, SUMOReal time) const {
 
 SUMOReal
 ROEdge::getDistanceTo(const ROEdge* other) const {
-    if (getToNode() != 0 && other->getFromNode() != 0) {
-        return getToNode()->getPosition().distanceTo2D(other->getFromNode()->getPosition());
+    if (getToJunction() != 0 && other->getFromJunction() != 0) {
+        return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
     } else {
         return 0; // optimism is just right for astar
     }
@@ -143,6 +150,12 @@ ROEdge::getDistanceTo(const ROEdge* other) const {
 }
 
 
+bool
+ROEdge::hasLoadedTravelTime(SUMOReal time) const {
+    return myUsingTTTimeLine && myTravelTimes.describesTime(time);
+}
+
+    
 SUMOReal
 ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
     if (myUsingTTTimeLine) {
@@ -205,7 +218,7 @@ ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const {
 
 unsigned int
 ROEdge::getNumSuccessors() const {
-    if (getType() == ET_SINK) {
+    if (getFunc() == ET_SINK) {
         return 0;
     }
     return (unsigned int) myFollowingEdges.size();
@@ -214,7 +227,7 @@ ROEdge::getNumSuccessors() const {
 
 unsigned int
 ROEdge::getNumPredecessors() const {
-    if (getType() == ET_SOURCE) {
+    if (getFunc() == ET_SOURCE) {
         return 0;
     }
     return (unsigned int) myApproachingEdges.size();
@@ -222,13 +235,7 @@ ROEdge::getNumPredecessors() const {
 
 
 void
-ROEdge::setType(ROEdge::EdgeType type) {
-    myType = type;
-}
-
-
-void
-ROEdge::buildTimeLines(const std::string& measure) {
+ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride) {
     if (myUsingETimeLine) {
         SUMOReal value = myLength / mySpeed;
         const SUMOEmissionClass c = PollutantsInterface::getClassByName("unknown");
@@ -250,10 +257,10 @@ ROEdge::buildTimeLines(const std::string& measure) {
         if (measure == "fuel") {
             value = PollutantsInterface::compute(c, PollutantsInterface::FUEL, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
-        myEfforts.fillGaps(value, myUseBoundariesOnOverrideE);
+        myEfforts.fillGaps(value, boundariesOverride);
     }
     if (myUsingTTTimeLine) {
-        myTravelTimes.fillGaps(myLength / mySpeed, myUseBoundariesOnOverrideTT);
+        myTravelTimes.fillGaps(myLength / mySpeed, boundariesOverride);
     }
 }
 
@@ -276,17 +283,27 @@ ROEdge::dictionary(size_t id) {
 }
 
 
-const ROEdgeVector& 
+const ROEdgeVector&
 ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
-    if (vClass == SVC_IGNORING) {
+    if (vClass == SVC_IGNORING || !RONet::getInstance()->hasPermissions() || myFunc == ET_DISTRICT) {
         return myFollowingEdges;
     }
-    ClassesSuccesorMap::const_iterator i = myClassesSuccessorMap.find(vClass);
+#ifdef HAVE_FOX
+    if (myAmParallel) {
+        RONet::getInstance()->lock();
+    }
+#endif
+    std::map<SUMOVehicleClass, ROEdgeVector>::const_iterator i = myClassesSuccessorMap.find(vClass);
     if (i != myClassesSuccessorMap.end()) {
         // can use cached value
+#ifdef HAVE_FOX
+        if (myAmParallel) {
+            RONet::getInstance()->unlock();
+        }
+#endif
         return i->second;
     } else {
-        // this vClass is requested for the first time. rebuild all succesors
+        // this vClass is requested for the first time. rebuild all successors
         std::set<ROEdge*> followers;
         for (std::vector<ROLane*>::const_iterator it = myLanes.begin(); it != myLanes.end(); ++it) {
             ROLane* lane = *it;
@@ -300,15 +317,26 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
                 }
             }
         }
-        myClassesSuccessorMap[vClass].insert(myClassesSuccessorMap[vClass].begin(), 
-                followers.begin(), followers.end());
+        // also add district edges (they are not connected at the lane level
+        for (ROEdgeVector::const_iterator it = myFollowingEdges.begin(); it != myFollowingEdges.end(); ++it) {
+            if ((*it)->getFunc() == ET_DISTRICT) {
+                followers.insert(*it);
+            }
+        }
+        myClassesSuccessorMap[vClass].insert(myClassesSuccessorMap[vClass].begin(),
+                                             followers.begin(), followers.end());
+#ifdef HAVE_FOX
+        if (myAmParallel) {
+            RONet::getInstance()->unlock();
+        }
+#endif
         return myClassesSuccessorMap[vClass];
     }
 
 }
 
 
-bool 
+bool
 ROEdge::isConnectedTo(const ROEdge* const e, const ROVehicle* const vehicle) const {
     const SUMOVehicleClass vClass = (vehicle == 0 ? SVC_IGNORING : vehicle->getVClass());
     const ROEdgeVector& followers = getSuccessors(vClass);

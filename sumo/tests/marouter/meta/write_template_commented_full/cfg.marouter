@@ -33,6 +33,9 @@
         <!-- Loads O/D-matrix in Amitran format from FILE(s) -->
         <od-amitran-files value="" synonymes="amitran amitran-files" type="FILE"/>
 
+        <!-- Read sumo-routes or trips from FILE(s) -->
+        <route-files value="" synonymes="r routes trip-files trips" type="FILE"/>
+
         <!-- Read network weights from FILE(s) -->
         <weight-files value="" synonymes="w weights" type="FILE"/>
 
@@ -42,17 +45,17 @@
         <!-- Name of the xml attribute which gives the edge weight -->
         <weight-attribute value="traveltime" synonymes="measure x" type="STR"/>
 
+        <!-- The travel time influence of prior intervals -->
+        <weight-adaption value="0" type="FLOAT"/>
+
     </input>
 
     <output>
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
-        <output-prefix value="" type="FILE"/>
+        <output-prefix value="" type="STR"/>
 
-        <!-- Write route distributions to FILE -->
+        <!-- Write flow definitions with route distributions to FILE -->
         <output-file value="" synonymes="o output" type="FILE"/>
-
-        <!-- Writes flow definitions into FILE -->
-        <flow-output value="" type="FILE"/>
 
         <!-- Does not save vtype information -->
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL"/>
@@ -69,6 +72,9 @@
     </output>
 
     <processing>
+        <!-- Defines the time interval when aggregating single vehicle input; Defaults to one hour -->
+        <aggregation-interval value="3600" type="TIME"/>
+
         <!-- Continue if a route could not be build -->
         <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" type="BOOL"/>
 
@@ -81,7 +87,7 @@
         <!-- Expand weights behind the simulation&apos;s end -->
         <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
 
-        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;bulkstar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
+        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
         <!-- Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy -->
@@ -101,6 +107,9 @@
 
         <!-- Uses STR as a 24h-timeline definition -->
         <timeline.day-in-hours value="false" type="BOOL"/>
+
+        <!-- Keep traffic flows of all time slots in the net -->
+        <additive-traffic value="false" type="BOOL"/>
 
         <!-- Choose a assignment method: incremental, UE or SUE -->
         <assignment-method value="incremental" type="STR"/>
@@ -181,7 +190,7 @@
         <begin value="0" synonymes="b" type="TIME"/>
 
         <!-- Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent -->
-        <end value="2147483" synonymes="e" type="TIME"/>
+        <end value="9223372036854774" synonymes="e" type="TIME"/>
 
     </time>
 

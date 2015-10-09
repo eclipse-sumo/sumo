@@ -24,11 +24,12 @@
         <shapefile.id-column value="" synonymes="shape-files.id-name shapefile.id-name" type="STR" help="Defines in which column the id can be found"/>
         <shapefile.use-running-id value="" type="BOOL" help="A running number will be used as id"/>
         <shapefile.add-param value="" type="BOOL" help="Extract all additonal columns as params"/>
+        <shapefile.fill value="" type="STR" help="[auto|true|false]. Forces the &apos;fill&apos; status to the given value. Default &apos;auto&apos; tries to determine it from the data type"/>
         <type-file value="" synonymes="typemap" type="FILE" help="Reads types from FILE"/>
     </input>
 
     <output>
-        <output-prefix value="" type="FILE" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
+        <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <output-file value="polygons.xml" synonymes="o output" type="FILE" help="Write generated polygons/pois to FILE"/>
     </output>
 
@@ -40,6 +41,7 @@
         <proj value="!" type="STR" help="Uses STR as proj.4 definition for projection"/>
         <proj.inverse value="false" type="BOOL" help="Inverses projection"/>
         <proj.dhdnutm value="false" type="BOOL" help="Convert from Gauss-Krueger to UTM"/>
+        <proj.plain-geo value="false" type="BOOL" help="Write geo coordinates in output"/>
     </projection>
 
     <pruning>
@@ -55,12 +57,14 @@
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
         <all-attributes value="false" type="BOOL" help="Imports all attributes as key/value pairs"/>
         <ignore-errors value="false" type="BOOL" help="Continue on broken input"/>
+        <poi-layer-offset value="0" type="FLOAT" help="Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"/>
     </processing>
 
     <building_defaults>
         <color value="0.2,0.5,1." type="STR" help="Sets STR as default color"/>
         <prefix value="" type="STR" help="Sets STR as default prefix"/>
         <type value="unknown" type="STR" help="Sets STR as default type"/>
+        <fill value="true" type="BOOL" help="Fills polygons by default"/>
         <layer value="-1" type="INT" help="Sets INT as default layer"/>
         <discard value="false" type="BOOL" help="Sets default action to discard"/>
     </building_defaults>

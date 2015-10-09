@@ -10,7 +10,7 @@
 // Loader for networks and route imports
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -79,7 +79,7 @@ public:
 
     /// Loads the net weights
     bool loadWeights(RONet& net, const std::string& optionName,
-                     const std::string& measure, bool useLanes);
+                     const std::string& measure, const bool useLanes, const bool boundariesOverride);
 
     /** @brief Builds and opens all route loaders */
     void openRoutes(RONet& net);
@@ -87,10 +87,6 @@ public:
     /** @brief Loads routes from all previously build route loaders */
     void processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime increment,
                        RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
-
-    /** @brief Loads all routes and processes them with BulkStarRouter */
-    void processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
-                                        RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
 protected:
     /** @brief Opens route handler of the given type

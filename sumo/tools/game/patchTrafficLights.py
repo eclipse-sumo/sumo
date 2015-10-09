@@ -9,7 +9,7 @@
 This script patches the traffic lights of an input network for the gaming mode.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2010-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2010-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -17,15 +17,17 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import re, sys
+import re
+import sys
 from optparse import OptionParser
 
 optParser = OptionParser()
 optParser.add_option("-n", "--net-file", dest="netfile",
-                        help="define the input net file (mandatory)")
+                     help="define the input net file (mandatory)")
 optParser.add_option("-o", "--output-net-file", dest="outfile",
                      default="out.net.xml", help="define the output net filename")
-optParser.add_option("-s", "--switch", type="int", default=2, help="switch time")
+optParser.add_option(
+    "-s", "--switch", type="int", default=2, help="switch time")
 (options, args) = optParser.parse_args()
 if not options.netfile:
     optParser.print_help()

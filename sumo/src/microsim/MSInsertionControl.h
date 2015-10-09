@@ -10,7 +10,7 @@
 // Inserts vehicles into the network when their departure time is reached
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -71,8 +71,9 @@ public:
      * @param[in] vc The assigned vehicle control (needed for vehicle re-insertion and deletion)
      * @param[in] maxDepartDelay Vehicles waiting for insertion longer than this time are deleted (-1: no deletion)
      * @param[in] checkEdgesOnce Whether an edge on which a vehicle could not depart should be ignored in the same step
+     * @param[in] maxVehicleNumber The maximum number of vehicles that should not be exceeded
      */
-    MSInsertionControl(MSVehicleControl& vc, SUMOTime maxDepartDelay, bool checkEdgesOnce);
+    MSInsertionControl(MSVehicleControl& vc, SUMOTime maxDepartDelay, bool checkEdgesOnce, int maxVehicleNumber);
 
 
     /// @brief Destructor.
@@ -222,6 +223,9 @@ private:
 
     /// @brief Whether an edge on which a vehicle could not depart should be ignored in the same step
     bool myCheckEdgesOnce;
+
+    /// @brief Storage for maximum vehicle number
+    int myMaxVehicleNumber;
 
 
 private:

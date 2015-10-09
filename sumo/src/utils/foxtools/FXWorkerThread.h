@@ -7,7 +7,7 @@
 // A thread class together with a pool and a task for parallelized computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2004-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2004-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -92,7 +92,7 @@ public:
          *
          * @param[in] numThreads the number of threads to create
          */
-        Pool(int numThreads = 0) : myRunningIndex(0), myNumFinished(0) {
+        Pool(int numThreads = 0) : myPoolMutex(true), myRunningIndex(0), myNumFinished(0) {
             while (numThreads > 0) {
                 new FXWorkerThread(*this);
                 numThreads--;
@@ -125,13 +125,18 @@ public:
             myWorkers.push_back(w);
         }
 
-        /** @brief Gives a number to the given task and assigns it to a randomly chosen worker.
+        /** @brief Gives a number to the given task and assigns it to the worker with the given index.
+         * If the index is negative, assign to the next (round robin) one.
          *
          * @param[in] t the task to add
+         * @param[in] index index of the worker thread to use or -1 for an arbitrary one
          */
-        void add(Task* const t) {
+        void add(Task* const t, int index = -1) {
             t->setIndex(myRunningIndex++);
-            myWorkers[myRunningIndex % myWorkers.size()]->add(t);
+            if (index < 0) {
+                index = myRunningIndex % myWorkers.size();
+            }
+            myWorkers[index]->add(t);
         }
 
         /** @brief Adds the given task to the list of finished tasks and assigns it to a randomly chosen worker.

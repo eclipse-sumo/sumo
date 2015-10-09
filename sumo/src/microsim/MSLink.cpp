@@ -10,7 +10,7 @@
 // A connnection between lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -59,7 +59,7 @@ SUMOTime MSLink::myLookaheadTime = TIME2STEPS(1);
 // member method definitions
 // ===========================================================================
 #ifndef HAVE_INTERNAL_LANES
-MSLink::MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length) :
+MSLink::MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear) :
     myLane(succLane),
     myIndex(-1),
     myState(state),
@@ -68,9 +68,10 @@ MSLink::MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal le
     myLength(length),
     myHasFoes(false),
     myAmCont(false),
+    myKeepClear(keepClear),
     myJunction(0)
 #else
-MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length) :
+MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear) :
     myLane(succLane),
     myIndex(-1),
     myState(state),
@@ -79,6 +80,7 @@ MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state
     myLength(length),
     myHasFoes(false),
     myAmCont(false),
+    myKeepClear(keepClear),
     myJunctionInlane(via),
     myInternalLaneBefore(0),
     myJunction(0)
@@ -118,10 +120,12 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
     std::cout << " link " << myIndex << " to " << getViaLaneOrLane()->getID() << " internalLane=" << (lane == 0 ? "NULL" : lane->getID()) << " has foes: " << toString(foeLanes) << "\n";
 #endif
     if (lane != 0) {
+        const bool beforeInternalJunction = lane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal();
         assert(lane->getIncomingLanes().size() == 1);
         // compute crossing points
         for (std::vector<const MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
-            if (myLane == (*it_lane)->getLinkCont()[0]->getLane() && !lane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal()) {
+            const bool sameTarget = myLane == (*it_lane)->getLinkCont()[0]->getLane();
+            if (sameTarget && !beforeInternalJunction) {
                 //if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
                 // this foeLane has the same target and merges at the end (lane exits the junction)
                 myLengthsBehindCrossing.push_back(std::make_pair(0, 0)); // dummy value, never used
@@ -139,8 +143,10 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 //std::cout << " intersections1=" << toString(intersections1) << "\n";
 #endif
+                bool haveIntersection = true;
                 if (intersections1.size() == 0) {
-                    intersections1.push_back(10000.0); // disregard this foe (using maxdouble leads to nasty problems down the line)
+                    intersections1.push_back(-10000.0); // disregard this foe (using maxdouble leads to nasty problems down the line)
+                    haveIntersection = false;
                 } else if (intersections1.size() > 1) {
                     std::sort(intersections1.begin(), intersections1.end());
                 }
@@ -153,15 +159,25 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 } else if (intersections2.size() > 1) {
                     std::sort(intersections2.begin(), intersections2.end());
                 }
-                // lane width affects the crossing point
-                intersections1.back() -= (*it_lane)->getWidth() / 2;
-                intersections2.back() -= lane->getWidth() / 2;
-                // also length/geometry factor
-                intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
-                intersections2.back() = (*it_lane)->interpolateGeometryPosToLanePos(intersections2.back());
+                if (haveIntersection) {
+                    // lane width affects the crossing point
+                    intersections1.back() -= (*it_lane)->getWidth() / 2;
+                    intersections2.back() -= lane->getWidth() / 2;
+                    // also length/geometry factor
+                    intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
+                    intersections2.back() = (*it_lane)->interpolateGeometryPosToLanePos(intersections2.back());
+
+                    if (internalLaneBefore->getLogicalPredecessorLane()->getEdge().isInternal() && !(*it_lane)->getEdge().isCrossing())  {
+                        // wait at the internal junction
+                        // (except for foes that are crossings since there is no internal junction)
+                        intersections1.back() = 0;
+                    }
+                }
+
                 myLengthsBehindCrossing.push_back(std::make_pair(
                                                       lane->getLength() - intersections1.back(),
                                                       (*it_lane)->getLength() - intersections2.back()));
+
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout
                         << " intersection of " << lane->getID()
@@ -191,14 +207,14 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     if (intersections1.back() > NUMERICAL_EPS) {
                         // siblings share a common shape up to the last crossing point so intersections are identical and only need to be computed once
                         myLengthsBehindCrossing.push_back(std::make_pair(
-                                    lane->getLength() - intersections1.back(),
-                                    sibling->getLength() - intersections1.back()));
+                                                              lane->getLength() - intersections1.back(),
+                                                              sibling->getLength() - intersections1.back()));
                         myFoeLanes.push_back(sibling);
 #ifdef MSLink_DEBUG_CROSSING_POINTS
-                        std::cout << " adding same-origin foe" << sibling->getID() 
-                            << " dist1=" << myLengthsBehindCrossing.back().first
-                            << " dist2=" << myLengthsBehindCrossing.back().second
-                            << "\n";
+                        std::cout << " adding same-origin foe" << sibling->getID()
+                                  << " dist1=" << myLengthsBehindCrossing.back().first
+                                  << " dist2=" << myLengthsBehindCrossing.back().second
+                                  << "\n";
 #endif
                     }
                 }
@@ -211,7 +227,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 }
 
 
-std::pair<SUMOReal, SUMOReal> 
+std::pair<SUMOReal, SUMOReal>
 getLastIntersections(const MSLane* lane, const MSLane* foe);
 
 void
@@ -407,6 +423,33 @@ MSLink::getLane() const {
     return myLane;
 }
 
+MSLane*
+MSLink::getApproachingLane() const {
+    MSLane* approachedLane; //the lane approached by this link; this lane may be an internal lane
+#ifdef HAVE_INTERNAL_LANES
+    if (myJunctionInlane != 0) {    // if there is an internal lane
+        approachedLane = myJunctionInlane;  //consider the internal lane as the approached lane
+    } else {    //if ther is no internal lane
+        approachedLane = myLane;
+    }
+#else
+    approachedLane = myLane;
+#endif
+    const std::vector<MSLane::IncomingLaneInfo> possibleLanes = approachedLane->getIncomingLanes();
+    std::vector<MSLane::IncomingLaneInfo>::const_iterator i;
+    for (i = possibleLanes.begin(); i != possibleLanes.end(); i++) {
+        MSLane* lane = (*i).lane;
+        MSLinkCont outgoingLinks = lane->getLinkCont(); //the links outgoing from lane
+        for (MSLinkCont::const_iterator j = outgoingLinks.begin(); j != outgoingLinks.end(); j++) {
+            if ((*j) == this) {
+                return lane;
+            }
+        }
+    }
+    WRITE_WARNING("No approaching lane found for the link with the index " + toString(this->getIndex()) + ".");
+    return 0;
+}
+
 
 bool
 MSLink::lastWasContMajor() const {
@@ -509,6 +552,9 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
             foeLane->releaseVehicles();
             for (MSLane::VehCont::const_iterator it_veh = vehicles.begin(); it_veh != vehicles.end(); ++it_veh) {
                 MSVehicle* leader = *it_veh;
+                if (!cannotIgnore && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass) {
+                    continue;
+                }
                 if (cannotIgnore || leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {
                     // compute distance between vehicles on the the superimposition of both lanes
                     // where the crossing point is the common point

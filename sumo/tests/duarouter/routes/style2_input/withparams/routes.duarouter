@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 12 11:02:56 2014 by SUMO duarouter Version dev-SVN-r16857ID
+<!-- generated on 03/24/15 15:34:01 by SUMO duarouter Version dev-SVN-r18127
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -91,5 +91,9 @@
     </vehicle>
     <vehicle id="71" depart="71.00" arrivalSpeed="current">
         <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="72" depart="72.00">
+        <route edges="beg middle end rend"/>
+        <param key="blubber" value="zisch"/>
     </vehicle>
 </routes>

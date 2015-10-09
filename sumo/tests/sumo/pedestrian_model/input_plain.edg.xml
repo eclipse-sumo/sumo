@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Mar 26 17:50:28 2015 by SUMO netconvert Version dev-SVN-r18156I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="3" numLanes="5" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.75"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="bicycle" width="1.00"/>
+        <lane index="3" allow="passenger"/>
+        <lane index="4" allow="passenger"/>
+    </edge>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="5" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="bicycle" width="1.00"/>
+        <lane index="3" allow="passenger"/>
+        <lane index="4" allow="passenger"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="5" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="bicycle" width="1.00"/>
+        <lane index="3" allow="passenger"/>
+        <lane index="4" allow="passenger"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="3" numLanes="5" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.25"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="bicycle" width="1.00"/>
+        <lane index="3" allow="passenger"/>
+        <lane index="4" allow="passenger"/>
+    </edge>
+    <edge id="EC" from="E" to="C" priority="3" numLanes="5" speed="13.89">
+        <lane index="0" allow="pedestrian" width="1.50"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="bicycle" width="1.00"/>
+        <lane index="3" allow="passenger"/>
+        <lane index="4" allow="passenger"/>
+    </edge>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="5" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="bicycle" width="1.00"/>
+        <lane index="3" allow="passenger"/>
+        <lane index="4" allow="passenger"/>
+    </edge>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="5" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="bicycle" width="1.00"/>
+        <lane index="3" allow="passenger"/>
+        <lane index="4" allow="passenger"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="3" numLanes="5" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="bicycle" width="1.00"/>
+        <lane index="3" allow="passenger"/>
+        <lane index="4" allow="passenger"/>
+    </edge>
+</edges>

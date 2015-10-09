@@ -11,7 +11,7 @@
 Convert protobuf files to selected xml input files for SUMO
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2014-2015 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -21,14 +21,21 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys, struct, contextlib
+import os
+import sys
+import struct
+import contextlib
 
 from optparse import OptionParser
 import google.protobuf.descriptor
-import xsd, xml2csv, xml2protobuf
+import xsd
+import xml2csv
+import xml2protobuf
+
 
 def get_options():
-    optParser = OptionParser(usage=os.path.basename(sys.argv[0])+" [<options>] <input_file_or_port>")
+    optParser = OptionParser(
+        usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
     optParser.add_option("-p", "--protodir", default=".",
                          help="where to put and read .proto files")
     optParser.add_option("-x", "--xsd", help="xsd schema to use")
@@ -45,6 +52,7 @@ def get_options():
         options.output = os.path.splitext(options.source)[0] + ".xml"
     return options
 
+
 def read_n(inputf, n):
     """ Read exactly n bytes from the input.
         Raise RuntimeError if the stream ended before
@@ -59,8 +67,9 @@ def read_n(inputf, n):
         n -= len(data)
     return buf
 
+
 def msg2xml(desc, cont, out, depth=1):
-    out.write(">\n%s<%s" % (depth*'    ', desc.name))
+    out.write(">\n%s<%s" % (depth * '    ', desc.name))
     haveChildren = False
 #    print(depth, cont)
     for attr, value in cont.ListFields():
@@ -68,7 +77,7 @@ def msg2xml(desc, cont, out, depth=1):
             if attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
                 haveChildren = True
                 for item in value:
-                    msg2xml(attr, item, out, depth+1)
+                    msg2xml(attr, item, out, depth + 1)
         else:
             if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_ENUM:
                 value = attr.enum_type.values_by_number[value].name
@@ -76,9 +85,10 @@ def msg2xml(desc, cont, out, depth=1):
                     value = value[1:]
             out.write(' %s="%s"' % (attr.name, value))
     if haveChildren:
-        out.write(">\n%s</%s" % (depth*'    ', desc.name))
+        out.write(">\n%s</%s" % (depth * '    ', desc.name))
     else:
         out.write("/")
+
 
 def writeXml(root, module, options):
     with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:

@@ -1,4 +1,4 @@
-/****************************************************************************/
+﻿/****************************************************************************/
 /// @file    NLTriggerBuilder.h
 /// @author  Daniel Krajzewicz
 /// @author  Tino Morenz
@@ -11,7 +11,7 @@
 // Builds trigger objects for microsim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2015 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -48,7 +48,7 @@ class NLHandler;
 class MSTriggeredRerouter;
 class MSLane;
 class MSEdge;
-class MSBusStop;
+class MSStoppingPlace;
 class MSCalibrator;
 class MSRouteProbe;
 
@@ -141,6 +141,23 @@ public:
     void parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attrs);
 
 
+    /** @brief Parses his values and builds a container stop
+     *
+     * @param[in] net The network the container stop belongs to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     */
+    void parseAndBuildContainerStop(MSNet& net, const SUMOSAXAttributes& attrs);
+
+
+    /** @brief Parses his values and builds a charging station
+     *
+     * @param[in] net The network the charging station belongs to
+     * @param[in] attrs SAXattributes which define the trigger
+     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     */
+    void parseAndBuildChrgStn(MSNet& net, const SUMOSAXAttributes& attrs);
+
     /** @brief Parses his values and builds a mesoscopic or microscopic calibrator
      *
      * @param[in] net The network the calibrator belongs to
@@ -182,7 +199,7 @@ protected:
 
     /** @brief Builds a bus stop
      *
-     * Simply calls the MSBusStop constructor.
+     * Simply calls the MSStoppingPlace constructor.
      *
      * @param[in] net The net the bus stop belongs to
      * @param[in] id The id of the bus stop
@@ -195,6 +212,38 @@ protected:
     virtual void buildBusStop(MSNet& net,
                               const std::string& id, const std::vector<std::string>& lines,
                               MSLane* lane, SUMOReal frompos, SUMOReal topos);
+
+    /** @brief Builds a charging Station
+     *
+     * Simply calls the MSBusStop constructor.
+     *
+     * @param[in] net The net the charging Station belongs to
+     * @param[in] id The id of the charging Station
+     * @param[in] lines Names of the bus lines that halt on this charging Station
+     * @param[in] lane The lane the charging Station is placed on
+     * @param[in] frompos Begin position of the charging Station on the lane
+     * @param[in] topos End position of the charging Station on the lane
+     * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
+     */
+    virtual void buildChrgStn(MSNet& net,
+                              const std::string& id, const std::vector<std::string>& lines,
+                              MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay);
+
+    /** @brief Builds a container stop
+     *
+     * Simply calls the MSStoppingPlace constructor.
+     *
+     * @param[in] net The net the container stop belongs to
+     * @param[in] id The id of the container stop
+     * @param[in] lines Names of the lines that halt on this container stop
+     * @param[in] lane The lane the container stop is placed on
+     * @param[in] frompos Begin position of the container stop on the lane
+     * @param[in] topos End position of the container stop on the lane
+     * @exception InvalidArgument If the container stop can not be added to the net (is duplicate)
+     */
+    virtual void buildContainerStop(MSNet& net,
+                                    const std::string& id, const std::vector<std::string>& lines,
+                                    MSLane* lane, SUMOReal frompos, SUMOReal topos);
 
 
     /** @brief builds a microscopic calibrator
