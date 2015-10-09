@@ -150,7 +150,7 @@ protected:
                     const std::string& rid);
 
     /// @brief route a walking person and write the corresponding walk element (return whether sucessful)
-    bool routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& plan);
+    bool routePerson(const SUMOSAXAttributes& attrs, OutputDevice& plan);
 
 protected:
     /// @brief the router for pedestrians

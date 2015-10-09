@@ -150,7 +150,7 @@ RORouteHandler::myStartElement(int element,
             break;
         }
         case SUMO_TAG_PERSONTRIP: {
-            routePedestrian(attrs, *myActivePlan);
+            routePerson(attrs, *myActivePlan);
             break;
         }
         case SUMO_TAG_WALK: {
@@ -162,7 +162,7 @@ RORouteHandler::myStartElement(int element,
                 myActivePlan->closeTag();
                 myActivePlanSize++;
             } else {
-                routePedestrian(attrs, *myActivePlan);
+                routePerson(attrs, *myActivePlan);
             }
             break;
         }
@@ -188,7 +188,7 @@ RORouteHandler::myStartElement(int element,
                 myActiveContainerPlan->closeTag();
                 myActiveContainerPlanSize++;
             } else {
-                routePedestrian(attrs, *myActiveContainerPlan);
+                routePerson(attrs, *myActiveContainerPlan);
             }
             break;
         }
@@ -645,7 +645,7 @@ RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
 
 
 bool
-RORouteHandler::routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& plan) {
+RORouteHandler::routePerson(const SUMOSAXAttributes& attrs, OutputDevice& plan) {
     bool ok = true;
     const char* id = myVehicleParameter->id.c_str();
     SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok, 0);
@@ -654,6 +654,8 @@ RORouteHandler::routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& pl
     assert(myActiveRoute.size() == 0);
     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, id, ok);
     const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, id, ok);
+    const std::vector<std::string> modes = attrs.getStringVector(SUMO_ATTR_MODES);
+    const std::vector<std::string> types = attrs.getStringVector(SUMO_ATTR_VTYPES);
     const ROEdge* from = myNet.getEdge(fromID);
     if (from == 0) {
         myErrorOutput->inform("The edge '" + fromID + "' within a walk of " + myVehicleParameter->id + " is not known."
