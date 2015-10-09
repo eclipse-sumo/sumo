@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r18945D
+SUMO Version dev-SVN-r19057D
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -98,8 +98,8 @@ Processing Options:
   --ignore-accidents                   Do not check whether accidents occur
   --ignore-route-errors                Do not check whether routes are
                                          connected
-  --max-num-vehicles INT               Quit simulation if this number of
-                                         vehicles is exceeded
+  --max-num-vehicles INT               Delay vehicle insertion to stay within
+                                         the given maximum number
   --scale FLOAT                        Scale demand by the given factor (by
                                          discarding or duplicating vehicles)
   --time-to-teleport TIME              Specify how long a vehicle may wait

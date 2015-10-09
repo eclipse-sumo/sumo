@@ -171,8 +171,8 @@
         <!-- Do not check whether routes are connected -->
         <ignore-route-errors value="false" type="BOOL"/>
 
-        <!-- Quit simulation if this number of vehicles is exceeded -->
-        <max-num-vehicles value="-1" synonymes="too-many-vehicles" type="INT"/>
+        <!-- Delay vehicle insertion to stay within the given maximum number -->
+        <max-num-vehicles value="-1" type="INT"/>
 
         <!-- Scale demand by the given factor (by discarding or duplicating vehicles) -->
         <scale value="" type="FLOAT"/>
