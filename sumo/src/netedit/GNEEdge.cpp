@@ -624,7 +624,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge.setSpeed(-1, parse<SUMOReal>(value));
             break;
         case SUMO_ATTR_WIDTH:
-            myNBEdge.setLaneWidth(-1, parse<unsigned int>(value));
+            myNBEdge.setLaneWidth(-1, parse<SUMOReal>(value));
             break;
         case SUMO_ATTR_ENDOFFSET:
             myNBEdge.setEndOffset(-1, parse<unsigned int>(value));
