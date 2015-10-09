@@ -54,9 +54,13 @@
 // ===========================================================================
 MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
                                        SUMOTime maxDepartDelay,
-                                       bool checkEdgesOnce)
-    : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay),
-      myCheckEdgesOnce(checkEdgesOnce) {}
+                                       bool checkEdgesOnce,
+                                       int maxVehicleNumber) : 
+    myVehicleControl(vc), 
+    myMaxDepartDelay(maxDepartDelay),
+    myCheckEdgesOnce(checkEdgesOnce),
+    myMaxVehicleNumber(maxVehicleNumber)
+{}
 
 
 MSInsertionControl::~MSInsertionControl() {
@@ -146,7 +150,9 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
         veh->onDepart();
         return 1;
     }
-    if ((!myCheckEdgesOnce || edge.getLastFailedInsertionTime() != time) && edge.insertVehicle(*veh, time)) {
+    if ((myMaxVehicleNumber < 0 || (int)MSNet::getInstance()->getVehicleControl().getRunningVehicleNo() < myMaxVehicleNumber)
+            && (!myCheckEdgesOnce || edge.getLastFailedInsertionTime() != time) 
+            && edge.insertVehicle(*veh, time)) {
         // Successful insertion
         checkFlowWait(veh);
         veh->onDepart();

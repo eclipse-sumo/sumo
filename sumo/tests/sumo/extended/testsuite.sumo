@@ -49,3 +49,6 @@ device_bt
 
 # tests for battery device and charging station
 electric
+
+# test for using option --max-num-vehicles
+max_num_vehicles

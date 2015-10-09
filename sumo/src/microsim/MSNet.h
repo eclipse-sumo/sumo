@@ -723,9 +723,6 @@ protected:
     /// @brief Whether the network contains elevation data
     bool myHasElevation;
 
-    /// @brief Storage for maximum vehicle number
-    int myTooManyVehicles;
-
     /// @brief Dictionary of bus stops
     NamedObjectCont<MSStoppingPlace*> myBusStopDict;
 

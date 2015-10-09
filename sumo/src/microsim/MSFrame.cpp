@@ -245,8 +245,7 @@ MSFrame::fillOptions() {
     oc.addDescription("ignore-route-errors", "Processing", "Do not check whether routes are connected");
 
     oc.doRegister("max-num-vehicles", new Option_Integer(-1));
-    oc.addSynonyme("max-num-vehicles", "too-many-vehicles", true);
-    oc.addDescription("max-num-vehicles", "Processing", "Quit simulation if this number of vehicles is exceeded");
+    oc.addDescription("max-num-vehicles", "Processing", "Delay vehicle insertion to stay within the given maximum number");
 
     oc.doRegister("scale", new Option_Float());
     oc.addDescription("scale", "Processing", "Scale demand by the given factor (by discarding or duplicating vehicles)");
