@@ -149,6 +149,10 @@ RORouteHandler::myStartElement(int element,
             myActivePlanSize++;
             break;
         }
+        case SUMO_TAG_PERSONTRIP: {
+            routePedestrian(attrs, *myActivePlan);
+            break;
+        }
         case SUMO_TAG_WALK: {
             if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
                 // copy walk as it is
