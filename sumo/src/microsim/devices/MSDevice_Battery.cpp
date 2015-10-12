@@ -3,7 +3,7 @@
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez López
 /// @date    20.12.2013
-/// @version $Id$ // ATENCION
+/// @version $Id$
 ///
 // The Battery parameters for the vehicle
 /****************************************************************************/
@@ -87,7 +87,7 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
     if (v.getParameter().getParameter("ActBatKap", "-") == "-") {
         new_ActBatKap = new_MaxBatKap / 2.0;
     } else {
-        new_ActBatKap = TplConvert::_2SUMOReal(v/*.getVehicleType()*/.getParameter().getParameter("ActBatKap", "0").c_str());
+        new_ActBatKap = TplConvert::_2SUMOReal(v.getParameter().getParameter("ActBatKap", "0").c_str());
     }
 
     // Power
@@ -250,26 +250,6 @@ bool MSDevice_Battery::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notificatio
 
 void MSDevice_Battery::generateOutput() const {
     //Function implemented in MSBatteryExport
-    /*if (OptionsCont::getOptions().isSet("tripinfo-output"))
-    {
-        OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
-
-        os.openTag("Battery");
-            os.writeAttr("Act Bat Kap", toString(ActBatKap));
-            os.writeAttr("Max Bat Kap", toString(MaxBatKap));
-            os.writeAttr("Power Max", toString(PowerMax));
-            os.writeAttr("Mass", toString(Mass));
-            os.writeAttr("Front Surface Area", toString(FrontSurfaceArea));
-            os.writeAttr("Air Drag Coefficient", toString(AirDragCoefficient));
-            os.writeAttr("Radial Drag Coefficient", toString(RadialDragCoefficient));
-            os.writeAttr("RollDrag Coefficient", toString(RollDragCoefficient));
-            os.writeAttr("Constant Power Intake", toString(ConstantPowerIntake));
-            os.writeAttr("Propulsion Efficiency", toString(PropulsionEfficiency));
-            os.writeAttr("Recuperation Efficiency", toString(RecuperationEfficiency));
-            os.writeAttr("Last Angle", toString(LastAngle));
-            os.writeAttr("Last Energy", toString(LastEnergy));
-        os.closeTag();
-    }*/
 }
 
 
@@ -279,20 +259,20 @@ void MSDevice_Battery::generateOutput() const {
 MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const SUMOReal new_ActBatKap, const SUMOReal new_MaxBatKap, const SUMOReal new_PowerMax, const SUMOReal new_Mass, const SUMOReal new_FrontSurfaceArea, const SUMOReal new_AirDragCoefficient, const SUMOReal new_InternalMomentOfInertia, const SUMOReal new_RadialDragCoefficient, const SUMOReal new_RollDragCoefficient, const SUMOReal new_ConstantPowerIntake, const SUMOReal new_PropulsionEfficiency, const SUMOReal new_RecuperationEfficiency, const SUMOReal new_LastAngle, const SUMOReal new_LastEnergy)
     :
     MSDevice(holder, id),
-    ActBatKap(new_ActBatKap),                                // [ActBatKap <= MaxBatKap]
-    MaxBatKap(new_MaxBatKap),                                // [MaxBatKap >= 0]
-    PowerMax(new_PowerMax),                                    // [PowerMax >= 0]
-    Mass(new_Mass),                                            // [Mass >= 0]
-    FrontSurfaceArea(new_FrontSurfaceArea),                    // [FrontSurfaceArea >= 0]
-    AirDragCoefficient(new_AirDragCoefficient),                // [AirDragCoefficient >=0]
-    InternalMomentOfInertia(new_InternalMomentOfInertia),    // [InternalMomentOfInertia >= 0]
-    RadialDragCoefficient(new_RadialDragCoefficient),        // [RadialDragCoefficient >=0]
-    RollDragCoefficient(new_RollDragCoefficient),            // [RollDragCoefficient >= 0]
-    ConstantPowerIntake(new_ConstantPowerIntake),            // [ConstantPowerIntake >= 0]
-    PropulsionEfficiency(new_PropulsionEfficiency),            // [1 >= PropulsionEfficiency >= 0]
-    RecuperationEfficiency(new_RecuperationEfficiency),        // [1 >= RecuperationEfficiency >= 0]
-    LastAngle(new_LastAngle),                                // Limit not needed
-    LastEnergy(new_LastEnergy) {                              // Limit not needed
+    ActBatKap(new_ActBatKap),									// [ActBatKap <= MaxBatKap]
+    MaxBatKap(new_MaxBatKap),									// [MaxBatKap >= 0]
+    PowerMax(new_PowerMax),										// [PowerMax >= 0]
+    Mass(new_Mass),												// [Mass >= 0]
+    FrontSurfaceArea(new_FrontSurfaceArea),						// [FrontSurfaceArea >= 0]
+    AirDragCoefficient(new_AirDragCoefficient),					// [AirDragCoefficient >=0]
+    InternalMomentOfInertia(new_InternalMomentOfInertia),		// [InternalMomentOfInertia >= 0]
+    RadialDragCoefficient(new_RadialDragCoefficient),			// [RadialDragCoefficient >=0]
+    RollDragCoefficient(new_RollDragCoefficient),				// [RollDragCoefficient >= 0]
+    ConstantPowerIntake(new_ConstantPowerIntake),				// [ConstantPowerIntake >= 0]
+    PropulsionEfficiency(new_PropulsionEfficiency),				// [1 >= PropulsionEfficiency >= 0]
+    RecuperationEfficiency(new_RecuperationEfficiency),			// [1 >= RecuperationEfficiency >= 0]
+    LastAngle(new_LastAngle),									// Limit not needed
+    LastEnergy(new_LastEnergy) {								// Limit not needed
     // Initially the Vehicle is not charging and is not in a Chargin Station
     ItsChargingStopped = false;
     ItsChargingInTransit = false;
@@ -599,13 +579,24 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
     // Calculate the radius of the vehicle's current path if is distintc (r = ds / dphi)
     SUMOReal radius = 0;
 
+	// If angle of vehicle was changed
     if (getLastAngle() != veh.getAngle())
 	{
+		// Compute new radio
         radius = veh.getSpeed() * 180 / (PI * (
                                              (fabs(getLastAngle() - veh.getAngle()) < fabs(veh.getAngle() - getLastAngle())) ?
                                              fabs(getLastAngle() - veh.getAngle()) :
                                              fabs(veh.getAngle() - getLastAngle())));
-		radius = 0.0001 > radius ? 0.0001 : radius;
+
+		// Check if radius is in the interval [0.0001 - 10000] (To avoid overflow and 1/0 problems)
+		if(radius < 0.0001)
+		{
+			radius = 0.0001;
+		}
+		else if (radius > 10000)
+		{
+			radius = 10000;
+		}
 	}
 
     // add current rotational energy of internal rotating elements
@@ -653,11 +644,7 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
     // convert from [Ws] to [kWh] (3600s / 1h):
     EnergyLoss = EnergyLoss / 3600 ; // EnergyLoss[Ws] * 1[h]/3600[s] * 1[k]/1000
 
-
-    // original EnergyLoss = EnergyLoss / 3600 / 1000 ; // EnergyLoss[Ws] * 1[h]/3600[s] * 1[k]/1000
-
-    //BATTERYS CAPACITY CHANGE !!
-
+	// Return calculated energy
     return(EnergyLoss);
 }
 
