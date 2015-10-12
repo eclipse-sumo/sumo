@@ -1515,6 +1515,10 @@ MSVehicle::executeMove() {
             getLaneChangeModel().continueLaneChangeManeuver(moved);
         }
         setBlinkerInformation(); // needs updated bestLanes
+		//change the blue light only for emergency vehicles SUMOVehicleClass
+		if (myType->getVehicleClass()== SVC_EMERGENCY) {
+			setEmergencyBlueLight(MSNet::getInstance()->getCurrentTimeStep()); 
+		}
         // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
         getLaneChangeModel().prepareStep();
     }
@@ -2395,6 +2399,17 @@ MSVehicle::setBlinkerInformation() {
         }
     }
 
+}
+
+void 
+MSVehicle::setEmergencyBlueLight(SUMOTime currentTime){
+    if (currentTime % 1000 == 0){
+		if (signalSet(VEH_SIGNAL_EMERGENCY_BLUE)){
+			switchOffSignal(VEH_SIGNAL_EMERGENCY_BLUE);
+		} else {
+			switchOnSignal(VEH_SIGNAL_EMERGENCY_BLUE);
+		}
+	}
 }
 
 

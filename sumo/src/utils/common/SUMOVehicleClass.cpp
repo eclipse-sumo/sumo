@@ -126,6 +126,7 @@ StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
     {"evehicle",              SVS_E_VEHICLE},
     {"ant",                   SVS_ANT},
     {"ship",                  SVS_SHIP},
+	{"emergency",             SVS_EMERGENCY},
     {"",                      SVS_UNKNOWN}
 };
 

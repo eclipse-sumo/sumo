@@ -136,6 +136,10 @@ double vehiclePoly_ShipSuperStructure[] =  { 0.8, 0,  0.5, 0.3,  0.85, 0.3,  0.8
 
 double vehiclePoly_Cyclist[] =  { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
 
+double vehiclePoly_EmergencySign[] =   { .2, .5,  -.2, .5,  -.2, -.5,  .2, -.5, -10000 };
+double vehiclePoly_Emergency[] =   { .1, .1,  -.1, .1,  -.1, -.1,  .1, -.1, -10000 };
+double vehiclePoly_Emergency2[] =   { .04, .3,  -.04, .3,  -.04, -.3,  .04, -.3, -10000 };
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -597,6 +601,23 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
             drawPoly(vehiclePoly_ShipSuperStructure, 6);
             break;
         }
+        case SVS_EMERGENCY: // similar to delivery
+			glColor3d(1, 1, 1);
+            drawPoly(vehiclePoly_PassengerVanBody, 4);
+			glColor3d(1, 0, 0);
+            drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
+            glColor3d(0, 0, 0);
+            drawPoly(vehiclePoly_PassengerVanFrontGlass, 4.5);
+            drawPoly(vehiclePoly_DeliveryMediumRightGlass, 4.5);
+            drawPoly(vehiclePoly_DeliveryMediumLeftGlass, 4.5);
+			// first aid sign
+			glTranslated(0.7, 0, 0);
+			glColor3d(.18, .55, .34);
+			drawPoly(vehiclePoly_EmergencySign, 4.5);
+			glColor3d(1, 1, 1);
+			drawPoly(vehiclePoly_Emergency, 5);
+			drawPoly(vehiclePoly_Emergency2, 5);
+            break;
         default: // same as passenger
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             glColor3d(1, 1, 1);
@@ -700,7 +721,8 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
         case SVS_E_VEHICLE:
         case SVS_ANT:
         case SVS_SHIP:
-            break;
+		case SVS_EMERGENCY:
+			break;
         default: // same as passenger/sedan
             drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
             drawPoly(vehiclePoly_PassengerSedanLeftGlass, 4.5);
@@ -838,6 +860,11 @@ GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
             break;
         case 2:
             drawAction_drawVehicleAsPoly(s);
+			// draw flashing blue light for emergency vehicles
+			if (myVType.getGuiShape()== SVS_EMERGENCY) {
+				glTranslated(0, 0, .1);
+				drawAction_drawVehicleBlueLight();
+			}
             break;
         case 3:
         default:
