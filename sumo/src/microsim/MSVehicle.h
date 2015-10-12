@@ -1160,7 +1160,7 @@ protected:
 
     /** @brief sets the blue flashing light for emergency vehicles
      */
-	void setEmergencyBlueLight(SUMOTime currentTime);
+    void setEmergencyBlueLight(SUMOTime currentTime);
 
     /// updates LaneQ::nextOccupation and myCurrentLaneInBestLanes
     void updateOccupancyAndCurrentBestLane(const MSLane* startLane);
