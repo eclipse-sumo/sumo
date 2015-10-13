@@ -42,8 +42,9 @@
 #include "RORouteDef.h"
 #include "ROPerson.h"
 #include "RORoute.h"
-//#include "ROHelper.h"
-//#include "RONet.h"
+#include "ROVehicle.h"
+#include "ROHelper.h"
+#include "RONet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

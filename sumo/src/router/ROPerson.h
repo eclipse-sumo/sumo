@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef ROVehicle_h
-#define ROVehicle_h
+#ifndef ROPerson_h
+#define ROPerson_h
 
 
 // ===========================================================================
