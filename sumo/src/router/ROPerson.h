@@ -21,7 +21,6 @@
 #ifndef ROPerson_h
 #define ROPerson_h
 
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -37,7 +36,6 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
-
 
 // ===========================================================================
 // class declarations
@@ -56,7 +54,9 @@ typedef std::vector<const ROEdge*> ConstROEdgeVector;
  * @class ROPerson
  * @brief A person as used by router
  */
-class ROPerson {
+class ROPerson
+{
+
 public:
     /** @brief Constructor
      *
@@ -64,13 +64,54 @@ public:
      * @param[in] route The definition of the route the vehicle shall use
      * @param[in] type The type of the vehicle
      */
-    ROPerson(const SUMOVehicleParameter& pars,
-              RORouteDef* route, const SUMOVTypeParameter* type,
-              const RONet* net);
-
+    ROPerson (const SUMOVehicleParameter& pars, RORouteDef* route,
+              const SUMOVTypeParameter* type, const RONet* net);
 
     /// @brief Destructor
-    virtual ~ROPerson();
+    virtual
+    ~ROPerson ();
+
+
+    /**
+     * @brief Every person has a plan comprising of multiple planItems
+     *
+     */
+    class PlanItem
+    {
+    };
+
+    /**
+     * @brief A planItem can be a Stop
+     *
+     */
+    class Stop : public PlanItem
+    {
+    };
+
+    /**
+     * @brief A planItem can be a Trip which contains multiple tripItems
+     *
+     */
+    class Trip : public PlanItem
+    {
+    public:
+
+        /**
+         * @brief A TripItem is part of a trip, e.g., go from here to here by car
+         *
+         */
+        class TripItem
+        {
+        };
+
+        std::vector<TripItem> myTripItems;
+        std::vector<ROVehicle> myVehicles;
+    };
+
+    /**
+     * @brief The plan of each person
+     */
+    std::vector<PlanItem> myPlan;
 
 
 //    /** @brief Returns the definition of the route the vehicle takes
@@ -83,7 +124,6 @@ public:
 //        return myRoute;
 //    }
 
-
 //    /** @brief Returns the type of the vehicle
 //     *
 //     * @return The vehicle's type
@@ -94,7 +134,6 @@ public:
 //        return myType;
 //    }
 
-
 //    /** @brief Returns the id of the vehicle
 //     *
 //     * @return The id of the vehicle
@@ -102,7 +141,6 @@ public:
 //    const std::string& getID() const {
 //        return myParameter.id;
 //    }
-
 
 //    /** @brief Returns the time the vehicle starts at, 0 for triggered vehicles
 //     *
@@ -127,7 +165,6 @@ public:
 //    /// @brief Returns the vehicle's maximum speed
 //    SUMOReal getMaxSpeed() const;
 
-
 //    inline SUMOVehicleClass getVClass() const {
 //        return getType() != 0 ? getType()->vehicleClass : SVC_IGNORING;
 //    }
@@ -139,7 +176,6 @@ public:
 //    inline SUMOReal getChosenSpeedFactor() const {
 //        return SUMOReal(2. * getType()->speedDev + 1.) * getType()->speedFactor;
 //    }
-
 
 //    /** @brief  Saves the vehicle type if it was not saved before.
 //     *
@@ -177,35 +213,33 @@ private:
      */
 //    void addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net);
 
-
 protected:
     /// @brief The person's parameter
 //    SUMOVehicleParameter myParameter;
 
-    /// @brief The type of the person
+/// @brief The type of the person
 //    const SUMOVTypeParameter* const myType;
 
 //    typedef std::vector<ROVehicle*> ROTrip;
 
-    /// @brief The person plan
+/// @brief The person plan
 //    std::vector<ROTrip> myPlan;
 
-    /// @brief The edges where the vehicle stops
+/// @brief The edges where the vehicle stops
 //    ConstROEdgeVector myStopEdges;
 
-    /// @brief Whether the last routing was successful
+/// @brief Whether the last routing was successful
 //    bool myRoutingSuccess;
-
 
 private:
     /// @brief Invalidated copy constructor
-    ROPerson(const ROPerson& src);
+    ROPerson (const ROPerson& src);
 
     /// @brief Invalidated assignment operator
-    ROPerson& operator=(const ROPerson& src);
+    ROPerson&
+    operator= (const ROPerson& src);
 
 };
-
 
 #endif
 
