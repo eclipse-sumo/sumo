@@ -71,6 +71,12 @@ public:
     virtual
     ~ROPerson ();
 
+    // forward declarations
+    class PlanItem;
+    class Stop;
+    class Trip;
+    class TripItem;
+
 
     /**
      * @brief Every person has a plan comprising of multiple planItems
@@ -100,19 +106,19 @@ public:
          * @brief A TripItem is part of a trip, e.g., go from here to here by car
          *
          */
-        class TripItem
-        {
-        };
 
         std::vector<TripItem> myTripItems;
         std::vector<ROVehicle> myVehicles;
+    };
+
+    class TripItem
+    {
     };
 
     /**
      * @brief The plan of each person
      */
     std::vector<PlanItem> myPlan;
-
 
 //    /** @brief Returns the definition of the route the vehicle takes
 //     *
@@ -212,7 +218,6 @@ private:
      * @param[in] net     pointer to the network, used for edge retrieval
      */
 //    void addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net);
-
 protected:
     /// @brief The person's parameter
 //    SUMOVehicleParameter myParameter;
