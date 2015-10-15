@@ -127,6 +127,7 @@ def procFCDStream(fcdstream, options):
 def runMethod(inputFile, outputFile, writer, options, further={}):
     further["app"] = os.path.split(__file__)[1]
     further["orig-ids"] = options.orig_ids
+    further["ignore-gaps"] = options.ignore_gaps
     if options.base >= 0:
         further["base-date"] = datetime.datetime.fromtimestamp(options.base)
     else:
@@ -171,6 +172,8 @@ output format. Optionally the output can be sampled, filtered and distorted.
         "--base-date", dest="base", default=-1, type="int", help="Defines the base date")
     optParser.add_option("--orig-ids", dest="orig_ids", default=False, action="store_true",
                          help="Write original vehicle IDs instead of a running index")
+    optParser.add_option("--ignore-gaps", dest="ignore_gaps", default=False, action="store_true",
+                         help="Ignore steps where a vehicle is not in the network")
     optParser.add_option("--persons", default=False, action="store_true",
                          help="Include person data")
     # PHEM

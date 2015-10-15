@@ -27,6 +27,7 @@ import sumolib.net
 
 def fcd2ns2mobility(inpFCD, outSTRM, further):
     vIDm = sumolib._Running(further["orig-ids"], True)
+    checkGaps = not further["ignore-gaps"]
     begin = -1
     end = None
     area = [None, None, None, None]
@@ -38,7 +39,7 @@ def fcd2ns2mobility(inpFCD, outSTRM, further):
             begin = timestep.time
         end = timestep.time
         seen = set()
-        if not timestep.vehicle:
+        if not timestep.vehicle and checkGaps:
             _writeMissing(timestep.time, vIDm, seen, vehInfo, removed)
             continue
         for v in timestep.vehicle:
@@ -71,7 +72,9 @@ def fcd2ns2mobility(inpFCD, outSTRM, further):
             area[1] = min(area[1], v.y)
             area[2] = max(area[2], v.x)
             area[3] = max(area[3], v.y)
-        _writeMissing(timestep.time, vIDm, seen, vehInfo, removed)
+        if checkGaps:
+            _writeMissing(timestep.time, vIDm, seen, vehInfo, removed)
+    _writeMissing(timestep.time, vIDm, seen, vehInfo, removed)
     return vIDm, vehInfo, begin, end, area
 
 
