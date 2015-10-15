@@ -43,7 +43,6 @@
 class RORouteDef;
 class OutputDevice;
 class ROEdge;
-class RONet;
 class ROVehicle;
 
 typedef std::vector<const ROEdge*> ConstROEdgeVector;
@@ -61,8 +60,9 @@ class ROPerson
 public:
     /** @brief Constructor
      *
+     * @param[in] pars Parameter of this person
      */
-    ROPerson();
+    ROPerson(const SUMOVehicleParameter& pars);
 
     /// @brief Destructor
     virtual

@@ -138,29 +138,48 @@ RORouteHandler::myStartElement(int element,
     SUMORouteHandler::myStartElement(element, attrs);
     switch (element) {
         case SUMO_TAG_PERSON:
-            myActivePerson = new ROPerson();
+            myActivePerson = new ROPerson(*myVehicleParameter);
             break;
         case SUMO_TAG_RIDE: {
-            myActivePlan->openTag(SUMO_TAG_RIDE);
-            (*myActivePlan) << attrs;
-            myActivePlan->closeTag();
-            myActivePlanSize++;
+            const std::string pid = myVehicleParameter->id;
+            bool ok = true;
+            ROEdge* from = 0;
+            const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
+            StringTokenizer st(desc);
+            if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
+                const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
+                from = ROEdge::dictionary(fromID);
+                if (from == 0) {
+                    throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
+                }
+                if (!myActivePlan->empty() && &myActivePlan->back()->getDestination() != from) {
+                    throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + myActivePlan->back()->getDestination().getID() + ").");
+                }
+                if (myActivePlan->empty()) {
+                    myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
+                                                *from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
+                }
+            } else if (myActivePlan->empty()) {
+                throw ProcessError("The start edge within for person '" + pid + "' is not known.");
+            }
+            const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, pid.c_str(), ok);
+            MSEdge* to = MSEdge::dictionary(toID);
+            if (to == 0) {
+                throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
+            }
+            myActivePerson->addRide();
             break;
         }
         case SUMO_TAG_PERSONTRIP: {
-            routePerson(attrs, *myActivePlan);
+            routePerson(attrs, *myActivePerson);
             break;
         }
         case SUMO_TAG_WALK: {
             if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-                // copy walk as it is
                 // XXX allow --repair?
-                myActivePlan->openTag(SUMO_TAG_WALK);
-                (*myActivePlan) << attrs;
-                myActivePlan->closeTag();
-                myActivePlanSize++;
+                myActivePerson->addWalk();
             } else {
-                routePerson(attrs, *myActivePlan);
+                routePerson(attrs, *myActivePerson);
             }
             break;
         }

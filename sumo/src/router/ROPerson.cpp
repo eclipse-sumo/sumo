@@ -54,8 +54,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROPerson::ROPerson()
-{
+ROPerson::ROPerson(const SUMOVehicleParameter& pars)
+    : myParameter(pars) {
 //    : myParameter(pars), myType(type), myRoute(route), myRoutingSuccess(false) {
 //    myParameter.stops.clear();
 //    if (route != 0) {
