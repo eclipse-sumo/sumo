@@ -53,6 +53,11 @@ public:
     /// @brief Destructor
     virtual ~Named() { }
 
+    /// @brief get an identifier for Named-like object which may be Null
+    template<class T>
+    static std::string getIDSecure(const T* obj, const std::string& fallBack="NULL") {
+        return obj == 0 ? fallBack : obj->getID();
+    }
 
     /** @brief Returns the id
      * @return The stored id
