@@ -46,6 +46,7 @@
 #include <utils/xml/SUMOSAXReader.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice_String.h>
+#include "ROPerson.h"
 #include "RONet.h"
 #include "ROLane.h"
 #include "RORouteHandler.h"
@@ -65,7 +66,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     SUMORouteHandler(file),
     myPedestrianRouter(0),
     myNet(net),
-    myActivePlan(0),
+    myActivePerson(0),
     myActiveContainerPlan(0),
     myActivePlanSize(0),
     myActiveContainerPlanSize(0),
@@ -137,10 +138,7 @@ RORouteHandler::myStartElement(int element,
     SUMORouteHandler::myStartElement(element, attrs);
     switch (element) {
         case SUMO_TAG_PERSON:
-            myActivePlan = new OutputDevice_String(false, 1);
-            myActivePlanSize = 0;
-            myActivePlan->openTag(SUMO_TAG_PERSON);
-            (*myActivePlan) << attrs;
+            myActivePerson = new ROPerson();
             break;
         case SUMO_TAG_RIDE: {
             myActivePlan->openTag(SUMO_TAG_RIDE);

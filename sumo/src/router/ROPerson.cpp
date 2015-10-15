@@ -54,8 +54,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROPerson::ROPerson(const SUMOVehicleParameter& pars,
-                     RORouteDef* route, const SUMOVTypeParameter* type, const RONet* net)
+ROPerson::ROPerson()
 {
 //    : myParameter(pars), myType(type), myRoute(route), myRoutingSuccess(false) {
 //    myParameter.stops.clear();

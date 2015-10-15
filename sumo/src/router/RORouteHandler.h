@@ -47,6 +47,7 @@ class OutputDevice_String;
 class ROEdge;
 class ROLane;
 class RONet;
+class ROPerson;
 class RORoute;
 class RORouteDef;
 
@@ -164,7 +165,7 @@ protected:
     ConstROEdgeVector myActiveRoute;
 
     /// @brief The plan of the current person
-    OutputDevice_String* myActivePlan;
+    ROPerson* myActivePerson;
 
     /// @brief The plan of the current container
     OutputDevice_String* myActiveContainerPlan;
