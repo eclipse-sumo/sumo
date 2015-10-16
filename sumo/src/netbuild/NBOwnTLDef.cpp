@@ -238,7 +238,8 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
 
     NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noLinksAll, myOffset, myType);
     EdgeVector toProc = incoming;
-    const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
+    const int greenSeconds = OptionsCont::getOptions().getInt("tls.green.time");
+    const SUMOTime greenTime = TIME2STEPS(greenSeconds);
     // build all phases
     std::vector<int> greenPhases; // indices of green phases
     while (toProc.size() > 0) {
@@ -391,7 +392,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
         }
     }
     
-    const SUMOTime totalDuration = logic->getDuration();
+    SUMOTime totalDuration = logic->getDuration();
     if (OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) {
         // adapt to cycle time by changing the duration of the green phases
         const SUMOTime cycleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.cycle.time"));
@@ -402,7 +403,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
         const int patchSeconds = (int)(STEPS2TIME(cycleTime - totalDuration) / greenPhases.size());
         const int patchSecondsRest = (int)(STEPS2TIME(cycleTime - totalDuration)) - patchSeconds * (int)greenPhases.size();
         //std::cout << "cT=" << cycleTime << " td=" << totalDuration << " pS=" << patchSeconds << " pSR=" << patchSecondsRest << "\n";
-        if (greenTime + patchSeconds < MIN_GREEN_TIME || greenTime + patchSeconds + patchSecondsRest < MIN_GREEN_TIME) {
+        if (greenSeconds + patchSeconds < MIN_GREEN_TIME || greenSeconds + patchSeconds + patchSecondsRest < MIN_GREEN_TIME) {
             WRITE_WARNING("The traffic light '" + getID() + "' cannot be adapted to a cycle time of " + time2string(cycleTime) + ".");
             // @todo use a multiple of cycleTime ?
         } else {
@@ -410,6 +411,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
                 logic->setPhaseDuration(*it, logic->getPhases()[*it].duration + TIME2STEPS(patchSeconds));
             }
             logic->setPhaseDuration(greenPhases.front(), logic->getPhases()[greenPhases.front()].duration + TIME2STEPS(patchSecondsRest));
+            totalDuration = logic->getDuration();
         }
     }
 
