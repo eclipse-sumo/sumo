@@ -53,6 +53,7 @@
 // class declarations
 // ===========================================================================
 class RONode;
+class ROPerson;
 class RORouteDef;
 class OptionsCont;
 class OutputDevice;
@@ -341,10 +342,9 @@ public:
 
     /* @brief Adds a person to the network
      *
-     * @param[in] depart The departure time of the person
-     * @param[in] desc   The xml description of the person
+     * @param[in] person   The person to add
      */
-    void addPerson(const SUMOTime depart, const std::string desc);
+    bool addPerson(ROPerson* person);
 
 
     /* @brief Adds a container to the network
@@ -434,12 +434,6 @@ private:
                              const ROVehicle* const veh, const bool removeLoops,
                              MsgHandler* errorHandler);
 
-    /// @brief return vehicles for use by RouteAggregator
-    ROVehicleCont& getVehicles() {
-        return myVehicles;
-    }
-
-
     void checkFlows(SUMOTime time);
 
     void createBulkRouteRequests(SUMOAbstractRouter<ROEdge, ROVehicle>& router, const SUMOTime time, const bool removeLoops, const std::map<std::string, ROVehicle*>& mmap);
@@ -450,6 +444,9 @@ private:
 
     /// @brief Known vehicle ids
     std::set<std::string> myVehIDs;
+
+    /// @brief Known person ids
+    std::set<std::string> myPersonIDs;
 
     /// @brief Known nodes
     NamedObjectCont<RONode*> myNodes;
@@ -484,7 +481,7 @@ private:
     NamedObjectCont<SUMOVehicleParameter*> myFlows;
 
     /// @brief Known persons
-    typedef std::multimap<const SUMOTime, const std::string> PersonMap;
+    typedef std::multimap<const SUMOTime, ROPerson*> PersonMap;
     PersonMap myPersons;
 
     /// @brief Known containers

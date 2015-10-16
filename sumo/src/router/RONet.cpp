@@ -31,12 +31,6 @@
 #endif
 
 #include <algorithm>
-#include "ROEdge.h"
-#include "RONode.h"
-#include "RONet.h"
-#include "RORoute.h"
-#include "RORouteDef.h"
-#include "ROVehicle.h"
 #include <utils/vehicle/RouteCostCalculator.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
@@ -46,6 +40,13 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/iodevices/OutputDevice.h>
+#include "ROEdge.h"
+#include "RONode.h"
+#include "ROPerson.h"
+#include "RORoute.h"
+#include "RORouteDef.h"
+#include "ROVehicle.h"
+#include "RONet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -339,10 +340,17 @@ RONet::addFlow(SUMOVehicleParameter* flow, const bool randomize) {
 }
 
 
-void
-RONet::addPerson(const SUMOTime depart, const std::string desc) {
-    myPersons.insert(std::pair<const SUMOTime, const std::string>(depart, desc));
+bool
+RONet::addPerson(ROPerson* person) {
+    if (myPersonIDs.count(person->getID()) == 0) {
+        myPersonIDs.insert(person->getID());
+        myPersons.insert(std::make_pair(person->getDepart(), person));
+        return true;
+    }
+    WRITE_ERROR("Another person with the id '" + person->getID() + "' exists.");
+    return false;
 }
+
 
 void
 RONet::addContainer(const SUMOTime depart, const std::string desc) {
@@ -590,9 +598,9 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
             myVehicles.erase(veh->getID());
         }
         if (personTime == minTime) {
-            myRoutesOutput->writePreformattedTag(person->second);
+            person->second->saveAsXML(*myRoutesOutput);
             if (myRouteAlternativesOutput != 0) {
-                myRouteAlternativesOutput->writePreformattedTag(person->second);
+                person->second->saveAsXML(*myRouteAlternativesOutput);
             }
             myPersons.erase(person);
         }

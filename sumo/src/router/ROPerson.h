@@ -43,6 +43,7 @@
 class RORouteDef;
 class OutputDevice;
 class ROEdge;
+class RONet;
 class ROVehicle;
 
 typedef std::vector<const ROEdge*> ConstROEdgeVector;
@@ -68,52 +69,60 @@ public:
     virtual
     ~ROPerson ();
 
+    void addRide(ROEdge* to, std::vector<std::string> lines);
+
+    void addWalk(const SUMOReal duration, const SUMOReal speed, ConstROEdgeVector edges);
+
+    void addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet& net);
+
     /**
      * @brief Every person has a plan comprising of multiple planItems
      *
      */
-    class PlanItem
-    {
+    class PlanItem {
+    public:
+        ROEdge* to;
+        ROEdge* getDestination() {
+            return to;
+        }
     };
 
     /**
      * @brief A planItem can be a Stop
      *
      */
-    class Stop : public PlanItem
-    {
+    class Stop : public PlanItem {
+    public:
+        SUMOVehicleParameter::Stop stopDesc;
+        Stop(const SUMOVehicleParameter::Stop& stop) : stopDesc(stop) {}
     };
 
     /**
      * @brief A TripItem is part of a trip, e.g., go from here to here by car
      *
      */
-    class TripItem
-    {
+    class TripItem {
     };
 
     /**
      * @brief A TripItem is part of a trip, e.g., go from here to here by car
      *
      */
-    class Walk : public TripItem
-    {
+    class Walk : public TripItem {
     };
 
     /**
      * @brief A TripItem is part of a trip, e.g., go from here to here by car
      *
      */
-    class Ride : public TripItem
-    {
+    class Ride : public TripItem {
     };
 
     /**
      * @brief A planItem can be a Trip which contains multiple tripItems
      *
      */
-    class PersonTrip : public PlanItem
-    {
+    class PersonTrip : public PlanItem {
     public:
         ROEdge* from;
         ROEdge* to;
@@ -122,11 +131,6 @@ public:
         /// @brief the vehicles which may be used for routing
         std::vector<ROVehicle> myVehicles;
     };
-
-    /**
-     * @brief The plan of each person
-     */
-    std::vector<PlanItem> myPlan;
 
 //    /** @brief Returns the definition of the route the vehicle takes
 //     *
@@ -164,13 +168,13 @@ public:
 //        return MAX2(SUMOTime(0), myParameter.depart);
 //    }
 
-//    /** @brief Returns the time the vehicle starts at, -1 for triggered vehicles
-//     *
-//     * @return The vehicle's depart time
-//     */
-//    SUMOTime getDepart() const {
-//        return myParameter.depart;
-//    }
+    /** @brief Returns the time the vehicle starts at, -1 for triggered vehicles
+     *
+     * @return The vehicle's depart time
+     */
+    SUMOTime getDepart() const {
+        return myParameter.depart;
+    }
 
 //    const ConstROEdgeVector& getStopEdges() const {
 //        return myStopEdges;
@@ -183,49 +187,28 @@ public:
 //        return getType() != 0 ? getType()->vehicleClass : SVC_IGNORING;
 //    }
 
-//    /** @brief Returns an upper bound for the speed factor of this vehicle
-//     *
-//     * @return the maximum speed factor
-//     */
-//    inline SUMOReal getChosenSpeedFactor() const {
-//        return SUMOReal(2. * getType()->speedDev + 1.) * getType()->speedFactor;
-//    }
-
-//    /** @brief  Saves the vehicle type if it was not saved before.
-//     *
-//     * @param[in] os The routes - output device to store the vehicle's description into
-//     * @param[in] altos The route alternatives - output device to store the vehicle's description into
-//     * @param[in] typeos The types - output device to store the vehicle types into
-//     * @exception IOError If something fails (not yet implemented)
-//     */
-//    void saveTypeAsXML(OutputDevice& os, OutputDevice* const altos,
-//                       OutputDevice* const typeos) const;
-
-//    /** @brief Saves the complete vehicle description.
-//     *
-//     * Saves the vehicle itself including the route and stops.
-//     *
-//     * @param[in] os The routes or alternatives output device to store the vehicle's description into
-//     * @param[in] asAlternatives Whether the route shall be saved as route alternatives
-//     * @param[in] withExitTimes whether exit times for the edges shall be written
-//     * @exception IOError If something fails (not yet implemented)
-//     */
-//    void saveAllAsXML(OutputDevice& os, bool asAlternatives, bool withExitTimes) const;
-
-//    inline void setRoutingSuccess(const bool val) {
-//        myRoutingSuccess = val;
-//    }
-
-//    inline bool getRoutingSuccess() const {
-//        return myRoutingSuccess;
-//    }
-private:
-    /** @brief Adds a stop to this vehicle
+    /** @brief Saves the complete person description.
      *
-     * @param[in] stopPar the stop paramters
-     * @param[in] net     pointer to the network, used for edge retrieval
+     * Saves the person itself including the trips and stops.
+     *
+     * @param[in] os The routes or alternatives output device to store the person description into
+     * @exception IOError If something fails (not yet implemented)
      */
-//    void addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net);
+    void saveAsXML(OutputDevice& os) const;
+
+    inline void setRoutingSuccess(const bool val) {
+        myRoutingSuccess = val;
+    }
+
+    inline bool getRoutingSuccess() const {
+        return myRoutingSuccess;
+    }
+
+    std::vector<PlanItem>& getPlan() {
+        return myPlan;
+    }
+
+
 protected:
     /// @brief The person's parameter
     SUMOVehicleParameter myParameter;
@@ -235,14 +218,17 @@ protected:
 
 //    typedef std::vector<ROVehicle*> ROTrip;
 
-/// @brief The person plan
-//    std::vector<ROTrip> myPlan;
+    /**
+     * @brief The plan of each person
+     */
+    std::vector<PlanItem> myPlan;
 
 /// @brief The edges where the vehicle stops
 //    ConstROEdgeVector myStopEdges;
 
 /// @brief Whether the last routing was successful
-//    bool myRoutingSuccess;
+    bool myRoutingSuccess;
+
 
 private:
     /// @brief Invalidated copy constructor

@@ -175,7 +175,7 @@ MSRouteHandler::myStartElement(int element,
                                                 *from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
                 }
             } else if (myActivePlan->empty()) {
-                throw ProcessError("The start edge within for person '" + pid + "' is not known.");
+                throw ProcessError("The start edge for person '" + pid + "' is not known.");
             }
             const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, pid.c_str(), ok);
             MSEdge* to = MSEdge::dictionary(toID);

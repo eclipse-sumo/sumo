@@ -68,7 +68,6 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myNet(net),
     myActivePerson(0),
     myActiveContainerPlan(0),
-    myActivePlanSize(0),
     myActiveContainerPlanSize(0),
     myTryRepair(tryRepair),
     myEmptyDestinationsAllowed(emptyDestinationsAllowed),
@@ -141,45 +140,53 @@ RORouteHandler::myStartElement(int element,
             myActivePerson = new ROPerson(*myVehicleParameter);
             break;
         case SUMO_TAG_RIDE: {
+            std::vector<ROPerson::PlanItem>& plan = myActivePerson->getPlan();
             const std::string pid = myVehicleParameter->id;
             bool ok = true;
             ROEdge* from = 0;
-            const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
-            StringTokenizer st(desc);
             if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                 const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
-                from = ROEdge::dictionary(fromID);
+                from = myNet.getEdge(fromID);
                 if (from == 0) {
                     throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
                 }
-                if (!myActivePlan->empty() && &myActivePlan->back()->getDestination() != from) {
-                    throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + myActivePlan->back()->getDestination().getID() + ").");
+                if (!plan.empty() && plan.back().getDestination() != from) {
+                    throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + plan.back().getDestination()->getID() + ").");
                 }
-                if (myActivePlan->empty()) {
-                    myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
-                                                *from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
-                }
-            } else if (myActivePlan->empty()) {
-                throw ProcessError("The start edge within for person '" + pid + "' is not known.");
+            } else if (plan.empty()) {
+                throw ProcessError("The start edge for person '" + pid + "' is not known.");
             }
             const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, pid.c_str(), ok);
-            MSEdge* to = MSEdge::dictionary(toID);
+            ROEdge* to = myNet.getEdge(toID);
             if (to == 0) {
                 throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
             }
-            myActivePerson->addRide();
+            const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
+            StringTokenizer st(desc);
+            myActivePerson->addRide(to, st.getVector());
             break;
         }
         case SUMO_TAG_PERSONTRIP: {
-            routePerson(attrs, *myActivePerson);
+            routePerson(attrs);
             break;
         }
         case SUMO_TAG_WALK: {
             if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+                bool ok = true;
+                const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, 0, ok, -1);
+                if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
+                    throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
+                }
+                const SUMOReal speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, 0, ok, -1.);
+                if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
+                    throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
+                }
                 // XXX allow --repair?
-                myActivePerson->addWalk();
+                myActiveRoute.clear();
+                parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'");
+                myActivePerson->addWalk(duration, speed, myActiveRoute);
             } else {
-                routePerson(attrs, *myActivePerson);
+                routePerson(attrs);
             }
             break;
         }
@@ -205,7 +212,7 @@ RORouteHandler::myStartElement(int element,
                 myActiveContainerPlan->closeTag();
                 myActiveContainerPlanSize++;
             } else {
-                routePerson(attrs, *myActiveContainerPlan);
+                //routePerson(attrs, *myActiveContainerPlan);
             }
             break;
         }
@@ -483,18 +490,16 @@ RORouteHandler::closeVehicle() {
 
 void
 RORouteHandler::closePerson() {
-    myActivePlan->closeTag();
-    if (myActivePlanSize > 0) {
-        myNet.addPerson(myVehicleParameter->depart, myActivePlan->getString());
-        registerLastDepart();
-    } else {
+    if (myActivePerson->getPlan().empty()) {
         WRITE_WARNING("Discarding person '" + myVehicleParameter->id + "' because it's plan is empty");
+    } else {
+        if (myNet.addPerson(myActivePerson)) {
+            registerLastDepart();
+        }
     }
     delete myVehicleParameter;
     myVehicleParameter = 0;
-    delete myActivePlan;
-    myActivePlan = 0;
-    myActivePlanSize = 0;
+    myActivePerson = 0;
 }
 
 void
@@ -560,14 +565,7 @@ RORouteHandler::closeFlow() {
 
 void
 RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
-    if (myActivePlan) {
-        myActivePlan->openTag(SUMO_TAG_STOP);
-        (*myActivePlan) << attrs;
-        myActivePlan->closeTag();
-        myActivePlanSize++;
-        return;
-    }
-    if (myActiveContainerPlan) {
+    if (myActiveContainerPlan != 0) {
         myActiveContainerPlan->openTag(SUMO_TAG_STOP);
         (*myActiveContainerPlan) << attrs;
         myActiveContainerPlan->closeTag();
@@ -627,7 +625,9 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             return;
         }
     }
-    if (myVehicleParameter != 0) {
+    if (myActivePerson != 0) {
+        myActivePerson->addStop(stop, myNet);
+    } else if (myVehicleParameter != 0) {
         myVehicleParameter->stops.push_back(stop);
     } else {
         myActiveRouteStops.push_back(stop);
@@ -662,7 +662,7 @@ RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
 
 
 bool
-RORouteHandler::routePerson(const SUMOSAXAttributes& attrs, OutputDevice& plan) {
+RORouteHandler::routePerson(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const char* id = myVehicleParameter->id.c_str();
     SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok, 0);
@@ -697,7 +697,7 @@ RORouteHandler::routePerson(const SUMOSAXAttributes& attrs, OutputDevice& plan) 
             myErrorOutput->inform("No connection found between '" + fromID + "' and '" + toID + "' for person '" + myVehicleParameter->id + "'.");
             return false;
         }
-        myActivePlan->openTag(SUMO_TAG_WALK);
+/*        myActivePlan->openTag(SUMO_TAG_WALK);
         if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
             plan.writeAttr(SUMO_ATTR_DEPARTPOS, attrs.get<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok));
         }
@@ -715,7 +715,7 @@ RORouteHandler::routePerson(const SUMOSAXAttributes& attrs, OutputDevice& plan) 
         }
         plan.writeAttr(SUMO_ATTR_EDGES, myActiveRoute);
         myActivePlan->closeTag();
-        myActivePlanSize++;
+        myActivePlanSize++;*/
     }
     myActiveRoute.clear();
     return ok;

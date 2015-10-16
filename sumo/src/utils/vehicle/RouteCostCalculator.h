@@ -34,6 +34,7 @@
 
 #include <vector>
 #include <map>
+#include <utils/common/SUMOTime.h>
 #include <utils/options/OptionsCont.h>
 
 // ===========================================================================
