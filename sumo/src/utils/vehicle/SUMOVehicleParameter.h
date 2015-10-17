@@ -257,17 +257,11 @@ public:
      *
      * @param[in, out] dev The device to write into
      * @param[in] oc The options to get defaults from
+     * @param[in] tag The "root" tag to write (defaults to vehicle)
      * @exception IOError not yet implemented
      */
-    void write(OutputDevice& dev, const OptionsCont& oc) const;
+    void write(OutputDevice& dev, const OptionsCont& oc, const SumoXMLTag tag=SUMO_TAG_VEHICLE) const;
 
-
-    /** @brief Writes the enclosed stops
-     *
-     * @param[in, out] dev The device to write into
-     * @exception IOError not yet implemented
-     */
-    void writeStops(OutputDevice& dev) const;
 
     /** @brief Returns whether the defaults shall be used
      * @param[in] oc The options to get the options from
@@ -496,6 +490,13 @@ public:
         int index;
         /// @brief Information for the output which parameter were set
         int setParameter;
+
+        /** @brief Writes the stop as XML
+         *
+         * @param[in, out] dev The device to write into
+         * @exception IOError not yet implemented
+         */
+        void write(OutputDevice& dev) const;
     };
 
     /// @brief List of the stops the vehicle will make

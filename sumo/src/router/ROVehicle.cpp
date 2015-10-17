@@ -138,7 +138,9 @@ ROVehicle::saveAllAsXML(OutputDevice& os, bool asAlternatives, bool withExitTime
 
     // save the route
     myRoute->writeXMLDefinition(os, this, asAlternatives, withExitTimes);
-    myParameter.writeStops(os);
+    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator stop = myParameter.stops.begin(); stop != myParameter.stops.end(); ++stop) {
+        stop->write(os);
+    }
     for (std::map<std::string, std::string>::const_iterator j = myParameter.getMap().begin(); j != myParameter.getMap().end(); ++j) {
         os.openTag(SUMO_TAG_PARAM);
         os.writeAttr(SUMO_ATTR_KEY, (*j).first);

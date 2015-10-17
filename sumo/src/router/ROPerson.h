@@ -43,7 +43,6 @@
 class RORouteDef;
 class OutputDevice;
 class ROEdge;
-class RONet;
 class ROVehicle;
 
 typedef std::vector<const ROEdge*> ConstROEdgeVector;
@@ -66,24 +65,32 @@ public:
     ROPerson(const SUMOVehicleParameter& pars);
 
     /// @brief Destructor
-    virtual
-    ~ROPerson ();
+    virtual ~ROPerson();
 
-    void addRide(ROEdge* to, std::vector<std::string> lines);
+    void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines);
 
-    void addWalk(const SUMOReal duration, const SUMOReal speed, ConstROEdgeVector edges);
+    void addWalk(const SUMOReal duration, const SUMOReal speed, const ConstROEdgeVector& edges,
+                 const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop);
 
-    void addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet& net);
+    void addStop(const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const stopEdge);
 
+    class TripItem;
     /**
      * @brief Every person has a plan comprising of multiple planItems
      *
      */
     class PlanItem {
     public:
-        ROEdge* to;
-        ROEdge* getDestination() {
-            return to;
+        /// @brief Destructor
+        virtual ~PlanItem() {}
+
+        virtual void addTripItem(TripItem* tripIt) {
+            throw ProcessError();
+        }
+        virtual const ROEdge* getDestination() const = 0;
+        virtual void saveAsXML(OutputDevice& os) const = 0;
+        virtual bool isStop() const {
+            return false;
         }
     };
 
@@ -93,8 +100,20 @@ public:
      */
     class Stop : public PlanItem {
     public:
+        Stop(const SUMOVehicleParameter::Stop& stop, const ROEdge* const stopEdge)
+            : stopDesc(stop), edge(stopEdge) {}
+        const ROEdge* getDestination() const {
+            return edge;
+        }
+        void saveAsXML(OutputDevice& os) const {
+            stopDesc.write(os);
+        }
+        bool isStop() const {
+            return true;
+        }
+    private:
         SUMOVehicleParameter::Stop stopDesc;
-        Stop(const SUMOVehicleParameter::Stop& stop) : stopDesc(stop) {}
+        const ROEdge* const edge;
     };
 
     /**
@@ -102,13 +121,11 @@ public:
      *
      */
     class TripItem {
-    };
+    public:
+        /// @brief Destructor
+        virtual ~TripItem() {}
 
-    /**
-     * @brief A TripItem is part of a trip, e.g., go from here to here by car
-     *
-     */
-    class Walk : public TripItem {
+        virtual void saveAsXML(OutputDevice& os) const = 0;
     };
 
     /**
@@ -116,6 +133,29 @@ public:
      *
      */
     class Ride : public TripItem {
+    public:
+        Ride(const ROEdge* const from, const ROEdge* const to, const std::string& lines) : from(from), to(to), lines(lines) {}
+        void saveAsXML(OutputDevice& os) const;
+    private:
+        const ROEdge* const from;
+        const ROEdge* const to;
+        const std::string lines;
+    };
+
+    /**
+     * @brief A TripItem is part of a trip, e.g., go from here to here by car
+     *
+     */
+    class Walk : public TripItem {
+    public:
+        Walk(const SUMOReal duration, const SUMOReal speed, const ConstROEdgeVector& edges,
+             const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop)
+            : dur(duration), v(speed), edges(edges), dep(departPos), arr(arrivalPos), busStop(busStop) {}
+        void saveAsXML(OutputDevice& os) const;
+    private:
+        const SUMOReal dur, v, dep, arr;
+        const ConstROEdgeVector edges;
+        const std::string busStop;
     };
 
     /**
@@ -124,12 +164,29 @@ public:
      */
     class PersonTrip : public PlanItem {
     public:
-        ROEdge* from;
-        ROEdge* to;
+        /// @brief Destructor
+        virtual ~PersonTrip() {
+            for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
+                delete *it;
+            }
+        }
+
+        virtual void addTripItem(TripItem* tripIt) {
+            myTripItems.push_back(tripIt);
+        }
+        const ROEdge* getDestination() const {
+            return 0;
+        }
+        void saveAsXML(OutputDevice& os) const {
+            for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
+                (*it)->saveAsXML(os);
+            }
+        }
+    private:
         /// @brief the fully specified trips
-        std::vector<TripItem> myTripItems;
+        std::vector<TripItem*> myTripItems;
         /// @brief the vehicles which may be used for routing
-        std::vector<ROVehicle> myVehicles;
+        std::vector<ROVehicle*> myVehicles;
     };
 
 //    /** @brief Returns the definition of the route the vehicle takes
@@ -204,7 +261,7 @@ public:
         return myRoutingSuccess;
     }
 
-    std::vector<PlanItem>& getPlan() {
+    std::vector<PlanItem*>& getPlan() {
         return myPlan;
     }
 
@@ -221,7 +278,7 @@ protected:
     /**
      * @brief The plan of each person
      */
-    std::vector<PlanItem> myPlan;
+    std::vector<PlanItem*> myPlan;
 
 /// @brief The edges where the vehicle stops
 //    ConstROEdgeVector myStopEdges;

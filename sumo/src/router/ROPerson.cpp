@@ -59,34 +59,78 @@ ROPerson::ROPerson(const SUMOVehicleParameter& pars)
 }
 
 
-ROPerson::~ROPerson() {}
-
-
-void
-ROPerson::addRide(ROEdge* to, std::vector<std::string> lines){
-}
-
-
-void
-ROPerson::addWalk(const SUMOReal duration, const SUMOReal speed, ConstROEdgeVector edges) {
-}
-
-
-void
-ROPerson::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet& net) {
-    const ROEdge* stopEdge = net.getEdge(stopPar.lane.substr(0, stopPar.lane.rfind("_")));
-    if (stopEdge == 0) {
-        // warn here?
-        return;
+ROPerson::~ROPerson() {
+    for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
+        delete *it;
     }
-    myPlan.push_back(Stop(stopPar));
+}
+
+
+void
+ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines) {
+    if (myPlan.empty() || myPlan.back()->isStop()) {
+        myPlan.push_back(new PersonTrip());
+    }
+    myPlan.back()->addTripItem(new Ride(from, to, lines));
+}
+
+
+void
+ROPerson::addWalk(const SUMOReal duration, const SUMOReal speed, const ConstROEdgeVector& edges, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop) {
+    if (myPlan.empty() || myPlan.back()->isStop()) {
+        myPlan.push_back(new PersonTrip());
+    }
+    myPlan.back()->addTripItem(new Walk(duration, speed, edges, departPos, arrivalPos, busStop));
+}
+
+
+void
+ROPerson::addStop(const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const stopEdge) {
+    myPlan.push_back(new Stop(stopPar, stopEdge));
+}
+
+
+void
+ROPerson::Ride::saveAsXML(OutputDevice& os) const {
+    os.openTag(SUMO_TAG_RIDE);
+    os.writeAttr(SUMO_ATTR_FROM, from->getID());
+    os.writeAttr(SUMO_ATTR_TO, to->getID());
+    os.writeAttr(SUMO_ATTR_LINES, lines);
+    os.closeTag();
+}
+
+
+void
+ROPerson::Walk::saveAsXML(OutputDevice& os) const {
+    os.openTag(SUMO_TAG_WALK);
+    if (dur > 0) {
+        os.writeAttr(SUMO_ATTR_DURATION, dur);
+    }
+    if (v > 0) {
+        os.writeAttr(SUMO_ATTR_SPEED, v);
+    }
+    os.writeAttr(SUMO_ATTR_EDGES, edges);
+    if (dep != std::numeric_limits<SUMOReal>::infinity()) {
+        os.writeAttr(SUMO_ATTR_DEPARTPOS, dep);
+    }
+    if (arr != std::numeric_limits<SUMOReal>::infinity()) {
+        os.writeAttr(SUMO_ATTR_ARRIVALPOS, arr);
+    }
+    if (busStop != "") {
+        os.writeAttr(SUMO_ATTR_BUS_STOP, busStop);
+    }
+    os.closeTag();
 }
 
 
 void
 ROPerson::saveAsXML(OutputDevice& os) const {
     // write the person
-    myParameter.write(os, OptionsCont::getOptions());
+    myParameter.write(os, OptionsCont::getOptions(), SUMO_TAG_PERSON);
+
+    for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
+        (*it)->saveAsXML(os);
+    }
 
     for (std::map<std::string, std::string>::const_iterator j = myParameter.getMap().begin(); j != myParameter.getMap().end(); ++j) {
         os.openTag(SUMO_TAG_PARAM);
@@ -96,12 +140,6 @@ ROPerson::saveAsXML(OutputDevice& os) const {
     }
     os.closeTag();
 }
-
-
-//SUMOReal
-//ROPerson::getMaxSpeed() const {
-//    return myType->maxSpeed;
-//}
 
 
 /****************************************************************************/

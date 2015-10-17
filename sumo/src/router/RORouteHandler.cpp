@@ -140,7 +140,7 @@ RORouteHandler::myStartElement(int element,
             myActivePerson = new ROPerson(*myVehicleParameter);
             break;
         case SUMO_TAG_RIDE: {
-            std::vector<ROPerson::PlanItem>& plan = myActivePerson->getPlan();
+            std::vector<ROPerson::PlanItem*>& plan = myActivePerson->getPlan();
             const std::string pid = myVehicleParameter->id;
             bool ok = true;
             ROEdge* from = 0;
@@ -150,8 +150,8 @@ RORouteHandler::myStartElement(int element,
                 if (from == 0) {
                     throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
                 }
-                if (!plan.empty() && plan.back().getDestination() != from) {
-                    throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + plan.back().getDestination()->getID() + ").");
+                if (!plan.empty() && plan.back()->getDestination() != from) {
+                    throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + plan.back()->getDestination()->getID() + ").");
                 }
             } else if (plan.empty()) {
                 throw ProcessError("The start edge for person '" + pid + "' is not known.");
@@ -162,31 +162,33 @@ RORouteHandler::myStartElement(int element,
                 throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
             }
             const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
-            StringTokenizer st(desc);
-            myActivePerson->addRide(to, st.getVector());
+            myActivePerson->addRide(from, to, desc);
             break;
         }
-        case SUMO_TAG_PERSONTRIP: {
-            routePerson(attrs);
-            break;
-        }
+        case SUMO_TAG_PERSONTRIP:
         case SUMO_TAG_WALK: {
+            bool ok = true;
+            const char* const objId = myVehicleParameter->id.c_str();
+            const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, objId, ok, -1);
+            if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
+                throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
+            }
+            const SUMOReal speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, objId, ok, -1.);
+            if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
+                throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
+            }
+            const SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, objId, ok, std::numeric_limits<SUMOReal>::infinity());
+            const SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, objId, ok, std::numeric_limits<SUMOReal>::infinity());
+            const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
             if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-                bool ok = true;
-                const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, 0, ok, -1);
-                if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-                    throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
-                }
-                const SUMOReal speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, 0, ok, -1.);
-                if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
-                    throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
-                }
                 // XXX allow --repair?
                 myActiveRoute.clear();
                 parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'");
-                myActivePerson->addWalk(duration, speed, myActiveRoute);
             } else {
-                routePerson(attrs);
+                ok &= routePerson(attrs);
+            }
+            if (ok) {
+                myActivePerson->addWalk(duration, speed, myActiveRoute, departPos, arrivalPos, busStop);
             }
             break;
         }
@@ -626,7 +628,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         }
     }
     if (myActivePerson != 0) {
-        myActivePerson->addStop(stop, myNet);
+        myActivePerson->addStop(stop, edge);
     } else if (myVehicleParameter != 0) {
         myVehicleParameter->stops.push_back(stop);
     } else {
@@ -668,7 +670,7 @@ RORouteHandler::routePerson(const SUMOSAXAttributes& attrs) {
     SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok, 0);
     SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, id, ok, -NUMERICAL_EPS);
     assert(!attrs.hasAttribute(SUMO_ATTR_EDGES));
-    assert(myActiveRoute.size() == 0);
+    myActiveRoute.clear();
     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, id, ok);
     const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, id, ok);
     const std::vector<std::string> modes = attrs.getStringVector(SUMO_ATTR_MODES);
@@ -697,27 +699,7 @@ RORouteHandler::routePerson(const SUMOSAXAttributes& attrs) {
             myErrorOutput->inform("No connection found between '" + fromID + "' and '" + toID + "' for person '" + myVehicleParameter->id + "'.");
             return false;
         }
-/*        myActivePlan->openTag(SUMO_TAG_WALK);
-        if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
-            plan.writeAttr(SUMO_ATTR_DEPARTPOS, attrs.get<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok));
-        }
-        if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-            plan.writeAttr(SUMO_ATTR_ARRIVALPOS, attrs.get<SUMOReal>(SUMO_ATTR_ARRIVALPOS, id, ok));
-        }
-        if (attrs.hasAttribute(SUMO_ATTR_DURATION)) {
-            plan.writeAttr(SUMO_ATTR_DURATION, attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, id, ok));
-        }
-        if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-            plan.writeAttr(SUMO_ATTR_SPEED, attrs.get<SUMOReal>(SUMO_ATTR_SPEED, id, ok));
-        }
-        if (attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
-            plan.writeAttr(SUMO_ATTR_BUS_STOP, attrs.get<std::string>(SUMO_ATTR_BUS_STOP, id, ok));
-        }
-        plan.writeAttr(SUMO_ATTR_EDGES, myActiveRoute);
-        myActivePlan->closeTag();
-        myActivePlanSize++;*/
     }
-    myActiveRoute.clear();
     return ok;
 }
 
