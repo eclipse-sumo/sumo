@@ -31,9 +31,10 @@ def fcd2omnet(inpFCD, outSTRM, further):
           (datetime.datetime.now(), further["app"]), file=outSTRM)
     print('<mobility_trace>', file=outSTRM)
     vIDm = sumolib._Running(further["orig-ids"], True)
+    checkGaps = not further["ignore-gaps"]
     for timestep in inpFCD:
         seen = set()
-        if not timestep.vehicle:
+        if not timestep.vehicle and checkGaps:
             _writeMissing(outSTRM, timestep.time, vIDm, seen)
             continue
         for v in timestep.vehicle:
@@ -47,7 +48,9 @@ def fcd2omnet(inpFCD, outSTRM, further):
                 nid = vIDm.g(v.id)
                 print("""  <waypoint><nodeid>%s</nodeid><time>%s</time>\
 <destination><xpos>%s</xpos><ypos>%s</ypos></destination><speed>%s</speed></waypoint>""" % (nid, timestep.time, v.x, v.y, v.speed), file=outSTRM)
-        _writeMissing(outSTRM, timestep.time, vIDm, seen)
+        if checkGaps:
+            _writeMissing(outSTRM, timestep.time, vIDm, seen)
+    _writeMissing(outSTRM, timestep.time, vIDm, seen)
     print('</mobility_trace>', file=outSTRM)
 
 

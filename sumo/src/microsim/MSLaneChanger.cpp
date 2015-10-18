@@ -300,7 +300,7 @@ MSLaneChanger::getRealThisLeader(const ChangerIt& target) const {
         MSLane* targetLane = target->lane;
         MSVehicle* predP = targetLane->getPartialOccupator();
         if (predP != 0) {
-            return std::pair<MSVehicle*, SUMOReal>(predP, targetLane->getPartialOccupatorEnd() - veh(myCandi)->getPositionOnLane());
+            return std::pair<MSVehicle*, SUMOReal>(predP, targetLane->getPartialOccupatorEnd() - veh(myCandi)->getPositionOnLane() - veh(myCandi)->getVehicleType().getMinGap());
         }
         const std::vector<MSLane*>& bestLaneConts = veh(myCandi)->getBestLanesContinuation();
         MSLinkCont::const_iterator link = MSLane::succLinkSec(*veh(myCandi), 1, *targetLane, bestLaneConts);

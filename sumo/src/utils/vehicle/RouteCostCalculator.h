@@ -34,8 +34,11 @@
 
 #include <vector>
 #include <map>
+#include <cmath>
+#include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/options/OptionsCont.h>
+
 
 // ===========================================================================
 // class definitions

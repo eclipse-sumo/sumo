@@ -311,6 +311,17 @@ GUIVehicle::drawAction_drawVehicleBrakeLight(SUMOReal length) const {
     glPopMatrix();
 }
 
+inline void
+GUIVehicle::drawAction_drawVehicleBlueLight() const {
+    if (signalSet(MSVehicle::VEH_SIGNAL_EMERGENCY_BLUE)){
+        glPushMatrix();
+        glTranslated(0, 2.5, .5);
+        glColor3f(0, 0, 1);
+        GLHelper::drawFilledCircle(.5, 6);
+        glPopMatrix();
+    }
+}
+
 
 SUMOReal
 GUIVehicle::getColorValue(size_t activeScheme) const {

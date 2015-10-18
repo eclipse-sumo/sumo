@@ -102,7 +102,9 @@ enum SUMOVehicleShape {
     /// @brief render as a giant ant
     SVS_ANT,
     /// @brief render as a arbitrary ship
-    SVS_SHIP
+    SVS_SHIP,
+    /// @brief render as an emergency vehicle
+    SVS_EMERGENCY
 };
 
 

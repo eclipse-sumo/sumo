@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
+    <taz id="0">
+        <tazSource id="top0to0/2" weight="100"/>
+        <tazSink id="0/2totop0" weight="100"/>
+    </taz>
+    <taz id="1">
+        <tazSource id="top1to1/2" weight="100"/>
+        <tazSink id="1/2totop1" weight="100"/>
+    </taz>
+    <taz id="2">
+        <tazSource id="top2to2/2" weight="100"/>
+        <tazSink id="2/2totop2" weight="100"/>
+    </taz>
+    <taz id="3">
+        <tazSource id="right0to2/0" weight="100"/>
+        <tazSink id="2/0toright0" weight="100"/>
+    </taz>
+    <taz id="4">
+        <tazSource id="right1to2/1" weight="100"/>
+        <tazSink id="2/1toright1" weight="100"/>
+    </taz>
+    <taz id="5">
+        <tazSource id="right2to2/2" weight="100"/>
+        <tazSink id="2/2toright2" weight="100"/>
+    </taz>
+    <taz id="6">
+        <tazSource id="bottom0to0/0" weight="100"/>
+        <tazSink id="0/0tobottom0" weight="100"/>
+    </taz>
+    <taz id="7">
+        <tazSource id="bottom1to1/0" weight="100"/>
+        <tazSink id="1/0tobottom1" weight="100"/>
+    </taz>
+    <taz id="8">
+        <tazSource id="bottom2to2/0" weight="100"/>
+        <tazSink id="2/0tobottom2" weight="100"/>
+    </taz>
+    <taz id="9">
+        <tazSource id="left0to0/0" weight="100"/>
+        <tazSink id="0/0toleft0" weight="100"/>
+    </taz>
+    <taz id="10">
+        <tazSource id="left1to0/1" weight="100"/>
+        <tazSink id="0/1toleft1" weight="100"/>
+    </taz>
+    <taz id="11">
+        <tazSource id="left2to0/2" weight="100"/>
+        <tazSink id="0/2toleft2" weight="100"/>
+    </taz>
+</tazs>
+
