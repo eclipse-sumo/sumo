@@ -36,16 +36,16 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
+#include "RORoutable.h"
+
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class RORouteDef;
 class OutputDevice;
 class ROEdge;
 class ROVehicle;
 
-typedef std::vector<const ROEdge*> ConstROEdgeVector;
 
 // ===========================================================================
 // class definitions
@@ -54,15 +54,15 @@ typedef std::vector<const ROEdge*> ConstROEdgeVector;
  * @class ROPerson
  * @brief A person as used by router
  */
-class ROPerson
-{
+class ROPerson : public RORoutable {
 
 public:
     /** @brief Constructor
      *
      * @param[in] pars Parameter of this person
+     * @param[in] type The type of the person
      */
-    ROPerson(const SUMOVehicleParameter& pars);
+    ROPerson(const SUMOVehicleParameter& pars, const SUMOVTypeParameter* type);
 
     /// @brief Destructor
     virtual ~ROPerson();
@@ -87,6 +87,7 @@ public:
         virtual void addTripItem(TripItem* tripIt) {
             throw ProcessError();
         }
+        virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
         virtual void saveAsXML(OutputDevice& os) const = 0;
         virtual bool isStop() const {
@@ -102,6 +103,9 @@ public:
     public:
         Stop(const SUMOVehicleParameter::Stop& stop, const ROEdge* const stopEdge)
             : stopDesc(stop), edge(stopEdge) {}
+        const ROEdge* getOrigin() const {
+            return edge;
+        }
         const ROEdge* getDestination() const {
             return edge;
         }
@@ -125,16 +129,24 @@ public:
         /// @brief Destructor
         virtual ~TripItem() {}
 
+        virtual const ROEdge* getOrigin() const = 0;
+        virtual const ROEdge* getDestination() const = 0;
         virtual void saveAsXML(OutputDevice& os) const = 0;
     };
 
     /**
-     * @brief A TripItem is part of a trip, e.g., go from here to here by car
+     * @brief A ride is part of a trip, e.g., go from here to here by car or bus
      *
      */
     class Ride : public TripItem {
     public:
         Ride(const ROEdge* const from, const ROEdge* const to, const std::string& lines) : from(from), to(to), lines(lines) {}
+        const ROEdge* getOrigin() const {
+            return from;
+        }
+        const ROEdge* getDestination() const {
+            return to;
+        }
         void saveAsXML(OutputDevice& os) const;
     private:
         const ROEdge* const from;
@@ -143,7 +155,7 @@ public:
     };
 
     /**
-     * @brief A TripItem is part of a trip, e.g., go from here to here by car
+     * @brief A walk is part of a trip, e.g., go from here to here by foot
      *
      */
     class Walk : public TripItem {
@@ -151,6 +163,12 @@ public:
         Walk(const SUMOReal duration, const SUMOReal speed, const ConstROEdgeVector& edges,
              const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop)
             : dur(duration), v(speed), edges(edges), dep(departPos), arr(arrivalPos), busStop(busStop) {}
+        const ROEdge* getOrigin() const {
+            return edges.front();
+        }
+        const ROEdge* getDestination() const {
+            return edges.back();
+        }
         void saveAsXML(OutputDevice& os) const;
     private:
         const SUMOReal dur, v, dep, arr;
@@ -174,8 +192,11 @@ public:
         virtual void addTripItem(TripItem* tripIt) {
             myTripItems.push_back(tripIt);
         }
+        const ROEdge* getOrigin() const {
+            return myTripItems.front()->getOrigin();
+        }
         const ROEdge* getDestination() const {
-            return 0;
+            return myTripItems.back()->getDestination();
         }
         void saveAsXML(OutputDevice& os) const {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
@@ -189,111 +210,51 @@ public:
         std::vector<ROVehicle*> myVehicles;
     };
 
-//    /** @brief Returns the definition of the route the vehicle takes
-//     *
-//     * @return The vehicle's route definition
-//     *
-//     * @todo Why not return a reference?
-//     */
-//    RORouteDef* getRouteDefinition() const {
-//        return myRoute;
-//    }
 
-//    /** @brief Returns the type of the vehicle
-//     *
-//     * @return The vehicle's type
-//     *
-//     * @todo Why not return a reference?
-//     */
-//    const SUMOVTypeParameter* getType() const {
-//        return myType;
-//    }
-
-    /** @brief Returns the id of the vehicle
+    /** @brief Returns the first edge the person takes
      *
-     * @return The id of the vehicle
+     * @return The person's departure edge
      */
-    const std::string& getID() const {
-        return myParameter.id;
+    const ROEdge* getDepartEdge() const {
+        return myPlan.front()->getOrigin();
     }
 
-//    /** @brief Returns the time the vehicle starts at, 0 for triggered vehicles
-//     *
-//     * @return The vehicle's depart time
-//     */
-//    SUMOTime getDepartureTime() const {
-//        return MAX2(SUMOTime(0), myParameter.depart);
-//    }
 
-    /** @brief Returns the time the vehicle starts at, -1 for triggered vehicles
-     *
-     * @return The vehicle's depart time
-     */
-    SUMOTime getDepart() const {
-        return myParameter.depart;
+    void computeRoute(const RORouterProvider& provider,
+                      const bool removeLoops, MsgHandler* errorHandler) {
+        myRoutingSuccess = true;
     }
 
-//    const ConstROEdgeVector& getStopEdges() const {
-//        return myStopEdges;
-//    }
-
-//    /// @brief Returns the vehicle's maximum speed
-//    SUMOReal getMaxSpeed() const;
-
-//    inline SUMOVehicleClass getVClass() const {
-//        return getType() != 0 ? getType()->vehicleClass : SVC_IGNORING;
-//    }
 
     /** @brief Saves the complete person description.
      *
      * Saves the person itself including the trips and stops.
      *
-     * @param[in] os The routes or alternatives output device to store the person description into
+     * @param[in] os The routes or alternatives output device to store the routable's description into
+     * @param[in] asAlternatives Whether the route shall be saved as route alternatives
+     * @param[in] options to find out about defaults and whether exit times for the edges shall be written
      * @exception IOError If something fails (not yet implemented)
      */
-    void saveAsXML(OutputDevice& os) const;
-
-    inline void setRoutingSuccess(const bool val) {
-        myRoutingSuccess = val;
-    }
-
-    inline bool getRoutingSuccess() const {
-        return myRoutingSuccess;
-    }
+    void saveAsXML(OutputDevice& os, bool asAlternatives, OptionsCont& options) const;
 
     std::vector<PlanItem*>& getPlan() {
         return myPlan;
     }
 
 
-protected:
-    /// @brief The person's parameter
-    SUMOVehicleParameter myParameter;
-
-/// @brief The type of the person
-//    const SUMOVTypeParameter* const myType;
-
-//    typedef std::vector<ROVehicle*> ROTrip;
-
+private:
     /**
-     * @brief The plan of each person
+     * @brief The plan of the person
      */
     std::vector<PlanItem*> myPlan;
-
-/// @brief The edges where the vehicle stops
-//    ConstROEdgeVector myStopEdges;
-
-/// @brief Whether the last routing was successful
-    bool myRoutingSuccess;
 
 
 private:
     /// @brief Invalidated copy constructor
-    ROPerson (const ROPerson& src);
+    ROPerson(const ROPerson& src);
 
     /// @brief Invalidated assignment operator
-    ROPerson&
-    operator= (const ROPerson& src);
+    ROPerson& operator=(const ROPerson& src);
 
 };
 

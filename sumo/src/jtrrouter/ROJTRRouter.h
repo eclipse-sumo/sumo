@@ -32,6 +32,7 @@
 #endif
 
 #include <utils/vehicle/SUMOAbstractRouter.h>
+#include <router/RORoutable.h>
 
 
 // ===========================================================================

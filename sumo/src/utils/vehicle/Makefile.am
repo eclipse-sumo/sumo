@@ -4,7 +4,7 @@ libvehicle_a_SOURCES = AStarRouter.h \
 CHRouter.h CHRouterWrapper.h \
 DijkstraRouterTT.h DijkstraRouterEffort.h \
 GawronCalculator.h LogitCalculator.h RouteCostCalculator.h \
-PedestrianRouter.h SUMOAbstractRouter.h \
+PedestrianEdge.h PedestrianRouter.h SUMOAbstractRouter.h \
 SPTree.h SUMOVehicle.h \
 SUMOVehicleParameter.cpp SUMOVehicleParameter.h \
 SUMOVTypeParameter.cpp SUMOVTypeParameter.h

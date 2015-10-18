@@ -32,6 +32,7 @@
 #include <cassert>
 #include <iostream>
 #include <map>
+#include <queue>
 #include <vector>
 #include <iterator>
 #include "RODFNet.h"

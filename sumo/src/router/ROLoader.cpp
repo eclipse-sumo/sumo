@@ -199,7 +199,7 @@ ROLoader::openRoutes(RONet& net) {
 
 void
 ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime increment,
-                        RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
+                        RONet& net, const RORouterProvider& provider) {
     const SUMOTime absNo = end - start;
     const bool endGiven = !OptionsCont::getOptions().isDefault("end");
     // skip routes that begin before the simulation's begin
@@ -213,7 +213,7 @@ ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime
         if (!net.furtherStored() || MsgHandler::getErrorInstance()->wasInformed()) {
             break;
         }
-        lastStep = net.saveAndRemoveRoutesUntil(myOptions, router, time);
+        lastStep = net.saveAndRemoveRoutesUntil(myOptions, provider, time);
         if ((!net.furtherStored() && myLoaders.haveAllLoaded()) || MsgHandler::getErrorInstance()->wasInformed()) {
             break;
         }

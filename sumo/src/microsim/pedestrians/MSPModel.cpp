@@ -39,8 +39,6 @@
 #include "MSPModel.h"
 
 
-
-
 // ===========================================================================
 // static members
 // ===========================================================================
@@ -86,22 +84,6 @@ MSPModel::cleanup() {
         delete myModel;
         myModel = 0;
     }
-}
-
-
-MSLane*
-MSPModel::getSidewalk(const MSEdge* edge) {
-    if (edge == 0) {
-        return 0;
-    }
-    assert(edge->getLanes().size() > 0);
-    const std::vector<MSLane*>& lanes = edge->getLanes();
-    for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
-        if ((*it)->allowsVehicleClass(SVC_PEDESTRIAN)) {
-            return *it;
-        }
-    }
-    return lanes.front();
 }
 
 

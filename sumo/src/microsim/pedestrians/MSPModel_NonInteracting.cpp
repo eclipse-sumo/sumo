@@ -144,7 +144,7 @@ MSPModel_NonInteracting::PState::getEdgePos(const MSPerson::MSPersonStage_Walkin
 
 Position
 MSPModel_NonInteracting::PState::getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
-    const MSLane* lane = getSidewalk(stage.getEdge());
+    const MSLane* lane = getSidewalk<MSEdge, MSLane>(stage.getEdge());
     const SUMOReal lateral_offset = lane->allowsVehicleClass(SVC_PEDESTRIAN) ? 0 : SIDEWALK_OFFSET;
     return stage.getLanePosition(lane, getEdgePos(stage, now), lateral_offset);
 }

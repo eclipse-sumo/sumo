@@ -54,8 +54,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROPerson::ROPerson(const SUMOVehicleParameter& pars)
-    : myParameter(pars), myRoutingSuccess(false) {
+ROPerson::ROPerson(const SUMOVehicleParameter& pars, const SUMOVTypeParameter* type)
+    : RORoutable(pars, type) {
 }
 
 
@@ -124,9 +124,9 @@ ROPerson::Walk::saveAsXML(OutputDevice& os) const {
 
 
 void
-ROPerson::saveAsXML(OutputDevice& os) const {
+ROPerson::saveAsXML(OutputDevice& os, bool asAlternatives, OptionsCont& options) const {
     // write the person
-    myParameter.write(os, OptionsCont::getOptions(), SUMO_TAG_PERSON);
+    myParameter.write(os, options, SUMO_TAG_PERSON);
 
     for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
         (*it)->saveAsXML(os);

@@ -48,7 +48,9 @@
 #include <utils/iodevices/OutputDevice_String.h>
 #include "ROPerson.h"
 #include "RONet.h"
+#include "ROEdge.h"
 #include "ROLane.h"
+#include "RORouteDef.h"
 #include "RORouteHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -136,9 +138,15 @@ RORouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
     SUMORouteHandler::myStartElement(element, attrs);
     switch (element) {
-        case SUMO_TAG_PERSON:
-            myActivePerson = new ROPerson(*myVehicleParameter);
+        case SUMO_TAG_PERSON: {
+            SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+            if (type == 0) {
+                myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.");
+                type = myNet.getVehicleTypeSecure(DEFAULT_PEDTYPE_ID);
+            }
+            myActivePerson = new ROPerson(*myVehicleParameter, type);
             break;
+        }
         case SUMO_TAG_RIDE: {
             std::vector<ROPerson::PlanItem*>& plan = myActivePerson->getPlan();
             const std::string pid = myVehicleParameter->id;

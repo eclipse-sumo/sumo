@@ -58,6 +58,7 @@ class ROEdge;
 typedef std::vector<ROEdge*> ROEdgeVector;
 typedef std::vector<const ROEdge*> ConstROEdgeVector;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
