@@ -61,5 +61,8 @@
     <ClInclude Include="..\..\..\src\utils\vehicle\SPTree.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\vehicle\PedestrianEdge.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
