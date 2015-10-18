@@ -25,7 +25,15 @@ from os.path import basename, join, commonprefix
 from datetime import datetime
 
 
-def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
+def findErrors(line, warnings, errors, failed):
+    if re.search("[Ww]arn[ui]ng[: ]", line) or "[WARNING]" in line:
+        warnings += 1
+    if re.search("[Ee]rror[: ]", line) or re.search("[Ff]ehler:", line) or "[ERROR]" in line:
+        errors += 1
+        failed += line
+    return warnings, errors, failed
+
+def printStatus(makeLog, makeAllLog, smtpServer="localhost", out=sys.stdout, toAddr="sumo-tests@dlr.de"):
     failed = ""
     build = commonprefix([basename(makeLog), basename(makeAllLog)])
     print >> out, build,
@@ -39,36 +47,19 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
         if ("svn: Working copy" in l and "locked" in l) or "svn: Failed" in l:
             svnLocked = True
             failed += l
-        if re.search("[Ww]arn[ui]ng[: ]", l):
-            warnings += 1
-        if re.search("[Ee]rror[: ]", l) or re.search("[Ff]ehler:", l):
-            errors += 1
-            failed += l
+        warnings, errors, failed = findErrors(l, warnings, errors, failed)
     if svnLocked:
         failed += "svn up failed\n\n"
     print >> out, warnings, "warnings"
     if errors:
         print >> out, errors, "errors"
         failed += "make failed\n\n"
-    print >> out, "--"
-    for root, dirs, files in os.walk(textTestTmp):
-        for f in files:
-            if f.startswith("batchreport"):
-                b = open(join(root, f))
-                l = b.readline()
-                if l.startswith("FAILED") or l.startswith("succeeded") or l.startswith("killed") or l.startswith("known bugs"):
-                    print >> out, f, l,
-                b.close()
-    print >> out, "--"
+    print >> out, "--\nbatchreport\n--"
     print >> out, basename(makeAllLog)
     warnings = 0
     errors = 0
     for l in file(makeAllLog):
-        if re.search("[Ww]arn[ui]ng[: ]", l):
-            warnings += 1
-        if "error " in l.lower():
-            errors += 1
-            failed += l
+        warnings, errors, failed = findErrors(l, warnings, errors, failed)
     print >> out, warnings, "warnings"
     if errors:
         print >> out, errors, "errors"
@@ -76,7 +67,6 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
     print >> out, "--"
     if failed:
         fromAddr = "sumo-tests@dlr.de"
-        toAddr = "sumo-tests@dlr.de"
         message = """From: "%s" <%s>
 To: %s
 Subject: Error occurred while building
@@ -90,4 +80,4 @@ Subject: Error occurred while building
             print "Could not send mail."
 
 if __name__ == "__main__":
-    printStatus(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.stdout)
+    printStatus(sys.argv[1], sys.argv[2], sys.argv[3], sys.stdout, sys.argv[4])

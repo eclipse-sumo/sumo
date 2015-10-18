@@ -73,7 +73,7 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
     tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name `date +%d%b%y`r$SVNREV >> $TESTLOG 2>&1
   fi
   tests/runTests.sh -b $FILEPREFIX -name `date +%d%b%y`r$SVNREV -coll >> $TESTLOG 2>&1
-  find $TEXTTEST_TMP -name batchreport."*" -exec echo -n '{} ' \; -exec head -1 '{}' \; | sort >> $STATUSLOG
+  echo "batchreport" >> $STATUSLOG
   rsync -rL $SUMO_REPORT $REMOTEDIR
 fi
 

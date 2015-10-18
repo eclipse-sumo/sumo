@@ -234,6 +234,5 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
     log = open(statusLog, 'w')
-    status.printStatus(
-        makeLog, makeAllLog, env["TEXTTEST_TMP"], env["SMTP_SERVER"], log)
+    status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
     log.close()
