@@ -49,7 +49,6 @@ inline const L* getSidewalk(const E* edge) {
     if (edge == 0) {
         return 0;
     }
-    assert(edge->getLanes().size() > 0);
     const std::vector<L*>& lanes = edge->getLanes();
     for (typename std::vector<L*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
         if ((*it)->allowsVehicleClass(SVC_PEDESTRIAN)) {
