@@ -31,8 +31,9 @@
 #include <config.h>
 #endif
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/options/OptionsCont.h>
@@ -65,6 +66,20 @@ ROPerson::~ROPerson() {
     }
 }
 
+
+void
+ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const std::string& modes, const std::string& vTypes,
+                  const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop) {
+    PersonTrip* trip = new PersonTrip(from, to, modes, departPos, arrivalPos, busStop);
+    std::vector<std::string> t = StringTokenizer(vTypes).getVector();
+    int index = 0;
+    for (StringTokenizer st(modes); st.hasNext();) {
+        const std::string mode = st.next();
+        if (mode == "car" || mode == "bike") {
+        }
+    }
+    myPlan.push_back(trip);
+}
 
 void
 ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines) {
@@ -120,6 +135,28 @@ ROPerson::Walk::saveAsXML(OutputDevice& os) const {
         os.writeAttr(SUMO_ATTR_BUS_STOP, busStop);
     }
     os.closeTag();
+}
+
+
+void
+ROPerson::computeRoute(const RORouterProvider& provider,
+                       const bool removeLoops, MsgHandler* errorHandler) {
+    myRoutingSuccess = true;
+    for (std::vector<PlanItem*>::iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
+        if ((*it)->needsRouting()) {
+            PersonTrip* trip = static_cast<PersonTrip*>(*it);
+            const SUMOReal departPos = 0;//SUMOVehicleParameter::interpretEdgePos(departPos, from->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + fromID),
+            const SUMOReal arrivalPos = 0;//SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + toID),
+            ConstROEdgeVector edges;
+            provider.getPedestrianRouter().compute(trip->getOrigin(), trip->getDestination(), departPos, arrivalPos, DEFAULT_PEDESTRIAN_SPEED, 0, 0, edges);
+            if (edges.empty()) {
+                errorHandler->inform("No connection found between '" + trip->getOrigin()->getID() + "' and '" + trip->getDestination()->getID() + "' for person '" + getID() + "'.");
+                myRoutingSuccess = false;
+            } else {
+                trip->addTripItem(new Walk(edges));
+            }
+        }
+    }
 }
 
 

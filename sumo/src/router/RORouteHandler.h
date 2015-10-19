@@ -151,7 +151,7 @@ protected:
                     const std::string& rid);
 
     /// @brief add a routing request for a walking person
-    bool routePerson(const SUMOSAXAttributes& attrs);
+    bool addPersonTrip(const SUMOSAXAttributes& attrs);
 
 protected:
     /// @brief the router for pedestrians

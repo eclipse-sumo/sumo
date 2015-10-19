@@ -188,15 +188,16 @@ RORouteHandler::myStartElement(int element,
             const SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, objId, ok, std::numeric_limits<SUMOReal>::infinity());
             const SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, objId, ok, std::numeric_limits<SUMOReal>::infinity());
             const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
+            if (!ok) {
+                break;
+            }
             if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
                 // XXX allow --repair?
                 myActiveRoute.clear();
                 parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'");
-            } else {
-                ok &= routePerson(attrs);
-            }
-            if (ok) {
                 myActivePerson->addWalk(duration, speed, myActiveRoute, departPos, arrivalPos, busStop);
+            } else {
+                addPersonTrip(attrs);
             }
             break;
         }
@@ -672,17 +673,16 @@ RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
 
 
 bool
-RORouteHandler::routePerson(const SUMOSAXAttributes& attrs) {
+RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const char* id = myVehicleParameter->id.c_str();
-    SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok, 0);
-    SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, id, ok, -NUMERICAL_EPS);
+    const SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok, std::numeric_limits<SUMOReal>::infinity());
+    const SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, id, ok, std::numeric_limits<SUMOReal>::infinity());
     assert(!attrs.hasAttribute(SUMO_ATTR_EDGES));
-    myActiveRoute.clear();
     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, id, ok);
     const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, id, ok);
-    const std::vector<std::string> modes = attrs.getStringVector(SUMO_ATTR_MODES);
-    const std::vector<std::string> types = attrs.getStringVector(SUMO_ATTR_VTYPES);
+    const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "walk");
+    const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
     const ROEdge* from = myNet.getEdge(fromID);
     if (from == 0) {
         myErrorOutput->inform("The edge '" + fromID + "' within a walk of " + myVehicleParameter->id + " is not known."
@@ -696,17 +696,7 @@ RORouteHandler::routePerson(const SUMOSAXAttributes& attrs) {
         ok = false;
     }
     if (ok) {
-        if (myPedestrianRouter == 0) {
-            myPedestrianRouter = new ROPedestrianRouterDijkstra();
-        }
-        myPedestrianRouter->compute(from, to,
-                                    SUMOVehicleParameter::interpretEdgePos(departPos, from->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + fromID),
-                                    SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + toID),
-                                    DEFAULT_PEDESTRIAN_SPEED, 0, 0, myActiveRoute);
-        if (myActiveRoute.empty()) {
-            myErrorOutput->inform("No connection found between '" + fromID + "' and '" + toID + "' for person '" + myVehicleParameter->id + "'.");
-            return false;
-        }
+        myActivePerson->addTrip(from, to, modes, "", departPos, arrivalPos, "");
     }
     return ok;
 }

@@ -67,6 +67,9 @@ public:
     /// @brief Destructor
     virtual ~ROPerson();
 
+    void addTrip(const ROEdge* const from, const ROEdge* const to, const std::string& modes, const std::string& vTypes,
+                 const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop);
+
     void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines);
 
     void addWalk(const SUMOReal duration, const SUMOReal speed, const ConstROEdgeVector& edges,
@@ -91,6 +94,9 @@ public:
         virtual const ROEdge* getDestination() const = 0;
         virtual void saveAsXML(OutputDevice& os) const = 0;
         virtual bool isStop() const {
+            return false;
+        }
+        virtual bool needsRouting() const {
             return false;
         }
     };
@@ -160,6 +166,8 @@ public:
      */
     class Walk : public TripItem {
     public:
+        Walk(const ConstROEdgeVector& edges)
+            : dur(-1), v(-1), edges(edges), dep(std::numeric_limits<SUMOReal>::infinity()), arr(std::numeric_limits<SUMOReal>::infinity()), busStop("") {}
         Walk(const SUMOReal duration, const SUMOReal speed, const ConstROEdgeVector& edges,
              const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop)
             : dur(duration), v(speed), edges(edges), dep(departPos), arr(arrivalPos), busStop(busStop) {}
@@ -182,6 +190,11 @@ public:
      */
     class PersonTrip : public PlanItem {
     public:
+        PersonTrip()
+            : from(0), to(0), modes("walk"), dep(std::numeric_limits<SUMOReal>::infinity()), arr(std::numeric_limits<SUMOReal>::infinity()), busStop("") {}
+        PersonTrip(const ROEdge* const from, const ROEdge* const to, const std::string& modes,
+                   const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop)
+            : from(from), to(to), modes(modes), dep(departPos), arr(arrivalPos), busStop(busStop) {}
         /// @brief Destructor
         virtual ~PersonTrip() {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
@@ -193,10 +206,13 @@ public:
             myTripItems.push_back(tripIt);
         }
         const ROEdge* getOrigin() const {
-            return myTripItems.front()->getOrigin();
+            return from != 0 ? from : myTripItems.front()->getOrigin();
         }
         const ROEdge* getDestination() const {
-            return myTripItems.back()->getDestination();
+            return to != 0 ? to : myTripItems.back()->getDestination();
+        }
+        virtual bool needsRouting() const {
+            return myTripItems.empty();
         }
         void saveAsXML(OutputDevice& os) const {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
@@ -204,6 +220,11 @@ public:
             }
         }
     private:
+        const ROEdge* from;
+        const ROEdge* to;
+        const std::string modes;
+        const SUMOReal dep, arr;
+        const std::string busStop;
         /// @brief the fully specified trips
         std::vector<TripItem*> myTripItems;
         /// @brief the vehicles which may be used for routing
@@ -221,9 +242,7 @@ public:
 
 
     void computeRoute(const RORouterProvider& provider,
-                      const bool removeLoops, MsgHandler* errorHandler) {
-        myRoutingSuccess = true;
-    }
+                      const bool removeLoops, MsgHandler* errorHandler);
 
 
     /** @brief Saves the complete person description.
