@@ -72,17 +72,21 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
                   const std::string& vTypes, const std::string& busStop) {
     PersonTrip* trip = new PersonTrip(from, to, modeSet, busStop);
     RONet* net = RONet::getInstance();
-    SUMOVehicleParameter* pars = new SUMOVehicleParameter();
+    SUMOVehicleParameter pars;
+    pars.departProcedure = DEPART_TRIGGERED;
+
     for (StringTokenizer st(vTypes); st.hasNext();) {
         const std::string vtypeid = st.next();
         SUMOVTypeParameter* type = net->getVehicleTypeSecure(vtypeid);
         if (type == 0) {
             throw InvalidArgument("The vehicle type '" + vtypeid + "' in a trip for person '" + getID() + "' is not known.");
         }
-        trip->addVehicle(new ROVehicle(*pars, 0, type, net));
+        pars.id = getID() + "_" + toString(trip->getVehicles().size());
+        trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), type, net));
     }
     if ((modeSet & SVC_PASSENGER) != 0 && trip->getVehicles().empty()) {
-        trip->addVehicle(new ROVehicle(*pars, 0, net->getVehicleTypeSecure(DEFAULT_VTYPE_ID), net));
+    	pars.id = getID() + "_0";
+    	trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_VTYPE_ID), net));
     }
     myPlan.push_back(trip);
 }
@@ -167,6 +171,13 @@ ROPerson::computeRoute(const RORouterProvider& provider,
                         provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), *v, 0, edges);
                     } else {
                         provider.getVehicleRouter().compute(trip->getOrigin(), trip->getDestination(), *v, 0, edges);
+                        if (edges.empty()) {
+                            errorHandler->inform("No connection found between '" + trip->getOrigin()->getID() + "' and '" + trip->getDestination()->getID() + "' for person '" + getID() + "'.");
+                            myRoutingSuccess = false;
+                        } else {
+                        	trip->addTripItem(new Ride(edges.front(), edges.back(), (*v)->getID()));
+                        	(*v)->getRouteDefinition()->addLoadedAlternative(new RORoute((*v)->getID() + "_RouteDef", edges));
+                        }
                     }
                 }
             }

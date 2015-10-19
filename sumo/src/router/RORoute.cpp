@@ -55,6 +55,9 @@ RORoute::RORoute(const std::string& id, SUMOReal costs, SUMOReal prop,
     : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
       myProbability(prop), myRoute(route), myColor(color), myStops(stops) {}
 
+RORoute::RORoute(const std::string& id, const ConstROEdgeVector& route)
+	: Named(StringUtils::convertUmlaute(id)), myCosts(0.0),
+	  myProbability(0.0), myRoute(route), myColor(0), myStops() {}
 
 RORoute::RORoute(const RORoute& src)
     : Named(src.myID), myCosts(src.myCosts),

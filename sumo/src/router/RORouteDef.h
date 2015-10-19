@@ -106,7 +106,10 @@ public:
     const ROEdge* getDestination() const;
 
     const RORoute* getFirstRoute() const {
-        return myAlternatives.front();
+    	if (myAlternatives.empty()) {
+			return 0;
+    	}
+   		return myAlternatives.front();
     }
 
     /** @brief Saves the built route / route alternatives
