@@ -676,13 +676,13 @@ bool
 RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const char* id = myVehicleParameter->id.c_str();
-    const SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok, std::numeric_limits<SUMOReal>::infinity());
-    const SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, id, ok, std::numeric_limits<SUMOReal>::infinity());
     assert(!attrs.hasAttribute(SUMO_ATTR_EDGES));
     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, id, ok);
     const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, id, ok);
     const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "walk");
     const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
+    const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, id, ok, "");
+
     const ROEdge* from = myNet.getEdge(fromID);
     if (from == 0) {
         myErrorOutput->inform("The edge '" + fromID + "' within a walk of " + myVehicleParameter->id + " is not known."
@@ -695,8 +695,23 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                               + "\n The route can not be build.");
         ok = false;
     }
+    SVCPermissions modeSet;
+    for (StringTokenizer st(modes); st.hasNext();) {
+        const std::string mode = st.next();
+        if (mode == "car") {
+            modeSet |= SVC_PASSENGER;
+        } else if (mode == "walk") {
+            modeSet |= SVC_PEDESTRIAN;
+        } else if (mode == "bicycle") {
+            modeSet |= SVC_BICYCLE;
+        } else if (mode == "public") {
+            modeSet |= SVC_BUS;
+        } else {
+            throw InvalidArgument("Unknown person mode '" + mode + "'.");
+        }
+    }
     if (ok) {
-        myActivePerson->addTrip(from, to, modes, "", departPos, arrivalPos, "");
+        myActivePerson->addTrip(from, to, modeSet, types, busStop);
     }
     return ok;
 }

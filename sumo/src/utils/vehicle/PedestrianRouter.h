@@ -172,6 +172,10 @@ public:
         return *myPedRouter;
     }
 
+    SUMOAbstractRouter<E, V>& getIntermodalRouter() const {
+        return *myVehRouter;
+    }
+
     virtual ~RouterProvider() {
         delete myVehRouter;
         delete myPedRouter;

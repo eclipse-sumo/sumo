@@ -68,15 +68,21 @@ ROPerson::~ROPerson() {
 
 
 void
-ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const std::string& modes, const std::string& vTypes,
-                  const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop) {
-    PersonTrip* trip = new PersonTrip(from, to, modes, departPos, arrivalPos, busStop);
-    std::vector<std::string> t = StringTokenizer(vTypes).getVector();
-    int index = 0;
-    for (StringTokenizer st(modes); st.hasNext();) {
-        const std::string mode = st.next();
-        if (mode == "car" || mode == "bike") {
+ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
+                  const std::string& vTypes, const std::string& busStop) {
+    PersonTrip* trip = new PersonTrip(from, to, modeSet, busStop);
+    RONet* net = RONet::getInstance();
+    SUMOVehicleParameter* pars = new SUMOVehicleParameter();
+    for (StringTokenizer st(vTypes); st.hasNext();) {
+        const std::string vtypeid = st.next();
+        SUMOVTypeParameter* type = net->getVehicleTypeSecure(vtypeid);
+        if (type == 0) {
+            throw InvalidArgument("The vehicle type '" + vtypeid + "' in a trip for person '" + getID() + "' is not known.");
         }
+        trip->addVehicle(new ROVehicle(*pars, 0, type, net));
+    }
+    if ((modeSet & SVC_PASSENGER) != 0 && trip->getVehicles().empty()) {
+        trip->addVehicle(new ROVehicle(*pars, 0, net->getVehicleTypeSecure(DEFAULT_VTYPE_ID), net));
     }
     myPlan.push_back(trip);
 }
@@ -145,15 +151,24 @@ ROPerson::computeRoute(const RORouterProvider& provider,
     for (std::vector<PlanItem*>::iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
         if ((*it)->needsRouting()) {
             PersonTrip* trip = static_cast<PersonTrip*>(*it);
-            const SUMOReal departPos = 0;//SUMOVehicleParameter::interpretEdgePos(departPos, from->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + fromID),
-            const SUMOReal arrivalPos = 0;//SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + toID),
             ConstROEdgeVector edges;
-            provider.getPedestrianRouter().compute(trip->getOrigin(), trip->getDestination(), departPos, arrivalPos, DEFAULT_PEDESTRIAN_SPEED, 0, 0, edges);
-            if (edges.empty()) {
-                errorHandler->inform("No connection found between '" + trip->getOrigin()->getID() + "' and '" + trip->getDestination()->getID() + "' for person '" + getID() + "'.");
-                myRoutingSuccess = false;
+            const std::vector<ROVehicle*>& vehicles = trip->getVehicles();
+            if (vehicles.empty()) {
+                provider.getPedestrianRouter().compute(trip->getOrigin(), trip->getDestination(), 0, 0, DEFAULT_PEDESTRIAN_SPEED, 0, 0, edges);
+                if (edges.empty()) {
+                    errorHandler->inform("No connection found between '" + trip->getOrigin()->getID() + "' and '" + trip->getDestination()->getID() + "' for person '" + getID() + "'.");
+                    myRoutingSuccess = false;
+                } else {
+                    trip->addTripItem(new Walk(edges));
+                }
             } else {
-                trip->addTripItem(new Walk(edges));
+                for (std::vector<ROVehicle*>::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {
+                    if (trip->isIntermodal()) {
+                        provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), *v, 0, edges);
+                    } else {
+                        provider.getVehicleRouter().compute(trip->getOrigin(), trip->getDestination(), *v, 0, edges);
+                    }
+                }
             }
         }
     }

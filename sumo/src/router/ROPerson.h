@@ -67,8 +67,8 @@ public:
     /// @brief Destructor
     virtual ~ROPerson();
 
-    void addTrip(const ROEdge* const from, const ROEdge* const to, const std::string& modes, const std::string& vTypes,
-                 const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop);
+    void addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
+                 const std::string& vTypes, const std::string& busStop);
 
     void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines);
 
@@ -191,10 +191,9 @@ public:
     class PersonTrip : public PlanItem {
     public:
         PersonTrip()
-            : from(0), to(0), modes("walk"), dep(std::numeric_limits<SUMOReal>::infinity()), arr(std::numeric_limits<SUMOReal>::infinity()), busStop("") {}
-        PersonTrip(const ROEdge* const from, const ROEdge* const to, const std::string& modes,
-                   const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop)
-            : from(from), to(to), modes(modes), dep(departPos), arr(arrivalPos), busStop(busStop) {}
+            : from(0), to(0), modes(SVC_PEDESTRIAN), busStop("") {}
+        PersonTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet, const std::string& busStop)
+            : from(from), to(to), modes(modeSet), busStop(busStop) {}
         /// @brief Destructor
         virtual ~PersonTrip() {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
@@ -205,11 +204,20 @@ public:
         virtual void addTripItem(TripItem* tripIt) {
             myTripItems.push_back(tripIt);
         }
+        void addVehicle(ROVehicle* veh) {
+            myVehicles.push_back(veh);
+        }
+        const std::vector<ROVehicle*>& getVehicles() const {
+            return myVehicles;
+        }
         const ROEdge* getOrigin() const {
             return from != 0 ? from : myTripItems.front()->getOrigin();
         }
         const ROEdge* getDestination() const {
             return to != 0 ? to : myTripItems.back()->getDestination();
+        }
+        bool isIntermodal() const {
+            return modes != SVC_PASSENGER && modes != SVC_PEDESTRIAN;
         }
         virtual bool needsRouting() const {
             return myTripItems.empty();
@@ -222,8 +230,7 @@ public:
     private:
         const ROEdge* from;
         const ROEdge* to;
-        const std::string modes;
-        const SUMOReal dep, arr;
+        const SVCPermissions modes;
         const std::string busStop;
         /// @brief the fully specified trips
         std::vector<TripItem*> myTripItems;
