@@ -149,6 +149,14 @@ ROPerson::Walk::saveAsXML(OutputDevice& os) const {
 
 
 void
+ROPerson::PersonTrip::saveVehicles(OutputDevice& os, bool asAlternatives, OptionsCont& options) const {
+    for (std::vector<ROVehicle*>::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
+        (*it)->saveAsXML(os, asAlternatives, options);
+    }
+}
+
+
+void
 ROPerson::computeRoute(const RORouterProvider& provider,
                        const bool removeLoops, MsgHandler* errorHandler) {
     myRoutingSuccess = true;
@@ -156,29 +164,31 @@ ROPerson::computeRoute(const RORouterProvider& provider,
         if ((*it)->needsRouting()) {
             PersonTrip* trip = static_cast<PersonTrip*>(*it);
             ConstROEdgeVector edges;
-            const std::vector<ROVehicle*>& vehicles = trip->getVehicles();
+            std::vector<ROVehicle*>& vehicles = trip->getVehicles();
             if (vehicles.empty()) {
                 provider.getPedestrianRouter().compute(trip->getOrigin(), trip->getDestination(), 0, 0, DEFAULT_PEDESTRIAN_SPEED, 0, 0, edges);
                 if (edges.empty()) {
-                    errorHandler->inform("No connection found between '" + trip->getOrigin()->getID() + "' and '" + trip->getDestination()->getID() + "' for person '" + getID() + "'.");
+                    errorHandler->inform("No pedestrian route for trip in person '" + getID() + "'.");
                     myRoutingSuccess = false;
                 } else {
                     trip->addTripItem(new Walk(edges));
                 }
             } else {
-                for (std::vector<ROVehicle*>::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {
+                for (std::vector<ROVehicle*>::iterator v = vehicles.begin(); v != vehicles.end(); ) {
                     if (trip->isIntermodal()) {
                         provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), *v, 0, edges);
                     } else {
                         provider.getVehicleRouter().compute(trip->getOrigin(), trip->getDestination(), *v, 0, edges);
                         if (edges.empty()) {
-                            errorHandler->inform("No connection found between '" + trip->getOrigin()->getID() + "' and '" + trip->getDestination()->getID() + "' for person '" + getID() + "'.");
+                            errorHandler->inform("No route for trip in person '" + getID() + "'.");
                             myRoutingSuccess = false;
-                        } else {
-                        	trip->addTripItem(new Ride(edges.front(), edges.back(), (*v)->getID()));
-                        	(*v)->getRouteDefinition()->addLoadedAlternative(new RORoute((*v)->getID() + "_RouteDef", edges));
+                            v = vehicles.erase(v);
+                            continue;
                         }
+                        trip->addTripItem(new Ride(edges.front(), edges.back(), (*v)->getID()));
+                        (*v)->getRouteDefinition()->addLoadedAlternative(new RORoute((*v)->getID() + "_RouteDef", edges));
                     }
+                    ++v;
                 }
             }
         }
@@ -188,6 +198,11 @@ ROPerson::computeRoute(const RORouterProvider& provider,
 
 void
 ROPerson::saveAsXML(OutputDevice& os, bool asAlternatives, OptionsCont& options) const {
+    // write the person's vehicles
+    for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
+        (*it)->saveVehicles(os, asAlternatives, options);
+    }
+
     // write the person
     myParameter.write(os, options, SUMO_TAG_PERSON);
 

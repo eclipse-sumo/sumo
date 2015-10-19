@@ -117,14 +117,6 @@ public:
     }
 
 
-private:
-    /** @brief Adds a stop to this vehicle
-     *
-     * @param[in] stopPar the stop paramters
-     * @param[in] net     pointer to the network, used for edge retrieval
-     */
-    void addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net);
-
     /** @brief Saves the complete vehicle description.
      *
      * Saves the vehicle itself including the route and stops.
@@ -136,6 +128,14 @@ private:
      */
     void saveAsXML(OutputDevice& os, bool asAlternatives, OptionsCont& options) const;
 
+
+private:
+    /** @brief Adds a stop to this vehicle
+     *
+     * @param[in] stopPar the stop paramters
+     * @param[in] net     pointer to the network, used for edge retrieval
+     */
+    void addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net);
 
 private:
     /// @brief The route the vehicle takes

@@ -695,7 +695,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                               + "\n The route can not be build.");
         ok = false;
     }
-    SVCPermissions modeSet;
+    SVCPermissions modeSet = 0;
     for (StringTokenizer st(modes); st.hasNext();) {
         const std::string mode = st.next();
         if (mode == "car") {

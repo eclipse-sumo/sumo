@@ -92,6 +92,7 @@ public:
         }
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
+        virtual void saveVehicles(OutputDevice& os, bool asAlternatives, OptionsCont& options) const {}
         virtual void saveAsXML(OutputDevice& os) const = 0;
         virtual bool isStop() const {
             return false;
@@ -207,7 +208,7 @@ public:
         void addVehicle(ROVehicle* veh) {
             myVehicles.push_back(veh);
         }
-        const std::vector<ROVehicle*>& getVehicles() const {
+        std::vector<ROVehicle*>& getVehicles() {
             return myVehicles;
         }
         const ROEdge* getOrigin() const {
@@ -222,6 +223,7 @@ public:
         virtual bool needsRouting() const {
             return myTripItems.empty();
         }
+        void saveVehicles(OutputDevice& os, bool asAlternatives, OptionsCont& options) const;
         void saveAsXML(OutputDevice& os) const {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
                 (*it)->saveAsXML(os);
