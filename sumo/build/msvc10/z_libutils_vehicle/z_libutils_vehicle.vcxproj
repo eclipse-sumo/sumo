@@ -148,6 +148,7 @@
     <ClInclude Include="..\..\..\src\utils\vehicle\DijkstraRouterEffort.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\DijkstraRouterTT.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\GawronCalculator.h" />
+    <ClInclude Include="..\..\..\src\utils\vehicle\IntermodalRouter.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\LogitCalculator.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\PedestrianEdge.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\PedestrianRouter.h" />
