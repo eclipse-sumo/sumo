@@ -48,7 +48,7 @@ class RONode;
 class ROVehicle;
 
 typedef std::vector<const ROEdge*> ConstROEdgeVector;
-typedef RouterProvider<ROEdge, ROVehicle, ROLane, RONode> RORouterProvider;
+typedef RouterProvider<ROEdge, ROLane, RONode, ROVehicle> RORouterProvider;
 
 
 // ===========================================================================

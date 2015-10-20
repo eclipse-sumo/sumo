@@ -176,7 +176,22 @@ ROPerson::computeRoute(const RORouterProvider& provider,
             } else {
                 for (std::vector<ROVehicle*>::iterator v = vehicles.begin(); v != vehicles.end(); ) {
                     if (trip->isIntermodal()) {
-                        provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), *v, 0, edges);
+                        std::vector<std::pair<std::string, ConstROEdgeVector> > result;
+                        provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), 0, 0, DEFAULT_PEDESTRIAN_SPEED, *v, 0, result);
+                        for (std::vector<std::pair<std::string, ConstROEdgeVector> >::const_iterator it = result.begin(); it != result.end(); ++it) {
+                            const ConstROEdgeVector& edges = it->second;
+                            if (!edges.empty()) {
+                                const std::string& lines = it->first;
+                                if (lines == "") {
+                                    trip->addTripItem(new Walk(edges));
+                                } else if (lines == (*v)->getID()) {
+                                    trip->addTripItem(new Ride(edges.front(), edges.back(), (*v)->getID()));
+                                    (*v)->getRouteDefinition()->addLoadedAlternative(new RORoute((*v)->getID() + "_RouteDef", edges));
+                                } else {
+                                    trip->addTripItem(new Ride(edges.front(), edges.back(), lines));
+                                }
+                            }
+                        }
                     } else {
                         provider.getVehicleRouter().compute(trip->getOrigin(), trip->getDestination(), *v, 0, edges);
                         if (edges.empty()) {

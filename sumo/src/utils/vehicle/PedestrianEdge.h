@@ -119,14 +119,14 @@ public:
         myEdgeDict.clear();
     }
 
-    static void initPedestrianNetwork(size_t noE) {
+    static void initPedestrianNetwork(size_t noE, const bool addCarEdges=false) {
         if (myEdgeDict.size() > 0) {
             return;
         }
 #ifdef PedestrianRouter_DEBUG_NETWORK
         std::cout << "initPedestrianNetwork\n";
 #endif
-        // build the Pedestrian edges
+        // build the Pedestrian edges and the lookup tables
         bool haveSeenWalkingArea = false;
         unsigned int numericalID = 0;
         for (size_t i = 0; i < noE; i++) {
@@ -137,33 +137,22 @@ public:
             } else if (edge->isWalkingArea()) {
                 // only a single edge
                 myEdgeDict.push_back(PedestrianEdge(numericalID++, edge, lane, true));
+                myBidiLookup[edge] = std::make_pair(&myEdgeDict.back(), &myEdgeDict.back());
+                myFromToLookup[edge] = std::make_pair(&myEdgeDict.back(), &myEdgeDict.back());
                 haveSeenWalkingArea = true;
             } else { // regular edge or crossing
                 // forward and backward edges
                 myEdgeDict.push_back(PedestrianEdge(numericalID++, edge, lane, true));
                 myEdgeDict.push_back(PedestrianEdge(numericalID++, edge, lane, false));
+                myBidiLookup[edge] = std::make_pair(&myEdgeDict[numericalID - 2], &myEdgeDict.back());
                 // depart and arrival edges for (the router can decide the initial direction to take and the direction to arrive from)
                 myEdgeDict.push_back(PedestrianEdge(numericalID++, edge, lane, true, true));
                 myEdgeDict.push_back(PedestrianEdge(numericalID++, edge, lane, false, true));
+                myFromToLookup[edge] = std::make_pair(&myEdgeDict[numericalID - 2], &myEdgeDict.back());
             }
-
-        }
-        // build the lookup tables after myEdgeDict is complete
-        numericalID = 0;
-        for (size_t i = 0; i < noE; i++) {
-            E* edge = E::dictionary(i);
-            const L* lane = getSidewalk<E, L>(edge);
-            if (edge->isInternal() || lane == 0) {
-                continue;
-            } else if (edge->isWalkingArea()) {
-                // only a single edge. Connectors are used when routing across a single intersecton
-                myBidiLookup[edge] = std::make_pair(&myEdgeDict[numericalID], &myEdgeDict[numericalID]);
-                myFromToLookup[edge] = std::make_pair(&myEdgeDict[numericalID], &myEdgeDict[numericalID]);
-                numericalID += 1;
-            } else { // regular edge or crossing
-                myBidiLookup[edge] = std::make_pair(&myEdgeDict[numericalID], &myEdgeDict[numericalID + 1]);
-                myFromToLookup[edge] = std::make_pair(&myEdgeDict[numericalID + 2], &myEdgeDict[numericalID + 3]);
-                numericalID += 4;
+            if (addCarEdges) {
+                myEdgeDict.push_back(PedestrianEdge(numericalID++, edge, lane, true, false, true));
+                myCarLookup[edge] = &myEdgeDict.back();
             }
         }
 
@@ -274,6 +263,17 @@ public:
             PedestrianEdge* endConnector = getArrivalEdge(edge);
             pair.first->myFollowingEdges.push_back(endConnector);
             pair.second->myFollowingEdges.push_back(endConnector);
+            if (addCarEdges) {
+                // build connections from car edge
+                PedestrianEdge* carEdge = getCarEdge(edge);
+                carEdge->myFollowingEdges.push_back(pair.first);
+                carEdge->myFollowingEdges.push_back(pair.second);
+                const std::vector<E*>& successors = edge->getSuccessors();
+                for (std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
+                    carEdge->myFollowingEdges.push_back(getCarEdge(*it));
+                }
+                startConnector->myFollowingEdges.push_back(carEdge);
+            }
 #ifdef PedestrianRouter_DEBUG_NETWORK
             std::cout << "     " << startConnector->getID() << " -> " << pair.first->getID() << "\n";
             std::cout << "     " << startConnector->getID() << " -> " << pair.second->getID() << "\n";
@@ -285,6 +285,10 @@ public:
 
     bool includeInRoute(bool allEdges) const {
         return !myAmConnector && (allEdges || (!myEdge->isCrossing() && !myEdge->isWalkingArea()));
+    }
+
+    bool isCar() const {
+        return myAmCar;
     }
 
     const E* getEdge() const {
@@ -305,8 +309,7 @@ public:
     static PedestrianEdge* getDepartEdge(const E* e) {
         typename std::map<const E*, EdgePair>::const_iterator it = myFromToLookup.find(e);
         if (it == myFromToLookup.end()) {
-            assert(false);
-            throw ProcessError("Edge '" + e->getID() + "' not found in pedestrian network '");
+            throw ProcessError("Edge '" + e->getID() + "' not found in pedestrian network.");
         }
         return (*it).second.first;
     }
@@ -315,10 +318,18 @@ public:
     static PedestrianEdge* getArrivalEdge(const E* e) {
         typename std::map<const E*, EdgePair>::const_iterator it = myFromToLookup.find(e);
         if (it == myFromToLookup.end()) {
-            assert(false);
-            throw ProcessError("Edge '" + e->getID() + "' not found in pedestrian network '");
+            throw ProcessError("Edge '" + e->getID() + "' not found in pedestrian network.");
         }
         return (*it).second.second;
+    }
+
+    /// @brief Returns the associated car edge
+    static PedestrianEdge* getCarEdge(const E* e) {
+        typename std::map<const E*, PedestrianEdge*>::const_iterator it = myCarLookup.find(e);
+        if (it == myCarLookup.end()) {
+            throw ProcessError("Edge '" + e->getID() + "' not found in pedestrian network.");
+        }
+        return it->second;
     }
 
     /// @name The interface as required by SUMOAbstractRouter routes
@@ -332,14 +343,6 @@ public:
     static const PedestrianEdge* dictionary(size_t index) {
         assert(index < myEdgeDict.size());
         return &myEdgeDict[index];
-    }
-
-    unsigned int getNumSuccessors() const {
-        return (unsigned int)myFollowingEdges.size();
-    }
-
-    const std::vector<PedestrianEdge*>& getSuccessors() const {
-        return myFollowingEdges;
     }
 
     const std::vector<PedestrianEdge*>& getSuccessors(SUMOVehicleClass /*vClass*/) const {
@@ -398,14 +401,15 @@ public:
     }
 
 private:
-    PedestrianEdge(unsigned int numericalID, const E* edge, const L* lane, bool forward, bool connector = false) :
+    PedestrianEdge(unsigned int numericalID, const E* edge, const L* lane, bool forward, bool connector=false, bool car=false) :
         Named(edge->getID() + (edge->isWalkingArea() ? "" :
                                ((forward ? "_fwd" : "_bwd") + std::string(connector ? "_connector" : "")))),
         myNumericalID(numericalID),
         myEdge(edge),
         myLane(lane),
         myForward(forward),
-        myAmConnector(connector) { }
+        myAmConnector(connector),
+        myAmCar(car) { }
 
     /// @brief the index in myEdgeDict
     unsigned int myNumericalID;
@@ -419,8 +423,11 @@ private:
     /// @brief the direction of this edge
     bool myForward;
 
-    /// @brief the direction of this edge
+    /// @brief whether it is a special departure / arrival edge
     bool myAmConnector;
+
+    /// @brief whether it is a car edge
+    bool myAmCar;
 
     /// @brief List of edges that may be approached from this edge
     std::vector<PedestrianEdge*> myFollowingEdges;
@@ -433,6 +440,9 @@ private:
 
     /// @brief retrieve the depart and arrival edge for the given input edge E
     static std::map<const E*, EdgePair> myFromToLookup;
+
+    /// @brief retrieve the car edge for the given input edge E
+    static std::map<const E*, PedestrianEdge*> myCarLookup;
 
 };
 
@@ -449,6 +459,9 @@ std::map<const E*, typename PedestrianEdge<E, L, N>::EdgePair> PedestrianEdge<E,
 
 template<class E, class L, class N>
 std::map<const E*, typename PedestrianEdge<E, L, N>::EdgePair> PedestrianEdge<E, L, N>::myFromToLookup;
+
+template<class E, class L, class N>
+std::map<const E*, typename PedestrianEdge<E, L, N>*> PedestrianEdge<E, L, N>::myCarLookup;
 
 #endif
 

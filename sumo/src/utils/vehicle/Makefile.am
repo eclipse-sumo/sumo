@@ -3,6 +3,7 @@ noinst_LIBRARIES = libvehicle.a
 libvehicle_a_SOURCES = AStarRouter.h \
 CHRouter.h CHRouterWrapper.h \
 DijkstraRouterTT.h DijkstraRouterEffort.h \
+IntermodalRouter.h \
 GawronCalculator.h LogitCalculator.h RouteCostCalculator.h \
 PedestrianEdge.h PedestrianRouter.h SUMOAbstractRouter.h \
 SPTree.h SUMOVehicle.h \

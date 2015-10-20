@@ -183,7 +183,8 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         }
     }
     net.openOutput(filename, altFilename, oc.getString("vtype-output"));
-    RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode>());
+    RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode>(),
+                              new IntermodalRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>());
     // process route definitions
     try {
         loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),

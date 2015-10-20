@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    PedestrianRouter.h
+/// @file    IntermodalRouter.h
 /// @author  Jakob Erdmann
 /// @date    Mon, 03 March 2014
 /// @version $Id$
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef PedestrianRouter_h
-#define PedestrianRouter_h
+#ifndef IntermodalRouter_h
+#define IntermodalRouter_h
 
 
 // ===========================================================================
@@ -40,64 +40,59 @@
 #include "SUMOAbstractRouter.h"
 #include "DijkstraRouterTT.h"
 #include "PedestrianEdge.h"
-#include "IntermodalRouter.h"
 
-//#define PedestrianRouter_DEBUG_ROUTES
+//#define IntermodalRouter_DEBUG_ROUTES
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class PedestrianRouter
+ * @class IntermodalRouter
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
  */
-template<class E, class L, class N, class INTERNALROUTER>
-class PedestrianRouter : public SUMOAbstractRouter<E, PedestrianTrip<E, N> > {
+template<class E, class L, class N, class V, class INTERNALROUTER>
+class IntermodalRouter : public SUMOAbstractRouter<E, PedestrianTrip<E, N> > {
 public:
 
     typedef PedestrianEdge<E, L, N> _PedestrianEdge;
     typedef PedestrianTrip<E, N> _PedestrianTrip;
 
     /// Constructor
-    PedestrianRouter():
-        SUMOAbstractRouter<E, _PedestrianTrip>(0, "PedestrianRouter") {
-        _PedestrianEdge::initPedestrianNetwork(E::dictSize());
+    IntermodalRouter():
+        SUMOAbstractRouter<E, _PedestrianTrip>(0, "IntermodalRouter") {
+        _PedestrianEdge::initPedestrianNetwork(E::dictSize(), true);
         myInternalRouter = new INTERNALROUTER(_PedestrianEdge::dictSize(), true, &_PedestrianEdge::getEffort);
     }
 
     /// Destructor
-    virtual ~PedestrianRouter() {
+    virtual ~IntermodalRouter() {
         delete myInternalRouter;
     }
 
     virtual SUMOAbstractRouter<E, PedestrianTrip<E, N> >* clone() const {
-        return new PedestrianRouter<E, L, N, INTERNALROUTER>();
+        return new IntermodalRouter<E, L, N, V, INTERNALROUTER>();
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     void compute(const E* from, const E* to, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal speed,
-                 SUMOTime msTime, const N* onlyNode, std::vector<const E*>& into, bool allEdges = false) {
+                 const V* const vehicle, SUMOTime msTime, std::vector<std::pair<std::string, std::vector<const E*> > >& into) {
         //startQuery();
-        if (getSidewalk<E, L>(from) == 0) {
-            WRITE_WARNING("Departure edge '" + from->getID() + "' does not allow pedestrians.");
-            return;
-        }
-        if (getSidewalk<E, L>(to) == 0) {
-            WRITE_WARNING("Destination edge '" + to->getID() + "' does not allow pedestrians.");
-            return;
-        }
-        _PedestrianTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode);
+        _PedestrianTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0);
         std::vector<const _PedestrianEdge*> intoPed;
         myInternalRouter->compute(_PedestrianEdge::getDepartEdge(from),
                                   _PedestrianEdge::getArrivalEdge(to), &trip, msTime, intoPed);
+        into.push_back(std::make_pair(vehicle->getID(), std::vector<const E*>()));
         for (size_t i = 0; i < intoPed.size(); ++i) {
-            if (intoPed[i]->includeInRoute(allEdges)) {
-                into.push_back(intoPed[i]->getEdge());
+            if (intoPed[i]->includeInRoute(false)) {
+                if (into.size() == 1 && !intoPed[i]->isCar()) {
+                    into.push_back(std::make_pair("", std::vector<const E*>()));
+                }
+                into.back().second.push_back(intoPed[i]->getEdge());
             }
         }
-#ifdef PedestrianRouter_DEBUG_ROUTES
+#ifdef IntermodalRouter_DEBUG_ROUTES
         SUMOReal time = msTime;
         for (size_t i = 0; i < intoPed.size(); ++i) {
             time += myInternalRouter->getEffort(intoPed[i], &trip, time);
@@ -140,57 +135,14 @@ private:
 
 private:
     /// @brief Invalidated assignment operator
-    PedestrianRouter& operator=(const PedestrianRouter& s);
+    IntermodalRouter& operator=(const IntermodalRouter& s);
 
 };
 
 // common specializations
-template<class E, class L, class N>
-class PedestrianRouterDijkstra : public PedestrianRouter < E, L, N,
-        DijkstraRouterTT<PedestrianEdge<E, L, N>, PedestrianTrip<E, N>, prohibited_withPermissions<PedestrianEdge<E, L, N>, PedestrianTrip<E, N> > > > { };
-
-
-/**
- * @class RouterProvider
- * The encapsulation of two router for vehicles and pedestrians
- */
 template<class E, class L, class N, class V>
-class RouterProvider {
-public:
-    RouterProvider(SUMOAbstractRouter<E, V>* vehRouter,
-                   PedestrianRouterDijkstra<E, L, N>* pedRouter,
-                   IntermodalRouterDijkstra<E, L, N, V>* interRouter)
-        : myVehRouter(vehRouter), myPedRouter(pedRouter), myInterRouter(interRouter) {}
-
-    RouterProvider(const RouterProvider& original)
-        : myVehRouter(original.getVehicleRouter().clone()),
-        myPedRouter(static_cast<PedestrianRouterDijkstra<E, L, N>*>(original.getPedestrianRouter().clone())),
-        myInterRouter(static_cast<IntermodalRouterDijkstra<E, L, N, V>*>(original.getIntermodalRouter().clone())) {}
-
-    SUMOAbstractRouter<E, V>& getVehicleRouter() const {
-        return *myVehRouter;
-    }
-
-    PedestrianRouterDijkstra<E, L, N>& getPedestrianRouter() const {
-        return *myPedRouter;
-    }
-
-    IntermodalRouterDijkstra<E, L, N, V>& getIntermodalRouter() const {
-        return *myInterRouter;
-    }
-
-    virtual ~RouterProvider() {
-        delete myVehRouter;
-        delete myPedRouter;
-        delete myInterRouter;
-    }
-
-
-private:
-    SUMOAbstractRouter<E, V>* const myVehRouter;
-    PedestrianRouterDijkstra<E, L, N>* const myPedRouter;
-    IntermodalRouterDijkstra<E, L, N, V>* const myInterRouter;
-};
+class IntermodalRouterDijkstra : public IntermodalRouter < E, L, N, V,
+        DijkstraRouterTT<PedestrianEdge<E, L, N>, PedestrianTrip<E, N>, prohibited_withPermissions<PedestrianEdge<E, L, N>, PedestrianTrip<E, N> > > > { };
 
 
 #endif
