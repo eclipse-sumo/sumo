@@ -246,7 +246,7 @@
         <!-- The interval for updating the edge weights -->
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME"/>
 
-        <!-- Use zones (districts) as routing end points -->
+        <!-- Use zones (districts) as routing start- and endpoints -->
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL"/>
 
         <!-- Use given weight files for initializing edge weights -->
