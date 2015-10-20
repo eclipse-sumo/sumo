@@ -3,3 +3,6 @@ basic
 
 # car use requested
 car
+
+# car cannot find a route
+carNoRoute
