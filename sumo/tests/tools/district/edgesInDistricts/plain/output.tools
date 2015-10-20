@@ -11,12 +11,16 @@ Options:
                         read districts from FILEs
   -o FILE, --output=FILE
                         write results to FILE (default: districts.taz.xml)
-  -m MAXSPEED, --max-speed=MAXSPEED
+  -x MAXSPEED, --max-speed=MAXSPEED
                         use lanes where speed is not greater than this (m/s)
                         (default: 1000.0)
+  -m MINSPEED, --min-speed=MINSPEED
+                        use lanes where speed is greater than this (m/s)
+                        (default: 0.0)
   -w, --weighted        Weights sources/sinks by lane number and length
   -f, --assign-from     Assign the edge always to the district where the
                         "from" node is located
   -i, --internal        Include internal edges in output
   -l VCLASS, --vclass=VCLASS
                         Include only edges allowing VCLASS
+  -s, --shapeinfo       write also the shape info in the file
