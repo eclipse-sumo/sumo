@@ -1,6 +1,8 @@
 /****************************************************************************/
 /// @file    PedestrianEdge.h
 /// @author  Jakob Erdmann
+/// @author  Michael Behrisch
+/// @author  Robert Hilbrich
 /// @date    Mon, 03 March 2014
 /// @version $Id$
 ///
@@ -64,13 +66,14 @@ inline const L* getSidewalk(const E* edge) {
 // ===========================================================================
 
 /// @brief the "vehicle" type that is given to the internal router (SUMOAbstractRouter)
-template<class E, class N>
+template<class E, class N, class V>
 struct PedestrianTrip {
 
-    PedestrianTrip(const E* _from, const E* _to, SUMOReal _departPos, SUMOReal _arrivalPos, SUMOReal _speed, SUMOTime _departTime, const N* _node) :
+    PedestrianTrip(const E* _from, const E* _to, SUMOReal _departPos, SUMOReal _arrivalPos, SUMOReal _speed, SUMOTime _departTime, const N* _node, const V* _vehicle=0) :
         from(_from),
         to(_to),
         node(_node),
+        vehicle(_vehicle),
         departPos(_departPos < 0 ? _from->getLength() + _departPos : _departPos),
         arrivalPos(_arrivalPos < 0 ? _to->getLength() + _arrivalPos : _arrivalPos),
         speed(_speed),
@@ -87,9 +90,10 @@ struct PedestrianTrip {
         return SVC_PEDESTRIAN;
     }
 
-    const E* from;
-    const E* to;
-    const N* node; // indicates whether only routing across this node shall be performed
+    const E* const from;
+    const E* const to;
+    const N* const node; // indicates whether only routing across this node shall be performed
+    const V* const vehicle; // indicates which vehicle may be used
     const SUMOReal departPos;
     const SUMOReal arrivalPos;
     const SUMOReal speed;
@@ -101,7 +105,7 @@ private:
 
 
 /// @brief the edge type that is given to the internal router (SUMOAbstractRouter)
-template<class E, class L, class N>
+template<class E, class L, class N, class V>
 class PedestrianEdge : public Named {
 public:
     PedestrianEdge(unsigned int numericalID, const E* edge, const L* lane, bool forward, bool connector=false, bool car=false) :
@@ -148,7 +152,7 @@ public:
         return myFollowingEdges;
     }
 
-    bool prohibits(const PedestrianTrip<E, N>* const trip) const {
+    bool prohibits(const PedestrianTrip<E, N, V>* const trip) const {
         if (trip->node == 0) {
             // network only includes PedestrianEdges
             return false;
@@ -164,9 +168,12 @@ public:
     /*@brief the function called by RouterTT_direct
      * (distance is used as effort, effort is assumed to be independent of time
      */
-    static SUMOReal getEffort(const PedestrianEdge* const edge, const PedestrianTrip<E, N>* const trip, SUMOReal time) {
+    static SUMOReal getEffort(const PedestrianEdge* const edge, const PedestrianTrip<E, N, V>* const trip, SUMOReal time) {
         if (edge->myAmConnector) {
             return 0;
+        }
+        if (edge->myAmCar) {
+            return E::getTravelTimeStatic(edge->myEdge, trip->vehicle, time);
         }
         SUMOReal length = edge->myEdge->getLength();
         if (edge->myEdge == trip->from) {
@@ -190,7 +197,6 @@ public:
         if (edge->myEdge->isCrossing() && edge->myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
             // red traffic lights occurring later in the route may be green by the time we arive
             tlsDelay += MAX2(SUMOReal(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
-
         }
 #ifdef PedestrianRouter_DEBUG_EFFORTS
         std::cout << " effort for " << trip->getID() << " at " << time << " edge=" << edge->getID() << " effort=" << length / trip->speed + tlsDelay << " l=" << length << " s=" << trip->speed << " tlsDelay=" << tlsDelay << "\n";
@@ -231,9 +237,11 @@ private:
 
 
 /// @brief the pedestrian network storing edges, connections and the mappings to the "real" edges
-template<class E, class L, class N>
+template<class E, class L, class N, class V>
 class PedestrianNetwork {
-    typedef std::pair<PedestrianEdge<E, L, N>*, PedestrianEdge<E, L, N>*> EdgePair;
+private:
+    typedef PedestrianEdge<E, L, N, V> _PedestrianEdge;
+    typedef std::pair<_PedestrianEdge*, _PedestrianEdge*> EdgePair;
 
 public:
     /* brief build the pedestrian network (once)
@@ -247,29 +255,32 @@ public:
         bool haveSeenWalkingArea = false;
         unsigned int numericalID = 0;
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            E* const edge = *i;
-            const L* lane = getSidewalk<E, L>(edge);
-            if (edge->isInternal() || lane == 0) {
+            const E* const edge = *i;
+            if (edge->isInternal()) {
                 continue;
-            } else if (edge->isWalkingArea()) {
-                // only a single edge
-                myEdgeDict.push_back(new PedestrianEdge<E, L, N>(numericalID++, edge, lane, true));
-                myBidiLookup[edge] = std::make_pair(myEdgeDict.back(), myEdgeDict.back());
-                myFromToLookup[edge] = std::make_pair(myEdgeDict.back(), myEdgeDict.back());
-                haveSeenWalkingArea = true;
-            } else { // regular edge or crossing
-                // forward and backward edges
-                myEdgeDict.push_back(new PedestrianEdge<E, L, N>(numericalID++, edge, lane, true));
-                myEdgeDict.push_back(new PedestrianEdge<E, L, N>(numericalID++, edge, lane, false));
-                myBidiLookup[edge] = std::make_pair(myEdgeDict[numericalID - 2], myEdgeDict.back());
-                // depart and arrival edges for (the router can decide the initial direction to take and the direction to arrive from)
-                myEdgeDict.push_back(new PedestrianEdge<E, L, N>(numericalID++, edge, lane, true, true));
-                myEdgeDict.push_back(new PedestrianEdge<E, L, N>(numericalID++, edge, lane, false, true));
-                myFromToLookup[edge] = std::make_pair(myEdgeDict[numericalID - 2], myEdgeDict.back());
             }
             if (addCarEdges) {
-                myEdgeDict.push_back(new PedestrianEdge<E, L, N>(numericalID++, edge, lane, true, false, true));
+                myEdgeDict.push_back(new _PedestrianEdge(numericalID++, edge, 0, true, false, true));
                 myCarLookup[edge] = myEdgeDict.back();
+            }
+            const L* lane = getSidewalk<E, L>(edge);
+            if (lane != 0) {
+                if (edge->isWalkingArea()) {
+                    // only a single edge
+                    myEdgeDict.push_back(new _PedestrianEdge(numericalID++, edge, lane, true));
+                    myBidiLookup[edge] = std::make_pair(myEdgeDict.back(), myEdgeDict.back());
+                    myFromToLookup[edge] = std::make_pair(myEdgeDict.back(), myEdgeDict.back());
+                    haveSeenWalkingArea = true;
+                } else { // regular edge or crossing
+                    // forward and backward edges
+                    myEdgeDict.push_back(new _PedestrianEdge(numericalID++, edge, lane, true));
+                    myEdgeDict.push_back(new _PedestrianEdge(numericalID++, edge, lane, false));
+                    myBidiLookup[edge] = std::make_pair(myEdgeDict[numericalID - 2], myEdgeDict.back());
+                    // depart and arrival edges for (the router can decide the initial direction to take and the direction to arrive from)
+                    myEdgeDict.push_back(new _PedestrianEdge(numericalID++, edge, lane, true, true));
+                    myEdgeDict.push_back(new _PedestrianEdge(numericalID++, edge, lane, false, true));
+                    myFromToLookup[edge] = std::make_pair(myEdgeDict[numericalID - 2], myEdgeDict.back());
+                }
             }
         }
 
@@ -373,16 +384,16 @@ public:
                 continue;
             }
             // build connections from depart connector
-            PedestrianEdge<E, L, N>* startConnector = getDepartEdge(edge);
+            _PedestrianEdge* startConnector = getDepartEdge(edge);
             startConnector->addSuccessor(pair.first);
             startConnector->addSuccessor(pair.second);
             // build connections to arrival connector
-            PedestrianEdge<E, L, N>* endConnector = getArrivalEdge(edge);
+            _PedestrianEdge* endConnector = getArrivalEdge(edge);
             pair.first->addSuccessor(endConnector);
             pair.second->addSuccessor(endConnector);
             if (addCarEdges) {
                 // build connections from car edge
-                PedestrianEdge<E, L, N>* carEdge = getCarEdge(edge);
+                _PedestrianEdge* carEdge = getCarEdge(edge);
                 carEdge->addSuccessor(pair.first);
                 carEdge->addSuccessor(pair.second);
                 const std::vector<E*>& successors = edge->getSuccessors();
@@ -390,6 +401,7 @@ public:
                     carEdge->addSuccessor(getCarEdge(*it));
                 }
                 startConnector->addSuccessor(carEdge);
+                carEdge->addSuccessor(endConnector);
             }
 #ifdef PedestrianRouter_DEBUG_NETWORK
             std::cout << "     " << startConnector->getID() << " -> " << pair.first->getID() << "\n";
@@ -403,13 +415,13 @@ public:
     ~PedestrianNetwork() {
         myFromToLookup.clear();
         myBidiLookup.clear();
-        for (typename std::vector<PedestrianEdge<E, L, N>*>::iterator it = myEdgeDict.begin(); it != myEdgeDict.end(); ++it) {
+        for (typename std::vector<_PedestrianEdge*>::iterator it = myEdgeDict.begin(); it != myEdgeDict.end(); ++it) {
             delete *it;
         }
         myEdgeDict.clear();
     }
 
-    const std::vector<PedestrianEdge<E, L, N>*>& getAllEdges() {
+    const std::vector<_PedestrianEdge*>& getAllEdges() {
         return myEdgeDict;
     }
 
@@ -424,7 +436,7 @@ public:
     }
 
     /// @brief Returns the departing Pedestrian edge
-    PedestrianEdge<E, L, N>* getDepartEdge(const E* e) {
+    _PedestrianEdge* getDepartEdge(const E* e) {
         typename std::map<const E*, EdgePair>::const_iterator it = myFromToLookup.find(e);
         if (it == myFromToLookup.end()) {
             throw ProcessError("Depart edge '" + e->getID() + "' not found in pedestrian network.");
@@ -433,7 +445,7 @@ public:
     }
 
     /// @brief Returns the arriving Pedestrian edge
-    PedestrianEdge<E, L, N>* getArrivalEdge(const E* e) {
+    _PedestrianEdge* getArrivalEdge(const E* e) {
         typename std::map<const E*, EdgePair>::const_iterator it = myFromToLookup.find(e);
         if (it == myFromToLookup.end()) {
             throw ProcessError("Arrival edge '" + e->getID() + "' not found in pedestrian network.");
@@ -442,8 +454,8 @@ public:
     }
 
     /// @brief Returns the associated car edge
-    PedestrianEdge<E, L, N>* getCarEdge(const E* e) {
-        typename std::map<const E*, PedestrianEdge<E, L, N>*>::const_iterator it = myCarLookup.find(e);
+    _PedestrianEdge* getCarEdge(const E* e) {
+        typename std::map<const E*, _PedestrianEdge*>::const_iterator it = myCarLookup.find(e);
         if (it == myCarLookup.end()) {
             throw ProcessError("Edge '" + e->getID() + "' not found in pedestrian network.");
         }
@@ -453,7 +465,7 @@ public:
 
 private:
     /// @brief the edge dictionary
-    std::vector<PedestrianEdge<E, L, N>*> myEdgeDict;
+    std::vector<_PedestrianEdge*> myEdgeDict;
 
     /// @brief retrieve the forward and backward edge for the given input edge E
     std::map<const E*, EdgePair> myBidiLookup;
@@ -462,7 +474,7 @@ private:
     std::map<const E*, EdgePair> myFromToLookup;
 
     /// @brief retrieve the car edge for the given input edge E
-    std::map<const E*, PedestrianEdge<E, L, N>*> myCarLookup;
+    std::map<const E*, _PedestrianEdge*> myCarLookup;
 
 };
 

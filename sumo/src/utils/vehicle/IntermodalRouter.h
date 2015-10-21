@@ -52,17 +52,18 @@
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
  */
 template<class E, class L, class N, class V, class INTERNALROUTER>
-class IntermodalRouter : public SUMOAbstractRouter<E, PedestrianTrip<E, N> > {
+class IntermodalRouter : public SUMOAbstractRouter<E, PedestrianTrip<E, N, V> > {
+private:
+
+    typedef PedestrianEdge<E, L, N, V> _PedestrianEdge;
+    typedef PedestrianNetwork<E, L, N, V> _PedestrianNetwork;
+    typedef PedestrianTrip<E, N, V> _PedestrianTrip;
+
 public:
-
-    typedef PedestrianEdge<E, L, N> _PedestrianEdge;
-    typedef PedestrianNetwork<E, L, N> _PedestrianNetwork;
-    typedef PedestrianTrip<E, N> _PedestrianTrip;
-
     /// Constructor
     IntermodalRouter():
         SUMOAbstractRouter<E, _PedestrianTrip>(0, "IntermodalRouter"), myAmClone(false) {
-        myPedNet = new _PedestrianNetwork(E::getAllEdges());
+        myPedNet = new _PedestrianNetwork(E::getAllEdges(), true);
         myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_PedestrianEdge::getEffort);
     }
 
@@ -80,7 +81,7 @@ public:
         }
     }
 
-    virtual SUMOAbstractRouter<E, PedestrianTrip<E, N> >* clone() const {
+    virtual SUMOAbstractRouter<E, PedestrianTrip<E, N, V> >* clone() const {
         return new IntermodalRouter<E, L, N, V, INTERNALROUTER>();
     }
 
@@ -89,7 +90,7 @@ public:
     void compute(const E* from, const E* to, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal speed,
                  const V* const vehicle, SUMOTime msTime, std::vector<std::pair<std::string, std::vector<const E*> > >& into) {
         //startQuery();
-        _PedestrianTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0);
+        _PedestrianTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle);
         std::vector<const _PedestrianEdge*> intoPed;
         myInternalRouter->compute(myPedNet->getDepartEdge(from),
                                   myPedNet->getArrivalEdge(to), &trip, msTime, intoPed);
@@ -157,7 +158,7 @@ private:
 // common specializations
 template<class E, class L, class N, class V>
 class IntermodalRouterDijkstra : public IntermodalRouter < E, L, N, V,
-        DijkstraRouterTT<PedestrianEdge<E, L, N>, PedestrianTrip<E, N>, prohibited_withPermissions<PedestrianEdge<E, L, N>, PedestrianTrip<E, N> > > > { };
+        DijkstraRouterTT<PedestrianEdge<E, L, N, V>, PedestrianTrip<E, N, V>, prohibited_withPermissions<PedestrianEdge<E, L, N, V>, PedestrianTrip<E, N, V> > > > { };
 
 
 #endif

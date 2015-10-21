@@ -66,7 +66,6 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
                                const bool emptyDestinationsAllowed,
                                const bool ignoreErrors) :
     SUMORouteHandler(file),
-    myPedestrianRouter(0),
     myNet(net),
     myActivePerson(0),
     myActiveContainerPlan(0),
@@ -81,7 +80,6 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
 
 
 RORouteHandler::~RORouteHandler() {
-    delete myPedestrianRouter;
 }
 
 

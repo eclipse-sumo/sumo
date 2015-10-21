@@ -112,7 +112,7 @@ public:
     };
 
     //typedef PedestrianRouterDijkstra<MSEdge, MSLane> MSPedestrianRouterDijkstra;
-    typedef PedestrianRouterDijkstra<MSEdge, MSLane, MSJunction> MSPedestrianRouterDijkstra;
+    typedef PedestrianRouterDijkstra<MSEdge, MSLane, MSJunction, MSVehicle> MSPedestrianRouterDijkstra;
 
 
 

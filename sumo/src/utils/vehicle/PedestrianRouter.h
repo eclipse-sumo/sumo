@@ -52,13 +52,13 @@
  * @class PedestrianRouter
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
  */
-template<class E, class L, class N, class INTERNALROUTER>
-class PedestrianRouter : public SUMOAbstractRouter<E, PedestrianTrip<E, N> > {
+template<class E, class L, class N, class V, class INTERNALROUTER>
+class PedestrianRouter : public SUMOAbstractRouter<E, PedestrianTrip<E, N, V> > {
 public:
 
-    typedef PedestrianEdge<E, L, N> _PedestrianEdge;
-    typedef PedestrianNetwork<E, L, N> _PedestrianNetwork;
-    typedef PedestrianTrip<E, N> _PedestrianTrip;
+    typedef PedestrianEdge<E, L, N, V> _PedestrianEdge;
+    typedef PedestrianNetwork<E, L, N, V> _PedestrianNetwork;
+    typedef PedestrianTrip<E, N, V> _PedestrianTrip;
 
     /// Constructor
     PedestrianRouter():
@@ -81,8 +81,8 @@ public:
         }
     }
 
-    virtual SUMOAbstractRouter<E, PedestrianTrip<E, N> >* clone() const {
-        return new PedestrianRouter<E, L, N, INTERNALROUTER>(myPedNet);
+    virtual SUMOAbstractRouter<E, PedestrianTrip<E, N, V> >* clone() const {
+        return new PedestrianRouter<E, L, N, V, INTERNALROUTER>(myPedNet);
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
@@ -157,9 +157,9 @@ private:
 };
 
 // common specializations
-template<class E, class L, class N>
-class PedestrianRouterDijkstra : public PedestrianRouter < E, L, N,
-        DijkstraRouterTT<PedestrianEdge<E, L, N>, PedestrianTrip<E, N>, prohibited_withPermissions<PedestrianEdge<E, L, N>, PedestrianTrip<E, N> > > > { };
+template<class E, class L, class N, class V>
+class PedestrianRouterDijkstra : public PedestrianRouter < E, L, N, V,
+        DijkstraRouterTT<PedestrianEdge<E, L, N, V>, PedestrianTrip<E, N, V>, prohibited_withPermissions<PedestrianEdge<E, L, N, V>, PedestrianTrip<E, N, V> > > > { };
 
 
 /**
@@ -170,20 +170,20 @@ template<class E, class L, class N, class V>
 class RouterProvider {
 public:
     RouterProvider(SUMOAbstractRouter<E, V>* vehRouter,
-                   PedestrianRouterDijkstra<E, L, N>* pedRouter,
+                   PedestrianRouterDijkstra<E, L, N, V>* pedRouter,
                    IntermodalRouterDijkstra<E, L, N, V>* interRouter)
         : myVehRouter(vehRouter), myPedRouter(pedRouter), myInterRouter(interRouter) {}
 
     RouterProvider(const RouterProvider& original)
         : myVehRouter(original.getVehicleRouter().clone()),
-        myPedRouter(static_cast<PedestrianRouterDijkstra<E, L, N>*>(original.getPedestrianRouter().clone())),
+        myPedRouter(static_cast<PedestrianRouterDijkstra<E, L, N, V>*>(original.getPedestrianRouter().clone())),
         myInterRouter(static_cast<IntermodalRouterDijkstra<E, L, N, V>*>(original.getIntermodalRouter().clone())) {}
 
     SUMOAbstractRouter<E, V>& getVehicleRouter() const {
         return *myVehRouter;
     }
 
-    PedestrianRouterDijkstra<E, L, N>& getPedestrianRouter() const {
+    PedestrianRouterDijkstra<E, L, N, V>& getPedestrianRouter() const {
         return *myPedRouter;
     }
 
@@ -200,7 +200,7 @@ public:
 
 private:
     SUMOAbstractRouter<E, V>* const myVehRouter;
-    PedestrianRouterDijkstra<E, L, N>* const myPedRouter;
+    PedestrianRouterDijkstra<E, L, N, V>* const myPedRouter;
     IntermodalRouterDijkstra<E, L, N, V>* const myInterRouter;
 
 

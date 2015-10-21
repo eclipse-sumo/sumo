@@ -154,7 +154,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                                           (int)(((SUMOReal) net.getEdgeNo()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
                                           oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
     RORouteDef::setUsingJTRR();
-    RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode>(),
+    RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>(),
                               new IntermodalRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>());
     loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
                          string2time(oc.getString("route-steps")), net, provider);

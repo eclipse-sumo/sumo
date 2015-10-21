@@ -154,10 +154,6 @@ protected:
     bool addPersonTrip(const SUMOSAXAttributes& attrs);
 
 protected:
-    /// @brief the router for pedestrians
-    typedef PedestrianRouterDijkstra<ROEdge, ROLane, RONode> ROPedestrianRouterDijkstra;
-    ROPedestrianRouterDijkstra* myPedestrianRouter;
-
     /// @brief The current route
     RONet& myNet;
 
