@@ -4,5 +4,8 @@ basic
 # car use requested
 car
 
-# car cannot find a route
+# car use requested but not possible
 carNoRoute
+
+# car and walk possible
+car_walk
