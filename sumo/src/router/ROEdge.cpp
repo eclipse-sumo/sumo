@@ -276,10 +276,9 @@ ROEdge::allFollowersProhibit(const ROVehicle* const vehicle) const {
 }
 
 
-ROEdge*
-ROEdge::dictionary(size_t id) {
-    assert(myEdges.size() > id);
-    return myEdges[id];
+const ROEdgeVector&
+ROEdge::getAllEdges() {
+    return myEdges;
 }
 
 

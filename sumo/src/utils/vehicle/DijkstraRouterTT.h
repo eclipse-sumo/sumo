@@ -72,21 +72,6 @@ class DijkstraRouterTT : public SUMOAbstractRouter<E, V>, public PF {
 
 public:
     typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
-    /// Constructor
-    DijkstraRouterTT(size_t noE, bool unbuildIsWarning, Operation operation) :
-        SUMOAbstractRouter<E, V>(operation, "DijkstraRouterTT"),
-        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
-        for (size_t i = 0; i < noE; i++) {
-            myEdgeInfos.push_back(EdgeInfo(i));
-        }
-    }
-
-    /// Destructor
-    virtual ~DijkstraRouterTT() { }
-
-    virtual SUMOAbstractRouter<E, V>* clone() const {
-        return new DijkstraRouterTT<E, V, PF>(myEdgeInfos.size(), myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation);
-    }
 
     /**
      * @struct EdgeInfo
@@ -96,8 +81,8 @@ public:
     class EdgeInfo {
     public:
         /// Constructor
-        EdgeInfo(size_t id)
-            : edge(E::dictionary(id)), traveltime(std::numeric_limits<SUMOReal>::max()), prev(0), visited(false) {}
+        EdgeInfo(const E* e)
+            : edge(e), traveltime(std::numeric_limits<SUMOReal>::max()), prev(0), visited(false) {}
 
         /// The current edge
         const E* edge;
@@ -131,6 +116,30 @@ public:
             return nod1->traveltime > nod2->traveltime;
         }
     };
+
+    /// Constructor
+    DijkstraRouterTT(const std::vector<E*>& edges, bool unbuildIsWarning, Operation operation) :
+        SUMOAbstractRouter<E, V>(operation, "DijkstraRouterTT"),
+        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            myEdgeInfos.push_back(EdgeInfo(*i));
+        }
+    }
+
+    DijkstraRouterTT(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, Operation operation) :
+        SUMOAbstractRouter<E, V>(operation, "DijkstraRouterTT"),
+        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+        for (typename std::vector<EdgeInfo>::const_iterator i = edgeInfos.begin(); i != edgeInfos.end(); ++i) {
+            myEdgeInfos.push_back(*i);
+        }
+    }
+
+    /// Destructor
+    virtual ~DijkstraRouterTT() { }
+
+    virtual SUMOAbstractRouter<E, V>* clone() const {
+        return new DijkstraRouterTT<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation);
+    }
 
     void init() {
         // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up

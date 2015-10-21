@@ -91,7 +91,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
 #endif
     } else {
         for (size_t i = 0; i < MSEdge::dictSize(); i++) {
-            const std::vector<MSLane*>& lanes = MSEdge::dictionary(i)->getLanes();
+            const std::vector<MSLane*>& lanes = MSEdge::getAllEdges()[i]->getLanes();
             for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
                 (*it)->saveState(out);
             }
@@ -207,7 +207,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 #endif
         case SUMO_TAG_LANE: {
             myEdgeAndLane.second++;
-            if (myEdgeAndLane.second == (int)MSEdge::dictionary(myEdgeAndLane.first)->getLanes().size()) {
+            if (myEdgeAndLane.second == (int)MSEdge::getAllEdges()[myEdgeAndLane.first]->getLanes().size()) {
                 myEdgeAndLane.first++;
                 myEdgeAndLane.second = 0;
             }
@@ -221,7 +221,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), TplConvert::_2long(attrs.getString(SUMO_ATTR_TIME).c_str()) - myOffset, myQueIndex++);
 #endif
             } else {
-                MSEdge::dictionary(myEdgeAndLane.first)->getLanes()[myEdgeAndLane.second]->loadState(
+                MSEdge::getAllEdges()[myEdgeAndLane.first]->getLanes()[myEdgeAndLane.second]->loadState(
                     vehIDs, MSNet::getInstance()->getVehicleControl());
             }
             break;

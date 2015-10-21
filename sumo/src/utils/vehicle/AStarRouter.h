@@ -73,35 +73,6 @@ class AStarRouter : public SUMOAbstractRouter<E, V>, public PF {
 public:
     typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
     typedef std::vector<std::vector<SUMOReal> > LookupTable;
-    /// Constructor
-    AStarRouter(size_t noE, bool unbuildIsWarning, Operation operation, const LookupTable* const lookup = 0):
-        SUMOAbstractRouter<E, V>(operation, "AStarRouter"),
-        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
-        myLookupTable(lookup) {
-        for (size_t i = 0; i < noE; i++) {
-            myEdgeInfos.push_back(EdgeInfo(i));
-        }
-    }
-
-    /// Destructor
-    virtual ~AStarRouter() {}
-
-    virtual SUMOAbstractRouter<E, V>* clone() const {
-        return new AStarRouter<E, V, PF>(myEdgeInfos.size(), myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable);
-    }
-
-    static LookupTable* createLookupTable(const std::string& filename, const int size) {
-        LookupTable* const result = new LookupTable();
-        BinaryInputDevice dev(filename);
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                SUMOReal val;
-                dev >> val;
-                (*result)[i].push_back(val);
-            }
-        }
-        return result;
-    }
 
     /**
      * @struct EdgeInfo
@@ -111,8 +82,8 @@ public:
     class EdgeInfo {
     public:
         /// Constructor
-        EdgeInfo(size_t id) :
-            edge(E::dictionary(id)),
+        EdgeInfo(const E* e) :
+            edge(e),
             traveltime(std::numeric_limits<SUMOReal>::max()),
             heuristicTime(std::numeric_limits<SUMOReal>::max()),
             prev(0),
@@ -156,6 +127,45 @@ public:
             return nod1->heuristicTime > nod2->heuristicTime;
         }
     };
+
+    /// Constructor
+    AStarRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation operation, const LookupTable* const lookup = 0):
+        SUMOAbstractRouter<E, V>(operation, "AStarRouter"),
+        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        myLookupTable(lookup) {
+        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            myEdgeInfos.push_back(EdgeInfo(*i));
+        }
+    }
+
+    AStarRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, Operation operation, const LookupTable* const lookup = 0):
+        SUMOAbstractRouter<E, V>(operation, "AStarRouter"),
+        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        myLookupTable(lookup) {
+        for (typename std::vector<EdgeInfo>::const_iterator i = edgeInfos.begin(); i != edgeInfos.end(); ++i) {
+            myEdgeInfos.push_back(*i);
+        }
+    }
+
+    /// Destructor
+    virtual ~AStarRouter() {}
+
+    virtual SUMOAbstractRouter<E, V>* clone() const {
+        return new AStarRouter<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable);
+    }
+
+    static LookupTable* createLookupTable(const std::string& filename, const int size) {
+        LookupTable* const result = new LookupTable();
+        BinaryInputDevice dev(filename);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                SUMOReal val;
+                dev >> val;
+                (*result)[i].push_back(val);
+            }
+        }
+        return result;
+    }
 
     void init() {
         // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up

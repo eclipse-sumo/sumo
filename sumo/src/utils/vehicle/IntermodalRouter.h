@@ -56,18 +56,28 @@ class IntermodalRouter : public SUMOAbstractRouter<E, PedestrianTrip<E, N> > {
 public:
 
     typedef PedestrianEdge<E, L, N> _PedestrianEdge;
+    typedef PedestrianNetwork<E, L, N> _PedestrianNetwork;
     typedef PedestrianTrip<E, N> _PedestrianTrip;
 
     /// Constructor
     IntermodalRouter():
-        SUMOAbstractRouter<E, _PedestrianTrip>(0, "IntermodalRouter") {
-        _PedestrianEdge::initPedestrianNetwork(E::dictSize(), true);
-        myInternalRouter = new INTERNALROUTER(_PedestrianEdge::dictSize(), true, &_PedestrianEdge::getEffort);
+        SUMOAbstractRouter<E, _PedestrianTrip>(0, "IntermodalRouter"), myAmClone(false) {
+        myPedNet = new _PedestrianNetwork(E::getAllEdges());
+        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_PedestrianEdge::getEffort);
+    }
+
+    IntermodalRouter(_PedestrianNetwork* net):
+        SUMOAbstractRouter<E, _PedestrianTrip>(0, "PedestrianRouter"), myAmClone(true) {
+        myPedNet = net;
+        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_PedestrianEdge::getEffort);
     }
 
     /// Destructor
     virtual ~IntermodalRouter() {
         delete myInternalRouter;
+        if (!myAmClone) {
+            delete myPedNet;
+        }
     }
 
     virtual SUMOAbstractRouter<E, PedestrianTrip<E, N> >* clone() const {
@@ -81,15 +91,17 @@ public:
         //startQuery();
         _PedestrianTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0);
         std::vector<const _PedestrianEdge*> intoPed;
-        myInternalRouter->compute(_PedestrianEdge::getDepartEdge(from),
-                                  _PedestrianEdge::getArrivalEdge(to), &trip, msTime, intoPed);
-        into.push_back(std::make_pair(vehicle->getID(), std::vector<const E*>()));
-        for (size_t i = 0; i < intoPed.size(); ++i) {
-            if (intoPed[i]->includeInRoute(false)) {
-                if (into.size() == 1 && !intoPed[i]->isCar()) {
-                    into.push_back(std::make_pair("", std::vector<const E*>()));
+        myInternalRouter->compute(myPedNet->getDepartEdge(from),
+                                  myPedNet->getArrivalEdge(to), &trip, msTime, intoPed);
+        if (!intoPed.empty()) {
+            into.push_back(std::make_pair(vehicle->getID(), std::vector<const E*>()));
+            for (size_t i = 0; i < intoPed.size(); ++i) {
+                if (intoPed[i]->includeInRoute(false)) {
+                    if (into.size() == 1 && !intoPed[i]->isCar()) {
+                        into.push_back(std::make_pair("", std::vector<const E*>()));
+                    }
+                    into.back().second.push_back(intoPed[i]->getEdge());
                 }
-                into.back().second.push_back(intoPed[i]->getEdge());
             }
         }
 #ifdef IntermodalRouter_DEBUG_ROUTES
@@ -123,14 +135,17 @@ public:
     void prohibit(const std::vector<E*>& toProhibit) {
         std::vector<_PedestrianEdge*> toProhibitPE;
         for (typename std::vector<E*>::const_iterator it = toProhibit.begin(); it != toProhibit.end(); ++it) {
-            toProhibitPE.push_back(_PedestrianEdge::getBothDirections(*it).first);
-            toProhibitPE.push_back(_PedestrianEdge::getBothDirections(*it).second);
+            toProhibitPE.push_back(myPedNet->getBothDirections(*it).first);
+            toProhibitPE.push_back(myPedNet->getBothDirections(*it).second);
+            toProhibitPE.push_back(myPedNet->getCarEdge(*it));
         }
         myInternalRouter->prohibit(toProhibitPE);
     }
 
 private:
+    const bool myAmClone;
     INTERNALROUTER* myInternalRouter;
+    _PedestrianNetwork* myPedNet;
 
 
 private:

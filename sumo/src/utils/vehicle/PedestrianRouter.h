@@ -57,22 +57,32 @@ class PedestrianRouter : public SUMOAbstractRouter<E, PedestrianTrip<E, N> > {
 public:
 
     typedef PedestrianEdge<E, L, N> _PedestrianEdge;
+    typedef PedestrianNetwork<E, L, N> _PedestrianNetwork;
     typedef PedestrianTrip<E, N> _PedestrianTrip;
 
     /// Constructor
     PedestrianRouter():
-        SUMOAbstractRouter<E, _PedestrianTrip>(0, "PedestrianRouter") {
-        _PedestrianEdge::initPedestrianNetwork(E::dictSize());
-        myInternalRouter = new INTERNALROUTER(_PedestrianEdge::dictSize(), true, &_PedestrianEdge::getEffort);
+        SUMOAbstractRouter<E, _PedestrianTrip>(0, "PedestrianRouter"), myAmClone(false) {
+        myPedNet = new _PedestrianNetwork(E::getAllEdges());
+        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_PedestrianEdge::getEffort);
+    }
+
+    PedestrianRouter(_PedestrianNetwork* net):
+        SUMOAbstractRouter<E, _PedestrianTrip>(0, "PedestrianRouter"), myAmClone(true) {
+        myPedNet = net;
+        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_PedestrianEdge::getEffort);
     }
 
     /// Destructor
     virtual ~PedestrianRouter() {
         delete myInternalRouter;
+        if (!myAmClone) {
+            delete myPedNet;
+        }
     }
 
     virtual SUMOAbstractRouter<E, PedestrianTrip<E, N> >* clone() const {
-        return new PedestrianRouter<E, L, N, INTERNALROUTER>();
+        return new PedestrianRouter<E, L, N, INTERNALROUTER>(myPedNet);
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
@@ -90,8 +100,8 @@ public:
         }
         _PedestrianTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode);
         std::vector<const _PedestrianEdge*> intoPed;
-        myInternalRouter->compute(_PedestrianEdge::getDepartEdge(from),
-                                  _PedestrianEdge::getArrivalEdge(to), &trip, msTime, intoPed);
+        myInternalRouter->compute(myPedNet->getDepartEdge(from),
+                                  myPedNet->getArrivalEdge(to), &trip, msTime, intoPed);
         for (size_t i = 0; i < intoPed.size(); ++i) {
             if (intoPed[i]->includeInRoute(allEdges)) {
                 into.push_back(intoPed[i]->getEdge());
@@ -128,14 +138,16 @@ public:
     void prohibit(const std::vector<E*>& toProhibit) {
         std::vector<_PedestrianEdge*> toProhibitPE;
         for (typename std::vector<E*>::const_iterator it = toProhibit.begin(); it != toProhibit.end(); ++it) {
-            toProhibitPE.push_back(_PedestrianEdge::getBothDirections(*it).first);
-            toProhibitPE.push_back(_PedestrianEdge::getBothDirections(*it).second);
+            toProhibitPE.push_back(myPedNet->getBothDirections(*it).first);
+            toProhibitPE.push_back(myPedNet->getBothDirections(*it).second);
         }
         myInternalRouter->prohibit(toProhibitPE);
     }
 
 private:
+    const bool myAmClone;
     INTERNALROUTER* myInternalRouter;
+    _PedestrianNetwork* myPedNet;
 
 
 private:
@@ -190,6 +202,12 @@ private:
     SUMOAbstractRouter<E, V>* const myVehRouter;
     PedestrianRouterDijkstra<E, L, N>* const myPedRouter;
     IntermodalRouterDijkstra<E, L, N, V>* const myInterRouter;
+
+
+private:
+    /// @brief Invalidated assignment operator
+    RouterProvider& operator=(const RouterProvider& src);
+
 };
 
 

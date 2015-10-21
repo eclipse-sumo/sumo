@@ -107,8 +107,8 @@ public:
     class EdgeInfo {
     public:
         /// Constructor
-        EdgeInfo(size_t id) :
-            edge(E::dictionary(id)),
+        EdgeInfo(const E* e) :
+            edge(e),
             traveltime(std::numeric_limits<SUMOReal>::max()),
             prev(0),
             visited(false)
@@ -146,11 +146,11 @@ public:
     class Unidirectional: public PF {
     public:
         /// @brief Constructor
-        Unidirectional(size_t numEdges, bool forward):
+        Unidirectional(const std::vector<E*>& edges, bool forward):
             myAmForward(forward),
             myVehicle(0) {
-            for (size_t i = 0; i < numEdges; i++) {
-                myEdgeInfos.push_back(EdgeInfo(i));
+            for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+                myEdgeInfos.push_back(EdgeInfo(*i));
             }
         }
 
@@ -318,21 +318,22 @@ public:
      *            hierarchy is tailored to the vClass of the defaultVehicle
      * @note: defaultVehicle is not transient and must be kept after constructor finishes
      */
-    CHRouter(size_t numEdges, bool unbuildIsWarning, Operation operation,
+    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation operation,
              const SUMOVehicleClass svc,
              SUMOTime weightPeriod,
              bool validatePermissions):
         SUMOAbstractRouter<E, V>(operation, "CHRouter"),
+        myEdges(edges),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
-        myForwardSearch(numEdges, true),
-        myBackwardSearch(numEdges, false),
+        myForwardSearch(edges, true),
+        myBackwardSearch(edges, false),
         mySPTree(new SPTree<CHInfo, CHConnection>(4, validatePermissions)),
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
         mySVC(svc),
         myUpdateCount(0) {
-        for (size_t i = 0; i < numEdges; i++) {
-            myCHInfos.push_back(CHInfo(i));
+        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            myCHInfos.push_back(CHInfo(*i));
         }
     }
 
@@ -343,7 +344,7 @@ public:
 
 
     virtual SUMOAbstractRouter<E, V>* clone() const {
-        return new CHRouter<E, V, PF>(myCHInfos.size(), myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
+        return new CHRouter<E, V, PF>(myEdges, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
                                       mySVC, myWeightPeriod, mySPTree->validatePermissions());
     }
 
@@ -464,8 +465,8 @@ public:
     class CHInfo {
     public:
         /// @brief Constructor
-        CHInfo(size_t id) :
-            edge(E::dictionary(id)),
+        CHInfo(E* e) :
+            edge(e),
             contractedNeighbors(0),
             rank(-1),
             level(0),
@@ -831,6 +832,9 @@ private:
     }
 
 private:
+    /// @brief all edges with numerical ids
+    const std::vector<E*>& myEdges;
+
     /// @brief the handler for routing errors
     MsgHandler* const myErrorMsgHandler;
 

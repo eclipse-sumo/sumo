@@ -199,8 +199,8 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
     if (myWalkingAreaPaths.size() > 0) {
         return;
     }
-    for (size_t i = 0; i < MSEdge::dictSize(); ++i) {
-        const MSEdge* edge = MSEdge::dictionary(i);
+    for (MSEdgeVector::const_iterator i = MSEdge::getAllEdges().begin(); i != MSEdge::getAllEdges().end(); ++i) {
+        const MSEdge* edge = *i;
         if (edge->isWalkingArea()) {
             const MSLane* walkingArea = getSidewalk<MSEdge, MSLane>(edge);
             // build all possible paths across this walkingArea

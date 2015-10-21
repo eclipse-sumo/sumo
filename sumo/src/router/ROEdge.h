@@ -399,8 +399,8 @@ public:
     SUMOReal getDistanceTo(const ROEdge* other) const;
 
 
-    /** @brief Returns the ROEdge at the index */
-    static ROEdge* dictionary(size_t index);
+    /** @brief Returns all ROEdges */
+    static const ROEdgeVector& getAllEdges();
 
     /// @brief Returns the number of edges
     static size_t dictSize() {

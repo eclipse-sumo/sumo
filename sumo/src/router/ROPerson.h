@@ -87,12 +87,12 @@ public:
         /// @brief Destructor
         virtual ~PlanItem() {}
 
-        virtual void addTripItem(TripItem* tripIt) {
+        virtual void addTripItem(TripItem* /* tripIt */) {
             throw ProcessError();
         }
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
-        virtual void saveVehicles(OutputDevice& os, bool asAlternatives, OptionsCont& options) const {}
+        virtual void saveVehicles(OutputDevice& /* os */, bool /* asAlternatives */, OptionsCont& /* options */) const {}
         virtual void saveAsXML(OutputDevice& os) const = 0;
         virtual bool isStop() const {
             return false;
@@ -122,9 +122,15 @@ public:
         bool isStop() const {
             return true;
         }
+
     private:
         SUMOVehicleParameter::Stop stopDesc;
         const ROEdge* const edge;
+
+    private:
+        /// @brief Invalidated assignment operator
+        Stop& operator=(const Stop& src);
+
     };
 
     /**
@@ -155,10 +161,16 @@ public:
             return to;
         }
         void saveAsXML(OutputDevice& os) const;
+
     private:
         const ROEdge* const from;
         const ROEdge* const to;
         const std::string lines;
+
+    private:
+        /// @brief Invalidated assignment operator
+        Ride& operator=(const Ride& src);
+
     };
 
     /**
@@ -179,10 +191,16 @@ public:
             return edges.back();
         }
         void saveAsXML(OutputDevice& os) const;
+
     private:
         const SUMOReal dur, v, dep, arr;
         const ConstROEdgeVector edges;
         const std::string busStop;
+
+    private:
+        /// @brief Invalidated assignment operator
+        Walk& operator=(const Walk& src);
+
     };
 
     /**
@@ -229,6 +247,7 @@ public:
                 (*it)->saveAsXML(os);
             }
         }
+
     private:
         const ROEdge* from;
         const ROEdge* to;
@@ -238,6 +257,11 @@ public:
         std::vector<TripItem*> myTripItems;
         /// @brief the vehicles which may be used for routing
         std::vector<ROVehicle*> myVehicles;
+
+    private:
+        /// @brief Invalidated assignment operator
+        PersonTrip& operator=(const PersonTrip& src);
+
     };
 
 

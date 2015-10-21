@@ -67,21 +67,6 @@ class DijkstraRouterEffort : public SUMOAbstractRouter<E, V>, public PF {
 
 public:
     typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
-    /// Constructor
-    DijkstraRouterEffort(size_t noE, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation) :
-        SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouterEffort"), myTTOperation(ttOperation),
-        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
-        for (size_t i = 0; i < noE; i++) {
-            myEdgeInfos.push_back(EdgeInfo(i));
-        }
-    }
-
-    /// Destructor
-    virtual ~DijkstraRouterEffort() { }
-
-    virtual SUMOAbstractRouter<E, V>* clone() const {
-        return new DijkstraRouterEffort<E, V, PF>(myEdgeInfos.size(), myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myTTOperation);
-    }
 
     /**
      * @struct EdgeInfo
@@ -91,8 +76,8 @@ public:
     class EdgeInfo {
     public:
         /// Constructor
-        EdgeInfo(size_t id)
-            : edge(E::dictionary(id)), effort(std::numeric_limits<SUMOReal>::max()), leaveTime(0), prev(0), visited(false) {}
+        EdgeInfo(const E* e)
+            : edge(e), effort(std::numeric_limits<SUMOReal>::max()), leaveTime(0), prev(0), visited(false) {}
 
         /// The current edge
         const E* edge;
@@ -129,6 +114,31 @@ public:
             return nod1->effort > nod2->effort;
         }
     };
+
+
+    /// Constructor
+    DijkstraRouterEffort(const std::vector<E*>& edges, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation) :
+        SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouterEffort"), myTTOperation(ttOperation),
+        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            myEdgeInfos.push_back(EdgeInfo(*i));
+        }
+    }
+
+    DijkstraRouterEffort(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation) :
+        SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouterEffort"), myTTOperation(ttOperation),
+        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+        for (typename std::vector<EdgeInfo>::const_iterator i = edgeInfos.begin(); i != edgeInfos.end(); ++i) {
+            myEdgeInfos.push_back(*i);
+        }
+    }
+
+    /// Destructor
+    virtual ~DijkstraRouterEffort() { }
+
+    virtual SUMOAbstractRouter<E, V>* clone() const {
+        return new DijkstraRouterEffort<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myTTOperation);
+    }
 
     inline SUMOReal getTravelTime(const E* const e, const V* const v, SUMOReal t) const {
         return (*myTTOperation)(e, v, t);

@@ -158,7 +158,7 @@ ROPerson::PersonTrip::saveVehicles(OutputDevice& os, bool asAlternatives, Option
 
 void
 ROPerson::computeRoute(const RORouterProvider& provider,
-                       const bool removeLoops, MsgHandler* errorHandler) {
+                       const bool /* removeLoops */, MsgHandler* errorHandler) {
     myRoutingSuccess = true;
     for (std::vector<PlanItem*>::iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
         if ((*it)->needsRouting()) {
@@ -178,6 +178,7 @@ ROPerson::computeRoute(const RORouterProvider& provider,
                     if (trip->isIntermodal()) {
                         std::vector<std::pair<std::string, ConstROEdgeVector> > result;
                         provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), 0, 0, DEFAULT_PEDESTRIAN_SPEED, *v, 0, result);
+                        bool carUsed = false;
                         for (std::vector<std::pair<std::string, ConstROEdgeVector> >::const_iterator it = result.begin(); it != result.end(); ++it) {
                             const ConstROEdgeVector& edges = it->second;
                             if (!edges.empty()) {
@@ -187,10 +188,19 @@ ROPerson::computeRoute(const RORouterProvider& provider,
                                 } else if (lines == (*v)->getID()) {
                                     trip->addTripItem(new Ride(edges.front(), edges.back(), (*v)->getID()));
                                     (*v)->getRouteDefinition()->addLoadedAlternative(new RORoute((*v)->getID() + "_RouteDef", edges));
+                                    carUsed = true;
                                 } else {
                                     trip->addTripItem(new Ride(edges.front(), edges.back(), lines));
                                 }
                             }
+                        }
+                        if (result.empty()) {
+                            errorHandler->inform("No route for trip in person '" + getID() + "'.");
+                            myRoutingSuccess = false;
+                        }
+                        if (!carUsed) {
+                            v = vehicles.erase(v);
+                            continue;
                         }
                     } else {
                         provider.getVehicleRouter().compute(trip->getOrigin(), trip->getDestination(), *v, 0, edges);
