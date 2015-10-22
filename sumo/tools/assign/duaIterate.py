@@ -545,7 +545,7 @@ def main(args=None):
                 cfgname = writeRouteConf(
                     step, options, router_input, output, options.routefile, initial_type)
                 log.flush()
-                sys.stdout.flush()
+                #sys.stdout.flush()
                 call([duaBinary, "-c", cfgname], log)
                 if options.clean_alt and not router_input in input_demands:
                     os.remove(router_input)
