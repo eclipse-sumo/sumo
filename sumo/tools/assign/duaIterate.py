@@ -186,6 +186,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     filename = os.path.basename(file)
     filename = filename.split('.')[0]
     cfgname = "iteration_%03i_%s.duarcfg" % (step, filename)
+
     withExitTimes = False
     if routesInfo == "detailed":
         withExitTimes = True
@@ -194,7 +195,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     <input>
         <net-file value="%s"/>""" % options.net, file=fd)
     if options.districts:
-        print('        <taz-files value="%s"/>' % options.districts, file=fd)
+        print('        <additional-files value="%s"/>' % options.districts, file=fd)
     if step == 0:
         print('        <%s-files value="%s"/>' % (initial_type, file), file=fd)
     else:
