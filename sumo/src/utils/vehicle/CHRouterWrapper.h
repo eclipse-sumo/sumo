@@ -88,7 +88,7 @@ public:
     }
 
 
-    virtual SUMOAbstractRouter<E, V>* clone() const {
+    virtual SUMOAbstractRouter<E, V>* clone() {
         return new CHRouterWrapper<E, V, PF>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myWeightPeriod);
     }
 

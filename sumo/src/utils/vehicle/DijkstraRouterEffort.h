@@ -136,7 +136,7 @@ public:
     /// Destructor
     virtual ~DijkstraRouterEffort() { }
 
-    virtual SUMOAbstractRouter<E, V>* clone() const {
+    virtual SUMOAbstractRouter<E, V>* clone() {
         return new DijkstraRouterEffort<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myTTOperation);
     }
 

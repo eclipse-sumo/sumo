@@ -164,7 +164,7 @@ protected:
 
 
 private:
-    /// @brief the index in myEdgeDict
+    /// @brief the index in myEdges
     const unsigned int myNumericalID;
 
     /// @brief List of edges that may be approached from this edge

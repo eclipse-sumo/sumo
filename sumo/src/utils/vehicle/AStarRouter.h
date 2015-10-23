@@ -150,7 +150,7 @@ public:
     /// Destructor
     virtual ~AStarRouter() {}
 
-    virtual SUMOAbstractRouter<E, V>* clone() const {
+    virtual SUMOAbstractRouter<E, V>* clone() {
         return new AStarRouter<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable);
     }
 

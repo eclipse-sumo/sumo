@@ -74,7 +74,7 @@ public:
         }
     }
 
-    virtual SUMOAbstractRouter* clone() const = 0;
+    virtual SUMOAbstractRouter* clone() = 0;
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */

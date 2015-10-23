@@ -343,7 +343,7 @@ public:
     }
 
 
-    virtual SUMOAbstractRouter<E, V>* clone() const {
+    virtual SUMOAbstractRouter<E, V>* clone() {
         return new CHRouter<E, V, PF>(myEdges, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
                                       mySVC, myWeightPeriod, mySPTree->validatePermissions());
     }

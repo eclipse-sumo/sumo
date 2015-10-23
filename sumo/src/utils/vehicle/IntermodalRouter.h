@@ -92,32 +92,40 @@ private:
     };
 
 public:
-    PublicTransportEdge(const std::string id, unsigned int numericalID, const std::string& line) :
-        IntermodalEdge<E, L, N, V>(id, numericalID, 0, line) { }
+    PublicTransportEdge(const std::string id, unsigned int numericalID, const E* startEdge, const E* endEdge, const std::string& line) :
+        IntermodalEdge<E, L, N, V>(line + ":" + id, numericalID, endEdge, line), myStartEdge(startEdge) { }
 
     bool includeInRoute(bool /* allEdges */) const {
         return true;
     }
 
+    const E* getStartEdge() const {
+        return myStartEdge;
+    }
+
     void addSchedule(const SUMOTime begin, const SUMOTime end, const SUMOTime period, const SUMOReal travelTimeSec) {
-        mySchedules.insert(std::make_pair(-STEPS2TIME(end), Schedule(begin, end, period, travelTimeSec)));
+        mySchedules.insert(std::make_pair(STEPS2TIME(begin), Schedule(begin, end, period, travelTimeSec)));
     }
 
     SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, SUMOReal time) const {
         SUMOReal minArrivalSec = std::numeric_limits<SUMOReal>::max();
         for (std::multimap<SUMOReal, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
-            if (-it->first <= time) {
+            if (it->first > minArrivalSec) {
                 break;
             }
-            const long long int running = MAX2((SUMOTime)0, TIME2STEPS(time) - it->second.begin) / it->second.period;
-            const SUMOTime nextDepart = it->second.begin + running * it->second.period;
-            minArrivalSec = MIN2(STEPS2TIME(nextDepart) + it->second.travelTimeSec, minArrivalSec);
+            if (time < STEPS2TIME(it->second.end)) {
+                const long long int running = MAX2((SUMOTime)0, TIME2STEPS(time) - it->second.begin) / it->second.period;
+                const SUMOTime nextDepart = it->second.begin + running * it->second.period;
+                minArrivalSec = MIN2(STEPS2TIME(nextDepart) + it->second.travelTimeSec, minArrivalSec);
+            }
         }
         return minArrivalSec - time;
     }
 
 private:
     std::multimap<SUMOReal, Schedule> mySchedules;
+    const E* const myStartEdge;
+
 };
 
 
@@ -136,40 +144,54 @@ private:
 
 public:
     /// Constructor
-    IntermodalRouter():
-        SUMOAbstractRouter<E, _IntermodalTrip>(0, "IntermodalRouter"), myAmClone(false) {
-        myPedNet = new _IntermodalNetwork(E::getAllEdges());
-        myNumericalID = (int)myPedNet->getAllEdges().size();
-        addCarEdges(E::getAllEdges());
-        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
-    }
-
-    IntermodalRouter(_IntermodalNetwork* net):
-        SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true) {
-        myPedNet = net;
-        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+    IntermodalRouter() :
+        SUMOAbstractRouter<E, _IntermodalTrip>(0, "IntermodalRouter"), myAmClone(false), myInternalRouter(0), myIntermodalNet(0), myNumericalID(0) {
     }
 
     /// Destructor
     virtual ~IntermodalRouter() {
         delete myInternalRouter;
         if (!myAmClone) {
-            delete myPedNet;
+            delete myIntermodalNet;
         }
     }
 
-    virtual SUMOAbstractRouter<E, _IntermodalTrip>* clone() const {
-        return new IntermodalRouter<E, L, N, V, INTERNALROUTER>(myPedNet);
+    SUMOAbstractRouter<E, _IntermodalTrip>* clone() {
+        createNet();
+        return new IntermodalRouter<E, L, N, V, INTERNALROUTER>(myIntermodalNet);
     }
 
-    void addSchedule(const SUMOVehicleParameter& pars) {
-        if (myPTLines.count(pars.line) == 0) {
-            std::vector<_PTEdge*>& lineEdges = myPTLines[pars.line];
-            std::string lastStopID = pars.stops.front().busstop;
-            SUMOTime lastTime = pars.stops.front().until;
-            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin() + 1; s != pars.stops.end(); ++s) {
-                lineEdges.push_back(new _PTEdge(pars.line + ":" + lastStopID + "_to_" + s->busstop, myNumericalID++, pars.line));
-                lineEdges.back()->addSchedule(pars.depart, pars.repetitionEnd, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
+    void addSchedule(const SUMOVehicleParameter& pars, const std::vector<const E*>& stopEdges) {
+        if (pars.stops.size() < 2) {
+            WRITE_WARNING("Ignoring public transport line '" + pars.line + "' with less than two stops.");
+            return;
+        }
+        assert(pars.stops.size() == stopEdges.size());
+        std::vector<_PTEdge*>& lineEdges = myPTLines[pars.line];
+        std::string lastStopID = pars.stops.front().busstop;
+        SUMOTime lastTime = pars.stops.front().until;
+        if (lineEdges.empty()) {
+            const E* lastStopEdge = stopEdges.front();
+            std::vector<const E*>::const_iterator stopEdge = stopEdges.begin() + 1;
+            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin() + 1; s != pars.stops.end(); ++s, ++stopEdge) {
+                _PTEdge* const newEdge = new _PTEdge(s->busstop, myNumericalID++, lastStopEdge, *stopEdge, pars.line);
+                newEdge->addSchedule(pars.depart, pars.repetitionEnd, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
+                if (!lineEdges.empty()) {
+                    lineEdges.back()->addSuccessor(newEdge);
+                }
+                lineEdges.push_back(newEdge);
+                lastStopID = s->busstop;
+                lastTime = s->until;
+                lastStopEdge = *stopEdge;
+            }
+        } else {
+            std::vector<_PTEdge*>::const_iterator lineEdge = lineEdges.begin();
+            if (pars.stops.size() != lineEdges.size() + 1) {
+                WRITE_WARNING("Number of stops for public transport line '" + pars.line + "' does not match earlier definitions.");
+                return;
+            }
+            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin() + 1; s != pars.stops.end(); ++s, ++lineEdge) {
+                (*lineEdge)->addSchedule(pars.depart, pars.repetitionEnd, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
                 lastStopID = s->busstop;
                 lastTime = s->until;
             }
@@ -180,11 +202,12 @@ public:
         The definition of the effort depends on the wished routing scheme */
     void compute(const E* from, const E* to, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal speed,
                  const V* const vehicle, SUMOTime msTime, std::vector<std::pair<std::string, std::vector<const E*> > >& into) {
+        createNet();
         //startQuery();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle);
         std::vector<const _IntermodalEdge*> intoPed;
-        myInternalRouter->compute(myPedNet->getDepartEdge(from),
-                                  myPedNet->getArrivalEdge(to), &trip, msTime, intoPed);
+        myInternalRouter->compute(myIntermodalNet->getDepartEdge(from),
+                                  myIntermodalNet->getArrivalEdge(to), &trip, msTime, intoPed);
         if (!intoPed.empty()) {
             std::string lastLine = "";
             for (size_t i = 0; i < intoPed.size(); ++i) {
@@ -234,30 +257,35 @@ public:
     void prohibit(const std::vector<E*>& toProhibit) {
         std::vector<_IntermodalEdge*> toProhibitPE;
         for (typename std::vector<E*>::const_iterator it = toProhibit.begin(); it != toProhibit.end(); ++it) {
-            toProhibitPE.push_back(myPedNet->getBothDirections(*it).first);
-            toProhibitPE.push_back(myPedNet->getBothDirections(*it).second);
+            toProhibitPE.push_back(myIntermodalNet->getBothDirections(*it).first);
+            toProhibitPE.push_back(myIntermodalNet->getBothDirections(*it).second);
             toProhibitPE.push_back(getCarEdge(*it));
         }
         myInternalRouter->prohibit(toProhibitPE);
     }
 
 private:
+    IntermodalRouter(_IntermodalNetwork* net):
+        SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true),
+        myInternalRouter(new INTERNALROUTER(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
+        myIntermodalNet(net) {}
+
     void addCarEdges(const std::vector<E*>& edges) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             const E* const edge = *i;
             if (!edge->isInternal()) {
                 myCarLookup[edge] = new CarEdge<E, L, N, V>(myNumericalID++, edge);
-                myPedNet->addEdge(myCarLookup[edge]);
+                myIntermodalNet->addEdge(myCarLookup[edge]);
             }
         }
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             const E* const edge = *i;
             if (!edge->isInternal()) {
-                _IntermodalEdge* startConnector = myPedNet->getDepartEdge(edge);
-                _IntermodalEdge* endConnector = myPedNet->getArrivalEdge(edge);
+                _IntermodalEdge* startConnector = myIntermodalNet->getDepartEdge(edge);
+                _IntermodalEdge* endConnector = myIntermodalNet->getArrivalEdge(edge);
                 _IntermodalEdge* carEdge = getCarEdge(edge);
                 if (getSidewalk<E, L>(edge) != 0) {
-                    const std::pair<_IntermodalEdge*, _IntermodalEdge*>& pair = myPedNet->getBothDirections(edge);
+                    const std::pair<_IntermodalEdge*, _IntermodalEdge*>& pair = myIntermodalNet->getBothDirections(edge);
                     carEdge->addSuccessor(pair.first);
                     carEdge->addSuccessor(pair.second);
                 }
@@ -268,6 +296,44 @@ private:
                 startConnector->addSuccessor(carEdge);
                 carEdge->addSuccessor(endConnector);
             }
+        }
+    }
+
+    void addPTEdges() {
+        for (typename std::map<std::string, std::vector<_PTEdge*> >::const_iterator it = myPTLines.begin(); it != myPTLines.end(); ++it) {
+            for (typename std::vector<_PTEdge*>::const_iterator e = it->second.begin(); e != it->second.end(); ++e) {
+                _PTEdge* const ptEdge = *e;
+                myIntermodalNet->addEdge(ptEdge);
+                const E* const startEdge = ptEdge->getStartEdge();
+                const E* const endEdge = ptEdge->getEdge();
+                if (getSidewalk<E, L>(startEdge) != 0) {
+                    const std::pair<_IntermodalEdge*, _IntermodalEdge*>& pair = myIntermodalNet->getBothDirections(startEdge);
+                    pair.first->addSuccessor(ptEdge);
+                    pair.second->addSuccessor(ptEdge);
+                }
+                if (getSidewalk<E, L>(endEdge) != 0) {
+                    const std::pair<_IntermodalEdge*, _IntermodalEdge*>& pair = myIntermodalNet->getBothDirections(endEdge);
+                    ptEdge->addSuccessor(pair.first);
+                    ptEdge->addSuccessor(pair.second);
+                }
+                if (myCarLookup.count(startEdge) > 0) {
+                    getCarEdge(startEdge)->addSuccessor(ptEdge);
+                }
+                _IntermodalEdge* startConnector = myIntermodalNet->getDepartEdge(startEdge);
+                _IntermodalEdge* endConnector = myIntermodalNet->getArrivalEdge(endEdge);
+                startConnector->addSuccessor(ptEdge);
+                (ptEdge)->addSuccessor(endConnector);
+            }
+        }
+    }
+
+    inline void createNet() {
+        if (myIntermodalNet == 0) {
+            myIntermodalNet = new _IntermodalNetwork(E::getAllEdges(), myNumericalID);
+            myNumericalID = (int)myIntermodalNet->getAllEdges().size();
+            addCarEdges(E::getAllEdges());
+            addPTEdges();
+            myInternalRouter = new INTERNALROUTER(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
         }
     }
 
@@ -283,7 +349,7 @@ private:
 private:
     const bool myAmClone;
     INTERNALROUTER* myInternalRouter;
-    _IntermodalNetwork* myPedNet;
+    _IntermodalNetwork* myIntermodalNet;
     int myNumericalID;
 
     /// @brief retrieve the car edge for the given input edge E

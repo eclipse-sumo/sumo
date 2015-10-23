@@ -59,13 +59,12 @@ public:
     /* brief build the pedestrian network (once)
      * @param noE The number of edges in the dictionary of E
      */
-    IntermodalNetwork(const std::vector<E*>& edges) {
+    IntermodalNetwork(const std::vector<E*>& edges, unsigned int numericalID=0) {
 #ifdef IntermodalRouter_DEBUG_NETWORK
         std::cout << "initIntermodalNetwork\n";
 #endif
         // build the Intermodal edges and the lookup tables
         bool haveSeenWalkingArea = false;
-        unsigned int numericalID = 0;
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             const E* const edge = *i;
             if (edge->isInternal()) {
@@ -76,21 +75,21 @@ public:
                 if (edge->isWalkingArea()) {
                     // only a single edge
                     addEdge(new _PedestrianEdge(numericalID++, edge, lane, true));
-                    myBidiLookup[edge] = std::make_pair(myEdgeDict.back(), myEdgeDict.back());
-                    myFromToLookup[edge] = std::make_pair(myEdgeDict.back(), myEdgeDict.back());
+                    myBidiLookup[edge] = std::make_pair(myEdges.back(), myEdges.back());
+                    myFromToLookup[edge] = std::make_pair(myEdges.back(), myEdges.back());
                     haveSeenWalkingArea = true;
                 } else { // regular edge or crossing
                     // forward and backward edges
                     addEdge(new _PedestrianEdge(numericalID++, edge, lane, true));
                     addEdge(new _PedestrianEdge(numericalID++, edge, lane, false));
-                    myBidiLookup[edge] = std::make_pair(myEdgeDict[numericalID - 2], myEdgeDict.back());
+                    myBidiLookup[edge] = std::make_pair(myEdges[numericalID - 2], myEdges.back());
                 }
             }
             if (!edge->isWalkingArea()) {
                 // depart and arrival edges (the router can decide the initial direction to take and the direction to arrive from)
                 addEdge(new _IntermodalEdge(edge->getID() + "_fwd_connector", numericalID++, edge, "con"));
                 addEdge(new _IntermodalEdge(edge->getID() + "_bwd_connector", numericalID++, edge, "con"));
-                myFromToLookup[edge] = std::make_pair(myEdgeDict[numericalID - 2], myEdgeDict.back());
+                myFromToLookup[edge] = std::make_pair(myEdges[numericalID - 2], myEdges.back());
             }
         }
 
@@ -212,18 +211,21 @@ public:
     ~IntermodalNetwork() {
         myFromToLookup.clear();
         myBidiLookup.clear();
-        for (typename std::vector<_IntermodalEdge*>::iterator it = myEdgeDict.begin(); it != myEdgeDict.end(); ++it) {
+        for (typename std::vector<_IntermodalEdge*>::iterator it = myEdges.begin(); it != myEdges.end(); ++it) {
             delete *it;
         }
-        myEdgeDict.clear();
+        myEdges.clear();
     }
 
     void addEdge(_IntermodalEdge* edge) {
-        myEdgeDict.push_back(edge);
+        while (myEdges.size() <= edge->getNumericalID()) {
+            myEdges.push_back(0);
+        }
+        myEdges[edge->getNumericalID()] = edge;
     }
 
     const std::vector<_IntermodalEdge*>& getAllEdges() {
-        return myEdgeDict;
+        return myEdges;
     }
 
     /// @brief Returns the pair of forward and backward edge
@@ -257,7 +259,7 @@ public:
 
 private:
     /// @brief the edge dictionary
-    std::vector<_IntermodalEdge*> myEdgeDict;
+    std::vector<_IntermodalEdge*> myEdges;
 
     /// @brief retrieve the forward and backward edge for the given input edge E
     std::map<const E*, EdgePair> myBidiLookup;

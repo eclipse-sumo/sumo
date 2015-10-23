@@ -80,7 +80,7 @@ public:
         }
     }
 
-    virtual SUMOAbstractRouter<E, _IntermodalTrip>* clone() const {
+    virtual SUMOAbstractRouter<E, _IntermodalTrip>* clone() {
         return new PedestrianRouter<E, L, N, V, INTERNALROUTER>(myPedNet);
     }
 

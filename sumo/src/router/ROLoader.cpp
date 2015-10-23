@@ -203,13 +203,13 @@ ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime
     // fill the public transport router with pre-parsed public transport lines
     for (std::map<std::string, SUMOVehicleParameter*>::const_iterator i = net.getFlows().begin(); i != net.getFlows().end(); ++i) {
         if (i->second->line != "") {
-            provider.getIntermodalRouter().addSchedule(*i->second);
+            provider.getIntermodalRouter().addSchedule(*i->second, ROVehicle(*i->second, 0, 0, &net).getStopEdges());
         }
     }
     for (RONet::RoutablesMap::const_iterator i = net.getRoutables().begin(); i != net.getRoutables().end(); ++i) {
         const ROVehicle* const veh = dynamic_cast<ROVehicle*>(i->second);
         if (veh != 0 && veh->getParameter().line != "") {
-            provider.getIntermodalRouter().addSchedule(veh->getParameter());
+            provider.getIntermodalRouter().addSchedule(veh->getParameter(), veh->getStopEdges());
         }
     }
 

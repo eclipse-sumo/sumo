@@ -67,7 +67,7 @@ public:
     /// @brief Destructor
     ~ROJTRRouter();
 
-    virtual SUMOAbstractRouter<ROEdge, ROVehicle>* clone() const {
+    virtual SUMOAbstractRouter<ROEdge, ROVehicle>* clone() {
         return new ROJTRRouter(myUnbuildIsWarningOnly, myAcceptAllDestination, myMaxEdges, myIgnoreClasses, myAllowLoops);
     }
 
