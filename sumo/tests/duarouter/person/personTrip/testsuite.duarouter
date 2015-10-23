@@ -4,8 +4,8 @@ basic
 # car use requested
 car
 
-# car use requested but not possible
-carNoRoute
-
 # car and walk possible
 car_walk
+
+# public transport and walk possible
+public_walk
