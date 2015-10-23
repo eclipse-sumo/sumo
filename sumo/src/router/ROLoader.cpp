@@ -200,6 +200,19 @@ ROLoader::openRoutes(RONet& net) {
 void
 ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime increment,
                         RONet& net, const RORouterProvider& provider) {
+    // fill the public transport router with pre-parsed public transport lines
+    for (std::map<std::string, SUMOVehicleParameter*>::const_iterator i = net.getFlows().begin(); i != net.getFlows().end(); ++i) {
+        if (i->second->line != "") {
+            provider.getIntermodalRouter().addSchedule(*i->second);
+        }
+    }
+    for (RONet::RoutablesMap::const_iterator i = net.getRoutables().begin(); i != net.getRoutables().end(); ++i) {
+        const ROVehicle* const veh = dynamic_cast<ROVehicle*>(i->second);
+        if (veh != 0 && veh->getParameter().line != "") {
+            provider.getIntermodalRouter().addSchedule(veh->getParameter());
+        }
+    }
+
     const SUMOTime absNo = end - start;
     const bool endGiven = !OptionsCont::getOptions().isDefault("end");
     // skip routes that begin before the simulation's begin

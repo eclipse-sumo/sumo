@@ -85,6 +85,15 @@ public:
     }
 
 
+    /** @brief Returns the definition of the vehicle parameter
+     *
+     * @return The vehicle's parameter
+     */
+    inline const SUMOVehicleParameter& getParameter() const {
+        return myParameter;
+    }
+
+
     /** @brief Returns the first edge the vehicle takes
      *
      * @return The vehicle's departure edge

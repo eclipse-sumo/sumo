@@ -75,6 +75,8 @@ class OutputDevice;
 class RONet {
 public:
 
+    typedef std::multimap<const SUMOTime, RORoutable*> RoutablesMap;
+
     /// @brief Constructor
     RONet();
 
@@ -410,6 +412,14 @@ public:
 
     const std::map<std::string, ROEdge*>& getEdgeMap() const;
 
+    const std::map<std::string, SUMOVehicleParameter*>& getFlows() const {
+        return myFlows.getMyMap();
+    }
+
+    const RoutablesMap& getRoutables() const {
+        return myRoutables;
+    }
+
     bool hasPermissions() const;
 
     void setPermissionsFound();
@@ -477,7 +487,6 @@ private:
     NamedObjectCont<RORouteDef*> myRoutes;
 
     /// @brief Known routables
-    typedef std::multimap<const SUMOTime, RORoutable*> RoutablesMap;
     RoutablesMap myRoutables;
 
     /// @brief Known flows

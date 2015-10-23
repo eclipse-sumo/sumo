@@ -39,7 +39,6 @@
 #include <utils/common/ToString.h>
 #include "SUMOAbstractRouter.h"
 #include "DijkstraRouterTT.h"
-#include "PedestrianEdge.h"
 #include "IntermodalRouter.h"
 
 //#define PedestrianRouter_DEBUG_ROUTES
@@ -53,24 +52,24 @@
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
  */
 template<class E, class L, class N, class V, class INTERNALROUTER>
-class PedestrianRouter : public SUMOAbstractRouter<E, PedestrianTrip<E, N, V> > {
+class PedestrianRouter : public SUMOAbstractRouter<E, IntermodalTrip<E, N, V> > {
 public:
 
-    typedef PedestrianEdge<E, L, N, V> _PedestrianEdge;
-    typedef PedestrianNetwork<E, L, N, V> _PedestrianNetwork;
-    typedef PedestrianTrip<E, N, V> _PedestrianTrip;
+    typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
+    typedef IntermodalNetwork<E, L, N, V> _IntermodalNetwork;
+    typedef IntermodalTrip<E, N, V> _IntermodalTrip;
 
     /// Constructor
     PedestrianRouter():
-        SUMOAbstractRouter<E, _PedestrianTrip>(0, "PedestrianRouter"), myAmClone(false) {
-        myPedNet = new _PedestrianNetwork(E::getAllEdges());
-        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_PedestrianEdge::getEffort);
+        SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(false) {
+        myPedNet = new _IntermodalNetwork(E::getAllEdges());
+        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
     }
 
-    PedestrianRouter(_PedestrianNetwork* net):
-        SUMOAbstractRouter<E, _PedestrianTrip>(0, "PedestrianRouter"), myAmClone(true) {
+    PedestrianRouter(_IntermodalNetwork* net):
+        SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true) {
         myPedNet = net;
-        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_PedestrianEdge::getEffort);
+        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
     }
 
     /// Destructor
@@ -81,7 +80,7 @@ public:
         }
     }
 
-    virtual SUMOAbstractRouter<E, PedestrianTrip<E, N, V> >* clone() const {
+    virtual SUMOAbstractRouter<E, _IntermodalTrip>* clone() const {
         return new PedestrianRouter<E, L, N, V, INTERNALROUTER>(myPedNet);
     }
 
@@ -98,8 +97,8 @@ public:
             WRITE_WARNING("Destination edge '" + to->getID() + "' does not allow pedestrians.");
             return;
         }
-        _PedestrianTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode);
-        std::vector<const _PedestrianEdge*> intoPed;
+        _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode);
+        std::vector<const _IntermodalEdge*> intoPed;
         myInternalRouter->compute(myPedNet->getDepartEdge(from),
                                   myPedNet->getArrivalEdge(to), &trip, msTime, intoPed);
         for (size_t i = 0; i < intoPed.size(); ++i) {
@@ -126,17 +125,17 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    void compute(const E*, const E*, const _PedestrianTrip* const,
+    void compute(const E*, const E*, const _IntermodalTrip* const,
                  SUMOTime, std::vector<const E*>&) {
         throw ProcessError("Do not use this method");
     }
 
-    SUMOReal recomputeCosts(const std::vector<const E*>&, const _PedestrianTrip* const, SUMOTime) const {
+    SUMOReal recomputeCosts(const std::vector<const E*>&, const _IntermodalTrip* const, SUMOTime) const {
         throw ProcessError("Do not use this method");
     }
 
     void prohibit(const std::vector<E*>& toProhibit) {
-        std::vector<_PedestrianEdge*> toProhibitPE;
+        std::vector<_IntermodalEdge*> toProhibitPE;
         for (typename std::vector<E*>::const_iterator it = toProhibit.begin(); it != toProhibit.end(); ++it) {
             toProhibitPE.push_back(myPedNet->getBothDirections(*it).first);
             toProhibitPE.push_back(myPedNet->getBothDirections(*it).second);
@@ -147,7 +146,7 @@ public:
 private:
     const bool myAmClone;
     INTERNALROUTER* myInternalRouter;
-    _PedestrianNetwork* myPedNet;
+    _IntermodalNetwork* myPedNet;
 
 
 private:
@@ -159,7 +158,7 @@ private:
 // common specializations
 template<class E, class L, class N, class V>
 class PedestrianRouterDijkstra : public PedestrianRouter < E, L, N, V,
-        DijkstraRouterTT<PedestrianEdge<E, L, N, V>, PedestrianTrip<E, N, V>, prohibited_withPermissions<PedestrianEdge<E, L, N, V>, PedestrianTrip<E, N, V> > > > { };
+        DijkstraRouterTT<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > > { };
 
 
 /**
