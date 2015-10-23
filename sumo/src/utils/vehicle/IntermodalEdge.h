@@ -193,7 +193,7 @@ public:
         myForward(forward) { }
 
     bool includeInRoute(bool allEdges) const {
-        return allEdges || (!myEdge->isCrossing() && !myEdge->isWalkingArea());
+        return allEdges || (!this->myEdge->isCrossing() && !this->myEdge->isWalkingArea());
     }
 
     /// @name The interface as required by SUMOAbstractRouter routes
@@ -205,23 +205,23 @@ public:
             return false;
         } else {
             // limit routing to the surroundings of the specified node
-            return (myEdge->getFromJunction() != trip->node
-                    && myEdge->getToJunction() != trip->node);
+            return (this->myEdge->getFromJunction() != trip->node
+                    && this->myEdge->getToJunction() != trip->node);
         }
     }
 
     /// @}
 
     virtual SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
-        SUMOReal length = myEdge->getLength();
-        if (myEdge == trip->from) {
+        SUMOReal length = this->myEdge->getLength();
+        if (this->myEdge == trip->from) {
             if (myForward) {
                 length -= trip->departPos;
             } else {
                 length = trip->departPos;
             }
         }
-        if (myEdge == trip->to) {
+        if (this->myEdge == trip->to) {
             if (myForward) {
                 length = trip->arrivalPos;
             } else {
@@ -232,7 +232,7 @@ public:
         length = MAX2(length, POSITION_EPS);
         SUMOReal tlsDelay = 0;
         // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
-        if (myEdge->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
+        if (this->myEdge->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
             // red traffic lights occurring later in the route may be green by the time we arive
             tlsDelay += MAX2(SUMOReal(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
         }

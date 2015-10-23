@@ -63,13 +63,13 @@ public:
     /// @{
 
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
-        return myEdge->prohibits(trip->vehicle);
+        return this->myEdge->prohibits(trip->vehicle);
     }
 
     /// @}
 
     SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
-        return E::getTravelTimeStatic(myEdge, trip->vehicle, time);
+        return E::getTravelTimeStatic(this->myEdge, trip->vehicle, time);
     }
 
 };
@@ -109,7 +109,7 @@ public:
 
     SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, SUMOReal time) const {
         SUMOReal minArrivalSec = std::numeric_limits<SUMOReal>::max();
-        for (std::multimap<SUMOReal, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
+        for (typename std::multimap<SUMOReal, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
             if (it->first > minArrivalSec) {
                 break;
             }
@@ -167,12 +167,12 @@ public:
             return;
         }
         assert(pars.stops.size() == stopEdges.size());
-        std::vector<_PTEdge*>& lineEdges = myPTLines[pars.line];
+        typename std::vector<_PTEdge*>& lineEdges = myPTLines[pars.line];
         std::string lastStopID = pars.stops.front().busstop;
         SUMOTime lastTime = pars.stops.front().until;
         if (lineEdges.empty()) {
             const E* lastStopEdge = stopEdges.front();
-            std::vector<const E*>::const_iterator stopEdge = stopEdges.begin() + 1;
+            typename std::vector<const E*>::const_iterator stopEdge = stopEdges.begin() + 1;
             for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin() + 1; s != pars.stops.end(); ++s, ++stopEdge) {
                 _PTEdge* const newEdge = new _PTEdge(s->busstop, myNumericalID++, lastStopEdge, *stopEdge, pars.line);
                 newEdge->addSchedule(pars.depart, pars.repetitionEnd, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
@@ -185,7 +185,7 @@ public:
                 lastStopEdge = *stopEdge;
             }
         } else {
-            std::vector<_PTEdge*>::const_iterator lineEdge = lineEdges.begin();
+            typename std::vector<_PTEdge*>::const_iterator lineEdge = lineEdges.begin();
             if (pars.stops.size() != lineEdges.size() + 1) {
                 WRITE_WARNING("Number of stops for public transport line '" + pars.line + "' does not match earlier definitions.");
                 return;
@@ -290,7 +290,7 @@ private:
                     carEdge->addSuccessor(pair.second);
                 }
                 const std::vector<E*>& successors = edge->getSuccessors();
-                for (std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
+                for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
                     carEdge->addSuccessor(getCarEdge(*it));
                 }
                 startConnector->addSuccessor(carEdge);
