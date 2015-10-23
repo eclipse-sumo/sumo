@@ -61,10 +61,13 @@
     <ClInclude Include="..\..\..\src\utils\vehicle\SPTree.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\vehicle\PedestrianEdge.h">
+    <ClInclude Include="..\..\..\src\utils\vehicle\IntermodalRouter.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\vehicle\IntermodalRouter.h">
+    <ClInclude Include="..\..\..\src\utils\vehicle\IntermodalEdge.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\vehicle\IntermodalNetwork.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
