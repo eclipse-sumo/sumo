@@ -156,6 +156,34 @@ ROPerson::PersonTrip::saveVehicles(OutputDevice& os, bool asAlternatives, Option
 }
 
 
+bool
+ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
+    std::vector<std::pair<std::string, ConstROEdgeVector> > result;
+    provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), 0, 0, DEFAULT_PEDESTRIAN_SPEED, veh, 0, result);
+    bool carUsed = false;
+    for (std::vector<std::pair<std::string, ConstROEdgeVector> >::const_iterator it = result.begin(); it != result.end(); ++it) {
+        const ConstROEdgeVector& edges = it->second;
+        if (!edges.empty()) {
+            const std::string& lines = it->first;
+            if (lines == "") {
+                trip->addTripItem(new Walk(edges));
+            } else if (veh != 0 && lines == veh->getID()) {
+                trip->addTripItem(new Ride(edges.front(), edges.back(), veh->getID()));
+                veh->getRouteDefinition()->addLoadedAlternative(new RORoute(veh->getID() + "_RouteDef", edges));
+                carUsed = true;
+            } else {
+                trip->addTripItem(new Ride(edges.front(), edges.back(), lines));
+            }
+        }
+    }
+    if (result.empty()) {
+        errorHandler->inform("No route for trip in person '" + getID() + "'.");
+        myRoutingSuccess = false;
+    }
+    return carUsed;
+}
+
+
 void
 ROPerson::computeRoute(const RORouterProvider& provider,
                        const bool /* removeLoops */, MsgHandler* errorHandler) {
@@ -166,39 +194,21 @@ ROPerson::computeRoute(const RORouterProvider& provider,
             ConstROEdgeVector edges;
             std::vector<ROVehicle*>& vehicles = trip->getVehicles();
             if (vehicles.empty()) {
-                provider.getPedestrianRouter().compute(trip->getOrigin(), trip->getDestination(), 0, 0, DEFAULT_PEDESTRIAN_SPEED, 0, 0, edges);
-                if (edges.empty()) {
-                    errorHandler->inform("No pedestrian route for trip in person '" + getID() + "'.");
-                    myRoutingSuccess = false;
+                if (trip->isIntermodal()) {
+                    computeIntermodal(provider, trip, 0, errorHandler);
                 } else {
-                    trip->addTripItem(new Walk(edges));
+                    provider.getPedestrianRouter().compute(trip->getOrigin(), trip->getDestination(), 0, 0, DEFAULT_PEDESTRIAN_SPEED, 0, 0, edges);
+                    if (edges.empty()) {
+                        errorHandler->inform("No pedestrian route for trip in person '" + getID() + "'.");
+                        myRoutingSuccess = false;
+                    } else {
+                        trip->addTripItem(new Walk(edges));
+                    }
                 }
             } else {
                 for (std::vector<ROVehicle*>::iterator v = vehicles.begin(); v != vehicles.end(); ) {
                     if (trip->isIntermodal()) {
-                        std::vector<std::pair<std::string, ConstROEdgeVector> > result;
-                        provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), 0, 0, DEFAULT_PEDESTRIAN_SPEED, *v, 0, result);
-                        bool carUsed = false;
-                        for (std::vector<std::pair<std::string, ConstROEdgeVector> >::const_iterator it = result.begin(); it != result.end(); ++it) {
-                            const ConstROEdgeVector& edges = it->second;
-                            if (!edges.empty()) {
-                                const std::string& lines = it->first;
-                                if (lines == "") {
-                                    trip->addTripItem(new Walk(edges));
-                                } else if (lines == (*v)->getID()) {
-                                    trip->addTripItem(new Ride(edges.front(), edges.back(), (*v)->getID()));
-                                    (*v)->getRouteDefinition()->addLoadedAlternative(new RORoute((*v)->getID() + "_RouteDef", edges));
-                                    carUsed = true;
-                                } else {
-                                    trip->addTripItem(new Ride(edges.front(), edges.back(), lines));
-                                }
-                            }
-                        }
-                        if (result.empty()) {
-                            errorHandler->inform("No route for trip in person '" + getID() + "'.");
-                            myRoutingSuccess = false;
-                        }
-                        if (!carUsed) {
+                        if (!computeIntermodal(provider, trip, *v, errorHandler)) {
                             v = vehicles.erase(v);
                             continue;
                         }

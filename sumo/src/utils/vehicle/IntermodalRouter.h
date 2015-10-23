@@ -63,7 +63,7 @@ public:
     /// @{
 
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
-        return this->myEdge->prohibits(trip->vehicle);
+        return trip->vehicle == 0 || this->myEdge->prohibits(trip->vehicle);
     }
 
     /// @}

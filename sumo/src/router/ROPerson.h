@@ -293,6 +293,8 @@ public:
         return myPlan;
     }
 
+private:
+    bool computeIntermodal(const RORouterProvider& provider, PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler);
 
 private:
     /**
