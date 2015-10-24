@@ -194,12 +194,12 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\InternalFastbuild\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalFastbuild\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\InternalFastbuild\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\x64\InternalFastbuild\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\x64\InternalFastbuild\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\x64\InternalFastbuild\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -331,11 +331,7 @@
     </ProjectReference>
     <ProjectReference Include="..\z_libutils_vehicle\z_libutils_vehicle.vcxproj">
       <Project>{421250da-d4bf-4678-8605-837f455552fc}</Project>
-      <Private>true</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\z_libutils_xml\z_libutils_xml.vcxproj">
       <Project>{508f0bff-83fe-444c-9509-a359bca83bc4}</Project>
@@ -343,11 +339,7 @@
     </ProjectReference>
     <ProjectReference Include="..\z_optional_libtraciserver\z_optional_libtraciserver.vcxproj">
       <Project>{00a244e4-0f0d-49b9-a557-5ef1f8b98d7c}</Project>
-      <Private>true</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
