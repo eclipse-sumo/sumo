@@ -123,6 +123,10 @@ public:
         return myLine;
     }
 
+    virtual const E* getStartEdge() const {
+        return 0;
+    }
+
     const E* getEdge() const {
         return myEdge;
     }

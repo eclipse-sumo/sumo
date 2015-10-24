@@ -175,7 +175,7 @@ public:
             typename std::vector<const E*>::const_iterator stopEdge = stopEdges.begin() + 1;
             for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin() + 1; s != pars.stops.end(); ++s, ++stopEdge) {
                 _PTEdge* const newEdge = new _PTEdge(s->busstop, myNumericalID++, lastStopEdge, *stopEdge, pars.line);
-                newEdge->addSchedule(pars.depart, pars.repetitionEnd, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
+                newEdge->addSchedule(lastTime, pars.repetitionEnd + lastTime - pars.depart, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
                 if (!lineEdges.empty()) {
                     lineEdges.back()->addSuccessor(newEdge);
                 }
@@ -220,6 +220,9 @@ public:
                             into.push_back(std::make_pair("", std::vector<const E*>()));
                         } else {
                             into.push_back(std::make_pair(lastLine, std::vector<const E*>()));
+                            if (intoPed[i]->getStartEdge() != 0) {
+                                into.back().second.push_back(intoPed[i]->getStartEdge());
+                            }
                         }
                     }
                     into.back().second.push_back(intoPed[i]->getEdge());
