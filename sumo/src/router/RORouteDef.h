@@ -139,9 +139,10 @@ public:
      * routes contained in this one
      *
      * @param[in] id The id for the new route definition
+     * @param[in] stopOffset The offset time for "until"-stops defined in the original route
      * @return the new route definition
      */
-    RORouteDef* copy(const std::string& id) const;
+    RORouteDef* copy(const std::string& id, const SUMOTime stopOffset) const;
 
     /** @brief Returns the sum of the probablities of the contained routes */
     SUMOReal getOverallProb() const;

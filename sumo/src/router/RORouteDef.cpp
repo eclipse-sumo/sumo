@@ -407,12 +407,14 @@ RORouteDef::copyOrigDest(const std::string& id) const {
 
 
 RORouteDef*
-RORouteDef::copy(const std::string& id) const {
+RORouteDef::copy(const std::string& id, const SUMOTime stopOffset) const {
     RORouteDef* result = new RORouteDef(id, 0, myTryRepair, myMayBeDisconnected);
     for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
         RORoute* route = *i;
         RGBColor* col = route->getColor() != 0 ? new RGBColor(*route->getColor()) : 0;
-        result->addLoadedAlternative(new RORoute(id, 0, 1, route->getEdgeVector(), col, route->getStops()));
+        RORoute* newRoute = new RORoute(id, 0, 1, route->getEdgeVector(), col, route->getStops());
+        newRoute->addStopOffset(stopOffset);
+        result->addLoadedAlternative(newRoute);
     }
     return result;
 }

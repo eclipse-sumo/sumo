@@ -377,6 +377,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
     for (NamedObjectCont<SUMOVehicleParameter*>::IDMap::const_iterator i = myFlows.getMyMap().begin(); i != myFlows.getMyMap().end(); ++i) {
         SUMOVehicleParameter* pars = i->second;
         if (pars->repetitionProbability > 0) {
+            const SUMOTime origDepart = pars->depart;
             while (pars->depart < time) {
                 if (pars->repetitionEnd <= pars->depart) {
                     toRemove.push_back(i->first);
@@ -387,6 +388,11 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                     SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
                     newPars->id = pars->id + "." + toString(pars->repetitionsDone);
                     newPars->depart = pars->depart;
+                    for (std::vector<SUMOVehicleParameter::Stop>::iterator stop = newPars->stops.begin(); stop != newPars->stops.end(); ++stop) {
+                        if (stop->until >= 0) {
+                            stop->until += pars->depart - origDepart;
+                        }
+                    }
                     pars->repetitionsDone++;
                     // try to build the vehicle
                     SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
@@ -396,7 +402,8 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                         // fix the type id in case we used a distribution
                         newPars->vtypeid = type->id;
                     }
-                    RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
+                    const SUMOTime stopOffset = pars->routeid[0] == '!' ? pars->depart - origDepart : pars->depart;
+                    RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id, stopOffset);
                     ROVehicle* veh = new ROVehicle(*newPars, route, type, this, errorHandler);
                     addVehicle(newPars->id, veh);
                     delete newPars;
@@ -418,6 +425,11 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
                 newPars->id = pars->id + "." + toString(pars->repetitionsDone);
                 newPars->depart = depart;
+                for (std::vector<SUMOVehicleParameter::Stop>::iterator stop = newPars->stops.begin(); stop != newPars->stops.end(); ++stop) {
+                    if (stop->until >= 0) {
+                        stop->until += depart - pars->depart;
+                    }
+                }
                 pars->repetitionsDone++;
                 // try to build the vehicle
                 SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
@@ -427,7 +439,8 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                     // fix the type id in case we used a distribution
                     newPars->vtypeid = type->id;
                 }
-                RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
+                const SUMOTime stopOffset = pars->routeid[0] == '!' ? depart - pars->depart : depart;
+                RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id, stopOffset);
                 ROVehicle* veh = new ROVehicle(*newPars, route, type, this, errorHandler);
                 addVehicle(newPars->id, veh);
                 delete newPars;

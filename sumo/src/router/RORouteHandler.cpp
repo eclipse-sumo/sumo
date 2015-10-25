@@ -485,7 +485,7 @@ RORouteHandler::closeVehicle() {
         return;
     }
     if (route->getID()[0] != '!') {
-        route = route->copy("!" + myVehicleParameter->id);
+        route = route->copy("!" + myVehicleParameter->id, myVehicleParameter->depart);
     }
     // build the vehicle
     if (!MsgHandler::getErrorInstance()->wasInformed()) {

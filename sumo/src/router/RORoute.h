@@ -192,6 +192,16 @@ public:
         return myStops;
     }
 
+    /** @brief Adapts the until time of all stops by the given offset
+     */
+    void addStopOffset(const SUMOTime offset) {
+        for (std::vector<SUMOVehicleParameter::Stop>::iterator stop = myStops.begin(); stop != myStops.end(); ++stop) {
+            if (stop->until >= 0) {
+                stop->until += offset;
+            }
+        }
+    }
+
 private:
     /// @brief The costs of the route
     SUMOReal myCosts;
