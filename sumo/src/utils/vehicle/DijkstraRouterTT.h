@@ -156,17 +156,17 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    virtual void compute(const E* from, const E* to, const V* const vehicle,
+    virtual bool compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && (vehicle == 0 || to != 0));
         // check whether from and to can be used
         if (PF::operator()(from, vehicle)) {
             myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on from edge '" + from->getID() + "'.");
-            return;
+            return false;
         }
         if (PF::operator()(to, vehicle)) {
             myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on to edge '" + to->getID() + "'.");
-            return;
+            return false;
         }
         this->startQuery();
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
@@ -176,7 +176,7 @@ public:
             if (toInfo.visited) {
                 buildPathFrom(&toInfo, into);
                 this->endQuery(1);
-                return;
+                return true;
             }
         } else {
             init();
@@ -200,7 +200,7 @@ public:
 #ifdef DijkstraRouterTT_DEBUG_QUERY_PERF
                 std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
 #endif
-                return;
+                return true;
             }
             pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
@@ -213,6 +213,12 @@ public:
             }
             std::cout << "\n";
 #endif
+            if (minEdge->getID() == "middle") {
+                int bla = 0;
+            }
+            if (minEdge->getID() == "left2end") {
+                int bla = 0;
+            }
             const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // check all ways from the node with the minimal length
             const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
@@ -245,6 +251,7 @@ public:
         if (to != 0) {
             myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
         }
+        return false;
     }
 
 

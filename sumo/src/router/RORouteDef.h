@@ -94,8 +94,8 @@ public:
 
     /** @brief Builds the complete route
      * (or chooses her from the list of alternatives, when existing) */
-    void repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime begin,
-                            const ROVehicle& veh) const;
+    bool repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime begin,
+                            const ROVehicle& veh, ConstROEdgeVector oldEdges, ConstROEdgeVector& newEdges) const;
 
     /** @brief Adds an alternative to the list of routes
     *

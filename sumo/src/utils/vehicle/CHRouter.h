@@ -352,7 +352,7 @@ public:
      * @note: since the contracted graph is static (weights averaged over time)
      * the computed routes only approximated shortest paths in the real graph
      * */
-    virtual void compute(const E* from, const E* to, const V* const vehicle,
+    virtual bool compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, Result& into) {
         assert(from != 0 && to != 0);
         assert(mySPTree->validatePermissions() || vehicle->getVClass() == mySVC || mySVC == SVC_IGNORING);
@@ -373,6 +373,7 @@ public:
         bool continueBackward = true;
         int num_visited_fw = 0;
         int num_visited_bw = 0;
+        bool result = true;
         while (continueForward || continueBackward) {
             if (continueForward) {
                 continueForward = myForwardSearch.step(myBackwardSearch, minTTSeen, meeting);
@@ -387,11 +388,13 @@ public:
             buildPathFromMeeting(meeting, into);
         } else {
             myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
+            result = false;
         }
 #ifdef CHRouter_DEBUG_QUERY_PERF
         std::cout << "visited " << num_visited_fw + num_visited_bw << " edges (" << num_visited_fw << "," << num_visited_bw << ") ,final path length: " + toString(into.size()) + ")\n";
 #endif
         this->endQuery(num_visited_bw + num_visited_fw);
+        return result;
     }
 
 

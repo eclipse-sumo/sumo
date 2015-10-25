@@ -86,24 +86,27 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    void compute(const E* from, const E* to, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal speed,
+    bool compute(const E* from, const E* to, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal speed,
                  SUMOTime msTime, const N* onlyNode, std::vector<const E*>& into, bool allEdges = false) {
         //startQuery();
         if (getSidewalk<E, L>(from) == 0) {
             WRITE_WARNING("Departure edge '" + from->getID() + "' does not allow pedestrians.");
-            return;
+            return false;
         }
         if (getSidewalk<E, L>(to) == 0) {
             WRITE_WARNING("Destination edge '" + to->getID() + "' does not allow pedestrians.");
-            return;
+            return false;
         }
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode);
         std::vector<const _IntermodalEdge*> intoPed;
-        myInternalRouter->compute(myPedNet->getDepartEdge(from),
-                                  myPedNet->getArrivalEdge(to), &trip, msTime, intoPed);
-        for (size_t i = 0; i < intoPed.size(); ++i) {
-            if (intoPed[i]->includeInRoute(allEdges)) {
-                into.push_back(intoPed[i]->getEdge());
+        const bool success = myInternalRouter->compute(myPedNet->getDepartEdge(from),
+                                                       myPedNet->getArrivalEdge(to),
+                                                       &trip, msTime, intoPed);
+        if (success) {
+            for (size_t i = 0; i < intoPed.size(); ++i) {
+                if (intoPed[i]->includeInRoute(allEdges)) {
+                    into.push_back(intoPed[i]->getEdge());
+                }
             }
         }
 #ifdef PedestrianRouter_DEBUG_ROUTES
@@ -121,11 +124,12 @@ public:
                   << "\n";
 #endif
         //endQuery();
+        return success;
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    void compute(const E*, const E*, const _IntermodalTrip* const,
+    bool compute(const E*, const E*, const _IntermodalTrip* const,
                  SUMOTime, std::vector<const E*>&) {
         throw ProcessError("Do not use this method");
     }

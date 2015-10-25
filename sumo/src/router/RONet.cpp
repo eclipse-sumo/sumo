@@ -372,7 +372,7 @@ RONet::addContainer(const SUMOTime depart, const std::string desc) {
 
 
 void
-RONet::checkFlows(SUMOTime time) {
+RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
     std::vector<std::string> toRemove;
     for (NamedObjectCont<SUMOVehicleParameter*>::IDMap::const_iterator i = myFlows.getMyMap().begin(); i != myFlows.getMyMap().end(); ++i) {
         SUMOVehicleParameter* pars = i->second;
@@ -397,7 +397,7 @@ RONet::checkFlows(SUMOTime time) {
                         newPars->vtypeid = type->id;
                     }
                     RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
-                    ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
+                    ROVehicle* veh = new ROVehicle(*newPars, route, type, this, errorHandler);
                     addVehicle(newPars->id, veh);
                     delete newPars;
                 }
@@ -428,7 +428,7 @@ RONet::checkFlows(SUMOTime time) {
                     newPars->vtypeid = type->id;
                 }
                 RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
-                ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
+                ROVehicle* veh = new ROVehicle(*newPars, route, type, this, errorHandler);
                 addVehicle(newPars->id, veh);
                 delete newPars;
             }
@@ -491,7 +491,9 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
 SUMOTime
 RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& provider,
                                 SUMOTime time) {
-    checkFlows(time);
+    MsgHandler* mh = (options.getBool("ignore-errors") ?
+                      MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
+    checkFlows(time, mh);
     SUMOTime lastTime = -1;
     const bool removeLoops = options.getBool("remove-loops");
 #ifdef HAVE_FOX

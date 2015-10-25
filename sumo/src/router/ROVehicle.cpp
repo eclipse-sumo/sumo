@@ -54,25 +54,29 @@
 // method definitions
 // ===========================================================================
 ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
-                     RORouteDef* route, const SUMOVTypeParameter* type, const RONet* net)
+                     RORouteDef* route, const SUMOVTypeParameter* type,
+                     const RONet* net, MsgHandler* errorHandler)
  : RORoutable(pars, type), myRoute(route) {
     myParameter.stops.clear();
     if (route != 0 && route->getFirstRoute() != 0) {
         for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {
-            addStop(*s, net);
+            addStop(*s, net, errorHandler);
         }
     }
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s) {
-        addStop(*s, net);
+        addStop(*s, net, errorHandler);
     }
 }
 
 
 void
-ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net) {
+ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, MsgHandler* errorHandler) {
     const ROEdge* stopEdge = net->getEdge(stopPar.lane.substr(0, stopPar.lane.rfind("_")));
-    if (stopEdge == 0) {
-        // warn here?
+    assert(stopEdge != 0); // was checked when parsing the stop
+    if (stopEdge->prohibits(this)) {
+        if (errorHandler != 0) {
+            errorHandler->inform("Stop edge '" + stopEdge->getID() + "' does not allow vehicle '" + getID() + "'.");
+        }
         return;
     }
     // where to insert the stop

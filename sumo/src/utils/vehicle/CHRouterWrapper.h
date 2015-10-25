@@ -92,7 +92,7 @@ public:
         return new CHRouterWrapper<E, V, PF>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myWeightPeriod);
     }
 
-    void compute(const E* from, const E* to, const V* const vehicle,
+    bool compute(const E* from, const E* to, const V* const vehicle,
                  SUMOTime msTime, std::vector<const E*>& into) {
         const std::pair<const SUMOVehicleClass, const SUMOReal> svc = std::make_pair(vehicle->getVClass(), vehicle->getMaxSpeed());
         if (myRouters.count(svc) == 0) {
@@ -101,7 +101,7 @@ public:
             myRouters[svc] = new CHRouterType(
                 myEdges, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false);
         }
-        myRouters[svc]->compute(from, to, vehicle, msTime, into);
+        return myRouters[svc]->compute(from, to, vehicle, msTime, into);
     }
 
 

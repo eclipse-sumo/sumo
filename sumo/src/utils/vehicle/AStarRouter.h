@@ -181,17 +181,17 @@ public:
 
 
     /** @brief Builds the route between the given edges using the minimum travel time */
-    virtual void compute(const E* from, const E* to, const V* const vehicle,
+    virtual bool compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && to != 0);
         // check whether from and to can be used
         if (PF::operator()(from, vehicle)) {
             myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on from edge '" + from->getID() + "'.");
-            return;
+            return false;
         }
         if (PF::operator()(to, vehicle)) {
             myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on to edge '" + to->getID() + "'.");
-            return;
+            return false;
         }
         this->startQuery();
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
@@ -201,7 +201,7 @@ public:
             if (toInfo.visited) {
                 buildPathFrom(&toInfo, into);
                 this->endQuery(1);
-                return;
+                return true;
             }
         } else {
             init();
@@ -222,7 +222,7 @@ public:
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
                 this->endQuery(num_visited);
-                return;
+                return true;
             }
             pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
@@ -269,6 +269,7 @@ public:
         }
         this->endQuery(num_visited);
         myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
+        return false;
     }
 
 

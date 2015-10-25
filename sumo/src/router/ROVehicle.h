@@ -67,7 +67,7 @@ public:
      */
     ROVehicle(const SUMOVehicleParameter& pars,
               RORouteDef* route, const SUMOVTypeParameter* type,
-              const RONet* net);
+              const RONet* net, MsgHandler* errorHandler=0);
 
 
     /// @brief Destructor
@@ -144,7 +144,8 @@ private:
      * @param[in] stopPar the stop paramters
      * @param[in] net     pointer to the network, used for edge retrieval
      */
-    void addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net);
+    void addStop(const SUMOVehicleParameter::Stop& stopPar,
+                 const RONet* net, MsgHandler* errorHandler);
 
 private:
     /// @brief The route the vehicle takes

@@ -489,7 +489,7 @@ RORouteHandler::closeVehicle() {
     }
     // build the vehicle
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
-        ROVehicle* veh = new ROVehicle(*myVehicleParameter, route, type, &myNet);
+        ROVehicle* veh = new ROVehicle(*myVehicleParameter, route, type, &myNet, myErrorOutput);
         if (myNet.addVehicle(myVehicleParameter->id, veh)) {
             registerLastDepart();
         }
