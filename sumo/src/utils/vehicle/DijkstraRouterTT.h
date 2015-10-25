@@ -213,12 +213,6 @@ public:
             }
             std::cout << "\n";
 #endif
-            if (minEdge->getID() == "middle") {
-                int bla = 0;
-            }
-            if (minEdge->getID() == "left2end") {
-                int bla = 0;
-            }
             const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // check all ways from the node with the minimal length
             const std::vector<E*>& successors = minEdge->getSuccessors(vClass);

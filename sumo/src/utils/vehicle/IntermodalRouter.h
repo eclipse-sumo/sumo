@@ -93,7 +93,7 @@ private:
 
 public:
     PublicTransportEdge(const std::string id, unsigned int numericalID, const E* startEdge, const E* endEdge, const std::string& line) :
-        IntermodalEdge<E, L, N, V>(line + ":" + id, numericalID, endEdge, line), myStartEdge(startEdge) { }
+        IntermodalEdge<E, L, N, V>(line + ":" + (id != "" ? id : endEdge->getID()), numericalID, endEdge, line), myStartEdge(startEdge) { }
 
     bool includeInRoute(bool /* allEdges */) const {
         return true;
