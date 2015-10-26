@@ -168,21 +168,47 @@ public:
         }
         assert(pars.stops.size() == stopEdges.size());
         typename std::vector<_PTEdge*>& lineEdges = myPTLines[pars.line];
-        std::string lastStopID = pars.stops.front().busstop;
         SUMOTime lastTime = pars.stops.front().until;
         if (lineEdges.empty()) {
             const E* lastStopEdge = stopEdges.front();
+            std::string lastStopID = pars.stops.front().busstop;
             typename std::vector<const E*>::const_iterator stopEdge = stopEdges.begin() + 1;
             for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin() + 1; s != pars.stops.end(); ++s, ++stopEdge) {
-                _PTEdge* const newEdge = new _PTEdge(s->busstop, myNumericalID++, lastStopEdge, *stopEdge, pars.line);
-                newEdge->addSchedule(lastTime, pars.repetitionEnd + lastTime - pars.depart, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
-                if (!lineEdges.empty()) {
-                    lineEdges.back()->addSuccessor(newEdge);
-                }
-                lineEdges.push_back(newEdge);
-                lastStopID = s->busstop;
-                lastTime = s->until;
-                lastStopEdge = *stopEdge;
+            	if (stopEdge != stopEdges.begin()) {
+                    _PTEdge* const newEdge = new _PTEdge(s->busstop, myNumericalID++, lastStopEdge, *stopEdge, pars.line);
+                    newEdge->addSchedule(lastTime, pars.repetitionEnd + lastTime - pars.depart, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
+                    if (!lineEdges.empty()) {
+                        lineEdges.back()->addSuccessor(newEdge);
+                    }
+                    lineEdges.push_back(newEdge);
+                    lastTime = s->until;
+                    lastStopEdge = *stopEdge;
+            	}
+            }
+            // connecting all "bus"stops with the same name for different lines
+            _PTEdge* inEdge = 0;
+            typename std::vector<_PTEdge*>::const_iterator outEdge = lineEdges.begin();
+            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s, ++outEdge) {
+				if (s->busstop != "") {
+					typename std::vector<_PTEdge*>& incomingEdges = myPTStopIn[s->busstop];
+					if (outEdge != lineEdges.end()) {
+						for (typename std::vector<_PTEdge*>::iterator edge = incomingEdges.begin(); edge != incomingEdges.end(); ++edge) {
+							(*edge)->addSuccessor(*outEdge);
+						}
+					}
+					typename std::vector<_PTEdge*>& outgoingEdges = myPTStopOut[s->busstop];
+					if (inEdge != 0) {
+						for (typename std::vector<_PTEdge*>::iterator edge = outgoingEdges.begin(); edge != outgoingEdges.end(); ++edge) {
+							inEdge->addSuccessor(*edge);
+						}
+						incomingEdges.push_back(inEdge);
+					}
+					if (outEdge == lineEdges.end()) {
+						break;
+					}
+					outgoingEdges.push_back(*outEdge);
+				}
+				inEdge = *outEdge;
             }
         } else {
             typename std::vector<_PTEdge*>::const_iterator lineEdge = lineEdges.begin();
@@ -192,7 +218,6 @@ public:
             }
             for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin() + 1; s != pars.stops.end(); ++s, ++lineEdge) {
                 (*lineEdge)->addSchedule(lastTime, pars.repetitionEnd + lastTime - pars.depart, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
-                lastStopID = s->busstop;
                 lastTime = s->until;
             }
         }
@@ -273,7 +298,7 @@ private:
     IntermodalRouter(_IntermodalNetwork* net):
         SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true),
         myInternalRouter(new INTERNALROUTER(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
-        myIntermodalNet(net) {}
+        myIntermodalNet(net), myNumericalID(net->getAllEdges().size()) {}
 
     void addCarEdges(const std::vector<E*>& edges) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -360,11 +385,14 @@ private:
     /// @brief retrieve the car edge for the given input edge E
     std::map<const E*, _IntermodalEdge*> myCarLookup;
 
-    /// @brief retrieve the public transport edge for the given input edge E
-    std::map<const E*, _PTEdge*> myPTLookup;
-
     /// @brief retrieve the public transport edges for the given line
     std::map<std::string, std::vector<_PTEdge*> > myPTLines;
+
+    /// @brief retrieve the public transport edges arriving at the given "bus" stop
+    std::map<std::string, std::vector<_PTEdge*> > myPTStopIn;
+
+    /// @brief retrieve the public transport edges leaving the given "bus" stop
+    std::map<std::string, std::vector<_PTEdge*> > myPTStopOut;
 
 
 private:

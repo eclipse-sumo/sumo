@@ -83,7 +83,7 @@ public:
      * @param[in] time The departure time of the vehicle
      * @param[filled] into The list of edges to store the route into
      */
-    void compute(const ROEdge* from, const ROEdge* to, const ROVehicle* const vehicle,
+    bool compute(const ROEdge* from, const ROEdge* to, const ROVehicle* const vehicle,
                  SUMOTime time, ConstROEdgeVector& into);
 
 
