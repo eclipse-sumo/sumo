@@ -192,7 +192,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_LIB);$(GDAL_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libinternal\x64\InternalFastbuild\y_libinternal.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(XERCES_LIB);$(GDAL_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r19057D
+SUMO Version dev-SVN-r19105D
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -157,8 +157,8 @@ Routing Options:
   --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights
   --device.rerouting.adaptation-interval TIME  The interval for updating the
                                          edge weights
-  --device.rerouting.with-taz          Use zones (districts) as routing end
-                                         points
+  --device.rerouting.with-taz          Use zones (districts) as routing start-
+                                         and endpoints
   --device.rerouting.init-with-loaded-weights  Use given weight files for
                                          initializing edge weights
   --device.rerouting.shortest-path-file FILE  Initialize lookup table for astar
