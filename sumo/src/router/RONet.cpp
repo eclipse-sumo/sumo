@@ -330,7 +330,7 @@ bool
 RONet::addVehicle(const std::string& id, ROVehicle* veh) {
     if (myVehIDs.find(id) == myVehIDs.end()) {
         myVehIDs.insert(id);
-        myRoutables.insert(std::make_pair(veh->getDepart(), veh));
+        myRoutables[veh->getDepart()].push_back(veh);
         myReadRouteNo++;
         return true;
     }
@@ -357,7 +357,7 @@ bool
 RONet::addPerson(ROPerson* person) {
     if (myPersonIDs.count(person->getID()) == 0) {
         myPersonIDs.insert(person->getID());
-        myRoutables.insert(std::make_pair(person->getDepart(), person));
+        myRoutables[person->getDepart()].push_back(person);
         return true;
     }
     WRITE_ERROR("Another person with the id '" + person->getID() + "' exists.");
@@ -463,15 +463,17 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
         if (i->first >= time) {
             break;
         }
-        RORoutable* const routable = i->second;
-        const ROEdge* const depEdge = routable->getDepartEdge();
-        bulkVehs[depEdge->getNumericalID()].push_back(routable);
-        RORoutable* const first = bulkVehs[depEdge->getNumericalID()].front();
-        if (first->getMaxSpeed() != routable->getMaxSpeed()) {
-            WRITE_WARNING("Bulking different maximum speeds ('" + first->getID() + "' and '" + routable->getID() + "') may lead to suboptimal routes.");
-        }
-        if (first->getVClass() != routable->getVClass()) {
-            WRITE_WARNING("Bulking different vehicle classes ('" + first->getID() + "' and '" + routable->getID() + "') may lead to invalid routes.");
+        for (std::deque<RORoutable*>::const_iterator r = i->second.begin(); r != i->second.end(); ++r) {
+            RORoutable* const routable = *r;
+            const ROEdge* const depEdge = routable->getDepartEdge();
+            bulkVehs[depEdge->getNumericalID()].push_back(routable);
+            RORoutable* const first = bulkVehs[depEdge->getNumericalID()].front();
+            if (first->getMaxSpeed() != routable->getMaxSpeed()) {
+                WRITE_WARNING("Bulking different maximum speeds ('" + first->getID() + "' and '" + routable->getID() + "') may lead to suboptimal routes.");
+            }
+            if (first->getVClass() != routable->getVClass()) {
+                WRITE_WARNING("Bulking different vehicle classes ('" + first->getID() + "' and '" + routable->getID() + "') may lead to invalid routes.");
+            }
         }
     }
     int workerIndex = 0;
@@ -525,20 +527,22 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                 if (i->first >= time) {
                     break;
                 }
-                RORoutable* const routable = i->second;
+                for (std::deque<RORoutable*>::const_iterator r = i->second.begin(); r != i->second.end(); ++r) {
+                    RORoutable* const routable = *r;
 #ifdef HAVE_FOX
                 // add task
-                if (maxNumThreads > 0) {
-                    // add thread if necessary
-                    const int numThreads = (int)myThreadPool.size();
-                    if (numThreads < maxNumThreads && myThreadPool.isFull()) {
-                        new WorkerThread(myThreadPool, provider);
+                    if (maxNumThreads > 0) {
+                        // add thread if necessary
+                        const int numThreads = (int)myThreadPool.size();
+                        if (numThreads < maxNumThreads && myThreadPool.isFull()) {
+                            new WorkerThread(myThreadPool, provider);
+                        }
+                        myThreadPool.add(new RoutingTask(routable, removeLoops, myErrorHandler));
+                        continue;
                     }
-                    myThreadPool.add(new RoutingTask(routable, removeLoops, myErrorHandler));
-                    continue;
-                }
 #endif
-                routable->computeRoute(provider, removeLoops, myErrorHandler);
+                    routable->computeRoute(provider, removeLoops, myErrorHandler);
+                }
             }
         }
 #ifdef HAVE_FOX
@@ -548,8 +552,8 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
     // write all vehicles (and additional structures)
     while (myRoutables.size() != 0 || myContainers.size() != 0) {
         // get the next vehicle, person or container
-        RoutablesMap::iterator routable = myRoutables.begin();
-        const SUMOTime routableTime = routable == myRoutables.end() ? SUMOTime_MAX : routable->first;
+        RoutablesMap::iterator routables = myRoutables.begin();
+        const SUMOTime routableTime = routables == myRoutables.end() ? SUMOTime_MAX : routables->first;
         ContainerMap::iterator container = myContainers.begin();
         const SUMOTime containerTime = container == myContainers.end() ? SUMOTime_MAX : container->first;
         // check whether it shall not yet be computed
@@ -559,7 +563,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
         }
         const SUMOTime minTime = MIN2(routableTime, containerTime);
         if (routableTime == minTime) {
-            const RORoutable* const r = routable->second;
+            const RORoutable* const r = routables->second.front();
             // check whether to print the output
             if (lastTime != routableTime && lastTime != -1) {
                 // report writing progress
@@ -577,14 +581,17 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
             } else {
                 myDiscardedRouteNo++;
             }
-            const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(routable->second);
+            const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
             // delete routes and the vehicle
             if (veh != 0 && veh->getRouteDefinition()->getID()[0] == '!') {
                 if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
                     delete veh->getRouteDefinition();
                 }
             }
-            myRoutables.erase(routable);
+            routables->second.pop_front();
+            if (routables->second.empty()) {
+                myRoutables.erase(routables);
+            }
         }
         if (containerTime == minTime) {
             myRoutesOutput->writePreformattedTag(container->second);

@@ -33,6 +33,7 @@
 #include <config.h>
 #endif
 
+#include <queue>
 #include <vector>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/NamedObjectCont.h>
@@ -75,7 +76,7 @@ class OutputDevice;
 class RONet {
 public:
 
-    typedef std::multimap<const SUMOTime, RORoutable*> RoutablesMap;
+    typedef std::map<const SUMOTime, std::deque<RORoutable*> > RoutablesMap;
 
     /// @brief Constructor
     RONet();

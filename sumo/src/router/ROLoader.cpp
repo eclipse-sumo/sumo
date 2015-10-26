@@ -207,9 +207,11 @@ ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime
         }
     }
     for (RONet::RoutablesMap::const_iterator i = net.getRoutables().begin(); i != net.getRoutables().end(); ++i) {
-        const ROVehicle* const veh = dynamic_cast<ROVehicle*>(i->second);
-        if (veh != 0 && veh->getParameter().line != "") {
-            provider.getIntermodalRouter().addSchedule(veh->getParameter(), veh->getStopEdges());
+        for (std::deque<RORoutable*>::const_iterator r = i->second.begin(); r != i->second.end(); ++r) {
+            const ROVehicle* const veh = dynamic_cast<ROVehicle*>(*r);
+            if (veh != 0 && veh->getParameter().line != "") {
+                provider.getIntermodalRouter().addSchedule(veh->getParameter(), veh->getStopEdges());
+            }
         }
     }
 
