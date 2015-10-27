@@ -37,7 +37,9 @@
 #include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <microsim/MSLane.h>
 #include <guisim/GUIEdge.h>
+#include "GUI_E2_ZS_Collector.h"
 #include "GUI_E2_ZS_CollectorOverLanes.h"
 
 #ifdef CHECK_MEMORY_LEAKS

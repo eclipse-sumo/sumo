@@ -35,12 +35,8 @@
 #include <utility>
 #include <vector>
 #include <bitset>
-#include <microsim/MSEventControl.h>
-#include <microsim/MSNet.h>
 #include <utils/common/StdDefs.h>
 #include "MSTrafficLightLogic.h"
-#include "MSPhaseDefinition.h"
-#include "MSTLLogicControl.h"
 
 
 // ===========================================================================

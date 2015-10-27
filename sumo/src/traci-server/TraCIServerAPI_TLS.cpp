@@ -34,9 +34,10 @@
 #ifndef NO_TRACI
 
 #include "TraCIConstants.h"
-#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include "TraCIServerAPI_TLS.h"
 
 #ifdef CHECK_MEMORY_LEAKS

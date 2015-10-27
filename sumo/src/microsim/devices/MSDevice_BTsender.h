@@ -35,7 +35,7 @@
 #include <string>
 #include "MSDevice.h"
 #include <utils/common/SUMOTime.h>
-#include <utils/geom/Position.h>
+#include <utils/geom/Boundary.h>
 
 
 // ===========================================================================

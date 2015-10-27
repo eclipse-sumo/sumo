@@ -49,6 +49,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/WrappingCommand.h>
+#include <utils/options/OptionsCont.h>
 #include "NLHandler.h"
 #include "NLTriggerBuilder.h"
 #include <utils/xml/SUMOXMLDefinitions.h>

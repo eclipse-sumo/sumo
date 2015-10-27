@@ -32,7 +32,6 @@
 #endif
 
 #include <string>
-#include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 
 

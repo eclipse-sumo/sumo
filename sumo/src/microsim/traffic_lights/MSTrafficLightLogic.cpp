@@ -36,19 +36,22 @@
 #include <map>
 #include <microsim/MSLink.h>
 #include <microsim/MSLane.h>
-#include "MSTrafficLightLogic.h"
 #include <microsim/MSEventControl.h>
-#include "MSTLLogicControl.h"
 #include <microsim/MSJunctionLogic.h>
+#include <microsim/MSNet.h>
+#include "MSTLLogicControl.h"
+#include "MSTrafficLightLogic.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+
 // ===========================================================================
 // static value definitions
 // ===========================================================================
 const MSTrafficLightLogic::LaneVector MSTrafficLightLogic::myEmptyLaneVector;
+
 
 // ===========================================================================
 // member method definitions

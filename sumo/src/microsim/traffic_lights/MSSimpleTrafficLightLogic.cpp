@@ -38,6 +38,7 @@
 #include <bitset>
 #include <sstream>
 #include <microsim/MSEventControl.h>
+#include <microsim/MSNet.h>
 #include "MSTLLogicControl.h"
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"

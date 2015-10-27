@@ -46,6 +46,7 @@
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSOffTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
