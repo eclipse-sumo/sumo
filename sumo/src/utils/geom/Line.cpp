@@ -74,17 +74,6 @@ Line::extrapolateBy2D(SUMOReal length) {
 }
 
 
-void
-Line::extrapolateFirstBy(SUMOReal length) {
-    myP1 = GeomHelper::extrapolate_first(myP1, myP2, length);
-}
-
-
-void
-Line::extrapolateSecondBy(SUMOReal length) {
-    myP2 = GeomHelper::extrapolate_second(myP1, myP2, length);
-}
-
 const Position&
 Line::p1() const {
     return myP1;
@@ -212,24 +201,6 @@ void
 Line::sub(SUMOReal x, SUMOReal y) {
     myP1.sub(x, y);
     myP2.sub(x, y);
-}
-
-
-SUMOReal
-Line::intersectsAtLength2D(const Line& v) {
-    Position pos =
-        GeomHelper::intersection_position2D(myP1, myP2, v.myP1, v.myP2);
-    return GeomHelper::nearest_offset_on_line_to_point2D(myP1, myP2, pos);
-}
-
-
-void
-Line::rotateAtP1(SUMOReal rot) {
-    Position p = myP2;
-    p.sub(myP1);
-    p.reshiftRotate(0, 0, rot);
-    p.add(myP1);
-    myP2 = p;
 }
 
 

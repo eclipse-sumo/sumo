@@ -97,11 +97,9 @@ NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const {
         return myGeom[-1];
     } else {
         PositionVector g(myGeom);
-        SUMOReal amount = pos - myGeom.length();
-        Position ne = GeomHelper::extrapolate_second(g[-2], g[-1], amount * 2);
-        g.pop_back();
-        g.push_back(ne);
-        return g.positionAtOffset(pos);
+        const SUMOReal amount = pos - myGeom.length();
+        g.extrapolate(amount * 2);
+        return g.positionAtOffset(pos + amount * 2);
     }
 }
 

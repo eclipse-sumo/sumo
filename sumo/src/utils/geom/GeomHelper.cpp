@@ -241,22 +241,6 @@ GeomHelper::interpolate(const Position& p1,
 }
 
 
-Position
-GeomHelper::extrapolate_first(const Position& p1,
-                              const Position& p2, SUMOReal length) {
-    const SUMOReal factor = length / p1.distanceTo(p2);
-    return p1 - (p2 - p1) * factor;
-}
-
-
-Position
-GeomHelper::extrapolate_second(const Position& p1,
-                               const Position& p2, SUMOReal length) {
-    const SUMOReal factor = length / p1.distanceTo(p2);
-    return p2 - (p1 - p2) * factor;
-}
-
-
 SUMOReal
 GeomHelper::nearest_offset_on_line_to_point2D(const Position& LineStart,
         const Position& LineEnd,

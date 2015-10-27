@@ -598,29 +598,6 @@ PositionVector::intersectionPoints2D(const Line& line) const {
 }
 
 
-int
-PositionVector::appendWithCrossingPoint(const PositionVector& v) {
-    if (back().distanceTo(v[0]) < 2) { // !!! heuristic
-        copy(v.begin() + 1, v.end(), back_inserter(*this));
-        return 1;
-    }
-    //
-    Line l1((*this)[static_cast<int>(size()) - 2], back());
-    l1.extrapolateBy(100);
-    Line l2(v[0], v[1]);
-    l2.extrapolateBy(100);
-    if (l1.intersects(l2) && l1.intersectsAtLength2D(l2) < l1.length2D() - 100) { // !!! heuristic
-        Position p = l1.intersectsAt(l2);
-        (*this)[static_cast<int>(size()) - 1] = p;
-        copy(v.begin() + 1, v.end(), back_inserter(*this));
-        return 2;
-    } else {
-        copy(v.begin(), v.end(), back_inserter(*this));
-        return 3;
-    }
-}
-
-
 void
 PositionVector::append(const PositionVector& v, SUMOReal sameThreshold) {
     if (size() > 0 && v.size() > 0 && back().distanceTo(v[0]) < sameThreshold) {
@@ -715,50 +692,6 @@ PositionVector::getSubpart2D(SUMOReal beginOffset, SUMOReal endOffset) const {
 }
 
 
-void
-PositionVector::pruneFromBeginAt(const Position& p) {
-    // find minimum distance (from the begin)
-    size_t pos = 0;
-    SUMOReal dist = 1000000;
-    size_t currPos = 0;
-    SUMOReal currDist = GeomHelper::distancePointLine(p,
-                        GeomHelper::extrapolate_first(*(begin()), *(begin() + 1), 100),
-                        *(begin() + 1));
-//    assert(currDist>=0);
-    if (currDist >= 0 && currDist < dist) {
-        dist = currDist;
-        pos = currPos;
-    }
-
-    for (iterator i = begin(); i != end() - 1; i++, currPos++) {
-        SUMOReal currDist = GeomHelper::distancePointLine(p, *i, *(i + 1));
-        if (currDist >= 0 && currDist < dist) {
-            dist = currDist;
-            pos = currPos;
-        }
-    }
-    // remove leading items
-    for (size_t j = 0; j < pos; j++) {
-        erase(begin());
-    }
-    // replace first item by the new position
-    SUMOReal lpos = GeomHelper::nearest_offset_on_line_to_point2D(
-                        (*this)[0], (*this)[1], p);
-    if (lpos == GeomHelper::INVALID_OFFSET) {
-        return;
-    }
-    Position np = positionAtOffset(lpos);
-    if (np != *(begin())) {
-        erase(begin());
-        if (np != *(begin())) {
-            insert(begin(), p);
-            assert(size() > 1);
-            assert(*(begin()) != *(end() - 1));
-        }
-    }
-}
-
-
 PositionVector
 PositionVector::getSubpartByIndex(int beginIndex, int count) const {
     if (beginIndex < 0) {
@@ -772,52 +705,6 @@ PositionVector::getSubpartByIndex(int beginIndex, int count) const {
         result.push_back((*this)[i]);
     }
     return result;
-}
-
-
-void
-PositionVector::pruneFromEndAt(const Position& p) {
-    // find minimum distance (from the end)
-    size_t pos = 0;
-    SUMOReal dist = 1000000;
-    size_t currPos = 0;
-    SUMOReal currDist = GeomHelper::distancePointLine(p,
-                        *(end() - 1),
-                        GeomHelper::extrapolate_second(*(end() - 2), *(end() - 1), 100));
-//    assert(currDist>=0);
-    if (currDist >= 0 && currDist < dist) {
-        dist = currDist;
-        pos = currPos;
-    }
-
-    for (reverse_iterator i = rbegin(); i != rend() - 1; i++, currPos++) {
-        SUMOReal currDist = GeomHelper::distancePointLine(p, *(i), *(i + 1));
-        if (currDist >= 0 && currDist < dist) {
-            dist = currDist;
-            pos = currPos;
-        }
-    }
-    // remove trailing items
-    for (size_t j = 0; j < pos; j++) {
-        erase(end() - 1);
-    }
-    // replace last item by the new position
-    SUMOReal lpos =
-        GeomHelper::nearest_offset_on_line_to_point2D(
-            (*this)[static_cast<int>(size()) - 1], (*this)[static_cast<int>(size()) - 2], p);
-    if (lpos ==  GeomHelper::INVALID_OFFSET) {
-        return;
-    }
-    Position np = positionAtOffset(
-                      length() - lpos);
-    if (np != *(end() - 1)) {
-        erase(end() - 1);
-        if (np != *(end() - 1)) {
-            push_back(np);
-            assert(size() > 1);
-            assert(*(begin()) != *(end() - 1));
-        }
-    }
 }
 
 
@@ -985,15 +872,34 @@ PositionVector::intersectsAtLengths2D(const Line& line) const {
 void
 PositionVector::extrapolate(SUMOReal val) {
     assert(size() > 1);
-    Position nb =
-        GeomHelper::extrapolate_first((*this)[0], (*this)[1], val);
-    Position ne =
-        GeomHelper::extrapolate_second(
-            (*this)[static_cast<int>(size()) - 2], (*this)[static_cast<int>(size()) - 1], val);
-    erase(begin());
-    push_front(nb);
-    erase(end() - 1);
-    push_back(ne);
+    Position& p1 = (*this)[0];
+    Position& p2 = (*this)[1];
+    const Position offset = (p2 - p1) * (val / p1.distanceTo(p2));
+    p1.sub(offset);
+    if (size() == 2) {
+        p2.add(offset);
+    } else {
+        const Position& e1 = (*this)[-2];
+        Position& e2 = (*this)[-1];
+        e2.sub((e1 - e2) * (val / e1.distanceTo(e2)));
+    }
+}
+
+
+void
+PositionVector::extrapolate2D(SUMOReal val) {
+    assert(size() > 1);
+    Position& p1 = (*this)[0];
+    Position& p2 = (*this)[1];
+    const Position offset = (p2 - p1) * (val / p1.distanceTo2D(p2));
+    p1.sub(offset);
+    if (size() == 2) {
+        p2.add(offset);
+    } else {
+        const Position& e1 = (*this)[-2];
+        Position& e2 = (*this)[-1];
+        e2.sub((e1 - e2) * (val / e1.distanceTo2D(e2)));
+    }
 }
 
 

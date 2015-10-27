@@ -217,8 +217,6 @@ public:
 
     PositionVector convexHull() const;
 
-    int appendWithCrossingPoint(const PositionVector& v);
-
     // @brief append the given vector to this one
     void append(const PositionVector& v, SUMOReal sameThreshold = 2.0);
 
@@ -233,6 +231,8 @@ public:
     void sortByIncreasingXY();
 
     void extrapolate(SUMOReal val);
+
+    void extrapolate2D(SUMOReal val);
 
     PositionVector reverse() const;
 
@@ -275,9 +275,6 @@ public:
 
     // !!!
     SUMOReal isLeft(const Position& P0, const Position& P1, const Position& P2) const;
-
-    void pruneFromBeginAt(const Position& p);
-    void pruneFromEndAt(const Position& p);
 
     SUMOReal beginEndAngle() const;
 

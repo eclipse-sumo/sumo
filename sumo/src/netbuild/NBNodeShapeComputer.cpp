@@ -112,20 +112,23 @@ NBNodeShapeComputer::compute() {
 
 void
 computeSameEnd(PositionVector& l1, PositionVector& l2) {
-    Line sub(l1.lineAt(0).getPositionAtDistance2D(100), l1[1]);
-    Line tmp(sub);
-    tmp.rotateAtP1(M_PI / 2);
-    tmp.extrapolateBy2D(100);
-    if (l1.intersects(tmp.p1(), tmp.p2())) {
-        SUMOReal offset1 = l1.intersectsAtLengths2D(tmp)[0];
+    PositionVector tmp;
+    tmp.push_back(l1.lineAt(0).getPositionAtDistance2D(100));
+    tmp.push_back(l1[1]);
+    tmp[1].sub(tmp[0]);
+    tmp[1].set(-tmp[1].y(), tmp[1].x());
+    tmp[1].add(tmp[0]);
+    tmp.extrapolate2D(100);
+    if (l1.intersects(tmp[0], tmp[1])) {
+        const SUMOReal offset1 = l1.intersectsAtLengths2D(tmp)[0];
         Line tl1 = Line(
                        l1.lineAt(0).getPositionAtDistance2D(offset1),
                        l1[1]);
         tl1.extrapolateBy2D(100);
         l1.replaceAt(0, tl1.p1());
     }
-    if (l2.intersects(tmp.p1(), tmp.p2())) {
-        SUMOReal offset2 = l2.intersectsAtLengths2D(tmp)[0];
+    if (l2.intersects(tmp[0], tmp[1])) {
+        const SUMOReal offset2 = l2.intersectsAtLengths2D(tmp)[0];
         Line tl2 = Line(
                        l2.lineAt(0).getPositionAtDistance2D(offset2),
                        l2[1]);
@@ -612,9 +615,9 @@ NBNodeShapeComputer::computeNodeShapeSmall() {
         // compute crossing with normal
         Line edgebound1 = (*i)->getCCWBoundaryLine(myNode).lineAt(0);
         Line edgebound2 = (*i)->getCWBoundaryLine(myNode).lineAt(0);
-        Line cross(edgebound1);
-        cross.rotateAtP1(M_PI / 2.);
-        cross.add(myNode.getPosition() - cross.p1());
+        Position delta = edgebound1.p2() - edgebound1.p1();
+        delta.set(-delta.y(), delta.x()); // rotate 90 degrees
+        Line cross(myNode.getPosition(), myNode.getPosition() + delta);
         cross.extrapolateBy2D(500);
         edgebound1.extrapolateBy2D(500);
         edgebound2.extrapolateBy2D(500);

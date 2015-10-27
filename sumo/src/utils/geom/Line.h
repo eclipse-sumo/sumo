@@ -55,17 +55,12 @@ public:
     ~Line();
     void extrapolateBy(SUMOReal length);
     void extrapolateBy2D(SUMOReal length);
-    void extrapolateFirstBy(SUMOReal length);
-    void extrapolateSecondBy(SUMOReal length);
     const Position& p1() const;
     const Position& p2() const;
     Position getPositionAtDistance(SUMOReal offset) const;
     Position getPositionAtDistance2D(SUMOReal offset) const;
     void move2side(SUMOReal amount);
     std::vector<SUMOReal> intersectsAtLengths2D(const PositionVector& v);
-
-    /// @brief returns distance between myP1 and intersection or -1 if line segments do not intersect
-    SUMOReal intersectsAtLength2D(const Line& v);
 
     SUMOReal atan2Angle() const;
     SUMOReal atan2DegreeAngle() const;
@@ -78,7 +73,6 @@ public:
     void add(SUMOReal x, SUMOReal y);
     void add(const Position& p);
     void sub(SUMOReal x, SUMOReal y);
-    void rotateAtP1(SUMOReal rot);
 
     /// @brief Output operator
     friend std::ostream& operator<<(std::ostream& os, const Line& geom);
