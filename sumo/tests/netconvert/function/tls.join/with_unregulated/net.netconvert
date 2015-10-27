@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Oct  3 01:50:11 2015 by SUMO netconvert Version dev-SVN-r19005
+<!-- generated on 10/27/15 23:03:02 by SUMO netconvert Version dev-SVN-r19173
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -34,7 +34,7 @@
     <location netOffset="-345429.78,-3459708.22" convBoundary="0.00,0.00,1205.64,1246.66" origBoundary="120.623290,31.010815,121.575855,31.636432" projParameter="+proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":cluster_1129387341_1129387412_0" function="internal">
-        <lane id=":cluster_1129387341_1129387412_0_0" index="0" disallow="rail_urban rail rail_electric" speed="27.78" length="5.99" shape="1.38,1245.11 -0.34,1244.43 -1.06,1243.54 -0.77,1242.43 0.51,1241.10"/>
+        <lane id=":cluster_1129387341_1129387412_0_0" index="0" disallow="rail_urban rail rail_electric" speed="27.78" length="5.99" shape="1.45,1245.10 -0.28,1244.45 -1.02,1243.57 -0.75,1242.45 0.51,1241.10"/>
     </edge>
     <edge id=":cluster_828110366_828110369_0" function="internal">
         <lane id=":cluster_828110366_828110369_0_0" index="0" disallow="rail_urban rail rail_electric" speed="27.78" length="11.65" shape="1150.76,1044.39 1149.70,1042.40 1147.74,1040.87 1144.86,1039.81 1141.07,1039.22"/>
@@ -88,8 +88,8 @@
         <lane id="147676141#0_1" index="1" disallow="rail_urban rail rail_electric" speed="27.78" length="19.53" shape="1176.27,1036.99 1156.78,1036.79"/>
     </edge>
     <edge id="147676141#1" from="cluster_828110366_828110369" to="cluster_1129387341_1129387412" priority="9" type="highway.primary" spreadType="center" shape="1150.85,1038.38 959.45,1022.41 953.45,1024.24 893.93,1028.31 837.94,1034.71 512.20,1121.44 340.43,1164.62 290.74,1178.36 89.41,1227.48 2.02,1246.66">
-        <lane id="147676141#1_0" index="0" disallow="rail_urban rail rail_electric" speed="27.78" length="1167.41" shape="1141.07,1039.22 959.63,1024.08 953.75,1025.87 894.04,1029.96 838.13,1036.35 512.62,1123.03 340.83,1166.22 291.18,1179.95 89.80,1229.08 2.13,1248.32"/>
-        <lane id="147676141#1_1" index="1" disallow="rail_urban rail rail_electric" speed="27.78" length="1167.41" shape="1141.35,1035.93 959.27,1020.74 953.15,1022.61 893.82,1026.66 837.75,1033.07 511.78,1119.85 340.03,1163.02 290.30,1176.77 89.02,1225.88 1.38,1245.11"/>
+        <lane id="147676141#1_0" index="0" disallow="rail_urban rail rail_electric" speed="27.78" length="1167.36" shape="1141.07,1039.22 959.63,1024.08 953.75,1025.87 894.04,1029.96 838.13,1036.35 512.62,1123.03 340.83,1166.22 291.18,1179.95 89.80,1229.08 2.16,1248.32"/>
+        <lane id="147676141#1_1" index="1" disallow="rail_urban rail rail_electric" speed="27.78" length="1167.36" shape="1141.35,1035.93 959.27,1020.74 953.15,1022.61 893.82,1026.66 837.75,1033.07 511.78,1119.85 340.03,1163.02 290.30,1176.77 89.02,1225.88 1.45,1245.10"/>
     </edge>
     <edge id="68992992#0" from="828110348" to="cluster_828110366_828110369" priority="9" type="highway.primary" spreadType="center" shape="1205.64,1163.19 1192.99,1141.83 1178.97,1114.66 1166.92,1086.22 1156.04,1057.67 1150.85,1038.38">
         <lane id="68992992#0_0" index="0" disallow="rail_urban rail rail_electric" speed="27.78" length="131.03" shape="1204.22,1164.03 1191.57,1142.67 1177.50,1115.42 1165.40,1086.86 1154.50,1058.26 1150.76,1044.39"/>

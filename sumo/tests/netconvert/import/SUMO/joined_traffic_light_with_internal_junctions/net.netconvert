@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu 26 Mar 2015 10:53:44 AM CET by Netedit Version dev-SVN-r18153I
+<!-- generated on 10/27/15 23:02:55 by SUMO netconvert Version dev-SVN-r19173
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/scr2/debug/acosta/acosta_buslanes.net.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/debug/1694/net33.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
     </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -115,7 +119,7 @@
         <lane id="118_0" index="0" speed="13.89" length="138.03" shape="1570.63,472.36 1438.10,433.77"/>
     </edge>
     <edge id="134" from="27" to="26" priority="-1" shape="1573.40,576.94 1597.26,572.13">
-        <lane id="134_0" index="0" speed="13.89" length="26.65" shape="1575.92,574.75 1602.05,569.48"/>
+        <lane id="134_0" index="0" speed="13.89" length="26.64" shape="1575.92,574.75 1602.03,569.48"/>
     </edge>
     <edge id="201" from="27" to="1c" priority="-1" spreadType="center" shape="1564.06,595.69 1525.19,741.63 1508.38,808.94">
         <lane id="201_0" index="0" speed="13.89" length="245.44" shape="1569.34,588.70 1528.38,742.48 1507.48,826.15"/>
