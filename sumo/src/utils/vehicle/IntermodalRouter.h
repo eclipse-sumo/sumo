@@ -41,6 +41,7 @@
 #include "SUMOVehicleParameter.h"
 #include "DijkstraRouterTT.h"
 #include "IntermodalNetwork.h"
+#include "PedestrianRouter.h"
 
 //#define IntermodalRouter_DEBUG_ROUTES
 
@@ -174,7 +175,7 @@ public:
             std::string lastStopID = pars.stops.front().busstop;
             typename std::vector<const E*>::const_iterator stopEdge = stopEdges.begin() + 1;
             for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin() + 1; s != pars.stops.end(); ++s, ++stopEdge) {
-            	if (stopEdge != stopEdges.begin()) {
+                if (stopEdge != stopEdges.begin()) {
                     _PTEdge* const newEdge = new _PTEdge(s->busstop, myNumericalID++, lastStopEdge, *stopEdge, pars.line);
                     newEdge->addSchedule(lastTime, pars.repetitionEnd + lastTime - pars.depart, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
                     if (!lineEdges.empty()) {
@@ -183,40 +184,52 @@ public:
                     lineEdges.push_back(newEdge);
                     lastTime = s->until;
                     lastStopEdge = *stopEdge;
-            	}
+                }
             }
             // connecting all "bus"stops with the same name for different lines
             _PTEdge* inEdge = 0;
             typename std::vector<_PTEdge*>::const_iterator outEdge = lineEdges.begin();
             for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s, ++outEdge) {
-				if (s->busstop != "") {
-					typename std::vector<_PTEdge*>& incomingEdges = myPTStopIn[s->busstop];
-					if (outEdge != lineEdges.end()) {
-						for (typename std::vector<_PTEdge*>::iterator edge = incomingEdges.begin(); edge != incomingEdges.end(); ++edge) {
-							(*edge)->addSuccessor(*outEdge);
-						}
-					}
-					typename std::vector<_PTEdge*>& outgoingEdges = myPTStopOut[s->busstop];
-					if (inEdge != 0) {
-						for (typename std::vector<_PTEdge*>::iterator edge = outgoingEdges.begin(); edge != outgoingEdges.end(); ++edge) {
-							inEdge->addSuccessor(*edge);
-						}
-						incomingEdges.push_back(inEdge);
-					}
-					if (outEdge == lineEdges.end()) {
-						break;
-					}
-					outgoingEdges.push_back(*outEdge);
-				}
-				inEdge = *outEdge;
+                if (s->busstop != "") {
+                    typename std::vector<_PTEdge*>& incomingEdges = myPTStopIn[s->busstop];
+                    if (outEdge != lineEdges.end()) {
+                        for (typename std::vector<_PTEdge*>::iterator edge = incomingEdges.begin(); edge != incomingEdges.end(); ++edge) {
+                            (*edge)->addSuccessor(*outEdge);
+                        }
+                    }
+                    typename std::vector<_PTEdge*>& outgoingEdges = myPTStopOut[s->busstop];
+                    if (inEdge != 0) {
+                        for (typename std::vector<_PTEdge*>::iterator edge = outgoingEdges.begin(); edge != outgoingEdges.end(); ++edge) {
+                            inEdge->addSuccessor(*edge);
+                        }
+                        incomingEdges.push_back(inEdge);
+                    }
+                    if (outEdge == lineEdges.end()) {
+                        break;
+                    }
+                    outgoingEdges.push_back(*outEdge);
+                }
+                inEdge = *outEdge;
             }
         } else {
-            typename std::vector<_PTEdge*>::const_iterator lineEdge = lineEdges.begin();
             if (pars.stops.size() != lineEdges.size() + 1) {
-                WRITE_WARNING("Number of stops for public transport line '" + pars.line + "' does not match earlier definitions.");
+                WRITE_WARNING("Number of stops for public transport line '" + pars.line + "' does not match earlier definitions, ignoring schedule.");
                 return;
             }
-            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin() + 1; s != pars.stops.end(); ++s, ++lineEdge) {
+            typename std::vector<_PTEdge*>::const_iterator lineEdge = lineEdges.begin();
+            if ((*lineEdge)->getStartEdge() != stopEdges.front()) {
+                WRITE_WARNING("Different stop for '" + pars.line + "' compared to earlier definitions, ignoring schedule.");
+                return;
+            }
+            typename std::vector<const E*>::const_iterator stopEdge = stopEdges.begin() + 1;
+            for (; stopEdge != stopEdges.end(); ++stopEdge, ++lineEdge) {
+                if ((*lineEdge)->getEdge() != *stopEdge) {
+                    WRITE_WARNING("Different stop for '" + pars.line + "' compared to earlier definitions, ignoring schedule.");
+                    return;
+                }
+            }
+            std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin() + 1;
+            for (lineEdge = lineEdges.begin(); lineEdge != lineEdges.end(); ++lineEdge, ++s) {
                 (*lineEdge)->addSchedule(lastTime, pars.repetitionEnd + lastTime - pars.depart, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
                 lastTime = s->until;
             }
@@ -263,9 +276,8 @@ public:
         std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << to->getID()
                   << " departPos=" << departPos
                   << " arrivalPos=" << arrivalPos
-                  << " onlyNode=" << (onlyNode == 0 ? "NULL" : onlyNode->getID())
                   << " edges=" << toString(intoPed)
-                  << " resultEdges=" << toString(into)
+//                  << " resultEdges=" << toString(into)
                   << " time=" << time
                   << "\n";
 #endif
@@ -352,7 +364,7 @@ private:
                 _IntermodalEdge* startConnector = myIntermodalNet->getDepartEdge(startEdge);
                 _IntermodalEdge* endConnector = myIntermodalNet->getArrivalEdge(endEdge);
                 startConnector->addSuccessor(ptEdge);
-                (ptEdge)->addSuccessor(endConnector);
+                ptEdge->addSuccessor(endConnector);
             }
         }
     }
@@ -405,6 +417,55 @@ private:
 template<class E, class L, class N, class V>
 class IntermodalRouterDijkstra : public IntermodalRouter < E, L, N, V,
         DijkstraRouterTT<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > > { };
+
+
+/**
+ * @class RouterProvider
+ * The encapsulation of the routers for vehicles and pedestrians
+ */
+template<class E, class L, class N, class V>
+class RouterProvider {
+public:
+    RouterProvider(SUMOAbstractRouter<E, V>* vehRouter,
+                   PedestrianRouterDijkstra<E, L, N, V>* pedRouter,
+                   IntermodalRouterDijkstra<E, L, N, V>* interRouter)
+        : myVehRouter(vehRouter), myPedRouter(pedRouter), myInterRouter(interRouter) {}
+
+    RouterProvider(const RouterProvider& original)
+        : myVehRouter(original.getVehicleRouter().clone()),
+        myPedRouter(static_cast<PedestrianRouterDijkstra<E, L, N, V>*>(original.getPedestrianRouter().clone())),
+        myInterRouter(static_cast<IntermodalRouterDijkstra<E, L, N, V>*>(original.getIntermodalRouter().clone())) {}
+
+    SUMOAbstractRouter<E, V>& getVehicleRouter() const {
+        return *myVehRouter;
+    }
+
+    PedestrianRouterDijkstra<E, L, N, V>& getPedestrianRouter() const {
+        return *myPedRouter;
+    }
+
+    IntermodalRouterDijkstra<E, L, N, V>& getIntermodalRouter() const {
+        return *myInterRouter;
+    }
+
+    virtual ~RouterProvider() {
+        delete myVehRouter;
+        delete myPedRouter;
+        delete myInterRouter;
+    }
+
+
+private:
+    SUMOAbstractRouter<E, V>* const myVehRouter;
+    PedestrianRouterDijkstra<E, L, N, V>* const myPedRouter;
+    IntermodalRouterDijkstra<E, L, N, V>* const myInterRouter;
+
+
+private:
+    /// @brief Invalidated assignment operator
+    RouterProvider& operator=(const RouterProvider& src);
+
+};
 
 
 #endif

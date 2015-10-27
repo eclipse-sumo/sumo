@@ -39,7 +39,7 @@
 #include <utils/common/ToString.h>
 #include "SUMOAbstractRouter.h"
 #include "DijkstraRouterTT.h"
-#include "IntermodalRouter.h"
+#include "IntermodalNetwork.h"
 
 //#define PedestrianRouter_DEBUG_ROUTES
 
@@ -163,55 +163,6 @@ private:
 template<class E, class L, class N, class V>
 class PedestrianRouterDijkstra : public PedestrianRouter < E, L, N, V,
         DijkstraRouterTT<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > > { };
-
-
-/**
- * @class RouterProvider
- * The encapsulation of two router for vehicles and pedestrians
- */
-template<class E, class L, class N, class V>
-class RouterProvider {
-public:
-    RouterProvider(SUMOAbstractRouter<E, V>* vehRouter,
-                   PedestrianRouterDijkstra<E, L, N, V>* pedRouter,
-                   IntermodalRouterDijkstra<E, L, N, V>* interRouter)
-        : myVehRouter(vehRouter), myPedRouter(pedRouter), myInterRouter(interRouter) {}
-
-    RouterProvider(const RouterProvider& original)
-        : myVehRouter(original.getVehicleRouter().clone()),
-        myPedRouter(static_cast<PedestrianRouterDijkstra<E, L, N, V>*>(original.getPedestrianRouter().clone())),
-        myInterRouter(static_cast<IntermodalRouterDijkstra<E, L, N, V>*>(original.getIntermodalRouter().clone())) {}
-
-    SUMOAbstractRouter<E, V>& getVehicleRouter() const {
-        return *myVehRouter;
-    }
-
-    PedestrianRouterDijkstra<E, L, N, V>& getPedestrianRouter() const {
-        return *myPedRouter;
-    }
-
-    IntermodalRouterDijkstra<E, L, N, V>& getIntermodalRouter() const {
-        return *myInterRouter;
-    }
-
-    virtual ~RouterProvider() {
-        delete myVehRouter;
-        delete myPedRouter;
-        delete myInterRouter;
-    }
-
-
-private:
-    SUMOAbstractRouter<E, V>* const myVehRouter;
-    PedestrianRouterDijkstra<E, L, N, V>* const myPedRouter;
-    IntermodalRouterDijkstra<E, L, N, V>* const myInterRouter;
-
-
-private:
-    /// @brief Invalidated assignment operator
-    RouterProvider& operator=(const RouterProvider& src);
-
-};
 
 
 #endif
