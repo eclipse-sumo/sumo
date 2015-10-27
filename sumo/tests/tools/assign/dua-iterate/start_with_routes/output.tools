@@ -1,71 +1,76 @@
+Loading configuration... done.
 > Executing step 0
 >> Running router on input_routes.rou.xml
->>> Begin time: 2013-04-29 13:45:45.286635
->>> End time: 2013-04-29 13:45:45.305650
->>> Duration: 0:00:00.019015
+>>> Begin time: 2015-10-27 12:13:59.877000
+>>> End time: 2015-10-27 12:14:00.164000
+>>> Duration: 0:00:00.287000
 <<
 >> Running simulation
->>> Begin time: 2013-04-29 13:45:45.305715
->>> End time: 2013-04-29 13:45:45.369763
->>> Duration: 0:00:00.064048
+>>> Begin time: 2015-10-27 12:14:00.164000
+>>> End time: 2015-10-27 12:14:00.459000
+>>> Duration: 0:00:00.295000
 <<
-< Step 0 ended (duration: 0:00:00.083252)
+< Step 0 ended (duration: 0:00:00.582000)
 ------------------
 
+Loading configuration... done.
 > Executing step 1
 >> Running router on input_routes_000.rou.alt.xml
->>> Begin time: 2013-04-29 13:45:45.369900
->>> End time: 2013-04-29 13:45:45.390425
->>> Duration: 0:00:00.020525
+>>> Begin time: 2015-10-27 12:14:00.467000
+>>> End time: 2015-10-27 12:14:00.732000
+>>> Duration: 0:00:00.265000
 <<
 >> Running simulation
->>> Begin time: 2013-04-29 13:45:45.390488
->>> End time: 2013-04-29 13:45:45.454628
->>> Duration: 0:00:00.064140
+>>> Begin time: 2015-10-27 12:14:00.732000
+>>> End time: 2015-10-27 12:14:01.036000
+>>> Duration: 0:00:00.304000
 <<
-< Step 1 ended (duration: 0:00:00.084838)
+< Step 1 ended (duration: 0:00:00.569000)
 ------------------
 
+Loading configuration... done.
 > Executing step 2
 >> Running router on input_routes_001.rou.alt.xml
->>> Begin time: 2013-04-29 13:45:45.454757
->>> End time: 2013-04-29 13:45:45.475616
->>> Duration: 0:00:00.020859
+>>> Begin time: 2015-10-27 12:14:01.045000
+>>> End time: 2015-10-27 12:14:01.346000
+>>> Duration: 0:00:00.301000
 <<
 >> Running simulation
->>> Begin time: 2013-04-29 13:45:45.475678
->>> End time: 2013-04-29 13:45:45.539622
->>> Duration: 0:00:00.063944
+>>> Begin time: 2015-10-27 12:14:01.346000
+>>> End time: 2015-10-27 12:14:01.627000
+>>> Duration: 0:00:00.281000
 <<
-< Step 2 ended (duration: 0:00:00.084978)
+< Step 2 ended (duration: 0:00:00.582000)
 ------------------
 
+Loading configuration... done.
 > Executing step 3
 >> Running router on input_routes_002.rou.alt.xml
->>> Begin time: 2013-04-29 13:45:45.539750
->>> End time: 2013-04-29 13:45:45.560599
->>> Duration: 0:00:00.020849
+>>> Begin time: 2015-10-27 12:14:01.670000
+>>> End time: 2015-10-27 12:14:01.954000
+>>> Duration: 0:00:00.284000
 <<
 >> Running simulation
->>> Begin time: 2013-04-29 13:45:45.560660
->>> End time: 2013-04-29 13:45:45.626285
->>> Duration: 0:00:00.065625
+>>> Begin time: 2015-10-27 12:14:01.954000
+>>> End time: 2015-10-27 12:14:02.224000
+>>> Duration: 0:00:00.270000
 <<
-< Step 3 ended (duration: 0:00:00.086649)
+< Step 3 ended (duration: 0:00:00.554000)
 ------------------
 
+Loading configuration... done.
 > Executing step 4
 >> Running router on input_routes_003.rou.alt.xml
->>> Begin time: 2013-04-29 13:45:45.626416
->>> End time: 2013-04-29 13:45:45.650988
->>> Duration: 0:00:00.024572
+>>> Begin time: 2015-10-27 12:14:02.227000
+>>> End time: 2015-10-27 12:14:02.538000
+>>> Duration: 0:00:00.311000
 <<
 >> Running simulation
->>> Begin time: 2013-04-29 13:45:45.651047
->>> End time: 2013-04-29 13:45:45.727316
->>> Duration: 0:00:00.076269
+>>> Begin time: 2015-10-27 12:14:02.538000
+>>> End time: 2015-10-27 12:14:02.885000
+>>> Duration: 0:00:00.347000
 <<
-< Step 4 ended (duration: 0:00:00.101014)
+< Step 4 ended (duration: 0:00:00.658000)
 ------------------
 
-dua-iterate ended (duration: 0:00:00.440840)
+dua-iterate ended (duration: 0:00:03.017000)
