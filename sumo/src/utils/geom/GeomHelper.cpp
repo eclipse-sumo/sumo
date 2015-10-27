@@ -216,14 +216,7 @@ GeomHelper::intersection_position2D(const Position& p11,
 
 SUMOReal
 GeomHelper::angle2D(const Position& p1, const Position& p2) {
-    SUMOReal dtheta = atan2(p2.y(), p2.x()) - atan2(p1.y(), p1.x());
-    while (dtheta > (SUMOReal) M_PI) {
-        dtheta -= (SUMOReal)(2.0 * M_PI);
-    }
-    while (dtheta < (SUMOReal) - M_PI) {
-        dtheta += (SUMOReal)(2.0 * M_PI);
-    }
-    return dtheta;
+    return angleDiff(atan2(p1.y(), p1.x()), atan2(p2.y(), p2.x()));
 }
 
 
@@ -390,6 +383,31 @@ GeomHelper::getMaxAngleDiff(SUMOReal angle1, SUMOReal angle2) {
     return MAX2(getCWAngleDiff(angle1, angle2), getCCWAngleDiff(angle1, angle2));
 }
 
+
+SUMOReal
+GeomHelper::angleDiff(const SUMOReal angle1, const SUMOReal angle2) {
+    SUMOReal dtheta = angle2 - angle1;
+    while (dtheta > (SUMOReal) M_PI) {
+        dtheta -= (SUMOReal)(2.0 * M_PI);
+    }
+    while (dtheta < (SUMOReal) - M_PI) {
+        dtheta += (SUMOReal)(2.0 * M_PI);
+    }
+    return dtheta;
+}
+
+
+SUMOReal
+GeomHelper::naviDegree(const SUMOReal angle) {
+    SUMOReal degree = RAD2DEG(M_PI / 2. - angle);
+    while (degree >= 360.) {
+        degree -= 360.;
+    }
+    while (degree < 0.) {
+        degree += 360.;
+    }
+    return degree;
+}
 
 
 /****************************************************************************/

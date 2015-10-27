@@ -59,9 +59,7 @@ public:
     const Position& p2() const;
     std::vector<SUMOReal> intersectsAtLengths2D(const PositionVector& v);
 
-    SUMOReal atan2Angle() const;
     SUMOReal atan2DegreeAngle() const;
-    SUMOReal atan2PositiveAngle() const;
     SUMOReal atan2DegreeSlope() const;
     bool intersects(const Line& l) const;
     Position intersectsAt(const Line& l) const;

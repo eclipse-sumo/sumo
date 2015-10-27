@@ -98,24 +98,8 @@ Line::intersectsAtLengths2D(const PositionVector& v) {
 
 
 SUMOReal
-Line::atan2Angle() const {
-    return atan2(myP1.x() - myP2.x(), myP1.y() - myP2.y());
-}
-
-
-SUMOReal
 Line::atan2DegreeAngle() const {
     return RAD2DEG(atan2(myP1.x() - myP2.x(), myP1.y() - myP2.y()));
-}
-
-
-SUMOReal
-Line::atan2PositiveAngle() const {
-    SUMOReal angle = atan2Angle();
-    if (angle < 0) {
-        angle = (SUMOReal) M_PI * (SUMOReal) 2.0 + angle;
-    }
-    return angle;
 }
 
 

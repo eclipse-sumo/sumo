@@ -507,8 +507,8 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
             init.push_back(center);
             init.push_back(end);
         } else {
-            const SUMOReal angle = fabs(begShape.getEndLine().atan2Angle() - endShape.getBegLine().atan2Angle());
-            if (angle < M_PI / 4. || angle > 7. / 4.*M_PI) {
+            const SUMOReal angle = fabs(begShape.angleAt2D(-2) - endShape.angleAt2D(0));
+            if (angle < M_PI / 4. || angle > 7. / 4. * M_PI) {
                 // very low angle: almost straight
                 numInitialPoints = 4;
                 init.push_back(beg);

@@ -544,7 +544,7 @@ bool
 GNELane::setFunctionalColor(size_t activeScheme) const {
     switch (activeScheme) {
         case 6: {
-            SUMOReal hue = RAD2DEG(getShape().beginEndAngle()) + 180; // [0-360]
+            SUMOReal hue = GeomHelper::naviDegree(getShape().beginEndAngle()); // [0-360]
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
             return true;
         }

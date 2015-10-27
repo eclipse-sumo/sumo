@@ -238,6 +238,8 @@ public:
 
     Line lineAt(int pos) const;
 
+    SUMOReal angleAt2D(int pos) const;
+
     Line getBegLine() const;
 
     Line getEndLine() const;
@@ -274,6 +276,7 @@ public:
     // !!!
     SUMOReal isLeft(const Position& P0, const Position& P1, const Position& P2) const;
 
+    /// returns the angle in radians of the line connecting the first and the last position
     SUMOReal beginEndAngle() const;
 
     SUMOReal nearest_offset_to_point2D(const Position& p, bool perpendicular = true) const;

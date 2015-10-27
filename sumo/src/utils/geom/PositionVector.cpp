@@ -701,8 +701,7 @@ PositionVector::getSubpartByIndex(int beginIndex, int count) const {
 
 SUMOReal
 PositionVector::beginEndAngle() const {
-    Line tmp(front(), back());
-    return tmp.atan2Angle();
+    return front().angleTo2D(back());
 }
 
 
@@ -1000,6 +999,13 @@ Line
 PositionVector::lineAt(int pos) const {
     assert((int)size() > pos + 1);
     return Line((*this)[pos], (*this)[pos + 1]);
+}
+
+
+SUMOReal
+PositionVector::angleAt2D(int pos) const {
+    assert((int)size() > pos + 1);
+    return (*this)[pos].angleTo2D((*this)[pos + 1]);
 }
 
 

@@ -571,33 +571,17 @@ NBNodeShapeComputer::initNeighbors(const EdgeVector& edges, const EdgeVector::co
         ccwi--;
     }
 
-    const SUMOReal angleCurCCW = geomsCCW[*current].lineAt(0).atan2PositiveAngle();
-    const SUMOReal angleCurCW = geomsCW[*current].lineAt(0).atan2PositiveAngle();
-    const SUMOReal angleCCW = geomsCW[*ccwi].lineAt(0).atan2PositiveAngle();
-    const SUMOReal angleCW = geomsCCW[*cwi].lineAt(0).atan2PositiveAngle();
-    if (angleCurCCW > angleCCW) {
-        ccad = angleCurCCW - angleCCW;
-    } else {
-        ccad = twoPI - (angleCCW - angleCurCCW);
-    }
-
-    if (angleCurCW > angleCW) {
-        cad = twoPI - (angleCurCW - angleCW);
-    } else {
-        cad = angleCW - angleCurCW;
-    }
-
-    if (ccad < 0) {
+    const SUMOReal angleCurCCW = geomsCCW[*current].angleAt2D(0);
+    const SUMOReal angleCurCW = geomsCW[*current].angleAt2D(0);
+    const SUMOReal angleCCW = geomsCW[*ccwi].angleAt2D(0);
+    const SUMOReal angleCW = geomsCCW[*cwi].angleAt2D(0);
+    ccad = angleCCW - angleCurCCW;
+    while (ccad < 0.) {
         ccad += twoPI;
     }
-    if (ccad > twoPI) {
-        ccad -= twoPI;
-    }
-    if (cad < 0) {
+    cad = angleCurCW - angleCW;
+    while (cad < 0.) {
         cad += twoPI;
-    }
-    if (cad > twoPI) {
-        cad -= twoPI;
     }
 }
 

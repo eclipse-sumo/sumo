@@ -170,6 +170,26 @@ public:
     static SUMOReal getMaxAngleDiff(SUMOReal angle1, SUMOReal angle2);
 
 
+    /** @brief Returns the difference of the second angle to the first angle in radiants
+     * 
+     * The results are always between -pi and pi.
+     * Positive values denote that the second angle is counter clockwise closer, negative values mean
+     * it is clockwise closer.
+     * @param[in] angle1 The first angle
+     * @param[in] angle2 The second angle
+     * @return angle starting from first to second angle
+     */
+    static SUMOReal angleDiff(const SUMOReal angle1, const SUMOReal angle2);
+
+
+    /** Converts an angle from mathematical radians where 0 is to the right and positive angles
+     *  are counterclockwise to navigational degrees where 0 is up and positive means clockwise.
+     *  The result is always in the range [0, 360).
+     * @param[in] angle The angle in radians to convert
+     * @return the angle in degrees
+     */
+    static SUMOReal naviDegree(const SUMOReal angle);
+
 private:
     /** @brief return whether the line segments defined by Line (x1,y1),(x2,y2)
      * and Line (x3,y3),(x4,y4) intersect

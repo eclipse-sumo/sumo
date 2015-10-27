@@ -34,8 +34,8 @@
 
 #include <iostream>
 #include <vector>
-#include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
+#include <utils/geom/GeomHelper.h>
 #include "NIVissimConnection.h"
 
 
@@ -140,10 +140,9 @@ private:
     public:
         /// comparing operation
         int operator()(NIVissimConnection* c1, NIVissimConnection* c2) const {
-            return
-                fabs(c1->getGeometry().beginEndAngle() - myAngle)
+            return fabs(GeomHelper::angleDiff(c1->getGeometry().beginEndAngle(), myAngle))
                 <
-                fabs(c2->getGeometry().beginEndAngle() - myAngle);
+                fabs(GeomHelper::angleDiff(c2->getGeometry().beginEndAngle(), myAngle));
         }
     };
 
