@@ -36,10 +36,17 @@
 
 #include <vector>
 #include <map>
-#include "MSTrafficLightLogic.h"
-#include "MSSimpleTrafficLightLogic.h"
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/Command.h>
-#include <utils/common/UtilExceptions.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MSTrafficLightLogic;
+class MSLink;
+class MSLane;
+class MSPhaseDefinition;
 
 
 // ===========================================================================

@@ -34,9 +34,8 @@
 #endif
 
 #include <string>
-#include <microsim/MSNet.h>
+#include <microsim/output/MSCrossSection.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
-#include <microsim/output/MSE3Collector.h>
 
 
 // ===========================================================================

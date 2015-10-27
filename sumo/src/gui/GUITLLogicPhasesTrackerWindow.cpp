@@ -38,6 +38,7 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/MSLink.h>
 #include <utils/common/ToString.h>
+#include <utils/common/MsgHandler.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>

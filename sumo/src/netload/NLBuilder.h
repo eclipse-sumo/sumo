@@ -35,7 +35,6 @@
 #include <map>
 #include <vector>
 #include <utils/xml/SAXWeightsHandler.h>
-#include <microsim/MSNet.h>
 
 
 // ===========================================================================
@@ -52,6 +51,7 @@ class NLJunctionControlBuilder;
 class NLDetectorBuilder;
 class NLTriggerBuilder;
 class SUMORouteLoader;
+class SUMORouteLoaderControl;
 
 
 // ===========================================================================

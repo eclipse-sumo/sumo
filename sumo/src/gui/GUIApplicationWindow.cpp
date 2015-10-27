@@ -80,6 +80,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
+#include <utils/options/OptionsCont.h>
 #include "GUIGlobals.h"
 #include "dialogs/GUIDialog_AboutSUMO.h"
 #include "dialogs/GUIDialog_AppSettings.h"

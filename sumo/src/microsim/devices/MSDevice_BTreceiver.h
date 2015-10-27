@@ -33,7 +33,6 @@
 
 #include "MSDevice.h"
 #include "MSDevice_BTsender.h"
-#include <microsim/MSNet.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Command.h>
 #include <utils/common/RandHelper.h>
