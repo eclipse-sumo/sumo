@@ -265,12 +265,13 @@ public:
 
     /** @brief Draws a triangle at the end of the given line
      *
-     * @param[in] l The line at which end the triangle shall be drawn
+     * @param[in] p1 The start of the line at which end the triangle shall be drawn
+     * @param[in] p2 The end of the line at which end the triangle shall be drawn
      * @param[in] tLength The length of the triangle
      * @param[in] tWidth The width of the triangle
      */
-    static void drawTriangleAtEnd(const Line& l, SUMOReal tLength,
-                                  SUMOReal tWidth);
+    static void drawTriangleAtEnd(const Position& p1, const Position& p2,
+                                  SUMOReal tLength, SUMOReal tWidth);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);

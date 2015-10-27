@@ -419,16 +419,17 @@ GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps,
 
 
 void
-GLHelper::drawTriangleAtEnd(const Line& l, SUMOReal tLength,
-                            SUMOReal tWidth) {
-    if (l.length() < tLength) {
-        tWidth = tWidth * l.length() / tLength;
-        tLength = l.length();
+GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
+                            SUMOReal tLength, SUMOReal tWidth) {
+    const SUMOReal length = p1.distanceTo(p2);
+    if (length < tLength) {
+        tWidth *= length / tLength;
+        tLength = length;
     }
-    Line rl(PositionVector::positionAtOffset(l.p1(), l.p2(), l.length() - tLength), l.p2());
+    Position rl(PositionVector::positionAtOffset(p1, p2, length - tLength));
     glPushMatrix();
-    glTranslated(rl.p1().x(), rl.p1().y(), 0);
-    glRotated(-l.atan2DegreeAngle(), 0, 0, 1);
+    glTranslated(rl.x(), rl.y(), 0);
+    glRotated(M_PI / 2. + p1.angleTo2D(p2), 0, 0, 1);
     glBegin(GL_TRIANGLES);
     glVertex2d(0, -tLength);
     glVertex2d(-tWidth, 0);

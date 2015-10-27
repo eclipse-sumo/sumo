@@ -57,15 +57,6 @@ Line::~Line() {}
 
 
 void
-Line::extrapolateBy(SUMOReal length) {
-    SUMOReal factor = length / myP1.distanceTo(myP2);
-    Position offset = (myP2 - myP1) * factor;
-    myP1.sub(offset);
-    myP2.add(offset);
-}
-
-
-void
 Line::extrapolateBy2D(SUMOReal length) {
     SUMOReal factor = length / myP1.distanceTo2D(myP2);
     Position offset = (myP2 - myP1) * factor;
@@ -86,17 +77,6 @@ Line::p2() const {
 }
 
 
-std::vector<SUMOReal>
-Line::intersectsAtLengths2D(const PositionVector& v) {
-    PositionVector p = v.intersectionPoints2D(*this);
-    std::vector<SUMOReal> ret;
-    for (size_t i = 0; i < p.size(); i++) {
-        ret.push_back(myP1.distanceTo2D(p[int(i)]));
-    }
-    return ret;
-}
-
-
 SUMOReal
 Line::atan2DegreeAngle() const {
     return RAD2DEG(atan2(myP1.x() - myP2.x(), myP1.y() - myP2.y()));
@@ -106,30 +86,6 @@ Line::atan2DegreeAngle() const {
 SUMOReal
 Line::atan2DegreeSlope() const {
     return RAD2DEG(atan2(myP2.z() - myP1.z(), myP1.distanceTo2D(myP2)));
-}
-
-
-Position
-Line::intersectsAt(const Line& l) const {
-    return GeomHelper::intersection_position2D(myP1, myP2, l.myP1, l.myP2);
-}
-
-
-bool
-Line::intersects(const Line& l) const {
-    return GeomHelper::intersects(myP1, myP2, l.myP1, l.myP2);
-}
-
-
-SUMOReal
-Line::length2D() const {
-    return myP1.distanceTo2D(myP2);
-}
-
-
-SUMOReal
-Line::length() const {
-    return myP1.distanceTo(myP2);
 }
 
 

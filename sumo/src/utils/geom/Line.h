@@ -53,18 +53,12 @@ public:
     Line();
     Line(const Position& p1, const Position& p2);
     ~Line();
-    void extrapolateBy(SUMOReal length);
     void extrapolateBy2D(SUMOReal length);
     const Position& p1() const;
     const Position& p2() const;
-    std::vector<SUMOReal> intersectsAtLengths2D(const PositionVector& v);
 
     SUMOReal atan2DegreeAngle() const;
     SUMOReal atan2DegreeSlope() const;
-    bool intersects(const Line& l) const;
-    Position intersectsAt(const Line& l) const;
-    SUMOReal length() const;
-    SUMOReal length2D() const;
     void add(SUMOReal x, SUMOReal y);
     void add(const Position& p);
 

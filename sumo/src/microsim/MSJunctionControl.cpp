@@ -30,10 +30,9 @@
 #include <config.h>
 #endif
 
-#include "MSJunctionControl.h"
-#include "MSJunction.h"
-#include "MSInternalJunction.h"
 #include <algorithm>
+#include "MSInternalJunction.h"
+#include "MSJunctionControl.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

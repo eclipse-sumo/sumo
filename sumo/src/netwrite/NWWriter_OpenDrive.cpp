@@ -211,10 +211,10 @@ NWWriter_OpenDrive::writePlanView(const PositionVector& shape, OutputDevice& dev
     SUMOReal offset = 0;
     for (unsigned int j = 0; j < shape.size() - 1; ++j) {
         const Position& p = shape[j];
-        Line l = shape.lineAt(j);
-        SUMOReal hdg = atan2(l.p2().y() - l.p1().y(), l.p2().x() - l.p1().x());
-        device << "            <geometry s=\"" << offset << "\" x=\"" << p.x() << "\" y=\"" << p.y() << "\" hdg=\"" << hdg << "\" length=\"" << l.length() << "\"><line/></geometry>\n";
-        offset += l.length();
+        const SUMOReal hdg = shape.angleAt2D(j);
+        const SUMOReal length = p.distanceTo(shape[j+1]);
+        device << "            <geometry s=\"" << offset << "\" x=\"" << p.x() << "\" y=\"" << p.y() << "\" hdg=\"" << hdg << "\" length=\"" << length << "\"><line/></geometry>\n";
+        offset += length;
     }
     device << "        </planView>\n";
 }

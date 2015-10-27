@@ -64,6 +64,11 @@ PositionVector::PositionVector(const std::vector<Position>& v) {
 }
 
 
+PositionVector::PositionVector(const std::vector<Position>::const_iterator beg, const std::vector<Position>::const_iterator end) {
+    std::copy(beg, end, std::back_inserter(*this));
+}
+
+
 PositionVector::~PositionVector() {}
 
 
@@ -846,14 +851,14 @@ PositionVector::intersectsAtLengths2D(const Line& line) const {
     std::vector<SUMOReal> ret;
     SUMOReal pos = 0;
     for (const_iterator i = begin(); i != end() - 1; i++) {
-        Line l((*i), *(i + 1));
-        if (GeomHelper::intersects(l.p1(), l.p2(), line.p1(), line.p2())) {
-            Position p =
-                GeomHelper::intersection_position2D(l.p1(), l.p2(), line.p1(), line.p2());
-            SUMOReal atLength = p.distanceTo2D(l.p1());
+        const Position& p1 = *i;
+        const Position& p2 = *(i + 1);
+        if (GeomHelper::intersects(p1, p2, line.p1(), line.p2())) {
+            Position p = GeomHelper::intersection_position2D(p1, p2, line.p1(), line.p2());
+            SUMOReal atLength = p.distanceTo2D(p1);
             ret.push_back(atLength + pos);
         }
-        pos += l.length2D();
+        pos += p1.distanceTo2D(p2);
     }
     return ret;
 }
@@ -957,8 +962,8 @@ PositionVector::move2side(SUMOReal amount) {
                 Position(me.x() - offsets2.first, me.y() - offsets2.second),
                 Position(to.x() - offsets2.first, to.y() - offsets2.second));
             l2.extrapolateBy2D(100);
-            if (l1.intersects(l2)) {
-                shape.push_back(l1.intersectsAt(l2));
+            if (GeomHelper::intersects(l1.p1(), l1.p2(), l2.p1(), l2.p2())) {
+                shape.push_back(GeomHelper::intersection_position2D(l1.p1(), l1.p2(), l2.p1(), l2.p2()));
             } else {
                 throw InvalidArgument("no line intersection");
             }

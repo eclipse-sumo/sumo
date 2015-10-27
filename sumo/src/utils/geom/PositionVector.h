@@ -69,6 +69,13 @@ public:
     PositionVector(const std::vector<Position>& v);
 
 
+    /** @brief Constructor
+     * @param[in] beg The begin iterator for copy
+     * @param[in] end The end iterator to copy
+     */
+    PositionVector(const std::vector<Position>::const_iterator beg, const std::vector<Position>::const_iterator end);
+
+
     /// @brief Destructor
     ~PositionVector();
 

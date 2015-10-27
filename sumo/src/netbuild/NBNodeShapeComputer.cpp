@@ -429,9 +429,9 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
         PositionVector g2 = incoming ? (*j)->getCCWBoundaryLine(myNode) : (*j)->getCWBoundaryLine(myNode);
         Line l1 = g1.lineAt(0);
         Line l2 = g2.lineAt(0);
-        const SUMOReal angle1further = (g1.size() > 2 && l1.length2D() < angleChangeLookahead ?
+        const SUMOReal angle1further = (g1.size() > 2 && g1[0].distanceTo2D(g1[1]) < angleChangeLookahead ?
                                         g1.lineAt(1).atan2DegreeAngle() : l1.atan2DegreeAngle());
-        const SUMOReal angle2further = (g2.size() > 2 && l2.length2D() < angleChangeLookahead ?
+        const SUMOReal angle2further = (g2.size() > 2 && g2[0].distanceTo2D(g2[1]) < angleChangeLookahead ?
                                         g2.lineAt(1).atan2DegreeAngle() : l2.atan2DegreeAngle());
         const SUMOReal angleDiff = NBHelpers::relAngle(l1.atan2DegreeAngle(), l2.atan2DegreeAngle());
         const SUMOReal angleDiffFurther = NBHelpers::relAngle(angle1further, angle2further);
@@ -601,13 +601,13 @@ NBNodeShapeComputer::computeNodeShapeSmall() {
         cross.extrapolateBy2D(500);
         edgebound1.extrapolateBy2D(500);
         edgebound2.extrapolateBy2D(500);
-        if (cross.intersects(edgebound1)) {
-            Position np = cross.intersectsAt(edgebound1);
+        if (GeomHelper::intersects(cross.p1(), cross.p2(), edgebound1.p1(), edgebound1.p2())) {
+            Position np = GeomHelper::intersection_position2D(cross.p1(), cross.p2(), edgebound1.p1(), edgebound1.p2());
             np.set(np.x(), np.y(), myNode.getPosition().z());
             ret.push_back_noDoublePos(np);
         }
-        if (cross.intersects(edgebound2)) {
-            Position np = cross.intersectsAt(edgebound2);
+        if (GeomHelper::intersects(cross.p1(), cross.p2(), edgebound2.p1(), edgebound2.p2())) {
+            Position np = GeomHelper::intersection_position2D(cross.p1(), cross.p2(), edgebound2.p1(), edgebound2.p2());
             np.set(np.x(), np.y(), myNode.getPosition().z());
             ret.push_back_noDoublePos(np);
         }
