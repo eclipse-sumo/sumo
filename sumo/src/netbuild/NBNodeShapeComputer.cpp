@@ -113,7 +113,7 @@ NBNodeShapeComputer::compute() {
 void
 computeSameEnd(PositionVector& l1, PositionVector& l2) {
     PositionVector tmp;
-    tmp.push_back(l1.lineAt(0).getPositionAtDistance2D(100));
+    tmp.push_back(PositionVector::positionAtOffset2D(l1[0], l1[1], 100));
     tmp.push_back(l1[1]);
     tmp[1].sub(tmp[0]);
     tmp[1].set(-tmp[1].y(), tmp[1].x());
@@ -121,17 +121,13 @@ computeSameEnd(PositionVector& l1, PositionVector& l2) {
     tmp.extrapolate2D(100);
     if (l1.intersects(tmp[0], tmp[1])) {
         const SUMOReal offset1 = l1.intersectsAtLengths2D(tmp)[0];
-        Line tl1 = Line(
-                       l1.lineAt(0).getPositionAtDistance2D(offset1),
-                       l1[1]);
+        Line tl1 = Line(PositionVector::positionAtOffset2D(l1[0], l1[1], offset1), l1[1]);
         tl1.extrapolateBy2D(100);
         l1.replaceAt(0, tl1.p1());
     }
     if (l2.intersects(tmp[0], tmp[1])) {
         const SUMOReal offset2 = l2.intersectsAtLengths2D(tmp)[0];
-        Line tl2 = Line(
-                       l2.lineAt(0).getPositionAtDistance2D(offset2),
-                       l2[1]);
+        Line tl2 = Line(PositionVector::positionAtOffset2D(l2[0], l2[1], offset2), l2[1]);
         tl2.extrapolateBy2D(100);
         l2.replaceAt(0, tl2.p1());
     }

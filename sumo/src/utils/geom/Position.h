@@ -161,14 +161,6 @@ public:
         myY = myY / val;
     }
 
-    void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
-        SUMOReal x = myX * cos(rot) - myY * sin(rot) + xoff;
-        SUMOReal y = myX * sin(rot) + yoff + myY * cos(rot);
-        myX = x;
-        myY = y;
-    }
-
-
     /// Prints to the output
     friend std::ostream& operator<<(std::ostream& os, const Position& p) {
         os << p.x() << "," << p.y();

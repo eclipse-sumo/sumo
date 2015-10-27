@@ -379,9 +379,9 @@ NBEdge::~NBEdge() {}
 // -----------  Applying offset
 void
 NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
-    myGeom.reshiftRotate(xoff, yoff, 0);
+    myGeom.add(xoff, yoff, 0);
     for (unsigned int i = 0; i < myLanes.size(); i++) {
-        myLanes[i].shape.reshiftRotate(xoff, yoff, 0);
+        myLanes[i].shape.add(xoff, yoff, 0);
     }
     computeAngle(); // update angles because they are numerically sensitive (especially where based on centroids)
 }
@@ -509,7 +509,7 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode) c
         assert(pb >= 0);
         PositionVector result = laneShape;
         result.eraseAt(0);
-        Position np = lb.getPositionAtDistance2D(pb);
+        Position np = PositionVector::positionAtOffset2D(lb.p1(), lb.p2(), pb);
         result.push_front_noDoublePos(Position(np.x(), np.y(), startNode->getPosition().z()));
         return result;
         //if (result.size() >= 2) {

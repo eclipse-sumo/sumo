@@ -613,8 +613,11 @@ MSVehicle::getPosition(const SUMOReal offset) const {
     Position result = myLane->geometryPositionAtOffset(getPositionOnLane() + offset);
     if (changingLanes) {
         const Position other = getLaneChangeModel().getShadowLane()->geometryPositionAtOffset(getPositionOnLane() + offset);
-        Line line = getLaneChangeModel().isLaneChangeMidpointPassed() ?  Line(other, result) : Line(result, other);
-        return line.getPositionAtDistance(getLaneChangeModel().getLaneChangeCompletion() * line.length());
+        const SUMOReal dist = getLaneChangeModel().getLaneChangeCompletion() * result.distanceTo(other);
+        if (getLaneChangeModel().isLaneChangeMidpointPassed()) {
+            return PositionVector::positionAtOffset(other, result, dist);
+        }
+        return PositionVector::positionAtOffset(result, other, dist);
     }
     return result;
 }

@@ -57,9 +57,6 @@ public:
     void extrapolateBy2D(SUMOReal length);
     const Position& p1() const;
     const Position& p2() const;
-    Position getPositionAtDistance(SUMOReal offset) const;
-    Position getPositionAtDistance2D(SUMOReal offset) const;
-    void move2side(SUMOReal amount);
     std::vector<SUMOReal> intersectsAtLengths2D(const PositionVector& v);
 
     SUMOReal atan2Angle() const;
@@ -72,7 +69,6 @@ public:
     SUMOReal length2D() const;
     void add(SUMOReal x, SUMOReal y);
     void add(const Position& p);
-    void sub(SUMOReal x, SUMOReal y);
 
     /// @brief Output operator
     friend std::ostream& operator<<(std::ostream& os, const Line& geom);

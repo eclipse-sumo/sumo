@@ -65,8 +65,8 @@ NBDistrict::~NBDistrict() {}
 // -----------  Applying offset
 void
 NBDistrict::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
-    myPosition.reshiftRotate(xoff, yoff, 0);
-    myShape.reshiftRotate(xoff, yoff, 0);
+    myPosition.add(xoff, yoff, 0);
+    myShape.add(xoff, yoff, 0);
 }
 
 

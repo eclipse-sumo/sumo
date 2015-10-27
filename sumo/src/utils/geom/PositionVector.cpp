@@ -103,7 +103,7 @@ PositionVector::around(const Position& p, SUMOReal offset) const {
         Position p2(
             (*(i + 1)).x() - p.x(),
             (*(i + 1)).y() - p.y());
-        angle += GeomHelper::Angle2D(p1.x(), p1.y(), p2.x(), p2.y());
+        angle += GeomHelper::angle2D(p1, p2);
     }
     Position p1(
         (*(end() - 1)).x() - p.x(),
@@ -111,7 +111,7 @@ PositionVector::around(const Position& p, SUMOReal offset) const {
     Position p2(
         (*(begin())).x() - p.x(),
         (*(begin())).y() - p.y());
-    angle += GeomHelper::Angle2D(p1.x(), p1.y(), p2.x(), p2.y());
+    angle += GeomHelper::angle2D(p1, p2);
     return (!(fabs(angle) < M_PI));
 }
 
@@ -278,15 +278,15 @@ PositionVector::positionAtOffset(const Position& p1,
     if (pos < 0 || dist < pos) {
         return Position::INVALID;
     }
+    Position offset;
     if (lateralOffset != 0) {
-        Line l(p1, p2);
-        l.move2side(-lateralOffset); // move in the same direction as Position::move2side
-        return l.getPositionAtDistance(pos);
+        std::pair<SUMOReal, SUMOReal> p = GeomHelper::getNormal90D_CW(p1, p2, -lateralOffset); // move in the same direction as Position::move2side
+        offset.set(p.first, p.second);
     }
     if (pos == 0.) {
-        return p1;
+        return p1 + offset;
     }
-    return p1 + (p2 - p1) * (pos / dist);
+    return p1 + (p2 - p1) * (pos / dist) + offset;
 }
 
 
@@ -298,15 +298,15 @@ PositionVector::positionAtOffset2D(const Position& p1,
     if (pos < 0 || dist < pos) {
         return Position::INVALID;
     }
+    Position offset;
     if (lateralOffset != 0) {
-        Line l(p1, p2);
-        l.move2side(-lateralOffset); // move in the same direction as Position::move2side
-        return l.getPositionAtDistance2D(pos);
+        std::pair<SUMOReal, SUMOReal> p = GeomHelper::getNormal90D_CW(p1, p2, -lateralOffset); // move in the same direction as Position::move2side
+        offset.set(p.first, p.second);
     }
     if (pos == 0.) {
-        return p1;
+        return p1 + offset;
     }
-    return p1 + (p2 - p1) * (pos / dist);
+    return p1 + (p2 - p1) * (pos / dist) + offset;
 }
 
 
@@ -479,8 +479,7 @@ PositionVector::splitAt(SUMOReal where) const {
     if (fabs(where - (seen + next)) > POSITION_EPS || it == end() - 1) {
         // we need to insert a new point because 'where' is not close to an
         // existing point or it is to close to the endpoint
-        Line tmpL(first.back(), *it);
-        Position p = tmpL.getPositionAtDistance(where - seen);
+        const Position p = positionAtOffset(first.back(), *it, where - seen);
         first.push_back(p);
         second.push_back(p);
     } else {
@@ -528,14 +527,6 @@ void
 PositionVector::mirrorX() {
     for (int i = 0; i < static_cast<int>(size()); i++) {
         (*this)[i].mul(1, -1);
-    }
-}
-
-
-void
-PositionVector::reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
-    for (int i = 0; i < static_cast<int>(size()); i++) {
-        (*this)[i].reshiftRotate(xoff, yoff, rot);
     }
 }
 
@@ -733,7 +724,7 @@ PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular)
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const SUMOReal pos =
             GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, perpendicular);
-        const SUMOReal dist = pos == GeomHelper::INVALID_OFFSET ? minDist : p.distanceTo2D(Line(*i, *(i + 1)).getPositionAtDistance2D(pos));
+        const SUMOReal dist = pos == GeomHelper::INVALID_OFFSET ? minDist : p.distanceTo2D(positionAtOffset2D(*i, *(i + 1), pos));
         if (dist < minDist) {
             nearestPos = pos + seen;
             minDist = dist;
@@ -774,7 +765,7 @@ PositionVector::transformToVectorCoordinates(const Position& p, bool extend) con
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const SUMOReal pos =
             GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, true);
-        const SUMOReal dist = pos < 0 ? minDist : p.distanceTo2D(Line(*i, *(i + 1)).getPositionAtDistance(pos));
+        const SUMOReal dist = pos < 0 ? minDist : p.distanceTo2D(positionAtOffset(*i, *(i + 1), pos));
         if (dist < minDist) {
             nearestPos = pos + seen;
             minDist = dist;
@@ -921,23 +912,23 @@ PositionVector::move2side(SUMOReal amount) {
     PositionVector shape;
     for (int i = 0; i < static_cast<int>(size()); i++) {
         if (i == 0) {
-            Position from = (*this)[i];
-            Position to = (*this)[i + 1];
-            std::pair<SUMOReal, SUMOReal> offsets =
+            const Position& from = (*this)[i];
+            const Position& to = (*this)[i + 1];
+            const std::pair<SUMOReal, SUMOReal> offsets =
                 GeomHelper::getNormal90D_CW(from, to, amount);
             shape.push_back(Position(from.x() - offsets.first,
                                      from.y() - offsets.second, from.z()));
         } else if (i == static_cast<int>(size()) - 1) {
-            Position from = (*this)[i - 1];
-            Position to = (*this)[i];
-            std::pair<SUMOReal, SUMOReal> offsets =
+            const Position& from = (*this)[i - 1];
+            const Position& to = (*this)[i];
+            const std::pair<SUMOReal, SUMOReal> offsets =
                 GeomHelper::getNormal90D_CW(from, to, amount);
             shape.push_back(Position(to.x() - offsets.first,
                                      to.y() - offsets.second, to.z()));
         } else {
-            Position from = (*this)[i - 1];
-            Position me = (*this)[i];
-            Position to = (*this)[i + 1];
+            const Position& from = (*this)[i - 1];
+            const Position& me = (*this)[i];
+            const Position& to = (*this)[i + 1];
             Line fromMe(from, me);
             fromMe.extrapolateBy2D(me.distanceTo2D(to));
             const double extrapolateDev = fromMe.p2().distanceTo2D(to);

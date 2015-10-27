@@ -502,10 +502,8 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
             //  - begin of outgoing lane
             numInitialPoints = 3;
             init.push_back(beg);
-            Line cross(beg, end);
-            Position center = cross.getPositionAtDistance((SUMOReal) cross.length() / (SUMOReal) 2.);
-            cross.sub(cross.p1().x(), cross.p1().y());
-            center.sub(-cross.p2().y(), cross.p2().x());
+            Position center = PositionVector::positionAtOffset(beg, end, beg.distanceTo(end) / (SUMOReal) 2.);
+            center.sub(beg.y()-end.y(), end.x()-beg.x());
             init.push_back(center);
             init.push_back(end);
         } else {
@@ -517,18 +515,11 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
                 endBeg.extrapolate(100);
                 SUMOReal distance = beg.distanceTo(end);
                 if (distance > 10) {
-                    {
-                        SUMOReal off1 = begShape.getEndLine().length() + extrapolateBeg;
-                        off1 = MIN2(off1, (SUMOReal)(begShape.getEndLine().length() + distance / 2.));
-                        Position tmp = endBeg.getEndLine().getPositionAtDistance(off1);
-                        init.push_back(tmp);
-                    }
-                    {
-                        SUMOReal off1 = (SUMOReal) 100. - extrapolateEnd;
-                        off1 = MAX2(off1, (SUMOReal)(100. - distance / 2.));
-                        Position tmp = endBeg.getBegLine().getPositionAtDistance(off1);
-                        init.push_back(tmp);
-                    }
+                    const SUMOReal endLength = begShape[-2].distanceTo(begShape[-1]);
+                    const SUMOReal off1 = endLength + MIN2(extrapolateBeg, distance / 2.);
+                    init.push_back(PositionVector::positionAtOffset(endBeg[-2], endBeg[-1], off1));
+                    const SUMOReal off2 = 100. - MIN2(extrapolateEnd, distance / 2.);
+                    init.push_back(PositionVector::positionAtOffset(endBeg[0], endBeg[1], off2));
                 } else {
                     noSpline = true;
                 }

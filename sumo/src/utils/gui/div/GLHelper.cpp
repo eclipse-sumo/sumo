@@ -425,7 +425,7 @@ GLHelper::drawTriangleAtEnd(const Line& l, SUMOReal tLength,
         tWidth = tWidth * l.length() / tLength;
         tLength = l.length();
     }
-    Line rl(l.getPositionAtDistance(l.length() - tLength), l.p2());
+    Line rl(PositionVector::positionAtOffset(l.p1(), l.p2(), l.length() - tLength), l.p2());
     glPushMatrix();
     glTranslated(rl.p1().x(), rl.p1().y(), 0);
     glRotated(-l.atan2DegreeAngle(), 0, 0, 1);

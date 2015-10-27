@@ -128,8 +128,7 @@ NGRandomNetBuilder::checkAngles(NGNode* node) {
                     Position v2(
                         ni->getPosition().x() - node->getPosition().x(),
                         ni->getPosition().y() - node->getPosition().y());
-                    SUMOReal angle = GeomHelper::Angle2D(v1.x(), v1.y(), v2.x(), v2.y());
-                    if (fabs((SUMOReal) angle) < myMinLinkAngle) {
+                    if (fabs(GeomHelper::angle2D(v1, v2)) < myMinLinkAngle) {
                         check = false;
                     }
                 }

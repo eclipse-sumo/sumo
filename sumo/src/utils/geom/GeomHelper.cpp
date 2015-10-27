@@ -214,15 +214,9 @@ GeomHelper::intersection_position2D(const Position& p11,
 }
 
 
-
-/*
-   Return the angle between two vectors on a plane
-   The angle is from vector 1 to vector 2, positive anticlockwise
-   The result is between -pi -> pi
-*/
 SUMOReal
-GeomHelper::Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
-    SUMOReal dtheta = atan2(y2, x2) - atan2(y1, x1);
+GeomHelper::angle2D(const Position& p1, const Position& p2) {
+    SUMOReal dtheta = atan2(p2.y(), p2.x()) - atan2(p1.y(), p1.x());
     while (dtheta > (SUMOReal) M_PI) {
         dtheta -= (SUMOReal)(2.0 * M_PI);
     }
@@ -298,7 +292,7 @@ GeomHelper::closestDistancePointLine2D(const Position& point,
                                        const Position& lineEnd,
                                        Position& outIntersection) {
     const SUMOReal length = nearest_offset_on_line_to_point2D(lineStart, lineEnd, point, false);
-    outIntersection.set(Line(lineStart, lineEnd).getPositionAtDistance2D(length));
+    outIntersection.set(PositionVector::positionAtOffset2D(lineStart, lineEnd, length));
     return point.distanceTo2D(outIntersection);
 }
 

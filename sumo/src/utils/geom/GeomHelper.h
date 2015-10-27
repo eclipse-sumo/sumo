@@ -99,7 +99,11 @@ public:
         const Position& p11, const Position& p12,
         const Position& p21, const Position& p22);
 
-    static SUMOReal Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
+    /** @brief Returns the angle between two vectors on a plane
+       The angle is from vector 1 to vector 2, positive anticlockwise
+       The result is between -pi and pi
+    */
+    static SUMOReal angle2D(const Position& p1, const Position& p2);
 
     static Position interpolate(const Position& p1,
                                 const Position& p2, SUMOReal length);

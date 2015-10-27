@@ -86,40 +86,6 @@ Line::p2() const {
 }
 
 
-Position
-Line::getPositionAtDistance(SUMOReal offset) const {
-    const SUMOReal length = myP1.distanceTo(myP2);
-    if (length == 0) {
-        if (offset != 0) {
-            throw InvalidArgument("Invalid offset " + toString(offset) + " for Line with length " + toString(length));;
-        }
-        return myP1;
-    }
-    return myP1 + (myP2 - myP1) * (offset / length);
-}
-
-
-Position
-Line::getPositionAtDistance2D(SUMOReal offset) const {
-    const SUMOReal length = myP1.distanceTo2D(myP2);
-    if (length == 0) {
-        if (offset != 0) {
-            throw InvalidArgument("Invalid offset " + toString(offset) + " for Line with length " + toString(length));;
-        }
-        return myP1;
-    }
-    return myP1 + (myP2 - myP1) * (offset / length);
-}
-
-
-void
-Line::move2side(SUMOReal amount) {
-    std::pair<SUMOReal, SUMOReal> p = GeomHelper::getNormal90D_CW(myP1, myP2, amount);
-    myP1.add(p.first, p.second);
-    myP2.add(p.first, p.second);
-}
-
-
 std::vector<SUMOReal>
 Line::intersectsAtLengths2D(const PositionVector& v) {
     PositionVector p = v.intersectionPoints2D(*this);
@@ -194,13 +160,6 @@ void
 Line::add(const Position& p) {
     myP1.add(p.x(), p.y(), p.z());
     myP2.add(p.x(), p.y(), p.z());
-}
-
-
-void
-Line::sub(SUMOReal x, SUMOReal y) {
-    myP1.sub(x, y);
-    myP2.sub(x, y);
 }
 
 
