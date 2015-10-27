@@ -182,7 +182,8 @@ def call(command, log):
         sys.exit(retCode)
 
 
-def writeRouteConf(step, options, file, output, routesInfo, initial_type):
+def writeRouteConf(duarouterBinary, step, options, dua_args, file,
+                   output, routesInfo, initial_type):
     filename = os.path.basename(file)
     filename = filename.split('.')[0]
     cfgname = "iteration_%03i_%s.duarcfg" % (step, filename)
@@ -252,6 +253,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     </report>
 </configuration>""" % (options.router_verbose, options.noWarnings), file=fd)
     fd.close()
+    subprocess.call([duarouterBinary, "-c", cfgname, "--save-configuration", cfgname] + dua_args)
     return cfgname
 
 
@@ -471,6 +473,7 @@ def main(args=None):
             "Error: Could not locate sumo (%s).\nMake sure its on the search path or set environment variable SUMO_BINARY\n" % sumoBinary)
 
     sumo_args = assign_remaining_args(sumoBinary, 'sumo', remaining_args)
+    dua_args = assign_remaining_args(sumoBinary, 'duarouter', remaining_args)
 
     sys.stdout = sumolib.TeeFile(sys.stdout, open("stdout.log", "w+"))
     log = open("dua.log", "w+")
@@ -542,10 +545,10 @@ def main(args=None):
                 print(">> Running router on %s" % router_input)
                 btime = datetime.now()
                 print(">>> Begin time: %s" % btime)
-                cfgname = writeRouteConf(
-                    step, options, router_input, output, options.routefile, initial_type)
+                cfgname = writeRouteConf(duaBinary, step, options, dua_args, router_input,
+                                         output, options.routefile, initial_type)
                 log.flush()
-                #sys.stdout.flush()
+                sys.stdout.flush()
                 call([duaBinary, "-c", cfgname], log)
                 if options.clean_alt and not router_input in input_demands:
                     os.remove(router_input)
