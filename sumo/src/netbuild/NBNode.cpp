@@ -507,18 +507,18 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
             init.push_back(center);
             init.push_back(end);
         } else {
-            const SUMOReal angle = fabs(begShape.angleAt2D(-2) - endShape.angleAt2D(0));
-            if (angle < M_PI / 4. || angle > 7. / 4. * M_PI) {
+            const SUMOReal angle = fabs(GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0)));
+            if (angle < M_PI / 4.) {
                 // very low angle: almost straight
                 numInitialPoints = 4;
                 init.push_back(beg);
                 endBeg.extrapolate(100);
-                SUMOReal distance = beg.distanceTo(end);
-                if (distance > 10) {
+                const SUMOReal halfDistance = beg.distanceTo(end) / 2.;
+                if (halfDistance > 5) {
                     const SUMOReal endLength = begShape[-2].distanceTo(begShape[-1]);
-                    const SUMOReal off1 = endLength + MIN2(extrapolateBeg, distance / 2.);
+                    const SUMOReal off1 = endLength + MIN2(extrapolateBeg, halfDistance);
                     init.push_back(PositionVector::positionAtOffset(endBeg[-2], endBeg[-1], off1));
-                    const SUMOReal off2 = 100. - MIN2(extrapolateEnd, distance / 2.);
+                    const SUMOReal off2 = 100. - MIN2(extrapolateEnd, halfDistance);
                     init.push_back(PositionVector::positionAtOffset(endBeg[0], endBeg[1], off2));
                 } else {
                     noSpline = true;
