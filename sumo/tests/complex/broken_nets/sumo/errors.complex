@@ -540,7 +540,7 @@ Quitting (on error).
 ------------------ net/junction[0]@id:<remove>
 Error: missing required attribute 'id'
  In file 'mod.net.xml'
- At line/column 35/109.
+ At line/column 35/107.
 
 Quitting (on error).
 ------------------ net/junction[1]@id:<remove>
@@ -558,7 +558,7 @@ Quitting (on error).
 ------------------ net/junction[0]@type:
 Error: value '' not in enumeration
  In file 'mod.net.xml'
- At line/column 35/105.
+ At line/column 35/103.
 
 Quitting (on error).
 ------------------ net/junction[1]@type:
@@ -576,7 +576,7 @@ Quitting (on error).
 ------------------ net/junction[0]@type:a
 Error: value 'a' not in enumeration
  In file 'mod.net.xml'
- At line/column 35/106.
+ At line/column 35/104.
 
 Quitting (on error).
 ------------------ net/junction[1]@type:a
@@ -594,7 +594,7 @@ Quitting (on error).
 ------------------ net/junction[0]@type:<remove>
 Error: missing required attribute 'type'
  In file 'mod.net.xml'
- At line/column 35/97.
+ At line/column 35/95.
 
 Quitting (on error).
 ------------------ net/junction[1]@type:<remove>
