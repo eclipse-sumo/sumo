@@ -108,7 +108,7 @@ public:
     /// Puts the given position at the front of the list
     void push_front(const Position& p);
 
-    /// Removes and returns the position at the fron of the list
+    /// Removes and returns the position at the front of the list
     Position pop_front();
 
     void insertAt(int index, const Position& p);
@@ -118,7 +118,7 @@ public:
     void eraseAt(int i);
 
     /** @brief Returns the information whether the position vector describes a polygon lying around the given point
-        The optional offset is added to the polygon's bounderies */
+        The optional offset is added to the polygon's boundaries */
     bool around(const Position& p, SUMOReal offset = 0) const;
 
     /** @brief Returns the information whether the given polygon overlaps with this

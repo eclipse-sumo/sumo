@@ -654,7 +654,7 @@ PositionVector::getSubpart2D(SUMOReal beginOffset, SUMOReal endOffset) const {
         begPos = positionAtOffset2D(beginOffset);
     }
     Position endPos = back();
-    if (endOffset < length() - POSITION_EPS) {
+    if (endOffset < length2D() - POSITION_EPS) {
         endPos = positionAtOffset2D(endOffset);
     }
     ret.push_back(begPos);

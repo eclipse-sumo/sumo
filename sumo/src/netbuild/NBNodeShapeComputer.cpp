@@ -121,15 +121,21 @@ computeSameEnd(PositionVector& l1, PositionVector& l2) {
     tmp.extrapolate2D(100);
     if (l1.intersects(tmp[0], tmp[1])) {
         const SUMOReal offset1 = l1.intersectsAtLengths2D(tmp)[0];
-        Line tl1 = Line(PositionVector::positionAtOffset2D(l1[0], l1[1], offset1), l1[1]);
-        tl1.extrapolateBy2D(100);
-        l1.replaceAt(0, tl1.p1());
+        PositionVector tl1 = l1.getSubpart2D(offset1, l1.length2D());
+        tl1.extrapolate2D(100);
+        while (l1.size() > tl1.size()) {
+            l1.pop_front();
+        }
+        l1.replaceAt(0, tl1[0]);
     }
     if (l2.intersects(tmp[0], tmp[1])) {
         const SUMOReal offset2 = l2.intersectsAtLengths2D(tmp)[0];
-        Line tl2 = Line(PositionVector::positionAtOffset2D(l2[0], l2[1], offset2), l2[1]);
-        tl2.extrapolateBy2D(100);
-        l2.replaceAt(0, tl2.p1());
+        PositionVector tl2 = l2.getSubpart2D(offset2, l2.length2D());
+        tl2.extrapolate2D(100);
+        while (l2.size() > tl2.size()) {
+            l2.pop_front();
+        }
+        l2.replaceAt(0, tl2[0]);
     }
 }
 
