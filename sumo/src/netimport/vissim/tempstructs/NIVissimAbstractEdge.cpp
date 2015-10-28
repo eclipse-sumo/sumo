@@ -36,7 +36,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/geom/Line.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBNetBuilder.h>
 #include "NIVissimAbstractEdge.h"

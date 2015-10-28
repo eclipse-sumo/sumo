@@ -34,7 +34,6 @@
 #include <utils/geom/PositionVector.h>
 #include "GUIInductLoop.h"
 #include <utils/gui/div/GLHelper.h>
-#include <utils/geom/Line.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSLane.h>

@@ -34,7 +34,6 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/MSLane.h>

@@ -422,11 +422,7 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
     if (oe == 0 || ie == 0) {
         return false;
     }
-    Line l1(oe->getGeometry().front(), oe->getGeometry().back());
-    Line l2(ie->getGeometry().back(), ie->getGeometry().front());
-    SUMOReal a1 = l1.atan2DegreeAngle();
-    SUMOReal a2 = l2.atan2DegreeAngle();
-    return fabs(a1 - a2) < 5;
+    return fabs(GeomHelper::angleDiff(oe->getGeometry().beginEndAngle(), ie->getGeometry().beginEndAngle())) < DEG2RAD(5);
 }
 
 

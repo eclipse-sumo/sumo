@@ -42,7 +42,6 @@
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Bresenham.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/geom/Line.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "NBCont.h"

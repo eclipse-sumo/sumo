@@ -124,11 +124,6 @@ public:
             const Position& lineStart, const Position& lineEnd,
             Position& outIntersection);
 
-    static Position transfer_to_side(Position& p,
-                                     const Position& lineBeg, const Position& lineEnd,
-                                     SUMOReal amount);
-
-
     static Position crossPoint(const Boundary& b,
                                const PositionVector& v);
 
@@ -189,6 +184,14 @@ public:
      * @return the angle in degrees
      */
     static SUMOReal naviDegree(const SUMOReal angle);
+
+    /** Converts an angle from mathematical radians where 0 is to the right and positive angles
+     *  are counterclockwise to the legacy degrees used in sumo where 0 is down and positive means clockwise.
+     *  The result is always in the range [-180, 180).
+     * @param[in] angle The angle in radians to convert
+     * @return the angle in degrees
+     */
+    static SUMOReal legacyDegree(const SUMOReal angle);
 
 private:
     /** @brief return whether the line segments defined by Line (x1,y1),(x2,y2)

@@ -32,7 +32,6 @@
 
 #include "GUIE3Collector.h"
 #include "GUIEdge.h"
-#include <utils/geom/Line.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <microsim/logging/FunctionBinding.h>

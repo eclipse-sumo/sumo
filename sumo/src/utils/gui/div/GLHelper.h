@@ -36,7 +36,6 @@
 #include <utility>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/geom/Line.h>
 
 
 // ===========================================================================

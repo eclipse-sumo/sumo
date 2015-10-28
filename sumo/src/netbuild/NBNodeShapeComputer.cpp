@@ -393,7 +393,6 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
             myNode.hasIncoming(*i)
             ? (*i)->getCCWBoundaryLine(myNode)
             : (*i)->getCWBoundaryLine(myNode);
-        Line l1 = g1.lineAt(0);
         geomsCCW[*i].extrapolate2D(100, true);
         geomsCW[*i].extrapolate2D(100, true);
         //
@@ -404,7 +403,6 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
                 myNode.hasIncoming(*j)
                 ? (*j)->getCCWBoundaryLine(myNode)
                 : (*j)->getCWBoundaryLine(myNode);
-            Line l2 = g2.lineAt(0);
             geomsCCW[*j].extrapolate2D(100, true);
             geomsCW[*j].extrapolate2D(100, true);
         }
@@ -423,23 +421,21 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
         const bool incoming2 = (*j)->getToNode() == &myNode;
         const Position positionAtNode = (*i)->getGeometry()[incoming ? -1 : 0];
         const Position positionAtNode2 = (*j)->getGeometry()[incoming2 ? -1 : 0];
-        PositionVector g1 = incoming ? (*i)->getCCWBoundaryLine(myNode) : (*i)->getCWBoundaryLine(myNode);
-        PositionVector g2 = incoming ? (*j)->getCCWBoundaryLine(myNode) : (*j)->getCWBoundaryLine(myNode);
-        Line l1 = g1.lineAt(0);
-        Line l2 = g2.lineAt(0);
+        const PositionVector g1 = incoming ? (*i)->getCCWBoundaryLine(myNode) : (*i)->getCWBoundaryLine(myNode);
+        const PositionVector g2 = incoming ? (*j)->getCCWBoundaryLine(myNode) : (*j)->getCWBoundaryLine(myNode);
         const SUMOReal angle1further = (g1.size() > 2 && g1[0].distanceTo2D(g1[1]) < angleChangeLookahead ?
-                                        g1.lineAt(1).atan2DegreeAngle() : l1.atan2DegreeAngle());
+                                        g1.angleAt2D(1) : g1.angleAt2D(0));
         const SUMOReal angle2further = (g2.size() > 2 && g2[0].distanceTo2D(g2[1]) < angleChangeLookahead ?
-                                        g2.lineAt(1).atan2DegreeAngle() : l2.atan2DegreeAngle());
-        const SUMOReal angleDiff = NBHelpers::relAngle(l1.atan2DegreeAngle(), l2.atan2DegreeAngle());
-        const SUMOReal angleDiffFurther = NBHelpers::relAngle(angle1further, angle2further);
+                                        g2.angleAt2D(1) : g2.angleAt2D(0));
+        const SUMOReal angleDiff = GeomHelper::angleDiff(g1.angleAt2D(0), g2.angleAt2D(0));
+        const SUMOReal angleDiffFurther = GeomHelper::angleDiff(angle1further, angle2further);
         const bool ambiguousGeometry = ((angleDiff > 0 && angleDiffFurther < 0) || (angleDiff < 0 && angleDiffFurther > 0));
         const bool differentDirs = (incoming != incoming2);
         //if (ambiguousGeometry) {
         //    @todo: this warning would be helpful in many cases. However, if angle and angleFurther jump between 179 and -179 it is misleading
         //    WRITE_WARNING("Ambigous angles at junction '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
         //}
-        if (fabs(angleDiff) < 20) {
+        if (fabs(angleDiff) < DEG2RAD(20)) {
             const bool isOpposite = differentDirs && foundOpposite.count(*i) == 0;
             if (isOpposite) {
                 foundOpposite.insert(*i);

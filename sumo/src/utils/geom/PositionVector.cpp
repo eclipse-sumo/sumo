@@ -45,7 +45,6 @@
 #include "Position.h"
 #include "PositionVector.h"
 #include "GeomHelper.h"
-#include "Line.h"
 #include "Helper_ConvexHull.h"
 #include "Boundary.h"
 
@@ -254,15 +253,17 @@ PositionVector::rotationDegreeAtOffset(SUMOReal pos) const {
     const_iterator i = begin();
     SUMOReal seenLength = 0;
     do {
-        SUMOReal nextLength = (*i).distanceTo(*(i + 1));
+        const Position& p1 = *i;
+        const Position& p2 = *(i + 1);
+        const SUMOReal nextLength = p1.distanceTo(p2);
         if (seenLength + nextLength > pos) {
-            Line l(*i, *(i + 1));
-            return l.atan2DegreeAngle();
+            return GeomHelper::legacyDegree(p1.angleTo2D(p2));
         }
         seenLength += nextLength;
     } while (++i != end() - 1);
-    Line l(*(end() - 2), *(end() - 1));
-    return l.atan2DegreeAngle();
+    const Position& p1 = (*this)[-2];
+    const Position& p2 = back();
+    return GeomHelper::legacyDegree(p1.angleTo2D(p2));
 }
 
 SUMOReal
@@ -589,19 +590,6 @@ PositionVector::convexHull() const {
 }
 
 
-PositionVector
-PositionVector::intersectionPoints2D(const Line& line) const {
-    PositionVector ret;
-    for (const_iterator i = begin(); i != end() - 1; i++) {
-        if (GeomHelper::intersects(*i, *(i + 1), line.p1(), line.p2())) {
-            ret.push_back_noDoublePos(GeomHelper::intersection_position2D(
-                                          *i, *(i + 1), line.p1(), line.p2()));
-        }
-    }
-    return ret;
-}
-
-
 void
 PositionVector::append(const PositionVector& v, SUMOReal sameThreshold) {
     if (size() > 0 && v.size() > 0 && back().distanceTo(v[0]) < sameThreshold) {
@@ -847,7 +835,7 @@ std::vector<SUMOReal>
 PositionVector::intersectsAtLengths2D(const PositionVector& other) const {
     std::vector<SUMOReal> ret;
     for (const_iterator i = other.begin(); i != other.end() - 1; i++) {
-        std::vector<SUMOReal> atSegment = intersectsAtLengths2D(Line(*i, *(i + 1)));
+        std::vector<SUMOReal> atSegment = intersectsAtLengths2D(*i, *(i + 1));
         copy(atSegment.begin(), atSegment.end(), back_inserter(ret));
     }
     return ret;
@@ -855,16 +843,15 @@ PositionVector::intersectsAtLengths2D(const PositionVector& other) const {
 
 
 std::vector<SUMOReal>
-PositionVector::intersectsAtLengths2D(const Line& line) const {
+PositionVector::intersectsAtLengths2D(const Position& lp1, const Position& lp2) const {
     std::vector<SUMOReal> ret;
     SUMOReal pos = 0;
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const Position& p1 = *i;
         const Position& p2 = *(i + 1);
-        if (GeomHelper::intersects(p1, p2, line.p1(), line.p2())) {
-            Position p = GeomHelper::intersection_position2D(p1, p2, line.p1(), line.p2());
-            SUMOReal atLength = p.distanceTo2D(p1);
-            ret.push_back(atLength + pos);
+        if (GeomHelper::intersects(p1, p2, lp1, lp2)) {
+            Position p = GeomHelper::intersection_position2D(p1, p2, lp1, lp2);
+            ret.push_back(p.distanceTo2D(p1) + pos);
         }
         pos += p1.distanceTo2D(p2);
     }
@@ -1012,29 +999,10 @@ PositionVector::move2side(SUMOReal amount) {
 }
 
 
-Line
-PositionVector::lineAt(int pos) const {
-    assert((int)size() > pos + 1);
-    return Line((*this)[pos], (*this)[pos + 1]);
-}
-
-
 SUMOReal
 PositionVector::angleAt2D(int pos) const {
     assert((int)size() > pos + 1);
     return (*this)[pos].angleTo2D((*this)[pos + 1]);
-}
-
-
-Line
-PositionVector::getBegLine() const {
-    return lineAt(0);
-}
-
-
-Line
-PositionVector::getEndLine() const {
-    return lineAt((int)size() - 2);
 }
 
 

@@ -52,7 +52,6 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/geom/Line.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>

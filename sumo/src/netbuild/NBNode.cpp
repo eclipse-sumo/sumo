@@ -43,7 +43,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/bezier.h>
 #include <utils/common/MsgHandler.h>

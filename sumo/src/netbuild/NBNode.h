@@ -43,7 +43,6 @@
 #include <utils/geom/Bresenham.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Position.h>
-#include <utils/geom/Line.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "NBEdge.h"

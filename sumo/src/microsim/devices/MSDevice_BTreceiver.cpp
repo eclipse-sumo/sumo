@@ -34,7 +34,6 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/geom/Position.h>
-#include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>

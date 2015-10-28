@@ -39,7 +39,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class Line;
 class Boundary;
 
 
@@ -142,16 +141,13 @@ public:
     Position intersectsAtPoint(const Position& p1,
                                const Position& p2) const; // !!!
 
-    /** Returns any intersection Points with the given line (ignoring z-coordinates) */
-    PositionVector intersectionPoints2D(const Line& line) const;
-
     /** @brief For all intersections between this vector and other,
      * return the 2D-length of the subvector from this vectors start to the intersection */
     std::vector<SUMOReal> intersectsAtLengths2D(const PositionVector& other) const; // !!!
 
     /** @brief For all intersections between this vector and line,
      * return the 2D-length of the subvector from this vectors start to the intersection */
-    std::vector<SUMOReal> intersectsAtLengths2D(const Line& line) const; // !!!
+    std::vector<SUMOReal> intersectsAtLengths2D(const Position& lp1, const Position& lp2) const; // !!!
 
     /** Returns the position of the intersection */
     Position intersectsAtPoint(const PositionVector& v1) const; // !!!
@@ -250,13 +246,7 @@ public:
 
     void move2side(SUMOReal amount);
 
-    Line lineAt(int pos) const;
-
     SUMOReal angleAt2D(int pos) const;
-
-    Line getBegLine() const;
-
-    Line getEndLine() const;
 
 
     // @brief inserts p between the two closest positions and returns the insertion index

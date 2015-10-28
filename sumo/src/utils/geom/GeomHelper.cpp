@@ -37,7 +37,6 @@
 #include <iostream>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
-#include <utils/geom/Line.h>
 #include "Boundary.h"
 #include "GeomHelper.h"
 
@@ -290,23 +289,6 @@ GeomHelper::closestDistancePointLine2D(const Position& point,
 }
 
 
-
-Position
-GeomHelper::transfer_to_side(Position& p,
-                             const Position& lineBeg,
-                             const Position& lineEnd,
-                             SUMOReal amount) {
-    const SUMOReal dx = lineBeg.x() - lineEnd.x();
-    const SUMOReal dy = lineBeg.y() - lineEnd.y();
-    const SUMOReal length = sqrt(dx * dx + dy * dy);
-    if (length > 0) {
-        p.add(dy * amount / length, -dx * amount / length);
-    }
-    return p;
-}
-
-
-
 Position
 GeomHelper::crossPoint(const Boundary& b, const PositionVector& v) {
     if (v.intersects(Position(b.xmin(), b.ymin()), Position(b.xmin(), b.ymax()))) {
@@ -404,6 +386,19 @@ GeomHelper::naviDegree(const SUMOReal angle) {
         degree -= 360.;
     }
     while (degree < 0.) {
+        degree += 360.;
+    }
+    return degree;
+}
+
+
+SUMOReal
+GeomHelper::legacyDegree(const SUMOReal angle) {
+    SUMOReal degree = -RAD2DEG(M_PI / 2. + angle);
+    while (degree >= 180.) {
+        degree -= 360.;
+    }
+    while (degree < -180.) {
         degree += 360.;
     }
     return degree;

@@ -459,9 +459,7 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
     } else {
         // @note If the node shapes are overlapping we may get a shape which goes in the wrong direction
         // in this case the result shape should shortened
-        Line lc(shape[0], shape[-1]);
-        Line lo(old[0], old[-1]);
-        if (135 < GeomHelper::getMinAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle())) {
+        if (DEG2RAD(135) < fabs(GeomHelper::angleDiff(shape.beginEndAngle(), old.beginEndAngle()))) {
             shape = shape.reverse();
             shape = shape.getSubpart(0, 2 * POSITION_EPS); // *2 because otherwhise shape has only a single point
         }
@@ -605,24 +603,24 @@ NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius, bool fi
     std::vector<SUMOReal> angles; // absolute segment angles
     //std::cout << "  absolute angles:";
     for (int i = 0; i < (int)myGeom.size() - 1; ++i) {
-        angles.push_back(myGeom.lineAt(i).atan2DegreeAngle());
+        angles.push_back(myGeom.angleAt2D(i));
         //std::cout << " " << angles.back();
     }
     //std::cout << "\n  relative angles: ";
     for (int i = 0; i < (int)angles.size() - 1; ++i) {
-        const SUMOReal relAngle = fabs(NBHelpers::relAngle(angles[i], angles[i + 1]));
+        const SUMOReal relAngle = fabs(GeomHelper::angleDiff(angles[i], angles[i + 1]));
         //std::cout << relAngle << " ";
         if (maxAngle > 0 && relAngle > maxAngle) {
-            WRITE_WARNING("Found angle of " + toString(relAngle) + " degrees at edge '" + getID() + "', segment " + toString(i));
+            WRITE_WARNING("Found angle of " + toString(RAD2DEG(relAngle)) + " degrees at edge '" + getID() + "', segment " + toString(i));
         }
-        if (relAngle < 1) {
+        if (relAngle < DEG2RAD(1)) {
             continue;
         }
         if (i == 0 || i == (int)angles.size() - 2) {
             const bool start = i == 0;
             const SUMOReal dist = (start ? myGeom[0].distanceTo2D(myGeom[1]) : myGeom[-2].distanceTo2D(myGeom[-1]));
-            const SUMOReal r = tan(DEG2RAD(90 - 0.5 * relAngle)) * dist;
-            //std::cout << (start ? "  start" : "  end") << " length=" << l.length2D() << " radius=" << r << "  ";
+            const SUMOReal r = tan(0.5 * (M_PI - relAngle)) * dist;
+            //std::cout << (start ? "  start" : "  end") << " length=" << dist << " radius=" << r << "  ";
             if (minRadius > 0 && r < minRadius) {
                 if (fix) {
                     WRITE_MESSAGE("Removing sharp turn with radius " + toString(r) + " at the " +
@@ -1263,10 +1261,10 @@ SUMOReal
 NBEdge::getAngleAtNode(const NBNode* const atNode) const {
     // myStartAngle, myEndAngle are in [0,360] and this returns results in [-180,180]
     if (atNode == myFrom) {
-        return myGeom.getBegLine().atan2DegreeAngle();
+        return GeomHelper::legacyDegree(myGeom.angleAt2D(0));
     } else {
         assert(atNode == myTo);
-        return myGeom.getEndLine().atan2DegreeAngle();
+        return GeomHelper::legacyDegree(myGeom.angleAt2D(-2));
     }
 }
 

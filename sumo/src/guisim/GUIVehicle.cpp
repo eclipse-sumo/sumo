@@ -546,7 +546,6 @@ GUIVehicle::computeSeats(const Position& front, const Position& back, int& requi
     if (requiredSeats <= 0) {
         return; // save some work
     }
-    const Line l(front, back);
     const SUMOReal length = front.distanceTo2D(back);
     if (length < 4) {
         // small vehicle, sit at the center
