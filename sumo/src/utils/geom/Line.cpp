@@ -56,15 +56,6 @@ Line::Line(const Position& p1, const Position& p2)
 Line::~Line() {}
 
 
-void
-Line::extrapolateBy2D(SUMOReal length) {
-    SUMOReal factor = length / myP1.distanceTo2D(myP2);
-    Position offset = (myP2 - myP1) * factor;
-    myP1.sub(offset);
-    myP2.add(offset);
-}
-
-
 const Position&
 Line::p1() const {
     return myP1;
@@ -80,26 +71,6 @@ Line::p2() const {
 SUMOReal
 Line::atan2DegreeAngle() const {
     return RAD2DEG(atan2(myP1.x() - myP2.x(), myP1.y() - myP2.y()));
-}
-
-
-SUMOReal
-Line::atan2DegreeSlope() const {
-    return RAD2DEG(atan2(myP2.z() - myP1.z(), myP1.distanceTo2D(myP2)));
-}
-
-
-void
-Line::add(SUMOReal x, SUMOReal y) {
-    myP1.add(x, y);
-    myP2.add(x, y);
-}
-
-
-void
-Line::add(const Position& p) {
-    myP1.add(p.x(), p.y(), p.z());
-    myP2.add(p.x(), p.y(), p.z());
 }
 
 

@@ -394,12 +394,8 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
             ? (*i)->getCCWBoundaryLine(myNode)
             : (*i)->getCWBoundaryLine(myNode);
         Line l1 = g1.lineAt(0);
-        Line tmp = geomsCCW[*i].lineAt(0);
-        tmp.extrapolateBy2D(100);
-        geomsCCW[*i].replaceAt(0, tmp.p1());
-        tmp = geomsCW[*i].lineAt(0);
-        tmp.extrapolateBy2D(100);
-        geomsCW[*i].replaceAt(0, tmp.p1());
+        geomsCCW[*i].extrapolate2D(100, true);
+        geomsCW[*i].extrapolate2D(100, true);
         //
         for (j = i + 1; j != myNode.myAllEdges.end(); j++) {
             geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode);
@@ -409,12 +405,8 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
                 ? (*j)->getCCWBoundaryLine(myNode)
                 : (*j)->getCWBoundaryLine(myNode);
             Line l2 = g2.lineAt(0);
-            tmp = geomsCCW[*j].lineAt(0);
-            tmp.extrapolateBy2D(100);
-            geomsCCW[*j].replaceAt(0, tmp.p1());
-            tmp = geomsCW[*j].lineAt(0);
-            tmp.extrapolateBy2D(100);
-            geomsCW[*j].replaceAt(0, tmp.p1());
+            geomsCCW[*j].extrapolate2D(100, true);
+            geomsCW[*j].extrapolate2D(100, true);
         }
     }
     // compute same (edges where an intersection doesn't work well
@@ -599,21 +591,21 @@ NBNodeShapeComputer::computeNodeShapeSmall() {
     EdgeVector::const_iterator i;
     for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
         // compute crossing with normal
-        Line edgebound1 = (*i)->getCCWBoundaryLine(myNode).lineAt(0);
-        Line edgebound2 = (*i)->getCWBoundaryLine(myNode).lineAt(0);
-        Position delta = edgebound1.p2() - edgebound1.p1();
+        PositionVector edgebound1 = (*i)->getCCWBoundaryLine(myNode).getSubpartByIndex(0, 2);
+        PositionVector edgebound2 = (*i)->getCWBoundaryLine(myNode).getSubpartByIndex(0, 2);
+        Position delta = edgebound1[1] - edgebound1[0];
         delta.set(-delta.y(), delta.x()); // rotate 90 degrees
-        Line cross(myNode.getPosition(), myNode.getPosition() + delta);
-        cross.extrapolateBy2D(500);
-        edgebound1.extrapolateBy2D(500);
-        edgebound2.extrapolateBy2D(500);
-        if (GeomHelper::intersects(cross.p1(), cross.p2(), edgebound1.p1(), edgebound1.p2())) {
-            Position np = GeomHelper::intersection_position2D(cross.p1(), cross.p2(), edgebound1.p1(), edgebound1.p2());
+        PositionVector cross(myNode.getPosition(), myNode.getPosition() + delta);
+        cross.extrapolate2D(500);
+        edgebound1.extrapolate2D(500);
+        edgebound2.extrapolate2D(500);
+        if (GeomHelper::intersects(cross[0], cross[1], edgebound1[0], edgebound1[1])) {
+            Position np = GeomHelper::intersection_position2D(cross[0], cross[1], edgebound1[0], edgebound1[1]);
             np.set(np.x(), np.y(), myNode.getPosition().z());
             ret.push_back_noDoublePos(np);
         }
-        if (GeomHelper::intersects(cross.p1(), cross.p2(), edgebound2.p1(), edgebound2.p2())) {
-            Position np = GeomHelper::intersection_position2D(cross.p1(), cross.p2(), edgebound2.p1(), edgebound2.p2());
+        if (GeomHelper::intersects(cross[0], cross[1], edgebound2[0], edgebound2[1])) {
+            Position np = GeomHelper::intersection_position2D(cross[0], cross[1], edgebound2[0], edgebound2[1]);
             np.set(np.x(), np.y(), myNode.getPosition().z());
             ret.push_back_noDoublePos(np);
         }

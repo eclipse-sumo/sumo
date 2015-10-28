@@ -53,14 +53,10 @@ public:
     Line();
     Line(const Position& p1, const Position& p2);
     ~Line();
-    void extrapolateBy2D(SUMOReal length);
     const Position& p1() const;
     const Position& p2() const;
 
     SUMOReal atan2DegreeAngle() const;
-    SUMOReal atan2DegreeSlope() const;
-    void add(SUMOReal x, SUMOReal y);
-    void add(const Position& p);
 
     /// @brief Output operator
     friend std::ostream& operator<<(std::ostream& os, const Line& geom);

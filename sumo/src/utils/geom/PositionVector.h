@@ -76,6 +76,13 @@ public:
     PositionVector(const std::vector<Position>::const_iterator beg, const std::vector<Position>::const_iterator end);
 
 
+    /** @brief Constructor for lines
+     * @param[in] p1 the first position
+     * @param[in] p2 the second position
+     */
+    PositionVector(const Position& p1, const Position& p2);
+
+
     /// @brief Destructor
     ~PositionVector();
 
@@ -235,9 +242,9 @@ public:
 
     void sortByIncreasingXY();
 
-    void extrapolate(SUMOReal val);
+    void extrapolate(const SUMOReal val, const bool onlyFirst=false);
 
-    void extrapolate2D(SUMOReal val);
+    void extrapolate2D(const SUMOReal val, const bool onlyFirst=false);
 
     PositionVector reverse() const;
 

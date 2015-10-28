@@ -69,6 +69,12 @@ PositionVector::PositionVector(const std::vector<Position>::const_iterator beg, 
 }
 
 
+PositionVector::PositionVector(const Position& p1, const Position& p2) {
+    push_back(p1);
+    push_back(p2);
+}
+
+
 PositionVector::~PositionVector() {}
 
 
@@ -264,15 +270,17 @@ PositionVector::slopeDegreeAtOffset(SUMOReal pos) const {
     const_iterator i = begin();
     SUMOReal seenLength = 0;
     do {
-        SUMOReal nextLength = (*i).distanceTo(*(i + 1));
+        const Position& p1 = *i;
+        const Position& p2 = *(i + 1);
+        const SUMOReal nextLength = p1.distanceTo(p2);
         if (seenLength + nextLength > pos) {
-            Line l(*i, *(i + 1));
-            return l.atan2DegreeSlope();
+            return RAD2DEG(atan2(p2.z() - p1.z(), p1.distanceTo2D(p2)));
         }
         seenLength += nextLength;
     } while (++i != end() - 1);
-    Line l(*(end() - 2), *(end() - 1));
-    return l.atan2DegreeSlope();
+    const Position& p1 = (*this)[-2];
+    const Position& p2 = back();
+    return RAD2DEG(atan2(p2.z() - p1.z(), p1.distanceTo2D(p2)));
 }
 
 Position
@@ -865,35 +873,39 @@ PositionVector::intersectsAtLengths2D(const Line& line) const {
 
 
 void
-PositionVector::extrapolate(SUMOReal val) {
+PositionVector::extrapolate(const SUMOReal val, const bool onlyFirst) {
     assert(size() > 1);
     Position& p1 = (*this)[0];
     Position& p2 = (*this)[1];
     const Position offset = (p2 - p1) * (val / p1.distanceTo(p2));
     p1.sub(offset);
-    if (size() == 2) {
-        p2.add(offset);
-    } else {
-        const Position& e1 = (*this)[-2];
-        Position& e2 = (*this)[-1];
-        e2.sub((e1 - e2) * (val / e1.distanceTo(e2)));
+    if (!onlyFirst) {
+        if (size() == 2) {
+            p2.add(offset);
+        } else {
+            const Position& e1 = (*this)[-2];
+            Position& e2 = (*this)[-1];
+            e2.sub((e1 - e2) * (val / e1.distanceTo(e2)));
+        }
     }
 }
 
 
 void
-PositionVector::extrapolate2D(SUMOReal val) {
+PositionVector::extrapolate2D(const SUMOReal val, const bool onlyFirst) {
     assert(size() > 1);
     Position& p1 = (*this)[0];
     Position& p2 = (*this)[1];
     const Position offset = (p2 - p1) * (val / p1.distanceTo2D(p2));
     p1.sub(offset);
-    if (size() == 2) {
-        p2.add(offset);
-    } else {
-        const Position& e1 = (*this)[-2];
-        Position& e2 = (*this)[-1];
-        e2.sub((e1 - e2) * (val / e1.distanceTo2D(e2)));
+    if (!onlyFirst) {
+        if (size() == 2) {
+            p2.add(offset);
+        } else {
+            const Position& e1 = (*this)[-2];
+            Position& e2 = (*this)[-1];
+            e2.sub((e1 - e2) * (val / e1.distanceTo2D(e2)));
+        }
     }
 }
 
@@ -933,9 +945,9 @@ PositionVector::move2side(SUMOReal amount) {
             const Position& from = (*this)[i - 1];
             const Position& me = (*this)[i];
             const Position& to = (*this)[i + 1];
-            Line fromMe(from, me);
-            fromMe.extrapolateBy2D(me.distanceTo2D(to));
-            const double extrapolateDev = fromMe.p2().distanceTo2D(to);
+            PositionVector fromMe(from, me);
+            fromMe.extrapolate2D(me.distanceTo2D(to));
+            const double extrapolateDev = fromMe[1].distanceTo2D(to);
             if (fabs(extrapolateDev) < POSITION_EPS) {
                 // parallel case, just shift the middle point
                 std::pair<SUMOReal, SUMOReal> off =
@@ -945,25 +957,25 @@ PositionVector::move2side(SUMOReal amount) {
             }
             if (fabs(extrapolateDev - 2 * me.distanceTo2D(to)) < POSITION_EPS) {
                 // counterparallel case, just shift the middle point
-                Line fromMe(from, me);
-                fromMe.extrapolateBy2D(amount);
-                shape.push_back(fromMe.p2());
+                PositionVector fromMe(from, me);
+                fromMe.extrapolate2D(amount);
+                shape.push_back(fromMe[1]);
                 continue;
             }
             std::pair<SUMOReal, SUMOReal> offsets =
                 GeomHelper::getNormal90D_CW(from, me, amount);
             std::pair<SUMOReal, SUMOReal> offsets2 =
                 GeomHelper::getNormal90D_CW(me, to, amount);
-            Line l1(
+            PositionVector l1(
                 Position(from.x() - offsets.first, from.y() - offsets.second),
                 Position(me.x() - offsets.first, me.y() - offsets.second));
-            l1.extrapolateBy2D(100);
-            Line l2(
+            l1.extrapolate2D(100);
+            PositionVector l2(
                 Position(me.x() - offsets2.first, me.y() - offsets2.second),
                 Position(to.x() - offsets2.first, to.y() - offsets2.second));
-            l2.extrapolateBy2D(100);
-            if (GeomHelper::intersects(l1.p1(), l1.p2(), l2.p1(), l2.p2())) {
-                shape.push_back(GeomHelper::intersection_position2D(l1.p1(), l1.p2(), l2.p1(), l2.p2()));
+            l2.extrapolate2D(100);
+            if (GeomHelper::intersects(l1[0], l1[1], l2[0], l2[1])) {
+                shape.push_back(GeomHelper::intersection_position2D(l1[0], l1[1], l2[0], l2[1]));
             } else {
                 throw InvalidArgument("no line intersection");
             }
