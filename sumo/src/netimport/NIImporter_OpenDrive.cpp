@@ -890,11 +890,16 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
     SUMOReal curveStart = g.params[0];
     SUMOReal curveEnd = g.params[1];
     Point2D<double> end;
-    EulerSpiral s(Point2D<double>(g.x, g.y), g.hdg, curveStart, (curveEnd - curveStart) / g.length, g.length);
-    std::vector<Point2D<double> > into;
-    s.computeSpiral(into, 1.);
-    for (std::vector<Point2D<double> >::iterator i = into.begin(); i != into.end(); ++i) {
-        ret.push_back(Position((*i).getX(), (*i).getY()));
+    try {
+        EulerSpiral s(Point2D<double>(g.x, g.y), g.hdg, curveStart, (curveEnd - curveStart) / g.length, g.length);
+        std::vector<Point2D<double> > into;
+        s.computeSpiral(into, 1.);
+        for (std::vector<Point2D<double> >::iterator i = into.begin(); i != into.end(); ++i) {
+            ret.push_back(Position((*i).getX(), (*i).getY()));
+        }
+    } catch (const std::runtime_error& error) {
+        WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "'.");
+        ret.push_back(Position(g.x, g.y));
     }
     return ret;
 }
