@@ -307,8 +307,14 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         if (decelGap > 0 && decelGap >= secureGap) {
             // if the blocking neighbor brakes it could actually help
             // how hard does it actually need to be?
-            const SUMOReal vsafe = MAX2(neighNewSpeed, nv->getCarFollowModel().followSpeed(
+            // to be safe in the next step the following equation has to hold:
+            //   vsafe <= followSpeed(gap=currentGap - SPEED2DIST(vsafe), ...)
+            // we compute an upper bound on vsafe by doing the computation twice
+            const SUMOReal vsafe1 = MAX2(neighNewSpeed, nv->getCarFollowModel().followSpeed(
                                             nv, nv->getSpeed(), neighFollow.second, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
+            const SUMOReal vsafe = MAX2(neighNewSpeed, nv->getCarFollowModel().followSpeed(
+                                            nv, nv->getSpeed(), neighFollow.second - SPEED2DIST(vsafe1), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
+            assert(vsafe <= vsafe1);
             msgPass.informNeighFollower(new Info(vsafe, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
         } else if (dv > 0 && dv * remainingSeconds > (secureGap - decelGap + POSITION_EPS)) {
             // decelerating once is sufficient to open up a large enough gap in time
