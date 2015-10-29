@@ -26,7 +26,7 @@
 
 using namespace std;
 
-
+/*
 TEST(GeomHelper, test_method_intersects) {
     // on the same line but non-overlapping segments
 	EXPECT_FALSE(GeomHelper::intersects(
@@ -135,4 +135,4 @@ TEST(GeomHelper, test_method_closestDistancePointLine_outside_before) {
 	EXPECT_FLOAT_EQ(expected.y(), closestPoint.y());
 	EXPECT_FLOAT_EQ(expected.z(), closestPoint.z());
 	EXPECT_FLOAT_EQ(expectedDistance, result);
-}
+}*/
