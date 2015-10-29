@@ -320,10 +320,16 @@ public:
      */
     void removeDoublePoints(SUMOReal minDist = POSITION_EPS, bool assertLength = false);
 
-    void removeColinearPoints();
-
     /// @brief return whether two positions differ in z-coordinate
     bool hasElevation() const;
+
+private:
+    /** @brief return whether the line segments defined by Line p11,p12
+     * and Line p21,p22 intersect
+     */
+    static bool intersects(const Position& p11, const Position& p12,
+                           const Position& p21, const Position& p22,
+                           SUMOReal* x, SUMOReal* y, SUMOReal* mu);
 
 };
 

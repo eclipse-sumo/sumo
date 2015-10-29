@@ -143,11 +143,10 @@ PositionVector::intersects(const Position& p1, const Position& p2) const {
         return false;
     }
     for (const_iterator i = begin(); i != end() - 1; i++) {
-        if (GeomHelper::intersects(*i, *(i + 1), p1, p2)) {
+        if (intersects(*i, *(i + 1), p1, p2, 0, 0, 0)) {
             return true;
         }
     }
-    //return GeomHelper::intersects(*(end()-1), *(begin()), p1, p2);
     return false;
 }
 
@@ -162,7 +161,6 @@ PositionVector::intersects(const PositionVector& v1) const {
             return true;
         }
     }
-    //return v1.intersects(*(end()-1), *(begin()));
     return false;
 }
 
@@ -171,8 +169,9 @@ Position
 PositionVector::intersectionPosition2D(const Position& p1,
                                        const Position& p2) const {
     for (const_iterator i = begin(); i != end() - 1; i++) {
-        if (GeomHelper::intersects(*i, *(i + 1), p1, p2)) {
-            return GeomHelper::intersection_position2D(*i, *(i + 1), p1, p2);
+        SUMOReal x, y, m;
+        if (intersects(*i, *(i + 1), p1, p2, &x, &y, &m)) {
+            return Position(x, y);
         }
     }
     return Position::INVALID;
@@ -815,12 +814,12 @@ PositionVector::indexOfClosest(const Position& p) const {
 
 int
 PositionVector::insertAtClosest(const Position& p) {
-    Position outIntersection = Position();
     SUMOReal minDist = std::numeric_limits<SUMOReal>::max();
-    SUMOReal dist;
     int insertionIndex = 1;
     for (int i = 0; i < (int)size() - 1; i++) {
-        dist = GeomHelper::closestDistancePointLine2D(p, (*this)[i], (*this)[i + 1], outIntersection);
+        const SUMOReal length = GeomHelper::nearest_offset_on_line_to_point2D((*this)[i], (*this)[i + 1], p, false);
+        const Position& outIntersection = PositionVector::positionAtOffset2D((*this)[i], (*this)[i + 1], length);
+        const SUMOReal dist = p.distanceTo2D(outIntersection);
         if (dist < minDist) {
             insertionIndex = i + 1;
             minDist = dist;
@@ -850,8 +849,7 @@ PositionVector::intersectsAtLengths2D(const Position& lp1, const Position& lp2) 
         const Position& p1 = *i;
         const Position& p2 = *(i + 1);
         SUMOReal x, y, m;
-        if (GeomHelper::intersects(p1.x(), p1.y(), p2.x(), p2.y(),
-                       lp1.x(), lp1.y(), lp2.x(), lp2.y(), &x, &y, &m)) {
+        if (intersects(p1, p2, lp1, lp2, &x, &y, &m)) {
             ret.push_back(Position(x, y).distanceTo2D(p1) + pos);
         }
         pos += p1.distanceTo2D(p2);
@@ -1112,22 +1110,6 @@ PositionVector::removeDoublePoints(SUMOReal minDist, bool assertLength) {
 }
 
 
-void
-PositionVector::removeColinearPoints() {
-    if (size() > 2) {
-        Position& last = front();
-        for (iterator i = begin() + 1; i != end() - 1;) {
-            if (GeomHelper::distancePointLine(*i, last, *(i + 1)) < 0.001) {
-                i = erase(i);
-            } else {
-                last = *i;
-                ++i;
-            }
-        }
-    }
-}
-
-
 bool
 PositionVector::operator==(const PositionVector& v2) const {
     if (size() == v2.size()) {
@@ -1155,6 +1137,91 @@ PositionVector::hasElevation() const {
     }
     return false;
 }
+
+
+bool
+PositionVector::intersects(const Position& p11, const Position& p12,
+                           const Position& p21, const Position& p22,
+                           SUMOReal* x, SUMOReal* y, SUMOReal* mu) {
+    const SUMOReal eps = std::numeric_limits<SUMOReal>::epsilon();
+    const double denominator = (p22.y() - p21.y()) * (p12.x() - p11.x()) - (p22.x() - p21.x()) * (p12.y() - p11.y());
+    const double numera = (p22.x() - p21.x()) * (p11.y() - p21.y()) - (p22.y() - p21.y()) * (p11.x() - p21.x());
+    const double numerb = (p12.x() - p11.x()) * (p11.y() - p21.y()) - (p12.y() - p11.y()) * (p11.x() - p21.x());
+    /* Are the lines coincident? */
+    if (fabs(numera) < eps && fabs(numerb) < eps && fabs(denominator) < eps) {
+        SUMOReal a1;
+        SUMOReal a2;
+        SUMOReal a3;
+        SUMOReal a4;
+        SUMOReal a = -1e12;
+        if (p11.x() != p12.x()) {
+            a1 = p11.x() < p12.x() ? p11.x() : p12.x();
+            a2 = p11.x() < p12.x() ? p12.x() : p11.x();
+            a3 = p21.x() < p22.x() ? p21.x() : p22.x();
+            a4 = p21.x() < p22.x() ? p22.x() : p21.x();
+        } else {
+            a1 = p11.y() < p12.y() ? p11.y() : p12.y();
+            a2 = p11.y() < p12.y() ? p12.y() : p11.y();
+            a3 = p21.y() < p22.y() ? p21.y() : p22.y();
+            a4 = p21.y() < p22.y() ? p22.y() : p21.y();
+        }
+        if (a1 <= a3 && a3 <= a2) {
+            if (a4 < a2) {
+                a = (a3 + a4) / 2;
+            } else {
+                a = (a2 + a3) / 2;
+            }
+        }
+        if (a3 <= a1 && a1 <= a4) {
+            if (a2 < a4) {
+                a = (a1 + a2) / 2;
+            } else {
+                a = (a1 + a4) / 2;
+            }
+        }
+        if (a != -1e12) {
+            if (x != 0) {
+                if (p11.x() != p12.x()) {
+                    *mu = (a - p11.x()) / (p12.x() - p11.x());
+                    *x = a;
+                    *y = p11.y() + (*mu) * (p12.y() - p11.y());
+                } else {
+                    *x = p11.x();
+                    *y = a;
+                    if (p12.y() == p11.y()) {
+                        *mu = 0;
+                    } else {
+                        *mu = (a - p11.y()) / (p12.y() - p11.y());
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    /* Are the lines parallel */
+    if (fabs(denominator) < eps) {
+        return false;
+    }
+    /* Is the intersection along the segments */
+    double mua = numera / denominator;
+    /* reduce rounding errors for lines ending in the same point */
+    if (fabs(p12.x() - p22.x()) < eps && fabs(p12.y() - p22.y()) < eps) {
+        mua = 1.;
+    } else {
+        const double mub = numerb / denominator;
+        if (mua < 0 || mua > 1 || mub < 0 || mub > 1) {
+            return false;
+        }
+    }
+    if (x != 0) {
+        *x = p11.x() + mua * (p12.x() - p11.x());
+        *y = p11.y() + mua * (p12.y() - p11.y());
+        *mu = mua;
+    }
+    return true;
+}
+
 
 /****************************************************************************/
 
