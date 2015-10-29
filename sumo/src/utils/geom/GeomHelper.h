@@ -69,15 +69,6 @@ public:
                            const Position& p21, const Position& p22);
 
 
-    /** @brief Returns whether the given point lies on the given line
-     * @param[in] p The position
-     * @param[in] from The begin position of the line
-     * @param[in] to The end position of the line
-     * @return Whether the point lies on the line
-     */
-    static bool pointOnLine(const Position& p, const Position& from, const Position& to);
-
-
     /** @brief Returns the positions the given circle is crossed by the given line
      * @param[in] c The center position of the circle
      * @param[in] radius The radius of the circle
@@ -87,7 +78,7 @@ public:
      * @see http://blog.csharphelper.com/2010/03/28/determine-where-a-line-intersects-a-circle-in-c.aspx
      * @see http://gamedev.stackexchange.com/questions/18333/circle-line-collision-detection-problem (jazzdawg)
      */
-    static void FindLineCircleIntersections(const Position& c, SUMOReal radius, const Position& p1, const Position& p2,
+    static void findLineCircleIntersections(const Position& c, SUMOReal radius, const Position& p1, const Position& p2,
                                             std::vector<SUMOReal>& into);
 
 
@@ -104,9 +95,6 @@ public:
        The result is between -pi and pi
     */
     static SUMOReal angle2D(const Position& p1, const Position& p2);
-
-    static Position interpolate(const Position& p1,
-                                const Position& p2, SUMOReal length);
 
     static SUMOReal nearest_offset_on_line_to_point2D(
         const Position& l1, const Position& l2,
@@ -157,14 +145,6 @@ public:
     static SUMOReal getMinAngleDiff(SUMOReal angle1, SUMOReal angle2);
 
 
-    /** @brief Returns the maximum distance (clockwise/counter-clockwise) between both angles
-     * @param[in] angle1 The first angle
-     * @param[in] angle2 The second angle
-     * @return The maximum distance between both angles
-     */
-    static SUMOReal getMaxAngleDiff(SUMOReal angle1, SUMOReal angle2);
-
-
     /** @brief Returns the difference of the second angle to the first angle in radiants
      * 
      * The results are always between -pi and pi.
@@ -193,7 +173,6 @@ public:
      */
     static SUMOReal legacyDegree(const SUMOReal angle);
 
-private:
     /** @brief return whether the line segments defined by Line (x1,y1),(x2,y2)
      * and Line (x3,y3),(x4,y4) intersect
      */

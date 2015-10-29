@@ -52,8 +52,6 @@ public:
     bool overlapsWith(const AbstractPoly& p, SUMOReal offset = 0.0) const;
     virtual void setNodeCluster(int nodeid) = 0;
     bool hasNodeCluster() const;
-    SUMOReal crossesAtPoint(const Position& p1,
-                            const Position& p2) const;
 
     virtual void buildGeom() = 0;
     int getID() const;

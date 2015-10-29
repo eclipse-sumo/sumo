@@ -699,8 +699,8 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& fro
         l2.push_back(Position(me.x() + offsets2.first, me.y() + offsets2.second));
         l2.push_back(Position(to.x() + offsets2.first, to.y() + offsets2.second));
         l2.extrapolate(100);
-        if (GeomHelper::intersects(l1[0], l1[1], l2[0], l2[1])) {
-            result.push_back(GeomHelper::intersection_position2D(l1[0], l1[1], l2[0], l2[1]));
+        if (l1.intersects(l2)) {
+            result.push_back(l1.intersectionPosition2D(l2));
         } else {
             WRITE_WARNING("Could not reconstruct shape for edge '" + edge->id + "'.");
         }

@@ -138,7 +138,7 @@ public:
     bool intersects(const PositionVector& v1) const;
 
     /** Returns the position of the intersection */
-    Position intersectsAtPoint(const Position& p1,
+    Position intersectionPosition2D(const Position& p1,
                                const Position& p2) const; // !!!
 
     /** @brief For all intersections between this vector and other,
@@ -150,7 +150,7 @@ public:
     std::vector<SUMOReal> intersectsAtLengths2D(const Position& lp1, const Position& lp2) const; // !!!
 
     /** Returns the position of the intersection */
-    Position intersectsAtPoint(const PositionVector& v1) const; // !!!
+    Position intersectionPosition2D(const PositionVector& v1) const; // !!!
 
     /// @brief ensures that the last position equals the first
     void closePolygon();

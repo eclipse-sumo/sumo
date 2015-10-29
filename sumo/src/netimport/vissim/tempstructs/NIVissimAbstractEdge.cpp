@@ -126,20 +126,8 @@ NIVissimAbstractEdge::crossesEdge(NIVissimAbstractEdge* c) const {
 
 Position
 NIVissimAbstractEdge::crossesEdgeAtPoint(NIVissimAbstractEdge* c) const {
-    return myGeom.intersectsAtPoint(c->myGeom);
+    return myGeom.intersectionPosition2D(c->myGeom);
 }
-
-
-SUMOReal
-NIVissimAbstractEdge::crossesAtPoint(const Position& p1,
-                                     const Position& p2) const {
-    // !!! not needed
-    Position p = GeomHelper::intersection_position2D(
-                     myGeom.front(), myGeom.back(), p1, p2);
-    return GeomHelper::nearest_offset_on_line_to_point2D(
-               myGeom.front(), myGeom.back(), p);
-}
-
 
 
 std::vector<int>

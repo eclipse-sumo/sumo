@@ -595,13 +595,13 @@ NBNodeShapeComputer::computeNodeShapeSmall() {
         cross.extrapolate2D(500);
         edgebound1.extrapolate2D(500);
         edgebound2.extrapolate2D(500);
-        if (GeomHelper::intersects(cross[0], cross[1], edgebound1[0], edgebound1[1])) {
-            Position np = GeomHelper::intersection_position2D(cross[0], cross[1], edgebound1[0], edgebound1[1]);
+        if (cross.intersects(edgebound1)) {
+            Position np = cross.intersectionPosition2D(edgebound1);
             np.set(np.x(), np.y(), myNode.getPosition().z());
             ret.push_back_noDoublePos(np);
         }
-        if (GeomHelper::intersects(cross[0], cross[1], edgebound2[0], edgebound2[1])) {
-            Position np = GeomHelper::intersection_position2D(cross[0], cross[1], edgebound2[0], edgebound2[1]);
+        if (cross.intersects(edgebound2)) {
+            Position np = cross.intersectionPosition2D(edgebound2);
             np.set(np.x(), np.y(), myNode.getPosition().z());
             ret.push_back_noDoublePos(np);
         }

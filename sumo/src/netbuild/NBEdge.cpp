@@ -1382,8 +1382,8 @@ NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) const {
                 continue;
             }
             l2.extrapolate(100);
-            if (GeomHelper::intersects(l1[0], l1[1], l2[0], l2[1])) {
-                Position intersection = GeomHelper::intersection_position2D(l1[0], l1[1], l2[0], l2[1]);
+            if (l1.intersects(l2)) {
+                const Position intersection = l1.intersectionPosition2D(l2[0], l2[1]);
                 shape.push_back(Position(intersection.x(), intersection.y(), me.z()));
             } else {
                 if (!haveWarned) {

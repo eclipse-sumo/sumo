@@ -168,8 +168,8 @@ PositionVector::intersects(const PositionVector& v1) const {
 
 
 Position
-PositionVector::intersectsAtPoint(const Position& p1,
-                                  const Position& p2) const {
+PositionVector::intersectionPosition2D(const Position& p1,
+                                       const Position& p2) const {
     for (const_iterator i = begin(); i != end() - 1; i++) {
         if (GeomHelper::intersects(*i, *(i + 1), p1, p2)) {
             return GeomHelper::intersection_position2D(*i, *(i + 1), p1, p2);
@@ -180,15 +180,15 @@ PositionVector::intersectsAtPoint(const Position& p1,
 
 
 Position
-PositionVector::intersectsAtPoint(const PositionVector& v1) const {
+PositionVector::intersectionPosition2D(const PositionVector& v1) const {
     for (const_iterator i = begin(); i != end() - 1; i++) {
         if (v1.intersects(*i, *(i + 1))) {
-            return v1.intersectsAtPoint(*i, *(i + 1));
+            return v1.intersectionPosition2D(*i, *(i + 1));
         }
     }
     /*
     if(v1.intersects(*(end()-1), *(begin()))) {
-        return v1.intersectsAtPoint(*(end()-1), *(begin()));
+        return v1.intersectionPosition2D(*(end()-1), *(begin()));
     }
     */
     return Position::INVALID;
@@ -849,9 +849,10 @@ PositionVector::intersectsAtLengths2D(const Position& lp1, const Position& lp2) 
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const Position& p1 = *i;
         const Position& p2 = *(i + 1);
-        if (GeomHelper::intersects(p1, p2, lp1, lp2)) {
-            Position p = GeomHelper::intersection_position2D(p1, p2, lp1, lp2);
-            ret.push_back(p.distanceTo2D(p1) + pos);
+        SUMOReal x, y, m;
+        if (GeomHelper::intersects(p1.x(), p1.y(), p2.x(), p2.y(),
+                       lp1.x(), lp1.y(), lp2.x(), lp2.y(), &x, &y, &m)) {
+            ret.push_back(Position(x, y).distanceTo2D(p1) + pos);
         }
         pos += p1.distanceTo2D(p2);
     }
@@ -961,8 +962,8 @@ PositionVector::move2side(SUMOReal amount) {
                 Position(me.x() - offsets2.first, me.y() - offsets2.second),
                 Position(to.x() - offsets2.first, to.y() - offsets2.second));
             l2.extrapolate2D(100);
-            if (GeomHelper::intersects(l1[0], l1[1], l2[0], l2[1])) {
-                shape.push_back(GeomHelper::intersection_position2D(l1[0], l1[1], l2[0], l2[1]));
+            if (l1.intersects(l2)) {
+                shape.push_back(l1.intersectionPosition2D(l2));
             } else {
                 throw InvalidArgument("no line intersection");
             }

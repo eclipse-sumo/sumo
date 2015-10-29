@@ -532,7 +532,7 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
                 numInitialPoints = 3;
                 init.push_back(beg);
                 endBeg.extrapolate(100);
-                init.push_back(GeomHelper::intersection_position2D(endBeg[0], endBeg[1], endBeg[2], endBeg[3]));
+                init.push_back(endBeg.getSubpartByIndex(0, 2).intersectionPosition2D(endBeg.getSubpartByIndex(2, 2)));
                 if (init[-1] == Position::INVALID) {
                     noSpline = true;
                 }
