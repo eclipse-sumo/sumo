@@ -136,11 +136,11 @@ public:
 
     /** Converts an angle from mathematical radians where 0 is to the right and positive angles
      *  are counterclockwise to the legacy degrees used in sumo where 0 is down and positive means clockwise.
-     *  The result is always in the range [-180, 180).
+     *  If positive is true the result is in the range [0, 360), otherwise in the range [-180, 180).
      * @param[in] angle The angle in radians to convert
      * @return the angle in degrees
      */
-    static SUMOReal legacyDegree(const SUMOReal angle);
+    static SUMOReal legacyDegree(const SUMOReal angle, const bool positive=false);
 
 };
 

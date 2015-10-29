@@ -221,13 +221,22 @@ GeomHelper::naviDegree(const SUMOReal angle) {
 
 
 SUMOReal
-GeomHelper::legacyDegree(const SUMOReal angle) {
+GeomHelper::legacyDegree(const SUMOReal angle, const bool positive) {
     SUMOReal degree = -RAD2DEG(M_PI / 2. + angle);
-    while (degree >= 180.) {
-        degree -= 360.;
-    }
-    while (degree < -180.) {
-        degree += 360.;
+    if (positive) {
+        while (degree >= 360.) {
+            degree -= 360.;
+        }
+        while (degree < 0.) {
+            degree += 360.;
+        }
+    } else {
+        while (degree >= 180.) {
+            degree -= 360.;
+        }
+        while (degree < -180.) {
+            degree += 360.;
+        }
     }
     return degree;
 }

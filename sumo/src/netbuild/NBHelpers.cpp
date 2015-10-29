@@ -53,16 +53,6 @@
 // method definitions
 // ===========================================================================
 SUMOReal
-NBHelpers::angle(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
-    SUMOReal angle = RAD2DEG(atan2(x1 - x2, y1 - y2));
-    if (angle < 0) {
-        angle = 360 + angle;
-    }
-    return angle;
-}
-
-
-SUMOReal
 NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2) {
     angle2 -= angle1;
     if (angle2 > 180) {

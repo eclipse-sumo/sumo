@@ -1431,17 +1431,10 @@ NBEdge::computeAngle() {
 
     const SUMOReal angleLookahead = MIN2(shape.length2D() / 2, ANGLE_LOOKAHEAD);
     const Position referencePosStart = shape.positionAtOffset2D(angleLookahead);
-    myStartAngle = NBHelpers::angle(
-                       fromCenter.x(), fromCenter.y(),
-                       referencePosStart.x(), referencePosStart.y());
+    myStartAngle = GeomHelper::legacyDegree(fromCenter.angleTo2D(referencePosStart), true);
     const Position referencePosEnd = shape.positionAtOffset2D(shape.length() - angleLookahead);
-    myEndAngle = NBHelpers::angle(
-                     referencePosEnd.x(), referencePosEnd.y(),
-                     toCenter.x(), toCenter.y());
-    myTotalAngle = NBHelpers::angle(
-                       myFrom->getPosition().x(), myFrom->getPosition().y(),
-                       myTo->getPosition().x(), myTo->getPosition().y());
-
+    myEndAngle = GeomHelper::legacyDegree(referencePosEnd.angleTo2D(toCenter), true);
+    myTotalAngle = GeomHelper::legacyDegree(myFrom->getPosition().angleTo2D(myTo->getPosition()), true);
 }
 
 
