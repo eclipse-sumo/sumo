@@ -34,6 +34,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -75,7 +76,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             if (elevation) {
                 of.writeAttr(SUMO_ATTR_Z, pos.z());
             }
-            of.writeAttr(SUMO_ATTR_ANGLE, veh->getAngle());
+            of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(veh->getAngle()));
             of.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
             of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
             of.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
@@ -109,7 +110,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 if (elevation) {
                     of.writeAttr(SUMO_ATTR_Z, pos.z());
                 }
-                of.writeAttr(SUMO_ATTR_ANGLE, p->getAngle());
+                of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()));
                 of.writeAttr(SUMO_ATTR_SPEED, p->getSpeed());
                 of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
                 of.writeAttr(SUMO_ATTR_EDGE, (*e)->getID());
@@ -138,7 +139,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 if (elevation) {
                     of.writeAttr(SUMO_ATTR_Z, pos.z());
                 }
-                of.writeAttr(SUMO_ATTR_ANGLE, c->getAngle());
+                of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(c->getAngle()));
                 of.writeAttr(SUMO_ATTR_SPEED, c->getSpeed());
                 of.writeAttr(SUMO_ATTR_POSITION, c->getEdgePos());
                 of.writeAttr(SUMO_ATTR_EDGE, (*e)->getID());

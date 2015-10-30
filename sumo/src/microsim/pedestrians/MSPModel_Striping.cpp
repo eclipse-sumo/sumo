@@ -30,6 +30,7 @@
 #include <math.h>
 #include <algorithm>
 #include <utils/common/RandHelper.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -1162,9 +1163,9 @@ MSPModel_Striping::PState::getAngle(const MSPerson::MSPersonStage_Walking&, SUMO
         return 0;
     }
     const PositionVector& shp = myWalkingAreaPath == 0 ? myLane->getShape() : myWalkingAreaPath->shape;
-    SUMOReal angle = -shp.rotationDegreeAtOffset(myRelX) + (myDir == MSPModel::BACKWARD ? 180 : 0);
-    if (angle > 180) {
-        angle -= 360;
+    SUMOReal angle = shp.rotationAtOffset(myRelX) + (myDir == MSPModel::BACKWARD ? M_PI : 0);
+    if (angle > M_PI) {
+        angle -= 2 * M_PI;
     }
     return angle;
 }

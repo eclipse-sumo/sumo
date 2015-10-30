@@ -34,6 +34,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
+#include <utils/geom/GeomHelper.h>
 #include "MSNet.h"
 #include "MSEdge.h"
 #include "MSLane.h"
@@ -130,7 +131,7 @@ MSContainer::MSContainerStage_Driving::getAngle(SUMOTime /* now */) const {
             return 0;
         }
     }
-    return getEdgeAngle(myWaitingEdge, myWaitingPos) + 90;
+    return getEdgeAngle(myWaitingEdge, myWaitingPos) + M_PI / 2.;
 }
 
 bool
@@ -229,7 +230,7 @@ MSContainer::MSContainerStage_Waiting::getPosition(SUMOTime /* now */) const {
 
 SUMOReal
 MSContainer::MSContainerStage_Waiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(&myDestination, myStartPos) - 180;
+    return getEdgeAngle(&myDestination, myStartPos) + M_PI;
 }
 
 SUMOTime

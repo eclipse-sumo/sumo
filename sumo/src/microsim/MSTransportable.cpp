@@ -84,8 +84,7 @@ MSTransportable::Stage::getLanePosition(const MSLane* lane, SUMOReal at, SUMORea
 
 SUMOReal
 MSTransportable::Stage::getEdgeAngle(const MSEdge* e, SUMOReal at) const {
-    PositionVector shp = e->getLanes()[0]->getShape();
-    return -shp.rotationDegreeAtOffset(at);
+    return e->getLanes()[0]->getShape().rotationAtOffset(at);
 }
 
 

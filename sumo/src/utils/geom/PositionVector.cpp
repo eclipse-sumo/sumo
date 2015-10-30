@@ -245,7 +245,7 @@ PositionVector::positionAtOffset2D(SUMOReal pos, SUMOReal lateralOffset) const {
 
 
 SUMOReal
-PositionVector::rotationDegreeAtOffset(SUMOReal pos) const {
+PositionVector::rotationAtOffset(SUMOReal pos) const {
     if (pos < 0) {
         pos += length();
     }
@@ -256,14 +256,21 @@ PositionVector::rotationDegreeAtOffset(SUMOReal pos) const {
         const Position& p2 = *(i + 1);
         const SUMOReal nextLength = p1.distanceTo(p2);
         if (seenLength + nextLength > pos) {
-            return GeomHelper::legacyDegree(p1.angleTo2D(p2));
+            return p1.angleTo2D(p2);
         }
         seenLength += nextLength;
     } while (++i != end() - 1);
     const Position& p1 = (*this)[-2];
     const Position& p2 = back();
-    return GeomHelper::legacyDegree(p1.angleTo2D(p2));
+    return p1.angleTo2D(p2);
 }
+
+
+SUMOReal
+PositionVector::rotationDegreeAtOffset(SUMOReal pos) const {
+    return GeomHelper::legacyDegree(rotationAtOffset(pos));
+}
+
 
 SUMOReal
 PositionVector::slopeDegreeAtOffset(SUMOReal pos) const {

@@ -167,6 +167,9 @@ public:
     Position positionAtOffset2D(SUMOReal pos, SUMOReal lateralOffset = 0) const;
 
     /// Returns the rotation at the given length
+    SUMOReal rotationAtOffset(SUMOReal pos) const;
+
+    /// Returns the rotation at the given length
     SUMOReal rotationDegreeAtOffset(SUMOReal pos) const;
 
     /// Returns the slope at the given length

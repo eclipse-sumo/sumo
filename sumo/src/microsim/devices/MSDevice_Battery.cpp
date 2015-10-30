@@ -32,6 +32,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
@@ -237,10 +238,10 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
 
 
 bool MSDevice_Battery::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
-    // Set last Energy ONLY when the vehicle is introduced in the simulation (That's mean, that the reason is 0)
-    if (reason == 0) {
+    // Set last Energy ONLY when the vehicle is introduced in the simulation
+    if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         setLastEnergy(getMass() * veh.getSpeed() * veh.getSpeed() / 2 + getMass() * 9.81 * veh.getLane()->getShape().front().z() + getInternalMomentOfInertia() * 0.5 * veh.getSpeed() * veh.getSpeed());
-        setLastAngle(veh.getLane()->getShape().beginEndAngle() * 180 / PI);
+        setLastAngle(veh.getLane()->getShape().beginEndAngle());
     }
 
     // This function return always true
@@ -582,8 +583,8 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
 	// If angle of vehicle was changed
     if (getLastAngle() != veh.getAngle())
 	{
-		// Compute new radius
-        radius = veh.getSpeed() * 180 / (PI * fabs(veh.getAngle() - getLastAngle()));
+		// Compute new radio
+        radius = SPEED2DIST(veh.getSpeed()) / fabs(GeomHelper::angleDiff(getLastAngle(), veh.getAngle()));
 
 		// Check if radius is in the interval [0.0001 - 10000] (To avoid overflow and division by zero)
 		if(radius < 0.0001)

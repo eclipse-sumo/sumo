@@ -35,6 +35,7 @@
 #include <string>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/StringUtils.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -833,7 +834,7 @@ GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
         mySeatPositions[0] = p1;
     }
     glTranslated(p1.x(), p1.y(), getType());
-    glRotated(getAngle(), 0, 0, 1);
+    glRotated(GeomHelper::naviDegree(getAngle()) - 180, 0, 0, -1);
     // set lane color
     setColor(s);
     // scale

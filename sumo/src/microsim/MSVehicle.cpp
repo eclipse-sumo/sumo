@@ -659,16 +659,15 @@ MSVehicle::getAngle() const {
              ? myFurtherLanes.back()->geometryPositionAtOffset(myFurtherLanes.back()->getPartialOccupatorEnd())
              : myLane->getShape().front();
         if (getLaneChangeModel().isChangingLanes() && myFurtherLanes.size() > 0 && getLaneChangeModel().getShadowLane(myFurtherLanes.back()) == 0) {
-            // special case where there target lane has no predecessor
+            // special case where the target lane has no predecessor
             p2 = myLane->getShape().front();
         }
     }
-    SUMOReal result = (p1 != p2 ?
-                       atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / M_PI :
-                       -myLane->getShape().rotationDegreeAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
+    SUMOReal result = (p1 != p2 ? p2.angleTo2D(p1) :
+                       myLane->getShape().rotationAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
     if (getLaneChangeModel().isChangingLanes()) {
         const SUMOReal angleOffset = 60 / STEPS2TIME(MSGlobals::gLaneChangeDuration) * (getLaneChangeModel().isLaneChangeMidpointPassed() ? 1 - getLaneChangeModel().getLaneChangeCompletion() : getLaneChangeModel().getLaneChangeCompletion());
-        result += getLaneChangeModel().getLaneChangeDirection() * angleOffset;
+        result += getLaneChangeModel().getLaneChangeDirection() * DEG2RAD(angleOffset);
     }
     return result;
 }

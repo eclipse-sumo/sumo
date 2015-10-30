@@ -30,6 +30,7 @@
 #include <math.h>
 #include <algorithm>
 #include <utils/common/RandHelper.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -153,9 +154,9 @@ MSPModel_NonInteracting::PState::getPosition(const MSPerson::MSPersonStage_Walki
 SUMOReal
 MSPModel_NonInteracting::PState::getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
     //std::cout << SIMTIME << " rawAngle=" << stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) << " angle=" << stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 180 : 0) << "\n";
-    SUMOReal angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 180 : 0);
-    if (angle > 180) {
-        angle -= 360;
+    SUMOReal angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? M_PI : 0);
+    if (angle > M_PI) {
+        angle -= 2 * M_PI;
     }
     return angle;
 }

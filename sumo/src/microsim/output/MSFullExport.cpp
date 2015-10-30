@@ -34,6 +34,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSNet.h>
@@ -84,7 +85,7 @@ MSFullExport::writeVehicles(OutputDevice& of) {
                 of.writeAttr("lane", microVeh->getLane()->getID());
             }
             of.writeAttr("pos", veh->getPositionOnLane()).writeAttr("speed", veh->getSpeed());
-            of.writeAttr("angle", veh->getAngle()).writeAttr("x", veh->getPosition().x()).writeAttr("y", veh->getPosition().y());
+            of.writeAttr("angle", GeomHelper::naviDegree(veh->getAngle())).writeAttr("x", veh->getPosition().x()).writeAttr("y", veh->getPosition().y());
             of.closeTag();
         }
     }
