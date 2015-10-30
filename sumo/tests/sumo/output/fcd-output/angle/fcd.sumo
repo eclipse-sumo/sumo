@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 16 09:28:32 2015 by SUMO Version dev-SVN-r18205I
+<!-- generated on 10/29/15 23:49:25 by SUMO Version dev-SVN-r19222
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -20,7 +20,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -30,8 +30,8 @@
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
         <vehicle id="goingEast" x="409.85" y="398.35" angle="90.00" type="t1" speed="0.00" pos="5.10" lane="1/1to2/1_0" slope="0.00"/>
-        <vehicle id="goingNorth" x="401.65" y="409.85" angle="180.00" type="t1" speed="0.00" pos="5.10" lane="1/1to1/2_0" slope="0.00"/>
-        <vehicle id="goingSouth" x="398.35" y="390.15" angle="0.00" type="t1" speed="0.00" pos="5.10" lane="1/1to1/0_0" slope="0.00"/>
-        <vehicle id="goingWest" x="390.15" y="401.65" angle="-90.00" type="t1" speed="0.00" pos="5.10" lane="1/1to0/1_0" slope="0.00"/>
+        <vehicle id="goingNorth" x="401.65" y="409.85" angle="0.00" type="t1" speed="0.00" pos="5.10" lane="1/1to1/2_0" slope="0.00"/>
+        <vehicle id="goingSouth" x="398.35" y="390.15" angle="180.00" type="t1" speed="0.00" pos="5.10" lane="1/1to1/0_0" slope="0.00"/>
+        <vehicle id="goingWest" x="390.15" y="401.65" angle="270.00" type="t1" speed="0.00" pos="5.10" lane="1/1to0/1_0" slope="0.00"/>
     </timestep>
 </fcd-export>

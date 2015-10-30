@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  4 08:20:50 2015 by SUMO Version dev-SVN-r18000I
+<!-- generated on 10/29/15 23:11:27 by SUMO Version dev-SVN-r19222
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -41,7 +41,7 @@
             </lane>
         </edge>
         <edge id="2/3to1/3">
-            <person id="person0" pos="80.00" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="80.00" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="1.00">
@@ -51,7 +51,7 @@
             </lane>
         </edge>
         <edge id="2/3to1/3">
-            <person id="person0" pos="81.39" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="81.39" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="2.00">
@@ -61,7 +61,7 @@
             </lane>
         </edge>
         <edge id="2/3to1/3">
-            <person id="person0" pos="82.78" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="82.78" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="3.00">
@@ -71,7 +71,7 @@
             </lane>
         </edge>
         <edge id="2/3to1/3">
-            <person id="person0" pos="84.17" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="84.17" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="4.00">
@@ -81,7 +81,7 @@
             </lane>
         </edge>
         <edge id="2/3to1/3">
-            <person id="person0" pos="85.56" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="85.56" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="5.00">
@@ -91,7 +91,7 @@
             </lane>
         </edge>
         <edge id="2/3to1/3">
-            <person id="person0" pos="86.94" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="86.94" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="6.00">
@@ -101,12 +101,12 @@
             </lane>
         </edge>
         <edge id="2/3to1/3">
-            <person id="person0" pos="88.33" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="88.33" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="7.00">
         <edge id="1/3to0/3">
-            <person id="person0" pos="0.00" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="0.00" angle="270.00" stage="walking"/>
         </edge>
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
@@ -116,7 +116,7 @@
     </timestep>
     <timestep time="8.00">
         <edge id="1/3to0/3">
-            <person id="person0" pos="1.39" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="1.39" angle="270.00" stage="walking"/>
         </edge>
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
@@ -131,7 +131,7 @@
             </lane>
         </edge>
         <edge id="1/3to0/3">
-            <person id="person0" pos="2.78" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="2.78" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="10.00">
@@ -139,7 +139,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="13.00" speed="13.90"/>
             </lane>
-            <person id="person0" pos="4.17" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="4.17" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="11.00">
@@ -147,7 +147,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="26.90" speed="13.90"/>
             </lane>
-            <person id="person0" pos="5.56" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="5.56" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="12.00">
@@ -155,7 +155,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="40.80" speed="13.90"/>
             </lane>
-            <person id="person0" pos="6.94" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="6.94" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="13.00">
@@ -163,7 +163,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="51.70" speed="10.90"/>
             </lane>
-            <person id="person0" pos="8.33" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="8.33" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="14.00">
@@ -171,7 +171,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="58.10" speed="6.40"/>
             </lane>
-            <person id="person0" pos="9.72" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="9.72" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="15.00">
@@ -179,7 +179,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="1.90"/>
             </lane>
-            <person id="person0" pos="11.11" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="11.11" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="16.00">
@@ -187,7 +187,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="12.50" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="12.50" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="17.00">
@@ -195,7 +195,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="13.89" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="13.89" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="18.00">
@@ -203,7 +203,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="15.28" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="15.28" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="19.00">
@@ -211,7 +211,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="16.67" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="16.67" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="20.00">
@@ -219,7 +219,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="18.06" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="18.06" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="21.00">
@@ -227,7 +227,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="19.44" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="19.44" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="22.00">
@@ -235,7 +235,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="20.83" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="20.83" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="23.00">
@@ -243,7 +243,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="22.22" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="22.22" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="24.00">
@@ -251,7 +251,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="23.61" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="23.61" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="25.00">
@@ -259,7 +259,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="25.00" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="25.00" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="26.00">
@@ -267,7 +267,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="26.39" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="26.39" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="27.00">
@@ -275,7 +275,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="27.78" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="27.78" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="28.00">
@@ -283,7 +283,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="29.17" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="29.17" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="29.00">
@@ -291,7 +291,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="30.56" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="30.56" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="30.00">
@@ -299,7 +299,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="31.94" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="31.94" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="31.00">
@@ -307,7 +307,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="33.33" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="33.33" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="32.00">
@@ -315,7 +315,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="34.72" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="34.72" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="33.00">
@@ -323,7 +323,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="36.11" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="36.11" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="34.00">
@@ -331,7 +331,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="37.50" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="37.50" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="35.00">
@@ -339,7 +339,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="38.89" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="38.89" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="36.00">
@@ -347,7 +347,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="40.28" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="40.28" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="37.00">
@@ -355,7 +355,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="41.67" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="41.67" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="38.00">
@@ -363,7 +363,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="43.06" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="43.06" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="39.00">
@@ -371,7 +371,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="44.44" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="44.44" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="40.00">
@@ -379,7 +379,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="45.83" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="45.83" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="41.00">
@@ -387,7 +387,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="47.22" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="47.22" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="42.00">
@@ -395,7 +395,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="48.61" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="48.61" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="43.00">
@@ -403,7 +403,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="50.00" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="50.00" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="44.00">
@@ -411,7 +411,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="51.39" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="51.39" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="45.00">
@@ -419,7 +419,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="52.78" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="52.78" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="46.00">
@@ -427,7 +427,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="bus.0" pos="60.00" speed="0.00"/>
             </lane>
-            <person id="person0" pos="54.17" angle="-90.00" stage="walking"/>
+            <person id="person0" pos="54.17" angle="270.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="47.00">
