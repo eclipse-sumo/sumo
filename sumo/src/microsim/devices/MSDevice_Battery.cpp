@@ -582,13 +582,10 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
 	// If angle of vehicle was changed
     if (getLastAngle() != veh.getAngle())
 	{
-		// Compute new radio
-        radius = veh.getSpeed() * 180 / (PI * (
-                                             (fabs(getLastAngle() - veh.getAngle()) < fabs(veh.getAngle() - getLastAngle())) ?
-                                             fabs(getLastAngle() - veh.getAngle()) :
-                                             fabs(veh.getAngle() - getLastAngle())));
+		// Compute new radius
+        radius = veh.getSpeed() * 180 / (PI * fabs(veh.getAngle() - getLastAngle()));
 
-		// Check if radius is in the interval [0.0001 - 10000] (To avoid overflow and 1/0 problems)
+		// Check if radius is in the interval [0.0001 - 10000] (To avoid overflow and division by zero)
 		if(radius < 0.0001)
 		{
 			radius = 0.0001;
