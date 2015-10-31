@@ -898,7 +898,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
             ret.push_back(Position((*i).getX(), (*i).getY()));
         }
     } catch (const std::runtime_error& error) {
-        WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "'.");
+        WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "' (" + error.what() + ").");
         ret.push_back(Position(g.x, g.y));
     }
     return ret;
