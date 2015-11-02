@@ -50,7 +50,7 @@ public:
      * @param[in] type The (abstract) type of the shape
      * @param[in] color The color of the shape
      * @param[in] layer The layer of the shape
-     * @param[in] angle The rotation of the shape
+     * @param[in] angle The rotation of the shape in navigational degrees
      * @param[in] imgFile The raster image of the shape
      */
     Shape(const std::string& id, const std::string& type,
@@ -88,11 +88,11 @@ public:
         return myLayer;
     }
 
-    /** @brief Returns the angle of the Shape
+    /** @brief Returns the angle of the Shape in navigational degrees
      * @return The Shape's rotation angle
      */
-    inline SUMOReal getAngle() const {
-        return myAngle;
+    inline SUMOReal getNaviDegree() const {
+        return myNaviDegreeAngle;
     }
 
     /** @brief Returns the imgFile of the Shape
@@ -131,11 +131,11 @@ public:
     }
 
 
-    /** @brief Sets a new angle
+    /** @brief Sets a new angle in navigational degrees
      * @param[in] layer The new angle to use
      */
-    inline void setAngle(const SUMOReal angle) {
-        myAngle = angle;
+    inline void setNaviDegree(const SUMOReal angle) {
+        myNaviDegreeAngle = angle;
     }
 
     /** @brief Sets a new imgFile
@@ -164,7 +164,7 @@ protected:
     SUMOReal myLayer;
 
     /// @brief The angle of the Shape
-    SUMOReal myAngle;
+    SUMOReal myNaviDegreeAngle;
 
     /// @brief The angle of the Shape
     std::string myImgFile;

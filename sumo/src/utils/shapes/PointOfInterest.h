@@ -33,8 +33,11 @@
 #include <config.h>
 #endif
 
-#include <utils/geom/Position.h>
 #include <utils/common/Parameterised.h>
+#include <utils/common/StringUtils.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <utils/geom/Position.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "Shape.h"
 
 
@@ -107,6 +110,45 @@ public:
     }
     /// @}
 
+
+    /* @brief POI definition to the given device
+     * @param[in] geo  Whether to write the output in geo-coordinates
+     */
+    void writeXML(OutputDevice& out, bool geo=false, const SUMOReal zOffset=0.) {
+        out.openTag(SUMO_TAG_POI);
+        out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
+        out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
+        out.writeAttr(SUMO_ATTR_COLOR, getColor());
+        out.writeAttr(SUMO_ATTR_LAYER, getLayer() + zOffset);
+        if (geo) {
+            Position pos(*this);
+            GeoConvHelper::getFinal().cartesian2geo(pos);
+            out.writeAttr(SUMO_ATTR_LON, pos.x());
+            out.writeAttr(SUMO_ATTR_LAT, pos.y());
+        } else {
+            out.writeAttr(SUMO_ATTR_X, x());
+            out.writeAttr(SUMO_ATTR_Y, y());
+        }
+        if (getNaviDegree() != Shape::DEFAULT_ANGLE) {
+            out.writeAttr(SUMO_ATTR_ANGLE, getNaviDegree());
+        }
+        if (getImgFile() != Shape::DEFAULT_IMG_FILE) {
+            out.writeAttr(SUMO_ATTR_IMGFILE, getImgFile());
+        }
+        if (getWidth() != Shape::DEFAULT_IMG_WIDTH) {
+            out.writeAttr(SUMO_ATTR_WIDTH, getWidth());
+        }
+        if (getHeight() != Shape::DEFAULT_IMG_HEIGHT) {
+            out.writeAttr(SUMO_ATTR_HEIGHT, getHeight());
+        }
+        for (std::map<std::string, std::string>::const_iterator j = getMap().begin(); j != getMap().end(); ++j) {
+            out.openTag(SUMO_TAG_PARAM);
+            out.writeAttr(SUMO_ATTR_KEY, (*j).first);
+            out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
+            out.closeTag();
+        }
+        out.closeTag();
+    }
 
 
 protected:

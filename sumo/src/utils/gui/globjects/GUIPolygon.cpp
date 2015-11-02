@@ -161,15 +161,14 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0, 0, getLayer());
-    // XXX shape should be rotated around its center when initializing the polygon. do we even need this?
-    //glRotated(getAngle(), 0, 0, 1);
+    glRotated(-getNaviDegree(), 0, 0, 1);
     GLHelper::setColor(getColor());
 
     int textureID = -1;
     if (getFill()) {
         const std::string& file = getImgFile();
         if (file != "") {
-            textureID = GUITexturesHelper::getTextureID(file);
+            textureID = GUITexturesHelper::getTextureID(file, true);
         }
     }
     // init generation of texture coordinates

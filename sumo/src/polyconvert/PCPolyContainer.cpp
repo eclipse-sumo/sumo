@@ -175,40 +175,7 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
     // write pois
     const SUMOReal zOffset = OptionsCont::getOptions().getFloat("poi-layer-offset");
     for (POICont::iterator i = myPOICont.begin(); i != myPOICont.end(); ++i) {
-        PointOfInterest* p = i->second;
-        out.openTag(SUMO_TAG_POI);
-        out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(p->getID()));
-        out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(p->getType()));
-        out.writeAttr(SUMO_ATTR_COLOR, p->getColor());
-        out.writeAttr(SUMO_ATTR_LAYER, p->getLayer() + zOffset);
-        if (useGeo) {
-            Position pos(*p);
-            gch.cartesian2geo(pos);
-            out.writeAttr(SUMO_ATTR_LON, pos.x());
-            out.writeAttr(SUMO_ATTR_LAT, pos.y());
-        } else {
-            out.writeAttr(SUMO_ATTR_X, p->x());
-            out.writeAttr(SUMO_ATTR_Y, p->y());
-        }
-        if (p->getAngle() != Shape::DEFAULT_ANGLE) {
-            out.writeAttr(SUMO_ATTR_ANGLE, p->getAngle());
-        }
-        if (p->getImgFile() != Shape::DEFAULT_IMG_FILE) {
-            out.writeAttr(SUMO_ATTR_IMGFILE, p->getImgFile());
-        }
-        if (p->getWidth() != Shape::DEFAULT_IMG_WIDTH) {
-            out.writeAttr(SUMO_ATTR_WIDTH, p->getWidth());
-        }
-        if (p->getHeight() != Shape::DEFAULT_IMG_HEIGHT) {
-            out.writeAttr(SUMO_ATTR_HEIGHT, p->getHeight());
-        }
-        for (std::map<std::string, std::string>::const_iterator j = p->getMap().begin(); j != p->getMap().end(); ++j) {
-            out.openTag(SUMO_TAG_PARAM);
-            out.writeAttr(SUMO_ATTR_KEY, (*j).first);
-            out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
-            out.closeTag();
-        }
-        out.closeTag();
+        i->second->writeXML(out, useGeo, zOffset);
     }
     out.close();
 }

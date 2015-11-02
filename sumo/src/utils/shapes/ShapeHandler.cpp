@@ -153,10 +153,8 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs) {
     if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
         imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
     }
-    if (shape.size() != 0) {
-        if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, shape, fill)) {
-            WRITE_WARNING("Skipping redefinition of polygon '" + id + "'.");
-        }
+    if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, shape, fill)) {
+        WRITE_ERROR("Polygon '" + id + "' already exists.");
     }
 }
 

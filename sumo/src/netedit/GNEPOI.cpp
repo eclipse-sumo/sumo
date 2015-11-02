@@ -188,26 +188,7 @@ GNEPOI::saveToFile(const std::string& file) {
     for (std::vector<GUIGlObject_AbstractAdd*>::const_iterator it = additionals.begin(); it != additionals.end(); ++it) {
         PointOfInterest* poi = dynamic_cast<PointOfInterest*>(*it);
         if (poi != 0) {
-            out.openTag(SUMO_TAG_POI);
-            out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(poi->getID()));
-            out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(poi->getType()));
-            out.writeAttr(SUMO_ATTR_COLOR, poi->getColor());
-            out.writeAttr(SUMO_ATTR_LAYER, static_cast<GUIPointOfInterest*>(poi)->getLayer());
-            out.writeAttr(SUMO_ATTR_X, poi->x());
-            out.writeAttr(SUMO_ATTR_Y, poi->y());
-            if (poi->getAngle() != Shape::DEFAULT_ANGLE) {
-                out.writeAttr(SUMO_ATTR_ANGLE, poi->getAngle());
-            }
-            if (poi->getImgFile() != Shape::DEFAULT_IMG_FILE) {
-                out.writeAttr(SUMO_ATTR_IMGFILE, poi->getImgFile());
-            }
-            if (poi->getWidth() != Shape::DEFAULT_IMG_WIDTH) {
-                out.writeAttr(SUMO_ATTR_WIDTH, poi->getWidth());
-            }
-            if (poi->getHeight() != Shape::DEFAULT_IMG_HEIGHT) {
-                out.writeAttr(SUMO_ATTR_HEIGHT, poi->getHeight());
-            }
-            out.closeTag();
+            poi->writeXML(out);
         }
     }
     out.close();

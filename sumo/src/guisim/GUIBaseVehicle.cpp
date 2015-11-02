@@ -834,7 +834,7 @@ GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
         mySeatPositions[0] = p1;
     }
     glTranslated(p1.x(), p1.y(), getType());
-    glRotated(GeomHelper::naviDegree(getAngle()) - 180, 0, 0, -1);
+    glRotated(RAD2DEG(getAngle() + PI / 2.), 0, 0, 1);
     // set lane color
     setColor(s);
     // scale

@@ -72,8 +72,8 @@ Polygon::writeXML(OutputDevice& out, bool geo) {
         }
     }
     out.writeAttr(SUMO_ATTR_SHAPE, shape);
-    if (getAngle() != Shape::DEFAULT_ANGLE) {
-        out.writeAttr(SUMO_ATTR_ANGLE, getAngle());
+    if (getNaviDegree() != Shape::DEFAULT_ANGLE) {
+        out.writeAttr(SUMO_ATTR_ANGLE, getNaviDegree());
     }
     if (getImgFile() != Shape::DEFAULT_IMG_FILE) {
         out.writeAttr(SUMO_ATTR_IMGFILE, getImgFile());

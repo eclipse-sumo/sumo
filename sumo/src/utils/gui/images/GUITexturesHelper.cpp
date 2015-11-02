@@ -122,10 +122,13 @@ GUITexturesHelper::drawTexturedBox(unsigned int which,
 
 
 int
-GUITexturesHelper::getTextureID(const std::string& filename) {
+GUITexturesHelper::getTextureID(const std::string& filename, const bool mirrorX) {
     if (myTextures.count(filename) == 0) {
         try {
             FXImage* i = MFXImageHelper::loadImage(GUIMainWindow::getInstance()->getApp(), filename);
+            if (mirrorX) {
+                i->mirror(false, true);
+            }
             if (MFXImageHelper::scalePower2(i, getMaxTextureSize())) {
                 WRITE_WARNING("Scaling '" + filename + "'.");
             }
