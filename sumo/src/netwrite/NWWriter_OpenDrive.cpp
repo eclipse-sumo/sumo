@@ -105,10 +105,14 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "                <right>\n";
         for (int j = e->getNumLanes(); --j >= 0;) {
             device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"driving\" level=\"0\">\n";
-            device << "                        <link>\n";
-            device << "                            <predecessor id=\"-1\"/>\n"; // internal roads have this
-            device << "                            <successor id=\"-1\"/>\n"; // internal roads have this
-            device << "                        </link>\n";
+            device << "                        <link/>\n";
+            // this could be used for geometry-link junctions without u-turn,
+            // predecessor and sucessors would be lane indices, 
+            // road predecessor / succesfors would be of type 'road' rather than
+            // 'junction'
+            //device << "                            <predecessor id=\"-1\"/>\n";
+            //device << "                            <successor id=\"-1\"/>\n";
+            //device << "                        </link>\n";
             device << "                        <width sOffset=\"0\" a=\"" << e->getLaneWidth(j) << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
             std::string markType = "broken";
             if (j == 0) {
@@ -131,12 +135,14 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         NBNode* n = (*i).second;
         const std::vector<NBEdge*>& incoming = (*i).second->getIncomingEdges();
         for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            const std::vector<NBEdge::Connection>& elv = (*j)->getConnections();
+            const NBEdge* inEdge = *j;
+            const std::vector<NBEdge::Connection>& elv = inEdge->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                if ((*k).toEdge == 0) {
+                const NBEdge::Connection& c = *k;
+                const NBEdge* outEdge = c.toEdge;
+                if (outEdge == 0) {
                     continue;
                 }
-                const NBEdge::Connection& c = *k;
                 PositionVector shape = c.shape;
                 if (c.haveVia) {
                     shape.append(c.viaShape);
@@ -151,8 +157,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 }
                 device << "    <road name=\"" << c.getInternalLaneID() << "\" length=\"" << shape.length() << "\" id=\"" << getID(c.getInternalLaneID(), edgeMap, edgeID) << "\" junction=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
                 device << "        <link>\n";
-                device << "            <predecessor elementType=\"road\" elementId=\"" << getID((*j)->getID(), edgeMap, edgeID) << "\"/>\n";
-                device << "            <successor elementType=\"road\" elementId=\"" << getID((*k).toEdge->getID(), edgeMap, edgeID) << "\"/>\n";
+                device << "            <predecessor elementType=\"road\" elementId=\"" << getID(inEdge->getID(), edgeMap, edgeID) << "\"/>\n";
+                device << "            <successor elementType=\"road\" elementId=\"" << getID(outEdge->getID(), edgeMap, edgeID) << "\"/>\n";
                 device << "        </link>\n";
                 device << "        <type s=\"0\" type=\"town\"/>\n";
                 writePlanView(shape, device);
@@ -164,8 +170,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device << "                <right>\n";
                 device << "                    <lane id=\"-1\" type=\"driving\" level=\"0\">\n";
                 device << "                        <link>\n";
-                device << "                            <predecessor id=\"-" << (*j)->getNumLanes() - c.fromLane << "\"/>\n";
-                device << "                            <successor id=\"-" << c.toEdge->getNumLanes() - c.toLane << "\"/>\n";
+                device << "                            <predecessor id=\"-" << inEdge->getNumLanes() - c.fromLane << "\"/>\n";
+                device << "                            <successor id=\"-" << outEdge->getNumLanes() - c.toLane << "\"/>\n";
                 device << "                        </link>\n";
                 device << "                        <width sOffset=\"0\" a=\"" << width << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
                 device << "                        <roadMark sOffset=\"0\" type=\"none\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
@@ -187,13 +193,23 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         unsigned int index = 0;
         const std::vector<NBEdge*>& incoming = n->getIncomingEdges();
         for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            const std::vector<NBEdge::Connection>& elv = (*j)->getConnections();
+            const NBEdge* inEdge = *j;
+            const std::vector<NBEdge::Connection>& elv = inEdge->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                if ((*k).toEdge == 0) {
+                const NBEdge::Connection& c = *k;
+                const NBEdge* outEdge = c.toEdge;
+                if (outEdge == 0) {
                     continue;
                 }
-                device << "    <connection id=\"" << index << "\" incomingRoad=\"" << getID((*j)->getID(), edgeMap, edgeID)
-                       << "\" connectingRoad=\"" << getID((*k).getInternalLaneID(), edgeMap, edgeID) << "\" contactPoint=\"start\"/>\n";
+                device << "    <connection id=\"" 
+                    << index << "\" incomingRoad=\"" << getID(inEdge->getID(), edgeMap, edgeID)
+                    << "\" connectingRoad=\"" 
+                    << getID(c.getInternalLaneID(), edgeMap, edgeID) 
+                    << "\" contactPoint=\"start\">\n";
+                device << "        <laneLink from=\"-" << inEdge->getNumLanes() - c.fromLane
+                    << "\" to=\"-1"  // every connection has its own edge
+                    << "\"/>\n";
+                device << "    </connection>\n";
                 ++index;
             }
         }

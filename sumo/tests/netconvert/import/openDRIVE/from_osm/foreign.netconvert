@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Mon Nov  2 12:36:15 2015" north="354.45" south="0.00" east="236.27" west="0.00" maxRoad="6" maxJunc="4" maxPrg="0"/>
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Mon Nov  2 13:05:33 2015" north="354.45" south="0.00" east="236.27" west="0.00" maxRoad="6" maxJunc="4" maxPrg="0"/>
     <road name="Uhlandstraße" length="333.76" id="0" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="0"/>
@@ -26,10 +26,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="8.33"/>
@@ -62,10 +59,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="8.33"/>
@@ -99,10 +93,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="8.33"/>
@@ -138,10 +129,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="8.33"/>
@@ -174,10 +162,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="8.33"/>
@@ -211,10 +196,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="8.33"/>
@@ -677,23 +659,47 @@
         <signals/>
     </road>
     <junction name="266699840" id="1">
-    <connection id="0" incomingRoad="0" connectingRoad="6" contactPoint="start"/>
+    <connection id="0" incomingRoad="0" connectingRoad="6" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
     </junction>
     <junction name="266699841" id="0">
-    <connection id="0" incomingRoad="4" connectingRoad="7" contactPoint="start"/>
-    <connection id="1" incomingRoad="4" connectingRoad="8" contactPoint="start"/>
-    <connection id="2" incomingRoad="4" connectingRoad="9" contactPoint="start"/>
-    <connection id="3" incomingRoad="3" connectingRoad="10" contactPoint="start"/>
-    <connection id="4" incomingRoad="3" connectingRoad="11" contactPoint="start"/>
-    <connection id="5" incomingRoad="3" connectingRoad="12" contactPoint="start"/>
-    <connection id="6" incomingRoad="2" connectingRoad="13" contactPoint="start"/>
-    <connection id="7" incomingRoad="2" connectingRoad="14" contactPoint="start"/>
-    <connection id="8" incomingRoad="2" connectingRoad="15" contactPoint="start"/>
+    <connection id="0" incomingRoad="4" connectingRoad="7" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="1" incomingRoad="4" connectingRoad="8" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="2" incomingRoad="4" connectingRoad="9" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="3" incomingRoad="3" connectingRoad="10" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="4" incomingRoad="3" connectingRoad="11" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="5" incomingRoad="3" connectingRoad="12" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="6" incomingRoad="2" connectingRoad="13" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="7" incomingRoad="2" connectingRoad="14" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="8" incomingRoad="2" connectingRoad="15" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
     </junction>
     <junction name="266699842" id="2">
-    <connection id="0" incomingRoad="1" connectingRoad="16" contactPoint="start"/>
+    <connection id="0" incomingRoad="1" connectingRoad="16" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
     </junction>
     <junction name="267181943" id="3">
-    <connection id="0" incomingRoad="5" connectingRoad="17" contactPoint="start"/>
+    <connection id="0" incomingRoad="5" connectingRoad="17" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
     </junction>
 </OpenDRIVE>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Tue Feb 24 16:39:42 2015" north="173.36" south="0.00" east="400.00" west="0.00" maxRoad="12" maxJunc="5" maxPrg="0"/>
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Mon Nov  2 13:05:33 2015" north="173.36" south="0.00" east="400.00" west="0.00" maxRoad="12" maxJunc="5" maxPrg="0"/>
     <road name="" length="8.70" id="0" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="0"/>
@@ -23,10 +23,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -59,10 +56,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -178,10 +172,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -297,10 +288,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -333,10 +321,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -369,10 +354,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -405,10 +387,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -441,10 +420,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -560,10 +536,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -679,10 +652,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -715,10 +685,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -751,10 +718,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -1507,33 +1471,73 @@
         <signals/>
     </road>
     <junction name="2" id="0">
-    <connection id="0" incomingRoad="6" connectingRoad="12" contactPoint="start"/>
-    <connection id="1" incomingRoad="6" connectingRoad="13" contactPoint="start"/>
-    <connection id="2" incomingRoad="6" connectingRoad="14" contactPoint="start"/>
-    <connection id="3" incomingRoad="11" connectingRoad="15" contactPoint="start"/>
-    <connection id="4" incomingRoad="11" connectingRoad="16" contactPoint="start"/>
-    <connection id="5" incomingRoad="11" connectingRoad="17" contactPoint="start"/>
-    <connection id="6" incomingRoad="10" connectingRoad="18" contactPoint="start"/>
-    <connection id="7" incomingRoad="10" connectingRoad="19" contactPoint="start"/>
-    <connection id="8" incomingRoad="10" connectingRoad="20" contactPoint="start"/>
-    <connection id="9" incomingRoad="7" connectingRoad="21" contactPoint="start"/>
-    <connection id="10" incomingRoad="7" connectingRoad="22" contactPoint="start"/>
-    <connection id="11" incomingRoad="7" connectingRoad="23" contactPoint="start"/>
+    <connection id="0" incomingRoad="6" connectingRoad="12" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="1" incomingRoad="6" connectingRoad="13" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="2" incomingRoad="6" connectingRoad="14" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="3" incomingRoad="11" connectingRoad="15" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="4" incomingRoad="11" connectingRoad="16" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="5" incomingRoad="11" connectingRoad="17" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="6" incomingRoad="10" connectingRoad="18" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="7" incomingRoad="10" connectingRoad="19" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="8" incomingRoad="10" connectingRoad="20" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="9" incomingRoad="7" connectingRoad="21" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="10" incomingRoad="7" connectingRoad="22" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="11" incomingRoad="7" connectingRoad="23" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
     </junction>
     <junction name="508.501" id="1">
-    <connection id="0" incomingRoad="2" connectingRoad="24" contactPoint="start"/>
-    <connection id="1" incomingRoad="0" connectingRoad="25" contactPoint="start"/>
+    <connection id="0" incomingRoad="2" connectingRoad="24" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="1" incomingRoad="0" connectingRoad="25" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
     </junction>
     <junction name="509.502" id="2">
-    <connection id="0" incomingRoad="1" connectingRoad="26" contactPoint="start"/>
-    <connection id="1" incomingRoad="3" connectingRoad="27" contactPoint="start"/>
+    <connection id="0" incomingRoad="1" connectingRoad="26" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="1" incomingRoad="3" connectingRoad="27" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
     </junction>
     <junction name="514.509" id="4">
-    <connection id="0" incomingRoad="4" connectingRoad="28" contactPoint="start"/>
-    <connection id="1" incomingRoad="9" connectingRoad="29" contactPoint="start"/>
+    <connection id="0" incomingRoad="4" connectingRoad="28" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="1" incomingRoad="9" connectingRoad="29" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
     </junction>
     <junction name="516.508" id="3">
-    <connection id="0" incomingRoad="8" connectingRoad="30" contactPoint="start"/>
-    <connection id="1" incomingRoad="5" connectingRoad="31" contactPoint="start"/>
+    <connection id="0" incomingRoad="8" connectingRoad="30" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="1" incomingRoad="5" connectingRoad="31" contactPoint="start">
+        <laneLink from="-1" to="-1"/>
+    </connection>
     </junction>
 </OpenDRIVE>
