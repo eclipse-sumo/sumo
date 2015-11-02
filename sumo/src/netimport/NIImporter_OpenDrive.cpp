@@ -264,7 +264,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     // build nodes#3
     //  assign further nodes generated from inner-edges
-    //  these nodes have not been assigned earlier, because the connectiosn are referenced in inner-edges
+    //  these nodes have not been assigned earlier, because the connections are referenced in inner-edges
     for (std::map<std::string, OpenDriveEdge*>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
         if (e->to != 0 && e->from != 0) {
