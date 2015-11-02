@@ -1,0 +1,4 @@
+<additional>
+    <poly id="0" color="blue" fill="1" imgFile="dlr.gif" shape="0,0 0,500 500,500 0,0" angle="0.00"/>
+    <poly id="1" color="blue" fill="1" imgFile="dlr.gif" shape="-1734.30,279.06 -1734.30,379.06 -534.30,379.06 -534.30,279.06 -1734.30,279.06" angle="90.00"/>
+</additional>
