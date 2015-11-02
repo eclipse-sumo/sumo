@@ -62,6 +62,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isSet("opendrive-output")) {
         return;
     }
+    const bool origNames = oc.getBool("output.original-names");
     // some internal mapping containers
     int edgeID = 0;
     int nodeID = 0;
@@ -140,6 +141,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "        </lanes>\n";
         device << "        <objects/>\n";
         device << "        <signals/>\n";
+        if (origNames) {
+            device << "        <userData sumoID=\"" << e->getID() << "\"/>\n";
+        }
         device << "    </road>\n";
     }
     device << "\n";
