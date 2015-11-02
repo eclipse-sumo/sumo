@@ -211,7 +211,15 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         OpenDriveEdge* e = (*i).second;
         for (std::vector<OpenDriveLink>::iterator j = e->links.begin(); j != e->links.end(); ++j) {
             OpenDriveLink& l = *j;
+            const std::string& nid = l.elementID;
             if (l.elementType != OPENDRIVE_ET_ROAD) {
+                if (nb.getNodeCont().retrieve(nid) == 0) {
+                    // not yet seen, build (possibly a junction without connections)
+                    Position pos = l.linkType == OPENDRIVE_LT_SUCCESSOR ? e->geom[-1] : e->geom[0];
+                    if (!nb.getNodeCont().insert(nid, pos)) {
+                        throw ProcessError("Could not build node '" + nid + "'.");
+                    }
+                }
                 // set node information
                 setNodeSecure(nb.getNodeCont(), *e, l.elementID, l.linkType);
                 continue;
