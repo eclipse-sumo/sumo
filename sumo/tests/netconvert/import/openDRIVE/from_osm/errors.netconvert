@@ -1,0 +1,2 @@
+/usr/bin/../lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/ios_base.h:101:24: runtime error: load of value 4294967035, which is not a valid value for type 'std::_Ios_Fmtflags'
+/usr/bin/../lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/ios_base.h:85:67: runtime error: load of value 4294967035, which is not a valid value for type 'std::_Ios_Fmtflags'
