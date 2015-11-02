@@ -70,15 +70,28 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     //
     OutputDevice& device = OutputDevice::getDevice(oc.getString("opendrive-output"));
     device << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-    device << "<OpenDRIVE>\n";
+    device.openTag("OpenDRIVE");
     time_t now = time(0);
     std::string dstr(ctime(&now));
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
     const Boundary& b = GeoConvHelper::getFinal().getConvBoundary();
-    device << "    <header revMajor=\"1\" revMinor=\"3\" name=\"\" version=\"1.00\" date=\"" << dstr.substr(0, dstr.length() - 1)
-           << "\" north=\"" << b.ymax() << "\" south=\"" << b.ymin() << "\" east=\"" << b.xmax() << "\" west=\"" << b.xmin()
-           << "\" maxRoad=\"" << ec.size() << "\" maxJunc=\"" << nc.size() << "\" maxPrg=\"0\"/>\n";
+    // write header
+    device.openTag("header");
+    device.writeAttr("revMajor", "1");
+    device.writeAttr("revMinor", "3");
+    device.writeAttr("name", "");
+    device.writeAttr("version", "1.00");
+    device.writeAttr("date", dstr.substr(0, dstr.length() - 1));
+    device.writeAttr("north", b.ymax());
+    device.writeAttr("south", b.ymin());
+    device.writeAttr("east", b.xmax());
+    device.writeAttr("west", b.xmin());
+    device.writeAttr("maxRoad", ec.size());
+    device.writeAttr("maxJunc", nc.size());
+    device.writeAttr("maxPrg", 0);
+    device.closeTag();
+
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         const NBEdge* e = (*i).second;
@@ -216,7 +229,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "    </junction>\n";
     }
 
-    device << "</OpenDRIVE>\n";
+    device.closeTag();
     device.close();
 }
 
