@@ -118,7 +118,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         writeEmptyCenterLane(device, "solid", 0.13);
         device << "                <right>\n";
         for (int j = e->getNumLanes(); --j >= 0;) {
-            device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"driving\" level=\"0\">\n";
+            device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"" << getLaneType(e->getPermissions(j)) << "\" level=\"0\">\n";
             device << "                        <link/>\n";
             // this could be used for geometry-link junctions without u-turn,
             // predecessor and sucessors would be lane indices, 
@@ -185,7 +185,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device << "            <laneSection s=\"0\">\n";
                 writeEmptyCenterLane(device, "none", 0);
                 device << "                <right>\n";
-                device << "                    <lane id=\"-1\" type=\"driving\" level=\"0\">\n";
+                device << "                    <lane id=\"-1\" type=\"" << getLaneType(outEdge->getPermissions(c.toLane)) << "\" level=\"0\">\n";
                 device << "                        <link>\n";
                 device << "                            <predecessor id=\"-" << inEdge->getNumLanes() - c.fromLane << "\"/>\n";
                 device << "                            <successor id=\"-" << outEdge->getNumLanes() - c.toLane << "\"/>\n";
@@ -274,6 +274,26 @@ NWWriter_OpenDrive::getID(const std::string& origID, StringBijection<int>& map, 
     return lastID - 1;
 }
 
+
+std::string 
+NWWriter_OpenDrive::getLaneType(SVCPermissions permissions) {
+    switch (permissions) {
+        case SVC_PEDESTRIAN:
+            return "sidewalk";
+        //case (SVC_BICYCLE | SVC_PEDESTRIAN):
+        //    WRITE_WARNING("Ambiguous lane type (biking+driving) for road '" + roadID + "'");
+        //    return "sidewalk";
+        case SVC_BICYCLE:
+            return "biking";
+        case 0:
+            // ambiguous
+            return "none";
+        case SVC_TRAM:
+            return "tram";
+        default:
+            return "driving";
+    }
+}
 
 /****************************************************************************/
 

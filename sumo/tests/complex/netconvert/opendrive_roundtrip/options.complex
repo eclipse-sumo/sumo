@@ -1,1 +1,1 @@
-opendrive tests/complex/netconvert/runner.py
+opendrive --type-files input_types.typ.xml tests/complex/netconvert/runner.py

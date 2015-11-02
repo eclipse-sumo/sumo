@@ -35,5 +35,7 @@ args1 = [netconvert,
          '--sumo-net-file', 'input_net.net.xml',
          '--%s-output' % format, format]
 
+args2 = [netconvert, '--%s' % format, format] + sys.argv[2:]
+
 subprocess.call(args1)
-subprocess.call([netconvert, '--%s' % format, format])
+subprocess.call(args2)
