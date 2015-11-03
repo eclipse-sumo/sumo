@@ -274,6 +274,37 @@ TEST_F(PositionVectorTest, test_method_nearest_offset_to_point2D) {
 }
 
 
+TEST_F(PositionVectorTest, test_method_extrapolate2D) {	
+    PositionVector vec1;
+    vec1.push_back(Position(0,1,0));
+    vec1.push_back(Position(0,0,0));
+    vec1.push_back(Position(1,0,0));
+    vec1.extrapolate2D(1);
+    EXPECT_EQ(Position(0,2,0), vec1[0]);
+    EXPECT_EQ(Position(0,0,0), vec1[1]);
+    EXPECT_EQ(Position(2,0,0), vec1[2]);
+
+    PositionVector vec2;
+    vec2.push_back(Position(0,1,0));
+    vec2.push_back(Position(0,0,1));
+    vec2.push_back(Position(1,0,0));
+    vec2.extrapolate2D(1);
+//    EXPECT_EQ(Position(0,2,0), vec2[0]);
+//    EXPECT_EQ(Position(0,0,0), vec2[1]);
+//    EXPECT_EQ(Position(2,0,0), vec2[2]);
+
+    PositionVector vec3;
+    vec3.push_back(Position(-.5,1));
+    vec3.push_back(Position(-.5,-.5));
+    vec3.push_back(Position(1,-.5));
+    vec3.extrapolate2D(.5);
+    EXPECT_EQ(Position(-.5,1.5), vec3[0]);
+    EXPECT_EQ(Position(-.5,-.5), vec3[1]);
+    EXPECT_EQ(Position(1.5,-.5), vec3[2]);
+
+}
+
+
 /* Test the method 'move2side'*/
 TEST_F(PositionVectorTest, test_method_move2side) {	
     PositionVector vec1;
