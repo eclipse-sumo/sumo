@@ -84,12 +84,6 @@ public:
     static Position crossPoint(const Boundary& b,
                                const PositionVector& v);
 
-    static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position& beg,
-            const Position& end, SUMOReal length, SUMOReal wanted_offset);
-
-    static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position& beg,
-            const Position& end, SUMOReal wanted_offset);
-
     /** @brief Returns the distance of second angle from first angle counter-clockwise
      * @param[in] angle1 The first angle
      * @param[in] angle2 The second angle

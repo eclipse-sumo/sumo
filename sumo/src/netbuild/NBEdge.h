@@ -194,10 +194,6 @@ public:
 
     };
 
-    /// Computes the offset from the edge shape on the current segment
-    static std::pair<SUMOReal, SUMOReal> laneOffset(const Position& from,
-            const Position& to, SUMOReal laneCenterOffset);
-
     /// @brief unspecified lane width
     static const SUMOReal UNSPECIFIED_WIDTH;
     /// @brief unspecified lane offset
@@ -1173,9 +1169,6 @@ private:
 
     /// Computes the shape for the given lane
     PositionVector computeLaneShape(unsigned int lane, SUMOReal offset) const;
-
-    /// Computes the offset from the edge shape on the current segment
-    //std::pair<SUMOReal, SUMOReal> laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset);
 
     void computeLaneShapes();
 

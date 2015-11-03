@@ -1344,63 +1344,13 @@ NBEdge::computeLaneShapes() {
 
 PositionVector
 NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) const {
-    PositionVector shape;
-    bool haveWarned = false;
-    for (int i = 0; i < (int) myGeom.size(); i++) {
-        if (i == 0) {
-            Position from = myGeom[i];
-            Position to = myGeom[i + 1];
-            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, offset);
-            shape.push_back(
-                // (methode umbenennen; was heisst hier "-")
-                Position(from.x() - offsets.first, from.y() - offsets.second, from.z()));
-        } else if (i == static_cast<int>(myGeom.size() - 1)) {
-            Position from = myGeom[i - 1];
-            Position to = myGeom[i];
-            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, offset);
-            shape.push_back(
-                // (methode umbenennen; was heisst hier "-")
-                Position(to.x() - offsets.first, to.y() - offsets.second, to.z()));
-        } else {
-            Position from = myGeom[i - 1];
-            Position me = myGeom[i];
-            Position to = myGeom[i + 1];
-            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, me, offset);
-            std::pair<SUMOReal, SUMOReal> offsets2 = laneOffset(me, to, offset);
-            PositionVector l1;
-            l1.push_back(Position(from.x() - offsets.first, from.y() - offsets.second));
-            l1.push_back(Position(me.x() - offsets.first, me.y() - offsets.second));
-            l1.extrapolate(100);
-            PositionVector l2;
-            l2.push_back(Position(me.x() - offsets2.first, me.y() - offsets2.second));
-            l2.push_back(Position(to.x() - offsets2.first, to.y() - offsets2.second));
-            const SUMOReal angle = fabs(GeomHelper::angleDiff(l1.angleAt2D(0), l2.angleAt2D(0)));
-            if (angle < DEG2RAD(10.)) {
-                shape.push_back(
-                    // (methode umbenennen; was heisst hier "-")
-                    Position(me.x() - offsets.first, me.y() - offsets.second, me.z()));
-                continue;
-            }
-            l2.extrapolate(100);
-            if (l1.intersects(l2)) {
-                const Position intersection = l1.intersectionPosition2D(l2[0], l2[1]);
-                shape.push_back(Position(intersection.x(), intersection.y(), me.z()));
-            } else {
-                if (!haveWarned) {
-                    WRITE_WARNING("In lane '" + getLaneID(lane) + "': Could not build shape.");
-                    haveWarned = true;
-                }
-            }
-        }
+    PositionVector shape = myGeom;
+    try {
+        shape.move2side(offset);
+    } catch (InvalidArgument& e) {
+        WRITE_WARNING("In lane '" + getLaneID(lane) + "': Could not build shape.");
     }
     return shape;
-}
-
-
-std::pair<SUMOReal, SUMOReal>
-NBEdge::laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset) {
-    std::pair<SUMOReal, SUMOReal> offsets = GeomHelper::getNormal90D_CW(from, to, laneCenterOffset);
-    return std::pair<SUMOReal, SUMOReal>(offsets.first, offsets.second);
 }
 
 

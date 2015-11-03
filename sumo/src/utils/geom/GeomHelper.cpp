@@ -148,26 +148,6 @@ GeomHelper::crossPoint(const Boundary& b, const PositionVector& v) {
     throw 1;
 }
 
-std::pair<SUMOReal, SUMOReal>
-GeomHelper::getNormal90D_CW(const Position& beg,
-                            const Position& end,
-                            SUMOReal wanted_offset) {
-    return getNormal90D_CW(beg, end, beg.distanceTo2D(end), wanted_offset);
-}
-
-
-std::pair<SUMOReal, SUMOReal>
-GeomHelper::getNormal90D_CW(const Position& beg,
-                            const Position& end,
-                            SUMOReal length, SUMOReal wanted_offset) {
-    if (beg == end) {
-        throw InvalidArgument("same points at " + toString(beg));
-    }
-    return std::pair<SUMOReal, SUMOReal>
-           ((beg.y() - end.y()) * wanted_offset / length, (end.x() - beg.x()) * wanted_offset / length);
-}
-
-
 SUMOReal
 GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) {
     SUMOReal v = angle2 - angle1;
