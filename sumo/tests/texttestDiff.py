@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 """
-"""
-"""
 @file    texttestDiff.py
 @author  Jakob Erdmann
 @date    2015-11-03
@@ -36,7 +34,7 @@ else:
     orig, new = sys.argv[1:]
 
 
-subprocess.Popen(["gvim", "-d", orig, new])
+subprocess.Popen(["tkdiff", orig, new])
 
 if ( "net.netgen" in orig 
         or "net.netconvert" in orig
@@ -50,9 +48,7 @@ if ( "net.netgen" in orig
     sumo = os.environ["GUISIM_BINARY"]
     extraArgs = []
     #extraArgs += ["--gui-settings-file", "/scr2/debug/000_view_settings/internal_junctions.xml"]
-    extraArgs += ["--gui-settings-file", "/scr2/debug/000_view_settings/junctions.xml"]
+    #extraArgs += ["--gui-settings-file", "/scr2/debug/000_view_settings/junctions.xml"]
     #extraArgs += ["--gui-settings-file", "/scr2/debug/000_view_settings/junctionType.xml"]
     subprocess.Popen([sumo, "-n", orig, "-e", "3600"] + extraArgs)
     subprocess.Popen([sumo, "-n", new , "-e", "3600"] + extraArgs)
-
-
