@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 23 11:19:24 2015 by SUMO netconvert Version dev-SVN-r18276I
+<!-- generated on Tue Nov  3 08:32:18 2015 by SUMO netconvert Version dev-SVN-r19243
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -32,7 +32,7 @@
     <location netOffset="-402262.49,-6202690.42" convBoundary="0.00,0.00,163.29,299.17" origBoundary="-4.581491,55.953333,-4.555544,55.971182" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-254855303#0" from="1161556696" to="2606482692" priority="2" shape="130.29,299.17 106.32,292.23 78.87,267.70 51.76,248.81">
-        <lane id="-254855303#0_0" index="0" allow="delivery" speed="5.56" length="94.81" shape="129.83,300.75 105.50,293.71 77.77,268.93 51.04,250.32"/>
+        <lane id="-254855303#0_0" index="0" allow="delivery" speed="5.56" length="94.81" shape="129.83,300.75 105.50,293.71 77.84,269.00 51.04,250.32"/>
     </edge>
     <edge id="100481757#0" from="2606482692" to="1161556696" priority="2" shape="51.76,248.81 29.25,238.21 18.13,220.43 9.06,191.07 0.00,106.57 18.83,19.33 28.82,5.89 48.44,0.00 163.29,28.10 115.18,228.50 103.74,233.58 76.74,229.17 70.51,250.69 78.87,267.70 106.32,292.23 130.29,299.17">
         <lane id="100481757#0_0" index="0" allow="delivery" speed="5.56" length="755.38" shape="50.81,250.19 28.11,239.50 16.62,221.12 7.44,191.40 -1.67,106.48 17.29,18.63 27.82,4.47 48.40,-1.71 165.28,26.89 116.59,229.68 103.96,235.29 77.92,231.03 72.27,250.54 80.21,266.68 107.14,290.75 130.75,297.59"/>

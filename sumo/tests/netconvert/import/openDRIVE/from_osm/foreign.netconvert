@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Mon Nov  2 13:05:33 2015" north="354.45" south="0.00" east="236.27" west="0.00" maxRoad="6" maxJunc="4" maxPrg="0"/>
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Tue Nov  3 08:32:17 2015" north="354.45" south="0.00" east="236.27" west="0.00" maxRoad="6" maxJunc="4" maxPrg="0"/>
     <road name="Uhlandstraße" length="333.76" id="0" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="0"/>
@@ -78,7 +78,7 @@
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00" x="0.01" y="291.41" hdg="0.26" length="6.87"><line/></geometry>
-            <geometry s="6.87" x="6.66" y="293.16" hdg="0.26" length="124.32"><line/></geometry>
+            <geometry s="6.87" x="6.66" y="293.16" hdg="0.26" length="124.31"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  9 11:06:45 2015 by SUMO netconvert Version dev-SVN-r18808I
+<!-- generated on Tue Nov  3 08:32:19 2015 by SUMO netconvert Version dev-SVN-r19243
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -14,6 +14,10 @@
         <output-file value="net.net.xml"/>
         <output.street-names value="true"/>
     </output>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+    </ramp_guessing>
 
     <processing>
         <ignore-errors.edge-type value="true"/>
@@ -45,8 +49,8 @@
         <lane id="205013617#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="73.73" shape="844.87,251.32 841.99,278.81 839.97,298.08 840.12,304.51 840.61,311.87"/>
     </edge>
     <edge id="205013618#0" from="492500994" to="205013618#0-AddedOffRampNode" priority="11" type="highway.trunk" spreadType="center" shape="780.51,358.55 778.02,347.51 767.47,342.38 765.37,342.04 744.57,338.57">
-        <lane id="205013618#0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="46.45" shape="771.77,346.30 766.97,343.97 765.11,343.67 744.30,340.20"/>
-        <lane id="205013618#0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="46.45" shape="776.06,344.72 767.97,340.79 765.63,340.41 744.84,336.94"/>
+        <lane id="205013618#0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="46.45" shape="771.77,346.30 766.97,343.97 765.10,343.67 744.30,340.20"/>
+        <lane id="205013618#0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="46.45" shape="776.06,344.72 767.97,340.79 765.64,340.41 744.84,336.94"/>
     </edge>
     <edge id="30417941#1" from="335691176" to="335691178" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="797.58,318.01 806.62,313.28 816.69,311.55 826.80,312.96 836.00,317.41 843.40,324.47">
         <lane id="30417941#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="50.90" shape="807.77,309.73 816.64,308.21 827.77,309.76 836.83,314.14"/>
@@ -76,13 +80,13 @@
         <lane id="30417941#5_3" index="3" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="15.02" shape="795.49,364.08 792.13,359.74 790.25,355.91"/>
     </edge>
     <edge id="30417941#6" from="492500994" to="335691176" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="786.38,355.65 784.34,345.35 785.68,334.95 790.25,325.53 797.58,318.01">
-        <lane id="30417941#6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="41.64" shape="781.34,342.81 782.48,333.99 785.18,328.42"/>
-        <lane id="30417941#6_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="41.64" shape="784.75,342.16 785.68,334.95 787.68,330.82"/>
-        <lane id="30417941#6_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="41.64" shape="788.16,341.52 788.88,335.91 790.18,333.23"/>
+        <lane id="30417941#6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="41.63" shape="781.34,342.81 782.48,333.99 785.17,328.45"/>
+        <lane id="30417941#6_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="41.63" shape="784.75,342.16 785.68,334.95 787.67,330.85"/>
+        <lane id="30417941#6_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="41.63" shape="788.16,341.52 788.88,335.91 790.17,333.25"/>
     </edge>
     <edge id="30534383#2" from="1877878467" to="335691176" priority="11" type="highway.trunk" spreadType="center" shape="0.00,0.00 11.38,42.57 27.62,92.47 40.97,118.27 54.48,137.73 68.40,155.28 84.40,171.64 99.57,184.95 125.91,203.04 159.30,218.67 196.60,230.76 228.98,237.24 536.45,287.30 767.71,324.89 770.32,325.31 781.88,323.44 797.58,318.01">
-        <lane id="30534383#2_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="932.58" shape="1.59,-0.43 12.97,42.14 29.19,91.96 42.44,117.51 55.84,136.79 69.69,154.25 85.58,170.49 100.66,183.71 126.84,201.68 160.00,217.18 197.11,229.19 229.30,235.62 536.72,285.67 767.97,323.26 770.32,323.64 781.62,321.81"/>
-        <lane id="30534383#2_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="932.58" shape="-1.59,0.43 9.79,43.00 26.05,92.98 39.50,119.03 53.12,138.67 67.11,156.31 83.22,172.79 98.48,186.19 124.98,204.40 158.60,220.16 196.09,232.33 228.66,238.86 536.18,288.93 767.45,326.52 770.32,326.98 782.14,325.07 782.68,324.88"/>
+        <lane id="30534383#2_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="932.58" shape="1.59,-0.43 12.96,42.10 29.15,91.83 42.39,117.42 55.81,136.75 69.64,154.19 85.54,170.44 100.58,183.65 126.73,201.60 159.91,217.13 197.02,229.16 229.27,235.62 536.71,285.67 767.97,323.26 770.32,323.64 781.48,321.83 781.59,321.80"/>
+        <lane id="30534383#2_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="932.58" shape="-1.59,0.43 9.80,43.04 26.09,93.11 39.55,119.12 53.15,138.71 67.16,156.37 83.26,172.84 98.56,186.25 125.09,204.48 158.69,220.21 196.18,232.36 228.69,238.86 536.19,288.93 767.45,326.52 770.32,326.98 782.28,325.05 782.67,324.91"/>
     </edge>
     <edge id="324041278#5" from="324041278#5-AddedOnRampNode" to="2149919279" name="Calle Doctor Juan Domínguez Pérez" priority="6" type="highway.tertiary" spreadType="center" shape="890.73,382.98 882.12,375.54 861.08,367.68 852.59,367.42 838.50,377.31">
         <lane id="324041278#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="64.33" shape="890.73,382.98 882.12,375.54 861.08,367.68 852.59,367.42 840.06,376.21"/>
@@ -103,7 +107,7 @@
     <junction id="2149919303" type="unregulated" x="844.87" y="251.32" incLanes="" intLanes="" shape="843.28,251.15 846.46,251.49"/>
     <junction id="2844510655" type="unregulated" x="813.80" y="245.94" incLanes="205013609#0_0" intLanes="" shape="812.20,245.98 815.40,245.90"/>
     <junction id="324041278#5-AddedOnRampNode" type="unregulated" x="890.73" y="382.98" incLanes="" intLanes="" shape="891.78,381.77 889.68,384.19"/>
-    <junction id="335691176" type="priority" x="797.58" y="318.01" incLanes="30534383#2_0 30534383#2_1 30417941#6_0 30417941#6_1 30417941#6_2" intLanes="" shape="811.70,317.38 807.01,308.24 806.20,307.15 803.55,305.30 781.09,320.28 783.20,326.40 783.97,327.26 791.40,334.39">
+    <junction id="335691176" type="priority" x="797.58" y="318.01" incLanes="30534383#2_0 30534383#2_1 30417941#6_0 30417941#6_1 30417941#6_2" intLanes="" shape="811.70,317.38 807.01,308.24 806.20,307.15 803.55,305.30 781.06,320.28 783.19,326.43 783.95,327.29 791.38,334.42">
         <request index="0" response="001000" foes="001000"/>
         <request index="1" response="001000" foes="001000"/>
         <request index="2" response="011000" foes="011000"/>

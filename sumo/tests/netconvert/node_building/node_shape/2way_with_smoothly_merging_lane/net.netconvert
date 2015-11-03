@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 18 13:15:03 2015 by SUMO netconvert Version dev-SVN-r18647I
+<!-- generated on Tue Nov  3 08:32:04 2015 by SUMO netconvert Version dev-SVN-r19243
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,28 +31,28 @@
     <location netOffset="-596212.17,-5782161.13" convBoundary="0.00,0.00,286.51,110.26" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="CE" from="C" to="E" priority="-2" shape="166.22,31.04 206.73,22.92 247.96,12.60 286.51,0.00">
-        <lane id="CE_0" index="0" speed="19.44" length="97.44" shape="196.06,20.01 205.76,18.07 246.76,7.80 284.97,-4.71"/>
-        <lane id="CE_1" index="1" speed="19.44" length="97.44" shape="196.71,23.25 206.41,21.30 247.56,11.00 286.00,-1.57"/>
+        <lane id="CE_0" index="0" speed="19.44" length="97.43" shape="196.07,20.01 205.64,18.09 246.59,7.84 284.97,-4.71"/>
+        <lane id="CE_1" index="1" speed="19.44" length="97.43" shape="196.72,23.24 206.37,21.31 247.50,11.01 286.00,-1.57"/>
     </edge>
     <edge id="CW" from="C" to="W" priority="-2" shape="166.22,31.04 96.97,39.70 87.38,40.63 54.56,39.99 0.00,32.26">
-        <lane id="CW_0" index="0" speed="27.78" length="199.70" shape="193.46,35.95 97.99,47.89 88.18,48.84 54.40,48.24 -1.16,40.43"/>
-        <lane id="CW_1" index="1" speed="27.78" length="199.70" shape="193.05,32.67 97.58,44.61 87.86,45.56 54.46,44.94 -0.69,37.16"/>
-        <lane id="CW_2" index="2" speed="27.78" length="199.70" shape="192.64,29.40 97.17,41.34 87.54,42.27 54.53,41.64 -0.23,33.89"/>
+        <lane id="CW_0" index="0" speed="27.78" length="199.71" shape="193.47,35.95 97.88,47.90 87.70,48.89 53.90,48.23 -1.16,40.43"/>
+        <lane id="CW_1" index="1" speed="27.78" length="199.71" shape="193.06,32.67 97.52,44.62 87.57,45.58 54.16,44.93 -0.69,37.16"/>
+        <lane id="CW_2" index="2" speed="27.78" length="199.71" shape="192.65,29.40 97.15,41.34 87.44,42.28 54.43,41.64 -0.23,33.89"/>
     </edge>
     <edge id="EC" from="E" to="C" priority="-2" shape="286.51,0.00 247.96,12.60 206.73,22.92 166.22,31.04">
-        <lane id="EC_0" index="0" speed="19.44" length="97.44" shape="288.05,4.71 249.50,17.31 207.93,27.72 198.00,29.71"/>
-        <lane id="EC_1" index="1" speed="19.44" length="97.44" shape="287.02,1.57 248.47,14.17 207.13,24.52 197.36,26.48"/>
+        <lane id="EC_0" index="0" speed="19.44" length="97.43" shape="288.05,4.71 249.33,17.36 207.82,27.75 198.01,29.72"/>
+        <lane id="EC_1" index="1" speed="19.44" length="97.43" shape="287.02,1.57 248.42,14.19 207.09,24.53 197.36,26.48"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="-2" spreadType="center" shape="235.12,110.26 233.53,86.86 227.85,62.28 221.91,51.03 216.62,42.03 205.81,35.14 188.78,31.48 166.22,31.04">
         <lane id="NC_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="13.89" length="94.41" shape="235.12,110.26 233.53,86.86 227.85,62.28 221.91,51.03 216.62,42.03 205.81,35.14 205.07,34.98"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="-2" shape="0.00,32.26 54.56,39.99 87.38,40.63 96.97,39.70 166.22,31.04">
-        <lane id="WC_0" index="0" speed="27.78" length="199.70" shape="1.16,24.09 55.72,31.82 87.54,32.38 96.17,31.49 191.42,19.57"/>
-        <lane id="WC_1" index="1" speed="27.78" length="199.70" shape="0.69,27.36 55.25,35.09 87.48,35.68 96.49,34.77 191.83,22.85"/>
-        <lane id="WC_2" index="2" speed="27.78" length="199.70" shape="0.23,30.63 54.79,38.36 87.41,38.98 96.81,38.06 192.24,26.12"/>
+        <lane id="WC_0" index="0" speed="27.78" length="199.71" shape="1.16,24.09 55.22,31.75 87.06,32.37 96.06,31.50 191.43,19.57"/>
+        <lane id="WC_1" index="1" speed="27.78" length="199.71" shape="0.69,27.36 54.96,35.05 87.19,35.68 96.42,34.78 191.83,22.85"/>
+        <lane id="WC_2" index="2" speed="27.78" length="199.71" shape="0.23,30.63 54.69,38.34 87.32,38.98 96.79,38.06 192.24,26.12"/>
     </edge>
 
-    <junction id="C" type="priority" x="166.22" y="31.04" incLanes="NC_0 EC_0 EC_1 WC_0 WC_1 WC_2" intLanes="" shape="205.04,36.61 205.11,33.35 198.32,31.28 195.74,18.44 191.22,17.99 193.66,37.53">
+    <junction id="C" type="priority" x="166.22" y="31.04" incLanes="NC_0 EC_0 EC_1 WC_0 WC_1 WC_2" intLanes="" shape="205.04,36.61 205.11,33.35 198.33,31.28 195.75,18.44 191.23,17.99 193.67,37.53">
         <request index="0" response="000000" foes="000000"/>
         <request index="1" response="111100" foes="111100"/>
         <request index="2" response="000000" foes="000010"/>
@@ -60,9 +60,9 @@
         <request index="4" response="000000" foes="000010"/>
         <request index="5" response="000000" foes="000010"/>
     </junction>
-    <junction id="E" type="dead_end" x="286.51" y="0.00" incLanes="CE_0 CE_1" intLanes="" shape="286.53,0.05 288.54,6.23 284.47,-6.23 286.49,-0.05"/>
+    <junction id="E" type="dead_end" x="286.51" y="0.00" incLanes="CE_0 CE_1" intLanes="" shape="286.53,0.05 288.54,6.23 284.48,-6.23 286.49,-0.05"/>
     <junction id="N" type="unregulated" x="235.12" y="110.26" incLanes="" intLanes="" shape="236.72,110.15 233.52,110.37"/>
-    <junction id="W" type="dead_end" x="0.00" y="32.26" incLanes="CW_0 CW_1 CW_2" intLanes="" shape="0.01,32.21 1.38,22.51 -1.37,42.01 -0.01,32.31"/>
+    <junction id="W" type="dead_end" x="0.00" y="32.26" incLanes="CW_0 CW_1 CW_2" intLanes="" shape="0.01,32.21 1.38,22.51 -1.38,42.01 -0.01,32.31"/>
 
     <connection from="EC" to="CW" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="EC" to="CW" fromLane="1" toLane="2" dir="s" state="M"/>

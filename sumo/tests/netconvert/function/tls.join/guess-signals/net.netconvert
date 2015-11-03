@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 30 08:54:03 2015 by SUMO netconvert Version dev-SVN-r18965I
+<!-- generated on Tue Nov  3 08:32:20 2015 by SUMO netconvert Version dev-SVN-r19243
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -111,8 +111,8 @@
         <lane id="-27488602#2_0" index="0" speed="8.33" length="196.09" shape="-1.04,290.84 151.53,167.66"/>
     </edge>
     <edge id="171952942#3" from="449235" to="313575" priority="9" type="highway.primary" spreadType="center" shape="66.78,0.00 68.80,3.31 85.10,29.75 111.07,69.92 160.35,142.61">
-        <lane id="171952942#3_0" index="0" speed="13.89" length="170.59" shape="68.19,-0.86 70.21,2.45 86.50,28.88 112.46,69.02 161.72,141.68"/>
-        <lane id="171952942#3_1" index="1" speed="13.89" length="170.59" shape="65.37,0.86 67.39,4.17 83.70,30.62 109.68,70.82 158.98,143.54"/>
+        <lane id="171952942#3_0" index="0" speed="13.89" length="170.59" shape="68.19,-0.86 70.21,2.45 86.50,28.87 112.45,69.01 161.72,141.68"/>
+        <lane id="171952942#3_1" index="1" speed="13.89" length="170.59" shape="65.37,0.86 67.39,4.17 83.70,30.63 109.69,70.83 158.98,143.54"/>
     </edge>
     <edge id="220153137#0" from="310458128" to="2292787679" priority="9" type="highway.primary" spreadType="center">
         <lane id="220153137#0_0" index="0" speed="13.89" length="64.89" shape="207.86,226.17 169.08,174.14"/>
@@ -123,16 +123,16 @@
         <lane id="220153137#1_1" index="1" speed="13.89" length="9.70" shape="171.72,172.16 165.94,164.40"/>
     </edge>
     <edge id="220153138#0" from="cluster_2292787672_259083790" to="313574" priority="9" type="highway.primary" spreadType="center" shape="169.67,155.51 216.97,220.44 255.77,268.94">
-        <lane id="220153138#0_0" index="0" speed="13.89" length="137.45" shape="173.94,158.57 218.30,219.47 257.06,267.91"/>
-        <lane id="220153138#0_1" index="1" speed="13.89" length="137.45" shape="171.27,160.51 215.64,221.41 254.48,269.97"/>
+        <lane id="220153138#0_0" index="0" speed="13.89" length="137.45" shape="173.94,158.57 218.28,219.44 257.06,267.91"/>
+        <lane id="220153138#0_1" index="1" speed="13.89" length="137.45" shape="171.27,160.51 215.66,221.44 254.48,269.97"/>
     </edge>
     <edge id="220153139#0" from="cluster_2292787672_259083790" to="cluster_1679641274_1679797916_2292326589_311578845_449234" priority="9" type="highway.primary" spreadType="center" shape="161.64,161.39 154.98,151.56 139.67,128.23 125.71,106.91 110.97,85.68 102.41,73.34 96.47,64.79 69.04,23.39">
-        <lane id="220153139#0_0" index="0" speed="13.89" length="177.15" shape="157.78,158.64 153.61,152.49 138.29,129.14 124.33,107.81 109.61,86.62 101.05,74.28 95.11,65.73 59.16,11.47"/>
-        <lane id="220153139#0_1" index="1" speed="13.89" length="177.15" shape="160.51,156.79 156.35,150.63 141.05,127.32 127.09,106.01 112.33,84.74 103.77,72.40 97.83,63.85 61.91,9.64"/>
+        <lane id="220153139#0_0" index="0" speed="13.89" length="177.15" shape="157.78,158.64 153.61,152.48 138.29,129.13 124.34,107.83 109.61,86.62 101.05,74.28 95.10,65.72 59.16,11.47"/>
+        <lane id="220153139#0_1" index="1" speed="13.89" length="177.15" shape="160.51,156.79 156.35,150.64 141.05,127.33 127.08,105.99 112.33,84.74 103.77,72.40 97.84,63.86 61.91,9.64"/>
     </edge>
     <edge id="220153140#1" from="313575" to="cluster_2292787672_259083790" priority="9" type="highway.primary" spreadType="center" shape="160.35,142.61 163.09,146.48 169.67,155.51">
-        <lane id="220153140#1_0" index="0" speed="13.89" length="11.84" shape="161.69,141.65 164.44,145.53 168.63,151.29"/>
-        <lane id="220153140#1_1" index="1" speed="13.89" length="11.84" shape="159.00,143.56 161.74,147.43 165.90,153.14"/>
+        <lane id="220153140#1_0" index="0" speed="13.89" length="11.84" shape="161.69,141.65 164.43,145.52 168.63,151.29"/>
+        <lane id="220153140#1_1" index="1" speed="13.89" length="11.84" shape="159.00,143.56 161.75,147.44 165.90,153.14"/>
     </edge>
     <edge id="27488602#1" from="cluster_2292787672_259083790" to="2292787678" priority="4" type="highway.residential" shape="161.64,161.39 152.57,168.94">
         <lane id="27488602#1_0" index="0" speed="8.33" length="6.88" shape="158.91,165.81 153.62,170.21"/>
