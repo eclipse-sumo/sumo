@@ -64,8 +64,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     const bool origNames = oc.getBool("output.original-names");
     // some internal mapping containers
-    int edgeID = 0;
-    int nodeID = 0;
+    int edgeID = 1;
+    int nodeID = 1;
     StringBijection<int> edgeMap;
     StringBijection<int> nodeMap;
     //

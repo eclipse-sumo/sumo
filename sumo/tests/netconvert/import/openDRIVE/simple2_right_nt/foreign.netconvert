@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Mon Nov  2 14:00:45 2015" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="1" maxJunc="2" maxPrg="0"/>
-    <road name="a1" length="50.00" id="0" junction="-1">
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Nov  4 12:51:38 2015" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="1" maxJunc="2" maxPrg="0"/>
+    <road name="a1" length="50.00" id="1" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="0"/>
-            <successor elementType="junction" elementId="1"/>
+            <predecessor elementType="junction" elementId="1"/>
+            <successor elementType="junction" elementId="2"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -41,8 +41,8 @@
         <signals/>
     </road>
 
-    <junction name="1.begin" id="0">
+    <junction name="1.begin" id="1">
     </junction>
-    <junction name="1.end" id="1">
+    <junction name="1.end" id="2">
     </junction>
 </OpenDRIVE>

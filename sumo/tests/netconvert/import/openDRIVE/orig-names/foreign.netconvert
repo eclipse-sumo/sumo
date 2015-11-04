@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Tue Nov  3 08:32:17 2015" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="2" maxJunc="2" maxPrg="0"/>
-    <road name="a1" length="50.00" id="0" junction="-1">
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Nov  4 12:51:39 2015" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="2" maxJunc="2" maxPrg="0"/>
+    <road name="a1" length="50.00" id="1" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="0"/>
-            <successor elementType="junction" elementId="1"/>
+            <predecessor elementType="junction" elementId="1"/>
+            <successor elementType="junction" elementId="2"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -35,10 +35,10 @@
         <signals/>
         <userData sumoId="-1.0.00"/>
     </road>
-    <road name="a1" length="50.00" id="1" junction="-1">
+    <road name="a1" length="50.00" id="2" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="1"/>
-            <successor elementType="junction" elementId="0"/>
+            <predecessor elementType="junction" elementId="2"/>
+            <successor elementType="junction" elementId="1"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -70,10 +70,10 @@
         <userData sumoId="1.0.00"/>
     </road>
 
-    <road name=":1.begin_0_0" length="2.66" id="2" junction="0">
+    <road name=":1.begin_0_0" length="2.66" id="3" junction="1">
         <link>
-            <predecessor elementType="road" elementId="1"/>
-            <successor elementType="road" elementId="0"/>
+            <predecessor elementType="road" elementId="2"/>
+            <successor elementType="road" elementId="1"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -108,10 +108,10 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":1.end_0_0" length="2.66" id="3" junction="1">
+    <road name=":1.end_0_0" length="2.66" id="4" junction="2">
         <link>
-            <predecessor elementType="road" elementId="0"/>
-            <successor elementType="road" elementId="1"/>
+            <predecessor elementType="road" elementId="1"/>
+            <successor elementType="road" elementId="2"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -146,13 +146,13 @@
         <objects/>
         <signals/>
     </road>
-    <junction name="1.begin" id="0">
-    <connection id="0" incomingRoad="1" connectingRoad="2" contactPoint="start">
+    <junction name="1.begin" id="1">
+    <connection id="0" incomingRoad="2" connectingRoad="3" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="1.end" id="1">
-    <connection id="0" incomingRoad="0" connectingRoad="3" contactPoint="start">
+    <junction name="1.end" id="2">
+    <connection id="0" incomingRoad="1" connectingRoad="4" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
