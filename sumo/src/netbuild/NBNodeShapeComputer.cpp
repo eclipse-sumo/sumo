@@ -112,6 +112,8 @@ NBNodeShapeComputer::compute() {
 
 void
 computeSameEnd(PositionVector& l1, PositionVector& l2) {
+    assert(l1[0].distanceTo2D(l1[1]) >= 100.);
+    assert(l2[0].distanceTo2D(l2[1]) >= 100.);
     PositionVector tmp;
     tmp.push_back(PositionVector::positionAtOffset2D(l1[0], l1[1], 100));
     tmp.push_back(l1[1]);
@@ -119,23 +121,16 @@ computeSameEnd(PositionVector& l1, PositionVector& l2) {
     tmp[1].set(-tmp[1].y(), tmp[1].x());
     tmp[1].add(tmp[0]);
     tmp.extrapolate2D(100);
-    if (l1.intersects(tmp[0], tmp[1])) {
-        const SUMOReal offset1 = l1.intersectsAtLengths2D(tmp)[0];
-        PositionVector tl1 = l1.getSubpart2D(offset1, l1.length2D());
-        tl1.extrapolate2D(100);
-        while (l1.size() > tl1.size()) {
-            l1.pop_front();
-        }
-        l1.replaceAt(0, tl1[0]);
-    }
     if (l2.intersects(tmp[0], tmp[1])) {
-        const SUMOReal offset2 = l2.intersectsAtLengths2D(tmp)[0];
-        PositionVector tl2 = l2.getSubpart2D(offset2, l2.length2D());
-        tl2.extrapolate2D(100);
-        while (l2.size() > tl2.size()) {
-            l2.pop_front();
+        const SUMOReal offset = l2.intersectsAtLengths2D(tmp)[0];
+        if (l2.length2D() - offset > POSITION_EPS) {
+            PositionVector tl2 = l2.getSubpart2D(offset, l2.length2D());
+            tl2.extrapolate2D(100);
+            while (l2.size() > tl2.size()) {
+                l2.pop_front();
+            }
+            l2.replaceAt(0, tl2[0]);
         }
-        l2.replaceAt(0, tl2[0]);
     }
 }
 
@@ -507,19 +502,16 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     std::map<NBEdge*, NBEdge*>& ccwBoundary,
     std::map<NBEdge*, NBEdge*>& cwBoundary) {
     EdgeVector newAll = myNode.myAllEdges;
-    std::set<NBEdge*>::const_iterator j;
-    EdgeVector::iterator i2;
-    std::map<NBEdge*, EdgeVector >::iterator k;
     bool changed = true;
     while (changed) {
         changed = false;
-        for (i2 = newAll.begin(); !changed && i2 != newAll.end();) {
+        for (EdgeVector::iterator i2 = newAll.begin(); i2 != newAll.end(); ++i2) {
             std::set<NBEdge*> other = same[*i2];
-            for (j = other.begin(); j != other.end(); ++j) {
+            for (std::set<NBEdge*>::const_iterator j = other.begin(); j != other.end(); ++j) {
                 EdgeVector::iterator k = find(newAll.begin(), newAll.end(), *j);
                 if (k != newAll.end()) {
                     if (myNode.hasIncoming(*i2)) {
-                        if (myNode.hasIncoming(*j)) {} else {
+                        if (!myNode.hasIncoming(*j)) {
                             geomsCW[*i2] = geomsCW[*j];
                             cwBoundary[*i2] = *j;
                             computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
@@ -529,14 +521,14 @@ NBNodeShapeComputer::computeUniqueDirectionList(
                             ccwBoundary[*i2] = *j;
                             geomsCCW[*i2] = geomsCCW[*j];
                             computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
-                        } else {}
+                        }
                     }
                     newAll.erase(k);
                     changed = true;
                 }
             }
-            if (!changed) {
-                ++i2;
+            if (changed) {
+                break;
             }
         }
     }
