@@ -1335,7 +1335,7 @@ NBEdge::computeLaneShapes() {
         try {
             myLanes[i].shape = computeLaneShape(i, offsets[i]);
         } catch (InvalidArgument& e) {
-            WRITE_WARNING("In edge '" + getID() + "': lane shape could not be determined (" + e.what() + ")");
+            WRITE_WARNING("In edge '" + getID() + "': lane shape could not be determined (" + e.what() + ").");
             myLanes[i].shape = myGeom;
         }
     }
@@ -1348,7 +1348,7 @@ NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) const {
     try {
         shape.move2side(offset);
     } catch (InvalidArgument& e) {
-        WRITE_WARNING("In lane '" + getLaneID(lane) + "': Could not build shape.");
+        WRITE_WARNING("In lane '" + getLaneID(lane) + "': Could not build shape (" + e.what() + ").");
     }
     return shape;
 }
