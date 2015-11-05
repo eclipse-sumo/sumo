@@ -7,6 +7,9 @@ car
 # car and walk possible
 car_walk
 
+# car and walk possible with arrivalpos 0
+car_walk_arrivalpos
+
 # public transport and walk possible
 public_walk
 
