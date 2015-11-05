@@ -70,7 +70,15 @@ public:
     /// @}
 
     SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
-        return E::getTravelTimeStatic(this->myEdge, trip->vehicle, time);
+        const SUMOReal length = this->myEdge->getLength();
+        const SUMOReal travelTime = E::getTravelTimeStatic(this->myEdge, trip->vehicle, time);
+        if (this->myEdge == trip->from) {
+             return travelTime * (length - trip->departPos) / length;
+        }
+        if (this->myEdge == trip->to) {
+            return travelTime * trip->arrivalPos / length;
+        }
+        return travelTime;
     }
 
 };
@@ -137,22 +145,23 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
 
 public:
-    AccessEdge(unsigned int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge, const SUMOReal inScale, const SUMOReal outScale) :
+    AccessEdge(unsigned int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge,
+               const SUMOReal inScale, const SUMOReal outScale, const SUMOReal transferTime = NUMERICAL_EPS) :
         _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID(), numericalID, outEdge->getEdge(), "!access"),
-        myInEdge(inEdge), myOutEdge(outEdge), myInScale(inScale), myOutScale(outScale) { }
+        myInEdge(inEdge), myOutEdge(outEdge), myInScale(inScale), myOutScale(outScale), myTransferTime(transferTime) { }
 
     const E* getStartEdge() const {
         return myInEdge->getEdge();
     }
 
     SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
-        return - myInEdge->getTravelTime(trip, time) * myInScale - myOutEdge->getTravelTime(trip, time) * myOutScale;
+        return myTransferTime - myInEdge->getTravelTime(trip, time) * myInScale - myOutEdge->getTravelTime(trip, time) * myOutScale;
     }
 
 private:
     const _IntermodalEdge* const myInEdge;
     const _IntermodalEdge* const myOutEdge;
-    const SUMOReal myInScale, myOutScale;
+    const SUMOReal myInScale, myOutScale, myTransferTime;
 
 };
 
