@@ -130,6 +130,33 @@ private:
 };
 
 
+/// @brief the access edge connecting diferent modes that is given to the internal router (SUMOAbstractRouter)
+template<class E, class L, class N, class V>
+class AccessEdge : public IntermodalEdge<E, L, N, V> {
+private:
+    typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
+
+public:
+    AccessEdge(unsigned int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge, const SUMOReal inScale, const SUMOReal outScale) :
+        _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID(), numericalID, outEdge->getEdge(), "!access"),
+        myInEdge(inEdge), myOutEdge(outEdge), myInScale(inScale), myOutScale(outScale) { }
+
+    const E* getStartEdge() const {
+        return myInEdge->getEdge();
+    }
+
+    SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
+        return - myInEdge->getTravelTime(trip, time) * myInScale - myOutEdge->getTravelTime(trip, time) * myOutScale;
+    }
+
+private:
+    const _IntermodalEdge* const myInEdge;
+    const _IntermodalEdge* const myOutEdge;
+    const SUMOReal myInScale, myOutScale;
+
+};
+
+
 /**
  * @class IntermodalRouter
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
@@ -140,6 +167,7 @@ private:
 
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef PublicTransportEdge<E, L, N, V> _PTEdge;
+    typedef AccessEdge<E, L, N, V> _AccessEdge;
     typedef IntermodalNetwork<E, L, N, V> _IntermodalNetwork;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
 
@@ -175,16 +203,14 @@ public:
             std::string lastStopID = pars.stops.front().busstop;
             typename std::vector<const E*>::const_iterator stopEdge = stopEdges.begin() + 1;
             for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin() + 1; s != pars.stops.end(); ++s, ++stopEdge) {
-                if (stopEdge != stopEdges.begin()) {
-                    _PTEdge* const newEdge = new _PTEdge(s->busstop, myNumericalID++, lastStopEdge, *stopEdge, pars.line);
-                    newEdge->addSchedule(lastTime, pars.repetitionEnd + lastTime - pars.depart, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
-                    if (!lineEdges.empty()) {
-                        lineEdges.back()->addSuccessor(newEdge);
-                    }
-                    lineEdges.push_back(newEdge);
-                    lastTime = s->until;
-                    lastStopEdge = *stopEdge;
+                _PTEdge* const newEdge = new _PTEdge(s->busstop, myNumericalID++, lastStopEdge, *stopEdge, pars.line);
+                newEdge->addSchedule(lastTime, pars.repetitionEnd + lastTime - pars.depart, pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
+                if (!lineEdges.empty()) {
+                    lineEdges.back()->addSuccessor(newEdge);
                 }
+                lineEdges.push_back(newEdge);
+                lastTime = s->until;
+                lastStopEdge = *stopEdge;
             }
             // connecting all "bus"stops with the same name for different lines
             _PTEdge* inEdge = 0;
@@ -241,7 +267,6 @@ public:
     bool compute(const E* from, const E* to, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal speed,
                  const V* const vehicle, SUMOTime msTime, std::vector<std::pair<std::string, std::vector<const E*> > >& into) {
         createNet();
-        //startQuery();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle);
         std::vector<const _IntermodalEdge*> intoPed;
         const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from),
@@ -269,7 +294,7 @@ public:
             }
         }
 #ifdef IntermodalRouter_DEBUG_ROUTES
-        SUMOReal time = msTime;
+        SUMOReal time = STEPS2TIME(msTime);
         for (size_t i = 0; i < intoPed.size(); ++i) {
             time += myInternalRouter->getEffort(intoPed[i], &trip, time);
         }
@@ -281,7 +306,6 @@ public:
                   << " time=" << time
                   << "\n";
 #endif
-        //endQuery();
         return success;
     }
 
@@ -310,7 +334,7 @@ private:
     IntermodalRouter(_IntermodalNetwork* net):
         SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true),
         myInternalRouter(new INTERNALROUTER(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
-        myIntermodalNet(net), myNumericalID(net->getAllEdges().size()) {}
+        myIntermodalNet(net), myNumericalID((int)net->getAllEdges().size()) {}
 
     void addCarEdges(const std::vector<E*>& edges) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -328,8 +352,15 @@ private:
                 _IntermodalEdge* carEdge = getCarEdge(edge);
                 if (getSidewalk<E, L>(edge) != 0) {
                     const std::pair<_IntermodalEdge*, _IntermodalEdge*>& pair = myIntermodalNet->getBothDirections(edge);
-                    carEdge->addSuccessor(pair.first);
-                    carEdge->addSuccessor(pair.second);
+                    _IntermodalEdge* forwardAccess = new _AccessEdge(myNumericalID++, carEdge, pair.first, 0, 1);
+                    myIntermodalNet->addEdge(forwardAccess);
+                    carEdge->addSuccessor(forwardAccess);
+                    forwardAccess->addSuccessor(pair.first);
+
+                    _IntermodalEdge* backwardAccess = new _AccessEdge(myNumericalID++, carEdge, pair.second, 1, 1);
+                    myIntermodalNet->addEdge(backwardAccess);
+                    carEdge->addSuccessor(backwardAccess);
+                    backwardAccess->addSuccessor(pair.second);
                 }
                 const std::vector<E*>& successors = edge->getSuccessors();
                 for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {

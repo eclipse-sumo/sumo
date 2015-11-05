@@ -87,8 +87,8 @@ public:
             }
             if (!edge->isWalkingArea()) {
                 // depart and arrival edges (the router can decide the initial direction to take and the direction to arrive from)
-                addEdge(new _IntermodalEdge(edge->getID() + "_fwd_connector", numericalID++, edge, "con"));
-                addEdge(new _IntermodalEdge(edge->getID() + "_bwd_connector", numericalID++, edge, "con"));
+                addEdge(new _IntermodalEdge(edge->getID() + "_depart_connector", numericalID++, edge, "!connector"));
+                addEdge(new _IntermodalEdge(edge->getID() + "_arrival_connector", numericalID++, edge, "!connector"));
                 myFromToLookup[edge] = std::make_pair(myEdges[numericalID - 2], myEdges.back());
             }
         }

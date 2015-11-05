@@ -693,6 +693,8 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                               + "\n The route can not be build.");
         ok = false;
     }
+    const SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok, 0);
+    const SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, id, ok, -NUMERICAL_EPS);
     SVCPermissions modeSet = 0;
     for (StringTokenizer st(modes); st.hasNext();) {
         const std::string mode = st.next();
@@ -709,7 +711,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         }
     }
     if (ok) {
-        myActivePerson->addTrip(from, to, modeSet, types, busStop);
+        myActivePerson->addTrip(from, to, modeSet, types, departPos, arrivalPos, busStop);
     }
     return ok;
 }

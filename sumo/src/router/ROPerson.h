@@ -68,7 +68,7 @@ public:
     virtual ~ROPerson();
 
     void addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                 const std::string& vTypes, const std::string& busStop);
+                 const std::string& vTypes, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop);
 
     void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines);
 
@@ -210,9 +210,10 @@ public:
     class PersonTrip : public PlanItem {
     public:
         PersonTrip()
-            : from(0), to(0), modes(SVC_PEDESTRIAN), busStop("") {}
-        PersonTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet, const std::string& busStop)
-            : from(from), to(to), modes(modeSet), busStop(busStop) {}
+            : from(0), to(0), modes(SVC_PEDESTRIAN), dep(0), arr(0), busStop("") {}
+        PersonTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
+                   const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop)
+            : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), busStop(busStop) {}
         /// @brief Destructor
         virtual ~PersonTrip() {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
@@ -235,6 +236,12 @@ public:
         const ROEdge* getDestination() const {
             return to != 0 ? to : myTripItems.back()->getDestination();
         }
+        SUMOReal getDepartPos() const {
+            return dep;
+        }
+        SUMOReal getArrivalPos() const {
+            return arr;
+        }
         bool isIntermodal() const {
             return modes != SVC_PASSENGER && modes != SVC_PEDESTRIAN;
         }
@@ -252,6 +259,7 @@ public:
         const ROEdge* from;
         const ROEdge* to;
         const SVCPermissions modes;
+        const SUMOReal dep, arr;
         const std::string busStop;
         /// @brief the fully specified trips
         std::vector<TripItem*> myTripItems;
