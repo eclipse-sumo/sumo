@@ -36,6 +36,7 @@
 #include <vector>
 #include <bitset>
 #include <utils/common/StdDefs.h>
+#include "MSTLLogicControl.h"
 #include "MSTrafficLightLogic.h"
 
 
