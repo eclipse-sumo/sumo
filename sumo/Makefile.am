@@ -23,8 +23,8 @@ userdoc:
 javadoc:
 	rm -rf docs/javadoc
 	mkdir docs/javadoc
-	ant -f tools/contributed/traci4j/build.xml javadoc
-	mv tools/contributed/traci4j/doc docs/javadoc/traci4j
+	mvn --batch-mode -f tools/contributed/traci4j/pom.xml javadoc:javadoc
+	mv tools/contributed/traci4j/target/site/apidocs docs/javadoc/traci4j
 	ant -f tools/contributed/traas/build.xml javadoc
 	mv tools/contributed/traas/javadoc docs/javadoc/traas
 
@@ -105,8 +105,8 @@ traas:
 	cp tools/contributed/traas/dist/TraaS.jar bin
 
 traci4j:
-	cd tools/contributed/traci4j; mvn clean install
-	cp *.jar ../../../bin
+	mvn --batch-mode -f tools/contributed/traci4j/pom.xml clean install
+	cp tools/contributed/traci4j/target/*.jar bin
 
 trafficmodeler:
 	cd tools/contributed/trafficmodeler && ./build.sh
