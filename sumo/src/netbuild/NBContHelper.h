@@ -162,9 +162,7 @@ public:
          * @return Which edge is more opposite to the related one
          */
         int operator()(NBEdge* e1, NBEdge* e2) const {
-            SUMOReal d1 = getDiff(e1);
-            SUMOReal d2 = getDiff(e2);
-            return d1 > d2;
+            return getDiff(e1) > getDiff(e2);
         }
 
     protected:
@@ -173,8 +171,7 @@ public:
          * @return The angle difference
          */
         SUMOReal getDiff(const NBEdge* const e) const {
-            SUMOReal d = getEdgeAngleAt(e, myNode);
-            return GeomHelper::getMinAngleDiff(d, myAngle);
+            return fabs(GeomHelper::angleDiff(getEdgeAngleAt(e, myNode), myAngle));
         }
 
         /** @brief Returns the given edge's angle at the given node
@@ -185,9 +182,9 @@ public:
          */
         SUMOReal getEdgeAngleAt(const NBEdge* const e, const NBNode* const n) const {
             if (e->getFromNode() == n) {
-                return e->getGeometry().getBegLine().atan2DegreeAngle();
+                return e->getGeometry().angleAt2D(0);
             } else {
-                return e->getGeometry().reverse().getBegLine().atan2DegreeAngle();
+                return e->getGeometry()[-1].angleTo2D(e->getGeometry()[-2]);
             }
         }
 

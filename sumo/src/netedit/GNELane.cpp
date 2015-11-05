@@ -117,39 +117,39 @@ GNELane::drawArrows() const {
             switch (dir) {
                 case LINKDIR_STRAIGHT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-                    GLHelper::drawTriangleAtEnd(Line(Position(0, 4), Position(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (SUMOReal) 1, (SUMOReal) .25);
                     break;
                 case LINKDIR_LEFT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), 90, 1, .05);
-                    GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.5, 2.5), (SUMOReal) 1, (SUMOReal) .25);
                     break;
                 case LINKDIR_RIGHT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
-                    GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.5, 2.5), (SUMOReal) 1, (SUMOReal) .25);
                     break;
                 case LINKDIR_TURN:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), 90, .5, .05);
                     GLHelper::drawBoxLine(Position(0.5, 2.5), 180, 1, .05);
-                    GLHelper::drawTriangleAtEnd(Line(Position(0.5, 2.5), Position(0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0.5, 2.5), Position(0.5, 4), (SUMOReal) 1, (SUMOReal) .25);
                     break;
                 case LINKDIR_TURN_LEFTHAND:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
                     GLHelper::drawBoxLine(Position(-0.5, 2.5), -180, 1, .05);
-                    GLHelper::drawTriangleAtEnd(Line(Position(-0.5, 2.5), Position(-0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(-0.5, 2.5), Position(-0.5, 4), (SUMOReal) 1, (SUMOReal) .25);
                     break;
                 case LINKDIR_PARTLEFT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), 45, .7, .05);
-                    GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.2, 1.3), (SUMOReal) 1, (SUMOReal) .25);
                     break;
                 case LINKDIR_PARTRIGHT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), -45, .7, .05);
-                    GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.2, 1.3), (SUMOReal) 1, (SUMOReal) .25);
                     break;
                 case LINKDIR_NODIR:
                     GLHelper::drawBoxLine(Position(1, 5.8), 245, 2, .05);
@@ -207,7 +207,7 @@ GNELane::drawLane2LaneConnections() const {
         glVertex2f(startPos.x(), startPos.y());
         glVertex2f(endPos.x(), endPos.y());
         glEnd();
-        GLHelper::drawTriangleAtEnd(Line(startPos, endPos), (SUMOReal) 1.5, (SUMOReal) .2);
+        GLHelper::drawTriangleAtEnd(startPos, endPos, (SUMOReal) 1.5, (SUMOReal) .2);
     }
     glPopName();
     glPopMatrix();
@@ -544,7 +544,7 @@ bool
 GNELane::setFunctionalColor(size_t activeScheme) const {
     switch (activeScheme) {
         case 6: {
-            SUMOReal hue = RAD2DEG(getShape().beginEndAngle()) + 180; // [0-360]
+            SUMOReal hue = GeomHelper::naviDegree(getShape().beginEndAngle()); // [0-360]
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
             return true;
         }

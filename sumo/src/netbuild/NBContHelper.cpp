@@ -162,12 +162,10 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
         // look at further geometry segments to resolve ambiguity
         const Position referencePos1 = e1->getGeometry().positionAtOffset2D(lookAhead);
         const Position referencePos2 = e2->getGeometry().positionAtOffset2D(lookAhead);
-        relAngle1 = NBHelpers::normRelAngle(myEdge->getEndAngle(), NBHelpers::angle(
-                                                e1->getFromNode()->getPosition().x(), e1->getFromNode()->getPosition().y(),
-                                                referencePos1.x(), referencePos1.y()));
-        relAngle2 = NBHelpers::normRelAngle(myEdge->getEndAngle(), NBHelpers::angle(
-                                                e2->getFromNode()->getPosition().x(), e2->getFromNode()->getPosition().y(),
-                                                referencePos2.x(), referencePos2.y()));
+        relAngle1 = NBHelpers::normRelAngle(myEdge->getEndAngle(), GeomHelper::legacyDegree(
+                                                e1->getFromNode()->getPosition().angleTo2D(referencePos1), true));
+        relAngle2 = NBHelpers::normRelAngle(myEdge->getEndAngle(), GeomHelper::legacyDegree(
+                                                e2->getFromNode()->getPosition().angleTo2D(referencePos2), true));
         if (lookAhead > MAX2(e1->getLength(), e2->getLength())) {
             break;
         }
@@ -195,12 +193,10 @@ NBContHelper::relative_incoming_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
         // look at further geometry segments to resolve ambiguity
         const Position referencePos1 = e1->getGeometry().positionAtOffset2D(e1->getGeometry().length() - lookAhead);
         const Position referencePos2 = e2->getGeometry().positionAtOffset2D(e2->getGeometry().length() - lookAhead);
-        relAngle1 = NBHelpers::normRelAngle(myEdge->getStartAngle(), NBHelpers::angle(
-                                                referencePos1.x(), referencePos1.y(),
-                                                e1->getToNode()->getPosition().x(), e1->getToNode()->getPosition().y()));
-        relAngle2 = NBHelpers::normRelAngle(myEdge->getStartAngle(), NBHelpers::angle(
-                                                referencePos2.x(), referencePos2.y(),
-                                                e2->getToNode()->getPosition().x(), e2->getToNode()->getPosition().y()));
+        relAngle1 = NBHelpers::normRelAngle(myEdge->getStartAngle(), GeomHelper::legacyDegree(
+                                                referencePos1.angleTo2D(e1->getToNode()->getPosition()), true));
+        relAngle2 = NBHelpers::normRelAngle(myEdge->getStartAngle(), GeomHelper::legacyDegree(
+                                                referencePos2.angleTo2D(e2->getToNode()->getPosition()), true));
         if (lookAhead > MAX2(e1->getLength(), e2->getLength())) {
             break;
         }

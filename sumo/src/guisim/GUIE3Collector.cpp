@@ -32,7 +32,6 @@
 
 #include "GUIE3Collector.h"
 #include "GUIEdge.h"
-#include <utils/geom/Line.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -143,10 +142,10 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
     // arrows
     glTranslated(1.5, 0, 0);
     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-    GLHelper::drawTriangleAtEnd(Line(Position(0, 4), Position(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
+    GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (SUMOReal) 1, (SUMOReal) .25);
     glTranslated(-3, 0, 0);
     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-    GLHelper::drawTriangleAtEnd(Line(Position(0, 4), Position(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
+    GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (SUMOReal) 1, (SUMOReal) .25);
     glPopMatrix();
 }
 

@@ -161,14 +161,6 @@ public:
         myY = myY / val;
     }
 
-    void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
-        SUMOReal x = myX * cos(rot) - myY * sin(rot) + xoff;
-        SUMOReal y = myX * sin(rot) + yoff + myY * cos(rot);
-        myX = x;
-        myY = y;
-    }
-
-
     /// Prints to the output
     friend std::ostream& operator<<(std::ostream& os, const Position& p) {
         os << p.x() << "," << p.y();
@@ -245,6 +237,13 @@ public:
     inline SUMOReal distanceSquaredTo2D(const Position& p2) const {
         return (myX - p2.myX) * (myX - p2.myX) + (myY - p2.myY) * (myY - p2.myY);
     }
+
+
+    /// @brief returns the angle in the plane of the vector pointing from here to the other position
+    inline SUMOReal angleTo2D(const Position& other) const {
+        return atan2(other.myY - myY, other.myX - myX);
+    }
+
 
     /// @brief returns the cross product between this point and the second one
     Position crossProduct(const Position& pos) {

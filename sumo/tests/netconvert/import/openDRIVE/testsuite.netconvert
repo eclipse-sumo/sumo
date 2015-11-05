@@ -29,7 +29,10 @@ adlershof_dlr
 
 # test with min-distance
 Crossing8Course_minDist50
-
-
 error_simple1_nolanes
 
+# convert osm to openDrive
+from_osm
+
+# include sumo edge ids if option --output.original-names is given
+orig-names

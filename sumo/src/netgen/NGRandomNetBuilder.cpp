@@ -128,8 +128,7 @@ NGRandomNetBuilder::checkAngles(NGNode* node) {
                     Position v2(
                         ni->getPosition().x() - node->getPosition().x(),
                         ni->getPosition().y() - node->getPosition().y());
-                    SUMOReal angle = GeomHelper::Angle2D(v1.x(), v1.y(), v2.x(), v2.y());
-                    if (fabs((SUMOReal) angle) < myMinLinkAngle) {
+                    if (fabs(GeomHelper::angle2D(v1, v2)) < myMinLinkAngle) {
                         check = false;
                     }
                 }
@@ -143,12 +142,11 @@ NGRandomNetBuilder::checkAngles(NGNode* node) {
 bool
 NGRandomNetBuilder::canConnect(NGNode* baseNode, NGNode* newNode) {
     bool connectable = true;
-    Position n1(baseNode->getPosition());
-    Position n2(newNode->getPosition());
+    const PositionVector n(baseNode->getPosition(), newNode->getPosition());
 
     // check for range between Basenode and Newnode
     if (connectable) {
-        SUMOReal dist = n1.distanceTo(n2);
+        SUMOReal dist = n.length();
         if ((dist < myMinDistance) || (dist > myMaxDistance)) {
             connectable = false;
         }
@@ -166,21 +164,24 @@ NGRandomNetBuilder::canConnect(NGNode* baseNode, NGNode* newNode) {
     if (connectable) {
         NGEdgeList::iterator li;
         li = myOuterLinks.begin();
-        while ((connectable == true) && (li != myOuterLinks.end())) {
+        while (connectable && (li != myOuterLinks.end())) {
             // check intersection only if links don't share a node
-            Position p1((*li)->getStartNode()->getPosition());
-            Position p2((*li)->getEndNode()->getPosition());
-            if ((baseNode != (*li)->getStartNode()) && (baseNode != (*li)->getEndNode())
-                    && (newNode != (*li)->getStartNode()) && (newNode != (*li)->getEndNode())) {
-                connectable = !GeomHelper::intersects(n1, n2, p1, p2);
-
+            const NGNode* const start = (*li)->getStartNode();
+            const NGNode* const end = (*li)->getEndNode();
+            const Position& p1 = start->getPosition();
+            const Position& p2 = end->getPosition();
+            if ((baseNode != start) && (baseNode != end) && (newNode != start) && (newNode != end)) {
+                connectable = !n.intersects(p1, p2);
             }
             // check NewNode-To-Links distance only, if NewNode isn't part of link
-            if ((connectable) &&
-                    (newNode != (*li)->getStartNode()) && (newNode != (*li)->getEndNode())) {
-                SUMOReal dist = GeomHelper::distancePointLine(n2, p1, p2);
-                if ((dist < myMinDistance) && (dist > -1)) {
-                    connectable = false;
+            if (connectable && (newNode != start) && (newNode != end)) {
+                const SUMOReal offset = GeomHelper::nearest_offset_on_line_to_point2D(p1, p2, n[1]);
+                if (offset != GeomHelper::INVALID_OFFSET) {
+                    const Position p = PositionVector(p1, p2).positionAtOffset2D(offset);
+                    const SUMOReal dist = p.distanceTo2D(n[1]);
+                    if (dist < myMinDistance) {
+                        connectable = false;
+                    }
                 }
             }
             ++li;

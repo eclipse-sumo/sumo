@@ -112,25 +112,25 @@ NBNodeShapeComputer::compute() {
 
 void
 computeSameEnd(PositionVector& l1, PositionVector& l2) {
-    Line sub(l1.lineAt(0).getPositionAtDistance2D(100), l1[1]);
-    Line tmp(sub);
-    tmp.rotateAtP1(M_PI / 2);
-    tmp.extrapolateBy2D(100);
-    if (l1.intersects(tmp.p1(), tmp.p2())) {
-        SUMOReal offset1 = l1.intersectsAtLengths2D(tmp)[0];
-        Line tl1 = Line(
-                       l1.lineAt(0).getPositionAtDistance2D(offset1),
-                       l1[1]);
-        tl1.extrapolateBy2D(100);
-        l1.replaceAt(0, tl1.p1());
-    }
-    if (l2.intersects(tmp.p1(), tmp.p2())) {
-        SUMOReal offset2 = l2.intersectsAtLengths2D(tmp)[0];
-        Line tl2 = Line(
-                       l2.lineAt(0).getPositionAtDistance2D(offset2),
-                       l2[1]);
-        tl2.extrapolateBy2D(100);
-        l2.replaceAt(0, tl2.p1());
+    assert(l1[0].distanceTo2D(l1[1]) >= 100.);
+    assert(l2[0].distanceTo2D(l2[1]) >= 100.);
+    PositionVector tmp;
+    tmp.push_back(PositionVector::positionAtOffset2D(l1[0], l1[1], 100));
+    tmp.push_back(l1[1]);
+    tmp[1].sub(tmp[0]);
+    tmp[1].set(-tmp[1].y(), tmp[1].x());
+    tmp[1].add(tmp[0]);
+    tmp.extrapolate2D(100);
+    if (l2.intersects(tmp[0], tmp[1])) {
+        const SUMOReal offset = l2.intersectsAtLengths2D(tmp)[0];
+        if (l2.length2D() - offset > POSITION_EPS) {
+            PositionVector tl2 = l2.getSubpart2D(offset, l2.length2D());
+            tl2.extrapolate2D(100);
+            while (l2.size() > tl2.size()) {
+                l2.pop_front();
+            }
+            l2.replaceAt(0, tl2[0]);
+        }
     }
 }
 
@@ -388,13 +388,8 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
             myNode.hasIncoming(*i)
             ? (*i)->getCCWBoundaryLine(myNode)
             : (*i)->getCWBoundaryLine(myNode);
-        Line l1 = g1.lineAt(0);
-        Line tmp = geomsCCW[*i].lineAt(0);
-        tmp.extrapolateBy2D(100);
-        geomsCCW[*i].replaceAt(0, tmp.p1());
-        tmp = geomsCW[*i].lineAt(0);
-        tmp.extrapolateBy2D(100);
-        geomsCW[*i].replaceAt(0, tmp.p1());
+        geomsCCW[*i].extrapolate2D(100, true);
+        geomsCW[*i].extrapolate2D(100, true);
         //
         for (j = i + 1; j != myNode.myAllEdges.end(); j++) {
             geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode);
@@ -403,13 +398,8 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
                 myNode.hasIncoming(*j)
                 ? (*j)->getCCWBoundaryLine(myNode)
                 : (*j)->getCWBoundaryLine(myNode);
-            Line l2 = g2.lineAt(0);
-            tmp = geomsCCW[*j].lineAt(0);
-            tmp.extrapolateBy2D(100);
-            geomsCCW[*j].replaceAt(0, tmp.p1());
-            tmp = geomsCW[*j].lineAt(0);
-            tmp.extrapolateBy2D(100);
-            geomsCW[*j].replaceAt(0, tmp.p1());
+            geomsCCW[*j].extrapolate2D(100, true);
+            geomsCW[*j].extrapolate2D(100, true);
         }
     }
     // compute same (edges where an intersection doesn't work well
@@ -426,23 +416,21 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
         const bool incoming2 = (*j)->getToNode() == &myNode;
         const Position positionAtNode = (*i)->getGeometry()[incoming ? -1 : 0];
         const Position positionAtNode2 = (*j)->getGeometry()[incoming2 ? -1 : 0];
-        PositionVector g1 = incoming ? (*i)->getCCWBoundaryLine(myNode) : (*i)->getCWBoundaryLine(myNode);
-        PositionVector g2 = incoming ? (*j)->getCCWBoundaryLine(myNode) : (*j)->getCWBoundaryLine(myNode);
-        Line l1 = g1.lineAt(0);
-        Line l2 = g2.lineAt(0);
-        const SUMOReal angle1further = (g1.size() > 2 && l1.length2D() < angleChangeLookahead ?
-                                        g1.lineAt(1).atan2DegreeAngle() : l1.atan2DegreeAngle());
-        const SUMOReal angle2further = (g2.size() > 2 && l2.length2D() < angleChangeLookahead ?
-                                        g2.lineAt(1).atan2DegreeAngle() : l2.atan2DegreeAngle());
-        const SUMOReal angleDiff = NBHelpers::relAngle(l1.atan2DegreeAngle(), l2.atan2DegreeAngle());
-        const SUMOReal angleDiffFurther = NBHelpers::relAngle(angle1further, angle2further);
+        const PositionVector g1 = incoming ? (*i)->getCCWBoundaryLine(myNode) : (*i)->getCWBoundaryLine(myNode);
+        const PositionVector g2 = incoming ? (*j)->getCCWBoundaryLine(myNode) : (*j)->getCWBoundaryLine(myNode);
+        const SUMOReal angle1further = (g1.size() > 2 && g1[0].distanceTo2D(g1[1]) < angleChangeLookahead ?
+                                        g1.angleAt2D(1) : g1.angleAt2D(0));
+        const SUMOReal angle2further = (g2.size() > 2 && g2[0].distanceTo2D(g2[1]) < angleChangeLookahead ?
+                                        g2.angleAt2D(1) : g2.angleAt2D(0));
+        const SUMOReal angleDiff = GeomHelper::angleDiff(g1.angleAt2D(0), g2.angleAt2D(0));
+        const SUMOReal angleDiffFurther = GeomHelper::angleDiff(angle1further, angle2further);
         const bool ambiguousGeometry = ((angleDiff > 0 && angleDiffFurther < 0) || (angleDiff < 0 && angleDiffFurther > 0));
         const bool differentDirs = (incoming != incoming2);
         //if (ambiguousGeometry) {
         //    @todo: this warning would be helpful in many cases. However, if angle and angleFurther jump between 179 and -179 it is misleading
         //    WRITE_WARNING("Ambigous angles at junction '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
         //}
-        if (fabs(angleDiff) < 20) {
+        if (fabs(angleDiff) < DEG2RAD(20)) {
             const bool isOpposite = differentDirs && foundOpposite.count(*i) == 0;
             if (isOpposite) {
                 foundOpposite.insert(*i);
@@ -514,19 +502,16 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     std::map<NBEdge*, NBEdge*>& ccwBoundary,
     std::map<NBEdge*, NBEdge*>& cwBoundary) {
     EdgeVector newAll = myNode.myAllEdges;
-    std::set<NBEdge*>::const_iterator j;
-    EdgeVector::iterator i2;
-    std::map<NBEdge*, EdgeVector >::iterator k;
     bool changed = true;
     while (changed) {
         changed = false;
-        for (i2 = newAll.begin(); !changed && i2 != newAll.end();) {
+        for (EdgeVector::iterator i2 = newAll.begin(); i2 != newAll.end(); ++i2) {
             std::set<NBEdge*> other = same[*i2];
-            for (j = other.begin(); j != other.end(); ++j) {
+            for (std::set<NBEdge*>::const_iterator j = other.begin(); j != other.end(); ++j) {
                 EdgeVector::iterator k = find(newAll.begin(), newAll.end(), *j);
                 if (k != newAll.end()) {
                     if (myNode.hasIncoming(*i2)) {
-                        if (myNode.hasIncoming(*j)) {} else {
+                        if (!myNode.hasIncoming(*j)) {
                             geomsCW[*i2] = geomsCW[*j];
                             cwBoundary[*i2] = *j;
                             computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
@@ -536,14 +521,14 @@ NBNodeShapeComputer::computeUniqueDirectionList(
                             ccwBoundary[*i2] = *j;
                             geomsCCW[*i2] = geomsCCW[*j];
                             computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
-                        } else {}
+                        }
                     }
                     newAll.erase(k);
                     changed = true;
                 }
             }
-            if (!changed) {
-                ++i2;
+            if (changed) {
+                break;
             }
         }
     }
@@ -572,33 +557,17 @@ NBNodeShapeComputer::initNeighbors(const EdgeVector& edges, const EdgeVector::co
         ccwi--;
     }
 
-    const SUMOReal angleCurCCW = geomsCCW[*current].lineAt(0).atan2PositiveAngle();
-    const SUMOReal angleCurCW = geomsCW[*current].lineAt(0).atan2PositiveAngle();
-    const SUMOReal angleCCW = geomsCW[*ccwi].lineAt(0).atan2PositiveAngle();
-    const SUMOReal angleCW = geomsCCW[*cwi].lineAt(0).atan2PositiveAngle();
-    if (angleCurCCW > angleCCW) {
-        ccad = angleCurCCW - angleCCW;
-    } else {
-        ccad = twoPI - (angleCCW - angleCurCCW);
-    }
-
-    if (angleCurCW > angleCW) {
-        cad = twoPI - (angleCurCW - angleCW);
-    } else {
-        cad = angleCW - angleCurCW;
-    }
-
-    if (ccad < 0) {
+    const SUMOReal angleCurCCW = geomsCCW[*current].angleAt2D(0);
+    const SUMOReal angleCurCW = geomsCW[*current].angleAt2D(0);
+    const SUMOReal angleCCW = geomsCW[*ccwi].angleAt2D(0);
+    const SUMOReal angleCW = geomsCCW[*cwi].angleAt2D(0);
+    ccad = angleCCW - angleCurCCW;
+    while (ccad < 0.) {
         ccad += twoPI;
     }
-    if (ccad > twoPI) {
-        ccad -= twoPI;
-    }
-    if (cad < 0) {
+    cad = angleCurCW - angleCW;
+    while (cad < 0.) {
         cad += twoPI;
-    }
-    if (cad > twoPI) {
-        cad -= twoPI;
     }
 }
 
@@ -610,21 +579,21 @@ NBNodeShapeComputer::computeNodeShapeSmall() {
     EdgeVector::const_iterator i;
     for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
         // compute crossing with normal
-        Line edgebound1 = (*i)->getCCWBoundaryLine(myNode).lineAt(0);
-        Line edgebound2 = (*i)->getCWBoundaryLine(myNode).lineAt(0);
-        Line cross(edgebound1);
-        cross.rotateAtP1(M_PI / 2.);
-        cross.add(myNode.getPosition() - cross.p1());
-        cross.extrapolateBy2D(500);
-        edgebound1.extrapolateBy2D(500);
-        edgebound2.extrapolateBy2D(500);
+        PositionVector edgebound1 = (*i)->getCCWBoundaryLine(myNode).getSubpartByIndex(0, 2);
+        PositionVector edgebound2 = (*i)->getCWBoundaryLine(myNode).getSubpartByIndex(0, 2);
+        Position delta = edgebound1[1] - edgebound1[0];
+        delta.set(-delta.y(), delta.x()); // rotate 90 degrees
+        PositionVector cross(myNode.getPosition(), myNode.getPosition() + delta);
+        cross.extrapolate2D(500);
+        edgebound1.extrapolate2D(500);
+        edgebound2.extrapolate2D(500);
         if (cross.intersects(edgebound1)) {
-            Position np = cross.intersectsAt(edgebound1);
+            Position np = cross.intersectionPosition2D(edgebound1);
             np.set(np.x(), np.y(), myNode.getPosition().z());
             ret.push_back_noDoublePos(np);
         }
         if (cross.intersects(edgebound2)) {
-            Position np = cross.intersectsAt(edgebound2);
+            Position np = cross.intersectionPosition2D(edgebound2);
             np.set(np.x(), np.y(), myNode.getPosition().z());
             ret.push_back_noDoublePos(np);
         }

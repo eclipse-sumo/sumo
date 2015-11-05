@@ -32,7 +32,6 @@
 #include <string>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/geom/Line.h>
 #include <utils/geom/Boundary.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/common/ToString.h>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  4 08:20:50 2015 by SUMO Version dev-SVN-r18000I
+<!-- generated on 10/29/15 23:49:02 by SUMO Version dev-SVN-r19222
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -32,7 +32,7 @@
 <netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
     <timestep time="0.00">
         <edge id="1/3to0/3">
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
@@ -42,7 +42,7 @@
     </timestep>
     <timestep time="1.00">
         <edge id="1/3to0/3">
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
@@ -52,7 +52,7 @@
     </timestep>
     <timestep time="2.00">
         <edge id="1/3to0/3">
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
@@ -62,7 +62,7 @@
     </timestep>
     <timestep time="3.00">
         <edge id="1/3to0/3">
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
@@ -72,7 +72,7 @@
     </timestep>
     <timestep time="4.00">
         <edge id="1/3to0/3">
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
@@ -82,7 +82,7 @@
     </timestep>
     <timestep time="5.00">
         <edge id="1/3to0/3">
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
@@ -92,7 +92,7 @@
     </timestep>
     <timestep time="6.00">
         <edge id="1/3to0/3">
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
@@ -102,7 +102,7 @@
     </timestep>
     <timestep time="7.00">
         <edge id="1/3to0/3">
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
@@ -112,7 +112,7 @@
     </timestep>
     <timestep time="8.00">
         <edge id="1/3to0/3">
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
@@ -127,7 +127,7 @@
             </lane>
         </edge>
         <edge id="1/3to0/3">
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
     </timestep>
     <timestep time="10.00">
@@ -135,7 +135,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="vehicle1" pos="13.00" speed="13.90"/>
             </lane>
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
     </timestep>
     <timestep time="11.00">
@@ -143,7 +143,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="vehicle1" pos="26.90" speed="13.90"/>
             </lane>
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
     </timestep>
     <timestep time="12.00">
@@ -151,7 +151,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="vehicle1" pos="40.80" speed="13.90"/>
             </lane>
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
     </timestep>
     <timestep time="13.00">
@@ -159,7 +159,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="vehicle1" pos="51.70" speed="10.90"/>
             </lane>
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
     </timestep>
     <timestep time="14.00">
@@ -167,7 +167,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="vehicle1" pos="58.10" speed="6.40"/>
             </lane>
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
     </timestep>
     <timestep time="15.00">
@@ -175,7 +175,7 @@
             <lane id="1/3to0/3_0">
                 <vehicle id="vehicle1" pos="60.00" speed="1.90"/>
             </lane>
-            <container id="container0" pos="50.00" angle="0.00" stage="waiting for vehicle1"/>
+            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
     </timestep>
     <timestep time="16.00">

@@ -211,7 +211,15 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         OpenDriveEdge* e = (*i).second;
         for (std::vector<OpenDriveLink>::iterator j = e->links.begin(); j != e->links.end(); ++j) {
             OpenDriveLink& l = *j;
+            const std::string& nid = l.elementID;
             if (l.elementType != OPENDRIVE_ET_ROAD) {
+                if (nb.getNodeCont().retrieve(nid) == 0) {
+                    // not yet seen, build (possibly a junction without connections)
+                    Position pos = l.linkType == OPENDRIVE_LT_SUCCESSOR ? e->geom[-1] : e->geom[0];
+                    if (!nb.getNodeCont().insert(nid, pos)) {
+                        throw ProcessError("Could not build node '" + nid + "'.");
+                    }
+                }
                 // set node information
                 setNodeSecure(nb.getNodeCont(), *e, l.elementID, l.linkType);
                 continue;
@@ -264,7 +272,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     // build nodes#3
     //  assign further nodes generated from inner-edges
-    //  these nodes have not been assigned earlier, because the connectiosn are referenced in inner-edges
+    //  these nodes have not been assigned earlier, because the connections are referenced in inner-edges
     for (std::map<std::string, OpenDriveEdge*>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
         if (e->to != 0 && e->from != 0) {
@@ -365,7 +373,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             NBEdge* currRight = 0;
             if ((*j).rightLaneNumber > 0) {
                 currRight = new NBEdge("-" + id, sFrom, sTo, "", defaultSpeed, (*j).rightLaneNumber, priorityR,
-                                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom, "", LANESPREAD_RIGHT, true);
+                                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom, e->streetName, LANESPREAD_RIGHT, true);
                 if (!nb.getEdgeCont().insert(currRight)) {
                     throw ProcessError("Could not add edge '" + currRight->getID() + "'.");
                 }
@@ -398,7 +406,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             NBEdge* currLeft = 0;
             if ((*j).leftLaneNumber > 0) {
                 currLeft = new NBEdge(id, sTo, sFrom, "", defaultSpeed, (*j).leftLaneNumber, priorityL,
-                                      NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom.reverse(), "", LANESPREAD_RIGHT, true);
+                                      NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom.reverse(), e->streetName, LANESPREAD_RIGHT, true);
                 if (!nb.getEdgeCont().insert(currLeft)) {
                     throw ProcessError("Could not add edge '" + currLeft->getID() + "'.");
                 }
@@ -890,11 +898,16 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
     SUMOReal curveStart = g.params[0];
     SUMOReal curveEnd = g.params[1];
     Point2D<double> end;
-    EulerSpiral s(Point2D<double>(g.x, g.y), g.hdg, curveStart, (curveEnd - curveStart) / g.length, g.length);
-    std::vector<Point2D<double> > into;
-    s.computeSpiral(into, 1.);
-    for (std::vector<Point2D<double> >::iterator i = into.begin(); i != into.end(); ++i) {
-        ret.push_back(Position((*i).getX(), (*i).getY()));
+    try {
+        EulerSpiral s(Point2D<double>(g.x, g.y), g.hdg, curveStart, (curveEnd - curveStart) / g.length, g.length);
+        std::vector<Point2D<double> > into;
+        s.computeSpiral(into, 1.);
+        for (std::vector<Point2D<double> >::iterator i = into.begin(); i != into.end(); ++i) {
+            ret.push_back(Position((*i).getX(), (*i).getY()));
+        }
+    } catch (const std::runtime_error& error) {
+        WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "' (" + error.what() + ").");
+        ret.push_back(Position(g.x, g.y));
     }
     return ret;
 }
@@ -1209,7 +1222,7 @@ NIImporter_OpenDrive::OpenDriveEdge::getPriority(OpenDriveXMLTag dir) const {
 // ---------------------------------------------------------------------------
 NIImporter_OpenDrive::NIImporter_OpenDrive(const NBTypeCont& tc, std::map<std::string, OpenDriveEdge*>& edges)
     : GenericSAXHandler(openDriveTags, OPENDRIVE_TAG_NOTHING, openDriveAttrs, OPENDRIVE_ATTR_NOTHING, "opendrive"),
-      myTypeContainer(tc), myCurrentEdge("", "", -1), myEdges(edges) {
+      myTypeContainer(tc), myCurrentEdge("", "", "", -1), myEdges(edges) {
 }
 
 
@@ -1232,9 +1245,10 @@ NIImporter_OpenDrive::myStartElement(int element,
         break;
         case OPENDRIVE_TAG_ROAD: {
             std::string id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, 0, ok);
+            std::string streetName = attrs.getOpt<std::string>(OPENDRIVE_ATTR_NAME, 0, ok, "", false);
             std::string junction = attrs.get<std::string>(OPENDRIVE_ATTR_JUNCTION, id.c_str(), ok);
             SUMOReal length = attrs.get<SUMOReal>(OPENDRIVE_ATTR_LENGTH, id.c_str(), ok);
-            myCurrentEdge = OpenDriveEdge(id, junction, length);
+            myCurrentEdge = OpenDriveEdge(id, streetName, junction, length);
         }
         break;
         case OPENDRIVE_TAG_PREDECESSOR: {

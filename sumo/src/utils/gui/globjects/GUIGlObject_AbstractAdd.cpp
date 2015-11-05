@@ -33,6 +33,7 @@
 #include "GUIGlObject_AbstractAdd.h"
 #include <cassert>
 #include <iostream>
+#include <algorithm>
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
 

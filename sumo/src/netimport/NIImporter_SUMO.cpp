@@ -685,22 +685,18 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& fro
         offset = (SUMO_const_laneWidth) / 2. - (SUMO_const_laneWidth * (SUMOReal)noLanes - 1) / 2.; ///= -2.; // @todo: actually, when looking at the road networks, the center line is not in the center
     }
     for (unsigned int i = 1; i < firstLane.size() - 1; i++) {
-        Position from = firstLane[i - 1];
-        Position me = firstLane[i];
-        Position to = firstLane[i + 1];
-        std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(from, me, offset);
-        std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(me, to, offset);
+        const Position& from = firstLane[i - 1];
+        const Position& me = firstLane[i];
+        const Position& to = firstLane[i + 1];
+        Position offsets = PositionVector::sideOffset(from, me, offset);
+        Position offsets2 = PositionVector::sideOffset(me, to, offset);
 
-        Line l1(
-            Position(from.x() + offsets.first, from.y() + offsets.second),
-            Position(me.x() + offsets.first, me.y() + offsets.second));
-        l1.extrapolateBy(100);
-        Line l2(
-            Position(me.x() + offsets2.first, me.y() + offsets2.second),
-            Position(to.x() + offsets2.first, to.y() + offsets2.second));
-        l2.extrapolateBy(100);
+        PositionVector l1(from - offsets, me - offsets);
+        l1.extrapolate(100);
+        PositionVector l2(me - offsets2, to - offsets2);
+        l2.extrapolate(100);
         if (l1.intersects(l2)) {
-            result.push_back(l1.intersectsAt(l2));
+            result.push_back(l1.intersectionPosition2D(l2));
         } else {
             WRITE_WARNING("Could not reconstruct shape for edge '" + edge->id + "'.");
         }

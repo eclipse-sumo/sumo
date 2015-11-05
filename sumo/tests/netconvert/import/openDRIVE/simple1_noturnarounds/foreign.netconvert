@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed May 22 16:49:54 2013" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="2" maxJunc="2" maxPrg="0"/>
-    <road name="" length="50.00" id="0" junction="-1">
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Nov  4 12:51:38 2015" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="2" maxJunc="2" maxPrg="0"/>
+    <road name="a1" length="50.00" id="1" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="0"/>
-            <successor elementType="junction" elementId="1"/>
+            <predecessor elementType="junction" elementId="1"/>
+            <successor elementType="junction" elementId="2"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -23,10 +23,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.00" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -37,10 +34,10 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="50.00" id="1" junction="-1">
+    <road name="a1" length="50.00" id="2" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="1"/>
-            <successor elementType="junction" elementId="0"/>
+            <predecessor elementType="junction" elementId="2"/>
+            <successor elementType="junction" elementId="1"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -59,10 +56,7 @@
                 </center>
                 <right>
                     <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
+                        <link/>
                         <width sOffset="0" a="3.00" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="22.22"/>
@@ -74,8 +68,8 @@
         <signals/>
     </road>
 
-    <junction name="1.begin" id="0">
+    <junction name="1.begin" id="1">
     </junction>
-    <junction name="1.end" id="1">
+    <junction name="1.end" id="2">
     </junction>
 </OpenDRIVE>

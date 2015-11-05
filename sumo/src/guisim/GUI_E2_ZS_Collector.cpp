@@ -35,7 +35,6 @@
 #include <utils/geom/PositionVector.h>
 #include "GUI_E2_ZS_Collector.h"
 #include <utils/gui/div/GLHelper.h>
-#include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -79,7 +78,6 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector& detector)
     : GUIDetectorWrapper("E2 detector", detector.getID()),
       myDetector(detector) {
     const PositionVector& v = detector.getLane()->getShape();
-    Line l(v.front(), v.back());
     // build geometry
     myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getEndPos());
     //

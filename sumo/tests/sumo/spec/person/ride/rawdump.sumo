@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jul  5 09:10:14 2014 by SUMO sumo Version dev-SVN-r16709
+<!-- generated on 10/29/15 23:48:54 by SUMO Version dev-SVN-r19222
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -21,7 +21,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -31,7 +31,7 @@
 <netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
     <timestep time="0.00">
         <edge id="beg">
-            <person id="p1" pos="0.00" angle="180.00" stage="waiting for v1"/>
+            <person id="p1" pos="0.00" angle="0.00" stage="waiting for v1"/>
         </edge>
     </timestep>
 </netstate>

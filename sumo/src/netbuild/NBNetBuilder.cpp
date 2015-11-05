@@ -228,7 +228,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     //
     if (oc.exists("geometry.max-angle")) {
         myEdgeCont.checkGeometries(
-            oc.getFloat("geometry.max-angle"),
+            DEG2RAD(oc.getFloat("geometry.max-angle")),
             oc.getFloat("geometry.min-radius"),
             oc.getBool("geometry.min-radius.fix"));
     }

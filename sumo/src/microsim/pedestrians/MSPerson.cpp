@@ -37,6 +37,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -277,7 +278,7 @@ MSPerson::MSPersonStage_Driving::getAngle(SUMOTime /* now */) const {
             return 0;
         }
     }
-    return getEdgeAngle(myWaitingEdge, myWaitingPos) + 90;
+    return getEdgeAngle(myWaitingEdge, myWaitingPos) + M_PI / 2.;
 }
 
 
@@ -409,7 +410,7 @@ MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime /* now */) const {
 
 SUMOReal
 MSPerson::MSPersonStage_Waiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(&myDestination, myStartPos) - 90;
+    return getEdgeAngle(&myDestination, myStartPos) + M_PI / 2;
 }
 
 

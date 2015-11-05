@@ -1,0 +1,9 @@
+Warning: Given openDrive file 'opendrive' uses version 1.3;
+ Version 1.2 is supported.
+Warning: Found angle of 177.14 degrees at edge '-116.0.00', segment 1
+Warning: Found angle of 179.78 degrees at edge '-117.0.00', segment 2
+Warning: Found angle of 100.18 degrees at edge '-184.0.00', segment 1
+Warning: Found sharp turn with radius 3.54 at the end of edge '-29.0.00'.
+Warning: Found angle of 101.22 degrees at edge '-42.0.00', segment 1
+Warning: Found angle of 102.76 degrees at edge '-76.0.00', segment 1
+Warning: Found sharp turn with radius 3.29 at the end of edge '-92.0.00'.

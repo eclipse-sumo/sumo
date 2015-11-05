@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Nov  2 14:33:51 2015 by SUMO netconvert Version dev-SVN-r19238ID
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="/scr1/sumoID/sumo/data/typemap/opendriveNetconvert.typ.xml"/>
+        <opendrive-files value="opendrive.xodr"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <opendrive-output value="foreign.net"/>
+        <output.original-names value="true"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="0.00,0.00,50.00,0.00" projParameter="!"/>
+
+    <type id="driving" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="mwyEntry" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="mwyExit" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="parking" priority="1" speed="1.39" disallow="pedestrian" width="3.65"/>
+    <type id="special1" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="stop" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+
+    <edge id=":1.begin_0" function="internal">
+        <lane id=":1.begin_0_0" index="0" disallow="pedestrian" speed="13.90" length="4.53" width="3.00" shape="0.00,1.55 -1.16,0.78 -1.55,0.00 -1.16,-0.78 0.00,-1.55"/>
+    </edge>
+    <edge id=":1.end_0" function="internal">
+        <lane id=":1.end_0_0" index="0" disallow="pedestrian" speed="13.90" length="4.53" width="3.00" shape="50.00,-1.55 51.16,-0.78 51.55,0.00 51.16,0.78 50.00,1.55"/>
+    </edge>
+
+    <edge id="-1.0.00" from="1.begin" to="1.end" priority="1">
+        <lane id="-1.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="50.00" width="3.00" shape="0.00,-1.55 50.00,-1.55">
+            <param key="origId" value="1 --1"/>
+        </lane>
+    </edge>
+    <edge id="1.0.00" from="1.end" to="1.begin" priority="1">
+        <lane id="1.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="50.00" width="3.00" shape="50.00,1.55 0.00,1.55">
+            <param key="origId" value="1 1"/>
+        </lane>
+    </edge>
+
+    <junction id="1.begin" type="priority" x="0.00" y="0.00" incLanes="1.0.00_0" intLanes=":1.begin_0_0" shape="0.00,-0.05 0.00,-3.05 0.00,3.05 0.00,0.05">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="1.end" type="priority" x="50.00" y="0.00" incLanes="-1.0.00_0" intLanes=":1.end_0_0" shape="50.00,0.05 50.00,3.05 50.00,-3.05 50.00,-0.05">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="-1.0.00" to="1.0.00" fromLane="0" toLane="0" via=":1.end_0_0" dir="t" state="M"/>
+    <connection from="1.0.00" to="-1.0.00" fromLane="0" toLane="0" via=":1.begin_0_0" dir="t" state="M"/>
+
+    <connection from=":1.begin_0" to="-1.0.00" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1.end_0" to="1.0.00" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

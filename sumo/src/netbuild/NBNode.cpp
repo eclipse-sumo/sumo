@@ -43,7 +43,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/bezier.h>
 #include <utils/common/MsgHandler.h>
@@ -485,91 +484,68 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
     const Position end = endShape.front();
     PositionVector ret;
     PositionVector init;
-    unsigned int numInitialPoints = 0;
     bool noSpline = false;
-    Line begL = begShape.getEndLine();
-    Line endL = endShape.getBegLine();
-    if (beg.distanceTo(end) <= POSITION_EPS || begL.length() < POSITION_EPS || endL.length() < POSITION_EPS) {
+    if (beg.distanceTo(end) < POSITION_EPS || beg.distanceTo(begShape[-2]) < POSITION_EPS || end.distanceTo(endShape[1]) < POSITION_EPS) {
         noSpline = true;
     } else {
+        init.push_back(beg);
         if (isTurnaround) {
             // turnarounds:
             //  - end of incoming lane
             //  - position between incoming/outgoing end/begin shifted by the distance orthogonally
             //  - begin of outgoing lane
-            numInitialPoints = 3;
-            init.push_back(beg);
-            Line straightConn(begShape[-1], endShape[0]);
-            Position straightCenter = straightConn.getPositionAtDistance((SUMOReal) straightConn.length() / (SUMOReal) 2.);
-            Position center = straightCenter;//.add(straightCenter);
-            Line cross(straightConn);
-            cross.sub(cross.p1().x(), cross.p1().y());
-            cross.rotateAtP1(M_PI / 2);
-            center.sub(cross.p2());
+            Position center = PositionVector::positionAtOffset(beg, end, beg.distanceTo(end) / (SUMOReal) 2.);
+            center.sub(beg.y()-end.y(), end.x()-beg.x());
             init.push_back(center);
-            init.push_back(end);
         } else {
-            const SUMOReal angle = fabs(begL.atan2Angle() - endL.atan2Angle());
-            if (angle < M_PI / 4. || angle > 7. / 4.*M_PI) {
+            const SUMOReal angle = fabs(GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0)));
+            PositionVector endShapeBegLine(endShape[0], endShape[1]);
+            PositionVector begShapeEndLineRev(begShape[-1], begShape[-2]);
+            endShapeBegLine.extrapolate(100, true);
+            begShapeEndLineRev.extrapolate(100, true);
+            if (angle < M_PI / 4.) {
                 // very low angle: almost straight
-                numInitialPoints = 4;
-                init.push_back(beg);
-                begL.extrapolateSecondBy(100);
-                endL.extrapolateFirstBy(100);
-                SUMOReal distance = beg.distanceTo(end);
-                if (distance > 10) {
-                    {
-                        SUMOReal off1 = begShape.getEndLine().length() + extrapolateBeg;
-                        off1 = MIN2(off1, (SUMOReal)(begShape.getEndLine().length() + distance / 2.));
-                        Position tmp = begL.getPositionAtDistance(off1);
-                        init.push_back(tmp);
-                    }
-                    {
-                        SUMOReal off1 = (SUMOReal) 100. - extrapolateEnd;
-                        off1 = MAX2(off1, (SUMOReal)(100. - distance / 2.));
-                        Position tmp = endL.getPositionAtDistance(off1);
-                        init.push_back(tmp);
-                    }
+                const SUMOReal halfDistance = beg.distanceTo(end) / 2.;
+                if (halfDistance > 5) {
+                    const SUMOReal endLength = begShape[-2].distanceTo(begShape[-1]);
+                    const SUMOReal off1 = endLength + MIN2(extrapolateBeg, halfDistance);
+                    init.push_back(PositionVector::positionAtOffset(begShapeEndLineRev[1], begShapeEndLineRev[0], off1));
+                    const SUMOReal off2 = 100. - MIN2(extrapolateEnd, halfDistance);
+                    init.push_back(PositionVector::positionAtOffset(endShapeBegLine[0], endShapeBegLine[1], off2));
                 } else {
                     noSpline = true;
                 }
-                init.push_back(end);
             } else {
                 // turning
                 //  - end of incoming lane
                 //  - intersection of the extrapolated lanes
                 //  - begin of outgoing lane
                 // attention: if there is no intersection, use a straight line
-                numInitialPoints = 3;
-                init.push_back(beg);
-                begL.extrapolateSecondBy(100);
-                endL.extrapolateFirstBy(100);
-                if (!begL.intersects(endL)) {
+                init.push_back(endShapeBegLine.intersectionPosition2D(begShapeEndLineRev));
+                if (init[-1] == Position::INVALID) {
                     noSpline = true;
-                } else {
-                    init.push_back(begL.intersectsAt(endL));
                 }
-                init.push_back(end);
             }
         }
+        init.push_back(end);
     }
     //
     if (noSpline) {
-        ret.push_back(begShape.back());
-        ret.push_back(endShape.front());
+        ret.push_back(beg);
+        ret.push_back(end);
     } else {
-        SUMOReal* def = new SUMOReal[1 + numInitialPoints * 3];
-        for (int i = 0; i < (int) init.size(); ++i) {
+        SUMOReal* def = new SUMOReal[1 + (int)init.size() * 3];
+        for (int i = 0; i < (int)init.size(); ++i) {
             // starts at index 1
             def[i * 3 + 1] = init[i].x();
             def[i * 3 + 2] = 0;
             def[i * 3 + 3] = init[i].y();
         }
         SUMOReal* ret_buf = new SUMOReal[numPoints * 3 + 1];
-        bezier(numInitialPoints, def, numPoints, ret_buf);
+        bezier((int)init.size(), def, numPoints, ret_buf);
         delete[] def;
         Position prev;
-        for (int i = 0; i < (int) numPoints; i++) {
+        for (int i = 0; i < (int)numPoints; i++) {
             Position current(ret_buf[i * 3 + 1], ret_buf[i * 3 + 3], myPosition.z());
             if (prev != current && !ISNAN(current.x()) && !ISNAN(current.y())) {
                 ret.push_back(current);

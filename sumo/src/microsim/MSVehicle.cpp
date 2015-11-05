@@ -52,7 +52,6 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/geom/Line.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
@@ -613,8 +612,11 @@ MSVehicle::getPosition(const SUMOReal offset) const {
     Position result = myLane->geometryPositionAtOffset(getPositionOnLane() + offset);
     if (changingLanes) {
         const Position other = getLaneChangeModel().getShadowLane()->geometryPositionAtOffset(getPositionOnLane() + offset);
-        Line line = getLaneChangeModel().isLaneChangeMidpointPassed() ?  Line(other, result) : Line(result, other);
-        return line.getPositionAtDistance(getLaneChangeModel().getLaneChangeCompletion() * line.length());
+        const SUMOReal dist = getLaneChangeModel().getLaneChangeCompletion() * result.distanceTo(other);
+        if (getLaneChangeModel().isLaneChangeMidpointPassed()) {
+            return PositionVector::positionAtOffset(other, result, dist);
+        }
+        return PositionVector::positionAtOffset(result, other, dist);
     }
     return result;
 }
@@ -641,7 +643,7 @@ MSVehicle::getAngle() const {
     Position p1;
     Position p2;
     if (isParking()) {
-        return -myLane->getShape().rotationDegreeAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane()));
+        return myLane->getShape().rotationAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane()));
     }
     if (getLaneChangeModel().isChangingLanes()) {
         // cannot use getPosition() because it already includes the offset to the side and thus messes up the angle
@@ -657,16 +659,15 @@ MSVehicle::getAngle() const {
              ? myFurtherLanes.back()->geometryPositionAtOffset(myFurtherLanes.back()->getPartialOccupatorEnd())
              : myLane->getShape().front();
         if (getLaneChangeModel().isChangingLanes() && myFurtherLanes.size() > 0 && getLaneChangeModel().getShadowLane(myFurtherLanes.back()) == 0) {
-            // special case where there target lane has no predecessor
+            // special case where the target lane has no predecessor
             p2 = myLane->getShape().front();
         }
     }
-    SUMOReal result = (p1 != p2 ?
-                       atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / M_PI :
-                       -myLane->getShape().rotationDegreeAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
+    SUMOReal result = (p1 != p2 ? p2.angleTo2D(p1) :
+                       myLane->getShape().rotationAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
     if (getLaneChangeModel().isChangingLanes()) {
         const SUMOReal angleOffset = 60 / STEPS2TIME(MSGlobals::gLaneChangeDuration) * (getLaneChangeModel().isLaneChangeMidpointPassed() ? 1 - getLaneChangeModel().getLaneChangeCompletion() : getLaneChangeModel().getLaneChangeCompletion());
-        result += getLaneChangeModel().getLaneChangeDirection() * angleOffset;
+        result += getLaneChangeModel().getLaneChangeDirection() * DEG2RAD(angleOffset);
     }
     return result;
 }

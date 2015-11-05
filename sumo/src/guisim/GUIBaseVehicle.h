@@ -83,7 +83,7 @@ public:
      */
     virtual Position getPosition(const SUMOReal offset = 0) const = 0;
 
-    /** @brief Returns the vehicle's direction in degrees
+    /** @brief Returns the vehicle's direction in radians
      * @return The vehicle's current angle
      */
     virtual SUMOReal getAngle() const = 0;

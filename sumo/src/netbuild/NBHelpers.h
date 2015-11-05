@@ -53,10 +53,6 @@ class Position;
  */
 class NBHelpers {
 public:
-    /** computes the angle of the straight which is described by the two
-        coordinates */
-    static SUMOReal angle(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
-
     /** computes the relative angle between the two angles */
     static SUMOReal relAngle(SUMOReal angle1, SUMOReal angle2);
 

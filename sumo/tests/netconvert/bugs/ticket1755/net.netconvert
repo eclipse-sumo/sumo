@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/01/15 08:13:58 by SUMO netconvert Version dev-SVN-r18972
+<!-- generated on 10/28/15 10:27:57 by SUMO netconvert Version dev-SVN-r19189
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -126,13 +126,13 @@
         <lane id=":1596765963_1_0" index="0" allow="rail rail_electric" speed="83.33" length="2.79" shape="53.30,394.28 53.23,391.50"/>
     </edge>
     <edge id=":cluster_1596765862_1596765895_0" function="internal">
-        <lane id=":cluster_1596765862_1596765895_0_0" index="0" allow="rail rail_electric" speed="83.33" length="9.52" shape="56.73,305.00 56.37,314.51"/>
+        <lane id=":cluster_1596765862_1596765895_0_0" index="0" allow="rail rail_electric" speed="83.33" length="0.43" shape="56.73,305.00 56.72,305.44"/>
     </edge>
     <edge id=":cluster_1596765862_1596765895_1" function="internal">
         <lane id=":cluster_1596765862_1596765895_1_0" index="0" allow="rail rail_electric" speed="83.33" length="1.62" shape="56.73,305.00 56.77,304.40 56.81,304.20 56.87,304.41 56.93,305.01"/>
     </edge>
     <edge id=":cluster_1596765862_1596765895_2" function="internal">
-        <lane id=":cluster_1596765862_1596765895_2_0" index="0" allow="rail rail_electric" speed="83.33" length="16.03" shape="55.75,330.49 56.05,329.40 56.29,322.50 56.41,315.60 56.37,314.51"/>
+        <lane id=":cluster_1596765862_1596765895_2_0" index="0" allow="rail rail_electric" speed="83.33" length="25.09" shape="55.75,330.49 56.10,327.98 56.46,317.96 56.70,307.94 56.72,305.44"/>
     </edge>
     <edge id=":cluster_1596765862_1596765895_3" function="internal">
         <lane id=":cluster_1596765862_1596765895_3_0" index="0" allow="rail rail_electric" speed="83.33" length="36.35" shape="55.75,330.49 46.49,323.68 43.60,317.16 47.08,310.94 56.16,305.48"/>
@@ -169,7 +169,7 @@
         <lane id="146404896#5_0" index="0" allow="rail rail_electric" speed="83.33" length="54.05" shape="58.81,250.99 56.73,305.00"/>
     </edge>
     <edge id="146404896#7" from="cluster_1596765862_1596765895" to="1596765923" priority="15" type="railway.rail" spreadType="center" shape="55.75,330.49 54.81,354.91">
-        <lane id="146404896#7_0" index="0" allow="rail rail_electric" speed="83.33" length="38.85" shape="56.37,314.51 54.87,353.33"/>
+        <lane id="146404896#7_0" index="0" allow="rail rail_electric" speed="83.33" length="47.93" shape="56.72,305.44 54.87,353.33"/>
     </edge>
     <edge id="146404896#8" from="1596765923" to="1596765963" priority="15" type="railway.rail" spreadType="center">
         <lane id="146404896#8_0" index="0" allow="rail rail_electric" speed="83.33" length="35.43" shape="54.77,356.07 53.41,391.48"/>
@@ -221,7 +221,7 @@
         <request index="1" response="00" foes="01" cont="0"/>
     </junction>
     <junction id="1596766027" type="unregulated" x="49.54" y="498.49" incLanes="" intLanes="" shape="51.14,498.53 47.94,498.44"/>
-    <junction id="cluster_1596765862_1596765895" type="priority" x="56.27" y="316.95" incLanes="146404896#5_0 146404904_0" intLanes=":cluster_1596765862_1596765895_0_0 :cluster_1596765862_1596765895_1_0 :cluster_1596765862_1596765895_2_0 :cluster_1596765862_1596765895_4_0" shape="57.97,314.57 54.77,314.45 55.27,305.12 55.06,301.95 55.13,304.94 58.33,305.06">
+    <junction id="cluster_1596765862_1596765895" type="priority" x="56.27" y="316.95" incLanes="146404896#5_0 146404904_0" intLanes=":cluster_1596765862_1596765895_0_0 :cluster_1596765862_1596765895_1_0 :cluster_1596765862_1596765895_2_0 :cluster_1596765862_1596765895_4_0" shape="58.31,305.50 55.12,305.37 54.41,302.00 55.06,301.95 55.13,304.94 58.33,305.06">
         <request index="0" response="0000" foes="0100" cont="0"/>
         <request index="1" response="0000" foes="1000" cont="0"/>
         <request index="2" response="0001" foes="0001" cont="0"/>

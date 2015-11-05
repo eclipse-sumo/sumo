@@ -32,6 +32,7 @@
 #include <config.h>
 #endif
 
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -126,7 +127,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
             of.openTag(SUMO_TAG_PERSON);
             of.writeAttr(SUMO_ATTR_ID, (*it_p)->getID());
             of.writeAttr(SUMO_ATTR_POSITION, (*it_p)->getEdgePos());
-            of.writeAttr(SUMO_ATTR_ANGLE, (*it_p)->getAngle());
+            of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree((*it_p)->getAngle()));
             of.writeAttr("stage", (*it_p)->getCurrentStageDescription());
             of.closeTag();
         }
@@ -135,7 +136,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
             of.openTag(SUMO_TAG_CONTAINER);
             of.writeAttr(SUMO_ATTR_ID, (*it_c)->getID());
             of.writeAttr(SUMO_ATTR_POSITION, (*it_c)->getEdgePos());
-            of.writeAttr(SUMO_ATTR_ANGLE, (*it_c)->getAngle());
+            of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree((*it_c)->getAngle()));
             of.writeAttr("stage", (*it_c)->getCurrentStageDescription());
             of.closeTag();
         }

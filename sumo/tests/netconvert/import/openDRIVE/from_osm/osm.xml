@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.4.0 (32196 thorn-02.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="52.2623300" minlon="10.5444200" maxlat="52.2627200" maxlon="10.5461500"/>
+ <node id="266699840" visible="true" version="7" changeset="12556513" timestamp="2012-07-31T04:54:18Z" user="erge50" uid="393959" lat="52.2595681" lon="10.5463655"/>
+ <node id="3312512274" visible="true" version="1" changeset="28424499" timestamp="2015-01-26T18:12:24Z" user="poschon" uid="1719211" lat="52.2622445" lon="10.5433054"/>
+ <node id="365942631" visible="true" version="12" changeset="12556513" timestamp="2012-07-31T04:54:27Z" user="erge50" uid="393959" lat="52.2622051" lon="10.5450225"/>
+ <node id="266699843" visible="true" version="9" changeset="3042622" timestamp="2009-11-05T18:31:54Z" user="SHuehne" uid="144382" lat="52.2611476" lon="10.5457119"/>
+ <node id="266699841" visible="true" version="9" changeset="12556513" timestamp="2012-07-31T04:54:18Z" user="erge50" uid="393959" lat="52.2625174" lon="10.5451426"/>
+ <node id="602797856" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2627928" lon="10.5458220"/>
+ <node id="602797825" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2627283" lon="10.5452581"/>
+ <node id="603367316" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:34Z" user="erge50" uid="393959" lat="52.2623771" lon="10.5453048"/>
+ <node id="603367309" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:34Z" user="erge50" uid="393959" lat="52.2622449" lon="10.5453556"/>
+ <node id="603367347" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:35Z" user="erge50" uid="393959" lat="52.2624314" lon="10.5455154"/>
+ <node id="603367342" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:35Z" user="erge50" uid="393959" lat="52.2623665" lon="10.5455053"/>
+ <node id="603367351" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2623876" lon="10.5456005"/>
+ <node id="603367368" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2624879" lon="10.5461431"/>
+ <node id="603367371" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2624903" lon="10.5460778"/>
+ <node id="603367311" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:34Z" user="erge50" uid="393959" lat="52.2623615" lon="10.5454708"/>
+ <node id="603367353" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:35Z" user="erge50" uid="393959" lat="52.2625195" lon="10.5454816"/>
+ <node id="603367317" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:35Z" user="erge50" uid="393959" lat="52.2624217" lon="10.5454477"/>
+ <node id="603367318" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:35Z" user="erge50" uid="393959" lat="52.2623989" lon="10.5454564"/>
+ <node id="603367320" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:35Z" user="erge50" uid="393959" lat="52.2624898" lon="10.5452857"/>
+ <node id="603367323" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:35Z" user="erge50" uid="393959" lat="52.2624686" lon="10.5452698"/>
+ <node id="603367325" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:35Z" user="erge50" uid="393959" lat="52.2622625" lon="10.5454778"/>
+ <node id="603367328" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:35Z" user="erge50" uid="393959" lat="52.2622857" lon="10.5455363"/>
+ <node id="603367331" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:35Z" user="erge50" uid="393959" lat="52.2622765" lon="10.5454725"/>
+ <node id="603367355" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2625560" lon="10.5457843"/>
+ <node id="603367374" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2623899" lon="10.5461462"/>
+ <node id="603370604" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:40Z" user="erge50" uid="393959" lat="52.2623305" lon="10.5449866"/>
+ <node id="603370599" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2623125" lon="10.5448689"/>
+ <node id="603370601" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2622265" lon="10.5450137"/>
+ <node id="603370617" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:40Z" user="erge50" uid="393959" lat="52.2624251" lon="10.5448231"/>
+ <node id="3334884334" visible="true" version="1" changeset="28661383" timestamp="2015-02-06T20:47:45Z" user="poschon" uid="1719211" lat="52.2621701" lon="10.5452869"/>
+ <node id="602797677" visible="true" version="4" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2625884" lon="10.5443963"/>
+ <node id="602797683" visible="true" version="4" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2624762" lon="10.5444417"/>
+ <node id="602797835" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2627051" lon="10.5449141"/>
+ <node id="267181943" visible="true" version="9" changeset="12556513" timestamp="2012-07-31T04:54:18Z" user="erge50" uid="393959" lat="52.2622300" lon="10.5432075"/>
+ <node id="365942624" visible="true" version="20" changeset="12556513" timestamp="2012-07-31T04:54:27Z" user="erge50" uid="393959" lat="52.2622248" lon="10.5451515"/>
+ <node id="603370577" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2621886" lon="10.5444054"/>
+ <node id="603370578" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2622335" lon="10.5443892"/>
+ <node id="603370581" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2622264" lon="10.5443367"/>
+ <node id="603370582" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2622095" lon="10.5445599"/>
+ <node id="603370585" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2622441" lon="10.5446063"/>
+ <node id="603370589" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2624134" lon="10.5447716"/>
+ <node id="603370590" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2623844" lon="10.5445558"/>
+ <node id="603370591" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2623640" lon="10.5445042"/>
+ <node id="603370592" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2623362" lon="10.5442972"/>
+ <node id="603370595" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2623068" lon="10.5449962"/>
+ <node id="603370597" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:39Z" user="erge50" uid="393959" lat="52.2622931" lon="10.5449067"/>
+ <node id="603370606" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:40Z" user="erge50" uid="393959" lat="52.2622150" lon="10.5449386"/>
+ <node id="603370611" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:40Z" user="erge50" uid="393959" lat="52.2622732" lon="10.5448221"/>
+ <node id="603370613" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:40Z" user="erge50" uid="393959" lat="52.2624565" lon="10.5450568"/>
+ <node id="603370614" visible="true" version="2" changeset="12556513" timestamp="2012-07-31T04:54:40Z" user="erge50" uid="393959" lat="52.2623480" lon="10.5451012"/>
+ <node id="2406984191" visible="true" version="1" changeset="17216051" timestamp="2013-08-04T14:55:16Z" user="Verirrt im Wald" uid="71226" lat="52.2595855" lon="10.5463583">
+  <tag k="highway" v="give_way"/>
+ </node>
+ <node id="2837164601" visible="true" version="1" changeset="22139723" timestamp="2014-05-05T04:58:59Z" user="erge50" uid="393959" lat="52.2626814" lon="10.5458201"/>
+ <node id="2837164602" visible="true" version="1" changeset="22139723" timestamp="2014-05-05T04:58:59Z" user="erge50" uid="393959" lat="52.2627420" lon="10.5461833"/>
+ <node id="2837164607" visible="true" version="1" changeset="22139723" timestamp="2014-05-05T04:58:59Z" user="erge50" uid="393959" lat="52.2628414" lon="10.5461443"/>
+ <node id="266699842" visible="true" version="8" changeset="22139723" timestamp="2014-05-05T04:59:24Z" user="erge50" uid="393959" lat="52.2627509" lon="10.5466879"/>
+ <node id="602797662" visible="true" version="4" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2626264" lon="10.5446466"/>
+ <node id="602797664" visible="true" version="4" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2626289" lon="10.5447310"/>
+ <node id="602797671" visible="true" version="4" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2625258" lon="10.5447697"/>
+ <node id="602797691" visible="true" version="4" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2625142" lon="10.5446920"/>
+ <node id="602797693" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2626169" lon="10.5453593"/>
+ <node id="602797700" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2626096" lon="10.5453060"/>
+ <node id="602797706" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2625725" lon="10.5450612"/>
+ <node id="602797708" visible="true" version="4" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2625520" lon="10.5449556"/>
+ <node id="602797719" visible="true" version="4" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2626551" lon="10.5449169"/>
+ <node id="602797772" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2627512" lon="10.5446270"/>
+ <node id="602797780" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:25Z" user="erge50" uid="393959" lat="52.2626698" lon="10.5446592"/>
+ <node id="602797820" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2627328" lon="10.5453126"/>
+ <node id="602797821" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2626912" lon="10.5450133"/>
+ <node id="602797829" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2627906" lon="10.5448796"/>
+ <node id="602797847" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2626579" lon="10.5456643"/>
+ <node id="602797848" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2626520" lon="10.5455923"/>
+ <node id="602797850" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2628824" lon="10.5457374"/>
+ <node id="602797851" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2628592" lon="10.5455832"/>
+ <node id="602797852" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2627153" lon="10.5460088"/>
+ <node id="602797853" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2627021" lon="10.5459568"/>
+ <node id="602797855" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2628256" lon="10.5458088"/>
+ <node id="602797857" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2627859" lon="10.5457763"/>
+ <node id="602797858" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2628385" lon="10.5461277"/>
+ <node id="602797859" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2628396" lon="10.5459013"/>
+ <node id="602797860" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2628956" lon="10.5459346"/>
+ <node id="602797861" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2627680" lon="10.5455456"/>
+ <node id="602797862" visible="true" version="3" changeset="22139723" timestamp="2014-05-05T04:59:26Z" user="erge50" uid="393959" lat="52.2629210" lon="10.5460910"/>
+ <node id="603367334" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:29Z" user="erge50" uid="393959" lat="52.2623076" lon="10.5458277"/>
+ <node id="603367336" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:29Z" user="erge50" uid="393959" lat="52.2622458" lon="10.5458406"/>
+ <node id="603367339" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2623178" lon="10.5459637"/>
+ <node id="603367358" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2625167" lon="10.5455441"/>
+ <node id="603367362" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2624268" lon="10.5458405"/>
+ <node id="603367365" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2624578" lon="10.5458612"/>
+ <node id="603367375" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2623363" lon="10.5461678"/>
+ <node id="603367377" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2624447" lon="10.5460714"/>
+ <node id="603367380" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2624237" lon="10.5459215"/>
+ <node id="603367384" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2623831" lon="10.5460970"/>
+ <node id="603367394" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2625940" lon="10.5461014"/>
+ <node id="603367396" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2625869" lon="10.5460391"/>
+ <node id="603367397" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2625543" lon="10.5458225"/>
+ <node id="603367399" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2623104" lon="10.5464787"/>
+ <node id="603367401" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2622721" lon="10.5461775"/>
+ <node id="603367417" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2625201" lon="10.5463614"/>
+ <node id="603367422" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2626261" lon="10.5463197"/>
+ <node id="603367428" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2623615" lon="10.5464587"/>
+ <node id="603367431" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2624098" lon="10.5462782"/>
+ <node id="603367433" visible="true" version="2" changeset="22139723" timestamp="2014-05-05T04:59:30Z" user="erge50" uid="393959" lat="52.2623422" lon="10.5463054"/>
+ <way id="24526820" visible="true" version="8" changeset="34693600" timestamp="2015-10-17T13:17:42Z" user="ChristianW" uid="30077">
+  <nd ref="266699840"/>
+  <nd ref="2406984191"/>
+  <nd ref="266699843"/>
+  <nd ref="3334884334"/>
+  <nd ref="266699841"/>
+  <tag k="highway" v="residential"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Uhlandstraße"/>
+  <tag k="postal_code" v="38102"/>
+ </way>
+ <way id="25722927" visible="true" version="5" changeset="34693600" timestamp="2015-10-17T13:17:18Z" user="ChristianW" uid="30077">
+  <nd ref="266699842"/>
+  <nd ref="266699841"/>
+  <nd ref="3312512274"/>
+  <nd ref="267181943"/>
+  <tag k="highway" v="residential"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Grünstraße"/>
+  <tag k="postal_code" v="38102"/>
+ </way>
+ <way id="47329859" visible="true" version="4" changeset="10542809" timestamp="2012-01-30T19:14:52Z" user="xybot" uid="70696">
+  <nd ref="602797664"/>
+  <nd ref="602797671"/>
+  <nd ref="602797708"/>
+  <nd ref="602797719"/>
+  <nd ref="602797664"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="5"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="residential"/>
+ </way>
+ <way id="47402606" visible="true" version="4" changeset="17060082" timestamp="2013-07-23T10:24:11Z" user="erge50" uid="393959">
+  <nd ref="603367358"/>
+  <nd ref="603367351"/>
+  <nd ref="603367362"/>
+  <nd ref="603367355"/>
+  <nd ref="603367358"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="14"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="47402609" visible="true" version="4" changeset="22139723" timestamp="2014-05-05T04:59:08Z" user="erge50" uid="393959">
+  <nd ref="603367377"/>
+  <nd ref="603367384"/>
+  <nd ref="603367374"/>
+  <nd ref="603367375"/>
+  <nd ref="603367339"/>
+  <nd ref="603367380"/>
+  <nd ref="603367377"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="13a"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="47402603" visible="true" version="4" changeset="17060082" timestamp="2013-07-23T10:24:09Z" user="erge50" uid="393959">
+  <nd ref="603367394"/>
+  <nd ref="603367368"/>
+  <nd ref="603367417"/>
+  <nd ref="603367422"/>
+  <nd ref="603367394"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="12"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="47402608" visible="true" version="2" changeset="10601074" timestamp="2012-02-06T09:01:50Z" user="harzguide" uid="336745">
+  <nd ref="603367374"/>
+  <nd ref="603367375"/>
+  <nd ref="603367339"/>
+  <nd ref="603367334"/>
+  <nd ref="603367336"/>
+  <nd ref="603367401"/>
+  <nd ref="603367399"/>
+  <nd ref="603367428"/>
+  <nd ref="603367433"/>
+  <nd ref="603367431"/>
+  <nd ref="603367374"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="37"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Hopfengarten"/>
+  <tag k="building" v="residential"/>
+  <tag k="source" v="bing_knowledge"/>
+ </way>
+ <way id="47402601" visible="true" version="4" changeset="22139723" timestamp="2014-05-05T04:59:07Z" user="erge50" uid="393959">
+  <nd ref="603367309"/>
+  <nd ref="603367325"/>
+  <nd ref="603367331"/>
+  <nd ref="603367328"/>
+  <nd ref="603367342"/>
+  <nd ref="603367311"/>
+  <nd ref="603367318"/>
+  <nd ref="603367316"/>
+  <nd ref="603367309"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="1"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Uhlandstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="47402607" visible="true" version="4" changeset="17060082" timestamp="2013-07-23T10:24:10Z" user="erge50" uid="393959">
+  <nd ref="603367397"/>
+  <nd ref="603367365"/>
+  <nd ref="603367371"/>
+  <nd ref="603367396"/>
+  <nd ref="603367397"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="13"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="47402985" visible="true" version="3" changeset="10646086" timestamp="2012-02-10T18:40:47Z" user="user_5359" uid="5359">
+  <nd ref="603370614"/>
+  <nd ref="603370613"/>
+  <nd ref="603370617"/>
+  <nd ref="603370599"/>
+  <nd ref="603370604"/>
+  <nd ref="603370614"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="16"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="residential"/>
+ </way>
+ <way id="47402986" visible="true" version="3" changeset="10646086" timestamp="2012-02-10T18:40:47Z" user="user_5359" uid="5359">
+  <nd ref="603370589"/>
+  <nd ref="603370611"/>
+  <nd ref="603370585"/>
+  <nd ref="603370590"/>
+  <nd ref="603370589"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="17"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="residential"/>
+ </way>
+ <way id="47402987" visible="true" version="3" changeset="10646086" timestamp="2012-02-10T18:40:47Z" user="user_5359" uid="5359">
+  <nd ref="603370591"/>
+  <nd ref="603370582"/>
+  <nd ref="603370577"/>
+  <nd ref="603370578"/>
+  <nd ref="603370581"/>
+  <nd ref="603370592"/>
+  <nd ref="603370591"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="18"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="residential"/>
+ </way>
+ <way id="47402984" visible="true" version="3" changeset="10646086" timestamp="2012-02-10T18:40:55Z" user="user_5359" uid="5359">
+  <nd ref="603370614"/>
+  <nd ref="365942624"/>
+  <nd ref="365942631"/>
+  <nd ref="603370601"/>
+  <nd ref="603370606"/>
+  <nd ref="603370597"/>
+  <nd ref="603370595"/>
+  <nd ref="603370604"/>
+  <nd ref="603370614"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="35"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Uhlandstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="47329853" visible="true" version="4" changeset="10542809" timestamp="2012-01-30T19:14:51Z" user="xybot" uid="70696">
+  <nd ref="602797820"/>
+  <nd ref="602797693"/>
+  <nd ref="602797848"/>
+  <nd ref="602797861"/>
+  <nd ref="602797820"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="7"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="residential"/>
+ </way>
+ <way id="47402602" visible="true" version="4" changeset="17060082" timestamp="2013-07-23T10:24:12Z" user="erge50" uid="393959">
+  <nd ref="603367316"/>
+  <nd ref="603367323"/>
+  <nd ref="603367320"/>
+  <nd ref="603367353"/>
+  <nd ref="603367347"/>
+  <nd ref="603367317"/>
+  <nd ref="603367318"/>
+  <nd ref="603367316"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="15"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="47329864" visible="true" version="4" changeset="12556513" timestamp="2012-07-31T04:53:47Z" user="erge50" uid="393959">
+  <nd ref="602797677"/>
+  <nd ref="602797683"/>
+  <nd ref="602797691"/>
+  <nd ref="602797662"/>
+  <nd ref="602797677"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="4"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="47329851" visible="true" version="5" changeset="22139723" timestamp="2014-05-05T04:59:13Z" user="erge50" uid="393959">
+  <nd ref="602797857"/>
+  <nd ref="602797856"/>
+  <nd ref="602797855"/>
+  <nd ref="602797859"/>
+  <nd ref="602797853"/>
+  <nd ref="2837164601"/>
+  <nd ref="602797857"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="8a"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="47329857" visible="true" version="6" changeset="22401637" timestamp="2014-05-18T07:55:34Z" user="erge50" uid="393959">
+  <nd ref="602797821"/>
+  <nd ref="602797706"/>
+  <nd ref="602797700"/>
+  <nd ref="602797825"/>
+  <nd ref="602797821"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="6"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="47329892" visible="true" version="4" changeset="22139723" timestamp="2014-05-05T04:59:12Z" user="erge50" uid="393959">
+  <nd ref="602797772"/>
+  <nd ref="602797780"/>
+  <nd ref="602797835"/>
+  <nd ref="602797829"/>
+  <nd ref="602797772"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="5a"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="279490016" visible="true" version="1" changeset="22139723" timestamp="2014-05-05T04:59:04Z" user="erge50" uid="393959">
+  <nd ref="2837164601"/>
+  <nd ref="602797847"/>
+  <nd ref="602797851"/>
+  <nd ref="602797850"/>
+  <nd ref="602797857"/>
+  <nd ref="2837164601"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="8"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="279490019" visible="true" version="1" changeset="22139723" timestamp="2014-05-05T04:59:04Z" user="erge50" uid="393959">
+  <nd ref="2837164602"/>
+  <nd ref="602797852"/>
+  <nd ref="602797860"/>
+  <nd ref="602797862"/>
+  <nd ref="602797858"/>
+  <nd ref="2837164607"/>
+  <nd ref="2837164602"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="9"/>
+  <tag k="addr:postcode" v="38102"/>
+  <tag k="addr:street" v="Grünstraße"/>
+  <tag k="building" v="yes"/>
+ </way>
+</osm>

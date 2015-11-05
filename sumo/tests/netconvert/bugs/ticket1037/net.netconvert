@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 18 13:15:14 2015 by SUMO netconvert Version dev-SVN-r18647I
+<!-- generated on Tue Nov  3 08:32:22 2015 by SUMO netconvert Version dev-SVN-r19243
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -58,7 +58,7 @@
         <lane id="-923797607_0" index="0" speed="8.33" length="31.64" shape="134.61,220.17 123.90,219.64 112.90,217.54"/>
     </edge>
     <edge id="-923797612" from="61041991" to="61041990" name="Kienitzer Strasse" priority="-4" shape="175.62,5.97 161.29,2.95 143.56,0.00">
-        <lane id="-923797612_0" index="0" speed="8.33" length="29.92" shape="170.75,6.63 160.95,4.56 147.99,2.41"/>
+        <lane id="-923797612_0" index="0" speed="8.33" length="29.92" shape="170.75,6.63 160.98,4.57 147.99,2.41"/>
     </edge>
     <edge id="53477973" from="61042031" to="cluster_61042033_61042034" name="Selchower Strasse" priority="-4" shape="85.34,351.78 102.39,354.75">
         <lane id="53477973_0" index="0" speed="8.33" length="30.27" shape="90.29,350.97 113.48,355.01"/>
@@ -87,7 +87,7 @@
         <lane id="923797609_0" index="0" speed="8.33" length="32.26" shape="130.11,114.91 133.16,114.84 141.33,115.77 150.94,118.92"/>
     </edge>
     <edge id="923797611" from="61041990" to="61041991" name="Kienitzer Strasse" priority="-4" shape="143.56,0.00 161.29,2.95 175.62,5.97">
-        <lane id="923797611_0" index="0" speed="8.33" length="29.92" shape="148.53,-0.85 161.56,1.32 171.43,3.40"/>
+        <lane id="923797611_0" index="0" speed="8.33" length="29.92" shape="148.53,-0.85 161.60,1.33 171.43,3.40"/>
     </edge>
 
     <junction id="61041982" type="priority" x="0.00" y="146.68" incLanes="-53478448_0" intLanes="" shape="0.01,146.63 0.49,143.47 -0.49,149.89 -0.01,146.73">

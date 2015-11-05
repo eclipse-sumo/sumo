@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 18 13:15:03 2015 by SUMO netconvert Version dev-SVN-r18647I
+<!-- generated on Tue Nov  3 08:32:04 2015 by SUMO netconvert Version dev-SVN-r19243
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -45,7 +45,7 @@
         <lane id="-4_0" index="0" speed="13.89" length="14.24" shape="124.42,89.05 129.52,88.85"/>
     </edge>
     <edge id="-5" from="A" to="42734846" priority="1" type="highway.unclassified" shape="119.72,91.01 118.37,63.81 112.31,11.08 120.68,10.27 200.19,3.13 205.87,0.00">
-        <lane id="-5_0" index="0" speed="13.89" length="175.03" shape="117.83,86.26 116.72,63.89 110.48,9.60 120.52,8.63 199.70,1.52 205.07,-1.45"/>
+        <lane id="-5_0" index="0" speed="13.89" length="175.03" shape="117.83,86.26 116.72,63.95 110.48,9.60 120.53,8.63 199.70,1.52 205.07,-1.45"/>
     </edge>
     <edge id="-6" from="287360464" to="A" priority="1" type="highway.unclassified" shape="0.00,90.97 43.04,89.52 80.80,88.25 84.26,88.13 110.25,92.40 119.72,91.01">
         <lane id="-6_0" index="0" speed="13.89" length="120.22" shape="-0.06,89.32 42.98,87.87 80.74,86.60 84.37,86.48 110.26,90.73 115.08,90.02"/>
@@ -63,7 +63,7 @@
         <lane id="4_0" index="0" speed="13.89" length="14.24" shape="129.65,92.14 124.67,92.35"/>
     </edge>
     <edge id="5" from="42734846" to="A" priority="1" type="highway.unclassified" shape="205.87,0.00 200.19,3.13 120.68,10.27 112.31,11.08 118.37,63.81 119.72,91.01">
-        <lane id="5_0" index="0" speed="13.89" length="175.03" shape="206.67,1.45 200.68,4.74 120.83,11.91 114.14,12.56 120.01,63.62 121.13,86.10"/>
+        <lane id="5_0" index="0" speed="13.89" length="175.03" shape="206.67,1.45 200.68,4.74 120.83,11.91 114.14,12.56 120.02,63.67 121.13,86.10"/>
     </edge>
     <edge id="6" from="A" to="287360464" priority="1" type="highway.unclassified" shape="119.72,91.01 110.25,92.40 84.26,88.13 80.80,88.25 43.04,89.52 0.00,90.97">
         <lane id="6_0" index="0" speed="13.89" length="120.22" shape="115.56,93.29 110.24,94.07 84.15,89.78 80.86,89.90 43.10,91.17 0.06,92.62"/>

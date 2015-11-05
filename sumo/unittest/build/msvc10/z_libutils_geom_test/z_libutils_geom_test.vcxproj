@@ -81,7 +81,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\unittest_main.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\BoundaryTest.cpp" />
-    <ClCompile Include="..\..\..\src\utils\geom\LineTest.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\PositionVectorTest.cpp" />
   </ItemGroup>
   <ItemGroup>

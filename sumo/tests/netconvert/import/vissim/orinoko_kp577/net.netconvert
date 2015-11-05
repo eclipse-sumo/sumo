@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 18 13:15:08 2015 by SUMO netconvert Version dev-SVN-r18647I
+<!-- generated on Tue Nov  3 08:32:14 2015 by SUMO netconvert Version dev-SVN-r19243
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -17,6 +17,7 @@
     <processing>
         <no-internal-links value="true"/>
         <geometry.junction-mismatch-threshold value="100"/>
+        <edges.join value="true"/>
     </processing>
 
     <report>
@@ -104,10 +105,10 @@
         <lane id="1001205_1" index="1" speed="13.89" length="19.05" shape="1244.71,2652.39 1251.16,2665.29"/>
     </edge>
     <edge id="11" from="605001144" to="605001145" name="VISUM Strecke 53091615" priority="-1" type="83" spreadType="center" shape="2042.63,1660.43 1985.70,1732.04">
-        <lane id="11_0" index="0" speed="13.89" length="103.10" shape="2042.63,1660.43 1979.54,1739.79"/>
+        <lane id="11_0" index="0" speed="13.89" length="103.08" shape="2042.63,1660.43 1979.55,1739.78"/>
     </edge>
     <edge id="12" from="605001145" to="605001146" name="VISUM Strecke 53091615" priority="-1" type="83" spreadType="center" shape="1982.96,1729.86 2039.89,1658.25">
-        <lane id="12_0" index="0" speed="13.89" length="103.16" shape="1976.80,1737.61 2039.89,1658.25"/>
+        <lane id="12_0" index="0" speed="13.89" length="103.15" shape="1976.80,1737.61 2039.89,1658.25"/>
     </edge>
     <edge id="13" from="605001147" to="605001148" name="VISUM Strecke 53091628" priority="-1" type="83" spreadType="center" shape="1755.65,2047.71 1529.08,2293.17">
         <lane id="13_0" index="0" speed="13.89" length="355.89" shape="1762.18,2040.64 1522.74,2300.03"/>
@@ -145,16 +146,16 @@
         <lane id="22_0" index="0" speed="13.89" length="94.08" shape="3499.42,2734.63 3417.89,2692.70"/>
     </edge>
     <edge id="23" from="605001153" to="605001157" name="Habsburgerstrasse/ (53092869)" priority="-1" type="81" spreadType="center" shape="2957.18,2254.93 2957.46,2254.64">
-        <lane id="23_0" index="0" speed="13.89" length="18.85" shape="2954.25,2257.98 2963.81,2248.04"/>
+        <lane id="23_0" index="0" speed="13.89" length="18.74" shape="2954.25,2257.98 2963.73,2248.13"/>
     </edge>
     <edge id="24" from="605001157" to="605001153" name="Habsburgerstrasse/ (53092869)" priority="-1" type="81" spreadType="center" shape="2959.98,2257.07 2959.70,2257.36">
         <lane id="24_0" index="0" speed="13.89" length="17.36" shape="2966.26,2250.55 2956.77,2260.40"/>
     </edge>
     <edge id="25" from="605001158" to="605001159" name="Gleiwitzer Strasse/ (59394061)" priority="-1" type="82" spreadType="center" shape="3028.76,342.86 3228.63,85.01">
-        <lane id="25_0" index="0" speed="13.89" length="350.48" shape="3022.69,350.68 3234.42,77.54"/>
+        <lane id="25_0" index="0" speed="13.89" length="350.47" shape="3022.70,350.68 3234.42,77.54"/>
     </edge>
     <edge id="26" from="605001159" to="605001158" name="Gleiwitzer Strasse/ (59394061)" priority="-1" type="82" spreadType="center" shape="3231.40,87.15 3031.53,345.00">
-        <lane id="26_0" index="0" speed="13.89" length="347.80" shape="3237.18,79.68 3025.46,352.83"/>
+        <lane id="26_0" index="0" speed="13.89" length="347.78" shape="3237.18,79.68 3025.48,352.81"/>
     </edge>
     <edge id="27" from="605001159" to="605001160" name="VISUM Strecke 59394070" priority="-1" type="85" spreadType="center" shape="3242.95,70.91 3263.11,55.79">
         <lane id="27_0" index="0" speed="13.89" length="49.96" shape="3235.39,76.58 3270.80,50.03"/>
@@ -234,8 +235,8 @@
         <lane id="49_0" index="0" speed="13.89" length="255.02" shape="3162.02,1859.52 3277.64,1894.59 3397.91,1939.09"/>
     </edge>
     <edge id="5" from="605001139" to="605001140" name="VISUM Strecke 53091559" priority="-1" type="83" spreadType="center" shape="809.11,2228.67 1050.44,2464.33">
-        <lane id="5_0" index="0" speed="13.89" length="363.96" shape="803.18,2220.57 1058.61,2470.00"/>
-        <lane id="5_1" index="1" speed="13.89" length="363.96" shape="800.87,2222.93 1056.34,2472.40"/>
+        <lane id="5_0" index="0" speed="13.89" length="363.93" shape="803.18,2220.57 1058.60,2469.99"/>
+        <lane id="5_1" index="1" speed="13.89" length="363.93" shape="800.87,2222.93 1056.32,2472.38"/>
     </edge>
     <edge id="50" from="605001173" to="605001172" name="VISUM Strecke 905001592" priority="-1" type="81" spreadType="center" shape="3390.19,1939.96 3276.52,1897.91 3167.75,1864.91">
         <lane id="50_0" index="0" speed="13.89" length="253.95" shape="3396.70,1942.37 3276.52,1897.91 3161.01,1862.87"/>
@@ -262,25 +263,25 @@
         <lane id="57_0" index="0" speed="13.89" length="521.30" shape="3642.55,1288.31 3706.72,1382.28 3469.15,1710.06"/>
     </edge>
     <edge id="58" from="605001178" to="605001175" name="VISUM Strecke 905002246" priority="-1" type="81" spreadType="center" shape="3471.85,1700.36 3702.44,1382.22 3645.22,1298.42">
-        <lane id="58_0" index="0" speed="13.89" length="518.08" shape="3466.32,1708.01 3702.44,1382.22 3639.66,1290.28"/>
+        <lane id="58_0" index="0" speed="13.89" length="517.99" shape="3466.32,1708.01 3702.44,1382.22 3639.72,1290.37"/>
     </edge>
     <edge id="59" from="605001179" to="605001174" name="VISUM Strecke 905002247" priority="-1" type="81" spreadType="center" shape="2827.12,2821.22 3045.15,2617.59">
         <lane id="59_0" index="0" speed="13.89" length="317.47" shape="2821.62,2826.36 3049.83,2613.22"/>
     </edge>
     <edge id="6" from="605001140" to="605001139" name="VISUM Strecke 53091559" priority="-1" type="83" spreadType="center" shape="1045.55,2469.34 804.22,2233.67">
-        <lane id="6_0" index="0" speed="13.89" length="364.26" shape="1051.54,2477.50 795.98,2227.94"/>
-        <lane id="6_1" index="1" speed="13.89" length="364.26" shape="1053.80,2475.09 798.29,2225.58"/>
+        <lane id="6_0" index="0" speed="13.89" length="364.18" shape="1051.47,2477.43 795.98,2227.94"/>
+        <lane id="6_1" index="1" speed="13.89" length="364.18" shape="1053.76,2475.05 798.29,2225.58"/>
     </edge>
     <edge id="60" from="605001174" to="605001179" name="VISUM Strecke 905002247" priority="-1" type="81" spreadType="center" shape="3048.09,2619.64 2829.51,2823.77">
         <lane id="60_0" index="0" speed="13.89" length="318.71" shape="3052.22,2615.78 2824.00,2828.91"/>
     </edge>
     <edge id="61" from="605001139" to="605001138" name="VISUM Strecke 905002541" priority="-1" type="83" spreadType="center" shape="790.05,2219.84 687.12,2119.24 556.80,1989.43 426.04,1894.60 396.55,1873.60 369.60,1854.36">
-        <lane id="61_0" index="0" speed="13.89" length="584.29" shape="795.98,2227.94 685.97,2120.42 555.64,1990.59 425.07,1895.93 395.59,1874.95 361.00,1850.24"/>
-        <lane id="61_1" index="1" speed="13.89" length="584.29" shape="798.29,2225.58 688.27,2118.06 557.97,1988.26 427.00,1893.26 397.50,1872.26 362.92,1847.55"/>
+        <lane id="61_0" index="0" speed="13.89" length="584.29" shape="795.98,2227.94 685.96,2120.42 555.73,1990.69 425.07,1895.94 395.59,1874.95 361.00,1850.24"/>
+        <lane id="61_1" index="1" speed="13.89" length="584.29" shape="798.28,2225.58 688.28,2118.07 557.88,1988.17 427.00,1893.26 397.50,1872.26 362.92,1847.55"/>
     </edge>
     <edge id="62" from="605001138" to="605001139" name="VISUM Strecke 905002541" priority="-1" type="83" spreadType="center" shape="373.67,1848.66 400.61,1867.90 430.12,1888.91 561.35,1984.08 692.04,2114.26 794.94,2214.83">
-        <lane id="62_0" index="0" speed="13.89" length="586.85" shape="366.99,1841.86 401.57,1866.56 431.08,1887.57 562.32,1982.74 693.20,2113.09 803.18,2220.57"/>
-        <lane id="62_1" index="1" speed="13.89" length="586.85" shape="365.07,1844.54 399.65,1869.25 429.16,1890.25 560.39,1985.42 690.87,2115.43 800.87,2222.93"/>
+        <lane id="62_0" index="0" speed="13.89" length="586.85" shape="366.99,1841.86 401.57,1866.56 431.08,1887.57 562.43,1982.82 693.20,2113.09 803.18,2220.57"/>
+        <lane id="62_1" index="1" speed="13.89" length="586.85" shape="365.07,1844.54 399.65,1869.25 429.16,1890.25 560.28,1985.34 690.88,2115.44 800.87,2222.93"/>
     </edge>
     <edge id="63" from="605001148" to="605001180" name="VISUM Strecke 905002550" priority="-1" type="83" spreadType="center" shape="1518.66,2309.01 1486.59,2381.16 1403.47,2486.81 1384.98,2512.30 1296.89,2626.92 1267.82,2655.34">
         <lane id="63_0" index="0" speed="13.89" length="439.75" shape="1522.45,2300.47 1486.59,2381.16 1403.47,2486.81 1384.98,2512.30 1296.89,2626.92 1267.82,2655.34"/>
@@ -289,12 +290,12 @@
         <lane id="64_0" index="0" speed="13.89" length="445.57" shape="1262.44,2655.70 1294.27,2624.59 1382.18,2510.21 1400.68,2484.70 1483.57,2379.34 1519.25,2299.05"/>
     </edge>
     <edge id="65" from="605001182" to="605001140" name="VISUM Strecke 905002551" priority="-1" type="83" spreadType="center" shape="1241.17,2657.27 1240.20,2655.33 1218.63,2633.76 1131.17,2550.29 1059.88,2483.09">
-        <lane id="65_0" index="0" speed="13.89" length="265.04" shape="1239.70,2658.01 1238.85,2656.30 1217.47,2634.92 1130.03,2551.49 1051.54,2477.50"/>
-        <lane id="65_1" index="1" speed="13.89" length="265.04" shape="1242.65,2656.53 1241.56,2654.35 1219.80,2632.59 1132.31,2549.10 1053.80,2475.09"/>
+        <lane id="65_0" index="0" speed="13.89" length="265.04" shape="1239.70,2658.01 1238.85,2656.30 1217.48,2634.94 1130.03,2551.49 1051.54,2477.50"/>
+        <lane id="65_1" index="1" speed="13.89" length="265.04" shape="1242.65,2656.53 1241.56,2654.35 1219.79,2632.58 1132.31,2549.10 1053.80,2475.09"/>
     </edge>
     <edge id="66" from="605001140" to="605001183" name="VISUM Strecke 905002551" priority="-1" type="83" spreadType="center" shape="1064.68,2478.00 1135.99,2545.21 1223.52,2628.75 1245.49,2650.72">
-        <lane id="66_0" index="0" speed="13.89" length="264.02" shape="1058.61,2470.00 1137.12,2544.01 1224.66,2627.56 1246.75,2649.64"/>
-        <lane id="66_1" index="1" speed="13.89" length="264.02" shape="1056.34,2472.40 1134.86,2546.41 1222.39,2629.94 1244.41,2651.97"/>
+        <lane id="66_0" index="0" speed="13.89" length="264.02" shape="1058.61,2470.00 1137.12,2544.02 1224.68,2627.57 1246.75,2649.64"/>
+        <lane id="66_1" index="1" speed="13.89" length="264.02" shape="1056.34,2472.40 1134.85,2546.41 1222.37,2629.93 1244.41,2651.97"/>
     </edge>
     <edge id="67" from="605001158" to="605001184" name="VISUM Strecke 905002586" priority="-1" type="82" spreadType="center" shape="3019.48,360.69 2743.96,722.93">
         <lane id="67_0" index="0" speed="13.89" length="475.94" shape="3025.46,352.83 2741.97,725.55"/>
@@ -306,16 +307,16 @@
         <lane id="69_0" index="0" speed="13.89" length="105.27" shape="3413.10,2693.99 3382.78,2789.69"/>
     </edge>
     <edge id="7" from="605001141" to="605001142" name="Glogauer Strasse/ (53091570)" priority="-1" type="83" spreadType="center" shape="1062.93,1048.95 1163.50,924.36">
-        <lane id="7_0" index="0" speed="13.89" length="179.80" shape="1056.72,1056.66 1166.59,920.52"/>
+        <lane id="7_0" index="0" speed="13.89" length="179.79" shape="1056.72,1056.65 1166.59,920.52"/>
     </edge>
     <edge id="70" from="605001185" to="605001155" name="VISUM Strecke 905005462" priority="-1" type="83" spreadType="center" shape="3379.41,2788.72 3408.42,2697.16">
         <lane id="70_0" index="0" speed="13.89" length="111.41" shape="3379.44,2788.63 3409.76,2692.94"/>
     </edge>
     <edge id="71" from="605001186" to="605001184" name="VISUM Strecke 905005617" priority="-1" type="83" spreadType="center" shape="2485.63,1060.29 2729.23,736.61">
-        <lane id="71_0" index="0" speed="13.89" length="429.61" shape="2479.68,1068.20 2732.95,731.66"/>
+        <lane id="71_0" index="0" speed="13.89" length="429.60" shape="2479.68,1068.20 2732.95,731.66"/>
     </edge>
     <edge id="72" from="605001184" to="605001186" name="VISUM Strecke 905005617" priority="-1" type="83" spreadType="center" shape="2732.02,738.72 2488.43,1062.40">
-        <lane id="72_0" index="0" speed="13.89" length="427.61" shape="2735.75,733.77 2482.48,1070.31"/>
+        <lane id="72_0" index="0" speed="13.89" length="427.59" shape="2735.75,733.77 2482.49,1070.29"/>
     </edge>
     <edge id="73" from="605001177" to="605001152" name="VISUM Strecke 905005621" priority="-1" type="83" spreadType="center" shape="3194.03,2482.09 3172.27,2450.44 3117.46,2404.60 2991.81,2300.62">
         <lane id="73_0" index="0" speed="13.89" length="295.19" shape="3199.29,2489.73 3172.27,2450.44 3117.46,2404.60 2987.99,2297.46"/>
@@ -324,24 +325,24 @@
         <lane id="74_0" index="0" speed="13.89" length="294.95" shape="2990.22,2294.76 3119.70,2401.91 3174.88,2448.06 3202.17,2487.75"/>
     </edge>
     <edge id="75" from="605001169" to="605001153" name="Loewenberger Strasse (905005623)" priority="-1" type="83" spreadType="center" shape="2630.31,2023.24 2834.65,2157.86 2867.73,2187.44 2930.73,2241.43 2945.84,2254.87">
-        <lane id="75_0" index="0" speed="13.89" length="413.65" shape="2622.03,2017.79 2834.65,2157.86 2867.73,2187.44 2930.73,2241.43 2949.71,2258.31"/>
+        <lane id="75_0" index="0" speed="13.89" length="413.62" shape="2622.05,2017.80 2834.65,2157.86 2867.73,2187.44 2930.73,2241.43 2949.71,2258.31"/>
     </edge>
     <edge id="76" from="605001153" to="605001169" name="Loewenberger Strasse (905005623)" priority="-1" type="83" spreadType="center" shape="2943.52,2257.48 2928.43,2244.07 2865.43,2190.07 2832.51,2160.64 2628.38,2026.16">
-        <lane id="76_0" index="0" speed="13.89" length="414.92" shape="2947.39,2260.93 2928.43,2244.07 2865.43,2190.07 2832.51,2160.64 2620.11,2020.71"/>
+        <lane id="76_0" index="0" speed="13.89" length="414.85" shape="2947.39,2260.93 2928.43,2244.07 2865.43,2190.07 2832.51,2160.64 2620.16,2020.75"/>
     </edge>
     <edge id="77" from="605001166" to="605001150" name="VISUM Strecke 905005626" priority="-1" type="83" spreadType="center" shape="1871.60,3060.36 1618.43,2987.07 1558.19,2962.77 1507.07,2916.49">
-        <lane id="77_0" index="0" speed="13.89" length="425.02" shape="1876.85,3063.60 1617.98,2988.65 1557.30,2964.19 1501.87,2914.01"/>
-        <lane id="77_1" index="1" speed="13.89" length="425.02" shape="1877.76,3060.43 1618.89,2985.48 1559.08,2961.35 1504.08,2911.56"/>
+        <lane id="77_0" index="0" speed="13.89" length="425.02" shape="1876.85,3063.60 1617.89,2988.63 1557.30,2964.19 1501.87,2914.01"/>
+        <lane id="77_1" index="1" speed="13.89" length="425.02" shape="1877.76,3060.43 1618.97,2985.50 1559.08,2961.35 1504.08,2911.56"/>
     </edge>
     <edge id="78" from="605001150" to="605001166" name="VISUM Strecke 905005626" priority="-1" type="83" spreadType="center" shape="1511.77,2911.30 1561.97,2956.74 1620.72,2980.44 1873.54,3053.64">
-        <lane id="78_0" index="0" speed="13.89" length="412.32" shape="1508.78,2906.37 1562.85,2955.32 1621.34,2978.91 1879.71,3053.71"/>
-        <lane id="78_1" index="1" speed="13.89" length="412.32" shape="1506.56,2908.82 1561.08,2958.16 1620.11,2981.97 1878.79,3056.88"/>
+        <lane id="78_0" index="0" speed="13.89" length="412.32" shape="1508.78,2906.37 1562.85,2955.32 1621.26,2978.88 1879.71,3053.71"/>
+        <lane id="78_1" index="1" speed="13.89" length="412.32" shape="1506.56,2908.82 1561.08,2958.16 1620.18,2982.00 1878.79,3056.88"/>
     </edge>
     <edge id="79" from="605001179" to="605001167" name="Saganer Strasse (905006036)" priority="-1" type="81" spreadType="center" shape="2826.64,2837.63 2847.10,2884.50 2674.40,3109.56 2656.93,3108.47 2578.04,3046.66 2248.19,2816.36">
         <lane id="79_0" index="0" speed="13.89" length="875.08" shape="2823.63,2830.72 2847.10,2884.50 2674.40,3109.56 2656.93,3108.47 2578.04,3046.66 2241.12,2811.42"/>
     </edge>
     <edge id="8" from="605001142" to="605001141" name="Glogauer Strasse/ (53091570)" priority="-1" type="83" spreadType="center" shape="1166.22,926.56 1065.66,1051.15">
-        <lane id="8_0" index="0" speed="13.89" length="178.91" shape="1169.32,922.72 1059.44,1058.85"/>
+        <lane id="8_0" index="0" speed="13.89" length="178.88" shape="1169.32,922.72 1059.46,1058.83"/>
     </edge>
     <edge id="80" from="605001167" to="605001179" name="Saganer Strasse (905006036)" priority="-1" type="81" spreadType="center" shape="2250.20,2813.49 2580.12,3043.85 2658.23,3105.04 2672.76,3105.95 2843.06,2884.01 2823.43,2839.03">
         <lane id="80_0" index="0" speed="13.89" length="869.22" shape="2243.12,2808.55 2580.12,3043.85 2658.23,3105.04 2672.76,3105.95 2843.06,2884.01 2820.42,2832.12"/>
@@ -365,7 +366,7 @@
         <lane id="86_0" index="0" speed="13.89" length="345.86" shape="3359.25,850.75 3020.98,801.01"/>
     </edge>
     <edge id="87" from="605001188" to="605001176" name="VISUM Strecke 905006041" priority="-1" type="81" spreadType="center" shape="3367.66,856.85 3536.49,1138.86">
-        <lane id="87_0" index="0" speed="13.89" length="351.04" shape="3363.40,849.72 3541.58,1147.35"/>
+        <lane id="87_0" index="0" speed="13.89" length="350.95" shape="3363.40,849.72 3541.53,1147.27"/>
     </edge>
     <edge id="88" from="605001176" to="605001188" name="VISUM Strecke 905006041" priority="-1" type="81" spreadType="center" shape="3533.49,1140.66 3364.66,858.65">
         <lane id="88_0" index="0" speed="13.89" length="350.57" shape="3538.53,1149.07 3360.39,851.51"/>
@@ -404,7 +405,7 @@
         <lane id="98_0" index="0" speed="13.89" length="102.27" shape="1506.00,2899.41 1565.70,2823.17"/>
     </edge>
     <edge id="99" from="605001164" to="605001156" name="9564 (905006790)" priority="-1" type="86" spreadType="center" shape="3597.94,2819.61 3506.93,2741.05">
-        <lane id="99_0" index="0" speed="13.89" length="142.03" shape="3605.44,2826.08 3499.74,2734.84"/>
+        <lane id="99_0" index="0" speed="13.89" length="142.02" shape="3605.43,2826.08 3499.74,2734.84"/>
     </edge>
 
     <tlLogic id="1" type="static" programID="0" offset="0">

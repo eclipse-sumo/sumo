@@ -175,14 +175,15 @@ Boundary::overlapsWith(const AbstractPoly& p, SUMOReal offset) const {
 
 bool
 Boundary::crosses(const Position& p1, const Position& p2) const {
+    const PositionVector line(p1, p2);
     return
-        GeomHelper::intersects(p1, p2, Position(myXmax, myYmax), Position(myXmin, myYmax))
+        line.intersects(Position(myXmax, myYmax), Position(myXmin, myYmax))
         ||
-        GeomHelper::intersects(p1, p2, Position(myXmin, myYmax), Position(myXmin, myYmin))
+        line.intersects(Position(myXmin, myYmax), Position(myXmin, myYmin))
         ||
-        GeomHelper::intersects(p1, p2, Position(myXmin, myYmin), Position(myXmax, myYmin))
+        line.intersects(Position(myXmin, myYmin), Position(myXmax, myYmin))
         ||
-        GeomHelper::intersects(p1, p2, Position(myXmax, myYmin), Position(myXmax, myYmax));
+        line.intersects(Position(myXmax, myYmin), Position(myXmax, myYmax));
 }
 
 

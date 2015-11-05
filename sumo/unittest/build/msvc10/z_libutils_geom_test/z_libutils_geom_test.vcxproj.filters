@@ -21,9 +21,6 @@
     <ClCompile Include="..\..\..\src\unittest_main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\geom\LineTest.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\geom\PositionVectorTest.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>

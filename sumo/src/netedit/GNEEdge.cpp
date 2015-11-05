@@ -277,7 +277,7 @@ GNEEdge::moveGeometry(const Position& delta) {
     if (geom.size() == 0) {
         return;
     }
-    geom.reshiftRotate(delta.x(), delta.y(), 0);
+    geom.add(delta.x(), delta.y(), delta.z());
     setGeometry(geom, true);
 }
 

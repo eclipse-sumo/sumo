@@ -34,7 +34,6 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/geom/Position.h>
-#include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
@@ -207,7 +206,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::Veh
     const Position translatedSender = senderData.position - receiverDelta;
     // find crossing points
     std::vector<SUMOReal> intersections;
-    GeomHelper::FindLineCircleIntersections(oldReceiverPosition, receiver.range, oldSenderPosition, translatedSender, intersections);
+    GeomHelper::findLineCircleIntersections(oldReceiverPosition, receiver.range, oldSenderPosition, translatedSender, intersections);
     switch (intersections.size()) {
         case 0:
             // no intersections -> other vehicle either stays within or beyond range

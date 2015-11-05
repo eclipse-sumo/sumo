@@ -157,7 +157,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 break;
             case VAR_ANGLE:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? v->getAngle() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(visible ? GeomHelper::naviDegree(v->getAngle()) : INVALID_DOUBLE_VALUE);
                 break;
             case VAR_ROAD_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);

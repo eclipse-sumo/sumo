@@ -379,9 +379,9 @@ NBEdge::~NBEdge() {}
 // -----------  Applying offset
 void
 NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
-    myGeom.reshiftRotate(xoff, yoff, 0);
+    myGeom.add(xoff, yoff, 0);
     for (unsigned int i = 0; i < myLanes.size(); i++) {
-        myLanes[i].shape.reshiftRotate(xoff, yoff, 0);
+        myLanes[i].shape.add(xoff, yoff, 0);
     }
     computeAngle(); // update angles because they are numerically sensitive (especially where based on centroids)
 }
@@ -459,9 +459,7 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
     } else {
         // @note If the node shapes are overlapping we may get a shape which goes in the wrong direction
         // in this case the result shape should shortened
-        Line lc(shape[0], shape[-1]);
-        Line lo(old[0], old[-1]);
-        if (135 < GeomHelper::getMinAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle())) {
+        if (DEG2RAD(135) < fabs(GeomHelper::angleDiff(shape.beginEndAngle(), old.beginEndAngle()))) {
             shape = shape.reverse();
             shape = shape.getSubpart(0, 2 * POSITION_EPS); // *2 because otherwhise shape has only a single point
         }
@@ -489,9 +487,9 @@ NBEdge::computeEdgeShape() {
 PositionVector
 NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode) const {
     const PositionVector& nodeShape = startNode->getShape();
-    Line lb = laneShape.getBegLine();
+    PositionVector lb(laneShape.begin(), laneShape.begin() + 2);
     // this doesn't look reasonable @todo use lb.extrapolateFirstBy(100.0);
-    lb.extrapolateBy(100.0);
+    lb.extrapolate(100.0);
     if (nodeShape.intersects(laneShape)) {
         // shape intersects directly
         std::vector<SUMOReal> pbv = laneShape.intersectsAtLengths2D(nodeShape);
@@ -501,7 +499,7 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode) c
         PositionVector ns = pb <= laneShape.length() ? laneShape.getSubpart2D(pb, laneShape.length()) : laneShape;
         ns[0].set(ns[0].x(), ns[0].y(), startNode->getPosition().z());
         return ns;
-    } else if (nodeShape.intersects(lb.p1(), lb.p2())) {
+    } else if (nodeShape.intersects(lb)) {
         // extension of first segment intersects
         std::vector<SUMOReal> pbv = lb.intersectsAtLengths2D(nodeShape);
         assert(pbv.size() > 0);
@@ -509,7 +507,7 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode) c
         assert(pb >= 0);
         PositionVector result = laneShape;
         result.eraseAt(0);
-        Position np = lb.getPositionAtDistance2D(pb);
+        Position np = PositionVector::positionAtOffset2D(lb[0], lb[1], pb);
         result.push_front_noDoublePos(Position(np.x(), np.y(), startNode->getPosition().z()));
         return result;
         //if (result.size() >= 2) {
@@ -605,24 +603,24 @@ NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius, bool fi
     std::vector<SUMOReal> angles; // absolute segment angles
     //std::cout << "  absolute angles:";
     for (int i = 0; i < (int)myGeom.size() - 1; ++i) {
-        angles.push_back(myGeom.lineAt(i).atan2DegreeAngle());
+        angles.push_back(myGeom.angleAt2D(i));
         //std::cout << " " << angles.back();
     }
     //std::cout << "\n  relative angles: ";
     for (int i = 0; i < (int)angles.size() - 1; ++i) {
-        const SUMOReal relAngle = fabs(NBHelpers::relAngle(angles[i], angles[i + 1]));
+        const SUMOReal relAngle = fabs(GeomHelper::angleDiff(angles[i], angles[i + 1]));
         //std::cout << relAngle << " ";
         if (maxAngle > 0 && relAngle > maxAngle) {
-            WRITE_WARNING("Found angle of " + toString(relAngle) + " degrees at edge '" + getID() + "', segment " + toString(i));
+            WRITE_WARNING("Found angle of " + toString(RAD2DEG(relAngle)) + " degrees at edge '" + getID() + "', segment " + toString(i));
         }
-        if (relAngle < 1) {
+        if (relAngle < DEG2RAD(1)) {
             continue;
         }
         if (i == 0 || i == (int)angles.size() - 2) {
             const bool start = i == 0;
-            const Line l = (start ? myGeom.getBegLine() : myGeom.getEndLine());
-            const SUMOReal r = tan(DEG2RAD(90 - 0.5 * relAngle)) * l.length2D();
-            //std::cout << (start ? "  start" : "  end") << " length=" << l.length2D() << " radius=" << r << "  ";
+            const SUMOReal dist = (start ? myGeom[0].distanceTo2D(myGeom[1]) : myGeom[-2].distanceTo2D(myGeom[-1]));
+            const SUMOReal r = tan(0.5 * (M_PI - relAngle)) * dist;
+            //std::cout << (start ? "  start" : "  end") << " length=" << dist << " radius=" << r << "  ";
             if (minRadius > 0 && r < minRadius) {
                 if (fix) {
                     WRITE_MESSAGE("Removing sharp turn with radius " + toString(r) + " at the " +
@@ -1263,10 +1261,10 @@ SUMOReal
 NBEdge::getAngleAtNode(const NBNode* const atNode) const {
     // myStartAngle, myEndAngle are in [0,360] and this returns results in [-180,180]
     if (atNode == myFrom) {
-        return myGeom.getBegLine().atan2DegreeAngle();
+        return GeomHelper::legacyDegree(myGeom.angleAt2D(0));
     } else {
         assert(atNode == myTo);
-        return myGeom.getEndLine().atan2DegreeAngle();
+        return GeomHelper::legacyDegree(myGeom.angleAt2D(-2));
     }
 }
 
@@ -1337,7 +1335,7 @@ NBEdge::computeLaneShapes() {
         try {
             myLanes[i].shape = computeLaneShape(i, offsets[i]);
         } catch (InvalidArgument& e) {
-            WRITE_WARNING("In edge '" + getID() + "': lane shape could not be determined (" + e.what() + ")");
+            WRITE_WARNING("In edge '" + getID() + "': lane shape could not be determined (" + e.what() + ").");
             myLanes[i].shape = myGeom;
         }
     }
@@ -1346,63 +1344,13 @@ NBEdge::computeLaneShapes() {
 
 PositionVector
 NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) const {
-    PositionVector shape;
-    bool haveWarned = false;
-    for (int i = 0; i < (int) myGeom.size(); i++) {
-        if (i == 0) {
-            Position from = myGeom[i];
-            Position to = myGeom[i + 1];
-            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, offset);
-            shape.push_back(
-                // (methode umbenennen; was heisst hier "-")
-                Position(from.x() - offsets.first, from.y() - offsets.second, from.z()));
-        } else if (i == static_cast<int>(myGeom.size() - 1)) {
-            Position from = myGeom[i - 1];
-            Position to = myGeom[i];
-            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, offset);
-            shape.push_back(
-                // (methode umbenennen; was heisst hier "-")
-                Position(to.x() - offsets.first, to.y() - offsets.second, to.z()));
-        } else {
-            Position from = myGeom[i - 1];
-            Position me = myGeom[i];
-            Position to = myGeom[i + 1];
-            std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, me, offset);
-            std::pair<SUMOReal, SUMOReal> offsets2 = laneOffset(me, to, offset);
-            Line l1(
-                Position(from.x() - offsets.first, from.y() - offsets.second),
-                Position(me.x() - offsets.first, me.y() - offsets.second));
-            l1.extrapolateBy(100);
-            Line l2(
-                Position(me.x() - offsets2.first, me.y() - offsets2.second),
-                Position(to.x() - offsets2.first, to.y() - offsets2.second));
-            const SUMOReal angle = GeomHelper::getCWAngleDiff(l1.atan2DegreeAngle(), l2.atan2DegreeAngle());
-            if (angle < 10. || angle > 350.) {
-                shape.push_back(
-                    // (methode umbenennen; was heisst hier "-")
-                    Position(me.x() - offsets.first, me.y() - offsets.second, me.z()));
-                continue;
-            }
-            l2.extrapolateBy(100);
-            if (l1.intersects(l2)) {
-                Position intersetion = l1.intersectsAt(l2);
-                shape.push_back(Position(intersetion.x(), intersetion.y(), me.z()));
-            } else {
-                if (!haveWarned) {
-                    WRITE_WARNING("In lane '" + getLaneID(lane) + "': Could not build shape.");
-                    haveWarned = true;
-                }
-            }
-        }
+    PositionVector shape = myGeom;
+    try {
+        shape.move2side(offset);
+    } catch (InvalidArgument& e) {
+        WRITE_WARNING("In lane '" + getLaneID(lane) + "': Could not build shape (" + e.what() + ").");
     }
     return shape;
-}
-
-
-std::pair<SUMOReal, SUMOReal>
-NBEdge::laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset) {
-    std::pair<SUMOReal, SUMOReal> offsets = GeomHelper::getNormal90D_CW(from, to, laneCenterOffset);
-    return std::pair<SUMOReal, SUMOReal>(offsets.first, offsets.second);
 }
 
 
@@ -1433,17 +1381,10 @@ NBEdge::computeAngle() {
 
     const SUMOReal angleLookahead = MIN2(shape.length2D() / 2, ANGLE_LOOKAHEAD);
     const Position referencePosStart = shape.positionAtOffset2D(angleLookahead);
-    myStartAngle = NBHelpers::angle(
-                       fromCenter.x(), fromCenter.y(),
-                       referencePosStart.x(), referencePosStart.y());
+    myStartAngle = GeomHelper::legacyDegree(fromCenter.angleTo2D(referencePosStart), true);
     const Position referencePosEnd = shape.positionAtOffset2D(shape.length() - angleLookahead);
-    myEndAngle = NBHelpers::angle(
-                     referencePosEnd.x(), referencePosEnd.y(),
-                     toCenter.x(), toCenter.y());
-    myTotalAngle = NBHelpers::angle(
-                       myFrom->getPosition().x(), myFrom->getPosition().y(),
-                       myTo->getPosition().x(), myTo->getPosition().y());
-
+    myEndAngle = GeomHelper::legacyDegree(referencePosEnd.angleTo2D(toCenter), true);
+    myTotalAngle = GeomHelper::legacyDegree(myFrom->getPosition().angleTo2D(myTo->getPosition()), true);
 }
 
 

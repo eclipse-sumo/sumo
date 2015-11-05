@@ -43,6 +43,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/common/AbstractMutex.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -356,7 +357,7 @@ GUIPerson::setFunctionalColor(size_t activeScheme) const {
             return false;
         }
         case 8: { // color by angle
-            SUMOReal hue = getAngle() + 180; // [0-360]
+            SUMOReal hue = GeomHelper::naviDegree(getAngle());
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
             return true;
         }
@@ -433,7 +434,7 @@ GUIPerson::getSpeed() const {
 void
 GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) const {
     // draw triangle pointing forward
-    glRotated(getAngle(), 0, 0, 1);
+    glRotated(RAD2DEG(getAngle() + PI / 2.), 0, 0, 1);
     glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
@@ -455,7 +456,7 @@ GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) co
 void
 GUIPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
     // draw pedestrian shape
-    glRotated(getAngle(), 0, 0, 1);
+    glRotated(GeomHelper::naviDegree(getAngle()) - 180, 0, 0, -1);
     glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
     RGBColor lighter = GLHelper::getColor().changedBrightness(51);
     glTranslated(0, 0, .045);
@@ -483,7 +484,7 @@ GUIPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
     const std::string& file = getVehicleType().getImgFile();
     if (file != "") {
         if (getVehicleType().getGuiShape() == SVS_PEDESTRIAN) {
-            glRotated(getAngle(), 0, 0, 1);
+            glRotated(RAD2DEG(getAngle() + PI / 2.), 0, 0, 1);
         }
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {

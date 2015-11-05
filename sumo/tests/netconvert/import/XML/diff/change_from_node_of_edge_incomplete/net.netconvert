@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 24 16:59:00 2015 by SUMO netconvert Version dev-SVN-r17955I
+<!-- generated on 10/27/15 23:02:49 by SUMO netconvert Version dev-SVN-r19173
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -67,13 +67,13 @@
         <lane id=":node_C_11_0" index="0" speed="12.50" length="6.56" shape="-0.05,-2.84 -0.25,-2.61 -2.63,-1.25 -5.96,-0.12"/>
     </edge>
     <edge id=":node_C_12" function="internal">
-        <lane id=":node_C_12_0" index="0" speed="14.50" length="2.41" shape="0.00,-4.39 -0.82,-4.80 -1.65,-6.04"/>
+        <lane id=":node_C_12_0" index="0" speed="14.50" length="2.41" shape="0.00,-4.39 -0.83,-4.80 -1.65,-6.04"/>
     </edge>
     <edge id=":node_D_0" function="internal">
-        <lane id=":node_D_0_0" index="0" speed="14.50" length="4.82" shape="-1.65,-10.00 -0.83,-11.24 -0.00,-11.65 0.82,-11.24 1.65,-10.00"/>
+        <lane id=":node_D_0_0" index="0" speed="14.50" length="4.82" shape="-1.65,-10.00 -0.83,-11.24 0.00,-11.65 0.83,-11.24 1.65,-10.00"/>
     </edge>
     <edge id=":node_R_0" function="internal">
-        <lane id=":node_R_0_0" index="0" speed="12.50" length="4.73" shape="40.09,-1.38 41.28,-0.54 41.66,0.28 41.24,1.08 40.00,1.85"/>
+        <lane id=":node_R_0_0" index="0" speed="12.50" length="4.73" shape="40.06,-1.39 41.26,-0.56 41.65,0.26 41.23,1.06 40.00,1.85"/>
     </edge>
     <edge id=":node_U_0" function="internal">
         <lane id=":node_U_0_0" index="0" speed="14.50" length="4.78" shape="-4.38,33.29 -3.19,34.24 -2.33,34.37 -1.82,33.67 -1.65,32.15"/>
@@ -87,7 +87,7 @@
         <lane id="edge_C2L_1" index="1" speed="11.00" length="23.58" shape="-5.96,-0.12 -15.09,2.32 -28.35,0.19"/>
     </edge>
     <edge id="edge_C2R" from="node_C" to="node_R" priority="2" shape="10.00,-1.00 29.00,-0.20">
-        <lane id="edge_C2R_0" index="0" speed="13.00" length="35.44" shape="4.68,-2.88 40.09,-1.38"/>
+        <lane id="edge_C2R_0" index="0" speed="13.00" length="35.41" shape="4.68,-2.88 40.06,-1.39"/>
     </edge>
     <edge id="edge_C2U" from="node_L" to="node_U" priority="2">
         <lane id="edge_C2U_0" index="0" speed="15.00" length="37.19" shape="-30.68,6.99 -4.38,33.29"/>

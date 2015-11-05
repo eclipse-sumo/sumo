@@ -31,6 +31,7 @@
 #include <math.h>
 #include <algorithm>
 #include <utils/common/RandHelper.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -122,10 +123,9 @@ CState::getPosition(const MSContainer::MSContainerStage_Tranship& stage, SUMOTim
 
 SUMOReal
 CState::getAngle(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const {
-    //todo: change angle by 90 degree
-    SUMOReal angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 180 : 0);
-    if (angle > 180) {
-        angle -= 360;
+    SUMOReal angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 1.5 * M_PI : 0.5 * M_PI);
+    if (angle > M_PI) {
+        angle -= 2 * M_PI;
     }
     return angle;
 }

@@ -546,15 +546,14 @@ GUIVehicle::computeSeats(const Position& front, const Position& back, int& requi
     if (requiredSeats <= 0) {
         return; // save some work
     }
-    const Line l(front, back);
-    const SUMOReal length = l.length2D();
+    const SUMOReal length = front.distanceTo2D(back);
     if (length < 4) {
         // small vehicle, sit at the center
-        mySeatPositions.push_back(l.getPositionAtDistance2D(length / 2));
+        mySeatPositions.push_back(PositionVector::positionAtOffset2D(front, back, length / 2));
         requiredSeats--;
     } else {
         for (SUMOReal p = 2; p <= length - 1; p += 1) {
-            mySeatPositions.push_back(l.getPositionAtDistance2D(p));
+            mySeatPositions.push_back(PositionVector::positionAtOffset2D(front, back, p));
             requiredSeats--;
         }
     }

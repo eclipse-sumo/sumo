@@ -42,7 +42,6 @@
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Bresenham.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/geom/Line.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "NBCont.h"
@@ -194,10 +193,6 @@ public:
         std::string getInternalLaneID() const;
 
     };
-
-    /// Computes the offset from the edge shape on the current segment
-    static std::pair<SUMOReal, SUMOReal> laneOffset(const Position& from,
-            const Position& to, SUMOReal laneCenterOffset);
 
     /// @brief unspecified lane width
     static const SUMOReal UNSPECIFIED_WIDTH;
@@ -1174,9 +1169,6 @@ private:
 
     /// Computes the shape for the given lane
     PositionVector computeLaneShape(unsigned int lane, SUMOReal offset) const;
-
-    /// Computes the offset from the edge shape on the current segment
-    //std::pair<SUMOReal, SUMOReal> laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset);
 
     void computeLaneShapes();
 

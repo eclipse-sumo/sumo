@@ -107,7 +107,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     GLHelper::setColor(getColor());
     glTranslated(x(), y(), getLayer());
-    glRotated(getAngle(), 0, 0, 1);
+    glRotated(-getNaviDegree(), 0, 0, 1);
 
     if (myImgFile != "") {
         int textureID = GUITexturesHelper::getTextureID(myImgFile);

@@ -103,7 +103,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 break;
             case VAR_ANGLE:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(p->getAngle());
+                tempMsg.writeDouble(GeomHelper::naviDegree(p->getAngle()));
                 break;
             case VAR_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);

@@ -31,6 +31,7 @@
 #endif
 
 #include <utils/common/StringBijection.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 
 // ===========================================================================
@@ -63,6 +64,8 @@ protected:
     static void writePlanView(const PositionVector& shape, OutputDevice& device);
     static void writeEmptyCenterLane(OutputDevice& device, const std::string& mark, SUMOReal markWidth);
     static int getID(const std::string& origID, StringBijection<int>& map, int& lastID);
+
+    static std::string getLaneType(SVCPermissions permissions);
 
 };
 

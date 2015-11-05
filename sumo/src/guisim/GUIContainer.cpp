@@ -43,6 +43,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/common/AbstractMutex.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -294,7 +295,7 @@ GUIContainer::setFunctionalColor(size_t activeScheme) const {
             return false;
         }
         case 8: {
-            SUMOReal hue = getAngle() + 180; // [0-360]
+            SUMOReal hue = GeomHelper::naviDegree(getAngle());
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
             return true;
         }
@@ -370,7 +371,7 @@ GUIContainer::getSpeed() const {
 void
 GUIContainer::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
     // draw pedestrian shape
-    glRotated(getAngle(), 0, 0, 1);
+    glRotated(RAD2DEG(getAngle() + PI / 2.), 0, 0, 1);
     glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
     glBegin(GL_QUADS);
     glVertex2d(0, 0.5);
@@ -395,7 +396,7 @@ GUIContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
     if (file != "") {
         // @todo invent an option for controlling whether images should be rotated or not
         //if (getVehicleType().getGuiShape() == SVS_CONTAINER) {
-        //    glRotated(getAngle(), 0, 0, 1);
+        //    glRotated(RAD2DEG(getAngle() + PI / 2.), 0, 0, 1);
         //}
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {

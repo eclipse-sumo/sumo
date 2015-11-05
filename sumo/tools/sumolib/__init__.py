@@ -203,7 +203,10 @@ class TeeFile:
         for fp in self.files:
             fp.flush()
             if type(fp) is int or hasattr(fp, "fileno"):
-                os.fsync(fp)
+                try:
+                    os.fsync(fp)
+                except OSError:
+                    pass
 
 
 def _intTime(tStr):

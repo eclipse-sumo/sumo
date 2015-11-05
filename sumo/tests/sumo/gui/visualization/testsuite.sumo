@@ -6,3 +6,9 @@ paradeColor
 
 # show some ships on a river
 ships
+
+# tesselation and rotation of polygons
+polygon_image
+
+# coloring and rotation of POIs
+poi_image

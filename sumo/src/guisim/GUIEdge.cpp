@@ -326,7 +326,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                             xOff += 2;
                         }
                         const Position p = l->geometryPositionAtOffset(vehiclePosition);
-                        const SUMOReal angle = -l->getShape().rotationDegreeAtOffset(l->interpolateLanePosToGeometryPos(vehiclePosition));
+                        const SUMOReal angle = l->getShape().rotationAtOffset(l->interpolateLanePosToGeometryPos(vehiclePosition));
                         veh->setPositionAndAngle(p, angle);
                         veh->drawGL(s);
                         vehiclePosition -= vehLength;

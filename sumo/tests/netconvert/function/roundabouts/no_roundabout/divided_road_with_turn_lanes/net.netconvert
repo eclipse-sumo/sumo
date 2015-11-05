@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 23 09:17:21 2015 by SUMO netconvert Version dev-SVN-r18900I
+<!-- generated on Wed Oct 28 07:08:47 2015 by SUMO netconvert Version dev-SVN-r19184I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -16,7 +16,7 @@
 
     <processing>
         <no-internal-links value="true"/>
-        <roundabouts.guess value="false"/>
+        <roundabouts.guess value="true"/>
     </processing>
 
     <report>
@@ -100,7 +100,7 @@
         <lane id="733292874_0" index="0" allow="pedestrian" speed="1.39" length="58.91" shape="265.30,137.75 292.31,182.80"/>
     </edge>
     <edge id="733292978" from="817135763" to="61057722" priority="-2" spreadType="center">
-        <lane id="733292978_0" index="0" speed="13.89" length="7.91" shape="314.58,104.76 310.94,106.85"/>
+        <lane id="733292978_0" index="0" speed="13.89" length="7.91" shape="314.53,104.79 310.94,106.85"/>
         <lane id="733292978_1" index="1" speed="13.89" length="7.91" shape="312.87,101.94 309.30,103.99"/>
         <lane id="733292978_2" index="2" speed="13.89" length="7.91" shape="311.12,99.14 307.65,101.13"/>
     </edge>
@@ -128,7 +128,7 @@
     <edge id="778474602" from="848552966" to="832002545" priority="-2" spreadType="center">
         <lane id="778474602_0" index="0" speed="13.89" length="38.82" shape="156.92,196.19 125.52,216.05"/>
         <lane id="778474602_1" index="1" speed="13.89" length="38.82" shape="155.33,193.29 123.76,213.26"/>
-        <lane id="778474602_2" index="2" speed="13.89" length="38.82" shape="153.65,190.45 121.99,210.47"/>
+        <lane id="778474602_2" index="2" speed="13.89" length="38.82" shape="153.61,190.47 121.99,210.47"/>
     </edge>
     <edge id="781909616" from="850831077" to="817135763" priority="-2" spreadType="center">
         <lane id="781909616_0" index="0" speed="13.89" length="22.03" shape="333.36,93.21 314.58,104.76"/>

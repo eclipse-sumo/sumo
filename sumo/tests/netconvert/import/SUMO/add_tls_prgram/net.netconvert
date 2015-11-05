@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 26 12:57:36 2015 by SUMO netconvert Version dev-SVN-r18153I
+<!-- generated on Tue Nov  3 08:32:15 2015 by SUMO netconvert Version dev-SVN-r19243
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -120,12 +120,12 @@
         <lane id="118_0" index="0" speed="13.89" length="138.03" shape="1570.63,472.36 1438.10,433.77"/>
     </edge>
     <edge id="134" from="27" to="26" priority="-1" shape="1573.40,576.94 1597.26,572.13">
-        <lane id="134_0" index="0" speed="13.89" length="26.65" shape="1575.92,574.75 1602.05,569.48"/>
+        <lane id="134_0" index="0" speed="13.89" length="26.64" shape="1575.92,574.75 1602.03,569.48"/>
     </edge>
     <edge id="201" from="27" to="1c" priority="-1" spreadType="center" shape="1564.06,595.69 1525.19,741.63 1508.38,808.94">
-        <lane id="201_0" index="0" speed="13.89" length="245.44" shape="1569.34,588.70 1528.38,742.48 1507.48,826.15"/>
+        <lane id="201_0" index="0" speed="13.89" length="245.44" shape="1569.34,588.70 1528.39,742.45 1507.48,826.15"/>
         <lane id="201_1" index="1" speed="13.89" length="245.44" shape="1566.15,587.85 1525.19,741.63 1504.28,825.35"/>
-        <lane id="201_2" index="2" speed="13.89" length="245.44" shape="1562.96,587.00 1522.00,740.78 1501.08,824.55"/>
+        <lane id="201_2" index="2" speed="13.89" length="245.44" shape="1562.96,587.00 1521.99,740.81 1501.08,824.55"/>
     </edge>
     <edge id="209" from="34" to="209-end" priority="-1" spreadType="center" shape="1579.44,464.44 1675.38,80.38">
         <lane id="209_0" index="0" speed="13.89" length="396.69" shape="1576.21,463.74 1672.35,78.87"/>
@@ -133,9 +133,9 @@
         <lane id="209_2" index="2" speed="13.89" length="396.69" shape="1582.62,465.34 1678.76,80.47"/>
     </edge>
     <edge id="210" from="210-begin" to="33" priority="-1" spreadType="center" shape="1691.94,85.07 1683.06,126.82 1679.75,143.25 1675.56,160.19 1669.75,190.82 1638.13,296.82 1602.13,437.94">
-        <lane id="210_0" index="0" speed="13.89" length="369.44" shape="1695.17,85.76 1686.29,127.51 1682.99,143.90 1678.76,160.98 1672.99,191.43 1641.29,297.76 1604.06,443.71"/>
+        <lane id="210_0" index="0" speed="13.89" length="369.44" shape="1695.17,85.76 1686.29,127.49 1682.97,143.97 1678.79,160.89 1672.96,191.60 1641.31,297.70 1604.06,443.71"/>
         <lane id="210_1" index="1" speed="13.89" length="369.44" shape="1691.94,85.07 1683.06,126.82 1679.75,143.25 1675.56,160.19 1669.75,190.82 1638.13,296.82 1600.87,442.89"/>
-        <lane id="210_2" index="2" speed="13.89" length="369.44" shape="1688.71,84.38 1679.83,126.13 1676.51,142.60 1672.36,159.40 1666.51,190.21 1634.97,295.88 1597.67,442.08"/>
+        <lane id="210_2" index="2" speed="13.89" length="369.44" shape="1688.71,84.38 1679.83,126.15 1676.53,142.53 1672.33,159.49 1666.54,190.04 1634.95,295.94 1597.67,442.08"/>
     </edge>
     <edge id="31" from="26" to="27" priority="-1" shape="1602.33,570.96 1585.13,574.63">
         <lane id="31_0" index="0" speed="13.89" length="26.70" shape="1604.05,579.03 1577.91,584.61"/>
