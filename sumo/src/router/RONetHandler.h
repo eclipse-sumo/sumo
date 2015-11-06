@@ -140,18 +140,12 @@ protected:
     void parseConnection(const SUMOSAXAttributes& attrs);
 
 
-    /** @begin Parses a bus stop
-     * Called on the occurence of a "busStop" element
-     * @param[in] attrs The attributes (of the "busStop"-element) to parse
+    /** @begin Parses a stopping place
+     * Called on the occurence of a "busStop", "trainStop" or "containerStop" element
+     * @param[in] attrs The attributes to parse
+     * @param[in] element which kind of stop is to be parsed
      */
-    void parseBusStop(const SUMOSAXAttributes& attrs);
-
-
-    /** @begin Parses a container stop
-     * Called on the occurence of a "containerStop" element
-     * @param[in] attrs The attributes (of the "containerStop"-element) to parse
-     */
-    void parseContainerStop(const SUMOSAXAttributes& attrs);
+    void parseStoppingPlace(const SUMOSAXAttributes& attrs, const SumoXMLTag element);
 
 
     /** @begin Parses a district and creates a pseudo edge for it
