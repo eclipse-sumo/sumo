@@ -89,7 +89,7 @@
 #define TURN_LANE_DIST (SUMOReal)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
 //#define DEBUG_COND (myVehicle.getID() == "1501_27271428" || myVehicle.getID() == "1502_27270000")
-//#define DEBUG_COND (myVehicle.getID() == "overtaking")
+//#define DEBUG_COND (myVehicle.getID() == "disabled")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "Costa_12_13") // test stops_overtaking
@@ -134,7 +134,7 @@ MSLCM_JE2013::wantsChange(
     gDebugFlag2 = DEBUG_COND;
 
     if (gDebugFlag2) {
-        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+        std::cout << "\n" << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
                   << " veh=" << myVehicle.getID()
                   << " lane=" << myVehicle.getLane()->getID()
                   << " pos=" << myVehicle.getPositionOnLane()
@@ -725,6 +725,8 @@ MSLCM_JE2013::_wantsChange(
                   << " veh=" << myVehicle.getID()
                   << " firstBlocked=" << tryID(*firstBlocked)
                   << " lastBlocked=" << tryID(*lastBlocked)
+                  << " leader=" << tryID(leader.first)
+                  << " leaderGap=" << leader.second
                   << " neighLead=" << tryID(neighLead.first)
                   << " neighLeadGap=" << neighLead.second
                   << " neighFollow=" << tryID(neighFollow.first)
