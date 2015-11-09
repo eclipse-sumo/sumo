@@ -70,7 +70,7 @@ public:
     void addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
                  const std::string& vTypes, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop);
 
-    void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines);
+    void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, const std::string& destStop);
 
     void addWalk(const SUMOReal duration, const SUMOReal speed, const ConstROEdgeVector& edges,
                  const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop);
@@ -153,7 +153,10 @@ public:
      */
     class Ride : public TripItem {
     public:
-        Ride(const ROEdge* const from, const ROEdge* const to, const std::string& lines) : from(from), to(to), lines(lines) {}
+        Ride(const ROEdge* const _from, const ROEdge* const _to,
+             const std::string& _lines, const std::string& _destStop="")
+             : from(_from), to(_to), lines(_lines), destStop(_destStop) {}
+
         const ROEdge* getOrigin() const {
             return from;
         }
@@ -166,6 +169,7 @@ public:
         const ROEdge* const from;
         const ROEdge* const to;
         const std::string lines;
+        const std::string destStop;
 
     private:
         /// @brief Invalidated assignment operator
@@ -179,11 +183,11 @@ public:
      */
     class Walk : public TripItem {
     public:
-        Walk(const ConstROEdgeVector& edges)
-            : dur(-1), v(-1), edges(edges), dep(std::numeric_limits<SUMOReal>::infinity()), arr(std::numeric_limits<SUMOReal>::infinity()), busStop("") {}
+        Walk(const ConstROEdgeVector& _edges, const std::string& _destStop="")
+            : dur(-1), v(-1), edges(_edges), dep(std::numeric_limits<SUMOReal>::infinity()), arr(std::numeric_limits<SUMOReal>::infinity()), destStop(_destStop) {}
         Walk(const SUMOReal duration, const SUMOReal speed, const ConstROEdgeVector& edges,
-             const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop)
-            : dur(duration), v(speed), edges(edges), dep(departPos), arr(arrivalPos), busStop(busStop) {}
+             const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& _destStop)
+            : dur(duration), v(speed), edges(edges), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
         const ROEdge* getOrigin() const {
             return edges.front();
         }
@@ -195,7 +199,7 @@ public:
     private:
         const SUMOReal dur, v, dep, arr;
         const ConstROEdgeVector edges;
-        const std::string busStop;
+        const std::string destStop;
 
     private:
         /// @brief Invalidated assignment operator
@@ -241,6 +245,9 @@ public:
         }
         SUMOReal getArrivalPos() const {
             return arr;
+        }
+        SVCPermissions getModes() const {
+            return modes;
         }
         bool isIntermodal() const {
             return modes != SVC_PASSENGER && modes != SVC_PEDESTRIAN;

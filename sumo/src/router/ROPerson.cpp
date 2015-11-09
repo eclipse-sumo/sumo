@@ -91,12 +91,13 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
     myPlan.push_back(trip);
 }
 
+
 void
-ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines) {
+ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, const std::string& destStop) {
     if (myPlan.empty() || myPlan.back()->isStop()) {
         myPlan.push_back(new PersonTrip());
     }
-    myPlan.back()->addTripItem(new Ride(from, to, lines));
+    myPlan.back()->addTripItem(new Ride(from, to, lines, destStop));
 }
 
 
@@ -118,8 +119,15 @@ ROPerson::addStop(const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const
 void
 ROPerson::Ride::saveAsXML(OutputDevice& os) const {
     os.openTag(SUMO_TAG_RIDE);
-    os.writeAttr(SUMO_ATTR_FROM, from->getID());
-    os.writeAttr(SUMO_ATTR_TO, to->getID());
+    if (from != 0) {
+        os.writeAttr(SUMO_ATTR_FROM, from->getID());
+    }
+    if (to != 0) {
+        os.writeAttr(SUMO_ATTR_TO, to->getID());
+    }
+    if (destStop != "") {
+        os.writeAttr(SUMO_ATTR_BUS_STOP, destStop);
+    }
     os.writeAttr(SUMO_ATTR_LINES, lines);
     os.closeTag();
 }
@@ -141,8 +149,8 @@ ROPerson::Walk::saveAsXML(OutputDevice& os) const {
     if (arr != std::numeric_limits<SUMOReal>::infinity()) {
         os.writeAttr(SUMO_ATTR_ARRIVALPOS, arr);
     }
-    if (busStop != "") {
-        os.writeAttr(SUMO_ATTR_BUS_STOP, busStop);
+    if (destStop != "") {
+        os.writeAttr(SUMO_ATTR_BUS_STOP, destStop);
     }
     os.closeTag();
 }
@@ -158,21 +166,20 @@ ROPerson::PersonTrip::saveVehicles(OutputDevice& os, bool asAlternatives, Option
 
 bool
 ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
-    std::vector<std::pair<std::string, ConstROEdgeVector> > result;
-    provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(), DEFAULT_PEDESTRIAN_SPEED, veh, 0, result);
+    std::vector<ROIntermodalRouter::TripItem> result;
+    provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(),
+                                           DEFAULT_PEDESTRIAN_SPEED, veh, trip->getModes(), 0, result);
     bool carUsed = false;
-    for (std::vector<std::pair<std::string, ConstROEdgeVector> >::const_iterator it = result.begin(); it != result.end(); ++it) {
-        const ConstROEdgeVector& edges = it->second;
-        if (!edges.empty()) {
-            const std::string& lines = it->first;
-            if (lines == "") {
-                trip->addTripItem(new Walk(edges));
-            } else if (veh != 0 && lines == veh->getID()) {
-                trip->addTripItem(new Ride(edges.front(), edges.back(), veh->getID()));
-                veh->getRouteDefinition()->addLoadedAlternative(new RORoute(veh->getID() + "_RouteDef", edges));
+    for (std::vector<ROIntermodalRouter::TripItem>::const_iterator it = result.begin(); it != result.end(); ++it) {
+        if (!it->edges.empty()) {
+            if (it->line == "") {
+                trip->addTripItem(new Walk(it->edges, it->destStop));
+            } else if (veh != 0 && it->line == veh->getID()) {
+                trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), it->destStop));
+                veh->getRouteDefinition()->addLoadedAlternative(new RORoute(veh->getID() + "_RouteDef", it->edges));
                 carUsed = true;
             } else {
-                trip->addTripItem(new Ride(edges.front(), edges.back(), lines));
+                trip->addTripItem(new Ride(0, 0, it->line, it->destStop));
             }
         }
     }

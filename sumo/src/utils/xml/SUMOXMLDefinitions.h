@@ -94,6 +94,8 @@ enum SumoXMLTag {
     SUMO_TAG_BUS_STOP,
     /// @brief A train stop (alias for bus stop)
     SUMO_TAG_TRAIN_STOP,
+    /// @brief An access point for a train stop
+    SUMO_TAG_ACCESS,
     /// @brief A container stop
     SUMO_TAG_CONTAINER_STOP,
     /// @brief A Charging Station

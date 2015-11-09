@@ -168,7 +168,8 @@ RORouteHandler::myStartElement(int element,
                 throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
             }
             const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
-            myActivePerson->addRide(from, to, desc);
+            const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, pid.c_str(), ok, "");
+            myActivePerson->addRide(from, to, desc, busStop);
             break;
         }
         case SUMO_TAG_PERSONTRIP:

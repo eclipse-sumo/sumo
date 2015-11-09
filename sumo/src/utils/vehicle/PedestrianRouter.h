@@ -4,7 +4,7 @@
 /// @date    Mon, 03 March 2014
 /// @version $Id$
 ///
-// The Pedestrian Router build a special network and (delegegates to a SUMOAbstractRouter)
+// The Pedestrian Router builds a special network and delegates to a SUMOAbstractRouter.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors

@@ -68,15 +68,18 @@ inline const L* getSidewalk(const E* edge) {
 template<class E, class N, class V>
 struct IntermodalTrip {
 
-    IntermodalTrip(const E* _from, const E* _to, SUMOReal _departPos, SUMOReal _arrivalPos, SUMOReal _speed, SUMOTime _departTime, const N* _node, const V* _vehicle=0) :
+    IntermodalTrip(const E* _from, const E* _to, SUMOReal _departPos, SUMOReal _arrivalPos,
+                   SUMOReal _speed, SUMOTime _departTime, const N* _node,
+                   const V* _vehicle=0, const SVCPermissions _modeSet=SVC_PEDESTRIAN) :
         from(_from),
         to(_to),
-        node(_node),
-        vehicle(_vehicle),
         departPos(_departPos < 0 ? _from->getLength() + _departPos : _departPos),
         arrivalPos(_arrivalPos < 0 ? _to->getLength() + _arrivalPos : _arrivalPos),
         speed(_speed),
-        departTime(_departTime)
+        departTime(_departTime),
+        node(_node),
+        vehicle(_vehicle),
+        modeSet(_modeSet)
     {}
 
     // exists just for debugging purposes
@@ -91,12 +94,13 @@ struct IntermodalTrip {
 
     const E* const from;
     const E* const to;
-    const N* const node; // indicates whether only routing across this node shall be performed
-    const V* const vehicle; // indicates which vehicle may be used
     const SUMOReal departPos;
     const SUMOReal arrivalPos;
     const SUMOReal speed;
     const SUMOTime departTime;
+    const N* const node; // indicates whether only routing across this node shall be performed
+    const V* const vehicle; // indicates which vehicle may be used
+    const SVCPermissions modeSet;
 private:
     /// @brief Invalidated assignment operator.
     IntermodalTrip& operator=(const IntermodalTrip&);
@@ -121,10 +125,6 @@ public:
 
     const std::string& getLine() const {
         return myLine;
-    }
-
-    virtual const E* getStartEdge() const {
-        return 0;
     }
 
     const E* getEdge() const {

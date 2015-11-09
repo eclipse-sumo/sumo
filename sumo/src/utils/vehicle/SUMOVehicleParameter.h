@@ -486,6 +486,8 @@ public:
         std::set<std::string> awaitedPersons;
         /// @brief IDs of containers the vehicle has to wait for until departing
         std::set<std::string> awaitedContainers;
+        /// @brief lanes and positions connected to this stop
+        std::multimap<std::string, SUMOReal> accessPos;
         /// @brief at which position in the stops list
         int index;
         /// @brief Information for the output which parameter were set

@@ -184,7 +184,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     }
     net.openOutput(filename, altFilename, oc.getString("vtype-output"));
     RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>(),
-                              new IntermodalRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>());
+                              new ROIntermodalRouter(RONet::adaptIntermodalRouter));
     // process route definitions
     try {
         loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),

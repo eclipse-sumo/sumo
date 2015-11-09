@@ -167,6 +167,16 @@ public:
     }
 
 
+    /** @brief Retrieves an edge from the network when the lane id is given
+     *
+     * @param[in] laneID The name of the lane to retrieve the edge for
+     * @return The edge of the named lane if known, otherwise 0
+     */
+    ROEdge* getEdgeForLaneID(const std::string& laneID) const {
+        return getEdge(laneID.substr(0, laneID.rfind("_")));
+    }
+
+
     /* @brief Adds a read node to the network
      *
      * If the node is already known (another one with the same id exists),
@@ -413,13 +423,7 @@ public:
 
     const std::map<std::string, ROEdge*>& getEdgeMap() const;
 
-    const std::map<std::string, SUMOVehicleParameter*>& getFlows() const {
-        return myFlows.getMyMap();
-    }
-
-    const RoutablesMap& getRoutables() const {
-        return myRoutables;
-    }
+    static void adaptIntermodalRouter(ROIntermodalRouter& router);
 
     bool hasPermissions() const;
 

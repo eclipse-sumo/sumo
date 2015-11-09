@@ -629,6 +629,33 @@ RONet::getEdgeMap() const {
 }
 
 
+void
+RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
+    // add access to all public transport stops
+    for (std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator i = myInstance->myBusStops.begin(); i != myInstance->myBusStops.end(); ++i) {
+        router.addAccess(i->first, myInstance->getEdgeForLaneID(i->second->lane), i->second->endPos);
+        for (std::multimap<std::string, SUMOReal>::const_iterator a = i->second->accessPos.begin(); a != i->second->accessPos.end(); ++a) {
+            router.addAccess(i->first, myInstance->getEdgeForLaneID(a->first), a->second);
+        }
+    }
+    // fill the public transport router with pre-parsed public transport lines
+    for (std::map<std::string, SUMOVehicleParameter*>::const_iterator i = myInstance->myFlows.getMyMap().begin(); i != myInstance->myFlows.getMyMap().end(); ++i) {
+        if (i->second->line != "") {
+            router.addSchedule(*i->second);
+        }
+    }
+    for (RoutablesMap::const_iterator i = myInstance->myRoutables.begin(); i != myInstance->myRoutables.end(); ++i) {
+        for (std::deque<RORoutable*>::const_iterator r = i->second.begin(); r != i->second.end(); ++r) {
+            const ROVehicle* const veh = dynamic_cast<ROVehicle*>(*r);
+            // add single vehicles with line attribute which are not part of a flow
+            if (veh != 0 && veh->getParameter().line != "" && veh->getParameter().repetitionNumber < 0) {
+                router.addSchedule(veh->getParameter());
+            }
+        }
+    }
+}
+
+
 bool
 RONet::hasPermissions() const {
     return myHavePermissions;

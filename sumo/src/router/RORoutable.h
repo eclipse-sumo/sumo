@@ -48,6 +48,7 @@ class RONode;
 class ROVehicle;
 
 typedef std::vector<const ROEdge*> ConstROEdgeVector;
+typedef IntermodalRouter<ROEdge, ROLane, RONode, ROVehicle> ROIntermodalRouter;
 typedef RouterProvider<ROEdge, ROLane, RONode, ROVehicle> RORouterProvider;
 
 
