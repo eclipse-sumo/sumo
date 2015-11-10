@@ -76,7 +76,8 @@ public:
                     // only a single edge
                     addEdge(new _PedestrianEdge(numericalID++, edge, lane, true));
                     myBidiLookup[edge] = std::make_pair(myEdges.back(), myEdges.back());
-                    myFromToLookup[edge] = std::make_pair(myEdges.back(), myEdges.back());
+                    myDepartLookup[edge].push_back(myEdges.back());
+                    myArrivalLookup[edge].push_back(myEdges.back());
                     haveSeenWalkingArea = true;
                 } else { // regular edge or crossing
                     // forward and backward edges
@@ -88,8 +89,9 @@ public:
             if (!edge->isWalkingArea()) {
                 // depart and arrival edges (the router can decide the initial direction to take and the direction to arrive from)
                 addEdge(new _IntermodalEdge(edge->getID() + "_depart_connector", numericalID++, edge, "!connector"));
+                myDepartLookup[edge].push_back(myEdges.back());
                 addEdge(new _IntermodalEdge(edge->getID() + "_arrival_connector", numericalID++, edge, "!connector"));
-                myFromToLookup[edge] = std::make_pair(myEdges[numericalID - 2], myEdges.back());
+                myArrivalLookup[edge].push_back(myEdges.back());
             }
         }
 
@@ -209,12 +211,9 @@ public:
     }
 
     ~IntermodalNetwork() {
-        myFromToLookup.clear();
-        myBidiLookup.clear();
         for (typename std::vector<_IntermodalEdge*>::iterator it = myEdges.begin(); it != myEdges.end(); ++it) {
             delete *it;
         }
-        myEdges.clear();
     }
 
     void addEdge(_IntermodalEdge* edge) {
@@ -222,6 +221,13 @@ public:
             myEdges.push_back(0);
         }
         myEdges[edge->getNumericalID()] = edge;
+    }
+
+    void addConnectors(_IntermodalEdge* const depConn, _IntermodalEdge* const arrConn, const int splitIndex) {
+        addEdge(depConn);
+        addEdge(arrConn);
+        myDepartLookup[depConn->getEdge()].insert(myDepartLookup[depConn->getEdge()].begin() + splitIndex, depConn);
+        myArrivalLookup[arrConn->getEdge()].insert(myArrivalLookup[arrConn->getEdge()].begin() + splitIndex, arrConn);
     }
 
     const std::vector<_IntermodalEdge*>& getAllEdges() {
@@ -239,21 +245,35 @@ public:
     }
 
     /// @brief Returns the departing Intermodal edge
-    _IntermodalEdge* getDepartEdge(const E* e) {
-        typename std::map<const E*, EdgePair>::const_iterator it = myFromToLookup.find(e);
-        if (it == myFromToLookup.end()) {
+    _IntermodalEdge* getDepartEdge(const E* e, const SUMOReal pos=-1.) {
+        typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
+        if (it == myDepartLookup.end()) {
             throw ProcessError("Depart edge '" + e->getID() + "' not found in pedestrian network.");
         }
-        return (*it).second.first;
+        const std::vector<_IntermodalEdge*>& splitList = it->second;        
+        std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
+        SUMOReal totalLength = 0.;
+        while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {
+            totalLength += (*splitIt)->getLength();
+            ++splitIt;
+        }
+        return *splitIt;
     }
 
     /// @brief Returns the arriving Intermodal edge
-    _IntermodalEdge* getArrivalEdge(const E* e) {
-        typename std::map<const E*, EdgePair>::const_iterator it = myFromToLookup.find(e);
-        if (it == myFromToLookup.end()) {
+    _IntermodalEdge* getArrivalEdge(const E* e, const SUMOReal pos=-1.) {
+        typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myArrivalLookup.find(e);
+        if (it == myArrivalLookup.end()) {
             throw ProcessError("Arrival edge '" + e->getID() + "' not found in pedestrian network.");
         }
-        return (*it).second.second;
+        const std::vector<_IntermodalEdge*>& splitList = it->second;        
+        std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
+        SUMOReal totalLength = 0.;
+        while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {
+            totalLength += (*splitIt)->getLength();
+            ++splitIt;
+        }
+        return *splitIt;
     }
 
 
@@ -264,8 +284,11 @@ private:
     /// @brief retrieve the forward and backward edge for the given input edge E
     std::map<const E*, EdgePair> myBidiLookup;
 
-    /// @brief retrieve the depart and arrival edge for the given input edge E
-    std::map<const E*, EdgePair> myFromToLookup;
+    /// @brief retrieve the depart edges for the given input edge E
+    std::map<const E*, std::vector<_IntermodalEdge*> > myDepartLookup;
+
+    /// @brief retrieve the arrival edges for the given input edge E
+    std::map<const E*, std::vector<_IntermodalEdge*> > myArrivalLookup;
 
 };
 

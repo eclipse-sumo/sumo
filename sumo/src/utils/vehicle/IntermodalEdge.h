@@ -115,7 +115,8 @@ public:
         Named(id),
         myNumericalID(numericalID),
         myEdge(edge),
-        myLine(line) { }
+        myLine(line),
+        myLength(edge->getLength()) { }
 
     virtual ~IntermodalEdge() {}
 
@@ -123,23 +124,32 @@ public:
         return false;
     }
 
-    const std::string& getLine() const {
+    inline const std::string& getLine() const {
         return myLine;
     }
 
-    const E* getEdge() const {
+    inline const E* getEdge() const {
         return myEdge;
     }
-
-    /// @name The interface as required by SUMOAbstractRouter routes
-    /// @{
 
     unsigned int getNumericalID() const {
         return myNumericalID;
     }
 
-    virtual void addSuccessor(IntermodalEdge* s) {
+    void addSuccessor(IntermodalEdge* s) {
         myFollowingEdges.push_back(s);
+    }
+
+    void setSuccessors(const std::vector<IntermodalEdge*>& edges) {
+        myFollowingEdges = edges;
+    }
+
+    void clearSuccessors() {
+        myFollowingEdges.clear();
+    }
+
+    void removeSuccessor(const IntermodalEdge* const edge) {
+        myFollowingEdges.erase(std::find(myFollowingEdges.begin(), myFollowingEdges.end(), edge));
     }
 
     const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass /*vClass*/) const {
@@ -151,8 +161,6 @@ public:
         return false;
     }
 
-    /// @}
-
     virtual SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, SUMOReal /* time */) const {
         return 0;
     }
@@ -161,21 +169,30 @@ public:
         return edge->getTravelTime(trip, time);
     }
 
+    inline SUMOReal getLength() const {
+        return myLength;
+    }
 
-protected:
-    /// @brief  the original edge
-    const E* const myEdge;
+    inline void setLength(const SUMOReal length) {
+        myLength = length;
+    }
 
 
 private:
     /// @brief the index in myEdges
     const unsigned int myNumericalID;
 
-    /// @brief List of edges that may be approached from this edge
-    std::vector<IntermodalEdge*> myFollowingEdges;
+    /// @brief  the original edge
+    const E* const myEdge;
 
     /// @brief public transport line or ped vs car
     const std::string myLine;
+
+    /// @brief adaptable length (for splitted edges)
+    SUMOReal myLength;
+
+    /// @brief List of edges that may be approached from this edge
+    std::vector<IntermodalEdge*> myFollowingEdges;
 
 private:
     /// @brief Invalidated copy constructor
@@ -191,17 +208,15 @@ private:
 template<class E, class L, class N, class V>
 class PedestrianEdge : public IntermodalEdge<E, L, N, V> {
 public:
-    PedestrianEdge(unsigned int numericalID, const E* edge, const L* lane, bool forward) :
-        IntermodalEdge<E, L, N, V>(edge->getID() + (edge->isWalkingArea() ? "" : (forward ? "_fwd" : "_bwd")), numericalID, edge, "!ped"),
+    PedestrianEdge(unsigned int numericalID, const E* edge, const L* lane, bool forward, const SUMOReal pos=-1.) :
+        IntermodalEdge<E, L, N, V>(edge->getID() + (edge->isWalkingArea() ? "" : (forward ? "_fwd" : "_bwd")) + toString(pos), numericalID, edge, "!ped"),
         myLane(lane),
-        myForward(forward) { }
+        myForward(forward),
+        myStartPos(pos >= 0 ? pos : 0.) { }
 
     bool includeInRoute(bool allEdges) const {
-        return allEdges || (!this->myEdge->isCrossing() && !this->myEdge->isWalkingArea());
+        return allEdges || (!this->getEdge()->isCrossing() && !this->getEdge()->isWalkingArea());
     }
-
-    /// @name The interface as required by SUMOAbstractRouter routes
-    /// @{
 
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
         if (trip->node == 0) {
@@ -209,34 +224,33 @@ public:
             return false;
         } else {
             // limit routing to the surroundings of the specified node
-            return (this->myEdge->getFromJunction() != trip->node
-                    && this->myEdge->getToJunction() != trip->node);
+            return (this->getEdge()->getFromJunction() != trip->node
+                    && this->getEdge()->getToJunction() != trip->node);
         }
     }
 
-    /// @}
-
     virtual SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
-        SUMOReal length = this->myEdge->getLength();
-        if (this->myEdge == trip->from) {
+        SUMOReal length = this->getLength();
+        // @todo does not work for identical depart and arrival edge
+        if (this->getEdge() == trip->from) {
             if (myForward) {
-                length -= trip->departPos;
+                length -= (trip->departPos - myStartPos);
             } else {
-                length = trip->departPos;
+                length = trip->departPos - myStartPos;
             }
         }
-        if (this->myEdge == trip->to) {
+        if (this->getEdge() == trip->to) {
             if (myForward) {
-                length = trip->arrivalPos;
+                length = trip->arrivalPos - myStartPos;
             } else {
-                length -= trip->arrivalPos;
+                length -= (trip->arrivalPos - myStartPos);
             }
         }
         // ensure that 'normal' edges always have a higher weight than connector edges
         length = MAX2(length, POSITION_EPS);
         SUMOReal tlsDelay = 0;
         // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
-        if (this->myEdge->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
+        if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
             // red traffic lights occurring later in the route may be green by the time we arive
             tlsDelay += MAX2(SUMOReal(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
         }
@@ -252,6 +266,9 @@ private:
 
     /// @brief the direction of this edge
     const bool myForward;
+
+    /// @brief the starting position for split edges
+    const SUMOReal myStartPos;
 
 };
 

@@ -53,33 +53,41 @@
 template<class E, class L, class N, class V>
 class CarEdge : public IntermodalEdge<E, L, N, V> {
 public:
-    CarEdge(unsigned int numericalID, const E* edge) :
-        IntermodalEdge<E, L, N, V>(edge->getID() + "_car", numericalID, edge, "!car") { }
+    CarEdge(unsigned int numericalID, const E* edge, const SUMOReal pos=-1.) :
+        IntermodalEdge<E, L, N, V>(edge->getID() + "_car" + toString(pos), numericalID, edge, "!car"),
+        myStartPos(pos >= 0 ? pos : 0.) { }
 
     bool includeInRoute(bool /* allEdges */) const {
         return true;
     }
 
-    /// @name The interface as required by SUMOAbstractRouter routes
-    /// @{
-
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
-        return trip->vehicle == 0 || this->myEdge->prohibits(trip->vehicle);
+        return trip->vehicle == 0 || this->getEdge()->prohibits(trip->vehicle);
     }
 
-    /// @}
+    SUMOReal getEntryPos(const IntermodalTrip<E, N, V>* const trip) const {
+        if (this->getEdge() == trip->from) {
+            return trip->departPos;
+        }
+        return 0.;
+    }
 
     SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
-        const SUMOReal length = this->myEdge->getLength();
-        const SUMOReal travelTime = E::getTravelTimeStatic(this->myEdge, trip->vehicle, time);
-        if (this->myEdge == trip->from) {
-             return travelTime * (length - trip->departPos) / length;
+        const SUMOReal travelTime = E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time);
+        SUMOReal distTravelled = this->getLength();
+        // checking arrivalPos first to have it correct for identical depart and arrival edge
+        if (this->getEdge() == trip->to) {
+            distTravelled = trip->arrivalPos - myStartPos;
         }
-        if (this->myEdge == trip->to) {
-            return travelTime * trip->arrivalPos / length;
+        if (this->getEdge() == trip->from) {
+            distTravelled -= trip->departPos - myStartPos;
         }
-        return travelTime;
+        return travelTime * distTravelled / this->getEdge()->getLength();
     }
+
+private:
+    /// @brief the starting position for split edges
+    const SUMOReal myStartPos;
 
 };
 
@@ -163,18 +171,16 @@ private:
 
 public:
     AccessEdge(unsigned int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge,
-               const SUMOReal inScale, const SUMOReal outScale, const SUMOReal transferTime = NUMERICAL_EPS) :
+               const SUMOReal transferTime = NUMERICAL_EPS) :
         _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID(), numericalID, outEdge->getEdge(), "!access"),
-        myInEdge(inEdge), myOutEdge(outEdge), myInScale(inScale), myOutScale(outScale), myTransferTime(transferTime) { }
+        myTransferTime(transferTime) { }
 
-    SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
-        return myTransferTime - myInEdge->getTravelTime(trip, time) * myInScale - myOutEdge->getTravelTime(trip, time) * myOutScale;
+    SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, SUMOReal /* time */) const {
+        return myTransferTime;
     }
 
 private:
-    const _IntermodalEdge* const myInEdge;
-    const _IntermodalEdge* const myOutEdge;
-    const SUMOReal myInScale, myOutScale, myTransferTime;
+    const SUMOReal myTransferTime;
 
 };
 
@@ -222,6 +228,54 @@ public:
         return new IntermodalRouter<E, L, N, V, INTERNALROUTER>(myIntermodalNet);
     }
 
+    int splitEdge(_IntermodalEdge* const toSplit, _IntermodalEdge* afterSplit, const SUMOReal pos,
+                  _IntermodalEdge* const fwdConn, _IntermodalEdge* const backConn=0) {
+        int splitIndex = 1;
+        std::vector<_IntermodalEdge*>& splitList = myAccessSplits[toSplit];
+        if (splitList.empty()) {
+            splitList.push_back(toSplit);
+        }
+        std::vector<_IntermodalEdge*>::iterator splitIt = splitList.begin();
+        SUMOReal totalLength = 0.;
+        while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {
+            totalLength += (*splitIt)->getLength();
+            ++splitIt;
+            splitIndex++;
+        }
+        assert(splitIt != splitList.end());
+        _IntermodalEdge* const beforeSplit = *splitIt;
+        if (fabs(totalLength - pos) < POSITION_EPS && splitIt + 1 != splitList.end()) {
+            // don't split, use the present split edges
+            splitIndex = -1;
+            afterSplit = *(splitIt + 1);
+        } else {
+            myIntermodalNet->addEdge(afterSplit);
+            afterSplit->setSuccessors(beforeSplit->getSuccessors(SVC_IGNORING));
+            beforeSplit->clearSuccessors();
+            beforeSplit->addSuccessor(afterSplit);
+            afterSplit->setLength(totalLength - pos);
+            beforeSplit->setLength(beforeSplit->getLength() - afterSplit->getLength());
+            splitList.insert(splitIt + 1, afterSplit);
+        }
+        // add access to / from edge
+        _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, fwdConn);
+        myIntermodalNet->addEdge(access);
+        beforeSplit->addSuccessor(access);
+        access->addSuccessor(fwdConn);
+        if (backConn == 0) {
+            _AccessEdge* exit = new _AccessEdge(myNumericalID++, fwdConn, afterSplit);
+            myIntermodalNet->addEdge(exit);
+            fwdConn->addSuccessor(exit);
+            exit->addSuccessor(afterSplit);
+        } else {
+            _AccessEdge* backward = new _AccessEdge(myNumericalID++, beforeSplit, backConn);
+            myIntermodalNet->addEdge(backward);
+            beforeSplit->addSuccessor(backward);
+            backward->addSuccessor(backConn);
+        }
+        return splitIndex;
+    }
+
     void addAccess(const std::string& stopId, const E* stopEdge, const SUMOReal pos) {
         assert(stopEdge != 0);
         if (myStopConnections.count(stopId) == 0) {
@@ -229,36 +283,38 @@ public:
             myIntermodalNet->addEdge(myStopConnections[stopId]);
         }
         _IntermodalEdge* const stopConn = myStopConnections[stopId];
-        if (getSidewalk<E, L>(stopEdge) != 0) {
+        const L* lane = getSidewalk<E, L>(stopEdge);
+        if (lane != 0) {
             const std::pair<_IntermodalEdge*, _IntermodalEdge*>& pair = myIntermodalNet->getBothDirections(stopEdge);
-            _AccessEdge* forwardAccess = new _AccessEdge(myNumericalID++, pair.first, stopConn, 1 - pos / pair.first->getEdge()->getLength(), 0);
-            myIntermodalNet->addEdge(forwardAccess);
-            pair.first->addSuccessor(forwardAccess);
-            forwardAccess->addSuccessor(stopConn);
-            _AccessEdge* backwardAccess = new _AccessEdge(myNumericalID++, pair.second, stopConn, pos / pair.second->getEdge()->getLength(), 0);
-            myIntermodalNet->addEdge(backwardAccess);
-            pair.second->addSuccessor(backwardAccess);
-            backwardAccess->addSuccessor(stopConn);
-
-            _AccessEdge* forwardExit = new _AccessEdge(myNumericalID++, stopConn, pair.first, 0, pos / pair.first->getEdge()->getLength());
-            myIntermodalNet->addEdge(forwardExit);
-            stopConn->addSuccessor(forwardExit);
-            forwardExit->addSuccessor(pair.first);
-            _AccessEdge* backwardExit = new _AccessEdge(myNumericalID++, stopConn, pair.second, 0, 1 - pos / pair.second->getEdge()->getLength());
-            myIntermodalNet->addEdge(backwardExit);
-            stopConn->addSuccessor(backwardExit);
-            backwardExit->addSuccessor(pair.second);
-
+            _IntermodalEdge* const fwdSplit = new PedestrianEdge<E, L, N, V>(myNumericalID++, stopEdge, lane, true, pos);
+            const int splitIndex = splitEdge(pair.first, fwdSplit, pos, stopConn);
+            _IntermodalEdge* const backSplit = new PedestrianEdge<E, L, N, V>(myNumericalID++, stopEdge, lane, false, stopEdge->getLength() - pos);
+            splitEdge(pair.second, backSplit, stopEdge->getLength() - pos, stopConn);
+            _IntermodalEdge* carSplit = 0;
             if (myCarLookup.count(stopEdge) > 0) {
-                _IntermodalEdge* const carEdge = myCarLookup[stopEdge];
-                _AccessEdge* forward = new _AccessEdge(myNumericalID++, carEdge, pair.first, pos / carEdge->getEdge()->getLength(), 1 - (pos / pair.first->getEdge()->getLength()));
-                myIntermodalNet->addEdge(forward);
-                carEdge->addSuccessor(forward);
-                forward->addSuccessor(pair.first);
-                _AccessEdge* backward = new _AccessEdge(myNumericalID++, carEdge, pair.second, pos / carEdge->getEdge()->getLength(), pos / pair.second->getEdge()->getLength());
-                myIntermodalNet->addEdge(backward);
-                carEdge->addSuccessor(backward);
-                backward->addSuccessor(pair.second);
+                carSplit = new CarEdge<E, L, N, V>(myNumericalID++, stopEdge, pos);
+                splitEdge(myCarLookup[stopEdge], carSplit, pos, pair.first, pair.second);
+            }
+            if (splitIndex >= 0) {
+                _IntermodalEdge* const prevDep = myIntermodalNet->getDepartEdge(stopEdge, pos);
+                _IntermodalEdge* const backBeforeSplit = myAccessSplits[pair.second][myAccessSplits[pair.second].size() - 1 - splitIndex];
+                // depart and arrival edges (the router can decide the initial direction to take and the direction to arrive from)
+                _IntermodalEdge* const depConn = new _IntermodalEdge(stopEdge->getID() + "_depart_connector" + toString(pos), myNumericalID++, stopEdge, "!connector");
+                depConn->addSuccessor(fwdSplit);
+                depConn->addSuccessor(backBeforeSplit);
+                prevDep->removeSuccessor(backBeforeSplit);
+                prevDep->addSuccessor(backSplit);
+                if (carSplit != 0) {
+                    depConn->addSuccessor(carSplit);
+                }
+
+                _IntermodalEdge* const arrConn = new _IntermodalEdge(stopEdge->getID() + "_arrival_connector" + toString(pos), myNumericalID++, stopEdge, "!connector");
+                fwdSplit->addSuccessor(arrConn);
+                backBeforeSplit->addSuccessor(arrConn);
+                if (carSplit != 0) {
+                    carSplit->addSuccessor(arrConn);
+                }
+                myIntermodalNet->addConnectors(depConn, arrConn, splitIndex);
             }
         }
     }
@@ -347,7 +403,9 @@ public:
                                 into.push_back(TripItem(lastLine));
                             }
                         }
-                        into.back().edges.push_back(intoPed[i]->getEdge());
+                        if (into.back().edges.empty() || into.back().edges.back() != intoPed[i]->getEdge()) {
+                            into.back().edges.push_back(intoPed[i]->getEdge());
+                        }
                     }
                 }
             }
@@ -409,18 +467,6 @@ private:
                 _IntermodalEdge* startConnector = myIntermodalNet->getDepartEdge(edge);
                 _IntermodalEdge* endConnector = myIntermodalNet->getArrivalEdge(edge);
                 _IntermodalEdge* carEdge = getCarEdge(edge);
-                if (getSidewalk<E, L>(edge) != 0) {
-                    const std::pair<_IntermodalEdge*, _IntermodalEdge*>& pair = myIntermodalNet->getBothDirections(edge);
-                    _IntermodalEdge* forwardAccess = new _AccessEdge(myNumericalID++, carEdge, pair.first, 0, 1);
-                    myIntermodalNet->addEdge(forwardAccess);
-                    carEdge->addSuccessor(forwardAccess);
-                    forwardAccess->addSuccessor(pair.first);
-
-                    _IntermodalEdge* backwardAccess = new _AccessEdge(myNumericalID++, carEdge, pair.second, 1, 1);
-                    myIntermodalNet->addEdge(backwardAccess);
-                    carEdge->addSuccessor(backwardAccess);
-                    backwardAccess->addSuccessor(pair.second);
-                }
                 const std::vector<E*>& successors = edge->getSuccessors();
                 for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
                     carEdge->addSuccessor(getCarEdge(*it));
@@ -465,6 +511,9 @@ private:
 
     /// @brief retrieve the connecting edges for the given "bus" stop
     std::map<std::string, _IntermodalEdge*> myStopConnections;
+
+    /// @brief retrieve the splitted edges for the given "original"
+    std::map<_IntermodalEdge*, std::vector<_IntermodalEdge*> > myAccessSplits;
 
 
 private:
