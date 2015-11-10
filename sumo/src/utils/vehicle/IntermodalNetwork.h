@@ -251,7 +251,7 @@ public:
             throw ProcessError("Depart edge '" + e->getID() + "' not found in pedestrian network.");
         }
         const std::vector<_IntermodalEdge*>& splitList = it->second;        
-        std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
+        typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
         SUMOReal totalLength = 0.;
         while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {
             totalLength += (*splitIt)->getLength();
@@ -267,7 +267,7 @@ public:
             throw ProcessError("Arrival edge '" + e->getID() + "' not found in pedestrian network.");
         }
         const std::vector<_IntermodalEdge*>& splitList = it->second;        
-        std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
+        typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
         SUMOReal totalLength = 0.;
         while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {
             totalLength += (*splitIt)->getLength();
