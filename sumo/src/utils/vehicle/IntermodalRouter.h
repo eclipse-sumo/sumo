@@ -37,6 +37,10 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
+#ifdef HAVE_FOX
+#include <utils/common/AbstractMutex.h>
+#include <utils/foxtools/MFXMutex.h>
+#endif
 #include "SUMOAbstractRouter.h"
 #include "SUMOVehicleParameter.h"
 #include "DijkstraRouterTT.h"
@@ -61,15 +65,33 @@ public:
         return true;
     }
 
-    bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
-        return trip->vehicle == 0 || this->getEdge()->prohibits(trip->vehicle);
+    const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass) const {
+        if (vClass == SVC_IGNORING /* || !RONet::getInstance()->hasPermissions() */) {
+            return this->myFollowingEdges;
+        }
+#ifdef HAVE_FOX
+        AbstractMutex::ScopedLocker locker(myLock);
+#endif
+        std::map<SUMOVehicleClass, std::vector<IntermodalEdge*> >::const_iterator i = myClassesSuccessorMap.find(vClass);
+        if (i != myClassesSuccessorMap.end()) {
+            // can use cached value
+            return i->second;
+        } else {
+            // this vClass is requested for the first time. rebuild all successors
+            const std::set<const E*> classedCarFollowers = std::set<const E*>(this->getEdge()->getSuccessors(vClass).begin(), this->getEdge()->getSuccessors(vClass).end());
+            for (std::vector<IntermodalEdge*>::const_iterator e = this->myFollowingEdges.begin(); e != this->myFollowingEdges.end(); ++e) {
+                if (!(*e)->includeInRoute(true) || (*e)->getEdge() == this->getEdge() || classedCarFollowers.count((*e)->getEdge()) > 0) {
+                    myClassesSuccessorMap[vClass].push_back(*e);
+                }
+            }
+            return myClassesSuccessorMap[vClass];
+        }
+
     }
 
-    SUMOReal getEntryPos(const IntermodalTrip<E, N, V>* const trip) const {
-        if (this->getEdge() == trip->from) {
-            return trip->departPos;
-        }
-        return 0.;
+
+    bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
+        return trip->vehicle == 0 || this->getEdge()->prohibits(trip->vehicle);
     }
 
     SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
@@ -89,6 +111,13 @@ private:
     /// @brief the starting position for split edges
     const SUMOReal myStartPos;
 
+    /// @brief The successors available for a given vClass
+    mutable std::map<SUMOVehicleClass, std::vector<IntermodalEdge<E, L, N, V>*> > myClassesSuccessorMap;
+
+#ifdef HAVE_FOX
+    /// The mutex used to avoid concurrent updates of myClassesSuccessorMap
+    mutable MFXMutex myLock;
+#endif
 };
 
 

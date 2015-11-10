@@ -511,9 +511,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
     checkFlows(time, mh);
     SUMOTime lastTime = -1;
     const bool removeLoops = options.getBool("remove-loops");
-#ifdef HAVE_FOX
     const int maxNumThreads = options.getInt("routing-threads");
-#endif
     if (myRoutables.size() != 0) {
         if (options.getBool("bulk-routing")) {
 #ifdef HAVE_FOX
@@ -530,7 +528,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                 for (std::deque<RORoutable*>::const_iterator r = i->second.begin(); r != i->second.end(); ++r) {
                     RORoutable* const routable = *r;
 #ifdef HAVE_FOX
-                // add task
+                    // add task
                     if (maxNumThreads > 0) {
                         // add thread if necessary
                         const int numThreads = (int)myThreadPool.size();

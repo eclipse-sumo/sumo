@@ -436,16 +436,6 @@ public:
         return myRoutesOutput;
     }
 
-#ifdef HAVE_FOX
-    void lock() {
-        myThreadPool.lock();
-    }
-
-    void unlock() {
-        myThreadPool.unlock();
-    }
-#endif
-
 
 private:
     void checkFlows(SUMOTime time, MsgHandler* errorHandler);

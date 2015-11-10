@@ -152,7 +152,7 @@ public:
         myFollowingEdges.erase(std::find(myFollowingEdges.begin(), myFollowingEdges.end(), edge));
     }
 
-    const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass /*vClass*/) const {
+    virtual const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass /*vClass*/) const {
         // the network is already tailored for pedestrians. No need to check for permissions here
         return myFollowingEdges;
     }
@@ -177,6 +177,9 @@ public:
         myLength = length;
     }
 
+protected:
+    /// @brief List of edges that may be approached from this edge
+    std::vector<IntermodalEdge*> myFollowingEdges;
 
 private:
     /// @brief the index in myEdges
@@ -190,9 +193,6 @@ private:
 
     /// @brief adaptable length (for splitted edges)
     SUMOReal myLength;
-
-    /// @brief List of edges that may be approached from this edge
-    std::vector<IntermodalEdge*> myFollowingEdges;
 
 private:
     /// @brief Invalidated copy constructor

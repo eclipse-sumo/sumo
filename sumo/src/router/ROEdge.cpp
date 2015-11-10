@@ -38,13 +38,16 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
-#include "ROLane.h"
-#include "ROEdge.h"
-#include "RONet.h"
-#include "ROVehicle.h"
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
+#ifdef HAVE_FOX
+#include <utils/common/AbstractMutex.h>
+#endif
+#include "ROLane.h"
+#include "RONet.h"
+#include "ROVehicle.h"
+#include "ROEdge.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -55,7 +58,6 @@
 // static member definitions
 // ===========================================================================
 bool ROEdge::myInterpolate = false;
-bool ROEdge::myAmParallel = false;
 bool ROEdge::myHaveTTWarned = false;
 bool ROEdge::myHaveEWarned = false;
 ROEdgeVector ROEdge::myEdges;
@@ -288,18 +290,11 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
         return myFollowingEdges;
     }
 #ifdef HAVE_FOX
-    if (myAmParallel) {
-        RONet::getInstance()->lock();
-    }
+    AbstractMutex::ScopedLocker locker(myLock);
 #endif
     std::map<SUMOVehicleClass, ROEdgeVector>::const_iterator i = myClassesSuccessorMap.find(vClass);
     if (i != myClassesSuccessorMap.end()) {
         // can use cached value
-#ifdef HAVE_FOX
-        if (myAmParallel) {
-            RONet::getInstance()->unlock();
-        }
-#endif
         return i->second;
     } else {
         // this vClass is requested for the first time. rebuild all successors
@@ -324,11 +319,6 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
         }
         myClassesSuccessorMap[vClass].insert(myClassesSuccessorMap[vClass].begin(),
                                              followers.begin(), followers.end());
-#ifdef HAVE_FOX
-        if (myAmParallel) {
-            RONet::getInstance()->unlock();
-        }
-#endif
         return myClassesSuccessorMap[vClass];
     }
 

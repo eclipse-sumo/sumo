@@ -83,7 +83,7 @@ void
 initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // load the net
     RODUAEdgeBuilder builder;
-    ROEdge::setGlobalOptions(oc.getBool("weights.interpolate"), oc.getInt("routing-threads") > 1);
+    ROEdge::setGlobalOptions(oc.getBool("weights.interpolate"));
     loader.loadNet(net, builder);
     // load the weights when wished/available
     if (oc.isSet("weight-files")) {

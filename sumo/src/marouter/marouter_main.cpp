@@ -96,7 +96,7 @@ void
 initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // load the net
     ROMAEdgeBuilder builder;
-    ROEdge::setGlobalOptions(oc.getBool("weights.interpolate"), false);
+    ROEdge::setGlobalOptions(oc.getBool("weights.interpolate"));
     loader.loadNet(net, builder);
     // initialize the travel times
     /* const SUMOTime begin = string2time(oc.getString("begin"));
