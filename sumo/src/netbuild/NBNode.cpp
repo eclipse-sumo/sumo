@@ -90,7 +90,6 @@ const int NBNode::FORWARD(1);
 const int NBNode::BACKWARD(-1);
 const SUMOReal NBNode::DEFAULT_CROSSING_WIDTH(4);
 const SUMOReal NBNode::UNSPECIFIED_RADIUS = -1;
-const SUMOReal NBNode::DEFAULT_RADIUS = 1.5;
 
 // ===========================================================================
 // method definitions

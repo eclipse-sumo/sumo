@@ -495,6 +495,9 @@
         <!-- Whether junctions should be kept clear by default -->
         <default.junctions.keep-clear value="true" type="BOOL"/>
 
+        <!-- The default turning radius of intersections -->
+        <default.junctions.radius value="1.5" type="FLOAT"/>
+
     </building_defaults>
 
     <report>

@@ -309,6 +309,9 @@
         <!-- Whether junctions should be kept clear by default -->
         <default.junctions.keep-clear value="true" type="BOOL"/>
 
+        <!-- The default turning radius of intersections -->
+        <default.junctions.radius value="1.5" type="FLOAT"/>
+
         <!-- [traffic_light|priority|right_before_left] Determines the type of the build junctions -->
         <default-junction-type value="" synonymes="j junctions" type="STR"/>
 

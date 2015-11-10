@@ -79,6 +79,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.junctions.keep-clear", new Option_Bool(true));
     oc.addDescription("default.junctions.keep-clear", "Building Defaults", "Whether junctions should be kept clear by default");
 
+    oc.doRegister("default.junctions.radius", new Option_Float(1.5));
+    oc.addDescription("default.junctions.radius", "Building Defaults", "The default turning radius of intersections");
+
     // register the data processing options
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Processing", "Omits internal links");

@@ -142,7 +142,8 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         return PositionVector();
     }
     // magic values
-    const SUMOReal radius = (myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS ? NBNode::DEFAULT_RADIUS : myNode.getRadius());
+    const SUMOReal radius = (myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS ? 
+            OptionsCont::getOptions().getFloat("default.junctions.radius") : myNode.getRadius());
     const int cornerDetail = OptionsCont::getOptions().getInt("junctions.corner-detail");
 
     // initialise

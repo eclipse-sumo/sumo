@@ -185,9 +185,6 @@ public:
     /// @brief default width of pedetrian crossings
     static const SUMOReal DEFAULT_CROSSING_WIDTH;
 
-    /// @brief the default turning radius at intersections in m
-    static const SUMOReal DEFAULT_RADIUS;
-
     /// @brief unspecified lane width
     static const SUMOReal UNSPECIFIED_RADIUS;
 
