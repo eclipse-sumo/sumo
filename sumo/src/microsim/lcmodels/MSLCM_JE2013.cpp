@@ -1031,6 +1031,13 @@ MSLCM_JE2013::_wantsChange(
         // @todo: what if leader is below safe gap?!!!
         thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
     }
+    if (gDebugFlag2) {
+        std::cout << STEPS2TIME(currentTime)
+            << " veh=" << myVehicle.getID()
+            << " currentDist=" << currentDist
+            << " neighDist=" << neighDist
+            << "\n";
+    }
 
     const SUMOReal vMax = MIN2(myVehicle.getVehicleType().getMaxSpeed(), myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
     thisLaneVSafe = MIN2(thisLaneVSafe, vMax);
@@ -1079,6 +1086,7 @@ MSLCM_JE2013::_wantsChange(
                           << " fullSpeedGap=" << fullSpeedGap
                           << " fullSpeedDrivingSeconds=" << fullSpeedDrivingSeconds
                           << " dProb=" << deltaProb
+                          << " myKeepRightProbability=" << myKeepRightProbability
                           << "\n";
             }
             if (myKeepRightProbability < -CHANGE_PROB_THRESHOLD_RIGHT) {
@@ -1093,7 +1101,7 @@ MSLCM_JE2013::_wantsChange(
             std::cout << STEPS2TIME(currentTime)
                       << " veh=" << myVehicle.getID()
                       << " speed=" << myVehicle.getSpeed()
-                      << " myKeepRightProbability=" << myKeepRightProbability
+                      << " mySpeedGainProbability=" << mySpeedGainProbability
                       << " thisLaneVSafe=" << thisLaneVSafe
                       << " neighLaneVSafe=" << neighLaneVSafe
                       << " relativeGain=" << relativeGain
@@ -1128,6 +1136,18 @@ MSLCM_JE2013::_wantsChange(
         //        return ret | LCA_STAY | LCA_SPEEDGAIN;
         //    }
         //}
+
+        if (gDebugFlag2) {
+            std::cout << STEPS2TIME(currentTime)
+                      << " veh=" << myVehicle.getID()
+                      << " speed=" << myVehicle.getSpeed()
+                      << " mySpeedGainProbability=" << mySpeedGainProbability
+                      << " thisLaneVSafe=" << thisLaneVSafe
+                      << " neighLaneVSafe=" << neighLaneVSafe
+                      << " relativeGain=" << relativeGain
+                      << " blocked=" << blocked
+                      << "\n";
+        }
         if (mySpeedGainProbability > CHANGE_PROB_THRESHOLD_LEFT && neighDist / MAX2((SUMOReal) .1, myVehicle.getSpeed()) > 20.) { // .1
             req = ret | lca | LCA_SPEEDGAIN;
             if (!cancelRequest(req)) {
