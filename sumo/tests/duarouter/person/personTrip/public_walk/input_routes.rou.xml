@@ -5,9 +5,9 @@
 		<stop busStop="end_0" until="210"/>
 	</flow>
     <person id="p0" depart="0">
-        <personTrip from="beg" to="end" modes="public walk"/>
+        <personTrip from="beg" to="end" modes="public"/>
     </person>
     <person id="p1" depart="0">
-        <personTrip from="end" to="beg" modes="public walk"/>
+        <personTrip from="end" to="beg" modes="public"/>
     </person>
 </routes>

@@ -1,0 +1,8 @@
+
+[Reported by erdm_ja at 23Feb13:14:41]
+search_string:-1
+trigger_on_absence:1
+search_file:exitcode
+ignore_other_errors:1
+full_description:CHRouter is not connection-aware
+brief_description:#303

@@ -23,13 +23,10 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="typ0" vClass="passenger"/>
-    <vehicle id="p0_0" type="typ0" depart="triggered">
-        <routeDistribution last="0">
-            <route cost="0.00" probability="0.00000000" edges="beg middle end"/>
-        </routeDistribution>
-    </vehicle>
     <person id="p0" depart="0.00">
-        <ride from="beg" to="end" lines="p0_0"/>
+        <walk edges="beg middle end"/>
+    </person>
+    <person id="p1" depart="0.00">
+        <walk edges="end middle beg"/>
     </person>
 </routes>

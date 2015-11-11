@@ -9,6 +9,6 @@
        <stop busStop="end_0" until="110"/>
     </flow>
     <person id="p0" depart="0">
-        <personTrip from="beg" to="end" modes="public walk"/>
+        <personTrip from="beg" to="end" modes="public"/>
     </person>
 </routes>

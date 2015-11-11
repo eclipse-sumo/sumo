@@ -24,3 +24,12 @@ busstop
 
 # public transport via bustops with non matching stops for the same line
 busstop_unmatched
+
+# the desired trip is connected for some vClasses but not for the given one
+no_valid_connection
+
+# car and walk in one trip
+intermodal_car_walk
+
+# car and walk in one trip but no stop for changing modes
+intermodal_car_walk_no_place
