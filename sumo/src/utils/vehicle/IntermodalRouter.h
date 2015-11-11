@@ -150,7 +150,7 @@ public:
             const std::pair<_IntermodalEdge*, _IntermodalEdge*>& pair = myIntermodalNet->getBothDirections(stopEdge);
             _IntermodalEdge* const fwdSplit = new PedestrianEdge<E, L, N, V>(myNumericalID++, stopEdge, lane, true, pos);
             const int splitIndex = splitEdge(pair.first, fwdSplit, pos, stopConn);
-            _IntermodalEdge* const backSplit = new PedestrianEdge<E, L, N, V>(myNumericalID++, stopEdge, lane, false, stopEdge->getLength() - pos);
+            _IntermodalEdge* const backSplit = new PedestrianEdge<E, L, N, V>(myNumericalID++, stopEdge, lane, false, pos);
             splitEdge(pair.second, backSplit, stopEdge->getLength() - pos, stopConn);
             _IntermodalEdge* carSplit = 0;
             if (myCarLookup.count(stopEdge) > 0) {
@@ -245,8 +245,8 @@ public:
         createNet();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet);
         std::vector<const _IntermodalEdge*> intoPed;
-        const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from),
-                                                       myIntermodalNet->getArrivalEdge(to),
+        const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from, departPos),
+                                                       myIntermodalNet->getArrivalEdge(to, arrivalPos),
                                                        &trip, msTime, intoPed);
         if (success) {
             std::string lastLine = "";

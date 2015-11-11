@@ -231,20 +231,17 @@ public:
 
     virtual SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
         SUMOReal length = this->getLength();
-        // @todo does not work for identical depart and arrival edge
-        if (this->getEdge() == trip->from) {
-            if (myForward) {
-                length -= (trip->departPos - myStartPos);
-            } else {
-                length = trip->departPos - myStartPos;
-            }
+        if (this->getEdge() == trip->from && !myForward) {
+            length = trip->departPos - myStartPos;
         }
-        if (this->getEdge() == trip->to) {
-            if (myForward) {
-                length = trip->arrivalPos - myStartPos;
-            } else {
-                length -= (trip->arrivalPos - myStartPos);
-            }
+        if (this->getEdge() == trip->to && myForward) {
+            length = trip->arrivalPos - myStartPos;
+        }
+        if (this->getEdge() == trip->from && myForward) {
+            length -= (trip->departPos - myStartPos);
+        }
+        if (this->getEdge() == trip->to && !myForward) {
+            length -= (trip->arrivalPos - myStartPos);
         }
         // ensure that 'normal' edges always have a higher weight than connector edges
         length = MAX2(length, POSITION_EPS);
