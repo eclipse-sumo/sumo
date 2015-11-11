@@ -42,30 +42,33 @@
 /// @brief the car edge type that is given to the internal router (SUMOAbstractRouter)
 template<class E, class L, class N, class V>
 class CarEdge : public IntermodalEdge<E, L, N, V> {
+private:
+    typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
+
 public:
     CarEdge(unsigned int numericalID, const E* edge, const SUMOReal pos=-1.) :
-        IntermodalEdge<E, L, N, V>(edge->getID() + "_car" + toString(pos), numericalID, edge, "!car"),
+        _IntermodalEdge(edge->getID() + "_car" + toString(pos), numericalID, edge, "!car"),
         myStartPos(pos >= 0 ? pos : 0.) { }
 
     bool includeInRoute(bool /* allEdges */) const {
         return true;
     }
 
-    const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass) const {
+    const std::vector<_IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass) const {
         if (vClass == SVC_IGNORING /* || !RONet::getInstance()->hasPermissions() */) {
             return this->myFollowingEdges;
         }
 #ifdef HAVE_FOX
         FXMutexLock locker(myLock);
 #endif
-        std::map<SUMOVehicleClass, std::vector<IntermodalEdge*> >::const_iterator i = myClassesSuccessorMap.find(vClass);
+        typename std::map<SUMOVehicleClass, std::vector<_IntermodalEdge*> >::const_iterator i = myClassesSuccessorMap.find(vClass);
         if (i != myClassesSuccessorMap.end()) {
             // can use cached value
             return i->second;
         } else {
             // this vClass is requested for the first time. rebuild all successors
             const std::set<const E*> classedCarFollowers = std::set<const E*>(this->getEdge()->getSuccessors(vClass).begin(), this->getEdge()->getSuccessors(vClass).end());
-            for (std::vector<IntermodalEdge*>::const_iterator e = this->myFollowingEdges.begin(); e != this->myFollowingEdges.end(); ++e) {
+            for (typename std::vector<_IntermodalEdge*>::const_iterator e = this->myFollowingEdges.begin(); e != this->myFollowingEdges.end(); ++e) {
                 if (!(*e)->includeInRoute(true) || (*e)->getEdge() == this->getEdge() || classedCarFollowers.count((*e)->getEdge()) > 0) {
                     myClassesSuccessorMap[vClass].push_back(*e);
                 }
@@ -98,7 +101,7 @@ private:
     const SUMOReal myStartPos;
 
     /// @brief The successors available for a given vClass
-    mutable std::map<SUMOVehicleClass, std::vector<IntermodalEdge<E, L, N, V>*> > myClassesSuccessorMap;
+    mutable std::map<SUMOVehicleClass, std::vector<_IntermodalEdge*> > myClassesSuccessorMap;
 
 #ifdef HAVE_FOX
     /// The mutex used to avoid concurrent updates of myClassesSuccessorMap

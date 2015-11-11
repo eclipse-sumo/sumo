@@ -67,12 +67,9 @@ private:
 public:
     struct TripItem {
         TripItem(const std::string& _line="") : line(_line) {}
-        const std::string line;
+        std::string line;
         std::string destStop;
         std::vector<const E*> edges;
-    private:
-        /// @brief Invalidated assignment operator
-        TripItem& operator=(const TripItem& src);
     };
 
     /// Constructor
@@ -100,7 +97,7 @@ public:
         if (splitList.empty()) {
             splitList.push_back(toSplit);
         }
-        std::vector<_IntermodalEdge*>::iterator splitIt = splitList.begin();
+        typename std::vector<_IntermodalEdge*>::iterator splitIt = splitList.begin();
         SUMOReal totalLength = 0.;
         while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {
             totalLength += (*splitIt)->getLength();
