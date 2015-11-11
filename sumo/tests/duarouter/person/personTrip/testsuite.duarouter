@@ -4,6 +4,9 @@ basic
 # car use requested
 car
 
+# car use of a special type requested
+car_type
+
 # car and walk possible
 car_walk
 
