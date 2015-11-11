@@ -249,9 +249,6 @@ public:
         SVCPermissions getModes() const {
             return modes;
         }
-        bool isIntermodal() const {
-            return modes != SVC_PASSENGER && modes != SVC_PEDESTRIAN;
-        }
         virtual bool needsRouting() const {
             return myTripItems.empty();
         }

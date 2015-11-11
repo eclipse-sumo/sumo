@@ -152,12 +152,13 @@ public:
             const int splitIndex = splitEdge(pair.first, fwdSplit, pos, stopConn);
             _IntermodalEdge* const backSplit = new PedestrianEdge<E, L, N, V>(myNumericalID++, stopEdge, lane, false, pos);
             splitEdge(pair.second, backSplit, stopEdge->getLength() - pos, stopConn);
-            _IntermodalEdge* carSplit = 0;
-            if (myCarLookup.count(stopEdge) > 0) {
-                carSplit = new CarEdge<E, L, N, V>(myNumericalID++, stopEdge, pos);
-                splitEdge(myCarLookup[stopEdge], carSplit, pos, pair.first, pair.second);
-            }
             if (splitIndex >= 0) {
+                _IntermodalEdge* carSplit = 0;
+                if (myCarLookup.count(stopEdge) > 0) {
+                    carSplit = new CarEdge<E, L, N, V>(myNumericalID++, stopEdge, pos);
+                    splitEdge(myCarLookup[stopEdge], carSplit, pos, fwdSplit, backSplit);
+                }
+
                 _IntermodalEdge* const prevDep = myIntermodalNet->getDepartEdge(stopEdge, pos);
                 _IntermodalEdge* const backBeforeSplit = myAccessSplits[pair.second][myAccessSplits[pair.second].size() - 1 - splitIndex];
                 // depart and arrival edges (the router can decide the initial direction to take and the direction to arrive from)

@@ -678,7 +678,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     assert(!attrs.hasAttribute(SUMO_ATTR_EDGES));
     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, id, ok);
     const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, id, ok);
-    const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "walk");
+    const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
     const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
     const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, id, ok, "");
 
@@ -701,8 +701,6 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         const std::string mode = st.next();
         if (mode == "car") {
             modeSet |= SVC_PASSENGER;
-        } else if (mode == "walk") {
-            modeSet |= SVC_PEDESTRIAN;
         } else if (mode == "bicycle") {
             modeSet |= SVC_BICYCLE;
         } else if (mode == "public") {
