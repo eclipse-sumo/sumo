@@ -37,14 +37,11 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
-#ifdef HAVE_FOX
-#include <utils/common/AbstractMutex.h>
-#include <utils/foxtools/MFXMutex.h>
-#endif
 #include "SUMOAbstractRouter.h"
 #include "SUMOVehicleParameter.h"
 #include "DijkstraRouterTT.h"
 #include "IntermodalNetwork.h"
+#include "CarEdge.h"
 #include "PedestrianRouter.h"
 
 //#define IntermodalRouter_DEBUG_ROUTES
@@ -53,167 +50,6 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/// @brief the car edge type that is given to the internal router (SUMOAbstractRouter)
-template<class E, class L, class N, class V>
-class CarEdge : public IntermodalEdge<E, L, N, V> {
-public:
-    CarEdge(unsigned int numericalID, const E* edge, const SUMOReal pos=-1.) :
-        IntermodalEdge<E, L, N, V>(edge->getID() + "_car" + toString(pos), numericalID, edge, "!car"),
-        myStartPos(pos >= 0 ? pos : 0.) { }
-
-    bool includeInRoute(bool /* allEdges */) const {
-        return true;
-    }
-
-    const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass) const {
-        if (vClass == SVC_IGNORING /* || !RONet::getInstance()->hasPermissions() */) {
-            return this->myFollowingEdges;
-        }
-#ifdef HAVE_FOX
-        AbstractMutex::ScopedLocker locker(myLock);
-#endif
-        std::map<SUMOVehicleClass, std::vector<IntermodalEdge*> >::const_iterator i = myClassesSuccessorMap.find(vClass);
-        if (i != myClassesSuccessorMap.end()) {
-            // can use cached value
-            return i->second;
-        } else {
-            // this vClass is requested for the first time. rebuild all successors
-            const std::set<const E*> classedCarFollowers = std::set<const E*>(this->getEdge()->getSuccessors(vClass).begin(), this->getEdge()->getSuccessors(vClass).end());
-            for (std::vector<IntermodalEdge*>::const_iterator e = this->myFollowingEdges.begin(); e != this->myFollowingEdges.end(); ++e) {
-                if (!(*e)->includeInRoute(true) || (*e)->getEdge() == this->getEdge() || classedCarFollowers.count((*e)->getEdge()) > 0) {
-                    myClassesSuccessorMap[vClass].push_back(*e);
-                }
-            }
-            return myClassesSuccessorMap[vClass];
-        }
-
-    }
-
-
-    bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
-        return trip->vehicle == 0 || this->getEdge()->prohibits(trip->vehicle);
-    }
-
-    SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
-        const SUMOReal travelTime = E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time);
-        SUMOReal distTravelled = this->getLength();
-        // checking arrivalPos first to have it correct for identical depart and arrival edge
-        if (this->getEdge() == trip->to) {
-            distTravelled = trip->arrivalPos - myStartPos;
-        }
-        if (this->getEdge() == trip->from) {
-            distTravelled -= trip->departPos - myStartPos;
-        }
-        return travelTime * distTravelled / this->getEdge()->getLength();
-    }
-
-private:
-    /// @brief the starting position for split edges
-    const SUMOReal myStartPos;
-
-    /// @brief The successors available for a given vClass
-    mutable std::map<SUMOVehicleClass, std::vector<IntermodalEdge<E, L, N, V>*> > myClassesSuccessorMap;
-
-#ifdef HAVE_FOX
-    /// The mutex used to avoid concurrent updates of myClassesSuccessorMap
-    mutable MFXMutex myLock;
-#endif
-};
-
-
-/// @brief the stop edge type representing bus and train stops
-template<class E, class L, class N, class V>
-class StopEdge : public IntermodalEdge<E, L, N, V> {
-public:
-    StopEdge(const std::string id, unsigned int numericalID, const E* edge) :
-        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop") { }
-
-    bool includeInRoute(bool /* allEdges */) const {
-        return true;
-    }
-
-    bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
-        return trip->modeSet && SVC_BUS == 0;
-    }
-};
-
-
-/// @brief the public transport edge type connecting the stop edges
-template<class E, class L, class N, class V>
-class PublicTransportEdge : public IntermodalEdge<E, L, N, V> {
-private:
-    struct Schedule {
-        Schedule(const SUMOTime _begin, const SUMOTime _end, const SUMOTime _period, const SUMOReal _travelTimeSec)
-            : begin(_begin), end(_end), period(_period), travelTimeSec(_travelTimeSec) {}
-        const SUMOTime begin;
-        const SUMOTime end;
-        const SUMOTime period;
-        const SUMOReal travelTimeSec;
-    private:
-        /// @brief Invalidated assignment operator
-        Schedule& operator=(const Schedule& src);
-    };
-
-public:
-    PublicTransportEdge(const std::string id, unsigned int numericalID, const IntermodalEdge<E, L, N, V>* entryStop, const E* endEdge, const std::string& line) :
-        IntermodalEdge<E, L, N, V>(line + ":" + (id != "" ? id : endEdge->getID()), numericalID, endEdge, line), myEntryStop(entryStop) { }
-
-    bool includeInRoute(bool /* allEdges */) const {
-        return true;
-    }
-
-    const IntermodalEdge<E, L, N, V>* getEntryStop() const {
-        return myEntryStop;
-    }
-
-    void addSchedule(const SUMOTime begin, const SUMOTime end, const SUMOTime period, const SUMOReal travelTimeSec) {
-        mySchedules.insert(std::make_pair(STEPS2TIME(begin), Schedule(begin, end, period, travelTimeSec)));
-    }
-
-    SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, SUMOReal time) const {
-        SUMOReal minArrivalSec = std::numeric_limits<SUMOReal>::max();
-        for (typename std::multimap<SUMOReal, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
-            if (it->first > minArrivalSec) {
-                break;
-            }
-            if (time < STEPS2TIME(it->second.end)) {
-                const long long int running = MAX2((SUMOTime)0, TIME2STEPS(time) - it->second.begin) / it->second.period;
-                const SUMOTime nextDepart = it->second.begin + running * it->second.period;
-                minArrivalSec = MIN2(STEPS2TIME(nextDepart) + it->second.travelTimeSec, minArrivalSec);
-            }
-        }
-        return minArrivalSec - time;
-    }
-
-private:
-    std::multimap<SUMOReal, Schedule> mySchedules;
-    const IntermodalEdge<E, L, N, V>* const myEntryStop;
-
-};
-
-
-/// @brief the access edge connecting diferent modes that is given to the internal router (SUMOAbstractRouter)
-template<class E, class L, class N, class V>
-class AccessEdge : public IntermodalEdge<E, L, N, V> {
-private:
-    typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
-
-public:
-    AccessEdge(unsigned int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge,
-               const SUMOReal transferTime = NUMERICAL_EPS) :
-        _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID(), numericalID, outEdge->getEdge(), "!access"),
-        myTransferTime(transferTime) { }
-
-    SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, SUMOReal /* time */) const {
-        return myTransferTime;
-    }
-
-private:
-    const SUMOReal myTransferTime;
-
-};
-
-
 /**
  * @class IntermodalRouter
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)

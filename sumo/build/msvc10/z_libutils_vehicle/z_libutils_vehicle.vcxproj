@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\vehicle\AStarRouter.h" />
+    <ClInclude Include="..\..\..\src\utils\vehicle\CarEdge.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\CHRouter.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\CHRouterWrapper.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\DijkstraRouterEffort.h" />

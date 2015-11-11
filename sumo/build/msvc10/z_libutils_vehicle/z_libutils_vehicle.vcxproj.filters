@@ -70,5 +70,8 @@
     <ClInclude Include="..\..\..\src\utils\vehicle\IntermodalNetwork.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\vehicle\CarEdge.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

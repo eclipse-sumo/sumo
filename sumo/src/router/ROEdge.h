@@ -45,7 +45,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/emissions/PollutantsInterface.h>
 #ifdef HAVE_FOX
-#include <utils/foxtools/MFXMutex.h>
+#include <fx.h>
 #endif
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include "RONode.h"
@@ -508,7 +508,7 @@ protected:
 
 #ifdef HAVE_FOX
     /// The mutex used to avoid concurrent updates of myClassesSuccessorMap
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 #endif
 
 private:

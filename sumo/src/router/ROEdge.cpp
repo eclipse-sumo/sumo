@@ -41,9 +41,6 @@
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
-#ifdef HAVE_FOX
-#include <utils/common/AbstractMutex.h>
-#endif
 #include "ROLane.h"
 #include "RONet.h"
 #include "ROVehicle.h"
@@ -290,7 +287,7 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
         return myFollowingEdges;
     }
 #ifdef HAVE_FOX
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
 #endif
     std::map<SUMOVehicleClass, ROEdgeVector>::const_iterator i = myClassesSuccessorMap.find(vClass);
     if (i != myClassesSuccessorMap.end()) {
