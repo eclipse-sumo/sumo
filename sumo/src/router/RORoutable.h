@@ -130,22 +130,9 @@ public:
      */
     void write(OutputDevice& os, OutputDevice* const altos,
                OutputDevice* const typeos, OptionsCont& options) const {
-        // check whether the vehicle's type was saved before
-        if (myType != 0 && !myType->saved) {
-            // ... save if not
-            if (typeos != 0) {
-                myType->write(*typeos);
-            } else {
-                myType->write(os);
-                if (altos != 0) {
-                    myType->write(*altos);
-                }
-            }
-            myType->saved = true;
-        }
-        saveAsXML(os, false, options);
+        saveAsXML(os, typeos, false, options);
         if (altos != 0) {
-            saveAsXML(*altos, true, options);
+            saveAsXML(*altos, typeos, true, options);
         }
     }
 
@@ -161,11 +148,12 @@ protected:
      * Saves the routable itself including the route and stops.
      *
      * @param[in] os The routes or alternatives output device to store the routable's description into
+     * @param[in] typeos The types - output device to store additional types into
      * @param[in] asAlternatives Whether the route shall be saved as route alternatives
      * @param[in] options to find out about defaults and whether exit times for the edges shall be written
      * @exception IOError If something fails (not yet implemented)
      */
-    virtual void saveAsXML(OutputDevice& os, bool asAlternatives, OptionsCont& options) const = 0;
+    virtual void saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const = 0;
 
 
 protected:

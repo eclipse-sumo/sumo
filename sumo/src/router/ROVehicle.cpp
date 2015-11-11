@@ -159,7 +159,16 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
 
 
 void
-ROVehicle::saveAsXML(OutputDevice& os, bool asAlternatives, OptionsCont& options) const {
+ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
+    if (typeos != 0  && myType != 0 && !myType->saved) {
+        myType->write(*typeos);
+        myType->saved = true;
+    }
+    if (myType != 0 && !myType->saved) {
+        myType->write(os);
+        myType->saved = asAlternatives;
+    }
+
     // write the vehicle (new style, with included routes)
     myParameter.write(os, options);
 

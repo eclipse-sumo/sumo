@@ -76,10 +76,11 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
     pars.departProcedure = DEPART_TRIGGERED;
 
     for (StringTokenizer st(vTypes); st.hasNext();) {
-        const std::string vtypeid = st.next();
-        SUMOVTypeParameter* type = net->getVehicleTypeSecure(vtypeid);
+        pars.vtypeid = st.next();
+        pars.setParameter |= VEHPARS_VTYPE_SET;
+        SUMOVTypeParameter* type = net->getVehicleTypeSecure(pars.vtypeid);
         if (type == 0) {
-            throw InvalidArgument("The vehicle type '" + vtypeid + "' in a trip for person '" + getID() + "' is not known.");
+            throw InvalidArgument("The vehicle type '" + pars.vtypeid + "' in a trip for person '" + getID() + "' is not known.");
         }
         pars.id = getID() + "_" + toString(trip->getVehicles().size());
         trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), type, net));
@@ -157,9 +158,9 @@ ROPerson::Walk::saveAsXML(OutputDevice& os) const {
 
 
 void
-ROPerson::PersonTrip::saveVehicles(OutputDevice& os, bool asAlternatives, OptionsCont& options) const {
+ROPerson::PersonTrip::saveVehicles(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
     for (std::vector<ROVehicle*>::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
-        (*it)->saveAsXML(os, asAlternatives, options);
+        (*it)->saveAsXML(os, typeos, asAlternatives, options);
     }
 }
 
@@ -239,10 +240,19 @@ ROPerson::computeRoute(const RORouterProvider& provider,
 
 
 void
-ROPerson::saveAsXML(OutputDevice& os, bool asAlternatives, OptionsCont& options) const {
+ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
     // write the person's vehicles
     for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        (*it)->saveVehicles(os, asAlternatives, options);
+        (*it)->saveVehicles(os, typeos, asAlternatives, options);
+    }
+
+    if (typeos != 0  && myType != 0 && !myType->saved) {
+        myType->write(*typeos);
+        myType->saved = true;
+    }
+    if (myType != 0 && !myType->saved) {
+        myType->write(os);
+        myType->saved = asAlternatives;
     }
 
     // write the person

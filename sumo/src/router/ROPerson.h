@@ -92,7 +92,7 @@ public:
         }
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
-        virtual void saveVehicles(OutputDevice& /* os */, bool /* asAlternatives */, OptionsCont& /* options */) const {}
+        virtual void saveVehicles(OutputDevice& /* os */, OutputDevice* const /* typeos */, bool /* asAlternatives */, OptionsCont& /* options */) const {}
         virtual void saveAsXML(OutputDevice& os) const = 0;
         virtual bool isStop() const {
             return false;
@@ -255,7 +255,7 @@ public:
         virtual bool needsRouting() const {
             return myTripItems.empty();
         }
-        void saveVehicles(OutputDevice& os, bool asAlternatives, OptionsCont& options) const;
+        void saveVehicles(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const;
         void saveAsXML(OutputDevice& os) const {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
                 (*it)->saveAsXML(os);
@@ -298,11 +298,12 @@ public:
      * Saves the person itself including the trips and stops.
      *
      * @param[in] os The routes or alternatives output device to store the routable's description into
+     * @param[in] typeos The types - output device to store additional types into
      * @param[in] asAlternatives Whether the route shall be saved as route alternatives
      * @param[in] options to find out about defaults and whether exit times for the edges shall be written
      * @exception IOError If something fails (not yet implemented)
      */
-    void saveAsXML(OutputDevice& os, bool asAlternatives, OptionsCont& options) const;
+    void saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const;
 
     std::vector<PlanItem*>& getPlan() {
         return myPlan;
