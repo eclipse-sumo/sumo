@@ -467,6 +467,9 @@ MSFrame::checkOptions() {
     if (oc.getBool("sloppy-insert")) {
         WRITE_WARNING("The option 'sloppy-insert' is deprecated, because it is now activated by default, see the new option 'eager-insert'.");
     }
+    if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
+        oc.set("verbose", "true");
+    }
     return ok;
 }
 
