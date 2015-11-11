@@ -308,7 +308,10 @@ NBNetBuilder::compute(OptionsCont& oc,
     //
     if (oc.getBool("roundabouts.guess")) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting roundabouts");
-        myEdgeCont.guessRoundabouts();
+        const int numGuessed = myEdgeCont.guessRoundabouts();
+        if (numGuessed > 0) {
+            WRITE_MESSAGE(" Guessed " + toString(numGuessed) + " roundabout(s).");
+        }
         PROGRESS_DONE_MESSAGE();
     }
     myEdgeCont.markRoundabouts();

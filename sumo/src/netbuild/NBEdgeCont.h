@@ -453,8 +453,9 @@ public:
 
     /** @brief Determines which edges belong to roundabouts and increases their priority
      * @param[out] marked Edges which belong to a roundabout are stored here
+     * @return The number of guessed roundabouts
      */
-    void guessRoundabouts();
+    int guessRoundabouts();
 
 
     /** @brief Returns whether the edge with the id was ignored during parsing

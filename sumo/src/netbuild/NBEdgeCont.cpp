@@ -823,7 +823,7 @@ NBEdgeCont::getGeneratedFrom(const std::string& id) const {
 }
 
 
-void
+int
 NBEdgeCont::guessRoundabouts() {
     myGuessedRoundabouts.clear();
     std::set<NBEdge*> loadedRoundaboutEdges;
@@ -915,6 +915,7 @@ NBEdgeCont::guessRoundabouts() {
             }
         }
     }
+    return (int)myGuessedRoundabouts.size();
 }
 
 
