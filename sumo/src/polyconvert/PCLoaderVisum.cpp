@@ -131,7 +131,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
             }
-            kanten[id].insertAt(index, pos);
+            kanten[id].insert(kanten[id].begin() + index, pos);
             continue;
         } else if (what == "$TEILFLAECHENELEMENT") {
             lineParser.parseLine(line);

@@ -126,10 +126,8 @@ computeSameEnd(PositionVector& l1, PositionVector& l2) {
         if (l2.length2D() - offset > POSITION_EPS) {
             PositionVector tl2 = l2.getSubpart2D(offset, l2.length2D());
             tl2.extrapolate2D(100);
-            while (l2.size() > tl2.size()) {
-                l2.pop_front();
-            }
-            l2.replaceAt(0, tl2[0]);
+            l2.erase(l2.begin(), l2.begin() + (l2.size() - tl2.size()));
+            l2[0] = tl2[0];
         }
     }
 }
@@ -356,8 +354,8 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
         endShape[0] = endPoint;
         PositionVector curve = myNode.computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
         if (curve.size() > 2) {
-            curve.eraseAt(0);
-            curve.eraseAt(-1);
+            curve.erase(curve.begin());
+            curve.pop_back();
             ret = curve;
         }
     }

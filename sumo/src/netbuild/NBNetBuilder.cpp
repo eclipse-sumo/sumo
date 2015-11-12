@@ -503,7 +503,7 @@ NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary,
             while (length > maxLength) {
                 length -= maxLength;
                 steps++;
-                from.insertAt(i + inserted + 1, start + (step * steps));
+                from.insert(from.begin() + i + inserted + 1, start + (step * steps));
                 inserted++;
             }
         }

@@ -458,8 +458,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     }
 
     if (geoms.second[0] != node->getPosition()) {
-        geoms.second.pop_front();
-        geoms.second.push_front(node->getPosition());
+        geoms.second[0] = node->getPosition();
     }
     // build and insert the edges
     NBEdge* one = new NBEdge(firstEdgeName, edge->myFrom, node, edge, geoms.first, noLanesFirstEdge);

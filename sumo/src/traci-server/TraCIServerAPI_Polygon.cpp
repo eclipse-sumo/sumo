@@ -256,7 +256,7 @@ TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
     if (poly == 0) {
         return false;
     }
-    shape.push_back(poly->getShape());
+    shape = poly->getShape();
     return true;
 }
 

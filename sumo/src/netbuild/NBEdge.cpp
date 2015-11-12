@@ -342,8 +342,8 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) {
     myGeom.removeDoublePoints();
     if (!tryIgnoreNodePositions || myGeom.size() < 2) {
         if (myGeom.size() == 0) {
+            myGeom.push_back(myFrom->getPosition());
             myGeom.push_back(myTo->getPosition());
-            myGeom.push_front(myFrom->getPosition());
         } else {
             myGeom.push_back_noDoublePos(myTo->getPosition());
             myGeom.push_front_noDoublePos(myFrom->getPosition());
@@ -351,8 +351,8 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) {
     }
     if (myGeom.size() < 2) {
         myGeom.clear();
+        myGeom.push_back(myFrom->getPosition());
         myGeom.push_back(myTo->getPosition());
-        myGeom.push_front(myFrom->getPosition());
     }
     if (myGeom.size() == 2 && myGeom[0] == myGeom[1]) {
         WRITE_ERROR("Edge's '" + myID + "' from- and to-node are at the same position.");
@@ -404,10 +404,7 @@ NBEdge::mirrorX() {
 // ----------- Edge geometry access and computation
 const PositionVector
 NBEdge::getInnerGeometry() const {
-    PositionVector result = getGeometry();
-    result.pop_front();
-    result.pop_back();
-    return result;
+    return myGeom.getSubpartByIndex(1, myGeom.size() - 2);
 }
 
 
@@ -430,7 +427,7 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
     Position end = myGeom.back(); // may differ from node position
     myGeom = s;
     if (inner) {
-        myGeom.push_front(begin);
+        myGeom.insert(myGeom.begin(), begin);
         myGeom.push_back(end);
     }
     computeLaneShapes();
@@ -505,8 +502,7 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode) c
         assert(pbv.size() > 0);
         SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
         assert(pb >= 0);
-        PositionVector result = laneShape;
-        result.eraseAt(0);
+        PositionVector result = laneShape.getSubpartByIndex(1, laneShape.size() - 1);
         Position np = PositionVector::positionAtOffset2D(lb[0], lb[1], pb);
         result.push_front_noDoublePos(Position(np.x(), np.y(), startNode->getPosition().z()));
         return result;
@@ -539,7 +535,11 @@ NBEdge::setLaneSpreadFunction(LaneSpreadFunction spread) {
 
 void
 NBEdge::addGeometryPoint(int index, const Position& p) {
-    myGeom.insertAt(index, p);
+    if (index >= 0) {
+        myGeom.insert(myGeom.begin() + index, p);
+    } else {
+        myGeom.insert(myGeom.end() + index, p);
+    }
 }
 
 
@@ -625,7 +625,7 @@ NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius, bool fi
                 if (fix) {
                     WRITE_MESSAGE("Removing sharp turn with radius " + toString(r) + " at the " +
                                   (start ? "start" : "end") + " of edge '" + getID() + "'.");
-                    myGeom.eraseAt(start ? 1 : i + 1);
+                    myGeom.erase(myGeom.begin() + (start ? 1 : i + 1));
                     checkGeometry(maxAngle, minRadius, fix);
                     return;
                 } else {

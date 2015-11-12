@@ -474,9 +474,9 @@ TraCIServerAPI_Edge::getShape(const std::string& id, PositionVector& shape) {
         return false;
     }
     const std::vector<MSLane*>& lanes = e->getLanes();
-    shape.push_back(lanes.front()->getShape());
+    shape = lanes.front()->getShape();
     if (lanes.size() > 1) {
-        shape.push_back(lanes.back()->getShape().reverse());
+        copy(lanes.back()->getShape().begin(), lanes.back()->getShape().end(), back_inserter(shape));
     }
     return true;
 }

@@ -2185,13 +2185,13 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                         << " endCrossingWidth=" << endCrossingWidth << " startCrossingWidth=" << startCrossingWidth
                         << "  begShape=" << begShape << " endShape=" << endShape << " smooth curve=" << curve << "\n";
             if (curve.size() > 2) {
-                curve.eraseAt(0);
-                curve.eraseAt(-1);
+                curve.erase(curve.begin());
+                curve.pop_back();
                 if (endCrossingWidth > 0) {
-                    wa.shape.eraseAt(-1);
+                    wa.shape.pop_back();
                 }
                 if (startCrossingWidth > 0) {
-                    wa.shape.eraseAt(0);
+                    wa.shape.erase(wa.shape.begin());
                 }
                 wa.shape.append(curve, 0);
             }

@@ -290,7 +290,7 @@ GNEEdge::deleteGeometry(const Position& pos, GNEUndoList* undoList) {
     }
     int index = geom.indexOfClosest(pos);
     if (geom[index].distanceTo(pos) < SNAP_RADIUS) {
-        geom.eraseAt(index);
+        geom.erase(geom.begin() + index);
         setAttribute(SUMO_ATTR_SHAPE, toString(geom), undoList);
         return true;
     } else {
