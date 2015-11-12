@@ -134,13 +134,13 @@ GUILoadThread::run() {
         MsgHandler::getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
         MsgHandler::getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
         // do this once again to get parsed options
-        MsgHandler::initOutputOptions();
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
         GUIGlobals::gRunAfterLoad = oc.getBool("start");
         GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
         if (!MSFrame::checkOptions()) {
             throw ProcessError();
         }
+        MsgHandler::initOutputOptions();
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
