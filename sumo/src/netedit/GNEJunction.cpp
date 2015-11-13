@@ -182,7 +182,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
 
         if (drawShape) {
             glPushMatrix();
-			setColor(s, false);                        
+            setColor(s, false);                        
             glTranslated(0, 0, getType());
             PositionVector shape = myNBNode.getShape();
             shape.closePolygon();
@@ -371,6 +371,8 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
             return toString(myNBNode.getShape());
         case SUMO_ATTR_RADIUS:
             return toString(myNBNode.getRadius());
+        case SUMO_ATTR_KEEP_CLEAR:
+            return myNBNode.getKeepClear() ? "true" : "false";
         default:
             throw InvalidArgument("junction attribute '" + toString(key) + "' not allowed");
     }
@@ -388,6 +390,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case GNE_ATTR_MODIFICATION_STATUS:
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_RADIUS:
+        case SUMO_ATTR_KEEP_CLEAR:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         case SUMO_ATTR_TYPE: {
@@ -440,6 +443,9 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_RADIUS: 
             return canParse<SUMOReal>(value);
             break;
+        case SUMO_ATTR_KEEP_CLEAR:
+            return value == "true" || value == "false";
+            break;
         default:
             throw InvalidArgument("junction attribute '" + toString(key) + "' not allowed");
     }
@@ -476,6 +482,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_RADIUS: 
             myNBNode.setRadius(parse<SUMOReal>(value));
             break;
+        case SUMO_ATTR_KEEP_CLEAR:
+            myNBNode.setKeepClear(value == "true");
+            break;
         default:
             throw InvalidArgument("junction attribute '" + toString(key) + "' not allowed");
     }
@@ -496,7 +505,7 @@ GNEJunction::setPosition(Position pos) {
 
 SUMOReal
 GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const {
-	switch (s.junctionColorer.getActive()) {
+    switch (s.junctionColorer.getActive()) {
         case 0:
             if (bubble) {
                 return 1;
@@ -542,7 +551,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
 
 void
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
-	GLHelper::setColor(s.junctionColorer.getScheme().getColor(getColorValue(s, bubble)));
+    GLHelper::setColor(s.junctionColorer.getScheme().getColor(getColorValue(s, bubble)));
     // override with special colors
     if (gSelected.isSelected(getType(), getGlID())) {
         GLHelper::setColor(GNENet::selectionColor);

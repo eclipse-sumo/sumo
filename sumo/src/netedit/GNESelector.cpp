@@ -329,6 +329,7 @@ GNESelector::onCmdHelp(FXObject*, FXSelector, void*) {
          << "\n"
          << "Examples:\n"
          << "junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
+		 << "junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"	// PABLO #1985
          << "edge; speed; '>10' -> match all edges with a speed above 10\n";
     new FXLabel(helpDialog, help.str().c_str(), 0, JUSTIFY_LEFT);
     // "OK"
