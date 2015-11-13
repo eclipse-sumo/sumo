@@ -833,7 +833,48 @@ NBNode::computeLanes2Lanes() {
             Bresenham::compute(&divider, numApproaching, divider.numAvailableLanes());
         }
         delete approaching;
+
+        // ensure that all modes have a connection if possible
+        for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
+            NBEdge* incoming = *i;
+            if (incoming->getConnectionLanes(currentOutgoing).size() > 0) {
+                // no connections are needed for pedestrians during this step
+                // no satisfaction is possible if the outgoing edge disallows
+                SVCPermissions unsatisfied = incoming->getPermissions() & currentOutgoing->getPermissions() & ~SVC_PEDESTRIAN;
+                //std::cout << "initial unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+                const std::vector<NBEdge::Connection>& elv = incoming->getConnections();
+                for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
+                    const NBEdge::Connection& c = *k;
+                    if (c.toEdge == currentOutgoing) {
+                        const SVCPermissions satisfied = (incoming->getPermissions(c.fromLane) & c.toEdge->getPermissions(c.toLane));
+                        //std::cout << "  from=" << c.fromLane << " to=" << c.toEdge->getID() << "_" << c.toLane << " satisfied=" << getVehicleClassNames(satisfied) << "\n";
+                        unsatisfied &= ~satisfied;
+                    }
+                }
+                if (unsatisfied != 0) {
+                    //std::cout << " unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+                    int fromLane = 0;
+                    while (unsatisfied != 0 && fromLane < incoming->getNumLanes()) {
+                        if ((incoming->getPermissions(fromLane) & unsatisfied) != 0) {
+                            for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); ++toLane) {
+                                const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
+                                if (satisfied != 0) {
+                                    incoming->setConnection((unsigned int)fromLane, currentOutgoing, toLane, NBEdge::L2L_COMPUTED);
+                                    //std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
+                                    unsatisfied &= ~satisfied;
+                                }
+                            }
+                        }
+                        fromLane++;
+                    }
+                    //if (unsatisfied != 0) {
+                    //    std::cout << "     still unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+                    //}
+                }
+            }
+        }
     }
+
     // ... but we may have the case that there are no outgoing edges
     //  In this case, we have to mark the incoming edges as being in state
     //   LANE2LANE( not RECHECK) by hand
