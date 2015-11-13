@@ -12,7 +12,6 @@ ped2 pushes the button
 ped6 pushes the button
 ped7 pushes the button
 ped8 pushes the button
-ped9 pushes the button
 ped10 pushes the button
 ped11 pushes the button
 ped12 pushes the button
@@ -30,7 +29,7 @@ ped29 pushes the button
 ped30 pushes the button
 ped33 pushes the button
 ped32 pushes the button
-ped34 pushes the button
+ped35 pushes the button
 ped36 pushes the button
 ped37 pushes the button
 ped40 pushes the button
@@ -43,16 +42,15 @@ ped49 pushes the button
 ped50 pushes the button
 ped51 pushes the button
 ped52 pushes the button
-ped54 pushes the button
+ped53 pushes the button
 ped55 pushes the button
 ped56 pushes the button
 ped58 pushes the button
 ped62 pushes the button
-ped59 pushes the button
-ped63 pushes the button
 ped64 pushes the button
-ped65 pushes the button
-ped67 pushes the button
+ped63 pushes the button
+ped66 pushes the button
+ped68 pushes the button
 ped69 pushes the button
 ped70 pushes the button
 ped71 pushes the button
@@ -69,21 +67,21 @@ ped83 pushes the button
 ped86 pushes the button
 ped88 pushes the button
 ped89 pushes the button
-ped92 pushes the button
+ped91 pushes the button
 ped93 pushes the button
 Simulation ended at time: 3618.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 791ms
- Real time factor: 4573.96
- UPS: 21595.448799
+ Duration: 799ms
+ Real time factor: 4528.16
+ UPS: 21807.259074
 Vehicles: 
- Inserted: 683
+ Inserted: 714
  Running: 0
  Waiting: 0
 Persons: 
  Inserted: 94
- Running: 2
+ Running: 3
 
-DijkstraRouterTT answered 970 queries and explored 2.00 edges on average.
+DijkstraRouterTT answered 1055 queries and explored 2.00 edges on average.
 DijkstraRouterTT spent 1ms answering queries (0.00ms on average).
