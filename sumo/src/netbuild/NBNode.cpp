@@ -237,7 +237,7 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myDistrict(0),
     myHaveCustomPoly(false),
     myRequest(0),
-    myRadius(UNSPECIFIED_RADIUS),
+    myRadius(OptionsCont::getOptions().isDefault("default.junctions.radius") ? UNSPECIFIED_RADIUS : OptionsCont::getOptions().getFloat("default.junctions.radius")),
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0)
@@ -251,7 +251,7 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myDistrict(district),
     myHaveCustomPoly(false),
     myRequest(0),
-    myRadius(UNSPECIFIED_RADIUS),
+    myRadius(OptionsCont::getOptions().isDefault("default.junctions.radius") ? UNSPECIFIED_RADIUS : OptionsCont::getOptions().getFloat("default.junctions.radius")),
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0)

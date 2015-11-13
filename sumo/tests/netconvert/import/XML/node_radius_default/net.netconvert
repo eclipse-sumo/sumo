@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 10 21:22:15 2015 by SUMO netconvert Version dev-SVN-r19312
+<!-- generated on Fri Nov 13 15:01:09 2015 by SUMO netconvert Version dev-SVN-r19348ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -12,6 +12,7 @@
 
     <output>
         <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
     </output>
 
     <building_defaults>
@@ -160,7 +161,7 @@
         <phase duration="4" state="rrrrrrryyrrrrrrryy"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_18_0 :C_19_0 :C_5_0 :C_6_0 :C_20_0 :C_21_0 :C_9_0 :C_10_0 :C_10_1 :C_22_0 :C_23_0 :C_14_0 :C_15_0 :C_24_0 :C_25_0" shape="93.45,116.55 106.55,116.55 116.55,106.55 116.55,93.45 106.55,83.45 93.45,83.45 83.45,93.45 83.45,106.55">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_18_0 :C_19_0 :C_5_0 :C_6_0 :C_20_0 :C_21_0 :C_9_0 :C_10_0 :C_10_1 :C_22_0 :C_23_0 :C_14_0 :C_15_0 :C_24_0 :C_25_0" shape="93.45,116.55 106.55,116.55 116.55,106.55 116.55,93.45 106.55,83.45 93.45,83.45 83.45,93.45 83.45,106.55" radius="10.00">
         <request index="0" response="000000000000000000" foes="100001000001000000" cont="0"/>
         <request index="1" response="000000000000000000" foes="011111000011000000" cont="0"/>
         <request index="2" response="000000000000000000" foes="011111000011000000" cont="0"/>
@@ -180,16 +181,16 @@
         <request index="16" response="000001110001101110" foes="000001110001111110" cont="1"/>
         <request index="17" response="000001000001000001" foes="000001000001000001" cont="1"/>
     </junction>
-    <junction id="E" type="priority" x="200.00" y="100.00" incLanes="CE_0 CE_1" intLanes=":E_0_0" shape="200.00,100.05 200.00,106.55 200.00,93.45 200.00,99.95">
+    <junction id="E" type="priority" x="200.00" y="100.00" incLanes="CE_0 CE_1" intLanes=":E_0_0" shape="200.00,100.05 200.00,106.55 200.00,93.45 200.00,99.95" radius="10.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="N" type="priority" x="100.00" y="200.00" incLanes="CN_0 CN_1" intLanes=":N_0_0" shape="99.95,200.00 93.45,200.00 106.55,200.00 100.05,200.00">
+    <junction id="N" type="priority" x="100.00" y="200.00" incLanes="CN_0 CN_1" intLanes=":N_0_0" shape="99.95,200.00 93.45,200.00 106.55,200.00 100.05,200.00" radius="10.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="S" type="priority" x="100.00" y="0.00" incLanes="CS_0 CS_1" intLanes=":S_0_0" shape="100.05,0.00 106.55,0.00 93.45,0.00 99.95,0.00">
+    <junction id="S" type="priority" x="100.00" y="0.00" incLanes="CS_0 CS_1" intLanes=":S_0_0" shape="100.05,0.00 106.55,0.00 93.45,0.00 99.95,0.00" radius="10.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="W" type="priority" x="0.00" y="100.00" incLanes="CW_0 CW_1" intLanes=":W_0_0" shape="0.00,99.95 0.00,93.45 0.00,106.55 0.00,100.05">
+    <junction id="W" type="priority" x="0.00" y="100.00" incLanes="CW_0 CW_1" intLanes=":W_0_0" shape="0.00,99.95 0.00,93.45 0.00,106.55 0.00,100.05" radius="10.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
