@@ -664,7 +664,7 @@ PositionVector::getSubpartByIndex(int beginIndex, int count) const {
     if (beginIndex < 0) {
         beginIndex += (int)size();
     }
-    assert(count > 0);
+    assert(count >= 0);
     assert(beginIndex < (int)size());
     assert(beginIndex + count <= (int)size());
     PositionVector result;
