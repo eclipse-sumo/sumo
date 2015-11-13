@@ -134,12 +134,21 @@ public:
 
     /** @brief Parses the values and builds a stopping places for busses, trains or container vehicles
      *
-     * @param[in] net The network the bus stop belongs to
+     * @param[in] net The network the stop belongs to
      * @param[in] attrs SAX-attributes which define the stop
      * @param[in] element which kind of stop is to be built
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
     void parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes& attrs, const SumoXMLTag element);
+
+
+    /** @brief Parses the values and adds an access point to the currently parsed stopping place
+     *
+     * @param[in] net The network the stop belongs to
+     * @param[in] attrs SAX-attributes which define the access
+     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     */
+    void addAccess(MSNet& net, const SUMOSAXAttributes& attrs);
 
 
     /** @brief Parses his values and builds a charging station
@@ -329,7 +338,8 @@ protected:
     /// @brief The parent handler to set for subhandlers
     NLHandler* myHandler;
 
-
+    /// @brief The currently parsed stop to add access points to
+    MSStoppingPlace* myCurrentStop;
 };
 
 

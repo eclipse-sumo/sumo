@@ -154,6 +154,11 @@ public:
         }
     }
 
+    /// @brief adds an access point to this stop
+    virtual void addAccess(MSLane* lane, const SUMOReal pos) {
+        myAccessPos.insert(std::make_pair(lane, pos));
+    }
+
 protected:
     /** @brief Computes the last free position on this stop
      *
@@ -186,6 +191,8 @@ protected:
     /// @brief Persons waiting at this stop
     std::vector<MSTransportable*> myWaitingTransportables;
 
+    /// @brief lanes and positions connected to this stop
+    std::multimap<MSLane*, SUMOReal> myAccessPos;
 
 private:
     /// @brief Invalidated copy constructor.

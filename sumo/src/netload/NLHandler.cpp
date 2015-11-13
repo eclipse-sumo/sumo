@@ -157,6 +157,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_CONTAINER_STOP:
                 myTriggerBuilder.parseAndBuildStoppingPlace(myNet, attrs, (SumoXMLTag)element);
                 break;
+            case SUMO_TAG_ACCESS:
+                myTriggerBuilder.addAccess(myNet, attrs);
+                break;
             case SUMO_TAG_CHRG_STN:
                 myTriggerBuilder.parseAndBuildChrgStn(myNet, attrs);
                 break;

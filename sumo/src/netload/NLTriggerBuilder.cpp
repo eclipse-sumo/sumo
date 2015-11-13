@@ -192,6 +192,7 @@ NLTriggerBuilder::parseAndBuildChrgStn(MSNet& net, const SUMOSAXAttributes& attr
     buildChrgStn(net, id, lines, lane, frompos, topos, chrgpower, efficiency, chargeInTransit, ChargeDelay);
 }
 
+
 void
 NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes& attrs, const SumoXMLTag element) {
     bool ok = true;
@@ -214,6 +215,22 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
     // build the bus stop
     buildStoppingPlace(net, id, lines, lane, frompos, topos, element);
+}
+
+
+void
+NLTriggerBuilder::addAccess(MSNet& net, const SUMOSAXAttributes& attrs) {
+    // get the lane
+    MSLane* lane = getLane(attrs, "access" , "");
+    // get the positions
+    bool ok = true;
+    SUMOReal pos = attrs.getOpt<SUMOReal>(SUMO_ATTR_POSITION, "access", ok, 0);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
+    if (!ok || !myHandler->checkStopPos(pos, pos, lane->getLength(), 0, friendlyPos)) {
+        throw InvalidArgument("Invalid position for access in stop '" + myCurrentStop->getID() + "'.");
+    }
+    // build the bus stop
+    myCurrentStop->addAccess(lane, pos);
 }
 
 
@@ -339,12 +356,12 @@ NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
 
 void
 NLTriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id,
-                               const std::vector<std::string>& lines,
-                               MSLane* lane, SUMOReal frompos, SUMOReal topos, const SumoXMLTag element) {
-    MSStoppingPlace* stop = new MSStoppingPlace(id, lines, *lane, frompos, topos);
-    const bool success = element == SUMO_TAG_CONTAINER_STOP ? net.addContainerStop(stop) : net.addBusStop(stop);
+                                     const std::vector<std::string>& lines,
+                                     MSLane* lane, SUMOReal frompos, SUMOReal topos, const SumoXMLTag element) {
+    myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos);
+    const bool success = element == SUMO_TAG_CONTAINER_STOP ? net.addContainerStop(myCurrentStop) : net.addBusStop(myCurrentStop);
     if (!success) {
-        delete stop;
+        delete myCurrentStop;
         throw InvalidArgument("Could not build " + toString(element) + " '" + id + "'; probably declared twice.");
     }
 }

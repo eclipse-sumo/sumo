@@ -87,6 +87,8 @@ public:
     ~GUIBusStop();
 
 
+    /// @brief adds an access point to this stop
+    void addAccess(MSLane* lane, const SUMOReal pos);
 
     /// @name inherited from GUIGlObject
     //@{
@@ -146,6 +148,9 @@ private:
 
     /// @brief The rotation of the sign
     SUMOReal myFGSignRot;
+
+    /// @brief The coordinates of access points
+    PositionVector myAccessCoords;
 
 
 };
