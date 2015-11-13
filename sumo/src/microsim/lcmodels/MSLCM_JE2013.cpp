@@ -845,7 +845,7 @@ MSLCM_JE2013::_wantsChange(
                                            &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
                 myVSafes.push_back(vSafe);
                 if (vSafe < myVehicle.getSpeed()) {
-                    mySpeedGainProbability += CHANGE_PROB_THRESHOLD_LEFT / 3;
+                    mySpeedGainProbability += TS * CHANGE_PROB_THRESHOLD_LEFT / 3;
                 }
                 if (gDebugFlag2) {
                     std::cout << STEPS2TIME(currentTime)
@@ -1050,11 +1050,11 @@ MSLCM_JE2013::_wantsChange(
         if (thisLaneVSafe - 5 / 3.6 > neighLaneVSafe) {
             // ok, the current lane is faster than the right one...
             if (mySpeedGainProbability < 0) {
-                mySpeedGainProbability /= 2.0;
+                mySpeedGainProbability *= pow(0.5, TS);
             }
         } else {
             // ok, the current lane is not faster than the right one
-            mySpeedGainProbability -= relativeGain;
+            mySpeedGainProbability -= TS * relativeGain;
 
             // honor the obligation to keep right (Rechtsfahrgebot)
             // XXX consider fast approaching followers on the current lane
@@ -1071,7 +1071,7 @@ MSLCM_JE2013::_wantsChange(
             const SUMOReal deltaProb = (CHANGE_PROB_THRESHOLD_RIGHT
                                         * STEPS2TIME(DELTA_T)
                                         * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
-            myKeepRightProbability -= deltaProb;
+            myKeepRightProbability -= TS * deltaProb;
 
             if (gDebugFlag2) {
                 std::cout << STEPS2TIME(currentTime)
@@ -1121,11 +1121,11 @@ MSLCM_JE2013::_wantsChange(
         if (thisLaneVSafe > neighLaneVSafe) {
             // this lane is better
             if (mySpeedGainProbability > 0) {
-                mySpeedGainProbability /= 2.0;
+                mySpeedGainProbability *= pow(0.5, TS);
             }
         } else {
             // left lane is better
-            mySpeedGainProbability += relativeGain;
+            mySpeedGainProbability += TS * relativeGain;
         }
         // VARIANT_19 (stayRight)
         //if (neighFollow.first != 0) {
