@@ -1,0 +1,9 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="beg2left" lane="gneE0_0" startPos="230" endPos="250">
+        <access lane="beg2left_0" pos="250"/>
+	</trainStop>
+    <trainStop id="left2end" lane="gneE0_0" startPos="1230" endPos="1250">
+        <access lane="left2end_0" pos="250"/>
+	</trainStop>
+</additional>

@@ -33,3 +33,6 @@ intermodal_car_walk
 
 # car and walk in one trip but no stop for changing modes
 intermodal_car_walk_no_place
+
+# train access
+access
