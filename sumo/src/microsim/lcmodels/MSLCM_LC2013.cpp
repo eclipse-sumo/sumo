@@ -662,8 +662,14 @@ MSLCM_LC2013::_wantsChange(
                 //myKeepRightProbability /= 2.0;
             }
         } else {
-            // ok, the current lane is not faster than the right one
-            mySpeedGainProbability -= TS * relativeGain;
+            // ok, the current lane is not (much) faster than the right one
+            // @todo recheck the 5 km/h discount on thisLaneVSafe
+
+            // do not promote changing to the left just because changing to the
+            // right is bad
+            if (mySpeedGainProbability < 0 || relativeGain > 0) {
+                mySpeedGainProbability -= TS * relativeGain;
+            }
 
             // honor the obligation to keep right (Rechtsfahrgebot)
             // XXX consider fast approaching followers on the current lane

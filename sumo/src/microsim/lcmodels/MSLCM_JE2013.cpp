@@ -89,7 +89,7 @@
 #define TURN_LANE_DIST (SUMOReal)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
 //#define DEBUG_COND (myVehicle.getID() == "1501_27271428" || myVehicle.getID() == "1502_27270000")
-//#define DEBUG_COND (myVehicle.getID() == "disabled")
+//#define DEBUG_COND (myVehicle.getID() == "f0.1")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "Costa_12_13") // test stops_overtaking
@@ -135,6 +135,7 @@ MSLCM_JE2013::wantsChange(
 
     if (gDebugFlag2) {
         std::cout << "\n" << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                  //<< std::setprecision(20)
                   << " veh=" << myVehicle.getID()
                   << " lane=" << myVehicle.getLane()->getID()
                   << " pos=" << myVehicle.getPositionOnLane()
@@ -1053,8 +1054,14 @@ MSLCM_JE2013::_wantsChange(
                 mySpeedGainProbability *= pow(0.5, TS);
             }
         } else {
-            // ok, the current lane is not faster than the right one
-            mySpeedGainProbability -= TS * relativeGain;
+            // ok, the current lane is not (much) faster than the right one
+            // @todo recheck the 5 km/h discount on thisLaneVSafe
+
+            // do not promote changing to the left just because changing to the
+            // right is bad
+            if (mySpeedGainProbability < 0 || relativeGain > 0) {
+                mySpeedGainProbability -= TS * relativeGain;
+            }
 
             // honor the obligation to keep right (Rechtsfahrgebot)
             // XXX consider fast approaching followers on the current lane
