@@ -80,7 +80,7 @@ public:
 
     public:
         /// constructor
-        MSPersonStage_Walking(const ConstMSEdgeVector& route, MSStoppingPlace* toBS, SUMOTime walkingTime, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
+        MSPersonStage_Walking(const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
 
         /// destructor
         ~MSPersonStage_Walking();
@@ -187,7 +187,6 @@ public:
 
         SUMOReal myDepartPos;
         SUMOReal myArrivalPos;
-        MSStoppingPlace* myDestinationBusStop;
         SUMOReal mySpeed;
 
         /// @brief state that is to be manipulated by MSPModel
@@ -224,7 +223,7 @@ public:
     class MSPersonStage_Driving : public MSTransportable::Stage {
     public:
         /// constructor
-        MSPersonStage_Driving(const MSEdge& destination, MSStoppingPlace* toBS,
+        MSPersonStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
                               const std::vector<std::string>& lines);
 
         /// destructor
@@ -298,7 +297,6 @@ public:
         /// @brief The taken vehicle
         SUMOVehicle* myVehicle;
 
-        MSStoppingPlace* myDestinationBusStop;
         SUMOReal myWaitingPos;
         /// @brief The time since which this person is waiting for a ride
         SUMOTime myWaitingSince;

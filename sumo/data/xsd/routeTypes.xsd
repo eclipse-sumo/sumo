@@ -472,7 +472,8 @@
             <xsd:element name="ride">
                 <xsd:complexType>
                     <xsd:attribute name="from" type="xsd:string"/>
-                    <xsd:attribute name="to" type="xsd:string" use="required"/>
+                    <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="lines" type="xsd:string" use="required"/>
                 </xsd:complexType>
             </xsd:element>
@@ -481,6 +482,7 @@
                     <xsd:attribute name="edges" type="xsd:string"/>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="speed" type="positiveFloatType"/>
                     <xsd:attribute name="duration" type="positiveFloatType"/>
                     <xsd:attribute name="departPos" type="arrivalPosType"/>

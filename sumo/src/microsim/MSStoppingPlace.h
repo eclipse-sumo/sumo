@@ -159,6 +159,9 @@ public:
         myAccessPos.insert(std::make_pair(lane, pos));
     }
 
+    /// @brief checks whether this stop provides access to the given edge
+    bool hasAccess(const MSEdge* edge) const;
+
 protected:
     /** @brief Computes the last free position on this stop
      *

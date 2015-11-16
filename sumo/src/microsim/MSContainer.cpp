@@ -61,9 +61,9 @@ const SUMOReal MSContainer::ROADSIDE_OFFSET(3);
  * MSContainer::MSContainerStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Driving::MSContainerStage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toCS, const std::vector<std::string>& lines)
-    : MSTransportable::Stage(destination, DRIVING), myLines(lines.begin(), lines.end()),
-      myVehicle(0), myDestinationContainerStop(toCS) {}
+        MSStoppingPlace* toStop, const std::vector<std::string>& lines)
+    : MSTransportable::Stage(destination, toStop, DRIVING), myLines(lines.begin(), lines.end()),
+      myVehicle(0) {}
 
 
 MSContainer::MSContainerStage_Driving::~MSContainerStage_Driving() {}
@@ -192,7 +192,7 @@ MSContainer::MSContainerStage_Driving::endEventOutput(const MSTransportable& con
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Waiting::MSContainerStage_Waiting(const MSEdge& destination,
         SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType) :
-    MSTransportable::Stage(destination, WAITING),
+    MSTransportable::Stage(destination, 0, WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
     myActType(actType),
@@ -290,11 +290,10 @@ MSContainer::MSContainerStage_Waiting::endEventOutput(const MSTransportable& con
  * MSContainer::MSContainerStage_Tranship - methods
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vector<const MSEdge*>& route,
-        MSStoppingPlace* toCS,
+        MSStoppingPlace* toStop,
         SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
-    MSTransportable::Stage(*route.back(), MOVING_WITHOUT_VEHICLE), myRoute(route),
-    myDestinationContainerStop(toCS),
+    MSTransportable::Stage(*route.back(), toStop, MOVING_WITHOUT_VEHICLE), myRoute(route),
     mySpeed(speed), myContainerState(0), myCurrentInternalEdge(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "container getting transhipped from " + myRoute.front()->getID());
@@ -398,8 +397,8 @@ MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSTransportable* containe
     ((MSEdge*)getEdge())->removeContainer(container);
     if (myRouteStep == myRoute.end() - 1) {
         MSNet::getInstance()->getContainerControl().unsetTranship(container);
-        if (myDestinationContainerStop != 0) {
-            myDestinationContainerStop->addTransportable(container);    //jakob
+        if (myDestinationStop != 0) {
+            myDestinationStop->addTransportable(container);    //jakob
         }
         if (!container->proceed(MSNet::getInstance(), currentTime)) {
             MSNet::getInstance()->getContainerControl().erase(container);

@@ -58,12 +58,12 @@
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const ConstMSEdgeVector& route,
-        MSStoppingPlace* toBS,
+        MSStoppingPlace* toStop,
         SUMOTime walkingTime, SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
-    MSTransportable::Stage(*route.back(), MOVING_WITHOUT_VEHICLE), myWalkingTime(walkingTime), myRoute(route),
+    MSTransportable::Stage(*route.back(), toStop, MOVING_WITHOUT_VEHICLE), myWalkingTime(walkingTime), myRoute(route),
     myCurrentInternalEdge(0),
-    myDepartPos(departPos), myArrivalPos(arrivalPos), myDestinationBusStop(toBS),
+    myDepartPos(departPos), myArrivalPos(arrivalPos),
     mySpeed(speed),
     myPedestrianState(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
@@ -134,7 +134,7 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
     if (myWalkingTime == 0) {
         if (!person->proceed(net, now)) {
             MSNet::getInstance()->getPersonControl().erase(person);
-        };
+        }
         return;
     }
     MSNet::getInstance()->getPersonControl().setWalking(person);
@@ -199,8 +199,8 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
     //std::cout << SIMTIME << " moveToNextEdge person=" << person->getID() << "\n";
     if (myRouteStep == myRoute.end() - 1) {
         MSNet::getInstance()->getPersonControl().unsetWalking(person);
-        if (myDestinationBusStop != 0) {
-            myDestinationBusStop->addTransportable(person);
+        if (myDestinationStop != 0) {
+            myDestinationStop->addTransportable(person);
         }
         if (!person->proceed(MSNet::getInstance(), currentTime)) {
             MSNet::getInstance()->getPersonControl().erase(person);
@@ -225,9 +225,9 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
  * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toBS, const std::vector<std::string>& lines)
-    : MSTransportable::Stage(destination, DRIVING), myLines(lines.begin(), lines.end()),
-      myVehicle(0), myDestinationBusStop(toBS) {}
+        MSStoppingPlace* toStop, const std::vector<std::string>& lines)
+    : MSTransportable::Stage(destination, toStop, DRIVING), myLines(lines.begin(), lines.end()),
+      myVehicle(0) {}
 
 
 MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
@@ -365,7 +365,7 @@ MSPerson::MSPersonStage_Driving::endEventOutput(const MSTransportable& p, SUMOTi
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge& destination,
         SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType) :
-    MSTransportable::Stage(destination, WAITING),
+    MSTransportable::Stage(destination, 0, WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
     myActType(actType),
@@ -486,6 +486,10 @@ MSPerson::~MSPerson() {
 bool
 MSPerson::proceed(MSNet* net, SUMOTime time) {
     MSEdge* arrivedAt = (MSEdge*)(*myStep)->getEdge();
+    if ((*myStep)->getDestinationStop() != 0) {
+        // the arrival stop may have an access point
+        arrivedAt = &(*myStep)->getDestinationStop()->getLane().getEdge();
+    }
     SUMOReal atPos = (*myStep)->getEdgePos(time);
     //MSPersonPlan::iterator prior = myStep;
     (*myStep)->setArrived(time);
