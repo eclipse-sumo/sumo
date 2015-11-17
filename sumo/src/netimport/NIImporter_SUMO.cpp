@@ -222,13 +222,22 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     // insert loaded prohibitions
     for (std::vector<Prohibition>::const_iterator it = myProhibitions.begin(); it != myProhibitions.end(); it++) {
         NBEdge* prohibitedFrom = myEdges[it->prohibitedFrom]->builtEdge;
+        NBEdge* prohibitedTo = myEdges[it->prohibitedTo]->builtEdge;
+        NBEdge* prohibitorFrom = myEdges[it->prohibitorFrom]->builtEdge;
+        NBEdge* prohibitorTo = myEdges[it->prohibitorTo]->builtEdge;
         if (prohibitedFrom == 0) {
-            WRITE_ERROR("Edge '" + it->prohibitedFrom + "' in prohibition was not built");
+            WRITE_WARNING("Edge '" + it->prohibitedFrom + "' in prohibition was not built");
+        } else if (prohibitedTo == 0) {
+            WRITE_WARNING("Edge '" + it->prohibitedTo + "' in prohibition was not built");
+        } else if (prohibitorFrom == 0) {
+            WRITE_WARNING("Edge '" + it->prohibitorFrom + "' in prohibition was not built");
+        } else if (prohibitorTo == 0) {
+            WRITE_WARNING("Edge '" + it->prohibitorTo + "' in prohibition was not built");
         } else {
             NBNode* n = prohibitedFrom->getToNode();
             n->addSortedLinkFoes(
-                NBConnection(myEdges[it->prohibitorFrom]->builtEdge, myEdges[it->prohibitorTo]->builtEdge),
-                NBConnection(prohibitedFrom, myEdges[it->prohibitedTo]->builtEdge));
+                NBConnection(prohibitorFrom, prohibitorTo),
+                NBConnection(prohibitedFrom, prohibitedTo));
         }
     }
     if (!myHaveSeenInternalEdge) {
