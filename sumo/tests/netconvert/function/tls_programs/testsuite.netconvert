@@ -6,3 +6,6 @@ single_incoming2arms
 
 # warn about traffic light with a high cycle time
 high_cycle_time
+
+# configure left green time
+left-green.time

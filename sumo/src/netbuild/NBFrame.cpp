@@ -274,6 +274,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("tls.yellow.time", "traffic-light-yellow", true);
     oc.addDescription("tls.yellow.time", "TLS Building", "Set INT as fixed time for yellow phase durations");
 
+    oc.doRegister("tls.left-green.time", new Option_Integer(6));
+    oc.addDescription("tls.left-green.time", "TLS Building", "Use INT as green phase duration for left turns (s)");
+
     // tls-shifts
     oc.doRegister("tls.half-offset", new Option_String());
     oc.addSynonyme("tls.half-offset", "tl-logics.half-offset", true);

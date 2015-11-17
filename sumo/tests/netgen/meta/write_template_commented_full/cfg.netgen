@@ -180,6 +180,9 @@
         <!-- Set INT as fixed time for yellow phase durations -->
         <tls.yellow.time value="" synonymes="traffic-light-yellow" type="INT"/>
 
+        <!-- Use INT as green phase duration for left turns (s) -->
+        <tls.left-green.time value="6" type="INT"/>
+
         <!-- TLSs in STR will be shifted by half-phase -->
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR"/>
 
