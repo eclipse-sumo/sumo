@@ -273,6 +273,9 @@ TraCIAPI::check_commandGetResult(tcpip::Storage& inMsg, int command, int expecte
         throw tcpip::SocketException("#Error: received response with command id: " + toString(cmdId) + "but expected: " + toString(command + 0x10));
     }
     if (expectedType >= 0) {
+        // not called from the TraCITestClient but from within the TraCIAPI
+        inMsg.readUnsignedByte(); // variableID
+        inMsg.readString(); // objectID
         int valueDataType = inMsg.readUnsignedByte();
         if (valueDataType != expectedType) {
             throw tcpip::SocketException("Expected " + toString(expectedType) + " but got " + toString(valueDataType));
