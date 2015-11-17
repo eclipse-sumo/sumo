@@ -45,8 +45,8 @@
 /* -------------------------------------------------------------------------
  * MSTransportable::Stage - methods
  * ----------------------------------------------------------------------- */
-MSTransportable::Stage::Stage(const MSEdge& destination, StageType type)
-    : myDestination(destination), myDeparted(-1), myArrived(-1), myType(type) {}
+MSTransportable::Stage::Stage(const MSEdge& destination, MSStoppingPlace* toStop, StageType type)
+    : myDestination(destination), myDestinationStop(toStop), myDeparted(-1), myArrived(-1), myType(type) {}
 
 MSTransportable::Stage::~Stage() {}
 
@@ -54,6 +54,7 @@ const MSEdge&
 MSTransportable::Stage::getDestination() const {
     return myDestination;
 }
+
 
 void
 MSTransportable::Stage::setDeparted(SUMOTime now) {

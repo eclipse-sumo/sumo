@@ -109,8 +109,8 @@ public:
     // @brief the fraction of forward speed to be used for lateral movemenk
     static const SUMOReal LATERAL_SPEED_FACTOR;
 
-    // @brief the minimum fraction of maxSpeed in order to start walking after stopped
-    static const SUMOReal MIN_STARTUP_SPEED;
+    // @brief the minimum distance to the next obstacle in order to start walking after stopped
+    static const SUMOReal MIN_STARTUP_DIST;
 
     ///@}
 
@@ -259,9 +259,6 @@ protected:
 
         /// @brief returns the impatience
         SUMOReal getImpatience(SUMOTime now) const;
-
-        /// @brief return the speed-dependent minGap of the pedestrian
-        SUMOReal getMingap() const;
 
         int stripe() const;
         int otherStripe() const;

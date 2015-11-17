@@ -79,7 +79,7 @@ public:
     class MSContainerStage_Driving : public MSTransportable::Stage {
     public:
         /// constructor
-        MSContainerStage_Driving(const MSEdge& destination, MSStoppingPlace* toCS,
+        MSContainerStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
                                  const std::vector<std::string>& lines);
 
         /// destructor
@@ -164,9 +164,6 @@ public:
 
         /// @brief The taken vehicle
         SUMOVehicle* myVehicle;
-
-        /// @brief The destination container stop
-        MSStoppingPlace* myDestinationContainerStop;
 
         /// @brief The container stop from which the container departs
         MSStoppingPlace* myDepartContainerStop;
@@ -301,7 +298,7 @@ public:
 
     public:
         /// constructor
-        MSContainerStage_Tranship(const std::vector<const MSEdge*>& route, MSStoppingPlace* toCS, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
+        MSContainerStage_Tranship(const std::vector<const MSEdge*>& route, MSStoppingPlace* toStop, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
 
         /// destructor
         ~MSContainerStage_Tranship();
@@ -402,9 +399,6 @@ public:
 
         /// @brief the arrival position
         SUMOReal myArrivalPos;
-
-        /// @brief the destination container stop
-        MSStoppingPlace* myDestinationContainerStop;
 
         /// @brief The container stop from which the container departs
         MSStoppingPlace* myDepartContainerStop;

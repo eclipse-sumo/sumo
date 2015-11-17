@@ -36,6 +36,7 @@
 class MSEdge;
 class MSLane;
 class MSNet;
+class MSStoppingPlace;
 class MSVehicleType;
 class OutputDevice;
 class Position;
@@ -66,13 +67,18 @@ public:
     class Stage {
     public:
         /// constructor
-        Stage(const MSEdge& destination, StageType type);
+        Stage(const MSEdge& destination, MSStoppingPlace* toStop, StageType type);
 
         /// destructor
         virtual ~Stage();
 
         /// returns the destination edge
         const MSEdge& getDestination() const;
+
+        /// returns the destination stop (if any)
+        const MSStoppingPlace* getDestinationStop() const {
+            return myDestinationStop;
+        }
 
         /// Returns the current edge
         virtual const MSEdge* getEdge() const = 0;
@@ -157,6 +163,9 @@ public:
     protected:
         /// the next edge to reach by getting transported
         const MSEdge& myDestination;
+
+        /// the stop to reach by getting transported (if any)
+        MSStoppingPlace* const myDestinationStop;
 
         /// the time at which this stage started
         SUMOTime myDeparted;

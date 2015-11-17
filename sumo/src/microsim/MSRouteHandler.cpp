@@ -155,11 +155,13 @@ MSRouteHandler::myStartElement(int element,
             StringTokenizer st(desc);
             std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
             MSStoppingPlace* bs = 0;
+            MSEdge* to = 0;
             if (bsID != "") {
                 bs = MSNet::getInstance()->getBusStop(bsID);
                 if (bs == 0) {
                     throw ProcessError("Unknown bus stop '" + bsID + "' for person '" + myVehicleParameter->id + "'.");
                 }
+                to = &bs->getLane().getEdge();
             }
             if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                 const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
@@ -177,10 +179,12 @@ MSRouteHandler::myStartElement(int element,
             } else if (myActivePlan->empty()) {
                 throw ProcessError("The start edge within for person '" + pid + "' is not known.");
             }
-            const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, pid.c_str(), ok);
-            MSEdge* to = MSEdge::dictionary(toID);
             if (to == 0) {
-                throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
+                const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, pid.c_str(), ok);
+                to = MSEdge::dictionary(toID);
+                if (to == 0) {
+                    throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
+                }
             }
             myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, bs, st.getVector()));
             break;
