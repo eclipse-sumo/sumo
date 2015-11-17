@@ -45,6 +45,7 @@
 
 #include <traci-server/TraCIConstants.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/ToString.h>
 #include "TraCITestClient.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -159,6 +160,9 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             std::string objID;
             defFile >> domID >> varID >> objID;
             commandSetValue(domID, varID, objID, defFile);
+        }  else if (lineCommand.compare("testAPI") == 0) {
+            // call all native API methods
+            testAPI();
         } else {
             msg << "Error in definition file: " << lineCommand << " is not a valid command";
             errorMsg(msg);
@@ -667,3 +671,15 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
 }
 
 
+void
+TraCITestClient::testAPI() {
+    answerLog << "testAPI:\n";
+    answerLog << "  edge:\n";
+    answerLog << "    getIDList: " << joinToString(edge.getIDList(), " ") << "\n";
+    answerLog << "    getIDCount: " << edge.getIDCount() << "\n";
+    //answerLog << "  vehicle:\n";
+    //answerLog << "    getIDList: " << joinToString(vehicle.getIDList(), " ") << "\n";
+    //answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";
+    answerLog << "  simulation:\n";
+    answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
+}
