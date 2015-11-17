@@ -90,9 +90,8 @@ void
 NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex) {
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
     if (linkIndex >= (int)myTLLogic->getNumLinks()) {
-        WRITE_ERROR("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() +
+        throw ProcessError("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() +
                     "' with " + toString(myTLLogic->getNumLinks()) + " links.");
-        return;
     }
     NBConnection conn(from, fromLane, to, toLane, linkIndex);
     // avoid duplicates
@@ -126,7 +125,10 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
     //  edges the links are starting at, respectively
     for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
         const NBConnection& c = *it;
-        assert(c.getTLIndex() < (int)myTLLogic->getNumLinks());
+        if (c.getTLIndex() >= (int)myTLLogic->getNumLinks()) {
+            throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
+                    "' with " + toString(myTLLogic->getNumLinks()) + " links.");
+        }
         NBEdge* edge = c.getFrom();
         edge->setControllingTLInformation(c, getID());
     }
@@ -331,7 +333,12 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
         for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
             const NBConnection& c = *it;
             if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
-                assert(c.getTLIndex() < (int)size);
+                if (c.getTLIndex() >= (int)size) {
+                    throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
+                            "' with " + toString(size) + " links.");
+                }
+
+
                 fromEdges[c.getTLIndex()] = c.getFrom();
                 toEdges[c.getTLIndex()] = c.getTo();
             }
