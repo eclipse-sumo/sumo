@@ -106,20 +106,25 @@ public:
 public:
     /** @brief Constructor
      */
-    GNEPoly(const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
+    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
            const RGBColor& color, SUMOReal layer,
            SUMOReal angle=0, const std::string& imgFile="");
 
     /// @brief Destructor
     virtual ~GNEPoly() ;
 
+    /// @brief draw the polygon and also little movement handles
+    virtual void drawGL(const GUIVisualizationSettings& s) const;
 
-    /** @brief reposition the node at pos and informs the edges
-     * @param[in] pos The new position
-     * @note: those operations are not added to the undoList. This is handled in
-     * registerMove to avoids merging lots of tiny movements
+    /** @brief change the polygon geometry without registering undo/redo
+     * It is up to the Polygon to decide whether an new geometry node should be
+     * generated or an existing node should be moved
+     * @param[in] oldPos The origin of the mouse movement
+     * @param[in] newPos The destination of the mouse movenent
+     * @param[in] relative Whether newPos is absolute or relative
+     * @return newPos if something was moved, oldPos if nothing was moved
      */
-    //void move(Position pos);
+    Position moveGeometry(const Position& oldPos, const Position& newPos, bool relative=false);
 
 
     /// @brief registers completed movement with the undoList
@@ -145,6 +150,10 @@ public:
 
     /// @brief save POIs to file
     static void saveToFile(const std::string& file);
+
+protected:
+    /// @brief the net for querying updates
+    GNENet* myNet;
 
 private:
     /// @brief Invalidated copy constructor.

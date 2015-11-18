@@ -230,43 +230,54 @@ GNEEdge::getSplitPos(const Position& clickPos) {
 Position
 GNEEdge::moveGeometry(const Position& oldPos, const Position& newPos, bool relative) {
     PositionVector geom = myNBEdge.getGeometry();
-    bool changed = false;
-    if (geom.size() < 2) {
-        throw ProcessError("Invalid geometry size in edge " + getMicrosimID());
-    } else {
-        int index = geom.indexOfClosest(oldPos);
-        const SUMOReal nearestOffset = geom.nearest_offset_to_point2D(oldPos, true);
-        if (nearestOffset != GeomHelper::INVALID_OFFSET
-                && nearestOffset >= SNAP_RADIUS
-                && nearestOffset <= geom.length2D() - SNAP_RADIUS) {
-            const Position nearest = geom.positionAtOffset2D(nearestOffset);
-            const SUMOReal distance = geom[index].distanceTo2D(nearest);
-            if (distance < SNAP_RADIUS) { //move existing
-                if (index != 0 && index != (int)(geom.size() - 1)) { // don't move endpoints
-                    if (relative) {
-                        geom[index] = geom[index] + newPos;
-                    } else {
-                        geom[index] = newPos;
-                    }
-                    changed = true;
-                }
-            } else {
-                if (relative) {
-                    int index = geom.insertAtClosest(nearest);
-                    geom[index] = geom[index] + newPos;
-                    changed = true;
-                } else {
-                    geom.insertAtClosest(newPos); // insert new
-                    changed = true;
-                }
-            }
-        }
-    }
+    bool changed = changeGeometry(geom, getMicrosimID(), oldPos, newPos, relative);
     if (changed) {
         setGeometry(geom, false);
         return newPos;
     } else {
         return oldPos;
+    }
+}
+
+
+bool 
+GNEEdge::changeGeometry(PositionVector& geom, const std::string& id, const Position& oldPos, const Position& newPos, bool relative, bool moveEndPoints) {
+    if (geom.size() < 2) {
+        throw ProcessError("Invalid geometry size in edge " + id);
+    } else {
+        int index = geom.indexOfClosest(oldPos);
+        const SUMOReal nearestOffset = geom.nearest_offset_to_point2D(oldPos, true);
+        if (nearestOffset != GeomHelper::INVALID_OFFSET
+                && (moveEndPoints || (nearestOffset >= SNAP_RADIUS
+                        && nearestOffset <= geom.length2D() - SNAP_RADIUS))) {
+            const Position nearest = geom.positionAtOffset2D(nearestOffset);
+            const SUMOReal distance = geom[index].distanceTo2D(nearest);
+            if (distance < SNAP_RADIUS) { //move existing
+                if (moveEndPoints || (index != 0 && index != (int)geom.size() - 1)) {
+                    const bool closed = geom.isClosed();
+                    if (relative) {
+                        geom[index] = geom[index] + newPos;
+                    } else {
+                        geom[index] = newPos;
+                    }
+                    if (closed && moveEndPoints && index == 0 || index == (int)geom.size() - 1) {
+                        const int otherIndex = (int)geom.size() - 1 - index;
+                        geom[otherIndex] = geom[index];
+                    }
+                    return true;
+                }
+            } else {
+                if (relative) {
+                    int index = geom.insertAtClosest(nearest);
+                    geom[index] = geom[index] + newPos;
+                    return true;
+                } else {
+                    geom.insertAtClosest(newPos); // insert new
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 

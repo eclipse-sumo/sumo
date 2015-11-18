@@ -70,41 +70,53 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEPoly::GNEPoly(const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
+GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
            const RGBColor& color, SUMOReal layer,
            SUMOReal angle, const std::string& imgFile) :
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
-    GNEAttributeCarrier(SUMO_TAG_POLY)
+    GNEAttributeCarrier(SUMO_TAG_POLY),
+    myNet(net)
 {}
 
 
 GNEPoly::~GNEPoly() { }
 
 
-//void
-//GNEPoly::move(Position pos) {
-//    const Position orig = myNBNode.getPosition();
-//    setPosition(pos);
-//    myNet->refreshElement(this);
-//    const EdgeVector& incident = getNBNode()->getEdges();
-//    for (EdgeVector::const_iterator it = incident.begin(); it != incident.end(); it++) {
-//        GNEEdge *edge = myNet->retrieveEdge((*it)->getID());
-//        edge->updateJunctionPosition(this, orig);
-//    }
-//}
-//
-//
-//void
-//GNEPoly::registerMove(GNEUndoList *undoList) {
-//    Position newPos = myNBNode.getPosition();
-//    std::string newPosValue = getAttribute(SUMO_ATTR_POSITION);
-//    // actually the geometry is already up to date
-//    // set the restore point to the end of the last change-set
-//    setPosition(myOrigPos);
-//    // do not execute the command to avoid changing the edge geometry twice
-//    undoList->add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, newPosValue), false);
-//    setPosition(newPos);
-//}
+void
+GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
+    const SUMOReal hintSize = 0.8;
+    GUIPolygon::drawGL(s);
+    // draw geometry hints
+    if (s.scale * hintSize > 1.) { // check whether it is not too small
+        RGBColor current = GLHelper::getColor();
+        RGBColor darker = current.changedBrightness(-32);
+		GLHelper::setColor(darker);
+        glPushName(getGlID());
+        for (int i = 0; i < (int)myShape.size() - 1; i++) {
+            Position pos = myShape[i];
+            glPushMatrix();
+            glTranslated(pos.x(), pos.y(), GLO_POLYGON + 0.01);            
+            GLHelper:: drawFilledCircle(hintSize, 32);
+            glPopMatrix();
+        }
+        glPopName();
+    }
+
+}
+
+Position
+GNEPoly::moveGeometry(const Position& oldPos, const Position& newPos, bool relative) {
+    PositionVector geom = myShape;
+    bool changed = GNEEdge::changeGeometry(geom, getMicrosimID(), oldPos, newPos, relative, true);
+    if (changed) {
+        myShape = geom;
+        myNet->refreshElement(this);
+        return newPos;
+    } else {
+        return oldPos;
+    }
+}
+
 
 
 std::string
