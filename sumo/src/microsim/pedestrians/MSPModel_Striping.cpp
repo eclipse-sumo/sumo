@@ -699,12 +699,13 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         }
         // check link state
         if (link != 0
-                && dist < speed  // only check close before junction
+                // only check close before junction, @todo we should take deceleration into account here
+                && dist - p.myPerson->getVehicleType().getMinGap() < TIME2STEPS(LOOKAHEAD_SAMEDIR) * SPEED2DIST(speed)
                 && (!link->opened(currentTime, speed, speed, p.getLength(), p.getImpatience(currentTime), speed, 0)
-                    // XXX check for presence of vehicles blocking the path
+                    // @todo check for presence of vehicles blocking the path
                    )) {
             // prevent movement passed a closed link
-            Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * dist - POSITION_EPS, 0, "closedLink"));
+            Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * (dist - POSITION_EPS), 0, "closedLink"));
             currentObs = mergeObstacles(currentObs, closedLink, dir);
             if DEBUGCOND(p.myPerson->getID()) {
                 std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWitTLS=";
@@ -712,7 +713,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             }
             // consider rerouting over another crossing
             if (p.myWalkingAreaPath != 0) {
-                // XXX actually another path would be needed starting at the current position
+                // @todo actually another path would be needed starting at the current position
                 p.myNLI = getNextLane(p, p.myLane, p.myWalkingAreaPath->from);
             }
         }
