@@ -148,6 +148,8 @@ public:
     void close();
     /// @}
 
+    /// @brief Advances by one step (or up to the given time)
+    void simulationStep(SUMOTime time = 0);
 
 
     /// @name Atomar getter

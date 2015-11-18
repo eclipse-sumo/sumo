@@ -431,6 +431,14 @@ TraCIAPI::getColor(int cmd, int var, const std::string& id, tcpip::Storage* add)
 }
 
 
+void 
+TraCIAPI::simulationStep(SUMOTime time) {
+    send_commandSimulationStep(time);
+    tcpip::Storage inMsg;
+    std::string acknowledgement;
+    check_resultState(inMsg, CMD_SIMSTEP2, false, &acknowledgement);
+}
+
 
 // ---------------------------------------------------------------------------
 // TraCIAPI::EdgeScope-methods
