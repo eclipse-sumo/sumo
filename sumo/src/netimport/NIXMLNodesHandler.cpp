@@ -169,6 +169,7 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
             type = NODETYPE_UNKNOWN;
         }
     }
+    std::set<NBTrafficLightDefinition*> oldTLS;
     // check whether a prior node shall be modified
     if (node == 0) {
         node = new NBNode(nodeID, position, type);
@@ -176,21 +177,21 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
             throw ProcessError("Could not insert node though checked this before (id='" + nodeID + "').");
         }
     } else {
-        // remove previously set tls if this node is not controlled by a tls
-        std::set<NBTrafficLightDefinition*> tls = node->getControllingTLS();
-        node->removeTrafficLights();
-        for (std::set<NBTrafficLightDefinition*>::iterator i = tls.begin(); i != tls.end(); ++i) {
-            if ((*i)->getNodes().size() == 0) {
-                tlc.removeFully((*i)->getID());
-            }
-        }
         // patch information
+        oldTLS = node->getControllingTLS();
         node->reinit(position, type, updateEdgeGeometries);
     }
     // process traffic light definition
     if (type == NODETYPE_TRAFFIC_LIGHT || type == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
         processTrafficLightDefinitions(attrs, node, tlc);
     }
+    // remove previously set tls if this node is not controlled by them
+    for (std::set<NBTrafficLightDefinition*>::iterator i = oldTLS.begin(); i != oldTLS.end(); ++i) {
+        if ((*i)->getNodes().size() == 0) {
+            tlc.removeFully((*i)->getID());
+        }
+    }
+
     // set optional shape
     PositionVector shape;
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
@@ -261,9 +262,20 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
     // if no tl-id exists, we will build a tl with the node's id
     std::set<NBTrafficLightDefinition*> tlDefs;
     bool ok = true;
-    std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
-    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TLTYPE, 0, ok,
-                        OptionsCont::getOptions().getString("tls.default-type"));
+
+    std::string oldTlID = "";
+    std::string oldTypeS = OptionsCont::getOptions().getString("tls.default-type");
+
+    if (currentNode->isTLControlled()) {
+        NBTrafficLightDefinition* oldDef = *(currentNode->getControllingTLS().begin());
+        oldTlID = oldDef->getID();
+        oldTypeS = toString(oldDef->getType());
+    }
+    std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, oldTlID);
+    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TLTYPE, 0, ok, oldTypeS);
+    if (tlID != oldTlID || typeS != oldTypeS) {
+        currentNode->removeTrafficLights();
+    }
     TrafficLightType type;
     if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);

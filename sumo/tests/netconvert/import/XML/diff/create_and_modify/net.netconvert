@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 13 10:22:35 2015 by SUMO netconvert Version dev-SVN-r19342I
+<!-- generated on Wed Nov 18 13:03:11 2015 by SUMO netconvert Version dev-SVN-r19370I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -142,7 +142,7 @@
         <lane id="gneE2_0" index="0" speed="13.89" length="33.65" shape="-3.25,41.65 -36.90,41.65"/>
     </edge>
 
-    <tlLogic id="node_C" type="static" programID="0" offset="0">
+    <tlLogic id="recompute" type="static" programID="0" offset="0">
         <phase duration="36" state="GGGggrrrrGGgg"/>
         <phase duration="4" state="yyyggrrrryygg"/>
         <phase duration="6" state="rrrGGrrrrrrGG"/>
@@ -194,19 +194,19 @@
     <connection from="edge_C2R" to="edge_R2C" fromLane="0" toLane="0" via=":node_R_0_0" dir="t" state="M"/>
     <connection from="edge_C2U" to="gneE2" fromLane="0" toLane="0" via=":node_U_0_0" dir="l" state="M"/>
     <connection from="edge_C2U" to="edge_U2C" fromLane="0" toLane="0" via=":node_U_1_0" dir="t" state="m"/>
-    <connection from="edge_D2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_9_0" tl="node_C" linkIndex="9" dir="r" state="o"/>
-    <connection from="edge_D2C" to="edge_C2U" fromLane="0" toLane="0" via=":node_C_10_0" tl="node_C" linkIndex="10" dir="s" state="o"/>
-    <connection from="edge_D2C" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_11_0" tl="node_C" linkIndex="11" dir="l" state="o"/>
-    <connection from="edge_D2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_12_0" tl="node_C" linkIndex="12" dir="t" state="o"/>
-    <connection from="edge_R2C" to="edge_C2U" fromLane="0" toLane="0" via=":node_C_5_0" tl="node_C" linkIndex="5" dir="r" state="o"/>
-    <connection from="edge_R2C" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_6_0" tl="node_C" linkIndex="6" dir="s" state="o"/>
-    <connection from="edge_R2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_7_0" tl="node_C" linkIndex="7" dir="l" state="o"/>
-    <connection from="edge_R2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_8_0" tl="node_C" linkIndex="8" dir="t" state="o"/>
-    <connection from="edge_U2C" to="edge_C2L" fromLane="0" toLane="0" via=":node_C_0_0" tl="node_C" linkIndex="0" dir="r" state="o"/>
-    <connection from="edge_U2C" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_0_1" tl="node_C" linkIndex="1" dir="r" state="o"/>
-    <connection from="edge_U2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_2_0" tl="node_C" linkIndex="2" dir="s" state="o"/>
-    <connection from="edge_U2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_3_0" tl="node_C" linkIndex="3" dir="l" state="o"/>
-    <connection from="edge_U2C" to="edge_C2U" fromLane="0" toLane="0" via=":node_C_4_0" tl="node_C" linkIndex="4" dir="t" state="o"/>
+    <connection from="edge_D2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_9_0" tl="recompute" linkIndex="9" dir="r" state="o"/>
+    <connection from="edge_D2C" to="edge_C2U" fromLane="0" toLane="0" via=":node_C_10_0" tl="recompute" linkIndex="10" dir="s" state="o"/>
+    <connection from="edge_D2C" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_11_0" tl="recompute" linkIndex="11" dir="l" state="o"/>
+    <connection from="edge_D2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_12_0" tl="recompute" linkIndex="12" dir="t" state="o"/>
+    <connection from="edge_R2C" to="edge_C2U" fromLane="0" toLane="0" via=":node_C_5_0" tl="recompute" linkIndex="5" dir="r" state="o"/>
+    <connection from="edge_R2C" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_6_0" tl="recompute" linkIndex="6" dir="s" state="o"/>
+    <connection from="edge_R2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_7_0" tl="recompute" linkIndex="7" dir="l" state="o"/>
+    <connection from="edge_R2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_8_0" tl="recompute" linkIndex="8" dir="t" state="o"/>
+    <connection from="edge_U2C" to="edge_C2L" fromLane="0" toLane="0" via=":node_C_0_0" tl="recompute" linkIndex="0" dir="r" state="o"/>
+    <connection from="edge_U2C" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_0_1" tl="recompute" linkIndex="1" dir="r" state="o"/>
+    <connection from="edge_U2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_2_0" tl="recompute" linkIndex="2" dir="s" state="o"/>
+    <connection from="edge_U2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_3_0" tl="recompute" linkIndex="3" dir="l" state="o"/>
+    <connection from="edge_U2C" to="edge_C2U" fromLane="0" toLane="0" via=":node_C_4_0" tl="recompute" linkIndex="4" dir="t" state="o"/>
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="r" state="M"/>
     <connection from="gneE1" to="edge_U2C" fromLane="0" toLane="0" via=":node_U_2_0" dir="r" state="M"/>
     <connection from="gneE1" to="gneE2" fromLane="0" toLane="0" via=":node_U_3_0" dir="t" state="m"/>

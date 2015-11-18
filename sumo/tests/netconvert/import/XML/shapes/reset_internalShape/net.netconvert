@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 30 08:53:56 2015 by SUMO netconvert Version dev-SVN-r18965I
+<!-- generated on Wed Nov 18 12:46:41 2015 by SUMO netconvert Version dev-SVN-r19370I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -36,7 +36,7 @@
         <lane id=":C_0_0" index="0" speed="13.89" length="5.00" shape="91.75,111.35 91.56,109.99 90.97,109.03 90.01,108.44 88.65,108.25"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" speed="13.89" length="23.63" shape="95.05,111.35 96.07,104.22 99.12,99.13 104.22,96.07 111.35,95.05"/>
+        <lane id=":C_1_0" index="0" speed="13.89" length="23.63" shape="95.05,111.35 96.07,104.22 99.12,99.12 104.22,96.07 111.35,95.05"/>
         <lane id=":C_1_1" index="1" speed="13.89" length="23.63" shape="98.35,111.35 99.16,105.66 101.60,101.60 105.66,99.16 111.35,98.35"/>
     </edge>
     <edge id=":C_3" function="internal">
@@ -122,11 +122,11 @@
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="36" state="rrrrGGGGgGGGggg"/>
+        <phase duration="31" state="rrrrGGGGgGGGggg"/>
         <phase duration="4" state="rrrryyyygyyyggg"/>
         <phase duration="6" state="rrrrrrrrGrrrGGG"/>
         <phase duration="4" state="rrrrrrrryrrryyy"/>
-        <phase duration="36" state="GGGgGrrrrrrrrrr"/>
+        <phase duration="31" state="GGGgGrrrrrrrrrr"/>
         <phase duration="4" state="yyyyyrrrrrrrrrr"/>
     </tlLogic>
 
@@ -153,7 +153,7 @@
     <junction id="N" type="priority" x="100.00" y="200.00" incLanes="CN_0 CN_1 CN_2" intLanes=":N_0_0" shape="99.95,200.00 90.15,200.00 109.85,200.00 100.05,200.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="W" type="priority" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2" intLanes=":W_0_0" shape="-0.00,99.95 -0.00,90.15 0.00,109.85 0.00,100.05">
+    <junction id="W" type="priority" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2" intLanes=":W_0_0" shape="0.00,99.95 0.00,90.15 0.00,109.85 0.00,100.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
