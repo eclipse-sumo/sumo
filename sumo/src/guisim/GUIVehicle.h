@@ -137,7 +137,7 @@ private:
                                       int firstPassengerCarriage, bool asImage) const;
     /// @}
 
-    /// @brief draws the given guiShape if it has distinc carriages/modules and eturns true if so
+    /// @brief draws the given guiShape if it has distinct carriages/modules and returns true if so
     bool drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMOVehicleShape guiShape, bool asImage) const;
 
     /* @brief return the previous lane in this vehicles route including internal lanes
@@ -145,6 +145,9 @@ private:
      * @param[in,out] routeIndex The index of the current or previous non-internal edge in the route
      */
     MSLane* getPreviousLane(MSLane* current, int& furtherIndex) const;
+
+    /// @brief return the current angle in navigational degrees
+    SUMOReal getNaviDegree() const;
 
     /// @brief return the number of passengers
     int getNumPassengers() const;

@@ -37,6 +37,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -104,11 +105,11 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem("lane [id]", false, myLane->getID());
     ret->mkItem("position [m]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPositionOnLane));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getPositionOnLane));
     ret->mkItem("speed [m/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getSpeed));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getSpeed));
     ret->mkItem("angle [degree]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getAngle));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getNaviDegree));
     if (getChosenSpeedFactor() != 1) {
         ret->mkItem("speed factor", false, getChosenSpeedFactor());
     }
@@ -133,19 +134,19 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("stop info", false, getStopInfo());
     ret->mkItem("line", false, myParameter->line);
     ret->mkItem("CO2 [mg/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getCO2Emissions));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getCO2Emissions));
     ret->mkItem("CO [mg/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getCOEmissions));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getCOEmissions));
     ret->mkItem("HC [mg/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHCEmissions));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getHCEmissions));
     ret->mkItem("NOx [mg/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getNOxEmissions));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getNOxEmissions));
     ret->mkItem("PMx [mg/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPMxEmissions));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getPMxEmissions));
     ret->mkItem("fuel [ml/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getFuelConsumption));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getFuelConsumption));
     ret->mkItem("noise (Harmonoise) [dB]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHarmonoise_NoiseEmissions));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getHarmonoise_NoiseEmissions));
     std::ostringstream str;
     for (std::vector<MSDevice*>::const_iterator i = myDevices.begin(); i != myDevices.end(); ++i) {
         if (i != myDevices.begin()) {
@@ -155,9 +156,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     }
     ret->mkItem("devices", false, str.str());
     ret->mkItem("persons", true,
-                new FunctionBinding<GUIVehicle, unsigned int>(this, &GUIVehicle::getPersonNumber));
+                new FunctionBinding<GUIVehicle, unsigned int>(this, &MSVehicle::getPersonNumber));
     ret->mkItem("containers", true,
-                new FunctionBinding<GUIVehicle, unsigned int>(this, &GUIVehicle::getContainerNumber));
+                new FunctionBinding<GUIVehicle, unsigned int>(this, &MSVehicle::getContainerNumber));
 
     ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
     ret->mkItem("", false, "");
@@ -529,6 +530,12 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
     glTranslated(front.x(), front.y(), getType());
     glRotated(angle, 0, 0, 1);
     glPushMatrix();
+}
+
+
+SUMOReal
+GUIVehicle::getNaviDegree() const {
+    return GeomHelper::naviDegree(getAngle());
 }
 
 

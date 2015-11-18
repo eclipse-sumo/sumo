@@ -214,7 +214,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getEdgePos));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getSpeed));
-    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getAngle));
+    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getNaviDegree));
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getWaitingSeconds));
     // close building
     ret->closeBuilding();
@@ -411,9 +411,9 @@ GUIPerson::getPosition() const {
 
 
 SUMOReal
-GUIPerson::getAngle() const {
+GUIPerson::getNaviDegree() const {
     AbstractMutex::ScopedLocker locker(myLock);
-    return MSPerson::getAngle();
+    return GeomHelper::naviDegree(MSPerson::getAngle());
 }
 
 
