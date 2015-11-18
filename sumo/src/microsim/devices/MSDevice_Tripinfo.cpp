@@ -196,7 +196,7 @@ MSDevice_Tripinfo::generateOutput() const {
     os.writeAttr("departLane", myDepartLane);
     os.writeAttr("departPos", myDepartPos);
     os.writeAttr("departSpeed", myDepartSpeed);
-    os.writeAttr("departDelay", time2string(myHolder.getDeparture() - myHolder.getParameter().depart));
+    os.writeAttr("departDelay", time2string(myHolder.getDepartDelay()));
     os.writeAttr("arrival", time2string(myArrivalTime));
     os.writeAttr("arrivalLane", myArrivalLane);
     os.writeAttr("arrivalPos", myArrivalPos);
@@ -249,8 +249,8 @@ MSDevice_Tripinfo::updateStatistics() const {
     myTotalRouteLength += routeLength;
     myTotalDuration += duration;
     myTotalWaitingTime += (SUMOTime)(myWaitingSteps * DELTA_T);
-    myTotalTimeLoss += myTimeLoss ;
-    myTotalDepartDelay += (myHolder.getDeparture() - myHolder.getParameter().depart);
+    myTotalTimeLoss += myTimeLoss;
+    myTotalDepartDelay += myHolder.getDepartDelay();
 }
 
 
