@@ -232,6 +232,8 @@ public:
     bool showLane2Lane;
     /// @brief whether the shape of the junction should be drawn
     bool drawJunctionShape;
+    /// @brief whether crosings and walkingareas shall be drawn
+    bool drawCrossingsAndWalkingareas;
     //@}
 
 

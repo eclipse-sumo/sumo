@@ -473,27 +473,31 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
             } else if (isCrossing) {
-                // determine priority to decide color
-                MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
-                if (link->havePriority() || net->getLinkTLIndex(link) > 0) {
-                    glColor3d(0.9, 0.9, 0.9);
-                } else {
-                    glColor3d(0.1, 0.1, 0.1);
+                if (s.drawCrossingsAndWalkingareas) {
+                    // determine priority to decide color
+                    MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+                    if (link->havePriority() || net->getLinkTLIndex(link) > 0) {
+                        glColor3d(0.9, 0.9, 0.9);
+                    } else {
+                        glColor3d(0.1, 0.1, 0.1);
+                    }
+                    glTranslated(0, 0, .2);
+                    drawCrossties(0.5, 1.0, getWidth() * 0.5);
+                    glTranslated(0, 0, -.2);
                 }
-                glTranslated(0, 0, .2);
-                drawCrossties(0.5, 1.0, getWidth() * 0.5);
-                glTranslated(0, 0, -.2);
             } else if (isWalkingArea) {
-                glTranslated(0, 0, .2);
-                if (s.scale * exaggeration < 20.) {
-                    GLHelper::drawFilledPoly(myShape, true);
-                } else {
-                    GLHelper::drawFilledPolyTesselated(myShape, true);
-                }
-                glTranslated(0, 0, -.2);
+                if (s.drawCrossingsAndWalkingareas) {
+                    glTranslated(0, 0, .2);
+                    if (s.scale * exaggeration < 20.) {
+                        GLHelper::drawFilledPoly(myShape, true);
+                    } else {
+                        GLHelper::drawFilledPolyTesselated(myShape, true);
+                    }
+                    glTranslated(0, 0, -.2);
 #ifdef GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
-                GLHelper::debugVertices(myShape, 80 / s.scale);
+                    GLHelper::debugVertices(myShape, 80 / s.scale);
 #endif
+                }
             } else {
                 const SUMOReal halfWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
                 mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions);

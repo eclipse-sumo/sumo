@@ -73,7 +73,10 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       drawLinkJunctionIndex(false, 50, RGBColor(128, 128, 255, 255)), 
       junctionName(false, 50, RGBColor(0, 255, 128, 255)),
       internalJunctionName(false, 50, RGBColor(0, 204, 128, 255)),
-      showLane2Lane(false), drawJunctionShape(true), addMode(0),
+      showLane2Lane(false), 
+      drawJunctionShape(true), 
+      drawCrossingsAndWalkingareas(true), 
+      addMode(0),
       addSize(1),
       addName(false, 50, RGBColor(255, 0, 128, 255)),
       poiSize(0), poiName(false, 50, RGBColor(255, 0, 128, 255)),
@@ -666,6 +669,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev << "                  ";
     dev.writeAttr("showLane2Lane", showLane2Lane);
     dev.writeAttr("drawShape", drawJunctionShape);
+    dev.writeAttr("drawCrossingsAndWalkingareas", drawCrossingsAndWalkingareas);
     junctionColorer.save(dev);
     dev.closeTag();
     // additionals
@@ -826,6 +830,10 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     }
 
     if (drawJunctionShape != v2.drawJunctionShape) {
+        return false;
+    }
+
+    if (drawCrossingsAndWalkingareas != v2.drawCrossingsAndWalkingareas) {
         return false;
     }
 
