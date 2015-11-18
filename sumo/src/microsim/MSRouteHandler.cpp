@@ -213,32 +213,30 @@ MSRouteHandler::myStartElement(int element,
                 MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
                 parseWalkPositions(attrs, myVehicleParameter->id, myActiveRoute.front(), myActiveRoute.back(), departPos, arrivalPos, bs, ok);
             } else {
-                if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
-                    const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok);
-                    MSEdge* from = MSEdge::dictionary(fromID);
-                    if (from == 0) {
-                        throw ProcessError("The from edge '" + fromID + "' within a walk of person '" + myVehicleParameter->id + "' is not known.");
-                    }
-                    const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok);
-                    MSEdge* to = MSEdge::dictionary(toID);
-                    if (to == 0) {
-                        throw ProcessError("The to edge '" + toID + "' within a walk of person '" + myVehicleParameter->id + "' is not known.");
-                    }
-                    parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, bs, ok);
-                    MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos,
-                            speed, 0, 0, myActiveRoute);
-                    if (myActiveRoute.empty()) {
-                        const std::string error = "No connection found between '" + from->getID() + "' and '" + to->getID() + "' for person '" + myVehicleParameter->id + "'.";
-                        if (!MSGlobals::gCheckRoutes) {
-                            myActiveRoute.push_back(from);
-                            myActiveRoute.push_back(to); // pedestrian will teleport
-                            //WRITE_WARNING(error);
-                        } else {
-                            throw ProcessError(error);
-                        }
-                    }
-                    //std::cout << myVehicleParameter->id << " edges=" << toString(myActiveRoute) << "\n";
+                const std::string fromID = attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "");
+                const MSEdge* from = fromID != "" || myActivePlan->empty() ? MSEdge::dictionary(fromID) : &myActivePlan->back()->getDestination();
+                if (from == 0) {
+                    throw ProcessError("The from edge '" + fromID + "' within a walk of person '" + myVehicleParameter->id + "' is not known.");
                 }
+                const std::string toID = attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "");
+                const MSEdge* to = MSEdge::dictionary(toID);
+                if (toID != "" && to == 0) {
+                    throw ProcessError("The to edge '" + toID + "' within a walk of person '" + myVehicleParameter->id + "' is not known.");
+                }
+                parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, bs, ok);
+                MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos,
+                        speed, 0, 0, myActiveRoute);
+                if (myActiveRoute.empty()) {
+                    const std::string error = "No connection found between '" + from->getID() + "' and '" + to->getID() + "' for person '" + myVehicleParameter->id + "'.";
+                    if (!MSGlobals::gCheckRoutes) {
+                        myActiveRoute.push_back(from);
+                        myActiveRoute.push_back(to); // pedestrian will teleport
+                        //WRITE_WARNING(error);
+                    } else {
+                        throw ProcessError(error);
+                    }
+                }
+                //std::cout << myVehicleParameter->id << " edges=" << toString(myActiveRoute) << "\n";
             }
             if (myActiveRoute.empty()) {
                 throw ProcessError("No edges to walk for person '" + myVehicleParameter->id + "'.");
@@ -956,7 +954,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 
 void
 MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
-                                   const MSEdge* fromEdge, const MSEdge* toEdge,
+                                   const MSEdge* fromEdge, const MSEdge*& toEdge,
                                    SUMOReal& departPos, SUMOReal& arrivalPos, MSStoppingPlace*& bs, bool& ok) {
     const std::string description = "person '" + personID + "' walking from " + fromEdge->getID();
 
@@ -965,19 +963,30 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
 
     std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
     if (bsID != "") {
-        if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-            WRITE_WARNING("Ignoring '" + toString(SUMO_ATTR_ARRIVALPOS)
-                          + "' for " + description + " because '" + toString(SUMO_ATTR_BUS_STOP) + "' is given.");
-        }
         bs = MSNet::getInstance()->getBusStop(bsID);
         if (bs == 0) {
             throw ProcessError("Unknown bus stop '" + bsID + "' for " + description + ".");
         }
-        arrivalPos = bs->getEndLanePosition();
+        if (toEdge == 0) {
+            toEdge = &bs->getLane().getEdge();
+        }
+        arrivalPos = bs->getEndLanePosition() - NUMERICAL_EPS;
+        if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+            const SUMOReal arrPos = parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge,
+                                                 attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok));
+            if (arrPos >= bs->getBeginLanePosition() && arrPos < bs->getEndLanePosition()) {
+                arrivalPos = arrPos;
+            } else {
+                WRITE_WARNING("Ignoring arrivalPos for " + description + " because it is outside the given stop '" + toString(SUMO_ATTR_BUS_STOP) + "'.");
+            }
+        }
     } else {
+        if (toEdge == 0) {
+            throw ProcessError("No destination edge for " + description + ".");
+        }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             arrivalPos = parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge,
-                                      attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok, toString(-POSITION_EPS)));
+                                      attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok));
         } else {
             arrivalPos = -NUMERICAL_EPS;
         }
