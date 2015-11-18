@@ -2465,6 +2465,11 @@ NBEdge::addRestrictedLane(SUMOReal width, SUMOVehicleClass vclass) {
     myFrom->shiftTLConnectionLaneIndex(this, 1);
     myTo->shiftTLConnectionLaneIndex(this, 1);
     computeLaneShapes();
+
+    for (std::vector<Connection>::iterator it = myConnections.begin(); it != myConnections.end(); ++it) {
+        Connection& c = *it;
+        if (getID() == "51932979") std::cout << "addRestrictedLane: connection from " << getID() << "_" << c.fromLane << " to " << c.toEdge->getID() << "_" << c.toLane << "\n";
+    }
 }
 
 
@@ -2474,6 +2479,7 @@ NBEdge::shiftToLanesToEdge(NBEdge* to, unsigned int laneOff) {
     for (std::vector<Connection>::iterator it = myConnections.begin(); it != myConnections.end(); ++it) {
         if ((*it).toEdge == to && (*it).toLane >= 0) {
             (*it).toLane += laneOff;
+            if (getID() == "51932979") std::cout << "shiftToLanesToEdge: connection from " << getID() << "_" << (*it).fromLane << " to " << (*it).toEdge->getID() << "_" << (*it).toLane << "\n";
         }
     }
 }

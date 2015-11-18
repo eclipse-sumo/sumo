@@ -1014,15 +1014,20 @@ NBEdgeCont::generateStreetSigns() {
 int
 NBEdgeCont::guessSidewalks(SUMOReal width, SUMOReal minSpeed, SUMOReal maxSpeed, bool fromPermissions) {
     int sidewalksCreated = 0;
+    const std::vector<std::string> edges = OptionsCont::getOptions().getStringVector("sidewalks.guess.exclude");
+    std::set<std::string> exclude(edges.begin(), edges.end());
     for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         NBEdge* edge = it->second;
-        if ((
-                    // guess.from-permissions
-                    (fromPermissions && (edge->getPermissions() & SVC_PEDESTRIAN) != 0)
-                    // guess from speed
-                    || (!fromPermissions && edge->getSpeed() > minSpeed && edge->getSpeed() <= maxSpeed))
-                // does not yet have a sidewalk
-                && edge->getPermissions(0) != SVC_PEDESTRIAN) {
+        if (// not excluded
+            exclude.count(edge->getID()) == 0
+            // does not yet have a sidewalk
+            && edge->getPermissions(0) != SVC_PEDESTRIAN
+            && (
+                // guess.from-permissions
+                (fromPermissions && (edge->getPermissions() & SVC_PEDESTRIAN) != 0)
+                // guess from speed
+                || (!fromPermissions && edge->getSpeed() > minSpeed && edge->getSpeed() <= maxSpeed)
+               )) {
             edge->addSidewalk(width);
             sidewalksCreated += 1;
         }

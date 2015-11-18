@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r19368
+SUMO netconvert Version dev-SVN-r19370I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -267,6 +267,8 @@ Processing Options:
   --sidewalks.guess.from-permissions   Add sidewalks for edges that allow
                                          pedestrians on any of their lanes
                                          regardless of speed
+  --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
+                                         list of edges
   --crossings.guess                    Guess pedestrian crossings based on the
                                          presence of sidewalks
 

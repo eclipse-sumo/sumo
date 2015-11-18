@@ -291,6 +291,9 @@
         <!-- Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed -->
         <sidewalks.guess.from-permissions value="false" type="BOOL"/>
 
+        <!-- Do not guess sidewalks for the given list of edges -->
+        <sidewalks.guess.exclude value="" type="STR"/>
+
         <!-- Guess pedestrian crossings based on the presence of sidewalks -->
         <crossings.guess value="false" type="BOOL"/>
 

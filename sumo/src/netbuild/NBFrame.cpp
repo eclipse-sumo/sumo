@@ -209,6 +209,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("sidewalks.guess.from-permissions", "Processing",
                       "Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed");
 
+    oc.doRegister("sidewalks.guess.exclude", new Option_String());
+    oc.addDescription("sidewalks.guess.exclude", "Processing",
+                      "Do not guess sidewalks for the given list of edges");
+
     oc.doRegister("crossings.guess", new Option_Bool(false));
     oc.addDescription("crossings.guess", "Processing",
                       "Guess pedestrian crossings based on the presence of sidewalks");
