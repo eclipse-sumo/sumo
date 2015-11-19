@@ -200,7 +200,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET) {
-    init(nolanes, false);
+    init(nolanes, false, "");
 }
 
 
@@ -209,6 +209,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
                int priority, SUMOReal laneWidth, SUMOReal offset,
                PositionVector geom,
                const std::string& streetName,
+               const std::string& origID,
                LaneSpreadFunction spread, bool tryIgnoreNodePositions) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
@@ -224,7 +225,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET) {
-    init(nolanes, tryIgnoreNodePositions);
+    init(nolanes, tryIgnoreNodePositions, origID);
 }
 
 
@@ -247,7 +248,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, con
     myAmMacroscopicConnector(false),
     myStreetName(tpl->getStreetName()),
     mySignalOffset(to == tpl->myTo ? tpl->mySignalOffset : UNSPECIFIED_SIGNAL_OFFSET) {
-    init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0);
+    init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0, "");
     for (unsigned int i = 0; i < getNumLanes(); i++) {
         const unsigned int tplIndex = MIN2(i, tpl->getNumLanes() - 1);
         setSpeed(i, tpl->getLaneSpeed(tplIndex));
@@ -289,7 +290,7 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
     // preserve lane-specific settings (geometry must be recomputed)
     // if new lanes are added they copy the values from the leftmost lane (if specified)
     const std::vector<Lane> oldLanes = myLanes;
-    init(nolanes, tryIgnoreNodePositions);
+    init(nolanes, tryIgnoreNodePositions, oldLanes.empty() ? "" : oldLanes[0].origID);
     for (int i = 0; i < (int)nolanes; ++i) {
         PositionVector newShape = myLanes[i].shape;
         myLanes[i] = oldLanes[MIN2(i, (int)oldLanes.size() - 1)];
@@ -329,7 +330,7 @@ NBEdge::reinitNodes(NBNode* from, NBNode* to) {
 
 
 void
-NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) {
+NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions, const std::string& origID) {
     if (noLanes == 0) {
         throw ProcessError("Edge '" + myID + "' needs at least one lane.");
     }
@@ -366,7 +367,7 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) {
     assert(myGeom.size() >= 2);
     myLanes.clear();
     for (unsigned int i = 0; i < noLanes; i++) {
-        myLanes.push_back(Lane(this));
+        myLanes.push_back(Lane(this, origID));
     }
     computeLaneShapes();
     computeAngle();
@@ -2134,7 +2135,7 @@ NBEdge::isNearEnough2BeJoined2(NBEdge* e, SUMOReal threshold) const {
 void 
 NBEdge::addLane(unsigned int index, bool recompute) {
     assert(index <= myLanes.size());
-    myLanes.insert(myLanes.begin() + index, Lane(this));
+    myLanes.insert(myLanes.begin() + index, Lane(this, ""));
     // copy attributes
     if (myLanes.size() > 1) {
         int templateIndex = index > 0 ? index - 1 : index + 1;
@@ -2143,6 +2144,7 @@ NBEdge::addLane(unsigned int index, bool recompute) {
         myLanes[index].preferred = myLanes[templateIndex].preferred;
         myLanes[index].endOffset = myLanes[templateIndex].endOffset;
         myLanes[index].width = myLanes[templateIndex].width;
+        myLanes[index].origID = myLanes[templateIndex].origID;
     }
     const EdgeVector& incs = myFrom->getIncomingEdges();
     if (recompute) {
@@ -2447,7 +2449,7 @@ NBEdge::addRestrictedLane(SUMOReal width, SUMOVehicleClass vclass) {
     // crossings can be guessed
     disallowVehicleClass(-1, vclass);
     // add new lane
-    myLanes.insert(myLanes.begin(), Lane(this));
+    myLanes.insert(myLanes.begin(), Lane(this, myLanes[0].origID));
     myLanes[0].permissions = vclass;
     myLanes[0].width = width;
     // shift outgoing connections to the left
