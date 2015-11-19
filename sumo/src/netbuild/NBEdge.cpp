@@ -491,10 +491,15 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode) c
         // shape intersects directly
         std::vector<SUMOReal> pbv = laneShape.intersectsAtLengths2D(nodeShape);
         assert(pbv.size() > 0);
-        SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
-        assert(pb >= 0);
-        PositionVector ns = pb <= laneShape.length() ? laneShape.getSubpart2D(pb, laneShape.length()) : laneShape;
+        // ensure that the subpart has at least two points
+        SUMOReal pb = MIN2(laneShape.length2D() - POSITION_EPS - NUMERICAL_EPS, VectorHelper<SUMOReal>::maxValue(pbv));
+        if (pb < 0) {
+            return laneShape;
+        }
+        PositionVector ns = laneShape.getSubpart2D(pb, laneShape.length2D());
+        //PositionVector ns = pb < (laneShape.length() - POSITION_EPS) ? laneShape.getSubpart2D(pb, laneShape.length()) : laneShape;
         ns[0].set(ns[0].x(), ns[0].y(), startNode->getPosition().z());
+        assert(ns.size() >= 2);
         return ns;
     } else if (nodeShape.intersects(lb)) {
         // extension of first segment intersects

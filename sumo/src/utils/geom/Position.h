@@ -213,7 +213,7 @@ public:
     }
 
     bool almostSame(const Position& p2, SUMOReal maxDiv = POSITION_EPS) const {
-        return fabs(myX - p2.myX) < maxDiv && fabs(myY - p2.myY) < maxDiv && fabs(myZ - p2.myZ) < maxDiv;
+        return distanceTo(p2) < maxDiv;
     }
 
 
