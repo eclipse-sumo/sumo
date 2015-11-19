@@ -26,3 +26,6 @@ disconnected_route
 
 # instant travel between disconnected points
 beaming
+
+# walking to a busstop
+busstop
