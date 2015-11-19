@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  3 08:32:19 2015 by SUMO netconvert Version dev-SVN-r19243
+<!-- generated on Thu Nov 19 14:18:11 2015 by SUMO netconvert Version dev-SVN-r19380ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -301,12 +301,12 @@
         <lane id="4705756-AddedOffRampEdge_1" index="1" speed="22.22" length="68.95" shape="1600.94,362.39 1635.92,417.46"/>
     </edge>
     <edge id="4829963" from="27736526" to="27736534" priority="13" spreadType="center" shape="1850.47,746.01 1889.74,798.24 1944.89,873.85 1971.32,910.87 1996.39,947.73 2037.81,1011.86 2077.21,1077.12 2100.80,1120.91 2124.20,1168.51 2139.17,1201.15 2154.25,1233.40">
-        <lane id="4829963_0" index="0" speed="44.44" length="575.88" shape="1851.78,745.01 1891.07,797.26 1946.23,872.88 1972.67,909.93 1997.77,946.82 2039.21,1010.99 2078.64,1076.30 2102.27,1120.15 2125.69,1167.80 2140.67,1200.46 2154.73,1230.54"/>
-        <lane id="4829963_1" index="1" speed="44.44" length="575.88" shape="1849.14,746.99 1888.41,799.22 1943.55,874.82 1969.97,911.81 1995.01,948.64 2036.41,1012.73 2075.78,1077.94 2099.33,1121.67 2122.71,1169.22 2137.67,1201.84 2151.74,1231.94"/>
+        <lane id="4829963_0" index="0" speed="44.44" length="575.86" shape="1851.79,745.02 1891.07,797.26 1946.23,872.88 1972.67,909.93 1997.77,946.82 2039.21,1010.99 2078.64,1076.30 2102.27,1120.15 2125.69,1167.80 2140.67,1200.46 2154.73,1230.54"/>
+        <lane id="4829963_1" index="1" speed="44.44" length="575.86" shape="1849.14,746.99 1888.41,799.22 1943.55,874.82 1969.97,911.81 1995.01,948.64 2036.41,1012.73 2075.78,1077.94 2099.33,1121.67 2122.71,1169.22 2137.67,1201.84 2151.74,1231.94"/>
     </edge>
     <edge id="4829964" from="27736524" to="27736526" priority="13" spreadType="center">
         <lane id="4829964_0" index="0" speed="22.22" length="79.77" shape="1805.37,680.19 1851.81,745.05"/>
-        <lane id="4829964_1" index="1" speed="22.22" length="79.77" shape="1802.69,682.11 1849.13,746.97"/>
+        <lane id="4829964_1" index="1" speed="22.22" length="79.77" shape="1802.69,682.11 1849.14,746.98"/>
     </edge>
     <edge id="4829966" from="21586775" to="21425441" priority="13" spreadType="center">
         <lane id="4829966_0" index="0" speed="22.22" length="79.55" shape="1838.05,749.46 1790.62,685.60"/>
@@ -512,7 +512,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="27736526" type="priority" x="1850.47" y="746.01" incLanes="4829964_0 4829964_1" intLanes="" shape="1847.86,747.95 1853.06,744.05 1847.84,747.91">
+    <junction id="27736526" type="priority" x="1850.47" y="746.01" incLanes="4829964_0 4829964_1" intLanes="" shape="1847.86,747.95 1853.06,744.05 1853.12,744.13 1847.84,747.91">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

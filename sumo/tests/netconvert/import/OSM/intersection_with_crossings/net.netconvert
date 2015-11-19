@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  3 08:32:16 2015 by SUMO netconvert Version dev-SVN-r19243
+<!-- generated on Thu Nov 19 14:29:29 2015 by SUMO netconvert Version dev-SVN-r19380ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml"/>
+        <type-files value="/scr1/sumoID/sumo/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -128,7 +128,7 @@
         <lane id=":cluster_1802245009_335683858_w1_0" index="0" allow="pedestrian" speed="1.00" length="13.39" width="4.00" shape="44.60,53.32 48.30,54.86 44.64,34.37 42.64,34.47 42.75,38.47"/>
     </edge>
     <edge id=":cluster_1802245009_335683858_w2" function="walkingarea">
-        <lane id=":cluster_1802245009_335683858_w2_0" index="0" allow="pedestrian" speed="1.00" length="1.86" width="4.00" shape="32.97,38.99 32.66,35.00 30.66,35.11 29.24,36.53 33.23,36.73"/>
+        <lane id=":cluster_1802245009_335683858_w2_0" index="0" allow="pedestrian" speed="1.00" length="1.86" width="4.00" shape="32.97,38.99 32.76,34.99 32.66,35.00 30.66,35.11 29.24,36.53 33.23,36.73"/>
     </edge>
     <edge id=":cluster_1802245009_335683858_w3" function="walkingarea">
         <lane id=":cluster_1802245009_335683858_w3_0" index="0" allow="pedestrian" speed="1.00" length="13.75" width="4.00" shape="33.07,39.93 29.07,39.82 28.97,41.82 30.87,60.62 32.87,60.62 32.98,56.62"/>

@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 21 15:55:45 2015 by SUMO netconvert Version dev-SVN-r18890I
+<!-- generated on Thu Nov 19 14:18:12 2015 by SUMO netconvert Version dev-SVN-r19380ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="input_plain.nod.xml"/>
-        <edge-files value="input_plain.edg.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
         <output-file value="net.net.xml"/>
-        <plain-output-prefix value="net"/>
         <output.street-names value="true"/>
     </output>
 
     <processing>
-        <ignore-errors.edge-type value="true"/>
-        <crossings.guess value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
     </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -44,7 +46,7 @@
         <lane id=":436051055_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.78" width="4.00" shape="46.18,78.21 47.58,76.78 47.96,72.94 46.12,76.49"/>
     </edge>
     <edge id=":436051055_w1" function="walkingarea">
-        <lane id=":436051055_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.17" width="4.00" shape="43.28,75.03 45.02,71.43 43.25,70.51 41.49,70.79 40.09,72.22"/>
+        <lane id=":436051055_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.17" width="4.00" shape="43.28,75.03 45.11,71.47 45.02,71.43 43.25,70.51 41.49,70.79 40.09,72.22"/>
     </edge>
 
     <edge id="30616907#0" from="338538580" to="436051055" name="Calle Núñez de Arce" priority="4" type="highway.residential" spreadType="center" shape="0.70,34.43 44.23,77.20">

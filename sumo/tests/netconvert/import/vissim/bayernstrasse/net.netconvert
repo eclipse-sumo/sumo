@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  3 08:32:14 2015 by SUMO netconvert Version dev-SVN-r19243
+<!-- generated on Thu Nov 19 14:29:27 2015 by SUMO netconvert Version dev-SVN-r19380ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -209,8 +209,8 @@
         <lane id="30007[1][0]_1" index="1" speed="13.89" length="160.73" shape="510.70,835.67 506.88,870.47 504.08,906.67 502.18,932.13"/>
     </edge>
     <edge id="30007[1][1][0]" from="57" to="58" priority="-1" type="11" spreadType="center">
-        <lane id="30007[1][1][0]_0" index="0" speed="13.89" length="70.40" shape="489.08,985.49 497.65,1062.83"/>
-        <lane id="30007[1][1][0]_1" index="1" speed="13.89" length="70.40" shape="489.22,1016.73 489.24,1016.93"/>
+        <lane id="30007[1][1][0]_0" index="0" speed="13.89" length="70.49" shape="489.08,985.49 497.65,1062.83"/>
+        <lane id="30007[1][1][0]_1" index="1" speed="13.89" length="70.49" shape="493.31,1053.60 494.37,1063.19"/>
     </edge>
     <edge id="30007[1][1][1][0]" from="58" to="44" priority="-1" type="11" spreadType="center" shape="494.96,1053.52 494.30,1062.59 489.78,1119.51 486.43,1154.76 481.32,1198.30 480.74,1211.12">
         <lane id="30007[1][1][1][0]_0" index="0" speed="13.89" length="151.22" shape="495.84,1063.95 491.42,1119.65 488.07,1154.94 484.17,1188.15"/>
@@ -625,7 +625,7 @@
         <lane id="85[1][1][1][0]_0" index="0" speed="13.89" length="36.48" shape="1564.96,1893.83 1540.00,1909.09"/>
     </edge>
     <edge id="85[1][1][1][1][0]" from="35" to="34" priority="-1" type="5" spreadType="center" shape="1534.23,1911.00 1534.03,1914.86">
-        <lane id="85[1][1][1][1][0]_0" index="0" speed="13.89" length="7.62" shape="1534.13,1912.83 1534.12,1913.03"/>
+        <lane id="85[1][1][1][1][0]_0" index="0" speed="13.89" length="8.44" shape="1534.03,1914.76 1533.96,1916.04"/>
     </edge>
     <edge id="85[1][1][1][1][1]" from="34" to="85-end" priority="-1" type="5" spreadType="center" shape="1532.39,1914.69 1529.99,1915.67 1514.74,1923.79">
         <lane id="85[1][1][1][1][1]_0" index="0" speed="13.89" length="18.87" shape="1528.02,1916.72 1514.74,1923.79"/>
@@ -1040,7 +1040,7 @@
     <junction id="41" type="priority" x="1739.59" y="1842.96" incLanes="87[0]+94_0 87[0]+94_1" intLanes="" shape="1739.33,1849.37 1742.46,1848.70 1743.55,1843.01 1738.17,1846.66">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="42" type="priority" x="1750.52" y="1879.85" incLanes="88[0]_0" intLanes="" shape="1759.39,1901.40 1762.26,1899.98 1741.74,1858.52 1738.87,1859.94 1736.02,1861.62">
+    <junction id="42" type="priority" x="1750.52" y="1879.85" incLanes="88[0]_0" intLanes="" shape="1759.39,1901.40 1762.26,1899.98 1741.74,1858.52 1738.87,1859.94 1738.78,1859.99 1736.02,1861.62">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
