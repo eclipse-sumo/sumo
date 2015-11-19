@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 19 Nov 2015 01:26:02 PM CET by Netedit Version dev-SVN-r19380I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="stations.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="stations.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/yosra/File/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-641355.83,-5067950.34" convBoundary="1720.61,693.21,1785.59,882.67" origBoundary="4.818163,45.750601,4.848997,45.775889" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1468611579" x="1785.59" y="786.69" type="unregulated"/>
+    <node id="1468611580" x="1779.03" y="788.03" type="dead_end"/>
+    <node id="1468611583" x="1754.90" y="792.98" type="dead_end"/>
+    <node id="1478005898" x="1769.32" y="790.02" type="dead_end"/>
+    <node id="1478005902" x="1750.33" y="758.93" type="unregulated"/>
+    <node id="1478005903" x="1764.77" y="790.95" type="dead_end"/>
+    <node id="1478005905" x="1762.03" y="755.09" type="dead_end"/>
+    <node id="1478005908" x="1758.42" y="792.26" type="dead_end"/>
+    <node id="1478005909" x="1775.53" y="882.67" type="unregulated"/>
+    <node id="1478005910" x="1764.84" y="816.88" type="dead_end"/>
+    <node id="1478005911" x="1760.35" y="693.21" type="unregulated"/>
+    <node id="1833873063" x="1771.44" y="789.59" type="dead_end"/>
+    <node id="1833873109" x="1753.21" y="793.28" type="right_before_left"/>
+    <node id="1833873120" x="1762.90" y="838.18" type="unregulated"/>
+    <node id="1836680536" x="1720.61" y="701.28" type="unregulated"/>
+    <node id="36461620" x="1735.87" y="796.47" type="unregulated"/>
+</nodes>
