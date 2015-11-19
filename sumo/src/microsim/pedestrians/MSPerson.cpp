@@ -61,15 +61,14 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const ConstMSEdgeVector& 
         MSStoppingPlace* toStop,
         SUMOTime walkingTime, SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
-    MSTransportable::Stage(*route.back(), toStop, MOVING_WITHOUT_VEHICLE), myWalkingTime(walkingTime), myRoute(route),
+    MSTransportable::Stage(*route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
+                       arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myWalkingTime(walkingTime), myRoute(route),
     myCurrentInternalEdge(0),
-    myDepartPos(departPos), myArrivalPos(arrivalPos),
+    myDepartPos(departPos),
     mySpeed(speed),
     myPedestrianState(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       myDepartPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + myRoute.front()->getID());
-    myArrivalPos = SUMOVehicleParameter::interpretEdgePos(
-                       myArrivalPos, myRoute.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + myRoute.back()->getID());
     if (walkingTime > 0) {
         mySpeed = computeAverageSpeed();
     }
@@ -127,9 +126,8 @@ MSPerson::MSPersonStage_Walking::getSpeed() const {
 
 
 void
-MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SUMOTime now,
-        MSEdge* previousEdge, const SUMOReal at) {
-    previousEdge->removePerson(person);
+MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
+    previous->getEdge()->removePerson(person);
     myRouteStep = myRoute.begin();
     if (myWalkingTime == 0) {
         if (!person->proceed(net, now)) {
@@ -138,8 +136,8 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
         return;
     }
     MSNet::getInstance()->getPersonControl().setWalking(person);
-    if (at >= 0) {
-        myDepartPos = at;
+    if (previous->getEdgePos(now) >= 0) {
+        myDepartPos = previous->getEdgePos(now);
         if (myWalkingTime > 0) {
             mySpeed = computeAverageSpeed();
         }
@@ -225,8 +223,8 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
  * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const std::vector<std::string>& lines)
-    : MSTransportable::Stage(destination, toStop, DRIVING), myLines(lines.begin(), lines.end()),
+        MSStoppingPlace* toStop, const SUMOReal arrivalPos, const std::vector<std::string>& lines)
+    : MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING), myLines(lines.begin(), lines.end()),
       myVehicle(0) {}
 
 
@@ -250,27 +248,30 @@ MSPerson::MSPersonStage_Driving::getFromEdge() const {
 
 SUMOReal
 MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime /* now */) const {
-    if (myVehicle != 0) {
-        // vehicle may already have passed the lane (check whether this is correct)
-        return MIN2(myVehicle->getPositionOnLane(), getEdge()->getLength());
+    if (isWaiting4Vehicle()) {
+        return myWaitingPos;
     }
-    return myWaitingPos;
+    // vehicle may already have passed the lane (check whether this is correct)
+    return MIN2(myVehicle->getPositionOnLane(), getEdge()->getLength());
 }
 
 
 Position
 MSPerson::MSPersonStage_Driving::getPosition(SUMOTime /* now */) const {
-    if (myVehicle != 0) {
-        /// @bug this fails while vehicle is driving across a junction
-        return myVehicle->getEdge()->getLanes()[0]->getShape().positionAtOffset(myVehicle->getPositionOnLane());
+    if (isWaiting4Vehicle()) {
+        if (myStopWaitPos != Position::INVALID) {
+            return myStopWaitPos;
+        }
+        return getEdgePosition(myWaitingEdge, myWaitingPos, MSPModel::SIDEWALK_OFFSET);
     }
-    return getEdgePosition(myWaitingEdge, myWaitingPos, MSPModel::SIDEWALK_OFFSET);
+    /// @bug this fails while vehicle is driving across a junction
+    return myVehicle->getEdge()->getLanes()[0]->getShape().positionAtOffset(myVehicle->getPositionOnLane());
 }
 
 
 SUMOReal
 MSPerson::MSPersonStage_Driving::getAngle(SUMOTime /* now */) const {
-    if (myVehicle != 0) {
+    if (!isWaiting4Vehicle()) {
         MSVehicle* veh = dynamic_cast<MSVehicle*>(myVehicle);
         if (veh != 0) {
             return veh->getAngle();
@@ -284,22 +285,28 @@ MSPerson::MSPersonStage_Driving::getAngle(SUMOTime /* now */) const {
 
 
 void
-MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SUMOTime now,
-        MSEdge* previousEdge, const SUMOReal at) {
-    myWaitingEdge = previousEdge;
-    myWaitingPos = at;
+MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
+    if (previous->getDestinationStop() != 0) {
+        // the arrival stop may have an access point
+        myWaitingEdge = &previous->getDestinationStop()->getLane().getEdge();
+        myStopWaitPos = previous->getDestinationStop()->getWaitPosition();
+    } else {
+        myWaitingEdge = previous->getEdge();
+        myStopWaitPos = Position::INVALID;
+    }
+    myWaitingPos = previous->getEdgePos(now);
     myWaitingSince = now;
-    SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(previousEdge, myLines, myWaitingPos, person->getID());
+    SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(myWaitingEdge, myLines, myWaitingPos, person->getID());
     if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_TRIGGERED) {
         myVehicle = availableVehicle;
-        previousEdge->removePerson(person);
+        myWaitingEdge->removePerson(person);
         myVehicle->addPerson(person);
         net->getInsertionControl().add(myVehicle);
-        net->getVehicleControl().removeWaiting(previousEdge, myVehicle);
+        net->getVehicleControl().removeWaiting(myWaitingEdge, myVehicle);
         net->getVehicleControl().unregisterOneWaitingForPerson();
     } else {
-        net->getPersonControl().addWaiting(previousEdge, person);
-        previousEdge->addPerson(person);
+        net->getPersonControl().addWaiting(myWaitingEdge, person);
+        myWaitingEdge->addPerson(person);
     }
 }
 
@@ -324,7 +331,7 @@ MSPerson::MSPersonStage_Driving::getWaitingTime(SUMOTime now) const {
 
 SUMOReal
 MSPerson::MSPersonStage_Driving::getSpeed() const {
-    return myVehicle == 0 ? 0 : myVehicle->getSpeed();
+    return isWaiting4Vehicle() ? 0 : myVehicle->getSpeed();
 }
 
 
@@ -365,13 +372,11 @@ MSPerson::MSPersonStage_Driving::endEventOutput(const MSTransportable& p, SUMOTi
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge& destination,
         SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType) :
-    MSTransportable::Stage(destination, 0, WAITING),
+    MSTransportable::Stage(destination, 0, SUMOVehicleParameter::interpretEdgePos(
+                     pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "person stopping at " + destination.getID()), WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
-    myActType(actType),
-    myStartPos(pos) {
-    myStartPos = SUMOVehicleParameter::interpretEdgePos(
-                     myStartPos, myDestination.getLength(), SUMO_ATTR_DEPARTPOS, "person stopping at " + myDestination.getID());
+    myActType(actType) {
 }
 
 
@@ -392,7 +397,7 @@ MSPerson::MSPersonStage_Waiting::getFromEdge() const {
 
 SUMOReal
 MSPerson::MSPersonStage_Waiting::getEdgePos(SUMOTime /* now */) const {
-    return myStartPos;
+    return myArrivalPos;
 }
 
 
@@ -404,20 +409,19 @@ MSPerson::MSPersonStage_Waiting::getUntil() const {
 
 Position
 MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime /* now */) const {
-    return getEdgePosition(&myDestination, myStartPos, MSPModel::SIDEWALK_OFFSET);
+    return getEdgePosition(&myDestination, myArrivalPos, MSPModel::SIDEWALK_OFFSET);
 }
 
 
 SUMOReal
 MSPerson::MSPersonStage_Waiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(&myDestination, myStartPos) + M_PI / 2;
+    return getEdgeAngle(&myDestination, myArrivalPos) + M_PI / 2;
 }
 
 
 void
-MSPerson::MSPersonStage_Waiting::proceed(MSNet* net, MSTransportable* person, SUMOTime now,
-        MSEdge* previousEdge, const SUMOReal /* at */) {
-    previousEdge->addPerson(person);
+MSPerson::MSPersonStage_Waiting::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
+    previous->getEdge()->addPerson(person);
     myWaitingStart = now;
     const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     net->getPersonControl().setWaitEnd(until, person);
@@ -485,14 +489,8 @@ MSPerson::~MSPerson() {
 
 bool
 MSPerson::proceed(MSNet* net, SUMOTime time) {
-    MSEdge* arrivedAt = (MSEdge*)(*myStep)->getEdge();
-    if ((*myStep)->getDestinationStop() != 0) {
-        // the arrival stop may have an access point
-        arrivedAt = &(*myStep)->getDestinationStop()->getLane().getEdge();
-    }
-    SUMOReal atPos = (*myStep)->getEdgePos(time);
-    //MSPersonPlan::iterator prior = myStep;
-    (*myStep)->setArrived(time);
+    MSTransportable::Stage* prior = *myStep;
+    prior->setArrived(time);
     /*
     if(myWriteEvents) {
         (*myStep)->endEventOutput(*this, time, OutputDevice::getDeviceByOption("person-event-output"));
@@ -500,7 +498,7 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
     */
     myStep++;
     if (myStep != myPlan->end()) {
-        (*myStep)->proceed(net, this, time, arrivedAt, atPos);
+        (*myStep)->proceed(net, this, time, prior);
         /*
         if(myWriteEvents) {
             (*myStep)->beginEventOutput(*this, time, OutputDevice::getDeviceByOption("person-event-output"));
@@ -508,7 +506,7 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
         */
         return true;
     } else {
-        arrivedAt->removePerson(this);
+        prior->getEdge()->removePerson(this);
         return false;
     }
 }

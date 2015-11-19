@@ -61,30 +61,34 @@ const SUMOReal MSContainer::ROADSIDE_OFFSET(3);
  * MSContainer::MSContainerStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Driving::MSContainerStage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const std::vector<std::string>& lines)
-    : MSTransportable::Stage(destination, toStop, DRIVING), myLines(lines.begin(), lines.end()),
+        MSStoppingPlace* toStop, const SUMOReal arrivalPos, const std::vector<std::string>& lines)
+    : MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING), myLines(lines.begin(), lines.end()),
       myVehicle(0) {}
 
 
 MSContainer::MSContainerStage_Driving::~MSContainerStage_Driving() {}
 
 void
-MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* container, SUMOTime now,
-        MSEdge* previousEdge, const SUMOReal at) {
-    myWaitingEdge = previousEdge;
-    myWaitingPos = at;
+MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous) {
+    if (previous->getDestinationStop() != 0) {
+        // the arrival stop may have an access point
+        myWaitingEdge = &previous->getDestinationStop()->getLane().getEdge();
+    } else {
+        myWaitingEdge = previous->getEdge();
+    }
+    myWaitingPos = previous->getEdgePos(now);
     myWaitingSince = now;
-    SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(previousEdge, myLines, myWaitingPos, container->getID());
+    SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(myWaitingEdge, myLines, myWaitingPos, container->getID());
     if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED) {
         myVehicle = availableVehicle;
-        previousEdge->removeContainer(container);
+        myWaitingEdge->removeContainer(container);
         myVehicle->addContainer(container);
         net->getInsertionControl().add(myVehicle);
-        net->getVehicleControl().removeWaiting(previousEdge, myVehicle);
+        net->getVehicleControl().removeWaiting(myWaitingEdge, myVehicle);
         net->getVehicleControl().unregisterOneWaitingForContainer();
     } else {
-        net->getContainerControl().addWaiting(previousEdge, container);
-        previousEdge->addContainer(container);
+        net->getContainerControl().addWaiting(myWaitingEdge, container);
+        myWaitingEdge->addContainer(container);
     }
 }
 
@@ -192,13 +196,11 @@ MSContainer::MSContainerStage_Driving::endEventOutput(const MSTransportable& con
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Waiting::MSContainerStage_Waiting(const MSEdge& destination,
         SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType) :
-    MSTransportable::Stage(destination, 0, WAITING),
+    MSTransportable::Stage(destination, 0, SUMOVehicleParameter::interpretEdgePos(
+                     pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "container stopping at " + destination.getID()), WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
-    myActType(actType),
-    myStartPos(pos) {
-    myStartPos = SUMOVehicleParameter::interpretEdgePos(
-                     myStartPos, myDestination.getLength(), SUMO_ATTR_DEPARTPOS, "container stopping at " + myDestination.getID());
+    myActType(actType) {
 }
 
 MSContainer::MSContainerStage_Waiting::~MSContainerStage_Waiting() {}
@@ -215,7 +217,7 @@ MSContainer::MSContainerStage_Waiting::getFromEdge() const {
 
 SUMOReal
 MSContainer::MSContainerStage_Waiting::getEdgePos(SUMOTime /* now */) const {
-    return myStartPos;
+    return myArrivalPos;
 }
 
 SUMOTime
@@ -225,12 +227,12 @@ MSContainer::MSContainerStage_Waiting::getUntil() const {
 
 Position
 MSContainer::MSContainerStage_Waiting::getPosition(SUMOTime /* now */) const {
-    return getEdgePosition(&myDestination, myStartPos, ROADSIDE_OFFSET);
+    return getEdgePosition(&myDestination, myArrivalPos, ROADSIDE_OFFSET);
 }
 
 SUMOReal
 MSContainer::MSContainerStage_Waiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(&myDestination, myStartPos) + M_PI;
+    return getEdgeAngle(&myDestination, myArrivalPos) + M_PI;
 }
 
 SUMOTime
@@ -249,9 +251,8 @@ MSContainer::MSContainerStage_Waiting::getDepartContainerStop() const {
 }
 
 void
-MSContainer::MSContainerStage_Waiting::proceed(MSNet* net, MSTransportable* container, SUMOTime now,
-        MSEdge* previousEdge, const SUMOReal /* at */) {
-    previousEdge->addContainer(container);
+MSContainer::MSContainerStage_Waiting::proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous) {
+    previous->getEdge()->addContainer(container);
     myWaitingStart = now;
     const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     net->getContainerControl().setWaitEnd(until, container);
@@ -293,25 +294,22 @@ MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vec
         MSStoppingPlace* toStop,
         SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
-    MSTransportable::Stage(*route.back(), toStop, MOVING_WITHOUT_VEHICLE), myRoute(route),
+    MSTransportable::Stage(*route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
+                       arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transhipped to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myRoute(route),
     mySpeed(speed), myContainerState(0), myCurrentInternalEdge(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "container getting transhipped from " + myRoute.front()->getID());
-    myArrivalPos = SUMOVehicleParameter::interpretEdgePos(
-                       arrivalPos, myRoute.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transhipped to " + myRoute.back()->getID());
 }
 
 MSContainer::MSContainerStage_Tranship::~MSContainerStage_Tranship() {
 }
 
 void
-MSContainer::MSContainerStage_Tranship::proceed(MSNet* /* net */, MSTransportable* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at) {
-    previousEdge->removeContainer(container);
+MSContainer::MSContainerStage_Tranship::proceed(MSNet* /* net */, MSTransportable* container, SUMOTime now, Stage* previous) {
+    previous->getEdge()->removeContainer(container);
     myRouteStep = myRoute.end() - 1;   //define that the container is already on its destination edge
     MSNet::getInstance()->getContainerControl().setTranship(container);
-    if (at >= 0) {
-        myDepartPos = at;
-    }
+    myDepartPos = previous->getEdgePos(now);
     myContainerState = MSCModel_NonInteracting::getModel()->add(container, this, now);
     (*myRouteStep)->addContainer(container);
 }
@@ -428,15 +426,14 @@ MSContainer::~MSContainer() {
 
 bool
 MSContainer::proceed(MSNet* net, SUMOTime time) {
-    MSEdge* arrivedAt = (MSEdge*)(*myStep)->getEdge();
-    SUMOReal atPos = (*myStep)->getEdgePos(time);
-    (*myStep)->setArrived(time);
+    Stage* prior = *myStep;
+    prior->setArrived(time);
     myStep++;
     if (myStep != myPlan->end()) {
-        (*myStep)->proceed(net, this, time, arrivedAt, atPos);
+        (*myStep)->proceed(net, this, time, prior);
         return true;
     } else {
-        arrivedAt->removeContainer(this);
+        prior->getEdge()->removeContainer(this);
         return false;
     }
 }

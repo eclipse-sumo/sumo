@@ -44,6 +44,7 @@
 class MSLane;
 class SUMOVehicle;
 class MSTransportable;
+class Position;
 
 
 // ===========================================================================
@@ -135,6 +136,13 @@ public:
     SUMOReal getLastFreePos(const SUMOVehicle& forVehicle) const;
 
 
+    /** @brief Returns the next free waiting place for pedestrians / containers
+     *
+     * @return The next free waiting place for pedestrians / containers
+     */
+    Position getWaitPosition() const;
+
+
     /** @brief Returns the number of transportables waiting on this stop
     */
     unsigned int getTransportableNumber() const {
@@ -142,17 +150,10 @@ public:
     }
 
     /// @brief adds a transportable to this stop
-    void addTransportable(MSTransportable* p) {
-        myWaitingTransportables.push_back(p);
-    }
+    void addTransportable(MSTransportable* p);
 
     /// @brief Removes a transportable from this stop
-    void removeTransportable(MSTransportable* p) {
-        std::vector<MSTransportable*>::iterator i = std::find(myWaitingTransportables.begin(), myWaitingTransportables.end(), p);
-        if (i != myWaitingTransportables.end()) {
-            myWaitingTransportables.erase(i);
-        }
-    }
+    void removeTransportable(MSTransportable* p);
 
 protected:
     /** @brief Computes the last free position on this stop
@@ -172,16 +173,19 @@ protected:
     std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> > myEndPositions;
 
     /// @brief The lane this bus stop is located at
-    MSLane& myLane;
+    const MSLane& myLane;
 
     /// @brief The begin position this bus stop is located at
-    SUMOReal myBegPos;
+    const SUMOReal myBegPos;
 
     /// @brief The end position this bus stop is located at
-    SUMOReal myEndPos;
+    const SUMOReal myEndPos;
 
     /// @brief The last free position at this stop (variable)
     SUMOReal myLastFreePos;
+
+    /// @brief The next free position for persons / containers
+    SUMOReal myWaitingPos;
 
     /// @brief Persons waiting at this stop
     std::vector<MSTransportable*> myWaitingTransportables;

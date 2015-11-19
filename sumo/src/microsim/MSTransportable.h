@@ -67,7 +67,7 @@ public:
     class Stage {
     public:
         /// constructor
-        Stage(const MSEdge& destination, MSStoppingPlace* toStop, StageType type);
+        Stage(const MSEdge& destination, MSStoppingPlace* toStop, const SUMOReal arrivalPos, StageType type);
 
         /// destructor
         virtual ~Stage();
@@ -78,6 +78,10 @@ public:
         /// returns the destination stop (if any)
         const MSStoppingPlace* getDestinationStop() const {
             return myDestinationStop;
+        }
+
+        SUMOReal getArrivalPos() const {
+            return myArrivalPos;
         }
 
         /// Returns the current edge
@@ -100,7 +104,7 @@ public:
         virtual std::string getStageDescription() const = 0;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSEdge* previousEdge, const SUMOReal at) = 0;
+        virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) = 0;
 
         /// logs end of the step
         void setDeparted(SUMOTime now);
@@ -166,6 +170,9 @@ public:
 
         /// the stop to reach by getting transported (if any)
         MSStoppingPlace* const myDestinationStop;
+
+        /// the position at which we want to arrive
+        SUMOReal myArrivalPos;
 
         /// the time at which this stage started
         SUMOTime myDeparted;

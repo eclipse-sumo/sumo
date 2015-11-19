@@ -186,7 +186,7 @@ MSRouteHandler::myStartElement(int element,
                     throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
                 }
             }
-            myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, bs, st.getVector()));
+            myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, bs, -NUMERICAL_EPS, st.getVector()));
             break;
         }
         case SUMO_TAG_WALK: {
@@ -287,7 +287,7 @@ MSRouteHandler::myStartElement(int element,
             if (to == 0) {
                 throw ProcessError("The to edge '" + toID + "' within a transport of container '" + containerId + "' is not known.");
             }
-            myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Driving(*to, cs, st.getVector()));
+            myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Driving(*to, cs, -NUMERICAL_EPS, st.getVector()));
             break;
         }
         case SUMO_TAG_TRANSHIP: {
@@ -934,8 +934,12 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     }
     if (myActivePlan != 0) {
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, 0, ok, "waiting");
+        SUMOReal pos = stop.busstop != "" ? (stop.startPos + stop.endPos) / 2. : stop.endPos;
+        if (!myActivePlan->empty()) {
+            pos = myActivePlan->back()->getArrivalPos();
+        }
         myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
-                                    MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until, stop.startPos, actType));
+                                    MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until, pos, actType));
     } else if (myActiveContainerPlan != 0) {
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, 0, ok, "waiting");
         myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Waiting(
@@ -970,7 +974,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         if (toEdge == 0) {
             toEdge = &bs->getLane().getEdge();
         }
-        arrivalPos = bs->getEndLanePosition() - NUMERICAL_EPS;
+        arrivalPos = (bs->getBeginLanePosition() + bs->getEndLanePosition()) / 2.;
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             const SUMOReal arrPos = parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge,
                                                  attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok));
