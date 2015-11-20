@@ -66,6 +66,7 @@
 const SUMOReal NBEdge::UNSPECIFIED_WIDTH = -1;
 const SUMOReal NBEdge::UNSPECIFIED_OFFSET = 0;
 const SUMOReal NBEdge::UNSPECIFIED_SPEED = -1;
+const SUMOReal NBEdge::UNSPECIFIED_CONTPOS = -1;
 
 const SUMOReal NBEdge::UNSPECIFIED_SIGNAL_OFFSET = -1;
 const SUMOReal NBEdge::UNSPECIFIED_LOADED_LENGTH = -1;
@@ -674,7 +675,8 @@ NBEdge::addLane2LaneConnection(unsigned int from, NBEdge* dest,
                                unsigned int toLane, Lane2LaneInfoType type,
                                bool mayUseSameDestination,
                                bool mayDefinitelyPass,
-                               bool keepClear) {
+                               bool keepClear,
+                               SUMOReal contPos) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -687,7 +689,7 @@ NBEdge::addLane2LaneConnection(unsigned int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear);
+    setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos);
     return true;
 }
 
@@ -714,7 +716,8 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
                       unsigned int destLane, Lane2LaneInfoType type,
                       bool mayUseSameDestination,
                       bool mayDefinitelyPass,
-                      bool keepClear) {
+                      bool keepClear,
+                      SUMOReal contPos) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return;
     }
@@ -753,6 +756,7 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
         myConnections.back().mayDefinitelyPass = true;
     }
     myConnections.back().keepClear = keepClear;
+    myConnections.back().contPos = contPos;
     if (type == L2L_USER) {
         myStep = LANES2LANES_USER;
     } else {
@@ -1175,7 +1179,16 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
             default:
                 break;
         }
-
+        if (con.contPos != UNSPECIFIED_CONTPOS) {
+            // apply custom internal junction position
+            if (con.contPos <= 0 || con.contPos >= shape.length()) {
+                // disable internal junction
+                crossingPositions.first = -1;
+            } else {
+                // set custom position
+                crossingPositions.first = con.contPos;
+            }
+        }
 
         // @todo compute the maximum speed allowed based on angular velocity
         //  see !!! for an explanation (with a_lat_mean ~0.3)

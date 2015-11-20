@@ -191,6 +191,8 @@ private:
         bool mayDefinitelyPass;
         /// @brief Whether the junction must be kept clear coming from this connection
         bool keepClear;
+        /// @brief custom position for internal junction on this connection
+        SUMOReal contPos;
     };
 
 

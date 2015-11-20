@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 19 Nov 2015 04:34:04 PM CET by Netedit Version dev-SVN-r19386I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/2016/input_plain2"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-51811895a" from="54536753" to="gneJ3" priority="-2" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+        <lane index="2" disallow="pedestrian"/>
+    </edge>
+    <edge id="-51812052" from="54536750" to="54536753" priority="-3" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+        <lane index="2" disallow="pedestrian"/>
+    </edge>
+    <edge id="-786367651" from="54536771" to="54536753" priority="-2" numLanes="3" speed="13.89" shape="74.37,83.92 56.65,35.56" spreadType="center">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+        <lane index="2" disallow="pedestrian"/>
+    </edge>
+    <edge id="51811895a" from="54536752" to="54536753" priority="-5" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="51811895b" from="54536752" to="54536753" priority="-2" numLanes="3" speed="13.89" shape="53.62,7.64 63.06,31.56">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+        <lane index="2" disallow="pedestrian"/>
+    </edge>
+    <edge id="51812052" from="54536753" to="54536750" priority="-3" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="786367652" from="54536753" to="54536772" priority="-2" numLanes="3" speed="13.89" shape="68.96,39.03 83.45,80.53" spreadType="center">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+        <lane index="2" disallow="pedestrian"/>
+    </edge>
+</edges>

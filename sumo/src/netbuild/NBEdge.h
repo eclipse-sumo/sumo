@@ -171,6 +171,8 @@ public:
         bool mayDefinitelyPass;
         /// @brief whether the junction must be kept clear when using this connection
         bool keepClear;
+        /// @brief custom position for internal junction on this connection
+        SUMOReal contPos;
 
 
         std::string origID;
@@ -200,6 +202,8 @@ public:
     static const SUMOReal UNSPECIFIED_OFFSET;
     /// @brief unspecified lane speed
     static const SUMOReal UNSPECIFIED_SPEED;
+    /// @brief unspecified internal junction position
+    static const SUMOReal UNSPECIFIED_CONTPOS;
 
     /// @brief no length override given
     static const SUMOReal UNSPECIFIED_LOADED_LENGTH;
@@ -664,7 +668,8 @@ public:
                                 unsigned int toLane, Lane2LaneInfoType type,
                                 bool mayUseSameDestination = false,
                                 bool mayDefinitelyPass = false,
-                                bool keepClear = true);
+                                bool keepClear = true,
+                                SUMOReal contPos = UNSPECIFIED_CONTPOS);
 
 
     /** @brief Builds no connections starting at the given lanes
@@ -705,7 +710,8 @@ public:
                        Lane2LaneInfoType type,
                        bool mayUseSameDestination = false,
                        bool mayDefinitelyPass = false,
-                       bool keepClear = true);
+                       bool keepClear = true,
+                       SUMOReal contPos = UNSPECIFIED_CONTPOS);
 
 
 
