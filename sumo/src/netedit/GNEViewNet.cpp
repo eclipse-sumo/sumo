@@ -112,6 +112,7 @@ GNEViewNet::GNEViewNet(
     myCreateEdgeSource(0),
     myJunctionToMove(0),
     myEdgeToMove(0),
+    myPolyToMove(0),
     myMoveSelection(false),
     myAmInRectSelect(false),
     myToolbar(toolBar),
