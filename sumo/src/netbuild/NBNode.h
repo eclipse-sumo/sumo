@@ -189,9 +189,6 @@ public:
     static const SUMOReal UNSPECIFIED_RADIUS;
 
 public:
-    /// @brief maximum number of connections allowed
-    static const int MAX_CONNECTIONS;
-
     /** @brief Constructor
      * @param[in] id The id of the node
      * @param[in] position The position of the node

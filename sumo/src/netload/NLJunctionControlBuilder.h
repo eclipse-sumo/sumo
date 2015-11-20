@@ -341,7 +341,7 @@ protected:
     MSBitsetLogic::Foes myActiveFoes;
 
     /// @brief The description about which lanes have an internal follower
-    std::bitset<64> myActiveConts;
+    std::bitset<SUMO_MAX_CONNECTIONS> myActiveConts;
 
     /// @brief The current phase definitions for a simple traffic light
     MSSimpleTrafficLightLogic::Phases myActivePhases;

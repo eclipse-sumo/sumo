@@ -85,7 +85,6 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-const int NBNode::MAX_CONNECTIONS(64);
 const int NBNode::FORWARD(1);
 const int NBNode::BACKWARD(-1);
 const SUMOReal NBNode::DEFAULT_CROSSING_WIDTH(4);
@@ -670,7 +669,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
         myRequest = new NBRequest(ec, this, myAllEdges, myIncomingEdges, myOutgoingEdges, myBlockedConnections);
         // check whether it is not too large
         unsigned int numConnections = numNormalConnections();
-        if (numConnections >= MAX_CONNECTIONS) {
+        if (numConnections >= SUMO_MAX_CONNECTIONS) {
             // yep -> make it untcontrolled, warn
             delete myRequest;
             myRequest = 0;
@@ -680,7 +679,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
                 myType = NODETYPE_NOJUNCTION;
             }
             WRITE_WARNING("Junction '" + getID() + "' is too complicated (" + toString(numConnections)
-                          + " connections, max 64); will be set to " + toString(myType));
+                          + " connections, max " + toString(SUMO_MAX_CONNECTIONS) + "); will be set to " + toString(myType));
         } else if (numConnections == 0) {
             delete myRequest;
             myRequest = 0;
