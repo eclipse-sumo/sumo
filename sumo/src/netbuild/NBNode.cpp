@@ -634,7 +634,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     }
     if (c.tlID != "" && !bothLeft) {
         assert(myTrafficLights.size() > 0);
-        return (*myTrafficLights.begin())->needsCont(fromE, toE, otherFromE, otherToE);
+        return (c.contPos != NBEdge::UNSPECIFIED_CONTPOS) || (*myTrafficLights.begin())->needsCont(fromE, toE, otherFromE, otherToE);
     }
     if (fromE->getJunctionPriority(this) > 0 && otherFromE->getJunctionPriority(this) > 0) {
         return mustBrake(fromE, toE, c.fromLane, c.toLane, false);
