@@ -317,6 +317,12 @@ private:
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
 
+    /// @brief whether the loaded network was built for lefthand traffic
+    bool myAmLefthand;
+
+    /// @brief the level of corner detail in the loaded network
+    int myCornerDetail;
+
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;
 
