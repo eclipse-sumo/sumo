@@ -1,0 +1,3 @@
+-e input_plain.edg.xml -n input_plain.nod.xml -o net.net.xml
+--tls.left-green.time 0 --no-internal-links --no-turnarounds
+

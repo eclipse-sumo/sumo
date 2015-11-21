@@ -98,30 +98,9 @@ public:
     using vp::front;
     using vp::back;
     using vp::reference;
+    using vp::erase;
+    using vp::insert;
 
-
-    /// @name Adding items to the container
-    /// @{
-
-
-    /** @brief Appends all positions from the given vector
-     * @param[in] p The vector from which values shall be appended
-     */
-    void push_back(const PositionVector& p);
-    /// @}
-
-
-    /// Puts the given position at the front of the list
-    void push_front(const Position& p);
-
-    /// Removes and returns the position at the front of the list
-    Position pop_front();
-
-    void insertAt(int index, const Position& p);
-
-    void replaceAt(int index, const Position& by);
-
-    void eraseAt(int i);
 
     /** @brief Returns the information whether the position vector describes a polygon lying around the given point
         The optional offset is added to the polygon's boundaries */

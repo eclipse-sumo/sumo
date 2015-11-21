@@ -31,8 +31,10 @@
 
 #include <cassert>
 #include <utils/vehicle/SUMOVehicle.h>
+#include <utils/geom/Position.h>
+#include <microsim/MSVehicleType.h>
 #include "MSLane.h"
-#include "MSVehicleType.h"
+#include "MSTransportable.h"
 #include "MSStoppingPlace.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -48,7 +50,7 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
                                  MSLane& lane,
                                  SUMOReal begPos, SUMOReal endPos)
     : Named(id), myLines(lines), myLane(lane),
-      myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos) {
+      myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos), myWaitingPos(endPos) {
     computeLastFreePos();
 }
 
@@ -87,6 +89,34 @@ MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
         return myLastFreePos - forVehicle.getVehicleType().getMinGap();
     }
     return myLastFreePos;
+}
+
+
+Position
+MSStoppingPlace::getWaitPosition() const {
+    return myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos(myWaitingPos), .5);
+}
+
+
+void
+MSStoppingPlace::addTransportable(MSTransportable* p) {
+    myWaitingTransportables.push_back(p);
+    myWaitingPos -= p->getVehicleType().getLength();
+}
+
+
+void
+MSStoppingPlace::removeTransportable(MSTransportable* p) {
+    std::vector<MSTransportable*>::iterator i = std::find(myWaitingTransportables.begin(), myWaitingTransportables.end(), p);
+    if (i != myWaitingTransportables.end()) {
+        if (i == myWaitingTransportables.end() - 1) {
+            myWaitingPos -= p->getVehicleType().getLength();
+        }
+        if (i == myWaitingTransportables.begin()) {
+            myWaitingPos = getEndLanePosition();
+        }
+        myWaitingTransportables.erase(i);
+    }
 }
 
 

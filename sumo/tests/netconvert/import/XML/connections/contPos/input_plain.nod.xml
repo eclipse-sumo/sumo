@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 19 Nov 2015 04:34:04 PM CET by Netedit Version dev-SVN-r19386I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/2016/input_plain2"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-605016.39,-5795069.81" convBoundary="0.00,0.00,83.45,83.92" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="54536750" x="0.00" y="46.83" type="priority"/>
+    <node id="54536752" x="47.39" y="0.00" type="unregulated" radius="5.00"/>
+    <node id="54536753" x="58.36" y="29.16" type="traffic_light" tl="K048" shape="54.15,41.24 72.10,34.97 70.74,31.17 63.68,33.69 59.79,23.69 56.61,24.99 52.93,15.82 44.93,18.99 42.01,25.07 46.07,38.47 54.15,41.24" radius="5.00"/>
+    <node id="54536771" x="75.31" y="83.58" type="unregulated"/>
+    <node id="54536772" x="82.51" y="80.86" type="unregulated"/>
+    <node id="gneJ3" x="50.60" y="9.93" type="unregulated" shape="43.14,14.55 51.11,11.33 50.82,10.34 42.92,13.65 43.14,14.55"/>
+</nodes>

@@ -391,13 +391,13 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     firstPart->setAttribute(GNE_ATTR_SHAPE_START, toString(newGeoms.first[0]), undoList);
     firstPart->setAttribute(GNE_ATTR_SHAPE_END, toString(newGeoms.first[-1]), undoList);
     newGeoms.first.pop_back();
-    newGeoms.first.pop_front();
+    newGeoms.first.erase(newGeoms.first.begin());
     firstPart->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.first), undoList);
 
     secondPart->setAttribute(GNE_ATTR_SHAPE_START, toString(newGeoms.second[0]), undoList);
     secondPart->setAttribute(GNE_ATTR_SHAPE_END, toString(newGeoms.second[-1]), undoList);
     newGeoms.second.pop_back();
-    newGeoms.second.pop_front();
+    newGeoms.second.erase(newGeoms.second.begin());
     secondPart->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.second), undoList);
     // fix connections
     std::vector<NBEdge::Connection>& connections = edge->getNBEdge()->getConnections();

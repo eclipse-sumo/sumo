@@ -203,6 +203,13 @@ public:
         return myDeparture;
     }
 
+    /** @brief Returns the depart delay */
+    SUMOTime getDepartDelay() const {
+        return getDeparture() - getParameter().depart;
+    }
+
+
+
     /** @brief Returns this vehicle's desired arrivalPos for its current route
      * (may change on reroute)
      * @return This vehicle's real arrivalPos

@@ -453,8 +453,9 @@ public:
 
     /** @brief Determines which edges belong to roundabouts and increases their priority
      * @param[out] marked Edges which belong to a roundabout are stored here
+     * @return The number of guessed roundabouts
      */
-    void guessRoundabouts();
+    int guessRoundabouts();
 
 
     /** @brief Returns whether the edge with the id was ignored during parsing
@@ -487,8 +488,9 @@ public:
      * @param[in] toLane The number of the lane the connection ends at
      * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
      * @param[in] keepClear Whether the connection must check to keep the junction clear
+     * @param[in] contPos Custom position for internal junction
      */
-    void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear);
+    void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear, SUMOReal contPos);
 
 
     /** @brief Try to set any stored connections
@@ -546,8 +548,8 @@ private:
          * @param[in] toLane The number of the lane the connection ends at
          * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
          */
-        PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_, bool mayDefinitelyPass_, bool keepClear_)
-            : from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_)
+        PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, SUMOReal contPos_) : 
+            from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_)
         { }
         /// @brief The id of the edge the connection starts at
         std::string from;
@@ -561,6 +563,8 @@ private:
         bool mayDefinitelyPass;
         /// @brief Whether the connection may be passed without braking
         bool keepClear;
+        /// @brief custom position for internal junction on this connection
+        SUMOReal contPos;
     };
 
     /// @brief The list of connections to recheck

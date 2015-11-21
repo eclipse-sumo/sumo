@@ -22,6 +22,9 @@ cross3l_no_turnarounds
 # Test for importing the network from import/XML/connections/cross3l_prohibitions
 cross3l_prohibitions
 
+# Test for importing the network from import/XML/connections/cross3l_prohibitions and then deleting some edges
+cross3l_prohibitions_delete
+
 # Test for importing the network from import/XML/connections/cross3l_prohibitions_turns
 cross3l_prohibitions_turns
 

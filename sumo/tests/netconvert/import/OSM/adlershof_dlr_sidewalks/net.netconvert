@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  3 12:01:37 2015 by SUMO netconvert Version dev-SVN-r19243
+<!-- generated on Thu Nov 19 14:18:10 2015 by SUMO netconvert Version dev-SVN-r19380ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
+        <type-files value="/scr1/sumoID/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -321,7 +321,7 @@
     </edge>
     <edge id="-143308521#10" from="664166125" to="1789928382" priority="5" type="highway.unclassified">
         <lane id="-143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="2.74" width="2.00" shape="4454.29,1007.44 4454.12,1007.33"/>
-        <lane id="-143308521#10_1" index="1" disallow="pedestrian" speed="22.22" length="2.74" shape="4455.75,1005.17 4455.58,1005.06"/>
+        <lane id="-143308521#10_1" index="1" disallow="pedestrian" speed="22.22" length="2.74" shape="4456.82,1005.86 4456.73,1005.81"/>
     </edge>
     <edge id="-143308521#3" from="664166095" to="cluster_1568241686_2177702824" priority="5" type="highway.unclassified" shape="4216.82,909.67 4188.50,911.11 4155.02,912.80">
         <lane id="-143308521#3_0" index="0" allow="pedestrian" speed="22.22" length="62.13" width="2.00" shape="4210.86,914.33 4188.72,915.45 4160.20,916.90"/>
@@ -736,7 +736,7 @@
         <lane id="-212713676_0" index="0" allow="delivery pedestrian" speed="5.56" length="42.37" shape="3814.10,191.31 3806.54,154.55"/>
     </edge>
     <edge id="-215353485" from="2247697322" to="2247697350" priority="2" type="highway.service">
-        <lane id="-215353485_0" index="0" allow="delivery pedestrian" speed="5.56" length="4.88" shape="4156.08,945.05 4155.96,945.21"/>
+        <lane id="-215353485_0" index="0" allow="delivery pedestrian" speed="5.56" length="4.88" shape="4157.49,943.18 4157.43,943.26"/>
     </edge>
     <edge id="-222737701#0" from="2247697350" to="2177702831" priority="2" type="highway.service">
         <lane id="-222737701#0_0" index="0" allow="delivery pedestrian" speed="5.56" length="5.17" shape="4157.16,947.03 4157.32,947.15"/>
@@ -1036,7 +1036,7 @@
         <lane id="128643752_0" index="0" allow="pedestrian" speed="8.33" length="12.93" width="2.00" shape="4577.00,950.67 4585.07,957.22"/>
     </edge>
     <edge id="128643753#0" from="38920751" to="671564318" priority="1" type="highway.footway" spreadType="center">
-        <lane id="128643753#0_0" index="0" allow="pedestrian" speed="8.33" length="10.20" width="2.00" shape="4592.25,697.96 4592.37,697.80"/>
+        <lane id="128643753#0_0" index="0" allow="pedestrian" speed="8.33" length="10.20" width="2.00" shape="4592.19,698.03 4592.26,697.94"/>
     </edge>
     <edge id="128643753#1" from="671564318" to="1421174953" priority="1" type="highway.footway" spreadType="center" shape="4595.44,693.85 4611.68,674.32 4628.14,656.58 4658.71,620.16">
         <lane id="128643753#1_0" index="0" allow="pedestrian" speed="8.33" length="97.15" width="2.00" shape="4600.69,687.54 4611.68,674.32 4628.14,656.58 4658.71,620.16"/>
@@ -1385,7 +1385,7 @@
         <lane id="143308521#1_1" index="1" disallow="pedestrian" speed="22.22" length="27.71" shape="4134.66,912.19 4146.51,911.59"/>
     </edge>
     <edge id="143308521#10" from="1789928382" to="664166125" priority="5" type="highway.unclassified">
-        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="2.74" width="2.00" shape="4458.84,1000.02 4459.01,1000.13"/>
+        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="2.74" width="2.00" shape="4459.99,1000.77 4460.08,1000.82"/>
         <lane id="143308521#10_1" index="1" disallow="pedestrian" speed="22.22" length="2.74" shape="4457.38,1002.29 4457.54,1002.40"/>
     </edge>
     <edge id="143308521#2" from="cluster_1568241686_2177702824" to="664166095" priority="5" type="highway.unclassified" shape="4155.02,912.80 4188.50,911.11 4216.82,909.67">
@@ -2018,7 +2018,7 @@
         <lane id="213883661_0" index="0" allow="pedestrian" speed="8.33" length="4.46" width="2.00" shape="4004.97,303.89 4005.93,304.06"/>
     </edge>
     <edge id="215353485" from="2247697350" to="2247697322" priority="2" type="highway.service">
-        <lane id="215353485_0" index="0" allow="delivery pedestrian" speed="5.56" length="4.88" shape="4153.32,943.23 4153.44,943.07"/>
+        <lane id="215353485_0" index="0" allow="delivery pedestrian" speed="5.56" length="4.88" shape="4154.79,941.28 4154.85,941.20"/>
     </edge>
     <edge id="222737701#0" from="2177702831" to="2247697350" priority="2" type="highway.service">
         <lane id="222737701#0_0" index="0" allow="delivery pedestrian" speed="5.56" length="5.17" shape="4155.97,950.27 4155.81,950.15"/>

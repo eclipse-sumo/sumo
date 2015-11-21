@@ -157,12 +157,14 @@ public:
      * @param[in] stateDumpTimes List of time steps at which state shall be written
      * @param[in] stateDumpFiles Filenames for states
      * @param[in] hasInternalLinks Whether the network actually contains internal links
+     * @param[in] lefthand Whether the network was built for left-hand traffic
      * @todo Try to move all this to the constructor?
      */
     void closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
                        SUMORouteLoaderControl* routeLoaders, MSTLLogicControl* tlc,
                        std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles,
-                       bool hasInternalLinks);
+                       bool hasInternalLinks,
+                       bool lefthand);
 
 
     /** @brief Returns whether the network has specific vehicle class permissions
@@ -630,6 +632,11 @@ public:
         return myHasElevation;
     }
 
+    /// @brief return whether the network was built for lefthand traffic
+    bool lefthand() const {
+        return myLefthand;
+    }
+
 protected:
     /// @brief check all lanes for elevation data
     bool checkElevation();
@@ -722,6 +729,9 @@ protected:
 
     /// @brief Whether the network contains elevation data
     bool myHasElevation;
+
+    /// @brief Whether the network was built for left-hand traffic
+    bool myLefthand;
 
     /// @brief Dictionary of bus stops
     NamedObjectCont<MSStoppingPlace*> myBusStopDict;

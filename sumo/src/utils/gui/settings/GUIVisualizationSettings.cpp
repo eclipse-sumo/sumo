@@ -73,7 +73,10 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       drawLinkJunctionIndex(false, 50, RGBColor(128, 128, 255, 255)), 
       junctionName(false, 50, RGBColor(0, 255, 128, 255)),
       internalJunctionName(false, 50, RGBColor(0, 204, 128, 255)),
-      showLane2Lane(false), drawJunctionShape(true), addMode(0),
+      showLane2Lane(false), 
+      drawJunctionShape(true), 
+      drawCrossingsAndWalkingareas(true), 
+      addMode(0),
       addSize(1),
       addName(false, 50, RGBColor(255, 0, 128, 255)),
       poiSize(0), poiName(false, 50, RGBColor(255, 0, 128, 255)),
@@ -250,8 +253,8 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by time since lane change", RGBColor(179, 179, 179, 255), "0");
     scheme.addColor(RGBColor(189, 189, 179, 255), -180);
     scheme.addColor(RGBColor(255, 255, 0, 255), -20);
-    scheme.addColor(RGBColor(255,   0, 0, 255), -1);
-    scheme.addColor(RGBColor(0,   0, 255, 255),  1);
+    scheme.addColor(RGBColor(255,   0, 0, 255), -0.001);
+    scheme.addColor(RGBColor(0,   0, 255, 255),  0.001);
     scheme.addColor(RGBColor(0, 255, 255, 255),  20);
     scheme.addColor(RGBColor(179, 189, 189, 255),  180);
     scheme.setAllowsNegativeValues(true);
@@ -311,6 +314,12 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(0, 255, 255, 255), 1);
     scheme.addColor(RGBColor(0,   0, 255, 255), 2);
     scheme.setAllowsNegativeValues(true);
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by depart delay", RGBColor::BLUE);
+    scheme.addColor(RGBColor::CYAN, (SUMOReal)30);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)100);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)200);
+    scheme.addColor(RGBColor::RED, (SUMOReal)300);
     vehicleColorer.addScheme(scheme);
     vehicleColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
 
@@ -666,6 +675,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev << "                  ";
     dev.writeAttr("showLane2Lane", showLane2Lane);
     dev.writeAttr("drawShape", drawJunctionShape);
+    dev.writeAttr("drawCrossingsAndWalkingareas", drawCrossingsAndWalkingareas);
     junctionColorer.save(dev);
     dev.closeTag();
     // additionals
@@ -826,6 +836,10 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     }
 
     if (drawJunctionShape != v2.drawJunctionShape) {
+        return false;
+    }
+
+    if (drawCrossingsAndWalkingareas != v2.drawCrossingsAndWalkingareas) {
         return false;
     }
 

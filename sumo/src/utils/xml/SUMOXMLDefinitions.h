@@ -433,6 +433,7 @@ enum SumoXMLAttr {
     // Attributes for detectors
     /// Information whether the detector shall be continued on the folowing lanes
     SUMO_ATTR_CONT,
+    SUMO_ATTR_CONTPOS,
     SUMO_ATTR_HALTING_TIME_THRESHOLD,
     SUMO_ATTR_HALTING_SPEED_THRESHOLD,
     SUMO_ATTR_JAM_DIST_THRESHOLD,
@@ -515,6 +516,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_ACTTYPE,
     SUMO_ATTR_SLOPE,
     SUMO_ATTR_VERSION,
+    SUMO_ATTR_CORNERDETAIL,
+    SUMO_ATTR_LEFTHAND,
     SUMO_ATTR_COMMAND,
 
     SUMO_ATTR_ACTORCONFIG,

@@ -35,6 +35,7 @@
 
 #include "MSJunction.h"
 #include <utils/common/SUMOTime.h>
+#include <utils/common/StdDefs.h>
 #include <bitset>
 #include <vector>
 
@@ -62,7 +63,7 @@ public:
     virtual ~MSLogicJunction();
 
     /** @brief Container for link response and foes */
-    typedef std::bitset<64> LinkBits;
+    typedef std::bitset<SUMO_MAX_CONNECTIONS> LinkBits;
 
     /// initialises the junction after the whole net has been loaded
     virtual void postloadInit();

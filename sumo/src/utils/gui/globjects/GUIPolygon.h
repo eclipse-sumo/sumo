@@ -105,13 +105,17 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    virtual void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
 
     /// @brief set a new shape and update the tesselation
     virtual void setShape(const PositionVector& shape);
 
+    /// @brief set a new shape and update the tesselation
+    void setLineWidth(SUMOReal lineWidth) {
+        myLineWidth = lineWidth;
+    }
 
 private:
     /// The mutex used to avoid concurrent updates of the shape

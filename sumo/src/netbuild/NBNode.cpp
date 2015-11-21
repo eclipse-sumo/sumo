@@ -85,12 +85,10 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-const int NBNode::MAX_CONNECTIONS(64);
 const int NBNode::FORWARD(1);
 const int NBNode::BACKWARD(-1);
 const SUMOReal NBNode::DEFAULT_CROSSING_WIDTH(4);
 const SUMOReal NBNode::UNSPECIFIED_RADIUS = -1;
-const SUMOReal NBNode::DEFAULT_RADIUS = 1.5;
 
 // ===========================================================================
 // method definitions
@@ -238,7 +236,7 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myDistrict(0),
     myHaveCustomPoly(false),
     myRequest(0),
-    myRadius(UNSPECIFIED_RADIUS),
+    myRadius(OptionsCont::getOptions().isDefault("default.junctions.radius") ? UNSPECIFIED_RADIUS : OptionsCont::getOptions().getFloat("default.junctions.radius")),
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0)
@@ -252,7 +250,7 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myDistrict(district),
     myHaveCustomPoly(false),
     myRequest(0),
-    myRadius(UNSPECIFIED_RADIUS),
+    myRadius(OptionsCont::getOptions().isDefault("default.junctions.radius") ? UNSPECIFIED_RADIUS : OptionsCont::getOptions().getFloat("default.junctions.radius")),
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0)
@@ -635,7 +633,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     }
     if (c.tlID != "" && !bothLeft) {
         assert(myTrafficLights.size() > 0);
-        return (*myTrafficLights.begin())->needsCont(fromE, toE, otherFromE, otherToE);
+        return (c.contPos != NBEdge::UNSPECIFIED_CONTPOS) || (*myTrafficLights.begin())->needsCont(fromE, toE, otherFromE, otherToE);
     }
     if (fromE->getJunctionPriority(this) > 0 && otherFromE->getJunctionPriority(this) > 0) {
         return mustBrake(fromE, toE, c.fromLane, c.toLane, false);
@@ -671,7 +669,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
         myRequest = new NBRequest(ec, this, myAllEdges, myIncomingEdges, myOutgoingEdges, myBlockedConnections);
         // check whether it is not too large
         unsigned int numConnections = numNormalConnections();
-        if (numConnections >= MAX_CONNECTIONS) {
+        if (numConnections >= SUMO_MAX_CONNECTIONS) {
             // yep -> make it untcontrolled, warn
             delete myRequest;
             myRequest = 0;
@@ -681,7 +679,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
                 myType = NODETYPE_NOJUNCTION;
             }
             WRITE_WARNING("Junction '" + getID() + "' is too complicated (" + toString(numConnections)
-                          + " connections, max 64); will be set to " + toString(myType));
+                          + " connections, max " + toString(SUMO_MAX_CONNECTIONS) + "); will be set to " + toString(myType));
         } else if (numConnections == 0) {
             delete myRequest;
             myRequest = 0;
@@ -834,7 +832,48 @@ NBNode::computeLanes2Lanes() {
             Bresenham::compute(&divider, numApproaching, divider.numAvailableLanes());
         }
         delete approaching;
+
+        // ensure that all modes have a connection if possible
+        for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
+            NBEdge* incoming = *i;
+            if (incoming->getConnectionLanes(currentOutgoing).size() > 0) {
+                // no connections are needed for pedestrians during this step
+                // no satisfaction is possible if the outgoing edge disallows
+                SVCPermissions unsatisfied = incoming->getPermissions() & currentOutgoing->getPermissions() & ~SVC_PEDESTRIAN;
+                //std::cout << "initial unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+                const std::vector<NBEdge::Connection>& elv = incoming->getConnections();
+                for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
+                    const NBEdge::Connection& c = *k;
+                    if (c.toEdge == currentOutgoing) {
+                        const SVCPermissions satisfied = (incoming->getPermissions(c.fromLane) & c.toEdge->getPermissions(c.toLane));
+                        //std::cout << "  from=" << c.fromLane << " to=" << c.toEdge->getID() << "_" << c.toLane << " satisfied=" << getVehicleClassNames(satisfied) << "\n";
+                        unsatisfied &= ~satisfied;
+                    }
+                }
+                if (unsatisfied != 0) {
+                    //std::cout << " unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+                    int fromLane = 0;
+                    while (unsatisfied != 0 && fromLane < incoming->getNumLanes()) {
+                        if ((incoming->getPermissions(fromLane) & unsatisfied) != 0) {
+                            for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); ++toLane) {
+                                const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
+                                if (satisfied != 0) {
+                                    incoming->setConnection((unsigned int)fromLane, currentOutgoing, toLane, NBEdge::L2L_COMPUTED);
+                                    //std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
+                                    unsatisfied &= ~satisfied;
+                                }
+                            }
+                        }
+                        fromLane++;
+                    }
+                    //if (unsatisfied != 0) {
+                    //    std::cout << "     still unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+                    //}
+                }
+            }
+        }
     }
+
     // ... but we may have the case that there are no outgoing edges
     //  In this case, we have to mark the incoming edges as being in state
     //   LANE2LANE( not RECHECK) by hand
@@ -2186,13 +2225,13 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                         << " endCrossingWidth=" << endCrossingWidth << " startCrossingWidth=" << startCrossingWidth
                         << "  begShape=" << begShape << " endShape=" << endShape << " smooth curve=" << curve << "\n";
             if (curve.size() > 2) {
-                curve.eraseAt(0);
-                curve.eraseAt(-1);
+                curve.erase(curve.begin());
+                curve.pop_back();
                 if (endCrossingWidth > 0) {
-                    wa.shape.eraseAt(-1);
+                    wa.shape.pop_back();
                 }
                 if (startCrossingWidth > 0) {
-                    wa.shape.eraseAt(0);
+                    wa.shape.erase(wa.shape.begin());
                 }
                 wa.shape.append(curve, 0);
             }

@@ -180,6 +180,9 @@
         <!-- Set INT as fixed time for yellow phase durations -->
         <tls.yellow.time value="" synonymes="traffic-light-yellow" type="INT"/>
 
+        <!-- Use INT as green phase duration for left turns (s) -->
+        <tls.left-green.time value="6" type="INT"/>
+
         <!-- TLSs in STR will be shifted by half-phase -->
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR"/>
 
@@ -288,6 +291,9 @@
         <!-- Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed -->
         <sidewalks.guess.from-permissions value="false" type="BOOL"/>
 
+        <!-- Do not guess sidewalks for the given list of edges -->
+        <sidewalks.guess.exclude value="" type="STR"/>
+
         <!-- Guess pedestrian crossings based on the presence of sidewalks -->
         <crossings.guess value="false" type="BOOL"/>
 
@@ -308,6 +314,9 @@
 
         <!-- Whether junctions should be kept clear by default -->
         <default.junctions.keep-clear value="true" type="BOOL"/>
+
+        <!-- The default turning radius of intersections -->
+        <default.junctions.radius value="1.5" type="FLOAT"/>
 
         <!-- [traffic_light|priority|right_before_left] Determines the type of the build junctions -->
         <default-junction-type value="" synonymes="j junctions" type="STR"/>

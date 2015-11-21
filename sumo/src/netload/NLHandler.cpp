@@ -79,6 +79,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myHaveWarnedAboutDeprecatedLanes(false),
     myLastParameterised(0),
     myHaveSeenInternalEdge(false),
+    myLefthand(false),
     myNetIsLoaded(false)
 {}
 
@@ -91,6 +92,11 @@ NLHandler::myStartElement(int element,
                           const SUMOSAXAttributes& attrs) {
     try {
         switch (element) {
+            case SUMO_TAG_NET: {
+                bool ok;
+                myLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, 0, ok, false);
+                break;
+            }
             case SUMO_TAG_EDGE:
                 beginEdgeParsing(attrs);
                 break;

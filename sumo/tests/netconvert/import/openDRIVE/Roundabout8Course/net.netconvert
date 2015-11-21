@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  3 08:32:17 2015 by SUMO netconvert Version dev-SVN-r19243
+<!-- generated on Thu Nov 19 14:18:09 2015 by SUMO netconvert Version dev-SVN-r19380ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/behr_mi/sumo/data/typemap/opendriveNetconvert.typ.xml"/>
+        <type-files value="/scr1/sumoID/sumo/data/typemap/opendriveNetconvert.typ.xml"/>
         <opendrive-files value="opendrive.xodr"/>
     </input>
 
@@ -138,7 +138,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="114.6.00" type="priority" x="230.36" y="117.01" incLanes="114.6.00_0 114.6.00_1 -114.0.00_0" intLanes="" shape="225.02,122.35 233.04,114.32 225.09,122.28">
+    <junction id="114.6.00" type="priority" x="230.36" y="117.01" incLanes="114.6.00_0 114.6.00_1 -114.0.00_0" intLanes="" shape="225.02,122.35 233.04,114.32 232.97,114.39 225.09,122.28">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
@@ -160,7 +160,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="116.6.00" type="priority" x="169.65" y="117.01" incLanes="-116.0.00_0 116.6.00_0 116.6.00_1" intLanes="" shape="172.26,119.62 164.38,111.74 172.33,119.69">
+    <junction id="116.6.00" type="priority" x="169.65" y="117.01" incLanes="-116.0.00_0 116.6.00_0 116.6.00_1" intLanes="" shape="172.26,119.62 164.38,111.74 164.31,111.67 172.33,119.69">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
@@ -173,7 +173,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="117.6.00" type="priority" x="169.64" y="56.30" incLanes="-117.0.00_0 117.6.00_0 117.6.00_1" intLanes="" shape="167.03,58.92 174.91,51.03 166.96,58.99">
+    <junction id="117.6.00" type="priority" x="169.64" y="56.30" incLanes="-117.0.00_0 117.6.00_0 117.6.00_1" intLanes="" shape="167.03,58.92 174.91,51.03 174.98,50.96 166.96,58.99">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>

@@ -14,9 +14,8 @@
         <stop busStop="busStop1" until="180" duration="10"/>
     </vehicle>
 
-    <vehicle id="car0" depart="triggered" departPos="30">
+    <vehicle id="car0" depart="triggered" departPos="50">
         <route edges="1/4to2/4 2/4to3/4 3/4to4/4"/>
-        <stop lane="1/4to2/4_0" duration="20" startPos="40" endPos="60"/>
     </vehicle>
 
 </routes>

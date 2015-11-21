@@ -132,7 +132,7 @@ public:
     Position getPosition() const;
 
     /// @brief return the current angle of the person
-    SUMOReal getAngle() const;
+    SUMOReal getNaviDegree() const;
 
     /// @brief the time this person spent waiting in seconds
     SUMOReal getWaitingSeconds() const;

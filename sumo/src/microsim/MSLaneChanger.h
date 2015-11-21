@@ -155,8 +155,6 @@ protected:
     ///  @brief start the lane change maneuver (and finish it instantly if gLaneChangeDuration == 0)
     void startChange(MSVehicle* vehicle, ChangerIt& from, int direction);
 
-    std::pair<MSVehicle* const, SUMOReal> getRealThisLeader(const ChangerIt& target) const;
-
     std::pair<MSVehicle* const, SUMOReal> getRealFollower(const ChangerIt& target) const;
 
     std::pair<MSVehicle* const, SUMOReal> getRealLeader(const ChangerIt& target) const;

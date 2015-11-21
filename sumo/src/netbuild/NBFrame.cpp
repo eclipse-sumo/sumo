@@ -79,6 +79,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.junctions.keep-clear", new Option_Bool(true));
     oc.addDescription("default.junctions.keep-clear", "Building Defaults", "Whether junctions should be kept clear by default");
 
+    oc.doRegister("default.junctions.radius", new Option_Float(1.5));
+    oc.addDescription("default.junctions.radius", "Building Defaults", "The default turning radius of intersections");
+
     // register the data processing options
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Processing", "Omits internal links");
@@ -206,6 +209,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("sidewalks.guess.from-permissions", "Processing",
                       "Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed");
 
+    oc.doRegister("sidewalks.guess.exclude", new Option_String());
+    oc.addDescription("sidewalks.guess.exclude", "Processing",
+                      "Do not guess sidewalks for the given list of edges");
+
     oc.doRegister("crossings.guess", new Option_Bool(false));
     oc.addDescription("crossings.guess", "Processing",
                       "Guess pedestrian crossings based on the presence of sidewalks");
@@ -270,6 +277,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("tls.yellow.time", new Option_Integer());
     oc.addSynonyme("tls.yellow.time", "traffic-light-yellow", true);
     oc.addDescription("tls.yellow.time", "TLS Building", "Set INT as fixed time for yellow phase durations");
+
+    oc.doRegister("tls.left-green.time", new Option_Integer(6));
+    oc.addDescription("tls.left-green.time", "TLS Building", "Use INT as green phase duration for left turns (s)");
 
     // tls-shifts
     oc.doRegister("tls.half-offset", new Option_String());

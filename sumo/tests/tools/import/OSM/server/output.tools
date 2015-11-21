@@ -1,8 +1,8 @@
-Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml'... done.
-Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml'... done.
-Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
-Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
-Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvertBicycle.typ.xml'... done.
+Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml'... done.
+Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml'... done.
+Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
+Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
+Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvertBicycle.typ.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... 
 Found duplicate nodes. Substituting 1241955149 with 1026369077
 Found duplicate nodes. Substituting 1241955153 with 1241955144
@@ -124,7 +124,9 @@ Computing node types... done.
 Guessed 864 pedestrian crossings.
 Computing priorities... done.
 Computing approached edges... done.
-Guessing and setting roundabouts... done.
+Guessing and setting roundabouts... 
+ Guessed 4 roundabout(s).
+done.
 Computing approaching lanes... done.
 Dividing of lanes on approached lanes... done.
 Processing turnarounds... done.
@@ -151,13 +153,13 @@ Summary:
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
 Success.
-Written configuration to '/home/behr_mi/.texttest/tmp/dynamic_gui.03Nov190723.12993/tools/import/OSM/server/2015-11-03-19-11-21/osm.netccfg'
-Parsing network projection from '/home/behr_mi/.texttest/tmp/dynamic_gui.03Nov190723.12993/tools/import/OSM/server/2015-11-03-19-11-21/osm.net.xml'... done.
+Written configuration to '/scr2/texttest_tmp/dynamic_gui.16Nov104907.16614/tools/import/OSM/server/2015-11-16-10-49-11/osm.netccfg'
+Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.16Nov104907.16614/tools/import/OSM/server/2015-11-16-10-49-11/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
-Written configuration to '/home/behr_mi/.texttest/tmp/dynamic_gui.03Nov190723.12993/tools/import/OSM/server/2015-11-03-19-11-21/osm.polycfg'
+Written configuration to '/scr2/texttest_tmp/dynamic_gui.16Nov104907.16614/tools/import/OSM/server/2015-11-16-10-49-11/osm.polycfg'
 Success.
 Success.
 Success.
@@ -165,16 +167,16 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'...  done (677ms).
-Loading additional-files from 'osm.poly.xml'...  done (113ms).
+Loading net-file from 'osm.net.xml'...  done (1788ms).
+Loading additional-files from 'osm.poly.xml'...  done (285ms).
 Loading done.
 Simulation started with time: 0.00
 Simulation ended at time: 2766.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 3378ms
- Real time factor: 818.828
- UPS: 34752.516282
+ Duration: 12625ms
+ Real time factor: 219.089
+ UPS: 9135.366337
 Vehicles: 
  Inserted: 344
  Running: 0
@@ -183,15 +185,15 @@ Persons:
  Inserted: 207
  Running: 0
 
-DijkstraRouterTT answered 1039 queries and explored 785.85 edges on average.
-DijkstraRouterTT spent 141ms answering queries (0.14ms on average).
-Building scenario in '/home/behr_mi/.texttest/tmp/dynamic_gui.03Nov190723.12993/tools/import/OSM/server/2015-11-03-19-11-21'
-calling  /home/behr_mi/sumo/bin/duarouter -n osm.net.xml -t osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+DijkstraRouterTT answered 1079 queries and explored 782.55 edges on average.
+DijkstraRouterTT spent 690ms answering queries (0.64ms on average).
+Building scenario in '/scr2/texttest_tmp/dynamic_gui.16Nov104907.16614/tools/import/OSM/server/2015-11-16-10-49-11'
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 calling route2trips
-calling  /home/behr_mi/sumo/bin/duarouter -n osm.net.xml -t osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 calling route2trips
-calling  /home/behr_mi/sumo/bin/duarouter -n osm.net.xml -t osm.rail_urban.trips.xml -o osm.rail_urban.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.rail_urban.trips.xml -o osm.rail_urban.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 calling route2trips
-calling  /home/behr_mi/sumo/bin/duarouter -n osm.net.xml -t osm.bicycle.trips.xml -o osm.bicycle.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.bicycle.trips.xml -o osm.bicycle.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
 calling route2trips
-calling  /home/behr_mi/sumo/bin/duarouter -n osm.net.xml -t osm.pedestrian.trips.xml -o osm.pedestrian.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log
+calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.pedestrian.trips.xml -o osm.pedestrian.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log

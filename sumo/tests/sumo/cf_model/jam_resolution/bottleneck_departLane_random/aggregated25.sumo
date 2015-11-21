@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 29 13:42:41 2015 by SUMO Version dev-SVN-r19172I
+<!-- generated on Wed Nov 11 12:28:19 2015 by SUMO Version dev-SVN-r19316I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -54,7 +54,7 @@
         <edge id="bottleneck" sampledSeconds="891.16" traveltime="4.37" density="25.13" occupancy="12.57" waitingTime="0.00" speed="22.52" departed="0" arrived="0" entered="193" left="194" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end" sampledSeconds="626.62" traveltime="3.09" density="17.41" occupancy="8.70" waitingTime="0.00" speed="32.41" departed="0" arrived="194" entered="194" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="jam" sampledSeconds="3634.83" traveltime="17.80" density="102.50" occupancy="25.63" waitingTime="734.00" speed="5.53" departed="0" arrived="0" entered="198" left="193" laneChangedFrom="106" laneChangedTo="106"/>
-        <edge id="middle" sampledSeconds="6778.20" traveltime="32.52" density="188.28" occupancy="47.07" waitingTime="2843.00" speed="3.07" departed="0" arrived="0" entered="201" left="198" laneChangedFrom="16" laneChangedTo="16"/>
-        <edge id="start" sampledSeconds="6996.54" traveltime="37.63" density="194.35" occupancy="48.59" waitingTime="3386.00" speed="2.66" departed="197" arrived="0" entered="0" left="201" laneChangedFrom="18" laneChangedTo="18"/>
+        <edge id="middle" sampledSeconds="6774.42" traveltime="32.50" density="188.18" occupancy="47.04" waitingTime="2867.00" speed="3.08" departed="0" arrived="0" entered="201" left="198" laneChangedFrom="16" laneChangedTo="16"/>
+        <edge id="start" sampledSeconds="7001.26" traveltime="38.40" density="194.48" occupancy="48.62" waitingTime="3399.00" speed="2.60" departed="201" arrived="0" entered="0" left="201" laneChangedFrom="17" laneChangedTo="17"/>
     </interval>
 </meandata>

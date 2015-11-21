@@ -74,7 +74,8 @@ GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
                  const PositionVector& shape, SUMOReal width,
                  SVCPermissions permissions, unsigned int index) :
     MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions),
-    GUIGlObject(GLO_LANE, id) 
+    GUIGlObject(GLO_LANE, id),
+    myAmClosed(false)
 {
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
@@ -187,9 +188,10 @@ GUILane::drawLinkNo(const GUIVisualizationSettings& s) const {
     // draw all links
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = myHalfLaneWidth;
+    const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
-        drawTextAtEnd(toString(myLinks[i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex);
+        drawTextAtEnd(toString(myLinks[lefthand ? noLinks - 1 - i : i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex);
         x1 -= w;
     }
 }
@@ -216,9 +218,10 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
     // draw all links
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = myHalfLaneWidth;
+    const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
-        int linkNo = net.getLinkTLIndex(myLinks[i]);
+        int linkNo = net.getLinkTLIndex(myLinks[lefthand ? noLinks - 1 - i : i]);
         if (linkNo < 0) {
             continue;
         }
@@ -260,9 +263,10 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     // draw all links
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = 0;
+    const bool lefthand = MSNet::getInstance()->lefthand();
     for (unsigned int i = 0; i < noLinks; ++i) {
         SUMOReal x2 = x1 + w;
-        drawLinkRule(s, net, myLinks[i], getShape(), x1, x2);
+        drawLinkRule(s, net, myLinks[lefthand ? noLinks - 1 - i : i], getShape(), x1, x2);
         x1 = x2;
     }
 }
@@ -472,27 +476,31 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
             } else if (isCrossing) {
-                // determine priority to decide color
-                MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
-                if (link->havePriority() || net->getLinkTLIndex(link) > 0) {
-                    glColor3d(0.9, 0.9, 0.9);
-                } else {
-                    glColor3d(0.1, 0.1, 0.1);
+                if (s.drawCrossingsAndWalkingareas) {
+                    // determine priority to decide color
+                    MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+                    if (link->havePriority() || net->getLinkTLIndex(link) > 0) {
+                        glColor3d(0.9, 0.9, 0.9);
+                    } else {
+                        glColor3d(0.1, 0.1, 0.1);
+                    }
+                    glTranslated(0, 0, .2);
+                    drawCrossties(0.5, 1.0, getWidth() * 0.5);
+                    glTranslated(0, 0, -.2);
                 }
-                glTranslated(0, 0, .2);
-                drawCrossties(0.5, 1.0, getWidth() * 0.5);
-                glTranslated(0, 0, -.2);
             } else if (isWalkingArea) {
-                glTranslated(0, 0, .2);
-                if (s.scale * exaggeration < 20.) {
-                    GLHelper::drawFilledPoly(myShape, true);
-                } else {
-                    GLHelper::drawFilledPolyTesselated(myShape, true);
-                }
-                glTranslated(0, 0, -.2);
+                if (s.drawCrossingsAndWalkingareas) {
+                    glTranslated(0, 0, .2);
+                    if (s.scale * exaggeration < 20.) {
+                        GLHelper::drawFilledPoly(myShape, true);
+                    } else {
+                        GLHelper::drawFilledPolyTesselated(myShape, true);
+                    }
+                    glTranslated(0, 0, -.2);
 #ifdef GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
-                GLHelper::debugVertices(myShape, 80 / s.scale);
+                    GLHelper::debugVertices(myShape, 80 / s.scale);
 #endif
+                }
             } else {
                 const SUMOReal halfWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
                 mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions);

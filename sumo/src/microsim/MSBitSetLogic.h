@@ -68,7 +68,7 @@ public:
     MSBitSetLogic(unsigned int nLinks,
                   Logic* logic,
                   Foes* foes,
-                  std::bitset<64> conts)
+                  std::bitset<SUMO_MAX_CONNECTIONS> conts)
         : MSJunctionLogic(nLinks), myLogic(logic),
           myInternalLinksFoes(foes), myConts(conts) {}
 
@@ -110,7 +110,7 @@ private:
     /// internal lanes logic
     Foes* myInternalLinksFoes;
 
-    std::bitset<64> myConts;
+    std::bitset<SUMO_MAX_CONNECTIONS> myConts;
 
 private:
     /// @brief Invalidated copy constructor.
@@ -122,10 +122,10 @@ private:
 };
 
 
-/** To make things easier we use a fixed size. 64 will be sufficient even for
-    pathological junctions. If it will consume to much space, reduce it to 32.
+/** To make things easier we use a fixed size. SUMO_MAX_CONNECTIONS will hopefully be sufficient even for
+    large asian junctions. 
     So, here comes the type which should be used by the netbuilder. */
-typedef MSBitSetLogic< 64 > MSBitsetLogic;
+typedef MSBitSetLogic<SUMO_MAX_CONNECTIONS> MSBitsetLogic;
 
 
 #endif

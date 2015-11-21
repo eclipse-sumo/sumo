@@ -458,8 +458,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     }
 
     if (geoms.second[0] != node->getPosition()) {
-        geoms.second.pop_front();
-        geoms.second.push_front(node->getPosition());
+        geoms.second[0] = node->getPosition();
     }
     // build and insert the edges
     NBEdge* one = new NBEdge(firstEdgeName, edge->myFrom, node, edge, geoms.first, noLanesFirstEdge);
@@ -746,8 +745,8 @@ NBEdgeCont::recheckLaneSpread() {
 
 // ----- other
 void
-NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear) {
-    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear));
+NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear, SUMOReal contPos) {
+    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos));
 }
 
 
@@ -757,7 +756,7 @@ NBEdgeCont::recheckPostProcessConnections() {
         NBEdge* from = retrievePossiblySplit((*i).from, true);
         NBEdge* to = retrievePossiblySplit((*i).to, false);
         if (from != 0 && to != 0) {
-            if (!from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, false, (*i).mayDefinitelyPass, (*i).keepClear)) {
+            if (!from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, false, (*i).mayDefinitelyPass, (*i).keepClear, (*i).contPos)) {
                 WRITE_WARNING("Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.");
             }
         }
@@ -823,7 +822,7 @@ NBEdgeCont::getGeneratedFrom(const std::string& id) const {
 }
 
 
-void
+int
 NBEdgeCont::guessRoundabouts() {
     myGuessedRoundabouts.clear();
     std::set<NBEdge*> loadedRoundaboutEdges;
@@ -915,6 +914,7 @@ NBEdgeCont::guessRoundabouts() {
             }
         }
     }
+    return (int)myGuessedRoundabouts.size();
 }
 
 
@@ -1014,15 +1014,20 @@ NBEdgeCont::generateStreetSigns() {
 int
 NBEdgeCont::guessSidewalks(SUMOReal width, SUMOReal minSpeed, SUMOReal maxSpeed, bool fromPermissions) {
     int sidewalksCreated = 0;
+    const std::vector<std::string> edges = OptionsCont::getOptions().getStringVector("sidewalks.guess.exclude");
+    std::set<std::string> exclude(edges.begin(), edges.end());
     for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         NBEdge* edge = it->second;
-        if ((
-                    // guess.from-permissions
-                    (fromPermissions && (edge->getPermissions() & SVC_PEDESTRIAN) != 0)
-                    // guess from speed
-                    || (!fromPermissions && edge->getSpeed() > minSpeed && edge->getSpeed() <= maxSpeed))
-                // does not yet have a sidewalk
-                && edge->getPermissions(0) != SVC_PEDESTRIAN) {
+        if (// not excluded
+            exclude.count(edge->getID()) == 0
+            // does not yet have a sidewalk
+            && edge->getPermissions(0) != SVC_PEDESTRIAN
+            && (
+                // guess.from-permissions
+                (fromPermissions && (edge->getPermissions() & SVC_PEDESTRIAN) != 0)
+                // guess from speed
+                || (!fromPermissions && edge->getSpeed() > minSpeed && edge->getSpeed() <= maxSpeed)
+               )) {
             edge->addSidewalk(width);
             sidewalksCreated += 1;
         }

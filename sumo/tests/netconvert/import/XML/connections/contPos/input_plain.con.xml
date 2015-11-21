@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 19 Nov 2015 04:34:04 PM CET by Netedit Version dev-SVN-r19386I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/2016/input_plain2"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-51812052" to="-51811895a" fromLane="1" toLane="1"/>
+    <connection from="-51812052" to="786367652" fromLane="2" toLane="2"/>
+
+    <connection from="-786367651" to="51812052" fromLane="1" toLane="1"/>
+    <connection from="-786367651" to="-51811895a" fromLane="1" toLane="1"/>
+    <connection from="-786367651" to="-51811895a" fromLane="2" toLane="2"/>
+
+    <connection from="51811895a" to="51812052" fromLane="0" toLane="1" contPos="2.44"/>
+
+    <connection from="51811895b" to="786367652" fromLane="1" toLane="1"/>
+    <connection from="51811895b" to="786367652" fromLane="2" toLane="2"/>
+
+    <connection from="51812052" to="-51812052" fromLane="1" toLane="2"/>
+
+    <crossing node="54536753" edges="786367652 -786367651" priority="1"/>
+    <crossing node="54536753" edges="51812052 -51812052" priority="1"/>
+</connections>

@@ -55,3 +55,6 @@ add_tls_prgram
 
 # apply option --geometry.remove to a loaded .net.xml
 geometry.remove
+
+# import lefthand and junctionCornerDetail
+network_attributes

@@ -185,16 +185,10 @@ public:
     /// @brief default width of pedetrian crossings
     static const SUMOReal DEFAULT_CROSSING_WIDTH;
 
-    /// @brief the default turning radius at intersections in m
-    static const SUMOReal DEFAULT_RADIUS;
-
     /// @brief unspecified lane width
     static const SUMOReal UNSPECIFIED_RADIUS;
 
 public:
-    /// @brief maximum number of connections allowed
-    static const int MAX_CONNECTIONS;
-
     /** @brief Constructor
      * @param[in] id The id of the node
      * @param[in] position The position of the node

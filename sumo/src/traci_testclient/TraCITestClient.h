@@ -180,6 +180,9 @@ private:
     /// @}
 
 
+    /// @brief call all API methods once
+    void testAPI();
+
 private:
     /// @brief The name of the file to write the results log into
     std::string outputFileName;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 29 17:27:24 2015 by SUMO Version dev-SVN-r17743ID
+<!-- generated on 11/19/15 21:59:13 by SUMO Version dev-SVN-r19380
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -27,20 +27,20 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="forward_turn_left" depart="0.00">
+        <stop arrival="0.00"/>
+        <walk arrival="15.00"/>
+    </personinfo>
     <personinfo id="backward_change_side" depart="0.00">
         <stop arrival="0.00"/>
-        <walk arrival="16.00"/>
+        <walk arrival="15.00"/>
     </personinfo>
     <personinfo id="backward_turn_left" depart="0.00">
         <stop arrival="0.00"/>
-        <walk arrival="16.00"/>
+        <walk arrival="15.00"/>
     </personinfo>
     <personinfo id="forward_change_side" depart="0.00">
         <stop arrival="0.00"/>
-        <walk arrival="16.00"/>
-    </personinfo>
-    <personinfo id="forward_turn_left" depart="0.00">
-        <stop arrival="0.00"/>
-        <walk arrival="18.00"/>
+        <walk arrival="15.00"/>
     </personinfo>
 </tripinfos>

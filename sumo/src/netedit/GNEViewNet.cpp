@@ -112,6 +112,7 @@ GNEViewNet::GNEViewNet(
     myCreateEdgeSource(0),
     myJunctionToMove(0),
     myEdgeToMove(0),
+    myPolyToMove(0),
     myMoveSelection(false),
     myAmInRectSelect(false),
     myToolbar(toolBar),
@@ -380,6 +381,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
         GNELane* pointed_lane = 0;
         GNEEdge* pointed_edge = 0;
         GNEPOI* pointed_poi = 0;
+        GNEPoly* pointed_poly = 0;
         GNECrossing* pointed_crossing = 0;
         if (pointed) {
             switch (pointed->getType()) {
@@ -395,6 +397,9 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                     break;
                 case GLO_POI:
                     pointed_poi = (GNEPOI*)pointed;
+                    break;
+                case GLO_POLYGON:
+                    pointed_poly = (GNEPoly*)pointed;
                     break;
                 case GLO_CROSSING:
                     pointed_crossing = (GNECrossing*)pointed;
@@ -456,7 +461,10 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 break;
 
             case GNE_MODE_MOVE:
-                if (pointed_junction) {
+                if (pointed_poly) {
+                    myMoveSrc = getPositionInformation();
+                    myPolyToMove = pointed_poly;
+                } else if (pointed_junction) {
                     if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
                         myMoveSelection = true;
                         myMoveSrc = getPositionInformation();
@@ -583,7 +591,9 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
 long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, data);
-    if (myJunctionToMove) {
+    if (myPolyToMove) {
+        myPolyToMove = 0;
+    } else if (myJunctionToMove) {
         // position is already up to date but we must register with myUndoList
         if (!mergeJunctions(myJunctionToMove)) {
             myJunctionToMove->registerMove(myUndoList);
@@ -618,7 +628,9 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onMouseMove(obj, sel, data);
-    if (myJunctionToMove) {
+    if (myPolyToMove) {
+        myMoveSrc = myPolyToMove->moveGeometry(myMoveSrc, getPositionInformation());
+    } else if (myJunctionToMove) {
         myJunctionToMove->move(getPositionInformation());
     } else if (myEdgeToMove) {
         myMoveSrc = myEdgeToMove->moveGeometry(myMoveSrc, getPositionInformation());
@@ -918,20 +930,30 @@ long
 GNEViewNet::onCmdNodeShape(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtCursorPosition(myPopupSpot);
     if (junction != 0) {
-        if (junction->getNBNode()->getShape().size() > 1) {
-            //std::cout << junction->getNBNode()->getShape() << "\n";
-            junction->getNBNode()->computeNodeShape(-1);
-            if (myCurrentPoly != 0) {
-                myNet->getVisualisationSpeedUp().removeAdditionalGLObject(myCurrentPoly);
-                delete myCurrentPoly;
-                myCurrentPoly = 0;
+        if (myCurrentPoly == 0) {
+            if (junction->getNBNode()->getShape().size() > 1) {
+                setEditModeFromHotkey(MID_GNE_MODE_MOVE);
+                //std::cout << junction->getNBNode()->getShape() << "\n";
+                junction->getNBNode()->computeNodeShape(-1);
+                if (myCurrentPoly != 0) {
+                    myNet->getVisualisationSpeedUp().removeAdditionalGLObject(myCurrentPoly);
+                    delete myCurrentPoly;
+                    myCurrentPoly = 0;
+                }
+                PositionVector shape = junction->getNBNode()->getShape();
+                shape.closePolygon();
+                myCurrentPoly = new GNEPoly(myNet, "node_shape:" + junction->getMicrosimID(), "node shape",
+                        shape, false, RGBColor::GREEN, GLO_POLYGON);
+                myCurrentPoly->setLineWidth(0.3);
+                myNet->getVisualisationSpeedUp().addAdditionalGLObject(myCurrentPoly);
+
+                update();
             }
-            PositionVector shape = junction->getNBNode()->getShape();
-            shape.closePolygon();
-            myCurrentPoly = new GNEPoly("node_shape:" + junction->getMicrosimID(), "node shape",
-                    shape, false, RGBColor::GREEN, GLO_POLYGON);
-            myNet->getVisualisationSpeedUp().addAdditionalGLObject(myCurrentPoly);
-            update();
+        } else {
+            junction->setAttribute(SUMO_ATTR_SHAPE, toString(myCurrentPoly->getShape()), myUndoList);
+            myNet->getVisualisationSpeedUp().removeAdditionalGLObject(myCurrentPoly);
+            delete myCurrentPoly;
+            myCurrentPoly = 0;
         }
     }
     return 1;

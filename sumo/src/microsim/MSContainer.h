@@ -80,13 +80,13 @@ public:
     public:
         /// constructor
         MSContainerStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
-                                 const std::vector<std::string>& lines);
+                                 const SUMOReal arrivalPos, const std::vector<std::string>& lines);
 
         /// destructor
         ~MSContainerStage_Driving();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at);
+        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous);
 
         /// Returns the current edge
         const MSEdge* getEdge() const;
@@ -232,7 +232,7 @@ public:
         MSStoppingPlace* getDepartContainerStop() const;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at);
+        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous);
 
         /** @brief Called on writing tripinfo output
          *
@@ -273,8 +273,6 @@ public:
         /// @brief The type of activity
         std::string myActType;
 
-        SUMOReal myStartPos;
-
         /// @brief the container stop at which the container is waiting
         MSStoppingPlace* myCurrentContainerStop;
 
@@ -304,7 +302,7 @@ public:
         ~MSContainerStage_Tranship();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, MSEdge* previousEdge, const SUMOReal at);
+        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous);
 
         /// Returns the current edge
         const MSEdge* getEdge() const;
@@ -396,9 +394,6 @@ public:
 
         /// @brief the depart position
         SUMOReal myDepartPos;
-
-        /// @brief the arrival position
-        SUMOReal myArrivalPos;
 
         /// @brief The container stop from which the container departs
         MSStoppingPlace* myDepartContainerStop;

@@ -89,7 +89,7 @@
 #define TURN_LANE_DIST (SUMOReal)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
 //#define DEBUG_COND (myVehicle.getID() == "1501_27271428" || myVehicle.getID() == "1502_27270000")
-//#define DEBUG_COND (myVehicle.getID() == "overtaking")
+//#define DEBUG_COND (myVehicle.getID() == "f0.1")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "Costa_12_13") // test stops_overtaking
@@ -134,7 +134,8 @@ MSLCM_JE2013::wantsChange(
     gDebugFlag2 = DEBUG_COND;
 
     if (gDebugFlag2) {
-        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+        std::cout << "\n" << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                  //<< std::setprecision(20)
                   << " veh=" << myVehicle.getID()
                   << " lane=" << myVehicle.getLane()->getID()
                   << " pos=" << myVehicle.getPositionOnLane()
@@ -725,6 +726,8 @@ MSLCM_JE2013::_wantsChange(
                   << " veh=" << myVehicle.getID()
                   << " firstBlocked=" << tryID(*firstBlocked)
                   << " lastBlocked=" << tryID(*lastBlocked)
+                  << " leader=" << tryID(leader.first)
+                  << " leaderGap=" << leader.second
                   << " neighLead=" << tryID(neighLead.first)
                   << " neighLeadGap=" << neighLead.second
                   << " neighFollow=" << tryID(neighFollow.first)
@@ -843,7 +846,7 @@ MSLCM_JE2013::_wantsChange(
                                            &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
                 myVSafes.push_back(vSafe);
                 if (vSafe < myVehicle.getSpeed()) {
-                    mySpeedGainProbability += CHANGE_PROB_THRESHOLD_LEFT / 3;
+                    mySpeedGainProbability += TS * CHANGE_PROB_THRESHOLD_LEFT / 3;
                 }
                 if (gDebugFlag2) {
                     std::cout << STEPS2TIME(currentTime)
@@ -1029,6 +1032,13 @@ MSLCM_JE2013::_wantsChange(
         // @todo: what if leader is below safe gap?!!!
         thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
     }
+    if (gDebugFlag2) {
+        std::cout << STEPS2TIME(currentTime)
+            << " veh=" << myVehicle.getID()
+            << " currentDist=" << currentDist
+            << " neighDist=" << neighDist
+            << "\n";
+    }
 
     const SUMOReal vMax = MIN2(myVehicle.getVehicleType().getMaxSpeed(), myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
     thisLaneVSafe = MIN2(thisLaneVSafe, vMax);
@@ -1041,11 +1051,17 @@ MSLCM_JE2013::_wantsChange(
         if (thisLaneVSafe - 5 / 3.6 > neighLaneVSafe) {
             // ok, the current lane is faster than the right one...
             if (mySpeedGainProbability < 0) {
-                mySpeedGainProbability /= 2.0;
+                mySpeedGainProbability *= pow(0.5, TS);
             }
         } else {
-            // ok, the current lane is not faster than the right one
-            mySpeedGainProbability -= relativeGain;
+            // ok, the current lane is not (much) faster than the right one
+            // @todo recheck the 5 km/h discount on thisLaneVSafe
+
+            // do not promote changing to the left just because changing to the
+            // right is bad
+            if (mySpeedGainProbability < 0 || relativeGain > 0) {
+                mySpeedGainProbability -= TS * relativeGain;
+            }
 
             // honor the obligation to keep right (Rechtsfahrgebot)
             // XXX consider fast approaching followers on the current lane
@@ -1062,7 +1078,7 @@ MSLCM_JE2013::_wantsChange(
             const SUMOReal deltaProb = (CHANGE_PROB_THRESHOLD_RIGHT
                                         * STEPS2TIME(DELTA_T)
                                         * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
-            myKeepRightProbability -= deltaProb;
+            myKeepRightProbability -= TS * deltaProb;
 
             if (gDebugFlag2) {
                 std::cout << STEPS2TIME(currentTime)
@@ -1077,6 +1093,7 @@ MSLCM_JE2013::_wantsChange(
                           << " fullSpeedGap=" << fullSpeedGap
                           << " fullSpeedDrivingSeconds=" << fullSpeedDrivingSeconds
                           << " dProb=" << deltaProb
+                          << " myKeepRightProbability=" << myKeepRightProbability
                           << "\n";
             }
             if (myKeepRightProbability < -CHANGE_PROB_THRESHOLD_RIGHT) {
@@ -1091,7 +1108,7 @@ MSLCM_JE2013::_wantsChange(
             std::cout << STEPS2TIME(currentTime)
                       << " veh=" << myVehicle.getID()
                       << " speed=" << myVehicle.getSpeed()
-                      << " myKeepRightProbability=" << myKeepRightProbability
+                      << " mySpeedGainProbability=" << mySpeedGainProbability
                       << " thisLaneVSafe=" << thisLaneVSafe
                       << " neighLaneVSafe=" << neighLaneVSafe
                       << " relativeGain=" << relativeGain
@@ -1111,11 +1128,11 @@ MSLCM_JE2013::_wantsChange(
         if (thisLaneVSafe > neighLaneVSafe) {
             // this lane is better
             if (mySpeedGainProbability > 0) {
-                mySpeedGainProbability /= 2.0;
+                mySpeedGainProbability *= pow(0.5, TS);
             }
         } else {
             // left lane is better
-            mySpeedGainProbability += relativeGain;
+            mySpeedGainProbability += TS * relativeGain;
         }
         // VARIANT_19 (stayRight)
         //if (neighFollow.first != 0) {
@@ -1126,6 +1143,18 @@ MSLCM_JE2013::_wantsChange(
         //        return ret | LCA_STAY | LCA_SPEEDGAIN;
         //    }
         //}
+
+        if (gDebugFlag2) {
+            std::cout << STEPS2TIME(currentTime)
+                      << " veh=" << myVehicle.getID()
+                      << " speed=" << myVehicle.getSpeed()
+                      << " mySpeedGainProbability=" << mySpeedGainProbability
+                      << " thisLaneVSafe=" << thisLaneVSafe
+                      << " neighLaneVSafe=" << neighLaneVSafe
+                      << " relativeGain=" << relativeGain
+                      << " blocked=" << blocked
+                      << "\n";
+        }
         if (mySpeedGainProbability > CHANGE_PROB_THRESHOLD_LEFT && neighDist / MAX2((SUMOReal) .1, myVehicle.getSpeed()) > 20.) { // .1
             req = ret | lca | LCA_SPEEDGAIN;
             if (!cancelRequest(req)) {

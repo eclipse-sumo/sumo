@@ -382,7 +382,7 @@ TraCIServerAPI_Lane::getShape(const std::string& id, PositionVector& shape) {
     if (l == 0) {
         return false;
     }
-    shape.push_back(l->getShape());
+    shape = l->getShape();
     return true;
 }
 

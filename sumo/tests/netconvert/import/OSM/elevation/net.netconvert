@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  3 08:32:16 2015 by SUMO netconvert Version dev-SVN-r19243
+<!-- generated on Thu Nov 19 14:18:09 2015 by SUMO netconvert Version dev-SVN-r19380ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml"/>
+        <type-files value="/scr1/sumoID/sumo/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -208,7 +208,7 @@
         <lane id="-24214694#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="16.19" shape="493.70,733.70,35.54 494.38,740.77,36.31"/>
     </edge>
     <edge id="-24214694#2" from="1787023433" to="1560223635" priority="7" type="highway.secondary">
-        <lane id="-24214694#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="7.58" shape="492.92,725.59,35.35 492.94,725.79,35.36"/>
+        <lane id="-24214694#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="7.86" shape="492.78,724.14,35.17 492.79,724.24,35.54"/>
     </edge>
     <edge id="-24214694#3" from="1292264830" to="1787023433" priority="7" type="highway.secondary">
         <lane id="-24214694#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="30.18" shape="490.11,696.51,33.68 492.30,719.16,35.17"/>
@@ -595,7 +595,7 @@
         <lane id="24214694#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="16.19" shape="491.10,741.08,36.31 490.41,734.02,35.54"/>
     </edge>
     <edge id="24214694#2" from="1560223635" to="1787023433" priority="7" type="highway.secondary">
-        <lane id="24214694#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="7.58" shape="489.65,726.11,35.36 489.63,725.91,35.35"/>
+        <lane id="24214694#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="7.86" shape="489.50,724.47,35.54 489.49,724.37,35.17"/>
     </edge>
     <edge id="24214694#3" from="1787023433" to="1292264830" priority="7" type="highway.secondary">
         <lane id="24214694#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="30.18" shape="489.01,719.47,35.17 486.83,696.83,33.68"/>

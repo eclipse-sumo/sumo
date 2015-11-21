@@ -109,6 +109,10 @@ public:
         return myHaveSeenInternalEdge;
     }
 
+    bool lefthand() const {
+        return myLefthand;
+    }
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -323,6 +327,9 @@ protected:
 
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
+
+    /// @brief whether the loaded network was built for left hand traffic
+    bool myLefthand;
 
     /// @brief whether the location element was already loadee
     bool myNetIsLoaded;

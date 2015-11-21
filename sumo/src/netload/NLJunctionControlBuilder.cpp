@@ -348,9 +348,9 @@ NLJunctionControlBuilder::addLogicItem(int request,
     assert(myActiveLogic.size() == (size_t) request);
     assert(myActiveFoes.size() == (size_t) request);
     // add the read response for the given request index
-    myActiveLogic.push_back(std::bitset<64>(response));
+    myActiveLogic.push_back(std::bitset<SUMO_MAX_CONNECTIONS>(response));
     // add the read junction-internal foes for the given request index
-    myActiveFoes.push_back(std::bitset<64>(foes));
+    myActiveFoes.push_back(std::bitset<SUMO_MAX_CONNECTIONS>(foes));
     // add whether the vehicle may drive a little bit further
     myActiveConts.set(request, cont);
     // increse number of set information

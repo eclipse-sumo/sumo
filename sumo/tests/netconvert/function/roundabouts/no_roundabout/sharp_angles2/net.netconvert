@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  3 08:32:19 2015 by SUMO netconvert Version dev-SVN-r19243
+<!-- generated on Thu Nov 19 14:18:11 2015 by SUMO netconvert Version dev-SVN-r19380ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -67,20 +67,20 @@
         <lane id=":54525876_0_0" index="0" speed="19.44" length="7.38" shape="4289.63,2513.81 4288.69,2506.48"/>
     </edge>
     <edge id=":54525876_1" function="internal">
-        <lane id=":54525876_1_0" index="0" speed="16.66" length="6.26" shape="4293.30,2507.83 4291.48,2508.74 4290.11,2508.82 4289.18,2508.07 4288.69,2506.48"/>
+        <lane id=":54525876_1_0" index="0" speed="16.66" length="5.63" shape="4292.56,2508.31 4291.07,2509.01 4289.92,2508.94 4289.13,2508.10 4288.69,2506.48"/>
     </edge>
     <edge id=":54525877_0" function="internal">
         <lane id=":54525877_0_0" index="0" speed="19.44" length="9.84" shape="4298.49,2499.85 4299.84,2509.59"/>
         <lane id=":54525877_0_1" index="1" speed="19.44" length="9.84" shape="4295.22,2500.30 4296.57,2510.04"/>
     </edge>
     <edge id=":54525877_2" function="internal">
-        <lane id=":54525877_2_0" index="0" speed="16.66" length="8.01" shape="4295.22,2500.30 4295.41,2502.93 4295.18,2505.04 4294.53,2506.64 4293.46,2507.73"/>
+        <lane id=":54525877_2_0" index="0" speed="16.66" length="8.84" shape="4295.22,2500.30 4295.35,2502.96 4294.97,2505.17 4294.07,2506.94 4292.65,2508.26"/>
     </edge>
     <edge id=":54525877_3" function="internal">
         <lane id=":54525877_3_0" index="0" speed="16.66" length="7.99" shape="4292.88,2503.35 4294.20,2504.17 4295.25,2505.56 4296.04,2507.52 4296.57,2510.04"/>
     </edge>
     <edge id=":54525877_4" function="internal">
-        <lane id=":54525877_4_0" index="0" speed="13.89" length="6.43" shape="4292.88,2503.35 4294.66,2504.27 4295.36,2505.31 4294.96,2506.46 4293.46,2507.73"/>
+        <lane id=":54525877_4_0" index="0" speed="13.89" length="7.09" shape="4292.88,2503.35 4294.61,2504.31 4295.15,2505.44 4294.50,2506.76 4292.65,2508.26"/>
     </edge>
 
     <edge id="-51800054" from="54525876" to="54525875" priority="-1" spreadType="center">
@@ -115,7 +115,7 @@
         <lane id="51800053_0" index="0" speed="13.89" length="0.20" shape="4292.69,2503.28 4292.88,2503.35"/>
     </edge>
     <edge id="51800055" from="54525877" to="54525876" priority="-1" spreadType="center">
-        <lane id="51800055_0" index="0" speed="13.89" length="0.20" shape="4293.46,2507.73 4293.30,2507.83"/>
+        <lane id="51800055_0" index="0" speed="13.89" length="0.10" shape="4292.65,2508.26 4292.56,2508.31"/>
     </edge>
     <edge id="51800061" from="54525876" to="54525860" priority="-1" spreadType="center" shape="4289.22,2510.48 4266.53,2516.71 4247.23,2524.12 4215.39,2543.52">
         <lane id="51800061_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="67.48" shape="4285.99,2511.37 4266.53,2516.71 4247.23,2524.12 4224.49,2537.98"/>

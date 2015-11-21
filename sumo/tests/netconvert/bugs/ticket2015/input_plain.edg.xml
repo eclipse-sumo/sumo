@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 19 Nov 2015 01:26:02 PM CET by Netedit Version dev-SVN-r19380I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="stations.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="stations.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/yosra/File/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="133403749" from="1468611579" to="1468611580" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="133410537#0" from="1468611580" to="1833873063" priority="1" type="highway.steps" numLanes="1" speed="1.39" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="133410537#1" from="1833873063" to="1478005898" priority="1" type="highway.steps" numLanes="1" speed="1.39" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="133410537#2" from="1478005898" to="1478005903" priority="1" type="highway.steps" numLanes="1" speed="1.39" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="133410537#3" from="1478005903" to="1478005908" priority="1" type="highway.steps" numLanes="1" speed="1.39" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="133410537#4" from="1478005908" to="1468611583" priority="1" type="highway.steps" numLanes="1" speed="1.39" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="133410538#0" from="1468611583" to="1833873109" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="133410538#1" from="1833873109" to="36461620" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="134419963#1" from="1478005905" to="1478005898" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="1762.03,755.09 1767.45,782.73 1769.32,790.02" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="134419963#2" from="1478005898" to="1478005909" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="1769.32,790.02 1770.10,795.88 1776.54,844.43 1777.63,881.32 1775.53,882.67" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="134419964#1" from="1478005902" to="1833873109" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="1750.33,758.93 1748.38,757.66 1747.61,759.31 1752.39,786.98 1754.25,793.15" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="134419965#1" from="1478005902" to="1478005908" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="134419965#2" from="1478005908" to="1478005910" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="134419966#1" from="1833873120" to="1833873109" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="134419966#2" from="1833873109" to="1836680536" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="1752.21,793.60 1740.63,753.73 1730.63,725.83 1720.61,701.28" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="172481458#0" from="1478005898" to="1833873063" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="1769.32,790.02 1770.85,792.19 1771.44,789.59" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="172481458#1" from="1833873063" to="1478005911" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="1771.44,789.59 1771.16,787.19 1760.35,693.21" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="172817076#1" from="1478005910" to="1478005903" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="1764.84,816.88 1766.74,814.96 1764.77,790.95" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="172817076#2" from="1478005903" to="1478005905" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="1764.77,790.95 1759.82,755.91 1760.41,754.25 1762.03,755.09" spreadType="center" width="2.00" allow="pedestrian"/>
+</edges>

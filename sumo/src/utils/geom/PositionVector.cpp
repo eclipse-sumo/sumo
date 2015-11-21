@@ -77,27 +77,6 @@ PositionVector::PositionVector(const Position& p1, const Position& p2) {
 PositionVector::~PositionVector() {}
 
 
-// ------------ Adding items to the container
-void
-PositionVector::push_back(const PositionVector& p) {
-    copy(p.begin(), p.end(), back_inserter(*this));
-}
-
-
-void
-PositionVector::push_front(const Position& p) {
-    insert(begin(), p);
-}
-
-
-Position
-PositionVector::pop_front() {
-    Position first = front();
-    erase(begin());
-    return first;
-}
-
-
 bool
 PositionVector::around(const Position& p, SUMOReal offset) const {
     if (offset != 0) {
@@ -634,11 +613,6 @@ PositionVector::getSubpart(SUMOReal beginOffset, SUMOReal endOffset) const {
             seen + (*i).distanceTo(*(i + 1)) < endOffset) {
 
         ret.push_back_noDoublePos(*(i + 1));
-        /*
-        if(ret.at(-1)!=*(i+1)) {
-            ret.push_back(*(i+1));
-        }
-        */
         seen += (*i).distanceTo(*(i + 1));
         i++;
     }
@@ -676,11 +650,6 @@ PositionVector::getSubpart2D(SUMOReal beginOffset, SUMOReal endOffset) const {
             seen + (*i).distanceTo2D(*(i + 1)) < endOffset) {
 
         ret.push_back_noDoublePos(*(i + 1));
-        /*
-        if(ret.at(-1)!=*(i+1)) {
-            ret.push_back(*(i+1));
-        }
-        */
         seen += (*i).distanceTo2D(*(i + 1));
         i++;
     }
@@ -695,7 +664,7 @@ PositionVector::getSubpartByIndex(int beginIndex, int count) const {
     if (beginIndex < 0) {
         beginIndex += (int)size();
     }
-    assert(count > 0);
+    assert(count >= 0);
     assert(beginIndex < (int)size());
     assert(beginIndex + count <= (int)size());
     PositionVector result;
@@ -709,16 +678,6 @@ PositionVector::getSubpartByIndex(int beginIndex, int count) const {
 SUMOReal
 PositionVector::beginEndAngle() const {
     return front().angleTo2D(back());
-}
-
-
-void
-PositionVector::eraseAt(int i) {
-    if (i >= 0) {
-        erase(begin() + i);
-    } else {
-        erase(end() + i);
-    }
 }
 
 
@@ -832,7 +791,7 @@ PositionVector::insertAtClosest(const Position& p) {
             minDist = dist;
         }
     }
-    insertAt(insertionIndex, p);
+    insert(begin() + insertionIndex, p);
     return insertionIndex;
 }
 
@@ -1018,29 +977,6 @@ PositionVector::distance(const Position& p, bool perpendicular) const {
         return p.distanceTo2D(positionAtOffset2D(nearestOffset));
     }
 }
-
-
-void
-PositionVector::insertAt(int index, const Position& p) {
-    if (index >= 0) {
-        insert(begin() + index, p);
-    } else {
-        insert(end() + index, p);
-    }
-}
-
-
-void
-PositionVector::replaceAt(int index, const Position& p) {
-    assert(index < static_cast<int>(size()));
-    assert(index + static_cast<int>(size()) >= 0);
-    if (index >= 0) {
-        (*this)[index] = p;
-    } else {
-        (*this)[index + static_cast<int>(size())] = p;
-    }
-}
-
 
 void
 PositionVector::push_back_noDoublePos(const Position& p) {

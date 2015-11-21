@@ -314,8 +314,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     }
     // patch ramp geometry
     PositionVector p = potRamp->getGeometry();
-    p.pop_front();
-    p.push_front(first->getLaneShape(0)[-1]);
+    p[0] = first->getLaneShape(0)[-1];
     potRamp->setGeometry(p);
 }
 

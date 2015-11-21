@@ -1,4 +1,4 @@
-Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/opendriveNetconvert.typ.xml'... done.
+Parsing types from '/scr1/sumoID/sumo/data/typemap/opendriveNetconvert.typ.xml'... done.
 Parsing opendrive from 'opendrive.xodr'... 
 done.
  Import done:
@@ -32,8 +32,8 @@ Summary:
   Priority junctions          : 5
   Right-before-left junctions : 0
  Network boundaries:
-  Original boundary  : -198.90,-86.38,198.90,84.21
-  Applied offset     : 198.90,86.38
-  Converted boundary : 0.00,0.00,397.80,170.59
+  Original boundary  : -198.41,-84.86,198.41,86.08
+  Applied offset     : 198.41,84.86
+  Converted boundary : 0.00,0.00,396.83,170.94
 -----------------------------------------------------
 Success.

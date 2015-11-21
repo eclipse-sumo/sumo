@@ -280,18 +280,18 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
     if (thisLaneVSafe - neighLaneVSafe > 5. / 3.6) {
         // ok, the current lane is faster than the right one...
         if (myChangeProbability < 0) {
-            myChangeProbability /= 2.0;
+            myChangeProbability *= pow(0.5, TS);
         }
     } else {
         // ok, the right lane is faster than the current
-        myChangeProbability -= (SUMOReal)((neighLaneVSafe - thisLaneVSafe) / (myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle)));
+        myChangeProbability -= TS * ((neighLaneVSafe - thisLaneVSafe) / (myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle)));
     }
 
     // let's recheck the "Rechtsfahrgebot"
     SUMOReal vmax = MIN2(myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle), myVehicle.getVehicleType().getMaxSpeed());
     vmax -= (SUMOReal)(5. / 2.6);
     if (neighLaneVSafe >= vmax) {
-        myChangeProbability -= (SUMOReal)((neighLaneVSafe - vmax) / (vmax));
+        myChangeProbability -= TS * ((neighLaneVSafe - vmax) / (vmax));
     }
 
     if (myChangeProbability < -2 && neighDist / MAX2((SUMOReal) .1, myVehicle.getSpeed()) > 20.) { //./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // -.1
@@ -498,11 +498,11 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
     if (thisLaneVSafe > neighLaneVSafe) {
         // this lane is better
         if (myChangeProbability > 0) {
-            myChangeProbability /= 2.0;
+            myChangeProbability *= pow(0.5, TS);
         }
     } else {
         // right lane is better
-        myChangeProbability += (SUMOReal)((neighLaneVSafe - thisLaneVSafe) / (myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle))); // !!! Fahrzeuggeschw.!
+        myChangeProbability += TS * ((neighLaneVSafe - thisLaneVSafe) / (myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle))); // !!! Fahrzeuggeschw.!
     }
     if (myChangeProbability > .2 && neighDist / MAX2((SUMOReal) .1, myVehicle.getSpeed()) > 20.) { // .1
         return ret | LCA_LEFT | LCA_SPEEDGAIN | LCA_URGENT;

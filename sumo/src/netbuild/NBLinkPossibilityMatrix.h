@@ -44,7 +44,7 @@
  * Storing the information which links may be used simultanously, this matrix
  * is simply made by a vector of bitsets
  */
-typedef std::vector<std::bitset<64> > NBLinkPossibilityMatrix;
+typedef std::vector<std::bitset<SUMO_MAX_CONNECTIONS> > NBLinkPossibilityMatrix;
 
 
 #endif

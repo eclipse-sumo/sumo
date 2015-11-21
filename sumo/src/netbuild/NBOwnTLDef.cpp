@@ -191,7 +191,7 @@ NBTrafficLightLogic*
 NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts) {
     myNeedsContRelation.clear();
     const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
-    const SUMOTime leftTurnTime = TIME2STEPS(6); // make configurable
+    const SUMOTime leftTurnTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.left-green.time"));
     // build complete lists first
     const EdgeVector& incoming = getIncomingEdges();
     EdgeVector fromEdges, toEdges;
@@ -342,7 +342,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             logic->addStep(brakingTime, state);
         }
 
-        if (haveForbiddenLeftMover && !myHaveSinglePhase) {
+        if (haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0) {
             // build left green
             for (unsigned int i1 = 0; i1 < pos; ++i1) {
                 if (state[i1] == 'Y' || state[i1] == 'y') {

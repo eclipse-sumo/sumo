@@ -244,6 +244,10 @@ private:
 
     /// @brief the edge of which geometry is being moved
     GNEEdge* myEdgeToMove;
+
+    /// @brief the poly of which geometry is being moved
+    GNEPoly* myPolyToMove;
+
     /// @brief position from which to move edge geometry
     Position myMoveSrc;
 

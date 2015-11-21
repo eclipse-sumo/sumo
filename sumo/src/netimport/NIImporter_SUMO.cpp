@@ -83,7 +83,9 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCurrentLane(0),
       myCurrentTL(0),
       myLocation(0),
-      myHaveSeenInternalEdge(false)
+      myHaveSeenInternalEdge(false),
+      myAmLefthand(false),
+      myCornerDetail(0)
 {}
 
 
@@ -184,7 +186,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
                 nbe->addLane2LaneConnection(
                     fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::L2L_VALIDATED,
-                    true, c.mayDefinitelyPass, c.keepClear);
+                    true, c.mayDefinitelyPass, c.keepClear, c.contPos);
 
                 // maybe we have a tls-controlled connection
                 if (c.tlID != "" && myRailSignals.count(c.tlID) == 0) {
@@ -222,17 +224,32 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     // insert loaded prohibitions
     for (std::vector<Prohibition>::const_iterator it = myProhibitions.begin(); it != myProhibitions.end(); it++) {
         NBEdge* prohibitedFrom = myEdges[it->prohibitedFrom]->builtEdge;
+        NBEdge* prohibitedTo = myEdges[it->prohibitedTo]->builtEdge;
+        NBEdge* prohibitorFrom = myEdges[it->prohibitorFrom]->builtEdge;
+        NBEdge* prohibitorTo = myEdges[it->prohibitorTo]->builtEdge;
         if (prohibitedFrom == 0) {
-            WRITE_ERROR("Edge '" + it->prohibitedFrom + "' in prohibition was not built");
+            WRITE_WARNING("Edge '" + it->prohibitedFrom + "' in prohibition was not built");
+        } else if (prohibitedTo == 0) {
+            WRITE_WARNING("Edge '" + it->prohibitedTo + "' in prohibition was not built");
+        } else if (prohibitorFrom == 0) {
+            WRITE_WARNING("Edge '" + it->prohibitorFrom + "' in prohibition was not built");
+        } else if (prohibitorTo == 0) {
+            WRITE_WARNING("Edge '" + it->prohibitorTo + "' in prohibition was not built");
         } else {
             NBNode* n = prohibitedFrom->getToNode();
             n->addSortedLinkFoes(
-                NBConnection(myEdges[it->prohibitorFrom]->builtEdge, myEdges[it->prohibitorTo]->builtEdge),
-                NBConnection(prohibitedFrom, myEdges[it->prohibitedTo]->builtEdge));
+                NBConnection(prohibitorFrom, prohibitorTo),
+                NBConnection(prohibitedFrom, prohibitedTo));
         }
     }
     if (!myHaveSeenInternalEdge) {
         myNetBuilder.haveLoadedNetworkWithoutInternalEdges();
+    }
+    if (oc.isDefault("lefthand")) {
+        oc.set("lefthand", toString(myAmLefthand));
+    }
+    if (oc.isDefault("junctions.corner-detail")) {
+        oc.set("junctions.corner-detail", toString(myCornerDetail));
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
@@ -295,6 +312,12 @@ NIImporter_SUMO::myStartElement(int element,
      *    copy unknown by default
      */
     switch (element) {
+        case SUMO_TAG_NET: {
+            bool ok;
+            myAmLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, 0, ok, false);
+            myCornerDetail = attrs.getOpt<int>(SUMO_ATTR_CORNERDETAIL, 0, ok, 0);
+            break;
+        }
         case SUMO_TAG_EDGE:
             addEdge(attrs);
             break;
@@ -541,6 +564,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     conn.tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
     conn.mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, 0, ok, false);
     conn.keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, 0, ok, true);
+    conn.contPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_CONTPOS, 0, ok, NBEdge::UNSPECIFIED_CONTPOS);
     if (conn.tlID != "") {
         conn.tlLinkNo = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
     }

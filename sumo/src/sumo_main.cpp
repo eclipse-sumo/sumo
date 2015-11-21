@@ -141,10 +141,10 @@ main(int argc, char** argv) {
             return 0;
         }
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
-        MsgHandler::initOutputOptions();
         if (!MSFrame::checkOptions()) {
             throw ProcessError();
         }
+        MsgHandler::initOutputOptions();
         RandHelper::initRandGlobal();
         RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
         // load the net

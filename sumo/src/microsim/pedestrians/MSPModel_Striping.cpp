@@ -90,7 +90,7 @@ const SUMOReal MSPModel_Striping::BLOCKER_LOOKAHEAD(10.0);
 const SUMOReal MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR(0.0);
 const SUMOReal MSPModel_Striping::MAX_WAIT_TOLERANCE(120.); // seconds
 const SUMOReal MSPModel_Striping::LATERAL_SPEED_FACTOR(0.4);
-const SUMOReal MSPModel_Striping::MIN_STARTUP_SPEED(0.3);
+const SUMOReal MSPModel_Striping::MIN_STARTUP_DIST(0.4);
 
 
 // ===========================================================================
@@ -699,12 +699,13 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         }
         // check link state
         if (link != 0
-                && dist < speed  // only check close before junction
+                // only check close before junction, @todo we should take deceleration into account here
+                && dist - p.myPerson->getVehicleType().getMinGap() < TIME2STEPS(LOOKAHEAD_SAMEDIR) * SPEED2DIST(speed)
                 && (!link->opened(currentTime, speed, speed, p.getLength(), p.getImpatience(currentTime), speed, 0)
-                    // XXX check for presence of vehicles blocking the path
+                    // @todo check for presence of vehicles blocking the path
                    )) {
             // prevent movement passed a closed link
-            Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * dist - POSITION_EPS, 0, "closedLink"));
+            Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * (dist - POSITION_EPS), 0, "closedLink"));
             currentObs = mergeObstacles(currentObs, closedLink, dir);
             if DEBUGCOND(p.myPerson->getID()) {
                 std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWitTLS=";
@@ -712,9 +713,13 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             }
             // consider rerouting over another crossing
             if (p.myWalkingAreaPath != 0) {
-                // XXX actually another path would be needed starting at the current position
+                // @todo actually another path would be needed starting at the current position
                 p.myNLI = getNextLane(p, p.myLane, p.myWalkingAreaPath->from);
             }
+        }
+        if (&lane->getEdge() == &p.myStage->getDestination() && p.myStage->getDestinationStop() != 0) {
+            Obstacles arrival(stripes, Obstacle(p.myStage->getArrivalPos() + dir * p.myPerson->getVehicleType().getMinGap(), 0, "arrival"));
+            currentObs = mergeObstacles(currentObs, arrival, dir);
         }
         p.walk(currentObs, currentTime);
         if (!p.myWaitingToEnter) {
@@ -857,7 +862,7 @@ MSPModel_Striping::PState::otherStripe() const {
 SUMOReal
 MSPModel_Striping::PState::distToLaneEnd() const {
     if (myStage->getNextRouteEdge() == 0) {
-        return myDir * (myStage->getArrivalPos() - myRelX);
+        return myDir * (myStage->getArrivalPos() - myRelX) - POSITION_EPS;
     } else {
         const SUMOReal length = myWalkingAreaPath == 0 ? myLane->getLength() : myWalkingAreaPath->length;
         return myDir == FORWARD ? length - myRelX : myRelX;
@@ -1041,14 +1046,14 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     const int next = (chosen == current ? current : (chosen < current ? current - 1 : current + 1));
     const SUMOReal xDist = MIN3(distance[current], distance[other], distance[next]);
     // XXX preferred gap differs between approaching a standing obstacle or a moving obstacle
-    const SUMOReal preferredGap = myPerson->getVehicleType().getMinGap() + xDist * 0.5;
-    SUMOReal xSpeed = MIN2(vMax, MAX2((SUMOReal)0, xDist - preferredGap));
+    const SUMOReal preferredGap = myPerson->getVehicleType().getMinGap();
+    SUMOReal xSpeed = MIN2(vMax, MAX2((SUMOReal)0, DIST2SPEED(xDist - preferredGap)));
     if (DEBUGCOND(myPerson->getID())) {
         std::cout << " xSpeedPotential=" << xSpeed << "\n";
     }
     // avoid tiny steps
     // XXX pressure from behind?
-    if (mySpeed == 0 && xSpeed < MIN_STARTUP_SPEED * vMax) {
+    if (mySpeed == 0 && xDist - preferredGap < MIN_STARTUP_DIST) {
         xSpeed = 0;
     }
     if (xSpeed == 0) {
@@ -1068,7 +1073,6 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     }
     // dawdling
     const SUMOReal dawdle = MIN2(xSpeed, RandHelper::rand() * vMax * dawdling);
-    xSpeed -= dawdle;
 
     // XXX ensure that diagonal speed <= vMax
     // avoid deadlocks on narrow sidewalks

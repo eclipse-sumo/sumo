@@ -107,6 +107,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(SUMO_ATTR_TYPE);
                 attrs.push_back(SUMO_ATTR_SHAPE);
                 attrs.push_back(SUMO_ATTR_RADIUS);
+                attrs.push_back(SUMO_ATTR_KEEP_CLEAR);
                 break;
             case SUMO_TAG_LANE:
                 attrs.push_back(SUMO_ATTR_ID);
@@ -195,6 +196,9 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
                 _discreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_TYPE].push_back(*it);
             }
         }
+        
+        _discreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_KEEP_CLEAR].push_back("true");
+        _discreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_KEEP_CLEAR].push_back("false");
 
         choices = SUMOXMLDefinitions::LaneSpreadFunctions.getStrings();
         for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {

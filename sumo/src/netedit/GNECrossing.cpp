@@ -88,7 +88,10 @@ GNECrossing::~GNECrossing() {}
 
 
 void
-GNECrossing::drawGL(const GUIVisualizationSettings& /*s*/) const {
+GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
+    if (!s.drawCrossingsAndWalkingareas) {
+        return;
+    }
     glPushMatrix();
     glPushName(getGlID());
     glTranslated(0, 0, GLO_JUNCTION + 0.1); // must draw on top of junction

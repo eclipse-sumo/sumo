@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r18972
+SUMO netgenerate Version dev-SVN-r19370I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -109,6 +109,8 @@ TLS Building Options:
                                          being too short
   --tls.yellow.time INT                Set INT as fixed time for yellow phase
                                          durations
+  --tls.left-green.time INT            Use INT as green phase duration for left
+                                         turns (s)
   --tls.half-offset STR                TLSs in STR will be shifted by
                                          half-phase
   --tls.quarter-offset STR             TLSs in STR will be shifted by
@@ -179,6 +181,8 @@ Processing Options:
   --sidewalks.guess.from-permissions   Add sidewalks for edges that allow
                                          pedestrians on any of their lanes
                                          regardless of speed
+  --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
+                                         list of edges
   --crossings.guess                    Guess pedestrian crossings based on the
                                          presence of sidewalks
 
@@ -189,6 +193,8 @@ Building Defaults Options:
   --default.sidewalk-width FLOAT       The default width of added sidewalks
   --default.junctions.keep-clear       Whether junctions should be kept clear
                                          by default
+  --default.junctions.radius FLOAT     The default turning radius of
+                                         intersections
   -j, --default-junction-type STR      [traffic_light|priority|right_before_left] Determines the type of the build junctions
 
 Report Options:

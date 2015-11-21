@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  3 08:32:16 2015 by SUMO netconvert Version dev-SVN-r19243
+<!-- generated on Thu Nov 19 14:18:10 2015 by SUMO netconvert Version dev-SVN-r19380ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml"/>
+        <type-files value="/scr1/sumoID/sumo/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -669,7 +669,7 @@
         <lane id="-27077583#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="62.02" shape="6502.20,6818.95 6467.86,6827.14 6444.89,6834.71"/>
     </edge>
     <edge id="-27077584#0" from="297063728" to="297063726" name="Franz-Liszt-Straße" priority="4" type="highway.residential" shape="6773.50,6829.31 6735.44,6854.01 6678.81,6880.25">
-        <lane id="-27077584#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="107.68" shape="6773.98,6830.96 6736.24,6855.46 6679.59,6881.70"/>
+        <lane id="-27077584#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="107.78" shape="6773.98,6830.96 6736.24,6855.46 6679.59,6881.70"/>
     </edge>
     <edge id="-27077584#1" from="297063730" to="297063728" name="Franz-Liszt-Straße" priority="4" type="highway.residential" shape="6799.83,6785.21 6791.48,6807.80 6773.50,6829.31">
         <lane id="-27077584#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="52.13" shape="6799.50,6790.87 6792.93,6808.64 6775.08,6830.00"/>
@@ -759,10 +759,10 @@
         <lane id="-27077602#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="24.70" shape="5891.14,7059.71 5902.59,7045.24"/>
     </edge>
     <edge id="-27077610#0" from="303844037" to="259648769" name="Seminarweg" priority="1" type="highway.track">
-        <lane id="-27077610#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="88.34" shape="6196.94,6362.38 6120.75,6407.09"/>
+        <lane id="-27077610#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="88.45" shape="6196.94,6362.38 6120.75,6407.09"/>
     </edge>
     <edge id="-27077610#1" from="259648767" to="303844037" name="Seminarweg" priority="1" type="highway.track">
-        <lane id="-27077610#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="227.09" shape="6385.34,6235.05 6197.20,6362.22"/>
+        <lane id="-27077610#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="227.19" shape="6385.34,6235.05 6197.20,6362.22"/>
     </edge>
     <edge id="-27077612#0" from="263885866" to="263885861" name="Am Graben" priority="4" type="highway.residential" shape="6248.44,6865.39 6244.01,6819.81 6233.52,6778.05 6224.60,6745.60">
         <lane id="-27077612#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="122.51" shape="6246.34,6860.84 6242.38,6820.09 6231.93,6778.47 6223.05,6746.18"/>
@@ -789,13 +789,13 @@
         <lane id="-27077616#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="94.93" shape="6442.97,6751.21 6460.10,6743.27 6526.61,6706.88"/>
     </edge>
     <edge id="-27077616#2" from="301663174" to="301663171" name="Antonistraße" priority="4" type="highway.residential">
-        <lane id="-27077616#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="40.12" shape="6407.77,6770.99 6442.63,6751.38"/>
+        <lane id="-27077616#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="40.22" shape="6407.77,6770.99 6442.63,6751.38"/>
     </edge>
     <edge id="-27077616#3" from="267201636" to="301663174" name="Antonistraße" priority="4" type="highway.residential">
-        <lane id="-27077616#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="85.12" shape="6336.09,6817.46 6407.50,6771.15"/>
+        <lane id="-27077616#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="85.32" shape="6336.09,6817.46 6407.50,6771.15"/>
     </edge>
     <edge id="-27077616#4" from="291657172" to="267201636" name="Antonistraße" priority="4" type="highway.residential">
-        <lane id="-27077616#4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="46.07" shape="6305.81,6839.88 6335.84,6817.64"/>
+        <lane id="-27077616#4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="46.17" shape="6305.81,6839.88 6335.84,6817.64"/>
     </edge>
     <edge id="-27077616#5" from="291658302" to="291657172" name="Antonistraße" priority="4" type="highway.residential">
         <lane id="-27077616#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="27.46" shape="6278.69,6859.97 6296.44,6846.82"/>
@@ -1002,10 +1002,10 @@
         <lane id="-27078894#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="95.66" shape="5549.36,6703.37 5480.40,6760.82"/>
     </edge>
     <edge id="-27078895" from="297076338" to="297076337" name="Mondscheinweg" priority="1" type="highway.track">
-        <lane id="-27078895_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="117.82" shape="5226.32,6930.53 5131.37,7000.28"/>
+        <lane id="-27078895_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="117.92" shape="5226.32,6930.53 5131.37,7000.28"/>
     </edge>
     <edge id="-27078896" from="297076200" to="297076338" name="Mondscheinweg" priority="1" type="highway.track">
-        <lane id="-27078896_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="41.83" shape="5246.57,6913.55 5226.57,6930.33"/>
+        <lane id="-27078896_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="41.94" shape="5246.57,6913.55 5226.57,6930.33"/>
     </edge>
     <edge id="-27078898#0" from="297076343" to="297076333" name="Frauenberg" priority="1" type="highway.track" shape="5571.33,6659.84 5561.18,6679.67 5550.56,6700.23">
         <lane id="-27078898#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="45.42" shape="5572.80,6660.60 5562.65,6680.42 5558.98,6687.51"/>
@@ -1041,7 +1041,7 @@
         <lane id="-27078909_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="44.98" shape="4587.24,7553.75 4620.01,7536.67"/>
     </edge>
     <edge id="-27079229#0" from="297798826" to="297079919" name="Am Herzogkeller" priority="4" type="highway.residential">
-        <lane id="-27079229#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.94" shape="4185.54,7577.78 4181.79,7580.99"/>
+        <lane id="-27079229#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="5.04" shape="4185.54,7577.78 4181.79,7580.99"/>
     </edge>
     <edge id="-27079229#1" from="297079936" to="297798826" name="Am Herzogkeller" priority="4" type="highway.residential" shape="4298.39,7518.99 4275.63,7520.48 4239.98,7528.12 4184.47,7576.53">
         <lane id="-27079229#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="132.92" shape="4294.57,7520.90 4275.86,7522.12 4240.74,7529.65 4185.55,7577.77"/>
@@ -1182,10 +1182,10 @@
         <lane id="-27079249#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="131.91" shape="4432.67,6427.29 4484.06,6340.65 4498.58,6318.27"/>
     </edge>
     <edge id="-27079249#1" from="297085323" to="297080087" name="Am Wald" priority="4" type="highway.residential" shape="4318.70,6743.37 4308.74,6752.24 4302.89,6756.69 4294.69,6757.55 4283.66,6753.16 4278.90,6738.63 4279.17,6709.58 4288.39,6672.91 4312.89,6615.77 4334.94,6558.83 4382.87,6491.76 4433.97,6428.34">
-        <lane id="-27079249#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="409.95" shape="4319.70,6744.68 4309.79,6753.51 4303.52,6758.28 4294.46,6759.23 4282.33,6754.41 4277.24,6738.89 4277.52,6709.37 4286.82,6672.38 4311.36,6615.15 4333.48,6558.04 4381.56,6490.76 4432.54,6427.48"/>
+        <lane id="-27079249#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="410.07" shape="4319.70,6744.68 4309.79,6753.51 4303.52,6758.28 4294.46,6759.23 4282.33,6754.41 4277.24,6738.89 4277.52,6709.37 4286.82,6672.38 4311.36,6615.15 4333.48,6558.04 4381.56,6490.76 4432.54,6427.48"/>
     </edge>
     <edge id="-27079249#2" from="297080107" to="297085323" name="Am Wald" priority="4" type="highway.residential" shape="4481.66,6503.80 4469.33,6525.72 4450.43,6558.31 4432.37,6580.34 4406.00,6607.29 4364.79,6667.75 4323.85,6738.01 4318.70,6743.37">
-        <lane id="-27079249#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="290.81" shape="4481.34,6507.73 4470.76,6526.54 4451.79,6559.26 4433.60,6581.44 4407.28,6608.34 4366.19,6668.63 4325.18,6739.01 4319.97,6744.42"/>
+        <lane id="-27079249#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="290.93" shape="4481.34,6507.73 4470.76,6526.54 4451.79,6559.26 4433.60,6581.44 4407.28,6608.34 4366.19,6668.63 4325.18,6739.01 4319.97,6744.42"/>
     </edge>
     <edge id="-27079249#3" from="262208875" to="297080107" name="Am Wald" priority="4" type="highway.residential" shape="4545.42,6520.07 4532.51,6516.39 4520.16,6510.06 4497.43,6505.06 4481.66,6503.80">
         <lane id="-27079249#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="66.39" shape="4535.93,6519.08 4531.90,6517.93 4519.59,6511.63 4497.18,6506.70 4485.94,6505.80"/>
@@ -1271,7 +1271,7 @@
         <lane id="-27101089#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="45.15" shape="5710.19,6872.92 5730.11,6899.99"/>
     </edge>
     <edge id="-27101696" from="297063726" to="301663125" priority="1" type="highway.track" shape="6678.81,6880.25 6662.06,6886.76 6603.95,6914.20 6523.07,6958.31">
-        <lane id="-27101696_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="174.25" shape="6679.31,6881.82 6662.71,6888.28 6604.70,6915.67 6523.86,6959.76"/>
+        <lane id="-27101696_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="174.36" shape="6679.31,6881.82 6662.71,6888.28 6604.70,6915.67 6523.86,6959.76"/>
     </edge>
     <edge id="-27101703#0" from="297063701" to="297063696" name="Gottesackergasse" priority="4" type="highway.residential">
         <lane id="-27101703#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="34.71" shape="6308.59,6703.87 6284.80,6718.13"/>
@@ -1280,16 +1280,16 @@
         <lane id="-27101703#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="32.00" shape="6339.67,6684.86 6316.79,6698.89"/>
     </edge>
     <edge id="-27142670#0" from="297076347" to="297076332" name="Petersleite" priority="4" type="highway.residential" shape="5511.53,6683.42 5506.69,6693.83 5480.71,6734.48 5469.30,6767.92">
-        <lane id="-27142670#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="86.98" shape="5513.03,6684.11 5508.14,6694.63 5482.20,6735.20 5475.08,6756.08"/>
+        <lane id="-27142670#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="86.98" shape="5513.04,6684.10 5508.14,6694.63 5482.20,6735.20 5475.08,6756.08"/>
     </edge>
     <edge id="-27142670#1" from="297076176" to="297076347" name="Petersleite" priority="4" type="highway.residential" shape="5649.90,6419.47 5636.33,6468.12 5614.14,6517.88 5568.81,6588.55 5525.01,6652.53 5511.53,6683.42">
-        <lane id="-27142670#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="300.19" shape="5651.35,6420.43 5637.89,6468.68 5615.60,6518.66 5570.18,6589.46 5526.46,6653.33 5513.04,6684.09"/>
+        <lane id="-27142670#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="300.18" shape="5651.35,6420.43 5637.89,6468.68 5615.60,6518.66 5570.18,6589.46 5526.46,6653.33 5513.04,6684.09"/>
     </edge>
     <edge id="-27142671" from="297076362" to="297798823" priority="1" type="highway.track">
         <lane id="-27142671_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="17.53" shape="5442.17,6976.56 5453.27,6962.99"/>
     </edge>
     <edge id="-27142673" from="297079919" to="297798825" priority="1" type="highway.track">
-        <lane id="-27142673_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="23.47" shape="4181.72,7581.06 4164.93,7597.47"/>
+        <lane id="-27142673_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="23.57" shape="4181.72,7581.06 4164.93,7597.47"/>
     </edge>
     <edge id="-27142675" from="297798829" to="297080122" priority="1" type="highway.track">
         <lane id="-27142675_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="24.63" shape="4351.82,7459.13 4364.75,7468.71"/>
@@ -1394,10 +1394,10 @@
         <lane id="-27396186_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="106.51" shape="7053.23,6270.38 7009.76,6183.91"/>
     </edge>
     <edge id="-27396191#0" from="300745280" to="300745266" name="Schottenau" priority="4" type="highway.residential">
-        <lane id="-27396191#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.86" shape="7245.31,6031.77 7256.63,6019.05"/>
+        <lane id="-27396191#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.96" shape="7245.31,6031.77 7256.63,6019.05"/>
     </edge>
     <edge id="-27396191#1" from="300745272" to="300745280" name="Schottenau" priority="4" type="highway.residential" shape="7008.99,6178.72 7137.94,6124.88 7219.98,6066.71 7246.48,6032.94">
-        <lane id="-27396191#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="283.13" shape="7012.96,6175.27 7137.13,6123.43 7218.83,6065.51 7245.12,6032.00"/>
+        <lane id="-27396191#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="283.23" shape="7012.96,6175.27 7137.13,6123.43 7218.83,6065.51 7245.12,6032.00"/>
     </edge>
     <edge id="-27396191#2" from="300745273" to="300745272" name="Schottenau" priority="4" type="highway.residential">
         <lane id="-27396191#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="111.74" shape="6908.72,6215.74 7004.24,6178.78"/>
@@ -1474,7 +1474,7 @@
         <lane id="-27396205#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="54.68" shape="7821.32,6699.58 7867.64,6702.14"/>
     </edge>
     <edge id="-27396205#2" from="300745433" to="320188227" name="Benedicta-von-Spiegel-Straße" priority="4" type="highway.residential">
-        <lane id="-27396205#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="5.17" shape="7814.05,6698.73 7814.25,6698.78"/>
+        <lane id="-27396205#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="5.17" shape="7812.72,6698.42 7812.91,6698.46"/>
     </edge>
     <edge id="-27396205#3" from="320188218" to="300745433" name="Benedicta-von-Spiegel-Straße" priority="4" type="highway.residential">
         <lane id="-27396205#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.97" shape="7788.98,6698.33 7800.29,6698.22"/>
@@ -2271,16 +2271,16 @@
         <lane id="-27875772#4_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="34.82" shape="8963.90,5652.82 8995.51,5657.35"/>
     </edge>
     <edge id="-27875772#5" from="301662969" to="306243933" name="St 2230" priority="7" type="highway.secondary">
-        <lane id="-27875772#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="3.71" shape="8958.47,5649.53 8958.67,5649.49"/>
-        <lane id="-27875772#5_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="3.71" shape="8959.00,5652.78 8959.20,5652.75"/>
+        <lane id="-27875772#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="3.71" shape="8957.92,5649.62 8958.02,5649.60"/>
+        <lane id="-27875772#5_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="3.71" shape="8958.44,5652.87 8958.54,5652.86"/>
     </edge>
     <edge id="-27875772#6" from="301663035" to="301662969" name="St 2230" priority="7" type="highway.secondary" shape="8012.06,5851.94 8037.54,5842.00 8071.86,5831.07 8134.98,5811.51 8233.89,5776.01 8293.71,5754.51 8397.39,5719.23 8476.25,5692.65 8558.02,5674.31 8617.04,5666.72 8723.66,5652.15 8775.47,5646.75 8826.04,5640.08 8856.28,5639.71 8891.44,5643.24 8921.70,5647.46 8957.53,5654.69">
         <lane id="-27875772#6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="977.55" shape="8014.62,5845.63 8035.88,5837.33 8070.38,5826.35 8133.41,5806.81 8232.21,5771.35 8292.07,5749.84 8395.80,5714.54 8474.92,5687.88 8557.16,5669.43 8616.39,5661.82 8723.07,5647.23 8774.88,5641.84 8825.68,5635.13 8856.50,5634.75 8892.03,5638.32 8922.53,5642.58 8957.34,5649.61"/>
         <lane id="-27875772#6_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="977.55" shape="8015.82,5848.70 8036.99,5840.44 8071.37,5829.50 8134.45,5809.94 8233.33,5774.45 8293.16,5752.95 8396.86,5717.67 8475.81,5691.06 8557.74,5672.68 8616.82,5665.09 8723.46,5650.51 8775.27,5645.12 8825.92,5638.43 8856.35,5638.05 8891.63,5641.60 8921.97,5645.83 8956.69,5652.84"/>
     </edge>
     <edge id="-27875772#7" from="301663295" to="301663035" name="St 2230" priority="7" type="highway.secondary">
-        <lane id="-27875772#7_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="2.26" shape="8007.32,5850.06 8007.43,5849.90"/>
-        <lane id="-27875772#7_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="2.26" shape="8010.00,5851.98 8010.12,5851.82"/>
+        <lane id="-27875772#7_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="2.26" shape="8006.72,5850.90 8006.83,5850.74"/>
+        <lane id="-27875772#7_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="2.26" shape="8009.40,5852.82 8009.52,5852.66"/>
     </edge>
     <edge id="-27875772#8" from="27229880" to="301663295" name="St 2230" priority="7" type="highway.secondary" shape="7331.06,6127.21 7726.92,5953.98 7957.96,5871.71 7991.04,5860.11 8010.74,5853.78">
         <lane id="-27875772#8_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="733.11" shape="7337.53,6118.98 7725.10,5949.38 7956.31,5867.04 7989.46,5855.42 8007.16,5849.73"/>
@@ -3736,7 +3736,7 @@
         <lane id="27077583#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="62.02" shape="6443.72,6831.62 6466.96,6823.97 6502.01,6815.60"/>
     </edge>
     <edge id="27077584#0" from="297063726" to="297063728" name="Franz-Liszt-Straße" priority="4" type="highway.residential" shape="6678.81,6880.25 6735.44,6854.01 6773.50,6829.31">
-        <lane id="27077584#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="107.68" shape="6678.21,6878.70 6734.64,6852.57 6772.19,6828.20"/>
+        <lane id="27077584#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="107.78" shape="6678.21,6878.70 6734.64,6852.57 6772.19,6828.20"/>
     </edge>
     <edge id="27077584#1" from="297063728" to="297063730" name="Franz-Liszt-Straße" priority="4" type="highway.residential" shape="6773.50,6829.31 6791.48,6807.80 6799.83,6785.21">
         <lane id="27077584#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="52.13" shape="6772.54,6827.88 6790.03,6806.96 6796.40,6789.73"/>
@@ -3835,10 +3835,10 @@
         <lane id="27077602#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="24.70" shape="5905.18,7047.29 5893.73,7061.76"/>
     </edge>
     <edge id="27077610#0" from="259648769" to="303844037" name="Seminarweg" priority="1" type="highway.track">
-        <lane id="27077610#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="88.34" shape="6119.08,6404.25 6195.27,6359.54"/>
+        <lane id="27077610#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="88.45" shape="6119.08,6404.25 6195.27,6359.54"/>
     </edge>
     <edge id="27077610#1" from="303844037" to="259648767" name="Seminarweg" priority="1" type="highway.track">
-        <lane id="27077610#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="227.09" shape="6195.36,6359.48 6383.49,6232.31"/>
+        <lane id="27077610#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="227.19" shape="6195.36,6359.48 6383.49,6232.31"/>
     </edge>
     <edge id="27077612#0" from="263885861" to="263885866" name="Am Graben" priority="4" type="highway.residential" shape="6224.60,6745.60 6233.52,6778.05 6244.01,6819.81 6248.44,6865.39">
         <lane id="27077612#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="122.51" shape="6226.19,6745.16 6235.12,6777.63 6245.64,6819.53 6249.62,6860.53"/>
@@ -3865,13 +3865,13 @@
         <lane id="27077616#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="94.93" shape="6528.20,6709.78 6461.59,6746.22 6444.36,6754.20"/>
     </edge>
     <edge id="27077616#2" from="301663171" to="301663174" name="Antonistraße" priority="4" type="highway.residential">
-        <lane id="27077616#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="40.12" shape="6444.24,6754.26 6409.39,6773.86"/>
+        <lane id="27077616#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="40.22" shape="6444.24,6754.26 6409.39,6773.86"/>
     </edge>
     <edge id="27077616#3" from="301663174" to="267201636" name="Antonistraße" priority="4" type="highway.residential">
-        <lane id="27077616#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="85.12" shape="6409.30,6773.91 6337.89,6820.23"/>
+        <lane id="27077616#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="85.32" shape="6409.30,6773.91 6337.89,6820.23"/>
     </edge>
     <edge id="27077616#4" from="267201636" to="291657172" name="Antonistraße" priority="4" type="highway.residential">
-        <lane id="27077616#4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="46.07" shape="6337.81,6820.29 6307.77,6842.53"/>
+        <lane id="27077616#4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="46.17" shape="6337.81,6820.29 6307.77,6842.53"/>
     </edge>
     <edge id="27077616#5" from="291657172" to="291658302" name="Antonistraße" priority="4" type="highway.residential">
         <lane id="27077616#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="27.46" shape="6298.40,6849.47 6280.66,6862.62"/>
@@ -4084,10 +4084,10 @@
         <lane id="27078894#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="95.66" shape="5478.29,6758.28 5547.25,6700.84"/>
     </edge>
     <edge id="27078895" from="297076337" to="297076338" name="Mondscheinweg" priority="1" type="highway.track">
-        <lane id="27078895_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="117.82" shape="5129.42,6997.62 5224.37,6927.87"/>
+        <lane id="27078895_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="117.92" shape="5129.42,6997.62 5224.37,6927.87"/>
     </edge>
     <edge id="27078896" from="297076338" to="297076200" name="Mondscheinweg" priority="1" type="highway.track">
-        <lane id="27078896_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="41.83" shape="5224.45,6927.81 5244.45,6911.02"/>
+        <lane id="27078896_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="41.94" shape="5224.45,6927.81 5244.45,6911.02"/>
     </edge>
     <edge id="27078898#0" from="297076333" to="297076343" name="Frauenberg" priority="1" type="highway.track" shape="5550.56,6700.23 5561.18,6679.67 5571.33,6659.84">
         <lane id="27078898#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="45.42" shape="5556.05,6686.00 5559.71,6678.91 5569.88,6659.07"/>
@@ -4123,7 +4123,7 @@
         <lane id="27078909_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="44.98" shape="4621.51,7539.61 4588.76,7556.68"/>
     </edge>
     <edge id="27079229#0" from="297079919" to="297798826" name="Am Herzogkeller" priority="4" type="highway.residential">
-        <lane id="27079229#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.94" shape="4179.65,7578.49 4183.39,7575.27"/>
+        <lane id="27079229#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="5.04" shape="4179.65,7578.49 4183.39,7575.27"/>
     </edge>
     <edge id="27079229#1" from="297798826" to="297079936" name="Am Herzogkeller" priority="4" type="highway.residential" shape="4184.47,7576.53 4239.98,7528.12 4275.63,7520.48 4298.39,7518.99">
         <lane id="27079229#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="132.92" shape="4183.38,7575.28 4239.21,7526.60 4275.41,7518.84 4294.35,7517.60"/>
@@ -4264,10 +4264,10 @@
         <lane id="27079249#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="131.91" shape="4501.35,6320.06 4486.87,6342.39 4435.51,6428.98"/>
     </edge>
     <edge id="27079249#1" from="297080087" to="297085323" name="Am Wald" priority="4" type="highway.residential" shape="4433.97,6428.34 4382.87,6491.76 4334.94,6558.83 4312.89,6615.77 4288.39,6672.91 4279.17,6709.58 4278.90,6738.63 4283.66,6753.16 4294.69,6757.55 4302.89,6756.69 4308.74,6752.24 4318.70,6743.37">
-        <lane id="27079249#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="409.95" shape="4435.11,6429.55 4384.19,6492.76 4336.40,6559.62 4314.42,6616.40 4289.96,6673.44 4280.82,6709.79 4280.55,6738.37 4284.98,6751.91 4294.93,6755.86 4302.26,6755.10 4307.69,6750.96 4317.50,6742.22"/>
+        <lane id="27079249#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="410.07" shape="4435.11,6429.55 4384.19,6492.76 4336.40,6559.62 4314.42,6616.40 4289.96,6673.44 4280.82,6709.79 4280.55,6738.37 4284.98,6751.91 4294.93,6755.86 4302.26,6755.10 4307.69,6750.96 4317.50,6742.22"/>
     </edge>
     <edge id="27079249#2" from="297085323" to="297080107" name="Am Wald" priority="4" type="highway.residential" shape="4318.70,6743.37 4323.85,6738.01 4364.79,6667.75 4406.00,6607.29 4432.37,6580.34 4450.43,6558.31 4469.33,6525.72 4481.66,6503.80">
-        <lane id="27079249#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="290.81" shape="4317.59,6742.13 4322.52,6737.00 4363.40,6666.87 4404.72,6606.24 4431.14,6579.23 4449.07,6557.37 4467.90,6524.90 4478.47,6506.11"/>
+        <lane id="27079249#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="290.93" shape="4317.59,6742.13 4322.52,6737.00 4363.40,6666.87 4404.72,6606.24 4431.14,6579.23 4449.07,6557.37 4467.90,6524.90 4478.47,6506.11"/>
     </edge>
     <edge id="27079249#3" from="297080107" to="262208875" name="Am Wald" priority="4" type="highway.residential" shape="4481.66,6503.80 4497.43,6505.06 4520.16,6510.06 4532.51,6516.39 4545.42,6520.07">
         <lane id="27079249#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="66.39" shape="4486.20,6502.51 4497.67,6503.43 4520.72,6508.49 4533.11,6514.84 4536.83,6515.90"/>
@@ -4312,7 +4312,7 @@
         <lane id="27079449#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="118.58" shape="5675.57,7510.72 5672.21,7515.17 5667.84,7544.59 5668.14,7567.16 5668.55,7595.19 5662.92,7610.21 5659.44,7616.06"/>
     </edge>
     <edge id="27079449#2" from="297082671" to="297082705" name="Wintershofer Weg" priority="4" type="highway.residential" shape="5655.65,7619.19 5656.48,7621.43 5658.91,7622.27 5679.89,7612.62">
-        <lane id="27079449#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="27.78" shape="5658.72,7620.46 5679.20,7611.12"/>
+        <lane id="27079449#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="27.78" shape="5658.72,7620.46 5658.82,7620.49 5679.20,7611.12"/>
     </edge>
     <edge id="27079450" from="297082678" to="297082716" name="Ulrichsteig" priority="4" type="highway.residential" shape="5677.26,7505.74 5698.09,7517.02 5724.22,7525.87 5746.26,7527.99 5756.78,7524.77">
         <lane id="27079450_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="84.42" shape="5681.82,7506.33 5698.76,7515.50 5724.57,7524.24 5746.09,7526.32 5756.30,7523.19"/>
@@ -4356,7 +4356,7 @@
         <lane id="27101092_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="29.98" shape="5909.54,7046.78 5926.88,7060.54"/>
     </edge>
     <edge id="27101696" from="301663125" to="297063726" priority="1" type="highway.track" shape="6523.07,6958.31 6603.95,6914.20 6662.06,6886.76 6678.81,6880.25">
-        <lane id="27101696_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="174.25" shape="6522.28,6956.86 6603.20,6912.72 6661.40,6885.24 6678.11,6878.74"/>
+        <lane id="27101696_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="174.36" shape="6522.28,6956.86 6603.20,6912.72 6661.40,6885.24 6678.11,6878.74"/>
     </edge>
     <edge id="27101703#0" from="297063696" to="297063701" name="Gottesackergasse" priority="4" type="highway.residential">
         <lane id="27101703#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="34.71" shape="6283.10,6715.30 6306.89,6701.04"/>
@@ -4371,13 +4371,13 @@
         <lane id="27142670#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="86.98" shape="5471.96,6755.01 5479.21,6733.76 5505.24,6693.04 5510.04,6682.72"/>
     </edge>
     <edge id="27142670#1" from="297076347" to="297076176" name="Petersleite" priority="4" type="highway.residential" shape="5511.53,6683.42 5525.01,6652.53 5568.81,6588.55 5614.14,6517.88 5636.33,6468.12 5649.90,6419.47">
-        <lane id="27142670#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="300.19" shape="5510.02,6682.77 5523.56,6651.73 5567.43,6587.64 5612.69,6517.09 5634.77,6467.56 5648.17,6419.55"/>
+        <lane id="27142670#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="300.18" shape="5510.02,6682.76 5523.56,6651.73 5567.43,6587.64 5612.69,6517.09 5634.77,6467.56 5648.17,6419.55"/>
     </edge>
     <edge id="27142671" from="297798823" to="297076362" priority="1" type="highway.track">
         <lane id="27142671_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="17.53" shape="5455.82,6965.07 5444.73,6978.65"/>
     </edge>
     <edge id="27142673" from="297798825" to="297079919" priority="1" type="highway.track">
-        <lane id="27142673_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="23.47" shape="4162.63,7595.10 4179.41,7578.70"/>
+        <lane id="27142673_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="23.57" shape="4162.63,7595.10 4179.41,7578.70"/>
     </edge>
     <edge id="27142675" from="297080122" to="297798829" priority="1" type="highway.track">
         <lane id="27142675_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="24.63" shape="4362.78,7471.36 4349.85,7461.79"/>
@@ -4485,10 +4485,10 @@
         <lane id="27396186_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="106.51" shape="7012.70,6182.43 7056.18,6268.90"/>
     </edge>
     <edge id="27396191#0" from="300745266" to="300745280" name="Schottenau" priority="4" type="highway.residential">
-        <lane id="27396191#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.86" shape="7259.09,6021.24 7247.78,6033.96"/>
+        <lane id="27396191#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.96" shape="7259.09,6021.24 7247.78,6033.96"/>
     </edge>
     <edge id="27396191#1" from="300745280" to="300745272" name="Schottenau" priority="4" type="highway.residential" shape="7246.48,6032.94 7219.98,6066.71 7137.94,6124.88 7008.99,6178.72">
-        <lane id="27396191#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="283.13" shape="7247.71,6034.04 7221.13,6067.92 7138.74,6126.33 7014.23,6178.32"/>
+        <lane id="27396191#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="283.23" shape="7247.71,6034.04 7221.13,6067.92 7138.74,6126.33 7014.23,6178.32"/>
     </edge>
     <edge id="27396191#2" from="300745272" to="300745273" name="Schottenau" priority="4" type="highway.residential">
         <lane id="27396191#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="111.74" shape="7005.44,6181.86 6909.91,6218.82"/>
@@ -5372,16 +5372,16 @@
         <lane id="27875772#4_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="34.82" shape="8995.04,5660.61 8963.44,5656.09"/>
     </edge>
     <edge id="27875772#5" from="306243933" to="301662969" name="St 2230" priority="7" type="highway.secondary">
-        <lane id="27875772#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="3.71" shape="8960.26,5659.27 8960.06,5659.30"/>
-        <lane id="27875772#5_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="3.71" shape="8959.73,5656.01 8959.53,5656.04"/>
+        <lane id="27875772#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="3.71" shape="8959.52,5659.39 8959.42,5659.40"/>
+        <lane id="27875772#5_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="3.71" shape="8958.99,5656.13 8958.89,5656.14"/>
     </edge>
     <edge id="27875772#6" from="301662969" to="301663035" name="St 2230" priority="7" type="highway.secondary" shape="8957.53,5654.69 8921.70,5647.46 8891.44,5643.24 8856.28,5639.71 8826.04,5640.08 8775.47,5646.75 8723.66,5652.15 8617.04,5666.72 8558.02,5674.31 8476.25,5692.65 8397.39,5719.23 8293.71,5754.51 8233.89,5776.01 8134.98,5811.51 8071.86,5831.07 8037.54,5842.00 8012.06,5851.94">
         <lane id="27875772#6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="977.55" shape="8955.39,5659.31 8920.86,5652.34 8890.85,5648.15 8856.06,5644.66 8826.39,5645.02 8776.05,5651.67 8724.25,5657.06 8617.69,5671.63 8558.88,5679.19 8477.59,5697.42 8398.98,5723.92 8295.34,5759.18 8235.56,5780.66 8136.55,5816.20 8073.34,5835.79 8039.19,5846.67 8018.22,5854.85"/>
         <lane id="27875772#6_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="977.55" shape="8956.04,5656.08 8921.42,5649.09 8891.24,5644.88 8856.21,5641.36 8826.16,5641.73 8775.66,5648.39 8723.86,5653.79 8617.25,5668.36 8558.31,5675.94 8476.70,5694.24 8397.92,5720.79 8294.25,5756.07 8234.44,5777.56 8135.50,5813.07 8072.36,5832.65 8038.09,5843.55 8017.02,5851.77"/>
     </edge>
     <edge id="27875772#7" from="301663035" to="301663295" name="St 2230" priority="7" type="highway.secondary">
-        <lane id="27875772#7_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="2.26" shape="8015.49,5855.65 8015.37,5855.82"/>
-        <lane id="27875772#7_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="2.26" shape="8012.80,5853.74 8012.69,5853.90"/>
+        <lane id="27875772#7_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="2.17" shape="8016.03,5854.89 8015.92,5855.05"/>
+        <lane id="27875772#7_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="2.17" shape="8013.35,5852.97 8013.23,5853.14"/>
     </edge>
     <edge id="27875772#8" from="301663295" to="27229880" name="St 2230" priority="7" type="highway.secondary" shape="8010.74,5853.78 7991.04,5860.11 7957.96,5871.71 7726.92,5953.98 7331.06,6127.21">
         <lane id="27875772#8_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="733.11" shape="8010.19,5859.15 7992.61,5864.81 7959.60,5876.38 7728.75,5958.59 7341.50,6128.05"/>
@@ -8108,7 +8108,7 @@
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="297076347" type="priority" x="5511.53" y="6683.42" incLanes="-27142670#1_0 27142670#0_0" intLanes="" shape="5514.51,6684.73 5508.55,6682.13 5514.49,6684.77">
+    <junction id="297076347" type="priority" x="5511.53" y="6683.42" incLanes="-27142670#1_0 27142670#0_0" intLanes="" shape="5514.51,6684.73 5508.55,6682.13 5508.59,6682.03 5514.49,6684.77">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
