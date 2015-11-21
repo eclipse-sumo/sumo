@@ -577,7 +577,7 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
         setColor(s);
     // optionally draw inverse markings
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
-        SUMOReal mw = (myHalfLaneWidth + SUMO_const_laneOffset + .01) * scale;
+        SUMOReal mw = (myHalfLaneWidth + SUMO_const_laneOffset + .01) * scale * (MSNet::getInstance()->lefthand() ? -1 : 1);
         int e = (int) getShape().size() - 1;
         for (int i = 0; i < e; ++i) {
             glPushMatrix();
