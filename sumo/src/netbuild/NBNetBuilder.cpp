@@ -89,7 +89,8 @@ NBNetBuilder::compute(OptionsCont& oc,
     GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
 
 
-    if (oc.getBool("lefthand")) {
+    const bool lefthand = oc.getBool("lefthand");
+    if (lefthand) {
         mirrorX();
     };
 
@@ -178,9 +179,9 @@ NBNetBuilder::compute(OptionsCont& oc,
     geoConvHelper.setConvBoundary(boundary);
 
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
-        moveToOrigin(geoConvHelper);
+        moveToOrigin(geoConvHelper, lefthand);
     }
-    geoConvHelper.computeFinal(); // information needed for location element fixed at this point
+    geoConvHelper.computeFinal(lefthand); // information needed for location element fixed at this point
 
     if (oc.exists("geometry.min-dist") && oc.isSet("geometry.min-dist")) {
         PROGRESS_BEGIN_MESSAGE("Reducing geometries");
@@ -404,7 +405,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         }
         PROGRESS_DONE_MESSAGE();
     }
-    if (oc.getBool("lefthand")) {
+    if (lefthand) {
         mirrorX();
     };
 
@@ -427,11 +428,11 @@ NBNetBuilder::compute(OptionsCont& oc,
 
 
 void
-NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper) {
+NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper, bool lefthand) {
     PROGRESS_BEGIN_MESSAGE("Moving network to origin");
     Boundary boundary = geoConvHelper.getConvBoundary();
     const SUMOReal x = -boundary.xmin();
-    const SUMOReal y = -boundary.ymin();
+    const SUMOReal y = -(lefthand ? boundary.ymax() : boundary.ymin());
     //if (lefthand) {
     //    y = boundary.ymax();
     //}

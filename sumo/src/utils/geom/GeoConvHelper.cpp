@@ -412,7 +412,7 @@ GeoConvHelper::getProjString() const {
 
 
 void
-GeoConvHelper::computeFinal() {
+GeoConvHelper::computeFinal(bool lefthand) {
     if (myNumLoaded == 0) {
         myFinal = myProcessing;
     } else  {
@@ -424,6 +424,10 @@ GeoConvHelper::computeFinal() {
                       myLoaded.getOrigBoundary(),
                       // the new boundary (updated during loading)
                       myProcessing.getConvBoundary());
+    }
+    if (lefthand) {
+        myFinal.myOffset.mul(1, -1);
+        myFinal.myConvBoundary.flipY();
     }
 }
 
