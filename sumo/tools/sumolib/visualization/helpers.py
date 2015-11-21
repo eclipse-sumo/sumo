@@ -264,9 +264,9 @@ def logNormalise(values, maxValue):
         if values[e] != 0:
             values[e] = log(values[e]) / log(maxValue)
         if not emin or emin > values[e]:
-            emin = edgeValuesC[e]
+            emin = values[e]
         if not emax or emax < values[e]:
-            emax = edgeValuesC[e]
+            emax = values[e]
     for e in values:
         values[e] = (values[e] - emin) / (emax - emin)
 

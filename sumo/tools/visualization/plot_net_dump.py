@@ -27,6 +27,7 @@ import sumolib
 from sumolib.visualization import helpers
 
 import matplotlib.pyplot as plt
+import matplotlib.cm
 
 
 class WeightsReader(ContentHandler):
@@ -175,7 +176,7 @@ def main(args=None):
         helpers.plotNet(net, colors, widths, options)
 
         # drawing the legend, at least for the colors
-        sm = matplotlib.cm.ScalarMappable(cmap=get_cmap(
+        sm = matplotlib.cm.ScalarMappable(cmap=matplotlib.cm.get_cmap(
             options.colormap), norm=plt.normalize(vmin=minColorValue, vmax=maxColorValue))
         # "fake up the array of the scalar mappable. Urgh..." (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
         sm._A = []
