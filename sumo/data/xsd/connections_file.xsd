@@ -30,6 +30,7 @@
         <xsd:attribute name="pass" type="boolType" use="optional"/>
         <xsd:attribute name="uncontrolled" type="boolType" use="optional"/>
         <xsd:attribute name="keepClear" type="boolType" use="optional"/>
+        <xsd:attribute name="contPos" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="prohibitionType">
