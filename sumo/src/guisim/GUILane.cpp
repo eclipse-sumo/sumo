@@ -263,9 +263,10 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     // draw all links
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = 0;
+    const bool lefthand = MSNet::getInstance()->lefthand();
     for (unsigned int i = 0; i < noLinks; ++i) {
         SUMOReal x2 = x1 + w;
-        drawLinkRule(s, net, myLinks[i], getShape(), x1, x2);
+        drawLinkRule(s, net, myLinks[lefthand ? noLinks - 1 - i : i], getShape(), x1, x2);
         x1 = x2;
     }
 }
