@@ -233,7 +233,8 @@ NLBuilder::buildNet() {
             }
         }
         myNet.closeBuilding(edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles,
-                            myXMLHandler.haveSeenInternalEdge());
+                            myXMLHandler.haveSeenInternalEdge(),
+                            myXMLHandler.lefthand());
     } catch (IOError& e) {
         delete edges;
         delete junctions;

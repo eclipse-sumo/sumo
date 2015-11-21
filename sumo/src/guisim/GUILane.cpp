@@ -188,9 +188,10 @@ GUILane::drawLinkNo(const GUIVisualizationSettings& s) const {
     // draw all links
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = myHalfLaneWidth;
+    const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
-        drawTextAtEnd(toString(myLinks[i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex);
+        drawTextAtEnd(toString(myLinks[lefthand ? noLinks - 1 - i : i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex);
         x1 -= w;
     }
 }
@@ -217,9 +218,10 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
     // draw all links
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = myHalfLaneWidth;
+    const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
-        int linkNo = net.getLinkTLIndex(myLinks[i]);
+        int linkNo = net.getLinkTLIndex(myLinks[lefthand ? noLinks - 1 - i : i]);
         if (linkNo < 0) {
             continue;
         }
