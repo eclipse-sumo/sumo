@@ -327,7 +327,7 @@ SUMOVTypeParameter*
 SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    SUMOVehicleClass vClass = SVC_IGNORING;
+    SUMOVehicleClass vClass = SVC_PASSENGER;
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
         vClass = parseVehicleClass(attrs, id);
     }
