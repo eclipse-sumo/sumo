@@ -853,9 +853,9 @@ NBNode::computeLanes2Lanes() {
                 if (unsatisfied != 0) {
                     //std::cout << " unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
                     int fromLane = 0;
-                    while (unsatisfied != 0 && fromLane < incoming->getNumLanes()) {
+                    while (unsatisfied != 0 && fromLane < (int)incoming->getNumLanes()) {
                         if ((incoming->getPermissions(fromLane) & unsatisfied) != 0) {
-                            for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); ++toLane) {
+                            for (int toLane = 0; toLane < (int)currentOutgoing->getNumLanes(); ++toLane) {
                                 const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
                                 if (satisfied != 0) {
                                     incoming->setConnection((unsigned int)fromLane, currentOutgoing, toLane, NBEdge::L2L_COMPUTED);
