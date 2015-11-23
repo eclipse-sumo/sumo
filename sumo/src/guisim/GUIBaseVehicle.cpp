@@ -247,6 +247,7 @@ long
 GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowFoes(FXObject*, FXSelector, void*) {
     assert(myObject->getType() == GLO_VEHICLE);
     static_cast<GUIBaseVehicle*>(myObject)->selectBlockingFoes();
+    myParent->update();
     return 1;
 }
 
