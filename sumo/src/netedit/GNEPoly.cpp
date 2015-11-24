@@ -40,6 +40,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -70,12 +71,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
+GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
            const RGBColor& color, SUMOReal layer,
            SUMOReal angle, const std::string& imgFile) :
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
     GNEAttributeCarrier(SUMO_TAG_POLY),
-    myNet(net)
+    myNet(net),
+    myJunction(junction)
 {}
 
 
@@ -104,6 +106,22 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
 
 }
 
+
+GUIGLObjectPopupMenu*
+GNEPoly::getPopUpMenu(GUIMainWindow& app,
+                          GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = GUIPolygon::getPopUpMenu(app, parent);
+    new FXMenuSeparator(ret);
+    new FXMenuCommand(ret, "Set custom shape (ENTER)", 0, &app, MID_GNE_HOTKEY_ENTER);
+    new FXMenuCommand(ret, "Discard custom shape (ESC)", 0, &app, MID_GNE_ABORT);
+    new FXMenuCommand(ret, "Simplify Shape\t\tReplace shape with a rectangle", 0, &parent, MID_GNE_SIMPLIFY_SHAPE);
+    new FXMenuCommand(ret, "Remove geometry point\t\tRemove the closest geometry point", 0, &parent, MID_GNE_DELETE_GEOMETRY);
+    // let the GNEViewNet store the popup position
+    (dynamic_cast<GNEViewNet&>(parent)).markPopupPosition();
+    return ret;
+}
+
+
 Position
 GNEPoly::moveGeometry(const Position& oldPos, const Position& newPos, bool relative) {
     PositionVector geom = myShape;
@@ -117,6 +135,33 @@ GNEPoly::moveGeometry(const Position& oldPos, const Position& newPos, bool relat
     }
 }
 
+
+void 
+GNEPoly::simplifyShape() {
+    const Boundary b =  myShape.getBoxBoundary();
+    myShape.clear();
+    myShape.push_back(Position(b.xmin(), b.ymin()));
+    myShape.push_back(Position(b.xmin(), b.ymax()));
+    myShape.push_back(Position(b.xmax(), b.ymax()));
+    myShape.push_back(Position(b.xmax(), b.ymin()));
+    myShape.push_back(myShape[0]);
+}
+
+
+void 
+GNEPoly::deleteGeometryNear(const Position& pos) {
+    if (myShape.size() <= 3) {
+        return;
+    }
+    int index = myShape.indexOfClosest(pos);
+    if ((index == 0 || index == (int)myShape.size() - 1) && myShape.front() == myShape.back()) {
+        myShape.erase(myShape.begin());
+        myShape.erase(myShape.end() - 1);
+        myShape.push_back(myShape.front());
+    } else {
+        myShape.erase(myShape.begin() + index);
+    }
+}
 
 
 std::string
