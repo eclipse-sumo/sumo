@@ -362,6 +362,8 @@ public:
     /// @brief return the via lane if it exists and the lane otherwise
     MSLane* getViaLaneOrLane() const;
 
+    /// @brief return myInternalLaneBefore (always 0 when compiled without internal lanes)
+    const MSLane* getInternalLaneBefore() const;
 
     /// @brief return the expected time at which the given vehicle will clear the link
     SUMOTime getLeaveTime(const SUMOTime arrivalTime, const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed, const SUMOReal vehicleLength) const;

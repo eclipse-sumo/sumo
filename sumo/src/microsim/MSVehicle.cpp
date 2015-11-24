@@ -1005,6 +1005,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
     SUMOReal vLinkPass = MIN2(estimateSpeedAfterDistance(seen, v, getVehicleType().getCarFollowModel().getMaxAccel()), laneMaxV); // upper bound
     unsigned int view = 0;
     DriveProcessItem* lastLink = 0;
+    bool slowedDownForMinor = false; // whether the vehicle already had to slow down on approach to a minor link
     SUMOReal gap = 0;
     if (pred != 0) {
         if (pred == myLane->getPartialOccupator()) {
@@ -1101,9 +1102,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             }
         }
 
-        // - even if red, if we cannot break we should issue a request
         // - always issue a request to leave the intersection we are currently on
-        bool setRequest = v > 0 || (myLane->getEdge().isInternal() && lastLink == 0);
+        const bool leavingCurrentIntersection = myLane->getEdge().isInternal() && lastLink == 0;
+        // - do not issue a request to enter an intersection after we already slowed down for an earlier one
+        const bool abortRequestAfterMinor = slowedDownForMinor && (*link)->getInternalLaneBefore() == 0;
+        // - even if red, if we cannot break we should issue a request
+        bool setRequest = (v > 0 && !abortRequestAfterMinor) || (leavingCurrentIntersection);
+
         SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
         const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime();
         if (yellowOrRed && seen >= brakeDist) {
@@ -1152,6 +1157,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         if (!(*link)->havePriority() && stopDist > cfModel.getMaxDecel() && brakeDist < seen) {
             // vehicle decelerates just enough to be able to stop if necessary and then accelerates
             arrivalSpeed = cfModel.getMaxDecel() + cfModel.getMaxAccel();
+            slowedDownForMinor = true;
         }
         // @note intuitively it would make sense to compare arrivalSpeed with getSpeed() instead of v
         // however, due to the current position update rule (ticket #860) the vehicle moves with v in this step
@@ -1198,7 +1204,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         ++view;
 #endif
         // we need to look ahead far enough to see available space for checkRewindLinkLanes
-        if (!setRequest || ((v <= 0 || seen > dist) && hadNonInternal && seenNonInternal > vehicleLength * CRLL_LOOK_AHEAD)) {
+        if ((!setRequest || v <= 0 || seen > dist) && hadNonInternal && seenNonInternal > vehicleLength * CRLL_LOOK_AHEAD) {
             break;
         }
         // get the following lane

@@ -639,5 +639,13 @@ MSLink::isLeader(const MSVehicle* ego, const MSVehicle* foe) {
     }
 }
 
+const MSLane* 
+MSLink::getInternalLaneBefore() const {
+#ifdef HAVE_INTERNAL_LANES
+    return myInternalLaneBefore;
+#endif
+    return 0;
+}
+
 /****************************************************************************/
 
