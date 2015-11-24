@@ -93,7 +93,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 if (precedentLane == 0) { //if there is no preceeding lane
                     noRailSignal = false;
                 } else {
-                    const MSJunction* junction = MSLinkContHelper::getConnectingLink(*precedentLane, *currentLane)->getJunction();  //the junction between precentLane and currentLane
+                    const MSJunction* junction = precedentLane->getEdge().getToJunction();
                     if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL)) { //if this junction exists and if it has a rail signal
                         noRailSignal = false;
                     } else {

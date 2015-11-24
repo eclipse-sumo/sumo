@@ -1317,11 +1317,6 @@ protected:
                        const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass,
                        SUMOReal distToCrossing = -1) const;
 
-#ifdef HAVE_INTERNAL_LANES
-    /// @brief ids of vehicles being followed across a link (for resolving priority)
-    mutable std::map<const MSJunction*, std::set<std::string> > myLinkLeaders;
-#endif
-
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
      * @note member is initialized on first access */

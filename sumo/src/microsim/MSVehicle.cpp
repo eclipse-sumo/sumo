@@ -69,6 +69,7 @@
 #include "MSContainer.h"
 #include "MSContainerControl.h"
 #include "MSLane.h"
+#include "MSJunction.h"
 #include "MSVehicle.h"
 #include "MSEdge.h"
 #include "MSVehicleType.h"
@@ -1113,32 +1114,32 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         }
 
 #ifdef HAVE_INTERNAL_LANES
-        // we want to pass the link but need to check for foes on internal lanes
-        const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(seen, getVehicleType().getMinGap());
-        for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
-            // the vehicle to enter the junction first has priority
-            const MSVehicle* leader = (*it).vehAndGap.first;
-            if (leader == 0) {
-                // leader is a pedestrian. Passing 'this' as a dummy.
-                //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link to " << (*link)->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->distToCrossing << "\n";
-                adaptToLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
-            } else if (leader->myLinkLeaders[(*link)->getJunction()].count(getID()) == 0) {
-                // leader isn't already following us, now we follow it
-                myLinkLeaders[(*link)->getJunction()].insert(leader->getID());
-                adaptToLeader(it->vehAndGap, seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
-                if (lastLink != 0) {
-                    // we are not yet on the junction with this linkLeader.
-                    // at least we can drive up to the previous link and stop there
-                    v = MAX2(v, lastLink->myVLinkWait);
-                }
-                // if blocked by a leader from the same lane we must yield our request
-                if (v < SUMO_const_haltingSpeed && leader->getLane()->getLogicalPredecessorLane() == myLane->getLogicalPredecessorLane()) {
-                    setRequest = false;
+        if (MSGlobals::gUsingInternalLanes) {
+            // we want to pass the link but need to check for foes on internal lanes
+            const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(seen, getVehicleType().getMinGap());
+            for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
+                // the vehicle to enter the junction first has priority
+                const MSVehicle* leader = (*it).vehAndGap.first;
+                if (leader == 0) {
+                    // leader is a pedestrian. Passing 'this' as a dummy.
+                    //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link to " << (*link)->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->distToCrossing << "\n";
+                    adaptToLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
+                } else if ((*link)->isLeader(this, leader)) {
+                    adaptToLeader(it->vehAndGap, seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
+                    if (lastLink != 0) {
+                        // we are not yet on the junction with this linkLeader.
+                        // at least we can drive up to the previous link and stop there
+                        v = MAX2(v, lastLink->myVLinkWait);
+                    }
+                    // if blocked by a leader from the same lane we must yield our request
+                    if (v < SUMO_const_haltingSpeed && leader->getLane()->getLogicalPredecessorLane() == myLane->getLogicalPredecessorLane()) {
+                        setRequest = false;
+                    }
                 }
             }
+            // if this is the link between two internal lanes we may have to slow down for pedestrians
+            vLinkWait = MIN2(vLinkWait, v);
         }
-        // if this is the link between two internal lanes we may have to slow down for pedestrians
-        vLinkWait = MIN2(vLinkWait, v);
 #endif
 
         if (lastLink != 0) {
@@ -1453,6 +1454,14 @@ MSVehicle::executeMove() {
                     assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
                     myLane = approachedLane;
+#ifdef HAVE_INTERNAL_LANES
+                    if (MSGlobals::gUsingInternalLanes) {
+                        // erase leaders when past the junction
+                        if (link->getViaLane() == 0) {
+                            link->passedJunction(this);
+                        }
+                    }
+#endif
                     if (hasArrived()) {
                         break;
                     }
@@ -1464,12 +1473,6 @@ MSVehicle::executeMove() {
                             getLaneChangeModel().endLaneChangeManeuver();
                         }
                     }
-#ifdef HAVE_INTERNAL_LANES
-                    // erase leaders when past the junction
-                    if (link->getViaLane() == 0) {
-                        myLinkLeaders[link->getJunction()].clear();
-                    }
-#endif
                     moved = true;
                     if (approachedLane->getEdge().isVaporizing()) {
                         leaveLane(MSMoveReminder::NOTIFICATION_VAPORIZED);

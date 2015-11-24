@@ -35,6 +35,7 @@
 #include <limits>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSNet.h"
+#include "MSJunction.h"
 #include "MSLink.h"
 #include "MSLane.h"
 #include <microsim/pedestrians/MSPerson.h>
@@ -104,7 +105,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         // cannot assign vector due to const-ness
         myFoeLanes.push_back(*it_lane);
     }
-    myJunction = myLane->getEdge().getFromJunction(); // junctionGraph is initialized after the whole network is loaded
+    myJunction = const_cast<MSJunction*>(myLane->getEdge().getFromJunction()); // junctionGraph is initialized after the whole network is loaded
 #ifdef HAVE_INTERNAL_LANES
     myInternalLaneBefore = internalLaneBefore;
     MSLane* lane = 0;
@@ -619,6 +620,24 @@ MSLink::getViaLaneOrLane() const {
     return myLane;
 }
 
+
+void 
+MSLink::passedJunction(const MSVehicle* vehicle) {
+    if (myJunction != 0) {
+        myJunction->passedJunction(vehicle);
+    }
+}
+
+
+bool 
+MSLink::isLeader(const MSVehicle* ego, const MSVehicle* foe) {
+    if (myJunction != 0) {
+        return myJunction->isLeader(ego, foe);
+    } else {
+        // unregulated junction
+        return false;
+    }
+}
 
 /****************************************************************************/
 

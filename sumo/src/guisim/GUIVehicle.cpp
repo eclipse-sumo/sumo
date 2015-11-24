@@ -48,6 +48,7 @@
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSJunction.h>
 #include <microsim/MSLane.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -618,8 +619,7 @@ GUIVehicle::selectBlockingFoes() const {
             // the vehicle to enter the junction first has priority
             const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(it->vehAndGap.first);
             if (leader != 0) {
-                if (leader->myLinkLeaders[dpi.myLink->getJunction()].count(getID()) == 0) {
-                    // leader isn't already following us, now we follow it
+                if (dpi.myLink->isLeader(this, leader)) {
                     gSelected.select(leader->getGlID());
                 }
             } else {
