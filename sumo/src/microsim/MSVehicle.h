@@ -649,7 +649,7 @@ public:
      *          or a near infinite real value if the destination position is not contained
      *          within the vehicles route or the vehicle is not active
      */
-    SUMOReal getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge);
+    SUMOReal getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge) const;
 
 
     /** @brief Processes stops, returns the velocity needed to reach the stop
@@ -1036,6 +1036,12 @@ public:
         }
 
         void postProcessVTD(MSVehicle* v);
+
+        /// @brief return the speed that is implicit in the new VTD position
+        SUMOReal implicitSpeedVTD(const MSVehicle* veh, SUMOReal oldSpeed);
+
+        /// @brief return the change in longitudinal position that is implicit in the new VTD position
+        SUMOReal implicitDeltaPosVTD(const MSVehicle* veh);
 
         inline bool isVTDControlled() const {
             return myAmVTDControlled;

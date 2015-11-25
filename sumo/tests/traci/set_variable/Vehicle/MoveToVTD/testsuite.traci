@@ -1,2 +1,8 @@
+# set speed implied by the position change
+implicit_speed
+
 # vehicle skips forward to another edge on its route
 subsequent_edge
+
+# call moveToVTD and also set the speed
+set_speed

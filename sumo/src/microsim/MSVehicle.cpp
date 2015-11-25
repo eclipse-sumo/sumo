@@ -356,6 +356,26 @@ MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
     myAmVTDControlled = false;
 }
 
+SUMOReal 
+MSVehicle::Influencer::implicitSpeedVTD(const MSVehicle* veh, SUMOReal oldSpeed) {
+    const SUMOReal dist = veh->getDistanceToPosition(myVTDPos, &myVTDLane->getEdge());
+    if (DIST2SPEED(dist) > veh->getMaxSpeed()) {
+        return oldSpeed;
+    } else {
+        return DIST2SPEED(dist);
+    }
+}
+
+SUMOReal 
+MSVehicle::Influencer::implicitDeltaPosVTD(const MSVehicle* veh) {
+    const SUMOReal dist = veh->getDistanceToPosition(myVTDPos, &myVTDLane->getEdge());
+    if (DIST2SPEED(dist) > veh->getMaxSpeed()) {
+        return 0;
+    } else {
+        return dist;
+    }
+}
+
 #endif
 
 
@@ -985,10 +1005,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
     if (myInfluencer != 0) {
         const SUMOReal vMin = MAX2(SUMOReal(0), cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
         v = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), v, v, vMin, maxV);
-        // !!! recheck - why is it done, here?
-        if (myInfluencer->isVTDControlled()) {
-            return; // !!! temporary
-        }
     }
 #endif
 
@@ -1277,13 +1293,6 @@ MSVehicle::executeMove() {
     // front of which we need to stop
     SUMOReal vSafeMinDist = 0;
     myHaveToWaitOnNextLink = false;
-#ifndef NO_TRACI
-    if (myInfluencer != 0) {
-        if (myInfluencer->isVTDControlled()) {
-            return false;
-        }
-    }
-#endif
 
     assert(myLFLinkLanes.size() != 0 || (myInfluencer != 0 && myInfluencer->isVTDControlled()));
     DriveItemVector::iterator i;
@@ -1384,12 +1393,12 @@ MSVehicle::executeMove() {
     vNext = MAX2(vNext, (SUMOReal) 0.);
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
+        if (myInfluencer->isVTDControlled()) {
+            vNext = myInfluencer->implicitSpeedVTD(this, myState.mySpeed);
+        }
         const SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
         const SUMOReal vMin = MAX2(SUMOReal(0), getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
         vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
-        if (myInfluencer->isVTDControlled()) {
-            vNext = 0;
-        }
     }
 #endif
     // visit waiting time
@@ -1409,7 +1418,14 @@ MSVehicle::executeMove() {
 
     // update position and speed
     myAcceleration = SPEED2ACCEL(vNext - myState.mySpeed);
-    myState.myPos += SPEED2DIST(vNext);
+
+    SUMOReal deltaPos = SPEED2DIST(vNext);
+#ifndef NO_TRACI
+    if (myInfluencer != 0 && myInfluencer->isVTDControlled()) {
+        deltaPos = myInfluencer->implicitDeltaPosVTD(this);
+    }
+#endif
+    myState.myPos += deltaPos;
     myState.mySpeed = vNext;
     myCachedPosition = Position::INVALID;
     std::vector<MSLane*> passedLanes;
@@ -1494,11 +1510,6 @@ MSVehicle::executeMove() {
         (*i)->resetPartialOccupation(this);
     }
     myFurtherLanes.clear();
-
-    if (myInfluencer != 0 && myInfluencer->isVTDControlled()) {
-        myWaitingTime = 0;
-        return false;
-    }
 
     if (!hasArrived() && !myLane->getEdge().isVaporizing()) {
         if (myState.myPos > myLane->getLength()) {
@@ -2224,12 +2235,8 @@ MSVehicle::fixPosition() {
 
 
 SUMOReal
-MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge) {
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-    SUMOReal distance = 1000000.;
-#else
+MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge) const {
     SUMOReal distance = std::numeric_limits<SUMOReal>::max();
-#endif
     if (isOnRoad() && destEdge != NULL) {
         if (&myLane->getEdge() == *myCurrEdge) {
             // vehicle is on a normal edge
