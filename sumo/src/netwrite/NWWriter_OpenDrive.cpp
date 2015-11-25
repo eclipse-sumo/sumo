@@ -246,7 +246,9 @@ NWWriter_OpenDrive::writePlanView(const PositionVector& shape, OutputDevice& dev
         const Position& p = shape[j];
         const SUMOReal hdg = shape.angleAt2D(j);
         const SUMOReal length = p.distanceTo(shape[j+1]);
+        device << std::setprecision(8); // hdg requires higher precision
         device << "            <geometry s=\"" << offset << "\" x=\"" << p.x() << "\" y=\"" << p.y() << "\" hdg=\"" << hdg << "\" length=\"" << length << "\"><line/></geometry>\n";
+        device << std::setprecision(OUTPUT_ACCURACY);
         offset += length;
     }
     device << "        </planView>\n";
