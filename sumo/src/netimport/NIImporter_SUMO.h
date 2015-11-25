@@ -323,6 +323,9 @@ private:
     /// @brief the level of corner detail in the loaded network
     int myCornerDetail;
 
+    /// @brief the level of geometry detail for internal lanes in the loaded network
+    int myLinkDetail;
+
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;
 

@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r19370I
+SUMO netconvert Version dev-SVN-r19420I
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -252,6 +252,9 @@ Processing Options:
                                          by FLOAT
   --junctions.corner-detail INT        Generate INT intermediate points to
                                          smooth out intersection corners
+  --junctions.internal-link-detail INT  Generate INT intermediate points to
+                                         smooth out lanes within the
+                                         intersection
   --check-lane-foes.roundabout         Allow driving onto a multi-lane road if
                                          there are foes on other lanes (at
                                          roundabouts)

@@ -7,5 +7,8 @@ net2
 # Simple test using the cross junction
 cross
 
+# more geometry points for internal lanes
+cross_more_detail
+
 # networks that have dedicated bicycle lanes
 bicycle_lanes

@@ -273,6 +273,9 @@
         <!-- Generate INT intermediate points to smooth out intersection corners -->
         <junctions.corner-detail value="0" type="INT"/>
 
+        <!-- Generate INT intermediate points to smooth out lanes within the intersection -->
+        <junctions.internal-link-detail value="5" type="INT"/>
+
         <!-- Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts) -->
         <check-lane-foes.roundabout value="true" type="BOOL"/>
 

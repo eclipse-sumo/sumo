@@ -1065,6 +1065,7 @@ NBEdge::moveConnectionToRight(unsigned int lane) {
 
 void
 NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsigned int& linkIndex, unsigned int& splitIndex) {
+    const int numPoints = OptionsCont::getOptions().getInt("junctions.internal-link-detail");
     std::string innerID = ":" + n.getID();
     NBEdge* toEdge = 0;
     unsigned int edgeIndex = linkIndex;
@@ -1082,7 +1083,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
             toEdge = (*i).toEdge;
             internalLaneIndex = 0;
         }
-        PositionVector shape = n.computeInternalLaneShape(this, con);
+        PositionVector shape = n.computeInternalLaneShape(this, con, numPoints);
         std::vector<unsigned int> foeInternalLinks;
 
         LinkDirection dir = n.getDirection(this, con.toEdge);
@@ -1113,7 +1114,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         // compute the crossing point
                         if (needsCont) {
                             crossingPositions.second.push_back(index);
-                            const PositionVector otherShape = n.computeInternalLaneShape(*i2, *k2);
+                            const PositionVector otherShape = n.computeInternalLaneShape(*i2, *k2, numPoints);
                             // vehicles are typically less wide than the lane
                             // they drive on but but bicycle lanes should be kept clear for their whole width
                             SUMOReal width2 = (*k2).toEdge->getLaneWidth((*k2).toLane);
