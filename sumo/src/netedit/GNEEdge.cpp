@@ -260,7 +260,7 @@ GNEEdge::changeGeometry(PositionVector& geom, const std::string& id, const Posit
                     } else {
                         geom[index] = newPos;
                     }
-                    if (closed && moveEndPoints && index == 0 || index == (int)geom.size() - 1) {
+                    if (closed && moveEndPoints && (index == 0 || index == (int)geom.size() - 1)) {
                         const int otherIndex = (int)geom.size() - 1 - index;
                         geom[otherIndex] = geom[index];
                     }

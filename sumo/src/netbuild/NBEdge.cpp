@@ -405,7 +405,7 @@ NBEdge::mirrorX() {
 // ----------- Edge geometry access and computation
 const PositionVector
 NBEdge::getInnerGeometry() const {
-    return myGeom.getSubpartByIndex(1, myGeom.size() - 2);
+    return myGeom.getSubpartByIndex(1, (int)myGeom.size() - 2);
 }
 
 
@@ -508,7 +508,7 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode) c
         assert(pbv.size() > 0);
         SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
         assert(pb >= 0);
-        PositionVector result = laneShape.getSubpartByIndex(1, laneShape.size() - 1);
+        PositionVector result = laneShape.getSubpartByIndex(1, (int)laneShape.size() - 1);
         Position np = PositionVector::positionAtOffset2D(lb[0], lb[1], pb);
         result.push_front_noDoublePos(Position(np.x(), np.y(), startNode->getPosition().z()));
         return result;
