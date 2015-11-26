@@ -38,6 +38,7 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="junctionCornerDetail" type="xsd:int"/>
+        <xsd:attribute name="junctionLinkDetail" type="xsd:int"/>
         <xsd:attribute name="lefthand" type="boolType"/>
     </xsd:complexType>
 
