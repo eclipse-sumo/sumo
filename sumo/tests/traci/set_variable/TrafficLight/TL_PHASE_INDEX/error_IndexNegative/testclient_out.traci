@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:27:37 2013
+TraCITestClient output file. Date: Thu Nov 26 09:00:38 2015
 
 
 -> Command sent: <SimulationStep2>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:37 2013
 
 -> Command sent: <SetValue>:
   domID=194 varID=34 objID=1/1
-.. Answered with error to command (194), [description: The phase index is not in the allowed range.]
+.. Answered with error to command (194), [description: The phase index -1 is not in the allowed range [0,7].]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
