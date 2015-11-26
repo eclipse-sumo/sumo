@@ -38,6 +38,7 @@
 // class declarations
 // ===========================================================================
 class NBNetBuilder;
+class NBEdge;
 class OptionsCont;
 class PositionVector;
 class OutputDevice;
@@ -67,6 +68,8 @@ protected:
 
     static std::string getLaneType(SVCPermissions permissions);
 
+    /// @brief get the left border of the leftmost lane
+    static PositionVector getLeftBorder(const NBEdge* edge);
 };
 
 

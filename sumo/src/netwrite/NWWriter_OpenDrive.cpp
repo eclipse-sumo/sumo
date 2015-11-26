@@ -102,14 +102,10 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "            <successor elementType=\"junction\" elementId=\"" << getID(e->getToNode()->getID(), nodeMap, nodeID) << "\"/>\n";
         device << "        </link>\n";
         device << "        <type s=\"0\" type=\"town\"/>\n";
+        // for the shape we need to use the leftmost border of the leftmost lane
         const std::vector<NBEdge::Lane>& lanes = e->getLanes();
         unsigned int li = (unsigned int)lanes.size() - 1;
-        PositionVector ls = e->getLaneShape(li);
-        try {
-            ls.move2side(-e->getLaneWidth(li) / 2.);
-        } catch (InvalidArgument&) {
-            // we do not write anything, as this should have been reported, already
-        }
+        PositionVector ls = getLeftBorder(e); 
         writePlanView(ls, device);
         device << "        <elevationProfile><elevation s=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/></elevationProfile>\n";
         device << "        <lateralProfile/>\n";
@@ -167,11 +163,24 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 const SUMOReal width = c.toEdge->getLaneWidth(c.toLane);
                 // @todo: this if-clause is a hack which assures that the code also works with connections of zero length, what may be possible
                 // probably, it would make sense to mark such connections and connect the incoming/outgoing streets directly in such cases.
-                try {
-                    shape.move2side(-width / 2.);
-                } catch (InvalidArgument&) {
-                    // we do not write anything, maybe we should
+                if (shape.length() > POSITION_EPS) {
+                    try {
+                        shape.move2side(-width / 2.);
+                    } catch (InvalidArgument&) {
+                        shape.clear();
+                    }
+                } else {
+                    shape.clear();
                 }
+                // we need to fix start and endpoints in case the start and
+                // end segments were not in line with the incoming and outgoing lanes
+                shape.push_front_noDoublePos(getLeftBorder(inEdge).back());
+                if (shape.size() > 1) {
+                    shape.push_back_noDoublePos(getLeftBorder(outEdge).front());
+                } else {
+                    shape.push_back(getLeftBorder(outEdge).front());
+                }
+
                 device << "    <road name=\"" << c.getInternalLaneID() << "\" length=\"" << shape.length() << "\" id=\"" << getID(c.getInternalLaneID(), edgeMap, edgeID) << "\" junction=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
                 device << "        <link>\n";
                 device << "            <predecessor elementType=\"road\" elementId=\"" << getID(inEdge->getID(), edgeMap, edgeID) << "\"/>\n";
@@ -297,5 +306,15 @@ NWWriter_OpenDrive::getLaneType(SVCPermissions permissions) {
     }
 }
 
+
+PositionVector 
+NWWriter_OpenDrive::getLeftBorder(const NBEdge* edge) {
+    const int leftmost = (int)edge->getNumLanes() - 1;
+    PositionVector result = edge->getLaneShape(leftmost);
+    try {
+        result.move2side(-edge->getLaneWidth(leftmost) / 2);
+    } catch (InvalidArgument&) { }
+    return result;
+}
 /****************************************************************************/
 
