@@ -164,7 +164,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 if (c.haveVia) {
                     shape.append(c.viaShape);
                 }
-                const SUMOReal width = SUMO_const_laneWidth;
+                const SUMOReal width = c.toEdge->getLaneWidth(c.toLane);
                 // @todo: this if-clause is a hack which assures that the code also works with connections of zero length, what may be possible
                 // probably, it would make sense to mark such connections and connect the incoming/outgoing streets directly in such cases.
                 try {
