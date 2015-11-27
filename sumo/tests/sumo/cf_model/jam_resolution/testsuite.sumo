@@ -5,5 +5,8 @@ high_flow
 bottleneck
 bottleneck_departLane_random
 
+# check jam development and flow at bottleneck (reduction in number of lanes) with link type 'Z' (zipper merge)
+bottleneck_zipper
+
 # check jam development and flow at bottleneck (two 1-lane roads merge into a 1-lane road)
 bottleneck_confluence
