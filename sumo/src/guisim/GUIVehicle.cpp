@@ -227,7 +227,7 @@ GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
             }
             const SUMOTime leaveTime = (*i).myLink->getLeaveTime(
                     (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLengthWithGap());
-            drawLinkItem(p, (*i).myArrivalTime, leaveTime, s.vehicleSize.getExaggeration(s));
+            drawLinkItem(p, (*i).myArrivalTime, leaveTime, s.vehicleName.size / s.scale);
             // the time slot that ego vehicle uses when checking opened may
             // differ from the one it requests in setApproaching
             MSLink::ApproachingVehicleInformation avi = (*i).myLink->getApproaching(this);
