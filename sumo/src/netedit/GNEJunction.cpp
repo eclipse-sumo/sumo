@@ -541,6 +541,8 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
                     return 8;
                 case NODETYPE_RAIL_SIGNAL:
                     return 9;
+                case NODETYPE_ZIPPER:
+                    return 10;
             }
         default:
             assert(false);

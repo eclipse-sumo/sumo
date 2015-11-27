@@ -1288,6 +1288,7 @@ MSVehicle::executeMove() {
 #endif
     // get safe velocities from DriveProcessItems
     SUMOReal vSafe = 0; // maximum safe velocity
+    SUMOReal vSafeZipper = std::numeric_limits<SUMOReal>::max(); // speed limit due to zipper merging
     SUMOReal vSafeMin = 0; // minimum safe velocity
     // the distance to a link which should either be crossed this step or in
     // front of which we need to stop
@@ -1316,10 +1317,12 @@ MSVehicle::executeMove() {
 #else
             const bool influencerPrio = (myInfluencer != 0 && !myInfluencer->getRespectJunctionPriority());
 #endif
+            std::vector<const SUMOVehicle*> collectFoes;
             const bool opened = yellow || influencerPrio ||
                                 link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
                                              getVehicleType().getLength(), getImpatience(),
-                                             getCarFollowModel().getMaxDecel(), getWaitingTime());
+                                             getCarFollowModel().getMaxDecel(), getWaitingTime(),
+                                             ls == LINKSTATE_ZIPPER ? &collectFoes : 0);
             // vehicles should decelerate when approaching a minor link
             if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont()) {
                 if ((*i).myDistance > getCarFollowModel().getMaxDecel()) {
@@ -1347,6 +1350,9 @@ MSVehicle::executeMove() {
                     // this vehicle is probably not gonna drive accross the next junction (heuristic)
                     myHaveToWaitOnNextLink = true;
                 }
+            } else if (link->getState() == LINKSTATE_ZIPPER) {
+                vSafeZipper = MIN2(vSafeZipper, 
+                        link->getZipperSpeed(this, (*i).myDistance, (*i).myVLinkPass, (*i).myArrivalTime, &collectFoes));
             } else {
                 vSafe = (*i).myVLinkWait;
                 myHaveToWaitOnNextLink = true;
@@ -1373,6 +1379,7 @@ MSVehicle::executeMove() {
     if (myLane->getEdge().isRoundabout()) {
         myHaveToWaitOnNextLink = false;
     }
+    vSafe = MIN2(vSafe, vSafeZipper);
 
     // XXX braking due to lane-changing is not registered
     bool braking = vSafe < getSpeed();
@@ -1720,7 +1727,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
                 (*i).myArrivalTime += (SUMOTime)RandHelper::rand((size_t)2); // tie braker
             }
             (*i).myLink->setApproaching(this, (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
-                                        (*i).mySetRequest, (*i).myArrivalTimeBraking, (*i).myArrivalSpeedBraking, getWaitingTime());
+                                        (*i).mySetRequest, (*i).myArrivalTimeBraking, (*i).myArrivalSpeedBraking, getWaitingTime(), (*i).myDistance);
         }
     }
 }

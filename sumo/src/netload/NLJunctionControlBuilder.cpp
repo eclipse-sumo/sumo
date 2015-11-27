@@ -127,6 +127,7 @@ NLJunctionControlBuilder::closeJunction() {
         case NODETYPE_PRIORITY:
         case NODETYPE_PRIORITY_STOP:
         case NODETYPE_ALLWAY_STOP:
+        case NODETYPE_ZIPPER:
             junction = buildLogicJunction();
             break;
         case NODETYPE_INTERNAL:

@@ -488,6 +488,7 @@ StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[]
     {"priority_stop",       NODETYPE_PRIORITY_STOP},
     {"right_before_left",   NODETYPE_RIGHT_BEFORE_LEFT},
     {"allway_stop",         NODETYPE_ALLWAY_STOP},
+    {"zipper",              NODETYPE_ZIPPER},
     {"district",            NODETYPE_DISTRICT},
     {"unregulated",         NODETYPE_NOJUNCTION},
     {"internal",            NODETYPE_INTERNAL},
@@ -530,6 +531,7 @@ StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
     { "=", LINKSTATE_EQUAL },
     { "s", LINKSTATE_STOP },
     { "w", LINKSTATE_ALLWAY_STOP },
+    { "Z", LINKSTATE_ZIPPER },
     { "-", LINKSTATE_DEADEND }
 };
 

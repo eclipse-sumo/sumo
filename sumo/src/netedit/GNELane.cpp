@@ -198,6 +198,8 @@ GNELane::drawLane2LaneConnections() const {
                 break;
             case LINKSTATE_ALLWAY_STOP:
                 glColor3d(.7, .7, 1);
+            case LINKSTATE_ZIPPER:
+                glColor3d(.75, .5, 0.25);
                 break;
             default:
                 throw ProcessError("Unexpected LinkState '" + toString(state) + "'");
