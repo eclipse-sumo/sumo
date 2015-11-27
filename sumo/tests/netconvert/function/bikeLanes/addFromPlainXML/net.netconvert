@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug  5 15:40:29 2015 by SUMO netconvert Version dev-SVN-r18601ID
+<!-- generated on Fri Nov 27 14:41:41 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,7 +26,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -53,7 +53,7 @@
         <lane id=":C_6_0" index="0" allow="passenger" speed="13.89" length="8.05" shape="113.15,101.65 106.67,100.72 105.38,99.95"/>
     </edge>
     <edge id=":C_16" function="internal">
-        <lane id=":C_16_0" index="0" speed="13.89" length="15.82" shape="105.38,99.95 102.05,97.95 99.28,93.33 98.35,86.85"/>
+        <lane id=":C_16_0" index="0" speed="13.89" length="15.82" shape="105.38,99.95 102.05,97.95 99.27,93.33 98.35,86.85"/>
     </edge>
     <edge id=":C_7" function="internal">
         <lane id=":C_7_0" index="0" allow="bicycle" speed="13.89" length="9.84" width="5.00" shape="109.15,86.85 109.40,88.60 110.15,89.85 111.40,90.60 113.15,90.85"/>
@@ -66,7 +66,7 @@
         <lane id=":C_10_0" index="0" allow="passenger" speed="13.89" length="13.24" shape="101.65,86.85 101.04,93.33 99.23,97.95 97.92,99.14"/>
     </edge>
     <edge id=":C_17" function="internal">
-        <lane id=":C_17_0" index="0" speed="13.89" length="6.69" shape="97.92,99.14 96.19,100.73 91.95,101.65"/>
+        <lane id=":C_17_0" index="0" speed="13.89" length="6.69" shape="97.92,99.14 96.19,100.72 91.95,101.65"/>
     </edge>
     <edge id=":C_11" function="internal">
         <lane id=":C_11_0" index="0" allow="passenger" speed="13.89" length="9.49" shape="91.95,95.05 93.31,94.54 94.28,93.00 94.86,90.44 95.05,86.85"/>
@@ -147,8 +147,8 @@
     </junction>
     <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="200.00,100.05 200.00,106.55 200.00,88.35 200.00,99.95"/>
     <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1" intLanes="" shape="99.95,200.00 93.45,200.00 106.55,200.00 100.05,200.00"/>
-    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1" intLanes="" shape="100.05,-0.00 111.65,-0.00 93.45,0.00 99.95,0.00"/>
-    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1" intLanes="" shape="-0.00,99.95 -0.00,93.45 0.00,106.55 0.00,100.05"/>
+    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1" intLanes="" shape="100.05,0.00 111.65,0.00 93.45,0.00 99.95,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1" intLanes="" shape="0.00,99.95 0.00,93.45 0.00,106.55 0.00,100.05"/>
 
     <junction id=":C_15_0" type="internal" x="100.05" y="102.96" incLanes=":C_2_0 SC_0 SC_1 SC_2" intLanes=":C_4_0 :C_4_1 :C_6_0 :C_7_0 :C_7_1 :C_9_0 :C_12_0 :C_12_1 :C_14_0"/>
     <junction id=":C_16_0" type="internal" x="105.38" y="99.95" incLanes=":C_6_0 WC_0 WC_1" intLanes=":C_1_0 :C_2_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_12_1"/>

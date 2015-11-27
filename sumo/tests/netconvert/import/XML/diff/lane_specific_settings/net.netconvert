@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 30 08:53:58 2015 by SUMO netconvert Version dev-SVN-r18965I
+<!-- generated on Fri Nov 27 14:41:32 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,7 +26,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,100.00,200.00,200.00" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
 
@@ -40,7 +40,7 @@
         <lane id=":C_2_0" index="0" speed="16.95" length="14.90" width="4.00" shape="92.35,118.15 92.35,114.15 91.78,110.30 90.07,107.55 87.23,105.90 83.25,105.35"/>
     </edge>
     <edge id=":C_3" function="internal">
-        <lane id=":C_3_0" index="0" speed="16.95" length="34.04" shape="97.45,118.15 97.45,114.15 98.37,105.79 101.13,99.83 105.72,96.24 112.15,95.05"/>
+        <lane id=":C_3_0" index="0" speed="16.95" length="34.04" shape="97.45,118.15 97.45,114.15 98.37,105.79 101.13,99.82 105.72,96.24 112.15,95.05"/>
         <lane id=":C_3_1" index="1" speed="16.95" length="34.04" shape="97.45,118.15 97.45,114.15 98.37,107.24 101.13,102.30 105.72,99.34 112.15,98.35"/>
     </edge>
     <edge id=":C_5" function="internal">
@@ -142,7 +142,7 @@
     <junction id="N" type="priority" x="100.00" y="200.00" incLanes="CN_0 CN_1 CN_2" intLanes=":N_0_0" shape="99.95,200.00 84.75,200.00 110.65,200.00 100.05,200.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="W" type="priority" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2" intLanes=":W_0_0" shape="-0.00,99.95 -0.00,89.35 0.00,110.65 0.00,100.05">
+    <junction id="W" type="priority" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2" intLanes=":W_0_0" shape="0.00,99.95 0.00,89.35 0.00,110.65 0.00,100.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

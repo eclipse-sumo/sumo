@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 14 10:56:11 2015 by SUMO netconvert Version svnD
+<!-- generated on Fri Nov 27 14:41:34 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <vissim-file value="workspace/CA_Test/CA_Test.inpx"/>
+        <vissim-file value="vissim.inpx"/>
     </input>
 
     <output>
-        <output-file value="ca_test.net.xml"/>
+        <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
     </output>
+
+    <processing>
+        <geometry.junction-mismatch-threshold value="100"/>
+        <edges.join value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-975.72,68.20" convBoundary="0.00,0.00,55.85,70.00" origBoundary="975.72,-68.20,1031.57,1.80" projParameter="!"/>
 
@@ -52,10 +63,10 @@
         <lane id="4_0" index="0" speed="13.89" length="27.95" shape="55.45,42.05 55.35,70.00"/>
     </edge>
     <edge id="5" from="0" to="5-end" priority="-1" type="1" spreadType="center" shape="47.98,38.93 0.00,38.82">
-        <lane id="5_0" index="0" speed="13.89" length="48.81" shape="48.81,38.93 -0.00,38.82"/>
+        <lane id="5_0" index="0" speed="13.89" length="48.81" shape="48.81,38.93 0.00,38.82"/>
     </edge>
     <edge id="6" from="0" to="6-end" priority="-1" type="1" spreadType="center" shape="51.95,31.85 52.35,0.00">
-        <lane id="6_0" index="0" speed="13.89" length="26.16" shape="52.02,26.16 52.35,0.00"/>
+        <lane id="6_0" index="0" speed="13.89" length="26.16" shape="52.02,26.16 52.35,-0.00"/>
     </edge>
     <edge id="7" from="7-begin" to="0" priority="-1" type="1" spreadType="center" shape="51.85,69.68 51.95,41.96">
         <lane id="7_0" index="0" speed="13.89" length="27.72" shape="51.85,69.68 51.95,41.96"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 20 10:21:55 2015 by SUMO netconvert Version dev-SVN-r18115I
+<!-- generated on Fri Nov 27 14:41:40 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="18.91,-4.39" convBoundary="0.00,0.00,119.19,101.64" origBoundary="-18.91,4.39,100.28,106.03" projParameter="!"/>
 
@@ -124,7 +124,7 @@
         <lane id="gneE7_0" index="0" speed="13.89" length="7.76" shape="42.01,59.57 43.37,51.93"/>
     </edge>
     <edge id="gneE8" from="cluster_gneJ11_gneJ14_gneJ3_gneJ5" to="gneJ15" priority="1" spreadType="center" shape="44.02,48.26 0.00,46.27">
-        <lane id="gneE8_0" index="0" speed="13.89" length="40.74" shape="40.70,48.11 0.00,46.27"/>
+        <lane id="gneE8_0" index="0" speed="13.89" length="40.74" shape="40.70,48.11 -0.00,46.27"/>
     </edge>
 
     <junction id="cluster_gneJ11_gneJ14_gneJ3_gneJ5" type="priority" x="51.28" y="42.99" incLanes="gneE5_0 gneE0_0 gneE3_0 gneE7_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_0_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_2_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_3_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_4_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_5_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_8_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_10_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_11_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_12_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_13_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_18_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_19_0" shape="61.87,51.48 61.50,36.06 60.19,34.61 44.13,33.00 41.35,34.10 40.63,49.71 41.76,51.84 58.94,52.82">

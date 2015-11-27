@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  3 08:32:20 2015 by SUMO netconvert Version dev-SVN-r19243
+<!-- generated on Fri Nov 27 14:41:40 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -21,6 +21,8 @@
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
     </processing>
 
     <report>
@@ -30,6 +32,6 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="o" from="0" to="1" priority="-1" numLanes="1" speed="13.90" shape="12.014694,48.121459 12.029602,48.095698 12.061386,48.087529"/>
 </edges>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 30 13:27:10 2015 by SUMO netconvert Version dev-SVN-r18965I
+<!-- generated on Fri Nov 27 14:41:42 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,7 +26,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,300.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -147,9 +147,9 @@
     <junction id="E" type="unregulated" x="300.00" y="100.00" incLanes="C2E_0 C2E_1 C2E_2 C2E_3" intLanes="" shape="300.00,88.75 300.00,99.95"/>
     <junction id="N" type="unregulated" x="100.00" y="200.00" incLanes="CN_0 CN_1 CN_2 CN_3" intLanes="" shape="111.25,200.00 100.05,200.00"/>
     <junction id="N2" type="unregulated" x="200.00" y="200.00" incLanes="C2N2_0 C2N2_1 C2N2_2 C2N2_3" intLanes="" shape="211.25,200.00 200.05,200.00"/>
-    <junction id="S" type="unregulated" x="100.00" y="0.00" incLanes="" intLanes="" shape="100.05,-0.00 111.25,-0.00"/>
-    <junction id="S2" type="unregulated" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.05,-0.00 211.25,-0.00"/>
-    <junction id="W" type="unregulated" x="0.00" y="100.00" incLanes="" intLanes="" shape="-0.00,99.95 -0.00,88.75"/>
+    <junction id="S" type="unregulated" x="100.00" y="0.00" incLanes="" intLanes="" shape="100.05,0.00 111.25,0.00"/>
+    <junction id="S2" type="unregulated" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.05,0.00 211.25,0.00"/>
+    <junction id="W" type="unregulated" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,99.95 0.00,88.75"/>
 
     <connection from="CC2" to="C2E" fromLane="2" toLane="2" via=":C2_2_0" tl="CC2" linkIndex="7" dir="s" state="o"/>
     <connection from="CC2" to="C2E" fromLane="3" toLane="3" via=":C2_2_1" tl="CC2" linkIndex="8" dir="s" state="o"/>

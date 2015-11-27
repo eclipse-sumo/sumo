@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon 08 Dec 2014 02:02:25 PM CET by Netedit Version dev-SVN-r17459I
+<!-- generated on Fri Nov 27 14:41:31 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/scr1/sumoID/sumo/tests/netconvert/import/XML/add_split/split_sumo_net/net.netconvert"/>
+        <sumo-net-file value="input_net.net.xml"/>
+        <edge-files value="input_edges2.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr1/sumoID/sumo/tests/netconvert/import/XML/add_split/split_sumo_net/net.netconvert"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
     </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,300.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
@@ -47,7 +54,7 @@
         <lane id="middle.50_2" index="2" speed="13.89" length="50.00" shape="150.00,-1.65 200.00,-1.65"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-9.85"/>
+    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85"/>
     <junction id="gneJ1" type="priority" x="100.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes="" shape="100.00,-0.05 100.00,-9.85 100.00,-0.05">
         <request index="0" response="0" foes="0"/>
     </junction>

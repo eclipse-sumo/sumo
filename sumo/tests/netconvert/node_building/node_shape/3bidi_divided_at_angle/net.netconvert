@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 18 13:15:03 2015 by SUMO netconvert Version dev-SVN-r18647I
+<!-- generated on Fri Nov 27 14:41:28 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -27,7 +27,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-391480.55,-5819869.20" convBoundary="0.00,0.00,99.77,62.18" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -53,7 +53,7 @@
     <edge id="54048862#2" from="cluster_1472911017_697323164" to="29207821" priority="9" type="highway.primary" spreadType="center" shape="29.21,13.03 31.77,14.57 69.94,37.38 99.77,55.19">
         <lane id="54048862#2_0" index="0" allow="pedestrian" speed="13.89" length="86.24" width="3.00" shape="37.47,12.21 72.48,33.13 102.31,50.94"/>
         <lane id="54048862#2_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="86.24" shape="35.82,14.95 70.84,35.88 100.67,53.69"/>
-        <lane id="54048862#2_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="86.24" shape="34.12,17.78 69.14,38.71 98.98,56.52"/>
+        <lane id="54048862#2_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="86.24" shape="34.12,17.78 69.15,38.71 98.98,56.52"/>
         <lane id="54048862#2_3" index="3" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="86.24" shape="32.42,20.61 67.45,41.54 97.28,59.35"/>
     </edge>
     <edge id="61584187#0" from="cluster_1472911017_697323164" to="cluster_258127854_29194675" priority="9" type="highway.primary" spreadType="center" shape="22.77,23.74 0.00,13.11">

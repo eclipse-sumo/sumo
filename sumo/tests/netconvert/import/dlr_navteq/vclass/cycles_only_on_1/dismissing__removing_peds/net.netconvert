@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 13 16:10:52 2013 by SUMO netconvert Version dev-SVN-r14700
+<!-- generated on Fri Nov 27 14:41:35 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -29,12 +29,13 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -73,11 +74,11 @@
         <lane id="3_1" index="1" speed="33.33" length="13115.46" shape="17416.16,26514.81 17006.05,13417.15"/>
     </edge>
     <edge id="4" from="4" to="0" priority="0">
-        <lane id="4_0" index="0" speed="33.33" length="13412.28" shape="16593.20,-0.15 17011.93,13394.25"/>
+        <lane id="4_0" index="0" speed="33.33" length="13412.28" shape="16593.20,-0.15 17011.93,13394.24"/>
         <lane id="4_1" index="1" speed="33.33" length="13412.28" shape="16589.90,-0.05 17008.63,13394.35"/>
     </edge>
 
-    <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 1_0 1_1 1_2 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.15,13417.30 17017.54,13416.79 17018.99,13415.24 17018.42,13395.55 17013.53,13394.20 16997.14,13394.71 16995.69,13396.26 16996.34,13415.95">
+    <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 1_0 1_1 1_2 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.15,13417.30 17017.54,13416.79 17018.99,13415.24 17018.42,13395.55 17013.53,13394.19 16997.14,13394.71 16995.69,13396.26 16996.34,13415.95">
         <request index="0" response="00000000000011100000" foes="10000001000011100000"/>
         <request index="1" response="01111100000111100000" foes="01111111000111100000"/>
         <request index="2" response="01111000110111100000" foes="01111000111111100000"/>

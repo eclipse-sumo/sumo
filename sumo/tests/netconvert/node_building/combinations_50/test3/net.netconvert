@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 24 15:25:21 2015 by SUMO netconvert Version dev-SVN-r17955I
+<!-- generated on Fri Nov 27 14:41:22 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,50.00" convBoundary="0.00,0.00,50.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -36,13 +36,13 @@
         <lane id=":0_1_0" index="0" speed="9.73" length="10.32" shape="-1.65,54.75 -1.25,51.95 -0.05,49.95 1.95,48.75 4.75,48.35"/>
     </edge>
     <edge id=":0_2" function="internal">
-        <lane id=":0_2_0" index="0" speed="9.73" length="2.69" shape="-1.65,54.75 -0.83,53.51 -0.00,53.10 0.25,53.23"/>
+        <lane id=":0_2_0" index="0" speed="9.73" length="2.69" shape="-1.65,54.75 -0.83,53.51 0.00,53.10 0.25,53.23"/>
     </edge>
     <edge id=":0_9" function="internal">
-        <lane id=":0_9_0" index="0" speed="9.73" length="2.13" shape="0.25,53.23 0.82,53.51 1.65,54.75"/>
+        <lane id=":0_9_0" index="0" speed="9.73" length="2.13" shape="0.25,53.23 0.83,53.51 1.65,54.75"/>
     </edge>
     <edge id=":0_3" function="internal">
-        <lane id=":0_3_0" index="0" speed="9.73" length="5.00" shape="4.75,51.65 3.39,51.84 2.42,52.42 1.84,53.39 1.65,54.75"/>
+        <lane id=":0_3_0" index="0" speed="9.73" length="5.00" shape="4.75,51.65 3.39,51.84 2.43,52.42 1.84,53.39 1.65,54.75"/>
     </edge>
     <edge id=":0_4" function="internal">
         <lane id=":0_4_0" index="0" speed="7.64" length="3.44" shape="4.75,51.65 1.95,51.25 1.42,50.93"/>
@@ -57,22 +57,22 @@
         <lane id=":0_11_0" index="0" speed="9.73" length="2.62" shape="3.19,50.19 3.10,50.00 3.51,49.17 4.75,48.35"/>
     </edge>
     <edge id=":0_6" function="internal">
-        <lane id=":0_6_0" index="0" speed="7.64" length="5.00" shape="1.65,45.25 1.84,46.61 2.42,47.58 3.39,48.16 4.75,48.35"/>
+        <lane id=":0_6_0" index="0" speed="7.64" length="5.00" shape="1.65,45.25 1.84,46.61 2.42,47.57 3.39,48.16 4.75,48.35"/>
     </edge>
     <edge id=":0_7" function="internal">
         <lane id=":0_7_0" index="0" speed="7.64" length="9.50" shape="1.65,45.25 1.65,54.75"/>
     </edge>
     <edge id=":0_8" function="internal">
-        <lane id=":0_8_0" index="0" speed="5.56" length="4.82" shape="1.65,45.25 0.83,46.49 0.00,46.90 -0.82,46.49 -1.65,45.25"/>
+        <lane id=":0_8_0" index="0" speed="5.56" length="4.82" shape="1.65,45.25 0.83,46.49 0.00,46.90 -0.83,46.49 -1.65,45.25"/>
     </edge>
     <edge id=":2_0" function="internal">
         <lane id=":2_0_0" index="0" speed="9.73" length="4.82" shape="50.00,48.35 51.24,49.18 51.65,50.00 51.24,50.83 50.00,51.65"/>
     </edge>
     <edge id=":3_0" function="internal">
-        <lane id=":3_0_0" index="0" speed="5.56" length="4.82" shape="-1.65,0.00 -0.83,-1.24 -0.00,-1.65 0.82,-1.24 1.65,0.00"/>
+        <lane id=":3_0_0" index="0" speed="5.56" length="4.82" shape="-1.65,0.00 -0.83,-1.24 0.00,-1.65 0.83,-1.24 1.65,0.00"/>
     </edge>
     <edge id=":4_0" function="internal">
-        <lane id=":4_0_0" index="0" speed="9.73" length="4.82" shape="1.65,100.00 0.83,101.24 0.00,101.65 -0.82,101.24 -1.65,100.00"/>
+        <lane id=":4_0_0" index="0" speed="9.73" length="4.82" shape="1.65,100.00 0.83,101.24 0.00,101.65 -0.83,101.24 -1.65,100.00"/>
     </edge>
 
     <edge id="2i" from="2" to="0" priority="-1">
@@ -108,7 +108,7 @@
     <junction id="2" type="priority" x="50.00" y="50.00" incLanes="2o_0" intLanes=":2_0_0" shape="50.00,50.05 50.00,53.25 50.00,46.75 50.00,49.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="3" type="priority" x="0.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="0.05,-0.00 3.25,-0.00 -3.25,0.00 -0.05,0.00">
+    <junction id="3" type="priority" x="0.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="0.05,0.00 3.25,0.00 -3.25,0.00 -0.05,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="4" type="priority" x="0.00" y="100.00" incLanes="4o_0" intLanes=":4_0_0" shape="-0.05,100.00 -3.25,100.00 3.25,100.00 0.05,100.00">

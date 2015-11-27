@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 24 11:57:57 2015 by SUMO netconvert Version dev-SVN-r18126I
+<!-- generated on Fri Nov 27 14:41:27 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -25,12 +25,12 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,50.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
     <edge id=":0_0" function="internal">
-        <lane id=":0_0_0" index="0" speed="12.50" length="5.00" shape="48.35,58.05 48.16,56.69 47.58,55.73 46.61,55.14 45.25,54.95"/>
+        <lane id=":0_0_0" index="0" speed="12.50" length="5.00" shape="48.35,58.05 48.16,56.69 47.58,55.72 46.61,55.14 45.25,54.95"/>
     </edge>
     <edge id=":0_1" function="internal">
         <lane id=":0_1_0" index="0" speed="15.28" length="9.55" shape="48.35,58.05 48.35,48.50"/>
@@ -89,7 +89,7 @@
         <request index="5" response="000010" foes="000010" cont="1"/>
     </junction>
     <junction id="1" type="unregulated" x="0.00" y="50.00" incLanes="1o_0 1o_1" intLanes="" shape="0.00,56.55 0.00,50.05"/>
-    <junction id="3" type="priority" x="50.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="50.05,-0.00 53.25,-0.00 46.75,0.00 49.95,0.00">
+    <junction id="3" type="priority" x="50.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="50.05,0.00 53.25,0.00 46.75,0.00 49.95,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="4" type="priority" x="50.00" y="100.00" incLanes="4o_0" intLanes=":4_0_0" shape="49.95,100.00 46.75,100.00 53.25,100.00 50.05,100.00">
