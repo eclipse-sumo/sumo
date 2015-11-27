@@ -424,7 +424,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "version",        SUMO_ATTR_VERSION },
     { "junctionCornerDetail", SUMO_ATTR_CORNERDETAIL },
     { "junctionLinkDetail", SUMO_ATTR_LINKDETAIL },
-    { "lefthand",        SUMO_ATTR_LEFTHAND },
+    { "lefthand",       SUMO_ATTR_LEFTHAND },
 
     { "actorConfig",    SUMO_ATTR_ACTORCONFIG },
     { "vehicle",        SUMO_ATTR_VEHICLE },

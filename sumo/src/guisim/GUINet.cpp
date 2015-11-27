@@ -428,7 +428,7 @@ GUIParameterTableWindow*
 GUINet::getParameterWindow(GUIMainWindow& app,
                            GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 27);
+        new GUIParameterTableWindow(app, *this, 28);
     // add items
     ret->mkItem("loaded vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
@@ -484,6 +484,7 @@ GUINet::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("edges [#]", false, (int)GUIEdge::getIDs(false).size());
     ret->mkItem("total edge length [km]", false, GUIEdge::getTotalLength(false, false) / 1000);
     ret->mkItem("total lane length [km]", false, GUIEdge::getTotalLength(false, true) / 1000);
+    ret->mkItem("network version ", false, toString(myVersion));
 
     // close building
     ret->closeBuilding();

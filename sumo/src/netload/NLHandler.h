@@ -113,6 +113,10 @@ public:
         return myLefthand;
     }
 
+    SUMOReal networkVersion() const {
+        return myNetworkVersion;
+    }
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -330,6 +334,9 @@ protected:
 
     /// @brief whether the loaded network was built for left hand traffic
     bool myLefthand;
+
+    /// @brief the loaded network version
+    SUMOReal myNetworkVersion;
 
     /// @brief whether the location element was already loadee
     bool myNetIsLoaded;
