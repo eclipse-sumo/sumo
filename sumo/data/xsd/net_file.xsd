@@ -182,6 +182,7 @@
                     <xsd:enumeration value="-"/>
                     <xsd:enumeration value="s"/>
                     <xsd:enumeration value="w"/>
+                    <xsd:enumeration value="Z"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
