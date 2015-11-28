@@ -129,6 +129,7 @@ public:
     long onUpdSaveNetwork(FXObject*, FXSelector, void*);
     long onCmdSaveAsNetwork(FXObject*, FXSelector, void*);
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
+    long onUpdReload(FXObject*, FXSelector, void*);
     long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
     long onCmdSaveJoined(FXObject*, FXSelector, void*);
     long onCmdSavePois(FXObject*, FXSelector, void*);

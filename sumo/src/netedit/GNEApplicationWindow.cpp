@@ -89,6 +89,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_FOREIGN,          GNEApplicationWindow::onCmdOpenForeign),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_SHAPES,               GNEApplicationWindow::onCmdOpenShapes),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                GNEApplicationWindow::onCmdOpenRecent),
+    FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,                    GNEApplicationWindow::onCmdReload),
     FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,                     GNEApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_UPDATE,   MID_CLOSE,                     GNEApplicationWindow::onUpdNeedsNetwork),
 
@@ -100,6 +101,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,              GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_OPEN_FOREIGN,          GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_SHAPES,               GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,                    GNEApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0,                    GNEApplicationWindow::onClipboardRequest),
 
@@ -330,6 +332,9 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myFileMenu,
                       "Load &Shapes...\tCtrl+P\tLoad shapes into the network view.",
                       GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), this, MID_OPEN_SHAPES);
+    new FXMenuCommand(myFileMenu,
+                      "&Reload\tCtrl+R\tReloads the network.",
+                      GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD);
     new FXMenuCommand(myFileMenu,
                       "&Save Network...\tCtrl+S\tSave the network.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_NETWORK);
@@ -641,6 +646,13 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* data) 
     }
     std::string file((const char*)data);
     loadConfigOrNet(file, sender == &myRecentNets);
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
+    loadConfigOrNet(OptionsCont::getOptions().getString("sumo-net-file"), true, true);
     return 1;
 }
 
@@ -1111,6 +1123,14 @@ GNEApplicationWindow::onCmdSavePois(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
     sender->handle(this, myNet == 0 ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
+    sender->handle(this, myNet == 0 || !OptionsCont::getOptions().isSet("sumo-net-file") 
+            ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
     return 1;
 }
 
