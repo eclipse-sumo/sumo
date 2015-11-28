@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  3 19:11:19 2015 by SUMO netconvert Version dev-SVN-r19244
+<!-- generated on Sat Nov 28 07:12:41 2015 by SUMO netconvert Version dev-SVN-r19457
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml"/>
+        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/behr_mi/.texttest/tmp/dynamic_gui.03Nov190723.12993/tools/import/OSM/build_passenger/net.net.xml"/>
+        <output-file value="/home/kobo/.texttest/tmp/tools.28Nov071235.6788/tools/import/OSM/build_passenger/net.net.xml"/>
     </output>
 
     <projection>
@@ -45,7 +45,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-398348.81,-5809189.04" convBoundary="0.00,0.00,2640.77,946.75" origBoundary="13.453860,52.423643,13.575739,52.459735" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -1377,7 +1377,7 @@
     </edge>
     <edge id="25382187" from="32266901" to="25382187-AddedOffRampNode" priority="13" type="highway.motorway" spreadType="center" shape="1147.77,0.00 1141.44,64.68 1134.97,103.23 1125.07,142.09 1114.08,176.87 1095.53,224.12 1069.81,273.07 1057.34,292.68 1052.62,298.61 1042.37,314.20 1009.01,351.87 990.55,369.17">
         <lane id="25382187_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="410.30" shape="1151.05,0.32 1144.72,65.11 1138.20,103.91 1128.25,142.99 1117.19,177.97 1098.54,225.49 1072.67,274.72 1060.03,294.60 1055.29,300.55 1045.00,316.21 1011.38,354.17 993.90,370.55"/>
-        <lane id="25382187_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="410.30" shape="1147.77,0.00 1141.44,64.68 1134.97,103.23 1125.07,142.09 1114.08,176.87 1095.53,224.12 1069.81,273.07 1057.34,292.68 1052.62,298.61 1042.37,314.20 1009.01,351.87 991.64,368.14"/>
+        <lane id="25382187_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="410.30" shape="1147.77,-0.00 1141.44,64.68 1134.97,103.23 1125.07,142.09 1114.08,176.87 1095.53,224.12 1069.81,273.07 1057.34,292.68 1052.62,298.61 1042.37,314.20 1009.01,351.87 991.64,368.14"/>
         <lane id="25382187_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="410.30" shape="1144.48,-0.32 1138.17,64.24 1131.74,102.55 1121.90,141.18 1110.97,175.77 1092.53,222.74 1066.96,271.41 1054.65,290.76 1049.94,296.67 1039.75,312.19 1006.64,349.56 989.39,365.73"/>
     </edge>
     <edge id="25382187-AddedOffRampEdge" from="25382187-AddedOffRampNode" to="260479469" priority="13" type="highway.motorway" spreadType="center" shape="992.74,371.50 972.07,390.88 955.40,405.18 927.11,426.37 914.15,434.04">
