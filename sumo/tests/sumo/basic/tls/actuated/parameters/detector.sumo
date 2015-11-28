@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat Nov 28 23:17:53 2015 by SUMO Version dev-SVN-r19457
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_4si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_4si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_2si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_3si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" nVehContrib="10" flow="200.00" occupancy="4.91" speed="7.01" length="5.00" nVehEntered="10">
+      <typedInterval type="DEFAULT_VEHTYPE" begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" nVehContrib="10" flow="200.00" occupancy="4.91" speed="7.01" length="5.00" nVehEntered="10"/>
+   </interval>
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" nVehContrib="40" flow="800.00" occupancy="11.70" speed="10.65" length="5.00" nVehEntered="40">
+      <typedInterval type="DEFAULT_VEHTYPE" begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" nVehContrib="40" flow="800.00" occupancy="11.70" speed="10.65" length="5.00" nVehEntered="40"/>
+   </interval>
+   <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_4si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_4si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_2si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_3si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" nVehContrib="23" flow="460.00" occupancy="7.63" speed="9.10" length="5.00" nVehEntered="23">
+      <typedInterval type="DEFAULT_VEHTYPE" begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" nVehContrib="23" flow="460.00" occupancy="7.63" speed="9.10" length="5.00" nVehEntered="23"/>
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" nVehContrib="43" flow="860.00" occupancy="12.77" speed="10.29" length="5.00" nVehEntered="43">
+      <typedInterval type="DEFAULT_VEHTYPE" begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" nVehContrib="43" flow="860.00" occupancy="12.77" speed="10.29" length="5.00" nVehEntered="43"/>
+   </interval>
+   <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_4si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_4si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_2si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_3si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" nVehContrib="4" flow="100.00" occupancy="1.90" speed="7.95" length="5.00" nVehEntered="4">
+      <typedInterval type="DEFAULT_VEHTYPE" begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" nVehContrib="4" flow="100.00" occupancy="1.90" speed="7.95" length="5.00" nVehEntered="4"/>
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" nVehContrib="22" flow="550.00" occupancy="8.06" speed="10.34" length="5.00" nVehEntered="22">
+      <typedInterval type="DEFAULT_VEHTYPE" begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" nVehContrib="22" flow="550.00" occupancy="8.06" speed="10.34" length="5.00" nVehEntered="22"/>
+   </interval>
+   <interval begin="360.00" end="504.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
+   </interval>
+</detector>

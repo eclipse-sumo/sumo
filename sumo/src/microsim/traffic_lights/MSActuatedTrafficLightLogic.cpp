@@ -73,6 +73,9 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myPassingTime = TplConvert::_2SUMOReal(getParameter("passing-time", DEFAULT_PASSING_TIME).c_str());
     myDetectorGap = TplConvert::_2SUMOReal(getParameter("detector-gap", DEFAULT_DETECTOR_GAP).c_str());
     myShowDetectors = TplConvert::_2bool(getParameter("show-detectors", "false").c_str());
+    myFile = getParameter("file", "NULL");
+    myFreq = TIME2STEPS(TplConvert::_2SUMOReal(getParameter("freq", "300").c_str()));
+    mySplitByType = TplConvert::_2bool(getParameter("splitByType", "false").c_str());
 }
 
 
@@ -100,24 +103,16 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             // Build the induct loop and set it into the container
             std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
             if (myInductLoops.find(lane) == myInductLoops.end()) {
-                myInductLoops[lane] = dynamic_cast<MSInductLoop*>(nb.createInductLoop(id, lane, ilpos, false));
+                myInductLoops[lane] = dynamic_cast<MSInductLoop*>(nb.createInductLoop(id, lane, ilpos, mySplitByType));
                 assert(myInductLoops[lane] != 0);
-                if (myShowDetectors) {
-                    MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, myInductLoops[lane], "NULL", TIME2STEPS(300));
-                }
+                MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, myInductLoops[lane], myFile, myFreq, myShowDetectors);
             }
         }
     }
 }
 
 
-MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() {
-    if (!myShowDetectors) {
-        for (InductLoopMap::iterator i = myInductLoops.begin(); i != myInductLoops.end(); ++i) {
-            delete(*i).second;
-        }
-    }
-}
+MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() { }
 
 
 // ------------ Switching and setting current rows

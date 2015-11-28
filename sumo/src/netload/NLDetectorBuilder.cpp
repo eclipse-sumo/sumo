@@ -400,7 +400,7 @@ NLDetectorBuilder::buildMultiLaneE2Det(const std::string& id, DetectorUsage usag
 
 MSDetectorFileOutput*
 NLDetectorBuilder::createInductLoop(const std::string& id,
-                                    MSLane* lane, SUMOReal pos, bool splitByType) {
+                                    MSLane* lane, SUMOReal pos, bool splitByType, bool) {
     return new MSInductLoop(id, lane, pos, splitByType);
 }
 
