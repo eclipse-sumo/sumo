@@ -104,7 +104,6 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "        <type s=\"0\" type=\"town\"/>\n";
         // for the shape we need to use the leftmost border of the leftmost lane
         const std::vector<NBEdge::Lane>& lanes = e->getLanes();
-        unsigned int li = (unsigned int)lanes.size() - 1;
         PositionVector ls = getLeftBorder(e); 
         writePlanView(ls, device);
         device << "        <elevationProfile><elevation s=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/></elevationProfile>\n";

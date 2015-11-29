@@ -686,7 +686,6 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const SUMOReal dist, SUMOReal vSafe
     //    << " numFoes=" << collectFoes->size()
     //    << "\n";
     MSLink* foeLink = myFoeLinks[0];
-    bool reacted = false;
     for (std::vector<const SUMOVehicle*>::const_iterator i = collectFoes->begin(); i != collectFoes->end(); ++i) {
         const MSVehicle* foe = dynamic_cast<const MSVehicle*>(*i);
         assert(foe != 0);
