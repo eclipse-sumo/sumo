@@ -816,6 +816,28 @@ NBNode::computeLanes2Lanes() {
             return;
         }
     }
+    // special case d):
+    //  one in, one out, the outgoing has one lane less and node has type 'zipper'
+    if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1 && myType == NODETYPE_ZIPPER) {
+        NBEdge* in = myIncomingEdges[0];
+        NBEdge* out = myOutgoingEdges[0];
+        // check if it's not the turnaround
+        if (in->getTurnDestination() == out) {
+            // will be added later or not...
+            return;
+        }
+        const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        if (in->getStep() <= NBEdge::LANES2EDGES
+                && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset + 1
+                && in != out
+                && in->isConnectedTo(out)) {
+            for (int i = inOffset; i < (int) in->getNumLanes(); ++i) {
+                in->setConnection(i, out, MIN2(outOffset + i, ((int)out->getNumLanes() - 1)), NBEdge::L2L_COMPUTED, true);
+            }
+            return;
+        }
+    }
 
     // go through this node's outgoing edges
     //  for every outgoing edge, compute the distribution of the node's
