@@ -8,7 +8,7 @@
 		<stop busStop="SC" duration="100"/>
     </person>
     <person id="visitor3" depart="0">
-        <walk from="SC" busStop="SC" arrivalPos="5"/>
+        <walk from="SC" busStop="SC" arrivalPos="7"/>
 		<stop busStop="SC" duration="100"/>
     </person>
     <person id="visitor4" depart="0">
