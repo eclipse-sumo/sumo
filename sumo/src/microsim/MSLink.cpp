@@ -299,6 +299,10 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
     if (myAmCont && MSGlobals::gUsingInternalLanes) {
         return true;
     }
+    if (havePriority() && myState != LINKSTATE_ZIPPER) {
+        // zipper still needs to collect foes
+        return true;
+    }
     if ((myState == LINKSTATE_STOP || myState == LINKSTATE_ALLWAY_STOP) && waitingTime == 0) {
         return false;
     }
