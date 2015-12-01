@@ -26,8 +26,8 @@ import tempfile
 import glob
 import shutil
 
-INPUT_DEFAULT = r"O:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.zip"
-OUTPUT_DEFAULT = r"O:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.msi"
+INPUT_DEFAULT = r"O:\Daten\Sumo\Nightly\sumo-win32-svn.zip"
+OUTPUT_DEFAULT = "sumo.msi"
 WIX_DEFAULT = "%sbin" % os.environ.get(
     "WIX", r"D:\Programme\Windows Installer XML v3.5\\")
 WXS_DEFAULT = os.path.join(
@@ -35,17 +35,25 @@ WXS_DEFAULT = os.path.join(
 LICENSE = os.path.join(
     os.path.dirname(__file__), "..", "..", "build", "wix", "License.rtf")
 
+SKIP_FILES = [r"osmWebWizard.py"]
 
 def buildFragment(wixBin, sourceDir, targetLabel, tmpDir, log=None):
     base = os.path.basename(sourceDir)
     subprocess.call([os.path.join(wixBin, "heat.exe"), "dir", sourceDir,
                      "-cg", base, "-gg", "-dr", targetLabel,
-                     "-out", os.path.join(tmpDir, "Fragment.wxs")],
+                     "-out", os.path.join(tmpDir, base + "RawFragment.wxs")],
                     stdout=log, stderr=log)
-    fragIn = open(os.path.join(tmpDir, "Fragment.wxs"))
+    fragIn = open(os.path.join(tmpDir, base + "RawFragment.wxs"))
     fragOut = open(os.path.join(tmpDir, base + "Fragment.wxs"), "w")
+    skip = 0
     for l in fragIn:
-        fragOut.write(l.replace("SourceDir", sourceDir))
+        for s in SKIP_FILES:
+            if s in l:
+                skip = 3
+        if skip == 0:
+            fragOut.write(l.replace("SourceDir", sourceDir))
+        else:
+            skip -= 1
     fragOut.close()
     fragIn.close()
     return fragOut.name
