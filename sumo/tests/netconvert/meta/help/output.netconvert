@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r19465I
+SUMO netconvert Version dev-SVN-r19481
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -278,6 +278,9 @@ Processing Options:
                                          list of edges
   --crossings.guess                    Guess pedestrian crossings based on the
                                          presence of sidewalks
+  --crossings.guess.speed-threshold FLOAT  At uncontrolled nodes, do not build
+                                         crossings across edges with a speed
+                                         above the threshold
 
 Building Defaults Options:
   -L, --default.lanenumber INT         The default number of lanes in an edge

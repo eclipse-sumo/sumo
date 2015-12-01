@@ -220,6 +220,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("crossings.guess", "Processing",
                       "Guess pedestrian crossings based on the presence of sidewalks");
 
+    oc.doRegister("crossings.guess.speed-threshold", new Option_Float(13.89));
+    oc.addDescription("crossings.guess.speed-threshold", "Processing",
+                      "At uncontrolled nodes, do not build crossings across edges with a speed above the threshold");
+
     // tls setting options
     // explicit tls
     oc.doRegister("tls.set", new Option_String());

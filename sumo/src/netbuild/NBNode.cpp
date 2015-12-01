@@ -74,8 +74,6 @@
 // create intermediate walking areas if either of the following thresholds is exceeded
 #define SPLIT_CROSSING_WIDTH_THRESHOLD 1.5 // meters
 #define SPLIT_CROSSING_ANGLE_THRESHOLD 5 // degrees
-// do not build uncontrolled crossings across edges with a speed above the threshold
-#define UNCONTROLLED_CROSSING_SPEED_THRESHOLD 13.89 // meters/second
 
 // minimum length for a weaving section at a combined on-off ramp 
 #define MIN_WEAVE_LENGTH 20.0
@@ -1784,7 +1782,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
                 }
                 return 0;
             }
-            if (!isTLControlled() && edge->getSpeed() > UNCONTROLLED_CROSSING_SPEED_THRESHOLD) {
+            if (!isTLControlled() && edge->getSpeed() > OptionsCont::getOptions().getFloat("crossings.guess.speed-threshold")) {
                 if (gDebugFlag1) {
                     std::cout << "no crossing added (uncontrolled, edge with speed=" << edge->getSpeed() << ")\n";
                 }

@@ -489,6 +489,9 @@
         <!-- Guess pedestrian crossings based on the presence of sidewalks -->
         <crossings.guess value="false" type="BOOL"/>
 
+        <!-- At uncontrolled nodes, do not build crossings across edges with a speed above the threshold -->
+        <crossings.guess.speed-threshold value="13.89" type="FLOAT"/>
+
     </processing>
 
     <building_defaults>

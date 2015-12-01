@@ -165,6 +165,9 @@
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
 
+        <!-- Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used -->
+        <tls.uncontrolled-within value="false" type="BOOL"/>
+
         <!-- Use INT as cycle duration -->
         <tls.cycle.time value="90" type="INT"/>
 
@@ -299,6 +302,9 @@
 
         <!-- Guess pedestrian crossings based on the presence of sidewalks -->
         <crossings.guess value="false" type="BOOL"/>
+
+        <!-- At uncontrolled nodes, do not build crossings across edges with a speed above the threshold -->
+        <crossings.guess.speed-threshold value="13.89" type="FLOAT"/>
 
     </processing>
 

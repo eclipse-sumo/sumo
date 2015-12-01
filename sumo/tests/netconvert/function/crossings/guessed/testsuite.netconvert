@@ -18,6 +18,9 @@
 4_arm_complete
 4_arm_complete_priority
 
+# use option crossings.guess.speed-threshold to disable crossings
+4_arm_complete_priority_speed_threshold
+
 # slanted 4 arm junction with crossings on all sides
 4_arm_slanted_complete
 4_arm_3_neightboring_split

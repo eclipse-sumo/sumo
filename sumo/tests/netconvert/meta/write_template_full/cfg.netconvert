@@ -181,6 +181,7 @@
         <sidewalks.guess.from-permissions value="false" type="BOOL" help="Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed"/>
         <sidewalks.guess.exclude value="" type="STR" help="Do not guess sidewalks for the given list of edges"/>
         <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
+        <crossings.guess.speed-threshold value="13.89" type="FLOAT" help="At uncontrolled nodes, do not build crossings across edges with a speed above the threshold"/>
     </processing>
 
     <building_defaults>
