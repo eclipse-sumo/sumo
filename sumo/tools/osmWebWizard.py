@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 """
-@file    server.py
+@file    osmWebWizard.py
 @author  Jakob Stigloher
+@author  Jakob Erdmann
+@author  Michael Behrisch
 @date    2014-14-10
 @version $Id$
 
@@ -24,7 +26,6 @@ import traceback
 import webbrowser
 import datetime
 from argparse import ArgumentParser
-from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 import json
 import threading
 import subprocess
@@ -33,9 +34,14 @@ import shutil
 from zipfile import ZipFile
 import base64
 
+import osmGet
+import osmBuild
+import randomTrips
+import sumolib
+from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
+
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
-sys.path.append(os.path.join(SUMO_HOME, "tools"))
+    os.path.dirname(os.path.abspath(__file__)), ".."))
 
 typemapdir = os.path.join(SUMO_HOME, "data", "typemap")
 typemaps = {
@@ -73,10 +79,6 @@ vehicleNames = {
     "ship": "Ships"
 }
 
-import osmGet
-import osmBuild
-import randomTrips
-import sumolib
 
 RANDOMSEED = "42"
 
@@ -267,7 +269,7 @@ class Builder(object):
 
         sumogui = sumolib.checkBinary("sumo-gui")
 
-        subprocess.call([sumogui, "-c", self.files["config"]])
+        subprocess.Popen([sumogui, "-c", self.files["config"]])
 
     def createZip(self):
         "Create a zip file with everything inside which SUMO GUI needs, returns it base64 encoded"
@@ -376,7 +378,7 @@ if __name__ == "__main__":
     else:
         if not args.remote:
             webbrowser.open(
-                os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html"))
+                os.path.join(os.path.dirname(os.path.abspath(__file__)), "webWizard", "index.html"))
 
         server = SimpleWebSocketServer(
             args.address, args.port, OSMImporterWebSocket)
