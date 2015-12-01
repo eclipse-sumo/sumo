@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    MSPModel_Striping.h
 /// @author  Jakob Erdmann
+/// @author  Michael Behrisch
 /// @date    Mon, 13 Jan 2014
 /// @version $Id$
 ///
@@ -86,18 +87,27 @@ public:
     // @brief the time threshold before becoming jammed
     static SUMOTime jamTime;
 
-    // @brief the distance to look ahead for changing stripes
+    // @brief the distance (in seconds) to look ahead for changing stripes
     static const SUMOReal LOOKAHEAD_SAMEDIR;
-    // @brief the distance to look ahead for changing stripes (regarding oncoming pedestrians)
+    // @brief the distance (in seconds) to look ahead for changing stripes (regarding oncoming pedestrians)
     static const SUMOReal LOOKAHEAD_ONCOMING;
 
-    // @brief the speed penalty for moving sideways
+    // @brief the utility penalty for moving sideways (corresponds to meters)
     static const SUMOReal LATERAL_PENALTY;
+
+    // @brief the utility penalty for obstructed (physically blocking me) stripes (corresponds to meters)
+    static const SUMOReal OBSTRUCTED_PENALTY;
+
+    // @brief the utility penalty for inappropriate (reserved for oncoming traffic or may violate my min gap) stripes (corresponds to meters)
+    static const SUMOReal INAPPROPRIATE_PENALTY;
+
+    // @brief the utility penalty for oncoming conflicts on stripes (corresponds to meters)
+    static const SUMOReal ONCOMING_CONFLICT_PENALTY;
 
     // @brief the factor by which pedestrian width is reduced when sqeezing past each other
     static const SUMOReal SQUEEZE;
 
-    // @brief the maximum distance at which oncoming pedestrians block right turning traffic
+    // @brief the maximum distance (in meters) at which oncoming pedestrians block right turning traffic
     static const SUMOReal BLOCKER_LOOKAHEAD;
 
     // @brief fraction of the leftmost lanes to reserve for oncoming traffic
@@ -159,13 +169,16 @@ protected:
         /// @brief create No-Obstacle
         Obstacle(int dir);
         /// @brief create an obstacle from ped for ego moving in dir
-        Obstacle(const PState& ped, int dir);
+        Obstacle(const PState& ped);
         /// @brief create an obstacle from explict values
-        Obstacle(SUMOReal _x, SUMOReal _speed, const std::string& _description) : x(_x), speed(_speed), description(_description) {};
+        Obstacle(SUMOReal _x, SUMOReal _speed, const std::string& _description, const SUMOReal width = 0.)
+            : xFwd(_x + width / 2.), xBack(_x - width / 2.), speed(_speed), description(_description) {};
 
-        /// @brief position on the current lane
-        SUMOReal x;
-        /// @brief speed relative to ego direction (positive means in the same direction)
+        /// @brief maximal position on the current lane in forward direction
+        SUMOReal xFwd;
+        /// @brief maximal position on the current lane in backward direction
+        SUMOReal xBack;
+        /// @brief speed relative to lane direction (positive means in the same direction)
         SUMOReal speed;
         /// @brief the id / description of the obstacle
         std::string description;
@@ -197,7 +210,12 @@ protected:
             if (p1->from->getNumericalID() < p2->from->getNumericalID()) {
                 return true;
             }
-            return p1->to->getNumericalID() < p2->to->getNumericalID();
+            if (p1->from->getNumericalID() == p2->from->getNumericalID()) {
+                if (p1->to->getNumericalID() < p2->to->getNumericalID()) {
+                    return true;
+                }
+            }
+            return false;
         }
     };
 
@@ -245,8 +263,17 @@ protected:
         /// @brief whether the person is jammed
         bool myAmJammed;
 
+        /// @brief return the minimum position on the lane
+        SUMOReal getMinX(const bool includeMinGap=true) const;
+
+        /// @brief return the maximum position on the lane
+        SUMOReal getMaxX(const bool includeMinGap=true) const;
+
         /// @brief return the length of the pedestrian
         SUMOReal getLength() const;
+
+        /// @brief return the minimum gap of the pedestrian
+        SUMOReal getMinGap() const;
 
         /// @brief the absolute distance to the end of the lane in walking direction (or to the arrivalPos)
         SUMOReal distToLaneEnd() const;
@@ -263,8 +290,14 @@ protected:
         int stripe() const;
         int otherStripe() const;
 
-        int stripe(SUMOReal relY) const;
-        int otherStripe(SUMOReal relY) const;
+        int stripe(const SUMOReal relY, const int max) const;
+        int otherStripe(const SUMOReal relY, const int max) const;
+
+        /// @brief calculate distance to the given obstacle, positive values mean in front of me in walking direction, negative behind me, 0 means overlap
+        SUMOReal distanceTo(const Obstacle& obs, const bool includeMinGap=true) const;
+
+        /// @brief replace obstacles in the first vector with obstacles from the second if they are closer to me
+        void mergeObstacles(Obstacles& into, const Obstacles& obs2);
 
     };
 
@@ -280,6 +313,7 @@ protected:
         MovePedestrians& operator=(const MovePedestrians&);
     };
 
+    /// @brief sorts the persons by position on the lane. If dir is forward, higher x positions come first.
     class by_xpos_sorter {
     public:
         /// constructor
@@ -334,8 +368,6 @@ private:
     /// @brief return the maximum number of pedestrians walking side by side
     static int numStripes(const MSLane* lane);
 
-    static Obstacles mergeObstacles(const Obstacles& obs1, const Obstacles& obs2, int dir);
-
     static Obstacles getNeighboringObstacles(const Pedestrians& pedestrians, int egoIndex, int stripes);
 
     const Obstacles& getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const MSLane* lane, const MSLane* nextLane, int stripes,
@@ -343,7 +375,7 @@ private:
 
     static void addMappedObstacle(Obstacles& obs, const PState& p, int stripe, int currentDir, int nextDir, int offset, int stripes, int nextStripes);
 
-    static void addCloserObstacle(Obstacles& obs, SUMOReal x, int stripe, const std::string& id, int stripes, int dir);
+    static void addCloserObstacle(Obstacles& obs, SUMOReal x, int stripe, const std::string& id, SUMOReal width, int dir);
 
     /// @brief retrieves the pedestian vector for the given lane (may be empty)
     Pedestrians& getPedestrians(const MSLane* lane);

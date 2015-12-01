@@ -205,7 +205,7 @@ GUIParameterTableWindow*
 GUIPerson::getParameterWindow(GUIMainWindow& app,
                               GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 8);
+        new GUIParameterTableWindow(app, *this, 16);
     // add items
     //ret->mkItem("type [NAME]", false, myType->getID());
     ret->mkItem("stage", false, getCurrentStageDescription());
@@ -216,6 +216,16 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getSpeed));
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getNaviDegree));
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getWaitingSeconds));
+
+    ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
+    ret->mkItem("", false, "");
+    ret->mkItem("Type Information:", false, "");
+    ret->mkItem("type [id]", false, myVType->getID());
+    ret->mkItem("length", false, myVType->getLength());
+    ret->mkItem("minGap", false, myVType->getMinGap());
+    ret->mkItem("maximum speed [m/s]", false, myVType->getMaxSpeed());
+
+    ret->mkItem("type parameters [key:val]", false, toString(myVType->getParameter().getMap()));
     // close building
     ret->closeBuilding();
     return ret;

@@ -849,7 +849,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    MSEdge* edge = 0;
+    const MSEdge* edge = 0;
     // try to parse the assigned bus stop
     if (stop.busstop != "") {
         // ok, we have a bus stop
@@ -898,8 +898,23 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 return;
             }
         } else {
-            WRITE_ERROR("A stop must be placed on a bus stop, a container stop or a lane" + errorSuffix);
-            return;
+            if (myActivePlan && !myActivePlan->empty()) {
+                const MSStoppingPlace* bs = myActivePlan->back()->getDestinationStop();
+                if (bs != 0) {
+                    edge = &bs->getLane().getEdge();
+                    stop.lane = bs->getLane().getID();
+                    stop.endPos = bs->getEndLanePosition();
+                    stop.startPos = bs->getBeginLanePosition();
+                } else {
+                    edge = &myActivePlan->back()->getDestination();
+                    stop.lane = edge->getLanes()[0]->getID();
+                    stop.endPos = myActivePlan->back()->getArrivalPos();
+                    stop.startPos = stop.endPos - POSITION_EPS;
+                }
+            } else {
+                WRITE_ERROR("A stop must be placed on a bus stop, a container stop or a lane" + errorSuffix);
+                return;
+            }
         }
         edge = &MSLane::dictionary(stop.lane)->getEdge();
         if (myActivePlan &&
@@ -934,7 +949,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     }
     if (myActivePlan != 0) {
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, 0, ok, "waiting");
-        SUMOReal pos = stop.busstop != "" ? (stop.startPos + stop.endPos) / 2. : stop.endPos;
+        SUMOReal pos = (stop.startPos + stop.endPos) / 2.;
         if (!myActivePlan->empty()) {
             pos = myActivePlan->back()->getArrivalPos();
         }
