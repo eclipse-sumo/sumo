@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 20 21:03:15 2015 by SUMO netconvert Version dev-SVN-r19395
+<!-- generated on Fri Nov 27 14:41:36 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="plain.nod.xml"/>
-        <edge-files value="plain.edg.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
@@ -16,16 +15,21 @@
 
     <processing>
         <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
         <lefthand value="true"/>
         <junctions.corner-detail value="3"/>
     </processing>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
-<net version="0.13" lefthand="true" junctionCornerDetail="3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" lefthand="true" junctionCornerDetail="3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="100.00,-100.00" convBoundary="0.00,-200.00,200.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":C_0" function="internal">
         <lane id=":C_0_0" index="0" speed="13.90" length="5.00" shape="95.05,-104.75 94.86,-103.39 94.28,-102.43 93.31,-101.84 91.95,-101.65"/>
@@ -76,8 +80,8 @@
         <lane id="CE_0" index="0" speed="13.90" length="91.95" shape="108.05,-98.35 200.00,-98.35"/>
     </edge>
     <edge id="CN" from="C" to="N" priority="2">
-        <lane id="CN_0" index="0" speed="13.90" length="95.25" shape="95.05,-95.25 95.05,-0.00"/>
-        <lane id="CN_1" index="1" speed="13.90" length="95.25" shape="98.35,-95.25 98.35,-0.00"/>
+        <lane id="CN_0" index="0" speed="13.90" length="95.25" shape="95.05,-95.25 95.05,0.00"/>
+        <lane id="CN_1" index="1" speed="13.90" length="95.25" shape="98.35,-95.25 98.35,0.00"/>
     </edge>
     <edge id="CS" from="C" to="S" priority="2">
         <lane id="CS_0" index="0" speed="13.90" length="95.25" shape="104.95,-104.75 104.95,-200.00"/>
@@ -90,8 +94,8 @@
         <lane id="EC_0" index="0" speed="13.90" length="91.95" shape="200.00,-101.65 108.05,-101.65"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="2">
-        <lane id="NC_0" index="0" speed="13.90" length="95.25" shape="104.95,-0.00 104.95,-95.25"/>
-        <lane id="NC_1" index="1" speed="13.90" length="95.25" shape="101.65,-0.00 101.65,-95.25"/>
+        <lane id="NC_0" index="0" speed="13.90" length="95.25" shape="104.95,0.00 104.95,-95.25"/>
+        <lane id="NC_1" index="1" speed="13.90" length="95.25" shape="101.65,0.00 101.65,-95.25"/>
     </edge>
     <edge id="SC" from="S" to="C" priority="2">
         <lane id="SC_0" index="0" speed="13.90" length="95.25" shape="95.05,-200.00 95.05,-104.75"/>
@@ -118,7 +122,7 @@
         <request index="13" response="00011100111110" foes="00011100111110" cont="0"/>
     </junction>
     <junction id="E" type="dead_end" x="200.00" y="-100.00" incLanes="CE_0" intLanes="" shape="200.00,-100.05 200.00,-103.25 200.00,-96.75 200.00,-99.95"/>
-    <junction id="N" type="dead_end" x="100.00" y="-0.00" incLanes="CN_0 CN_1" intLanes="" shape="100.05,-0.00 106.55,-0.00 93.45,-0.00 99.95,-0.00"/>
+    <junction id="N" type="dead_end" x="100.00" y="0.00" incLanes="CN_0 CN_1" intLanes="" shape="100.05,-0.00 106.55,-0.00 93.45,-0.00 99.95,-0.00"/>
     <junction id="S" type="dead_end" x="100.00" y="-200.00" incLanes="CS_0 CS_1" intLanes="" shape="99.95,-200.00 93.45,-200.00 106.55,-200.00 100.05,-200.00"/>
     <junction id="W" type="dead_end" x="0.00" y="-100.00" incLanes="CW_0" intLanes="" shape="0.00,-99.95 0.00,-96.75 0.00,-103.25 0.00,-100.05"/>
 

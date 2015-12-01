@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/28/15 09:47:13 by SUMO netconvert Version dev-SVN-r18444
+<!-- generated on Sat Nov 28 07:20:28 2015 by SUMO netconvert Version dev-SVN-r19457
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -27,7 +27,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,4000.00,1000.00" origBoundary="-1000.00,0.00,3000.00,1000.00" projParameter="!"/>
 
@@ -56,10 +56,10 @@
         <lane id=":2_3_2" index="2" speed="13.89" length="3.97" shape="998.50,-1.65 1001.50,-1.65"/>
     </edge>
     <edge id=":3_0" function="internal">
-        <lane id=":3_0_0" index="0" speed="13.89" length="5.00" shape="1991.75,11.35 1991.56,9.99 1990.97,9.03 1990.01,8.44 1988.65,8.25"/>
+        <lane id=":3_0_0" index="0" speed="13.89" length="5.00" shape="1991.75,11.35 1991.56,9.99 1990.97,9.02 1990.01,8.44 1988.65,8.25"/>
     </edge>
     <edge id=":3_1" function="internal">
-        <lane id=":3_1_0" index="0" speed="13.89" length="23.63" shape="1995.05,11.35 1996.07,4.22 1999.13,-0.88 2004.22,-3.93 2011.35,-4.95"/>
+        <lane id=":3_1_0" index="0" speed="13.89" length="23.63" shape="1995.05,11.35 1996.07,4.22 1999.12,-0.88 2004.22,-3.93 2011.35,-4.95"/>
         <lane id=":3_1_1" index="1" speed="13.89" length="23.63" shape="1998.35,11.35 1999.16,5.66 2001.60,1.60 2005.66,-0.84 2011.35,-1.65"/>
     </edge>
     <edge id=":3_3" function="internal">
@@ -368,7 +368,7 @@
         <request index="12" response="00000000000000" foes="00000111111000" cont="0"/>
         <request index="13" response="00000000000000" foes="00000111111000" cont="0"/>
     </junction>
-    <junction id="91" type="dead_end" x="0.00" y="1000.00" incLanes="D1_0 D1_1 D1_2" intLanes="" shape="-0.00,999.95 -0.00,993.45 0.00,1009.85 0.00,1000.05"/>
+    <junction id="91" type="dead_end" x="0.00" y="1000.00" incLanes="D1_0 D1_1 D1_2" intLanes="" shape="0.00,999.95 0.00,993.45 0.00,1009.85 0.00,1000.05"/>
     <junction id="911" type="priority" x="500.00" y="1000.00" incLanes="L1_0 L1_1 L1_2 D2_0 D2_1" intLanes=":911_0_0 :911_0_1 :911_0_2 :911_3_0 :911_3_1" shape="500.00,1009.85 500.00,993.45 500.00,1009.85">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
@@ -397,7 +397,7 @@
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="92" type="dead_end" x="0.00" y="0.00" incLanes="D3_0 D3_1 D3_2" intLanes="" shape="-0.00,-0.05 -0.00,-6.55 0.00,9.85 0.00,0.05"/>
+    <junction id="92" type="dead_end" x="0.00" y="0.00" incLanes="D3_0 D3_1 D3_2" intLanes="" shape="0.00,-0.05 0.00,-6.55 0.00,9.85 0.00,0.05"/>
     <junction id="93" type="dead_end" x="4000.00" y="0.00" incLanes="D5_0 D5_1 D5_2" intLanes="" shape="4000.00,0.05 4000.00,6.55 4000.00,-9.85 4000.00,-0.05"/>
     <junction id="94" type="dead_end" x="4000.00" y="1000.00" incLanes="D7_0 D7_1 D7_2" intLanes="" shape="4000.00,1000.05 4000.00,1006.55 4000.00,990.15 4000.00,999.95"/>
 

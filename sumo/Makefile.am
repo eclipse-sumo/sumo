@@ -105,8 +105,8 @@ traas:
 	cp tools/contributed/traas/dist/TraaS.jar bin
 
 traci4j:
-	mvn --batch-mode -f tools/contributed/traci4j/pom.xml clean install
-	cp tools/contributed/traci4j/target/*.jar bin
+	mvn --batch-mode -f tools/contributed/traci4j/pom.xml clean install || true
+	cp tools/contributed/traci4j/target/*.jar bin || true
 
 trafficmodeler:
 	cd tools/contributed/trafficmodeler && ./build.sh

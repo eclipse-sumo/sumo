@@ -542,7 +542,7 @@ public:
      * @param[in] numPoints The number of geometry points for the internal lane
      * @return The shape of the internal lane
      */
-    PositionVector computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints = 5) const;
+    PositionVector computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints) const;
 
 
     /** @brief Compute a smooth curve between the given geometries

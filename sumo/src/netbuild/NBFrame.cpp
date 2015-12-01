@@ -185,6 +185,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("junctions.corner-detail", new Option_Integer(0));
     oc.addDescription("junctions.corner-detail", "Processing", "Generate INT intermediate points to smooth out intersection corners");
 
+    oc.doRegister("junctions.internal-link-detail", new Option_Integer(5));
+    oc.addDescription("junctions.internal-link-detail", "Processing", "Generate INT intermediate points to smooth out lanes within the intersection");
+
     oc.doRegister("check-lane-foes.roundabout", new Option_Bool(true));
     oc.addDescription("check-lane-foes.roundabout", "Processing",
                       "Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)");
@@ -417,6 +420,10 @@ NBFrame::checkOptions() {
     }
     if (!oc.isDefault("tls.green.time") && !oc.isDefault("tls.cycle.time")) {
         WRITE_ERROR("only one of the options 'tls.green.time' or 'tls.cycle.time' may be given");
+        ok = false;
+    }
+    if (oc.getInt("junctions.internal-link-detail") < 2) {
+        WRITE_ERROR("junctions.internal-link-detail must >= 2");
         ok = false;
     }
     return ok;

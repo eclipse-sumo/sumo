@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 19 14:18:12 2015 by SUMO netconvert Version dev-SVN-r19380ID
+<!-- generated on Tue Dec  1 07:55:47 2015 by SUMO netconvert Version dev-SVN-r19465I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -18,7 +18,9 @@
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
         <junctions.join value="true"/>
+        <junctions.corner-detail value="0"/>
     </processing>
 
     <report>
@@ -28,7 +30,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-395408.93,-5809112.45" convBoundary="0.00,0.00,5580.65,3531.77" origBoundary="13.460807,52.423029,13.543874,52.453954" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -2474,14 +2476,12 @@
     </edge>
 
     <tlLogic id="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" type="static" programID="0" offset="0">
-        <phase duration="22" state="GGggGGgggrrrrr"/>
+        <phase duration="36" state="GGggGGgggrrrrr"/>
         <phase duration="4" state="yyggyygggrrrrr"/>
         <phase duration="6" state="rrGGrrGGGrrrrr"/>
         <phase duration="4" state="rryyrryyyrrrrr"/>
-        <phase duration="23" state="rrrrrrrrrGGGGG"/>
+        <phase duration="36" state="rrrrrrrrrGGGGG"/>
         <phase duration="4" state="rrrrrrrrryyyyy"/>
-        <phase duration="23" state="GGggGGrrrrrrrG"/>
-        <phase duration="4" state="yyyyyyrrrrrrry"/>
     </tlLogic>
 
     <junction id="1292264830" type="priority" x="4422.99" y="509.31" incLanes="24214694#3_0 24214694#3_1 -114949101#0_0 -24214694#4_0 -24214694#4_1" intLanes="" shape="4417.10,514.36 4429.74,513.14 4431.37,511.40 4430.46,504.96 4428.83,503.68 4416.18,504.90">

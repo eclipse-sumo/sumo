@@ -106,15 +106,36 @@ public:
 public:
     /** @brief Constructor
      */
-    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
+    GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
            const RGBColor& color, SUMOReal layer,
            SUMOReal angle=0, const std::string& imgFile="");
 
     /// @brief Destructor
     virtual ~GNEPoly() ;
 
+    /// @name inherited from GUIGlObject
+    //@{
+
+    /** @brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
+                                       GUISUMOAbstractView& parent) ;
+
+
+    /** @brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings& s) const ;
+    //@}
+
+
     /// @brief draw the polygon and also little movement handles
-    virtual void drawGL(const GUIVisualizationSettings& s) const;
 
     /** @brief change the polygon geometry without registering undo/redo
      * It is up to the Polygon to decide whether an new geometry node should be
@@ -125,6 +146,17 @@ public:
      * @return newPos if something was moved, oldPos if nothing was moved
      */
     Position moveGeometry(const Position& oldPos, const Position& newPos, bool relative=false);
+
+    /// @brief replace the current shape with a rectangle
+    void simplifyShape();
+
+    /// @brief delete the geometry point closest to the given pos
+    void deleteGeometryNear(const Position& pos);
+
+    /// @brief retrieve the junction of which the shape is being edited
+    GNEJunction* getEditedJunction() const {
+        return myJunction;
+    }
 
 
     /// @brief registers completed movement with the undoList
@@ -154,6 +186,9 @@ public:
 protected:
     /// @brief the net for querying updates
     GNENet* myNet;
+
+    /// @brief junction of which the shape is being edited (optional)
+    GNEJunction* myJunction;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -253,7 +253,7 @@ protected:
 
 private:
     /// @brief shift network so its lower left corner is at 0,0
-    void moveToOrigin(GeoConvHelper& geoConvHelper);
+    void moveToOrigin(GeoConvHelper& geoConvHelper, bool lefthand);
 
     /// @brief mirror the network along the X-axis
     void mirrorX();

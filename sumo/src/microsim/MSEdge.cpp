@@ -506,6 +506,7 @@ MSEdge::changeLanes(SUMOTime t) {
                     || state == LINKSTATE_EQUAL
                     || state == LINKSTATE_STOP
                     || state == LINKSTATE_ALLWAY_STOP
+                    || state == LINKSTATE_ZIPPER
                     || state == LINKSTATE_DEADEND) {
                 return;
             }

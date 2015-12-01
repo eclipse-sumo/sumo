@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov  2 12:36:15 2015 by SUMO netconvert Version dev-SVN-r19232D
+<!-- generated on Fri Nov 27 14:41:38 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml"/>
+        <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -27,7 +27,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-605318.71,-5791035.14" convBoundary="0.00,0.00,236.27,354.45" origBoundary="10.543207,52.259568,10.546688,52.262751" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -103,7 +103,7 @@
     </edge>
 
     <edge id="-24526820" from="266699841" to="266699840" name="Uhlandstraße" priority="4" type="highway.residential" shape="131.37,326.23 142.05,287.82 173.48,174.72 221.30,1.92 221.83,0.00">
-        <lane id="-24526820_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="333.76" shape="131.06,321.19 140.46,287.38 171.89,174.27 219.71,1.48 220.24,-0.44"/>
+        <lane id="-24526820_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="333.76" shape="131.06,321.19 140.46,287.38 171.89,174.28 219.71,1.48 220.24,-0.44"/>
     </edge>
     <edge id="-25722927#0" from="266699841" to="266699842" name="Grünstraße" priority="4" type="highway.residential">
         <lane id="-25722927#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="103.85" shape="136.42,325.88 236.70,352.86"/>

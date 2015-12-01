@@ -48,6 +48,7 @@
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSJunction.h>
 #include <microsim/MSLane.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -226,7 +227,7 @@ GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
             }
             const SUMOTime leaveTime = (*i).myLink->getLeaveTime(
                     (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLengthWithGap());
-            drawLinkItem(p, (*i).myArrivalTime, leaveTime, s.vehicleSize.getExaggeration(s));
+            drawLinkItem(p, (*i).myArrivalTime, leaveTime, s.vehicleName.size / s.scale);
             // the time slot that ego vehicle uses when checking opened may
             // differ from the one it requests in setApproaching
             MSLink::ApproachingVehicleInformation avi = (*i).myLink->getApproaching(this);
@@ -618,8 +619,7 @@ GUIVehicle::selectBlockingFoes() const {
             // the vehicle to enter the junction first has priority
             const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(it->vehAndGap.first);
             if (leader != 0) {
-                if (leader->myLinkLeaders[dpi.myLink->getJunction()].count(getID()) == 0) {
-                    // leader isn't already following us, now we follow it
+                if (dpi.myLink->isLeader(this, leader)) {
                     gSelected.select(leader->getGlID());
                 }
             } else {

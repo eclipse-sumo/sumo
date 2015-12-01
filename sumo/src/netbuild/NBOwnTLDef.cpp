@@ -237,7 +237,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
     }
 
     NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noLinksAll, myOffset, myType);
-    EdgeVector toProc = incoming;
+    EdgeVector toProc = getConnectedEdges(incoming);
     const int greenSeconds = OptionsCont::getOptions().getInt("tls.green.time");
     const SUMOTime greenTime = TIME2STEPS(greenSeconds);
     // build all phases
@@ -432,12 +432,11 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
 
 bool
 NBOwnTLDef::hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<NBNode::Crossing>& crossings) {
-    assert(from != 0);
     assert(to != 0);
     for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
         const NBNode::Crossing& cross = *it;
         // only check connections at this crossings node
-        if (from->getToNode() == cross.node) {
+        if (to->getFromNode() == cross.node) {
             for (EdgeVector::const_iterator it_e = cross.edges.begin(); it_e != cross.edges.end(); ++it_e) {
                 const NBEdge* edge = *it_e;
                 if (edge == from || edge == to) {
@@ -595,4 +594,18 @@ NBOwnTLDef::initNeedsContRelation() const {
 
 }
 
+
+EdgeVector 
+NBOwnTLDef::getConnectedEdges(const EdgeVector& incoming) {
+    EdgeVector result = incoming;
+    // do not sele
+    for (EdgeVector::iterator it = result.begin(); it != result.end();) {
+        if ((*it)->getConnections().size() == 0) {
+            it = result.erase(it);
+        } else {
+            ++it;
+        }
+    }
+    return result;
+}
 /****************************************************************************/

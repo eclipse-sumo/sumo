@@ -19,6 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 import os
 import sys
 import random
+import datetime
 from optparse import OptionParser
 
 if 'SUMO_HOME' in os.environ:
@@ -32,15 +33,19 @@ else:
 def get_options():
     optParser = OptionParser()
     optParser.add_option(
-        "-w", "--width", type="float", default=0.7, help="pedestrian width")
+        "-w", "--width", type="float", default=0.7, help="pedestrian width, negative numbers denote the center of a uniform distribution [x-0.2, x+0.2]")
     optParser.add_option(
-        "-l", "--length", type="float", default=0.35, help="pedestrian length")
+        "-l", "--length", type="float", default=0.5, help="pedestrian length, negative numbers denote the center of a uniform distribution [x-0.2, x+0.2]")
     optParser.add_option(
-        "--departPos", type="float", default=0, help="depart position")
+        "-m", "--minGap", type="float", default=0.2, help="pedestrian min gap, negative numbers denote the center of a uniform distribution [x-0.2, x+0.2]")
     optParser.add_option(
-        "--arrivalPos", type="float", default=-1, help="arrival position")
+        "-s", "--maxSpeed", type="float", default=1.2, help="pedestrian max speed, negative numbers denote the center of a uniform distribution [x-0.4, x+0.4]")
     optParser.add_option(
-        "--prob", type="float", default=0.1, help="depart probability per second")
+        "-d", "--departPos", type="float", default=0, help="depart position")
+    optParser.add_option(
+        "-a", "--arrivalPos", type="float", default=-1, help="arrival position")
+    optParser.add_option(
+        "-p", "--prob", type="float", default=0.1, help="depart probability per second")
     optParser.add_option("-r", "--route", help="edge list")
     optParser.add_option("-c", "--color", help="the color to use or 'random'")
     optParser.add_option(
@@ -56,6 +61,10 @@ def get_options():
     options.output = args[0]
     return options
 
+def randomOrFixed(value, offset=0.2):
+    if value >= 0:
+        return value
+    return random.uniform(-value-offset, -value+offset)
 
 def write_ped(f, index, options, depart, edges):
     if options.color == None:
@@ -67,9 +76,10 @@ def write_ped(f, index, options, depart, edges):
 
     f.write('    <vType id="%s%s" vClass="pedestrian" width="%s" length="%s" minGap="%s" maxSpeed="%s" guiShape="pedestrian"%s/>\n' % (
         options.name, index,
-        options.width, options.length,
-        random.uniform(0.1, 0.5),
-        random.uniform(0.7, 1.5), color))
+        randomOrFixed(options.width),
+        randomOrFixed(options.length),
+        randomOrFixed(options.minGap),
+        randomOrFixed(options.maxSpeed, 0.4), color))
     f.write('    <person id="%s%s" type="%s%s" depart="%s">\n' %
             (options.name, index, options.name, index, depart))
     f.write('        <walk edges="%s" departPos="%s" arrivalPos="%s"/>\n' %
@@ -80,7 +90,8 @@ def write_ped(f, index, options, depart, edges):
 def main():
     options = get_options()
     with open(options.output, 'w') as f:
-        f.write('<routes>\n')
+        f.write('<!-- generated on %s by "%s" -->\n' % (datetime.datetime.now(), os.path.basename(" ".join(sys.argv))))
+        f.write('<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n')
         index = options.index
         for depart in range(options.begin, options.end):
             if random.random() < options.prob:

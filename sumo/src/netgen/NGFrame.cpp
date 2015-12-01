@@ -219,6 +219,7 @@ NGFrame::checkOptions() {
                 type != toString(NODETYPE_PRIORITY) &&
                 type != toString(NODETYPE_PRIORITY_STOP) &&
                 type != toString(NODETYPE_ALLWAY_STOP) &&
+                type != toString(NODETYPE_ZIPPER) &&
                 type != toString(NODETYPE_NOJUNCTION) &&
                 type != toString(NODETYPE_RAIL_SIGNAL) &&
                 type != toString(NODETYPE_RIGHT_BEFORE_LEFT)) {
@@ -228,6 +229,7 @@ NGFrame::checkOptions() {
                         toString(NODETYPE_PRIORITY) + ", " +
                         toString(NODETYPE_PRIORITY_STOP) + ", " +
                         toString(NODETYPE_ALLWAY_STOP) + ", " +
+                        toString(NODETYPE_ZIPPER) + ", " +
                         toString(NODETYPE_NOJUNCTION) + ", " +
                         toString(NODETYPE_RAIL_SIGNAL) + ", " +
                         toString(NODETYPE_RIGHT_BEFORE_LEFT));

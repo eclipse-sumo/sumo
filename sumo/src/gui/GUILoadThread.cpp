@@ -126,6 +126,7 @@ GUILoadThread::run() {
                 myFile = oc.getString("configuration-file");
             } else if (oc.isSet("net-file")) {
                 myFile = oc.getString("net-file");
+                myLoadNet = true;
             }
         }
         myTitle = myFile;

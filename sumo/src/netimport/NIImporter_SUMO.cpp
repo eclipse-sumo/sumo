@@ -85,7 +85,8 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myLocation(0),
       myHaveSeenInternalEdge(false),
       myAmLefthand(false),
-      myCornerDetail(0)
+      myCornerDetail(0),
+      myLinkDetail(-1)
 {}
 
 
@@ -251,6 +252,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (oc.isDefault("junctions.corner-detail")) {
         oc.set("junctions.corner-detail", toString(myCornerDetail));
     }
+    if (oc.isDefault("junctions.internal-link-detail") && myLinkDetail > 0) {
+        oc.set("junctions.internal-link-detail", toString(myLinkDetail));
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();
@@ -316,6 +320,7 @@ NIImporter_SUMO::myStartElement(int element,
             bool ok;
             myAmLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, 0, ok, false);
             myCornerDetail = attrs.getOpt<int>(SUMO_ATTR_CORNERDETAIL, 0, ok, 0);
+            myLinkDetail = attrs.getOpt<int>(SUMO_ATTR_LINKDETAIL, 0, ok, -1);
             break;
         }
         case SUMO_TAG_EDGE:

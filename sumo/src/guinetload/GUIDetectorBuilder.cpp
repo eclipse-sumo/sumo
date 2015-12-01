@@ -64,8 +64,12 @@ GUIDetectorBuilder::~GUIDetectorBuilder() {}
 
 MSDetectorFileOutput*
 GUIDetectorBuilder::createInductLoop(const std::string& id,
-                                     MSLane* lane, SUMOReal pos, bool splitByType) {
-    return new GUIInductLoop(id, lane, pos, splitByType);
+                                     MSLane* lane, SUMOReal pos, bool splitByType, bool show) {
+    if (show) {
+        return new GUIInductLoop(id, lane, pos, splitByType);
+    } else {
+        return new MSInductLoop(id, lane, pos, splitByType);
+    }
 }
 
 

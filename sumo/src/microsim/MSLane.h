@@ -592,7 +592,7 @@ public:
     }
 
 
-    void addApproachingLane(MSLane* lane);
+    void addApproachingLane(MSLane* lane, bool warnMultiCon);
     bool isApproachedFrom(MSEdge* const edge);
     bool isApproachedFrom(MSEdge* const edge, MSLane* const lane);
 

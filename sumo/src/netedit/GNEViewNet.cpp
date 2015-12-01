@@ -81,6 +81,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_EDGE_ENDPOINT, GNEViewNet::onCmdSetEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET_EDGE_ENDPOINT, GNEViewNet::onCmdResetEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_STRAIGHTEN, GNEViewNet::onCmdStraightenEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SIMPLIFY_SHAPE, GNEViewNet::onCmdSimplifyShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_DELETE_GEOMETRY, GNEViewNet::onCmdDeleteGeometry),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_DUPLICATE_LANE, GNEViewNet::onCmdDuplicateLane),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NODE_SHAPE, GNEViewNet::onCmdNodeShape),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NODE_REPLACE, GNEViewNet::onCmdNodeReplace),
@@ -661,6 +663,8 @@ GNEViewNet::abortOperation(bool clearSelection) {
         myConnector->onCmdCancel(0, 0, 0);
     } else if (myEditMode == GNE_MODE_TLS) {
         myTLSEditor->onCmdCancel(0, 0, 0);
+    } else if (myEditMode == GNE_MODE_MOVE) {
+        removeCurrentPoly();
     }
     myUndoList->p_abort();
 }
@@ -685,6 +689,12 @@ GNEViewNet::hotkeyEnter() {
         myConnector->onCmdOK(0, 0, 0);
     } else if (myEditMode == GNE_MODE_TLS) {
         myTLSEditor->onCmdOK(0, 0, 0);
+    } else if (myEditMode == GNE_MODE_MOVE && myCurrentPoly != 0) {
+        if (myCurrentPoly->getEditedJunction() != 0) {
+            myCurrentPoly->getEditedJunction()->setAttribute(SUMO_ATTR_SHAPE, toString(myCurrentPoly->getShape()), myUndoList);
+            removeCurrentPoly();
+            update();
+        }
     }
 }
 
@@ -906,6 +916,26 @@ GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
 
 
 long
+GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
+    if (myCurrentPoly != 0) {
+        myCurrentPoly->simplifyShape();
+        update();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdDeleteGeometry(FXObject*, FXSelector, void*) {
+    if (myCurrentPoly != 0) {
+        myCurrentPoly->deleteGeometryNear(myPopupSpot);
+        update();
+    }
+    return 1;
+}
+
+
+long
 GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
     GNELane* lane = getLaneAtCurserPosition(myPopupSpot);
     if (lane != 0) {
@@ -942,7 +972,7 @@ GNEViewNet::onCmdNodeShape(FXObject*, FXSelector, void*) {
                 }
                 PositionVector shape = junction->getNBNode()->getShape();
                 shape.closePolygon();
-                myCurrentPoly = new GNEPoly(myNet, "node_shape:" + junction->getMicrosimID(), "node shape",
+                myCurrentPoly = new GNEPoly(myNet, junction, "node_shape:" + junction->getMicrosimID(), "node shape",
                         shape, false, RGBColor::GREEN, GLO_POLYGON);
                 myCurrentPoly->setLineWidth(0.3);
                 myNet->getVisualisationSpeedUp().addAdditionalGLObject(myCurrentPoly);
@@ -951,12 +981,21 @@ GNEViewNet::onCmdNodeShape(FXObject*, FXSelector, void*) {
             }
         } else {
             junction->setAttribute(SUMO_ATTR_SHAPE, toString(myCurrentPoly->getShape()), myUndoList);
-            myNet->getVisualisationSpeedUp().removeAdditionalGLObject(myCurrentPoly);
-            delete myCurrentPoly;
-            myCurrentPoly = 0;
+            removeCurrentPoly();
+            update();
         }
     }
     return 1;
+}
+
+
+void 
+GNEViewNet::removeCurrentPoly() {
+    if (myCurrentPoly != 0) {
+        myNet->getVisualisationSpeedUp().removeAdditionalGLObject(myCurrentPoly);
+        delete myCurrentPoly;
+        myCurrentPoly = 0;
+    }
 }
 
 

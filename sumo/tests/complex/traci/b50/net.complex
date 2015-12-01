@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 26 08:45:26 2015 by SUMO netconvert Version dev-SVN-r18150I
+<!-- generated on Sat Nov 28 07:20:12 2015 by SUMO netconvert Version dev-SVN-r19457
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -17,7 +17,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,990.00,700.00" origBoundary="0.00,0.00,990.00,700.00" projParameter="!"/>
 
@@ -43,7 +43,7 @@
     </edge>
     <edge id=":f5_0" function="internal">
         <lane id=":f5_0_0" index="0" speed="13.90" length="7.90" shape="9.85,408.25 9.15,408.35 8.65,408.65 8.35,409.15 8.25,409.85"/>
-        <lane id=":f5_0_1" index="1" speed="13.90" length="7.90" shape="9.85,404.95 7.71,405.26 6.17,406.17 5.26,407.71 4.95,409.85"/>
+        <lane id=":f5_0_1" index="1" speed="13.90" length="7.90" shape="9.85,404.95 7.71,405.26 6.18,406.17 5.26,407.71 4.95,409.85"/>
         <lane id=":f5_0_2" index="2" speed="13.90" length="7.90" shape="9.85,401.65 6.26,402.16 3.70,403.70 2.16,406.26 1.65,409.85"/>
     </edge>
     <edge id=":f6_0" function="internal">
@@ -178,7 +178,7 @@
         <lane id="o_0" index="0" speed="13.90" length="304.14" shape="391.50,698.35 695.64,698.35"/>
     </edge>
 
-    <junction id="f0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-9.85"/>
+    <junction id="f0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85"/>
     <junction id="f1" type="priority" x="300.00" y="0.00" incLanes="i1_0 i1_1 i1_2" intLanes=":f1_0_0 :f1_0_1 :f1_0_2" shape="300.02,-0.05 307.31,-6.61 300.02,-9.85 300.02,-0.05">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>

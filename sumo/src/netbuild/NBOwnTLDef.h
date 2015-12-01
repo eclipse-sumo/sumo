@@ -221,6 +221,8 @@ protected:
     /// @brief compute whether the given connection is crossed by pedestrians
     static bool hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<NBNode::Crossing>& crossings);
 
+    /// @brief get edges that have connections
+    static EdgeVector getConnectedEdges(const EdgeVector& incoming); 
 
     /** @class edge_by_incoming_priority_sorter
      * @brief Sorts edges by their priority within the node they end at

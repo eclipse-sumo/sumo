@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 24 14:55:15 2015 by SUMO netgenerate Version dev-SVN-r17955I
+<!-- generated on Fri Nov 27 14:41:25 2015 by SUMO netgenerate Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="97.09,99.27" convBoundary="0.00,0.00,197.09,198.54" origBoundary="-97.09,-99.27,100.00,99.27" projParameter="!"/>
 
@@ -228,10 +228,10 @@
         <lane id=":8/1_0_0" index="0" speed="13.90" length="2.35" shape="-1.65,76.14 -1.09,73.86"/>
     </edge>
     <edge id=":8/1_1" function="internal">
-        <lane id=":8/1_1_0" index="0" speed="13.90" length="2.41" shape="-1.65,76.14 -0.82,74.90 0.00,74.49"/>
+        <lane id=":8/1_1_0" index="0" speed="13.90" length="2.41" shape="-1.65,76.14 -0.83,74.90 -0.00,74.49"/>
     </edge>
     <edge id=":8/1_4" function="internal">
-        <lane id=":8/1_4_0" index="0" speed="13.90" length="2.41" shape="0.00,74.49 0.83,74.90 1.65,76.14"/>
+        <lane id=":8/1_4_0" index="0" speed="13.90" length="2.41" shape="-0.00,74.49 0.82,74.90 1.65,76.14"/>
     </edge>
     <edge id=":8/1_2" function="internal">
         <lane id=":8/1_2_0" index="0" speed="13.90" length="0.77" shape="1.83,75.40 1.65,76.14"/>
@@ -441,7 +441,7 @@
     <junction id=":6/1_5_0" type="internal" x="22.87" y="166.01" incLanes=":6/1_3_0 5/1to6/1_0" intLanes=":6/1_0_0"/>
     <junction id=":7/1_4_0" type="internal" x="-0.39" y="122.45" incLanes=":7/1_1_0 8/1to7/1_0" intLanes=":7/1_2_0"/>
     <junction id=":7/1_5_0" type="internal" x="0.36" y="123.87" incLanes=":7/1_3_0 6/1to7/1_0" intLanes=":7/1_0_0"/>
-    <junction id=":8/1_4_0" type="internal" x="0.00" y="74.49" incLanes=":8/1_1_0 9/1to8/1_0" intLanes=":8/1_2_0"/>
+    <junction id=":8/1_4_0" type="internal" x="-0.00" y="74.49" incLanes=":8/1_1_0 9/1to8/1_0" intLanes=":8/1_2_0"/>
     <junction id=":8/1_5_0" type="internal" x="0.01" y="76.10" incLanes=":8/1_3_0 7/1to8/1_0" intLanes=":8/1_0_0"/>
     <junction id=":9/1_4_0" type="internal" x="21.90" y="33.64" incLanes=":9/1_1_0 8/1to9/1_0" intLanes=":9/1_2_0"/>
     <junction id=":9/1_5_0" type="internal" x="22.64" y="32.21" incLanes=":9/1_3_0 10/1to9/1_0" intLanes=":9/1_0_0"/>

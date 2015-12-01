@@ -1114,6 +1114,7 @@ NBNodeCont::printBuiltNodesStatistics() const {
     int numPriorityJunctions = 0;
     int numRightBeforeLeftJunctions = 0;
     int numAllWayStopJunctions = 0;
+    int numZipperJunctions = 0;
     int numRailSignals = 0;
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         switch ((*i).second->getType()) {
@@ -1134,6 +1135,9 @@ NBNodeCont::printBuiltNodesStatistics() const {
                 break;
             case NODETYPE_ALLWAY_STOP:
                 ++numAllWayStopJunctions;
+                break;
+            case NODETYPE_ZIPPER:
+                ++numZipperJunctions;
                 break;
             case NODETYPE_DISTRICT:
                 ++numRightBeforeLeftJunctions;
@@ -1156,6 +1160,9 @@ NBNodeCont::printBuiltNodesStatistics() const {
     WRITE_MESSAGE("  Right-before-left junctions : " + toString(numRightBeforeLeftJunctions));
     if (numAllWayStopJunctions > 0) {
         WRITE_MESSAGE("  All-way stop junctions      : " + toString(numAllWayStopJunctions));
+    }
+    if (numZipperJunctions > 0) {
+        WRITE_MESSAGE("  Zipper-merge junctions      : " + toString(numZipperJunctions));
     }
     if (numRailSignals > 0) {
         WRITE_MESSAGE("  Rail signal junctions      : " + toString(numRailSignals));

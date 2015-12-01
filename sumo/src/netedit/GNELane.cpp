@@ -198,6 +198,8 @@ GNELane::drawLane2LaneConnections() const {
                 break;
             case LINKSTATE_ALLWAY_STOP:
                 glColor3d(.7, .7, 1);
+            case LINKSTATE_ZIPPER:
+                glColor3d(.75, .5, 0.25);
                 break;
             default:
                 throw ProcessError("Unexpected LinkState '" + toString(state) + "'");
@@ -339,7 +341,8 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
-    if (parent.getVisualisationSettings()->editMode != GNE_MODE_CONNECT) {
+    const int editMode = parent.getVisualisationSettings()->editMode;
+    if (editMode != GNE_MODE_CONNECT && editMode != GNE_MODE_TLS && editMode != GNE_MODE_CREATE_EDGE) {
         new FXMenuCommand(ret, "Split edge here", 0, &parent, MID_GNE_SPLIT_EDGE);
         new FXMenuCommand(ret, "Split edges in both direction here", 0, &parent, MID_GNE_SPLIT_EDGE_BIDI);
         new FXMenuCommand(ret, "Reverse edge", 0, &parent, MID_GNE_REVERSE_EDGE);
@@ -356,6 +359,9 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         } else {
             new FXMenuCommand(ret, "Duplicate lane", 0, &parent, MID_GNE_DUPLICATE_LANE);
         }
+    } else {
+        FXMenuCommand* mc = new FXMenuCommand(ret, "Additional options available in 'Inspect Mode'", 0, 0, 0);
+        mc->handle(&parent, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), 0);
     }
     // buildShowParamsPopupEntry(ret, false);
     const SUMOReal pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());

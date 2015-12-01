@@ -133,6 +133,15 @@ protected:
     /// Whether the detectors shall be shown in the GUI
     bool myShowDetectors;
 
+    /// The output file for generated detectors
+    std::string myFile;
+
+    /// The frequency for aggregating detector output
+    SUMOTime myFreq;
+
+    /// Whether detector output separates by vType
+    bool mySplitByType;
+
 };
 
 

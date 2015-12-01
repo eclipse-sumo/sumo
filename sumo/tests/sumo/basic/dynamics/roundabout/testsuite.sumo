@@ -1,0 +1,2 @@
+# vehicles that have not yet committed to entering the roundabout should not prevent other vehicles from entering the roundabout. See #1847
+no_requests_from_outside

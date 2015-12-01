@@ -427,7 +427,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "slope",          SUMO_ATTR_SLOPE },
     { "version",        SUMO_ATTR_VERSION },
     { "junctionCornerDetail", SUMO_ATTR_CORNERDETAIL },
-    { "lefthand",        SUMO_ATTR_LEFTHAND },
+    { "junctionLinkDetail", SUMO_ATTR_LINKDETAIL },
+    { "lefthand",       SUMO_ATTR_LEFTHAND },
 
     { "actorConfig",    SUMO_ATTR_ACTORCONFIG },
     { "vehicle",        SUMO_ATTR_VEHICLE },
@@ -491,6 +492,7 @@ StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[]
     {"priority_stop",       NODETYPE_PRIORITY_STOP},
     {"right_before_left",   NODETYPE_RIGHT_BEFORE_LEFT},
     {"allway_stop",         NODETYPE_ALLWAY_STOP},
+    {"zipper",              NODETYPE_ZIPPER},
     {"district",            NODETYPE_DISTRICT},
     {"unregulated",         NODETYPE_NOJUNCTION},
     {"internal",            NODETYPE_INTERNAL},
@@ -533,6 +535,7 @@ StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
     { "=", LINKSTATE_EQUAL },
     { "s", LINKSTATE_STOP },
     { "w", LINKSTATE_ALLWAY_STOP },
+    { "Z", LINKSTATE_ZIPPER },
     { "-", LINKSTATE_DEADEND }
 };
 

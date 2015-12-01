@@ -101,14 +101,17 @@ public:
                                       const bool _willPass,
                                       const SUMOTime _arrivalTimeBraking,
                                       const SUMOReal _arrivalSpeedBraking,
-                                      const SUMOTime _waitingTime
+                                      const SUMOTime _waitingTime,
+                                      const SUMOReal _dist
                                      ) :
             arrivalTime(_arrivalTime), leavingTime(_leavingTime),
             arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed),
             willPass(_willPass),
             arrivalTimeBraking(_arrivalTimeBraking),
             arrivalSpeedBraking(_arrivalSpeedBraking),
-            waitingTime(_waitingTime) {}
+            waitingTime(_waitingTime),
+            dist(_dist)
+        {}
 
         /// @brief The time the vehicle's front arrives at the link
         const SUMOTime arrivalTime;
@@ -126,6 +129,8 @@ public:
         const SUMOReal arrivalSpeedBraking;
         /// @brief The waiting duration at the current link
         const SUMOTime waitingTime;
+        /// @brief The distance up to the current link
+        const SUMOReal dist;
 
     private:
         /// invalidated assignment operator
@@ -180,7 +185,7 @@ public:
     void setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime,
                         const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed, const bool setRequest,
                         const SUMOTime arrivalTimeBraking, const SUMOReal arrivalSpeedBraking,
-                        const SUMOTime waitingTime);
+                        const SUMOTime waitingTime, SUMOReal dist);
 
     /// @brief removes the vehicle from myApproachingVehicles
     void removeApproaching(const SUMOVehicle* veh);
@@ -359,9 +364,16 @@ public:
     LinkLeaders getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson*>* collectBlockers = 0) const;
 #endif
 
+    /// @brief return the speed at which ego vehicle must approach the zipper link
+    SUMOReal getZipperSpeed(const MSVehicle* ego, const SUMOReal dist, SUMOReal vSafe, 
+            SUMOTime arrivalTime,
+            std::vector<const SUMOVehicle*>* collectFoes) const;
+
     /// @brief return the via lane if it exists and the lane otherwise
     MSLane* getViaLaneOrLane() const;
 
+    /// @brief return myInternalLaneBefore (always 0 when compiled without internal lanes)
+    const MSLane* getInternalLaneBefore() const;
 
     /// @brief return the expected time at which the given vehicle will clear the link
     SUMOTime getLeaveTime(const SUMOTime arrivalTime, const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed, const SUMOReal vehicleLength) const;
@@ -369,10 +381,11 @@ public:
     /// @brief write information about all approaching vehicles to the given output device
     void writeApproaching(OutputDevice& od, const std::string fromLaneID) const;
 
-    /// @brief return the junction to which this link belongs
-    const MSJunction* getJunction() const {
-        return myJunction;
-    }
+    /// @brief erase vehicle from myLinkLeaders of this links junction
+    void passedJunction(const MSVehicle* vehicle);
+
+    //// @brief @return whether the foe vehicle is a leader for ego
+    bool isLeader(const MSVehicle* ego, const MSVehicle* foe);
 
 private:
     /// @brief return whether the given vehicles may NOT merge safely
@@ -383,6 +396,9 @@ private:
 
     /// @brief returns whether the given lane may still be occupied by a vehicle currently on it
     static bool maybeOccupied(MSLane* lane);
+    
+    /// @brief whether fllower could stay behind leader (possibly by braking)
+    static bool couldBrakeForLeader(SUMOReal followDist, SUMOReal leaderDist, const MSVehicle* follow, const MSVehicle* leader); 
 
 private:
     /// @brief The lane (but the internal one) approached by this link
@@ -429,11 +445,13 @@ private:
 #endif
 
     /// @brief the junction to which this link belongs
-    const MSJunction* myJunction;
+    MSJunction* myJunction;
 
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;
-    static SUMOTime myLookaheadTime;
+
+    static const SUMOTime myLookaheadTime;
+    static const SUMOTime myLookaheadTimeZipper;
 
 
 private:

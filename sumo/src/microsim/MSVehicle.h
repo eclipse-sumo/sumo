@@ -649,7 +649,7 @@ public:
      *          or a near infinite real value if the destination position is not contained
      *          within the vehicles route or the vehicle is not active
      */
-    SUMOReal getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge);
+    SUMOReal getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge) const;
 
 
     /** @brief Processes stops, returns the velocity needed to reach the stop
@@ -1037,6 +1037,12 @@ public:
 
         void postProcessVTD(MSVehicle* v);
 
+        /// @brief return the speed that is implicit in the new VTD position
+        SUMOReal implicitSpeedVTD(const MSVehicle* veh, SUMOReal oldSpeed);
+
+        /// @brief return the change in longitudinal position that is implicit in the new VTD position
+        SUMOReal implicitDeltaPosVTD(const MSVehicle* veh);
+
         inline bool isVTDControlled() const {
             return myAmVTDControlled;
         }
@@ -1316,11 +1322,6 @@ protected:
                        const SUMOReal seen, DriveProcessItem* const lastLink,
                        const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass,
                        SUMOReal distToCrossing = -1) const;
-
-#ifdef HAVE_INTERNAL_LANES
-    /// @brief ids of vehicles being followed across a link (for resolving priority)
-    mutable std::map<const MSJunction*, std::set<std::string> > myLinkLeaders;
-#endif
 
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage

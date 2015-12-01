@@ -30,6 +30,8 @@
 #include <config.h>
 #endif
 
+#include "MSVehicle.h"
+#include "MSEdge.h"
 #include "MSJunction.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -50,8 +52,12 @@ class MSLink;
 // member method definition
 // ===========================================================================
 MSJunction::MSJunction(const std::string& id, SumoXMLNodeType type, const Position& position,
-                       const PositionVector& shape)
-    : Named(id), myType(type), myPosition(position), myShape(shape) {}
+                       const PositionVector& shape) : 
+    Named(id), 
+    myType(type), 
+    myPosition(position), 
+    myShape(shape)
+{}
 
 
 MSJunction::~MSJunction() {}
@@ -67,5 +73,25 @@ void
 MSJunction::postloadInit() {}
 
 
+void 
+MSJunction::passedJunction(const MSVehicle* vehicle) {
+    myLinkLeaders.erase(vehicle);
+}
+
+
+bool 
+MSJunction::isLeader(const MSVehicle* ego, const MSVehicle* foe) {
+    if (foe->getLane()->getEdge().getToJunction() != this) {
+        // foe is already past the junction so is definitely a leader
+        return true;
+    }
+    if (myLinkLeaders.find(ego) == myLinkLeaders.end() || myLinkLeaders[ego].count(foe) == 0) {
+        // we are not yet the leader for foe, thus foe will be our leader
+        myLinkLeaders[foe].insert(ego);
+        return true;
+    } else {
+        return false;
+    }
+}
 /****************************************************************************/
 

@@ -108,7 +108,7 @@ public:
     /** @brief compute the location attributes which will be used for output
      * based on the loaded location data, the given options and the transformations applied during processing
      */
-    static void computeFinal();
+    static void computeFinal(bool lefthand = false);
 
 
     /** @brief the coordinate transformation for writing the location element

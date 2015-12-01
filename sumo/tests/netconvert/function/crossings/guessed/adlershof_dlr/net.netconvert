@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 19 14:18:13 2015 by SUMO netconvert Version dev-SVN-r19380ID
+<!-- generated on Tue Dec  1 07:55:48 2015 by SUMO netconvert Version dev-SVN-r19465I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -28,7 +28,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-395408.93,-5809112.45" convBoundary="0.00,0.00,5580.65,3531.77" origBoundary="13.460807,52.423029,13.543874,52.453954" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -10193,16 +10193,16 @@
     </edge>
 
     <tlLogic id="1906766906" type="static" programID="0" offset="0">
-        <phase duration="41" state="GGr"/>
+        <phase duration="76" state="GGr"/>
         <phase duration="4" state="yyr"/>
-        <phase duration="36" state="rrG"/>
-        <phase duration="9" state="rrr"/>
+        <phase duration="5" state="rrG"/>
+        <phase duration="5" state="rrr"/>
     </tlLogic>
     <tlLogic id="57343510" type="static" programID="0" offset="0">
-        <phase duration="36" state="rrG"/>
-        <phase duration="9" state="rrr"/>
-        <phase duration="41" state="GGr"/>
+        <phase duration="76" state="GGr"/>
         <phase duration="4" state="yyr"/>
+        <phase duration="5" state="rrG"/>
+        <phase duration="5" state="rrr"/>
     </tlLogic>
 
     <junction id="1292264836" type="right_before_left" x="4486.50" y="500.85" incLanes="-149663200_0 -114024901_0 114024900_0" intLanes=":1292264836_0_0 :1292264836_1_0 :1292264836_2_0 :1292264836_3_0 :1292264836_4_0 :1292264836_5_0 :1292264836_6_0 :1292264836_7_0 :1292264836_8_0" shape="4491.49,503.61 4490.83,497.14 4489.16,495.77 4482.70,496.56 4481.40,498.24 4482.24,504.68">

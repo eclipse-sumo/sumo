@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Oct  3 01:50:13 2015 by SUMO netconvert Version dev-SVN-r19005
+<!-- generated on Fri Nov 27 14:41:42 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,7 +26,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="121.51,100.00" convBoundary="0.00,0.00,254.67,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -237,9 +237,9 @@
     <junction id="E" type="dead_end" x="221.51" y="100.00" incLanes="CE_0 CE_1 CE_2 CE_3" intLanes="" shape="221.51,100.05 221.51,111.25 221.48,77.00 221.49,88.20"/>
     <junction id="E2" type="dead_end" x="254.67" y="93.40" incLanes="CE2_0" intLanes="" shape="254.67,93.45 254.67,96.65 254.67,90.15 254.67,93.35"/>
     <junction id="N" type="dead_end" x="121.51" y="200.00" incLanes="CN_0 CN_1 CN_2 CN_3" intLanes="" shape="121.46,200.00 110.26,200.00 132.76,200.00 121.56,200.00"/>
-    <junction id="S" type="dead_end" x="121.51" y="0.00" incLanes="CS_0 CS_1 CS_2 CS_3" intLanes="" shape="121.56,-0.00 132.76,-0.00 110.26,0.00 121.46,0.00"/>
+    <junction id="S" type="dead_end" x="121.51" y="0.00" incLanes="CS_0 CS_1 CS_2 CS_3" intLanes="" shape="121.56,0.00 132.76,0.00 110.26,0.00 121.46,0.00"/>
     <junction id="W" type="dead_end" x="21.51" y="100.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="21.51,88.59 21.51,77.39 21.51,111.25 21.51,100.05"/>
-    <junction id="W2" type="dead_end" x="0.00" y="93.68" incLanes="CW2_0" intLanes="" shape="-0.00,93.63 -0.00,90.43 -0.02,96.93 -0.00,93.73"/>
+    <junction id="W2" type="dead_end" x="0.00" y="93.68" incLanes="CW2_0" intLanes="" shape="0.00,93.63 0.00,90.43 -0.02,96.93 -0.00,93.73"/>
 
     <junction id=":C_16_0" type="internal" x="111.91" y="105.62" incLanes=":C_0_0" intLanes=":C_5_0 :C_11_0 :C_c0_0 :C_c3_0"/>
     <junction id=":C_17_0" type="internal" x="121.56" y="98.60" incLanes=":C_3_0 SC_2 SC_3" intLanes=":C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_9_0 :C_9_1 :C_13_0 :C_14_0 :C_15_0 :C_c0_0 :C_c1_0"/>

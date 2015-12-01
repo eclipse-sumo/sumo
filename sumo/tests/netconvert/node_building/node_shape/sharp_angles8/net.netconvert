@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 24 15:08:00 2015 by SUMO netconvert Version dev-SVN-r18134I
+<!-- generated on Fri Nov 27 14:41:28 2015 by SUMO netconvert Version dev-SVN-r19444I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -27,12 +27,12 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-392286.39,-5819087.97" convBoundary="0.00,0.00,377.57,942.34" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="1" from="C" to="2094266865" priority="15" type="railway.subway" spreadType="center" shape="331.86,232.40 332.12,264.46 329.85,287.63 319.92,308.73 300.78,331.27 271.27,359.35 228.43,396.60 193.37,437.90 165.55,493.73 131.20,588.77 127.30,605.58 113.40,665.52 97.80,712.60 80.04,758.64 59.56,801.52 44.65,827.15 32.65,846.47 19.17,863.96 10.55,872.23 0.00,883.56">
-        <lane id="1_0" index="0" allow="rail_urban" speed="27.78" length="750.50" shape="331.87,234.06 332.12,264.46 329.85,287.63 319.92,308.73 300.78,331.27 271.27,359.35 228.43,396.60 193.37,437.90 165.55,493.73 131.20,588.77 127.30,605.58 113.40,665.52 97.80,712.60 80.04,758.64 59.56,801.52 44.65,827.15 32.65,846.47 19.17,863.96 10.55,872.23 0.00,883.56"/>
+        <lane id="1_0" index="0" allow="rail_urban" speed="27.78" length="750.50" shape="331.87,234.06 332.12,264.46 329.85,287.63 319.92,308.73 300.78,331.27 271.27,359.35 228.43,396.60 193.37,437.90 165.55,493.73 131.20,588.77 127.30,605.58 113.40,665.52 97.80,712.60 80.04,758.64 59.56,801.52 44.65,827.15 32.65,846.47 19.17,863.96 10.55,872.23 -0.00,883.56"/>
     </edge>
     <edge id="2" from="2776873566" to="C" priority="15" type="railway.subway" spreadType="center" shape="119.83,942.34 143.49,911.26 164.40,880.50 179.70,847.23 190.62,814.79 198.58,778.64 208.14,743.01 220.20,710.96 240.57,682.77 273.55,654.66 332.37,611.49 354.49,591.49 371.54,562.07 377.57,531.98 374.90,491.96 367.87,446.59 339.00,284.01 331.86,232.40">
         <lane id="2_0" index="0" allow="rail_urban" speed="27.78" length="804.09" shape="119.83,942.34 143.49,911.26 164.40,880.50 179.70,847.23 190.62,814.79 198.58,778.64 208.14,743.01 220.20,710.96 240.57,682.77 273.55,654.66 332.37,611.49 354.49,591.49 371.54,562.07 377.57,531.98 374.90,491.96 367.87,446.59 339.00,284.01 332.09,234.06"/>

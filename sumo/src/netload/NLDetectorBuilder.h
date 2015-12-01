@@ -336,9 +336,10 @@ public:
      * @param[in] lane The lane the detector is placed at
      * @param[in] pos The position on the lane the detector is placed at
      * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
+     * @param[in] show Whether to show the detector in the gui if available
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
-            MSLane* lane, SUMOReal pos, bool splitByType);
+            MSLane* lane, SUMOReal pos, bool splitByType, bool show = true);
 
 
     /** @brief Creates an instance of an e1 detector using the given values
