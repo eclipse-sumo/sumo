@@ -222,7 +222,28 @@ protected:
     static bool hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<NBNode::Crossing>& crossings);
 
     /// @brief get edges that have connections
-    static EdgeVector getConnectedEdges(const EdgeVector& incoming); 
+    static EdgeVector getConnectedOuterEdges(const EdgeVector& incoming); 
+
+
+    /// @brief allow connections that follow on of the chosen edges
+    std::string allowFollowersOfChosen(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges); 
+    
+    /** @brief change 'G' to 'g' for conflicting connections
+     * @param[in] state
+     * @param[in] fromEdges
+     * @param[in] toEdges
+     * @param[in] isTurnaround
+     * @param[in] fromLanes
+     * @param[in] hadGreenMajor
+     * @param[out] haveForbiddenLeftMover
+     * @param[out] rightTurnConflicts
+     * @return The corrected state
+     */
+    std::string correctConflicting(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges, 
+            const std::vector<bool>& isTurnaround,
+            const std::vector<int>& fromLanes, 
+            const std::vector<bool>& hadGreenMajor, 
+            bool& haveForbiddenLeftMover, std::vector<bool>& rightTurnConflicts); 
 
     /** @class edge_by_incoming_priority_sorter
      * @brief Sorts edges by their priority within the node they end at

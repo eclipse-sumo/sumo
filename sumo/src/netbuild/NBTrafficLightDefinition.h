@@ -219,12 +219,14 @@ public:
      * @param[in] possProhibitorFrom The maybe prohibiting connection's begin
      * @param[in] possProhibitorTo The maybe prohibiting connection's end
      * @param[in] regardNonSignalisedLowerPriority Whether the right of way rules without traffic lights shall be regarded
+     * @param[in] sameNodeOnly Whether the check shall only be performed if both edges are incoming to the same node
      * @return Whether the second flow prohibits the first one
      * @see forbids
      */
     bool forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
                  const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
-                 bool regardNonSignalisedLowerPriority) const;
+                 bool regardNonSignalisedLowerPriority,
+                 bool sameNodeOnly = false) const;
 
 
     /** @brief Returns the information whether the given flows cross

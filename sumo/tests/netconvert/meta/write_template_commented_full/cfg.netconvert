@@ -165,6 +165,9 @@
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
 
+        <!-- Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used -->
+        <tls.uncontrolled-within value="false" type="BOOL"/>
+
         <!-- Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks -->
         <tls.guess-signals value="false" type="BOOL"/>
 

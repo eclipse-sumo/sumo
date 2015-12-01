@@ -268,7 +268,7 @@ NBLoadedSUMOTLDef::collectEdges() {
                 } else {
                     myEdgesWithin.push_back(edge);
                     (*j)->setIsInnerEdge();
-                    j = myIncomingEdges.erase(j);
+                    ++j; //j = myIncomingEdges.erase(j);
                     continue;
                 }
             }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:41 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Tue Dec  1 14:11:47 2015 by SUMO netconvert Version dev-SVN-r19465I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -24,20 +24,30 @@
 
 <tlLogics version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="joinedS_0" type="static" programID="0" offset="0">
-        <phase duration="36" state="gggGggGr"/>
-        <phase duration="4" state="gggyggyr"/>
-        <phase duration="6" state="GGGrGGrr"/>
-        <phase duration="4" state="yyyryyrr"/>
-        <phase duration="36" state="GGGGrrGG"/>
-        <phase duration="4" state="yyyyrryy"/>
+        <phase duration="36" state="GGGggGGGGrrGGGGggg"/>
+        <phase duration="4" state="yyyggyyyyrryyyyggg"/>
+        <phase duration="6" state="rrrGGGGGrrrGGrrGGG"/>
+        <phase duration="4" state="rrryyyyyrrryyrryyy"/>
+        <phase duration="36" state="rrrGGGGGGGGggrrGGG"/>
+        <phase duration="4" state="rrryyyyyyyyyyrryyy"/>
     </tlLogic>
 
     <connection from="27437972" to="27441189" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="0"/>
     <connection from="27437972" to="27441189" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="1"/>
     <connection from="27437972" to="27441189" fromLane="1" toLane="2" tl="joinedS_0" linkIndex="2"/>
-    <connection from="27441289.95" to="27445015#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="3"/>
-    <connection from="27441289.95" to="27445003" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="4"/>
-    <connection from="27441289.95" to="27445003" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="5"/>
-    <connection from="46039050" to="27441289.0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="6"/>
-    <connection from="46039050" to="27441168" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="7"/>
+    <connection from="27441168" to="27445015#0" fromLane="0" toLane="1" tl="joinedS_0" linkIndex="11"/>
+    <connection from="27441168" to="27445003" fromLane="0" toLane="1" tl="joinedS_0" linkIndex="12"/>
+    <connection from="27441189" to="27445000#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="5"/>
+    <connection from="27441189" to="6137245" fromLane="2" toLane="0" tl="joinedS_0" linkIndex="6"/>
+    <connection from="27441189" to="6137245" fromLane="3" toLane="1" tl="joinedS_0" linkIndex="7"/>
+    <connection from="27441289.95" to="27445015#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="8"/>
+    <connection from="27441289.95" to="27445003" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="9"/>
+    <connection from="27441289.95" to="27445003" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="10"/>
+    <connection from="27445003" to="27441189" fromLane="0" toLane="2" tl="joinedS_0" linkIndex="3"/>
+    <connection from="27445003" to="27441189" fromLane="1" toLane="3" tl="joinedS_0" linkIndex="4"/>
+    <connection from="46039050" to="27441289.0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="13"/>
+    <connection from="46039050" to="27441168" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="14"/>
+    <connection from="6137245" to="27441289.0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="15"/>
+    <connection from="6137245" to="27441289.0" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="16"/>
+    <connection from="6137245" to="27441168" fromLane="1" toLane="0" tl="joinedS_0" linkIndex="17"/>
 </tlLogics>
