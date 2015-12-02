@@ -46,10 +46,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 
-#ifdef HAVE_INTERNAL
-#include <mesosim/MELoop.h>
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -110,11 +106,6 @@ MSEdgeControl*
 NLEdgeControlBuilder::build() {
     for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
         (*i1)->closeBuilding();
-#ifdef HAVE_INTERNAL
-        if (MSGlobals::gUseMesoSim) {
-            MSGlobals::gMesoNet->buildSegmentsFor(**i1, OptionsCont::getOptions());
-        }
-#endif
     }
     // mark internal edges belonging to a roundabout (after all edges are build)
     if (MSGlobals::gUsingInternalLanes) {

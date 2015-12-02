@@ -118,6 +118,11 @@ MSEdge::initialize(const std::vector<MSLane*>* lanes) {
     if (myFunction == EDGEFUNCTION_DISTRICT) {
         myCombinedPermissions = SVCAll;
     }
+#ifdef HAVE_INTERNAL
+    if (MSGlobals::gUseMesoSim) {
+        MSGlobals::gMesoNet->buildSegmentsFor(*this, OptionsCont::getOptions());
+    }
+#endif
 }
 
 

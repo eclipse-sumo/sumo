@@ -36,6 +36,7 @@
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include <guisim/GUIE3Collector.h>
 #include <guisim/GUIInstantInductLoop.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/output/MSInductLoop.h>
 #include <utils/common/UtilExceptions.h>
@@ -66,9 +67,14 @@ MSDetectorFileOutput*
 GUIDetectorBuilder::createInductLoop(const std::string& id,
                                      MSLane* lane, SUMOReal pos, bool splitByType, bool show) {
     if (show) {
+#ifdef HAVE_INTERNAL
+        if (MSGlobals::gUseMesoSim) {
+            return new GUIMEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos);
+        }
+#endif
         return new GUIInductLoop(id, lane, pos, splitByType);
     } else {
-        return new MSInductLoop(id, lane, pos, splitByType);
+        return NLDetectorBuilder::createInductLoop(id, lane, pos, splitByType);
     }
 }
 
@@ -78,15 +84,6 @@ GUIDetectorBuilder::createInstantInductLoop(const std::string& id,
         MSLane* lane, SUMOReal pos, const std::string& od) {
     return new GUIInstantInductLoop(id, OutputDevice::getDevice(od), lane, pos);
 }
-
-
-#ifdef HAVE_INTERNAL
-MEInductLoop*
-GUIDetectorBuilder::createMEInductLoop(const std::string& id,
-                                       MESegment* s, SUMOReal pos) {
-    return new GUIMEInductLoop(id, s, pos);
-}
-#endif
 
 
 MSDetectorFileOutput*

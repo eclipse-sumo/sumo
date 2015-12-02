@@ -39,6 +39,7 @@
 #include <microsim/MSEventControl.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedTrafficLightLogic.h"
@@ -103,8 +104,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             // Build the induct loop and set it into the container
             std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
             if (myInductLoops.find(lane) == myInductLoops.end()) {
-                myInductLoops[lane] = dynamic_cast<MSInductLoop*>(nb.createInductLoop(id, lane, ilpos, mySplitByType));
-                assert(myInductLoops[lane] != 0);
+                myInductLoops[lane] = nb.createInductLoop(id, lane, ilpos, mySplitByType);
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, myInductLoops[lane], myFile, myFreq, myShowDetectors);
             }
         }
@@ -184,10 +184,11 @@ MSActuatedTrafficLightLogic::gapControl() {
                 if (myInductLoops.find(*j) == myInductLoops.end()) {
                     continue;
                 }
-                SUMOReal actualGap =
-                    myInductLoops.find(*j)->second->getTimestepsSinceLastDetection();
-                if (actualGap < myMaxGap) {
-                    result = MIN2(result, actualGap);
+                if (!MSGlobals::gUseMesoSim) {
+                    const SUMOReal actualGap = static_cast<MSInductLoop*>(myInductLoops.find(*j)->second)->getTimestepsSinceLastDetection();
+                    if (actualGap < myMaxGap) {
+                        result = MIN2(result, actualGap);
+                    }
                 }
             }
         }

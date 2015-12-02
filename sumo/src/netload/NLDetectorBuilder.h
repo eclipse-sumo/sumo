@@ -354,21 +354,6 @@ public:
     virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
             MSLane* lane, SUMOReal pos, const std::string& od);
 
-#ifdef HAVE_INTERNAL
-    /** @brief Creates an instance of a mesoscopic e1 detector using the given values
-     *
-     * Simply calls the MEInductLoop constructor
-     *
-     * @param[in] id The id the detector shall have
-     * @param[in] s The segment the detector is placed at
-     * @param[in] pos ?
-     * @todo Position is not used, herein!?
-     */
-    virtual MEInductLoop* createMEInductLoop(const std::string& id,
-            MESegment* s, SUMOReal pos);
-#endif
-
-
     /** @brief Creates an instance of an e2 detector using the given values
      *
      * Simply calls the MSE2Collector constructor
