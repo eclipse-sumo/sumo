@@ -67,7 +67,6 @@
 // ===========================================================================
 #define C_LENGTH 10.
 
-
 // ===========================================================================
 // static variables
 // ===========================================================================
@@ -797,7 +796,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         OpenDriveEdge& e = *(*i).second;
         for (std::vector<OpenDriveGeometry>::iterator j = e.geometries.begin(); j != e.geometries.end(); ++j) {
             OpenDriveGeometry& g = *j;
-            std::vector<Position> geom;
+            PositionVector geom;
             switch (g.type) {
                 case OPENDRIVE_GT_UNKNOWN:
                     break;
@@ -816,7 +815,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 default:
                     break;
             }
-            for (std::vector<Position>::iterator k = geom.begin(); k != geom.end(); ++k) {
+            for (PositionVector::iterator k = geom.begin(); k != geom.end(); ++k) {
                 e.geom.push_back_noDoublePos(*k);
             }
         }
@@ -881,20 +880,20 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
 }
 
 
-std::vector<Position>
+PositionVector
 NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
     UNUSED_PARAMETER(e);
-    std::vector<Position> ret;
+    PositionVector ret;
     ret.push_back(Position(g.x, g.y));
     ret.push_back(calculateStraightEndPoint(g.hdg, g.length, Position(g.x, g.y)));
     return ret;
 }
 
 
-std::vector<Position>
+PositionVector
 NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
     UNUSED_PARAMETER(e);
-    std::vector<Position> ret;
+    PositionVector ret;
     SUMOReal curveStart = g.params[0];
     SUMOReal curveEnd = g.params[1];
     Point2D<double> end;
@@ -913,10 +912,10 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
 }
 
 
-std::vector<Position>
+PositionVector
 NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
     UNUSED_PARAMETER(e);
-    std::vector<Position> ret;
+    PositionVector ret;
     SUMOReal dist = 0.0;
     SUMOReal centerX = g.x;
     SUMOReal centerY = g.y;
@@ -958,10 +957,10 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometr
 }
 
 
-std::vector<Position>
+PositionVector
 NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
     UNUSED_PARAMETER(e);
-    std::vector<Position> ret;
+    PositionVector ret;
     for (SUMOReal off = 0; off < g.length + 2.; off += 2.) {
         SUMOReal x = off;
         SUMOReal y = g.params[0] + g.params[1] * off + g.params[2] * pow(off, 2.) + g.params[3] * pow(off, 3.);

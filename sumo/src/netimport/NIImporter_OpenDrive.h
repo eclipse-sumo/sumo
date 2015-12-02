@@ -504,10 +504,10 @@ protected:
     static NBNode* getOrBuildNode(const std::string& id, const Position& pos, NBNodeCont& nc);
 
 
-    static std::vector<Position> geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g);
-    static std::vector<Position> geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g);
-    static std::vector<Position> geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g);
-    static std::vector<Position> geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g);
+    static PositionVector geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g);
+    static PositionVector geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g);
+    static PositionVector geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g);
+    static PositionVector geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g);
     static Position calculateStraightEndPoint(double hdg, double length, const Position& start);
     static void calculateCurveCenter(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_radius, SUMOReal ad_hdg);
     static void calcPointOnCurve(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY,
