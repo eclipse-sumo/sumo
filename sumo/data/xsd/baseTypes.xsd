@@ -203,7 +203,7 @@
         <xsd:attribute name="state" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="[ruyYgGoO]+"/>
+                    <xsd:pattern value="[ruyYgGoOs]+"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
