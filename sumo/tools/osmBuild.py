@@ -33,7 +33,7 @@ vclassRemove = {"passenger": ["--keep-edges.by-vclass", "passenger"],
                 "all": []}
 possibleVClassOptions = '|'.join(vclassRemove.keys())
 
-DEFAULT_NETCONVERT_OPTS = "--geometry.remove,--roundabouts.guess,--ramps.guess,-v,--junctions.join,--tls.guess-signals,--tls.discard-simple,--tls.join"
+DEFAULT_NETCONVERT_OPTS = "--geometry.remove,--roundabouts.guess,--ramps.guess,-v,--junctions.join,--tls.guess-signals,--tls.discard-simple,--tls.join,--output.original-names,--junctions.corner-detail,5,--output.street-names"
 
 
 optParser = optparse.OptionParser()

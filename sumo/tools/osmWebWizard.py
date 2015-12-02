@@ -132,8 +132,8 @@ class Builder(object):
         self.files[use] = self.prefix + name
 
     def build(self):
-        # output name for the osm file, will be used by osmBuild, can be after the
-        # process deleted
+        # output name for the osm file, will be used by osmBuild, can be
+        # deleted after the process
         self.filename("osm", "_bbox.osm.xml")
         # output name for the net file, will be used by osmBuild, randomTrips and
         # sumo-gui
@@ -156,8 +156,7 @@ class Builder(object):
             options += ["-m", typemaps["poly"]]
 
         typefiles = [typemaps["net"]]
-        netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS + \
-            ",--junctions.corner-detail,5,--output.street-names"
+        netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS
         if "pedestrian" in self.data["vehicles"]:
             # sidewalks are already included via typefile
             netconvertOptions += ",--crossings.guess"
@@ -348,7 +347,7 @@ class OSMImporterWebSocket(WebSocket):
                 self.report("Recovering")
         os.chdir(builder.origDir)
 
-parser = ArgumentParser(description="OSM Importer for SUMO - Websocket Server")
+parser = ArgumentParser(description="OSM Web Wizard for SUMO - Websocket Server")
 parser.add_argument("--remote", action="store_true",
                     help="In remote mode, SUMO GUI will not be automatically opened instead a zip file will be generated.")
 parser.add_argument("--testing", action="store_true",
