@@ -191,7 +191,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
 NBTrafficLightLogic*
 NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts) {
     myNeedsContRelation.clear();
-    myRightTurnConflicts.clear();
+    myRightOnRedConflicts.clear();
     const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
     const SUMOTime leftTurnTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.left-green.time"));
     // build complete lists first
@@ -307,7 +307,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
                 for (unsigned int i2 = 0; i2 < pos; ++i2) {
                     if (state[i2] == 'G' && !isTurnaround[i2] &&
                             (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
-                        myRightTurnConflicts.insert(std::make_pair(i1, i2));
+                        myRightOnRedConflicts.insert(std::make_pair(i1, i2));
                     }
                 }
             }
@@ -424,6 +424,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
         }
     }
 
+    myRightOnRedConflictsReady = true;
     // this computation only makes sense for single nodes
     myNeedsContRelationReady = (myControlledNodes.size() == 1);
     if (totalDuration > 0) {

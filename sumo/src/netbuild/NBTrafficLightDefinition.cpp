@@ -63,7 +63,9 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     myControlledNodes(junctions),
     mySubID(programID), myOffset(offset),
     myType(type),
-    myNeedsContRelationReady(false) {
+    myNeedsContRelationReady(false),
+    myRightOnRedConflictsReady(false)
+{
     std::vector<NBNode*>::iterator i = myControlledNodes.begin();
     while (i != myControlledNodes.end()) {
         for (std::vector<NBNode*>::iterator j = i + 1; j != myControlledNodes.end();) {
@@ -438,7 +440,17 @@ NBTrafficLightDefinition::initNeedsContRelation() const {
 
 bool 
 NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
-    return std::find(myRightTurnConflicts.begin(), myRightTurnConflicts.end(), std::make_pair(index, foeIndex)) != myRightTurnConflicts.end();
+    if (!myRightOnRedConflictsReady) {
+        NBOwnTLDef dummy("dummy", myControlledNodes, 0, TLTYPE_STATIC);
+        dummy.setParticipantsInformation();
+        dummy.computeLogicAndConts(0, true);
+        myRightOnRedConflicts = dummy.myRightOnRedConflicts;
+        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+            (*i)->removeTrafficLight(&dummy);
+        }
+        myRightOnRedConflictsReady = true;
+    }
+    return std::find(myRightOnRedConflicts.begin(), myRightOnRedConflicts.end(), std::make_pair(index, foeIndex)) != myRightOnRedConflicts.end();
 }
 
 /****************************************************************************/

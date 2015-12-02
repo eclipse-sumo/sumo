@@ -433,8 +433,9 @@ protected:
     mutable NeedsContRelation myNeedsContRelation;
     mutable bool myNeedsContRelationReady;
 
-    typedef std::set<std::pair<int, int> > RightTurnConflicts;
-    RightTurnConflicts myRightTurnConflicts;
+    typedef std::set<std::pair<int, int> > RightOnRedConflicts;
+    mutable RightOnRedConflicts myRightOnRedConflicts;
+    mutable bool myRightOnRedConflictsReady;
 
 };
 

@@ -18,3 +18,6 @@ change_from_node_of_edge_incomplete
 
 # lane specific settings needs to be preserved when applying a diff
 lane_specific_settings
+
+# change node type from traffic_light to traffic_light_right_on_red
+change_node_type_right_on_red
