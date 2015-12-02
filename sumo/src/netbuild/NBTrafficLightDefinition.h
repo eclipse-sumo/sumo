@@ -330,6 +330,9 @@ public:
      */
     bool needsCont(const NBEdge* fromE, const NBEdge* toE, const NBEdge* otherFromE, const NBEdge* otherToE) const;
 
+    /// @brief whether the given index must yield to the foeIndex while turing right on a red light
+    bool rightOnRedConflict(int index, int foeIndex) const;
+
     /* initialize myNeedsContRelation and set myNeedsContRelationReady to true
      * This information is a byproduct of NBOwnTLDef::myCompute. All other
      * subclasses instantiate a private instance of NBOwnTLDef to answer this query */
@@ -430,6 +433,8 @@ protected:
     mutable NeedsContRelation myNeedsContRelation;
     mutable bool myNeedsContRelationReady;
 
+    typedef std::set<std::pair<int, int> > RightTurnConflicts;
+    RightTurnConflicts myRightTurnConflicts;
 
 };
 

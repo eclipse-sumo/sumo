@@ -92,7 +92,7 @@ NGNode::buildNBNode(NBNetBuilder& nb) const {
         node = new NBNode(myID, pos, type);
 
         // check whether it is a traffic light junction
-        if (type == NODETYPE_TRAFFIC_LIGHT || type == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
+        if (NBNode::isTrafficLight(type)) {
             TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(
                                         OptionsCont::getOptions().getString("tls.default-type"));
             NBTrafficLightDefinition* tlDef = new NBOwnTLDef(myID, node, 0, type);

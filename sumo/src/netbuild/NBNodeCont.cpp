@@ -1128,6 +1128,7 @@ NBNodeCont::printBuiltNodesStatistics() const {
             case NODETYPE_PRIORITY:
             case NODETYPE_PRIORITY_STOP:
             case NODETYPE_TRAFFIC_LIGHT:
+            case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
                 ++numPriorityJunctions;
                 break;
             case NODETYPE_RIGHT_BEFORE_LEFT:

@@ -435,5 +435,11 @@ NBTrafficLightDefinition::initNeedsContRelation() const {
     myNeedsContRelationReady = true;
 }
 
+
+bool 
+NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
+    return std::find(myRightTurnConflicts.begin(), myRightTurnConflicts.end(), std::make_pair(index, foeIndex)) != myRightTurnConflicts.end();
+}
+
 /****************************************************************************/
 

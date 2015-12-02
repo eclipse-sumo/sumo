@@ -216,6 +216,7 @@ NGFrame::checkOptions() {
         std::string type = oc.getString("default-junction-type");
         if (type != toString(NODETYPE_TRAFFIC_LIGHT) &&
                 type != toString(NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) &&
+                type != toString(NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) &&
                 type != toString(NODETYPE_PRIORITY) &&
                 type != toString(NODETYPE_PRIORITY_STOP) &&
                 type != toString(NODETYPE_ALLWAY_STOP) &&
@@ -226,6 +227,7 @@ NGFrame::checkOptions() {
             WRITE_ERROR("Only the following junction types are known: " +
                         toString(NODETYPE_TRAFFIC_LIGHT) + ", " +
                         toString(NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) + ", " +
+                        toString(NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) + ", " +
                         toString(NODETYPE_PRIORITY) + ", " +
                         toString(NODETYPE_PRIORITY_STOP) + ", " +
                         toString(NODETYPE_ALLWAY_STOP) + ", " +

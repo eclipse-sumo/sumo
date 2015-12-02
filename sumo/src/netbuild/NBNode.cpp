@@ -266,7 +266,7 @@ NBNode::reinit(const Position& position, SumoXMLNodeType type,
     myPosition = position;
     // patch type
     myType = type;
-    if (myType != NODETYPE_TRAFFIC_LIGHT && myType != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
+    if (!isTrafficLight(myType)) {
         removeTrafficLights();
     }
     if (updateEdgeGeometries) {
@@ -311,7 +311,8 @@ NBNode::mirrorX() {
 void
 NBNode::addTrafficLight(NBTrafficLightDefinition* tlDef) {
     myTrafficLights.insert(tlDef);
-    if (myType != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION && myType != NODETYPE_RAIL_SIGNAL) {
+    // rail signals receive a temporary traffic light in order to set connection tl-linkIndex
+    if (!isTrafficLight(myType) && myType != NODETYPE_RAIL_SIGNAL) {
         myType = NODETYPE_TRAFFIC_LIGHT;
     }
 }
@@ -2508,5 +2509,25 @@ NBNode::avoidOverlap() {
     // @todo: edges in the same direction with sharp angles starting/ending at the same position
 }
 
+
+bool 
+NBNode::isTrafficLight(SumoXMLNodeType type) {
+    return type == NODETYPE_TRAFFIC_LIGHT 
+        || type == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION 
+        || type == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED;
+}
+
+
+bool 
+NBNode::rightOnRedConflict(int index, int foeIndex) const {
+    if (myType == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) {
+        for (std::set<NBTrafficLightDefinition*>::const_iterator i = myTrafficLights.begin(); i != myTrafficLights.end(); ++i) {
+            if ((*i)->rightOnRedConflict(index, foeIndex)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 /****************************************************************************/
 

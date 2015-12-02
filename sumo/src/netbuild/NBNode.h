@@ -659,6 +659,8 @@ public:
      */
     void avoidOverlap();
 
+    /// @brief whether the given index must yield to the foeIndex while turing right on a red light
+    bool rightOnRedConflict(int index, int foeIndex) const;
 
     /**
      * @class nodes_by_id_sorter
@@ -697,6 +699,10 @@ public:
 
     /// @brief returns the node id for internal lanes, crossings and walkingareas
     static std::string getNodeIDFromInternalLane(const std::string id);
+
+
+    /// @brief return whether the given type is a traffic light
+    static bool isTrafficLight(SumoXMLNodeType type);
 
 private:
     bool isSimpleContinuation() const;

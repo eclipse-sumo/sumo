@@ -91,6 +91,7 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         switch (i->second->getType()) {
             case NODETYPE_TRAFFIC_LIGHT:
             case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
+            case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
                 device << "\" type=\"trafficLight";
                 break;
             case NODETYPE_PRIORITY:

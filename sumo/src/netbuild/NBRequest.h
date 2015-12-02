@@ -178,15 +178,16 @@ private:
      * In the case "mayDefinitelyPass" is true, the link will not be disturbed by
      *  any other (special case for on-ramps).
      *
-     * @param[in] od The stream to write the information to
+     * @param[in] tlIndex The tl index of the connection for which the responses shall be written
      * @param[in] from The link's starting edge
      * @param[in] to The link's destination edge
      * @param[in] fromLane The link's starting lane
      * @param[in] toLane The link's destination lane
      * @param[in] mayDefinitelyPass Whether this link is definitely not disturbed
+     * @return the response string
      * @exception IOError not yet implemented
      */
-    std::string getResponseString(const NBEdge* const from, const NBEdge* const to,
+    std::string getResponseString(int tlIndex, const NBEdge* const from, const NBEdge* const to,
                                   int fromLane, int toLane, bool mayDefinitelyPass, const bool checkLaneFoes) const;
 
 

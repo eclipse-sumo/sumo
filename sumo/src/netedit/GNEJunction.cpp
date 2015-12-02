@@ -395,8 +395,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         case SUMO_ATTR_TYPE: {
             undoList->p_begin("change junction type");
-            if (SUMOXMLDefinitions::NodeTypes.get(value) == NODETYPE_TRAFFIC_LIGHT ||
-                    SUMOXMLDefinitions::NodeTypes.get(value) == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
+            if (NBNode::isTrafficLight(SUMOXMLDefinitions::NodeTypes.get(value))) {
                 if (!getNBNode()->isTLControlled()) {
                     // create new traffic light
                     undoList->add(new GNEChange_TLS(this, 0, true), true);
@@ -543,6 +542,8 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
                     return 9;
                 case NODETYPE_ZIPPER:
                     return 10;
+                case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
+                    return 11;
             }
         default:
             assert(false);
