@@ -201,7 +201,7 @@ NBTrafficLightDefinition::collectEdges() {
                 myIncomingEdges.erase(find(myIncomingEdges.begin(), myIncomingEdges.end(), edge));
             }
         }
-        if (reachable.count(edge) == 0) {
+        if (reachable.count(edge) == 0 && edge->getFirstNonPedestrianLaneIndex(NBNode::FORWARD, true) >= 0) {
             WRITE_WARNING("Unreachable edge '" + edge->getID() + "' within tlLogic '" + getID() + "'");
         }
     }
