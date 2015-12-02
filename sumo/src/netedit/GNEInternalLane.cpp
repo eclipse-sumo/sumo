@@ -84,6 +84,7 @@ StringBijection<FXuint>::Entry GNEInternalLane::linkStateNamesValues[] = {
     { "Yellow-Minor", LINKSTATE_TL_YELLOW_MINOR },
     { "Red", LINKSTATE_TL_RED },
     { "Red-Yellow", LINKSTATE_TL_REDYELLOW },
+    { "Stop", LINKSTATE_STOP },
     { "Off", LINKSTATE_TL_OFF_NOSIGNAL },
     { "Off-Blinking", LINKSTATE_TL_OFF_BLINKING },
 };
