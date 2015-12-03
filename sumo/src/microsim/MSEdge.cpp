@@ -119,7 +119,7 @@ MSEdge::initialize(const std::vector<MSLane*>* lanes) {
         myCombinedPermissions = SVCAll;
     }
 #ifdef HAVE_INTERNAL
-    if (MSGlobals::gUseMesoSim) {
+    if (MSGlobals::gUseMesoSim && !lanes->empty()) {
         MSGlobals::gMesoNet->buildSegmentsFor(*this, OptionsCont::getOptions());
     }
 #endif
