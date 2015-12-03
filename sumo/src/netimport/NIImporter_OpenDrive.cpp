@@ -908,7 +908,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
         WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "' (" + error.what() + ").");
         ret.push_back(Position(g.x, g.y));
     }
-    return ret;
+    return ret.getSubpart2D(0, g.length);
 }
 
 
@@ -953,7 +953,7 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometr
             end = true;
         }
     } while (!end);
-    return ret;
+    return ret.getSubpart2D(0, g.length);
 }
 
 
@@ -970,7 +970,7 @@ NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeomet
         SUMOReal ynew = x * s + y * c;
         ret.push_back(Position(g.x + xnew, g.y + ynew));
     }
-    return ret;
+    return ret.getSubpart2D(0, g.length);
 }
 
 
