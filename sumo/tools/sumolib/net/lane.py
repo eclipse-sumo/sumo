@@ -133,3 +133,6 @@ class Lane:
 
     def addOutgoing(self, conn):
         self._outgoing.append(conn)
+
+    def getOutgoing(self):
+        return self._outgoing
