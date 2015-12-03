@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Thu Nov 26 15:14:14 2015" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="2" maxJunc="2" maxPrg="0"/>
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Thu Dec  3 12:31:08 2015" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="2" maxJunc="2" maxPrg="0"/>
     <road name="a1" length="50.00" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -68,19 +68,17 @@
         <signals/>
     </road>
 
-    <road name=":1.begin_0_0" length="4.30" id="3" junction="1">
+    <road name=":1.begin_0_0" length="1.17" id="3" junction="1">
         <link>
             <predecessor elementType="road" elementId="2"/>
             <successor elementType="road" elementId="1"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="0.00000000" y="0.05000000" hdg="0.29400130" length="0.86935245"><line/></geometry>
-            <geometry s="0.86935245" x="0.83205029" y="0.30192456" hdg="-2.55359005" length="0.99880446"><line/></geometry>
-            <geometry s="1.86815691" x="0.00099475" y="-0.25211247" hdg="1.10714872" length="0.28187031"><line/></geometry>
-            <geometry s="2.15002722" x="0.12705098" y="-0.00000000" hdg="2.03444394" length="0.28187031"><line/></geometry>
-            <geometry s="2.43189754" x="0.00099475" y="0.25211247" hdg="-0.58800260" length="0.99880446"><line/></geometry>
-            <geometry s="3.43070200" x="0.83205029" y="-0.30192456" hdg="2.84759135" length="0.86935245"><line/></geometry>
+            <geometry s="0.00000000" x="0.00000000" y="0.05000000" hdg="-1.56750370" length="0.30211411"><line/></geometry>
+            <geometry s="0.30211411" x="0.00099475" y="-0.25211247" hdg="1.10714872" length="0.28187031"><line/></geometry>
+            <geometry s="0.58398443" x="0.12705098" y="-0.00000000" hdg="2.03444394" length="0.28187031"><line/></geometry>
+            <geometry s="0.86585474" x="0.00099475" y="0.25211247" hdg="-1.57408895" length="0.30211411"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -108,19 +106,17 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":1.end_0_0" length="4.30" id="4" junction="2">
+    <road name=":1.end_0_0" length="1.17" id="4" junction="2">
         <link>
             <predecessor elementType="road" elementId="1"/>
             <successor elementType="road" elementId="2"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="50.00000000" y="-0.05000000" hdg="-2.84759135" length="0.86935245"><line/></geometry>
-            <geometry s="0.86935245" x="49.16794971" y="-0.30192456" hdg="0.58800260" length="0.99880446"><line/></geometry>
-            <geometry s="1.86815691" x="49.99900525" y="0.25211247" hdg="-2.03444394" length="0.28187031"><line/></geometry>
-            <geometry s="2.15002722" x="49.87294902" y="0.00000000" hdg="-1.10714872" length="0.28187031"><line/></geometry>
-            <geometry s="2.43189754" x="49.99900525" y="-0.25211247" hdg="2.55359005" length="0.99880446"><line/></geometry>
-            <geometry s="3.43070200" x="49.16794971" y="0.30192456" hdg="-0.29400130" length="0.86935245"><line/></geometry>
+            <geometry s="0.00000000" x="50.00000000" y="-0.05000000" hdg="1.57408895" length="0.30211411"><line/></geometry>
+            <geometry s="0.30211411" x="49.99900525" y="0.25211247" hdg="-2.03444394" length="0.28187031"><line/></geometry>
+            <geometry s="0.58398443" x="49.87294902" y="0.00000000" hdg="-1.10714872" length="0.28187031"><line/></geometry>
+            <geometry s="0.86585474" x="49.99900525" y="-0.25211247" hdg="1.56750370" length="0.30211411"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>

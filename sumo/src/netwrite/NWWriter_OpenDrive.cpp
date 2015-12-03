@@ -173,10 +173,12 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 }
                 // we need to fix start and endpoints in case the start and
                 // end segments were not in line with the incoming and outgoing lanes
-                shape.push_front_noDoublePos(getLeftBorder(inEdge).back());
                 if (shape.size() > 1) {
-                    shape.push_back_noDoublePos(getLeftBorder(outEdge).front());
+                    shape[0] = getLeftBorder(inEdge).back();
+                    shape[-1] = getLeftBorder(outEdge).front();
                 } else {
+                    shape.clear();
+                    shape.push_back(getLeftBorder(inEdge).back());
                     shape.push_back(getLeftBorder(outEdge).front());
                 }
 
