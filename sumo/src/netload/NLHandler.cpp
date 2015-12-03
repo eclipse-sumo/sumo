@@ -239,7 +239,7 @@ NLHandler::myEndElement(int element) {
             if (!myCurrentIsBroken) {
                 try {
                     myJunctionControlBuilder.closeJunctionLogic();
-                    myJunctionControlBuilder.closeJunction();
+                    myJunctionControlBuilder.closeJunction(getFileName());
                 } catch (InvalidArgument& e) {
                     WRITE_ERROR(e.what());
                 }
@@ -247,7 +247,7 @@ NLHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_TLLOGIC:
             try {
-                myJunctionControlBuilder.closeTrafficLightLogic();
+                myJunctionControlBuilder.closeTrafficLightLogic(getFileName());
             } catch (InvalidArgument& e) {
                 WRITE_ERROR(e.what());
             }

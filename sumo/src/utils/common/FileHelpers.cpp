@@ -129,6 +129,9 @@ FileHelpers::checkForRelativity(const std::string& filename,
     if (filename == "stderr" || filename == "STDERR") {
         return "stderr";
     }
+    if (filename == "nul" || filename == "NUL") {
+        return "/dev/null";
+    }
     if (!isSocket(filename) && !isAbsolute(filename)) {
         return getConfigurationRelative(basePath, filename);
     }

@@ -123,7 +123,7 @@ public:
      * @todo Throwing ProcessError would get unneeded if the container would be built by default (see prepare)
      * @todo The type of the junctions shoould probably be checked when supprted (in openJunction)
      */
-    void closeJunction();
+    void closeJunction(const std::string& basePath);
 
 
     /** @brief Builds the MSJunctionControl which holds all of the simulations junctions
@@ -213,7 +213,7 @@ public:
      *
      * @exception InvalidArgument If another tls logic with the same name as the currently built was loaded before
      */
-    virtual void closeTrafficLightLogic();
+    virtual void closeTrafficLightLogic(const std::string& basePath);
 
 
     /** @brief Ends the building of a junction logic (row-logic)

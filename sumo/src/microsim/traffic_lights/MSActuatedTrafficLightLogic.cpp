@@ -67,14 +67,15 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const std::string& id, const std::string& programID,
         const Phases& phases,
         unsigned int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameter) :
+        const std::map<std::string, std::string>& parameter,
+        const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter) {
 
     myMaxGap = TplConvert::_2SUMOReal(getParameter("max-gap", DEFAULT_MAX_GAP).c_str());
     myPassingTime = TplConvert::_2SUMOReal(getParameter("passing-time", DEFAULT_PASSING_TIME).c_str());
     myDetectorGap = TplConvert::_2SUMOReal(getParameter("detector-gap", DEFAULT_DETECTOR_GAP).c_str());
     myShowDetectors = TplConvert::_2bool(getParameter("show-detectors", "false").c_str());
-    myFile = getParameter("file", "NULL");
+    myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(TplConvert::_2SUMOReal(getParameter("freq", "300").c_str()));
     mySplitByType = TplConvert::_2bool(getParameter("splitByType", "false").c_str());
 }
