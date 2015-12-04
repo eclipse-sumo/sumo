@@ -220,6 +220,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("crossings.guess", "Processing",
                       "Guess pedestrian crossings based on the presence of sidewalks");
 
+    oc.doRegister("crossings.guess.speed-threshold", new Option_Float(13.89));
+    oc.addDescription("crossings.guess.speed-threshold", "Processing",
+                      "At uncontrolled nodes, do not build crossings across edges with a speed above the threshold");
+
     // tls setting options
     // explicit tls
     oc.doRegister("tls.set", new Option_String());
@@ -251,6 +255,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("tls.join-dist", new Option_Float(20));
     oc.addDescription("tls.join-dist", "TLS Building",
                       "Determines the maximal distance for joining traffic lights (defaults to 20)");
+
+    oc.doRegister("tls.uncontrolled-within", new Option_Bool(false));
+    oc.addDescription("tls.uncontrolled-within", "TLS Building",
+                      "Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used");
 
     if (!forNetgen) {
         oc.doRegister("tls.guess-signals", new Option_Bool(false));

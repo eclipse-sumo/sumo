@@ -57,19 +57,15 @@ class Node:
     def areFoes(self, link1, link2):
         return self._foes[link1][len(self._foes[link1]) - link2 - 1] == '1'
 
-    def getLinkIndex(self, link):
+    def getLinkIndex(self, conn):
         ret = 0
-        for lid in self._incLanes:
-            (e, l) = lid.split("_")
-            lane = None
-            for et in self._incoming:
-                for l in et._lanes:
-                    if l == link[0]:
-                        lane = l
-
-            if l[0] == link[0] and l[1] == link[1]:
-                return ret
-            ret += 1
+        for lane_id in self._incLanes:
+            (edge_id, index) = lane_id.split("_")
+            edge = [e for e in self._incoming if e.getID() == edge_id][0] 
+            for candidate_conn in edge.getLane(int(index)).getOutgoing():
+                if candidate_conn == conn:
+                    return ret
+                ret += 1
         return -1
 
     def forbids(self, possProhibitor, possProhibited):
@@ -85,3 +81,4 @@ class Node:
 
     def getType(self):
         return self._type
+

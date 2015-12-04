@@ -47,15 +47,11 @@
 OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool binary)
     : OutputDevice(binary), myFileStream(0) {
 #ifdef WIN32
-    if (fullName == "/dev/null") {
+    if (fullName == "/dev/null")
         myFileStream = new std::ofstream("NUL");
-#else
-    if (fullName == "nul" || fullName == "NUL") {
-        myFileStream = new std::ofstream("/dev/null");
+    else
 #endif
-    } else {
         myFileStream = new std::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
-    }
     if (!myFileStream->good()) {
         delete myFileStream;
         throw IOError("Could not build output file '" + fullName + "' (" + std::strerror(errno) + ").");

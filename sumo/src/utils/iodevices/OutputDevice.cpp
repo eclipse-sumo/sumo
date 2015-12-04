@@ -87,7 +87,7 @@ OutputDevice::getDevice(const std::string& name) {
     } else {
         const size_t len = name.length();
         std::string name2 = name;
-        if (OptionsCont::getOptions().isSet("output-prefix")) {
+        if (OptionsCont::getOptions().isSet("output-prefix") && name != "/dev/null") {
             std::string prefix = OptionsCont::getOptions().getString("output-prefix");
             size_t metaTimeIndex = prefix.find("TIME");
             if (metaTimeIndex != std::string::npos) {

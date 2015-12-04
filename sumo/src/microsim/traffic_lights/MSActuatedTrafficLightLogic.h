@@ -58,7 +58,7 @@ class NLDetectorBuilder;
 class MSActuatedTrafficLightLogic : public MSSimpleTrafficLightLogic {
 public:
     /// @brief Definition of a map from lanes to induct loops lying on them
-    typedef std::map<MSLane*, MSInductLoop*> InductLoopMap;
+    typedef std::map<MSLane*, MSDetectorFileOutput*> InductLoopMap;
 
 public:
     /** @brief Constructor
@@ -74,7 +74,8 @@ public:
                                 const std::string& id, const std::string& programID,
                                 const MSSimpleTrafficLightLogic::Phases& phases,
                                 unsigned int step, SUMOTime delay,
-                                const std::map<std::string, std::string>& parameter);
+                                const std::map<std::string, std::string>& parameter,
+                                const std::string& basePath);
 
 
     /** @brief Initialises the tls with information about incoming lanes

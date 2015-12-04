@@ -81,7 +81,13 @@
             </Directory>
 
             <Directory Id='DOCDIR' Name='doc' />
-            <Directory Id='TOOLDIR' Name='tools'/>
+            <Directory Id='TOOLDIR' Name='tools'>
+              <Component Id='OSMWebWizard' Guid='020B4F21-0E79-41C8-A745-28CA9B426126'>
+                <File Id='WebWizPy' Name='osmWebWizard.py' Source='O:\Daten\Sumo\Nightly\..\tools\osmWebWizard.py' KeyPath='yes'>
+                  <Shortcut Id="startWebWizPy" Directory="ProgramMenuDir" Name="OSM Web Wizard" Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
+                </File>
+              </Component>
+            </Directory>
 			
   	        <Component Id='Path' Guid='17359CBF-8C61-4C3D-B5A7-4407AFF096AA'>
     		  <Condition>MODIFYENV</Condition>
@@ -113,6 +119,7 @@
         <ComponentRef Id='MainExecutables' />
         <ComponentRef Id='NetEditExecutable' />
         <ComponentRef Id='EnvironmentBatch' />
+        <ComponentRef Id='OSMWebWizard' />
         <ComponentRef Id='ProgramMenuDir' />
       </Feature>
 

@@ -479,7 +479,7 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
         od.writeAttr(SUMO_ATTR_INDEX, pos++);
         const std::string foes = getFoesString(from, (*j).toEdge, fromLane, (*j).toLane, checkLaneFoes);
         const std::string response = (myJunction->getType() == NODETYPE_ZIPPER ? foes 
-                : getResponseString(from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass, checkLaneFoes));
+                : getResponseString((*j).tlLinkNo, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass, checkLaneFoes));
         od.writeAttr(SUMO_ATTR_RESPONSE, response);
         od.writeAttr(SUMO_ATTR_FOES, foes);
         if (!OptionsCont::getOptions().getBool("no-internal-links")) {
@@ -528,7 +528,7 @@ NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& cross
 
 
 std::string
-NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
+NBRequest::getResponseString(int tlIndex, const NBEdge* const from, const NBEdge* const to,
                              int fromLane, int toLane, bool mayDefinitelyPass, const bool checkLaneFoes) const {
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     int idx = 0;
@@ -563,7 +563,9 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
                     if ((myForbids[getIndex(*i, connected[k].toEdge)][idx] &&
                             (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
                             || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
-                            || mergeConflict(from, queryCon, *i, connected[k], false)) {
+                            || mergeConflict(from, queryCon, *i, connected[k], false)
+                            || myJunction->rightOnRedConflict(tlIndex, connected[k].tlLinkNo)
+                            ) {
                         result += '1';
                     } else {
                         result += '0';

@@ -46,6 +46,8 @@
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNEJunction.h"
+#include "GNEEdge.h"
+#include "GNELane.h"
 #include "GNEUndoList.h"
 #include "GNEInternalLane.h"
 #include "GNEChange_TLS.h"
@@ -80,7 +82,7 @@ FXDEFMAP(GNETLSEditor) GNETLSEditorMap[] = {
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_DEF_SWITCH,         GNETLSEditor::onUpdDefSwitch),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_DEF_OFFSET,         GNETLSEditor::onUpdNeedsDef),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_PHASE_CREATE,       GNETLSEditor::onUpdNeedsDef),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_PHASE_DELETE,       GNETLSEditor::onUpdNeedsDef),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_PHASE_DELETE,       GNETLSEditor::onUpdNeedsDefAndPhase),
     FXMAPFUNC(SEL_UPDATE,     MID_CANCEL,                 GNETLSEditor::onUpdModified),
     FXMAPFUNC(SEL_UPDATE,     MID_OK,                     GNETLSEditor::onUpdModified),
 };
@@ -151,7 +153,7 @@ GNETLSEditor::GNETLSEditor(FXComposite* parent, GNEViewNet* updateTarget, GNEUnd
     myCycleDuration = new FXLabel(myContentFrame, "");
 
     // insert new phase button
-    new FXButton(myContentFrame, "Insert Phase\t\tInsert Phase after selected phase", 0, this, MID_GNE_PHASE_CREATE,
+    new FXButton(myContentFrame, "Copy Phase\t\tInsert duplicate phase after selected phase", 0, this, MID_GNE_PHASE_CREATE,
                  ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 3, 3);
 
@@ -241,6 +243,7 @@ GNETLSEditor::onCmdDefCreate(FXObject*, FXSelector, void*) {
     } else {
         myUndoList->add(new GNEChange_TLS(junction, 0, true, true), true);
     }
+    editJunction(junction);
     return 1;
 }
 
@@ -298,6 +301,15 @@ GNETLSEditor::onUpdDefSwitch(FXObject* o, FXSelector, void*) {
 long
 GNETLSEditor::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
     const bool enable = myDefinitions.size() > 0;
+    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), 0);
+    return 1;
+}
+
+
+long
+GNETLSEditor::onUpdNeedsDefAndPhase(FXObject* o, FXSelector, void*) {
+    // do not delete the last phase
+    const bool enable = myDefinitions.size() > 0 && myPhaseTable->getNumRows() > 1;
     o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), 0);
     return 1;
 }
@@ -379,7 +391,11 @@ GNETLSEditor::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     const unsigned int numLinks = myEditedDef->getLogic()->getNumLinks();
     // allows insertion at first position by deselecting via arrow keys
     unsigned int newIndex = myPhaseTable->getSelStartRow() + 1;
-    myEditedDef->getLogic()->addStep(TIME2STEPS(3), std::string(numLinks, LINKSTATE_TL_RED), newIndex);
+    unsigned int oldIndex = MAX2(0, myPhaseTable->getSelStartRow());
+    // copy current row
+    const SUMOTime duration = getSUMOTime(myPhaseTable->getItemText(oldIndex, 0));
+    const std::string state = myPhaseTable->getItemText(oldIndex, 1).text();
+    myEditedDef->getLogic()->addStep(duration, state, newIndex);
     myPhaseTable->setCurrentItem(newIndex, 0);
     initPhaseTable(newIndex);
     myPhaseTable->setFocus();
@@ -572,9 +588,76 @@ GNETLSEditor::getPhases() {
 void
 GNETLSEditor::handleChange(GNEInternalLane* lane) {
     myHaveModifications = true;
-    myEditedDef->getLogic()->setPhaseState(myPhaseTable->getCurrentRow(), lane->getTlIndex(), lane->getLinkState());
+    if (myUpdateTarget->changeAllPhases()) {
+        const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = getPhases();
+        for (unsigned int row = 0; row < phases.size(); row++) {
+            myEditedDef->getLogic()->setPhaseState(row, lane->getTLIndex(), lane->getLinkState());
+        }
+    } else {
+        myEditedDef->getLogic()->setPhaseState(myPhaseTable->getCurrentRow(), lane->getTLIndex(), lane->getLinkState());
+    }
     initPhaseTable(myPhaseTable->getCurrentRow());
     myPhaseTable->setFocus();
+}
+
+
+void
+GNETLSEditor::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector sel, void* data) {
+    if (myEditedDef != 0) {
+        myHaveModifications = true;
+        const NBConnectionVector& links = myEditedDef->getControlledLinks();
+        std::set<std::string> fromIDs;
+        fromIDs.insert(lane->getMicrosimID());
+        GNEEdge& edge = lane->getParentEdge();
+        // if neither the lane nor its edge are selected, apply changes to the whole edge
+        if (!gSelected.isSelected(GLO_EDGE, edge.getGlID()) && !gSelected.isSelected(GLO_LANE, lane->getGlID())) {
+            for (GNEEdge::LaneVector::const_iterator it_lane = edge.getLanes().begin(); it_lane != edge.getLanes().end(); it_lane++) {
+                fromIDs.insert((*it_lane)->getMicrosimID());
+            }
+        } else {
+            // if the edge is selected, apply changes to all lanes of all selected edges
+            if (gSelected.isSelected(GLO_EDGE, edge.getGlID())) {
+                std::vector<GNEEdge*> edges = myUpdateTarget->getNet()->retrieveEdges(true);
+                for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {
+                    for (GNEEdge::LaneVector::const_iterator it_lane = (*it)->getLanes().begin(); it_lane != (*it)->getLanes().end(); it_lane++) {
+                        fromIDs.insert((*it_lane)->getMicrosimID());
+                    }
+                }
+            }
+            // if the lane is selected, apply changes to all selected lanes
+            if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
+                std::vector<GNELane*> lanes = myUpdateTarget->getNet()->retrieveLanes(true);
+                for (std::vector<GNELane*>::iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
+                    fromIDs.insert((*it_lane)->getMicrosimID());
+                }
+            }
+            
+        }
+        // set new state for all connections from the chosen lane IDs
+        for (NBConnectionVector::const_iterator it = links.begin(); it != links.end(); it++) {
+            const NBConnection& c = *it;
+            if (fromIDs.count(c.getFrom()->getLaneID(c.getFromLane())) > 0) {
+                std::vector<GNEInternalLane*> lanes = myInternalLanes[c.getTLIndex()];
+                for (std::vector<GNEInternalLane*>::iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
+                    (*it_lane)->onDefault(obj, sel, data);
+                }
+            }
+        }
+    }
+}
+
+
+bool
+GNETLSEditor::controlsEdge(GNEEdge& edge) const {
+    if (myEditedDef != 0) {
+        const NBConnectionVector& links = myEditedDef->getControlledLinks();
+        for (NBConnectionVector::const_iterator it = links.begin(); it != links.end(); it++) {
+            if ((*it).getFrom()->getID() == edge.getMicrosimID()) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 

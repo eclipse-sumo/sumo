@@ -610,6 +610,7 @@ enum SumoXMLNodeType {
     NODETYPE_UNKNOWN, // terminator
     NODETYPE_TRAFFIC_LIGHT,
     NODETYPE_TRAFFIC_LIGHT_NOJUNCTION, // junction controlled only by traffic light but without other prohibitions,
+    NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED,
     NODETYPE_RAIL_SIGNAL,
     NODETYPE_PRIORITY,
     NODETYPE_PRIORITY_STOP, // like priority but all minor links have stop signs

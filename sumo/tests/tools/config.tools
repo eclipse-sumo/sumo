@@ -69,6 +69,7 @@ turndefs:turn-defs.xml
 changednet:input_net.net.xml.chg
 edges:edges.xml
 nodes:nodes.xml
+connections:connections.xml
 fixed:routes.rou.xml.fixed
 activityfile:activityfile.tcl
 mobilityfile:mobilityfile.tcl

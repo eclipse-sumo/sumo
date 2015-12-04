@@ -105,39 +105,12 @@ NLDetectorBuilder::buildInductLoop(const std::string& id,
     checkSampleInterval(splInterval, SUMO_TAG_E1DETECTOR, id);
     // get and check the lane
     MSLane* clane = getLaneChecking(lane, SUMO_TAG_E1DETECTOR, id);
-    if (!MSGlobals::gUseMesoSim) {
-        // get and check the position
-        pos = getPositionChecking(pos, clane, friendlyPos, id);
-        // build the loop
-        MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, splitByType);
-        // add the file output
-        myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
-    } else {
-#ifdef HAVE_INTERNAL
-        if (pos < 0) {
-            pos = clane->getLength() + pos;
-        }
-        MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(clane->getEdge());
-        MESegment* prev = s;
-        SUMOReal cpos = 0;
-        while (cpos + prev->getLength() < pos && s != 0) {
-            prev = s;
-            cpos += s->getLength();
-            s = s->getNextSegment();
-        }
-        SUMOReal rpos = pos - cpos; //-prev->getLength();
-        if (rpos > prev->getLength() || rpos < 0) {
-            if (friendlyPos) {
-                rpos = prev->getLength() - (SUMOReal) 0.1;
-            } else {
-                throw InvalidArgument("The position of detector '" + id + "' lies beyond the lane's '" + lane + "' length.");
-            }
-        }
-        MEInductLoop* loop =
-            createMEInductLoop(id, prev, rpos);
-        myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
-#endif
-    }
+    // get and check the position
+    pos = getPositionChecking(pos, clane, friendlyPos, id);
+    // build the loop
+    MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, splitByType);
+    // add the file output
+    myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
 }
 
 
@@ -401,6 +374,11 @@ NLDetectorBuilder::buildMultiLaneE2Det(const std::string& id, DetectorUsage usag
 MSDetectorFileOutput*
 NLDetectorBuilder::createInductLoop(const std::string& id,
                                     MSLane* lane, SUMOReal pos, bool splitByType, bool) {
+#ifdef HAVE_INTERNAL
+    if (MSGlobals::gUseMesoSim) {
+        return new MEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos);
+    }
+#endif
     return new MSInductLoop(id, lane, pos, splitByType);
 }
 
@@ -410,15 +388,6 @@ NLDetectorBuilder::createInstantInductLoop(const std::string& id,
         MSLane* lane, SUMOReal pos, const std::string& od) {
     return new MSInstantInductLoop(id, OutputDevice::getDevice(od), lane, pos);
 }
-
-
-#ifdef HAVE_INTERNAL
-MEInductLoop*
-NLDetectorBuilder::createMEInductLoop(const std::string& id,
-                                      MESegment* s, SUMOReal pos) {
-    return new MEInductLoop(id, s, pos);
-}
-#endif
 
 
 MSDetectorFileOutput*

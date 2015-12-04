@@ -173,9 +173,8 @@ class Net:
         self._roundabouts.append(r)
         return r
 
-    def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction, tls, tllink):
-        conn = connection.Connection(
-            fromEdge, toEdge, fromlane, tolane, direction, tls, tllink)
+    def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state):
+        conn = connection.Connection(fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state)
         fromEdge.addOutgoing(conn)
         fromlane.addOutgoing(conn)
         toEdge._addIncoming(conn)
@@ -274,7 +273,7 @@ class Net:
         self._id2node[junctionID].setFoes(index, foes, prohibits)
 
     def forbids(self, possProhibitor, possProhibited):
-        return possProhibitor[0].getEdge()._to.forbids(possProhibitor, possProhibited)
+        return possProhibitor.getFrom().getToNode().forbids(possProhibitor, possProhibited)
 
     def getDownstreamEdges(self, edge, distance, stopOnTLS):
         ret = []
@@ -434,7 +433,8 @@ class NetReader(handler.ContentHandler):
                 toEdge = self._net.getEdge(lid[:lid.rfind('_')])
                 tolane = toEdge._lanes[tolane]
                 self._net.addConnection(self._currentEdge, connected, self._currentEdge._lanes[
-                                        self._currentLane], tolane, attrs['dir'], tl, tllink)
+                                        self._currentLane], tolane,
+                                        attrs['dir'], tl, tllink, attrs['state'])
         if name == 'connection' and self._withConnections and attrs['from'][0] != ":":
             fromEdgeID = attrs['from']
             toEdgeID = attrs['to']
@@ -453,7 +453,8 @@ class NetReader(handler.ContentHandler):
                     tl = ""
                     tllink = -1
                 self._net.addConnection(
-                    fromEdge, toEdge, fromLane, toLane, attrs['dir'], tl, tllink)
+                    fromEdge, toEdge, fromLane, toLane, attrs['dir'], tl,
+                    tllink, attrs['state'])
         # 'row-logic' is deprecated!!!
         if self._withFoes and name == 'ROWLogic':
             self._currentNode = attrs['id']

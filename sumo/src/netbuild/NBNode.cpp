@@ -74,8 +74,6 @@
 // create intermediate walking areas if either of the following thresholds is exceeded
 #define SPLIT_CROSSING_WIDTH_THRESHOLD 1.5 // meters
 #define SPLIT_CROSSING_ANGLE_THRESHOLD 5 // degrees
-// do not build uncontrolled crossings across edges with a speed above the threshold
-#define UNCONTROLLED_CROSSING_SPEED_THRESHOLD 13.89 // meters/second
 
 // minimum length for a weaving section at a combined on-off ramp 
 #define MIN_WEAVE_LENGTH 20.0
@@ -268,7 +266,7 @@ NBNode::reinit(const Position& position, SumoXMLNodeType type,
     myPosition = position;
     // patch type
     myType = type;
-    if (myType != NODETYPE_TRAFFIC_LIGHT && myType != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
+    if (!isTrafficLight(myType)) {
         removeTrafficLights();
     }
     if (updateEdgeGeometries) {
@@ -313,7 +311,8 @@ NBNode::mirrorX() {
 void
 NBNode::addTrafficLight(NBTrafficLightDefinition* tlDef) {
     myTrafficLights.insert(tlDef);
-    if (myType != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION && myType != NODETYPE_RAIL_SIGNAL) {
+    // rail signals receive a temporary traffic light in order to set connection tl-linkIndex
+    if (!isTrafficLight(myType) && myType != NODETYPE_RAIL_SIGNAL) {
         myType = NODETYPE_TRAFFIC_LIGHT;
     }
 }
@@ -1784,7 +1783,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
                 }
                 return 0;
             }
-            if (!isTLControlled() && edge->getSpeed() > UNCONTROLLED_CROSSING_SPEED_THRESHOLD) {
+            if (!isTLControlled() && edge->getSpeed() > OptionsCont::getOptions().getFloat("crossings.guess.speed-threshold")) {
                 if (gDebugFlag1) {
                     std::cout << "no crossing added (uncontrolled, edge with speed=" << edge->getSpeed() << ")\n";
                 }
@@ -2510,5 +2509,25 @@ NBNode::avoidOverlap() {
     // @todo: edges in the same direction with sharp angles starting/ending at the same position
 }
 
+
+bool 
+NBNode::isTrafficLight(SumoXMLNodeType type) {
+    return type == NODETYPE_TRAFFIC_LIGHT 
+        || type == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION 
+        || type == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED;
+}
+
+
+bool 
+NBNode::rightOnRedConflict(int index, int foeIndex) const {
+    if (myType == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) {
+        for (std::set<NBTrafficLightDefinition*>::const_iterator i = myTrafficLights.begin(); i != myTrafficLights.end(); ++i) {
+            if ((*i)->rightOnRedConflict(index, foeIndex)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 /****************************************************************************/
 

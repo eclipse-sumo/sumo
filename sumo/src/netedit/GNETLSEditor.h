@@ -41,6 +41,8 @@
 class NBTrafficLightDefinition;
 class NBLoadedSUMOTLDef;
 class GNEViewNet;
+class GNEEdge;
+class GNELane;
 class GNEUndoList;
 class GNEInternalLane;
 class GNEJunction;
@@ -109,12 +111,19 @@ public:
 
     long onUpdDefSwitch(FXObject*, FXSelector, void*);
     long onUpdNeedsDef(FXObject*, FXSelector, void*);
+    long onUpdNeedsDefAndPhase(FXObject*, FXSelector, void*);
     long onUpdDefCreate(FXObject*, FXSelector, void*);
     long onUpdModified(FXObject*, FXSelector, void*);
     /// @}
 
     /// @brief update phase definition for the current traffic light and phase
     void handleChange(GNEInternalLane* lane);
+
+    /// @brief update phase definition for the current traffic light and phase
+    void handleMultiChange(GNELane* lane, FXObject* obj, FXSelector sel, void* data);
+
+    /// @brief whether the given edge is controlled by the currently edited tlDef
+    bool controlsEdge(GNEEdge& edge) const; 
 
 protected:
     /// @brief FOX needs this

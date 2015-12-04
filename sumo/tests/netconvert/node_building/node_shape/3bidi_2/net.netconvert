@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:28 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Tue Dec  1 10:57:35 2015 by SUMO netconvert Version dev-SVN-r19465I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -70,32 +70,34 @@
     </edge>
 
     <tlLogic id="joinedS_4" type="static" programID="0" offset="0">
-        <phase duration="35" state="rrggrrgg"/>
-        <phase duration="6" state="rrGGrrGG"/>
-        <phase duration="4" state="rryyrryy"/>
-        <phase duration="35" state="ggrrggrr"/>
-        <phase duration="6" state="GGrrGGrr"/>
-        <phase duration="4" state="yyrryyrr"/>
+        <phase duration="31" state="GgrrGGrrGGGg"/>
+        <phase duration="4" state="ygrryyrryyyg"/>
+        <phase duration="6" state="rGrrrrrrrrrG"/>
+        <phase duration="4" state="ryrrrrrrrrry"/>
+        <phase duration="31" state="GGGgrrGgrrGG"/>
+        <phase duration="4" state="yyygrrygrryy"/>
+        <phase duration="6" state="rrrGrrrGrrrr"/>
+        <phase duration="4" state="rrryrrryrrrr"/>
     </tlLogic>
 
     <junction id="287360464" type="dead_end" x="0.00" y="90.97" incLanes="6_0" intLanes="" shape="-0.00,90.92 -0.11,87.72 0.11,94.22 0.00,91.02"/>
     <junction id="42734846" type="dead_end" x="205.87" y="0.00" incLanes="-5_0" intLanes="" shape="205.89,0.04 207.44,2.85 204.30,-2.85 205.85,-0.04"/>
     <junction id="42736497" type="dead_end" x="198.75" y="62.09" incLanes="-1_0" intLanes="" shape="198.80,62.10 201.87,62.99 195.63,61.19 198.70,62.08"/>
     <junction id="A" type="traffic_light" x="119.72" y="91.01" incLanes="4_0 5_0 -6_0" intLanes="" shape="124.79,93.94 124.30,87.46 122.73,86.02 116.23,86.34 114.84,88.44 115.79,94.87">
-        <request index="0" response="001000" foes="001000"/>
-        <request index="1" response="111000" foes="111000"/>
+        <request index="0" response="000000" foes="001000"/>
+        <request index="1" response="110000" foes="111000"/>
         <request index="2" response="100000" foes="100000"/>
-        <request index="3" response="100000" foes="100011"/>
+        <request index="3" response="100011" foes="100011"/>
         <request index="4" response="000000" foes="000010"/>
         <request index="5" response="000000" foes="001110"/>
     </junction>
     <junction id="B" type="traffic_light" x="133.94" y="90.32" incLanes="3_0 -2_0 -4_0" intLanes="" shape="139.26,93.36 139.00,86.86 137.64,85.43 131.16,84.86 129.46,87.25 129.72,93.74">
         <request index="0" response="001000" foes="001000"/>
-        <request index="1" response="001000" foes="111000"/>
+        <request index="1" response="111000" foes="111000"/>
         <request index="2" response="000000" foes="100000"/>
         <request index="3" response="000000" foes="100011"/>
-        <request index="4" response="000010" foes="000010"/>
-        <request index="5" response="001110" foes="001110"/>
+        <request index="4" response="000000" foes="000010"/>
+        <request index="5" response="001100" foes="001110"/>
     </junction>
     <junction id="C" type="priority" x="182.48" y="88.37" incLanes="1_0 2_0 -3_0" intLanes="" shape="186.86,90.76 186.44,83.62 184.86,82.75 178.45,83.79 177.19,85.33 177.45,91.82">
         <request index="0" response="001000" foes="001000"/>
@@ -106,23 +108,23 @@
         <request index="5" response="001100" foes="001110"/>
     </junction>
 
-    <connection from="-2" to="-3" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="6" dir="r" state="o"/>
-    <connection from="-2" to="4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="7" dir="l" state="o"/>
+    <connection from="-2" to="-3" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="8" dir="r" state="o"/>
+    <connection from="-2" to="4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="9" dir="l" state="o"/>
     <connection from="-3" to="-2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-3" to="-1" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="-4" to="2" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="-4" to="-3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-6" to="-5" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="2" dir="r" state="o"/>
-    <connection from="-6" to="-4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="3" dir="s" state="o"/>
+    <connection from="-4" to="2" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="10" dir="r" state="o"/>
+    <connection from="-4" to="-3" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="11" dir="s" state="o"/>
+    <connection from="-6" to="-5" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="4" dir="r" state="o"/>
+    <connection from="-6" to="-4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="5" dir="s" state="o"/>
     <connection from="1" to="3" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="1" to="-2" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="2" to="-1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="2" to="3" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="3" to="4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="4" dir="s" state="o"/>
-    <connection from="3" to="2" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="5" dir="l" state="o"/>
-    <connection from="4" to="6" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="4" to="-5" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="5" to="-4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="0" dir="r" state="o"/>
-    <connection from="5" to="6" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="1" dir="l" state="o"/>
+    <connection from="3" to="4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="6" dir="s" state="o"/>
+    <connection from="3" to="2" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="7" dir="l" state="o"/>
+    <connection from="4" to="6" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="0" dir="s" state="o"/>
+    <connection from="4" to="-5" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="1" dir="l" state="o"/>
+    <connection from="5" to="-4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="2" dir="r" state="o"/>
+    <connection from="5" to="6" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="3" dir="l" state="o"/>
 
 </net>

@@ -182,7 +182,7 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
         node->reinit(position, type, updateEdgeGeometries);
     }
     // process traffic light definition
-    if (type == NODETYPE_TRAFFIC_LIGHT || type == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
+    if (NBNode::isTrafficLight(type)) {
         processTrafficLightDefinitions(attrs, node, tlc);
     }
     // remove previously set tls if this node is not controlled by them

@@ -203,7 +203,7 @@
         <xsd:attribute name="state" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="[ruyYgGoO]+"/>
+                    <xsd:pattern value="[ruyYgGoOs]+"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -248,6 +248,7 @@
             <xsd:enumeration value="allway_stop"/>
             <xsd:enumeration value="priority_stop"/>
             <xsd:enumeration value="zipper"/>
+            <xsd:enumeration value="traffic_light_right_on_red"/>
         </xsd:restriction>
     </xsd:simpleType>
 

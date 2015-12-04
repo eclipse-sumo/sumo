@@ -1,0 +1,8 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <flow id="SN" begin="0" end="25" probability="0.2" from="SC" to="CN" departSpeed="max"/>
+    <flow id="EN" begin="0" end="25" probability="0.3" from="EC" to="CN" departSpeed="max"/>
+
+    <flow id="WE" begin="45" end="70" probability="0.2" from="WC" to="CE" departSpeed="max"/>
+    <flow id="SE" begin="45" end="70" probability="0.3" from="SC" to="CE" departSpeed="max"/>
+</routes>

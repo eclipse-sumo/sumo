@@ -48,6 +48,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+#define MIN_TURN_DIAMETER 2.0
 
 
 // ===========================================================================
@@ -171,12 +172,18 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 } else {
                     shape.clear();
                 }
+                if (inEdge->isTurningDirectionAt(outEdge) 
+                        && getLeftBorder(inEdge).back().distanceTo2D(getLeftBorder(outEdge).front()) < MIN_TURN_DIAMETER ) {
+                    shape.clear(); // simplified geometry for sharp turn-arounds
+                }
                 // we need to fix start and endpoints in case the start and
                 // end segments were not in line with the incoming and outgoing lanes
-                shape.push_front_noDoublePos(getLeftBorder(inEdge).back());
                 if (shape.size() > 1) {
-                    shape.push_back_noDoublePos(getLeftBorder(outEdge).front());
+                    shape[0] = getLeftBorder(inEdge).back();
+                    shape[-1] = getLeftBorder(outEdge).front();
                 } else {
+                    shape.clear();
+                    shape.push_back(getLeftBorder(inEdge).back());
                     shape.push_back(getLeftBorder(outEdge).front());
                 }
 

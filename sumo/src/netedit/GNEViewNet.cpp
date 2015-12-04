@@ -243,6 +243,8 @@ GNEViewNet::GNEViewNet(
     scheme.addColor(RGBColor::MAGENTA, 7, "unregulated");
     scheme.addColor(RGBColor::BLACK, 8, "dead_end");
     scheme.addColor(RGBColor::ORANGE, 9, "rail_signal");
+    scheme.addColor(RGBColor(192, 128, 64), 10, "zipper");
+    scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red");
     junctionColorer.addScheme(scheme);
     myVisualizationSettings->junctionColorer = junctionColorer;
 }
@@ -1089,6 +1091,9 @@ GNEViewNet::buildEditModeControls() {
     myWarnAboutMerge = new FXMenuCheck(myToolbar, "ask for merge\t\tAsk for confirmation before merging junctions.", this, 0);
     myWarnAboutMerge->setCheck();
     myVisualizeHeight = new FXMenuCheck(myToolbar, "show height\t\tVisualize height by color (green is low, red is high).", this, MID_GNE_VIS_HEIGHT);
+
+    myChangeAllPhases = new FXMenuCheck(myToolbar, "apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current traffic light plan", this, 0);
+    myChangeAllPhases->setCheck(false);
 }
 
 
@@ -1103,6 +1108,7 @@ GNEViewNet::updateModeSpecificControls() {
     myAutoCreateOppositeEdge->hide();
     mySelectEdges->hide();
     myExtendToEdgeNodes->hide();
+    myChangeAllPhases->hide();
     myWarnAboutMerge->hide();
     myVisualizeHeight->hide();
     int widthChange = 0;
@@ -1154,6 +1160,7 @@ GNEViewNet::updateModeSpecificControls() {
         case GNE_MODE_TLS:
             widthChange -= myTLSEditor->getWidth() + addChange;
             myTLSEditor->show();
+            myChangeAllPhases->show();
             break;
         default:
             break;

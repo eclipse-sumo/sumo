@@ -109,7 +109,7 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
 
 
 void
-NLJunctionControlBuilder::closeJunction() {
+NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
     if (myJunctions == 0) {
         throw ProcessError("Information about the number of nodes was missing.");
     }
@@ -123,6 +123,7 @@ NLJunctionControlBuilder::closeJunction() {
             junction = buildNoLogicJunction();
             break;
         case NODETYPE_TRAFFIC_LIGHT:
+        case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
         case NODETYPE_RIGHT_BEFORE_LEFT:
         case NODETYPE_PRIORITY:
         case NODETYPE_PRIORITY_STOP:
@@ -142,7 +143,7 @@ NLJunctionControlBuilder::closeJunction() {
             myActiveKey = myActiveID;
             myActiveProgram = "0";
             myLogicType = TLTYPE_RAIL;
-            closeTrafficLightLogic();
+            closeTrafficLightLogic(basePath);
             junction = buildLogicJunction();
             break;
         default:
@@ -213,7 +214,7 @@ NLJunctionControlBuilder::getTLLogic(const std::string& id) const {
 
 
 void
-NLJunctionControlBuilder::closeTrafficLightLogic() {
+NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
     if (myActiveProgram == "off") {
         if (myAbsDuration > 0) {
             throw InvalidArgument("The off program for TLS '" + myActiveKey + "' has phases.");
@@ -273,7 +274,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic() {
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram,
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
-                    myAdditionalParameter);
+                    myAdditionalParameter, basePath);
             break;
         case TLTYPE_STATIC:
             tlLogic =

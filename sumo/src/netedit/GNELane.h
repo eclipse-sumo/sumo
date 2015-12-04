@@ -41,6 +41,7 @@
 // ===========================================================================
 class GUIGLObjectPopupMenu;
 class PositionVector;
+class GNETLSEditor;
 class GNEEdge;
 class GNENet;
 
@@ -52,7 +53,10 @@ class GNENet;
  * @brief This lane is powered by an underlying GNEEdge and basically knows how
  * to draw itself
  */
-class GNELane : public GUIGlObject, public GNEAttributeCarrier {
+class GNELane : public GUIGlObject, public GNEAttributeCarrier, public FXDelegator {
+    // FOX-declarations
+    FXDECLARE(GNELane)
+
 public:
     /** @brief Constructor
      * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
@@ -94,6 +98,8 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent) ;
 
+    /// @brief multiplexes message to two targets
+    long onDefault(FXObject*, FXSelector, void*);
 
     /** @brief Returns underlying parent edge
      *
@@ -153,6 +159,10 @@ public:
     void setSpecialColor(const RGBColor* color) {
         mySpecialColor = color;
     }
+
+protected:
+    /// @brief FOX needs this
+    GNELane();
 
 private:
     /// The Edge that to which this lane belongs
@@ -214,6 +224,10 @@ private:
 	
     /// The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
+
+    /// @brief the tls-editor for setting multiple links in TLS-mode
+    GNETLSEditor* myTLSEditor;
+
 };
 
 

@@ -67,6 +67,7 @@
         <tls-guess.joining value="false" type="BOOL" help="Includes node clusters into guess"/>
         <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
         <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
+        <tls.uncontrolled-within value="false" type="BOOL" help="Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used"/>
         <tls.cycle.time value="90" type="INT" help="Use INT as cycle duration"/>
         <tls.green.time value="31" synonymes="traffic-light-green" type="INT" help="Use INT as green phase duration"/>
         <tls.yellow.min-decel value="3" synonymes="D min-decel" type="FLOAT" help="Defines smallest vehicle deceleration"/>
@@ -118,6 +119,7 @@
         <sidewalks.guess.from-permissions value="false" type="BOOL" help="Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed"/>
         <sidewalks.guess.exclude value="" type="STR" help="Do not guess sidewalks for the given list of edges"/>
         <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
+        <crossings.guess.speed-threshold value="13.89" type="FLOAT" help="At uncontrolled nodes, do not build crossings across edges with a speed above the threshold"/>
     </processing>
 
     <building_defaults>
