@@ -27,7 +27,7 @@ import subprocess
 import tempfile
 
 nightlyDir = r"O:\Daten\Sumo\Nightly"
-sevenZip = r'C:\Program Files\7-Zip\7z.exe'
+sevenZip = r'C:\Programme\7-Zip\7z.exe'
 if not os.path.exists(sevenZip):
     sevenZip = r'C:\Program Files (x86)\7-Zip\7z.exe'
 
@@ -59,7 +59,7 @@ if internal:
         shutil.copy2(dll, ".")
     pluginDir = glob.glob(os.path.join(nightlyDir, 'bin64', 'osgPlugins*'))[0]
     shutil.copytree(pluginDir, os.path.basename(pluginDir))
-    shutil.copy2(os.path.join(nightlyDir, 'bin64', 'meso-gui64.exe'), ".")
+    shutil.copy2(os.path.join(nightlyDir, 'bin64', 'meso-gui.exe'), ".")
     for f in glob.glob(os.path.join(base, '..', '..', 'data', '3D', '*')):
         shutil.copy2(f, ".")
     os.chdir("bs3d")
