@@ -63,10 +63,12 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLig
     // allow for adding a new program for the same def: take the programID from the new logic
     NBTrafficLightDefinition(def->getID(), logic->getProgramID(), def->getOffset(), def->getType()),
     myTLLogic(new NBTrafficLightLogic(logic)),
-    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) {
+    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) 
+{
     assert(def->getOffset() == logic->getOffset());
     assert(def->getType() == logic->getType());
     myControlledLinks = def->getControlledLinks();
+    myControlledNodes = def->getNodes();
 }
 
 
