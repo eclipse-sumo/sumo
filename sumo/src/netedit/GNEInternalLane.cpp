@@ -89,7 +89,7 @@ StringBijection<FXuint>::Entry GNEInternalLane::linkStateNamesValues[] = {
     { "Off-Blinking", LINKSTATE_TL_OFF_BLINKING },
 };
 
-StringBijection<FXuint> GNEInternalLane::LinkStateNames(
+const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
     GNEInternalLane::linkStateNamesValues, LINKSTATE_TL_OFF_BLINKING);
 
 // ===========================================================================
@@ -101,7 +101,9 @@ GNEInternalLane::GNEInternalLane(GNETLSEditor* editor, const std::string& id, co
     myState(state),
     myStateTarget(myState),
     myEditor(editor),
-    myTlIndex(tlIndex) {
+    myTlIndex(tlIndex),
+    myPopup(0)
+{
     int segments = (int) myShape.size() - 1;
     if (segments >= 0) {
         myShapeRotations.reserve(segments);
@@ -135,7 +137,10 @@ GNEInternalLane::onDefault(FXObject* obj, FXSelector sel, void* data) {
         }
         // let GUISUMOAbstractView know about clicks so that the popup is properly destroyed
         if (FXSELTYPE(sel) == SEL_COMMAND) {
-            myPopup->getParentView()->destroyPopup();
+            if (myPopup != 0) {
+                myPopup->getParentView()->destroyPopup();
+                myPopup = 0;
+            }
         }
     }
     return 1;

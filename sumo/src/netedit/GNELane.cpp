@@ -32,6 +32,7 @@
 #include <iostream>
 #include <utility>
 #include <foreign/polyfonts/polyfonts.h>
+#include <utils/foxtools/MFXUtils.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -50,6 +51,8 @@
 #include "GNELane.h"
 #include "GNEEdge.h"
 #include "GNEJunction.h"
+#include "GNETLSEditor.h"
+#include "GNEInternalLane.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
@@ -59,11 +62,15 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+// Object implementation
+FXIMPLEMENT(GNELane, FXDelegator, 0, 0)
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-
 
 // ===========================================================================
 // method definitions
@@ -73,10 +80,20 @@ GNELane::GNELane(GNEEdge& edge, const unsigned int index) :
     GNEAttributeCarrier(SUMO_TAG_LANE),
     myParentEdge(edge),
     myIndex(index),
-    mySpecialColor(0) {
+    mySpecialColor(0),
+    myTLSEditor(0)
+{
     updateGeometry();
 }
 
+GNELane::GNELane() :
+    GUIGlObject(GLO_LANE, "dummyConstructorGNELane"),
+    GNEAttributeCarrier(SUMO_TAG_LANE),
+    myParentEdge(*static_cast<GNEEdge*>(0)),
+    myIndex(-1),
+    mySpecialColor(0),
+    myTLSEditor(0)
+{ }
 
 GNELane::~GNELane() {}
 
@@ -342,6 +359,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildSelectionPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     const int editMode = parent.getVisualisationSettings()->editMode;
+    myTLSEditor = 0;
     if (editMode != GNE_MODE_CONNECT && editMode != GNE_MODE_TLS && editMode != GNE_MODE_CREATE_EDGE) {
         new FXMenuCommand(ret, "Split edge here", 0, &parent, MID_GNE_SPLIT_EDGE);
         new FXMenuCommand(ret, "Split edges in both direction here", 0, &parent, MID_GNE_SPLIT_EDGE_BIDI);
@@ -358,6 +376,18 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             new FXMenuCommand(ret, "Duplicate selected lanes", 0, &parent, MID_GNE_DUPLICATE_LANE);
         } else {
             new FXMenuCommand(ret, "Duplicate lane", 0, &parent, MID_GNE_DUPLICATE_LANE);
+        }
+    } else if (editMode == GNE_MODE_TLS) {
+        myTLSEditor = static_cast<GNEViewNet&>(parent).getTLSEditor();
+        if (myTLSEditor->controlsEdge(myParentEdge)) {
+            FXMenuCommand* mc = new FXMenuCommand(ret, "Select state for all links from this edge:", 0, 0, 0);
+            const std::vector<std::string> names = GNEInternalLane::LinkStateNames.getStrings();
+            for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
+                FXuint state = GNEInternalLane::LinkStateNames.get(*it);
+                FXMenuRadio* mc = new FXMenuRadio(ret, (*it).c_str(), this, FXDataTarget::ID_OPTION + state);
+                mc->setSelBackColor(MFXUtils::getFXColor(GNEInternalLane::colorForLinksState(state)));
+                mc->setBackColor(MFXUtils::getFXColor(GNEInternalLane::colorForLinksState(state)));
+            }
         }
     } else {
         FXMenuCommand* mc = new FXMenuCommand(ret, "Additional options available in 'Inspect Mode'", 0, 0, 0);
@@ -674,5 +704,16 @@ const std::string&
 GNELane::getParentName() const {
     return myParentEdge.getMicrosimID();
 }
+
+
+long
+GNELane::onDefault(FXObject* obj, FXSelector sel, void* data) {
+    if (myTLSEditor != 0) {
+        myTLSEditor->handleEdgeChange(getParentEdge(), obj, sel, data);
+    }
+    return 1;
+}
+
+
 
 /****************************************************************************/

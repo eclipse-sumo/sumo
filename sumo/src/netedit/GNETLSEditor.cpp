@@ -46,6 +46,7 @@
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNEJunction.h"
+#include "GNEEdge.h"
 #include "GNEUndoList.h"
 #include "GNEInternalLane.h"
 #include "GNEChange_TLS.h"
@@ -572,9 +573,41 @@ GNETLSEditor::getPhases() {
 void
 GNETLSEditor::handleChange(GNEInternalLane* lane) {
     myHaveModifications = true;
-    myEditedDef->getLogic()->setPhaseState(myPhaseTable->getCurrentRow(), lane->getTlIndex(), lane->getLinkState());
+    myEditedDef->getLogic()->setPhaseState(myPhaseTable->getCurrentRow(), lane->getTLIndex(), lane->getLinkState());
     initPhaseTable(myPhaseTable->getCurrentRow());
     myPhaseTable->setFocus();
+}
+
+
+void
+GNETLSEditor::handleEdgeChange(GNEEdge& edge, FXObject* obj, FXSelector sel, void* data) {
+    if (myEditedDef != 0) {
+        myHaveModifications = true;
+        const NBConnectionVector& links = myEditedDef->getControlledLinks();
+        for (NBConnectionVector::const_iterator it = links.begin(); it != links.end(); it++) {
+            const NBConnection& c = *it;
+            if (c.getFrom()->getID() == edge.getMicrosimID()) {
+                std::vector<GNEInternalLane*> lanes = myInternalLanes[c.getTLIndex()];
+                for (std::vector<GNEInternalLane*>::iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
+                    (*it_lane)->onDefault(obj, sel, data);
+                }
+            }
+        }
+    }
+}
+
+
+bool
+GNETLSEditor::controlsEdge(GNEEdge& edge) const {
+    if (myEditedDef != 0) {
+        const NBConnectionVector& links = myEditedDef->getControlledLinks();
+        for (NBConnectionVector::const_iterator it = links.begin(); it != links.end(); it++) {
+            if ((*it).getFrom()->getID() == edge.getMicrosimID()) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 

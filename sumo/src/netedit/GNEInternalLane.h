@@ -120,10 +120,15 @@ public:
     long onDefault(FXObject*, FXSelector, void*);
 
 
-    inline int getTlIndex() const {
+    inline int getTLIndex() const {
         return myTlIndex;
     }
 
+    /// @brief long names for link states
+    static const StringBijection<FXuint> LinkStateNames;
+
+    // @brief return the color for each linkstate
+    static RGBColor colorForLinksState(FXuint state);
 
 protected:
     /// @brief FOX needs this
@@ -162,14 +167,9 @@ private:
     /// @brief the created popup
     GUIGLObjectPopupMenu* myPopup;
 
-    /// @brief long names for link states
-    static StringBijection<FXuint> LinkStateNames;
-
     static StringBijection<FXuint>::Entry linkStateNamesValues[];
 
 private:
-    // @brief return the color for each linkstate
-    static RGBColor colorForLinksState(FXuint state);
 
     // @brief return the color for each linkstate
     static const std::string& longNameForLinkState(FXuint state);
