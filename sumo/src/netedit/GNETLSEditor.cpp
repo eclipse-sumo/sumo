@@ -243,6 +243,7 @@ GNETLSEditor::onCmdDefCreate(FXObject*, FXSelector, void*) {
     } else {
         myUndoList->add(new GNEChange_TLS(junction, 0, true, true), true);
     }
+    editJunction(junction);
     return 1;
 }
 
