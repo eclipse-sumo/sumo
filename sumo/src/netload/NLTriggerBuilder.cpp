@@ -44,7 +44,7 @@
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/trigger/MSCalibrator.h>
 #include <microsim/MSStoppingPlace.h>
-#include <microsim/trigger/MSChrgStn.h>
+#include <microsim/trigger/MSChargingStation.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
@@ -157,7 +157,7 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttribu
 }
 
 void
-NLTriggerBuilder::parseAndBuildChrgStn(MSNet& net, const SUMOSAXAttributes& attrs) {
+NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttributes& attrs) {
     bool ok = true;
 
     // get the id, throw if not given or empty...
@@ -173,10 +173,10 @@ NLTriggerBuilder::parseAndBuildChrgStn(MSNet& net, const SUMOSAXAttributes& attr
     // get the positions
     SUMOReal frompos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
     SUMOReal topos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
-    SUMOReal chrgpower = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHRGPOWER, id.c_str(), ok, 0);
+    SUMOReal chrgpower = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), ok, 0);
     SUMOReal efficiency = attrs.getOpt<SUMOReal>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0);
-    SUMOReal chargeInTransit = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHRGINTRANSIT, id.c_str(), ok, 0);
-    SUMOReal ChargeDelay = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHRGDELAY, id.c_str(), ok, 0);
+    SUMOReal chargeInTransit = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), ok, 0);
+    SUMOReal ChargeDelay = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGEDELAY, id.c_str(), ok, 0);
 
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
 
@@ -189,7 +189,7 @@ NLTriggerBuilder::parseAndBuildChrgStn(MSNet& net, const SUMOSAXAttributes& attr
     SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
 
     // build the Charging Station
-    buildChrgStn(net, id, lines, lane, frompos, topos, chrgpower, efficiency, chargeInTransit, ChargeDelay);
+    buildChargingStation(net, id, lines, lane, frompos, topos, chrgpower, efficiency, chargeInTransit, ChargeDelay);
 }
 
 void
@@ -384,14 +384,14 @@ NLTriggerBuilder::buildContainerStop(MSNet& net, const std::string& id,
 }
 
 void
-NLTriggerBuilder::buildChrgStn(MSNet& net, const std::string& id,
+NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id,
                                const std::vector<std::string>& lines,
                                MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay) {
 
-    MSChrgStn* chrgStn = new MSChrgStn(id, lines, *lane, frompos, topos, chrgpower, efficiency, chargeInTransit, ChargeDelay);
+    MSChargingStation* chargingStation = new MSChargingStation(id, lines, *lane, frompos, topos, chrgpower, efficiency, chargeInTransit, ChargeDelay);
 
-    if (!net.addChrgStn(chrgStn)) {
-        delete chrgStn;
+    if (!net.addChargingStation(chargingStation)) {
+        delete chargingStation;
         throw InvalidArgument("Could not build Charging Station '" + id + "'; probably declared twice.");
     }
 }

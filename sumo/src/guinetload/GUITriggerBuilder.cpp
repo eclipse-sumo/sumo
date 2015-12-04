@@ -38,7 +38,7 @@
 #include <guisim/GUIBusStop.h>
 #include <guisim/GUIContainerStop.h>
 #include <guisim/GUICalibrator.h>
-#include <guisim/GUIChrgStn.h>
+#include <guisim/GUIChargingStation.h>
 #include "GUITriggerBuilder.h"
 
 
@@ -104,13 +104,13 @@ GUITriggerBuilder::buildContainerStop(MSNet& net, const std::string& id,
 
 
 void
-GUITriggerBuilder::buildChrgStn(MSNet& net, const std::string& id,
+GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id,
                                 const std::vector<std::string>& lines,
                                 MSLane* lane,
                                 SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal chargeDelay) {
-    GUIChrgStn* chrg = new GUIChrgStn(id, lines, *lane, frompos, topos, chrgpower, efficiency, chargeInTransit, chargeDelay);
+    GUIChargingStation* chrg = new GUIChargingStation(id, lines, *lane, frompos, topos, chrgpower, efficiency, chargeInTransit, chargeDelay);
 
-    if (!net.addChrgStn(chrg)) {
+    if (!net.addChargingStation(chrg)) {
         delete chrg;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
     }

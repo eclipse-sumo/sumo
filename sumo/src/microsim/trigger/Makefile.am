@@ -4,5 +4,5 @@ libmicrosimtrigger_a_SOURCES = MSCalibrator.cpp MSCalibrator.h \
 MSContainerTerminal.cpp MSContainerTerminal.h \
 MSLaneSpeedTrigger.cpp MSLaneSpeedTrigger.h \
 MSTrigger.h MSTrigger.cpp \
-MSChrgStn.h MSChrgStn.cpp \
+MSChargingStation.h MSChargingStation.cpp \
 MSTriggeredRerouter.cpp MSTriggeredRerouter.h

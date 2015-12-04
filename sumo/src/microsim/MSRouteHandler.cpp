@@ -876,16 +876,16 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.endPos = cs->getEndLanePosition();
         stop.startPos = cs->getBeginLanePosition();
         edge = &l.getEdge();
-    } else if (stop.chrgStn != "") {
+    } else if (stop.chargingStation != "") {
         // ok, we have a Charging station
-        MSChrgStn* cs = MSNet::getInstance()->getChrgStn(stop.busstop);
+        MSChargingStation* cs = MSNet::getInstance()->getChargingStation(stop.busstop);
         if (cs != 0) {
             const MSLane& l = cs->getLane();
             stop.lane = l.getID();
             stop.endPos = cs->getEndLanePosition();
             stop.startPos = cs->getBeginLanePosition();
         } else {
-            WRITE_ERROR("The charging station '" + stop.chrgStn + "' is not known" + errorSuffix);
+            WRITE_ERROR("The charging station '" + stop.chargingStation + "' is not known" + errorSuffix);
             return;
         }
     } else {

@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    GUIChrgStn.h
+/// @file    GUIChargingStation.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
@@ -21,8 +21,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GUIChrgStn_h
-#define GUIChrgStn_h
+#ifndef GUIChargingStation_h
+#define GUIChargingStation_h
 
 
 // ===========================================================================
@@ -39,7 +39,7 @@
 #include <utils/common/Command.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/PositionVector.h>
-#include <microsim/trigger/MSChrgStn.h>
+#include <microsim/trigger/MSChargingStation.h>
 #include <guisim/GUIBusStop.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
@@ -61,17 +61,17 @@ class GUIManipulator;
 // class definitions
 // ===========================================================================
 /**
- * @class GUIChrgStn
+ * @class GUIChargingStation
  * @brief A lane area vehicles can halt at (gui-version)
  *
- * This gui-version of a bus-stop extends MSChrgStn by methods for displaying
+ * This gui-version of a bus-stop extends MSChargingStation by methods for displaying
  *  and interaction.
  *
- * @see MSChrgStn
+ * @see MSChargingStation
  * @see GUIGlObject_AbstractAdd
  * @see GUIGlObject
  */
-class GUIChrgStn : public MSChrgStn, public GUIGlObject_AbstractAdd {
+class GUIChargingStation : public MSChargingStation, public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
      * @param[in] idStorage The gl-id storage for giving this object an gl-id
@@ -81,14 +81,14 @@ public:
      * @param[in] begPos Begin position of the charging station on the lane
      * @param[in] endPos End position of the charging station on the lane
      */
-    GUIChrgStn(const std::string& id,
+    GUIChargingStation(const std::string& id,
                const std::vector<std::string>& lines, MSLane& lane,
                SUMOReal frompos, SUMOReal topos,
                SUMOReal new_chrgpower, SUMOReal new_efficiency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay);
 
 
     /// @brief Destructor
-    ~GUIChrgStn();
+    ~GUIChargingStation();
 
 
     /// @name inherited from GUIGlObject

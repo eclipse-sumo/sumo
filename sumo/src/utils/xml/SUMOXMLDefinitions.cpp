@@ -72,7 +72,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "rerouter",         SUMO_TAG_REROUTER },
     { "busStop",          SUMO_TAG_BUS_STOP },
     { "containerStop",    SUMO_TAG_CONTAINER_STOP },
-    { "chargingStation",  SUMO_TAG_CHRG_STN },
+    { "chargingStation",  SUMO_TAG_CHARGING_STATION },
     { "vTypeProbe",       SUMO_TAG_VTYPEPROBE },
     { "routeProbe",       SUMO_TAG_ROUTEPROBE },
     { "routes",           SUMO_TAG_ROUTES },
@@ -263,10 +263,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "boardingDuration", SUMO_ATTR_BOARDING_DURATION },
     { "loadingDuration", SUMO_ATTR_LOADING_DURATION },
 
-    { "chrgpower",      SUMO_ATTR_CHRGPOWER },
-    { "efficiency",     SUMO_ATTR_EFFICIENCY },
-    { "chargeInTransit", SUMO_ATTR_CHRGINTRANSIT },
-    { "chargeDelay",    SUMO_ATTR_CHRGDELAY},
+    { "power",           SUMO_ATTR_CHARGINGPOWER },
+    { "efficiency",      SUMO_ATTR_EFFICIENCY },
+    { "chargeInTransit", SUMO_ATTR_CHARGEINTRANSIT },
+    { "chargeDelay",     SUMO_ATTR_CHARGEDELAY},
 
     { "sigma",          SUMO_ATTR_SIGMA },
     { "tau",            SUMO_ATTR_TAU },

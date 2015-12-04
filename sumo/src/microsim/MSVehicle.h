@@ -59,7 +59,7 @@ class MSLaneChanger;
 class MSVehicleTransfer;
 class MSAbstractLaneChangeModel;
 class MSStoppingPlace;
-class MSChrgStn;
+class MSChargingStation;
 class MSPerson;
 class MSDevice;
 class MSEdgeWeightsStorage;
@@ -571,7 +571,7 @@ public:
         /// @brief (Optional) container stop if one is assigned to the stop
         MSStoppingPlace* containerstop;
         /// @brief (Optional) charging station if one is assigned to the stop
-        MSChrgStn* chrgStn;
+        MSChargingStation* chargingStation;
         /// @brief The stopping position start
         SUMOReal startPos;
         /// @brief The stopping position end

@@ -34,7 +34,7 @@
 
 #include <microsim/devices/MSDevice.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/trigger/MSChrgStn.h>
+#include <microsim/trigger/MSChargingStation.h>
 #include <utils/common/SUMOTime.h>
 #include <iostream>
 #include <sstream>
@@ -147,13 +147,13 @@ public:
     // GET FUNCTIONS
 
     /// @brief Get parameter 01, the actual vehicles' Battery Capacity in kWh
-    SUMOReal getActBatKap() const;
+    SUMOReal getActualBatteryCapacity() const;
 
     /// @brief Get parameter 02, the total vehicles' Battery Capacity in kWh
-    SUMOReal getMaxBatKap() const;
+    SUMOReal getMaximumBatteryCapacity() const;
 
     /// @brief Get parameter 03, the maximum power when accelerating
-    inline SUMOReal getPowerMax() const;
+    inline SUMOReal getMaximumPower() const;
 
     /// @brief Get parameter 04, vehicle's Mass
     inline SUMOReal getMass() const;
@@ -201,7 +201,7 @@ public:
     SUMOReal getConsum() const;
 
     /// @brief Get parameter 19, Charging Station I
-    const std::string& getChrgStnID() const;
+    const std::string& getChargingStationID() const;
 
     /// @brief Get parameter 20, charging energy
     SUMOReal getChrgEnergy() const;
@@ -216,10 +216,10 @@ public:
     // SET FUNCTIONS
 
     /// @brief Set parameter 01, The actual vehicles' Battery Capacity in kWh
-    inline void setActBatKap(const SUMOReal new_ActBatKap);
+    inline void setActualBatteryCapacity(const SUMOReal new_ActBatKap);
 
     /// @brief Set parameter 02, The total vehicles' Battery Capacity in kWh
-    inline void setMaxBatKap(const SUMOReal new_MaxBatKap);
+    inline void setMaximumBatteryCapacity(const SUMOReal new_MaxBatKap);
 
     /// @brief Set parameter 03, The maximum power when accelerating
     inline void setPowerMax(const SUMOReal new_Pmax);
@@ -268,12 +268,6 @@ public:
 
     /// @brief Set parameter 21a, increase vehicleStopped
     inline void increaseVehicleStoppedTimer();
-
-
-
-
-
-
 
 private:
 
@@ -351,7 +345,7 @@ private:
 
     /// @brief Parameter 19, Vehicle consum during a time step
     /// @condition by default is "".
-    std::string actChrgStn;
+    std::string actChargingStation;
 
     /// @brief Parameter 20, Energy charged in each timestep
     SUMOReal energyCharged;

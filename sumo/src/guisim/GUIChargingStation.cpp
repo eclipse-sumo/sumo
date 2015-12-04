@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    GUIChrgStn.cpp
+/// @file    GUIChargingStation.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
@@ -44,7 +44,7 @@
 #include "GUINet.h"
 #include "GUIEdge.h"
 #include "GUIPerson.h"
-#include "GUIChrgStn.h"
+#include "GUIChargingStation.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
@@ -64,9 +64,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIChrgStn::GUIChrgStn(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
+GUIChargingStation::GUIChargingStation(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
                        SUMOReal frompos, SUMOReal topos, SUMOReal new_chrgpower, SUMOReal new_efficiency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay)
-    : MSChrgStn(id, lines, lane, frompos, topos, new_chrgpower, new_efficiency, new_ChargeInTransit, new_ChargeDelay),
+    : MSChargingStation(id, lines, lane, frompos, topos, new_chrgpower, new_efficiency, new_ChargeInTransit, new_ChargeDelay),
       GUIGlObject_AbstractAdd("chargingStation", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(frompos, topos);
@@ -95,12 +95,12 @@ GUIChrgStn::GUIChrgStn(const std::string& id, const std::vector<std::string>& li
 }
 
 
-GUIChrgStn::~GUIChrgStn()
+GUIChargingStation::~GUIChargingStation()
 {}
 
 
 GUIParameterTableWindow*
-GUIChrgStn::getParameterWindow(GUIMainWindow& app,
+GUIChargingStation::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 6);
 
@@ -119,7 +119,7 @@ GUIChrgStn::getParameterWindow(GUIMainWindow& app,
 
 
 GUIGLObjectPopupMenu*
-GUIChrgStn::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+GUIChargingStation::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -131,7 +131,7 @@ GUIChrgStn::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 Boundary
-GUIChrgStn::getCenteringBoundary() const {
+GUIChargingStation::getCenteringBoundary() const {
     Boundary b = myFGShape.getBoxBoundary();
     b.grow(20);
     return b;
@@ -139,7 +139,7 @@ GUIChrgStn::getCenteringBoundary() const {
 
 
 void
-GUIChrgStn::drawGL(const GUIVisualizationSettings& s) const {
+GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
     glPushName(getGlID());
     glPushMatrix();

@@ -82,44 +82,44 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
     SUMOReal new_LastEnergy = 0;
 
     // MaxBatKap
-    new_MaxBatKap = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("MaxBatKap", "0").c_str());
+    new_MaxBatKap = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("maximumBatteryCapacity", "0").c_str());
 
     // ActBatKap
-    if (v.getParameter().getParameter("ActBatKap", "-") == "-") {
+    if (v.getParameter().getParameter("actualBatteryCapacity", "-") == "-") {
         new_ActBatKap = new_MaxBatKap / 2.0;
     } else {
-        new_ActBatKap = TplConvert::_2SUMOReal(v.getParameter().getParameter("ActBatKap", "0").c_str());
+        new_ActBatKap = TplConvert::_2SUMOReal(v.getParameter().getParameter("actualBatteryCapacity", "0").c_str());
     }
 
     // Power
-    new_PowerMax = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("PowerMax", "100").c_str());
+    new_PowerMax = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("maximumPower", "100").c_str());
 
     // Mass
-    new_Mass = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("Mass", "1000").c_str());
+    new_Mass = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("vehicleMass", "1000").c_str());
 
     // FrontSurfaceArea
-    new_FrontSurfaceArea = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("FrontSurfaceArea", "2").c_str());
+    new_FrontSurfaceArea = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("frontSurfaceArea", "2").c_str());
 
     // AirDragCoefficient
-    new_AirDragCoefficient = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("AirDragCoefficient", "0.4").c_str());
+    new_AirDragCoefficient = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("airDragCoefficient", "0.4").c_str());
 
     // InternalMomentOfInertia
-    new_InternalMomentOfInertia = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("InternalMomentOfInertia", "10").c_str());
+    new_InternalMomentOfInertia = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("internalMomentOfInertia", "10").c_str());
 
     // Radial Drag Coefficient
-    new_RadialDragCoefficient = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("RadialDragCoefficient", "1").c_str());
+    new_RadialDragCoefficient = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("radialDragCoefficient", "1").c_str());
 
     // RollDragCoefficient
-    new_RollDragCoefficient = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("RollDragCoefficient", "0.5").c_str());
+    new_RollDragCoefficient = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("rollDragCoefficient", "0.5").c_str());
 
     // ConstantPowerIntake
-    new_ConstantPowerIntake = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("ConstantPowerIntake", "10").c_str());
+    new_ConstantPowerIntake = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("constantPowerIntake", "10").c_str());
 
     // PropulsionEfficiency
-    new_PropulsionEfficiency = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("PropulsionEfficiency", "0.5").c_str());
+    new_PropulsionEfficiency = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("propulsionEfficiency", "0.5").c_str());
 
     // RecuperationEfficiency
-    new_RecuperationEfficiency = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("RecuperationEfficiency", "0").c_str());
+    new_RecuperationEfficiency = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("recuperationEfficiency", "0").c_str());
 
     // constructor
     MSDevice_Battery* device = new MSDevice_Battery(v, "battery_" + v.getID(),
@@ -143,34 +143,34 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
     }
 
     // Update Energy from the battery
-    if (getMaxBatKap() != 0) {
+    if (getMaximumBatteryCapacity() != 0) {
         Consum = getPropEnergy(veh);
 
         // Energy lost/gained from vehicle movement (via vehicle energy model) [kWh]
-        setActBatKap(getActBatKap() - Consum);
+        setActualBatteryCapacity(getActualBatteryCapacity() - Consum);
 
         // saturate between 0 and MaxBatKap [kWh]
-        if (getActBatKap() < 0) {
-            setActBatKap(0);
+        if (getActualBatteryCapacity() < 0) {
+            setActualBatteryCapacity(0);
 
-            if (getMaxBatKap() > 0) {
+            if (getMaximumBatteryCapacity() > 0) {
                 WRITE_WARNING("Battery of vehicle '" + veh.getID() + "' is depleted.");
             }
 
-        } else if (getActBatKap() > getMaxBatKap()) {
-            setActBatKap(getMaxBatKap());
+        } else if (getActualBatteryCapacity() > getMaximumBatteryCapacity()) {
+            setActualBatteryCapacity(getMaximumBatteryCapacity());
         }
 
         setLastAngle(veh.getAngle());
     }
 
     // Check if vehicle has under their position one charge Station
-    std::string ChargingStationID = MSNet::getInstance()->getChrgStnID(veh.getLane(), veh.getPositionOnLane());
+    std::string ChargingStationID = MSNet::getInstance()->getChargingStationID(veh.getLane(), veh.getPositionOnLane());
 
     // If vehicle is over a charging station
     if (ChargingStationID != "") {
         // Declare a pointer to the charging station
-        MSChrgStn* ChargingStationPointer = MSNet::getInstance()->getChrgStn(ChargingStationID);
+        MSChargingStation* ChargingStationPointer = MSNet::getInstance()->getChargingStation(ChargingStationID);
 
         // if the vehicle is almost stopped, or charge in transit is enabled, then charge vehicle
         if ((veh.getSpeed() < 0.2) || (ChargingStationPointer->getChargeInTransit() == 1)) {
@@ -189,8 +189,8 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
                 ItsChargingInTransit = true;
             }
 
-            // Set actChrgStn parameter
-            actChrgStn = ChargingStationID;
+            // Set actChargingStation parameter
+            actChargingStation = ChargingStationID;
 
             // Only update charging start time if vehicle allow charge in transit, or in other case
             // if the vehicle not allow charge in transit but it's stopped.
@@ -208,10 +208,10 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
                 energyCharged /= 3600;
 
                 // Update Battery charge
-                if ((energyCharged + getActBatKap()) > getMaxBatKap()) {
-                    setActBatKap(getMaxBatKap());
+                if ((energyCharged + getActualBatteryCapacity()) > getMaximumBatteryCapacity()) {
+                    setActualBatteryCapacity(getMaximumBatteryCapacity());
                 } else {
-                    setActBatKap(getActBatKap() + energyCharged);
+                    setActualBatteryCapacity(getActualBatteryCapacity() + energyCharged);
                 }
             }
         }
@@ -223,7 +223,7 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
         ItsChargingStopped = false;
 
         // Disable charging station
-        actChrgStn = "NULL";
+        actChargingStation = "NULL";
 
         // Set energy charged to 0
         energyCharged = 0.00;
@@ -260,18 +260,18 @@ void MSDevice_Battery::generateOutput() const {
 MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const SUMOReal new_ActBatKap, const SUMOReal new_MaxBatKap, const SUMOReal new_PowerMax, const SUMOReal new_Mass, const SUMOReal new_FrontSurfaceArea, const SUMOReal new_AirDragCoefficient, const SUMOReal new_InternalMomentOfInertia, const SUMOReal new_RadialDragCoefficient, const SUMOReal new_RollDragCoefficient, const SUMOReal new_ConstantPowerIntake, const SUMOReal new_PropulsionEfficiency, const SUMOReal new_RecuperationEfficiency, const SUMOReal new_LastAngle, const SUMOReal new_LastEnergy)
     :
     MSDevice(holder, id),
-    ActBatKap(new_ActBatKap),									// [ActBatKap <= MaxBatKap]
-    MaxBatKap(new_MaxBatKap),									// [MaxBatKap >= 0]
-    PowerMax(new_PowerMax),										// [PowerMax >= 0]
-    Mass(new_Mass),												// [Mass >= 0]
-    FrontSurfaceArea(new_FrontSurfaceArea),						// [FrontSurfaceArea >= 0]
-    AirDragCoefficient(new_AirDragCoefficient),					// [AirDragCoefficient >=0]
-    InternalMomentOfInertia(new_InternalMomentOfInertia),		// [InternalMomentOfInertia >= 0]
-    RadialDragCoefficient(new_RadialDragCoefficient),			// [RadialDragCoefficient >=0]
-    RollDragCoefficient(new_RollDragCoefficient),				// [RollDragCoefficient >= 0]
-    ConstantPowerIntake(new_ConstantPowerIntake),				// [ConstantPowerIntake >= 0]
-    PropulsionEfficiency(new_PropulsionEfficiency),				// [1 >= PropulsionEfficiency >= 0]
-    RecuperationEfficiency(new_RecuperationEfficiency),			// [1 >= RecuperationEfficiency >= 0]
+    ActBatKap(new_ActBatKap),									// [actualBatteryCapacity <= maximumBatteryCapacity]
+    MaxBatKap(new_MaxBatKap),									// [maximumBatteryCapacity >= 0]
+    PowerMax(new_PowerMax),										// [maximumPower >= 0]
+    Mass(new_Mass),												// [vehicleMass >= 0]
+    FrontSurfaceArea(new_FrontSurfaceArea),						// [frontSurfaceArea >= 0]
+    AirDragCoefficient(new_AirDragCoefficient),					// [airDragCoefficient >=0]
+    InternalMomentOfInertia(new_InternalMomentOfInertia),		// [internalMomentOfInertia >= 0]
+    RadialDragCoefficient(new_RadialDragCoefficient),			// [radialDragCoefficient >=0]
+    RollDragCoefficient(new_RollDragCoefficient),				// [rollDragCoefficient >= 0]
+    ConstantPowerIntake(new_ConstantPowerIntake),				// [constantPowerIntake >= 0]
+    PropulsionEfficiency(new_PropulsionEfficiency),				// [1 >= propulsionEfficiency >= 0]
+    RecuperationEfficiency(new_RecuperationEfficiency),			// [1 >= recuperationEfficiency >= 0]
     LastAngle(new_LastAngle),									// Limit not needed
     LastEnergy(new_LastEnergy) {								// Limit not needed
     // Initially the Vehicle is not charging and is not in a Chargin Station
@@ -288,7 +288,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     vehicleStopped = 0;
 
     // Initially the Vehicle are not over a Charging Station
-    actChrgStn = "NULL";
+    actChargingStation = "NULL";
 
     if (ActBatKap > MaxBatKap) {
         WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has a actual battery capacity ("  + SUMOReal_str(ActBatKap) + ") greater than it's max battery capacity(" + SUMOReal_str(MaxBatKap) + ").");
@@ -296,11 +296,11 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     }
 
     if (MaxBatKap < 0) {
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid battery capacity (" + SUMOReal_str(MaxBatKap) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid maximum battery capacity (" + SUMOReal_str(MaxBatKap) + ").");
     }
 
     if (PowerMax < 0) {
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid power max (" + SUMOReal_str(PowerMax) + ").");
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has not a valid maximum power (" + SUMOReal_str(PowerMax) + ").");
     }
 
     if (Mass < 0) {
@@ -347,20 +347,20 @@ MSDevice_Battery::~MSDevice_Battery()
 
 // SET FUNCTIONS
 
-void MSDevice_Battery::setActBatKap(const SUMOReal new_ActBatKap) {
+void MSDevice_Battery::setActualBatteryCapacity(const SUMOReal new_ActBatKap) {
     ActBatKap = new_ActBatKap;
 
     if (ActBatKap > MaxBatKap) {
-        WRITE_WARNING("Function setActBatKap: Actual battery capacity ("  + SUMOReal_str(ActBatKap) + ") from Vehicle '" + getID() + "' is greater than it's max battery capacity(" + SUMOReal_str(MaxBatKap) + ").");
+        WRITE_WARNING("Function setActualBatteryCapacity: Actual battery capacity ("  + SUMOReal_str(ActBatKap) + ") from Vehicle '" + getID() + "' is greater than it's max battery capacity(" + SUMOReal_str(MaxBatKap) + ").");
     }
 }
 
 
-void MSDevice_Battery::setMaxBatKap(const SUMOReal new_MaxBatKap) {
+void MSDevice_Battery::setMaximumBatteryCapacity(const SUMOReal new_MaxBatKap) {
     MaxBatKap = new_MaxBatKap;
 
     if (MaxBatKap < 0) {
-        WRITE_WARNING("Function setMaxBatKap: Vehicle '" + getID() + "' has not a valid battery capacity (" + SUMOReal_str(MaxBatKap) + ").");
+        WRITE_WARNING("Function setMaximumBatteryCapacity: Vehicle '" + getID() + "' has not a valid battery capacity (" + SUMOReal_str(MaxBatKap) + ").");
     }
 }
 
@@ -481,15 +481,15 @@ inline void MSDevice_Battery::increaseVehicleStoppedTimer() {
 
 //GET FUNCTIONS
 
-SUMOReal MSDevice_Battery::getActBatKap() const {
+SUMOReal MSDevice_Battery::getActualBatteryCapacity() const {
     return ActBatKap;
 }
 
-SUMOReal MSDevice_Battery::getMaxBatKap() const {
+SUMOReal MSDevice_Battery::getMaximumBatteryCapacity() const {
     return MaxBatKap;
 }
 
-SUMOReal MSDevice_Battery::getPowerMax() const {
+SUMOReal MSDevice_Battery::getMaximumPower() const {
     return PowerMax;
 }
 
@@ -553,8 +553,8 @@ SUMOReal MSDevice_Battery::getChargingStartTime() const {
     return ChargingStartTime;
 }
 
-const std::string& MSDevice_Battery::getChrgStnID() const {
-    return actChrgStn;
+const std::string& MSDevice_Battery::getChargingStationID() const {
+    return actChargingStation;
 }
 
 SUMOReal MSDevice_Battery::getChrgEnergy() const {

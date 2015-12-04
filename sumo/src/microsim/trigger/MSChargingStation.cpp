@@ -1,12 +1,12 @@
 /****************************************************************************/
-/// @file    MSChrgStn_h.h
+/// @file    MSChargingStation_h.h
 /// @author  Daniel Krajzewicz
 /// @author  Tamas Kurzveil
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
-/// @version $Id$       //REVISION NEEDED
+/// @version $Id$
 ///
-// Chargin Station for Electric vehicles //REVISION NEEDED
+// Chargin Station for Electric vehicles
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
@@ -34,7 +34,7 @@
 #include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSStoppingPlace.h>
-#include "MSChrgStn.h"
+#include "MSChargingStation.h"
 #include "MSTrigger.h"
 
 
@@ -46,11 +46,11 @@
 // member method definitions
 // ===========================================================================
 
-MSChrgStn::MSChrgStn(const std::string& new_ChrgStnID,
+MSChargingStation::MSChargingStation(const std::string& new_ChargingStationID,
                      const std::vector<std::string>& new_lines,
                      MSLane& new_Lane, SUMOReal new_StartPos, SUMOReal new_EndPos, SUMOReal new_ChrgPower,
                      SUMOReal new_Efficency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay) :
-    MSStoppingPlace(new_ChrgStnID, new_lines, new_Lane, new_StartPos, new_EndPos),
+    MSStoppingPlace(new_ChargingStationID, new_lines, new_Lane, new_StartPos, new_EndPos),
     ChrgPower(new_ChrgPower),
     Efficency(new_Efficency),
     ChargeInTransit(new_ChargeInTransit),
@@ -69,7 +69,7 @@ MSChrgStn::MSChrgStn(const std::string& new_ChrgStnID,
 }
 
 
-MSChrgStn::~MSChrgStn()
+MSChargingStation::~MSChargingStation()
 {}
 
 
@@ -77,29 +77,29 @@ MSChrgStn::~MSChrgStn()
 
 
 SUMOReal
-MSChrgStn::getChrgPower() const {
+MSChargingStation::getChrgPower() const {
     return ChrgPower;
 }
 
 SUMOReal
-MSChrgStn::getEfficency() const {
+MSChargingStation::getEfficency() const {
     return Efficency;
 }
 
 SUMOReal
-MSChrgStn::getChargeInTransit() const {
+MSChargingStation::getChargeInTransit() const {
     return ChargeInTransit;
 }
 
 SUMOReal
-MSChrgStn::getChargeDelay() const {
+MSChargingStation::getChargeDelay() const {
     return ChargeDelay;
 }
 
 
 // SET FUNCTIONS
 
-void MSChrgStn::setChrgPower(SUMOReal new_ChrgPower) {
+void MSChargingStation::setChrgPower(SUMOReal new_ChrgPower) {
     ChrgPower = new_ChrgPower;
 
     if (new_ChrgPower < 0) {
@@ -108,7 +108,7 @@ void MSChrgStn::setChrgPower(SUMOReal new_ChrgPower) {
 }
 
 
-void MSChrgStn::setEfficency(SUMOReal new_Efficency) {
+void MSChargingStation::setEfficency(SUMOReal new_Efficency) {
     if (new_Efficency < 0 || new_Efficency > 1) {
         std::cout << std::string("Warning: Chargin Station with ID = " + getID() + " doesn't have a valid Efficency (" + SUMOReal_str(getEfficency()) + ").");
     }
@@ -116,7 +116,7 @@ void MSChrgStn::setEfficency(SUMOReal new_Efficency) {
     Efficency = new_Efficency;
 }
 
-bool MSChrgStn::vehicleIsInside(const SUMOReal position) {
+bool MSChargingStation::vehicleIsInside(const SUMOReal position) {
     if ((position >= getBeginLanePosition()) && (position <= getEndLanePosition())) {
         return true;
     } else {
@@ -126,7 +126,7 @@ bool MSChrgStn::vehicleIsInside(const SUMOReal position) {
 
 // Private methods
 
-std::string MSChrgStn::SUMOReal_str(const SUMOReal& var) {
+std::string MSChargingStation::SUMOReal_str(const SUMOReal& var) {
     std::ostringstream convert;
     convert << var;
     return convert.str();
