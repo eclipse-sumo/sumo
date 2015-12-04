@@ -1091,6 +1091,9 @@ GNEViewNet::buildEditModeControls() {
     myWarnAboutMerge = new FXMenuCheck(myToolbar, "ask for merge\t\tAsk for confirmation before merging junctions.", this, 0);
     myWarnAboutMerge->setCheck();
     myVisualizeHeight = new FXMenuCheck(myToolbar, "show height\t\tVisualize height by color (green is low, red is high).", this, MID_GNE_VIS_HEIGHT);
+
+    myChangeAllPhases = new FXMenuCheck(myToolbar, "apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current traffic light plan", this, 0);
+    myChangeAllPhases->setCheck(false);
 }
 
 
@@ -1105,6 +1108,7 @@ GNEViewNet::updateModeSpecificControls() {
     myAutoCreateOppositeEdge->hide();
     mySelectEdges->hide();
     myExtendToEdgeNodes->hide();
+    myChangeAllPhases->hide();
     myWarnAboutMerge->hide();
     myVisualizeHeight->hide();
     int widthChange = 0;
@@ -1156,6 +1160,7 @@ GNEViewNet::updateModeSpecificControls() {
         case GNE_MODE_TLS:
             widthChange -= myTLSEditor->getWidth() + addChange;
             myTLSEditor->show();
+            myChangeAllPhases->show();
             break;
         default:
             break;
