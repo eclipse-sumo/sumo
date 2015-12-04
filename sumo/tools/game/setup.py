@@ -27,9 +27,10 @@ import subprocess
 import tempfile
 
 nightlyDir = r"O:\Daten\Sumo\Nightly"
-sevenZip = r'C:\Programme\7-Zip\7z.exe'
-if not os.path.exists(sevenZip):
-    sevenZip = r'C:\Program Files (x86)\7-Zip\7z.exe'
+for d in ["Program Files", "Program Files (x86)", "Programme"]:
+    sevenZip = r'C:\%s\7-Zip\7z.exe' %d
+    if os.path.exists(sevenZip):
+        break
 
 internal = False
 if "internal" in sys.argv:
