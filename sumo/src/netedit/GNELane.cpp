@@ -709,7 +709,7 @@ GNELane::getParentName() const {
 long
 GNELane::onDefault(FXObject* obj, FXSelector sel, void* data) {
     if (myTLSEditor != 0) {
-        myTLSEditor->handleEdgeChange(getParentEdge(), obj, sel, data);
+        myTLSEditor->handleMultiChange(this, obj, sel, data);
     }
     return 1;
 }

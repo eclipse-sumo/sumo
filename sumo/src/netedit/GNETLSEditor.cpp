@@ -47,6 +47,7 @@
 #include "GNENet.h"
 #include "GNEJunction.h"
 #include "GNEEdge.h"
+#include "GNELane.h"
 #include "GNEUndoList.h"
 #include "GNEInternalLane.h"
 #include "GNEChange_TLS.h"
@@ -593,13 +594,41 @@ GNETLSEditor::handleChange(GNEInternalLane* lane) {
 
 
 void
-GNETLSEditor::handleEdgeChange(GNEEdge& edge, FXObject* obj, FXSelector sel, void* data) {
+GNETLSEditor::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector sel, void* data) {
     if (myEditedDef != 0) {
         myHaveModifications = true;
         const NBConnectionVector& links = myEditedDef->getControlledLinks();
+        std::set<std::string> fromIDs;
+        fromIDs.insert(lane->getMicrosimID());
+        GNEEdge& edge = lane->getParentEdge();
+        // if neither the lane nor its edge are selected, apply changes to the whole edge
+        if (!gSelected.isSelected(GLO_EDGE, edge.getGlID()) && !gSelected.isSelected(GLO_LANE, lane->getGlID())) {
+            for (GNEEdge::LaneVector::const_iterator it_lane = edge.getLanes().begin(); it_lane != edge.getLanes().end(); it_lane++) {
+                fromIDs.insert((*it_lane)->getMicrosimID());
+            }
+        } else {
+            // if the edge is selected, apply changes to all lanes of all selected edges
+            if (gSelected.isSelected(GLO_EDGE, edge.getGlID())) {
+                std::vector<GNEEdge*> edges = myUpdateTarget->getNet()->retrieveEdges(true);
+                for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {
+                    for (GNEEdge::LaneVector::const_iterator it_lane = (*it)->getLanes().begin(); it_lane != (*it)->getLanes().end(); it_lane++) {
+                        fromIDs.insert((*it_lane)->getMicrosimID());
+                    }
+                }
+            }
+            // if the lane is selected, apply changes to all selected lanes
+            if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
+                std::vector<GNELane*> lanes = myUpdateTarget->getNet()->retrieveLanes(true);
+                for (std::vector<GNELane*>::iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
+                    fromIDs.insert((*it_lane)->getMicrosimID());
+                }
+            }
+            
+        }
+        // set new state for all connections from the chosen lane IDs
         for (NBConnectionVector::const_iterator it = links.begin(); it != links.end(); it++) {
             const NBConnection& c = *it;
-            if (c.getFrom()->getID() == edge.getMicrosimID()) {
+            if (fromIDs.count(c.getFrom()->getLaneID(c.getFromLane())) > 0) {
                 std::vector<GNEInternalLane*> lanes = myInternalLanes[c.getTLIndex()];
                 for (std::vector<GNEInternalLane*>::iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
                     (*it_lane)->onDefault(obj, sel, data);
