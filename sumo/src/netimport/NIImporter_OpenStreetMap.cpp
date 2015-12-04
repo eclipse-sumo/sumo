@@ -497,10 +497,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     if (ok) {
         LaneSpreadFunction lsf = addBackward ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+        id = StringUtils::escapeXML(id);
         if (addForward) {
             assert(numLanesForward > 0);
-            NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), from, to, type, speed, numLanesForward, tc.getPriority(type),
-                                     forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape, StringUtils::escapeXML(e->streetName), lsf, true);
+            NBEdge* nbe = new NBEdge(id, from, to, type, speed, numLanesForward, tc.getPriority(type),
+                                     forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape, StringUtils::escapeXML(e->streetName), id, lsf, true);
             nbe->setPermissions(forwardPermissions);
             if ((e->myBuswayType & WAY_FORWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
@@ -515,12 +516,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
             }
-            id = "-" + id;
         }
         if (addBackward) {
             assert(numLanesBackward > 0);
-            NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), to, from, type, speed, numLanesBackward, tc.getPriority(type),
-                                     backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), StringUtils::escapeXML(e->streetName), lsf, true);
+            NBEdge* nbe = new NBEdge("-" + id, to, from, type, speed, numLanesBackward, tc.getPriority(type),
+                                     backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), StringUtils::escapeXML(e->streetName), id, lsf, true);
             nbe->setPermissions(backwardPermissions);
             if ((e->myBuswayType & WAY_BACKWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
@@ -533,7 +533,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             if (!ec.insert(nbe)) {
                 delete nbe;
-                throw ProcessError("Could not add edge '" + id + "'.");
+                throw ProcessError("Could not add edge '-" + id + "'.");
             }
         }
     }

@@ -152,7 +152,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                                ed->type, ed->maxSpeed,
                                (unsigned int) ed->lanes.size(),
                                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
-                               geom, ed->streetName, ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
+                               geom, ed->streetName, "", ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         e->setLoadedLength(ed->length);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             WRITE_ERROR("Could not insert edge '" + ed->id + "'.");
