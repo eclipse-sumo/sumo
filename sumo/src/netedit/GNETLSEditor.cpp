@@ -81,7 +81,7 @@ FXDEFMAP(GNETLSEditor) GNETLSEditorMap[] = {
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_DEF_SWITCH,         GNETLSEditor::onUpdDefSwitch),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_DEF_OFFSET,         GNETLSEditor::onUpdNeedsDef),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_PHASE_CREATE,       GNETLSEditor::onUpdNeedsDef),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_PHASE_DELETE,       GNETLSEditor::onUpdNeedsDef),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_PHASE_DELETE,       GNETLSEditor::onUpdNeedsDefAndPhase),
     FXMAPFUNC(SEL_UPDATE,     MID_CANCEL,                 GNETLSEditor::onUpdModified),
     FXMAPFUNC(SEL_UPDATE,     MID_OK,                     GNETLSEditor::onUpdModified),
 };
@@ -152,7 +152,7 @@ GNETLSEditor::GNETLSEditor(FXComposite* parent, GNEViewNet* updateTarget, GNEUnd
     myCycleDuration = new FXLabel(myContentFrame, "");
 
     // insert new phase button
-    new FXButton(myContentFrame, "Insert Phase\t\tInsert Phase after selected phase", 0, this, MID_GNE_PHASE_CREATE,
+    new FXButton(myContentFrame, "Copy Phase\t\tInsert duplicate phase after selected phase", 0, this, MID_GNE_PHASE_CREATE,
                  ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 3, 3);
 
@@ -305,6 +305,15 @@ GNETLSEditor::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
 
 
 long
+GNETLSEditor::onUpdNeedsDefAndPhase(FXObject* o, FXSelector, void*) {
+    // do not delete the last phase
+    const bool enable = myDefinitions.size() > 0 && myPhaseTable->getNumRows() > 1;
+    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), 0);
+    return 1;
+}
+
+
+long
 GNETLSEditor::onUpdDefCreate(FXObject* o, FXSelector, void*) {
     const bool enable = myCurrentJunction != 0 && !myHaveModifications;
     o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), 0);
@@ -380,7 +389,11 @@ GNETLSEditor::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     const unsigned int numLinks = myEditedDef->getLogic()->getNumLinks();
     // allows insertion at first position by deselecting via arrow keys
     unsigned int newIndex = myPhaseTable->getSelStartRow() + 1;
-    myEditedDef->getLogic()->addStep(TIME2STEPS(3), std::string(numLinks, LINKSTATE_TL_RED), newIndex);
+    unsigned int oldIndex = MAX2(0, myPhaseTable->getSelStartRow());
+    // copy current row
+    const SUMOTime duration = getSUMOTime(myPhaseTable->getItemText(oldIndex, 0));
+    const std::string state = myPhaseTable->getItemText(oldIndex, 1).text();
+    myEditedDef->getLogic()->addStep(duration, state, newIndex);
     myPhaseTable->setCurrentItem(newIndex, 0);
     initPhaseTable(newIndex);
     myPhaseTable->setFocus();

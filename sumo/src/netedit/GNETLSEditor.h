@@ -110,6 +110,7 @@ public:
 
     long onUpdDefSwitch(FXObject*, FXSelector, void*);
     long onUpdNeedsDef(FXObject*, FXSelector, void*);
+    long onUpdNeedsDefAndPhase(FXObject*, FXSelector, void*);
     long onUpdDefCreate(FXObject*, FXSelector, void*);
     long onUpdModified(FXObject*, FXSelector, void*);
     /// @}
