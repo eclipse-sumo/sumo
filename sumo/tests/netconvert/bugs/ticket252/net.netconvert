@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:44 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on 12/04/15 13:16:54 by SUMO netconvert Version dev-SVN-r19508
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
+        <type-files value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -27,7 +27,7 @@
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <offset.x value="-280900"/>
-        <offset.y value="-4.1536e+06"/>
+        <offset.y value="-4.1536e+006"/>
     </processing>
 
     <report>
@@ -159,13 +159,13 @@
         <lane id=":49613631_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.40" length="10.37" shape="4211.37,3177.69 4213.79,3176.35 4216.11,3176.12 4218.33,3176.98 4220.45,3178.95"/>
     </edge>
 
+    <edge id="--15" from="450601519" to="-7" name="74A" priority="12" type="highway.motorway_link">
+        <lane id="--15_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="24.60" length="43.02" shape="4204.63,3162.80 4243.78,3144.98"/>
+    </edge>
     <edge id="-14" from="49613186" to="450601528" name="I-95" priority="13" type="highway.motorway" spreadType="center" shape="4510.41,-362.93 4666.47,199.36 4823.71,871.73 4825.63,926.47 4698.52,1520.12 4653.33,1707.61 4624.38,1831.02 4585.12,1997.77 4553.20,2129.88 4532.44,2228.06">
         <lane id="-14_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2663.14" shape="4513.59,-363.82 4669.66,198.54 4827.00,871.29 4828.95,926.76 4701.74,1520.85 4656.54,1708.37 4627.59,1831.77 4588.33,1998.54 4556.42,2130.61 4535.66,2228.75"/>
         <lane id="-14_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2663.14" shape="4510.41,-362.93 4666.47,199.36 4823.71,871.73 4825.63,926.47 4698.52,1520.12 4653.33,1707.61 4624.38,1831.02 4585.12,1997.77 4553.20,2129.88 4532.43,2228.06"/>
         <lane id="-14_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2663.14" shape="4507.23,-362.05 4663.27,200.17 4820.43,872.17 4822.32,926.18 4695.31,1519.38 4650.11,1706.85 4621.17,1830.26 4581.91,1997.01 4549.98,2129.15 4529.21,2227.38"/>
-    </edge>
-    <edge id="-15" from="450601519" to="-7" name="74A" priority="12" type="highway.motorway_link">
-        <lane id="-15_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="24.60" length="43.02" shape="4204.63,3162.80 4243.78,3144.98"/>
     </edge>
     <edge id="-6033364#0" from="49613631" to="49613629" name="Dock St" priority="4" type="highway.residential">
         <lane id="-6033364#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.40" length="70.27" shape="4213.37,3180.32 4157.49,3222.94"/>
@@ -251,7 +251,7 @@
 
     <junction id="-10" type="unregulated" x="4399.35" y="3441.19" incLanes="" intLanes="" shape="4404.24,3440.84 4394.46,3441.54"/>
     <junction id="-12" type="unregulated" x="4411.95" y="3440.85" incLanes="38232899#1_0 38232899#1_1 38232899#1_2" intLanes="" shape="4416.82,3440.26 4407.08,3441.43"/>
-    <junction id="-7" type="unregulated" x="4244.47" y="3146.49" incLanes="-15_0" intLanes="" shape="4243.12,3143.53 4244.45,3146.44"/>
+    <junction id="-7" type="unregulated" x="4244.47" y="3146.49" incLanes="--15_0" intLanes="" shape="4243.12,3143.53 4244.45,3146.44"/>
     <junction id="-9" type="unregulated" x="4421.76" y="3443.90" incLanes="38232907_0" intLanes="" shape="4423.35,3443.75 4420.16,3444.04"/>
     <junction id="29933572" type="priority" x="4414.95" y="2718.20" incLanes="37961316#1_0 37961316#1_1 37961316#1_2 38232910#0_0 38232910#0_1 38232910#0_2" intLanes=":29933572_0_0 :29933572_0_1 :29933572_0_2 :29933572_3_0 :29933572_3_1 :29933572_3_2" shape="4420.10,2717.53 4410.50,2715.52 4389.96,2802.68 4399.49,2804.93 4399.66,2804.96 4409.39,2806.12">
         <request index="0" response="000000" foes="111000" cont="0"/>
@@ -339,7 +339,7 @@
     <connection from="38232899#0" to="38232899#1" fromLane="0" toLane="0" via=":450601590_1_0" dir="s" state="M"/>
     <connection from="38232899#0" to="38232899#1" fromLane="1" toLane="1" via=":450601590_1_1" dir="s" state="M"/>
     <connection from="38232899#0" to="38232899#1" fromLane="2" toLane="2" via=":450601590_1_2" dir="s" state="M"/>
-    <connection from="38232909" to="-15" fromLane="0" toLane="0" via=":450601519_0_0" dir="r" state="M"/>
+    <connection from="38232909" to="--15" fromLane="0" toLane="0" via=":450601519_0_0" dir="r" state="M"/>
     <connection from="38232910#0" to="38232910#1" fromLane="0" toLane="0" via=":29933572_3_0" dir="s" state="m"/>
     <connection from="38232910#0" to="38232910#1" fromLane="1" toLane="1" via=":29933572_3_1" dir="s" state="m"/>
     <connection from="38232910#0" to="38232910#1" fromLane="2" toLane="2" via=":29933572_3_2" dir="s" state="m"/>
@@ -369,7 +369,7 @@
     <connection from=":445851270_0" to="37961316#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":445851270_0" to="37961316#1" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":445851270_3" to="38232907" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":450601519_0" to="-15" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":450601519_0" to="--15" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":450601528_0" to="38232899#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":450601528_0" to="38232899#0" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":450601528_0" to="38232899#0" fromLane="2" toLane="2" dir="s" state="M"/>
