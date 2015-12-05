@@ -176,7 +176,8 @@ class Net:
         return r
 
     def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state):
-        conn = connection.Connection(fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state)
+        conn = connection.Connection(
+            fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state)
         fromEdge.addOutgoing(conn)
         fromlane.addOutgoing(conn)
         toEdge._addIncoming(conn)

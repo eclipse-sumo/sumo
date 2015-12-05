@@ -209,11 +209,21 @@ public:
     void setIdleDuration(int val);
     //}
 
-    SUMOReal getAvgRouteLength() const { return MSDevice_Tripinfo::getAvgRouteLength(); }
-    SUMOReal getAvgDuration() const { return MSDevice_Tripinfo::getAvgDuration(); }
-    SUMOReal getAvgWaitingTime() const { return MSDevice_Tripinfo::getAvgWaitingTime(); }
-    SUMOReal getAvgTimeLoss() const { return MSDevice_Tripinfo::getAvgTimeLoss(); }
-    SUMOReal getAvgDepartDelay() const { return MSDevice_Tripinfo::getAvgDepartDelay(); }
+    SUMOReal getAvgRouteLength() const {
+        return MSDevice_Tripinfo::getAvgRouteLength();
+    }
+    SUMOReal getAvgDuration() const {
+        return MSDevice_Tripinfo::getAvgDuration();
+    }
+    SUMOReal getAvgWaitingTime() const {
+        return MSDevice_Tripinfo::getAvgWaitingTime();
+    }
+    SUMOReal getAvgTimeLoss() const {
+        return MSDevice_Tripinfo::getAvgTimeLoss();
+    }
+    SUMOReal getAvgDepartDelay() const {
+        return MSDevice_Tripinfo::getAvgDepartDelay();
+    }
 
     /** @brief Returns the person control
      *

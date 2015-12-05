@@ -385,8 +385,8 @@ NLTriggerBuilder::buildContainerStop(MSNet& net, const std::string& id,
 
 void
 NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id,
-                               const std::vector<std::string>& lines,
-                               MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay) {
+                                       const std::vector<std::string>& lines,
+                                       MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay) {
 
     MSChargingStation* chargingStation = new MSChargingStation(id, lines, *lane, frompos, topos, chrgpower, efficiency, chargeInTransit, ChargeDelay);
 

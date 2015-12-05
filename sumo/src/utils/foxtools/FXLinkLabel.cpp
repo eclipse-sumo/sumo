@@ -42,7 +42,7 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-FXint 
+FXint
 FXLinkLabel::fxexecute(FXString link) {
 #ifdef WIN32
     FXString quoted = FXPath::enquote(link);

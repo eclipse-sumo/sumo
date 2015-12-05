@@ -231,7 +231,7 @@ public:
      * @param[in] pos The position on which to insert the new junction
      * @return The new junction
      */
-    GNEJunction* splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction=0);
+    GNEJunction* splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction = 0);
 
 
     /** @brief split all edges at position by inserting one new junction

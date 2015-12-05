@@ -230,7 +230,7 @@ public:
 #endif
 
     /// @brief close this lane for traffic
-    void closeTraffic(bool rebuildAllowed=true);
+    void closeTraffic(bool rebuildAllowed = true);
 
     bool isClosed() const {
         return myAmClosed;

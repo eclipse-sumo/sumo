@@ -324,7 +324,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
     if (removeGeometryNodes) {
         const OptionsCont& oc = OptionsCont::getOptions();
         if (oc.isSet("geometry.remove.keep-edges.input-file")) {
-            NBHelpers::loadEdgesFromFile(oc.getString("geometry.remove.keep-edges.input-file"), edges2keep); 
+            NBHelpers::loadEdgesFromFile(oc.getString("geometry.remove.keep-edges.input-file"), edges2keep);
         }
         if (oc.isSet("geometry.remove.keep-edges.explicit")) {
             const std::vector<std::string> edges = oc.getStringVector("geometry.remove.keep-edges.explicit");

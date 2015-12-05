@@ -365,9 +365,9 @@ public:
 #endif
 
     /// @brief return the speed at which ego vehicle must approach the zipper link
-    SUMOReal getZipperSpeed(const MSVehicle* ego, const SUMOReal dist, SUMOReal vSafe, 
-            SUMOTime arrivalTime,
-            std::vector<const SUMOVehicle*>* collectFoes) const;
+    SUMOReal getZipperSpeed(const MSVehicle* ego, const SUMOReal dist, SUMOReal vSafe,
+                            SUMOTime arrivalTime,
+                            std::vector<const SUMOVehicle*>* collectFoes) const;
 
     /// @brief return the via lane if it exists and the lane otherwise
     MSLane* getViaLaneOrLane() const;
@@ -396,9 +396,9 @@ private:
 
     /// @brief returns whether the given lane may still be occupied by a vehicle currently on it
     static bool maybeOccupied(MSLane* lane);
-    
+
     /// @brief whether fllower could stay behind leader (possibly by braking)
-    static bool couldBrakeForLeader(SUMOReal followDist, SUMOReal leaderDist, const MSVehicle* follow, const MSVehicle* leader); 
+    static bool couldBrakeForLeader(SUMOReal followDist, SUMOReal leaderDist, const MSVehicle* follow, const MSVehicle* leader);
 
 private:
     /// @brief The lane (but the internal one) approached by this link

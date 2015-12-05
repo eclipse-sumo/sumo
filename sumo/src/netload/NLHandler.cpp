@@ -639,7 +639,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
         } else {
             WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'");
         }
-    } 
+    }
     //
     SUMOTime offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
     if (!ok) {

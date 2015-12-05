@@ -204,7 +204,7 @@ public:
                        const NBConnection& deletedConnection = NBConnection::InvalidConnection);
 
     /// @brief removes the given edge from all pedestrian crossings
-    void removeFromCrossings(GNEEdge* edge, GNEUndoList* undoList); 
+    void removeFromCrossings(GNEEdge* edge, GNEUndoList* undoList);
 
     /* @brief whether this junction has a valid logic */
     bool isLogicValid() {
@@ -278,7 +278,7 @@ private:
     /// @brief sets junction color depending on circumstances
     void setColor(const GUIVisualizationSettings& s, bool bubble) const;
 
-	/// @brief determines color value
+    /// @brief determines color value
     SUMOReal getColorValue(const GUIVisualizationSettings& s, bool bubble) const;
 
     /// @brief adds a traffic light

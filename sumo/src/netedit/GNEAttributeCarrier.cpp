@@ -196,7 +196,7 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
                 _discreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_TYPE].push_back(*it);
             }
         }
-        
+
         _discreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_KEEP_CLEAR].push_back("true");
         _discreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_KEEP_CLEAR].push_back("false");
 
@@ -220,9 +220,9 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-bool 
+bool
 GNEAttributeCarrier::discreteCombinableChoices(SumoXMLTag, SumoXMLAttr attr) {
-    return (attr == SUMO_ATTR_ALLOW || attr == SUMO_ATTR_DISALLOW); 
+    return (attr == SUMO_ATTR_ALLOW || attr == SUMO_ATTR_DISALLOW);
 }
 
 /****************************************************************************/

@@ -66,19 +66,20 @@ def writeEdges(net):
         fd.write("/>\n")
     fd.write("</edges>\n")
 
+
 def writeConnections(net):
     with open("connections.xml", "w") as fd:
         fd.write("<connections>\n")
-        
+
         # take care to write output in stable order
-        for edge in sorted(net._edges, key=lambda e : e.getID()):
-            for toEdge in sorted(edge.getOutgoing().keys(), key=lambda e : e.getID()):
+        for edge in sorted(net._edges, key=lambda e: e.getID()):
+            for toEdge in sorted(edge.getOutgoing().keys(), key=lambda e: e.getID()):
                 for conn in edge.getOutgoing()[toEdge]:
                     fd.write('<connection from="%s" to="%s" fromLane="%s" toLane="%s"/>\n' %
-                            (edge.getID(), 
-                                toEdge.getID(),
-                                conn.getFromLane().getIndex(), 
-                                conn.getToLane().getIndex()))
+                             (edge.getID(),
+                              toEdge.getID(),
+                              conn.getFromLane().getIndex(),
+                              conn.getToLane().getIndex()))
 
         fd.write("</connections>\n")
 
@@ -94,4 +95,3 @@ print "Writing edges..."
 writeEdges(net)
 print "Writing connections..."
 writeConnections(net)
-

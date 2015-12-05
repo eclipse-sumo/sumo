@@ -71,7 +71,7 @@ public:
     ~GUIMessageWindow();
 
 
-    virtual void setCursorPos(FXint pos, FXbool notify=FALSE);
+    virtual void setCursorPos(FXint pos, FXbool notify = FALSE);
 
 
     /** @brief Adds new text to the window

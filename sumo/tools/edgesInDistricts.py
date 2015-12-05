@@ -92,9 +92,10 @@ class DistrictEdgeComputer:
             else:
                 if weighted:
                     if options.shapeinfo:
-                        fd.write('    <taz id="%s" shape="%s">\n' % (district.id, district.getShapeString()))
+                        fd.write('    <taz id="%s" shape="%s">\n' %
+                                 (district.id, district.getShapeString()))
                     else:
-                        fd.write('    <taz id="%s">\n' %district.id)
+                        fd.write('    <taz id="%s">\n' % district.id)
                     for edge in filtered:
                         weight = edge.getSpeed() * edge.getLength()
                         fd.write(
@@ -105,10 +106,10 @@ class DistrictEdgeComputer:
                 else:
                     if options.shapeinfo:
                         fd.write('    <taz id="%s" shape="%s" edges="%s"/>\n' %
-                                (district.id, district.getShapeString(), " ".join([e.getID() for e in filtered])))
+                                 (district.id, district.getShapeString(), " ".join([e.getID() for e in filtered])))
                     else:
                         fd.write('    <taz id="%s" edges="%s"/>\n' %
-                                (district.id, " ".join([e.getID() for e in filtered])))
+                                 (district.id, " ".join([e.getID() for e in filtered])))
         fd.write("</tazs>\n")
         fd.close()
 
@@ -131,14 +132,15 @@ def fillOptions(optParser):
     optParser.add_option("-x", "--max-speed", type="float", dest="maxspeed",
                          default=1000.0, help="use lanes where speed is not greater than this (m/s) (default: %default)")
     optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
-                         default= 0., help="use lanes where speed is greater than this (m/s) (default: %default)")
+                         default=0., help="use lanes where speed is greater than this (m/s) (default: %default)")
     optParser.add_option("-w", "--weighted", action="store_true",
                          default=False, help="Weights sources/sinks by lane number and length")
     optParser.add_option("-f", "--assign-from", action="store_true",
                          default=False, help="Assign the edge always to the district where the \"from\" node is located")
     optParser.add_option("-i", "--internal", action="store_true",
                          default=False, help="Include internal edges in output")
-    optParser.add_option("-l", "--vclass", help="Include only edges allowing VCLASS")
+    optParser.add_option(
+        "-l", "--vclass", help="Include only edges allowing VCLASS")
     optParser.add_option("-s", "--shapeinfo", action="store_true",
                          default=False, help="write also the shape info in the file")
 

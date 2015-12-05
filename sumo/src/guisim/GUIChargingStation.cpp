@@ -65,7 +65,7 @@
 // method definitions
 // ===========================================================================
 GUIChargingStation::GUIChargingStation(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                       SUMOReal frompos, SUMOReal topos, SUMOReal new_chrgpower, SUMOReal new_efficiency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay)
+                                       SUMOReal frompos, SUMOReal topos, SUMOReal new_chrgpower, SUMOReal new_efficiency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay)
     : MSChargingStation(id, lines, lane, frompos, topos, new_chrgpower, new_efficiency, new_ChargeInTransit, new_ChargeDelay),
       GUIGlObject_AbstractAdd("chargingStation", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
@@ -101,7 +101,7 @@ GUIChargingStation::~GUIChargingStation()
 
 GUIParameterTableWindow*
 GUIChargingStation::getParameterWindow(GUIMainWindow& app,
-                               GUISUMOAbstractView&) {
+                                       GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 6);
 
     // add items

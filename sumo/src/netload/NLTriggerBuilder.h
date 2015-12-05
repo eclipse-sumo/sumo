@@ -226,8 +226,8 @@ protected:
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
     virtual void buildChargingStation(MSNet& net,
-                              const std::string& id, const std::vector<std::string>& lines,
-                              MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay);
+                                      const std::string& id, const std::vector<std::string>& lines,
+                                      MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay);
 
     /** @brief Builds a container stop
      *

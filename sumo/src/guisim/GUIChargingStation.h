@@ -82,9 +82,9 @@ public:
      * @param[in] endPos End position of the charging station on the lane
      */
     GUIChargingStation(const std::string& id,
-               const std::vector<std::string>& lines, MSLane& lane,
-               SUMOReal frompos, SUMOReal topos,
-               SUMOReal new_chrgpower, SUMOReal new_efficiency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay);
+                       const std::vector<std::string>& lines, MSLane& lane,
+                       SUMOReal frompos, SUMOReal topos,
+                       SUMOReal new_chrgpower, SUMOReal new_efficiency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay);
 
 
     /// @brief Destructor

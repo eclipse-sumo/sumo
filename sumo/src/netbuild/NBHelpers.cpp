@@ -93,7 +93,7 @@ NBHelpers::distance(NBNode* node1, NBNode* node2) {
 }
 
 
-void 
+void
 NBHelpers::loadEdgesFromFile(const std::string& file, std::set<std::string>& into) {
     std::ifstream strm(file.c_str());
     if (!strm.good()) {

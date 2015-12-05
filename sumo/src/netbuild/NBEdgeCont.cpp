@@ -84,7 +84,7 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
     myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
     // we possibly have to load the edges to keep/remove
     if (oc.isSet("keep-edges.input-file")) {
-        NBHelpers::loadEdgesFromFile(oc.getString("keep-edges.input-file"), myEdges2Keep); 
+        NBHelpers::loadEdgesFromFile(oc.getString("keep-edges.input-file"), myEdges2Keep);
     }
     if (oc.isSet("remove-edges.input-file")) {
         NBHelpers::loadEdgesFromFile(oc.getString("remove-edges.input-file"), myEdges2Remove);
@@ -918,7 +918,7 @@ NBEdgeCont::guessRoundabouts() {
 }
 
 
-SUMOReal 
+SUMOReal
 NBEdgeCont::formFactor(const EdgeVector& loopEdges) {
     PositionVector points;
     for (EdgeVector::const_iterator it = loopEdges.begin(); it != loopEdges.end(); ++it) {
@@ -1027,7 +1027,7 @@ NBEdgeCont::guessSidewalks(SUMOReal width, SUMOReal minSpeed, SUMOReal maxSpeed,
                 (fromPermissions && (edge->getPermissions() & SVC_PEDESTRIAN) != 0)
                 // guess from speed
                 || (!fromPermissions && edge->getSpeed() > minSpeed && edge->getSpeed() <= maxSpeed)
-               )) {
+            )) {
             edge->addSidewalk(width);
             sidewalksCreated += 1;
         }

@@ -75,7 +75,7 @@
 #define SPLIT_CROSSING_WIDTH_THRESHOLD 1.5 // meters
 #define SPLIT_CROSSING_ANGLE_THRESHOLD 5 // degrees
 
-// minimum length for a weaving section at a combined on-off ramp 
+// minimum length for a weaving section at a combined on-off ramp
 #define MIN_WEAVE_LENGTH 20.0
 
 #define DEBUGID "C"
@@ -492,7 +492,7 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
             //  - position between incoming/outgoing end/begin shifted by the distance orthogonally
             //  - begin of outgoing lane
             Position center = PositionVector::positionAtOffset(beg, end, beg.distanceTo(end) / (SUMOReal) 2.);
-            center.sub(beg.y()-end.y(), end.x()-beg.x());
+            center.sub(beg.y() - end.y(), end.x() - beg.x());
             init.push_back(center);
         } else {
             const SUMOReal angle = fabs(GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0)));
@@ -914,12 +914,12 @@ NBNode::computeLanes2Lanes() {
     //}
 }
 
-bool 
+bool
 NBNode::isLongEnough(NBEdge* out, SUMOReal minLength) {
     SUMOReal seen = out->getLoadedLength();
     while (seen < minLength) {
         // advance along trivial continuations
-        if (out->getToNode()->getOutgoingEdges().size() != 1 
+        if (out->getToNode()->getOutgoingEdges().size() != 1
                 || out->getToNode()->getIncomingEdges().size() != 1) {
             return false;
         } else {
@@ -1503,7 +1503,7 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
         return LINKSTATE_ALLWAY_STOP; // all drive, first one to arrive may drive first
     }
     if (myType == NODETYPE_ZIPPER && mustBrake(incoming, outgoing, fromlane, toLane, false)) {
-        return LINKSTATE_ZIPPER; 
+        return LINKSTATE_ZIPPER;
     }
     if ((!incoming->isInnerEdge() && mustBrake(incoming, outgoing, fromlane, toLane, true)) && !mayDefinitelyPass) {
         return myType == NODETYPE_PRIORITY_STOP ? LINKSTATE_STOP : LINKSTATE_MINOR; // minor road
@@ -2124,10 +2124,10 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                     && (normalizedLanes[end].second.permissions & SVC_PEDESTRIAN) == 0) {
                 // crossing ends
                 if ((*it).nextWalkingArea != "") {
-                    WRITE_WARNING("Invalid pedestrian topology at junction '" + getID() 
-                            + "'; crossing '" + (*it).id 
-                            + "' targets '" + (*it).nextWalkingArea 
-                            + "' and '" + wa.id + "'.");
+                    WRITE_WARNING("Invalid pedestrian topology at junction '" + getID()
+                                  + "'; crossing '" + (*it).id
+                                  + "' targets '" + (*it).nextWalkingArea
+                                  + "' and '" + wa.id + "'.");
                 }
                 (*it).nextWalkingArea = wa.id;
                 endCrossingWidth = (*it).width;
@@ -2143,10 +2143,10 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                     && (normalizedLanes[prev].second.permissions & SVC_PEDESTRIAN) == 0) {
                 // crossing starts
                 if ((*it).prevWalkingArea != "") {
-                    WRITE_WARNING("Invalid pedestrian topology at junction '" + getID() 
-                            + "'; crossing '" + (*it).id 
-                            + "' is targeted by '" + (*it).prevWalkingArea 
-                            + "' and '" + wa.id + "'.");
+                    WRITE_WARNING("Invalid pedestrian topology at junction '" + getID()
+                                  + "'; crossing '" + (*it).id
+                                  + "' is targeted by '" + (*it).prevWalkingArea
+                                  + "' and '" + wa.id + "'.");
                 }
                 (*it).prevWalkingArea = wa.id;
                 wa.nextCrossing = (*it).id;
@@ -2510,15 +2510,15 @@ NBNode::avoidOverlap() {
 }
 
 
-bool 
+bool
 NBNode::isTrafficLight(SumoXMLNodeType type) {
-    return type == NODETYPE_TRAFFIC_LIGHT 
-        || type == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION 
-        || type == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED;
+    return type == NODETYPE_TRAFFIC_LIGHT
+           || type == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION
+           || type == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED;
 }
 
 
-bool 
+bool
 NBNode::rightOnRedConflict(int index, int foeIndex) const {
     if (myType == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) {
         for (std::set<NBTrafficLightDefinition*>::const_iterator i = myTrafficLights.begin(); i != myTrafficLights.end(); ++i) {

@@ -635,7 +635,7 @@ MSLink::getViaLaneOrLane() const {
 }
 
 
-void 
+void
 MSLink::passedJunction(const MSVehicle* vehicle) {
     if (myJunction != 0) {
         myJunction->passedJunction(vehicle);
@@ -643,7 +643,7 @@ MSLink::passedJunction(const MSVehicle* vehicle) {
 }
 
 
-bool 
+bool
 MSLink::isLeader(const MSVehicle* ego, const MSVehicle* foe) {
     if (myJunction != 0) {
         return myJunction->isLeader(ego, foe);
@@ -653,7 +653,7 @@ MSLink::isLeader(const MSVehicle* ego, const MSVehicle* foe) {
     }
 }
 
-const MSLane* 
+const MSLane*
 MSLink::getInternalLaneBefore() const {
 #ifdef HAVE_INTERNAL_LANES
     return myInternalLaneBefore;
@@ -663,30 +663,30 @@ MSLink::getInternalLaneBefore() const {
 
 
 SUMOReal
-MSLink::getZipperSpeed(const MSVehicle* ego, const SUMOReal dist, SUMOReal vSafe, 
-        SUMOTime arrivalTime,
-        std::vector<const SUMOVehicle*>* collectFoes) const {
+MSLink::getZipperSpeed(const MSVehicle* ego, const SUMOReal dist, SUMOReal vSafe,
+                       SUMOTime arrivalTime,
+                       std::vector<const SUMOVehicle*>* collectFoes) const {
     //gDebugFlag1 = ego->getID() == "left.7";
     if (myFoeLinks.size() == 0) {
         // link should have LINKSTATE_MAJOR in this case
         assert(false);
         return vSafe;
     } else if (myFoeLinks.size() > 1) {
-        throw ProcessError("Zipper junctions with more than two conflicting lanes are not supported (at junction '" 
-                + myJunction->getID() + "')");
+        throw ProcessError("Zipper junctions with more than two conflicting lanes are not supported (at junction '"
+                           + myJunction->getID() + "')");
     }
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     const SUMOReal secondsToArrival = STEPS2TIME(arrivalTime - now);
     if (secondsToArrival > ZIPPER_ADAPT_TIME && dist > ZIPPER_ADAPT_DIST) {
-        //if (gDebugFlag1) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID() 
+        //if (gDebugFlag1) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
         //    << " dist=" << dist
         //    << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n";
         return vSafe;
     }
-    //if (gDebugFlag1) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID() 
-    //    << " egoAT=" << arrivalTime 
-    //    << " dist=" << dist 
-    //    << " vSafe=" << vSafe 
+    //if (gDebugFlag1) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
+    //    << " egoAT=" << arrivalTime
+    //    << " dist=" << dist
+    //    << " vSafe=" << vSafe
     //    << " numFoes=" << collectFoes->size()
     //    << "\n";
     MSLink* foeLink = myFoeLinks[0];
@@ -695,49 +695,49 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const SUMOReal dist, SUMOReal vSafe
         assert(foe != 0);
         const ApproachingVehicleInformation& avi = foeLink->getApproaching(foe);
         if (    // ignore vehicles that arrive after us (unless they are ahead and we could easily brake for them)
-                ((avi.arrivalTime > arrivalTime) && !couldBrakeForLeader(dist, avi.dist, ego, foe)) || 
-                // also ignore vehicles that are behind us and are able to brake for us
-                couldBrakeForLeader(avi.dist, dist, foe, ego)) {
-            //if (gDebugFlag1) std::cout 
-            //    << "    ignoring foe=" << foe->getID() 
-            //        << " foeAT=" << avi.arrivalTime 
-            //        << " foeDist=" << avi.dist 
+            ((avi.arrivalTime > arrivalTime) && !couldBrakeForLeader(dist, avi.dist, ego, foe)) ||
+            // also ignore vehicles that are behind us and are able to brake for us
+            couldBrakeForLeader(avi.dist, dist, foe, ego)) {
+            //if (gDebugFlag1) std::cout
+            //    << "    ignoring foe=" << foe->getID()
+            //        << " foeAT=" << avi.arrivalTime
+            //        << " foeDist=" << avi.dist
             //        << " foeSpeed=" << foe->getSpeed()
             //        << " egoSpeed=" << ego->getSpeed()
-            //        << " deltaDist=" << avi.dist - dist 
+            //        << " deltaDist=" << avi.dist - dist
             //        << " delteSpeed=" << foe->getSpeed() - foe->getCarFollowModel().getMaxDecel() - ego->getSpeed()
             //        << "\n";
             continue;
         }
         const SUMOReal gap = dist - foe->getVehicleType().getLength() - ego->getVehicleType().getMinGap() - avi.dist;
         const SUMOReal follow = ego->getCarFollowModel().followSpeed(
-                    ego, ego->getSpeed(), gap, foe->getSpeed(), foe->getCarFollowModel().getMaxDecel());
+                                    ego, ego->getSpeed(), gap, foe->getSpeed(), foe->getCarFollowModel().getMaxDecel());
         // speed adaption to follow the foe can be spread over secondsToArrival
         const SUMOReal followInTime = vSafe + (follow - vSafe) / MAX2((SUMOReal)1, secondsToArrival / TS);
         vSafe = MIN2(vSafe, followInTime);
-        //if (gDebugFlag1) std::cout << "    adapting to foe=" << foe->getID() 
+        //if (gDebugFlag1) std::cout << "    adapting to foe=" << foe->getID()
         //    << " foeDist=" << avi.dist
         //    << " follow=" << follow
         //    << " followInTime=" << followInTime
         //    << " gap=" << gap
         //    << " foeSpeed=" << foe->getSpeed()
         //    << " follow=" << follow
-        //    << " foeAT=" << avi.arrivalTime 
-        //    << " foeLT=" << avi.leavingTime 
-        //    << " foeAS=" << avi.arrivalSpeed 
-        //    << " vSafe=" << vSafe 
+        //    << " foeAT=" << avi.arrivalTime
+        //    << " foeLT=" << avi.leavingTime
+        //    << " foeAS=" << avi.arrivalSpeed
+        //    << " vSafe=" << vSafe
         //    << "\n";
     }
     return vSafe;
 }
 
 
-bool 
+bool
 MSLink::couldBrakeForLeader(SUMOReal followDist, SUMOReal leaderDist, const MSVehicle* follow, const MSVehicle* leader) {
     return (// leader is ahead of follower
-            followDist > leaderDist &&
-            // and follower could brake for 1 s to stay behind leader
-            followDist - leaderDist > follow->getSpeed() - follow->getCarFollowModel().getMaxDecel() - leader->getSpeed());
+               followDist > leaderDist &&
+               // and follower could brake for 1 s to stay behind leader
+               followDist - leaderDist > follow->getSpeed() - follow->getCarFollowModel().getMaxDecel() - leader->getSpeed());
 }
 
 

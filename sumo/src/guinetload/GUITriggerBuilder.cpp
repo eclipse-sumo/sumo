@@ -105,9 +105,9 @@ GUITriggerBuilder::buildContainerStop(MSNet& net, const std::string& id,
 
 void
 GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id,
-                                const std::vector<std::string>& lines,
-                                MSLane* lane,
-                                SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal chargeDelay) {
+                                        const std::vector<std::string>& lines,
+                                        MSLane* lane,
+                                        SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal chargeDelay) {
     GUIChargingStation* chrg = new GUIChargingStation(id, lines, *lane, frompos, topos, chrgpower, efficiency, chargeInTransit, chargeDelay);
 
     if (!net.addChargingStation(chrg)) {

@@ -72,8 +72,8 @@
 // method definitions
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
-           const RGBColor& color, SUMOReal layer,
-           SUMOReal angle, const std::string& imgFile) :
+                 const RGBColor& color, SUMOReal layer,
+                 SUMOReal angle, const std::string& imgFile) :
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
     GNEAttributeCarrier(SUMO_TAG_POLY),
     myNet(net),
@@ -92,12 +92,12 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * hintSize > 1.) { // check whether it is not too small
         RGBColor current = GLHelper::getColor();
         RGBColor darker = current.changedBrightness(-32);
-		GLHelper::setColor(darker);
+        GLHelper::setColor(darker);
         glPushName(getGlID());
         for (int i = 0; i < (int)myShape.size() - 1; i++) {
             Position pos = myShape[i];
             glPushMatrix();
-            glTranslated(pos.x(), pos.y(), GLO_POLYGON + 0.01);            
+            glTranslated(pos.x(), pos.y(), GLO_POLYGON + 0.01);
             GLHelper:: drawFilledCircle(hintSize, 32);
             glPopMatrix();
         }
@@ -109,7 +109,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
 
 GUIGLObjectPopupMenu*
 GNEPoly::getPopUpMenu(GUIMainWindow& app,
-                          GUISUMOAbstractView& parent) {
+                      GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = GUIPolygon::getPopUpMenu(app, parent);
     new FXMenuSeparator(ret);
     new FXMenuCommand(ret, "Set custom shape (ENTER)", 0, &app, MID_GNE_HOTKEY_ENTER);
@@ -136,7 +136,7 @@ GNEPoly::moveGeometry(const Position& oldPos, const Position& newPos, bool relat
 }
 
 
-void 
+void
 GNEPoly::simplifyShape() {
     const Boundary b =  myShape.getBoxBoundary();
     myShape.clear();
@@ -148,7 +148,7 @@ GNEPoly::simplifyShape() {
 }
 
 
-void 
+void
 GNEPoly::deleteGeometryNear(const Position& pos) {
     if (myShape.size() <= 3) {
         return;

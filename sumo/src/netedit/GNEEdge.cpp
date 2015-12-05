@@ -151,13 +151,13 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 
     // draw geometry hints
     if (s.scale * SNAP_RADIUS > 1.) { // check whether it is not too small
-		GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
+        GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
         glPushName(getGlID());
         PositionVector geom = myNBEdge.getGeometry();
         for (int i = 1; i < (int)geom.size() - 1; i++) {
             Position pos = geom[i];
             glPushMatrix();
-            glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);            
+            glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
             GLHelper:: drawFilledCircle(SNAP_RADIUS, 32);
             glPopMatrix();
         }
@@ -240,7 +240,7 @@ GNEEdge::moveGeometry(const Position& oldPos, const Position& newPos, bool relat
 }
 
 
-bool 
+bool
 GNEEdge::changeGeometry(PositionVector& geom, const std::string& id, const Position& oldPos, const Position& newPos, bool relative, bool moveEndPoints) {
     if (geom.size() < 2) {
         throw ProcessError("Invalid geometry size in edge " + id);
@@ -249,7 +249,7 @@ GNEEdge::changeGeometry(PositionVector& geom, const std::string& id, const Posit
         const SUMOReal nearestOffset = geom.nearest_offset_to_point2D(oldPos, true);
         if (nearestOffset != GeomHelper::INVALID_OFFSET
                 && (moveEndPoints || (nearestOffset >= SNAP_RADIUS
-                        && nearestOffset <= geom.length2D() - SNAP_RADIUS))) {
+                                      && nearestOffset <= geom.length2D() - SNAP_RADIUS))) {
             const Position nearest = geom.positionAtOffset2D(nearestOffset);
             const SUMOReal distance = geom[index].distanceTo2D(nearest);
             if (distance < SNAP_RADIUS) { //move existing
@@ -692,12 +692,12 @@ GNEEdge::setNumLanes(unsigned int numLanes, GNEUndoList* undoList) {
 
 void
 GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
-    const int index = lane ? lane->getIndex(): myNBEdge.getNumLanes();
+    const int index = lane ? lane->getIndex() : myNBEdge.getNumLanes();
     // the laneStruct must be created first to ensure we have some geometry
-    myNBEdge.addLane(index); 
+    myNBEdge.addLane(index);
     if (lane) {
         // restore a previously deleted lane
-        myLanes.insert(myLanes.begin() + index, lane); 
+        myLanes.insert(myLanes.begin() + index, lane);
 
     } else {
         // create a new lane by copying leftmost lane

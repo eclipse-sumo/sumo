@@ -368,7 +368,7 @@ MSBaseVehicle::calculateArrivalParams() {
         myArrivalLane = MIN2(myParameter->arrivalLane, (int)(lanes.size() - 1));
     }
     if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-        for (std::vector<MSLane*>::const_iterator l = lanes.begin(); l !=lanes.end(); ++l) {
+        for (std::vector<MSLane*>::const_iterator l = lanes.begin(); l != lanes.end(); ++l) {
             if (myParameter->arrivalSpeed <= (*l)->getVehicleMaxSpeed(this)) {
                 return;
             }

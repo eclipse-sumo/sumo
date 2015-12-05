@@ -163,7 +163,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
                 WRITE_WARNING("Missing green phase in tlLogic '" + getID()
-                        + "', program '" + getProgramID() + "' for tl-index " + toString(j));
+                              + "', program '" + getProgramID() + "' for tl-index " + toString(j));
                 break;
             }
         }

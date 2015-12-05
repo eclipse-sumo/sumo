@@ -784,21 +784,21 @@ NBEdge::getConnectionsFromLane(unsigned int lane) const {
         }
     }
     return ret;
-} 
- 
+}
 
-NBEdge::Connection 
+
+NBEdge::Connection
 NBEdge::getConnection(int fromLane, const NBEdge* to, int toLane) const {
     for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         if (
-                (*i).fromLane == fromLane
-                && (*i).toEdge == to
-                && (*i).toLane == toLane) {
+            (*i).fromLane == fromLane
+            && (*i).toEdge == to
+            && (*i).toLane == toLane) {
             return *i;
         }
     }
-    throw ProcessError("Connection from " + getID() + "_" + toString(fromLane) 
-            + " to " + to->getID() + "_" + toString(toLane) + " not found");
+    throw ProcessError("Connection from " + getID() + "_" + toString(fromLane)
+                       + " to " + to->getID() + "_" + toString(toLane) + " not found");
 }
 
 
@@ -2151,7 +2151,7 @@ NBEdge::isNearEnough2BeJoined2(NBEdge* e, SUMOReal threshold) const {
 }
 
 
-void 
+void
 NBEdge::addLane(unsigned int index, bool recompute) {
     assert(index <= myLanes.size());
     myLanes.insert(myLanes.begin() + index, Lane(this, ""));
@@ -2186,7 +2186,7 @@ NBEdge::incLaneNo(unsigned int by) {
 }
 
 
-void 
+void
 NBEdge::deleteLane(unsigned int index, bool recompute) {
     assert(index < myLanes.size());
     myLanes.erase(myLanes.begin() + index);

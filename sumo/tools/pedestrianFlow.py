@@ -61,10 +61,12 @@ def get_options():
     options.output = args[0]
     return options
 
+
 def randomOrFixed(value, offset=0.2):
     if value >= 0:
         return value
-    return random.uniform(-value-offset, -value+offset)
+    return random.uniform(-value - offset, -value + offset)
+
 
 def write_ped(f, index, options, depart, edges):
     if options.color == None:
@@ -90,8 +92,10 @@ def write_ped(f, index, options, depart, edges):
 def main():
     options = get_options()
     with open(options.output, 'w') as f:
-        f.write('<!-- generated on %s by "%s" -->\n' % (datetime.datetime.now(), os.path.basename(" ".join(sys.argv))))
-        f.write('<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n')
+        f.write('<!-- generated on %s by "%s" -->\n' %
+                (datetime.datetime.now(), os.path.basename(" ".join(sys.argv))))
+        f.write(
+            '<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n')
         index = options.index
         for depart in range(options.begin, options.end):
             if random.random() < options.prob:

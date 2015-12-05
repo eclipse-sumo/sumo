@@ -28,7 +28,7 @@ import tempfile
 
 nightlyDir = r"O:\Daten\Sumo\Nightly"
 for d in ["Program Files", "Program Files (x86)", "Programme"]:
-    sevenZip = r'C:\%s\7-Zip\7z.exe' %d
+    sevenZip = r'C:\%s\7-Zip\7z.exe' % d
     if os.path.exists(sevenZip):
         break
 

@@ -61,7 +61,7 @@ class Node:
         ret = 0
         for lane_id in self._incLanes:
             (edge_id, index) = lane_id.split("_")
-            edge = [e for e in self._incoming if e.getID() == edge_id][0] 
+            edge = [e for e in self._incoming if e.getID() == edge_id][0]
             for candidate_conn in edge.getLane(int(index)).getOutgoing():
                 if candidate_conn == conn:
                     return ret
@@ -81,4 +81,3 @@ class Node:
 
     def getType(self):
         return self._type
-

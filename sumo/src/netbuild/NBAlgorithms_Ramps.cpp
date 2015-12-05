@@ -465,7 +465,7 @@ NBRampsComputer::fulfillsRampConstraints(
 }
 
 
-bool 
+bool
 NBRampsComputer::hasWrongMode(NBEdge* edge) {
     // must allow passenger vehicles
     if ((edge->getPermissions() & SVC_PASSENGER) == 0) {

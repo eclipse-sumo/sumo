@@ -64,7 +64,7 @@
 // method definitions
 // ===========================================================================
 GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                       SUMOReal frompos, SUMOReal topos) : 
+                       SUMOReal frompos, SUMOReal topos) :
     MSStoppingPlace(id, lines, lane, frompos, topos),
     GUIGlObject_AbstractAdd("busStop", GLO_TRIGGER, id) {
     const SUMOReal offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;

@@ -62,7 +62,7 @@ public:
      * @param[in] shape The shape of the lane
      * @param[in] tlIndex The tl-index of the lane
      */
-    GNEInternalLane(GNETLSEditor* editor, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state=LINKSTATE_DEADEND);
+    GNEInternalLane(GNETLSEditor* editor, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state = LINKSTATE_DEADEND);
 
     /// @brief Destructor
     virtual ~GNEInternalLane() ;

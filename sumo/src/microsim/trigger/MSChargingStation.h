@@ -60,7 +60,7 @@ public:
     // CONSTRUCTORES
 
     MSChargingStation(const std::string& new_ChargingStationID, const std::vector<std::string>& new_lines, MSLane& new_Lane,
-              SUMOReal new_StartPos, SUMOReal new_EndPos, SUMOReal new_ChrgPower, SUMOReal new_Efficency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay);
+                      SUMOReal new_StartPos, SUMOReal new_EndPos, SUMOReal new_ChrgPower, SUMOReal new_Efficency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay);
 
     virtual ~MSChargingStation();
 

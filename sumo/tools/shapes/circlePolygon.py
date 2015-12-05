@@ -39,10 +39,12 @@ optParser.add_option("-l", "--layer", type="int", default=-1,
                      help="layer")
 optParser.add_option("-x", "--corners", type="int", default=100,
                      help="default number of corners")
-optParser.add_option("-o", "--output-file", help="output file (default: standard output)")
+optParser.add_option(
+    "-o", "--output-file", help="output file (default: standard output)")
 (options, args) = optParser.parse_args()
 
-output = sys.stdout if options.output_file is None else open(options.output_file, 'w')
+output = sys.stdout if options.output_file is None else open(
+    options.output_file, 'w')
 
 if len(args) == 0:
     print >> sys.stderr, "Usage: " + sys.argv[0] + " x,y[[,r],c] ..."
@@ -62,6 +64,6 @@ for idx, d in enumerate(args):
         shape += "%s,%s " % (math.cos(i * angle) * r + x,
                              math.sin(i * angle) * r + y)
     print('    <poly id="%s%s" type="%s" color="%s" fill="%i" layer="%s" shape="%s"/>' % (
-        options.prefix, idx, options.type, options.color, options.fill, options.layer, shape[:-1]), 
+        options.prefix, idx, options.type, options.color, options.fill, options.layer, shape[:-1]),
         file=output)
 print("</additional>", file=output)

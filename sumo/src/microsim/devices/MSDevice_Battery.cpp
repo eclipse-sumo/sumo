@@ -292,7 +292,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
 
     if (ActBatKap > MaxBatKap) {
         WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' has a actual battery capacity ("  + SUMOReal_str(ActBatKap) + ") greater than it's max battery capacity(" + SUMOReal_str(MaxBatKap) + ").");
-		ActBatKap = MaxBatKap; //TAMAS!!!
+        ActBatKap = MaxBatKap; //TAMAS!!!
     }
 
     if (MaxBatKap < 0) {
@@ -580,22 +580,18 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
     // Calculate the radius of the vehicle's current path if is distintc (r = ds / dphi)
     SUMOReal radius = 0;
 
-	// If angle of vehicle was changed
-    if (getLastAngle() != veh.getAngle())
-	{
-		// Compute new radio
+    // If angle of vehicle was changed
+    if (getLastAngle() != veh.getAngle()) {
+        // Compute new radio
         radius = SPEED2DIST(veh.getSpeed()) / fabs(GeomHelper::angleDiff(getLastAngle(), veh.getAngle()));
 
-		// Check if radius is in the interval [0.0001 - 10000] (To avoid overflow and division by zero)
-		if(radius < 0.0001)
-		{
-			radius = 0.0001;
-		}
-		else if (radius > 10000)
-		{
-			radius = 10000;
-		}
-	}
+        // Check if radius is in the interval [0.0001 - 10000] (To avoid overflow and division by zero)
+        if (radius < 0.0001) {
+            radius = 0.0001;
+        } else if (radius > 10000) {
+            radius = 10000;
+        }
+    }
 
     // add current rotational energy of internal rotating elements
     currentEnergy += getInternalMomentOfInertia() * veh.getSpeed() * veh.getSpeed();
@@ -642,7 +638,7 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
     // convert from [Ws] to [kWh] (3600s / 1h):
     EnergyLoss = EnergyLoss / 3600 ; // EnergyLoss[Ws] * 1[h]/3600[s] * 1[k]/1000
 
-	// Return calculated energy
+    // Return calculated energy
     return(EnergyLoss);
 }
 

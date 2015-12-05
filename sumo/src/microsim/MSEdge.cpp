@@ -500,7 +500,7 @@ MSEdge::changeLanes(SUMOTime t) {
         return;
     }
     if (myFunction == EDGEFUNCTION_INTERNAL) {
-        // allow changing only if all links leading to this internal lane have priority 
+        // allow changing only if all links leading to this internal lane have priority
         // or they are controlled by a traffic light
         for (std::vector<MSLane*>::const_iterator it = myLanes->begin(); it != myLanes->end(); ++it) {
             MSLane* pred = (*it)->getLogicalPredecessorLane();

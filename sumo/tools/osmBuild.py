@@ -85,13 +85,14 @@ def build(args=None, bindir=None):
         netconvertOpts += ["-t", options.netconvert_typemap]
     netconvertOpts += options.netconvert_options.split(',') + ['--osm-files']
     polyconvertOpts = [sumolib.checkBinary('polyconvert', bindir)] + \
-                      options.polyconvert_options.split(',') + \
+        options.polyconvert_options.split(',') + \
                       ['--type-file', options.typemap, '--osm-files']
 
     prefix = options.oldapi_prefix
     if prefix:  # used old API
         num = options.tiles
-        tiles = ",".join(["%s%s_%s.osm.xml" % (prefix, i, num) for i in range(num)])
+        tiles = ",".join(["%s%s_%s.osm.xml" % (prefix, i, num)
+                          for i in range(num)])
         netconvertOpts += [tiles]
         polyconvertOpts += [tiles]
     else:  # used new API
@@ -108,12 +109,14 @@ def build(args=None, bindir=None):
 
     subprocess.call(netconvertOpts)
     # write config
-    subprocess.call(netconvertOpts + ["--save-configuration", basename + ".netccfg"])
+    subprocess.call(
+        netconvertOpts + ["--save-configuration", basename + ".netccfg"])
     if options.typemap:
         polyconvertOpts += ["-n", netfile, "-o", basename + '.poly.xml']
         subprocess.call(polyconvertOpts)
         # write config
-        subprocess.call(polyconvertOpts + ["--save-configuration", basename + ".polycfg"])
+        subprocess.call(
+            polyconvertOpts + ["--save-configuration", basename + ".polycfg"])
 
 
 if __name__ == "__main__":

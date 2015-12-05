@@ -55,7 +55,7 @@ void MSPModel_Striping::DEBUG_PRINT(const Obstacles& obs) {
     for (int i = 0; i < (int)obs.size(); ++i) {
         std::cout
                 << "(" << obs[i].description
-                << " x=(" << obs[i].xBack << "," << obs[i].xFwd 
+                << " x=(" << obs[i].xBack << "," << obs[i].xFwd
                 << ") s=" << obs[i].speed
                 << ")   ";
     }
@@ -335,7 +335,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                               << "\n";
                 }
                 WRITE_WARNING("Pedestrian '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID() + "', time=" +
-                        time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                              time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 // error indicated by nextDir == UNDEFINED_DIRECTION
             }
         } else if (currentEdge == nextRouteEdge) {
@@ -765,8 +765,8 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
 // MSPModel_Striping::Obstacle method definitions
 // ===========================================================================
 MSPModel_Striping::Obstacle::Obstacle(int dir) :
-    xFwd(dir * FAR_AWAY),  // far away when seen in dir
-    xBack(dir * FAR_AWAY),  // far away when seen in dir
+    xFwd(dir* FAR_AWAY),   // far away when seen in dir
+    xBack(dir* FAR_AWAY),   // far away when seen in dir
     speed(0),
     description("")
 {}
@@ -1119,9 +1119,9 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
             // squeeze slowly through the crowd ignoring others
             if (!myAmJammed) {
                 MSNet::getInstance()->getPersonControl().registerJammed();
-                WRITE_WARNING("Person '" + myPerson->getID() 
-                        + "' is jammed on edge '" + myStage->getEdge()->getID() 
-                        + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                WRITE_WARNING("Person '" + myPerson->getID()
+                              + "' is jammed on edge '" + myStage->getEdge()->getID()
+                              + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 myAmJammed = true;
             }
             xSpeed = vMax / 4;

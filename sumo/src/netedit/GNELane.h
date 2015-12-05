@@ -75,7 +75,7 @@ public:
     /** @brief Returns the name of the parent object (if any)
      * @return This object's parent id
      */
-    const std::string& getParentName() const; 
+    const std::string& getParentName() const;
 
     /** @brief Returns an own popup-menu
      *
@@ -204,7 +204,7 @@ private:
 
     // @brief return value for lane coloring according to the given scheme
     SUMOReal getColorValue(size_t activeScheme) const;
-		
+
     /// @brief sets the color according to the current scheme index and some lane function
     bool setFunctionalColor(size_t activeScheme) const;
 
@@ -217,11 +217,11 @@ private:
     /// @brief whether to draw this lane as a waterways
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
-    /* @brief draw crossties for railroads 
+    /* @brief draw crossties for railroads
      * @todo: XXX This duplicates the code of GUILane::drawCrossties and needs to be */
     void drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
 
-	
+
     /// The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
 

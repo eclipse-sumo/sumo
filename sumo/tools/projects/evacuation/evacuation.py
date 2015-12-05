@@ -31,7 +31,8 @@ import csv
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
-sys.path += [os.path.join(SUMO_HOME, "tools", "trip"), os.path.join(SUMO_HOME, "tools", "import", "osm"), os.path.join(SUMO_HOME, "tools")]
+sys.path += [os.path.join(SUMO_HOME, "tools", "trip"), os.path.join(
+    SUMO_HOME, "tools", "import", "osm"), os.path.join(SUMO_HOME, "tools")]
 
 import osmGet
 import sumolib
@@ -42,33 +43,36 @@ from xml.dom import minidom
 from shapely.geometry import Polygon
 import generateTraffic
 
+
 def mergePopulationData(populationFile, regionFile, mergedFile):
-    csvReader = csv.reader(open(populationFile), delimiter=',' , quotechar ='"')
+    csvReader = csv.reader(open(populationFile), delimiter=',', quotechar='"')
     inhabDict = {}
     for entry in csvReader:
         if csvReader.line_num <= 3:
             continue
-        while(len(entry[0]) < 2 ):
-            entry[0] = '0' + entry[0]  
-        while(len(entry[2]) < 2 ):
+        while(len(entry[0]) < 2):
+            entry[0] = '0' + entry[0]
+        while(len(entry[2]) < 2):
             entry[2] = '0' + entry[2]
-        while(len(entry[3]) < 4 ):
+        while(len(entry[3]) < 4):
             entry[3] = '0' + entry[3]
-        while(len(entry[4]) < 3 ):
-            entry[4] = '0' + entry[4]          
-        inhabDict["".join(entry[:5])] = str(entry[6]).replace(' ','')
-                
+        while(len(entry[4]) < 3):
+            entry[4] = '0' + entry[4]
+        inhabDict["".join(entry[:5])] = str(entry[6]).replace(' ', '')
+
     root = ET.ElementTree(file=regionFile).getroot()
     for parents in root.findall("./*"):
         for elem in parents.findall("param[7]"):
-            RSValue =  str(elem.attrib)[11:23]
+            RSValue = str(elem.attrib)[11:23]
             inhabitants = SubElement(parents, 'param')
             if RSValue in inhabDict:
                 inhabitants.clear()
-                inhabitants.attrib = { 'key':"INHABITANTS", 'value': inhabDict[RSValue] }
+                inhabitants.attrib = {
+                    'key': "INHABITANTS", 'value': inhabDict[RSValue]}
     outstr = minidom.parseString(ET.tostring(root)).toprettyxml(indent="    ")
     with open(mergedFile, 'w') as out:
         out.write(outstr.encode('utf-8'))
+
 
 def extract(mergedPopulationFile, mappedSiteFile, intersectionFile):
     PopulationXML = ET.ElementTree(file=mergedPopulationFile)
@@ -78,37 +82,43 @@ def extract(mergedPopulationFile, mappedSiteFile, intersectionFile):
     Schnittmenge = []
     for evaArea in EvaRoot.findall("./poly[0]"):
         koordinatenStr = evaArea.attrib["shape"]
-        koordinatenList =[tuple(map(float, x.split(','))) for x in koordinatenStr.split() ]
+        koordinatenList = [tuple(map(float, x.split(',')))
+                           for x in koordinatenStr.split()]
         evacuationArea = Polygon(koordinatenList)
 
     for PopArea in PopRoot.findall("./poly"):
         koordinatenStr = PopArea.attrib["shape"]
-        koordinatenList =[tuple(map(float, x.split(','))) for x in koordinatenStr.split() ]
+        koordinatenList = [tuple(map(float, x.split(',')))
+                           for x in koordinatenStr.split()]
         Gemeinde = Polygon(koordinatenList)
         if Gemeinde.intersection(evacuationArea):
             for Inhab in PopArea.findall("./param"):
                 if Inhab.attrib["key"] == "INHABITANTS":
                     Einwohner = int((Inhab.attrib["value"]))
-                    Einwohner *= Gemeinde.intersection(evacuationArea).area / Gemeinde.area
+                    Einwohner *= Gemeinde.intersection(
+                        evacuationArea).area / Gemeinde.area
                     Einwohner = str(Einwohner)
-                    Schnittmenge.append((Gemeinde.intersection(evacuationArea) ,Einwohner))
+                    Schnittmenge.append(
+                        (Gemeinde.intersection(evacuationArea), Einwohner))
                     print("merge!")
-                    
+
     root = ET.Element('additional')
     outTree = ET.ElementTree(root)
-    i=1
+    i = 1
     for G in Schnittmenge:
         poly = ET.SubElement(root, 'poly')
         exterior = G[0].exterior.coords
         OutExterior = ''
         for elem in exterior:
-            OutExterior += str(elem[0])+"," +str(elem[1])+" "
-        identity = "Schnittflache"+str(i)
-        poly.attrib ={"id":identity , "shape":OutExterior, "inhabitants":G[1] }
+            OutExterior += str(elem[0]) + "," + str(elem[1]) + " "
+        identity = "Schnittflache" + str(i)
+        poly.attrib = {
+            "id": identity, "shape": OutExterior, "inhabitants": G[1]}
         i += 1
-    outstr =  minidom.parseString(ET.tostring(root)).toprettyxml(indent = "   ")
+    outstr = minidom.parseString(ET.tostring(root)).toprettyxml(indent="   ")
     with open(intersectionFile, 'w') as out:
         out.write(outstr)
+
 
 def buildEvaSite(inputFile, siteFile):
     dots = 10
@@ -124,9 +134,11 @@ def buildEvaSite(inputFile, siteFile):
             for i in range(dots):
                 angle = 2 * math.pi * i / dots
                 templon = lon + radius * math.cos(angle)
-                templat = lat + radius * math.sin(angle) * math.cos(math.radians(lat))
+                templat = lat + radius * \
+                    math.sin(angle) * math.cos(math.radians(lat))
                 shape += "%s,%s " % (templon, templat)
-            out.write('    <poly id="%s" color="%s" fill="1" layer="-1" shape="%s"/>\n' % (poi.id, poi.color, shape[:-1]))
+            out.write('    <poly id="%s" color="%s" fill="1" layer="-1" shape="%s"/>\n' %
+                      (poi.id, poi.color, shape[:-1]))
         out.write("</additional>\n")
 
 
@@ -148,18 +160,20 @@ osmOptions = ['-f', 'osm_bbox.osm.xml', '-p', prefix, '--vehicle-classes', 'road
 osmBuild.build(osmOptions)
 print("polyconvert")
 sys.stdout.flush()
-subprocess.call([sumolib.checkBinary('polyconvert'), '-n', '%s.net.xml' % prefix, '--xml-files', siteFile, '-o', mappedSiteFile])
+subprocess.call([sumolib.checkBinary('polyconvert'), '-n', '%s.net.xml' %
+                 prefix, '--xml-files', siteFile, '-o', mappedSiteFile])
 print("merging")
 mergePopulationData("population.csv", 'regions.poly.xml', mergedPopulationFile)
 print("extracting population data")
 extract(mergedPopulationFile, mappedSiteFile, intersectionFile)
 print("generating traffic")
-generateTraffic.generate('%s.net.xml' % prefix, mappedSiteFile, intersectionFile, '%s.rou.xml' % prefix)
+generateTraffic.generate(
+    '%s.net.xml' % prefix, mappedSiteFile, intersectionFile, '%s.rou.xml' % prefix)
 print("calling sumo")
 sys.stdout.flush()
-sumo= sumolib.checkBinary('sumo')
-sumoOptions = [sumo, '-n', "%s.net.xml" % prefix, '-a' , "%s.poly.xml,inputLocations.poi.xml,%s" % (prefix, mappedSiteFile),
-               '-r' , '%s.rou.xml' % prefix, '--ignore-route-errors', '--no-step-log', '--save-configuration', '%s.sumocfg' % prefix]
+sumo = sumolib.checkBinary('sumo')
+sumoOptions = [sumo, '-n', "%s.net.xml" % prefix, '-a', "%s.poly.xml,inputLocations.poi.xml,%s" % (prefix, mappedSiteFile),
+               '-r', '%s.rou.xml' % prefix, '--ignore-route-errors', '--no-step-log', '--save-configuration', '%s.sumocfg' % prefix]
 subprocess.call(sumoOptions)
 subprocess.call([sumo, '%s.sumocfg' % prefix])
 #subprocess.call([sumolib.checkBinary('sumo-gui'), '%s.sumocfg' % prefix])

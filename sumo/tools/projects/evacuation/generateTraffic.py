@@ -20,7 +20,8 @@ import sys
 from optparse import OptionParser
 from xml.sax import parse
 
-SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
+SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 sys.path.append(os.path.join(SUMO_HOME, "tools"))
 
 import edgesInDistricts as EID
@@ -29,8 +30,8 @@ import sumolib
 
 
 def generate(netFile, mappedSiteFile, intersectionFile, tripFile):
-    #EdgesInDistricts
-    #evakuierungsbereich
+    # EdgesInDistricts
+    # evakuierungsbereich
     options = OptionParser()
     options.maxspeed = 1000.
     options.complete = False
@@ -45,7 +46,7 @@ def generate(netFile, mappedSiteFile, intersectionFile, tripFile):
     reader.computeWithin(polyReader.getPolygons(), options)
     reader.writeResults("edgesInIntersections.taz.xml", False)
 
-    #Evakuierungsziele
+    # Evakuierungsziele
     reader = EID.DistrictEdgeComputer(net)
     polyReader = sumolib.shapes.polygon.PolygonReader(True)
     parse(mappedSiteFile, polyReader)
@@ -53,22 +54,25 @@ def generate(netFile, mappedSiteFile, intersectionFile, tripFile):
     reader.writeResults("evacuationsiteEdges.taz.xml", False)
     print("EdgesInDistricts - done")
 
-    #O/D Matrix
+    # O/D Matrix
     import xml.etree.cElementTree as ET
     Districts = ET.ElementTree(file=intersectionFile)
     root = Districts.getroot()
     EVA = ET.ElementTree(file='evacuationsiteEdges.taz.xml')
     EV = EVA.getroot()
     EV.remove(EV[0])
-    with open('ODMatrix.fma','w') as odm:
+    with open('ODMatrix.fma', 'w') as odm:
         odm.write('$OR \n* From-Tome To-Time \n1.00 2.00\n* Factor \n1.00\n')
         for elem in root.findall("./poly"):
             for ESite in EV.findall("./*"):
-                CarAmount = str(int(float(elem.attrib["inhabitants"])/float(3*(len(EV.findall("./*"))-1))))
-                odm.write(elem.attrib["id"] + '\t' + ESite.attrib["id"] + '\t' + CarAmount + '\n')
+                CarAmount = str(
+                    int(float(elem.attrib["inhabitants"]) / float(3 * (len(EV.findall("./*")) - 1))))
+                odm.write(
+                    elem.attrib["id"] + '\t' + ESite.attrib["id"] + '\t' + CarAmount + '\n')
     print("OD Matrix - done")
 
-    #OD2TRIPS
+    # OD2TRIPS
     od2t = sumolib.checkBinary('od2trips')
-    od2tOptions = [od2t, '--no-step-log', '-d', odm.name, '-n', 'edgesInIntersections.taz.xml,evacuationsiteEdges.taz.xml', '-o', tripFile]
+    od2tOptions = [od2t, '--no-step-log', '-d', odm.name, '-n',
+                   'edgesInIntersections.taz.xml,evacuationsiteEdges.taz.xml', '-o', tripFile]
     subprocess.call(od2tOptions)

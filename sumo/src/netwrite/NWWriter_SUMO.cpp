@@ -70,12 +70,12 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const std::string lefthand = oc.getBool("lefthand") ? " " + toString(SUMO_ATTR_LEFTHAND) + "=\"true\"" : "";
     const int cornerDetail = oc.getInt("junctions.corner-detail");
     const int linkDetail = oc.getInt("junctions.internal-link-detail");
-    const std::string junctionCornerDetail = (cornerDetail > 0 
+    const std::string junctionCornerDetail = (cornerDetail > 0
             ? " " + toString(SUMO_ATTR_CORNERDETAIL) + "=\"" + toString(cornerDetail) + "\"" : "");
     const std::string junctionLinkDetail = (oc.isDefault("junctions.internal-link-detail") ? "" :
-            " " + toString(SUMO_ATTR_LINKDETAIL) + "=\"" + toString(linkDetail) + "\"");
+                                            " " + toString(SUMO_ATTR_LINKDETAIL) + "=\"" + toString(linkDetail) + "\"");
     device.writeXMLHeader("net", NWFrame::MAJOR_VERSION + lefthand + junctionCornerDetail + junctionLinkDetail +
-            " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/net_file.xsd\""); // street names may contain non-ascii chars
+                          " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/net_file.xsd\""); // street names may contain non-ascii chars
     device.lf();
     // get involved container
     const NBNodeCont& nc = nb.getNodeCont();

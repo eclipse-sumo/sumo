@@ -64,8 +64,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     mySubID(programID), myOffset(offset),
     myType(type),
     myNeedsContRelationReady(false),
-    myRightOnRedConflictsReady(false)
-{
+    myRightOnRedConflictsReady(false) {
     std::vector<NBNode*>::iterator i = myControlledNodes.begin();
     while (i != myControlledNodes.end()) {
         for (std::vector<NBNode*>::iterator j = i + 1; j != myControlledNodes.end();) {
@@ -438,7 +437,7 @@ NBTrafficLightDefinition::initNeedsContRelation() const {
 }
 
 
-bool 
+bool
 NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
     if (!myRightOnRedConflictsReady) {
         NBOwnTLDef dummy("dummy", myControlledNodes, 0, TLTYPE_STATIC);

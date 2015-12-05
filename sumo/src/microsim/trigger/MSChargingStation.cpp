@@ -47,9 +47,9 @@
 // ===========================================================================
 
 MSChargingStation::MSChargingStation(const std::string& new_ChargingStationID,
-                     const std::vector<std::string>& new_lines,
-                     MSLane& new_Lane, SUMOReal new_StartPos, SUMOReal new_EndPos, SUMOReal new_ChrgPower,
-                     SUMOReal new_Efficency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay) :
+                                     const std::vector<std::string>& new_lines,
+                                     MSLane& new_Lane, SUMOReal new_StartPos, SUMOReal new_EndPos, SUMOReal new_ChrgPower,
+                                     SUMOReal new_Efficency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay) :
     MSStoppingPlace(new_ChargingStationID, new_lines, new_Lane, new_StartPos, new_EndPos),
     ChrgPower(new_ChrgPower),
     Efficency(new_Efficency),

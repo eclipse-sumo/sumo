@@ -138,7 +138,7 @@ GUILoadThread::run() {
         if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
             // must be done before calling initOutputOptions (which checks option "verbose")
             // but initOutputOptions must come before checkOptions (so that warnings are printed)
-            oc.set("verbose", "true"); 
+            oc.set("verbose", "true");
         }
         MsgHandler::initOutputOptions();
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));

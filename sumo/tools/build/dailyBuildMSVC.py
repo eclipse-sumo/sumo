@@ -137,7 +137,8 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
     log = io.open(makeLog, 'a')
     if sumoAllZip:
         try:
-            binaryZip = sumoAllZip.replace("-all-", "-win32-" if platform == "Win32" else "-win64-")
+            binaryZip = sumoAllZip.replace(
+                "-all-", "-win32-" if platform == "Win32" else "-win64-")
             zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
             srcZip = zipfile.ZipFile(sumoAllZip)
             write = False

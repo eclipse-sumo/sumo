@@ -109,7 +109,7 @@ public:
 
 
     /** @brief Returns the difference of the second angle to the first angle in radiants
-     * 
+     *
      * The results are always between -pi and pi.
      * Positive values denote that the second angle is counter clockwise closer, negative values mean
      * it is clockwise closer.
@@ -134,7 +134,7 @@ public:
      * @param[in] angle The angle in radians to convert
      * @return the angle in degrees
      */
-    static SUMOReal legacyDegree(const SUMOReal angle, const bool positive=false);
+    static SUMOReal legacyDegree(const SUMOReal angle, const bool positive = false);
 
 };
 

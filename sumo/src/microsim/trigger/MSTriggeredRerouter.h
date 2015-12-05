@@ -68,7 +68,7 @@ class MSTriggeredRerouter :
     public MSTrigger, public MSMoveReminder,
     public SUMOSAXHandler {
 
-friend class GUIEdge; // dynamic instantiation
+    friend class GUIEdge; // dynamic instantiation
 
 public:
     /** @brief Constructor

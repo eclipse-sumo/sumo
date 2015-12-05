@@ -197,7 +197,7 @@ MSContainer::MSContainerStage_Driving::endEventOutput(const MSTransportable& con
 MSContainer::MSContainerStage_Waiting::MSContainerStage_Waiting(const MSEdge& destination,
         SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType) :
     MSTransportable::Stage(destination, 0, SUMOVehicleParameter::interpretEdgePos(
-                     pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "container stopping at " + destination.getID()), WAITING),
+                               pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "container stopping at " + destination.getID()), WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
     myActType(actType) {
@@ -295,7 +295,7 @@ MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vec
         SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
     MSTransportable::Stage(*route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
-                       arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transhipped to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myRoute(route),
+                               arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transhipped to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myRoute(route),
     mySpeed(speed), myContainerState(0), myCurrentInternalEdge(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "container getting transhipped from " + myRoute.front()->getID());

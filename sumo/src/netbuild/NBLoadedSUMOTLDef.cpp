@@ -63,8 +63,7 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLig
     // allow for adding a new program for the same def: take the programID from the new logic
     NBTrafficLightDefinition(def->getID(), logic->getProgramID(), def->getOffset(), def->getType()),
     myTLLogic(new NBTrafficLightLogic(logic)),
-    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) 
-{
+    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) {
     assert(def->getOffset() == logic->getOffset());
     assert(def->getType() == logic->getType());
     myControlledLinks = def->getControlledLinks();
@@ -93,7 +92,7 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
     if (linkIndex >= (int)myTLLogic->getNumLinks()) {
         throw ProcessError("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() +
-                    "' with " + toString(myTLLogic->getNumLinks()) + " links.");
+                           "' with " + toString(myTLLogic->getNumLinks()) + " links.");
     }
     NBConnection conn(from, fromLane, to, toLane, linkIndex);
     // avoid duplicates
@@ -129,7 +128,7 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
         const NBConnection& c = *it;
         if (c.getTLIndex() >= (int)myTLLogic->getNumLinks()) {
             throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
-                    "' with " + toString(myTLLogic->getNumLinks()) + " links.");
+                               "' with " + toString(myTLLogic->getNumLinks()) + " links.");
         }
         NBEdge* edge = c.getFrom();
         edge->setControllingTLInformation(c, getID());
@@ -342,7 +341,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
                     if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
                         if (c.getTLIndex() >= (int)size) {
                             throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
-                                    "' with " + toString(size) + " links.");
+                                               "' with " + toString(size) + " links.");
                         }
 
 

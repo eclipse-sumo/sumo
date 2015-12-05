@@ -264,10 +264,10 @@ protected:
         bool myAmJammed;
 
         /// @brief return the minimum position on the lane
-        SUMOReal getMinX(const bool includeMinGap=true) const;
+        SUMOReal getMinX(const bool includeMinGap = true) const;
 
         /// @brief return the maximum position on the lane
-        SUMOReal getMaxX(const bool includeMinGap=true) const;
+        SUMOReal getMaxX(const bool includeMinGap = true) const;
 
         /// @brief return the length of the pedestrian
         SUMOReal getLength() const;
@@ -294,7 +294,7 @@ protected:
         int otherStripe(const SUMOReal relY) const;
 
         /// @brief calculate distance to the given obstacle, positive values mean in front of me in walking direction, negative behind me, 0 means overlap
-        SUMOReal distanceTo(const Obstacle& obs, const bool includeMinGap=true) const;
+        SUMOReal distanceTo(const Obstacle& obs, const bool includeMinGap = true) const;
 
         /// @brief replace obstacles in the first vector with obstacles from the second if they are closer to me
         void mergeObstacles(Obstacles& into, const Obstacles& obs2);

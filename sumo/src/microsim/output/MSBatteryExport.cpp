@@ -75,69 +75,68 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
 
         if (static_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery))) != 0) {
 
-			MSDevice_Battery* batteryToExport = dynamic_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery)));
+            MSDevice_Battery* batteryToExport = dynamic_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery)));
 
-			if(batteryToExport->getMaximumBatteryCapacity() > 0)
-			{
-				// Open Row
-				of.openTag("vehicle");
+            if (batteryToExport->getMaximumBatteryCapacity() > 0) {
+                // Open Row
+                of.openTag("vehicle");
 
-				// Write ID
-				of.writeAttr("id", veh->getID());
+                // Write ID
+                of.writeAttr("id", veh->getID());
 
-				// Write consum
-				of.writeAttr("energyConsumed", batteryToExport->getConsum());
+                // Write consum
+                of.writeAttr("energyConsumed", batteryToExport->getConsum());
 
-				// Write ActBatKap
-				of.writeAttr("actualBatteryCapacity", batteryToExport->getActualBatteryCapacity());
+                // Write ActBatKap
+                of.writeAttr("actualBatteryCapacity", batteryToExport->getActualBatteryCapacity());
 
-				// Write MaxBatKap
-				of.writeAttr("maximumBatteryCapacity", batteryToExport->getMaximumBatteryCapacity());
+                // Write MaxBatKap
+                of.writeAttr("maximumBatteryCapacity", batteryToExport->getMaximumBatteryCapacity());
 
-				// Write Charging Station ID
-				of.writeAttr("chargingStationId", batteryToExport->getChargingStationID());
+                // Write Charging Station ID
+                of.writeAttr("chargingStationId", batteryToExport->getChargingStationID());
 
-				// Write Charge charged in the Battery
-				of.writeAttr("energyCharged", batteryToExport->getChrgEnergy());
+                // Write Charge charged in the Battery
+                of.writeAttr("energyCharged", batteryToExport->getChrgEnergy());
 
-				// Write ChargeInTransit
-				if (batteryToExport->isChargingInTransit()) {
-					of.writeAttr("energyChargedInTransit", batteryToExport->getChrgEnergy());
-				} else {
-					of.writeAttr("energyChargedInTransit", 0.00);
-				}
+                // Write ChargeInTransit
+                if (batteryToExport->isChargingInTransit()) {
+                    of.writeAttr("energyChargedInTransit", batteryToExport->getChrgEnergy());
+                } else {
+                    of.writeAttr("energyChargedInTransit", 0.00);
+                }
 
-				// Write ChargingStopped
-				if (batteryToExport->isChargingStopped()) {
-					of.writeAttr("energyChargedStopped", batteryToExport->getChrgEnergy());
-				} else {
-					of.writeAttr("energyChargedStopped", 0.00);
-				}
+                // Write ChargingStopped
+                if (batteryToExport->isChargingStopped()) {
+                    of.writeAttr("energyChargedStopped", batteryToExport->getChrgEnergy());
+                } else {
+                    of.writeAttr("energyChargedStopped", 0.00);
+                }
 
-				// Write Speed
-				of.writeAttr("speed", veh->getSpeed());
+                // Write Speed
+                of.writeAttr("speed", veh->getSpeed());
 
-				// Write Acceleration
-				of.writeAttr("acceleration", veh->getAcceleration());
+                // Write Acceleration
+                of.writeAttr("acceleration", veh->getAcceleration());
 
-				// Write pos x
-				of.writeAttr(SUMO_ATTR_X, veh->getPosition().x());
+                // Write pos x
+                of.writeAttr(SUMO_ATTR_X, veh->getPosition().x());
 
-				// Write pos y
-				of.writeAttr(SUMO_ATTR_Y, veh->getPosition().y());
+                // Write pos y
+                of.writeAttr(SUMO_ATTR_Y, veh->getPosition().y());
 
-				// Write Lane ID
-				of.writeAttr("lane", veh->getLane()->getID());
+                // Write Lane ID
+                of.writeAttr("lane", veh->getLane()->getID());
 
-				// Write vehicle position in the lane
-				of.writeAttr("posOnLane", veh->getPositionOnLane());
+                // Write vehicle position in the lane
+                of.writeAttr("posOnLane", veh->getPositionOnLane());
 
-				// Write Time stopped (In all cases)
-				of.writeAttr("timeStopped", batteryToExport->getVehicleStopped());
+                // Write Time stopped (In all cases)
+                of.writeAttr("timeStopped", batteryToExport->getVehicleStopped());
 
-				// Close Row
-				of.closeTag();
-			}
+                // Close Row
+                of.closeTag();
+            }
         }
     }
     of.closeTag();

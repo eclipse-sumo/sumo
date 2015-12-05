@@ -123,7 +123,7 @@ private:
 
 
 /** To make things easier we use a fixed size. SUMO_MAX_CONNECTIONS will hopefully be sufficient even for
-    large asian junctions. 
+    large asian junctions.
     So, here comes the type which should be used by the netbuilder. */
 typedef MSBitSetLogic<SUMO_MAX_CONNECTIONS> MSBitsetLogic;
 

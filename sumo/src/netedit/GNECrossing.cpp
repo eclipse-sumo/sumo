@@ -68,8 +68,7 @@ GNECrossing::GNECrossing(GNEJunction& parentJunction, const std::string& id) :
     GNEAttributeCarrier(SUMO_TAG_CROSSING),
     myParentJunction(parentJunction),
     myCrossing(parentJunction.getNBNode()->getCrossing(id)),
-    myShape(myCrossing.shape)
-{
+    myShape(myCrossing.shape) {
     int segments = (int) myShape.size() - 1;
     if (segments >= 0) {
         myShapeRotations.reserve(segments);
@@ -145,7 +144,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 GUIParameterTableWindow*
 GNECrossing::getParameterWindow(GUIMainWindow& app,
-                                    GUISUMOAbstractView&) {
+                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 2);
     // add items
@@ -210,7 +209,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGES:
             return false;
         case SUMO_ATTR_WIDTH:
-            return isPositive<SUMOReal>(value); 
+            return isPositive<SUMOReal>(value);
         case SUMO_ATTR_PRIORITY:
             return value == "true" || value == "false";
         default:

@@ -631,7 +631,7 @@ GNETLSEditor::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector sel, vo
                     fromIDs.insert((*it_lane)->getMicrosimID());
                 }
             }
-            
+
         }
         // set new state for all connections from the chosen lane IDs
         for (NBConnectionVector::const_iterator it = links.begin(); it != links.end(); it++) {

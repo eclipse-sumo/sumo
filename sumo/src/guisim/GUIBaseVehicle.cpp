@@ -256,11 +256,10 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowFoes(FXObject*, FXSelector, vo
  * GUIBaseVehicle - methods
  * ----------------------------------------------------------------------- */
 
-GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) : 
+GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
     GUIGlObject(GLO_VEHICLE, vehicle.getID()),
     myVehicle(vehicle),
-    myVType(vehicle.getVehicleType())
-{
+    myVType(vehicle.getVehicleType()) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(myVehicle, myVehicle.myDevices, 5);
     myVehicle.myMoveReminders.push_back(std::make_pair(myRoutes, 0.));
@@ -281,7 +280,7 @@ GUIBaseVehicle::~GUIBaseVehicle() {
 
 GUIGLObjectPopupMenu*
 GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
-                         GUISUMOAbstractView& parent) {
+                             GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIBaseVehiclePopupMenu(app, parent, *this, myAdditionalVisualizations);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -864,7 +863,7 @@ GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
         case 2:
             drawAction_drawVehicleAsPoly(s);
             // draw flashing blue light for emergency vehicles
-            if (myVType.getGuiShape()== SVS_EMERGENCY) {
+            if (myVType.getGuiShape() == SVS_EMERGENCY) {
                 glTranslated(0, 0, .1);
                 drawAction_drawVehicleBlueLight();
             }
@@ -960,7 +959,7 @@ GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
         glEnd();
     }
     */
-    glTranslated(0, MIN2(myVType.getLength() / 2, SUMOReal(5)), -getType()); // drawing name at GLO_MAX fails unless translating z 
+    glTranslated(0, MIN2(myVType.getLength() / 2, SUMOReal(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
     glRotated(-angle, 0, 0, 1);
     glScaled(1 / upscale, 1 / upscale, 1);
     drawName(Position(0, 0), s.scale,

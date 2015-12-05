@@ -196,7 +196,8 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
     <input>
         <net-file value="%s"/>""" % options.net, file=fd)
     if options.districts:
-        print('        <additional-files value="%s"/>' % options.districts, file=fd)
+        print('        <additional-files value="%s"/>' %
+              options.districts, file=fd)
     if step == 0:
         print('        <%s-files value="%s"/>' % (initial_type, file), file=fd)
     else:
@@ -253,7 +254,8 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
     </report>
 </configuration>""" % (options.router_verbose, options.noWarnings), file=fd)
     fd.close()
-    subprocess.call([duarouterBinary, "-c", cfgname, "--save-configuration", cfgname] + dua_args)
+    subprocess.call(
+        [duarouterBinary, "-c", cfgname, "--save-configuration", cfgname] + dua_args)
     return cfgname
 
 
