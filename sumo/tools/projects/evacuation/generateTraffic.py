@@ -1,9 +1,12 @@
 # -*- coding: cp1252 -*-
-#!/usr/bin/env python
 """
-@file   generateTraffic.py
-@author Martin Taraz
-@date 2015-09-09
+@file    generateTraffic.py
+@author  Martin Taraz
+@author  Michael Behrisch
+@date    2015-09-09
+@version $Id$
+
+Generates an O/D matrix for the evacuation scenario and runs od2trips
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2009-2015 DLR (http://www.dlr.de/) and contributors
@@ -17,6 +20,7 @@ the Free Software Foundation; either version 3 of the License, or
 
 import os
 import sys
+import subprocess
 from optparse import OptionParser
 from xml.sax import parse
 
@@ -25,7 +29,6 @@ SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
 sys.path.append(os.path.join(SUMO_HOME, "tools"))
 
 import edgesInDistricts as EID
-import subprocess
 import sumolib
 
 

@@ -2,8 +2,10 @@
 # -*- coding: cp1252 -*-
 """
 @file evacuation.py
-@author Martin Taraz
-@date 2015-09-09
+@author  Martin Taraz
+@author  Michael Behrisch
+@date    2015-09-09
+@version $Id$
 
 Starts the creation of an Evacuation Scenario
 
@@ -31,16 +33,17 @@ import csv
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
-sys.path += [os.path.join(SUMO_HOME, "tools", "trip"), os.path.join(
-    SUMO_HOME, "tools", "import", "osm"), os.path.join(SUMO_HOME, "tools")]
+sys.path.append(os.path.join(SUMO_HOME, "tools"))
 
-import osmGet
-import sumolib
-import osmBuild
 import xml.etree.cElementTree as ET
 from xml.etree.ElementTree import Element, SubElement, Comment, tostring
 from xml.dom import minidom
 from shapely.geometry import Polygon
+
+import osmBuild
+import osmGet
+import sumolib
+
 import generateTraffic
 
 
