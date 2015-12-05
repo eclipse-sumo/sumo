@@ -35,9 +35,6 @@ BuildRequires:  libGLU-devel libXext-devel libXft-devel
 BuildRequires:  netcdf hdf5 javamail
 %endif
 %endif
-%if 0%{?suse_version}
-BuildRequires: update-desktop-files
-%endif
 
 Autoreqprov: on
 
@@ -74,9 +71,6 @@ install -Dm644 %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/%{name}.png
 %if 0%{?suse_version}
 %if 0%{?suse_version} > 1200
 install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
-%endif
-%if 0%{?suse_version} > 1320
-%suse_update_desktop_file -r %{name} 'Education;Engineering;'
 %endif
 %fdupes -s docs
 %fdupes %{buildroot}
