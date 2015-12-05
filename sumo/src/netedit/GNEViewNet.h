@@ -208,7 +208,7 @@ public:
     }
 
     bool changeAllPhases() const {
-        return myChangeAllPhases->getCheck();
+        return myChangeAllPhases->getCheck() != FALSE;
     }
 
 protected:
