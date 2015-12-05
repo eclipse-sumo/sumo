@@ -37,24 +37,29 @@ def generate(netFile, mappedSiteFile, intersectionFile, tripFile):
     # evakuierungsbereich
     options = OptionParser()
     options.maxspeed = 1000.
+    options.minspeed = 0.
     options.complete = False
     options.internal = False
     options.vclass = None
     options.assign_from = True
     options.verbose = False
+    options.weighted = False
+    options.shapeinfo = False
+    options.output = "edgesInIntersections.taz.xml"
     net = sumolib.net.readNet(netFile)
     reader = EID.DistrictEdgeComputer(net)
     polyReader = sumolib.shapes.polygon.PolygonReader(True)
     parse(intersectionFile, polyReader)
     reader.computeWithin(polyReader.getPolygons(), options)
-    reader.writeResults("edgesInIntersections.taz.xml", False)
+    reader.writeResults(options)
 
     # Evakuierungsziele
+    options.output = "evacuationsiteEdges.taz.xml"
     reader = EID.DistrictEdgeComputer(net)
     polyReader = sumolib.shapes.polygon.PolygonReader(True)
     parse(mappedSiteFile, polyReader)
     reader.computeWithin(polyReader.getPolygons(), options)
-    reader.writeResults("evacuationsiteEdges.taz.xml", False)
+    reader.writeResults(options)
     print("EdgesInDistricts - done")
 
     # O/D Matrix

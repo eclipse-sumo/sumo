@@ -81,8 +81,8 @@ class DistrictEdgeComputer:
                 result[edge] = districts[0]
         return result
 
-    def writeResults(self, output, weighted):
-        fd = open(output, "w")
+    def writeResults(self, options):
+        fd = open(options.output, "w")
         fd.write("<tazs>\n")
         for district, edges in sorted(self._districtEdges.iteritems()):
             filtered = [
@@ -90,7 +90,7 @@ class DistrictEdgeComputer:
             if len(filtered) == 0:
                 print("District '" + district.id + "' has no edges!")
             else:
-                if weighted:
+                if options.weighted:
                     if options.shapeinfo:
                         fd.write('    <taz id="%s" shape="%s">\n' %
                                  (district.id, district.getShapeString()))
@@ -169,4 +169,5 @@ if __name__ == "__main__":
     reader.computeWithin(polyReader.getPolygons(), options)
     if options.verbose:
         print("Writing results")
-    reader.writeResults(options.output, options.weighted)
+    reader.writeResults(options)
+
