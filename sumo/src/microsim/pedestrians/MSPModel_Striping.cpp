@@ -482,9 +482,13 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
 
         // figure out the which pedestrians are ahead on the next lane
         const int nextStripes = numStripes(nextLane);
-        const int offset = (stripes - nextStripes) / 2;
         Obstacles obs(stripes, Obstacle(nextDir));
         if (nextStripes < stripes) {
+            int offset = (stripes - nextStripes) / 2;
+            if (currentDir == nextDir) {
+                // for odd stripe number differences there is a bigger offset at the beginning
+                offset += (stripes - nextStripes) % 2;
+            }
             // some stripes do not continue
             for (int ii = 0; ii < stripes; ++ii) {
                 if (ii < offset || ii >= nextStripes + offset) {
@@ -494,8 +498,6 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
         }
         Pedestrians& pedestrians = getPedestrians(nextLane);
         if (nextLane->getEdge().isWalkingArea()) {
-            const SUMOReal minY = stripeWidth * - 0.5 + NUMERICAL_EPS;
-            const SUMOReal maxY = stripeWidth * (stripes - 0.5) - NUMERICAL_EPS;
             // complex transformation into the coordinate system of the current lane
             // (pedestrians on next lane may walk at arbitrary angles relative to the current lane)
             const SUMOReal lateral_offset = (lane->getWidth() - stripeWidth) * 0.5;
@@ -505,10 +507,8 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
                 PState& p = *pedestrians[ii];
                 Position relPos =  lane->getShape().transformToVectorCoordinates(p.getPosition(*p.myStage, -1), true);
                 const SUMOReal newY = relPos.y() + lateral_offset;
-                if (newY >= minY && newY <= maxY) {
-                    addCloserObstacle(obs, relPos.x(), p.stripe(newY, stripes - 1), p.myPerson->getID(), p.myPerson->getVehicleType().getWidth(), currentDir);
-                    addCloserObstacle(obs, relPos.x(), p.otherStripe(newY, stripes - 1), p.myPerson->getID(), p.myPerson->getVehicleType().getWidth(), currentDir);
-                }
+                addCloserObstacle(obs, relPos.x(), p.stripe(newY), stripes, p.myPerson->getID(), p.myPerson->getVehicleType().getWidth(), currentDir);
+                addCloserObstacle(obs, relPos.x(), p.otherStripe(newY), stripes, p.myPerson->getID(), p.myPerson->getVehicleType().getWidth(), currentDir);
             }
         } else {
             // simple transformation into the coordinate system of the current lane
@@ -520,8 +520,19 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
                 if (p.myWaitingToEnter) {
                     continue;
                 }
-                addMappedObstacle(obs, p, p.stripe(), currentDir, nextDir, offset, stripes, nextStripes);
-                addMappedObstacle(obs, p, p.otherStripe(), currentDir, nextDir, offset, stripes, nextStripes);
+                SUMOReal newY = p.myRelY;
+                if (nextDir != currentDir) {
+                    newY = nextLane->getWidth() - stripeWidth - newY;
+                }
+                newY += 0.5 * (lane->getWidth() - nextLane->getWidth());
+                const int stripe = p.stripe(newY);
+                if (stripe >= 0 && stripe < stripes) {
+                    obs[stripe] = Obstacle(p);
+                }
+                const int otherStripe = p.otherStripe(newY);
+                if (otherStripe >= 0 && otherStripe < stripes) {
+                    obs[otherStripe] = Obstacle(p);
+                }
             }
             for (int ii = 0; ii < stripes; ++ii) {
                 Obstacle& o = obs[ii];
@@ -547,20 +558,11 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
 
 
 void
-MSPModel_Striping::addMappedObstacle(Obstacles& obs, const PState& p, int stripe, int currentDir, int nextDir, int offset, int stripes, int nextStripes) {
-    const int mappedStripe = (nextDir == currentDir
-                              ? stripe + offset
-                              : nextStripes - 1 - stripe + offset);
-    if (mappedStripe >= 0 && mappedStripe < stripes) {
-        obs[mappedStripe] = Obstacle(p);
-    }
-}
-
-
-void
-MSPModel_Striping::addCloserObstacle(Obstacles& obs, SUMOReal x, int stripe, const std::string& id, SUMOReal width, int dir) {
-    if ((dir == FORWARD && x - width / 2. < obs[stripe].xBack) || (dir == BACKWARD && x + width / 2. > obs[stripe].xFwd)) {
-        obs[stripe] = Obstacle(x, 0, id, width);
+MSPModel_Striping::addCloserObstacle(Obstacles& obs, SUMOReal x, int stripe, int numStripes, const std::string& id, SUMOReal width, int dir) {
+    if (stripe >= 0 && stripe < numStripes) {
+        if ((dir == FORWARD && x - width / 2. < obs[stripe].xBack) || (dir == BACKWARD && x + width / 2. > obs[stripe].xFwd)) {
+            obs[stripe] = Obstacle(x, 0, id, width);
+        }
     }
 }
 
@@ -871,14 +873,14 @@ MSPModel_Striping::PState::getMinGap() const {
 
 
 int
-MSPModel_Striping::PState::stripe(SUMOReal relY, const int max) const {
-    return MIN2(MAX2(0, (int)floor(relY / stripeWidth + 0.5)), max);
+MSPModel_Striping::PState::stripe(SUMOReal relY) const {
+    return (int)floor(relY / stripeWidth + 0.5);
 }
 
 
 int
-MSPModel_Striping::PState::otherStripe(SUMOReal relY, const int max) const {
-    const int s = stripe();
+MSPModel_Striping::PState::otherStripe(SUMOReal relY) const {
+    const int s = stripe(relY);
     const SUMOReal offset = relY - s * stripeWidth;
     const SUMOReal threshold = MAX2(NUMERICAL_EPS, stripeWidth - SQUEEZE * myPerson->getVehicleType().getWidth());
     int result;
@@ -889,21 +891,21 @@ MSPModel_Striping::PState::otherStripe(SUMOReal relY, const int max) const {
     } else {
         result = s;
     }
-    std::cout.setf(std::ios::fixed , std::ios::floatfield);
-    std::cout << std::setprecision(5);
+    //std::cout.setf(std::ios::fixed , std::ios::floatfield);
+    //std::cout << std::setprecision(5);
     //if DEBUGCOND(myPerson->getID()) std::cout << "  otherStripe " << myPerson->getID() << " offset=" << offset << " threshold=" << threshold << " rawResult=" << result << "\n";
-    return MIN2(MAX2(0, result), max);
+    return result;
 }
 
 int
 MSPModel_Striping::PState::stripe() const {
-    return stripe(myRelY, numStripes(myLane) - 1);
+    return MIN2(MAX2(0, stripe(myRelY)), numStripes(myLane) - 1);
 }
 
 
 int
 MSPModel_Striping::PState::otherStripe() const {
-    return otherStripe(myRelY, numStripes(myLane) - 1);
+    return MIN2(MAX2(0, otherStripe(myRelY)), numStripes(myLane) - 1);
 }
 
 
@@ -986,7 +988,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
             }
             // adjust to change in direction
             if (myDir != oldDir) {
-                myRelY = (numStripes(oldLane) - 1) * stripeWidth - myRelY;
+                myRelY = oldLane->getWidth() - stripeWidth - myRelY;
             }
             // adjust to differences in sidewalk width
             myRelY += 0.5 * (myLane->getWidth() - oldLane->getWidth());

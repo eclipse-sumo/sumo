@@ -290,8 +290,8 @@ protected:
         int stripe() const;
         int otherStripe() const;
 
-        int stripe(const SUMOReal relY, const int max) const;
-        int otherStripe(const SUMOReal relY, const int max) const;
+        int stripe(const SUMOReal relY) const;
+        int otherStripe(const SUMOReal relY) const;
 
         /// @brief calculate distance to the given obstacle, positive values mean in front of me in walking direction, negative behind me, 0 means overlap
         SUMOReal distanceTo(const Obstacle& obs, const bool includeMinGap=true) const;
@@ -373,9 +373,7 @@ private:
     const Obstacles& getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const MSLane* lane, const MSLane* nextLane, int stripes,
                                           SUMOReal nextLength, int nextDir, SUMOReal currentLength, int currentDir);
 
-    static void addMappedObstacle(Obstacles& obs, const PState& p, int stripe, int currentDir, int nextDir, int offset, int stripes, int nextStripes);
-
-    static void addCloserObstacle(Obstacles& obs, SUMOReal x, int stripe, const std::string& id, SUMOReal width, int dir);
+    static void addCloserObstacle(Obstacles& obs, SUMOReal x, int stripe, int numStripes, const std::string& id, SUMOReal width, int dir);
 
     /// @brief retrieves the pedestian vector for the given lane (may be empty)
     Pedestrians& getPedestrians(const MSLane* lane);
