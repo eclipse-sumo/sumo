@@ -140,5 +140,5 @@ class Lane:
     def setParam(self, key, value):
         self._params[key] = value
 
-    def getParam(self, key):
-        return self._params.get(key)
+    def getParam(self, key, default=None):
+        return self._params.get(key, default)

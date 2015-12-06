@@ -312,12 +312,11 @@ class Net:
 
     def getEdgesByOrigID(self, origID):
         if self._origIdx is None:
-            self._origIdx = defaultdict(list)
+            self._origIdx = defaultdict(set)
             for edge in self._edges:
                 for lane in edge.getLanes():
-                    if origID in lane.getParam("origId").split():
-                        self._origIdx[origID].append(edge)
-                        break
+                    for oID in lane.getParam("origId", "").split():
+                        self._origIdx[oID].add(edge)
         return self._origIdx[origID]
 
     # the diagonal of the bounding box of all nodes
