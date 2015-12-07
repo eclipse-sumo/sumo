@@ -544,6 +544,8 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
                     return 10;
                 case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
                     return 11;
+                case NODETYPE_RAIL_CROSSING:
+                    return 12;
             }
         default:
             assert(false);

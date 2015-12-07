@@ -44,6 +44,7 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSRailCrossing.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
@@ -139,6 +140,7 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
 #endif
             break;
         case NODETYPE_RAIL_SIGNAL:
+        case NODETYPE_RAIL_CROSSING:
             myOffset = 0;
             myActiveKey = myActiveID;
             myActiveProgram = "0";
@@ -284,9 +286,18 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
                                               myAdditionalParameter);
             break;
         case TLTYPE_RAIL:
-            tlLogic = new MSRailSignal(getTLLogicControlToUse(),
-                                       myActiveKey, myActiveProgram,
-                                       myAdditionalParameter);
+            if (myType == NODETYPE_RAIL_SIGNAL) {
+                tlLogic = new MSRailSignal(getTLLogicControlToUse(),
+                        myActiveKey, myActiveProgram,
+                        myAdditionalParameter);
+            } else if (myType == NODETYPE_RAIL_CROSSING) {
+                tlLogic = new MSRailCrossing(getTLLogicControlToUse(),
+                        myActiveKey, myActiveProgram,
+                        myAdditionalParameter);
+            } else {
+                throw ProcessError("Invalid node type '" + toString(myType) 
+                        + "' for traffic light type '" + toString(myLogicType) + "'");
+            }
             break;
     }
     myActivePhases.clear();

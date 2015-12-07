@@ -180,7 +180,7 @@ MSTrafficLightLogic::~MSTrafficLightLogic() {
 
 // ----------- Handling of controlled links
 void
-MSTrafficLightLogic::addLink(MSLink* link, MSLane* lane, unsigned int pos) {
+MSTrafficLightLogic::addLink(MSLink* link, MSLane* lane, int pos) {
     // !!! should be done within the loader (checking necessary)
     myLinks.reserve(pos + 1);
     while (myLinks.size() <= pos) {

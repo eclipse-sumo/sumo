@@ -227,7 +227,7 @@ MSTLLogicControl::TLSLogicVariants::executeOnSwitchActions() const {
 
 
 void
-MSTLLogicControl::TLSLogicVariants::addLink(MSLink* link, MSLane* lane, unsigned int pos) {
+MSTLLogicControl::TLSLogicVariants::addLink(MSLink* link, MSLane* lane, int pos) {
     for (std::map<std::string, MSTrafficLightLogic*>::iterator i = myVariants.begin(); i != myVariants.end(); ++i) {
         (*i).second->addLink(link, lane, pos);
     }

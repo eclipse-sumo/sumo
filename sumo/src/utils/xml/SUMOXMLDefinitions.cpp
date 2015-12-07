@@ -485,6 +485,7 @@ StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[]
     {"traffic_light_unregulated", NODETYPE_TRAFFIC_LIGHT_NOJUNCTION},
     {"traffic_light_right_on_red", NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED},
     {"rail_signal",         NODETYPE_RAIL_SIGNAL},
+    {"rail_crossing",       NODETYPE_RAIL_CROSSING},
     {"priority",            NODETYPE_PRIORITY},
     {"priority_stop",       NODETYPE_PRIORITY_STOP},
     {"right_before_left",   NODETYPE_RIGHT_BEFORE_LEFT},

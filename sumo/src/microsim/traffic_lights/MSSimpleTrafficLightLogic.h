@@ -87,7 +87,7 @@ public:
      * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch();
+    virtual SUMOTime trySwitch();
     /// @}
 
 

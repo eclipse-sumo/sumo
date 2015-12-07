@@ -312,7 +312,7 @@ void
 NBNode::addTrafficLight(NBTrafficLightDefinition* tlDef) {
     myTrafficLights.insert(tlDef);
     // rail signals receive a temporary traffic light in order to set connection tl-linkIndex
-    if (!isTrafficLight(myType) && myType != NODETYPE_RAIL_SIGNAL) {
+    if (!isTrafficLight(myType) && myType != NODETYPE_RAIL_SIGNAL && myType != NODETYPE_RAIL_CROSSING) {
         myType = NODETYPE_TRAFFIC_LIGHT;
     }
 }
@@ -890,6 +890,18 @@ NBNode::computeLanes2Lanes() {
                     //if (unsatisfied != 0) {
                     //    std::cout << "     still unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
                     //}
+                }
+            }
+        }
+    }
+    // special case e): rail_crossing
+    // there should only be straight connections here
+    if (myType == NODETYPE_RAIL_CROSSING) {
+        for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
+            const std::vector<NBEdge::Connection> cons = (*i)->getConnections();
+            for (std::vector<NBEdge::Connection>::const_iterator k = cons.begin(); k != cons.end(); ++k) {
+                if (getDirection(*i, (*k).toEdge) != LINKDIR_STRAIGHT) {
+                    (*i)->removeFromConnections((*k).toEdge);
                 }
             }
         }
@@ -1490,6 +1502,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
 LinkState
 NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int toLane,
                      bool mayDefinitelyPass, const std::string& tlID) const {
+    if (myType == NODETYPE_RAIL_CROSSING && isRailway(incoming->getPermissions())) {
+        return LINKSTATE_MAJOR; // the trains must run on time
+    }
     if (tlID != "") {
         return LINKSTATE_TL_OFF_BLINKING;
     }

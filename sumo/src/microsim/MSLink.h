@@ -197,6 +197,11 @@ public:
      * @note used for visualisation of link items */
     ApproachingVehicleInformation getApproaching(const SUMOVehicle* veh) const;
 
+    /// @brief return all approaching vehicles
+    const std::map<const SUMOVehicle*, ApproachingVehicleInformation>& getApproaching() const {
+        return myApproachingVehicles;
+    }
+
     /** @brief Returns the information whether the link may be passed
      *
      * Valid after the junctions have set their reponds

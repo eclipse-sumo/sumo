@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Nov  7 15:32:24 2014 by SUMO Version dev-SVN-r17292I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
+    <timestep time="0.00">
+        <edge id="1fi">
+            <vehicle id="ego" pos="393.56" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="1.00">
+        <edge id="1fi">
+            <vehicle id="ego" pos="393.56" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="2.00">
+        <edge id="1fi">
+            <vehicle id="ego" pos="393.56" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="3.00">
+        <edge id="1fi">
+            <vehicle id="ego" pos="393.56" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="4.00">
+        <edge id="1fi">
+            <vehicle id="ego" pos="393.56" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="5.00">
+        <edge id="1fi">
+            <vehicle id="ego" pos="393.56" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="6.00">
+        <edge id="1fi">
+            <vehicle id="ego" pos="393.56" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="7.00">
+        <edge id="1fi">
+            <vehicle id="ego" pos="393.56" speed="13.76"/>
+        </edge>
+    </timestep>
+    <timestep time="8.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="0.00" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="9.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="0.00" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="10.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="0.00" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="11.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="0.00" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="12.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="0.00" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="13.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="0.00" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="14.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="98.39" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="15.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="98.39" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="16.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="98.39" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="17.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="98.39" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="18.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="98.39" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="19.00">
+        <edge id="2o">
+            <vehicle id="ego" pos="98.39" speed="16.00"/>
+        </edge>
+    </timestep>
+    <timestep time="20.00"/>
+</netstate>

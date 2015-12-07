@@ -141,7 +141,7 @@ public:
 
 
         void executeOnSwitchActions() const;
-        void addLink(MSLink* link, MSLane* lane, unsigned int pos);
+        void addLink(MSLink* link, MSLane* lane, int pos);
 
 
 
