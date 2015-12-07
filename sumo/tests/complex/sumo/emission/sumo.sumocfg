@@ -19,7 +19,7 @@
     </time>
 
     <report>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
