@@ -388,7 +388,6 @@ GNETLSEditor::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
 long
 GNETLSEditor::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     myHaveModifications = true;
-    const unsigned int numLinks = myEditedDef->getLogic()->getNumLinks();
     // allows insertion at first position by deselecting via arrow keys
     unsigned int newIndex = myPhaseTable->getSelStartRow() + 1;
     unsigned int oldIndex = MAX2(0, myPhaseTable->getSelStartRow());
