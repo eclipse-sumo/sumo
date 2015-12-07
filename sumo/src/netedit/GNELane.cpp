@@ -68,14 +68,11 @@
 // Object implementation
 FXIMPLEMENT(GNELane, FXDelegator, 0, 0)
 
-// ===========================================================================
-// static member definitions
-// ===========================================================================
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNELane::GNELane(GNEEdge& edge, const unsigned int index) :
+GNELane::GNELane(GNEEdge& edge, const int index) :
     GUIGlObject(GLO_LANE, edge.getNBEdge()->getLaneID(index)),
     GNEAttributeCarrier(SUMO_TAG_LANE),
     myParentEdge(edge),
@@ -128,7 +125,7 @@ GNELane::drawArrows() const {
     const std::vector<NBEdge::Connection>& edgeCons = myParentEdge.getNBEdge()->myConnections;
     NBNode* dest = myParentEdge.getNBEdge()->myTo;
     for (std::vector<NBEdge::Connection>::const_iterator i = edgeCons.begin(); i != edgeCons.end(); ++i) {
-        if ((*i).fromLane == (int)myIndex) {
+        if ((*i).fromLane == myIndex) {
             LinkDirection dir = dest->getDirection(myParentEdge.getNBEdge(), i->toEdge, OptionsCont::getOptions().getBool("lefthand"));
             switch (dir) {
                 case LINKDIR_STRAIGHT:
@@ -379,7 +376,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else if (editMode == GNE_MODE_TLS) {
         myTLSEditor = static_cast<GNEViewNet&>(parent).getTLSEditor();
         if (myTLSEditor->controlsEdge(myParentEdge)) {
-            FXMenuCommand* mc = new FXMenuCommand(ret, "Select state for all links from this edge:", 0, 0, 0);
+            new FXMenuCommand(ret, "Select state for all links from this edge:", 0, 0, 0);
             const std::vector<std::string> names = GNEInternalLane::LinkStateNames.getStrings();
             for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
                 FXuint state = GNEInternalLane::LinkStateNames.get(*it);
