@@ -378,25 +378,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
     }
     // fix pedestrian crossings that did not get the green light yet
     if (crossings.size() > 0) {
-        const int vehLinks = noLinksAll - (int)crossings.size();
-        std::vector<bool> foundGreen(crossings.size(), false);
-        const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = logic->getPhases();
-        for (int i = 0; i < (int)phases.size(); ++i) {
-            const std::string state = phases[i].state;
-            for (int j = 0; j < (int)crossings.size(); ++j) {
-                LinkState ls = (LinkState)state[vehLinks + j];
-                if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
-                    foundGreen[j] = true;
-                }
-            }
-        }
-        for (int j = 0; j < (int)foundGreen.size(); ++j) {
-            if (!foundGreen[j]) {
-                // add a phase where all pedestrians may walk, followed by a clearing phase
-                addPedestrianPhases(logic, TIME2STEPS(10), std::string(noLinksAll, 'r'), crossings, fromEdges, toEdges);
-                break;
-            }
-        }
+        addPedestrianScramble(logic, noLinksAll, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
     }
 
     SUMOTime totalDuration = logic->getDuration();
@@ -674,6 +656,46 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
         }
     }
     return state;
+}
+
+
+void 
+NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, unsigned int noLinksAll, SUMOTime greenTime, SUMOTime brakingTime,
+        const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
+    const int vehLinks = noLinksAll - (int)crossings.size();
+    std::vector<bool> foundGreen(crossings.size(), false);
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = logic->getPhases();
+    for (int i = 0; i < (int)phases.size(); ++i) {
+        const std::string state = phases[i].state;
+        for (int j = 0; j < (int)crossings.size(); ++j) {
+            LinkState ls = (LinkState)state[vehLinks + j];
+            if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
+                foundGreen[j] = true;
+            }
+        }
+    }
+    for (int j = 0; j < (int)foundGreen.size(); ++j) {
+        if (!foundGreen[j]) {
+
+            // add a phase where all pedestrians may walk, (preceded by a yellow phase and followed by a clearing phase)
+            if (phases.size() > 0) {
+                bool needYellowPhase = false;
+                std::string state = phases.back().state;
+                for (unsigned int i1 = 0; i1 < vehLinks; ++i1) {
+                    if (state[i1] == 'G' || state[i1] == 'g') {
+                        state[i1] = 'y';
+                        needYellowPhase = true;
+                    }
+                }
+                // add yellow step
+                if (needYellowPhase) {
+                    logic->addStep(brakingTime, state);
+                }
+            }
+            addPedestrianPhases(logic, TIME2STEPS(10), std::string(noLinksAll, 'r'), crossings, fromEdges, toEdges);
+            break;
+        }
+    }
 }
 
 /****************************************************************************/
