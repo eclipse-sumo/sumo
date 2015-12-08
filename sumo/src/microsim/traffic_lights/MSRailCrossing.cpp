@@ -92,7 +92,7 @@ SUMOTime
 MSRailCrossing::trySwitch() {
     SUMOTime nextTry = updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-    //std::cout << " myStep=" << myStep << " nextTry=" << STEPS2TIME(nextTry) << "\n";
+    //if (getID() == "cluster_1088529493_1260626727") std::cout << " myStep=" << myStep << " nextTry=" << nextTry << "\n";
     return nextTry;
 }
 
@@ -112,8 +112,14 @@ MSRailCrossing::updateCurrentPhase() {
                 stayRedUntil = MAX2(stayRedUntil, avi.leavingTime);
             }
         }
+#ifdef HAVE_INTERNAL_LANES
+        if ((*it_link)->getViaLane() != 0 && (*it_link)->getViaLane()->getLastVehicleInformation().first != 0) {
+            // do not open if there is still a train on the crossing
+            stayRedUntil = MAX2(stayRedUntil, now + DELTA_T);
+        }
+#endif
     }
-    //std::cout << SIMTIME << " stayRedUntil=" << STEPS2TIME(stayRedUntil);
+    //if (getID() == "cluster_1088529493_1260626727") std::cout << SIMTIME << " stayRedUntil=" << stayRedUntil;
     const SUMOTime wait = stayRedUntil - now;
 
     if (myStep == 0) {
@@ -127,7 +133,7 @@ MSRailCrossing::updateCurrentPhase() {
     } else if (myStep == 1) {
         // 'y': yellow time is over. switch to red
         myStep++;
-        return wait;
+        return MAX2(DELTA_T, wait);
     } else { 
         // 'r': check whether we may open again
         if (wait == 0) {
