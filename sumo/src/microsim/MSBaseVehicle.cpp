@@ -382,6 +382,8 @@ SUMOReal
 MSBaseVehicle::getImpatience() const {
     return MAX2((SUMOReal)0, MIN2((SUMOReal)1, getVehicleType().getImpatience() +
                                   (MSGlobals::gTimeToGridlock > 0 ? (SUMOReal)getWaitingTime() / MSGlobals::gTimeToGridlock : 0)));
+//    Alternavite to avoid time to teleport effect on the simulation. No effect if time to teleport is -1
+//    return MAX2((SUMOReal)0, MIN2((SUMOReal)1, getVehicleType().getImpatience()));
 }
 
 

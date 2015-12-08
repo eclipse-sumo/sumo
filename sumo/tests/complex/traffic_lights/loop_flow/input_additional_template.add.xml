@@ -1,0 +1,84 @@
+<a>
+
+    <e2Detector id="1i_l0" lane="1i_0" pos="-500" length="500" freq="60" file="results/e2_output.xml" friendlyPos="true"/>
+    <e2Detector id="2i_l0" lane="2i_0" pos="-500" length="500" freq="60" file="results/e2_output.xml" friendlyPos="true"/>
+    <e2Detector id="3i_l0" lane="3i_0" pos="-500" length="500" freq="60" file="results/e2_output.xml" friendlyPos="true"/>
+    <e2Detector id="4i_l0" lane="4i_0" pos="-500" length="500" freq="60" file="results/e2_output.xml" friendlyPos="true"/>
+    
+    <e2Detector id="1i_tl0_l0" lane="1i_0" tl="0" pos="-500" length="500" freq="60" file="results/e2_tl0_output.xml" friendlyPos="true"/>
+    <e2Detector id="2i_tl0_l0" lane="2i_0" tl="0" pos="-500" length="500" freq="60" file="results/e2_tl0_output.xml" friendlyPos="true"/>
+    <e2Detector id="3i_tl0_l0" lane="3i_0" tl="0" pos="-500" length="500" freq="60" file="results/e2_tl0_output.xml" friendlyPos="true"/>
+    <e2Detector id="4i_tl0_l0" lane="4i_0" tl="0" pos="-500" length="500" freq="60" file="results/e2_tl0_output.xml" friendlyPos="true"/>
+    
+    <edgeData id="edges" freq="3600" file="results/edgeData_3600.xml"/>
+    <laneData id="lanes" freq="3600" file="results/laneData_3600.xml"/>
+    <edgeData id="edgesEmissions" type="emissions" freq="3600" file="results/edgesEmissions_3600.xml"/>
+    <laneData id="lanesEmissions" type="emissions" freq="3600" file="results/lanesEmissions_3600.xml"/>
+    <!-- edgeData id="edgesNoise" type="harmonoise" freq="3600" file="results/edgesNoise_3600.xml"/>
+    <laneData id="lanesNoise" type="harmonoise" freq="3600" file="results/lanesNoise_3600.xml"/ -->
+    
+    <timedEvent type="SaveTLSStates" source="0" dest="results/TLSStates.xml"/>
+    <timedEvent type="SaveTLSSwitchTimes" source="0" dest="results/TLSSwitchTimes.xml"/>
+    <timedEvent type="SaveTLSSwitchStates" source="0" dest="results/TLSSwitchStates.xml"/>
+
+    <tlLogic id="0" type="%tls_type%" programID="a" offset="0">
+		  <param key="THRESHOLD" value="200"/>
+		  <param key="MIN_DECISIONAL_PHASE_DUR" value="5000"/>
+		  <param key="MAX_CONGESTION_DUR" value="80"/>
+		  <param key="PHERO_MAXVAL" value="10.0"/>
+		  
+		  
+		  <param key="CHANGE_PLAN_PROBABILITY" value="0.03"/>
+		  <param key="GAMMA_SP" value="0.18"/>
+		  <param key="BETA_SP" value="0.27"/>
+
+		  <param key="GAMMA_NO" value="0.1"/>
+		  <param key="BETA_NO" value="0.2"/>
+		  <param key="THETA_MAX" value="0.85"/>
+		  <param key="THETA_MIN" value="0.1"/>
+		  <param key="THETA_INIT" value="0.5"/>
+		  <param key="LEARNING_COX" value="0.1"/>
+		  <param key="FORGETTING_COX" value="0.4"/>
+
+		  <param key="PHASE_STIM_COX" value=".127326"/>
+		  <param key="PHASE_STIM_OFFSET_IN" value="5"/>
+		  <param key="PHASE_STIM_OFFSET_OUT" value="0"/>
+		  <param key="PHASE_STIM_DIVISOR_IN" value="8"/>
+		  <param key="PHASE_STIM_DIVISOR_OUT" value="8"/>
+		  <param key="PHASE_STIM_COX_EXP_IN" value="1"/>
+		  <param key="PHASE_STIM_COX_EXP_OUT" value="1"/>
+
+		  <param key="PLATOON_STIM_COX" value=".0805782"/>
+		  <param key="PLATOON_STIM_OFFSET_IN" value="0"/>
+		  <param key="PLATOON_STIM_OFFSET_OUT" value="0"/>
+		  <param key="PLATOON_STIM_DIVISOR_IN" value="10"/>
+		  <param key="PLATOON_STIM_DIVISOR_OUT" value="10"/>
+		  <param key="PLATOON_STIM_COX_EXP_IN" value="1"/>
+		  <param key="PLATOON_STIM_COX_EXP_OUT" value="1"/>
+
+		  <param key="MARCHING_STIM_COX" value=".0407958"/>
+		  <param key="MARCHING_STIM_OFFSET_IN" value="5"/>
+		  <param key="MARCHING_STIM_OFFSET_OUT" value="5"/>
+		  <param key="MARCHING_STIM_DIVISOR_IN" value="8"/>
+		  <param key="MARCHING_STIM_DIVISOR_OUT" value="8"/>
+		  <param key="MARCHING_STIM_COX_EXP_IN" value="1"/>
+		  <param key="MARCHING_STIM_COX_EXP_OUT" value="1"/>
+
+		  <param key="CONGESTION_STIM_COX" value=".0407958"/>
+		  <param key="CONGESTION_STIM_OFFSET_IN" value="0"/>
+		  <param key="CONGESTION_STIM_OFFSET_OUT" value="10"/>
+		  <param key="CONGESTION_STIM_DIVISOR_IN" value="1"/>
+		  <param key="CONGESTION_STIM_DIVISOR_OUT" value="8"/>
+		  <param key="CONGESTION_STIM_COX_EXP_IN" value="0"/>
+		  <param key="CONGESTION_STIM_COX_EXP_OUT" value="1"/>
+          
+          
+          <phase duration="32" state="GrGr" type="target;decisional" targetLanes="2i_0 4i_0" minDur="12" maxDur="52"/>
+        <phase duration="4" state="yryr" type="transient"/>
+        <phase duration="4" state="rrrr" type="transient;commit"/>
+        <phase duration="32" state="rGrG" type="target;decisional" targetLanes="1i_0 3i_0" minDur="12" maxDur="52"/>
+        <phase duration="4" state="ryry" type="transient"/>
+        <phase duration="4" state="rrrr" type="transient;commit"/>
+    </tlLogic>
+
+</a>

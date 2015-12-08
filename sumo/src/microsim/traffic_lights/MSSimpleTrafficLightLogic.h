@@ -78,8 +78,6 @@ public:
     /// @brief Destructor
     ~MSSimpleTrafficLightLogic();
 
-
-
     /// @name Switching and setting current rows
     /// @{
 

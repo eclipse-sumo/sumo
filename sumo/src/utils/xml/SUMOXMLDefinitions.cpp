@@ -476,6 +476,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "shapeStartNotForPrinting", GNE_ATTR_SHAPE_START},
     { "shapeEndNotForPrinting", GNE_ATTR_SHAPE_END},
 
+    { "targetLanes",   SUMO_ATTR_TARGETLANE },
+
     { "",               SUMO_ATTR_NOTHING }
 };
 
@@ -554,6 +556,15 @@ StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesVa
     { "static", TLTYPE_STATIC },
     { "rail", TLTYPE_RAIL },
     { "actuated", TLTYPE_ACTUATED },
+    { "agentbased", TLTYPE_AGENT },
+    { "sotl_phase", TLTYPE_SOTL_PHASE },
+    { "sotl_platoon", TLTYPE_SOTL_PLATOON },
+    { "sotl_request", TLTYPE_SOTL_REQUEST },
+	{ "sotl_wave", TLTYPE_SOTL_WAVE },
+	{ "sotl_marching", TLTYPE_SOTL_MARCHING },
+    { "swarm", TLTYPE_SWARM_BASED },
+    { "deterministic", TLTYPE_HILVL_DETERMINISTIC },
+    { "<invalid>", TLTYPE_INVALID } //< must be the last one
 };
 
 
@@ -599,7 +610,7 @@ StringBijection<LinkDirection> SUMOXMLDefinitions::LinkDirections(
     SUMOXMLDefinitions::linkDirectionValues, LINKDIR_NODIR);
 
 StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
-    SUMOXMLDefinitions::trafficLightTypesVales, TLTYPE_ACTUATED);
+    SUMOXMLDefinitions::trafficLightTypesVales, TLTYPE_INVALID);
 
 StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
     SUMOXMLDefinitions::laneChangeModelValues, LCM_JE2013);

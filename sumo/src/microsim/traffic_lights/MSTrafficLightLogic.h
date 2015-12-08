@@ -148,7 +148,6 @@ public:
     /// @{
 
     /** @brief Switches to the next phase
-     * @param[in] isActive Whether this program is the currently used one
      * @return The time of the next switch
      */
     virtual SUMOTime trySwitch() = 0;

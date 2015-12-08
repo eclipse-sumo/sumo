@@ -585,8 +585,10 @@ enum SumoXMLAttr {
     /* first coordinate of edge shape */
     GNE_ATTR_SHAPE_START,
     /* last coordinate of edge shape */
-    GNE_ATTR_SHAPE_END
+    GNE_ATTR_SHAPE_END,
     //@}
+
+    SUMO_ATTR_TARGETLANE
 };
 
 /*
@@ -728,7 +730,16 @@ enum LinkDirection {
 enum TrafficLightType {
     TLTYPE_STATIC,
     TLTYPE_RAIL,
-    TLTYPE_ACTUATED
+    TLTYPE_ACTUATED,
+    TLTYPE_AGENT,
+	TLTYPE_SOTL_PHASE,
+	TLTYPE_SOTL_PLATOON,
+	TLTYPE_SOTL_REQUEST,
+	TLTYPE_SOTL_WAVE,
+	TLTYPE_SOTL_MARCHING,
+	TLTYPE_SWARM_BASED,
+	TLTYPE_HILVL_DETERMINISTIC,
+    TLTYPE_INVALID //< must be the last one
 };
 
 

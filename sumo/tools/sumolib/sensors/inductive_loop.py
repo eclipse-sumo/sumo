@@ -6,7 +6,8 @@
 @date    2010-02-18
 @version $Id$
 
-Library for reading and storing PoIs.
+Library for reading and storing Inductive Loop detector representations and 
+ measurements.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2010-2015 DLR (http://www.dlr.de/) and contributors
@@ -19,7 +20,6 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from xml.sax import handler, parse
-from .. import color
 
 
 class InductiveLoop:

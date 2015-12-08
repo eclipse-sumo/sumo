@@ -1,0 +1,12 @@
+<connections>
+
+	<connection from="1i" to="3o"/>
+	<connection from="2i" to="4o"/>
+	<connection from="3i" to="1o"/>
+	<connection from="4i" to="2o"/>
+	<connection from="1o" to="7o"/>
+	<connection from="2o" to="8o"/>
+	<connection from="3o" to="5o"/>
+	<connection from="4o" to="6o"/>
+
+</connections>

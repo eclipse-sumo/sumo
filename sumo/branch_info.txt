@@ -1,0 +1,5 @@
+This branch contains the working version for the COLOMBO project, before re-integrating it into the main branch.
+
+This file is a test for correct set-up and inclusion of the branch.
+
+
