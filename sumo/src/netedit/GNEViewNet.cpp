@@ -244,7 +244,7 @@ GNEViewNet::GNEViewNet(
     scheme.addColor(RGBColor::ORANGE, 9, "rail_signal");
     scheme.addColor(RGBColor(192, 128, 64), 10, "zipper");
     scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red");
-    scheme.addColor(RGBColor(128, 0, 128), 11, "rail_crossing"); // dark purple
+    scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
     junctionColorer.addScheme(scheme);
     myVisualizationSettings->junctionColorer = junctionColorer;
 }
