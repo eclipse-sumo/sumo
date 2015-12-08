@@ -6,7 +6,7 @@ MSActuatedTrafficLightLogic.h \
 MSPhaseDefinition.h \
 MSOffTrafficLightLogic.cpp MSOffTrafficLightLogic.h \
 MSRailSignal.cpp MSRailSignal.h \
-MSRailCrossing.cpp MSRailCrossing.h \
+# MSRailCrossing.cpp MSRailCrossing.h \
 MSSimpleTrafficLightLogic.cpp MSSimpleTrafficLightLogic.h \
 MSTLLogicControl.cpp MSTLLogicControl.h \
 MSTrafficLightLogic.cpp MSTrafficLightLogic.h
