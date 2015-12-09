@@ -91,15 +91,21 @@ public:
 	 * Vehicles are effectively counted or guessed in the space from the sensor.
 	 * @param[in] lane The lane to count vehicles
 	 */
-	virtual unsigned int countVehicles(MSLane* lane) { return 0; }
+	virtual unsigned int countVehicles(MSLane* lane) {
+        UNUSED_PARAMETER(lane);
+        return 0;
+    }
 
 	/*
 	 * Returns the number of vehicles currently approaching the 
 	 * junction for the given lane.
 	 * Vehicles are effectively counted or guessed in the space from the sensor.
-	 * @param[in] laneID The lane to count vehicles by ID
+	 * @param[in] laneId The lane to count vehicles by ID
 	 */
-	virtual unsigned int countVehicles(std::string laneId) { return 0; }
+	virtual unsigned int countVehicles(std::string laneId) {
+        UNUSED_PARAMETER(laneId);
+        return 0;
+    }
 
 	/*
 	 * Returns the average speed of vehicles currently approaching the 
@@ -107,21 +113,30 @@ public:
 	 * Vehicles speed is effectively sensed or guessed in the space from the sensor.
 	 * @param[in] lane The lane to count vehicles
 	 */
-	virtual double meanVehiclesSpeed(MSLane* lane) { return 0; }
+	virtual double meanVehiclesSpeed(MSLane* lane) {
+        UNUSED_PARAMETER(lane);
+        return 0;
+    }
 
 	/*
 	 * Returns the average speed of vehicles currently approaching the 
 	 * junction for the given lane.
 	 * Vehicles speed is effectively sensed or guessed in the space from the sensor.
-	 * @param[in] laneID The lane to count vehicles by ID
+	 * @param[in] laneId The lane to count vehicles by ID
 	 */
-	virtual double meanVehiclesSpeed(std::string laneId) { return 0; }
+	virtual double meanVehiclesSpeed(std::string laneId) {
+        UNUSED_PARAMETER(laneId);
+        return 0;
+    }
 
 	/*
-	* @param[in] The lane given by Id
+	* @param[in] laneId The lane given by Id
 	* @return The maximum speed allowed for the given laneId
 	*/
-	virtual double getMaxSpeed(std::string laneId) { return 0; }
+	virtual double getMaxSpeed(std::string laneId) {
+        UNUSED_PARAMETER(laneId);
+        return 0;
+    }
 
 	/*
 	 * @brief Indicate which lane has given green

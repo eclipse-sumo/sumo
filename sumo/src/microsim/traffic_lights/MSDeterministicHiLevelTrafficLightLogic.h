@@ -105,12 +105,12 @@ protected:
 	/*
 	 * @return The average pheromone level regarding congestion on input lanes
 	 */
-	double getMeanSpeedForInputLanes();
+	SUMOReal getMeanSpeedForInputLanes();
 
 	/*
 	 * @return The average pheromone level regarding congestion on output lanes
 	 */
-	double getMeanSpeedForOutputLanes();
+	SUMOReal getMeanSpeedForOutputLanes();
 
 
 
