@@ -85,14 +85,6 @@ else
     ac_disabled="$ac_disabled DoublePrecision"
 fi
 
-AC_ARG_ENABLE([subsecond], [AS_HELP_STRING([--disable-subsecond],[Disable subsecond timesteps.])])
-if test x$enable_subsecond != xno; then
-    AC_DEFINE(HAVE_SUBSECOND_TIMESTEPS, 1, [Undefine for disabling subsecond timesteps.])
-    ac_enabled="$ac_enabled Subsecond"
-else
-    ac_disabled="$ac_disabled Subsecond"
-fi
-
 AC_DEFINE([POSITION_EPS], [(SUMOReal)0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([NUMERICAL_EPS], [(SUMOReal)0.001], [defines the epsilon to use on general floating point comparison])
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
