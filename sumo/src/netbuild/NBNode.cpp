@@ -1799,9 +1799,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
                 return 0;
             }
             if (!isTLControlled() && edge->getSpeed() > OptionsCont::getOptions().getFloat("crossings.guess.speed-threshold")) {
-                if (gDebugFlag1) {
-                    std::cout << "no crossing added (uncontrolled, edge with speed=" << edge->getSpeed() << ")\n";
-                }
+                if (gDebugFlag1) std::cout << "no crossing added (uncontrolled, edge with speed > " << edge->getSpeed() << ")\n";
                 return 0;
             }
             prevAngle = angle;
@@ -2182,6 +2180,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
         }
         if (count < 2 && !connectsCrossing) {
             // not relevant for walking
+            if (gDebugFlag1) std::cout << "    not relevant for walking: count=" << count << " connectsCrossing=" << connectsCrossing << "\n";
             continue;
         }
         // build shape and connections
@@ -2228,11 +2227,13 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                 wa.shape.push_back_noDoublePos(endCrossingShape[-1]);
             }
         }
-        if (connected.size() == 2 && !connectsCrossing && wa.nextSidewalks.size() == 1 && wa.prevSidewalks.size() == 1) {
+        if (connected.size() == 2 && !connectsCrossing && wa.nextSidewalks.size() == 1 && wa.prevSidewalks.size() == 1
+                && normalizedLanes.size() == 2) {
             // do not build a walkingArea since a normal connection exists
             NBEdge* e1 = *connected.begin();
             NBEdge* e2 = *(++connected.begin());
             if (e1->hasConnectionTo(e2, 0, 0) || e2->hasConnectionTo(e1, 0, 0)) {
+                if (gDebugFlag1) std::cout << "    not building a walkingarea since normal connections exist\n";
                 continue;
             }
         }
