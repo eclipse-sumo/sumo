@@ -114,6 +114,10 @@ for tlsFile in allTLS:
 
         pass
 
+    if len(defs) > 0:
+        links2index[-1] = len(defs)
+        defs.append(['g'] * len(defs[0]))
+
     if key is not None:
         allMinTimes.append(minTimes)
         allMaxTimes.append(maxTimes)
@@ -171,9 +175,10 @@ for keyIndex, key in enumerate(allKeys):
                 linkMap[tl_c[2]] = l[2]
                 laneMap[tl_c[2]] = (li, lo)
         if laneMap[tl_c[2]] == None:
-            print >> sys.stderr, "Error: No link definition for connection (%s, %s)!" % (
+            print >> sys.stderr, "Warning: No link definition for connection (%s, %s)!. Using 'g' by default" % (
                 li.getID(), lo.getID())
-            sys.exit()
+            linkMap[tl_c[2]] = -1
+            laneMap[tl_c[2]] = (li, lo)
 
     nodes = set()
     for l in laneMap:
