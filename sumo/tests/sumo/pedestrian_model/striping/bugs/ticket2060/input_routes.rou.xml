@@ -1,0 +1,14 @@
+<routes>
+    <person id="forward_forward" depart="0">
+        <walk from="EC" to="CN"/>
+    </person>
+    <person id="backward_forward" depart="0">
+        <walk from="CE" to="CN"/>
+    </person>
+    <person id="forward_backward" depart="0">
+        <walk from="EC" to="NC"/>
+    </person>
+    <person id="backward_backward" depart="0">
+        <walk from="CE" to="NC"/>
+    </person>
+</routes>
