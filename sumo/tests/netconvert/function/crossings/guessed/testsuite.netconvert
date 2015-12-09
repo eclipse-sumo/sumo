@@ -62,3 +62,4 @@ loaded_crossing_invalidated
 
 # load a net.xml with crossing which gets invalidated due to patched lane permissions
 loaded_crossing_invalidated2
+path_across_railroad

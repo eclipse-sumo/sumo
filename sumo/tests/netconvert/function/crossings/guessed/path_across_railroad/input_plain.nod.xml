@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 08 Dec 2015 03:58:10 PM CET by Netedit Version dev-SVN-r19555I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net3.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net3.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/invalid_pedestrian_topology/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<nodes version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-293458.92,-5709017.82" convBoundary="0.00,0.00,1099.87,614.72" origBoundary="11.984784,51.476682,12.342589,51.531167" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1088517596" x="0.00" y="610.72" type="unregulated"/>
+    <node id="3032658464" x="1099.87" y="505.88" type="right_before_left"/>
+    <node id="38891331" x="792.26" y="570.79" type="unregulated"/>
+    <node id="408481556" x="696.38" y="614.72" type="priority"/>
+    <node id="635894914" x="666.19" y="0.00" type="priority"/>
+    <node id="C" x="694.68" y="561.27" type="priority"/>
+</nodes>
