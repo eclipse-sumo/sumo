@@ -60,7 +60,7 @@ public:
 
     /// @brief return texture id for the given filename (initialize on first use)
     // @note return -1 on failure
-    static int getTextureID(const std::string& filename, const bool mirrorX=false);
+    static int getTextureID(const std::string& filename, const bool mirrorX = false);
 
     /// @brief clears loaded textures
     static void clearTextures();

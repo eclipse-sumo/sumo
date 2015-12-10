@@ -21,6 +21,13 @@ copy_test_path:sumo.sumocfg
 copy_test_path:sumo_log.sumocfg
 copy_test_path:osm.xml
 copy_test_path:data
+copy_test_path:classes.txt
+copy_test_path:nefz.csv
+copy_test_path:ARTEMIS_motorway_130_Gear3.csv
+copy_test_path:ARTEMIS_motorway_150_Gear3.csv
+copy_test_path:ARTEMIS_road_Gear3.csv
+copy_test_path:ARTEMIS_urban_Gear3.csv
+copy_test_path:cadc_full.csv
 copy_test_path:runner.py
 copy_test_path:classes.txt
 copy_test_path:nefz.csv

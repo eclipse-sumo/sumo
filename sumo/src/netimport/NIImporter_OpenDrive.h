@@ -352,12 +352,12 @@ protected:
      * @brief Representation of an openDrive "link"
      */
     struct OpenDriveEdge {
-        OpenDriveEdge(const std::string& idArg, const std::string& streetNameArg, const std::string& junctionArg, SUMOReal lengthArg) : 
-            id(idArg), 
-            streetName(streetNameArg), 
-            junction(junctionArg), 
+        OpenDriveEdge(const std::string& idArg, const std::string& streetNameArg, const std::string& junctionArg, SUMOReal lengthArg) :
+            id(idArg),
+            streetName(streetNameArg),
+            junction(junctionArg),
             length(lengthArg),
-            from(0), 
+            from(0),
             to(0) {
             isInner = junction != "" && junction != "-1";
         }

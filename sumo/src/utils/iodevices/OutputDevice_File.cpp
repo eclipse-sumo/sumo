@@ -47,9 +47,9 @@
 OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool binary)
     : OutputDevice(binary), myFileStream(0) {
 #ifdef WIN32
-    if (fullName == "/dev/null")
+    if (fullName == "/dev/null") {
         myFileStream = new std::ofstream("NUL");
-    else
+    } else
 #endif
         myFileStream = new std::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
     if (!myFileStream->good()) {

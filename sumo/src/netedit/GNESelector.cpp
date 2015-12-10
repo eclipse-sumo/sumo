@@ -89,8 +89,7 @@ GNESelector::GNESelector(FXComposite* parent, GNEViewNet* updateTarget, GNEUndoL
     mySetOperation(SET_ADD),
     mySetOperationTarget(mySetOperation),
     myUndoList(undoList),
-    ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " "))
-{
+    ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " ")) {
     // stats
     myContentFrame = new FXVerticalFrame(this, LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH, 0, 0, WIDTH, 0);
     myStats = new FXLabel(myContentFrame, getStats().c_str(), 0, JUSTIFY_LEFT);
@@ -261,7 +260,7 @@ GNESelector::onCmdSelMBString(FXObject*, FXSelector, void*) {
         // the empty expression matches all objects
         handleIDs(getMatches(tag, attr, '@', 0, expr), false);
     } else if (GNEAttributeCarrier::isNumerical(attr)) {
-        // The expression must have the form 
+        // The expression must have the form
         //  <val matches if attr < val
         //  >val matches if attr > val
         //  =val matches if attr = val
@@ -281,7 +280,7 @@ GNESelector::onCmdSelMBString(FXObject*, FXSelector, void*) {
             valid = false;
         }
     } else {
-        // The expression must have the form 
+        // The expression must have the form
         //   =str: matches if <str> is an exact match
         //   !str: matches if <str> is not a substring
         //   ^str: matches if <str> is not an exact match
@@ -311,26 +310,26 @@ GNESelector::onCmdHelp(FXObject*, FXSelector, void*) {
     FXDialogBox* helpDialog = new FXDialogBox(this, "Match Attribute Help", DECOR_CLOSE | DECOR_TITLE);
     std::ostringstream help;
     help
-         << "The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection "
-         << "according to the current 'Modification Mode'.\n"
-         << "1. Select an object type from the first input box\n"
-         << "2. Select an attribute from the second input box\n"
-         << "3. Enter a 'match expression' in the third input box and press <return>\n"
-         << "\n"
-         << "The empty expression matches all objects\n"
-         << "For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
-         << "An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
-         << "\n"
-         << "For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
-         << "  '' (no operator) matches if string is a substring of that object'ts attribute.\n"
-         << "  '=' matches if string is an exact match.\n"
-         << "  '!' matches if string is not a substring.\n"
-         << "  '^' matches if string is not an exact match.\n"
-         << "\n"
-         << "Examples:\n"
-         << "junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
-		 << "junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"	// PABLO #1985
-         << "edge; speed; '>10' -> match all edges with a speed above 10\n";
+            << "The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection "
+            << "according to the current 'Modification Mode'.\n"
+            << "1. Select an object type from the first input box\n"
+            << "2. Select an attribute from the second input box\n"
+            << "3. Enter a 'match expression' in the third input box and press <return>\n"
+            << "\n"
+            << "The empty expression matches all objects\n"
+            << "For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
+            << "An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
+            << "\n"
+            << "For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
+            << "  '' (no operator) matches if string is a substring of that object'ts attribute.\n"
+            << "  '=' matches if string is an exact match.\n"
+            << "  '!' matches if string is not a substring.\n"
+            << "  '^' matches if string is not an exact match.\n"
+            << "\n"
+            << "Examples:\n"
+            << "junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
+            << "junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"	// PABLO #1985
+            << "edge; speed; '>10' -> match all edges with a speed above 10\n";
     new FXLabel(helpDialog, help.str().c_str(), 0, JUSTIFY_LEFT);
     // "OK"
     new FXButton(helpDialog, "OK\t\tSave modifications", 0, helpDialog, FXDialogBox::ID_ACCEPT,

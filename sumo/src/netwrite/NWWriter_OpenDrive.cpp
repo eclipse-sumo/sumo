@@ -105,7 +105,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "        <type s=\"0\" type=\"town\"/>\n";
         // for the shape we need to use the leftmost border of the leftmost lane
         const std::vector<NBEdge::Lane>& lanes = e->getLanes();
-        PositionVector ls = getLeftBorder(e); 
+        PositionVector ls = getLeftBorder(e);
         writePlanView(ls, device);
         device << "        <elevationProfile><elevation s=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/></elevationProfile>\n";
         device << "        <lateralProfile/>\n";
@@ -117,7 +117,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"" << getLaneType(e->getPermissions(j)) << "\" level=\"0\">\n";
             device << "                        <link/>\n";
             // this could be used for geometry-link junctions without u-turn,
-            // predecessor and sucessors would be lane indices, 
+            // predecessor and sucessors would be lane indices,
             // road predecessor / succesfors would be of type 'road' rather than
             // 'junction'
             //device << "                            <predecessor id=\"-1\"/>\n";
@@ -172,8 +172,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 } else {
                     shape.clear();
                 }
-                if (inEdge->isTurningDirectionAt(outEdge) 
-                        && getLeftBorder(inEdge).back().distanceTo2D(getLeftBorder(outEdge).front()) < MIN_TURN_DIAMETER ) {
+                if (inEdge->isTurningDirectionAt(outEdge)
+                        && getLeftBorder(inEdge).back().distanceTo2D(getLeftBorder(outEdge).front()) < MIN_TURN_DIAMETER) {
                     shape.clear(); // simplified geometry for sharp turn-arounds
                 }
                 // we need to fix start and endpoints in case the start and
@@ -233,14 +233,14 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 if (outEdge == 0) {
                     continue;
                 }
-                device << "    <connection id=\"" 
-                    << index << "\" incomingRoad=\"" << getID(inEdge->getID(), edgeMap, edgeID)
-                    << "\" connectingRoad=\"" 
-                    << getID(c.getInternalLaneID(), edgeMap, edgeID) 
-                    << "\" contactPoint=\"start\">\n";
+                device << "    <connection id=\""
+                       << index << "\" incomingRoad=\"" << getID(inEdge->getID(), edgeMap, edgeID)
+                       << "\" connectingRoad=\""
+                       << getID(c.getInternalLaneID(), edgeMap, edgeID)
+                       << "\" contactPoint=\"start\">\n";
                 device << "        <laneLink from=\"-" << inEdge->getNumLanes() - c.fromLane
-                    << "\" to=\"-1"  // every connection has its own edge
-                    << "\"/>\n";
+                       << "\" to=\"-1"  // every connection has its own edge
+                       << "\"/>\n";
                 device << "    </connection>\n";
                 ++index;
             }
@@ -260,7 +260,7 @@ NWWriter_OpenDrive::writePlanView(const PositionVector& shape, OutputDevice& dev
     for (unsigned int j = 0; j < shape.size() - 1; ++j) {
         const Position& p = shape[j];
         const SUMOReal hdg = shape.angleAt2D(j);
-        const SUMOReal length = p.distanceTo(shape[j+1]);
+        const SUMOReal length = p.distanceTo(shape[j + 1]);
         device << std::setprecision(8); // hdg requires higher precision
         device << "            <geometry s=\"" << offset << "\" x=\"" << p.x() << "\" y=\"" << p.y() << "\" hdg=\"" << hdg << "\" length=\"" << length << "\"><line/></geometry>\n";
         device << std::setprecision(OUTPUT_ACCURACY);
@@ -292,14 +292,14 @@ NWWriter_OpenDrive::getID(const std::string& origID, StringBijection<int>& map, 
 }
 
 
-std::string 
+std::string
 NWWriter_OpenDrive::getLaneType(SVCPermissions permissions) {
     switch (permissions) {
         case SVC_PEDESTRIAN:
             return "sidewalk";
-        //case (SVC_BICYCLE | SVC_PEDESTRIAN):
-        //    WRITE_WARNING("Ambiguous lane type (biking+driving) for road '" + roadID + "'");
-        //    return "sidewalk";
+            //case (SVC_BICYCLE | SVC_PEDESTRIAN):
+            //    WRITE_WARNING("Ambiguous lane type (biking+driving) for road '" + roadID + "'");
+            //    return "sidewalk";
         case SVC_BICYCLE:
             return "biking";
         case 0:
@@ -313,7 +313,7 @@ NWWriter_OpenDrive::getLaneType(SVCPermissions permissions) {
 }
 
 
-PositionVector 
+PositionVector
 NWWriter_OpenDrive::getLeftBorder(const NBEdge* edge) {
     const int leftmost = (int)edge->getNumLanes() - 1;
     PositionVector result = edge->getLaneShape(leftmost);

@@ -102,8 +102,7 @@ GNEInternalLane::GNEInternalLane(GNETLSEditor* editor, const std::string& id, co
     myStateTarget(myState),
     myEditor(editor),
     myTlIndex(tlIndex),
-    myPopup(0)
-{
+    myPopup(0) {
     int segments = (int) myShape.size() - 1;
     if (segments >= 0) {
         myShapeRotations.reserve(segments);

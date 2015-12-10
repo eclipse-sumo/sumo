@@ -64,8 +64,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     mySubID(programID), myOffset(offset),
     myType(type),
     myNeedsContRelationReady(false),
-    myRightOnRedConflictsReady(false)
-{
+    myRightOnRedConflictsReady(false) {
     std::vector<NBNode*>::iterator i = myControlledNodes.begin();
     while (i != myControlledNodes.end()) {
         for (std::vector<NBNode*>::iterator j = i + 1; j != myControlledNodes.end();) {
@@ -207,6 +206,7 @@ NBTrafficLightDefinition::collectEdges() {
             WRITE_WARNING("Unreachable edge '" + edge->getID() + "' within tlLogic '" + getID() + "'");
         }
     }
+    
 }
 
 
@@ -356,8 +356,8 @@ NBTrafficLightDefinition::addNode(NBNode* node) {
     if (std::find(myControlledNodes.begin(), myControlledNodes.end(), node) == myControlledNodes.end()) {
         myControlledNodes.push_back(node);
         std::sort(myControlledNodes.begin(), myControlledNodes.end(), NBNode::nodes_by_id_sorter());
-        node->addTrafficLight(this);
     }
+    node->addTrafficLight(this);
 }
 
 
@@ -392,6 +392,7 @@ NBTrafficLightDefinition::getIncomingEdges() const {
 void
 NBTrafficLightDefinition::collectAllLinks() {
     myControlledLinks.clear();
+    int tlIndex = 0;
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         NBEdge* incoming = *i;
@@ -404,8 +405,11 @@ NBTrafficLightDefinition::collectAllLinks() {
                     if (el.toEdge != 0 && el.toLane >= (int) el.toEdge->getNumLanes()) {
                         throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.toEdge->getID() + "_" + toString(el.toLane) + "' yields in a not existing lane.");
                     }
-                    int tlIndex = (int)myControlledLinks.size();
-                    myControlledLinks.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex));
+                    if (incoming->getToNode()->getType() != NODETYPE_RAIL_CROSSING || !isRailway(incoming->getPermissions())) {
+                        myControlledLinks.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex++));
+                    } else {
+                        myControlledLinks.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, -1));
+                    }
                 }
             }
         }
@@ -438,7 +442,7 @@ NBTrafficLightDefinition::initNeedsContRelation() const {
 }
 
 
-bool 
+bool
 NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
     if (!myRightOnRedConflictsReady) {
         NBOwnTLDef dummy("dummy", myControlledNodes, 0, TLTYPE_STATIC);

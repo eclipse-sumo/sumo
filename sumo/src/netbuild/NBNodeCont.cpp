@@ -324,7 +324,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
     if (removeGeometryNodes) {
         const OptionsCont& oc = OptionsCont::getOptions();
         if (oc.isSet("geometry.remove.keep-edges.input-file")) {
-            NBHelpers::loadEdgesFromFile(oc.getString("geometry.remove.keep-edges.input-file"), edges2keep); 
+            NBHelpers::loadEdgesFromFile(oc.getString("geometry.remove.keep-edges.input-file"), edges2keep);
         }
         if (oc.isSet("geometry.remove.keep-edges.explicit")) {
             const std::vector<std::string> edges = oc.getStringVector("geometry.remove.keep-edges.explicit");
@@ -1129,6 +1129,7 @@ NBNodeCont::printBuiltNodesStatistics() const {
             case NODETYPE_PRIORITY_STOP:
             case NODETYPE_TRAFFIC_LIGHT:
             case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
+            case NODETYPE_RAIL_CROSSING:
                 ++numPriorityJunctions;
                 break;
             case NODETYPE_RIGHT_BEFORE_LEFT:

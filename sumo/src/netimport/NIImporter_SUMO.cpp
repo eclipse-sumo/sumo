@@ -538,7 +538,8 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
             node->setCustomLaneShape(it->first, it->second);
         }
     }
-    if (type == NODETYPE_RAIL_SIGNAL) {
+    if (type == NODETYPE_RAIL_SIGNAL || type == NODETYPE_RAIL_CROSSING) {
+        // both types of nodes come without a tlLogic
         myRailSignals.insert(id);
     }
 }

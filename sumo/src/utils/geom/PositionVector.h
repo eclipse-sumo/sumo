@@ -119,7 +119,7 @@ public:
     /** Returns the position of the intersection */
     Position intersectionPosition2D(const Position& p1,
                                     const Position& p2,
-                                    const SUMOReal withinDist=0.) const;
+                                    const SUMOReal withinDist = 0.) const;
 
     /** @brief For all intersections between this vector and other,
      * return the 2D-length of the subvector from this vectors start to the intersection */
@@ -157,11 +157,11 @@ public:
 
     /// Returns the position between the two given point at the specified position */
     static Position positionAtOffset(const Position& p1,
-                                     const Position& p2, SUMOReal pos, SUMOReal lateralOffset=0.);
+                                     const Position& p2, SUMOReal pos, SUMOReal lateralOffset = 0.);
 
     /// Returns the position between the two given point at the specified position */
     static Position positionAtOffset2D(const Position& p1,
-                                       const Position& p2, SUMOReal pos, SUMOReal lateralOffset=0.);
+                                       const Position& p2, SUMOReal pos, SUMOReal lateralOffset = 0.);
 
     /// Returns a boundary enclosing this list of lines
     Boundary getBoxBoundary() const;
@@ -221,9 +221,9 @@ public:
 
     void sortByIncreasingXY();
 
-    void extrapolate(const SUMOReal val, const bool onlyFirst=false);
+    void extrapolate(const SUMOReal val, const bool onlyFirst = false);
 
-    void extrapolate2D(const SUMOReal val, const bool onlyFirst=false);
+    void extrapolate2D(const SUMOReal val, const bool onlyFirst = false);
 
     PositionVector reverse() const;
 
@@ -314,8 +314,8 @@ private:
      */
     static bool intersects(const Position& p11, const Position& p12,
                            const Position& p21, const Position& p22,
-                           const SUMOReal withinDist=0.,
-                           SUMOReal* x=0, SUMOReal* y=0, SUMOReal* mu=0);
+                           const SUMOReal withinDist = 0.,
+                           SUMOReal* x = 0, SUMOReal* y = 0, SUMOReal* mu = 0);
 
 };
 

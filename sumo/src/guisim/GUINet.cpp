@@ -446,11 +446,11 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getTeleportCount));
     if (myPersonControl != 0) {
         ret->mkItem("loaded persons [#]", true,
-                new FunctionBinding<MSPersonControl, unsigned int>(&getPersonControl(), &MSPersonControl::getLoadedPersonNumber));
+                    new FunctionBinding<MSPersonControl, unsigned int>(&getPersonControl(), &MSPersonControl::getLoadedPersonNumber));
         ret->mkItem("running persons [#]", true,
-                new FunctionBinding<MSPersonControl, unsigned int>(&getPersonControl(), &MSPersonControl::getRunningPersonNumber));
+                    new FunctionBinding<MSPersonControl, unsigned int>(&getPersonControl(), &MSPersonControl::getRunningPersonNumber));
         ret->mkItem("jammed persons [#]", true,
-                new FunctionBinding<MSPersonControl, unsigned int>(&getPersonControl(), &MSPersonControl::getJammedPersonNumber));
+                    new FunctionBinding<MSPersonControl, unsigned int>(&getPersonControl(), &MSPersonControl::getJammedPersonNumber));
     }
     ret->mkItem("end time [s]", false, OptionsCont::getOptions().getString("end"));
     ret->mkItem("begin time [s]", false, OptionsCont::getOptions().getString("begin"));

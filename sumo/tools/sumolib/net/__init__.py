@@ -28,6 +28,7 @@ import math
 from xml.sax import saxutils, parse, handler
 from copy import copy
 from itertools import *
+from collections import defaultdict
 
 import sumolib
 from . import lane, edge, node, connection, roundabout
@@ -127,6 +128,7 @@ class Net:
         self._roundabouts = []
         self._rtree = None
         self._allLanes = []
+        self._origIdx = None
 
     def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
         self._location["netOffset"] = netOffset
@@ -174,7 +176,8 @@ class Net:
         return r
 
     def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state):
-        conn = connection.Connection(fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state)
+        conn = connection.Connection(
+            fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state)
         fromEdge.addOutgoing(conn)
         fromlane.addOutgoing(conn)
         toEdge._addIncoming(conn)
@@ -306,6 +309,15 @@ class Net:
             if not hadTLS:
                 toProc.extend(mn)
         return ret
+
+    def getEdgesByOrigID(self, origID):
+        if self._origIdx is None:
+            self._origIdx = defaultdict(set)
+            for edge in self._edges:
+                for lane in edge.getLanes():
+                    for oID in lane.getParam("origId", "").split():
+                        self._origIdx[oID].add(edge)
+        return self._origIdx[origID]
 
     # the diagonal of the bounding box of all nodes
     def getBBoxDiameter(self):
@@ -474,7 +486,7 @@ class NetReader(handler.ContentHandler):
             self._net.addRoundabout(attrs['nodes'].split())
         if name == 'param':
             if self._currentLane != None:
-                self._currentLane._params[attrs['key']] = attrs['value']
+                self._currentLane.setParam(attrs['key'], attrs['value'])
 
     def characters(self, content):
         if self._currentLane != None:

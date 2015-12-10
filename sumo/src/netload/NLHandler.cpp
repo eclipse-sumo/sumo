@@ -168,8 +168,8 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_ACCESS:
                 myTriggerBuilder.addAccess(myNet, attrs);
                 break;
-            case SUMO_TAG_CHRG_STN:
-                myTriggerBuilder.parseAndBuildChrgStn(myNet, attrs);
+            case SUMO_TAG_CHARGING_STATION:
+                myTriggerBuilder.parseAndBuildChargingStation(myNet, attrs);
                 break;
             case SUMO_TAG_VTYPEPROBE:
                 addVTypeProbeDetector(attrs);
@@ -362,6 +362,20 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
+    }
+
+    if(funcEnum == MSEdge::EDGEFUNCTION_CROSSING)
+    {
+        //get the crossingEdges attribute (to implement the other side of the road pushbutton)
+        const std::string crossingEdges = attrs.getOpt<std::string>(SUMO_ATTR_CROSSING_EDGES, id.c_str(), ok, "");
+        if(!crossingEdges.empty())
+        {
+            std::vector<std::string> crossingEdgesVector;
+            StringTokenizer edges(crossingEdges);
+            while(edges.hasNext())
+                crossingEdgesVector.push_back(edges.next());
+            myEdgeControlBuilder.addCrossingEdges(crossingEdgesVector);
+        }
     }
 }
 
@@ -641,7 +655,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
         } else {
             WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'");
         }
-    } 
+    }
     //
     SUMOTime offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
     if (!ok) {
@@ -673,7 +687,76 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
                                SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
     SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(
                                SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
+
+
+		//SOTL attributes
+	//If the type attribute is not present, the parsed phase is of type "undefined" (MSPhaseDefinition constructor),
+	//in this way SOTL traffic light logic can recognize the phase as unsuitable or decides other
+	//behaviors. See SOTL traffic light logic implementations.
+	if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
+        bool ok = true;
+		std::string phaseTypeString;
+		bool transient_notdecisional_bit;
+		bool commit_bit;
+		MSPhaseDefinition::LaneIdVector laneIdVector;
+		try {
+            phaseTypeString = attrs.get<std::string>(SUMO_ATTR_TYPE, "phase", ok, false);
+        } catch (EmptyData &) {
+			MsgHandler::getWarningInstance()->inform("Empty type definition. Assuming phase type as SUMOSOTL_TagAttrDefinitions::SOTL_ATTL_TYPE_TRANSIENT");
+            transient_notdecisional_bit = false;
+        }
+		if (phaseTypeString.find("decisional") != std::string::npos) {
+			transient_notdecisional_bit = false;
+        } else if (phaseTypeString.find("transient") != std::string::npos) {
+			transient_notdecisional_bit = true;
+        } else {
+			MsgHandler::getWarningInstance()->inform("SOTL_ATTL_TYPE_DECISIONAL nor SOTL_ATTL_TYPE_TRANSIENT. Assuming phase type as SUMOSOTL_TagAttrDefinitions::SOTL_ATTL_TYPE_TRANSIENT");
+            transient_notdecisional_bit = false;
+		}
+		commit_bit = (phaseTypeString.find("commit") != std::string::npos);
+		
+		if (phaseTypeString.find("target") != std::string::npos) {
+            std::string delimiter(" ,;");
+			//Phase declared as target, getting targetLanes attribute
+			try {
+                /// @todo: the following should be moved to StringTok
+				std::string targetLanesString = attrs.getStringSecure(SUMO_ATTR_TARGETLANE, "");
+				//TOKENIZING
+				MSPhaseDefinition::LaneIdVector targetLanesVector;
+				//Skip delimiters at the beginning
+				std::string::size_type firstPos = targetLanesString.find_first_not_of(delimiter, 0);
+				//Find first "non-delimiter".
+				std::string::size_type pos = targetLanesString.find_first_of(delimiter, firstPos);
+
+				while (std::string::npos != pos || std::string::npos != firstPos)
+				{
+					//Found a token, add it to the vector
+					targetLanesVector.push_back(targetLanesString.substr(firstPos, pos - firstPos));
+
+					//Skip delimiters
+					firstPos = targetLanesString.find_first_not_of(delimiter, pos);
+
+					//Find next "non-delimiter"
+					pos = targetLanesString.find_first_of(delimiter, firstPos);
+				}
+				//Adding the SOTL parsed phase to have a new MSPhaseDefinition that is SOTL compliant for target phases
+				myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration, transient_notdecisional_bit, commit_bit, targetLanesVector);
+			}
+			catch (EmptyData &) {
+				MsgHandler::getErrorInstance()->inform("Missing targetLane definition for the target phase.");
+				return;
+			}
+		}
+		else {
+			//Adding the SOTL parsed phase to have a new MSPhaseDefinition that is SOTL compliant for non target phases
+			myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration, transient_notdecisional_bit, commit_bit);
+		}
+	}
+	else {
+		//Adding the standard parsed phase to have a new MSPhaseDefinition
+
     myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration);
+	}
 }
 
 
@@ -958,7 +1041,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             // make sure that the index is in range
             MSTrafficLightLogic* logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
             if ((tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size())
-                    && logic->getLogicType() != "railSignal") {
+                    && logic->getLogicType() != "railSignal"
+                    && logic->getLogicType() != "railCrossing") {
                 WRITE_ERROR("Invalid " + toString(SUMO_ATTR_TLLINKINDEX) + " '" + toString(tlLinkIdx) +
                             "' in connection controlled by '" + tlID + "'");
                 return;

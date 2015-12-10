@@ -37,6 +37,7 @@ LICENSE = os.path.join(
 
 SKIP_FILES = [r"osmWebWizard.py"]
 
+
 def buildFragment(wixBin, sourceDir, targetLabel, tmpDir, log=None):
     base = os.path.basename(sourceDir)
     subprocess.call([os.path.join(wixBin, "heat.exe"), "dir", sourceDir,
@@ -65,12 +66,13 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
     tmpDir = tempfile.mkdtemp()
     zipfile.ZipFile(sourceZip).extractall(tmpDir)
     sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
-    fragments = [buildFragment(wixBin, os.path.join(sumoRoot, d), "INSTALLDIR", tmpDir, log) for d in ["data", "tools"]]
+    fragments = [buildFragment(wixBin, os.path.join(
+        sumoRoot, d), "INSTALLDIR", tmpDir, log) for d in ["data", "tools"]]
     for d in ["userdoc", "pydoc", "javadoc", "tutorial", "examples"]:
         fragments.append(
             buildFragment(wixBin, os.path.join(sumoRoot, "docs", d), "DOCDIR", tmpDir, log))
     for wxs in glob.glob(wxsPattern):
-        with open(wxs) as wxsIn: 
+        with open(wxs) as wxsIn:
             with open(os.path.join(tmpDir, os.path.basename(wxs)), "w") as wxsOut:
                 for l in wxsIn:
                     l = l.replace("License.rtf", license)

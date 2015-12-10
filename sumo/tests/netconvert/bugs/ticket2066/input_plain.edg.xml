@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 18 Mar 2015 03:36:24 PM CET by Netedit Version dev-SVN-r18103I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/sip-svn-trunk/tests/scenario/use/DRIVE/Helmond_GLOSA_vehs1/net.scenario"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/sip-svn-trunk/tests/scenario/use/DRIVE/Helmond_GLOSA_vehs1/net.scenario"/>
+        <plain-output-prefix value="/scr2/debug/junctionPriority/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="AB" from="A" to="B" numLanes="2"/>
+    <edge id="BC" from="B" to="C" numLanes="2"/>
+    <edge id="CD" from="C" to="D" numLanes="1"/>
+</edges>

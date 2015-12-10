@@ -364,7 +364,7 @@ enum {
     MID_CLOSE_EDGE,
     MID_ADD_REROUTER,
     //@}
-    
+
 
     /// @name NETEDIT Message IDs
     //@{

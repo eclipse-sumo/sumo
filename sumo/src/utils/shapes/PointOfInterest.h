@@ -114,7 +114,7 @@ public:
     /* @brief POI definition to the given device
      * @param[in] geo  Whether to write the output in geo-coordinates
      */
-    void writeXML(OutputDevice& out, bool geo=false, const SUMOReal zOffset=0.) {
+    void writeXML(OutputDevice& out, bool geo = false, const SUMOReal zOffset = 0.) {
         out.openTag(SUMO_TAG_POI);
         out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
         out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));

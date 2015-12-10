@@ -271,7 +271,7 @@ GNEInspector::AttrInput::AttrInput(
         myTextField->setText(initialValue.c_str());
     } else {
         myChoicesCombo = new FXComboBox(this, 12, this, MID_GNE_SET_ATTRIBUTE,
-                FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC | LAYOUT_CENTER_Y);
+                                        FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC | LAYOUT_CENTER_Y);
         for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
             myChoicesCombo->appendItem(it->c_str());
         }
@@ -284,8 +284,8 @@ GNEInspector::AttrInput::AttrInput(
 long
 GNEInspector::AttrInput::onCmdOpenAttributeEditor(FXObject*, FXSelector, void*) {
     FXDialogBox* editor = new FXDialogBox(getApp(),
-            ("Select " + toString(myAttr) + "ed").c_str(),
-            DECOR_CLOSE | DECOR_TITLE);
+                                          ("Select " + toString(myAttr) + "ed").c_str(),
+                                          DECOR_CLOSE | DECOR_TITLE);
     FXMatrix* m1 = new FXMatrix(editor, 2, MATRIX_BY_COLUMNS);
     const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
     std::vector<FXCheckButton*> vClassButtons;

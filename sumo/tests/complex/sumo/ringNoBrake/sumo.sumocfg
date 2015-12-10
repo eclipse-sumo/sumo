@@ -13,7 +13,7 @@
 
     <report>
         <no-step-log value="true" />
-        <no-duration-log value="true" />
+        <duration-log.disable value="true" />
     </report>
 
     <traci_server>

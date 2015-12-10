@@ -478,8 +478,8 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
         od.openTag(SUMO_TAG_REQUEST);
         od.writeAttr(SUMO_ATTR_INDEX, pos++);
         const std::string foes = getFoesString(from, (*j).toEdge, fromLane, (*j).toLane, checkLaneFoes);
-        const std::string response = (myJunction->getType() == NODETYPE_ZIPPER ? foes 
-                : getResponseString((*j).tlLinkNo, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass, checkLaneFoes));
+        const std::string response = (myJunction->getType() == NODETYPE_ZIPPER ? foes
+                                      : getResponseString((*j).tlLinkNo, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass, checkLaneFoes));
         od.writeAttr(SUMO_ATTR_RESPONSE, response);
         od.writeAttr(SUMO_ATTR_FOES, foes);
         if (!OptionsCont::getOptions().getBool("no-internal-links")) {
@@ -565,7 +565,7 @@ NBRequest::getResponseString(int tlIndex, const NBEdge* const from, const NBEdge
                             || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                             || mergeConflict(from, queryCon, *i, connected[k], false)
                             || myJunction->rightOnRedConflict(tlIndex, connected[k].tlLinkNo)
-                            ) {
+                       ) {
                         result += '1';
                     } else {
                         result += '0';
@@ -620,7 +620,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
 }
 
 
-bool 
+bool
 NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
                          const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) {
     return (from == prohibitorFrom
@@ -629,7 +629,7 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
             && con.fromLane != prohibitorCon.fromLane
             && (foes ||
                 ((con.fromLane > prohibitorCon.fromLane && !con.mayDefinitelyPass)
-                || prohibitorCon.mayDefinitelyPass))); 
+                 || prohibitorCon.mayDefinitelyPass)));
 }
 
 

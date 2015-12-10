@@ -38,11 +38,15 @@
 #include <vector>
 #include <list>
 #include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/vehicle/SUMOVehicle.h>
 
+//Debug
+//#define SWARM_DEBUG
+#include <utils/common/SwarmDebug.h>
 
 // ===========================================================================
 // class declarations
@@ -226,6 +230,11 @@ public:
      */
     void reset();
 
+    /** @brief Returns an estimate of the number of vehicles currently on the detector */
+    unsigned getEstimatedCurrentVehicleNumber(double speedThreshold) const;
+
+    /** @brief Returns an estimate of the lenght of the queue of vehicles currently stopped on the detector */
+    double getEstimateQueueLength() const;
 
     /// @name Methods returning current values
     /// @{
@@ -273,8 +282,30 @@ public:
      * @return The IDs of the vehicles that have passed the entry, but not yet an exit point
      */
     std::vector<std::string> getCurrentVehicleIDs() const;
+    /** @brief Returns the vehicles within the area
+     *
+     * @return The vehicles that have passed the entry, but not yet an exit point
+     */
+    const std::list<SUMOVehicle*>& getCurrentVehicles() const;
     /// @}
 
+    /** \brief Returns the number of vehicles passed over the sensor.
+	 *
+	 * @return number of cars passed over the sensor
+	 */
+    unsigned int getPassedVeh()
+    {
+    	return myPassedVeh;
+    }
+
+    /** \brief Subtract the number of vehicles indicated from passed from the sensor count.
+	 *
+	 * @param[in] passed - int that indicates the number of vehicles to subtract
+	 */
+    void subtractPassedVeh(int passed)
+    {
+    	myPassedVeh -= passed;
+    }
 
 protected:
     /** @brief Internal representation of a jam
@@ -427,6 +458,8 @@ private:
     unsigned myCurrentStartedHalts;
     /// @brief The number of halted vehicles [#]
     int myCurrentHaltingsNumber;
+    /// @brief The number of vehicles passed on the sensor
+    unsigned int myPassedVeh;
     /// @}
 
 

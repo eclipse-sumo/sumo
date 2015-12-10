@@ -67,8 +67,11 @@ meandata:lane-mean-data.add.xml
 connections:connections.con.xml
 turndefs:turn-defs.xml
 changednet:input_net.net.xml.chg
+edges:edges.edg.xml
+nodes:nodes.nod.xml
 edges:edges.xml
 nodes:nodes.xml
+net:net.net.xml
 connections:connections.xml
 fixed:routes.rou.xml.fixed
 activityfile:activityfile.tcl

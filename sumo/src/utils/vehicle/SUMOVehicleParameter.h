@@ -435,11 +435,7 @@ public:
     /// @brief The number of times the vehicle was already inserted
     int repetitionsDone;
     /// @brief The time offset between vehicle reinsertions
-#ifdef HAVE_SUBSECOND_TIMESTEPS
     SUMOTime repetitionOffset;
-#else
-    SUMOReal repetitionOffset;
-#endif
     /// @brief The probability for emitting a vehicle per second
     SUMOReal repetitionProbability;
     /// @brief The time at which the flow ends (only needed when using repetitionProbability)
@@ -467,7 +463,7 @@ public:
         /// @brief (Optional) container stop if one is assigned to the stop
         std::string containerstop;
         /// @brief (Optional) charging station if one is assigned to the stop
-        std::string chrgStn;
+        std::string chargingStation;
         /// @brief The stopping position start
         SUMOReal startPos;
         /// @brief The stopping position end

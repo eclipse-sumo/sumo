@@ -547,7 +547,7 @@ GNEConnector::buildIinternalLanes(NBNode* node) {
         const int NUM_POINTS = 5;
         SUMORTree& rtree = myUpdateTarget->getNet()->getVisualisationSpeedUp();
         std::string innerID = ":" + node->getID(); // see NWWriter_SUMO::writeInternalEdges
-        
+
         int index = 0;
         const EdgeVector& incoming = node->getIncomingEdges();
         for (EdgeVector::const_iterator it_edg = incoming.begin(); it_edg != incoming.end(); it_edg++) {

@@ -154,7 +154,7 @@ ROEdge::hasLoadedTravelTime(SUMOReal time) const {
     return myUsingTTTimeLine && myTravelTimes.describesTime(time);
 }
 
-    
+
 SUMOReal
 ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
     if (myUsingTTTimeLine) {

@@ -107,8 +107,8 @@ public:
     /** @brief Constructor
      */
     GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
-           const RGBColor& color, SUMOReal layer,
-           SUMOReal angle=0, const std::string& imgFile="");
+            const RGBColor& color, SUMOReal layer,
+            SUMOReal angle = 0, const std::string& imgFile = "");
 
     /// @brief Destructor
     virtual ~GNEPoly() ;
@@ -145,7 +145,7 @@ public:
      * @param[in] relative Whether newPos is absolute or relative
      * @return newPos if something was moved, oldPos if nothing was moved
      */
-    Position moveGeometry(const Position& oldPos, const Position& newPos, bool relative=false);
+    Position moveGeometry(const Position& oldPos, const Position& newPos, bool relative = false);
 
     /// @brief replace the current shape with a rectangle
     void simplifyShape();

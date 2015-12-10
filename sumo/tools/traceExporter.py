@@ -95,7 +95,8 @@ def makeEntries(movables, chosen, options):
                 edge = v.edge
                 if v.lane:
                     edge = sumolib._laneID2edgeID(v.lane)
-                result.append(FCDVehicleEntry(v.id, x, y, z, v.speed, v.type, edge, v.slope))
+                result.append(
+                    FCDVehicleEntry(v.id, x, y, z, v.speed, v.type, edge, v.slope))
     return result
 
 

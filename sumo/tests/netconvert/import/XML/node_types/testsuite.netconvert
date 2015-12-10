@@ -6,6 +6,7 @@ priority_guess
 
 # tests for node type "zipper"
 zipper
+rail_crossing
 
 # differing edge priorities should always trigger a priority junction
 edge_priorities

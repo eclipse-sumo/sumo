@@ -151,7 +151,7 @@ MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
     return true;
 }
 
-void 
+void
 MSDevice_Tripinfo::computeLengthAndDuration(SUMOReal& routeLength, SUMOTime& duration) const {
     SUMOTime finalTime;
     SUMOReal finalPos;
@@ -172,7 +172,7 @@ MSDevice_Tripinfo::computeLengthAndDuration(SUMOReal& routeLength, SUMOTime& dur
     }
     const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
     routeLength = myHolder.getRoute().getDistanceBetween(myDepartPos, finalPos,
-            myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths) + finalPosOnInternal;
+                  myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths) + finalPosOnInternal;
 
     duration = finalTime - myHolder.getDeparture();
 }
@@ -239,7 +239,7 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
 }
 
 
-void 
+void
 MSDevice_Tripinfo::updateStatistics() const {
     SUMOReal routeLength;
     SUMOTime duration;
@@ -254,17 +254,17 @@ MSDevice_Tripinfo::updateStatistics() const {
 }
 
 
-std::string 
+std::string
 MSDevice_Tripinfo::printStatistics() {
     std::ostringstream msg;
     msg.setf(msg.fixed);
     msg.precision(OUTPUT_ACCURACY);
     msg << "Statistics (avg):\n"
-            << " RouteLength: " << getAvgRouteLength() << "\n"
-            << " Duration: " << getAvgDuration() << "\n"
-            << " WaitingTime: " << getAvgWaitingTime() << "\n"
-            << " TimeLoss: " << getAvgTimeLoss() << "\n"
-            << " DepartDelay: " << getAvgDepartDelay() << "\n";
+        << " RouteLength: " << getAvgRouteLength() << "\n"
+        << " Duration: " << getAvgDuration() << "\n"
+        << " WaitingTime: " << getAvgWaitingTime() << "\n"
+        << " TimeLoss: " << getAvgTimeLoss() << "\n"
+        << " DepartDelay: " << getAvgDepartDelay() << "\n";
     return msg.str();
 }
 

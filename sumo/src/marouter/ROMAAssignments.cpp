@@ -328,7 +328,7 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
                     } else {
                         newFlow += (edge->getHelpFlow(i->first) - oldFlow) / (inner + 1);
                     }
-    //                if not lohse:
+                    //                if not lohse:
                     if (newFlow > 0.) {
                         if (abs(newFlow - oldFlow) / newFlow > tolerance) {
                             unstableEdges++;

@@ -126,16 +126,16 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
 
     // for vehicles
     new FXButton(v.getLocatorPopup(),
-            "\tLocate Vehicle\tLocate a vehicle within the network.",
-            GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
-            ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                 "\tLocate Vehicle\tLocate a vehicle within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for persons
     if (!MSGlobals::gUseMesoSim) { // there are no persons in mesosim (yet)
         new FXButton(v.getLocatorPopup(),
-                "\tLocate Vehicle\tLocate a person within the network.",
-                GUIIconSubSys::getIcon(ICON_LOCATEPERSON), &v, MID_LOCATEPERSON,
-                ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                     "\tLocate Vehicle\tLocate a person within the network.",
+                     GUIIconSubSys::getIcon(ICON_LOCATEPERSON), &v, MID_LOCATEPERSON,
+                     ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     }
 
     // for tls
@@ -299,7 +299,7 @@ GUIViewTraffic::getCurrentTimeStep() const {
 }
 
 
-GUILane* 
+GUILane*
 GUIViewTraffic::getLaneUnderCursor() {
     if (makeCurrent()) {
         unsigned int id = getObjectUnderCursor();
@@ -320,7 +320,7 @@ GUIViewTraffic::onCmdCloseLane(FXObject*, FXSelector, void*) {
     if (lane != 0) {
         lane->closeTraffic();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
-		update();
+        update();
     }
     return 1;
 }
@@ -332,7 +332,7 @@ GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
     if (lane != 0) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
-		update();
+        update();
     }
     return 1;
 }
@@ -343,7 +343,7 @@ GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
     if (lane != 0) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
-		update();
+        update();
     }
     return 1;
 }

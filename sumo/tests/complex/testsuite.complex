@@ -10,8 +10,10 @@ traci
 # complex jtrrouter tests
 jtrrouter
 
-# netconvert roundtrips with different formats
-netconvert
+# netconvert roundtrips with different formatsnetconvert
+
+# complex traffic lights tests
+traffic_lights
 
 # tutorials
 tutorial
@@ -19,5 +21,4 @@ tutorial
 # state saving and loading
 state
 
-# emission tools, especially emissionDrivingCycle
-emissions
+# emission tools, especially emissionDrivingCycleemissions

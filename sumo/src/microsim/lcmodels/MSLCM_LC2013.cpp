@@ -311,7 +311,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             //   vsafe <= followSpeed(gap=currentGap - SPEED2DIST(vsafe), ...)
             // we compute an upper bound on vsafe by doing the computation twice
             const SUMOReal vsafe1 = MAX2(neighNewSpeed, nv->getCarFollowModel().followSpeed(
-                                            nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
+                                             nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
             const SUMOReal vsafe = MAX2(neighNewSpeed, nv->getCarFollowModel().followSpeed(
                                             nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed - vsafe1), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
             assert(vsafe <= vsafe1);

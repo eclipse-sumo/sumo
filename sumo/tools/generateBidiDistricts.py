@@ -33,7 +33,8 @@ def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <netfile> [options]"
     optParser = OptionParser()
     optParser.add_option("-o", "--outfile", help="name of output file")
-    optParser.add_option("-r", "--radius", type=float, default=10., help="radius around the edge")
+    optParser.add_option(
+        "-r", "--radius", type=float, default=10., help="radius around the edge")
     optParser.add_option("-t", "--travel-distance", action="store_true",
                          default=False, help="use travel distance in the graph")
     options, args = optParser.parse_args()

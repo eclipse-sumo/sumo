@@ -1129,8 +1129,8 @@ GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, myNet == 0 || !OptionsCont::getOptions().isSet("sumo-net-file") 
-            ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
+    sender->handle(this, myNet == 0 || !OptionsCont::getOptions().isSet("sumo-net-file")
+                   ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
     return 1;
 }
 
@@ -1194,7 +1194,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
 }
 
 
-Position 
+Position
 GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos) {
     std::string edgeID = laneID;
     unsigned int lane = 0;
@@ -1216,7 +1216,7 @@ GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, cons
 }
 
 
-void 
+void
 GNEApplicationWindow::updateControls() {
     GNEViewNet* view = getView();
     if (view != 0) {

@@ -128,6 +128,11 @@ public:
     virtual MSEdge* buildEdge(const std::string& id, const MSEdge::EdgeBasicFunction function,
                               const std::string& streetName, const std::string& edgeType, const int priority);
 
+    /** @brief add the crossingEdges in a crossing edge if present
+     *
+     * @param[in] the vector of crossed edges id
+     */
+    virtual void addCrossingEdges(const std::vector<std::string>&);
 
 protected:
     /// @brief A running number for lane numbering

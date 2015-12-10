@@ -62,7 +62,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const ConstMSEdgeVector& 
         SUMOTime walkingTime, SUMOReal speed,
         SUMOReal departPos, SUMOReal arrivalPos) :
     MSTransportable::Stage(*route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
-                       arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myWalkingTime(walkingTime), myRoute(route),
+                               arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myWalkingTime(walkingTime), myRoute(route),
     myCurrentInternalEdge(0),
     myDepartPos(departPos),
     mySpeed(speed),
@@ -373,7 +373,7 @@ MSPerson::MSPersonStage_Driving::endEventOutput(const MSTransportable& p, SUMOTi
 MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge& destination,
         SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType) :
     MSTransportable::Stage(destination, 0, SUMOVehicleParameter::interpretEdgePos(
-                     pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "person stopping at " + destination.getID()), WAITING),
+                               pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "person stopping at " + destination.getID()), WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
     myActType(actType) {
@@ -525,15 +525,31 @@ MSPerson::routeOutput(OutputDevice& os) const {
 
 const std::string&
 MSPerson::getNextEdge() const {
+//    if (getCurrentStageType() == MOVING_WITHOUT_VEHICLE) {
+//        MSPersonStage_Walking* walkingStage =  dynamic_cast<MSPersonStage_Walking*>(*myStep);
+//        assert(walkingStage != 0);
+//        const MSEdge* nextEdge = walkingStage->getPedestrianState()->getNextEdge(*walkingStage);
+//        if (nextEdge != 0) {
+//            return nextEdge->getID();
+//        }
+//    }
+//    return StringUtils::emptyString;
+	const MSEdge* nextEdge = getNextEdgePtr();
+	if (nextEdge != 0) {
+			return nextEdge->getID();
+	}
+	return StringUtils::emptyString;
+}
+
+const MSEdge *
+MSPerson::getNextEdgePtr() const {
     if (getCurrentStageType() == MOVING_WITHOUT_VEHICLE) {
         MSPersonStage_Walking* walkingStage =  dynamic_cast<MSPersonStage_Walking*>(*myStep);
         assert(walkingStage != 0);
-        const MSEdge* nextEdge = walkingStage->getPedestrianState()->getNextEdge(*walkingStage);
-        if (nextEdge != 0) {
-            return nextEdge->getID();
-        }
+        return walkingStage->getPedestrianState()->getNextEdge(*walkingStage);
+
     }
-    return StringUtils::emptyString;
+    return 0;
 }
 /****************************************************************************/
 

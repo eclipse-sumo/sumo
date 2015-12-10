@@ -474,7 +474,7 @@ GUIEdge::getSegmentAtPosition(const Position& pos) {
 #endif
 
 
-void 
+void
 GUIEdge::closeTraffic(const GUILane* lane) {
     const std::vector<MSLane*>& lanes = getLanes();
     const bool isClosed = lane->isClosed();
@@ -488,7 +488,7 @@ GUIEdge::closeTraffic(const GUILane* lane) {
 }
 
 
-void 
+void
 GUIEdge::addRerouter() {
     MSEdgeVector edges;
     edges.push_back(this);

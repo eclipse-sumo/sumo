@@ -104,11 +104,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     // parse repetition information
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-#ifdef HAVE_SUBSECOND_TIMESTEPS
         ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
-#else
-        ret->repetitionOffset = attrs.get<SUMOReal>(SUMO_ATTR_PERIOD, id.c_str(), ok);
-#endif
     }
     if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;

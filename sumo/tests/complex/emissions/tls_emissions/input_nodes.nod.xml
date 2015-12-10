@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes>
+    <node id="c" x="0" y="0" type="traffic_light"/>
+
+    <node id="n" x="0" y="10000" />
+    <node id="s" x="0" y="-10000" />
+    <node id="n2" x="0" y="11000" />
+    <node id="s2" x="0" y="-11000" />
+
+    <node id="w" x="-10000" y="0" />
+    <node id="e" x="10000" y="0" />
+    <node id="w2" x="-11000" y="0" />
+    <node id="e2" x="11000" y="0" />
+</nodes>

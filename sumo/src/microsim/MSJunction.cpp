@@ -52,10 +52,10 @@ class MSLink;
 // member method definition
 // ===========================================================================
 MSJunction::MSJunction(const std::string& id, SumoXMLNodeType type, const Position& position,
-                       const PositionVector& shape) : 
-    Named(id), 
-    myType(type), 
-    myPosition(position), 
+                       const PositionVector& shape) :
+    Named(id),
+    myType(type),
+    myPosition(position),
     myShape(shape)
 {}
 
@@ -73,13 +73,13 @@ void
 MSJunction::postloadInit() {}
 
 
-void 
+void
 MSJunction::passedJunction(const MSVehicle* vehicle) {
     myLinkLeaders.erase(vehicle);
 }
 
 
-bool 
+bool
 MSJunction::isLeader(const MSVehicle* ego, const MSVehicle* foe) {
     if (foe->getLane()->getEdge().getToJunction() != this) {
         // foe is already past the junction so is definitely a leader

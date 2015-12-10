@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 08 Dec 2015 03:58:10 PM CET by Netedit Version dev-SVN-r19555I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net3.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net3.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/invalid_pedestrian_topology/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="3032658464" priority="1" type="highway.track" numLanes="1" speed="5.56" shape="695.08,553.06 714.13,547.35 761.31,540.32 883.86,531.99 958.43,525.11 1065.00,510.97 1099.87,505.88" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="CN" from="C" to="408481556" name="Zöberitzer Weg" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="694.29,569.48 696.38,614.72" allow="delivery bicycle pedestrian"/>
+    <edge id="CS" from="C" to="635894914" name="Zöberitzer Weg" priority="1" type="highway.track" numLanes="1" speed="5.56" shape="695.08,553.06 682.90,94.79 666.19,0.00" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="CW_rail" from="C" to="1088517596" priority="15" type="railway.rail" numLanes="1" speed="16.67" shape="694.29,569.48 616.78,568.34 558.22,567.25 433.73,565.67 372.12,564.60 340.68,564.50 310.78,565.74 282.96,566.23 263.04,567.78 225.36,571.23 189.20,575.03 132.89,585.76 74.71,596.65 25.51,606.01 0.00,610.72" spreadType="center" allow="rail rail_electric"/>
+    <edge id="EC" from="3032658464" to="C" priority="1" type="highway.track" numLanes="1" speed="5.56" shape="1099.87,505.88 1065.00,510.97 958.43,525.11 883.86,531.99 761.31,540.32 714.13,547.35 695.08,553.06" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="EC_rail" from="38891331" to="C" priority="15" type="railway.rail" numLanes="1" speed="16.67" shape="792.26,570.79 694.29,569.48" spreadType="center" allow="rail rail_electric"/>
+    <edge id="NC" from="408481556" to="C" name="Zöberitzer Weg" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="696.38,614.72 694.29,569.48" allow="delivery bicycle pedestrian"/>
+    <edge id="SC" from="635894914" to="C" name="Zöberitzer Weg" priority="1" type="highway.track" numLanes="1" speed="5.56" shape="666.19,0.00 682.90,94.79 695.08,553.06" disallow="tram rail_urban rail rail_electric ship"/>
+</edges>

@@ -141,8 +141,8 @@ private:
         /// comparing operation
         int operator()(NIVissimConnection* c1, NIVissimConnection* c2) const {
             return fabs(GeomHelper::angleDiff(c1->getGeometry().beginEndAngle(), myAngle))
-                <
-                fabs(GeomHelper::angleDiff(c2->getGeometry().beginEndAngle(), myAngle));
+                   <
+                   fabs(GeomHelper::angleDiff(c2->getGeometry().beginEndAngle(), myAngle));
         }
     };
 

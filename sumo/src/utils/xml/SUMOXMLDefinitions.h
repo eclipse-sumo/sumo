@@ -99,7 +99,7 @@ enum SumoXMLTag {
     /// @brief A container stop
     SUMO_TAG_CONTAINER_STOP,
     /// @brief A Charging Station
-    SUMO_TAG_CHRG_STN,
+    SUMO_TAG_CHARGING_STATION,	// PABLO #1916 (Renamed all references of SUMO_TAG_CHRG_STN)
     /** a vtypeprobe detector */
     SUMO_TAG_VTYPEPROBE,
     /** a routeprobe detector */
@@ -334,10 +334,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_BOARDING_DURATION,
     SUMO_ATTR_LOADING_DURATION,
     /* Charging Station */
-    SUMO_ATTR_CHRGPOWER,    // charge in W of the Charging Stations
-    SUMO_ATTR_EFFICIENCY,    // Eficiency of the charge inCharging Stations
-    SUMO_ATTR_CHRGINTRANSIT,// Allow/disallow charge in transit in Charging Stations
-    SUMO_ATTR_CHRGDELAY,    // Delay in the charge of charging stations
+    SUMO_ATTR_CHARGINGPOWER,    // charge in W of the Charging Stations
+    SUMO_ATTR_EFFICIENCY,       // Eficiency of the charge inCharging Stations
+    SUMO_ATTR_CHARGEINTRANSIT,  // Allow/disallow charge in transit in Charging Stations
+    SUMO_ATTR_CHARGEDELAY,      // Delay in the charge of charging stations
     /* Car following model attributes */
     SUMO_ATTR_SIGMA,    // used by: Krauss
     SUMO_ATTR_TAU,      // Krauss
@@ -591,8 +591,10 @@ enum SumoXMLAttr {
     /* first coordinate of edge shape */
     GNE_ATTR_SHAPE_START,
     /* last coordinate of edge shape */
-    GNE_ATTR_SHAPE_END
+    GNE_ATTR_SHAPE_END,
     //@}
+
+    SUMO_ATTR_TARGETLANE
 };
 
 /*
@@ -612,6 +614,7 @@ enum SumoXMLNodeType {
     NODETYPE_TRAFFIC_LIGHT_NOJUNCTION, // junction controlled only by traffic light but without other prohibitions,
     NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED,
     NODETYPE_RAIL_SIGNAL,
+    NODETYPE_RAIL_CROSSING,
     NODETYPE_PRIORITY,
     NODETYPE_PRIORITY_STOP, // like priority but all minor links have stop signs
     NODETYPE_RIGHT_BEFORE_LEFT,
@@ -733,7 +736,16 @@ enum LinkDirection {
 enum TrafficLightType {
     TLTYPE_STATIC,
     TLTYPE_RAIL,
-    TLTYPE_ACTUATED
+    TLTYPE_ACTUATED,
+    TLTYPE_AGENT,
+	TLTYPE_SOTL_PHASE,
+	TLTYPE_SOTL_PLATOON,
+	TLTYPE_SOTL_REQUEST,
+	TLTYPE_SOTL_WAVE,
+	TLTYPE_SOTL_MARCHING,
+	TLTYPE_SWARM_BASED,
+	TLTYPE_HILVL_DETERMINISTIC,
+    TLTYPE_INVALID //< must be the last one
 };
 
 

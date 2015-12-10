@@ -44,7 +44,7 @@ def main():
         edges.update(route.edges.split())
     for walk in parse_fast(options.routefile, 'walk', ['edges']):
         edges.update(walk.edges.split())
-  
+
     # warn about potentially missing edges
     for trip in parse_fast(options.routefile, 'trip', ['id', 'from', 'to']):
         edges.update([trip.attr_from, trip.to])

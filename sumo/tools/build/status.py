@@ -33,6 +33,7 @@ def findErrors(line, warnings, errors, failed):
         failed += line
     return warnings, errors, failed
 
+
 def printStatus(makeLog, makeAllLog, smtpServer="localhost", out=sys.stdout, toAddr="sumo-tests@dlr.de"):
     failed = ""
     build = commonprefix([basename(makeLog), basename(makeAllLog)])

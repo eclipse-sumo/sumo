@@ -45,30 +45,6 @@ typedef long long int SUMOTime;
 #define SUMOTime_MIN std::numeric_limits<SUMOTime>::min()
 #define SUMOTIME_MAXSTRING "9223372036854774" // SUMOTime_MAX / 1000 - 1 (because of rounding errors)
 
-#ifndef HAVE_SUBSECOND_TIMESTEPS
-// the step length in s
-#define DELTA_T 1
-
-#define TS (static_cast<SUMOReal>(1.))
-
-// x*deltaT
-#define SPEED2DIST(x) (x)
-// x/deltaT
-#define DIST2SPEED(x) (x)
-// x*deltaT*deltaT
-#define ACCEL2DIST(x) (x)
-// x*deltaT
-#define ACCEL2SPEED(x) (x)
-// x/deltaT
-#define SPEED2ACCEL(x) (x)
-
-#define STEPS2TIME(x) (static_cast<SUMOReal>(x))
-#define TIME2STEPS(x) (static_cast<SUMOTime>(x))
-#define STEPFLOOR(x) (x)
-#define STEPS2MS(x) ((x)*1000)
-
-#else
-
 // the step length in ms
 extern SUMOTime DELTA_T;
 
@@ -90,8 +66,6 @@ extern SUMOTime DELTA_T;
 #define TIME2STEPS(x) (static_cast<SUMOTime>((x)*1000))
 #define STEPFLOOR(x) (int(x/DELTA_T)*DELTA_T)
 #define STEPS2MS(x) (x)
-
-#endif
 
 #define SIMTIME STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
 

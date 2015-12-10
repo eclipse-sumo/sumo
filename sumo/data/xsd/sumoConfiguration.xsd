@@ -135,7 +135,8 @@
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="no-duration-log" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="duration-log.disable" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="duration-log.statistics" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-step-log" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

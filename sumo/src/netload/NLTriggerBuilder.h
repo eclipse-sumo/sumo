@@ -157,7 +157,7 @@ public:
      * @param[in] attrs SAXattributes which define the trigger
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
-    void parseAndBuildChrgStn(MSNet& net, const SUMOSAXAttributes& attrs);
+    void parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttributes& attrs);
 
     /** @brief Parses his values and builds a mesoscopic or microscopic calibrator
      *
@@ -226,10 +226,10 @@ protected:
      * @param[in] topos End position of the charging Station on the lane
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    virtual void buildChrgStn(MSNet& net,
-                              const std::string& id, const std::vector<std::string>& lines,
-                              MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower,
-                              SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay);
+    virtual void buildChargingStation(MSNet& net,
+                                      const std::string& id, const std::vector<std::string>& lines,
+                                      MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower,
+                                      SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay);
 
     /** @brief builds a microscopic calibrator
      *

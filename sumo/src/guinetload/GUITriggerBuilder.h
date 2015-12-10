@@ -136,10 +136,10 @@ protected:
      * @param[in]
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
-    virtual void buildChrgStn(MSNet& net, const std::string& id,
-                              const std::vector<std::string>& lines, MSLane* lane,
-                              SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency,
-                              SUMOReal chargeInTransit, SUMOReal chargeDelay);
+    virtual void buildChargingStation(MSNet& net, const std::string& id,
+                                      const std::vector<std::string>& lines, MSLane* lane,
+                                      SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency,
+                                      SUMOReal chargeInTransit, SUMOReal chargeDelay);
 
     /** @brief builds a microscopic calibrator
      *

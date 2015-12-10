@@ -167,7 +167,7 @@ public:
         /// @brief The id of the traffic light that controls this connection
         std::string tlID;
         /// @brief The index of this connection within the controlling traffic light
-        unsigned int tlLinkNo;
+        int tlLinkNo;
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
         /// @brief whether the junction must be kept clear when using this connection
@@ -1021,9 +1021,9 @@ public:
 
     void decLaneNo(unsigned int by);
 
-    void deleteLane(unsigned int index, bool recompute=true);
+    void deleteLane(unsigned int index, bool recompute = true);
 
-    void addLane(unsigned int index, bool recompute=true);
+    void addLane(unsigned int index, bool recompute = true);
 
     void markAsInLane2LaneState();
 

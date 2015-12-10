@@ -220,11 +220,8 @@ MSFrame::fillOptions() {
     oc.doRegister("end", 'e', new Option_String("-1", "TIME"));
     oc.addDescription("end", "Time", "Defines the end time; The simulation ends at this time");
 
-#ifdef HAVE_SUBSECOND_TIMESTEPS
     oc.doRegister("step-length", new Option_String("1", "TIME"));
     oc.addDescription("step-length", "Time", "Defines the step duration");
-#endif
-
 
     // register the processing options
     oc.doRegister("route-steps", 's', new Option_String("200", "TIME"));
@@ -452,12 +449,10 @@ MSFrame::checkOptions() {
             ok = false;
         }
     }
-#ifdef HAVE_SUBSECOND_TIMESTEPS
     if (string2time(oc.getString("step-length")) <= 0) {
         WRITE_ERROR("the minimum step-length is 0.001");
         ok = false;
     }
-#endif
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output.vehicles") && !oc.isSet("movereminder-output")) {
         WRITE_ERROR("option movereminder-output.vehicles requires option movereminder-output to be set");
@@ -505,9 +500,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
 #endif
     MSAbstractLaneChangeModel::initGlobalOptions(oc);
 
-#ifdef HAVE_SUBSECOND_TIMESTEPS
     DELTA_T = string2time(oc.getString("step-length"));
-#endif
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {
         MSBaseVehicle::initMoveReminderOutput(oc);

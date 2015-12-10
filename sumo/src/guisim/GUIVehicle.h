@@ -95,11 +95,11 @@ public:
      */
     void drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const;
 
-    void drawAction_drawVehicleBlinker(SUMOReal length) const; 
-    void drawAction_drawVehicleBrakeLight(SUMOReal length) const; 
+    void drawAction_drawVehicleBlinker(SUMOReal length) const;
+    void drawAction_drawVehicleBrakeLight(SUMOReal length) const;
     void drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const;
     void drawAction_drawLinkItems(const GUIVisualizationSettings& s) const;
-    void drawAction_drawVehicleBlueLight() const; 
+    void drawAction_drawVehicleBlueLight() const;
 
     /** @brief Returns the time since the last lane change in seconds
      * @see MSVehicle::myLastLaneChangeOffset

@@ -21,4 +21,4 @@ SysUtils.h SysUtils.cpp \
 ToString.h TplConvert.h UtilExceptions.h \
 ValueRetriever.h ValueSource.h \
 ValueTimeLine.h VectorHelper.h \
-WrappingCommand.h
+WrappingCommand.h SwarmDebug.h

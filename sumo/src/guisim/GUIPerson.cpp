@@ -90,8 +90,8 @@ FXIMPLEMENT(GUIPerson::GUIPersonPopupMenu, GUIGLObjectPopupMenu, GUIPersonPopupM
  * ----------------------------------------------------------------------- */
 GUIPerson::GUIPersonPopupMenu::GUIPersonPopupMenu(
     GUIMainWindow& app, GUISUMOAbstractView& parent,
-    GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations) : 
-    GUIGLObjectPopupMenu(app, parent, o), 
+    GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations) :
+    GUIGLObjectPopupMenu(app, parent, o),
     myVehiclesAdditionalVisualizations(additionalVisualizations)
 {}
 

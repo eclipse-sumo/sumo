@@ -79,12 +79,13 @@ def generate_routefile():
 
 # The program looks like this
 #    <tlLogic id="0" type="static" programID="0" offset="0">
-## the locations of the tls are      NESW
+# the locations of the tls are      NESW
 #        <phase duration="31" state="GrGr"/>
 #        <phase duration="6"  state="yryr"/>
 #        <phase duration="31" state="rGrG"/>
 #        <phase duration="6"  state="ryry"/>
 #    </tlLogic>
+
 
 def run():
     """execute the TraCI control loop"""

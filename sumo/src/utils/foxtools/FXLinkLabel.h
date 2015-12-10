@@ -63,7 +63,7 @@ public:
     long onTimer(FXObject*, FXSelector, void*);
 
     // open the given link in a browser or pdf viewer
-    static FXint fxexecute(FXString link); 
+    static FXint fxexecute(FXString link);
 };
 
 

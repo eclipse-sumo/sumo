@@ -301,7 +301,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             if (!isForbidden && !hasCrossing(fromEdges[i1], toEdges[i1], crossings)) {
                 state[i1] = 'G';
             } else if (fromEdges[i1]->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
-                    fromEdges[i1]->getToNode()->getDirection(fromEdges[i1], toEdges[i1]) == LINKDIR_RIGHT) {
+                       fromEdges[i1]->getToNode()->getDirection(fromEdges[i1], toEdges[i1]) == LINKDIR_RIGHT) {
                 // handle right-on-red conflicts
                 state[i1] = 's';
                 for (unsigned int i2 = 0; i2 < pos; ++i2) {
@@ -378,27 +378,9 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
     }
     // fix pedestrian crossings that did not get the green light yet
     if (crossings.size() > 0) {
-        const int vehLinks = noLinksAll - (int)crossings.size();
-        std::vector<bool> foundGreen(crossings.size(), false);
-        const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = logic->getPhases();
-        for (int i = 0; i < (int)phases.size(); ++i) {
-            const std::string state = phases[i].state;
-            for (int j = 0; j < (int)crossings.size(); ++j) {
-                LinkState ls = (LinkState)state[vehLinks + j];
-                if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
-                    foundGreen[j] = true;
-                }
-            }
-        }
-        for (int j = 0; j < (int)foundGreen.size(); ++j) {
-            if (!foundGreen[j]) {
-                // add a phase where all pedestrians may walk, followed by a clearing phase
-                addPedestrianPhases(logic, TIME2STEPS(10), std::string(noLinksAll, 'r'), crossings, fromEdges, toEdges);
-                break;
-            }
-        }
+        addPedestrianScramble(logic, noLinksAll, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
     }
-    
+
     SUMOTime totalDuration = logic->getDuration();
     if (OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) {
         // adapt to cycle time by changing the duration of the green phases
@@ -605,7 +587,7 @@ NBOwnTLDef::initNeedsContRelation() const {
 }
 
 
-EdgeVector 
+EdgeVector
 NBOwnTLDef::getConnectedOuterEdges(const EdgeVector& incoming) {
     EdgeVector result = incoming;
     // do not sele
@@ -620,7 +602,7 @@ NBOwnTLDef::getConnectedOuterEdges(const EdgeVector& incoming) {
 }
 
 
-std::string 
+std::string
 NBOwnTLDef::allowFollowersOfChosen(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
     bool check = true;
     while (check) {
@@ -645,13 +627,13 @@ NBOwnTLDef::allowFollowersOfChosen(std::string state, const EdgeVector& fromEdge
 }
 
 
-std::string 
-NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges, 
-        const std::vector<bool>& isTurnaround,
-        const std::vector<int>& fromLanes, 
-        const std::vector<bool>& hadGreenMajor, 
-        bool& haveForbiddenLeftMover, 
-        std::vector<bool>& rightTurnConflicts) {
+std::string
+NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
+                               const std::vector<bool>& isTurnaround,
+                               const std::vector<int>& fromLanes,
+                               const std::vector<bool>& hadGreenMajor,
+                               bool& haveForbiddenLeftMover,
+                               std::vector<bool>& rightTurnConflicts) {
     const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
     for (int i1 = 0; i1 < (int)fromEdges.size(); ++i1) {
         if (state[i1] != 'G') {
@@ -674,6 +656,46 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
         }
     }
     return state;
+}
+
+
+void 
+NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, unsigned int noLinksAll, SUMOTime greenTime, SUMOTime brakingTime,
+        const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
+    const int vehLinks = noLinksAll - (int)crossings.size();
+    std::vector<bool> foundGreen(crossings.size(), false);
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = logic->getPhases();
+    for (int i = 0; i < (int)phases.size(); ++i) {
+        const std::string state = phases[i].state;
+        for (int j = 0; j < (int)crossings.size(); ++j) {
+            LinkState ls = (LinkState)state[vehLinks + j];
+            if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
+                foundGreen[j] = true;
+            }
+        }
+    }
+    for (int j = 0; j < (int)foundGreen.size(); ++j) {
+        if (!foundGreen[j]) {
+
+            // add a phase where all pedestrians may walk, (preceded by a yellow phase and followed by a clearing phase)
+            if (phases.size() > 0) {
+                bool needYellowPhase = false;
+                std::string state = phases.back().state;
+                for (unsigned int i1 = 0; i1 < vehLinks; ++i1) {
+                    if (state[i1] == 'G' || state[i1] == 'g') {
+                        state[i1] = 'y';
+                        needYellowPhase = true;
+                    }
+                }
+                // add yellow step
+                if (needYellowPhase) {
+                    logic->addStep(brakingTime, state);
+                }
+            }
+            addPedestrianPhases(logic, TIME2STEPS(10), std::string(noLinksAll, 'r'), crossings, fromEdges, toEdges);
+            break;
+        }
+    }
 }
 
 /****************************************************************************/

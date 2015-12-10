@@ -69,7 +69,7 @@
 
 /* Version number of package */
 #ifndef HAVE_VERSION_H
-#define VERSION_STRING "0.24.0"
+#define VERSION_STRING "0.25.0"
 #endif
 
 /* Define if junction internal lanes should be used. */
@@ -78,9 +78,6 @@
 /* Definition for the character function of Xerces  */
 #define XERCES3_SIZE_t XMLSize_t //Xerces >= 3.0
 //#define XERCES3_SIZE_t unsigned int //Xerces < 3.0
-
-/* Define in order to enable subsecond timesteps. */
-#define HAVE_SUBSECOND_TIMESTEPS 1
 
 /* define to use nvwa for memory leak checking */
 //#define CHECK_MEMORY_LEAKS 1

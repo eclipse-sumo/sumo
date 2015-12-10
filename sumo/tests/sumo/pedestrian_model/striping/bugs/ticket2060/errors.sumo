@@ -1,0 +1,12 @@
+Warning: No connection between edge 'EC_fwd_connector' and edge 'CN_bwd_connector' found.
+Warning: No connection between edge 'CE_fwd_connector' and edge 'CN_bwd_connector' found.
+Warning: No connection between edge 'EC_fwd_connector' and edge 'NC_bwd_connector' found.
+Warning: No connection between edge 'CE_fwd_connector' and edge 'NC_bwd_connector' found.
+Warning: No connection between edge ':C_w1' and edge 'NC_bwd_connector' found.
+Warning: Pedestrian 'backward_backward' could not find route across junction 'C', time=1.00.
+Warning: No connection between edge ':C_w1' and edge 'CN_bwd_connector' found.
+Warning: Pedestrian 'backward_forward' could not find route across junction 'C', time=1.00.
+Warning: No connection between edge ':C_w1' and edge 'NC_bwd_connector' found.
+Warning: Pedestrian 'forward_backward' could not find route across junction 'C', time=290.00.
+Warning: No connection between edge ':C_w1' and edge 'CN_bwd_connector' found.
+Warning: Pedestrian 'forward_forward' could not find route across junction 'C', time=290.00.

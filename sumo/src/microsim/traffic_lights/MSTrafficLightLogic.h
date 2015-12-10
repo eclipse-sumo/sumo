@@ -117,7 +117,7 @@ public:
      * @param[in] lane The lane this link starts at
      * @param[in] pos The link's index (signal group) within this program
      */
-    void addLink(MSLink* link, MSLane* lane, unsigned int pos);
+    virtual void addLink(MSLink* link, MSLane* lane, int pos);
 
 
     /** @brief Applies information about controlled links and lanes from the given logic
@@ -148,7 +148,6 @@ public:
     /// @{
 
     /** @brief Switches to the next phase
-     * @param[in] isActive Whether this program is the currently used one
      * @return The time of the next switch
      */
     virtual SUMOTime trySwitch() = 0;

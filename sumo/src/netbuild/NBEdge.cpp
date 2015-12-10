@@ -784,21 +784,21 @@ NBEdge::getConnectionsFromLane(unsigned int lane) const {
         }
     }
     return ret;
-} 
- 
+}
 
-NBEdge::Connection 
+
+NBEdge::Connection
 NBEdge::getConnection(int fromLane, const NBEdge* to, int toLane) const {
     for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         if (
-                (*i).fromLane == fromLane
-                && (*i).toEdge == to
-                && (*i).toLane == toLane) {
+            (*i).fromLane == fromLane
+            && (*i).toEdge == to
+            && (*i).toLane == toLane) {
             return *i;
         }
     }
-    throw ProcessError("Connection from " + getID() + "_" + toString(fromLane) 
-            + " to " + to->getID() + "_" + toString(toLane) + " not found");
+    throw ProcessError("Connection from " + getID() + "_" + toString(fromLane)
+                       + " to " + to->getID() + "_" + toString(toLane) + " not found");
 }
 
 
@@ -1818,7 +1818,7 @@ NBEdge::computePrioritySum(const std::vector<unsigned int>& priorities) {
 void
 NBEdge::appendTurnaround(bool noTLSControlled) {
     // do nothing if no turnaround is known
-    if (myTurnDestination == 0) {
+    if (myTurnDestination == 0 || myTo->getType() == NODETYPE_RAIL_CROSSING) {
         return;
     }
     // do nothing if the destination node is controlled by a tls and no turnarounds
@@ -1948,7 +1948,7 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
             (*i).tlLinkNo = tlIndex;
             no++;
         } else {
-            if ((*i).tlID != tlID && static_cast<int>((*i).tlLinkNo) == tlIndex) {
+            if ((*i).tlID != tlID && (*i).tlLinkNo == tlIndex) {
                 WRITE_WARNING("The lane '" + toString<int>((*i).fromLane) + "' on edge '" + getID() + "' already had a traffic light signal.");
                 hadError = true;
             }
@@ -2151,7 +2151,7 @@ NBEdge::isNearEnough2BeJoined2(NBEdge* e, SUMOReal threshold) const {
 }
 
 
-void 
+void
 NBEdge::addLane(unsigned int index, bool recompute) {
     assert(index <= myLanes.size());
     myLanes.insert(myLanes.begin() + index, Lane(this, ""));
@@ -2186,7 +2186,7 @@ NBEdge::incLaneNo(unsigned int by) {
 }
 
 
-void 
+void
 NBEdge::deleteLane(unsigned int index, bool recompute) {
     assert(index < myLanes.size());
     myLanes.erase(myLanes.begin() + index);

@@ -115,6 +115,7 @@
                     <xsd:enumeration value="priority_stop"/>
                     <xsd:enumeration value="rail_signal"/>
                     <xsd:enumeration value="zipper"/>
+                    <xsd:enumeration value="rail_crossing"/>
                     <xsd:enumeration value="traffic_light_right_on_red"/>
                     <xsd:enumeration value="internal"/>
                 </xsd:restriction>

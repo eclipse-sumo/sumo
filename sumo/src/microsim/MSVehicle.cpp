@@ -356,7 +356,7 @@ MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
     myAmVTDControlled = false;
 }
 
-SUMOReal 
+SUMOReal
 MSVehicle::Influencer::implicitSpeedVTD(const MSVehicle* veh, SUMOReal oldSpeed) {
     const SUMOReal dist = veh->getDistanceToPosition(myVTDPos, &myVTDLane->getEdge());
     if (DIST2SPEED(dist) > veh->getMaxSpeed()) {
@@ -366,7 +366,7 @@ MSVehicle::Influencer::implicitSpeedVTD(const MSVehicle* veh, SUMOReal oldSpeed)
     }
 }
 
-SUMOReal 
+SUMOReal
 MSVehicle::Influencer::implicitDeltaPosVTD(const MSVehicle* veh) {
     const SUMOReal dist = veh->getDistanceToPosition(myVTDPos, &myVTDLane->getEdge());
     if (DIST2SPEED(dist) > veh->getMaxSpeed()) {
@@ -1351,8 +1351,8 @@ MSVehicle::executeMove() {
                     myHaveToWaitOnNextLink = true;
                 }
             } else if (link->getState() == LINKSTATE_ZIPPER) {
-                vSafeZipper = MIN2(vSafeZipper, 
-                        link->getZipperSpeed(this, (*i).myDistance, (*i).myVLinkPass, (*i).myArrivalTime, &collectFoes));
+                vSafeZipper = MIN2(vSafeZipper,
+                                   link->getZipperSpeed(this, (*i).myDistance, (*i).myVLinkPass, (*i).myArrivalTime, &collectFoes));
             } else {
                 vSafe = (*i).myVLinkWait;
                 myHaveToWaitOnNextLink = true;
@@ -1544,8 +1544,8 @@ MSVehicle::executeMove() {
         }
         setBlinkerInformation(); // needs updated bestLanes
         //change the blue light only for emergency vehicles SUMOVehicleClass
-        if (myType->getVehicleClass()== SVC_EMERGENCY) {
-            setEmergencyBlueLight(MSNet::getInstance()->getCurrentTimeStep()); 
+        if (myType->getVehicleClass() == SVC_EMERGENCY) {
+            setEmergencyBlueLight(MSNet::getInstance()->getCurrentTimeStep());
         }
         // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
         getLaneChangeModel().prepareStep();
@@ -2425,10 +2425,10 @@ MSVehicle::setBlinkerInformation() {
 
 }
 
-void 
-MSVehicle::setEmergencyBlueLight(SUMOTime currentTime){
-    if (currentTime % 1000 == 0){
-        if (signalSet(VEH_SIGNAL_EMERGENCY_BLUE)){
+void
+MSVehicle::setEmergencyBlueLight(SUMOTime currentTime) {
+    if (currentTime % 1000 == 0) {
+        if (signalSet(VEH_SIGNAL_EMERGENCY_BLUE)) {
             switchOffSignal(VEH_SIGNAL_EMERGENCY_BLUE);
         } else {
             switchOnSignal(VEH_SIGNAL_EMERGENCY_BLUE);
