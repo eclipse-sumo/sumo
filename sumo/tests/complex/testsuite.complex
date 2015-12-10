@@ -11,6 +11,7 @@ traci
 jtrrouter
 
 # netconvert roundtrips with different formatsnetconvert
+netconvert
 
 # complex traffic lights tests
 traffic_lights
@@ -22,3 +23,4 @@ tutorial
 state
 
 # emission tools, especially emissionDrivingCycleemissions
+emissions
