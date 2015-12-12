@@ -152,31 +152,31 @@ public:
     SUMOReal getPheroMaxVal() {
         return TplConvert::_2SUMOReal(getParameter("PHERO_MAXVAL", "10").c_str());
     }
-    /*void setPheroMaxVal(double val) {
+    /*void setPheroMaxVal(SUMOReal val) {
      phero_maxval = val;
      }*/
     SUMOReal getBetaNo() {
         return TplConvert::_2SUMOReal(getParameter("BETA_NO", "0.99").c_str());
     }
-    /*void setBetaNo(double val) {
+    /*void setBetaNo(SUMOReal val) {
      beta_no = val;
      }*/
     SUMOReal getGammaNo() {
         return TplConvert::_2SUMOReal(getParameter("GAMMA_NO", "1.0").c_str());
     }
-    /*void setGammaNo(double val) {
+    /*void setGammaNo(SUMOReal val) {
      gamma_no = val;
      }*/
     SUMOReal getBetaSp() {
         return TplConvert::_2SUMOReal(getParameter("BETA_SP", "0.99").c_str());
     }
-    /*void setBetaSp(double val) {
+    /*void setBetaSp(SUMOReal val) {
      beta_sp = val;
      }*/
     SUMOReal getGammaSp() {
         return TplConvert::_2SUMOReal(getParameter("GAMMA_SP", "1.0").c_str());
     }
-    /*void setGammaSp(double val) {
+    /*void setGammaSp(SUMOReal val) {
      gamma_sp = val;
      }*/
     SUMOReal getChangePlanProbability() {
@@ -268,32 +268,32 @@ protected:
     /*
      * @return The average pheromone level regarding congestion on input lanes
      */
-    double getPheromoneForInputLanes();
+    SUMOReal getPheromoneForInputLanes();
 
     /*
      * @return The average pheromone level regarding congestion on output lanes
      */
-    double getPheromoneForOutputLanes();
+    SUMOReal getPheromoneForOutputLanes();
 
     /*
      * @return The dispersion level regarding congestion on input lanes
      */
-    double getDispersionForInputLanes(double average_phero_in);
+    SUMOReal getDispersionForInputLanes(SUMOReal average_phero_in);
 
     /*
      * @return The dispersion level regarding congestion on output lanes
      */
-    double getDispersionForOutputLanes(double average_phero_out);
+    SUMOReal getDispersionForOutputLanes(SUMOReal average_phero_out);
 
     /*
      * @return The difference between the current max phero value and the average phero of the other lanes
      */
-    double getDistanceOfMaxPheroForInputLanes();
+    SUMOReal getDistanceOfMaxPheroForInputLanes();
 
     /*
      * @return The difference between the current max phero value and the average phero of the other lanes
      */
-    double getDistanceOfMaxPheroForOutputLanes();
+    SUMOReal getDistanceOfMaxPheroForOutputLanes();
     /**
      * @brief Update pheromone levels
      * Pheromone on input lanes is costantly updated
@@ -304,7 +304,7 @@ protected:
     /**
      * @brief Utility method to avoid code duplication
      */
-    void updatePheromoneLevels(MSLaneId_PheromoneMap &, std::string, const double, const double);
+    void updatePheromoneLevels(MSLaneId_PheromoneMap &, std::string, const SUMOReal, const SUMOReal);
 
     /**
      * After a policy has been chosen, for every iteration thresholds has to be updated.
@@ -325,7 +325,7 @@ protected:
      * or the number of cars in the lanes with a red tl.
      * @param[in] factor - the value to consider to compute this coefficient.
      */
-    double calculatePhi(int factor);
+    SUMOReal calculatePhi(int factor);
 
     /**
      * \brief Method that should calculate the valor of eta a coefficient to evaluate the current
@@ -333,17 +333,17 @@ protected:
      * and the ones that exit it. It consider vehicles on a lane with a tl set to red as well to determinate
      * policy work.
      */
-    double calculateEtaDiff();
+    SUMOReal calculateEtaDiff();
 
-    double calculateEtaRatio();
+    SUMOReal calculateEtaRatio();
 
     /*
      * \brief Method to reset the map that stores if a lane is already been checked during the
      * evaluation of eta.
      */
     void resetLaneCheck();
-    void choosePolicy(double phero_in, double phero_out, double dispersion_in, double dispersion_out);
-    void choosePolicy(double phero_in, double phero_out);
+    void choosePolicy(SUMOReal phero_in, SUMOReal phero_out, SUMOReal dispersion_in, SUMOReal dispersion_out);
+    void choosePolicy(SUMOReal phero_in, SUMOReal phero_out);
 
     std::string getPoliciesParam() {
         return getParameter("POLICIES", "Platoon;Phase;Marching;Congestion");
@@ -360,7 +360,7 @@ protected:
     }
 
     void initScaleFactorDispersionIn(int lanes_in){
-        std::vector<double> phero_values;
+        std::vector<SUMOReal> phero_values;
 
         for(int i=0; i<lanes_in/2; i++){
             phero_values.push_back(getPheroMaxVal());
@@ -369,26 +369,26 @@ protected:
                     phero_values.push_back(0.0);
         }
 
-        double sum_avg_tmp = 0;
+        SUMOReal sum_avg_tmp = 0;
 
         for(int i=0; i<phero_values.size(); i++){
                     sum_avg_tmp += phero_values[i];
         }
 
-        double mean = sum_avg_tmp / phero_values.size();
+        SUMOReal mean = sum_avg_tmp / phero_values.size();
 
-        double sum_dev_tmp = 0;
+        SUMOReal sum_dev_tmp = 0;
         for(int i=0; i<phero_values.size(); i++){
                     sum_dev_tmp += pow(phero_values[i] - mean, 2);
         }
 
-        double deviation = sqrt(sum_dev_tmp/ phero_values.size());
+        SUMOReal deviation = sqrt(sum_dev_tmp/ phero_values.size());
 
         scaleFactorDispersionIn = getPheroMaxVal() / deviation;
     }
 
     void initScaleFactorDispersionOut(int lanes_out){
-        std::vector<double> phero_values;
+        std::vector<SUMOReal> phero_values;
 
                 for(int i=0; i<lanes_out/2; i++){
                     phero_values.push_back(getPheroMaxVal());
@@ -397,19 +397,19 @@ protected:
                             phero_values.push_back(0.0);
                 }
 
-                double sum_avg_tmp = 0;
+                SUMOReal sum_avg_tmp = 0;
                 for(int i=0; i<phero_values.size(); i++){
                             sum_avg_tmp += phero_values[i];
                 }
-                double mean = sum_avg_tmp / phero_values.size();
+                SUMOReal mean = sum_avg_tmp / phero_values.size();
 
-                double sum_dev_tmp = 0;
+                SUMOReal sum_dev_tmp = 0;
 
                 for(int i=0; i<phero_values.size(); i++){
                             sum_dev_tmp += pow(phero_values[i] - mean, 2);
                 }
 
-                double deviation = sqrt(sum_dev_tmp/ phero_values.size());
+                SUMOReal deviation = sqrt(sum_dev_tmp/ phero_values.size());
 
                 scaleFactorDispersionOut = getPheroMaxVal() / deviation;
     }
@@ -456,8 +456,8 @@ protected:
     /**
      * \factors to scale pheromoneDispersion in range [0, 10]
      */
-    double scaleFactorDispersionIn;
-    double scaleFactorDispersionOut;
+    SUMOReal scaleFactorDispersionIn;
+    SUMOReal scaleFactorDispersionOut;
 
 //	For every lane its index. Esed to get the current lane state for the lane
     std::map<std::string, std::vector<int> > m_laneIndexMap;
@@ -466,14 +466,14 @@ protected:
     std::map<std::string, std::string> m_pheroLevelLog;
 
     //derivative
-    std::map<std::string, CircularBuffer<double>* > m_meanSpeedHistory;
-    std::map<std::string, CircularBuffer<double>* > m_derivativeHistory;
-    double m_derivativeAlpha;
+    std::map<std::string, CircularBuffer<SUMOReal>* > m_meanSpeedHistory;
+    std::map<std::string, CircularBuffer<SUMOReal>* > m_derivativeHistory;
+    SUMOReal m_derivativeAlpha;
     int m_losCounter;//los: loss of signal
     int m_losMaxLimit;
     bool m_useVehicleTypesWeights;
 
-//	double pheroBegin;
+//	SUMOReal pheroBegin;
 };
 
 
