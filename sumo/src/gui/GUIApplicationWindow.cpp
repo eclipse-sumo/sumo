@@ -747,7 +747,7 @@ GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
     if (sumoPath != 0) {
         std::string newPath = std::string(sumoPath) + "/bin/netedit";
         if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
-            netedit = newPath;
+            netedit = "\"" + newPath + "\"";
         }
     }
     std::string cmd = netedit + " --registry-viewport -s "  + OptionsCont::getOptions().getString("net-file");
@@ -755,7 +755,8 @@ GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
 #ifndef WIN32
     cmd = cmd + " &";
 #else
-    cmd = "start " + cmd;
+    // see "help start" for the parameters
+    cmd = "start /B \"\" " + cmd;
 #endif
     WRITE_MESSAGE("Running " + cmd + ".");
     // yay! fun with dangerous commands... Never use this over the internet
