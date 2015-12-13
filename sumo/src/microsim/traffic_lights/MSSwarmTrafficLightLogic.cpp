@@ -332,8 +332,7 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap & phe
         }
       }
     }
-        SUMOReal pheroAdd = 0;
-        pheroAdd = max((maxSpeed - meanVehiclesSpeed) * 10 / maxSpeed, 0.0);
+        SUMOReal pheroAdd = MAX2((maxSpeed - meanVehiclesSpeed) * 10 / maxSpeed, (SUMOReal)0.0);
 //		Use the derivative only if it has a value
         if (derivative > 0)
 //		Correct the pheromone value by dividing it for the derivative.
@@ -353,8 +352,7 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap & phe
         ANALYSIS_DBG(
                 if(phero > 10) { std::ostringstream i_str; i_str << "MSSwarmTrafficLightLogic::updatePheromoneLevels " << logString << " > 10. Value: " << phero; WRITE_MESSAGE(i_str.str()) });
 
-        phero = max(phero, 0.0);
-        phero = min(phero, getPheroMaxVal());
+        phero = MIN2(MAX2(phero, (SUMOReal)0.0), getPheroMaxVal());
         pheroMap[laneId] = phero;
         ANALYSIS_DBG(
         //		DBG(
@@ -382,8 +380,7 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap & phe
 //		MsgHandler::getMessageInstance()->inform(time2string(MSNet::getInstance()->getCurrentTimeStep()) +" MSSwarmTrafficLightLogic::updatePheromoneLevels:: PheroIn"+i_str.str());
 //		)
 //
-//		pheroIn = max(pheroIn, 0.0);
-//		pheroIn = min(pheroIn, getPheroMaxVal());
+//      pheroIn = MIN2(MAX2(pheroIn, (SUMOReal)0.0), getPheroMaxVal());
 //		pheromoneInputLanes[laneId] = pheroIn;
     }
 }
