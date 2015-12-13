@@ -170,4 +170,3 @@ if __name__ == "__main__":
     if options.verbose:
         print("Writing results")
     reader.writeResults(options)
-

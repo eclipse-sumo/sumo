@@ -3,7 +3,7 @@
 /// @author  Gianfilippo Slager
 /// @author  Federico Caselli
 /// @date    Mar 2010
-/// @version $Id: MSSwarmTrafficLightLogic.h 0 2010-03-04 12:40:00Z gslager $
+/// @version $Id$
 ///
 // The class for Swarm-based logics
 /****************************************************************************/
@@ -40,78 +40,68 @@
 #include "MSSOTLPolicy5DFamilyStimulus.h"
 
 template<class T>
-class CircularBuffer
-{
+class CircularBuffer {
 public:
-  CircularBuffer(unsigned short size) :
-      m_size(size), m_currentIndex(0), m_firstTime(true)
-  {
-    m_buffer = new T[m_size];
-  }
+    CircularBuffer(unsigned short size) :
+        m_size(size), m_currentIndex(0), m_firstTime(true) {
+        m_buffer = new T[m_size];
+    }
 
-  virtual ~CircularBuffer()
-  {
-    delete m_buffer;
-  }
+    virtual ~CircularBuffer() {
+        delete m_buffer;
+    }
 
-  bool addValue(const T newValue, T & replacedValue)
-  {
-    bool result = !m_firstTime;
-    if (result)
-      replacedValue = m_buffer[m_currentIndex];
-    insert(newValue);
-    return result;
-  }
+    bool addValue(const T newValue, T& replacedValue) {
+        bool result = !m_firstTime;
+        if (result) {
+            replacedValue = m_buffer[m_currentIndex];
+        }
+        insert(newValue);
+        return result;
+    }
 
-  void push_front(const T value)
-  {
-    insert(value);
-  }
+    void push_front(const T value) {
+        insert(value);
+    }
 
-  T at(const unsigned short index) const
-  {
-    unsigned short idx = (m_currentIndex - 1 - index + m_size) % m_size;
-    return m_buffer[idx];
-  }
+    T at(const unsigned short index) const {
+        unsigned short idx = (m_currentIndex - 1 - index + m_size) % m_size;
+        return m_buffer[idx];
+    }
 
-  T front() const
-  {
-    return at(0);
-  }
+    T front() const {
+        return at(0);
+    }
 
-  T back() const
-  {
-    return at(size()-1);
-  }
+    T back() const {
+        return at(size() - 1);
+    }
 
-  unsigned short size() const
-  {
-    if (m_firstTime)
-      return m_currentIndex;
-    return m_size;
-  }
+    unsigned short size() const {
+        if (m_firstTime) {
+            return m_currentIndex;
+        }
+        return m_size;
+    }
 
-  void clear()
-  {
-    m_currentIndex = 0;
-    m_firstTime = true;
-  }
+    void clear() {
+        m_currentIndex = 0;
+        m_firstTime = true;
+    }
 
 private:
-  T * m_buffer;
-  unsigned short m_size;
-  unsigned short m_currentIndex;
-  bool m_firstTime;
+    T* m_buffer;
+    unsigned short m_size;
+    unsigned short m_currentIndex;
+    bool m_firstTime;
 
-  inline void insert(const T & value)
-  {
-    m_buffer[m_currentIndex++] = value;
-    if (m_currentIndex == m_size)
-    {
-      m_currentIndex = 0;
-      m_firstTime = false;
+    inline void insert(const T& value) {
+        m_buffer[m_currentIndex++] = value;
+        if (m_currentIndex == m_size) {
+            m_currentIndex = 0;
+            m_firstTime = false;
+        }
     }
-  }
 };
 
 class MSSwarmTrafficLightLogic: public MSSOTLHiLevelTrafficLightLogic {
@@ -127,10 +117,10 @@ public:
      * @param[in] delay The time to wait before the first switch
      * @param[in] parameters Parameters defined for the tll
      */
-    MSSwarmTrafficLightLogic(MSTLLogicControl &tlcontrol, const string &id,
-            const string &subid, const Phases &phases, unsigned int step,
-            SUMOTime delay,
-            const std::map<std::string, std::string>& parameters);
+    MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, const string& id,
+                             const string& subid, const Phases& phases, unsigned int step,
+                             SUMOTime delay,
+                             const std::map<std::string, std::string>& parameters);
 
     ~MSSwarmTrafficLightLogic();
 
@@ -140,7 +130,7 @@ public:
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder &nb) throw (ProcessError);
+    void init(NLDetectorBuilder& nb) throw(ProcessError);
 
     int getMaxCongestionDuration() {
         return TplConvert::_2int(getParameter("MAX_CONGESTION_DUR", "120").c_str());
@@ -203,11 +193,11 @@ public:
         return TplConvert::_2SUMOReal(getParameter("FORGETTING_COX", "0.0005").c_str());
     }
 
-    SUMOReal getScaleFactorDispersionIn(){
+    SUMOReal getScaleFactorDispersionIn() {
         return scaleFactorDispersionIn;
     }
 
-    SUMOReal getScaleFactorDispersionOut(){
+    SUMOReal getScaleFactorDispersionOut() {
         return scaleFactorDispersionOut;
     }
 
@@ -304,7 +294,7 @@ protected:
     /**
      * @brief Utility method to avoid code duplication
      */
-    void updatePheromoneLevels(MSLaneId_PheromoneMap &, std::string, const SUMOReal, const SUMOReal);
+    void updatePheromoneLevels(MSLaneId_PheromoneMap&, std::string, const SUMOReal, const SUMOReal);
 
     /**
      * After a policy has been chosen, for every iteration thresholds has to be updated.
@@ -359,59 +349,59 @@ protected:
         return TplConvert::_2int(getParameter("REIMODE", "0").c_str());
     }
 
-    void initScaleFactorDispersionIn(int lanes_in){
+    void initScaleFactorDispersionIn(int lanes_in) {
         std::vector<SUMOReal> phero_values;
 
-        for(int i=0; i<lanes_in/2; i++){
+        for (int i = 0; i < lanes_in / 2; i++) {
             phero_values.push_back(getPheroMaxVal());
         }
-        for(int i=lanes_in/2; i<lanes_in; i++){
-                    phero_values.push_back(0.0);
+        for (int i = lanes_in / 2; i < lanes_in; i++) {
+            phero_values.push_back(0.0);
         }
 
         SUMOReal sum_avg_tmp = 0;
 
-        for(int i=0; i<phero_values.size(); i++){
-                    sum_avg_tmp += phero_values[i];
+        for (int i = 0; i < phero_values.size(); i++) {
+            sum_avg_tmp += phero_values[i];
         }
 
         SUMOReal mean = sum_avg_tmp / phero_values.size();
 
         SUMOReal sum_dev_tmp = 0;
-        for(int i=0; i<phero_values.size(); i++){
-                    sum_dev_tmp += pow(phero_values[i] - mean, 2);
+        for (int i = 0; i < phero_values.size(); i++) {
+            sum_dev_tmp += pow(phero_values[i] - mean, 2);
         }
 
-        SUMOReal deviation = sqrt(sum_dev_tmp/ phero_values.size());
+        SUMOReal deviation = sqrt(sum_dev_tmp / phero_values.size());
 
         scaleFactorDispersionIn = getPheroMaxVal() / deviation;
     }
 
-    void initScaleFactorDispersionOut(int lanes_out){
+    void initScaleFactorDispersionOut(int lanes_out) {
         std::vector<SUMOReal> phero_values;
 
-                for(int i=0; i<lanes_out/2; i++){
-                    phero_values.push_back(getPheroMaxVal());
-                }
-                for(int i=lanes_out/2; i<lanes_out; i++){
-                            phero_values.push_back(0.0);
-                }
+        for (int i = 0; i < lanes_out / 2; i++) {
+            phero_values.push_back(getPheroMaxVal());
+        }
+        for (int i = lanes_out / 2; i < lanes_out; i++) {
+            phero_values.push_back(0.0);
+        }
 
-                SUMOReal sum_avg_tmp = 0;
-                for(int i=0; i<phero_values.size(); i++){
-                            sum_avg_tmp += phero_values[i];
-                }
-                SUMOReal mean = sum_avg_tmp / phero_values.size();
+        SUMOReal sum_avg_tmp = 0;
+        for (int i = 0; i < phero_values.size(); i++) {
+            sum_avg_tmp += phero_values[i];
+        }
+        SUMOReal mean = sum_avg_tmp / phero_values.size();
 
-                SUMOReal sum_dev_tmp = 0;
+        SUMOReal sum_dev_tmp = 0;
 
-                for(int i=0; i<phero_values.size(); i++){
-                            sum_dev_tmp += pow(phero_values[i] - mean, 2);
-                }
+        for (int i = 0; i < phero_values.size(); i++) {
+            sum_dev_tmp += pow(phero_values[i] - mean, 2);
+        }
 
-                SUMOReal deviation = sqrt(sum_dev_tmp/ phero_values.size());
+        SUMOReal deviation = sqrt(sum_dev_tmp / phero_values.size());
 
-                scaleFactorDispersionOut = getPheroMaxVal() / deviation;
+        scaleFactorDispersionOut = getPheroMaxVal() / deviation;
     }
 
     /**
@@ -419,7 +409,7 @@ protected:
      * Control in this function if the lane is a walking area, a crossing, or if only pedestrian are allowed.
      * Return true if the lane has to be added, false otherwise.
      */
-    bool allowLine(MSLane * );
+    bool allowLine(MSLane*);
 
     bool logData;
     ofstream swarmLogFile;
@@ -461,7 +451,7 @@ protected:
 
 //	For every lane its index. Esed to get the current lane state for the lane
     std::map<std::string, std::vector<int> > m_laneIndexMap;
-    std::string getLaneLightState(const std::string & laneId);
+    std::string getLaneLightState(const std::string& laneId);
 //	store the last message logged. if equal do not log it again
     std::map<std::string, std::string> m_pheroLevelLog;
 

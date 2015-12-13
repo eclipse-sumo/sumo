@@ -4,14 +4,17 @@ import cPickle
 import sys
 from xml.sax import saxutils, make_parser, handler
 
-NOT_FLOAT_TRIPINFO_ATTRS = [ "departLane", "arrivalLane", "devices", "vtype", "vaporized" ]
+NOT_FLOAT_TRIPINFO_ATTRS = [
+    "departLane", "arrivalLane", "devices", "vtype", "vaporized"]
+
 
 class TripinfosReader(handler.ContentHandler):
+
     def __init__(self, toCollect):
         self._values = {}
         self._toCollect = toCollect
         for v in toCollect:
-            self._values[v] = {} 
+            self._values[v] = {}
 
     def startElement(self, name, attrs):
         if name == 'tripinfo':
@@ -27,6 +30,7 @@ class TripinfosReader(handler.ContentHandler):
 
     def get(self, name):
         return self._values[name]
+
 
 def readTripinfos(inputFile, toCollect):
     parser = make_parser()

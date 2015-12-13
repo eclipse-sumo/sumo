@@ -3,7 +3,7 @@
 /// @author  Gianfilippo Slager
 /// @author  Federico Caselli
 /// @date    Feb 2010
-/// @version $Id: MSSOTLPhasePolicy.h 0 2010-02-18 12:40:00Z gslager $
+/// @version $Id$
 ///
 // The class for SOTL Phase logics
 /****************************************************************************/
@@ -37,20 +37,20 @@
  * @brief Class for low-level phase policy.
  *
  */
-class MSSOTLPhasePolicy: public MSSOTLPolicy, public PushButtonLogic, public SigmoidLogic{
+class MSSOTLPhasePolicy: public MSSOTLPolicy, public PushButtonLogic, public SigmoidLogic {
 
 public:
-	MSSOTLPhasePolicy(const std::map<std::string, std::string>& parameters);
-	MSSOTLPhasePolicy(MSSOTLPolicyDesirability *desirabilityAlgorithm);
+    MSSOTLPhasePolicy(const std::map<std::string, std::string>& parameters);
+    MSSOTLPhasePolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm);
 
-	MSSOTLPhasePolicy(MSSOTLPolicyDesirability *desirabilityAlgorithm,
-			const std::map<std::string, std::string>& parameters);
+    MSSOTLPhasePolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm,
+                      const std::map<std::string, std::string>& parameters);
 
-	bool canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
-			const MSPhaseDefinition* stage, int vehicleCount);
+    bool canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
+                    const MSPhaseDefinition* stage, int vehicleCount);
 protected:
-  void init();
-  bool m_useVehicleTypesWeights;
+    void init();
+    bool m_useVehicleTypesWeights;
 };
 
 #endif

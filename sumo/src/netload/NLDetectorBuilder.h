@@ -448,9 +448,9 @@ public:
      * @todo Check whether this method is really needful
      */
     MSE2Collector* buildSingleLaneE2Det(const std::string& id,
-            DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
-            SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-            SUMOReal jamDistThreshold);
+                                        DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
+                                        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
+                                        SUMOReal jamDistThreshold);
 
 
     /** @brief Builds an e2 detector that continues on preceeding lanes

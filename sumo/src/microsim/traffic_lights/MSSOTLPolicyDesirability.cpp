@@ -2,7 +2,7 @@
 /// @file    MSSOTLPolicyDesirability.cpp
 /// @author  Riccardo Belletti
 /// @date    Mar 2014
-/// @version $Id: MSSOTLPolicyDesirability.cpp 0  $
+/// @version $Id$
 ///
 // The class for Swarm-based low-level policy
 /****************************************************************************/
@@ -20,9 +20,9 @@
 #include "MSSOTLPolicyDesirability.h"
 
 MSSOTLPolicyDesirability::MSSOTLPolicyDesirability(
-		string keyPrefix,
-		const std::map<std::string, std::string>& parameters) :
-		Parameterised(parameters), myKeyPrefix(keyPrefix) {
+    string keyPrefix,
+    const std::map<std::string, std::string>& parameters) :
+    Parameterised(parameters), myKeyPrefix(keyPrefix) {
 }
 
 MSSOTLPolicyDesirability::~MSSOTLPolicyDesirability() {

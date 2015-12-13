@@ -5,7 +5,7 @@ A scenario generation module.
 @file    __init__.py
 @author  Daniel Krajzewicz
 @date    2013-10-10
-@version $Id: __init__.py 14731 2013-09-20 18:56:22Z behrisch $
+@version $Id$
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2013 DLR (http://www.dlr.de/) and contributors
@@ -22,7 +22,3 @@ import cross
 import straight
 import grid
 import corridor
-
-
-
-         

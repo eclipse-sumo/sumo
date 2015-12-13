@@ -3,7 +3,7 @@
 /// @author  Riccardo Belletti
 /// @author  Simone Bacchilega
 /// @date    Aug 2014
-/// @version $Id: MSSOTLPolicyDesirability.h 0  $
+/// @version $Id$
 ///
 // The class the low-level policy stimulus
 /****************************************************************************/
@@ -49,124 +49,124 @@ class MSSOTLPolicy5DStimulus: public MSSOTLPolicyDesirability {
 
 private:
 
-	double stimCoxDVal,
-	stimOffsetInDVal, stimOffsetOutDVal, stimOffsetDispersionInDVal, stimOffsetDispersionOutDVal,
-	stimDivInDVal, stimDivOutDVal, stimDivDispersionInDVal, stimDivDispersionOutDVal,
-	stimCoxExpInDVal, stimCoxExpOutDVal, stimCoxExpDispersionInDVal, stimCoxExpDispersionOutDVal;
+    double stimCoxDVal,
+           stimOffsetInDVal, stimOffsetOutDVal, stimOffsetDispersionInDVal, stimOffsetDispersionOutDVal,
+           stimDivInDVal, stimDivOutDVal, stimDivDispersionInDVal, stimDivDispersionOutDVal,
+           stimCoxExpInDVal, stimCoxExpOutDVal, stimCoxExpDispersionInDVal, stimCoxExpDispersionOutDVal;
 
 public:
 
-	MSSOTLPolicy5DStimulus(string keyPrefix,const std::map<std::string, std::string>& parameters);
+    MSSOTLPolicy5DStimulus(string keyPrefix, const std::map<std::string, std::string>& parameters);
 
-	double getStimCox() {
-		string key = getKeyPrefix() + "_STIM_COX";
-		return readParameter(key, stimCoxDVal);
-	}
-	void setStimCoxDefVal(double defVal) {
-		stimCoxDVal = defVal;
-	}
-	double getStimOffsetIn() {
-		string key = getKeyPrefix() + "_STIM_OFFSET_IN";
-		return readParameter(key, stimOffsetInDVal);
-	}
-	void setStimOffsetInDefVal(double defVal) {
-		stimOffsetInDVal = defVal;
-	}
-	double getStimOffsetOut() {
-		string key = getKeyPrefix() + "_STIM_OFFSET_OUT";
-		return readParameter(key, stimOffsetOutDVal);
-	}
+    double getStimCox() {
+        string key = getKeyPrefix() + "_STIM_COX";
+        return readParameter(key, stimCoxDVal);
+    }
+    void setStimCoxDefVal(double defVal) {
+        stimCoxDVal = defVal;
+    }
+    double getStimOffsetIn() {
+        string key = getKeyPrefix() + "_STIM_OFFSET_IN";
+        return readParameter(key, stimOffsetInDVal);
+    }
+    void setStimOffsetInDefVal(double defVal) {
+        stimOffsetInDVal = defVal;
+    }
+    double getStimOffsetOut() {
+        string key = getKeyPrefix() + "_STIM_OFFSET_OUT";
+        return readParameter(key, stimOffsetOutDVal);
+    }
 
-	void setStimOffsetOutDefVal(double defVal) {
-		stimOffsetOutDVal = defVal;
-	}
+    void setStimOffsetOutDefVal(double defVal) {
+        stimOffsetOutDVal = defVal;
+    }
 
-	double getStimOffsetDispersionIn() {
-		string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_IN";
-		return readParameter(key, stimOffsetDispersionInDVal);
-	}
-	void setStimOffsetDispersionInDefVal(double defVal) {
-		stimOffsetDispersionInDVal = defVal;
-	}
-	double getStimOffsetDispersionOut() {
-		string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_OUT";
-		return readParameter(key, stimOffsetDispersionOutDVal);
-	}
-	void setStimOffsetDispersionOutDefVal(double defVal) {
-		stimOffsetDispersionOutDVal = defVal;
-	}
-	double getStimDivisorIn() {
-		string key = getKeyPrefix() + "_STIM_DIVISOR_IN";
-		return readParameter(key, stimDivInDVal);
-	}
+    double getStimOffsetDispersionIn() {
+        string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_IN";
+        return readParameter(key, stimOffsetDispersionInDVal);
+    }
+    void setStimOffsetDispersionInDefVal(double defVal) {
+        stimOffsetDispersionInDVal = defVal;
+    }
+    double getStimOffsetDispersionOut() {
+        string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_OUT";
+        return readParameter(key, stimOffsetDispersionOutDVal);
+    }
+    void setStimOffsetDispersionOutDefVal(double defVal) {
+        stimOffsetDispersionOutDVal = defVal;
+    }
+    double getStimDivisorIn() {
+        string key = getKeyPrefix() + "_STIM_DIVISOR_IN";
+        return readParameter(key, stimDivInDVal);
+    }
 
-	void setStimDivisorInDefVal(double defVal) {
-		stimDivInDVal = defVal;
-	}
+    void setStimDivisorInDefVal(double defVal) {
+        stimDivInDVal = defVal;
+    }
 
-	double getStimDivisorOut() {
-		string key = getKeyPrefix() + "_STIM_DIVISOR_OUT";
-		return readParameter(key, stimDivOutDVal);
-	}
+    double getStimDivisorOut() {
+        string key = getKeyPrefix() + "_STIM_DIVISOR_OUT";
+        return readParameter(key, stimDivOutDVal);
+    }
 
-	void setStimDivisorOutDefVal(double defVal) {
-		stimDivOutDVal = defVal;
-	}
+    void setStimDivisorOutDefVal(double defVal) {
+        stimDivOutDVal = defVal;
+    }
 
-	double getStimDivisorDispersionIn() {
-		string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_IN";
-		return readParameter(key, stimDivDispersionInDVal);
-	}
+    double getStimDivisorDispersionIn() {
+        string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_IN";
+        return readParameter(key, stimDivDispersionInDVal);
+    }
 
-	void setStimDivisorDispersionInDefVal(double defVal) {
-		stimDivDispersionInDVal = defVal;
-	}
-	double getStimDivisorDispersionOut() {
-		string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_OUT";
-		return readParameter(key, stimDivDispersionOutDVal);
-	}
+    void setStimDivisorDispersionInDefVal(double defVal) {
+        stimDivDispersionInDVal = defVal;
+    }
+    double getStimDivisorDispersionOut() {
+        string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_OUT";
+        return readParameter(key, stimDivDispersionOutDVal);
+    }
 
-	void setStimDivisorDispersionOutDefVal(double defVal) {
-		stimDivDispersionOutDVal = defVal;
-	}
-	double getStimCoxExpIn() {
-		string key = getKeyPrefix() + "_STIM_COX_EXP_IN";
-		return readParameter(key, stimCoxExpInDVal);
-	}
-	void setStimCoxExpInDefVal(double defVal) {
-		stimCoxExpInDVal = defVal;
-	}
-	double getStimCoxExpOut() {
-		string key = getKeyPrefix() + "_STIM_COX_EXP_OUT";
-		return readParameter(key, stimCoxExpOutDVal);
-	}
-	void setStimCoxExpOutDefVal(double defVal) {
-		stimCoxExpOutDVal = defVal;
-	}
+    void setStimDivisorDispersionOutDefVal(double defVal) {
+        stimDivDispersionOutDVal = defVal;
+    }
+    double getStimCoxExpIn() {
+        string key = getKeyPrefix() + "_STIM_COX_EXP_IN";
+        return readParameter(key, stimCoxExpInDVal);
+    }
+    void setStimCoxExpInDefVal(double defVal) {
+        stimCoxExpInDVal = defVal;
+    }
+    double getStimCoxExpOut() {
+        string key = getKeyPrefix() + "_STIM_COX_EXP_OUT";
+        return readParameter(key, stimCoxExpOutDVal);
+    }
+    void setStimCoxExpOutDefVal(double defVal) {
+        stimCoxExpOutDVal = defVal;
+    }
 
-	double getStimCoxExpDispersionIn() {
-		string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_IN";
-		return readParameter(key, stimCoxExpDispersionInDVal);
-	}
-	void setStimCoxExpDispersionInDefVal(double defVal) {
-		stimCoxExpDispersionInDVal = defVal;
-	}
-	double getStimCoxExpDispersionOut() {
-		string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_OUT";
-		return readParameter(key, stimCoxExpDispersionOutDVal);
-	}
-	void setStimCoxExpDispersionOutDefVal(double defVal) {
-		stimCoxExpDispersionOutDVal = defVal;
-	}
-	string getMessage();
-	/**
-	 *	@brief Computes stimulus function
-	 *  stimulus = cox * exp(-pow(pheroIn - offsetIn, 2)/divisor -pow(pheroOut - offsetOut, 2)/divisor);
-	 */
-	virtual double computeDesirability(double vehInMeasure,
-			double vehOutMeasure);
+    double getStimCoxExpDispersionIn() {
+        string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_IN";
+        return readParameter(key, stimCoxExpDispersionInDVal);
+    }
+    void setStimCoxExpDispersionInDefVal(double defVal) {
+        stimCoxExpDispersionInDVal = defVal;
+    }
+    double getStimCoxExpDispersionOut() {
+        string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_OUT";
+        return readParameter(key, stimCoxExpDispersionOutDVal);
+    }
+    void setStimCoxExpDispersionOutDefVal(double defVal) {
+        stimCoxExpDispersionOutDVal = defVal;
+    }
+    string getMessage();
+    /**
+     *	@brief Computes stimulus function
+     *  stimulus = cox * exp(-pow(pheroIn - offsetIn, 2)/divisor -pow(pheroOut - offsetOut, 2)/divisor);
+     */
+    virtual double computeDesirability(double vehInMeasure,
+                                       double vehOutMeasure);
 
-	virtual double computeDesirability(double vehInMeasure, double vehOutMeasure,double vehInDispersionMeasure,	double vehOutDispersionMeasure);
+    virtual double computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure,	double vehOutDispersionMeasure);
 };
 
 #endif /* MSSOTLPOLICYSTIMULUS_H_ */

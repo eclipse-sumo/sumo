@@ -2,7 +2,7 @@
 /// @file    MSPhaseDefinition.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Jan 2004
-/// @version $Id: MSPhaseDefinition.cpp 0 2009-09-19 10:04:00Z gslager $
+/// @version $Id$
 ///
 // The definition of a single phase of a tls logic
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    MSRailCrossing.cpp
 /// @author  Jakob Erdmann
 /// @date    Dez 2015
-/// @version $Id: MSRailCrossing.cpp 19412 2015-11-24 13:04:53Z namdre $
+/// @version $Id$
 ///
 // A rail signal logic
 /****************************************************************************/
@@ -50,15 +50,14 @@
 // method definitions
 // ===========================================================================
 MSRailCrossing::MSRailCrossing(MSTLLogicControl& tlcontrol,
-                           const std::string& id, const std::string& subid,
-                           const std::map<std::string, std::string>& parameters) :
+                               const std::string& id, const std::string& subid,
+                               const std::map<std::string, std::string>& parameters) :
     MSSimpleTrafficLightLogic(tlcontrol, id, subid, Phases(), 0, DELTA_T, parameters),
     // XXX make this configurable
     myMinGreenTime(TIME2STEPS(5)),
     mySecurityGap(TIME2STEPS(15)),
     /// XXX compute reasonable time depending on link length
-    myYellowTime(TIME2STEPS(5))
-{ 
+    myYellowTime(TIME2STEPS(5)) {
     // dummy phase, used to avoid crashing in MSTrafficLightLogic::setTrafficLightSignals()
     myPhases.push_back(new MSPhaseDefinition(1, 1, 1, std::string(myLinks.size(), 'X')));
 }
@@ -71,7 +70,7 @@ MSRailCrossing::init(NLDetectorBuilder&) {
     myPhases.push_back(new MSPhaseDefinition(myYellowTime, myYellowTime, myYellowTime, std::string(myLinks.size(), 'y')));
     myPhases.push_back(new MSPhaseDefinition(1, 1, 1, std::string(myLinks.size(), 'r')));
     // init phases
-    updateCurrentPhase(); 
+    updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
 }
 
@@ -100,11 +99,11 @@ MSRailCrossing::trySwitch() {
 SUMOTime
 MSRailCrossing::updateCurrentPhase() {
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    SUMOTime stayRedUntil = now; 
+    SUMOTime stayRedUntil = now;
     // check rail links for approaching foes to determine whether and how long
     // the crossing must remain closed
     for (std::vector<MSLink*>::const_iterator it_link = myIncomingRailLinks.begin(); it_link != myIncomingRailLinks.end(); ++it_link) {
-        for (std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation>::const_iterator 
+        for (std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation>::const_iterator
                 it_avi = (*it_link)->getApproaching().begin();
                 it_avi != (*it_link)->getApproaching().end(); ++it_avi) {
             const MSLink::ApproachingVehicleInformation& avi = it_avi->second;
@@ -134,7 +133,7 @@ MSRailCrossing::updateCurrentPhase() {
         // 'y': yellow time is over. switch to red
         myStep++;
         return MAX2(DELTA_T, wait);
-    } else { 
+    } else {
         // 'r': check whether we may open again
         if (wait == 0) {
             myStep = 0;

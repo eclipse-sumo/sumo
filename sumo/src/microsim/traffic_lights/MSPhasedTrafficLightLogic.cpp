@@ -2,7 +2,7 @@
 /// @file    MSPhasedTrafficLightLogic.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: MSPhasedTrafficLightLogic.cpp 7711 2010-02-13 17:00:00Z gslager $
+/// @version $Id$
 ///
 // The base class for traffic light logic with phases
 /****************************************************************************/
@@ -45,14 +45,14 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSPhasedTrafficLightLogic::MSPhasedTrafficLightLogic(MSTLLogicControl &tlcontrol,
-        const std::string &id, const std::string &subid, const Phases &phases,
+MSPhasedTrafficLightLogic::MSPhasedTrafficLightLogic(MSTLLogicControl& tlcontrol,
+        const std::string& id, const std::string& subid, const Phases& phases,
         unsigned int step, SUMOTime delay,
-		const std::map<std::string, std::string>& parameters
-		) 
-        : MSTrafficLightLogic(tlcontrol, id, subid, delay, parameters), myPhases(phases),
-        myStep(step) {
-    for (size_t i=0; i<myPhases.size(); i++) {
+        const std::map<std::string, std::string>& parameters
+                                                    )
+    : MSTrafficLightLogic(tlcontrol, id, subid, delay, parameters), myPhases(phases),
+      myStep(step) {
+    for (size_t i = 0; i < myPhases.size(); i++) {
         myDefaultCycleTime += myPhases[i]->duration;
     }
 }
@@ -106,11 +106,11 @@ void MSPhasedTrafficLightLogic::proceedToNextStep() {
 }
 
 void MSPhasedTrafficLightLogic::setStep(unsigned int step) {
-	step = step % myPhases.size();
-	if(myStep != step ) {
-		myStep = step;
-    	myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
-	}
+    step = step % myPhases.size();
+    if (myStep != step) {
+        myStep = step;
+        myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
+    }
 }
 
 // ------------ Static Information Retrieval
@@ -120,14 +120,14 @@ MSPhasedTrafficLightLogic::getPhaseNumber() const {
 }
 
 
-const MSPhasedTrafficLightLogic::Phases &
+const MSPhasedTrafficLightLogic::Phases&
 MSPhasedTrafficLightLogic::getPhases() const {
     return myPhases;
 }
 
-const MSPhaseDefinition &
+const MSPhaseDefinition&
 MSPhasedTrafficLightLogic::getPhase(unsigned int givenStep) const {
-    assert(myPhases.size()>givenStep);
+    assert(myPhases.size() > givenStep);
     return *myPhases[givenStep];
 }
 
@@ -139,7 +139,7 @@ MSPhasedTrafficLightLogic::getCurrentPhaseIndex() const {
 }
 
 
-const MSPhaseDefinition &
+const MSPhaseDefinition&
 MSPhasedTrafficLightLogic::getCurrentPhaseDef() const {
     return *myPhases[myStep];
 }
@@ -150,7 +150,7 @@ SUMOTime
 MSPhasedTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const {
     unsigned int position = 0;
     if (myStep > 0)	{
-        for (unsigned int i=0; i < myStep; i++) {
+        for (unsigned int i = 0; i < myStep; i++) {
             position = position + getPhase(i).duration;
         }
     }
@@ -168,7 +168,7 @@ MSPhasedTrafficLightLogic::getOffsetFromIndex(unsigned int index) const {
         return 0;
     }
     unsigned int pos = 0;
-    for (unsigned int i=0; i < index; i++)	{
+    for (unsigned int i = 0; i < index; i++)	{
         pos += getPhase(i).duration;
     }
     return pos;
@@ -176,21 +176,21 @@ MSPhasedTrafficLightLogic::getOffsetFromIndex(unsigned int index) const {
 
 
 unsigned int
-	MSPhasedTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
+MSPhasedTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
     assert(offset <= myDefaultCycleTime);
     if (offset == myDefaultCycleTime) {
         return 0;
     }
     unsigned int pos = offset;
     unsigned int testPos = 0;
-    for (unsigned int i=0; i < myPhases.size(); i++)	{
+    for (unsigned int i = 0; i < myPhases.size(); i++)	{
         testPos = testPos + getPhase(i).duration;
         if (testPos > pos) {
             return i;
         }
         if (testPos == pos) {
-            assert(myPhases.size() > (i+1));
-            return (i+1);
+            assert(myPhases.size() > (i + 1));
+            return (i + 1);
         }
     }
     return 0;
@@ -199,14 +199,14 @@ unsigned int
 
 // ------------ Changing phases and phase durations
 void
-MSPhasedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl &tlcontrol,
+MSPhasedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
         SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
     mySwitchCommand->deschedule(this);
-	//delete mySwitchCommand;Consider this operation!!!
-    mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration+simStep);
+    //delete mySwitchCommand;Consider this operation!!!
+    mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
     myStep = step;
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-        mySwitchCommand, stepDuration+simStep,
+        mySwitchCommand, stepDuration + simStep,
         MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 

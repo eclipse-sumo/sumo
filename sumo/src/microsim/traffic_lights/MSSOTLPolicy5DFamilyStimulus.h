@@ -3,7 +3,7 @@
 /// @author  Riccardo Belletti
 /// @author  Simone Bacchilega
 /// @date    Aug 2014
-/// @version $Id: MSSOTLPolicyDesirability.h 0  $
+/// @version $Id$
 ///
 // The class the low-level policy stimulus
 /****************************************************************************/
@@ -51,35 +51,35 @@ class MSSOTLPolicy5DFamilyStimulus: public MSSOTLPolicyDesirability {
 
 private:
 
-	/*double stimCoxDVal,
-	stimOffsetInDVal, stimOffsetOutDVal, stimOffsetDispersionInDVal, stimOffsetDispersionOutDVal,
-	stimDivInDVal, stimDivOutDVal, stimDivDispersionInDVal, stimDivDispersionOutDVal,
-	stimCoxExpInDVal, stimCoxExpOutDVal, stimCoxExpDispersionInDVal, stimCoxExpDispersionOutDVal;*/
+    /*double stimCoxDVal,
+    stimOffsetInDVal, stimOffsetOutDVal, stimOffsetDispersionInDVal, stimOffsetDispersionOutDVal,
+    stimDivInDVal, stimDivOutDVal, stimDivDispersionInDVal, stimDivDispersionOutDVal,
+    stimCoxExpInDVal, stimCoxExpOutDVal, stimCoxExpDispersionInDVal, stimCoxExpDispersionOutDVal;*/
 
-	map<string,string> default_values;
-	vector<string> params_names;
-	vector<MSSOTLPolicy5DStimulus*> family;
+    map<string, string> default_values;
+    vector<string> params_names;
+    vector<MSSOTLPolicy5DStimulus*> family;
 
-	//std::vector<std::string> inline StringSplit(const std::string &source, const char *delimiter = " ", bool keepEmpty = false);
+    //std::vector<std::string> inline StringSplit(const std::string &source, const char *delimiter = " ", bool keepEmpty = false);
 
 public:
 
-	MSSOTLPolicy5DFamilyStimulus(string keyPrefix,const std::map<std::string, std::string>& parameters);
+    MSSOTLPolicy5DFamilyStimulus(string keyPrefix, const std::map<std::string, std::string>& parameters);
 
-	string getMessage();
+    string getMessage();
 
-	vector<MSSOTLPolicy5DStimulus*> getFamilies(){
-		return family;
-	}
+    vector<MSSOTLPolicy5DStimulus*> getFamilies() {
+        return family;
+    }
 
-	/*
-	 *	@brief Computes stimulus function
-	 *  stimulus = cox * exp(-pow(pheroIn - offsetIn, 2)/divisor -pow(pheroOut - offsetOut, 2)/divisor);
-	 */
-	virtual double computeDesirability(double vehInMeasure,
-			double vehOutMeasure);
+    /*
+     *	@brief Computes stimulus function
+     *  stimulus = cox * exp(-pow(pheroIn - offsetIn, 2)/divisor -pow(pheroOut - offsetOut, 2)/divisor);
+     */
+    virtual double computeDesirability(double vehInMeasure,
+                                       double vehOutMeasure);
 
-	virtual double computeDesirability(double vehInMeasure, double vehOutMeasure,double vehInDispersionMeasure,	double vehOutDispersionMeasure);
+    virtual double computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure,	double vehOutDispersionMeasure);
 };
 
 #endif /* MSSOTLPOLICY5DFAMILYSTIMULUS_H_ */

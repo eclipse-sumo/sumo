@@ -2,7 +2,7 @@
 /// @file    MSRailCrossing.h
 /// @author  Jakob Erdmann
 /// @date    Dez 2015
-/// @version $Id: MSRailCrossing.h 18096 2015-03-17 09:50:59Z behrisch $
+/// @version $Id$
 ///
 // A rail signal logic
 /****************************************************************************/
@@ -52,8 +52,8 @@ public:
      * @param[in] parameters This tls' parameters
      */
     MSRailCrossing(MSTLLogicControl& tlcontrol,
-                 const std::string& id, const std::string& subid,
-                 const std::map<std::string, std::string>& parameters);
+                   const std::string& id, const std::string& subid,
+                   const std::map<std::string, std::string>& parameters);
 
 
     /** @brief Initialises the rail signal with information about adjacent rail signals

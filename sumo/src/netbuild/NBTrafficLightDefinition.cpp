@@ -206,7 +206,7 @@ NBTrafficLightDefinition::collectEdges() {
             WRITE_WARNING("Unreachable edge '" + edge->getID() + "' within tlLogic '" + getID() + "'");
         }
     }
-    
+
 }
 
 

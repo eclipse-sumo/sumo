@@ -3,7 +3,7 @@
 /// @author  Gianfilippo Slager
 /// @author  Federico Caselli
 /// @date    Feb 2010
-/// @version $Id: MSSOTLPlatoonPolicy.h 0 2010-02-18 12:40:00Z gslager $
+/// @version $Id$
 ///
 // The class for SOTL Platoon logics
 /****************************************************************************/
@@ -39,20 +39,20 @@
  * @brief Class for low-level platoon policy.
  *
  */
-class MSSOTLPlatoonPolicy: public MSSOTLPolicy, public SigmoidLogic, public PushButtonLogic{
+class MSSOTLPlatoonPolicy: public MSSOTLPolicy, public SigmoidLogic, public PushButtonLogic {
 
 public:
-	MSSOTLPlatoonPolicy(const std::map<std::string, std::string>& parameters);
-	MSSOTLPlatoonPolicy(MSSOTLPolicyDesirability *desirabilityAlgorithm);
+    MSSOTLPlatoonPolicy(const std::map<std::string, std::string>& parameters);
+    MSSOTLPlatoonPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm);
 
-	MSSOTLPlatoonPolicy(MSSOTLPolicyDesirability *desirabilityAlgorithm,
-			const std::map<std::string, std::string>& parameters);
+    MSSOTLPlatoonPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm,
+                        const std::map<std::string, std::string>& parameters);
 
-	bool canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
-			const MSPhaseDefinition* stage, int vehicleCount);
+    bool canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
+                    const MSPhaseDefinition* stage, int vehicleCount);
 
 protected:
-	void init();
+    void init();
 };
 
 #endif

@@ -412,7 +412,7 @@ public:
     const std::string& getNextEdge() const;
 
     /// @brief returns the next edge ptr if this person is walking and the pedestrian model allows it
-    const MSEdge * getNextEdgePtr() const;
+    const MSEdge* getNextEdgePtr() const;
 
 private:
     /// @brief Invalidated copy constructor.

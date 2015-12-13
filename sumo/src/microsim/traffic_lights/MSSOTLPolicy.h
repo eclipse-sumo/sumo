@@ -5,7 +5,7 @@
 /// @author  Anna Chiara Bellini
 /// @author  Federico Caselli
 /// @date    Jun 2013
-/// @version $Id: MSSOTLPolicy.h 0  $
+/// @version $Id$
 ///
 // The class for low-level policy
 /****************************************************************************/
@@ -44,10 +44,9 @@
 
 using namespace std;
 
-class PushButtonLogic
-{
-  protected:
-    void init(std::string prefix, const Parameterised * parameterised);
+class PushButtonLogic {
+protected:
+    void init(std::string prefix, const Parameterised* parameterised);
 
     bool pushButtonLogic(int elapsed, bool pushButtonPressed, const MSPhaseDefinition* stage);
 
@@ -55,10 +54,9 @@ class PushButtonLogic
     std::string m_prefix;
 };
 
-class SigmoidLogic
-{
-  protected:
-    void init(std::string prefix, const Parameterised * parameterised);
+class SigmoidLogic {
+protected:
+    void init(std::string prefix, const Parameterised* parameterised);
 
     bool sigmoidLogic(int elapsed, const MSPhaseDefinition* stage, int vehicleCount);
 
@@ -70,80 +68,80 @@ class SigmoidLogic
 /**
  * @class MSSOTLPolicy
  * @brief Class for a low-level policy.
- * 
+ *
  */
 class MSSOTLPolicy: public Parameterised {
 private:
 
-	/**
-	 * \brief The sensitivity of this policy
-	 */
-	double theta_sensitivity;
-	/**
-	 * \brief The name of the policy
-	 */
-	string myName;
-	/**
-	 * \brief A pointer to the policy desirability object.\nIt's an optional component related to the computeDesirability() method and it's necessary
-	 * only when the policy is used in combination with an high level policy.
-	 */
-	MSSOTLPolicyDesirability *myDesirabilityAlgorithm;
+    /**
+     * \brief The sensitivity of this policy
+     */
+    double theta_sensitivity;
+    /**
+     * \brief The name of the policy
+     */
+    string myName;
+    /**
+     * \brief A pointer to the policy desirability object.\nIt's an optional component related to the computeDesirability() method and it's necessary
+     * only when the policy is used in combination with an high level policy.
+     */
+    MSSOTLPolicyDesirability* myDesirabilityAlgorithm;
 
 protected:
-	double s2f(string str) {
-		istringstream buffer(str);
-		double temp;
-		buffer >> temp;
-		return temp;
-	}
+    double s2f(string str) {
+        istringstream buffer(str);
+        double temp;
+        buffer >> temp;
+        return temp;
+    }
 
-	virtual void init() {}
+    virtual void init() {}
 
 public:
-	/** @brief Simple constructor
-	 * @param[in] name The name of the policy
-	 * @param[in] parameters Parameters defined for the policy
-	 */
-	MSSOTLPolicy(string name,
-			const std::map<std::string, std::string>& parameters);
-	/** @brief Constructor when the policy is a low-level policy used by an high level policy
-	 * @param[in] name The name of the policy
-	 * @param[in] desirabilityAlgorithm The desirability algorithm to be used for this policy
-	 */
-	MSSOTLPolicy(string name, MSSOTLPolicyDesirability *desirabilityAlgorithm);
-	/** @brief Constructor when the policy is a low-level policy used by an high level policy
-	 * @param[in] name The name of the policy
-	 * @param[in] desirabilityAlgorithm The desirability algorithm to be used for this policy
-	 * @param[in] parameters Parameters defined for the policy
-	 */
-	MSSOTLPolicy(string name, MSSOTLPolicyDesirability *desirabilityAlgorithm,
-			const std::map<std::string, std::string>& parameters);
-	virtual ~MSSOTLPolicy();
+    /** @brief Simple constructor
+     * @param[in] name The name of the policy
+     * @param[in] parameters Parameters defined for the policy
+     */
+    MSSOTLPolicy(string name,
+                 const std::map<std::string, std::string>& parameters);
+    /** @brief Constructor when the policy is a low-level policy used by an high level policy
+     * @param[in] name The name of the policy
+     * @param[in] desirabilityAlgorithm The desirability algorithm to be used for this policy
+     */
+    MSSOTLPolicy(string name, MSSOTLPolicyDesirability* desirabilityAlgorithm);
+    /** @brief Constructor when the policy is a low-level policy used by an high level policy
+     * @param[in] name The name of the policy
+     * @param[in] desirabilityAlgorithm The desirability algorithm to be used for this policy
+     * @param[in] parameters Parameters defined for the policy
+     */
+    MSSOTLPolicy(string name, MSSOTLPolicyDesirability* desirabilityAlgorithm,
+                 const std::map<std::string, std::string>& parameters);
+    virtual ~MSSOTLPolicy();
 
-	virtual bool canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
-			const MSPhaseDefinition* stage, int vehicleCount) = 0;
-	virtual size_t decideNextPhase(int elapsed, const MSPhaseDefinition* stage,
-			size_t currentPhaseIndex, size_t phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
-			int vehicleCount);
+    virtual bool canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
+                            const MSPhaseDefinition* stage, int vehicleCount) = 0;
+    virtual size_t decideNextPhase(int elapsed, const MSPhaseDefinition* stage,
+                                   size_t currentPhaseIndex, size_t phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
+                                   int vehicleCount);
 
-	virtual double getThetaSensitivity() {
-		return theta_sensitivity;
-	}
-	virtual void setThetaSensitivity(double val) {
-		theta_sensitivity = val;
-	}
-	string getName() {
-		return myName;
-	}
-	MSSOTLPolicyDesirability* getDesirabilityAlgorithm() {
-		return myDesirabilityAlgorithm;
-	}
-	/**
-	 * \brief Computes the desirability of this policy, necessary when used in combination with an high level policy.
-	 */
-	double computeDesirability(double vehInMeasure, double vehOutMeasure,double vehInDispersionMeasure,	double vehOutDispersionMeasure);
+    virtual double getThetaSensitivity() {
+        return theta_sensitivity;
+    }
+    virtual void setThetaSensitivity(double val) {
+        theta_sensitivity = val;
+    }
+    string getName() {
+        return myName;
+    }
+    MSSOTLPolicyDesirability* getDesirabilityAlgorithm() {
+        return myDesirabilityAlgorithm;
+    }
+    /**
+     * \brief Computes the desirability of this policy, necessary when used in combination with an high level policy.
+     */
+    double computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure,	double vehOutDispersionMeasure);
 
-	double computeDesirability(double vehInMeasure, double vehOutMeasure);
+    double computeDesirability(double vehInMeasure, double vehOutMeasure);
 };
 
 #endif

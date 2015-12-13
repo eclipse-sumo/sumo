@@ -122,8 +122,8 @@ public:
 
     /// @brief add an additional pedestrian phase if there are crossings that did not get green yet
     static void addPedestrianScramble(NBTrafficLightLogic* logic, unsigned int noLinksAll,
-            SUMOTime greenTime, SUMOTime yellowTime,
-            const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
+                                      SUMOTime greenTime, SUMOTime yellowTime,
+                                      const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /// @brief add 1 or 2 phases depending on the presence of pedestrian crossings
     static std::string addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime,

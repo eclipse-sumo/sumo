@@ -2,7 +2,7 @@
 /// @file    MSSOTLPolicyStimulus.h
 /// @author  Riccardo Belletti
 /// @date    Mar 2014
-/// @version $Id: MSSOTLPolicyDesirability.h 0  $
+/// @version $Id$
 ///
 // The class the low-level policy stimulus
 /****************************************************************************/
@@ -48,7 +48,7 @@ class MSSOTLPolicy3DStimulus: public MSSOTLPolicy5DStimulus {
 
 public:
 
-	MSSOTLPolicy3DStimulus(string keyPrefix, const std::map<std::string, std::string>& parameters);
+    MSSOTLPolicy3DStimulus(string keyPrefix, const std::map<std::string, std::string>& parameters);
 
 };
 

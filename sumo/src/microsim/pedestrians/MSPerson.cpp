@@ -534,14 +534,14 @@ MSPerson::getNextEdge() const {
 //        }
 //    }
 //    return StringUtils::emptyString;
-	const MSEdge* nextEdge = getNextEdgePtr();
-	if (nextEdge != 0) {
-			return nextEdge->getID();
-	}
-	return StringUtils::emptyString;
+    const MSEdge* nextEdge = getNextEdgePtr();
+    if (nextEdge != 0) {
+        return nextEdge->getID();
+    }
+    return StringUtils::emptyString;
 }
 
-const MSEdge *
+const MSEdge*
 MSPerson::getNextEdgePtr() const {
     if (getCurrentStageType() == MOVING_WITHOUT_VEHICLE) {
         MSPersonStage_Walking* walkingStage =  dynamic_cast<MSPersonStage_Walking*>(*myStep);

@@ -560,8 +560,8 @@ StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesVa
     { "sotl_phase", TLTYPE_SOTL_PHASE },
     { "sotl_platoon", TLTYPE_SOTL_PLATOON },
     { "sotl_request", TLTYPE_SOTL_REQUEST },
-	{ "sotl_wave", TLTYPE_SOTL_WAVE },
-	{ "sotl_marching", TLTYPE_SOTL_MARCHING },
+    { "sotl_wave", TLTYPE_SOTL_WAVE },
+    { "sotl_marching", TLTYPE_SOTL_MARCHING },
     { "swarm", TLTYPE_SWARM_BASED },
     { "deterministic", TLTYPE_HILVL_DETERMINISTIC },
     { "<invalid>", TLTYPE_INVALID } //< must be the last one

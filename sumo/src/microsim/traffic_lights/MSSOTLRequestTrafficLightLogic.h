@@ -3,7 +3,7 @@
 /// @author  Gianfilippo Slager
 /// @author  Anna Chiara Bellini
 /// @date    Apr 2013
-/// @version $Id: MSSOTLRequestTrafficLightLogic.h 2 2013-04-05 15:00:00Z gslager $
+/// @version $Id$
 ///
 // The class for SOTL Request logics
 /****************************************************************************/
@@ -35,7 +35,7 @@ using namespace std;
 
 class MSSOTLRequestTrafficLightLogic: public MSSOTLTrafficLightLogic {
 public:
-    /** 
+    /**
      * @brief Constructor without sensors passed
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
@@ -44,12 +44,12 @@ public:
      * @param[in] step The initial phase index
      * @param[in] delay The time to wait before the first switch
      */
-    MSSOTLRequestTrafficLightLogic(MSTLLogicControl &tlcontrol,
-            const string &id, const string &subid, const Phases &phases,
-            unsigned int step, SUMOTime delay,
-            const std::map<std::string, std::string>& parameters) throw ();
+    MSSOTLRequestTrafficLightLogic(MSTLLogicControl& tlcontrol,
+                                   const string& id, const string& subid, const Phases& phases,
+                                   unsigned int step, SUMOTime delay,
+                                   const std::map<std::string, std::string>& parameters) throw();
 
-    /** 
+    /**
      * @brief Constructor with sensors passed
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
@@ -58,11 +58,11 @@ public:
      * @param[in] step The initial phase index
      * @param[in] delay The time to wait before the first switch
      */
-    MSSOTLRequestTrafficLightLogic(MSTLLogicControl &tlcontrol,
-            const string &id, const string &subid, const Phases &phases,
-            unsigned int step, SUMOTime delay,
-            const std::map<std::string, std::string>& parameters,
-            MSSOTLSensors *sensors) throw ();
+    MSSOTLRequestTrafficLightLogic(MSTLLogicControl& tlcontrol,
+                                   const string& id, const string& subid, const Phases& phases,
+                                   unsigned int step, SUMOTime delay,
+                                   const std::map<std::string, std::string>& parameters,
+                                   MSSOTLSensors* sensors) throw();
 
     int getMinDecisionalPhaseDuration() {
         return TplConvert::_2int(getParameter("MIN_DECISIONAL_PHASE_DUR", "5000").c_str());
@@ -72,7 +72,7 @@ protected:
     /*
      * @brief Contains the logic to decide the phase change
      */
-    bool canRelease() throw ();
+    bool canRelease() throw();
 };
 
 #endif

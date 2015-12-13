@@ -3,7 +3,7 @@
 @file    __init__.py
 @author  Daniel Krajzewicz
 @date    2014-07-01
-@version $Id: __init__.py 16583 2014-06-12 07:27:26Z dkrajzew $
+@version $Id$
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
