@@ -398,6 +398,16 @@ if test -d src/osgview; then
                     [ac_disabled="$ac_disabled OSG"])
 fi
 
+save_cppflags=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS -I/usr/include/ffmpeg"
+export CPPFLAGS
+AC_CHECK_HEADER([libavformat/avformat.h], 
+                [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
+                 AC_DEFINE([HAVE_FFMPEG], [1], [defined if ffmpeg is available])
+                 FFMPEG_LIBS="-lavformat -lavcodec -lavutil -lswscale" AC_SUBST(FFMPEG_LIBS)
+                 ac_enabled="$ac_enabled ffmpeg"],
+                [ac_disabled="$ac_disabled ffmpeg"])
+
 AM_CPPFLAGS="-I$PWD/$srcdir/src $AM_CPPFLAGS"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)

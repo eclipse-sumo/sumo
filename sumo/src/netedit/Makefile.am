@@ -79,6 +79,6 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../utils/iodevices/libiodevices.a \
 ../foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
-$(XERCES_LIBS) \
+$(XERCES_LIBS) $(FFMPEG_LIBS) \
 $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(PROJ_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 endif
