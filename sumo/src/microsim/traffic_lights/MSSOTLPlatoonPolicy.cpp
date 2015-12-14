@@ -39,7 +39,7 @@ MSSOTLPlatoonPolicy::MSSOTLPlatoonPolicy(MSSOTLPolicyDesirability* desirabilityA
     init();
 }
 
-bool MSSOTLPlatoonPolicy::canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
+bool MSSOTLPlatoonPolicy::canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,
                                      const MSPhaseDefinition* stage, int vehicleCount) {
 //  DBG(std::ostringstream str; str << "invoked MSTLPlatoonPolicy::canRelease()"; WRITE_MESSAGE(str.str()););
     DBG(

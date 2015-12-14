@@ -48,7 +48,7 @@ class PushButtonLogic {
 protected:
     void init(std::string prefix, const Parameterised* parameterised);
 
-    bool pushButtonLogic(int elapsed, bool pushButtonPressed, const MSPhaseDefinition* stage);
+    bool pushButtonLogic(SUMOTime elapsed, bool pushButtonPressed, const MSPhaseDefinition* stage);
 
     double m_pushButtonScaleFactor;
     std::string m_prefix;
@@ -118,9 +118,9 @@ public:
                  const std::map<std::string, std::string>& parameters);
     virtual ~MSSOTLPolicy();
 
-    virtual bool canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
+    virtual bool canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,
                             const MSPhaseDefinition* stage, int vehicleCount) = 0;
-    virtual size_t decideNextPhase(int elapsed, const MSPhaseDefinition* stage,
+    virtual size_t decideNextPhase(SUMOTime elapsed, const MSPhaseDefinition* stage,
                                    size_t currentPhaseIndex, size_t phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
                                    int vehicleCount);
 

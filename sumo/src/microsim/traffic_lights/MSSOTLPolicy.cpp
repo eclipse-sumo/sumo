@@ -37,7 +37,7 @@ void PushButtonLogic::init(std::string prefix, const Parameterised* parameterise
     WRITE_MESSAGE(m_prefix + "::PushButtonLogic::init use " + parameterised->getParameter("USE_PUSH_BUTTON", "0") + " scale " + parameterised->getParameter("PUSH_BUTTON_SCALE_FACTOR", "1"));
 }
 
-bool PushButtonLogic::pushButtonLogic(int elapsed, bool pushButtonPressed, const MSPhaseDefinition* stage) {
+bool PushButtonLogic::pushButtonLogic(SUMOTime elapsed, bool pushButtonPressed, const MSPhaseDefinition* stage) {
     //pushbutton logic
     if (pushButtonPressed && elapsed >= (stage->duration * m_pushButtonScaleFactor)) {
         //If the stage duration has been passed
@@ -112,7 +112,6 @@ MSSOTLPolicy::MSSOTLPolicy(string name,
 }
 
 MSSOTLPolicy::~MSSOTLPolicy(void) {
-    int r = 0;
 }
 
 double MSSOTLPolicy::computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure,	double vehOutDispersionMeasure) {
@@ -133,7 +132,7 @@ double MSSOTLPolicy::computeDesirability(double vehInMeasure, double vehOutMeasu
 
 }
 
-size_t MSSOTLPolicy::decideNextPhase(int elapsed,
+size_t MSSOTLPolicy::decideNextPhase(SUMOTime elapsed,
                                      const MSPhaseDefinition* stage, size_t currentPhaseIndex,
                                      size_t phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed, int vehicleCount) {
 
@@ -165,7 +164,7 @@ size_t MSSOTLPolicy::decideNextPhase(int elapsed,
 }
 
 /*
- bool MSSOTLPolicy::canRelease(int elapsed, bool thresholdPassed, const MSPhaseDefinition* stage, int vehicleCount) {
+ bool MSSOTLPolicy::canRelease(SUMOTime elapsed, bool thresholdPassed, const MSPhaseDefinition* stage, int vehicleCount) {
  if (getName().compare("request") == 0) {
  return elapsed > 3000 && thresholdPassed;
  } else if (getName().compare("phase") == 0) {

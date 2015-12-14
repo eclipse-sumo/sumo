@@ -657,8 +657,9 @@ const MSLane*
 MSLink::getInternalLaneBefore() const {
 #ifdef HAVE_INTERNAL_LANES
     return myInternalLaneBefore;
-#endif
+#else
     return 0;
+#endif
 }
 
 

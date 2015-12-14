@@ -26,25 +26,5 @@ MSSOTLSensors::MSSOTLSensors(std::string tlLogicID, const MSTrafficLightLogic::P
 //MSSOTLSensors does not handle directly any data structure
 MSSOTLSensors::~MSSOTLSensors() {}
 
-void
-MSSOTLSensors::buildSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb) {
-    assert(0);
-}
-
-void
-MSSOTLSensors::buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb) {
-    assert(0);
-}
-
-void
-MSSOTLSensors::buildOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb) {
-    assert(0);
-}
-
-void
-MSSOTLSensors::buildSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb) {
-    assert(0);
-}
-
 
 /****************************************************************************/

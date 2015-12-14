@@ -49,14 +49,14 @@ protected :
     * Built sensors has to be collected and associated properly to the respective MSLane for retrieval using MSSOTLSensors::countVehicles(std::string)
     * See extension classes for further specifications on sensor building
     */
-    virtual void buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb);
+    virtual void buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb) = 0;
     /**
     * \brief This function member has to be extended to properly build a sensor for a specific output lane
     * Sensors has to be constrained on lane dimension
     * Built sensors has to be collected and associated properly to the respective MSLane for retrieval using MSSOTLSensors::countVehicles(std::string)
     * See extension classes for further specifications on sensor building
     */
-    virtual void buildSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb);
+    virtual void buildSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb) = 0;
 
 public:
     /*
@@ -75,14 +75,14 @@ public:
     * Built sensors has to be collected and associated properly to theirs MSLane for retrieval using MSSOTLSensors::countVehicles(std::string)
     * See extension classes for further specifications on sensor building
     */
-    virtual void buildSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb);
+    virtual void buildSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb) = 0;
     /**
     * \brief This function member has to be extended to properly build sensors for the output lanes
     * Sensors has to be constrained on lane dimension
     * Built sensors has to be collected and associated properly to theirs MSLane for retrieval using MSSOTLSensors::countVehicles(std::string)
     * See extension classes for further specifications on sensor building
     */
-    virtual void buildOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb);
+    virtual void buildOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb) = 0;
 
     /*
      * Returns the number of vehicles currently approaching the

@@ -33,10 +33,10 @@
 class MSSOTLE2Sensors :	public MSSOTLSensors {
 protected :
     void buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb);
-    void buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb, double sensorLength);
-    void buildContinueSensior(MSLane* lane, NLDetectorBuilder& nb, double sensorLength, MSLane* continueOnLane, double usedLength);
+    void buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb, SUMOReal sensorLength);
+    void buildContinueSensior(MSLane* lane, NLDetectorBuilder& nb, SUMOReal sensorLength, MSLane* continueOnLane, SUMOReal usedLength);
     void buildSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb);
-    void buildSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb, double sensorLength);
+    void buildSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb, SUMOReal sensorLength);
 
     void buildCountSensorForLane(MSLane* lane, NLDetectorBuilder& nb);
     void buildCountSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb);
@@ -53,9 +53,9 @@ public:
     ~MSSOTLE2Sensors(void);
 
     void buildSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb);
-    void buildSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb, double sensorLength);
+    void buildSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb, SUMOReal sensorLength);
     void buildOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb);
-    void buildOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb, double sensorLength);
+    void buildOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb, SUMOReal sensorLength);
     void buildCountSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb);
     void buildCountOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb);
 
@@ -74,7 +74,7 @@ public:
      */
     void subtractPassedVeh(std::string laneId, int passed);
 
-    void setSpeedThresholdParam(double newThreshold) {
+    void setSpeedThresholdParam(SUMOReal newThreshold) {
         speedThresholdParam = newThreshold;
     }
 
@@ -101,7 +101,7 @@ public:
     * @param[in] The lane given by Id
     * @return The maximum speed allowed for the given laneId
     */
-    virtual double getMaxSpeed(std::string laneId);
+    virtual SUMOReal getMaxSpeed(std::string laneId);
 
     /*
      * Returns the average speed of vehicles currently approaching or leaving the
@@ -109,7 +109,7 @@ public:
      * Vehicles speed is effectively sensed or guessed in the space from the sensor.
      * @param[in] lane The lane to count vehicles
      */
-    virtual double meanVehiclesSpeed(MSLane* lane);
+    virtual SUMOReal meanVehiclesSpeed(MSLane* lane);
 
     /*
      * Returns the average speed of vehicles currently approaching or leaving the
@@ -117,7 +117,7 @@ public:
      * Vehicles speed is effectively sensed or guessed in the space from the sensor.
      * @param[in] laneID The lane to count vehicles by ID
      */
-    virtual double meanVehiclesSpeed(std::string laneId);
+    virtual SUMOReal meanVehiclesSpeed(std::string laneId);
 
     /*
      * Set the weight of the vehicle types to be used by countVehicles
@@ -144,7 +144,7 @@ protected:
 //	MSLaneID_MSE2CollectorMap mySensorsIDMap_OutLanes;
 //	MSLaneID_MaxSpeedMap myMaxSpeedMap_OutLanes;
 
-    double speedThresholdParam;
+    SUMOReal speedThresholdParam;
     std::map<std::string, std::vector<std::string> > m_continueSensorOnLanes;
     std::map<const std::string, unsigned int> m_typeWeightMap;
 

@@ -42,8 +42,8 @@ MSSOTLMarchingPolicy::MSSOTLMarchingPolicy(
     init();
 }
 
-bool MSSOTLMarchingPolicy::canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
-                                      const MSPhaseDefinition* stage, int vehicleCount) {
+bool MSSOTLMarchingPolicy::canRelease(SUMOTime elapsed, bool /* thresholdPassed */, bool pushButtonPressed,
+                                      const MSPhaseDefinition* stage, int /* vehicleCount */) {
     if (elapsed >= stage->minDuration && pushButtonLogic(elapsed, pushButtonPressed, stage)) {
         return true;
     }

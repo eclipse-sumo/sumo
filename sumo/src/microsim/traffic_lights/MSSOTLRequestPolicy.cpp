@@ -39,8 +39,8 @@ MSSOTLRequestPolicy::MSSOTLRequestPolicy(
 
 }
 
-bool MSSOTLRequestPolicy::canRelease(int elapsed, bool thresholdPassed,  bool pushButtonPressed,
-                                     const MSPhaseDefinition* stage, int vehicleCount) {
+bool MSSOTLRequestPolicy::canRelease(SUMOTime elapsed, bool thresholdPassed,  bool /* pushButtonPressed */,
+                                     const MSPhaseDefinition* /* stage */, int /* vehicleCount */) {
     if (elapsed >= getMinDecisionalPhaseDuration()) {
         return thresholdPassed;
     }

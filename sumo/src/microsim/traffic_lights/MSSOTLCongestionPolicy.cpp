@@ -39,7 +39,7 @@ MSSOTLCongestionPolicy::MSSOTLCongestionPolicy(
 
 }
 
-size_t MSSOTLCongestionPolicy::decideNextPhase(int elapsed,
+size_t MSSOTLCongestionPolicy::decideNextPhase(SUMOTime elapsed,
         const MSPhaseDefinition* stage, size_t currentPhaseIndex,
         size_t phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed, int vehicleCount) {
     if (stage->isCommit()) {
@@ -62,7 +62,7 @@ size_t MSSOTLCongestionPolicy::decideNextPhase(int elapsed,
     return currentPhaseIndex;
 }
 
-bool MSSOTLCongestionPolicy::canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
+bool MSSOTLCongestionPolicy::canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,
                                         const MSPhaseDefinition* stage, int vehicleCount) {
     return (elapsed >= stage->minDuration);
 }

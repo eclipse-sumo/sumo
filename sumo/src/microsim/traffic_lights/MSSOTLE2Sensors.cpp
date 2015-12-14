@@ -19,10 +19,11 @@
 //
 /****************************************************************************/
 
-#include "MSSOTLE2Sensors.h"
+#include <utils/common/TplConvert.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicleType.h>
+#include "MSSOTLE2Sensors.h"
 
 MSSOTLE2Sensors::MSSOTLE2Sensors(std::string tlLogicID,
                                  const MSTrafficLightLogic::Phases* phases) :
@@ -45,7 +46,7 @@ void MSSOTLE2Sensors::buildSensors(
 
 void MSSOTLE2Sensors::buildSensors(
     MSTrafficLightLogic::LaneVectorVector controlledLanes,
-    NLDetectorBuilder& nb, double sensorLength) {
+    NLDetectorBuilder& nb, SUMOReal sensorLength) {
     //for each lane build an appropriate sensor on it
     MSLane* currentLane = NULL;
 
@@ -106,7 +107,7 @@ void MSSOTLE2Sensors::buildOutSensors(
 }
 void MSSOTLE2Sensors::buildOutSensors(
     MSTrafficLightLogic::LaneVectorVector controlledLanes,
-    NLDetectorBuilder& nb, double sensorLength) {
+    NLDetectorBuilder& nb, SUMOReal sensorLength) {
     //for each lane build an appropriate sensor on it
     MSLane* currentLane = NULL;
 
@@ -123,8 +124,8 @@ void MSSOTLE2Sensors::buildOutSensors(
 }
 
 void MSSOTLE2Sensors::buildCountSensorForLane(MSLane* lane, NLDetectorBuilder& nb) {
-    float sensorPos;
-    double lensorLength;
+    SUMOReal sensorPos;
+    SUMOReal lensorLength;
     MSE2Collector* newSensor = NULL;
     //Check not to have more than a sensor for lane
     if (m_sensorMap.find(lane->getID()) == m_sensorMap.end()) {
@@ -133,7 +134,7 @@ void MSSOTLE2Sensors::buildCountSensorForLane(MSLane* lane, NLDetectorBuilder& n
         sensorPos = COUNT_SENSOR_START <= lane->getLength() ? COUNT_SENSOR_START : 0;
 
         //Original:
-        double sensorLength = INPUT_COUNT_SENSOR_LENGTH;
+        SUMOReal sensorLength = INPUT_COUNT_SENSOR_LENGTH;
 
         //Check and trim if the lane is not long enough for the specified sensor length
         lensorLength = sensorLength <= (lane->getLength() - sensorPos) ? sensorLength : (lane->getLength() - sensorPos);
@@ -165,16 +166,15 @@ void MSSOTLE2Sensors::buildCountSensorForLane(MSLane* lane, NLDetectorBuilder& n
     }
 }
 
-void MSSOTLE2Sensors::buildCountSensorForOutLane(MSLane* lane,
-        NLDetectorBuilder& nb) {
-    float sensorPos;
-    double lensorLength;
+void MSSOTLE2Sensors::buildCountSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb) {
+    SUMOReal sensorPos;
+    SUMOReal lensorLength;
     MSE2Collector* newSensor = NULL;
     //Check not to have more than a sensor for lane
     if (m_sensorMap.find(lane->getID()) == m_sensorMap.end()) {
 
         //Original:
-        double sensorLength = OUTPUT_COUNT_SENSOR_LENGTH;
+        SUMOReal sensorLength = OUTPUT_COUNT_SENSOR_LENGTH;
         //Check and set zero if the lane is not long enough for the specified sensor start
         sensorPos = (lane->getLength() - sensorLength)
                     - (SENSOR_START <= lane->getLength() ? SENSOR_START : 0);
@@ -211,7 +211,7 @@ void MSSOTLE2Sensors::buildCountSensorForOutLane(MSLane* lane,
     }
 }
 
-unsigned int MSSOTLE2Sensors::getPassedVeh(std::string laneId, bool out) {
+unsigned int MSSOTLE2Sensors::getPassedVeh(std::string laneId, bool /* out */) {
     MSLaneID_MSE2CollectorMap::const_iterator sensorsIterator;
     sensorsIterator = m_sensorMap.find(laneId);
     if (sensorsIterator == m_sensorMap.end()) {
@@ -269,13 +269,13 @@ void MSSOTLE2Sensors::buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb) {
 
 
 
-void MSSOTLE2Sensors::buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb, double sensorLength) {
+void MSSOTLE2Sensors::buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb, SUMOReal sensorLength) {
     const MSEdge* edge = &lane->getEdge();
     if (edge->isInternal() || edge->isWalkingArea() || edge->isCrossing()) {
         return;
     }
-    float sensorPos;
-    double lensorLength;
+    SUMOReal sensorPos;
+    SUMOReal lensorLength;
     MSE2Collector* newSensor = NULL;
     //Check not to have more than a sensor for lane
     if (m_sensorMap.find(lane->getID()) == m_sensorMap.end()) {
@@ -322,10 +322,10 @@ void MSSOTLE2Sensors::buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb, do
     }
 }
 
-void MSSOTLE2Sensors::buildContinueSensior(MSLane* lane, NLDetectorBuilder& nb, double sensorLength, MSLane* continueOnLane, double usedLength) {
-    double availableLength = sensorLength - usedLength;
+void MSSOTLE2Sensors::buildContinueSensior(MSLane* lane, NLDetectorBuilder& nb, SUMOReal sensorLength, MSLane* continueOnLane, SUMOReal usedLength) {
+    SUMOReal availableLength = sensorLength - usedLength;
     if (m_sensorMap.find(continueOnLane->getID()) == m_sensorMap.end()) {
-        double length = availableLength <= continueOnLane->getLength() ? availableLength : continueOnLane->getLength();
+        SUMOReal length = availableLength <= continueOnLane->getLength() ? availableLength : continueOnLane->getLength();
         MSE2Collector* newSensor = nb.buildSingleLaneE2Det(
                                        "SOTL_E2_lane:" + continueOnLane->getID() + "_tl:" + tlLogicID,
                                        DU_TL_CONTROL, continueOnLane,
@@ -355,15 +355,15 @@ void MSSOTLE2Sensors::buildSensorForOutLane(MSLane* lane,
 }
 
 void MSSOTLE2Sensors::buildSensorForOutLane(MSLane* lane,
-        NLDetectorBuilder& nb, double sensorLength) {
-    float sensorPos;
-    double lensorLength;
+        NLDetectorBuilder& nb, SUMOReal sensorLength) {
+    SUMOReal sensorPos;
+    SUMOReal lensorLength;
     MSE2Collector* newSensor = NULL;
     //Check not to have more than a sensor for lane
     if (m_sensorMap.find(lane->getID()) == m_sensorMap.end()) {
 
         //Original:
-        //double sensorLength = OUTPUT_SENSOR_LENGTH;
+        //SUMOReal sensorLength = OUTPUT_SENSOR_LENGTH;
         //Check and set zero if the lane is not long enough for the specified sensor start
         sensorPos = (lane->getLength() - sensorLength)
                     - (SENSOR_START <= lane->getLength() ? SENSOR_START : 0);
@@ -414,7 +414,7 @@ SUMOReal MSSOTLE2Sensors::getEstimateQueueLength(std::string laneId) {
         assert(0);
         return 0;
     } else {
-        double estQL = sensorsIterator->second->getEstimateQueueLength();
+        SUMOReal estQL = sensorsIterator->second->getEstimateQueueLength();
         if (estQL == -1) {
             return 0;
         } else
@@ -465,7 +465,7 @@ unsigned int MSSOTLE2Sensors::countVehicles(std::string laneId) {
     return count(sensorsIterator->second) + additional;
 }
 
-double MSSOTLE2Sensors::getMaxSpeed(std::string laneId) {
+SUMOReal MSSOTLE2Sensors::getMaxSpeed(std::string laneId) {
     MSLaneID_MaxSpeedMap::const_iterator sensorsIteratorIn = m_maxSpeedMap.find(laneId);
     if (sensorsIteratorIn == m_maxSpeedMap.end()) {
         assert(0);
@@ -475,35 +475,35 @@ double MSSOTLE2Sensors::getMaxSpeed(std::string laneId) {
     return sensorsIteratorIn->second;
 }
 
-double MSSOTLE2Sensors::meanVehiclesSpeed(MSLane* lane) {
+SUMOReal MSSOTLE2Sensors::meanVehiclesSpeed(MSLane* lane) {
     return meanVehiclesSpeed(lane->getID());
 }
 
-double MSSOTLE2Sensors::meanVehiclesSpeed(std::string laneId) {
+SUMOReal MSSOTLE2Sensors::meanVehiclesSpeed(std::string laneId) {
     MSLaneID_MSE2CollectorMap::const_iterator sensorsIteratorOut = m_sensorMap.find(laneId);
     if (sensorsIteratorOut == m_sensorMap.end()) {
         assert(0);
         WRITE_ERROR("MSSOTLE2Sensors::meanVehiclesSpeed:: No lane found " + laneId);
         return 0;
     }
-    double meanSpeedAcc = 0;
+    SUMOReal meanSpeedAcc = 0;
     unsigned int totalCarNumer = 0;
     if (m_continueSensorOnLanes.find(laneId) != m_continueSensorOnLanes.end())
         for (std::vector<std::string>::iterator it = m_continueSensorOnLanes[laneId].begin(); it != m_continueSensorOnLanes[laneId].end(); ++ it) {
             unsigned int number = 0;
-            double mean = -1;
+            SUMOReal mean = -1;
             if (!getVelueFromSensor(*it, &MSE2Collector::getCurrentVehicleNumber, number)) {
                 continue;
             }
             totalCarNumer += number;
             getVelueFromSensor(*it, &MSE2Collector::getCurrentMeanSpeed, mean);
-            meanSpeedAcc += mean * (double) number;
+            meanSpeedAcc += mean * (SUMOReal) number;
         }
     unsigned int number = sensorsIteratorOut->second->getCurrentVehicleNumber();
     totalCarNumer += number;
-    double mean = sensorsIteratorOut->second->getCurrentMeanSpeed();
-    meanSpeedAcc += mean * (double) number;
-    return totalCarNumer == 0 ? -1 : meanSpeedAcc / (double) totalCarNumer;
+    SUMOReal mean = sensorsIteratorOut->second->getCurrentMeanSpeed();
+    meanSpeedAcc += mean * (SUMOReal) number;
+    return totalCarNumer == 0 ? -1 : meanSpeedAcc / (SUMOReal) totalCarNumer;
 }
 
 std::string trim(std::string& str) {
@@ -523,13 +523,6 @@ std::vector<std::string>& split(const std::string& s, char delim, std::vector<st
     return elems;
 }
 
-double s2ui(std::string str) {
-    std::istringstream buffer(str);
-    unsigned int temp;
-    buffer >> temp;
-    return temp;
-}
-
 void MSSOTLE2Sensors::setVehicleWeigths(const std::string& weightString) {
     std::vector<std::string> types;
     split(weightString, ';', types);
@@ -540,7 +533,7 @@ void MSSOTLE2Sensors::setVehicleWeigths(const std::string& weightString) {
         split(*typesIt, '=', typeWeight);
         if (typeWeight.size() == 2) {
             std::string type = trim(typeWeight[0]);
-            unsigned int value = s2ui(typeWeight[1]);
+            unsigned int value = TplConvert::_2int(typeWeight[1].c_str());
             logstr << type << "=" << value << " ";
             m_typeWeightMap[type] = value;
         }

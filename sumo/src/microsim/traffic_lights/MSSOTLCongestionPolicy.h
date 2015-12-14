@@ -48,11 +48,11 @@ public:
     MSSOTLCongestionPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm,
                            const std::map<std::string, std::string>& parameters);
 
-    size_t decideNextPhase(int elapsed, const MSPhaseDefinition* stage,
+    size_t decideNextPhase(SUMOTime elapsed, const MSPhaseDefinition* stage,
                            size_t currentPhaseIndex, size_t phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
                            int vehicleCount);
 
-    bool canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
+    bool canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,
                     const MSPhaseDefinition* stage, int vehicleCount);
 
 };

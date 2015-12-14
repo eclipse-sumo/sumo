@@ -93,7 +93,7 @@ public:
     }
     /// @}
 
-//	virtual bool canRelease(int elapsed, bool thresholdPassed, const MSPhaseDefinition* stage, int vehicleCount) throw ()=0;
+//	virtual bool canRelease(SUMOTime elapsed, bool thresholdPassed, const MSPhaseDefinition* stage, int vehicleCount) throw ()=0;
 
 protected:
 

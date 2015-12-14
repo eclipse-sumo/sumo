@@ -68,7 +68,7 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(string keyPrefix,
     }
 
     //For each param list, slice values
-    for (int i = 0; i < params_names.size(); i ++) {
+    for (int i = 0; i < (int)params_names.size(); i ++) {
         string key = keyPrefix + params_names[i];
         string param_list = getParameter(key, default_values[params_names[i]]);
 
@@ -141,7 +141,7 @@ double MSSOTLPolicy5DFamilyStimulus::computeDesirability(double vehInMeasure, do
 string MSSOTLPolicy5DFamilyStimulus::getMessage() {
     std::ostringstream ot;
     string result = "";
-    for (int i = 0; i < family.size(); i++) {
+    for (int i = 0; i < (int)family.size(); i++) {
         ot << " gaussian " << i << ":" << family[i]->getMessage();
     }
     result = result + ot.str();

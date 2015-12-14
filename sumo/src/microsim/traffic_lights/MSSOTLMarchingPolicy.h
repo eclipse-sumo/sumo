@@ -47,7 +47,7 @@ public:
     MSSOTLMarchingPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm,
                          const std::map<std::string, std::string>& parameters);
 
-    bool canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
+    bool canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,
                     const MSPhaseDefinition* stage, int vehicleCount);
 
 protected:
