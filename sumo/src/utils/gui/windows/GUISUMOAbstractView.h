@@ -200,6 +200,10 @@ public:
         return true;
     }
 
+    GUIVisualizationSettings* getVisualisationSettings() const {
+        return myVisualizationSettings;
+    }
+
     void remove(GUIDialog_EditViewport*) {
         myViewportChooser = 0;
     }

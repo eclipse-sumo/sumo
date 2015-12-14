@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Dec 14 11:16:33 2015
+TraCITestClient output file. Date: Mon Dec 14 11:16:47 2015
 
 
 -> Command sent: <SimulationStep2>:
@@ -11,7 +11,7 @@ testAPI:
     getCurrentTime: 5000
   gui:
     setScheme: 
-    no support for gui commands
+    getScheme: real world
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
