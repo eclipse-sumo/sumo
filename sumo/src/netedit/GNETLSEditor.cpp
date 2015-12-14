@@ -405,8 +405,9 @@ GNETLSEditor::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
 long
 GNETLSEditor::onCmdPhaseDelete(FXObject*, FXSelector, void*) {
     myHaveModifications = true;
+    const int newRow = MAX2((int)0, (int)myPhaseTable->getCurrentRow() - 1);
     myEditedDef->getLogic()->deletePhase(myPhaseTable->getCurrentRow());
-    initPhaseTable(0);
+    initPhaseTable(newRow);
     myPhaseTable->setFocus();
     return 1;
 }
