@@ -21,9 +21,9 @@ the Free Software Foundation; either version 3 of the License, or
 import os
 import sys
 from collections import defaultdict
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'sumolib'))
-from output import parse
-from miscutils import uMax, Statistics
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
+from sumolib.output import parse
+from sumolib.miscutils import uMax, Statistics
 
 
 def update_earliest(earliest_diffs, diff, timestamp, tag):
@@ -44,6 +44,8 @@ def write_diff(orig, new, out, earliest_out=None):
                 vOrig = vehicles_orig[v.id]
                 departDiff = float(v.depart) - float(vOrig.depart)
                 arrivalDiff = float(v.arrival) - float(vOrig.arrival)
+                if v.route[0].exitTimes is None:
+                    sys.exit("Error: Need route input with 'exitTimes'\n")
                 exitTimes = map(float, v.route[0].exitTimes.split())
                 origExitTimes = map(float, vOrig.route[0].exitTimes.split())
                 exitTimesDiff = [
