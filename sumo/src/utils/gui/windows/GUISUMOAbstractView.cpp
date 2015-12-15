@@ -72,10 +72,6 @@
 #include <gdal_priv.h>
 #endif
 
-#ifdef HAVE_FFMPEG
-#include <utils/gui/div/GUIVideoEncoder.h>
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -737,7 +733,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
     FXString ext = FXPath::extension(destFile.c_str());
     const bool useGL2PS = ext == "ps" || ext == "eps" || ext == "pdf" || ext == "svg" || ext == "tex" || ext == "pgf";
 #ifdef HAVE_FFMPEG
-    const bool useVideo = ext == "h264";
+    const bool useVideo = destFile == "" || ext == "h264";
 #endif
     for (int i = 0; i < 10 && !makeCurrent(); ++i) {
         FXSingleEventThread::sleep(100);
@@ -866,13 +862,12 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
         try {
 #ifdef HAVE_FFMPEG
             if (useVideo) {
-                int framenum=100;
-                GUIVideoEncoder* enc = new GUIVideoEncoder(destFile.c_str(), getWidth(), getHeight(), 25);
-
-                for (int i=0; i<framenum; i++){
-                    enc->writeFrame((uint8_t*)buf);
+                try {
+                    saveFrame(destFile, buf);
+                    errorMessage = "video";
+                } catch (std::runtime_error& err) {
+                    errorMessage = err.what();
                 }
-                delete enc;
             } else
 #endif
             if (!MFXImageHelper::saveImage(destFile, getWidth(), getHeight(), buf)) {

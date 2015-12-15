@@ -149,7 +149,13 @@ GUISUMOViewParent::setToolBarVisibility(const bool value) {
 
 
 long
-GUISUMOViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
+GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
+    MFXCheckableButton* button = static_cast<MFXCheckableButton*>(sender);
+    if (button->amChecked()) {
+        myView->endSnapshot();
+        button->setChecked(false);
+        return 1;
+    }
     // get the new file name
     FXFileDialog opendialog(this, "Save Snapshot");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
@@ -170,7 +176,9 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     gCurrentFolder = opendialog.getDirectory();
     std::string file = opendialog.getFilename().text();
     std::string error = myView->makeSnapshot(file);
-    if (error != "") {
+    if (error == "video") {
+        button->setChecked(!button->amChecked());
+    } else if (error != "") {
         FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
     }
     return 1;

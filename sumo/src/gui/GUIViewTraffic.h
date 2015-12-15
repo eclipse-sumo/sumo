@@ -49,6 +49,7 @@
 class GUINet;
 class GUISUMOViewParent;
 class GUIVehicle;
+class GUIVideoEncoder;
 class MSRoute;
 
 
@@ -102,6 +103,18 @@ public:
     long onCmdCloseEdge(FXObject*, FXSelector, void*);
     long onCmdAddRerouter(FXObject*, FXSelector, void*);
 
+    /** @brief Adds a frame to a video snapshot which will be initialized if neccessary
+     */
+    void saveFrame(const std::string& destFile, FXColor* buf);
+
+    /** @brief Ends a video snapshot
+     */
+    void endSnapshot();
+
+    /** @brief Checks whether it is time for a snapshot
+     */
+    void checkSnapshots();
+
 protected:
     int doPaintGL(int mode, const Boundary& bound);
 
@@ -109,6 +122,10 @@ protected:
 
 private:
     int myTrackedID;
+
+#ifdef HAVE_FFMPEG
+    GUIVideoEncoder* myCurrentVideo;
+#endif
 
 protected:
     GUIViewTraffic() { }

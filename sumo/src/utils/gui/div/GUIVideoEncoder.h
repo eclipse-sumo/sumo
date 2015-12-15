@@ -35,6 +35,7 @@
 #endif
 
 #include <stdio.h>
+#include <stdexcept>
 
 #define __STDC_CONSTANT_MACROS
 
@@ -50,7 +51,7 @@ extern "C"
 
 class GUIVideoEncoder {
 public:
-    GUIVideoEncoder(const char* const out_file, const int width, const int height, const int framerate) {
+    GUIVideoEncoder(const char* const out_file, const int width, const int height, double frameDelay) {
         av_register_all();
         AVFormatContext* const pFormatCtx = myFormatContext = avformat_alloc_context();
         //Guess Format
@@ -58,10 +59,17 @@ public:
         
         //Open output URL
         if (avio_open(&pFormatCtx->pb, out_file, AVIO_FLAG_READ_WRITE) < 0){
-            printf("Failed to open output file! \n");
-//            return 0;
+            throw std::runtime_error("Failed to open output file!");
         }
 
+        // @todo maybe warn about default and invalid framerates
+        int framerate = 25;
+        if (frameDelay > 0.) {
+            framerate = (int)(1000./frameDelay);
+            if (framerate <= 0) {
+                framerate = 1;
+            }
+        }
         AVStream* const video_st = avformat_new_stream(pFormatCtx, 0);
         video_st->time_base.num = 1; 
         video_st->time_base.den = framerate;  
@@ -71,8 +79,9 @@ public:
         //pCodecCtx->codec_id =AV_CODEC_ID_HEVC;
         pCodecCtx->codec_id = pFormatCtx->oformat->video_codec;
         pCodecCtx->codec_type = AVMEDIA_TYPE_VIDEO;
-        pCodecCtx->pix_fmt = PIX_FMT_YUV420P;
+        pCodecCtx->pix_fmt = AV_PIX_FMT_YUV420P;
         pCodecCtx->width = width;  
+        // @todo maybe warn about one missing line for odd height
         pCodecCtx->height = (height / 2) * 2;
         pCodecCtx->time_base.num = 1;  
         pCodecCtx->time_base.den = framerate;  
@@ -103,16 +112,14 @@ public:
         }
 
         //Show some Information
-        av_dump_format(pFormatCtx, 0, out_file, 1);
+        //av_dump_format(pFormatCtx, 0, out_file, 1);
 
         AVCodec* const pCodec = avcodec_find_encoder(pCodecCtx->codec_id);
         if (!pCodec){
-            printf("Can not find encoder! \n");
-//            return 0;
+            throw std::runtime_error("Can not find encoder!");
         }
         if (avcodec_open2(pCodecCtx, pCodec, &param) < 0){
-            printf("Failed to open encoder! \n");
-//            return 0;
+            throw std::runtime_error("Failed to open encoder!");
         }
 
         myFrame = av_frame_alloc();
@@ -151,7 +158,6 @@ public:
                 ret=0;
                 break;
             }
-            printf("Flush Encoder: Succeed to encode 1 frame!\tsize:%5d\n",enc_pkt.size);
             /* mux encoded frame */
             ret = av_write_frame(fmt_ctx, &enc_pkt);
         }
@@ -169,7 +175,6 @@ public:
             avio_close(fmt_ctx->pb);
             avformat_free_context(fmt_ctx);
         }
-        // return ret;
     }
     
     void writeFrame(uint8_t* buffer) {
@@ -190,11 +195,9 @@ public:
 		//Encode
 		int ret = avcodec_encode_video2(pCodecCtx, &myPkt, myFrame, &got_picture);
 		if (ret < 0) {
-			printf("Failed to encode! \n");
-			return;
+            throw std::runtime_error("Failed to encode!");
 		}
 		if (got_picture==1){
-			printf("Writing frame! \n");
 			myPkt.stream_index = video_st->index;
 			ret = av_write_frame(myFormatContext, &myPkt);
 			av_free_packet(&myPkt);

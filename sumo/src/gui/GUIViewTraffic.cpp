@@ -32,6 +32,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_FFMPEG
+#include <utils/gui/div/GUIVideoEncoder.h>
+#endif
+
 #include <iostream>
 #include <utility>
 #include <cmath>
@@ -93,7 +97,11 @@ GUIViewTraffic::GUIViewTraffic(
     GUINet& net, FXGLVisual* glVis,
     FXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTrackedID(-1) {}
+    myTrackedID(-1)
+#ifdef HAVE_FFMPEG
+    , myCurrentVideo(0)
+#endif
+    {}
 
 
 GUIViewTraffic::~GUIViewTraffic() {
@@ -337,6 +345,7 @@ GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
 long
 GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
     GUILane* lane = getLaneUnderCursor();
@@ -347,5 +356,42 @@ GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
     }
     return 1;
 }
+
+
+void
+GUIViewTraffic::saveFrame(const std::string& destFile, FXColor* buf) {
+#ifdef HAVE_FFMPEG
+    if (myCurrentVideo == 0) {
+        myCurrentVideo = new GUIVideoEncoder(destFile.c_str(), getWidth(), getHeight(), myApp->getDelay());
+    }
+    myCurrentVideo->writeFrame((uint8_t*)buf);
+#endif
+}
+
+
+void
+GUIViewTraffic::endSnapshot() {
+#ifdef HAVE_FFMPEG
+    if (myCurrentVideo != 0) {
+        delete myCurrentVideo;
+        myCurrentVideo = 0;
+    }
+#endif
+}
+
+
+void
+GUIViewTraffic::checkSnapshots() {
+    GUISUMOAbstractView::checkSnapshots();
+#ifdef HAVE_FFMPEG
+    if (myCurrentVideo != 0) {
+        std::string error = makeSnapshot("");
+        if (error != "") {
+            WRITE_WARNING(error);
+        }
+    }
+#endif
+}
+
 
 /****************************************************************************/

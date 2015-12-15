@@ -13,6 +13,7 @@
     <FOX16_DEBUG_LIB>$(FOX16)\lib\FOXDLLD-1.6.lib</FOX16_DEBUG_LIB>
     <OSG_LIB>$(OSG)\lib\osgUtil.lib;$(OSG)\lib\osgDB.lib;$(OSG)\lib\osgGA.lib;$(OSG)\lib\osg.lib;$(OSG)\lib\osgViewer.lib</OSG_LIB>
     <OSG_DEBUG_LIB>$(OSG)\lib\osgUtild.lib;$(OSG)\lib\osgDBd.lib;$(OSG)\lib\osgGAd.lib;$(OSG)\lib\osgd.lib;$(OSG)\lib\osgViewerd.lib</OSG_DEBUG_LIB>
+    <FFMPEG_LIB>$(FFMPEG)\lib\avcodec.lib;$(FFMPEG)\lib\avformat.lib;$(FFMPEG)\lib\avutil.lib;$(FFMPEG)\lib\swscale.lib;</FFMPEG_LIB>
   </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
@@ -21,28 +22,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(XERCES)\include;$(PROJ_GDAL)\include;$(FOX16)\include;$(OSG)\include;..\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XERCES)\include;$(PROJ_GDAL)\include;$(FOX16)\include;$(OSG)\include;$(FFMPEG)\include;..\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HAVE_PROJ;HAVE_GDAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <BuildMacro Include="XERCES_LIB">
-      <Value>$(XERCES_LIB)</Value>
-    </BuildMacro>
-    <BuildMacro Include="XERCES_DEBUG_LIB">
-      <Value>$(XERCES_DEBUG_LIB)</Value>
-    </BuildMacro>
-    <BuildMacro Include="PROJ_LIB">
-      <Value>$(PROJ_LIB)</Value>
-    </BuildMacro>
-    <BuildMacro Include="GDAL_LIB">
-      <Value>$(GDAL_LIB)</Value>
-    </BuildMacro>
-    <BuildMacro Include="FOX16_LIB">
-      <Value>$(FOX16_LIB)</Value>
-    </BuildMacro>
-    <BuildMacro Include="FOX16_DEBUG_LIB">
-      <Value>$(FOX16_DEBUG_LIB)</Value>
-    </BuildMacro>
-  </ItemGroup>
 </Project>
