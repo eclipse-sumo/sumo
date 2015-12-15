@@ -37,7 +37,6 @@
 #include <math.h>
 #include "MSSOTLPolicyDesirability.h"
 
-using namespace std;
 /**
  * \class MSSOTLPolicyStimulus
  * \brief This class determines the stimulus of a MSSOTLPolicy when
@@ -49,124 +48,124 @@ class MSSOTLPolicy5DStimulus: public MSSOTLPolicyDesirability {
 
 private:
 
-    double stimCoxDVal,
+    SUMOReal stimCoxDVal,
            stimOffsetInDVal, stimOffsetOutDVal, stimOffsetDispersionInDVal, stimOffsetDispersionOutDVal,
            stimDivInDVal, stimDivOutDVal, stimDivDispersionInDVal, stimDivDispersionOutDVal,
            stimCoxExpInDVal, stimCoxExpOutDVal, stimCoxExpDispersionInDVal, stimCoxExpDispersionOutDVal;
 
 public:
 
-    MSSOTLPolicy5DStimulus(string keyPrefix, const std::map<std::string, std::string>& parameters);
+    MSSOTLPolicy5DStimulus(std::string keyPrefix, const std::map<std::string, std::string>& parameters);
 
-    double getStimCox() {
-        string key = getKeyPrefix() + "_STIM_COX";
+    SUMOReal getStimCox() {
+        std::string key = getKeyPrefix() + "_STIM_COX";
         return readParameter(key, stimCoxDVal);
     }
-    void setStimCoxDefVal(double defVal) {
+    void setStimCoxDefVal(SUMOReal defVal) {
         stimCoxDVal = defVal;
     }
-    double getStimOffsetIn() {
-        string key = getKeyPrefix() + "_STIM_OFFSET_IN";
+    SUMOReal getStimOffsetIn() {
+        std::string key = getKeyPrefix() + "_STIM_OFFSET_IN";
         return readParameter(key, stimOffsetInDVal);
     }
-    void setStimOffsetInDefVal(double defVal) {
+    void setStimOffsetInDefVal(SUMOReal defVal) {
         stimOffsetInDVal = defVal;
     }
-    double getStimOffsetOut() {
-        string key = getKeyPrefix() + "_STIM_OFFSET_OUT";
+    SUMOReal getStimOffsetOut() {
+        std::string key = getKeyPrefix() + "_STIM_OFFSET_OUT";
         return readParameter(key, stimOffsetOutDVal);
     }
 
-    void setStimOffsetOutDefVal(double defVal) {
+    void setStimOffsetOutDefVal(SUMOReal defVal) {
         stimOffsetOutDVal = defVal;
     }
 
-    double getStimOffsetDispersionIn() {
-        string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_IN";
+    SUMOReal getStimOffsetDispersionIn() {
+        std::string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_IN";
         return readParameter(key, stimOffsetDispersionInDVal);
     }
-    void setStimOffsetDispersionInDefVal(double defVal) {
+    void setStimOffsetDispersionInDefVal(SUMOReal defVal) {
         stimOffsetDispersionInDVal = defVal;
     }
-    double getStimOffsetDispersionOut() {
-        string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_OUT";
+    SUMOReal getStimOffsetDispersionOut() {
+        std::string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_OUT";
         return readParameter(key, stimOffsetDispersionOutDVal);
     }
-    void setStimOffsetDispersionOutDefVal(double defVal) {
+    void setStimOffsetDispersionOutDefVal(SUMOReal defVal) {
         stimOffsetDispersionOutDVal = defVal;
     }
-    double getStimDivisorIn() {
-        string key = getKeyPrefix() + "_STIM_DIVISOR_IN";
+    SUMOReal getStimDivisorIn() {
+        std::string key = getKeyPrefix() + "_STIM_DIVISOR_IN";
         return readParameter(key, stimDivInDVal);
     }
 
-    void setStimDivisorInDefVal(double defVal) {
+    void setStimDivisorInDefVal(SUMOReal defVal) {
         stimDivInDVal = defVal;
     }
 
-    double getStimDivisorOut() {
-        string key = getKeyPrefix() + "_STIM_DIVISOR_OUT";
+    SUMOReal getStimDivisorOut() {
+        std::string key = getKeyPrefix() + "_STIM_DIVISOR_OUT";
         return readParameter(key, stimDivOutDVal);
     }
 
-    void setStimDivisorOutDefVal(double defVal) {
+    void setStimDivisorOutDefVal(SUMOReal defVal) {
         stimDivOutDVal = defVal;
     }
 
-    double getStimDivisorDispersionIn() {
-        string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_IN";
+    SUMOReal getStimDivisorDispersionIn() {
+        std::string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_IN";
         return readParameter(key, stimDivDispersionInDVal);
     }
 
-    void setStimDivisorDispersionInDefVal(double defVal) {
+    void setStimDivisorDispersionInDefVal(SUMOReal defVal) {
         stimDivDispersionInDVal = defVal;
     }
-    double getStimDivisorDispersionOut() {
-        string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_OUT";
+    SUMOReal getStimDivisorDispersionOut() {
+        std::string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_OUT";
         return readParameter(key, stimDivDispersionOutDVal);
     }
 
-    void setStimDivisorDispersionOutDefVal(double defVal) {
+    void setStimDivisorDispersionOutDefVal(SUMOReal defVal) {
         stimDivDispersionOutDVal = defVal;
     }
-    double getStimCoxExpIn() {
-        string key = getKeyPrefix() + "_STIM_COX_EXP_IN";
+    SUMOReal getStimCoxExpIn() {
+        std::string key = getKeyPrefix() + "_STIM_COX_EXP_IN";
         return readParameter(key, stimCoxExpInDVal);
     }
-    void setStimCoxExpInDefVal(double defVal) {
+    void setStimCoxExpInDefVal(SUMOReal defVal) {
         stimCoxExpInDVal = defVal;
     }
-    double getStimCoxExpOut() {
-        string key = getKeyPrefix() + "_STIM_COX_EXP_OUT";
+    SUMOReal getStimCoxExpOut() {
+        std::string key = getKeyPrefix() + "_STIM_COX_EXP_OUT";
         return readParameter(key, stimCoxExpOutDVal);
     }
-    void setStimCoxExpOutDefVal(double defVal) {
+    void setStimCoxExpOutDefVal(SUMOReal defVal) {
         stimCoxExpOutDVal = defVal;
     }
 
-    double getStimCoxExpDispersionIn() {
-        string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_IN";
+    SUMOReal getStimCoxExpDispersionIn() {
+        std::string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_IN";
         return readParameter(key, stimCoxExpDispersionInDVal);
     }
-    void setStimCoxExpDispersionInDefVal(double defVal) {
+    void setStimCoxExpDispersionInDefVal(SUMOReal defVal) {
         stimCoxExpDispersionInDVal = defVal;
     }
-    double getStimCoxExpDispersionOut() {
-        string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_OUT";
+    SUMOReal getStimCoxExpDispersionOut() {
+        std::string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_OUT";
         return readParameter(key, stimCoxExpDispersionOutDVal);
     }
-    void setStimCoxExpDispersionOutDefVal(double defVal) {
+    void setStimCoxExpDispersionOutDefVal(SUMOReal defVal) {
         stimCoxExpDispersionOutDVal = defVal;
     }
-    string getMessage();
+    std::string getMessage();
     /**
      *	@brief Computes stimulus function
      *  stimulus = cox * exp(-pow(pheroIn - offsetIn, 2)/divisor -pow(pheroOut - offsetOut, 2)/divisor);
      */
-    virtual double computeDesirability(double vehInMeasure,
-                                       double vehOutMeasure);
+    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure,
+                                       SUMOReal vehOutMeasure);
 
-    virtual double computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure,	double vehOutDispersionMeasure);
+    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure, SUMOReal vehOutDispersionMeasure);
 };
 
 #endif /* MSSOTLPOLICYSTIMULUS_H_ */

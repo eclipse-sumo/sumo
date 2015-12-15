@@ -20,7 +20,7 @@
 
 #include "MSSOTLPolicy5DFamilyStimulus.h"
 
-MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(string keyPrefix,
+MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix,
         const std::map<std::string, std::string>& parameters) :
     MSSOTLPolicyDesirability(keyPrefix, parameters) {
 
@@ -61,16 +61,16 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(string keyPrefix,
         WRITE_MESSAGE(str.str());
     )
 
-    vector< map <string , string > > sliced_maps;
+    std::vector< std::map <std::string, std::string > > sliced_maps;
 
     for (int i = 0; i < size_family; i++) {
-        sliced_maps.push_back(map<string, string>());
+        sliced_maps.push_back(std::map<std::string, std::string>());
     }
 
     //For each param list, slice values
     for (int i = 0; i < (int)params_names.size(); i ++) {
-        string key = keyPrefix + params_names[i];
-        string param_list = getParameter(key, default_values[params_names[i]]);
+        std::string key = keyPrefix + params_names[i];
+        std::string param_list = getParameter(key, default_values[params_names[i]]);
 
         char* dup = strdup(param_list.c_str());
         int token_counter;
@@ -83,7 +83,7 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(string keyPrefix,
                 WRITE_ERROR(errorMessage.str());
                 assert(-1);
             }
-            string token_found(pch);
+            std::string token_found(pch);
             DBG(
                 std::ostringstream str;
                 str << "found token " << token_found << " position " << token_counter;
@@ -95,14 +95,14 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(string keyPrefix,
     }
 
     for (int i = 0; i < size_family; i++) {
-        map<string, string>& ref_map = sliced_maps[i];
+        std::map<std::string, std::string>& ref_map = sliced_maps[i];
         family.push_back(new MSSOTLPolicy5DStimulus(keyPrefix, ref_map));
     }
 
 }
 
 
-double MSSOTLPolicy5DFamilyStimulus::computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure, double vehOutDispersionMeasure) {
+SUMOReal MSSOTLPolicy5DFamilyStimulus::computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure, SUMOReal vehOutDispersionMeasure) {
     /*DBG(
     		std::ostringstream str;
     		str << "cox=" << getStimCox() << ", cox_exp_in=" << getStimCoxExpIn() << ", cox_exp_out=" << getStimCoxExpOut()
@@ -111,9 +111,9 @@ double MSSOTLPolicy5DFamilyStimulus::computeDesirability(double vehInMeasure, do
     //		it seems to be not enough, a strange segmentation fault appears...
     //	 if((getStimCoxExpIn()!=0.0 && getStimDivisorIn()==0.0)||(getStimCoxExpOut()!=0.0 && getStimDivisorOut()==0.0)){
 
-    double best_stimulus = -1;
+    SUMOReal best_stimulus = -1;
     for (std::vector<MSSOTLPolicy5DStimulus*>::const_iterator it  = family.begin(); it != family.end(); it++) {
-        double temp_stimulus = (*it)->computeDesirability(vehInMeasure, vehOutMeasure, vehInDispersionMeasure, vehOutDispersionMeasure);
+        SUMOReal temp_stimulus = (*it)->computeDesirability(vehInMeasure, vehOutMeasure, vehInDispersionMeasure, vehOutDispersionMeasure);
         DBG(
             std::ostringstream str;
             str << "STIMULUS: " << temp_stimulus;
@@ -133,19 +133,17 @@ double MSSOTLPolicy5DFamilyStimulus::computeDesirability(double vehInMeasure, do
 }
 
 
-double MSSOTLPolicy5DFamilyStimulus::computeDesirability(double vehInMeasure, double vehOutMeasure) {
+SUMOReal MSSOTLPolicy5DFamilyStimulus::computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure) {
 
     return computeDesirability(vehInMeasure, vehOutMeasure, 0, 0);
 }
 
-string MSSOTLPolicy5DFamilyStimulus::getMessage() {
+std::string MSSOTLPolicy5DFamilyStimulus::getMessage() {
     std::ostringstream ot;
-    string result = "";
     for (int i = 0; i < (int)family.size(); i++) {
         ot << " gaussian " << i << ":" << family[i]->getMessage();
     }
-    result = result + ot.str();
-    return result;
+    return ot.str();
 }
 
 /*

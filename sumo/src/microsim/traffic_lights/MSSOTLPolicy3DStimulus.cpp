@@ -19,7 +19,7 @@
 
 #include "MSSOTLPolicy3DStimulus.h"
 
-MSSOTLPolicy3DStimulus::MSSOTLPolicy3DStimulus(string keyPrefix,
+MSSOTLPolicy3DStimulus::MSSOTLPolicy3DStimulus(std::string keyPrefix,
         const std::map<std::string, std::string>& parameters) :
     MSSOTLPolicy5DStimulus(keyPrefix, parameters) {
 

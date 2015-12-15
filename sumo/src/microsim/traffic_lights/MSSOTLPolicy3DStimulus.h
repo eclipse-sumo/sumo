@@ -36,7 +36,6 @@
 #include <math.h>
 #include "MSSOTLPolicy5DStimulus.h"
 
-using namespace std;
 /**
  * \class MSSOTLPolicyStimulus
  * \brief This class determines the stimulus of a MSSOTLPolicy when
@@ -48,7 +47,7 @@ class MSSOTLPolicy3DStimulus: public MSSOTLPolicy5DStimulus {
 
 public:
 
-    MSSOTLPolicy3DStimulus(string keyPrefix, const std::map<std::string, std::string>& parameters);
+    MSSOTLPolicy3DStimulus(std::string keyPrefix, const std::map<std::string, std::string>& parameters);
 
 };
 

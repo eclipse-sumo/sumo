@@ -53,8 +53,8 @@ public:
      * @param[in] delay The time to wait before the first switch
      * @param[in] parameters Parameters defined for the tll
      */
-    MSDeterministicHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol, const string& id,
-                                            const string& subid, const Phases& phases, unsigned int step,
+    MSDeterministicHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
+                                            const std::string& subid, const Phases& phases, unsigned int step,
                                             SUMOTime delay,
                                             const std::map<std::string, std::string>& parameters);
 
@@ -120,7 +120,7 @@ protected:
      */
     void decidePolicy();
 
-    void choosePolicy(double mean_vSpeed_in, double mean_vSpeed_out);
+    void choosePolicy(SUMOReal mean_vSpeed_in, SUMOReal mean_vSpeed_out);
 
 
 };

@@ -61,7 +61,7 @@ public:
      * @param[in] parameters Parameters defined for the tll
      */
     MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol,
-                                   const string& id, const string& subid, const Phases& phases,
+                                   const std::string& id, const std::string& subid, const Phases& phases,
                                    unsigned int step, SUMOTime delay,
                                    const std::map<std::string, std::string>& parameters);
 
@@ -77,7 +77,7 @@ public:
      * @param[in] sensors The already defined sensor logic
      */
     MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol,
-                                   const string& id, const string& subid, const Phases& phases,
+                                   const std::string& id, const std::string& subid, const Phases& phases,
                                    unsigned int step, SUMOTime delay,
                                    const std::map<std::string, std::string>& parameters,
                                    MSSOTLSensors* sensors);
@@ -86,7 +86,7 @@ public:
     /**
      * \brief Returns the vector of the low-level policies used by this high-level tll.
      */
-    vector<MSSOTLPolicy*>& getPolicies() {
+    std::vector<MSSOTLPolicy*>& getPolicies() {
         return policies;
     }
     /**
@@ -119,7 +119,7 @@ protected:
 
 private:
 
-    vector<MSSOTLPolicy*> policies;
+    std::vector<MSSOTLPolicy*> policies;
     MSSOTLPolicy* currentPolicy;
 
 };

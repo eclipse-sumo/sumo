@@ -117,8 +117,8 @@ public:
      * @param[in] delay The time to wait before the first switch
      * @param[in] parameters Parameters defined for the tll
      */
-    MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, const string& id,
-                             const string& subid, const Phases& phases, unsigned int step,
+    MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
+                             const std::string& subid, const Phases& phases, unsigned int step,
                              SUMOTime delay,
                              const std::map<std::string, std::string>& parameters);
 
@@ -132,43 +132,30 @@ public:
      */
     void init(NLDetectorBuilder& nb) throw(ProcessError);
 
-    int getMaxCongestionDuration() {
+    SUMOTime getMaxCongestionDuration() {
         return TplConvert::_2int(getParameter("MAX_CONGESTION_DUR", "120").c_str());
     }
-    /*void setMaxCongestionDuration(unsigned int val) {
-     max_congestion_duration = val;
-     }*/
 
     SUMOReal getPheroMaxVal() {
         return TplConvert::_2SUMOReal(getParameter("PHERO_MAXVAL", "10").c_str());
     }
-    /*void setPheroMaxVal(SUMOReal val) {
-     phero_maxval = val;
-     }*/
+
     SUMOReal getBetaNo() {
         return TplConvert::_2SUMOReal(getParameter("BETA_NO", "0.99").c_str());
     }
-    /*void setBetaNo(SUMOReal val) {
-     beta_no = val;
-     }*/
+
     SUMOReal getGammaNo() {
         return TplConvert::_2SUMOReal(getParameter("GAMMA_NO", "1.0").c_str());
     }
-    /*void setGammaNo(SUMOReal val) {
-     gamma_no = val;
-     }*/
+
     SUMOReal getBetaSp() {
         return TplConvert::_2SUMOReal(getParameter("BETA_SP", "0.99").c_str());
     }
-    /*void setBetaSp(SUMOReal val) {
-     beta_sp = val;
-     }*/
+
     SUMOReal getGammaSp() {
         return TplConvert::_2SUMOReal(getParameter("GAMMA_SP", "1.0").c_str());
     }
-    /*void setGammaSp(SUMOReal val) {
-     gamma_sp = val;
-     }*/
+
     SUMOReal getChangePlanProbability() {
         return TplConvert::_2SUMOReal(getParameter("CHANGE_PLAN_PROBABILITY", "0.003").c_str());
     }
@@ -361,14 +348,14 @@ protected:
 
         SUMOReal sum_avg_tmp = 0;
 
-        for (int i = 0; i < phero_values.size(); i++) {
+        for (int i = 0; i < (int)phero_values.size(); i++) {
             sum_avg_tmp += phero_values[i];
         }
 
         SUMOReal mean = sum_avg_tmp / phero_values.size();
 
         SUMOReal sum_dev_tmp = 0;
-        for (int i = 0; i < phero_values.size(); i++) {
+        for (int i = 0; i < (int)phero_values.size(); i++) {
             sum_dev_tmp += pow(phero_values[i] - mean, 2);
         }
 
@@ -388,14 +375,14 @@ protected:
         }
 
         SUMOReal sum_avg_tmp = 0;
-        for (int i = 0; i < phero_values.size(); i++) {
+        for (int i = 0; i < (int)phero_values.size(); i++) {
             sum_avg_tmp += phero_values[i];
         }
         SUMOReal mean = sum_avg_tmp / phero_values.size();
 
         SUMOReal sum_dev_tmp = 0;
 
-        for (int i = 0; i < phero_values.size(); i++) {
+        for (int i = 0; i < (int)phero_values.size(); i++) {
             sum_dev_tmp += pow(phero_values[i] - mean, 2);
         }
 
@@ -412,13 +399,13 @@ protected:
     bool allowLine(MSLane*);
 
     bool logData;
-    ofstream swarmLogFile;
+    std::ofstream swarmLogFile;
     /**
      * \brief When true, indicates that the current policy MUST be changed.\n
      * It's used to force the exit from the congestion policy
      */
     bool mustChange;
-    unsigned int congestion_steps;
+    SUMOTime congestion_steps;
 
     /**
      * \brief Map to check if a lane was already controlled during the elaboration of eta.

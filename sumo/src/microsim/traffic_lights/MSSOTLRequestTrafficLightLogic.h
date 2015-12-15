@@ -31,8 +31,6 @@
 
 #include "MSSOTLTrafficLightLogic.h"
 
-using namespace std;
-
 class MSSOTLRequestTrafficLightLogic: public MSSOTLTrafficLightLogic {
 public:
     /**
@@ -45,7 +43,7 @@ public:
      * @param[in] delay The time to wait before the first switch
      */
     MSSOTLRequestTrafficLightLogic(MSTLLogicControl& tlcontrol,
-                                   const string& id, const string& subid, const Phases& phases,
+                                   const std::string& id, const std::string& subid, const Phases& phases,
                                    unsigned int step, SUMOTime delay,
                                    const std::map<std::string, std::string>& parameters) throw();
 
@@ -59,7 +57,7 @@ public:
      * @param[in] delay The time to wait before the first switch
      */
     MSSOTLRequestTrafficLightLogic(MSTLLogicControl& tlcontrol,
-                                   const string& id, const string& subid, const Phases& phases,
+                                   const std::string& id, const std::string& subid, const Phases& phases,
                                    unsigned int step, SUMOTime delay,
                                    const std::map<std::string, std::string>& parameters,
                                    MSSOTLSensors* sensors) throw();

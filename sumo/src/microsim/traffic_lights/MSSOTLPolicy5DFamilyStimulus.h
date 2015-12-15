@@ -39,7 +39,6 @@
 #include <string.h>
 #include "MSSOTLPolicy5DStimulus.h"
 
-using namespace std;
 /**
  * \class MSSOTLPolicy5DListStimulus
  * \brief This class determines the stimulus of a MSSOTLPolicy when
@@ -51,24 +50,24 @@ class MSSOTLPolicy5DFamilyStimulus: public MSSOTLPolicyDesirability {
 
 private:
 
-    /*double stimCoxDVal,
+    /*SUMOReal stimCoxDVal,
     stimOffsetInDVal, stimOffsetOutDVal, stimOffsetDispersionInDVal, stimOffsetDispersionOutDVal,
     stimDivInDVal, stimDivOutDVal, stimDivDispersionInDVal, stimDivDispersionOutDVal,
     stimCoxExpInDVal, stimCoxExpOutDVal, stimCoxExpDispersionInDVal, stimCoxExpDispersionOutDVal;*/
 
-    map<string, string> default_values;
-    vector<string> params_names;
-    vector<MSSOTLPolicy5DStimulus*> family;
+    std::map<std::string, std::string> default_values;
+    std::vector<std::string> params_names;
+    std::vector<MSSOTLPolicy5DStimulus*> family;
 
     //std::vector<std::string> inline StringSplit(const std::string &source, const char *delimiter = " ", bool keepEmpty = false);
 
 public:
 
-    MSSOTLPolicy5DFamilyStimulus(string keyPrefix, const std::map<std::string, std::string>& parameters);
+    MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix, const std::map<std::string, std::string>& parameters);
 
-    string getMessage();
+    std::string getMessage();
 
-    vector<MSSOTLPolicy5DStimulus*> getFamilies() {
+    std::vector<MSSOTLPolicy5DStimulus*> getFamilies() {
         return family;
     }
 
@@ -76,10 +75,10 @@ public:
      *	@brief Computes stimulus function
      *  stimulus = cox * exp(-pow(pheroIn - offsetIn, 2)/divisor -pow(pheroOut - offsetOut, 2)/divisor);
      */
-    virtual double computeDesirability(double vehInMeasure,
-                                       double vehOutMeasure);
+    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure,
+                                       SUMOReal vehOutMeasure);
 
-    virtual double computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure,	double vehOutDispersionMeasure);
+    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure, SUMOReal vehOutDispersionMeasure);
 };
 
 #endif /* MSSOTLPOLICY5DFAMILYSTIMULUS_H_ */

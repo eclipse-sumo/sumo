@@ -250,7 +250,7 @@ private:
      */
     size_t lastChain;
 
-    double decayThreshold;
+    SUMOReal decayThreshold;
     /*
      * @brief Check for phases compliancy
      */

@@ -20,7 +20,7 @@
 #include "MSSOTLPolicyDesirability.h"
 
 MSSOTLPolicyDesirability::MSSOTLPolicyDesirability(
-    string keyPrefix,
+    std::string keyPrefix,
     const std::map<std::string, std::string>& parameters) :
     Parameterised(parameters), myKeyPrefix(keyPrefix) {
 }

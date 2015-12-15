@@ -31,7 +31,6 @@
 
 #include "MSSOTLPolicy.h"
 
-using namespace std;
 /**
  * @class MSSOTLRequestPolicy
  * @brief Class for low-level request policy.
@@ -50,11 +49,7 @@ public:
                     const MSPhaseDefinition* stage, int vehicleCount);
 
     int getMinDecisionalPhaseDuration() {
-        std::ostringstream key;
-        key << "MIN_DECISIONAL_PHASE_DUR";
-        std::ostringstream def;
-        def << "5000";
-        return (int) s2f(getParameter(key.str(), def.str()));
+        return TplConvert::_2int(getParameter("MIN_DECISIONAL_PHASE_DUR", "5000").c_str());
     }
 
 };

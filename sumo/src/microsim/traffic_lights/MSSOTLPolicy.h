@@ -42,15 +42,13 @@
 #include "MSPhaseDefinition.h"
 #include "MSSOTLPolicyDesirability.h"
 
-using namespace std;
-
 class PushButtonLogic {
 protected:
     void init(std::string prefix, const Parameterised* parameterised);
 
     bool pushButtonLogic(SUMOTime elapsed, bool pushButtonPressed, const MSPhaseDefinition* stage);
 
-    double m_pushButtonScaleFactor;
+    SUMOReal m_pushButtonScaleFactor;
     std::string m_prefix;
 };
 
@@ -58,10 +56,10 @@ class SigmoidLogic {
 protected:
     void init(std::string prefix, const Parameterised* parameterised);
 
-    bool sigmoidLogic(int elapsed, const MSPhaseDefinition* stage, int vehicleCount);
+    bool sigmoidLogic(SUMOTime elapsed, const MSPhaseDefinition* stage, int vehicleCount);
 
     bool m_useSigmoid;
-    double m_k;
+    SUMOReal m_k;
     std::string m_prefix;
 };
 
@@ -76,11 +74,11 @@ private:
     /**
      * \brief The sensitivity of this policy
      */
-    double theta_sensitivity;
+    SUMOReal theta_sensitivity;
     /**
      * \brief The name of the policy
      */
-    string myName;
+    std::string myName;
     /**
      * \brief A pointer to the policy desirability object.\nIt's an optional component related to the computeDesirability() method and it's necessary
      * only when the policy is used in combination with an high level policy.
@@ -88,13 +86,6 @@ private:
     MSSOTLPolicyDesirability* myDesirabilityAlgorithm;
 
 protected:
-    double s2f(string str) {
-        istringstream buffer(str);
-        double temp;
-        buffer >> temp;
-        return temp;
-    }
-
     virtual void init() {}
 
 public:
@@ -102,19 +93,19 @@ public:
      * @param[in] name The name of the policy
      * @param[in] parameters Parameters defined for the policy
      */
-    MSSOTLPolicy(string name,
+    MSSOTLPolicy(std::string name,
                  const std::map<std::string, std::string>& parameters);
     /** @brief Constructor when the policy is a low-level policy used by an high level policy
      * @param[in] name The name of the policy
      * @param[in] desirabilityAlgorithm The desirability algorithm to be used for this policy
      */
-    MSSOTLPolicy(string name, MSSOTLPolicyDesirability* desirabilityAlgorithm);
+    MSSOTLPolicy(std::string name, MSSOTLPolicyDesirability* desirabilityAlgorithm);
     /** @brief Constructor when the policy is a low-level policy used by an high level policy
      * @param[in] name The name of the policy
      * @param[in] desirabilityAlgorithm The desirability algorithm to be used for this policy
      * @param[in] parameters Parameters defined for the policy
      */
-    MSSOTLPolicy(string name, MSSOTLPolicyDesirability* desirabilityAlgorithm,
+    MSSOTLPolicy(std::string name, MSSOTLPolicyDesirability* desirabilityAlgorithm,
                  const std::map<std::string, std::string>& parameters);
     virtual ~MSSOTLPolicy();
 
@@ -124,24 +115,24 @@ public:
                                    size_t currentPhaseIndex, size_t phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
                                    int vehicleCount);
 
-    virtual double getThetaSensitivity() {
+    virtual SUMOReal getThetaSensitivity() {
         return theta_sensitivity;
     }
-    virtual void setThetaSensitivity(double val) {
+    virtual void setThetaSensitivity(SUMOReal val) {
         theta_sensitivity = val;
     }
-    string getName() {
+    std::string getName() {
         return myName;
     }
     MSSOTLPolicyDesirability* getDesirabilityAlgorithm() {
         return myDesirabilityAlgorithm;
     }
     /**
-     * \brief Computes the desirability of this policy, necessary when used in combination with an high level policy.
+     * @brief Computes the desirability of this policy, necessary when used in combination with an high level policy.
      */
-    double computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure,	double vehOutDispersionMeasure);
+    SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure, SUMOReal vehOutDispersionMeasure);
 
-    double computeDesirability(double vehInMeasure, double vehOutMeasure);
+    SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure);
 };
 
 #endif
