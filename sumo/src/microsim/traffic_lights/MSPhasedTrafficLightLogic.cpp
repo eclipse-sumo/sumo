@@ -148,13 +148,8 @@ MSPhasedTrafficLightLogic::getCurrentPhaseDef() const {
 // ------------ Conversion between time and phase
 SUMOTime
 MSPhasedTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const {
-    unsigned int position = 0;
-    if (myStep > 0)	{
-        for (unsigned int i = 0; i < myStep; i++) {
-            position = position + getPhase(i).duration;
-        }
-    }
-    position = position + simStep - getPhase(myStep).myLastSwitch;
+    SUMOTime position = getOffsetFromIndex(myStep);
+    position += simStep - getPhase(myStep).myLastSwitch;
     position = position % myDefaultCycleTime;
     assert(position <= myDefaultCycleTime);
     return position;
@@ -164,11 +159,8 @@ MSPhasedTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const {
 SUMOTime
 MSPhasedTrafficLightLogic::getOffsetFromIndex(unsigned int index) const {
     assert(index < myPhases.size());
-    if (index == 0) {
-        return 0;
-    }
-    unsigned int pos = 0;
-    for (unsigned int i = 0; i < index; i++)	{
+    SUMOTime pos = 0;
+    for (unsigned int i = 0; i < index; i++) {
         pos += getPhase(i).duration;
     }
     return pos;
@@ -181,16 +173,16 @@ MSPhasedTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
     if (offset == myDefaultCycleTime) {
         return 0;
     }
-    unsigned int pos = offset;
-    unsigned int testPos = 0;
+    SUMOTime pos = offset;
+    SUMOTime testPos = 0;
     for (unsigned int i = 0; i < myPhases.size(); i++)	{
-        testPos = testPos + getPhase(i).duration;
+        testPos += getPhase(i).duration;
         if (testPos > pos) {
             return i;
         }
         if (testPos == pos) {
             assert(myPhases.size() > (i + 1));
-            return (i + 1);
+            return i + 1;
         }
     }
     return 0;

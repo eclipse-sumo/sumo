@@ -67,7 +67,7 @@ public:
     /*
     *
     */
-    ~MSSOTLSensors();
+    virtual ~MSSOTLSensors();
 
     /**
     * \brief This function member has to be extended to properly build sensors for the input lanes
