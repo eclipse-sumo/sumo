@@ -698,7 +698,10 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const SUMOReal dist, SUMOReal vSafe
         if (    // ignore vehicles that arrive after us (unless they are ahead and we could easily brake for them)
             ((avi.arrivalTime > arrivalTime) && !couldBrakeForLeader(dist, avi.dist, ego, foe)) ||
             // also ignore vehicles that are behind us and are able to brake for us
-            couldBrakeForLeader(avi.dist, dist, foe, ego)) {
+            couldBrakeForLeader(avi.dist, dist, foe, ego) ||
+            // resolve ties by lane index
+            (avi.arrivalTime == arrivalTime && avi.dist == dist && ego->getLane()->getIndex() < foe->getLane()->getIndex()))
+        {
             //if (gDebugFlag1) std::cout
             //    << "    ignoring foe=" << foe->getID()
             //        << " foeAT=" << avi.arrivalTime
