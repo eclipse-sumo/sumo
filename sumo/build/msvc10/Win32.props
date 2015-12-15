@@ -22,7 +22,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(XERCES)\include;$(PROJ_GDAL)\include;$(FOX16)\include;$(OSG)\include;$(FFMPEG)\include;..\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XERCES)\include;$(PROJ_GDAL)\include;$(FOX16)\include;$(OSG)\include;$(FFMPEG)\include;..\..\..\src;..\..\..\src\foreign\msinttypes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HAVE_PROJ;HAVE_GDAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
