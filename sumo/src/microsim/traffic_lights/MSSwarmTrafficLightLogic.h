@@ -42,7 +42,7 @@
 template<class T>
 class CircularBuffer {
 public:
-    CircularBuffer(unsigned short size) :
+    CircularBuffer(int size) :
         m_size(size), m_currentIndex(0), m_firstTime(true) {
         m_buffer = new T[m_size];
     }
@@ -64,8 +64,8 @@ public:
         insert(value);
     }
 
-    T at(const unsigned short index) const {
-        unsigned short idx = (m_currentIndex - 1 - index + m_size) % m_size;
+    T at(const int index) const {
+        int idx = (m_currentIndex - 1 - index + m_size) % m_size;
         return m_buffer[idx];
     }
 
@@ -77,7 +77,7 @@ public:
         return at(size() - 1);
     }
 
-    unsigned short size() const {
+    int size() const {
         if (m_firstTime) {
             return m_currentIndex;
         }
@@ -91,8 +91,8 @@ public:
 
 private:
     T* m_buffer;
-    unsigned short m_size;
-    unsigned short m_currentIndex;
+    int m_size;
+    int m_currentIndex;
     bool m_firstTime;
 
     inline void insert(const T& value) {
@@ -224,7 +224,7 @@ protected:
      * This member has to contain the switching logic for SOTL policies
      */
 
-    size_t decideNextPhase();
+    int decideNextPhase();
 
     bool canRelease();
 

@@ -211,7 +211,7 @@ void MSSOTLE2Sensors::buildCountSensorForOutLane(MSLane* lane, NLDetectorBuilder
     }
 }
 
-unsigned int MSSOTLE2Sensors::getPassedVeh(std::string laneId, bool /* out */) {
+int MSSOTLE2Sensors::getPassedVeh(std::string laneId, bool /* out */) {
     MSLaneID_MSE2CollectorMap::const_iterator sensorsIterator;
     sensorsIterator = m_sensorMap.find(laneId);
     if (sensorsIterator == m_sensorMap.end()) {
@@ -400,7 +400,7 @@ void MSSOTLE2Sensors::buildSensorForOutLane(MSLane* lane,
     }
 }
 
-unsigned int MSSOTLE2Sensors::countVehicles(MSLane* lane) {
+int MSSOTLE2Sensors::countVehicles(MSLane* lane) {
     return countVehicles(lane->getID());
 }
 
@@ -432,13 +432,13 @@ SUMOReal MSSOTLE2Sensors::getEstimateQueueLength(std::string laneId) {
  * Estimate queue lenght according to the distance of the last vehicles that exceed a threshold
  */
 
-unsigned int MSSOTLE2Sensors::estimateVehicles(std::string laneId) {
+int MSSOTLE2Sensors::estimateVehicles(std::string laneId) {
     MSLaneID_MSE2CollectorMap::const_iterator sensorsIterator = m_sensorMap.find(laneId);
     if (sensorsIterator == m_sensorMap.end()) {
         assert(0);
         return 0;
     }
-    unsigned int additional = 0;
+    int additional = 0;
     if (m_continueSensorOnLanes.find(laneId) != m_continueSensorOnLanes.end())
         for (std::vector<std::string>::iterator it = m_continueSensorOnLanes[laneId].begin(); it != m_continueSensorOnLanes[laneId].end(); ++ it) {
             if (m_sensorMap.find(*it) != m_sensorMap.end()) {
@@ -448,7 +448,7 @@ unsigned int MSSOTLE2Sensors::estimateVehicles(std::string laneId) {
     return sensorsIterator->second->getEstimatedCurrentVehicleNumber(speedThresholdParam) + additional;
 }
 
-unsigned int MSSOTLE2Sensors::countVehicles(std::string laneId) {
+int MSSOTLE2Sensors::countVehicles(std::string laneId) {
     MSLaneID_MSE2CollectorMap::const_iterator sensorsIterator = m_sensorMap.find(laneId);
     if (sensorsIterator == m_sensorMap.end()) {
         assert(0);
@@ -541,7 +541,7 @@ void MSSOTLE2Sensors::setVehicleWeigths(const std::string& weightString) {
     WRITE_MESSAGE(logstr.str());
 }
 
-unsigned int MSSOTLE2Sensors::count(MSE2Collector* sensor) {
+int MSSOTLE2Sensors::count(MSE2Collector* sensor) {
     int totCars = sensor->getCurrentVehicleNumber();
     if (m_typeWeightMap.size() == 0) {
         return totCars;

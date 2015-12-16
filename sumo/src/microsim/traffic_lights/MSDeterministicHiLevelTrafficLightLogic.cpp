@@ -76,7 +76,7 @@ throw(ProcessError) {
 
 }
 
-size_t MSDeterministicHiLevelTrafficLightLogic::decideNextPhase() {
+int MSDeterministicHiLevelTrafficLightLogic::decideNextPhase() {
 
     DBG(
         MsgHandler::getMessageInstance()->inform("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic decideNextPhase()"); std::ostringstream dnp; dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSDeterministicHiLevelTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " getCurrentPhaseDef().getState()=" << getCurrentPhaseDef().getState() << " is commit?" << getCurrentPhaseDef().isCommit(); MsgHandler::getMessageInstance()->inform(dnp.str());)

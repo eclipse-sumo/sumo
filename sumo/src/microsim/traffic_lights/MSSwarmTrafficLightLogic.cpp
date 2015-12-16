@@ -174,8 +174,8 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
         }
     }
 
-    initScaleFactorDispersionIn(pheromoneInputLanes.size());
-    initScaleFactorDispersionOut(pheromoneOutputLanes.size());
+    initScaleFactorDispersionIn((int)pheromoneInputLanes.size());
+    initScaleFactorDispersionOut((int)pheromoneOutputLanes.size());
     //Initializing thresholds for theta evaluations
     lastThetaSensitivityUpdate = MSNet::getInstance()->getCurrentTimeStep();
 
@@ -215,7 +215,7 @@ void MSSwarmTrafficLightLogic::resetPheromone() {
     }
 }
 
-size_t MSSwarmTrafficLightLogic::decideNextPhase() {
+int MSSwarmTrafficLightLogic::decideNextPhase() {
 
     DBG(
         MsgHandler::getMessageInstance()->inform("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()"); std::ostringstream dnp; dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " getCurrentPhaseDef().getState()=" << getCurrentPhaseDef().getState() << " is commit?" << getCurrentPhaseDef().isCommit(); MsgHandler::getMessageInstance()->inform(dnp.str());)
@@ -277,7 +277,7 @@ size_t MSSwarmTrafficLightLogic::decideNextPhase() {
     //Execute current policy. congestion "policy" must maintain the commit phase, and that must be an all-red one
     return getCurrentPolicy()->decideNextPhase(getCurrentPhaseElapsed(), &getCurrentPhaseDef(), getCurrentPhaseIndex(),
             getPhaseIndexWithMaxCTS(), isThresholdPassed(), isPushButtonPressed(), countVehicles(getCurrentPhaseDef()));
-//	size_t newStep =getCurrentPolicy()->decideNextPhase(getCurrentPhaseElapsed(), &getCurrentPhaseDef(), getCurrentPhaseIndex(),
+//	int newStep =getCurrentPolicy()->decideNextPhase(getCurrentPhaseElapsed(), &getCurrentPhaseDef(), getCurrentPhaseIndex(),
 //	          getPhaseIndexWithMaxCTS(), isThresholdPassed(), isPushButtonPressed(), countVehicles(getCurrentPhaseDef()));
 //	if(newStep != myStep)
 //	  pheroBegin = phero;
@@ -399,7 +399,7 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pher
         DBG(
             std::ostringstream str; str << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::countSensors:: lane " << laneId << " passedVeh " << getCountSensors()->getPassedVeh(laneId, false); WRITE_MESSAGE(str.str());)
 
-//		unsigned int vehicles = getSensors()->countVehicles(laneId);
+//		int vehicles = getSensors()->countVehicles(laneId);
 //		SUMOReal pheroIn = getBetaNo() * oldPheroIn + // Evaporation
 //		getGammaNo() * vehicles;
 //		DBG(
@@ -846,7 +846,7 @@ SUMOReal MSSwarmTrafficLightLogic::calculateEtaDiff() {
     }
 
     // IN < OUT
-    else if (inTarget < carsOut) {
+    else {
         // Can't say nothing
         if (inTarget == 0) {
             eta = 0;

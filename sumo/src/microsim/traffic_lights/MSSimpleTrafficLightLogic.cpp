@@ -101,9 +101,9 @@ MSSimpleTrafficLightLogic::trySwitch() {
 
 
 // ------------ Static Information Retrieval
-unsigned int
+int
 MSSimpleTrafficLightLogic::getPhaseNumber() const {
-    return (unsigned int) myPhases.size();
+    return (int) myPhases.size();
 }
 
 
@@ -120,14 +120,14 @@ MSSimpleTrafficLightLogic::getPhases() {
 
 
 const MSPhaseDefinition&
-MSSimpleTrafficLightLogic::getPhase(unsigned int givenStep) const {
+MSSimpleTrafficLightLogic::getPhase(int givenStep) const {
     assert(myPhases.size() > givenStep);
     return *myPhases[givenStep];
 }
 
 
 // ------------ Dynamic Information Retrieval
-unsigned int
+int
 MSSimpleTrafficLightLogic::getCurrentPhaseIndex() const {
     return myStep;
 }
@@ -208,7 +208,7 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
 
 
 void
-MSSimpleTrafficLightLogic::setPhases(const Phases& phases, unsigned int step) {
+MSSimpleTrafficLightLogic::setPhases(const Phases& phases, int step) {
     assert(step < phases.size());
     deletePhases();
     myPhases = phases;

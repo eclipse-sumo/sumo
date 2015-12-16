@@ -91,7 +91,7 @@ void MSSOTLTrafficLightLogic::logStatus() {
 
 void
 MSSOTLTrafficLightLogic::checkPhases() {
-    for (size_t step = 0; step < getPhases().size(); step++) {
+    for (int step = 0; step < (int)getPhases().size(); step++) {
         if (getPhase(step).isUndefined()) {
             MsgHandler::getErrorInstance()->inform("Step " + toString(step) + " of traffic light logic " + myID + " phases declaration has its type undeclared!");
         }
@@ -100,9 +100,7 @@ MSSOTLTrafficLightLogic::checkPhases() {
 
 void
 MSSOTLTrafficLightLogic::setupCTS() {
-    for (unsigned int phaseStep = 0; phaseStep < getPhases().size(); phaseStep++) {
-
-
+    for (int phaseStep = 0; phaseStep < (int)getPhases().size(); phaseStep++) {
         if (getPhase(phaseStep).isTarget()) {
             targetPhasesCTS[phaseStep] = 0;
             lastCheckForTargetPhase[phaseStep] = MSNet::getInstance()->getCurrentTimeStep();
@@ -113,7 +111,7 @@ MSSOTLTrafficLightLogic::setupCTS() {
 
 void
 MSSOTLTrafficLightLogic::setToATargetPhase() {
-    for (size_t step = 0; step < getPhases().size(); step++) {
+    for (int step = 0; step < (int)getPhases().size(); step++) {
         if (getPhase(step).isTarget()) {
             setStep(step);
             lastChain = step;
@@ -215,35 +213,26 @@ MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
     }
 }
 
-unsigned int
-MSSOTLTrafficLightLogic::getCTS(size_t chainStartingPhase) {
-    std::map<size_t, unsigned int>::iterator phaseIterator = targetPhasesCTS.find(chainStartingPhase);
-    if (phaseIterator != targetPhasesCTS.end()) {
-        return phaseIterator->second;
-    } else {
-        return 0;
-    }
-}
 
 void
-MSSOTLTrafficLightLogic::resetCTS(size_t phaseStep) {
-    std::map<size_t, unsigned int>::iterator phaseIterator = targetPhasesCTS.find(phaseStep);
+MSSOTLTrafficLightLogic::resetCTS(int phaseStep) {
+    std::map<int, SUMOTime>::iterator phaseIterator = targetPhasesCTS.find(phaseStep);
     if (phaseIterator != targetPhasesCTS.end()) {
         phaseIterator->second = 0;
-        lastCheckForTargetPhase[phaseStep] = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+        lastCheckForTargetPhase[phaseStep] = MSNet::getInstance()->getCurrentTimeStep();
     }
 }
 
 void
 MSSOTLTrafficLightLogic::updateCTS() {
     SUMOTime elapsedTimeSteps = 0;
-    SUMOTime now = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+    SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     //Iterate over the target phase map and update CTS value for every target phase except for the one belonging to the current steps chain
-    for (std::map<size_t, unsigned int>::iterator mapIterator =
-                targetPhasesCTS.begin(); mapIterator != targetPhasesCTS.end();
-            mapIterator++) {
-        unsigned int chain = mapIterator->first;
-        unsigned int oldVal = mapIterator->second;
+    for (std::map<int, SUMOTime>::iterator mapIterator = targetPhasesCTS.begin();
+             mapIterator != targetPhasesCTS.end();
+             mapIterator++) {
+        int chain = mapIterator->first;
+        SUMOTime oldVal = mapIterator->second;
         if (chain != lastChain) {
             //Get the number of timesteps since the last check for that phase
             elapsedTimeSteps = now - lastCheckForTargetPhase[chain];
@@ -276,7 +265,7 @@ MSSOTLTrafficLightLogic::updateCTS() {
     }
 }
 
-unsigned int
+int
 MSSOTLTrafficLightLogic::countVehicles(MSPhaseDefinition phase) {
 
     if (!phase.isTarget()) {
@@ -345,7 +334,7 @@ MSSOTLTrafficLightLogic::isThresholdPassed() {
     }
     )
     if (!isDecayThresholdActivated() || (isDecayThresholdActivated() && random > (1 - decayThreshold))) {
-        for (std::map<size_t, unsigned int>::const_iterator iterator =
+        for (std::map<int, SUMOTime>::const_iterator iterator =
                     targetPhasesCTS.begin(); iterator != targetPhasesCTS.end();
                 iterator++) {
             DBG(
@@ -381,13 +370,13 @@ MSSOTLTrafficLightLogic::getCurrentPhaseElapsed() {
 }
 
 
-size_t
+int
 MSSOTLTrafficLightLogic::getPhaseIndexWithMaxCTS() {
-    unsigned int maxCTS = 0;
-    unsigned int maxLastStep = getTargetPhaseMaxLastSelection();
+    SUMOTime maxCTS = 0;
+    int maxLastStep = getTargetPhaseMaxLastSelection();
     bool usedMaxCTS = false;
-    std::vector<size_t> equalIndexes = std::vector<size_t>();
-    for (std::map<size_t, unsigned int>::const_iterator it = targetPhasesLastSelection.begin();
+    std::vector<int> equalIndexes;
+    for (std::map<int, int>::const_iterator it = targetPhasesLastSelection.begin();
             it != targetPhasesLastSelection.end(); ++it) {
         if (it->first != lastChain) {
             if (maxLastStep < it->second) {
@@ -401,7 +390,7 @@ MSSOTLTrafficLightLogic::getPhaseIndexWithMaxCTS() {
     }
     if (equalIndexes.size() == 0) {
         usedMaxCTS = true;
-        for (std::map<size_t, unsigned int>::const_iterator iterator = targetPhasesCTS.begin();
+        for (std::map<int, SUMOTime>::const_iterator iterator = targetPhasesCTS.begin();
                 iterator != targetPhasesCTS.end(); ++iterator) {
             if (iterator->first != lastChain) {
                 if (maxCTS < iterator->second) {
@@ -427,21 +416,20 @@ MSSOTLTrafficLightLogic::getPhaseIndexWithMaxCTS() {
         WRITE_MESSAGE(oss.str());
         return equalIndexes[0];
     } else {
-        int index = RandHelper::rand(equalIndexes.size());
+        const int index = RandHelper::getRandomFrom(equalIndexes);
         oss << " phases [";
-        for (std::vector<size_t>::const_iterator it = equalIndexes.begin(); it != equalIndexes.end(); ++it) {
+        for (std::vector<int>::const_iterator it = equalIndexes.begin(); it != equalIndexes.end(); ++it) {
             oss << *it << ", ";
         }
-        oss << "]. Random select " << equalIndexes[index];
+        oss << "]. Random select " << index;
         WRITE_MESSAGE(oss.str());
-        return equalIndexes[index];
+        return index;
     }
 }
 
-size_t
+int
 MSSOTLTrafficLightLogic::decideNextPhase() {
     MSPhaseDefinition currentPhase = getCurrentPhaseDef();
-    SUMOTime elapsed = getCurrentPhaseElapsed();
     //If the junction was in a commit step
     //=> go to the target step that gives green to the set with the current highest CTS
     //   and return computeReturnTime()
@@ -470,7 +458,7 @@ MSSOTLTrafficLightLogic::trySwitch() {
     if (MSNet::getInstance()->getCurrentTimeStep() % 1000 == 0) {
         WRITE_MESSAGE("MSSOTLTrafficLightLogic::trySwitch()")
         // To check if decideNextPhase changes the step
-        unsigned int previousStep = getCurrentPhaseIndex() ;
+        int previousStep = getCurrentPhaseIndex() ;
         SUMOTime elapsed = getCurrentPhaseElapsed();
         // Update CTS according to sensors
         updateCTS();
@@ -487,7 +475,7 @@ MSSOTLTrafficLightLogic::trySwitch() {
                 resetCTS(lastChain);
                 //Update lastTargetPhase
                 lastChain = getCurrentPhaseIndex();
-                for (std::map<size_t, unsigned int>::iterator it = targetPhasesLastSelection.begin(); it != targetPhasesLastSelection.end(); ++ it) {
+                for (std::map<int, int>::iterator it = targetPhasesLastSelection.begin(); it != targetPhasesLastSelection.end(); ++ it) {
                     if (it->first == lastChain) {
                         if (it->second >= getTargetPhaseMaxLastSelection()) {
                             std::ostringstream oss;

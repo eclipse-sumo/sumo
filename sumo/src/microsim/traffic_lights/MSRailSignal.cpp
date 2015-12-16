@@ -232,7 +232,7 @@ MSRailSignal::updateCurrentPhase() {
 
 
 // ------------ Static Information Retrieval
-unsigned int
+int
 MSRailSignal::getPhaseNumber() const {
     return 0;
 }
@@ -243,12 +243,12 @@ MSRailSignal::getPhases() const {
 }
 
 const MSPhaseDefinition&
-MSRailSignal::getPhase(unsigned int) const {
+MSRailSignal::getPhase(int) const {
     return myCurrentPhase;
 }
 
 // ------------ Dynamic Information Retrieval
-unsigned int
+int
 MSRailSignal::getCurrentPhaseIndex() const {
     return 0;
 }

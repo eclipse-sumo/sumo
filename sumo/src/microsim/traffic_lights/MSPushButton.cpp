@@ -49,7 +49,7 @@ bool MSPedestrianPushButton::m_crossingEdgeMapLoaded = false;
 
 MSPedestrianPushButton::MSPedestrianPushButton(const MSEdge* walkingEdge, const MSEdge* crossingEdge)
     : MSPushButton(walkingEdge, crossingEdge) {
-    assert(walkingEdge->isWalkingArea() || (walkingEdge->getPermissions() & SVC_PEDESTRIAN != 0));
+    assert(walkingEdge->isWalkingArea() || ((walkingEdge->getPermissions() & SVC_PEDESTRIAN) != 0));
     assert(crossingEdge->isCrossing());
 }
 

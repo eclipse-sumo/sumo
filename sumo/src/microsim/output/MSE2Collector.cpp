@@ -440,7 +440,7 @@ MSE2Collector::getCurrentVehicleNumber() const {
     return (unsigned) myKnownVehicles.size();
 }
 
-unsigned
+int
 MSE2Collector::getEstimatedCurrentVehicleNumber(SUMOReal speedThreshold) const {
 
     SUMOReal distance = 0;
@@ -461,7 +461,7 @@ MSE2Collector::getEstimatedCurrentVehicleNumber(SUMOReal speedThreshold) const {
         SUMOReal vel = veh->getSpeed();
         SUMOReal realDistance = myLane->getLength() - distance; // the closer vehicle get to the light the greater is the distance
         if (vel <= thresholdSpeed || acceleration > 0) { //TODO speed less than half of the maximum speed for the lane NEED TUNING
-            count = (realDistance / carLength) + 1;
+            count = (int)(realDistance / carLength) + 1;
         }
     }
 

@@ -687,7 +687,7 @@ TraCITestClient::testAPI() {
         answerLog << "    setScheme: \n";
         gui.setSchema("View #0", "real world"); 
         answerLog << "    getScheme: " << gui.getSchema("View #0") << "\n";
-    } catch (tcpip::SocketException& e) {
+    } catch (tcpip::SocketException&) {
         answerLog << "    no support for gui commands\n";
     }
 }

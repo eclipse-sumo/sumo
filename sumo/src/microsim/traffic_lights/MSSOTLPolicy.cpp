@@ -120,9 +120,9 @@ SUMOReal MSSOTLPolicy::computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOu
 
 }
 
-size_t MSSOTLPolicy::decideNextPhase(SUMOTime elapsed,
-                                     const MSPhaseDefinition* stage, size_t currentPhaseIndex,
-                                     size_t phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed, int vehicleCount) {
+int MSSOTLPolicy::decideNextPhase(SUMOTime elapsed,
+                                     const MSPhaseDefinition* stage, int currentPhaseIndex,
+                                     int phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed, int vehicleCount) {
 
     //If the junction was in a commit step
     //=> go to the target step that gives green to the set with the current highest CTS

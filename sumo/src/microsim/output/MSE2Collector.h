@@ -231,7 +231,7 @@ public:
     void reset();
 
     /** @brief Returns an estimate of the number of vehicles currently on the detector */
-    unsigned getEstimatedCurrentVehicleNumber(SUMOReal speedThreshold) const;
+    int getEstimatedCurrentVehicleNumber(SUMOReal speedThreshold) const;
 
     /** @brief Returns an estimate of the lenght of the queue of vehicles currently stopped on the detector */
     SUMOReal getEstimateQueueLength() const;

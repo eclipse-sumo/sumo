@@ -111,8 +111,8 @@ public:
 
     virtual bool canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,
                             const MSPhaseDefinition* stage, int vehicleCount) = 0;
-    virtual size_t decideNextPhase(SUMOTime elapsed, const MSPhaseDefinition* stage,
-                                   size_t currentPhaseIndex, size_t phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
+    virtual int decideNextPhase(SUMOTime elapsed, const MSPhaseDefinition* stage,
+                                   int currentPhaseIndex, int phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
                                    int vehicleCount);
 
     virtual SUMOReal getThetaSensitivity() {

@@ -77,7 +77,7 @@ bool MSSOTLWaveTrafficLightLogic::canRelease() throw() {
     return false;
 }
 
-unsigned int MSSOTLWaveTrafficLightLogic::countVehicles() {
+int MSSOTLWaveTrafficLightLogic::countVehicles() {
 
     std::string state = getCurrentPhaseDef().getState();
     int vehicles = 0;

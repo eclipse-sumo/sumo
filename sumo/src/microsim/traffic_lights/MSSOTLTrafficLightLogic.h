@@ -126,8 +126,7 @@ protected:
      * This member has to contain the switching logic for SOTL policies
      */
 
-    //	virtual unsigned int decideNextPhase();
-    virtual size_t decideNextPhase();
+    virtual int decideNextPhase();
 
     virtual bool canRelease() = 0;
 
@@ -138,7 +137,7 @@ protected:
      * If the phase in not a target phase the function member will return 0.
      * @param[in] The target phase index
      */
-    unsigned int countVehicles(MSPhaseDefinition phase);
+    int countVehicles(MSPhaseDefinition phase);
 
     /*
      * Every target step except the one from the current chain is checked.
@@ -154,7 +153,7 @@ protected:
      */
     bool isPushButtonPressed();
 
-    unsigned int getThreshold() {
+    int getThreshold() {
         return TplConvert::_2int(getParameter("THRESHOLD", "10").c_str());
     }
 
@@ -176,17 +175,7 @@ protected:
      * targeted again, it would be unfair.
      * @return The index of the phase with the maximum value of cars-timesteps
      */
-    size_t getPhaseIndexWithMaxCTS();
-
-    /*
-     * @param[in] chain The step number for the target phase
-     * @return The current cars*timesteps of the given target phase. 0 if not a target phase
-     */
-    unsigned int getCTS(size_t chain);
-
-    size_t getLastChain() {
-        return lastChain;
-    }
+    int getPhaseIndexWithMaxCTS();
 
     MSSOTLSensors* getSensors() {
         return mySensors;
@@ -229,18 +218,18 @@ private:
     bool sensorsSelfBuilt;
 
     // The map to store the cars*timesteps for each target phase
-    std::map<size_t, unsigned int> targetPhasesCTS;
+    std::map<int, SUMOTime> targetPhasesCTS;
 
     //The map to store the time each target phase have been checked last
     //This helps to compute the timesteps to get the cars*timesteps value
-    std::map<size_t, SUMOTime> lastCheckForTargetPhase;
+    std::map<int, SUMOTime> lastCheckForTargetPhase;
 
     //Map to store how many selection rounds have been done from the last selection of the phase
-    std::map<size_t, unsigned int> targetPhasesLastSelection;
+    std::map<int, int> targetPhasesLastSelection;
 
-    unsigned int getTargetPhaseMaxLastSelection() {
+    int getTargetPhaseMaxLastSelection() {
         //return 2 * targetPhasesCTS.size() - 1;
-        return targetPhasesCTS.size() - 1;
+        return (int)targetPhasesCTS.size() - 1;
     }
 
     /*
@@ -248,7 +237,7 @@ private:
      * which is the last target phase executed (even if it is currently executed)
      * (a steps chain starts always with a target phase)
      */
-    size_t lastChain;
+    int lastChain;
 
     SUMOReal decayThreshold;
     /*
@@ -275,7 +264,7 @@ private:
      * To reset the cars-timesteps counter when a target phase is newly selected
      * If phaseStep is not a target phase nothing happens
      */
-    void resetCTS(size_t phaseStep);
+    void resetCTS(int phaseStep);
     /*
      * TEST
      */

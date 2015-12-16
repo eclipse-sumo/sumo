@@ -39,9 +39,9 @@ MSSOTLCongestionPolicy::MSSOTLCongestionPolicy(
 
 }
 
-size_t MSSOTLCongestionPolicy::decideNextPhase(SUMOTime elapsed,
-        const MSPhaseDefinition* stage, size_t currentPhaseIndex,
-        size_t /* phaseMaxCTS */, bool thresholdPassed, bool pushButtonPressed, int vehicleCount) {
+int MSSOTLCongestionPolicy::decideNextPhase(SUMOTime elapsed,
+        const MSPhaseDefinition* stage, int currentPhaseIndex,
+        int /* phaseMaxCTS */, bool thresholdPassed, bool pushButtonPressed, int vehicleCount) {
     if (stage->isCommit()) {
         // decide which chain to activate. Gotta work on this
         return currentPhaseIndex;
@@ -53,7 +53,6 @@ size_t MSSOTLCongestionPolicy::decideNextPhase(SUMOTime elapsed,
     }
 
     if (stage->isDecisional()) {
-
         if (canRelease(elapsed, thresholdPassed, pushButtonPressed, stage, vehicleCount)) {
             return currentPhaseIndex + 1;
         }

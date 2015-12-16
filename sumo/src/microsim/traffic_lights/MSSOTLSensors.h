@@ -40,7 +40,7 @@ class MSSOTLSensors {
 protected:
     const MSTrafficLightLogic::Phases* myPhases;
     std::string tlLogicID;
-    size_t currentStep;
+    int currentStep;
 
 protected :
     /**
@@ -90,7 +90,7 @@ public:
      * Vehicles are effectively counted or guessed in the space from the sensor.
      * @param[in] lane The lane to count vehicles
      */
-    virtual unsigned int countVehicles(MSLane* lane) = 0;
+    virtual int countVehicles(MSLane* lane) = 0;
 
     /*
      * Returns the number of vehicles currently approaching the
@@ -98,7 +98,7 @@ public:
      * Vehicles are effectively counted or guessed in the space from the sensor.
      * @param[in] laneId The lane to count vehicles by ID
      */
-    virtual unsigned int countVehicles(std::string laneId) = 0;
+    virtual int countVehicles(std::string laneId) = 0;
 
     /*
      * Returns the average speed of vehicles currently approaching the

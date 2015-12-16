@@ -105,7 +105,7 @@ void MSPhasedTrafficLightLogic::proceedToNextStep() {
 
 }
 
-void MSPhasedTrafficLightLogic::setStep(unsigned int step) {
+void MSPhasedTrafficLightLogic::setStep(int step) {
     step = step % myPhases.size();
     if (myStep != step) {
         myStep = step;
@@ -114,9 +114,9 @@ void MSPhasedTrafficLightLogic::setStep(unsigned int step) {
 }
 
 // ------------ Static Information Retrieval
-unsigned int
+int
 MSPhasedTrafficLightLogic::getPhaseNumber() const {
-    return (unsigned int) myPhases.size();
+    return (int)myPhases.size();
 }
 
 
@@ -126,14 +126,14 @@ MSPhasedTrafficLightLogic::getPhases() const {
 }
 
 const MSPhaseDefinition&
-MSPhasedTrafficLightLogic::getPhase(unsigned int givenStep) const {
+MSPhasedTrafficLightLogic::getPhase(int givenStep) const {
     assert(myPhases.size() > givenStep);
     return *myPhases[givenStep];
 }
 
 
 // ------------ Dynamic Information Retrieval
-unsigned int
+int
 MSPhasedTrafficLightLogic::getCurrentPhaseIndex() const {
     return myStep;
 }
@@ -205,7 +205,7 @@ MSPhasedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
 
 /****************************************************************************/
 void
-MSPhasedTrafficLightLogic::setPhases(const Phases& phases, unsigned int step) {
+MSPhasedTrafficLightLogic::setPhases(const Phases& phases, int step) {
     assert(step < phases.size());
     deletePhases();
     myPhases = phases;

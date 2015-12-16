@@ -660,7 +660,7 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
 
 
 void
-NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, unsigned int noLinksAll, SUMOTime greenTime, SUMOTime brakingTime,
+NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, unsigned int noLinksAll, SUMOTime /* greenTime */, SUMOTime brakingTime,
                                   const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
     const int vehLinks = noLinksAll - (int)crossings.size();
     std::vector<bool> foundGreen(crossings.size(), false);
@@ -681,7 +681,7 @@ NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, unsigned int noLin
             if (phases.size() > 0) {
                 bool needYellowPhase = false;
                 std::string state = phases.back().state;
-                for (unsigned int i1 = 0; i1 < vehLinks; ++i1) {
+                for (int i1 = 0; i1 < vehLinks; ++i1) {
                     if (state[i1] == 'G' || state[i1] == 'g') {
                         state[i1] = 'y';
                         needYellowPhase = true;

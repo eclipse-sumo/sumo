@@ -47,7 +47,7 @@ MSSOTLPolicyBasedTrafficLightLogic::~MSSOTLPolicyBasedTrafficLightLogic(void) {
 
 }
 
-size_t MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase() {
+int MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase() {
 
     DBG(
         std::ostringstream str; str << "\n" << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << getID() << "invoked MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase()"; WRITE_MESSAGE(str.str());)

@@ -65,7 +65,7 @@ public:
      * @param[in] laneId The ID of the lane of which you want to count vehicles.
      * @param[in] out boolean that indicate if the lane is an incoming or an outgoing one (@todo review)
      */
-    unsigned int getPassedVeh(std::string laneId, bool out);
+    int getPassedVeh(std::string laneId, bool out);
 
     /*
      * Sets the number of vehicles that have passed the sensor.
@@ -84,7 +84,7 @@ public:
      * Vehicles are effectively counted or guessed in the space from the sensor to the junction.
      * @param[in] lane The lane to count vehicles
      */
-    unsigned int countVehicles(MSLane* lane);
+    int countVehicles(MSLane* lane);
 
     /*
      * Returns the number of vehicles currently approaching the
@@ -92,9 +92,9 @@ public:
      * Vehicles are effectively counted or guessed in the space from the sensor to the junction.
      * @param[in] lane The lane to count vehicles given by ID
      */
-    unsigned int countVehicles(std::string laneId);
+    int countVehicles(std::string laneId);
 
-    unsigned int estimateVehicles(std::string laneId);
+    int estimateVehicles(std::string laneId);
 
     SUMOReal getEstimateQueueLength(std::string laneId);
     /*
@@ -126,7 +126,7 @@ public:
     virtual void setVehicleWeigths(const std::string& weightString);
 
 protected:
-    unsigned int count(MSE2Collector* sensor);
+    int count(MSE2Collector* sensor);
     template<typename Method, typename ValueType>
     bool getVelueFromSensor(std::string laneId, Method function, ValueType& value) {
         if (m_sensorMap.find(laneId) != m_sensorMap.end()) {
