@@ -399,9 +399,9 @@ if test -d src/osgview; then
 fi
 
 save_cppflags=$CPPFLAGS
-CPPFLAGS="$CPPFLAGS -I/usr/include/ffmpeg"
+CPPFLAGS="$CPPFLAGS -I/usr/include/ffmpeg -I/usr/local/include"
 export CPPFLAGS
-AC_CHECK_HEADER([libavformat/avformat.h], 
+AC_CHECK_HEADER([libavformat/version.h], 
                 [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
                  AC_DEFINE([HAVE_FFMPEG], [1], [defined if ffmpeg is available])
                  FFMPEG_LIBS="-lavformat -lavcodec -lavutil -lswscale" AC_SUBST(FFMPEG_LIBS)
