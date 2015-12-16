@@ -18,4 +18,4 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import inductive_loop
+from . import inductive_loop
