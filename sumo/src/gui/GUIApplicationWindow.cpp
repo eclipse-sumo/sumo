@@ -1493,6 +1493,10 @@ GUIApplicationWindow::setStatusBarText(const std::string& text) {
 void
 GUIApplicationWindow::updateTimeLCD(SUMOTime time) {
     time -= DELTA_T; // synchronize displayed time with netstate output
+    if (time < 0) {
+        myLCDLabel->setText("-------------");
+        return;
+    }
     if (myAmGaming) {
         // show time counting backwards
         time = myRunThread->getSimEndTime() - time;
