@@ -514,6 +514,7 @@ GUISUMOAbstractView::centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist) {
         } else {
             // called during tracking. update is triggered somewhere else
             myChanger->centerTo(o->getCenteringBoundary().getCenter(), zoomDist, applyZoom);
+            updatePositionInformation();
         }
     }
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -650,6 +651,7 @@ long
 GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector , void* data) {
     if (!myApp->isGaming()) {
         myChanger->onMouseWheel(data);
+        updatePositionInformation();
     }
     return 1;
 }
