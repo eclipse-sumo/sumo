@@ -219,7 +219,7 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
 
 
 void
-NLTriggerBuilder::addAccess(MSNet& net, const SUMOSAXAttributes& attrs) {
+NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
     // get the lane
     MSLane* lane = getLane(attrs, "access" , "");
     // get the positions
