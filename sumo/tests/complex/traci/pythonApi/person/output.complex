@@ -40,7 +40,7 @@ waiting time 0.0
 persons ['horiz']
 person count 1
 examining bla
-speed recovering from exception after asking for unknown person
+recovering from exception after asking for unknown person
 step 6
 getIDList ['horiz']
 step 7

@@ -100,7 +100,7 @@ driving dist 2D 1075.40703196
 vehicles ['horiz']
 vehicle count 1
 examining bla
-speed recovering from exception after asking for unknown vehicle
+recovering from exception after asking for unknown vehicle
 vehicles ['horiz']
 vehicle count 1
 examining 1
@@ -228,7 +228,7 @@ Invalid departure position.
 vehicles ['2', 'horiz']
 vehicle count 2
 examining anotherOne
-speed Vehicle 'anotherOne' is not known
+Vehicle 'anotherOne' is not known
 step 19
 {80: '1o', 86: 60.0}
 step 20

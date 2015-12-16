@@ -18,6 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+from __future__ import print_function
 import os
 import subprocess
 import sys
@@ -36,17 +37,17 @@ sumoProcess = subprocess.Popen(
     "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
 for step in range(3):
-    print "step", step
+    print("step", step)
     traci.simulationStep()
-print "junctions", traci.junction.getIDList()
-print "junction count", traci.junction.getIDCount()
+print("junctions", traci.junction.getIDList())
+print("junction count", traci.junction.getIDCount())
 junctionID = "0"
-print "examining", junctionID
-print "pos", traci.junction.getPosition(junctionID)
+print("examining", junctionID)
+print("pos", traci.junction.getPosition(junctionID))
 traci.junction.subscribe(junctionID)
-print traci.junction.getSubscriptionResults(junctionID)
+print(traci.junction.getSubscriptionResults(junctionID))
 for step in range(3, 6):
-    print "step", step
+    print("step", step)
     traci.simulationStep()
-    print traci.junction.getSubscriptionResults(junctionID)
+    print(traci.junction.getSubscriptionResults(junctionID))
 traci.close()

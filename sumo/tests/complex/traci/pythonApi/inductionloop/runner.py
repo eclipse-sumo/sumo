@@ -18,6 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+from __future__ import print_function
 import os
 import subprocess
 import sys
@@ -34,24 +35,24 @@ sumoProcess = subprocess.Popen(
     "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
 for step in range(4):
-    print "step", step
+    print("step", step)
     traci.simulationStep()
-print "inductionloops", traci.inductionloop.getIDList()
-print "inductionloop count", traci.inductionloop.getIDCount()
+print("inductionloops", traci.inductionloop.getIDList())
+print("inductionloop count", traci.inductionloop.getIDCount())
 loopID = "0"
-print "examining", loopID
-print "vehNum", traci.inductionloop.getLastStepVehicleNumber(loopID)
-print "meanSpeed", traci.inductionloop.getLastStepMeanSpeed(loopID)
-print "vehIDs", traci.inductionloop.getLastStepVehicleIDs(loopID)
-print "occupancy", traci.inductionloop.getLastStepOccupancy(loopID)
-print "meanLength", traci.inductionloop.getLastStepMeanLength(loopID)
-print "timeSinceDet", traci.inductionloop.getTimeSinceDetection(loopID)
-print "vehData", traci.inductionloop.getVehicleData(loopID)
+print("examining", loopID)
+print("vehNum", traci.inductionloop.getLastStepVehicleNumber(loopID))
+print("meanSpeed", traci.inductionloop.getLastStepMeanSpeed(loopID))
+print("vehIDs", traci.inductionloop.getLastStepVehicleIDs(loopID))
+print("occupancy", traci.inductionloop.getLastStepOccupancy(loopID))
+print("meanLength", traci.inductionloop.getLastStepMeanLength(loopID))
+print("timeSinceDet", traci.inductionloop.getTimeSinceDetection(loopID))
+print("vehData", traci.inductionloop.getVehicleData(loopID))
 
 traci.inductionloop.subscribe(loopID)
-print traci.inductionloop.getSubscriptionResults(loopID)
+print(traci.inductionloop.getSubscriptionResults(loopID))
 for step in range(3, 6):
-    print "step", step
+    print("step", step)
     traci.simulationStep()
-    print traci.inductionloop.getSubscriptionResults(loopID)
+    print(traci.inductionloop.getSubscriptionResults(loopID))
 traci.close()

@@ -18,6 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+from __future__ import print_function
 import os
 import subprocess
 import sys
@@ -34,20 +35,20 @@ sumoProcess = subprocess.Popen(
     "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
 for step in range(4):
-    print "step", step
+    print("step", step)
     traci.simulationStep()
-print "multientryexits", traci.multientryexit.getIDList()
-print "multientryexit count", traci.multientryexit.getIDCount()
+print("multientryexits", traci.multientryexit.getIDList())
+print("multientryexit count", traci.multientryexit.getIDCount())
 detID = "0"
-print "examining", detID
-print "vehNum", traci.multientryexit.getLastStepVehicleNumber(detID)
-print "meanSpeed", traci.multientryexit.getLastStepMeanSpeed(detID)
-print "vehIDs", traci.multientryexit.getLastStepVehicleIDs(detID)
-print "haltNum", traci.multientryexit.getLastStepHaltingNumber(detID)
+print("examining", detID)
+print("vehNum", traci.multientryexit.getLastStepVehicleNumber(detID))
+print("meanSpeed", traci.multientryexit.getLastStepMeanSpeed(detID))
+print("vehIDs", traci.multientryexit.getLastStepVehicleIDs(detID))
+print("haltNum", traci.multientryexit.getLastStepHaltingNumber(detID))
 traci.multientryexit.subscribe(detID)
-print traci.multientryexit.getSubscriptionResults(detID)
+print(traci.multientryexit.getSubscriptionResults(detID))
 for step in range(3, 6):
-    print "step", step
+    print("step", step)
     traci.simulationStep()
-    print traci.multientryexit.getSubscriptionResults(detID)
+    print(traci.multientryexit.getSubscriptionResults(detID))
 traci.close()

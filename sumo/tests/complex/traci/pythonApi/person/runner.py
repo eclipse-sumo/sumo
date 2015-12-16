@@ -17,6 +17,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+from __future__ import print_function
 import os
 import subprocess
 import sys
@@ -40,47 +41,47 @@ def step():
     return s
 
 for i in range(3):
-    print "step", step()
+    print("step", step())
 
 
 def check(personID):
-    print "persons", traci.person.getIDList()
-    print "person count", traci.person.getIDCount()
-    print "examining", personID
-    print "speed", traci.person.getSpeed(personID)
-    print "pos", traci.person.getPosition(personID)
-    print "angle", traci.person.getAngle(personID)
-    print "road", traci.person.getRoadID(personID)
-    print "type", traci.person.getTypeID(personID)
-    print "lanePos", traci.person.getLanePosition(personID)
-    print "color", traci.person.getColor(personID)
-    print "length", traci.person.getLength(personID)
-    print "MinGap", traci.person.getMinGap(personID)
-    print "width", traci.person.getWidth(personID)
-    print "waiting time", traci.person.getWaitingTime(personID)
+    print("persons", traci.person.getIDList())
+    print("person count", traci.person.getIDCount())
+    print("examining", personID)
+    print("speed", traci.person.getSpeed(personID))
+    print("pos", traci.person.getPosition(personID))
+    print("angle", traci.person.getAngle(personID))
+    print("road", traci.person.getRoadID(personID))
+    print("type", traci.person.getTypeID(personID))
+    print("lanePos", traci.person.getLanePosition(personID))
+    print("color", traci.person.getColor(personID))
+    print("length", traci.person.getLength(personID))
+    print("MinGap", traci.person.getMinGap(personID))
+    print("width", traci.person.getWidth(personID))
+    print("waiting time", traci.person.getWaitingTime(personID))
 
 personID = "horiz"
 check(personID)
 traci.person.subscribe(personID)
-print traci.person.getSubscriptionResults(personID)
+print(traci.person.getSubscriptionResults(personID))
 for i in range(3):
-    print "step", step()
-    print traci.person.getSubscriptionResults(personID)
+    print("step", step())
+    print(traci.person.getSubscriptionResults(personID))
 check(personID)
 try:
     check("bla")
 except traci.TraCIException:
-    print "recovering from exception after asking for unknown person"
-print "step", step()
-print "getIDList", traci.person.getIDList()
+    print("recovering from exception after asking for unknown person")
+print("step", step())
+print("getIDList", traci.person.getIDList())
 for i in range(6):
-    print "step", step()
-    print traci.person.getSubscriptionResults(personID)
+    print("step", step())
+    print(traci.person.getSubscriptionResults(personID))
 
 for i in range(200):
     step()
 # person should be on a walkingArea in front of a crossing now
-print traci.person.getRoadID(personID)
-print traci.person.getLanePosition(personID)
-print traci.person.getNextEdge(personID)
+print(traci.person.getRoadID(personID))
+print(traci.person.getLanePosition(personID))
+print(traci.person.getNextEdge(personID))
 traci.close()
