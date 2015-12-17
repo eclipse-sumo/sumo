@@ -165,6 +165,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">
     <Link>
       <AdditionalDependencies>$(FFMPEG_LIB);$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\InternalRelease\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalRelease\y_libmesosim.lib</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">
