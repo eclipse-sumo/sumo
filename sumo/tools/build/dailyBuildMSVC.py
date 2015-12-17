@@ -22,6 +22,8 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import with_statement
+from __future__ import absolute_import
+from __future__ import print_function
 import re
 import io
 from datetime import date
@@ -119,7 +121,7 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
         if update_lines < 3 and not options.force:
             open(makeLog, 'a').write(
                 "No changes since last update, skipping build and test\n")
-            print "No changes since last update, skipping build and test"
+            print("No changes since last update, skipping build and test")
             sys.exit()
 
     subprocess.call(compiler + " /rebuild Release|%s %s\\%s /out %s" %
@@ -171,31 +173,33 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
                 if not f.startswith(nightlyDir):
                     try:
                         shutil.copy2(f, nightlyDir)
-                    except IOError, (errno, strerror):
-                        print >> log, "Warning: Could not copy %s to %s!" % (
-                            f, nightlyDir)
-                        print >> log, "I/O error(%s): %s" % (errno, strerror)
+                    except IOError as ioerr:
+                        (errno, strerror) = ioerr.args
+                        print("Warning: Could not copy %s to %s!" % (
+                            f, nightlyDir), file=log)
+                        print("I/O error(%s): %s" % (errno, strerror), file=log)
             zipf.close()
             shutil.copy2(binaryZip, options.remoteDir)
             wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
             shutil.copy2(binaryZip.replace(".zip", ".msi"), options.remoteDir)
-        except IOError, (errno, strerror):
-            print >> log, "Warning: Could not zip to %s!" % binaryZip
-            print >> log, "I/O error(%s): %s" % (errno, strerror)
+        except IOError as ziperr:
+            (errno, strerror) = ziperr.args
+            print("Warning: Could not zip to %s!" % binaryZip, file=log)
+            print("I/O error(%s): %s" % (errno, strerror), file=log)
     if platform == "Win32" and options.sumoExe == "sumo":
         try:
             setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
             subprocess.call(
                 ['python', setup], stdout=log, stderr=subprocess.STDOUT)
         except Exception as e:
-            print >> log, "Warning: Could not create nightly sumo-game.zip! (%s)" % e
+            print("Warning: Could not create nightly sumo-game.zip! (%s)" % e, file=log)
     if platform == "x64" and options.sumoExe == "meso":
         try:
             setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
             subprocess.call(
                 ['python', setup, 'internal'], stdout=log, stderr=subprocess.STDOUT)
         except Exception as e:
-            print >> log, "Warning: Could not create nightly sumo-game-internal.zip! (%s)" % e
+            print("Warning: Could not create nightly sumo-game-internal.zip! (%s)" % e, file=log)
     log.close()
     subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
                     (platform, options.rootDir, options.project, makeAllLog))

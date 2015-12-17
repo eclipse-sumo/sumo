@@ -21,6 +21,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 from matplotlib import rcParams
 from pylab import *
@@ -65,12 +67,12 @@ class VehroutesReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'tripinfo':
-            if attrs.has_key('id'):
+            if 'id' in attrs:
                 id = attrs['id']
             else:
                 id = attrs['vehicle_id']
             self._veh2value[id] = float(attrs[self._value])
-            if attrs.has_key('depart'):
+            if 'depart' in attrs:
                 self._veh2time[id] = float(attrs["depart"])
             else:
                 self._veh2time[id] = float(attrs["wished"])
@@ -109,26 +111,26 @@ optParser.add_option("--ylim", dest="ylim", type="string",  default="",
 (options, args) = optParser.parse_args()
 # check set options
 if not options.show and not options.output:
-    print "Neither show (--show) not write (--output <FILE>)? Exiting..."
+    print("Neither show (--show) not write (--output <FILE>)? Exiting...")
     exit()
 
 
 parser = make_parser()
 # read dump1
 if options.verbose:
-    print "Reading tripinfos1..."
+    print("Reading tripinfos1...")
 r1 = VehroutesReader(options.value)
 parser.setContentHandler(r1)
 parser.parse(options.tripinfos1)
 # read dump2
 if options.verbose:
-    print "Reading tripinfos2..."
+    print("Reading tripinfos2...")
 r2 = VehroutesReader(options.value)
 parser.setContentHandler(r2)
 parser.parse(options.tripinfos2)
 # plot
 if options.verbose:
-    print "Processing data..."
+    print("Processing data...")
 # set figure size
 if not options.show:
     rcParams['backend'] = 'Agg'
@@ -156,9 +158,9 @@ for veh in r1._veh2value:
         (min, max) = updateMinMax(min, max, r1._veh2value[veh])
         (min, max) = updateMinMax(min, max, r2._veh2value[veh])
      # plot
-print "data range: " + str(min) + " - " + str(max)
+print("data range: " + str(min) + " - " + str(max))
 if options.verbose:
-    print "Plotting..."
+    print("Plotting...")
 if options.time_coloring:
     scatter(xs, ys, color=c, s=1)
 else:

@@ -21,6 +21,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import string
 import sys
@@ -103,24 +105,24 @@ optParser.add_option("-e", "--exclude", dest="exclude",
 parser = make_parser()
 # read dump1
 if options.verbose:
-    print "Reading dump1..."
+    print("Reading dump1...")
 weights1 = WeightsReader()
 parser.setContentHandler(weights1)
 parser.parse(options.dump1)
 # read dump2
 if options.verbose:
-    print "Reading dump2..."
+    print("Reading dump2...")
 weights2 = WeightsReader()
 parser.setContentHandler(weights2)
 parser.parse(options.dump2)
 # process
 if options.verbose:
-    print "Computing diff..."
+    print("Computing diff...")
 exclude = []
 if options.exclude:
     exclude = options.exclude.split(",")
 weights1.sub(weights2, exclude)
 # save
 if options.verbose:
-    print "Writing..."
+    print("Writing...")
 weights1.write(options)

@@ -22,6 +22,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
+from __future__ import absolute_import
 import os
 import sys
 import math
@@ -388,14 +389,14 @@ class NetReader(handler.ContentHandler):
             function = attrs.get('function', '')
             if function == '' or self._withInternal:
                 prio = -1
-                if attrs.has_key('priority'):
+                if 'priority' in attrs:
                     prio = int(attrs['priority'])
                 name = ""
-                if attrs.has_key('name'):
+                if 'name' in attrs:
                     name = attrs['name']
                 self._currentEdge = self._net.addEdge(attrs['id'],
                                                       attrs.get('from', None), attrs.get('to', None), prio, function, name)
-                if attrs.has_key('shape'):
+                if 'shape' in attrs:
                     self.processShape(self._currentEdge, attrs['shape'])
             else:
                 if function in ['crossing', 'walkingarea']:
@@ -408,7 +409,7 @@ class NetReader(handler.ContentHandler):
                 float(attrs['length']),
                 attrs.get('allow'),
                 attrs.get('disallow'))
-            if attrs.has_key('shape'):
+            if 'shape' in attrs:
                 # deprecated: at some time, this is mandatory
                 self._currentShape = attrs['shape']
             else:
@@ -430,7 +431,7 @@ class NetReader(handler.ContentHandler):
             if lid[0] != ':' and lid != "SUMO_NO_DESTINATION" and self._currentEdge:
                 connected = self._net.getEdge(lid[:lid.rfind('_')])
                 tolane = int(lid[lid.rfind('_') + 1:])
-                if attrs.has_key('tl') and attrs['tl'] != "":
+                if 'tl' in attrs and attrs['tl'] != "":
                     tl = attrs['tl']
                     tllink = int(attrs['linkIdx'])
                     tlid = attrs['tl']
@@ -456,7 +457,7 @@ class NetReader(handler.ContentHandler):
                 toEdge = self._net.getEdge(toEdgeID)
                 fromLane = fromEdge.getLane(int(attrs['fromLane']))
                 toLane = toEdge.getLane(int(attrs['toLane']))
-                if attrs.has_key('tl') and attrs['tl'] != "":
+                if 'tl' in attrs and attrs['tl'] != "":
                     tl = attrs['tl']
                     tllink = int(attrs['linkIndex'])
                     tls = self._net.addTLS(tl, fromLane, toLane, tllink)

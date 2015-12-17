@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import util.Path as path
 from util.CalcTime import getDateFromDepart
@@ -30,7 +32,7 @@ vehId = 0
 
 
 def main():
-    print "starting"
+    print("starting")
     # change path for multi
     path.vtypeprobe = path.newPath(
         path.main, "simRawFCD/t2MitVerschiedenenLosfahrzeiten/vtypeprobe_-4.out.xml")
@@ -55,10 +57,10 @@ def main():
     outputFile.close()
     inputFile.close()
     for key in vehIdDict:
-        print key, vehIdDict[key], "\n"
+        print(key, vehIdDict[key], "\n")
     # pickles the vehIdList
     dump(vehIdDict, open(path.rawFcdVehIdList, 'w'))
-    print "end"
+    print("end")
 
 
 def getVehId(orgId):

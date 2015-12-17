@@ -23,6 +23,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import re
@@ -92,7 +94,7 @@ def parseRevision(svnFile):
 def create_version_file(versionFile, svnRevision, svnFile):
     print('generating %s from revision in %s' % (versionFile, svnFile))
     with open(versionFile, 'w') as f:
-        print >>f, '#define VERSION_STRING "dev-SVN-r%s"' % svnRevision
+        print('#define VERSION_STRING "dev-SVN-r%s"' % svnRevision, file=f)
 
 
 def main():
@@ -110,14 +112,14 @@ def main():
     else:
         svnDir = find_svnDir(sumoSrc)
     if svnDir == None or not exists(svnDir):
-        print "unknown revision - svn dir '%s' not found" % svnDir
+        print("unknown revision - svn dir '%s' not found" % svnDir)
         if not exists(versionFile):
             create_version_file(versionFile, UNKNOWN_REVISION, "<None>")
     else:
         # determine svn file
         svnFile = find_svnFile(svnDir)
         if svnFile == None:
-            print "unknown revision - no svn file found in %s" % svnDir
+            print("unknown revision - no svn file found in %s" % svnDir)
             if not exists(versionFile):
                 create_version_file(versionFile, UNKNOWN_REVISION, "<None>")
         if not exists(versionFile) or getmtime(versionFile) < getmtime(svnFile):

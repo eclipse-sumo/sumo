@@ -21,6 +21,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import random
 import string
@@ -47,7 +49,7 @@ class Vertex:
 
     def reset(self):
         self.inPathEdge = None
-        self.flowDelta = sys.maxint
+        self.flowDelta = sys.maxsize
         self.gain = 0
 
     def update(self, edge, flow, isForward):
@@ -56,12 +58,12 @@ class Vertex:
         if isForward:
             numSatEdges = edge.source.gain / edge.source.flowDelta
             self.gain = numSatEdges * flow
-            if edge.capacity < sys.maxint:
+            if edge.capacity < sys.maxsize:
                 self.gain += flow
         else:
             numSatEdges = edge.target.gain / edge.target.flowDelta
             self.gain = numSatEdges * flow
-            if edge.capacity < sys.maxint:
+            if edge.capacity < sys.maxsize:
                 self.gain -= flow
 
     def __repr__(self):
@@ -84,14 +86,14 @@ class Edge:
         self.reset()
 
     def reset(self):
-        self.capacity = sys.maxint
-        self.startCapacity = sys.maxint
+        self.capacity = sys.maxsize
+        self.startCapacity = sys.maxsize
         self.flow = 0
         self.routes = []
 
     def __repr__(self):
         cap = str(self.capacity)
-        if self.capacity == sys.maxint:
+        if self.capacity == sys.maxsize:
             cap = "inf"
         return self.kind + "_" + self.label + "<" + str(self.flow) + "|" + cap + ">"
 
@@ -172,7 +174,7 @@ class Net:
     def trimNet(self):
         if options.minspeed > 0.0:
             if options.verbose:
-                print "Removing edges with maxspeed < %s," % options.minspeed,
+                print("Removing edges with maxspeed < %s," % options.minspeed, end=' ')
             # The code in the following loop assumes there are still all
             # auxiliary junction edges present.
             for edgeObj in self._edges.values():
@@ -188,11 +190,11 @@ class Net:
                                     self._possibleSources.add(realsucc)
                         self.removeEdge(edgeObj)
             if options.verbose:
-                print len(self._edges), "left"
+                print(len(self._edges), "left")
             if options.trimfile:
                 trimOut = open(options.trimfile, 'w')
                 for edge in self._edges.values():
-                    print >> trimOut, "edge:" + edge.label
+                    print("edge:" + edge.label, file=trimOut)
                 trimOut.close()
 
     def detectSourceSink(self, sources, sinks):
@@ -207,10 +209,10 @@ class Net:
             if len(sinks) == 0 and (len(edgeObj.target.outEdges) == 0 or edgeObj in self._possibleSinks):
                 self.addSinkEdge(edgeObj)
         if len(self._sink.inEdges) == 0:
-            print "Error! No sinks found."
+            print("Error! No sinks found.")
             return False
         if len(self._source.outEdges) == 0:
-            print "Error! No sources found."
+            print("Error! No sources found.")
             return False
         return True
 
@@ -225,22 +227,22 @@ class Net:
                     if int(group.totalFlow) > edge.capacity:
                         edge.capacity = int(group.totalFlow)
             if not options.respectzero and edge.capacity == 0:
-                edge.capacity = sys.maxint
+                edge.capacity = sys.maxsize
             edge.startCapacity = edge.capacity
         if options.verbose:
             unlimitedSource = 0
             for edgeObj in self._source.outEdges:
                 for src in edgeObj.target.outEdges:
-                    if src.capacity == sys.maxint:
+                    if src.capacity == sys.maxsize:
                         unlimitedSource += 1
             unlimitedSink = 0
             for edgeObj in self._sink.inEdges:
                 for sink in edgeObj.source.inEdges:
-                    if sink.capacity == sys.maxint:
+                    if sink.capacity == sys.maxsize:
                         unlimitedSink += 1
-            print len(self._source.outEdges), "sources,",
-            print unlimitedSource, "unlimited"
-            print len(self._sink.inEdges), "sinks,", unlimitedSink, "unlimited"
+            print(len(self._source.outEdges), "sources,", end=' ')
+            print(unlimitedSource, "unlimited")
+            print(len(self._sink.inEdges), "sinks,", unlimitedSink, "unlimited")
 
     def splitRoutes(self, stubs, currEdge):
         newStubs = []
@@ -267,7 +269,7 @@ class Net:
         stubs.extend(newStubs)
 
     def updateFlow(self, startVertex, endVertex):
-        assert endVertex.flowDelta < sys.maxint
+        assert endVertex.flowDelta < sys.maxsize
         cycleStartStep = (startVertex == endVertex)
         currVertex = endVertex
         stubs = [Route(endVertex.flowDelta, [])]
@@ -317,12 +319,12 @@ class Net:
             if currEdge.target == currVertex:
                 currEdge.source.inPathEdge = currEdge
                 currVertex = currEdge.source
-                if currEdge.capacity < sys.maxint:
+                if currEdge.capacity < sys.maxsize:
                     numSatEdges -= 1
             else:
                 currEdge.target.inPathEdge = currEdge
                 currVertex = currEdge.target
-                if currEdge.capacity < sys.maxint:
+                if currEdge.capacity < sys.maxsize:
                     numSatEdges += 1
         startVertex.inPathEdge = None
         unsatEdge.target.flowDelta = startVertex.flowDelta
@@ -330,7 +332,7 @@ class Net:
 
     def pullFlow(self, unsatEdge):
         if options.verbose:
-            print "Trying to increase flow on", unsatEdge
+            print("Trying to increase flow on", unsatEdge)
         for vertex in self._vertices:
             vertex.reset()
         pred = {unsatEdge.target: unsatEdge, unsatEdge.source: unsatEdge}
@@ -365,7 +367,7 @@ class Net:
             pathFound = self.findPath(self._source, self._source)
             if not pathFound:
                 for edge in self._edges.itervalues():
-                    if edge.capacity < sys.maxint:
+                    if edge.capacity < sys.maxsize:
                         while edge.flow < edge.capacity and self.pullFlow(edge):
                             pathFound = True
         # the rest of this function only tests assertions
@@ -408,8 +410,8 @@ class Net:
                         lastReal = redge
                 assert firstReal != '' and lastReal != None
                 routeID = "%s.%s%s" % (firstReal, id, suffix)
-                print >> routeOut, '    <route id="%s" edges="%s"/>' % (
-                    routeID, routeString.strip())
+                print('    <route id="%s" edges="%s"/>' % (
+                    routeID, routeString.strip()), file=routeOut)
 
     def writeEmitters(self, emitOut, begin=0, end=3600, suffix=""):
         if not emitOut:
@@ -421,18 +423,18 @@ class Net:
             edge = srcEdge.target.outEdges[0]
             vtype = ' type="%s"' % options.vtype if options.vtype else ""
             if len(srcEdge.routes) == 1:
-                print >> emitOut, '    <flow id="src_%s%s"%s route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (
-                    edge.label, suffix, vtype, edge.label, suffix, srcEdge.flow, begin, end)
+                print('    <flow id="src_%s%s"%s route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (
+                    edge.label, suffix, vtype, edge.label, suffix, srcEdge.flow, begin, end), file=emitOut)
             else:
                 ids = " ".join(["%s.%s%s" % (edge.label, id, suffix)
                                 for id in range(len(srcEdge.routes))])
                 probs = " ".join([str(route.frequency)
                                   for route in srcEdge.routes])
-                print >> emitOut, '    <flow id="src_%s%s"%s number="%s" begin="%s" end="%s">' % (
-                    edge.label, suffix, vtype, srcEdge.flow, begin, end)
-                print >> emitOut, '        <routeDistribution routes="%s" probabilities="%s"/>' % (
-                    ids, probs)
-                print >> emitOut, '    </flow>'
+                print('    <flow id="src_%s%s"%s number="%s" begin="%s" end="%s">' % (
+                    edge.label, suffix, vtype, srcEdge.flow, begin, end), file=emitOut)
+                print('        <routeDistribution routes="%s" probabilities="%s"/>' % (
+                    ids, probs), file=emitOut)
+                print('    </flow>', file=emitOut)
 
     def writeFlowPOIs(self, poiOut, suffix=""):
         if not poiOut:
@@ -450,13 +452,13 @@ class Net:
             label = edge.label
             flow = str(edge.flow)
             cap = str(edge.startCapacity)
-            if edge.startCapacity == sys.maxint:
+            if edge.startCapacity == sys.maxsize:
                 cap = "inf"
-            print >> poiOut, '    <poi id="' + label + \
-                '_f' + flow + 'c' + cap + suffix + '"',
-            print >> poiOut, 'color = "' + color + '" lane="' + label + '_0"',
-            print >> poiOut, ' pos="' + \
-                str(random.random() * edge.length) + '"/>'
+            print('    <poi id="' + label + \
+                '_f' + flow + 'c' + cap + suffix + '"', end=' ', file=poiOut)
+            print('color = "' + color + '" lane="' + label + '_0"', end=' ', file=poiOut)
+            print(' pos="' + \
+                str(random.random() * edge.length) + '"/>', file=poiOut)
 
 
 # The class for parsing the XML and CSV input files. The data parsed is
@@ -470,7 +472,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
         self._detReader = None
 
     def startElement(self, name, attrs):
-        if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
+        if name == 'edge' and ('function' not in attrs or attrs['function'] != 'internal'):
             self._edge = attrs['id']
             if not options.lanebased:
                 self._net.addIsolatedRealEdge(attrs['id'])
@@ -531,7 +533,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
 
 def warn(msg):
     if not options.quiet:
-        print >> sys.stderr, msg
+        print(msg, file=sys.stderr)
 
 
 def addFlowFile(option, opt_str, value, parser):
@@ -587,47 +589,47 @@ if options.emitfile and not options.routefile:
     sys.exit()
 parser = make_parser()
 if options.verbose:
-    print "Reading net"
+    print("Reading net")
 net = Net()
 reader = NetDetectorFlowReader(net)
 parser.setContentHandler(reader)
 parser.parse(options.netfile)
 if options.verbose:
-    print len(net._edges), "edges read"
-    print "Reading detectors"
+    print(len(net._edges), "edges read")
+    print("Reading detectors")
 sources, sinks = reader.readDetectors(options.detfile)
 if net.detectSourceSink(sources, sinks):
     routeOut = None
     if options.routefile:
         routeOut = open(options.routefile, 'w')
-        print >> routeOut, "<routes>"
+        print("<routes>", file=routeOut)
     emitOut = None
     if options.emitfile:
         emitOut = open(options.emitfile, 'w')
-        print >> emitOut, "<additional>"
+        print("<additional>", file=emitOut)
     poiOut = None
     if options.flowpoifile:
         poiOut = open(options.flowpoifile, 'w')
-        print >> poiOut, "<pois>"
+        print("<pois>", file=poiOut)
     if options.interval:
         haveFlows = True
         start = 0
         while haveFlows:
             suffix = ".%s" % start
             if options.verbose:
-                print "Reading flows"
+                print("Reading flows")
             for flow in options.flowfiles:
                 haveFlows = reader.readFlows(flow, start)
             if haveFlows:
                 if options.verbose:
-                    print "Calculating routes"
+                    print("Calculating routes")
                 net.calcRoutes()
                 if routeOut:
                     net.writeRoutes(routeOut, suffix)
                 else:
                     for edge in net._source.outEdges:
                         for route in edge.routes:
-                            print route
+                            print(route)
                 net.writeEmitters(
                     emitOut, 60 * start, 60 * (start + options.interval), suffix)
                 net.writeFlowPOIs(poiOut, suffix)
@@ -635,26 +637,26 @@ if net.detectSourceSink(sources, sinks):
             start += options.interval
     else:
         if options.verbose:
-            print "Reading flows"
+            print("Reading flows")
         for flow in options.flowfiles:
             reader.readFlows(flow)
         if options.verbose:
-            print "Calculating routes"
+            print("Calculating routes")
         net.calcRoutes()
         if routeOut:
             net.writeRoutes(routeOut)
         else:
             for edge in net._source.outEdges:
                 for route in edge.routes:
-                    print route
+                    print(route)
         net.writeEmitters(emitOut)
         net.writeFlowPOIs(poiOut)
     if routeOut:
-        print >> routeOut, "</routes>"
+        print("</routes>", file=routeOut)
         routeOut.close()
     if emitOut:
-        print >> emitOut, "</additional>"
+        print("</additional>", file=emitOut)
         emitOut.close()
     if poiOut:
-        print >> poiOut, "</pois>"
+        print("</pois>", file=poiOut)
         poiOut.close()

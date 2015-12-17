@@ -6,6 +6,7 @@
 Copyright (C) 2014 DLR/TS, Germany
 All rights reserved
 """
+from __future__ import absolute_import
 
 
 from . import *

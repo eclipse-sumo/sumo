@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import httplib
@@ -45,7 +47,7 @@ def readCompressed(conn, query, filename):
     <print mode="body"/>
     </osm-script>""" % query)
     response = conn.getresponse()
-    print response.status, response.reason
+    print(response.status, response.reason)
     if response.status == 200:
         out = open(path.join(os.getcwd(), filename), "w")
         out.write(response.read())
@@ -103,7 +105,7 @@ def get(args=None):
             req = "/api/0.6/map?bbox=%s,%s,%s,%s" % (b, south, e, north)
             conn.request("GET", req)
             r = conn.getresponse()
-            print req, r.status, r.reason
+            print(req, r.status, r.reason)
             out = open(
                 path.join(os.getcwd(), "%s%s_%s.osm.xml" % (options.prefix, i, num)), "w")
             out.write(r.read())

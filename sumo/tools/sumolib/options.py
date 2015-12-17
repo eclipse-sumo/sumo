@@ -18,6 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
+from __future__ import absolute_import
 import os
 import sys
 import subprocess
@@ -53,7 +54,7 @@ class OptionReader(handler.ContentHandler):
         self.opts = []
 
     def startElement(self, name, attrs):
-        if attrs.has_key('value'):
+        if 'value' in attrs:
             self.opts.append(
                 Option(name, attrs['value'], attrs.get('type'), attrs.get('help')))
 

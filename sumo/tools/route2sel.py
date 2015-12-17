@@ -17,6 +17,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import print_function
+from __future__ import absolute_import
 import sys
 from optparse import OptionParser
 from sumolib.output import parse_fast

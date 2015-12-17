@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import os
@@ -346,12 +348,12 @@ def xmldiff(source, dest, diff, type, copy_tags):
         root_open, root_close = handle_children(dest, attributeStore.compare)
 
     if not have_source and not have_dest:
-        print "Skipping %s due to lack of input files" % diff
+        print("Skipping %s due to lack of input files" % diff)
     else:
         if not have_source:
-            print "Source file %s is missing. Assuming all elements are created" % source
+            print("Source file %s is missing. Assuming all elements are created" % source)
         elif not have_dest:
-            print "Dest file %s is missing. Assuming all elements are deleted" % dest
+            print("Dest file %s is missing. Assuming all elements are deleted" % dest)
 
         with open(diff, 'w') as diff_file:
             diff_file.write(root_open)

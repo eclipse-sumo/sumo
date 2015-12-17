@@ -20,6 +20,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 from os.path import join
@@ -116,10 +118,10 @@ def main(options):
             elif app in appName:
                 appName = set([app])
             else:
-                print >> sys.stderr, "Skipping %s because the application was not unique (found %s)." % (
-                    source, appName)
+                print("Skipping %s because the application was not unique (found %s)." % (
+                    source, appName), file=sys.stderr)
                 continue
-        app = iter(appName).next()
+        app = next(iter(appName))
         optionsFiles = []
         potentials = defaultdict(list)
         source = os.path.realpath(source)
@@ -149,8 +151,8 @@ def main(options):
                     break
             curDir = os.path.dirname(curDir)
         if not os.path.exists(config):
-            print >> sys.stderr, "Config '%s' not found for %s." % (
-                config, source)
+            print("Config '%s' not found for %s." % (
+                config, source), file=sys.stderr)
             continue
         if target == "":
             target = generateTargetName(curDir, source)

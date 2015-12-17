@@ -6,6 +6,8 @@
 Copyright (C) 2014 DLR/TS, Germany
 All rights reserved
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 
 from . import *
@@ -57,7 +59,7 @@ class Scenario_BasicRiLSACorridor3(Scenario):
         self.netName = self.fullPath(self.NET_FILE)
         # network
         if fileNeedsRebuild(self.fullPath(self.NET_FILE), "netconvert"):
-            print "Network in '%s' needs to be rebuild" % self.netName
+            print("Network in '%s' needs to be rebuild" % self.netName)
             # , Lane(dirs="l", disallowed="pedestrian")]
             lanes = [Lane(dirs="s", allowed="pedestrian"), Lane(
                 dirs="rs", disallowed="pedestrian")]
@@ -185,4 +187,4 @@ class Scenario_BasicRiLSACorridor3(Scenario):
             self.fullPath(self.NET_FILE), self.sandboxPath(self.NET_FILE))
         shutil.copy(
             self.fullPath(self.TLS_FILE), self.sandboxPath(self.TLS_FILE))
-        print "Huah"
+        print("Huah")

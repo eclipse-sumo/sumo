@@ -28,6 +28,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
@@ -35,8 +37,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
 if len(sys.argv) < 4:
-    print >> sys.stderr, "Usage: " + \
-        sys.argv[0] + " <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>"
+    print("Usage: " + \
+        sys.argv[0] + " <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>", file=sys.stderr)
     sys.exit()
 edgeList = sys.argv[2].split(',')
 POIdist = float(sys.argv[3])

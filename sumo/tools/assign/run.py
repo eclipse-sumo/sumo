@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import glob
 import os
 import shutil
@@ -30,7 +32,7 @@ def detectCPUs():
     """Detects the number of effective CPUs in the system"""
     # for Linux, Unix and MacOS
     if hasattr(os, "sysconf"):
-        if os.sysconf_names.has_key("SC_NPROCESSORS_ONLN"):
+        if "SC_NPROCESSORS_ONLN" in os.sysconf_names:
             #Linux and Unix
             ncpus = os.sysconf("SC_NPROCESSORS_ONLN")
             if isinstance(ncpus, int) and ncpus > 0:
@@ -39,7 +41,7 @@ def detectCPUs():
             # MacOS X
             return int(os.popen2("sysctl -n hw.ncpu")[1].read())
     # for Windows
-    if os.environ.has_key("NUMBER_OF_PROCESSORS"):
+    if "NUMBER_OF_PROCESSORS" in os.environ:
         ncpus = int(os.environ["NUMBER_OF_PROCESSORS"])
         if ncpus > 0:
             return ncpus
@@ -60,7 +62,7 @@ def makeAndChangeDir(dirName):
 
 def execute(command):
     if options.verbose:
-        print command
+        print(command)
     os.system(command)
 
 optParser = optparse.OptionParser()

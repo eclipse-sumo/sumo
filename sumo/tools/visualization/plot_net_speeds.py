@@ -15,6 +15,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -53,10 +55,10 @@ def main(args=None):
     options, remaining_args = optParser.parse_args(args=args)
 
     if options.net == None:
-        print "Error: a network to load must be given."
+        print("Error: a network to load must be given.")
         return 1
     if options.verbose:
-        print "Reading network from '%s'" % options.net
+        print("Reading network from '%s'" % options.net)
     net = sumolib.net.readNet(options.net)
 
     speeds = {}
@@ -86,7 +88,7 @@ def main(args=None):
     helpers.plotNet(net, speeds, {}, options)
 
     # drawing the legend, at least for the colors
-    print "%s -> %s" % (minV, maxV)
+    print("%s -> %s" % (minV, maxV))
     sm = matplotlib.cm.ScalarMappable(
         cmap=get_cmap(options.colormap), norm=plt.normalize(vmin=minV, vmax=maxV))
     # "fake up the array of the scalar mappable. Urgh..." (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)

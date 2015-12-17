@@ -20,6 +20,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import zipfile
@@ -66,7 +68,7 @@ if len(args) == 0:
     sys.exit()
 if options.detfile:
     cityDets = set()
-    for line in file(options.detfile):
+    for line in open(options.detfile):
         cityDets.add(line.split()[0])
 else:
     cityDets = None
@@ -79,9 +81,9 @@ for f in args:
                 readLines(zipf.read(fileName).splitlines())
             zipf.close()
         else:
-            readLines(file(f))
+            readLines(open(f))
     else:
-        print >> sys.stderr, "Cannot read", f
-print "Detector;Time;qPKW;qLKW;vPKW;vLKW"
+        print("Cannot read", f, file=sys.stderr)
+print("Detector;Time;qPKW;qLKW;vPKW;vLKW")
 for det, flow in totalFlow.iteritems():
-    print det + ";0;" + str(flow)
+    print(det + ";0;" + str(flow))

@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import subprocess
@@ -30,53 +32,53 @@ import sumolib
 
 
 def call(command, log):
-    if not isinstance(args, types.StringTypes):
+    if not isinstance(args, str):
         command = [str(c) for c in command]
-    print >> log, "-" * 79
-    print >> log, command
+    print("-" * 79, file=log)
+    print(command, file=log)
     log.flush()
     retCode = subprocess.call(command, stdout=log, stderr=log)
     if retCode != 0:
-        print >> sys.stderr, "Execution of %s failed. Look into %s for details." % (
-            command, log.name)
+        print("Execution of %s failed. Look into %s for details." % (
+            command, log.name), file=sys.stderr)
         sys.exit(retCode)
 
 
 def writeRouteConf(step, options, file, output):
     fd = open("iteration_" + str(step) + ".duarcfg", "w")
-    print >> fd, """<configuration>
+    print("""<configuration>
     <input>
-        <net-file value="%s"/>""" % options.net
+        <net-file value="%s"/>""" % options.net, file=fd)
     if step == 0:
         if options.flows:
-            print >> fd, '        <flow-definition value="%s"/>' % file
+            print('        <flow-definition value="%s"/>' % file, file=fd)
         else:
-            print >> fd, '        <trip-defs value="%s"/>' % file
+            print('        <trip-defs value="%s"/>' % file, file=fd)
     else:
-        print >> fd, '        <alternatives value="%s"/>' % file
-        print >> fd, '        <weights value="dump_%s_%s.xml"/>' % (
-            step - 1, options.aggregation)
-    print >> fd, """    </input>
+        print('        <alternatives value="%s"/>' % file, file=fd)
+        print('        <weights value="dump_%s_%s.xml"/>' % (
+            step - 1, options.aggregation), file=fd)
+    print("""    </input>
     <output>
         <output-file value="%s"/>
         <exit-times value="True"/>
-    </output>""" % output
-    print >> fd, """    <processing>
+    </output>""" % output, file=fd)
+    print("""    <processing>
         <continue-on-unbuild value="%s"/>
         <expand-weights value="True"/>
         <gBeta value="%s"/>
         <gA value="%s"/>
-    </processing>""" % (options.continueOnUnbuild, options.gBeta, options.gA)
-    print >> fd, '    <random_number><abs-rand value="%s"/></random_number>' % options.absrand
-    print >> fd, '    <time><begin value="%s"/>' % options.begin,
+    </processing>""" % (options.continueOnUnbuild, options.gBeta, options.gA), file=fd)
+    print('    <random_number><abs-rand value="%s"/></random_number>' % options.absrand, file=fd)
+    print('    <time><begin value="%s"/>' % options.begin, end=' ', file=fd)
     if options.end:
-        print >> fd, '<end value="%s"/>' % options.end,
-    print >> fd, """</time>
+        print('<end value="%s"/>' % options.end, end=' ', file=fd)
+    print("""</time>
     <report>
         <verbose value="%s"/>
         <suppress-warnings value="%s"/>
     </report>
-</configuration>""" % (options.verbose, options.noWarnings)
+</configuration>""" % (options.verbose, options.noWarnings), file=fd)
     fd.close()
 
 
@@ -110,7 +112,7 @@ class NetReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'edge':
-            if not attrs.has_key('function') or attrs['function'] == 'normal':
+            if 'function' not in attrs or attrs['function'] == 'normal':
                 self._edges.append(attrs['id'])
 
     def getEdges(self):
@@ -123,17 +125,17 @@ def identity(edge, weight):
 
 def generateWeights(step, options, edges, weights, costFunction):
     fd = open("dump_%s_%s.xml" % (step, options.aggregation), "w")
-    print >> fd, '<?xml version="1.0"?>\n<netstats>'
+    print('<?xml version="1.0"?>\n<netstats>', file=fd)
     for time in range(0, int(reader.getMaxDepart() + 1), options.aggregation):
-        print >> fd, '    <interval begin="%s" end="%s" id="dump_%s">' % (
-            time, time + options.aggregation, options.aggregation)
+        print('    <interval begin="%s" end="%s" id="dump_%s">' % (
+            time, time + options.aggregation, options.aggregation), file=fd)
         for edge in edges:
             cost = costFunction(edge, weights.getWeight(edge))
             if cost != None:
-                print >> fd, '        <edge id="%s" traveltime="%s"/>' % (
-                    edge, cost)
-        print >> fd, '    </interval>'
-    print >> fd, '</netstats>'
+                print('        <edge id="%s" traveltime="%s"/>' % (
+                    edge, cost), file=fd)
+        print('    </interval>', file=fd)
+    print('</netstats>', file=fd)
     fd.close()
 
 optParser = OptionParser()
@@ -206,7 +208,7 @@ else:
 starttime = datetime.now()
 for step in range(options.firstStep, options.lastStep):
     btimeA = datetime.now()
-    print "> Executing step " + str(step)
+    print("> Executing step " + str(step))
 
     # router
     files = []
@@ -217,27 +219,27 @@ for step in range(options.firstStep, options.lastStep):
             file = tripFile[
                 :tripFile.find(".")] + "_%s.rou.alt.xml" % (step - 1)
         output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
-        print ">> Running router with " + file
+        print(">> Running router with " + file)
         btime = datetime.now()
-        print ">>> Begin time: %s" % btime
+        print(">>> Begin time: %s" % btime)
         writeRouteConf(step, options, file, output)
         retCode = call([duaBinary, "-c", "iteration_%s.duarcfg" % step], log)
         etime = datetime.now()
-        print ">>> End time: %s" % etime
-        print ">>> Duration: %s" % (etime - btime)
-        print "<<"
+        print(">>> End time: %s" % etime)
+        print(">>> Duration: %s" % (etime - btime))
+        print("<<")
         files.append(output)
     # generating weights file
-    print ">> Generating weights"
+    print(">> Generating weights")
     reader = RouteReader()
     parser.setContentHandler(reader)
     for f in files:
         parser.parse(f)
     generateWeights(step, options, edges, reader, costFunction)
-    print "<<"
-    print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
-    print "------------------\n"
+    print("<<")
+    print("< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA))
+    print("------------------\n")
     sys.stdout.flush()
-print "dua-iterate ended (duration: %s)" % (datetime.now() - starttime)
+print("dua-iterate ended (duration: %s)" % (datetime.now() - starttime))
 
 log.close()

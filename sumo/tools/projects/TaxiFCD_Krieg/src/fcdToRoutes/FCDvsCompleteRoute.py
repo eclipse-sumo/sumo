@@ -23,6 +23,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import util.Path as path
 
@@ -35,13 +37,13 @@ avg = False
 
 
 def main():
-    print "start program"
+    print("start program")
     readRoutes()
     if avg:
         clacAvg()
     else:
         writeOutput()
-    print "end"
+    print("end")
 
 
 def readRoutes():
@@ -53,7 +55,7 @@ def readRoutes():
     def countEdges(line):
         # get Taxi-Id
         id = line.split('"')[1]
-        line = inputFile.next()  # go to next line with edges
+        line = next(inputFile)  # go to next line with edges
 
         words = line[line.find(">") + 1:line.find("</")].split(" ")
         lastEdge = words[0]
@@ -72,12 +74,12 @@ def readRoutes():
     inputFile = open(path.taxiRoutesComplete, 'r')
     for line in inputFile:
         if line.find("<vehicle id=\"" + taxi + "\"") != -1 and not avg:
-            line = inputFile.next()
+            line = next(inputFile)
             #         delete edges tag at start and end
             words = line[line.find(">") + 1:line.find("</")].split(" ")
             for edge in words:
                 edgeList.append("id=\"" + edge + "\" no=\"0.9\"")
-            print edgeList
+            print(edgeList)
 
         # for calc of avg
         if line.find("<vehicle id=") != -1 and avg:
@@ -88,7 +90,7 @@ def readRoutes():
     inputFile = open(path.taxiRoutes, 'r')
     for line in inputFile:
         if line.find("<vehicle id=\"" + taxi + "\"") != -1 and not avg:
-            line = inputFile.next()
+            line = next(inputFile)
             #         delete edges tag at start and end
             words = line[line.find(">") + 1:line.find("</")].split(" ")
             for edge in words:
@@ -99,7 +101,7 @@ def readRoutes():
                     # if edge only is in the taxiRoutesPath file (FCD) color
                     # =yellow
                     edgeList.append("id=\"" + edge + "\" no=\"0.5\"")
-            print edgeList
+            print(edgeList)
 
         # for calc of avg
         if line.find("<vehicle id=") != -1 and avg:
@@ -130,18 +132,18 @@ def clacAvg():
         # Kanten die nur in Sumo sind mit "/" bei berechnung entfernen
     # Zeige Routen bei denen etwas hinzugfügt wurde
 
-    print "len Routen gesamt", len(diffList)
-    print "avg (Absolut) Kanten hinzugefügt", sum(diffList) / (len(diffList) + 0.0)
-    print "Relavg", sum(diffList) / (len(diffList) + 0.0) / (sum(orgList) / (len(orgList) + 0.0)) * 100, "%"
-    print "avgOrg", sum(orgList) / (len(orgList) + 0.0), " edges"
-    print "avgCompleted", sum(compList) / (len(compList) + 0.0), " edges"
+    print("len Routen gesamt", len(diffList))
+    print("avg (Absolut) Kanten hinzugefügt", sum(diffList) / (len(diffList) + 0.0))
+    print("Relavg", sum(diffList) / (len(diffList) + 0.0) / (sum(orgList) / (len(orgList) + 0.0)) * 100, "%")
+    print("avgOrg", sum(orgList) / (len(orgList) + 0.0), " edges")
+    print("avgCompleted", sum(compList) / (len(compList) + 0.0), " edges")
 
-    print
-    print "Betrachtung der hinzugefügten Kanten nur für die Taxis bei denen Tatsächlich auch Kanten hinzugefügt wurden"
-    print "ids (Taxis/Routen)", len(ids)
-    print "% der Gesamtrouten", 100.0 * len(ids) / len(diffList)
-    print "avg 200 (ids)", sum(diffList200) / (len(diffList200) + 0.0)
-    print "Relavg 200", sum(diffList200) / (len(diffList200) + 0.0) / (sum(orgList200) / (len(orgList200) + 0.0)) * 100, "%"
+    print()
+    print("Betrachtung der hinzugefügten Kanten nur für die Taxis bei denen Tatsächlich auch Kanten hinzugefügt wurden")
+    print("ids (Taxis/Routen)", len(ids))
+    print("% der Gesamtrouten", 100.0 * len(ids) / len(diffList))
+    print("avg 200 (ids)", sum(diffList200) / (len(diffList200) + 0.0))
+    print("Relavg 200", sum(diffList200) / (len(diffList200) + 0.0) / (sum(orgList200) / (len(orgList200) + 0.0)) * 100, "%")
 
 
 def writeOutput():

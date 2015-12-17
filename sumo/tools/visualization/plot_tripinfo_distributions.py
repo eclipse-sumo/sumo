@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -58,7 +60,7 @@ def main(args=None):
     options, remaining_args = optParser.parse_args(args=args)
 
     if options.tripinfos == None:
-        print "Error: at least one tripinfo file must be given"
+        print("Error: at least one tripinfo file must be given")
         sys.exit(1)
 
     minV = options.minV
@@ -67,7 +69,7 @@ def main(args=None):
     values = {}
     for f in files:
         if options.verbose:
-            print "Reading '%s'..." % f
+            print("Reading '%s'..." % f)
         nums = sumolib.output.parse_sax__asList(
             f, "tripinfo", [options.measure])
         fvp = sumolib.output.toList(nums, options.measure)

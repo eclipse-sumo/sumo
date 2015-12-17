@@ -17,6 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import shutil
@@ -38,7 +40,7 @@ for root, dirs, files in os.walk(srcRoot):
     for pattern, repTo in proc.iteritems():
         for name in glob.glob(os.path.join(root, pattern)):
             repFrom = repTo[:repTo.find(' ')]
-            print "Patching '%s'" % name
+            print("Patching '%s'" % name)
             shutil.copy(name, "totest.xml")
             fdi = open("totest.xml")
             fdo = open("totest.patch", "w")

@@ -20,6 +20,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
@@ -87,13 +89,13 @@ try:
     """Ausgabe"""
     myOutputFile = sys.argv[2]
     outputData = open(myOutputFile, 'w')
-    print >> outputData, '$OR;D2'
-    print >> outputData, '*From-Time To-Time'
-    print >> outputData, myTimes.seconds2TimeOfDay(
-        myTimes.Start) + ' ' + myTimes.seconds2TimeOfDay(myTimes.End)
-    print >> outputData, '* Factor'
-    print >> outputData, '1.00'
-    print >> outputData, '*some additional comments'
+    print('$OR;D2', file=outputData)
+    print('*From-Time To-Time', file=outputData)
+    print(myTimes.seconds2TimeOfDay(
+        myTimes.Start) + ' ' + myTimes.seconds2TimeOfDay(myTimes.End), file=outputData)
+    print('* Factor', file=outputData)
+    print('1.00', file=outputData)
+    print('*some additional comments', file=outputData)
     startbez = myData.keys()
     startbez.sort()
     for x in startbez:
@@ -103,18 +105,18 @@ try:
         for y in endbez:
             y1 = str(y).rjust(20)
             value1 = (str(myData[x][y]) + ".00").rjust(12)
-            print >>outputData, x1, y1, value1
+            print(x1, y1, value1, file=outputData)
     outputData.close()
 except IndexError:
     l = len(sys.argv)
     if l == 1:
-        print "Es wurde kein Dateiname eingegeben."
+        print("Es wurde kein Dateiname eingegeben.")
     elif l == 2:
-        print "Dateiname fuer die Ausgabedatei wurde nicht angegeben"
+        print("Dateiname fuer die Ausgabedatei wurde nicht angegeben")
     else:
-        print "sonstiger fehler"
+        print("sonstiger fehler")
 except IOError:
-    print "Datei existiert nicht"
+    print("Datei existiert nicht")
 except:
-    print "unerwarteter Fehler. ich weiss auch nicht, was hier nicht stimmt"
-print "Fertig, Fertig"
+    print("unerwarteter Fehler. ich weiss auch nicht, was hier nicht stimmt")
+print("Fertig, Fertig")

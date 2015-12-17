@@ -17,6 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
@@ -52,9 +54,9 @@ def pair2str(p, full=True):
 
 
 def logAddedPair(TLSP, sets, operation):
-    print "added pair %s,%s with operation %s" % (TLSP.otl.getID(), TLSP.tl.getID(), operation)
+    print("added pair %s,%s with operation %s" % (TLSP.otl.getID(), TLSP.tl.getID(), operation))
     for s in sets:
-        print "    " + "   ".join([pair2str(p, False) for p in s])
+        print("    " + "   ".join([pair2str(p, False) for p in s]))
 
 
 def get_options(args=None):
@@ -306,11 +308,11 @@ def main(options):
     tlPairsList = [
         value for sortKey, value in sorted(sortHelper, reverse=True)]
 
-    print("number of tls-pairs: %s" % (len(tlPairsList)))
+    print("number of tls-pairs: %s" % len(tlPairsList))
     if options.verbose:
-        print '\n'.join(["edges=%s,%s prio=%s numVehicles/time=%s" % (
+        print('\n'.join(["edges=%s,%s prio=%s numVehicles/time=%s" % (
             pairKey.edgeID, pairKey.edgeID2, pairData.prio, pairData.numVehicles / pairData.travelTime)
-            for pairKey, pairData in tlPairsList])
+            for pairKey, pairData in tlPairsList]))
 
     coordinatedSets = computePairOffsets(
         [pairData for pairKey, pairData in tlPairsList], options.verbose)

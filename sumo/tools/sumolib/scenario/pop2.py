@@ -1,7 +1,9 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import sumolib.net.generator.cross as netGenerator
 import sumolib.net.generator.demand as demandGenerator
 from sumolib.net.generator.network import *
-from scenarios import *
+from .scenarios import *
 import random
 import math
 import tempfile
@@ -190,7 +192,7 @@ class ScenarioSet_IterateFlowsNA(ScenarioSet):
             for f2 in range(self.getInt("f2from"), self.getInt("f2to"), self.getInt("f2step")):
                 if f1 == 0 and f2 == 0:
                     continue
-                print "Computing for %s<->%s" % (f1, f2)
+                print("Computing for %s<->%s" % (f1, f2))
                 sID = "iterateFlowsNA(%s-%s)" % (f1, f2)
                 s = getScenario("BasicCross", {}, False)
                 s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
@@ -289,7 +291,7 @@ class ScenarioSet_IterateFlowsA(ScenarioSet):
             for f2 in range(self.getInt("f2from"), self.getInt("f2to"), self.getInt("f2step")):
                 if f1 == 0 and f2 == 0:
                     continue
-                print "Computing for %s<->%s" % (f1, f2)
+                print("Computing for %s<->%s" % (f1, f2))
                 sID = "iterateFlowsA(%s-%s)" % (f1, f2)
                 s = getScenario("BasicCross", {}, False)
                 s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
@@ -399,14 +401,14 @@ class ScenarioSet_RiLSA1LoadCurves(ScenarioSet):
         cNS = RWScurves[iNS]
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
-        print "Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN)
+        print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
         if uID == None:
             sID = "RiLSA1LoadCurves(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
             sID = "RiLSA1LoadCurves(%s)" % (uID)
         s = getScenario("RiLSA1", {})
         s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
-        print s.demandName
+        print(s.demandName)
         if True:  # fileNeedsRebuild(s.demandName, "duarouter"):
             nStreams = []
             for stream in s.demand.streams:
@@ -423,7 +425,7 @@ class ScenarioSet_RiLSA1LoadCurves(ScenarioSet):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
             end = 86400
@@ -579,14 +581,14 @@ class ScenarioSet_RiLSA1LoadCurvesSampled(ScenarioSet):
         cNS = RWScurves[iNS]
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
-        print "Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN)
+        print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
         if uID == None:
             sID = "RiLSA1LoadCurvesSampled(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
             sID = "RiLSA1LoadCurvesSampled(%s)" % (uID)
         s = getScenario("RiLSA1", {})
         s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
-        print s.demandName
+        print(s.demandName)
         if True:  # fileNeedsRebuild(s.demandName, "duarouter"):
             nStreams = []
             for stream in s.demand.streams:
@@ -603,7 +605,7 @@ class ScenarioSet_RiLSA1LoadCurvesSampled(ScenarioSet):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
             end = 86400
@@ -710,7 +712,7 @@ class ScenarioSet_BasicOutflow(ScenarioSet):
             for f2 in range(self.getInt("g2from"), self.getInt("g2to"), self.getInt("g2step")):
                 if f1 == 0 and f2 == 0:
                     continue
-                print "Computing for %s<->%s" % (f1, f2)
+                print("Computing for %s<->%s" % (f1, f2))
                 sID = "BasicOutflow(%s-%s)" % (f1, f2)
                 s = getScenario("BasicCross", {}, False)
                 s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
@@ -833,7 +835,7 @@ class ScenarioSet_RiLSA1Outflow(ScenarioSet_RiLSA1LoadCurvesSampled):
         cNS = RWScurves[1]
         cEW = RWScurves[2]
         cSN = RWScurves[1]
-        print "Computing for %s %s" % (g1, g2)
+        print("Computing for %s %s" % (g1, g2))
         sID = "RiLSA1Outflow(%s-%s)" % (g1, g2)
         s = getScenario("RiLSA1OutTLS", {})
         s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
@@ -855,7 +857,7 @@ class ScenarioSet_RiLSA1Outflow(ScenarioSet_RiLSA1LoadCurvesSampled):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
             end = 86400
@@ -975,7 +977,7 @@ class ScenarioSet_RiLSA1PedFlow(ScenarioSet_RiLSA1LoadCurvesSampled):
         cNS = RWScurves[1]
         cEW = RWScurves[2]
         cSN = RWScurves[1]
-        print "Computing for %s %s" % (f1, f2)
+        print("Computing for %s %s" % (f1, f2))
         sID = "RiLSA1PedFlow(%s-%s)" % (f1, f2)
         s = getScenario("RiLSA1", {})
         s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
@@ -995,7 +997,7 @@ class ScenarioSet_RiLSA1PedFlow(ScenarioSet_RiLSA1LoadCurvesSampled):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
             s.demand.addStream(demandGenerator.Stream(
@@ -1110,7 +1112,7 @@ class ScenarioSet_RiLSA1PTIteration(ScenarioSet_RiLSA1LoadCurvesSampled):
         cNS = RWScurves[1]
         cEW = RWScurves[2]
         cSN = RWScurves[1]
-        print "Computing for %s %s" % (p1, p2)
+        print("Computing for %s %s" % (p1, p2))
         sID = "RiLSA1PTIteration(%s-%s)" % (p1, p2)
         s = getScenario("RiLSA1", {})
         s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
@@ -1130,7 +1132,7 @@ class ScenarioSet_RiLSA1PTIteration(ScenarioSet_RiLSA1LoadCurvesSampled):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
 
@@ -1254,12 +1256,12 @@ class ScenarioSet_SinSinDemand(ScenarioSet):
         #fd = tempfile.NamedTemporaryFile(mode="w", delete=False)
         fd = open(scenario.demandName, "w")
         #---routes---
-        print >> fd, """<routes>
+        print("""<routes>
 			<route id="WE" edges="0/1_to_1/1 0/1_to_1/1.-100 1/1_to_2/1"/>
 			<route id="NS" edges="1/2_to_1/1 1/2_to_1/1.-100 1/1_to_1/0"/>
 			<route id="EW" edges="2/1_to_1/1 2/1_to_1/1.-100 1/1_to_0/1"/>
 			<route id="SN" edges="1/0_to_1/1 1/0_to_1/1.-100 1/1_to_1/2"/>
-    """
+    """, file=fd)
         pv1 = 0
         pv2 = 0
         vehNr = 0
@@ -1271,28 +1273,28 @@ class ScenarioSet_SinSinDemand(ScenarioSet):
             pv1 = v + pv1
             if random.uniform(0, 1) < pv1:
                 pv1 = pv1 - 1.
-                print >> fd, '    <vehicle id="%i" type="passenger" route="WE" depart="%i" departSpeed="13.89" />' % (
-                    vehNr, i)
+                print('    <vehicle id="%i" type="passenger" route="WE" depart="%i" departSpeed="13.89" />' % (
+                    vehNr, i), file=fd)
                 vehNr += 1
-                print >> fd, '    <vehicle id="%i" type="passenger" route="EW" depart="%i" departSpeed="13.89" />' % (
-                    vehNr, i)
+                print('    <vehicle id="%i" type="passenger" route="EW" depart="%i" departSpeed="13.89" />' % (
+                    vehNr, i), file=fd)
                 vehNr += 1
             v = math.sin(o2) * self.AMPLITUDE + self.MEAN
             v = v / 3600.
             pv2 = v + pv2
             if random.uniform(0, 1) < pv2:
                 pv2 = pv2 - 1.
-                print >> fd, '    <vehicle id="%i" type="passenger" route="NS" depart="%i" departSpeed="13.89" />' % (
-                    vehNr, i)
+                print('    <vehicle id="%i" type="passenger" route="NS" depart="%i" departSpeed="13.89" />' % (
+                    vehNr, i), file=fd)
                 vehNr += 1
-                print >> fd, '    <vehicle id="%i" type="passenger" route="SN" depart="%i" departSpeed="13.89" />' % (
-                    vehNr, i)
+                print('    <vehicle id="%i" type="passenger" route="SN" depart="%i" departSpeed="13.89" />' % (
+                    vehNr, i), file=fd)
                 vehNr += 1
             if frequency != 0:
                 o1 = o1 + ((math.pi * 2) / (180 * frequency))
                 o2 = o2 + ((math.pi * 2) / (180 * frequency))
 
-        print >> fd, "</routes>"
+        print("</routes>", file=fd)
         fd.close()
         #duarouter = sumolib.checkBinary("duarouter")
         # retCode = subprocess.call([duarouter, "-v", "-n", scenario.netName,  "-t", fd.name, "-o", scenario.demandName, "--no-warnings"]) # aeh, implizite no-warnings sind nicht schoen
@@ -1305,7 +1307,7 @@ class ScenarioSet_SinSinDemand(ScenarioSet):
         desc = {"name": "SinSinDemand"}
         for offset in self.offsets:
             for freq in self.frequencies:
-                print "Computing for %s<->%s" % (offset, freq)
+                print("Computing for %s<->%s" % (offset, freq))
                 sID = "SinSinDemand(%s-%s)" % (offset, freq)
                 s = getScenario("BasicCross", {}, False)
                 s.demandName = s.fullPath("routes_%s.rou.xml" % (sID))
@@ -1384,12 +1386,12 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
         #fd = tempfile.NamedTemporaryFile(mode="w", delete=False)
         fd = open(scenario.demandName, "w")
         #---routes---
-        print >> fd, """<routes>
+        print("""<routes>
 			<route id="WE" edges="0/1_to_1/1 0/1_to_1/1.-100 1/1_to_2/1"/>
 			<route id="NS" edges="1/2_to_1/1 1/2_to_1/1.-100 1/1_to_1/0"/>
 			<route id="EW" edges="2/1_to_1/1 2/1_to_1/1.-100 1/1_to_0/1"/>
 			<route id="SN" edges="1/0_to_1/1 1/0_to_1/1.-100 1/1_to_1/2"/>
-    """
+    """, file=fd)
         pv1 = 0
         pv2 = 0
         lastVeh = 0
@@ -1401,12 +1403,12 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
             pv1 = v + pv1
             if random.uniform(0, 1) < pv1:
                 pv1 = pv1 - 1.
-                print >> fd, '    <vehicle id="%i" type="passenger" route="WE" depart="%i" departSpeed="13.89" />' % (
-                    vehNr, i)
+                print('    <vehicle id="%i" type="passenger" route="WE" depart="%i" departSpeed="13.89" />' % (
+                    vehNr, i), file=fd)
                 vehNr += 1
                 lastVeh = i
-                print >> fd, '    <vehicle id="%i" type="passenger" route="EW" depart="%i" departSpeed="13.89" />' % (
-                    vehNr, i)
+                print('    <vehicle id="%i" type="passenger" route="EW" depart="%i" departSpeed="13.89" />' % (
+                    vehNr, i), file=fd)
                 vehNr += 1
                 lastVeh = i
             if frequency != 0:
@@ -1414,17 +1416,17 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
             pNS = float(self.MAIN_FLOW) / 3600
             pSN = float(self.MAIN_FLOW) / 3600
             if random.uniform(0, 1) < pNS:
-                print >> fd, '    <vehicle id="%i" type="passenger" route="NS" depart="%i" departSpeed="13.89" />' % (
-                    vehNr, i)
+                print('    <vehicle id="%i" type="passenger" route="NS" depart="%i" departSpeed="13.89" />' % (
+                    vehNr, i), file=fd)
                 vehNr += 1
                 lastVeh = i
             if random.uniform(0, 1) < pSN:
-                print >> fd, '    <vehicle id="%i" type="passenger" route="SN" depart="%i" departSpeed="13.89" />' % (
-                    vehNr, i)
+                print('    <vehicle id="%i" type="passenger" route="SN" depart="%i" departSpeed="13.89" />' % (
+                    vehNr, i), file=fd)
                 vehNr += 1
                 lastVeh = i
 
-        print >> fd, "</routes>"
+        print("</routes>", file=fd)
         fd.close()
 
     """
@@ -1435,7 +1437,7 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
         desc = {"name": "OneSinDemand"}
         for amplitude in self.amplitudes:
             for freq in self.frequencies:
-                print "Computing for %s<->%s" % (amplitude, freq)
+                print("Computing for %s<->%s" % (amplitude, freq))
                 sID = "OneSinDemand(%s-%s)" % (amplitude, freq)
                 s = getScenario("BasicCross", {}, False)
                 s.demandName = s.fullPath("routes_%s.rou.xml" % (sID))
@@ -1520,7 +1522,7 @@ class ScenarioSet_DemandStep(ScenarioSet):
                     for f2duration in range(self.getInt("f2durationFrom"), self.getInt("f2durationTo"), self.getInt("f2durationStep")):
                         if f1 == 0 and f2begin == 0 and f2end == 0:
                             continue
-                        print "Computing for %s<->%s->%s@%s" % (f1, f2begin, f2end, f2duration)
+                        print("Computing for %s<->%s->%s@%s" % (f1, f2begin, f2end, f2duration))
                         sID = "DemandStep(%s-%s-%s-%s)" % (f1,
                                                            f2begin, f2end, f2duration)
                         s = getScenario("BasicCross", {}, False)
@@ -1709,7 +1711,7 @@ class ScenarioSet_CorrFlowsDistancesA(ScenarioSet):
                 for d1 in range(self.getInt("d1from"), self.getInt("d1to"), self.getInt("d1step")):
                     if f1 == 0 and f2 == 0:
                         continue
-                    print "Computing for %s<->%s %s" % (f1, f2, d1)
+                    print("Computing for %s<->%s %s" % (f1, f2, d1))
                     sID = "CorrFlowsDistancesA(%s-%s-%s)" % (f1, f2, d1)
                     s = getScenario("BasicCorridor", {"xoff": d1}, False)
                     s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
@@ -1854,7 +1856,7 @@ class ScenarioSet_NetFlowsDistancesA(ScenarioSet):
                 for o in self.offsets:
                     if f1 == 0 and f2 == 0:
                         continue
-                    print "Computing for %s %s<->%s" % (o, f1, f2)
+                    print("Computing for %s %s<->%s" % (o, f1, f2))
                     sID = "NetFlowsDistancesA(%s-%s-%s)" % (f1, f2, o)
                     s = getScenario("BasicNet", {"rot": o}, False)
                     s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
@@ -1987,7 +1989,7 @@ class ScenarioSet_TurnIteration(ScenarioSet):
         desc = {"name": "TurnIteration"}
         for r in range(self.getInt("rightFrom"), self.getInt("rightTo"), self.getInt("rightStep")):
             for l in range(self.getInt("leftFrom"), self.getInt("leftTo"), self.getInt("leftStep")):
-                print "Computing for %s<->%s" % (r, l)
+                print("Computing for %s<->%s" % (r, l))
                 sID = "TurnIteration(%s-%s)" % (r, l)
                 s = getScenario("BasicCrossL", {}, False)
                 s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
@@ -2098,7 +2100,7 @@ class ScenarioSet_TurnIterationINIT(ScenarioSet):
         desc = {"name": "TurnIteration"}
         for r in range(self.getInt("rightFrom"), self.getInt("rightTo"), self.getInt("rightStep")):
             for l in range(self.getInt("leftFrom"), self.getInt("leftTo"), self.getInt("leftStep")):
-                print "Computing for %s<->%s" % (r, l)
+                print("Computing for %s<->%s" % (r, l))
                 sID = "TurnIteration(%s-%s)" % (r, l)
                 s = getScenario("BasicCrossL", {}, False)
                 s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
@@ -2202,8 +2204,8 @@ class ScenarioSet_RealWorld(ScenarioSet):
             {"scaleFrom": "50", "scaleTo": "151",
                 "scaleStep": "25", "which": "unknown"},
             params))
-        print params
-        print self.params
+        print(params)
+        print(self.params)
 
     def getNumRuns(self):
         f1num = 1 + abs(self.getInt("scaleFrom") -
@@ -2218,7 +2220,7 @@ class ScenarioSet_RealWorld(ScenarioSet):
         desc = {"name": "RealWorld"}
         which = self.params["which"]
         for scale in range(self.getInt("scaleFrom"), self.getInt("scaleTo"), self.getInt("scaleStep")):
-            print "Computing for %s<->%s" % (which, scale)
+            print("Computing for %s<->%s" % (which, scale))
             sID = "RealWorld(%s-%s)" % (which, scale)
             s = getScenario("RealWorld", self.params)
             #s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
@@ -2305,7 +2307,7 @@ class ScenarioSet_RiLSA1LoadCurvesOutTLS(ScenarioSet):
         cNS = RWScurves[iNS]
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
-        print "Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN)
+        print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
         if uID == None:
             sID = "RiLSA1LoadCurvesOutTLS(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
@@ -2328,7 +2330,7 @@ class ScenarioSet_RiLSA1LoadCurvesOutTLS(ScenarioSet):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
             end = 86400
@@ -2483,7 +2485,7 @@ class ScenarioSet_RiLSA1LoadCurvesOutTLS24(ScenarioSet):
         cNS = RWScurves[iNS]
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
-        print "Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN)
+        print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
         if uID == None:
             sID = "RiLSA1LoadCurvesOutTLS24(%s-%s-%s-%s)" % (
                 iWE, iNS, iEW, iSN)
@@ -2508,7 +2510,7 @@ class ScenarioSet_RiLSA1LoadCurvesOutTLS24(ScenarioSet):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
             end = 86400
@@ -2663,7 +2665,7 @@ class ScenarioSet_RiLSA1LoadCurvesBothTLS(ScenarioSet):
         cNS = RWScurves[iNS]
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
-        print "Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN)
+        print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
         if uID == None:
             sID = "RiLSA1LoadCurvesBothTLS(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
@@ -2687,7 +2689,7 @@ class ScenarioSet_RiLSA1LoadCurvesBothTLS(ScenarioSet):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
             end = 86400
@@ -2842,7 +2844,7 @@ class ScenarioSet_RiLSA1LoadCurvesBothTLS24(ScenarioSet):
         cNS = RWScurves[iNS]
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
-        print "Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN)
+        print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
         if uID == None:
             sID = "RiLSA1LoadCurvesBothTLS24(%s-%s-%s-%s)" % (
                 iWE, iNS, iEW, iSN)
@@ -2867,14 +2869,14 @@ class ScenarioSet_RiLSA1LoadCurvesBothTLS24(ScenarioSet):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
             end = 86400
             sampleFactor = None
             if "sample-factor" in self.params:
                 sampleFactor = self.params["sample-factor"]
-            print '%s %s %s' % (s.netName, s.demandName, sampleFactor)
+            print('%s %s %s' % (s.netName, s.demandName, sampleFactor))
             s.demand.build(0, end, s.netName, s.demandName, sampleFactor)
             desc = {"scenario": "RiLSA1LoadCurvesBothTLS24", "iWE": str(
                 iWE), "iNS": str(iNS), "iEW": str(iEW), "iSN": str(iSN)}
@@ -3023,7 +3025,7 @@ class ScenarioSet_BasicRiLSANet(ScenarioSet):
         cNS = RWScurves[iNS]
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
-        print "Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN)
+        print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
         if uID == None:
             sID = "BasicRiLSANet(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
@@ -3046,7 +3048,7 @@ class ScenarioSet_BasicRiLSANet(ScenarioSet):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
             end = 86400
@@ -3189,7 +3191,7 @@ class ScenarioSet_BasicRiLSANet2x2(ScenarioSet):
         cNS = RWScurves[iNS]
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
-        print "Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN)
+        print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
         if uID == None:
             sID = "BasicRiLSANet(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
@@ -3212,7 +3214,7 @@ class ScenarioSet_BasicRiLSANet2x2(ScenarioSet):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
             end = 86400
@@ -3251,7 +3253,7 @@ class ScenarioSet_BasicRiLSANet2x2(ScenarioSet):
         scenario.addAdditionalFile(
             scenario.sandboxPath("tls_adapted_%s" % sID))
         fdo = open(scenario.sandboxPath("tls_adapted_%s.add.xml" % sID), "w")
-        print "Hahah"
+        print("Hahah")
         fdo.write("<additional>\n")
         net = sumolib.net.readNet(
             scenario.fullPath(scenario.TLS_FILE), withPrograms=True)
@@ -3366,7 +3368,7 @@ class ScenarioSet_BasicRiLSACorridor3(ScenarioSet):
         cNS = RWScurves[iNS]
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
-        print "Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN)
+        print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
         if uID == None:
             sID = "BasicRiLSACorridor3(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
@@ -3390,7 +3392,7 @@ class ScenarioSet_BasicRiLSACorridor3(ScenarioSet):
                     nStreams.extend(
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
-                    print stream._departEdgeModel
+                    print(stream._departEdgeModel)
                     raise "Hmmm, unknown stream??"
             s.demand.streams = nStreams
             end = 86400
@@ -3429,7 +3431,7 @@ class ScenarioSet_BasicRiLSACorridor3(ScenarioSet):
         scenario.addAdditionalFile(
             scenario.sandboxPath("tls_adapted_%s" % sID))
         fdo = open(scenario.sandboxPath("tls_adapted_%s.add.xml" % sID), "w")
-        print "Hahah"
+        print("Hahah")
         fdo.write("<additional>\n")
         net = sumolib.net.readNet(
             scenario.fullPath(scenario.TLS_FILE), withPrograms=True)

@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import argparse
 from xml.dom import minidom
@@ -292,7 +294,7 @@ def get_conn_verb_rel(conn_tab, from_to_tab):
                 else:
                     conn_link_d[link["_link"][0]] = [conn['via']]
             else:
-                print ("from: " + conn['from'] + "to: " + conn['to'])
+                print("from: " + conn['from'] + "to: " + conn['to'])
     return link_conn_d, conn_link_d
 
 

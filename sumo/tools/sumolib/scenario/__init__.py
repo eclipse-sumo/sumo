@@ -15,5 +15,6 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import pop2
-import scenarios
+from __future__ import absolute_import
+from . import pop2
+from . import scenarios

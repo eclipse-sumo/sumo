@@ -5,7 +5,7 @@
 @file    network_statistics.py
 @author  Ronald Nippold
 @author  Michael Behrisch
-@date    20089-10-06
+@date    2009-10-06
 @version
 @usage   "python network_statistics.py network-file-to-be-analyzed.net.xml"
 
@@ -20,16 +20,17 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import string
 import sys
-import StringIO
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
 if len(sys.argv) < 2:
-    print "No net-file given. Usage: " + sys.argv[0] + " <network file>."
+    print("No net-file given. Usage: " + sys.argv[0] + " <network file>.")
     sys.exit()
 print("Reading network ...\n")
 net = sumolib.net.readNet(sys.argv[1])

@@ -15,6 +15,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -45,7 +47,7 @@ class WeightsReader(ContentHandler):
             self._intervals.append(self._time)
         if name == 'edge':
             id = attrs['id']
-            if attrs.has_key(self._value):
+            if self._value in attrs:
                 self._edge2value[self._time][id] = float(attrs[self._value])
 
 
@@ -86,21 +88,21 @@ def main(args=None):
     options, remaining_args = optParser.parse_args(args=args)
 
     if options.net == None:
-        print "Error: a network to load must be given."
+        print("Error: a network to load must be given.")
         return 1
     if options.verbose:
-        print "Reading network from '%s'" % options.net
+        print("Reading network from '%s'" % options.net)
     net = sumolib.net.readNet(options.net)
 
     if options.measures == None:
-        print "Error: a dump file must be given."
+        print("Error: a dump file must be given.")
         return 1
 
     times = []
     hc = None
     if options.dumps.split(",")[0] != "":
         if options.verbose:
-            print "Reading colors from '%s'" % options.dumps.split(",")[0]
+            print("Reading colors from '%s'" % options.dumps.split(",")[0])
         hc = WeightsReader(options.measures.split(",")[0])
         sumolib.output.parse_sax(options.dumps.split(",")[0], hc)
         times = hc._edge2value
@@ -108,7 +110,7 @@ def main(args=None):
     hw = None
     if options.dumps.split(",")[1] != "":
         if options.verbose:
-            print "Reading widths from '%s'" % options.dumps.split(",")[1]
+            print("Reading widths from '%s'" % options.dumps.split(",")[1])
         hw = WeightsReader(options.measures.split(",")[1])
         sumolib.output.parse_sax(options.dumps.split(",")[1], hw)
         times = hw._edge2value
@@ -139,7 +141,7 @@ def main(args=None):
         for e in colors:
             colors[e] = helpers.getColor(options, colors[e], 1.)
         if options.verbose:
-            print "Color values are between %s and %s" % (minColorValue, maxColorValue)
+            print("Color values are between %s and %s" % (minColorValue, maxColorValue))
 
         widths = {}
         maxWidthValue = None
@@ -168,7 +170,7 @@ def main(args=None):
             widths[e] = options.minWidth + widths[e] * \
                 (options.maxWidth - options.minWidth)
         if options.verbose:
-            print "Width values are between %s and %s" % (minWidthValue, maxWidthValue)
+            print("Width values are between %s and %s" % (minWidthValue, maxWidthValue))
 
         fig, ax = helpers.openFigure(options)
         ax.set_aspect("equal", None, 'C')

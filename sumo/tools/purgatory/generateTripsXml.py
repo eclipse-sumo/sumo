@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import string
 import sys
@@ -139,7 +141,7 @@ class Edge(sumolib.net.Edge):
     def __init__(self, id, source, target, prio, function, name):
         sumolib.net.Edge.__init__(
             self, id, source, target, prio, function, name)
-        self.capacity = sys.maxint
+        self.capacity = sys.maxsize
         self.freeflowtime = 0.0
         self.helpacttime = 0.0
         self.weight = 0.
@@ -156,7 +158,7 @@ class Edge(sumolib.net.Edge):
 
     def __repr__(self):
         cap = str(self.capacity)
-        if self.capacity == sys.maxint or self.connection != 0:
+        if self.capacity == sys.maxsize or self.connection != 0:
             cap = "inf"
         return "%s_%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self._function, self._id, self._from, self._to, self._speed)
 
@@ -263,7 +265,7 @@ def main(options):
     districts = os.path.join(dataDir, options.districtfile)
     matrix = os.path.join(dataDir, options.mtxfile)
     netfile = os.path.join(dataDir, options.netfile)
-    print 'generate Trip file for:', netfile
+    print('generate Trip file for:', netfile)
 
     if "bz2" in netfile:
         netfile = bz2.BZ2File(netfile)
@@ -293,14 +295,14 @@ def main(options):
         edge.helpacttime = 0.
 
     if options.debug:
-        print len(net._edges), "edges read"
-        print len(net._startVertices), "start vertices read"
-        print len(net._endVertices), "target vertices read"
-        print 'currentMatrixSum:', currentMatrixSum
+        print(len(net._edges), "edges read")
+        print(len(net._startVertices), "start vertices read")
+        print(len(net._endVertices), "target vertices read")
+        print('currentMatrixSum:', currentMatrixSum)
 
     if options.getconns:
         if options.debug:
-            print 'generate odConnTable'
+            print('generate odConnTable')
         for start, startVertex in enumerate(startVertices):
             if startVertex._id not in odConnTable:
                 odConnTable[startVertex._id] = {}
@@ -316,25 +318,25 @@ def main(options):
                             startVertex, endVertex, start, end, P, odConnTable, source, options)
     else:
         if options.debug:
-            print 'import and use the given odConnTable'
+            print('import and use the given odConnTable')
         sys.path.append(options.datadir)
         from odConnTables import odConnTable
 
     # output trips
     if options.verbose:
-        print 'output the trip file'
+        print('output the trip file')
     vehID = 0
     subVehID = 0
     random.seed(42)
     matrixSum = 0.
-    fouttrips = file(options.tripfile, 'w')
+    fouttrips = open(options.tripfile, 'w')
     fouttrips.write('<?xml version="1.0"?>\n')
-    print >> fouttrips, """<!-- generated on %s by $Id$ -->
-    """ % datetime.datetime.now()
+    print("""<!-- generated on %s by $Id$ -->
+    """ % datetime.datetime.now(), file=fouttrips)
     fouttrips.write("<tripdefs>\n")
 
     if options.demandscale != 1.:
-        print 'demand scale %s is used.' % options.demandscale
+        print('demand scale %s is used.' % options.demandscale)
         for start in range(len(startVertices)):
             for end in range(len(endVertices)):
                 matrixPshort[start][end] *= options.demandscale
@@ -359,8 +361,8 @@ def main(options):
                         counts, vehID, tripList, vehIDtoODMap = addVeh(
                             counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap)
     if options.debug:
-        print 'total demand:', matrixSum
-        print vehID, 'trips generated'
+        print('total demand:', matrixSum)
+        print(vehID, 'trips generated')
     tripList.sort(key=operator.attrgetter('depart'))
 
     departpos = "free"

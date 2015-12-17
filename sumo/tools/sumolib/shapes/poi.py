@@ -18,6 +18,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
 
 from xml.sax import handler, parse
 from .. import color
@@ -68,8 +69,8 @@ class PoIReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'poi':
             c = color.decodeXML(attrs['color'])
-            if not attrs.has_key('lane'):
-                if not attrs.has_key('x'):
+            if 'lane' not in attrs:
+                if 'x' not in attrs:
                     poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, float(
                         attrs['lon']), float(attrs['lat']), lonLat=True)
                 else:

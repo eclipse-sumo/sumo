@@ -20,6 +20,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
+from __future__ import absolute_import
 import os
 import sys
 import random
@@ -303,7 +304,7 @@ def main(options):
             else:
                 fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s" %s%s/>\n' % (
                     label, depart, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
-        except Exception, exc:
+        except Exception as exc:
             print(exc, file=sys.stderr)
         return idx + 1
 

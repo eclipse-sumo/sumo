@@ -24,6 +24,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 edgemap = {}
 edgemap["203"] = "203[0]"
@@ -98,10 +100,10 @@ def sorter(idx):
 
 
 if len(sys.argv) < 3:
-    print "Usage: " + sys.argv[0] + " <VISSIM_NETWORK> <OUTPUT_PREFIX>"
+    print("Usage: " + sys.argv[0] + " <VISSIM_NETWORK> <OUTPUT_PREFIX>")
     sys.exit()
 
-print "Parsing Vissim input..."
+print("Parsing Vissim input...")
 fd = open(sys.argv[1])
 haveStop = False
 haveRoute = False
@@ -161,10 +163,10 @@ for br in routesL:
         emissions.append((int(t), id, edges, stops))
 
 # sort emissions
-print "Sorting routes..."
+print("Sorting routes...")
 emissions.sort(sorter(0))
 # write routes
-print "Writing bus routes..."
+print("Writing bus routes...")
 fdo = open(sys.argv[2] + "_busses.rou.xml", "w")
 fdo.write("<routes>\n")
 for emission in emissions:
@@ -179,7 +181,7 @@ for emission in emissions:
 fdo.write("</routes>\n")
 
 # process bus stops
-print "Writing bus stops..."
+print("Writing bus stops...")
 fdo = open(sys.argv[2] + "_stops.add.xml", "w")
 fdo.write("<add>\n")
 for bs in stopsL:

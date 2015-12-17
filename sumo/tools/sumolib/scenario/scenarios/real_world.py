@@ -6,6 +6,8 @@
 Copyright (C) 2014 DLR/TS, Germany
 All rights reserved
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 from . import *
 import os
@@ -41,6 +43,6 @@ class Scenario_RealWorld(Scenario):
         if fileNeedsRebuild(self.netName, "netconvert"):
             pass
         # demand
-        print withDefaultDemand
+        print(withDefaultDemand)
         if not withDefaultDemand:
-            print "Not supported"
+            print("Not supported")

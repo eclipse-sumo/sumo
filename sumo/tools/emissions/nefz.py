@@ -11,6 +11,7 @@ Generates a ';'-separated file that contains the time line of the NEFZ
 Copyright (C) 2013-2015 DLR/TS, Germany
 All rights reserved
 """
+from __future__ import print_function
 
 NEFZ1 = [
     [11, 0, 0],
@@ -97,7 +98,7 @@ def build(what):
         if v >= 0:
             # destination velocity
             if a != 0:
-                print "ups %s" % tav
+                print("ups %s" % tav)
             ts1.append(ct + t)
             as1.append(0)
             vs1.append(v)

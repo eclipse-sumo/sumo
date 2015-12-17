@@ -18,6 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import print_function
+from __future__ import absolute_import
 import datetime
 import sumolib.output
 import sumolib.net
@@ -33,5 +34,5 @@ def fcd2gpsdat(inpFCD, outSTRM, further):
             mtime = str(
                 date + datetime.timedelta(seconds=int(float(timestep.time))))
             for v in timestep.vehicle:
-                print('\t'.join([v.id, mtime, str(v.x), str(
-                    v.y), TAXI_STATUS_FREE_FLOW, str(float(v.speed) * 3.6)]), file=outSTRM)
+                print('%s\t%s\t%s\t%s\t%s\t%.3f' % (v.id, mtime, v.x, v.y,
+                      TAXI_STATUS_FREE_FLOW, float(v.speed) * 3.6), file=outSTRM)

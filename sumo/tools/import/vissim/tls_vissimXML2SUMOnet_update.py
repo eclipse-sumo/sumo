@@ -22,6 +22,7 @@ the Free Software Foundation; either version 3 of the License, or
 # TODO: usage doc.ref
 
 from __future__ import print_function
+from __future__ import absolute_import
 
 import os
 import argparse

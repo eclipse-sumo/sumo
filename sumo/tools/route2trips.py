@@ -21,6 +21,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import print_function
+from __future__ import absolute_import
 import sys
 import datetime
 
@@ -44,14 +45,14 @@ class RouteReader(handler.ContentHandler):
         if name == 'vehicle':
             self._vehicleAttrs = dict(attrs)
             self._vID = attrs['id']
-            if attrs.has_key('route'):
+            if 'route' in attrs:
                 self._routeString = self._routes[attrs['route']]
                 del self._vehicleAttrs['route']
         elif name == 'route':
             if not self._vID:
                 self._routeID = attrs['id']
             self._routeString = ''
-            if attrs.has_key('edges'):
+            if 'edges' in attrs:
                 self._routeString = attrs['edges']
         elif name == 'vType':
             # XXX does not handle child elements

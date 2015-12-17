@@ -6,6 +6,8 @@
 Copyright (C) 2014 DLR/TS, Germany
 All rights reserved
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 from . import *
 import os
@@ -26,7 +28,7 @@ class Scenario_BasicCross(Scenario):
         self.demandName = self.fullPath("routes.rou.xml")
         # network
         if fileNeedsRebuild(self.netName, "netconvert"):
-            print "Network in '%s' needs to be rebuild" % self.netName
+            print("Network in '%s' needs to be rebuild" % self.netName)
             defaultEdge = Edge(numLanes=1, maxSpeed=13.89)
             defaultEdge.addSplit(100, 1)
             defaultEdge.lanes = [Lane(dirs="rs"), Lane(dirs="l")]
@@ -35,7 +37,7 @@ class Scenario_BasicCross(Scenario):
             netGen.build(self.netName)
         # demand
         if withDefaultDemand:
-            print "Demand in '%s' needs to be rebuild" % self.demandName
+            print("Demand in '%s' needs to be rebuild" % self.demandName)
             self.demand = demandGenerator.Demand()
             # why isn't it possible to get a network and return all possible
             # routes or whatever - to ease the process

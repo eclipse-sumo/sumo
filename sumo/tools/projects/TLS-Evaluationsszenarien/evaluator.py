@@ -17,6 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import xml.dom.minidom as dom
 from genRoutes import *
@@ -133,13 +135,13 @@ def getSaturationFlow():
     xSat = range(323, 538)
     ySat = sumVeh[323:538]
     [aSat, b] = linreg(xSat, ySat)
-    print 'Saturation flow: ', aSat * 3600
+    print('Saturation flow: ', aSat * 3600)
     ySatN = [aSat * xSat[i] + b for i in range(len(xSat))]
 
     x = range(700, 850)
     y = sumVeh[700:850]
     [a, b] = linreg(x, y)
-    print 'Saturation flow 2: ', a * 3600
+    print('Saturation flow 2: ', a * 3600)
     ynew = [a * x[i] + b for i in range(len(x))]
 
 #    plot(range(len(veh)), sumVeh, xSat, ySatN, x, ynew)
@@ -203,7 +205,7 @@ def linreg(X, Y):
     Returns coefficients to the regression line "y=ax+b" from x[] and y[]
     """
     if len(X) != len(Y):
-        raise ValueError, 'unequal length'
+        raise ValueError('unequal length')
     N = len(X)
     Sx = Sy = Sxx = Syy = Sxy = 0.0
     for x, y in map(None, X, Y):

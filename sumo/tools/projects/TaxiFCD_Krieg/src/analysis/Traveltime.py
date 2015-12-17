@@ -21,6 +21,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 from pylab import *
 from analysis.Taxi import *
@@ -36,7 +38,7 @@ WEE = True
 
 
 def main():
-    print "start program"
+    print("start program")
     if avg:
         clacAvg()
     else:
@@ -46,7 +48,7 @@ def main():
         else:
             drawBarChart()
         show()
-    print "end"
+    print("end")
 
 
 def getPiePieces():
@@ -56,8 +58,8 @@ def getPiePieces():
     for taxi in taxis:
         try:
             diff = getTimeDiff(taxi.getSteps())
-        except TypeError, e:
-            print "Error by taxi %s : %s" % (taxi.id, e.message)
+        except TypeError as e:
+            print("Error by taxi %s : %s" % (taxi.id, e.message))
 
         # classify the relative time difference
         #<10%', '10%-30%', '30%-50%', '50%-70%', '70%-90%', '>90%
@@ -73,8 +75,8 @@ def getPiePieces():
             pieces[4] += 1
         else:
             pieces[5] += 1
-    print pieces
-    print sum(pieces)
+    print(pieces)
+    print(sum(pieces))
     return pieces
 
 
@@ -94,7 +96,7 @@ def getBars():
 
             # anna
             if diffSim > 150:
-                print diffSim, " ", taxi.id, " ", no, " ", fcd, " ", sim
+                print(diffSim, " ", taxi.id, " ", no, " ", fcd, " ", sim)
 
             # standard deviation
             stdDev.append((diffSim - 9.46) * (diffSim - 9.46))
@@ -103,11 +105,11 @@ def getBars():
             # barsDict[(diff/10)*10]=barsDict.setdefault((diff/10)*10,0)+1
             barsDictSim[
                 (diffSim / 10) * 10] = barsDictSim.setdefault((diffSim / 10) * 10, 0) + 1
-        except TypeError, e:
+        except TypeError as e:
             tueNichts = True
             # print "Error by taxi %s : %s"  %(taxi.id,e.message)
-    print "mw", sum(mw) / (len(mw) + 0.0)  # 9.46
-    print "standard deviation ", sqrt(sum(stdDev) / (len(stdDev) + 0.0))
+    print("mw", sum(mw) / (len(mw) + 0.0))  # 9.46
+    print("standard deviation ", sqrt(sum(stdDev) / (len(stdDev) + 0.0)))
     return (barsDictSim, barsDict)
 
 
@@ -140,11 +142,11 @@ def getTimeDiff(steps, sim=True):
                     times[2] = step.time
                 getSecondEdgeFcd = True
     if fcdDataNo <= 6:
-        raise TypeError, "not enough values"
+        raise TypeError("not enough values")
 
     if (None in times and not avg) or (avg and times[2] == None or times[3] == None):
-        raise TypeError, "Can't calculate time difference because not all needed values are available. %s Source:%s" % (
-            times, source)
+        raise TypeError("Can't calculate time difference because not all needed values are available. %s Source:%s" % (
+            times, source))
 
     if not avg:
         # clac travel time diff
@@ -179,16 +181,16 @@ def clacAvg():
             dur = getTimeDiff(taxi.getSteps())
             durationList.append(dur)
             if dur >= 1479:
-                print "maxtaxi", taxi
-        except TypeError, e:
-            print "Error by taxi %s : %s" % (taxi.id, e.message)
-    print "no", len(durationList)
-    print "avg", sum(durationList) / (len(durationList) + 0.0), "s =",
+                print("maxtaxi", taxi)
+        except TypeError as e:
+            print("Error by taxi %s : %s" % (taxi.id, e.message))
+    print("no", len(durationList))
+    print("avg", sum(durationList) / (len(durationList) + 0.0), "s =", end=' ')
     CalcTime.getSecsInTime(
         int(round(sum(durationList) / (len(durationList) + 0.0))))
-    print "min", min(durationList), "s =",
+    print("min", min(durationList), "s =", end=' ')
     CalcTime.getSecsInTime(min(durationList))
-    print "max", max(durationList), "s =",
+    print("max", max(durationList), "s =", end=' ')
     CalcTime.getSecsInTime(max(durationList))
 
 

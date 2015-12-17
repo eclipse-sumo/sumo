@@ -23,6 +23,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 
 import os
@@ -70,7 +72,7 @@ if options.lsas:
                 id = tls[0]
         for t in tls:
             if t in lsas:
-                print "Junction's '" + t + "' TLS already defined"
+                print("Junction's '" + t + "' TLS already defined")
             lsas[t] = id
     fd.close()
 # read in lane number patches
@@ -83,7 +85,7 @@ if options.lanes:
             continue
         (edge, laneNo) = line.split(":")
         if edge in lanes:
-            print "Edge's '" + edge + "' lane number already defined"
+            print("Edge's '" + edge + "' lane number already defined")
         lanes[edge] = int(laneNo)
     fd.close()
 

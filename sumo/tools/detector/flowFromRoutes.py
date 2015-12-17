@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import math
 import string
 import sys
@@ -50,7 +52,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'route':
-            if attrs.has_key('id'):
+            if 'id' in attrs:
                 self._routes[attrs['id']] = attrs['edges'].split()
         if name == 'vehicle':
             for edge in self._routes[attrs['route']]:
@@ -80,14 +82,14 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                         if dFlow > 0:
                             sumSquaredPercent += dev * dev / dFlow / dFlow
                         n += 1
-        print '# avgRouteFlow avgDetFlow avgDev RMSE RMSPE'
-        print '#', rSum / n, dSum / n, sumAbsDev / n, math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n)
+        print('# avgRouteFlow avgDetFlow avgDev RMSE RMSPE')
+        print('#', rSum / n, dSum / n, sumAbsDev / n, math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n))
 
     def printFlows(self, includeDets):
         if includeDets:
-            print '# detNames RouteFlow DetFlow'
+            print('# detNames RouteFlow DetFlow')
         else:
-            print '# detNames RouteFlow'
+            print('# detNames RouteFlow')
         output = []
         for edge, detData in self._detReader._edge2DetData.iteritems():
             detString = []
@@ -104,10 +106,10 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         if includeDets:
             for group, rflow, dflow in sorted(output):
                 if dflow > 0 or options.respectzero:
-                    print group, rflow, dflow
+                    print(group, rflow, dflow)
         else:
             for group, flow in sorted(output):
-                print group, flow
+                print(group, flow)
 
 
 optParser = OptionParser()
@@ -131,14 +133,14 @@ if not options.detfile or not options.routefile or not options.emitfile:
     sys.exit()
 parser = make_parser()
 if options.verbose:
-    print "Reading detectors"
+    print("Reading detectors")
 reader = DetectorRouteEmitterReader(options.detfile)
 parser.setContentHandler(reader)
 if options.verbose:
-    print "Reading routes"
+    print("Reading routes")
 parser.parse(options.routefile)
 if options.verbose:
-    print "Reading emitters"
+    print("Reading emitters")
 parser.parse(options.emitfile)
 if options.flowfile:
     reader.readDetFlows(options.flowfile)

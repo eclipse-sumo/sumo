@@ -27,6 +27,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 from matplotlib import rcParams
 from pylab import *
@@ -98,7 +100,7 @@ class NetReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         self._parseLane = False
         if name == 'edge':
-            if not attrs.has_key('function') or attrs['function'] != 'internal':
+            if 'function' not in attrs or attrs['function'] != 'internal':
                 self._id = attrs['id']
                 self._edge2from[attrs['id']] = attrs['from']
                 self._edge2to[attrs['id']] = attrs['to']
@@ -211,8 +213,8 @@ class NetReader(handler.ContentHandler):
             else:
                 edge2plotWidth[edge] = 0.2
         if options.verbose:
-            print "x-limits: " + str(xmin) + " - " + str(xmax)
-            print "y-limits: " + str(ymin) + " - " + str(ymax)
+            print("x-limits: " + str(xmin) + " - " + str(xmax))
+            print("y-limits: " + str(ymin) + " - " + str(ymax))
         # set figure size
         if not options.show:
             rcParams['backend'] = 'Agg'
@@ -267,7 +269,7 @@ class NetReader(handler.ContentHandler):
         else:
             for i in weights._intervalBegins:
                 if options.verbose:
-                    print " Processing step %d..." % i
+                    print(" Processing step %d..." % i)
                 output = options.output
                 if output:
                     output = output % i
@@ -311,7 +313,7 @@ class WeightsReader(handler.ContentHandler):
                     self._edge2no1[self._id] = 0
                     self._edge2no2[self._id] = 0
                 value1 = self._value1
-                if attrs.has_key(value1):
+                if value1 in attrs:
                     value1 = float(attrs[value1])
                     self._edge2no1[self._id] = self._edge2no1[self._id] + 1
                 else:
@@ -321,7 +323,7 @@ class WeightsReader(handler.ContentHandler):
                     self._id] + value1
                 self._unaggEdge2value1[self._beginTime][self._id] = value1
                 value2 = self._value2
-                if attrs.has_key(value2):
+                if value2 in attrs:
                     value2 = float(attrs[value2])
                     self._edge2no2[self._id] = self._edge2no2[self._id] + 1
                 else:
@@ -372,7 +374,7 @@ class WeightsReader(handler.ContentHandler):
                     self._edge2value2[edge] = float(
                         self._edge2value2[edge]) / float(self._edge2no2[edge])
                 else:
-                    print "ha"
+                    print("ha")
                     self._edge2value2[edge] = float(self._edge2value2[edge])
         # compute min/max
         if options.join:
@@ -383,8 +385,8 @@ class WeightsReader(handler.ContentHandler):
                     self._unaggEdge2value1[i], self._unaggEdge2value2[i])
         # norm
         if options.verbose:
-            print "w range: " + str(self._minValue1) + " - " + str(self._maxValue1)
-            print "c range: " + str(self._minValue2) + " - " + str(self._maxValue2)
+            print("w range: " + str(self._minValue1) + " - " + str(self._maxValue1))
+            print("c range: " + str(self._minValue2) + " - " + str(self._maxValue2))
         if options.join:
             self.valueDependantNorm(
                 self._edge2value1, self._minValue1, self._maxValue1, False, percSpeed and self._value1 == "speed")
@@ -451,22 +453,22 @@ optParser.add_option("-s", "--show", action="store_true", dest="show",
 colorMap = parseColorMap(options.colormap)
 # read network
 if options.verbose:
-    print "Reading net..."
+    print("Reading net...")
 parser = make_parser()
 net = NetReader()
 parser.setContentHandler(net)
 parser.parse(options.net)
 # read weights
 if options.verbose:
-    print "Reading weights..."
+    print("Reading weights...")
 mValues = options.values.split(",")
 weights = WeightsReader(net, mValues[0], mValues[1])
 parser.setContentHandler(weights)
 parser.parse(options.dump)
 # process
 if options.verbose:
-    print "Norming weights..."
+    print("Norming weights...")
 weights.norm(options.tendency_coloring, options.percentage_speed)
 if options.verbose:
-    print "Plotting..."
+    print("Plotting...")
 net.plot(weights, options, colorMap)

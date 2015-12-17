@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import string
 import sys
@@ -198,9 +200,9 @@ class NetConverter(handler.ContentHandler):
             if name in a:
                 for key in a[name]:
                     val = None
-                    if key in renamedAttrs and attrs.has_key(renamedAttrs[key]):
+                    if key in renamedAttrs and renamedAttrs[key] in attrs:
                         key = renamedAttrs[key]
-                    if attrs.has_key(key):
+                    if key in attrs:
                         val = attrs[key]
                         if key in renamedValues:
                             val = renamedValues[key].get(val, val)
@@ -228,7 +230,7 @@ class NetConverter(handler.ContentHandler):
                 self.checkWrite("<request")
                 self.checkWrite(' index="%s"' % logicitem_attrs["request"])
                 for key in a["logicitem"]:
-                    if logicitem_attrs.has_key(key):  # cont is optional
+                    if key in logicitem_attrs:  # cont is optional
                         self.checkWrite(' ' + key + '="%s"' %
                                         logicitem_attrs[key])
                 self.checkWrite("/>\n")
@@ -262,20 +264,20 @@ class NetConverter(handler.ContentHandler):
 
 def changeFile(fname):
     if options.verbose:
-        print "Patching " + fname + " ..."
+        print("Patching " + fname + " ...")
     if (("_deprecated_" in fname and not "net.netconvert" in fname) or
             (os.path.join('tools', 'net', '0') in fname)):
-        print "Skipping file (looks like intentionally deprecated input): " + fname
+        print("Skipping file (looks like intentionally deprecated input): " + fname)
         return
     has_no_destination = False
     if "SUMO_NO_DESTINATION" in open(fname).read():
-        print "Partial conversion (cannot convert SUMO_NO_DESTINATION): " + fname
+        print("Partial conversion (cannot convert SUMO_NO_DESTINATION): " + fname)
         has_no_destination = True
     net = NetConverter(fname + ".chg", getBegin(fname), has_no_destination)
     try:
         parse(fname, net)
     except xml.sax._exceptions.SAXParseException:
-        print "Could not parse '%s' maybe it contains non-ascii chars?" % fname
+        print("Could not parse '%s' maybe it contains non-ascii chars?" % fname)
     if options.inplace:
         os.remove(fname)
         os.rename(fname + ".chg", fname)
@@ -283,7 +285,7 @@ def changeFile(fname):
 
 def changeEdgeFile(fname):
     if options.verbose:
-        print "Patching " + fname + " ..."
+        print("Patching " + fname + " ...")
     out = open(fname + ".chg", 'w')
     for line in open(fname):
         if "<lane" in line:
@@ -302,7 +304,7 @@ def changeEdgeFile(fname):
 
 def changeConnectionFile(fname):
     if options.verbose:
-        print "Patching " + fname + " ..."
+        print("Patching " + fname + " ...")
     out = open(fname + ".chg", 'w')
     for line in open(fname):
         if "<connection" in line and "lane" in line:
@@ -343,7 +345,7 @@ optParser.add_option("-c", "--connections", action="store_true",
 (options, args) = optParser.parse_args()
 
 if len(args) == 0:
-    print "Usage: " + sys.argv[0] + " <net>+"
+    print("Usage: " + sys.argv[0] + " <net>+")
     sys.exit()
 for arg in args:
     for fname in glob.glob(arg):

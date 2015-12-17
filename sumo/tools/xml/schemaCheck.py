@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
@@ -57,11 +59,11 @@ def validate(root, f):
                 s = urllib.unquote(str(entry))
                 # remove everything before (and including) the filename
                 s = s[s.find(f.replace('\\', '/')) + len(f):]
-                print >> sys.stderr, os.path.abspath(
-                    f)[len(root) + 1:].replace('\\', '/') + s
+                print(os.path.abspath(
+                    f)[len(root) + 1:].replace('\\', '/') + s, file=sys.stderr)
     except:
-        print >> sys.stderr, "Error on parsing '%s'!" % os.path.abspath(
-            f)[len(root) + 1:].replace('\\', '/')
+        print("Error on parsing '%s'!" % os.path.abspath(
+            f)[len(root) + 1:].replace('\\', '/'), file=sys.stderr)
         traceback.print_exc()
 
 
@@ -102,20 +104,20 @@ def main(srcRoot, toCheck, err):
                     sax2count + " " + srcRoot, stdout=open(os.devnull), stderr=err)
             fileNo += 1
     else:
-        print >> err, "cannot open", srcRoot
+        print("cannot open", srcRoot, file=err)
         return 1
-    print "%s files checked" % fileNo
+    print("%s files checked" % fileNo)
 
     if haveLxml:
         for scheme in schemes.itervalues():
             if scheme.error_log:
-                print >> err, scheme.error_log
+                print(scheme.error_log, file=err)
                 return 1
     return 0
 
 if __name__ == "__main__":
     if os.name == "posix" and not haveLxml:
-        print >> sys.stderr, "neither SAX2Count nor lxml available, exiting"
+        print("neither SAX2Count nor lxml available, exiting", file=sys.stderr)
         sys.exit(1)
     srcRoot = "."
     if len(sys.argv) > 1:

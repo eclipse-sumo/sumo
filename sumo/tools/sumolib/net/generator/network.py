@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import sumolib
 import os
 import subprocess
@@ -231,23 +233,23 @@ class Net:
     def build(self, netName="net.net.xml"):
         connections = []
         nodesFile = tempfile.NamedTemporaryFile(mode="w", delete=False)
-        print >> nodesFile, "<nodes>"
+        print("<nodes>", file=nodesFile)
         for nid in self._nodes:
             n = self._nodes[nid]
-            print >> nodesFile, '    <node id="%s" x="%s" y="%s" type="%s"/>' % (
-                n.nid, n.x, n.y, n.nodeType)
-        print >> nodesFile, "</nodes>"
+            print('    <node id="%s" x="%s" y="%s" type="%s"/>' % (
+                n.nid, n.x, n.y, n.nodeType), file=nodesFile)
+        print("</nodes>", file=nodesFile)
         nodesFile.close()
 
         edgesFile = tempfile.NamedTemporaryFile(mode="w", delete=False)
-        print >> edgesFile, "<edges>"
+        print("<edges>", file=edgesFile)
         for eid in self._edges:
             e = self._edges[eid]
-            print >> edgesFile, '    <edge id="%s" from="%s" to="%s" numLanes="%s" speed="%s">' % (
-                e.eid, e.fromNode.nid, e.toNode.nid, e.numLanes, e.maxSpeed)
+            print('    <edge id="%s" from="%s" to="%s" numLanes="%s" speed="%s">' % (
+                e.eid, e.fromNode.nid, e.toNode.nid, e.numLanes, e.maxSpeed), file=edgesFile)
             for s in e.splits:
-                print >> edgesFile, '        <split pos="%s" lanes="%s"/>' % (-s.distance, str(
-                    s.lanes)[1:-1].replace(",", ""))
+                print('        <split pos="%s" lanes="%s"/>' % (-s.distance, str(
+                    s.lanes)[1:-1].replace(",", "")), file=edgesFile)
 
             """
         for i,l in enumerate(e.lanes):
@@ -262,7 +264,7 @@ class Net:
         """
 
             connections.extend(e.getConnections(self))
-            print >> edgesFile, '    </edge>'
+            print('    </edge>', file=edgesFile)
 
             hadConstraints = False
             for i, l in enumerate(e.lanes):
@@ -274,7 +276,7 @@ class Net:
                     eid = e.eid
                     if s.distance != 0:
                         eid = eid + ".%s" % -s.distance
-                    print >> edgesFile, '    <edge id="%s">' % (eid)
+                    print('    <edge id="%s">' % (eid), file=edgesFile)
                     for i, l in enumerate(e.lanes):
                         # if i not in s.lanes:
                         #    continue
@@ -285,27 +287,27 @@ class Net:
                             ls = ls + 'allow="%s"' % l.allowed
                         if l.disallowed != None:
                             ls = ls + 'disallow="%s"' % l.disallowed
-                        print >> edgesFile, ls + '/>'
-                    print >> edgesFile, '    </edge>'
+                        print(ls + '/>', file=edgesFile)
+                    print('    </edge>', file=edgesFile)
 
-        print >> edgesFile, "</edges>"
+        print("</edges>", file=edgesFile)
         edgesFile.close()
 
         connectionsFile = tempfile.NamedTemporaryFile(mode="w", delete=False)
-        print >> connectionsFile, "<connections>"
+        print("<connections>", file=connectionsFile)
         for c in connections:
             eid = c.fromEdge.eid
             if len(c.fromEdge.splits) > 1:
                 eid = eid + ".-" + str(c.fromEdge.splits[-1].distance)
-            print >> connectionsFile, '    <connection from="%s" to="%s" fromLane="%s" toLane="%s"/>' % (
-                eid, c.toEdge.eid, c.fromLane, c.toLane)
+            print('    <connection from="%s" to="%s" fromLane="%s" toLane="%s"/>' % (
+                eid, c.toEdge.eid, c.fromLane, c.toLane), file=connectionsFile)
         for n in self._nodes:
             if len(self._nodes[n].crossings) == 0:
                 continue
             for c in self._nodes[n].crossings:
-                print >> connectionsFile, '    <crossing node="%s" edges="%s"/>' % (
-                    n, " ".join(c))
-        print >> connectionsFile, "</connections>"
+                print('    <crossing node="%s" edges="%s"/>' % (
+                    n, " ".join(c)), file=connectionsFile)
+        print("</connections>", file=connectionsFile)
         connectionsFile.close()
 
         netconvert = sumolib.checkBinary("netconvert")
@@ -321,10 +323,10 @@ class Net:
     def buildDetectors(self, filename):
         e1File = filename
         fdo = open(e1File, "w")
-        print >> fdo, "<additional>"
+        print("<additional>", file=fdo)
         for e1id in self._e1:
             e1 = self._e1[e1id]
-            print >> fdo, '    <e1Detector id="%s" lane="%s" pos="%s" freq="%s" file="%s"/>' % (
-                e1.id, e1.laneID, e1.pos, e1.freq, e1.outputFile)
-        print >> fdo, "</additional>"
+            print('    <e1Detector id="%s" lane="%s" pos="%s" freq="%s" file="%s"/>' % (
+                e1.id, e1.laneID, e1.pos, e1.freq, e1.outputFile), file=fdo)
+        print("</additional>", file=fdo)
         fdo.close()

@@ -6,6 +6,8 @@
 Copyright (C) 2014 DLR/TS, Germany
 All rights reserved
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 
 from . import *
@@ -57,7 +59,7 @@ class Scenario_BasicRiLSANet(Scenario):
         self.netName = self.fullPath(self.NET_FILE)
         # network
         if fileNeedsRebuild(self.fullPath(self.NET_FILE), "netconvert"):
-            print "Network in '%s' needs to be rebuild" % self.netName
+            print("Network in '%s' needs to be rebuild" % self.netName)
             # , Lane(dirs="l", disallowed="pedestrian")]
             lanes = [Lane(dirs="s", allowed="pedestrian"), Lane(
                 dirs="rs", disallowed="pedestrian")]
@@ -167,7 +169,7 @@ class Scenario_BasicRiLSANet(Scenario):
                                 oedge = "1/%s_to_0/%s.-100" % (oee, oee)
                             if rel[0] == "me":
                                 oedge = "3/%s_to_4/%s.-100" % (oee, oee)
-                            print "%s %s " % (oee, via)
+                            print("%s %s " % (oee, via))
                             self.demand.addStream(demandGenerator.Stream(iedge + "__" + oedge, 0, 3600, int(flow / 3.), iedge, oedge,
                                                                          {"passenger": pkwEprob, "COLOMBO_undetectable_passenger": pkwNprob, "hdv": lkwEprob, "COLOMBO_undetectable_hdv": lkwNprob}))
             if fileNeedsRebuild(self.demandName, "duarouter"):

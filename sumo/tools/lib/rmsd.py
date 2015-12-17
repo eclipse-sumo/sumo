@@ -15,6 +15,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 from numpy import append, array, dot, shape, transpose
 from numpy.linalg import det, svd
@@ -23,7 +25,7 @@ from numpy.linalg import det, svd
 def superpose(nodes1, nodes2, select1, select2):
     vecs1 = array(nodes1)[array(select1)]
     vecs2 = array(nodes2)[array(select2)]
-    print vecs1, vecs2
+    print(vecs1, vecs2)
 
     n_vec, vec_size = shape(vecs1)
     center1 = sum(vecs1, 0) / float(n_vec)

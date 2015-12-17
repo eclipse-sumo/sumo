@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import re
@@ -52,7 +54,7 @@ def parse_args():
 
 
 def parse_dualog(dualog, limit):
-    print "Parsing %s" % dualog
+    print("Parsing %s" % dualog)
     teleStats = Statistics('Teleports')
     header = ['#Inserted', 'Running', 'Waiting', 'Teleports', 'Loaded']
     step_values = []  # list of lists
@@ -105,13 +107,13 @@ def parse_dualog(dualog, limit):
         except:
             sys.exit("error when parsing line '%s'" % line)
 
-    print "  parsed %s steps" % len(step_values)
-    print teleStats
+    print("  parsed %s steps" % len(step_values))
+    print(teleStats)
     return [header] + step_values, step_counts
 
 
 def parse_stdout(step_values, stdout):
-    print "Parsing %s" % stdout
+    print("Parsing %s" % stdout)
     step_values[0] += ['routingMinutes', 'simMinutes', 'absAvgError']
     reDuration = re.compile("Duration: (.*)$")
     reError = re.compile("Absolute Error avg:(\d*)")
@@ -136,7 +138,7 @@ def parse_stdout(step_values, stdout):
             if step >= len(step_values):
                 break
             routingMinutes = None
-    print "  parsed %s steps" % (step - 1)
+    print("  parsed %s steps" % (step - 1))
 
 
 def gnuplot_teleport_edges(plotfile, step_counts, xlabel):
@@ -151,11 +153,11 @@ def gnuplot_teleport_edges(plotfile, step_counts, xlabel):
         for edge, count in counts.iteritems():
             interestingness[edge] += count / teleports
     interesting = sorted([(c, e) for e, c in interestingness.iteritems()])[-7:]
-    print "most interesting edges:", interesting
+    print("most interesting edges:", interesting)
     if len(interesting) > 0:
         interesting = [e for c, e in interesting]
         with open(datafile, 'w') as f:
-            print >>f, '#' + ' '.join(interesting)
+            print('#' + ' '.join(interesting), file=f)
             for counts in step_counts:
                 values = [counts[e] for e in interesting]
                 f.write(' '.join(map(str, values)) + '\n')

@@ -19,11 +19,12 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import string
 import sys
-import StringIO
 from xml.sax import saxutils, make_parser, handler
 
 
@@ -64,7 +65,7 @@ class XMLNodesReader(handler.ContentHandler):
 
 
 if len(sys.argv) < 4:
-    print "Usage: " + sys.argv[0] + " <XMLNODES> <X-OFFSET> <Y-OFFSET>"
+    print("Usage: " + sys.argv[0] + " <XMLNODES> <X-OFFSET> <Y-OFFSET>")
     sys.exit()
 parser = make_parser()
 reader = XMLNodesReader(

@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
@@ -26,7 +28,7 @@ import sumolib.net
 
 
 if len(sys.argv) < 2:
-    print >> sys.stderr, "Usage: " + sys.argv[0] + " <NET>"
+    print("Usage: " + sys.argv[0] + " <NET>", file=sys.stderr)
     sys.exit()
 
 print("Reading net...")
@@ -35,9 +37,9 @@ net1 = sumolib.net.readNet(sys.argv[1], withPrograms=True)
 
 print("Writing output...")
 fdo = open('pois.add.xml', 'w')
-print >> fdo, '<?xml version="1.0"?>'
-print >> fdo, '<!-- poi_atTLS %s -->' % sys.argv
-print >> fdo, '<additional>'
+print('<?xml version="1.0"?>', file=fdo)
+print('<!-- poi_atTLS %s -->' % sys.argv, file=fdo)
+print('<additional>', file=fdo)
 for tlsID in net1._id2tls:
     tls = net1._id2tls[tlsID]
     nodes = set()
@@ -53,12 +55,12 @@ for tlsID in net1._id2tls:
         if len(nodes) > 1:
             c[0] = c[0] / float(len(nodes))
             c[1] = c[1] / float(len(nodes))
-        print >> fdo, '    <poi id="%s" type="default" color="1,0,0" layer="0" x="%s" y="%s"/>' % (
-            tlsID, c[0], c[1])
+        print('    <poi id="%s" type="default" color="1,0,0" layer="0" x="%s" y="%s"/>' % (
+            tlsID, c[0], c[1]), file=fdo)
     else:
         for n in nodes:
-            print >> fdo, '    <poi id="%s_at_%s" type="default" color="1,0,0" layer="0" x="%s" y="%s"/>' % (
-                tlsID, n._id, n._coord[0], n._coord[1])
+            print('    <poi id="%s_at_%s" type="default" color="1,0,0" layer="0" x="%s" y="%s"/>' % (
+                tlsID, n._id, n._coord[0], n._coord[1]), file=fdo)
 
-print >> fdo, '</additional>'
+print('</additional>', file=fdo)
 fdo.close()

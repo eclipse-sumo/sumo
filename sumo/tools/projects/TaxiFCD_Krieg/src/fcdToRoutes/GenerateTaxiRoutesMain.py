@@ -19,15 +19,17 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
-from GenerateTaxiRoutes import *
+from .GenerateTaxiRoutes import *
 
 
 def main():
-    print "start program"
+    print("start program")
     readFCD()
     writeRoutes()
-    print "end"
+    print("end")
 
 # start the program
 main()

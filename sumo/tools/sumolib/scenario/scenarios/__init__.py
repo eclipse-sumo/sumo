@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import sumolib.net.generator.cross as netGenerator
 import sumolib.net.generator.demand as demandGenerator
 from sumolib.net.generator.network import *
@@ -52,7 +54,7 @@ def minIndexValue_unset(l, l2):
 
 
 def fileNeedsRebuild(filePath, app):
-    print "fileNeedsRebuild> %s" % filePath
+    print("fileNeedsRebuild> %s" % filePath)
     if REBUILD:
         return True
     if not os.path.exists(filePath):
@@ -169,11 +171,11 @@ class Scenario:
         raise "network is unknown"
 
     def fullPath(self, fileName):
-        print "full >" + os.path.join(self.dataPath, fileName)
+        print("full >" + os.path.join(self.dataPath, fileName))
         return os.path.join(self.dataPath, fileName)
 
     def sandboxPath(self, fileName):
-        print "sandbox >" + os.path.join(SANDBOX_PATH, fileName)
+        print("sandbox >" + os.path.join(SANDBOX_PATH, fileName))
         return os.path.join(SANDBOX_PATH, fileName)
 
     def getOppositeFlows(self):
@@ -237,10 +239,10 @@ class Scenario:
         i = 0
         maxIdx, maxVal = maxIndexValue_unset(rel, program)
         minIdx, minVal = minIndexValue_unset(rel, program)
-        print program
-        print "morning max %s %s" % (maxIdx, maxVal)
-        print "morning min %s %s" % (minIdx, minVal)
-        print "%s %s" % (maxVal, 1. - minVal)
+        print(program)
+        print("morning max %s %s" % (maxIdx, maxVal))
+        print("morning min %s %s" % (minIdx, minVal))
+        print("%s %s" % (maxVal, 1. - minVal))
         if maxVal > 1. - minVal:
             i = maxIdx
             while i > 0 and rel[i] > IREL_THRESHOLD and program[i] == 0 and streamsNS[i] + streamsWE[i] > MORNING_MIN:
@@ -252,27 +254,27 @@ class Scenario:
                 i = i + 1
         else:
             i = minIdx
-            print "!"
-            print "  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i])
+            print("!")
+            print("  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
             while i > 0 and rel[i] < REL_THRESHOLD and program[i] == 0 and streamsNS[i] + streamsWE[i] > MORNING_MIN:
                 program[i] = MORNING
                 i = i - 1
-                print "  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i])
+                print("  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
             i = minIdx + 1
-            print "  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i])
+            print("  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
             while i < len(rel) and rel[i] < REL_THRESHOLD and program[i] == 0 and streamsNS[i] + streamsWE[i] > MORNING_MIN:
                 program[i] = MORNING
                 i = i + 1
-                print "  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i])
+                print("  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
 
-        print rel
-        print program
+        print(rel)
+        print(program)
         maxIdx, maxVal = maxIndexValue_unset(rel, program)
         minIdx, minVal = minIndexValue_unset(rel, program)
         if maxIdx != -1 and minIdx != -1:
-            print "%s %s" % (maxIdx, maxVal)
-            print "%s %s" % (minIdx, minVal)
-            print "%s %s" % (maxVal, 1 - minVal)
+            print("%s %s" % (maxIdx, maxVal))
+            print("%s %s" % (minIdx, minVal))
+            print("%s %s" % (maxVal, 1 - minVal))
             if maxVal > 1 - minVal:
                 i = maxIdx
                 # and rel[i]>.6
@@ -317,11 +319,11 @@ class Scenario:
                 elif maxV < 1. - rel[j]:
                     maxV = 1. - rel[j]
                     maxI = j
-            print "%s %s %s" % (i, maxV, maxI)
+            print("%s %s %s" % (i, maxV, maxI))
             greens = split_by_proportions(
                 72, (rel[maxI], 1. - rel[maxI]), (10, 10))
             ret1[i] = greens
-            print greens
+            print(greens)
         # build programs
         ret2 = []
         last = -1
@@ -334,43 +336,43 @@ class Scenario:
 
 def getScenario(which, useName, params, withDefaultDemand=True):
     if which == "RiLSA1":
-        import rilsa1
+        from . import rilsa1
         return rilsa1.Scenario_RiLSA1(useName, withDefaultDemand)
     elif which == "RiLSA1OutTLS":
-        import rilsa1_out_tls
+        from . import rilsa1_out_tls
         return rilsa1_out_tls.Scenario_RiLSA1OutTLS(params, withDefaultDemand)
     elif which == "RiLSA1BothTLS":
-        import rilsa1_both_tls
+        from . import rilsa1_both_tls
         return rilsa1_both_tls.Scenario_RiLSA1BothTLS(params, withDefaultDemand)
     elif which == "RiLSA1OutTLS24":
-        import rilsa1_out_tls24
+        from . import rilsa1_out_tls24
         return rilsa1_out_tls24.Scenario_RiLSA1OutTLS24(params, withDefaultDemand)
     elif which == "RiLSA1BothTLS24":
-        import rilsa1_both_tls24
+        from . import rilsa1_both_tls24
         return rilsa1_both_tls24.Scenario_RiLSA1BothTLS24(params, withDefaultDemand)
     elif which == "BasicCross":
-        import basic_cross
+        from . import basic_cross
         return basic_cross.Scenario_BasicCross(useName, withDefaultDemand)
     elif which == "BasicCrossL":
-        import basic_crossl
+        from . import basic_crossl
         return basic_crossl.Scenario_BasicCrossL(useName, withDefaultDemand)
     elif which == "BasicCorridor":
-        import basic_corridor
+        from . import basic_corridor
         return basic_corridor.Scenario_BasicCorridor(useName, params["xoff"], withDefaultDemand)
     elif which == "BasicNet":
-        import basic_net
+        from . import basic_net
         return basic_net.Scenario_BasicNet(useName, params["rot"], withDefaultDemand)
     elif which == "RealWorld":
-        import real_world
+        from . import real_world
         return real_world.Scenario_RealWorld(useName, params["which"], withDefaultDemand)
     elif which == "BasicRiLSANet":
-        import basic_rilsanet
+        from . import basic_rilsanet
         return basic_rilsanet.Scenario_BasicRiLSANet(useName, params, withDefaultDemand)
     elif which == "BasicRiLSANet2x2":
-        import basic_rilsanet2x2
+        from . import basic_rilsanet2x2
         return basic_rilsanet2x2.Scenario_BasicRiLSANet2x2(useName, params, withDefaultDemand)
     elif which == "BasicRiLSACorridor3":
-        import basic_rilsacorridor3
+        from . import basic_rilsacorridor3
         return basic_rilsacorridor3.Scenario_BasicRiLSACorridor3(useName, params, withDefaultDemand)
-    print "unknown scenario '%s'" % name
+    print("unknown scenario '%s'" % name)
     raise

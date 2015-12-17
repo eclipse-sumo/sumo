@@ -18,14 +18,16 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 
 if len(sys.argv) < 4:
-    print "Error: Missing argument(s)"
-    print "Call: CSV2polyconvertXML.py <CSV_FILE> <OUTPUT_FILE> <VALUENAME>[,<VALUENAME>]*"
-    print " The values within the csv-file are supposed to be divided by ';'."
-    print " <VALUENAME>s give the attribute names in order of their appearence within the csv-file ."
+    print("Error: Missing argument(s)")
+    print("Call: CSV2polyconvertXML.py <CSV_FILE> <OUTPUT_FILE> <VALUENAME>[,<VALUENAME>]*")
+    print(" The values within the csv-file are supposed to be divided by ';'.")
+    print(" <VALUENAME>s give the attribute names in order of their appearence within the csv-file .")
     exit()
 
 

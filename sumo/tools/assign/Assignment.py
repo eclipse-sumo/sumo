@@ -24,6 +24,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import random
@@ -65,7 +67,7 @@ def initLinkChoiceMap(net, startVertices, endVertices, matrixPshort, linkChoiceM
 def main():
     # for measuring the required time for reading input files
     inputreaderstart = datetime.datetime.now()
-    foutlog = file('%s_log.txt' % options.type, 'w')
+    foutlog = open('%s_log.txt' % options.type, 'w')
     foutlog.write(
         'The stochastic user equilibrium traffic assignment will be executed with the %s model.\n' % options.type)
     foutlog.write(
@@ -75,8 +77,8 @@ def main():
     parser = make_parser()
 
     if options.verbose:
-        print "Reading net"
-    print 'net file:', options.netfile
+        print("Reading net")
+    print('net file:', options.netfile)
     net = Net()
     sumolib.net.readNet(options.netfile, net=net)
     parser.setContentHandler(DistrictsReader(net))
@@ -88,7 +90,7 @@ def main():
     foutlog.write('number of total startVertices:%s\n' % net.getstartCounts())
     foutlog.write('number of total endVertices:%s\n' % net.getendCounts())
     if options.verbose:
-        print net.getfullEdgeCounts(), "edges read (internal edges included)"
+        print(net.getfullEdgeCounts(), "edges read (internal edges included)")
 
     if options.curvefile:
         updateCurveTable(options.curvefile)
@@ -108,7 +110,7 @@ def main():
     if options.dijkstra == 'boost':
         net.createBoostGraph()
     if options.verbose:
-        print "after link reduction:", net.getfullEdgeCounts(), "edges read"
+        print("after link reduction:", net.getfullEdgeCounts(), "edges read")
 
     # calculate link travel time for all district connectors
     getConnectionTravelTime(net._startVertices, net._endVertices)
@@ -154,9 +156,9 @@ def main():
         net.getDetectedEdges(options.outputdir)
     else:
         foutroute = open('routes.rou.xml', 'w')
-        print >> foutroute, """<?xml version="1.0"?>
+        print("""<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
-<routes>""" % starttime
+<routes>""" % starttime, file=foutroute)
 
     # for counter in range (0, len(matrices)):
     for counter, matrix in enumerate(matrices):
@@ -176,11 +178,11 @@ def main():
         departtime = begintime * 3600
 
         if options.verbose:
-            print 'the analyzed matrices:', counter
-            print 'Begintime:', begintime, "O'Clock"
-            print 'departtime', departtime
-            print 'Matrix und OD Zone already read for Interval', counter
-            print 'CurrentMatrixSum:', CurrentMatrixSum
+            print('the analyzed matrices:', counter)
+            print('Begintime:', begintime, "O'Clock")
+            print('departtime', departtime)
+            print('Matrix und OD Zone already read for Interval', counter)
+            print('CurrentMatrixSum:', CurrentMatrixSum)
 
         foutlog.write('Reading matrix and O-D zones: done.\n')
         foutlog.write(
@@ -219,7 +221,7 @@ def main():
             outputODZone(startVertices, endVertices, Pshort_EffCells, counter)
 
         if incremental:
-            print 'begin the incremental assignment!'
+            print('begin the incremental assignment!')
             iter = 0
             options.lamda = 0.
             while iter < options.maxiteration:
@@ -262,7 +264,7 @@ def main():
                     if options.dijkstra == 'boost':
                         edge.boost.weight = edge.helpacttime
         else:
-            print 'begin the', options.type, " assignment!"
+            print('begin the', options.type, " assignment!")
             # initialization for the clogit and the lohse assignment model
             iter_outside = 1
             newRoutes = 1
@@ -283,26 +285,26 @@ def main():
                     foutlog.write(
                         '- Finding the k-shortest paths for each OD pair: done.\n')
                     if options.verbose:
-                        print 'iter_outside:', iter_outside
-                        print 'number of k shortest paths:', options.kPaths
-                        print 'number of new routes:', newRoutes
+                        print('iter_outside:', iter_outside)
+                        print('number of k shortest paths:', options.kPaths)
+                        print('number of new routes:', newRoutes)
 
                 elif not checkKPaths and iter_outside == 1 and counter == 0:
-                    print 'search for the new path'
+                    print('search for the new path')
                     newRoutes = net.findNewPath(
                         startVertices, endVertices, newRoutes, matrixPshort, options.gamma, lohse, options.dijkstra)
 
                 checkKPaths = False
 
                 if options.verbose:
-                    print 'iter_outside:', iter_outside
-                    print 'number of new routes:', newRoutes
+                    print('iter_outside:', iter_outside)
+                    print('number of new routes:', newRoutes)
 
                 stable = False
                 iter_inside = 1
                 while not stable:
                     if options.verbose:
-                        print 'iter_inside:', iter_inside
+                        print('iter_inside:', iter_inside)
                     stable = doSUEAssign(
                         net, options, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
                     # The matrixPlong and the matrixTruck should be added when
@@ -314,7 +316,7 @@ def main():
                     iter_inside += 1
 
                     if options.verbose:
-                        print 'stable:', stable
+                        print('stable:', stable)
 
                 newRoutes = net.findNewPath(
                     startVertices, endVertices, newRoutes, matrixPshort, options.gamma, lohse, options.dijkstra)
@@ -326,12 +328,12 @@ def main():
                     newRoutes = 0
 
                 if iter_outside > options.maxiteration:
-                    print 'The max. number of iterations is reached!'
+                    print('The max. number of iterations is reached!')
                     foutlog.write(
                         'The max. number of iterations is reached!\n')
                     foutlog.write(
                         'The number of new routes and the parameter stable will be set to zero and True respectively.\n')
-                    print 'newRoutes:', newRoutes
+                    print('newRoutes:', newRoutes)
                     stable = True
                     newRoutes = 0
 
@@ -342,7 +344,7 @@ def main():
 
        # output the generated vehicular releasing times and routes, based on
        # the current matrix
-        print 'done with the assignment'  # debug
+        print('done with the assignment')  # debug
         if options.odestimation:
             linkChoicesOutput(net, startVertices, endVertices, matrixPshort,
                               linkChoiceMap, odPairsMap, options.outputdir, starttime)
@@ -361,9 +363,9 @@ def main():
     foutlog.close()
 
     if options.verbose:
-        print 'Duration for traffic assignment:', assigntime
-        print 'Total assigned vehicles:', vehID
-    print 'Total number of the assigned trips:', matrixSum
+        print('Duration for traffic assignment:', assigntime)
+        print('Total assigned vehicles:', vehID)
+    print('Total number of the assigned trips:', matrixSum)
 
 optParser = OptionParser()
 optParser.add_option("-m", "--matrix-file", dest="mtxpsfile",
